@@ -15,6 +15,7 @@ import { metaWith } from '../../../../shared/meta/meta.util';
 import { SelectMultiplePreviewComponent, multipleCode } from './select--multiple.preview';
 import { SelectScrollablePreviewComponent, scrollableCode } from './select--scrollable.preview';
 import { SelectPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './select.preview';
+import { SelectHeaderFooterPreviewComponent, headerFooterCode } from "./select--header-footer.preview";
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Select' },
@@ -38,6 +39,7 @@ export const routeMeta: RouteMeta = {
 		SelectPreviewComponent,
 		SelectMultiplePreviewComponent,
 		SelectScrollablePreviewComponent,
+		SelectHeaderFooterPreviewComponent,
 	],
 	template: `
 		<section spartanMainSection>
@@ -78,6 +80,13 @@ export const routeMeta: RouteMeta = {
 				</div>
 				<spartan-code secondTab [code]="scrollableCode" />
 			</spartan-tabs>
+			<h3 id="examples__header_footer" class="${hlmH4} mb-2 mt-6">Header and Footer Content</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-select-header-footer-preview />
+				</div>
+				<spartan-code secondTab [code]="headerFooterCode" />
+			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="separator" label="Separator" />
@@ -93,4 +102,5 @@ export default class SkeletonPageComponent {
 	protected readonly defaultImports = defaultImports;
 	protected readonly multipleCode = multipleCode;
 	protected readonly scrollableCode = scrollableCode;
+	protected readonly headerFooterCode = headerFooterCode;
 }

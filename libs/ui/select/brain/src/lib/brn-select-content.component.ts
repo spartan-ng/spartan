@@ -111,6 +111,7 @@ export class BrnSelectScrollDownDirective {
 		`,
 	],
 	template: `
+		<ng-content select="hlm-select-content-header,[hlmSelectContentHeader]" />
 		<ng-template #scrollUp>
 			<ng-content select="hlm-select-scroll-up" />
 			<ng-content select="brnSelectScrollUp" />
@@ -135,6 +136,7 @@ export class BrnSelectScrollDownDirective {
 			<ng-content select="hlm-select-scroll-down" />
 		</ng-template>
 		<ng-container *ngTemplateOutlet="canScrollDown() && scrollDownBtn ? scrollDown : null" />
+		<ng-content select="hlm-select-content-footer,[hlmSelectContentFooter]" />
 	`,
 })
 export class BrnSelectContentComponent implements AfterViewInit {

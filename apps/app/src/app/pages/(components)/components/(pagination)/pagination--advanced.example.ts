@@ -14,9 +14,9 @@ import { HlmNumberedPaginationComponent } from '@spartan-ng/ui-pagination-helm';
 	`,
 })
 export class PaginationAdvancedComponent {
-  page = signal(1);
-  pageSize = signal(10);
-  totalProducts = signal(100);
+	page = signal(1);
+	pageSize = signal(10);
+	totalProducts = signal(100);
 }
 
 export const advancedCode = `

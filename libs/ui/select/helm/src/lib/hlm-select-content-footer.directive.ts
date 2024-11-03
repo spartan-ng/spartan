@@ -2,7 +2,6 @@ import { Directive } from '@angular/core';
 
 @Directive({
 	selector: '[hlmSelectContentFooter], hlm-select-content-footer',
-	standalone: true
+	standalone: true,
 })
-export class HlmSelectContentFooterDirective {
-}
+export class HlmSelectContentFooterDirective {}

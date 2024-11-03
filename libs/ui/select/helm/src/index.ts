@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
-import { HlmSelectContentDirective } from './lib/hlm-select-content.directive';
 import { HlmSelectContentFooterDirective } from './lib/hlm-select-content-footer.directive';
 import { HlmSelectContentHeaderDirective } from './lib/hlm-select-content-header.directive';
+import { HlmSelectContentDirective } from './lib/hlm-select-content.directive';
 import { HlmSelectGroupDirective } from './lib/hlm-select-group.directive';
 import { HlmSelectLabelDirective } from './lib/hlm-select-label.directive';
 import { HlmSelectOptionComponent } from './lib/hlm-select-option.component';
@@ -34,7 +34,7 @@ export const HlmSelectImports = [
 	HlmSelectLabelDirective,
 	HlmSelectGroupDirective,
 	HlmSelectContentFooterDirective,
-	HlmSelectContentHeaderDirective
+	HlmSelectContentHeaderDirective,
 ] as const;
 
 @NgModule({

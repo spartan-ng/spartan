@@ -2,7 +2,6 @@ import { Directive } from '@angular/core';
 
 @Directive({
 	selector: '[hlmSelectContentHeader], hlm-select-content-header',
-	standalone: true
+	standalone: true,
 })
-export class HlmSelectContentHeaderDirective {
-}
+export class HlmSelectContentHeaderDirective {}

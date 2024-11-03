@@ -12,10 +12,10 @@ import { SectionSubHeadingComponent } from '../../../../shared/layout/section-su
 import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
+import { SelectHeaderFooterPreviewComponent, headerFooterCode } from './select--header-footer.preview';
 import { SelectMultiplePreviewComponent, multipleCode } from './select--multiple.preview';
 import { SelectScrollablePreviewComponent, scrollableCode } from './select--scrollable.preview';
 import { SelectPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './select.preview';
-import { SelectHeaderFooterPreviewComponent, headerFooterCode } from "./select--header-footer.preview";
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Select' },

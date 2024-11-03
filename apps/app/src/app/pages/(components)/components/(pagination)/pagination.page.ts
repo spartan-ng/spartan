@@ -13,8 +13,8 @@ import { SectionSubHeadingComponent } from '../../../../shared/layout/section-su
 import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { advancedCode, PaginationAdvancedComponent } from './pagination--advanced.example';
-import { defaultCode, defaultImports, defaultSkeleton, PaginationPreviewComponent } from './pagination.preview';
+import { PaginationAdvancedComponent, advancedCode } from './pagination--advanced.example';
+import { PaginationPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './pagination.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Pagination' },
@@ -38,7 +38,7 @@ export const routeMeta: RouteMeta = {
 		PageBottomNavLinkComponent,
 		PageBottomNavPlaceholderComponent,
 		PaginationPreviewComponent,
-		PaginationAdvancedComponent
+		PaginationAdvancedComponent,
 	],
 	template: `
 		<section spartanMainSection>
@@ -85,6 +85,6 @@ export default class PaginationPageComponent {
 	protected readonly defaultCode = defaultCode;
 	protected readonly defaultSkeleton = defaultSkeleton;
 	protected readonly defaultImports = defaultImports;
-	
+
 	protected readonly advancedCode = advancedCode;
 }

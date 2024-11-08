@@ -19,7 +19,7 @@ import { HlmTooltipComponent, HlmTooltipTriggerDirective } from '@spartan-ng/ui-
 	template: `
 		<div>
 			<hlm-tooltip>
-				<button hlmTooltipTrigger aria-describedby="Hello world" hlmBtn variant="outline">Test</button>
+				<button hlmTooltipTrigger aria-describedby="Hello world" hlmBtn variant="outline">Default</button>
 				<span *brnTooltipContent class="flex items-center">
 					Add to library
 					<hlm-icon class="ml-2" size="sm" name="lucidePlus" />
@@ -51,7 +51,7 @@ import { HlmTooltipComponent, HlmTooltipTriggerDirective } from '@spartan-ng/ui-
   providers: [provideIcons({ lucidePlus })],
   template: \`
     <hlm-tooltip>
-      <button hlmTooltipTrigger aria-describedby="Hello world" hlmBtn variant="outline">Test</button>
+      <button hlmTooltipTrigger aria-describedby="Hello world" hlmBtn variant="outline">Default</button>
       <span *brnTooltipContent class="flex items-center">
         Add to library
         <hlm-icon class="ml-2" size="sm" name="lucidePlus" />
@@ -68,7 +68,7 @@ import { HlmTooltipComponent, HlmTooltipTriggerDirective } from '@spartan-ng/ui-
 `;
 export const defaultSkeleton = `
 <hlm-tooltip>
-  <button hlmTooltipTrigger aria-describedby="Hello world">Test</button>
+  <button hlmTooltipTrigger aria-describedby="Hello world">Default</button>
   <span *brnTooltipContent>Add to library</span>
 </hlm-tooltip>
 `;

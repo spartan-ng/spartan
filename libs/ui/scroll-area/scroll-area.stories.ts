@@ -41,21 +41,33 @@ const meta: Meta<HlmScrollAreaComponent> = {
 			control: {
 				type: 'select',
 			},
+			table: {
+				defaultValue: { summary: 'all' },
+			},
 		},
 		visibility: {
 			options: ['hover', 'always', 'native'],
 			control: {
 				type: 'select',
 			},
+			table: {
+				defaultValue: { summary: 'native' },
+			},
 		},
 		autoHeightDisabled: {
 			control: {
 				type: 'boolean',
 			},
+			table: {
+				defaultValue: { summary: 'true' },
+			},
 		},
 		autoWidthDisabled: {
 			control: {
 				type: 'boolean',
+			},
+			table: {
+				defaultValue: { summary: 'true' },
 			},
 		},
 	},

@@ -99,7 +99,9 @@
 			"@spartan-ng/ui-toggle-helm": ["libs/ui/toggle/helm/src/index.ts"],
 			"@spartan-ng/ui-tooltip-brain": ["libs/ui/tooltip/brain/src/index.ts"],
 			"@spartan-ng/ui-tooltip-helm": ["libs/ui/tooltip/helm/src/index.ts"],
-			"@spartan-ng/ui-typography-helm": ["libs/ui/typography/helm/src/index.ts"]
+			"@spartan-ng/ui-typography-helm": ["libs/ui/typography/helm/src/index.ts"],
+			"@spartan-ng/ui-calendar-brain": ["libs/ui/calendar/brain/src/index.ts"],
+			"@spartan-ng/ui-calendar-helm": ["libs/ui/calendar/helm/src/index.ts"]
 		}
 	},
 	"exclude": ["node_modules", "tmp"]

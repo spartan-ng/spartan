@@ -20,7 +20,7 @@
 		"source.organizeImports.biome": "explicit"
 	},
 	"editor.formatOnPaste": true,
-	"editor.formatOnSave": false,
+	"editor.formatOnSave": true,
 	"biome.rename": true,
 	"biome_lsp.trace.server": "messages"
 }

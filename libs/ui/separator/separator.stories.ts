@@ -16,10 +16,16 @@ const meta: Meta<BrnSeparatorComponent> = {
 			control: {
 				type: 'select',
 			},
+			table: {
+				defaultValue: { summary: 'horizontal' },
+			},
 		},
 		decorative: {
 			control: {
 				type: 'boolean',
+			},
+			table: {
+				defaultValue: { summary: 'false' },
 			},
 		},
 	},

@@ -1,26 +1,24 @@
-import { Component, Input, booleanAttribute } from '@angular/core';
+import { BooleanInput } from '@angular/cdk/coercion';
+import { Component, booleanAttribute, computed, input } from '@angular/core';
 
 export type BrnSeparatorOrientation = 'horizontal' | 'vertical';
+
 @Component({
 	selector: 'brn-separator',
 	standalone: true,
 	template: '',
 	host: {
-		'[role]': '_decorative ? "none" : "separator"',
-		'[attr.aria-orientation]': '_decorative ? undefined : _orientation === "vertical" ? "vertical" : undefined ',
-		'[attr.data-orientation]': '_orientation',
+		'[role]': 'role()',
+		'[attr.aria-orientation]': 'ariaOrientation()',
+		'[attr.data-orientation]': 'orientation()',
 	},
 })
 export class BrnSeparatorComponent {
-	protected _orientation: BrnSeparatorOrientation = 'horizontal';
-	@Input()
-	set orientation(value: BrnSeparatorOrientation) {
-		this._orientation = value;
-	}
+	public readonly orientation = input<BrnSeparatorOrientation>('horizontal');
+	public readonly decorative = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
-	protected _decorative = false;
-	@Input({ transform: booleanAttribute })
-	set decorative(value: boolean) {
-		this._decorative = value;
-	}
+	protected readonly role = computed(() => (this.decorative() ? 'none' : 'separator'));
+	protected readonly ariaOrientation = computed(() =>
+		this.decorative() ? undefined : this.orientation() === 'vertical' ? 'vertical' : undefined,
+	);
 }

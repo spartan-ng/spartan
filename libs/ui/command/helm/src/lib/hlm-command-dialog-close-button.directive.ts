@@ -1,5 +1,5 @@
-import { Directive, computed, inject, input } from '@angular/core';
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
+import { Directive, computed, input } from '@angular/core';
+import { HlmButtonDirective, provideBrnButtonConfig } from '@spartan-ng/ui-button-helm';
 import { hlm } from '@spartan-ng/ui-core';
 import type { ClassValue } from 'clsx';
 
@@ -7,16 +7,12 @@ import type { ClassValue } from 'clsx';
 	selector: '[hlmCmdDialogCloseBtn]',
 	standalone: true,
 	hostDirectives: [HlmButtonDirective],
+	providers: [provideBrnButtonConfig({ variant: 'ghost' })],
 	host: {
-		'[class]': '_computedClass()',
+		'[class]': 'computedClass()',
 	},
 })
 export class HlmCommandDialogCloseButtonDirective {
-	private _hlmBtn = inject(HlmButtonDirective, { host: true });
-	constructor() {
-		this._hlmBtn.variant = 'ghost';
-	}
-
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected _computedClass = computed(() => hlm('!p-1 !h-5 !w-5', this.userClass()));
+	protected readonly computedClass = computed(() => hlm('!p-1 !h-5 !w-5', this.userClass()));
 }

@@ -1,7 +1,8 @@
-import { Directive, Input, computed, input, signal } from '@angular/core';
+import { Directive, computed, input, signal } from '@angular/core';
 import { hlm } from '@spartan-ng/ui-core';
 import { type VariantProps, cva } from 'class-variance-authority';
 import type { ClassValue } from 'clsx';
+import { injectBrnButtonConfig } from './hlm-button.token';
 
 export const buttonVariants = cva(
 	'inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background',
@@ -33,31 +34,27 @@ export type ButtonVariants = VariantProps<typeof buttonVariants>;
 @Directive({
 	selector: '[hlmBtn]',
 	standalone: true,
+	exportAs: 'hlmBtn',
 	host: {
 		'[class]': '_computedClass()',
 	},
 })
 export class HlmButtonDirective {
-	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	private readonly _settableClass = signal<ClassValue>('');
+	private readonly _config = injectBrnButtonConfig();
 
-	protected _computedClass = computed(() =>
-		hlm(buttonVariants({ variant: this._variant(), size: this._size() }), this._settableClass(), this.userClass()),
+	private readonly _additionalClasses = signal<ClassValue>('');
+
+	public readonly userClass = input<ClassValue>('', { alias: 'class' });
+
+	protected readonly _computedClass = computed(() =>
+		hlm(buttonVariants({ variant: this.variant(), size: this.size() }), this.userClass(), this._additionalClasses()),
 	);
 
-	setClass(value: ClassValue) {
-		this._settableClass.set(value);
-	}
+	public readonly variant = input<ButtonVariants['variant']>(this._config.variant);
 
-	private readonly _variant = signal<ButtonVariants['variant']>('default');
-	@Input()
-	set variant(variant: ButtonVariants['variant']) {
-		this._variant.set(variant);
-	}
+	public readonly size = input<ButtonVariants['size']>(this._config.size);
 
-	private readonly _size = signal<ButtonVariants['size']>('default');
-	@Input()
-	set size(size: ButtonVariants['size']) {
-		this._size.set(size);
+	setClass(classes: string): void {
+		this._additionalClasses.set(classes);
 	}
 }

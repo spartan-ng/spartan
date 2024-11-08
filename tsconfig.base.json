@@ -35,6 +35,8 @@
 		"paths": {
 			"@spartan-ng/app/*": ["apps/app/src/*"],
 			"@spartan-ng/cli": ["libs/cli/src/index.ts"],
+			"@spartan-ng/ui-date-time": ["libs/ui/date-time/date-time/src/index.ts"],
+			"@spartan-ng/ui-date-time-luxon": ["libs/ui/date-time/date-time-luxon/src/index.ts"],
 			"@spartan-ng/tools": ["libs/tools/src/index.ts"],
 			"@spartan-ng/trpc": ["libs/trpc/src/index.ts"],
 			"@spartan-ng/ui-accordion-brain": ["libs/ui/accordion/brain/src/index.ts"],
@@ -47,6 +49,8 @@
 			"@spartan-ng/ui-avatar-helm": ["libs/ui/avatar/helm/src/index.ts"],
 			"@spartan-ng/ui-badge-helm": ["libs/ui/badge/helm/src/index.ts"],
 			"@spartan-ng/ui-button-helm": ["libs/ui/button/helm/src/index.ts"],
+			"@spartan-ng/ui-calendar-brain": ["libs/ui/calendar/brain/src/index.ts"],
+			"@spartan-ng/ui-calendar-helm": ["libs/ui/calendar/helm/src/index.ts"],
 			"@spartan-ng/ui-card-helm": ["libs/ui/card/helm/src/index.ts"],
 			"@spartan-ng/ui-carousel-helm": ["libs/ui/carousel/helm/src/index.ts"],
 			"@spartan-ng/ui-checkbox-brain": ["libs/ui/checkbox/brain/src/index.ts"],

@@ -85,7 +85,7 @@ export class SideNavContentComponent {
 				{ label: 'Avatar', url: '/avatar' },
 				{ label: 'Badge', url: '/badge' },
 				{ label: 'Button', url: '/button' },
-				{ label: 'Calendar', url: '/calendar', wip: true },
+				{ label: 'Calendar', url: '/calendar' },
 				{ label: 'Card', url: '/card' },
 				{ label: 'Carousel', url: '/carousel' },
 				{ label: 'Checkbox', url: '/checkbox' },

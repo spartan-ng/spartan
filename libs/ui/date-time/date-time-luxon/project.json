@@ -1,0 +1,42 @@
+{
+	"name": "ui-date-time-luxon-brain",
+	"$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "libs/ui/date-time/date-time-luxon/src",
+	"prefix": "brn",
+	"projectType": "library",
+	"tags": ["scope:brain"],
+	"targets": {
+		"build": {
+			"executor": "@nx/angular:package",
+			"outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+			"options": {
+				"project": "libs/ui/date-time/date-time-luxon/ng-package.json"
+			},
+			"configurations": {
+				"production": {
+					"tsConfig": "libs/ui/date-time/date-time-luxon/tsconfig.lib.prod.json"
+				},
+				"development": {
+					"tsConfig": "libs/ui/date-time/date-time-luxon/tsconfig.lib.json"
+				}
+			},
+			"defaultConfiguration": "production"
+		},
+		"test": {
+			"executor": "@nx/jest:jest",
+			"outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+			"options": {
+				"jestConfig": "libs/ui/date-time/date-time-luxon/jest.config.ts"
+			}
+		},
+		"lint": {
+			"executor": "@nx/eslint:lint"
+		},
+		"release": {
+			"executor": "@spartan-ng/tools:build-update-publish",
+			"options": {
+				"libName": "ui-date-time-luxon-brain"
+			}
+		}
+	}
+}

@@ -1,0 +1,9 @@
+{
+	"name": "@spartan-ng/ui-date-time-luxon",
+	"version": "0.0.1-alpha.356",
+	"peerDependencies": {
+		"@spartan-ng/ui-date-time": "0.0.1-alpha.356",
+		"luxon": ">=3.0.0"
+	},
+	"sideEffects": false
+}

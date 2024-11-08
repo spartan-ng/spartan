@@ -1,4 +1,14 @@
-import { ChangeDetectionStrategy, Component, computed, input, model, untracked } from '@angular/core';
+import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	booleanAttribute,
+	computed,
+	input,
+	model,
+	numberAttribute,
+	untracked,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrnSelectImports } from '@spartan-ng/ui-select-brain';
 import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
@@ -81,63 +91,53 @@ export class HlmNumberedPaginationComponent {
 	/**
 	 * The current (active) page.
 	 */
-	currentPage = model.required<number>();
+	public readonly currentPage = model.required<number>();
 
 	/**
 	 * The number of items per paginated page.
 	 */
-	itemsPerPage = model.required<number>();
+	public readonly itemsPerPage = model.required<number>();
 
 	/**
 	 * The total number of items in the collection. Only useful when
 	 * doing server-side paging, where the collection size is limited
 	 * to a single page returned by the server API.
 	 */
-	totalItems = input.required<number>();
+	public readonly totalItems = input.required<number, NumberInput>({
+		transform: numberAttribute,
+	});
 
 	/**
 	 * The number of page links to show.
 	 */
-	maxSize = input(7);
+	public readonly maxSize = input<number, NumberInput>(7, {
+		transform: numberAttribute,
+	});
 
 	/**
 	 * Show the first and last page buttons.
 	 */
-	showEdges = input(true);
+	public readonly showEdges = input<boolean, BooleanInput>(true, {
+		transform: booleanAttribute,
+	});
 
 	/**
 	 * The page sizes to show.
 	 * Defaults to [10, 20, 50, 100]
 	 */
-	pageSizes = input([10, 20, 50, 100]);
+	public readonly pageSizes = input<number[]>([10, 20, 50, 100]);
 
-	protected pageSizesWithCurrent = computed(() => {
+	protected readonly pageSizesWithCurrent = computed(() => {
 		const pageSizes = this.pageSizes();
 		return pageSizes.includes(this.itemsPerPage())
 			? pageSizes // if current page size is included, return the same array
 			: [...pageSizes, this.itemsPerPage()].sort((a, b) => a - b); // otherwise, add current page size and sort the array
 	});
 
-	protected isFirstPageActive = computed(() => this.currentPage() === 1);
-	protected isLastPageActive = computed(() => this.currentPage() === this.lastPageNumber());
+	protected readonly isFirstPageActive = computed(() => this.currentPage() === 1);
+	protected readonly isLastPageActive = computed(() => this.currentPage() === this.lastPageNumber());
 
-	protected goToPrevious() {
-		this.currentPage.set(this.currentPage() - 1);
-	}
-
-	protected goToNext() {
-		this.currentPage.set(this.currentPage() + 1);
-	}
-
-	protected goToFirst() {
-		this.currentPage.set(1);
-	}
-
-	protected goToLast() {
-		this.currentPage.set(this.lastPageNumber());
-	}
-
-	protected lastPageNumber = computed(() => {
+	protected readonly lastPageNumber = computed(() => {
 		if (this.totalItems() < 1) {
 			// when there are 0 or fewer (an error case) items, there are no "pages" as such,
 			// but it makes sense to consider a single, empty page as the last page.
@@ -146,7 +146,7 @@ export class HlmNumberedPaginationComponent {
 		return Math.ceil(this.totalItems() / this.itemsPerPage());
 	});
 
-	protected pages = computed(() => {
+	protected readonly pages = computed(() => {
 		const correctedCurrentPage = outOfBoundCorrection(this.totalItems(), this.itemsPerPage(), this.currentPage());
 
 		if (correctedCurrentPage !== this.currentPage()) {
@@ -156,6 +156,22 @@ export class HlmNumberedPaginationComponent {
 
 		return createPageArray(correctedCurrentPage, this.itemsPerPage(), this.totalItems(), this.maxSize());
 	});
+
+	protected goToPrevious(): void {
+		this.currentPage.set(this.currentPage() - 1);
+	}
+
+	protected goToNext(): void {
+		this.currentPage.set(this.currentPage() + 1);
+	}
+
+	protected goToFirst(): void {
+		this.currentPage.set(1);
+	}
+
+	protected goToLast(): void {
+		this.currentPage.set(this.lastPageNumber());
+	}
 }
 
 type Page = number | '...';
@@ -170,7 +186,9 @@ function outOfBoundCorrection(totalItems: number, itemsPerPage: number, currentP
 	const totalPages = Math.ceil(totalItems / itemsPerPage);
 	if (totalPages < currentPage && 0 < totalPages) {
 		return totalPages;
-	} else if (currentPage < 1) {
+	}
+
+	if (currentPage < 1) {
 		return 1;
 	}
 
@@ -231,17 +249,21 @@ function calculatePageNumber(i: number, currentPage: number, paginationRange: nu
 	const halfWay = Math.ceil(paginationRange / 2);
 	if (i === paginationRange) {
 		return totalPages;
-	} else if (i === 1) {
-		return i;
-	} else if (paginationRange < totalPages) {
-		if (totalPages - halfWay < currentPage) {
-			return totalPages - paginationRange + i;
-		} else if (halfWay < currentPage) {
-			return currentPage - halfWay + i;
-		} else {
-			return i;
-		}
-	} else {
+	}
+
+	if (i === 1) {
 		return i;
 	}
+
+	if (paginationRange < totalPages) {
+		if (totalPages - halfWay < currentPage) {
+			return totalPages - paginationRange + i;
+		}
+		if (halfWay < currentPage) {
+			return currentPage - halfWay + i;
+		}
+		return i;
+	}
+
+	return i;
 }

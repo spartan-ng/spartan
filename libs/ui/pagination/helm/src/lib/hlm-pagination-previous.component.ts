@@ -1,7 +1,9 @@
 import { Component, computed, input } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { lucideChevronLeft } from '@ng-icons/lucide';
 import { hlm } from '@spartan-ng/ui-core';
 import { HlmIconComponent, provideIcons } from '@spartan-ng/ui-icon-helm';
+import { ClassValue } from 'clsx';
 import { HlmPaginationLinkDirective } from './hlm-pagination-link.directive';
 
 @Component({
@@ -23,9 +25,7 @@ import { HlmPaginationLinkDirective } from './hlm-pagination-link.directive';
 	`,
 })
 export class HlmPaginationPreviousComponent {
-	public readonly class = input('');
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	public readonly link = input<string | any[] | null | undefined>();
-
-	protected _computedClass = computed(() => hlm('gap-1 pr-2.5', this.class()));
+	public readonly userClass = input<ClassValue>('', { alias: 'class' });
+	public readonly link = input<RouterLink['routerLink']>();
+	protected readonly _computedClass = computed(() => hlm('gap-1 pr-2.5', this.userClass()));
 }

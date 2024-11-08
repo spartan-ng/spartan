@@ -2,12 +2,12 @@ import { Component, computed, input } from '@angular/core';
 import { lucideMoreHorizontal } from '@ng-icons/lucide';
 import { hlm } from '@spartan-ng/ui-core';
 import { HlmIconComponent, provideIcons } from '@spartan-ng/ui-icon-helm';
-import { HlmPaginationLinkDirective } from './hlm-pagination-link.directive';
+import { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-pagination-ellipsis',
 	standalone: true,
-	imports: [HlmPaginationLinkDirective, HlmIconComponent],
+	imports: [HlmIconComponent],
 	providers: [provideIcons({ lucideMoreHorizontal })],
 	template: `
 		<span [class]="_computedClass()">
@@ -17,7 +17,7 @@ import { HlmPaginationLinkDirective } from './hlm-pagination-link.directive';
 	`,
 })
 export class HlmPaginationEllipsisComponent {
-	public readonly class = input('');
+	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 
-	protected _computedClass = computed(() => hlm('flex h-9 w-9 items-center justify-center', this.class()));
+	protected readonly _computedClass = computed(() => hlm('flex h-9 w-9 items-center justify-center', this.userClass()));
 }

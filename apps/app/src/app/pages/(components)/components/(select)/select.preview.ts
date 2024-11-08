@@ -53,6 +53,7 @@ import { Component } from '@angular/core';
 import { BrnSelectImports } from '@spartan-ng/ui-select-brain';
 import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
 `;
+
 export const defaultSkeleton = `
 <brn-select class="inline-block" placeholder="Select an option">
 	<hlm-select-trigger>
@@ -65,4 +66,8 @@ export const defaultSkeleton = `
 			<hlm-option value="Signout">Sign out</hlm-option>
 	</hlm-select-content>
 </brn-select>
+`;
+
+export const defaultStyles = `
+@import '@angular/cdk/overlay-prebuilt.css';
 `;

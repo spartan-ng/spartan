@@ -11,7 +11,7 @@ import type { ClassValue } from 'clsx';
 })
 export class HlmProgressDirective {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected _computedClass = computed(() =>
+	protected readonly _computedClass = computed(() =>
 		hlm('inline-flex relative h-4 w-full overflow-hidden rounded-full bg-secondary', this.userClass()),
 	);
 }

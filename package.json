@@ -70,7 +70,7 @@
 		"class-variance-authority": "^0.7.0",
 		"clsx": "^2.1.1",
 		"drizzle-orm": "^0.33.0",
-		"embla-carousel-angular": "14.2.1",
+		"embla-carousel-angular": "18.0.0",
 		"enquirer": "2.4.1",
 		"front-matter": "^4.0.2",
 		"h3": "^1.12.0",

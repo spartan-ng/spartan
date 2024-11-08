@@ -6,7 +6,7 @@
 		"@ng-icons/lucide": "^26.3.0",
 		"@spartan-ng/ui-core": "0.0.1-alpha.356",
 		"clsx": "^2.1.1",
-		"embla-carousel-angular": "^14.0.0"
+		"embla-carousel-angular": "^18.0.0"
 	},
 	"dependencies": {},
 	"sideEffects": false,

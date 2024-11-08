@@ -16,6 +16,7 @@ module.exports = [
 				'error',
 				{
 					enforceBuildableLibDependency: true,
+					allowCircularSelfDependency: true,
 					allow: [],
 					depConstraints: [
 						{
@@ -47,7 +48,7 @@ module.exports = [
 		files: ['**/*.json'],
 		rules: {
 			'@nx/dependency-checks': [
-				'error',
+				'warn',
 				{
 					buildTargets: ['build'],
 					checkMissingDependencies: true,

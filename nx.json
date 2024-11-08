@@ -18,7 +18,7 @@
 				"default",
 				"{workspaceRoot}/.eslintrc.json",
 				"{workspaceRoot}/.eslintignore",
-				"{workspaceRoot}/eslint.config.js"
+				"{workspaceRoot}/eslint.config.cjs"
 			],
 			"cache": true
 		},
@@ -48,7 +48,7 @@
 				"default",
 				"{workspaceRoot}/.eslintrc.json",
 				"{workspaceRoot}/.eslintignore",
-				"{workspaceRoot}/eslint.config.js"
+				"{workspaceRoot}/eslint.config.cjs"
 			],
 			"cache": true
 		}
@@ -64,7 +64,7 @@
 			"!{projectRoot}/**/*.stories.@(js|jsx|ts|tsx|mdx)",
 			"!{projectRoot}/.storybook/**/*",
 			"!{projectRoot}/tsconfig.storybook.json",
-			"!{projectRoot}/eslint.config.js"
+			"!{projectRoot}/eslint.config.cjs"
 		],
 		"sharedGlobals": ["{workspaceRoot}/package.json", "{workspaceRoot}/bun.lockb"]
 	},

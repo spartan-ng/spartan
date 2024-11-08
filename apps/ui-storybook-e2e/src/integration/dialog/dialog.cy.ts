@@ -129,8 +129,6 @@ describe('dialog--default', () => {
 				.findByText(/close nested dialog/i)
 				.click();
 
-			cy.wait(100);
-
 			cy.get('.cdk-overlay-backdrop').click({ force: true });
 
 			cy.findAllByText(/open dialog/i).should('have.length', 1);
@@ -196,8 +194,6 @@ describe('dialog--dynamic-component', () => {
 			cy.get('#brn-dialog-1')
 				.findByText(/close nested dialog/i)
 				.click();
-
-			cy.wait(100);
 
 			cy.get('.cdk-overlay-backdrop').click({ force: true });
 

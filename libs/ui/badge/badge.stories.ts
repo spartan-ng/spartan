@@ -11,15 +11,24 @@ const meta: Meta<HlmBadgeDirective> = {
 			control: {
 				type: 'select',
 			},
+			table: {
+				defaultValue: { summary: 'default' },
+			},
 		},
 		size: {
 			options: ['default', 'lg'],
 			control: {
 				type: 'select',
 			},
+			table: {
+				defaultValue: { summary: 'default' },
+			},
 		},
 		static: {
 			control: { type: 'boolean' },
+			table: {
+				defaultValue: { summary: 'false' },
+			},
 		},
 	},
 	args: {

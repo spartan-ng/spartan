@@ -1,4 +1,5 @@
-import { Directive, Input, booleanAttribute, computed, input, signal } from '@angular/core';
+import type { BooleanInput } from '@angular/cdk/coercion';
+import { Directive, booleanAttribute, computed, input } from '@angular/core';
 import { hlm } from '@spartan-ng/ui-core';
 import { type VariantProps, cva } from 'class-variance-authority';
 import type { ClassValue } from 'clsx';
@@ -43,7 +44,7 @@ export const badgeVariants = cva(
 		},
 	},
 );
-type badgeVariants = VariantProps<typeof badgeVariants>;
+export type BadgeVariants = VariantProps<typeof badgeVariants>;
 
 @Directive({
 	selector: '[hlmBadge]',
@@ -53,26 +54,12 @@ type badgeVariants = VariantProps<typeof badgeVariants>;
 	},
 })
 export class HlmBadgeDirective {
-	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected _computedClass = computed(() =>
-		hlm(badgeVariants({ variant: this._variant(), size: this._size(), static: this._static() }), this.userClass()),
+	protected readonly _computedClass = computed(() =>
+		hlm(badgeVariants({ variant: this.variant(), size: this.size(), static: this.static() }), this.userClass()),
 	);
 
-	private readonly _variant = signal<badgeVariants['variant']>('default');
-	@Input()
-	set variant(variant: badgeVariants['variant']) {
-		this._variant.set(variant);
-	}
-
-	private readonly _static = signal<badgeVariants['static']>(false);
-	@Input({ transform: booleanAttribute })
-	set static(value: badgeVariants['static']) {
-		this._static.set(value);
-	}
-
-	private readonly _size = signal<badgeVariants['size']>('default');
-	@Input()
-	set size(size: badgeVariants['size']) {
-		this._size.set(size);
-	}
+	public readonly userClass = input<ClassValue>('', { alias: 'class' });
+	public readonly variant = input<BadgeVariants['variant']>('default');
+	public readonly static = input<BadgeVariants['static'], BooleanInput>(false, { transform: booleanAttribute });
+	public readonly size = input<BadgeVariants['size']>('default');
 }

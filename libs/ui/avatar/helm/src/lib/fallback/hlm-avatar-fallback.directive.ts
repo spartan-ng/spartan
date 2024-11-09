@@ -20,7 +20,7 @@ import { hlm } from '@spartan-ng/ui-core';
 export class HlmAvatarFallbackDirective {
 	private readonly _brn = inject(BrnAvatarFallbackDirective);
 	private readonly _hex = computed(() => {
-		if (!this._brn.useAutoColor() || !this._brn.getTextContent()) return;
+		if (!this._brn.autoColor() || !this._brn.getTextContent()) return;
 		return hexColorFor(this._brn.getTextContent());
 	});
 
@@ -34,7 +34,7 @@ export class HlmAvatarFallbackDirective {
 		return hlm(
 			'flex h-full w-full items-center justify-center rounded-full',
 			this._autoColorTextCls() ?? 'bg-muted',
-			this._brn?.userCls(),
+			this._brn?.userClass(),
 		);
 	});
 }

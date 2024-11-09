@@ -44,13 +44,13 @@ describe('HlmAvatarComponent', () => {
 	});
 
 	it('should change the size when the variant is changed', () => {
-		component.variant = 'small';
+		fixture.componentRef.setInput('variant', 'small');
 		fixture.detectChanges();
 		expect(fixture.nativeElement.className).toContain('h-6');
 		expect(fixture.nativeElement.className).toContain('w-6');
 		expect(fixture.nativeElement.className).toContain('text-xs');
 
-		component.variant = 'large';
+		fixture.componentRef.setInput('variant', 'large');
 		fixture.detectChanges();
 		expect(fixture.nativeElement.className).toContain('h-14');
 		expect(fixture.nativeElement.className).toContain('w-14');

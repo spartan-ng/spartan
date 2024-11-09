@@ -9,6 +9,7 @@ import {
 	HlmAlertTitleDirective,
 } from '@spartan-ng/ui-alert-helm';
 import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
+import { UIDocsService } from '../../core/services/ui-docs.service';
 import { PageComponent } from '../../shared/layout/page.component';
 import { metaWith } from '../../shared/meta/meta.util';
 
@@ -34,7 +35,7 @@ export const routeMeta: RouteMeta = {
 		HlmIconDirective,
 		HlmAlertIconDirective,
 	],
-	providers: [provideIcons({ lucideRocket })],
+	providers: [provideIcons({ lucideRocket }), UIDocsService],
 	template: `
 		<div
 			hlmAlert

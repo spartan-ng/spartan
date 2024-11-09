@@ -8,6 +8,10 @@
 				"port": 4873,
 				"config": ".verdaccio/config.yml"
 			}
+		},
+		"ui-api-definition": {
+			"executor": "@spartan-ng/tools:generate-ui-docs",
+			"outputs": ["{options.outputFile}"]
 		}
 	}
 }

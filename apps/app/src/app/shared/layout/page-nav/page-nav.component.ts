@@ -6,14 +6,16 @@ import {
 	type OnDestroy,
 	type OnInit,
 	PLATFORM_ID,
-	type TemplateRef,
-	ViewChild,
+	TemplateRef,
+	computed,
 	inject,
 	isDevMode,
 	signal,
+	viewChild,
 } from '@angular/core';
 import { HlmScrollAreaDirective } from '@spartan-ng/ui-scrollarea-helm';
 import { NgScrollbarModule } from 'ngx-scrollbar';
+import { UIDocsService } from '@spartan-ng/app/app/core/services/ui-docs.service';
 import { PageNavLinkComponent } from './page-nav-link.component';
 import { pageNavTmpl } from './page-nav-outlet.component';
 
@@ -49,11 +51,36 @@ type SamePageAnchorLink = {
 	`,
 })
 export class PageNavComponent implements OnInit, AfterViewInit, OnDestroy {
-	@ViewChild('pageNav', { static: true })
-	public pageNavTpl?: TemplateRef<unknown>;
+	public pageNavTpl = viewChild.required<TemplateRef<unknown>>('pageNav');
+
+	private readonly _uiDocsService = inject(UIDocsService, { optional: true });
 
 	protected readonly isDevMode = signal(isDevMode());
-	protected readonly links = signal<SamePageAnchorLink[]>([]);
+
+	protected readonly _links = signal<SamePageAnchorLink[]>([]);
+	protected readonly _dynamicLinks = computed(() => {
+		const apiPageLinks = this._uiDocsService?.primitiveDocPageLinks();
+
+		if (!apiPageLinks) {
+			return [];
+		}
+
+		const { brnArray, hlmArray } = apiPageLinks;
+		const pageLinks = this._links();
+
+		const brnLinkIndex = this._links().findIndex((link) => link.id === 'brn-api');
+
+		pageLinks.splice(brnLinkIndex + 1, 0, ...brnArray);
+
+		const hlmLinkIndex = pageLinks.findIndex((link) => link.id === 'hlm-api');
+
+		pageLinks.splice(hlmLinkIndex + 1, 0, ...hlmArray);
+
+		return pageLinks;
+	});
+	protected readonly links = computed(() =>
+		this._dynamicLinks() && this._dynamicLinks().length ? this._dynamicLinks() : this._links(),
+	);
 
 	private readonly _platformId = inject(PLATFORM_ID);
 
@@ -83,13 +110,16 @@ export class PageNavComponent implements OnInit, AfterViewInit, OnDestroy {
 			}
 			return { id, label, isNested: !isSubHeading };
 		});
-		this.links.set(links);
+
+		this._links.set(links);
 	}
-	ngAfterViewInit() {
-		if (!this.pageNavTpl) return;
-		pageNavTmpl.set(this.pageNavTpl);
+
+	ngAfterViewInit(): void {
+		if (!this.pageNavTpl()) return;
+		pageNavTmpl.set(this.pageNavTpl());
 	}
-	ngOnDestroy() {
+
+	ngOnDestroy(): void {
 		pageNavTmpl.set(null);
 	}
 }

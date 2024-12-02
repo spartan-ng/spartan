@@ -1,9 +1,9 @@
 name: nightly-release
 
 on:
-  schedule:
-    - cron: '0 5 * * *'
-  workflow_dispatch:
+  push:
+    branches:
+      - "feat/nightly-builds"
 
 jobs:
   check_date:

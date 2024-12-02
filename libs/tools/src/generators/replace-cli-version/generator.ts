@@ -1,9 +1,9 @@
 import { type Tree, updateJson } from '@nx/devkit';
 import process from 'node:process';
 
-export default async function replaceCliVersionGenerator(tree: Tree) {
+export default async function replaceCliVersionGenerator(tree: Tree, options?: { newVersion: string }): Promise<void> {
 	const packageJsonPath = 'libs/cli/package.json';
-	const newVersion = process.env.VERSION;
+	const newVersion = options?.newVersion ?? process.env.VERSION;
 
 	if (!newVersion) {
 		console.error('Must define a VERSION environment variable to use with this script.');

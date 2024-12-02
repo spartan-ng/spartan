@@ -1,5 +1,10 @@
 {
 	"generators": {
+		"auto-increment-version": {
+			"factory": "./src/generators/auto-increment-version/generator",
+			"schema": "./src/generators/auto-increment-version/schema.json",
+			"description": "During alpha we are using this to automatically increment the version number for nightly releases"
+		},
 		"hlm-to-cli-generator": {
 			"factory": "./src/generators/hlm-to-cli-generator/generator",
 			"schema": "./src/generators/hlm-to-cli-generator/schema.json",

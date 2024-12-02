@@ -2,7 +2,6 @@ import { type Tree, formatFiles, readJsonFile, updateJson } from '@nx/devkit';
 import { readdir, stat } from 'node:fs/promises';
 import { join } from 'node:path';
 import process from 'node:process';
-import type { ReplaceUiVersionGeneratorSchema } from './schema';
 
 async function recursivelyFindRelativePackageJsonFilePaths(startingDir: string): Promise<string[]> {
 	let results = [];
@@ -29,7 +28,7 @@ const replaceUiVersionInCliVersionsFile = (tree: Tree, oldVersion: string, newVe
 	tree.write(filePath, contents);
 };
 
-export default async function replaceUiVersionGenerator(tree: Tree, options: ReplaceUiVersionGeneratorSchema) {
+export default async function replaceUiVersionGenerator(tree: Tree) {
 	const relativePackageJsonFilePaths = await recursivelyFindRelativePackageJsonFilePaths('libs/ui');
 
 	// this goes into the accordion's package.json, which should always be defined

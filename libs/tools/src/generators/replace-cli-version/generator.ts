@@ -1,8 +1,7 @@
 import { type Tree, updateJson } from '@nx/devkit';
 import process from 'node:process';
-import type { ReplaceCliVersionGeneratorSchema } from './schema';
 
-export default async function replaceCliVersionGenerator(tree: Tree, options: ReplaceCliVersionGeneratorSchema) {
+export default async function replaceCliVersionGenerator(tree: Tree) {
 	const packageJsonPath = 'libs/cli/package.json';
 	const newVersion = process.env.CLI_VERSION;
 

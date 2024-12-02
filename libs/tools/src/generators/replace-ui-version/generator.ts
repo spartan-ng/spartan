@@ -34,7 +34,7 @@ export default async function replaceUiVersionGenerator(tree: Tree) {
 	// this goes into the accordion's package.json, which should always be defined
 	// if there is no version there we should definitely not move forward
 	const oldVersion = readJsonFile(relativePackageJsonFilePaths[0]).version;
-	const newVersion = process.env.UI_VERSION;
+	const newVersion = process.env.VERSION;
 
 	if (!oldVersion) {
 		console.error(
@@ -44,7 +44,12 @@ export default async function replaceUiVersionGenerator(tree: Tree) {
 	}
 
 	if (!newVersion) {
-		console.error('Must define a UI_VERSION environment variable to use with this script.');
+		console.error('Must define a VERSION environment variable to use with this script.');
+		return;
+	}
+
+	if (oldVersion === newVersion) {
+		console.error('Old version cannot be the same as new version');
 		return;
 	}
 

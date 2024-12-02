@@ -25,7 +25,8 @@ export default {
 		[
 			'@semantic-release/exec',
 			{
-				prepareCmd: 'TAG=latest,UI_VERSION=${nextRelease.version},CLI_VERSION=${nextRelease.version} pnpm run release',
+				prepareCmd: 'TAG=latest,VERSION=${nextRelease.version} pnpm run pre-release',
+				releaseCmd: 'TAG=latest,VERSION=${nextRelease.version} pnpm run release',
 			},
 		],
 		[

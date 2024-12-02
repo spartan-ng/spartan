@@ -21,7 +21,7 @@
 		"pre-release": "pnpm run prepare-release && pnpm run format",
 		"release-ui": "nx run-many --target=release --projects=tag:scope:core,tag:scope:brain --parallel=1",
 		"release-cli": "nx run-many --target=release --projects=tag:scope:cli --parallel=1",
-		"release": "pnpm run pre-release && pnpm run release-ui && pnpm run release-cli"
+		"release": "pnpm run release-ui && pnpm run release-cli"
 	},
 	"private": true,
 	"dependencies": {

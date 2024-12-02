@@ -18,10 +18,10 @@
 		"prepare": "git config core.hookspath .githooks",
 		"changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
 		"prepare-release": "nx g @spartan-ng/tools:replace-ui-version && nx g @spartan-ng/tools:hlm-to-cli-generator && nx g @spartan-ng/tools:replace-cli-version",
-		"pre-publish": "pnpm run prepare-release && pnpm run format",
-		"publish-ui": "nx run-many --target=release --projects=tag:scope:core,tag:scope:brain --parallel=1",
-		"publish-cli": "nx run-many --target=release --projects=tag:scope:cli --parallel=1",
-		"publish": "pnpm run pre-publish && pnpm run publish-ui && pnpm run publish-cli"
+		"pre-release": "pnpm run prepare-release && pnpm run format",
+		"release-ui": "nx run-many --target=release --projects=tag:scope:core,tag:scope:brain --parallel=1",
+		"release-cli": "nx run-many --target=release --projects=tag:scope:cli --parallel=1",
+		"release": "pnpm run pre-release && pnpm run release-ui && pnpm run release-cli"
 	},
 	"private": true,
 	"dependencies": {
@@ -169,7 +169,6 @@
 		"prettier-plugin-organize-imports": "^4.1.0",
 		"prettier-plugin-packagejson": "^2.5.6",
 		"prettier-plugin-tailwindcss": "^0.6.8",
-		"replace-json-property": "^1.9.0",
 		"rollup": "^4.22.5",
 		"rollup-plugin-typescript-paths": "^1.5.0",
 		"rollup-plugin-visualizer": "^5.12.0",

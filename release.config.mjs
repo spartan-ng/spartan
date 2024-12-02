@@ -1,5 +1,5 @@
 export default {
-	branches: ['main'],
+	branches: ['main', { name: 'alpha', prerelease: true }],
 	preset: 'conventionalcommits',
 	presetConfig: {
 		types: [
@@ -16,7 +16,6 @@ export default {
 	releaseRules: [{ type: 'refactor', release: 'patch' }],
 	plugins: [
 		'@semantic-release/commit-analyzer',
-		'@semantic-release/release-notes-generator',
 		[
 			'@semantic-release/changelog',
 			{
@@ -26,15 +25,20 @@ export default {
 		[
 			'@semantic-release/exec',
 			{
-				prepareCmd:
-					'VERSION=${nextRelease.version} npx nx run-many -t release --parallel=1 && VERSION=${nextRelease.version} npx -p replace-json-property rjp ./package.json version ${nextRelease.version}',
+				prepareCmd: 'TAG=latest,UI_VERSION=${nextRelease.version},CLI_VERSION=${nextRelease.version} pnpm run release',
 			},
 		],
 		[
 			'@semantic-release/git',
 			{
-				assets: ['libs/**/package.json', 'package.json', 'CHANGELOG.md'],
-				message: 'chore(release): -v${nextRelease.version} [skip ci]\n\n${nextRelease.notes}',
+				assets: [
+					'libs/cli/package.json',
+					'libs/cli/src/generators/base/versions.ts',
+					'libs/cli/src/generators/ui/supported-ui-libraries.json',
+					'libs/ui/**/package.json',
+					'CHANGELOG.md',
+				],
+				message: 'chore: release ${nextRelease.version} [skip ci]',
 			},
 		],
 	],

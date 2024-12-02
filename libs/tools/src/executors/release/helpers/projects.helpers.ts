@@ -9,9 +9,3 @@ export function getRoot(context: ExecutorContext): string {
 	const projectName = getProjectName(context);
 	return projectsConfiguration[projectName].root;
 }
-
-export function sleep(ms) {
-	return new Promise((resolve) => {
-		setTimeout(resolve, ms);
-	});
-}

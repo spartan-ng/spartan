@@ -5,11 +5,6 @@
 			"schema": "./src/executors/release/npm-publish/schema.json",
 			"description": "npm-publish executor"
 		},
-		"update-version": {
-			"implementation": "./src/executors/release/update-version/executor",
-			"schema": "./src/executors/release/update-version/schema.json",
-			"description": "update-version executor"
-		},
 		"build-update-publish": {
 			"implementation": "./src/executors/release/build-update-publish/executor",
 			"schema": "./src/executors/release/build-update-publish/schema.json",

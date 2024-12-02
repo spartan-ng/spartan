@@ -16,11 +16,14 @@
 		"lint": "nx run-many --target=lint --parallel",
 		"pre-publish": "pnpm run prepare-cli && pnpm run format",
 		"pre-release": "pnpm run prepare-release && pnpm run format",
-		"prepare": "git config core.hookspath .githooks",
 		"prepare-release": "nx g @spartan-ng/tools:replace-ui-version && nx g @spartan-ng/tools:hlm-to-cli-generator && nx g @spartan-ng/tools:replace-cli-version",
-		"release": "pnpm run release-ui && pnpm run release-cli",
+		"prepare-regular-release": "nx g @spartan-ng/tools:replace-ui-version && nx g @spartan-ng/tools:hlm-to-cli-generator && nx g @spartan-ng/tools:replace-cli-version",
+		"pre-regular-release": "pnpm run prepare-regular-release && pnpm run format",
+		"prepare-nightly-release": "nx g @spartan-ng/tools:auto-increment-version && nx g @spartan-ng/tools:hlm-to-cli-generator",
+		"pre-nightly-release": "pnpm run prepare-nightly-release && pnpm run format",
+		"release-ui": "nx run-many --target=release --projects=tag:scope:core,tag:scope:brain --parallel=1",
 		"release-cli": "nx run-many --target=release --projects=tag:scope:cli --parallel=1",
-		"release-ui": "nx run-many --target=release --projects=tag:scope:core,tag:scope:brain --parallel=1"
+		"release": "pnpm run release-ui && pnpm run release-cli"
 	},
 	"dependencies": {
 		"@analogjs/content": "1.9.4",

@@ -21,10 +21,28 @@ async function recursivelyFindRelativePackageJsonFilePaths(startingDir: string):
 const getSpartanDependencyKeys = (dependencies?: Record<string, string>): string[] =>
 	Object.keys(dependencies ?? {}).filter((key) => key.startsWith('@spartan-ng'));
 
+export const replaceSpartanVersions = (content: string, oldVersion: string, newVersion: string): string => {
+	/**
+	 * Regular expression to match SPARTAN-prefixed version constants:
+	 * - `(SPARTAN_[A-Z_]+_VERSION\\s*=\\s*['"])`:
+	 *   1. `SPARTAN_`: Matches the exact prefix for the constant.
+	 *   2. `[A-Z_]+`: Matches any uppercase letters and underscores (e.g., ACCORDION_BRAIN).
+	 *   3. `_VERSION`: Ensures the constant ends with `_VERSION`.
+	 *   4. `\\s*`: Matches zero or more spaces around the `=` sign.
+	 *   5. `['"]`: Captures the opening quote (single or double).
+	 *   6. Encloses the entire match before the version in group 1 (`$1`).
+	 * - `${oldVersion}`: Matches the exact old version string.
+	 * - `(['"])`: Captures the closing quote in group 2 (`$2`).
+	 * - `g` flag: Ensures the regex replaces all matches globally, not just the first occurrence.
+	 */
+	const spartanVersionRegex = new RegExp(`(SPARTAN_[A-Z_]+_VERSION\\s*=\\s*['"])${oldVersion}(['"])`, 'g');
+	return content.replace(spartanVersionRegex, `$1${newVersion}$2`);
+};
+
 const replaceUiVersionInCliVersionsFile = (tree: Tree, oldVersion: string, newVersion: string) => {
 	const filePath = `libs/cli/src/generators/base/versions.ts`;
 	let contents = tree.read(filePath).toString();
-	contents = contents.replaceAll(oldVersion, newVersion);
+	contents = replaceSpartanVersions(contents, oldVersion, newVersion);
 	tree.write(filePath, contents);
 };
 

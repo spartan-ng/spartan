@@ -15,15 +15,13 @@
 		"format": "nx format --write",
 		"lint": "nx run-many --target=lint --parallel",
 		"pre-publish": "pnpm run prepare-cli && pnpm run format",
-		"prepare": "git config core.hookspath .githooks",
-		"changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
-		"prepare-release": "nx g @spartan-ng/tools:replace-ui-version && nx g @spartan-ng/tools:hlm-to-cli-generator && nx g @spartan-ng/tools:replace-cli-version",
 		"pre-release": "pnpm run prepare-release && pnpm run format",
-		"release-ui": "nx run-many --target=release --projects=tag:scope:core,tag:scope:brain --parallel=1",
+		"prepare": "git config core.hookspath .githooks",
+		"prepare-release": "nx g @spartan-ng/tools:replace-ui-version && nx g @spartan-ng/tools:hlm-to-cli-generator && nx g @spartan-ng/tools:replace-cli-version",
+		"release": "pnpm run release-ui && pnpm run release-cli",
 		"release-cli": "nx run-many --target=release --projects=tag:scope:cli --parallel=1",
-		"release": "pnpm run release-ui && pnpm run release-cli"
+		"release-ui": "nx run-many --target=release --projects=tag:scope:core,tag:scope:brain --parallel=1"
 	},
-	"private": true,
 	"dependencies": {
 		"@analogjs/content": "1.9.4",
 		"@analogjs/router": "1.9.4",

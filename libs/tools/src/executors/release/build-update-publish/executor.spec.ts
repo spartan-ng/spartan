@@ -18,8 +18,7 @@ describe('BuildUpdatePublish Executor', () => {
 		// Mock the project helper, updateVersion, npmPublish, and execSync
 		jest.spyOn(projectHelper, 'getProjectName').mockReturnValue(libName);
 
-		// Mock updateVersion and npmPublish to return { success: true }
-		jest.spyOn(updateVersion, 'default').mockImplementation(async () => Promise.resolve({ success: true }));
+		// Mock npmPublish to return { success: true }
 		jest.spyOn(npmPublish, 'default').mockImplementation(async () => Promise.resolve({ success: true }));
 
 		// execSync is already mocked globally by jest.mock

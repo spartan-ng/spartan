@@ -110,5 +110,4 @@ export default class AccordionPageComponent {
 	public skeleton = codeSkeleton;
 	public multipleOpenedCode = multipleOpenedCodeString;
 	protected readonly codeSkeleton = codeSkeleton;
-	// private uiDocsService = inject(UIDocsService);
 }

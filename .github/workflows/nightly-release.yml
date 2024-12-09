@@ -95,9 +95,12 @@ jobs:
     needs:
       - check_date
       - build
+      - format-and-lint
     if: ${{ needs.check_date.outputs.should_run != 'false' }}
 
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
         with:

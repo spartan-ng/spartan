@@ -106,6 +106,8 @@ jobs:
         with:
           # Required by wagoid/commitlint-github-action
           fetch-depth: 0
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.ref }}
       - uses: actions/setup-node@v4
         with:
           node-version-file: .node-version

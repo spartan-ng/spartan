@@ -59,7 +59,7 @@ async function createPrimitiveLibraries(
 			if (primitiveName === 'collapsible') return;
 
 			const internalName = availablePrimitives[primitiveName].internalName;
-			const peerDependencies = availablePrimitives[primitiveName].peerDependencies;
+			const peerDependencies = removeHelmKeys(availablePrimitives[primitiveName].peerDependencies);
 			const { generator } = await import(
 				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 				// @ts-ignore
@@ -107,6 +107,9 @@ const replaceContextAndMenuBar = async (primtivesToCreate: string[], silent = fa
 		primtivesToCreate.splice(menubarIndex, 1);
 	}
 };
+
+const removeHelmKeys = (obj: Record<string, string>) =>
+	Object.fromEntries(Object.entries(obj).filter(([key]) => !key.toLowerCase().includes('helm')));
 
 interface ComponentDefintions {
 	[componentName: string]: {

@@ -15,6 +15,8 @@ import {
 } from '@angular/core';
 import { HlmScrollAreaDirective } from '@spartan-ng/ui-scrollarea-helm';
 import { NgScrollbarModule } from 'ngx-scrollbar';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { ActivatedRoute } from '@angular/router';
 import { UIDocsService } from '@spartan-ng/app/app/core/services/ui-docs.service';
 import { PageNavLinkComponent } from './page-nav-link.component';
 import { pageNavTmpl } from './page-nav-outlet.component';
@@ -53,12 +55,17 @@ type SamePageAnchorLink = {
 export class PageNavComponent implements OnInit, AfterViewInit, OnDestroy {
 	public pageNavTpl = viewChild.required<TemplateRef<unknown>>('pageNav');
 
+	private readonly _route = inject(ActivatedRoute);
+	private readonly _routeData = toSignal(this._route.data);
 	private readonly _uiDocsService = inject(UIDocsService, { optional: true });
 
 	protected readonly isDevMode = signal(isDevMode());
 
 	protected readonly _links = signal<SamePageAnchorLink[]>([]);
 	protected readonly _dynamicLinks = computed(() => {
+		if (!this._routeData()?.['api']) {
+			return [];
+		}
 		const apiPageLinks = this._uiDocsService?.primitiveDocPageLinks();
 
 		if (!apiPageLinks) {
@@ -78,6 +85,7 @@ export class PageNavComponent implements OnInit, AfterViewInit, OnDestroy {
 
 		return pageLinks;
 	});
+
 	protected readonly links = computed(() =>
 		this._dynamicLinks() && this._dynamicLinks().length ? this._dynamicLinks() : this._links(),
 	);

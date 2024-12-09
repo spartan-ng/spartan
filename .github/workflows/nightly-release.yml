@@ -106,8 +106,7 @@ jobs:
         with:
           # Required by wagoid/commitlint-github-action
           fetch-depth: 0
-          repository: ${{ github.event.pull_request.head.repo.full_name }}
-          ref: ${{ github.event.pull_request.head.ref }}
+          ref: ${{ github.head_ref }}
       - uses: actions/setup-node@v4
         with:
           node-version-file: .node-version
@@ -126,5 +125,6 @@ jobs:
           author_name: Leonidas
           author_email: leonidas@spartan.ng
           message: 'nightly release ${{steps.datetime.outputs.release_date}} ⚡'
+          push: origin HEAD:${{ github.head_ref }}
       - name: Release
         run: pnpm run release

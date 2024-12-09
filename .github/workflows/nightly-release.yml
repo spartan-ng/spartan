@@ -110,5 +110,16 @@ jobs:
         run: npm install -g pnpm
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
+      - name: Pre Release
+        run: pnpm run pre-nightly-release
+      - name: Get the current date time
+        id: datetime
+        run: echo "release_date=$(date '+%Y-%m-%d')" >> $GITHUB_OUTPUT
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          author_name: Leonidas
+          author_email: leonidas@spartan.ng
+          message: 'nightly release ${{steps.datetime.outputs.release_date}} ⚡'
       - name: Release
-        run: pnpm run pre-nightly-release && pnpm run release
+        run: pnpm run release

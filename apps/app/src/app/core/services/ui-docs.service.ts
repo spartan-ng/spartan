@@ -3,7 +3,7 @@ import { computed, Injectable, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { shareReplay, Subject, switchMap } from 'rxjs';
 import { injectTRPCClient } from '../../../trpc-client';
-import { ComponentApiData, Primitives, PrimitiveSubTypes, SubTypeRecord } from '../models/ui-docs.model';
+import { Primitives, PrimitiveSubTypes, SubTypeRecord } from '../models/ui-docs.model';
 
 type SamePageAnchorLink = {
 	id: string;
@@ -14,14 +14,14 @@ type SamePageAnchorLink = {
 @Injectable()
 export class UIDocsService {
 	private readonly _trpc = injectTRPCClient();
-	private readonly _uiDocs = toSignal<ComponentApiData>(this._trpc.docs.list.query());
+
 	private readonly _primitiveDocHeaders = signal<string[]>([]);
 	public readonly primitiveDocheaders = computed(() => this._primitiveDocHeaders());
 
 	public readonly primitiveDocPageLinks = computed(() => {
 		const primitiveDocHeaders: string[] = this.primitiveDocheaders() ?? [];
 
-		if (!primitiveDocHeaders) {
+		if (!primitiveDocHeaders.length) {
 			return null;
 		}
 
@@ -62,11 +62,11 @@ export class UIDocsService {
 	}
 
 	getPrimitiveDoc(primitive: Primitives): PrimitiveSubTypes | undefined {
-		return this._uiDocs()?.[primitive];
+		return this.uiDocs()?.[primitive];
 	}
 
 	getPrimitiveDocHeaders(primitive: Primitives, subType: SubTypeRecord): string[] | null {
-		const subTypePrimitives = this._uiDocs()?.[primitive][subType];
+		const subTypePrimitives = this.uiDocs()?.[primitive][subType];
 		if (!subTypePrimitives) {
 			return null;
 		}
@@ -78,7 +78,13 @@ export class UIDocsService {
 		// We could have each page call this but i think this ensures api doc sections are present and leaves responsibility to the compoentn
 		const primitiveDocheaders = this.getPrimitiveDocHeaders(primitive, subType);
 		if (primitiveDocheaders) {
-			this._primitiveDocHeaders.update((state) => [...state, ...primitiveDocheaders]);
+			this._primitiveDocHeaders.update((state) =>
+				/**
+				 * Using Set to avoid duplicate headings again if navigating
+				 * back and forth between non-component page and component page
+				 */
+				Array.from(new Set([...state, ...primitiveDocheaders])),
+			);
 		}
 	}
 }

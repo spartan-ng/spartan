@@ -1,4 +1,4 @@
-import { ExecutorContext } from '@nrwl/devkit';
+import { ExecutorContext } from '@nx/devkit';
 import { GenerateUiDocsExecutorSchema } from './schema';
 
 import fs from 'fs';

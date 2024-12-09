@@ -7,7 +7,7 @@
 	"implicitDependencies": [],
 	"targets": {
 		"build": {
-			"dependsOn": ["^build"],
+			"dependsOn": ["^build", "generate-ui-docs"],
 			"executor": "@analogjs/platform:vite",
 			"outputs": [
 				"{options.outputPath}",
@@ -70,6 +70,12 @@
 				"command": "PORT=4205 node dist/apps/app/analog/server/index.mjs"
 			},
 			"dependsOn": ["build"]
+		},
+		"generate-ui-docs": {
+			"executor": "@spartan-ng/tools:generate-ui-docs",
+			"options": {
+				"outputDir": "{projectRoot}/src/public/data"
+			}
 		}
 	}
 }

@@ -1,6 +1,6 @@
 {
 	"name": "@spartan-ng/ui-icon-helm",
-	"version": "0.0.1-alpha.380",
+	"version": "0.0.1-alpha.381",
 	"sideEffects": false,
 	"dependencies": {},
 	"peerDependencies": {

@@ -1,9 +1,9 @@
 import { waitFor } from '@analogjs/trpc';
-import { computed, Injectable, signal } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { shareReplay, Subject, switchMap } from 'rxjs';
 import { injectTRPCClient } from '../../../trpc-client';
-import { Primitives, PrimitiveSubTypes, SubTypeRecord } from '../models/ui-docs.model';
+import { Primitives, PrimitiveSubTypes } from '../models/ui-docs.model';
 
 type SamePageAnchorLink = {
 	id: string;
@@ -15,17 +15,35 @@ type SamePageAnchorLink = {
 export class UIDocsService {
 	private readonly _trpc = injectTRPCClient();
 
-	private readonly _primitiveDocHeaders = signal<string[]>([]);
-	public readonly primitiveDocheaders = computed(() => this._primitiveDocHeaders());
+	public triggerRefresh$ = new Subject<void>();
+	public uiDocs$ = this.triggerRefresh$.pipe(
+		switchMap(() => this._trpc.docs.list.query()),
+		shareReplay(1),
+	);
+	public uiDocs = toSignal(this.uiDocs$);
 
-	public readonly primitiveDocPageLinks = computed(() => {
-		const primitiveDocHeaders: string[] = this.primitiveDocheaders() ?? [];
+	constructor() {
+		void waitFor(this.uiDocs$);
+		this.triggerRefresh$.next();
+	}
 
-		if (!primitiveDocHeaders.length) {
-			return null;
+	getPrimitiveDoc(primitive: Primitives): PrimitiveSubTypes | undefined {
+		return this.uiDocs()?.[primitive];
+	}
+
+	getPrimitiveDocHeaders(primitive: Primitives): {
+		brnArray: SamePageAnchorLink[];
+		hlmArray: SamePageAnchorLink[];
+	} {
+		const uiDocs = this.uiDocs();
+
+		if (!uiDocs && !uiDocs?.[primitive]) {
+			return { brnArray: [], hlmArray: [] };
 		}
 
-		return primitiveDocHeaders.reduce<{
+		const primitiveHeaders = [...Object.keys(uiDocs[primitive].brain), ...Object.keys(uiDocs[primitive].helm)];
+
+		return primitiveHeaders.reduce<{
 			brnArray: SamePageAnchorLink[];
 			hlmArray: SamePageAnchorLink[];
 		}>(
@@ -47,44 +65,5 @@ export class UIDocsService {
 			},
 			{ brnArray: [], hlmArray: [] },
 		);
-	});
-
-	public triggerRefresh$ = new Subject<void>();
-	public uiDocs$ = this.triggerRefresh$.pipe(
-		switchMap(() => this._trpc.docs.list.query()),
-		shareReplay(1),
-	);
-	public uiDocs = toSignal(this.uiDocs$);
-
-	constructor() {
-		void waitFor(this.uiDocs$);
-		this.triggerRefresh$.next();
-	}
-
-	getPrimitiveDoc(primitive: Primitives): PrimitiveSubTypes | undefined {
-		return this.uiDocs()?.[primitive];
-	}
-
-	getPrimitiveDocHeaders(primitive: Primitives, subType: SubTypeRecord): string[] | null {
-		const subTypePrimitives = this.uiDocs()?.[primitive][subType];
-		if (!subTypePrimitives) {
-			return null;
-		}
-		return Object.keys(subTypePrimitives);
-	}
-
-	injectPrimitivePageNavLinks(primitive: Primitives, subType: SubTypeRecord): void {
-		// Would at most be called twice on each page, 1 for each primitive subtype 'brn' or 'hlm'
-		// We could have each page call this but i think this ensures api doc sections are present and leaves responsibility to the compoentn
-		const primitiveDocheaders = this.getPrimitiveDocHeaders(primitive, subType);
-		if (primitiveDocheaders) {
-			this._primitiveDocHeaders.update((state) =>
-				/**
-				 * Using Set to avoid duplicate headings again if navigating
-				 * back and forth between non-component page and component page
-				 */
-				Array.from(new Set([...state, ...primitiveDocheaders])),
-			);
-		}
 	}
 }

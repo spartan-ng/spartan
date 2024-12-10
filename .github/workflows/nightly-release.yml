@@ -91,7 +91,7 @@ jobs:
       - name: Build
         run: pnpm run build
 
-  publish:
+  release:
     needs:
       - check_date
       - build
@@ -125,6 +125,6 @@ jobs:
           author_name: Leonidas
           author_email: leonidas@spartan.ng
           message: 'nightly release ${{steps.datetime.outputs.release_date}} ⚡'
-          push: origin HEAD:${{ github.head_ref }}
+          push: 'origin nightly-release'
       - name: Release
         run: pnpm run release

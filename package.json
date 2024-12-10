@@ -20,7 +20,9 @@
 		"prepare-nightly-release": "nx g @spartan-ng/tools:auto-increment-version && nx g @spartan-ng/tools:hlm-to-cli-generator",
 		"release": "pnpm run release-ui && pnpm run release-cli",
 		"release-cli": "nx run-many --target=release --projects=tag:scope:cli --parallel=1",
-		"release-ui": "nx run-many --target=release --projects=tag:scope:core,tag:scope:brain --parallel=1"
+		"release-ui": "nx run-many --target=release --projects=tag:scope:core,tag:scope:brain --parallel=1",
+		"start": "nx serve app",
+		"test": "nx run-many --target test --all"
 	},
 	"dependencies": {
 		"@analogjs/content": "1.9.4",

@@ -1,9 +1,8 @@
 name: nightly-release
 
 on:
-  push:
-    branches:
-      - 'nightly-release'
+  schedule:
+    - cron: '0 0 * * *'
 
 jobs:
   check_date:
@@ -125,6 +124,5 @@ jobs:
           author_name: Leonidas
           author_email: leonidas@spartan.ng
           message: 'nightly release ${{steps.datetime.outputs.release_date}} ⚡'
-          push: 'origin nightly-release'
       - name: Release
         run: pnpm run release

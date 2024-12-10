@@ -3,7 +3,7 @@ name: nightly-release
 on:
   push:
     branches:
-      - 'feat/nightly-release'
+      - 'nightly-release'
 
 jobs:
   check_date:

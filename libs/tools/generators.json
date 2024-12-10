@@ -1,5 +1,15 @@
 {
 	"generators": {
+		"replace-cli-version": {
+			"factory": "./src/generators/replace-cli-version/generator",
+			"schema": "./src/generators/replace-cli-version/schema.json",
+			"description": "Updates the CLI's version"
+		},
+		"replace-ui-version": {
+			"factory": "./src/generators/replace-ui-version/generator",
+			"schema": "./src/generators/replace-ui-version/schema.json",
+			"description": "Replaces version for all UI libs and their references in the CLI"
+		},
 		"auto-increment-version": {
 			"factory": "./src/generators/auto-increment-version/generator",
 			"schema": "./src/generators/auto-increment-version/schema.json",

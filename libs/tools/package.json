@@ -9,7 +9,6 @@
 		"jsonc-eslint-parser": "^2.1.0",
 		"nx": "20.1.1",
 		"process": "0.11.10",
-		"replace-json-property": "^1.9.0",
 		"tslib": "~2.7.0"
 	},
 	"executors": "./executors.json",

@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, OnInit } from '@angular/core';
+import { Component, computed, inject, input } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { HlmTableComponent, HlmTdComponent, HlmThComponent, HlmTrowComponent } from '@spartan-ng/ui-table-helm';
@@ -71,7 +71,7 @@ import { UIDocsService } from '../../../core/services/ui-docs.service';
 		}
 	`,
 })
-export class UIApiDocsComponent implements OnInit {
+export class UIApiDocsComponent {
 	private readonly _uiDocsService = inject(UIDocsService);
 	private readonly _route = inject(ActivatedRoute);
 	protected primitive = toSignal(this._route.data.pipe(map((data) => data?.['api'])));
@@ -81,8 +81,4 @@ export class UIApiDocsComponent implements OnInit {
 	protected uiDocs = computed(() => this._uiDocsService.getPrimitiveDoc(this.primitive()) ?? null);
 	protected uiPrimitiveItems = computed(() => this.uiDocs()?.[this.docType()] ?? {});
 	protected uiPrimitiveEntries = computed(() => Object.keys(this.uiPrimitiveItems() ?? []));
-
-	ngOnInit(): void {
-		this._uiDocsService.injectPrimitivePageNavLinks(this.primitive(), this.docType());
-	}
 }

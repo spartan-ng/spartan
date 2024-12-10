@@ -1,6 +1,6 @@
 {
 	"name": "@spartan-ng/ui-sonner-helm",
-	"version": "0.0.1-alpha.379",
+	"version": "0.0.1-alpha.380",
 	"sideEffects": false,
 	"dependencies": {
 		"tslib": "^2.3.0"
@@ -9,7 +9,7 @@
 		"@angular/common": "^18.1.0",
 		"@angular/core": "^18.1.0",
 		"@ng-icons/lucide": "^26.3.0",
-		"@spartan-ng/brain": "0.0.1-alpha.379",
+		"@spartan-ng/brain": "0.0.1-alpha.380",
 		"clsx": "^2.1.1",
 		"ngx-sonner": "^2.0.0"
 	}

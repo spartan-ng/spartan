@@ -1,15 +1,15 @@
 {
 	"name": "@spartan-ng/ui-carousel-helm",
-	"version": "0.0.1-alpha.379",
+	"version": "0.0.1-alpha.380",
 	"sideEffects": false,
 	"dependencies": {},
 	"peerDependencies": {
 		"@angular/core": ">=18.0.0",
 		"@ng-icons/core": ">=29.0.0",
 		"@ng-icons/lucide": ">=29.0.0",
-		"@spartan-ng/brain": "0.0.1-alpha.379",
-		"@spartan-ng/ui-button-helm": "0.0.1-alpha.379",
-		"@spartan-ng/ui-icon-helm": "0.0.1-alpha.379",
+		"@spartan-ng/brain": "0.0.1-alpha.380",
+		"@spartan-ng/ui-button-helm": "0.0.1-alpha.380",
+		"@spartan-ng/ui-icon-helm": "0.0.1-alpha.380",
 		"clsx": "^2.1.1",
 		"embla-carousel-angular": "18.0.0"
 	},

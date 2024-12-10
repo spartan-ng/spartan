@@ -1,11 +1,11 @@
 {
 	"name": "@spartan-ng/ui-formfield-helm",
-	"version": "0.0.1-alpha.379",
+	"version": "0.0.1-alpha.380",
 	"sideEffects": false,
 	"dependencies": {},
 	"peerDependencies": {
 		"@angular/core": ">=18.0.0",
-		"@spartan-ng/brain": "0.0.1-alpha.379"
+		"@spartan-ng/brain": "0.0.1-alpha.380"
 	},
 	"publishConfig": {
 		"access": "public"

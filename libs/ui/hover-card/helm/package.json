@@ -1,11 +1,11 @@
 {
 	"name": "@spartan-ng/ui-hovercard-helm",
-	"version": "0.0.1-alpha.357",
+	"version": "0.0.1-alpha.379",
 	"sideEffects": false,
 	"dependencies": {},
 	"peerDependencies": {
 		"@angular/core": ">=18.0.0",
-		"@spartan-ng/brain": "0.0.1-alpha.357",
+		"@spartan-ng/brain": "0.0.1-alpha.379",
 		"clsx": "^2.1.1"
 	},
 	"publishConfig": {

@@ -1,6 +1,6 @@
 {
 	"name": "@spartan-ng/ui-table-helm",
-	"version": "0.0.1",
+	"version": "0.0.1-alpha.379",
 	"sideEffects": false,
 	"dependencies": {},
 	"peerDependencies": {

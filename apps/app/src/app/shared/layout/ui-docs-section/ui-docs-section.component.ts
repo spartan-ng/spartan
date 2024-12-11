@@ -3,7 +3,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { HlmTableComponent, HlmTdComponent, HlmThComponent, HlmTrowComponent } from '@spartan-ng/ui-table-helm';
 import { hlmH4 } from '@spartan-ng/ui-typography-helm';
-import { map } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { UIDocsService } from '../../../core/services/ui-docs.service';
 
 @Component({

@@ -123,6 +123,6 @@ jobs:
         with:
           author_name: Leonidas
           author_email: leonidas@spartan.ng
-          message: 'nightly release ${{steps.datetime.outputs.release_date}} ⚡'
+          message: 'chore: nightly release ${{steps.datetime.outputs.release_date}} ⚡'
       - name: Release
         run: pnpm run release

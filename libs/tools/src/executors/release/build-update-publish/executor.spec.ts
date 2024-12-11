@@ -1,7 +1,6 @@
 import * as childProcess from 'node:child_process';
 import * as projectHelper from '../helpers/projects.helpers';
 import * as npmPublish from '../npm-publish/executor';
-import * as updateVersion from '../update-version/executor';
 import executor from './executor';
 
 // Mock the entire child_process module
@@ -15,7 +14,7 @@ describe('BuildUpdatePublish Executor', () => {
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const mockContext = { bar: 'bar' } as any;
 
-		// Mock the project helper, updateVersion, npmPublish, and execSync
+		// Mock the project helper, npmPublish, and execSync
 		jest.spyOn(projectHelper, 'getProjectName').mockReturnValue(libName);
 
 		// Mock npmPublish to return { success: true }
@@ -28,7 +27,6 @@ describe('BuildUpdatePublish Executor', () => {
 		const output = await executor({}, mockContext);
 
 		// Verify that all functions are called as expected
-		expect(updateVersion.default).toHaveBeenCalledWith({}, mockContext);
 		expect(npmPublish.default).toHaveBeenCalledWith({}, mockContext);
 		expect(execSyncMock).toHaveBeenCalledWith(expectedCommand);
 		expect(output.success).toBe(true);

@@ -1,9 +1,5 @@
-import { waitFor } from '@analogjs/trpc';
-import { Injectable } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { shareReplay, Subject, switchMap } from 'rxjs';
-import { injectTRPCClient } from '../../../trpc-client';
-import { Primitives, PrimitiveSubTypes } from '../models/ui-docs.model';
+import { computed, Injectable, signal } from '@angular/core';
+import { ComponentApiData, Primitives, PrimitiveSubTypes } from '../models/ui-docs.model';
 
 type SamePageAnchorLink = {
 	id: string;
@@ -13,18 +9,11 @@ type SamePageAnchorLink = {
 
 @Injectable()
 export class UIDocsService {
-	private readonly _trpc = injectTRPCClient();
+	private readonly _uiDocs = signal<ComponentApiData | null>(null);
+	public uiDocs = computed(() => this._uiDocs());
 
-	public triggerRefresh$ = new Subject<void>();
-	public uiDocs$ = this.triggerRefresh$.pipe(
-		switchMap(() => this._trpc.docs.list.query()),
-		shareReplay(1),
-	);
-	public uiDocs = toSignal(this.uiDocs$);
-
-	constructor() {
-		void waitFor(this.uiDocs$);
-		this.triggerRefresh$.next();
+	setAPIData(data: ComponentApiData): void {
+		this._uiDocs.set(data);
 	}
 
 	getPrimitiveDoc(primitive: Primitives): PrimitiveSubTypes | undefined {

@@ -6,15 +6,16 @@ import path from 'path';
 import ts from 'typescript';
 
 export default async function runExecutor(options: GenerateUiDocsExecutorSchema, context: ExecutorContext) {
-	const libsDir = path.join(context.root, 'libs/ui');
+	const brainDir = path.join(context.root, 'libs/brain');
+	const uiDir = path.join(context.root, 'libs/ui');
 	const outputDir = options.outputDir || path.join(context.root, 'dist/extracted-metadata');
 
 	if (!fs.existsSync(outputDir)) {
 		fs.mkdirSync(outputDir, { recursive: true });
 	}
 
-	const libraryFiles = getLibraryFiles(libsDir);
-	const extractedData = await extractInputsOutputs(libraryFiles, libsDir);
+	const libraryFiles = getLibraryFiles({ brainDir, uiDir });
+	const extractedData = await extractInputsOutputs(libraryFiles);
 
 	const outputPath = path.join(outputDir, 'ui-api.json');
 	await fs.promises.writeFile(outputPath, JSON.stringify(extractedData, null, 2));
@@ -23,10 +24,17 @@ export default async function runExecutor(options: GenerateUiDocsExecutorSchema,
 	return { success: true };
 }
 
-function getLibraryFiles(libsDir: string): string[] {
+function getLibraryFiles({ brainDir, uiDir }): string[] {
 	const libraryFiles = [];
-	fs.readdirSync(libsDir).forEach((libName) => {
-		const libPath = path.join(libsDir, libName);
+	fs.readdirSync(brainDir).forEach((libName) => {
+		const libPath = path.join(brainDir, libName);
+		if (fs.statSync(libPath).isDirectory()) {
+			libraryFiles.push(...getFiles(libPath));
+		}
+	});
+
+	fs.readdirSync(uiDir).forEach((libName) => {
+		const libPath = path.join(uiDir, libName);
 		if (fs.statSync(libPath).isDirectory()) {
 			libraryFiles.push(...getFiles(libPath));
 		}
@@ -48,7 +56,7 @@ function getFiles(dir: string): string[] {
 	return files;
 }
 
-async function extractInputsOutputs(fileNames: string[], libsDir: string) {
+async function extractInputsOutputs(fileNames: string[]) {
 	const inputsOutputs = {};
 
 	for (const fileName of fileNames) {
@@ -62,9 +70,9 @@ async function extractInputsOutputs(fileNames: string[], libsDir: string) {
 		ts.forEachChild(sourceFile, (node) => {
 			if (ts.isClassDeclaration(node) && node.name) {
 				const className = node.name.text;
-				const relativeFilePath = path.relative(libsDir, fileName);
+				const relativeFilePath = path.relative('libs/', fileName);
 				const componentInfo = {
-					file: `libs/ui/${relativeFilePath}`,
+					file: relativeFilePath,
 					inputs: [],
 					outputs: [],
 					selector: null,
@@ -152,6 +160,12 @@ function getJsDocDescription(member: ts.ClassElement): string {
 // Helper function to add data to nested structure based on file path
 function addToNestedStructure(rootObject, relativePath, className, componentInfo) {
 	const pathSegments = relativePath.split(path.sep).filter((segment) => segment !== 'src' && segment !== 'lib');
+
+	if (pathSegments[0] === 'ui') {
+		pathSegments.shift();
+	} else {
+		[pathSegments[0], pathSegments[1]] = [pathSegments[1], pathSegments[0]];
+	}
 
 	let current = rootObject;
 	for (const segment of pathSegments.slice(0, -1)) {

@@ -200,6 +200,11 @@ module.exports = {
 "
 			/>
 			<p class="${hlmP}">
+				If you have manually added the variables to your style entrypoint, don't forget to import the Angular CDK
+				overlay styles too.
+			</p>
+			<spartan-code class="mb-6 mt-4" code="@import '@angular/cdk/overlay-prebuilt.css';" />
+			<p class="${hlmP}">
 				Also, make sure to check out the theming section to better understand the convention behind them and learn how
 				to customize your theme.
 			</p>

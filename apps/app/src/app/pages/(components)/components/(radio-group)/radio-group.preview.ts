@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { BrnRadioComponent, BrnRadioGroupComponent } from '@spartan-ng/brain/radio-group';
-import { HlmRadioDirective, HlmRadioGroupDirective, HlmRadioIndicatorComponent } from '@spartan-ng/ui-radiogroup-helm';
+import { BrnRadioComponent } from '@spartan-ng/brain/radio-group';
+import { HlmRadioDirective, HlmRadioGroupComponent, HlmRadioIndicatorComponent } from '@spartan-ng/ui-radiogroup-helm';
 import { HlmSmallDirective } from '@spartan-ng/ui-typography-helm';
 
 @Component({
@@ -9,16 +9,15 @@ import { HlmSmallDirective } from '@spartan-ng/ui-typography-helm';
 	standalone: true,
 	imports: [
 		FormsModule,
-		BrnRadioGroupComponent,
 		BrnRadioComponent,
 		HlmRadioIndicatorComponent,
 		HlmRadioDirective,
-		HlmRadioGroupDirective,
+		HlmRadioGroupComponent,
 		HlmSmallDirective,
 	],
 	template: `
 		<small hlmSmall class="font-semibold">Choose a version</small>
-		<brn-radio-group class="mb-4 space-y-1 font-mono text-sm font-medium" hlm [(ngModel)]="version">
+		<hlm-radio-group class="font-mono text-sm font-medium" [(ngModel)]="version">
 			<brn-radio hlm value="16.1.4">
 				<hlm-radio-indicator indicator />
 				v16.1.4
@@ -35,7 +34,7 @@ import { HlmSmallDirective } from '@spartan-ng/ui-typography-helm';
 				<hlm-radio-indicator indicator />
 				v15.2.0
 			</brn-radio>
-		</brn-radio-group>
+		</hlm-radio-group>
 	`,
 })
 export class RadioGroupPreviewComponent {
@@ -45,8 +44,8 @@ export class RadioGroupPreviewComponent {
 export const defaultCode = `
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { BrnRadioComponent, BrnRadioGroupComponent } from '@spartan-ng/brain/radio-group';
-import { HlmRadioDirective, HlmRadioGroupDirective, HlmRadioIndicatorComponent } from '@spartan-ng/ui-radiogroup-helm';
+import { BrnRadioComponent } from '@spartan-ng/brain/radio-group';
+import { HlmRadioDirective, HlmRadioGroupComponent, HlmRadioIndicatorComponent } from '@spartan-ng/ui-radiogroup-helm';
 import { HlmSmallDirective } from '@spartan-ng/ui-typography-helm';
 
 @Component({
@@ -54,33 +53,32 @@ import { HlmSmallDirective } from '@spartan-ng/ui-typography-helm';
   standalone: true,
   imports: [
     FormsModule,
-    BrnRadioGroupComponent,
-    BrnRadioComponent,
-    HlmRadioIndicatorComponent,
-    HlmRadioDirective,
-    HlmRadioGroupDirective,
-    HlmSmallDirective,
+		BrnRadioComponent,
+		HlmRadioIndicatorComponent,
+		HlmRadioDirective,
+		HlmRadioGroupComponent,
+		HlmSmallDirective,
   ],
   template: \`
     <small hlmSmall class="font-semibold">Choose a version</small>
-    <brn-radio-group class="mb-4 font-mono text-sm font-medium space-y-1" hlm [(ngModel)]="version">
-      <brn-radio hlm value="16.1.4">
-        <hlm-radio-indicator indicator />
-        v16.1.4
-      </brn-radio>
-      <brn-radio hlm value="16.0.0">
-        <hlm-radio-indicator indicator />
-        v16.0.0
-      </brn-radio>
-      <brn-radio hlm value="15.8.0">
-        <hlm-radio-indicator indicator />
-        v15.8.0
-      </brn-radio>
-      <brn-radio disabled hlm value="15.2.0">
-        <hlm-radio-indicator indicator />
-        v15.2.0
-      </brn-radio>
-    </brn-radio-group>
+		<hlm-radio-group class="font-mono text-sm font-medium" [(ngModel)]="version">
+			<brn-radio hlm value="16.1.4">
+				<hlm-radio-indicator indicator />
+				v16.1.4
+			</brn-radio>
+			<brn-radio hlm value="16.0.0">
+				<hlm-radio-indicator indicator />
+				v16.0.0
+			</brn-radio>
+			<brn-radio hlm value="15.8.0">
+				<hlm-radio-indicator indicator />
+				v15.8.0
+			</brn-radio>
+			<brn-radio disabled hlm value="15.2.0">
+				<hlm-radio-indicator indicator />
+				v15.2.0
+			</brn-radio>
+		</hlm-radio-group>
   \`,
 })
 export class RadioGroupPreviewComponent {
@@ -89,18 +87,18 @@ export class RadioGroupPreviewComponent {
 `;
 
 export const defaultImports = `
-import { BrnRadioComponent, BrnRadioGroupComponent } from '@spartan-ng/brain/radio-group';
+import { BrnRadioComponent } from '@spartan-ng/brain/radio-group';
 import {
   HlmRadioDirective,
-  HlmRadioGroupDirective,
+  HlmRadioGroupComponent,
   HlmRadioIndicatorComponent,
 } from '@spartan-ng/ui-radiogroup-helm';
 `;
 export const defaultSkeleton = `
-<brn-radio-group hlm>
+<hlm-radio-group>
   <brn-radio hlm value="16.1.4">
     <hlm-radio-indicator indicator />
     v16.1.4
   </brn-radio>
-</brn-radio-group>
+</hlm-radio-group>
 `;

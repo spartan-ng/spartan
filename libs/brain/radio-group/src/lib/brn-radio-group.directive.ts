@@ -2,9 +2,9 @@
 import { BooleanInput } from '@angular/cdk/coercion';
 import {
 	booleanAttribute,
-	Component,
 	computed,
 	contentChildren,
+	Directive,
 	forwardRef,
 	input,
 	model,
@@ -18,28 +18,28 @@ import { BrnRadioChange, BrnRadioComponent } from './brn-radio.component';
 
 export const BRN_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = {
 	provide: NG_VALUE_ACCESSOR,
-	useExisting: forwardRef(() => BrnRadioGroupComponent),
+	useExisting: forwardRef(() => BrnRadioGroupDirective),
 	multi: true,
 };
 
-@Component({
-	selector: 'brn-radio-group',
+@Directive({
+	selector: '[brnRadioGroup]',
 	standalone: true,
-	providers: [BRN_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, provideBrnRadioGroupToken(BrnRadioGroupComponent)],
+	providers: [BRN_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, provideBrnRadioGroupToken(BrnRadioGroupDirective)],
 	host: {
 		role: 'radiogroup',
+		'[dir]': 'direction()',
 		'(focusout)': 'onTouched()',
 	},
-	template: '<ng-content />',
 })
-export class BrnRadioGroupComponent<T = unknown> implements ControlValueAccessor {
+export class BrnRadioGroupDirective<T = unknown> implements ControlValueAccessor {
 	private static _nextUniqueId = 0;
 
 	protected onChange: ChangeFn<T> = () => {};
 
 	protected onTouched: TouchFn = () => {};
 
-	public readonly name = input(`brn-radio-group-${BrnRadioGroupComponent._nextUniqueId++}`);
+	public readonly name = input(`brn-radio-group-${BrnRadioGroupDirective._nextUniqueId++}`);
 
 	/**
 	 * The value of the selected radio button.

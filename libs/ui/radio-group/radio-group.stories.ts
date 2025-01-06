@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { BrnRadioGroupComponent, BrnRadioGroupImports } from '@spartan-ng/brain/radio-group';
+import { BrnRadioGroupDirective, BrnRadioGroupImports } from '@spartan-ng/brain/radio-group';
 import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
 import { HlmButtonDirective } from '../button/helm/src';
 import { HlmIconComponent } from '../icon/helm/src';
@@ -21,7 +21,7 @@ import { HlmRadioGroupImports } from './helm/src';
 	],
 	template: `
 		<small hlmSmall class="font-semibold">Choose a version</small>
-		<brn-radio-group class="mb-4 space-y-1 font-mono text-sm font-medium" hlm [(ngModel)]="version">
+		<hlm-radio-group class="mb-4 space-y-1 font-mono text-sm font-medium" [(ngModel)]="version">
 			<brn-radio hlm value="16.1.4">
 				<hlm-radio-indicator indicator />
 				v16.1.4
@@ -38,7 +38,7 @@ import { HlmRadioGroupImports } from './helm/src';
 				<hlm-radio-indicator indicator />
 				v15.2.0
 			</brn-radio>
-		</brn-radio-group>
+		</hlm-radio-group>
 		<div class="my-2 flex space-x-2">
 			<button size="sm" hlmBtn variant="outline" (click)="version = '16.0.0'">Set to v16.0.0</button>
 			<button size="sm" hlmBtn variant="outline" (click)="version = null">Reset</button>
@@ -53,9 +53,9 @@ class RadioGroupExampleComponent {
 	version: string | null = '16.1.4';
 }
 
-const meta: Meta<BrnRadioGroupComponent> = {
+const meta: Meta<BrnRadioGroupDirective> = {
 	title: 'Radio Group',
-	component: BrnRadioGroupComponent,
+	component: BrnRadioGroupDirective,
 	tags: ['autodocs'],
 	decorators: [
 		moduleMetadata({
@@ -66,7 +66,7 @@ const meta: Meta<BrnRadioGroupComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<BrnRadioGroupComponent>;
+type Story = StoryObj<BrnRadioGroupDirective>;
 
 export const Default: Story = {
 	render: () => ({

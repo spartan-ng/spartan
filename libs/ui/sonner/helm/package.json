@@ -9,7 +9,7 @@
 		"@angular/common": "^18.1.0",
 		"@angular/core": "^18.1.0",
 		"@ng-icons/lucide": "^26.3.0",
-		"@spartan-ng/ui-core": "0.0.1-alpha.357",
+		"@spartan-ng/brain": "0.0.1-alpha.357",
 		"clsx": "^2.1.1",
 		"ngx-sonner": "^2.0.0"
 	}

@@ -10,7 +10,7 @@
 		"changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
 		"chromatic": "chromatic --project-token=chpt_845c7a47afdb884",
 		"dev": "nx serve app",
-		"drizzle": " npx drizzle-kit generate --config=./apps/app/drizzle.config.ts",
+		"drizzle": "npx drizzle-kit generate --config=./apps/app/drizzle.config.ts",
 		"e2e": "nx run-many --target e2e --projects=tag:scope:e2e --all --parallel=1",
 		"format": "nx format --write",
 		"lint": "nx run-many --target=lint --parallel",

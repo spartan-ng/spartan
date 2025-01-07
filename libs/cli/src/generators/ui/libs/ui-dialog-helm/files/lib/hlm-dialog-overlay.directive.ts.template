@@ -1,5 +1,5 @@
 import { Directive, computed, effect, input } from '@angular/core';
-import { hlm, injectCustomClassSettable } from '@spartan-ng/ui-core';
+import { hlm, injectCustomClassSettable } from '@spartan-ng/brain/core';
 import type { ClassValue } from 'clsx';
 
 export const hlmDialogOverlayClass =

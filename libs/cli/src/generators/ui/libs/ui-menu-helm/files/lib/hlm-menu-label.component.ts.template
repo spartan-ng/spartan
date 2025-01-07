@@ -1,5 +1,5 @@
 import { Component, Input, booleanAttribute, computed, input, signal } from '@angular/core';
-import { hlm } from '@spartan-ng/ui-core';
+import { hlm } from '@spartan-ng/brain/core';
 import type { ClassValue } from 'clsx';
 
 @Component({

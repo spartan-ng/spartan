@@ -9,8 +9,8 @@ import {
 	untracked,
 } from '@angular/core';
 import { lucideArrowLeft } from '@ng-icons/lucide';
+import { hlm } from '@spartan-ng/brain/core';
 import { HlmButtonDirective, provideBrnButtonConfig } from '@spartan-ng/ui-button-helm';
-import { hlm } from '@spartan-ng/ui-core';
 import { HlmIconComponent, provideIcons } from '@spartan-ng/ui-icon-helm';
 import type { ClassValue } from 'clsx';
 import { HlmCarouselComponent } from './hlm-carousel.component';

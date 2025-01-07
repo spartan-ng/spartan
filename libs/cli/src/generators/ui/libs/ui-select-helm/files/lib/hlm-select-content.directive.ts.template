@@ -1,5 +1,5 @@
 import { Directive, computed, input } from '@angular/core';
-import { hlm, injectExposedSideProvider, injectExposesStateProvider } from '@spartan-ng/ui-core';
+import { hlm, injectExposedSideProvider, injectExposesStateProvider } from '@spartan-ng/brain/core';
 import type { ClassValue } from 'clsx';
 
 @Directive({

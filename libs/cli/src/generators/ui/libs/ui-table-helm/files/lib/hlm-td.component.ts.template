@@ -8,7 +8,7 @@ import {
 	inject,
 	input,
 } from '@angular/core';
-import { hlm } from '@spartan-ng/ui-core';
+import { hlm } from '@spartan-ng/brain/core';
 import { BrnColumnDefComponent } from '@spartan-ng/brain/table';
 import type { ClassValue } from 'clsx';
 

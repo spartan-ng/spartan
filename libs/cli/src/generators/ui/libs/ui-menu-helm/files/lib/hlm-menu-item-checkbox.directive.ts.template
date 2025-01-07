@@ -1,5 +1,5 @@
 import { Directive, computed, input } from '@angular/core';
-import { hlm } from '@spartan-ng/ui-core';
+import { hlm } from '@spartan-ng/brain/core';
 import { BrnMenuItemCheckboxDirective } from '@spartan-ng/brain/menu';
 import type { ClassValue } from 'clsx';
 

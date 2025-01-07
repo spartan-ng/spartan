@@ -1,14 +1,9 @@
-import { type Tree, readJsonFile } from '@nx/devkit';
-import { recursivelyFindRelativePackageJsonFilePaths } from '../../utils/recursively-find-relative-package-json-file-paths';
+import { type Tree, formatFiles, readJsonFile } from '@nx/devkit';
 import replaceCliVersionGenerator from '../replace-cli-version/generator';
 import replaceUiVersionGenerator from '../replace-ui-version/generator';
 
 export default async function autoIncrementVersion(tree: Tree): Promise<void> {
-	const relativePackageJsonFilePaths = await recursivelyFindRelativePackageJsonFilePaths('libs/ui');
-
-	// this goes into the accordion's package.json, which should always be defined
-	// if there is no version there we should definitely not move forward
-	const oldVersion = readJsonFile(relativePackageJsonFilePaths[0]).version as string;
+	const oldVersion = readJsonFile('libs/brain/package.json').version as string;
 	const [prefix, branchAndNumber] = oldVersion.split('-');
 	const [branch, versionNumber] = branchAndNumber.split('.');
 	const newVersionNumber = +versionNumber + 1;
@@ -21,4 +16,6 @@ export default async function autoIncrementVersion(tree: Tree): Promise<void> {
 
 	await replaceUiVersionGenerator(tree, { newVersion });
 	await replaceCliVersionGenerator(tree, { newVersion });
+
+	await formatFiles(tree);
 }

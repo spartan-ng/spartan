@@ -8,6 +8,7 @@ export * from './lib/brn-tooltip-content.component';
 export * from './lib/brn-tooltip-content.directive';
 export * from './lib/brn-tooltip-trigger.directive';
 export * from './lib/brn-tooltip.directive';
+export * from './lib/brn-tooltip.token';
 
 export const BrnTooltipImports = [
 	BrnTooltipDirective,

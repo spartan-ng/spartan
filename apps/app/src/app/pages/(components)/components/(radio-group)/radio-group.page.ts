@@ -1,5 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
+import { hlmH4 } from '@spartan-ng/ui-typography-helm';
 import { CodePreviewDirective } from '../../../../shared/code/code-preview.directive';
 import { CodeComponent } from '../../../../shared/code/code.component';
 import { MainSectionDirective } from '../../../../shared/layout/main-section.directive';
@@ -11,7 +12,8 @@ import { SectionSubHeadingComponent } from '../../../../shared/layout/section-su
 import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { RadioGroupPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './radio-group.preview';
+import { cardCode, RadioGroupCardComponent } from './radio-group--card.example';
+import { defaultCode, defaultImports, defaultSkeleton, RadioGroupPreviewComponent } from './radio-group.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Radio Group' },
@@ -36,6 +38,8 @@ export const routeMeta: RouteMeta = {
 		PageBottomNavComponent,
 		PageBottomNavLinkComponent,
 		RadioGroupPreviewComponent,
+		RadioGroupPreviewComponent,
+		RadioGroupCardComponent,
 	],
 	template: `
 		<section spartanMainSection>
@@ -64,6 +68,15 @@ export const routeMeta: RouteMeta = {
 				<spartan-code [code]="defaultSkeleton" />
 			</div>
 
+			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
+			<h3 id="examples__default" class="${hlmH4} mb-2 mt-6">Card Layout</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-radio-card-preview />
+				</div>
+				<spartan-code secondTab [code]="cardCode" />
+			</spartan-tabs>
+
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="scroll-area" label="Scroll Area" />
 				<spartan-page-bottom-nav-link direction="previous" href="progress" label="Progress" />
@@ -76,4 +89,6 @@ export default class LabelPageComponent {
 	protected readonly defaultCode = defaultCode;
 	protected readonly defaultSkeleton = defaultSkeleton;
 	protected readonly defaultImports = defaultImports;
+
+	protected readonly cardCode = cardCode;
 }

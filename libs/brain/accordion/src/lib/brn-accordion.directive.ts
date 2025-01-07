@@ -23,6 +23,7 @@ import { fromEvent } from 'rxjs';
 	host: {
 		'[attr.data-state]': 'state()',
 	},
+	exportAs: 'brnAccordionItem',
 })
 export class BrnAccordionItemDirective {
 	private static _itemIdGenerator = 0;
@@ -118,6 +119,7 @@ const VERTICAL_KEYS_TO_PREVENT_DEFAULT = ['ArrowUp', 'ArrowDown', 'PageDown', 'P
 		'[attr.data-state]': 'state()',
 		'[attr.data-orientation]': 'orientation()',
 	},
+	exportAs: 'brnAccordion',
 })
 export class BrnAccordionDirective implements AfterContentInit, OnDestroy {
 	private readonly _el = inject(ElementRef);

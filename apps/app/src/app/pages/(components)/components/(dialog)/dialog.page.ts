@@ -21,6 +21,7 @@ import { SectionSubHeadingComponent } from '../../../../shared/layout/section-su
 import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
+import { DialogClosePreviewComponent, defaultCloseCode } from './dialog-close.preview';
 import { DialogContextMenuPreviewComponent, contextMenuCode } from './dialog-context-menu.preview';
 import { DialogDeclarativePreviewComponent, declarativeCode } from './dialog-declarative.preview';
 import { DialogDynamicComponentPreviewComponent, dynamicComponentCode } from './dialog-dynamic-component.preview';
@@ -59,6 +60,7 @@ export const routeMeta: RouteMeta = {
 		HlmAlertIconDirective,
 		HlmAlertTitleDirective,
 		DialogDeclarativePreviewComponent,
+		DialogClosePreviewComponent,
 	],
 	providers: [provideIcons({ lucideTriangleAlert })],
 	template: `
@@ -165,6 +167,18 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="dynamicComponentCode" />
 			</spartan-tabs>
 
+			<spartan-section-sub-heading id="dynamic-component">Close Dialog</spartan-section-sub-heading>
+			<p class="${hlmP} mb-6">
+				You can close the dialog by using a directive, a template reference, or a viewchild/contentchild reference to
+				the dialog.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-dialog-close-preview />
+				</div>
+				<spartan-code secondTab [code]="defaultCloseCode" />
+			</spartan-tabs>
+
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="dropdown-menu" label="Dropdown Menu" />
 				<spartan-page-bottom-nav-link direction="previous" href="data-table" label="Data Table" />
@@ -180,4 +194,5 @@ export default class DialogPageComponent {
 	protected readonly contextMenuCode = contextMenuCode;
 	protected readonly dynamicComponentCode = dynamicComponentCode;
 	protected readonly declarativeCode = declarativeCode;
+	protected readonly defaultCloseCode = defaultCloseCode;
 }

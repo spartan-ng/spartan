@@ -4,20 +4,20 @@
  * Check them out! Give them a try! Leave a star! Their work is incredible!
  */
 
-import { NgTemplateOutlet, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, NgTemplateOutlet } from '@angular/common';
 import {
 	ChangeDetectionStrategy,
 	ChangeDetectorRef,
 	Component,
-	type ElementRef,
+	ElementRef,
+	inject,
 	type OnDestroy,
 	PLATFORM_ID,
 	Renderer2,
-	type TemplateRef,
-	ViewChild,
-	ViewEncapsulation,
-	inject,
 	signal,
+	type TemplateRef,
+	viewChild,
+	ViewEncapsulation,
 } from '@angular/core';
 import { Subject } from 'rxjs';
 
@@ -82,12 +82,7 @@ export class BrnTooltipContentComponent implements OnDestroy {
 	public _exitAnimationDuration = 0;
 
 	/** Reference to the internal tooltip element. */
-	@ViewChild('tooltip', {
-		// Use a static query here since we interact directly with
-		// the DOM which can happen before `ngAfterViewInit`.
-		static: true,
-	})
-	public _tooltip?: ElementRef<HTMLElement>;
+	public _tooltip = viewChild('tooltip', { read: ElementRef<HTMLElement> });
 
 	/** Whether interactions on the page should close the tooltip */
 	private _closeOnInteraction = false;
@@ -216,7 +211,7 @@ export class BrnTooltipContentComponent implements OnDestroy {
 		// We set the classes directly here ourselves so that toggling the tooltip state
 		// isn't bound by change detection. This allows us to hide it even if the
 		// view ref has been detached from the CD tree.
-		const tooltip = this._tooltip?.nativeElement;
+		const tooltip = this._tooltip()?.nativeElement;
 		if (!tooltip || !this._isBrowser) return;
 		this._renderer2.setStyle(tooltip, 'visibility', isVisible ? 'visible' : 'hidden');
 		if (isVisible) {
@@ -231,7 +226,7 @@ export class BrnTooltipContentComponent implements OnDestroy {
 		// We set the classes directly here ourselves so that toggling the tooltip state
 		// isn't bound by change detection. This allows us to hide it even if the
 		// view ref has been detached from the CD tree.
-		const tooltip = this._tooltip?.nativeElement;
+		const tooltip = this._tooltip()?.nativeElement;
 		if (!tooltip || !this._isBrowser) return;
 		this._renderer2.setAttribute(tooltip, 'data-side', side);
 		this._renderer2.setAttribute(tooltip, 'data-state', isVisible ? 'open' : 'closed');

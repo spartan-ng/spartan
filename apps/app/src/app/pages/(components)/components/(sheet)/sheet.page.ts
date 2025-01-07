@@ -13,6 +13,7 @@ import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { SheetSidePreviewComponent, sideCode } from './sheet--side.preview';
+import { SheetClosePreviewComponent, defaultCloseCode } from './sheet-close.preview';
 import { SheetPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './sheet.preview';
 
 export const routeMeta: RouteMeta = {
@@ -39,6 +40,7 @@ export const routeMeta: RouteMeta = {
 		PageBottomNavLinkComponent,
 		SheetPreviewComponent,
 		SheetSidePreviewComponent,
+		SheetClosePreviewComponent,
 	],
 	template: `
 		<section spartanMainSection>
@@ -76,6 +78,14 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="sideCode" />
 			</spartan-tabs>
 
+			<h3 id="examples__sides" class="${hlmH4} mb-2 mt-6">Close Sheet</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-sheet-close-preview />
+				</div>
+				<spartan-code secondTab [code]="defaultCloseCode" />
+			</spartan-tabs>
+
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="skeleton" label="Skeleton" />
 				<spartan-page-bottom-nav-link direction="previous" href="separator" label="Separator" />
@@ -89,4 +99,5 @@ export default class LabelPageComponent {
 	protected readonly defaultSkeleton = defaultSkeleton;
 	protected readonly defaultImports = defaultImports;
 	protected readonly sideCode = sideCode;
+	protected readonly defaultCloseCode = defaultCloseCode;
 }

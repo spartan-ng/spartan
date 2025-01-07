@@ -24,6 +24,11 @@
 			"factory": "./src/generators/migrate-icon/generator",
 			"schema": "./src/generators/migrate-icon/schema.json",
 			"description": "Migrate hlm-icon to ng-icon"
+		},
+		"migrate-core": {
+			"factory": "./src/generators/migrate-core/generator",
+			"schema": "./src/generators/migrate-core/schema.json",
+			"description": "Migrate core library to brain core entrypoing"
 		}
 	},
 	"schematics": {
@@ -51,6 +56,11 @@
 			"factory": "./src/generators/migrate-icon/compat",
 			"schema": "./src/generators/migrate-icon/schema.json",
 			"description": "Migrate hlm-icon to ng-icon"
+		},
+		"migrate-core": {
+			"factory": "./src/generators/migrate-scroll-area/compat",
+			"schema": "./src/generators/migrate-core/schema.json",
+			"description": "Migrate core library to brain core entrypoing"
 		}
 	}
 }

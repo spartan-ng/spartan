@@ -62,18 +62,12 @@ export const routeMeta: RouteMeta = {
 				also builds on top of angular/cdk. To install it run the following command:
 			</p>
 			<spartan-code class="mt-4" code="npm i @angular/cdk" />
-			<spartan-section-sub-heading id="installing-ui-core">Installing ui-core</spartan-section-sub-heading>
-			<p class="${hlmP}">
-				<code class="${hlmCode}">spartan/ui</code>
-				comes with a core package. To get started install this package with the command below:
-			</p>
-			<spartan-code class="mt-4" code="npm i @spartan-ng/ui-core" />
 			<spartan-section-sub-heading id="setting-up-tailwind">Setting up tailwind.config.js</spartan-section-sub-heading>
 			<p class="${hlmP}">
 				You now have to add our spartan-specific configuration to your TailwindCSS setup. To make the setup of your
 				<code class="${hlmCode}">tailwind.config.js</code>
 				as easy as possible, the
-				<code class="${hlmCode}">&#64;spartan-ng/ui-core</code>
+				<code class="${hlmCode}">&#64;spartan-ng/brain</code>
 				package comes with it own preset.
 			</p>
 			<p class="${hlmP}">Simply add it to the presets array of your config file:</p>
@@ -86,7 +80,7 @@ const { join } = require('path');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  presets: [require('@spartan-ng/ui-core/hlm-tailwind-preset')],
+  presets: [require('@spartan-ng/brain/hlm-tailwind-preset')],
   content: [
     join(__dirname, 'src/**/!(*.stories|*.spec).{ts,html}'),
     ...createGlobPatternsForDependencies(__dirname),
@@ -100,7 +94,7 @@ module.exports = {
 				ngCode="
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  presets: [require('@spartan-ng/ui-core/hlm-tailwind-preset')],
+  presets: [require('@spartan-ng/brain/hlm-tailwind-preset')],
   content: [
     './src/**/*.{html,ts}',
     './REPLACE_WITH_PATH_TO_YOUR_COMPONENTS_DIRECTORY/**/*.{html,ts}',

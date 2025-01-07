@@ -1,7 +1,8 @@
-import { formatFiles, Tree, visitNotIgnoredFiles } from '@nx/devkit';
+import { formatFiles, Tree } from '@nx/devkit';
 import { applyChangesToString, ChangeType, StringChange } from '@nx/devkit/src/utils/string-change';
 import { isImported } from '@schematics/angular/utility/ast-utils';
 import ts from 'typescript';
+import { visitFiles } from '../../utils/visit-files';
 import { MigrateIconGeneratorSchema } from './schema';
 
 export async function migrateIconGenerator(tree: Tree, { skipFormat }: MigrateIconGeneratorSchema) {
@@ -17,9 +18,9 @@ export async function migrateIconGenerator(tree: Tree, { skipFormat }: MigrateIc
 }
 
 function replaceTailwindClasses(tree: Tree) {
-	visitNotIgnoredFiles(tree, '.', (path) => {
+	visitFiles(tree, '.', (path) => {
 		// if this is not a html or typescript file then skip
-		if ((!path.endsWith('.ts') && !path.endsWith('.html')) || isInternalFile(path)) {
+		if (!path.endsWith('.ts') && !path.endsWith('.html')) {
 			return;
 		}
 
@@ -145,9 +146,9 @@ function tailwindToSize(className: string): string | null {
 }
 
 function addAccordionIcon(tree: Tree) {
-	visitNotIgnoredFiles(tree, '.', (path) => {
+	visitFiles(tree, '.', (path) => {
 		// if this is not a html or typescript file then skip
-		if ((!path.endsWith('.ts') && !path.endsWith('.html')) || isInternalFile(path)) {
+		if (!path.endsWith('.ts') && !path.endsWith('.html')) {
 			return;
 		}
 
@@ -199,9 +200,9 @@ function addAccordionIcon(tree: Tree) {
 }
 
 function replaceProvideIcons(tree: Tree) {
-	visitNotIgnoredFiles(tree, '.', (path) => {
+	visitFiles(tree, '.', (path) => {
 		// if this is not a typescript file then skip
-		if (!path.endsWith('.ts') || isInternalFile(path)) {
+		if (!path.endsWith('.ts')) {
 			return;
 		}
 
@@ -243,9 +244,9 @@ function replaceProvideIcons(tree: Tree) {
 function replaceSelector(tree: Tree) {
 	// if the element is `<ng-icon hlm` then we need to replace it with `<ng-icon hlm`
 	// we also need to replace the closing tag `</ng-icon>` with `</ng-icon>`
-	visitNotIgnoredFiles(tree, '.', (path) => {
+	visitFiles(tree, '.', (path) => {
 		// if this is not an html file or typescript file (inline templates) then skip
-		if ((!path.endsWith('.html') && !path.endsWith('.ts')) || isInternalFile(path)) {
+		if (!path.endsWith('.html') && !path.endsWith('.ts')) {
 			return;
 		}
 
@@ -266,9 +267,9 @@ function replaceImports(tree: Tree) {
 	// ng modules or standalone components will have import arrays that may need updated.
 	// if the import is `HlmIconModule` then we need to also import `NgIcon`,
 	// if the import is `HlmIconComponent` we need to rename it to `HlmIconDirective` and add the `NgIcon` import.
-	visitNotIgnoredFiles(tree, '.', (path) => {
+	visitFiles(tree, '.', (path) => {
 		// if the file is not a typescript file then skip
-		if (!path.endsWith('.ts') || isInternalFile(path)) {
+		if (!path.endsWith('.ts')) {
 			return;
 		}
 
@@ -359,13 +360,6 @@ function findHlmIconImports(node: ts.SourceFile): ts.Node[] {
 function hasImport(contents: string, importName: string, importPath: string): boolean {
 	const sourceFile = ts.createSourceFile('temp.ts', contents, ts.ScriptTarget.Latest, true);
 	return isImported(sourceFile, importName, importPath);
-}
-
-/**
- * We don't want to run migrations on internal files such as generators and generator tests as we need to keep the old selectors to know what to replace them with.
- */
-function isInternalFile(path: string): boolean {
-	return path.includes('libs/cli/src/generators');
 }
 
 export default migrateIconGenerator;

@@ -1,17 +1,18 @@
 import { Component, computed, input } from '@angular/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideEllipsis } from '@ng-icons/lucide';
 import { hlm } from '@spartan-ng/brain/core';
-import { HlmIconComponent, provideIcons } from '@spartan-ng/ui-icon-helm';
+import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 import { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-pagination-ellipsis',
 	standalone: true,
-	imports: [HlmIconComponent],
+	imports: [NgIcon, HlmIconDirective],
 	providers: [provideIcons({ lucideEllipsis })],
 	template: `
 		<span [class]="_computedClass()">
-			<hlm-icon size="sm" name="lucideEllipsis" />
+			<ng-icon hlm size="sm" name="lucideEllipsis" />
 			<span class="sr-only">More pages</span>
 		</span>
 	`,

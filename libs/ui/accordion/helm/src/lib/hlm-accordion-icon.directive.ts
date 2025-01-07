@@ -1,13 +1,14 @@
 import { Directive, computed, input } from '@angular/core';
+import { provideIcons } from '@ng-icons/core';
 import { lucideChevronDown } from '@ng-icons/lucide';
 import { hlm } from '@spartan-ng/brain/core';
-import { provideHlmIconConfig, provideIcons } from '@spartan-ng/ui-icon-helm';
+import { provideHlmIconConfig } from '@spartan-ng/ui-icon-helm';
 import type { ClassValue } from 'clsx';
 
 @Directive({
 	selector: 'hlm-icon[hlmAccordionIcon], hlm-icon[hlmAccIcon]',
 	standalone: true,
-	providers: [provideIcons({ lucideChevronDown }), provideHlmIconConfig({ name: 'lucideChevronDown', size: 'none' })],
+	providers: [provideIcons({ lucideChevronDown }), provideHlmIconConfig({ size: 'none' })],
 	host: {
 		'[class]': '_computedClass()',
 	},

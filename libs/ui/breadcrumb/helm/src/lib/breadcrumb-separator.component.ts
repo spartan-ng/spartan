@@ -1,14 +1,15 @@
 import { Component, computed, input } from '@angular/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronRight } from '@ng-icons/lucide';
 import { hlm } from '@spartan-ng/brain/core';
-import { HlmIconComponent, provideIcons } from '@spartan-ng/ui-icon-helm';
+import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 import type { ClassValue } from 'clsx';
 
 @Component({
 	// eslint-disable-next-line @angular-eslint/component-selector
 	selector: '[hlmBreadcrumbSeparator]',
 	standalone: true,
-	imports: [HlmIconComponent],
+	imports: [NgIcon, HlmIconDirective],
 	providers: [provideIcons({ lucideChevronRight })],
 	host: {
 		role: 'presentation',
@@ -17,7 +18,7 @@ import type { ClassValue } from 'clsx';
 	},
 	template: `
 		<ng-content>
-			<hlm-icon name="lucideChevronRight" />
+			<ng-icon hlm name="lucideChevronRight" />
 		</ng-content>
 	`,
 })

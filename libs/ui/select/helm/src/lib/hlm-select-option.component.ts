@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCheck } from '@ng-icons/lucide';
 import { hlm } from '@spartan-ng/brain/core';
 import { BrnSelectOptionDirective } from '@spartan-ng/brain/select';
-import { HlmIconComponent, provideIcons } from '@spartan-ng/ui-icon-helm';
+import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 import type { ClassValue } from 'clsx';
 
 @Component({
@@ -22,11 +23,11 @@ import type { ClassValue } from 'clsx';
 			[attr.data-state]="this._brnSelectOption.checkedState()"
 		>
 			@if (this._brnSelectOption.selected()) {
-				<hlm-icon aria-hidden="true" name="lucideCheck" />
+				<ng-icon hlm aria-hidden="true" name="lucideCheck" />
 			}
 		</span>
 	`,
-	imports: [HlmIconComponent],
+	imports: [NgIcon, HlmIconDirective],
 })
 export class HlmSelectOptionComponent {
 	protected readonly _brnSelectOption = inject(BrnSelectOptionDirective, { host: true });

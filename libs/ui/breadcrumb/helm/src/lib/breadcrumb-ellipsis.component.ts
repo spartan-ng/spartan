@@ -1,17 +1,18 @@
 import { Component, computed, input } from '@angular/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideEllipsis } from '@ng-icons/lucide';
 import { hlm } from '@spartan-ng/brain/core';
-import { HlmIconComponent, provideIcons } from '@spartan-ng/ui-icon-helm';
+import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-breadcrumb-ellipsis',
 	standalone: true,
-	imports: [HlmIconComponent],
+	imports: [NgIcon, HlmIconDirective],
 	providers: [provideIcons({ lucideEllipsis })],
 	template: `
 		<span role="presentation" aria-hidden="true" [class]="_computedClass()">
-			<hlm-icon name="lucideEllipsis" class="h-4 w-4" />
+			<ng-icon hlm size="sm" name="lucideEllipsis" />
 			<span class="sr-only">More</span>
 		</span>
 	`,

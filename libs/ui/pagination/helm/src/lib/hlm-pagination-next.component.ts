@@ -1,17 +1,18 @@
 import { BooleanInput } from '@angular/cdk/coercion';
 import { booleanAttribute, Component, computed, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronRight } from '@ng-icons/lucide';
 import { hlm } from '@spartan-ng/brain/core';
 import { ButtonVariants } from '@spartan-ng/ui-button-helm';
-import { HlmIconComponent, provideIcons } from '@spartan-ng/ui-icon-helm';
+import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 import { ClassValue } from 'clsx';
 import { HlmPaginationLinkDirective } from './hlm-pagination-link.directive';
 
 @Component({
 	selector: 'hlm-pagination-next',
 	standalone: true,
-	imports: [HlmPaginationLinkDirective, HlmIconComponent],
+	imports: [HlmPaginationLinkDirective, NgIcon, HlmIconDirective],
 	providers: [provideIcons({ lucideChevronRight })],
 	template: `
 		<a
@@ -24,7 +25,7 @@ import { HlmPaginationLinkDirective } from './hlm-pagination-link.directive';
 			[attr.aria-label]="ariaLabel()"
 		>
 			<span [class.sr-only]="iconOnly()">{{ text() }}</span>
-			<hlm-icon size="sm" name="lucideChevronRight" />
+			<ng-icon hlm size="sm" name="lucideChevronRight" />
 		</a>
 	`,
 })

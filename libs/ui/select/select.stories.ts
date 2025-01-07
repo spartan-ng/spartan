@@ -11,12 +11,12 @@ import {
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown } from '@ng-icons/lucide';
+import { hlm } from '@spartan-ng/brain/core';
 import { BrnSelectImports, BrnSelectTriggerDirective } from '@spartan-ng/brain/select';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
 import { type Meta, type StoryObj, argsToTemplate, moduleMetadata } from '@storybook/angular';
 import type { ClassValue } from 'clsx';
-import { hlm } from '../core/src';
 import { HlmIconDirective } from '../icon/helm/src';
 import { HlmSelectImports } from './helm/src';
 

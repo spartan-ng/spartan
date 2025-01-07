@@ -2,6 +2,11 @@
 	"name": "@spartan-ng/brain",
 	"version": "0.0.1-alpha.357",
 	"sideEffects": false,
+	"exports": {
+		"./hlm-tailwind-preset": {
+			"default": "./hlm-tailwind-preset.js"
+		}
+	},
 	"peerDependencies": {
 		"@angular/cdk": ">=18.0.0",
 		"@angular/common": ">=18.0.0",

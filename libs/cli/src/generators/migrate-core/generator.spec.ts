@@ -80,6 +80,95 @@ describe('migrate-core generator', () => {
 		);
 	});
 
+	it('should import type only imports', async () => {
+		tree.write(
+			'app/src/app/app.component.ts',
+			`
+			import { Component } from '@angular/core';
+			import type { hlm } from '@spartan-ng/ui-core';
+
+			@Component({
+				template: \`
+				\`
+			})
+			export class AppComponent {}
+			`,
+		);
+
+		await migrateCoreGenerator(tree, options);
+
+		const content = tree.read('app/src/app/app.component.ts', 'utf-8');
+		expect(content).toContain(`import type { hlm } from '@spartan-ng/brain/core';`);
+	});
+
+	it('should update default imports', async () => {
+		tree.write(
+			'app/src/app/app.component.ts',
+			`
+			import { Component } from '@angular/core';
+			import hlm from '@spartan-ng/ui-core';
+
+			@Component({
+				template: \`
+				\`
+			})
+			export class AppComponent {}
+			`,
+		);
+
+		await migrateCoreGenerator(tree, options);
+
+		const content = tree.read('app/src/app/app.component.ts', 'utf-8');
+		expect(content).toContain(`import hlm from '@spartan-ng/brain/core';`);
+	});
+
+	it('should update star imports', async () => {
+		tree.write(
+			'app/src/app/app.component.ts',
+			`
+			import { Component } from '@angular/core';
+			import * as hlm from '@spartan-ng/ui-core';
+
+			@Component({
+				template: \`
+				\`
+			})
+			export class AppComponent {}
+			`,
+		);
+
+		await migrateCoreGenerator(tree, options);
+
+		const content = tree.read('app/src/app/app.component.ts', 'utf-8');
+		expect(content).toContain(`import * as hlm from '@spartan-ng/brain/core';`);
+	});
+
+	it('should update exports', async () => {
+		tree.write(
+			'app/src/app/app.component.ts',
+			`
+			export { hlm } from '@spartan-ng/ui-core';
+			`,
+		);
+		await migrateCoreGenerator(tree, options);
+
+		const content = tree.read('app/src/app/app.component.ts', 'utf-8');
+		expect(content).toContain(`export { hlm } from '@spartan-ng/brain/core';`);
+	});
+
+	it('should update star exports', async () => {
+		tree.write(
+			'app/src/app/app.component.ts',
+			`
+			export * from '@spartan-ng/ui-core';
+			`,
+		);
+		await migrateCoreGenerator(tree, options);
+
+		const content = tree.read('app/src/app/app.component.ts', 'utf-8');
+		expect(content).toContain(`export * from '@spartan-ng/brain/core';`);
+	});
+
 	it('should update the tailwind config file', async () => {
 		tree.write(
 			'app/tailwind.config.js',

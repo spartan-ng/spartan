@@ -18,10 +18,32 @@ function updateImports(tree: Tree) {
 	visitFiles(tree, '/', (path) => {
 		const content = tree.read(path).toString('utf-8');
 
-		if (/@spartan-ng\/ui-core/.test(content)) {
-			const updatedCode = content.replace(/import\s+\{[^}]*\}\s+from\s+['"]@spartan-ng\/ui-core['"];/g, (match) =>
-				match.replace('@spartan-ng/ui-core', '@spartan-ng/brain/core'),
-			);
+		if (content.includes('@spartan-ng/ui-core')) {
+			const updatedCode = content
+				// Handle `import { ... } from '@spartan-ng/ui-core';`
+				.replace(/import\s+\{[^}]*\}\s+from\s+['"]@spartan-ng\/ui-core['"];/g, (match) =>
+					match.replace('@spartan-ng/ui-core', '@spartan-ng/brain/core'),
+				)
+				// Handle `import type { ... } from '@spartan-ng/ui-core';`
+				.replace(/import\s+type\s+\{[^}]*\}\s+from\s+['"]@spartan-ng\/ui-core['"];/g, (match) =>
+					match.replace('@spartan-ng/ui-core', '@spartan-ng/brain/core'),
+				)
+				// Handle `export { ... } from '@spartan-ng/ui-core';`
+				.replace(/export\s+\{[^}]*\}\s+from\s+['"]@spartan-ng\/ui-core['"];/g, (match) =>
+					match.replace('@spartan-ng/ui-core', '@spartan-ng/brain/core'),
+				)
+				// Handle `import * as name from '@spartan-ng/ui-core';`
+				.replace(/import\s+\*\s+as\s+\w+\s+from\s+['"]@spartan-ng\/ui-core['"];/g, (match) =>
+					match.replace('@spartan-ng/ui-core', '@spartan-ng/brain/core'),
+				)
+				// Handle `import defaultExport from '@spartan-ng/ui-core';`
+				.replace(/import\s+\w+\s+from\s+['"]@spartan-ng\/ui-core['"];/g, (match) =>
+					match.replace('@spartan-ng/ui-core', '@spartan-ng/brain/core'),
+				)
+				// Handle `export * from '@spartan-ng/ui-core';`
+				.replace(/export\s+\*\s+from\s+['"]@spartan-ng\/ui-core['"];/g, (match) =>
+					match.replace('@spartan-ng/ui-core', '@spartan-ng/brain/core'),
+				);
 
 			tree.write(path, updatedCode);
 		}

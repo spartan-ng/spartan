@@ -1,6 +1,6 @@
 import { Directive, computed, input } from '@angular/core';
+import { hlm } from '@spartan-ng/brain/core';
 import { BrnDialogTitleDirective } from '@spartan-ng/brain/dialog';
-import { hlm } from '@spartan-ng/ui-core';
 import type { ClassValue } from 'clsx';
 
 @Directive({

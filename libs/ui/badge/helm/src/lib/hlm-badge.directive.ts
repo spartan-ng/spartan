@@ -1,6 +1,6 @@
 import type { BooleanInput } from '@angular/cdk/coercion';
 import { Directive, booleanAttribute, computed, input } from '@angular/core';
-import { hlm } from '@spartan-ng/ui-core';
+import { hlm } from '@spartan-ng/brain/core';
 import { type VariantProps, cva } from 'class-variance-authority';
 import type { ClassValue } from 'clsx';
 

@@ -13,7 +13,7 @@ import {
 	ViewEncapsulation,
 	booleanAttribute,
 } from '@angular/core';
-import { type TableClassesSettable, provideTableClassesSettableExisting } from '@spartan-ng/ui-core';
+import { type TableClassesSettable, provideTableClassesSettableExisting } from '@spartan-ng/brain/core';
 import { BrnColumnDefComponent } from './brn-column-def.component';
 
 export type BrnTableDataSourceInput<T> = CdkTableDataSourceInput<T>;

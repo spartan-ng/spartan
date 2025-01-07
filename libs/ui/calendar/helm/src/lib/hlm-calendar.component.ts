@@ -1,6 +1,5 @@
 import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import { Component, booleanAttribute, computed, input, model, numberAttribute, viewChild } from '@angular/core';
-import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronLeft, lucideChevronRight } from '@ng-icons/lucide';
 import {
 	BrnCalendarCellButtonDirective,
@@ -15,10 +14,10 @@ import {
 	Weekday,
 	injectBrnCalendarI18n,
 } from '@spartan-ng/brain/calendar';
+import { hlm } from '@spartan-ng/brain/core';
 import { injectDateAdapter } from '@spartan-ng/brain/date-time';
 import { buttonVariants } from '@spartan-ng/ui-button-helm';
-import { hlm } from '@spartan-ng/ui-core';
-import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
+import { HlmIconComponent, provideIcons } from '@spartan-ng/ui-icon-helm';
 
 @Component({
 	standalone: true,
@@ -33,8 +32,7 @@ import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 		BrnCalendarCellButtonDirective,
 		BrnCalendarCellDirective,
 		BrnCalendarGridDirective,
-		NgIcon,
-		HlmIconDirective,
+		HlmIconComponent,
 	],
 	viewProviders: [provideIcons({ lucideChevronLeft, lucideChevronRight })],
 	template: `
@@ -62,14 +60,14 @@ import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 								brnCalendarPreviousButton
 								class="ring-offset-background focus-visible:ring-ring border-input hover:bg-accent hover:text-accent-foreground absolute left-1 inline-flex h-7 w-7 items-center justify-center whitespace-nowrap rounded-md border bg-transparent p-0 text-sm font-medium opacity-50 transition-colors hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
 							>
-								<ng-icon hlm name="lucideChevronLeft" size="sm" />
+								<hlm-icon name="lucideChevronLeft" size="sm" />
 							</button>
 
 							<button
 								brnCalendarNextButton
 								class="ring-offset-background focus-visible:ring-ring border-input hover:bg-accent hover:text-accent-foreground absolute right-1 inline-flex h-7 w-7 items-center justify-center whitespace-nowrap rounded-md border bg-transparent p-0 text-sm font-medium opacity-50 transition-colors hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
 							>
-								<ng-icon hlm name="lucideChevronRight" size="sm" />
+								<hlm-icon name="lucideChevronRight" size="sm" />
 							</button>
 						</div>
 					</div>

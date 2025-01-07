@@ -8,11 +8,10 @@ import {
 	input,
 	untracked,
 } from '@angular/core';
-import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideArrowLeft } from '@ng-icons/lucide';
+import { hlm } from '@spartan-ng/brain/core';
 import { HlmButtonDirective, provideBrnButtonConfig } from '@spartan-ng/ui-button-helm';
-import { hlm } from '@spartan-ng/ui-core';
-import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
+import { HlmIconComponent, provideIcons } from '@spartan-ng/ui-icon-helm';
 import type { ClassValue } from 'clsx';
 import { HlmCarouselComponent } from './hlm-carousel.component';
 
@@ -28,9 +27,9 @@ import { HlmCarouselComponent } from './hlm-carousel.component';
 	},
 	hostDirectives: [{ directive: HlmButtonDirective, inputs: ['variant', 'size'] }],
 	providers: [provideIcons({ lucideArrowLeft }), provideBrnButtonConfig({ variant: 'outline', size: 'icon' })],
-	imports: [NgIcon, HlmIconDirective],
+	imports: [HlmIconComponent],
 	template: `
-		<ng-icon hlm size="sm" name="lucideArrowLeft" />
+		<hlm-icon size="sm" name="lucideArrowLeft" />
 		<span class="sr-only">Previous slide</span>
 	`,
 })

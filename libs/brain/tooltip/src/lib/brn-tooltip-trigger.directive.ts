@@ -49,7 +49,7 @@ import {
 	untracked,
 	ViewContainerRef,
 } from '@angular/core';
-import { brnDevMode } from '@spartan-ng/ui-core';
+import { brnDevMode } from '@spartan-ng/brain/core';
 import { Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 import { BrnTooltipContentComponent } from './brn-tooltip-content.component';

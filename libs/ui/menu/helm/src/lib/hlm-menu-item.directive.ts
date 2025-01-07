@@ -1,6 +1,6 @@
 import { Directive, Input, booleanAttribute, computed, input, signal } from '@angular/core';
+import { hlm } from '@spartan-ng/brain/core';
 import { BrnMenuItemDirective } from '@spartan-ng/brain/menu';
-import { hlm } from '@spartan-ng/ui-core';
 import { type VariantProps, cva } from 'class-variance-authority';
 import type { ClassValue } from 'clsx';
 

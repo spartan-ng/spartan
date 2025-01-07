@@ -1,5 +1,5 @@
 import type { NgZone } from '@angular/core';
-import { brnZoneOptimized } from '@spartan-ng/ui-core';
+import { brnZoneOptimized } from '@spartan-ng/brain/core';
 import { Observable, Subject, fromEvent, merge } from 'rxjs';
 import { distinctUntilChanged, filter, map, takeUntil } from 'rxjs/operators';
 

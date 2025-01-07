@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
+import { hlm } from '@spartan-ng/brain/core';
 import { BRN_SLIDER, BRN_SLIDER_TRACK, BrnSliderTrackDirective } from '@spartan-ng/brain/slider';
-import { hlm } from '@spartan-ng/ui-core';
 import type { ClassValue } from 'clsx';
 import { HlmSliderTickMarkDirective } from './hlm-slider-tick-mark.directive';
 import { HlmSliderTickMarksDirective } from './hlm-slider-tick-marks.directive';

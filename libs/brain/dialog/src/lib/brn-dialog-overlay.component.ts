@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation, inject } from '@angular/core';
-import { provideCustomClassSettableExisting } from '@spartan-ng/ui-core';
+import { provideCustomClassSettableExisting } from '@spartan-ng/brain/core';
 import { BrnDialogComponent } from './brn-dialog.component';
 
 @Component({

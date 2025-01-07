@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed, inject, input } from '@angular/core';
-import { hlm } from '@spartan-ng/ui-core';
+import { hlm } from '@spartan-ng/brain/core';
 import type { ClassValue } from 'clsx';
 import { HlmCarouselComponent } from './hlm-carousel.component';
 

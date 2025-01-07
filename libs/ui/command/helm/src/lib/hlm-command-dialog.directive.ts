@@ -1,5 +1,5 @@
 import { Directive, ElementRef, Renderer2, computed, effect, inject, input, signal } from '@angular/core';
-import { hlm, injectExposesStateProvider } from '@spartan-ng/ui-core';
+import { hlm, injectExposesStateProvider } from '@spartan-ng/brain/core';
 import type { ClassValue } from 'clsx';
 import { HlmCommandDirective } from './hlm-command.directive';
 

@@ -1,9 +1,9 @@
 import { BooleanInput } from '@angular/cdk/coercion';
 import { Component, booleanAttribute, computed, forwardRef, input, model, output } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { hlm } from '@spartan-ng/brain/core';
 import { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import { BrnSwitchComponent, BrnSwitchThumbComponent } from '@spartan-ng/brain/switch';
-import { hlm } from '@spartan-ng/ui-core';
 import type { ClassValue } from 'clsx';
 import { HlmSwitchThumbDirective } from './hlm-switch-thumb.directive';
 export const HLM_SWITCH_VALUE_ACCESSOR = {

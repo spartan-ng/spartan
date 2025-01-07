@@ -1,10 +1,10 @@
 import { Directive, inject } from '@angular/core';
-import { BrnDialogContentDirective } from '@spartan-ng/brain/dialog';
 import {
 	type ExposesSide,
 	provideExposedSideProviderExisting,
 	provideExposesStateProviderExisting,
-} from '@spartan-ng/ui-core';
+} from '@spartan-ng/brain/core';
+import { BrnDialogContentDirective } from '@spartan-ng/brain/dialog';
 import { BrnSheetComponent } from './brn-sheet.component';
 
 @Directive({

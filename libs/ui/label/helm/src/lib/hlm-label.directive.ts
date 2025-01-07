@@ -1,6 +1,6 @@
 import { Directive, computed, inject, input, signal } from '@angular/core';
+import { hlm } from '@spartan-ng/brain/core';
 import { BrnLabelDirective } from '@spartan-ng/brain/label';
-import { hlm } from '@spartan-ng/ui-core';
 import { type VariantProps, cva } from 'class-variance-authority';
 import type { ClassValue } from 'clsx';
 

@@ -1,23 +1,23 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { provideIcons } from '@ng-icons/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideApple, lucideCreditCard } from '@ng-icons/lucide';
 import { BrnRadioComponent } from '@spartan-ng/brain/radio-group';
-import { HlmIconComponent } from '@spartan-ng/ui-icon-helm';
+import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 import { HlmRadioDirective, HlmRadioGroupComponent } from '@spartan-ng/ui-radiogroup-helm';
 
 @Component({
 	selector: 'spartan-radio-card-preview',
 	standalone: true,
 	providers: [provideIcons({ lucideCreditCard, lucideApple })],
-	imports: [FormsModule, BrnRadioComponent, HlmRadioDirective, HlmRadioGroupComponent, HlmIconComponent],
+	imports: [FormsModule, BrnRadioComponent, HlmRadioDirective, HlmRadioGroupComponent, NgIcon, HlmIconDirective],
 	template: `
 		<hlm-radio-group class="grid grid-cols-3 gap-4" [(ngModel)]="payment">
 			<brn-radio hlm value="card" class="group space-x-0">
 				<div
 					class="border-muted bg-popover hover:bg-accent hover:text-accent-foreground group-data-[checked=true]:border-primary flex flex-col items-center justify-between rounded-md border-2 p-4"
 				>
-					<hlm-icon name="lucideCreditCard" class="mb-3" />
+					<ng-icon hlm name="lucideCreditCard" class="mb-3" />
 					<!-- FIXME style issue with short text -->
 					Card
 				</div>
@@ -61,21 +61,21 @@ import { FormsModule } from '@angular/forms';
 import { provideIcons } from '@ng-icons/core';
 import { lucideApple, lucideCreditCard } from '@ng-icons/lucide';
 import { BrnRadioComponent } from '@spartan-ng/brain/radio-group';
-import { HlmIconComponent } from '@spartan-ng/ui-icon-helm';
+import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 import { HlmRadioDirective, HlmRadioGroupComponent } from '@spartan-ng/ui-radiogroup-helm';
 
 @Component({
 	selector: 'spartan-radio-card-preview',
 	standalone: true,
 	providers: [provideIcons({ lucideCreditCard, lucideApple })],
-	imports: [FormsModule, BrnRadioComponent, HlmRadioDirective, HlmRadioGroupComponent, HlmIconComponent],
+	imports: [FormsModule, BrnRadioComponent, HlmRadioDirective, HlmRadioGroupComponent, HlmIconDirective],
 	template: \`
 		<hlm-radio-group class="grid grid-cols-3 gap-4" [(ngModel)]="payment">
 			<brn-radio hlm value="card" class="group space-x-0">
 				<div
 					class="border-muted bg-popover hover:bg-accent hover:text-accent-foreground group-data-[checked=true]:border-primary flex flex-col items-center justify-between rounded-md border-2 p-4"
 				>
-					<hlm-icon name="lucideCreditCard" class="mb-3" />
+					<ng-icon hlm name="lucideCreditCard" class="mb-3" />
 					Card
 				</div>
 			</brn-radio>

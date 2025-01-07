@@ -88,7 +88,7 @@ describe('migrate-icon generator', () => {
 			@Component({
 				imports: [HlmIconModule],
 				template: \`
-					<ng-icon hlm size='xl' name="lucideChevronRight" />
+					<hlm-icon size='xl' name="lucideChevronRight" />
 				\`
 			})
 			export class AppModule {}
@@ -114,7 +114,7 @@ describe('migrate-icon generator', () => {
 			@Component({
 				imports: [HlmIconComponent],
 				template: \`
-					<ng-icon hlm size='xl' name="lucideChevronRight" />
+					<hlm-icon size='xl' name="lucideChevronRight" />
 				\`
 			})
 			export class AppModule {}
@@ -161,7 +161,7 @@ describe('migrate-icon generator', () => {
 
 			@Component({
 				template: \`
-					<ng-icon hlm hlmAccIcon name="lucideChevronDown" />
+					<hlm-icon hlmAccIcon name="lucideChevronDown" />
 				\`
 			})
 			export class AppComponent {}
@@ -183,12 +183,12 @@ describe('migrate-icon generator', () => {
 
 			@Component({
 				template: \`
-					<ng-icon hlm size="sm" name="lucideChevronRight" />
-					<ng-icon hlm size="base" name="lucideChevronRight" />
-					<ng-icon hlm size="lg" name="lucideChevronRight" />
-					<ng-icon hlm size="6px" name="lucideChevronRight" />
-					<ng-icon hlm size="8px" class="text-red-500" name="lucideChevronRight" />
-					<ng-icon hlm size="sm" class="ml-2" name="lucideChevronUp" />
+					<hlm-icon size="sm" name="lucideChevronRight" />
+					<hlm-icon size="base" name="lucideChevronRight" />
+					<hlm-icon size="lg" name="lucideChevronRight" />
+					<hlm-icon size="6px" name="lucideChevronRight" />
+					<hlm-icon size="8px" class="text-red-500" name="lucideChevronRight" />
+					<hlm-icon size="sm" class="ml-2" name="lucideChevronUp" />
 				\`
 			})
 			export class AppComponent {}

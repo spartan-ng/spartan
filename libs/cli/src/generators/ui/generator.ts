@@ -1,7 +1,6 @@
-import { type GeneratorCallback, type Tree, addDependenciesToPackageJson, runTasksInSerial } from '@nx/devkit';
+import { type GeneratorCallback, type Tree, runTasksInSerial } from '@nx/devkit';
 import { prompt } from 'enquirer';
 import { Config, getOrCreateConfig } from '../../utils/config';
-import { SPARTAN_COLLAPSIBLE_BRAIN_VERSION } from '../base/versions';
 import { addDependentPrimitives } from './add-dependent-primitive';
 import type { HlmUIGeneratorSchema } from './schema';
 
@@ -50,11 +49,6 @@ async function createPrimitiveLibraries(
 	}
 	await replaceContextAndMenuBar(primitivesToCreate, allPrimitivesSelected);
 
-	if (primitivesToCreate.includes('collapsible')) {
-		tasks.push(
-			addDependenciesToPackageJson(tree, { '@spartan-ng/brain/collapsible': SPARTAN_COLLAPSIBLE_BRAIN_VERSION }, {}),
-		);
-	}
 	if (primitivesToCreate.length === 1 && primitivesToCreate[0] === 'collapsible') {
 		return tasks;
 	}
@@ -76,7 +70,6 @@ async function createPrimitiveLibraries(
 				publicName: '',
 				primitiveName: '',
 				peerDependencies,
-				skipBrainDependencies: options.skipBrainDependencies,
 				directory: options.directory ?? config.componentsPath,
 				tags: options.tags,
 				rootProject: options.rootProject,

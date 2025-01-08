@@ -22,6 +22,7 @@
 		"release-cli": "nx run-many --target=release --projects=tag:scope:cli --parallel=1",
 		"release-ui": "nx run-many --target=release --projects=tag:scope:core,tag:scope:brain --parallel=1",
 		"start": "nx serve app",
+		"storybook": "nx storybook ui-storybook",
 		"test": "nx run-many --target test --all"
 	},
 	"dependencies": {

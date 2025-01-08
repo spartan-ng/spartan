@@ -1,4 +1,4 @@
-import { type Tree, updateJson } from '@nx/devkit';
+import { formatFiles, type Tree, updateJson } from '@nx/devkit';
 import process from 'node:process';
 
 export default async function replaceCliVersionGenerator(tree: Tree, options?: { newVersion: string }): Promise<void> {
@@ -14,6 +14,8 @@ export default async function replaceCliVersionGenerator(tree: Tree, options?: {
 		pkgJson.version = newVersion;
 		return pkgJson;
 	});
+
+	await formatFiles(tree);
 
 	console.log(`updated CLI version to ${newVersion}`);
 }

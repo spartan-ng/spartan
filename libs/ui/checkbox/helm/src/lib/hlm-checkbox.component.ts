@@ -32,7 +32,7 @@ export const HLM_CHECKBOX_VALUE_ACCESSOR = {
 			(changed)="_handleChange()"
 			(touched)="_onTouched?.()"
 		>
-			<ng-icon hlm size="sm" name="lucideCheck" />
+			<ng-icon [class]="_computedIconClass()" hlm size="sm" name="lucideCheck" />
 		</brn-checkbox>
 	`,
 	host: {

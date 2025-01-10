@@ -36,7 +36,7 @@ export async function healthcheckGenerator(tree: Tree, options: HealthcheckGener
 	// if there are some failed healthchecks that can be fixed, ask the user if they want to fix them
 	for (const report of failedReports) {
 		if (report.fixable && isHealthcheckFixable(report.healthcheck)) {
-			const fix = options.autoFix ?? (await promptUser(report.healthcheck.prompt));
+			const fix = options.autoFix || (await promptUser(report.healthcheck.prompt));
 
 			if (fix) {
 				await report.healthcheck.fix(tree);

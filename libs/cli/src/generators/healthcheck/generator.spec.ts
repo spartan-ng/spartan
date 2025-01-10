@@ -1,4 +1,4 @@
-import { readJson, Tree } from '@nx/devkit';
+import { readJson, Tree, writeJson } from '@nx/devkit';
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
 import { healthcheckGenerator } from './generator';
 
@@ -8,18 +8,15 @@ describe('healthcheck generator', () => {
 	beforeEach(async () => {
 		tree = createTreeWithEmptyWorkspace();
 
-		tree.write(
-			'package.json',
-			JSON.stringify({
-				dependencies: {
-					'@spartan-ng/brain': '0.0.1-alpha.300',
-					'@spartan-ng/ui-checkbox-brain': '0.0.1-alpha.300',
-				},
-				devDependencies: {
-					'@spartan-ng/cli': '0.0.1-alpha.300',
-				},
-			}),
-		);
+		writeJson(tree, 'package.json', {
+			dependencies: {
+				'@spartan-ng/brain': '0.0.1-alpha.300',
+				'@spartan-ng/ui-checkbox-brain': '0.0.1-alpha.300',
+			},
+			devDependencies: {
+				'@spartan-ng/cli': '0.0.1-alpha.300',
+			},
+		});
 
 		// add a file with legacy imports
 		tree.write(

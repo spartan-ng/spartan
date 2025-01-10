@@ -65,6 +65,7 @@ export class SideNavContentComponent {
 				{ label: 'Dark Mode', url: '/dark-mode' },
 				{ label: 'Typography', url: '/typography' },
 				{ label: 'Figma', url: '/figma' },
+				{ label: 'Health Checks', url: '/health-checks' },
 			],
 		},
 		{

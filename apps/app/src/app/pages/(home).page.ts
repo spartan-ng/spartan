@@ -6,7 +6,6 @@ import { lucideLayers, lucidePuzzle, lucideStar } from '@ng-icons/lucide';
 import { HlmBadgeDirective } from '@spartan-ng/ui-badge-helm';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import {
-	HlmCardContentDirective,
 	HlmCardDescriptionDirective,
 	HlmCardDirective,
 	HlmCardHeaderDirective,
@@ -39,7 +38,6 @@ const lead = 'leading-normal text-muted-foreground sm:text-xl sm:leading-8';
 		HlmCardHeaderDirective,
 		HlmCardTitleDirective,
 		HlmCardDescriptionDirective,
-		HlmCardContentDirective,
 		NgIcon,
 		HlmIconDirective,
 		ThreeHundredComponent,

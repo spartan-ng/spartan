@@ -1,6 +1,5 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
-import { CodeComponent } from '@spartan-ng/app/app/shared/code/code.component';
 import { MainSectionDirective } from '@spartan-ng/app/app/shared/layout/main-section.directive';
 import { PageBottomNavLinkComponent } from '@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav-link.component';
 import { PageBottomNavComponent } from '@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav.component';
@@ -30,7 +29,6 @@ export const routeMeta: RouteMeta = {
 		PageBottomNavLinkComponent,
 		PageNavComponent,
 		SectionSubHeadingComponent,
-		CodeComponent,
 		HlmAspectRatioDirective,
 	],
 	template: `
@@ -70,7 +68,7 @@ export const routeMeta: RouteMeta = {
 				https://www.figma.com/community/file/1203061493325953101
 			</a>
 			<spartan-page-bottom-nav>
-				<spartan-page-bottom-nav-link href="/components" label="Components" />
+				<spartan-page-bottom-nav-link href="/health-checks" label="Health Checks" />
 				<spartan-page-bottom-nav-link direction="previous" href="typography" label="Typography" />
 			</spartan-page-bottom-nav>
 		</section>

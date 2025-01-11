@@ -161,6 +161,7 @@
 		"less": "^4.2.0",
 		"ng-packagr": "18.2.1",
 		"nx": "20.1.1",
+		"picocolors": "^1.1.1",
 		"playwright": "^1.47.2",
 		"postcss": "^8.4.47",
 		"postcss-import": "~16.1.0",

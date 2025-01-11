@@ -1,0 +1,19 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"$id": "Healthcheck",
+	"title": "",
+	"type": "object",
+	"properties": {
+		"autoFix": {
+			"type": "boolean",
+			"default": false,
+			"description": "Automatically fix any issues"
+		},
+		"skipFormat": {
+			"type": "boolean",
+			"default": false,
+			"description": "Skip formatting files"
+		}
+	},
+	"required": []
+}

@@ -10,6 +10,7 @@
 		"enquirer": "2.3.6",
 		"jsonc-eslint-parser": "^2.1.0",
 		"nx": ">=20.0.0",
+		"picocolors": "^1.1.1",
 		"semver": "7.5.4",
 		"typescript": ">=5.0.0"
 	},

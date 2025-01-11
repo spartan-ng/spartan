@@ -1,11 +1,9 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
-import { NgIcon, provideIcons } from '@ng-icons/core';
+import { provideIcons } from '@ng-icons/core';
 import { lucideTriangleAlert } from '@ng-icons/lucide';
-import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 import { hlmCode, hlmH4, hlmP } from '@spartan-ng/ui-typography-helm';
 import { CodeComponent } from '../../../shared/code/code.component';
-import { ComingSoonComponent } from '../../../shared/layout/coming-soon.component';
 import { MainSectionDirective } from '../../../shared/layout/main-section.directive';
 import { PageBottomNavLinkComponent } from '../../../shared/layout/page-bottom-nav/page-bottom-nav-link.component';
 import { PageBottomNavComponent } from '../../../shared/layout/page-bottom-nav/page-bottom-nav.component';
@@ -13,7 +11,6 @@ import { PageNavComponent } from '../../../shared/layout/page-nav/page-nav.compo
 import { SectionIntroComponent } from '../../../shared/layout/section-intro.component';
 import { SectionSubHeadingComponent } from '../../../shared/layout/section-sub-heading.component';
 import { TabsCliComponent } from '../../../shared/layout/tabs-cli.component';
-import { TabsComponent } from '../../../shared/layout/tabs.component';
 import { metaWith } from '../../../shared/meta/meta.util';
 
 export const routeMeta: RouteMeta = {
@@ -31,12 +28,8 @@ export const routeMeta: RouteMeta = {
 		PageBottomNavComponent,
 		PageBottomNavLinkComponent,
 		PageNavComponent,
-		ComingSoonComponent,
 		SectionSubHeadingComponent,
 		CodeComponent,
-		NgIcon,
-		HlmIconDirective,
-		TabsComponent,
 		TabsCliComponent,
 	],
 	providers: [provideIcons({ lucideTriangleAlert })],

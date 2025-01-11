@@ -9,7 +9,7 @@ import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
 import { BrnSelectModule } from '@spartan-ng/brain/select';
 import { BrnTableModule, type PaginatorState, useBrnColumnManager } from '@spartan-ng/brain/table';
 import { HlmButtonModule } from '@spartan-ng/ui-button-helm';
-import { HlmCheckboxCheckIconComponent, HlmCheckboxComponent } from '@spartan-ng/ui-checkbox-helm';
+import { HlmCheckboxComponent } from '@spartan-ng/ui-checkbox-helm';
 import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
 import { HlmMenuModule } from '@spartan-ng/ui-menu-helm';
@@ -168,7 +168,6 @@ const PAYMENT_DATA: Payment[] = [
 		HlmIconDirective,
 		HlmInputDirective,
 
-		HlmCheckboxCheckIconComponent,
 		HlmCheckboxComponent,
 
 		BrnSelectModule,
@@ -404,7 +403,7 @@ import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { lucideArrowUpDown, lucideChevronDown, lucideEllipsis } from '@ng-icons/lucide';
 import { HlmButtonModule } from '@spartan-ng/ui-button-helm';
-import { HlmCheckboxCheckIconComponent, HlmCheckboxComponent } from '@spartan-ng/ui-checkbox-helm';
+import { HlmCheckboxComponent } from '@spartan-ng/ui-checkbox-helm';
 import { HlmIconDirective, provideIcons } from '@spartan-ng/ui-icon-helm';
 import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
 import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
@@ -565,7 +564,6 @@ const PAYMENT_DATA: Payment[] = [
     HlmIconDirective,
     HlmInputDirective,
 
-    HlmCheckboxCheckIconComponent,
     HlmCheckboxComponent,
 
     BrnSelectModule,

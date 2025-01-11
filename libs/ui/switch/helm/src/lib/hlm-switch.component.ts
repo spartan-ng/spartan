@@ -28,7 +28,7 @@ export const HLM_SWITCH_VALUE_ACCESSOR = {
 			[class]="_computedClass()"
 			[checked]="checked()"
 			(changed)="handleChange($event)"
-			(touched)="_onTouched()"
+			(touched)="_onTouched?.()"
 			[disabled]="disabled()"
 			[id]="id()"
 			[aria-label]="ariaLabel()"
@@ -50,8 +50,10 @@ export class HlmSwitchComponent {
 		),
 	);
 
+	/** The checked state of the switch. */
 	public readonly checked = model<boolean>(false);
 
+	/** The disabled state of the switch. */
 	public readonly disabled = input<boolean, BooleanInput>(false, {
 		transform: booleanAttribute,
 	});
@@ -68,16 +70,15 @@ export class HlmSwitchComponent {
 	/** Used to set the aria-describedby attribute on the underlying brn element. */
 	public readonly ariaDescribedby = input<string | null>(null, { alias: 'aria-describedby' });
 
+	/** Emits when the checked state of the switch changes. */
 	public readonly changed = output<boolean>();
 
-	// eslint-disable-next-line @typescript-eslint/no-empty-function
-	protected _onChange: ChangeFn<boolean> = () => {};
-	// eslint-disable-next-line @typescript-eslint/no-empty-function
-	protected _onTouched: TouchFn = () => {};
+	protected _onChange?: ChangeFn<boolean>;
+	protected _onTouched?: TouchFn;
 
 	protected handleChange(value: boolean): void {
 		this.checked.set(value);
-		this._onChange(value);
+		this._onChange?.(value);
 		this.changed.emit(value);
 	}
 

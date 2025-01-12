@@ -1,7 +1,7 @@
 import { Directive, computed, input } from '@angular/core';
 import { injectHlmIconConfig } from './hlm-icon.token';
 
-export type IconSize = 'xs' | 'sm' | 'base' | 'lg' | 'xl' | 'none' | ({} & string);
+export type IconSize = 'xs' | 'sm' | 'base' | 'lg' | 'xl' | 'none' | (Record<never, never> & string);
 
 @Directive({
 	selector: 'ng-icon[hlm]',

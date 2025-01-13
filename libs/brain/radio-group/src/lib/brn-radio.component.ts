@@ -47,7 +47,11 @@ export class BrnRadioChange<T> {
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<div style="display: flex; height: fit-content; width: fit-content" (click)="onTouchTargetClick($event)">
+		<div
+			data-slot="indicator"
+			style="display: flex; height: fit-content; width: fit-content"
+			(click)="onTouchTargetClick($event)"
+		>
 			<ng-content select="[target],[indicator]" />
 		</div>
 		<input
@@ -67,7 +71,7 @@ export class BrnRadioChange<T> {
 			(change)="onInputInteraction($event)"
 			(click)="onInputClick($event)"
 		/>
-		<label style="display: flex; height: fit-content; width: fit-content" [for]="inputId()">
+		<label [for]="inputId()" data-slot="label">
 			<ng-content />
 		</label>
 	`,

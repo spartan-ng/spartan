@@ -5,7 +5,7 @@ import { HlmDialogOverlayDirective } from './hlm-dialog-overlay.directive';
 @Component({
 	selector: 'hlm-dialog',
 	standalone: true,
-	imports: [BrnDialogComponent, BrnDialogOverlayComponent, HlmDialogOverlayDirective],
+	imports: [BrnDialogOverlayComponent, HlmDialogOverlayDirective],
 	providers: [
 		{
 			provide: BrnDialogComponent,

@@ -1,14 +1,21 @@
 import { BooleanInput } from '@angular/cdk/coercion';
-import { booleanAttribute, Component, computed, input, model } from '@angular/core';
+import { booleanAttribute, Component, computed, forwardRef, input, model, output, signal } from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCalendar } from '@ng-icons/lucide';
 import { hlm } from '@spartan-ng/brain/core';
+import { type ChangeFn, type TouchFn } from '@spartan-ng/brain/forms';
 import { BrnPopoverComponent, BrnPopoverContentDirective, BrnPopoverTriggerDirective } from '@spartan-ng/brain/popover';
 import { HlmCalendarComponent } from '@spartan-ng/ui-calendar-helm';
 import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 import { HlmPopoverContentDirective } from '@spartan-ng/ui-popover-helm';
 import type { ClassValue } from 'clsx';
-import { DateTime } from 'luxon';
+
+export const HLM_DATE_PICKER_VALUE_ACCESSOR = {
+	provide: NG_VALUE_ACCESSOR,
+	useExisting: forwardRef(() => HlmDatePickerComponent),
+	multi: true,
+};
 
 // TODO make date picker work with forms
 @Component({
@@ -23,28 +30,36 @@ import { DateTime } from 'luxon';
 		HlmPopoverContentDirective,
 		HlmCalendarComponent,
 	],
-	providers: [provideIcons({ lucideCalendar })],
+	providers: [HLM_DATE_PICKER_VALUE_ACCESSOR, provideIcons({ lucideCalendar })],
 	template: `
 		<brn-popover sideOffset="5" closeDelay="100">
-			<button type="button" [class]="_computedClass()" [disabled]="disabled()" brnPopoverTrigger>
+			<button type="button" [class]="_computedClass()" [disabled]="state().disabled()" brnPopoverTrigger>
 				<ng-icon hlm size="sm" name="lucideCalendar" />
 
-				@if (formatedDate()) {
-					{{ formatedDate() }}
+				@if (formattedDate(); as formattedDate) {
+					{{ formattedDate }}
 				} @else {
 					<ng-content />
 				}
 			</button>
 
 			<div hlmPopoverContent class="w-auto p-0" *brnPopoverContent="let ctx">
-				<hlm-calendar [(date)]="date" [min]="min()" [max]="max()" [disabled]="disabled()" />
+				<hlm-calendar
+					[date]="date()"
+					[min]="min()"
+					[max]="max()"
+					[disabled]="state().disabled()"
+					(dateChange)="_handleChange($event)"
+				/>
 			</div>
 		</brn-popover>
 	`,
+	host: {
+		class: 'block',
+	},
 })
 export class HlmDatePickerComponent<T> {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-
 	protected readonly _computedClass = computed(() =>
 		hlm(
 			'inline-flex items-center gap-2 whitespace-nowrap rounded-md text-sm ring-offset-background transition-colors border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 w-[280px] justify-start text-left font-normal',
@@ -70,16 +85,48 @@ export class HlmDatePickerComponent<T> {
 	/** The selected value. */
 	public readonly date = model<T>();
 
-	// TODO how to use dateFormat with date adapter?!
-	public readonly dateFormat = input<string>('MMMM d, yyyy');
+	protected readonly state = computed(() => ({
+		disabled: signal(this.disabled()),
+	}));
 
-	protected readonly formatedDate = computed(() => {
+	public readonly dateFormat = input<(date: Date) => string>((date) => date.toDateString());
+
+	protected readonly formattedDate = computed(() => {
 		const date = this.date();
 
 		if (date && date instanceof Date) {
-			// TODO use date adapter instead of luxon directly
-			return DateTime.fromJSDate(date).toFormat(this.dateFormat());
+			return this.dateFormat()(date);
 		}
 		return undefined;
 	});
+
+	public readonly changed = output<T>();
+
+	protected _onChange?: ChangeFn<T>;
+	protected _onTouched?: TouchFn;
+
+	protected _handleChange(value: T) {
+		if (this.state().disabled()) return;
+
+		this.date.set(value);
+		this._onChange?.(value);
+		this.changed.emit(value);
+	}
+
+	/** CONROL VALUE ACCESSOR */
+	writeValue(value: T): void {
+		this.date.set(value);
+	}
+
+	registerOnChange(fn: ChangeFn<T>): void {
+		this._onChange = fn;
+	}
+
+	registerOnTouched(fn: TouchFn): void {
+		this._onTouched = fn;
+	}
+
+	setDisabledState(isDisabled: boolean): void {
+		this.state().disabled.set(isDisabled);
+	}
 }

@@ -1,5 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
+import { hlmH4 } from '@spartan-ng/ui-typography-helm';
 import { CodeComponent } from '../../../../shared/code/code.component';
 import { PageBottomNavLinkComponent } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav-link.component';
 import { PageBottomNavComponent } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav.component';
@@ -9,7 +10,9 @@ import { SectionSubHeadingComponent } from '../../../../shared/layout/section-su
 import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { DatePickerPreviewComponent } from './date-picker.preview';
+import { datePickerFormCode, DatePickerFormExampleComponent } from './date-picker--form.example';
+import { datePickerFormatCode, DatePickerFormatExampleComponent } from './date-picker--format.example';
+import { codeSkeleton, DatePickerPreviewComponent, defaultCode, defaultImports } from './date-picker.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Date Picker' },
@@ -30,6 +33,8 @@ export const routeMeta: RouteMeta = {
 		PageBottomNavComponent,
 		PageBottomNavLinkComponent,
 		PageNavComponent,
+		DatePickerFormatExampleComponent,
+		DatePickerFormExampleComponent,
 	],
 	template: `
 		<section spartanMainSection>
@@ -39,7 +44,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-date-picker-preview />
 				</div>
-				<!-- <spartan-code secondTab [code]="defaultCode" /> -->
+				<spartan-code secondTab [code]="defaultCode" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -51,9 +56,25 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="space-y-4">
-				<!-- <spartan-code [code]="defaultImports" />
-                <spartan-code [code]="codeSkeleton" /> -->
+				<spartan-code [code]="defaultImports" />
+				<spartan-code [code]="codeSkeleton" />
 			</div>
+
+			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
+			<h3 id="examples__default" class="${hlmH4} mb-2 mt-6">Format Date</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-date-picker-format />
+				</div>
+				<spartan-code secondTab [code]="datePickerFormatCode" />
+			</spartan-tabs>
+			<h3 id="examples__default" class="${hlmH4} mb-2 mt-6">Form</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-date-picker-form />
+				</div>
+				<spartan-code secondTab [code]="datePickerFormCode" />
+			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="dialog" label="Dialog" />
@@ -64,7 +85,9 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class CardPageComponent {
-	// protected readonly defaultCode = defaultCode;
-	// protected readonly defaultImports = defaultImports;
-	// protected readonly codeSkeleton = codeSkeleton;
+	protected readonly defaultCode = defaultCode;
+	protected readonly defaultImports = defaultImports;
+	protected readonly codeSkeleton = codeSkeleton;
+	protected readonly datePickerFormCode = datePickerFormCode;
+	protected readonly datePickerFormatCode = datePickerFormatCode;
 }

@@ -80,6 +80,7 @@
 			"@spartan-ng/ui-checkbox-helm": ["libs/ui/checkbox/helm/src/index.ts"],
 			"@spartan-ng/ui-collapsible-helm": ["libs/ui/collapsible/helm/src/index.ts"],
 			"@spartan-ng/ui-command-helm": ["libs/ui/command/helm/src/index.ts"],
+			"@spartan-ng/ui-date-picker-helm": ["libs/ui/date-picker/helm/src/index.ts"],
 			"@spartan-ng/ui-dialog-helm": ["libs/ui/dialog/helm/src/index.ts"],
 			"@spartan-ng/ui-formfield-helm": ["libs/ui/form-field/helm/src/index.ts"],
 			"@spartan-ng/ui-hovercard-helm": ["libs/ui/hover-card/helm/src/index.ts"],

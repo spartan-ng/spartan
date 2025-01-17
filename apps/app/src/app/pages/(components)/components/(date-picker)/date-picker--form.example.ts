@@ -29,7 +29,7 @@ export class DatePickerFormExampleComponent {
 	private readonly _formBuilder = inject(FormBuilder);
 
 	public form = this._formBuilder.group({
-		birthday: [undefined, Validators.required],
+		birthday: [null, Validators.required],
 	});
 
 	/** The selected date */

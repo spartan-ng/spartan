@@ -65,8 +65,8 @@ export class HlmDatePickerComponent<T> {
 			'inline-flex items-center gap-2 whitespace-nowrap rounded-md text-sm ring-offset-background transition-colors border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 w-[280px] justify-start text-left font-normal',
 			'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
 			'disabled:pointer-events-none disabled:opacity-50',
-			'[&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
-			this.date() === undefined ? 'text-muted-foreground' : '',
+			'[&_ng-icon]:pointer-events-none [&_ng-icon]:shrink-0',
+			!this.date() ? 'text-muted-foreground' : '',
 			this.userClass(),
 		),
 	);
@@ -89,15 +89,18 @@ export class HlmDatePickerComponent<T> {
 		disabled: signal(this.disabled()),
 	}));
 
-	public readonly dateFormat = input<(date: Date) => string>((date) => date.toDateString());
+	public readonly dateFormat = input<(date: T) => string>((date) =>
+		date instanceof Date ? date.toDateString() : `${date}`,
+	);
 
 	protected readonly formattedDate = computed(() => {
 		const date = this.date();
 
-		if (date && date instanceof Date) {
-			return this.dateFormat()(date);
+		if (!date) {
+			return undefined;
 		}
-		return undefined;
+
+		return this.dateFormat()(date);
 	});
 
 	public readonly changed = output<T>();

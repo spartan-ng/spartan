@@ -9,7 +9,7 @@ import { BrnMenuAlign, getBrnMenuAlign } from './brn-menu-align';
 	hostDirectives: [
 		{
 			directive: CdkMenuTrigger,
-			inputs: ['cdkMenuTriggerFor: brnMenuTriggerFor'],
+			inputs: ['cdkMenuTriggerFor: brnMenuTriggerFor', 'cdkMenuTriggerData: brnMenuTriggerData'],
 			outputs: ['cdkMenuOpened: brnMenuOpened', 'cdkMenuClosed: brnMenuClosed'],
 		},
 	],

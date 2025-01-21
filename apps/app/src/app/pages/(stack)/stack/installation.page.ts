@@ -1,14 +1,11 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronRight, lucideTriangleAlert } from '@ng-icons/lucide';
 import { HlmAlertModule } from '@spartan-ng/ui-alert-helm';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 import { hlmCode, hlmH4, hlmP } from '@spartan-ng/ui-typography-helm';
-import { AccordionPreviewComponent } from '../../(components)/components/(accordion)/accordion.preview';
-import { CodePreviewDirective } from '../../../shared/code/code-preview.directive';
 import { CodeComponent } from '../../../shared/code/code.component';
 import { MainSectionDirective } from '../../../shared/layout/main-section.directive';
 import { PageBottomNavLinkComponent } from '../../../shared/layout/page-bottom-nav/page-bottom-nav-link.component';
@@ -41,9 +38,6 @@ export const routeMeta: RouteMeta = {
 		NgIcon,
 		HlmIconDirective,
 		HlmButtonDirective,
-		AccordionPreviewComponent,
-		CodePreviewDirective,
-		RouterLink,
 	],
 	providers: [provideIcons({ lucideTriangleAlert, lucideChevronRight })],
 	template: `
@@ -129,7 +123,9 @@ export const routeMeta: RouteMeta = {
 			<p class="${hlmP}">
 				Finally, we need to set up our DB connection and create a typescript schema that matches our database structure.
 				We will add a
-				<code class="${hlmCode}">[YOUR_APP_NAME]/src/db.ts</code>
+				<code class="${hlmCode}">[YOUR_APP_NAME]/src/drizzle</code>
+				folder and create a
+				<code class="${hlmCode}">[YOUR_APP_NAME]/src/drizzle/db.ts</code>
 				file with the following content:
 			</p>
 
@@ -138,9 +134,23 @@ export const routeMeta: RouteMeta = {
 				language="ts"
 				code="
 import { drizzle } from 'drizzle-orm/postgres-js';
+import postgres from 'postgres';
+
+const client = postgres(process.env['DATABASE_URL'] ?? '');
+export const db = drizzle(client);"
+			/>
+			<p class="${hlmP}">
+				We can now define the schema for our table. Let's create folder structure and file
+				<code class="${hlmCode}">[YOUR_APP_NAME]/src/drizzle/schema/notes.ts</code>
+				with the following content:
+			</p>
+
+			<spartan-code
+				class="mt-3"
+				language="ts"
+				code="
 import { pgTable, serial, text, timestamp } from 'drizzle-orm/pg-core';
 import { InferInsertModel, InferSelectModel } from 'drizzle-orm';
-import postgres from 'postgres';
 
 export const notes = pgTable('note', {
   id: serial('id').primaryKey(),
@@ -149,16 +159,13 @@ export const notes = pgTable('note', {
 });
 
 export type Note = InferSelectModel<typeof notes>;
-export type NewNote = InferInsertModel<typeof notes>;
-
-const client = postgres(process.env['DATABASE_URL'] ?? '');
-export const db = drizzle(client);"
+export type NewNote = InferInsertModel<typeof notes>;"
 			/>
 
 			<p class="${hlmP}">
-				We first declare our notes table and make Drizzle aware of all its columns and their respective types. We then
-				declare some helper types we will use when retrieving and creating our Notes. Finally, we initialize our
-				Postgres client and pass it to Drizzle
+				We first initialize our Postgres client and pass it to Drizzle. We then declare our notes table and make Drizzle
+				aware of all its columns and their respective types. Finally, we declare some helper types we will use when
+				retrieving and creating our Notes.
 			</p>
 
 			<p class="${hlmP}">
@@ -173,7 +180,68 @@ export const db = drizzle(client);"
 
 			<p class="${hlmP}">with:</p>
 
-			<spartan-code class="mt-3" code="import { Note } from '../../db';" />
+			<spartan-code class="mt-3" code="import { Note } from '../../drizzle/schema/notes';" />
+
+			<div class="mb-6 mt-4" hlmAlert>
+				<ng-icon hlm hlmAlertIcon name="lucideTriangleAlert" />
+				<h4 hlmAlertTitle>Dealing with tRPC & Serializer</h4>
+				<p hlmAlertDesc>
+					<code class="${hlmCode}">tRPC</code>
+					out of the box is not configured with any kind of transformer. JSON responses do not support certain data
+					types like Date and will change
+					<code class="${hlmCode}">Date</code>
+					to
+					<code class="${hlmCode}">string</code>
+					, which breaks our end-to-end type-safety. We can fix this by changing our
+					<code class="${hlmCode}">[YOUR_APP_NAME]/src/trpc-client.ts</code>
+					and
+					<code class="${hlmCode}">[YOUR_APP_NAME]/src/server/trpc/trpc.ts</code>
+					file to add transformer and pass in
+					<code class="${hlmCode}">SuperJSON</code>
+					.
+				</p>
+				<spartan-code
+					class="mt-3"
+					language="ts"
+					code="
+				// trpc-client.ts
+import { AppRouter } from './server/trpc/routers';
+import { createTrpcClient } from '@analogjs/trpc';
+import { inject } from '@angular/core';
+import { SuperJSON } from 'superjson';
+
+export const { provideTrpcClient, TrpcClient } = createTrpcClient<AppRouter>({
+  url: '/api/trpc',
+  options: {
+    transformer: SuperJSON,
+  },
+});
+
+export function injectTrpcClient() {
+  return inject(TrpcClient);
+}
+				"
+				/>
+				<spartan-code
+					class="mt-3"
+					language="ts"
+					code="
+				// trpc.ts
+import { initTRPC } from '@trpc/server';
+import { Context } from './context';
+import { SuperJSON } from 'superjson';
+
+const t = initTRPC.context<Context>().create({
+  transformer: SuperJSON,
+});
+/**
+ * Unprotected procedure
+ **/
+export const publicProcedure = t.procedure;
+export const router = t.router;
+export const middleware = t.middleware;"
+				/>
+			</div>
 
 			<p class="${hlmP}">
 				Excellent! We are only a few steps away from end-to-end type-safety for our Angular application. We take this
@@ -193,7 +261,8 @@ export const db = drizzle(client);"
 				code="
 import { z } from 'zod';
 import { publicProcedure, router } from '../trpc';
-import { db, notes } from '../../../db';
+import { db } from '../../../drizzle/db';
+import { notes } from '../../../drizzle/schema/notes';
 import { eq } from 'drizzle-orm';
 
 export const noteRouter = router({
@@ -206,10 +275,7 @@ export const noteRouter = router({
     .mutation(
       async ({ input }) => await db.insert(notes).values({ note: input.note }).returning()
     ),
-  list: publicProcedure.query(async () => {
-    const selectedNotes = await db.select().from(notes);
-    return selectedNotes.map((note) => ({ ...note, id: +note.id }));
-  }),
+  list: publicProcedure.query(async () => await db.select().from(notes)),
   remove: publicProcedure
     .input(
       z.object({
@@ -358,9 +424,73 @@ service_role key: eyJh......"
 
 			<spartan-section-sub-heading id="db-schema">Setting up the Schema</spartan-section-sub-heading>
 			<p class="${hlmP}">
-				While Drizzle is adding support for automatic database migrations, I like to keep them explicit and run the
-				commands directly against the DB. Until spartan/stack comes with an automated solution like liquibase, let's
-				manually run the following command in the SQL-Editor to create our notes table:
+				You can setup your schema manually by running sql-query in the SQL-Editor locally or in supabase. However, you
+				can also utilize
+				<code class="${hlmCode}">drizzle-kit</code>
+				to easily
+				<code class="${hlmCode}">generate</code>
+				,
+				<code class="${hlmCode}">migrate</code>
+				,
+				<code class="${hlmCode}">push</code>
+				,
+				<code class="${hlmCode}">pull</code>
+				, and more. Refer to official
+				<a class="underline" href="https://orm.drizzle.team/docs/kit-overview">Drizzle Documentation</a>
+				.
+			</p>
+			<p class="${hlmP}">To get started with drizzle-kit. Let's install it first.</p>
+			<spartan-code class="mt-3" language="sh" code="npm i -D drizzle-kit" />
+			<p class="${hlmP}">
+				We can now define the config for our drizzle-kit. Let's create file
+				<code class="${hlmCode}">[YOUR_APP_NAME]/drizzle.config.ts</code>
+				You can also create multiple config file for multiple environment
+				<code class="${hlmCode}">[YOUR_APP_NAME]/drizzle-[ENV].config.ts</code>
+				. Let's add following content to your file (don't forget to change [YOUR_APP_NAME] in 'out' and 'schema'):
+			</p>
+			<spartan-code
+				class="mt-3"
+				language="ts"
+				code="
+import { defineConfig } from 'drizzle-kit';
+
+export default defineConfig({
+  out: './[YOUR_APP_NAME]/src/drizzle/migrations',
+  schema: './[YOUR_APP_NAME]/src/drizzle/schema/*',
+  dialect: 'postgresql',
+  dbCredentials: {
+    url: process.env.DATABASE_URL!,
+  },
+});"
+			/>
+			<p class="${hlmP}">
+				Now you can use the power of drizzle-kit and generate SQL migrations based on your Drizzle schema, migrate them
+				and push them to your supabase. Run the following command to generate the initial sql migrations.
+			</p>
+			<spartan-code class="mt-3" language="sh" code="npx drizzle-kit generate --name=init" />
+			<p class="${hlmP}">
+				Once generated, you can find your migrations sql script at
+				<code class="${hlmCode}">[YOUR_APP_NAME]/src/drizzle/migrations</code>
+			</p>
+			<p class="${hlmP}">Run the following command to migrate the generated migrations.</p>
+			<spartan-code class="mt-3" language="sh" code="npm i -D drizzle-kit migrate" />
+			<p class="${hlmP}">Finally you can push your migrations using the following command.</p>
+			<spartan-code class="mt-3" language="sh" code="npm i -D drizzle-kit push" />
+			<p class="${hlmP}">
+				If you have multiple drizzle config then, you can pass
+				<code class="${hlmCode}">--config=drizzle-[env].config.ts</code>
+				to any of the drizzle-kit commands. For example, you would run the following command to
+				<code class="${hlmCode}">generate</code>
+				migrations.
+			</p>
+			<spartan-code
+				class="mt-3"
+				language="sh"
+				code="npm i -D drizzle-kit generate --name=init --config=drizzle-[env].config.ts"
+			/>
+			<p class="${hlmP}">
+				Alternatively, if you prefer to keep them explict and run the commands directly against the DB. You can do so by
+				manually running the following command in the SQL-Editor locally or in supabase to create our notes table:
 			</p>
 			<spartan-code
 				class="mt-3"
@@ -390,6 +520,11 @@ create table note (
 			<p class="${hlmP}">
 				AnalogJs also supports multiple build presets, which makes it easy to deploy your application to most of the
 				major cloud providers. This includes Zerops, Vercel, Cloudflare, Azure, AWS, and more.
+			</p>
+			<p class="${hlmP}">
+				You can find the final repository for this installation
+				<a class="underline hover:cursor-pointer" href="https://github.com/Rockerturner/spartan-drizzle">here</a>
+				.
 			</p>
 			<div class="mt-4 flex items-center justify-end">
 				<a

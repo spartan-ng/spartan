@@ -19,7 +19,7 @@ module.exports = [
 			'@angular-eslint/component-selector': [
 				'error',
 				{
-					type: 'element',
+					type: ['element', 'attribute'],
 					prefix: 'hlm',
 					style: 'kebab-case',
 				},

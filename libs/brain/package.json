@@ -12,9 +12,6 @@
 		"@angular/common": ">=18.0.0",
 		"@angular/core": ">=18.0.0",
 		"@angular/forms": ">=18.0.0",
-		"@ngneat/overview": "^5.1.1",
-		"@ngneat/until-destroy": "^10.0.0",
-		"@ngxpert/cmdk": "^1.0.0",
 		"clsx": ">=2.0.0",
 		"luxon": ">=3.0.0",
 		"rxjs": ">=6.6.0",
@@ -23,15 +20,6 @@
 		"tailwindcss-animate": ">=1.0.7"
 	},
 	"peerDependenciesMeta": {
-		"@ngneat/overview": {
-			"optional": true
-		},
-		"@ngneat/until-destroy": {
-			"optional": true
-		},
-		"@ngxpert/cmdk": {
-			"optional": true
-		},
 		"luxon": {
 			"optional": true
 		}

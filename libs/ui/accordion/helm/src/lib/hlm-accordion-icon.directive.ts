@@ -6,7 +6,7 @@ import { provideHlmIconConfig } from '@spartan-ng/ui-icon-helm';
 import type { ClassValue } from 'clsx';
 
 @Directive({
-	selector: 'hlm-icon[hlmAccordionIcon], hlm-icon[hlmAccIcon]',
+	selector: 'ng-icon[hlmAccordionIcon], ng-icon[hlmAccIcon]',
 	standalone: true,
 	providers: [provideIcons({ lucideChevronDown }), provideHlmIconConfig({ size: 'sm' })],
 	host: {

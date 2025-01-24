@@ -473,9 +473,9 @@ export default defineConfig({
 				<code class="${hlmCode}">[YOUR_APP_NAME]/src/drizzle/migrations</code>
 			</p>
 			<p class="${hlmP}">Run the following command to migrate the generated migrations.</p>
-			<spartan-code class="mt-3" language="sh" code="npm i -D drizzle-kit migrate" />
+			<spartan-code class="mt-3" language="sh" code="npx drizzle-kit migrate" />
 			<p class="${hlmP}">Finally you can push your migrations using the following command.</p>
-			<spartan-code class="mt-3" language="sh" code="npm i -D drizzle-kit push" />
+			<spartan-code class="mt-3" language="sh" code="npx drizzle-kit push" />
 			<p class="${hlmP}">
 				If you have multiple drizzle config then, you can pass
 				<code class="${hlmCode}">--config=drizzle-[env].config.ts</code>
@@ -486,7 +486,7 @@ export default defineConfig({
 			<spartan-code
 				class="mt-3"
 				language="sh"
-				code="npm i -D drizzle-kit generate --name=init --config=drizzle-[env].config.ts"
+				code="npx drizzle-kit generate --name=init --config=drizzle-[env].config.ts"
 			/>
 			<p class="${hlmP}">
 				Alternatively, if you prefer to keep them explict and run the commands directly against the DB. You can do so by

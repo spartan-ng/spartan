@@ -12,7 +12,7 @@ import { hlm } from '@spartan-ng/brain/core';
 })
 export class HlmCommandSeparatorComponent {
 	/*** The user defined class  */
-	protected readonly userClass = input<string>('', { alias: 'class' });
+	public readonly userClass = input<string>('', { alias: 'class' });
 
 	/*** The styles to apply  */
 	protected readonly _computedClass = computed(() => hlm('h-px block w-full border-b border-border', this.userClass()));

@@ -2,13 +2,14 @@ import { Directive, computed, input } from '@angular/core';
 import { hlm } from '@spartan-ng/brain/core';
 import { BrnDialogCloseDirective } from '@spartan-ng/brain/dialog';
 import { HlmButtonDirective, provideBrnButtonConfig } from '@spartan-ng/ui-button-helm';
+import { provideHlmIconConfig } from '@spartan-ng/ui-icon-helm';
 import type { ClassValue } from 'clsx';
 
 @Directive({
-	selector: '[hlmCmdDialogCloseBtn]',
+	selector: '[hlmCommandDialogCloseBtn]',
 	standalone: true,
 	hostDirectives: [HlmButtonDirective, BrnDialogCloseDirective],
-	providers: [provideBrnButtonConfig({ variant: 'ghost' })],
+	providers: [provideBrnButtonConfig({ variant: 'ghost' }), provideHlmIconConfig({ size: 'xs' })],
 	host: {
 		'[class]': '_computedClass()',
 	},

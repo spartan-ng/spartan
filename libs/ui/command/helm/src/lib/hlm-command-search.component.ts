@@ -1,5 +1,6 @@
 import { Component, computed, input } from '@angular/core';
 import { hlm } from '@spartan-ng/brain/core';
+import { provideHlmIconConfig } from '@spartan-ng/ui-icon-helm';
 
 @Component({
 	standalone: true,
@@ -10,13 +11,14 @@ import { hlm } from '@spartan-ng/brain/core';
 	host: {
 		'[class]': '_computedClass()',
 	},
+	providers: [provideHlmIconConfig({ size: 'sm' })],
 })
 export class HlmCommandSearchComponent {
 	/*** The user defined class  */
-	protected readonly userClass = input<string>('', { alias: 'class' });
+	public readonly userClass = input<string>('', { alias: 'class' });
 
 	/*** The styles to apply  */
 	protected readonly _computedClass = computed(() =>
-		hlm('[&_hlm-icon]:h-5 [&_hlm-icon]:w-5 border-b border-border flex items-center px-3 space-x-2', this.userClass()),
+		hlm('relative [&_ng-icon]:flex-none border-b border-border flex items-center px-3 space-x-2', this.userClass()),
 	);
 }

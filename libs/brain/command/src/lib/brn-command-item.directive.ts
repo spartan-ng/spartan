@@ -2,7 +2,6 @@ import { Highlightable } from '@angular/cdk/a11y';
 import { BooleanInput } from '@angular/cdk/coercion';
 import {
 	booleanAttribute,
-	ChangeDetectorRef,
 	computed,
 	Directive,
 	ElementRef,
@@ -10,6 +9,7 @@ import {
 	inject,
 	input,
 	output,
+	signal,
 } from '@angular/core';
 import { provideBrnCommandItem } from './brn-command-item.token';
 import { injectBrnCommand } from './brn-command.token';
@@ -25,13 +25,12 @@ import { injectBrnCommand } from './brn-command.token';
 		'[attr.disabled]': '_disabled() ? true : null',
 		'[attr.data-value]': 'value()',
 		'[attr.data-hidden]': "!visible() ? '' : null",
-		'[attr.aria-selected]': '_selected()',
-		'[attr.data-selected]': "_selected() ? '' : null",
+		'[attr.aria-selected]': 'active()',
+		'[attr.data-selected]': "active() ? '' : null",
 	},
 })
 export class BrnCommandItemDirective implements Highlightable {
 	private readonly _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
-	private readonly _changeDetector = inject(ChangeDetectorRef);
 
 	/** Access the command component */
 	private readonly _command = injectBrnCommand();
@@ -51,7 +50,7 @@ export class BrnCommandItemDirective implements Highlightable {
 	}
 
 	/** Whether the item is selected. */
-	protected readonly _selected = computed(() => this._command.value() === this.value());
+	protected readonly active = signal(false);
 
 	/** Emits when the item is selected. */
 	public readonly selected = output<void>();
@@ -66,8 +65,7 @@ export class BrnCommandItemDirective implements Highlightable {
 
 	/** @internal */
 	setActiveStyles(): void {
-		this.selected.emit();
-		this._changeDetector.markForCheck();
+		this.active.set(true);
 
 		// ensure the item is in view
 		this._elementRef.nativeElement.scrollIntoView({ block: 'nearest' });
@@ -75,11 +73,12 @@ export class BrnCommandItemDirective implements Highlightable {
 
 	/** @internal */
 	setInactiveStyles(): void {
-		this._changeDetector.markForCheck();
+		this.active.set(false);
 	}
 
 	@HostListener('click')
 	protected onClick(): void {
 		this._command.keyManager.setActiveItem(this);
+		this.selected.emit();
 	}
 }

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 
 import { HlmCommandDialogCloseButtonDirective } from './lib/hlm-command-dialog-close-button.directive';
 import { HlmCommandDialogDirective } from './lib/hlm-command-dialog.directive';
+import { HlmCommandEmptyDirective } from './lib/hlm-command-empty.directive';
 import { HlmCommandGroupLabelComponent } from './lib/hlm-command-group-label.component';
 import { HlmCommandGroupComponent } from './lib/hlm-command-group.component';
 import { HlmCommandIconDirective } from './lib/hlm-command-icon.directive';
@@ -15,6 +16,7 @@ import { HlmCommandComponent } from './lib/hlm-command.component';
 
 export * from './lib/hlm-command-dialog-close-button.directive';
 export * from './lib/hlm-command-dialog.directive';
+export * from './lib/hlm-command-empty.directive';
 export * from './lib/hlm-command-group-label.component';
 export * from './lib/hlm-command-group.component';
 export * from './lib/hlm-command-icon.directive';
@@ -39,6 +41,7 @@ export const HlmCommandImports = [
 	HlmCommandSearchInputComponent,
 	HlmCommandSearchComponent,
 	HlmCommandGroupLabelComponent,
+	HlmCommandEmptyDirective,
 ] as const;
 
 @NgModule({

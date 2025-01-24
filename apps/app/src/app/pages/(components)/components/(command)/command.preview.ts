@@ -32,7 +32,7 @@ import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 	template: `
 		<hlm-command>
 			<hlm-command-search>
-				<ng-icon hlm name="lucideSearch" size="20px" class="inline-flex" />
+				<ng-icon hlm name="lucideSearch" class="inline-flex" />
 
 				<input type="text" hlm-command-search-input placeholder="Type a command or search..." />
 			</hlm-command-search>
@@ -79,7 +79,7 @@ import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 			</hlm-command-list>
 
 			<!-- Empty state -->
-			<div *brnCommandEmpty class="py-6 text-center text-sm">No results found.</div>
+			<div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
 		</hlm-command>
 	`,
 })
@@ -112,7 +112,7 @@ import {
   template: \`
  	<hlm-command>
   <hlm-command-search>
-    <ng-icon hlm name="lucideSearch" size="20px" class="inline-flex" />
+    <ng-icon hlm name="lucideSearch" class="inline-flex" />
 
     <input
       type="text"
@@ -163,7 +163,7 @@ import {
   </hlm-command-list>
 
   <!-- Empty state -->
-  <div *brnCommandEmpty class="py-6 text-center text-sm">No results found.</div>
+  <div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
 </hlm-command>
   \`,
 })
@@ -178,7 +178,7 @@ import { HlmCommandImports } from '@spartan-ng/ui-command-helm';
 export const defaultSkeleton = `
 	<hlm-command>
   <hlm-command-search>
-    <ng-icon hlm name="lucideSearch" size="20px" />
+    <ng-icon hlm name="lucideSearch" />
 
     <input
       type="text"
@@ -211,6 +211,6 @@ export const defaultSkeleton = `
   </hlm-command-list>
 
   <!-- Empty state -->
-  <div *brnCommandEmpty>No results found.</div>
+  <div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
 </hlm-command>
 `;

@@ -437,15 +437,14 @@ service_role key: eyJh......"
 				<code class="${hlmCode}">pull</code>
 				, and more. Refer to official
 				<a class="underline" href="https://orm.drizzle.team/docs/kit-overview">Drizzle Documentation</a>
-				.
 			</p>
 			<p class="${hlmP}">To get started with drizzle-kit. Let's install it first.</p>
 			<spartan-code class="mt-3" language="sh" code="npm i -D drizzle-kit" />
 			<p class="${hlmP}">
 				We can now define the config for our drizzle-kit. Let's create file
-				<code class="${hlmCode}">[YOUR_APP_NAME]/drizzle.config.ts</code>
-				You can also create multiple config file for multiple environment
-				<code class="${hlmCode}">[YOUR_APP_NAME]/drizzle-[ENV].config.ts</code>
+				<code class="${hlmCode}">drizzle.config.ts</code>
+				at the root of nx workspace. You can also create multiple config file for multiple environment
+				<code class="${hlmCode}">drizzle-[ENV].config.ts</code>
 				. Let's add following content to your file (don't forget to change [YOUR_APP_NAME] in 'out' and 'schema'):
 			</p>
 			<spartan-code
@@ -523,8 +522,12 @@ create table note (
 			</p>
 			<p class="${hlmP}">
 				You can find the final repository for this installation
-				<a class="underline hover:cursor-pointer" href="https://github.com/Rockerturner/spartan-drizzle">here</a>
-				.
+				<a
+					class="underline hover:cursor-pointer"
+					href="https://github.com/spartan-ng/spartan/tree/main/apps/spartan-installation"
+				>
+					here
+				</a>
 			</p>
 			<div class="mt-4 flex items-center justify-end">
 				<a

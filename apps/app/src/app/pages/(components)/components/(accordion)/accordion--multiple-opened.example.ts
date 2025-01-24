@@ -1,5 +1,6 @@
 import { Component, signal } from '@angular/core';
-import { NgIcon } from '@ng-icons/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { lucideChevronDown } from '@ng-icons/lucide';
 import {
 	HlmAccordionContentComponent,
 	HlmAccordionDirective,
@@ -23,6 +24,7 @@ import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 		NgIcon,
 		HlmIconDirective,
 	],
+	viewProviders: [provideIcons({ lucideChevronDown })],
 	template: `
 		<div hlmAccordion type="multiple" class="pb-4">
 			<div hlmAccordionItem isOpened>
@@ -73,6 +75,8 @@ import {
 } from '@spartan-ng/ui-accordion-helm';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { lucideChevronDown } from '@ng-icons/lucide';
 
 @Component({
 	selector: 'spartan-accordion-multiple-opened',
@@ -86,6 +90,7 @@ import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 		HlmAccordionIconDirective,
 		HlmIconDirective,
 	],
+	viewProviders: [provideIcons({ lucideChevronDown })],
 	template: \`
 		<div hlmAccordion type="multiple" class="pb-4">
 			<div hlmAccordionItem isOpened>

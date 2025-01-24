@@ -31,7 +31,7 @@ export const Default: Story = {
 		template: `
 		<hlm-command>
   <hlm-command-search>
-    <ng-icon hlm name="lucideSearch" size="20px" class="inline-flex" />
+    <ng-icon hlm name="lucideSearch" class="inline-flex" />
 
     <input
       type="text"
@@ -82,7 +82,7 @@ export const Default: Story = {
   </hlm-command-list>
 
   <!-- Empty state -->
-  <div *brnCommandEmpty class="py-6 text-center text-sm">No results found.</div>
+  <div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
 </hlm-command>
 
     `,
@@ -116,13 +116,13 @@ export const Default: Story = {
 		<brn-dialog closeDelay="100" [state]="state()" (stateChanged)="stateChanged($event)">
 			<brn-dialog-overlay hlm />
 
-			<hlm-command *brnDialogContent="let ctx" hlmCmdDialog class="relative mx-auto sm:w-[400px]">
-				<button hlmCmdDialogCloseBtn>
-					<ng-icon hlm name="lucideX" size="xs" class="items-center" />
+			<hlm-command *brnDialogContent="let ctx" hlmCommandDialog class="relative mx-auto sm:w-[400px]">
+				<button hlmCommandDialogCloseBtn>
+					<ng-icon hlm name="lucideX" />
 				</button>
 
 				<hlm-command-search>
-					<ng-icon hlm name="lucideSearch" size="20px" class="inline-flex" />
+					<ng-icon hlm name="lucideSearch" class="inline-flex" />
 
 					<input type="text" hlm-command-search-input placeholder="Type a command or search..." />
 				</hlm-command-search>
@@ -169,7 +169,7 @@ export const Default: Story = {
 				</hlm-command-list>
 
 				<!-- Empty state -->
-				<div *brnCommandEmpty class="py-6 text-center text-sm">No results found.</div>
+				<div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
 			</hlm-command>
 		</brn-dialog>
 	`,

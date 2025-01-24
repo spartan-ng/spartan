@@ -33,7 +33,7 @@ export class HlmCommandItemComponent {
 	public readonly selected = output<void>();
 
 	/*** The user defined class  */
-	protected readonly userClass = input<string>('', { alias: 'class' });
+	public readonly userClass = input<string>('', { alias: 'class' });
 
 	/*** The styles to apply  */
 	protected readonly _computedClass = computed(() =>

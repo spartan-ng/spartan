@@ -4,7 +4,7 @@ import { HlmButtonDirective, provideBrnButtonConfig } from '@spartan-ng/ui-butto
 import type { ClassValue } from 'clsx';
 
 @Directive({
-	selector: '[hlmCmdDialogCloseBtn]',
+	selector: '[hlmCommandDialogCloseBtn]',
 	standalone: true,
 	hostDirectives: [HlmButtonDirective],
 	providers: [provideBrnButtonConfig({ variant: 'ghost' })],

@@ -8,9 +8,10 @@
 		"@angular/forms": ">=18.0.0",
 		"@ng-icons/core": ">=29.0.0",
 		"@ng-icons/lucide": ">=29.0.0",
-		"@spartan-ng/brain": "0.0.1-alpha.387",
-		"@spartan-ng/ui-calender-helm": "0.0.1-alpha.381",
+		"@spartan-ng/brain": "0.0.1-alpha.392",
+		"@spartan-ng/ui-calendar-helm": "0.0.1-alpha.381",
 		"@spartan-ng/ui-icon-helm": "0.0.1-alpha.381",
-		"@spartan-ng/ui-popover-helm": "0.0.1-alpha.381"
+		"@spartan-ng/ui-popover-helm": "0.0.1-alpha.381",
+		"clsx": "^2.1.1"
 	}
 }

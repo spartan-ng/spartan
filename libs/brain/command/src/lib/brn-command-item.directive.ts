@@ -22,6 +22,7 @@ import { injectBrnCommand } from './brn-command.token';
 		type: 'button',
 		role: 'option',
 		tabIndex: '-1',
+		'[id]': 'id()',
 		'[attr.disabled]': '_disabled() ? true : null',
 		'[attr.data-value]': 'value()',
 		'[attr.data-hidden]': "!visible() ? '' : null",
@@ -30,10 +31,15 @@ import { injectBrnCommand } from './brn-command.token';
 	},
 })
 export class BrnCommandItemDirective implements Highlightable {
+	private static _id = 0;
+
 	private readonly _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 
 	/** Access the command component */
 	private readonly _command = injectBrnCommand();
+
+	/** A unique id for the item */
+	public readonly id = input(`brn-command-item-${BrnCommandItemDirective._id++}`);
 
 	/** The value this item represents. */
 	public readonly value = input.required<string>();

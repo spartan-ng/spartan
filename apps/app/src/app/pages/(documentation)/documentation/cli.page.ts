@@ -3,8 +3,8 @@ import { Component } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideTriangleAlert } from '@ng-icons/lucide';
 import { hlmCode, hlmH4, hlmP } from '@spartan-ng/ui-typography-helm';
-import { CodeComponent } from '../../../shared/code/code.component';
 import { MainSectionDirective } from '../../../shared/layout/main-section.directive';
+import { PackageInstallerTabsComponent } from '../../../shared/layout/package-installer-tabs.component';
 import { PageBottomNavLinkComponent } from '../../../shared/layout/page-bottom-nav/page-bottom-nav-link.component';
 import { PageBottomNavComponent } from '../../../shared/layout/page-bottom-nav/page-bottom-nav.component';
 import { PageNavComponent } from '../../../shared/layout/page-nav/page-nav.component';
@@ -29,8 +29,8 @@ export const routeMeta: RouteMeta = {
 		PageBottomNavLinkComponent,
 		PageNavComponent,
 		SectionSubHeadingComponent,
-		CodeComponent,
 		TabsCliComponent,
+		PackageInstallerTabsComponent,
 	],
 	providers: [provideIcons({ lucideTriangleAlert })],
 	template: `
@@ -52,7 +52,7 @@ export const routeMeta: RouteMeta = {
 				<code class="${hlmCode}">spartan</code>
 				to your Angular CLI project or Nx workspace simply install the plugin with the command below:
 			</p>
-			<spartan-code class="mt-4" code="npm i -D @spartan-ng/cli" />
+			<spartan-package-installer-tab class="mt-4" />
 
 			<h3 id="nx__ui" class="${hlmH4} mt-12">ui</h3>
 			<p class="${hlmP}">

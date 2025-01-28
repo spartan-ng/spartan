@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import {
 	ChangeDetectionStrategy,
 	Component,
+	OnInit,
 	ViewEncapsulation,
 	computed,
 	contentChild,
@@ -688,5 +689,107 @@ class LabelAndFormComponent {
 
 	public handleSubmit(): void {
 		console.log(this.fruit());
+	}
+}
+
+export const DynamicOptionsMultiSelect: Story = {
+	render: () => ({
+		moduleMetadata: {
+			imports: [DynamicOptionsMultiSelectComponent],
+		},
+		template: /* HTML */ '<dynamic-options-multi-select-component/>',
+	}),
+};
+@Component({
+	selector: 'dynamic-options-multi-select-component',
+	standalone: true,
+	encapsulation: ViewEncapsulation.None,
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	imports: [
+		CommonModule,
+		FormsModule,
+		ReactiveFormsModule,
+		BrnSelectImports,
+		HlmSelectImports,
+		HlmLabelDirective,
+		HlmButtonDirective,
+	],
+	providers: [],
+	host: {
+		class: '',
+	},
+	template: `
+		<form class="space-y-5">
+			<div class="mb-3">
+				<pre>Form Control Value: {{ fruit.value | json }}</pre>
+			</div>
+			<label hlmLabel>
+				Select a Fruit*
+				<hlm-select class="w-56" [formControl]="fruit" required [multiple]="true" placeholder="Select an option">
+					<hlm-select-trigger>
+						<hlm-select-value />
+					</hlm-select-trigger>
+					<hlm-select-content>
+						<hlm-select-label>Fruits</hlm-select-label>
+						@for (option of options(); track option.value) {
+							<hlm-option [value]="option.value">{{ option.label }}</hlm-option>
+						}
+					</hlm-select-content>
+				</hlm-select>
+			</label>
+		</form>
+		<button hlmBtn class="mt-2" (click)="updateOptions()">Update Options</button>
+
+		<button hlmBtn class="mt-2" (click)="updateDiffOptions()">Update Diff Options</button>
+
+		<button hlmBtn class="mt-2" (click)="updatePartialOptions()">Update Partial Options</button>
+	`,
+})
+class DynamicOptionsMultiSelectComponent implements OnInit {
+	// Checking if an issue with having options as a signal
+	public options = signal<{ value: number; label: string }[]>([]);
+	fruit = new FormControl([1, 5]);
+
+	ngOnInit(): void {
+		this.options.set([
+			{ label: 'Apple', value: 1 },
+			{ label: 'Banana', value: 2 },
+			{ label: 'Blueberry', value: 3 },
+			{ label: 'Grapes', value: 4 },
+			{ label: 'Pineapple', value: 5 },
+		]);
+	}
+
+	public updateOptions() {
+		// Reset same options
+		this.options.set([
+			{ label: 'Apple', value: 1 },
+			{ label: 'Banana', value: 2 },
+			{ label: 'Blueberry', value: 3 },
+			{ label: 'Grapes', value: 4 },
+			{ label: 'Pineapple', value: 5 },
+		]);
+	}
+
+	public updateDiffOptions() {
+		// Reset with different option values
+		this.options.set([
+			{ label: 'Apple', value: 6 },
+			{ label: 'Banana', value: 7 },
+			{ label: 'Blueberry', value: 8 },
+			{ label: 'Grapes', value: 9 },
+			{ label: 'Pineapple', value: 10 },
+		]);
+	}
+
+	public updatePartialOptions() {
+		// Reset with different option values
+		this.options.set([
+			{ label: 'Apple', value: 1 },
+			{ label: 'Banana', value: 2 },
+			{ label: 'Blueberry', value: 8 },
+			{ label: 'Grapes', value: 9 },
+			{ label: 'Pineapple', value: 10 },
+		]);
 	}
 }

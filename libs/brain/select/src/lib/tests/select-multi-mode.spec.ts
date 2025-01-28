@@ -592,18 +592,18 @@ describe('Brn Select Component in multi-mode', () => {
 
 			expect(cmpInstance.form?.get('fruit')?.value).toEqual(['apple', 'pineapple']);
 
-			console.log(value)
-			expect(value.textContent?.trim()).toBe('Apple, Pineapple')
+			console.log(value);
+			expect(value.textContent?.trim()).toBe('Apple, Pineapple');
 
 			// open select
 			await user.click(trigger);
 
 			// await waitFor(() => {
-				expect(screen.findByRole('listbox',undefined,{timeout:10000}))
-				// expect(screen.findAllByTestId('brn-select-content', {}, { timeout: 5000 })).toBeInTheDocument()
+			expect(screen.findByRole('listbox', undefined, { timeout: 10000 }));
+			// expect(screen.findAllByTestId('brn-select-content', {}, { timeout: 5000 })).toBeInTheDocument()
 			// });
 
-			expect(screen.findByRole('listbox')).toBeVisible()
+			expect(screen.findByRole('listbox')).toBeVisible();
 
 			// Make 1st selection
 			const options = await screen.getAllByRole('option');

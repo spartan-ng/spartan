@@ -46,6 +46,9 @@ describe('Brn Select Component in multi-mode', () => {
 			fixture,
 			trigger: screen.getByTestId('brn-select-trigger'),
 			value: screen.getByTestId('brn-select-value'),
+			updateOptionsBtn: screen.getByTestId('update-options-btn'),
+			updatePartialOptionsBtn: screen.getByTestId('partial-options-btn'),
+			updateDiffOptionsBtn: screen.getByTestId('diff-options-btn'),
 		};
 	};
 
@@ -319,6 +322,63 @@ describe('Brn Select Component in multi-mode', () => {
 			expect(getFormControlStatus(cmpInstance.form?.get('fruit'))).toStrictEqual(afterValuePatchExpected);
 			expect(getFormValidationClasses(trigger)).toStrictEqual(afterValuePatchExpected);
 		});
+
+		/**
+		 * Update Options
+		 */
+		it('should reset display but not value if options change and are completely different', async () => {
+			const { fixture, trigger, updateDiffOptionsBtn, user } =
+				await setupWithFormValidationMultiWithInitialValueWithForLoop();
+			const cmpInstance = fixture.componentInstance;
+
+			expect(cmpInstance.form?.get('fruit')?.value).toEqual(['apple', 'pineapple']);
+
+			// update with
+			await user.click(updateDiffOptionsBtn);
+
+			//display should be updated
+			expect(trigger).toHaveTextContent('Select a Fruit');
+
+			// value should remain same
+			expect(cmpInstance.form?.get('fruit')?.value).toEqual(['apple', 'pineapple']);
+		});
+
+		it('should update display but not value if options updated and only some options are same', async () => {
+			const { fixture, trigger, updatePartialOptionsBtn, user } =
+				await setupWithFormValidationMultiWithInitialValueWithForLoop();
+			const cmpInstance = fixture.componentInstance;
+
+			expect(cmpInstance.form?.get('fruit')?.value).toEqual(['apple', 'pineapple']);
+
+			// actionBtn.
+			await user.click(updatePartialOptionsBtn);
+
+			//display should be updated
+			expect(trigger).toHaveTextContent('Apple');
+
+			// expect value to remain same
+			expect(cmpInstance.form?.get('fruit')?.value).toEqual(['apple', 'pineapple']);
+		});
+
+		it('should maintain exact display and value if options updated but exactly same', async () => {
+			const { fixture, trigger, updateOptionsBtn, user } =
+				await setupWithFormValidationMultiWithInitialValueWithForLoop();
+			const cmpInstance = fixture.componentInstance;
+
+			expect(cmpInstance.form?.get('fruit')?.value).toEqual(['apple', 'pineapple']);
+
+			// actionBtn.
+			user.click(updateOptionsBtn);
+
+			// open select
+			await user.click(trigger);
+
+			// display should be same
+			expect(trigger).toHaveTextContent('Apple, Pineapple');
+
+			// value should be same
+			expect(cmpInstance.form?.get('fruit')?.value).toEqual(['apple', 'pineapple']);
+		});
 	});
 
 	describe('form validation - multi mode and required', () => {
@@ -508,8 +568,8 @@ describe('Brn Select Component in multi-mode', () => {
 		 * User Selection with initial value when options are dynamically added with a for-loop
 		 */
 		it('should reflect correct form control status and value after first user selection with initial value with dynamic options', async () => {
-			const { fixture, trigger, user } = await setupWithFormValidationMultiWithInitialValueWithForLoop();
-			const cmpInstance = fixture.componentInstance;
+			const { fixture, trigger, value, user } = await setupWithFormValidationMultiWithInitialValueWithForLoop();
+			const cmpInstance = fixture.componentInstance as SelectMultiValueWithInitialValueWithForLoopTestComponent;
 
 			cmpInstance.form?.get('fruit')?.addValidators(Validators.required);
 			cmpInstance.form?.get('fruit')?.updateValueAndValidity();
@@ -527,7 +587,11 @@ describe('Brn Select Component in multi-mode', () => {
 			expect(getFormControlStatus(cmpInstance.form?.get('fruit'))).toStrictEqual(expected);
 			expect(getFormValidationClasses(trigger)).toStrictEqual(expected);
 
-			expect(cmpInstance.form?.get('fruit')?.value).toEqual(['apple', 'blueberry']);
+			fixture.detectChanges();
+
+			expect(cmpInstance.form?.get('fruit')?.value).toEqual(['apple', 'pineapple']);
+
+			expect(value.textContent?.trim()).toBe('Apple, Pineapple');
 
 			// open select
 			await user.click(trigger);
@@ -564,7 +628,7 @@ describe('Brn Select Component in multi-mode', () => {
 
 			expect(getFormControlStatus(cmpInstance.form?.get('fruit'))).toStrictEqual(afterCloseExpected);
 			expect(getFormValidationClasses(trigger)).toStrictEqual(afterCloseExpected);
-			expect(cmpInstance.form?.get('fruit')?.value).toEqual(['apple', 'banana', 'blueberry']);
+			expect(cmpInstance.form?.get('fruit')?.value).toEqual(['apple', 'banana', 'pineapple']);
 		});
 
 		/**

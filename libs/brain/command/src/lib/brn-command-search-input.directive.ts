@@ -1,6 +1,6 @@
 import { Directive, ElementRef, HostListener, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { startWith } from 'rxjs';
+import { startWith } from 'rxjs/operators';
 import { provideBrnCommandSearchInput } from './brn-command-search-input.token';
 import { injectBrnCommand } from './brn-command.token';
 

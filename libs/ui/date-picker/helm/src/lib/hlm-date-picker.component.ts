@@ -17,7 +17,6 @@ export const HLM_DATE_PICKER_VALUE_ACCESSOR = {
 	multi: true,
 };
 
-// TODO make date picker work with forms
 @Component({
 	selector: 'hlm-date-picker',
 	standalone: true,

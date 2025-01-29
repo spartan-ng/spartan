@@ -1,6 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
-import { hlmH4 } from '@spartan-ng/ui-typography-helm';
+import { hlmCode, hlmH4, hlmP } from '@spartan-ng/ui-typography-helm';
 import { CodeComponent } from '../../../../shared/code/code.component';
 import { PageBottomNavLinkComponent } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav-link.component';
 import { PageBottomNavComponent } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav.component';
@@ -10,6 +10,7 @@ import { SectionSubHeadingComponent } from '../../../../shared/layout/section-su
 import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
+import { datePickerConfigCode, DatePickerConfigExampleComponent } from './date-picker--config.example';
 import { datePickerFormCode, DatePickerFormExampleComponent } from './date-picker--form.example';
 import { datePickerFormatCode, DatePickerFormatExampleComponent } from './date-picker--format.example';
 import { codeSkeleton, DatePickerPreviewComponent, defaultCode, defaultImports } from './date-picker.preview';
@@ -33,6 +34,7 @@ export const routeMeta: RouteMeta = {
 		PageBottomNavComponent,
 		PageBottomNavLinkComponent,
 		PageNavComponent,
+		DatePickerConfigExampleComponent,
 		DatePickerFormatExampleComponent,
 		DatePickerFormExampleComponent,
 	],
@@ -61,14 +63,48 @@ export const routeMeta: RouteMeta = {
 			</div>
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
+			<h3 id="examples__default" class="${hlmH4} mb-2 mt-6">Custom Configs</h3>
+
+			<p class="${hlmP} mb-6">
+				Use
+				<code class="${hlmCode}">provideHlmDatePickerConfig</code>
+				to provide custom configs for the date picker component throughout the application.
+			</p>
+
+			<p class="${hlmP} mb-6">
+				<code class="${hlmCode}">formatDate: (date: T) => string;</code>
+				defines the default format how the date should be displayed in the UI.
+			</p>
+
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-date-picker-config />
+				</div>
+				<spartan-code secondTab [code]="datePickerConfigCode" />
+			</spartan-tabs>
+
 			<h3 id="examples__default" class="${hlmH4} mb-2 mt-6">Format Date</h3>
+
+			<p class="${hlmP} mb-6">
+				Use
+				<code class="${hlmCode}">formatDate</code>
+				input to override the global date format for the date picker component.
+			</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-date-picker-format />
 				</div>
 				<spartan-code secondTab [code]="datePickerFormatCode" />
 			</spartan-tabs>
+
 			<h3 id="examples__default" class="${hlmH4} mb-2 mt-6">Form</h3>
+			<p class="${hlmP} mb-6">
+				Sync the date to a form by adding
+				<code class="${hlmCode}">formControlName</code>
+				to
+				<code class="${hlmCode}">hlm-date-picker</code>
+				.
+			</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-date-picker-form />
@@ -88,6 +124,7 @@ export default class CardPageComponent {
 	protected readonly defaultCode = defaultCode;
 	protected readonly defaultImports = defaultImports;
 	protected readonly codeSkeleton = codeSkeleton;
+	protected readonly datePickerConfigCode = datePickerConfigCode;
 	protected readonly datePickerFormCode = datePickerFormCode;
 	protected readonly datePickerFormatCode = datePickerFormatCode;
 }

@@ -10,6 +10,7 @@ import { HlmCalendarComponent } from '@spartan-ng/ui-calendar-helm';
 import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 import { HlmPopoverContentDirective } from '@spartan-ng/ui-popover-helm';
 import type { ClassValue } from 'clsx';
+import { injectHlmDatePickerConfig } from './hlm-date-format.token';
 
 export const HLM_DATE_PICKER_VALUE_ACCESSOR = {
 	provide: NG_VALUE_ACCESSOR,
@@ -58,6 +59,8 @@ export const HLM_DATE_PICKER_VALUE_ACCESSOR = {
 	},
 })
 export class HlmDatePickerComponent<T> {
+	private readonly _config = injectHlmDatePickerConfig<T>();
+
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>
 		hlm(
@@ -88,18 +91,12 @@ export class HlmDatePickerComponent<T> {
 		disabled: signal(this.disabled()),
 	}));
 
-	public readonly dateFormat = input<(date: T) => string>((date) =>
-		date instanceof Date ? date.toDateString() : `${date}`,
-	);
+	/** Defines how the date should be displayed in the UI.  */
+	public readonly formatDate = input<(date: T) => string>(this._config.formatDate);
 
 	protected readonly formattedDate = computed(() => {
 		const date = this.date();
-
-		if (!date) {
-			return undefined;
-		}
-
-		return this.dateFormat()(date);
+		return date ? this.formatDate()(date) : undefined;
 	});
 
 	public readonly changed = output<T>();

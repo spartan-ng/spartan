@@ -10,16 +10,18 @@ export interface HlmDatePickerConfig<T> {
 	formatDate: (date: T) => string;
 }
 
-const defaultConfig: HlmDatePickerConfig<Date> = {
-	formatDate: (date) => (date instanceof Date ? date.toDateString() : `${date}`),
-};
+function getDefaultConfig<T>(): HlmDatePickerConfig<T> {
+	return {
+		formatDate: (date) => (date instanceof Date ? date.toDateString() : `${date}`),
+	};
+}
 
 const HlmDatePickerConfigToken = new InjectionToken<HlmDatePickerConfig<unknown>>('HlmDatePickerConfig');
 
-export function provideHlmDatePickerConfig<T>(config?: HlmDatePickerConfig<T>): ValueProvider {
-	return { provide: HlmDatePickerConfigToken, useValue: { ...defaultConfig, ...config } };
+export function provideHlmDatePickerConfig<T>(config: Partial<HlmDatePickerConfig<T>>): ValueProvider {
+	return { provide: HlmDatePickerConfigToken, useValue: { ...getDefaultConfig(), ...config } };
 }
 
 export function injectHlmDatePickerConfig<T>(): HlmDatePickerConfig<T> {
-	return inject(HlmDatePickerConfigToken, { optional: true }) ?? (defaultConfig as HlmDatePickerConfig<T>);
+	return inject(HlmDatePickerConfigToken, { optional: true }) ?? getDefaultConfig();
 }

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, signal, viewChild } from '@angular/core';
+import { Component, OnInit, signal, viewChild } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrnSelectComponent, BrnSelectImports } from '../../';
 
@@ -221,9 +221,19 @@ export class SelectMultiValueWithInitialValueTestComponent {
 		<button (click)="updateDiffOptions()" data-testid="diff-options-btn">Diff Options</button>
 	`,
 })
-export class SelectMultiValueWithInitialValueWithForLoopTestComponent {
+export class SelectMultiValueWithInitialValueWithForLoopTestComponent implements OnInit {
 	public options = signal<{ value: string; label: string }[]>([]);
 	public form = new FormGroup({ fruit: new FormControl(['apple', 'pineapple']) });
+
+	ngOnInit(): void {
+		this.options.set([
+			{ label: 'Apple', value: 'apple' },
+			{ label: 'Banana', value: 'banana' },
+			{ label: 'Blueberry', value: 'blueberry' },
+			{ label: 'Grapes', value: 'grapes' },
+			{ label: 'Pineapple', value: 'pineapple' },
+		]);
+	}
 
 	public updateOptions() {
 		// Reset same options

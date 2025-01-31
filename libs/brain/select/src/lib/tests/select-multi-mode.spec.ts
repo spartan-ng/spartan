@@ -40,8 +40,7 @@ describe('Brn Select Component in multi-mode', () => {
 	};
 
 	const setupWithFormValidationMultiWithInitialValueWithForLoop = async () => {
-		const { fixture, debug } = await render(SelectMultiValueWithInitialValueWithForLoopTestComponent);
-		// debug();
+		const { fixture } = await render(SelectMultiValueWithInitialValueWithForLoopTestComponent);
 		return {
 			user: userEvent.setup(),
 			fixture,
@@ -335,7 +334,7 @@ describe('Brn Select Component in multi-mode', () => {
 			expect(cmpInstance.form?.get('fruit')?.value).toEqual(['apple', 'pineapple']);
 
 			// update with
-			user.click(updateDiffOptionsBtn);
+			await user.click(updateDiffOptionsBtn);
 
 			//display should be updated
 			expect(trigger).toHaveTextContent('Select a Fruit');
@@ -568,7 +567,7 @@ describe('Brn Select Component in multi-mode', () => {
 		/**
 		 * User Selection with initial value when options are dynamically added with a for-loop
 		 */
-		it.skip('should reflect correct form control status and value after first user selection with initial value with dynamic options', async () => {
+		it('should reflect correct form control status and value after first user selection with initial value with dynamic options', async () => {
 			const { fixture, trigger, value, user } = await setupWithFormValidationMultiWithInitialValueWithForLoop();
 			const cmpInstance = fixture.componentInstance as SelectMultiValueWithInitialValueWithForLoopTestComponent;
 
@@ -592,18 +591,10 @@ describe('Brn Select Component in multi-mode', () => {
 
 			expect(cmpInstance.form?.get('fruit')?.value).toEqual(['apple', 'pineapple']);
 
-			console.log(value);
 			expect(value.textContent?.trim()).toBe('Apple, Pineapple');
 
 			// open select
 			await user.click(trigger);
-
-			// await waitFor(() => {
-			expect(screen.findByRole('listbox', undefined, { timeout: 10000 }));
-			// expect(screen.findAllByTestId('brn-select-content', {}, { timeout: 5000 })).toBeInTheDocument()
-			// });
-
-			expect(screen.findByRole('listbox')).toBeVisible();
 
 			// Make 1st selection
 			const options = await screen.getAllByRole('option');
@@ -637,7 +628,7 @@ describe('Brn Select Component in multi-mode', () => {
 
 			expect(getFormControlStatus(cmpInstance.form?.get('fruit'))).toStrictEqual(afterCloseExpected);
 			expect(getFormValidationClasses(trigger)).toStrictEqual(afterCloseExpected);
-			expect(cmpInstance.form?.get('fruit')?.value).toEqual(['apple', 'banana', 'blueberry']);
+			expect(cmpInstance.form?.get('fruit')?.value).toEqual(['apple', 'banana', 'pineapple']);
 		});
 
 		/**

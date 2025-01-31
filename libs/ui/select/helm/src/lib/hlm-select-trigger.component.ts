@@ -39,7 +39,7 @@ type SelectTriggerVariants = VariantProps<typeof selectTriggerVariants>;
 		<button [class]="_computedClass()" #button hlmInput brnSelectTrigger type="button">
 			<ng-content />
 			@if (icon()) {
-				<ng-content select="hlm-icon" />
+				<ng-content select="ng-icon" />
 			} @else {
 				<ng-icon hlm size="sm" class="ml-2 flex-none" name="lucideChevronDown" />
 			}

@@ -3,7 +3,7 @@ import { hlm } from '@spartan-ng/brain/core';
 import type { ClassValue } from 'clsx';
 
 @Directive({
-	selector: '[hlmCmdEmpty]',
+	selector: '[hlmCommandEmpty]',
 	standalone: true,
 	host: {
 		'[class]': '_computedClass()',
@@ -11,5 +11,5 @@ import type { ClassValue } from 'clsx';
 })
 export class HlmCommandEmptyDirective {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected _computedClass = computed(() => hlm('py-6 text-center text-sm', this.userClass()));
+	protected readonly _computedClass = computed(() => hlm('py-6 text-center text-sm', this.userClass()));
 }

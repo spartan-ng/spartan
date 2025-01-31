@@ -1,20 +1,11 @@
-import { Component, computed, input } from '@angular/core';
-import { hlm } from '@spartan-ng/brain/core';
-import type { ClassValue } from 'clsx';
+import { Component } from '@angular/core';
 
 @Component({
-	selector: 'hlm-cmd-shortcut',
 	standalone: true,
-	template: `
-		<ng-content />
-	`,
+	selector: 'hlm-command-shortcut',
+	template: '<ng-content />',
 	host: {
-		'[class]': '_computedClass()',
+		class: 'font-light ml-auto opacity-60 text-xs tracking-widest',
 	},
 })
-export class HlmCommandShortcutComponent {
-	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected _computedClass = computed(() =>
-		hlm('ml-auto font-light text-xs tracking-widest opacity-60', this.userClass()),
-	);
-}
+export class HlmCommandShortcutComponent {}

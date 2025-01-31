@@ -1,7 +1,7 @@
 import { Component, HostListener, signal } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import * as lucide from '@ng-icons/lucide';
-import { BrnCommandComponent, BrnCommandImports } from '@spartan-ng/brain/command';
+import { BrnCommandDirective, BrnCommandImports } from '@spartan-ng/brain/command';
 import { BrnDialogImports } from '@spartan-ng/brain/dialog';
 import type { Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
@@ -11,9 +11,9 @@ import { HlmIconDirective } from '../icon/helm/src';
 import { HlmCodeDirective } from '../typography/helm/src';
 import { HlmCommandImports } from './helm/src';
 
-const meta: Meta<BrnCommandComponent> = {
+const meta: Meta<BrnCommandDirective> = {
 	title: 'Command',
-	component: BrnCommandComponent,
+	component: BrnCommandDirective,
 	tags: ['autodocs'],
 	decorators: [
 		moduleMetadata({
@@ -24,52 +24,67 @@ const meta: Meta<BrnCommandComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<BrnCommandComponent>;
+type Story = StoryObj<BrnCommandDirective>;
 
 export const Default: Story = {
 	render: () => ({
 		template: `
-       <brn-cmd class='max-w-sm mx-auto mt-[10%]' hlm>
-      <hlm-cmd-input-wrapper>
-        <ng-icon hlm name='lucideSearch' />
-        <input placeholder='Type a command or search...' brnCmdInput hlm />
-      </hlm-cmd-input-wrapper>
-      <div *brnCmdEmpty hlmCmdEmpty>No results found.</div>
-      <brn-cmd-list hlm>
-        <brn-cmd-group hlm label='Suggestions'>
-          <button brnCmdItem hlm>
-            <ng-icon hlm name='lucideCalendar' hlmCmdIcon />
-            Calendar
-          </button>
-          <button brnCmdItem hlm>
-            <ng-icon hlm name='lucideSmile' hlmCmdIcon />
-            Search Emoji
-          </button>
-          <button brnCmdItem hlm>
-            <ng-icon hlm name='lucideCalculator' hlmCmdIcon />
-            Calculator
-          </button>
-        </brn-cmd-group>
-        <brn-cmd-separator hlm></brn-cmd-separator>
-        <brn-cmd-group hlm label='Settings'>
-          <button brnCmdItem hlm>
-            <ng-icon hlm name='lucideUser' hlmCmdIcon />
-            Profile
-            <hlm-cmd-shortcut>⌘P</hlm-cmd-shortcut>
-          </button>
-          <button brnCmdItem hlm>
-            <ng-icon hlm name='lucideCreditCard' hlmCmdIcon />
-            Billing
-            <hlm-cmd-shortcut>⌘B</hlm-cmd-shortcut>
-          </button>
-          <button brnCmdItem hlm>
-            <ng-icon hlm name='lucideSettings' hlmCmdIcon />
-            Settings
-            <hlm-cmd-shortcut>⌘S</hlm-cmd-shortcut>
-          </button>
-        </brn-cmd-group>
-      </brn-cmd-list>
-    </brn-cmd>
+		<hlm-command>
+  <hlm-command-search>
+    <ng-icon hlm name="lucideSearch" class="inline-flex" />
+
+    <input
+      type="text"
+      hlm-command-search-input
+      placeholder="Type a command or search..."
+    />
+  </hlm-command-search>
+
+  <hlm-command-list>
+    <hlm-command-group>
+      <hlm-command-group-label>Suggestions</hlm-command-group-label>
+
+      <button hlm-command-item value="Calendar">
+        <ng-icon hlm name="lucideCalendar" hlmCommandIcon />
+        Calendar
+      </button>
+      <button hlm-command-item value="Search Emoji">
+        <ng-icon hlm name="lucideSmile" hlmCommandIcon />
+        Search Emoji
+      </button>
+      <button hlm-command-item value="Calculator">
+        <ng-icon hlm name="lucidePlus" hlmCommandIcon />
+        Calculator
+      </button>
+    </hlm-command-group>
+
+    <hlm-command-separator />
+
+    <hlm-command-group>
+      <hlm-command-group-label>Settings</hlm-command-group-label>
+
+      <button hlm-command-item value="Profile">
+        <ng-icon hlm name="lucideUser" hlmCommandIcon />
+        Profile
+        <hlm-command-shortcut>⌘P</hlm-command-shortcut>
+      </button>
+      <button hlm-command-item value="Billing">
+        <ng-icon hlm name="lucideWallet" hlmCommandIcon />
+        Billing
+        <hlm-command-shortcut>⌘B</hlm-command-shortcut>
+      </button>
+      <button hlm-command-item value="Settings">
+        <ng-icon hlm name="lucideCog" hlmCommandIcon />
+        Settings
+        <hlm-command-shortcut>⌘S</hlm-command-shortcut>
+      </button>
+    </hlm-command-group>
+  </hlm-command-list>
+
+  <!-- Empty state -->
+  <div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
+</hlm-command>
+
     `,
 	}),
 };
@@ -100,51 +115,62 @@ export const Default: Story = {
 		</div>
 		<brn-dialog closeDelay="100" [state]="state()" (stateChanged)="stateChanged($event)">
 			<brn-dialog-overlay hlm />
-			<brn-cmd *brnDialogContent="let ctx" hlmCmdDialog class="mx-auto sm:w-[400px]">
-				<hlm-cmd-input-wrapper>
-					<ng-icon hlm name="lucideSearch" />
-					<input placeholder="Type a command or search..." brnCmdInput hlm />
-					<button brnDialogClose hlmCmdDialogCloseBtn>
-						<!-- Using 1rem for size to mimick h-4 w-4 -->
-						<ng-icon hlm name="lucideX" size="1rem" class="items-center justify-center" />
-					</button>
-				</hlm-cmd-input-wrapper>
-				<div *brnCmdEmpty hlmCmdEmpty>No results found.</div>
-				<brn-cmd-list hlm>
-					<brn-cmd-group hlm label="Suggestions">
-						<button brnCmdItem value="calendar" (selected)="commandSelected('calendar')" hlm>
-							<ng-icon hlm name="lucideCalendar" hlmCmdIcon />
+
+			<hlm-command *brnDialogContent="let ctx" hlmCommandDialog class="relative mx-auto sm:w-[400px]">
+				<button hlmCommandDialogCloseBtn>
+					<ng-icon hlm name="lucideX" />
+				</button>
+
+				<hlm-command-search>
+					<ng-icon hlm name="lucideSearch" class="inline-flex" />
+
+					<input type="text" hlm-command-search-input placeholder="Type a command or search..." />
+				</hlm-command-search>
+
+				<hlm-command-list>
+					<hlm-command-group>
+						<hlm-command-group-label>Suggestions</hlm-command-group-label>
+
+						<button hlm-command-item value="Calendar">
+							<ng-icon hlm name="lucideCalendar" hlmCommandIcon />
 							Calendar
 						</button>
-						<button brnCmdItem value="emojy" (selected)="commandSelected('emojy')" hlm>
-							<ng-icon hlm name="lucideSmile" hlmCmdIcon />
+						<button hlm-command-item value="Search Emoji">
+							<ng-icon hlm name="lucideSmile" hlmCommandIcon />
 							Search Emoji
 						</button>
-						<button brnCmdItem value="calculator" (selected)="commandSelected('calculator')" hlm>
-							<ng-icon hlm name="lucideCalculator" hlmCmdIcon />
+						<button hlm-command-item value="Calculator">
+							<ng-icon hlm name="lucidePlus" hlmCommandIcon />
 							Calculator
 						</button>
-					</brn-cmd-group>
-					<brn-cmd-separator hlm></brn-cmd-separator>
-					<brn-cmd-group hlm label="Settings">
-						<button brnCmdItem value="profile" (selected)="commandSelected('profile')" hlm>
-							<ng-icon hlm name="lucideUser" hlmCmdIcon />
+					</hlm-command-group>
+
+					<hlm-command-separator />
+
+					<hlm-command-group>
+						<hlm-command-group-label>Settings</hlm-command-group-label>
+
+						<button hlm-command-item value="Profile">
+							<ng-icon hlm name="lucideUser" hlmCommandIcon />
 							Profile
-							<hlm-cmd-shortcut>⌘P</hlm-cmd-shortcut>
+							<hlm-command-shortcut>⌘P</hlm-command-shortcut>
 						</button>
-						<button brnCmdItem value="billing" (selected)="commandSelected('billing')" hlm>
-							<ng-icon hlm name="lucideCreditCard" hlmCmdIcon />
+						<button hlm-command-item value="Billing">
+							<ng-icon hlm name="lucideWallet" hlmCommandIcon />
 							Billing
-							<hlm-cmd-shortcut>⌘B</hlm-cmd-shortcut>
+							<hlm-command-shortcut>⌘B</hlm-command-shortcut>
 						</button>
-						<button brnCmdItem value="settings" (selected)="commandSelected('settings')" hlm>
-							<ng-icon hlm name="lucideSettings" hlmCmdIcon />
+						<button hlm-command-item value="Settings">
+							<ng-icon hlm name="lucideCog" hlmCommandIcon />
 							Settings
-							<hlm-cmd-shortcut>⌘S</hlm-cmd-shortcut>
+							<hlm-command-shortcut>⌘S</hlm-command-shortcut>
 						</button>
-					</brn-cmd-group>
-				</brn-cmd-list>
-			</brn-cmd>
+					</hlm-command-group>
+				</hlm-command-list>
+
+				<!-- Empty state -->
+				<div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
+			</hlm-command>
 		</brn-dialog>
 	`,
 })

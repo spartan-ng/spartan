@@ -1,17 +1,25 @@
-import { Directive, forwardRef } from '@angular/core';
-import { EmptyDirective } from '@ngxpert/cmdk';
+import { computed, Directive, effect, inject, TemplateRef, ViewContainerRef } from '@angular/core';
+import { injectBrnCommand } from './brn-command.token';
 
 @Directive({
-	selector: '[brnCmdEmpty]',
 	standalone: true,
-	providers: [
-		{
-			provide: EmptyDirective,
-			useExisting: forwardRef(() => BrnCommandEmptyDirective),
-		},
-	],
-	host: {
-		class: 'cmdk-empty',
-	},
+	selector: '[brnCommandEmpty]',
 })
-export class BrnCommandEmptyDirective extends EmptyDirective {}
+export class BrnCommandEmptyDirective {
+	private readonly _templateRef = inject<TemplateRef<void>>(TemplateRef);
+	private readonly _viewContainerRef = inject(ViewContainerRef);
+	private readonly _command = injectBrnCommand();
+
+	/** Determine if the command has any visible items */
+	private readonly _visible = computed(() => this._command.items().some((item) => item.visible()));
+
+	constructor() {
+		effect(() => {
+			if (this._visible()) {
+				this._viewContainerRef.clear();
+			} else {
+				this._viewContainerRef.createEmbeddedView(this._templateRef);
+			}
+		});
+	}
+}

@@ -55,13 +55,6 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="defaultCode" />
 			</spartan-tabs>
 
-			<spartan-section-sub-heading id="about">About</spartan-section-sub-heading>
-			<p class="${hlmP}">
-				The command primitive is built upon the incredible work of
-				<a class="${hlmCode}" href="https://ngxpert.github.io/cmdk/" target="_blank">ngxpert/cmdk</a>
-				.
-			</p>
-
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
 			<spartan-cli-tabs
 				class="mt-4"
@@ -101,7 +94,7 @@ export const routeMeta: RouteMeta = {
 		<spartan-page-nav />
 	`,
 })
-export default class ComboboxPageComponent {
+export default class CommandPageComponent {
 	protected readonly defaultCode = defaultCode;
 	protected readonly defaultSkeleton = defaultSkeleton;
 	protected readonly defaultImports = defaultImports;

@@ -68,7 +68,7 @@ export const routeMeta: RouteMeta = {
 				https://www.figma.com/community/file/1203061493325953101
 			</a>
 			<spartan-page-bottom-nav>
-				<spartan-page-bottom-nav-link href="/health-checks" label="Health Checks" />
+				<spartan-page-bottom-nav-link href="health-checks" label="Health Checks" />
 				<spartan-page-bottom-nav-link direction="previous" href="typography" label="Typography" />
 			</spartan-page-bottom-nav>
 		</section>

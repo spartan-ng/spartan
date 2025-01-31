@@ -18,7 +18,7 @@ import type { ClassValue } from 'clsx';
 	},
 	template: `
 		<ng-content>
-			<ng-icon hlm name="lucideChevronRight" />
+			<ng-icon size="sm" hlm name="lucideChevronRight" />
 		</ng-content>
 	`,
 })
@@ -26,6 +26,6 @@ export class HlmBreadcrumbSeparatorComponent {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 
 	protected readonly _computedClass = computed(() =>
-		hlm('[&>hlm-icon]:w-3.5 [&>hlm-icon]:h-3.5 [&>hlm-icon]:flex', this.userClass()),
+		hlm('[&>hlm-icon]:w-3.5 [&>hlm-icon]:h-3.5 [&>hlm-icon]:flex flex items-center', this.userClass()),
 	);
 }

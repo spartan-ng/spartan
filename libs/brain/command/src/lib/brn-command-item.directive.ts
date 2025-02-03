@@ -1,5 +1,6 @@
 import { Highlightable } from '@angular/cdk/a11y';
 import { BooleanInput } from '@angular/cdk/coercion';
+import { isPlatformBrowser } from '@angular/common';
 import {
 	booleanAttribute,
 	computed,
@@ -9,6 +10,7 @@ import {
 	inject,
 	input,
 	output,
+	PLATFORM_ID,
 	signal,
 } from '@angular/core';
 import { provideBrnCommandItem } from './brn-command-item.token';
@@ -32,6 +34,8 @@ import { injectBrnCommand } from './brn-command.token';
 })
 export class BrnCommandItemDirective implements Highlightable {
 	private static _id = 0;
+
+	private readonly _platform = inject(PLATFORM_ID);
 
 	private readonly _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 
@@ -74,7 +78,9 @@ export class BrnCommandItemDirective implements Highlightable {
 		this.active.set(true);
 
 		// ensure the item is in view
-		this._elementRef.nativeElement.scrollIntoView({ block: 'nearest' });
+		if (isPlatformBrowser(this._platform)) {
+			this._elementRef.nativeElement.scrollIntoView({ block: 'nearest' });
+		}
 	}
 
 	/** @internal */

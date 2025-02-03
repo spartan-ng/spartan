@@ -1,4 +1,5 @@
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
+import { isPlatformBrowser } from '@angular/common';
 import {
 	AfterViewInit,
 	computed,
@@ -9,6 +10,7 @@ import {
 	inject,
 	Injector,
 	input,
+	PLATFORM_ID,
 } from '@angular/core';
 import { BrnCommandItemToken } from './brn-command-item.token';
 import { BrnCommandSearchInputDirective } from './brn-command-search-input.directive';
@@ -24,6 +26,8 @@ import { provideBrnCommand } from './brn-command.token';
 })
 export class BrnCommandDirective implements AfterViewInit {
 	private static _id = 0;
+
+	private readonly _platform = inject(PLATFORM_ID);
 
 	private readonly _injector = inject(Injector);
 
@@ -63,7 +67,7 @@ export class BrnCommandDirective implements AfterViewInit {
 	}
 
 	ngAfterViewInit(): void {
-		if (this.items().length) {
+		if (isPlatformBrowser(this._platform) && this.items().length) {
 			this.keyManager.setActiveItem(0);
 		}
 	}

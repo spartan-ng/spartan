@@ -70,7 +70,7 @@ type Framework = { label: string; value: string };
 							{{ currentFramework() ? currentFramework()?.label : 'Select' }}
 							<ng-icon hlm size="sm" name="lucideChevronDown" />
 						</button>
-						<hlm-command *brnPopoverContent="let ctx" hlmPopoverContent hlm class="w-[270px] p-0">
+						<hlm-command *brnPopoverContent="let ctx" hlmPopoverContent class="w-[270px] p-0">
 							<div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
 							<hlm-command-list>
 								<hlm-command-group hlm>

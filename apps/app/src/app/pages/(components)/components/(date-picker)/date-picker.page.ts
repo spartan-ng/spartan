@@ -1,6 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
-import { hlmCode, hlmH4, hlmP } from '@spartan-ng/ui-typography-helm';
+import { hlmCode, hlmH4, hlmP, hlmUl } from '@spartan-ng/ui-typography-helm';
 import { CodeComponent } from '../../../../shared/code/code.component';
 import { PageBottomNavLinkComponent } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav-link.component';
 import { PageBottomNavComponent } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav.component';
@@ -70,11 +70,16 @@ export const routeMeta: RouteMeta = {
 				<code class="${hlmCode}">provideHlmDatePickerConfig</code>
 				to provide custom configs for the date picker component throughout the application.
 			</p>
-
-			<p class="${hlmP} mb-6">
-				<code class="${hlmCode}">formatDate: (date: T) => string;</code>
-				defines the default format how the date should be displayed in the UI.
-			</p>
+			<ul class="${hlmUl}">
+				<li>
+					<code class="${hlmCode}">formatDate: (date: T) => string;</code>
+					defines the default format how the date should be displayed in the UI.
+				</li>
+				<li>
+					<code class="${hlmCode}">transformDate: (date: T) => T;</code>
+					defines the default format how the date should be transformed before saving to model/form.
+				</li>
+			</ul>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>

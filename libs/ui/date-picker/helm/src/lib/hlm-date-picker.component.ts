@@ -113,7 +113,10 @@ export class HlmDatePickerComponent<T> {
 	}
 
 	/** CONROL VALUE ACCESSOR */
-	writeValue(value: T): void {
+	writeValue(value: T | null): void {
+		// optional FormControl is initialized with null value
+		if (value === null) return;
+
 		this.date.set(value);
 	}
 

@@ -42,6 +42,7 @@ export const routeMeta: RouteMeta = {
 				<li><a class="!font-medium" spartanNavLink="/examples/typography">Typography</a></li>
 				<li><a class="!font-medium" spartanNavLink="/examples/authentication">Authentication</a></li>
 				<li><a class="!font-medium" spartanNavLink="/examples/music">Music</a></li>
+				<li><a class="!font-medium" spartanNavLink="/examples/tasks">Tasks</a></li>
 			</ul>
 		</nav>
 		<div class="border-border overflow-hidden rounded-lg border">

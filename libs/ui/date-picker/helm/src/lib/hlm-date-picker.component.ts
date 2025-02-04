@@ -10,7 +10,7 @@ import { HlmCalendarComponent } from '@spartan-ng/ui-calendar-helm';
 import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 import { HlmPopoverContentDirective } from '@spartan-ng/ui-popover-helm';
 import type { ClassValue } from 'clsx';
-import { injectHlmDatePickerConfig } from './hlm-date-format.token';
+import { injectHlmDatePickerConfig } from './hlm-date-picker.token';
 
 export const HLM_DATE_PICKER_VALUE_ACCESSOR = {
 	provide: NG_VALUE_ACCESSOR,

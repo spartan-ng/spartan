@@ -94,6 +94,9 @@ export class HlmDatePickerComponent<T> {
 	/** Defines how the date should be displayed in the UI.  */
 	public readonly formatDate = input<(date: T) => string>(this._config.formatDate);
 
+	/** Defines how the date should be transformed before saving to model/form. */
+	public readonly transformDate = input<(date: T) => T>(this._config.transformDate);
+
 	protected readonly formattedDate = computed(() => {
 		const date = this.date();
 		return date ? this.formatDate()(date) : undefined;
@@ -106,10 +109,11 @@ export class HlmDatePickerComponent<T> {
 
 	protected _handleChange(value: T) {
 		if (this.state().disabled()) return;
+		const transformedDate = this.transformDate()(value);
 
-		this.date.set(value);
-		this._onChange?.(value);
-		this.changed.emit(value);
+		this.date.set(transformedDate);
+		this._onChange?.(transformedDate);
+		this.changed.emit(transformedDate);
 	}
 
 	/** CONROL VALUE ACCESSOR */
@@ -117,7 +121,7 @@ export class HlmDatePickerComponent<T> {
 		// optional FormControl is initialized with null value
 		if (value === null) return;
 
-		this.date.set(value);
+		this.date.set(this.transformDate()(value));
 	}
 
 	registerOnChange(fn: ChangeFn<T>): void {

@@ -8,11 +8,20 @@ export interface HlmDatePickerConfig<T> {
 	 * @returns formatted date
 	 */
 	formatDate: (date: T) => string;
+
+	/**
+	 * Defines how the date should be transformed before saving to model/form.
+	 *
+	 * @param date
+	 * @returns transformed date
+	 */
+	transformDate: (date: T) => T;
 }
 
 function getDefaultConfig<T>(): HlmDatePickerConfig<T> {
 	return {
 		formatDate: (date) => (date instanceof Date ? date.toDateString() : `${date}`),
+		transformDate: (date) => date,
 	};
 }
 
@@ -23,5 +32,6 @@ export function provideHlmDatePickerConfig<T>(config: Partial<HlmDatePickerConfi
 }
 
 export function injectHlmDatePickerConfig<T>(): HlmDatePickerConfig<T> {
-	return inject(HlmDatePickerConfigToken, { optional: true }) ?? getDefaultConfig();
+	const injectedConfig = inject(HlmDatePickerConfigToken, { optional: true });
+	return injectedConfig ? (injectedConfig as HlmDatePickerConfig<T>) : getDefaultConfig();
 }

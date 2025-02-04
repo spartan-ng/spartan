@@ -13,7 +13,10 @@ import { DateTime } from 'luxon';
 		</hlm-date-picker>
 	`,
 	providers: [
-		provideHlmDatePickerConfig({ formatDate: (date: Date) => DateTime.fromJSDate(date).toFormat('dd.MM.yyyy') }),
+		provideHlmDatePickerConfig({
+			formatDate: (date: Date) => DateTime.fromJSDate(date).toFormat('dd.MM.yyyy'),
+			transformDate: (date: Date) => DateTime.fromJSDate(date).plus({ days: 1 }).toJSDate(),
+		}),
 	],
 	host: {
 		class: 'preview flex min-h-[350px] w-full justify-center p-10 items-center',
@@ -43,7 +46,10 @@ import { DateTime } from 'luxon';
 		</hlm-date-picker>
 	\`,
 	providers: [
-		provideHlmDatePickerConfig({ formatDate: (date: Date) => DateTime.fromJSDate(date).toFormat('dd.MM.yyyy') }),
+		provideHlmDatePickerConfig({
+			formatDate: (date: Date) => DateTime.fromJSDate(date).toFormat('dd.MM.yyyy'),
+			transformDate: (date: Date) => DateTime.fromJSDate(date).plus({ days: 1 }).toJSDate(),
+		}),
 	],
 	host: {
 		class: 'preview flex min-h-[350px] w-full justify-center p-10 items-center',

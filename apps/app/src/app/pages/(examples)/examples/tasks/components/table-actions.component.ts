@@ -1,13 +1,31 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideGlobe, lucideMicVocal } from '@ng-icons/lucide';
+import {
+	lucideCheck,
+	lucideChevronsDown,
+	lucideChevronsLeft,
+	lucideChevronsUp,
+	lucideCircleHelp,
+	lucideCirclePlus,
+	lucideGlobe,
+	lucideMicVocal,
+	lucideSearch,
+	lucideSettings2,
+} from '@ng-icons/lucide';
+import { PriorityPipe } from '@spartan-ng/app/app/pages/(examples)/examples/tasks/components/priority.pipe';
+import { LocalStorageService } from '@spartan-ng/app/app/pages/(examples)/examples/tasks/services/local-storage.service';
 import { TasksService } from '@spartan-ng/app/app/pages/(examples)/examples/tasks/services/tasks.service';
+import { BrnCommandImports } from '@spartan-ng/brain/command';
 import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
+import { BrnPopoverImports } from '@spartan-ng/brain/popover';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
+import { HlmCheckboxImports } from '@spartan-ng/ui-checkbox-helm';
+import { HlmCommandImports } from '@spartan-ng/ui-command-helm';
 import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
-import { HlmMenuImports } from '@spartan-ng/ui-menu-helm';
+import { HlmMenuComponent, HlmMenuItemImports, HlmMenuStructureImports } from '@spartan-ng/ui-menu-helm';
+import { HlmPopoverImports } from '@spartan-ng/ui-popover-helm';
 
 @Component({
 	// eslint-disable-next-line @angular-eslint/component-selector
@@ -21,24 +39,48 @@ import { HlmMenuImports } from '@spartan-ng/ui-menu-helm';
 		FormsModule,
 		HlmInputDirective,
 		BrnMenuTriggerDirective,
-		HlmMenuImports,
 		NgIcon,
 		HlmIconDirective,
+		HlmMenuComponent,
+		HlmMenuItemImports,
+		HlmMenuStructureImports,
+		BrnPopoverImports,
+		HlmCommandImports,
+		BrnCommandImports,
+		HlmPopoverImports,
+		HlmCheckboxImports,
+		PriorityPipe,
 	],
-	providers: [provideIcons({ lucideMicVocal, lucideGlobe })],
+	providers: [
+		provideIcons({
+			lucideMicVocal,
+			lucideGlobe,
+			lucideSettings2,
+			lucideCirclePlus,
+			lucideCheck,
+			lucideChevronsDown,
+			lucideChevronsLeft,
+			lucideChevronsUp,
+			lucideCircleHelp,
+			lucideSearch,
+		}),
+	],
 	template: `
 		<div class="wip-table-search flex flex-col justify-between gap-4 sm:flex-row">
-			<div class="wip-table-search flex flex-col justify-between gap-4 sm:flex-row">
+			<div class="flex flex-col justify-between gap-4 sm:flex-row">
 				<input
 					hlmInput
+					size="sm"
 					class="w-full md:w-80"
-					placeholder="Filter emails..."
-					[ngModel]="emailFilter()"
+					placeholder="Filter tasks..."
+					[ngModel]="taskFilter()"
 					(ngModelChange)="rawFilterInput.set($event)"
 				/>
 
-				<button [brnMenuTriggerFor]="status">Status</button>
-
+				<button hlmBtn variant="outline" size="sm" align="end" [brnMenuTriggerFor]="status">
+					<ng-icon hlm name="lucideCirclePlus" class="mr-2" size="sm" />
+					Status
+				</button>
 				<ng-template #status>
 					<hlm-menu variant="menubar" class="w-48">
 						<hlm-menu-group>
@@ -57,11 +99,43 @@ import { HlmMenuImports } from '@spartan-ng/ui-menu-helm';
 						</hlm-menu-group>
 					</hlm-menu>
 				</ng-template>
+
+				<brn-popover
+					[state]="priorityState()"
+					(stateChanged)="priorityStateChanged($event)"
+					sideOffset="5"
+					closeDelay="100"
+					align="start"
+				>
+					<button hlmBtn brnPopoverTrigger variant="outline" size="sm" [brnMenuTriggerFor]="status">
+						<ng-icon hlm name="lucideCirclePlus" class="mr-2" size="sm" />
+						Priority
+					</button>
+					<hlm-command *brnPopoverContent="let ctx" hlmPopoverContent class="w-[200px] p-0">
+						<hlm-command-search>
+							<ng-icon hlm name="lucideSearch" />
+							<input placeholder="Priority" hlm-command-search-input />
+						</hlm-command-search>
+						<div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
+						<hlm-command-list>
+							<hlm-command-group>
+								@for (priority of priorities(); track priority) {
+									<button hlm-command-item [value]="priority" (selected)="prioritySelected(priority)">
+										<hlm-checkbox class="mr-2" [checked]="isPrioritySelected(priority)" />
+
+										<ng-icon hlm [name]="priority | priorityIcon" color="gray" class="mx-2" size="sm" />
+										{{ priority }}
+									</button>
+								}
+							</hlm-command-group>
+						</hlm-command-list>
+					</hlm-command>
+				</brn-popover>
 			</div>
 
-			<button hlmBtn variant="outline" align="end" [brnMenuTriggerFor]="menu">
-				Columns
-				<ng-icon hlm name="lucideChevronDown" class="ml-2" size="sm" />
+			<button hlmBtn variant="outline" size="sm" align="end" [brnMenuTriggerFor]="menu">
+				<ng-icon hlm name="lucideSettings2" class="mr-2" size="sm" />
+				View
 			</button>
 			<ng-template #menu>
 				<hlm-menu class="w-32">
@@ -70,7 +144,7 @@ import { HlmMenuImports } from '@spartan-ng/ui-menu-helm';
 							hlmMenuItemCheckbox
 							[disabled]="columnManager.isColumnDisabled(column.name)"
 							[checked]="columnManager.isColumnVisible(column.name)"
-							(triggered)="columnManager.toggleVisibility(column.name)"
+							(triggered)="onColumnFilterChanged(column.name)"
 						>
 							<hlm-menu-item-check />
 							<span>{{ column.label }}</span>
@@ -83,8 +157,36 @@ import { HlmMenuImports } from '@spartan-ng/ui-menu-helm';
 })
 export class TableActionsComponent {
 	private readonly _tasksService = inject(TasksService);
+	private readonly _localStorageService = inject(LocalStorageService);
 
 	protected readonly columnManager = this._tasksService.getColumnManager();
-	protected readonly emailFilter = this._tasksService.getEmailFilter();
-	protected readonly rawFilterInput = this._tasksService.getRawFilterInput()
+	protected readonly taskFilter = this._tasksService.getTaskFilter();
+	protected readonly rawFilterInput = this._tasksService.getRawFilterInput();
+	protected readonly priorityFilter = this._tasksService.getPriorityFilter();
+	protected readonly priorities = signal(['Low', 'Medium', 'High']);
+	protected readonly priorityState = signal<'closed' | 'open'>('closed');
+
+	onColumnFilterChanged(columnName: string): void {
+		this.columnManager.toggleVisibility(columnName as any);
+		const isVisible = this.columnManager.isColumnVisible(columnName);
+		if (isVisible) {
+			this._localStorageService.saveTaskTableColumn(columnName);
+		} else {
+			this._localStorageService.deleteTaskTableColumn(columnName);
+		}
+	}
+
+	isPrioritySelected(priority: string): boolean {
+		return this.priorityFilter().some((p) => p === priority);
+	}
+
+	priorityStateChanged(state: 'open' | 'closed') {
+		this.priorityState.set(state);
+	}
+
+	prioritySelected(priority: string): void {
+		console.log(priority, 'selected');
+		// this._tasksService.getPriorityFilter.set(priority);
+		// this.priorityState.set('closed');
+	}
 }

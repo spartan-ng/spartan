@@ -36,9 +36,6 @@ import { HlmTableModule } from '@spartan-ng/ui-table-helm';
 import { TableActionsComponent } from './components/table-actions.component';
 import { SortingColumns, Task, TasksService } from './services/tasks.service';
 
-// TODO: remove links:
-// https://ui.shadcn.com/examples/tasks
-// https://spartan.ng/components/select
 @Component({
 	selector: 'spartan-data-table-preview',
 	standalone: true,
@@ -79,12 +76,12 @@ import { SortingColumns, Task, TasksService } from './services/tasks.service';
 			lucideCircleDot,
 			lucideCircleHelp,
 			lucideCircleOff,
+			lucideCog,
 			lucideDot,
 			lucideEllipsis,
+			lucideLayers,
 			lucideLogOut,
 			lucideUser,
-			lucideCog,
-			lucideLayers,
 		}),
 	],
 	host: {

@@ -415,7 +415,7 @@ import { HlmSelectModule } from '@spartan-ng/ui-select-helm';
 import { hlmMuted } from '@spartan-ng/ui-typography-helm';
 import { debounceTime, map } from 'rxjs';
 
-export type Task = {
+export type Payment = {
   id: string;
   amount: number;
   status: 'pending' | 'processing' | 'success' | 'failed';
@@ -708,7 +708,7 @@ export class DataTablePreviewComponent {
   protected readonly _availablePageSizes = [5, 10, 20, 10000];
   protected readonly _pageSize = signal(this._availablePageSizes[0]);
 
-  private readonly _selectionModel = new SelectionModel<Task>(true);
+  private readonly _selectionModel = new SelectionModel<Payment>(true);
   protected readonly _isPaymentSelected = (payment: Payment) => this._selectionModel.isSelected(payment);
   protected readonly _selected = toSignal(this._selectionModel.changed.pipe(map((change) => change.source.selected)), {
     initialValue: [],

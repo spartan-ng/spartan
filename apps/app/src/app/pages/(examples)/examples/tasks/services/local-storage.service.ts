@@ -5,6 +5,10 @@ const EXAMPLES_TASK_SETTINGS_KEY = 'spartan-examples';
 
 const DEFAULT_TASK_TABLE_COLUMNS = ['id', 'title', 'status', 'priority'];
 
+/**
+ * Manages local storage settings for the task table.
+ * It persists the users selected columns.
+ */
 @Injectable({
 	providedIn: 'root',
 })

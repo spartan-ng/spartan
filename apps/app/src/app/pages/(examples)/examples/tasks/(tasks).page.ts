@@ -99,7 +99,7 @@ import { SortingColumns, Task, TasksService } from './services/tasks.service';
 				</div>
 				<hlm-avatar [brnMenuTriggerFor]="profile" align="center">
 					<img src="/assets/avatar.png" alt="spartan logo. Resembling a spartanic shield" hlmAvatarImage />
-					<span class="bg-destructive text-white" hlmAvatarFallback>RG</span>
+					<span class="bg-destructive text-white" hlmAvatarFallback>AH</span>
 				</hlm-avatar>
 
 				<ng-template #profile>

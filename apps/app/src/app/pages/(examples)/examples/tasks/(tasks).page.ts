@@ -14,8 +14,12 @@ import {
 	lucideCircleDot,
 	lucideCircleHelp,
 	lucideCircleOff,
+	lucideCog,
 	lucideDot,
 	lucideEllipsis,
+	lucideLayers,
+	lucideLogOut,
+	lucideUser,
 } from '@ng-icons/lucide';
 import { PriorityIconPipe } from '@spartan-ng/app/app/pages/(examples)/examples/tasks/components/priority-icon.pipe';
 import { StatusIconPipe } from '@spartan-ng/app/app/pages/(examples)/examples/tasks/components/status-icon.pipe';
@@ -77,6 +81,10 @@ import { SortingColumns, Task, TasksService } from './services/tasks.service';
 			lucideCircleOff,
 			lucideDot,
 			lucideEllipsis,
+			lucideLogOut,
+			lucideUser,
+			lucideCog,
+			lucideLayers,
 		}),
 	],
 	host: {
@@ -89,10 +97,51 @@ import { SortingColumns, Task, TasksService } from './services/tasks.service';
 					<h2 class="text-2xl font-bold tracking-tight">Welcome back!</h2>
 					<p class="text-muted-foreground">Here's a list of your tasks for this month!</p>
 				</div>
-				<hlm-avatar>
+				<hlm-avatar [brnMenuTriggerFor]="profile" align="center">
 					<img src="/assets/avatar.png" alt="spartan logo. Resembling a spartanic shield" hlmAvatarImage />
 					<span class="bg-destructive text-white" hlmAvatarFallback>RG</span>
 				</hlm-avatar>
+
+				<ng-template #profile>
+					<hlm-menu>
+						<div class="flex flex-col space-y-1" hlmMenuItem>
+							<p class="text-sm font-medium leading-none">spartan</p>
+							<p class="text-muted-foreground text-xs leading-none">m&#64;example.com</p>
+						</div>
+
+						<hlm-menu-separator />
+
+						<hlm-menu-group>
+							<hlm-menu-group>
+								<button hlmMenuItem>
+									<ng-icon hlm name="lucideUser" hlmMenuIcon />
+									<span>Profile</span>
+									<hlm-menu-shortcut>⇧⌘P</hlm-menu-shortcut>
+								</button>
+
+								<button hlmMenuItem>
+									<ng-icon hlm name="lucideLayers" hlmMenuIcon />
+									<span>Billing</span>
+									<hlm-menu-shortcut>⌘B</hlm-menu-shortcut>
+								</button>
+
+								<button hlmMenuItem>
+									<ng-icon hlm name="lucideCog" hlmMenuIcon />
+									<span>Settings</span>
+									<hlm-menu-shortcut>⌘S</hlm-menu-shortcut>
+								</button>
+							</hlm-menu-group>
+
+							<hlm-menu-separator />
+
+							<button hlmMenuItem>
+								<ng-icon hlm name="lucideLogOut" hlmMenuIcon />
+								<span>Logout</span>
+								<hlm-menu-shortcut>⇧⌘Q</hlm-menu-shortcut>
+							</button>
+						</hlm-menu-group>
+					</hlm-menu>
+				</ng-template>
 			</div>
 
 			<table-actions />

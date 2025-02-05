@@ -181,12 +181,14 @@ export class TasksService {
 }
 
 export type SortingColumns = 'id' | 'title' | 'status' | 'priority';
+export type TaskType = 'Bug' | 'Feature' | 'Documentation';
 export type TaskStatus = 'Todo' | 'In Progress' | 'Backlog' | 'Canceled' | 'Done';
 export type TaskPriority = 'Critical' | 'High' | 'Medium' | 'Low';
 
 export type Task = {
 	id: string;
 	title: string;
+	type: TaskType;
 	status: TaskStatus;
 	priority: TaskPriority;
 };

@@ -22,6 +22,7 @@ import { StatusIconPipe } from '@spartan-ng/app/app/pages/(examples)/examples/ta
 import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
 import { BrnSelectModule } from '@spartan-ng/brain/select';
 import { BrnTableModule, PaginatorState } from '@spartan-ng/brain/table';
+import { HlmAvatarImports } from '@spartan-ng/ui-avatar-helm';
 import { HlmButtonModule } from '@spartan-ng/ui-button-helm';
 import { HlmCheckboxComponent } from '@spartan-ng/ui-checkbox-helm';
 import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
@@ -58,6 +59,7 @@ import { SortingColumns, Task, TasksService } from './services/tasks.service';
 		NgIcon,
 		StatusIconPipe,
 		PriorityIconPipe,
+		HlmAvatarImports,
 	],
 	providers: [
 		provideIcons({
@@ -82,9 +84,15 @@ import { SortingColumns, Task, TasksService } from './services/tasks.service';
 	},
 	template: `
 		<div class="h-full flex-1 flex-col space-y-4 p-8 py-6">
-			<div class="wip-header">
-				<h2 class="text-2xl font-bold tracking-tight">Welcome back!</h2>
-				<p class="text-muted-foreground">Here's a list of your tasks for this month!</p>
+			<div class="flex items-center justify-between space-y-2">
+				<div class="flex flex-col">
+					<h2 class="text-2xl font-bold tracking-tight">Welcome back!</h2>
+					<p class="text-muted-foreground">Here's a list of your tasks for this month!</p>
+				</div>
+				<hlm-avatar>
+					<img src="/assets/avatar.png" alt="spartan logo. Resembling a spartanic shield" hlmAvatarImage />
+					<span class="bg-destructive text-white" hlmAvatarFallback>RG</span>
+				</hlm-avatar>
 			</div>
 
 			<table-actions />
@@ -93,7 +101,7 @@ import { SortingColumns, Task, TasksService } from './services/tasks.service';
 				<brn-table
 					hlm
 					stickyHeader
-					class="border-border mt-4 block h-[335px] overflow-auto rounded-md border"
+					class="border-border mt-4 block max-h-[700px] overflow-auto rounded-md border"
 					[dataSource]="tableSource()"
 					[displayedColumns]="allDisplayedColumns()"
 					[trackBy]="trackBy"
@@ -125,6 +133,11 @@ import { SortingColumns, Task, TasksService } from './services/tasks.service';
 							</button>
 						</hlm-th>
 						<hlm-td truncate *brnCellDef="let element" class="font-medium">
+							<div
+								class="text-foreground inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-semibold"
+							>
+								{{ element.type }}
+							</div>
 							{{ element.title }}
 						</hlm-td>
 					</brn-column-def>
@@ -191,18 +204,18 @@ import { SortingColumns, Task, TasksService } from './services/tasks.service';
 							<ng-template #labels>
 								<hlm-menu>
 									<hlm-menu-group>
-										<button hlmMenuItemCheckbox [checked]="element.type === 'bug'">
-											<hlm-menu-item-check />
+										<button hlmMenuItemCheckbox [checked]="element.type === 'Bug'">
+											<hlm-menu-item-radio />
 											<span>Bug</span>
 										</button>
 
-										<button hlmMenuItemCheckbox disabled [checked]="element.type === 'feature'">
-											<hlm-menu-item-check />
+										<button hlmMenuItemCheckbox [checked]="element.type === 'Feature'">
+											<hlm-menu-item-radio />
 											<span>Feature</span>
 										</button>
 
-										<button hlmMenuItemCheckbox [checked]="element.type === 'documentation'">
-											<hlm-menu-item-check />
+										<button hlmMenuItemCheckbox [checked]="element.type === 'Documentation'">
+											<hlm-menu-item-radio />
 											<span>Documentation</span>
 										</button>
 									</hlm-menu-group>
@@ -253,7 +266,7 @@ export default class TasksExamplePageComponent {
 	protected readonly trackBy: TrackByFunction<Task> = (_: number, p: Task) => p.id;
 	protected readonly totalElements = computed(() => this._tasksService._filteredTasks().length);
 	protected readonly availablePageSizes = [5, 10, 20, 10000];
-	protected readonly pageSize = signal(this.availablePageSizes[0]);
+	protected readonly pageSize = signal(this.availablePageSizes[1]); // default to page size 10
 
 	protected readonly allDisplayedColumns = this._tasksService.getAllDisplayedColumns();
 	protected readonly selected = this._tasksService.getSelected();

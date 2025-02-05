@@ -196,6 +196,16 @@ export class BrnSelectService {
 		}));
 	}
 
+	/**
+	 * Sync the updated options with "possibleOptions" in the select service
+	 */
+	public updatePossibleOptions(options: readonly CdkOption[]) {
+		this.state.update((state) => ({
+			...state,
+			possibleOptions: options as CdkOption[],
+		}));
+	}
+
 	private selectOptionByValue(value: unknown) {
 		const options = this.possibleOptions();
 		if (value === null || value === undefined) {

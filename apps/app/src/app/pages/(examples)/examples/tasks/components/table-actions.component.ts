@@ -3,10 +3,16 @@ import { FormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
 	lucideCheck,
-	lucideChevronsDown,
-	lucideChevronsLeft,
+	lucideChevronDown,
+	lucideChevronLeft,
 	lucideChevronsUp,
+	lucideChevronUp,
+	lucideCircle,
+	lucideCircleCheckBig,
+	lucideCircleDashed,
+	lucideCircleDot,
 	lucideCircleHelp,
+	lucideCircleOff,
 	lucideCirclePlus,
 	lucideGlobe,
 	lucideMicVocal,
@@ -14,6 +20,7 @@ import {
 	lucideSettings2,
 	lucideX,
 } from '@ng-icons/lucide';
+import { StatusIconPipe } from '@spartan-ng/app/app/pages/(examples)/examples/tasks/components/status-icon.pipe';
 import { BrnCommandImports } from '@spartan-ng/brain/command';
 import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
 import { BrnPopoverImports } from '@spartan-ng/brain/popover';
@@ -22,11 +29,11 @@ import { HlmCheckboxImports } from '@spartan-ng/ui-checkbox-helm';
 import { HlmCommandImports } from '@spartan-ng/ui-command-helm';
 import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
-import { HlmMenuComponent, HlmMenuItemImports, HlmMenuStructureImports } from '@spartan-ng/ui-menu-helm';
+import { HlmMenuComponent, HlmMenuItemImports } from '@spartan-ng/ui-menu-helm';
 import { HlmPopoverImports } from '@spartan-ng/ui-popover-helm';
 import { LocalStorageService } from '../services/local-storage.service';
-import { TaskPriority, TasksService } from '../services/tasks.service';
-import { PriorityPipe } from './priority.pipe';
+import { TaskPriority, TasksService, TaskStatus } from '../services/tasks.service';
+import { PriorityIconPipe } from './priority-icon.pipe';
 
 @Component({
 	// eslint-disable-next-line @angular-eslint/component-selector
@@ -44,13 +51,13 @@ import { PriorityPipe } from './priority.pipe';
 		HlmIconDirective,
 		HlmMenuComponent,
 		HlmMenuItemImports,
-		HlmMenuStructureImports,
 		BrnPopoverImports,
 		HlmCommandImports,
 		BrnCommandImports,
 		HlmPopoverImports,
 		HlmCheckboxImports,
-		PriorityPipe,
+		PriorityIconPipe,
+		StatusIconPipe,
 	],
 	providers: [
 		provideIcons({
@@ -59,10 +66,16 @@ import { PriorityPipe } from './priority.pipe';
 			lucideSettings2,
 			lucideCirclePlus,
 			lucideCheck,
-			lucideChevronsDown,
-			lucideChevronsLeft,
+			lucideChevronDown,
+			lucideChevronLeft,
+			lucideChevronUp,
 			lucideChevronsUp,
 			lucideCircleHelp,
+			lucideCircle,
+			lucideCircleDot,
+			lucideCircleDashed,
+			lucideCircleCheckBig,
+			lucideCircleOff,
 			lucideSearch,
 			lucideX,
 		}),
@@ -79,28 +92,48 @@ import { PriorityPipe } from './priority.pipe';
 					(ngModelChange)="rawFilterInput.set($event)"
 				/>
 
-				<button hlmBtn variant="outline" size="sm" align="end" class="border-dashed" [brnMenuTriggerFor]="status">
-					<ng-icon hlm name="lucideCirclePlus" class="mr-2" size="sm" />
-					Status
-				</button>
-				<ng-template #status>
-					<hlm-menu variant="menubar" class="w-48">
-						<hlm-menu-group>
-							<button inset hlmMenuItem>Show Playing Next</button>
-							<button hlmMenuItemCheckbox checked>
-								<hlm-menu-item-check />
-								Show Lyrics
-							</button>
-							<hlm-menu-separator />
+				<brn-popover
+					[state]="statusState()"
+					(stateChanged)="statusStateChanged($event)"
+					sideOffset="5"
+					closeDelay="100"
+					align="start"
+				>
+					<button hlmBtn brnPopoverTrigger variant="outline" size="sm" class="border-dashed">
+						<ng-icon hlm name="lucideCirclePlus" class="mr-2" size="sm" />
+						Status
+						@if (statusFilter().length) {
+							<div data-orientation="vertical" role="none" class="bg-border mx-2 h-4 w-[1px] shrink-0"></div>
 
-							<button inset hlmMenuItem disabled>Show Status Bar</button>
-							<hlm-menu-separator />
+							<div class="flex gap-1">
+								@for (status of statusFilter(); track status) {
+									<span class="bg-secondary text-secondary-foreground rounded px-1 py-0.5 text-xs">
+										{{ status }}
+									</span>
+								}
+							</div>
+						}
+					</button>
+					<hlm-command *brnPopoverContent="let ctx" hlmPopoverContent class="w-[200px] p-0">
+						<hlm-command-search>
+							<ng-icon hlm name="lucideSearch" class="text-muted-foreground" />
+							<input placeholder="Status" hlm-command-search-input />
+						</hlm-command-search>
+						<div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
+						<hlm-command-list>
+							<hlm-command-group>
+								@for (status of statuses(); track status) {
+									<button hlm-command-item [value]="status" (selected)="statusSelected(status)">
+										<hlm-checkbox class="mr-2" [checked]="isStatusSelected(status)" />
 
-							<button inset hlmMenuItem>Hide Sidebar</button>
-							<button inset hlmMenuItem disabled>Enter Full Screen</button>
-						</hlm-menu-group>
-					</hlm-menu>
-				</ng-template>
+										<ng-icon hlm [name]="status | statusIcon" class="text-muted-foreground mx-2" size="sm" />
+										{{ status }}
+									</button>
+								}
+							</hlm-command-group>
+						</hlm-command-list>
+					</hlm-command>
+				</brn-popover>
 
 				<brn-popover
 					[state]="priorityState()"
@@ -109,14 +142,7 @@ import { PriorityPipe } from './priority.pipe';
 					closeDelay="100"
 					align="start"
 				>
-					<button
-						hlmBtn
-						brnPopoverTrigger
-						variant="outline"
-						size="sm"
-						class="border-dashed"
-						[brnMenuTriggerFor]="status"
-					>
+					<button hlmBtn brnPopoverTrigger variant="outline" size="sm" class="border-dashed">
 						<ng-icon hlm name="lucideCirclePlus" class="mr-2" size="sm" />
 						Priority
 						@if (priorityFilter().length) {
@@ -133,7 +159,7 @@ import { PriorityPipe } from './priority.pipe';
 					</button>
 					<hlm-command *brnPopoverContent="let ctx" hlmPopoverContent class="w-[200px] p-0">
 						<hlm-command-search>
-							<ng-icon hlm name="lucideSearch" />
+							<ng-icon hlm name="lucideSearch" class="text-muted-foreground" />
 							<input placeholder="Priority" hlm-command-search-input />
 						</hlm-command-search>
 						<div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
@@ -143,7 +169,7 @@ import { PriorityPipe } from './priority.pipe';
 									<button hlm-command-item [value]="priority" (selected)="prioritySelected(priority)">
 										<hlm-checkbox class="mr-2" [checked]="isPrioritySelected(priority)" />
 
-										<ng-icon hlm [name]="priority | priorityIcon" color="gray" class="mx-2" size="sm" />
+										<ng-icon hlm [name]="priority | priorityIcon" class="text-muted-foreground mx-2" size="sm" />
 										{{ priority }}
 									</button>
 								}
@@ -190,8 +216,11 @@ export class TableActionsComponent {
 	protected readonly taskFilter = this._tasksService.getTaskFilter();
 	protected readonly rawFilterInput = this._tasksService.getRawFilterInput();
 	protected readonly statusFilter = this._tasksService.getStatusFilter();
+	protected readonly statuses = signal(['Backlog', 'Todo', 'In Progress', 'Done', 'Canceled'] satisfies TaskStatus[]);
+	protected readonly statusState = signal<'closed' | 'open'>('closed');
+
 	protected readonly priorityFilter = this._tasksService.getPriorityFilter();
-	protected readonly priorities = signal(['Low', 'Medium', 'High'] satisfies TaskPriority[]);
+	protected readonly priorities = signal(['Low', 'Medium', 'High', 'Critical'] satisfies TaskPriority[]);
 	protected readonly priorityState = signal<'closed' | 'open'>('closed');
 
 	onColumnFilterChanged(columnName: string): void {
@@ -204,7 +233,25 @@ export class TableActionsComponent {
 		}
 	}
 
-	isPrioritySelected(priority: string): boolean {
+	isStatusSelected(status: TaskStatus): boolean {
+		return this.statusFilter().some((s) => s === status);
+	}
+
+	statusStateChanged(state: 'open' | 'closed') {
+		this.statusState.set(state);
+	}
+
+	statusSelected(status: TaskStatus): void {
+		const current = this.statusFilter();
+		const index = current.indexOf(status);
+		if (index === -1) {
+			this.statusFilter.set([...current, status]);
+		} else {
+			this.statusFilter.set(current.filter((s) => s !== status));
+		}
+	}
+
+	isPrioritySelected(priority: TaskPriority): boolean {
 		return this.priorityFilter().some((p) => p === priority);
 	}
 

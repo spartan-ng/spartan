@@ -1,7 +1,22 @@
 import { Component, computed, inject, signal, TrackByFunction } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideArrowUpDown, lucideChevronDown, lucideEllipsis } from '@ng-icons/lucide';
+import {
+	lucideArrowUpDown,
+	lucideChevronDown,
+	lucideChevronLeft,
+	lucideChevronsUp,
+	lucideChevronUp,
+	lucideCircle,
+	lucideCircleCheckBig,
+	lucideCircleDashed,
+	lucideCircleDot,
+	lucideCircleHelp,
+	lucideCircleOff,
+	lucideEllipsis,
+} from '@ng-icons/lucide';
+import { PriorityIconPipe } from '@spartan-ng/app/app/pages/(examples)/examples/tasks/components/priority-icon.pipe';
+import { StatusIconPipe } from '@spartan-ng/app/app/pages/(examples)/examples/tasks/components/status-icon.pipe';
 import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
 import { BrnSelectModule } from '@spartan-ng/brain/select';
 import { BrnTableModule, PaginatorState } from '@spartan-ng/brain/table';
@@ -39,13 +54,30 @@ import { SortingColumns, Task, TasksService } from './services/tasks.service';
 		HlmSelectModule,
 		TableActionsComponent,
 		NgIcon,
+		StatusIconPipe,
+		PriorityIconPipe,
 	],
-	providers: [provideIcons({ lucideChevronDown, lucideEllipsis, lucideArrowUpDown })],
+	providers: [
+		provideIcons({
+			lucideChevronDown,
+			lucideChevronLeft,
+			lucideChevronUp,
+			lucideChevronsUp,
+			lucideEllipsis,
+			lucideArrowUpDown,
+			lucideCircleHelp,
+			lucideCircle,
+			lucideCircleDot,
+			lucideCircleDashed,
+			lucideCircleCheckBig,
+			lucideCircleOff,
+		}),
+	],
 	host: {
 		class: 'w-full',
 	},
 	template: `
-		<div class="h-full flex-1 flex-col space-y-8 p-8 py-6">
+		<div class="h-full flex-1 flex-col space-y-4 p-8 py-6">
 			<div class="wip-header">
 				<h2 class="text-2xl font-bold tracking-tight">Welcome back!</h2>
 				<p class="text-muted-foreground">Here's a list of your tasks for this month!</p>
@@ -70,7 +102,7 @@ import { SortingColumns, Task, TasksService } from './services/tasks.service';
 							<hlm-checkbox [checked]="isPaymentSelected(element)" (changed)="togglePayment(element)" />
 						</hlm-td>
 					</brn-column-def>
-					<brn-column-def name="id" class="w-32 sm:w-40">
+					<brn-column-def name="id" class="w-32">
 						<hlm-th truncate *brnHeaderDef>
 							<button hlmBtn size="sm" variant="ghost" (click)="handleTaskSortChange('id')">
 								Id
@@ -81,18 +113,18 @@ import { SortingColumns, Task, TasksService } from './services/tasks.service';
 							{{ element.id }}
 						</hlm-td>
 					</brn-column-def>
-					<brn-column-def name="title" class="w-60 lg:flex-1">
+					<brn-column-def name="title" class="w-60 flex-1">
 						<hlm-th *brnHeaderDef>
 							<button hlmBtn size="sm" variant="ghost" (click)="handleTaskSortChange('title')">
 								Title
 								<ng-icon hlm class="ml-3" size="sm" name="lucideArrowUpDown" />
 							</button>
 						</hlm-th>
-						<hlm-td truncate *brnCellDef="let element">
+						<hlm-td truncate *brnCellDef="let element" class="font-medium">
 							{{ element.title }}
 						</hlm-td>
 					</brn-column-def>
-					<brn-column-def name="status" class="w-20 lg:flex-1">
+					<brn-column-def name="status" class="w-32">
 						<hlm-th *brnHeaderDef>
 							<button hlmBtn size="sm" variant="ghost" (click)="handleTaskSortChange('status')">
 								Status
@@ -100,10 +132,13 @@ import { SortingColumns, Task, TasksService } from './services/tasks.service';
 							</button>
 						</hlm-th>
 						<hlm-td truncate *brnCellDef="let element">
-							{{ element.status }}
+							<div class="flex items-center">
+								<ng-icon hlm class="text-muted-foreground mr-2" size="sm" [name]="element.status | statusIcon" />
+								<span>{{ element.status }}</span>
+							</div>
 						</hlm-td>
 					</brn-column-def>
-					<brn-column-def name="priority" class="w-20 justify-end">
+					<brn-column-def name="priority" class="w-32">
 						<hlm-th *brnHeaderDef>
 							<button hlmBtn size="sm" variant="ghost" (click)="handleTaskSortChange('priority')">
 								Priority
@@ -111,7 +146,10 @@ import { SortingColumns, Task, TasksService } from './services/tasks.service';
 							</button>
 						</hlm-th>
 						<hlm-td *brnCellDef="let element">
-							{{ element.priority }}
+							<div class="flex items-center">
+								<ng-icon hlm class="text-muted-foreground mr-2" size="sm" [name]="element.priority | priorityIcon" />
+								{{ element.priority }}
+							</div>
 						</hlm-td>
 					</brn-column-def>
 					<brn-column-def name="actions" class="w-16">

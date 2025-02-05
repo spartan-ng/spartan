@@ -5,6 +5,7 @@ import {
 	lucideArrowUpDown,
 	lucideChevronDown,
 	lucideChevronLeft,
+	lucideChevronRight,
 	lucideChevronsUp,
 	lucideChevronUp,
 	lucideCircle,
@@ -13,6 +14,7 @@ import {
 	lucideCircleDot,
 	lucideCircleHelp,
 	lucideCircleOff,
+	lucideDot,
 	lucideEllipsis,
 } from '@ng-icons/lucide';
 import { PriorityIconPipe } from '@spartan-ng/app/app/pages/(examples)/examples/tasks/components/priority-icon.pipe';
@@ -59,18 +61,20 @@ import { SortingColumns, Task, TasksService } from './services/tasks.service';
 	],
 	providers: [
 		provideIcons({
+			lucideArrowUpDown,
 			lucideChevronDown,
 			lucideChevronLeft,
+			lucideChevronRight,
 			lucideChevronUp,
 			lucideChevronsUp,
-			lucideEllipsis,
-			lucideArrowUpDown,
-			lucideCircleHelp,
 			lucideCircle,
-			lucideCircleDot,
-			lucideCircleDashed,
 			lucideCircleCheckBig,
+			lucideCircleDashed,
+			lucideCircleDot,
+			lucideCircleHelp,
 			lucideCircleOff,
+			lucideDot,
+			lucideEllipsis,
 		}),
 	],
 	host: {
@@ -164,12 +168,43 @@ import { SortingColumns, Task, TasksService } from './services/tasks.service';
 									<hlm-menu-label>Actions</hlm-menu-label>
 									<hlm-menu-separator />
 									<hlm-menu-group>
-										<button hlmMenuItem>Copy payment ID</button>
+										<button hlmMenuItem>Edit</button>
+										<button hlmMenuItem>Make a copy</button>
+										<button hlmMenuItem>Favorite</button>
 									</hlm-menu-group>
 									<hlm-menu-separator />
 									<hlm-menu-group>
-										<button hlmMenuItem>View customer</button>
-										<button hlmMenuItem>View payment details</button>
+										<button hlmMenuItem [brnMenuTriggerFor]="labels">
+											Labels
+											<ng-icon hlm name="lucideChevronRight" class="ml-auto" size="sm" />
+										</button>
+									</hlm-menu-group>
+									<hlm-menu-separator />
+									<hlm-menu-group>
+										<button hlmMenuItem>
+											Delete
+											<span class="ml-auto text-xs tracking-widest opacity-60">⌘⌫</span>
+										</button>
+									</hlm-menu-group>
+								</hlm-menu>
+							</ng-template>
+							<ng-template #labels>
+								<hlm-menu>
+									<hlm-menu-group>
+										<button hlmMenuItemCheckbox [checked]="element.type === 'bug'">
+											<hlm-menu-item-check />
+											<span>Bug</span>
+										</button>
+
+										<button hlmMenuItemCheckbox disabled [checked]="element.type === 'feature'">
+											<hlm-menu-item-check />
+											<span>Feature</span>
+										</button>
+
+										<button hlmMenuItemCheckbox [checked]="element.type === 'documentation'">
+											<hlm-menu-item-check />
+											<span>Documentation</span>
+										</button>
 									</hlm-menu-group>
 								</hlm-menu>
 							</ng-template>

@@ -20,7 +20,6 @@ import {
 	lucideSettings2,
 	lucideX,
 } from '@ng-icons/lucide';
-import { StatusIconPipe } from '@spartan-ng/app/app/pages/(examples)/examples/tasks/components/status-icon.pipe';
 import { BrnCommandImports } from '@spartan-ng/brain/command';
 import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
 import { BrnPopoverImports } from '@spartan-ng/brain/popover';
@@ -31,9 +30,10 @@ import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
 import { HlmMenuComponent, HlmMenuItemImports } from '@spartan-ng/ui-menu-helm';
 import { HlmPopoverImports } from '@spartan-ng/ui-popover-helm';
+import { PriorityIconPipe } from '../pipes/priority-icon.pipe';
+import { StatusIconPipe } from '../pipes/status-icon.pipe';
 import { LocalStorageService } from '../services/local-storage.service';
 import { TaskPriority, TasksService, TaskStatus } from '../services/tasks.service';
-import { PriorityIconPipe } from './priority-icon.pipe';
 
 @Component({
 	// eslint-disable-next-line @angular-eslint/component-selector

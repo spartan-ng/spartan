@@ -21,8 +21,6 @@ import {
 	lucideLogOut,
 	lucideUser,
 } from '@ng-icons/lucide';
-import { PriorityIconPipe } from '@spartan-ng/app/app/pages/(examples)/examples/tasks/components/priority-icon.pipe';
-import { StatusIconPipe } from '@spartan-ng/app/app/pages/(examples)/examples/tasks/components/status-icon.pipe';
 import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
 import { BrnSelectModule } from '@spartan-ng/brain/select';
 import { BrnTableModule, PaginatorState } from '@spartan-ng/brain/table';
@@ -34,6 +32,8 @@ import { HlmMenuModule } from '@spartan-ng/ui-menu-helm';
 import { HlmSelectModule } from '@spartan-ng/ui-select-helm';
 import { HlmTableModule } from '@spartan-ng/ui-table-helm';
 import { TableActionsComponent } from './components/table-actions.component';
+import { PriorityIconPipe } from './pipes/priority-icon.pipe';
+import { StatusIconPipe } from './pipes/status-icon.pipe';
 import { SortingColumns, Task, TasksService } from './services/tasks.service';
 
 @Component({

@@ -1,10 +1,7 @@
-import { DecimalPipe, TitleCasePipe } from '@angular/common';
 import { Component, computed, inject, signal, TrackByFunction } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideArrowUpDown, lucideChevronDown, lucideEllipsis } from '@ng-icons/lucide';
-import { TableActionsComponent } from '@spartan-ng/app/app/pages/(examples)/examples/tasks/components/table-actions.component';
-import { Payment, TasksService } from '@spartan-ng/app/app/pages/(examples)/examples/tasks/services/tasks.service';
 import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
 import { BrnSelectModule } from '@spartan-ng/brain/select';
 import { BrnTableModule, PaginatorState } from '@spartan-ng/brain/table';
@@ -14,6 +11,8 @@ import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 import { HlmMenuModule } from '@spartan-ng/ui-menu-helm';
 import { HlmSelectModule } from '@spartan-ng/ui-select-helm';
 import { HlmTableModule } from '@spartan-ng/ui-table-helm';
+import { TableActionsComponent } from './components/table-actions.component';
+import { SortingColumns, Task, TasksService } from './services/tasks.service';
 
 // TODO: remove links:
 // https://ui.shadcn.com/examples/tasks
@@ -32,8 +31,6 @@ import { HlmTableModule } from '@spartan-ng/ui-table-helm';
 
 		HlmButtonModule,
 
-		DecimalPipe,
-		TitleCasePipe,
 		HlmIconDirective,
 
 		HlmCheckboxComponent,
@@ -73,27 +70,48 @@ import { HlmTableModule } from '@spartan-ng/ui-table-helm';
 							<hlm-checkbox [checked]="isPaymentSelected(element)" (changed)="togglePayment(element)" />
 						</hlm-td>
 					</brn-column-def>
-					<brn-column-def name="status" class="w-32 sm:w-40">
-						<hlm-th truncate *brnHeaderDef>Status</hlm-th>
-						<hlm-td truncate *brnCellDef="let element">
-							{{ element.status | titlecase }}
-						</hlm-td>
-					</brn-column-def>
-					<brn-column-def name="email" class="w-60 lg:flex-1">
-						<hlm-th *brnHeaderDef>
-							<button hlmBtn size="sm" variant="ghost" (click)="handleEmailSortChange()">
-								Email
+					<brn-column-def name="id" class="w-32 sm:w-40">
+						<hlm-th truncate *brnHeaderDef>
+							<button hlmBtn size="sm" variant="ghost" (click)="handleTaskSortChange('id')">
+								Id
 								<ng-icon hlm class="ml-3" size="sm" name="lucideArrowUpDown" />
 							</button>
 						</hlm-th>
 						<hlm-td truncate *brnCellDef="let element">
-							{{ element.email }}
+							{{ element.id }}
 						</hlm-td>
 					</brn-column-def>
-					<brn-column-def name="amount" class="w-20 justify-end">
-						<hlm-th *brnHeaderDef>Amount</hlm-th>
-						<hlm-td class="font-medium tabular-nums" *brnCellDef="let element">
-							$ {{ element.amount | number: '1.2-2' }}
+					<brn-column-def name="title" class="w-60 lg:flex-1">
+						<hlm-th *brnHeaderDef>
+							<button hlmBtn size="sm" variant="ghost" (click)="handleTaskSortChange('title')">
+								Title
+								<ng-icon hlm class="ml-3" size="sm" name="lucideArrowUpDown" />
+							</button>
+						</hlm-th>
+						<hlm-td truncate *brnCellDef="let element">
+							{{ element.title }}
+						</hlm-td>
+					</brn-column-def>
+					<brn-column-def name="status" class="w-20 lg:flex-1">
+						<hlm-th *brnHeaderDef>
+							<button hlmBtn size="sm" variant="ghost" (click)="handleTaskSortChange('status')">
+								Status
+								<ng-icon hlm class="ml-3" size="sm" name="lucideArrowUpDown" />
+							</button>
+						</hlm-th>
+						<hlm-td truncate *brnCellDef="let element">
+							{{ element.status }}
+						</hlm-td>
+					</brn-column-def>
+					<brn-column-def name="priority" class="w-20 justify-end">
+						<hlm-th *brnHeaderDef>
+							<button hlmBtn size="sm" variant="ghost" (click)="handleTaskSortChange('priority')">
+								Priority
+								<ng-icon hlm class="ml-3" size="sm" name="lucideArrowUpDown" />
+							</button>
+						</hlm-th>
+						<hlm-td *brnCellDef="let element">
+							{{ element.priority }}
 						</hlm-td>
 					</brn-column-def>
 					<brn-column-def name="actions" class="w-16">
@@ -159,8 +177,8 @@ import { HlmTableModule } from '@spartan-ng/ui-table-helm';
 export default class TasksExamplePageComponent {
 	private readonly _tasksService = inject(TasksService);
 
-	protected readonly trackBy: TrackByFunction<Payment> = (_: number, p: Payment) => p.id;
-	protected readonly totalElements = computed(() => this._tasksService._filteredPayments().length);
+	protected readonly trackBy: TrackByFunction<Task> = (_: number, p: Task) => p.id;
+	protected readonly totalElements = computed(() => this._tasksService._filteredTasks().length);
 	protected readonly availablePageSizes = [5, 10, 20, 10000];
 	protected readonly pageSize = signal(this.availablePageSizes[0]);
 
@@ -169,14 +187,14 @@ export default class TasksExamplePageComponent {
 	protected readonly checkboxState = this._tasksService.getCheckboxState();
 	protected readonly tableSource = this._tasksService.getFilteredSortedPaginatedTasks();
 
-	protected readonly isPaymentSelected = (payment: Payment) => this._tasksService.isPaymentSelected(payment);
+	protected readonly isPaymentSelected = (payment: Task) => this._tasksService.isTaskSelected(payment);
 
-	handleEmailSortChange() {
-		this._tasksService.handleEmailSortChange();
+	handleTaskSortChange(column: SortingColumns) {
+		this._tasksService.handleTaskSortChange(column);
 	}
 
-	togglePayment(payment: Payment) {
-		this._tasksService.togglePayment(payment);
+	togglePayment(payment: Task) {
+		this._tasksService.toggleTask(payment);
 	}
 
 	handleHeaderCheckboxChange() {

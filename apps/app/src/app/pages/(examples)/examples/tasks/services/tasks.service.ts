@@ -1,20 +1,26 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { computed, effect, Injectable, signal } from '@angular/core';
+import { computed, effect, inject, Injectable, signal } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { useBrnColumnManager } from '@spartan-ng/brain/table';
 import { debounceTime, map } from 'rxjs/operators';
+import { LocalStorageService } from './local-storage.service';
 
 @Injectable({
 	providedIn: 'root',
 })
 export class TasksService {
+	private readonly _localStorageService = inject(LocalStorageService);
+
 	protected readonly _rawFilterInput = signal('');
-	protected readonly _emailFilter = signal('');
+	protected readonly _taskFilter = signal('');
+	protected readonly _statusFilter = signal<TaskStatus[]>([]);
+	protected readonly _priorityFilter = signal<TaskPriority[]>([]);
 	private readonly _debouncedFilter = toSignal(toObservable(this._rawFilterInput).pipe(debounceTime(300)));
 	protected readonly _brnColumnManager = useBrnColumnManager({
-		status: { visible: true, label: 'Status' },
-		email: { visible: true, label: 'Email' },
-		amount: { visible: true, label: 'Amount ($)' },
+		id: { visible: false, label: 'Id' },
+		title: { visible: false, label: 'Title' },
+		status: { visible: false, label: 'Status' },
+		priority: { visible: false, label: 'Priority' },
 	});
 	protected readonly _allDisplayedColumns = computed(() => [
 		'select',
@@ -24,72 +30,106 @@ export class TasksService {
 
 	private readonly _displayedIndices = signal({ start: 0, end: 0 });
 
-	private readonly _selectionModel = new SelectionModel<Payment>(true);
+	private readonly _selectionModel = new SelectionModel<Task>(true);
 	protected readonly _selected = toSignal(this._selectionModel.changed.pipe(map((change) => change.source.selected)), {
 		initialValue: [],
 	});
 
-	private readonly _payments = signal(PAYMENT_DATA);
-	public readonly _filteredPayments = computed(() => {
-		const emailFilter = this._emailFilter()?.trim()?.toLowerCase();
-		if (emailFilter && emailFilter.length > 0) {
-			return this._payments().filter((u) => u.email.toLowerCase().includes(emailFilter));
+	private readonly _tasks = signal(TASK_DATA);
+
+	public readonly _filteredTasks = computed(() => {
+		let tasks = this._tasks();
+		const taskFilter = this._taskFilter()?.trim()?.toLowerCase();
+		const statusFilter = this._statusFilter();
+		const priorityFilter = this._priorityFilter();
+
+		// status filter
+		if (statusFilter.length) {
+			tasks = tasks.filter((a) => statusFilter.includes(a.status));
 		}
-		return this._payments();
+
+		// priority filter
+		if (priorityFilter.length) {
+			tasks = tasks.filter((a) => priorityFilter.includes(a.priority));
+		}
+
+		// search filter
+		if (taskFilter && taskFilter.length > 0) {
+			tasks = tasks.filter(
+				(a) => a.title.toLowerCase().includes(taskFilter) || a.id.toLowerCase().includes(taskFilter),
+			);
+		}
+		return tasks;
 	});
-	private readonly _emailSort = signal<'ASC' | 'DESC' | null>(null);
-	protected readonly _filteredSortedPaginatedPayments = computed(() => {
-		const sort = this._emailSort();
+
+	private readonly _taskSort = signal<'ASC' | 'DESC' | null>(null);
+	private readonly _taskSortColumn = signal<SortingColumns>('status');
+
+	protected readonly _filteredSortedPaginatedTasks = computed(() => {
+		const sort = this._taskSort();
 		const start = this._displayedIndices().start;
 		const end = this._displayedIndices().end + 1;
-		const payments = this._filteredPayments();
-		if (!sort) {
-			return payments.slice(start, end);
-		}
-		return [...payments]
-			.sort((p1, p2) => (sort === 'ASC' ? 1 : -1) * p1.email.localeCompare(p2.email))
+		const tasks = this._filteredTasks();
+		const sortColumn = this._taskSortColumn();
+		return [...tasks]
+			.sort((a1, a2) => {
+				const value1 = a1[sortColumn];
+				const value2 = a2[sortColumn];
+				if (typeof value1 === 'number' && typeof value2 === 'number') {
+					return (sort === 'ASC' ? 1 : -1) * (value1 - value2);
+				} else if (typeof value1 === 'string' && typeof value2 === 'string') {
+					return (sort === 'ASC' ? 1 : -1) * value1.localeCompare(value2);
+				} else {
+					throw new Error(`Unsupported sorting type: ${typeof value1}`);
+				}
+			})
 			.slice(start, end);
 	});
-	protected readonly _allFilteredPaginatedPaymentsSelected = computed(() =>
-		this._filteredSortedPaginatedPayments().every((payment: Payment) => this._selected().includes(payment)),
+	protected readonly _allFilteredPaginatedTasksSelected = computed(() =>
+		this._filteredSortedPaginatedTasks().every((task: Task) => this._selected().includes(task)),
 	);
 	protected readonly _checkboxState = computed(() => {
 		const noneSelected = this._selected().length === 0;
-		const allSelectedOrIndeterminate = this._allFilteredPaginatedPaymentsSelected() ? true : 'indeterminate';
+		const allSelectedOrIndeterminate = this._allFilteredPaginatedTasksSelected() ? true : 'indeterminate';
 		return noneSelected ? false : allSelectedOrIndeterminate;
 	});
 
 	constructor() {
 		// needed to sync the debounced filter to the name filter, but being able to override the
 		// filter when loading new users without debounce
-		effect(() => this._emailFilter.set(this._debouncedFilter() ?? ''), { allowSignalWrites: true });
+		effect(() => this._taskFilter.set(this._debouncedFilter() ?? ''), { allowSignalWrites: true });
+		const columnSettings = this._localStorageService.getTaskTableColumns();
+		for (const column of columnSettings) {
+			this._brnColumnManager.setVisible(column as any);
+		}
 	}
 
-	isPaymentSelected(payment: Payment) {
-		return this._selectionModel.isSelected(payment);
+	isTaskSelected(task: Task) {
+		return this._selectionModel.isSelected(task);
 	}
 
-	togglePayment(payment: Payment) {
-		this._selectionModel.toggle(payment);
+	toggleTask(task: Task) {
+		this._selectionModel.toggle(task);
 	}
 
 	handleHeaderCheckboxChange() {
 		const previousCbState = this._checkboxState();
 		if (previousCbState === 'indeterminate' || !previousCbState) {
-			this._selectionModel.select(...this._filteredSortedPaginatedPayments());
+			this._selectionModel.select(...this._filteredSortedPaginatedTasks());
 		} else {
-			this._selectionModel.deselect(...this._filteredSortedPaginatedPayments());
+			this._selectionModel.deselect(...this._filteredSortedPaginatedTasks());
 		}
 	}
 
-	handleEmailSortChange() {
-		const sort = this._emailSort();
+	handleTaskSortChange(column: SortingColumns) {
+		this._taskSortColumn.set(column);
+		const sort = this._taskSort();
 		if (sort === 'ASC') {
-			this._emailSort.set('DESC');
+			this._taskSort.set('DESC');
 		} else if (sort === 'DESC') {
-			this._emailSort.set(null);
+			this._taskSort.set(null);
 		} else {
-			this._emailSort.set('ASC');
+			this._taskSort.set('ASC');
 		}
 	}
 
@@ -97,12 +137,20 @@ export class TasksService {
 		return this._brnColumnManager;
 	}
 
-	getEmailFilter() {
-		return this._emailFilter;
+	getTaskFilter() {
+		return this._taskFilter;
 	}
 
 	getRawFilterInput() {
 		return this._rawFilterInput;
+	}
+
+	getStatusFilter() {
+		return this._statusFilter;
+	}
+
+	getPriorityFilter() {
+		return this._priorityFilter;
 	}
 
 	getAllDisplayedColumns() {
@@ -114,7 +162,7 @@ export class TasksService {
 	}
 
 	getFilteredSortedPaginatedTasks() {
-		return this._filteredSortedPaginatedPayments;
+		return this._filteredSortedPaginatedTasks;
 	}
 
 	getCheckboxState() {
@@ -126,132 +174,76 @@ export class TasksService {
 	}
 }
 
-export type Payment = {
+export type SortingColumns = 'id' | 'title' | 'status' | 'priority';
+type TaskStatus = 'Todo' | 'In Progress' | 'Backlog' | 'Canceled' | 'Done';
+type TaskPriority = 'High' | 'Medium' | 'Low';
+
+export type Task = {
 	id: string;
-	amount: number;
-	status: 'pending' | 'processing' | 'success' | 'failed';
-	email: string;
+	title: string;
+	status: TaskStatus;
+	priority: TaskPriority;
 };
 
-const PAYMENT_DATA: Payment[] = [
+const TASK_DATA: Task[] = [
 	{
-		id: 'm5gr84i9',
-		amount: 316,
-		status: 'success',
-		email: 'ken99@yahoo.com',
+		id: 'TASK-8782',
+		title: "You can't compress the program without quantifying the open-source SSD",
+		status: 'In Progress',
+		priority: 'Medium',
 	},
 	{
-		id: '3u1reuv4',
-		amount: 242,
-		status: 'success',
-		email: 'Abe45@gmail.com',
+		id: 'TASK-7878',
+		title: 'Try to calculate the EXE feed, maybe it will index the multi-byte pixel!',
+		status: 'Backlog',
+		priority: 'Medium',
 	},
 	{
-		id: 'derv1ws0',
-		amount: 837,
-		status: 'processing',
-		email: 'Monserrat44@gmail.com',
+		id: 'TASK-7839',
+		title: 'We need to bypass the neural TCP card!',
+		status: 'Todo',
+		priority: 'High',
 	},
 	{
-		id: '5kma53ae',
-		amount: 874,
-		status: 'success',
-		email: 'Silas22@gmail.com',
+		id: 'TASK-5562',
+		title: 'The SAS interface is down, bypass the open-source pixel so we can back',
+		status: 'Backlog',
+		priority: 'Medium',
 	},
 	{
-		id: 'bhqecj4p',
-		amount: 721,
-		status: 'failed',
-		email: 'carmella@hotmail.com',
+		id: 'TASK-8686',
+		title: "I'll parse the wireless SSL protocol, that should driver the API panel!",
+		status: 'Canceled',
+		priority: 'Medium',
 	},
 	{
-		id: 'p0r8sd2f',
-		amount: 123,
-		status: 'failed',
-		email: 'john.doe@example.com',
+		id: 'TASK-1280',
+		title: 'Use the digital TLS panel, then you can transmit the haptic system!',
+		status: 'Done',
+		priority: 'High',
 	},
 	{
-		id: '8uyv3n1x',
-		amount: 589,
-		status: 'processing',
-		email: 'emma.smith@gmail.com',
+		id: 'TASK-7262',
+		title: 'The UTF8 application is down, parse the neural bandwidth so we can back',
+		status: 'Done',
+		priority: 'High',
 	},
 	{
-		id: '2zqo6ptr',
-		amount: 456,
-		status: 'success',
-		email: 'jackson78@hotmail.com',
+		id: 'TASK-1138',
+		title: "Generating the driver won't do anything, we need to quantify the 1080p S",
+		status: 'In Progress',
+		priority: 'Medium',
 	},
 	{
-		id: 'l7we9a3m',
-		amount: 632,
-		status: 'success',
-		email: 'grace_22@yahoo.com',
+		id: 'TASK-7184',
+		title: 'We need to program the back-end THX pixel!',
+		status: 'Todo',
+		priority: 'Low',
 	},
 	{
-		id: 'o9p2v3qk',
-		amount: 987,
-		status: 'failed',
-		email: 'robert.adams@gmail.com',
-	},
-	{
-		id: 'q1o8r7mz',
-		amount: 321,
-		status: 'processing',
-		email: 'alexander34@gmail.com',
-	},
-	{
-		id: 'i5n3s0tv',
-		amount: 555,
-		status: 'failed',
-		email: 'olivia_morris@hotmail.com',
-	},
-	{
-		id: '3xr7s2nl',
-		amount: 789,
-		status: 'success',
-		email: 'michael_cole@yahoo.com',
-	},
-	{
-		id: 'u9v2p1qy',
-		amount: 234,
-		status: 'success',
-		email: 'lily.jones@gmail.com',
-	},
-	{
-		id: 'b4q0e1cp',
-		amount: 876,
-		status: 'failed',
-		email: 'ryan_14@hotmail.com',
-	},
-	{
-		id: 's1z8m7op',
-		amount: 456,
-		status: 'success',
-		email: 'sophia.green@gmail.com',
-	},
-	{
-		id: 'n5a3v0lt',
-		amount: 987,
-		status: 'failed',
-		email: 'david.miller@yahoo.com',
-	},
-	{
-		id: '2qr7v9sm',
-		amount: 654,
-		status: 'processing',
-		email: 'emma_jones@hotmail.com',
-	},
-	{
-		id: 'y9b2h8qq',
-		amount: 789,
-		status: 'success',
-		email: 'jacob_89@gmail.com',
-	},
-	{
-		id: 'c4a0r1xp',
-		amount: 123,
-		status: 'failed',
-		email: 'samantha.richards@yahoo.com',
+		id: 'TASK-5160',
+		title: "Calculating the bus won't do anything, we need to navigate the back-end",
+		status: 'In Progress',
+		priority: 'High',
 	},
 ];

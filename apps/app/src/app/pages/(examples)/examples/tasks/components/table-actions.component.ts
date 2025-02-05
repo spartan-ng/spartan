@@ -12,10 +12,8 @@ import {
 	lucideMicVocal,
 	lucideSearch,
 	lucideSettings2,
+	lucideX,
 } from '@ng-icons/lucide';
-import { PriorityPipe } from '@spartan-ng/app/app/pages/(examples)/examples/tasks/components/priority.pipe';
-import { LocalStorageService } from '@spartan-ng/app/app/pages/(examples)/examples/tasks/services/local-storage.service';
-import { TasksService } from '@spartan-ng/app/app/pages/(examples)/examples/tasks/services/tasks.service';
 import { BrnCommandImports } from '@spartan-ng/brain/command';
 import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
 import { BrnPopoverImports } from '@spartan-ng/brain/popover';
@@ -26,6 +24,9 @@ import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
 import { HlmMenuComponent, HlmMenuItemImports, HlmMenuStructureImports } from '@spartan-ng/ui-menu-helm';
 import { HlmPopoverImports } from '@spartan-ng/ui-popover-helm';
+import { LocalStorageService } from '../services/local-storage.service';
+import { TaskPriority, TasksService } from '../services/tasks.service';
+import { PriorityPipe } from './priority.pipe';
 
 @Component({
 	// eslint-disable-next-line @angular-eslint/component-selector
@@ -63,6 +64,7 @@ import { HlmPopoverImports } from '@spartan-ng/ui-popover-helm';
 			lucideChevronsUp,
 			lucideCircleHelp,
 			lucideSearch,
+			lucideX,
 		}),
 	],
 	template: `
@@ -77,7 +79,7 @@ import { HlmPopoverImports } from '@spartan-ng/ui-popover-helm';
 					(ngModelChange)="rawFilterInput.set($event)"
 				/>
 
-				<button hlmBtn variant="outline" size="sm" align="end" [brnMenuTriggerFor]="status">
+				<button hlmBtn variant="outline" size="sm" align="end" class="border-dashed" [brnMenuTriggerFor]="status">
 					<ng-icon hlm name="lucideCirclePlus" class="mr-2" size="sm" />
 					Status
 				</button>
@@ -107,9 +109,27 @@ import { HlmPopoverImports } from '@spartan-ng/ui-popover-helm';
 					closeDelay="100"
 					align="start"
 				>
-					<button hlmBtn brnPopoverTrigger variant="outline" size="sm" [brnMenuTriggerFor]="status">
+					<button
+						hlmBtn
+						brnPopoverTrigger
+						variant="outline"
+						size="sm"
+						class="border-dashed"
+						[brnMenuTriggerFor]="status"
+					>
 						<ng-icon hlm name="lucideCirclePlus" class="mr-2" size="sm" />
 						Priority
+						@if (priorityFilter().length) {
+							<div data-orientation="vertical" role="none" class="bg-border mx-2 h-4 w-[1px] shrink-0"></div>
+
+							<div class="flex gap-1">
+								@for (priority of priorityFilter(); track priority) {
+									<span class="bg-secondary text-secondary-foreground rounded px-1 py-0.5 text-xs">
+										{{ priority }}
+									</span>
+								}
+							</div>
+						}
 					</button>
 					<hlm-command *brnPopoverContent="let ctx" hlmPopoverContent class="w-[200px] p-0">
 						<hlm-command-search>
@@ -131,6 +151,13 @@ import { HlmPopoverImports } from '@spartan-ng/ui-popover-helm';
 						</hlm-command-list>
 					</hlm-command>
 				</brn-popover>
+
+				@if (statusFilter().length || priorityFilter().length) {
+					<button hlmBtn variant="ghost" size="sm" align="end" (click)="resetFilters()">
+						Reset
+						<ng-icon hlm name="lucideX" class="ml-2" size="sm" />
+					</button>
+				}
 			</div>
 
 			<button hlmBtn variant="outline" size="sm" align="end" [brnMenuTriggerFor]="menu">
@@ -162,8 +189,9 @@ export class TableActionsComponent {
 	protected readonly columnManager = this._tasksService.getColumnManager();
 	protected readonly taskFilter = this._tasksService.getTaskFilter();
 	protected readonly rawFilterInput = this._tasksService.getRawFilterInput();
+	protected readonly statusFilter = this._tasksService.getStatusFilter();
 	protected readonly priorityFilter = this._tasksService.getPriorityFilter();
-	protected readonly priorities = signal(['Low', 'Medium', 'High']);
+	protected readonly priorities = signal(['Low', 'Medium', 'High'] satisfies TaskPriority[]);
 	protected readonly priorityState = signal<'closed' | 'open'>('closed');
 
 	onColumnFilterChanged(columnName: string): void {
@@ -184,9 +212,17 @@ export class TableActionsComponent {
 		this.priorityState.set(state);
 	}
 
-	prioritySelected(priority: string): void {
-		console.log(priority, 'selected');
-		// this._tasksService.getPriorityFilter.set(priority);
-		// this.priorityState.set('closed');
+	prioritySelected(priority: TaskPriority): void {
+		const current = this.priorityFilter();
+		const index = current.indexOf(priority);
+		if (index === -1) {
+			this.priorityFilter.set([...current, priority]);
+		} else {
+			this.priorityFilter.set(current.filter((p) => p !== priority));
+		}
+	}
+
+	resetFilters(): void {
+		this._tasksService.resetFilters();
 	}
 }

@@ -172,11 +172,16 @@ export class TasksService {
 	setDisplayedIndices(startIndex: number, endIndex: number) {
 		this._displayedIndices.set({ start: startIndex, end: endIndex });
 	}
+
+	resetFilters() {
+		this._priorityFilter.set([]);
+		this._statusFilter.set([]);
+	}
 }
 
 export type SortingColumns = 'id' | 'title' | 'status' | 'priority';
-type TaskStatus = 'Todo' | 'In Progress' | 'Backlog' | 'Canceled' | 'Done';
-type TaskPriority = 'High' | 'Medium' | 'Low';
+export type TaskStatus = 'Todo' | 'In Progress' | 'Backlog' | 'Canceled' | 'Done';
+export type TaskPriority = 'High' | 'Medium' | 'Low';
 
 export type Task = {
 	id: string;

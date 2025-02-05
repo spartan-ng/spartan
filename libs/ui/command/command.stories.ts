@@ -48,7 +48,7 @@ export const Default: Story = {
         <ng-icon hlm name="lucideCalendar" hlmCommandIcon />
         Calendar
       </button>
-      <button hlm-command-item value="Search Emoji">
+      <button disabled hlm-command-item value="Search Emoji">
         <ng-icon hlm name="lucideSmile" hlmCommandIcon />
         Search Emoji
       </button>
@@ -135,7 +135,7 @@ export const Default: Story = {
 							<ng-icon hlm name="lucideCalendar" hlmCommandIcon />
 							Calendar
 						</button>
-						<button hlm-command-item value="Search Emoji">
+						<button hlm-command-item disabled value="Search Emoji">
 							<ng-icon hlm name="lucideSmile" hlmCommandIcon />
 							Search Emoji
 						</button>

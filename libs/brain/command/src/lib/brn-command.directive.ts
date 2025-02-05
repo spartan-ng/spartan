@@ -6,6 +6,7 @@ import {
 	contentChild,
 	contentChildren,
 	Directive,
+	effect,
 	HostListener,
 	inject,
 	Injector,
@@ -64,6 +65,17 @@ export class BrnCommandDirective implements AfterViewInit {
 			.withWrap()
 			.withTypeAhead()
 			.skipPredicate((item) => item.disabled || !item.visible());
+
+		// When clearing the search input we also want to reset the active item to the first one
+		effect(
+			() => {
+				const searchInput = this._searchInput()?.value();
+				if (searchInput !== undefined && searchInput.length === 0) {
+					this.keyManager.setActiveItem(0);
+				}
+			},
+			{ allowSignalWrites: true },
+		);
 	}
 
 	ngAfterViewInit(): void {

@@ -11,12 +11,10 @@ describe('label', () => {
 			cy.get('@carousel').should('have.attr', 'aria-roledescription', 'carousel');
 		});
 
-		/* TODO: @goetzrobin fix aria attributes
 		it('should have correct aria attributes on the item elements', () => {
 			cy.get('hlm-carousel-item').as('carouselItem');
 			cy.get('@carouselItem').should('have.attr', 'role', 'group');
 			cy.get('@carouselItem').should('have.attr', 'aria-roledescription', 'slide');
 		});
-		*/
 	});
 });

@@ -5,7 +5,6 @@ describe('combobox--default', () => {
 			cy.injectAxe();
 		});
 
-		/* TODO: @goetzrobin fix a11y issues
 		it('click on combobox should open, click on Angular option should closed', () => {
 			cy.checkA11y('#storybook-root', {
 				rules: {
@@ -22,6 +21,5 @@ describe('combobox--default', () => {
 			cy.findByText(/Angular/i).realClick();
 			cy.findByText(/Angular/i).should('not.exist');
 		});
-		*/
 	});
 });

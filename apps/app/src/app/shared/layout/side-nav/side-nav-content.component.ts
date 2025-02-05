@@ -89,7 +89,7 @@ export class SideNavContentComponent {
 				{ label: 'Command', url: '/command' },
 				{ label: 'Context Menu', url: '/context-menu' },
 				{ label: 'Data Table', url: '/data-table' },
-				{ label: 'Date Picker', url: '/picker', wip: true },
+				{ label: 'Date Picker', url: '/date-picker' },
 				{ label: 'Dialog', url: '/dialog' },
 				{ label: 'Dropdown Menu', url: '/dropdown-menu' },
 				{ label: 'Form', url: '/form', wip: true },

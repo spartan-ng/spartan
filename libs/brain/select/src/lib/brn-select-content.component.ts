@@ -154,9 +154,9 @@ export class BrnSelectContentComponent implements AfterViewInit {
 
 	protected viewport = viewChild.required<ElementRef<HTMLElement>>('viewport');
 
-	protected scrollUpBtn = contentChild.required(BrnSelectScrollUpDirective);
+	protected scrollUpBtn = contentChild(BrnSelectScrollUpDirective);
 
-	protected scrollDownBtn = contentChild.required(BrnSelectScrollDownDirective);
+	protected scrollDownBtn = contentChild(BrnSelectScrollDownDirective);
 
 	protected _options = contentChildren(BrnSelectOptionDirective, { descendants: true });
 
@@ -216,7 +216,7 @@ export class BrnSelectContentComponent implements AfterViewInit {
 	public moveFocusUp() {
 		this.viewport().nativeElement.scrollBy({ top: -SCROLLBY_PIXELS, behavior: 'smooth' });
 		if (this.viewport().nativeElement.scrollTop === 0) {
-			this.scrollUpBtn().stopEmittingEvents();
+			this.scrollUpBtn()?.stopEmittingEvents();
 		}
 	}
 
@@ -228,7 +228,7 @@ export class BrnSelectContentComponent implements AfterViewInit {
 			viewportSize + viewportScrollPosition + SCROLLBY_PIXELS >
 			this.viewport().nativeElement.scrollHeight + SCROLLBY_PIXELS / 2
 		) {
-			this.scrollDownBtn().stopEmittingEvents();
+			this.scrollDownBtn()?.stopEmittingEvents();
 		}
 	}
 }

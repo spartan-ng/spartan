@@ -27,7 +27,7 @@ export class BrnRadioChange<T> {
 	standalone: true,
 	host: {
 		class: 'brn-radio',
-		'[attr.id]': 'id()',
+		'[attr.id]': 'hostId()',
 		'[class.brn-radio-checked]': 'checked()',
 		'[class.brn-radio-disabled]': 'disabledState()',
 		'[attr.data-checked]': 'checked()',
@@ -47,7 +47,11 @@ export class BrnRadioChange<T> {
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<div style="display: flex; height: fit-content; width: fit-content" (click)="onTouchTargetClick($event)">
+		<div
+			data-slot="indicator"
+			style="display: flex; height: fit-content; width: fit-content"
+			(click)="onTouchTargetClick($event)"
+		>
 			<ng-content select="[target],[indicator]" />
 		</div>
 		<input
@@ -67,7 +71,7 @@ export class BrnRadioChange<T> {
 			(change)="onInputInteraction($event)"
 			(click)="onInputClick($event)"
 		/>
-		<label style="display: flex; height: fit-content; width: fit-content" [for]="inputId()">
+		<label [for]="inputId()" data-slot="label">
 			<ng-content />
 		</label>
 	`,
@@ -81,10 +85,7 @@ export class BrnRadioComponent<T = unknown> implements OnDestroy {
 	/**
 	 * Whether the radio button is disabled.
 	 */
-	public readonly disabled = input<boolean, BooleanInput>(false, {
-		transform: booleanAttribute,
-		alias: 'disabled',
-	});
+	public readonly disabled = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
 	/**
 	 * Whether the radio button is disabled or the radio group is disabled.
@@ -111,7 +112,7 @@ export class BrnRadioComponent<T = unknown> implements OnDestroy {
 	/**
 	 * The unique ID for the radio button input. If none is supplied, it will be auto-generated.
 	 */
-	public readonly id = input(`brn-radio-${++BrnRadioComponent._nextUniqueId}`);
+	public readonly id = input<string | undefined>(undefined);
 
 	public readonly ariaLabel = input<string | undefined>(undefined, { alias: 'aria-label' });
 
@@ -136,7 +137,11 @@ export class BrnRadioComponent<T = unknown> implements OnDestroy {
 	 */
 	public readonly change = output<BrnRadioChange<T>>();
 
-	protected readonly inputId = computed(() => `${this.id()}-input`);
+	protected readonly hostId = computed(() =>
+		this.id() ? this.id() : `brn-radio-${++BrnRadioComponent._nextUniqueId}`,
+	);
+
+	protected readonly inputId = computed(() => `${this.hostId()}-input`);
 
 	protected readonly inputElement = viewChild.required<ElementRef<HTMLInputElement>>('input');
 

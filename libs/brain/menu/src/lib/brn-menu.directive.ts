@@ -39,6 +39,12 @@ export class BrnMenuDirective {
 			// we can access it here and determine the correct side.
 			// eslint-disable-next-line
 			const ps = (this._host as any)._parentTrigger._spartanLastPosition;
+			if (!ps) {
+				// if we have no last position we default to the most likely option
+				// I hate that we have to do this and hope we can revisit soon and improve
+				this._side.set(isRoot ? 'top' : 'left');
+				return;
+			}
 			const side = isRoot ? ps.originY : ps.originX === 'end' ? 'right' : 'left';
 			this._side.set(side);
 		});

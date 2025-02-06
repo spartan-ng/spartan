@@ -5,7 +5,8 @@
 	"exports": {
 		"./hlm-tailwind-preset": {
 			"default": "./hlm-tailwind-preset.js"
-		}
+		},
+		"./hlm-tailwind-preset.css": "./hlm-tailwind-preset.css"
 	},
 	"peerDependencies": {
 		"@angular/cdk": ">=18.0.0",

@@ -315,6 +315,9 @@ importers:
       '@types/prismjs':
         specifier: ^1.26.4
         version: 1.26.5
+      '@types/semver':
+        specifier: ^7.5.8
+        version: 7.5.8
       '@types/testing-library__jest-dom':
         specifier: ^5.14.9
         version: 5.14.9

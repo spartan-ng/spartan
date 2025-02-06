@@ -4,5 +4,5 @@
 	"lib": {
 		"entryFile": "src/index.ts"
 	},
-	"assets": ["hlm-tailwind-preset.js"]
+	"assets": ["hlm-tailwind-preset.js", "hlm-tailwind-preset.css"]
 }

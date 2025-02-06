@@ -36,3 +36,8 @@
 		transform: translateX(100%) scaleX(0.5);
 	}
 }
+
+@utility container {
+  margin-inline: auto;
+  padding-inline: 2rem;
+}

@@ -25,7 +25,7 @@
 	--radius-md: calc(var(--radius) - 2px);
 	--radius-sm: calc(var(--radius) - 4px);
 
-	--animation-indeterminate: 4s infinite ease-in-out;
+	--animation-indeterminate: indeterminate 4s ease-in-out;
 }
 
 @keyframes indeterminate {

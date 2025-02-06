@@ -23,7 +23,7 @@ import type { ClassValue } from 'clsx';
 			[attr.data-state]="this._brnSelectOption.checkedState()"
 		>
 			@if (this._brnSelectOption.selected()) {
-				<ng-icon hlm aria-hidden="true" name="lucideCheck" />
+				<ng-icon hlm size="sm" aria-hidden="true" name="lucideCheck" />
 			}
 		</span>
 	`,

@@ -1,0 +1,14 @@
+{
+	"$schema": "https://json-schema.org/schema",
+	"$id": "MigrateRadio",
+	"title": "",
+	"type": "object",
+	"properties": {
+		"skipFormat": {
+			"type": "boolean",
+			"default": false,
+			"description": "Skip formatting files"
+		}
+	},
+	"required": []
+}

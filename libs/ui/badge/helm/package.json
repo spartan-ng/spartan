@@ -6,7 +6,7 @@
 	"peerDependencies": {
 		"@angular/cdk": ">=18.0.0",
 		"@angular/core": ">=18.0.0",
-		"@spartan-ng/brain": "0.0.1-alpha.399",
+		"@spartan-ng/brain": "0.0.1-alpha.400",
 		"class-variance-authority": "^0.7.0",
 		"clsx": "^2.1.1"
 	},

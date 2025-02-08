@@ -1,9 +1,12 @@
 import { Component, booleanAttribute, computed, forwardRef, input, model, output, signal } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { lucideCheck } from '@ng-icons/lucide';
 import { BrnCheckboxComponent } from '@spartan-ng/brain/checkbox';
 import { hlm } from '@spartan-ng/brain/core';
+import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
+import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 import type { ClassValue } from 'clsx';
-import { HlmCheckboxCheckIconComponent } from './hlm-checkbox-checkicon.component';
 
 export const HLM_CHECKBOX_VALUE_ACCESSOR = {
 	provide: NG_VALUE_ACCESSOR,
@@ -14,7 +17,7 @@ export const HLM_CHECKBOX_VALUE_ACCESSOR = {
 @Component({
 	selector: 'hlm-checkbox',
 	standalone: true,
-	imports: [BrnCheckboxComponent, HlmCheckboxCheckIconComponent],
+	imports: [BrnCheckboxComponent, NgIcon, HlmIconDirective],
 	template: `
 		<brn-checkbox
 			[id]="id()"
@@ -27,9 +30,9 @@ export const HLM_CHECKBOX_VALUE_ACCESSOR = {
 			[aria-labelledby]="ariaLabelledby()"
 			[aria-describedby]="ariaDescribedby()"
 			(changed)="_handleChange()"
-			(touched)="_onTouched()"
+			(touched)="_onTouched?.()"
 		>
-			<hlm-checkbox-checkicon [class]="checkIconClass()" [iconName]="checkIconName()" />
+			<ng-icon [class]="_computedIconClass()" hlm size="sm" name="lucideCheck" />
 		</brn-checkbox>
 	`,
 	host: {
@@ -40,16 +43,22 @@ export const HLM_CHECKBOX_VALUE_ACCESSOR = {
 		'[attr.aria-describedby]': 'null',
 	},
 	providers: [HLM_CHECKBOX_VALUE_ACCESSOR],
+	viewProviders: [provideIcons({ lucideCheck })],
 })
 export class HlmCheckboxComponent {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected _computedClass = computed(() =>
+
+	protected readonly _computedClass = computed(() =>
 		hlm(
 			'group inline-flex border border-foreground shrink-0 cursor-pointer items-center rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring' +
 				' focus-visible:ring-offset-2 focus-visible:ring-offset-background data-[state=checked]:text-background data-[state=checked]:bg-primary data-[state=unchecked]:bg-background',
 			this.userClass(),
 			this.state().disabled() ? 'cursor-not-allowed opacity-50' : '',
 		),
+	);
+
+	protected readonly _computedIconClass = computed(() =>
+		hlm('leading-none group-data-[state=unchecked]:opacity-0', this.checked() === 'indeterminate' ? 'opacity-50' : ''),
 	);
 
 	/** Used to set the id on the underlying brn element. */
@@ -64,50 +73,46 @@ export class HlmCheckboxComponent {
 	/** Used to set the aria-describedby attribute on the underlying brn element. */
 	public readonly ariaDescribedby = input<string | null>(null, { alias: 'aria-describedby' });
 
-	public readonly checked = model<boolean | 'indeterminate'>(false);
+	/** The checked state of the checkbox. */
+	public readonly checked = model<CheckboxValue>(false);
 
+	/** The name attribute of the checkbox. */
 	public readonly name = input<string | null>(null);
+
+	/** Whether the checkbox is required. */
 	public readonly required = input(false, { transform: booleanAttribute });
 
+	/** Whether the checkbox is disabled. */
 	public readonly disabled = input(false, { transform: booleanAttribute });
 
 	protected readonly state = computed(() => ({
 		disabled: signal(this.disabled()),
 	}));
 
-	// icon inputs
-	public readonly checkIconName = input<string>('lucideCheck');
-	public readonly checkIconClass = input<ClassValue>('');
-
 	public readonly changed = output<boolean>();
+
+	protected _onChange?: ChangeFn<CheckboxValue>;
+	protected _onTouched?: TouchFn;
 
 	protected _handleChange(): void {
 		if (this.state().disabled()) return;
 
 		const previousChecked = this.checked();
 		this.checked.set(previousChecked === 'indeterminate' ? true : !previousChecked);
-		this._onChange(!previousChecked);
+		this._onChange?.(!previousChecked);
 		this.changed.emit(!previousChecked);
 	}
 
 	/** CONROL VALUE ACCESSOR */
-
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	writeValue(value: any): void {
+	writeValue(value: CheckboxValue): void {
 		this.checked.set(!!value);
 	}
-	// eslint-disable-next-line @typescript-eslint/no-empty-function,,@typescript-eslint/no-explicit-any
-	protected _onChange = (_: any) => {};
-	// eslint-disable-next-line @typescript-eslint/no-empty-function
-	protected _onTouched = () => {};
 
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	registerOnChange(fn: any): void {
+	registerOnChange(fn: ChangeFn<CheckboxValue>): void {
 		this._onChange = fn;
 	}
 
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	registerOnTouched(fn: any): void {
+	registerOnTouched(fn: TouchFn): void {
 		this._onTouched = fn;
 	}
 
@@ -115,3 +120,5 @@ export class HlmCheckboxComponent {
 		this.state().disabled.set(isDisabled);
 	}
 }
+
+type CheckboxValue = boolean | 'indeterminate';

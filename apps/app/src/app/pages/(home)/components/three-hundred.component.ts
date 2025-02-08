@@ -96,6 +96,18 @@ export class ThreeHundredComponent {
 		'donaldxdonald',
 		'BenoitPE',
 		'MerlinMoos',
+		'miljan-code',
+		'Georg632',
+		'hillin',
+		'Besbash',
+		'davidedammino',
+		'marcindz88',
+		'thyco',
+		'hitro11',
+		'GODrums',
+		'samsonkumawong',
+		'PR4SAN',
+		'JeevanMahesha',
 	];
 	protected readonly _rest = Array(300 - this._contributors.length).map((_, i) => i);
 }

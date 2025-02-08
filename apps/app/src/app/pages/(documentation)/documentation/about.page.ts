@@ -9,7 +9,7 @@ import { SectionIntroComponent } from '@spartan-ng/app/app/shared/layout/section
 import { SectionSubHeadingComponent } from '@spartan-ng/app/app/shared/layout/section-sub-heading.component';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
-import { hlmCode, hlmP, hlmUl } from '@spartan-ng/ui-typography-helm';
+import { hlmP, hlmUl } from '@spartan-ng/ui-typography-helm';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'About' },
@@ -123,14 +123,6 @@ const aboutLink = 'h-6 underline text-base px-0.5';
 							Angular Material
 						</a>
 						- An incredible CDK, patterns & inspiration for accessible unstyled ui primitives.
-					</li>
-					<li>
-						<a class="${aboutLink}" hlmBtn href="https://ngxpert.github.io/cmdk/" target="_blank" variant="link">
-							ngxpert/cmdk
-						</a>
-						- The backbone of
-						<code class="${hlmCode}">brn-command</code>
-						, which simply wraps around its awesomeness.
 					</li>
 					<li>
 						<a

@@ -17,7 +17,7 @@ export class CheckboxPreviewComponent {}
 
 export const defaultCode = `
 import { Component } from '@angular/core';
-import { HlmCheckboxCheckIconComponent, HlmCheckboxComponent } from '@spartan-ng/ui-checkbox-helm';
+import { HlmCheckboxComponent } from '@spartan-ng/ui-checkbox-helm';
 import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
 @Component({
 	selector: 'spartan-checkbox-preview',

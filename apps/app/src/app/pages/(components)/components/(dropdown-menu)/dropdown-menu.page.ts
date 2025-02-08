@@ -13,6 +13,7 @@ import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { DropdownPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './dropdown-menu.preview';
+import { DropdownWithContextPreviewComponent, dropdownWithContextCode } from './dropdown-with-context.preview';
 import { DropdownWithStatePreviewComponent, dropdownWithStateCode } from './dropdown-with-state.preview';
 
 export const routeMeta: RouteMeta = {
@@ -40,6 +41,7 @@ export const routeMeta: RouteMeta = {
 		DropdownPreviewComponent,
 		DropdownPreviewComponent,
 		DropdownWithStatePreviewComponent,
+		DropdownWithContextPreviewComponent,
 	],
 	template: `
 		<section spartanMainSection>
@@ -73,6 +75,14 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="dropdownWithStateCode" />
 			</spartan-tabs>
 
+			<h3 id="examples__context" class="${hlmH4} mb-2 mt-6">Passing context to menu</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-dropdown-with-context />
+				</div>
+				<spartan-code secondTab [code]="dropdownWithContextCode" />
+			</spartan-tabs>
+
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="hover-card" label="Hover Card" />
 				<spartan-page-bottom-nav-link direction="previous" href="dialog" label="Dialog" />
@@ -86,4 +96,5 @@ export default class DropdownPageComponent {
 	protected readonly defaultSkeleton = defaultSkeleton;
 	protected readonly defaultImports = defaultImports;
 	protected readonly dropdownWithStateCode = dropdownWithStateCode;
+	protected readonly dropdownWithContextCode = dropdownWithContextCode;
 }

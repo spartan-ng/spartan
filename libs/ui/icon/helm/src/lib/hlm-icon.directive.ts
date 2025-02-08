@@ -1,12 +1,7 @@
 import { Directive, computed, input } from '@angular/core';
 import { injectHlmIconConfig } from './hlm-icon.token';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const DEFINED_SIZES = ['xs', 'sm', 'base', 'lg', 'xl', 'none'] as const;
-
-type DefinedSizes = (typeof DEFINED_SIZES)[number];
-
-export type IconSize = DefinedSizes | (Record<never, never> & string);
+export type IconSize = 'xs' | 'sm' | 'base' | 'lg' | 'xl' | 'none' | (Record<never, never> & string);
 
 @Directive({
 	selector: 'ng-icon[hlm]',

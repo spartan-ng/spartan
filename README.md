@@ -93,6 +93,20 @@ Our initial 300 contributors and sponsors are featured here and on the front pag
 74. [donaldxdonald](https://github.com/donaldxdonald)
 75. [BenoitPE](https://github.com/BenoitPE)
 76. [MerlinMoos](https://github.com/MerlinMoos)
+77. [miljan-code](https://www.github.com/miljan-code)
+78. [Georg632](https://www.github.com/Georg632)
+79. [hillin](https://www.github.com/hillin)
+80. [Besbash](https://www.github.com/Besbash)
+81. [davidedammino](https://www.github.com/davidedammino)
+82. [marcindz88](https://www.github.com/marcindz88)
+83. [thyco](https://www.github.com/thyco)
+84. [hitro11](https://www.github.com/hitro11)
+85. [GODrums](https://www.github.com/GODrums)
+86. [samsonkumawong](https://www.github.com/samsonkumawong)
+87. [PR4SAN](https://www.github.com/PR4SAN)
+88. [JeevanMahesha](https://www.github.com/JeevanMahesha)
+
+
 
 [Become a spartan today!](https://github.com/sponsors/goetzrobin)
 

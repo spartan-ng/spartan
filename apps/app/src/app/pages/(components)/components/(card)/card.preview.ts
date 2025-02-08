@@ -70,24 +70,24 @@ type Framework = { label: string; value: string };
 							{{ currentFramework() ? currentFramework()?.label : 'Select' }}
 							<ng-icon hlm size="sm" name="lucideChevronDown" />
 						</button>
-						<brn-cmd *brnPopoverContent="let ctx" hlmPopoverContent hlm class="w-[270px] p-0">
-							<div *brnCmdEmpty hlmCmdEmpty>No results found.</div>
-							<brn-cmd-list hlm>
-								<brn-cmd-group hlm>
+						<hlm-command *brnPopoverContent="let ctx" hlmPopoverContent class="w-[270px] p-0">
+							<div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
+							<hlm-command-list>
+								<hlm-command-group hlm>
 									@for (framework of frameworks; track framework) {
-										<button brnCmdItem [value]="framework.value" (selected)="commandSelected(framework)" hlm>
+										<button hlm-command-item [value]="framework.value" (selected)="commandSelected(framework)">
 											<ng-icon
 												hlm
 												[class.opacity-0]="currentFramework()?.value !== framework.value"
 												name="lucideCheck"
-												hlmCmdIcon
+												hlmCommandIcon
 											/>
 											{{ framework.label }}
 										</button>
 									}
-								</brn-cmd-group>
-							</brn-cmd-list>
-						</brn-cmd>
+								</hlm-command-group>
+							</hlm-command-list>
+						</hlm-command>
 					</brn-popover>
 				</label>
 			</p>
@@ -218,24 +218,24 @@ type Framework = { label: string; value: string };
                           {{ currentFramework() ? currentFramework()?.label : 'Select' }}
                           <ng-icon hlm size="sm" name="lucideChevronDown" />
                       </button>
-                      <brn-cmd *brnPopoverContent="let ctx" hlmPopoverContent hlm class="w-[270px] p-0">
-                          <div *brnCmdEmpty hlmCmdEmpty>No results found.</div>
-                          <brn-cmd-list hlm>
-                              <brn-cmd-group hlm>
+                      <hlm-command *brnPopoverContent="let ctx" hlmPopoverContent class="w-[270px] p-0">
+                          <div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
+                          <hlm-command-list>
+                              <hlm-command-group>
                                   @for (framework of frameworks;track framework) {
-                                      <button brnCmdItem [value]="framework.value"
+                                      <button hlm-command-item [value]="framework.value"
                                               (selected)="commandSelected(framework)" hlm>
                                           <ng-icon hlm
                                                   [class.opacity-0]="currentFramework()?.value !== framework.value"
                                                   name="lucideCheck"
-                                                  hlmCmdIcon
+                                                  hlmCommandIcon
                                           />
                                           {{ framework.label }}
                                       </button>
                                   }
-                              </brn-cmd-group>
-                          </brn-cmd-list>
-                      </brn-cmd>
+                              </hlm-command-group>
+                          </hlm-command-list>
+                      </hlm-command>
                   </brn-popover>
               </label>
           </p>

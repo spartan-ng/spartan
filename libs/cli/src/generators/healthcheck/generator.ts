@@ -1,6 +1,7 @@
 import { formatFiles, logger, Tree } from '@nx/devkit';
 import { Healthcheck, HealthcheckReport, HealthcheckStatus, isHealthcheckFixable } from './healthchecks';
 import { brainImportsHealthcheck } from './healthchecks/brain-imports';
+import { brainRadioHealthcheck } from './healthchecks/brn-radio';
 import { coreImportsHealthcheck } from './healthchecks/core-imports';
 import { helmIconHealthcheck } from './healthchecks/hlm-icon';
 import { scrollAreaHealthcheck } from './healthchecks/hlm-scroll-area';
@@ -19,6 +20,7 @@ export async function healthcheckGenerator(tree: Tree, options: HealthcheckGener
 		coreImportsHealthcheck,
 		helmIconHealthcheck,
 		scrollAreaHealthcheck,
+		brainRadioHealthcheck,
 	];
 
 	// store all the failed healthchecks that can be fixed

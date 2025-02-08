@@ -95,6 +95,7 @@
 		"@eslint/js": "^9.15.0",
 		"@faker-js/faker": "^9.0.3",
 		"@ng-icons/lucide": "29.10.0",
+		"@ng-icons/remixicon": "29.10.0",
 		"@ngtools/webpack": "18.2.5",
 		"@nx/cypress": "20.1.1",
 		"@nx/eslint": "20.1.1",

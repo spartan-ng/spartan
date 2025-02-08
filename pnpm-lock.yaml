@@ -170,7 +170,7 @@ importers:
     devDependencies:
       '@analogjs/platform':
         specifier: 1.9.4
-        version: 1.9.4(w7ns534r2h7gds4peoypmzaoxu)
+        version: 1.9.4(gfoofhagh3rm2t44pjocsfmb4y)
       '@angular-devkit/build-angular':
         specifier: 18.2.5
         version: 18.2.5(z5he5jzzbav5o5wmyxs66wg6ua)
@@ -210,6 +210,9 @@ importers:
       '@ng-icons/lucide':
         specifier: 29.10.0
         version: 29.10.0
+      '@ng-icons/remixicon':
+        specifier: 29.10.0
+        version: 29.10.0
       '@ngtools/webpack':
         specifier: 18.2.5
         version: 18.2.5(@angular/compiler-cli@18.2.5(@angular/compiler@18.2.5(@angular/core@18.2.5(rxjs@7.8.1)(zone.js@0.14.10)))(typescript@5.5.4))(typescript@5.5.4)(webpack@5.96.1(@swc/core@1.7.26(@swc/helpers@0.5.13))(esbuild@0.24.0))
@@ -233,7 +236,7 @@ importers:
         version: 20.1.1(@babel/traverse@7.25.9)(@swc-node/register@1.10.9(@swc/core@1.7.26(@swc/helpers@0.5.13))(@swc/types@0.1.12)(typescript@5.5.4))(@swc/core@1.7.26(@swc/helpers@0.5.13))(@types/node@22.6.2)(@zkochan/js-yaml@0.0.7)(cypress@13.15.0)(eslint@9.15.0(jiti@2.4.0))(nx@20.1.1(@swc-node/register@1.10.9(@swc/core@1.7.26(@swc/helpers@0.5.13))(@swc/types@0.1.12)(typescript@5.5.4))(@swc/core@1.7.26(@swc/helpers@0.5.13)))(typescript@5.5.4)(verdaccio@5.32.2(encoding@0.1.13)(typanion@3.14.0))
       '@nx/vite':
         specifier: 20.1.1
-        version: 20.1.1(@babel/traverse@7.25.9)(@swc-node/register@1.10.9(@swc/core@1.7.26(@swc/helpers@0.5.13))(@swc/types@0.1.12)(typescript@5.5.4))(@swc/core@1.7.26(@swc/helpers@0.5.13))(@types/node@22.6.2)(nx@20.1.1(@swc-node/register@1.10.9(@swc/core@1.7.26(@swc/helpers@0.5.13))(@swc/types@0.1.12)(typescript@5.5.4))(@swc/core@1.7.26(@swc/helpers@0.5.13)))(typescript@5.5.4)(verdaccio@5.32.2(encoding@0.1.13)(typanion@3.14.0))(vite@5.4.8(@types/node@22.6.2)(less@4.2.0)(sass@1.81.0)(stylus@0.64.0)(terser@5.31.6))(vitest@2.1.1)
+        version: 20.1.1(@babel/traverse@7.25.9)(@swc-node/register@1.10.9(@swc/core@1.7.26(@swc/helpers@0.5.13))(@swc/types@0.1.12)(typescript@5.5.4))(@swc/core@1.7.26(@swc/helpers@0.5.13))(@types/node@22.6.2)(nx@20.1.1(@swc-node/register@1.10.9(@swc/core@1.7.26(@swc/helpers@0.5.13))(@swc/types@0.1.12)(typescript@5.5.4))(@swc/core@1.7.26(@swc/helpers@0.5.13)))(typescript@5.5.4)(verdaccio@5.32.2(encoding@0.1.13)(typanion@3.14.0))(vite@5.4.8(@types/node@22.6.2)(less@4.2.0)(sass@1.81.0)(stylus@0.64.0)(terser@5.31.6))(vitest@2.1.1(@types/node@22.6.2)(@vitest/ui@2.1.1)(jsdom@25.0.1)(less@4.2.0)(sass@1.81.0)(stylus@0.64.0)(terser@5.31.6))
       '@nx/web':
         specifier: 20.1.1
         version: 20.1.1(@babel/traverse@7.25.9)(@swc-node/register@1.10.9(@swc/core@1.7.26(@swc/helpers@0.5.13))(@swc/types@0.1.12)(typescript@5.5.4))(@swc/core@1.7.26(@swc/helpers@0.5.13))(@types/node@22.6.2)(nx@20.1.1(@swc-node/register@1.10.9(@swc/core@1.7.26(@swc/helpers@0.5.13))(@swc/types@0.1.12)(typescript@5.5.4))(@swc/core@1.7.26(@swc/helpers@0.5.13)))(typescript@5.5.4)(verdaccio@5.32.2(encoding@0.1.13)(typanion@3.14.0))
@@ -323,7 +326,7 @@ importers:
         version: 8.15.0(eslint@9.15.0(jiti@2.4.0))(typescript@5.5.4)
       '@vitest/coverage-v8':
         specifier: 2.1.1
-        version: 2.1.1(vitest@2.1.1)
+        version: 2.1.1(vitest@2.1.1(@types/node@22.6.2)(@vitest/ui@2.1.1)(jsdom@25.0.1)(less@4.2.0)(sass@1.81.0)(stylus@0.64.0)(terser@5.31.6))
       '@vitest/ui':
         specifier: 2.1.1
         version: 2.1.1(vitest@2.1.1)
@@ -3416,6 +3419,9 @@ packages:
 
   '@ng-icons/lucide@29.10.0':
     resolution: {integrity: sha512-yFPcY9DPuOGIZOovB0gqCXSBeYsh/tbrjbcJTGyfgJFnFbNU3vgqNL52ZRiF6hSVX/L6pl6/rZmz0NYeLe4mPQ==}
+
+  '@ng-icons/remixicon@29.10.0':
+    resolution: {integrity: sha512-885f7kswr0ejff8T/GHUiGsBxBItt2dX3iW5fyriamekPo9alIM6HT2uc33YHPg+R00EZvgJH70HCtBGRyeprw==}
 
   '@ngtools/webpack@18.2.5':
     resolution: {integrity: sha512-L0n4eHObeqEOYRfSP+e4SeF/dmwxOIFy9xYvYCOUwOLrW4b3+a1+kkT30pqyfL72LFtpf0cmUwaWEFIcWl5PCg==}
@@ -12777,13 +12783,13 @@ snapshots:
       rxjs: 7.8.1
       tslib: 2.7.0
 
-  '@analogjs/platform@1.9.4(w7ns534r2h7gds4peoypmzaoxu)':
+  '@analogjs/platform@1.9.4(gfoofhagh3rm2t44pjocsfmb4y)':
     dependencies:
       '@analogjs/vite-plugin-angular': 1.9.4(swn52cl7gcomo5wu2nogywmide)
       '@analogjs/vite-plugin-nitro': 1.9.4(drizzle-orm@0.33.0(@types/react@18.3.12)(postgres@3.4.5)(react@18.3.1))(encoding@0.1.13)(typescript@5.5.4)
       '@nx/angular': 20.1.1(@angular-devkit/build-angular@18.2.5(z5he5jzzbav5o5wmyxs66wg6ua))(@angular-devkit/core@18.2.5(chokidar@3.6.0))(@angular-devkit/schematics@18.2.5(chokidar@3.6.0))(@babel/traverse@7.25.9)(@schematics/angular@18.2.5(chokidar@3.6.0))(@swc-node/register@1.10.9(@swc/core@1.7.26(@swc/helpers@0.5.13))(@swc/types@0.1.12)(typescript@5.5.4))(@swc/core@1.7.26(@swc/helpers@0.5.13))(@types/node@22.6.2)(@zkochan/js-yaml@0.0.7)(esbuild@0.24.0)(eslint@9.15.0(jiti@2.4.0))(html-webpack-plugin@5.6.3(webpack@5.96.1(@swc/core@1.7.26(@swc/helpers@0.5.13))(esbuild@0.24.0)))(nx@20.1.1(@swc-node/register@1.10.9(@swc/core@1.7.26(@swc/helpers@0.5.13))(@swc/types@0.1.12)(typescript@5.5.4))(@swc/core@1.7.26(@swc/helpers@0.5.13)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rxjs@7.8.1)(typescript@5.5.4)(verdaccio@5.32.2(encoding@0.1.13)(typanion@3.14.0))
       '@nx/devkit': 20.1.1(nx@20.1.1(@swc-node/register@1.10.9(@swc/core@1.7.26(@swc/helpers@0.5.13))(@swc/types@0.1.12)(typescript@5.5.4))(@swc/core@1.7.26(@swc/helpers@0.5.13)))
-      '@nx/vite': 20.1.1(@babel/traverse@7.25.9)(@swc-node/register@1.10.9(@swc/core@1.7.26(@swc/helpers@0.5.13))(@swc/types@0.1.12)(typescript@5.5.4))(@swc/core@1.7.26(@swc/helpers@0.5.13))(@types/node@22.6.2)(nx@20.1.1(@swc-node/register@1.10.9(@swc/core@1.7.26(@swc/helpers@0.5.13))(@swc/types@0.1.12)(typescript@5.5.4))(@swc/core@1.7.26(@swc/helpers@0.5.13)))(typescript@5.5.4)(verdaccio@5.32.2(encoding@0.1.13)(typanion@3.14.0))(vite@5.4.8(@types/node@22.6.2)(less@4.2.0)(sass@1.81.0)(stylus@0.64.0)(terser@5.31.6))(vitest@2.1.1)
+      '@nx/vite': 20.1.1(@babel/traverse@7.25.9)(@swc-node/register@1.10.9(@swc/core@1.7.26(@swc/helpers@0.5.13))(@swc/types@0.1.12)(typescript@5.5.4))(@swc/core@1.7.26(@swc/helpers@0.5.13))(@types/node@22.6.2)(nx@20.1.1(@swc-node/register@1.10.9(@swc/core@1.7.26(@swc/helpers@0.5.13))(@swc/types@0.1.12)(typescript@5.5.4))(@swc/core@1.7.26(@swc/helpers@0.5.13)))(typescript@5.5.4)(verdaccio@5.32.2(encoding@0.1.13)(typanion@3.14.0))(vite@5.4.8(@types/node@22.6.2)(less@4.2.0)(sass@1.81.0)(stylus@0.64.0)(terser@5.31.6))(vitest@2.1.1(@types/node@22.6.2)(@vitest/ui@2.1.1)(jsdom@25.0.1)(less@4.2.0)(sass@1.81.0)(stylus@0.64.0)(terser@5.31.6))
       marked: 5.1.2
       marked-gfm-heading-id: 3.2.0(marked@5.1.2)
       marked-mangle: 1.1.10(marked@5.1.2)
@@ -16413,6 +16419,10 @@ snapshots:
     dependencies:
       tslib: 2.7.0
 
+  '@ng-icons/remixicon@29.10.0':
+    dependencies:
+      tslib: 2.7.0
+
   '@ngtools/webpack@18.2.5(@angular/compiler-cli@18.2.5(@angular/compiler@18.2.5(@angular/core@18.2.5(rxjs@7.8.1)(zone.js@0.14.10)))(typescript@5.5.4))(typescript@5.5.4)(webpack@5.94.0(@swc/core@1.7.26(@swc/helpers@0.5.13))(esbuild@0.23.0))':
     dependencies:
       '@angular/compiler-cli': 18.2.5(@angular/compiler@18.2.5(@angular/core@18.2.5(rxjs@7.8.1)(zone.js@0.14.10)))(typescript@5.5.4)
@@ -16845,7 +16855,7 @@ snapshots:
       - typescript
       - verdaccio
 
-  '@nx/vite@20.1.1(@babel/traverse@7.25.9)(@swc-node/register@1.10.9(@swc/core@1.7.26(@swc/helpers@0.5.13))(@swc/types@0.1.12)(typescript@5.5.4))(@swc/core@1.7.26(@swc/helpers@0.5.13))(@types/node@22.6.2)(nx@20.1.1(@swc-node/register@1.10.9(@swc/core@1.7.26(@swc/helpers@0.5.13))(@swc/types@0.1.12)(typescript@5.5.4))(@swc/core@1.7.26(@swc/helpers@0.5.13)))(typescript@5.5.4)(verdaccio@5.32.2(encoding@0.1.13)(typanion@3.14.0))(vite@5.4.8(@types/node@22.6.2)(less@4.2.0)(sass@1.81.0)(stylus@0.64.0)(terser@5.31.6))(vitest@2.1.1)':
+  '@nx/vite@20.1.1(@babel/traverse@7.25.9)(@swc-node/register@1.10.9(@swc/core@1.7.26(@swc/helpers@0.5.13))(@swc/types@0.1.12)(typescript@5.5.4))(@swc/core@1.7.26(@swc/helpers@0.5.13))(@types/node@22.6.2)(nx@20.1.1(@swc-node/register@1.10.9(@swc/core@1.7.26(@swc/helpers@0.5.13))(@swc/types@0.1.12)(typescript@5.5.4))(@swc/core@1.7.26(@swc/helpers@0.5.13)))(typescript@5.5.4)(verdaccio@5.32.2(encoding@0.1.13)(typanion@3.14.0))(vite@5.4.8(@types/node@22.6.2)(less@4.2.0)(sass@1.81.0)(stylus@0.64.0)(terser@5.31.6))(vitest@2.1.1(@types/node@22.6.2)(@vitest/ui@2.1.1)(jsdom@25.0.1)(less@4.2.0)(sass@1.81.0)(stylus@0.64.0)(terser@5.31.6))':
     dependencies:
       '@nx/devkit': 20.1.1(nx@20.1.1(@swc-node/register@1.10.9(@swc/core@1.7.26(@swc/helpers@0.5.13))(@swc/types@0.1.12)(typescript@5.5.4))(@swc/core@1.7.26(@swc/helpers@0.5.13)))
       '@nx/js': 20.1.1(@babel/traverse@7.25.9)(@swc-node/register@1.10.9(@swc/core@1.7.26(@swc/helpers@0.5.13))(@swc/types@0.1.12)(typescript@5.5.4))(@swc/core@1.7.26(@swc/helpers@0.5.13))(@types/node@22.6.2)(nx@20.1.1(@swc-node/register@1.10.9(@swc/core@1.7.26(@swc/helpers@0.5.13))(@swc/types@0.1.12)(typescript@5.5.4))(@swc/core@1.7.26(@swc/helpers@0.5.13)))(typescript@5.5.4)(verdaccio@5.32.2(encoding@0.1.13)(typanion@3.14.0))
@@ -18607,7 +18617,7 @@ snapshots:
     dependencies:
       vite: 5.4.6(@types/node@22.6.2)(less@4.2.0)(sass@1.77.6)(stylus@0.64.0)(terser@5.31.6)
 
-  '@vitest/coverage-v8@2.1.1(vitest@2.1.1)':
+  '@vitest/coverage-v8@2.1.1(vitest@2.1.1(@types/node@22.6.2)(@vitest/ui@2.1.1)(jsdom@25.0.1)(less@4.2.0)(sass@1.81.0)(stylus@0.64.0)(terser@5.31.6))':
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@bcoe/v8-coverage': 0.2.3

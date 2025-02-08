@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, signal, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, signal, viewChild } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrnSelectComponent, BrnSelectImports } from '../../';
 
@@ -198,6 +198,7 @@ export class SelectMultiValueWithInitialValueTestComponent {
 	standalone: true,
 	imports: [FormsModule, ReactiveFormsModule, BrnSelectImports],
 	selector: 'select-reactive-field-fixture',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<form [formGroup]="form">
 			<brn-select class="w-56" formControlName="fruit" placeholder="Select a Fruit" [multiple]="true">
@@ -206,7 +207,7 @@ export class SelectMultiValueWithInitialValueTestComponent {
 				</button>
 				<brn-select-content class="w-56" data-testid="brn-select-content">
 					<label brnSelectLabel>Fruits</label>
-					@for (selectOption of options(); track selectOption) {
+					@for (selectOption of options(); track selectOption.value) {
 						<div brnOption [value]="selectOption.value">{{ selectOption.label }}</div>
 					}
 				</brn-select-content>

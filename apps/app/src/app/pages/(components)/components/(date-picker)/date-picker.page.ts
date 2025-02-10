@@ -1,5 +1,7 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import { hlmCode, hlmH4, hlmP, hlmUl } from '@spartan-ng/ui-typography-helm';
 import { CodeComponent } from '../../../../shared/code/code.component';
 import { PageBottomNavLinkComponent } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav-link.component';
@@ -21,6 +23,8 @@ export const routeMeta: RouteMeta = {
 	title: 'spartan/ui - Date Picker',
 };
 
+const link = 'h-6 underline text-base px-0.5';
+
 @Component({
 	selector: 'spartan-calendar',
 	standalone: true,
@@ -37,6 +41,8 @@ export const routeMeta: RouteMeta = {
 		DatePickerConfigExampleComponent,
 		DatePickerFormatExampleComponent,
 		DatePickerFormExampleComponent,
+		RouterLink,
+		HlmButtonDirective,
 	],
 	template: `
 		<section spartanMainSection>
@@ -50,6 +56,15 @@ export const routeMeta: RouteMeta = {
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
+
+			<p class="${hlmP} mb-6">
+				The Date Picker component is built with the
+				<a routerLink="/components/popover" hlmBtn variant="link" class="${link}">Popover</a>
+				and the
+				<a routerLink="/components/calendar" hlmBtn variant="link" class="${link}">Calendar</a>
+				components.
+			</p>
+
 			<spartan-cli-tabs
 				class="mt-4"
 				nxCode="npx nx g @spartan-ng/cli:ui datepicker"

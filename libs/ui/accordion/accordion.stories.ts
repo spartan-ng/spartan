@@ -1,4 +1,5 @@
-import { NgIcon } from '@ng-icons/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { lucideChevronDown } from '@ng-icons/lucide';
 import { BrnAccordionDirective, BrnAccordionImports } from '@spartan-ng/brain/accordion';
 import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
 import type { Meta, StoryObj } from '@storybook/angular';
@@ -13,6 +14,7 @@ const meta: Meta<BrnAccordionDirective> = {
 	decorators: [
 		moduleMetadata({
 			imports: [BrnAccordionImports, HlmAccordionImports, NgIcon, HlmIconDirective, HlmInputDirective],
+			providers: [provideIcons({ lucideChevronDown })],
 		}),
 	],
 };

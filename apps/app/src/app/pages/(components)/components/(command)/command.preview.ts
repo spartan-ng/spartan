@@ -30,47 +30,57 @@ import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 		}),
 	],
 	template: `
-		<brn-cmd class="w-96" hlm>
-			<hlm-cmd-input-wrapper>
-				<ng-icon hlm name="lucideSearch" />
-				<input placeholder="Type a command or search..." brnCmdInput hlm />
-			</hlm-cmd-input-wrapper>
-			<div *brnCmdEmpty hlmCmdEmpty>No results found.</div>
-			<brn-cmd-list hlm>
-				<brn-cmd-group hlm label="Suggestions">
-					<button brnCmdItem hlm>
-						<ng-icon hlm name="lucideCalendar" hlmCmdIcon />
+		<hlm-command>
+			<hlm-command-search>
+				<ng-icon hlm name="lucideSearch" class="inline-flex" />
+
+				<input type="text" hlm-command-search-input placeholder="Type a command or search..." />
+			</hlm-command-search>
+
+			<hlm-command-list>
+				<hlm-command-group>
+					<hlm-command-group-label>Suggestions</hlm-command-group-label>
+
+					<button hlm-command-item value="Calendar">
+						<ng-icon hlm name="lucideCalendar" hlmCommandIcon />
 						Calendar
 					</button>
-					<button brnCmdItem hlm>
-						<ng-icon hlm name="lucideSmile" hlmCmdIcon />
+					<button hlm-command-item value="Search Emoji">
+						<ng-icon hlm name="lucideSmile" hlmCommandIcon />
 						Search Emoji
 					</button>
-					<button brnCmdItem hlm>
-						<ng-icon hlm name="lucidePlus" hlmCmdIcon />
+					<button hlm-command-item value="Calculator">
+						<ng-icon hlm name="lucidePlus" hlmCommandIcon />
 						Calculator
 					</button>
-				</brn-cmd-group>
-				<brn-cmd-separator hlm></brn-cmd-separator>
-				<brn-cmd-group hlm label="Settings">
-					<button brnCmdItem hlm>
-						<ng-icon hlm name="lucideUser" hlmCmdIcon />
+				</hlm-command-group>
+
+				<hlm-command-separator />
+
+				<hlm-command-group>
+					<hlm-command-group-label>Settings</hlm-command-group-label>
+
+					<button hlm-command-item value="Profile">
+						<ng-icon hlm name="lucideUser" hlmCommandIcon />
 						Profile
-						<hlm-cmd-shortcut>⌘P</hlm-cmd-shortcut>
+						<hlm-command-shortcut>⌘P</hlm-command-shortcut>
 					</button>
-					<button brnCmdItem hlm>
-						<ng-icon hlm name="lucideWallet" hlmCmdIcon />
+					<button hlm-command-item value="Billing">
+						<ng-icon hlm name="lucideWallet" hlmCommandIcon />
 						Billing
-						<hlm-cmd-shortcut>⌘B</hlm-cmd-shortcut>
+						<hlm-command-shortcut>⌘B</hlm-command-shortcut>
 					</button>
-					<button brnCmdItem hlm>
-						<ng-icon hlm name="lucideCog" hlmCmdIcon />
+					<button hlm-command-item value="Settings">
+						<ng-icon hlm name="lucideCog" hlmCommandIcon />
 						Settings
-						<hlm-cmd-shortcut>⌘S</hlm-cmd-shortcut>
+						<hlm-command-shortcut>⌘S</hlm-command-shortcut>
 					</button>
-				</brn-cmd-group>
-			</brn-cmd-list>
-		</brn-cmd>
+				</hlm-command-group>
+			</hlm-command-list>
+
+			<!-- Empty state -->
+			<div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
+		</hlm-command>
 	`,
 })
 export class CommandPreviewComponent {}
@@ -100,47 +110,61 @@ import {
     provideIcons({ lucideSearch, lucideCalendar, lucideSmile, lucidePlus, lucideUser, lucideWallet, lucideCog }),
   ],
   template: \`
-    <brn-cmd class="w-96" hlm>
-      <hlm-cmd-input-wrapper>
-        <ng-icon hlm name="lucideSearch" />
-        <input placeholder="Type a command or search..." brnCmdInput hlm />
-      </hlm-cmd-input-wrapper>
-      <div *brnCmdEmpty hlmCmdEmpty>No results found.</div>
-      <brn-cmd-list hlm>
-        <brn-cmd-group hlm label="Suggestions">
-          <button brnCmdItem hlm>
-            <ng-icon hlm name="lucideCalendar" hlmCmdIcon />
-            Calendar
-          </button>
-          <button brnCmdItem hlm>
-            <ng-icon hlm name="lucideSmile" hlmCmdIcon />
-            Search Emoji
-          </button>
-          <button brnCmdItem hlm>
-            <ng-icon hlm name="lucidePlus" hlmCmdIcon />
-            Calculator
-          </button>
-        </brn-cmd-group>
-        <brn-cmd-separator hlm></brn-cmd-separator>
-        <brn-cmd-group hlm label="Settings">
-          <button brnCmdItem hlm>
-            <ng-icon hlm name="lucideUser" hlmCmdIcon />
-            Profile
-            <hlm-cmd-shortcut>⌘P</hlm-cmd-shortcut>
-          </button>
-          <button brnCmdItem hlm>
-            <ng-icon hlm name="lucideWallet" hlmCmdIcon />
-            Billing
-            <hlm-cmd-shortcut>⌘B</hlm-cmd-shortcut>
-          </button>
-          <button brnCmdItem hlm>
-            <ng-icon hlm name="lucideCog" hlmCmdIcon />
-            Settings
-            <hlm-cmd-shortcut>⌘S</hlm-cmd-shortcut>
-          </button>
-        </brn-cmd-group>
-      </brn-cmd-list>
-    </brn-cmd>
+ 	<hlm-command>
+  <hlm-command-search>
+    <ng-icon hlm name="lucideSearch" class="inline-flex" />
+
+    <input
+      type="text"
+      hlm-command-search-input
+      placeholder="Type a command or search..."
+    />
+  </hlm-command-search>
+
+  <hlm-command-list>
+    <hlm-command-group>
+      <hlm-command-group-label>Suggestions</hlm-command-group-label>
+
+      <button hlm-command-item value="Calendar">
+        <ng-icon hlm name="lucideCalendar" hlmCommandIcon />
+        Calendar
+      </button>
+      <button hlm-command-item value="Search Emoji">
+        <ng-icon hlm name="lucideSmile" hlmCommandIcon />
+        Search Emoji
+      </button>
+      <button hlm-command-item value="Calculator">
+        <ng-icon hlm name="lucidePlus" hlmCommandIcon />
+        Calculator
+      </button>
+    </hlm-command-group>
+
+    <hlm-command-separator />
+
+    <hlm-command-group>
+      <hlm-command-group-label>Settings</hlm-command-group-label>
+
+      <button hlm-command-item value="Profile">
+        <ng-icon hlm name="lucideUser" hlmCommandIcon />
+        Profile
+        <hlm-command-shortcut>⌘P</hlm-command-shortcut>
+      </button>
+      <button hlm-command-item value="Billing">
+        <ng-icon hlm name="lucideWallet" hlmCommandIcon />
+        Billing
+        <hlm-command-shortcut>⌘B</hlm-command-shortcut>
+      </button>
+      <button hlm-command-item value="Settings">
+        <ng-icon hlm name="lucideCog" hlmCommandIcon />
+        Settings
+        <hlm-command-shortcut>⌘S</hlm-command-shortcut>
+      </button>
+    </hlm-command-group>
+  </hlm-command-list>
+
+  <!-- Empty state -->
+  <div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
+</hlm-command>
   \`,
 })
 export class CommandPreviewComponent {}
@@ -152,27 +176,41 @@ import { HlmCommandImports } from '@spartan-ng/ui-command-helm';
 `;
 
 export const defaultSkeleton = `
-<brn-cmd class="w-96" hlm>
-  <hlm-cmd-input-wrapper>
+	<hlm-command>
+  <hlm-command-search>
     <ng-icon hlm name="lucideSearch" />
-    <input placeholder="Type a command or search..." brnCmdInput hlm />
-  </hlm-cmd-input-wrapper>
-  <div *brnCmdEmpty hlmCmdEmpty>No results found.</div>
-  <brn-cmd-list hlm>
-    <brn-cmd-group hlm label="Suggestions">
-      <button brnCmdItem hlm>
-        <ng-icon hlm name="lucideCalendar" hlmCmdIcon />
+
+    <input
+      type="text"
+      hlm-command-search-input
+      placeholder="Type a command or search..."
+    />
+  </hlm-command-search>
+
+  <hlm-command-list>
+    <hlm-command-group>
+      <hlm-command-group-label>Suggestions</hlm-command-group-label>
+
+      <button hlm-command-item value="Calendar">
+        <ng-icon hlm name="lucideCalendar" hlmCommandIcon />
         Calendar
       </button>
-    </brn-cmd-group>
-    <brn-cmd-separator hlm></brn-cmd-separator>
-    <brn-cmd-group hlm label="Settings">
-      <button brnCmdItem hlm>
-        <ng-icon hlm name="lucideCog" hlmCmdIcon />
-        Settings
-        <hlm-cmd-shortcut>⌘S</hlm-cmd-shortcut>
+    </hlm-command-group>
+
+    <hlm-command-separator />
+
+    <hlm-command-group>
+      <hlm-command-group-label>Settings</hlm-command-group-label>
+
+      <button hlm-command-item value="Profile">
+        <ng-icon hlm name="lucideUser" hlmCommandIcon />
+        Profile
+        <hlm-command-shortcut>⌘P</hlm-command-shortcut>
       </button>
-    </brn-cmd-group>
-  </brn-cmd-list>
-</brn-cmd>
+    </hlm-command-group>
+  </hlm-command-list>
+
+  <!-- Empty state -->
+  <div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
+</hlm-command>
 `;

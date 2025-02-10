@@ -6,6 +6,8 @@ zerops:
         NODE_OPTIONS: --max-old-space-size=8192
       buildCommands:
         # install dev dependencies & build app
+        - corepack enable
+        - corepack prepare pnpm@9.11.0 --activate
         - pnpm i
         - npx nx build app --prod
         # clean up dev dependencies

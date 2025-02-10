@@ -40,7 +40,7 @@ export const sheetVariants = cva(
 		<ng-content />
 		<button brnSheetClose hlm>
 			<span class="sr-only">Close</span>
-			<ng-icon hlm class="flex h-4 w-4" name="lucideX" />
+			<ng-icon hlm size="sm" name="lucideX" />
 		</button>
 	`,
 })

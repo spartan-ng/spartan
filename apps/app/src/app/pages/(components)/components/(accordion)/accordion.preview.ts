@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { NgIcon } from '@ng-icons/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { lucideChevronDown } from '@ng-icons/lucide';
 import {
 	HlmAccordionContentComponent,
 	HlmAccordionDirective,
@@ -21,6 +22,7 @@ import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 		NgIcon,
 		HlmIconDirective,
 	],
+	viewProviders: [provideIcons({ lucideChevronDown })],
 	template: `
 		<div hlmAccordion>
 			<div hlmAccordionItem>
@@ -78,6 +80,7 @@ export const codeString = `import { Component } from '@angular/core';${codeImpor
 		HlmAccordionIconDirective,
 		HlmIconDirective,
 	],
+	viewProviders: [provideIcons({ lucideChevronDown })],
 	template: \`
 		<div hlmAccordion>
 			<div hlmAccordionItem>

@@ -45,6 +45,7 @@ export const HLM_DATE_PICKER_VALUE_ACCESSOR = {
 
 			<div hlmPopoverContent class="w-auto p-0" *brnPopoverContent="let ctx">
 				<hlm-calendar
+					calendarClass="border-0 rounded-none"
 					[date]="date()"
 					[min]="min()"
 					[max]="max()"

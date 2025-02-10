@@ -19,6 +19,7 @@ import { hlm } from '@spartan-ng/brain/core';
 import { injectDateAdapter } from '@spartan-ng/brain/date-time';
 import { buttonVariants } from '@spartan-ng/ui-button-helm';
 import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
+import type { ClassValue } from 'clsx';
 
 @Component({
 	standalone: true,
@@ -47,7 +48,7 @@ import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 			[dateDisabled]="dateDisabled()"
 			[weekStartsOn]="weekStartsOn()"
 			[defaultFocusedDate]="defaultFocusedDate()"
-			class="rounded-md border p-3"
+			[class]="_computedCalenderClass()"
 		>
 			<div class="inline-flex flex-col space-y-4">
 				<!-- Header -->
@@ -109,6 +110,10 @@ import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 	`,
 })
 export class HlmCalendarComponent<T> {
+	public readonly calendarClass = input<ClassValue>('');
+
+	protected readonly _computedCalenderClass = computed(() => hlm('rounded-md border p-3', this.calendarClass()));
+
 	/** Access the calendar i18n */
 	protected readonly i18n = injectBrnCalendarI18n();
 

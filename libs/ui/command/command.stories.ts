@@ -205,3 +205,76 @@ export const Dialog: Story = {
 		template: '<command-dialog-component/>',
 	}),
 };
+
+@Component({
+	selector: 'command-dynamic-component',
+	standalone: true,
+	imports: [
+		BrnCommandImports,
+		HlmCommandImports,
+		BrnDialogImports,
+		HlmDialogOverlayDirective,
+		NgIcon,
+		HlmIconDirective,
+		HlmButtonDirective,
+		HlmCodeDirective,
+	],
+	template: `
+		<!-- we need to add a toggle because the test would not fail if the command is visible from the beginning -->
+		<button hlm-button variant="outline" data-testid="toggleButton" (click)="toggle.set(!toggle())">Toggle</button>
+		@if (toggle()) {
+			<hlm-command>
+				<hlm-command-search>
+					<ng-icon hlm name="lucideSearch" class="inline-flex" />
+
+					<input type="text" hlm-command-search-input placeholder="Type a command or search..." />
+				</hlm-command-search>
+
+				<hlm-command-list>
+					<hlm-command-group>
+						<hlm-command-group-label>Suggestions</hlm-command-group-label>
+						@for (item of items(); track item.value) {
+							<button hlm-command-item [value]="item.value">
+								<ng-icon hlm [name]="item.icon" hlmCommandIcon />
+								{{ item.label }}
+							</button>
+						}
+					</hlm-command-group>
+				</hlm-command-list>
+
+				<!-- Empty state -->
+				<div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
+			</hlm-command>
+		}
+	`,
+})
+class CommandDynamicComponent {
+	protected readonly items = signal<{ label: string; value: string; icon: string; shortcut: string }[]>([
+		{ label: 'Profile', value: 'Profile', icon: 'lucideUser', shortcut: '⌘P' },
+		{ label: 'Billing', value: 'Billing', icon: 'lucideWallet', shortcut: '⌘B' },
+		{ label: 'Settings', value: 'Settings', icon: 'lucideCog', shortcut: '⌘S' },
+	]);
+	public command = signal('');
+	public state = signal<'closed' | 'open'>('closed');
+	protected toggle = signal(false);
+
+	stateChanged(state: 'open' | 'closed') {
+		this.state.set(state);
+	}
+
+	commandSelected(selected: string) {
+		this.state.set('closed');
+		this.command.set(selected);
+	}
+}
+
+export const DynamicOptions: Story = {
+	decorators: [
+		moduleMetadata({
+			imports: [CommandDynamicComponent],
+		}),
+	],
+	render: () => ({
+		template: '<command-dynamic-component/>',
+	}),
+};

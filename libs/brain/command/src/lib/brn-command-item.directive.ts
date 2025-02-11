@@ -9,6 +9,7 @@ import {
 	HostListener,
 	inject,
 	input,
+	OnInit,
 	output,
 	PLATFORM_ID,
 	signal,
@@ -32,7 +33,7 @@ import { injectBrnCommand } from './brn-command.token';
 		'[attr.data-selected]': "active() ? '' : null",
 	},
 })
-export class BrnCommandItemDirective implements Highlightable {
+export class BrnCommandItemDirective implements Highlightable, OnInit {
 	private static _id = 0;
 
 	private readonly _platform = inject(PLATFORM_ID);
@@ -59,6 +60,11 @@ export class BrnCommandItemDirective implements Highlightable {
 		return this._disabled();
 	}
 
+	/** Whether the item is initialized, this is to prevent accessing the value-input before the component is initialized.
+	 * The brn-command-empty directive accesses the value before the component is initialized, which causes an error.
+	 */
+	private readonly _initialized = signal(false);
+
 	/** Whether the item is selected. */
 	protected readonly active = signal(false);
 
@@ -66,7 +72,12 @@ export class BrnCommandItemDirective implements Highlightable {
 	public readonly selected = output<void>();
 
 	/** @internal Determine if this item is visible based on the current search query */
-	public readonly visible = computed(() => this._command.filter()(this.value(), this._command.search()));
+	public readonly visible = computed(() => {
+		if (!this._initialized()) {
+			return false;
+		}
+		return this._command.filter()(this.value(), this._command.search());
+	});
 
 	/** @internal Get the display value */
 	public getLabel(): string {
@@ -92,5 +103,9 @@ export class BrnCommandItemDirective implements Highlightable {
 	protected onClick(): void {
 		this._command.keyManager.setActiveItem(this);
 		this.selected.emit();
+	}
+
+	ngOnInit(): void {
+		this._initialized.set(true);
 	}
 }

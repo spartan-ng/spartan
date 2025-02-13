@@ -11,6 +11,7 @@ import { hlm } from '@spartan-ng/brain/core';
 	hostDirectives: [
 		{
 			directive: BrnCommandDirective,
+			inputs: ['id', 'filter'],
 			outputs: ['valueChange'],
 		},
 	],

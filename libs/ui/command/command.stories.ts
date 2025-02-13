@@ -1,4 +1,5 @@
 import { Component, HostListener, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import * as lucide from '@ng-icons/lucide';
 import { BrnCommandDirective, BrnCommandImports } from '@spartan-ng/brain/command';
@@ -218,40 +219,39 @@ export const Dialog: Story = {
 		HlmIconDirective,
 		HlmButtonDirective,
 		HlmCodeDirective,
+		FormsModule,
 	],
 	template: `
-		<!-- we need to add a toggle because the test would not fail if the command is visible from the beginning -->
-		<button hlm-button variant="outline" data-testid="toggleButton" (click)="toggle.set(!toggle())">Toggle</button>
-		@if (toggle()) {
-			<hlm-command>
-				<hlm-command-search>
-					<ng-icon hlm name="lucideSearch" class="inline-flex" />
+		<hlm-command>
+			<hlm-command-search>
+				<ng-icon hlm name="lucideSearch" class="inline-flex" />
 
-					<input type="text" hlm-command-search-input placeholder="Type a command or search..." />
-				</hlm-command-search>
+				<input type="text" hlm-command-search-input placeholder="Type a command or search..." [ngModel]="search()" />
+			</hlm-command-search>
 
-				<hlm-command-list>
-					<hlm-command-group>
-						<hlm-command-group-label>Suggestions</hlm-command-group-label>
-						@for (item of items(); track item.value) {
-							<button hlm-command-item [value]="item.value">
-								<ng-icon hlm [name]="item.icon" hlmCommandIcon />
-								{{ item.label }}
-							</button>
-						}
-					</hlm-command-group>
-				</hlm-command-list>
+			<hlm-command-list>
+				<hlm-command-group>
+					<hlm-command-group-label>Suggestions</hlm-command-group-label>
+					@for (item of items(); track item.value) {
+						<button hlm-command-item [value]="item.value" data-testid="command-item">
+							<ng-icon hlm [name]="item.icon" hlmCommandIcon />
+							{{ item.label }}
+						</button>
+					}
+				</hlm-command-group>
+			</hlm-command-list>
 
-				<!-- Empty state -->
-				<div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
-			</hlm-command>
-		}
+			<!-- Empty state -->
+			<div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
+		</hlm-command>
 	`,
 })
 class CommandDynamicComponent {
+	protected readonly search = signal('P');
 	protected readonly items = signal<{ label: string; value: string; icon: string; shortcut: string }[]>([
 		{ label: 'Profile', value: 'Profile', icon: 'lucideUser', shortcut: '⌘P' },
 		{ label: 'Billing', value: 'Billing', icon: 'lucideWallet', shortcut: '⌘B' },
+		{ label: 'Search Emoji', value: 'Search Emoji', icon: 'lucideSmile', shortcut: '⌘E' },
 		{ label: 'Settings', value: 'Settings', icon: 'lucideCog', shortcut: '⌘S' },
 	]);
 	public command = signal('');

@@ -73,15 +73,20 @@ export class BrnCommandItemDirective implements Highlightable, OnInit {
 
 	/** @internal Determine if this item is visible based on the current search query */
 	public readonly visible = computed(() => {
+		return this._command.filter()(this.safeValue(), this._command.search());
+	});
+
+	/** @internal Get the value of the item, with check if it has been initialized to avoid errors */
+	public safeValue = computed(() => {
 		if (!this._initialized()) {
-			return false;
+			return '';
 		}
-		return this._command.filter()(this.value(), this._command.search());
+		return this.value();
 	});
 
 	/** @internal Get the display value */
 	public getLabel(): string {
-		return this.value();
+		return this.safeValue();
 	}
 
 	/** @internal */

@@ -1,9 +1,8 @@
 import { ExecutorContext } from '@nx/devkit';
-import { GenerateUiDocsExecutorSchema } from './schema';
-
 import fs from 'fs';
 import path from 'path';
-import ts from 'typescript';
+import { CallExpression, ObjectLiteralExpression, Project, PropertyAssignment } from 'ts-morph';
+import { GenerateUiDocsExecutorSchema } from './schema';
 
 export default async function runExecutor(options: GenerateUiDocsExecutorSchema, context: ExecutorContext) {
 	const brainDir = path.join(context.root, 'libs/brain');
@@ -14,8 +13,15 @@ export default async function runExecutor(options: GenerateUiDocsExecutorSchema,
 		fs.mkdirSync(outputDir, { recursive: true });
 	}
 
-	const libraryFiles = getLibraryFiles({ brainDir, uiDir });
-	const extractedData = await extractInputsOutputs(libraryFiles);
+	const project = new Project();
+	project.addSourceFilesAtPaths([
+		`${brainDir}/**/*.component.ts`,
+		`${brainDir}/**/*.directive.ts`,
+		`${uiDir}/**/*.component.ts`,
+		`${uiDir}/**/*.directive.ts`,
+	]);
+
+	const extractedData = extractInputsOutputs(project);
 
 	const outputPath = path.join(outputDir, 'ui-api.json');
 	await fs.promises.writeFile(outputPath, JSON.stringify(extractedData, null, 2));
@@ -24,140 +30,81 @@ export default async function runExecutor(options: GenerateUiDocsExecutorSchema,
 	return { success: true };
 }
 
-function getLibraryFiles({ brainDir, uiDir }): string[] {
-	const libraryFiles = [];
-	fs.readdirSync(brainDir).forEach((libName) => {
-		const libPath = path.join(brainDir, libName);
-		if (fs.statSync(libPath).isDirectory()) {
-			libraryFiles.push(...getFiles(libPath));
-		}
-	});
-
-	fs.readdirSync(uiDir).forEach((libName) => {
-		const libPath = path.join(uiDir, libName);
-		if (fs.statSync(libPath).isDirectory()) {
-			libraryFiles.push(...getFiles(libPath));
-		}
-	});
-	return libraryFiles;
-}
-
-function getFiles(dir: string): string[] {
-	const files = [];
-	fs.readdirSync(dir).forEach((file) => {
-		const filePath = path.join(dir, file);
-		const stat = fs.statSync(filePath);
-		if (stat.isDirectory()) {
-			files.push(...getFiles(filePath));
-		} else if (filePath.endsWith('.component.ts') || filePath.endsWith('.directive.ts')) {
-			files.push(filePath);
-		}
-	});
-	return files;
-}
-
-async function extractInputsOutputs(fileNames: string[]) {
+function extractInputsOutputs(project: Project) {
 	const inputsOutputs = {};
 
-	for (const fileName of fileNames) {
-		const sourceFile = ts.createSourceFile(
-			fileName,
-			await fs.promises.readFile(fileName, 'utf8'),
-			ts.ScriptTarget.ESNext,
-			true,
-		);
+	project.getSourceFiles().forEach((sourceFile) => {
+		sourceFile.getClasses().forEach((cls) => {
+			const className = cls.getName();
+			const relativeFilePath = path.relative('libs/', sourceFile.getFilePath());
+			const componentInfo = {
+				file: relativeFilePath,
+				inputs: [],
+				outputs: [],
+				selector: null,
+				exportAs: null,
+			};
 
-		ts.forEachChild(sourceFile, (node) => {
-			if (ts.isClassDeclaration(node) && node.name) {
-				const className = node.name.text;
-				const relativeFilePath = path.relative('libs/', fileName);
-				const componentInfo = {
-					file: relativeFilePath,
-					inputs: [],
-					outputs: [],
-					selector: null,
-					exportAs: null,
-				};
-
-				// Retrieve decorators
-				const decorators = ts.canHaveDecorators(node) ? ts.getDecorators(node) : undefined;
-				decorators?.forEach((decorator) => {
-					if (ts.isCallExpression(decorator.expression)) {
-						const decoratorName = decorator.expression.expression.getText();
-						if (decoratorName === 'Component' || decoratorName === 'Directive') {
-							const decoratorArg = decorator.expression.arguments[0];
-							if (decoratorArg && ts.isObjectLiteralExpression(decoratorArg)) {
-								decoratorArg.properties.forEach((prop) => {
-									if (ts.isPropertyAssignment(prop)) {
-										const propName = prop.name.getText();
-										const propValue = prop.initializer.getText().replace(/['"]/g, '');
-
-										if (propName === 'selector') {
-											componentInfo.selector = propValue;
-										} else if (propName === 'exportAs') {
-											componentInfo.exportAs = propValue;
-										}
-									}
-								});
-							}
-						}
-					}
-				});
-
-				node.members.forEach((member) => {
-					const description = getJsDocDescription(member);
-
-					if (ts.isPropertyDeclaration(member) && member.initializer) {
-						const initializer = member.initializer;
-
-						if (ts.isCallExpression(initializer)) {
-							const expressionText = initializer.expression.getText();
-
-							if (expressionText === 'input') {
-								const typeArgument = initializer.typeArguments?.[0]?.getText() || 'any';
-								componentInfo.inputs.push({
-									name: member.name.getText(),
-									type: typeArgument,
-									description,
-								});
-							} else if (expressionText === 'output') {
-								const typeArgument = initializer.typeArguments?.[0]?.getText() || 'EventEmitter<any>';
-								componentInfo.outputs.push({
-									name: member.name.getText(),
-									type: typeArgument,
-									description,
-								});
-							}
-						}
-					}
-				});
-
-				if (
-					componentInfo.inputs.length > 0 ||
-					componentInfo.outputs.length > 0 ||
-					componentInfo.selector ||
-					componentInfo.exportAs
-				) {
-					addToNestedStructure(inputsOutputs, relativeFilePath, className, componentInfo);
+			const decorator = cls.getDecorator((d) => d.getName() === 'Component' || d.getName() === 'Directive');
+			if (decorator) {
+				const args = decorator.getArguments();
+				if (args.length > 0 && args[0] instanceof ObjectLiteralExpression) {
+					const obj = args[0] as ObjectLiteralExpression;
+					componentInfo.selector = (obj.getProperty('selector') as PropertyAssignment)
+						?.getInitializer()
+						?.getText()
+						.replace(/['"]/g, '');
+					componentInfo.exportAs = (obj.getProperty('exportAs') as PropertyAssignment)
+						?.getInitializer()
+						?.getText()
+						.replace(/['"]/g, '');
 				}
 			}
+
+			cls.getProperties().forEach((prop) => {
+				const type = prop.getType().getText();
+				const decorator = prop.getDecorator((d) => d.getName() === 'Input' || d.getName() === 'Output');
+				const name = prop.getName();
+				const description = prop
+					.getJsDocs()
+					.map((doc) => doc.getComment())
+					.join('\n');
+
+				if (decorator) {
+					if (decorator.getName() === 'Input') {
+						componentInfo.inputs.push({ name, type, description });
+					} else {
+						componentInfo.outputs.push({ name, type, description });
+					}
+				} else {
+					// Check for signal-based inputs/outputs
+					const initializer = prop.getInitializer();
+					if (initializer instanceof CallExpression) {
+						const callExpr = initializer as CallExpression;
+						const inferredType = callExpr.getTypeArguments()?.[0]?.getText() || 'unknown';
+						if (callExpr.getExpression().getText() === 'input') {
+							componentInfo.inputs.push({ name, type: inferredType, description });
+						} else if (callExpr.getExpression().getText() === 'output') {
+							componentInfo.outputs.push({ name, type: inferredType, description });
+						}
+					}
+				}
+			});
+
+			if (
+				componentInfo.inputs.length ||
+				componentInfo.outputs.length ||
+				componentInfo.selector ||
+				componentInfo.exportAs
+			) {
+				addToNestedStructure(inputsOutputs, relativeFilePath, className, componentInfo);
+			}
 		});
-	}
+	});
 
 	return inputsOutputs;
 }
 
-// Helper to get JSDoc description for a member
-function getJsDocDescription(member: ts.ClassElement): string {
-	const jsDocTags = ts.getJSDocCommentsAndTags(member);
-	if (jsDocTags && jsDocTags.length > 0) {
-		const comment = jsDocTags[0].comment;
-		return typeof comment === 'string' ? comment.trim() : '';
-	}
-	return '';
-}
-
-// Helper function to add data to nested structure based on file path
 function addToNestedStructure(rootObject, relativePath, className, componentInfo) {
 	const pathSegments = relativePath.split(path.sep).filter((segment) => segment !== 'src' && segment !== 'lib');
 

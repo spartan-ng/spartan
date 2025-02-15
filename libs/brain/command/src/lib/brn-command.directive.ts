@@ -49,7 +49,7 @@ export class BrnCommandDirective implements AfterViewInit {
 	public readonly valueChange = output<string>();
 
 	/** @internal The search query */
-	public readonly search = computed(() => this._searchInput()?.value() ?? '');
+	public readonly search = computed(() => this._searchInput()?.valueState() ?? '');
 
 	/** Access the search input if present */
 	private readonly _searchInput = contentChild(BrnCommandSearchInputDirective, {

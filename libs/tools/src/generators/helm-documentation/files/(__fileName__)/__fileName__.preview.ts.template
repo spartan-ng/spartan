@@ -1,0 +1,37 @@
+import { Component } from '@angular/core';
+
+@Component({
+	selector: 'spartan-<%= fileName %>-preview',
+	standalone: true,
+	imports: [
+
+	],
+	template: `
+
+	`,
+})
+export class <%= previewComponentName %> {}
+
+export const codeImports = `
+import {
+
+} from '@spartan-ng/ui-<%= fileName %>-helm';
+`;
+
+export const codeString = `import { Component } from '@angular/core';${codeImports}
+
+@Component({
+	selector: 'spartan-<%= fileName %>-preview',
+	standalone: true,
+	imports: [
+
+	],
+	template: \`
+
+	\`,
+})
+export class <%= previewComponentName %> {}`;
+
+export const codeSkeleton = `
+
+`;

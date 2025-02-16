@@ -1,0 +1,17 @@
+import { Component, computed, input } from '@angular/core';
+import { hlm } from '@spartan-ng/brain/core';
+import type { ClassValue } from 'clsx';
+
+@Component({
+	selector: '<%= selector %>',
+	standalone: true,
+	imports: [],
+	template: ``,
+})
+export class <%= componentName %> {
+	/** The user defined classes */
+	public readonly userClass = input<ClassValue>('', { alias: 'class' });
+
+	/** The classes to apply to the component merged with the user defined classes */
+	protected readonly _computedClass = computed(() => hlm('', this.userClass()));
+}

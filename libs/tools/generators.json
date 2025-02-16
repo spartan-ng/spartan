@@ -24,6 +24,31 @@
 			"factory": "./src/generators/brain-secondary-entrypoint/generator",
 			"schema": "./src/generators/brain-secondary-entrypoint/schema.json",
 			"description": "Add a secondary entrypoint to the Brain library"
+		},
+		"helm-library": {
+			"factory": "./src/generators/helm-library/generator",
+			"schema": "./src/generators/helm-library/schema.json",
+			"description": "Create a new Helm library."
+		},
+		"helm-story": {
+			"factory": "./src/generators/helm-story/generator",
+			"schema": "./src/generators/helm-story/schema.json",
+			"description": "Generate a story for a helm component."
+		},
+		"helm-component": {
+			"factory": "./src/generators/helm-component/generator",
+			"schema": "./src/generators/helm-component/schema.json",
+			"description": "Generate a helm component."
+		},
+		"helm-directive": {
+			"factory": "./src/generators/helm-directive/generator",
+			"schema": "./src/generators/helm-directive/schema.json",
+			"description": "Generate a helm directive."
+		},
+		"helm-documentation": {
+			"factory": "./src/generators/helm-documentation/generator",
+			"schema": "./src/generators/helm-documentation/schema.json",
+			"description": "Generate a documentation page for a Helm component."
 		}
 	}
 }

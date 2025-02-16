@@ -1,0 +1,38 @@
+{
+	"$schema": "https://json-schema.org/schema",
+	"$id": "HelmLibrary",
+	"title": "",
+	"type": "object",
+	"properties": {
+		"name": {
+			"type": "string",
+			"description": "The name of the library.",
+			"$default": {
+				"$source": "argv",
+				"index": 0
+			},
+			"x-prompt": "What name would you like to use?"
+		},
+		"story": {
+			"type": "boolean",
+			"description": "Generate a story for the library.",
+			"default": true
+		},
+		"generate": {
+			"type": "string",
+			"description": "Whether to generate a directive or a component when creating the library.",
+			"enum": ["directive", "component", "none"],
+			"default": "none"
+		},
+		"documentation": {
+			"type": "boolean",
+			"description": "Whether to generate a documentation page",
+			"default": true
+		},
+		"description": {
+			"type": "string",
+			"description": "Provide a description for the documentation page."
+		}
+	},
+	"required": ["name"]
+}

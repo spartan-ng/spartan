@@ -1,5 +1,5 @@
-import { type NumberInput, coerceNumberProperty } from '@angular/cdk/coercion';
-import { Directive, Input, inject } from '@angular/core';
+import { coerceNumberProperty } from '@angular/cdk/coercion';
+import { Directive, inject, input } from '@angular/core';
 import { BrnDialogRef } from './brn-dialog-ref';
 
 @Directive({
@@ -12,14 +12,9 @@ import { BrnDialogRef } from './brn-dialog-ref';
 export class BrnDialogCloseDirective {
 	private readonly _brnDialogRef = inject(BrnDialogRef);
 
-	private _delay: number | undefined;
-
-	@Input()
-	public set delay(value: NumberInput) {
-		this._delay = coerceNumberProperty(value);
-	}
+	public readonly delay = input<number | undefined, number>(undefined, { transform: coerceNumberProperty });
 
 	public close() {
-		this._brnDialogRef.close(undefined, this._delay);
+		this._brnDialogRef.close(undefined, this.delay());
 	}
 }

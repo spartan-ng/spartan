@@ -45,8 +45,8 @@ export const routeMeta: RouteMeta = {
 				</p>
 
 				<p class="${hlmP}">
-					To help minimize the impact of such changes, in most cases the health check tool will be automatically be able
-					to fix the issues for you. To run the health check tool simply run the following command:
+					To help minimize the impact of such changes, in most cases the health check tool will automatically be able to
+					fix the issues for you. To run the health check tool simply run the following command:
 				</p>
 
 				<spartan-cli-tabs

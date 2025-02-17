@@ -112,7 +112,7 @@ export const routeMeta: RouteMeta = {
 						</div>
 
 						<div class="${hlmSmall} mt-8">
-							Muted backgrounds such as &#60;hlm-sekleton/&#62;
+							Muted backgrounds such as &#60;hlm-skeleton/&#62;
 							<spartan-code
 								class="mt-4"
 								code="
@@ -221,7 +221,7 @@ export const routeMeta: RouteMeta = {
 						</div>
 
 						<div class="${hlmSmall} mt-8">
-							Border radius for card, input and buttons
+							Border radius for cards, inputs and buttons
 							<spartan-code
 								class="mt-4"
 								code="

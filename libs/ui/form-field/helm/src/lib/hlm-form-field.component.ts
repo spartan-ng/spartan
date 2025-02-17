@@ -1,5 +1,5 @@
 import { Component, computed, contentChild, contentChildren, effect } from '@angular/core';
-import { BrnFormFieldControl } from '@spartan-ng/brain/form-field';
+import { BrnFormFieldControl, BrnFormFieldDirective } from '@spartan-ng/brain/form-field';
 import { HlmErrorDirective } from './hlm-error.directive';
 
 @Component({
@@ -20,6 +20,7 @@ import { HlmErrorDirective } from './hlm-error.directive';
 	host: {
 		class: 'space-y-2 block',
 	},
+	hostDirectives: [BrnFormFieldDirective],
 })
 export class HlmFormFieldComponent {
 	public readonly control = contentChild(BrnFormFieldControl);

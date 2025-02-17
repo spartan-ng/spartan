@@ -1,4 +1,14 @@
-import { type AfterContentInit, Component, ElementRef, computed, effect, inject, input, signal } from '@angular/core';
+import {
+	type AfterContentInit,
+	Component,
+	ElementRef,
+	computed,
+	effect,
+	inject,
+	input,
+	signal,
+	untracked,
+} from '@angular/core';
 import { BrnCollapsibleComponent } from './brn-collapsible.component';
 
 @Component({
@@ -43,14 +53,12 @@ export class BrnCollapsibleContentComponent implements AfterContentInit {
 			throw Error('Collapsible trigger directive can only be used inside a brn-collapsible element.');
 		}
 
-		effect(
-			() => {
-				const id = this.id();
-				if (!id || !this._collapsible) return;
-				this._collapsible.contentId.set(id);
-			},
-			{ allowSignalWrites: true },
-		);
+		effect(() => {
+			const id = this.id();
+			const collapsible = this._collapsible;
+			if (!id || !collapsible) return;
+			untracked(() => collapsible.contentId.set(id));
+		});
 	}
 
 	ngAfterContentInit() {

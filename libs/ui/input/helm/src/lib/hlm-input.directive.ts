@@ -1,4 +1,4 @@
-import { Directive, type DoCheck, Injector, computed, effect, inject, input, signal } from '@angular/core';
+import { Directive, type DoCheck, Injector, computed, effect, inject, input, signal, untracked } from '@angular/core';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { hlm } from '@spartan-ng/brain/core';
 import { BrnFormFieldControl } from '@spartan-ng/brain/form-field';
@@ -76,14 +76,14 @@ export class HlmInputDirective implements BrnFormFieldControl, DoCheck {
 			this._parentForm,
 		);
 
-		effect(
-			() => {
+		effect(() => {
+			const error = this._errorStateTracker.errorState();
+			untracked(() => {
 				if (this.ngControl) {
-					this.setError(this._errorStateTracker.errorState());
+					this.setError(error);
 				}
-			},
-			{ allowSignalWrites: true },
-		);
+			});
+		});
 	}
 
 	ngDoCheck() {

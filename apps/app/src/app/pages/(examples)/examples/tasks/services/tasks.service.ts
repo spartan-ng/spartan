@@ -1,5 +1,5 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { computed, effect, inject, Injectable, signal } from '@angular/core';
+import { computed, effect, inject, Injectable, signal, untracked } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { useBrnColumnManager } from '@spartan-ng/brain/table';
 import { debounceTime, map } from 'rxjs/operators';
@@ -98,7 +98,10 @@ export class TasksService {
 	constructor() {
 		// needed to sync the debounced filter to the name filter, but being able to override the
 		// filter when loading new users without debounce
-		effect(() => this._taskFilter.set(this._debouncedFilter() ?? ''), { allowSignalWrites: true });
+		effect(() => {
+			const debouncedFilter = this._debouncedFilter();
+			untracked(() => this._taskFilter.set(debouncedFilter ?? ''));
+		});
 		const columnSettings = this._localStorageService.getTaskTableColumns();
 		for (const column of columnSettings) {
 			this._brnColumnManager.setVisible(column as any);

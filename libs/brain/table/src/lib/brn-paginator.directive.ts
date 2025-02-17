@@ -10,6 +10,7 @@ import {
 	inject,
 	numberAttribute,
 	signal,
+	untracked,
 } from '@angular/core';
 
 export type PaginatorState = {
@@ -74,17 +75,16 @@ export class BrnPaginatorDirective implements OnInit {
 	public onStateChange?: (state: PaginatorState) => void;
 
 	constructor() {
-		effect(
-			() => {
-				const state = this._state();
+		effect(() => {
+			const state = this._state();
+			untracked(() => {
 				Promise.resolve().then(() => {
 					if (this.onStateChange) {
 						this.onStateChange(state);
 					}
 				});
-			},
-			{ allowSignalWrites: true },
-		);
+			});
+		});
 	}
 
 	public ngOnInit() {

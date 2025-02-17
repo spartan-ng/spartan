@@ -21,6 +21,7 @@ import {
 	input,
 	model,
 	signal,
+	untracked,
 } from '@angular/core';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -137,17 +138,20 @@ export class BrnSliderInputDirective implements ControlValueAccessor, BrnSliderI
 	private readonly _renderer2 = inject(Renderer2);
 
 	constructor() {
-		effect(
-			() => {
-				if (isPlatformBrowser(this._platformId)) {
-					this._updateHostElementStep(this._slider.step());
-					this._updateMinValue(this._slider.min());
-					this._updateMaxValue(this._slider.max());
-					this._updateDirection(this._slider.direction());
-				}
-			},
-			{ allowSignalWrites: true },
-		);
+		effect(() => {
+			if (isPlatformBrowser(this._platformId)) {
+				const step = this._slider.step();
+				const min = this._slider.min();
+				const max = this._slider.max();
+				const direction = this._slider.direction();
+				untracked(() => {
+					this._updateHostElementStep(step);
+					this._updateMinValue(min);
+					this._updateMaxValue(max);
+					this._updateDirection(direction);
+				});
+			}
+		});
 	}
 
 	onFocus(): void {

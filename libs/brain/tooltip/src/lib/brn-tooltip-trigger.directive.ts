@@ -281,17 +281,18 @@ export class BrnTooltipTriggerDirective implements OnDestroy, AfterViewInit {
 	}
 
 	private _initBrnTooltipTriggerEffect(): void {
-		effect(
-			() => {
-				if (!this.brnTooltipTriggerState() && this._isTooltipVisible()) {
+		effect(() => {
+			const brnTooltipTriggerState = this.brnTooltipTriggerState();
+			const isTooltipVisible = this._isTooltipVisible();
+			untracked(() => {
+				if (!brnTooltipTriggerState && isTooltipVisible) {
 					this.hide(0);
 				} else {
 					this._setupPointerEnterEventsIfNeeded();
 					this._updateTooltipContent();
 				}
-			},
-			{ allowSignalWrites: true },
-		);
+			});
+		});
 	}
 
 	private _initExitAnimationDurationEffect(): void {

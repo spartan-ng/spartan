@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed, effect, input } from '@angular/core';
-import { BrnAccordionContentComponent } from '@spartan-ng/brain/accordion';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed, input } from '@angular/core';
+import { BrnAccordionContentComponent, provideBrnAccordionContentClass } from '@spartan-ng/brain/accordion';
 import { hlm } from '@spartan-ng/brain/core';
 import type { ClassValue } from 'clsx';
 
@@ -7,12 +7,13 @@ import type { ClassValue } from 'clsx';
 	selector: 'hlm-accordion-content',
 	template: `
 		<div [attr.inert]="_addInert()" style="overflow: hidden">
-			<p [class]="_contentClass()">
+			<p [class]="_contentClass">
 				<ng-content />
 			</p>
 		</div>
 	`,
 	standalone: true,
+	providers: [provideBrnAccordionContentClass('pt-1 pb-4')],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	encapsulation: ViewEncapsulation.None,
 	host: {
@@ -25,14 +26,4 @@ export class HlmAccordionContentComponent extends BrnAccordionContentComponent {
 		const gridRows = this.state() === 'open' ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]';
 		return hlm('text-sm transition-all grid', gridRows, this.userClass());
 	});
-
-	constructor() {
-		super();
-		effect(
-			() => {
-				this.setClassToCustomElement('pt-1 pb-4');
-			},
-			{ allowSignalWrites: true },
-		);
-	}
 }

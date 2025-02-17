@@ -1,5 +1,5 @@
 import { NgForOf, TitleCasePipe } from '@angular/common';
-import { Component, type TrackByFunction, computed, effect, signal } from '@angular/core';
+import { Component, type TrackByFunction, computed, effect, signal, untracked } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { faker } from '@faker-js/faker';
@@ -164,7 +164,12 @@ class TableStory {
 	constructor() {
 		// needed to sync the debounced filter to the name filter, but being able to override the
 		// filter when loading new users without debounce
-		effect(() => this._nameFilter.set(this._debouncedFilter() ?? ''), { allowSignalWrites: true });
+		effect(() => {
+			const debouncedFilter = this._debouncedFilter();
+			untracked(() => {
+				this._nameFilter.set(debouncedFilter ?? '');
+			});
+		});
 	}
 
 	protected _loadNewUsers() {

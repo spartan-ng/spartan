@@ -1,13 +1,13 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { DecimalPipe, TitleCasePipe } from '@angular/common';
-import { Component, computed, effect, signal, type TrackByFunction } from '@angular/core';
+import { Component, computed, effect, signal, untracked, type TrackByFunction } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideArrowUpDown, lucideChevronDown, lucideEllipsis } from '@ng-icons/lucide';
 import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
 import { BrnSelectModule } from '@spartan-ng/brain/select';
-import { BrnTableModule, type PaginatorState, useBrnColumnManager } from '@spartan-ng/brain/table';
+import { BrnTableModule, useBrnColumnManager, type PaginatorState } from '@spartan-ng/brain/table';
 import { HlmButtonModule } from '@spartan-ng/ui-button-helm';
 import { HlmCheckboxComponent } from '@spartan-ng/ui-checkbox-helm';
 import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
@@ -367,7 +367,10 @@ export class DataTablePreviewComponent {
 	constructor() {
 		// needed to sync the debounced filter to the name filter, but being able to override the
 		// filter when loading new users without debounce
-		effect(() => this._emailFilter.set(this._debouncedFilter() ?? ''), { allowSignalWrites: true });
+		effect(() => {
+			const debouncedFilter = this._debouncedFilter();
+			untracked(() => this._emailFilter.set(debouncedFilter ?? ''));
+		});
 	}
 
 	protected togglePayment(payment: Payment) {
@@ -763,7 +766,10 @@ export class DataTablePreviewComponent {
   constructor() {
     // needed to sync the debounced filter to the name filter, but being able to override the
     // filter when loading new users without debounce
-    effect(() => this._emailFilter.set(this._debouncedFilter() ?? ''), { allowSignalWrites: true });
+		effect(() => {
+			const debouncedFilter = this._debouncedFilter();
+			untracked(() => this._emailFilter.set(debouncedFilter ?? ''));
+		});
   }
 
   protected togglePayment(payment: Payment) {

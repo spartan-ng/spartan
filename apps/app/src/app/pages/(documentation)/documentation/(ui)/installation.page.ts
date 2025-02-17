@@ -208,6 +208,28 @@ module.exports = {
 				to customize your theme.
 			</p>
 
+			<p class="${hlmP}">If you see error like this</p>
+
+			<spartan-code
+				class="mb-6 mt-4"
+				code="
+✘ [ERROR] \`@layer base\` is used but no matching \`@tailwind base\` directive is present. [plugin angular-css]
+
+src/styles.css:58:0:
+58 │ @layer base {
+"
+			/>
+
+			<p class="${hlmP}">Add these three Tailwind directives</p>
+
+			<spartan-code
+				class="mb-6 mt-4"
+				code="@tailwind base;
+@tailwind components;
+@tailwind utilities;
+"
+			/>
+
 			<spartan-section-sub-heading id="adding-primitives">Adding primitives</spartan-section-sub-heading>
 			<p class="${hlmP}">
 				With the Nx plugin, adding primitives is as simple as running a single command. It will allow you to pick and

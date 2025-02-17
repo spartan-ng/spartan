@@ -1,4 +1,4 @@
-import { Directive, Input } from '@angular/core';
+import { Directive, effect, input, untracked } from '@angular/core';
 import { BrnDialogTriggerDirective } from '@spartan-ng/brain/dialog';
 import type { BrnAlertDialogComponent } from './brn-alert-dialog.component';
 
@@ -14,8 +14,17 @@ import type { BrnAlertDialogComponent } from './brn-alert-dialog.component';
 	},
 })
 export class BrnAlertDialogTriggerDirective extends BrnDialogTriggerDirective {
-	@Input()
-	public set brnAlertDialogTriggerFor(brnDialog: BrnAlertDialogComponent) {
-		super.brnDialogTriggerFor = brnDialog;
+	public readonly brnAlertDialogTriggerFor = input<BrnAlertDialogComponent | undefined>();
+
+	constructor() {
+		super();
+		effect(() => {
+			const brnDialog = this.brnAlertDialogTriggerFor();
+			untracked(() => {
+				if (brnDialog) {
+					this.mutableBrnDialogTriggerFor().set(brnDialog);
+				}
+			});
+		});
 	}
 }

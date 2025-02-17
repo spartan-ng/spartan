@@ -1,4 +1,14 @@
-import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation, forwardRef, signal } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	computed,
+	effect,
+	forwardRef,
+	input,
+	signal,
+	untracked,
+	ViewEncapsulation,
+} from '@angular/core';
 import { BrnDialogComponent } from '@spartan-ng/brain/dialog';
 
 @Component({
@@ -18,23 +28,27 @@ import { BrnDialogComponent } from '@spartan-ng/brain/dialog';
 	exportAs: 'brnSheet',
 })
 export class BrnSheetComponent extends BrnDialogComponent {
-	private readonly _side = signal<'top' | 'bottom' | 'left' | 'right'>('top');
-	public readonly side = this._side.asReadonly();
-	/* eslint-disable-next-line @angular-eslint/no-input-rename */
-	@Input('side')
-	public set setSide(side: 'top' | 'bottom' | 'left' | 'right') {
-		this._side.set(side);
-		if (side === 'top') {
-			this.positionStrategy = this.positionBuilder.global().top();
-		}
-		if (side === 'bottom') {
-			this.positionStrategy = this.positionBuilder.global().bottom();
-		}
-		if (side === 'left') {
-			this.positionStrategy = this.positionBuilder.global().left();
-		}
-		if (side === 'right') {
-			this.positionStrategy = this.positionBuilder.global().right();
-		}
+	public readonly sideInput = input<'top' | 'bottom' | 'left' | 'right'>('top', { alias: 'side' });
+	public readonly sideInputState = computed(() => signal(this.sideInput()));
+	public readonly side = computed(() => this.sideInputState().asReadonly()());
+	constructor() {
+		super();
+		effect(() => {
+			const side = this.side();
+			untracked(() => {
+				if (side === 'top') {
+					this.mutablePositionStrategy().set(this.positionBuilder.global().top());
+				}
+				if (side === 'bottom') {
+					this.mutablePositionStrategy().set(this.positionBuilder.global().bottom());
+				}
+				if (side === 'left') {
+					this.mutablePositionStrategy().set(this.positionBuilder.global().left());
+				}
+				if (side === 'right') {
+					this.mutablePositionStrategy().set(this.positionBuilder.global().right());
+				}
+			});
+		});
 	}
 }

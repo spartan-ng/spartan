@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject, input, untracked, ViewEncapsulation } from '@angular/core';
 import { provideCustomClassSettableExisting } from '@spartan-ng/brain/core';
 import { BrnDialogComponent } from './brn-dialog.component';
 
@@ -13,12 +13,16 @@ import { BrnDialogComponent } from './brn-dialog.component';
 export class BrnDialogOverlayComponent {
 	private readonly _brnDialog = inject(BrnDialogComponent);
 
-	@Input()
-	public set class(newClass: string | null | undefined) {
-		this._brnDialog.setOverlayClass(newClass);
-	}
+	public readonly className = input<string | null | undefined>(undefined, { alias: 'class' });
 
 	setClassToCustomElement(newClass: string) {
 		this._brnDialog.setOverlayClass(newClass);
+	}
+	constructor() {
+		effect(() => {
+			if (!this._brnDialog) return;
+			const newClass = this.className();
+			untracked(() => this._brnDialog.setOverlayClass(newClass));
+		});
 	}
 }

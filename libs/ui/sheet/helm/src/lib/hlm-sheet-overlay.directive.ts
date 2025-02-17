@@ -1,4 +1,4 @@
-import { Directive, computed, effect, input } from '@angular/core';
+import { Directive, computed, effect, input, untracked } from '@angular/core';
 import { hlm, injectCustomClassSettable } from '@spartan-ng/brain/core';
 import type { ClassValue } from 'clsx';
 
@@ -21,7 +21,8 @@ export class HlmSheetOverlayDirective {
 
 	constructor() {
 		effect(() => {
-			this._classSettable?.setClassToCustomElement(this._computedClass());
+			const classValue = this._computedClass();
+			untracked(() => this._classSettable?.setClassToCustomElement(classValue));
 		});
 	}
 }

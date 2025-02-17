@@ -1,36 +1,28 @@
-import type { AutoFocusTarget } from '@angular/cdk/dialog';
+import { OverlayPositionBuilder, ScrollStrategy, ScrollStrategyOptions } from '@angular/cdk/overlay';
 import {
-	type ConnectedPosition,
-	type FlexibleConnectedPositionStrategyOrigin,
-	OverlayPositionBuilder,
-	type PositionStrategy,
-	type ScrollStrategy,
-	ScrollStrategyOptions,
-} from '@angular/cdk/overlay';
-import {
+	booleanAttribute,
 	ChangeDetectionStrategy,
 	Component,
-	type EffectRef,
-	type ElementRef,
-	EventEmitter,
-	Injector,
-	Input,
-	Output,
-	type TemplateRef,
-	ViewContainerRef,
-	ViewEncapsulation,
-	booleanAttribute,
 	computed,
 	effect,
+	type EffectRef,
 	inject,
+	Injector,
+	input,
 	numberAttribute,
+	output,
 	runInInjectionContext,
 	signal,
+	type TemplateRef,
+	untracked,
+	ViewContainerRef,
+	ViewEncapsulation,
 } from '@angular/core';
 import { take } from 'rxjs/operators';
 import { type BrnDialogOptions, DEFAULT_BRN_DIALOG_OPTIONS } from './brn-dialog-options';
 import type { BrnDialogRef } from './brn-dialog-ref';
 import type { BrnDialogState } from './brn-dialog-state';
+import { injectBrnDialogDefaultOptions } from './brn-dialog-token';
 import { BrnDialogService } from './brn-dialog.service';
 
 @Component({
@@ -50,125 +42,132 @@ export class BrnDialogComponent {
 	public readonly ssos = inject(ScrollStrategyOptions);
 	private readonly _injector = inject(Injector);
 
+	protected readonly _defaultOptions = injectBrnDialogDefaultOptions();
+
 	private _context = {};
-	protected _options: Partial<BrnDialogOptions> = {
-		...DEFAULT_BRN_DIALOG_OPTIONS,
-	};
+	public readonly stateComputed = computed(() => this._dialogRef()?.state() ?? 'closed');
 
 	private _contentTemplate: TemplateRef<unknown> | undefined;
 	private readonly _dialogRef = signal<BrnDialogRef | undefined>(undefined);
 	private _dialogStateEffectRef?: EffectRef;
+	private readonly _backdropClass = signal<string | null | undefined>(null);
+	private readonly _panelClass = signal<string | null | undefined>(null);
 
-	public readonly state = computed(() => this._dialogRef()?.state() ?? 'closed');
-
-	@Output()
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	public readonly closed = new EventEmitter<any>();
+	public readonly closed = output<any>();
 
-	@Output()
-	public readonly stateChanged = new EventEmitter<BrnDialogState>();
+	public readonly stateChanged = output<BrnDialogState>();
 
-	// eslint-disable-next-line @angular-eslint/no-input-rename
-	@Input('state')
-	public set newState(state: BrnDialogState) {
-		if (state === 'open') {
-			this.open();
-		}
-		if (state === 'closed') {
-			this.close(this._options.closeDelay);
-		}
-	}
+	public readonly state = input<BrnDialogState | null>(null);
 
-	@Input()
-	public set role(role: 'dialog' | 'alertdialog') {
-		this._options.role = role;
-	}
+	public readonly role = input<BrnDialogOptions['role']>('dialog');
+	public readonly mutableRole = computed(() => signal(this.role()));
+	private readonly _roleState = computed(() => this.mutableRole()());
 
-	@Input({ transform: booleanAttribute })
-	public set hasBackdrop(hasBackdrop: boolean) {
-		this._options.hasBackdrop = hasBackdrop;
-	}
+	public readonly hasBackdrop = input(true, { transform: booleanAttribute });
+	protected readonly _mutableHasBackdrop = computed(() => signal(this.hasBackdrop()));
+	protected readonly _hasBackdropState = computed(() => this._mutableHasBackdrop()());
 
-	@Input()
-	public set positionStrategy(positionStrategy: PositionStrategy) {
-		this._options.positionStrategy = positionStrategy;
-	}
+	public readonly positionStrategy = input<BrnDialogOptions['positionStrategy']>();
+	public readonly mutablePositionStrategy = computed(() => signal(this.positionStrategy()));
+	private readonly _positionStrategyState = computed(() => this.mutablePositionStrategy()());
 
-	@Input()
-	public set scrollStrategy(scrollStrategy: ScrollStrategy | 'close' | 'reposition') {
-		if (scrollStrategy === 'close') {
-			this._options.scrollStrategy = this.ssos.close();
-		} else if (scrollStrategy === 'reposition') {
-			this._options.scrollStrategy = this.ssos.reposition();
+	public readonly scrollStrategy = input<BrnDialogOptions['scrollStrategy'] | 'close' | 'reposition' | null>(null);
+	public readonly mutableScrollStrategy = computed(() => signal(this.scrollStrategy()));
+	private readonly _scrollStrategyState = computed(() => this.mutableScrollStrategy()());
+
+	protected _options = computed<Partial<BrnDialogOptions>>(() => {
+		const scrollStrategyInput = this._scrollStrategyState();
+		let scrollStrategy: ScrollStrategy | null | undefined;
+
+		if (scrollStrategyInput === 'close') {
+			scrollStrategy = this.ssos.close();
+		} else if (scrollStrategyInput === 'reposition') {
+			scrollStrategy = this.ssos.reposition();
 		} else {
-			this._options.scrollStrategy = scrollStrategy;
+			scrollStrategy = scrollStrategyInput;
 		}
+
+		return {
+			...DEFAULT_BRN_DIALOG_OPTIONS,
+			role: this._roleState(),
+			hasBackdrop: this._hasBackdropState(),
+			positionStrategy: this._positionStrategyState(),
+			scrollStrategy,
+			restoreFocus: this.restoreFocus(),
+			closeOnOutsidePointerEvents: this._closeOnOutsidePointerEventsState(),
+			closeOnBackdropClick: this._closeOnBackdropClickState(),
+			attachTo: this._attachToState(),
+			attachPositions: this._attachPositionsState(),
+			autoFocus: this.autoFocus(),
+			closeDelay: 100,
+			disableClose: this.disableClose(),
+			backdropClass: this._backdropClass() ?? '',
+			panelClass: this._panelClass() ?? '',
+			ariaDescribedBy: this._ariaDescribedByState(),
+			ariaLabelledBy: this._ariaLabelledByState(),
+			ariaLabel: this._ariaLabelState(),
+			ariaModal: this._ariaModalState(),
+		};
+	});
+
+	constructor() {
+		effect(() => {
+			const state = this.state();
+			if (state === 'open') {
+				untracked(() => this.open());
+			}
+			if (state === 'closed') {
+				untracked(() => this.close(this._options().closeDelay));
+			}
+		});
 	}
 
-	@Input()
-	public set restoreFocus(restoreFocus: boolean | string | ElementRef) {
-		this._options.restoreFocus = restoreFocus;
-	}
+	public readonly restoreFocus = input<BrnDialogOptions['restoreFocus']>(true);
 
-	@Input({ transform: booleanAttribute })
-	public set closeOnOutsidePointerEvents(closeOnOutsidePointerEvents: boolean) {
-		this._options.closeOnOutsidePointerEvents = closeOnOutsidePointerEvents;
-	}
-
-	@Input({ transform: booleanAttribute })
-	public set closeOnBackdropClick(closeOnBackdropClick: boolean) {
-		this._options.closeOnBackdropClick = closeOnBackdropClick;
-	}
-
-	@Input()
-	public set attachTo(attachTo: FlexibleConnectedPositionStrategyOrigin | null | undefined) {
-		this._options.attachTo = attachTo;
-	}
-
-	@Input()
-	public set attachPositions(attachPositions: ConnectedPosition[]) {
-		this._options.attachPositions = attachPositions;
-	}
-
-	@Input()
-	public set autoFocus(autoFocus: AutoFocusTarget | string) {
-		this._options.autoFocus = autoFocus;
-	}
-
-	@Input({ transform: numberAttribute })
-	public set closeDelay(closeDelay: number) {
-		this._options.closeDelay = closeDelay;
-	}
-
-	@Input({ transform: booleanAttribute })
-	public set disableClose(disableClose: boolean) {
-		this._options.disableClose = disableClose;
-	}
-
-	/* eslint-disable-next-line @angular-eslint/no-input-rename */
-	@Input('aria-describedby')
-	public set ariaDescribedBy(ariaDescribedBy: string | null | undefined) {
-		this.setAriaDescribedBy(ariaDescribedBy);
-	}
-
-	/* eslint-disable-next-line @angular-eslint/no-input-rename */
-	@Input('aria-labelledby')
-	public set ariaLabelledBy(ariaLabelledBy: string | null | undefined) {
-		this.setAriaLabelledBy(ariaLabelledBy);
-	}
-
-	@Input('aria-label')
-	public set ariaLabel(ariaLabel: string | null | undefined) {
-		this.setAriaLabel(ariaLabel);
-	}
-
-	@Input({
-		alias: 'aria-modal',
+	public readonly closeOnOutsidePointerEvents = input(false, {
 		transform: booleanAttribute,
-	})
-	public set ariaModal(isModal: boolean) {
-		this.setAriaModal(isModal);
-	}
+	});
+	public readonly mutableCloseOnOutsidePointerEvents = computed(() => signal(this.closeOnOutsidePointerEvents()));
+	private readonly _closeOnOutsidePointerEventsState = computed(() => this.mutableCloseOnOutsidePointerEvents()());
+
+	public readonly closeOnBackdropClick = input(DEFAULT_BRN_DIALOG_OPTIONS.closeOnBackdropClick, {
+		transform: booleanAttribute,
+	});
+	public readonly mutableCloseOnBackdropClick = computed(() => signal(this.closeOnBackdropClick()));
+	private readonly _closeOnBackdropClickState = computed(() => this.mutableCloseOnBackdropClick()());
+
+	public readonly attachTo = input<BrnDialogOptions['attachTo']>(null);
+	public readonly mutableAttachTo = computed(() => signal(this.attachTo()));
+	private readonly _attachToState = computed(() => this.mutableAttachTo()());
+
+	public readonly attachPositions = input<BrnDialogOptions['attachPositions']>([]);
+	public readonly mutableAttachPositions = computed(() => signal(this.attachPositions()));
+	private readonly _attachPositionsState = computed(() => this.mutableAttachPositions()());
+
+	public readonly autoFocus = input<BrnDialogOptions['autoFocus']>('first-tabbable');
+
+	public readonly closeDelay = input(100, { alias: 'closeDelay', transform: numberAttribute });
+
+	public readonly disableClose = input(false, { transform: booleanAttribute });
+
+	public readonly ariaDescribedBy = input<BrnDialogOptions['ariaDescribedBy']>(null, {
+		alias: 'aria-describedby',
+	});
+	private readonly _mutableAriaDescribedBy = computed(() => signal(this.ariaDescribedBy()));
+	private readonly _ariaDescribedByState = computed(() => this._mutableAriaDescribedBy()());
+
+	public readonly ariaLabelledBy = input<BrnDialogOptions['ariaLabelledBy']>(null, { alias: 'aria-labelledby' });
+	private readonly _mutableAriaLabelledBy = computed(() => signal(this.ariaLabelledBy()));
+	private readonly _ariaLabelledByState = computed(() => this._mutableAriaLabelledBy()());
+
+	public readonly ariaLabel = input<BrnDialogOptions['ariaLabel']>(null, { alias: 'aria-label' });
+	private readonly _mutableAriaLabel = computed(() => signal(this.ariaLabel()));
+	private readonly _ariaLabelState = computed(() => this._mutableAriaLabel()());
+
+	public readonly ariaModal = input(true, { alias: 'aria-modal', transform: booleanAttribute });
+	private readonly _mutableAriaModal = computed(() => signal(this.ariaModal()));
+	private readonly _ariaModalState = computed(() => this._mutableAriaModal()());
 
 	public open<DialogContext>() {
 		if (!this._contentTemplate || this._dialogRef()) return;
@@ -179,13 +178,16 @@ export class BrnDialogComponent {
 			this._contentTemplate,
 			this._vcr,
 			this._context as DialogContext,
-			this._options,
+			this._options(),
 		);
 
 		this._dialogRef.set(dialogRef);
 
 		runInInjectionContext(this._injector, () => {
-			this._dialogStateEffectRef = effect(() => this.stateChanged.emit(dialogRef.state()));
+			this._dialogStateEffectRef = effect(() => {
+				const state = dialogRef.state();
+				untracked(() => this.stateChanged.emit(state));
+			});
 		});
 
 		dialogRef.closed$.pipe(take(1)).subscribe((result) => {
@@ -196,7 +198,7 @@ export class BrnDialogComponent {
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	public close(result: any, delay?: number) {
-		this._dialogRef()?.close(result, delay ?? this._options.closeDelay);
+		this._dialogRef()?.close(result, delay ?? this._options().closeDelay);
 	}
 
 	public registerTemplate(template: TemplateRef<unknown>) {
@@ -204,12 +206,12 @@ export class BrnDialogComponent {
 	}
 
 	public setOverlayClass(overlayClass: string | null | undefined) {
-		this._options.backdropClass = overlayClass ?? '';
+		this._backdropClass.set(overlayClass);
 		this._dialogRef()?.setOverlayClass(overlayClass);
 	}
 
 	public setPanelClass(panelClass: string | null | undefined) {
-		this._options.panelClass = panelClass ?? '';
+		this._panelClass.set(panelClass ?? '');
 		this._dialogRef()?.setPanelClass(panelClass);
 	}
 
@@ -220,21 +222,21 @@ export class BrnDialogComponent {
 	}
 
 	public setAriaDescribedBy(ariaDescribedBy: string | null | undefined) {
-		this._options = { ...this._options, ariaDescribedBy };
+		this._mutableAriaDescribedBy().set(ariaDescribedBy);
 		this._dialogRef()?.setAriaDescribedBy(ariaDescribedBy);
 	}
 
 	public setAriaLabelledBy(ariaLabelledBy: string | null | undefined) {
-		this._options = { ...this._options, ariaLabelledBy };
+		this._mutableAriaLabelledBy().set(ariaLabelledBy);
 		this._dialogRef()?.setAriaLabelledBy(ariaLabelledBy);
 	}
 
 	public setAriaLabel(ariaLabel: string | null | undefined) {
-		this._options = { ...this._options, ariaLabel };
+		this._mutableAriaLabel().set(ariaLabel);
 		this._dialogRef()?.setAriaLabel(ariaLabel);
 	}
 
 	public setAriaModal(ariaModal: boolean) {
-		this._options = { ...this._options, ariaModal };
+		this._mutableAriaModal().set(ariaModal);
 	}
 }

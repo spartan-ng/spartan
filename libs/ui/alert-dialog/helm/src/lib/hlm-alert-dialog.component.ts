@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, ViewEncapsulation, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, forwardRef, ViewEncapsulation } from '@angular/core';
 import { BrnAlertDialogComponent, BrnAlertDialogOverlayComponent } from '@spartan-ng/brain/alert-dialog';
-import { BrnDialogComponent } from '@spartan-ng/brain/dialog';
+import { BrnDialogComponent, provideBrnDialogDefaultOptions } from '@spartan-ng/brain/dialog';
 import { HlmAlertDialogOverlayDirective } from './hlm-alert-dialog-overlay.directive';
 
 @Component({
@@ -15,15 +15,13 @@ import { HlmAlertDialogOverlayDirective } from './hlm-alert-dialog-overlay.direc
 			provide: BrnDialogComponent,
 			useExisting: forwardRef(() => HlmAlertDialogComponent),
 		},
+		provideBrnDialogDefaultOptions({
+			closeDelay: 100,
+		}),
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	encapsulation: ViewEncapsulation.None,
 	exportAs: 'hlmAlertDialog',
 	imports: [BrnAlertDialogOverlayComponent, HlmAlertDialogOverlayDirective],
 })
-export class HlmAlertDialogComponent extends BrnAlertDialogComponent {
-	constructor() {
-		super();
-		this.closeDelay = 100;
-	}
-}
+export class HlmAlertDialogComponent extends BrnAlertDialogComponent {}

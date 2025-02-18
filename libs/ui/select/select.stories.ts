@@ -175,10 +175,10 @@ export const SelectValueTransformFn: Story = {
 };
 
 export const ReactiveFormControlWithForAndInitialValue: Story = {
+	args: {
+		initialValue: 'apple',
+	},
 	render: (args) => ({
-		args: {
-			initialValue: 'apple',
-		},
 		props: {
 			...args,
 			fruitGroup: new FormGroup({
@@ -210,7 +210,6 @@ export const ReactiveFormControlWithForAndInitialValue: Story = {
 						@for(option of options; track option.value){
 						<hlm-option [value]="option.value">{{option.label}}</hlm-option>
 						}
-						<hlm-option>Clear</hlm-option>
 					</hlm-select-content>
 				</brn-select>
 				@if (fruitGroup.controls.fruit.invalid && fruitGroup.controls.fruit.touched){
@@ -413,6 +412,52 @@ export const NgModelFormControl: Story = {
 				</hlm-select>
 			</form>
 		`,
+	}),
+};
+
+export const NgModelFormControlInitialValue: Story = {
+	args: {
+		disabled: false,
+		placeholder: 'Select an option',
+		multiple: false,
+		initialValue: 'apple',
+		dir: 'ltr',
+	},
+
+	render: (args) => ({
+		props: {
+			...args,
+			fruit: signal(args.initialValue),
+		},
+
+		template: `
+            <form ngForm>
+                <div class="mb-3">
+                    <pre>Form Control Value: {{fruit() | json }}</pre>
+                </div>
+                <hlm-select
+                    class="w-56"
+                    ${argsToTemplate(args, {
+											exclude: ['initialValue', 'selectValueTransformFn'],
+										})}
+                    [(ngModel)]="fruit"
+                    name="fruit"
+                >
+                    <label hlmLabel>Select a Fruit</label>
+                    <hlm-select-trigger>
+                        <brn-select-value hlm />
+                    </hlm-select-trigger>
+                    <hlm-select-content>
+                        <hlm-select-label>Fruits</hlm-select-label>
+                        <hlm-option value="apple">Apple</hlm-option>
+                        <hlm-option value="banana">Banana</hlm-option>
+                        <hlm-option value="blueberry">Blueberry</hlm-option>
+                        <hlm-option value="grapes">Grapes</hlm-option>
+                        <hlm-option value="pineapple">Pineapple</hlm-option>
+                    </hlm-select-content>
+                </hlm-select>
+            </form>
+        `,
 	}),
 };
 

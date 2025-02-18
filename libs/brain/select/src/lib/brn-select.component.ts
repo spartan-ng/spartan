@@ -106,8 +106,6 @@ export class BrnSelectComponent<T = unknown>
 	/** Overlay pane containing the options. */
 	protected _overlayDir = viewChild(CdkConnectedOverlay);
 
-	public readonly openedChange = output<boolean>();
-
 	public readonly closeDelay = input<number>(100);
 	public readonly isExpanded = this._selectService.isExpanded;
 	protected readonly _delayedExpanded = toSignal(
@@ -118,6 +116,9 @@ export class BrnSelectComponent<T = unknown>
 		{ initialValue: false },
 	);
 	public readonly state = computed(() => (this.isExpanded() ? 'open' : 'closed'));
+
+	public readonly openedChange = output<boolean>();
+	public readonly valueChange = output<T>();
 
 	protected readonly _positionChanges$ = new Subject<ConnectedOverlayPositionChange>();
 	public readonly side: Signal<'top' | 'bottom' | 'left' | 'right'> = toSignal(
@@ -228,6 +229,7 @@ export class BrnSelectComponent<T = unknown>
 		toObservable(this._selectService.value).subscribe((value) => {
 			if (this._shouldEmitValueChange()) {
 				this._onChange((value ?? null) as T);
+				this.valueChange.emit((value ?? null) as T);
 			}
 			this._shouldEmitValueChange.set(true);
 		});

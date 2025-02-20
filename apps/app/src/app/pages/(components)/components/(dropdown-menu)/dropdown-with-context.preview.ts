@@ -22,10 +22,8 @@ import {
 
 @Component({
 	selector: 'spartan-dropdown-with-context',
-	standalone: true,
 	imports: [
 		BrnMenuTriggerDirective,
-
 		HlmMenuComponent,
 		HlmSubMenuComponent,
 		HlmMenuItemDirective,
@@ -39,7 +37,6 @@ import {
 		HlmMenuGroupComponent,
 		HlmMenuItemRadioDirective,
 		HlmMenuItemCheckboxDirective,
-
 		HlmButtonDirective,
 		NgIcon,
 		HlmIconDirective,

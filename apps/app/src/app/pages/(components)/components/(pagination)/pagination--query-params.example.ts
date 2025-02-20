@@ -13,7 +13,6 @@ import { map } from 'rxjs/operators';
 
 @Component({
 	selector: 'spartan-pagination-query-params',
-	standalone: true,
 	imports: [
 		HlmPaginationDirective,
 		HlmPaginationContentDirective,

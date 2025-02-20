@@ -10,7 +10,6 @@ import { type DarkMode, ThemeService } from '../theme.service';
 
 @Component({
 	selector: 'spartan-dark-mode',
-	standalone: true,
 	imports: [
 		BrnMenuTriggerDirective,
 		HlmMenuImports,

@@ -4,7 +4,6 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angul
 import { BrnSelectComponent, BrnSelectImports } from '../../';
 
 @Component({
-	standalone: true,
 	imports: [CommonModule, FormsModule, ReactiveFormsModule, BrnSelectImports],
 	selector: 'select-reactive-field-fixture',
 	template: `
@@ -34,7 +33,6 @@ export class SelectReactiveFieldComponent {
 }
 
 @Component({
-	standalone: true,
 	imports: [CommonModule, FormsModule, ReactiveFormsModule, BrnSelectImports],
 	selector: 'select-reactive-field-fixture',
 	template: `
@@ -66,7 +64,6 @@ export class SelectSingleValueTestComponent {
 }
 
 @Component({
-	standalone: true,
 	imports: [CommonModule, FormsModule, ReactiveFormsModule, BrnSelectImports],
 	selector: 'select-reactive-field-fixture',
 	template: `
@@ -96,7 +93,6 @@ export class SelectSingleValueWithInitialValueTestComponent {
 }
 
 @Component({
-	standalone: true,
 	imports: [CommonModule, FormsModule, ReactiveFormsModule, BrnSelectImports],
 	selector: 'select-reactive-field-fixture',
 	template: `
@@ -135,7 +131,6 @@ export class SelectSingleValueWithInitialValueWithAsyncUpdateTestComponent {
 }
 
 @Component({
-	standalone: true,
 	imports: [CommonModule, FormsModule, ReactiveFormsModule, BrnSelectImports],
 	selector: 'select-reactive-field-fixture',
 	template: `
@@ -165,7 +160,6 @@ export class SelectMultiValueTestComponent {
 }
 
 @Component({
-	standalone: true,
 	imports: [FormsModule, ReactiveFormsModule, BrnSelectImports],
 	selector: 'select-reactive-field-fixture',
 	template: `
@@ -195,7 +189,6 @@ export class SelectMultiValueWithInitialValueTestComponent {
 }
 
 @Component({
-	standalone: true,
 	imports: [FormsModule, ReactiveFormsModule, BrnSelectImports],
 	selector: 'select-reactive-field-fixture',
 	changeDetection: ChangeDetectionStrategy.OnPush,

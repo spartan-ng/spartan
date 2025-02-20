@@ -19,18 +19,15 @@ import { debounceTime, map } from 'rxjs/operators';
 
 @Component({
 	selector: 'spartan-dialog-declarative-preview',
-	standalone: true,
 	imports: [
 		FormsModule,
 		BrnDialogContentDirective,
-
 		HlmDialogComponent,
 		HlmDialogContentComponent,
 		HlmDialogHeaderComponent,
 		HlmDialogFooterComponent,
 		HlmDialogTitleDirective,
 		HlmDialogDescriptionDirective,
-
 		HlmLabelDirective,
 		HlmInputDirective,
 		HlmButtonDirective,

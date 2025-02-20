@@ -38,22 +38,15 @@ import { SortingColumns, Task, TasksService } from './services/tasks.service';
 
 @Component({
 	selector: 'spartan-data-table-preview',
-	standalone: true,
 	imports: [
 		FormsModule,
-
 		BrnMenuTriggerDirective,
 		HlmMenuModule,
-
 		BrnTableModule,
 		HlmTableModule,
-
 		HlmButtonModule,
-
 		HlmIconDirective,
-
 		HlmCheckboxComponent,
-
 		BrnSelectModule,
 		HlmSelectModule,
 		TableActionsComponent,

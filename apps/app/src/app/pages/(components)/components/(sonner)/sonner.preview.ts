@@ -5,7 +5,6 @@ import { toast } from 'ngx-sonner';
 
 @Component({
 	selector: 'spartan-sonner-preview',
-	standalone: true,
 	imports: [HlmToasterComponent, HlmButtonDirective],
 	template: `
 		<hlm-toaster />

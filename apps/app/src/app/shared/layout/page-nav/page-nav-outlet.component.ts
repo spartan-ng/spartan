@@ -5,7 +5,6 @@ export const pageNavTmpl = signal<TemplateRef<unknown> | null>(null);
 
 @Component({
 	selector: 'spartan-page-nav-outlet',
-	standalone: true,
 	host: {
 		class: 'hidden xl:block text-sm sticky top-14 -mt-10 h-[calc(100vh-3.5rem)] overflow-hidden pt-6',
 	},

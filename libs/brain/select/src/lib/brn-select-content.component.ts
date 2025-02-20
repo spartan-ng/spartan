@@ -81,7 +81,6 @@ export class BrnSelectScrollDownDirective {
 
 @Component({
 	selector: 'brn-select-content, hlm-select-content:not(noHlm)',
-	standalone: true,
 	imports: [BrnSelectScrollUpDirective, BrnSelectScrollDownDirective, NgTemplateOutlet],
 	hostDirectives: [CdkListbox],
 	changeDetection: ChangeDetectionStrategy.OnPush,

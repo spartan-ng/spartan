@@ -13,7 +13,6 @@ type Framework = { label: string; value: string };
 
 @Component({
 	selector: 'spartan-combobox-preview',
-	standalone: true,
 	imports: [
 		BrnCommandImports,
 		HlmCommandImports,

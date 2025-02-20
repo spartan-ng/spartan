@@ -48,7 +48,6 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-dark-mode',
-	standalone: true,
 	imports: [
 		MainSectionDirective,
 		SectionIntroComponent,

@@ -14,7 +14,6 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-not-found',
-	standalone: true,
 	imports: [HlmSeparatorDirective, HlmButtonDirective, RouterLink],
 	host: {
 		class: 'h-full flex flex-col items-center justify-center',

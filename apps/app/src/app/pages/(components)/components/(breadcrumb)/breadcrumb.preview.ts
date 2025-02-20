@@ -13,7 +13,6 @@ import { HlmMenuComponent, HlmMenuItemDirective } from '@spartan-ng/ui-menu-helm
 
 @Component({
 	selector: 'spartan-breadcrumb-preview',
-	standalone: true,
 	imports: [
 		HlmBreadcrumbDirective,
 		HlmBreadcrumbSeparatorComponent,
@@ -22,7 +21,6 @@ import { HlmMenuComponent, HlmMenuItemDirective } from '@spartan-ng/ui-menu-helm
 		HlmBreadcrumbItemDirective,
 		HlmBreadcrumbPageDirective,
 		HlmBreadcrumbLinkDirective,
-
 		BrnMenuTriggerDirective,
 		HlmMenuComponent,
 		HlmMenuItemDirective,

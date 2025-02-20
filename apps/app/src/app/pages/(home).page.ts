@@ -29,7 +29,6 @@ const lead = 'leading-normal text-muted-foreground sm:text-xl sm:leading-8';
 
 @Component({
 	selector: 'spartan-home',
-	standalone: true,
 	imports: [
 		HlmButtonDirective,
 		RouterLink,

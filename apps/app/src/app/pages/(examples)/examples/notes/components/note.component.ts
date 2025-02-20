@@ -17,7 +17,6 @@ import { HlmSpinnerComponent } from '@spartan-ng/ui-spinner-helm';
 @Component({
 	// eslint-disable-next-line @angular-eslint/component-selector
 	selector: 'analog-trpc-note',
-	standalone: true,
 	hostDirectives: [HlmCardDirective],
 	host: {
 		class: 'block',

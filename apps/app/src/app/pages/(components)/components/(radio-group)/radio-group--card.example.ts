@@ -9,7 +9,6 @@ import { HlmRadioComponent, HlmRadioGroupComponent } from '@spartan-ng/ui-radiog
 
 @Component({
 	selector: 'spartan-radio-card-preview',
-	standalone: true,
 	providers: [provideIcons({ lucideCreditCard, remixPaypalFill, remixAppleFill })],
 	imports: [FormsModule, HlmRadioComponent, HlmRadioGroupComponent, NgIcon, HlmIconDirective],
 	template: `

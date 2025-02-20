@@ -39,7 +39,6 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-music-example',
-	standalone: true,
 	host: {
 		class: 'block',
 	},
@@ -47,19 +46,15 @@ export const routeMeta: RouteMeta = {
 		TopMusicMenuComponent,
 		HlmScrollAreaDirective,
 		SideMusicMenuComponent,
-
 		HlmTabsComponent,
 		HlmTabsListComponent,
 		HlmTabsTriggerDirective,
 		HlmTabsContentDirective,
-
 		HlmButtonDirective,
 		NgIcon,
 		HlmIconDirective,
-
 		HlmSeparatorDirective,
 		NgScrollbarModule,
-
 		BrnMenuTriggerDirective,
 		BrnContextMenuTriggerDirective,
 		HlmMenuComponent,
@@ -68,7 +63,6 @@ export const routeMeta: RouteMeta = {
 		HlmSubMenuComponent,
 		HlmMenuItemSubIndicatorComponent,
 		HlmMenuSeparatorComponent,
-
 		HlmCardDirective,
 		FallbackImageDirective,
 		NgOptimizedImage,

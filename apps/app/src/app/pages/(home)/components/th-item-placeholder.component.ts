@@ -3,7 +3,6 @@ import { SpartanLogoComponent } from '@spartan-ng/app/app/shared/spartan-logo.co
 
 @Component({
 	selector: 'spartan-th-item-placeholder',
-	standalone: true,
 	imports: [SpartanLogoComponent],
 	host: {
 		class: 'inline-flex flex-col justify-center items-center',

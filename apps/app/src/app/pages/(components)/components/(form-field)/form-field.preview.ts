@@ -5,7 +5,6 @@ import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
 
 @Component({
 	selector: 'spartan-form-field-preview',
-	standalone: true,
 	imports: [HlmInputDirective, HlmFormFieldModule, ReactiveFormsModule],
 	template: `
 		<hlm-form-field>

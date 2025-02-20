@@ -7,7 +7,6 @@ import { HlmToggleDirective } from '@spartan-ng/ui-toggle-helm';
 
 @Component({
 	selector: 'spartan-toggle-large',
-	standalone: true,
 	imports: [BrnToggleDirective, HlmToggleDirective, NgIcon, HlmIconDirective],
 	providers: [provideIcons({ lucideItalic })],
 	template: `

@@ -27,7 +27,6 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-icon',
-	standalone: true,
 	template: `
 		<section spartanMainSection>
 			<spartan-section-intro name="Icon" lead="Visual cues for enhancing user interaction." />

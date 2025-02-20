@@ -38,7 +38,6 @@ const CONTAINER_POST_FIX = '-switch';
 
 @Component({
 	selector: 'brn-switch',
-	standalone: true,
 	imports: [NgStyle],
 	template: `
 		<input

@@ -21,7 +21,6 @@ const aboutLink = 'h-6 underline text-base px-0.5';
 
 @Component({
 	selector: 'spartan-about',
-	standalone: true,
 	imports: [
 		MainSectionDirective,
 		SectionIntroComponent,

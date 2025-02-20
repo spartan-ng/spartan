@@ -31,10 +31,8 @@ type SelectTriggerVariants = VariantProps<typeof selectTriggerVariants>;
 
 @Component({
 	selector: 'hlm-select-trigger',
-	standalone: true,
 	imports: [BrnSelectTriggerDirective, NgIcon, HlmIconDirective],
 	providers: [provideIcons({ lucideChevronDown })],
-
 	template: `
 		<button [class]="_computedClass()" #button hlmInput brnSelectTrigger type="button">
 			<ng-content />

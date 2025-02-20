@@ -38,8 +38,15 @@ const meta: Meta<HlmCheckboxComponent> = {
 	tags: ['autodocs'],
 	decorators: [
 		moduleMetadata({
-			declarations: [HlmCheckboxComponentTester],
-			imports: [HlmCheckboxImports, HlmLabelDirective, NgIcon, HlmIconDirective, ReactiveFormsModule, HlmButtonModule],
+			imports: [
+				HlmCheckboxImports,
+				HlmLabelDirective,
+				NgIcon,
+				HlmIconDirective,
+				ReactiveFormsModule,
+				HlmButtonModule,
+				HlmCheckboxComponentTester,
+			],
 		}),
 	],
 };

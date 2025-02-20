@@ -18,7 +18,6 @@ import { HlmCarouselComponent } from './hlm-carousel.component';
 
 @Component({
 	selector: 'button[hlm-carousel-next], button[hlmCarouselNext]',
-	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	encapsulation: ViewEncapsulation.None,
 	host: {

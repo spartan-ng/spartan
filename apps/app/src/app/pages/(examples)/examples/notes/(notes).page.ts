@@ -27,7 +27,6 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-notes-example',
-	standalone: true,
 	imports: [
 		AsyncPipe,
 		FormsModule,
@@ -35,15 +34,12 @@ export const routeMeta: RouteMeta = {
 		DatePipe,
 		NgIf,
 		JsonPipe,
-
 		RouterLink,
 		SignalInputDirective,
 		SpartanInputErrorDirective,
-
 		HlmButtonDirective,
 		HlmLabelDirective,
 		HlmInputDirective,
-
 		NoteComponent,
 		NoteSkeletonComponent,
 		NotesEmptyComponent,

@@ -23,7 +23,6 @@ export const routeMeta: RouteMeta = {
 };
 @Component({
 	selector: 'spartan-menubar',
-	standalone: true,
 	imports: [
 		MainSectionDirective,
 		CodeComponent,

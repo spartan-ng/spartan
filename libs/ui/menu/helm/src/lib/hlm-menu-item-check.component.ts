@@ -7,7 +7,6 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-menu-item-check',
-	standalone: true,
 	providers: [provideIcons({ lucideCheck })],
 	imports: [NgIcon, HlmIconDirective],
 	template: `

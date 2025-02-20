@@ -9,10 +9,10 @@
 		"./hlm-tailwind-preset.css": "./hlm-tailwind-preset.css"
 	},
 	"peerDependencies": {
-		"@angular/cdk": ">=18.0.0",
-		"@angular/common": ">=18.0.0",
-		"@angular/core": ">=18.0.0",
-		"@angular/forms": ">=18.0.0",
+		"@angular/cdk": ">=19.0.0",
+		"@angular/common": ">=19.0.0",
+		"@angular/core": ">=19.0.0",
+		"@angular/forms": ">=19.0.0",
 		"clsx": ">=2.0.0",
 		"luxon": ">=3.0.0",
 		"rxjs": ">=6.6.0",

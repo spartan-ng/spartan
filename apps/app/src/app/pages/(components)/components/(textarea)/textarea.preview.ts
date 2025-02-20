@@ -3,7 +3,6 @@ import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
 
 @Component({
 	selector: 'spartan-textarea-preview',
-	standalone: true,
 	host: {
 		class: 'w-full',
 	},

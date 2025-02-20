@@ -22,7 +22,6 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-collapsible',
-	standalone: true,
 	imports: [
 		MainSectionDirective,
 		CodeComponent,

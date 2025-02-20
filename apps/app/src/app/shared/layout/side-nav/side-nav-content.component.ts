@@ -6,7 +6,6 @@ import { SideNavLinksComponent } from './side-nav-links.directive';
 
 @Component({
 	selector: 'spartan-side-nav-content',
-	standalone: true,
 	imports: [SideNavLinkDirective, SideNavLinksComponent, SideNavHeadingDirective, SideNavComponent],
 	host: {
 		class: 'block px-1',

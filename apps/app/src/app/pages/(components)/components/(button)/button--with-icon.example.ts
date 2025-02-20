@@ -6,7 +6,6 @@ import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 
 @Component({
 	selector: 'spartan-button-with-icon',
-	standalone: true,
 	imports: [HlmButtonDirective, NgIcon, HlmIconDirective],
 	providers: [provideIcons({ lucideMail })],
 	template: `

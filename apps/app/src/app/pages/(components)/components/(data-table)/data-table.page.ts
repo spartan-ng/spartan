@@ -24,7 +24,6 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-data-table',
-	standalone: true,
 	imports: [
 		MainSectionDirective,
 		CodeComponent,

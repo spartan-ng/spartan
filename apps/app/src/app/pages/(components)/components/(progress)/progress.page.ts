@@ -25,7 +25,6 @@ export const routeMeta: RouteMeta = {
 };
 @Component({
 	selector: 'spartan-progress',
-	standalone: true,
 	imports: [
 		MainSectionDirective,
 		CodeComponent,

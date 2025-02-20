@@ -24,7 +24,6 @@ export const routeMeta: RouteMeta = {
 };
 @Component({
 	selector: 'spartan-spinner',
-	standalone: true,
 	imports: [
 		MainSectionDirective,
 		CodeComponent,

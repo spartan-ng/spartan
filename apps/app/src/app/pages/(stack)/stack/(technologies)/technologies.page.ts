@@ -23,7 +23,6 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-technologies',
-	standalone: true,
 	imports: [
 		MainSectionDirective,
 		SectionIntroComponent,

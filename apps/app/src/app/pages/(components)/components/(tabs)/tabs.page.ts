@@ -28,7 +28,6 @@ export const routeMeta: RouteMeta = {
 };
 @Component({
 	selector: 'spartan-tabs-page',
-	standalone: true,
 	imports: [
 		MainSectionDirective,
 		CodeComponent,
@@ -44,7 +43,6 @@ export const routeMeta: RouteMeta = {
 		InputPreviewComponent,
 		TabsVerticalPreviewComponent,
 		TabsPaginatedPreviewComponent,
-
 		HlmAlertDescriptionDirective,
 		HlmAlertDirective,
 	],

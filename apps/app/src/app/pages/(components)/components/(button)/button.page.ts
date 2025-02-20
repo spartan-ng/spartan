@@ -32,7 +32,6 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-button',
-	standalone: true,
 	imports: [
 		MainSectionDirective,
 		CodeComponent,

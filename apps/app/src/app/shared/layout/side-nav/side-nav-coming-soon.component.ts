@@ -3,7 +3,6 @@ import { HlmBadgeDirective } from '@spartan-ng/ui-badge-helm';
 
 @Component({
 	selector: 'spartan-side-nav-cs',
-	standalone: true,
 	imports: [HlmBadgeDirective],
 	host: {
 		class: 'inline-block',

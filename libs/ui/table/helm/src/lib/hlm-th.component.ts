@@ -14,7 +14,6 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-th',
-	standalone: true,
 	imports: [NgTemplateOutlet],
 	host: {
 		'[class]': '_computedClass()',

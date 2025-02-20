@@ -11,7 +11,6 @@ import { HlmPaginationLinkDirective } from './hlm-pagination-link.directive';
 
 @Component({
 	selector: 'hlm-pagination-next',
-	standalone: true,
 	imports: [HlmPaginationLinkDirective, NgIcon, HlmIconDirective],
 	providers: [provideIcons({ lucideChevronRight })],
 	template: `

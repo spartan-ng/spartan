@@ -4,7 +4,6 @@ import { ThreeHundredItemComponent } from './th-item.component';
 
 @Component({
 	selector: 'spartan-three-hundred',
-	standalone: true,
 	imports: [ThreeHundredItemComponent, ThreeHundredItemPlaceholderComponent],
 	host: {
 		class: 'grid gap-2 grid-cols-3 sm:grid-cols-5 lg:grid-cols-10',

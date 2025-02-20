@@ -37,7 +37,6 @@ export const routeMeta: RouteMeta = {
 };
 @Component({
 	selector: 'spartan-dialog',
-	standalone: true,
 	imports: [
 		MainSectionDirective,
 		CodeComponent,

@@ -22,7 +22,6 @@ declare const Prism: typeof import('prismjs');
 
 @Component({
 	selector: 'spartan-code',
-	standalone: true,
 	imports: [HlmButtonDirective, NgIcon, HlmIconDirective, NgIf],
 	providers: [provideIcons({ lucideClipboard, lucideCheck })],
 	host: {

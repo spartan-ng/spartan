@@ -4,7 +4,6 @@ import { hlmMuted } from '@spartan-ng/ui-typography-helm';
 
 @Component({
 	selector: 'spartan-footer',
-	standalone: true,
 	imports: [HlmButtonDirective],
 	host: {
 		class: 'block border-t bg-background/95 bg-blur-lg border-border px-4 py-8',

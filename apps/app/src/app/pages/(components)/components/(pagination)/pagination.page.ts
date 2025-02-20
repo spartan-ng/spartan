@@ -25,7 +25,6 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-pagination',
-	standalone: true,
 	imports: [
 		MainSectionDirective,
 		CodeComponent,

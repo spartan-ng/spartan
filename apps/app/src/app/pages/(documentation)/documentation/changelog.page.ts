@@ -20,7 +20,6 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-changelog',
-	standalone: true,
 	imports: [
 		MainSectionDirective,
 		SectionIntroComponent,

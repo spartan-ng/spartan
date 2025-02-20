@@ -12,7 +12,6 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-examples',
-	standalone: true,
 	imports: [RouterOutlet, HlmButtonDirective, RouterLink, NavLinkDirective],
 	host: {
 		class: 'block p-4 pt-6 sm:pb-16 sm:pt-12',

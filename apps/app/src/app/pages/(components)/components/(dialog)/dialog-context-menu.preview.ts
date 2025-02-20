@@ -22,24 +22,19 @@ import {
 
 @Component({
 	selector: 'spartan-dialog-context-menu',
-	standalone: true,
 	imports: [
 		BrnDialogTriggerDirective,
 		BrnDialogContentDirective,
-
 		HlmDialogContentComponent,
 		HlmDialogComponent,
 		HlmDialogHeaderComponent,
 		HlmDialogFooterComponent,
 		HlmDialogTitleDirective,
 		HlmDialogDescriptionDirective,
-
 		HlmLabelDirective,
 		HlmButtonDirective,
 		HlmInputDirective,
-
 		BrnContextMenuTriggerDirective,
-
 		HlmMenuItemDirective,
 		HlmMenuShortcutComponent,
 		HlmMenuComponent,

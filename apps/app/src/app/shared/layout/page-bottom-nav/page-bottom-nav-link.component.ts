@@ -8,7 +8,6 @@ import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 
 @Component({
 	selector: 'spartan-page-bottom-nav-link',
-	standalone: true,
 	imports: [RouterLink, NgIf, HlmButtonDirective, NgIcon, HlmIconDirective],
 	providers: [provideIcons({ lucideChevronRight, lucideChevronLeft })],
 	template: `

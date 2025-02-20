@@ -48,7 +48,6 @@ let nextId = 0;
 
 @Component({
 	selector: 'brn-select, hlm-select',
-	standalone: true,
 	imports: [OverlayModule, CdkListboxModule],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [

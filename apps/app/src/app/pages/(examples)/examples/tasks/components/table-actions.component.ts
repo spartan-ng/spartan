@@ -38,7 +38,6 @@ import { TaskPriority, TasksService, TaskStatus } from '../services/tasks.servic
 @Component({
 	// eslint-disable-next-line @angular-eslint/component-selector
 	selector: 'table-actions',
-	standalone: true,
 	host: {
 		class: 'block',
 	},

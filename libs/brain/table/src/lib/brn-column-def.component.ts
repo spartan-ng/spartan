@@ -21,7 +21,6 @@ import { BrnHeaderDefDirective } from './brn-header-def.directive';
 
 @Component({
 	selector: 'brn-column-def',
-	standalone: true,
 	imports: [CdkTableModule],
 	template: `
 		<ng-container [cdkColumnDef]="name">

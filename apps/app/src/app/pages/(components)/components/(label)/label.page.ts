@@ -20,7 +20,6 @@ export const routeMeta: RouteMeta = {
 };
 @Component({
 	selector: 'spartan-label',
-	standalone: true,
 	imports: [
 		MainSectionDirective,
 		CodeComponent,

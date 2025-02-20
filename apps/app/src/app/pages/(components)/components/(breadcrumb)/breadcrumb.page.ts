@@ -32,7 +32,6 @@ export const routeMeta: RouteMeta = {
 };
 @Component({
 	selector: 'spartan-breadcrumb',
-	standalone: true,
 	imports: [
 		MainSectionDirective,
 		CodeComponent,
@@ -44,7 +43,6 @@ export const routeMeta: RouteMeta = {
 		PageNavComponent,
 		PageBottomNavComponent,
 		PageBottomNavLinkComponent,
-
 		BreadcrumbPreviewComponent,
 		BreadcrumbCustomSeparatorComponent,
 		BreadcrumbDropdownComponent,

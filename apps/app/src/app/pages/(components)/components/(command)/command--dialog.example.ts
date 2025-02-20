@@ -25,7 +25,6 @@ import { HlmCodeDirective } from '@spartan-ng/ui-typography-helm';
 
 @Component({
 	selector: 'spartan-command-dialog',
-	standalone: true,
 	providers: [
 		provideIcons({
 			lucideX,
@@ -44,7 +43,6 @@ import { HlmCodeDirective } from '@spartan-ng/ui-typography-helm';
 		NgIcon,
 		HlmIconDirective,
 		HlmButtonDirective,
-
 		BrnDialogComponent,
 		BrnDialogCloseDirective,
 		BrnDialogContentDirective,

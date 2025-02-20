@@ -31,7 +31,6 @@ export const routeMeta: RouteMeta = {
 };
 @Component({
 	selector: 'spartan-form-field',
-	standalone: true,
 	imports: [
 		MainSectionDirective,
 		CodeComponent,

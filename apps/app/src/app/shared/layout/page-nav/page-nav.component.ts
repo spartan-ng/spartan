@@ -25,7 +25,6 @@ type SamePageAnchorLink = {
 
 @Component({
 	selector: 'spartan-page-nav',
-	standalone: true,
 	imports: [HlmScrollAreaDirective, NgScrollbarModule, NgClass, PageNavLinkComponent],
 	host: {
 		class: 'hidden xl:block text-sm',

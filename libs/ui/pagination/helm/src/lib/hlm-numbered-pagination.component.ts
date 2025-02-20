@@ -72,7 +72,6 @@ import { HlmPaginationDirective } from './hlm-pagination.directive';
 			</brn-select>
 		</div>
 	`,
-	standalone: true,
 	imports: [
 		FormsModule,
 		HlmPaginationDirective,

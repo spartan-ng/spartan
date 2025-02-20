@@ -5,7 +5,6 @@ import { HlmSheetOverlayDirective } from './hlm-sheet-overlay.directive';
 
 @Component({
 	selector: 'hlm-sheet',
-	standalone: true,
 	imports: [BrnSheetOverlayComponent, HlmSheetOverlayDirective],
 	providers: [
 		{

@@ -25,7 +25,6 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-components',
-	standalone: true,
 	imports: [
 		PageComponent,
 		HlmAlertDirective,

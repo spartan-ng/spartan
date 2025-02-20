@@ -10,7 +10,6 @@ import {
 @Component({
 	// eslint-disable-next-line @angular-eslint/component-selector
 	selector: 'analog-trpc-notes-empty',
-	standalone: true,
 	host: {
 		class: 'block',
 	},

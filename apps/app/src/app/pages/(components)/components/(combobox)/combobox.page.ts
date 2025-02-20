@@ -23,7 +23,6 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-combobox',
-	standalone: true,
 	imports: [
 		MainSectionDirective,
 		CodeComponent,

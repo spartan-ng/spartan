@@ -25,13 +25,11 @@ import {
 @Component({
 	// eslint-disable-next-line @angular-eslint/component-selector
 	selector: 'music-top-menu',
-	standalone: true,
 	host: {
 		class: 'block',
 	},
 	imports: [
 		BrnMenuTriggerDirective,
-
 		HlmMenuComponent,
 		HlmMenuBarComponent,
 		HlmSubMenuComponent,
@@ -45,11 +43,9 @@ import {
 		HlmMenuItemCheckComponent,
 		HlmMenuItemRadioComponent,
 		HlmMenuGroupComponent,
-
 		HlmButtonDirective,
 		HlmMenuItemCheckboxDirective,
 		HlmMenuItemRadioDirective,
-
 		NgIcon,
 		HlmIconDirective,
 	],

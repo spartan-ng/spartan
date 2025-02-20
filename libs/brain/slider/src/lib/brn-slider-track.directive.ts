@@ -4,6 +4,7 @@ import { SharedResizeObserver } from '@angular/cdk/observers/private';
 import { isPlatformBrowser } from '@angular/common';
 import {
 	type AfterViewInit,
+	ChangeDetectorRef,
 	Directive,
 	ElementRef,
 	InjectionToken,
@@ -136,6 +137,7 @@ export class BrnSliderInputDirective implements ControlValueAccessor, BrnSliderI
 	private readonly _elementRef = inject<ElementRef<HTMLInputElement>>(ElementRef<HTMLInputElement>);
 	private readonly _slider = inject(BRN_SLIDER);
 	private readonly _renderer2 = inject(Renderer2);
+	private readonly _changeDetector = inject(ChangeDetectorRef);
 
 	constructor() {
 		effect(() => {
@@ -199,10 +201,11 @@ export class BrnSliderInputDirective implements ControlValueAccessor, BrnSliderI
 
 	private _updateHostElementValue(value: number | null) {
 		this._elementRef.nativeElement.value = value?.toString() ?? '0';
+		this._changeDetector.detectChanges();
 	}
 
 	private _updateValue() {
-		this.value.set(+this._elementRef.nativeElement.value);
+		this.value.set(this._elementRef.nativeElement.valueAsNumber);
 		this._onChangeFn?.(this.value());
 	}
 

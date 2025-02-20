@@ -3,7 +3,6 @@ import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
 
 @Component({
 	selector: 'spartan-input-file',
-	standalone: true,
 	imports: [HlmInputDirective],
 	template: `
 		<input class="w-80" hlmInput type="file" />

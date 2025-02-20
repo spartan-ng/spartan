@@ -26,7 +26,6 @@ export const routeMeta: RouteMeta = {
 };
 @Component({
 	selector: 'spartan-sheet',
-	standalone: true,
 	imports: [
 		MainSectionDirective,
 		CodeComponent,

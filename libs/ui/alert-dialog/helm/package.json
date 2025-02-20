@@ -4,7 +4,7 @@
 	"sideEffects": false,
 	"dependencies": {},
 	"peerDependencies": {
-		"@angular/core": ">=18.0.0",
+		"@angular/core": ">=19.0.0",
 		"@spartan-ng/brain": "0.0.1-alpha.422",
 		"@spartan-ng/ui-button-helm": "0.0.1-alpha.381",
 		"clsx": "^2.1.1"

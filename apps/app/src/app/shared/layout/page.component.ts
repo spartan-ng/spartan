@@ -8,7 +8,6 @@ import { SideNavComponent } from '@spartan-ng/app/app/shared/layout/side-nav/sid
 
 @Component({
 	selector: 'spartan-page',
-	standalone: true,
 	imports: [RouterOutlet, SideNavComponent, BreadcrumbsComponent, MainSectionDirective, PageNavOutletComponent],
 	hostDirectives: [ContainerDirective],
 	template: `

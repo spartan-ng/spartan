@@ -5,7 +5,6 @@ import { TabsComponent } from './tabs.component';
 
 @Component({
 	selector: 'spartan-cli-tabs',
-	standalone: true,
 	imports: [TabsComponent, CodeComponent],
 	host: {
 		class: 'block',

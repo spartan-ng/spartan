@@ -3,7 +3,6 @@ import { ActivatedRoute, RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
 	selector: 'spartan-page-nav-link',
-	standalone: true,
 	imports: [RouterLink, RouterLinkActive],
 	host: {
 		class: 'mt-0 pt-2',

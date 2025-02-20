@@ -12,7 +12,6 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-authentication',
-	standalone: true,
 	imports: [AuthenticationFormComponent, HlmButtonDirective, HlmCardDirective],
 	host: {
 		class: 'block',

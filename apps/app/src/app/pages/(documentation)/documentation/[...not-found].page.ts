@@ -12,7 +12,6 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-docs-not-found',
-	standalone: true,
 	imports: [MainSectionDirective],
 	template: `
 		<section spartanMainSection class="flex flex-col items-center justify-center">

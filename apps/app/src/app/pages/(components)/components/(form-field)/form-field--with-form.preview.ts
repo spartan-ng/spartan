@@ -7,7 +7,6 @@ import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
 import { HlmSelectImports, HlmSelectModule } from '@spartan-ng/ui-select-helm';
 
 @Component({
-	standalone: true,
 	selector: 'spartan-form-field-form',
 	imports: [
 		ReactiveFormsModule,

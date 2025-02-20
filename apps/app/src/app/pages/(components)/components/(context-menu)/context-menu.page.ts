@@ -27,7 +27,6 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-command',
-	standalone: true,
 	imports: [
 		MainSectionDirective,
 		CodeComponent,

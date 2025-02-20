@@ -9,7 +9,6 @@ import {
 
 @Component({
 	selector: 'spartan-table-preview',
-	standalone: true,
 	imports: [HlmTableComponent, HlmTrowComponent, HlmThComponent, HlmTdComponent, HlmCaptionComponent],
 	host: {
 		class: 'w-full overflow-x-auto',

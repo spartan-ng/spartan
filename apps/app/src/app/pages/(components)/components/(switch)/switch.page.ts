@@ -20,7 +20,6 @@ export const routeMeta: RouteMeta = {
 };
 @Component({
 	selector: 'spartan-switch',
-	standalone: true,
 	imports: [
 		MainSectionDirective,
 		CodeComponent,

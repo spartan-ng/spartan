@@ -23,7 +23,6 @@ export const routeMeta: RouteMeta = {
 };
 @Component({
 	selector: 'spartan-checkbox',
-	standalone: true,
 	imports: [
 		MainSectionDirective,
 		CodeComponent,

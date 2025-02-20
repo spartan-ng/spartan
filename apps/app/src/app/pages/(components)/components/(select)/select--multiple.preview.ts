@@ -6,7 +6,6 @@ import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
 
 @Component({
 	selector: 'spartan-select-multiple-preview',
-	standalone: true,
 	imports: [BrnSelectImports, HlmSelectImports],
 	providers: [provideIcons({ lucideChevronUp, lucideChevronDown })],
 	template: `

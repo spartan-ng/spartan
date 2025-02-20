@@ -6,7 +6,6 @@ import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
 
 @Component({
 	selector: 'spartan-date-picker-form',
-	standalone: true,
 	imports: [HlmDatePickerComponent, ReactiveFormsModule, HlmButtonDirective, HlmLabelDirective],
 	template: `
 		<form [formGroup]="form" (ngSubmit)="submit()" class="space-y-8">

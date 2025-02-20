@@ -9,7 +9,6 @@ import { HlmAlertDialogOverlayDirective } from './hlm-alert-dialog-overlay.direc
 
 @Component({
 	selector: 'hlm-alert-dialog',
-	standalone: true,
 	template: `
 		<brn-alert-dialog-overlay hlm />
 		<ng-content />

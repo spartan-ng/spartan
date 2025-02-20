@@ -3,7 +3,6 @@ import { HlmBadgeDirective } from '@spartan-ng/ui-badge-helm';
 
 @Component({
 	selector: 'spartan-badge-preview',
-	standalone: true,
 	imports: [HlmBadgeDirective],
 	template: `
 		<a target="_blank" href="https://github.com/goetzrobin/spartan" hlmBadge>This is madness. This is spartan.</a>

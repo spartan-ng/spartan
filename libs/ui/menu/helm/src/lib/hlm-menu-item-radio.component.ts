@@ -7,7 +7,6 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-menu-item-radio',
-	standalone: true,
 	providers: [provideIcons({ lucideCircle })],
 	imports: [NgIcon, HlmIconDirective],
 	template: `

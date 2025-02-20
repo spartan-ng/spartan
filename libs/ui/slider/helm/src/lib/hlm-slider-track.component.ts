@@ -10,7 +10,6 @@ import { HlmSliderTrackInactiveDirective } from './hlm-slider-track-inactive.dir
 
 @Component({
 	selector: 'hlm-slider-track, brn-slider-track [hlm]',
-	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ng-content></ng-content>

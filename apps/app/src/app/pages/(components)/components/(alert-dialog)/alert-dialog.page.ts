@@ -25,7 +25,6 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-alert-dialog',
-	standalone: true,
 	imports: [
 		MainSectionDirective,
 		CodeComponent,

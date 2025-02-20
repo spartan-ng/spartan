@@ -7,7 +7,6 @@ import { HlmSpinnerComponent } from '@spartan-ng/ui-spinner-helm';
 
 @Component({
 	selector: 'spartan-button-icon',
-	standalone: true,
 	imports: [HlmButtonDirective, HlmSpinnerComponent, NgIcon, HlmIconDirective],
 	providers: [provideIcons({ lucideChevronRight })],
 	template: `

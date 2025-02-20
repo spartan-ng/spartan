@@ -27,7 +27,6 @@ import { Subject } from 'rxjs';
  */
 @Component({
 	selector: 'brn-tooltip-content',
-	standalone: true,
 	template: `
 		<div
 			(mouseenter)="_contentHovered.set(true)"

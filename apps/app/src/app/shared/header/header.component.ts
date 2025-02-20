@@ -12,7 +12,6 @@ import { HeaderThemePickerComponent } from './header-theme-picker.component';
 
 @Component({
 	selector: 'spartan-header',
-	standalone: true,
 	imports: [
 		HlmButtonDirective,
 		RouterLink,

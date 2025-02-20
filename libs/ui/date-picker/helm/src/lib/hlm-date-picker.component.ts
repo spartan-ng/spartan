@@ -20,7 +20,6 @@ export const HLM_DATE_PICKER_VALUE_ACCESSOR = {
 
 @Component({
 	selector: 'hlm-date-picker',
-	standalone: true,
 	imports: [
 		NgIcon,
 		HlmIconDirective,

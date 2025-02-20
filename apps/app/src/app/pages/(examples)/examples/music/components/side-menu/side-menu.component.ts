@@ -25,7 +25,6 @@ interface ListItem {
 @Component({
 	// eslint-disable-next-line @angular-eslint/component-selector
 	selector: 'music-side-menu',
-	standalone: true,
 	host: {
 		class: 'block',
 	},

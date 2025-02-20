@@ -14,7 +14,6 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-typography',
-	standalone: true,
 	imports: [HlmButtonDirective],
 	host: {
 		class: 'block p-2 sm:p-4 pb-16',

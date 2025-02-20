@@ -15,11 +15,9 @@ import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 
 @Component({
 	selector: 'spartan-alert-dialog-preview',
-	standalone: true,
 	imports: [
 		BrnAlertDialogTriggerDirective,
 		BrnAlertDialogContentDirective,
-
 		HlmAlertDialogComponent,
 		HlmAlertDialogOverlayDirective,
 		HlmAlertDialogHeaderComponent,
@@ -29,7 +27,6 @@ import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 		HlmAlertDialogCancelButtonDirective,
 		HlmAlertDialogActionButtonDirective,
 		HlmAlertDialogContentComponent,
-
 		HlmButtonDirective,
 	],
 	template: `

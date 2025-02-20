@@ -23,7 +23,6 @@ export const routeMeta: RouteMeta = {
 };
 @Component({
 	selector: 'spartan-scroll-area',
-	standalone: true,
 	imports: [
 		MainSectionDirective,
 		CodeComponent,

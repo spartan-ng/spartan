@@ -4,7 +4,6 @@ import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
 
 @Component({
 	selector: 'spartan-select-preview',
-	standalone: true,
 	imports: [BrnSelectImports, HlmSelectImports],
 	template: `
 		<brn-select class="inline-block" placeholder="Select an option">

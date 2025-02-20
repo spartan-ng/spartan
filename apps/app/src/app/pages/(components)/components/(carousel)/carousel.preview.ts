@@ -10,7 +10,6 @@ import {
 
 @Component({
 	selector: 'spartan-carousel-preview',
-	standalone: true,
 	imports: [
 		HlmCarouselComponent,
 		HlmCarouselContentComponent,

@@ -3,7 +3,7 @@
 	"version": "0.0.1-alpha.381",
 	"sideEffects": false,
 	"peerDependencies": {
-		"@angular/core": ">=18.0.0",
+		"@angular/core": ">=19.0.0",
 		"@spartan-ng/brain": "0.0.1-alpha.422",
 		"clsx": "^2.1.1"
 	}

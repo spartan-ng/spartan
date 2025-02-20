@@ -6,7 +6,6 @@ import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
 
 @Component({
 	selector: 'spartan-checkbox-own-icon',
-	standalone: true,
 	imports: [HlmLabelDirective, HlmCheckboxComponent],
 	providers: [provideIcons({ lucideMoon })],
 	template: `

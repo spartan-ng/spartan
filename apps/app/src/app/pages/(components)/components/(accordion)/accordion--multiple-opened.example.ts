@@ -13,7 +13,6 @@ import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 
 @Component({
 	selector: 'spartan-accordion-multiple-opened',
-	standalone: true,
 	imports: [
 		HlmButtonDirective,
 		HlmAccordionDirective,

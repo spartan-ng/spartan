@@ -17,7 +17,6 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-health-checks',
-	standalone: true,
 	imports: [
 		MainSectionDirective,
 		SectionIntroComponent,

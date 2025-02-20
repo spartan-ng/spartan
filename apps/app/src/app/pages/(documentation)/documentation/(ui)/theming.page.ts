@@ -19,7 +19,6 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-theming',
-	standalone: true,
 	imports: [
 		MainSectionDirective,
 		SectionIntroComponent,

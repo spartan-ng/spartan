@@ -13,12 +13,10 @@ import { SpartanLogoComponent } from '../spartan-logo.component';
 
 @Component({
 	selector: 'spartan-mobile-nav',
-	standalone: true,
 	imports: [
 		BrnSheetTriggerDirective,
 		BrnSheetContentDirective,
 		HlmSheetImports,
-
 		HlmButtonDirective,
 		NgIcon,
 		HlmIconDirective,

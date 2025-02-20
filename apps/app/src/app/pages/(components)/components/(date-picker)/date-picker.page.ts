@@ -27,7 +27,6 @@ const link = 'h-6 underline text-base px-0.5';
 
 @Component({
 	selector: 'spartan-calendar',
-	standalone: true,
 	imports: [
 		DatePickerPreviewComponent,
 		SectionIntroComponent,

@@ -15,7 +15,6 @@ import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 
 @Component({
 	selector: 'spartan-command-preview',
-	standalone: true,
 	imports: [BrnCommandImports, HlmCommandImports, NgIcon, HlmIconDirective],
 	providers: [
 		provideIcons({

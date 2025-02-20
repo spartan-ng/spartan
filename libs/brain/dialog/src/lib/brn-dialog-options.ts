@@ -21,7 +21,7 @@ export type BrnDialogOptions = {
 	closeOnBackdropClick: boolean;
 	attachTo: FlexibleConnectedPositionStrategyOrigin | null | undefined;
 	attachPositions: ConnectedPosition[];
-	autoFocus: AutoFocusTarget | string;
+	autoFocus: AutoFocusTarget | (Record<never, never> & string);
 	disableClose: boolean;
 	ariaDescribedBy: string | null | undefined;
 	ariaLabelledBy: string | null | undefined;
@@ -36,7 +36,7 @@ export const DEFAULT_BRN_DIALOG_OPTIONS: Readonly<Partial<BrnDialogOptions>> = {
 	attachTo: null,
 	autoFocus: 'first-tabbable',
 	backdropClass: '',
-	closeDelay: 0,
+	closeDelay: 100,
 	closeOnBackdropClick: true,
 	closeOnOutsidePointerEvents: false,
 	hasBackdrop: true,

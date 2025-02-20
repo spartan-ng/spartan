@@ -5,7 +5,6 @@ import { HeaderComponent } from './shared/header/header.component';
 
 @Component({
 	selector: 'spartan-root',
-	standalone: true,
 	imports: [RouterOutlet, HeaderComponent, FooterComponent],
 	host: {
 		class: 'text-foreground block antialiased',

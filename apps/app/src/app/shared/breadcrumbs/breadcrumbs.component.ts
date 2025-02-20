@@ -11,7 +11,6 @@ import { BreadcrumbSharedService } from './breadcrumb-shared.service';
 
 @Component({
 	selector: 'spartan-breadcrumbs',
-	standalone: true,
 	imports: [RouterLink, NgIcon, HlmIconDirective, NgIf, NgForOf],
 	providers: [provideIcons({ lucideChevronRight })],
 	template: `

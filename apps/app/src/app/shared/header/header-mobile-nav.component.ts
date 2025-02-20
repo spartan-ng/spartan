@@ -15,12 +15,10 @@ import { NavLinkDirective } from '../spartan-nav-link.directive';
 
 @Component({
 	selector: 'spartan-mobile-nav',
-	standalone: true,
 	imports: [
 		BrnSheetTriggerDirective,
 		BrnSheetContentDirective,
 		HlmSheetImports,
-
 		HlmButtonDirective,
 		NgIcon,
 		HlmIconDirective,

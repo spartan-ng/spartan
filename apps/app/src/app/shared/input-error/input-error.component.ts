@@ -5,7 +5,6 @@ import { injectErrorField } from 'ng-signal-forms';
 
 @Component({
 	selector: 'spartan-input-error',
-	standalone: true,
 	imports: [NgIf, NgFor, HlmInputErrorDirective],
 	hostDirectives: [HlmInputErrorDirective],
 	host: {

@@ -5,7 +5,6 @@ import { SideNavContentComponent } from './side-nav-content.component';
 
 @Component({
 	selector: 'spartan-side-nav',
-	standalone: true,
 	imports: [HlmScrollAreaDirective, NgScrollbarModule, SideNavContentComponent],
 	host: {
 		class: 'fixed text-sm top-12 px-2 pt-6 pb-12 flex z-30 -ml-2 hidden w-full shrink-0 md:sticky md:block',

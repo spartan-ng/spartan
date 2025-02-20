@@ -8,7 +8,6 @@ import { HlmTooltipComponent, HlmTooltipTriggerDirective } from '@spartan-ng/ui-
 
 @Component({
 	selector: 'spartan-tooltip-preview',
-	standalone: true,
 	imports: [
 		HlmTooltipComponent,
 		HlmTooltipTriggerDirective,

@@ -7,7 +7,6 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-menu-item-sub-indicator',
-	standalone: true,
 	providers: [provideIcons({ lucideChevronRight })],
 	imports: [NgIcon, HlmIconDirective],
 	template: `

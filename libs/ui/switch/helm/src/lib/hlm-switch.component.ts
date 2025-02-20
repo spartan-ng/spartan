@@ -15,7 +15,6 @@ export const HLM_SWITCH_VALUE_ACCESSOR = {
 @Component({
 	selector: 'hlm-switch',
 	imports: [BrnSwitchThumbComponent, BrnSwitchComponent, HlmSwitchThumbDirective],
-	standalone: true,
 	host: {
 		class: 'contents',
 		'[attr.id]': 'null',

@@ -19,7 +19,6 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-calendar',
-	standalone: true,
 	imports: [
 		CalendarPreviewComponent,
 		SectionIntroComponent,

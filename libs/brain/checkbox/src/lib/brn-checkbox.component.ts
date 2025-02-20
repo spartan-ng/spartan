@@ -39,7 +39,6 @@ const CONTAINER_POST_FIX = '-checkbox';
 
 @Component({
 	selector: 'brn-checkbox',
-	standalone: true,
 	imports: [NgStyle],
 	template: `
 		<input

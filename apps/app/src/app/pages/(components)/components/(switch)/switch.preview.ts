@@ -4,7 +4,6 @@ import { HlmSwitchComponent } from '@spartan-ng/ui-switch-helm';
 
 @Component({
 	selector: 'spartan-switch-preview',
-	standalone: true,
 	imports: [HlmLabelDirective, HlmSwitchComponent],
 	template: `
 		<label class="flex items-center" hlmLabel>

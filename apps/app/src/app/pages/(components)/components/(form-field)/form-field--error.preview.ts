@@ -4,7 +4,6 @@ import { HlmFormFieldModule } from '@spartan-ng/ui-formfield-helm';
 import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
 
 @Component({
-	standalone: true,
 	selector: 'spartan-form-field-error',
 	imports: [ReactiveFormsModule, HlmFormFieldModule, HlmInputDirective],
 	template: `

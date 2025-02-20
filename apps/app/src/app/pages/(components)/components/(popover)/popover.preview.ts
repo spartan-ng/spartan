@@ -12,7 +12,6 @@ import { HlmPopoverCloseDirective, HlmPopoverContentDirective } from '@spartan-n
 
 @Component({
 	selector: 'spartan-popover-preview',
-	standalone: true,
 	imports: [
 		BrnPopoverComponent,
 		BrnPopoverTriggerDirective,

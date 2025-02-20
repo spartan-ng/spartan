@@ -5,7 +5,6 @@ import { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-radio',
-	standalone: true,
 	imports: [BrnRadioComponent],
 	template: `
 		<brn-radio

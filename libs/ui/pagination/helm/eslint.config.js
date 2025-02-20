@@ -24,6 +24,7 @@ module.exports = [
 					style: 'kebab-case',
 				},
 			],
+			'@angular-eslint/no-input-rename': 'off',
 		},
 	},
 	{

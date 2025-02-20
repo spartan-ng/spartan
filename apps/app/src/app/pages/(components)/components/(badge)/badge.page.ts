@@ -26,7 +26,6 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-badge',
-	standalone: true,
 	imports: [
 		MainSectionDirective,
 		CodeComponent,

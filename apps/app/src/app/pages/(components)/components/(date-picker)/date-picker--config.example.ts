@@ -5,7 +5,6 @@ import { DateTime } from 'luxon';
 
 @Component({
 	selector: 'spartan-date-picker-config',
-	standalone: true,
 	imports: [HlmDatePickerComponent, FormsModule],
 	template: `
 		<hlm-date-picker [min]="minDate" [max]="maxDate">

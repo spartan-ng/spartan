@@ -23,7 +23,6 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-card',
-	standalone: true,
 	imports: [
 		MainSectionDirective,
 		CodeComponent,

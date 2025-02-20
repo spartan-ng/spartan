@@ -8,7 +8,6 @@ import {
 
 @Component({
 	selector: 'spartan-tabs-paginated',
-	standalone: true,
 	imports: [HlmTabsComponent, HlmTabsPaginatedListComponent, HlmTabsTriggerDirective, HlmTabsContentDirective],
 	host: {
 		class: 'block w-full max-w-lg min-h-[150px]',

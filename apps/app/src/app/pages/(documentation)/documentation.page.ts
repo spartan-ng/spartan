@@ -9,7 +9,6 @@ export const routeMeta: RouteMeta = {
 };
 @Component({
 	selector: 'spartan-documentation',
-	standalone: true,
 	imports: [PageComponent],
 	template: `
 		<spartan-page />

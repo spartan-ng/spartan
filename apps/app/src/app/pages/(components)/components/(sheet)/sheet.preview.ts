@@ -17,7 +17,6 @@ import {
 
 @Component({
 	selector: 'spartan-sheet-preview',
-	standalone: true,
 	imports: [
 		BrnSheetTriggerDirective,
 		BrnSheetContentDirective,

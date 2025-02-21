@@ -33,7 +33,7 @@ export interface BrnDialogDefaultOptions {
 	role: BrnDialogOptions['role'];
 
 	/** Scroll strategy to be used for the dialog. */
-	scrollStrategy: BrnDialogOptions['scrollStrategy'];
+	scrollStrategy: BrnDialogOptions['scrollStrategy'] | 'close' | 'reposition';
 }
 
 export const defaultOptions: BrnDialogDefaultOptions = {

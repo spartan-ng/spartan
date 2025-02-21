@@ -41,7 +41,7 @@ export const Default: Story = {
 	render: ({ ...args }) => ({
 		props: args,
 		template: `
-    <brn-popover ${argsToTemplate(args)} closeDelay='100'>
+    <brn-popover ${argsToTemplate(args)}>
     <div class='flex flex-col items-center justify-center py-80'>
         <button id='edit-profile' variant='outline' brnPopoverTrigger hlmBtn>Open Popover</button>
     </div>

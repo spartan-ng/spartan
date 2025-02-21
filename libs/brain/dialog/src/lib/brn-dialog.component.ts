@@ -141,7 +141,6 @@ export class BrnDialogComponent {
 	public readonly autoFocus = input<BrnDialogOptions['autoFocus']>(this._defaultOptions.autoFocus);
 
 	public readonly closeDelay = input(this._defaultOptions.closeDelay, {
-		alias: 'closeDelay',
 		transform: numberAttribute,
 	});
 

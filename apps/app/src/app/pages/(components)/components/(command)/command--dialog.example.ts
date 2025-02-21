@@ -16,7 +16,6 @@ import {
 	BrnDialogComponent,
 	BrnDialogContentDirective,
 	BrnDialogOverlayComponent,
-	BrnDialogTriggerDirective,
 } from '@spartan-ng/brain/dialog';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import { HlmCommandImports } from '@spartan-ng/ui-command-helm';
@@ -48,7 +47,6 @@ import { HlmCodeDirective } from '@spartan-ng/ui-typography-helm';
 
 		BrnDialogComponent,
 		BrnDialogCloseDirective,
-		BrnDialogTriggerDirective,
 		BrnDialogContentDirective,
 		BrnDialogOverlayComponent,
 		HlmDialogOverlayDirective,
@@ -65,7 +63,7 @@ import { HlmCodeDirective } from '@spartan-ng/ui-typography-helm';
 				<code data-testid="lastCommand" hlmCode>{{ command() || 'none' }}</code>
 			</p>
 		</div>
-		<brn-dialog closeDelay="100" [state]="state()" (stateChanged)="stateChanged($event)">
+		<brn-dialog [state]="state()" (stateChanged)="stateChanged($event)">
 			<brn-dialog-overlay hlm />
 			<hlm-command *brnDialogContent="let ctx" hlmCommandDialog class="mx-auto sm:w-[400px]">
 				<hlm-command-search>

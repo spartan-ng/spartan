@@ -23,7 +23,6 @@ export class HlmDialogService {
 	public open(component: ComponentType<unknown> | TemplateRef<unknown>, options?: Partial<HlmDialogOptions>) {
 		const mergedOptions = {
 			...DEFAULT_BRN_DIALOG_OPTIONS,
-			closeDelay: 100,
 
 			...(options ?? {}),
 			backdropClass: cssClassesToArray(`${hlmDialogOverlayClass} ${options?.backdropClass ?? ''}`),

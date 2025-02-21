@@ -19,7 +19,7 @@ import {
 	ViewEncapsulation,
 } from '@angular/core';
 import { take } from 'rxjs/operators';
-import { type BrnDialogOptions, DEFAULT_BRN_DIALOG_OPTIONS } from './brn-dialog-options';
+import { type BrnDialogOptions } from './brn-dialog-options';
 import type { BrnDialogRef } from './brn-dialog-ref';
 import type { BrnDialogState } from './brn-dialog-state';
 import { injectBrnDialogDefaultOptions } from './brn-dialog-token';
@@ -58,21 +58,23 @@ export class BrnDialogComponent {
 
 	public readonly stateChanged = output<BrnDialogState>();
 
-	public readonly state = input<BrnDialogState | null>(null);
+	public readonly state = input<BrnDialogState | null>(this._defaultOptions.state);
 
-	public readonly role = input<BrnDialogOptions['role']>('dialog');
+	public readonly role = input<BrnDialogOptions['role']>(this._defaultOptions.role);
 	public readonly mutableRole = computed(() => signal(this.role()));
 	private readonly _roleState = computed(() => this.mutableRole()());
 
-	public readonly hasBackdrop = input(true, { transform: booleanAttribute });
+	public readonly hasBackdrop = input(this._defaultOptions.hasBackdrop, { transform: booleanAttribute });
 	protected readonly _mutableHasBackdrop = computed(() => signal(this.hasBackdrop()));
 	protected readonly _hasBackdropState = computed(() => this._mutableHasBackdrop()());
 
-	public readonly positionStrategy = input<BrnDialogOptions['positionStrategy']>();
+	public readonly positionStrategy = input<BrnDialogOptions['positionStrategy']>(this._defaultOptions.positionStrategy);
 	public readonly mutablePositionStrategy = computed(() => signal(this.positionStrategy()));
 	private readonly _positionStrategyState = computed(() => this.mutablePositionStrategy()());
 
-	public readonly scrollStrategy = input<BrnDialogOptions['scrollStrategy'] | 'close' | 'reposition' | null>(null);
+	public readonly scrollStrategy = input<BrnDialogOptions['scrollStrategy'] | 'close' | 'reposition' | null>(
+		this._defaultOptions.scrollStrategy,
+	);
 	public readonly mutableScrollStrategy = computed(() => signal(this.scrollStrategy()));
 	private readonly _scrollStrategyState = computed(() => this.mutableScrollStrategy()());
 
@@ -89,7 +91,6 @@ export class BrnDialogComponent {
 		}
 
 		return {
-			...DEFAULT_BRN_DIALOG_OPTIONS,
 			role: this._roleState(),
 			hasBackdrop: this._hasBackdropState(),
 			positionStrategy: this._positionStrategyState(),
@@ -100,7 +101,7 @@ export class BrnDialogComponent {
 			attachTo: this._attachToState(),
 			attachPositions: this._attachPositionsState(),
 			autoFocus: this.autoFocus(),
-			closeDelay: 100,
+			closeDelay: this.closeDelay(),
 			disableClose: this.disableClose(),
 			backdropClass: this._backdropClass() ?? '',
 			panelClass: this._panelClass() ?? '',
@@ -123,15 +124,15 @@ export class BrnDialogComponent {
 		});
 	}
 
-	public readonly restoreFocus = input<BrnDialogOptions['restoreFocus']>(true);
+	public readonly restoreFocus = input<BrnDialogOptions['restoreFocus']>(this._defaultOptions.restoreFocus);
 
-	public readonly closeOnOutsidePointerEvents = input(false, {
+	public readonly closeOnOutsidePointerEvents = input(this._defaultOptions.closeOnOutsidePointerEvents, {
 		transform: booleanAttribute,
 	});
 	public readonly mutableCloseOnOutsidePointerEvents = computed(() => signal(this.closeOnOutsidePointerEvents()));
 	private readonly _closeOnOutsidePointerEventsState = computed(() => this.mutableCloseOnOutsidePointerEvents()());
 
-	public readonly closeOnBackdropClick = input(DEFAULT_BRN_DIALOG_OPTIONS.closeOnBackdropClick, {
+	public readonly closeOnBackdropClick = input(this._defaultOptions.closeOnBackdropClick, {
 		transform: booleanAttribute,
 	});
 	public readonly mutableCloseOnBackdropClick = computed(() => signal(this.closeOnBackdropClick()));
@@ -141,15 +142,18 @@ export class BrnDialogComponent {
 	public readonly mutableAttachTo = computed(() => signal(this.attachTo()));
 	private readonly _attachToState = computed(() => this.mutableAttachTo()());
 
-	public readonly attachPositions = input<BrnDialogOptions['attachPositions']>([]);
+	public readonly attachPositions = input<BrnDialogOptions['attachPositions']>(this._defaultOptions.attachPositions);
 	public readonly mutableAttachPositions = computed(() => signal(this.attachPositions()));
 	private readonly _attachPositionsState = computed(() => this.mutableAttachPositions()());
 
-	public readonly autoFocus = input<BrnDialogOptions['autoFocus']>('first-tabbable');
+	public readonly autoFocus = input<BrnDialogOptions['autoFocus']>(this._defaultOptions.autoFocus);
 
-	public readonly closeDelay = input(100, { alias: 'closeDelay', transform: numberAttribute });
+	public readonly closeDelay = input(this._defaultOptions.closeDelay, {
+		alias: 'closeDelay',
+		transform: numberAttribute,
+	});
 
-	public readonly disableClose = input(false, { transform: booleanAttribute });
+	public readonly disableClose = input(this._defaultOptions.disableClose, { transform: booleanAttribute });
 
 	public readonly ariaDescribedBy = input<BrnDialogOptions['ariaDescribedBy']>(null, {
 		alias: 'aria-describedby',

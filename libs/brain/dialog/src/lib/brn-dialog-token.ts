@@ -1,6 +1,5 @@
 import { inject, InjectionToken, ValueProvider } from '@angular/core';
 import { BrnDialogOptions } from './brn-dialog-options';
-import { BrnDialogState } from './brn-dialog-state';
 
 export interface BrnDialogDefaultOptions {
 	/** A connected position as specified by the user. */
@@ -33,9 +32,6 @@ export interface BrnDialogDefaultOptions {
 	/** The role of the dialog */
 	role: BrnDialogOptions['role'];
 
-	/** Initial state of the dialog */
-	state: BrnDialogState | null;
-
 	/** Scroll strategy to be used for the dialog. */
 	scrollStrategy: BrnDialogOptions['scrollStrategy'];
 }
@@ -51,7 +47,6 @@ export const defaultOptions: BrnDialogDefaultOptions = {
 	positionStrategy: null,
 	restoreFocus: true,
 	role: 'dialog',
-	state: null,
 	scrollStrategy: null,
 };
 

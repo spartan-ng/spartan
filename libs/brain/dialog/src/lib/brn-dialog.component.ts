@@ -58,7 +58,7 @@ export class BrnDialogComponent {
 
 	public readonly stateChanged = output<BrnDialogState>();
 
-	public readonly state = input<BrnDialogState | null>(this._defaultOptions.state);
+	public readonly state = input<BrnDialogState | null>(null);
 
 	public readonly role = input<BrnDialogOptions['role']>(this._defaultOptions.role);
 	public readonly mutableRole = computed(() => signal(this.role()));

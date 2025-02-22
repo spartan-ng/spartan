@@ -41,7 +41,7 @@ export const routeMeta: RouteMeta = {
 				<p class="${hlmP}">
 					Since
 					<code class="${hlmCode}">spartan/ui</code>
-					proudly & shamelessly piggy backs on top of the incredible work by
+					proudly & shamelessly piggybacks on top of the incredible work by
 					<span>shadcn,</span>
 					it can leverage their (non Angular specific) ecosystem.
 				</p>

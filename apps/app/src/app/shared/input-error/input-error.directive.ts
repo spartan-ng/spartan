@@ -1,4 +1,4 @@
-import { Directive, Injector, type OnInit, effect, inject } from '@angular/core';
+import { Directive, Injector, type OnInit, effect, inject, untracked } from '@angular/core';
 import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
 import { SignalInputDirective, SignalInputErrorDirective } from 'ng-signal-forms';
 
@@ -16,18 +16,18 @@ export class SpartanInputErrorDirective implements OnInit {
 	ngOnInit() {
 		effect(
 			() => {
-				if (
-					this._signalInput?.formField?.touchedState() === 'TOUCHED' &&
-					Object.values(this._signalInput?.formField?.errors() ?? {}).length > 0
-				) {
-					if (this._label) this._label.setError(true);
-				} else {
-					if (this._label) this._label.setError('auto');
-				}
+				const touchedState = this._signalInput?.formField?.touchedState();
+				const errors = this._signalInput?.formField?.errors() ?? {};
+				untracked(() => {
+					if (touchedState === 'TOUCHED' && Object.values(errors).length > 0) {
+						if (this._label) this._label.setError(true);
+					} else {
+						if (this._label) this._label.setError('auto');
+					}
+				});
 			},
 			{
 				injector: this._injector,
-				allowSignalWrites: true,
 			},
 		);
 	}

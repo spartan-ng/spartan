@@ -1,0 +1,26 @@
+{
+	"$schema": "https://json-schema.org/schema",
+	"$id": "HelmComponent",
+	"title": "",
+	"type": "object",
+	"properties": {
+		"project": {
+			"type": "string",
+			"description": "The name of the project to add the directive to.",
+			"alias": "p",
+			"$default": {
+				"$source": "argv",
+				"index": 0
+			},
+			"x-dropdown": "projects",
+			"x-prompt": "What project would you like to add the directive to?",
+			"x-priority": "important"
+		},
+		"directiveName": {
+			"type": "string",
+			"description": "The name of the directive.",
+			"x-prompt": "The name of the directive?"
+		}
+	},
+	"required": ["project", "directiveName"]
+}

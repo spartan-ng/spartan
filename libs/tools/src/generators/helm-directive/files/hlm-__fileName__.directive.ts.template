@@ -3,18 +3,16 @@ import { hlm } from '@spartan-ng/brain/core';
 import type { ClassValue } from 'clsx';
 
 @Directive({
-	selector: 'brn-radio[hlm],[hlmRadio]',
+	selector: '[<%= selector %>]',
 	standalone: true,
 	host: {
 		'[class]': '_computedClass()',
 	},
 })
-export class HlmRadioDirective {
+export class <%= directiveName %> {
+	/** The user defined classes */
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected _computedClass = computed(() =>
-		hlm(
-			'group [&.brn-radio-disabled]:text-muted-foreground flex items-center space-x-2 rtl:space-x-reverse',
-			this.userClass(),
-		),
-	);
+
+	/** The classes to apply merged with the user defined classes */
+	protected readonly _computedClass = computed(() => hlm('', this.userClass()));
 }

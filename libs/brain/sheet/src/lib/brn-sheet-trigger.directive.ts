@@ -1,4 +1,4 @@
-import { Directive, Input, inject } from '@angular/core';
+import { Directive, inject, input } from '@angular/core';
 import { BrnDialogTriggerDirective } from '@spartan-ng/brain/dialog';
 import { BrnSheetComponent } from './brn-sheet.component';
 
@@ -8,12 +8,13 @@ import { BrnSheetComponent } from './brn-sheet.component';
 })
 export class BrnSheetTriggerDirective extends BrnDialogTriggerDirective {
 	private readonly _sheet = inject(BrnSheetComponent, { optional: true });
-	@Input()
-	public side: 'top' | 'bottom' | 'left' | 'right' | undefined;
+
+	public side = input<'top' | 'bottom' | 'left' | 'right' | undefined>(undefined);
 
 	override open() {
-		if (this._sheet && this.side) {
-			this._sheet.setSide = this.side;
+		const side = this.side();
+		if (this._sheet && side) {
+			this._sheet.sideInputState().set(side);
 		}
 		super.open();
 	}

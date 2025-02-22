@@ -8,6 +8,7 @@ import {
 	computed,
 	effect,
 	inject,
+	untracked,
 } from '@angular/core';
 import { injectBrnCalendar } from './brn-calendar.token';
 
@@ -51,10 +52,13 @@ export class BrnCalendarWeekDirective<T> implements OnDestroy {
 
 	constructor() {
 		// this should use `afterRenderEffect` but it's not available in the current version
-		effect(() => this.renderWeek(), { allowSignalWrites: true });
+		effect(() => {
+			const weeks = this.weeks();
+			untracked(() => this._renderWeeks(weeks));
+		});
 	}
 
-	private renderWeek(): void {
+	private _renderWeeks(weeks: T[][]): void {
 		// Destroy all the views when the directive is destroyed
 		for (const viewRef of this._viewRefs) {
 			viewRef.destroy();
@@ -63,7 +67,7 @@ export class BrnCalendarWeekDirective<T> implements OnDestroy {
 		this._viewRefs.length = 0;
 
 		// Create a new view for each week
-		for (const week of this.weeks()) {
+		for (const week of weeks) {
 			const viewRef = this._viewContainerRef.createEmbeddedView(this._templateRef, {
 				$implicit: week,
 			});

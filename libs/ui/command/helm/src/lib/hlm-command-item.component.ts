@@ -12,7 +12,7 @@ import { hlm } from '@spartan-ng/brain/core';
 	hostDirectives: [
 		{
 			directive: BrnCommandItemDirective,
-			inputs: ['value', 'disabled'],
+			inputs: ['value', 'disabled', 'id'],
 			outputs: ['selected'],
 		},
 	],

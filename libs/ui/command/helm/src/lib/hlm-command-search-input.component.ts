@@ -6,7 +6,7 @@ import { hlm } from '@spartan-ng/brain/core';
 	standalone: true,
 	selector: 'input[hlm-command-search-input]',
 	template: '',
-	hostDirectives: [BrnCommandSearchInputDirective],
+	hostDirectives: [{ directive: BrnCommandSearchInputDirective, inputs: ['value'] }],
 	host: {
 		'[class]': '_computedClass()',
 	},

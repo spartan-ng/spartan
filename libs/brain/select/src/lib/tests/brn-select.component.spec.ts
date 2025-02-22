@@ -13,9 +13,10 @@ describe('BrnSelectComponent', () => {
 
 	const setup = async () => {
 		const openChangeSpy = jest.fn();
+		const valueChangeSpy = jest.fn();
 		const container = await render(
 			`
-            <brn-select class="inline-block" [multiple]="multiple" (openedChange)="openedChange($event)">
+            <brn-select class="inline-block" [multiple]="multiple" (openedChange)="openedChange($event)" (valueChange)="valueChange($event)">
 			<button brnSelectTrigger class='w-56' data-testid="brn-select-trigger">
 				<brn-select-value />
 			</button>
@@ -35,6 +36,7 @@ describe('BrnSelectComponent', () => {
 				componentProperties: {
 					multiple: true,
 					openedChange: openChangeSpy,
+					valueChange: valueChangeSpy,
 				},
 			},
 		);
@@ -43,6 +45,7 @@ describe('BrnSelectComponent', () => {
 			container,
 			trigger: screen.getByTestId('brn-select-trigger'),
 			openChangeSpy,
+			valueChangeSpy,
 		};
 	};
 
@@ -62,6 +65,31 @@ describe('BrnSelectComponent', () => {
 			expect(disabledOption).toHaveAttribute('data-disabled');
 			await user.click(disabledOption);
 			expect(trigger.textContent).not.toContain('Disabled Option');
+		});
+
+		it('single mode: valueChange should emit event on selection', async () => {
+			const { user, trigger, container, openChangeSpy, valueChangeSpy } = await setup();
+			container.rerender({
+				componentProperties: {
+					multiple: false,
+					openedChange: openChangeSpy,
+					valueChange: valueChangeSpy,
+				},
+			});
+			await user.click(trigger);
+			const options = await screen.getAllByRole('option');
+			await user.click(options[0]);
+			expect(valueChangeSpy).toHaveBeenCalledWith('apple');
+		});
+
+		it('multi mode: valueChange should emit event on selection', async () => {
+			const { user, trigger, valueChangeSpy } = await setup();
+			await user.click(trigger);
+			const options = await screen.getAllByRole('option');
+			await user.click(options[0]);
+			expect(valueChangeSpy).toHaveBeenCalledWith(['apple']);
+			await user.click(options[1]);
+			expect(valueChangeSpy).toHaveBeenCalledWith(['apple', 'banana']);
 		});
 	});
 

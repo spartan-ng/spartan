@@ -62,15 +62,14 @@ export const routeMeta: RouteMeta = {
 				also builds on top of angular/cdk. To install it run the following command:
 			</p>
 			<spartan-code class="mt-4" code="npm i @angular/cdk" />
-			<spartan-section-sub-heading id="setting-up-tailwind">Setting up tailwind.config.js</spartan-section-sub-heading>
+			<spartan-section-sub-heading id="setting-up-tailwind">Setup Tailwind</spartan-section-sub-heading>
 			<p class="${hlmP}">
-				You now have to add our spartan-specific configuration to your TailwindCSS setup. To make the setup of your
-				<code class="${hlmCode}">tailwind.config.js</code>
-				as easy as possible, the
+				You now have to add our spartan-specific configuration to your TailwindCSS setup. To make the setup as easy as
+				possible, the
 				<code class="${hlmCode}">&#64;spartan-ng/brain</code>
 				package comes with it own preset.
 			</p>
-			<p class="${hlmP}">Simply add it to the presets array of your config file:</p>
+			<p class="${hlmP}">If you are using Tailwind 3 add the following to your config file:</p>
 			<spartan-cli-tabs
 				language="js"
 				class="mb-6 mt-4"
@@ -106,6 +105,10 @@ module.exports = {
 };
 "
 			/>
+
+			<p class="${hlmP}">If you are using Tailwind 4 add the following import to your global stylesheet:</p>
+
+			<spartan-code class="mt-4" code="@import '@spartan-ng/brain/hlm-tailwind-preset.css';" />
 
 			<spartan-section-sub-heading id="adding-css-vars">Adding CSS variables</spartan-section-sub-heading>
 			<p class="${hlmP}">

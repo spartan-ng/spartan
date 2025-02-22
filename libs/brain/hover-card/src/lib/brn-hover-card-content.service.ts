@@ -23,6 +23,7 @@ import {
 	type Signal,
 	signal,
 	TemplateRef,
+	untracked,
 	ViewContainerRef,
 } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -243,15 +244,14 @@ export class BrnHoverCardTriggerDirective implements OnInit, OnDestroy {
 	private readonly _brnHoverCardTriggerForState = computed(() => this.mutableBrnHoverCardTriggerFor()());
 
 	constructor() {
-		effect(
-			() => {
-				const value = this._brnHoverCardTriggerForState();
+		effect(() => {
+			const value = this._brnHoverCardTriggerForState();
+			untracked(() => {
 				if (value) {
 					this._contentService.setContent(value, this._vcr);
 				}
-			},
-			{ allowSignalWrites: true },
-		);
+			});
+		});
 	}
 
 	public ngOnInit() {

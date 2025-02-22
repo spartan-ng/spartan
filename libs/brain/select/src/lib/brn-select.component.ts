@@ -106,8 +106,6 @@ export class BrnSelectComponent<T = unknown>
 	/** Overlay pane containing the options. */
 	protected _overlayDir = viewChild(CdkConnectedOverlay);
 
-	public readonly openedChange = output<boolean>();
-
 	public readonly closeDelay = input<number>(100);
 	public readonly isExpanded = this._selectService.isExpanded;
 	protected readonly _delayedExpanded = toSignal(
@@ -118,6 +116,9 @@ export class BrnSelectComponent<T = unknown>
 		{ initialValue: false },
 	);
 	public readonly state = computed(() => (this.isExpanded() ? 'open' : 'closed'));
+
+	public readonly openedChange = output<boolean>();
+	public readonly valueChange = output<T>();
 
 	protected readonly _positionChanges$ = new Subject<ConnectedOverlayPositionChange>();
 	public readonly side: Signal<'top' | 'bottom' | 'left' | 'right'> = toSignal(
@@ -228,6 +229,7 @@ export class BrnSelectComponent<T = unknown>
 		toObservable(this._selectService.value).subscribe((value) => {
 			if (this._shouldEmitValueChange()) {
 				this._onChange((value ?? null) as T);
+				this.valueChange.emit((value ?? null) as T);
 			}
 			this._shouldEmitValueChange.set(true);
 		});
@@ -352,7 +354,7 @@ export class BrnSelectComponent<T = unknown>
 			if (index > 0) {
 				this.handleInvalidOptions(options);
 			}
-			this.updatePossibleOptions(options);
+			this._selectService.updatePossibleOptions(options);
 		});
 	}
 
@@ -364,39 +366,23 @@ export class BrnSelectComponent<T = unknown>
 		const availableOptionSet = new Set<CdkOption | null>(options);
 		if (this._selectService.multiple()) {
 			const filteredOptions = selectedOptions.filter((o) => availableOptionSet.has(o));
-			// only update if there was an actual change
 			if (selectedOptions.length !== filteredOptions.length) {
-				// update should result in a value change since we are deselecting a value
-				this._shouldEmitValueChange.set(true);
 				const value = filteredOptions.map((o) => (o?.value as string) ?? '');
 				this._selectService.state.update((state) => ({
 					...state,
 					selectedOptions: filteredOptions,
 					value: value,
 				}));
-				this._onChange((value ?? null) as T);
 			}
 		} else {
 			const selectedOption = selectedOptions[0] ?? null;
 			if (selectedOption !== null && !availableOptionSet.has(selectedOption)) {
-				this._shouldEmitValueChange.set(true);
 				this._selectService.state.update((state) => ({
 					...state,
 					selectedOptions: [],
 					value: '',
 				}));
-				this._onChange('' as T);
 			}
 		}
-	}
-
-	/**
-	 * Sync the updated options with "possibleOptions" in the select service
-	 */
-	private updatePossibleOptions(options: readonly CdkOption[]) {
-		this._selectService.state.update((state) => ({
-			...state,
-			possibleOptions: options as CdkOption[],
-		}));
 	}
 }

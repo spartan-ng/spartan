@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgIcon } from '@ng-icons/core';
-import { BrnRadioGroupDirective, BrnRadioGroupImports } from '@spartan-ng/brain/radio-group';
+import { BrnRadioGroupDirective } from '@spartan-ng/brain/radio-group';
 import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
 import { HlmButtonDirective } from '../button/helm/src';
 import { HlmIconDirective } from '../icon/helm/src';
@@ -13,7 +13,6 @@ import { HlmRadioGroupImports } from './helm/src';
 	standalone: true,
 	imports: [
 		HlmRadioGroupImports,
-		BrnRadioGroupImports,
 		FormsModule,
 		NgIcon,
 		HlmIconDirective,
@@ -23,23 +22,23 @@ import { HlmRadioGroupImports } from './helm/src';
 	],
 	template: `
 		<small hlmSmall class="font-semibold">Choose a version</small>
-		<hlm-radio-group class="mb-4 space-y-1 font-mono text-sm font-medium" [(ngModel)]="version">
-			<brn-radio hlm value="16.1.4">
+		<hlm-radio-group class="font-mono text-sm font-medium" [(ngModel)]="version">
+			<hlm-radio value="16.1.4">
 				<hlm-radio-indicator indicator />
 				v16.1.4
-			</brn-radio>
-			<brn-radio hlm value="16.0.0">
+			</hlm-radio>
+			<hlm-radio value="16.0.0">
 				<hlm-radio-indicator indicator />
 				v16.0.0
-			</brn-radio>
-			<brn-radio hlm value="15.8.0">
+			</hlm-radio>
+			<hlm-radio value="15.8.0">
 				<hlm-radio-indicator indicator />
 				v15.8.0
-			</brn-radio>
-			<brn-radio disabled hlm value="15.2.0">
+			</hlm-radio>
+			<hlm-radio disabled value="15.2.0">
 				<hlm-radio-indicator indicator />
 				v15.2.0
-			</brn-radio>
+			</hlm-radio>
 		</hlm-radio-group>
 		<div class="my-2 flex space-x-2">
 			<button size="sm" hlmBtn variant="outline" (click)="version = '16.0.0'">Set to v16.0.0</button>

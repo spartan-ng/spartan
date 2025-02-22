@@ -1,7 +1,9 @@
 // All credit goes to the incredible folks at Nx who use this code to update the app styles when adding tailwind
 // Check out the code here: https://github.com/nrwl/nx/blob/master/packages/angular/src/generators/setup-tailwind/lib/update-application-styles.ts
 
-import { type ProjectConfiguration, type Tree, joinPathFragments, stripIndents } from '@nx/devkit';
+import { type ProjectConfiguration, type Tree, joinPathFragments, readJson, stripIndents } from '@nx/devkit';
+import { type PackageJson } from 'nx/src/utils/package-json';
+import * as semver from 'semver';
 import { type SupportedTheme, SupportedThemeGeneratorMap } from './supported-theme-generator-map';
 
 export interface AddThemeToApplicationStylesOptions {
@@ -18,6 +20,17 @@ export function addThemeToApplicationStyles(
 	options: AddThemeToApplicationStylesOptions,
 	project: ProjectConfiguration,
 ): void {
+	const packageJson = readJson<PackageJson>(tree, 'package.json');
+
+	let tailwindVersion = 3;
+
+	if ('tailwindcss' in packageJson.devDependencies) {
+		const version = packageJson.devDependencies['tailwindcss'];
+		tailwindVersion = semver.coerce(version)?.major ?? 3;
+	}
+
+	const tailwindImport = tailwindVersion === 4 ? '@import "@spartan-ng/brain/hlm-tailwind-preset.css";' : '';
+
 	const prefix = options.prefix ? ` .${options.prefix}` : '';
 	let stylesEntryPoint = options.stylesEntryPoint;
 
@@ -53,6 +66,7 @@ export function addThemeToApplicationStyles(
     ${ckdOverlayImport}
 
     ${stylesEntryPointContent}
+    ${tailwindImport}
 
     ${rootFontSans}
     ${SupportedThemeGeneratorMap[options.theme](options.radius, prefix)}

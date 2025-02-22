@@ -25,6 +25,11 @@
 			"schema": "./src/generators/migrate-icon/schema.json",
 			"description": "Migrate hlm-icon to ng-icon"
 		},
+		"migrate-radio": {
+			"factory": "./src/generators/migrate-radio/generator",
+			"schema": "./src/generators/migrate-radio/schema.json",
+			"description": "Migrate brn-radio to hlm-radio"
+		},
 		"migrate-core": {
 			"factory": "./src/generators/migrate-core/generator",
 			"schema": "./src/generators/migrate-core/schema.json",
@@ -61,6 +66,11 @@
 			"factory": "./src/generators/migrate-icon/compat",
 			"schema": "./src/generators/migrate-icon/schema.json",
 			"description": "Migrate hlm-icon to ng-icon"
+		},
+		"migrate-radio": {
+			"factory": "./src/generators/migrate-radio/compat",
+			"schema": "./src/generators/migrate-radio/schema.json",
+			"description": "Migrate brn-radio to hlm-radio"
 		},
 		"migrate-core": {
 			"factory": "./src/generators/migrate-scroll-area/compat",

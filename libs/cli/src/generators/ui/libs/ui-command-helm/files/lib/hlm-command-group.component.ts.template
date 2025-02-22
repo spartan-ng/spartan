@@ -6,7 +6,12 @@ import { hlm } from '@spartan-ng/brain/core';
 	standalone: true,
 	selector: 'hlm-command-group',
 	template: '<ng-content />',
-	hostDirectives: [BrnCommandGroupDirective],
+	hostDirectives: [
+		{
+			directive: BrnCommandGroupDirective,
+			inputs: ['id'],
+		},
+	],
 	host: {
 		'[class]': '_computedClass()',
 	},

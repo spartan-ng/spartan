@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, inject } from '@angular/core';
+import { Directive, ElementRef, effect, inject, input, untracked } from '@angular/core';
 import { BrnDialogTriggerDirective } from '@spartan-ng/brain/dialog';
 import type { BrnPopoverComponent } from './brn-popover.component';
 
@@ -16,17 +16,24 @@ import type { BrnPopoverComponent } from './brn-popover.component';
 export class BrnPopoverTriggerDirective extends BrnDialogTriggerDirective {
 	private readonly _host = inject(ElementRef, { host: true });
 
+	public readonly brnPopoverTriggerFor = input<BrnPopoverComponent | undefined>(undefined, {
+		alias: 'brnPopoverTriggerFor',
+	});
+
 	constructor() {
 		super();
 		if (!this._brnDialog) return;
-		this._brnDialog.attachTo = this._host.nativeElement;
-		this._brnDialog.closeOnOutsidePointerEvents = true;
-	}
+		this._brnDialog.mutableAttachTo().set(this._host.nativeElement);
+		this._brnDialog.mutableCloseOnOutsidePointerEvents().set(true);
 
-	@Input()
-	public set brnPopoverTriggerFor(brnDialog: BrnPopoverComponent) {
-		brnDialog.attachTo = this._host.nativeElement;
-		brnDialog.closeOnOutsidePointerEvents = true;
-		super.brnDialogTriggerFor = brnDialog;
+		effect(() => {
+			const brnDialog = this.brnPopoverTriggerFor();
+			untracked(() => {
+				if (!brnDialog) return;
+				brnDialog.mutableAttachTo().set(this._host.nativeElement);
+				brnDialog.mutableCloseOnOutsidePointerEvents().set(true);
+				this.mutableBrnDialogTriggerFor().set(brnDialog);
+			});
+		});
 	}
 }

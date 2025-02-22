@@ -89,7 +89,6 @@ import { Component } from '@angular/core';
 import { BrnCommandImports } from '@spartan-ng/brain/command';
 import { HlmCommandImports } from '@spartan-ng/ui-command-helm';
 import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import { provideIcons } from '@ng-icons/core';
 import {
   lucideCalendar,
@@ -104,7 +103,7 @@ import {
 @Component({
   selector: 'spartan-command-preview',
   standalone: true,
-  imports: [BrnCommandImports, HlmCommandImports, HlmIconDirective, HlmButtonDirective],
+  imports: [BrnCommandImports, HlmCommandImports, HlmIconDirective ],
   providers: [
     provideIcons({ lucideSearch, lucideCalendar, lucideSmile, lucidePlus, lucideUser, lucideWallet, lucideCog }),
   ],

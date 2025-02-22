@@ -1,4 +1,16 @@
-import { Directive, ElementRef, Input, computed, effect, inject, input, model, output, signal } from '@angular/core';
+import {
+	Directive,
+	ElementRef,
+	Input,
+	computed,
+	effect,
+	inject,
+	input,
+	model,
+	output,
+	signal,
+	untracked,
+} from '@angular/core';
 
 @Directive({
 	selector: '[brnTabsContent]',
@@ -22,12 +34,10 @@ export class BrnTabsContentDirective {
 	protected labelId = computed(() => `brn-tabs-label-${this.contentFor()}`);
 
 	constructor() {
-		effect(
-			() => {
-				this._root.registerContent(this.contentFor(), this);
-			},
-			{ allowSignalWrites: true },
-		);
+		effect(() => {
+			const contentFor = this.contentFor();
+			untracked(() => this._root.registerContent(contentFor, this));
+		});
 	}
 
 	public focus() {
@@ -123,12 +133,10 @@ export class BrnTabsTriggerDirective {
 	public disabled = false;
 
 	constructor() {
-		effect(
-			() => {
-				this._root.registerTrigger(this.triggerFor(), this);
-			},
-			{ allowSignalWrites: true },
-		);
+		effect(() => {
+			const triggerFor = this.triggerFor();
+			untracked(() => this._root.registerTrigger(triggerFor, this));
+		});
 	}
 
 	public focus() {

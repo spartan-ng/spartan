@@ -1,5 +1,4 @@
 describe('command', () => {
-	/* TODO: @goetzrobin fix issues
 	describe('default', () => {
 		beforeEach(() => {
 			cy.visit('/iframe.html?id=command--default');
@@ -80,6 +79,7 @@ describe('command', () => {
 	  Typing CA should show calendar and calculator and select calendar because it comes first
 	  Arrow down on billing should select billing
 	  Arrow up to calculator should select calculator
+	  Arrow up should skip disabled search emoji and select calendar
 	  `, () => {
 			cy.checkA11y('#storybook-root', {
 				rules: {
@@ -140,13 +140,14 @@ describe('command', () => {
 			cy.realPress('ArrowDown');
 			cy.realPress('ArrowDown');
 			cy.realPress('ArrowDown');
-			cy.realPress('ArrowDown');
 			cy.findByText(/billing/i).should('have.attr', 'aria-selected', 'true');
 			cy.realPress('ArrowUp');
 			cy.realPress('ArrowUp');
 			cy.findByText(/billing/i).should('have.attr', 'aria-selected', 'false');
 			cy.findByText(/calculator/i).should('have.attr', 'aria-selected', 'true');
+			cy.realPress('ArrowUp');
+			cy.findByText(/search emoji/i).should('have.attr', 'aria-selected', 'false');
+			cy.findByText(/calendar/i).should('have.attr', 'aria-selected', 'true');
 		});
 	});
-	*/
 });

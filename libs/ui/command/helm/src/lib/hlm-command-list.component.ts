@@ -9,7 +9,12 @@ import { hlm } from '@spartan-ng/brain/core';
 	host: {
 		'[class]': '_computedClass()',
 	},
-	hostDirectives: [BrnCommandListDirective],
+	hostDirectives: [
+		{
+			directive: BrnCommandListDirective,
+			inputs: ['id'],
+		},
+	],
 })
 export class HlmCommandListComponent {
 	/** The user defined class  */

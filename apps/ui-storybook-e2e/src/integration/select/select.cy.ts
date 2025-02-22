@@ -245,13 +245,6 @@ describe('select', () => {
 			cy.get('[brnselecttrigger]').should('have.class', 'ng-pristine');
 			cy.get('[brnselecttrigger]').should('have.class', 'ng-valid');
 
-			// force error
-			cy.get('[brnselecttrigger]').click();
-			cy.get('hlm-option').last().click();
-			cy.get('[brnselecttrigger]').should('have.class', 'ng-touched');
-			cy.get('[brnselecttrigger]').should('have.class', 'ng-dirty');
-			cy.get('[brnselecttrigger]').should('have.class', 'ng-invalid');
-
 			// on real selection
 			cy.get('[brnselecttrigger]').click();
 			cy.get('hlm-option').eq(0).click();

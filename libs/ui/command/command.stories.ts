@@ -1,4 +1,5 @@
 import { Component, HostListener, signal } from '@angular/core';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import * as lucide from '@ng-icons/lucide';
 import { BrnCommandDirective, BrnCommandImports } from '@spartan-ng/brain/command';
@@ -48,7 +49,7 @@ export const Default: Story = {
         <ng-icon hlm name="lucideCalendar" hlmCommandIcon />
         Calendar
       </button>
-      <button hlm-command-item value="Search Emoji">
+      <button disabled hlm-command-item value="Search Emoji">
         <ng-icon hlm name="lucideSmile" hlmCommandIcon />
         Search Emoji
       </button>
@@ -135,7 +136,7 @@ export const Default: Story = {
 							<ng-icon hlm name="lucideCalendar" hlmCommandIcon />
 							Calendar
 						</button>
-						<button hlm-command-item value="Search Emoji">
+						<button hlm-command-item disabled value="Search Emoji">
 							<ng-icon hlm name="lucideSmile" hlmCommandIcon />
 							Search Emoji
 						</button>
@@ -203,5 +204,178 @@ export const Dialog: Story = {
 	],
 	render: () => ({
 		template: '<command-dialog-component/>',
+	}),
+};
+
+@Component({
+	selector: 'command-dynamic-component',
+	standalone: true,
+	imports: [
+		BrnCommandImports,
+		HlmCommandImports,
+		BrnDialogImports,
+		NgIcon,
+		HlmIconDirective,
+		HlmButtonDirective,
+		FormsModule,
+	],
+	template: `
+		<hlm-command>
+			<hlm-command-search>
+				<ng-icon hlm name="lucideSearch" class="inline-flex" />
+
+				<input type="text" hlm-command-search-input placeholder="Type a command or search..." [ngModel]="search()" />
+			</hlm-command-search>
+
+			<hlm-command-list>
+				<hlm-command-group>
+					<hlm-command-group-label>Suggestions</hlm-command-group-label>
+					@for (item of items(); track item.value) {
+						<button hlm-command-item [value]="item.value" data-testid="command-item">
+							<ng-icon hlm [name]="item.icon" hlmCommandIcon />
+							{{ item.label }}
+						</button>
+					}
+				</hlm-command-group>
+			</hlm-command-list>
+
+			<!-- Empty state -->
+			<div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
+		</hlm-command>
+	`,
+})
+class CommandDynamicComponent {
+	protected readonly search = signal('P');
+	protected readonly items = signal<{ label: string; value: string; icon: string; shortcut: string }[]>([
+		{ label: 'Profile', value: 'Profile', icon: 'lucideUser', shortcut: '⌘P' },
+		{ label: 'Billing', value: 'Billing', icon: 'lucideWallet', shortcut: '⌘B' },
+		{ label: 'Search Emoji', value: 'Search Emoji', icon: 'lucideSmile', shortcut: '⌘E' },
+		{ label: 'Settings', value: 'Settings', icon: 'lucideCog', shortcut: '⌘S' },
+	]);
+}
+
+export const DynamicOptions: Story = {
+	decorators: [
+		moduleMetadata({
+			imports: [CommandDynamicComponent],
+		}),
+	],
+	render: () => ({
+		template: '<command-dynamic-component/>',
+	}),
+};
+
+@Component({
+	selector: 'command-reactive-form-component',
+	standalone: true,
+	imports: [
+		BrnCommandImports,
+		HlmCommandImports,
+		NgIcon,
+		HlmIconDirective,
+		HlmButtonDirective,
+		FormsModule,
+		ReactiveFormsModule,
+	],
+	template: `
+		<hlm-command>
+			<hlm-command-search>
+				<ng-icon hlm name="lucideSearch" class="inline-flex" />
+
+				<input
+					type="text"
+					hlm-command-search-input
+					placeholder="Type a command or search..."
+					[formControl]="searchControl"
+				/>
+			</hlm-command-search>
+
+			<hlm-command-list>
+				<hlm-command-group>
+					<hlm-command-group-label>Suggestions</hlm-command-group-label>
+					@for (item of items(); track item.value) {
+						<button hlm-command-item [value]="item.value" data-testid="command-item">
+							<ng-icon hlm [name]="item.icon" hlmCommandIcon />
+							{{ item.label }}
+						</button>
+					}
+				</hlm-command-group>
+			</hlm-command-list>
+
+			<!-- Empty state -->
+			<div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
+		</hlm-command>
+	`,
+})
+class CommandReactiveFormComponent {
+	searchControl = new FormControl('R');
+	protected readonly search = signal('P');
+	protected readonly items = signal<{ label: string; value: string; icon: string; shortcut: string }[]>([
+		{ label: 'Profile', value: 'Profile', icon: 'lucideUser', shortcut: '⌘P' },
+		{ label: 'Billing', value: 'Billing', icon: 'lucideWallet', shortcut: '⌘B' },
+		{ label: 'Search Emoji', value: 'Search Emoji', icon: 'lucideSmile', shortcut: '⌘E' },
+		{ label: 'Settings', value: 'Settings', icon: 'lucideCog', shortcut: '⌘S' },
+	]);
+	public state = signal<'closed' | 'open'>('closed');
+}
+
+export const ReactiveForm: Story = {
+	decorators: [
+		moduleMetadata({
+			imports: [CommandReactiveFormComponent],
+		}),
+	],
+	render: () => ({
+		template: '<command-reactive-form-component/>',
+	}),
+};
+
+@Component({
+	selector: 'command-bound-value-component',
+	standalone: true,
+	imports: [BrnCommandImports, HlmCommandImports, NgIcon, HlmIconDirective, HlmButtonDirective],
+	template: `
+		<hlm-command>
+			<hlm-command-search>
+				<ng-icon hlm name="lucideSearch" class="inline-flex" />
+
+				<input type="text" hlm-command-search-input placeholder="Type a command or search..." [value]="search()" />
+			</hlm-command-search>
+
+			<hlm-command-list>
+				<hlm-command-group>
+					<hlm-command-group-label>Suggestions</hlm-command-group-label>
+					@for (item of items(); track item.value) {
+						<button hlm-command-item [value]="item.value" data-testid="command-item">
+							<ng-icon hlm [name]="item.icon" hlmCommandIcon />
+							{{ item.label }}
+						</button>
+					}
+				</hlm-command-group>
+			</hlm-command-list>
+
+			<!-- Empty state -->
+			<div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
+		</hlm-command>
+	`,
+})
+class CommandBoundValueComponent {
+	protected readonly search = signal('S');
+	protected readonly items = signal<{ label: string; value: string; icon: string; shortcut: string }[]>([
+		{ label: 'Profile', value: 'Profile', icon: 'lucideUser', shortcut: '⌘P' },
+		{ label: 'Billing', value: 'Billing', icon: 'lucideWallet', shortcut: '⌘B' },
+		{ label: 'Search Emoji', value: 'Search Emoji', icon: 'lucideSmile', shortcut: '⌘E' },
+		{ label: 'Settings', value: 'Settings', icon: 'lucideCog', shortcut: '⌘S' },
+	]);
+}
+
+export const BoundValue: Story = {
+	decorators: [
+		moduleMetadata({
+			imports: [CommandBoundValueComponent],
+		}),
+	],
+	render: () => ({
+		template: '<command-bound-value-component/>',
 	}),
 };

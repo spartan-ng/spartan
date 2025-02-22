@@ -1,4 +1,3 @@
-import { NgForOf } from '@angular/common';
 import { Component, signal } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCheck, lucideChevronsUpDown, lucideSearch } from '@ng-icons/lucide';
@@ -24,7 +23,6 @@ type Framework = { label: string; value: string };
 		BrnPopoverTriggerDirective,
 		HlmPopoverContentDirective,
 		BrnPopoverContentDirective,
-		NgForOf,
 	],
 	providers: [provideIcons({ lucideChevronsUpDown, lucideSearch, lucideCheck })],
 	template: `

@@ -24,7 +24,6 @@ import { HlmMenuComponent, HlmMenuItemDirective } from '@spartan-ng/ui-menu-helm
 		HlmBreadcrumbItemDirective,
 		HlmBreadcrumbPageDirective,
 		HlmBreadcrumbLinkDirective,
-
 		NgIcon,
 		HlmIconDirective,
 		BrnMenuTriggerDirective,

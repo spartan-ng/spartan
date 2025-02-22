@@ -1,48 +1,21 @@
 import { Component } from '@angular/core';
-import { NgIcon } from '@ng-icons/core';
-import { BrnContextMenuTriggerDirective, BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
-import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
+import { BrnContextMenuTriggerDirective } from '@spartan-ng/brain/menu';
 import {
 	HlmMenuComponent,
 	HlmMenuGroupComponent,
-	HlmMenuItemCheckComponent,
-	HlmMenuItemCheckboxDirective,
 	HlmMenuItemDirective,
-	HlmMenuItemIconDirective,
-	HlmMenuItemRadioComponent,
-	HlmMenuItemRadioDirective,
-	HlmMenuItemSubIndicatorComponent,
-	HlmMenuLabelComponent,
-	HlmMenuSeparatorComponent,
 	HlmMenuShortcutComponent,
-	HlmSubMenuComponent,
 } from '@spartan-ng/ui-menu-helm';
 
 @Component({
 	selector: 'spartan-context-menu-with-state',
 	standalone: true,
 	imports: [
-		BrnMenuTriggerDirective,
 		BrnContextMenuTriggerDirective,
-
 		HlmMenuComponent,
-		HlmSubMenuComponent,
 		HlmMenuItemDirective,
-		HlmMenuItemSubIndicatorComponent,
-		HlmMenuLabelComponent,
 		HlmMenuShortcutComponent,
-		HlmMenuSeparatorComponent,
-		HlmMenuItemIconDirective,
-		HlmMenuItemCheckComponent,
-		HlmMenuItemRadioComponent,
 		HlmMenuGroupComponent,
-
-		HlmButtonDirective,
-		NgIcon,
-		HlmIconDirective,
-		HlmMenuItemCheckboxDirective,
-		HlmMenuItemRadioDirective,
 	],
 	template: `
 		<div
@@ -82,8 +55,8 @@ import {
 export class ContextMenuPreviewWithStateComponent {}
 
 export const defaultCodeWithState = `
-<div 
-  [brnCtxMenuTriggerData]="{ $implicit: { data: 'SomeValue' } }" 
+<div
+  [brnCtxMenuTriggerData]="{ $implicit: { data: 'SomeValue' } }"
   [brnCtxMenuTriggerFor]="menu"
   class="border-border flex h-[150px] w-[300px] items-center justify-center rounded-md border border-dashed text-sm"
 >

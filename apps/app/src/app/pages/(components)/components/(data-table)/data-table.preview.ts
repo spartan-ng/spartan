@@ -153,23 +153,17 @@ const PAYMENT_DATA: Payment[] = [
 	standalone: true,
 	imports: [
 		FormsModule,
-
 		BrnMenuTriggerDirective,
 		HlmMenuModule,
-
 		BrnTableModule,
 		HlmTableModule,
-
 		HlmButtonModule,
-
 		DecimalPipe,
 		TitleCasePipe,
 		NgIcon,
 		HlmIconDirective,
 		HlmInputDirective,
-
 		HlmCheckboxComponent,
-
 		BrnSelectModule,
 		HlmSelectModule,
 	],

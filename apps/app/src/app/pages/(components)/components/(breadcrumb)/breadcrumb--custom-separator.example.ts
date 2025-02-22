@@ -22,7 +22,6 @@ import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 		HlmBreadcrumbItemDirective,
 		HlmBreadcrumbPageDirective,
 		HlmBreadcrumbLinkDirective,
-
 		NgIcon,
 		HlmIconDirective,
 	],

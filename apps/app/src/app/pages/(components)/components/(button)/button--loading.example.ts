@@ -3,12 +3,11 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideLoaderCircle } from '@ng-icons/lucide';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
-import { HlmSpinnerComponent } from '@spartan-ng/ui-spinner-helm';
 
 @Component({
 	selector: 'spartan-button-loading',
 	standalone: true,
-	imports: [HlmButtonDirective, HlmSpinnerComponent, NgIcon, HlmIconDirective],
+	imports: [HlmButtonDirective, NgIcon, HlmIconDirective],
 	providers: [provideIcons({ lucideLoaderCircle })],
 	template: `
 		<button disabled hlmBtn>

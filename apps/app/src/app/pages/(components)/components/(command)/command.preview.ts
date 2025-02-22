@@ -10,14 +10,13 @@ import {
 	lucideWallet,
 } from '@ng-icons/lucide';
 import { BrnCommandImports } from '@spartan-ng/brain/command';
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import { HlmCommandImports } from '@spartan-ng/ui-command-helm';
 import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 
 @Component({
 	selector: 'spartan-command-preview',
 	standalone: true,
-	imports: [BrnCommandImports, HlmCommandImports, NgIcon, HlmIconDirective, HlmButtonDirective],
+	imports: [BrnCommandImports, HlmCommandImports, NgIcon, HlmIconDirective],
 	providers: [
 		provideIcons({
 			lucideSearch,

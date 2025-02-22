@@ -13,11 +13,8 @@ import {
 	HlmMenuItemIconDirective,
 	HlmMenuItemRadioComponent,
 	HlmMenuItemRadioDirective,
-	HlmMenuItemSubIndicatorComponent,
 	HlmMenuLabelComponent,
 	HlmMenuSeparatorComponent,
-	HlmMenuShortcutComponent,
-	HlmSubMenuComponent,
 } from '@spartan-ng/ui-menu-helm';
 
 @Component({
@@ -25,13 +22,9 @@ import {
 	standalone: true,
 	imports: [
 		BrnMenuTriggerDirective,
-
 		HlmMenuComponent,
-		HlmSubMenuComponent,
 		HlmMenuItemDirective,
-		HlmMenuItemSubIndicatorComponent,
 		HlmMenuLabelComponent,
-		HlmMenuShortcutComponent,
 		HlmMenuSeparatorComponent,
 		HlmMenuItemIconDirective,
 		HlmMenuItemCheckComponent,
@@ -39,7 +32,6 @@ import {
 		HlmMenuGroupComponent,
 		HlmMenuItemRadioDirective,
 		HlmMenuItemCheckboxDirective,
-
 		HlmButtonDirective,
 		NgIcon,
 		HlmIconDirective,
@@ -170,8 +162,8 @@ import {
   providers: [provideIcons({ lucideUndo2 })],
   template: \`
     <div class="flex w-full items-center justify-center pt-[20%]">
-      <button 
-        hlmBtn 
+      <button
+        hlmBtn
         variant="outline"
         align="center"
         [brnMenuTriggerFor]="menu"

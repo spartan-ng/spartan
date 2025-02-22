@@ -16,7 +16,6 @@ import {
 	BrnDialogComponent,
 	BrnDialogContentDirective,
 	BrnDialogOverlayComponent,
-	BrnDialogTriggerDirective,
 } from '@spartan-ng/brain/dialog';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import { HlmCommandImports } from '@spartan-ng/ui-command-helm';
@@ -45,10 +44,8 @@ import { HlmCodeDirective } from '@spartan-ng/ui-typography-helm';
 		NgIcon,
 		HlmIconDirective,
 		HlmButtonDirective,
-
 		BrnDialogComponent,
 		BrnDialogCloseDirective,
-		BrnDialogTriggerDirective,
 		BrnDialogContentDirective,
 		BrnDialogOverlayComponent,
 		HlmDialogOverlayDirective,

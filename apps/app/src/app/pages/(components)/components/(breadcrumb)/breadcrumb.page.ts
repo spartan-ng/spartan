@@ -44,7 +44,6 @@ export const routeMeta: RouteMeta = {
 		PageNavComponent,
 		PageBottomNavComponent,
 		PageBottomNavLinkComponent,
-
 		BreadcrumbPreviewComponent,
 		BreadcrumbCustomSeparatorComponent,
 		BreadcrumbDropdownComponent,

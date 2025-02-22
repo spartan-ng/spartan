@@ -36,7 +36,6 @@ import {
 	standalone: true,
 	imports: [
 		BrnMenuTriggerDirective,
-
 		HlmMenuComponent,
 		HlmSubMenuComponent,
 		HlmMenuItemDirective,
@@ -46,7 +45,6 @@ import {
 		HlmMenuSeparatorComponent,
 		HlmMenuItemIconDirective,
 		HlmMenuGroupComponent,
-
 		HlmButtonDirective,
 		NgIcon,
 		HlmIconDirective,

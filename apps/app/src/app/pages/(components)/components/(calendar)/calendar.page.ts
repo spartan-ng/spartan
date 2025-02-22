@@ -1,6 +1,5 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
-import { HlmCalendarComponent } from '@spartan-ng/ui-calendar-helm';
 import { CodeComponent } from '../../../../shared/code/code.component';
 import { PageBottomNavLinkComponent } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav-link.component';
 import { PageBottomNavComponent } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav.component';
@@ -22,7 +21,6 @@ export const routeMeta: RouteMeta = {
 	selector: 'spartan-calendar',
 	standalone: true,
 	imports: [
-		HlmCalendarComponent,
 		CalendarPreviewComponent,
 		SectionIntroComponent,
 		TabsComponent,

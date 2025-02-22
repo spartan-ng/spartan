@@ -21,12 +21,10 @@ import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
 		BrnDialogTriggerDirective,
 		BrnDialogContentDirective,
 		BrnDialogCloseDirective,
-
 		HlmDialogComponent,
 		HlmDialogContentComponent,
 		HlmDialogHeaderComponent,
 		HlmDialogTitleDirective,
-
 		HlmLabelDirective,
 		HlmButtonDirective,
 	],

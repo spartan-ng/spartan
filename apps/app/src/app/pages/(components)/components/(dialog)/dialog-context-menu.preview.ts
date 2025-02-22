@@ -5,13 +5,9 @@ import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import {
 	HlmDialogComponent,
 	HlmDialogContentComponent,
-	HlmDialogDescriptionDirective,
 	HlmDialogFooterComponent,
 	HlmDialogHeaderComponent,
-	HlmDialogTitleDirective,
 } from '@spartan-ng/ui-dialog-helm';
-import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
-import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
 import {
 	HlmMenuComponent,
 	HlmMenuGroupComponent,
@@ -26,20 +22,12 @@ import {
 	imports: [
 		BrnDialogTriggerDirective,
 		BrnDialogContentDirective,
-
 		HlmDialogContentComponent,
 		HlmDialogComponent,
 		HlmDialogHeaderComponent,
 		HlmDialogFooterComponent,
-		HlmDialogTitleDirective,
-		HlmDialogDescriptionDirective,
-
-		HlmLabelDirective,
 		HlmButtonDirective,
-		HlmInputDirective,
-
 		BrnContextMenuTriggerDirective,
-
 		HlmMenuItemDirective,
 		HlmMenuShortcutComponent,
 		HlmMenuComponent,

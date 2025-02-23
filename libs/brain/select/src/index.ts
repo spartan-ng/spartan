@@ -7,16 +7,16 @@ import {
 import { BrnSelectGroupDirective } from './lib/brn-select-group.directive';
 import { BrnSelectLabelDirective } from './lib/brn-select-label.directive';
 import { BrnSelectOptionDirective } from './lib/brn-select-option.directive';
+import { BrnSelectTriggerDirective } from './lib/brn-select-trigger.directive';
 import { BrnSelectValueComponent } from './lib/brn-select-value.component';
 import { BrnSelectComponent } from './lib/brn-select.component';
-import { BrnSelectTriggerDirective } from './lib/brn-select.service';
 export * from './lib/brn-select-content.component';
 export * from './lib/brn-select-group.directive';
 export * from './lib/brn-select-label.directive';
 export * from './lib/brn-select-option.directive';
+export * from './lib/brn-select-trigger.directive';
 export * from './lib/brn-select-value.component';
 export * from './lib/brn-select.component';
-export * from './lib/brn-select.service';
 
 export const BrnSelectImports = [
 	BrnSelectComponent,

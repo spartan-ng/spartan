@@ -1,11 +1,10 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, computed, inject, input } from '@angular/core';
-import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
-import { BrnSelectService } from './brn-select.service';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { injectBrnSelect } from './brn-select.token';
 
 @Component({
 	selector: 'brn-select-value, hlm-select-value',
 	template: `
-		{{ value || placeholder() }}
+		{{ value() || placeholder() }}
 	`,
 	host: {
 		'[id]': 'id()',
@@ -24,37 +23,31 @@ import { BrnSelectService } from './brn-select.service';
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BrnSelectValueComponent {
-	private readonly _selectService = inject(BrnSelectService);
+export class BrnSelectValueComponent<T> {
+	private readonly _select = injectBrnSelect<T>();
+	public readonly id = computed(() => `${this._select.id()}--value`);
+	public readonly placeholder = computed(() => this._select.placeholder());
 
-	public readonly id = computed(() => `${this._selectService.id()}--value`);
-	public readonly placeholder = computed(() => this._selectService.placeholder());
-	public value: string | null = null;
+	protected readonly value = computed(() => {
+		const value = Array.isArray(this._select.value()) ? (this._select.value() as T[]) : ([this._select.value()] as T[]);
+
+		if (value.length === 0) {
+			return null;
+		}
+
+		const selectedOption = value.map((val) => this._select.options().find((option) => option.value === val));
+
+		if (selectedOption.length === 0) {
+			return null;
+		}
+
+		const selectedLabels = selectedOption.map((option) => option?.getLabel());
+
+		if (this._select.dir() === 'rtl') {
+			selectedLabels.reverse();
+		}
+		return this.transformFn()(selectedLabels);
+	});
 
 	public readonly transformFn = input<(values: (string | undefined)[]) => any>((values) => (values ?? []).join(', '));
-
-	constructor() {
-		const cdr = inject(ChangeDetectorRef);
-
-		// In certain cases (when using a computed signal for value) where the value of the select and the options are
-		// changed dynamically, the template does not update until the next frame. To work around this we can use a simple
-		// string variable in the template and manually trigger change detection when we update it.
-		toObservable(this._selectService.selectedOptions)
-			.pipe(takeUntilDestroyed())
-			.subscribe((value) => {
-				if (value.length === 0) {
-					this.value = null;
-					cdr.detectChanges();
-					return;
-				}
-				const selectedLabels = value.map((selectedOption) => selectedOption?.getLabel());
-
-				if (this._selectService.dir() === 'rtl') {
-					selectedLabels.reverse();
-				}
-				const result = this.transformFn()(selectedLabels);
-				this.value = result;
-				cdr.detectChanges();
-			});
-	}
 }

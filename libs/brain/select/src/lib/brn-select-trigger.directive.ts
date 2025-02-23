@@ -7,12 +7,13 @@ import { injectBrnSelect } from './brn-select.token';
 	selector: '[brnSelectTrigger]',
 	standalone: true,
 	host: {
+		type: 'button',
 		role: 'combobox',
-		'[attr.id]': 'selectTriggerId()',
-		'[disabled]': 'selectDisable()',
+		'[attr.id]': '_triggerId()',
+		'[disabled]': '_disabled()',
 		'[attr.aria-expanded]': '_select.open()',
-		'[attr.aria-controls]': "selectContentId() + ''",
-		'[attr.aria-labelledBy]': 'selectTriggerLabelledBy()',
+		'[attr.aria-controls]': '_contentId()',
+		'[attr.aria-labelledBy]': '_labelledBy()',
 		'aria-autocomplete': 'none',
 		'[attr.dir]': '_select.dir()',
 		'[class.ng-invalid]': '_ngControl?.invalid || null',
@@ -21,18 +22,18 @@ import { injectBrnSelect } from './brn-select.token';
 		'[class.ng-touched]': '_ngControl?.touched || null',
 		'[class.ng-untouched]': '_ngControl?.untouched || null',
 		'[class.ng-pristine]': '_ngControl?.pristine || null',
-		type: 'button',
+		'(keydown.ArrowDown)': '_select.show()',
 	},
 })
 export class BrnSelectTriggerDirective<T> implements AfterViewInit, OnDestroy {
-	private readonly _el = inject(ElementRef);
+	private readonly _elementRef = inject(ElementRef);
 	protected readonly _select = injectBrnSelect<T>();
 	protected readonly _ngControl = inject(NgControl, { optional: true });
 	private readonly _platform = inject(PLATFORM_ID);
-	public readonly selectTriggerId = computed(() => `${this._select.id()}--trigger`);
-	public readonly selectContentId = computed(() => `${this._select.id()}--content`);
-	public readonly selectDisable = computed(() => this._select.disabled() || this._select._formDisabled());
-	public readonly selectTriggerLabelledBy = computed(() => {
+	protected readonly _triggerId = computed(() => `${this._select.id()}--trigger`);
+	protected readonly _contentId = computed(() => `${this._select.id()}--content`);
+	protected readonly _disabled = computed(() => this._select.disabled() || this._select._formDisabled());
+	protected readonly _labelledBy = computed(() => {
 		const value = this._select.value();
 
 		if (Array.isArray(value) && value.length > 0) {
@@ -44,20 +45,19 @@ export class BrnSelectTriggerDirective<T> implements AfterViewInit, OnDestroy {
 	private _resizeObserver?: ResizeObserver;
 
 	constructor() {
-		if (!this._select) return;
 		this._select.trigger.set(this);
 	}
 
 	ngAfterViewInit() {
-		this._select.triggerWidth.set(this._el.nativeElement.offsetWidth);
+		this._select.triggerWidth.set(this._elementRef.nativeElement.offsetWidth);
 
 		// if we are on the client, listen for element resize events
 		if (isPlatformBrowser(this._platform)) {
 			this._resizeObserver = new ResizeObserver(() =>
-				this._select.triggerWidth.set(this._el.nativeElement.offsetWidth),
+				this._select.triggerWidth.set(this._elementRef.nativeElement.offsetWidth),
 			);
 
-			this._resizeObserver.observe(this._el.nativeElement);
+			this._resizeObserver.observe(this._elementRef.nativeElement);
 		}
 	}
 
@@ -65,7 +65,7 @@ export class BrnSelectTriggerDirective<T> implements AfterViewInit, OnDestroy {
 		this._resizeObserver?.disconnect();
 	}
 
-	public focus() {
-		this._el.nativeElement.focus();
+	focus(): void {
+		this._elementRef.nativeElement.focus();
 	}
 }

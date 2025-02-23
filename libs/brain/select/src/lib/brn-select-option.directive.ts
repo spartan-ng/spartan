@@ -1,107 +1,76 @@
-import type { FocusableOption } from '@angular/cdk/a11y';
+import type { Highlightable } from '@angular/cdk/a11y';
 import { BooleanInput } from '@angular/cdk/coercion';
-import { CdkOption } from '@angular/cdk/listbox';
-import {
-	AfterContentChecked,
-	ChangeDetectorRef,
-	Directive,
-	ElementRef,
-	booleanAttribute,
-	computed,
-	effect,
-	inject,
-	input,
-	signal,
-} from '@angular/core';
+import { Directive, ElementRef, booleanAttribute, computed, inject, input, signal } from '@angular/core';
+import { injectBrnSelectContent } from './brn-select-content.token';
 import { injectBrnSelect } from './brn-select.token';
+
+let nextId = 0;
 
 @Directive({
 	selector: '[brnOption]',
 	standalone: true,
 	host: {
 		role: 'option',
-		class: 'cdk-option',
-		'[id]': 'id',
+		'[id]': 'id()',
 		'[attr.aria-selected]': 'selected()',
-		'[attr.tabindex]': 'getTabIndex()',
-		'[attr.aria-disabled]': 'disabledSignal()',
+		'[attr.aria-disabled]': '_disabled()',
 		'(click)': 'select()',
-		'(mouseenter)': 'hover()',
-		'(blur)': 'blur()',
 		'[attr.dir]': '_select.dir()',
-		'[attr.data-disabled]': "disabledSignal() ? '' : undefined",
+		'[attr.data-active]': "_active() ? '' : undefined",
+		'[attr.data-disabled]': "_disabled() ? '' : undefined",
+		'(mouseenter)': 'activate()',
 	},
 })
-export class BrnSelectOptionDirective<T> implements FocusableOption, AfterContentChecked {
-	private readonly _option = inject(CdkOption, { host: true });
-	private readonly _changeDetector = inject(ChangeDetectorRef);
+export class BrnSelectOptionDirective<T> implements Highlightable {
 	protected readonly _select = injectBrnSelect();
-
-	private readonly _focused = signal<boolean>(false);
+	protected readonly _content = injectBrnSelectContent<T>();
 	public readonly elementRef = inject(ElementRef);
+	public readonly id = input(`brn-option-${nextId++}`);
+	public readonly value = input<T>();
 
-	public readonly selected = computed(() => {
-		const value = this.value();
-		if (Array.isArray(value)) {
-			const itemFound = value.find((val) => val === this._option.value);
-			return !!itemFound;
-		}
-		return this._option.value === this._select.value();
-	});
-	public readonly focused = computed(() => this._focused());
-	public readonly checkedState = computed(() => (this.selected() ? 'checked' : 'unchecked'));
-	public readonly dir = computed(() => this._select.dir());
-
-	public value = input.required<T>();
-
-	constructor() {
-		effect(() => (this._option.value = this.value()));
-		effect(() => (this._option.disabled = this.disabledSignal()));
-	}
-
-	ngAfterContentChecked(): void {
-		this._option.value = this.value();
-	}
-
-	// we use "disabledSignal" here because disabled is already defined in the FocusableOption interface
-	public readonly disabledSignal = input<boolean, BooleanInput>(false, {
+	// we use "_disabled" here because disabled is already defined in the Highlightable interface
+	public readonly _disabled = input<boolean, BooleanInput>(false, {
 		alias: 'disabled',
 		transform: booleanAttribute,
 	});
 
-	protected hover(): void {
-		this.focus();
+	public get disabled(): boolean {
+		return this._disabled();
 	}
 
-	public focus(): void {
-		this._option.focus();
-		this._focused.set(true);
-	}
+	public readonly selected = computed(() => this.value() !== undefined && this._select.isSelected(this.value()));
+	protected readonly _active = signal(false);
+	public readonly checkedState = computed(() => (this.selected() ? 'checked' : 'unchecked'));
+	public readonly dir = this._select.dir;
 
-	public blur(): void {
-		this._focused.set(false);
-	}
-
-	public select() {
-		this._option.select();
-		this._changeDetector.detectChanges();
-	}
-
-	/** Get the tabindex for this option. */
-	protected getTabIndex() {
-		if (this.disabledSignal()) {
-			return -1;
+	public select(): void {
+		if (this._disabled()) {
+			return;
 		}
-		return this.isActive() ? 0 : -1;
-	}
 
-	/** Whether this option is active. */
-	protected isActive() {
-		return this.listbox.isActive(this);
+		this._select.selectOption(this.value());
 	}
 
 	/** Get the label for this element which is required by the FocusableOption interface. */
 	getLabel(): string {
 		return this.elementRef.nativeElement.textContent?.trim() ?? '';
+	}
+
+	setActiveStyles(): void {
+		this._active.set(true);
+
+		// scroll the option into view if it is not visible
+		this.elementRef.nativeElement.scrollIntoView({ block: 'nearest' });
+	}
+
+	setInactiveStyles(): void {
+		this._active.set(false);
+	}
+
+	protected activate(): void {
+		if (this._disabled()) {
+			return;
+		}
+		this._content.setActiveOption(this);
 	}
 }

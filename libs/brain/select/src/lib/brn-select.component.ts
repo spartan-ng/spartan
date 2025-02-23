@@ -1,4 +1,4 @@
-import { BooleanInput } from '@angular/cdk/coercion';
+import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import { CdkListboxModule } from '@angular/cdk/listbox';
 import {
 	CdkConnectedOverlay,
@@ -20,6 +20,7 @@ import {
 	inject,
 	input,
 	model,
+	numberAttribute,
 	signal,
 	viewChild,
 } from '@angular/core';
@@ -38,7 +39,7 @@ import { Subject, of } from 'rxjs';
 import { delay, map, switchMap } from 'rxjs/operators';
 import { BrnSelectContentComponent } from './brn-select-content.component';
 import { BrnSelectOptionDirective } from './brn-select-option.directive';
-import type { BrnSelectTriggerDirective } from './brn-select-trigger.directive';
+import { BrnSelectTriggerDirective } from './brn-select-trigger.directive';
 import { provideBrnSelect } from './brn-select.token';
 
 export type BrnReadDirection = 'ltr' | 'rtl';
@@ -105,9 +106,13 @@ export class BrnSelectComponent<T = unknown>
 		transform: booleanAttribute,
 	});
 	public readonly dir = input<BrnReadDirection>('ltr');
+	public readonly closeDelay = input<number, NumberInput>(100, {
+		transform: numberAttribute,
+	});
+
 	public readonly open = model<boolean>(false);
 	public readonly value = model<T | T[]>();
-
+	public readonly compareWith = input<(o1: T, o2: T) => boolean>((o1, o2) => o1 === o2);
 	public readonly _formDisabled = signal(false);
 
 	/** Label provided by the consumer. */
@@ -124,10 +129,7 @@ export class BrnSelectComponent<T = unknown>
 
 	/** Overlay pane containing the options. */
 	protected readonly _overlayDir = viewChild.required(CdkConnectedOverlay);
-
-	public readonly closeDelay = input<number>(100);
-
-	public readonly trigger = signal<BrnSelectTriggerDirective<T> | undefined>(undefined);
+	public readonly trigger = signal<BrnSelectTriggerDirective<T> | null>(null);
 	public readonly triggerWidth = signal<number>(0);
 
 	protected readonly _delayedExpanded = toSignal(
@@ -156,14 +158,12 @@ export class BrnSelectComponent<T = unknown>
 		{ initialValue: 'bottom' },
 	);
 
-	public readonly labelId = computed(() => (this.selectLabel() ? this.selectLabel()!.id : `${this.id()}--label`));
+	public readonly labelId = computed(() => this.selectLabel()?.id ?? `${this.id()}--label`);
 
 	// eslint-disable-next-line @typescript-eslint/no-empty-function
 	private _onChange: ChangeFn<T | T[]> = () => {};
 	// eslint-disable-next-line @typescript-eslint/no-empty-function
 	private _onTouched: TouchFn = () => {};
-
-	private readonly _shouldEmitValueChange = signal(false);
 
 	/*
 	 * This position config ensures that the top "start" corner of the overlay
@@ -200,7 +200,7 @@ export class BrnSelectComponent<T = unknown>
 
 	public errorStateTracker: ErrorStateTracker;
 
-	public errorState = computed(() => this.errorStateTracker.errorState());
+	public readonly errorState = computed(() => this.errorStateTracker.errorState());
 
 	constructor() {
 		if (this.ngControl !== null) {
@@ -228,10 +228,12 @@ export class BrnSelectComponent<T = unknown>
 	}
 
 	public show(): void {
-		if (!this.canOpen()) return;
+		if (this.open() || this.disabled() || this._formDisabled() || this.options()?.length == 0) {
+			return;
+		}
 
 		this.open.set(true);
-		this.focusList();
+		afterNextRender(() => this.selectContent().focusList(), { injector: this._injector });
 	}
 
 	public hide(): void {
@@ -239,15 +241,9 @@ export class BrnSelectComponent<T = unknown>
 
 		this.open.set(false);
 		this._onTouched();
+
+		// restore focus to the trigger
 		this.trigger()?.focus();
-	}
-
-	protected canOpen(): boolean {
-		return !this.open() && !this.disabled() && !this._formDisabled() && this.options()?.length > 0;
-	}
-
-	private focusList(): void {
-		afterNextRender(() => this.selectContent()?.focusList(), { injector: this._injector });
 	}
 
 	public writeValue(value: T): void {
@@ -266,7 +262,7 @@ export class BrnSelectComponent<T = unknown>
 		this._formDisabled.set(isDisabled);
 	}
 
-	select(value: T): void {
+	selectOption(value: T): void {
 		// if this is a multiple select we need to add the value to the array
 		if (this.multiple()) {
 			const currentValue = this.value() as T[];
@@ -284,7 +280,7 @@ export class BrnSelectComponent<T = unknown>
 		}
 	}
 
-	deselect(value: T): void {
+	deselectOption(value: T): void {
 		if (this.multiple()) {
 			const currentValue = this.value() as T[];
 			const newValue = currentValue.filter((val) => val !== value);
@@ -298,18 +294,21 @@ export class BrnSelectComponent<T = unknown>
 
 	toggleSelect(value: T): void {
 		if (this.isSelected(value)) {
-			this.deselect(value);
+			this.deselectOption(value);
 		} else {
-			this.select(value);
+			this.selectOption(value);
 		}
 	}
 
 	isSelected(value: T): boolean {
-		if (this.multiple()) {
-			const currentValue = this.value() as T[];
-			return currentValue?.includes(value) ?? false;
-		} else {
-			return this.value() === value;
+		const selection = this.value();
+
+		if (Array.isArray(selection)) {
+			return selection.some((val) => this.compareWith()(val, value));
+		} else if (value !== undefined) {
+			return this.compareWith()(selection as T, value);
 		}
+
+		return false;
 	}
 }

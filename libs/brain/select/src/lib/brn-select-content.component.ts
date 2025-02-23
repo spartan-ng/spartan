@@ -2,7 +2,6 @@ import { NgTemplateOutlet } from '@angular/common';
 import {
 	AfterContentInit,
 	ChangeDetectionStrategy,
-	ChangeDetectorRef,
 	Component,
 	DestroyRef,
 	ElementRef,
@@ -13,25 +12,13 @@ import {
 	effect,
 	inject,
 	signal,
+	untracked,
 	viewChild,
 } from '@angular/core';
-import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { BrnSelectOptionDirective } from './brn-select-option.directive';
 
-import { FocusKeyManager } from '@angular/cdk/a11y';
-import {
-	A,
-	DOWN_ARROW,
-	END,
-	ENTER,
-	HOME,
-	LEFT_ARROW,
-	RIGHT_ARROW,
-	SPACE,
-	UP_ARROW,
-	hasModifierKey,
-} from '@angular/cdk/keycodes';
-import { CdkOption } from '@angular/cdk/listbox';
+import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { Directive } from '@angular/core';
 import { Subject, fromEvent, interval } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -97,6 +84,7 @@ export class BrnSelectScrollDownDirective {
 }
 
 @Component({
+	standalone: true,
 	selector: 'brn-select-content, hlm-select-content:not(noHlm)',
 	imports: [NgTemplateOutlet],
 	providers: [provideBrnSelectContent(BrnSelectContentComponent)],
@@ -105,16 +93,16 @@ export class BrnSelectScrollDownDirective {
 		role: 'listbox',
 		tabindex: '0',
 		'[attr.aria-multiselectable]': '_select.multiple()',
+		'[attr.aria-disabled]': '_select.disabled() || _select._formDisabled()',
 		'aria-orientation': 'vertical',
-		'(focus)': '_handleFocus()',
-		'(keydown)': '_handleKeydown($event)',
-		'(focusout)': '_handleFocusOut($event)',
-		'(focusin)': '_handleFocusIn()',
-
+		'[attr.aria-activedescendant]': 'keyManager?.activeItem?.id()',
 		'[attr.aria-labelledBy]': '_select.labelId()',
 		'[attr.aria-controlledBy]': "_select.id() +'--trigger'",
 		'[id]': "_select.id() + '--content'",
 		'[attr.dir]': '_select.dir()',
+		'(keydown)': 'keyManager?.onKeydown($event)',
+		'(keydown.enter)': 'selectActiveItem($event)',
+		'(keydown.space)': 'selectActiveItem($event)',
 	},
 	styles: [
 		`
@@ -166,19 +154,17 @@ export class BrnSelectScrollDownDirective {
 })
 export class BrnSelectContentComponent<T> implements AfterContentInit {
 	private readonly _elementRef: ElementRef<HTMLElement> = inject(ElementRef);
-	private readonly _destroyRef = inject(DestroyRef);
 	private readonly _injector = inject(Injector);
-	private readonly _changeDetectorRef = inject(ChangeDetectorRef);
 	protected readonly _select = injectBrnSelect<T>();
 	protected readonly canScrollUp = signal(false);
 	protected readonly canScrollDown = signal(false);
 	protected readonly viewport = viewChild.required<ElementRef<HTMLElement>>('viewport');
 	protected readonly scrollUpBtn = contentChild(BrnSelectScrollUpDirective);
 	protected readonly scrollDownBtn = contentChild(BrnSelectScrollDownDirective);
-	protected readonly _options = contentChildren(BrnSelectOptionDirective, { descendants: true });
+	private readonly _options = contentChildren(BrnSelectOptionDirective, { descendants: true });
 
-	/** The key manager that manages keyboard navigation for this listbox. */
-	protected listKeyManager?: FocusKeyManager<BrnSelectOptionDirective<T>>;
+	/** @internal */
+	public keyManager: ActiveDescendantKeyManager<BrnSelectOptionDirective<T>> | null = null;
 
 	constructor() {
 		effect(() => {
@@ -187,34 +173,36 @@ export class BrnSelectContentComponent<T> implements AfterContentInit {
 	}
 
 	ngAfterContentInit(): void {
-		this.listKeyManager = new FocusKeyManager(this._options())
+		this.keyManager = new ActiveDescendantKeyManager(this._options, this._injector)
 			.withHomeAndEnd()
 			.withVerticalOrientation()
 			.withTypeAhead()
 			.withAllowedModifierKeys(['shiftKey'])
 			.withWrap()
-			.skipPredicate((option) => option.disabledSignal());
+			.skipPredicate((option) => option._disabled());
 
-		this.listKeyManager.change.subscribe(() => this._focusActiveOption());
+		effect(
+			() => {
+				// any time the select is opened, we need to focus the first selected option or the first option
+				const open = this._select.open();
+				const options = this._options();
 
-		toObservable(this._options)
-			.pipe(takeUntilDestroyed(this._destroyRef))
-			.subscribe(() => {
-				const activeOption = this.listKeyManager?.activeItem;
-
-				// If the active option was deleted, we need to reset
-				// the key manager so it can allow focus back in.
-				if (activeOption && !this._options().find((option) => option === activeOption)) {
-					this.listKeyManager?.setActiveItem(-1);
-					this._changeDetectorRef.markForCheck();
+				if (!open || !options.length) {
+					return;
 				}
-			});
-	}
 
-	/** Focus the active option. */
-	private _focusActiveOption() {
-		this.listKeyManager?.activeItem?.focus();
-		this._changeDetectorRef.markForCheck();
+				untracked(() => {
+					const selectedOption = options.find((option) => option.selected());
+
+					if (selectedOption) {
+						this.keyManager?.setActiveItem(selectedOption);
+					} else {
+						this.keyManager?.setFirstItemActive();
+					}
+				});
+			},
+			{ injector: this._injector },
+		);
 	}
 
 	public updateArrowDisplay(): void {
@@ -224,7 +212,7 @@ export class BrnSelectContentComponent<T> implements AfterContentInit {
 		this.canScrollDown.set(Math.ceil(scrollTop) < maxScroll);
 	}
 
-	public handleScroll() {
+	public handleScroll(): void {
 		this.updateArrowDisplay();
 	}
 
@@ -232,14 +220,14 @@ export class BrnSelectContentComponent<T> implements AfterContentInit {
 		this._elementRef.nativeElement.focus();
 	}
 
-	public moveFocusUp() {
+	public moveFocusUp(): void {
 		this.viewport().nativeElement.scrollBy({ top: -SCROLLBY_PIXELS, behavior: 'smooth' });
 		if (this.viewport().nativeElement.scrollTop === 0) {
 			this.scrollUpBtn()?.stopEmittingEvents();
 		}
 	}
 
-	public moveFocusDown() {
+	public moveFocusDown(): void {
 		this.viewport().nativeElement.scrollBy({ top: SCROLLBY_PIXELS, behavior: 'smooth' });
 		const viewportSize = this._elementRef.nativeElement.scrollHeight;
 		const viewportScrollPosition = this.viewport().nativeElement.scrollTop;
@@ -251,160 +239,23 @@ export class BrnSelectContentComponent<T> implements AfterContentInit {
 		}
 	}
 
-	/** Sets the first selected option as first in the keyboard focus order. */
-	private _setNextFocusToSelectedOption() {
-		// Null check the options since they only get defined after `ngAfterContentInit`.
-		const selected = this._options()?.find((option) => option.selected());
+	setActiveOption(option: BrnSelectOptionDirective<T>): void {
+		const index = this._options().findIndex((o) => o === option);
 
-		if (selected) {
-			this.listKeyManager?.updateActiveItem(selected);
-		}
-	}
-
-	/** Called when the listbox receives focus. */
-	protected _handleFocus() {
-		if (this._select.selectedOptions().length > 0) {
-			this._setNextFocusToSelectedOption();
-		} else {
-			this.listKeyManager?.setNextItemActive();
-		}
-
-		this._focusActiveOption();
-	}
-
-	/** Called when the user presses keydown on the listbox. */
-	protected _handleKeydown(event: KeyboardEvent) {
-		const { keyCode } = event;
-		const previousActiveIndex = this.listKeyManager?.activeItemIndex;
-		const ctrlKeys = ['ctrlKey', 'metaKey'] as const;
-
-		if (this._select.multiple() && keyCode === A && hasModifierKey(event, ...ctrlKeys)) {
-			// Toggle all options off if they're all selected, otherwise toggle them all on.
-			this.triggerRange(
-				null,
-				0,
-				this._options().length - 1,
-				this._options().length !== this._select.selectedOptions().length,
-			);
-			event.preventDefault();
+		if (index === -1) {
 			return;
 		}
 
-		if (this._select.multiple() && (keyCode === SPACE || keyCode === ENTER) && hasModifierKey(event, 'shiftKey')) {
-			if (this.listKeyManager.activeItem && this.listKeyManager.activeItemIndex != null) {
-				this.triggerRange(
-					this.listKeyManager.activeItem,
-					this._getLastTriggeredIndex() ?? this.listKeyManager.activeItemIndex,
-					this.listKeyManager.activeItemIndex,
-					!this.listKeyManager.activeItem.isSelected(),
-				);
-			}
-			event.preventDefault();
-			return;
-		}
-
-		if (
-			this._select.multiple() &&
-			keyCode === HOME &&
-			hasModifierKey(event, ...ctrlKeys) &&
-			hasModifierKey(event, 'shiftKey')
-		) {
-			const trigger = this.listKeyManager!.activeItem;
-			if (trigger) {
-				const from = this.listKeyManager!.activeItemIndex!;
-				this.listKeyManager.setFirstItemActive();
-				this.triggerRange(trigger, from, this.listKeyManager!.activeItemIndex!, !trigger.isSelected());
-			}
-			event.preventDefault();
-			return;
-		}
-
-		if (
-			this._select.multiple() &&
-			keyCode === END &&
-			hasModifierKey(event, ...ctrlKeys) &&
-			hasModifierKey(event, 'shiftKey')
-		) {
-			const trigger = this.listKeyManager!.activeItem;
-			if (trigger) {
-				const from = this.listKeyManager!.activeItemIndex!;
-				this.listKeyManager!.setLastItemActive();
-				this.triggerRange(trigger, from, this.listKeyManager!.activeItemIndex!, !trigger.isSelected());
-			}
-			event.preventDefault();
-			return;
-		}
-
-		if (keyCode === SPACE || keyCode === ENTER) {
-			this.triggerOption(this.listKeyManager!.activeItem);
-			event.preventDefault();
-			return;
-		}
-
-		const isNavKey =
-			keyCode === UP_ARROW ||
-			keyCode === DOWN_ARROW ||
-			keyCode === LEFT_ARROW ||
-			keyCode === RIGHT_ARROW ||
-			keyCode === HOME ||
-			keyCode === END;
-		this.listKeyManager!.onKeydown(event);
-		// Will select an option if shift was pressed while navigating to the option
-		if (isNavKey && event.shiftKey && previousActiveIndex !== this.listKeyManager!.activeItemIndex) {
-			this.triggerOption(this.listKeyManager!.activeItem);
-		}
+		this.keyManager?.setActiveItem(index);
 	}
 
-	protected triggerRange(trigger: CdkOption<T> | null, from: number, to: number, on: boolean) {
-		const updateValues = [...this._options()]
-			.slice(Math.max(0, Math.min(from, to)), Math.min(this._options().length, Math.max(from, to) + 1))
-			.filter((option) => !option.disabledSignal())
-			.map((option) => option.value);
+	protected selectActiveItem(event: KeyboardEvent): void {
+		event.preventDefault();
 
-		const selected = [...this._select.selectedOptions()].map((option) => option.value);
+		const activeOption = this.keyManager?.activeItem;
 
-		for (const updateValue of updateValues) {
-			const selectedIndex = selected.findIndex((selectedValue) => isEqual(selectedValue, updateValue));
-			if (on && selectedIndex === -1) {
-				selected.push(updateValue);
-			} else if (!on && selectedIndex !== -1) {
-				selected.splice(selectedIndex, 1);
-			}
-		}
-		let changed = this.selectionModel.setSelection(...selected);
-		if (changed) {
-			this._onChange(this.value);
-		}
-	}
-
-	protected triggerOption(option: BrnSelectOptionDirective<T> | null) {
-		if (option && !option.disabledSignal()) {
-			this._select.multiple() ? this._select.toggleSelect(option.value()) : this._select.select(option.value());
-		}
-	}
-
-	/** Called when a focus moves into the listbox. */
-	protected _handleFocusIn() {
-		// Note that we use a `focusin` handler for this instead of the existing `focus` handler,
-		// because focus won't land on the listbox if `useActiveDescendant` is enabled.
-		this._hasFocus = true;
-	}
-
-	/**
-	 * Called when the focus leaves an element in the listbox.
-	 * @param event The focusout event
-	 */
-	protected _handleFocusOut(event: FocusEvent) {
-		// Some browsers (e.g. Chrome and Firefox) trigger the focusout event when the user returns back to the document.
-		// To prevent losing the active option in this case, we store it in `_previousActiveOption` and restore it on the window `blur` event
-		// This ensures that the `activeItem` matches the actual focused element when the user returns to the document.
-		this._previousActiveOption = this.listKeyManager.activeItem;
-
-		const otherElement = event.relatedTarget as Element;
-		if (this.element !== otherElement && !this.element.contains(otherElement)) {
-			this._onTouched();
-			this._hasFocus = false;
-			this._setNextFocusToSelectedOption();
+		if (activeOption) {
+			this._select.selectOption(activeOption.value()!);
 		}
 	}
 }

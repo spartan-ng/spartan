@@ -35,7 +35,7 @@ export class BrnSelectValueComponent<T> {
 			return null;
 		}
 
-		const selectedOption = value.map((val) => this._select.options().find((option) => option.value === val));
+		const selectedOption = value.map((val) => this._select.options().find((option) => option.value() === val));
 
 		if (selectedOption.length === 0) {
 			return null;

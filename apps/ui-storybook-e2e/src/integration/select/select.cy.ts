@@ -35,9 +35,6 @@ describe('select', () => {
 			cy.get('hlm-option').should('have.attr', 'role', 'option');
 			cy.get('hlm-option').should('have.attr', 'aria-selected', 'false');
 			cy.get('hlm-option').should('have.attr', 'aria-disabled', 'false');
-			cy.get('hlm-option').should(($el) => {
-				expect($el[0].id).to.match(/cdk-option/);
-			});
 
 			if (groups) {
 				// validate groups and labels

@@ -1,10 +1,24 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
+import { ChangeDetectionStrategy, Component, computed, contentChild, input } from '@angular/core';
+import { BrnSelectPlaceholderDirective } from './brn-select-placeholder.directive';
+import { BrnSelectValueDirective } from './brn-select-value.directive';
 import { injectBrnSelect } from './brn-select.token';
 
 @Component({
 	selector: 'brn-select-value, hlm-select-value',
+	imports: [NgTemplateOutlet],
 	template: `
-		{{ value() || placeholder() }}
+		@if (_showPlaceholder()) {
+			<ng-container [ngTemplateOutlet]="customPlaceholderTemplate()?.templateRef ?? defaultPlaceholderTemplate" />
+		} @else {
+			<ng-container
+				[ngTemplateOutlet]="customValueTemplate()?.templateRef ?? defaultValueTemplate"
+				[ngTemplateOutletContext]="{ $implicit: _select.value() }"
+			/>
+		}
+
+		<ng-template #defaultValueTemplate>{{ value() }}</ng-template>
+		<ng-template #defaultPlaceholderTemplate>{{ placeholder() }}</ng-template>
 	`,
 	host: {
 		'[id]': 'id()',
@@ -24,18 +38,30 @@ import { injectBrnSelect } from './brn-select.token';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BrnSelectValueComponent<T> {
-	private readonly _select = injectBrnSelect<T>();
+	protected readonly _select = injectBrnSelect<T>();
 	public readonly id = computed(() => `${this._select.id()}--value`);
 	public readonly placeholder = computed(() => this._select.placeholder());
 
+	protected readonly _showPlaceholder = computed(
+		() => this.value() === null || this.value() === undefined || this.value() === '',
+	);
+
+	/** Allow a custom value template */
+	protected readonly customValueTemplate = contentChild(BrnSelectValueDirective, { descendants: true });
+	protected readonly customPlaceholderTemplate = contentChild(BrnSelectPlaceholderDirective, { descendants: true });
+
 	protected readonly value = computed(() => {
-		const value = Array.isArray(this._select.value()) ? (this._select.value() as T[]) : ([this._select.value()] as T[]);
+		const value = this._values();
 
 		if (value.length === 0) {
 			return null;
 		}
 
-		const selectedOption = value.map((val) => this._select.options().find((option) => option.value() === val));
+		// remove any selected values that are not in the options list
+		const existingOptions = value.filter((val) => this._select.options().some((option) => option.value() === val));
+		const selectedOption = existingOptions.map((val) =>
+			this._select.options().find((option) => option.value() === val),
+		);
 
 		if (selectedOption.length === 0) {
 			return null;
@@ -48,6 +74,11 @@ export class BrnSelectValueComponent<T> {
 		}
 		return this.transformFn()(selectedLabels);
 	});
+
+	/** Normalize the values as an array */
+	protected readonly _values = computed(() =>
+		Array.isArray(this._select.value()) ? (this._select.value() as T[]) : ([this._select.value()] as T[]),
+	);
 
 	public readonly transformFn = input<(values: (string | undefined)[]) => any>((values) => (values ?? []).join(', '));
 }

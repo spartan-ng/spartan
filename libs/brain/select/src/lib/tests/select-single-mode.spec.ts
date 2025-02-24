@@ -19,6 +19,8 @@ describe('Brn Select Component in single-mode', () => {
 			unobserve: jest.fn(),
 			disconnect: jest.fn(),
 		}));
+
+		window.HTMLElement.prototype.scrollIntoView = jest.fn();
 	});
 
 	const setupWithFormValidation = async () => {

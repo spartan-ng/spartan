@@ -11,6 +11,7 @@ describe('BrnSelectComponent NumberValues', () => {
 			unobserve: jest.fn(),
 			disconnect: jest.fn(),
 		}));
+		window.HTMLElement.prototype.scrollIntoView = jest.fn();
 	});
 
 	const setup = async () => {
@@ -87,11 +88,11 @@ describe('BrnSelectComponent NumberValues', () => {
 		const options = await screen.getAllByRole('option');
 
 		await user.click(options[1]);
-		expect(selectedValue()).toEqual([5, 15]);
+		expect(selectedValue()).toEqual([15, 5]);
 		expect(trigger.textContent?.trim()).toBe('15, 5');
 
 		await user.click(options[2]);
 		expect(trigger.textContent?.trim()).toBe('15, 5, 10');
-		expect(selectedValue()).toEqual([5, 10, 15]);
+		expect(selectedValue()).toEqual([15, 5, 10]);
 	});
 });

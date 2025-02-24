@@ -5,6 +5,7 @@ import { brainRadioHealthcheck } from './healthchecks/brn-radio';
 import { coreImportsHealthcheck } from './healthchecks/core-imports';
 import { helmIconHealthcheck } from './healthchecks/hlm-icon';
 import { scrollAreaHealthcheck } from './healthchecks/hlm-scroll-area';
+import { selectHealthcheck } from './healthchecks/hlm-select';
 import { versionHealthcheck } from './healthchecks/version';
 import { HealthcheckGeneratorSchema } from './schema';
 import { promptUser } from './utils/prompt';
@@ -21,6 +22,7 @@ export async function healthcheckGenerator(tree: Tree, options: HealthcheckGener
 		helmIconHealthcheck,
 		scrollAreaHealthcheck,
 		brainRadioHealthcheck,
+		selectHealthcheck,
 	];
 
 	// store all the failed healthchecks that can be fixed

@@ -14,6 +14,7 @@ import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { SelectMultiplePreviewComponent, multipleCode } from './select--multiple.preview';
 import { SelectScrollablePreviewComponent, scrollableCode } from './select--scrollable.preview';
+import { SelectValueTemplatePreviewComponent, previewCode } from './select--value-template.preview';
 import { SelectPreviewComponent, defaultCode, defaultImports, defaultSkeleton, defaultStyles } from './select.preview';
 
 export const routeMeta: RouteMeta = {
@@ -38,6 +39,7 @@ export const routeMeta: RouteMeta = {
 		SelectPreviewComponent,
 		SelectMultiplePreviewComponent,
 		SelectScrollablePreviewComponent,
+		SelectValueTemplatePreviewComponent,
 	],
 	template: `
 		<section spartanMainSection>
@@ -80,6 +82,14 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="scrollableCode" />
 			</spartan-tabs>
 
+			<h3 id="examples__value-template" class="${hlmH4} mb-2 mt-6">Value Template</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-select-value-template-preview />
+				</div>
+				<spartan-code secondTab [code]="previewCode" />
+			</spartan-tabs>
+
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="separator" label="Separator" />
 				<spartan-page-bottom-nav-link direction="previous" href="scroll-area" label="Scroll Area" />
@@ -95,4 +105,5 @@ export default class SkeletonPageComponent {
 	protected readonly defaultStyles = defaultStyles;
 	protected readonly multipleCode = multipleCode;
 	protected readonly scrollableCode = scrollableCode;
+	protected readonly previewCode = previewCode;
 }

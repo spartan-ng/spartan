@@ -1,4 +1,3 @@
-import { NgForOf } from '@angular/common';
 import { Component, signal } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCheck, lucideChevronsUpDown, lucideSearch } from '@ng-icons/lucide';
@@ -24,11 +23,10 @@ type Framework = { label: string; value: string };
 		BrnPopoverTriggerDirective,
 		HlmPopoverContentDirective,
 		BrnPopoverContentDirective,
-		NgForOf,
 	],
 	providers: [provideIcons({ lucideChevronsUpDown, lucideSearch, lucideCheck })],
 	template: `
-		<brn-popover [state]="state()" (stateChanged)="stateChanged($event)" sideOffset="5" closeDelay="100">
+		<brn-popover [state]="state()" (stateChanged)="stateChanged($event)" sideOffset="5">
 			<button
 				class="w-[200px] justify-between"
 				id="edit-profile"
@@ -121,7 +119,6 @@ import {
   BrnPopoverTriggerDirective,
 } from '@spartan-ng/brain/popover';
 import { HlmPopoverContentDirective } from '@spartan-ng/ui-popover-helm';
-import { NgForOf } from '@angular/common';
 import { provideIcons } from '@ng-icons/core';
 import { lucideChevronsUpDown, lucideCheck, lucideSearch } from '@ng-icons/lucide';
 
@@ -139,11 +136,10 @@ type Framework = { label: string; value: string };
     BrnPopoverTriggerDirective,
     HlmPopoverContentDirective,
     BrnPopoverContentDirective,
-    NgForOf,
   ],
   providers: [provideIcons({ lucideChevronsUpDown, lucideSearch, lucideCheck })],
   template: \`
-    <brn-popover [state]="state()" (stateChanged)="stateChanged($event)" sideOffset="5" closeDelay="100">
+    <brn-popover [state]="state()" (stateChanged)="stateChanged($event)" sideOffset="5">
       <button class="w-[200px] justify-between" id="edit-profile" variant="outline" brnPopoverTrigger hlmBtn>
         {{ currentFramework() ? currentFramework().label : 'Select framework...' }}
         <ng-icon hlm size="sm" name="lucideChevronsUpDown" />

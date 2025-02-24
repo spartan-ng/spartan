@@ -58,7 +58,7 @@ type Framework = { label: string; value: string };
 				<label class="my-4 mb-1.5 block" hlmLabel>
 					Framework
 
-					<brn-popover [state]="state()" (stateChanged)="stateChanged($event)" sideOffset="5" closeDelay="100">
+					<brn-popover [state]="state()" (stateChanged)="stateChanged($event)" sideOffset="5">
 						<button
 							class="mt-1.5 w-full justify-between"
 							id="edit-profile"
@@ -206,7 +206,7 @@ type Framework = { label: string; value: string };
               <label class="my-4 mb-1.5 block" hlmLabel>
                   Framework
 
-                  <brn-popover [state]="state()" (stateChanged)="stateChanged($event)" sideOffset="5" closeDelay="100">
+                  <brn-popover [state]="state()" (stateChanged)="stateChanged($event)" sideOffset="5">
                       <button
                               class="w-full mt-1.5 justify-between"
                               id="edit-profile"

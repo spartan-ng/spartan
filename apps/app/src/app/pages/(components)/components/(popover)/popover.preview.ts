@@ -1,14 +1,9 @@
 import { Component } from '@angular/core';
-import {
-	BrnPopoverCloseDirective,
-	BrnPopoverComponent,
-	BrnPopoverContentDirective,
-	BrnPopoverTriggerDirective,
-} from '@spartan-ng/brain/popover';
+import { BrnPopoverComponent, BrnPopoverContentDirective, BrnPopoverTriggerDirective } from '@spartan-ng/brain/popover';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
 import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
-import { HlmPopoverCloseDirective, HlmPopoverContentDirective } from '@spartan-ng/ui-popover-helm';
+import { HlmPopoverContentDirective } from '@spartan-ng/ui-popover-helm';
 
 @Component({
 	selector: 'spartan-popover-preview',
@@ -17,15 +12,13 @@ import { HlmPopoverCloseDirective, HlmPopoverContentDirective } from '@spartan-n
 		BrnPopoverComponent,
 		BrnPopoverTriggerDirective,
 		BrnPopoverContentDirective,
-		BrnPopoverCloseDirective,
 		HlmPopoverContentDirective,
-		HlmPopoverCloseDirective,
 		HlmButtonDirective,
 		HlmLabelDirective,
 		HlmInputDirective,
 	],
 	template: `
-		<brn-popover sideOffset="5" closeDelay="100">
+		<brn-popover sideOffset="5">
 			<button id="edit-profile" variant="outline" brnPopoverTrigger hlmBtn>Open Popover</button>
 			<div hlmPopoverContent class="grid w-80 gap-4" *brnPopoverContent="let ctx">
 				<div class="space-y-2">
@@ -60,12 +53,11 @@ export const defaultCode = `
 import { Component } from '@angular/core';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import {
-  BrnPopoverCloseDirective,
   BrnPopoverComponent,
   BrnPopoverContentDirective,
   BrnPopoverTriggerDirective,
 } from '@spartan-ng/brain/popover';
-import { HlmPopoverCloseDirective, HlmPopoverContentDirective } from '@spartan-ng/ui-popover-helm';
+import { HlmPopoverContentDirective } from '@spartan-ng/ui-popover-helm';
 import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
 import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
 import { HlmIconComponent } from '@spartan-ng/ui-icon-helm';
@@ -78,15 +70,13 @@ import { provideIcons } from '@ng-icons/core';
     BrnPopoverComponent,
     BrnPopoverTriggerDirective,
     BrnPopoverContentDirective,
-    BrnPopoverCloseDirective,
     HlmPopoverContentDirective,
-    HlmPopoverCloseDirective,
     HlmButtonDirective,
     HlmLabelDirective,
     HlmInputDirective,
   ],
   template: \`
-    <brn-popover sideOffset="5" closeDelay="100">
+    <brn-popover sideOffset="5">
       <button id="edit-profile" variant="outline" brnPopoverTrigger hlmBtn>Open Popover</button>
       <div hlmPopoverContent class="w-80 grid gap-4" *brnPopoverContent="let ctx">
         <div class="space-y-2">

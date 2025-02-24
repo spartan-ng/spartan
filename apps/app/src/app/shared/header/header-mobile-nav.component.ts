@@ -9,9 +9,7 @@ import { HlmScrollAreaDirective } from '@spartan-ng/ui-scrollarea-helm';
 import { HlmSheetImports } from '@spartan-ng/ui-sheet-helm';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { SideNavContentComponent } from '../layout/side-nav/side-nav-content.component';
-import { SideNavLinkDirective } from '../layout/side-nav/side-nav-link.directive';
 import { SpartanLogoComponent } from '../spartan-logo.component';
-import { NavLinkDirective } from '../spartan-nav-link.directive';
 
 @Component({
 	selector: 'spartan-mobile-nav',
@@ -28,13 +26,11 @@ import { NavLinkDirective } from '../spartan-nav-link.directive';
 		HlmScrollAreaDirective,
 		NgScrollbarModule,
 		RouterLink,
-		NavLinkDirective,
-		SideNavLinkDirective,
 		SpartanLogoComponent,
 	],
 	providers: [provideIcons({ lucideMenu, lucideX })],
 	template: `
-		<hlm-sheet side="left" closeDelay="100">
+		<hlm-sheet side="left">
 			<button size="sm" id="menu-trigger" variant="ghost" brnSheetTrigger hlmBtn>
 				<ng-icon hlm name="lucideMenu" size="sm" />
 				<span class="sr-only">Open menu</span>

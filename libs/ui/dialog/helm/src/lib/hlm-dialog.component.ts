@@ -16,7 +16,7 @@ import { HlmDialogOverlayDirective } from './hlm-dialog-overlay.directive';
 			useExisting: forwardRef(() => HlmDialogComponent),
 		},
 		provideBrnDialogDefaultOptions({
-			closeDelay: 100,
+			// add custom options here
 		}),
 	],
 	template: `

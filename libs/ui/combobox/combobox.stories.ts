@@ -39,7 +39,7 @@ type Framework = { label: string; value: string };
 		HlmButtonDirective,
 	],
 	template: `
-		<brn-popover [state]="state()" (stateChanged)="stateChanged($event)" sideOffset="5" closeDelay="100">
+		<brn-popover [state]="state()" (stateChanged)="stateChanged($event)" sideOffset="5">
 			<button
 				class="w-[200px] justify-between"
 				id="edit-profile"

@@ -32,7 +32,7 @@ export const HLM_DATE_PICKER_VALUE_ACCESSOR = {
 	],
 	providers: [HLM_DATE_PICKER_VALUE_ACCESSOR, provideIcons({ lucideCalendar })],
 	template: `
-		<brn-popover sideOffset="5" closeDelay="100">
+		<brn-popover sideOffset="5">
 			<button type="button" [class]="_computedClass()" [disabled]="state().disabled()" brnPopoverTrigger>
 				<ng-icon hlm size="sm" name="lucideCalendar" />
 

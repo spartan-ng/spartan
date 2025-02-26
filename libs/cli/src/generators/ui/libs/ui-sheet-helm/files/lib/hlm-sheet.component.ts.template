@@ -17,7 +17,7 @@ import { HlmSheetOverlayDirective } from './hlm-sheet-overlay.directive';
 			useExisting: forwardRef(() => HlmSheetComponent),
 		},
 		provideBrnDialogDefaultOptions({
-			closeDelay: 100,
+			// add custom options here
 		}),
 	],
 	template: `

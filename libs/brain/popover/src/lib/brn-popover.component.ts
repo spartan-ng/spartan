@@ -8,7 +8,12 @@ import {
 	untracked,
 	ViewEncapsulation,
 } from '@angular/core';
-import { BrnDialogComponent } from '@spartan-ng/brain/dialog';
+import { BrnDialogComponent, BrnDialogDefaultOptions, provideBrnDialogDefaultOptions } from '@spartan-ng/brain/dialog';
+
+export const BRN_POPOVER_DIALOG_DEFAULT_OPTIONS: Partial<BrnDialogDefaultOptions> = {
+	hasBackdrop: false,
+	scrollStrategy: 'reposition',
+};
 
 export type BrnPopoverAlign = 'start' | 'center' | 'end';
 
@@ -23,6 +28,7 @@ export type BrnPopoverAlign = 'start' | 'center' | 'end';
 			provide: BrnDialogComponent,
 			useExisting: forwardRef(() => BrnPopoverComponent),
 		},
+		provideBrnDialogDefaultOptions(BRN_POPOVER_DIALOG_DEFAULT_OPTIONS),
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	encapsulation: ViewEncapsulation.None,
@@ -34,10 +40,8 @@ export class BrnPopoverComponent extends BrnDialogComponent {
 
 	constructor() {
 		super();
-		this._mutableHasBackdrop().set(false);
 		this.setAriaDescribedBy('');
 		this.setAriaLabelledBy('');
-		this.mutableScrollStrategy().set('reposition');
 
 		effect(() => {
 			const align = this.align();

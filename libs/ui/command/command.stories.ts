@@ -114,7 +114,7 @@ export const Default: Story = {
 				<code data-testid="lastCommand" hlmCode>{{ command() || 'none' }}</code>
 			</p>
 		</div>
-		<brn-dialog closeDelay="100" [state]="state()" (stateChanged)="stateChanged($event)">
+		<brn-dialog [state]="state()" (stateChanged)="stateChanged($event)">
 			<brn-dialog-overlay hlm />
 
 			<hlm-command *brnDialogContent="let ctx" hlmCommandDialog class="relative mx-auto sm:w-[400px]">

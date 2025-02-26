@@ -1,0 +1,23 @@
+{
+	"name": "Devcontainer",
+	"image": "mcr.microsoft.com/devcontainers/typescript-node:latest",
+	"forwardPorts": [4400],
+	"postStartCommand": "pnpm install",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"angular.ng-template",
+				"esbenp.prettier-vscode",
+				"pkief.material-icon-theme",
+				"firsttris.vscode-jest-runner",
+				"nrwl.angular-console",
+				"mhutchie.git-graph"
+			],
+			"settings": {
+				"workbench.iconTheme": "material-icon-theme",
+				"git.enableCommitSigning": true,
+				"git-graph.repository.commits.showSignatureStatus": true
+			}
+		}
+	}
+}

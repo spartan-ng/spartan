@@ -1,11 +1,24 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, computed, inject, input } from '@angular/core';
-import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
-import { BrnSelectService } from './brn-select.service';
+import { NgTemplateOutlet } from '@angular/common';
+import { ChangeDetectionStrategy, Component, computed, contentChild, input } from '@angular/core';
+import { BrnSelectPlaceholderDirective } from './brn-select-placeholder.directive';
+import { BrnSelectValueDirective } from './brn-select-value.directive';
+import { injectBrnSelect } from './brn-select.token';
 
 @Component({
 	selector: 'brn-select-value, hlm-select-value',
+	imports: [NgTemplateOutlet],
 	template: `
-		{{ value || placeholder() }}
+		@if (_showPlaceholder()) {
+			<ng-container [ngTemplateOutlet]="customPlaceholderTemplate()?.templateRef ?? defaultPlaceholderTemplate" />
+		} @else {
+			<ng-container
+				[ngTemplateOutlet]="customValueTemplate()?.templateRef ?? defaultValueTemplate"
+				[ngTemplateOutletContext]="{ $implicit: _select.value() }"
+			/>
+		}
+
+		<ng-template #defaultValueTemplate>{{ value() }}</ng-template>
+		<ng-template #defaultPlaceholderTemplate>{{ placeholder() }}</ng-template>
 	`,
 	host: {
 		'[id]': 'id()',
@@ -24,37 +37,48 @@ import { BrnSelectService } from './brn-select.service';
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BrnSelectValueComponent {
-	private readonly _selectService = inject(BrnSelectService);
+export class BrnSelectValueComponent<T> {
+	protected readonly _select = injectBrnSelect<T>();
+	public readonly id = computed(() => `${this._select.id()}--value`);
+	public readonly placeholder = computed(() => this._select.placeholder());
 
-	public readonly id = computed(() => `${this._selectService.id()}--value`);
-	public readonly placeholder = computed(() => this._selectService.placeholder());
-	public value: string | null = null;
+	protected readonly _showPlaceholder = computed(
+		() => this.value() === null || this.value() === undefined || this.value() === '',
+	);
+
+	/** Allow a custom value template */
+	protected readonly customValueTemplate = contentChild(BrnSelectValueDirective, { descendants: true });
+	protected readonly customPlaceholderTemplate = contentChild(BrnSelectPlaceholderDirective, { descendants: true });
+
+	protected readonly value = computed(() => {
+		const value = this._values();
+
+		if (value.length === 0) {
+			return null;
+		}
+
+		// remove any selected values that are not in the options list
+		const existingOptions = value.filter((val) => this._select.options().some((option) => option.value() === val));
+		const selectedOption = existingOptions.map((val) =>
+			this._select.options().find((option) => option.value() === val),
+		);
+
+		if (selectedOption.length === 0) {
+			return null;
+		}
+
+		const selectedLabels = selectedOption.map((option) => option?.getLabel());
+
+		if (this._select.dir() === 'rtl') {
+			selectedLabels.reverse();
+		}
+		return this.transformFn()(selectedLabels);
+	});
+
+	/** Normalize the values as an array */
+	protected readonly _values = computed(() =>
+		Array.isArray(this._select.value()) ? (this._select.value() as T[]) : ([this._select.value()] as T[]),
+	);
 
 	public readonly transformFn = input<(values: (string | undefined)[]) => any>((values) => (values ?? []).join(', '));
-
-	constructor() {
-		const cdr = inject(ChangeDetectorRef);
-
-		// In certain cases (when using a computed signal for value) where the value of the select and the options are
-		// changed dynamically, the template does not update until the next frame. To work around this we can use a simple
-		// string variable in the template and manually trigger change detection when we update it.
-		toObservable(this._selectService.selectedOptions)
-			.pipe(takeUntilDestroyed())
-			.subscribe((value) => {
-				if (value.length === 0) {
-					this.value = null;
-					cdr.detectChanges();
-					return;
-				}
-				const selectedLabels = value.map((selectedOption) => selectedOption?.getLabel());
-
-				if (this._selectService.dir() === 'rtl') {
-					selectedLabels.reverse();
-				}
-				const result = this.transformFn()(selectedLabels);
-				this.value = result;
-				cdr.detectChanges();
-			});
-	}
 }

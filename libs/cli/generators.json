@@ -30,6 +30,11 @@
 			"schema": "./src/generators/migrate-radio/schema.json",
 			"description": "Migrate brn-radio to hlm-radio"
 		},
+		"migrate-select": {
+			"factory": "./src/generators/migrate-select/generator",
+			"schema": "./src/generators/migrate-select/schema.json",
+			"description": "Migrate brn-select and hlm-select to use openChange and active descendants"
+		},
 		"migrate-core": {
 			"factory": "./src/generators/migrate-core/generator",
 			"schema": "./src/generators/migrate-core/schema.json",
@@ -71,6 +76,11 @@
 			"factory": "./src/generators/migrate-radio/compat",
 			"schema": "./src/generators/migrate-radio/schema.json",
 			"description": "Migrate brn-radio to hlm-radio"
+		},
+		"migrate-select": {
+			"factory": "./src/generators/migrate-select/compat",
+			"schema": "./src/generators/migrate-select/schema.json",
+			"description": "Migrate brn-select and hlm-select to use openChange and active descendants"
 		},
 		"migrate-core": {
 			"factory": "./src/generators/migrate-scroll-area/compat",

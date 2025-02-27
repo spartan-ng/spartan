@@ -15,6 +15,7 @@ describe('Brn Select Component in multi-mode', () => {
 			unobserve: jest.fn(),
 			disconnect: jest.fn(),
 		}));
+		window.HTMLElement.prototype.scrollIntoView = jest.fn();
 	});
 
 	const DEFAULT_LABEL = 'Select a Fruit';
@@ -561,7 +562,7 @@ describe('Brn Select Component in multi-mode', () => {
 
 			expect(getFormControlStatus(cmpInstance.form?.get('fruit'))).toStrictEqual(afterCloseExpected);
 			expect(getFormValidationClasses(trigger)).toStrictEqual(afterCloseExpected);
-			expect(cmpInstance.form?.get('fruit')?.value).toEqual(['apple', 'banana', 'blueberry']);
+			expect(cmpInstance.form?.get('fruit')?.value).toEqual(['apple', 'blueberry', 'banana']);
 		});
 
 		/**
@@ -628,7 +629,7 @@ describe('Brn Select Component in multi-mode', () => {
 
 			expect(getFormControlStatus(cmpInstance.form?.get('fruit'))).toStrictEqual(afterCloseExpected);
 			expect(getFormValidationClasses(trigger)).toStrictEqual(afterCloseExpected);
-			expect(cmpInstance.form?.get('fruit')?.value).toEqual(['apple', 'banana', 'pineapple']);
+			expect(cmpInstance.form?.get('fruit')?.value).toEqual(['apple', 'pineapple', 'banana']);
 		});
 
 		/**

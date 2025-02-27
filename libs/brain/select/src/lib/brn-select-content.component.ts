@@ -1,25 +1,29 @@
-import { CdkListbox, type ListboxValueChangeEvent } from '@angular/cdk/listbox';
 import { NgTemplateOutlet } from '@angular/common';
 import {
-	type AfterViewInit,
+	AfterContentInit,
 	ChangeDetectionStrategy,
 	Component,
 	DestroyRef,
 	ElementRef,
+	Injector,
+	afterNextRender,
 	contentChild,
 	contentChildren,
 	effect,
 	inject,
 	signal,
+	untracked,
 	viewChild,
 } from '@angular/core';
-import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { BrnSelectOptionDirective } from './brn-select-option.directive';
-import { BrnSelectService } from './brn-select.service';
 
+import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { Directive } from '@angular/core';
 import { Subject, fromEvent, interval } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { provideBrnSelectContent } from './brn-select-content.token';
+import { injectBrnSelect } from './brn-select.token';
 
 const SCROLLBY_PIXELS = 100;
 
@@ -80,16 +84,25 @@ export class BrnSelectScrollDownDirective {
 }
 
 @Component({
-	selector: 'brn-select-content, hlm-select-content:not(noHlm)',
 	standalone: true,
-	imports: [BrnSelectScrollUpDirective, BrnSelectScrollDownDirective, NgTemplateOutlet],
-	hostDirectives: [CdkListbox],
+	selector: 'brn-select-content, hlm-select-content:not(noHlm)',
+	imports: [NgTemplateOutlet],
+	providers: [provideBrnSelectContent(BrnSelectContentComponent)],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
-		'[attr.aria-labelledBy]': 'labelledBy()',
-		'[attr.aria-controlledBy]': "id() +'--trigger'",
-		'[id]': "id() + '--content'",
-		'[attr.dir]': '_selectService.dir()',
+		role: 'listbox',
+		tabindex: '0',
+		'[attr.aria-multiselectable]': '_select.multiple()',
+		'[attr.aria-disabled]': '_select.disabled() || _select._formDisabled()',
+		'aria-orientation': 'vertical',
+		'[attr.aria-activedescendant]': 'keyManager?.activeItem?.id()',
+		'[attr.aria-labelledBy]': '_select.labelId()',
+		'[attr.aria-controlledBy]': "_select.id() +'--trigger'",
+		'[id]': "_select.id() + '--content'",
+		'[attr.dir]': '_select.dir()',
+		'(keydown)': 'keyManager?.onKeydown($event)',
+		'(keydown.enter)': 'selectActiveItem($event)',
+		'(keydown.space)': 'selectActiveItem($event)',
 	},
 	styles: [
 		`
@@ -139,63 +152,57 @@ export class BrnSelectScrollDownDirective {
 		<ng-container *ngTemplateOutlet="canScrollDown() && scrollDownBtn() ? scrollDown : null" />
 	`,
 })
-export class BrnSelectContentComponent implements AfterViewInit {
-	private readonly _el: ElementRef<HTMLElement> = inject(ElementRef);
-	private readonly _cdkListbox = inject(CdkListbox, { host: true });
-	private readonly _destroyRef = inject(DestroyRef);
-	protected readonly _selectService = inject(BrnSelectService);
-
-	protected readonly labelledBy = this._selectService.labelId;
-	protected readonly id = this._selectService.id;
+export class BrnSelectContentComponent<T> implements AfterContentInit {
+	private readonly _elementRef: ElementRef<HTMLElement> = inject(ElementRef);
+	private readonly _injector = inject(Injector);
+	protected readonly _select = injectBrnSelect<T>();
 	protected readonly canScrollUp = signal(false);
 	protected readonly canScrollDown = signal(false);
+	protected readonly viewport = viewChild.required<ElementRef<HTMLElement>>('viewport');
+	protected readonly scrollUpBtn = contentChild(BrnSelectScrollUpDirective);
+	protected readonly scrollDownBtn = contentChild(BrnSelectScrollDownDirective);
+	private readonly _options = contentChildren(BrnSelectOptionDirective, { descendants: true });
 
-	protected initialSelectedOptions$ = toObservable(this._selectService.selectedOptions);
-
-	protected viewport = viewChild.required<ElementRef<HTMLElement>>('viewport');
-
-	protected scrollUpBtn = contentChild(BrnSelectScrollUpDirective);
-
-	protected scrollDownBtn = contentChild(BrnSelectScrollDownDirective);
-
-	protected _options = contentChildren(BrnSelectOptionDirective, { descendants: true });
+	/** @internal */
+	public keyManager: ActiveDescendantKeyManager<BrnSelectOptionDirective<T>> | null = null;
 
 	constructor() {
-		this._cdkListbox.valueChange
-			.asObservable()
-			.pipe(takeUntilDestroyed())
-			.subscribe((val: ListboxValueChangeEvent<unknown>) => this._selectService.listBoxValueChangeEvent$.next(val));
-
 		effect(() => {
-			this._cdkListbox.multiple = this._selectService.multiple();
-			this._selectService.isExpanded() && setTimeout(() => this.updateArrowDisplay());
+			this._select.open() && afterNextRender(() => this.updateArrowDisplay(), { injector: this._injector });
 		});
 	}
 
-	ngAfterViewInit(): void {
-		this.setInitiallySelectedOptions();
-	}
+	ngAfterContentInit(): void {
+		this.keyManager = new ActiveDescendantKeyManager(this._options, this._injector)
+			.withHomeAndEnd()
+			.withVerticalOrientation()
+			.withTypeAhead()
+			.withAllowedModifierKeys(['shiftKey'])
+			.withWrap()
+			.skipPredicate((option) => option._disabled());
 
-	private setInitiallySelectedOptions() {
-		this.initialSelectedOptions$.pipe(takeUntilDestroyed(this._destroyRef)).subscribe((selectedOptions) => {
-			// Reapplying cdkLibstbox multiple because seems this is running before effect that
-			// updates cdklistbox, reapplying multiple true so we can set the multiple initial options
-			if (this._selectService.multiple()) {
-				this._cdkListbox.multiple = true;
-			}
+		effect(
+			() => {
+				// any time the select is opened, we need to focus the first selected option or the first option
+				const open = this._select.open();
+				const options = this._options();
 
-			for (const cdkOption of this._selectService.possibleOptions()) {
-				if (selectedOptions.includes(cdkOption)) {
-					cdkOption?.select();
-				} else {
-					cdkOption?.deselect();
+				if (!open || !options.length) {
+					return;
 				}
-			}
 
-			for (const cdkOption of selectedOptions) {
-				cdkOption?.select();
-			}
-		});
+				untracked(() => {
+					const selectedOption = options.find((option) => option.selected());
+
+					if (selectedOption) {
+						this.keyManager?.setActiveItem(selectedOption);
+					} else {
+						this.keyManager?.setFirstItemActive();
+					}
+				});
+			},
+			{ injector: this._injector },
+		);
 	}
 
 	public updateArrowDisplay(): void {
@@ -205,30 +212,50 @@ export class BrnSelectContentComponent implements AfterViewInit {
 		this.canScrollDown.set(Math.ceil(scrollTop) < maxScroll);
 	}
 
-	public handleScroll() {
+	public handleScroll(): void {
 		this.updateArrowDisplay();
 	}
 
 	public focusList(): void {
-		this._cdkListbox.focus();
+		this._elementRef.nativeElement.focus();
 	}
 
-	public moveFocusUp() {
+	public moveFocusUp(): void {
 		this.viewport().nativeElement.scrollBy({ top: -SCROLLBY_PIXELS, behavior: 'smooth' });
 		if (this.viewport().nativeElement.scrollTop === 0) {
 			this.scrollUpBtn()?.stopEmittingEvents();
 		}
 	}
 
-	public moveFocusDown() {
+	public moveFocusDown(): void {
 		this.viewport().nativeElement.scrollBy({ top: SCROLLBY_PIXELS, behavior: 'smooth' });
-		const viewportSize = this._el.nativeElement.scrollHeight;
+		const viewportSize = this._elementRef.nativeElement.scrollHeight;
 		const viewportScrollPosition = this.viewport().nativeElement.scrollTop;
 		if (
 			viewportSize + viewportScrollPosition + SCROLLBY_PIXELS >
 			this.viewport().nativeElement.scrollHeight + SCROLLBY_PIXELS / 2
 		) {
 			this.scrollDownBtn()?.stopEmittingEvents();
+		}
+	}
+
+	setActiveOption(option: BrnSelectOptionDirective<T>): void {
+		const index = this._options().findIndex((o) => o === option);
+
+		if (index === -1) {
+			return;
+		}
+
+		this.keyManager?.setActiveItem(index);
+	}
+
+	protected selectActiveItem(event: KeyboardEvent): void {
+		event.preventDefault();
+
+		const activeOption = this.keyManager?.activeItem;
+
+		if (activeOption) {
+			this._select.selectOption(activeOption.value()!);
 		}
 	}
 }

@@ -9,6 +9,7 @@ describe('BrnSelectComponent', () => {
 			unobserve: jest.fn(),
 			disconnect: jest.fn(),
 		}));
+		window.HTMLElement.prototype.scrollIntoView = jest.fn();
 	});
 
 	const setup = async () => {
@@ -16,7 +17,7 @@ describe('BrnSelectComponent', () => {
 		const valueChangeSpy = jest.fn();
 		const container = await render(
 			`
-            <brn-select class="inline-block" [multiple]="multiple" (openedChange)="openedChange($event)" (valueChange)="valueChange($event)">
+            <brn-select class="inline-block" [multiple]="multiple" (openChange)="openChange($event)" (valueChange)="valueChange($event)">
 			<button brnSelectTrigger class='w-56' data-testid="brn-select-trigger">
 				<brn-select-value />
 			</button>
@@ -35,7 +36,7 @@ describe('BrnSelectComponent', () => {
 				imports: [...BrnSelectImports],
 				componentProperties: {
 					multiple: true,
-					openedChange: openChangeSpy,
+					openChange: openChangeSpy,
 					valueChange: valueChangeSpy,
 				},
 			},
@@ -72,7 +73,7 @@ describe('BrnSelectComponent', () => {
 			container.rerender({
 				componentProperties: {
 					multiple: false,
-					openedChange: openChangeSpy,
+					openChange: openChangeSpy,
 					valueChange: valueChangeSpy,
 				},
 			});

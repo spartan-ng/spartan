@@ -1,80 +1,76 @@
-import type { FocusableOption } from '@angular/cdk/a11y';
+import type { Highlightable } from '@angular/cdk/a11y';
 import { BooleanInput } from '@angular/cdk/coercion';
-import { CdkOption } from '@angular/cdk/listbox';
-import {
-	AfterContentChecked,
-	Directive,
-	ElementRef,
-	booleanAttribute,
-	computed,
-	effect,
-	inject,
-	input,
-	signal,
-} from '@angular/core';
-import { BrnSelectService } from './brn-select.service';
+import { Directive, ElementRef, booleanAttribute, computed, inject, input, signal } from '@angular/core';
+import { injectBrnSelectContent } from './brn-select-content.token';
+import { injectBrnSelect } from './brn-select.token';
+
+let nextId = 0;
 
 @Directive({
 	selector: '[brnOption]',
 	standalone: true,
-	hostDirectives: [CdkOption],
 	host: {
-		'(mouseenter)': 'hover()',
-		'(blur)': 'blur()',
-		'[attr.dir]': '_selectService.dir()',
-		'[attr.data-disabled]': "disabledSignal() ? '' : undefined",
+		role: 'option',
+		'[id]': 'id()',
+		'[attr.aria-selected]': 'selected()',
+		'[attr.aria-disabled]': '_disabled()',
+		'(click)': 'select()',
+		'[attr.dir]': '_select.dir()',
+		'[attr.data-active]': "_active() ? '' : undefined",
+		'[attr.data-disabled]': "_disabled() ? '' : undefined",
+		'(mouseenter)': 'activate()',
 	},
 })
-export class BrnSelectOptionDirective implements FocusableOption, AfterContentChecked {
-	private readonly _cdkSelectOption = inject(CdkOption, { host: true });
-	protected readonly _selectService = inject(BrnSelectService);
-
-	private readonly _focused = signal<boolean>(false);
+export class BrnSelectOptionDirective<T> implements Highlightable {
+	protected readonly _select = injectBrnSelect();
+	protected readonly _content = injectBrnSelectContent<T>();
 	public readonly elementRef = inject(ElementRef);
+	public readonly id = input(`brn-option-${nextId++}`);
+	public readonly value = input<T>();
 
-	public readonly selected = computed(() => {
-		if (Array.isArray(this._selectService.value())) {
-			const itemFound = (this._selectService.value() as Array<unknown>).find(
-				(val) => val === this._cdkSelectOption.value,
-			);
-			return !!itemFound;
-		}
-		return this._cdkSelectOption.value === this._selectService.value();
-	});
-	public readonly focused = computed(() => this._focused());
-	public readonly checkedState = computed(() => (this.selected() ? 'checked' : 'unchecked'));
-	public readonly dir = computed(() => this._selectService.dir());
-
-	constructor() {
-		effect(() => {
-			this._cdkSelectOption.value = this.value();
-		});
-		effect(() => {
-			this._cdkSelectOption.disabled = this.disabledSignal();
-		});
-	}
-	ngAfterContentChecked(): void {
-		this._cdkSelectOption.value = this.value();
-	}
-
-	public value = input<unknown | null>(null);
-
-	// we use "disabledSignal" here because disabled is already defined in the FocusableOption interface
-	public readonly disabledSignal = input<boolean, BooleanInput>(false, {
+	// we use "_disabled" here because disabled is already defined in the Highlightable interface
+	public readonly _disabled = input<boolean, BooleanInput>(false, {
 		alias: 'disabled',
 		transform: booleanAttribute,
 	});
 
-	protected hover(): void {
-		this.focus();
+	public get disabled(): boolean {
+		return this._disabled();
 	}
 
-	public focus(): void {
-		this._cdkSelectOption.focus();
-		this._focused.set(true);
+	public readonly selected = computed(() => this.value() !== undefined && this._select.isSelected(this.value()));
+	protected readonly _active = signal(false);
+	public readonly checkedState = computed(() => (this.selected() ? 'checked' : 'unchecked'));
+	public readonly dir = this._select.dir;
+
+	public select(): void {
+		if (this._disabled()) {
+			return;
+		}
+
+		this._select.selectOption(this.value());
 	}
 
-	public blur(): void {
-		this._focused.set(false);
+	/** Get the label for this element which is required by the FocusableOption interface. */
+	getLabel(): string {
+		return this.elementRef.nativeElement.textContent?.trim() ?? '';
+	}
+
+	setActiveStyles(): void {
+		this._active.set(true);
+
+		// scroll the option into view if it is not visible
+		this.elementRef.nativeElement.scrollIntoView({ block: 'nearest' });
+	}
+
+	setInactiveStyles(): void {
+		this._active.set(false);
+	}
+
+	protected activate(): void {
+		if (this._disabled()) {
+			return;
+		}
+		this._content.setActiveOption(this);
 	}
 }

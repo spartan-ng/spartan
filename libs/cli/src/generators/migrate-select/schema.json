@@ -1,0 +1,14 @@
+{
+	"$schema": "https://json-schema.org/schema",
+	"$id": "MigrateSelect",
+	"title": "",
+	"type": "object",
+	"properties": {
+		"skipFormat": {
+			"type": "boolean",
+			"default": false,
+			"description": "Skip formatting files"
+		}
+	},
+	"required": []
+}

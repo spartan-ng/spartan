@@ -277,7 +277,7 @@ export const noteRouter = router({
 						get stuck. If you want the quick and dirty way and are on a Mac. Here is what I did to get up and running:
 					</p>
 					<h4 class="${hlmH4} mb-2 mt-6 !text-sm">Install supabase CLI</h4>
-					<spartan-code code="brew install supabase" />
+					<spartan-code code="brew install supabase/tap/supabase" />
 					<h4 class="${hlmH4} mb-2 mt-6 !text-sm">Log into CLI</h4>
 					<spartan-code code="supabase login" />
 					<p class="${hlmP}">

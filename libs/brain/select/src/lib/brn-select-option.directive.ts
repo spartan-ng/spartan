@@ -48,7 +48,7 @@ export class BrnSelectOptionDirective<T> implements Highlightable {
 			return;
 		}
 
-		this._select.selectOption(this.value());
+		this._select.toggleSelect(this.value());
 	}
 
 	/** Get the label for this element which is required by the FocusableOption interface. */

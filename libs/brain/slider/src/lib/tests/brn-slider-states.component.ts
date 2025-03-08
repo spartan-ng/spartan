@@ -9,7 +9,6 @@ import {
 } from '../../index';
 
 @Component({
-	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
@@ -36,7 +35,6 @@ export class TemplateDrivenFormSliderComponent {
 }
 
 @Component({
-	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>

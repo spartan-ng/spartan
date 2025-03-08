@@ -4,7 +4,6 @@ import { HlmSeparatorDirective } from '@spartan-ng/ui-separator-helm';
 
 @Component({
 	selector: 'spartan-separator-preview',
-	standalone: true,
 	imports: [HlmSeparatorDirective, BrnSeparatorComponent],
 	template: `
 		<div>

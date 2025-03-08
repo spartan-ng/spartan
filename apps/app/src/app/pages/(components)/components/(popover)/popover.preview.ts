@@ -7,7 +7,6 @@ import { HlmPopoverContentDirective } from '@spartan-ng/ui-popover-helm';
 
 @Component({
 	selector: 'spartan-popover-preview',
-	standalone: true,
 	imports: [
 		BrnPopoverComponent,
 		BrnPopoverTriggerDirective,

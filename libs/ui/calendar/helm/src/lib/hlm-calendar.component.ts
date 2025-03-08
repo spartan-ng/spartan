@@ -22,7 +22,6 @@ import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 import type { ClassValue } from 'clsx';
 
 @Component({
-	standalone: true,
 	selector: 'hlm-calendar',
 	imports: [
 		BrnCalendarDirective,

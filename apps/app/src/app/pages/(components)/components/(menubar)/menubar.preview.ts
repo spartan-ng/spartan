@@ -21,10 +21,8 @@ import {
 
 @Component({
 	selector: 'spartan-menubar-preview',
-	standalone: true,
 	imports: [
 		BrnMenuTriggerDirective,
-
 		HlmMenuComponent,
 		HlmMenuBarComponent,
 		HlmSubMenuComponent,
@@ -38,7 +36,6 @@ import {
 		HlmMenuItemCheckComponent,
 		HlmMenuItemRadioComponent,
 		HlmMenuGroupComponent,
-
 		HlmButtonDirective,
 		HlmMenuItemCheckboxDirective,
 		HlmMenuItemRadioDirective,

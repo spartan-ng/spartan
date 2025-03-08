@@ -3,7 +3,6 @@ import { Component, computed, input } from '@angular/core';
 
 @Component({
 	selector: 'spartan-th-item',
-	standalone: true,
 	imports: [NgOptimizedImage],
 	host: {
 		class: 'inline-flex flex-col justify-center items-center',

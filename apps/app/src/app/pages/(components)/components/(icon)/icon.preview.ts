@@ -5,7 +5,6 @@ import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 
 @Component({
 	selector: 'spartan-icon-preview',
-	standalone: true,
 	imports: [NgIcon, HlmIconDirective],
 	providers: [provideIcons({ lucideChevronRight })],
 	template: `

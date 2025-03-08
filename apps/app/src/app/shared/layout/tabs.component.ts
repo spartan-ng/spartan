@@ -12,7 +12,6 @@ const tabContent =
 	'mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 relative rounded-md border border-border';
 @Component({
 	selector: 'spartan-tabs',
-	standalone: true,
 	imports: [BrnTabsDirective, BrnTabsListDirective, BrnTabsTriggerDirective, BrnTabsContentDirective],
 	host: {
 		class: 'block',

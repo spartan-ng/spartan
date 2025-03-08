@@ -33,10 +33,8 @@ import {
 
 @Component({
 	selector: 'spartan-dropdown-preview',
-	standalone: true,
 	imports: [
 		BrnMenuTriggerDirective,
-
 		HlmMenuComponent,
 		HlmSubMenuComponent,
 		HlmMenuItemDirective,
@@ -46,7 +44,6 @@ import {
 		HlmMenuSeparatorComponent,
 		HlmMenuItemIconDirective,
 		HlmMenuGroupComponent,
-
 		HlmButtonDirective,
 		NgIcon,
 		HlmIconDirective,

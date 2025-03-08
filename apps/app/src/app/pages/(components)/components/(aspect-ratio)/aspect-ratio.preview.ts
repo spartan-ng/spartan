@@ -3,7 +3,6 @@ import { HlmAspectRatioDirective } from '@spartan-ng/ui-aspectratio-helm';
 
 @Component({
 	selector: 'spartan-aspect-ratio-preview',
-	standalone: true,
 	imports: [HlmAspectRatioDirective],
 	template: `
 		<div class="max-w-xl overflow-hidden rounded-xl drop-shadow">

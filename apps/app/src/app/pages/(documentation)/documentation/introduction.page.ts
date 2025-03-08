@@ -33,7 +33,6 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-docs-intro',
-	standalone: true,
 	imports: [
 		MainSectionDirective,
 		SectionIntroComponent,

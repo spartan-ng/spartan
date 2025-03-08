@@ -12,7 +12,6 @@ import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 
 @Component({
 	selector: 'spartan-accordion-preview',
-	standalone: true,
 	imports: [
 		HlmAccordionDirective,
 		HlmAccordionItemDirective,

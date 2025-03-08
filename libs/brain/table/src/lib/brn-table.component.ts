@@ -20,7 +20,6 @@ export type BrnTableDataSourceInput<T> = CdkTableDataSourceInput<T>;
 
 @Component({
 	selector: 'brn-table',
-	standalone: true,
 	imports: [CdkTableModule],
 	providers: [provideTableClassesSettableExisting(<T>() => BrnTableComponent<T>)],
 	template: `

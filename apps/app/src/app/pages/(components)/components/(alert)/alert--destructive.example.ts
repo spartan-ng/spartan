@@ -11,7 +11,6 @@ import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 
 @Component({
 	selector: 'spartan-alert-destructive',
-	standalone: true,
 	imports: [
 		HlmAlertDirective,
 		HlmAlertDescriptionDirective,

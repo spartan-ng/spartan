@@ -15,7 +15,6 @@ import { HlmMenuComponent, HlmMenuItemDirective } from '@spartan-ng/ui-menu-helm
 
 @Component({
 	selector: 'spartan-breadcrumb-dropdown',
-	standalone: true,
 	providers: [provideIcons({ lucideChevronDown, lucideSlash })],
 	imports: [
 		HlmBreadcrumbDirective,
@@ -24,7 +23,6 @@ import { HlmMenuComponent, HlmMenuItemDirective } from '@spartan-ng/ui-menu-helm
 		HlmBreadcrumbItemDirective,
 		HlmBreadcrumbPageDirective,
 		HlmBreadcrumbLinkDirective,
-
 		NgIcon,
 		HlmIconDirective,
 		BrnMenuTriggerDirective,

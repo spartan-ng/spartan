@@ -4,7 +4,6 @@ import { HlmProgressDirective, HlmProgressIndicatorDirective } from '@spartan-ng
 
 @Component({
 	selector: 'spartan-progress-preview',
-	standalone: true,
 	imports: [BrnProgressComponent, BrnProgressIndicatorComponent, HlmProgressIndicatorDirective, HlmProgressDirective],
 	template: `
 		<brn-progress hlm class="w-80" aria-labelledby="loading" [value]="value">

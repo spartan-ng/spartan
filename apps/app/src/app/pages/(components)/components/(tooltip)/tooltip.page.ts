@@ -26,7 +26,6 @@ export const routeMeta: RouteMeta = {
 };
 @Component({
 	selector: 'spartan-tooltip',
-	standalone: true,
 	imports: [
 		MainSectionDirective,
 		CodeComponent,

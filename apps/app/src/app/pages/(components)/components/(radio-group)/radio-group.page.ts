@@ -25,7 +25,6 @@ export const routeMeta: RouteMeta = {
 };
 @Component({
 	selector: 'spartan-radio-group',
-	standalone: true,
 	imports: [
 		MainSectionDirective,
 		CodeComponent,

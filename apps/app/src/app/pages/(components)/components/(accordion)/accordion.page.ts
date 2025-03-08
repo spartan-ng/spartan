@@ -27,7 +27,6 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-accordion',
-	standalone: true,
 	imports: [
 		MainSectionDirective,
 		CodeComponent,

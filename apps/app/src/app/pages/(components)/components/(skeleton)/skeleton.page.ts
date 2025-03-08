@@ -20,7 +20,6 @@ export const routeMeta: RouteMeta = {
 };
 @Component({
 	selector: 'spartan-skeleton',
-	standalone: true,
 	imports: [
 		MainSectionDirective,
 		CodeComponent,

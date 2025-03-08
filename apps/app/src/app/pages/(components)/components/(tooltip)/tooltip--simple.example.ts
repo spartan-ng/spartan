@@ -4,7 +4,6 @@ import { HlmTooltipTriggerDirective } from '@spartan-ng/ui-tooltip-helm';
 
 @Component({
 	selector: 'spartan-tooltip-simple',
-	standalone: true,
 	imports: [HlmTooltipTriggerDirective, HlmButtonDirective],
 	template: `
 		<button [hlmTooltipTrigger]="'Simple tooltip'" aria-describedby="Simple tooltip" hlmBtn variant="outline">

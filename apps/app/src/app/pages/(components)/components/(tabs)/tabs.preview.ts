@@ -19,20 +19,17 @@ import {
 
 @Component({
 	selector: 'spartan-tabs-preview',
-	standalone: true,
 	imports: [
 		HlmTabsComponent,
 		HlmTabsListComponent,
 		HlmTabsTriggerDirective,
 		HlmTabsContentDirective,
-
 		HlmCardContentDirective,
 		HlmCardDescriptionDirective,
 		HlmCardDirective,
 		HlmCardFooterDirective,
 		HlmCardHeaderDirective,
 		HlmCardTitleDirective,
-
 		HlmLabelDirective,
 		HlmInputDirective,
 		HlmButtonDirective,

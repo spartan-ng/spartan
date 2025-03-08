@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { render } from '@testing-library/angular';
+import { BrnProgressModule } from '../index';
 import { BrnProgressIndicatorComponent } from './brn-progress-indicator.component';
 import { BrnProgressComponent, BrnProgressLabelFn } from './brn-progress.component';
 
 @Component({
+	imports: [BrnProgressModule],
 	template: `
 		<brn-progress [value]="value" [max]="max" [getValueLabel]="getValueLabel">
 			<brn-progress-indicator />

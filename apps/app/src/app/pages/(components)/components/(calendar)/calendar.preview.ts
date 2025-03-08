@@ -3,7 +3,6 @@ import { HlmCalendarComponent } from '@spartan-ng/ui-calendar-helm';
 
 @Component({
 	selector: 'spartan-calendar-preview',
-	standalone: true,
 	imports: [HlmCalendarComponent],
 	template: `
 		<hlm-calendar [(date)]="selectedDate" [min]="minDate" [max]="maxDate" />

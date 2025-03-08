@@ -3,7 +3,6 @@ import { HlmSkeletonComponent } from '@spartan-ng/ui-skeleton-helm';
 
 @Component({
 	selector: 'spartan-skeleton-preview',
-	standalone: true,
 	imports: [HlmSkeletonComponent],
 	template: `
 		<div class="m-4 flex w-fit items-center space-x-4 p-4">

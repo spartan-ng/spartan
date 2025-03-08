@@ -26,7 +26,6 @@ export const routeMeta: RouteMeta = {
 };
 @Component({
 	selector: 'spartan-dropdown-menu',
-	standalone: true,
 	imports: [
 		MainSectionDirective,
 		CodeComponent,

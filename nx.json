@@ -88,6 +88,5 @@
 		"@nx/angular:component": {
 			"style": "css"
 		}
-	},
-	"useLegacyCache": true
+	}
 }

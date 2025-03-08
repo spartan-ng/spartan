@@ -5,7 +5,6 @@ import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 
 @Component({
 	selector: 'hlm-select-scroll-down',
-	standalone: true,
 	imports: [NgIcon, HlmIconDirective],
 	providers: [provideIcons({ lucideChevronDown })],
 	host: {

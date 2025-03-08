@@ -20,7 +20,6 @@ export const routeMeta: RouteMeta = {
 };
 @Component({
 	selector: 'spartan-sonner',
-	standalone: true,
 	imports: [
 		MainSectionDirective,
 		CodeComponent,

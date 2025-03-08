@@ -10,7 +10,6 @@ import { HlmDialogCloseDirective } from './hlm-dialog-close.directive';
 
 @Component({
 	selector: 'hlm-dialog-content',
-	standalone: true,
 	imports: [NgComponentOutlet, BrnDialogCloseDirective, HlmDialogCloseDirective, NgIcon, HlmIconDirective],
 	providers: [provideIcons({ lucideX })],
 	host: {

@@ -21,11 +21,9 @@ import {
 
 @Component({
 	selector: 'spartan-context-menu-preview',
-	standalone: true,
 	imports: [
 		BrnMenuTriggerDirective,
 		BrnContextMenuTriggerDirective,
-
 		HlmMenuComponent,
 		HlmSubMenuComponent,
 		HlmMenuItemDirective,
@@ -37,7 +35,6 @@ import {
 		HlmMenuItemCheckComponent,
 		HlmMenuItemRadioComponent,
 		HlmMenuGroupComponent,
-
 		HlmButtonDirective,
 		NgIcon,
 		HlmIconDirective,

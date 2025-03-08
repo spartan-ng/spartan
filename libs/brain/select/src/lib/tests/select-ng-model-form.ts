@@ -23,6 +23,8 @@ import { Component, signal } from '@angular/core';
 			</hlm-select>
 		</form>
 	`,
+	// eslint-disable-next-line @angular-eslint/prefer-standalone
+	standalone: false,
 })
 export class SelectNgModelComponent {
 	public fruit = signal('');

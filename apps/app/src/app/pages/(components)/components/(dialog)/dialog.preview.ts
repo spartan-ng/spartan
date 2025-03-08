@@ -14,18 +14,15 @@ import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
 
 @Component({
 	selector: 'spartan-dialog-preview',
-	standalone: true,
 	imports: [
 		BrnDialogTriggerDirective,
 		BrnDialogContentDirective,
-
 		HlmDialogComponent,
 		HlmDialogContentComponent,
 		HlmDialogHeaderComponent,
 		HlmDialogFooterComponent,
 		HlmDialogTitleDirective,
 		HlmDialogDescriptionDirective,
-
 		HlmLabelDirective,
 		HlmInputDirective,
 		HlmButtonDirective,

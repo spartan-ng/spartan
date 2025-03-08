@@ -27,7 +27,6 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-stack-installation',
-	standalone: true,
 	imports: [
 		MainSectionDirective,
 		SectionIntroComponent,

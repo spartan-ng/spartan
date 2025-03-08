@@ -10,7 +10,6 @@ import { AppThemes, type Theme, ThemeService } from '../theme.service';
 
 @Component({
 	selector: 'spartan-theme-picker',
-	standalone: true,
 	imports: [
 		BrnMenuTriggerDirective,
 		HlmMenuImports,

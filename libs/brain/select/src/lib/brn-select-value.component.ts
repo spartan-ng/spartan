@@ -58,9 +58,11 @@ export class BrnSelectValueComponent<T> {
 		}
 
 		// remove any selected values that are not in the options list
-		const existingOptions = value.filter((val) => this._select.options().some((option) => option.value() === val));
+		const existingOptions = value.filter((val) =>
+			this._select.options().some((option) => this._select.compareWith()(option.value(), val)),
+		);
 		const selectedOption = existingOptions.map((val) =>
-			this._select.options().find((option) => option.value() === val),
+			this._select.options().find((option) => this._select.compareWith()(option.value(), val)),
 		);
 
 		if (selectedOption.length === 0) {

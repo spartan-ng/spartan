@@ -283,7 +283,7 @@ export class BrnSelectComponent<T = unknown>
 	deselectOption(value: T): void {
 		if (this.multiple()) {
 			const currentValue = this.value() as T[];
-			const newValue = currentValue.filter((val) => val !== value);
+			const newValue = currentValue.filter((val) => !this.compareWith()(val, value));
 			this.value.set(newValue);
 		} else {
 			this.value.set(null as T);

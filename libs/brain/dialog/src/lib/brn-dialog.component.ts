@@ -113,7 +113,7 @@ export class BrnDialogComponent {
 				untracked(() => this.open());
 			}
 			if (state === 'closed') {
-				untracked(() => this.close(this._options().closeDelay));
+				untracked(() => this.close());
 			}
 		});
 	}
@@ -192,7 +192,7 @@ export class BrnDialogComponent {
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	public close(result: any, delay?: number) {
+	public close(result?: any, delay?: number) {
 		this._dialogRef()?.close(result, delay ?? this._options().closeDelay);
 	}
 

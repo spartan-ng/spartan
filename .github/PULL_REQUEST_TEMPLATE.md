@@ -33,6 +33,7 @@ What kind of change does this PR introduce?
 - [ ] button
 - [ ] calendar
 - [ ] card
+- [ ] carousel
 - [ ] checkbox
 - [ ] collapsible
 - [ ] combobox

@@ -1,6 +1,6 @@
 import { BooleanInput } from '@angular/cdk/coercion';
-import { Component, booleanAttribute, computed, forwardRef, input, model, output } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Component, booleanAttribute, computed, forwardRef, input, model, output, signal } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { hlm } from '@spartan-ng/brain/core';
 import { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import { BrnSwitchComponent, BrnSwitchThumbComponent } from '@spartan-ng/brain/switch';
@@ -40,7 +40,7 @@ export const HLM_SWITCH_VALUE_ACCESSOR = {
 	`,
 	providers: [HLM_SWITCH_VALUE_ACCESSOR],
 })
-export class HlmSwitchComponent {
+export class HlmSwitchComponent implements ControlValueAccessor {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>
 		hlm(
@@ -54,8 +54,9 @@ export class HlmSwitchComponent {
 	public readonly checked = model<boolean>(false);
 
 	/** The disabled state of the switch. */
-	public readonly disabled = input<boolean, BooleanInput>(false, {
+	public readonly disabledInput = input<boolean, BooleanInput>(false, {
 		transform: booleanAttribute,
+		alias: 'disabled',
 	});
 
 	/** Used to set the id on the underlying brn element. */
@@ -72,6 +73,10 @@ export class HlmSwitchComponent {
 
 	/** Emits when the checked state of the switch changes. */
 	public readonly changed = output<boolean>();
+
+	private readonly _writableDisabled = computed(() => signal(this.disabledInput()));
+
+	public readonly disabled = computed(() => this._writableDisabled()());
 
 	protected _onChange?: ChangeFn<boolean>;
 	protected _onTouched?: TouchFn;
@@ -94,5 +99,9 @@ export class HlmSwitchComponent {
 
 	registerOnTouched(fn: TouchFn): void {
 		this._onTouched = fn;
+	}
+
+	setDisabledState(isDisabled: boolean): void {
+		this._writableDisabled().set(isDisabled);
 	}
 }

@@ -44,6 +44,11 @@
 			"factory": "./src/generators/healthcheck/generator",
 			"schema": "./src/generators/healthcheck/schema.json",
 			"description": "Run a healthcheck on the project to identify any potential issues or outdated code."
+		},
+		"migrate-helm-libraries": {
+			"factory": "./src/generators/migrate-helm-libraries/generator",
+			"schema": "./src/generators/migrate-helm-libraries/schema.json",
+			"description": "Migrate Helm libraries to their latest versions"
 		}
 	},
 	"schematics": {
@@ -91,6 +96,11 @@
 			"factory": "./src/generators/healthcheck/compat",
 			"schema": "./src/generators/healthcheck/schema.json",
 			"description": "Run a healthcheck on the project to identify any potential issues or outdated code."
+		},
+		"migrate-helm-libraries": {
+			"factory": "./src/generators/migrate-helm-libraries/compat",
+			"schema": "./src/generators/migrate-helm-libraries/schema.json",
+			"description": "Migrate Helm libraries to their latest versions"
 		}
 	}
 }

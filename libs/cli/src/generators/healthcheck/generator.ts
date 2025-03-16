@@ -12,7 +12,7 @@ import { promptUser } from './utils/prompt';
 import { printReport } from './utils/reporter';
 import { runHealthcheck } from './utils/runner';
 
-export async function healthcheckGenerator(tree: Tree, options: HealthcheckGeneratorSchema) {
+export async function healthcheckGenerator(tree: Tree, options: HealthcheckGeneratorSchema & { angularCli?: boolean }) {
 	logger.info('Running healthchecks...');
 
 	const healthchecks: Healthcheck[] = [
@@ -43,7 +43,7 @@ export async function healthcheckGenerator(tree: Tree, options: HealthcheckGener
 			const fix = options.autoFix || (await promptUser(report.healthcheck.prompt));
 
 			if (fix) {
-				await report.healthcheck.fix(tree);
+				await report.healthcheck.fix(tree, { angularCli: options.angularCli });
 			}
 		}
 	}

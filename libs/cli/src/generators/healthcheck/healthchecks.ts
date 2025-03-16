@@ -18,7 +18,7 @@ interface FixableHealthcheck extends StandardHealthcheck {
 	/**
 	 * Fix any issues found by the check method. Return true if the issue was fixed, false if it was not.
 	 */
-	fix(tree: Tree): boolean | Promise<boolean>;
+	fix(tree: Tree, context: HealthcheckContext): boolean | Promise<boolean>;
 	/**
 	 * The auto fix prompt message.
 	 */
@@ -88,4 +88,8 @@ export interface HealthcheckIssue {
 	 * The severity of the issue.
 	 */
 	severity: HealthcheckSeverity;
+}
+
+interface HealthcheckContext {
+	angularCli?: boolean;
 }

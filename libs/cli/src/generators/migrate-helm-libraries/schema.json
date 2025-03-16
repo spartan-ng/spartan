@@ -1,0 +1,17 @@
+{
+	"$schema": "https://json-schema.org/schema",
+	"$id": "MigrateHelmLibraries",
+	"title": "",
+	"type": "object",
+	"properties": {
+		"directory": {
+			"type": "string",
+			"description": "A directory where the libraries are placed. If not specified, the default directory will be used."
+		},
+		"tags": {
+			"type": "string",
+			"description": "Add tags to the library (used for linting)."
+		}
+	},
+	"required": []
+}

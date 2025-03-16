@@ -32,7 +32,7 @@ export default async function hlmUIGenerator(tree: Tree, options: HlmUIGenerator
 	return runTasksInSerial(...tasks);
 }
 
-async function createPrimitiveLibraries(
+export async function createPrimitiveLibraries(
 	response: {
 		primitives: string[];
 	},

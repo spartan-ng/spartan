@@ -65,6 +65,7 @@ export class SideNavContentComponent {
 				{ label: 'Typography', url: '/typography' },
 				{ label: 'Figma', url: '/figma' },
 				{ label: 'Health Checks', url: '/health-checks' },
+				{ label: 'Update Guide', url: '/update-guide' },
 			],
 		},
 		{

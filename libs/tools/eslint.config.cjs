@@ -23,7 +23,7 @@ module.exports = [
 			'@nx/dependency-checks': [
 				'error',
 				{
-					ignoredDependencies: ['process', 'enquirer'],
+					ignoredDependencies: ['process', 'enquirer', '@phenomnomnominal/tsquery'],
 				},
 			],
 		},

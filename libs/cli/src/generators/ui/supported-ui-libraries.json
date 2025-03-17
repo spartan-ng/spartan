@@ -320,8 +320,8 @@
 	"tooltip": {
 		"internalName": "ui-tooltip-helm",
 		"peerDependencies": {
-			"@spartan-ng/brain": "0.0.1-alpha.422"
-			"@angular/core": ">=19.0.0",
+			"@spartan-ng/brain": "0.0.1-alpha.422",
+			"@angular/core": ">=19.0.0"
 		}
 	},
 	"pagination": {

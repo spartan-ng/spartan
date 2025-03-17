@@ -13,10 +13,10 @@ import { HlmProgressDirective, HlmProgressIndicatorDirective } from '@spartan-ng
 	`,
 })
 export class ProgressPreviewComponent implements OnInit {
-	public value = 0;
+	public value = 15;
 
 	ngOnInit() {
-		setTimeout(() => (this.value = 33), 2000);
+		setTimeout(() => (this.value = 65), 2000);
 	}
 }
 
@@ -33,16 +33,16 @@ import { HlmProgressIndicatorDirective } from '@spartan-ng/ui-progress-helm';
   standalone: true,
   imports: [BrnProgressComponent, BrnProgressIndicatorComponent, HlmProgressIndicatorDirective],
   template: \`
-    <brn-progress class='w-80' aria-labelledby="loading" [value]="value">
+    <brn-progress hlm class='w-80' aria-labelledby="loading" [value]="value">
       <brn-progress-indicator hlm />
     </brn-progress>
   \`,
 })
 export class ProgressPreviewComponent implements OnInit {
-  value = 0;
+  value = 15;
 
   ngOnInit() {
-    setTimeout(() => (this.value = 33), 3000);
+    setTimeout(() => (this.value = 65), 3000);
   }
 }
 `;
@@ -55,7 +55,7 @@ import {
 import { HlmProgressIndicatorDirective } from '@spartan-ng/ui-progress-helm';
 `;
 export const defaultSkeleton = `
-<brn-progress [value]="value">
+<brn-progress hlm [value]="value">
    <brn-progress-indicator hlm />
 </brn-progress>
 `;

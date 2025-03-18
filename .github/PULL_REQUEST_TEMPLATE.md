@@ -66,6 +66,7 @@ What kind of change does this PR introduce?
 - [ ] textarea
 - [ ] toast
 - [ ] toggle
+- [ ] toggle-group
 - [ ] tooltip
 - [ ] typography
 

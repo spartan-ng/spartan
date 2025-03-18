@@ -80,7 +80,14 @@ const CITIES = [
 	imports: [BrnToggleGroupModule, HlmToggleGroupModule, HlmButtonDirective, FormsModule, NgForOf, NgIf],
 	template: `
 		<div class="flex space-x-4">
-			<brn-toggle-group hlm [disabled]="disabled" [nullable]="nullable" [multiple]="multiple" [(ngModel)]="selected">
+			<brn-toggle-group
+				hlm
+				[disabled]="disabled"
+				[nullable]="nullable"
+				[multiple]="multiple"
+				[(ngModel)]="selected"
+				variant="merged"
+			>
 				<button variant="outline" *ngFor="let city of cities; let last = last" [value]="city" hlm brnToggle>
 					{{ city.name }}
 				</button>

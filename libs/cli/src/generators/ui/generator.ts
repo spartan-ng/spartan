@@ -44,12 +44,13 @@ async function createPrimitiveLibraries(
 ) {
 	const allPrimitivesSelected = response.primitives.includes('all');
 	const primitivesToCreate = allPrimitivesSelected ? availablePrimitiveNames : response.primitives;
+	const silent = allPrimitivesSelected || options.update;
 	const tasks: GeneratorCallback[] = [];
 
-	if (!response.primitives.includes('all')) {
+	if (!silent) {
 		await addDependentPrimitives(primitivesToCreate);
 	}
-	await replaceContextAndMenuBar(primitivesToCreate, allPrimitivesSelected);
+	await replaceContextAndMenuBar(primitivesToCreate, silent);
 
 	if (primitivesToCreate.length === 1 && primitivesToCreate[0] === 'collapsible') {
 		return tasks;
@@ -76,6 +77,7 @@ async function createPrimitiveLibraries(
 				tags: options.tags,
 				rootProject: options.rootProject,
 				angularCli: options.angularCli,
+				update: options.update,
 			});
 		}),
 	);

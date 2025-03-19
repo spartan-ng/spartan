@@ -8,6 +8,7 @@ import {
 } from '@nx/devkit';
 import { addTsConfigPath } from '@nx/js';
 import { getRootTsConfigPathInTree, readTsConfigPaths } from '@nx/js/src/utils/typescript/ts-config';
+import { readdirSync } from 'node:fs';
 import * as path from 'node:path';
 import { getInstalledPackageVersion } from '../../utils/version-utils';
 import { buildDependencyArray, buildDevDependencyArray } from './lib/build-dependency-array';
@@ -23,15 +24,20 @@ export async function hlmBaseGenerator(tree: Tree, options: HlmBaseGeneratorSche
 	const existingPathsByAlias = readTsConfigPaths(getRootTsConfigPathInTree(tree)) ?? {};
 	const tsConfigAliasToUse = `@spartan-ng/${options.publicName}`;
 
-	if (Object.keys(existingPathsByAlias).includes(tsConfigAliasToUse)) {
+	if (Object.keys(existingPathsByAlias).includes(tsConfigAliasToUse) && !options.update) {
 		console.log(`Skipping ${tsConfigAliasToUse}. It's already installed!`);
 		return runTasksInSerial(...tasks);
 	}
 
-	if (options.angularCli) {
-		addTsConfigPath(tree, tsConfigAliasToUse, [`.${path.sep}${joinPathFragments(targetLibDir, 'src', 'index.ts')}`]);
+	// if we are updating, we delete the src directory to remove files that were removed, otherwise add to tsconfig
+	if (options.update) {
+		deleteDirectory(tree, joinPathFragments(targetLibDir, 'src'));
 	} else {
-		tasks.push(await initializeAngularLibrary(tree, options));
+		if (options.angularCli) {
+			addTsConfigPath(tree, tsConfigAliasToUse, [`.${path.sep}${joinPathFragments(targetLibDir, 'src', 'index.ts')}`]);
+		} else {
+			tasks.push(await initializeAngularLibrary(tree, options));
+		}
 	}
 
 	generateFiles(
@@ -51,3 +57,20 @@ export async function hlmBaseGenerator(tree: Tree, options: HlmBaseGeneratorSche
 }
 
 export default hlmBaseGenerator;
+
+function deleteDirectory(tree: Tree, dirPath: string) {
+	if (!tree.exists(dirPath)) {
+		return;
+	}
+	const files = readdirSync(tree.root + '/' + dirPath);
+
+	for (const file of files) {
+		const filePath = joinPathFragments(dirPath, file);
+		if (tree.isFile(filePath)) {
+			tree.delete(filePath);
+		} else {
+			deleteDirectory(tree, filePath); // Recursively delete subdirectories
+		}
+	}
+	tree.delete(dirPath); // Delete the empty directory itself.
+}

@@ -1,8 +1,8 @@
 import { Component, type OnInit, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@spartan-ng/brain/forms';
-import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
+import { BrnSelectImports } from '../../brain/select/src';
 import { HlmButtonDirective, HlmButtonModule } from '../button/helm/src';
 import { HlmInputDirective } from '../input/helm/src';
 import { HlmSelectImports, HlmSelectModule } from '../select/helm/src';
@@ -75,6 +75,21 @@ export const Hint: Story = {
 			<hlm-hint>This is your public display name.</hlm-hint>
 		</hlm-form-field>
 		`,
+	}),
+};
+
+export const HintAndError: Story = {
+	render: (args) => ({
+		props: {
+			...args,
+			username: new FormControl(null, { validators: Validators.required }),
+		},
+		template: `
+		<hlm-form-field>
+			<input aria-label='Your Name' class='w-80' hlmInput type='text' placeholder='shadcn' [formControl]="username"/>
+			<hlm-hint>This is your public display name.</hlm-hint>
+			<hlm-error>Username is required</hlm-error>
+		</hlm-form-field>`,
 	}),
 };
 

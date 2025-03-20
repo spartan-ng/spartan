@@ -6,7 +6,7 @@ import { PageBottomNavComponent } from '@spartan-ng/app/app/shared/layout/page-b
 import { PageNavComponent } from '@spartan-ng/app/app/shared/layout/page-nav/page-nav.component';
 import { SectionIntroComponent } from '@spartan-ng/app/app/shared/layout/section-intro.component';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
-import { hlmP } from '@spartan-ng/ui-typography-helm';
+import { hlmCode, hlmP } from '@spartan-ng/ui-typography-helm';
 import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 
 export const routeMeta: RouteMeta = {
@@ -41,9 +41,10 @@ export const routeMeta: RouteMeta = {
 				</p>
 
 				<p class="${hlmP}">
-					Updating Helm can also be automated using our Healthcheck tool. If you have made manual changes to your
-					components, you may need to update them manually. The Healthcheck tool can replace your components with the
-					latest version, but note that any customizations will be lost.
+					Updating Helm can also be automated using our
+					<code class="${hlmCode}">migrate-helm-libraries</code>
+					schematic. If you have made manual changes to your components, you may need to update them manually. The
+					schematic can replace your components with the latest version, but note that any customizations will be lost.
 				</p>
 
 				<spartan-cli-tabs

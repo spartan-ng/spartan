@@ -135,7 +135,7 @@ async function regenerateLibraries(tree: Tree, options: MigrateHelmLibrariesGene
 		Object.keys(supportedLibraries),
 		supportedLibraries,
 		tree,
-		options,
+		{ ...options, installPeerDependencies: true },
 		config,
 	);
 }

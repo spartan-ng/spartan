@@ -2,8 +2,8 @@ import { Directive, computed, input } from '@angular/core';
 import { hlm } from '@spartan-ng/brain/core';
 import { VariantProps } from 'class-variance-authority';
 import type { ClassValue } from 'clsx';
-import { toggleGroupItemVariants } from './hlm-toggle-item.directive';
 import { provideHlmToggleGroup } from './hlm-toggle-group.token';
+import { toggleGroupItemVariants } from './hlm-toggle-item.directive';
 
 type ToggleGroupItemVariants = VariantProps<typeof toggleGroupItemVariants>;
 @Directive({

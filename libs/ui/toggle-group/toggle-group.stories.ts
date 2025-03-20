@@ -1,17 +1,17 @@
-import type { Meta, StoryObj } from '@storybook/angular';
-import { moduleMetadata } from '@storybook/angular';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideBold, lucideItalic, lucideUnderline } from '@ng-icons/lucide';
 import { BrnToggleGroupItemDirective, BrnToggleGroupModule } from '@spartan-ng/brain/toggle-group';
+import type { Meta, StoryObj } from '@storybook/angular';
+import { moduleMetadata } from '@storybook/angular';
 
-import { HlmIconDirective } from '../icon/helm/src';
-import { HlmToggleGroupItemDirective, HlmToggleGroupDirective, HlmToggleGroupModule } from './helm/src';
-import { Component, input, signal } from '@angular/core';
-import { HlmButtonDirective } from '../button/helm/src';
-import { FormGroup, FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { hlmP } from '../typography/helm/src';
 import { BooleanInput } from '@angular/cdk/coercion';
 import { JsonPipe } from '@angular/common';
+import { Component, input, signal } from '@angular/core';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HlmButtonDirective } from '../button/helm/src';
+import { HlmIconDirective } from '../icon/helm/src';
+import { hlmP } from '../typography/helm/src';
+import { HlmToggleGroupDirective, HlmToggleGroupItemDirective, HlmToggleGroupModule } from './helm/src';
 
 const meta: Meta<HlmToggleGroupDirective> = {
 	title: 'Toggle Group',
@@ -166,7 +166,7 @@ const CITIES = [
 	standalone: true,
 	imports: [BrnToggleGroupModule, HlmToggleGroupModule, HlmToggleGroupItemDirective, HlmButtonDirective, FormsModule],
 	template: `
-		<div class="flex p-4 space-x-4">
+		<div class="flex space-x-4 p-4">
 			<brn-toggle-group
 				hlm
 				[disabled]="disabled()"

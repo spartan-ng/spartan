@@ -199,7 +199,9 @@ class TableStory {
 			(ngModelChange)="_setOnlyAbove180($event)"
 		>
 			<button class="w-full sm:w-40" variant="outline" [value]="false" hlm brnToggleGroupItem>All</button>
-			<button class="w-full tabular-nums sm:w-40" variant="outline" [value]="true" hlm brnToggleGroupItem>Above 150</button>
+			<button class="w-full tabular-nums sm:w-40" variant="outline" [value]="true" hlm brnToggleGroupItem>
+				Above 150
+			</button>
 		</brn-toggle-group>
 		<brn-table
 			hlm

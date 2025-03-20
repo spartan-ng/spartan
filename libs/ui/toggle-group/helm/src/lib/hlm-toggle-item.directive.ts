@@ -43,7 +43,6 @@ export class HlmToggleGroupItemDirective {
 		const variantToUse = this._parentGroup?.variant() ?? this.variant();
 		const sizeToUse = this._parentGroup?.size() ?? this.size();
 		const userClass = this._parentGroup?.userClass() ?? this.userClass();
-
 		return hlm(
 			toggleGroupItemVariants({
 				variant: variantToUse,

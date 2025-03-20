@@ -11,7 +11,8 @@ export const toggleGroupItemVariants = cva(
 			variant: {
 				default: 'bg-transparent',
 				outline: 'border border-input bg-transparent hover:bg-accent hover:text-accent-foreground',
-				merged: 'border border-l-0 first-of-type:border-l border-input bg-transparent hover:bg-accent hover:text-accent-foreground',
+				merged:
+					'border border-l-0 first-of-type:border-l border-input bg-transparent hover:bg-accent hover:text-accent-foreground',
 			},
 			size: {
 				default: 'h-9 px-3',

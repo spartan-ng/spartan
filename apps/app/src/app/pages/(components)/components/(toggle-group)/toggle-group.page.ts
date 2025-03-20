@@ -1,26 +1,29 @@
-import { RouteMeta } from "@analogjs/router";
-import { MainSectionDirective } from "@spartan-ng/app/app/shared/layout/main-section.directive";
-import { Component } from "@angular/core";
-import { CodeComponent } from "@spartan-ng/app/app/shared/code/code.component";
-import { PageBottomNavLinkComponent } from "@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav-link.component";
-import { PageBottomNavComponent } from "@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav.component";
-import { PageNavComponent } from "@spartan-ng/app/app/shared/layout/page-nav/page-nav.component";
-import { SectionIntroComponent } from "@spartan-ng/app/app/shared/layout/section-intro.component";
-import { SectionSubHeadingComponent } from "@spartan-ng/app/app/shared/layout/section-sub-heading.component";
-import { TabsComponent } from "@spartan-ng/app/app/shared/layout/tabs.component";
-import { metaWith } from "@spartan-ng/app/app/shared/meta/meta.util";
-import { ToggleGroupPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from "./toggle-group.preview";
-import { TabsCliComponent } from "@spartan-ng/app/app/shared/layout/tabs-cli.component";
-import { CodePreviewDirective } from "@spartan-ng/app/app/shared/code/code-preview.directive";
-import { hlmH4 } from "@spartan-ng/ui-typography-helm";
-import { ToggleGroupOutlinePreviewComponent, outlineCode } from "./toggle-group--outline.preview";
-import { ToggleGroupDisabledPreviewComponent, disabledCode } from "./toggle-group--disabled.preview";
-import { ToggleGroupLargePreviewComponent, largeCode } from "./toggle-group--large.preview";
-import { ToggleGroupSmallPreviewComponent, smallCode } from "./toggle-group--small.preview";
+import { RouteMeta } from '@analogjs/router';
+import { Component } from '@angular/core';
+import { CodePreviewDirective } from '@spartan-ng/app/app/shared/code/code-preview.directive';
+import { CodeComponent } from '@spartan-ng/app/app/shared/code/code.component';
+import { MainSectionDirective } from '@spartan-ng/app/app/shared/layout/main-section.directive';
+import { PageBottomNavLinkComponent } from '@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav-link.component';
+import { PageBottomNavComponent } from '@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav.component';
+import { PageNavComponent } from '@spartan-ng/app/app/shared/layout/page-nav/page-nav.component';
+import { SectionIntroComponent } from '@spartan-ng/app/app/shared/layout/section-intro.component';
+import { SectionSubHeadingComponent } from '@spartan-ng/app/app/shared/layout/section-sub-heading.component';
+import { TabsCliComponent } from '@spartan-ng/app/app/shared/layout/tabs-cli.component';
+import { TabsComponent } from '@spartan-ng/app/app/shared/layout/tabs.component';
+import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
+import { hlmH4 } from '@spartan-ng/ui-typography-helm';
+import { ToggleGroupDisabledPreviewComponent, disabledCode } from './toggle-group--disabled.preview';
+import { ToggleGroupLargePreviewComponent, largeCode } from './toggle-group--large.preview';
+import { ToggleGroupOutlinePreviewComponent, outlineCode } from './toggle-group--outline.preview';
+import { ToggleGroupSmallPreviewComponent, smallCode } from './toggle-group--small.preview';
+import { ToggleGroupPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './toggle-group.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Toggle Group' },
-	meta: metaWith('spartan/ui - Toggle Group', 'A group of two-state buttons that can be used to select one or more options.'),
+	meta: metaWith(
+		'spartan/ui - Toggle Group',
+		'A group of two-state buttons that can be used to select one or more options.',
+	),
 	title: 'spartan/ui - Toggle Group',
 };
 

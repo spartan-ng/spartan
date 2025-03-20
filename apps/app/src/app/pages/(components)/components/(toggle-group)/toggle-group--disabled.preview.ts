@@ -1,32 +1,33 @@
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideBold, lucideItalic, lucideUnderline } from '@ng-icons/lucide';
-import { BrnToggleDirective, BrnToggleGroupComponent } from '@spartan-ng/brain/toggle';
+import { BrnToggleGroupItemDirective, BrnToggleGroupComponent } from '@spartan-ng/brain/toggle-group';
 import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
-import { HlmToggleDirective, HlmToggleGroupDirective } from '@spartan-ng/ui-toggle-helm';
+import { HlmToggleGroupItemDirective, HlmToggleGroupDirective } from '@spartan-ng/ui-toggle-group-helm';
 
 @Component({
 	selector: 'spartan-toggle-group-disabled',
 	standalone: true,
 	imports: [
-		BrnToggleDirective,
+		BrnToggleGroupItemDirective,
 		BrnToggleGroupComponent,
 		HlmIconDirective,
-		HlmToggleDirective,
+		HlmToggleGroupItemDirective,
 		HlmToggleGroupDirective,
-		NgIcon],
+		NgIcon,
+	],
 	providers: [provideIcons({ lucideBold, lucideItalic, lucideUnderline })],
 	template: `
 		<brn-toggle-group hlm multiple="false" nullable="true" size="sm" disabled>
-			<button aria-label="Bold" value="bold" hlmToggle disabled>
+			<button aria-label="Bold" value="bold" hlmToggleGroupItem>
 				<ng-icon hlm size="sm" name="lucideBold" />
 			</button>
 
-			<button aria-label="Italic" value="italic" hlmToggle>
+			<button aria-label="Italic" value="italic" hlmToggleGroupItem>
 				<ng-icon hlm size="sm" name="lucideItalic" />
 			</button>
 
-			<button aria-label="Underline" value="underline" hlmToggle>
+			<button aria-label="Underline" value="underline" hlmToggleGroupItem>
 				<ng-icon hlm size="sm" name="lucideUnderline" />
 			</button>
 		</brn-toggle-group>
@@ -37,10 +38,10 @@ export class ToggleGroupDisabledPreviewComponent {}
 export const disabledCode = `
 import { Component } from '@angular/core';
 import {
- HlmToggleDirective,
+ HlmToggleGroupItemDirective,
  HlmToggleGroupDirective,
-} from '@spartan-ng/ui-toggle-helm';
-import { BrnToggleDirective, BrnToggleGroupComponent } from '@spartan-ng/brain/toggle';
+} from '@spartan-ng/ui-toggle-group-helm';
+import { BrnToggleGroupItemDirective, BrnToggleGroupComponent } from '@spartan-ng/brain/toggle-group';
 import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 import { provideIcons } from '@ng-icons/core';
 import { lucideBold, lucideItalic, lucideUnderline } from '@ng-icons/lucide';
@@ -49,25 +50,25 @@ import { lucideBold, lucideItalic, lucideUnderline } from '@ng-icons/lucide';
   selector: 'spartan-toggle-group-disabled',
   standalone: true,
   imports: [
-	 BrnToggleDirective,
+	 BrnToggleGroupItemDirective,
 	 BrnToggleGroupComponent,
-	 HlmToggleDirective,
 	 HlmIconDirective,
+	 HlmToggleGroupItemDirective,
 	 HlmToggleGroupDirective,
 	 NgIcon,
 	],
   providers: [provideIcons({ lucideBold, lucideItalic, lucideUnderline })],
   template: \`
 	<brn-toggle-group hlm multiple="false" nullable="true" size="sm" disabled>
-	 <button aria-label="Bold" value="bold" hlmToggle>
+	 <button aria-label="Bold" value="bold" hlmToggleGroupItem>
 		 <ng-icon hlm size="sm" name="lucideBold" />
 	 </button>
 
-	 <button aria-label="Italic" value="italic" hlmToggle>
+	 <button aria-label="Italic" value="italic" hlmToggleGroupItem>
 	   <ng-icon hlm size="sm" name="lucideItalic" />
 	 </button>
 
-	 <button aria-label="Underline" value="underline" hlmToggle>
+	 <button aria-label="Underline" value="underline" hlmToggleGroupItem>
 	 	 <ng-icon hlm size="sm" name="lucideUnderline" />
 	 </button>
 	</brn-toggle-group>

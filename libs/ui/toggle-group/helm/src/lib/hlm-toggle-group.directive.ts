@@ -1,11 +1,11 @@
 import { Directive, computed, input } from '@angular/core';
 import { hlm } from '@spartan-ng/brain/core';
-import type { VariantProps } from 'class-variance-authority';
+import { VariantProps } from 'class-variance-authority';
 import type { ClassValue } from 'clsx';
+import { toggleGroupItemVariants } from './hlm-toggle-item.directive';
 import { provideHlmToggleGroup } from './hlm-toggle-group.token';
-import { toggleVariants } from './hlm-toggle.directive';
 
-type ToggleGroupItemVariants = VariantProps<typeof toggleVariants>;
+type ToggleGroupItemVariants = VariantProps<typeof toggleGroupItemVariants>;
 @Directive({
 	selector: 'brn-toggle-group[hlm],[hlmToggleGroup]',
 	standalone: true,
@@ -20,6 +20,10 @@ export class HlmToggleGroupDirective {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 
 	protected readonly _computedClass = computed(() =>
-		hlm('inline-flex items-center gap-x-2 focus:[&>[hlm][brnToggle]]:z-10', this.userClass()),
+		hlm('inline-flex items-center gap-x-2 focus:[&>[hlm][brnToggle]]:z-10', {
+			'gap-x-0 rounded-md first-of-type:[&>[hlmToggleGroupItem]]:rounded-l-md last-of-type:[&>[hlmToggleGroupItem]]:rounded-r-md [&>[hlmToggleGroupItem][variant="outline"]]:-mx-[0.5px] [&>[hlmToggleGroupItem]]:rounded-none':
+				this.variant() === 'merged',
+			[String(this.userClass())]: !!this.userClass(),
+		}),
 	);
 }

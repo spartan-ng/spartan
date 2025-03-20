@@ -20,7 +20,7 @@ import { ToggleGroupSmallPreviewComponent, smallCode } from "./toggle-group--sma
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Toggle Group' },
-	meta: metaWith('spartan/ui - Toggle Group', 'A group of toggle buttons.'),
+	meta: metaWith('spartan/ui - Toggle Group', 'A group of two-state buttons that can be used to select one or more options.'),
 	title: 'spartan/ui - Toggle Group',
 };
 
@@ -59,8 +59,8 @@ export const routeMeta: RouteMeta = {
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
 			<spartan-cli-tabs
 				class="mt-4"
-				nxCode="npx nx g @spartan-ng/cli:ui toggle"
-				ngCode="ng g @spartan-ng/cli:ui toggle"
+				nxCode="npx nx g @spartan-ng/cli:ui toggle-group"
+				ngCode="ng g @spartan-ng/cli:ui toggle-group"
 			/>
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>

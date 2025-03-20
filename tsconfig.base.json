@@ -62,6 +62,7 @@
 			"@spartan-ng/brain/table": ["libs/brain/table/src/index.ts"],
 			"@spartan-ng/brain/tabs": ["libs/brain/tabs/src/index.ts"],
 			"@spartan-ng/brain/toggle": ["libs/brain/toggle/src/index.ts"],
+			"@spartan-ng/brain/toggle-group": ["libs/brain/toggle-group/src/index.ts"],
 			"@spartan-ng/brain/tooltip": ["libs/brain/tooltip/src/index.ts"],
 			"@spartan-ng/cli": ["libs/cli/src/index.ts"],
 			"@spartan-ng/tools": ["libs/tools/src/index.ts"],
@@ -104,6 +105,7 @@
 			"@spartan-ng/ui-switch-helm": ["libs/ui/switch/helm/src/index.ts"],
 			"@spartan-ng/ui-table-helm": ["libs/ui/table/helm/src/index.ts"],
 			"@spartan-ng/ui-tabs-helm": ["libs/ui/tabs/helm/src/index.ts"],
+			"@spartan-ng/ui-toggle-group-helm": ["libs/ui/toggle-group/helm/src/index.ts"],
 			"@spartan-ng/ui-toggle-helm": ["libs/ui/toggle/helm/src/index.ts"],
 			"@spartan-ng/ui-tooltip-helm": ["libs/ui/tooltip/helm/src/index.ts"],
 			"@spartan-ng/ui-typography-helm": ["libs/ui/typography/helm/src/index.ts"]

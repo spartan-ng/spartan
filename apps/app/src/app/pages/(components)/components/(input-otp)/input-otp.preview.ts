@@ -4,7 +4,7 @@ import {
 	HlmInputOtpDirective,
 	HlmInputOtpGroupDirective,
 	HlmInputOtpSeparatorComponent,
-	HlmInputOtpSlotDirective,
+	HlmInputOtpSlotComponent,
 } from '@spartan-ng/ui-input-otp-helm';
 
 @Component({
@@ -14,7 +14,7 @@ import {
 		HlmInputOtpDirective,
 		HlmInputOtpGroupDirective,
 		HlmInputOtpSeparatorComponent,
-		HlmInputOtpSlotDirective,
+		HlmInputOtpSlotComponent,
 		BrnInputOtpComponent,
 	],
 	template: `
@@ -42,7 +42,7 @@ import {
 	HlmInputOtpDirective,
 	HlmInputOtpGroupDirective,
 	HlmInputOtpSeparatorComponent,
-	HlmInputOtpSlotDirective,
+	HlmInputOtpSlotComponent,
 } from '@spartan-ng/ui-input-otp-helm';
 
 @Component({
@@ -52,7 +52,7 @@ import {
 		HlmInputOtpDirective,
 		HlmInputOtpGroupDirective,
 		HlmInputOtpSeparatorComponent,
-		HlmInputOtpSlotDirective,
+		HlmInputOtpSlotComponent,
 		BrnInputOtpComponent,
 	],
 	template: \`
@@ -80,7 +80,7 @@ import {
 	HlmInputOtpDirective,
 	HlmInputOtpGroupDirective,
 	HlmInputOtpSeparatorComponent,
-	HlmInputOtpSlotDirective,
+	HlmInputOtpSlotComponent,
 } from '@spartan-ng/ui-input-otp-helm';
 `;
 export const defaultSkeleton = `

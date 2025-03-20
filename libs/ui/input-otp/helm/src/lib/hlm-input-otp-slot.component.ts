@@ -18,7 +18,7 @@ import { HlmInputOtpFakeCaretComponent } from './hlm-input-otp-fake-caret.compon
 		'[class]': '_computedClass()',
 	},
 })
-export class HlmInputOtpSlotDirective {
+export class HlmInputOtpSlotComponent {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 
 	public readonly index = input.required<number, NumberInput>({ transform: numberAttribute });

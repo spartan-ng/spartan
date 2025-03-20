@@ -11,15 +11,16 @@ import { SectionSubHeadingComponent } from '../../../../shared/layout/section-su
 import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { LabelPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './label.preview';
+import { InputOtpPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './input-otp.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'Label' },
-	meta: metaWith('spartan/ui - Label', 'Gives the label a distinct look.'),
-	title: 'spartan/ui - Label',
+	data: { breadcrumb: 'Input OTP' },
+	meta: metaWith('spartan/ui - Input OTP', 'Accessible one-time password component with copy paste functionality.'),
+	title: 'spartan/ui - Input OTP',
 };
 @Component({
-	selector: 'spartan-label',
+	selector: 'spartan-input-otp',
+	standalone: true,
 	imports: [
 		MainSectionDirective,
 		CodeComponent,
@@ -31,15 +32,18 @@ export const routeMeta: RouteMeta = {
 		PageNavComponent,
 		PageBottomNavComponent,
 		PageBottomNavLinkComponent,
-		LabelPreviewComponent,
+		InputOtpPreviewComponent,
 	],
 	template: `
 		<section spartanMainSection>
-			<spartan-section-intro name="Label" lead="Gives the label a distinct look." />
+			<spartan-section-intro
+				name="Input OTP"
+				lead="Accessible one-time password component with copy paste functionality."
+			/>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
-					<spartan-label-preview />
+					<spartan-input-otp-preview />
 				</div>
 				<spartan-code secondTab [code]="defaultCode" />
 			</spartan-tabs>
@@ -47,8 +51,8 @@ export const routeMeta: RouteMeta = {
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
 			<spartan-cli-tabs
 				class="mt-4"
-				nxCode="npx nx g @spartan-ng/cli:ui label"
-				ngCode="ng g @spartan-ng/cli:ui label"
+				nxCode="npx nx g @spartan-ng/cli:ui input-otp"
+				ngCode="ng g @spartan-ng/cli:ui input-otp"
 			/>
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
@@ -58,14 +62,14 @@ export const routeMeta: RouteMeta = {
 			</div>
 
 			<spartan-page-bottom-nav>
-				<spartan-page-bottom-nav-link href="menubar" label="Menubar" />
-				<spartan-page-bottom-nav-link direction="previous" href="input-otp" label="Input OTP" />
+				<spartan-page-bottom-nav-link href="label" label="Label" />
+				<spartan-page-bottom-nav-link direction="previous" href="input" label="Input" />
 			</spartan-page-bottom-nav>
 		</section>
 		<spartan-page-nav />
 	`,
 })
-export default class LabelPageComponent {
+export default class InputOtpPageComponent {
 	protected readonly defaultCode = defaultCode;
 	protected readonly defaultSkeleton = defaultSkeleton;
 	protected readonly defaultImports = defaultImports;

@@ -37,6 +37,7 @@ Angular components, e.g. the `<hlm-skeleton/>` component allows you to build a s
 - [x] Hover Card
 - [x] Icon
 - [x] Input
+- [x] Input OTP
 - [x] Label
 - [x] Menubar
 - [ ] Navigation Menu

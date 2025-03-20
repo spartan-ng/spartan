@@ -46,6 +46,7 @@ What kind of change does this PR introduce?
 - [ ] hover-card
 - [ ] icon
 - [ ] input
+- [ ] input-otp
 - [ ] label
 - [ ] menubar
 - [ ] navigation-menu

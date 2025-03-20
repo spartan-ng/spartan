@@ -90,7 +90,9 @@ export class HlmDatePickerComponent<T> {
 	public readonly date = model<T>();
 
 	/** If true, the date picker will close when a date is selected. */
-	public readonly autoCloseOnSelect = input<boolean>(this._config.autoCloseOnSelect);
+	public readonly autoCloseOnSelect = input<boolean, BooleanInput>(this._config.autoCloseOnSelect, {
+		transform: booleanAttribute,
+	});
 
 	/** Defines how the date should be displayed in the UI.  */
 	public readonly formatDate = input<(date: T) => string>(this._config.formatDate);

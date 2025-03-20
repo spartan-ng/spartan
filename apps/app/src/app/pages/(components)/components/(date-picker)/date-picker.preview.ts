@@ -6,7 +6,7 @@ import { HlmDatePickerComponent } from '@spartan-ng/ui-date-picker-helm';
 	standalone: true,
 	imports: [HlmDatePickerComponent],
 	template: `
-		<hlm-date-picker [min]="minDate" [max]="maxDate" [autoCloseOnSelect]="true">
+		<hlm-date-picker [min]="minDate" [max]="maxDate">
 			<span>Pick a date</span>
 		</hlm-date-picker>
 	`,
@@ -31,7 +31,7 @@ import { HlmDatePickerComponent } from '@spartan-ng/ui-date-picker-helm';
 	standalone: true,
 	imports: [HlmDatePickerComponent],
 	template: \`
-		<hlm-date-picker [min]="minDate" [max]="maxDate" [autoCloseOnSelect]="true">
+		<hlm-date-picker [min]="minDate" [max]="maxDate">
 			<span>Pick a date</span>
 		</hlm-date-picker>
 	\`,

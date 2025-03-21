@@ -18,7 +18,7 @@ import {
 		BrnInputOtpComponent,
 	],
 	template: `
-		<hlm-input-otp maxLength="6" inputClass="disabled:cursor-not-allowed ">
+		<brn-input-otp hlm maxLength="6" inputClass="disabled:cursor-not-allowed">
 			<div hlmInputOtpGroup>
 				<hlm-input-otp-slot index="0" />
 				<hlm-input-otp-slot index="1" />
@@ -30,7 +30,7 @@ import {
 				<hlm-input-otp-slot index="4" />
 				<hlm-input-otp-slot index="5" />
 			</div>
-		</hlm-input-otp>
+		</brn-input-otp>
 	`,
 })
 export class InputOtpPreviewComponent {}
@@ -56,7 +56,7 @@ import {
 		BrnInputOtpComponent,
 	],
 	template: \`
-		<hlm-input-otp maxLength="6" inputClass="disabled:cursor-not-allowed ">
+		<brn-input-otp hlm maxLength="6" inputClass="disabled:cursor-not-allowed">
 			<div hlmInputOtpGroup>
 				<hlm-input-otp-slot index="0" />
 				<hlm-input-otp-slot index="1" />
@@ -68,7 +68,7 @@ import {
 				<hlm-input-otp-slot index="4" />
 				<hlm-input-otp-slot index="5" />
 			</div>
-		</hlm-input-otp>
+		</brn-input-otp>
 	\`,
 })
 export class InputOtpPreviewComponent {}
@@ -84,7 +84,7 @@ import {
 } from '@spartan-ng/ui-input-otp-helm';
 `;
 export const defaultSkeleton = `
-<hlm-input-otp maxLength="6" inputClass="disabled:cursor-not-allowed ">
+<brn-input-otp hlm maxLength="6" inputClass="disabled:cursor-not-allowed">
 	<div hlmInputOtpGroup>
 		<hlm-input-otp-slot index="0" />
 		<hlm-input-otp-slot index="1" />
@@ -96,5 +96,5 @@ export const defaultSkeleton = `
 		<hlm-input-otp-slot index="4" />
 		<hlm-input-otp-slot index="5" />
 	</div>
-</hlm-input-otp>
+</brn-input-otp>
 `;

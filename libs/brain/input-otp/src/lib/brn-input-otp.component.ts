@@ -22,7 +22,7 @@ export const BRN_INPUT_OTP_VALUE_ACCESSOR = {
 export type InputMode = 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal' | 'search';
 
 @Component({
-	selector: 'brn-input-otp, hlm-input-otp',
+	selector: 'brn-input-otp',
 	standalone: true,
 	imports: [FormsModule],
 	template: `
@@ -102,6 +102,7 @@ export class BrnInputOtpComponent implements ControlValueAccessor {
 		}
 
 		this.value.set(newValue);
+		this._onChange?.(newValue);
 	}
 
 	/** CONROL VALUE ACCESSOR */

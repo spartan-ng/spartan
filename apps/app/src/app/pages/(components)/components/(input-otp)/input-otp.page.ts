@@ -1,5 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
+import { hlmCode, hlmH4, hlmP } from '@spartan-ng/ui-typography-helm';
 import { CodePreviewDirective } from '../../../../shared/code/code-preview.directive';
 import { CodeComponent } from '../../../../shared/code/code.component';
 import { MainSectionDirective } from '../../../../shared/layout/main-section.directive';
@@ -11,7 +12,8 @@ import { SectionSubHeadingComponent } from '../../../../shared/layout/section-su
 import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { InputOtpPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './input-otp.preview';
+import { inputOtpFormCode, InputOtpFormExampleComponent } from './input-otp--form.example';
+import { defaultCode, defaultImports, defaultSkeleton, InputOtpPreviewComponent } from './input-otp.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Input OTP' },
@@ -33,6 +35,7 @@ export const routeMeta: RouteMeta = {
 		PageBottomNavComponent,
 		PageBottomNavLinkComponent,
 		InputOtpPreviewComponent,
+		InputOtpFormExampleComponent,
 	],
 	template: `
 		<section spartanMainSection>
@@ -61,6 +64,23 @@ export const routeMeta: RouteMeta = {
 				<spartan-code [code]="defaultSkeleton" />
 			</div>
 
+			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
+
+			<h3 id="examples__default" class="${hlmH4} mb-2 mt-6">Form</h3>
+			<p class="${hlmP} mb-6">
+				Sync the otp to a form by adding
+				<code class="${hlmCode}">formControlName</code>
+				to
+				<code class="${hlmCode}">brn-input-otp</code>
+				.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-input-otp-form />
+				</div>
+				<spartan-code secondTab [code]="inputOtpFormCode" />
+			</spartan-tabs>
+
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="label" label="Label" />
 				<spartan-page-bottom-nav-link direction="previous" href="input" label="Input" />
@@ -73,4 +93,5 @@ export default class InputOtpPageComponent {
 	protected readonly defaultCode = defaultCode;
 	protected readonly defaultSkeleton = defaultSkeleton;
 	protected readonly defaultImports = defaultImports;
+	protected readonly inputOtpFormCode = inputOtpFormCode;
 }

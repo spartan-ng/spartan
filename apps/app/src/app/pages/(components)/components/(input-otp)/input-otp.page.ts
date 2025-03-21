@@ -17,7 +17,7 @@ import { defaultCode, defaultImports, defaultSkeleton, InputOtpPreviewComponent 
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Input OTP' },
-	meta: metaWith('spartan/ui - Input OTP', 'Accessible one-time password component with copy paste functionality.'),
+	meta: metaWith('spartan/ui - Input OTP', 'Accessible one-time password component.'),
 	title: 'spartan/ui - Input OTP',
 };
 @Component({
@@ -39,10 +39,7 @@ export const routeMeta: RouteMeta = {
 	],
 	template: `
 		<section spartanMainSection>
-			<spartan-section-intro
-				name="Input OTP"
-				lead="Accessible one-time password component with copy paste functionality."
-			/>
+			<spartan-section-intro name="Input OTP" lead="Accessible one-time password component." />
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>

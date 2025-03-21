@@ -186,18 +186,23 @@ const CITIES = [
 			<button hlmBtn size="sm" (click)="addCity()">Add Piraeus</button>
 		</div>
 
-		<p class="${hlmP}">{{ multiple ? 'Cities' : 'City' }} selected: {{ selectedCities }}</p>
+		<p class="${hlmP}">{{ multiple() ? 'Cities selected' : 'City selected' }}: {{ selectedCities }}</p>
 	`,
 })
 class HlmToggleGroupStoryComponent {
 	public multiple = input<BooleanInput>(false);
 	public nullable = input<BooleanInput>(false);
 	public disabled = input<BooleanInput>(false);
+	public defaultValue = input<City | City[] | undefined>(undefined);
 	public selected = signal<City | City[] | undefined>(undefined);
 
 	private _cities: City[] = [...CITIES];
 	public get cities(): City[] {
 		return this._cities;
+	}
+
+	ngOnInit() {
+		this.selected.set(this.defaultValue());
 	}
 
 	get selectedCities() {
@@ -206,18 +211,15 @@ class HlmToggleGroupStoryComponent {
 		}
 
 		if (Array.isArray(this.selected())) {
-			// @ts-expect-error
-			if (this.selected()?.length === 0) return 'No cities selected';
-			return (
-				this.selected()
-					// @ts-expect-error
-					?.map((c) => c.name)
-					.join(',')
-			);
+			const selectedArray = this.selected() as City[];
+			if (selectedArray.length === 0) return 'No cities selected';
+
+			return selectedArray.map((c) => c.name).join(',');
 		}
 
-		// @ts-expect-error
-		return this.selected()?.name;
+		// At this point, selected must be a single City
+		const selectedCity = this.selected() as City;
+		return selectedCity.name;
 	}
 
 	setToSyracuse() {
@@ -244,23 +246,19 @@ export const ToggleGroupSingleNullable: Story = {
 	}),
 };
 
-export const ToggleGroupMultipleNullable: StoryObj<{ cities: City[] }> = {
+export const ToggleGroupMultipleNullable: Story = {
 	name: 'Toggle Group - Multiple Nullable',
 	decorators: [
 		moduleMetadata({
 			imports: [HlmToggleGroupStoryComponent],
 		}),
 	],
-	args: {
-		cities: [CITIES[0]],
-	},
-	render: ({ cities }) => ({
-		props: { cities },
+	render: () => ({
 		template: '<hlm-toggle-group-story nullable="true" multiple="true"/>',
 	}),
 };
 
-export const ToggleGroupSingle: StoryObj<{ city: City }> = {
+export const ToggleGroupSingle: StoryObj<{ defaultValue: City }> = {
 	name: 'Toggle Group - Single',
 	decorators: [
 		moduleMetadata({
@@ -268,31 +266,27 @@ export const ToggleGroupSingle: StoryObj<{ city: City }> = {
 		}),
 	],
 	args: {
-		city: CITIES[0],
+		defaultValue: CITIES[0],
 	},
-	render: ({ city }) => ({
-		props: { city },
-		template: '<hlm-toggle-group-story [selected]="city"/>',
+	render: ({ defaultValue }) => ({
+		props: { defaultValue },
+		template: '<hlm-toggle-group-story nullable="false" [defaultValue]="defaultValue"/>',
 	}),
 };
 
-export const ToggleGroupDisabled: StoryObj<{ city: City }> = {
+export const ToggleGroupDisabled: Story = {
 	name: 'Toggle Group - Disabled',
 	decorators: [
 		moduleMetadata({
 			imports: [HlmToggleGroupStoryComponent],
 		}),
 	],
-	args: {
-		city: CITIES[0],
-	},
-	render: ({ city }) => ({
-		props: { city },
-		template: '<hlm-toggle-group-story [disabled]="true" [selected]="city"/>',
+	render: () => ({
+		template: '<hlm-toggle-group-story [disabled]="true"/>',
 	}),
 };
 
-export const ToggleGroupMultiple: StoryObj<{ cities: City[] }> = {
+export const ToggleGroupMultiple: StoryObj<{ defaultValue: City[] }> = {
 	name: 'Toggle Group - Multiple',
 	decorators: [
 		moduleMetadata({
@@ -300,11 +294,11 @@ export const ToggleGroupMultiple: StoryObj<{ cities: City[] }> = {
 		}),
 	],
 	args: {
-		cities: [CITIES[0]],
+		defaultValue: [CITIES[0]],
 	},
-	render: ({ cities }) => ({
-		props: { cities },
-		template: '<hlm-toggle-group-story [selected]="cities" multiple="true"/>',
+		render: ({ defaultValue }) => ({
+		props: { defaultValue },
+		template: '<hlm-toggle-group-story multiple="true" [defaultValue]="defaultValue"/>',
 	}),
 };
 
@@ -340,7 +334,7 @@ class HlmToggleGroupFormStoryComponent {
 	});
 }
 
-export const ToggleGroupForm: StoryObj<{}> = {
+export const ToggleGroupForm: Story = {
 	name: 'Toggle Group - Form',
 	decorators: [
 		moduleMetadata({

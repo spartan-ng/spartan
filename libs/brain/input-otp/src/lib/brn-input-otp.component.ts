@@ -58,7 +58,6 @@ export class BrnInputOtpComponent implements ControlValueAccessor {
 
 	public readonly maxLength = input.required<number, NumberInput>({ transform: numberAttribute });
 
-	// TODO support more input modes?
 	public readonly inputMode = input<InputMode>('numeric');
 
 	public readonly inputClass = input<string>('');
@@ -105,7 +104,7 @@ export class BrnInputOtpComponent implements ControlValueAccessor {
 		this._onChange?.(newValue);
 	}
 
-	/** CONROL VALUE ACCESSOR */
+	/** CONTROL VALUE ACCESSOR */
 	writeValue(value: string | null): void {
 		// optional FormControl is initialized with null value
 		if (value === null) return;

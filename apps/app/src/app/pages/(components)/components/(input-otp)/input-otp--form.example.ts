@@ -53,7 +53,7 @@ import { toast } from 'ngx-sonner';
 })
 export class InputOtpFormExampleComponent implements OnDestroy {
 	private readonly _formBuilder = inject(FormBuilder);
-	private intervalId?: NodeJS.Timeout;
+	private _intervalId?: NodeJS.Timeout;
 
 	public countdown = signal(60);
 	public isResendDisabled = computed(() => this.countdown() > 0);
@@ -91,7 +91,7 @@ export class InputOtpFormExampleComponent implements OnDestroy {
 
 	private startCountdown() {
 		this.stopCountdown();
-		this.intervalId = setInterval(() => {
+		this._intervalId = setInterval(() => {
 			if (this.countdown() > 0) {
 				this.countdown.set(this.countdown() - 1);
 			} else {
@@ -101,9 +101,9 @@ export class InputOtpFormExampleComponent implements OnDestroy {
 	}
 
 	private stopCountdown() {
-		if (this.intervalId) {
-			clearInterval(this.intervalId);
-			this.intervalId = undefined;
+		if (this._intervalId) {
+			clearInterval(this._intervalId);
+			this._intervalId = undefined;
 		}
 	}
 }
@@ -164,7 +164,7 @@ import { toast } from 'ngx-sonner';
 })
 export class InputOtpFormExampleComponent implements OnDestroy {
 	private readonly _formBuilder = inject(FormBuilder);
-	private intervalId?: NodeJS.Timeout;
+	private _intervalId?: NodeJS.Timeout;
 
 	public countdown = signal(60);
 	public isResendDisabled = computed(() => this.countdown() > 0);
@@ -202,7 +202,7 @@ export class InputOtpFormExampleComponent implements OnDestroy {
 
 	private startCountdown() {
 		this.stopCountdown();
-		this.intervalId = setInterval(() => {
+		this._intervalId = setInterval(() => {
 			if (this.countdown() > 0) {
 				this.countdown.set(this.countdown() - 1);
 			} else {
@@ -212,9 +212,9 @@ export class InputOtpFormExampleComponent implements OnDestroy {
 	}
 
 	private stopCountdown() {
-		if (this.intervalId) {
-			clearInterval(this.intervalId);
-			this.intervalId = undefined;
+		if (this._intervalId) {
+			clearInterval(this._intervalId);
+			this._intervalId = undefined;
 		}
 	}
 }

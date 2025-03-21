@@ -9,10 +9,9 @@ import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
 	imports: [HlmDatePickerComponent, ReactiveFormsModule, HlmButtonDirective, HlmLabelDirective],
 	template: `
 		<form [formGroup]="form" (ngSubmit)="submit()" class="space-y-8">
-			<!-- TODO use form field with hint and error state -->
 			<label hlmLabel>
 				Date of birth
-				<hlm-date-picker [min]="minDate" [max]="maxDate" formControlName="birthday">
+				<hlm-date-picker [min]="minDate" [max]="maxDate" formControlName="birthday" [autoCloseOnSelect]="true">
 					<span>Pick a date</span>
 				</hlm-date-picker>
 			</label>
@@ -58,10 +57,9 @@ import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
 	imports: [HlmDatePickerComponent, ReactiveFormsModule, HlmButtonDirective, HlmLabelDirective],
 	template: \`
 		<form [formGroup]="form" (ngSubmit)="submit()" class="space-y-8">
-			<!-- TODO use form field with hint and error state -->
 			<label hlmLabel>
 				Date of birth
-				<hlm-date-picker [min]="minDate" [max]="maxDate" formControlName="birthday">
+				<hlm-date-picker [min]="minDate" [max]="maxDate" formControlName="birthday" [autoCloseOnSelect]="true">
 					<span>Pick a date</span>
 				</hlm-date-picker>
 			</label>

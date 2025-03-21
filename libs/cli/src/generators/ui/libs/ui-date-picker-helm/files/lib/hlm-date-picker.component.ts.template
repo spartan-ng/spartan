@@ -4,6 +4,7 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCalendar } from '@ng-icons/lucide';
 import { hlm } from '@spartan-ng/brain/core';
+import { BrnDialogState } from '@spartan-ng/brain/dialog';
 import { type ChangeFn, type TouchFn } from '@spartan-ng/brain/forms';
 import { BrnPopoverComponent, BrnPopoverContentDirective, BrnPopoverTriggerDirective } from '@spartan-ng/brain/popover';
 import { HlmCalendarComponent } from '@spartan-ng/ui-calendar-helm';
@@ -31,7 +32,7 @@ export const HLM_DATE_PICKER_VALUE_ACCESSOR = {
 	],
 	providers: [HLM_DATE_PICKER_VALUE_ACCESSOR, provideIcons({ lucideCalendar })],
 	template: `
-		<brn-popover sideOffset="5">
+		<brn-popover sideOffset="5" [state]="popoverState()" (stateChanged)="popoverState.set($event)">
 			<button type="button" [class]="_computedClass()" [disabled]="state().disabled()" brnPopoverTrigger>
 				<ng-icon hlm size="sm" name="lucideCalendar" />
 
@@ -87,15 +88,20 @@ export class HlmDatePickerComponent<T> {
 	/** The selected value. */
 	public readonly date = model<T>();
 
-	protected readonly state = computed(() => ({
-		disabled: signal(this.disabled()),
-	}));
+	/** If true, the date picker will close when a date is selected. */
+	public readonly autoCloseOnSelect = input<boolean>(this._config.autoCloseOnSelect);
 
 	/** Defines how the date should be displayed in the UI.  */
 	public readonly formatDate = input<(date: T) => string>(this._config.formatDate);
 
 	/** Defines how the date should be transformed before saving to model/form. */
 	public readonly transformDate = input<(date: T) => T>(this._config.transformDate);
+
+	protected readonly popoverState = signal<BrnDialogState | null>(null);
+
+	protected readonly state = computed(() => ({
+		disabled: signal(this.disabled()),
+	}));
 
 	protected readonly formattedDate = computed(() => {
 		const date = this.date();
@@ -114,6 +120,10 @@ export class HlmDatePickerComponent<T> {
 		this.date.set(transformedDate);
 		this._onChange?.(transformedDate);
 		this.changed.emit(transformedDate);
+
+		if (this.autoCloseOnSelect()) {
+			this.popoverState.set('closed');
+		}
 	}
 
 	/** CONROL VALUE ACCESSOR */
@@ -134,5 +144,13 @@ export class HlmDatePickerComponent<T> {
 
 	setDisabledState(isDisabled: boolean): void {
 		this.state().disabled.set(isDisabled);
+	}
+
+	open() {
+		this.popoverState.set('open');
+	}
+
+	close() {
+		this.popoverState.set('closed');
 	}
 }

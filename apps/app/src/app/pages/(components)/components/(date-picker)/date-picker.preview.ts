@@ -52,7 +52,7 @@ import { HlmDatePickerComponent } from '@spartan-ng/ui-date-picker-helm';
 `;
 
 export const codeSkeleton = `
-<hlm-date-picker [min]="minDate" [max]="maxDate">
+<hlm-date-picker [min]="minDate" [max]="maxDate" [autoCloseOnSelect]="true">
 	<span>Pick a date</span>
 </hlm-date-picker>
 `;

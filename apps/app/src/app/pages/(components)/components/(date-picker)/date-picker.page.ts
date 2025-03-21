@@ -86,6 +86,12 @@ const link = 'h-6 underline text-base px-0.5';
 			</p>
 			<ul class="${hlmUl}">
 				<li>
+					<code class="${hlmCode}">autoCloseOnSelect: boolean;</code>
+					if
+					<code class="${hlmCode}">true</code>
+					, the date picker will close when a date is selected.
+				</li>
+				<li>
 					<code class="${hlmCode}">formatDate: (date: T) => string;</code>
 					defines the default format how the date should be displayed in the UI.
 				</li>

@@ -2,6 +2,11 @@ import { inject, InjectionToken, ValueProvider } from '@angular/core';
 
 export interface HlmDatePickerConfig<T> {
 	/**
+	 * If true, the date picker will close when a date is selected.
+	 */
+	autoCloseOnSelect: boolean;
+
+	/**
 	 * Defines how the date should be displayed in the UI.
 	 *
 	 * @param date
@@ -22,6 +27,7 @@ function getDefaultConfig<T>(): HlmDatePickerConfig<T> {
 	return {
 		formatDate: (date) => (date instanceof Date ? date.toDateString() : `${date}`),
 		transformDate: (date) => date,
+		autoCloseOnSelect: false,
 	};
 }
 

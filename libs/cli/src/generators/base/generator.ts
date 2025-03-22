@@ -7,8 +7,8 @@ import {
 	runTasksInSerial,
 } from '@nx/devkit';
 import { addTsConfigPath } from '@nx/js';
-import { getRootTsConfigPathInTree, readTsConfigPaths } from '@nx/js/src/utils/typescript/ts-config';
 import * as path from 'node:path';
+import { readTsConfigPathsFromTree } from '../../utils/tsconfig';
 import { getInstalledPackageVersion } from '../../utils/version-utils';
 import { buildDependencyArray, buildDevDependencyArray } from './lib/build-dependency-array';
 import { getTargetLibraryDirectory } from './lib/get-target-library-directory';
@@ -20,7 +20,7 @@ export async function hlmBaseGenerator(tree: Tree, options: HlmBaseGeneratorSche
 	const tasks: GeneratorCallback[] = [];
 	const targetLibDir = getTargetLibraryDirectory(options, tree);
 
-	const existingPathsByAlias = readTsConfigPaths(getRootTsConfigPathInTree(tree)) ?? {};
+	const existingPathsByAlias = readTsConfigPathsFromTree(tree);
 	const tsConfigAliasToUse = `@spartan-ng/${options.publicName}`;
 
 	if (Object.keys(existingPathsByAlias).includes(tsConfigAliasToUse)) {

@@ -6,6 +6,7 @@
 		"@nx/angular": ">=20.0.0",
 		"@nx/devkit": ">=20.0.0",
 		"@nx/js": ">=20.0.0",
+		"@nx/workspace": ">=20.0.0",
 		"@phenomnomnominal/tsquery": "^6.1.3",
 		"@schematics/angular": ">=19.0.0",
 		"enquirer": "2.3.6",

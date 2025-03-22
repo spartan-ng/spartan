@@ -10,7 +10,7 @@ import { hlmP } from '@spartan-ng/ui-typography-helm';
 import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'Figma' },
+	data: { breadcrumb: 'Health Checks' },
 	meta: metaWith('spartan - Health Checks', 'Ensure your project is up to date with the latest best practices.'),
 	title: 'spartan - Health Checks',
 };
@@ -50,13 +50,13 @@ export const routeMeta: RouteMeta = {
 
 				<spartan-cli-tabs
 					class="mb-6 mt-4"
-					nxCode="npx nx g @spartan-ng/cli:healthcheck"
+					nxCode="nx g @spartan-ng/cli:healthcheck"
 					ngCode="ng g @spartan-ng/cli:healthcheck"
 				/>
 			</section>
 
 			<spartan-page-bottom-nav>
-				<spartan-page-bottom-nav-link href="/components" label="Components" />
+				<spartan-page-bottom-nav-link href="update-guide" label="Update Guide" />
 				<spartan-page-bottom-nav-link direction="previous" href="figma" label="Figma" />
 			</spartan-page-bottom-nav>
 		</section>

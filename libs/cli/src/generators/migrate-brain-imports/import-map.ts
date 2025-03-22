@@ -23,6 +23,7 @@ export default {
 	'@spartan-ng/ui-table-brain': '@spartan-ng/brain/table',
 	'@spartan-ng/ui-tabs-brain': '@spartan-ng/brain/tabs',
 	'@spartan-ng/ui-toggle-brain': '@spartan-ng/brain/toggle',
+	'@spartan-ng/ui-toggle-group-brain': '@spartan-ng/brain/toggle-group',
 	'@spartan-ng/ui-tooltip-brain': '@spartan-ng/brain/tooltip',
 	'@spartan-ng/ui-date-time-brain': '@spartan-ng/brain/date-time',
 	'@spartan-ng/ui-date-time-luxon-brain': '@spartan-ng/brain/date-time-luxon',

@@ -7,6 +7,7 @@ import {
 	input,
 	model,
 	numberAttribute,
+	output,
 	signal,
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -37,6 +38,7 @@ export type InputMode = 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal'
 				[inputMode]="inputMode()"
 				[ngModel]="value()"
 				(input)="onInputChange($event)"
+				(paste)="onPaste($event)"
 				(focus)="focused.set(true)"
 				(blur)="focused.set(false)"
 			/>
@@ -62,6 +64,15 @@ export class BrnInputOtpComponent implements ControlValueAccessor {
 
 	public readonly inputClass = input<string>('');
 
+	/**
+	 * Defines how the pasted text should be transformed before saving to model/form.
+	 * Allows pasting text which contains extra characters like spaces, dashes, etc. and are longer than the maxLength.
+	 *
+	 * "XXX-XXX": (pastedText) => pastedText.replaceAll('-', '')
+	 * "XXX XXX": (pastedText) => pastedText.replaceAll(/\s+/g, '')
+	 */
+	public readonly transformPaste = input<(pastedText: string, maxLength: number) => string>((text) => text);
+
 	public readonly value = model('');
 
 	public readonly context = computed(() => {
@@ -84,6 +95,8 @@ export class BrnInputOtpComponent implements ControlValueAccessor {
 		return slots;
 	});
 
+	public readonly completed = output<string>();
+
 	protected readonly state = computed(() => ({
 		disabled: signal(this.disabled()),
 	}));
@@ -91,7 +104,7 @@ export class BrnInputOtpComponent implements ControlValueAccessor {
 	protected _onChange?: ChangeFn<string>;
 	protected _onTouched?: TouchFn;
 
-	onInputChange(event: Event) {
+	protected onInputChange(event: Event) {
 		let newValue = (event.target as HTMLInputElement).value;
 		const maxLength = this.maxLength();
 
@@ -100,8 +113,19 @@ export class BrnInputOtpComponent implements ControlValueAccessor {
 			newValue = newValue.slice(0, maxLength - 1) + newValue.slice(-1);
 		}
 
-		this.value.set(newValue);
-		this._onChange?.(newValue);
+		this.updateValue(newValue, maxLength);
+	}
+
+	protected onPaste(event: ClipboardEvent) {
+		event.preventDefault();
+		const clipboardData = event.clipboardData?.getData('text/plain') || '';
+
+		const maxLength = this.maxLength();
+
+		const content = this.transformPaste()(clipboardData, maxLength);
+		const newValue = content.slice(0, maxLength);
+
+		this.updateValue(newValue, maxLength);
 	}
 
 	/** CONTROL VALUE ACCESSOR */
@@ -109,7 +133,7 @@ export class BrnInputOtpComponent implements ControlValueAccessor {
 		// optional FormControl is initialized with null value
 		if (value === null) return;
 
-		this.value.set(value);
+		this.updateValue(value, this.maxLength());
 	}
 
 	registerOnChange(fn: ChangeFn<string>): void {
@@ -122,5 +146,20 @@ export class BrnInputOtpComponent implements ControlValueAccessor {
 
 	setDisabledState(isDisabled: boolean): void {
 		this.state().disabled.set(isDisabled);
+	}
+
+	private isCompleted(newValue: string, previousValue: string, maxLength: number) {
+		return newValue !== previousValue && previousValue.length < maxLength && newValue.length === maxLength;
+	}
+
+	private updateValue(newValue: string, maxLength: number) {
+		const previousValue = this.value();
+
+		this.value.set(newValue);
+		this._onChange?.(newValue);
+
+		if (this.isCompleted(newValue, previousValue, maxLength)) {
+			this.completed.emit(newValue);
+		}
 	}
 }

@@ -71,15 +71,11 @@ export class InputOtpFormExampleComponent implements OnDestroy {
 	public transformPaste = (pastedText: string) => pastedText.replaceAll('-', '');
 
 	public form = this._formBuilder.group({
-		otp: ['12', [Validators.required, Validators.minLength(this.maxLength), Validators.maxLength(this.maxLength)]],
+		otp: [null, [Validators.required, Validators.minLength(this.maxLength), Validators.maxLength(this.maxLength)]],
 	});
 
 	constructor() {
 		this.startCountdown();
-	}
-
-	completed(value: string) {
-		console.log('Completed value:', value);
 	}
 
 	submit() {
@@ -152,7 +148,14 @@ import { toast } from 'ngx-sonner';
 		<hlm-toaster />
 
 		<form [formGroup]="form" (ngSubmit)="submit()" class="space-y-8">
-			<brn-input-otp hlm [maxLength]="maxLength" inputClass="disabled:cursor-not-allowed" formControlName="otp">
+			<brn-input-otp
+				hlm
+				[maxLength]="maxLength"
+				inputClass="disabled:cursor-not-allowed"
+				formControlName="otp"
+				[transformPaste]="transformPaste"
+				(completed)="submit()"
+			>
 				<div hlmInputOtpGroup>
 					<hlm-input-otp-slot index="0" />
 					<hlm-input-otp-slot index="1" />
@@ -183,6 +186,9 @@ export class InputOtpFormExampleComponent implements OnDestroy {
 	public isResendDisabled = computed(() => this.countdown() > 0);
 
 	public maxLength = 6;
+
+	/** Overrides global formatDate  */
+	public transformPaste = (pastedText: string) => pastedText.replaceAll('-', '');
 
 	public form = this._formBuilder.group({
 		otp: [null, [Validators.required, Validators.minLength(this.maxLength), Validators.maxLength(this.maxLength)]],

@@ -92,9 +92,8 @@ export class InputOtpFormExampleComponent implements OnDestroy {
 	private startCountdown() {
 		this.stopCountdown();
 		this._intervalId = setInterval(() => {
-			if (this.countdown() > 0) {
-				this.countdown.set(this.countdown() - 1);
-			} else {
+			this.countdown.update((countdown) => Math.max(0, countdown - 1));
+			if (this.countdown() === 0) {
 				this.stopCountdown();
 			}
 		}, 1000);
@@ -203,9 +202,8 @@ export class InputOtpFormExampleComponent implements OnDestroy {
 	private startCountdown() {
 		this.stopCountdown();
 		this._intervalId = setInterval(() => {
-			if (this.countdown() > 0) {
-				this.countdown.set(this.countdown() - 1);
-			} else {
+			this.countdown.update((countdown) => Math.max(0, countdown - 1));
+			if (this.countdown() === 0) {
 				this.stopCountdown();
 			}
 		}, 1000);

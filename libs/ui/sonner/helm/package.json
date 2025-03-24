@@ -11,6 +11,6 @@
 		"@ng-icons/lucide": "^26.3.0",
 		"@spartan-ng/brain": "0.0.1-alpha.381",
 		"clsx": "^2.1.1",
-		"ngx-sonner": "^2.0.0"
+		"ngx-sonner": "^3.0.0"
 	}
 }

@@ -722,4 +722,27 @@ describe('Brn Select Component in multi-mode', () => {
 			expect(getFormValidationClasses(trigger)).toStrictEqual(afterValuePatchExpected);
 		});
 	});
+
+	describe('deselect option - multi mode', () => {
+		it('should reflect correct form control status with no initial value', async () => {
+			const { fixture, trigger, user } = await setupWithFormValidationMulti();
+			const cmpInstance = fixture.componentInstance as SelectMultiValueTestComponent;
+
+			expect(cmpInstance.form?.get('fruit')?.value).toEqual(null);
+
+			// open select
+			await user.click(trigger);
+
+			const options = await screen.getAllByRole('option');
+			await user.click(options[1]);
+
+			expect(cmpInstance.form?.get('fruit')?.value).toEqual(['banana']);
+			expect(screen.getByTestId('brn-select-value').textContent?.trim()).toBe('Banana');
+
+			await user.click(options[1]);
+
+			expect(trigger).toHaveTextContent('Select a Fruit');
+			expect(cmpInstance.form?.get('fruit')?.value).toEqual(null);
+		});
+	});
 });

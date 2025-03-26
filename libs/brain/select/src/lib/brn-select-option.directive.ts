@@ -1,6 +1,6 @@
 import type { Highlightable } from '@angular/cdk/a11y';
 import { BooleanInput } from '@angular/cdk/coercion';
-import { Directive, ElementRef, booleanAttribute, computed, inject, input, signal } from '@angular/core';
+import { booleanAttribute, computed, Directive, ElementRef, inject, input, signal } from '@angular/core';
 import { injectBrnSelectContent } from './brn-select-content.token';
 import { injectBrnSelect } from './brn-select.token';
 
@@ -45,6 +45,11 @@ export class BrnSelectOptionDirective<T> implements Highlightable {
 
 	public select(): void {
 		if (this._disabled()) {
+			return;
+		}
+
+		if (this._select.multiple()) {
+			this._select.toggleSelect(this.value());
 			return;
 		}
 

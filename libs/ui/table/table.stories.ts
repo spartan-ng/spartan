@@ -7,14 +7,14 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown } from '@ng-icons/lucide';
 import { BrnMenuModule } from '@spartan-ng/brain/menu';
 import { BrnTableModule, type PaginatorState, useBrnColumnManager } from '@spartan-ng/brain/table';
-import { BrnToggleGroupModule } from '@spartan-ng/brain/toggle';
+import { BrnToggleGroupModule } from '@spartan-ng/brain/toggle-group';
 import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
 import { debounceTime } from 'rxjs';
 import { HlmButtonDirective, HlmButtonModule } from '../button/helm/src';
 import { HlmIconDirective } from '../icon/helm/src';
 import { HlmInputDirective } from '../input/helm/src';
 import { HlmMenuModule } from '../menu/helm/src';
-import { HlmToggleGroupModule } from '../toggle/helm/src';
+import { HlmToggleGroupModule } from '../toggle-group/helm/src';
 import { HlmTableComponent, HlmTableModule } from './helm/src';
 
 const createUsers = (numUsers = 5) => {
@@ -198,8 +198,10 @@ class TableStory {
 			[ngModel]="_onlyAbove180()"
 			(ngModelChange)="_setOnlyAbove180($event)"
 		>
-			<button class="w-full sm:w-40" variant="outline" [value]="false" hlm brnToggle>All</button>
-			<button class="w-full tabular-nums sm:w-40" variant="outline" [value]="true" hlm brnToggle>Above 150</button>
+			<button class="w-full sm:w-40" variant="outline" [value]="false" hlm brnToggleGroupItem>All</button>
+			<button class="w-full tabular-nums sm:w-40" variant="outline" [value]="true" hlm brnToggleGroupItem>
+				Above 150
+			</button>
 		</brn-toggle-group>
 		<brn-table
 			hlm

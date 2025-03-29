@@ -119,6 +119,7 @@ export default defineConfig(({ mode }) => {
 						'/components/tabs',
 						'/components/textarea',
 						'/components/toggle',
+						'/components/toggle-group',
 						'/components/tooltip',
 
 						'/stack/overview',

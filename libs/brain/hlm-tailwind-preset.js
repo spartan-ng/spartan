@@ -63,9 +63,14 @@ module.exports = {
 						transform: 'translateX(100%) scaleX(0.5)',
 					},
 				},
+				'caret-blink': {
+					'0%,70%,100%': { opacity: '1' },
+					'20%,50%': { opacity: '0' },
+				},
 			},
 			animation: {
 				indeterminate: 'indeterminate 4s infinite ease-in-out',
+				'caret-blink': 'caret-blink 1.25s ease-out infinite',
 			},
 		},
 	},

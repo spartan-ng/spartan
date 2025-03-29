@@ -31,6 +31,7 @@ module.exports = {
 				'hover-card',
 				'icon',
 				'input',
+				'input-otp',
 				'label',
 				'menubar',
 				'navigation-menu',

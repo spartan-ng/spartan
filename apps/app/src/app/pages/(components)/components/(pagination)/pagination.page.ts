@@ -11,14 +11,15 @@ import { SectionIntroComponent } from '../../../../shared/layout/section-intro.c
 import { SectionSubHeadingComponent } from '../../../../shared/layout/section-sub-heading.component';
 import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
-import { UIApiDocsComponent } from "../../../../shared/layout/ui-docs-section/ui-docs-section.component";import { metaWith } from '../../../../shared/meta/meta.util';
+import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
+import { metaWith } from '../../../../shared/meta/meta.util';
 import { PaginationAdvancedComponent, advancedCode } from './pagination--advanced.example';
 import { PaginationIconOnlyComponent, iconOnlyCode } from './pagination--icon-only.example';
 import { PaginationQueryParamsComponent, queryParamsCode } from './pagination--query-params.example';
 import { PaginationPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './pagination.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'pagination', api: 'pagination'},
+	data: { breadcrumb: 'pagination', api: 'pagination' },
 	meta: metaWith('spartan/ui - Pagination', 'Pagination with page navigation, next and previous links.'),
 	title: 'spartan/ui - Pagination',
 };
@@ -26,7 +27,8 @@ export const routeMeta: RouteMeta = {
 @Component({
 	selector: 'spartan-pagination',
 	imports: [
-UIApiDocsComponent,		MainSectionDirective,
+		UIApiDocsComponent,
+		MainSectionDirective,
 		CodeComponent,
 		SectionIntroComponent,
 		SectionSubHeadingComponent,
@@ -64,9 +66,6 @@ UIApiDocsComponent,		MainSectionDirective,
 				<spartan-code [code]="defaultImports" />
 				<spartan-code [code]="defaultSkeleton" />
 			</div>
-
-			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
-			<spartan-ui-api-docs docType="brain" />
 
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="helm" />

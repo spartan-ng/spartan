@@ -13,11 +13,12 @@ import { SectionIntroComponent } from '../../../../shared/layout/section-intro.c
 import { SectionSubHeadingComponent } from '../../../../shared/layout/section-sub-heading.component';
 import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
-import { UIApiDocsComponent } from "../../../../shared/layout/ui-docs-section/ui-docs-section.component";import { metaWith } from '../../../../shared/meta/meta.util';
+import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
+import { metaWith } from '../../../../shared/meta/meta.util';
 import { DataTablePreviewComponent, defaultCode } from './data-table.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'data-table', api: 'data-table'},
+	data: { breadcrumb: 'data-table' },
 	meta: metaWith('spartan/ui - Data Table', 'Powerful table and datagrids similar to Angular Material Tables.'),
 	title: 'spartan/ui - Data Table',
 };
@@ -25,7 +26,8 @@ export const routeMeta: RouteMeta = {
 @Component({
 	selector: 'spartan-data-table',
 	imports: [
-UIApiDocsComponent,		MainSectionDirective,
+		UIApiDocsComponent,
+		MainSectionDirective,
 		CodeComponent,
 		SectionIntroComponent,
 		SectionSubHeadingComponent,

@@ -10,18 +10,20 @@ import { SectionIntroComponent } from '../../../../shared/layout/section-intro.c
 import { SectionSubHeadingComponent } from '../../../../shared/layout/section-sub-heading.component';
 import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
-import { UIApiDocsComponent } from "../../../../shared/layout/ui-docs-section/ui-docs-section.component";import { metaWith } from '../../../../shared/meta/meta.util';
+import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
+import { metaWith } from '../../../../shared/meta/meta.util';
 import { LabelPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './label.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'label', api: 'label'},
+	data: { breadcrumb: 'label', api: 'label' },
 	meta: metaWith('spartan/ui - Label', 'Gives the label a distinct look.'),
 	title: 'spartan/ui - Label',
 };
 @Component({
 	selector: 'spartan-label',
 	imports: [
-UIApiDocsComponent,		MainSectionDirective,
+		UIApiDocsComponent,
+		MainSectionDirective,
 		CodeComponent,
 		SectionIntroComponent,
 		SectionSubHeadingComponent,

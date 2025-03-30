@@ -11,7 +11,8 @@ import { SectionIntroComponent } from '../../../../shared/layout/section-intro.c
 import { SectionSubHeadingComponent } from '../../../../shared/layout/section-sub-heading.component';
 import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
-import { UIApiDocsComponent } from "../../../../shared/layout/ui-docs-section/ui-docs-section.component";import { metaWith } from '../../../../shared/meta/meta.util';
+import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
+import { metaWith } from '../../../../shared/meta/meta.util';
 import { InputButtonPreviewComponent, buttonCode } from './input--button.preview';
 import { InputDisabledPreviewComponent, disabledCode } from './input--disabled.preview';
 import { InputFilePreviewComponent, fileCode } from './input--file.preview';
@@ -19,7 +20,7 @@ import { InputLabelPreviewComponent, labelCode } from './input--label.preview';
 import { InputPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './input.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'input', api: 'input'},
+	data: { breadcrumb: 'input', api: 'input' },
 	meta: metaWith(
 		'spartan/ui - Input',
 		'Gives an input field or a component a distinct look that indicates its input capabilities.',
@@ -29,7 +30,8 @@ export const routeMeta: RouteMeta = {
 @Component({
 	selector: 'spartan-input',
 	imports: [
-UIApiDocsComponent,		MainSectionDirective,
+		UIApiDocsComponent,
+		MainSectionDirective,
 		CodeComponent,
 		SectionIntroComponent,
 		SectionSubHeadingComponent,
@@ -71,9 +73,6 @@ UIApiDocsComponent,		MainSectionDirective,
 				<spartan-code [code]="defaultImports" />
 				<spartan-code [code]="defaultSkeleton" />
 			</div>
-
-<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
-			<spartan-ui-api-docs docType="brain" />
 
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="helm" />

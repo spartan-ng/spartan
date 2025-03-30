@@ -10,11 +10,12 @@ import { SectionIntroComponent } from '../../../../shared/layout/section-intro.c
 import { SectionSubHeadingComponent } from '../../../../shared/layout/section-sub-heading.component';
 import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
-import { UIApiDocsComponent } from "../../../../shared/layout/ui-docs-section/ui-docs-section.component";import { metaWith } from '../../../../shared/meta/meta.util';
+import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
+import { metaWith } from '../../../../shared/meta/meta.util';
 import { PopoverPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './popover.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'popover', api: 'popover'},
+	data: { breadcrumb: 'popover', api: 'popover' },
 	meta: metaWith('spartan/ui - Popover', 'Displays rich content in a portal, triggered by a button.'),
 	title: 'spartan/ui - Popover',
 };

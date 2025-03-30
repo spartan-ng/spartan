@@ -11,7 +11,8 @@ import { PageNavComponent } from '../../../../shared/layout/page-nav/page-nav.co
 import { SectionIntroComponent } from '../../../../shared/layout/section-intro.component';
 import { SectionSubHeadingComponent } from '../../../../shared/layout/section-sub-heading.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
-import { UIApiDocsComponent } from "../../../../shared/layout/ui-docs-section/ui-docs-section.component";import { metaWith } from '../../../../shared/meta/meta.util';
+import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
+import { metaWith } from '../../../../shared/meta/meta.util';
 import { AvatarPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './avatar.preview';
 
 export const routeMeta: RouteMeta = {

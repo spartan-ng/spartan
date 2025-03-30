@@ -12,13 +12,13 @@ import { SectionIntroComponent } from '../../../../shared/layout/section-intro.c
 import { SectionSubHeadingComponent } from '../../../../shared/layout/section-sub-heading.component';
 import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
-import { UIApiDocsComponent } from "../../../../shared/layout/ui-docs-section/ui-docs-section.component";
+import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { TooltipSimpleComponent, simpleCode } from './tooltip--simple.example';
 import { TooltipPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './tooltip.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'tooltip', api: 'tooltip'},
+	data: { breadcrumb: 'tooltip', api: 'tooltip' },
 	meta: metaWith(
 		'spartan/ui - Tooltip',
 		'A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.',
@@ -28,7 +28,8 @@ export const routeMeta: RouteMeta = {
 @Component({
 	selector: 'spartan-tooltip',
 	imports: [
-UIApiDocsComponent,		MainSectionDirective,
+		UIApiDocsComponent,
+		MainSectionDirective,
 		CodeComponent,
 		SectionIntroComponent,
 		SectionSubHeadingComponent,

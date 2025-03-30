@@ -11,7 +11,8 @@ import { SectionIntroComponent } from '../../../../shared/layout/section-intro.c
 import { SectionSubHeadingComponent } from '../../../../shared/layout/section-sub-heading.component';
 import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
-import { UIApiDocsComponent } from "../../../../shared/layout/ui-docs-section/ui-docs-section.component";import { metaWith } from '../../../../shared/meta/meta.util';
+import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
+import { metaWith } from '../../../../shared/meta/meta.util';
 import { datePickerConfigCode, DatePickerConfigExampleComponent } from './date-picker--config.example';
 import { datePickerFormMultipleCode, DatePickerFormMultipleExampleComponent } from './date-picker--form-multi.example';
 import { datePickerFormCode, DatePickerFormExampleComponent } from './date-picker--form.example';
@@ -20,7 +21,7 @@ import { datePickerMultipleCode, DatePickerMultipleExampleComponent } from './da
 import { codeSkeleton, DatePickerPreviewComponent, defaultCode, defaultImports } from './date-picker.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'date-picker', api: 'date-picker'},
+	data: { breadcrumb: 'date-picker', api: 'date-picker' },
 	meta: metaWith('spartan/ui - Date Picker', 'A date picker component.'),
 	title: 'spartan/ui - Date Picker',
 };

@@ -11,13 +11,13 @@ import { SectionIntroComponent } from '../../../../shared/layout/section-intro.c
 import { SectionSubHeadingComponent } from '../../../../shared/layout/section-sub-heading.component';
 import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
-import { metaWith } from '../../../../shared/meta/meta.util';
+import { UIApiDocsComponent } from "../../../../shared/layout/ui-docs-section/ui-docs-section.component";import { metaWith } from '../../../../shared/meta/meta.util';
 import { DropdownPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './dropdown-menu.preview';
 import { DropdownWithContextPreviewComponent, dropdownWithContextCode } from './dropdown-with-context.preview';
 import { DropdownWithStatePreviewComponent, dropdownWithStateCode } from './dropdown-with-state.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'Dropdown' },
+	data: { breadcrumb: 'dropdown-menu', api: 'dropdown-menu'},
 	meta: metaWith(
 		'spartan/ui - Dropdown',
 		'Displays a menu to the user — such as a set of actions or functions — triggered by a button.',
@@ -27,7 +27,7 @@ export const routeMeta: RouteMeta = {
 @Component({
 	selector: 'spartan-dropdown-menu',
 	imports: [
-		MainSectionDirective,
+UIApiDocsComponent,		MainSectionDirective,
 		CodeComponent,
 		SectionIntroComponent,
 		SectionSubHeadingComponent,
@@ -64,6 +64,12 @@ export const routeMeta: RouteMeta = {
 				<spartan-code [code]="defaultImports" />
 				<spartan-code [code]="defaultSkeleton" />
 			</div>
+
+<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="brain" />
+
+			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
 			<h3 id="examples__stateful" class="${hlmH4} mb-2 mt-6">Stateful</h3>

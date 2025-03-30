@@ -11,10 +11,11 @@ import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { calendarMultipleCode, CalendarMultipleExampleComponent } from './calendar--multiple.example';
+import { UIApiDocsComponent } from "../../../../shared/layout/ui-docs-section/ui-docs-section.component";
 import { CalendarPreviewComponent, codeSkeleton, defaultCode, defaultImports } from './calendar.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'Calendar' },
+	data: { breadcrumb: 'calendar', api: 'calendar'},
 	meta: metaWith('spartan/ui - Calendar', 'A date field component that allows users to enter and edit date.'),
 	title: 'spartan/ui - Calendar',
 };
@@ -22,6 +23,7 @@ export const routeMeta: RouteMeta = {
 @Component({
 	selector: 'spartan-calendar',
 	imports: [
+		UIApiDocsComponent,
 		CalendarPreviewComponent,
 		SectionIntroComponent,
 		TabsComponent,
@@ -56,6 +58,12 @@ export const routeMeta: RouteMeta = {
 				<spartan-code [code]="defaultImports" />
 				<spartan-code [code]="codeSkeleton" />
 			</div>
+
+			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="brain" />
+
+			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
 			<h3 id="examples__multiple_selection" class="${hlmH4} mb-2 mt-6">Multiple Selection</h3>

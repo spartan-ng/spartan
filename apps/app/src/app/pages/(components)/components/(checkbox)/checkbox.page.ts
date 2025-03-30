@@ -12,16 +12,18 @@ import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
 
+import { UIApiDocsComponent } from "../../../../shared/layout/ui-docs-section/ui-docs-section.component";
 import { CheckboxPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './checkbox.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'Checkbox' },
+	data: { breadcrumb: 'checkbox', api: 'checkbox'},
 	meta: metaWith('spartan/ui - Checkbox', 'A control that allows the user to toggle between checked and not checked.'),
 	title: 'spartan/ui - Checkbox',
 };
 @Component({
 	selector: 'spartan-checkbox',
 	imports: [
+		UIApiDocsComponent,		
 		MainSectionDirective,
 		CodeComponent,
 		SectionIntroComponent,
@@ -60,6 +62,25 @@ export const routeMeta: RouteMeta = {
 				<spartan-code [code]="defaultImports" />
 				<spartan-code [code]="defaultSkeleton" />
 			</div>
+
+<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="brain" />
+
+			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="helm" />
+
+			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
+			<h3 id="examples__default" class="${hlmH4} mb-2 mt-6">Own Icon</h3>
+			<p class="py-2">Make sure to provide the Icon.</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-checkbox-own-icon />
+				</div>
+
+				<div secondTab>
+					<spartan-code [code]="checkboxOwnIconCode" />
+				</div>
+			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="collapsible" label="Collapsible" />

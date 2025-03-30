@@ -12,7 +12,7 @@ import {
 } from '@spartan-ng/ui-alert-helm';
 import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 import { ComponentApiData } from '../../core/models/ui-docs.model';
-import { UIDocsService } from '../../core/services/ui-docs.service';
+import { ApiDocsService } from '../../core/services/api-docs.service';
 import { PageComponent } from '../../shared/layout/page.component';
 import { metaWith } from '../../shared/meta/meta.util';
 import { load } from './components.server';
@@ -39,7 +39,7 @@ export const routeMeta: RouteMeta = {
 		HlmIconDirective,
 		HlmAlertIconDirective,
 	],
-	providers: [provideIcons({ lucideRocket }), UIDocsService],
+	providers: [provideIcons({ lucideRocket }), ApiDocsService],
 	template: `
 		<div
 			hlmAlert
@@ -59,9 +59,9 @@ export const routeMeta: RouteMeta = {
 })
 export default class ComponentsPageComponent {
 	private readonly _apiData = toSignal(injectLoad<typeof load>(), { requireSync: true });
-	private readonly _uiDocsService = inject(UIDocsService);
+	private readonly _apiDocsService = inject(ApiDocsService);
 
 	constructor() {
-		this._uiDocsService.setAPIData(this._apiData() as ComponentApiData);
+		this._apiDocsService.setApiDocs(this._apiData() as ComponentApiData);
 	}
 }

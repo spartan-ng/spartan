@@ -17,7 +17,7 @@ import { HlmScrollAreaDirective } from '@spartan-ng/ui-scrollarea-helm';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
-import { UIDocsService } from '@spartan-ng/app/app/core/services/ui-docs.service';
+import { ApiDocsService } from '@spartan-ng/app/app/core/services/api-docs.service';
 import { PageNavLinkComponent } from './page-nav-link.component';
 import { pageNavTmpl } from './page-nav-outlet.component';
 
@@ -57,7 +57,7 @@ export class PageNavComponent implements OnInit, AfterViewInit, OnDestroy {
 
 	private readonly _route = inject(ActivatedRoute);
 	private readonly _routeData = toSignal(this._route.data);
-	private readonly _uiDocsService = inject(UIDocsService, { optional: true });
+	private readonly _apiDocsService = inject(ApiDocsService, { optional: true });
 
 	protected readonly isDevMode = signal(isDevMode());
 
@@ -67,22 +67,44 @@ export class PageNavComponent implements OnInit, AfterViewInit, OnDestroy {
 			return [];
 		}
 
-		const apiPageLinks = this._uiDocsService?.getPrimitiveDocHeaders(this._routeData()?.['api']);
+		const apiPageLinks = this._apiDocsService?.getComponentHeaders(this._routeData()?.['api']);
 
 		if (!apiPageLinks) {
 			return [];
 		}
 
-		const { brnArray, hlmArray } = apiPageLinks;
-		const pageLinks = this._links();
+		const pageLinks = [...this._links()];
 
-		const brnLinkIndex = this._links().findIndex((link) => link.id === 'brn-api');
+		// Find indices for API sections
+		const brnLinkIndex = pageLinks.findIndex(link => link.id === 'brn-api');
+		const hlmLinkIndex = pageLinks.findIndex(link => link.id === 'hlm-api');
 
-		pageLinks.splice(brnLinkIndex + 1, 0, ...brnArray);
+		if (brnLinkIndex !== -1 && hlmLinkIndex !== -1) {
+			// Split links by type
+			const brainLinks = apiPageLinks
+				.filter(link => link.type === 'brain')
+				.map(link => ({
+					id: link.id,
+					label: link.label,
+					isNested: true
+				}));
 
-		const hlmLinkIndex = pageLinks.findIndex((link) => link.id === 'hlm-api');
+			const helmLinks = apiPageLinks
+				.filter(link => link.type === 'helm')
+				.map(link => ({
+					id: link.id,
+					label: link.label,
+					isNested: true
+				}));
 
-		pageLinks.splice(hlmLinkIndex + 1, 0, ...hlmArray);
+			// Insert brain links after Brain API section
+			pageLinks.splice(brnLinkIndex + 1, 0, ...brainLinks);
+			
+			// Recalculate helm index since it may have shifted after inserting brain links
+			const newHlmIndex = pageLinks.findIndex(link => link.id === 'hlm-api');
+			// Insert helm links after Helm API section
+			pageLinks.splice(newHlmIndex + 1, 0, ...helmLinks);
+		}
 
 		return pageLinks;
 	});

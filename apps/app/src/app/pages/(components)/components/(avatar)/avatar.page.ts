@@ -11,11 +11,11 @@ import { PageNavComponent } from '../../../../shared/layout/page-nav/page-nav.co
 import { SectionIntroComponent } from '../../../../shared/layout/section-intro.component';
 import { SectionSubHeadingComponent } from '../../../../shared/layout/section-sub-heading.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
-import { metaWith } from '../../../../shared/meta/meta.util';
+import { UIApiDocsComponent } from "../../../../shared/layout/ui-docs-section/ui-docs-section.component";import { metaWith } from '../../../../shared/meta/meta.util';
 import { AvatarPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './avatar.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'Avatar' },
+	data: { breadcrumb: 'avatar', api: 'avatar' },
 	meta: metaWith('spartan/ui - Avatar', 'An image element with a fallback for representing the user.'),
 	title: 'spartan/ui - Avatar',
 };
@@ -23,6 +23,7 @@ export const routeMeta: RouteMeta = {
 @Component({
 	selector: 'spartan-avatar',
 	imports: [
+		UIApiDocsComponent,
 		MainSectionDirective,
 		CodeComponent,
 		SectionIntroComponent,
@@ -59,6 +60,12 @@ export const routeMeta: RouteMeta = {
 				<spartan-code [code]="defaultImports" />
 				<spartan-code [code]="defaultSkeleton" />
 			</div>
+
+			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="brain" />
+
+			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="badge" label="Badge" />

@@ -20,7 +20,7 @@ import { SectionIntroComponent } from '../../../../shared/layout/section-intro.c
 import { SectionSubHeadingComponent } from '../../../../shared/layout/section-sub-heading.component';
 import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
-import { metaWith } from '../../../../shared/meta/meta.util';
+import { UIApiDocsComponent } from "../../../../shared/layout/ui-docs-section/ui-docs-section.component";import { metaWith } from '../../../../shared/meta/meta.util';
 import { DialogClosePreviewComponent, defaultCloseCode } from './dialog-close.preview';
 import { DialogContextMenuPreviewComponent, contextMenuCode } from './dialog-context-menu.preview';
 import { DialogDeclarativePreviewComponent, declarativeCode } from './dialog-declarative.preview';
@@ -28,7 +28,7 @@ import { DialogDynamicComponentPreviewComponent, dynamicComponentCode } from './
 import { DialogPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './dialog.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'Dialog' },
+	data: { breadcrumb: 'dialog', api: 'dialog'},
 	meta: metaWith(
 		'spartan/ui - Dialog',
 		'A window overlaid on either the primary window or another dialog window, rendering the content underneath inert.',
@@ -38,7 +38,7 @@ export const routeMeta: RouteMeta = {
 @Component({
 	selector: 'spartan-dialog',
 	imports: [
-		MainSectionDirective,
+UIApiDocsComponent,		MainSectionDirective,
 		CodeComponent,
 		SectionIntroComponent,
 		SectionSubHeadingComponent,
@@ -88,6 +88,12 @@ export const routeMeta: RouteMeta = {
 				<spartan-code [code]="defaultImports" />
 				<spartan-code [code]="defaultSkeleton" />
 			</div>
+
+			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="brain" />
+
+			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="helm" />	
 
 			<spartan-section-sub-heading id="dynamic-component">Declarative Usage</spartan-section-sub-heading>
 			<p class="${hlmP} mb-6">

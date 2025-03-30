@@ -13,13 +13,13 @@ import { SectionIntroComponent } from '../../../../shared/layout/section-intro.c
 import { SectionSubHeadingComponent } from '../../../../shared/layout/section-sub-heading.component';
 import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
-import { metaWith } from '../../../../shared/meta/meta.util';
+import { UIApiDocsComponent } from "../../../../shared/layout/ui-docs-section/ui-docs-section.component";import { metaWith } from '../../../../shared/meta/meta.util';
 import { TabsPaginatedPreviewComponent, paginatedCode } from './tabs--paginated.preview';
 import { TabsVerticalPreviewComponent, verticalCode } from './tabs--vertical.preview';
 import { TabsPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './tabs.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'Tabs' },
+	data: { breadcrumb: 'tabs', api: 'tabs'},
 	meta: metaWith(
 		'spartan/ui - Tabs',
 		'A set of layered sections of content—known as tab panels—that are displayed one at a time.',
@@ -29,7 +29,7 @@ export const routeMeta: RouteMeta = {
 @Component({
 	selector: 'spartan-tabs-page',
 	imports: [
-		MainSectionDirective,
+UIApiDocsComponent,		MainSectionDirective,
 		CodeComponent,
 		SectionIntroComponent,
 		SectionSubHeadingComponent,
@@ -68,6 +68,12 @@ export const routeMeta: RouteMeta = {
 				<spartan-code [code]="defaultImports" />
 				<spartan-code [code]="defaultSkeleton" />
 			</div>
+
+<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="brain" />
+
+			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
 			<h3 id="examples__default" class="${hlmH4} mb-2 mt-6">Default</h3>

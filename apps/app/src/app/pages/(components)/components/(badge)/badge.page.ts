@@ -12,14 +12,14 @@ import { SectionIntroComponent } from '../../../../shared/layout/section-intro.c
 import { SectionSubHeadingComponent } from '../../../../shared/layout/section-sub-heading.component';
 import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
-import { metaWith } from '../../../../shared/meta/meta.util';
+import { UIApiDocsComponent } from "../../../../shared/layout/ui-docs-section/ui-docs-section.component";import { metaWith } from '../../../../shared/meta/meta.util';
 import { BadgeDestructiveComponent, destructiveCode } from './badge--destructive.example';
 import { BadgeOutlineExampleComponent, outlineCode } from './badge--outline.example';
 import { BadgeSecondaryExampleComponent, secondaryCode } from './badge--secondary.example';
 import { BadgePreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './badge.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'Badge' },
+	data: { breadcrumb: 'badge', api: 'badge'},
 	meta: metaWith('spartan/ui - Badge', 'Makes a component look like a badge.'),
 	title: 'spartan/ui - Badge',
 };
@@ -27,7 +27,7 @@ export const routeMeta: RouteMeta = {
 @Component({
 	selector: 'spartan-badge',
 	imports: [
-		MainSectionDirective,
+UIApiDocsComponent,		MainSectionDirective,
 		CodeComponent,
 		SectionIntroComponent,
 		SectionSubHeadingComponent,
@@ -67,7 +67,13 @@ export const routeMeta: RouteMeta = {
 				<spartan-code [code]="defaultSkeleton" />
 			</div>
 
-			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
+<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
+<spartan-ui-api-docs docType="brain" />
+
+<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
+<spartan-ui-api-docs docType="helm" />
+
+<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
 			<h3 id="examples__default" class="${hlmH4} mb-2 mt-6">Default</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>

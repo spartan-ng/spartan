@@ -11,7 +11,7 @@ import { SectionIntroComponent } from '../../../../shared/layout/section-intro.c
 import { SectionSubHeadingComponent } from '../../../../shared/layout/section-sub-heading.component';
 import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
-import { metaWith } from '../../../../shared/meta/meta.util';
+import { UIApiDocsComponent } from "../../../../shared/layout/ui-docs-section/ui-docs-section.component";import { metaWith } from '../../../../shared/meta/meta.util';
 import { FormFieldErrorPreviewComponent, errorCode } from './form-field--error.preview';
 import {
 	FormFieldFormWithDirtyPreviewComponent,
@@ -22,7 +22,7 @@ import { FormFieldFormPreviewComponent, formFieldFormCode } from './form-field--
 import { FormFieldPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './form-field.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'Form Field' },
+	data: { breadcrumb: 'form-field', api: 'form-field'},
 	meta: metaWith(
 		'spartan/ui - Form Field',
 		'Gives an input field or a component a distinct look that indicates its input capabilities.',
@@ -32,7 +32,7 @@ export const routeMeta: RouteMeta = {
 @Component({
 	selector: 'spartan-form-field',
 	imports: [
-		MainSectionDirective,
+UIApiDocsComponent,		MainSectionDirective,
 		CodeComponent,
 		SectionIntroComponent,
 		SectionSubHeadingComponent,
@@ -70,6 +70,12 @@ export const routeMeta: RouteMeta = {
 				<spartan-code [code]="defaultImports" />
 				<spartan-code [code]="defaultSkeleton" />
 			</div>
+
+<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="brain" />
+
+			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
 			<h3 id="examples__default" class="${hlmH4} mb-2 mt-6">Default</h3>

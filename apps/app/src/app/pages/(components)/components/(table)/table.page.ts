@@ -12,18 +12,20 @@ import { SectionIntroComponent } from '../../../../shared/layout/section-intro.c
 import { SectionSubHeadingComponent } from '../../../../shared/layout/section-sub-heading.component';
 import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
-import { UIApiDocsComponent } from "../../../../shared/layout/ui-docs-section/ui-docs-section.component";import { metaWith } from '../../../../shared/meta/meta.util';
+import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
+import { metaWith } from '../../../../shared/meta/meta.util';
 import { TablePreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './table.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'table', api: 'table'},
+	data: { breadcrumb: 'table', api: 'table' },
 	meta: metaWith('spartan/ui - Table', 'A responsive table component.'),
 	title: 'spartan/ui - Table',
 };
 @Component({
 	selector: 'spartan-table',
 	imports: [
-UIApiDocsComponent,		MainSectionDirective,
+		UIApiDocsComponent,
+		MainSectionDirective,
 		CodeComponent,
 		SectionIntroComponent,
 		SectionSubHeadingComponent,

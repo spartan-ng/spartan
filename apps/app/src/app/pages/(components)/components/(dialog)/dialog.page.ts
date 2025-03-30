@@ -20,7 +20,8 @@ import { SectionIntroComponent } from '../../../../shared/layout/section-intro.c
 import { SectionSubHeadingComponent } from '../../../../shared/layout/section-sub-heading.component';
 import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
-import { UIApiDocsComponent } from "../../../../shared/layout/ui-docs-section/ui-docs-section.component";import { metaWith } from '../../../../shared/meta/meta.util';
+import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
+import { metaWith } from '../../../../shared/meta/meta.util';
 import { DialogClosePreviewComponent, defaultCloseCode } from './dialog-close.preview';
 import { DialogContextMenuPreviewComponent, contextMenuCode } from './dialog-context-menu.preview';
 import { DialogDeclarativePreviewComponent, declarativeCode } from './dialog-declarative.preview';
@@ -28,7 +29,7 @@ import { DialogDynamicComponentPreviewComponent, dynamicComponentCode } from './
 import { DialogPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './dialog.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'dialog', api: 'dialog'},
+	data: { breadcrumb: 'dialog', api: 'dialog' },
 	meta: metaWith(
 		'spartan/ui - Dialog',
 		'A window overlaid on either the primary window or another dialog window, rendering the content underneath inert.',

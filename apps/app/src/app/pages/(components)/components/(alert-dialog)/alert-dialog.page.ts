@@ -11,12 +11,12 @@ import { SectionIntroComponent } from '../../../../shared/layout/section-intro.c
 import { SectionSubHeadingComponent } from '../../../../shared/layout/section-sub-heading.component';
 import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
-import { UIApiDocsComponent } from "../../../../shared/layout/ui-docs-section/ui-docs-section.component";
+import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { AlertDialogPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './alert-dialog.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'alert-dialog', api: 'alert-dialog'},
+	data: { breadcrumb: 'alert-dialog', api: 'alert-dialog' },
 	meta: metaWith(
 		'spartan/ui - Alert Dialog',
 		'A modal dialog that interrupts the user with important content and expects a response.',
@@ -27,7 +27,7 @@ export const routeMeta: RouteMeta = {
 @Component({
 	selector: 'spartan-alert-dialog',
 	imports: [
-		UIApiDocsComponent,		
+		UIApiDocsComponent,
 		MainSectionDirective,
 		CodeComponent,
 		SectionIntroComponent,
@@ -71,7 +71,7 @@ export const routeMeta: RouteMeta = {
 			<spartan-ui-api-docs docType="brain" />
 
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
-			<spartan-ui-api-docs docType="helm" />	
+			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="aspect-ratio" label="Aspect Ratio" />

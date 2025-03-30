@@ -17,10 +17,10 @@ import { SectionIntroComponent } from '../../../../shared/layout/section-intro.c
 import { SectionSubHeadingComponent } from '../../../../shared/layout/section-sub-heading.component';
 import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
-import { metaWith } from '../../../../shared/meta/meta.util';
+import { UIApiDocsComponent } from "../../../../shared/layout/ui-docs-section/ui-docs-section.component";import { metaWith } from '../../../../shared/meta/meta.util';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'Icon' },
+	data: { breadcrumb: 'icon', api: 'icon'},
 	meta: metaWith('spartan/ui - Icon', 'Visual cues for enhancing user interaction.'),
 	title: 'spartan/ui - Icon',
 };
@@ -67,6 +67,12 @@ export const routeMeta: RouteMeta = {
 				}
 			</div>
 
+			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="brain" />
+
+			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="helm" />
+
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="input" label="Input" />
 				<spartan-page-bottom-nav-link direction="previous" href="hover-card" label="Hover Card" />
@@ -75,7 +81,7 @@ export const routeMeta: RouteMeta = {
 		<spartan-page-nav />
 	`,
 	imports: [
-		MainSectionDirective,
+UIApiDocsComponent,		MainSectionDirective,
 		CodeComponent,
 		SectionIntroComponent,
 		SectionSubHeadingComponent,

@@ -11,11 +11,11 @@ import { SectionIntroComponent } from '../../../../shared/layout/section-intro.c
 import { SectionSubHeadingComponent } from '../../../../shared/layout/section-sub-heading.component';
 import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
-import { metaWith } from '../../../../shared/meta/meta.util';
+import { UIApiDocsComponent } from "../../../../shared/layout/ui-docs-section/ui-docs-section.component";import { metaWith } from '../../../../shared/meta/meta.util';
 import { TextAreaPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './textarea.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'Textarea' },
+	data: { breadcrumb: 'textarea', api: 'textarea'},
 	meta: metaWith(
 		'spartan/ui - Textarea',
 		'Gives a textarea field or a component a distinct look that indicates its input capabilities.',
@@ -25,7 +25,7 @@ export const routeMeta: RouteMeta = {
 @Component({
 	selector: 'spartan-textarea',
 	imports: [
-		MainSectionDirective,
+UIApiDocsComponent,		MainSectionDirective,
 		CodeComponent,
 		SectionIntroComponent,
 		SectionSubHeadingComponent,
@@ -70,6 +70,12 @@ export const routeMeta: RouteMeta = {
 				<spartan-code [code]="defaultImports" />
 				<spartan-code [code]="defaultSkeleton" />
 			</div>
+
+			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="brain" />
+
+			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="toggle" label="Toggle" />

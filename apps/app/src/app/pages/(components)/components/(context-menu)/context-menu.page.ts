@@ -12,12 +12,12 @@ import { SectionIntroComponent } from '../../../../shared/layout/section-intro.c
 import { SectionSubHeadingComponent } from '../../../../shared/layout/section-sub-heading.component';
 import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
-import { metaWith } from '../../../../shared/meta/meta.util';
+import { UIApiDocsComponent } from "../../../../shared/layout/ui-docs-section/ui-docs-section.component";import { metaWith } from '../../../../shared/meta/meta.util';
 import { ContextMenuPreviewWithStateComponent, defaultCodeWithState } from './context-menu-with-state.preview';
 import { ContextMenuPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './context-menu.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'Context Menu' },
+	data: { breadcrumb: 'context-menu', api: 'context-menu'},
 	meta: metaWith(
 		'spartan/ui - Context Menu',
 		'Displays a menu to the user — such as a set of actions or functions — triggered by a right-click.',
@@ -28,7 +28,7 @@ export const routeMeta: RouteMeta = {
 @Component({
 	selector: 'spartan-command',
 	imports: [
-		MainSectionDirective,
+UIApiDocsComponent,		MainSectionDirective,
 		CodeComponent,
 		SectionIntroComponent,
 		SectionSubHeadingComponent,
@@ -67,6 +67,12 @@ export const routeMeta: RouteMeta = {
 				<spartan-code [code]="defaultImports" />
 				<spartan-code [code]="defaultSkeleton" />
 			</div>
+
+			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="brain" />
+
+			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="helm" />
 
 			<h3 id="examples__stateful" class="${hlmH4} mb-2 mt-6">Stateful</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">

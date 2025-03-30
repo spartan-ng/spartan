@@ -10,18 +10,18 @@ import { SectionIntroComponent } from '../../../../shared/layout/section-intro.c
 import { SectionSubHeadingComponent } from '../../../../shared/layout/section-sub-heading.component';
 import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
-import { metaWith } from '../../../../shared/meta/meta.util';
+import { UIApiDocsComponent } from "../../../../shared/layout/ui-docs-section/ui-docs-section.component";import { metaWith } from '../../../../shared/meta/meta.util';
 import { SeparatorPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './separator.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'Separator' },
+		data: { breadcrumb: 'separator', api: 'separator'},
 	meta: metaWith('spartan/ui - Separator', 'Visually or semantically separates content.'),
 	title: 'spartan/ui - Separator',
 };
 @Component({
 	selector: 'spartan-separator',
 	imports: [
-		MainSectionDirective,
+UIApiDocsComponent,		MainSectionDirective,
 		CodeComponent,
 		SectionIntroComponent,
 		SectionSubHeadingComponent,
@@ -56,6 +56,12 @@ export const routeMeta: RouteMeta = {
 				<spartan-code [code]="defaultImports" />
 				<spartan-code [code]="defaultSkeleton" />
 			</div>
+
+			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="brain" />
+
+			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="sheet" label="Sheet" />

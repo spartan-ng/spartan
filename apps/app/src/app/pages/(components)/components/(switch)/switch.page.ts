@@ -10,18 +10,18 @@ import { SectionIntroComponent } from '../../../../shared/layout/section-intro.c
 import { SectionSubHeadingComponent } from '../../../../shared/layout/section-sub-heading.component';
 import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
-import { metaWith } from '../../../../shared/meta/meta.util';
+import { UIApiDocsComponent } from "../../../../shared/layout/ui-docs-section/ui-docs-section.component";import { metaWith } from '../../../../shared/meta/meta.util';
 import { SwitchPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './switch.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'Switch' },
+	data: { breadcrumb: 'switch', api: 'switch'},
 	meta: metaWith('spartan/ui - Switch', 'A control that allows the user to toggle between checked and not checked.'),
 	title: 'spartan/ui - Switch',
 };
 @Component({
 	selector: 'spartan-switch',
 	imports: [
-		MainSectionDirective,
+UIApiDocsComponent,		MainSectionDirective,
 		CodeComponent,
 		SectionIntroComponent,
 		SectionSubHeadingComponent,
@@ -59,6 +59,12 @@ export const routeMeta: RouteMeta = {
 				<spartan-code [code]="defaultImports" />
 				<spartan-code [code]="defaultSkeleton" />
 			</div>
+
+			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="brain" />
+
+			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="table" label="Table" />

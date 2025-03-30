@@ -12,11 +12,11 @@ import { SectionIntroComponent } from '../../../../shared/layout/section-intro.c
 import { SectionSubHeadingComponent } from '../../../../shared/layout/section-sub-heading.component';
 
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
-import { metaWith } from '../../../../shared/meta/meta.util';
+import { UIApiDocsComponent } from "../../../../shared/layout/ui-docs-section/ui-docs-section.component";import { metaWith } from '../../../../shared/meta/meta.util';
 import { ComboboxPreviewComponent, defaultCode } from './combobox.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'Combobox' },
+	data: { breadcrumb: 'combobox', api: 'combobox'},
 	meta: metaWith('spartan/ui - Combobox', 'Autocomplete input and command palette with a list of suggestions.'),
 	title: 'spartan/ui - Combobox',
 };
@@ -24,7 +24,7 @@ export const routeMeta: RouteMeta = {
 @Component({
 	selector: 'spartan-combobox',
 	imports: [
-		MainSectionDirective,
+UIApiDocsComponent,		MainSectionDirective,
 		CodeComponent,
 		SectionIntroComponent,
 		SectionSubHeadingComponent,
@@ -63,6 +63,12 @@ export const routeMeta: RouteMeta = {
 			<div class="space-y-4">
 				<spartan-code [code]="defaultCode" />
 			</div>
+
+			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="brain" />
+
+			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="command" label="Command" />

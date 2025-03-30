@@ -11,13 +11,14 @@ import { SectionIntroComponent } from '../../../../shared/layout/section-intro.c
 import { SectionSubHeadingComponent } from '../../../../shared/layout/section-sub-heading.component';
 import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
-import { UIApiDocsComponent } from "../../../../shared/layout/ui-docs-section/ui-docs-section.component";import { metaWith } from '../../../../shared/meta/meta.util';
+import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
+import { metaWith } from '../../../../shared/meta/meta.util';
 import { DropdownPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './dropdown-menu.preview';
 import { DropdownWithContextPreviewComponent, dropdownWithContextCode } from './dropdown-with-context.preview';
 import { DropdownWithStatePreviewComponent, dropdownWithStateCode } from './dropdown-with-state.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'dropdown-menu', api: 'dropdown-menu'},
+	data: { breadcrumb: 'dropdown-menu', api: 'menu' },
 	meta: metaWith(
 		'spartan/ui - Dropdown',
 		'Displays a menu to the user — such as a set of actions or functions — triggered by a button.',
@@ -27,7 +28,8 @@ export const routeMeta: RouteMeta = {
 @Component({
 	selector: 'spartan-dropdown-menu',
 	imports: [
-UIApiDocsComponent,		MainSectionDirective,
+		UIApiDocsComponent,
+		MainSectionDirective,
 		CodeComponent,
 		SectionIntroComponent,
 		SectionSubHeadingComponent,
@@ -65,7 +67,7 @@ UIApiDocsComponent,		MainSectionDirective,
 				<spartan-code [code]="defaultSkeleton" />
 			</div>
 
-<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
+			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="brain" />
 
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>

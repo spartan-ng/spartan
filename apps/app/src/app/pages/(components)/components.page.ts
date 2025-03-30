@@ -1,8 +1,8 @@
 import type { RouteMeta } from '@analogjs/router';
-import { NgIcon, provideIcons } from '@ng-icons/core';
 import { injectLoad } from '@analogjs/router';
 import { Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideRocket } from '@ng-icons/lucide';
 import {
 	HlmAlertDescriptionDirective,

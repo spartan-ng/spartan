@@ -11,12 +11,13 @@ import { SectionIntroComponent } from '../../../../shared/layout/section-intro.c
 import { SectionSubHeadingComponent } from '../../../../shared/layout/section-sub-heading.component';
 import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
-import { UIApiDocsComponent } from "../../../../shared/layout/ui-docs-section/ui-docs-section.component";import { metaWith } from '../../../../shared/meta/meta.util';
+import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
+import { metaWith } from '../../../../shared/meta/meta.util';
 import { cardCode, RadioGroupCardComponent } from './radio-group--card.example';
 import { defaultCode, defaultImports, defaultSkeleton, RadioGroupPreviewComponent } from './radio-group.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'radio-group', api: 'radio-group'},
+	data: { breadcrumb: 'radio-group', api: 'radio-group' },
 	meta: metaWith(
 		'spartan/ui - Radio Group',
 		'A set of checkable buttons—known as radio buttons—where no more than one of the buttons can be checked at a time.',
@@ -26,7 +27,8 @@ export const routeMeta: RouteMeta = {
 @Component({
 	selector: 'spartan-radio-group',
 	imports: [
-UIApiDocsComponent,		MainSectionDirective,
+		UIApiDocsComponent,
+		MainSectionDirective,
 		CodeComponent,
 		SectionIntroComponent,
 		SectionSubHeadingComponent,
@@ -67,7 +69,7 @@ UIApiDocsComponent,		MainSectionDirective,
 				<spartan-code [code]="defaultSkeleton" />
 			</div>
 
-<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
+			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="brain" />
 
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>

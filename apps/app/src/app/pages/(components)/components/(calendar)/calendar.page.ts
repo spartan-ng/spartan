@@ -8,11 +8,12 @@ import { SectionIntroComponent } from '../../../../shared/layout/section-intro.c
 import { SectionSubHeadingComponent } from '../../../../shared/layout/section-sub-heading.component';
 import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
-import { UIApiDocsComponent } from "../../../../shared/layout/ui-docs-section/ui-docs-section.component";import { metaWith } from '../../../../shared/meta/meta.util';
+import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
+import { metaWith } from '../../../../shared/meta/meta.util';
 import { CalendarPreviewComponent, codeSkeleton, defaultCode, defaultImports } from './calendar.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'calendar', api: 'calendar'},
+	data: { breadcrumb: 'calendar', api: 'calendar' },
 	meta: metaWith('spartan/ui - Calendar', 'A date field component that allows users to enter and edit date.'),
 	title: 'spartan/ui - Calendar',
 };
@@ -20,7 +21,8 @@ export const routeMeta: RouteMeta = {
 @Component({
 	selector: 'spartan-calendar',
 	imports: [
-UIApiDocsComponent,		CalendarPreviewComponent,
+		UIApiDocsComponent,
+		CalendarPreviewComponent,
 		SectionIntroComponent,
 		TabsComponent,
 		CodeComponent,

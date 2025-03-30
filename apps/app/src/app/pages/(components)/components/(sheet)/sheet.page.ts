@@ -11,13 +11,14 @@ import { SectionIntroComponent } from '../../../../shared/layout/section-intro.c
 import { SectionSubHeadingComponent } from '../../../../shared/layout/section-sub-heading.component';
 import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
-import { UIApiDocsComponent } from "../../../../shared/layout/ui-docs-section/ui-docs-section.component";import { metaWith } from '../../../../shared/meta/meta.util';
+import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
+import { metaWith } from '../../../../shared/meta/meta.util';
 import { SheetSidePreviewComponent, sideCode } from './sheet--side.preview';
 import { SheetClosePreviewComponent, defaultCloseCode } from './sheet-close.preview';
 import { SheetPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './sheet.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'sheet', api: 'sheet'},
+	data: { breadcrumb: 'sheet', api: 'sheet' },
 	meta: metaWith(
 		'spartan/ui - Sheet',
 		'Extends the Dialog component to display content that complements the main content of the screen.',
@@ -27,7 +28,8 @@ export const routeMeta: RouteMeta = {
 @Component({
 	selector: 'spartan-sheet',
 	imports: [
-UIApiDocsComponent,		MainSectionDirective,
+		UIApiDocsComponent,
+		MainSectionDirective,
 		CodeComponent,
 		SectionIntroComponent,
 		SectionSubHeadingComponent,
@@ -68,7 +70,7 @@ UIApiDocsComponent,		MainSectionDirective,
 				<spartan-code [code]="defaultSkeleton" />
 			</div>
 
-<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
+			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="brain" />
 
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>

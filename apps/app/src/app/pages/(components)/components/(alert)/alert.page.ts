@@ -12,12 +12,13 @@ import { SectionIntroComponent } from '../../../../shared/layout/section-intro.c
 import { SectionSubHeadingComponent } from '../../../../shared/layout/section-sub-heading.component';
 import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
-import { UIApiDocsComponent } from "../../../../shared/layout/ui-docs-section/ui-docs-section.component";import { metaWith } from '../../../../shared/meta/meta.util';
+import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
+import { metaWith } from '../../../../shared/meta/meta.util';
 import { AlertDestructiveComponent, destructiveCode } from './alert--destructive.example';
 import { AlertPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './alert.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'alert', api: 'alert'},
+	data: { breadcrumb: 'alert', api: 'alert' },
 	meta: metaWith('spartan/ui - Alert', 'Displays a callout for user attention.'),
 	title: 'spartan/ui - Alert',
 };
@@ -25,7 +26,8 @@ export const routeMeta: RouteMeta = {
 @Component({
 	selector: 'spartan-alert',
 	imports: [
-UIApiDocsComponent,		MainSectionDirective,
+		UIApiDocsComponent,
+		MainSectionDirective,
 		CodeComponent,
 		SectionIntroComponent,
 		SectionSubHeadingComponent,
@@ -63,11 +65,8 @@ UIApiDocsComponent,		MainSectionDirective,
 				<spartan-code [code]="defaultSkeleton" />
 			</div>
 
-<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
-<spartan-ui-api-docs docType="brain" />
-
-<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
-<spartan-ui-api-docs docType="helm" />
+			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
 			<h3 id="examples__default" class="${hlmH4} mb-2 mt-6">Default</h3>

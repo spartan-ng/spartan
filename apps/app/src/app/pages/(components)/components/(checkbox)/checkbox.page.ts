@@ -11,20 +11,22 @@ import { SectionIntroComponent } from '../../../../shared/layout/section-intro.c
 import { SectionSubHeadingComponent } from '../../../../shared/layout/section-sub-heading.component';
 import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
-import { UIApiDocsComponent } from "../../../../shared/layout/ui-docs-section/ui-docs-section.component";import { metaWith } from '../../../../shared/meta/meta.util';
+import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
+import { metaWith } from '../../../../shared/meta/meta.util';
 import { InstallationCsComponent } from '../installation-cs.component';
 import { CheckboxOwnIconComponent, checkboxOwnIconCode } from './checkbox--own-icon.example';
 import { CheckboxPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './checkbox.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'checkbox', api: 'checkbox'},
+	data: { breadcrumb: 'checkbox', api: 'checkbox' },
 	meta: metaWith('spartan/ui - Checkbox', 'A control that allows the user to toggle between checked and not checked.'),
 	title: 'spartan/ui - Checkbox',
 };
 @Component({
 	selector: 'spartan-checkbox',
 	imports: [
-UIApiDocsComponent,		MainSectionDirective,
+		UIApiDocsComponent,
+		MainSectionDirective,
 		CodeComponent,
 		SectionIntroComponent,
 		SectionSubHeadingComponent,
@@ -65,7 +67,7 @@ UIApiDocsComponent,		MainSectionDirective,
 				<spartan-code [code]="defaultSkeleton" />
 			</div>
 
-<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
+			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="brain" />
 
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>

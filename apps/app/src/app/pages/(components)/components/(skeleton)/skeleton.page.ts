@@ -10,11 +10,12 @@ import { SectionIntroComponent } from '../../../../shared/layout/section-intro.c
 import { SectionSubHeadingComponent } from '../../../../shared/layout/section-sub-heading.component';
 import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
-import { UIApiDocsComponent } from "../../../../shared/layout/ui-docs-section/ui-docs-section.component";import { metaWith } from '../../../../shared/meta/meta.util';
+import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
+import { metaWith } from '../../../../shared/meta/meta.util';
 import { SkeletonPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './skeleton.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'skeleton', api: 'skeleton'},
+	data: { breadcrumb: 'skeleton', api: 'skeleton' },
 	meta: metaWith('spartan/ui - Skeleton', 'Use to show a placeholder while content is loading.'),
 	title: 'spartan/ui - Skeleton',
 };
@@ -57,9 +58,6 @@ export const routeMeta: RouteMeta = {
 				<spartan-code [code]="defaultImports" />
 				<spartan-code [code]="defaultSkeleton" />
 			</div>
-
-			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
-			<spartan-ui-api-docs docType="brain" />
 
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="helm" />

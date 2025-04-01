@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostListener, inject } from '@angular/core';
+import { computed, Directive, ElementRef, HostListener, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { fromEvent } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
@@ -7,17 +7,32 @@ import { injectBrnSlider } from './brn-slider.token';
 @Directive({
 	selector: '[brnSliderThumb]',
 	host: {
+		role: 'slider',
 		'[attr.aria-valuenow]': 'slider.value()',
 		'[attr.aria-valuemin]': 'slider.min()',
 		'[attr.aria-valuemax]': 'slider.max()',
 		'[attr.tabindex]': 'slider.disabled() ? -1 : 0',
 		'[attr.data-disabled]': 'slider.disabled()',
-		'[style.inset-inline-start.%]': 'slider.percentage()',
+		'[style.inset-inline-start]': 'thumbOffset()',
 	},
 })
 export class BrnSliderThumbDirective {
 	protected readonly slider = injectBrnSlider();
 	private readonly _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+
+	/**
+	 * Offsets the thumb centre point while sliding to ensure it remains
+	 * within the bounds of the slider when reaching the edges.
+	 * Based on https://github.com/radix-ui/primitives/blob/main/packages/react/slider/src/slider.tsx
+	 */
+	protected readonly thumbOffset = computed(() => {
+		const halfWidth = this._elementRef.nativeElement.offsetWidth / 2;
+		const offset = this.linearScale([0, 50], [0, halfWidth]);
+		const thumbInBoundsOffset = halfWidth - offset(this.slider.percentage());
+		const percent = this.slider.percentage();
+
+		return `calc(${percent}% + ${thumbInBoundsOffset}px)`;
+	});
 
 	constructor() {
 		const mousedown = fromEvent<MouseEvent>(this._elementRef.nativeElement, 'mousedown');
@@ -85,5 +100,13 @@ export class BrnSliderThumbDirective {
 				event.preventDefault();
 				break;
 		}
+	}
+
+	private linearScale(input: readonly [number, number], output: readonly [number, number]): (value: number) => number {
+		return (value: number) => {
+			if (input[0] === input[1] || output[0] === output[1]) return output[0];
+			const ratio = (output[1] - output[0]) / (input[1] - input[0]);
+			return output[0] + ratio * (value - input[0]);
+		};
 	}
 }

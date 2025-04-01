@@ -1,8 +1,10 @@
 import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import {
 	booleanAttribute,
+	ChangeDetectorRef,
 	computed,
 	Directive,
+	inject,
 	input,
 	linkedSignal,
 	model,
@@ -32,6 +34,8 @@ import { provideBrnSlider } from './brn-slider.token';
 	},
 })
 export class BrnSliderDirective implements ControlValueAccessor, OnInit {
+	private readonly _changeDetectorRef = inject(ChangeDetectorRef);
+
 	public readonly value = model<number>(0);
 
 	public readonly min = input<number, NumberInput>(0, {
@@ -55,7 +59,7 @@ export class BrnSliderDirective implements ControlValueAccessor, OnInit {
 	public readonly disabled = linkedSignal(() => this._disabled());
 
 	/** @internal */
-	protected readonly percentage = computed(() => ((this.value() - this.min()) / (this.max() - this.min())) * 100);
+	public readonly percentage = computed(() => ((this.value() - this.min()) / (this.max() - this.min())) * 100);
 
 	/** @internal Store the on change callback */
 	protected _onChange?: ChangeFn<number>;
@@ -89,7 +93,14 @@ export class BrnSliderDirective implements ControlValueAccessor, OnInit {
 	}
 
 	writeValue(value: number): void {
-		this.value.set(value);
+		const clampedValue = clamp(value, [this.min(), this.max()]);
+		this.value.set(clampedValue);
+
+		if (value !== clampedValue) {
+			this._onChange?.(clampedValue);
+		}
+
+		this._changeDetectorRef.detectChanges();
 	}
 
 	setValue(value: number): void {

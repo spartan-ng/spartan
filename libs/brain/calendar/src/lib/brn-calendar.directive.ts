@@ -45,8 +45,11 @@ export class BrnCalendarDirective<T> {
 		transform: booleanAttribute,
 	});
 
+	/** The selection mode.  */
+	public readonly mode = input<CalendarMode>('single');
+
 	/** The selected value. */
-	public readonly date = model<T>();
+	public readonly date = model<DateValue<T>>();
 
 	/** Whether a specific date is disabled. */
 	public readonly dateDisabled = input<(date: T) => boolean>(() => false);
@@ -72,7 +75,7 @@ export class BrnCalendarDirective<T> {
 	 * The internal state of the component.
 	 */
 	public readonly state = computed(() => ({
-		focusedDate: signal(this.constrainDate(this.defaultFocusedDate() ?? this.date() ?? this.dateAdapter.now())),
+		focusedDate: signal(this.constrainDate(this.defaultFocusedDate() ?? this.dateAdapter.now())),
 	}));
 
 	/**
@@ -168,8 +171,40 @@ export class BrnCalendarDirective<T> {
 	}
 
 	selectDate(date: T): void {
-		this.date.set(date);
+		if (this.mode() === 'single') {
+			this.singleSelect(date);
+		} else if (this.mode() === 'multiple') {
+			this.multipleSelect(date);
+		}
 		this.state().focusedDate.set(date);
+	}
+
+	isSelected(date: T): boolean {
+		if (this.mode() === 'single') {
+			const selected = this.date() as T | undefined;
+			return selected !== undefined && this.dateAdapter.isSameDay(date, selected);
+		} else if (this.mode() === 'multiple') {
+			const selected = this.date() as T[] | undefined;
+			return selected?.some((d) => this.dateAdapter.isSameDay(d, date)) ?? false;
+		}
+		return false;
+	}
+
+	private singleSelect(date: T) {
+		if (this.isSelected(date)) {
+			this.date.set(undefined);
+		} else {
+			this.date.set(date);
+		}
+	}
+
+	private multipleSelect(date: T) {
+		const selected = this.date() as T[] | undefined;
+		if (this.isSelected(date)) {
+			this.date.set(selected?.filter((d) => !this.dateAdapter.isSameDay(d, date)));
+		} else {
+			this.date.set([...(selected ?? []), date]);
+		}
 	}
 
 	/** @internal Set the focused date */
@@ -204,3 +239,5 @@ export class BrnCalendarDirective<T> {
 }
 
 export type Weekday = 0 | 1 | 2 | 3 | 4 | 5 | 6;
+export type CalendarMode = 'single' | 'multiple';
+export type DateValue<T> = T | T[];

@@ -42,8 +42,7 @@ export class BrnCalendarCellButtonDirective<T> {
 
 	/** Whether this date is currently selected */
 	public readonly selected = computed(() => {
-		const selectedDate = this.calendar.date();
-		return selectedDate && this.dateAdapter.isSameDay(this.date(), selectedDate);
+		return this.calendar.isSelected(this.date());
 	});
 
 	/** Whether this date is focusable */

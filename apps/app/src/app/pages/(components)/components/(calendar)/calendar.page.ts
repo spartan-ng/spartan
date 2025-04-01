@@ -1,5 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
+import { hlmH4 } from '@spartan-ng/ui-typography-helm';
 import { CodeComponent } from '../../../../shared/code/code.component';
 import { PageBottomNavLinkComponent } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav-link.component';
 import { PageBottomNavComponent } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav.component';
@@ -9,6 +10,7 @@ import { SectionSubHeadingComponent } from '../../../../shared/layout/section-su
 import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
+import { calendarMultipleCode, CalendarMultipleExampleComponent } from './calendar--multiple.example';
 import { CalendarPreviewComponent, codeSkeleton, defaultCode, defaultImports } from './calendar.preview';
 
 export const routeMeta: RouteMeta = {
@@ -29,6 +31,7 @@ export const routeMeta: RouteMeta = {
 		PageBottomNavComponent,
 		PageBottomNavLinkComponent,
 		PageNavComponent,
+		CalendarMultipleExampleComponent,
 	],
 	template: `
 		<section spartanMainSection>
@@ -54,6 +57,16 @@ export const routeMeta: RouteMeta = {
 				<spartan-code [code]="codeSkeleton" />
 			</div>
 
+			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
+			<h3 id="examples__default" class="${hlmH4} mb-2 mt-6">Multi Selection</h3>
+
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-calendar-multiple />
+				</div>
+				<spartan-code secondTab [code]="calendarMultipleCode" />
+			</spartan-tabs>
+
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="carousel" label="Carousel" />
 				<spartan-page-bottom-nav-link direction="previous" href="button" label="Button" />
@@ -66,4 +79,5 @@ export default class CardPageComponent {
 	protected readonly defaultCode = defaultCode;
 	protected readonly defaultImports = defaultImports;
 	protected readonly codeSkeleton = codeSkeleton;
+	protected readonly calendarMultipleCode = calendarMultipleCode;
 }

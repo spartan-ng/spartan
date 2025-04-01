@@ -12,6 +12,8 @@ import {
 	BrnCalendarPreviousButtonDirective,
 	BrnCalendarWeekDirective,
 	BrnCalendarWeekdayDirective,
+	CalendarMode,
+	DateValue,
 	Weekday,
 	injectBrnCalendarI18n,
 } from '@spartan-ng/brain/calendar';
@@ -47,6 +49,7 @@ import type { ClassValue } from 'clsx';
 			[dateDisabled]="dateDisabled()"
 			[weekStartsOn]="weekStartsOn()"
 			[defaultFocusedDate]="defaultFocusedDate()"
+			[mode]="mode()"
 			[class]="_computedCalenderClass()"
 		>
 			<div class="inline-flex flex-col space-y-4">
@@ -131,7 +134,7 @@ export class HlmCalendarComponent<T> {
 	});
 
 	/** The selected value. */
-	public readonly date = model<T>();
+	public readonly date = model<DateValue<T>>();
 
 	/** Whether a specific date is disabled. */
 	public readonly dateDisabled = input<(date: T) => boolean>(() => false);
@@ -143,6 +146,9 @@ export class HlmCalendarComponent<T> {
 
 	/** The default focused date. */
 	public readonly defaultFocusedDate = input<T>();
+
+	/** The selection mode. */
+	public readonly mode = input<CalendarMode>('single');
 
 	/** Access the calendar directive */
 	private readonly _calendar = viewChild.required(BrnCalendarDirective);

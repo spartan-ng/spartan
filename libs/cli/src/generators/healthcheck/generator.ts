@@ -7,6 +7,7 @@ import { helmIconHealthcheck } from './healthchecks/hlm-icon';
 import { scrollAreaHealthcheck } from './healthchecks/hlm-scroll-area';
 import { selectHealthcheck } from './healthchecks/hlm-select';
 import { versionHealthcheck } from './healthchecks/version';
+import { brainToggleHealthcheck } from './healthchecks/brn-toggle-group';
 import { HealthcheckGeneratorSchema } from './schema';
 import { promptUser } from './utils/prompt';
 import { printReport } from './utils/reporter';
@@ -23,9 +24,9 @@ export async function healthcheckGenerator(tree: Tree, options: HealthcheckGener
 		scrollAreaHealthcheck,
 		brainRadioHealthcheck,
 		selectHealthcheck,
+		brainToggleHealthcheck,
 	];
 
-	// store all the failed healthchecks that can be fixed
 	const failedReports: HealthcheckReport[] = [];
 
 	for (const healthcheck of healthchecks) {
@@ -37,7 +38,6 @@ export async function healthcheckGenerator(tree: Tree, options: HealthcheckGener
 		}
 	}
 
-	// if there are some failed healthchecks that can be fixed, ask the user if they want to fix them
 	for (const report of failedReports) {
 		if (report.fixable && isHealthcheckFixable(report.healthcheck)) {
 			const fix = options.autoFix || (await promptUser(report.healthcheck.prompt));

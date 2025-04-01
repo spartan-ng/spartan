@@ -1,7 +1,7 @@
-import { createTreeWithEmptyWorkspace } from "@nx/devkit/testing";
-import { migrateToggleGroupGenerator } from "./generator";
-import { applicationGenerator, E2eTestRunner, UnitTestRunner } from "@nx/angular/generators";
-import { Tree } from "@nx/devkit";
+import { applicationGenerator, E2eTestRunner, UnitTestRunner } from '@nx/angular/generators';
+import { Tree } from '@nx/devkit';
+import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
+import { migrateToggleGroupGenerator } from './generator';
 
 // patch some imports to avoid running the actual code
 jest.mock('enquirer');

@@ -63,7 +63,7 @@ body:
         - textarea
         - toast
         - toggle
-				- toggle-group
+        - toggle-group
         - tooltip
         - trpc
         - typography

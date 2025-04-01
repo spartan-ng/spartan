@@ -1,8 +1,12 @@
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideBold, lucideItalic, lucideUnderline } from '@ng-icons/lucide';
-import { BrnToggleGroupItemDirective, BrnToggleGroupModule } from '@spartan-ng/brain/toggle-group';
+import {
+	BrnToggleGroupComponent,
+	BrnToggleGroupItemDirective,
+	BrnToggleGroupModule,
+} from '@spartan-ng/brain/toggle-group';
 import type { Meta, StoryObj } from '@storybook/angular';
-import { moduleMetadata } from '@storybook/angular';
+import { argsToTemplate, moduleMetadata } from '@storybook/angular';
 
 import { BooleanInput } from '@angular/cdk/coercion';
 import { JsonPipe } from '@angular/common';
@@ -17,12 +21,32 @@ const meta: Meta<HlmToggleGroupDirective> = {
 	title: 'Toggle Group',
 	component: HlmToggleGroupDirective,
 	tags: ['autodocs'],
+	argTypes: {
+		variant: {
+			control: 'select',
+			options: ['default', 'outline'],
+			description: 'The visual style of the toggle group',
+			defaultValue: 'default',
+		},
+		size: {
+			control: 'select',
+			options: ['default', 'sm', 'lg'],
+			description: 'The size of the toggle group',
+			defaultValue: 'default',
+		},
+		userClass: {
+			control: 'text',
+			description: 'Additional CSS classes to apply to the toggle group',
+		},
+	},
 	decorators: [
 		moduleMetadata({
 			imports: [
-				BrnToggleGroupModule,
+				BrnToggleGroupComponent,
+				// BrnToggleGroupModule,
 				HlmToggleGroupModule,
 				BrnToggleGroupItemDirective,
+				HlmToggleGroupDirective,
 				HlmToggleGroupItemDirective,
 				NgIcon,
 				HlmIconDirective,
@@ -36,20 +60,20 @@ export default meta;
 type Story = StoryObj<HlmToggleGroupDirective>;
 
 export const Default: Story = {
-	render: () => ({
+	render: (args) => ({
 		template: `
 		<div class="flex items-center justify-center p-4">
-	<brn-toggle-group hlm multiple="false" nullable="true">
+	 <brn-toggle-group hlm multiple="false" nullable="true" ${argsToTemplate(args)} >
 	 <button aria-label="Bold Toggle" value="bold" hlmToggleGroupItem>
-	   <ng-icon hlm size="sm" name="lucideBold" />
+	   <ng-icon hlm size="sm" name="lucideBold" ${argsToTemplate(args)} />
 	 </button>
 
 	 <button aria-label="Italic Toggle" value="italic" hlmToggleGroupItem>
-	   <ng-icon hlm size="sm" name="lucideItalic" />
+	   <ng-icon hlm size="sm" name="lucideItalic" ${argsToTemplate(args)} />
 	 </button>
 
 	 <button aria-label="Underline Toggle" value="underline" hlmToggleGroupItem>
-	   <ng-icon hlm size="sm" name="lucideUnderline" />
+	   <ng-icon hlm size="sm" name="lucideUnderline" ${argsToTemplate(args)} />
 	 </button>
 			</brn-toggle-group>
 		</div>
@@ -58,10 +82,10 @@ export const Default: Story = {
 };
 
 export const Outline: Story = {
-	render: () => ({
+	render: (args) => ({
 		template: `
 		<div class="flex items-center justify-center p-4">
-	<brn-toggle-group hlm multiple="true" nullable="true" variant="outline">
+	<brn-toggle-group hlm size="sm" variant="outline" multiple="true" nullable="true" ${argsToTemplate(args)}>
 	 <button aria-label="Bold" value="bold" hlmToggleGroupItem>
 		 <ng-icon hlm size="sm" name="lucideBold" />
 	 </button>
@@ -80,10 +104,10 @@ export const Outline: Story = {
 };
 
 export const Small: Story = {
-	render: () => ({
+	render: (args) => ({
 		template: `
 	<div class="flex items-center justify-center p-4">
-	<brn-toggle-group hlm multiple="false" nullable="true" size="sm">
+	<brn-toggle-group hlm size="sm" ${argsToTemplate(args)} multiple="false" nullable="true" >
 	<button aria-label="Bold" value="bold" hlmToggleGroupItem>
 	 <ng-icon hlm size="sm" name="lucideBold" />
 	</button>
@@ -100,10 +124,10 @@ export const Small: Story = {
 };
 
 export const Large: Story = {
-	render: () => ({
+	render: (args) => ({
 		template: `
 		<div class="flex items-center justify-center p-4">
-<brn-toggle-group hlm multiple="false" nullable="true" size="lg">
+<brn-toggle-group hlm ${argsToTemplate(args)} multiple="false" nullable="true" size="lg">
 	 <button aria-label="Bold" value="bold" hlmToggleGroupItem>
 		 <ng-icon hlm size="lg" name="lucideBold" />
 	 </button>
@@ -296,7 +320,7 @@ export const ToggleGroupMultiple: StoryObj<{ defaultValue: City[] }> = {
 	args: {
 		defaultValue: [CITIES[0]],
 	},
-		render: ({ defaultValue }) => ({
+	render: ({ defaultValue }) => ({
 		props: { defaultValue },
 		template: '<hlm-toggle-group-story multiple="true" [defaultValue]="defaultValue"/>',
 	}),

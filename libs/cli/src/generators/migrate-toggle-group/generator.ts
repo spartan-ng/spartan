@@ -119,10 +119,7 @@ function updateHlmImports(tree: Tree) {
 
 			// Update the imports array to replace HlmToggleGroupModule with the directives
 			// For the case where HlmToggleGroupModule is in the middle of other imports
-			content = content.replace(
-				'HlmToggleGroupModule',
-				'HlmToggleGroupDirective, HlmToggleGroupItemDirective',
-			);
+			content = content.replace('HlmToggleGroupModule', 'HlmToggleGroupDirective, HlmToggleGroupItemDirective');
 
 			tree.write(path, content);
 		}
@@ -152,7 +149,7 @@ function replaceSelector(_tree: Tree) {
 		_tree.write(path, content);
 	});
 
-	return true
+	return true;
 }
 
 export default migrateToggleGroupGenerator;

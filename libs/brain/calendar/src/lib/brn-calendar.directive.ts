@@ -168,7 +168,11 @@ export class BrnCalendarDirective<T> {
 	}
 
 	selectDate(date: T): void {
-		this.date.set(date);
+		if (this.isSelected(date)) {
+			this.date.set(undefined);
+		} else {
+			this.date.set(date);
+		}
 		this.state().focusedDate.set(date);
 	}
 

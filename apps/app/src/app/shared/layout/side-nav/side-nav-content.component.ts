@@ -109,7 +109,7 @@ export class SideNavContentComponent {
 				{ label: 'Separator', url: '/separator' },
 				{ label: 'Sheet', url: '/sheet' },
 				{ label: 'Skeleton', url: '/skeleton' },
-				{ label: 'Slider', url: '/slider', wip: true },
+				{ label: 'Slider', url: '/slider' },
 				{ label: 'Sonner', url: '/sonner' },
 				{ label: 'Spinner', url: '/spinner' },
 				{ label: 'Switch', url: '/switch' },

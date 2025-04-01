@@ -63,7 +63,7 @@ export class HlmSliderComponent {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>
 		hlm(
-			'w-full h-5 flex relative select-none items-center',
+			'w-full h-5 flex relative select-none items-center touch-none',
 			this._slider.disabled() ? 'opacity-40' : '',
 			this.userClass(),
 		),

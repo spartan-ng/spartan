@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { DateValue } from '@spartan-ng/brain/calendar';
 import { HlmDatePickerComponent, provideHlmDatePickerConfig } from '@spartan-ng/ui-date-picker-helm';
 import { DateTime } from 'luxon';
 
 @Component({
 	selector: 'spartan-date-picker-format',
-	imports: [HlmDatePickerComponent, FormsModule],
+	imports: [HlmDatePickerComponent],
 	template: `
 		<hlm-date-picker [min]="minDate" [max]="maxDate" [formatDate]="formatDate">
 			<span>Pick a date</span>
@@ -13,7 +13,7 @@ import { DateTime } from 'luxon';
 	`,
 	providers: [
 		// Global formatDate config
-		provideHlmDatePickerConfig({ formatDate: (date: Date) => DateTime.fromJSDate(date).toFormat('dd.MM.yyyy') }),
+		provideHlmDatePickerConfig({ formatDate: (date) => DateTime.fromJSDate(date as Date).toFormat('dd.MM.yyyy') }),
 	],
 	host: {
 		class: 'preview flex min-h-[350px] w-full justify-center p-10 items-center',
@@ -27,19 +27,18 @@ export class DatePickerFormatExampleComponent {
 	public maxDate = new Date(2030, 11, 31);
 
 	/** Overrides global formatDate  */
-	public formatDate = (date: Date) => DateTime.fromJSDate(date).toFormat('MMMM dd, yyyy');
+	public formatDate = (date: DateValue<Date>) => DateTime.fromJSDate(date as Date).toFormat('MMMM dd, yyyy');
 }
 
 export const datePickerFormatCode = `
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { DateValue } from '@spartan-ng/brain/calendar';
 import { HlmDatePickerComponent, provideHlmDatePickerConfig } from '@spartan-ng/ui-date-picker-helm';
 import { DateTime } from 'luxon';
 
 @Component({
 	selector: 'spartan-date-picker-format',
-	standalone: true,
-	imports: [HlmDatePickerComponent, FormsModule],
+	imports: [HlmDatePickerComponent],
 	template: \`
 		<hlm-date-picker [min]="minDate" [max]="maxDate" [formatDate]="formatDate">
 			<span>Pick a date</span>
@@ -47,7 +46,7 @@ import { DateTime } from 'luxon';
 	\`,
 	providers: [
 		// Global formatDate config
-		provideHlmDatePickerConfig({ formatDate: (date: Date) => DateTime.fromJSDate(date).toFormat('dd.MM.yyyy') }),
+		provideHlmDatePickerConfig({ formatDate: (date) => DateTime.fromJSDate(date as Date).toFormat('dd.MM.yyyy') }),
 	],
 	host: {
 		class: 'preview flex min-h-[350px] w-full justify-center p-10 items-center',
@@ -61,6 +60,6 @@ export class DatePickerFormatExampleComponent {
 	public maxDate = new Date(2030, 11, 31);
 
 	/** Overrides global formatDate  */
-	public formatDate = (date: Date) => DateTime.fromJSDate(date).toFormat('MMMM dd, yyyy');
+	public formatDate = (date: DateValue<Date>) => DateTime.fromJSDate(date as Date).toFormat('MMMM dd, yyyy');
 }
 `;

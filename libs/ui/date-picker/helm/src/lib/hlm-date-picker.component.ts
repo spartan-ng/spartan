@@ -3,6 +3,7 @@ import { booleanAttribute, Component, computed, forwardRef, input, model, output
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCalendar } from '@ng-icons/lucide';
+import { CalendarMode, DateValue } from '@spartan-ng/brain/calendar';
 import { hlm } from '@spartan-ng/brain/core';
 import { BrnDialogState } from '@spartan-ng/brain/dialog';
 import { type ChangeFn, type TouchFn } from '@spartan-ng/brain/forms';
@@ -36,11 +37,13 @@ export const HLM_DATE_PICKER_VALUE_ACCESSOR = {
 			<button type="button" [class]="_computedClass()" [disabled]="state().disabled()" brnPopoverTrigger>
 				<ng-icon hlm size="sm" name="lucideCalendar" />
 
-				@if (formattedDate(); as formattedDate) {
-					{{ formattedDate }}
-				} @else {
-					<ng-content />
-				}
+				<span class="truncate">
+					@if (formattedDate(); as formattedDate) {
+						{{ formattedDate }}
+					} @else {
+						<ng-content />
+					}
+				</span>
 			</button>
 
 			<div hlmPopoverContent class="w-auto p-0" *brnPopoverContent="let ctx">
@@ -51,6 +54,7 @@ export const HLM_DATE_PICKER_VALUE_ACCESSOR = {
 					[max]="max()"
 					[disabled]="state().disabled()"
 					(dateChange)="_handleChange($event)"
+					[mode]="mode()"
 				/>
 			</div>
 		</brn-popover>
@@ -86,7 +90,10 @@ export class HlmDatePickerComponent<T> {
 	});
 
 	/** The selected value. */
-	public readonly date = model<T>();
+	public readonly date = model<DateValue<T>>();
+
+	/** The selection mode. */
+	public readonly mode = input<CalendarMode>('single');
 
 	/** If true, the date picker will close when a date is selected. */
 	public readonly autoCloseOnSelect = input<boolean, BooleanInput>(this._config.autoCloseOnSelect, {
@@ -94,10 +101,10 @@ export class HlmDatePickerComponent<T> {
 	});
 
 	/** Defines how the date should be displayed in the UI.  */
-	public readonly formatDate = input<(date: T) => string>(this._config.formatDate);
+	public readonly formatDate = input<(date: DateValue<T>) => string>(this._config.formatDate);
 
 	/** Defines how the date should be transformed before saving to model/form. */
-	public readonly transformDate = input<(date: T) => T>(this._config.transformDate);
+	public readonly transformDate = input<(date: DateValue<T>) => DateValue<T>>(this._config.transformDate);
 
 	protected readonly popoverState = signal<BrnDialogState | null>(null);
 
@@ -110,9 +117,9 @@ export class HlmDatePickerComponent<T> {
 		return date ? this.formatDate()(date) : undefined;
 	});
 
-	public readonly changed = output<T>();
+	public readonly changed = output<DateValue<T>>();
 
-	protected _onChange?: ChangeFn<T>;
+	protected _onChange?: ChangeFn<DateValue<T>>;
 	protected _onTouched?: TouchFn;
 
 	protected _handleChange(value: T) {
@@ -123,20 +130,20 @@ export class HlmDatePickerComponent<T> {
 		this._onChange?.(transformedDate);
 		this.changed.emit(transformedDate);
 
-		if (this.autoCloseOnSelect()) {
+		if (this.mode() === 'single' && this.autoCloseOnSelect()) {
 			this.popoverState.set('closed');
 		}
 	}
 
 	/** CONROL VALUE ACCESSOR */
-	writeValue(value: T | null): void {
+	writeValue(value: DateValue<T> | null): void {
 		// optional FormControl is initialized with null value
 		if (value === null) return;
 
 		this.date.set(this.transformDate()(value));
 	}
 
-	registerOnChange(fn: ChangeFn<T>): void {
+	registerOnChange(fn: ChangeFn<DateValue<T>>): void {
 		this._onChange = fn;
 	}
 

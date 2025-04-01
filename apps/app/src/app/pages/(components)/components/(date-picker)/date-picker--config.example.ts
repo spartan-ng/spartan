@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { HlmDatePickerComponent, provideHlmDatePickerConfig } from '@spartan-ng/ui-date-picker-helm';
 import { DateTime } from 'luxon';
 
 @Component({
 	selector: 'spartan-date-picker-config',
-	imports: [HlmDatePickerComponent, FormsModule],
+	imports: [HlmDatePickerComponent],
 	template: `
 		<hlm-date-picker [min]="minDate" [max]="maxDate">
 			<span>Pick a date</span>
@@ -13,8 +12,11 @@ import { DateTime } from 'luxon';
 	`,
 	providers: [
 		provideHlmDatePickerConfig({
-			formatDate: (date: Date) => DateTime.fromJSDate(date).toFormat('dd.MM.yyyy'),
-			transformDate: (date: Date) => DateTime.fromJSDate(date).plus({ days: 1 }).toJSDate(),
+			formatDate: (date) => DateTime.fromJSDate(date as Date).toFormat('dd.MM.yyyy'),
+			transformDate: (date) =>
+				DateTime.fromJSDate(date as Date)
+					.plus({ days: 1 })
+					.toJSDate(),
 		}),
 	],
 	host: {
@@ -31,14 +33,12 @@ export class DatePickerConfigExampleComponent {
 
 export const datePickerConfigCode = `
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { HlmDatePickerComponent, provideHlmDatePickerConfig } from '@spartan-ng/ui-date-picker-helm';
 import { DateTime } from 'luxon';
 
 @Component({
 	selector: 'spartan-date-picker-config',
-	standalone: true,
-	imports: [HlmDatePickerComponent, FormsModule],
+	imports: [HlmDatePickerComponent],
 	template: \`
 		<hlm-date-picker [min]="minDate" [max]="maxDate">
 			<span>Pick a date</span>
@@ -46,8 +46,11 @@ import { DateTime } from 'luxon';
 	\`,
 	providers: [
 		provideHlmDatePickerConfig({
-			formatDate: (date: Date) => DateTime.fromJSDate(date).toFormat('dd.MM.yyyy'),
-			transformDate: (date: Date) => DateTime.fromJSDate(date).plus({ days: 1 }).toJSDate(),
+			formatDate: (date) => DateTime.fromJSDate(date as Date).toFormat('dd.MM.yyyy'),
+			transformDate: (date) =>
+				DateTime.fromJSDate(date as Date)
+					.plus({ days: 1 })
+					.toJSDate(),
 		}),
 	],
 	host: {

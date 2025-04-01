@@ -1,4 +1,5 @@
 import { inject, InjectionToken, ValueProvider } from '@angular/core';
+import { DateValue } from '@spartan-ng/brain/calendar';
 
 export interface HlmDatePickerConfig<T> {
 	/**
@@ -12,7 +13,7 @@ export interface HlmDatePickerConfig<T> {
 	 * @param date
 	 * @returns formatted date
 	 */
-	formatDate: (date: T) => string;
+	formatDate: (date: DateValue<T>) => string;
 
 	/**
 	 * Defines how the date should be transformed before saving to model/form.
@@ -20,12 +21,17 @@ export interface HlmDatePickerConfig<T> {
 	 * @param date
 	 * @returns transformed date
 	 */
-	transformDate: (date: T) => T;
+	transformDate: (date: DateValue<T>) => DateValue<T>;
 }
 
 function getDefaultConfig<T>(): HlmDatePickerConfig<T> {
 	return {
-		formatDate: (date) => (date instanceof Date ? date.toDateString() : `${date}`),
+		formatDate: (date) => {
+			if (Array.isArray(date)) {
+				return date.map((d) => (d instanceof Date ? d.toDateString() : `${d}`)).join(', ');
+			}
+			return date instanceof Date ? date.toDateString() : `${date}`;
+		},
 		transformDate: (date) => date,
 		autoCloseOnSelect: false,
 	};

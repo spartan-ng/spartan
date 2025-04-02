@@ -5,9 +5,9 @@ import { CallExpression, ObjectLiteralExpression, Project, PropertyAssignment } 
 import { GenerateUiDocsExecutorSchema } from './schema';
 
 export default async function runExecutor(options: GenerateUiDocsExecutorSchema, context: ExecutorContext) {
-	const brainDir = path.join(context.root, 'libs/brain');
-	const uiDir = path.join(context.root, 'libs/ui');
-	const outputDir = options.outputDir || path.join(context.root, 'dist/extracted-metadata');
+	const brainDir = options.brainDir;
+	const uiDir = options.uiDir;
+	const outputDir = options.outputDir || path.join(context.root, 'dist/generated-ui-docs');
 
 	if (!fs.existsSync(outputDir)) {
 		fs.mkdirSync(outputDir, { recursive: true });

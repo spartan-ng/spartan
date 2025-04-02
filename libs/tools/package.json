@@ -12,9 +12,9 @@
 		"jsonc-eslint-parser": "^2.1.0",
 		"nx": "20.5.0",
 		"process": "0.11.10",
-		"replace-json-property": "^1.9.0",
+		"ts-morph": "25.0.1",
 		"tslib": "~2.7.0",
-		"typescript": "~5.5.0"
+		"typescript": "~5.7.3"
 	},
 	"executors": "./executors.json",
 	"generators": "./generators.json"

@@ -33,6 +33,7 @@
 			}
 		},
 		"serve": {
+			"dependsOn": ["generate-ui-docs"],
 			"executor": "@analogjs/platform:vite-dev-server",
 			"defaultConfiguration": "development",
 			"options": {
@@ -74,7 +75,10 @@
 		"generate-ui-docs": {
 			"executor": "@spartan-ng/tools:generate-ui-docs",
 			"options": {
-				"outputDir": "{projectRoot}/src/public/data"
+				"outputDir": "apps/app/src/public/data",
+				"outputFile": "ui-api.json",
+				"brainDir": "libs/brain",
+				"uiDir": "libs/ui"
 			}
 		}
 	}

@@ -13,8 +13,10 @@ import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { datePickerConfigCode, DatePickerConfigExampleComponent } from './date-picker--config.example';
+import { datePickerFormMultipleCode, DatePickerFormMultipleExampleComponent } from './date-picker--form-multi.example';
 import { datePickerFormCode, DatePickerFormExampleComponent } from './date-picker--form.example';
 import { datePickerFormatCode, DatePickerFormatExampleComponent } from './date-picker--format.example';
+import { datePickerMultipleCode, DatePickerMultipleExampleComponent } from './date-picker--multi.example';
 import { codeSkeleton, DatePickerPreviewComponent, defaultCode, defaultImports } from './date-picker.preview';
 
 export const routeMeta: RouteMeta = {
@@ -40,6 +42,8 @@ const link = 'h-6 underline text-base px-0.5';
 		DatePickerConfigExampleComponent,
 		DatePickerFormatExampleComponent,
 		DatePickerFormExampleComponent,
+		DatePickerMultipleExampleComponent,
+		DatePickerFormMultipleExampleComponent,
 		RouterLink,
 		HlmButtonDirective,
 	],
@@ -108,6 +112,15 @@ const link = 'h-6 underline text-base px-0.5';
 				<spartan-code secondTab [code]="datePickerConfigCode" />
 			</spartan-tabs>
 
+			<h3 id="examples__default" class="${hlmH4} mb-2 mt-6">Multiple Selection</h3>
+
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-date-picker-multiple />
+				</div>
+				<spartan-code secondTab [code]="datePickerMultipleCode" />
+			</spartan-tabs>
+
 			<h3 id="examples__default" class="${hlmH4} mb-2 mt-6">Format Date</h3>
 
 			<p class="${hlmP} mb-6">
@@ -137,6 +150,21 @@ const link = 'h-6 underline text-base px-0.5';
 				<spartan-code secondTab [code]="datePickerFormCode" />
 			</spartan-tabs>
 
+			<h3 id="examples__default" class="${hlmH4} mb-2 mt-6">Form Multiple Selection</h3>
+			<p class="${hlmP} mb-6">
+				Sync the dates to a form by adding
+				<code class="${hlmCode}">formControlName</code>
+				to
+				<code class="${hlmCode}">hlm-date-picker</code>
+				.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-date-picker-form-multiple />
+				</div>
+				<spartan-code secondTab [code]="datePickerFormMultipleCode" />
+			</spartan-tabs>
+
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="dialog" label="Dialog" />
 				<spartan-page-bottom-nav-link direction="previous" href="data-table" label="Data Table" />
@@ -151,5 +179,7 @@ export default class CardPageComponent {
 	protected readonly codeSkeleton = codeSkeleton;
 	protected readonly datePickerConfigCode = datePickerConfigCode;
 	protected readonly datePickerFormCode = datePickerFormCode;
+	protected readonly datePickerFormMultipleCode = datePickerFormMultipleCode;
 	protected readonly datePickerFormatCode = datePickerFormatCode;
+	protected readonly datePickerMultipleCode = datePickerMultipleCode;
 }

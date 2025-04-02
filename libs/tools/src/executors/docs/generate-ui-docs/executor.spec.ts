@@ -1,7 +1,7 @@
 import { ExecutorContext } from '@nx/devkit';
 import * as fs from 'fs';
-import { GenerateUiDocsExecutorSchema } from './schema';
 import executor from './executor';
+import { GenerateUiDocsExecutorSchema } from './schema';
 
 // Mock the entire fs module
 jest.mock('fs', () => ({
@@ -33,14 +33,17 @@ jest.mock('ts-morph', () => {
 			}
 			return {
 				getInitializer: () => ({
-					getText: () => name === 'selector' ? "'hlm-button'" : "'hlmButton'",
+					getText: () => (name === 'selector' ? "'hlm-button'" : "'hlmButton'"),
 				}),
 			};
 		}
 	}
 
 	class MockCallExpression {
-		constructor(private readonly expression = 'input', private readonly typeArgs = ['boolean']) {}
+		constructor(
+			private readonly expression = 'input',
+			private readonly typeArgs = ['boolean'],
+		) {}
 
 		getExpression() {
 			return {
@@ -49,7 +52,7 @@ jest.mock('ts-morph', () => {
 		}
 
 		getTypeArguments() {
-			return this.typeArgs.map(type => ({
+			return this.typeArgs.map((type) => ({
 				getText: () => type,
 			}));
 		}
@@ -83,6 +86,7 @@ const findComponentData = (obj: any, componentName: string): any => {
 describe('GenerateUiDocs Executor', () => {
 	let context: ExecutorContext;
 	let options: GenerateUiDocsExecutorSchema;
+
 	let mockClass: any;
 	let mockDecorator: any;
 	let mockProperty: any;
@@ -100,9 +104,7 @@ describe('GenerateUiDocs Executor', () => {
 			root: '/root',
 			workspace: {
 				version: 2,
-				projects: {
-
-				},
+				projects: {},
 			},
 			isVerbose: false,
 			projectsConfigurations: {
@@ -168,7 +170,9 @@ describe('GenerateUiDocs Executor', () => {
 				getName: jest.fn().mockReturnValue('disabled'),
 				getType: jest.fn().mockReturnValue({ getText: () => 'boolean' }),
 				getDecorator: jest.fn().mockReturnValue({ getName: jest.fn().mockReturnValue('Input') }),
-				getJsDocs: jest.fn().mockReturnValue([{ getComment: jest.fn().mockReturnValue('Whether the button is disabled') }]),
+				getJsDocs: jest
+					.fn()
+					.mockReturnValue([{ getComment: jest.fn().mockReturnValue('Whether the button is disabled') }]),
 			},
 		]);
 
@@ -181,21 +185,21 @@ describe('GenerateUiDocs Executor', () => {
 				ui: {
 					button: {
 						ButtonComponent: {
-							file: "../../../../../../../root/libs/ui/button/button.component.ts",
+							file: '../../../../../../../root/libs/ui/button/button.component.ts',
 							inputs: [
 								{
-									name: "disabled",
-									type: "boolean",
-									description: "Whether the button is disabled"
-								}
+									name: 'disabled',
+									type: 'boolean',
+									description: 'Whether the button is disabled',
+								},
 							],
 							outputs: [],
-							selector: "hlm-button",
-							exportAs: "hlmButton"
-						}
-					}
-				}
-			}
+							selector: 'hlm-button',
+							exportAs: 'hlmButton',
+						},
+					},
+				},
+			},
 		};
 
 		const receivedComponentData = findComponentData(receivedJson, 'ButtonComponent');
@@ -213,7 +217,9 @@ describe('GenerateUiDocs Executor', () => {
 				...mockProperty,
 				getName: jest.fn().mockReturnValue('disabled'),
 				getInitializer: jest.fn().mockReturnValue(new MockCallExpression()),
-				getJsDocs: jest.fn().mockReturnValue([{ getComment: jest.fn().mockReturnValue('Whether the button is disabled') }]),
+				getJsDocs: jest
+					.fn()
+					.mockReturnValue([{ getComment: jest.fn().mockReturnValue('Whether the button is disabled') }]),
 			},
 		]);
 
@@ -226,21 +232,21 @@ describe('GenerateUiDocs Executor', () => {
 				ui: {
 					button: {
 						ButtonComponent: {
-							file: "../../../../../../../root/libs/ui/button/button.component.ts",
+							file: '../../../../../../../root/libs/ui/button/button.component.ts',
 							inputs: [
 								{
-									name: "disabled",
-									type: "boolean",
-									description: "Whether the button is disabled"
-								}
+									name: 'disabled',
+									type: 'boolean',
+									description: 'Whether the button is disabled',
+								},
 							],
 							outputs: [],
-							selector: "hlm-button",
-							exportAs: "hlmButton"
-						}
-					}
-				}
-			}
+							selector: 'hlm-button',
+							exportAs: 'hlmButton',
+						},
+					},
+				},
+			},
 		};
 
 		const receivedComponentData = findComponentData(receivedJson, 'ButtonComponent');
@@ -253,10 +259,12 @@ describe('GenerateUiDocs Executor', () => {
 		mockClass.getName.mockReturnValue('ButtonGroupComponent');
 		mockClass.getDecorator.mockReturnValue(mockDecorator);
 		mockDecorator.getName.mockReturnValue('Component');
-		mockDecorator.getArguments.mockReturnValue([new MockObjectLiteralExpression({
-			selector: "'hlm-button-group'",
-			exportAs: "'hlmButtonGroup'",
-		})]);
+		mockDecorator.getArguments.mockReturnValue([
+			new MockObjectLiteralExpression({
+				selector: "'hlm-button-group'",
+				exportAs: "'hlmButtonGroup'",
+			}),
+		]);
 
 		await executor(options, context);
 
@@ -268,16 +276,16 @@ describe('GenerateUiDocs Executor', () => {
 					button: {
 						group: {
 							ButtonGroupComponent: {
-								file: "../../../../../../../root/libs/ui/button/group/button-group.component.ts",
+								file: '../../../../../../../root/libs/ui/button/group/button-group.component.ts',
 								inputs: [],
 								outputs: [],
-								selector: "hlm-button-group",
-								exportAs: "hlmButtonGroup"
-							}
-						}
-					}
-				}
-			}
+								selector: 'hlm-button-group',
+								exportAs: 'hlmButtonGroup',
+							},
+						},
+					},
+				},
+			},
 		};
 
 		const receivedComponentData = findComponentData(receivedJson, 'ButtonGroupComponent');
@@ -290,10 +298,12 @@ describe('GenerateUiDocs Executor', () => {
 		mockClass.getName.mockReturnValue('ButtonComponent');
 		mockClass.getDecorator.mockReturnValue(mockDecorator);
 		mockDecorator.getName.mockReturnValue('Component');
-		mockDecorator.getArguments.mockReturnValue([new MockObjectLiteralExpression({
-			selector: "'brn-button'",
-			exportAs: "'brnButton'",
-		})]);
+		mockDecorator.getArguments.mockReturnValue([
+			new MockObjectLiteralExpression({
+				selector: "'brn-button'",
+				exportAs: "'brnButton'",
+			}),
+		]);
 
 		await executor(options, context);
 
@@ -304,15 +314,15 @@ describe('GenerateUiDocs Executor', () => {
 				brain: {
 					button: {
 						ButtonComponent: {
-							file: "../../../../../../../root/libs/brain/button/button.component.ts",
+							file: '../../../../../../../root/libs/brain/button/button.component.ts',
 							inputs: [],
 							outputs: [],
-							selector: "brn-button",
-							exportAs: "brnButton"
-						}
-					}
-				}
-			}
+							selector: 'brn-button',
+							exportAs: 'brnButton',
+						},
+					},
+				},
+			},
 		};
 
 		const receivedComponentData = findComponentData(receivedJson, 'ButtonComponent');

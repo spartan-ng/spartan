@@ -58,12 +58,16 @@ export const routeMeta: RouteMeta = {
 			</div>
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__default" class="${hlmH4} mb-2 mt-6">Multiple Mode</h3>
+			<h3 id="examples__default" class="${hlmH4} mb-2 mt-6">Multiple Selection</h3>
 
 			<p class="${hlmP} mb-6">
 				Use
 				<code class="${hlmCode}">hlm-calendar-multi</code>
-				for multiple date selection.
+				for multiple date selection. Limit the selectable dates using
+				<code class="${hlmCode}">minSelection</code>
+				and
+				<code class="${hlmCode}">maxSelection</code>
+				inputs.
 			</p>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">

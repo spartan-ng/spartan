@@ -42,6 +42,8 @@ import type { ClassValue } from 'clsx';
 			brnCalendarMulti
 			[min]="min()"
 			[max]="max()"
+			[minSelection]="minSelection()"
+			[maxSelection]="maxSelection()"
 			[disabled]="disabled()"
 			[(date)]="date"
 			[dateDisabled]="dateDisabled()"
@@ -122,8 +124,18 @@ export class HlmCalendarMultiComponent<T> {
 	/** The minimum date that can be selected.*/
 	public readonly min = input<T>();
 
-	/* * The maximum date that can be selected. */
+	/** The maximum date that can be selected. */
 	public readonly max = input<T>();
+
+	/** The minimum selectable dates.  */
+	public readonly minSelection = input<number, NumberInput>(undefined, {
+		transform: numberAttribute,
+	});
+
+	/** The maximum selectable dates.  */
+	public readonly maxSelection = input<number, NumberInput>(undefined, {
+		transform: numberAttribute,
+	});
 
 	/** Determine if the date picker is disabled. */
 	public readonly disabled = input<boolean, BooleanInput>(false, {

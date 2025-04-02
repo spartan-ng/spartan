@@ -38,8 +38,18 @@ export class BrnCalendarMultiDirective<T> implements BrnCalendar<T> {
 	/** The minimum date that can be selected.*/
 	public readonly min = input<T>();
 
-	/* * The maximum date that can be selected. */
+	/** The maximum date that can be selected. */
 	public readonly max = input<T>();
+
+	/** The minimum selectable dates.  */
+	public readonly minSelection = input<number, NumberInput>(undefined, {
+		transform: numberAttribute,
+	});
+
+	/** The maximum selectable dates.  */
+	public readonly maxSelection = input<number, NumberInput>(undefined, {
+		transform: numberAttribute,
+	});
 
 	/** Determine if the date picker is disabled. */
 	public readonly disabled = input<boolean, BooleanInput>(false, {
@@ -122,9 +132,22 @@ export class BrnCalendarMultiDirective<T> implements BrnCalendar<T> {
 	selectDate(date: T): void {
 		const selected = this.date() as T[] | undefined;
 		if (this.isSelected(date)) {
+			const minSelection = this.minSelection();
+			if (selected?.length === minSelection) {
+				// min selection reached, do not allow to deselect
+				return;
+			}
+
 			this.date.set(selected?.filter((d) => !this.dateAdapter.isSameDay(d, date)));
 		} else {
-			this.date.set([...(selected ?? []), date]);
+			const maxSelection = this.maxSelection();
+			if (selected?.length === maxSelection) {
+				// max selection reached, reset the selection to date
+				this.date.set([date]);
+			} else {
+				// add the date to the selection
+				this.date.set([...(selected ?? []), date]);
+			}
 		}
 	}
 

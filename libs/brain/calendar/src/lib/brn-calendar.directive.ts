@@ -37,7 +37,7 @@ export class BrnCalendarDirective<T> implements BrnCalendar<T> {
 	/** The minimum date that can be selected.*/
 	public readonly min = input<T>();
 
-	/* * The maximum date that can be selected. */
+	/** The maximum date that can be selected. */
 	public readonly max = input<T>();
 
 	/** Determine if the date picker is disabled. */

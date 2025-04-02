@@ -9,6 +9,7 @@ export * from './lib/brn-calendar-weekday.directive';
 export * from './lib/brn-calendar.directive';
 export * from './lib/brn-calendar.token';
 export * from './lib/i18n/calendar-i18n';
+export * from './lib/mode/brn-calendar-multiple.directive';
 
 import { NgModule } from '@angular/core';
 import { BrnCalendarCellButtonDirective } from './lib/brn-calendar-cell-button.directive';
@@ -20,6 +21,7 @@ import { BrnCalendarPreviousButtonDirective } from './lib/brn-calendar-previous-
 import { BrnCalendarWeekDirective } from './lib/brn-calendar-week.directive';
 import { BrnCalendarWeekdayDirective } from './lib/brn-calendar-weekday.directive';
 import { BrnCalendarDirective } from './lib/brn-calendar.directive';
+import { BrnCalendarMultiDirective } from './lib/mode/brn-calendar-multiple.directive';
 
 export const BrnCalendarImports = [
 	BrnCalendarCellButtonDirective,
@@ -31,6 +33,7 @@ export const BrnCalendarImports = [
 	BrnCalendarWeekdayDirective,
 	BrnCalendarDirective,
 	BrnCalendarCellDirective,
+	BrnCalendarMultiDirective,
 ] as const;
 
 @NgModule({

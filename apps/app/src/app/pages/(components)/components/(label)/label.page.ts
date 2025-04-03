@@ -15,7 +15,7 @@ import { metaWith } from '../../../../shared/meta/meta.util';
 import { LabelPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './label.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'label', api: 'label' },
+	data: { breadcrumb: 'Label', api: 'label' },
 	meta: metaWith('spartan/ui - Label', 'Gives the label a distinct look.'),
 	title: 'spartan/ui - Label',
 };

@@ -15,7 +15,7 @@ import { metaWith } from '../../../../shared/meta/meta.util';
 import { SkeletonPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './skeleton.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'skeleton', api: 'skeleton' },
+	data: { breadcrumb: 'Skeleton', api: 'skeleton' },
 	meta: metaWith('spartan/ui - Skeleton', 'Use to show a placeholder while content is loading.'),
 	title: 'spartan/ui - Skeleton',
 };

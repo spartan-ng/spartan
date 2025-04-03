@@ -16,7 +16,7 @@ import { metaWith } from '../../../../shared/meta/meta.util';
 import { TextAreaPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './textarea.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'textarea', api: 'input' },
+	data: { breadcrumb: 'Textarea', api: 'input' },
 	meta: metaWith(
 		'spartan/ui - Textarea',
 		'Gives a textarea field or a component a distinct look that indicates its input capabilities.',

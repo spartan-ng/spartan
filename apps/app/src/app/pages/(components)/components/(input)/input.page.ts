@@ -20,7 +20,7 @@ import { InputLabelPreviewComponent, labelCode } from './input--label.preview';
 import { InputPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './input.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'input', api: 'input' },
+	data: { breadcrumb: 'Input', api: 'input' },
 	meta: metaWith(
 		'spartan/ui - Input',
 		'Gives an input field or a component a distinct look that indicates its input capabilities.',

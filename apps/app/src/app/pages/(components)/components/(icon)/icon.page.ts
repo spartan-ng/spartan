@@ -21,7 +21,7 @@ import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui
 import { metaWith } from '../../../../shared/meta/meta.util';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'icon', api: 'icon' },
+	data: { breadcrumb: 'Icon', api: 'icon' },
 	meta: metaWith('spartan/ui - Icon', 'Visual cues for enhancing user interaction.'),
 	title: 'spartan/ui - Icon',
 };

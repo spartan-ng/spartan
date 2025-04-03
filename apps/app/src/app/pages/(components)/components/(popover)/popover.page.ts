@@ -15,7 +15,7 @@ import { metaWith } from '../../../../shared/meta/meta.util';
 import { PopoverPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './popover.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'popover', api: 'popover' },
+	data: { breadcrumb: 'Popover', api: 'popover' },
 	meta: metaWith('spartan/ui - Popover', 'Displays rich content in a portal, triggered by a button.'),
 	title: 'spartan/ui - Popover',
 };

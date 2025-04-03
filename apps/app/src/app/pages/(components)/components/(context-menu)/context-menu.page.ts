@@ -18,7 +18,7 @@ import { ContextMenuPreviewWithStateComponent, defaultCodeWithState } from './co
 import { ContextMenuPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './context-menu.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'context-menu', api: 'context-menu' },
+	data: { breadcrumb: 'Context Menu', api: 'context-menu' },
 	meta: metaWith(
 		'spartan/ui - Context Menu',
 		'Displays a menu to the user — such as a set of actions or functions — triggered by a right-click.',

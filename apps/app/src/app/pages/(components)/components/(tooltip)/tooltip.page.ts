@@ -18,7 +18,7 @@ import { TooltipSimpleComponent, simpleCode } from './tooltip--simple.example';
 import { TooltipPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './tooltip.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'tooltip', api: 'tooltip' },
+	data: { breadcrumb: 'Tooltip', api: 'tooltip' },
 	meta: metaWith(
 		'spartan/ui - Tooltip',
 		'A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.',

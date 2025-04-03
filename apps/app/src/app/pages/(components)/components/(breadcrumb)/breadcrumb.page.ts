@@ -27,7 +27,7 @@ import { BreadcrumbDropdownComponent, breadcrumbDropdownCode } from './breadcrum
 import { BreadcrumbPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './breadcrumb.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'breadcrumb', api: 'breadcrumb' },
+	data: { breadcrumb: 'Breadcrumb', api: 'breadcrumb' },
 	meta: metaWith('spartan/ui - Breadcrumb', 'Displays the path to the current resource using a hierarchy of links.'),
 	title: 'spartan/ui - Breadcrumb',
 };

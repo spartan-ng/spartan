@@ -22,7 +22,7 @@ import { ToggleWithTextPreviewComponent, withTextCode } from './toggle--with-tex
 import { TogglePreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './toggle.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'toggle', api: 'toggle' },
+	data: { breadcrumb: 'Toggle', api: 'toggle' },
 	meta: metaWith('spartan/ui - Toggle', 'A two-state button that can be either on or off.'),
 	title: 'spartan/ui - Toggle',
 };

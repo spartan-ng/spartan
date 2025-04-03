@@ -17,7 +17,7 @@ import { CardNotificationsComponent, cardNotificationsCode } from './card--notif
 import { CardPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './card.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'card', api: 'card' },
+	data: { breadcrumb: 'Card', api: 'card' },
 	meta: metaWith('spartan/ui - Card', 'Displays a card with header, content, and footer.'),
 	title: 'spartan/ui - Card',
 };

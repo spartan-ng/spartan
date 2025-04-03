@@ -16,7 +16,7 @@ import { metaWith } from '../../../../shared/meta/meta.util';
 import { SpinnerPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './spinner.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'spinner', api: 'spinner' },
+	data: { breadcrumb: 'Spinner', api: 'spinner' },
 	meta: metaWith(
 		'spartan/ui - Spinner',
 		'Shows a Loading spinner to indicate that the app is busy or the page is still loading.',

@@ -16,7 +16,7 @@ import { metaWith } from '../../../../shared/meta/meta.util';
 import { CollapsiblePreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './collapsible.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'collapsible', api: 'collapsible' },
+	data: { breadcrumb: 'Collapsible', api: 'collapsible' },
 	meta: metaWith('spartan/ui - Collapsible', 'An interactive component which expands/collapses a panel.'),
 	title: 'spartan/ui - Collapsible',
 };

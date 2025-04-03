@@ -17,7 +17,7 @@ import { ProgressIndeterminatePreviewComponent, indeterminateCode } from './prog
 import { ProgressPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './progress.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'progress', api: 'progress' },
+	data: { breadcrumb: 'Progress', api: 'progress' },
 	meta: metaWith(
 		'spartan/ui - Progress',
 		'Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.',

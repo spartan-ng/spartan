@@ -16,7 +16,7 @@ import { metaWith } from '../../../../shared/meta/meta.util';
 import { AspectRatioPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './aspect-ratio.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'aspect-ratio', api: 'aspect-ratio' },
+	data: { breadcrumb: 'Aspect Ratio', api: 'aspect-ratio' },
 	meta: metaWith('spartan/ui - Aspect Ratio', 'Displays content within a desired ratio.'),
 	title: 'spartan/ui - Aspect Ratio',
 };

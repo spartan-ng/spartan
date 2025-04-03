@@ -26,7 +26,7 @@ import { ButtonWithIconComponent, withIconCode } from './button--with-icon.examp
 import { ButtonPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './button.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'button', api: 'button' },
+	data: { breadcrumb: 'Button', api: 'button' },
 	meta: metaWith('spartan/ui - Button', 'Displays a button or a component that looks like a button.'),
 	title: 'spartan/ui - Button',
 };

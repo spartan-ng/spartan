@@ -18,7 +18,7 @@ import { SheetClosePreviewComponent, defaultCloseCode } from './sheet-close.prev
 import { SheetPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './sheet.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'sheet', api: 'sheet' },
+	data: { breadcrumb: 'Sheet', api: 'sheet' },
 	meta: metaWith(
 		'spartan/ui - Sheet',
 		'Extends the Dialog component to display content that complements the main content of the screen.',

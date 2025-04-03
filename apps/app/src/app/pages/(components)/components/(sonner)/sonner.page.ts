@@ -15,7 +15,7 @@ import { metaWith } from '../../../../shared/meta/meta.util';
 import { SonnerPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './sonner.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'sonner', api: 'sonner' },
+	data: { breadcrumb: 'Sonner', api: 'sonner' },
 	meta: metaWith('spartan/ui - Sonner', 'An opinionated toast component for Angular.'),
 	title: 'spartan/ui - Sonner',
 };

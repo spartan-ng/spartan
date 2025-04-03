@@ -16,7 +16,7 @@ import { metaWith } from '../../../../shared/meta/meta.util';
 import { HoverCardPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './hover-card.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'hover-card', api: 'hover-card' },
+	data: { breadcrumb: 'Hover Card', api: 'hover-card' },
 	meta: metaWith('spartan/ui - Hover Card', 'For sighted users to preview content available behind a link.'),
 	title: 'spartan/ui - Hover Card',
 };

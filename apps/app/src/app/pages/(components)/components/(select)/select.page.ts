@@ -19,7 +19,7 @@ import { SelectValueTemplatePreviewComponent, previewCode } from './select--valu
 import { SelectPreviewComponent, defaultCode, defaultImports, defaultSkeleton, defaultStyles } from './select.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'select', api: 'select' },
+	data: { breadcrumb: 'Select', api: 'select' },
 	meta: metaWith('spartan/ui - Select', 'A control that allows the user to toggle between checked and not checked.'),
 	title: 'spartan/ui - Select',
 };

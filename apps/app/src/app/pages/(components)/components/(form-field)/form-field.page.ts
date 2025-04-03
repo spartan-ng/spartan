@@ -23,7 +23,7 @@ import { FormFieldFormPreviewComponent, formFieldFormCode } from './form-field--
 import { FormFieldPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './form-field.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'form-field', api: 'form-field' },
+	data: { breadcrumb: 'Form Field', api: 'form-field' },
 	meta: metaWith(
 		'spartan/ui - Form Field',
 		'Gives an input field or a component a distinct look that indicates its input capabilities.',

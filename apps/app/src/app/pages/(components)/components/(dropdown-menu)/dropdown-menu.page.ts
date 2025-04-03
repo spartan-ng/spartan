@@ -18,7 +18,7 @@ import { DropdownWithContextPreviewComponent, dropdownWithContextCode } from './
 import { DropdownWithStatePreviewComponent, dropdownWithStateCode } from './dropdown-with-state.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'dropdown-menu', api: 'menu' },
+	data: { breadcrumb: 'Dropdown', api: 'menu' },
 	meta: metaWith(
 		'spartan/ui - Dropdown',
 		'Displays a menu to the user — such as a set of actions or functions — triggered by a button.',

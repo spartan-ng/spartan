@@ -21,7 +21,7 @@ import { CarouselSpacingComponent, spacingCode } from './carousel--spacing.examp
 import { CarouselPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './carousel.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'carousel', api: 'carousel' },
+	data: { breadcrumb: 'Carousel', api: 'carousel' },
 	meta: metaWith('spartan/ui - Carousel', 'A carousel with motion and swipe built using Embla.'),
 	title: 'spartan/ui - Carousel',
 };

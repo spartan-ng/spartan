@@ -15,7 +15,7 @@ import { metaWith } from '../../../../shared/meta/meta.util';
 import { SeparatorPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './separator.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'separator', api: 'separator' },
+	data: { breadcrumb: 'Separator', api: 'separator' },
 	meta: metaWith('spartan/ui - Separator', 'Visually or semantically separates content.'),
 	title: 'spartan/ui - Separator',
 };

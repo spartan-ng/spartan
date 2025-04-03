@@ -19,7 +19,7 @@ import { PaginationQueryParamsComponent, queryParamsCode } from './pagination--q
 import { PaginationPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './pagination.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'pagination', api: 'pagination' },
+	data: { breadcrumb: 'Pagination', api: 'pagination' },
 	meta: metaWith('spartan/ui - Pagination', 'Pagination with page navigation, next and previous links.'),
 	title: 'spartan/ui - Pagination',
 };

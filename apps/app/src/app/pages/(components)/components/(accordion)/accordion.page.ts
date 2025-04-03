@@ -18,7 +18,7 @@ import { AccordionMultipleOpenedComponent, multipleOpenedCodeString } from './ac
 import { AccordionPreviewComponent, codeImports, codeSkeleton, codeString } from './accordion.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'accordion', api: 'accordion' },
+	data: { breadcrumb: 'Accordion', api: 'accordion' },
 	meta: metaWith(
 		'spartan/ui - Accordion',
 		'A vertically stacked set of interactive headings that each reveal a section of content.',
@@ -29,7 +29,6 @@ export const routeMeta: RouteMeta = {
 @Component({
 	selector: 'spartan-accordion',
 	imports: [
-		UIApiDocsComponent,
 		MainSectionDirective,
 		CodeComponent,
 		SectionIntroComponent,

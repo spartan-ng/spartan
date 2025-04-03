@@ -16,7 +16,7 @@ import { metaWith } from '../../../../shared/meta/meta.util';
 import { AvatarPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './avatar.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'avatar', api: 'avatar' },
+	data: { breadcrumb: 'Avatar', api: 'avatar' },
 	meta: metaWith('spartan/ui - Avatar', 'An image element with a fallback for representing the user.'),
 	title: 'spartan/ui - Avatar',
 };

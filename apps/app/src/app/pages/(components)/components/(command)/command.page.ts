@@ -20,7 +20,7 @@ import { CommandDialogComponent, commandDialogCode } from './command--dialog.exa
 import { CommandPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './command.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'command', api: 'command' },
+	data: { breadcrumb: 'Command', api: 'command' },
 	meta: metaWith('spartan/ui - Command', 'Fast, composable, command menu for Angular.'),
 	title: 'spartan/ui - Command',
 };

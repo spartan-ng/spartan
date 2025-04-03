@@ -15,7 +15,7 @@ import { metaWith } from '../../../../shared/meta/meta.util';
 import { MenubarPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './menubar.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'menubar', api: 'menubar' },
+	data: { breadcrumb: 'Menubar', api: 'menubar' },
 	meta: metaWith(
 		'spartan/ui - Menubar',
 		'A visually persistent menu common in desktop applications that provides quick access to a consistent set of commands.',

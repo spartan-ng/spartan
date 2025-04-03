@@ -17,7 +17,7 @@ import { cardCode, RadioGroupCardComponent } from './radio-group--card.example';
 import { defaultCode, defaultImports, defaultSkeleton, RadioGroupPreviewComponent } from './radio-group.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'radio-group', api: 'radio-group' },
+	data: { breadcrumb: 'Radio Group', api: 'radio-group' },
 	meta: metaWith(
 		'spartan/ui - Radio Group',
 		'A set of checkable buttons—known as radio buttons—where no more than one of the buttons can be checked at a time.',

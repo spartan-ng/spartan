@@ -18,7 +18,7 @@ import { AlertDestructiveComponent, destructiveCode } from './alert--destructive
 import { AlertPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './alert.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'alert', api: 'alert' },
+	data: { breadcrumb: 'Alert', api: 'alert' },
 	meta: metaWith('spartan/ui - Alert', 'Displays a callout for user attention.'),
 	title: 'spartan/ui - Alert',
 };

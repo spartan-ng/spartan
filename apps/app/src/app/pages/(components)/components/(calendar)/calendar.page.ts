@@ -15,7 +15,7 @@ import { metaWith } from '../../../../shared/meta/meta.util';
 import { CalendarPreviewComponent, codeSkeleton, defaultCode, defaultImports } from './calendar.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'calendar', api: 'calendar' },
+	data: { breadcrumb: 'Calendar', api: 'calendar' },
 	meta: metaWith('spartan/ui - Calendar', 'A date field component that allows users to enter and edit date.'),
 	title: 'spartan/ui - Calendar',
 };

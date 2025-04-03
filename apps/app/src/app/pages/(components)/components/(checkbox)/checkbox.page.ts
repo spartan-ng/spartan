@@ -15,7 +15,7 @@ import { metaWith } from '../../../../shared/meta/meta.util';
 import { CheckboxPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './checkbox.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'checkbox', api: 'checkbox' },
+	data: { breadcrumb: 'Checkbox', api: 'checkbox' },
 	meta: metaWith('spartan/ui - Checkbox', 'A control that allows the user to toggle between checked and not checked.'),
 	title: 'spartan/ui - Checkbox',
 };

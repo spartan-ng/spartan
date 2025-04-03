@@ -29,7 +29,7 @@ import { DialogDynamicComponentPreviewComponent, dynamicComponentCode } from './
 import { DialogPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './dialog.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'dialog', api: 'dialog' },
+	data: { breadcrumb: 'Dialog', api: 'dialog' },
 	meta: metaWith(
 		'spartan/ui - Dialog',
 		'A window overlaid on either the primary window or another dialog window, rendering the content underneath inert.',

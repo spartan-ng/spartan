@@ -18,7 +18,7 @@ import { metaWith } from '../../../../shared/meta/meta.util';
 import { ScrollAreaPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './scroll-area.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'scroll-area', api: 'scroll-area' },
+	data: { breadcrumb: 'Scroll Area', api: 'scroll-area' },
 	meta: metaWith('spartan/ui - Scroll Area', 'Augments native scroll functionality for custom, cross-browser styling.'),
 	title: 'spartan/ui - Scroll Area',
 };

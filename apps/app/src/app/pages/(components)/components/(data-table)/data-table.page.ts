@@ -18,7 +18,7 @@ import { metaWith } from '../../../../shared/meta/meta.util';
 import { DataTablePreviewComponent, defaultCode } from './data-table.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'data-table' },
+	data: { breadcrumb: 'Data Table' },
 	meta: metaWith('spartan/ui - Data Table', 'Powerful table and datagrids similar to Angular Material Tables.'),
 	title: 'spartan/ui - Data Table',
 };

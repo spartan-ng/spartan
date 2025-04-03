@@ -20,7 +20,7 @@ import { TabsVerticalPreviewComponent, verticalCode } from './tabs--vertical.pre
 import { TabsPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './tabs.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'tabs', api: 'tabs' },
+	data: { breadcrumb: 'Tabs', api: 'tabs' },
 	meta: metaWith(
 		'spartan/ui - Tabs',
 		'A set of layered sections of content—known as tab panels—that are displayed one at a time.',

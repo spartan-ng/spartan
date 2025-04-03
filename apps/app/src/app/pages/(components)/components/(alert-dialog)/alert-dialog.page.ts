@@ -16,7 +16,7 @@ import { metaWith } from '../../../../shared/meta/meta.util';
 import { AlertDialogPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './alert-dialog.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'alert-dialog', api: 'alert-dialog' },
+	data: { breadcrumb: 'Alert Dialog', api: 'alert-dialog' },
 	meta: metaWith(
 		'spartan/ui - Alert Dialog',
 		'A modal dialog that interrupts the user with important content and expects a response.',

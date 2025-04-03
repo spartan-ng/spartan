@@ -19,7 +19,7 @@ import { datePickerFormatCode, DatePickerFormatExampleComponent } from './date-p
 import { codeSkeleton, DatePickerPreviewComponent, defaultCode, defaultImports } from './date-picker.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'date-picker', api: 'date-picker' },
+	data: { breadcrumb: 'Date Picker', api: 'date-picker' },
 	meta: metaWith('spartan/ui - Date Picker', 'A date picker component.'),
 	title: 'spartan/ui - Date Picker',
 };

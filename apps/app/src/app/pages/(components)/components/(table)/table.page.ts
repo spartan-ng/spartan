@@ -17,7 +17,7 @@ import { metaWith } from '../../../../shared/meta/meta.util';
 import { TablePreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './table.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'table', api: 'table' },
+	data: { breadcrumb: 'Table', api: 'table' },
 	meta: metaWith('spartan/ui - Table', 'A responsive table component.'),
 	title: 'spartan/ui - Table',
 };

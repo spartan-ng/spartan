@@ -17,7 +17,7 @@ import { metaWith } from '../../../../shared/meta/meta.util';
 import { ComboboxPreviewComponent, defaultCode } from './combobox.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'combobox', api: 'combobox' },
+	data: { breadcrumb: 'Combobox', api: 'combobox' },
 	meta: metaWith('spartan/ui - Combobox', 'Autocomplete input and command palette with a list of suggestions.'),
 	title: 'spartan/ui - Combobox',
 };

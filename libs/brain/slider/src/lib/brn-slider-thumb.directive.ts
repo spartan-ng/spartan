@@ -1,3 +1,4 @@
+import { DOCUMENT } from '@angular/common';
 import { computed, Directive, ElementRef, HostListener, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { fromEvent } from 'rxjs';
@@ -18,6 +19,7 @@ import { injectBrnSlider } from './brn-slider.token';
 })
 export class BrnSliderThumbDirective {
 	protected readonly slider = injectBrnSlider();
+	private readonly _document = inject<Document>(DOCUMENT);
 	private readonly _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 
 	/**
@@ -36,8 +38,8 @@ export class BrnSliderThumbDirective {
 
 	constructor() {
 		const mousedown = fromEvent<MouseEvent>(this._elementRef.nativeElement, 'mousedown');
-		const mouseup = fromEvent<MouseEvent>(document, 'mouseup');
-		const mousemove = fromEvent<MouseEvent>(document, 'mousemove');
+		const mouseup = fromEvent<MouseEvent>(this._document, 'mouseup');
+		const mousemove = fromEvent<MouseEvent>(this._document, 'mousemove');
 
 		// Listen for mousedown events on the slider thumb
 		mousedown

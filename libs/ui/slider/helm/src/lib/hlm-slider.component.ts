@@ -1,18 +1,10 @@
-import { BooleanInput } from '@angular/cdk/coercion';
-import {
-	booleanAttribute,
-	ChangeDetectionStrategy,
-	Component,
-	computed,
-	ElementRef,
-	inject,
-	input,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { hlm } from '@spartan-ng/brain/core';
 import {
 	BrnSliderDirective,
 	BrnSliderRangeDirective,
 	BrnSliderThumbDirective,
+	BrnSliderTickDirective,
 	BrnSliderTrackDirective,
 	injectBrnSlider,
 } from '@spartan-ng/brain/slider';
@@ -25,7 +17,7 @@ import type { ClassValue } from 'clsx';
 	hostDirectives: [
 		{
 			directive: BrnSliderDirective,
-			inputs: ['value', 'disabled', 'min', 'max', 'step'],
+			inputs: ['value', 'disabled', 'min', 'max', 'step', 'showTicks'],
 			outputs: ['valueChange'],
 		},
 	],
@@ -34,16 +26,15 @@ import type { ClassValue } from 'clsx';
 			<div class="bg-primary absolute h-full" brnSliderRange></div>
 		</div>
 
-		@if (showTicks()) {
+		@if (slider.showTicks()) {
 			<div class="pointer-events-none absolute -inset-x-px top-2 h-1 w-full cursor-pointer transition-all">
-				@for (tick of ticks(); track $index) {
-					<div
-						class="absolute size-1 rounded-full"
-						[class.bg-secondary]="tick"
-						[class.bg-primary]="!tick"
-						[style.inset-inline-start.%]="($index / (ticks().length - 1)) * 100"
-					></div>
-				}
+				<div
+					*brnSliderTick="let tick; let position = position"
+					class="absolute size-1 rounded-full"
+					[class.bg-secondary]="tick"
+					[class.bg-primary]="!tick"
+					[style.inset-inline-start.%]="position"
+				></div>
 			</div>
 		}
 
@@ -55,39 +46,16 @@ import type { ClassValue } from 'clsx';
 	host: {
 		'[class]': '_computedClass()',
 	},
-	imports: [BrnSliderThumbDirective, BrnSliderTrackDirective, BrnSliderRangeDirective],
+	imports: [BrnSliderThumbDirective, BrnSliderTrackDirective, BrnSliderRangeDirective, BrnSliderTickDirective],
 })
 export class HlmSliderComponent {
-	private readonly _slider = injectBrnSlider();
-	private readonly _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+	protected readonly slider = injectBrnSlider();
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>
 		hlm(
 			'w-full h-5 flex relative select-none items-center touch-none',
-			this._slider.disabled() ? 'opacity-40' : '',
+			this.slider.disabled() ? 'opacity-40' : '',
 			this.userClass(),
 		),
 	);
-
-	/** Whether we should show tick marks */
-	public readonly showTicks = input<boolean, BooleanInput>(false, {
-		transform: booleanAttribute,
-	});
-
-	protected readonly ticks = computed(() => {
-		const value = this._slider.value();
-
-		if (!this.showTicks()) {
-			return [];
-		}
-
-		let numActive = Math.max(Math.floor((value - this._slider.min()) / this._slider.step()), 0);
-		let numInactive = Math.max(Math.floor((this._slider.max() - value) / this._slider.step()), 0);
-
-		const direction = getComputedStyle(this._elementRef.nativeElement).direction;
-
-		direction === 'rtl' ? numInactive++ : numActive++;
-
-		return Array(numActive).fill(true).concat(Array(numInactive).fill(false));
-	});
 }

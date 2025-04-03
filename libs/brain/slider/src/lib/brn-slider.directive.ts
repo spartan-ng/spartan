@@ -4,6 +4,7 @@ import {
 	ChangeDetectorRef,
 	computed,
 	Directive,
+	ElementRef,
 	inject,
 	input,
 	linkedSignal,
@@ -35,6 +36,7 @@ import { provideBrnSlider } from './brn-slider.token';
 })
 export class BrnSliderDirective implements ControlValueAccessor, OnInit {
 	private readonly _changeDetectorRef = inject(ChangeDetectorRef);
+	private readonly _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 
 	public readonly value = model<number>(0);
 
@@ -53,6 +55,29 @@ export class BrnSliderDirective implements ControlValueAccessor, OnInit {
 	public readonly _disabled = input<boolean, BooleanInput>(false, {
 		alias: 'disabled',
 		transform: booleanAttribute,
+	});
+
+	/** Whether we should show tick marks */
+	public readonly showTicks = input<boolean, BooleanInput>(false, {
+		transform: booleanAttribute,
+	});
+
+	/** @internal */
+	public readonly ticks = computed(() => {
+		const value = this.value();
+
+		if (!this.showTicks()) {
+			return [];
+		}
+
+		let numActive = Math.max(Math.floor((value - this.min()) / this.step()), 0);
+		let numInactive = Math.max(Math.floor((this.max() - value) / this.step()), 0);
+
+		const direction = getComputedStyle(this._elementRef.nativeElement).direction;
+
+		direction === 'rtl' ? numInactive++ : numActive++;
+
+		return Array(numActive).fill(true).concat(Array(numInactive).fill(false));
 	});
 
 	/** @internal */

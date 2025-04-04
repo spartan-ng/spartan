@@ -24,13 +24,21 @@ import { ApiDocsService } from '../../../core/services/api-docs.service';
 						<hlm-trow>
 							<hlm-th class="flex-1">Prop</hlm-th>
 							<hlm-th class="flex-1">Type</hlm-th>
-							<hlm-th class="flex-1 whitespace-nowrap">Default</hlm-th>
+							<hlm-th class="flex-1">Default</hlm-th>
+							<hlm-th class="flex-1 whitespace-nowrap">Description</hlm-th>
 						</hlm-trow>
 
 						@for (input of componentItems()[entry].inputs; track input.name + $index) {
 							<hlm-trow>
 								<hlm-td truncate class="flex-1 font-medium">{{ input?.name }}</hlm-td>
 								<hlm-td class="flex-1">{{ input?.type }}</hlm-td>
+								<hlm-td class="flex-1">
+									@if (input?.defaultValue) {
+										{{ input?.defaultValue }}
+									} @else {
+										<span class="sr-hidden">-</span>
+									}
+								</hlm-td>
 								<hlm-td class="flex-1">
 									@if (input?.description) {
 										{{ input?.description }}
@@ -76,7 +84,7 @@ export class UIApiDocsComponent {
 	private readonly _route = inject(ActivatedRoute);
 	protected primitive = toSignal(this._route.data.pipe(map((data) => data?.['api'])));
 
-	public docType = input<'brain' | 'helm'>('brain');
+	public docType = input.required<'brain' | 'ui'>();
 
 	protected componentDocs = computed(() => this._apiDocsService.getComponentDocs(this.primitive())());
 	protected componentItems = computed(() => this.componentDocs()?.[this.docType()] ?? {});

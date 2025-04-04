@@ -5,9 +5,10 @@ import { CallExpression, ObjectLiteralExpression, Project, PropertyAssignment } 
 import { GenerateUiDocsExecutorSchema } from './schema';
 
 export default async function runExecutor(options: GenerateUiDocsExecutorSchema, context: ExecutorContext) {
-	const brainDir = options.brainDir;
-	const uiDir = options.uiDir;
-	const outputDir = options.outputDir || path.join(context.root, 'dist/generated-ui-docs');
+	// Convert relative paths to absolute paths using workspace root
+	const brainDir = path.join(context.root, options.brainDir);
+	const uiDir = path.join(context.root, options.uiDir);
+	const outputDir = path.join(context.root, options.outputDir);
 
 	if (!fs.existsSync(outputDir)) {
 		fs.mkdirSync(outputDir, { recursive: true });
@@ -21,22 +22,23 @@ export default async function runExecutor(options: GenerateUiDocsExecutorSchema,
 		`${uiDir}/**/*.directive.ts`,
 	]);
 
-	const extractedData = extractInputsOutputs(project);
+	const extractedData = extractInputsOutputs(project, context.root);
 
-	const outputPath = path.join(outputDir, 'ui-api.json');
+	const outputPath = path.join(outputDir, options.outputFile);
 	await fs.promises.writeFile(outputPath, JSON.stringify(extractedData, null, 2));
 
-	console.log(`Inference completed. Output saved to ${outputPath}`);
 	return { success: true };
 }
 
-function extractInputsOutputs(project: Project) {
+function extractInputsOutputs(project: Project, workspaceRoot: string) {
 	const inputsOutputs = {};
 
 	project.getSourceFiles().forEach((sourceFile) => {
 		sourceFile.getClasses().forEach((cls) => {
 			const className = cls.getName();
-			const relativeFilePath = path.relative('libs/', sourceFile.getFilePath());
+			// Get the full file path and make it relative to workspace root
+			const fullPath = sourceFile.getFilePath();
+			const relativeFilePath = path.relative(workspaceRoot, fullPath);
 			const componentInfo = {
 				file: relativeFilePath,
 				inputs: [],
@@ -72,7 +74,19 @@ function extractInputsOutputs(project: Project) {
 
 				if (decorator) {
 					if (decorator.getName() === 'Input') {
-						componentInfo.inputs.push({ name, type, description });
+						// Extract default value from Input decorator
+						let defaultValue = null;
+						const decoratorArgs = decorator.getArguments();
+						if (decoratorArgs.length > 0) {
+							// Get the text representation of the argument
+							const argText = decoratorArgs[0].getText();
+							// Extract the value between parentheses if present
+							const match = argText.match(/\((.*?)\)/);
+							if (match && match[1]) {
+								defaultValue = match[1].replace(/['"]/g, '');
+							}
+						}
+						componentInfo.inputs.push({ name, type, description, defaultValue });
 					} else {
 						componentInfo.outputs.push({ name, type, description });
 					}
@@ -82,8 +96,27 @@ function extractInputsOutputs(project: Project) {
 					if (initializer instanceof CallExpression) {
 						const callExpr = initializer as CallExpression;
 						const inferredType = callExpr.getTypeArguments()?.[0]?.getText() || 'unknown';
+						
+						// Extract default value from signal-based input
+						let defaultValue = null;
+						const callArgs = callExpr.getArguments();
+						if (callArgs.length > 0) {
+							// Get the text representation of the argument
+							const argText = callArgs[0].getText();
+							// For signal-based inputs, the default value is directly in the argument
+							// Example: input<'single' | 'multiple'>('single')
+							// We need to extract the value between the last set of parentheses
+							const match = argText.match(/\(([^()]*)\)$/);
+							if (match && match[1]) {
+								defaultValue = match[1].replace(/['"]/g, '');
+							} else {
+								// If no parentheses, the entire argument is the default value
+								defaultValue = argText.replace(/['"]/g, '');
+							}
+						}
+						
 						if (callExpr.getExpression().getText() === 'input') {
-							componentInfo.inputs.push({ name, type: inferredType, description });
+							componentInfo.inputs.push({ name, type: inferredType, description, defaultValue });
 						} else if (callExpr.getExpression().getText() === 'output') {
 							componentInfo.outputs.push({ name, type: inferredType, description });
 						}
@@ -105,20 +138,30 @@ function extractInputsOutputs(project: Project) {
 	return inputsOutputs;
 }
 
-function addToNestedStructure(rootObject, relativePath, className, componentInfo) {
-	const pathSegments = relativePath.split(path.sep).filter((segment) => segment !== 'src' && segment !== 'lib');
-
-	if (pathSegments[0] === 'ui') {
+function addToNestedStructure(rootObject, relativeFilePath, className, componentInfo) {
+	// Split path and remove 'src' and 'lib' segments
+	const pathSegments = relativeFilePath.split(path.sep).filter((segment) => segment !== 'src' && segment !== 'lib');
+	
+	// Remove 'libs' prefix if present
+	if (pathSegments[0] === 'libs') {
 		pathSegments.shift();
-	} else {
-		[pathSegments[0], pathSegments[1]] = [pathSegments[1], pathSegments[0]];
 	}
-
-	let current = rootObject;
-	for (const segment of pathSegments.slice(0, -1)) {
-		current[segment] = current[segment] || {};
-		current = current[segment];
+	
+	// Extract component type (e.g., 'accordion', 'button')
+	const componentType = pathSegments[1];
+	
+	// Extract library type (e.g., 'brain', 'ui')
+	const libraryType = pathSegments[0];
+	
+	// Create the nested structure
+	if (!rootObject[componentType]) {
+		rootObject[componentType] = {};
 	}
-
-	current[className] = componentInfo;
+	
+	if (!rootObject[componentType][libraryType]) {
+		rootObject[componentType][libraryType] = {};
+	}
+	
+	// Add the component to the structure
+	rootObject[componentType][libraryType][className] = componentInfo;
 }

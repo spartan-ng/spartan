@@ -67,7 +67,7 @@ export const routeMeta: RouteMeta = {
 			</div>
 
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
-			<spartan-ui-api-docs docType="helm" />
+			<spartan-ui-api-docs docType="ui" />
 
 			<spartan-section-sub-heading id="variants">Variants</spartan-section-sub-heading>
 			The spinner component has the following variants:

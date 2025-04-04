@@ -95,7 +95,7 @@ export const routeMeta: RouteMeta = {
 			<spartan-ui-api-docs docType="brain" />
 
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
-			<spartan-ui-api-docs docType="helm" />
+			<spartan-ui-api-docs docType="ui" />
 
 			<spartan-section-sub-heading id="declarative-usage">Declarative Usage</spartan-section-sub-heading>
 			<p class="${hlmP} mb-6">

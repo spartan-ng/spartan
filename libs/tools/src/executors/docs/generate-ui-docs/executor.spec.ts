@@ -15,7 +15,7 @@ jest.mock('fs', () => ({
 // Mock source file
 const mockSourceFile = {
 	getClasses: jest.fn(),
-	getFilePath: jest.fn().mockReturnValue('/root/libs/ui/button/button.component.ts'),
+	getFilePath: jest.fn().mockReturnValue('/workspace/libs/ui/button/button.component.ts'),
 };
 
 // Mock ts-morph
@@ -69,7 +69,6 @@ jest.mock('ts-morph', () => {
 });
 
 // Helper function to find component data in nested JSON structure
-// **Only used because Test output structure is much more deeply nested than mock directory structure**
 const findComponentData = (obj: any, componentName: string): any => {
 	if (obj[componentName]) {
 		return obj[componentName];
@@ -99,20 +98,65 @@ describe('GenerateUiDocs Executor', () => {
 		MockObjectLiteralExpression = tsMorph.ObjectLiteralExpression;
 		MockCallExpression = tsMorph.CallExpression;
 
-		// Setup mock context
+		// Setup mock context with a realistic workspace root
 		context = {
-			root: '/root',
+			root: "/workspace",
 			workspace: {
 				version: 2,
-				projects: {},
+				npmScope: "spartan-ng",
+				projects: {
+					app: {
+						root: "apps/app",
+						projectType: "application",
+						targets: {
+							build: {
+								executor: "@analogjs/platform:vite",
+								options: {
+									outputPath: "dist/apps/app",
+								},
+							},
+						},
+					},
+				},
 			},
+			projectName: "app",
+			targetName: "generate-ui-docs",
+			configurationName: "production",
 			isVerbose: false,
+			cwd: "/workspace",
 			projectsConfigurations: {
 				version: 2,
-				projects: {},
+				projects: {
+					app: {
+						root: "apps/app",
+						projectType: "application",
+						targets: {
+							build: {
+								executor: "@analogjs/platform:vite",
+								options: {
+									outputPath: "dist/apps/app",
+								},
+							},
+						},
+					},
+				},
 			},
-			nxJsonConfiguration: {},
-			cwd: process.cwd(),
+			nxJsonConfiguration: {
+				npmScope: "spartan-ng",
+				tasksRunnerOptions: {
+					default: {
+						runner: "nx/tasks-runners/default",
+						options: {
+							cacheableOperations: ["build", "lint", "test", "e2e"],
+						},
+					},
+				},
+				targetDefaults: {
+					build: {
+						dependsOn: ["^build"],
+					},
+				},
+			},
 			projectGraph: {
 				nodes: {},
 				dependencies: {},
@@ -120,11 +164,12 @@ describe('GenerateUiDocs Executor', () => {
 			},
 		} as ExecutorContext;
 
+		// Setup options with relative paths
 		options = {
-			outputDir: '/root/dist/extracted-metadata',
+			outputDir: 'dist/extracted-metadata',
 			outputFile: 'ui-api.json',
-			brainDir: '/root/libs/brain',
-			uiDir: '/root/libs/ui',
+			brainDir: 'libs/brain',
+			uiDir: 'libs/ui',
 		};
 
 		// Setup mock classes and decorators
@@ -155,7 +200,7 @@ describe('GenerateUiDocs Executor', () => {
 
 	it('should create output directory if it does not exist', async () => {
 		await executor(options, context);
-		expect(fs.mkdirSync).toHaveBeenCalledWith(options.outputDir, { recursive: true });
+		expect(fs.mkdirSync).toHaveBeenCalledWith('/workspace/dist/extracted-metadata', { recursive: true });
 	});
 
 	it('should extract component metadata correctly', async () => {
@@ -169,7 +214,10 @@ describe('GenerateUiDocs Executor', () => {
 				...mockProperty,
 				getName: jest.fn().mockReturnValue('disabled'),
 				getType: jest.fn().mockReturnValue({ getText: () => 'boolean' }),
-				getDecorator: jest.fn().mockReturnValue({ getName: jest.fn().mockReturnValue('Input') }),
+				getDecorator: jest.fn().mockReturnValue({ 
+					getName: jest.fn().mockReturnValue('Input'),
+					getArguments: jest.fn().mockReturnValue([{ getText: () => '(false)' }])
+				}),
 				getJsDocs: jest
 					.fn()
 					.mockReturnValue([{ getComment: jest.fn().mockReturnValue('Whether the button is disabled') }]),
@@ -181,32 +229,31 @@ describe('GenerateUiDocs Executor', () => {
 		const writeFileCall = (fs.promises.writeFile as jest.Mock).mock.calls[0];
 		const receivedJson = JSON.parse(writeFileCall[1]);
 		const expectedJson = {
-			libs: {
+			button: {
 				ui: {
-					button: {
-						ButtonComponent: {
-							file: '../../../../../../../root/libs/ui/button/button.component.ts',
-							inputs: [
-								{
-									name: 'disabled',
-									type: 'boolean',
-									description: 'Whether the button is disabled',
-								},
-							],
-							outputs: [],
-							selector: 'hlm-button',
-							exportAs: 'hlmButton',
-						},
-					},
-				},
-			},
+					ButtonComponent: {
+						file: "libs/ui/button/button.component.ts",
+						inputs: [
+							{
+								name: "disabled",
+								type: "boolean",
+								description: "Whether the button is disabled",
+								defaultValue: "false"
+							}
+						],
+						outputs: [],
+						selector: "hlm-button",
+						exportAs: "hlmButton"
+					}
+				}
+			}
 		};
 
 		const receivedComponentData = findComponentData(receivedJson, 'ButtonComponent');
-		expect(receivedComponentData).toEqual(expectedJson.libs.ui.button.ButtonComponent);
+		expect(receivedComponentData).toEqual(expectedJson.button.ui.ButtonComponent);
 	});
 
-	it('should handle signal-based inputs/outputs', async () => {
+	it('should handle signal-based inputs/outputs with default values', async () => {
 		// Setup mock component with signal-based input
 		mockClass.getName.mockReturnValue('ButtonComponent');
 		mockClass.getDecorator.mockReturnValue(mockDecorator);
@@ -216,11 +263,17 @@ describe('GenerateUiDocs Executor', () => {
 			{
 				...mockProperty,
 				getName: jest.fn().mockReturnValue('disabled'),
-				getInitializer: jest.fn().mockReturnValue(new MockCallExpression()),
+				getInitializer: jest.fn().mockReturnValue(new MockCallExpression('input', ['boolean'])),
 				getJsDocs: jest
 					.fn()
 					.mockReturnValue([{ getComment: jest.fn().mockReturnValue('Whether the button is disabled') }]),
 			},
+		]);
+
+		// Mock the CallExpression to include arguments with default values
+		const mockCallExpression = jest.requireMock('ts-morph').CallExpression;
+		mockCallExpression.prototype.getArguments = jest.fn().mockReturnValue([
+			{ getText: () => '(false)' }
 		]);
 
 		await executor(options, context);
@@ -228,34 +281,33 @@ describe('GenerateUiDocs Executor', () => {
 		const writeFileCall = (fs.promises.writeFile as jest.Mock).mock.calls[0];
 		const receivedJson = JSON.parse(writeFileCall[1]);
 		const expectedJson = {
-			libs: {
+			button: {
 				ui: {
-					button: {
-						ButtonComponent: {
-							file: '../../../../../../../root/libs/ui/button/button.component.ts',
-							inputs: [
-								{
-									name: 'disabled',
-									type: 'boolean',
-									description: 'Whether the button is disabled',
-								},
-							],
-							outputs: [],
-							selector: 'hlm-button',
-							exportAs: 'hlmButton',
-						},
-					},
-				},
-			},
+					ButtonComponent: {
+						file: "libs/ui/button/button.component.ts",
+						inputs: [
+							{
+								name: "disabled",
+								type: "boolean",
+								description: "Whether the button is disabled",
+								defaultValue: "false"
+							}
+						],
+						outputs: [],
+						selector: "hlm-button",
+						exportAs: "hlmButton"
+					}
+				}
+			}
 		};
 
 		const receivedComponentData = findComponentData(receivedJson, 'ButtonComponent');
-		expect(receivedComponentData).toEqual(expectedJson.libs.ui.button.ButtonComponent);
+		expect(receivedComponentData).toEqual(expectedJson.button.ui.ButtonComponent);
 	});
 
 	it('should handle nested component structure correctly', async () => {
 		// Setup mock component in nested directory
-		mockSourceFile.getFilePath.mockReturnValue('/root/libs/ui/button/group/button-group.component.ts');
+		mockSourceFile.getFilePath.mockReturnValue('/workspace/libs/ui/button/group/button-group.component.ts');
 		mockClass.getName.mockReturnValue('ButtonGroupComponent');
 		mockClass.getDecorator.mockReturnValue(mockDecorator);
 		mockDecorator.getName.mockReturnValue('Component');
@@ -271,30 +323,26 @@ describe('GenerateUiDocs Executor', () => {
 		const writeFileCall = (fs.promises.writeFile as jest.Mock).mock.calls[0];
 		const receivedJson = JSON.parse(writeFileCall[1]);
 		const expectedJson = {
-			libs: {
+			button: {
 				ui: {
-					button: {
-						group: {
-							ButtonGroupComponent: {
-								file: '../../../../../../../root/libs/ui/button/group/button-group.component.ts',
-								inputs: [],
-								outputs: [],
-								selector: 'hlm-button-group',
-								exportAs: 'hlmButtonGroup',
-							},
-						},
-					},
-				},
-			},
+					ButtonGroupComponent: {
+						file: "libs/ui/button/group/button-group.component.ts",
+						inputs: [],
+						outputs: [],
+						selector: "hlm-button-group",
+						exportAs: "hlmButtonGroup"
+					}
+				}
+			}
 		};
 
 		const receivedComponentData = findComponentData(receivedJson, 'ButtonGroupComponent');
-		expect(receivedComponentData).toEqual(expectedJson.libs.ui.button.group.ButtonGroupComponent);
+		expect(receivedComponentData).toEqual(expectedJson.button.ui.ButtonGroupComponent);
 	});
 
 	it('should handle brain components correctly', async () => {
 		// Setup mock brain component
-		mockSourceFile.getFilePath.mockReturnValue('/root/libs/brain/button/button.component.ts');
+		mockSourceFile.getFilePath.mockReturnValue('/workspace/libs/brain/button/button.component.ts');
 		mockClass.getName.mockReturnValue('ButtonComponent');
 		mockClass.getDecorator.mockReturnValue(mockDecorator);
 		mockDecorator.getName.mockReturnValue('Component');
@@ -310,22 +358,20 @@ describe('GenerateUiDocs Executor', () => {
 		const writeFileCall = (fs.promises.writeFile as jest.Mock).mock.calls[0];
 		const receivedJson = JSON.parse(writeFileCall[1]);
 		const expectedJson = {
-			libs: {
+			button: {
 				brain: {
-					button: {
-						ButtonComponent: {
-							file: '../../../../../../../root/libs/brain/button/button.component.ts',
-							inputs: [],
-							outputs: [],
-							selector: 'brn-button',
-							exportAs: 'brnButton',
-						},
-					},
-				},
-			},
+					ButtonComponent: {
+						file: "libs/brain/button/button.component.ts",
+						inputs: [],
+						outputs: [],
+						selector: "brn-button",
+						exportAs: "brnButton"
+					}
+				}
+			}
 		};
 
 		const receivedComponentData = findComponentData(receivedJson, 'ButtonComponent');
-		expect(receivedComponentData).toEqual(expectedJson.libs.brain.button.ButtonComponent);
+		expect(receivedComponentData).toEqual(expectedJson.button.brain.ButtonComponent);
 	});
 });

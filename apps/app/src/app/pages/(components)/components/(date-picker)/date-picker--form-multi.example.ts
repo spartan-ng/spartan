@@ -37,9 +37,6 @@ export class DatePickerFormMultipleExampleComponent {
 		availableDates: [[], Validators.required],
 	});
 
-	/** The selected date */
-	public selectedDate = new Date();
-
 	/** The minimum date */
 	public minDate = new Date(2023, 0, 1);
 
@@ -83,9 +80,6 @@ export class DatePickerFormMultipleExampleComponent {
 	public form = this._formBuilder.group({
 		availableDates: [[], Validators.required],
 	});
-
-	/** The selected date */
-	public selectedDate = new Date();
 
 	/** The minimum date */
 	public minDate = new Date(2023, 0, 1);

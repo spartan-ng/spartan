@@ -5,7 +5,13 @@ import { HlmCalendarMultiComponent } from '@spartan-ng/ui-calendar-helm';
 	selector: 'spartan-calendar-multiple',
 	imports: [HlmCalendarMultiComponent],
 	template: `
-		<hlm-calendar-multi [(date)]="selectedDate" [min]="minDate" [max]="maxDate" [minSelection]="2" [maxSelection]="6" />
+		<hlm-calendar-multi
+			[(date)]="selectedDates"
+			[min]="minDate"
+			[max]="maxDate"
+			[minSelection]="2"
+			[maxSelection]="6"
+		/>
 	`,
 	host: {
 		class: 'preview flex min-h-[350px] w-full justify-center p-10 items-center',
@@ -13,7 +19,7 @@ import { HlmCalendarMultiComponent } from '@spartan-ng/ui-calendar-helm';
 })
 export class CalendarMultipleExampleComponent {
 	/** The selected date */
-	public selectedDate = [new Date()];
+	public selectedDates = [new Date()];
 
 	/** The minimum date */
 	public minDate = new Date(2023, 0, 1);
@@ -30,7 +36,13 @@ import { HlmCalendarMultiComponent } from '@spartan-ng/ui-calendar-helm';
 	selector: 'spartan-calendar-multiple',
 	imports: [HlmCalendarMultiComponent],
 	template: \`
-		<hlm-calendar-multi [(date)]="selectedDate" [min]="minDate" [max]="maxDate" [minSelection]="2" [maxSelection]="6" />
+		<hlm-calendar-multi
+			[(date)]="selectedDates"
+			[min]="minDate"
+			[max]="maxDate"
+			[minSelection]="2"
+			[maxSelection]="6"
+		/>
 	\`,
 	host: {
 		class: 'preview flex min-h-[350px] w-full justify-center p-10 items-center',
@@ -38,7 +50,7 @@ import { HlmCalendarMultiComponent } from '@spartan-ng/ui-calendar-helm';
 })
 export class CalendarMultipleExampleComponent {
 	/** The selected date */
-	public selectedDate = [new Date()];
+	public selectedDates = [new Date()];
 
 	/** The minimum date */
 	public minDate = new Date(2023, 0, 1);

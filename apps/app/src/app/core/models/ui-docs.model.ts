@@ -2,6 +2,7 @@ export interface PropertyMetadata {
 	name: string;
 	type: string;
 	description: string;
+	defaultValue: string;
 }
 export interface ComponentMetadata {
 	file: string;
@@ -13,9 +14,9 @@ export interface ComponentMetadata {
 
 export type PrimitveComponent = Record<string, ComponentMetadata>;
 
-export type SubTypeRecord = 'brain' | 'helm';
+export type SubTypeRecord = 'brain' | 'ui';
 
-// Represents the subtype (e.g., "brain", "helm") containing components/directives
+// Represents the subtype (e.g., "brain", "ui") containing components/directives
 export type PrimitiveSubTypes = Record<SubTypeRecord, PrimitveComponent>;
 
 export type Primitives =

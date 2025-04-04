@@ -41,6 +41,7 @@ import {
 	InjectionToken,
 	input,
 	isDevMode,
+	model,
 	NgZone,
 	numberAttribute,
 	type OnDestroy,
@@ -166,7 +167,7 @@ export class BrnTooltipTriggerDirective implements OnDestroy, AfterViewInit {
 
 	/** The default delay in ms before hiding the tooltip after hide is called */
 
-	public readonly tooltipContentClasses = input<string>(this._defaultOptions?.tooltipContentClasses ?? '');
+	public readonly tooltipContentClasses = model<string>(this._defaultOptions?.tooltipContentClasses ?? '');
 
 	/**
 	 * How touch gestures should be handled by the tooltip. On touch devices the tooltip directive

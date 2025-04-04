@@ -1,4 +1,5 @@
 import { FocusKeyManager, FocusMonitor } from '@angular/cdk/a11y';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import {
 	type AfterContentInit,
 	Directive,
@@ -27,11 +28,7 @@ import { fromEvent } from 'rxjs';
 export class BrnAccordionItemDirective {
 	private static _itemIdGenerator = 0;
 	private readonly _accordion = inject(BrnAccordionDirective);
-
-	/**
-	 * Allows to set initial state of accordion
-	 */
-	public readonly isOpened = input<boolean>(false); // Temporary just to show how to ensure autodoc can infer type
+	public readonly isOpened = input(false, { transform: coerceBooleanProperty });
 
 	public readonly id = BrnAccordionItemDirective._itemIdGenerator++;
 	public readonly state = computed(() => (this._accordion.openItemIds().includes(this.id) ? 'open' : 'closed'));

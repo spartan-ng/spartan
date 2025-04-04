@@ -16,8 +16,6 @@ export const brainToggleHealthcheck: Healthcheck = {
 			if (!contents) {
 				return;
 			}
-			//  ||
-			// (contents.includes('BrnToggleGroupModule') && contents.includes('@spartan-ng/brain/toggle')) ||
 
 			if (
 				contents.includes("BrnToggleGroupModule } from '@spartan-ng/brain/toggle'") ||

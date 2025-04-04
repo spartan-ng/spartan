@@ -96,7 +96,7 @@ function extractInputsOutputs(project: Project, workspaceRoot: string) {
 					if (initializer instanceof CallExpression) {
 						const callExpr = initializer as CallExpression;
 						const inferredType = callExpr.getTypeArguments()?.[0]?.getText() || 'unknown';
-						
+
 						// Extract default value from signal-based input
 						let defaultValue = null;
 						const callArgs = callExpr.getArguments();
@@ -114,7 +114,7 @@ function extractInputsOutputs(project: Project, workspaceRoot: string) {
 								defaultValue = argText.replace(/['"]/g, '');
 							}
 						}
-						
+
 						if (callExpr.getExpression().getText() === 'input') {
 							componentInfo.inputs.push({ name, type: inferredType, description, defaultValue });
 						} else if (callExpr.getExpression().getText() === 'output') {
@@ -141,27 +141,27 @@ function extractInputsOutputs(project: Project, workspaceRoot: string) {
 function addToNestedStructure(rootObject, relativeFilePath, className, componentInfo) {
 	// Split path and remove 'src' and 'lib' segments
 	const pathSegments = relativeFilePath.split(path.sep).filter((segment) => segment !== 'src' && segment !== 'lib');
-	
+
 	// Remove 'libs' prefix if present
 	if (pathSegments[0] === 'libs') {
 		pathSegments.shift();
 	}
-	
+
 	// Extract component type (e.g., 'accordion', 'button')
 	const componentType = pathSegments[1];
-	
+
 	// Extract library type (e.g., 'brain', 'ui')
 	const libraryType = pathSegments[0];
-	
+
 	// Create the nested structure
 	if (!rootObject[componentType]) {
 		rootObject[componentType] = {};
 	}
-	
+
 	if (!rootObject[componentType][libraryType]) {
 		rootObject[componentType][libraryType] = {};
 	}
-	
+
 	// Add the component to the structure
 	rootObject[componentType][libraryType][className] = componentInfo;
 }

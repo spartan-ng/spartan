@@ -100,41 +100,41 @@ describe('GenerateUiDocs Executor', () => {
 
 		// Setup mock context with a realistic workspace root
 		context = {
-			root: "/workspace",
+			root: '/workspace',
 			workspace: {
 				version: 2,
-				npmScope: "spartan-ng",
+				npmScope: 'spartan-ng',
 				projects: {
 					app: {
-						root: "apps/app",
-						projectType: "application",
+						root: 'apps/app',
+						projectType: 'application',
 						targets: {
 							build: {
-								executor: "@analogjs/platform:vite",
+								executor: '@analogjs/platform:vite',
 								options: {
-									outputPath: "dist/apps/app",
+									outputPath: 'dist/apps/app',
 								},
 							},
 						},
 					},
 				},
 			},
-			projectName: "app",
-			targetName: "generate-ui-docs",
-			configurationName: "production",
+			projectName: 'app',
+			targetName: 'generate-ui-docs',
+			configurationName: 'production',
 			isVerbose: false,
-			cwd: "/workspace",
+			cwd: '/workspace',
 			projectsConfigurations: {
 				version: 2,
 				projects: {
 					app: {
-						root: "apps/app",
-						projectType: "application",
+						root: 'apps/app',
+						projectType: 'application',
 						targets: {
 							build: {
-								executor: "@analogjs/platform:vite",
+								executor: '@analogjs/platform:vite',
 								options: {
-									outputPath: "dist/apps/app",
+									outputPath: 'dist/apps/app',
 								},
 							},
 						},
@@ -142,18 +142,18 @@ describe('GenerateUiDocs Executor', () => {
 				},
 			},
 			nxJsonConfiguration: {
-				npmScope: "spartan-ng",
+				npmScope: 'spartan-ng',
 				tasksRunnerOptions: {
 					default: {
-						runner: "nx/tasks-runners/default",
+						runner: 'nx/tasks-runners/default',
 						options: {
-							cacheableOperations: ["build", "lint", "test", "e2e"],
+							cacheableOperations: ['build', 'lint', 'test', 'e2e'],
 						},
 					},
 				},
 				targetDefaults: {
 					build: {
-						dependsOn: ["^build"],
+						dependsOn: ['^build'],
 					},
 				},
 			},
@@ -214,9 +214,9 @@ describe('GenerateUiDocs Executor', () => {
 				...mockProperty,
 				getName: jest.fn().mockReturnValue('disabled'),
 				getType: jest.fn().mockReturnValue({ getText: () => 'boolean' }),
-				getDecorator: jest.fn().mockReturnValue({ 
+				getDecorator: jest.fn().mockReturnValue({
 					getName: jest.fn().mockReturnValue('Input'),
-					getArguments: jest.fn().mockReturnValue([{ getText: () => '(false)' }])
+					getArguments: jest.fn().mockReturnValue([{ getText: () => '(false)' }]),
 				}),
 				getJsDocs: jest
 					.fn()
@@ -232,21 +232,21 @@ describe('GenerateUiDocs Executor', () => {
 			button: {
 				ui: {
 					ButtonComponent: {
-						file: "libs/ui/button/button.component.ts",
+						file: 'libs/ui/button/button.component.ts',
 						inputs: [
 							{
-								name: "disabled",
-								type: "boolean",
-								description: "Whether the button is disabled",
-								defaultValue: "false"
-							}
+								name: 'disabled',
+								type: 'boolean',
+								description: 'Whether the button is disabled',
+								defaultValue: 'false',
+							},
 						],
 						outputs: [],
-						selector: "hlm-button",
-						exportAs: "hlmButton"
-					}
-				}
-			}
+						selector: 'hlm-button',
+						exportAs: 'hlmButton',
+					},
+				},
+			},
 		};
 
 		const receivedComponentData = findComponentData(receivedJson, 'ButtonComponent');
@@ -272,9 +272,7 @@ describe('GenerateUiDocs Executor', () => {
 
 		// Mock the CallExpression to include arguments with default values
 		const mockCallExpression = jest.requireMock('ts-morph').CallExpression;
-		mockCallExpression.prototype.getArguments = jest.fn().mockReturnValue([
-			{ getText: () => '(false)' }
-		]);
+		mockCallExpression.prototype.getArguments = jest.fn().mockReturnValue([{ getText: () => '(false)' }]);
 
 		await executor(options, context);
 
@@ -284,21 +282,21 @@ describe('GenerateUiDocs Executor', () => {
 			button: {
 				ui: {
 					ButtonComponent: {
-						file: "libs/ui/button/button.component.ts",
+						file: 'libs/ui/button/button.component.ts',
 						inputs: [
 							{
-								name: "disabled",
-								type: "boolean",
-								description: "Whether the button is disabled",
-								defaultValue: "false"
-							}
+								name: 'disabled',
+								type: 'boolean',
+								description: 'Whether the button is disabled',
+								defaultValue: 'false',
+							},
 						],
 						outputs: [],
-						selector: "hlm-button",
-						exportAs: "hlmButton"
-					}
-				}
-			}
+						selector: 'hlm-button',
+						exportAs: 'hlmButton',
+					},
+				},
+			},
 		};
 
 		const receivedComponentData = findComponentData(receivedJson, 'ButtonComponent');
@@ -326,14 +324,14 @@ describe('GenerateUiDocs Executor', () => {
 			button: {
 				ui: {
 					ButtonGroupComponent: {
-						file: "libs/ui/button/group/button-group.component.ts",
+						file: 'libs/ui/button/group/button-group.component.ts',
 						inputs: [],
 						outputs: [],
-						selector: "hlm-button-group",
-						exportAs: "hlmButtonGroup"
-					}
-				}
-			}
+						selector: 'hlm-button-group',
+						exportAs: 'hlmButtonGroup',
+					},
+				},
+			},
 		};
 
 		const receivedComponentData = findComponentData(receivedJson, 'ButtonGroupComponent');
@@ -361,14 +359,14 @@ describe('GenerateUiDocs Executor', () => {
 			button: {
 				brain: {
 					ButtonComponent: {
-						file: "libs/brain/button/button.component.ts",
+						file: 'libs/brain/button/button.component.ts',
 						inputs: [],
 						outputs: [],
-						selector: "brn-button",
-						exportAs: "brnButton"
-					}
-				}
-			}
+						selector: 'brn-button',
+						exportAs: 'brnButton',
+					},
+				},
+			},
 		};
 
 		const receivedComponentData = findComponentData(receivedJson, 'ButtonComponent');

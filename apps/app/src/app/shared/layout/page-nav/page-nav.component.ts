@@ -6,12 +6,16 @@ import {
 	type OnDestroy,
 	type OnInit,
 	PLATFORM_ID,
-	type TemplateRef,
-	ViewChild,
+	TemplateRef,
+	computed,
 	inject,
 	isDevMode,
 	signal,
+	viewChild,
 } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { ActivatedRoute } from '@angular/router';
+import { ApiDocsService } from '@spartan-ng/app/app/core/services/api-docs.service';
 import { HlmScrollAreaDirective } from '@spartan-ng/ui-scrollarea-helm';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { PageNavLinkComponent } from './page-nav-link.component';
@@ -49,11 +53,69 @@ type SamePageAnchorLink = {
 	`,
 })
 export class PageNavComponent implements OnInit, AfterViewInit, OnDestroy {
-	@ViewChild('pageNav', { static: true })
-	public pageNavTpl?: TemplateRef<unknown>;
+	public pageNavTpl = viewChild.required<TemplateRef<unknown>>('pageNav');
+
+	private readonly _route = inject(ActivatedRoute);
+	private readonly _routeData = toSignal(this._route.data);
+	private readonly _apiDocsService = inject(ApiDocsService, { optional: true });
 
 	protected readonly isDevMode = signal(isDevMode());
-	protected readonly links = signal<SamePageAnchorLink[]>([]);
+
+	protected readonly _links = signal<SamePageAnchorLink[]>([]);
+	protected readonly _dynamicLinks = computed(() => {
+		const apiComponent = this._routeData()?.['api'];
+		if (!apiComponent || !this._apiDocsService) {
+			return this._links();
+		}
+
+		const apiPageLinks = this._apiDocsService.getComponentHeaders(apiComponent);
+		if (!apiPageLinks?.length) {
+			return this._links();
+		}
+
+		const pageLinks = [...this._links()];
+
+		// Find indices for API sections
+		const brnLinkIndex = pageLinks.findIndex((link) => link.id === 'brn-api');
+		const hlmLinkIndex = pageLinks.findIndex((link) => link.id === 'hlm-api');
+
+		// Only add API links if both sections exist
+		if (brnLinkIndex !== -1 && hlmLinkIndex !== -1) {
+			// Split links by type
+			const brainLinks = apiPageLinks
+				.filter((link) => link.type === 'brain')
+				.map((link) => ({
+					id: link.id,
+					label: link.label,
+					isNested: true,
+				}));
+
+			const helmLinks = apiPageLinks
+				.filter((link) => link.type === 'helm')
+				.map((link) => ({
+					id: link.id,
+					label: link.label,
+					isNested: true,
+				}));
+
+			// Only insert links if they exist
+			if (brainLinks.length) {
+				pageLinks.splice(brnLinkIndex + 1, 0, ...brainLinks);
+			}
+
+			// Recalculate helm index since it may have shifted after inserting brain links
+			const newHlmIndex = pageLinks.findIndex((link) => link.id === 'hlm-api');
+			if (helmLinks.length && newHlmIndex !== -1) {
+				pageLinks.splice(newHlmIndex + 1, 0, ...helmLinks);
+			}
+		}
+
+		return pageLinks;
+	});
+
+	protected readonly links = computed(() =>
+		this._dynamicLinks() && this._dynamicLinks().length ? this._dynamicLinks() : this._links(),
+	);
 
 	private readonly _platformId = inject(PLATFORM_ID);
 
@@ -83,13 +145,16 @@ export class PageNavComponent implements OnInit, AfterViewInit, OnDestroy {
 			}
 			return { id, label, isNested: !isSubHeading };
 		});
-		this.links.set(links);
+
+		this._links.set(links);
 	}
-	ngAfterViewInit() {
-		if (!this.pageNavTpl) return;
-		pageNavTmpl.set(this.pageNavTpl);
+
+	ngAfterViewInit(): void {
+		if (!this.pageNavTpl()) return;
+		pageNavTmpl.set(this.pageNavTpl());
 	}
-	ngOnDestroy() {
+
+	ngOnDestroy(): void {
 		pageNavTmpl.set(null);
 	}
 }

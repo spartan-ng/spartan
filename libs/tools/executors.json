@@ -9,6 +9,11 @@
 			"implementation": "./src/executors/release/build-update-publish/executor",
 			"schema": "./src/executors/release/build-update-publish/schema.json",
 			"description": "build-update-publish executor"
+		},
+		"generate-ui-docs": {
+			"implementation": "./src/executors/docs/generate-ui-docs/executor",
+			"schema": "./src/executors/docs/generate-ui-docs/schema.json",
+			"description": "Generates UI API Docs"
 		}
 	}
 }

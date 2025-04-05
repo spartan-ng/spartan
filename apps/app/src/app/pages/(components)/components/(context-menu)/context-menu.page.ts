@@ -12,12 +12,13 @@ import { SectionIntroComponent } from '../../../../shared/layout/section-intro.c
 import { SectionSubHeadingComponent } from '../../../../shared/layout/section-sub-heading.component';
 import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
+import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { ContextMenuPreviewWithStateComponent, defaultCodeWithState } from './context-menu-with-state.preview';
 import { ContextMenuPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './context-menu.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'Context Menu' },
+	data: { breadcrumb: 'Context Menu', api: 'context-menu' },
 	meta: metaWith(
 		'spartan/ui - Context Menu',
 		'Displays a menu to the user — such as a set of actions or functions — triggered by a right-click.',
@@ -28,6 +29,7 @@ export const routeMeta: RouteMeta = {
 @Component({
 	selector: 'spartan-command',
 	imports: [
+		UIApiDocsComponent,
 		MainSectionDirective,
 		CodeComponent,
 		SectionIntroComponent,

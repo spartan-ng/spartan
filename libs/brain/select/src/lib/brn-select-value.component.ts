@@ -22,6 +22,7 @@ import { injectBrnSelect } from './brn-select.token';
 	`,
 	host: {
 		'[id]': 'id()',
+		'[attr.data-placeholder]': '_showPlaceholder() ? "" : null',
 	},
 	styles: [
 		`

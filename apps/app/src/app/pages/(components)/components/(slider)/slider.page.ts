@@ -11,15 +11,15 @@ import { SectionSubHeadingComponent } from '../../../../shared/layout/section-su
 import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { SonnerPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './sonner.preview';
+import { SliderPreviewComponent, defaultCode, defaultImports, defaultSlider } from './slider.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'Sonner' },
-	meta: metaWith('spartan/ui - Sonner', 'An opinionated toast component for Angular.'),
-	title: 'spartan/ui - Sonner',
+	data: { breadcrumb: 'Slider' },
+	meta: metaWith('spartan/ui - Slider', 'An input where the user selects a value from within a given range.'),
+	title: 'spartan/ui - Slider',
 };
 @Component({
-	selector: 'spartan-sonner',
+	selector: 'spartan-slider',
 	imports: [
 		MainSectionDirective,
 		CodeComponent,
@@ -31,15 +31,15 @@ export const routeMeta: RouteMeta = {
 		PageNavComponent,
 		PageBottomNavComponent,
 		PageBottomNavLinkComponent,
-		SonnerPreviewComponent,
+		SliderPreviewComponent,
 	],
 	template: `
 		<section spartanMainSection>
-			<spartan-section-intro name="Sonner" lead="An opinionated toast component for Angular." />
+			<spartan-section-intro name="Slider" lead="An input where the user selects a value from within a given range." />
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
-					<spartan-sonner-preview />
+					<spartan-slider-preview />
 				</div>
 				<spartan-code secondTab [code]="defaultCode" />
 			</spartan-tabs>
@@ -47,26 +47,26 @@ export const routeMeta: RouteMeta = {
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
 			<spartan-cli-tabs
 				class="mt-4"
-				nxCode="npx nx g @spartan-ng/cli:ui sonner"
-				ngCode="ng g @spartan-ng/cli:ui sonner"
+				nxCode="npx nx g @spartan-ng/cli:ui slider"
+				ngCode="ng g @spartan-ng/cli:ui slider"
 			/>
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="space-y-4">
 				<spartan-code [code]="defaultImports" />
-				<spartan-code [code]="defaultSkeleton" />
+				<spartan-code [code]="defaultSlider" />
 			</div>
 
 			<spartan-page-bottom-nav>
-				<spartan-page-bottom-nav-link href="table" label="Table" />
-				<spartan-page-bottom-nav-link direction="previous" href="slider" label="Slider" />
+				<spartan-page-bottom-nav-link href="sonner" label="Sonner" />
+				<spartan-page-bottom-nav-link direction="previous" href="skeleton" label="Skeleton" />
 			</spartan-page-bottom-nav>
 		</section>
 		<spartan-page-nav />
 	`,
 })
-export default class SonnerPageComponent {
+export default class SliderPageComponent {
 	protected readonly defaultCode = defaultCode;
-	protected readonly defaultSkeleton = defaultSkeleton;
+	protected readonly defaultSlider = defaultSlider;
 	protected readonly defaultImports = defaultImports;
 }

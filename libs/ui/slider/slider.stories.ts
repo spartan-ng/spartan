@@ -1,4 +1,3 @@
-import type { Direction } from '@angular/cdk/bidi';
 import { signal } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrnSliderImports } from '@spartan-ng/brain/slider';
@@ -6,13 +5,12 @@ import { type Meta, type StoryObj, argsToTemplate, moduleMetadata } from '@story
 import { HlmSliderImports } from './helm/src';
 
 interface BrnSliderStoryArgs {
+	value: number;
 	disabled: boolean;
 	min: number;
 	max: number;
 	step: number;
-	dir: Direction;
-	ariaLabel: string;
-	showTickMarks: boolean;
+	showTicks: boolean;
 }
 
 const meta: Meta<BrnSliderStoryArgs> = {
@@ -20,11 +18,6 @@ const meta: Meta<BrnSliderStoryArgs> = {
 	tags: ['autodocs'],
 	args: {
 		disabled: false,
-		dir: 'ltr',
-		ariaLabel: 'fallback-label',
-	},
-	argTypes: {
-		dir: { control: 'radio', options: ['ltr', 'rtl'] },
 	},
 	decorators: [
 		moduleMetadata({
@@ -40,12 +33,7 @@ export const Default: Story = {
 	render: (args) => ({
 		props: { ...args },
 		template: /* HTML */ `
-			<hlm-slider ${argsToTemplate(args)}>
-				<hlm-slider-track>
-					<input hlmSliderInput [(ngModel)]="value" />
-				</hlm-slider-track>
-				<hlm-slider-thumb></hlm-slider-thumb>
-			</hlm-slider>
+			<hlm-slider ${argsToTemplate(args)} />
 
 			<div>{{value}}</div>
 		`,
@@ -54,17 +42,13 @@ export const Default: Story = {
 
 export const Disabled: Story = {
 	args: {
+		value: 50,
 		disabled: true,
 	},
 	render: ({ ...args }) => ({
 		props: args,
 		template: /* HTML */ `
-			<hlm-slider ${argsToTemplate(args)}>
-				<hlm-slider-track>
-					<input hlmSliderInput />
-				</hlm-slider-track>
-				<hlm-slider-thumb></hlm-slider-thumb>
-			</hlm-slider>
+			<hlm-slider ${argsToTemplate(args)} />
 		`,
 	}),
 };
@@ -76,12 +60,7 @@ export const Min: Story = {
 	render: ({ ...args }) => ({
 		props: args,
 		template: /* HTML */ `
-			<hlm-slider ${argsToTemplate(args)}>
-				<hlm-slider-track>
-					<input hlmSliderInput [(ngModel)]="value" />
-				</hlm-slider-track>
-				<hlm-slider-thumb></hlm-slider-thumb>
-			</hlm-slider>
+			<hlm-slider ${argsToTemplate(args)} (valueChange)="value = $event" />
 
 			<div>{{value}}</div>
 		`,
@@ -90,17 +69,13 @@ export const Min: Story = {
 
 export const Max: Story = {
 	args: {
+		value: 0,
 		max: 75,
 	},
 	render: ({ ...args }) => ({
 		props: args,
 		template: /* HTML */ `
-			<hlm-slider ${argsToTemplate(args)}>
-				<hlm-slider-track>
-					<input hlmSliderInput [(ngModel)]="value" />
-				</hlm-slider-track>
-				<hlm-slider-thumb></hlm-slider-thumb>
-			</hlm-slider>
+			<hlm-slider ${argsToTemplate(args)} (valueChange)="value = $event" />
 
 			<div>{{value}}</div>
 		`,
@@ -115,12 +90,7 @@ export const MinMax: Story = {
 	render: ({ ...args }) => ({
 		props: args,
 		template: /* HTML */ `
-			<hlm-slider ${argsToTemplate(args)}>
-				<hlm-slider-track>
-					<input hlmSliderInput [(ngModel)]="value" />
-				</hlm-slider-track>
-				<hlm-slider-thumb></hlm-slider-thumb>
-			</hlm-slider>
+			<hlm-slider ${argsToTemplate(args)} (valueChange)="value = $event" />
 
 			<div>{{value}}</div>
 		`,
@@ -134,49 +104,22 @@ export const Step: Story = {
 	render: ({ ...args }) => ({
 		props: args,
 		template: /* HTML */ `
-			<hlm-slider ${argsToTemplate(args)}>
-				<hlm-slider-track>
-					<input hlmSliderInput [(ngModel)]="value" />
-				</hlm-slider-track>
-				<hlm-slider-thumb></hlm-slider-thumb>
-			</hlm-slider>
+			<hlm-slider ${argsToTemplate(args)} (valueChange)="value = $event" />
 
 			<div>{{value}}</div>
 		`,
 	}),
 };
 
-export const TickMarks: Story = {
+export const Ticks: Story = {
 	args: {
 		step: 5,
-		showTickMarks: true,
+		showTicks: true,
 	},
 	render: ({ ...args }) => ({
 		props: args,
 		template: /* HTML */ `
-			<hlm-slider ${argsToTemplate(args)}>
-				<hlm-slider-track>
-					<input hlmSliderInput [(ngModel)]="value" />
-				</hlm-slider-track>
-				<hlm-slider-thumb></hlm-slider-thumb>
-			</hlm-slider>
-
-			<div>{{value}}</div>
-		`,
-	}),
-};
-
-export const AriaLabelledby: Story = {
-	render: (args) => ({
-		props: { ...args },
-		template: /* HTML */ `
-			<label hlmLabel #sliderLabel id="slider-label">Slider with label</label>
-			<hlm-slider ${argsToTemplate(args, { exclude: ['ariaLabel'] })} [label]="sliderLabel">
-				<hlm-slider-track>
-					<input id="slider" hlmSliderInput [(ngModel)]="value" />
-				</hlm-slider-track>
-				<hlm-slider-thumb></hlm-slider-thumb>
-			</hlm-slider>
+			<hlm-slider ${argsToTemplate(args)} (valueChange)="value = $event" />
 
 			<div>{{value}}</div>
 		`,
@@ -191,12 +134,7 @@ export const TemplateDrivenForm: Story = {
 				<div>
 					<pre>{{temperature()}}</pre>
 				</div>
-				<hlm-slider ${argsToTemplate(args)}>
-					<hlm-slider-track>
-						<input hlmSliderInput [(ngModel)]="temperature" name="temperature" />
-					</hlm-slider-track>
-					<hlm-slider-thumb></hlm-slider-thumb>
-				</hlm-slider>
+				<hlm-slider ${argsToTemplate(args)} [(ngModel)]="temperature" name="temperature" />
 
 				<button (click)="temperature.set(25)">Change temperature value</button>
 			</form>
@@ -212,12 +150,7 @@ export const TemplateDrivenFormWithInitialValue: Story = {
 				<div>
 					<pre>{{temperature()}}</pre>
 				</div>
-				<hlm-slider ${argsToTemplate(args)}>
-					<hlm-slider-track>
-						<input hlmSliderInput [(ngModel)]="temperature" name="temperature" />
-					</hlm-slider-track>
-					<hlm-slider-thumb></hlm-slider-thumb>
-				</hlm-slider>
+				<hlm-slider ${argsToTemplate(args)} [(ngModel)]="temperature" name="temperature" />
 
 				<button (click)="temperature.set(25)">Change temperature value</button>
 			</form>
@@ -233,12 +166,7 @@ export const ReactiveFormControl: Story = {
 				<pre>Form Control Value: {{ temperatureGroup.controls.temperature.valueChanges | async | json }}</pre>
 			</div>
 			<form [formGroup]="temperatureGroup">
-				<hlm-slider ${argsToTemplate(args)}>
-					<hlm-slider-track>
-						<input hlmSliderInput formControlName="temperature" />
-					</hlm-slider-track>
-					<hlm-slider-thumb></hlm-slider-thumb>
-				</hlm-slider>
+				<hlm-slider ${argsToTemplate(args)} formControlName="temperature" />
 			</form>
 		`,
 	}),
@@ -252,12 +180,7 @@ export const ReactiveFormControlWithInitialValue: Story = {
 				<pre>Form Control Value: {{ temperatureGroup.controls.temperature.valueChanges | async | json }}</pre>
 			</div>
 			<form [formGroup]="temperatureGroup">
-				<hlm-slider ${argsToTemplate(args)}>
-					<hlm-slider-track>
-						<input hlmSliderInput formControlName="temperature" />
-					</hlm-slider-track>
-					<hlm-slider-thumb></hlm-slider-thumb>
-				</hlm-slider>
+				<hlm-slider ${argsToTemplate(args)} formControlName="temperature" />
 			</form>
 		`,
 	}),

@@ -52,6 +52,7 @@ module.exports = {
 				'textarea',
 				'toast',
 				'toggle',
+				'toggle-group',
 				'tooltip',
 				'trpc',
 				'typography',

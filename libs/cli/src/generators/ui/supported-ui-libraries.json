@@ -279,6 +279,15 @@
 			"clsx": "^2.1.1"
 		}
 	},
+	"toggle-group": {
+		"internalName": "ui-toggle-group-helm",
+		"peerDependencies": {
+			"@angular/core": ">=19.0.0",
+			"@spartan-ng/brain": "0.0.1-alpha.436",
+			"class-variance-authority": "^0.7.0",
+			"clsx": "^2.1.1"
+		}
+	},
 	"typography": {
 		"internalName": "ui-typography-helm",
 		"peerDependencies": {

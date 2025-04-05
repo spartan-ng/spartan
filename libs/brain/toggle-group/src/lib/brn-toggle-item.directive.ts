@@ -1,25 +1,29 @@
 import { BooleanInput } from '@angular/cdk/coercion';
 import { ChangeDetectorRef, Directive, booleanAttribute, computed, inject, input, model } from '@angular/core';
+import { injectBrnToggleGroup } from './brn-toggle-group.token';
 
 @Directive({
-	selector: 'button[hlmToggle], button[brnToggle]',
+	selector: 'button[hlmToggleGroupItem], button[brnToggleGroupItem]',
 	standalone: true,
 	host: {
 		'[id]': 'id()',
-		'[attr.disabled]': 'disabled() ? true : null',
-		'[attr.data-disabled]': 'disabled() ? true : null',
+		'[attr.disabled]': 'disabled() || group?.disabled() ? true : null',
+		'[attr.data-disabled]': 'disabled() || group?.disabled() ? true : null',
 		'[attr.data-state]': '_state()',
 		'[attr.aria-pressed]': 'isOn()',
 		'(click)': 'toggle()',
 	},
 })
-export class BrnToggleDirective<T> {
+export class BrnToggleGroupItemDirective<T> {
 	private static _uniqueId = 0;
 
 	private readonly _changeDetector = inject(ChangeDetectorRef);
 
+	/** Access the toggle group if available. */
+	protected readonly group = injectBrnToggleGroup<T>();
+
 	/** The id of the toggle. */
-	public readonly id = input(`brn-toggle-${BrnToggleDirective._uniqueId++}`);
+	public readonly id = input(`brn-toggle-group-item-${BrnToggleGroupItemDirective._uniqueId++}`);
 
 	/** The value this toggle represents. */
 	public readonly value = input<T>();
@@ -42,12 +46,23 @@ export class BrnToggleDirective<T> {
 
 	/** The current state that reflects the group state or the model state. */
 	protected readonly _state = computed(() => {
+		if (this.group) {
+			return this.group.isSelected(this.value() as T) ? 'on' : 'off';
+		}
 		return this.state();
 	});
 
 	toggle(): void {
 		if (this.disableToggleClick()) return;
 
-		this.state.set(this.isOn() ? 'off' : 'on');
+		if (this.group) {
+			if (this.isOn()) {
+				this.group.deselect(this.value() as T, this);
+			} else {
+				this.group.select(this.value() as T, this);
+			}
+		} else {
+			this.state.set(this.isOn() ? 'off' : 'on');
+		}
 	}
 }

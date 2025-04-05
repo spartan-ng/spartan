@@ -1,7 +1,7 @@
-describe('toggle--toggle-group-single', () => {
+describe('toggle-group--toggle-group-single', () => {
 	describe('default', () => {
 		beforeEach(() => {
-			cy.visit('/iframe.html?id=toggle--toggle-group-form');
+			cy.visit('/iframe.html?id=toggle-group--toggle-group-form');
 			cy.injectAxe();
 		});
 

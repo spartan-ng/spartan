@@ -115,7 +115,7 @@ export const routeMeta: RouteMeta = {
 			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
-				<spartan-page-bottom-nav-link href="tooltip" label="Tooltip" />
+				<spartan-page-bottom-nav-link href="toggle-group" label="Toggle Group" />
 				<spartan-page-bottom-nav-link direction="previous" href="textarea" label="Textarea" />
 			</spartan-page-bottom-nav>
 		</section>

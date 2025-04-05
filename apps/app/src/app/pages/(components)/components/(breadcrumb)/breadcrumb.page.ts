@@ -80,7 +80,7 @@ export const routeMeta: RouteMeta = {
 			<spartan-ui-api-docs docType="ui" />
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__default" class="${hlmH4} mt-6">Custom separator</h3>
+			<h3 id="examples__custom-separator" class="${hlmH4} mt-6">Custom separator</h3>
 			<p class="${hlmP} mb-2">
 				Use a custom component as
 				<code class="${hlmCode} mr-0.5">children</code>
@@ -100,7 +100,7 @@ export const routeMeta: RouteMeta = {
 
 			<hr class="my-4 md:my-8" />
 
-			<h3 id="examples__default" class="${hlmH4}">Dropdown</h3>
+			<h3 id="examples__dropdown" class="${hlmH4}">Dropdown</h3>
 			<p class="${hlmP} mb-2">
 				You can compose
 				<code class="${hlmCode} mr-0.5">HlmBreadcrumbItem</code>
@@ -120,7 +120,7 @@ export const routeMeta: RouteMeta = {
 
 			<hr class="my-4 md:my-8" />
 
-			<h3 id="examples__default" class="${hlmH4}">Collapsed</h3>
+			<h3 id="examples__collapsed" class="${hlmH4}">Collapsed</h3>
 			<p class="${hlmP} mb-2">
 				We provide a
 				<code class="${hlmCode} mr-0.5">BreadcrumbEllipsis</code>

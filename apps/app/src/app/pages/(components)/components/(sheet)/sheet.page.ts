@@ -85,7 +85,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="sideCode" />
 			</spartan-tabs>
 
-			<h3 id="examples__sides" class="${hlmH4} mb-2 mt-6">Close Sheet</h3>
+			<h3 id="examples__close-sheet" class="${hlmH4} mb-2 mt-6">Close Sheet</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-sheet-close-preview />

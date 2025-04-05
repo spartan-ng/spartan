@@ -6,7 +6,7 @@
 	"peerDependencies": {
 		"@angular/cdk": ">=19.0.0",
 		"@angular/core": ">=19.0.0",
-		"@spartan-ng/brain": "0.0.1-alpha.436",
+		"@spartan-ng/brain": "0.0.1-alpha.437",
 		"@spartan-ng/ui-button-helm": "0.0.1-alpha.381",
 		"@spartan-ng/ui-icon-helm": "0.0.1-alpha.381",
 		"clsx": "^2.1.1"

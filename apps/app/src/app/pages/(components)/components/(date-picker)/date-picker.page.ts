@@ -11,6 +11,7 @@ import { SectionIntroComponent } from '../../../../shared/layout/section-intro.c
 import { SectionSubHeadingComponent } from '../../../../shared/layout/section-sub-heading.component';
 import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
+import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { datePickerConfigCode, DatePickerConfigExampleComponent } from './date-picker--config.example';
 import { datePickerFormCode, DatePickerFormExampleComponent } from './date-picker--form.example';
@@ -18,7 +19,7 @@ import { datePickerFormatCode, DatePickerFormatExampleComponent } from './date-p
 import { codeSkeleton, DatePickerPreviewComponent, defaultCode, defaultImports } from './date-picker.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'Date Picker' },
+	data: { breadcrumb: 'Date Picker', api: 'date-picker' },
 	meta: metaWith('spartan/ui - Date Picker', 'A date picker component.'),
 	title: 'spartan/ui - Date Picker',
 };
@@ -28,6 +29,7 @@ const link = 'h-6 underline text-base px-0.5';
 @Component({
 	selector: 'spartan-calendar',
 	imports: [
+		UIApiDocsComponent,
 		DatePickerPreviewComponent,
 		SectionIntroComponent,
 		TabsComponent,
@@ -76,8 +78,11 @@ const link = 'h-6 underline text-base px-0.5';
 				<spartan-code [code]="codeSkeleton" />
 			</div>
 
+			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="ui" />
+
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__default" class="${hlmH4} mb-2 mt-6">Custom Configs</h3>
+			<h3 id="examples__custom-configs" class="${hlmH4} mb-2 mt-6">Custom Configs</h3>
 
 			<p class="${hlmP} mb-6">
 				Use
@@ -108,7 +113,7 @@ const link = 'h-6 underline text-base px-0.5';
 				<spartan-code secondTab [code]="datePickerConfigCode" />
 			</spartan-tabs>
 
-			<h3 id="examples__default" class="${hlmH4} mb-2 mt-6">Format Date</h3>
+			<h3 id="examples__format-date" class="${hlmH4} mb-2 mt-6">Format Date</h3>
 
 			<p class="${hlmP} mb-6">
 				Use
@@ -122,7 +127,7 @@ const link = 'h-6 underline text-base px-0.5';
 				<spartan-code secondTab [code]="datePickerFormatCode" />
 			</spartan-tabs>
 
-			<h3 id="examples__default" class="${hlmH4} mb-2 mt-6">Form</h3>
+			<h3 id="examples__form" class="${hlmH4} mb-2 mt-6">Form</h3>
 			<p class="${hlmP} mb-6">
 				Sync the date to a form by adding
 				<code class="${hlmCode}">formControlName</code>

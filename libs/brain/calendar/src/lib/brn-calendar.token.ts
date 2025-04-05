@@ -1,15 +1,32 @@
-import { ExistingProvider, InjectionToken, Type, inject } from '@angular/core';
-import type { BrnCalendarDirective } from './brn-calendar.directive';
+import { ExistingProvider, InjectionToken, Signal, Type, WritableSignal, inject } from '@angular/core';
+import { BrnCalendarHeaderDirective } from './brn-calendar-header.directive';
 
-export const BrnCalendarToken = new InjectionToken<BrnCalendarDirective<unknown>>('BrnCalendarToken');
+export interface BrnCalendar<T> {
+	isSelected: (date: T) => boolean;
+	selectDate: (date: T) => void;
 
-export function provideBrnCalendar<T>(instance: Type<BrnCalendarDirective<T>>): ExistingProvider {
+	constrainDate: (date: T) => T;
+	isDateDisabled: (date: T) => boolean;
+	setFocusedDate: (date: T) => void;
+
+	disabled: Signal<boolean>;
+	focusedDate: Signal<T>;
+	header: Signal<BrnCalendarHeaderDirective | undefined>;
+	state: Signal<{
+		focusedDate: WritableSignal<T>;
+	}>;
+	days: Signal<T[]>;
+}
+
+export const BrnCalendarToken = new InjectionToken<BrnCalendar<unknown>>('BrnCalendarToken');
+
+export function provideBrnCalendar<T>(instance: Type<BrnCalendar<T>>): ExistingProvider {
 	return { provide: BrnCalendarToken, useExisting: instance };
 }
 
 /**
  * Inject the calendar component.
  */
-export function injectBrnCalendar<T>(): BrnCalendarDirective<T> {
-	return inject(BrnCalendarToken) as BrnCalendarDirective<T>;
+export function injectBrnCalendar<T>(): BrnCalendar<T> {
+	return inject(BrnCalendarToken) as BrnCalendar<T>;
 }

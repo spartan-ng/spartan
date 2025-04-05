@@ -1,6 +1,7 @@
 import { NgClass, isPlatformServer } from '@angular/common';
 import {
 	type AfterViewInit,
+	ChangeDetectionStrategy,
 	Component,
 	ElementRef,
 	type OnDestroy,
@@ -29,6 +30,7 @@ type SamePageAnchorLink = {
 
 @Component({
 	selector: 'spartan-page-nav',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [HlmScrollAreaDirective, NgScrollbarModule, NgClass, PageNavLinkComponent],
 	host: {
 		class: 'hidden xl:block text-sm',
@@ -77,37 +79,33 @@ export class PageNavComponent implements OnInit, AfterViewInit, OnDestroy {
 
 		// Find indices for API sections
 		const brnLinkIndex = pageLinks.findIndex((link) => link.id === 'brn-api');
-		const hlmLinkIndex = pageLinks.findIndex((link) => link.id === 'hlm-api');
 
-		// Only add API links if both sections exist
-		if (brnLinkIndex !== -1 && hlmLinkIndex !== -1) {
-			// Split links by type
-			const brainLinks = apiPageLinks
-				.filter((link) => link.type === 'brain')
-				.map((link) => ({
-					id: link.id,
-					label: link.label,
-					isNested: true,
-				}));
+		// Split links by type
+		const brainLinks = apiPageLinks
+			.filter((link) => link.type === 'brain')
+			.map((link) => ({
+				id: link.id,
+				label: link.label,
+				isNested: true,
+			}));
 
-			const helmLinks = apiPageLinks
-				.filter((link) => link.type === 'helm')
-				.map((link) => ({
-					id: link.id,
-					label: link.label,
-					isNested: true,
-				}));
+		const helmLinks = apiPageLinks
+			.filter((link) => link.type === 'helm')
+			.map((link) => ({
+				id: link.id,
+				label: link.label,
+				isNested: true,
+			}));
 
-			// Only insert links if they exist
-			if (brainLinks.length) {
-				pageLinks.splice(brnLinkIndex + 1, 0, ...brainLinks);
-			}
+		// Only insert links if they exist
+		if (brainLinks.length) {
+			pageLinks.splice(brnLinkIndex + 1, 0, ...brainLinks);
+		}
 
-			// Recalculate helm index since it may have shifted after inserting brain links
-			const newHlmIndex = pageLinks.findIndex((link) => link.id === 'hlm-api');
-			if (helmLinks.length && newHlmIndex !== -1) {
-				pageLinks.splice(newHlmIndex + 1, 0, ...helmLinks);
-			}
+		// Recalculate helm index since it may have shifted after inserting brain links
+		const newHlmIndex = pageLinks.findIndex((link) => link.id === 'hlm-api');
+		if (helmLinks.length && newHlmIndex !== -1) {
+			pageLinks.splice(newHlmIndex + 1, 0, ...helmLinks);
 		}
 
 		return pageLinks;

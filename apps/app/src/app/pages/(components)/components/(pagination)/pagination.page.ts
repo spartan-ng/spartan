@@ -78,7 +78,7 @@ export const routeMeta: RouteMeta = {
 				</div>
 				<spartan-code secondTab [code]="queryParamsCode" />
 			</spartan-tabs>
-			<h3 id="examples__default" class="${hlmH4} mb-2 mt-6">Icon Only (Previous/Next)</h3>
+			<h3 id="examples__icon-only" class="${hlmH4} mb-2 mt-6">Icon Only (Previous/Next)</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-pagination-icon-only />

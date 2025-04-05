@@ -80,7 +80,7 @@ export const routeMeta: RouteMeta = {
 			<spartan-ui-api-docs docType="ui" />
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__default" class="${hlmH4} mt-6">Custom separator</h3>
+			<h3 id="examples__custom-separator" class="${hlmH4} mt-6">Custom separator</h3>
 			<p class="${hlmP} mb-2">
 				Use a custom component as
 				<code class="${hlmCode} mr-0.5">children</code>

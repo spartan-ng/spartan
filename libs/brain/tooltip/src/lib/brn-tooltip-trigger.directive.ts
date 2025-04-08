@@ -41,7 +41,6 @@ import {
 	InjectionToken,
 	input,
 	isDevMode,
-	linkedSignal,
 	NgZone,
 	numberAttribute,
 	type OnDestroy,

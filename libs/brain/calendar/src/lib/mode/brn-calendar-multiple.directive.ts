@@ -1,31 +1,32 @@
 import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import {
-	ChangeDetectorRef,
-	Directive,
-	Injector,
 	afterNextRender,
 	booleanAttribute,
+	ChangeDetectorRef,
 	computed,
 	contentChild,
 	contentChildren,
+	Directive,
 	inject,
+	Injector,
 	input,
 	model,
 	numberAttribute,
 	signal,
 } from '@angular/core';
 import { injectDateAdapter } from '@spartan-ng/brain/date-time';
-import { BrnCalendarCellButtonDirective } from './brn-calendar-cell-button.directive';
-import { BrnCalendarHeaderDirective } from './brn-calendar-header.directive';
-import { BrnCalendar, provideBrnCalendar } from './brn-calendar.token';
+import { BrnCalendarCellButtonDirective } from '../brn-calendar-cell-button.directive';
+import { BrnCalendarHeaderDirective } from '../brn-calendar-header.directive';
+import { Weekday } from '../brn-calendar.directive';
+import { BrnCalendar, provideBrnCalendar } from '../brn-calendar.token';
 
 @Directive({
-	selector: '[brnCalendar]',
+	selector: '[brnCalendarMulti]',
 	standalone: true,
-	providers: [provideBrnCalendar(BrnCalendarDirective)],
+	providers: [provideBrnCalendar(BrnCalendarMultiDirective)],
 })
-export class BrnCalendarDirective<T> implements BrnCalendar<T> {
-	/** Access the date adapter */
+export class BrnCalendarMultiDirective<T> implements BrnCalendar<T> {
+	// /** Access the date adapter */
 	protected readonly dateAdapter = injectDateAdapter<T>();
 
 	/** Access the change detector */
@@ -40,13 +41,23 @@ export class BrnCalendarDirective<T> implements BrnCalendar<T> {
 	/** The maximum date that can be selected. */
 	public readonly max = input<T>();
 
+	/** The minimum selectable dates.  */
+	public readonly minSelection = input<number, NumberInput>(undefined, {
+		transform: numberAttribute,
+	});
+
+	/** The maximum selectable dates.  */
+	public readonly maxSelection = input<number, NumberInput>(undefined, {
+		transform: numberAttribute,
+	});
+
 	/** Determine if the date picker is disabled. */
 	public readonly disabled = input<boolean, BooleanInput>(false, {
 		transform: booleanAttribute,
 	});
 
 	/** The selected value. */
-	public readonly date = model<T>();
+	public readonly date = model<T[]>();
 
 	/** Whether a specific date is disabled. */
 	public readonly dateDisabled = input<(date: T) => boolean>(() => false);
@@ -72,7 +83,7 @@ export class BrnCalendarDirective<T> implements BrnCalendar<T> {
 	 * The internal state of the component.
 	 */
 	public readonly state = computed(() => ({
-		focusedDate: signal(this.constrainDate(this.defaultFocusedDate() ?? this.date() ?? this.dateAdapter.now())),
+		focusedDate: signal(this.constrainDate(this.defaultFocusedDate() ?? this.dateAdapter.now())),
 	}));
 
 	/**
@@ -114,6 +125,33 @@ export class BrnCalendarDirective<T> implements BrnCalendar<T> {
 		return days;
 	});
 
+	isSelected(date: T): boolean {
+		return this.date()?.some((d) => this.dateAdapter.isSameDay(d, date)) ?? false;
+	}
+
+	selectDate(date: T): void {
+		const selected = this.date() as T[] | undefined;
+		if (this.isSelected(date)) {
+			const minSelection = this.minSelection();
+			if (selected?.length === minSelection) {
+				// min selection reached, do not allow to deselect
+				return;
+			}
+
+			this.date.set(selected?.filter((d) => !this.dateAdapter.isSameDay(d, date)));
+		} else {
+			const maxSelection = this.maxSelection();
+			if (selected?.length === maxSelection) {
+				// max selection reached, reset the selection to date
+				this.date.set([date]);
+			} else {
+				// add the date to the selection
+				this.date.set([...(selected ?? []), date]);
+			}
+		}
+	}
+
+	// same as in brn-calendar.directive.ts
 	/** @internal Constrain a date to the min and max boundaries */
 	constrainDate(date: T): T {
 		const min = this.min();
@@ -167,20 +205,6 @@ export class BrnCalendarDirective<T> implements BrnCalendar<T> {
 		return false;
 	}
 
-	isSelected(date: T): boolean {
-		const selected = this.date() as T | undefined;
-		return selected !== undefined && this.dateAdapter.isSameDay(date, selected);
-	}
-
-	selectDate(date: T): void {
-		if (this.isSelected(date)) {
-			this.date.set(undefined);
-		} else {
-			this.date.set(date);
-		}
-		this.state().focusedDate.set(date);
-	}
-
 	/** @internal Set the focused date */
 	setFocusedDate(date: T): void {
 		// check if the date is disabled.
@@ -211,5 +235,3 @@ export class BrnCalendarDirective<T> implements BrnCalendar<T> {
 		this._changeDetector.detectChanges();
 	}
 }
-
-export type Weekday = 0 | 1 | 2 | 3 | 4 | 5 | 6;

@@ -5,9 +5,9 @@ import { lucideChevronLeft, lucideChevronRight } from '@ng-icons/lucide';
 import {
 	BrnCalendarCellButtonDirective,
 	BrnCalendarCellDirective,
-	BrnCalendarDirective,
 	BrnCalendarGridDirective,
 	BrnCalendarHeaderDirective,
+	BrnCalendarMultiDirective,
 	BrnCalendarNextButtonDirective,
 	BrnCalendarPreviousButtonDirective,
 	BrnCalendarWeekDirective,
@@ -22,9 +22,9 @@ import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 import type { ClassValue } from 'clsx';
 
 @Component({
-	selector: 'hlm-calendar',
+	selector: 'hlm-calendar-multi',
 	imports: [
-		BrnCalendarDirective,
+		BrnCalendarMultiDirective,
 		BrnCalendarHeaderDirective,
 		BrnCalendarNextButtonDirective,
 		BrnCalendarPreviousButtonDirective,
@@ -39,9 +39,11 @@ import type { ClassValue } from 'clsx';
 	viewProviders: [provideIcons({ lucideChevronLeft, lucideChevronRight })],
 	template: `
 		<div
-			brnCalendar
+			brnCalendarMulti
 			[min]="min()"
 			[max]="max()"
+			[minSelection]="minSelection()"
+			[maxSelection]="maxSelection()"
 			[disabled]="disabled()"
 			[(date)]="date"
 			[dateDisabled]="dateDisabled()"
@@ -108,7 +110,7 @@ import type { ClassValue } from 'clsx';
 		</div>
 	`,
 })
-export class HlmCalendarComponent<T> {
+export class HlmCalendarMultiComponent<T> {
 	public readonly calendarClass = input<ClassValue>('');
 
 	protected readonly _computedCalenderClass = computed(() => hlm('rounded-md border p-3', this.calendarClass()));
@@ -125,13 +127,23 @@ export class HlmCalendarComponent<T> {
 	/** The maximum date that can be selected. */
 	public readonly max = input<T>();
 
+	/** The minimum selectable dates.  */
+	public readonly minSelection = input<number, NumberInput>(undefined, {
+		transform: numberAttribute,
+	});
+
+	/** The maximum selectable dates.  */
+	public readonly maxSelection = input<number, NumberInput>(undefined, {
+		transform: numberAttribute,
+	});
+
 	/** Determine if the date picker is disabled. */
 	public readonly disabled = input<boolean, BooleanInput>(false, {
 		transform: booleanAttribute,
 	});
 
 	/** The selected value. */
-	public readonly date = model<T>();
+	public readonly date = model<T[]>();
 
 	/** Whether a specific date is disabled. */
 	public readonly dateDisabled = input<(date: T) => boolean>(() => false);
@@ -145,7 +157,7 @@ export class HlmCalendarComponent<T> {
 	public readonly defaultFocusedDate = input<T>();
 
 	/** Access the calendar directive */
-	private readonly _calendar = viewChild.required(BrnCalendarDirective);
+	private readonly _calendar = viewChild.required(BrnCalendarMultiDirective);
 
 	/** Get the heading for the current month and year */
 	protected heading = computed(() =>

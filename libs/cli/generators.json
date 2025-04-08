@@ -30,6 +30,11 @@
 			"schema": "./src/generators/migrate-radio/schema.json",
 			"description": "Migrate brn-radio to hlm-radio"
 		},
+		"migrate-toggle-group": {
+			"factory": "./src/generators/migrate-toggle-group/generator",
+			"schema": "./src/generators/migrate-toggle-group/schema.json",
+			"description": "Migrate brn-toggle-group from @spartan-ng/brain/toggle to @spartan-ng/brain/toggle-group"
+		},
 		"migrate-select": {
 			"factory": "./src/generators/migrate-select/generator",
 			"schema": "./src/generators/migrate-select/schema.json",

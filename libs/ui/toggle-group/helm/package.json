@@ -1,0 +1,15 @@
+{
+	"name": "@spartan-ng/ui-toggle-group-helm",
+	"version": "0.0.1-alpha.381",
+	"sideEffects": false,
+	"dependencies": {},
+	"peerDependencies": {
+		"@angular/core": ">=18.0.0",
+		"@spartan-ng/brain": "0.0.1-alpha.436",
+		"class-variance-authority": "^0.7.0",
+		"clsx": "^2.1.1"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}

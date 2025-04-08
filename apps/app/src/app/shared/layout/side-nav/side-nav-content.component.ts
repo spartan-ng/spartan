@@ -118,6 +118,7 @@ export class SideNavContentComponent {
 				{ label: 'Textarea', url: '/textarea' },
 				{ label: 'Toast', url: '/toast', wip: true },
 				{ label: 'Toggle', url: '/toggle' },
+				{ label: 'Toggle Group', url: '/toggle-group' },
 				{ label: 'Tooltip', url: '/tooltip' },
 			],
 		},

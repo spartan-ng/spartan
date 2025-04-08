@@ -41,6 +41,7 @@ import {
 	InjectionToken,
 	input,
 	isDevMode,
+	linkedSignal,
 	NgZone,
 	numberAttribute,
 	type OnDestroy,
@@ -74,8 +75,8 @@ export const BRN_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER: Provider = {
 	deps: [Overlay],
 	useFactory:
 		(overlay: Overlay): (() => ScrollStrategy) =>
-		() =>
-			overlay.scrollStrategies.reposition({ scrollThrottle: SCROLL_THROTTLE_MS }),
+			() =>
+				overlay.scrollStrategies.reposition({ scrollThrottle: SCROLL_THROTTLE_MS }),
 };
 
 const PANEL_CLASS = 'tooltip-panel';
@@ -166,7 +167,8 @@ export class BrnTooltipTriggerDirective implements OnDestroy, AfterViewInit {
 
 	/** The default delay in ms before hiding the tooltip after hide is called */
 
-	public readonly tooltipContentClasses = input<string>(this._defaultOptions?.tooltipContentClasses ?? '');
+	public readonly _tooltipContentClasses = input<string>(this._defaultOptions?.tooltipContentClasses ?? '', { alias: 'tooltipContentClasses' });
+	public readonly tooltipContentClasses = linkedSignal(() => this._tooltipContentClasses());
 
 	/**
 	 * How touch gestures should be handled by the tooltip. On touch devices the tooltip directive
@@ -187,7 +189,8 @@ export class BrnTooltipTriggerDirective implements OnDestroy, AfterViewInit {
 
 	/** The message to be used to describe the aria in the tooltip */
 
-	public readonly ariaDescribedBy = input('', { alias: 'aria-describedby' });
+	public readonly _ariaDescribedBy = input('', { alias: 'aria-describedby' });
+	public readonly ariaDescribedBy = linkedSignal(() => this._ariaDescribedBy());
 	public readonly ariaDescribedByPrevious = computedPrevious(this.ariaDescribedBy);
 
 	/** The content to be displayed in the tooltip */
@@ -217,6 +220,12 @@ export class BrnTooltipTriggerDirective implements OnDestroy, AfterViewInit {
 		this._initBrnTooltipDisabledEffect();
 		this._initExitAnimationDurationEffect();
 		this._initHideDelayEffect();
+	}
+	setTooltipContentClasses(tooltipContentClasses: string) {
+		this.tooltipContentClasses.set(tooltipContentClasses);
+	}
+	setAriaDescribedBy(ariaDescribedBy: string) {
+		this.ariaDescribedBy.set(ariaDescribedBy);
 	}
 
 	private _initPositionEffect(): void {

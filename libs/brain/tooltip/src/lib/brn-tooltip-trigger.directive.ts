@@ -271,7 +271,7 @@ export class BrnTooltipTriggerDirective implements OnDestroy, AfterViewInit {
 			const ariaDescribedBy = this.ariaDescribedBy()();
 			this._ariaDescriber.removeDescription(
 				this._elementRef.nativeElement,
-				untracked(() => this.ariaDescribedByPrevious()),
+				untracked(() => this.ariaDescribedByPrevious()()),
 				'tooltip',
 			);
 

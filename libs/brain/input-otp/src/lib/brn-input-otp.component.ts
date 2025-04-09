@@ -28,12 +28,12 @@ export type InputMode = 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal'
 	imports: [FormsModule],
 	template: `
 		<ng-content />
-		<div style="position: absolute; inset: 0; pointer-events: none;">
+		<div [style]="containerStyles()">
 			<input
 				[class]="inputClass()"
 				autocomplete="one-time-code"
 				data-slot="input-otp"
-				style="position: absolute; inset: 0; width: 100%; height: 100%; display: flex; textAlign: left; opacity: 1; color: transparent; pointerEvents: all; background: transparent; caret-color: transparent; border: 0px solid transparent; outline: transparent solid 0px; box-shadow: none; line-height: 1; letter-spacing: -0.5em; font-family: monospace; font-variant-numeric: tabular-nums;"
+				[style]="inputStyles()"
 				[disabled]="state().disabled()"
 				[inputMode]="inputMode()"
 				[ngModel]="value()"
@@ -45,7 +45,7 @@ export type InputMode = 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal'
 		</div>
 	`,
 	host: {
-		style: 'position: relative; cursor: text; user-select: none; pointer-events: none;',
+		'[style]': 'hostStyles()',
 		'data-input-otp-container': 'true',
 	},
 	providers: [BRN_INPUT_OTP_VALUE_ACCESSOR, provideBrnInputOtp(BrnInputOtpComponent)],
@@ -53,6 +53,16 @@ export type InputMode = 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal'
 export class BrnInputOtpComponent implements ControlValueAccessor {
 	/** Whether the input has focus. */
 	protected readonly focused = signal<boolean>(false);
+
+	public readonly hostStyles = input<string>(
+		'position: relative; cursor: text; user-select: none; pointer-events: none;',
+	);
+
+	public readonly inputStyles = input<string>(
+		'position: absolute; inset: 0; width: 100%; height: 100%; display: flex; textAlign: left; opacity: 1; color: transparent; pointerEvents: all; background: transparent; caret-color: transparent; border: 0px solid transparent; outline: transparent solid 0px; box-shadow: none; line-height: 1; letter-spacing: -0.5em; font-family: monospace; font-variant-numeric: tabular-nums;',
+	);
+
+	public readonly containerStyles = input<string>('position: absolute; inset: 0; pointer-events: none;');
 
 	/** Determine if the date picker is disabled. */
 	public readonly disabled = input<boolean, BooleanInput>(false, {

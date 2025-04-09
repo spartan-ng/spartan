@@ -50,7 +50,6 @@ import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
 
 @Component({
 	selector: 'spartan-date-picker-form',
-	standalone: true,
 	imports: [HlmDatePickerComponent, ReactiveFormsModule, HlmButtonDirective, HlmLabelDirective],
 	template: \`
 		<form [formGroup]="form" (ngSubmit)="submit()" class="space-y-8">
@@ -72,7 +71,7 @@ export class DatePickerFormExampleComponent {
 	private readonly _formBuilder = inject(FormBuilder);
 
 	public form = this._formBuilder.group({
-		birthday: [undefined, Validators.required],
+		birthday: [null, Validators.required],
 	});
 
 	/** The minimum date */

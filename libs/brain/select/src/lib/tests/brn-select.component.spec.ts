@@ -58,7 +58,7 @@ describe('BrnSelectComponent', () => {
 			await user.click(trigger);
 			expect(openChangeSpy).toHaveBeenCalledTimes(2);
 		});
-		it('shoud add data-disabled to a disabled option', async () => {
+		it('should add data-disabled to a disabled option', async () => {
 			const { user, trigger } = await setup();
 			await user.click(trigger);
 			const disabledOption = await screen.getByText('Disabled Option');
@@ -66,6 +66,17 @@ describe('BrnSelectComponent', () => {
 			expect(disabledOption).toHaveAttribute('data-disabled');
 			await user.click(disabledOption);
 			expect(trigger.textContent).not.toContain('Disabled Option');
+		});
+
+		it('should add data-placeholder to the value when no value is selected', async () => {
+			const { container, user, trigger } = await setup();
+			const value = container.container.querySelector('brn-select-value');
+			expect(value).toHaveAttribute('data-placeholder');
+
+			await user.click(trigger);
+			const options = await screen.getAllByRole('option');
+			await userEvent.click(options[0]);
+			expect(value).not.toHaveAttribute('data-placeholder');
 		});
 
 		it('single mode: valueChange should emit event on selection', async () => {

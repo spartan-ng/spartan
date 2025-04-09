@@ -75,8 +75,8 @@ export const BRN_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER: Provider = {
 	deps: [Overlay],
 	useFactory:
 		(overlay: Overlay): (() => ScrollStrategy) =>
-			() =>
-				overlay.scrollStrategies.reposition({ scrollThrottle: SCROLL_THROTTLE_MS }),
+		() =>
+			overlay.scrollStrategies.reposition({ scrollThrottle: SCROLL_THROTTLE_MS }),
 };
 
 const PANEL_CLASS = 'tooltip-panel';
@@ -167,7 +167,9 @@ export class BrnTooltipTriggerDirective implements OnDestroy, AfterViewInit {
 
 	/** The default delay in ms before hiding the tooltip after hide is called */
 
-	public readonly _tooltipContentClasses = input<string>(this._defaultOptions?.tooltipContentClasses ?? '', { alias: 'tooltipContentClasses' });
+	public readonly _tooltipContentClasses = input<string>(this._defaultOptions?.tooltipContentClasses ?? '', {
+		alias: 'tooltipContentClasses',
+	});
 	public readonly tooltipContentClasses = computed(() => signal(this._tooltipContentClasses()));
 
 	/**

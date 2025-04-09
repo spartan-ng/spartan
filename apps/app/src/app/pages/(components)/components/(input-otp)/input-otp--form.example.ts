@@ -1,11 +1,10 @@
-import { Component, computed, inject, OnDestroy, signal } from '@angular/core';
+import { afterNextRender, Component, computed, inject, OnDestroy, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BrnInputOtpComponent } from '@spartan-ng/brain/input-otp';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import {
 	HlmInputOtpDirective,
 	HlmInputOtpGroupDirective,
-	HlmInputOtpSeparatorComponent,
 	HlmInputOtpSlotComponent,
 } from '@spartan-ng/ui-input-otp-helm';
 import { HlmToasterComponent } from '@spartan-ng/ui-sonner-helm';
@@ -21,7 +20,6 @@ import { toast } from 'ngx-sonner';
 		BrnInputOtpComponent,
 		HlmInputOtpDirective,
 		HlmInputOtpGroupDirective,
-		HlmInputOtpSeparatorComponent,
 		HlmInputOtpSlotComponent,
 	],
 	template: `
@@ -75,7 +73,7 @@ export class InputOtpFormExampleComponent implements OnDestroy {
 	});
 
 	constructor() {
-		this.startCountdown();
+		afterNextRender(() => this.startCountdown());
 	}
 
 	submit() {
@@ -118,14 +116,13 @@ export class InputOtpFormExampleComponent implements OnDestroy {
 }
 
 export const inputOtpFormCode = `
-import { Component, computed, inject, OnDestroy, signal } from '@angular/core';
+import { afterNextRender, Component, computed, inject, OnDestroy, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BrnInputOtpComponent } from '@spartan-ng/brain/input-otp';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import {
 	HlmInputOtpDirective,
 	HlmInputOtpGroupDirective,
-	HlmInputOtpSeparatorComponent,
 	HlmInputOtpSlotComponent,
 } from '@spartan-ng/ui-input-otp-helm';
 import { HlmToasterComponent } from '@spartan-ng/ui-sonner-helm';
@@ -141,7 +138,6 @@ import { toast } from 'ngx-sonner';
 		BrnInputOtpComponent,
 		HlmInputOtpDirective,
 		HlmInputOtpGroupDirective,
-		HlmInputOtpSeparatorComponent,
 		HlmInputOtpSlotComponent,
 	],
 	template: \`
@@ -195,7 +191,7 @@ export class InputOtpFormExampleComponent implements OnDestroy {
 	});
 
 	constructor() {
-		this.startCountdown();
+		afterNextRender(() => this.startCountdown());
 	}
 
 	submit() {

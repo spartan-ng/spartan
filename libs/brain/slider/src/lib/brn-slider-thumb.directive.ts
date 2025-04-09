@@ -1,5 +1,5 @@
-import { DOCUMENT } from '@angular/common';
-import { computed, Directive, ElementRef, HostListener, inject } from '@angular/core';
+import { DOCUMENT, isPlatformServer } from '@angular/common';
+import { computed, Directive, ElementRef, HostListener, inject, PLATFORM_ID } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { fromEvent } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
@@ -21,6 +21,7 @@ export class BrnSliderThumbDirective {
 	protected readonly slider = injectBrnSlider();
 	private readonly _document = inject<Document>(DOCUMENT);
 	private readonly _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+	private readonly _platform = inject(PLATFORM_ID);
 
 	/**
 	 * Offsets the thumb centre point while sliding to ensure it remains
@@ -28,6 +29,11 @@ export class BrnSliderThumbDirective {
 	 * Based on https://github.com/radix-ui/primitives/blob/main/packages/react/slider/src/slider.tsx
 	 */
 	protected readonly thumbOffset = computed(() => {
+		// we can't compute the offset on the server
+		if (isPlatformServer(this._platform)) {
+			return this.slider.percentage() + '%';
+		}
+
 		const halfWidth = this._elementRef.nativeElement.offsetWidth / 2;
 		const offset = this.linearScale([0, 50], [0, halfWidth]);
 		const thumbInBoundsOffset = halfWidth - offset(this.slider.percentage());
@@ -37,9 +43,9 @@ export class BrnSliderThumbDirective {
 	});
 
 	constructor() {
-		const mousedown = fromEvent<MouseEvent>(this._elementRef.nativeElement, 'mousedown');
-		const mouseup = fromEvent<MouseEvent>(this._document, 'mouseup');
-		const mousemove = fromEvent<MouseEvent>(this._document, 'mousemove');
+		const mousedown = fromEvent<MouseEvent>(this._elementRef.nativeElement, 'pointerdown');
+		const mouseup = fromEvent<MouseEvent>(this._document, 'pointerup');
+		const mousemove = fromEvent<MouseEvent>(this._document, 'pointermove');
 
 		// Listen for mousedown events on the slider thumb
 		mousedown

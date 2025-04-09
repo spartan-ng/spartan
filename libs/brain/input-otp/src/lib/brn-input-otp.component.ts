@@ -51,6 +51,7 @@ export type InputMode = 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal'
 	providers: [BRN_INPUT_OTP_VALUE_ACCESSOR, provideBrnInputOtp(BrnInputOtpComponent)],
 })
 export class BrnInputOtpComponent implements ControlValueAccessor {
+	/** Whether the input has focus. */
 	protected readonly focused = signal<boolean>(false);
 
 	/** Determine if the date picker is disabled. */
@@ -58,8 +59,10 @@ export class BrnInputOtpComponent implements ControlValueAccessor {
 		transform: booleanAttribute,
 	});
 
+	/** The number of slots. */
 	public readonly maxLength = input.required<number, NumberInput>({ transform: numberAttribute });
 
+	/** Virtual keyboard appearance on mobile */
 	public readonly inputMode = input<InputMode>('numeric');
 
 	public readonly inputClass = input<string>('');
@@ -73,6 +76,7 @@ export class BrnInputOtpComponent implements ControlValueAccessor {
 	 */
 	public readonly transformPaste = input<(pastedText: string, maxLength: number) => string>((text) => text);
 
+	/** The value controlling the input */
 	public readonly value = model('');
 
 	public readonly context = computed(() => {
@@ -95,6 +99,7 @@ export class BrnInputOtpComponent implements ControlValueAccessor {
 		return slots;
 	});
 
+	/** Emitted when the input is complete, triggered through input or paste.  */
 	public readonly completed = output<string>();
 
 	protected readonly state = computed(() => ({

@@ -4,7 +4,7 @@
 	"sideEffects": false,
 	"peerDependencies": {
 		"@angular/core": ">=19.0.0",
-		"@spartan-ng/brain": "0.0.1-alpha.437",
+		"@spartan-ng/brain": "0.0.1-alpha.438",
 		"clsx": "^2.1.1"
 	}
 }

@@ -1,5 +1,15 @@
-import { BooleanInput } from '@angular/cdk/coercion';
-import { booleanAttribute, Component, computed, forwardRef, input, model, output, signal } from '@angular/core';
+import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
+import {
+	booleanAttribute,
+	Component,
+	computed,
+	forwardRef,
+	input,
+	model,
+	numberAttribute,
+	output,
+	signal,
+} from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCalendar } from '@ng-icons/lucide';
@@ -7,20 +17,20 @@ import { hlm } from '@spartan-ng/brain/core';
 import { BrnDialogState } from '@spartan-ng/brain/dialog';
 import { type ChangeFn, type TouchFn } from '@spartan-ng/brain/forms';
 import { BrnPopoverComponent, BrnPopoverContentDirective, BrnPopoverTriggerDirective } from '@spartan-ng/brain/popover';
-import { HlmCalendarComponent } from '@spartan-ng/ui-calendar-helm';
+import { HlmCalendarMultiComponent } from '@spartan-ng/ui-calendar-helm';
 import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 import { HlmPopoverContentDirective } from '@spartan-ng/ui-popover-helm';
 import type { ClassValue } from 'clsx';
-import { injectHlmDatePickerConfig } from './hlm-date-picker.token';
+import { injectHlmDatePickerMultiConfig } from './hlm-date-picker-multi.token';
 
-export const HLM_DATE_PICKER_VALUE_ACCESSOR = {
+export const HLM_DATE_PICKER_MUTLI_VALUE_ACCESSOR = {
 	provide: NG_VALUE_ACCESSOR,
-	useExisting: forwardRef(() => HlmDatePickerComponent),
+	useExisting: forwardRef(() => HlmDatePickerMultiComponent),
 	multi: true,
 };
 
 @Component({
-	selector: 'hlm-date-picker',
+	selector: 'hlm-date-picker-multi',
 	imports: [
 		NgIcon,
 		HlmIconDirective,
@@ -28,9 +38,9 @@ export const HLM_DATE_PICKER_VALUE_ACCESSOR = {
 		BrnPopoverTriggerDirective,
 		BrnPopoverContentDirective,
 		HlmPopoverContentDirective,
-		HlmCalendarComponent,
+		HlmCalendarMultiComponent,
 	],
-	providers: [HLM_DATE_PICKER_VALUE_ACCESSOR, provideIcons({ lucideCalendar })],
+	providers: [HLM_DATE_PICKER_MUTLI_VALUE_ACCESSOR, provideIcons({ lucideCalendar })],
 	template: `
 		<brn-popover sideOffset="5" [state]="popoverState()" (stateChanged)="popoverState.set($event)">
 			<button type="button" [class]="_computedClass()" [disabled]="state().disabled()" brnPopoverTrigger>
@@ -46,11 +56,13 @@ export const HLM_DATE_PICKER_VALUE_ACCESSOR = {
 			</button>
 
 			<div hlmPopoverContent class="w-auto p-0" *brnPopoverContent="let ctx">
-				<hlm-calendar
+				<hlm-calendar-multi
 					calendarClass="border-0 rounded-none"
 					[date]="date()"
 					[min]="min()"
 					[max]="max()"
+					[minSelection]="minSelection()"
+					[maxSelection]="maxSelection()"
 					[disabled]="state().disabled()"
 					(dateChange)="_handleChange($event)"
 				/>
@@ -61,8 +73,8 @@ export const HLM_DATE_PICKER_VALUE_ACCESSOR = {
 		class: 'block',
 	},
 })
-export class HlmDatePickerComponent<T> {
-	private readonly _config = injectHlmDatePickerConfig<T>();
+export class HlmDatePickerMultiComponent<T> {
+	private readonly _config = injectHlmDatePickerMultiConfig<T>();
 
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>
@@ -82,24 +94,34 @@ export class HlmDatePickerComponent<T> {
 	/** The maximum date that can be selected. */
 	public readonly max = input<T>();
 
+	/** The minimum selectable dates.  */
+	public readonly minSelection = input<number, NumberInput>(undefined, {
+		transform: numberAttribute,
+	});
+
+	/** The maximum selectable dates.  */
+	public readonly maxSelection = input<number, NumberInput>(undefined, {
+		transform: numberAttribute,
+	});
+
 	/** Determine if the date picker is disabled. */
 	public readonly disabled = input<boolean, BooleanInput>(false, {
 		transform: booleanAttribute,
 	});
 
 	/** The selected value. */
-	public readonly date = model<T>();
+	public readonly date = model<T[]>();
 
-	/** If true, the date picker will close when a date is selected. */
-	public readonly autoCloseOnSelect = input<boolean, BooleanInput>(this._config.autoCloseOnSelect, {
+	/** If true, the date picker will close when the max selection of dates is reached.. */
+	public readonly autoCloseOnMaxSelection = input<boolean, BooleanInput>(this._config.autoCloseOnMaxSelection, {
 		transform: booleanAttribute,
 	});
 
 	/** Defines how the date should be displayed in the UI.  */
-	public readonly formatDate = input<(date: T) => string>(this._config.formatDate);
+	public readonly formatDates = input<(date: T[]) => string>(this._config.formatDates);
 
 	/** Defines how the date should be transformed before saving to model/form. */
-	public readonly transformDate = input<(date: T) => T>(this._config.transformDate);
+	public readonly transformDates = input<(date: T[]) => T[]>(this._config.transformDates);
 
 	protected readonly popoverState = signal<BrnDialogState | null>(null);
 
@@ -108,37 +130,39 @@ export class HlmDatePickerComponent<T> {
 	}));
 
 	protected readonly formattedDate = computed(() => {
-		const date = this.date();
-		return date ? this.formatDate()(date) : undefined;
+		const dates = this.date();
+		return dates ? this.formatDates()(dates) : undefined;
 	});
 
-	public readonly changed = output<T>();
+	public readonly changed = output<T[]>();
 
-	protected _onChange?: ChangeFn<T>;
+	protected _onChange?: ChangeFn<T[]>;
 	protected _onTouched?: TouchFn;
 
-	protected _handleChange(value: T) {
+	protected _handleChange(value: T[] | undefined) {
+		if (value === undefined) return;
+
 		if (this.state().disabled()) return;
-		const transformedDate = this.transformDate()(value);
+		const transformedDate = this.transformDates()(value);
 
 		this.date.set(transformedDate);
 		this._onChange?.(transformedDate);
 		this.changed.emit(transformedDate);
 
-		if (this.autoCloseOnSelect()) {
+		if (this.autoCloseOnMaxSelection() && this.date()?.length === this.maxSelection()) {
 			this.popoverState.set('closed');
 		}
 	}
 
 	/** CONROL VALUE ACCESSOR */
-	writeValue(value: T | null): void {
+	writeValue(value: T[] | null): void {
 		// optional FormControl is initialized with null value
 		if (value === null) return;
 
-		this.date.set(this.transformDate()(value));
+		this.date.set(this.transformDates()(value));
 	}
 
-	registerOnChange(fn: ChangeFn<T>): void {
+	registerOnChange(fn: ChangeFn<T[]>): void {
 		this._onChange = fn;
 	}
 

@@ -45,6 +45,7 @@ import {
 	numberAttribute,
 	type OnDestroy,
 	type Provider,
+	signal,
 	type TemplateRef,
 	untracked,
 	ViewContainerRef,
@@ -166,7 +167,10 @@ export class BrnTooltipTriggerDirective implements OnDestroy, AfterViewInit {
 
 	/** The default delay in ms before hiding the tooltip after hide is called */
 
-	public readonly tooltipContentClasses = input<string>(this._defaultOptions?.tooltipContentClasses ?? '');
+	public readonly _tooltipContentClasses = input<string>(this._defaultOptions?.tooltipContentClasses ?? '', {
+		alias: 'tooltipContentClasses',
+	});
+	public readonly tooltipContentClasses = computed(() => signal(this._tooltipContentClasses()));
 
 	/**
 	 * How touch gestures should be handled by the tooltip. On touch devices the tooltip directive
@@ -187,7 +191,8 @@ export class BrnTooltipTriggerDirective implements OnDestroy, AfterViewInit {
 
 	/** The message to be used to describe the aria in the tooltip */
 
-	public readonly ariaDescribedBy = input('', { alias: 'aria-describedby' });
+	public readonly _ariaDescribedBy = input('', { alias: 'aria-describedby' });
+	public readonly ariaDescribedBy = computed(() => signal(this._ariaDescribedBy()));
 	public readonly ariaDescribedByPrevious = computedPrevious(this.ariaDescribedBy);
 
 	/** The content to be displayed in the tooltip */
@@ -217,6 +222,12 @@ export class BrnTooltipTriggerDirective implements OnDestroy, AfterViewInit {
 		this._initBrnTooltipDisabledEffect();
 		this._initExitAnimationDurationEffect();
 		this._initHideDelayEffect();
+	}
+	setTooltipContentClasses(tooltipContentClasses: string) {
+		this.tooltipContentClasses().set(tooltipContentClasses);
+	}
+	setAriaDescribedBy(ariaDescribedBy: string) {
+		this.ariaDescribedBy().set(ariaDescribedBy);
 	}
 
 	private _initPositionEffect(): void {
@@ -252,17 +263,17 @@ export class BrnTooltipTriggerDirective implements OnDestroy, AfterViewInit {
 	private _initTooltipContentClassesEffect(): void {
 		effect(() => {
 			if (this._tooltipInstance) {
-				this._tooltipInstance._tooltipClasses.set(this.tooltipContentClasses() ?? '');
+				this._tooltipInstance._tooltipClasses.set(this.tooltipContentClasses()() ?? '');
 			}
 		});
 	}
 
 	private _initAriaDescribedByPreviousEffect(): void {
 		effect(() => {
-			const ariaDescribedBy = this.ariaDescribedBy();
+			const ariaDescribedBy = this.ariaDescribedBy()();
 			this._ariaDescriber.removeDescription(
 				this._elementRef.nativeElement,
-				untracked(() => this.ariaDescribedByPrevious()),
+				untracked(() => this.ariaDescribedByPrevious()()),
 				'tooltip',
 			);
 
@@ -355,7 +366,7 @@ export class BrnTooltipTriggerDirective implements OnDestroy, AfterViewInit {
 		this._destroyed.next();
 		this._destroyed.complete();
 
-		this._ariaDescriber.removeDescription(nativeElement, this.ariaDescribedBy(), 'tooltip');
+		this._ariaDescriber.removeDescription(nativeElement, this.ariaDescribedBy()(), 'tooltip');
 		this._focusMonitor.stopMonitoring(nativeElement);
 	}
 
@@ -372,7 +383,7 @@ export class BrnTooltipTriggerDirective implements OnDestroy, AfterViewInit {
 		const instance = (this._tooltipInstance = overlayRef.attach(this._portal).instance);
 		instance._triggerElement = this._elementRef.nativeElement;
 		instance._mouseLeaveHideDelay = this.hideDelay();
-		instance._tooltipClasses.set(this.tooltipContentClasses());
+		instance._tooltipClasses.set(this.tooltipContentClasses()());
 		instance._exitAnimationDuration = this.exitAnimationDuration();
 		instance.side.set(this._currentPosition ?? 'above');
 		instance.afterHidden.pipe(takeUntil(this._destroyed)).subscribe(() => this._detach());

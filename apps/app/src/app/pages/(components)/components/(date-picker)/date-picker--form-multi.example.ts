@@ -52,19 +52,26 @@ export const datePickerFormMultipleCode = `
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
-import { HlmDatePickerComponent } from '@spartan-ng/ui-date-picker-helm';
+import { HlmDatePickerMultiComponent } from '@spartan-ng/ui-date-picker-helm';
 import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
 
 @Component({
 	selector: 'spartan-date-picker-form-multiple',
-	imports: [HlmDatePickerComponent, ReactiveFormsModule, HlmButtonDirective, HlmLabelDirective],
+	imports: [HlmDatePickerMultiComponent, ReactiveFormsModule, HlmButtonDirective, HlmLabelDirective],
 	template: \`
 		<form [formGroup]="form" (ngSubmit)="submit()" class="space-y-8">
 			<label hlmLabel>
 				Available dates
-				<hlm-date-picker mode="multiple" [min]="minDate" [max]="maxDate" formControlName="availableDates">
+				<hlm-date-picker-multi
+					[min]="minDate"
+					[max]="maxDate"
+					formControlName="availableDates"
+					[autoCloseOnMaxSelection]="true"
+					[minSelection]="2"
+					[maxSelection]="4"
+				>
 					<span>Pick dates</span>
-				</hlm-date-picker>
+				</hlm-date-picker-multi>
 			</label>
 
 			<button type="submit" hlmBtn [disabled]="form.invalid">Submit</button>

@@ -408,5 +408,17 @@
 			"class-variance-authority": "^0.7.0",
 			"clsx": "^2.1.1"
 		}
+	},
+	"inputotp": {
+		"internalName": "ui-input-otp-helm",
+		"peerDependencies": {
+			"@angular/cdk": "19.2.2",
+			"@angular/core": ">=19.0.0",
+			"@ng-icons/core": "29.10.0",
+			"@ng-icons/lucide": "30.3.0",
+			"@spartan-ng/brain": "0.0.1-alpha.425",
+			"@spartan-ng/ui-icon-helm": "0.0.1-alpha.381",
+			"clsx": "^2.1.1"
+		}
 	}
 }

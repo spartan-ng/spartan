@@ -97,6 +97,7 @@ export class SideNavContentComponent {
 				{ label: 'Hover Card', url: '/hover-card' },
 				{ label: 'Icon', url: '/icon' },
 				{ label: 'Input', url: '/input' },
+				{ label: 'Input OTP', url: '/input-otp' },
 				{ label: 'Label', url: '/label' },
 				{ label: 'Menubar', url: '/menubar' },
 				{ label: 'Navigation Menu', url: '/navigation-menu', wip: true },

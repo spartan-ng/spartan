@@ -31,7 +31,7 @@ export const HLM_CHECKBOX_VALUE_ACCESSOR = {
 			(changed)="_handleChange()"
 			(touched)="_onTouched?.()"
 		>
-			<ng-icon [class]="_computedIconClass()" hlm size="sm" name="lucideCheck" />
+			<ng-icon hlm size="sm" [class]="_computedIconClass()" [name]="checkIconName()" />
 		</brn-checkbox>
 	`,
 	host: {
@@ -74,6 +74,9 @@ export class HlmCheckboxComponent {
 
 	/** The checked state of the checkbox. */
 	public readonly checked = model<CheckboxValue>(false);
+
+	/** Used to set the icon is displayed when checkbox is checked. Default is 'lucideCheck' */
+	public readonly checkIconName = input<string>('lucideCheck');
 
 	/** The name attribute of the checkbox. */
 	public readonly name = input<string | null>(null);

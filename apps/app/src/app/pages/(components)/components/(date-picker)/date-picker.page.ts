@@ -114,6 +114,16 @@ const link = 'h-6 underline text-base px-0.5';
 
 			<h3 id="examples__default" class="${hlmH4} mb-2 mt-6">Multiple Selection</h3>
 
+			<p class="${hlmP} mb-6">
+				Use
+				<code class="${hlmCode}">hlm-date-picker-multi</code>
+				for multiple date selection. Limit the selectable dates using
+				<code class="${hlmCode}">minSelection</code>
+				and
+				<code class="${hlmCode}">maxSelection</code>
+				inputs.
+			</p>
+
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-date-picker-multiple />
@@ -155,7 +165,7 @@ const link = 'h-6 underline text-base px-0.5';
 				Sync the dates to a form by adding
 				<code class="${hlmCode}">formControlName</code>
 				to
-				<code class="${hlmCode}">hlm-date-picker</code>
+				<code class="${hlmCode}">hlm-date-picker-multi</code>
 				.
 			</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">

@@ -4,11 +4,11 @@ import {
 	HostListener,
 	type InputSignal,
 	type Signal,
-	ViewChild,
 	ViewEncapsulation,
 	computed,
 	input,
 	signal,
+	viewChild,
 } from '@angular/core';
 import { hlm } from '@spartan-ng/brain/core';
 import type { ClassValue } from 'clsx';
@@ -44,7 +44,7 @@ import {
 	`,
 })
 export class HlmCarouselComponent {
-	@ViewChild(EmblaCarouselDirective) protected emblaCarousel?: EmblaCarouselDirective;
+	protected emblaCarousel = viewChild.required(EmblaCarouselDirective);
 
 	public _userClass = input<ClassValue>('', { alias: 'class' });
 	protected _computedClass = computed(() => hlm('relative', this._userClass()));
@@ -64,7 +64,7 @@ export class HlmCarouselComponent {
 	public canScrollNext = this._canScrollNext.asReadonly();
 
 	protected onEmblaEvent(event: EmblaEventType) {
-		const emblaApi = this.emblaCarousel?.emblaApi;
+		const emblaApi = this.emblaCarousel().emblaApi;
 
 		if (!emblaApi) {
 			return;
@@ -80,18 +80,18 @@ export class HlmCarouselComponent {
 	protected onKeydown(event: KeyboardEvent) {
 		if (event.key === 'ArrowLeft') {
 			event.preventDefault();
-			this.emblaCarousel?.scrollPrev();
+			this.emblaCarousel().scrollPrev();
 		} else if (event.key === 'ArrowRight') {
 			event.preventDefault();
-			this.emblaCarousel?.scrollNext();
+			this.emblaCarousel().scrollNext();
 		}
 	}
 
 	scrollPrev() {
-		this.emblaCarousel?.scrollPrev();
+		this.emblaCarousel().scrollPrev();
 	}
 
 	scrollNext() {
-		this.emblaCarousel?.scrollNext();
+		this.emblaCarousel().scrollNext();
 	}
 }

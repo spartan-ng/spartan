@@ -63,7 +63,7 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
 
-			<h3 id="examples__default" class="${hlmH4} mb-2 mt-6">Form</h3>
+			<h3 id="examples__form" class="${hlmH4} mb-2 mt-6">Form</h3>
 			<p class="${hlmP} mb-6">
 				Sync the otp to a form by adding
 				<code class="${hlmCode}">formControlName</code>

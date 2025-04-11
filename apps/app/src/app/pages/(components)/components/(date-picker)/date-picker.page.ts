@@ -81,7 +81,7 @@ const link = 'h-6 underline text-base px-0.5';
 			</div>
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__default" class="${hlmH4} mb-2 mt-6">Custom Configs</h3>
+			<h3 id="examples__custom_config" class="${hlmH4} mb-2 mt-6">Custom Configs</h3>
 
 			<p class="${hlmP} mb-6">
 				Use
@@ -112,7 +112,7 @@ const link = 'h-6 underline text-base px-0.5';
 				<spartan-code secondTab [code]="datePickerConfigCode" />
 			</spartan-tabs>
 
-			<h3 id="examples__default" class="${hlmH4} mb-2 mt-6">Multiple Selection</h3>
+			<h3 id="examples__multiple_selecton" class="${hlmH4} mb-2 mt-6">Multiple Selection</h3>
 
 			<p class="${hlmP} mb-6">
 				Use
@@ -131,7 +131,7 @@ const link = 'h-6 underline text-base px-0.5';
 				<spartan-code secondTab [code]="datePickerMultipleCode" />
 			</spartan-tabs>
 
-			<h3 id="examples__default" class="${hlmH4} mb-2 mt-6">Format Date</h3>
+			<h3 id="examples__format_date" class="${hlmH4} mb-2 mt-6">Format Date</h3>
 
 			<p class="${hlmP} mb-6">
 				Use
@@ -145,7 +145,7 @@ const link = 'h-6 underline text-base px-0.5';
 				<spartan-code secondTab [code]="datePickerFormatCode" />
 			</spartan-tabs>
 
-			<h3 id="examples__default" class="${hlmH4} mb-2 mt-6">Form</h3>
+			<h3 id="examples__form" class="${hlmH4} mb-2 mt-6">Form</h3>
 			<p class="${hlmP} mb-6">
 				Sync the date to a form by adding
 				<code class="${hlmCode}">formControlName</code>
@@ -160,7 +160,7 @@ const link = 'h-6 underline text-base px-0.5';
 				<spartan-code secondTab [code]="datePickerFormCode" />
 			</spartan-tabs>
 
-			<h3 id="examples__default" class="${hlmH4} mb-2 mt-6">Form Multiple Selection</h3>
+			<h3 id="examples__form_multiple_selection" class="${hlmH4} mb-2 mt-6">Form Multiple Selection</h3>
 			<p class="${hlmP} mb-6">
 				Sync the dates to a form by adding
 				<code class="${hlmCode}">formControlName</code>

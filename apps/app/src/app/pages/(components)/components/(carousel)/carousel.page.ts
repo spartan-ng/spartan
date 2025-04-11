@@ -15,6 +15,7 @@ import { metaWith } from '../../../../shared/meta/meta.util';
 import { CarouselOrientationComponent, orientationCode } from './carousel--orientation.example';
 import { CarouselPluginsComponent, pluginsCode } from './carousel--plugins.example';
 import { CarouselSizesComponent, sizesCode } from './carousel--sizes.example';
+import { CarouselSlideCountComponent, slideCountCode } from './carousel--slide-count.example';
 import { CarouselSpacingComponent, spacingCode } from './carousel--spacing.example';
 import { CarouselPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './carousel.preview';
 
@@ -42,6 +43,7 @@ export const routeMeta: RouteMeta = {
 		CarouselSpacingComponent,
 		CarouselPluginsComponent,
 		CarouselOrientationComponent,
+		CarouselSlideCountComponent,
 	],
 	template: `
 		<section spartanMainSection>
@@ -115,6 +117,19 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="orientationCode" />
 			</spartan-tabs>
 
+			<h3 id="examples__slide_count" class="${hlmH4} mb-2 mt-6">Slide Count</h3>
+			<p class="py-2">
+				Use
+				<code class="${hlmCode}">hlm-carousel-slide-display</code>
+				to display the current and total slides.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-carousel-slide-count />
+				</div>
+				<spartan-code secondTab [code]="slideCountCode" />
+			</spartan-tabs>
+
 			<h3 id="examples__plugins" class="${hlmH4} mb-2 mt-6">Plugins</h3>
 			<p class="py-2">
 				You can use the plugins
@@ -149,6 +164,7 @@ export default class CarouselPageComponent {
 	public readonly defaultImports = defaultImports;
 	protected readonly sizesCode = sizesCode;
 	protected readonly spacingCode = spacingCode;
+	protected readonly slideCountCode = slideCountCode;
 	protected readonly pluginsCode = pluginsCode;
 	protected readonly orientationCode = orientationCode;
 }

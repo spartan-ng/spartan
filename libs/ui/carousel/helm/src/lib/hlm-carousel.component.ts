@@ -63,6 +63,11 @@ export class HlmCarouselComponent {
 	private readonly _canScrollNext = signal(false);
 	public canScrollNext = this._canScrollNext.asReadonly();
 
+	private readonly _currentSlide = signal(0);
+	public currentSlide = this._currentSlide.asReadonly();
+	private readonly _slideCount = signal(0);
+	public slideCount = this._slideCount.asReadonly();
+
 	protected onEmblaEvent(event: EmblaEventType) {
 		const emblaApi = this.emblaCarousel().emblaApi;
 
@@ -73,6 +78,9 @@ export class HlmCarouselComponent {
 		if (event === 'select' || event === 'init' || event === 'reInit') {
 			this._canScrollPrev.set(emblaApi.canScrollPrev());
 			this._canScrollNext.set(emblaApi.canScrollNext());
+
+			this._currentSlide.set(emblaApi.selectedScrollSnap());
+			this._slideCount.set(emblaApi.scrollSnapList().length);
 		}
 	}
 

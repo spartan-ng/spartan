@@ -90,7 +90,7 @@ export class BrnRadioComponent<T = unknown> implements OnDestroy {
 	/**
 	 * Whether the radio button is disabled or the radio group is disabled.
 	 */
-	protected readonly disabledState = computed(() => this.disabled() || (this.radioGroup && this.radioGroup.disabled()));
+	protected readonly disabledState = computed(() => this.disabled() || this.radioGroup.disabledState());
 
 	/**
 	 * Whether the radio button is checked.

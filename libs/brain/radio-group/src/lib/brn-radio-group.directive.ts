@@ -2,14 +2,13 @@
 import { BooleanInput } from '@angular/cdk/coercion';
 import {
 	booleanAttribute,
-	computed,
 	contentChildren,
 	Directive,
 	forwardRef,
 	input,
+	linkedSignal,
 	model,
 	output,
-	signal,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
@@ -74,7 +73,7 @@ export class BrnRadioGroupDirective<T = unknown> implements ControlValueAccessor
 	 * The internal disabled state of the radio group. This could be switched to a linkedSignal when we can drop v18 support.
 	 * @internal
 	 */
-	public readonly disabledState = computed(() => signal(this.disabled()));
+	public readonly disabledState = linkedSignal(() => this.disabled());
 
 	/**
 	 * Access the radio buttons within the group.
@@ -95,7 +94,7 @@ export class BrnRadioGroupDirective<T = unknown> implements ControlValueAccessor
 	}
 
 	setDisabledState(isDisabled: boolean): void {
-		this.disabledState().set(isDisabled);
+		this.disabledState.set(isDisabled);
 	}
 
 	/**

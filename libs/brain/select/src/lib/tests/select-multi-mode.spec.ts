@@ -70,7 +70,7 @@ describe('Brn Select Component in multi-mode', () => {
 			expect(getFormControlStatus(cmpInstance.form?.get('fruit'))).toStrictEqual(expected);
 			expect(getFormValidationClasses(trigger)).toStrictEqual(expected);
 
-			expect(cmpInstance.form?.get('fruit')?.value).toEqual(null);
+			expect(cmpInstance.form?.get('fruit')?.value).toEqual([]);
 
 			// open
 			await user.click(trigger);
@@ -115,7 +115,7 @@ describe('Brn Select Component in multi-mode', () => {
 			expect(getFormValidationClasses(trigger)).toStrictEqual(expected);
 
 			expect(value.textContent?.trim()).toBe(DEFAULT_LABEL);
-			expect(cmpInstance.form?.get('fruit')?.value).toEqual(null);
+			expect(cmpInstance.form?.get('fruit')?.value).toEqual([]);
 		});
 
 		it('should reflect correct form control status with initial value', async () => {
@@ -154,7 +154,7 @@ describe('Brn Select Component in multi-mode', () => {
 			expect(getFormControlStatus(cmpInstance.form?.get('fruit'))).toStrictEqual(expected);
 			expect(getFormValidationClasses(trigger)).toStrictEqual(expected);
 
-			expect(cmpInstance.form?.get('fruit')?.value).toEqual(null);
+			expect(cmpInstance.form?.get('fruit')?.value).toEqual([]);
 
 			// open select
 			await user.click(trigger);
@@ -211,7 +211,7 @@ describe('Brn Select Component in multi-mode', () => {
 			expect(getFormControlStatus(cmpInstance.form?.get('fruit'))).toStrictEqual(expected);
 			expect(getFormValidationClasses(trigger)).toStrictEqual(expected);
 
-			expect(cmpInstance.form?.get('fruit')?.value).toEqual(null);
+			expect(cmpInstance.form?.get('fruit')?.value).toEqual([]);
 
 			expect(cmpInstance.form?.get('fruit')?.patchValue(['apple', 'banana', 'blueberry']));
 
@@ -247,7 +247,7 @@ describe('Brn Select Component in multi-mode', () => {
 			expect(getFormControlStatus(cmpInstance.form?.get('fruit'))).toStrictEqual(expected);
 			expect(getFormValidationClasses(trigger)).toStrictEqual(expected);
 
-			expect(cmpInstance.form?.get('fruit')?.value).toEqual(null);
+			expect(cmpInstance.form?.get('fruit')?.value).toEqual([]);
 
 			// open select
 			await user.click(trigger);
@@ -304,7 +304,7 @@ describe('Brn Select Component in multi-mode', () => {
 			expect(getFormControlStatus(cmpInstance.form?.get('fruit'))).toStrictEqual(expected);
 			expect(getFormValidationClasses(trigger)).toStrictEqual(expected);
 
-			expect(cmpInstance.form?.get('fruit')?.value).toEqual(null);
+			expect(cmpInstance.form?.get('fruit')?.value).toEqual([]);
 
 			expect(cmpInstance.form?.get('fruit')?.patchValue(['apple', 'banana', 'blueberry']));
 
@@ -407,7 +407,7 @@ describe('Brn Select Component in multi-mode', () => {
 			expect(getFormValidationClasses(trigger)).toStrictEqual(expected);
 
 			expect(value.textContent?.trim()).toBe(DEFAULT_LABEL);
-			expect(cmpInstance.form?.get('fruit')?.value).toEqual(null);
+			expect(cmpInstance.form?.get('fruit')?.value).toEqual([]);
 		});
 
 		/**
@@ -461,7 +461,7 @@ describe('Brn Select Component in multi-mode', () => {
 			expect(getFormControlStatus(cmpInstance.form?.get('fruit'))).toStrictEqual(expected);
 			expect(getFormValidationClasses(trigger)).toStrictEqual(expected);
 
-			expect(cmpInstance.form?.get('fruit')?.value).toEqual(null);
+			expect(cmpInstance.form?.get('fruit')?.value).toEqual([]);
 
 			// open select
 			await user.click(trigger);
@@ -657,7 +657,7 @@ describe('Brn Select Component in multi-mode', () => {
 			expect(getFormControlStatus(cmpInstance.form?.get('fruit'))).toStrictEqual(expected);
 			expect(getFormValidationClasses(trigger)).toStrictEqual(expected);
 
-			expect(cmpInstance.form?.get('fruit')?.value).toEqual(null);
+			expect(cmpInstance.form?.get('fruit')?.value).toEqual([]);
 
 			expect(cmpInstance.form?.get('fruit')?.patchValue(['apple', 'banana', 'blueberry']));
 
@@ -728,7 +728,7 @@ describe('Brn Select Component in multi-mode', () => {
 			const { fixture, trigger, user } = await setupWithFormValidationMulti();
 			const cmpInstance = fixture.componentInstance as SelectMultiValueTestComponent;
 
-			expect(cmpInstance.form?.get('fruit')?.value).toEqual(null);
+			expect(cmpInstance.form?.get('fruit')?.value).toEqual([]);
 
 			// open select
 			await user.click(trigger);
@@ -742,7 +742,7 @@ describe('Brn Select Component in multi-mode', () => {
 			await user.click(options[1]);
 
 			expect(trigger).toHaveTextContent('Select a Fruit');
-			expect(cmpInstance.form?.get('fruit')?.value).toEqual(null);
+			expect(cmpInstance.form?.get('fruit')?.value).toEqual([]);
 		});
 	});
 });

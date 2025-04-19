@@ -1,4 +1,15 @@
-import { Directive, EmbeddedViewRef, OnDestroy, TemplateRef, ViewContainerRef, computed, inject } from '@angular/core';
+import {
+	ChangeDetectorRef,
+	computed,
+	Directive,
+	effect,
+	EmbeddedViewRef,
+	inject,
+	OnDestroy,
+	TemplateRef,
+	untracked,
+	ViewContainerRef,
+} from '@angular/core';
 import { injectDateAdapter } from '@spartan-ng/brain/date-time';
 import { injectBrnCalendar } from './brn-calendar.token';
 
@@ -15,6 +26,9 @@ export class BrnCalendarWeekdayDirective<T> implements OnDestroy {
 
 	/** Access the view container ref */
 	private readonly _viewContainerRef = inject(ViewContainerRef);
+
+	/** Access the change detector */
+	private readonly _changeDetector = inject(ChangeDetectorRef);
 
 	/** Access the template ref */
 	private readonly _templateRef = inject<TemplateRef<BrnWeekdayContext>>(TemplateRef);
@@ -33,12 +47,37 @@ export class BrnCalendarWeekdayDirective<T> implements OnDestroy {
 
 	constructor() {
 		// Create a new view for each day
-		for (const day of this.weekdays()) {
-			const viewRef = this._viewContainerRef.createEmbeddedView(this._templateRef, {
-				$implicit: this._dateAdapter.getDay(day),
-			});
+		effect(() => {
+			// Clear the view container before creating new views
+			this._viewContainerRef.clear();
+
+			// Get the weekdays to display
+			const weekdays = this.weekdays();
+			// Render the weekdays
+			untracked(() => this._renderWeekdays(weekdays));
+		});
+	}
+
+	private _renderWeekdays(weekdays: T[]): void {
+		// Destroy all the views when the directive is destroyed
+		for (const viewRef of this._viewRefs) {
+			viewRef.destroy();
+		}
+
+		this._viewRefs.length = 0;
+
+		// Create a new view for each day
+		for (const day of weekdays) {
+			const viewRef = this._viewContainerRef.createEmbeddedView(
+				this._templateRef,
+				{
+					$implicit: this._dateAdapter.getDay(day),
+				},
+			);
 			this._viewRefs.push(viewRef);
 		}
+
+		this._changeDetector.detectChanges();
 	}
 
 	ngOnDestroy(): void {

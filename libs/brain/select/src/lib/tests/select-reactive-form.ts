@@ -156,7 +156,7 @@ export class SelectSingleValueWithInitialValueWithAsyncUpdateTestComponent {
 	`,
 })
 export class SelectMultiValueTestComponent {
-	public form = new FormGroup({ fruit: new FormControl<string | Array<string> | null>(null) });
+	public form = new FormGroup({ fruit: new FormControl<string[]>([]) });
 }
 
 @Component({

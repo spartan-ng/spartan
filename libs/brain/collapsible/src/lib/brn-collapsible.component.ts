@@ -1,39 +1,39 @@
-import {
-	ChangeDetectionStrategy,
-	Component,
-	ViewEncapsulation,
-	booleanAttribute,
-	computed,
-	input,
-	signal,
-} from '@angular/core';
+import { BooleanInput } from '@angular/cdk/coercion';
+import { ChangeDetectionStrategy, Component, booleanAttribute, input, model, signal } from '@angular/core';
 
 let collapsibleContentIdSequence = 0;
+
 export type BrnCollapsibleState = 'open' | 'closed';
 
 @Component({
 	selector: 'brn-collapsible',
 	standalone: true,
 	host: {
-		'[attr.data-state]': 'state()',
-		'[attr.disabled]': 'attrDisabled()',
+		'[attr.data-state]': 'expanded() ? "open" : "closed"',
+		'[attr.disabled]': 'disabled() ? true : undefined',
 	},
 	template: `
 		<ng-content />
 	`,
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	encapsulation: ViewEncapsulation.None,
 })
 export class BrnCollapsibleComponent {
-	public readonly state = signal<BrnCollapsibleState>('closed');
-
 	public readonly contentId = signal(`brn-collapsible-content-${collapsibleContentIdSequence++}`);
 
-	public readonly disabled = input(false, { transform: booleanAttribute });
+	/**
+	 * The expanded or collapsed state of the collapsible component.
+	 */
+	public readonly expanded = model<boolean>(false);
 
-	public readonly attrDisabled = computed(() => (this.disabled() ? true : undefined));
+	/**
+	 * The disabled state of the collapsible component.
+	 */
+	public readonly disabled = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
-	public toggle() {
-		this.state.set(this.state() === 'closed' ? 'open' : 'closed');
+	/**
+	 * Toggles the expanded state of the collapsible component.
+	 */
+	public toggle(): void {
+		this.expanded.update((expanded) => !expanded);
 	}
 }

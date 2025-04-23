@@ -7,7 +7,7 @@
 		"@angular/core": ">=19.0.0",
 		"@ng-icons/core": "29.10.0",
 		"@ng-icons/lucide": "30.3.0",
-		"@spartan-ng/brain": "0.0.1-alpha.444",
+		"@spartan-ng/brain": "0.0.1-alpha.445",
 		"@spartan-ng/ui-icon-helm": "0.0.1-alpha.381",
 		"clsx": "^2.1.1"
 	},

@@ -5,14 +5,14 @@ import { HlmErrorDirective } from './hlm-error.directive';
 @Component({
 	selector: 'hlm-form-field',
 	template: `
-		<ng-content></ng-content>
+		<ng-content />
 
 		@switch (hasDisplayedMessage()) {
 			@case ('error') {
-				<ng-content select="hlm-error"></ng-content>
+				<ng-content select="hlm-error" />
 			}
 			@default {
-				<ng-content select="hlm-hint"></ng-content>
+				<ng-content select="hlm-hint" />
 			}
 		}
 	`,

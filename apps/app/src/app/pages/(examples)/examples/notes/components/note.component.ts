@@ -1,4 +1,4 @@
-import { DatePipe, NgForOf, NgIf } from '@angular/common';
+import { DatePipe, NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import type { Note } from '@spartan-ng/app/db';
@@ -26,12 +26,10 @@ import { HlmSpinnerComponent } from '@spartan-ng/ui-spinner-helm';
 		HlmButtonDirective,
 		HlmCardContentDirective,
 		HlmCardDescriptionDirective,
-		HlmCardDirective,
 		HlmCardFooterDirective,
 		HlmCardHeaderDirective,
 		HlmCardTitleDirective,
 		HlmSpinnerComponent,
-		NgForOf,
 		NgIf,
 		RouterLink,
 		HlmBadgeDirective,

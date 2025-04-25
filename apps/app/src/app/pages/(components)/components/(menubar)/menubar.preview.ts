@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
+
 import {
 	HlmMenuBarComponent,
 	HlmMenuBarItemDirective,
@@ -9,11 +9,9 @@ import {
 	HlmMenuItemCheckComponent,
 	HlmMenuItemCheckboxDirective,
 	HlmMenuItemDirective,
-	HlmMenuItemIconDirective,
 	HlmMenuItemRadioComponent,
 	HlmMenuItemRadioDirective,
 	HlmMenuItemSubIndicatorComponent,
-	HlmMenuLabelComponent,
 	HlmMenuSeparatorComponent,
 	HlmMenuShortcutComponent,
 	HlmSubMenuComponent,
@@ -28,15 +26,12 @@ import {
 		HlmSubMenuComponent,
 		HlmMenuItemDirective,
 		HlmMenuItemSubIndicatorComponent,
-		HlmMenuLabelComponent,
 		HlmMenuShortcutComponent,
 		HlmMenuSeparatorComponent,
-		HlmMenuItemIconDirective,
 		HlmMenuBarItemDirective,
 		HlmMenuItemCheckComponent,
 		HlmMenuItemRadioComponent,
 		HlmMenuGroupComponent,
-		HlmButtonDirective,
 		HlmMenuItemCheckboxDirective,
 		HlmMenuItemRadioDirective,
 	],

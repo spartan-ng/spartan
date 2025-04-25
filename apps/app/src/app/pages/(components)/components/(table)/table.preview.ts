@@ -32,8 +32,8 @@ import {
 			}
 			<hlm-trow class="bg-muted/50 hover:bg-muted">
 				<hlm-td truncate class="w-[100px] font-semibold">Total</hlm-td>
-				<hlm-td class="w-40"></hlm-td>
-				<hlm-td class="flex-1 whitespace-nowrap"></hlm-td>
+				<hlm-td class="w-40" />
+				<hlm-td class="flex-1 whitespace-nowrap" />
 				<hlm-td class="w-40 justify-end">$2,500.00</hlm-td>
 			</hlm-trow>
 		</hlm-table>

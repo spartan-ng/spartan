@@ -84,7 +84,6 @@ export class BrnSelectScrollDownDirective {
 }
 
 @Component({
-	standalone: true,
 	selector: 'brn-select-content, hlm-select-content:not(noHlm)',
 	imports: [NgTemplateOutlet],
 	providers: [provideBrnSelectContent(BrnSelectContentComponent)],

@@ -10,7 +10,6 @@ import {
 
 @Component({
 	selector: 'spartan-carousel-orientation',
-	standalone: true,
 	imports: [
 		HlmCarouselComponent,
 		HlmCarouselContentComponent,

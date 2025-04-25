@@ -5,7 +5,7 @@ import { lucideCirclePlus, lucideListMusic, lucidePodcast } from '@ng-icons/luci
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
 import { TopMusicMenuComponent } from './components/top-menu.component';
 
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { BrnContextMenuTriggerDirective, BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import { HlmCardDirective } from '@spartan-ng/ui-card-helm';
@@ -18,7 +18,7 @@ import {
 	HlmMenuSeparatorComponent,
 	HlmSubMenuComponent,
 } from '@spartan-ng/ui-menu-helm';
-import { HlmScrollAreaDirective } from '@spartan-ng/ui-scrollarea-helm';
+
 import { HlmSeparatorDirective } from '@spartan-ng/ui-separator-helm';
 import {
 	HlmTabsComponent,
@@ -44,7 +44,6 @@ export const routeMeta: RouteMeta = {
 	},
 	imports: [
 		TopMusicMenuComponent,
-		HlmScrollAreaDirective,
 		SideMusicMenuComponent,
 		HlmTabsComponent,
 		HlmTabsListComponent,
@@ -65,7 +64,6 @@ export const routeMeta: RouteMeta = {
 		HlmMenuSeparatorComponent,
 		HlmCardDirective,
 		FallbackImageDirective,
-		NgOptimizedImage,
 		CommonModule,
 	],
 	providers: [provideIcons({ lucideCirclePlus, lucideListMusic, lucidePodcast })],

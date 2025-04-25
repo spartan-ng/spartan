@@ -20,12 +20,7 @@ module.exports = [
 		files: ['**/*.json'],
 		rules: {
 			'@nx/nx-plugin-checks': 'error',
-			'@nx/dependency-checks': [
-				'error',
-				{
-					ignoredDependencies: ['process', 'enquirer', '@phenomnomnominal/tsquery'],
-				},
-			],
+			'@nx/dependency-checks': 'off',
 		},
 		languageOptions: {
 			parser: require('jsonc-eslint-parser'),

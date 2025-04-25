@@ -11,7 +11,6 @@ import Autoplay from 'embla-carousel-autoplay';
 
 @Component({
 	selector: 'spartan-carousel-plugins',
-	standalone: true,
 	imports: [
 		HlmCarouselComponent,
 		HlmCarouselContentComponent,

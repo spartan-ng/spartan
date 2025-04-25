@@ -17,7 +17,6 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-update-guide',
-	standalone: true,
 	imports: [
 		MainSectionDirective,
 		SectionIntroComponent,

@@ -7,15 +7,12 @@ import { HlmToggleGroupDirective, HlmToggleGroupItemDirective } from '@spartan-n
 
 @Component({
 	selector: 'spartan-toggle-group-outline',
-	standalone: true,
 	imports: [
 		BrnToggleGroupItemDirective,
 		BrnToggleGroupComponent,
-
 		HlmIconDirective,
 		HlmToggleGroupItemDirective,
 		HlmToggleGroupDirective,
-
 		NgIcon,
 	],
 	providers: [provideIcons({ lucideBold, lucideItalic, lucideUnderline })],

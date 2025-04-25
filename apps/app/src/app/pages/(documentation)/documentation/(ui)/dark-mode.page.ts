@@ -1,12 +1,12 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
-import { CodeComponent } from '@spartan-ng/app/app/shared/code/code.component';
+
 import { MainSectionDirective } from '@spartan-ng/app/app/shared/layout/main-section.directive';
 import { PageBottomNavLinkComponent } from '@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav-link.component';
 import { PageBottomNavComponent } from '@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav.component';
-import { PageNavComponent } from '@spartan-ng/app/app/shared/layout/page-nav/page-nav.component';
+
 import { SectionIntroComponent } from '@spartan-ng/app/app/shared/layout/section-intro.component';
-import { SectionSubHeadingComponent } from '@spartan-ng/app/app/shared/layout/section-sub-heading.component';
+
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
 import { hlmCode, hlmP } from '@spartan-ng/ui-typography-helm';
 
@@ -18,15 +18,7 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-dark-mode',
-	imports: [
-		MainSectionDirective,
-		SectionIntroComponent,
-		PageBottomNavComponent,
-		PageBottomNavLinkComponent,
-		PageNavComponent,
-		SectionSubHeadingComponent,
-		CodeComponent,
-	],
+	imports: [MainSectionDirective, SectionIntroComponent, PageBottomNavComponent, PageBottomNavLinkComponent],
 	template: `
 		<section spartanMainSection>
 			<spartan-section-intro name="Dark Mode" lead="Adding dark mode to your site." />

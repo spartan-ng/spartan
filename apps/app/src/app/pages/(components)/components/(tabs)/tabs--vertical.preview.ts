@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HlmBadgeDirective } from '@spartan-ng/ui-badge-helm';
+
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import {
 	HlmCardContentDirective,
@@ -34,7 +34,6 @@ import {
 		HlmLabelDirective,
 		HlmInputDirective,
 		HlmButtonDirective,
-		HlmBadgeDirective,
 	],
 	host: {
 		class: 'block w-full max-w-lg min-h-[400px]',

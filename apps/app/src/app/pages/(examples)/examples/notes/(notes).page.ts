@@ -1,8 +1,8 @@
 import type { RouteMeta } from '@analogjs/router';
-import { AsyncPipe, DatePipe, JsonPipe, NgFor, NgIf } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { Component, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+
 import { waitFor } from '@spartan-ng/trpc';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
@@ -28,13 +28,9 @@ export const routeMeta: RouteMeta = {
 @Component({
 	selector: 'spartan-notes-example',
 	imports: [
-		AsyncPipe,
 		FormsModule,
 		NgFor,
-		DatePipe,
 		NgIf,
-		JsonPipe,
-		RouterLink,
 		SignalInputDirective,
 		SpartanInputErrorDirective,
 		HlmButtonDirective,

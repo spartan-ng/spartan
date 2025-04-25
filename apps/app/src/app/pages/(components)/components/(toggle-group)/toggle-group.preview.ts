@@ -8,16 +8,13 @@ import { HlmToggleGroupDirective, HlmToggleGroupItemDirective } from '@spartan-n
 
 @Component({
 	selector: 'spartan-toggle-group-preview',
-	standalone: true,
 	providers: [provideIcons({ lucideBold, lucideItalic, lucideUnderline })],
 	imports: [
 		BrnToggleGroupComponent,
 		BrnToggleGroupItemDirective,
-
 		HlmToggleGroupDirective,
 		HlmToggleGroupItemDirective,
 		HlmIconDirective,
-
 		NgIcon,
 	],
 	template: `

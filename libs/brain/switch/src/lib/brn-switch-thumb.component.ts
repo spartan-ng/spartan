@@ -4,5 +4,9 @@ import { Component } from '@angular/core';
 	selector: 'brn-switch-thumb',
 	imports: [],
 	template: '',
+	host: {
+		role: 'presentation',
+		'(click)': '$event.preventDefault()',
+	},
 })
 export class BrnSwitchThumbComponent {}

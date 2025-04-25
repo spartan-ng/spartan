@@ -8,7 +8,6 @@ import {
 	Component,
 	DestroyRef,
 	ElementRef,
-	HostListener,
 	type OnDestroy,
 	PLATFORM_ID,
 	Renderer2,
@@ -42,33 +41,26 @@ const CONTAINER_POST_FIX = '-switch';
 	template: `
 		<input
 			#checkBox
-			tabindex="-1"
 			type="checkbox"
-			role="switch"
 			[id]="forChild(state().id) ?? ''"
 			[name]="forChild(state().name) ?? ''"
 			[value]="checked() ? 'on' : 'off'"
-			[ngStyle]="{
-				position: 'absolute',
-				width: '1px',
-				height: '1px',
-				padding: '0',
-				margin: -'1px',
-				overflow: 'hidden',
-				clip: 'rect(0, 0, 0, 0)',
-				whiteSpace: 'nowrap',
-				borderWidth: '0',
-			}"
-			[checked]="checked()"
+			[ngStyle]="inputStyles()"
+			[checked]="checked() || null"
+			[required]="required() || null"
+			[disabled]="state().disabled() || null"
 			[attr.aria-label]="ariaLabel()"
 			[attr.aria-labelledby]="ariaLabelledby()"
 			[attr.aria-describedby]="ariaDescribedby()"
-			[attr.aria-required]="required() || null"
+			tabindex="-1"
 		/>
 		<ng-content select="brn-switch-thumb" />
 	`,
 	host: {
-		tabindex: '0',
+		role: 'switch',
+		'[attr.aria-checked]': 'checked()',
+		'[attr.aria-disabled]': 'disabled() || null',
+		'[attr.aria-required]': 'required() || null',
 		'[attr.data-state]': 'checked() ? "checked" : "unchecked"',
 		'[attr.data-focus-visible]': 'focusVisible()',
 		'[attr.data-focus]': 'focused()',
@@ -78,6 +70,11 @@ const CONTAINER_POST_FIX = '-switch';
 		'[attr.aria-describedby]': 'null',
 		'[attr.id]': 'state().id',
 		'[attr.name]': 'state().name',
+		tabindex: '0',
+		'(click)': 'toggle()',
+		'(keyup.space)': 'toggle()',
+		'(keydown.space)': '$event.preventDefault()',
+		'(keyup.enter)': 'toggle()',
 	},
 	providers: [BRN_SWITCH_VALUE_ACCESSOR],
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -94,29 +91,76 @@ export class BrnSwitchComponent implements AfterContentInit, OnDestroy {
 	protected readonly focusVisible = signal(false);
 	protected readonly focused = signal(false);
 
+	/**
+	 * Whether the switch is checked.
+	 * Can be bound with [(checked)]
+	 */
 	public readonly checked = model<boolean>(false);
 
-	/** Used to set the id on the underlying input element. */
-
+	/**
+	 * Sets the ID on the switch.
+	 * When provided, the inner input gets this ID without the '-switch' suffix.
+	 */
 	public readonly id = input<string | null>(null);
 
-	/** Used to set the name attribute on the underlying input element. */
+	/**
+	 * Sets the name on the switch.
+	 * When provided, the inner input gets this name without a '-switch' suffix.
+	 */
 	public readonly name = input<string | null>(null);
 
-	/** Used to set the aria-label attribute on the underlying input element. */
+	/**
+	 * Sets the aria-label attribute for accessibility.
+	 */
 	public readonly ariaLabel = input<string | null>(null, { alias: 'aria-label' });
 
-	/** Used to set the aria-labelledby attribute on the underlying input element. */
+	/**
+	 * Sets the aria-labelledby attribute for accessibility.
+	 */
 	public readonly ariaLabelledby = input<string | null>(null, { alias: 'aria-labelledby' });
 
-	/** Used to set the aria-describedby attribute on the underlying input element. */
+	/**
+	 * Sets the aria-describedby attribute for accessibility.
+	 */
 	public readonly ariaDescribedby = input<string | null>(null, { alias: 'aria-describedby' });
 
+	/**
+	 * Whether the switch is required in a form.
+	 */
 	public readonly required = input(false, { transform: booleanAttribute });
 
+	/**
+	 * Whether the switch is disabled.
+	 */
 	public readonly disabled = input<boolean, BooleanInput>(false, {
 		transform: booleanAttribute,
 	});
+
+	/**
+	 * Custom styles for the hidden input element.
+	 * Usually don't need to change this.
+	 */
+	public readonly inputStyles = input<{ [p: string]: any } | null | undefined>({
+		position: 'absolute',
+		width: '1px',
+		height: '1px',
+		padding: '0',
+		margin: '-1px',
+		overflow: 'hidden',
+		clip: 'rect(0, 0, 0, 0)',
+		whiteSpace: 'nowrap',
+		borderWidth: '0',
+	});
+
+	/**
+	 * Event emitted when the switch value changes.
+	 */
+	public readonly changed = output<boolean>();
+
+	/**
+	 * Event emitted when the switch is blurred (loses focus).
+	 */
+	public readonly touched = output<void>();
 
 	// eslint-disable-next-line @typescript-eslint/no-empty-function
 	protected _onChange: ChangeFn<boolean> = () => {};
@@ -124,10 +168,6 @@ export class BrnSwitchComponent implements AfterContentInit, OnDestroy {
 	private _onTouched: TouchFn = () => {};
 
 	public readonly checkbox = viewChild.required<ElementRef<HTMLInputElement>>('checkBox');
-
-	public readonly changed = output<boolean>();
-
-	public readonly touched = output<void>();
 
 	protected readonly state = computed(() => {
 		const name = this.name();
@@ -162,12 +202,8 @@ export class BrnSwitchComponent implements AfterContentInit, OnDestroy {
 		});
 	}
 
-	@HostListener('click', ['$event'])
-	@HostListener('keyup.enter', ['$event'])
-	@HostListener('keyup.space', ['$event'])
-	protected toggle(event: Event): void {
+	protected toggle(): void {
 		if (this.state().disabled()) return;
-		event.preventDefault();
 
 		this.checked.update((checked) => !checked);
 		this._onChange(this.checked());
@@ -234,7 +270,6 @@ export class BrnSwitchComponent implements AfterContentInit, OnDestroy {
 	/**
 	 * If the space key is pressed, prevent the default action to stop the page from scrolling.
 	 */
-	@HostListener('keydown.space', ['$event'])
 	protected preventScrolling(event: KeyboardEvent): void {
 		event.preventDefault();
 	}

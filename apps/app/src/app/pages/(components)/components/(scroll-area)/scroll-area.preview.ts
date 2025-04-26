@@ -1,4 +1,3 @@
-import { NgFor } from '@angular/common';
 import { Component } from '@angular/core';
 import { HlmScrollAreaDirective } from '@spartan-ng/ui-scrollarea-helm';
 import { HlmSeparatorDirective } from '@spartan-ng/ui-separator-helm';
@@ -6,15 +5,17 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 
 @Component({
 	selector: 'spartan-scroll-area-preview',
-	imports: [NgFor, HlmSeparatorDirective, HlmScrollAreaDirective, NgScrollbarModule],
+	imports: [HlmSeparatorDirective, HlmScrollAreaDirective, NgScrollbarModule],
 	template: `
 		<ng-scrollbar hlm class="border-border h-72 w-48 rounded-md border">
 			<div class="p-4">
 				<h4 class="mb-4 text-sm font-medium leading-none">Tags</h4>
-				<div class="text-sm" *ngFor="let tag of tags">
-					{{ tag }}
-					<div hlmSeparator class="my-2"></div>
-				</div>
+				@for (tag of tags; track tag) {
+					<div class="text-sm">
+						{{ tag }}
+						<div hlmSeparator class="my-2"></div>
+					</div>
+				}
 			</div>
 		</ng-scrollbar>
 	`,

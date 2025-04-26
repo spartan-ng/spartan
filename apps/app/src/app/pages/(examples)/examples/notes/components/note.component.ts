@@ -1,4 +1,4 @@
-import { DatePipe, NgIf } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import type { Note } from '@spartan-ng/app/db';
@@ -30,7 +30,6 @@ import { HlmSpinnerComponent } from '@spartan-ng/ui-spinner-helm';
 		HlmCardHeaderDirective,
 		HlmCardTitleDirective,
 		HlmSpinnerComponent,
-		NgIf,
 		RouterLink,
 		HlmBadgeDirective,
 	],
@@ -49,19 +48,22 @@ import { HlmSpinnerComponent } from '@spartan-ng/ui-spinner-helm';
 				variant="ghost"
 				(click)="deleteClicked.emit()"
 			>
-				<hlm-spinner *ngIf="deletionInProgress" size="xs" />
+				@if (deletionInProgress) {
+					<hlm-spinner size="xs" />
+				}
 				<span class="sr-only">Delete note with title: {{ note.title }}</span>
-				<svg
-					*ngIf="!deletionInProgress"
-					xmlns="http://www.w3.org/2000/svg"
-					fill="none"
-					viewBox="0 0 24 24"
-					stroke-width="1.5"
-					stroke="currentColor"
-					class="h-4 w-4"
-				>
-					<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-				</svg>
+				@if (!deletionInProgress) {
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke-width="1.5"
+						stroke="currentColor"
+						class="h-4 w-4"
+					>
+						<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+					</svg>
+				}
 			</button>
 		</div>
 		<p hlmCardContent>

@@ -1,4 +1,4 @@
-import { NgForOf, TitleCasePipe } from '@angular/common';
+import { TitleCasePipe } from '@angular/common';
 import { Component, type TrackByFunction, computed, effect, signal, untracked } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
@@ -30,7 +30,6 @@ const createUsers = (numUsers = 5) => {
 	standalone: true,
 	imports: [
 		FormsModule,
-		NgForOf,
 		BrnTableModule,
 		HlmTableModule,
 		BrnMenuModule,
@@ -57,16 +56,17 @@ const createUsers = (numUsers = 5) => {
 			</button>
 			<ng-template #menu>
 				<hlm-menu class="w-40">
-					<button
-						*ngFor="let column of _brnColumnManager.allColumns"
-						hlmMenuItemCheckbox
-						[disabled]="_brnColumnManager.isColumnDisabled(column.name)"
-						[checked]="_brnColumnManager.isColumnVisible(column.name)"
-						(triggered)="_brnColumnManager.toggleVisibility(column.name)"
-					>
-						<hlm-menu-item-check />
-						<span>{{ column.label }}</span>
-					</button>
+					@for (column of _brnColumnManager.allColumns; track column) {
+						<button
+							hlmMenuItemCheckbox
+							[disabled]="_brnColumnManager.isColumnDisabled(column.name)"
+							[checked]="_brnColumnManager.isColumnVisible(column.name)"
+							(triggered)="_brnColumnManager.toggleVisibility(column.name)"
+						>
+							<hlm-menu-item-check />
+							<span>{{ column.label }}</span>
+						</button>
+					}
 				</hlm-menu>
 			</ng-template>
 		</div>
@@ -113,7 +113,9 @@ const createUsers = (numUsers = 5) => {
 					size="sm"
 					class="mr-1 inline-flex pr-8"
 				>
-					<option [value]="size" *ngFor="let size of _availablePageSizes">{{ size === 10000 ? 'All' : size }}</option>
+					@for (size of _availablePageSizes; track size) {
+						<option [value]="size">{{ size === 10000 ? 'All' : size }}</option>
+					}
 				</select>
 
 				<div class="flex space-x-1">
@@ -181,15 +183,7 @@ class TableStory {
 @Component({
 	selector: 'table-toggle-story',
 	standalone: true,
-	imports: [
-		FormsModule,
-		NgForOf,
-		BrnTableModule,
-		HlmTableModule,
-		HlmButtonModule,
-		BrnToggleGroupModule,
-		HlmToggleGroupModule,
-	],
+	imports: [FormsModule, BrnTableModule, HlmTableModule, HlmButtonModule, BrnToggleGroupModule, HlmToggleGroupModule],
 	template: `
 		<brn-toggle-group
 			aria-label="Show selected or all "
@@ -245,7 +239,9 @@ class TableStory {
 					size="sm"
 					class="mr-1 inline-flex pr-8"
 				>
-					<option [value]="size" *ngFor="let size of _availablePageSizes">{{ size === 10000 ? 'All' : size }}</option>
+					@for (size of _availablePageSizes; track size) {
+						<option [value]="size">{{ size === 10000 ? 'All' : size }}</option>
+					}
 				</select>
 
 				<div class="flex space-x-1">
@@ -305,7 +301,7 @@ class TableToggleStory {
 @Component({
 	selector: 'table-presentation-only-story',
 	standalone: true,
-	imports: [HlmTableModule, NgForOf],
+	imports: [HlmTableModule],
 	template: `
 		<hlm-table>
 			<hlm-trow>
@@ -313,11 +309,13 @@ class TableToggleStory {
 				<hlm-th class="w-24 justify-end">Age</hlm-th>
 				<hlm-th class="w-40 justify-center">Height</hlm-th>
 			</hlm-trow>
-			<hlm-trow *ngFor="let row of _data()">
-				<hlm-td truncate class="w-40">{{ row.name }}</hlm-td>
-				<hlm-td class="w-24 justify-end">{{ row.age }}</hlm-td>
-				<hlm-td class="w-40 justify-center">{{ row.height }}</hlm-td>
-			</hlm-trow>
+			@for (row of _data(); track row) {
+				<hlm-trow>
+					<hlm-td truncate class="w-40">{{ row.name }}</hlm-td>
+					<hlm-td class="w-24 justify-end">{{ row.age }}</hlm-td>
+					<hlm-td class="w-40 justify-center">{{ row.height }}</hlm-td>
+				</hlm-trow>
+			}
 		</hlm-table>
 	`,
 })

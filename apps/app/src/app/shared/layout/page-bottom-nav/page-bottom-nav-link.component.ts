@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { Component, Input, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
@@ -8,13 +7,17 @@ import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 
 @Component({
 	selector: 'spartan-page-bottom-nav-link',
-	imports: [RouterLink, NgIf, HlmButtonDirective, NgIcon, HlmIconDirective],
+	imports: [RouterLink, HlmButtonDirective, NgIcon, HlmIconDirective],
 	providers: [provideIcons({ lucideChevronRight, lucideChevronLeft })],
 	template: `
 		<a hlmBtn variant="outline" [routerLink]="routerLink" [relativeTo]="isAbsolute ? undefined : activatedRoute">
-			<ng-icon hlm size="sm" class="mr-2" name="lucideChevronLeft" *ngIf="direction === 'previous'" />
+			@if (direction === 'previous') {
+				<ng-icon hlm size="sm" class="mr-2" name="lucideChevronLeft" />
+			}
 			{{ label }}
-			<ng-icon hlm size="sm" class="ml-2" name="lucideChevronRight" *ngIf="direction === 'next'" />
+			@if (direction === 'next') {
+				<ng-icon hlm size="sm" class="ml-2" name="lucideChevronRight" />
+			}
 		</a>
 	`,
 })

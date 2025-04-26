@@ -5,7 +5,7 @@ import { gfmHeadingId } from 'marked-gfm-heading-id';
 import { markedHighlight } from 'marked-highlight';
 
 import { Clipboard } from '@angular/cdk/clipboard';
-import { NgIf } from '@angular/common';
+
 import { provideIcons } from '@ng-icons/core';
 import { lucideCheck, lucideClipboard } from '@ng-icons/lucide';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
@@ -22,21 +22,17 @@ declare const Prism: typeof import('prismjs');
 
 @Component({
 	selector: 'spartan-code',
-	imports: [HlmButtonDirective, NgIcon, HlmIconDirective, NgIf],
+	imports: [HlmButtonDirective, NgIcon, HlmIconDirective],
 	providers: [provideIcons({ lucideClipboard, lucideCheck })],
 	host: {
 		class: 'spartan-scroll relative block font-mono rounded-md text-sm text-white bg-zinc-950 dark:bg-zinc-900',
 	},
 	template: `
-		<button
-			*ngIf="!_disableCopy"
-			(click)="copyToClipBoard()"
-			hlmBtn
-			variant="ghost"
-			class="absolute right-2 top-2 h-6 w-6 p-1"
-		>
-			<ng-icon hlm size="xs" [name]="copied ? 'lucideCheck' : 'lucideClipboard'" />
-		</button>
+		@if (!_disableCopy) {
+			<button (click)="copyToClipBoard()" hlmBtn variant="ghost" class="absolute right-2 top-2 h-6 w-6 p-1">
+				<ng-icon hlm size="xs" [name]="copied ? 'lucideCheck' : 'lucideClipboard'" />
+			</button>
+		}
 		<div class="max-h-[650px] w-full overflow-auto whitespace-nowrap p-4">
 			<div class="max-w-screen max-w-full" [innerHTML]="_content"></div>
 		</div>

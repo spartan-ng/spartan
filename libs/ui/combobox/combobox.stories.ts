@@ -1,4 +1,3 @@
-import { NgForOf } from '@angular/common';
 import { Component, signal } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import * as lucide from '@ng-icons/lucide';
@@ -29,7 +28,6 @@ type Framework = { label: string; value: string };
 	selector: 'combobox-component',
 	standalone: true,
 	imports: [
-		NgForOf,
 		BrnCommandImports,
 		HlmCommandImports,
 		BrnPopoverImports,

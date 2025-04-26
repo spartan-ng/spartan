@@ -1,5 +1,5 @@
 import type { RouteMeta } from '@analogjs/router';
-import { NgFor, NgIf } from '@angular/common';
+
 import { Component, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
@@ -29,8 +29,6 @@ export const routeMeta: RouteMeta = {
 	selector: 'spartan-notes-example',
 	imports: [
 		FormsModule,
-		NgFor,
-		NgIf,
 		SignalInputDirective,
 		SpartanInputErrorDirective,
 		HlmButtonDirective,
@@ -76,21 +74,28 @@ export const routeMeta: RouteMeta = {
 
 			<button hlmBtn [disabled]="createLoad()" variant="secondary" (click)="createNote()">
 				<span>{{ createLoad() ? 'Creating' : 'Create' }} Note</span>
-				<hlm-spinner *ngIf="createLoad()" class="ml-2" size="sm" />
+				@if (createLoad()) {
+					<hlm-spinner class="ml-2" size="sm" />
+				}
 			</button>
 		</form>
 		<div class="flex flex-col space-y-4 pb-12 pt-4">
-			<ng-container *ngIf="showNotesArray()">
-				<analog-trpc-note
-					*ngFor="let note of state().notes ?? []; trackBy: noteTrackBy"
-					[note]="note"
-					[deletionInProgress]="deleteIdInProgress() === note.id"
-					(deleteClicked)="deleteNote(note.id)"
-				/>
-				<analog-trpc-notes-empty class="border-transparent shadow-none" *ngIf="noNotes()"></analog-trpc-notes-empty>
-			</ng-container>
+			@if (showNotesArray()) {
+				@for (note of state().notes ?? []; track noteTrackBy($index, note)) {
+					<analog-trpc-note
+						[note]="note"
+						[deletionInProgress]="deleteIdInProgress() === note.id"
+						(deleteClicked)="deleteNote(note.id)"
+					/>
+				}
+				@if (noNotes()) {
+					<analog-trpc-notes-empty class="border-transparent shadow-none"></analog-trpc-notes-empty>
+				}
+			}
 
-			<analog-trpc-note-skeleton *ngIf="initialLoad() || createLoad()" />
+			@if (initialLoad() || createLoad()) {
+				<analog-trpc-note-skeleton />
+			}
 		</div>
 	`,
 })

@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 
 @Component({
 	selector: 'spartan-side-nav-cs',
-	imports: [],
 	host: {
 		class: 'inline-block',
 	},

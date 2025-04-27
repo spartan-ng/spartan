@@ -694,7 +694,6 @@ export const WithLabelAndForm: Story = {
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
-		CommonModule,
 		FormsModule,
 		ReactiveFormsModule,
 		BrnSelectImports,
@@ -751,7 +750,6 @@ export const DynamicOptionsMultiSelect: Story = {
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
-		CommonModule,
 		FormsModule,
 		ReactiveFormsModule,
 		BrnSelectImports,

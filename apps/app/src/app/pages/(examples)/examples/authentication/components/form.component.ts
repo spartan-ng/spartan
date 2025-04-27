@@ -6,20 +6,11 @@ import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
 import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
-import { HlmSpinnerComponent } from '@spartan-ng/ui-spinner-helm';
 
 @Component({
 	// eslint-disable-next-line @angular-eslint/component-selector
 	selector: 'auth-example-form',
-	imports: [
-		HlmButtonDirective,
-		NgIcon,
-		HlmIconDirective,
-		HlmInputDirective,
-		HlmSpinnerComponent,
-		FormsModule,
-		HlmLabelDirective,
-	],
+	imports: [HlmButtonDirective, NgIcon, HlmIconDirective, HlmInputDirective, FormsModule, HlmLabelDirective],
 	host: {
 		class: 'block',
 	},

@@ -7,7 +7,7 @@
 	"tags": ["trpc"],
 	"targets": {
 		"build": {
-			"executor": "@angular-devkit/build-angular:ng-packagr",
+			"executor": "@angular/build:ng-packagr",
 			"outputs": ["{workspaceRoot}/dist/libs/trpc"],
 			"options": {
 				"project": "libs/trpc/ng-package.json"

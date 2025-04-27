@@ -29,7 +29,6 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-toggle-group-page',
-	standalone: true,
 	imports: [
 		CodeComponent,
 		CodePreviewDirective,
@@ -47,7 +46,6 @@ export const routeMeta: RouteMeta = {
 		ToggleGroupLargePreviewComponent,
 		ToggleGroupDisabledPreviewComponent,
 	],
-
 	template: `
 		<section spartanMainSection>
 			<spartan-section-intro name="Toggle Group" lead="A group of toggle buttons." />

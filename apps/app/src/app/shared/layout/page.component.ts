@@ -2,13 +2,13 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { BreadcrumbsComponent } from '@spartan-ng/app/app/shared/breadcrumbs/breadcrumbs.component';
 import { ContainerDirective } from '@spartan-ng/app/app/shared/layout/container.directive';
-import { MainSectionDirective } from '@spartan-ng/app/app/shared/layout/main-section.directive';
+
 import { PageNavOutletComponent } from '@spartan-ng/app/app/shared/layout/page-nav/page-nav-outlet.component';
 import { SideNavComponent } from '@spartan-ng/app/app/shared/layout/side-nav/side-nav.component';
 
 @Component({
 	selector: 'spartan-page',
-	imports: [RouterOutlet, SideNavComponent, BreadcrumbsComponent, MainSectionDirective, PageNavOutletComponent],
+	imports: [RouterOutlet, SideNavComponent, BreadcrumbsComponent, PageNavOutletComponent],
 	hostDirectives: [ContainerDirective],
 	template: `
 		<spartan-side-nav />

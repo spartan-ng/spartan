@@ -1,4 +1,4 @@
-import { AsyncPipe, TitleCasePipe } from '@angular/common';
+import { TitleCasePipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucidePalette } from '@ng-icons/lucide';
@@ -10,15 +10,7 @@ import { AppThemes, type Theme, ThemeService } from '../theme.service';
 
 @Component({
 	selector: 'spartan-theme-picker',
-	imports: [
-		BrnMenuTriggerDirective,
-		HlmMenuImports,
-		HlmButtonDirective,
-		NgIcon,
-		HlmIconDirective,
-		AsyncPipe,
-		TitleCasePipe,
-	],
+	imports: [BrnMenuTriggerDirective, HlmMenuImports, HlmButtonDirective, NgIcon, HlmIconDirective, TitleCasePipe],
 	providers: [provideIcons({ lucidePalette })],
 	template: `
 		<button size="sm" variant="ghost" align="end" [brnMenuTriggerFor]="themes" hlmBtn>

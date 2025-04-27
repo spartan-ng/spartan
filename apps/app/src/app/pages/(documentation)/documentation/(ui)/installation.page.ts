@@ -14,7 +14,7 @@ import { PageNavComponent } from '../../../../shared/layout/page-nav/page-nav.co
 import { SectionIntroComponent } from '../../../../shared/layout/section-intro.component';
 import { SectionSubHeadingComponent } from '../../../../shared/layout/section-sub-heading.component';
 import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
-import { TabsComponent } from '../../../../shared/layout/tabs.component';
+
 import { metaWith } from '../../../../shared/meta/meta.util';
 
 export const routeMeta: RouteMeta = {
@@ -37,7 +37,6 @@ export const routeMeta: RouteMeta = {
 		NgIcon,
 		HlmIconDirective,
 		RouterLink,
-		TabsComponent,
 		TabsCliComponent,
 	],
 	providers: [provideIcons({ lucideChevronRight })],

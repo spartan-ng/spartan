@@ -1,10 +1,9 @@
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit, signal, viewChild } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrnSelectComponent, BrnSelectImports } from '../../';
 
 @Component({
-	imports: [CommonModule, FormsModule, ReactiveFormsModule, BrnSelectImports],
+	imports: [FormsModule, ReactiveFormsModule, BrnSelectImports],
 	selector: 'select-reactive-field-fixture',
 	template: `
 		<form [formGroup]="fruitGroup">
@@ -33,7 +32,7 @@ export class SelectReactiveFieldComponent {
 }
 
 @Component({
-	imports: [CommonModule, FormsModule, ReactiveFormsModule, BrnSelectImports],
+	imports: [FormsModule, ReactiveFormsModule, BrnSelectImports],
 	selector: 'select-reactive-field-fixture',
 	template: `
 		<form [formGroup]="form">
@@ -64,7 +63,7 @@ export class SelectSingleValueTestComponent {
 }
 
 @Component({
-	imports: [CommonModule, FormsModule, ReactiveFormsModule, BrnSelectImports],
+	imports: [FormsModule, ReactiveFormsModule, BrnSelectImports],
 	selector: 'select-reactive-field-fixture',
 	template: `
 		<form [formGroup]="form">
@@ -93,7 +92,7 @@ export class SelectSingleValueWithInitialValueTestComponent {
 }
 
 @Component({
-	imports: [CommonModule, FormsModule, ReactiveFormsModule, BrnSelectImports],
+	imports: [FormsModule, ReactiveFormsModule, BrnSelectImports],
 	selector: 'select-reactive-field-fixture',
 	template: `
 		<form [formGroup]="form">
@@ -131,7 +130,7 @@ export class SelectSingleValueWithInitialValueWithAsyncUpdateTestComponent {
 }
 
 @Component({
-	imports: [CommonModule, FormsModule, ReactiveFormsModule, BrnSelectImports],
+	imports: [FormsModule, ReactiveFormsModule, BrnSelectImports],
 	selector: 'select-reactive-field-fixture',
 	template: `
 		<form [formGroup]="form">

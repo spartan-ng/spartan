@@ -7,7 +7,6 @@ import { HlmInputOtpFakeCaretComponent } from './hlm-input-otp-fake-caret.compon
 
 @Component({
 	selector: 'hlm-input-otp-slot',
-	standalone: true,
 	imports: [BrnInputOtpSlotComponent, HlmInputOtpFakeCaretComponent],
 	template: `
 		<brn-input-otp-slot [index]="index()">

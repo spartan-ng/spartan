@@ -2,7 +2,7 @@ import { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
-import { HlmCardDirective } from '@spartan-ng/ui-card-helm';
+
 import { AuthenticationFormComponent } from './components/form.component';
 
 export const routeMeta: RouteMeta = {
@@ -12,7 +12,7 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-authentication',
-	imports: [AuthenticationFormComponent, HlmButtonDirective, HlmCardDirective],
+	imports: [AuthenticationFormComponent, HlmButtonDirective],
 	host: {
 		class: 'block',
 	},

@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import { hlmCode, hlmH4, hlmP, hlmUl } from '@spartan-ng/ui-typography-helm';
-import { ComingSoonComponent } from '../../../shared/layout/coming-soon.component';
+
 import { MainSectionDirective } from '../../../shared/layout/main-section.directive';
 import { PageBottomNavLinkComponent } from '../../../shared/layout/page-bottom-nav/page-bottom-nav-link.component';
 import { PageBottomNavComponent } from '../../../shared/layout/page-bottom-nav/page-bottom-nav.component';
@@ -26,7 +26,6 @@ export const routeMeta: RouteMeta = {
 		PageBottomNavComponent,
 		PageBottomNavLinkComponent,
 		PageNavComponent,
-		ComingSoonComponent,
 		SectionSubHeadingComponent,
 		RouterLink,
 		HlmButtonDirective,

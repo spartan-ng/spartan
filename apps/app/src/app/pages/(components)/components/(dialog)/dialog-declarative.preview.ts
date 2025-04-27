@@ -2,13 +2,11 @@ import { Component, signal } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { BrnDialogContentDirective } from '@spartan-ng/brain/dialog';
-import { HlmBadgeDirective } from '@spartan-ng/ui-badge-helm';
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
+
 import {
 	HlmDialogComponent,
 	HlmDialogContentComponent,
 	HlmDialogDescriptionDirective,
-	HlmDialogFooterComponent,
 	HlmDialogHeaderComponent,
 	HlmDialogTitleDirective,
 } from '@spartan-ng/ui-dialog-helm';
@@ -25,13 +23,10 @@ import { debounceTime, map } from 'rxjs/operators';
 		HlmDialogComponent,
 		HlmDialogContentComponent,
 		HlmDialogHeaderComponent,
-		HlmDialogFooterComponent,
 		HlmDialogTitleDirective,
 		HlmDialogDescriptionDirective,
 		HlmLabelDirective,
 		HlmInputDirective,
-		HlmButtonDirective,
-		HlmBadgeDirective,
 		HlmMutedDirective,
 		HlmH4Directive,
 	],

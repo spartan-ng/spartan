@@ -35,7 +35,6 @@ import { injectBrnSelect } from './brn-select.token';
 			}
 		`,
 	],
-	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BrnSelectValueComponent<T> {

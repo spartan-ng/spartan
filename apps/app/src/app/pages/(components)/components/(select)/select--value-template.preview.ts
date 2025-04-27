@@ -13,7 +13,6 @@ import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
 
 @Component({
 	selector: 'spartan-select-value-template-preview',
-	standalone: true,
 	imports: [BrnSelectImports, HlmSelectImports, NgIcon],
 	providers: [
 		provideIcons({

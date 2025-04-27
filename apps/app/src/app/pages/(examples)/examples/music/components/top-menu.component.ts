@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideGlobe, lucideMicVocal } from '@ng-icons/lucide';
 import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
+
 import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 import {
 	HlmMenuBarComponent,
@@ -12,11 +12,9 @@ import {
 	HlmMenuItemCheckComponent,
 	HlmMenuItemCheckboxDirective,
 	HlmMenuItemDirective,
-	HlmMenuItemIconDirective,
 	HlmMenuItemRadioComponent,
 	HlmMenuItemRadioDirective,
 	HlmMenuItemSubIndicatorComponent,
-	HlmMenuLabelComponent,
 	HlmMenuSeparatorComponent,
 	HlmMenuShortcutComponent,
 	HlmSubMenuComponent,
@@ -35,15 +33,12 @@ import {
 		HlmSubMenuComponent,
 		HlmMenuItemDirective,
 		HlmMenuItemSubIndicatorComponent,
-		HlmMenuLabelComponent,
 		HlmMenuShortcutComponent,
 		HlmMenuSeparatorComponent,
-		HlmMenuItemIconDirective,
 		HlmMenuBarItemDirective,
 		HlmMenuItemCheckComponent,
 		HlmMenuItemRadioComponent,
 		HlmMenuGroupComponent,
-		HlmButtonDirective,
 		HlmMenuItemCheckboxDirective,
 		HlmMenuItemRadioDirective,
 		NgIcon,

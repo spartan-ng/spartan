@@ -1,14 +1,13 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronRight, lucideTriangleAlert } from '@ng-icons/lucide';
 import { HlmAlertModule } from '@spartan-ng/ui-alert-helm';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 import { hlmCode, hlmH4, hlmP } from '@spartan-ng/ui-typography-helm';
-import { AccordionPreviewComponent } from '../../(components)/components/(accordion)/accordion.preview';
-import { CodePreviewDirective } from '../../../shared/code/code-preview.directive';
+
 import { CodeComponent } from '../../../shared/code/code.component';
 import { MainSectionDirective } from '../../../shared/layout/main-section.directive';
 import { PageBottomNavLinkComponent } from '../../../shared/layout/page-bottom-nav/page-bottom-nav-link.component';
@@ -40,9 +39,6 @@ export const routeMeta: RouteMeta = {
 		NgIcon,
 		HlmIconDirective,
 		HlmButtonDirective,
-		AccordionPreviewComponent,
-		CodePreviewDirective,
-		RouterLink,
 	],
 	providers: [provideIcons({ lucideTriangleAlert, lucideChevronRight })],
 	template: `

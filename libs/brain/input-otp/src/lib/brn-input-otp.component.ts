@@ -24,7 +24,6 @@ export type InputMode = 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal'
 
 @Component({
 	selector: 'brn-input-otp',
-	standalone: true,
 	imports: [FormsModule],
 	template: `
 		<ng-content />

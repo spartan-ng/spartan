@@ -1,6 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
-import { ComingSoonComponent } from '@spartan-ng/app/app/shared/layout/coming-soon.component';
+
 import { MainSectionDirective } from '@spartan-ng/app/app/shared/layout/main-section.directive';
 import { PageBottomNavLinkComponent } from '@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav-link.component';
 import { PageBottomNavComponent } from '@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav.component';
@@ -27,7 +27,6 @@ const aboutLink = 'h-6 underline text-base px-0.5';
 		PageBottomNavComponent,
 		PageBottomNavLinkComponent,
 		PageNavComponent,
-		ComingSoonComponent,
 		SectionSubHeadingComponent,
 		HlmButtonDirective,
 	],

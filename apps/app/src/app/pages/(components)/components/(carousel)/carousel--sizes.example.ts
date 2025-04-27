@@ -10,7 +10,6 @@ import {
 
 @Component({
 	selector: 'spartan-carousel-sizes',
-	standalone: true,
 	imports: [
 		HlmCarouselComponent,
 		HlmCarouselContentComponent,

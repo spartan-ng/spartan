@@ -5,7 +5,6 @@ import type { ClassValue } from 'clsx';
 @Component({
 	selector: '<%= selector %>',
 	standalone: true,
-	imports: [],
 	template: ``,
 })
 export class <%= componentName %> {

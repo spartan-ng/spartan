@@ -8,7 +8,6 @@ import {
 	HlmAlertDialogDescriptionDirective,
 	HlmAlertDialogFooterComponent,
 	HlmAlertDialogHeaderComponent,
-	HlmAlertDialogOverlayDirective,
 	HlmAlertDialogTitleDirective,
 } from '@spartan-ng/ui-alertdialog-helm';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
@@ -19,7 +18,6 @@ import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 		BrnAlertDialogTriggerDirective,
 		BrnAlertDialogContentDirective,
 		HlmAlertDialogComponent,
-		HlmAlertDialogOverlayDirective,
 		HlmAlertDialogHeaderComponent,
 		HlmAlertDialogFooterComponent,
 		HlmAlertDialogTitleDirective,

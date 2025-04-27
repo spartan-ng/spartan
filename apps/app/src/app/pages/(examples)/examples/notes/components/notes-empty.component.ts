@@ -3,7 +3,6 @@ import {
 	HlmCardContentDirective,
 	HlmCardDescriptionDirective,
 	HlmCardDirective,
-	HlmCardHeaderDirective,
 	HlmCardTitleDirective,
 } from '@spartan-ng/ui-card-helm';
 
@@ -19,7 +18,7 @@ import {
 			inputs: ['class'],
 		},
 	],
-	imports: [HlmCardContentDirective, HlmCardDescriptionDirective, HlmCardHeaderDirective, HlmCardTitleDirective],
+	imports: [HlmCardContentDirective, HlmCardDescriptionDirective, HlmCardTitleDirective],
 	template: `
 		<div hlmCardContent class="flex h-52 flex-col items-center justify-center">
 			<h3 hlmCardTitle>No notes yet!</h3>

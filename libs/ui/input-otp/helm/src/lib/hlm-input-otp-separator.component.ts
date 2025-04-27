@@ -7,7 +7,6 @@ import { type ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-input-otp-separator',
-	standalone: true,
 	imports: [HlmIconDirective, NgIcon],
 	providers: [provideIcons({ lucideDot })],
 	template: `

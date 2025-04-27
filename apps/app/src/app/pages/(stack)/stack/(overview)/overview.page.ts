@@ -1,8 +1,7 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
 import { ArchitectureDiagramComponent } from '@spartan-ng/app/app/pages/(stack)/stack/(overview)/components/architecture-diagram.component';
-import { CodePreviewDirective } from '@spartan-ng/app/app/shared/code/code-preview.directive';
-import { CodeComponent } from '@spartan-ng/app/app/shared/code/code.component';
+
 import { MainSectionDirective } from '@spartan-ng/app/app/shared/layout/main-section.directive';
 import { PageBottomNavPlaceholderComponent } from '@spartan-ng/app/app/shared/layout/page-bottom-nav-placeholder.component';
 import { PageBottomNavLinkComponent } from '@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav-link.component';
@@ -10,7 +9,7 @@ import { PageBottomNavComponent } from '@spartan-ng/app/app/shared/layout/page-b
 import { PageNavComponent } from '@spartan-ng/app/app/shared/layout/page-nav/page-nav.component';
 import { SectionIntroComponent } from '@spartan-ng/app/app/shared/layout/section-intro.component';
 import { SectionSubHeadingComponent } from '@spartan-ng/app/app/shared/layout/section-sub-heading.component';
-import { TabsComponent } from '@spartan-ng/app/app/shared/layout/tabs.component';
+
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import { hlmCode, hlmP, hlmUl } from '@spartan-ng/ui-typography-helm';
@@ -30,11 +29,8 @@ const stackLink = 'h-6 underline text-base px-0.5';
 	selector: 'spartan-accordion',
 	imports: [
 		MainSectionDirective,
-		CodeComponent,
 		SectionIntroComponent,
 		SectionSubHeadingComponent,
-		TabsComponent,
-		CodePreviewDirective,
 		PageNavComponent,
 		PageBottomNavComponent,
 		PageBottomNavLinkComponent,

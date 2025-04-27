@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
-import { HlmBadgeDirective } from '@spartan-ng/ui-badge-helm';
 
 @Component({
 	selector: 'spartan-side-nav-cs',
-	imports: [HlmBadgeDirective],
 	host: {
 		class: 'inline-block',
 	},

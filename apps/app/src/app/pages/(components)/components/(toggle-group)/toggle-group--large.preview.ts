@@ -7,7 +7,6 @@ import { HlmToggleGroupDirective, HlmToggleGroupItemDirective } from '@spartan-n
 
 @Component({
 	selector: 'spartan-toggle-group-large',
-	standalone: true,
 	imports: [
 		BrnToggleGroupItemDirective,
 		BrnToggleGroupComponent,

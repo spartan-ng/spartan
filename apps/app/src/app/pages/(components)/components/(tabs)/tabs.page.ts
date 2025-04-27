@@ -2,7 +2,7 @@ import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
 import { HlmAlertDescriptionDirective, HlmAlertDirective } from '@spartan-ng/ui-alert-helm';
 import { hlmCode, hlmH4 } from '@spartan-ng/ui-typography-helm';
-import { InputPreviewComponent } from '../(input)/input.preview';
+
 import { CodePreviewDirective } from '../../../../shared/code/code-preview.directive';
 import { CodeComponent } from '../../../../shared/code/code.component';
 import { MainSectionDirective } from '../../../../shared/layout/main-section.directive';
@@ -40,7 +40,6 @@ export const routeMeta: RouteMeta = {
 		PageBottomNavComponent,
 		PageBottomNavLinkComponent,
 		TabsPreviewComponent,
-		InputPreviewComponent,
 		TabsVerticalPreviewComponent,
 		TabsPaginatedPreviewComponent,
 		HlmAlertDescriptionDirective,

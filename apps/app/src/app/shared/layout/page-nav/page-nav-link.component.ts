@@ -1,9 +1,9 @@
 import { Component, Input, inject } from '@angular/core';
-import { ActivatedRoute, RouterLink, RouterLinkActive } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 
 @Component({
 	selector: 'spartan-page-nav-link',
-	imports: [RouterLink, RouterLinkActive],
+	imports: [RouterLink],
 	host: {
 		class: 'mt-0 pt-2',
 		role: 'listitem',

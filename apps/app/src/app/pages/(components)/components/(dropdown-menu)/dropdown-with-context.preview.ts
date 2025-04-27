@@ -13,11 +13,8 @@ import {
 	HlmMenuItemIconDirective,
 	HlmMenuItemRadioComponent,
 	HlmMenuItemRadioDirective,
-	HlmMenuItemSubIndicatorComponent,
 	HlmMenuLabelComponent,
 	HlmMenuSeparatorComponent,
-	HlmMenuShortcutComponent,
-	HlmSubMenuComponent,
 } from '@spartan-ng/ui-menu-helm';
 
 @Component({
@@ -25,11 +22,8 @@ import {
 	imports: [
 		BrnMenuTriggerDirective,
 		HlmMenuComponent,
-		HlmSubMenuComponent,
 		HlmMenuItemDirective,
-		HlmMenuItemSubIndicatorComponent,
 		HlmMenuLabelComponent,
-		HlmMenuShortcutComponent,
 		HlmMenuSeparatorComponent,
 		HlmMenuItemIconDirective,
 		HlmMenuItemCheckComponent,

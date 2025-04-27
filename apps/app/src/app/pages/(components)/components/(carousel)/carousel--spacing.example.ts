@@ -10,7 +10,6 @@ import {
 
 @Component({
 	selector: 'spartan-carousel-spacing',
-	standalone: true,
 	imports: [
 		HlmCarouselComponent,
 		HlmCarouselContentComponent,

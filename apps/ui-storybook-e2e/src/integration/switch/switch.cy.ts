@@ -14,8 +14,8 @@ describe('brn-switch accessibility and functionality tests', () => {
 		// Verify that the switch with the specified accessible name exists and has correct role
 		cy.findByRole('switch', { name: labelText }).should('exist');
 
-		// Verify that a hidden checkbox input exists and is properly associated
-		cy.findByLabelText(labelText).should('exist').and('have.attr', 'type', 'checkbox');
+		// Verify that button exists and is properly associated
+		cy.findByLabelText(labelText).should('exist').and('have.attr', 'type', 'button');
 	};
 
 	/**
@@ -27,10 +27,7 @@ describe('brn-switch accessibility and functionality tests', () => {
 		cy.findByRole('switch', { name: labelText }).should('exist').should('have.attr', 'aria-checked', 'false');
 
 		// The hidden input should have value 'off' and not be checked
-		cy.findByLabelText(labelText)
-			.should('exist')
-			// .should('have.attr', 'value', 'off')
-			.and('not.be.checked');
+		cy.findByLabelText(labelText).should('exist').should('have.attr', 'value', 'off');
 
 		// The component should have data-state attribute set to 'unchecked'
 		cy.get('brn-switch').should('have.attr', 'data-state', 'unchecked');
@@ -45,10 +42,7 @@ describe('brn-switch accessibility and functionality tests', () => {
 		cy.findByRole('switch', { name: labelText }).should('have.attr', 'aria-checked', 'true');
 
 		// The hidden input should have value 'on' and be checked
-		cy.findByLabelText(labelText)
-			.should('exist')
-			// .should('have.attr', 'value', 'on')
-			.and('be.checked');
+		cy.findByLabelText(labelText).should('exist').should('have.attr', 'value', 'on');
 
 		// The component should have data-state attribute set to 'checked'
 		cy.get('brn-switch').should('have.attr', 'data-state', 'checked');
@@ -153,11 +147,11 @@ describe('brn-switch accessibility and functionality tests', () => {
 		verifySwitchOff(labelText);
 
 		// Click on the label to toggle the switch
-		cy.get('brn-switch').click();
+		cy.get('brn-switch').find('button').click();
 		verifySwitchOn(labelText);
 
 		// Click again to toggle back to 'off' state
-		cy.get('brn-switch').click();
+		cy.get('brn-switch').find('button').click();
 		verifySwitchOff(labelText);
 	};
 
@@ -267,7 +261,7 @@ describe('brn-switch accessibility and functionality tests', () => {
 			verifyChangedValueTrue();
 
 			// Click on the switch to toggle back
-			cy.get('brn-switch').click();
+			cy.get('brn-switch').find('button').click();
 			verifySwitchOff(labelText);
 			verifySwitchValueFalse();
 			verifyChangedValueFalse();
@@ -292,14 +286,14 @@ describe('brn-switch accessibility and functionality tests', () => {
 			verifySwitchSetup(labelText);
 			verifySwitchOff(labelText);
 
-			// A disabled switch must have proper aria-disabled attribute for screen readers
-			cy.findByRole('switch', { name: labelText }).should('have.attr', 'aria-disabled', 'true');
+			// A disabled switch must have proper attributes for screen readers
+			cy.findByRole('switch', { name: labelText }).should('be.disabled');
 
 			// The hidden input should also have the disabled attribute
 			cy.findByLabelText(labelText).should('be.disabled');
 
 			// Clicking should not toggle the switch when disabled (force: true bypasses Cypress's built-in disabled element detection)
-			cy.get('brn-switch').click({ force: true });
+			cy.get('brn-switch').find('button').click({ force: true });
 			verifySwitchOff(labelText);
 
 			// Keyboard users should not be able to focus disabled controls

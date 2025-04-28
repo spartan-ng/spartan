@@ -1,27 +1,27 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { BooleanInput } from '@angular/cdk/coercion';
-import { NgStyle, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import {
 	type AfterContentInit,
+	booleanAttribute,
 	ChangeDetectionStrategy,
 	ChangeDetectorRef,
 	Component,
-	DestroyRef,
-	ElementRef,
-	type OnDestroy,
-	PLATFORM_ID,
-	Renderer2,
-	ViewEncapsulation,
-	booleanAttribute,
 	computed,
+	DestroyRef,
 	effect,
+	ElementRef,
 	forwardRef,
 	inject,
 	input,
 	model,
+	type OnDestroy,
 	output,
+	PLATFORM_ID,
+	Renderer2,
 	signal,
 	viewChild,
+	ViewEncapsulation,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -35,46 +35,46 @@ export const BRN_SWITCH_VALUE_ACCESSOR = {
 
 const CONTAINER_POST_FIX = '-switch';
 
+let uniqueIdCounter = 0;
+
 @Component({
 	selector: 'brn-switch',
-	imports: [NgStyle],
+	standalone: true,
 	template: `
-		<input
-			#checkBox
-			type="checkbox"
+		<button
+			#switch
+			role="switch"
+			type="button"
+			[class]="class()"
 			[id]="forChild(state().id) ?? ''"
 			[name]="forChild(state().name) ?? ''"
 			[value]="checked() ? 'on' : 'off'"
-			[ngStyle]="inputStyles()"
-			[checked]="checked() || null"
-			[required]="required() || null"
-			[disabled]="state().disabled() || null"
-			[attr.aria-label]="ariaLabel()"
-			[attr.aria-labelledby]="ariaLabelledby()"
-			[attr.aria-describedby]="ariaDescribedby()"
-			tabindex="-1"
-		/>
-		<ng-content select="brn-switch-thumb" />
+			[attr.aria-checked]="checked()"
+			[attr.aria-label]="ariaLabel() || null"
+			[attr.aria-labelledby]="mutableAriaLabelledby()() || null"
+			[attr.aria-describedby]="ariaDescribedby() || null"
+			[attr.data-state]="checked() ? 'checked' : 'unchecked'"
+			[attr.data-focus-visible]="focusVisible()"
+			[attr.data-focus]="focused()"
+			[attr.data-disabled]="state().disabled()"
+			[disabled]="disabled()"
+			[tabIndex]="tabIndex()"
+			(click)="$event.preventDefault(); toggle()"
+		>
+			<ng-content select="brn-switch-thumb" />
+		</button>
 	`,
 	host: {
-		role: 'switch',
-		'[attr.aria-checked]': 'checked()',
-		'[attr.aria-disabled]': 'disabled() || null',
-		'[attr.aria-required]': 'required() || null',
+		'[style]': '{display: "contents"}',
+		'[attr.id]': 'state().id',
+		'[attr.name]': 'state().name',
+		'[attr.aria-labelledby]': 'null',
+		'[attr.aria-label]': 'null',
+		'[attr.aria-describedby]': 'null',
 		'[attr.data-state]': 'checked() ? "checked" : "unchecked"',
 		'[attr.data-focus-visible]': 'focusVisible()',
 		'[attr.data-focus]': 'focused()',
 		'[attr.data-disabled]': 'state().disabled()',
-		'[attr.aria-labelledby]': 'null',
-		'[attr.aria-label]': 'null',
-		'[attr.aria-describedby]': 'null',
-		'[attr.id]': 'state().id',
-		'[attr.name]': 'state().name',
-		tabindex: '0',
-		'(click)': 'toggle()',
-		'(keyup.space)': 'toggle()',
-		'(keydown.space)': '$event.preventDefault()',
-		'(keyup.enter)': 'toggle()',
 	},
 	providers: [BRN_SWITCH_VALUE_ACCESSOR],
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -101,13 +101,18 @@ export class BrnSwitchComponent implements AfterContentInit, OnDestroy {
 	 * Sets the ID on the switch.
 	 * When provided, the inner input gets this ID without the '-switch' suffix.
 	 */
-	public readonly id = input<string | null>(null);
+	public readonly id = input<string | null>(uniqueIdCounter++ + '');
 
 	/**
 	 * Sets the name on the switch.
 	 * When provided, the inner input gets this name without a '-switch' suffix.
 	 */
 	public readonly name = input<string | null>(null);
+
+	/**
+	 * Sets class set on button
+	 */
+	public readonly class = input<string | null>(null);
 
 	/**
 	 * Sets the aria-label attribute for accessibility.
@@ -118,7 +123,7 @@ export class BrnSwitchComponent implements AfterContentInit, OnDestroy {
 	 * Sets the aria-labelledby attribute for accessibility.
 	 */
 	public readonly ariaLabelledby = input<string | null>(null, { alias: 'aria-labelledby' });
-
+	public readonly mutableAriaLabelledby = computed(() => signal(this.ariaLabelledby()));
 	/**
 	 * Sets the aria-describedby attribute for accessibility.
 	 */
@@ -137,20 +142,9 @@ export class BrnSwitchComponent implements AfterContentInit, OnDestroy {
 	});
 
 	/**
-	 * Custom styles for the hidden input element.
-	 * Usually don't need to change this.
+	 * tabIndex of the switch.
 	 */
-	public readonly inputStyles = input<{ [p: string]: any } | null | undefined>({
-		position: 'absolute',
-		width: '1px',
-		height: '1px',
-		padding: '0',
-		margin: '-1px',
-		overflow: 'hidden',
-		clip: 'rect(0, 0, 0, 0)',
-		whiteSpace: 'nowrap',
-		borderWidth: '0',
-	});
+	public readonly tabIndex = input(0);
 
 	/**
 	 * Event emitted when the switch value changes.
@@ -167,7 +161,7 @@ export class BrnSwitchComponent implements AfterContentInit, OnDestroy {
 	// eslint-disable-next-line @typescript-eslint/no-empty-function
 	private _onTouched: TouchFn = () => {};
 
-	public readonly checkbox = viewChild.required<ElementRef<HTMLInputElement>>('checkBox');
+	public readonly switch = viewChild.required<ElementRef<HTMLInputElement>>('switch');
 
 	protected readonly state = computed(() => {
 		const name = this.name();
@@ -181,24 +175,18 @@ export class BrnSwitchComponent implements AfterContentInit, OnDestroy {
 
 	constructor() {
 		effect(() => {
-			/** search for the label and set the disabled state */
-			let parent = this._renderer.parentNode(this._elementRef.nativeElement);
-			if (!parent) return;
-			// if parent is a HLM-SWITCH, then we need to go up one more level to get the label
-			if (parent?.tagName === 'HLM-SWITCH') {
-				parent = this._renderer.parentNode(parent);
-			}
-			if (!parent) return;
-			// check if parent is a label and assume it is for this checkbox
-			if (parent?.tagName === 'LABEL') {
-				this._renderer.setAttribute(parent, 'data-disabled', this.state().disabled() ? 'true' : 'false');
-				return;
-			}
-			if (!this._isBrowser) return;
+			const isDisabled = this.state().disabled();
+			const state = this.state();
+			if (!this._elementRef.nativeElement || !this._isBrowser) return;
 
-			const label = parent?.querySelector(`label[for="${this.forChild(this.state().id)}"]`);
-			if (!label) return;
-			this._renderer.setAttribute(label, 'data-disabled', this.state().disabled() ? 'true' : 'false');
+			const switchElement = this._elementRef.nativeElement;
+
+			const labelElement = this._findLabelForSwitch(switchElement);
+
+			if (!labelElement) return;
+
+			this._renderer.setAttribute(labelElement, 'data-disabled', isDisabled ? 'true' : 'false');
+			this._connectLabelId(labelElement, state.id);
 		});
 	}
 
@@ -236,9 +224,9 @@ export class BrnSwitchComponent implements AfterContentInit, OnDestroy {
 				}
 			});
 
-		if (!this.checkbox()) return;
-		this.checkbox().nativeElement.value = this.checked() ? 'on' : 'off';
-		this.checkbox().nativeElement.dispatchEvent(new Event('change'));
+		if (!this.switch()) return;
+		this.switch().nativeElement.value = this.checked() ? 'on' : 'off';
+		this.switch().nativeElement.dispatchEvent(new Event('change'));
 	}
 
 	ngOnDestroy() {
@@ -267,10 +255,35 @@ export class BrnSwitchComponent implements AfterContentInit, OnDestroy {
 		this._cdr.markForCheck();
 	}
 
-	/**
-	 * If the space key is pressed, prevent the default action to stop the page from scrolling.
-	 */
-	protected preventScrolling(event: KeyboardEvent): void {
-		event.preventDefault();
+	private _findLabelForSwitch(element: HTMLElement): HTMLElement | null {
+		// 1. Check if parent is label
+		let parent = this._renderer.parentNode(element);
+		if (!parent) return null;
+
+		// 2. If parent is HLM-SWITCH, go up one more
+		if (parent.tagName === 'HLM-SWITCH') {
+			parent = this._renderer.parentNode(parent);
+			if (!parent) return null;
+		}
+
+		// 3. If parent is label, return it
+		if (parent.tagName === 'LABEL') {
+			return parent;
+		}
+
+		// 4. Otherwise look for label with matching "for" attribute
+		return parent.querySelector(`label[for="${this.forChild(this.state().id)}"]`);
+	}
+
+	private _connectLabelId(label: HTMLElement, id: string | null): void {
+		const existingLabelId = label.id;
+		const newLabelId = id + '-label';
+
+		this.mutableAriaLabelledby().set(existingLabelId || newLabelId);
+
+		// Only set ID if not already have one
+		if (!existingLabelId || existingLabelId.length === 0) {
+			this._renderer.setAttribute(label, 'id', newLabelId);
+		}
 	}
 }

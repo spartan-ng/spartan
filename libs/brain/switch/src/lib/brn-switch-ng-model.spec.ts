@@ -47,7 +47,7 @@ describe('BrnSwitchComponentNgModelIntegration', () => {
 		const { labelElement, user, container } = await setup();
 		expect(labelElement).toBeInTheDocument();
 		await user.click(labelElement);
-		await screen.findByDisplayValue('on');
+		expect(await screen.findByRole('switch')).toHaveAttribute('value', 'on');
 		expect(container.fixture.componentInstance.airplaneMode).toBe(true);
 	});
 
@@ -55,11 +55,11 @@ describe('BrnSwitchComponentNgModelIntegration', () => {
 		const { labelElement, user, container } = await setup(true);
 
 		await user.click(labelElement);
-		await screen.findByDisplayValue('off');
+		expect(await screen.findByRole('switch')).toHaveAttribute('value', 'off');
 		expect(container.fixture.componentInstance.airplaneMode).toBe(false);
 
 		await user.click(labelElement);
-		await screen.findByDisplayValue('on');
+		expect(await screen.findByRole('switch')).toHaveAttribute('value', 'on');
 		expect(container.fixture.componentInstance.airplaneMode).toBe(true);
 	});
 
@@ -77,11 +77,11 @@ describe('BrnSwitchComponentNgModelIntegration', () => {
 		const { labelElement, user, container } = await setup(false, true);
 
 		await user.click(labelElement);
-		await screen.findByDisplayValue('off');
+		expect(await screen.findByRole('switch')).toHaveAttribute('value', 'off');
 		expect(container.fixture.componentInstance.airplaneMode).toBe(false);
 
 		await user.click(labelElement);
-		await screen.findByDisplayValue('off');
+		expect(await screen.findByRole('switch')).toHaveAttribute('value', 'off');
 		expect(container.fixture.componentInstance.airplaneMode).toBe(false);
 	});
 });

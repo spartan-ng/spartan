@@ -8,7 +8,7 @@ describe('BrnSwitchComponent', () => {
 	const setup = async () => {
 		const container = await render(
 			`
-     <brn-switch id='switchId' name='switchName' data-testid='switch' aria-label='switch'>
+     <brn-switch id='switchId' name='switchName' data-testid='brnSwitch' aria-label='switch'>
              <brn-switch-thumb />
       </brn-switch>
     `,
@@ -19,7 +19,7 @@ describe('BrnSwitchComponent', () => {
 		return {
 			user: userEvent.setup(),
 			container,
-			switchElement: screen.getByLabelText('switch'),
+			containerElement: screen.getByLabelText('switch'),
 		};
 	};
 
@@ -28,7 +28,7 @@ describe('BrnSwitchComponent', () => {
 			`
      <label>
      Switch Inside Label
-     <brn-switch id='switchId' data-testid='switch' name='switchName'>
+     <brn-switch id='switchId' data-testid='brnSwitch' name='switchName'>
              <brn-switch-thumb />
       </brn-switch>
       </label>
@@ -40,7 +40,7 @@ describe('BrnSwitchComponent', () => {
 		return {
 			user: userEvent.setup(),
 			container,
-			switchElement: screen.getByLabelText(/switch inside label/i),
+			containerElement: screen.getByLabelText(/switch inside label/i),
 			labelElement: screen.getByText(/switch inside label/i),
 		};
 	};
@@ -52,7 +52,7 @@ describe('BrnSwitchComponent', () => {
      <label id='labelId' for='switchId'>
      Switch Outside Label with ariaLabelledBy
      </label>
-     <brn-switch id='switchId' name='switchName' data-testid='switch' aria-labelledby='labelId'>
+     <brn-switch id='switchId' name='switchName' data-testid='brnSwitch' aria-labelledby='labelId'>
              <brn-switch-thumb />
       </brn-switch>
     `,
@@ -63,7 +63,7 @@ describe('BrnSwitchComponent', () => {
 		return {
 			user: userEvent.setup(),
 			container,
-			switchElement: screen.getByLabelText(/switch outside label with arialabelledby/i),
+			containerElement: screen.getByLabelText(/switch outside label with arialabelledby/i),
 			labelElement: screen.getByText(/switch outside label with arialabelledby/i),
 		};
 	};
@@ -74,7 +74,7 @@ describe('BrnSwitchComponent', () => {
      <label for='switchId'>
      Switch Outside Label with id
      </label>
-     <brn-switch id='switchId' name='switchName' data-testid='switch'>
+     <brn-switch id='switchId' name='switchName' data-testid='brnSwitch'>
              <brn-switch-thumb />
       </brn-switch>
     `,
@@ -85,7 +85,7 @@ describe('BrnSwitchComponent', () => {
 		return {
 			user: userEvent.setup(),
 			container,
-			switchElement: screen.getByLabelText(/switch outside label with id/i),
+			containerElement: screen.getByLabelText(/switch outside label with id/i),
 			labelElement: screen.getByText(/switch outside label with id/i),
 		};
 	};
@@ -93,36 +93,36 @@ describe('BrnSwitchComponent', () => {
 	type Options = Partial<{ focus: boolean; focusVisible: boolean; disabled: boolean }>;
 
 	const validateAttributes = async (
-		inputElement: HTMLElement,
 		switchElement: HTMLElement,
+		containerElement: HTMLElement,
 		shouldBeChecked: boolean,
 		opts?: Options,
 	) => {
-		expect(inputElement).toBeInTheDocument();
-		expect(inputElement).toHaveAttribute('role', 'switch');
-		expect(inputElement).toHaveAttribute('id', 'switchId');
-		expect(inputElement).toHaveAttribute('name', 'switchName');
-		expect(await axe(inputElement)).toHaveNoViolations();
-
-		expect(switchElement).toHaveAttribute('id', 'switchId-switch');
-		expect(switchElement).toHaveAttribute('name', 'switchName-switch');
-		expect(switchElement).toHaveAttribute('data-state', shouldBeChecked ? 'checked' : 'unchecked');
-		expect(switchElement).toHaveAttribute('data-disabled', `${!!opts?.disabled}`);
-		expect(switchElement).toHaveAttribute('data-focus', `${!!opts?.focus}`);
-		expect(switchElement).toHaveAttribute('data-focus-visible', `${!!opts?.focusVisible}`);
+		expect(switchElement).toBeInTheDocument();
+		expect(switchElement).toHaveAttribute('type', 'button');
+		expect(switchElement).toHaveAttribute('id', 'switchId');
+		expect(switchElement).toHaveAttribute('name', 'switchName');
 		expect(await axe(switchElement)).toHaveNoViolations();
+
+		expect(containerElement).toHaveAttribute('id', 'switchId-switch');
+		expect(containerElement).toHaveAttribute('name', 'switchName-switch');
+		expect(containerElement).toHaveAttribute('data-state', shouldBeChecked ? 'checked' : 'unchecked');
+		expect(containerElement).toHaveAttribute('data-disabled', `${!!opts?.disabled}`);
+		expect(containerElement).toHaveAttribute('data-focus', `${!!opts?.focus}`);
+		expect(containerElement).toHaveAttribute('data-focus-visible', `${!!opts?.focusVisible}`);
+		expect(await axe(containerElement)).toHaveNoViolations();
 	};
 	const validateSwitchOn = async (opts?: Options) => {
-		const inputElement = await screen.findByDisplayValue('on');
-		const switchElement = await screen.findByTestId('switch');
+		const switchElement = await screen.findByRole('switch');
+		const containerElement = await screen.findByTestId('brnSwitch');
 
-		await validateAttributes(inputElement, switchElement, true, opts);
+		await validateAttributes(switchElement, containerElement, true, opts);
 	};
 	const validateSwitchOff = async (opts?: Options) => {
-		const inputElement = await screen.findByDisplayValue('off');
-		const switchElement = await screen.findByTestId('switch');
+		const switchElement = await screen.findByRole('switch');
+		const containerElement = await screen.findByTestId('brnSwitch');
 
-		await validateAttributes(inputElement, switchElement, false, opts);
+		await validateAttributes(switchElement, containerElement, false, opts);
 	};
 
 	describe('with aria-label', () => {
@@ -131,11 +131,11 @@ describe('BrnSwitchComponent', () => {
 			await validateSwitchOff();
 		});
 		it('mouse click on element toggles', async () => {
-			const { user, switchElement } = await setup();
+			const { user, containerElement } = await setup();
 			await validateSwitchOff();
-			await user.click(switchElement);
+			await user.click(containerElement);
 			await validateSwitchOn({ focus: true });
-			await user.click(switchElement);
+			await user.click(containerElement);
 			await validateSwitchOff({ focus: true });
 		});
 		it('focus with tab and enter toggles', async () => {

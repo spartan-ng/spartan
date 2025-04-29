@@ -54,7 +54,7 @@ export const Disabled: Story = {
 	render: () => ({
 		template: `
       <div class='flex items-center'>
-         <label id='testSwitchLabel' for='testSwitchDisabled' hlmLabel> Test Switch </label>
+         <label id='testSwitchLabel' for='testSwitchDisabled' hlmLabel> Disabled Switch </label>
        <hlm-switch  disabled="true" class='ml-2' id='testSwitchDisabled' aria-labelledby='testSwitchLabel' />
       </div>
     `,

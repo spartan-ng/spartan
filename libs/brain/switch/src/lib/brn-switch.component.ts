@@ -1,28 +1,28 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { BooleanInput } from '@angular/cdk/coercion';
-import { NgStyle, isPlatformBrowser } from '@angular/common';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
 	type AfterContentInit,
+	booleanAttribute,
 	ChangeDetectionStrategy,
 	ChangeDetectorRef,
 	Component,
-	DestroyRef,
-	ElementRef,
-	HostListener,
-	type OnDestroy,
-	PLATFORM_ID,
-	Renderer2,
-	ViewEncapsulation,
-	booleanAttribute,
 	computed,
+	DestroyRef,
 	effect,
+	ElementRef,
 	forwardRef,
 	inject,
 	input,
+	linkedSignal,
 	model,
+	type OnDestroy,
 	output,
+	PLATFORM_ID,
+	Renderer2,
 	signal,
 	viewChild,
+	ViewEncapsulation,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -36,48 +36,45 @@ export const BRN_SWITCH_VALUE_ACCESSOR = {
 
 const CONTAINER_POST_FIX = '-switch';
 
+let uniqueIdCounter = 0;
+
 @Component({
 	selector: 'brn-switch',
-	imports: [NgStyle],
 	template: `
-		<input
-			#checkBox
-			tabindex="-1"
-			type="checkbox"
+		<button
+			#switch
 			role="switch"
-			[id]="forChild(state().id) ?? ''"
-			[name]="forChild(state().name) ?? ''"
+			type="button"
+			[class]="class()"
+			[id]="getSwitchButtonId(state().id) ?? ''"
+			[name]="getSwitchButtonId(state().name) ?? ''"
 			[value]="checked() ? 'on' : 'off'"
-			[ngStyle]="{
-				position: 'absolute',
-				width: '1px',
-				height: '1px',
-				padding: '0',
-				margin: -'1px',
-				overflow: 'hidden',
-				clip: 'rect(0, 0, 0, 0)',
-				whiteSpace: 'nowrap',
-				borderWidth: '0',
-			}"
-			[checked]="checked()"
-			[attr.aria-label]="ariaLabel()"
-			[attr.aria-labelledby]="ariaLabelledby()"
-			[attr.aria-describedby]="ariaDescribedby()"
-			[attr.aria-required]="required() || null"
-		/>
-		<ng-content select="brn-switch-thumb" />
+			[attr.aria-checked]="checked()"
+			[attr.aria-label]="ariaLabel() || null"
+			[attr.aria-labelledby]="mutableAriaLabelledby() || null"
+			[attr.aria-describedby]="ariaDescribedby() || null"
+			[attr.data-state]="checked() ? 'checked' : 'unchecked'"
+			[attr.data-focus-visible]="focusVisible()"
+			[attr.data-focus]="focused()"
+			[attr.data-disabled]="state().disabled()"
+			[disabled]="state().disabled()"
+			[tabIndex]="tabIndex()"
+			(click)="$event.preventDefault(); toggle()"
+		>
+			<ng-content select="brn-switch-thumb" />
+		</button>
 	`,
 	host: {
-		tabindex: '0',
+		'[style]': '{display: "contents"}',
+		'[attr.id]': 'state().id',
+		'[attr.name]': 'state().name',
+		'[attr.aria-labelledby]': 'null',
+		'[attr.aria-label]': 'null',
+		'[attr.aria-describedby]': 'null',
 		'[attr.data-state]': 'checked() ? "checked" : "unchecked"',
 		'[attr.data-focus-visible]': 'focusVisible()',
 		'[attr.data-focus]': 'focused()',
 		'[attr.data-disabled]': 'state().disabled()',
-		'[attr.aria-labelledby]': 'null',
-		'[attr.aria-label]': 'null',
-		'[attr.aria-describedby]': 'null',
-		'[attr.id]': 'state().id',
-		'[attr.name]': 'state().name',
 	},
 	providers: [BRN_SWITCH_VALUE_ACCESSOR],
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -90,44 +87,83 @@ export class BrnSwitchComponent implements AfterContentInit, OnDestroy {
 	private readonly _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 	private readonly _focusMonitor = inject(FocusMonitor);
 	private readonly _cdr = inject(ChangeDetectorRef);
+	private readonly _document = inject(DOCUMENT);
 
 	protected readonly focusVisible = signal(false);
 	protected readonly focused = signal(false);
 
+	/**
+	 * Whether the switch is checked.
+	 * Can be bound with [(checked)]
+	 */
 	public readonly checked = model<boolean>(false);
 
-	/** Used to set the id on the underlying input element. */
+	/**
+	 * Sets the ID on the switch.
+	 * When provided, the inner button gets this ID without the '-switch' suffix.
+	 */
+	public readonly id = input<string | null>(uniqueIdCounter++ + '');
 
-	public readonly id = input<string | null>(null);
-
-	/** Used to set the name attribute on the underlying input element. */
+	/**
+	 * Sets the name on the switch.
+	 * When provided, the inner button gets this name without a '-switch' suffix.
+	 */
 	public readonly name = input<string | null>(null);
 
-	/** Used to set the aria-label attribute on the underlying input element. */
+	/**
+	 * Sets class set on the inner button
+	 */
+	public readonly class = input<string | null>(null);
+
+	/**
+	 * Sets the aria-label attribute for accessibility.
+	 */
 	public readonly ariaLabel = input<string | null>(null, { alias: 'aria-label' });
 
-	/** Used to set the aria-labelledby attribute on the underlying input element. */
+	/**
+	 * Sets the aria-labelledby attribute for accessibility.
+	 */
 	public readonly ariaLabelledby = input<string | null>(null, { alias: 'aria-labelledby' });
+	public readonly mutableAriaLabelledby = linkedSignal(() => this.ariaLabelledby());
 
-	/** Used to set the aria-describedby attribute on the underlying input element. */
+	/**
+	 * Sets the aria-describedby attribute for accessibility.
+	 */
 	public readonly ariaDescribedby = input<string | null>(null, { alias: 'aria-describedby' });
 
+	/**
+	 * Whether the switch is required in a form.
+	 */
 	public readonly required = input(false, { transform: booleanAttribute });
 
+	/**
+	 * Whether the switch is disabled.
+	 */
 	public readonly disabled = input<boolean, BooleanInput>(false, {
 		transform: booleanAttribute,
 	});
+
+	/**
+	 * tabIndex of the switch.
+	 */
+	public readonly tabIndex = input(0);
+
+	/**
+	 * Event emitted when the switch value changes.
+	 */
+	public readonly changed = output<boolean>();
+
+	/**
+	 * Event emitted when the switch is blurred (loses focus).
+	 */
+	public readonly touched = output<void>();
 
 	// eslint-disable-next-line @typescript-eslint/no-empty-function
 	protected _onChange: ChangeFn<boolean> = () => {};
 	// eslint-disable-next-line @typescript-eslint/no-empty-function
 	private _onTouched: TouchFn = () => {};
 
-	public readonly checkbox = viewChild.required<ElementRef<HTMLInputElement>>('checkBox');
-
-	public readonly changed = output<boolean>();
-
-	public readonly touched = output<void>();
+	public readonly switch = viewChild.required<ElementRef<HTMLInputElement>>('switch');
 
 	protected readonly state = computed(() => {
 		const name = this.name();
@@ -141,33 +177,31 @@ export class BrnSwitchComponent implements AfterContentInit, OnDestroy {
 
 	constructor() {
 		effect(() => {
-			/** search for the label and set the disabled state */
-			let parent = this._renderer.parentNode(this._elementRef.nativeElement);
-			if (!parent) return;
-			// if parent is a HLM-SWITCH, then we need to go up one more level to get the label
-			if (parent?.tagName === 'HLM-SWITCH') {
-				parent = this._renderer.parentNode(parent);
-			}
-			if (!parent) return;
-			// check if parent is a label and assume it is for this checkbox
-			if (parent?.tagName === 'LABEL') {
-				this._renderer.setAttribute(parent, 'data-disabled', this.state().disabled() ? 'true' : 'false');
-				return;
-			}
-			if (!this._isBrowser) return;
+			const state = this.state();
+			const isDisabled = state.disabled();
 
-			const label = parent?.querySelector(`label[for="${this.forChild(this.state().id)}"]`);
-			if (!label) return;
-			this._renderer.setAttribute(label, 'data-disabled', this.state().disabled() ? 'true' : 'false');
+			if (!this._elementRef.nativeElement || !this._isBrowser) return;
+
+			const newLabelId = state.id + '-label';
+			const switchButtonId = this.getSwitchButtonId(state.id);
+			const labelElement =
+				this._elementRef.nativeElement.closest('label') ??
+				this._document.querySelector(`label[for="${switchButtonId}"]`);
+
+			if (!labelElement) return;
+			const existingLabelId = labelElement.id;
+
+			this._renderer.setAttribute(labelElement, 'data-disabled', isDisabled ? 'true' : 'false');
+			this.mutableAriaLabelledby.set(existingLabelId || newLabelId);
+
+			if (!existingLabelId || existingLabelId.length === 0) {
+				this._renderer.setAttribute(labelElement, 'id', newLabelId);
+			}
 		});
 	}
 
-	@HostListener('click', ['$event'])
-	@HostListener('keyup.enter', ['$event'])
-	@HostListener('keyup.space', ['$event'])
-	protected toggle(event: Event): void {
+	protected toggle(): void {
 		if (this.state().disabled()) return;
-		event.preventDefault();
 
 		this.checked.update((checked) => !checked);
 		this._onChange(this.checked());
@@ -200,17 +234,18 @@ export class BrnSwitchComponent implements AfterContentInit, OnDestroy {
 				}
 			});
 
-		if (!this.checkbox()) return;
-		this.checkbox().nativeElement.value = this.checked() ? 'on' : 'off';
-		this.checkbox().nativeElement.dispatchEvent(new Event('change'));
+		if (!this.switch()) return;
+		this.switch().nativeElement.value = this.checked() ? 'on' : 'off';
+		this.switch().nativeElement.dispatchEvent(new Event('change'));
 	}
 
 	ngOnDestroy() {
 		this._focusMonitor.stopMonitoring(this._elementRef);
 	}
 
-	protected forChild(parentValue: string | null | undefined): string | null {
-		return parentValue ? parentValue.replace(CONTAINER_POST_FIX, '') : null;
+	/** We intercept the id passed to the wrapper component and pass it to the underlying button switch control **/
+	protected getSwitchButtonId(idPassedToContainer: string | null | undefined): string | null {
+		return idPassedToContainer ? idPassedToContainer.replace(CONTAINER_POST_FIX, '') : null;
 	}
 
 	writeValue(value: boolean): void {
@@ -229,13 +264,5 @@ export class BrnSwitchComponent implements AfterContentInit, OnDestroy {
 	setDisabledState(isDisabled: boolean): void {
 		this.state().disabled.set(isDisabled);
 		this._cdr.markForCheck();
-	}
-
-	/**
-	 * If the space key is pressed, prevent the default action to stop the page from scrolling.
-	 */
-	@HostListener('keydown.space', ['$event'])
-	protected preventScrolling(event: KeyboardEvent): void {
-		event.preventDefault();
 	}
 }

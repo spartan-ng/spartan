@@ -1,6 +1,6 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { BooleanInput } from '@angular/cdk/coercion';
-import { isPlatformBrowser } from '@angular/common';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
 	type AfterContentInit,
 	booleanAttribute,
@@ -14,6 +14,7 @@ import {
 	forwardRef,
 	inject,
 	input,
+	linkedSignal,
 	model,
 	type OnDestroy,
 	output,
@@ -39,25 +40,24 @@ let uniqueIdCounter = 0;
 
 @Component({
 	selector: 'brn-switch',
-	standalone: true,
 	template: `
 		<button
 			#switch
 			role="switch"
 			type="button"
 			[class]="class()"
-			[id]="forChild(state().id) ?? ''"
-			[name]="forChild(state().name) ?? ''"
+			[id]="getSwitchButtonId(state().id) ?? ''"
+			[name]="getSwitchButtonId(state().name) ?? ''"
 			[value]="checked() ? 'on' : 'off'"
 			[attr.aria-checked]="checked()"
 			[attr.aria-label]="ariaLabel() || null"
-			[attr.aria-labelledby]="mutableAriaLabelledby()() || null"
+			[attr.aria-labelledby]="mutableAriaLabelledby() || null"
 			[attr.aria-describedby]="ariaDescribedby() || null"
 			[attr.data-state]="checked() ? 'checked' : 'unchecked'"
 			[attr.data-focus-visible]="focusVisible()"
 			[attr.data-focus]="focused()"
 			[attr.data-disabled]="state().disabled()"
-			[disabled]="disabled()"
+			[disabled]="state().disabled()"
 			[tabIndex]="tabIndex()"
 			(click)="$event.preventDefault(); toggle()"
 		>
@@ -87,6 +87,7 @@ export class BrnSwitchComponent implements AfterContentInit, OnDestroy {
 	private readonly _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 	private readonly _focusMonitor = inject(FocusMonitor);
 	private readonly _cdr = inject(ChangeDetectorRef);
+	private readonly _document = inject(DOCUMENT);
 
 	protected readonly focusVisible = signal(false);
 	protected readonly focused = signal(false);
@@ -99,18 +100,18 @@ export class BrnSwitchComponent implements AfterContentInit, OnDestroy {
 
 	/**
 	 * Sets the ID on the switch.
-	 * When provided, the inner input gets this ID without the '-switch' suffix.
+	 * When provided, the inner button gets this ID without the '-switch' suffix.
 	 */
 	public readonly id = input<string | null>(uniqueIdCounter++ + '');
 
 	/**
 	 * Sets the name on the switch.
-	 * When provided, the inner input gets this name without a '-switch' suffix.
+	 * When provided, the inner button gets this name without a '-switch' suffix.
 	 */
 	public readonly name = input<string | null>(null);
 
 	/**
-	 * Sets class set on button
+	 * Sets class set on the inner button
 	 */
 	public readonly class = input<string | null>(null);
 
@@ -123,7 +124,8 @@ export class BrnSwitchComponent implements AfterContentInit, OnDestroy {
 	 * Sets the aria-labelledby attribute for accessibility.
 	 */
 	public readonly ariaLabelledby = input<string | null>(null, { alias: 'aria-labelledby' });
-	public readonly mutableAriaLabelledby = computed(() => signal(this.ariaLabelledby()));
+	public readonly mutableAriaLabelledby = linkedSignal(() => this.ariaLabelledby());
+
 	/**
 	 * Sets the aria-describedby attribute for accessibility.
 	 */
@@ -175,18 +177,26 @@ export class BrnSwitchComponent implements AfterContentInit, OnDestroy {
 
 	constructor() {
 		effect(() => {
-			const isDisabled = this.state().disabled();
 			const state = this.state();
+			const isDisabled = state.disabled();
+
 			if (!this._elementRef.nativeElement || !this._isBrowser) return;
 
-			const switchElement = this._elementRef.nativeElement;
-
-			const labelElement = this._findLabelForSwitch(switchElement);
+			const newLabelId = state.id + '-label';
+			const switchButtonId = this.getSwitchButtonId(state.id);
+			const labelElement =
+				this._elementRef.nativeElement.closest('label') ??
+				this._document.querySelector(`label[for="${switchButtonId}"]`);
 
 			if (!labelElement) return;
+			const existingLabelId = labelElement.id;
 
 			this._renderer.setAttribute(labelElement, 'data-disabled', isDisabled ? 'true' : 'false');
-			this._connectLabelId(labelElement, state.id);
+			this.mutableAriaLabelledby.set(existingLabelId || newLabelId);
+
+			if (!existingLabelId || existingLabelId.length === 0) {
+				this._renderer.setAttribute(labelElement, 'id', newLabelId);
+			}
 		});
 	}
 
@@ -233,8 +243,9 @@ export class BrnSwitchComponent implements AfterContentInit, OnDestroy {
 		this._focusMonitor.stopMonitoring(this._elementRef);
 	}
 
-	protected forChild(parentValue: string | null | undefined): string | null {
-		return parentValue ? parentValue.replace(CONTAINER_POST_FIX, '') : null;
+	/** We intercept the id passed to the wrapper component and pass it to the underlying button switch control **/
+	protected getSwitchButtonId(idPassedToContainer: string | null | undefined): string | null {
+		return idPassedToContainer ? idPassedToContainer.replace(CONTAINER_POST_FIX, '') : null;
 	}
 
 	writeValue(value: boolean): void {
@@ -253,37 +264,5 @@ export class BrnSwitchComponent implements AfterContentInit, OnDestroy {
 	setDisabledState(isDisabled: boolean): void {
 		this.state().disabled.set(isDisabled);
 		this._cdr.markForCheck();
-	}
-
-	private _findLabelForSwitch(element: HTMLElement): HTMLElement | null {
-		// 1. Check if parent is label
-		let parent = this._renderer.parentNode(element);
-		if (!parent) return null;
-
-		// 2. If parent is HLM-SWITCH, go up one more
-		if (parent.tagName === 'HLM-SWITCH') {
-			parent = this._renderer.parentNode(parent);
-			if (!parent) return null;
-		}
-
-		// 3. If parent is label, return it
-		if (parent.tagName === 'LABEL') {
-			return parent;
-		}
-
-		// 4. Otherwise look for label with matching "for" attribute
-		return parent.querySelector(`label[for="${this.forChild(this.state().id)}"]`);
-	}
-
-	private _connectLabelId(label: HTMLElement, id: string | null): void {
-		const existingLabelId = label.id;
-		const newLabelId = id + '-label';
-
-		this.mutableAriaLabelledby().set(existingLabelId || newLabelId);
-
-		// Only set ID if not already have one
-		if (!existingLabelId || existingLabelId.length === 0) {
-			this._renderer.setAttribute(label, 'id', newLabelId);
-		}
 	}
 }

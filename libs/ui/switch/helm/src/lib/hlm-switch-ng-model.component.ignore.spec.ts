@@ -3,7 +3,6 @@ import { FormsModule } from '@angular/forms';
 import { HlmSwitchComponent } from './hlm-switch.component';
 @Component({
 	selector: 'hlm-switch-ng-model',
-	standalone: true,
 	template: `
 		<!-- eslint-disable-next-line @angular-eslint/template/label-has-associated-control -->
 		<label class="flex items-center" hlmLabel>

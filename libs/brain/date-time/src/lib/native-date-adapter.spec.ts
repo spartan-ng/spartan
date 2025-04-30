@@ -11,20 +11,20 @@ describe('BrnNativeDateAdapter', () => {
 
 	test('set() should update specified date properties', () => {
 		const date = new Date(2023, 9, 10, 10, 0, 0);
-		const result = adapter.set(date, {hour: 15, minute: 45});
+		const result = adapter.set(date, { hour: 15, minute: 45 });
 		expect(result.getHours()).toBe(15);
 		expect(result.getMinutes()).toBe(45);
 	});
 
 	test('add() should add duration to a date', () => {
 		const date = new Date(2023, 9, 10);
-		const result = adapter.add(date, {days: 2, hours: 5});
+		const result = adapter.add(date, { days: 2, hours: 5 });
 		expect(result).toEqual(new Date(2023, 9, 12, 5));
 	});
 
 	test('subtract() should subtract duration from a date', () => {
 		const date = new Date(2023, 9, 10);
-		const result = adapter.subtract(date, {days: 1, hours: 2});
+		const result = adapter.subtract(date, { days: 1, hours: 2 });
 		expect(result).toEqual(new Date(2023, 9, 8, 22));
 	});
 
@@ -122,7 +122,6 @@ describe('BrnNativeDateAdapter', () => {
 		expect(adapter.getDay(new Date(2024, 2, 23))).toBe(6);
 	});
 
-
 	test('getHours() should return the hours of a date', () => {
 		const date = new Date(2023, 9, 10, 15, 30);
 		expect(adapter.getHours(date)).toBe(15);
@@ -154,7 +153,7 @@ describe('BrnNativeDateAdapter', () => {
 	});
 
 	test('create() should create a new date from values', () => {
-		const values = {year: 2023, month: 9, day: 10, hour: 12, minute: 30, second: 0, millisecond: 0};
+		const values = { year: 2023, month: 9, day: 10, hour: 12, minute: 30, second: 0, millisecond: 0 };
 		const date = adapter.create(values);
 		expect(date).toEqual(new Date(2023, 9, 10, 12, 30));
 	});

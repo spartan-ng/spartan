@@ -1,5 +1,5 @@
-import {BrnLuxonDateAdapter} from './date-adapter';
-import {DateTime} from 'luxon';
+import { DateTime } from 'luxon';
+import { BrnLuxonDateAdapter } from './date-adapter';
 
 describe('BrnLuxonDateAdapter', () => {
 	const adapter = new BrnLuxonDateAdapter();
@@ -12,20 +12,20 @@ describe('BrnLuxonDateAdapter', () => {
 
 	test('set() should update specified date properties', () => {
 		const date = DateTime.utc(2023, 10, 10, 10, 0, 0);
-		const result = adapter.set(date, {hour: 15, minute: 45});
+		const result = adapter.set(date, { hour: 15, minute: 45 });
 		expect(result.hour).toBe(15);
 		expect(result.minute).toBe(45);
 	});
 
 	test('add() should add duration to a date', () => {
 		const date = DateTime.utc(2023, 10, 10);
-		const result = adapter.add(date, {days: 2, hours: 5});
+		const result = adapter.add(date, { days: 2, hours: 5 });
 		expect(result.toISO()).toBe(DateTime.utc(2023, 10, 12, 5).toISO());
 	});
 
 	test('subtract() should subtract duration from a date', () => {
 		const date = DateTime.utc(2023, 10, 10);
-		const result = adapter.subtract(date, {days: 1, hours: 2});
+		const result = adapter.subtract(date, { days: 1, hours: 2 });
 		expect(result.toISO()).toBe(DateTime.utc(2023, 10, 8, 22).toISO());
 	});
 
@@ -101,38 +101,38 @@ describe('BrnLuxonDateAdapter', () => {
 	describe('getDay() should return the day of the week (0-based, Sunday as 0)', () => {
 		test('should return 0 for Sunday', () => {
 			const date = DateTime.fromObject({
-				weekday: 7
+				weekday: 7,
 			}); // Sunday
 			expect(adapter.getDay(date)).toBe(0);
 		});
 
 		test('should return 1 for Monday', () => {
-			const date = DateTime.fromObject({weekday: 1}); // Monday
+			const date = DateTime.fromObject({ weekday: 1 }); // Monday
 			expect(adapter.getDay(date)).toBe(1);
 		});
 
 		test('should return 2 for Tuesday', () => {
-			const date = DateTime.fromObject({weekday: 2}) // Tuesday
+			const date = DateTime.fromObject({ weekday: 2 }); // Tuesday
 			expect(adapter.getDay(date)).toBe(2);
 		});
 
 		test('should return 3 for Wednesday', () => {
-			const date = DateTime.fromObject({weekday: 3}) // Wednesday
+			const date = DateTime.fromObject({ weekday: 3 }); // Wednesday
 			expect(adapter.getDay(date)).toBe(3);
 		});
 
 		test('should return 4 for Thursday', () => {
-			const date = DateTime.fromObject({weekday: 4}) // Thursday
+			const date = DateTime.fromObject({ weekday: 4 }); // Thursday
 			expect(adapter.getDay(date)).toBe(4);
 		});
 
 		test('should return 5 for Friday', () => {
-			const date = DateTime.fromObject({weekday: 5}); // Friday
+			const date = DateTime.fromObject({ weekday: 5 }); // Friday
 			expect(adapter.getDay(date)).toBe(5);
 		});
 
 		test('should return 6 for Saturday', () => {
-			const date = DateTime.fromObject({weekday: 6}) // Saturday
+			const date = DateTime.fromObject({ weekday: 6 }); // Saturday
 			expect(adapter.getDay(date)).toBe(6);
 		});
 	});
@@ -190,7 +190,7 @@ describe('BrnLuxonDateAdapter', () => {
 			hour: 12,
 			minute: 30,
 			second: 0,
-			millisecond: 0
+			millisecond: 0,
 		};
 		const date = adapter.create(values);
 		expect(date).toEqual(DateTime.fromObject(values));

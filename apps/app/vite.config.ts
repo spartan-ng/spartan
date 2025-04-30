@@ -13,7 +13,26 @@ export default defineConfig(({ mode }) => {
 		root: __dirname,
 		publicDir: 'src/public',
 		optimizeDeps: {
-			include: ['@spartan-ng/trpc', '@angular/common', '@angular/forms', 'isomorphic-fetch'],
+			include: [
+				'@angular/common',
+				'@angular/forms',
+				'isomorphic-fetch',
+				'@trpc/client',
+				'@trpc/server',
+				'@trpc/server/http',
+				'h3',
+				'ufo',
+				'@trpc/server/observable',
+				'@trpc/server/shared',
+				'marked',
+				'marked-gfm-heading-id',
+				'marked-highlight',
+				'@angular/cdk/clipboard',
+				'prismjs/**/*',
+				'@angular/cdk/a11y',
+				'@angular/cdk/bidi',
+				'@angular/cdk/keycodes',
+			],
 		},
 		ssr: {
 			noExternal: [

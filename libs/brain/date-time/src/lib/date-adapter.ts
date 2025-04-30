@@ -82,7 +82,9 @@ export interface BrnDateAdapter<T> {
 	getDate(date: T): number;
 
 	/**
-	 * Get the day.
+	 * Get the day of the week.
+	 *
+	 * Returns a value between 0 and 6 where 0 is Sunday
 	 */
 	getDay(date: T): number;
 

@@ -18,7 +18,7 @@ import { ContextMenuPreviewWithStateComponent, defaultCodeWithState } from './co
 import { ContextMenuPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './context-menu.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'Context Menu', api: 'context-menu' },
+	data: { breadcrumb: 'Context Menu', api: 'menu' },
 	meta: metaWith(
 		'spartan/ui - Context Menu',
 		'Displays a menu to the user — such as a set of actions or functions — triggered by a right-click.',
@@ -69,6 +69,12 @@ export const routeMeta: RouteMeta = {
 				<spartan-code [code]="defaultImports" />
 				<spartan-code [code]="defaultSkeleton" />
 			</div>
+
+			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="brain" />
+
+			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="ui" />
 
 			<h3 id="examples__stateful" class="${hlmH4} mb-2 mt-6">Stateful</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">

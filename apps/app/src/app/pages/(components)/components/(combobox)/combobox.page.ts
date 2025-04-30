@@ -12,12 +12,11 @@ import { SectionIntroComponent } from '../../../../shared/layout/section-intro.c
 import { SectionSubHeadingComponent } from '../../../../shared/layout/section-sub-heading.component';
 
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
-import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { ComboboxPreviewComponent, defaultCode } from './combobox.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'Combobox', api: 'combobox' },
+	data: { breadcrumb: 'Combobox' },
 	meta: metaWith('spartan/ui - Combobox', 'Autocomplete input and command palette with a list of suggestions.'),
 	title: 'spartan/ui - Combobox',
 };
@@ -25,7 +24,6 @@ export const routeMeta: RouteMeta = {
 @Component({
 	selector: 'spartan-combobox',
 	imports: [
-		UIApiDocsComponent,
 		MainSectionDirective,
 		CodeComponent,
 		SectionIntroComponent,

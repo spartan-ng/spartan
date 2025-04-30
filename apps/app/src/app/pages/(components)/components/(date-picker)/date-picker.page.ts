@@ -82,9 +82,6 @@ const link = 'h-6 underline text-base px-0.5';
 				<spartan-code [code]="codeSkeleton" />
 			</div>
 
-			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
-			<spartan-ui-api-docs docType="brain" />
-
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="ui" />
 

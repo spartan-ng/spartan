@@ -50,7 +50,7 @@ import { HlmMenuComponent, HlmMenuItemDirective } from '@spartan-ng/ui-menu-helm
 				</li>
 				<li hlmBreadcrumbSeparator></li>
 				<li hlmBreadcrumbItem>
-					<a hlmBreadcrumbLink hlmL link="/components">Components</a>
+					<a hlmBreadcrumbLink link="/components">Components</a>
 				</li>
 
 				<li hlmBreadcrumbSeparator></li>
@@ -119,7 +119,7 @@ import { HlmMenuComponent, HlmMenuItemDirective } from '@spartan-ng/ui-menu-helm
 				</li>
 				<li hlmBreadcrumbSeparator></li>
 				<li hlmBreadcrumbItem>
-					<a hlmBreadcrumbLink hlmL link="/components">Components</a>
+					<a hlmBreadcrumbLink link="/components">Components</a>
 				</li>
 				<li hlmBreadcrumbSeparator></li>
 				<li hlmBreadcrumbItem>
@@ -156,7 +156,7 @@ export const defaultSkeleton = `
 		</li>
 		<li hlmBreadcrumbSeparator></li>
 		<li hlmBreadcrumbItem>
-			<a hlmBreadcrumbLink hlmL link="/components">Components</a>
+			<a hlmBreadcrumbLink link="/components">Components</a>
 		</li>
 		<li hlmBreadcrumbSeparator></li>
 		<li hlmBreadcrumbItem>

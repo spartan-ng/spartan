@@ -57,7 +57,7 @@ import { ApiDocsService } from '../../../core/services/api-docs.service';
 						<hlm-trow>
 							<hlm-th class="flex-1">Prop</hlm-th>
 							<hlm-th class="flex-1">Type</hlm-th>
-							<hlm-th class="flex-1 whitespace-nowrap">Default</hlm-th>
+							<hlm-th class="flex-1 whitespace-nowrap">Description</hlm-th>
 						</hlm-trow>
 
 						@for (output of componentItems()[entry].outputs; track output.name + $index) {

@@ -1,13 +1,13 @@
 import '@angular/platform-server/init';
 import 'zone.js/node';
 
+import { provideServerContext } from '@analogjs/router/server';
+import { ServerContext } from '@analogjs/router/tokens';
 import { enableProdMode } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { renderApplication } from '@angular/platform-server';
 import { config } from './app.config.server';
 import { AppComponent } from './app/app.component';
-import { provideServerContext } from '@analogjs/router/server';
-import { ServerContext } from '@analogjs/router/tokens';
 
 if (import.meta.env.PROD) {
 	enableProdMode();

@@ -192,9 +192,11 @@ The following is the list of supported scopes:
 - **hover-card**
 - **icon**
 - **input**
+- **input-otp**
 - **label**
 - **menubar**
 - **navigation-menu**
+- **pagination**
 - **popover**
 - **progress**
 - **radio-group**
@@ -204,6 +206,8 @@ The following is the list of supported scopes:
 - **sheet**
 - **skeleton**
 - **slider**
+- **sonner**
+- **spinner**
 - **switch**
 - **table**
 - **tabs**
@@ -212,6 +216,7 @@ The following is the list of supported scopes:
 - **toggle**
 - **toggle-group**
 - **tooltip**
+- **typography**
 
 ### Subject
 

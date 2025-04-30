@@ -67,7 +67,9 @@ export class BrnLuxonDateAdapter implements BrnDateAdapter<DateTime> {
 	}
 
 	getDay(date: DateTime): number {
-		return date.weekday;
+		// Adjust the range, Luxon calculates week days starting with Monday 1 to Sunday 7
+		// , and we should return Sunday 0 to Saturday 6
+		return date.weekday % 7
 	}
 
 	getHours(date: DateTime): number {

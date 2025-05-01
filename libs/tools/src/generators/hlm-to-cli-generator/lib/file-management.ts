@@ -2,6 +2,20 @@ import { type Tree, generateFiles } from '@nx/devkit';
 import * as path from 'node:path';
 import type { HlmToCliGeneratorGeneratorSchema } from '../schema';
 
+function deleteSpecFiles(tree: Tree, dir: string) {
+	for (const entry of tree.children(dir)) {
+		const fullPath = path.join(dir, entry);
+
+		if (tree.isFile(fullPath)) {
+			if (fullPath.endsWith('.spec.ts')) {
+				tree.delete(fullPath);
+			}
+		} else {
+			deleteSpecFiles(tree, fullPath);
+		}
+	}
+}
+
 export const copyFilesFromHlmLibToGenerator = (
 	tree: Tree,
 	srcPath: string,
@@ -10,6 +24,7 @@ export const copyFilesFromHlmLibToGenerator = (
 ) => {
 	generateFiles(tree, srcPath, filesPath, options);
 	tree.delete(path.join(filesPath, 'test-setup.ts'));
+	deleteSpecFiles(tree, filesPath);
 	recursivelyRenameToTemplate(tree, filesPath);
 };
 

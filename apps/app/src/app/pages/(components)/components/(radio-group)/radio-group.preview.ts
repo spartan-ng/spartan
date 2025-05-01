@@ -1,30 +1,46 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
 import { HlmRadioComponent, HlmRadioGroupComponent, HlmRadioIndicatorComponent } from '@spartan-ng/ui-radiogroup-helm';
 import { HlmSmallDirective } from '@spartan-ng/ui-typography-helm';
 
 @Component({
 	selector: 'spartan-radio-group-preview',
-	imports: [FormsModule, HlmRadioComponent, HlmRadioIndicatorComponent, HlmRadioGroupComponent, HlmSmallDirective],
+	imports: [
+		FormsModule,
+		HlmRadioComponent,
+		HlmRadioIndicatorComponent,
+		HlmRadioGroupComponent,
+		HlmSmallDirective,
+		HlmLabelDirective,
+	],
 	template: `
 		<small hlmSmall class="font-semibold">Choose a version</small>
 		<hlm-radio-group class="font-mono text-sm font-medium" [(ngModel)]="version">
-			<hlm-radio value="16.1.4">
-				<hlm-radio-indicator indicator />
+			<label class="flex items-center" hlmLabel>
+				<hlm-radio value="16.1.4">
+					<hlm-radio-indicator indicator />
+				</hlm-radio>
 				v16.1.4
-			</hlm-radio>
-			<hlm-radio value="16.0.0">
-				<hlm-radio-indicator indicator />
+			</label>
+			<label class="flex items-center" hlmLabel>
+				<hlm-radio value="16.0.0">
+					<hlm-radio-indicator indicator />
+				</hlm-radio>
 				v16.0.0
-			</hlm-radio>
-			<hlm-radio value="15.8.0">
-				<hlm-radio-indicator indicator />
+			</label>
+			<label class="flex items-center" hlmLabel>
+				<hlm-radio value="15.8.0">
+					<hlm-radio-indicator indicator />
+				</hlm-radio>
 				v15.8.0
-			</hlm-radio>
-			<hlm-radio disabled value="15.2.0">
-				<hlm-radio-indicator indicator />
+			</label>
+			<label class="flex items-center" hlmLabel>
+				<hlm-radio disabled value="15.2.0">
+					<hlm-radio-indicator indicator />
+				</hlm-radio>
 				v15.2.0
-			</hlm-radio>
+			</label>
 		</hlm-radio-group>
 	`,
 })
@@ -45,22 +61,30 @@ import { HlmSmallDirective } from '@spartan-ng/ui-typography-helm';
   template: \`
     	<small hlmSmall class="font-semibold">Choose a version</small>
 		<hlm-radio-group class="font-mono text-sm font-medium" [(ngModel)]="version">
-			<hlm-radio value="16.1.4">
-				<hlm-radio-indicator indicator />
+			<label class="flex items-center" hlmLabel>
+				<hlm-radio value="16.1.4">
+					<hlm-radio-indicator indicator />
+				</hlm-radio>
 				v16.1.4
-			</hlm-radio>
-			<hlm-radio value="16.0.0">
-				<hlm-radio-indicator indicator />
+			</label>
+			<label class="flex items-center" hlmLabel>
+				<hlm-radio value="16.0.0">
+					<hlm-radio-indicator indicator />
+				</hlm-radio>
 				v16.0.0
-			</hlm-radio>
-			<hlm-radio value="15.8.0">
-				<hlm-radio-indicator indicator />
+			</label>
+			<label class="flex items-center" hlmLabel>
+				<hlm-radio value="15.8.0">
+					<hlm-radio-indicator indicator />
+				</hlm-radio>
 				v15.8.0
-			</hlm-radio>
-			<hlm-radio disabled value="15.2.0">
-				<hlm-radio-indicator indicator />
+			</label>
+			<label class="flex items-center" hlmLabel>
+				<hlm-radio disabled value="15.2.0">
+					<hlm-radio-indicator indicator />
+				</hlm-radio>
 				v15.2.0
-			</hlm-radio>
+			</label>
 		</hlm-radio-group>
   \`,
 })
@@ -78,9 +102,11 @@ import {
 `;
 export const defaultSkeleton = `
 <hlm-radio-group>
-  <hlm-radio value="16.1.4">
-    <hlm-radio-indicator indicator />
-    v16.1.4
-  </hlm-radio>
+  <label class="flex items-center" hlmLabel>
+		<hlm-radio value="16.1.4">
+			<hlm-radio-indicator indicator />
+		</hlm-radio>
+		v16.1.4
+	</label>
 </hlm-radio-group>
 `;

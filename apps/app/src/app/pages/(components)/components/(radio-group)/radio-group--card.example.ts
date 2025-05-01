@@ -13,18 +13,24 @@ import { HlmRadioComponent, HlmRadioGroupComponent } from '@spartan-ng/ui-radiog
 	imports: [FormsModule, HlmRadioComponent, HlmRadioGroupComponent, NgIcon, HlmIconDirective],
 	template: `
 		<hlm-radio-group class="grid grid-cols-3 gap-4" [(ngModel)]="payment">
-			<hlm-radio value="card" [class]="cardClass">
-				<ng-icon hlm name="lucideCreditCard" class="mb-3" />
+			<label class="flex items-center" hlmLabel [class]="cardClass">
+				<hlm-radio value="card">
+					<ng-icon hlm name="lucideCreditCard" class="mb-3" />
+				</hlm-radio>
 				Card
-			</hlm-radio>
-			<hlm-radio value="paypal" [class]="cardClass">
-				<ng-icon hlm name="remixPaypalFill" class="mb-3" />
+			</label>
+			<label class="flex items-center" hlmLabel [class]="cardClass">
+				<hlm-radio value="paypal">
+					<ng-icon hlm name="remixPaypalFill" class="mb-3" />
+				</hlm-radio>
 				PayPal
-			</hlm-radio>
-			<hlm-radio value="apple" [class]="cardClass">
-				<ng-icon hlm name="remixAppleFill" class="mb-3" />
+			</label>
+			<label class="flex items-center" hlmLabel [class]="cardClass">
+				<hlm-radio value="apple">
+					<ng-icon hlm name="remixAppleFill" class="mb-3" />
+				</hlm-radio>
 				Apple
-			</hlm-radio>
+			</label>
 		</hlm-radio-group>
 	`,
 })
@@ -32,13 +38,15 @@ export class RadioGroupCardComponent {
 	public payment = 'card';
 
 	public readonly cardClass = hlm(
-		'block space-x-0',
-		// base card styles for the label
-		'[&>[data-slot=label]]:flex [&>[data-slot=label]]:flex-col [&>[data-slot=label]]:items-center [&>[data-slot=label]]:justify-between [&>[data-slot=label]]:bg-popover [&>[data-slot=label]]:rounded-md [&>[data-slot=label]]:border-2 [&>[data-slot=label]]:border-muted [&>[data-slot=label]]:p-4',
-		// hover styles
-		'[&>[data-slot=label]]:hover:bg-accent [&>[data-slot=label]]:hover:text-accent-foreground',
-		// highlight checked radio
-		'[&>[data-slot=label]]:data-[checked=true]:border-primary',
+		'block space-x-0 relative',
+		// base card styles
+		'flex flex-col items-center justify-center py-8 px-4 rounded-lg border-2 border-border',
+		// hover and background styles
+		'bg-background hover:bg-accent/10 cursor-pointer transition-colors',
+		// spacing for the icon and text
+		'[&>span]:mt-4',
+		// target the checked state properly
+		'[&:has([data-checked=true])]:border-2 [&:has([data-checked=true])]:border-primary',
 	);
 }
 
@@ -58,33 +66,41 @@ import { HlmRadioComponent, HlmRadioGroupComponent } from '@spartan-ng/ui-radiog
 	providers: [provideIcons({ lucideCreditCard, remixPaypalFill, remixAppleFill })],
 	imports: [FormsModule, HlmRadioComponent, HlmRadioGroupComponent, NgIcon, HlmIconDirective],
 	template: \`
-		<hlm-radio-group class="grid grid-cols-3 gap-4" [(ngModel)]="payment">
-			<hlm-radio value="card" [class]="cardClass">
+	<hlm-radio-group class="grid grid-cols-3 gap-4" [(ngModel)]="payment">
+		<label class="flex items-center" hlmLabel [class]="cardClass">
+			<hlm-radio value="card">
 				<ng-icon hlm name="lucideCreditCard" class="mb-3" />
-				Card
 			</hlm-radio>
-			<hlm-radio value="paypal" [class]="cardClass">
+			Card
+		</label>
+		<label class="flex items-center" hlmLabel [class]="cardClass">
+			<hlm-radio value="paypal">
 				<ng-icon hlm name="remixPaypalFill" class="mb-3" />
-				PayPal
 			</hlm-radio>
-			<hlm-radio value="apple" [class]="cardClass">
+			PayPal
+		</label>
+		<label class="flex items-center" hlmLabel [class]="cardClass">
+			<hlm-radio value="apple">
 				<ng-icon hlm name="remixAppleFill" class="mb-3" />
-				Apple
 			</hlm-radio>
-		</hlm-radio-group>
+			Apple
+		</label>
+	</hlm-radio-group>
 	\`,
 })
 export class RadioGroupCardComponent {
 	public payment = 'card';
 
 	public readonly cardClass = hlm(
-		'block space-x-0',
-		// base card styles for the label
-		'[&>[data-slot=label]]:flex [&>[data-slot=label]]:flex-col [&>[data-slot=label]]:items-center [&>[data-slot=label]]:justify-between [&>[data-slot=label]]:bg-popover [&>[data-slot=label]]:rounded-md [&>[data-slot=label]]:border-2 [&>[data-slot=label]]:border-muted [&>[data-slot=label]]:p-4',
-		// hover styles
-		'[&>[data-slot=label]]:hover:bg-accent [&>[data-slot=label]]:hover:text-accent-foreground',
-		// highlight checked radio
-		'[&>[data-slot=label]]:data-[checked=true]:border-primary',
+		'block space-x-0 relative',
+		// base card styles
+		'flex flex-col items-center justify-center py-8 px-4 rounded-lg border-2 border-border',
+		// hover and background styles
+		'bg-background hover:bg-accent/10 cursor-pointer transition-colors',
+		// spacing for the icon and text
+		'[&>span]:mt-4',
+		// target the checked state properly
+		'[&:has([data-checked=true])]:border-2 [&:has([data-checked=true])]:border-primary'
 	);
 }
 `;

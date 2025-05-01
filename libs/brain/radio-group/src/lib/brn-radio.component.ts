@@ -58,22 +58,22 @@ export class BrnRadioChange<T> {
 			#input
 			style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0;"
 			type="radio"
-			[id]="inputId()"
+			[id]="id()"
 			[checked]="checked()"
 			[disabled]="disabledState()"
 			[tabIndex]="tabIndex()"
 			[attr.name]="radioGroup.name()"
 			[attr.value]="value()"
 			[required]="required()"
+			[attr.aria-checked]="checked()"
 			[attr.aria-label]="ariaLabel()"
 			[attr.aria-labelledby]="ariaLabelledby()"
 			[attr.aria-describedby]="ariaDescribedby()"
+			[attr.aria-disabled]="disabledState()"
 			(change)="onInputInteraction($event)"
 			(click)="onInputClick($event)"
 		/>
-		<label [for]="inputId()" data-slot="label">
-			<ng-content />
-		</label>
+		<ng-content />
 	`,
 })
 export class BrnRadioComponent<T = unknown> implements OnDestroy {
@@ -140,8 +140,6 @@ export class BrnRadioComponent<T = unknown> implements OnDestroy {
 	protected readonly hostId = computed(() =>
 		this.id() ? this.id() : `brn-radio-${++BrnRadioComponent._nextUniqueId}`,
 	);
-
-	protected readonly inputId = computed(() => `${this.hostId()}-input`);
 
 	protected readonly inputElement = viewChild.required<ElementRef<HTMLInputElement>>('input');
 

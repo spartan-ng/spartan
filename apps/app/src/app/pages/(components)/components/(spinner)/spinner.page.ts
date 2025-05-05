@@ -64,7 +64,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code [code]="defaultSkeleton" />
 			</div>
 
-			<spartan-section-sub-heading id="usage">Variants</spartan-section-sub-heading>
+			<spartan-section-sub-heading id="variants">Variants</spartan-section-sub-heading>
 			The spinner component has the following variants:
 
 			<h3 id="variants__size" class="${hlmH4} mb-2 mt-6">size</h3>

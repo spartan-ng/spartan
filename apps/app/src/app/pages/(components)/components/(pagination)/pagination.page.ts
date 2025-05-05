@@ -66,7 +66,7 @@ export const routeMeta: RouteMeta = {
 			</div>
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__default" class="${hlmH4} mb-2 mt-6">Query Params</h3>
+			<h3 id="examples__query_params" class="${hlmH4} mb-2 mt-6">Query Params</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-pagination-query-params />
@@ -80,7 +80,7 @@ export const routeMeta: RouteMeta = {
 				</div>
 				<spartan-code secondTab [code]="iconOnlyCode" />
 			</spartan-tabs>
-			<h3 id="examples__default" class="${hlmH4} mb-2 mt-6">Advanced Pagination</h3>
+			<h3 id="examples__advanced" class="${hlmH4} mb-2 mt-6">Advanced Pagination</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-pagination-advanced />

@@ -55,7 +55,7 @@ export const routeMeta: RouteMeta = {
 				command.
 			</p>
 
-			<spartan-section-sub-heading id="generation">Configuration</spartan-section-sub-heading>
+			<spartan-section-sub-heading id="configuration">Configuration</spartan-section-sub-heading>
 
 			<h3 id="componentsPath" class="${hlmH4} mt-12">componentsPath</h3>
 

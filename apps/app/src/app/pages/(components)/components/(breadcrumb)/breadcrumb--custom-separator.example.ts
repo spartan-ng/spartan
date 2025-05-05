@@ -34,7 +34,7 @@ import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 					<ng-icon hlm size="sm" name="lucideSlash" />
 				</li>
 				<li hlmBreadcrumbItem>
-					<a hlmBreadcrumbLink hlmL link="/components">Components</a>
+					<a hlmBreadcrumbLink link="/components">Components</a>
 				</li>
 				<li hlmBreadcrumbSeparator>
 					<ng-icon hlm size="sm" name="lucideSlash" />
@@ -85,7 +85,7 @@ import { HlmIconDirective, provideIcons } from '@spartan-ng/ui-icon-helm';
 					<ng-icon hlm size="sm" name="lucideSlash" />
 				</li>
 				<li hlmBreadcrumbItem>
-					<a hlmBreadcrumbLink hlmL link="/components">Components</a>
+					<a hlmBreadcrumbLink link="/components">Components</a>
 				</li>
 				<li hlmBreadcrumbSeparator>
 						<ng-icon hlm size="sm" name="lucideSlash" />
@@ -115,7 +115,7 @@ import { HlmIconDirective, provideIcons } from '@spartan-ng/ui-icon-helm';
 			<ng-icon hlm size="sm" name="lucideSlash" />
 		</li>
 		<li hlmBreadcrumbItem>
-			<a hlmBreadcrumbLink hlmL link="/components">Components</a>
+			<a hlmBreadcrumbLink link="/components">Components</a>
 		</li>
 		<li hlmBreadcrumbSeparator>
 				<ng-icon hlm size="sm" name="lucideSlash" />

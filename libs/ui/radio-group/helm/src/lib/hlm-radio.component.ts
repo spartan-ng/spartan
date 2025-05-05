@@ -1,4 +1,17 @@
-import { booleanAttribute, Component, computed, input, output } from '@angular/core';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import {
+	booleanAttribute,
+	Component,
+	computed,
+	effect,
+	ElementRef,
+	inject,
+	input,
+	output,
+	PLATFORM_ID,
+	Renderer2,
+	signal,
+} from '@angular/core';
 import { hlm } from '@spartan-ng/brain/core';
 import { BrnRadioChange, BrnRadioComponent } from '@spartan-ng/brain/radio-group';
 import { ClassValue } from 'clsx';
@@ -24,6 +37,11 @@ import { ClassValue } from 'clsx';
 	`,
 })
 export class HlmRadioComponent<T = unknown> {
+	private readonly _document = inject(DOCUMENT);
+	private readonly _renderer = inject(Renderer2);
+	private readonly _elementRef = inject(ElementRef);
+	private readonly _isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
+
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected _computedClass = computed(() =>
 		hlm(
@@ -55,8 +73,30 @@ export class HlmRadioComponent<T = unknown> {
 	/** Whether the checkbox is disabled. */
 	public readonly disabled = input(false, { transform: booleanAttribute });
 
+	protected readonly state = computed(() => {
+		const id = this.id();
+		return {
+			disabled: signal(this.disabled()),
+			id: id ? id : null,
+		};
+	});
 	/**
 	 * Event emitted when the checked state of this radio button changes.
 	 */
 	public readonly change = output<BrnRadioChange<T>>();
+
+	constructor() {
+		effect(() => {
+			const state = this.state();
+			const isDisabled = state.disabled();
+
+			if (!this._elementRef.nativeElement || !this._isBrowser) return;
+
+			const labelElement =
+				this._elementRef.nativeElement.closest('label') ?? this._document.querySelector(`label[for="${state.id}"]`);
+
+			if (!labelElement) return;
+			this._renderer.setAttribute(labelElement, 'data-disabled', isDisabled ? 'true' : 'false');
+		});
+	}
 }

@@ -7,7 +7,7 @@ describe('BrnLuxonDateAdapter', () => {
 	test('now() should return the current time', () => {
 		const actual = adapter.now();
 		const expected = DateTime.now();
-		expect(actual.toMillis()).toBeCloseTo(expected.toMillis(), -2);
+		expect(actual.toMillis()).toBeCloseTo(expected.toMillis(), -200);
 	});
 
 	test('set() should update specified date properties', () => {

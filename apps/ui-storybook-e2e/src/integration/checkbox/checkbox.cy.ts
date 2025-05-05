@@ -6,17 +6,15 @@ describe('checkbox', () => {
 				'landmark-one-main': { enabled: false },
 			},
 		});
-		cy.findByRole('checkbox').should('exist');
-		cy.findByRole('checkbox').should('have.attr', 'type', 'checkbox');
-		cy.findByRole('checkbox').should('have.id', id);
+		cy.findByRole('checkbox').should('exist').should('have.attr', 'type', 'button').should('have.id', id);
 	};
 	const verifyCheckboxOff = () => {
-		cy.findByLabelText(/test checkbox/i).should('have.attr', 'value', 'off');
+		cy.findByLabelText(/test checkbox/i).should('have.attr', 'aria-checked', 'false');
 		cy.get('brn-checkbox').should('have.attr', 'data-state', 'unchecked');
 		cy.findByRole('checkbox').should('have.attr', 'aria-checked', 'false');
 	};
 	const verifyCheckboxOn = () => {
-		cy.findByLabelText(/test checkbox/i).should('have.attr', 'value', 'on');
+		cy.findByLabelText(/test checkbox/i).should('have.attr', 'aria-checked', 'true');
 		cy.get('brn-checkbox').should('have.attr', 'data-state', 'checked');
 		cy.findByRole('checkbox').should('have.attr', 'aria-checked', 'true');
 	};
@@ -69,10 +67,10 @@ describe('checkbox', () => {
 			verifyCheckboxSetup('testCheckbox');
 			verifyCheckboxOff();
 
-			cy.get('#checkbox-label').click();
+			cy.findByLabelText(/test checkbox/i).click();
 			verifyCheckboxOn();
 
-			cy.get('brn-checkbox').click();
+			cy.get('brn-checkbox').find('button').click();
 			verifyCheckboxOff();
 		});
 

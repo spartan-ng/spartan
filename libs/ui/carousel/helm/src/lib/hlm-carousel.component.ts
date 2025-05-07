@@ -4,11 +4,11 @@ import {
 	HostListener,
 	type InputSignal,
 	type Signal,
-	ViewChild,
 	ViewEncapsulation,
 	computed,
 	input,
 	signal,
+	viewChild,
 } from '@angular/core';
 import { hlm } from '@spartan-ng/brain/core';
 import type { ClassValue } from 'clsx';
@@ -44,14 +44,14 @@ import {
 	`,
 })
 export class HlmCarouselComponent {
-	@ViewChild(EmblaCarouselDirective) protected emblaCarousel?: EmblaCarouselDirective;
+	protected emblaCarousel = viewChild.required(EmblaCarouselDirective);
 
-	public _userClass = input<ClassValue>('', { alias: 'class' });
-	protected _computedClass = computed(() => hlm('relative', this._userClass()));
+	public readonly userClass = input<ClassValue>('', { alias: 'class' });
+	protected readonly _computedClass = computed(() => hlm('relative', this.userClass()));
 
-	public orientation = input<'horizontal' | 'vertical'>('horizontal');
-	public options: InputSignal<Omit<EmblaOptionsType, 'axis'> | undefined> = input();
-	public plugins: InputSignal<EmblaPluginType[]> = input([] as EmblaPluginType[]);
+	public readonly orientation = input<'horizontal' | 'vertical'>('horizontal');
+	public readonly options: InputSignal<Omit<EmblaOptionsType, 'axis'> | undefined> = input();
+	public readonly plugins: InputSignal<EmblaPluginType[]> = input([] as EmblaPluginType[]);
 
 	protected emblaOptions: Signal<EmblaOptionsType> = computed(() => ({
 		...this.options(),
@@ -59,12 +59,17 @@ export class HlmCarouselComponent {
 	}));
 
 	private readonly _canScrollPrev = signal(false);
-	public canScrollPrev = this._canScrollPrev.asReadonly();
+	public readonly canScrollPrev = this._canScrollPrev.asReadonly();
 	private readonly _canScrollNext = signal(false);
-	public canScrollNext = this._canScrollNext.asReadonly();
+	public readonly canScrollNext = this._canScrollNext.asReadonly();
+
+	private readonly _currentSlide = signal(0);
+	public readonly currentSlide = this._currentSlide.asReadonly();
+	private readonly _slideCount = signal(0);
+	public readonly slideCount = this._slideCount.asReadonly();
 
 	protected onEmblaEvent(event: EmblaEventType) {
-		const emblaApi = this.emblaCarousel?.emblaApi;
+		const emblaApi = this.emblaCarousel().emblaApi;
 
 		if (!emblaApi) {
 			return;
@@ -73,6 +78,9 @@ export class HlmCarouselComponent {
 		if (event === 'select' || event === 'init' || event === 'reInit') {
 			this._canScrollPrev.set(emblaApi.canScrollPrev());
 			this._canScrollNext.set(emblaApi.canScrollNext());
+
+			this._currentSlide.set(emblaApi.selectedScrollSnap());
+			this._slideCount.set(emblaApi.scrollSnapList().length);
 		}
 	}
 
@@ -80,18 +88,18 @@ export class HlmCarouselComponent {
 	protected onKeydown(event: KeyboardEvent) {
 		if (event.key === 'ArrowLeft') {
 			event.preventDefault();
-			this.emblaCarousel?.scrollPrev();
+			this.emblaCarousel().scrollPrev();
 		} else if (event.key === 'ArrowRight') {
 			event.preventDefault();
-			this.emblaCarousel?.scrollNext();
+			this.emblaCarousel().scrollNext();
 		}
 	}
 
 	scrollPrev() {
-		this.emblaCarousel?.scrollPrev();
+		this.emblaCarousel().scrollPrev();
 	}
 
 	scrollNext() {
-		this.emblaCarousel?.scrollNext();
+		this.emblaCarousel().scrollNext();
 	}
 }

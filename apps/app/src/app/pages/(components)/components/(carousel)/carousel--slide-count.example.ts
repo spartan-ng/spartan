@@ -6,11 +6,11 @@ import {
 	HlmCarouselItemComponent,
 	HlmCarouselNextComponent,
 	HlmCarouselPreviousComponent,
+	HlmCarouselSlideDisplayComponent,
 } from '@spartan-ng/ui-carousel-helm';
-import Autoplay from 'embla-carousel-autoplay';
 
 @Component({
-	selector: 'spartan-carousel-plugins',
+	selector: 'spartan-carousel-slide-count',
 	imports: [
 		HlmCarouselComponent,
 		HlmCarouselContentComponent,
@@ -19,10 +19,11 @@ import Autoplay from 'embla-carousel-autoplay';
 		HlmCarouselPreviousComponent,
 		HlmCardDirective,
 		HlmCardContentDirective,
+		HlmCarouselSlideDisplayComponent,
 	],
 	template: `
 		<div class="flex w-full items-center justify-center p-4">
-			<hlm-carousel class="w-full max-w-xs" [plugins]="plugins">
+			<hlm-carousel class="w-full max-w-xs">
 				<hlm-carousel-content>
 					@for (item of items; track item) {
 						<hlm-carousel-item>
@@ -38,16 +39,16 @@ import Autoplay from 'embla-carousel-autoplay';
 				</hlm-carousel-content>
 				<button hlm-carousel-previous></button>
 				<button hlm-carousel-next></button>
+				<hlm-carousel-slide-display class="mt-1 flex justify-end" />
 			</hlm-carousel>
 		</div>
 	`,
 })
-export class CarouselPluginsComponent {
+export class CarouselSlideCountComponent {
 	public items = Array.from({ length: 5 }, (_, i) => i + 1);
-	public plugins = [Autoplay({ delay: 3000 })];
 }
 
-export const pluginsCode = `
+export const slideCountCode = `
 import { Component } from '@angular/core';
 import { HlmCardContentDirective, HlmCardDirective } from '@spartan-ng/ui-card-helm';
 import {
@@ -56,11 +57,11 @@ import {
 	HlmCarouselItemComponent,
 	HlmCarouselNextComponent,
 	HlmCarouselPreviousComponent,
+	HlmCarouselSlideDisplayComponent,
 } from '@spartan-ng/ui-carousel-helm';
-import Autoplay from 'embla-carousel-autoplay';
 
 @Component({
-	selector: 'spartan-carousel-plugins',
+	selector: 'spartan-carousel-slide-count',
 	imports: [
 		HlmCarouselComponent,
 		HlmCarouselContentComponent,
@@ -69,10 +70,11 @@ import Autoplay from 'embla-carousel-autoplay';
 		HlmCarouselPreviousComponent,
 		HlmCardDirective,
 		HlmCardContentDirective,
+		HlmCarouselSlideDisplayComponent,
 	],
 	template: \`
 		<div class="flex w-full items-center justify-center p-4">
-			<hlm-carousel class="w-full max-w-xs" [plugins]="plugins">
+			<hlm-carousel class="w-full max-w-xs">
 				<hlm-carousel-content>
 					@for (item of items; track item) {
 						<hlm-carousel-item>
@@ -88,12 +90,12 @@ import Autoplay from 'embla-carousel-autoplay';
 				</hlm-carousel-content>
 				<button hlm-carousel-previous></button>
 				<button hlm-carousel-next></button>
+				<hlm-carousel-slide-display class="mt-1 flex justify-end" />
 			</hlm-carousel>
 		</div>
 	\`,
 })
-export class CarouselPluginsComponent {
+export class CarouselSlideCountComponent {
 	public items = Array.from({ length: 5 }, (_, i) => i + 1);
-	public plugins = [Autoplay({ delay: 3000 })];
 }
 `;

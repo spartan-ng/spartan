@@ -1,4 +1,5 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
+import { BooleanInput } from '@angular/cdk/coercion';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
 	type AfterContentInit,
@@ -10,7 +11,6 @@ import {
 	type OnDestroy,
 	PLATFORM_ID,
 	Renderer2,
-	ViewEncapsulation,
 	booleanAttribute,
 	computed,
 	effect,
@@ -57,7 +57,7 @@ const CONTAINER_POST_FIX = '-checkbox';
 			[attr.data-disabled]="state().disabled()"
 			[disabled]="state().disabled()"
 			[tabIndex]="state().disabled() ? -1 : 0"
-			(click)="$event.preventDefault(); toggle($event)"
+			(click)="$event.preventDefault(); toggle()"
 		>
 			<ng-content />
 		</button>
@@ -76,7 +76,6 @@ const CONTAINER_POST_FIX = '-checkbox';
 	},
 	providers: [BRN_CHECKBOX_VALUE_ACCESSOR],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	encapsulation: ViewEncapsulation.None,
 })
 export class BrnCheckboxComponent implements ControlValueAccessor, AfterContentInit, OnDestroy {
 	private readonly _destroyRef = inject(DestroyRef);
@@ -90,43 +89,90 @@ export class BrnCheckboxComponent implements ControlValueAccessor, AfterContentI
 	protected readonly focusVisible = signal(false);
 	protected readonly focused = signal(false);
 
+	/**
+	 * Current checked state of checkbox.
+	 * Can be boolean (true/false) or 'indeterminate'.
+	 * Can be bound with [(checked)] for two-way binding.
+	 */
 	public readonly checked = model<BrnCheckboxValue>(false);
+
+	/**
+	 * Read-only signal of current checkbox state.
+	 * Use this when you only need to read state without changing it.
+	 */
 	public readonly isChecked = this.checked.asReadonly();
 
+	/**
+	 * Computed data-state attribute value based on checked state.
+	 * Returns 'checked', 'unchecked', or 'indeterminate'.
+	 */
 	protected readonly _dataState = computed(() => {
 		const checked = this.checked();
 		if (checked === 'indeterminate') return 'indeterminate';
 		return checked ? 'checked' : 'unchecked';
 	});
 
+	/**
+	 * Computed aria-checked attribute value for accessibility.
+	 * Returns 'true', 'false', or 'mixed' (for indeterminate).
+	 */
 	protected readonly _ariaChecked = computed(() => {
 		const checked = this.checked();
 		if (checked === 'indeterminate') return 'mixed';
 		return checked ? 'true' : 'false';
 	});
 
-	/** Used to set the id on the underlying button element. */
+	/**
+	 * Unique identifier for checkbox component.
+	 * When provided, inner button gets ID without '-checkbox' suffix.
+	 * Auto-generates ID if not provided.
+	 */
 	public readonly id = input<string | null>(uniqueIdCounter++ + '');
 
-	/** Used to set the name attribute on the underlying button element. */
+	/**
+	 * Form control name for checkbox.
+	 * When provided, inner button gets name without '-checkbox' suffix.
+	 */
 	public readonly name = input<string | null>(null);
 
-	/** Used to set class underlying button element. */
+	/**
+	 * CSS classes applied to inner button element.
+	 */
 	public readonly class = input<string | null>(null);
 
-	/** Used to set the aria-label attribute on the underlying button element. */
+	/**
+	 * Accessibility label for screen readers.
+	 * Use when no visible label exists.
+	 */
 	public readonly ariaLabel = input<string | null>(null, { alias: 'aria-label' });
 
-	/** Used to set the aria-labelledby attribute on the underlying button element. */
+	/**
+	 * ID of element that labels this checkbox for accessibility.
+	 * Auto-set when checkbox is inside label element.
+	 */
 	public readonly ariaLabelledby = input<string | null>(null, { alias: 'aria-labelledby' });
 	public readonly mutableAriaLabelledby = linkedSignal(() => this.ariaLabelledby());
 
+	/**
+	 * ID of element that describes this checkbox for accessibility.
+	 */
 	public readonly ariaDescribedby = input<string | null>(null, { alias: 'aria-describedby' });
 
-	public readonly required = input(false, { transform: booleanAttribute });
+	/**
+	 * Whether checkbox is required in a form.
+	 */
+	public readonly required = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
-	public readonly disabled = input(false, { transform: booleanAttribute });
+	/**
+	 * Whether checkbox is disabled.
+	 * Disabled checkboxes cannot be toggled and indicate disabled state through data-disabled attribute.
+	 */
+	public readonly disabled = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
+	/**
+	 * Computed state for checkbox container and accessibility.
+	 * Manages ID, name, and disabled state.
+	 */
 	protected readonly state = computed(() => {
 		const name = this.name();
 		const id = this.id();
@@ -142,9 +188,22 @@ export class BrnCheckboxComponent implements ControlValueAccessor, AfterContentI
 	// eslint-disable-next-line @typescript-eslint/no-empty-function
 	private _onTouched: TouchFn = () => {};
 
+	/**
+	 * Reference to the checkbox button element in the template.
+	 */
 	public readonly checkbox = viewChild.required<ElementRef<HTMLButtonElement>>('checkBox');
 
+	/**
+	 * Event emitted when checkbox value changes.
+	 * Emits new checked state (true/false/'indeterminate').
+	 */
 	public readonly changed = output<BrnCheckboxValue>();
+
+	/**
+	 * Event emitted when checkbox is blurred (loses focus).
+	 * Used for form validation.
+	 */
+	public readonly touched = output<void>();
 
 	constructor() {
 		effect(() => {
@@ -171,9 +230,16 @@ export class BrnCheckboxComponent implements ControlValueAccessor, AfterContentI
 		});
 	}
 
-	toggle(event: Event) {
+	/**
+	 * Toggles checkbox between checked/unchecked states.
+	 * If checkbox is indeterminate, sets to checked.
+	 * Does nothing if checkbox is disabled.
+	 */
+	toggle() {
 		if (this.state().disabled()) return;
-		event.preventDefault();
+
+		this._onTouched();
+		this.touched.emit();
 
 		const previousChecked = this.checked();
 		this.checked.set(previousChecked === 'indeterminate' ? true : !previousChecked);
@@ -201,6 +267,7 @@ export class BrnCheckboxComponent implements ControlValueAccessor, AfterContentI
 						this.focusVisible.set(false);
 						this.focused.set(false);
 						this._onTouched();
+						this.touched.emit();
 						this._cdr.markForCheck();
 					});
 				}
@@ -211,11 +278,24 @@ export class BrnCheckboxComponent implements ControlValueAccessor, AfterContentI
 		this._focusMonitor.stopMonitoring(this._elementRef);
 	}
 
-	/** We intercept the id passed to the wrapper component and pass it to the underlying button checkbox control **/
+	/**
+	 * Gets proper ID for inner button element.
+	 * Removes '-checkbox' suffix if present in container ID.
+	 *
+	 * @param idPassedToContainer - ID applied to container element
+	 * @returns ID to use for inner button or null
+	 */
 	protected getCheckboxButtonId(idPassedToContainer: string | null | undefined): string | null {
 		return idPassedToContainer ? idPassedToContainer.replace(CONTAINER_POST_FIX, '') : null;
 	}
 
+	/**
+	 * Updates internal state when control value changes from outside.
+	 * Handles boolean and 'indeterminate' values.
+	 * Part of ControlValueAccessor interface.
+	 *
+	 * @param value - New checkbox state (true/false/'indeterminate')
+	 */
 	writeValue(value: BrnCheckboxValue): void {
 		if (value === 'indeterminate') {
 			this.checked.set('indeterminate');
@@ -224,15 +304,32 @@ export class BrnCheckboxComponent implements ControlValueAccessor, AfterContentI
 		}
 	}
 
+	/**
+	 * Registers callback for value changes.
+	 * Part of ControlValueAccessor interface.
+	 *
+	 * @param fn - Function to call when value changes
+	 */
 	registerOnChange(fn: ChangeFn<BrnCheckboxValue>): void {
 		this._onChange = fn;
 	}
 
+	/**
+	 * Registers callback for touched events.
+	 * Part of ControlValueAccessor interface.
+	 *
+	 * @param fn - Function to call when control is touched
+	 */
 	registerOnTouched(fn: TouchFn): void {
 		this._onTouched = fn;
 	}
 
-	/** Implemented as a part of ControlValueAccessor. */
+	/**
+	 * Updates disabled state from form control.
+	 * Part of ControlValueAccessor interface.
+	 *
+	 * @param isDisabled - Whether checkbox should be disabled
+	 */
 	setDisabledState(isDisabled: boolean): void {
 		this.state().disabled.set(isDisabled);
 		this._cdr.markForCheck();

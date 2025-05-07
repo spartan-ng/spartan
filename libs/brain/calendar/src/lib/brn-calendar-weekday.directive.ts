@@ -37,7 +37,7 @@ export class BrnCalendarWeekdayDirective<T> implements OnDestroy {
 	protected readonly weekdays = computed(() => this._calendar.days().slice(0, 7));
 
 	/** Store the view refs */
-	private readonly _viewRefs: EmbeddedViewRef<BrnWeekdayContext>[] = [];
+	private _viewRefs: EmbeddedViewRef<BrnWeekdayContext>[] = [];
 
 	// Make sure the template checker knows the type of the context with which the
 	// template of this directive will be rendered
@@ -48,9 +48,6 @@ export class BrnCalendarWeekdayDirective<T> implements OnDestroy {
 	constructor() {
 		// Create a new view for each day
 		effect(() => {
-			// Clear the view container before creating new views
-			this._viewContainerRef.clear();
-
 			// Get the weekdays to display
 			const weekdays = this.weekdays();
 			// Render the weekdays
@@ -64,7 +61,7 @@ export class BrnCalendarWeekdayDirective<T> implements OnDestroy {
 			viewRef.destroy();
 		}
 
-		this._viewRefs.length = 0;
+		this._viewRefs = [];
 
 		// Create a new view for each day
 		for (const day of weekdays) {

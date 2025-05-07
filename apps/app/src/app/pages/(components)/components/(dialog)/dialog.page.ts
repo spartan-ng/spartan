@@ -89,7 +89,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code [code]="defaultSkeleton" />
 			</div>
 
-			<spartan-section-sub-heading id="dynamic-component">Declarative Usage</spartan-section-sub-heading>
+			<spartan-section-sub-heading id="declarative-usage">Declarative Usage</spartan-section-sub-heading>
 			<p class="${hlmP} mb-6">
 				Spartan's dialog supports declarative usage. Simply set it's state
 				<code class="${hlmCode}">input</code>
@@ -166,7 +166,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="dynamicComponentCode" />
 			</spartan-tabs>
 
-			<spartan-section-sub-heading id="dynamic-component">Close Dialog</spartan-section-sub-heading>
+			<spartan-section-sub-heading id="close-dialog">Close Dialog</spartan-section-sub-heading>
 			<p class="${hlmP} mb-6">
 				You can close the dialog by using a directive, a template reference, or a viewchild/contentchild reference to
 				the dialog.

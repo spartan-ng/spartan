@@ -179,6 +179,7 @@
 		"start-server-and-test": "^2.0.8",
 		"tailwindcss": "^3.4.13",
 		"ts-jest": "^29.2.5",
+		"ts-morph": "^25.0.1",
 		"ts-node": "10.9.2",
 		"types-tsconfig": "^2.1.1",
 		"typescript": "~5.7.0",

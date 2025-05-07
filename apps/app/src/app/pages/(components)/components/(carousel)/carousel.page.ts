@@ -11,6 +11,7 @@ import { SectionIntroComponent } from '../../../../shared/layout/section-intro.c
 import { SectionSubHeadingComponent } from '../../../../shared/layout/section-sub-heading.component';
 import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
+import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { CarouselOrientationComponent, orientationCode } from './carousel--orientation.example';
 import { CarouselPluginsComponent, pluginsCode } from './carousel--plugins.example';
@@ -19,7 +20,7 @@ import { CarouselSpacingComponent, spacingCode } from './carousel--spacing.examp
 import { CarouselPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './carousel.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'Carousel' },
+	data: { breadcrumb: 'Carousel', api: 'carousel' },
 	meta: metaWith('spartan/ui - Carousel', 'A carousel with motion and swipe built using Embla.'),
 	title: 'spartan/ui - Carousel',
 };
@@ -27,6 +28,7 @@ export const routeMeta: RouteMeta = {
 @Component({
 	selector: 'spartan-carousel',
 	imports: [
+		UIApiDocsComponent,
 		MainSectionDirective,
 		CodeComponent,
 		SectionIntroComponent,
@@ -66,6 +68,9 @@ export const routeMeta: RouteMeta = {
 				<spartan-code [code]="defaultImports" />
 				<spartan-code [code]="defaultSkeleton" />
 			</div>
+
+			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="ui" />
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
 			<h3 id="examples__sizes" class="${hlmH4} mb-2 mt-6">Sizes</h3>

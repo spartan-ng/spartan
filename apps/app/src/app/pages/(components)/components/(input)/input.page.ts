@@ -11,6 +11,7 @@ import { SectionIntroComponent } from '../../../../shared/layout/section-intro.c
 import { SectionSubHeadingComponent } from '../../../../shared/layout/section-sub-heading.component';
 import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
+import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { InputButtonPreviewComponent, buttonCode } from './input--button.preview';
 import { InputDisabledPreviewComponent, disabledCode } from './input--disabled.preview';
@@ -19,7 +20,7 @@ import { InputLabelPreviewComponent, labelCode } from './input--label.preview';
 import { InputPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './input.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'Input' },
+	data: { breadcrumb: 'Input', api: 'input' },
 	meta: metaWith(
 		'spartan/ui - Input',
 		'Gives an input field or a component a distinct look that indicates its input capabilities.',
@@ -29,6 +30,7 @@ export const routeMeta: RouteMeta = {
 @Component({
 	selector: 'spartan-input',
 	imports: [
+		UIApiDocsComponent,
 		MainSectionDirective,
 		CodeComponent,
 		SectionIntroComponent,
@@ -71,6 +73,9 @@ export const routeMeta: RouteMeta = {
 				<spartan-code [code]="defaultImports" />
 				<spartan-code [code]="defaultSkeleton" />
 			</div>
+
+			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="ui" />
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
 			<h3 id="examples__default" class="${hlmH4} mb-2 mt-6">Default</h3>

@@ -11,6 +11,7 @@ import { SectionIntroComponent } from '../../../../shared/layout/section-intro.c
 import { SectionSubHeadingComponent } from '../../../../shared/layout/section-sub-heading.component';
 import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
+import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { SelectMultiplePreviewComponent, multipleCode } from './select--multiple.preview';
 import { SelectScrollablePreviewComponent, scrollableCode } from './select--scrollable.preview';
@@ -18,13 +19,14 @@ import { SelectValueTemplatePreviewComponent, previewCode } from './select--valu
 import { SelectPreviewComponent, defaultCode, defaultImports, defaultSkeleton, defaultStyles } from './select.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'Select' },
+	data: { breadcrumb: 'Select', api: 'select' },
 	meta: metaWith('spartan/ui - Select', 'A control that allows the user to toggle between checked and not checked.'),
 	title: 'spartan/ui - Select',
 };
 @Component({
 	selector: 'spartan-select',
 	imports: [
+		UIApiDocsComponent,
 		MainSectionDirective,
 		CodeComponent,
 		SectionIntroComponent,
@@ -64,6 +66,12 @@ export const routeMeta: RouteMeta = {
 				<spartan-code [code]="defaultSkeleton" />
 				<spartan-code [code]="defaultStyles" />
 			</div>
+
+			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="brain" />
+
+			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="ui" />
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
 			<h3 id="examples__multiple" class="${hlmH4} mb-2 mt-6">Multiple</h3>

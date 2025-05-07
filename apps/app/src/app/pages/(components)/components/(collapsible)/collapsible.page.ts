@@ -11,11 +11,12 @@ import { SectionIntroComponent } from '../../../../shared/layout/section-intro.c
 import { SectionSubHeadingComponent } from '../../../../shared/layout/section-sub-heading.component';
 import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
+import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { CollapsiblePreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './collapsible.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'Collapsible' },
+	data: { breadcrumb: 'Collapsible', api: 'collapsible' },
 	meta: metaWith('spartan/ui - Collapsible', 'An interactive component which expands/collapses a panel.'),
 	title: 'spartan/ui - Collapsible',
 };
@@ -23,6 +24,7 @@ export const routeMeta: RouteMeta = {
 @Component({
 	selector: 'spartan-collapsible',
 	imports: [
+		UIApiDocsComponent,
 		MainSectionDirective,
 		CodeComponent,
 		SectionIntroComponent,
@@ -58,6 +60,9 @@ export const routeMeta: RouteMeta = {
 				<spartan-code [code]="defaultImports" />
 				<spartan-code [code]="defaultSkeleton" />
 			</div>
+
+			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="brain" />
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="combobox" label="Combobox" />

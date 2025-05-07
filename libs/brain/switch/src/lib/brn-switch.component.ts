@@ -22,7 +22,6 @@ import {
 	Renderer2,
 	signal,
 	viewChild,
-	ViewEncapsulation,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -78,7 +77,6 @@ let uniqueIdCounter = 0;
 	},
 	providers: [BRN_SWITCH_VALUE_ACCESSOR],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	encapsulation: ViewEncapsulation.None,
 })
 export class BrnSwitchComponent implements AfterContentInit, OnDestroy {
 	private readonly _destroyRef = inject(DestroyRef);
@@ -93,68 +91,75 @@ export class BrnSwitchComponent implements AfterContentInit, OnDestroy {
 	protected readonly focused = signal(false);
 
 	/**
-	 * Whether the switch is checked.
-	 * Can be bound with [(checked)]
+	 * Whether switch is checked/toggled on.
+	 * Can be bound with [(checked)] for two-way binding.
 	 */
 	public readonly checked = model<boolean>(false);
 
 	/**
-	 * Sets the ID on the switch.
-	 * When provided, the inner button gets this ID without the '-switch' suffix.
+	 * Unique identifier for switch component.
+	 * When provided, inner button gets ID without '-switch' suffix.
+	 * Auto-generates ID if not provided.
 	 */
 	public readonly id = input<string | null>(uniqueIdCounter++ + '');
 
 	/**
-	 * Sets the name on the switch.
-	 * When provided, the inner button gets this name without a '-switch' suffix.
+	 * Form control name for switch.
+	 * When provided, inner button gets name without '-switch' suffix.
 	 */
 	public readonly name = input<string | null>(null);
 
 	/**
-	 * Sets class set on the inner button
+	 * CSS classes applied to inner button element.
 	 */
 	public readonly class = input<string | null>(null);
 
 	/**
-	 * Sets the aria-label attribute for accessibility.
+	 * Accessibility label for screen readers.
+	 * Use when no visible label exists.
 	 */
 	public readonly ariaLabel = input<string | null>(null, { alias: 'aria-label' });
 
 	/**
-	 * Sets the aria-labelledby attribute for accessibility.
+	 * ID of element that labels this switch for accessibility.
+	 * Auto-set when switch is inside label element.
 	 */
 	public readonly ariaLabelledby = input<string | null>(null, { alias: 'aria-labelledby' });
 	public readonly mutableAriaLabelledby = linkedSignal(() => this.ariaLabelledby());
 
 	/**
-	 * Sets the aria-describedby attribute for accessibility.
+	 * ID of element that describes this switch for accessibility.
 	 */
 	public readonly ariaDescribedby = input<string | null>(null, { alias: 'aria-describedby' });
 
 	/**
-	 * Whether the switch is required in a form.
+	 * Whether switch is required in a form.
 	 */
-	public readonly required = input(false, { transform: booleanAttribute });
+	public readonly required = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
 	/**
-	 * Whether the switch is disabled.
+	 * Whether switch is disabled.
+	 * Disabled switches cannot be toggled and indicate disabled state with data attribute.
 	 */
 	public readonly disabled = input<boolean, BooleanInput>(false, {
 		transform: booleanAttribute,
 	});
 
 	/**
-	 * tabIndex of the switch.
+	 * Keyboard tab order for switch.
+	 * @default 0
 	 */
 	public readonly tabIndex = input(0);
 
 	/**
-	 * Event emitted when the switch value changes.
+	 * Event emitted when switch value changes.
+	 * Emits new checked state (true/false).
 	 */
 	public readonly changed = output<boolean>();
 
 	/**
-	 * Event emitted when the switch is blurred (loses focus).
+	 * Event emitted when switch is blurred (loses focus).
+	 * Used for form validation.
 	 */
 	public readonly touched = output<void>();
 
@@ -200,15 +205,22 @@ export class BrnSwitchComponent implements AfterContentInit, OnDestroy {
 		});
 	}
 
+	/**
+	 * Toggles switch between checked/unchecked states.
+	 * Does nothing if switch is disabled.
+	 */
 	protected toggle(): void {
 		if (this.state().disabled()) return;
+
+		this._onTouched();
+		this.touched.emit();
 
 		this.checked.update((checked) => !checked);
 		this._onChange(this.checked());
 		this.changed.emit(this.checked());
 	}
 
-	ngAfterContentInit() {
+	public ngAfterContentInit() {
 		this._focusMonitor
 			.monitor(this._elementRef, true)
 			.pipe(takeUntilDestroyed(this._destroyRef))
@@ -239,30 +251,59 @@ export class BrnSwitchComponent implements AfterContentInit, OnDestroy {
 		this.switch().nativeElement.dispatchEvent(new Event('change'));
 	}
 
-	ngOnDestroy() {
+	public ngOnDestroy() {
 		this._focusMonitor.stopMonitoring(this._elementRef);
 	}
 
-	/** We intercept the id passed to the wrapper component and pass it to the underlying button switch control **/
+	/**
+	 * Gets proper ID for inner button element.
+	 * Removes '-switch' suffix if present in container ID.
+	 *
+	 * @param idPassedToContainer - ID applied to container element
+	 * @returns ID to use for inner button or null
+	 */
 	protected getSwitchButtonId(idPassedToContainer: string | null | undefined): string | null {
 		return idPassedToContainer ? idPassedToContainer.replace(CONTAINER_POST_FIX, '') : null;
 	}
 
-	writeValue(value: boolean): void {
+	/**
+	 * Updates internal state when control value changes from outside.
+	 * Part of ControlValueAccessor interface.
+	 *
+	 * @param value - New checked state
+	 */
+	public writeValue(value: boolean): void {
 		this.checked.set(Boolean(value));
 	}
 
-	registerOnChange(fn: ChangeFn<boolean>): void {
+	/**
+	 * Registers callback for value changes.
+	 * Part of ControlValueAccessor interface.
+	 *
+	 * @param fn - Function to call when value changes
+	 */
+	public registerOnChange(fn: ChangeFn<boolean>): void {
 		this._onChange = fn;
 	}
 
-	registerOnTouched(fn: TouchFn): void {
+	/**
+	 * Registers callback for touched events.
+	 * Part of ControlValueAccessor interface.
+	 *
+	 * @param fn - Function to call when control is touched
+	 */
+	public registerOnTouched(fn: TouchFn): void {
 		this._onTouched = fn;
 	}
 
-	/** Implemented as a part of ControlValueAccessor. */
-	setDisabledState(isDisabled: boolean): void {
+	/**
+	 * Updates disabled state from form control.
+	 * Part of ControlValueAccessor interface.
+	 *
+	 * @param isDisabled - Whether switch should be disabled
+	 */
+	public setDisabledState = (isDisabled: boolean): void => {
 		this.state().disabled.set(isDisabled);
 		this._cdr.markForCheck();
-	}
+	};
 }

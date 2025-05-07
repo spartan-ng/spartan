@@ -64,9 +64,9 @@ export class HlmCarouselComponent {
 	public canScrollNext = this._canScrollNext.asReadonly();
 
 	private readonly _currentSlide = signal(0);
-	public currentSlide = this._currentSlide.asReadonly();
+	public readonly currentSlide = this._currentSlide.asReadonly();
 	private readonly _slideCount = signal(0);
-	public slideCount = this._slideCount.asReadonly();
+	public readonly slideCount = this._slideCount.asReadonly();
 
 	protected onEmblaEvent(event: EmblaEventType) {
 		const emblaApi = this.emblaCarousel().emblaApi;

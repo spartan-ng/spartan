@@ -1,4 +1,4 @@
-import { Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { hlm } from '@spartan-ng/brain/core';
 
 @Component({
@@ -9,6 +9,7 @@ import { hlm } from '@spartan-ng/brain/core';
 		role: 'presentation',
 		'[class]': '_computedClass()',
 	},
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmCommandGroupLabelComponent {
 	/*** The user defined class  */

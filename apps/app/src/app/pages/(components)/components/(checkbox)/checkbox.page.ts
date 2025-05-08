@@ -1,6 +1,5 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
-import { hlmH4 } from '@spartan-ng/ui-typography-helm';
 import { CodePreviewDirective } from '../../../../shared/code/code-preview.directive';
 import { CodeComponent } from '../../../../shared/code/code.component';
 import { MainSectionDirective } from '../../../../shared/layout/main-section.directive';
@@ -13,7 +12,6 @@ import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
 
-import { CheckboxOwnIconComponent, checkboxOwnIconCode } from './checkbox--own-icon.example';
 import { CheckboxPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './checkbox.preview';
 
 export const routeMeta: RouteMeta = {
@@ -35,7 +33,6 @@ export const routeMeta: RouteMeta = {
 		PageBottomNavComponent,
 		PageBottomNavLinkComponent,
 		CheckboxPreviewComponent,
-		CheckboxOwnIconComponent,
 	],
 	template: `
 		<section spartanMainSection>
@@ -64,19 +61,6 @@ export const routeMeta: RouteMeta = {
 				<spartan-code [code]="defaultSkeleton" />
 			</div>
 
-			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__default" class="${hlmH4} mb-2 mt-6">Own Icon</h3>
-			<p class="py-2">Make sure to provide the Icon.</p>
-			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div spartanCodePreview firstTab>
-					<spartan-checkbox-own-icon />
-				</div>
-
-				<div secondTab>
-					<spartan-code [code]="checkboxOwnIconCode" />
-				</div>
-			</spartan-tabs>
-
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="collapsible" label="Collapsible" />
 				<spartan-page-bottom-nav-link direction="previous" href="carousel" label="Carousel" />
@@ -89,5 +73,4 @@ export default class SkeletonPageComponent {
 	protected readonly defaultCode = defaultCode;
 	protected readonly defaultSkeleton = defaultSkeleton;
 	protected readonly defaultImports = defaultImports;
-	protected readonly checkboxOwnIconCode = checkboxOwnIconCode;
 }

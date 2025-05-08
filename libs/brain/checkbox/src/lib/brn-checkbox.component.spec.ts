@@ -7,8 +7,7 @@ describe('BrnCheckboxComponent', () => {
 	const setup = async () => {
 		const container = await render(
 			`
-     <brn-checkbox id='checkboxId' name='checkboxName' data-testid='checkbox' aria-label='checkbox'>
-      </brn-checkbox>
+     <brn-checkbox id='checkboxId' name='checkboxName' data-testid='brnCheckBox' aria-label='checkbox'/>
     `,
 			{
 				imports: [BrnCheckboxComponent],
@@ -26,8 +25,7 @@ describe('BrnCheckboxComponent', () => {
 			`
      <label data-testid='label'>
      Checkbox Inside Label
-     <brn-checkbox id='checkboxId' data-testid='checkbox' name='checkboxName'>
-      </brn-checkbox>
+     <brn-checkbox id='checkboxId' data-testid='brnCheckBox' name='checkboxName'/>
       </label>
     `,
 			{
@@ -46,8 +44,7 @@ describe('BrnCheckboxComponent', () => {
 			`
      <label data-testid='label'>
      Checkbox Inside Label
-     <brn-checkbox disabled id='checkboxId' data-testid='checkbox' name='checkboxName'>
-      </brn-checkbox>
+     <brn-checkbox disabled id='checkboxId' data-testid='brnCheckBox' name='checkboxName'/>
       </label>
     `,
 			{
@@ -69,8 +66,7 @@ describe('BrnCheckboxComponent', () => {
      <label id='labelId' for='checkboxId' data-testid='label'>
      Checkbox Outside Label with ariaLabelledBy
      </label>
-     <brn-checkbox id='checkboxId' name='checkboxName' data-testid='checkbox' aria-labelledby='labelId'>
-      </brn-checkbox>
+     <brn-checkbox id='checkboxId' name='checkboxName' data-testid='brnCheckBox' aria-labelledby='labelId'/>
     `,
 			{
 				imports: [BrnCheckboxComponent],
@@ -90,8 +86,7 @@ describe('BrnCheckboxComponent', () => {
      <label for='checkboxId' data-testid='label'>
      Checkbox Outside Label with id
      </label>
-     <brn-checkbox id='checkboxId' name='checkboxName' data-testid='checkbox'>
-      </brn-checkbox>
+     <brn-checkbox id='checkboxId' name='checkboxName' data-testid='brnCheckBox'/>
     `,
 			{
 				imports: [BrnCheckboxComponent],
@@ -110,8 +105,7 @@ describe('BrnCheckboxComponent', () => {
      <label for='checkboxId' data-testid='label'>
      Checkbox Outside Label with id
      </label>
-     <brn-checkbox disabled id='checkboxId' name='checkboxName' data-testid='checkbox'>
-      </brn-checkbox>
+     <brn-checkbox disabled id='checkboxId' name='checkboxName' data-testid='brnCheckBox'/>
     `,
 			{
 				imports: [BrnCheckboxComponent],
@@ -128,36 +122,38 @@ describe('BrnCheckboxComponent', () => {
 	type Options = Partial<{ focus: boolean; focusVisible: boolean; disabled: boolean }>;
 
 	const validateAttributes = async (
-		inputElement: HTMLElement,
-		checkboxElement: HTMLElement,
+		buttonElement: HTMLElement,
+		wrapperElement: HTMLElement,
 		shouldBeChecked: boolean,
 		opts?: Options,
 	) => {
-		expect(inputElement).toBeInTheDocument();
-		expect(inputElement).toHaveAttribute('role', 'checkbox');
-		expect(inputElement).toHaveAttribute('id', 'checkboxId');
-		expect(inputElement).toHaveAttribute('name', 'checkboxName');
-		expect(await axe(inputElement)).toHaveNoViolations();
+		screen.debug();
+		expect(buttonElement).toBeInTheDocument();
+		expect(buttonElement).toHaveAttribute('role', 'checkbox');
+		expect(buttonElement).toHaveAttribute('id', 'checkboxId');
+		expect(buttonElement).toHaveAttribute('name', 'checkboxName');
+		expect(buttonElement).toHaveAttribute('aria-checked', shouldBeChecked + '');
+		expect(await axe(buttonElement)).toHaveNoViolations();
 
-		expect(checkboxElement).toHaveAttribute('id', 'checkboxId-checkbox');
-		expect(checkboxElement).toHaveAttribute('name', 'checkboxName-checkbox');
-		expect(checkboxElement).toHaveAttribute('data-state', shouldBeChecked ? 'checked' : 'unchecked');
-		expect(checkboxElement).toHaveAttribute('data-disabled', `${!!opts?.disabled}`);
-		expect(checkboxElement).toHaveAttribute('data-focus', `${!!opts?.focus}`);
-		expect(checkboxElement).toHaveAttribute('data-focus-visible', `${!!opts?.focusVisible}`);
-		expect(await axe(checkboxElement)).toHaveNoViolations();
+		expect(wrapperElement).toHaveAttribute('id', 'checkboxId-checkbox');
+		expect(wrapperElement).toHaveAttribute('name', 'checkboxName-checkbox');
+		expect(wrapperElement).toHaveAttribute('data-state', shouldBeChecked ? 'checked' : 'unchecked');
+		expect(wrapperElement).toHaveAttribute('data-disabled', `${!!opts?.disabled}`);
+		expect(wrapperElement).toHaveAttribute('data-focus', `${!!opts?.focus}`);
+		expect(wrapperElement).toHaveAttribute('data-focus-visible', `${!!opts?.focusVisible}`);
+		expect(await axe(wrapperElement)).toHaveNoViolations();
 	};
 	const validateCheckboxOn = async (opts?: Options) => {
-		const inputElement = await screen.findByDisplayValue('on');
-		const checkboxElement = await screen.findByTestId('checkbox');
+		const buttonElement = await screen.findByRole('checkbox');
+		const wrapperElement = await screen.findByTestId('brnCheckBox');
 
-		await validateAttributes(inputElement, checkboxElement, true, opts);
+		await validateAttributes(buttonElement, wrapperElement, true, opts);
 	};
 	const validateCheckboxOff = async (opts?: Options) => {
-		const inputElement = await screen.findByDisplayValue('off');
-		const checkboxElement = await screen.findByTestId('checkbox');
+		const buttonElement = await screen.findByRole('checkbox');
+		const wrapperElement = await screen.findByTestId('brnCheckBox');
 
-		await validateAttributes(inputElement, checkboxElement, false, opts);
+		await validateAttributes(buttonElement, wrapperElement, false, opts);
 	};
 
 	describe('with aria-label', () => {

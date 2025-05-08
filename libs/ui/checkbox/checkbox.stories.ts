@@ -2,24 +2,31 @@ import { NgIcon } from '@ng-icons/core';
 import type { Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
 
+import { JsonPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { HlmButtonModule } from '../button/helm/src';
+import { HlmButtonDirective, HlmButtonModule } from '../button/helm/src';
 import { HlmIconDirective } from '../icon/helm/src';
 import { HlmLabelDirective } from '../label/helm/src';
 import { HlmCheckboxComponent, HlmCheckboxImports } from './helm/src';
 
 @Component({
 	selector: 'hlm-checkbox-component-tester',
+	imports: [HlmCheckboxImports, HlmButtonDirective, HlmLabelDirective, ReactiveFormsModule, JsonPipe],
 	template: `
-		<div class="flex items-center gap-4" [formGroup]="form">
-			<label id="checkbox-label" for="testCheckboxDis1" hlmLabel>
-				Test Disabled Checkbox with Reactive Forms
-				<hlm-checkbox class="ml-2" id="testCheckboxDis1" aria-labelledby="testCheckbox" formControlName="checkbox" />
-			</label>
+		<form [formGroup]="form">
+			<div class="flex items-center gap-4">
+				<label id="checkbox-label" for="testCheckboxDis1" hlmLabel>
+					Test Disabled Checkbox with Reactive Forms
+					<hlm-checkbox class="ml-2" id="testCheckboxDis1" aria-labelledby="testCheckbox" formControlName="checkbox" />
+				</label>
 
-			<button hlmBtn type="button" role="button" (click)="enableOrDisableCheckbox()">Enable or disable button</button>
-		</div>
+				<button hlmBtn type="button" role="button" (click)="enableOrDisableCheckbox()">
+					Enable or disable checkbox
+				</button>
+			</div>
+		</form>
+		{{ form.value | json }}
 	`,
 })
 class HlmCheckboxComponentTester {
@@ -57,10 +64,7 @@ type Story = StoryObj<HlmCheckboxComponent>;
 export const Default: Story = {
 	render: () => ({
 		template: /* HTML */ `
-			<label id="checkbox-label" class="" hlmLabel>
-				Test Checkbox
-				<hlm-checkbox id="testCheckbox" aria-checked="mixed" aria-label="test checkbox" />
-			</label>
+			<hlm-checkbox id="testCheckbox" aria-checked="mixed" aria-label="test checkbox" />
 		`,
 	}),
 };

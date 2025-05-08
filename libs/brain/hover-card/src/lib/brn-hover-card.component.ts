@@ -1,4 +1,4 @@
-import { type AfterContentInit, Component, contentChild } from '@angular/core';
+import { type AfterContentInit, ChangeDetectionStrategy, Component, contentChild } from '@angular/core';
 import {
 	BrnHoverCardContentDirective,
 	BrnHoverCardContentService,
@@ -12,6 +12,7 @@ import {
 	template: `
 		<ng-content />
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BrnHoverCardComponent implements AfterContentInit {
 	private readonly _trigger = contentChild(BrnHoverCardTriggerDirective);

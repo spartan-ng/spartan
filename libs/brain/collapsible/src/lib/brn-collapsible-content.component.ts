@@ -1,5 +1,16 @@
 import { isPlatformServer } from '@angular/common';
-import { Component, ElementRef, OnInit, PLATFORM_ID, effect, inject, input, signal, untracked } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	ElementRef,
+	OnInit,
+	PLATFORM_ID,
+	effect,
+	inject,
+	input,
+	signal,
+	untracked,
+} from '@angular/core';
 import { BrnCollapsibleComponent } from './brn-collapsible.component';
 
 @Component({
@@ -15,6 +26,7 @@ import { BrnCollapsibleComponent } from './brn-collapsible.component';
 	template: `
 		<ng-content />
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BrnCollapsibleContentComponent implements OnInit {
 	protected readonly collapsible = inject(BrnCollapsibleComponent, { optional: true });

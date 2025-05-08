@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
 	selector: 'brn-switch-thumb',
@@ -7,5 +7,6 @@ import { Component } from '@angular/core';
 		role: 'presentation',
 		'(click)': '$event.preventDefault()',
 	},
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BrnSwitchThumbComponent {}

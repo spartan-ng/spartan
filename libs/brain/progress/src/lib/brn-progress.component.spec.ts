@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { render } from '@testing-library/angular';
 import { BrnProgressModule } from '../index';
 import { BrnProgressIndicatorComponent } from './brn-progress-indicator.component';
@@ -11,6 +11,7 @@ import { BrnProgressComponent, BrnProgressLabelFn } from './brn-progress.compone
 			<brn-progress-indicator />
 		</brn-progress>
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class TestHostComponent {
 	public value: number | null | undefined = 0;

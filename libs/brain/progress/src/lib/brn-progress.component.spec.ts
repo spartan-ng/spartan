@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { render } from '@testing-library/angular';
 import { BrnProgressModule } from '../index';
 import { BrnProgressIndicatorComponent } from './brn-progress-indicator.component';
@@ -86,12 +86,12 @@ describe('BrnProgressComponent', () => {
 
 		expect(() => {
 			fixture.componentInstance.value = 150;
-			fixture.detectChanges();
+			fixture.componentRef.injector.get(ChangeDetectorRef).detectChanges();
 		}).toThrow('Value must be 0 or greater and less or equal to max');
 
 		expect(() => {
 			fixture.componentInstance.value = -10;
-			fixture.detectChanges();
+			fixture.componentRef.injector.get(ChangeDetectorRef).detectChanges();
 		}).toThrow('Value must be 0 or greater and less or equal to max');
 	});
 
@@ -102,7 +102,7 @@ describe('BrnProgressComponent', () => {
 
 		expect(() => {
 			fixture.componentInstance.max = -50;
-			fixture.detectChanges();
+			fixture.componentRef.injector.get(ChangeDetectorRef).detectChanges();
 		}).toThrow('Value must be 0 or greater and less or equal to max');
 	});
 

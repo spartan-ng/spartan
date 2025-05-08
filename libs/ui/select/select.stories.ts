@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, JsonPipe } from '@angular/common';
 import {
 	ChangeDetectionStrategy,
 	Component,
@@ -756,6 +756,7 @@ export const DynamicOptionsMultiSelect: Story = {
 		HlmSelectImports,
 		HlmLabelDirective,
 		HlmButtonDirective,
+		JsonPipe,
 	],
 	providers: [],
 	host: {

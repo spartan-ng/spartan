@@ -1,4 +1,4 @@
-import { Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { hlm } from '@spartan-ng/brain/core';
 import type { ClassValue } from 'clsx';
 
@@ -6,6 +6,7 @@ import type { ClassValue } from 'clsx';
 	selector: '<%= selector %>',
 	standalone: true,
 	template: ``,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class <%= componentName %> {
 	/** The user defined classes */

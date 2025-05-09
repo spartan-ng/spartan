@@ -65,12 +65,9 @@ export class BrnCalendarWeekdayDirective<T> implements OnDestroy {
 
 		// Create a new view for each day
 		for (const day of weekdays) {
-			const viewRef = this._viewContainerRef.createEmbeddedView(
-				this._templateRef,
-				{
-					$implicit: this._dateAdapter.getDay(day),
-				},
-			);
+			const viewRef = this._viewContainerRef.createEmbeddedView(this._templateRef, {
+				$implicit: this._dateAdapter.getDay(day),
+			});
 			this._viewRefs.push(viewRef);
 		}
 

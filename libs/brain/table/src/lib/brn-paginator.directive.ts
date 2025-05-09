@@ -29,6 +29,8 @@ export type PaginatorContext = {
 		decrementable: Signal<boolean>;
 		increment: () => void;
 		decrement: () => void;
+		goToFirstPage: () => void;
+		goToLastPage: () => void;
 	};
 };
 
@@ -95,6 +97,8 @@ export class BrnPaginatorDirective implements OnInit {
 				decrement: () => this.decrementPage(),
 				incrementable: this._incrementable,
 				decrementable: this._decrementable,
+				goToFirstPage: () => this.reset(),
+				goToLastPage: () => this.goToLastPage(),
 			},
 		});
 	}
@@ -104,6 +108,10 @@ export class BrnPaginatorDirective implements OnInit {
 		if (0 < currentPage) {
 			this.calculateNewState({ newPage: currentPage - 1 });
 		}
+	}
+
+	public goToLastPage(): void {
+		this.currentPage = this._state().totalPages;
 	}
 
 	public incrementPage(): void {

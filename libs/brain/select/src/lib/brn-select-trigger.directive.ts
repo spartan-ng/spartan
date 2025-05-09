@@ -55,7 +55,7 @@ export class BrnSelectTriggerDirective<T> implements AfterViewInit, OnDestroy {
 	});
 
 	private _resizeObserver?: ResizeObserver;
-	private statusChangedSubscription?: Subscription;
+	private _statusChangedSubscription?: Subscription;
 
 	constructor() {
 		this._select.trigger.set(this);
@@ -63,7 +63,7 @@ export class BrnSelectTriggerDirective<T> implements AfterViewInit, OnDestroy {
 
 	ngOnInit() {
 		if (this._ngControl) {
-			this.statusChangedSubscription = this._ngControl.statusChanges?.subscribe(() => {
+			this._statusChangedSubscription = this._ngControl.statusChanges?.subscribe(() => {
 				this._changeDetector.markForCheck();
 			});
 		}
@@ -84,7 +84,7 @@ export class BrnSelectTriggerDirective<T> implements AfterViewInit, OnDestroy {
 
 	ngOnDestroy(): void {
 		this._resizeObserver?.disconnect();
-		this.statusChangedSubscription?.unsubscribe();
+		this._statusChangedSubscription?.unsubscribe();
 	}
 
 	focus(): void {

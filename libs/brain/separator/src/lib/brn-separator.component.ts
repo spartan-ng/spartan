@@ -1,5 +1,5 @@
 import { BooleanInput } from '@angular/cdk/coercion';
-import { Component, booleanAttribute, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, booleanAttribute, computed, input } from '@angular/core';
 
 export type BrnSeparatorOrientation = 'horizontal' | 'vertical';
 
@@ -12,6 +12,7 @@ export type BrnSeparatorOrientation = 'horizontal' | 'vertical';
 		'[attr.aria-orientation]': 'ariaOrientation()',
 		'[attr.data-orientation]': 'orientation()',
 	},
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BrnSeparatorComponent {
 	public readonly orientation = input<BrnSeparatorOrientation>('horizontal');

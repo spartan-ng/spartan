@@ -137,7 +137,7 @@
 		"@typescript-eslint/utils": "8.24.1",
 		"@vitest/coverage-v8": "2.1.1",
 		"@vitest/ui": "2.1.1",
-		"angular-eslint": "19.2.1",
+		"angular-eslint": "19.3.0",
 		"autoprefixer": "^10.4.20",
 		"axe-core": "^4.10.0",
 		"chromatic": "^6.24.1",

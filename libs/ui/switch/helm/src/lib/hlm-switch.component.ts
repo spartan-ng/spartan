@@ -1,5 +1,15 @@
 import { BooleanInput } from '@angular/cdk/coercion';
-import { Component, booleanAttribute, computed, forwardRef, input, model, output, signal } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	booleanAttribute,
+	computed,
+	forwardRef,
+	input,
+	model,
+	output,
+	signal,
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { hlm } from '@spartan-ng/brain/core';
 import { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
@@ -38,6 +48,7 @@ export const HLM_SWITCH_VALUE_ACCESSOR = {
 		</brn-switch>
 	`,
 	providers: [HLM_SWITCH_VALUE_ACCESSOR],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmSwitchComponent implements ControlValueAccessor {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

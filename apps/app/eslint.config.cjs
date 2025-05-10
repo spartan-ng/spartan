@@ -25,6 +25,7 @@ module.exports = [
 				},
 			],
 			'@nx/enforce-module-boundaries': 'off',
+			'@angular-eslint/prefer-on-push-component-change-detection': 'off',
 		},
 	},
 	{

@@ -1,4 +1,14 @@
-import { Component, booleanAttribute, computed, forwardRef, input, model, output, signal } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	booleanAttribute,
+	computed,
+	forwardRef,
+	input,
+	model,
+	output,
+	signal,
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCheck } from '@ng-icons/lucide';
@@ -43,6 +53,7 @@ export const HLM_CHECKBOX_VALUE_ACCESSOR = {
 	},
 	providers: [HLM_CHECKBOX_VALUE_ACCESSOR],
 	viewProviders: [provideIcons({ lucideCheck })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmCheckboxComponent implements ControlValueAccessor {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

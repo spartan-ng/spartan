@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { BrnAvatarFallbackDirective, BrnAvatarImageDirective } from '@spartan-ng/brain/avatar';
 import { HlmAvatarComponent } from './hlm-avatar.component';
@@ -12,6 +12,7 @@ import { HlmAvatarComponent } from './hlm-avatar.component';
 		</hlm-avatar>
 	`,
 	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class MockComponent {
 	@Input() public class = '';

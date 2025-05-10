@@ -1,4 +1,4 @@
-import { Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideEllipsis } from '@ng-icons/lucide';
 import { hlm } from '@spartan-ng/brain/core';
@@ -15,6 +15,7 @@ import { ClassValue } from 'clsx';
 			<span class="sr-only">More pages</span>
 		</span>
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmPaginationEllipsisComponent {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

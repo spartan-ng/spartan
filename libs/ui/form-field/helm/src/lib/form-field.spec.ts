@@ -1,6 +1,6 @@
 /* eslint-disable @angular-eslint/component-class-suffix */
 /* eslint-disable @angular-eslint/component-selector */
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
@@ -33,6 +33,7 @@ const DIRECTIVES = [HlmFormFieldComponent, HlmErrorDirective, HlmHintDirective, 
 			<hlm-hint data-testid="hlm-hint">This is your public display name.</hlm-hint>
 		</hlm-form-field>
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class SingleFormFieldMock {
 	public name = new FormControl('', Validators.required);
@@ -58,6 +59,7 @@ class SingleFormFieldMock {
 		</hlm-form-field>
 	`,
 	providers: [{ provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher }],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class SingleFormFieldDirtyMock {
 	public name = new FormControl('', Validators.required);

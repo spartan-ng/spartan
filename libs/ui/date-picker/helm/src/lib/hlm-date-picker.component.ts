@@ -1,5 +1,15 @@
 import { BooleanInput } from '@angular/cdk/coercion';
-import { booleanAttribute, Component, computed, forwardRef, input, model, output, signal } from '@angular/core';
+import {
+	booleanAttribute,
+	ChangeDetectionStrategy,
+	Component,
+	computed,
+	forwardRef,
+	input,
+	model,
+	output,
+	signal,
+} from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCalendar } from '@ng-icons/lucide';
@@ -60,6 +70,7 @@ export const HLM_DATE_PICKER_VALUE_ACCESSOR = {
 	host: {
 		class: 'block',
 	},
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmDatePickerComponent<T> {
 	private readonly _config = injectHlmDatePickerConfig<T>();

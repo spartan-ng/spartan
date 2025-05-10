@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 
-import { Component, input, model } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, model } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrnCheckboxComponent } from './brn-checkbox.component';
 
@@ -15,6 +15,7 @@ import { BrnCheckboxComponent } from './brn-checkbox.component';
 		</label>
 	`,
 	imports: [BrnCheckboxComponent, FormsModule],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BrnCheckboxNgModelSpecComponent {
 	public readonly disabled = input(false);

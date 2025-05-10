@@ -1,4 +1,4 @@
-import { Component, computed, contentChild, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, contentChild, inject, input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown } from '@ng-icons/lucide';
 import { hlm } from '@spartan-ng/brain/core';
@@ -43,6 +43,7 @@ type SelectTriggerVariants = VariantProps<typeof selectTriggerVariants>;
 			}
 		</button>
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmSelectTriggerComponent {
 	protected readonly icon = contentChild(HlmIconDirective);

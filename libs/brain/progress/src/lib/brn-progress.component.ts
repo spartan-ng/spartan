@@ -1,5 +1,13 @@
 import { type NumberInput } from '@angular/cdk/coercion';
-import { Component, OnChanges, SimpleChanges, computed, input, numberAttribute } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	OnChanges,
+	SimpleChanges,
+	computed,
+	input,
+	numberAttribute,
+} from '@angular/core';
 import { provideBrnProgress } from './brn-progress.token';
 
 @Component({
@@ -18,6 +26,7 @@ import { provideBrnProgress } from './brn-progress.token';
 		'[attr.data-value]': 'value()',
 		'[attr.data-max]': 'max()',
 	},
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BrnProgressComponent implements OnChanges {
 	public readonly value = input<number | null | undefined, NumberInput>(undefined, {

@@ -1,5 +1,5 @@
 import { NumberInput } from '@angular/cdk/coercion';
-import { Component, computed, input, numberAttribute } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, numberAttribute } from '@angular/core';
 import { hlm } from '@spartan-ng/brain/core';
 import { BrnInputOtpSlotComponent } from '@spartan-ng/brain/input-otp';
 import { type ClassValue } from 'clsx';
@@ -16,6 +16,7 @@ import { HlmInputOtpFakeCaretComponent } from './hlm-input-otp-fake-caret.compon
 	host: {
 		'[class]': '_computedClass()',
 	},
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmInputOtpSlotComponent {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

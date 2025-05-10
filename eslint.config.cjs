@@ -71,6 +71,7 @@ module.exports = [
 				},
 			],
 			'@angular-eslint/prefer-output-readonly': ['error'],
+			'@angular-eslint/prefer-on-push-component-change-detection': ['error'],
 			// this should be enabled when we move to signals
 			'@nx/workspace-prefer-signals': 'off',
 			'@nx/workspace-prefer-rxjs-operator-compat': 'error',

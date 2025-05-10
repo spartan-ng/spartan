@@ -1,4 +1,4 @@
-import { Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { hlm } from '@spartan-ng/brain/core';
 import { provideHlmIconConfig } from '@spartan-ng/ui-icon-helm';
 
@@ -12,6 +12,7 @@ import { provideHlmIconConfig } from '@spartan-ng/ui-icon-helm';
 		'[class]': '_computedClass()',
 	},
 	providers: [provideHlmIconConfig({ size: 'sm' })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmCommandSearchComponent {
 	/*** The user defined class  */

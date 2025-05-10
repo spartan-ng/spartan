@@ -1,5 +1,14 @@
 import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
-import { Component, booleanAttribute, computed, input, model, numberAttribute, viewChild } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	booleanAttribute,
+	computed,
+	input,
+	model,
+	numberAttribute,
+	viewChild,
+} from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronLeft, lucideChevronRight } from '@ng-icons/lucide';
 import {
@@ -107,6 +116,7 @@ import type { ClassValue } from 'clsx';
 			</div>
 		</div>
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmCalendarComponent<T> {
 	public readonly calendarClass = input<ClassValue>('');

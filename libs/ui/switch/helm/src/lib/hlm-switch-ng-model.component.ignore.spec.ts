@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HlmSwitchComponent } from './hlm-switch.component';
 @Component({
@@ -14,6 +14,7 @@ import { HlmSwitchComponent } from './hlm-switch.component';
 		<p data-testid="changedValue">{{ changedValueTo }}</p>
 	`,
 	imports: [HlmSwitchComponent, FormsModule],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SwitchFormComponent {
 	@Input()

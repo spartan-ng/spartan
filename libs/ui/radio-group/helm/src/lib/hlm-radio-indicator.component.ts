@@ -1,4 +1,4 @@
-import { Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { hlm } from '@spartan-ng/brain/core';
 import type { ClassValue } from 'clsx';
 
@@ -17,6 +17,7 @@ const btnLike =
 		></div>
 		<div class="border-primary ${btnLike} rounded-full border"></div>
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmRadioIndicatorComponent {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

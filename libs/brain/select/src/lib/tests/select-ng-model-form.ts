@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 
 @Component({
 	selector: 'select-ngmodel-form',
@@ -25,6 +25,7 @@ import { Component, signal } from '@angular/core';
 	`,
 	// eslint-disable-next-line @angular-eslint/prefer-standalone
 	standalone: false,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectNgModelComponent {
 	public fruit = signal('');

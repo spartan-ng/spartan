@@ -10,6 +10,7 @@ module.exports = [
 		files: ['**/*.ts'],
 		rules: {
 			'@angular-eslint/prefer-output-readonly': 'off',
+			'@angular-eslint/prefer-on-push-component-change-detection': 'off',
 		},
 	},
 ];

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrnAvatarImageDirective } from './brn-avatar-image.directive';
@@ -31,6 +31,7 @@ import { BrnAvatarImageDirective } from './brn-avatar-image.directive';
 			<span>{{ good.canShow() }}</span>
 		</div>
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class BrnMockComponent {}
 

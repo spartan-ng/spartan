@@ -1,4 +1,4 @@
-import { Component, PLATFORM_ID } from '@angular/core';
+import { ChangeDetectionStrategy, Component, PLATFORM_ID } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { BrnAvatarFallbackDirective } from './brn-avatar-fallback.directive';
 
@@ -10,6 +10,7 @@ import { BrnAvatarFallbackDirective } from './brn-avatar-fallback.directive';
 		<span *brnAvatarFallback>fallback</span>
 		<span brnAvatarFallback>fallback2</span>
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class BrnMockComponent {}
 

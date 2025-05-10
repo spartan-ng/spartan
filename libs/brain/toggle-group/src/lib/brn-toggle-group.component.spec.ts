@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { fireEvent, render } from '@testing-library/angular';
 import { BrnToggleGroupComponent } from './brn-toggle-group.component';
@@ -14,6 +14,7 @@ import { BrnToggleGroupItemDirective } from './brn-toggle-item.directive';
 			<button brnToggleGroupItem value="option-3">Option 3</button>
 		</brn-toggle-group>
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class BrnToggleGroupDirectiveSpecComponent {
 	@Input() public value?: string | string[];
@@ -31,6 +32,7 @@ class BrnToggleGroupDirectiveSpecComponent {
 			<button brnToggleGroupItem value="option-3">Option 3</button>
 		</brn-toggle-group>
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class BrnToggleGroupDirectiveFormSpecComponent {
 	@Input() public value?: string | string[];

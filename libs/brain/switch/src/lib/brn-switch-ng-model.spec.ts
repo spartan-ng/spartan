@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrnSwitchThumbComponent } from './brn-switch-thumb.component';
 import { BrnSwitchComponent } from './brn-switch.component';
@@ -17,6 +17,7 @@ import { BrnSwitchComponent } from './brn-switch.component';
 		</label>
 	`,
 	imports: [BrnSwitchComponent, BrnSwitchThumbComponent, FormsModule],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BrnSwitchNgModelSpecComponent {
 	@Input()

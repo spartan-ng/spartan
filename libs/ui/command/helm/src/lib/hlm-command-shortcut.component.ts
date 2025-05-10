@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
 	standalone: true,
@@ -7,5 +7,6 @@ import { Component } from '@angular/core';
 	host: {
 		class: 'font-light ml-auto opacity-60 text-xs tracking-widest',
 	},
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmCommandShortcutComponent {}

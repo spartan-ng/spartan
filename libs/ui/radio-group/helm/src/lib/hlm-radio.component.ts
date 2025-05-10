@@ -1,6 +1,7 @@
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
 	booleanAttribute,
+	ChangeDetectionStrategy,
 	Component,
 	computed,
 	effect,
@@ -35,6 +36,7 @@ import { ClassValue } from 'clsx';
 			<ng-content />
 		</brn-radio>
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmRadioComponent<T = unknown> {
 	private readonly _document = inject(DOCUMENT);

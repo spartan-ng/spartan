@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
 	selector: 'hlm-input-otp-fake-caret',
@@ -8,5 +8,6 @@ import { Component } from '@angular/core';
 			<div class="animate-caret-blink bg-foreground h-4 w-px duration-1000"></div>
 		</div>
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmInputOtpFakeCaretComponent {}

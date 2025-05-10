@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { HlmAvatarImageDirective } from './hlm-avatar-image.directive';
 
@@ -9,6 +9,7 @@ import { HlmAvatarImageDirective } from './hlm-avatar-image.directive';
 	template: `
 		<img hlmAvatarImage alt="Avatar image" [class]="userCls" />
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class HlmMockComponent {
 	public userCls = '';

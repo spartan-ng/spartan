@@ -1,6 +1,7 @@
 import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import {
 	booleanAttribute,
+	ChangeDetectionStrategy,
 	Component,
 	computed,
 	forwardRef,
@@ -72,6 +73,7 @@ export const HLM_DATE_PICKER_MUTLI_VALUE_ACCESSOR = {
 	host: {
 		class: 'block',
 	},
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmDatePickerMultiComponent<T> {
 	private readonly _config = injectHlmDatePickerMultiConfig<T>();

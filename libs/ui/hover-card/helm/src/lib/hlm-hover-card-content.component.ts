@@ -1,4 +1,14 @@
-import { Component, ElementRef, Renderer2, computed, effect, inject, input, signal } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	ElementRef,
+	Renderer2,
+	computed,
+	effect,
+	inject,
+	input,
+	signal,
+} from '@angular/core';
 import { hlm, injectExposedSideProvider, injectExposesStateProvider } from '@spartan-ng/brain/core';
 import type { ClassValue } from 'clsx';
 
@@ -11,6 +21,7 @@ import type { ClassValue } from 'clsx';
 	template: `
 		<ng-content />
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmHoverCardContentComponent {
 	private readonly _renderer = inject(Renderer2);

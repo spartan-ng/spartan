@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { BrnMenuGroupDirective } from '@spartan-ng/brain/menu';
 
 @Component({
@@ -11,5 +11,6 @@ import { BrnMenuGroupDirective } from '@spartan-ng/brain/menu';
 	template: `
 		<ng-content />
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmMenuGroupComponent {}

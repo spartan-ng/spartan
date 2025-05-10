@@ -1,4 +1,4 @@
-import { Component, Input, computed, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, computed, input, signal } from '@angular/core';
 import { hlm } from '@spartan-ng/brain/core';
 import { BrnMenuDirective } from '@spartan-ng/brain/menu';
 import { type VariantProps, cva } from 'class-variance-authority';
@@ -30,6 +30,7 @@ type MenuVariants = VariantProps<typeof menuVariants>;
 	template: `
 		<ng-content />
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmMenuComponent {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

@@ -1,5 +1,5 @@
 import { NumberInput } from '@angular/cdk/coercion';
-import { Component, computed, input, numberAttribute } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, numberAttribute } from '@angular/core';
 import { injectBrnInputOtp } from './brn-input-otp.token';
 
 @Component({
@@ -15,6 +15,7 @@ import { injectBrnInputOtp } from './brn-input-otp.token';
 	host: {
 		'[attr.data-active]': 'slot().isActive',
 	},
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BrnInputOtpSlotComponent {
 	/** Access the input-otp component */

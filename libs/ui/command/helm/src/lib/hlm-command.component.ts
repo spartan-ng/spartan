@@ -1,4 +1,4 @@
-import { Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { BrnCommandDirective } from '@spartan-ng/brain/command';
 import { hlm } from '@spartan-ng/brain/core';
 
@@ -18,6 +18,7 @@ import { hlm } from '@spartan-ng/brain/core';
 	host: {
 		'[class]': '_computedClass()',
 	},
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmCommandComponent {
 	/*** The user defined class */

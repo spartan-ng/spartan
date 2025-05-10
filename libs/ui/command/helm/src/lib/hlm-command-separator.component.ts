@@ -1,4 +1,4 @@
-import { Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { hlm } from '@spartan-ng/brain/core';
 
 @Component({
@@ -9,6 +9,7 @@ import { hlm } from '@spartan-ng/brain/core';
 		role: 'separator',
 		'[class]': '_computedClass()',
 	},
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmCommandSeparatorComponent {
 	/*** The user defined class  */

@@ -1,4 +1,14 @@
-import { Component, ElementRef, Renderer2, computed, effect, inject, input, signal } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	ElementRef,
+	Renderer2,
+	computed,
+	effect,
+	inject,
+	input,
+	signal,
+} from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideX } from '@ng-icons/lucide';
 import { hlm, injectExposedSideProvider, injectExposesStateProvider } from '@spartan-ng/brain/core';
@@ -42,6 +52,7 @@ export const sheetVariants = cva(
 			<ng-icon hlm size="sm" name="lucideX" />
 		</button>
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmSheetContentComponent {
 	private readonly _stateProvider = injectExposesStateProvider({ host: true });

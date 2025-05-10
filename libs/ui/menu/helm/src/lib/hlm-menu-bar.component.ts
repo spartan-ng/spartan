@@ -1,4 +1,4 @@
-import { Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { hlm } from '@spartan-ng/brain/core';
 import { BrnMenuBarDirective } from '@spartan-ng/brain/menu';
 import type { ClassValue } from 'clsx';
@@ -11,6 +11,7 @@ import type { ClassValue } from 'clsx';
 	},
 	hostDirectives: [BrnMenuBarDirective],
 	template: '<ng-content/>',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmMenuBarComponent {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

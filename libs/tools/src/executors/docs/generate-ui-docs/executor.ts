@@ -65,7 +65,8 @@ function extractInputsOutputs(project: Project, workspaceRoot: string) {
 			}
 
 			cls.getProperties().forEach((prop) => {
-				const type = prop.getType().getText();
+				// Prefer the type as written in the code (without import path)
+				const type = prop.getTypeNode()?.getText() || prop.getType().getText();
 				const decorator = prop.getDecorator((d) => d.getName() === 'Input' || d.getName() === 'Output');
 				const name = prop.getName();
 				const description = prop
@@ -97,7 +98,12 @@ function extractInputsOutputs(project: Project, workspaceRoot: string) {
 					if (initializer instanceof CallExpression) {
 						const callExpr = initializer as CallExpression;
 						const exprText = callExpr.getExpression().getText();
-						const inferredType = callExpr.getTypeArguments()?.[0]?.getText() || 'unknown';
+						// Prefer the type as written in the code (without import path)
+						const typeArg = callExpr.getTypeArguments()?.[0];
+						let inferredType = 'unknown';
+						if (typeArg) {
+							inferredType = typeArg.getText();
+						}
 
 						// Extract default value from signal-based input/model
 						let defaultValue = null;
@@ -113,7 +119,19 @@ function extractInputsOutputs(project: Project, workspaceRoot: string) {
 						}
 
 						if (exprText === 'input') {
-							componentInfo.inputs.push({ name, type: inferredType, description, defaultValue });
+							// Check for alias in the last argument if it's an object literal
+							let inputName = name;
+							if (callArgs.length > 1) {
+								const lastArg = callArgs[callArgs.length - 1];
+								if (lastArg instanceof ObjectLiteralExpression) {
+									const aliasProp = lastArg.getProperty('alias');
+									if (aliasProp instanceof PropertyAssignment) {
+										const aliasValue = aliasProp.getInitializer().getText().replace(/['"]/g, '');
+										if (aliasValue) inputName = aliasValue;
+									}
+								}
+							}
+							componentInfo.inputs.push({ name: inputName, type: inferredType, description, defaultValue });
 						} else if (exprText === 'output') {
 							componentInfo.outputs.push({ name, type: inferredType, description });
 						} else if (exprText === 'model') {

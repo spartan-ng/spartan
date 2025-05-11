@@ -10,8 +10,8 @@ import { SectionIntroComponent } from '../../../../shared/layout/section-intro.c
 import { SectionSubHeadingComponent } from '../../../../shared/layout/section-sub-heading.component';
 import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
-import { metaWith } from '../../../../shared/meta/meta.util';
 import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
+import { metaWith } from '../../../../shared/meta/meta.util';
 import { CheckboxPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './checkbox.preview';
 
 export const routeMeta: RouteMeta = {

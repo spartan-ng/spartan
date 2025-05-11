@@ -417,18 +417,13 @@ describe('GenerateUiDocs Executor', () => {
 		mockDecorator.getArguments.mockReturnValue([new MockObjectLiteralExpression()]);
 		const mockObjectLiteral = new MockObjectLiteralExpression({ alias: "'class'" });
 		const mockCallExpr = new MockCallExpression('input', ['ClassValue']);
-		mockCallExpr.getArguments = jest.fn().mockReturnValue([
-			{ getText: () => "('')" },
-			mockObjectLiteral,
-		]);
+		mockCallExpr.getArguments = jest.fn().mockReturnValue([{ getText: () => "('')" }, mockObjectLiteral]);
 		mockClass.getProperties.mockReturnValue([
 			{
 				...mockProperty,
 				getName: jest.fn().mockReturnValue('userClass'),
 				getInitializer: jest.fn().mockReturnValue(mockCallExpr),
-				getJsDocs: jest
-					.fn()
-					.mockReturnValue([{ getComment: jest.fn().mockReturnValue('User class input') }]),
+				getJsDocs: jest.fn().mockReturnValue([{ getComment: jest.fn().mockReturnValue('User class input') }]),
 			},
 		]);
 

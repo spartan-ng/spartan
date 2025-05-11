@@ -372,4 +372,78 @@ describe('GenerateUiDocs Executor', () => {
 		const receivedComponentData = findComponentData(receivedJson, 'ButtonComponent');
 		expect(receivedComponentData).toEqual(expectedJson.button.brain.ButtonComponent);
 	});
+
+	it('should extract model properties and include them in the output', async () => {
+		// Setup mock component with a model property
+		mockClass.getName.mockReturnValue('OtpComponent');
+		mockClass.getDecorator.mockReturnValue(mockDecorator);
+		mockDecorator.getName.mockReturnValue('Component');
+		mockDecorator.getArguments.mockReturnValue([new MockObjectLiteralExpression()]);
+		mockClass.getProperties.mockReturnValue([
+			{
+				...mockProperty,
+				getName: jest.fn().mockReturnValue('value'),
+				getInitializer: jest.fn().mockReturnValue(new MockCallExpression('model', ['string'])),
+				getJsDocs: jest
+					.fn()
+					.mockReturnValue([{ getComment: jest.fn().mockReturnValue('The value controlling the input') }]),
+			},
+		]);
+
+		// Mock the CallExpression to include arguments with default values
+		const mockCallExpression = jest.requireMock('ts-morph').CallExpression;
+		mockCallExpression.prototype.getArguments = jest.fn().mockReturnValue([{ getText: () => "('')" }]);
+
+		await executor(options, context);
+
+		const writeFileCall = (fs.promises.writeFile as jest.Mock).mock.calls[0];
+		const receivedJson = JSON.parse(writeFileCall[1]);
+		const receivedComponentData = findComponentData(receivedJson, 'OtpComponent');
+		expect(receivedComponentData.models).toEqual([
+			{
+				name: 'value',
+				type: 'string',
+				description: 'The value controlling the input',
+				defaultValue: '',
+			},
+		]);
+	});
+
+	it('should use alias as input name if present in input options', async () => {
+		// Setup mock component with a signal-based input with alias
+		mockClass.getName.mockReturnValue('AliasComponent');
+		mockClass.getDecorator.mockReturnValue(mockDecorator);
+		mockDecorator.getName.mockReturnValue('Component');
+		mockDecorator.getArguments.mockReturnValue([new MockObjectLiteralExpression()]);
+		const mockObjectLiteral = new MockObjectLiteralExpression({ alias: "'class'" });
+		const mockCallExpr = new MockCallExpression('input', ['ClassValue']);
+		mockCallExpr.getArguments = jest.fn().mockReturnValue([
+			{ getText: () => "('')" },
+			mockObjectLiteral,
+		]);
+		mockClass.getProperties.mockReturnValue([
+			{
+				...mockProperty,
+				getName: jest.fn().mockReturnValue('userClass'),
+				getInitializer: jest.fn().mockReturnValue(mockCallExpr),
+				getJsDocs: jest
+					.fn()
+					.mockReturnValue([{ getComment: jest.fn().mockReturnValue('User class input') }]),
+			},
+		]);
+
+		await executor(options, context);
+
+		const writeFileCall = (fs.promises.writeFile as jest.Mock).mock.calls[0];
+		const receivedJson = JSON.parse(writeFileCall[1]);
+		const receivedComponentData = findComponentData(receivedJson, 'AliasComponent');
+		expect(receivedComponentData.inputs).toEqual([
+			{
+				name: 'class', // alias should be used
+				type: 'ClassValue',
+				description: 'User class input',
+				defaultValue: '',
+			},
+		]);
+	});
 });

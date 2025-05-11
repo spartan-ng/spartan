@@ -184,6 +184,7 @@ describe('GenerateUiDocs Executor', () => {
 		};
 		mockProperty = {
 			getType: jest.fn().mockReturnValue({ getText: () => 'boolean' }),
+			getTypeNode: jest.fn().mockReturnValue({ getText: () => 'boolean' }),
 			getDecorator: jest.fn(),
 			getName: jest.fn(),
 			getJsDocs: jest.fn().mockReturnValue([]),
@@ -241,6 +242,7 @@ describe('GenerateUiDocs Executor', () => {
 								defaultValue: 'false',
 							},
 						],
+						models: [],
 						outputs: [],
 						selector: 'hlm-button',
 						exportAs: 'hlmButton',
@@ -291,6 +293,7 @@ describe('GenerateUiDocs Executor', () => {
 								defaultValue: 'false',
 							},
 						],
+						models: [],
 						outputs: [],
 						selector: 'hlm-button',
 						exportAs: 'hlmButton',
@@ -326,6 +329,7 @@ describe('GenerateUiDocs Executor', () => {
 					ButtonGroupComponent: {
 						file: 'libs/ui/button/group/button-group.component.ts',
 						inputs: [],
+						models: [],
 						outputs: [],
 						selector: 'hlm-button-group',
 						exportAs: 'hlmButtonGroup',
@@ -361,6 +365,7 @@ describe('GenerateUiDocs Executor', () => {
 					ButtonComponent: {
 						file: 'libs/brain/button/button.component.ts',
 						inputs: [],
+						models: [],
 						outputs: [],
 						selector: 'brn-button',
 						exportAs: 'brnButton',
@@ -379,11 +384,19 @@ describe('GenerateUiDocs Executor', () => {
 		mockClass.getDecorator.mockReturnValue(mockDecorator);
 		mockDecorator.getName.mockReturnValue('Component');
 		mockDecorator.getArguments.mockReturnValue([new MockObjectLiteralExpression()]);
+		const mockTypeArg = {
+			getText: () => 'string',
+			getTypeNode: () => ({ getText: () => 'string' }),
+		};
 		mockClass.getProperties.mockReturnValue([
 			{
 				...mockProperty,
 				getName: jest.fn().mockReturnValue('value'),
-				getInitializer: jest.fn().mockReturnValue(new MockCallExpression('model', ['string'])),
+				getInitializer: jest.fn().mockReturnValue(
+					Object.assign(new MockCallExpression('model', ['string']), {
+						getTypeArguments: () => [mockTypeArg],
+					}),
+				),
 				getJsDocs: jest
 					.fn()
 					.mockReturnValue([{ getComment: jest.fn().mockReturnValue('The value controlling the input') }]),
@@ -415,13 +428,17 @@ describe('GenerateUiDocs Executor', () => {
 		mockClass.getDecorator.mockReturnValue(mockDecorator);
 		mockDecorator.getName.mockReturnValue('Component');
 		mockDecorator.getArguments.mockReturnValue([new MockObjectLiteralExpression()]);
-		const mockObjectLiteral = new MockObjectLiteralExpression({ alias: "'class'" });
-		const mockCallExpr = new MockCallExpression('input', ['ClassValue']);
-		mockCallExpr.getArguments = jest.fn().mockReturnValue([{ getText: () => "('')" }, mockObjectLiteral]);
+		const mockTypeArgAlias = {
+			getText: () => 'ClassValue',
+			getTypeNode: () => ({ getText: () => 'ClassValue' }),
+		};
+		const mockCallExpr = Object.assign(new MockCallExpression('input', ['ClassValue']), {
+			getTypeArguments: () => [mockTypeArgAlias],
+		});
 		mockClass.getProperties.mockReturnValue([
 			{
 				...mockProperty,
-				getName: jest.fn().mockReturnValue('userClass'),
+				getName: jest.fn().mockReturnValue('class'),
 				getInitializer: jest.fn().mockReturnValue(mockCallExpr),
 				getJsDocs: jest.fn().mockReturnValue([{ getComment: jest.fn().mockReturnValue('User class input') }]),
 			},

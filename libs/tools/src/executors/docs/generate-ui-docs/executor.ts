@@ -43,6 +43,7 @@ function extractInputsOutputs(project: Project, workspaceRoot: string) {
 				file: relativeFilePath,
 				inputs: [],
 				outputs: [],
+				models: [],
 				selector: null,
 				exportAs: null,
 			};
@@ -91,34 +92,32 @@ function extractInputsOutputs(project: Project, workspaceRoot: string) {
 						componentInfo.outputs.push({ name, type, description });
 					}
 				} else {
-					// Check for signal-based inputs/outputs
+					// Check for signal-based inputs/outputs/models
 					const initializer = prop.getInitializer();
 					if (initializer instanceof CallExpression) {
 						const callExpr = initializer as CallExpression;
+						const exprText = callExpr.getExpression().getText();
 						const inferredType = callExpr.getTypeArguments()?.[0]?.getText() || 'unknown';
 
-						// Extract default value from signal-based input
+						// Extract default value from signal-based input/model
 						let defaultValue = null;
 						const callArgs = callExpr.getArguments();
 						if (callArgs.length > 0) {
-							// Get the text representation of the argument
 							const argText = callArgs[0].getText();
-							// For signal-based inputs, the default value is directly in the argument
-							// Example: input<'single' | 'multiple'>('single')
-							// We need to extract the value between the last set of parentheses
 							const match = argText.match(/\(([^()]*)\)$/);
 							if (match && match[1]) {
 								defaultValue = match[1].replace(/['"]/g, '');
 							} else {
-								// If no parentheses, the entire argument is the default value
 								defaultValue = argText.replace(/['"]/g, '');
 							}
 						}
 
-						if (callExpr.getExpression().getText() === 'input') {
+						if (exprText === 'input') {
 							componentInfo.inputs.push({ name, type: inferredType, description, defaultValue });
-						} else if (callExpr.getExpression().getText() === 'output') {
+						} else if (exprText === 'output') {
 							componentInfo.outputs.push({ name, type: inferredType, description });
+						} else if (exprText === 'model') {
+							componentInfo.models.push({ name, type: inferredType, description, defaultValue });
 						}
 					}
 				}
@@ -127,6 +126,7 @@ function extractInputsOutputs(project: Project, workspaceRoot: string) {
 			if (
 				componentInfo.inputs.length ||
 				componentInfo.outputs.length ||
+				componentInfo.models.length ||
 				componentInfo.selector ||
 				componentInfo.exportAs
 			) {

@@ -14,68 +14,109 @@ import { ApiDocsService } from '../../../core/services/api-docs.service';
 		@if (componentDocs() && componentEntries() && componentEntries().length > 0) {
 			@for (entry of componentEntries(); track entry) {
 				<h4 class="${hlmH4} mb-2 mt-6 pt-12" [id]="entry.toLowerCase()">{{ entry }}</h4>
-				<p>Selector: <code class="${hlmCode}">{{ componentItems()[entry].selector }}</code></p>
+				<p>
+					Selector:
+					<code class="${hlmCode}">{{ componentItems()[entry].selector }}</code>
+				</p>
 				@if (componentItems()[entry].exportAs) {
-					<p>ExportAs: <code class="${hlmCode}">{{ componentItems()[entry].exportAs }}</code></p>
+					<p>
+						ExportAs:
+						<code class="${hlmCode}">{{ componentItems()[entry].exportAs }}</code>
+					</p>
 				}
 				@if (componentItems()[entry].inputs && componentItems()[entry].inputs.length > 0) {
 					<h4 class="${hlmH4} mb-2 mt-6">Inputs</h4>
-					<div class="overflow-x-auto w-full">
-					<hlm-table class="min-w-[400px] overflow-x-auto">
-						<hlm-trow>
-							<hlm-th class="flex-1">Prop</hlm-th>
-							<hlm-th class="flex-1">Type</hlm-th>
-							<hlm-th class="flex-1">Default</hlm-th>
-							<hlm-th class="flex-1 whitespace-nowrap">Description</hlm-th>
-						</hlm-trow>
-
-						@for (input of componentItems()[entry].inputs; track input.name + $index) {
+					<div class="w-full overflow-x-auto">
+						<hlm-table class="min-w-[400px] overflow-x-auto">
 							<hlm-trow>
-								<hlm-td truncate class="flex-1 font-medium">{{ input?.name }}</hlm-td>
-								<hlm-td class="flex-1">{{ input?.type }}</hlm-td>
-								<hlm-td class="flex-1">
-									@if (input?.defaultValue) {
-										{{ input?.defaultValue }}
-									} @else {
-										<span class="sr-hidden">-</span>
-									}
-								</hlm-td>
-								<hlm-td class="flex-1">
-									@if (input?.description) {
-										{{ input?.description }}
-									} @else {
-										<span class="sr-hidden">-</span>
-									}
-								</hlm-td>
+								<hlm-th class="flex-1">Prop</hlm-th>
+								<hlm-th class="flex-1">Type</hlm-th>
+								<hlm-th class="flex-1">Default</hlm-th>
+								<hlm-th class="flex-1 whitespace-nowrap">Description</hlm-th>
 							</hlm-trow>
-						}
-					</hlm-table>
+
+							@for (input of componentItems()[entry].inputs; track input.name + $index) {
+								<hlm-trow>
+									<hlm-td truncate class="flex-1 font-medium">{{ input?.name }}</hlm-td>
+									<hlm-td class="flex-1">{{ input?.type }}</hlm-td>
+									<hlm-td class="flex-1">
+										@if (input?.defaultValue) {
+											{{ input?.defaultValue }}
+										} @else {
+											<span class="sr-hidden">-</span>
+										}
+									</hlm-td>
+									<hlm-td class="flex-1">
+										@if (input?.description) {
+											{{ input?.description }}
+										} @else {
+											<span class="sr-hidden">-</span>
+										}
+									</hlm-td>
+								</hlm-trow>
+							}
+						</hlm-table>
+					</div>
+				}
+
+				@if (componentItems()[entry].models && componentItems()[entry].models.length > 0) {
+					<h4 class="${hlmH4} mb-2 mt-6">Models</h4>
+					<div class="w-full overflow-x-auto">
+						<hlm-table class="min-w-[400px] overflow-x-auto">
+							<hlm-trow>
+								<hlm-th class="flex-1">Prop</hlm-th>
+								<hlm-th class="flex-1">Type</hlm-th>
+								<hlm-th class="flex-1">Default</hlm-th>
+								<hlm-th class="flex-1 whitespace-nowrap">Description</hlm-th>
+							</hlm-trow>
+
+							@for (model of componentItems()[entry].models; track model.name + $index) {
+								<hlm-trow>
+									<hlm-td truncate class="flex-1 font-medium">{{ model?.name }}</hlm-td>
+									<hlm-td class="flex-1">{{ model?.type }}</hlm-td>
+									<hlm-td class="flex-1">
+										@if (model?.defaultValue) {
+											{{ model?.defaultValue }}
+										} @else {
+											<span class="sr-hidden">-</span>
+										}
+									</hlm-td>
+									<hlm-td class="flex-1">
+										@if (model?.description) {
+											{{ model?.description }}
+										} @else {
+											<span class="sr-hidden">-</span>
+										}
+									</hlm-td>
+								</hlm-trow>
+							}
+						</hlm-table>
 					</div>
 				}
 
 				@if (componentItems()[entry].outputs && componentItems()[entry].outputs.length > 0) {
 					<h4 class="${hlmH4} mb-2 mt-6">Outputs</h4>
-					<div class="overflow-x-auto w-full">
-					<hlm-table class="min-w-[400px] overflow-x-auto">
-						<hlm-trow>
-							<hlm-th class="flex-1">Prop</hlm-th>
-							<hlm-th class="flex-1">Type</hlm-th>
-							<hlm-th class="flex-1 whitespace-nowrap">Description</hlm-th>
-						</hlm-trow>
-
-						@for (output of componentItems()[entry].outputs; track output.name + $index) {
+					<div class="w-full overflow-x-auto">
+						<hlm-table class="min-w-[400px] overflow-x-auto">
 							<hlm-trow>
-								<hlm-td truncate class="flex-1 font-medium">{{ output?.name }}</hlm-td>
-								<hlm-td class="flex-1">{{ output?.type }}</hlm-td>
-								<hlm-td class="flex-1">
-									@if (output?.description) {
-										{{ output?.description }}
-									} @else {
-										<span class="sr-hidden">-</span>
-									}
-								</hlm-td>
+								<hlm-th class="flex-1">Prop</hlm-th>
+								<hlm-th class="flex-1">Type</hlm-th>
+								<hlm-th class="flex-1 whitespace-nowrap">Description</hlm-th>
 							</hlm-trow>
-						}
+
+							@for (output of componentItems()[entry].outputs; track output.name + $index) {
+								<hlm-trow>
+									<hlm-td truncate class="flex-1 font-medium">{{ output?.name }}</hlm-td>
+									<hlm-td class="flex-1">{{ output?.type }}</hlm-td>
+									<hlm-td class="flex-1">
+										@if (output?.description) {
+											{{ output?.description }}
+										} @else {
+											<span class="sr-hidden">-</span>
+										}
+									</hlm-td>
+								</hlm-trow>
+							}
 						</hlm-table>
 					</div>
 				}

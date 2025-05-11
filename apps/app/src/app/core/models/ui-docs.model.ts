@@ -7,6 +7,7 @@ export interface PropertyMetadata {
 export interface ComponentMetadata {
 	file: string;
 	inputs: PropertyMetadata[];
+	models: PropertyMetadata[];
 	outputs: PropertyMetadata[];
 	selector: string | null;
 	exportAs: string | null;

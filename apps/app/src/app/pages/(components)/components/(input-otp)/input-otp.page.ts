@@ -1,5 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
+import { UIApiDocsComponent } from '@spartan-ng/app/app/shared/layout/ui-docs-section/ui-docs-section.component';
 import { hlmCode, hlmH4, hlmP } from '@spartan-ng/ui-typography-helm';
 import { CodePreviewDirective } from '../../../../shared/code/code-preview.directive';
 import { CodeComponent } from '../../../../shared/code/code.component';
@@ -16,13 +17,14 @@ import { inputOtpFormCode, InputOtpFormExampleComponent } from './input-otp--for
 import { defaultCode, defaultImports, defaultSkeleton, InputOtpPreviewComponent } from './input-otp.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'Input OTP' },
+	data: { breadcrumb: 'Input OTP', api: 'input-otp' },
 	meta: metaWith('spartan/ui - Input OTP', 'Accessible one-time password component.'),
 	title: 'spartan/ui - Input OTP',
 };
 @Component({
 	selector: 'spartan-input-otp',
 	imports: [
+		UIApiDocsComponent,
 		MainSectionDirective,
 		CodeComponent,
 		SectionIntroComponent,
@@ -59,6 +61,12 @@ export const routeMeta: RouteMeta = {
 				<spartan-code [code]="defaultImports" />
 				<spartan-code [code]="defaultSkeleton" />
 			</div>
+
+			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="brain" />
+
+			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="ui" />
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
 

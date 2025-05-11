@@ -1,15 +1,15 @@
 import { Component, computed, inject, input } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
-import { HlmTableComponent, HlmTdComponent, HlmThComponent, HlmTrowComponent } from '@spartan-ng/ui-table-helm';
 import { hlmCode, hlmH4 } from '@spartan-ng/ui-typography-helm';
 import { map } from 'rxjs/operators';
 import { ApiDocsService } from '../../../core/services/api-docs.service';
+import { UIApiDocsTableComponent } from '../ui-api-docs-table/ui-api-docs-table.component';
 
 @Component({
 	selector: 'spartan-ui-api-docs',
 	standalone: true,
-	imports: [HlmTableComponent, HlmTrowComponent, HlmThComponent, HlmTdComponent],
+	imports: [UIApiDocsTableComponent],
 	template: `
 		@if (componentDocs() && componentEntries() && componentEntries().length > 0) {
 			@for (entry of componentEntries(); track entry) {
@@ -24,101 +24,43 @@ import { ApiDocsService } from '../../../core/services/api-docs.service';
 						<code class="${hlmCode}">{{ componentItems()[entry].exportAs }}</code>
 					</p>
 				}
-				@if (componentItems()[entry].inputs && componentItems()[entry].inputs.length > 0) {
-					<h4 class="${hlmH4} mb-2 mt-6">Inputs</h4>
-					<div class="w-full overflow-x-auto">
-						<hlm-table class="min-w-[400px] overflow-x-auto">
-							<hlm-trow>
-								<hlm-th class="flex-1">Prop</hlm-th>
-								<hlm-th class="flex-1">Type</hlm-th>
-								<hlm-th class="flex-1">Default</hlm-th>
-								<hlm-th class="flex-1 whitespace-nowrap">Description</hlm-th>
-							</hlm-trow>
 
-							@for (input of componentItems()[entry].inputs; track input.name + $index) {
-								<hlm-trow>
-									<hlm-td truncate class="flex-1 font-medium">{{ input?.name }}</hlm-td>
-									<hlm-td class="flex-1">{{ input?.type }}</hlm-td>
-									<hlm-td class="flex-1">
-										@if (input?.defaultValue) {
-											{{ input?.defaultValue }}
-										} @else {
-											<span class="sr-hidden">-</span>
-										}
-									</hlm-td>
-									<hlm-td class="flex-1">
-										@if (input?.description) {
-											{{ input?.description }}
-										} @else {
-											<span class="sr-hidden">-</span>
-										}
-									</hlm-td>
-								</hlm-trow>
-							}
-						</hlm-table>
-					</div>
+				@if (componentItems()[entry].inputs && componentItems()[entry].inputs.length > 0) {
+					<spartan-ui-api-docs-table
+						title="Inputs"
+						[rows]="componentItems()[entry].inputs"
+						[columns]="[
+							{ label: 'Prop', key: 'name', class: 'w-[200px] flex-1 font-medium' },
+							{ label: 'Type', key: 'type', class: 'w-[100px] flex-1 flex-wrap' },
+							{ label: 'Default', key: 'defaultValue', class: 'w-[100px] flex-1' },
+							{ label: 'Description', key: 'description', class: 'flex-1' },
+						]"
+					/>
 				}
 
 				@if (componentItems()[entry].models && componentItems()[entry].models.length > 0) {
-					<h4 class="${hlmH4} mb-2 mt-6">Models</h4>
-					<div class="w-full overflow-x-auto">
-						<hlm-table class="min-w-[400px] overflow-x-auto">
-							<hlm-trow>
-								<hlm-th class="flex-1">Prop</hlm-th>
-								<hlm-th class="flex-1">Type</hlm-th>
-								<hlm-th class="flex-1">Default</hlm-th>
-								<hlm-th class="flex-1 whitespace-nowrap">Description</hlm-th>
-							</hlm-trow>
-
-							@for (model of componentItems()[entry].models; track model.name + $index) {
-								<hlm-trow>
-									<hlm-td truncate class="flex-1 font-medium">{{ model?.name }}</hlm-td>
-									<hlm-td class="flex-1">{{ model?.type }}</hlm-td>
-									<hlm-td class="flex-1">
-										@if (model?.defaultValue) {
-											{{ model?.defaultValue }}
-										} @else {
-											<span class="sr-hidden">-</span>
-										}
-									</hlm-td>
-									<hlm-td class="flex-1">
-										@if (model?.description) {
-											{{ model?.description }}
-										} @else {
-											<span class="sr-hidden">-</span>
-										}
-									</hlm-td>
-								</hlm-trow>
-							}
-						</hlm-table>
-					</div>
+					<spartan-ui-api-docs-table
+						title="Models"
+						[rows]="componentItems()[entry].models"
+						[columns]="[
+							{ label: 'Prop', key: 'name', class: 'w-[200px] flex-1 font-medium' },
+							{ label: 'Type', key: 'type', class: 'w-[100px] flex-1 flex-wrap' },
+							{ label: 'Default', key: 'defaultValue', class: 'w-[100px] flex-1' },
+							{ label: 'Description', key: 'description', class: 'flex-1' },
+						]"
+					/>
 				}
 
 				@if (componentItems()[entry].outputs && componentItems()[entry].outputs.length > 0) {
-					<h4 class="${hlmH4} mb-2 mt-6">Outputs</h4>
-					<div class="w-full overflow-x-auto">
-						<hlm-table class="min-w-[400px] overflow-x-auto">
-							<hlm-trow>
-								<hlm-th class="flex-1">Prop</hlm-th>
-								<hlm-th class="flex-1">Type</hlm-th>
-								<hlm-th class="flex-1 whitespace-nowrap">Description</hlm-th>
-							</hlm-trow>
-
-							@for (output of componentItems()[entry].outputs; track output.name + $index) {
-								<hlm-trow>
-									<hlm-td truncate class="flex-1 font-medium">{{ output?.name }}</hlm-td>
-									<hlm-td class="flex-1">{{ output?.type }}</hlm-td>
-									<hlm-td class="flex-1">
-										@if (output?.description) {
-											{{ output?.description }}
-										} @else {
-											<span class="sr-hidden">-</span>
-										}
-									</hlm-td>
-								</hlm-trow>
-							}
-						</hlm-table>
-					</div>
+					<spartan-ui-api-docs-table
+						title="Outputs"
+						[rows]="componentItems()[entry].outputs"
+						[columns]="[
+							{ label: 'Prop', key: 'name', class: 'w-[200px] flex-1 font-medium' },
+							{ label: 'Type', key: 'type', class: 'w-[100px] flex-1 flex-wrap' },
+							{ label: 'Description', key: 'description', class: 'flex-1' },
+						]"
+					/>
 				}
 			}
 		}

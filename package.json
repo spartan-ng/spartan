@@ -11,7 +11,7 @@
 		"chromatic": "chromatic --project-token=chpt_845c7a47afdb884",
 		"dev": "nx serve app",
 		"drizzle": "npx drizzle-kit generate --config=./apps/app/drizzle.config.ts",
-		"e2e": "nx run-many --target e2e --projects=tag:scope:e2e --all --parallel=1",
+		"e2e": "nx run-many --target e2e --projects=tag:scope:e2e --all --parallel=1 --outputStyle=stream",
 		"format": "nx format --write",
 		"lint": "nx run-many --target=lint --parallel",
 		"pre-manual-release": "pnpm run prepare-manual-release && pnpm run format && nx run tools:lint --fix",

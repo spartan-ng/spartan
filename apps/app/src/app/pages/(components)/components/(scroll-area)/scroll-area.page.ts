@@ -13,17 +13,19 @@ import { SectionIntroComponent } from '../../../../shared/layout/section-intro.c
 import { SectionSubHeadingComponent } from '../../../../shared/layout/section-sub-heading.component';
 import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
+import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { ScrollAreaPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './scroll-area.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'Scroll Area' },
+	data: { breadcrumb: 'Scroll Area', api: 'scroll-area' },
 	meta: metaWith('spartan/ui - Scroll Area', 'Augments native scroll functionality for custom, cross-browser styling.'),
 	title: 'spartan/ui - Scroll Area',
 };
 @Component({
 	selector: 'spartan-scroll-area',
 	imports: [
+		UIApiDocsComponent,
 		MainSectionDirective,
 		CodeComponent,
 		SectionIntroComponent,
@@ -63,6 +65,9 @@ export const routeMeta: RouteMeta = {
 				<spartan-code [code]="defaultImports" />
 				<spartan-code [code]="defaultSkeleton" />
 			</div>
+
+			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="ui" />
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="select" label="Select" />

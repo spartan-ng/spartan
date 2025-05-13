@@ -14,12 +14,13 @@ import { SectionIntroComponent } from '../../../../shared/layout/section-intro.c
 import { SectionSubHeadingComponent } from '../../../../shared/layout/section-sub-heading.component';
 import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
+import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { CommandDialogComponent, commandDialogCode } from './command--dialog.example';
 import { CommandPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './command.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'Command' },
+	data: { breadcrumb: 'Command', api: 'command' },
 	meta: metaWith('spartan/ui - Command', 'Fast, composable, command menu for Angular.'),
 	title: 'spartan/ui - Command',
 };
@@ -27,6 +28,7 @@ export const routeMeta: RouteMeta = {
 @Component({
 	selector: 'spartan-command',
 	imports: [
+		UIApiDocsComponent,
 		MainSectionDirective,
 		CodeComponent,
 		SectionIntroComponent,
@@ -65,6 +67,12 @@ export const routeMeta: RouteMeta = {
 				<spartan-code [code]="defaultImports" />
 				<spartan-code [code]="defaultSkeleton" />
 			</div>
+
+			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="brain" />
+
+			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="ui" />
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
 			<h3 id="examples__dialog" class="${hlmH4} mb-2 mt-6">Dialog</h3>

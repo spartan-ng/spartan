@@ -1,5 +1,5 @@
 import { Component, booleanAttribute, computed, forwardRef, input, model, output, signal } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCheck } from '@ng-icons/lucide';
 import { BrnCheckboxComponent } from '@spartan-ng/brain/checkbox';
@@ -44,7 +44,7 @@ export const HLM_CHECKBOX_VALUE_ACCESSOR = {
 	providers: [HLM_CHECKBOX_VALUE_ACCESSOR],
 	viewProviders: [provideIcons({ lucideCheck })],
 })
-export class HlmCheckboxComponent {
+export class HlmCheckboxComponent implements ControlValueAccessor {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 
 	protected readonly _computedClass = computed(() =>
@@ -102,7 +102,7 @@ export class HlmCheckboxComponent {
 		this.changed.emit(!previousChecked);
 	}
 
-	/** CONROL VALUE ACCESSOR */
+	/** CONTROL VALUE ACCESSOR */
 	writeValue(value: CheckboxValue): void {
 		this.checked.set(!!value);
 	}

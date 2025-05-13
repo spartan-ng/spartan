@@ -11,6 +11,7 @@ import { SectionIntroComponent } from '../../../../shared/layout/section-intro.c
 import { SectionSubHeadingComponent } from '../../../../shared/layout/section-sub-heading.component';
 import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
+import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { datePickerConfigCode, DatePickerConfigExampleComponent } from './date-picker--config.example';
 import { datePickerFormMultipleCode, DatePickerFormMultipleExampleComponent } from './date-picker--form-multi.example';
@@ -20,7 +21,7 @@ import { datePickerMultipleCode, DatePickerMultipleExampleComponent } from './da
 import { codeSkeleton, DatePickerPreviewComponent, defaultCode, defaultImports } from './date-picker.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'Date Picker' },
+	data: { breadcrumb: 'Date Picker', api: 'date-picker' },
 	meta: metaWith('spartan/ui - Date Picker', 'A date picker component.'),
 	title: 'spartan/ui - Date Picker',
 };
@@ -30,6 +31,7 @@ const link = 'h-6 underline text-base px-0.5';
 @Component({
 	selector: 'spartan-calendar',
 	imports: [
+		UIApiDocsComponent,
 		DatePickerPreviewComponent,
 		SectionIntroComponent,
 		TabsComponent,
@@ -79,6 +81,9 @@ const link = 'h-6 underline text-base px-0.5';
 				<spartan-code [code]="defaultImports" />
 				<spartan-code [code]="codeSkeleton" />
 			</div>
+
+			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="ui" />
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
 			<h3 id="examples__custom_config" class="${hlmH4} mb-2 mt-6">Custom Configs</h3>

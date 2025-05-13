@@ -11,6 +11,7 @@ import { SectionIntroComponent } from '../../../../shared/layout/section-intro.c
 import { SectionSubHeadingComponent } from '../../../../shared/layout/section-sub-heading.component';
 import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
+import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import {
 	BreadcrumbCollapsedComponent,
@@ -26,13 +27,14 @@ import { BreadcrumbDropdownComponent, breadcrumbDropdownCode } from './breadcrum
 import { BreadcrumbPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './breadcrumb.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'Breadcrumb' },
+	data: { breadcrumb: 'Breadcrumb', api: 'breadcrumb' },
 	meta: metaWith('spartan/ui - Breadcrumb', 'Displays the path to the current resource using a hierarchy of links.'),
 	title: 'spartan/ui - Breadcrumb',
 };
 @Component({
 	selector: 'spartan-breadcrumb',
 	imports: [
+		UIApiDocsComponent,
 		MainSectionDirective,
 		CodeComponent,
 		SectionIntroComponent,
@@ -74,8 +76,11 @@ export const routeMeta: RouteMeta = {
 				<spartan-code [code]="defaultSkeleton" />
 			</div>
 
+			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="ui" />
+
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__default" class="${hlmH4} mt-6">Custom separator</h3>
+			<h3 id="examples__custom-separator" class="${hlmH4} mt-6">Custom separator</h3>
 			<p class="${hlmP} mb-2">
 				Use a custom component as
 				<code class="${hlmCode} mr-0.5">children</code>

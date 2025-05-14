@@ -1,5 +1,5 @@
 import { BooleanInput } from '@angular/cdk/coercion';
-import { booleanAttribute, Component, computed, input } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronRight } from '@ng-icons/lucide';
@@ -27,6 +27,7 @@ import { HlmPaginationLinkDirective } from './hlm-pagination-link.directive';
 			<ng-icon hlm size="sm" name="lucideChevronRight" />
 		</a>
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmPaginationNextComponent {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

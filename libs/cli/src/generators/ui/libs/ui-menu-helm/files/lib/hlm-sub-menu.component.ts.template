@@ -1,4 +1,4 @@
-import { Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { hlm } from '@spartan-ng/brain/core';
 import { BrnMenuDirective } from '@spartan-ng/brain/menu';
 import type { ClassValue } from 'clsx';
@@ -13,6 +13,7 @@ import type { ClassValue } from 'clsx';
 	template: `
 		<ng-content />
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmSubMenuComponent {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

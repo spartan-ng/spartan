@@ -1,4 +1,4 @@
-import { Component, Input, booleanAttribute, computed, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, booleanAttribute, computed, input, signal } from '@angular/core';
 import { hlm } from '@spartan-ng/brain/core';
 import type { ClassValue } from 'clsx';
 
@@ -11,6 +11,7 @@ import type { ClassValue } from 'clsx';
 	host: {
 		'[class]': '_computedClass()',
 	},
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmMenuLabelComponent {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

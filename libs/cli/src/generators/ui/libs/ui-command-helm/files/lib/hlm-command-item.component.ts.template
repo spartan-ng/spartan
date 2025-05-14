@@ -1,5 +1,5 @@
 import { BooleanInput } from '@angular/cdk/coercion';
-import { booleanAttribute, Component, computed, input, output } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
 import { BrnCommandItemDirective } from '@spartan-ng/brain/command';
 import { hlm } from '@spartan-ng/brain/core';
 
@@ -19,6 +19,7 @@ import { hlm } from '@spartan-ng/brain/core';
 	host: {
 		'[class]': '_computedClass()',
 	},
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmCommandItemComponent {
 	/** The value this item represents. */

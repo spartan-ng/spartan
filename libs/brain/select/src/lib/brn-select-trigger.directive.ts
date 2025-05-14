@@ -2,12 +2,13 @@ import { isPlatformBrowser } from '@angular/common';
 import {
 	type AfterViewInit,
 	ChangeDetectorRef,
+	computed,
 	Directive,
 	ElementRef,
-	OnDestroy,
-	PLATFORM_ID,
-	computed,
 	inject,
+	OnDestroy,
+	OnInit,
+	PLATFORM_ID,
 } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -35,7 +36,7 @@ import { injectBrnSelect } from './brn-select.token';
 		'(keydown.ArrowDown)': '_select.show()',
 	},
 })
-export class BrnSelectTriggerDirective<T> implements AfterViewInit, OnDestroy {
+export class BrnSelectTriggerDirective<T> implements AfterViewInit, OnDestroy, OnInit {
 	private readonly _elementRef = inject(ElementRef);
 	/** Access the change detector */
 	private readonly _changeDetector = inject(ChangeDetectorRef);

@@ -1,4 +1,4 @@
-import { Component, model } from '@angular/core';
+import { ChangeDetectionStrategy, Component, model } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
 	BrnSliderDirective,
@@ -24,6 +24,7 @@ import {
 		<button data-testid="change-value-btn" (click)="changeValue(24)">Change temperature value</button>
 	`,
 	imports: [FormsModule, BrnSliderDirective, BrnSliderThumbDirective, BrnSliderTrackDirective, BrnSliderRangeDirective],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TemplateDrivenFormSliderComponent {
 	public readonly temperature = model<number>(0);
@@ -59,6 +60,7 @@ export class TemplateDrivenFormSliderComponent {
 		BrnSliderTrackDirective,
 		BrnSliderRangeDirective,
 	],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReactiveFormSliderComponent {
 	public readonly temperature = model<number>(46);

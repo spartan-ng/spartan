@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { HlmAspectRatioDirective } from './helm-aspect-ratio.directive';
 
@@ -14,6 +14,7 @@ import { HlmAspectRatioDirective } from './helm-aspect-ratio.directive';
 			/>
 		</div>
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class MockComponent {
 	public ratio: number | undefined = 16 / 9;

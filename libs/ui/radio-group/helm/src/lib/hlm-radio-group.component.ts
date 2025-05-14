@@ -1,4 +1,4 @@
-import { Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { hlm } from '@spartan-ng/brain/core';
 import { BrnRadioGroupDirective } from '@spartan-ng/brain/radio-group';
 import type { ClassValue } from 'clsx';
@@ -16,6 +16,7 @@ import type { ClassValue } from 'clsx';
 		'[class]': '_computedClass()',
 	},
 	template: '<ng-content />',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmRadioGroupComponent {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

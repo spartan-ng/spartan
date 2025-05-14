@@ -1,6 +1,7 @@
 import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import {
 	booleanAttribute,
+	ChangeDetectionStrategy,
 	Component,
 	computed,
 	forwardRef,
@@ -48,6 +49,7 @@ export type InputMode = 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal'
 		'data-input-otp-container': 'true',
 	},
 	providers: [BRN_INPUT_OTP_VALUE_ACCESSOR, provideBrnInputOtp(BrnInputOtpComponent)],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BrnInputOtpComponent implements ControlValueAccessor {
 	/** Whether the input has focus. */

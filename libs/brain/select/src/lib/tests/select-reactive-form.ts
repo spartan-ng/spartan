@@ -26,6 +26,7 @@ import { BrnSelectComponent, BrnSelectImports } from '../../';
 			}
 		</form>
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectReactiveFieldComponent {
 	public fruitGroup = new FormGroup({ fruit: new FormControl() });
@@ -55,6 +56,7 @@ export class SelectReactiveFieldComponent {
 			}
 		</form>
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectSingleValueTestComponent {
 	public form = new FormGroup({ fruit: new FormControl(null) });
@@ -86,6 +88,7 @@ export class SelectSingleValueTestComponent {
 			}
 		</form>
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectSingleValueWithInitialValueTestComponent {
 	public form = new FormGroup({ fruit: new FormControl('apple') });
@@ -115,6 +118,7 @@ export class SelectSingleValueWithInitialValueTestComponent {
 			}
 		</form>
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectSingleValueWithInitialValueWithAsyncUpdateTestComponent {
 	public form = new FormGroup({ fruit: new FormControl('apple') });
@@ -153,6 +157,7 @@ export class SelectSingleValueWithInitialValueWithAsyncUpdateTestComponent {
 			}
 		</form>
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectMultiValueTestComponent {
 	public form = new FormGroup({ fruit: new FormControl<string[]>([]) });
@@ -182,6 +187,7 @@ export class SelectMultiValueTestComponent {
 			}
 		</form>
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectMultiValueWithInitialValueTestComponent {
 	public form = new FormGroup({ fruit: new FormControl(['apple', 'blueberry']) });

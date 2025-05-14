@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrnAvatarComponent } from './brn-avatar.component';
@@ -29,6 +29,7 @@ import { BrnAvatarImageDirective } from './image/brn-avatar-image.directive';
 		</brn-avatar>
 	`,
 	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class MockComponent {}
 

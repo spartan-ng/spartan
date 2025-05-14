@@ -1,5 +1,15 @@
 import { BooleanInput } from '@angular/cdk/coercion';
-import { Component, booleanAttribute, computed, forwardRef, input, model, output, signal } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	booleanAttribute,
+	computed,
+	forwardRef,
+	input,
+	model,
+	output,
+	signal,
+} from '@angular/core';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { provideBrnToggleGroup } from './brn-toggle-group.token';
 import { BrnToggleGroupItemDirective } from './brn-toggle-item.directive';
@@ -33,6 +43,7 @@ export class BrnButtonToggleChange<T = unknown> {
 	template: `
 		<ng-content />
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BrnToggleGroupComponent<T = unknown> implements ControlValueAccessor {
 	/**

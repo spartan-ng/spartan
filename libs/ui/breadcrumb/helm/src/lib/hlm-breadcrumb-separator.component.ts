@@ -1,4 +1,4 @@
-import { Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronRight } from '@ng-icons/lucide';
 import { hlm } from '@spartan-ng/brain/core';
@@ -19,6 +19,7 @@ import type { ClassValue } from 'clsx';
 			<ng-icon name="lucideChevronRight" />
 		</ng-content>
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmBreadcrumbSeparatorComponent {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

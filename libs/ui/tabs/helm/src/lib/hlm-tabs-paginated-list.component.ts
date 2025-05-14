@@ -1,5 +1,13 @@
 import { CdkObserveContent } from '@angular/cdk/observers';
-import { Component, type ElementRef, computed, contentChildren, input, viewChild } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	type ElementRef,
+	computed,
+	contentChildren,
+	input,
+	viewChild,
+} from '@angular/core';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronLeft, lucideChevronRight } from '@ng-icons/lucide';
@@ -60,6 +68,7 @@ import { listVariants } from './hlm-tabs-list.component';
 	host: {
 		'[class]': '_computedClass()',
 	},
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmTabsPaginatedListComponent extends BrnTabsPaginatedListDirective {
 	public readonly _items = contentChildren(BrnTabsTriggerDirective, { descendants: false });

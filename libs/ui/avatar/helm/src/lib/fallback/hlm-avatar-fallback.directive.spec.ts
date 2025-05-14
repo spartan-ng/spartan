@@ -1,4 +1,4 @@
-import { Component, PLATFORM_ID } from '@angular/core';
+import { ChangeDetectionStrategy, Component, PLATFORM_ID } from '@angular/core';
 import { type ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 import { hexColorFor, isBright } from '@spartan-ng/brain/avatar';
 import { HlmAvatarFallbackDirective } from './hlm-avatar-fallback.directive';
@@ -10,6 +10,7 @@ import { HlmAvatarFallbackDirective } from './hlm-avatar-fallback.directive';
 	template: `
 		<span hlmAvatarFallback [class]="userCls" [autoColor]="autoColor">fallback2</span>
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class HlmMockComponent {
 	public userCls = '';

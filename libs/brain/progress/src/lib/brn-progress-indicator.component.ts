@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { injectBrnProgress } from './brn-progress.token';
 
 @Component({
@@ -10,6 +10,7 @@ import { injectBrnProgress } from './brn-progress.token';
 		'[attr.data-value]': 'progress.value()',
 		'[attr.data-max]': 'progress.max()',
 	},
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BrnProgressIndicatorComponent {
 	protected readonly progress = injectBrnProgress();

@@ -140,6 +140,26 @@ describe('select', () => {
 						});
 				});
 		});
+
+		it('should toggle an item on keypress', () => {
+			cy.visit('/iframe.html?id=select--default&args=multiple:true');
+			verifySelectSetup({ multiple: true });
+			cy.get('[brnselecttrigger]').click();
+
+			// select the first item
+			cy.get('hlm-option').eq(0).realType('{enter}');
+			cy.get('hlm-option').eq(0).should('have.attr', 'aria-selected', 'true');
+
+			cy.get('hlm-select-value').contains('Apple', { matchCase: false });
+
+			// deselect the first item
+			cy.get('hlm-option').eq(0).realType('{enter}');
+
+			// check if the first item is deselected
+			cy.get('hlm-option').eq(0).should('have.attr', 'aria-selected', 'false');
+
+			cy.get('hlm-select-value').should('not.contain.text', 'Apple');
+		});
 	});
 
 	describe('disabled', () => {

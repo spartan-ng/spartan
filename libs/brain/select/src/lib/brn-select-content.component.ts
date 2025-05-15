@@ -254,7 +254,7 @@ export class BrnSelectContentComponent<T> implements AfterContentInit {
 		const activeOption = this.keyManager?.activeItem;
 
 		if (activeOption) {
-			this._select.selectOption(activeOption.value()!);
+			this._select.toggleSelect(activeOption.value()!);
 		}
 	}
 }

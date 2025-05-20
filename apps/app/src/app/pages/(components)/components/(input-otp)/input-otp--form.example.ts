@@ -1,13 +1,9 @@
 import { afterNextRender, Component, computed, inject, OnDestroy, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BrnInputOtpComponent } from '@spartan-ng/brain/input-otp';
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
-import {
-	HlmInputOtpDirective,
-	HlmInputOtpGroupDirective,
-	HlmInputOtpSlotComponent,
-} from '@spartan-ng/ui-input-otp-helm';
-import { HlmToasterComponent } from '@spartan-ng/ui-sonner-helm';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmInputOtpDirective, HlmInputOtpGroupDirective, HlmInputOtpSlotComponent } from '@spartan-ng/helm/input-otp';
+import { HlmToasterComponent } from '@spartan-ng/helm/sonner';
 import { toast } from 'ngx-sonner';
 
 @Component({
@@ -119,13 +115,13 @@ export const inputOtpFormCode = `
 import { afterNextRender, Component, computed, inject, OnDestroy, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BrnInputOtpComponent } from '@spartan-ng/brain/input-otp';
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
 import {
 	HlmInputOtpDirective,
 	HlmInputOtpGroupDirective,
 	HlmInputOtpSlotComponent,
-} from '@spartan-ng/ui-input-otp-helm';
-import { HlmToasterComponent } from '@spartan-ng/ui-sonner-helm';
+} from '@spartan-ng/helm/input-otp';
+import { HlmToasterComponent } from '@spartan-ng/helm/sonner';
 import { toast } from 'ngx-sonner';
 
 @Component({

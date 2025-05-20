@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HlmDatePickerComponent } from '@spartan-ng/ui-date-picker-helm';
+import { HlmDatePickerComponent } from '@spartan-ng/helm/date-picker';
 
 @Component({
 	selector: 'spartan-date-picker-preview',
@@ -23,7 +23,7 @@ export class DatePickerPreviewComponent {
 
 export const defaultCode = `
 import { Component } from '@angular/core';
-import { HlmDatePickerComponent } from '@spartan-ng/ui-date-picker-helm';
+import { HlmDatePickerComponent } from '@spartan-ng/helm/date-picker';
 
 @Component({
 	selector: 'spartan-date-picker-preview',
@@ -47,7 +47,7 @@ export class DatePickerPreviewComponent {
 `;
 
 export const defaultImports = `
-import { HlmDatePickerComponent } from '@spartan-ng/ui-date-picker-helm';
+import { HlmDatePickerComponent } from '@spartan-ng/helm/date-picker';
 `;
 
 export const codeSkeleton = `

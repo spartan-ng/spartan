@@ -25,35 +25,74 @@ export const copyFilesFromHlmLibToGenerator = (
 	generateFiles(tree, srcPath, filesPath, options);
 	tree.delete(path.join(filesPath, 'test-setup.ts'));
 	deleteSpecFiles(tree, filesPath);
-	recursivelyRenameToTemplate(tree, filesPath);
+	renameImports(tree, filesPath);
+	renameToTemplate(tree, filesPath);
 };
 
 export const createSharedGeneratorFiles = (
 	tree: Tree,
 	projectRoot: string,
 	options: HlmToCliGeneratorGeneratorSchema,
+	entrypoint: string,
 ) => {
-	generateFiles(tree, path.join(__dirname, '..', 'files'), projectRoot, options);
-};
-
-export const recursivelyRenameToTemplate = (tree: Tree, filePath: string) => {
-	tree.children(filePath).forEach((child) => {
-		const childPath = path.join(filePath, child);
-		if (tree.isFile(childPath)) {
-			tree.rename(childPath, `${childPath}.template`);
-		} else {
-			recursivelyRenameToTemplate(tree, childPath);
-		}
+	generateFiles(tree, path.join(__dirname, '..', 'files'), projectRoot, {
+		...options,
+		primitiveName: entrypoint.replaceAll('-', ''),
+		internalName: `ui-${entrypoint}-helm`,
+		publicName: `ui-${entrypoint.replaceAll('-', '')}-helm`,
 	});
 };
 
-export const recursivelyDelete = (tree: Tree, filePath: string) => {
-	tree.children(filePath).forEach((child) => {
-		const childPath = path.join(filePath, child);
-		if (tree.isFile(childPath)) {
-			tree.delete(childPath);
-		} else {
-			recursivelyDelete(tree, childPath);
-		}
+export function renameToTemplate(tree: Tree, filePath: string) {
+	const files = recursivelyFindFiles(tree, filePath);
+
+	files.forEach((file) => {
+		tree.rename(file, `${file}.template`);
 	});
-};
+}
+
+function renameImports(tree: Tree, filePath: string) {
+	const files = recursivelyFindFiles(tree, filePath);
+
+	for (const file of files) {
+		const content = tree.read(file, 'utf-8');
+
+		// we must find any imports matching with an import specifier like with `@spartan-ng/helm/aspect-ratio` and rename it to `@spartan-ng/ui-aspect-ratio-helm`
+		const newContent = content.replace(
+			/from\s+['"]@spartan-ng\/helm\/([a-zA-Z0-9-]+)['"]/g,
+			(_match, component) => `from '@spartan-ng/ui-${component}-helm'`,
+		);
+
+		if (content === newContent) {
+			continue;
+		}
+
+		tree.write(file, newContent);
+	}
+}
+
+export function recursivelyDelete(tree: Tree, filePath: string) {
+	const files = recursivelyFindFiles(tree, filePath);
+	files.forEach((file) => tree.delete(file));
+}
+
+/**
+ * Recursively find all the files in a directory.
+ * @param tree The tree object
+ * @param dir The directory to search
+ * @returns An array of file paths
+ */
+export function recursivelyFindFiles(tree: Tree, dir: string) {
+	const files: string[] = [];
+
+	for (const file of tree.children(dir)) {
+		const filePath = path.join(dir, file);
+
+		if (tree.isFile(filePath)) {
+			files.push(filePath);
+		} else {
+			files.push(...recursivelyFindFiles(tree, filePath));
+		}
+	}
+	return files;
+}

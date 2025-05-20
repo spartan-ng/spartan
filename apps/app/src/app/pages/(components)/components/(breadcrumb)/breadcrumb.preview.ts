@@ -8,8 +8,8 @@ import {
 	HlmBreadcrumbListDirective,
 	HlmBreadcrumbPageDirective,
 	HlmBreadcrumbSeparatorComponent,
-} from '@spartan-ng/ui-breadcrumb-helm';
-import { HlmMenuComponent, HlmMenuItemDirective } from '@spartan-ng/ui-menu-helm';
+} from '@spartan-ng/helm/breadcrumb';
+import { HlmMenuComponent, HlmMenuItemDirective } from '@spartan-ng/helm/menu';
 
 @Component({
 	selector: 'spartan-breadcrumb-preview',
@@ -74,9 +74,9 @@ import {
 	HlmBreadcrumbListDirective,
 	HlmBreadcrumbPageDirective,
 	HlmBreadcrumbSeparatorComponent,
-} from '@spartan-ng/ui-breadcrumb-helm';
+} from '@spartan-ng/helm/breadcrumb';
 import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
-import { HlmMenuComponent, HlmMenuItemDirective } from '@spartan-ng/ui-menu-helm';
+import { HlmMenuComponent, HlmMenuItemDirective } from '@spartan-ng/helm/menu';
 
 @Component({
 	selector: 'spartan-breadcrumb-preview',
@@ -141,7 +141,7 @@ import {
 	HlmBreadcrumbListDirective,
 	HlmBreadcrumbPageDirective,
 	HlmBreadcrumbSeparatorComponent,
-} from '@spartan-ng/ui-breadcrumb-helm';
+} from '@spartan-ng/helm/breadcrumb';
 `;
 
 export const defaultSkeleton = `

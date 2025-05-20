@@ -6,9 +6,9 @@ import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
 import { TopMusicMenuComponent } from './components/top-menu.component';
 
 import { BrnContextMenuTriggerDirective, BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
-import { HlmCardDirective } from '@spartan-ng/ui-card-helm';
-import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmCardDirective } from '@spartan-ng/helm/card';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
 import {
 	HlmMenuComponent,
 	HlmMenuGroupComponent,
@@ -16,15 +16,15 @@ import {
 	HlmMenuItemSubIndicatorComponent,
 	HlmMenuSeparatorComponent,
 	HlmSubMenuComponent,
-} from '@spartan-ng/ui-menu-helm';
+} from '@spartan-ng/helm/menu';
 
-import { HlmSeparatorDirective } from '@spartan-ng/ui-separator-helm';
+import { HlmSeparatorDirective } from '@spartan-ng/helm/separator';
 import {
 	HlmTabsComponent,
 	HlmTabsContentDirective,
 	HlmTabsListComponent,
 	HlmTabsTriggerDirective,
-} from '@spartan-ng/ui-tabs-helm';
+} from '@spartan-ng/helm/tabs';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { SideMusicMenuComponent } from './components/side-menu/side-menu.component';
 import { FallbackImageDirective } from './directives/fallback-img.directive';

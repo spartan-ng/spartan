@@ -7,9 +7,9 @@ import {
 	HlmAlertDirective,
 	HlmAlertIconDirective,
 	HlmAlertTitleDirective,
-} from '@spartan-ng/ui-alert-helm';
-import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
-import { hlmCode, hlmP } from '@spartan-ng/ui-typography-helm';
+} from '@spartan-ng/helm/alert';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { CodePreviewDirective } from '../../../../shared/code/code-preview.directive';
 import { CodeComponent } from '../../../../shared/code/code.component';
 import { MainSectionDirective } from '../../../../shared/layout/main-section.directive';

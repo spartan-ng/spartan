@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
-import { HlmToasterComponent } from '@spartan-ng/ui-sonner-helm';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmToasterComponent } from '@spartan-ng/helm/sonner';
 import { toast } from 'ngx-sonner';
 
 @Component({
@@ -25,8 +25,8 @@ export class SonnerPreviewComponent {
 
 export const defaultCode = `import { Component } from '@angular/core';
 import { toast } from 'ngx-sonner';
-import { HlmToasterComponent } from '@spartan-ng/ui-sonner-helm';
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
+import { HlmToasterComponent } from '@spartan-ng/helm/sonner';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
 
 @Component({
 	selector: 'spartan-sonner-preview',
@@ -51,7 +51,7 @@ export class SonnerPreviewComponent {
 
 export const defaultImports = `
 import { toast } from 'ngx-sonner';
-import { HlmToasterComponent } from '@spartan-ng/ui-sonner-helm';
+import { HlmToasterComponent } from '@spartan-ng/helm/sonner';
 `;
 export const defaultSkeleton = `
 <hlm-toaster />

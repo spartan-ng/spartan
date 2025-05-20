@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { HlmCheckboxComponent } from '@spartan-ng/ui-checkbox-helm';
-import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
+import { HlmCheckboxComponent } from '@spartan-ng/helm/checkbox';
+import { HlmLabelDirective } from '@spartan-ng/helm/label';
 
 @Component({
 	selector: 'spartan-checkbox-preview',
@@ -16,8 +16,8 @@ export class CheckboxPreviewComponent {}
 
 export const defaultCode = `
 import { Component } from '@angular/core';
-import { HlmCheckboxComponent } from '@spartan-ng/ui-checkbox-helm';
-import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
+import { HlmCheckboxComponent } from '@spartan-ng/helm/checkbox';
+import { HlmLabelDirective } from '@spartan-ng/helm/label';
 @Component({
 	selector: 'spartan-checkbox-preview',
 	standalone: true,
@@ -33,7 +33,7 @@ export class CheckboxPreviewComponent {}
 `;
 
 export const defaultImports = `
-import { HlmCheckboxComponent } from '@spartan-ng/ui-checkbox-helm';
+import { HlmCheckboxComponent } from '@spartan-ng/helm/checkbox';
 `;
 export const defaultSkeleton = `
 <hlm-checkbox />

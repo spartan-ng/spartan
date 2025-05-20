@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { BrnSelectImports } from '@spartan-ng/brain/select';
-import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
+import { HlmSelectImports } from '@spartan-ng/helm/select';
 
 @Component({
 	selector: 'spartan-select-preview',
@@ -24,7 +24,7 @@ export class SelectPreviewComponent {}
 export const defaultCode = `
 import { Component } from '@angular/core';
 import { BrnSelectImports } from '@spartan-ng/brain/select';
-import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
+import { HlmSelectImports } from '@spartan-ng/helm/select';
 
 @Component({
   selector: 'spartan-select-preview',
@@ -50,7 +50,7 @@ export class SelectPreviewComponent {}
 export const defaultImports = `
 import { Component } from '@angular/core';
 import { BrnSelectImports } from '@spartan-ng/brain/select';
-import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
+import { HlmSelectImports } from '@spartan-ng/helm/select';
 `;
 
 export const defaultSkeleton = `

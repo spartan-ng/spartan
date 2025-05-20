@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { HlmSliderComponent } from '@spartan-ng/ui-slider-helm';
+import { HlmSliderComponent } from '@spartan-ng/helm/slider';
 
 @Component({
 	selector: 'spartan-slider-preview',
@@ -19,7 +19,7 @@ export class SliderPreviewComponent {
 }
 
 export const defaultCode = `import { Component, signal } from '@angular/core';
-import { HlmSliderComponent } from '@spartan-ng/ui-slider-helm';
+import { HlmSliderComponent } from '@spartan-ng/helm/slider';
 
 @Component({
 	selector: 'spartan-slider-preview',
@@ -34,7 +34,7 @@ export class SliderPreviewComponent {
 `;
 
 export const defaultImports = `
-import { HlmSliderComponent } from '@spartan-ng/ui-slider-helm';
+import { HlmSliderComponent } from '@spartan-ng/helm/slider';
 `;
 export const defaultSlider = `
 <hlm-slider />

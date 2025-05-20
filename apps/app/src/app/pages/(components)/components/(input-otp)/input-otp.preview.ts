@@ -5,7 +5,7 @@ import {
 	HlmInputOtpGroupDirective,
 	HlmInputOtpSeparatorComponent,
 	HlmInputOtpSlotComponent,
-} from '@spartan-ng/ui-input-otp-helm';
+} from '@spartan-ng/helm/input-otp';
 
 @Component({
 	selector: 'spartan-input-otp-preview',
@@ -42,7 +42,7 @@ import {
 	HlmInputOtpGroupDirective,
 	HlmInputOtpSeparatorComponent,
 	HlmInputOtpSlotComponent,
-} from '@spartan-ng/ui-input-otp-helm';
+} from '@spartan-ng/helm/input-otp';
 
 @Component({
 	selector: 'spartan-input-otp-preview',
@@ -80,7 +80,7 @@ import {
 	HlmInputOtpGroupDirective,
 	HlmInputOtpSeparatorComponent,
 	HlmInputOtpSlotComponent,
-} from '@spartan-ng/ui-input-otp-helm';
+} from '@spartan-ng/helm/input-otp';
 `;
 export const defaultSkeleton = `
 <brn-input-otp hlm maxLength="6" inputClass="disabled:cursor-not-allowed">

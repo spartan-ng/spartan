@@ -17,11 +17,11 @@ import {
 	BrnDialogContentDirective,
 	BrnDialogOverlayComponent,
 } from '@spartan-ng/brain/dialog';
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
-import { HlmCommandImports } from '@spartan-ng/ui-command-helm';
-import { HlmDialogOverlayDirective } from '@spartan-ng/ui-dialog-helm';
-import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
-import { HlmCodeDirective } from '@spartan-ng/ui-typography-helm';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmCommandImports } from '@spartan-ng/helm/command';
+import { HlmDialogOverlayDirective } from '@spartan-ng/helm/dialog';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { HlmCodeDirective } from '@spartan-ng/helm/typography';
 
 @Component({
 	selector: 'spartan-command-dialog',

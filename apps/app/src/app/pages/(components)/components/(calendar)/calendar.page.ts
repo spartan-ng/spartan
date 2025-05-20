@@ -1,6 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
-import { hlmCode, hlmH4, hlmP } from '@spartan-ng/ui-typography-helm';
+import { hlmCode, hlmH4, hlmP } from '@spartan-ng/helm/typography';
 import { CodeComponent } from '../../../../shared/code/code.component';
 import { PageBottomNavLinkComponent } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav-link.component';
 import { PageBottomNavComponent } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav.component';

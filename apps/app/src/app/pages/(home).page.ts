@@ -57,7 +57,7 @@ const lead = 'leading-normal text-muted-foreground sm:text-xl sm:leading-8';
 					class="!bg-primary !text-foreground-primary !hover:bg-primary/90"
 				>
 					Proudly supported by Zerops. The dev-first cloud platform.
-					<zerops-logo class="ml-1.5 mr-1 h-4 w-4" />
+					<spartan-zerops-logo class="ml-1.5 mr-1 h-4 w-4" />
 				</a>
 				<h1 class="font-heading text-3xl sm:text-5xl md:text-6xl lg:text-7xl">
 					Cutting-edge tools powering Angular full-stack development.
@@ -153,7 +153,7 @@ const lead = 'leading-normal text-muted-foreground sm:text-xl sm:leading-8';
 			<div class="mx-auto justify-center md:max-w-[50rem]">
 				<div hlmCard class="group block">
 					<div hlmCardHeader>
-						<zerops-logo class="fill-foreground/60 text-foreground block h-12 w-12 transition-colors" />
+						<spartan-zerops-logo class="fill-foreground/60 text-foreground block h-12 w-12 transition-colors" />
 						<h3 hlmCardTitle>Why Zerops?</h3>
 						<p hlmCardDescription>
 							What sets Zerops apart is their dedication to simplifying the developer experience—eliminating deployment

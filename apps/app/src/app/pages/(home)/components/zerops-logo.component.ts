@@ -3,7 +3,7 @@ import { hlm } from '@spartan-ng/brain/core';
 import type { ClassValue } from 'clsx';
 
 @Component({
-	selector: 'zerops-logo',
+	selector: 'spartan-zerops-logo',
 	template: `
 		<svg [class]="_computedClass()" viewBox="0 0 43 51" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<g clip-path="url(#clip0_509_87)">
@@ -33,8 +33,8 @@ import type { ClassValue } from 'clsx';
 	`,
 })
 export class ZeropsLogoComponent {
-	public readonly userClass = input<ClassValue>('', { alias: 'class' });
+	public readonly class = input<ClassValue>('');
 	protected readonly _computedClass = computed(() =>
-		hlm('fill-primary-foreground/70 text-primary-foreground h-full w-full', this.userClass()),
+		hlm('fill-primary-foreground/70 text-primary-foreground h-full w-full', this.class()),
 	);
 }

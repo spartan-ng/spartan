@@ -85,10 +85,10 @@ export class HlmTabsPaginatedListComponent extends BrnTabsPaginatedListDirective
 		hlm('flex overflow-hidden relative gap-1 flex-shrink-0', this.userClass()),
 	);
 
-	public readonly tabLisClass = input<ClassValue>('', { alias: 'class' });
-	protected readonly _tabListClass = computed(() => hlm(listVariants(), this.tabLisClass()));
+	public readonly tabListClass = input<ClassValue>('', { alias: 'tabListClass' });
+	protected readonly _tabListClass = computed(() => hlm(listVariants(), this.tabListClass()));
 
-	public readonly paginationButtonClass = input<ClassValue>('', { alias: 'class' });
+	public readonly paginationButtonClass = input<ClassValue>('', { alias: 'paginationButtonClass' });
 	protected readonly _paginationButtonClass = computed(() =>
 		hlm(
 			'relative z-[2] select-none disabled:cursor-default',

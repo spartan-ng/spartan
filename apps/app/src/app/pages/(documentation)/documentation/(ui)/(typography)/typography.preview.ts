@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { hlmBlockquote, hlmH1, hlmH2, hlmH3, hlmLead, hlmP, hlmUl } from '@spartan-ng/ui-typography-helm';
+import { hlmBlockquote, hlmH1, hlmH2, hlmH3, hlmLead, hlmP, hlmUl } from '@spartan-ng/helm/typography';
 
 @Component({
 	selector: 'spartan-typography-preview',

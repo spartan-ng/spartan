@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideUndo2 } from '@ng-icons/lucide';
 import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
-import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
 import {
 	HlmMenuComponent,
 	HlmMenuGroupComponent,
@@ -15,7 +15,7 @@ import {
 	HlmMenuItemRadioDirective,
 	HlmMenuLabelComponent,
 	HlmMenuSeparatorComponent,
-} from '@spartan-ng/ui-menu-helm';
+} from '@spartan-ng/helm/menu';
 
 @Component({
 	selector: 'spartan-dropdown-with-state',
@@ -104,8 +104,8 @@ export const dropdownWithStateCode = `
 import { Component } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideUndo2 } from '@ng-icons/lucide';
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
-import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
 import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
 import {
   HlmMenuComponent,
@@ -121,7 +121,7 @@ import {
   HlmMenuSeparatorComponent,
   HlmMenuShortcutComponent,
   HlmSubMenuComponent,
-} from '@spartan-ng/ui-menu-helm';
+} from '@spartan-ng/helm/menu';
 
 @Component({
   selector: 'spartan-dropdown-with-state',

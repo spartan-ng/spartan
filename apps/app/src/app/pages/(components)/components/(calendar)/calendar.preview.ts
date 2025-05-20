@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HlmCalendarComponent } from '@spartan-ng/ui-calendar-helm';
+import { HlmCalendarComponent } from '@spartan-ng/helm/calendar';
 
 @Component({
 	selector: 'spartan-calendar-preview',
@@ -44,7 +44,7 @@ export class CalendarPreviewComponent {
 export const defaultImports = `
 import {
   HlmCalendarComponent,
-} from '@spartan-ng/ui-calendar-helm';
+} from '@spartan-ng/helm/calendar';
 `;
 
 export const codeSkeleton = `

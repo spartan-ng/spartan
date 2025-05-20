@@ -1,4 +1,4 @@
 export interface HelmStoryGeneratorSchema {
-	project: string;
+	entrypoint: string;
 	componentName: string;
 }

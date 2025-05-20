@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HlmSkeletonComponent } from '@spartan-ng/ui-skeleton-helm';
+import { HlmSkeletonComponent } from '@spartan-ng/helm/skeleton';
 
 @Component({
 	selector: 'spartan-skeleton-preview',
@@ -18,7 +18,7 @@ export class SkeletonPreviewComponent {}
 
 export const defaultCode = `
 import { Component } from '@angular/core';
-import { HlmSkeletonComponent } from '@spartan-ng/ui-skeleton-helm';
+import { HlmSkeletonComponent } from '@spartan-ng/helm/skeleton';
 
 @Component({
   selector: 'spartan-skeleton-preview',
@@ -39,7 +39,7 @@ export class SkeletonPreviewComponent {}
 `;
 
 export const defaultImports = `
-import { HlmSkeletonComponent } from '@spartan-ng/ui-skeleton-helm';
+import { HlmSkeletonComponent } from '@spartan-ng/helm/skeleton';
 `;
 export const defaultSkeleton = `
 <hlm-skeleton class='h-4 w-[250px]' />

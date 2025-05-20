@@ -11,8 +11,8 @@ import { SectionIntroComponent } from '@spartan-ng/app/app/shared/layout/section
 import { SectionSubHeadingComponent } from '@spartan-ng/app/app/shared/layout/section-sub-heading.component';
 
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
-import { hlmCode, hlmP, hlmUl } from '@spartan-ng/ui-typography-helm';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { hlmCode, hlmP, hlmUl } from '@spartan-ng/helm/typography';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Overview' },

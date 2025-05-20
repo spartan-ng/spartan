@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
 import {
 	HlmCardContentDirective,
 	HlmCardDescriptionDirective,
@@ -7,15 +7,15 @@ import {
 	HlmCardFooterDirective,
 	HlmCardHeaderDirective,
 	HlmCardTitleDirective,
-} from '@spartan-ng/ui-card-helm';
-import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
-import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
+} from '@spartan-ng/helm/card';
+import { HlmInputDirective } from '@spartan-ng/helm/input';
+import { HlmLabelDirective } from '@spartan-ng/helm/label';
 import {
 	HlmTabsComponent,
 	HlmTabsContentDirective,
 	HlmTabsListComponent,
 	HlmTabsTriggerDirective,
-} from '@spartan-ng/ui-tabs-helm';
+} from '@spartan-ng/helm/tabs';
 
 @Component({
 	selector: 'spartan-tabs-vertical',
@@ -109,18 +109,17 @@ import {
 	HlmCardContentDirective,
 	HlmCardDescriptionDirective,
 	HlmCardDirective,
-	HlmCardFooterDirective,
 	HlmCardHeaderDirective,
 	HlmCardTitleDirective,
-} from '@spartan-ng/ui-card-helm';
-import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
-import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
+} from '@spartan-ng/helm/card';
+import { HlmInputDirective } from '@spartan-ng/helm/input';
+import { HlmLabelDirective } from '@spartan-ng/helm/label';
 import {
 	HlmTabsComponent,
 	HlmTabsContentDirective,
 	HlmTabsListComponent,
 	HlmTabsTriggerDirective,
-} from '@spartan-ng/ui-tabs-helm';
+} from '@spartan-ng/helm/tabs';
 
 @Component({
 	selector: 'spartan-tabs-vertical',

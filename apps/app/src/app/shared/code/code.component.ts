@@ -8,8 +8,8 @@ import { Clipboard } from '@angular/cdk/clipboard';
 
 import { provideIcons } from '@ng-icons/core';
 import { lucideCheck, lucideClipboard } from '@ng-icons/lucide';
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
-import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
 import 'prismjs';
 import 'prismjs/components/prism-bash';
 import 'prismjs/components/prism-css';
@@ -98,6 +98,11 @@ export class CodeComponent {
 	private _code: string | null | undefined;
 	@Input()
 	public set code(value: string | null | undefined) {
+		value = value?.replace(
+			/from\s+['"]@spartan-ng\/helm\/([a-zA-Z0-9-]+)['"]/g,
+			(_match, component) => `from '@spartan-ng/ui-${component}-helm'`,
+		);
+
 		this._code = value;
 		(this._language === 'sh'
 			? this._marked.parse(value?.trim() ?? '')

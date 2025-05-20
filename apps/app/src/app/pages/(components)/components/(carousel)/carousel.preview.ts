@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { HlmCardContentDirective, HlmCardDirective } from '@spartan-ng/ui-card-helm';
+import { HlmCardContentDirective, HlmCardDirective } from '@spartan-ng/helm/card';
 import {
 	HlmCarouselComponent,
 	HlmCarouselContentComponent,
 	HlmCarouselItemComponent,
 	HlmCarouselNextComponent,
 	HlmCarouselPreviousComponent,
-} from '@spartan-ng/ui-carousel-helm';
+} from '@spartan-ng/helm/carousel';
 
 @Component({
 	selector: 'spartan-carousel-preview',
@@ -47,14 +47,14 @@ export class CarouselPreviewComponent {
 
 export const defaultCode = `
 import { Component } from '@angular/core';
-import { HlmCardContentDirective, HlmCardDirective } from '@spartan-ng/ui-card-helm';
+import { HlmCardContentDirective, HlmCardDirective } from '@spartan-ng/helm/card';
 import {
 	HlmCarouselComponent,
 	HlmCarouselContentComponent,
 	HlmCarouselItemComponent,
 	HlmCarouselNextComponent,
 	HlmCarouselPreviousComponent,
-} from '@spartan-ng/ui-carousel-helm';
+} from '@spartan-ng/helm/carousel';
 
 @Component({
 	selector: 'spartan-carousel-preview',
@@ -101,7 +101,7 @@ import {
 	HlmCarouselItemComponent,
 	HlmCarouselNextComponent,
 	HlmCarouselPreviousComponent,
-} from '@spartan-ng/ui-carousel-helm';
+} from '@spartan-ng/helm/carousel';
 `;
 
 export const defaultSkeleton = `

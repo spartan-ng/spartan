@@ -1,5 +1,5 @@
 import { Component, computed } from '@angular/core';
-import { HlmInputErrorDirective } from '@spartan-ng/ui-input-helm';
+import { HlmInputErrorDirective } from '@spartan-ng/helm/input';
 import { injectErrorField } from 'ng-signal-forms';
 
 @Component({

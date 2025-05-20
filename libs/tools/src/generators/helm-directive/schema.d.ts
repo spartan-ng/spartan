@@ -1,4 +1,4 @@
 export interface HelmDirectiveGeneratorSchema {
-	project: string;
+	entrypoint: string;
 	directiveName: string;
 }

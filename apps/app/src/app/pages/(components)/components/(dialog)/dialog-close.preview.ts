@@ -5,14 +5,14 @@ import {
 	BrnDialogContentDirective,
 	BrnDialogTriggerDirective,
 } from '@spartan-ng/brain/dialog';
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
 import {
 	HlmDialogComponent,
 	HlmDialogContentComponent,
 	HlmDialogHeaderComponent,
 	HlmDialogTitleDirective,
-} from '@spartan-ng/ui-dialog-helm';
-import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
+} from '@spartan-ng/helm/dialog';
+import { HlmLabelDirective } from '@spartan-ng/helm/label';
 
 @Component({
 	selector: 'spartan-dialog-close-preview',
@@ -68,14 +68,14 @@ import {
 	BrnDialogContentDirective,
 	BrnDialogTriggerDirective,
 } from '@spartan-ng/brain/dialog';
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
 import {
 	HlmDialogComponent,
 	HlmDialogContentComponent,
 	HlmDialogHeaderComponent,
 	HlmDialogTitleDirective,
-} from '@spartan-ng/ui-dialog-helm';
-import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
+} from '@spartan-ng/helm/dialog';
+import { HlmLabelDirective } from '@spartan-ng/helm/label';
 
 @Component({
 	selector: 'spartan-dialog-close-preview',

@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideUnderline } from '@ng-icons/lucide';
 import { BrnToggleDirective } from '@spartan-ng/brain/toggle';
-import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
-import { HlmToggleDirective } from '@spartan-ng/ui-toggle-helm';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { HlmToggleDirective } from '@spartan-ng/helm/toggle';
 
 @Component({
 	selector: 'spartan-toggle-disabled',
@@ -19,9 +19,9 @@ export class ToggleDisabledPreviewComponent {}
 
 export const disabledCode = `
 import { Component } from '@angular/core';
-import { HlmToggleDirective } from '@spartan-ng/ui-toggle-helm';
+import { HlmToggleDirective } from '@spartan-ng/helm/toggle';
 import { BrnToggleDirective } from '@spartan-ng/brain/toggle';
-import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
 import { provideIcons } from '@ng-icons/core';
 import { lucideUnderline } from '@ng-icons/lucide';
 

@@ -10,7 +10,7 @@ export const addPrimitiveToSupportedUILibraries = (
 ) => {
 	updateJson(tree, supportedJsonPath, (old) => ({
 		...old,
-		[generatorName]: {
+		[generatorName.replaceAll('-', '')]: {
 			internalName,
 			peerDependencies,
 		},

@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { BrnPopoverComponent, BrnPopoverContentDirective, BrnPopoverTriggerDirective } from '@spartan-ng/brain/popover';
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
-import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
-import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
-import { HlmPopoverContentDirective } from '@spartan-ng/ui-popover-helm';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmInputDirective } from '@spartan-ng/helm/input';
+import { HlmLabelDirective } from '@spartan-ng/helm/label';
+import { HlmPopoverContentDirective } from '@spartan-ng/helm/popover';
 
 @Component({
 	selector: 'spartan-popover-preview',
@@ -50,16 +50,16 @@ export class PopoverPreviewComponent {}
 
 export const defaultCode = `
 import { Component } from '@angular/core';
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
 import {
   BrnPopoverComponent,
   BrnPopoverContentDirective,
   BrnPopoverTriggerDirective,
 } from '@spartan-ng/brain/popover';
-import { HlmPopoverContentDirective } from '@spartan-ng/ui-popover-helm';
-import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
-import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
-import { HlmIconComponent } from '@spartan-ng/ui-icon-helm';
+import { HlmPopoverContentDirective } from '@spartan-ng/helm/popover';
+import { HlmLabelDirective } from '@spartan-ng/helm/label';
+import { HlmInputDirective } from '@spartan-ng/helm/input';
+import { HlmIconComponent } from '@spartan-ng/helm/icon';
 import { provideIcons } from '@ng-icons/core';
 
 @Component({
@@ -114,7 +114,7 @@ import {
   BrnPopoverContentDirective,
   BrnPopoverTriggerDirective,
 } from '@spartan-ng/brain/popover';
-import { HlmPopoverCloseDirective, HlmPopoverContentDirective } from '@spartan-ng/ui-popover-helm';
+import { HlmPopoverCloseDirective, HlmPopoverContentDirective } from '@spartan-ng/helm/popover';
 `;
 export const defaultSkeleton = `
  <brn-popover>

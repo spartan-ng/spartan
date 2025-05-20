@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HlmDatePickerComponent, provideHlmDatePickerConfig } from '@spartan-ng/ui-date-picker-helm';
+import { HlmDatePickerComponent, provideHlmDatePickerConfig } from '@spartan-ng/helm/date-picker';
 import { DateTime } from 'luxon';
 
 @Component({
@@ -33,7 +33,7 @@ export class DatePickerFormatExampleComponent {
 export const datePickerFormatCode = `
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HlmDatePickerComponent, provideHlmDatePickerConfig } from '@spartan-ng/ui-date-picker-helm';
+import { HlmDatePickerComponent, provideHlmDatePickerConfig } from '@spartan-ng/helm/date-picker';
 import { DateTime } from 'luxon';
 
 @Component({

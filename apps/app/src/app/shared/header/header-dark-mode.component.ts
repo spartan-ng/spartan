@@ -3,9 +3,9 @@ import { Component, inject } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideMoon } from '@ng-icons/lucide';
 import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
-import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
-import { HlmMenuComponent, HlmMenuImports } from '@spartan-ng/ui-menu-helm';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { HlmMenuComponent, HlmMenuImports } from '@spartan-ng/helm/menu';
 import { type DarkMode, ThemeService } from '../theme.service';
 
 @Component({

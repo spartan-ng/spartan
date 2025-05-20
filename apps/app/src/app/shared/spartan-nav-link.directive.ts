@@ -1,6 +1,6 @@
 import { Directive, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { HlmButtonDirective, provideBrnButtonConfig } from '@spartan-ng/ui-button-helm';
+import { HlmButtonDirective, provideBrnButtonConfig } from '@spartan-ng/helm/button';
 
 @Directive({
 	selector: '[spartanNavLink]',

@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideBold, lucideItalic, lucideUnderline } from '@ng-icons/lucide';
 import { BrnToggleGroupComponent, BrnToggleGroupItemDirective } from '@spartan-ng/brain/toggle-group';
-import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
-import { HlmToggleGroupDirective, HlmToggleGroupItemDirective } from '@spartan-ng/ui-toggle-group-helm';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { HlmToggleGroupDirective, HlmToggleGroupItemDirective } from '@spartan-ng/helm/toggle-group';
 
 @Component({
 	selector: 'spartan-toggle-group-small',
@@ -39,9 +39,9 @@ import { Component } from '@angular/core';
 import {
  HlmToggleGroupItemDirective,
  HlmToggleGroupDirective,
-} from '@spartan-ng/ui-toggle-group-helm';
+} from '@spartan-ng/helm/toggle-group';
 import { BrnToggleGroupItemDirective, BrnToggleGroupComponent } from '@spartan-ng/brain/toggle-group';
-import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
 import { provideIcons } from '@ng-icons/core';
 import { lucideBold, lucideItalic, lucideUnderline } from '@ng-icons/lucide';
 

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
+import { HlmInputDirective } from '@spartan-ng/helm/input';
 
 @Component({
 	selector: 'spartan-input-preview',
@@ -12,7 +12,7 @@ export class InputPreviewComponent {}
 
 export const defaultCode = `
 import { Component } from '@angular/core';
-import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
+import { HlmInputDirective } from '@spartan-ng/helm/input';
 
 @Component({
   selector: 'spartan-input-preview',
@@ -24,6 +24,6 @@ export class InputPreviewComponent {}
 `;
 
 export const defaultImports = `
-import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
+import { HlmInputDirective } from '@spartan-ng/helm/input';
 `;
 export const defaultSkeleton = '<input hlmInput/>';

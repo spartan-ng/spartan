@@ -9,10 +9,10 @@ import {
 	HlmAccordionIconDirective,
 	HlmAccordionItemDirective,
 	HlmAccordionTriggerDirective,
-} from '@spartan-ng/ui-accordion-helm';
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
-import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
-import { hlmCode, hlmP } from '@spartan-ng/ui-typography-helm';
+} from '@spartan-ng/helm/accordion';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { MainSectionDirective } from '../../../shared/layout/main-section.directive';
 import { PageBottomNavPlaceholderComponent } from '../../../shared/layout/page-bottom-nav-placeholder.component';
 import { PageBottomNavLinkComponent } from '../../../shared/layout/page-bottom-nav/page-bottom-nav-link.component';

@@ -1,6 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
-import { hlmP } from '@spartan-ng/ui-typography-helm';
+import { hlmP } from '@spartan-ng/helm/typography';
 import { defaultImports, defaultSkeleton } from '../(context-menu)/context-menu.preview';
 import { CodePreviewDirective } from '../../../../shared/code/code-preview.directive';
 import { CodeComponent } from '../../../../shared/code/code.component';

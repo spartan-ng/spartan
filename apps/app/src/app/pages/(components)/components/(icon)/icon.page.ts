@@ -2,8 +2,8 @@ import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, signal } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import * as lucideIcons from '@ng-icons/lucide';
-import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
-import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { HlmInputDirective } from '@spartan-ng/helm/input';
 
 import { IconPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from '../(icon)/icon.preview';
 import { CodePreviewDirective } from '../../../../shared/code/code-preview.directive';

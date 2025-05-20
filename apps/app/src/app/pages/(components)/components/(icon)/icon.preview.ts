@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronRight } from '@ng-icons/lucide';
-import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
 
 @Component({
 	selector: 'spartan-icon-preview',
@@ -19,7 +19,7 @@ export const defaultCode = `
 import { Component } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideChevronRight } from '@ng-icons/lucide';
-import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 
 @Component({
@@ -37,7 +37,7 @@ export class IconPreviewComponent {}
 `;
 
 export const defaultImports = `
-import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 `;
 

@@ -1,5 +1,5 @@
 import { Directive, Injector, type OnInit, effect, inject, untracked } from '@angular/core';
-import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
+import { HlmLabelDirective } from '@spartan-ng/helm/label';
 import { SignalInputDirective, SignalInputErrorDirective } from 'ng-signal-forms';
 
 @Directive({

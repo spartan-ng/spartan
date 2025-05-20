@@ -102,9 +102,9 @@ import {
 })
 export class TabsVerticalPreviewComponent {}
 
-export const verticalCode = `
-import { Component } from '@angular/core';
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
+export const verticalCode = `import { Component } from '@angular/core';
+import { HlmBadgeDirective } from '@spartan-ng/helm/badge';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
 import {
 	HlmCardContentDirective,
 	HlmCardDescriptionDirective,

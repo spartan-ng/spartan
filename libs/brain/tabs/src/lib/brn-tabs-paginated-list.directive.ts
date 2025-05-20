@@ -41,7 +41,7 @@ import {
 } from '@angular/core';
 import { EMPTY, Observable, type Observer, Subject, fromEvent, merge, of as observableOf, timer } from 'rxjs';
 import { debounceTime, filter, skip, startWith, switchMap, takeUntil } from 'rxjs/operators';
-import { BrnTabsDirective } from './brn-tabs-trigger.directive';
+import { BrnTabsDirective } from './brn-tabs.directive';
 
 /** Config used to bind passive event listeners */
 const passiveEventListenerOptions = normalizePassiveListenerOptions({

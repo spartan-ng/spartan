@@ -28,6 +28,10 @@
 			"options": {
 				"jestConfig": "libs/ui/sonner/helm/jest.config.ts"
 			}
+		},
+		"lint": {
+			"executor": "@nx/eslint:lint",
+			"outputs": ["{options.outputFile}"]
 		}
 	}
 }

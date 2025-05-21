@@ -98,11 +98,6 @@ export class CodeComponent {
 	private _code: string | null | undefined;
 	@Input()
 	public set code(value: string | null | undefined) {
-		value = value?.replace(
-			/from\s+['"]@spartan-ng\/helm\/([a-zA-Z0-9-]+)['"]/g,
-			(_match, component) => `from '@spartan-ng/ui-${component}-helm'`,
-		);
-
 		this._code = value;
 		(this._language === 'sh'
 			? this._marked.parse(value?.trim() ?? '')

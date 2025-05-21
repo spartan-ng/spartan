@@ -378,10 +378,8 @@
 	"sonner": {
 		"internalName": "ui-sonner-helm",
 		"peerDependencies": {
-			"@angular/common": "^18.1.0",
-			"@angular/core": "^18.1.0",
-			"@ng-icons/lucide": "^26.3.0",
-			"@spartan-ng/brain": "0.0.1-alpha.381",
+			"@angular/core": ">=19.0.0",
+			"@spartan-ng/brain": "0.0.1-alpha.461",
 			"clsx": "^2.1.1",
 			"ngx-sonner": "^3.0.0"
 		}

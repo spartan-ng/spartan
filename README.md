@@ -106,8 +106,6 @@ Our initial 300 contributors and sponsors are featured here and on the front pag
 87. [PR4SAN](https://www.github.com/PR4SAN)
 88. [JeevanMahesha](https://www.github.com/JeevanMahesha)
 
-
-
 [Become a spartan today!](https://github.com/sponsors/goetzrobin)
 
 ## spartan/ui

@@ -117,7 +117,6 @@ export class SideNavContentComponent {
 				{ label: 'Table', url: '/table' },
 				{ label: 'Tabs', url: '/tabs' },
 				{ label: 'Textarea', url: '/textarea' },
-				{ label: 'Toast', url: '/sonner' },
 				{ label: 'Toggle', url: '/toggle' },
 				{ label: 'Toggle Group', url: '/toggle-group' },
 				{ label: 'Tooltip', url: '/tooltip' },

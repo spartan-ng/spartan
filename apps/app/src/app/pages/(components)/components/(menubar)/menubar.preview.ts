@@ -15,7 +15,7 @@ import {
 	HlmMenuSeparatorComponent,
 	HlmMenuShortcutComponent,
 	HlmSubMenuComponent,
-} from '@spartan-ng/ui-menu-helm';
+} from '@spartan-ng/helm/menu';
 
 @Component({
 	selector: 'spartan-menubar-preview',
@@ -169,7 +169,7 @@ export class MenubarPreviewComponent {}
 
 export const defaultCode = `
 import { Component } from '@angular/core';
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
 import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
 import {
   HlmMenuBarComponent,
@@ -187,7 +187,7 @@ import {
   HlmMenuSeparatorComponent,
   HlmMenuShortcutComponent,
   HlmSubMenuComponent,
-} from '@spartan-ng/ui-menu-helm';
+} from '@spartan-ng/helm/menu';
 
 @Component({
   selector: 'spartan-menubar-preview',
@@ -364,7 +364,7 @@ import {
   HlmMenuSeparatorComponent,
   HlmMenuShortcutComponent,
   HlmSubMenuComponent,
-} from '@spartan-ng/ui-menu-helm';
+} from '@spartan-ng/helm/menu';
 `;
 export const defaultSkeleton = `
 <hlm-menu-bar class='w-fit'>

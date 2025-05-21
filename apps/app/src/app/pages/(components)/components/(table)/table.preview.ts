@@ -5,7 +5,7 @@ import {
 	HlmTdComponent,
 	HlmThComponent,
 	HlmTrowComponent,
-} from '@spartan-ng/ui-table-helm';
+} from '@spartan-ng/helm/table';
 
 @Component({
 	selector: 'spartan-table-preview',
@@ -94,7 +94,7 @@ import {
   HlmTdComponent,
   HlmThComponent,
   HlmTrowComponent,
-} from '@spartan-ng/ui-table-helm';
+} from '@spartan-ng/helm/table';
 
 @Component({
   selector: 'spartan-table-preview',
@@ -184,7 +184,7 @@ import {
   HlmTdComponent,
   HlmThComponent,
   HlmTrowComponent,
-} from '@spartan-ng/ui-table-helm';
+} from '@spartan-ng/helm/table';
 `;
 export const defaultSkeleton = `
 <hlm-table>

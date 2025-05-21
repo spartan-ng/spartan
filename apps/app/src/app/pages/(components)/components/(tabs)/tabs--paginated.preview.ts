@@ -4,7 +4,7 @@ import {
 	HlmTabsContentDirective,
 	HlmTabsPaginatedListComponent,
 	HlmTabsTriggerDirective,
-} from '@spartan-ng/ui-tabs-helm';
+} from '@spartan-ng/helm/tabs';
 
 @Component({
 	selector: 'spartan-tabs-paginated',
@@ -40,7 +40,7 @@ import {
 	HlmTabsContentDirective,
 	HlmTabsPaginatedListComponent,
 	HlmTabsTriggerDirective,
-} from '@spartan-ng/ui-tabs-helm';
+} from '@spartan-ng/helm/tabs';
 
 @Component({
 	selector: 'spartan-tabs-paginated',

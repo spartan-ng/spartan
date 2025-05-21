@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { HlmScrollAreaDirective } from '@spartan-ng/ui-scrollarea-helm';
-import { HlmSeparatorDirective } from '@spartan-ng/ui-separator-helm';
+import { HlmScrollAreaDirective } from '@spartan-ng/helm/scroll-area';
+import { HlmSeparatorDirective } from '@spartan-ng/helm/separator';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 
 @Component({
@@ -27,9 +27,9 @@ export class ScrollAreaPreviewComponent {
 export const defaultCode = `
 import { Component } from '@angular/core';
 import { NgFor } from '@angular/common';
-import { HlmSeparatorDirective } from '@spartan-ng/ui-separator-helm';
+import { HlmSeparatorDirective } from '@spartan-ng/helm/separator';
 import { NgScrollbarModule } from 'ngx-scrollbar';
-import { HlmSeparatorDirective } from '@spartan-ng/ui-separator-helm';
+import { HlmSeparatorDirective } from '@spartan-ng/helm/separator';
 
 @Component({
   selector: 'spartan-scroll-area-preview',
@@ -51,7 +51,7 @@ export class ScrollAreaPreviewComponent {
 `;
 
 export const defaultImports = `
-import { HlmScrollAreaDirective } from '@spartan-ng/ui-scrollarea-helm';
+import { HlmScrollAreaDirective } from '@spartan-ng/helm/scroll-area';
 `;
 export const defaultSkeleton = `
 <ng-scrollbar hlm class="border w-72 rounded-md border-border">

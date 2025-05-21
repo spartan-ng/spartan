@@ -7,7 +7,7 @@ import {
 	HlmPaginationLinkDirective,
 	HlmPaginationNextComponent,
 	HlmPaginationPreviousComponent,
-} from '@spartan-ng/ui-pagination-helm';
+} from '@spartan-ng/helm/pagination';
 
 @Component({
 	selector: 'spartan-pagination-icon-only',
@@ -57,7 +57,7 @@ import {
 	HlmPaginationLinkDirective,
 	HlmPaginationNextComponent,
 	HlmPaginationPreviousComponent,
-} from '@spartan-ng/ui-pagination-helm';
+} from '@spartan-ng/helm/pagination';
 
 @Component({
 	selector: 'spartan-pagination-icon-only',

@@ -7,7 +7,7 @@ import {
 	HlmBreadcrumbListDirective,
 	HlmBreadcrumbPageDirective,
 	HlmBreadcrumbSeparatorComponent,
-} from '@spartan-ng/ui-breadcrumb-helm';
+} from '@spartan-ng/helm/breadcrumb';
 
 @Component({
 	selector: 'spartan-breadcrumb-collapsed',
@@ -54,7 +54,7 @@ import {
 	HlmBreadcrumbListDirective,
 	HlmBreadcrumbPageDirective,
 	HlmBreadcrumbSeparatorComponent,
-} from '@spartan-ng/ui-breadcrumb-helm';
+} from '@spartan-ng/helm/breadcrumb';
 
 @Component({
 	selector: 'spartan-breadcrumb-collapsed',
@@ -94,7 +94,7 @@ export class BreadcrumbCollapsedComponent {}
 `;
 
 export const breadcrumbCollapsedSkeleton = `
-import { lmBreadcrumbEllipsisComponent } from '@spartan-ng/ui-breadcrumb-helm';
+import { lmBreadcrumbEllipsisComponent } from '@spartan-ng/helm/breadcrumb';
 
 ...
 

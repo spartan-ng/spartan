@@ -3,11 +3,11 @@ import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmInputDirective } from '@spartan-ng/helm/input';
+import { HlmLabelDirective } from '@spartan-ng/helm/label';
+import { HlmSpinnerComponent } from '@spartan-ng/helm/spinner';
 import { waitFor } from '@spartan-ng/trpc';
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
-import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
-import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
-import { HlmSpinnerComponent } from '@spartan-ng/ui-spinner-helm';
 import { SignalFormBuilder, SignalInputDirective, V, withErrorComponent } from 'ng-signal-forms';
 import { Observable, Subject, of } from 'rxjs';
 import { catchError, switchMap, take, tap } from 'rxjs/operators';

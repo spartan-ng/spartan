@@ -6,8 +6,8 @@ import {
 	HlmAlertDirective,
 	HlmAlertIconDirective,
 	HlmAlertTitleDirective,
-} from '@spartan-ng/ui-alert-helm';
-import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
+} from '@spartan-ng/helm/alert';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
 
 @Component({
 	selector: 'spartan-alert-destructive',
@@ -37,8 +37,8 @@ import {
   HlmAlertDirective,
   HlmAlertIconDirective,
   HlmAlertTitleDirective,
-} from '@spartan-ng/ui-alert-helm';
-import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
+} from '@spartan-ng/helm/alert';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
 import { provideIcons } from '@ng-icons/core';
 import { lucideTriangleAlert } from '@ng-icons/lucide';
 

@@ -25,10 +25,10 @@
 			"schema": "./src/generators/brain-secondary-entrypoint/schema.json",
 			"description": "Add a secondary entrypoint to the Brain library"
 		},
-		"helm-library": {
-			"factory": "./src/generators/helm-library/generator",
-			"schema": "./src/generators/helm-library/schema.json",
-			"description": "Create a new Helm library."
+		"helm-secondary-entrypoint": {
+			"factory": "./src/generators/helm-secondary-entrypoint/generator",
+			"schema": "./src/generators/helm-secondary-entrypoint/schema.json",
+			"description": "Create a new Helm secondary entrypoint."
 		},
 		"helm-story": {
 			"factory": "./src/generators/helm-story/generator",

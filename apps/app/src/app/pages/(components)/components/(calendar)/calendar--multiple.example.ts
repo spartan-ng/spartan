@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HlmCalendarMultiComponent } from '@spartan-ng/ui-calendar-helm';
+import { HlmCalendarMultiComponent } from '@spartan-ng/helm/calendar';
 
 @Component({
 	selector: 'spartan-calendar-multiple',
@@ -30,7 +30,7 @@ export class CalendarMultipleExampleComponent {
 
 export const calendarMultipleCode = `
 import { Component } from '@angular/core';
-import { HlmCalendarMultiComponent } from '@spartan-ng/ui-calendar-helm';
+import { HlmCalendarMultiComponent } from '@spartan-ng/helm/calendar';
 
 @Component({
 	selector: 'spartan-calendar-multiple',

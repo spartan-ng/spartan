@@ -4,9 +4,10 @@ import { addExportStatement, addImportStatement, addToExportConstArray } from '.
 import { HelmComponentGeneratorSchema } from './schema';
 
 export async function helmComponentGenerator(tree: Tree, options: HelmComponentGeneratorSchema) {
-	const { root } = readProjectConfiguration(tree, options.project);
+	const { root } = readProjectConfiguration(tree, 'helm');
 	const { fileName, className } = names(options.componentName);
-	const componentPath = joinPathFragments(root, 'src', 'lib');
+
+	const componentPath = joinPathFragments(root, options.entrypoint, 'src', 'lib');
 
 	generateFiles(tree, path.join(__dirname, 'files'), componentPath, {
 		fileName,
@@ -15,7 +16,7 @@ export async function helmComponentGenerator(tree: Tree, options: HelmComponentG
 	});
 
 	// the path to the index.ts file
-	const indexPath = joinPathFragments(root, 'src', 'index.ts');
+	const indexPath = joinPathFragments(root, options.entrypoint, 'src', 'index.ts');
 	let sourceCode = tree.read(indexPath, 'utf-8');
 
 	sourceCode = addImportStatement(

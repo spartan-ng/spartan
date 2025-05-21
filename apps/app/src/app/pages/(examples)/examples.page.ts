@@ -3,8 +3,8 @@ import { Component } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
 import { NavLinkDirective } from '@spartan-ng/app/app/shared/spartan-nav-link.directive';
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
-import { hlmH1, hlmLead } from '@spartan-ng/ui-typography-helm';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { hlmH1, hlmLead } from '@spartan-ng/helm/typography';
 
 export const routeMeta: RouteMeta = {
 	meta: metaWith('Examples - SPARTAN', 'Examples built with the SPARTAN stack and its UI primitives'),

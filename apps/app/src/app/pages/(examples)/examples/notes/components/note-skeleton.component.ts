@@ -5,8 +5,8 @@ import {
 	HlmCardDirective,
 	HlmCardFooterDirective,
 	HlmCardHeaderDirective,
-} from '@spartan-ng/ui-card-helm';
-import { HlmSkeletonComponent } from '@spartan-ng/ui-skeleton-helm';
+} from '@spartan-ng/helm/card';
+import { HlmSkeletonComponent } from '@spartan-ng/helm/skeleton';
 
 @Component({
 	// eslint-disable-next-line @angular-eslint/component-selector

@@ -8,8 +8,8 @@ import {
 	HlmBreadcrumbListDirective,
 	HlmBreadcrumbPageDirective,
 	HlmBreadcrumbSeparatorComponent,
-} from '@spartan-ng/ui-breadcrumb-helm';
-import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
+} from '@spartan-ng/helm/breadcrumb';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
 
 @Component({
 	selector: 'spartan-breadcrumb-custom-separator',
@@ -58,8 +58,8 @@ import {
 	HlmBreadcrumbListDirective,
 	HlmBreadcrumbPageDirective,
 	HlmBreadcrumbSeparatorComponent,
-} from '@spartan-ng/ui-breadcrumb-helm';
-import { HlmIconDirective, provideIcons } from '@spartan-ng/ui-icon-helm';
+} from '@spartan-ng/helm/breadcrumb';
+import { HlmIconDirective, provideIcons } from '@spartan-ng/helm/icon';
 
 @Component({
 	selector: 'spartan-breadcrumb-custom-separator',
@@ -102,7 +102,7 @@ export class BreadcrumbCustomSeparatorComponent {}
 
 export const breadcrumbCustomSeparatorSkeleton = `
 import { lucideSlash } from '@ng-icons/lucide';
-import { HlmIconDirective, provideIcons } from '@spartan-ng/ui-icon-helm';
+import { HlmIconDirective, provideIcons } from '@spartan-ng/helm/icon';
 
 ...
 

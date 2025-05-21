@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideItalic } from '@ng-icons/lucide';
 import { BrnToggleDirective } from '@spartan-ng/brain/toggle';
-import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
-import { HlmToggleDirective } from '@spartan-ng/ui-toggle-helm';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { HlmToggleDirective } from '@spartan-ng/helm/toggle';
 
 @Component({
 	selector: 'spartan-toggle-preview',
@@ -19,11 +19,11 @@ export class TogglePreviewComponent {}
 
 export const defaultCode = `
 import { Component } from '@angular/core';
-import { HlmToggleDirective } from '@spartan-ng/ui-toggle-helm';
+import { HlmToggleDirective } from '@spartan-ng/helm/toggle';
 import { BrnToggleDirective } from '@spartan-ng/brain/toggle';
 import { provideIcons } from '@ng-icons/core';
 import { lucideItalic } from '@ng-icons/lucide';
-import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
 
 @Component({
   selector: 'spartan-toggle-preview',
@@ -40,7 +40,7 @@ export class TogglePreviewComponent {}
 `;
 
 export const defaultImports = `
-import { HlmToggleDirective } from '@spartan-ng/ui-toggle-helm';
+import { HlmToggleDirective } from '@spartan-ng/helm/toggle';
 import { BrnToggleDirective } from '@spartan-ng/brain/toggle';
 `;
 export const defaultSkeleton = `

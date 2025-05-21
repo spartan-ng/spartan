@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
+import { HlmInputDirective } from '@spartan-ng/helm/input';
 
 @Component({
 	selector: 'spartan-input-file',
@@ -12,7 +12,7 @@ export class InputFilePreviewComponent {}
 
 export const fileCode = `
 import { Component } from '@angular/core';
-import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
+import { HlmInputDirective } from '@spartan-ng/helm/input';
 
 @Component({
   selector: 'spartan-input-file',

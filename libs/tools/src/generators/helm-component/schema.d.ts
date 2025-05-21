@@ -1,4 +1,4 @@
 export interface HelmComponentGeneratorSchema {
-	project: string;
+	entrypoint: string;
 	componentName: string;
 }

@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
-import { HlmDatePickerComponent } from '@spartan-ng/ui-date-picker-helm';
-import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmDatePickerComponent } from '@spartan-ng/helm/date-picker';
+import { HlmLabelDirective } from '@spartan-ng/helm/label';
 
 @Component({
 	selector: 'spartan-date-picker-form',
@@ -44,9 +44,9 @@ export class DatePickerFormExampleComponent {
 export const datePickerFormCode = `
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
-import { HlmDatePickerComponent } from '@spartan-ng/ui-date-picker-helm';
-import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmDatePickerComponent } from '@spartan-ng/helm/date-picker';
+import { HlmLabelDirective } from '@spartan-ng/helm/label';
 
 @Component({
 	selector: 'spartan-date-picker-form',

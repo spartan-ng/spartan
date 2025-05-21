@@ -2,15 +2,15 @@ import { Component, HostBinding, inject } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideCheck } from '@ng-icons/lucide';
 import { BrnDialogRef, injectBrnDialogContext } from '@spartan-ng/brain/dialog';
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
 import {
 	HlmDialogDescriptionDirective,
 	HlmDialogHeaderComponent,
 	HlmDialogService,
 	HlmDialogTitleDirective,
-} from '@spartan-ng/ui-dialog-helm';
+} from '@spartan-ng/helm/dialog';
 
-import { HlmTableComponent, HlmTdComponent, HlmThComponent, HlmTrowComponent } from '@spartan-ng/ui-table-helm';
+import { HlmTableComponent, HlmTdComponent, HlmThComponent, HlmTrowComponent } from '@spartan-ng/helm/table';
 
 type ExampleUser = {
 	name: string;
@@ -123,9 +123,9 @@ import {
 	HlmDialogHeaderComponent,
 	HlmDialogService,
 	HlmDialogTitleDirective,
-} from '@spartan-ng/ui-dialog-helm';
-import { HlmIconDirective, provideIcons } from '@spartan-ng/ui-icon-helm';
-import { HlmTableComponent, HlmTdComponent, HlmThComponent, HlmTrowComponent } from '@spartan-ng/ui-table-helm';
+} from '@spartan-ng/helm/dialog';
+import { HlmIconDirective, provideIcons } from '@spartan-ng/helm/icon';
+import { HlmTableComponent, HlmTdComponent, HlmThComponent, HlmTrowComponent } from '@spartan-ng/helm/table';
 
 type ExampleUser = {
 	name: string;

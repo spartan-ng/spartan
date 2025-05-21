@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
-import { HlmTooltipTriggerDirective } from '@spartan-ng/ui-tooltip-helm';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmTooltipTriggerDirective } from '@spartan-ng/helm/tooltip';
 
 @Component({
 	selector: 'spartan-tooltip-simple',
@@ -15,8 +15,8 @@ export class TooltipSimpleComponent {}
 
 export const simpleCode = `
 import { Component } from '@angular/core';
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
-import { HlmTooltipComponent, HlmTooltipTriggerDirective } from '@spartan-ng/ui-tooltip-helm';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmTooltipComponent, HlmTooltipTriggerDirective } from '@spartan-ng/helm/tooltip';
 
 @Component({
 	selector: 'spartan-tooltip-simple',

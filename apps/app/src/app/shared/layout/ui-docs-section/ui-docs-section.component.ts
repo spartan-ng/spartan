@@ -1,7 +1,7 @@
 import { Component, computed, inject, input } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
-import { hlmCode, hlmH4 } from '@spartan-ng/ui-typography-helm';
+import { hlmCode, hlmH4 } from '@spartan-ng/helm/typography';
 import { map } from 'rxjs/operators';
 import { ApiDocsService } from '../../../core/services/api-docs.service';
 import { UIApiDocsTableComponent } from '../ui-api-docs-table/ui-api-docs-table.component';

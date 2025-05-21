@@ -9,8 +9,8 @@ import {
 	HlmAlertDirective,
 	HlmAlertIconDirective,
 	HlmAlertTitleDirective,
-} from '@spartan-ng/ui-alert-helm';
-import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
+} from '@spartan-ng/helm/alert';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
 import { ComponentApiData } from '../../core/models/ui-docs.model';
 import { ApiDocsService } from '../../core/services/api-docs.service';
 import { PageComponent } from '../../shared/layout/page.component';

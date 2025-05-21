@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HlmScrollAreaDirective } from '@spartan-ng/ui-scrollarea-helm';
+import { HlmScrollAreaDirective } from '@spartan-ng/helm/scroll-area';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { SideNavContentComponent } from './side-nav-content.component';
 

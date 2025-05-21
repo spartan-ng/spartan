@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { HlmTableComponent, HlmTdComponent, HlmThComponent, HlmTrowComponent } from '@spartan-ng/ui-table-helm';
+import { HlmTableComponent, HlmTdComponent, HlmThComponent, HlmTrowComponent } from '@spartan-ng/helm/table';
 
 type Column = { label: string; key: string; class?: string };
 

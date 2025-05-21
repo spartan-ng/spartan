@@ -15,7 +15,7 @@ export class <%= previewComponentName %> {}
 export const codeImports = `
 import {
 
-} from '@spartan-ng/ui-<%= fileName %>-helm';
+} from '@spartan-ng/helm/<%= fileName %>';
 `;
 
 export const codeString = `import { Component } from '@angular/core';${codeImports}

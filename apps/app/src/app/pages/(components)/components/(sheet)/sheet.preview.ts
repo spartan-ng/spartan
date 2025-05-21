@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideCross } from '@ng-icons/lucide';
 import { BrnSheetContentDirective, BrnSheetTriggerDirective } from '@spartan-ng/brain/sheet';
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
 
-import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
-import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
+import { HlmInputDirective } from '@spartan-ng/helm/input';
+import { HlmLabelDirective } from '@spartan-ng/helm/label';
 import {
 	HlmSheetComponent,
 	HlmSheetContentComponent,
@@ -13,7 +13,7 @@ import {
 	HlmSheetFooterComponent,
 	HlmSheetHeaderComponent,
 	HlmSheetTitleDirective,
-} from '@spartan-ng/ui-sheet-helm';
+} from '@spartan-ng/helm/sheet';
 
 @Component({
 	selector: 'spartan-sheet-preview',
@@ -62,10 +62,10 @@ export const defaultCode = `
 import { Component } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideCross } from '@ng-icons/lucide';
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
-import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
-import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
-import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { HlmInputDirective } from '@spartan-ng/helm/input';
+import { HlmLabelDirective } from '@spartan-ng/helm/label';
 import { BrnSheetContentDirective, BrnSheetTriggerDirective } from '@spartan-ng/brain/sheet';
 import {
   HlmSheetComponent,
@@ -74,7 +74,7 @@ import {
   HlmSheetFooterComponent,
   HlmSheetHeaderComponent,
   HlmSheetTitleDirective,
-} from '@spartan-ng/ui-sheet-helm';
+} from '@spartan-ng/helm/sheet';
 
 @Component({
   selector: 'spartan-sheet-preview',
@@ -129,7 +129,7 @@ import {
   HlmSheetFooterComponent,
   HlmSheetHeaderComponent,
   HlmSheetTitleDirective,
-} from '@spartan-ng/ui-sheet-helm';
+} from '@spartan-ng/helm/sheet';
 `;
 export const defaultSkeleton = `
 <hlm-sheet>

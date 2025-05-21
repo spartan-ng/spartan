@@ -3,7 +3,7 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCheck, lucideChevronDown } from '@ng-icons/lucide';
 import { BrnCommandImports } from '@spartan-ng/brain/command';
 import { BrnPopoverComponent, BrnPopoverContentDirective, BrnPopoverTriggerDirective } from '@spartan-ng/brain/popover';
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
 import {
 	HlmCardContentDirective,
 	HlmCardDescriptionDirective,
@@ -11,12 +11,12 @@ import {
 	HlmCardFooterDirective,
 	HlmCardHeaderDirective,
 	HlmCardTitleDirective,
-} from '@spartan-ng/ui-card-helm';
-import { HlmCommandImports } from '@spartan-ng/ui-command-helm';
-import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
-import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
-import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
-import { HlmPopoverContentDirective } from '@spartan-ng/ui-popover-helm';
+} from '@spartan-ng/helm/card';
+import { HlmCommandImports } from '@spartan-ng/helm/command';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { HlmInputDirective } from '@spartan-ng/helm/input';
+import { HlmLabelDirective } from '@spartan-ng/helm/label';
+import { HlmPopoverContentDirective } from '@spartan-ng/helm/popover';
 
 type Framework = { label: string; value: string };
 
@@ -145,7 +145,7 @@ export class CardPreviewComponent {
 export const defaultCode = `
 import { Component, signal } from '@angular/core';
 import { lucideCheck, lucideChevronDown } from '@ng-icons/lucide';
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
 import {
   HlmCardContentDirective,
   HlmCardDescriptionDirective,
@@ -153,13 +153,13 @@ import {
   HlmCardFooterDirective,
   HlmCardHeaderDirective,
   HlmCardTitleDirective,
-} from '@spartan-ng/ui-card-helm';
+} from '@spartan-ng/helm/card';
 import { BrnCommandImports } from '@spartan-ng/brain/command';
-import { HlmCommandImports } from '@spartan-ng/ui-command-helm';
-import { HlmIconDirective, provideIcons } from '@spartan-ng/ui-icon-helm';
-import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
-import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
-import { HlmPopoverContentDirective } from '@spartan-ng/ui-popover-helm';
+import { HlmCommandImports } from '@spartan-ng/helm/command';
+import { HlmIconDirective, provideIcons } from '@spartan-ng/helm/icon';
+import { HlmInputDirective } from '@spartan-ng/helm/input';
+import { HlmLabelDirective } from '@spartan-ng/helm/label';
+import { HlmPopoverContentDirective } from '@spartan-ng/helm/popover';
 import {
   BrnPopoverComponent,
   BrnPopoverContentDirective,
@@ -299,7 +299,7 @@ import {
   HlmCardFooterDirective,
   HlmCardHeaderDirective,
   HlmCardTitleDirective,
-} from '@spartan-ng/ui-card-helm';
+} from '@spartan-ng/helm/card';
 `;
 
 export const defaultSkeleton = `

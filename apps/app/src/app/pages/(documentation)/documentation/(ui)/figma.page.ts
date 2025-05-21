@@ -7,8 +7,8 @@ import { PageNavComponent } from '@spartan-ng/app/app/shared/layout/page-nav/pag
 import { SectionIntroComponent } from '@spartan-ng/app/app/shared/layout/section-intro.component';
 import { SectionSubHeadingComponent } from '@spartan-ng/app/app/shared/layout/section-sub-heading.component';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
-import { HlmAspectRatioDirective } from '@spartan-ng/ui-aspectratio-helm';
-import { hlmCode, hlmP } from '@spartan-ng/ui-typography-helm';
+import { HlmAspectRatioDirective } from '@spartan-ng/helm/aspect-ratio';
+import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Figma' },

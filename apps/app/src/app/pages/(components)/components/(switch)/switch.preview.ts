@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
-import { HlmSwitchComponent } from '@spartan-ng/ui-switch-helm';
+import { HlmLabelDirective } from '@spartan-ng/helm/label';
+import { HlmSwitchComponent } from '@spartan-ng/helm/switch';
 
 @Component({
 	selector: 'spartan-switch-preview',
@@ -15,8 +15,8 @@ import { HlmSwitchComponent } from '@spartan-ng/ui-switch-helm';
 export class SwitchPreviewComponent {}
 
 export const defaultCode = `import { Component } from '@angular/core';
-import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
-import { HlmSwitchComponent } from '@spartan-ng/ui-switch-helm';
+import { HlmLabelDirective } from '@spartan-ng/helm/label';
+import { HlmSwitchComponent } from '@spartan-ng/helm/switch';
 
 @Component({
 	selector: 'spartan-switch-preview',
@@ -33,7 +33,7 @@ export class SwitchPreviewComponent {}
 `;
 
 export const defaultImports = `
-import { HlmSwitchComponent } from '@spartan-ng/ui-switch-helm';
+import { HlmSwitchComponent } from '@spartan-ng/helm/switch';
 `;
 export const defaultSkeleton = `
 <hlm-switch />

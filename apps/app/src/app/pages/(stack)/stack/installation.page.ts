@@ -3,10 +3,10 @@ import { Component } from '@angular/core';
 
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronRight, lucideTriangleAlert } from '@ng-icons/lucide';
-import { HlmAlertModule } from '@spartan-ng/ui-alert-helm';
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
-import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
-import { hlmCode, hlmH4, hlmP } from '@spartan-ng/ui-typography-helm';
+import { HlmAlertModule } from '@spartan-ng/helm/alert';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { hlmCode, hlmH4, hlmP } from '@spartan-ng/helm/typography';
 
 import { CodeComponent } from '../../../shared/code/code.component';
 import { MainSectionDirective } from '../../../shared/layout/main-section.directive';

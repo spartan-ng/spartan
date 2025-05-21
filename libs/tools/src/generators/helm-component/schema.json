@@ -4,16 +4,15 @@
 	"title": "",
 	"type": "object",
 	"properties": {
-		"project": {
+		"entrypoint": {
 			"type": "string",
-			"description": "The name of the project to add the component to.",
+			"description": "The name of the entrypoint the component belongs to.",
 			"alias": "p",
 			"$default": {
 				"$source": "argv",
 				"index": 0
 			},
-			"x-dropdown": "projects",
-			"x-prompt": "What project would you like to add the component to?",
+			"x-prompt": "What entrypoint does this component belong to?",
 			"x-priority": "important"
 		},
 		"componentName": {
@@ -22,5 +21,5 @@
 			"x-prompt": "The name of the component?"
 		}
 	},
-	"required": ["project", "componentName"]
+	"required": ["entrypoint", "componentName"]
 }

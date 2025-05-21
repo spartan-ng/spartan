@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { hlmMuted } from '@spartan-ng/ui-typography-helm';
+import { hlmMuted } from '@spartan-ng/helm/typography';
 
 @Component({
 	selector: 'spartan-coming-soon',

@@ -9,10 +9,10 @@ import {
 	HlmDialogDescriptionDirective,
 	HlmDialogHeaderComponent,
 	HlmDialogTitleDirective,
-} from '@spartan-ng/ui-dialog-helm';
-import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
-import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
-import { HlmH4Directive, HlmMutedDirective } from '@spartan-ng/ui-typography-helm';
+} from '@spartan-ng/helm/dialog';
+import { HlmInputDirective } from '@spartan-ng/helm/input';
+import { HlmLabelDirective } from '@spartan-ng/helm/label';
+import { HlmH4Directive, HlmMutedDirective } from '@spartan-ng/helm/typography';
 import { debounceTime, map } from 'rxjs/operators';
 
 @Component({
@@ -68,8 +68,8 @@ export const declarativeCode = `
 import { Component, signal } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
-import { HlmBadgeDirective } from '@spartan-ng/ui-badge-helm';
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
+import { HlmBadgeDirective } from '@spartan-ng/helm/badge';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
 import { BrnDialogContentDirective } from '@spartan-ng/brain/dialog';
 import {
 	HlmDialogComponent,
@@ -78,10 +78,10 @@ import {
 	HlmDialogFooterComponent,
 	HlmDialogHeaderComponent,
 	HlmDialogTitleDirective,
-} from '@spartan-ng/ui-dialog-helm';
-import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
-import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
-import { HlmH4Directive, HlmMutedDirective } from '@spartan-ng/ui-typography-helm';
+} from '@spartan-ng/helm/dialog';
+import { HlmInputDirective } from '@spartan-ng/helm/input';
+import { HlmLabelDirective } from '@spartan-ng/helm/label';
+import { HlmH4Directive, HlmMutedDirective } from '@spartan-ng/helm/typography';
 import { debounceTime, map } from 'rxjs';
 
 @Component({

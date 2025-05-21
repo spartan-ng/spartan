@@ -8,8 +8,8 @@ import { PageNavComponent } from '@spartan-ng/app/app/shared/layout/page-nav/pag
 import { SectionIntroComponent } from '@spartan-ng/app/app/shared/layout/section-intro.component';
 import { SectionSubHeadingComponent } from '@spartan-ng/app/app/shared/layout/section-sub-heading.component';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
-import { HlmAlertDirective } from '@spartan-ng/ui-alert-helm';
-import { hlmCode, hlmH4, hlmP, hlmSmall } from '@spartan-ng/ui-typography-helm';
+import { HlmAlertDirective } from '@spartan-ng/helm/alert';
+import { hlmCode, hlmH4, hlmP, hlmSmall } from '@spartan-ng/helm/typography';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Theming' },

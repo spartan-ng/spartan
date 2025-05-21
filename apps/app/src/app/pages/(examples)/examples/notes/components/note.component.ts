@@ -2,8 +2,8 @@ import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import type { Note } from '@spartan-ng/app/db';
-import { HlmBadgeDirective } from '@spartan-ng/ui-badge-helm';
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
+import { HlmBadgeDirective } from '@spartan-ng/helm/badge';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
 import {
 	HlmCardContentDirective,
 	HlmCardDescriptionDirective,
@@ -11,8 +11,8 @@ import {
 	HlmCardFooterDirective,
 	HlmCardHeaderDirective,
 	HlmCardTitleDirective,
-} from '@spartan-ng/ui-card-helm';
-import { HlmSpinnerComponent } from '@spartan-ng/ui-spinner-helm';
+} from '@spartan-ng/helm/card';
+import { HlmSpinnerComponent } from '@spartan-ng/helm/spinner';
 
 @Component({
 	// eslint-disable-next-line @angular-eslint/component-selector

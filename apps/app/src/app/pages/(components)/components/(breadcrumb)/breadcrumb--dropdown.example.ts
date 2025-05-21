@@ -9,9 +9,9 @@ import {
 	HlmBreadcrumbListDirective,
 	HlmBreadcrumbPageDirective,
 	HlmBreadcrumbSeparatorComponent,
-} from '@spartan-ng/ui-breadcrumb-helm';
-import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
-import { HlmMenuComponent, HlmMenuItemDirective } from '@spartan-ng/ui-menu-helm';
+} from '@spartan-ng/helm/breadcrumb';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { HlmMenuComponent, HlmMenuItemDirective } from '@spartan-ng/helm/menu';
 
 @Component({
 	selector: 'spartan-breadcrumb-dropdown',
@@ -79,10 +79,10 @@ import {
 	HlmBreadcrumbListDirective,
 	HlmBreadcrumbPageDirective,
 	HlmBreadcrumbSeparatorComponent,
-} from '@spartan-ng/ui-breadcrumb-helm';
-import { HlmIconDirective, provideIcons } from '@spartan-ng/ui-icon-helm';
+} from '@spartan-ng/helm/breadcrumb';
+import { HlmIconDirective, provideIcons } from '@spartan-ng/helm/icon';
 import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
-import { HlmMenuComponent, HlmMenuItemDirective } from '@spartan-ng/ui-menu-helm';
+import { HlmMenuComponent, HlmMenuItemDirective } from '@spartan-ng/helm/menu';
 
 @Component({
 	selector: 'spartan-breadcrumb-dropdown',
@@ -144,7 +144,7 @@ export class BreadcrumbDropdownComponent {}
 
 export const breadcrumbDropdownSkeleton = `
 import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
-import { HlmMenuComponent, HlmMenuItemDirective } from '@spartan-ng/ui-menu-helm';
+import { HlmMenuComponent, HlmMenuItemDirective } from '@spartan-ng/helm/menu';
 
 ...
 

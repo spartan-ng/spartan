@@ -4,15 +4,15 @@ import { RouterLink } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCheck, lucideLayers, lucidePuzzle, lucideStar } from '@ng-icons/lucide';
 import { ZeropsLogoComponent } from '@spartan-ng/app/app/pages/(home)/components/zerops-logo.component';
-import { HlmBadgeDirective } from '@spartan-ng/ui-badge-helm';
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
+import { HlmBadgeDirective } from '@spartan-ng/helm/badge';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
 import {
 	HlmCardDescriptionDirective,
 	HlmCardDirective,
 	HlmCardHeaderDirective,
 	HlmCardTitleDirective,
-} from '@spartan-ng/ui-card-helm';
-import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
+} from '@spartan-ng/helm/card';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
 import { metaWith } from '../shared/meta/meta.util';
 import { ThreeHundredComponent } from './(home)/components/three-hundred.component';
 

@@ -1,0 +1,53 @@
+{
+	"name": "ui-storybook",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "apps/ui-storybook/src",
+	"prefix": "spartan-ng",
+	"projectType": "library",
+	"tags": [],
+	"targets": {
+		"storybook": {
+			"executor": "@storybook/angular:start-storybook",
+			"options": {
+				"port": 4400,
+				"configDir": "apps/ui-storybook/.storybook",
+				"browserTarget": "ui-storybook:build-storybook",
+				"compodoc": false,
+				"styles": ["apps/ui-storybook/.storybook/tailwind.css"]
+			},
+			"configurations": {
+				"ci": {
+					"quiet": true
+				}
+			}
+		},
+		"build-storybook": {
+			"executor": "@storybook/angular:build-storybook",
+			"outputs": ["{options.outputDir}"],
+			"options": {
+				"outputDir": "dist/storybook/ui-storybook",
+				"configDir": "apps/ui-storybook/.storybook",
+				"browserTarget": "ui-storybook:build-storybook",
+				"compodoc": false,
+				"styles": ["apps/ui-storybook/.storybook/tailwind.css"]
+			},
+			"configurations": {
+				"ci": {
+					"quiet": true
+				}
+			}
+		},
+		"static-storybook": {
+			"executor": "@nx/web:file-server",
+			"options": {
+				"buildTarget": "ui-storybook:build-storybook",
+				"staticFilePath": "dist/storybook/ui-storybook"
+			},
+			"configurations": {
+				"ci": {
+					"buildTarget": "ui-storybook:build-storybook:ci"
+				}
+			}
+		}
+	}
+}

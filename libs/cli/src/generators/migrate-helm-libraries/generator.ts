@@ -86,10 +86,19 @@ async function removeExistingLibraries(tree: Tree, options: MigrateHelmLibraries
 	const tsconfigPaths = readTsConfigPathsFromTree(tree);
 
 	for (const library of libraries) {
-		// get the tsconfig path for the library
-		const tsconfigPath = tsconfigPaths[`@spartan-ng/ui-${library}-helm`];
+		// determine the library path
+		let importPath: string;
 
-		if (!tsconfigPath) {
+		if (`@spartan-ng/helm/${library}` in tsconfigPaths) {
+			importPath = `@spartan-ng/helm/${library}`;
+		} else if (`@spartan-ng/ui-${library}-helm` in tsconfigPaths) {
+			importPath = `@spartan-ng/ui-${library}-helm`;
+		}
+
+		// get the tsconfig path for the library
+		const tsconfigPath = tsconfigPaths[importPath];
+
+		if (!tsconfigPath || !importPath) {
 			throw new Error(`Could not find tsconfig path for library ${library}`);
 		}
 
@@ -102,7 +111,7 @@ async function removeExistingLibraries(tree: Tree, options: MigrateHelmLibraries
 				projectName: `ui-${library}-helm`,
 				forceRemove: true,
 				skipFormat: true,
-				importPath: `@spartan-ng/ui-${library}-helm`,
+				importPath,
 			});
 		} else {
 			// get the directory of the path e.g. ./libs/ui/ui-aspectratio-helm/src/index.ts
@@ -115,7 +124,7 @@ async function removeExistingLibraries(tree: Tree, options: MigrateHelmLibraries
 
 			// remove the path from the tsconfig
 			updateJson(tree, getRootTsConfigPathInTree(tree), (json) => {
-				delete json.compilerOptions.paths[`@spartan-ng/ui-${library}-helm`];
+				delete json.compilerOptions.paths[importPath];
 				return json;
 			});
 		}

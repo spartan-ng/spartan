@@ -7,14 +7,14 @@ import {
 	BrnSheetContentDirective,
 	BrnSheetTriggerDirective,
 } from '@spartan-ng/brain/sheet';
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
-import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmLabelDirective } from '@spartan-ng/helm/label';
 import {
 	HlmSheetComponent,
 	HlmSheetContentComponent,
 	HlmSheetHeaderComponent,
 	HlmSheetTitleDirective,
-} from '@spartan-ng/ui-sheet-helm';
+} from '@spartan-ng/helm/sheet';
 
 @Component({
 	selector: 'spartan-sheet-close-preview',
@@ -68,14 +68,14 @@ import { Component, viewChild } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideCross } from '@ng-icons/lucide';
 import { BrnSheetCloseDirective, BrnSheetComponent, BrnSheetContentDirective, BrnSheetTriggerDirective } from '@spartan-ng/brain/sheet';
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
-import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmLabelDirective } from '@spartan-ng/helm/label';
 import {
 	HlmSheetComponent,
 	HlmSheetContentComponent,
 	HlmSheetHeaderComponent,
 	HlmSheetTitleDirective,
-} from '@spartan-ng/ui-sheet-helm';
+} from '@spartan-ng/helm/sheet';
 
 @Component({
 	selector: 'spartan-sheet-close-preview',
@@ -119,7 +119,7 @@ import {
 })
 export class SheetClosePreviewComponent {
     public viewchildSheetRef = viewChild(BrnSheetComponent);
-  
+
     closeSheet() {
       this.viewchildSheetRef()?.close({});
     }

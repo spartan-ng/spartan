@@ -9,8 +9,8 @@ import {
 	HlmAlertDialogFooterComponent,
 	HlmAlertDialogHeaderComponent,
 	HlmAlertDialogTitleDirective,
-} from '@spartan-ng/ui-alertdialog-helm';
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
+} from '@spartan-ng/helm/alert-dialog';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
 
 @Component({
 	selector: 'spartan-alert-dialog-preview',
@@ -64,8 +64,8 @@ import {
   HlmAlertDialogHeaderComponent,
   HlmAlertDialogOverlayDirective,
   HlmAlertDialogTitleDirective,
-} from '@spartan-ng/ui-alertdialog-helm';
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
+} from '@spartan-ng/helm/alert-dialog';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
 
 @Component({
   selector: 'spartan-alert-dialog-preview',
@@ -120,7 +120,7 @@ import {
   HlmAlertDialogHeaderComponent,
   HlmAlertDialogOverlayDirective,
   HlmAlertDialogTitleDirective,
-} from '@spartan-ng/ui-alertdialog-helm';
+} from '@spartan-ng/helm/alert-dialog';
 `;
 
 export const defaultSkeleton = `

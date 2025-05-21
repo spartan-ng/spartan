@@ -2,7 +2,7 @@ import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideTriangleAlert } from '@ng-icons/lucide';
-import { hlmCode, hlmH4, hlmP } from '@spartan-ng/ui-typography-helm';
+import { hlmCode, hlmH4, hlmP } from '@spartan-ng/helm/typography';
 import { MainSectionDirective } from '../../../shared/layout/main-section.directive';
 import { PackageInstallerTabsComponent } from '../../../shared/layout/package-installer-tabs.component';
 import { PageBottomNavLinkComponent } from '../../../shared/layout/page-bottom-nav/page-bottom-nav-link.component';

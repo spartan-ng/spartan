@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HlmBadgeDirective } from '@spartan-ng/ui-badge-helm';
+import { HlmBadgeDirective } from '@spartan-ng/helm/badge';
 
 @Component({
 	selector: 'spartan-badge-secondary',
@@ -12,7 +12,7 @@ export class BadgeSecondaryExampleComponent {}
 
 export const secondaryCode = `
 import { Component } from '@angular/core';
-import { HlmBadgeDirective } from '@spartan-ng/ui-badge-helm';
+import { HlmBadgeDirective } from '@spartan-ng/helm/badge';
 
 @Component({
   selector: 'spartan-badge-secondary',

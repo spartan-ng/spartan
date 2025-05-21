@@ -6,8 +6,8 @@ import {
 	HlmAlertDirective,
 	HlmAlertIconDirective,
 	HlmAlertTitleDirective,
-} from '@spartan-ng/ui-alert-helm';
-import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
+} from '@spartan-ng/helm/alert';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
 
 @Component({
 	selector: 'spartan-alert-preview',
@@ -41,8 +41,8 @@ import {
   HlmAlertDirective,
   HlmAlertIconDirective,
   HlmAlertTitleDirective,
-} from '@spartan-ng/ui-alert-helm';
-import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
+} from '@spartan-ng/helm/alert';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
 import { provideIcons } from '@ng-icons/core';
 import { lucideBox } from '@ng-icons/lucide';
 
@@ -77,7 +77,7 @@ import {
   HlmAlertDirective,
   HlmAlertIconDirective,
   HlmAlertTitleDirective,
-} from '@spartan-ng/ui-alert-helm';
+} from '@spartan-ng/helm/alert';
 `;
 
 export const defaultSkeleton = `

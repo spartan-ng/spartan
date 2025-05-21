@@ -8,14 +8,14 @@ import { lucideArrowUpDown, lucideChevronDown, lucideEllipsis } from '@ng-icons/
 import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
 import { BrnSelectModule } from '@spartan-ng/brain/select';
 import { BrnTableModule, useBrnColumnManager, type PaginatorState } from '@spartan-ng/brain/table';
-import { HlmButtonModule } from '@spartan-ng/ui-button-helm';
-import { HlmCheckboxComponent } from '@spartan-ng/ui-checkbox-helm';
-import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
-import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
-import { HlmMenuModule } from '@spartan-ng/ui-menu-helm';
-import { HlmSelectModule } from '@spartan-ng/ui-select-helm';
-import { HlmTableModule } from '@spartan-ng/ui-table-helm';
-import { hlmMuted } from '@spartan-ng/ui-typography-helm';
+import { HlmButtonModule } from '@spartan-ng/helm/button';
+import { HlmCheckboxComponent } from '@spartan-ng/helm/checkbox';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { HlmInputDirective } from '@spartan-ng/helm/input';
+import { HlmMenuModule } from '@spartan-ng/helm/menu';
+import { HlmSelectModule } from '@spartan-ng/helm/select';
+import { HlmTableModule } from '@spartan-ng/helm/table';
+import { hlmMuted } from '@spartan-ng/helm/typography';
 import { debounceTime, map } from 'rxjs/operators';
 
 export type Payment = {
@@ -398,17 +398,17 @@ import { Component, TrackByFunction, computed, effect, signal } from '@angular/c
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { lucideArrowUpDown, lucideChevronDown, lucideEllipsis } from '@ng-icons/lucide';
-import { HlmButtonModule } from '@spartan-ng/ui-button-helm';
-import { HlmCheckboxComponent } from '@spartan-ng/ui-checkbox-helm';
-import { HlmIconDirective, provideIcons } from '@spartan-ng/ui-icon-helm';
-import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
+import { HlmButtonModule } from '@spartan-ng/helm/button';
+import { HlmCheckboxComponent } from '@spartan-ng/helm/checkbox';
+import { HlmIconDirective, provideIcons } from '@spartan-ng/helm/icon';
+import { HlmInputDirective } from '@spartan-ng/helm/input';
 import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
-import { HlmMenuModule } from '@spartan-ng/ui-menu-helm';
+import { HlmMenuModule } from '@spartan-ng/helm/menu';
 import { BrnTableModule, PaginatorState, useBrnColumnManager } from '@spartan-ng/brain/table';
-import { HlmTableModule } from '@spartan-ng/ui-table-helm';
+import { HlmTableModule } from '@spartan-ng/helm/table';
 import { BrnSelectModule } from '@spartan-ng/brain/select';
-import { HlmSelectModule } from '@spartan-ng/ui-select-helm';
-import { hlmMuted } from '@spartan-ng/ui-typography-helm';
+import { HlmSelectModule } from '@spartan-ng/helm/select';
+import { hlmMuted } from '@spartan-ng/helm/typography';
 import { debounceTime, map } from 'rxjs';
 
 export type Payment = {

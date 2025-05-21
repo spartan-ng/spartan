@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HlmCardContentDirective, HlmCardDirective } from '@spartan-ng/ui-card-helm';
+import { HlmCardContentDirective, HlmCardDirective } from '@spartan-ng/helm/card';
 import {
 	HlmCarouselComponent,
 	HlmCarouselContentComponent,
@@ -7,7 +7,7 @@ import {
 	HlmCarouselNextComponent,
 	HlmCarouselPreviousComponent,
 	HlmCarouselSlideDisplayComponent,
-} from '@spartan-ng/ui-carousel-helm';
+} from '@spartan-ng/helm/carousel';
 
 @Component({
 	selector: 'spartan-carousel-slide-count',
@@ -50,7 +50,7 @@ export class CarouselSlideCountComponent {
 
 export const slideCountCode = `
 import { Component } from '@angular/core';
-import { HlmCardContentDirective, HlmCardDirective } from '@spartan-ng/ui-card-helm';
+import { HlmCardContentDirective, HlmCardDirective } from '@spartan-ng/helm/card';
 import {
 	HlmCarouselComponent,
 	HlmCarouselContentComponent,
@@ -58,7 +58,7 @@ import {
 	HlmCarouselNextComponent,
 	HlmCarouselPreviousComponent,
 	HlmCarouselSlideDisplayComponent,
-} from '@spartan-ng/ui-carousel-helm';
+} from '@spartan-ng/helm/carousel';
 
 @Component({
 	selector: 'spartan-carousel-slide-count',

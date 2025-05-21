@@ -7,7 +7,7 @@ import {
 	HlmPaginationLinkDirective,
 	HlmPaginationNextComponent,
 	HlmPaginationPreviousComponent,
-} from '@spartan-ng/ui-pagination-helm';
+} from '@spartan-ng/helm/pagination';
 
 @Component({
 	selector: 'spartan-pagination-preview',
@@ -57,7 +57,7 @@ import {
 	HlmPaginationLinkDirective,
 	HlmPaginationNextComponent,
 	HlmPaginationPreviousComponent,
-} from '@spartan-ng/ui-pagination-helm';
+} from '@spartan-ng/helm/pagination';
 
 @Component({
 	selector: 'spartan-pagination-preview',
@@ -108,7 +108,7 @@ import {
 	HlmPaginationLinkDirective,
 	HlmPaginationNextComponent,
 	HlmPaginationPreviousComponent,
-} from '@spartan-ng/ui-pagination-helm';
+} from '@spartan-ng/helm/pagination';
 `;
 
 export const defaultSkeleton = `

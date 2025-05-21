@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HlmDatePickerMultiComponent } from '@spartan-ng/ui-date-picker-helm';
+import { HlmDatePickerMultiComponent } from '@spartan-ng/helm/date-picker';
 
 @Component({
 	selector: 'spartan-date-picker-multiple',
@@ -29,7 +29,7 @@ export class DatePickerMultipleExampleComponent {
 
 export const datePickerMultipleCode = `
 import { Component } from '@angular/core';
-import { HlmDatePickerMultiComponent } from '@spartan-ng/ui-date-picker-helm';
+import { HlmDatePickerMultiComponent } from '@spartan-ng/helm/date-picker';
 
 @Component({
 	selector: 'spartan-date-picker-multiple',

@@ -1,7 +1,7 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
-import { HlmAlertDescriptionDirective, HlmAlertDirective } from '@spartan-ng/ui-alert-helm';
-import { hlmCode, hlmH4 } from '@spartan-ng/ui-typography-helm';
+import { HlmAlertDescriptionDirective, HlmAlertDirective } from '@spartan-ng/helm/alert';
+import { hlmCode, hlmH4 } from '@spartan-ng/helm/typography';
 
 import { CodePreviewDirective } from '../../../../shared/code/code-preview.directive';
 import { CodeComponent } from '../../../../shared/code/code.component';

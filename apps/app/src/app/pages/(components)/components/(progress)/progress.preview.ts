@@ -1,6 +1,6 @@
 import { Component, type OnInit } from '@angular/core';
 import { BrnProgressComponent, BrnProgressIndicatorComponent } from '@spartan-ng/brain/progress';
-import { HlmProgressDirective, HlmProgressIndicatorDirective } from '@spartan-ng/ui-progress-helm';
+import { HlmProgressDirective, HlmProgressIndicatorDirective } from '@spartan-ng/helm/progress';
 
 @Component({
 	selector: 'spartan-progress-preview',
@@ -25,7 +25,7 @@ import {
   BrnProgressComponent,
   BrnProgressIndicatorComponent,
 } from '@spartan-ng/brain/progress';
-import { HlmProgressIndicatorDirective } from '@spartan-ng/ui-progress-helm';
+import { HlmProgressIndicatorDirective } from '@spartan-ng/helm/progress';
 
 @Component({
   selector: 'spartan-progress-preview',
@@ -51,7 +51,7 @@ import {
   BrnProgressComponent,
   BrnProgressIndicatorComponent,
 } from '@spartan-ng/brain/progress';
-import { HlmProgressIndicatorDirective } from '@spartan-ng/ui-progress-helm';
+import { HlmProgressIndicatorDirective } from '@spartan-ng/helm/progress';
 `;
 export const defaultSkeleton = `
 <brn-progress hlm [value]="value">

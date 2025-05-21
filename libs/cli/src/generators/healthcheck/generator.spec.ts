@@ -24,6 +24,7 @@ describe('healthcheck generator', () => {
 			`
 			import { BrnCheckbox } from '@spartan-ng/ui-checkbox-brain';
 			import { hlm } from '@spartan-ng/ui-core';
+			import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 		`,
 		);
 
@@ -62,6 +63,13 @@ describe('healthcheck generator', () => {
 
 		expect(contents).not.toContain('@spartan-ng/ui-core');
 		expect(contents).toContain('@spartan-ng/brain/core');
+	});
+
+	it('should update helm imports', () => {
+		const contents = tree.read('libs/my-lib/src/index.ts', 'utf-8');
+
+		expect(contents).not.toContain('@spartan-ng/ui-button-helm');
+		expect(contents).toContain('@spartan-ng/helm/button');
 	});
 
 	it('should update helm icons', () => {

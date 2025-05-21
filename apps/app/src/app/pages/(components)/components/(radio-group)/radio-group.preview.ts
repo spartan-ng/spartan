@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
-import { HlmRadioComponent, HlmRadioGroupComponent, HlmRadioIndicatorComponent } from '@spartan-ng/ui-radiogroup-helm';
-import { HlmSmallDirective } from '@spartan-ng/ui-typography-helm';
+import { HlmLabelDirective } from '@spartan-ng/helm/label';
+import { HlmRadioComponent, HlmRadioGroupComponent, HlmRadioIndicatorComponent } from '@spartan-ng/helm/radio-group';
+import { HlmSmallDirective } from '@spartan-ng/helm/typography';
 
 @Component({
 	selector: 'spartan-radio-group-preview',
@@ -51,8 +51,8 @@ export class RadioGroupPreviewComponent {
 export const defaultCode = `
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HlmRadioComponent, HlmRadioGroupComponent, HlmRadioIndicatorComponent } from '@spartan-ng/ui-radiogroup-helm';
-import { HlmSmallDirective } from '@spartan-ng/ui-typography-helm';
+import { HlmRadioComponent, HlmRadioGroupComponent, HlmRadioIndicatorComponent } from '@spartan-ng/helm/radio-group';
+import { HlmSmallDirective } from '@spartan-ng/helm/typography';
 
 @Component({
   selector: 'spartan-radio-group-preview',
@@ -98,7 +98,7 @@ import {
   HlmRadioComponent,
   HlmRadioGroupComponent,
   HlmRadioIndicatorComponent,
-} from '@spartan-ng/ui-radiogroup-helm';
+} from '@spartan-ng/helm/radio-group';
 `;
 export const defaultSkeleton = `
 <hlm-radio-group>

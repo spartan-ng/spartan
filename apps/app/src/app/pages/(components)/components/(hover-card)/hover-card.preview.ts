@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCalendar } from '@ng-icons/lucide';
 import { BrnHoverCardModule } from '@spartan-ng/brain/hover-card';
-import { HlmAvatarModule } from '@spartan-ng/ui-avatar-helm';
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
-import { HlmHoverCardModule } from '@spartan-ng/ui-hovercard-helm';
-import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
+import { HlmAvatarModule } from '@spartan-ng/helm/avatar';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmHoverCardModule } from '@spartan-ng/helm/hover-card';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
 
 @Component({
 	selector: 'spartan-hover-card-preview',
@@ -39,11 +39,11 @@ export const defaultCode = `
 import { Component } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideCalendar } from '@ng-icons/lucide';
-import { HlmAvatarModule } from '@spartan-ng/ui-avatar-helm';
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
+import { HlmAvatarModule } from '@spartan-ng/helm/avatar';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
 import { BrnHoverCardModule } from '@spartan-ng/brain/hover-card';
-import { HlmHoverCardModule } from '@spartan-ng/ui-hovercard-helm';
-import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
+import { HlmHoverCardModule } from '@spartan-ng/helm/hover-card';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
 
 @Component({
   selector: 'spartan-hover-card-preview',
@@ -84,7 +84,7 @@ import {
 
 import {
   HlmHoverCardContentComponent
-} from '@spartan-ng/ui-hovercard-helm';
+} from '@spartan-ng/helm/hover-card';
 `;
 
 export const defaultSkeleton = `

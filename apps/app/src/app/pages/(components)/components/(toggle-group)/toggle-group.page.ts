@@ -11,7 +11,7 @@ import { SectionSubHeadingComponent } from '@spartan-ng/app/app/shared/layout/se
 import { TabsCliComponent } from '@spartan-ng/app/app/shared/layout/tabs-cli.component';
 import { TabsComponent } from '@spartan-ng/app/app/shared/layout/tabs.component';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
-import { hlmH4 } from '@spartan-ng/ui-typography-helm';
+import { hlmH4 } from '@spartan-ng/helm/typography';
 import { ToggleGroupDisabledPreviewComponent, disabledCode } from './toggle-group--disabled.preview';
 import { ToggleGroupLargePreviewComponent, largeCode } from './toggle-group--large.preview';
 import { ToggleGroupOutlinePreviewComponent, outlineCode } from './toggle-group--outline.preview';

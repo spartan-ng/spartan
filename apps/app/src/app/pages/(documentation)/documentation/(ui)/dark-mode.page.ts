@@ -8,7 +8,7 @@ import { PageBottomNavComponent } from '@spartan-ng/app/app/shared/layout/page-b
 import { SectionIntroComponent } from '@spartan-ng/app/app/shared/layout/section-intro.component';
 
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
-import { hlmCode, hlmP } from '@spartan-ng/ui-typography-helm';
+import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Dark Mode' },

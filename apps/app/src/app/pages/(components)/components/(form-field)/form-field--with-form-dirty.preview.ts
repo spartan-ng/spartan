@@ -2,10 +2,10 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@spartan-ng/brain/forms';
 import { BrnSelectImports } from '@spartan-ng/brain/select';
-import { HlmButtonModule } from '@spartan-ng/ui-button-helm';
-import { HlmFormFieldModule } from '@spartan-ng/ui-formfield-helm';
-import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
-import { HlmSelectImports, HlmSelectModule } from '@spartan-ng/ui-select-helm';
+import { HlmButtonModule } from '@spartan-ng/helm/button';
+import { HlmFormFieldModule } from '@spartan-ng/helm/form-field';
+import { HlmInputDirective } from '@spartan-ng/helm/input';
+import { HlmSelectImports, HlmSelectModule } from '@spartan-ng/helm/select';
 
 @Component({
 	selector: 'spartan-form-field-form-dirty',
@@ -77,12 +77,12 @@ export const providerShowOnDirtyErrorStateMatcher = `
 export const formFieldFormWithDirtyCode = `
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { HlmButtonModule } from '@spartan-ng/ui-button-helm';
+import { HlmButtonModule } from '@spartan-ng/helm/button';
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@spartan-ng/brain/forms';
-import { HlmFormFieldModule } from '@spartan-ng/ui-formfield-helm';
-import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
+import { HlmFormFieldModule } from '@spartan-ng/helm/form-field';
+import { HlmInputDirective } from '@spartan-ng/helm/input';
 import { BrnSelectImports } from '@spartan-ng/brain/select';
-import { HlmSelectImports, HlmSelectModule } from '@spartan-ng/ui-select-helm';
+import { HlmSelectImports, HlmSelectModule } from '@spartan-ng/helm/select';
 
 @Component({
 	standalone: true,

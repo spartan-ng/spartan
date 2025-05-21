@@ -7,7 +7,7 @@ import {
 	HlmMenuGroupComponent,
 	HlmMenuItemDirective,
 	HlmMenuShortcutComponent,
-} from '@spartan-ng/ui-menu-helm';
+} from '@spartan-ng/helm/menu';
 
 @Component({
 	selector: 'spartan-context-menu-with-state',
@@ -56,8 +56,8 @@ import {
 export class ContextMenuPreviewWithStateComponent {}
 
 export const defaultCodeWithState = `
-<div 
-  [brnCtxMenuTriggerData]="{ $implicit: { data: 'SomeValue' } }" 
+<div
+  [brnCtxMenuTriggerData]="{ $implicit: { data: 'SomeValue' } }"
   [brnCtxMenuTriggerFor]="menu"
   class="border-border flex h-[150px] w-[300px] items-center justify-center rounded-md border border-dashed text-sm"
 >

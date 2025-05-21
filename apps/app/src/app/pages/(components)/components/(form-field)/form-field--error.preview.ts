@@ -1,7 +1,7 @@
 import { Component, type OnInit } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { HlmFormFieldModule } from '@spartan-ng/ui-formfield-helm';
-import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
+import { HlmFormFieldModule } from '@spartan-ng/helm/form-field';
+import { HlmInputDirective } from '@spartan-ng/helm/input';
 
 @Component({
 	selector: 'spartan-form-field-error',
@@ -24,8 +24,8 @@ export class FormFieldErrorPreviewComponent implements OnInit {
 export const errorCode = `
 import { Component, OnInit } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { HlmFormFieldModule } from '@spartan-ng/ui-formfield-helm';
-import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
+import { HlmFormFieldModule } from '@spartan-ng/helm/form-field';
+import { HlmInputDirective } from '@spartan-ng/helm/input';
 
 @Component({
 	standalone: true,

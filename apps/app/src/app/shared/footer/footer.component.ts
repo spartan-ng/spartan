@@ -10,12 +10,8 @@ import { hlmMuted } from '@spartan-ng/ui-typography-helm';
 	},
 	template: `
 		<footer class="${hlmMuted} mx-auto max-w-screen-xl text-sm">
-			Built by
-			<a class="h-6 px-0.5 text-sm" hlmBtn href="https://twitter.com/goetzrobin" target="_blank" variant="link">
-				goetzrobin
-			</a>
-			&
-			<a class="h-6 px-0.5 text-sm" hlmBtn href="https://github.com/mihajm" target="_blank" variant="link">mihajm.</a>
+			Development powered by
+			<a class="h-6 px-0.5 text-sm" hlmBtn href="https://zerops.io" target="_blank" variant="link">Zerops.</a>
 			Open source and available on
 			<a class="h-6 px-0.5 text-sm" hlmBtn href="https://github.com/goetzrobin/spartan" target="_blank" variant="link">
 				GitHub.

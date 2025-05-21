@@ -42,7 +42,7 @@ export class BrnCalendarWeekDirective<T> implements OnDestroy {
 	});
 
 	/** Store the view refs */
-	private readonly _viewRefs: EmbeddedViewRef<BrnWeekContext<T>>[] = [];
+	private _viewRefs: EmbeddedViewRef<BrnWeekContext<T>>[] = [];
 
 	// Make sure the template checker knows the type of the context with which the
 	// template of this directive will be rendered
@@ -64,7 +64,7 @@ export class BrnCalendarWeekDirective<T> implements OnDestroy {
 			viewRef.destroy();
 		}
 
-		this._viewRefs.length = 0;
+		this._viewRefs = [];
 
 		// Create a new view for each week
 		for (const week of weeks) {

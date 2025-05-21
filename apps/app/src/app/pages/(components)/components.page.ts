@@ -46,12 +46,11 @@ export const routeMeta: RouteMeta = {
 			class="text-primary-foreground border-border bg-primary mx-auto my-2 max-w-[95vw] rounded-lg border p-4"
 		>
 			<ng-icon hlm hlmAlertIcon name="lucideRocket" class="!text-primary-foreground" />
-			<h2 hlmAlertTitle>Components are in alpha</h2>
+			<h2 hlmAlertTitle>Spartans get ready! v1 is coming!</h2>
 			<p hlmAlertDesc>
-				Try them out! We'd love to hear your feedback! Expect breaking changes!
-				<a class="underline" target="_blank" href="https://github.com/goetzrobin/spartan">
-					Become the one making those changes on GitHub!
-				</a>
+				We are very close to our first stable release. Expect more announcements in the coming weeks. v1 was made
+				possible by
+				<a class="underline" target="_blank" href="https://zerops.io">our partner Zerops.</a>
 			</p>
 		</div>
 		<spartan-page />

@@ -64,7 +64,6 @@ export type Primitives =
 	| 'table'
 	| 'tabs'
 	| 'textarea'
-	| 'toast'
 	| 'toggle'
 	| 'tooltip'
 	| 'typography';

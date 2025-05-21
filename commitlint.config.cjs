@@ -51,7 +51,6 @@ module.exports = {
 				'table',
 				'tabs',
 				'textarea',
-				'toast',
 				'toggle',
 				'toggle-group',
 				'tooltip',

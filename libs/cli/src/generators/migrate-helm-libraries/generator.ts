@@ -2,9 +2,10 @@ import { formatFiles, logger, Tree, updateJson } from '@nx/devkit';
 import { getRootTsConfigPathInTree } from '@nx/js';
 import { removeGenerator } from '@nx/workspace';
 import { prompt } from 'enquirer';
-import { dirname, join } from 'path';
+import { dirname } from 'path';
 import { getOrCreateConfig } from '../../utils/config';
 import { readTsConfigPathsFromTree } from '../../utils/tsconfig';
+import { deleteFiles } from '../base/lib/deleteFiles';
 import { createPrimitiveLibraries } from '../ui/generator';
 import { MigrateHelmLibrariesGeneratorSchema } from './schema';
 
@@ -138,19 +139,6 @@ async function regenerateLibraries(tree: Tree, options: MigrateHelmLibrariesGene
 		{ ...options, installPeerDependencies: true },
 		config,
 	);
-}
-
-function deleteFiles(tree: Tree, path: string) {
-	if (tree.isFile(path)) {
-		tree.delete(path);
-		return;
-	}
-
-	const files = tree.children(path);
-
-	for (const file of files) {
-		deleteFiles(tree, join(path, file));
-	}
 }
 
 type SupportedLibraries = Record<string, SupportedLibrary>;

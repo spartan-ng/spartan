@@ -72,6 +72,11 @@
 			"schema": "./src/generators/migrate-brain-imports/schema.json",
 			"description": "Migrate Brain imports to use secondary entrypoints."
 		},
+		"migrate-helm-imports": {
+			"factory": "./src/generators/migrate-helm-imports/compat",
+			"schema": "./src/generators/migrate-helm-imports/schema.json",
+			"description": "Migrate Helm imports to use the new imports structure."
+		},
 		"migrate-scroll-area": {
 			"factory": "./src/generators/migrate-scroll-area/compat",
 			"schema": "./src/generators/migrate-scroll-area/schema.json",

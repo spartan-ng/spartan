@@ -3,7 +3,7 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCheck } from '@ng-icons/lucide';
 import { hlm } from '@spartan-ng/brain/core';
 import { BrnSelectOptionDirective } from '@spartan-ng/brain/select';
-import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
 import type { ClassValue } from 'clsx';
 
 @Component({

@@ -3,17 +3,10 @@ import * as path from 'node:path';
 import type { HlmToCliGeneratorGeneratorSchema } from '../schema';
 
 function deleteSpecFiles(tree: Tree, dir: string) {
-	for (const entry of tree.children(dir)) {
-		const fullPath = path.join(dir, entry);
-
-		if (tree.isFile(fullPath)) {
-			if (fullPath.endsWith('.spec.ts')) {
-				tree.delete(fullPath);
-			}
-		} else {
-			deleteSpecFiles(tree, fullPath);
-		}
-	}
+	const files = recursivelyFindFiles(tree, dir).filter((file) => file.endsWith('.spec.ts'));
+	files.forEach((file) => {
+		tree.delete(file);
+	});
 }
 
 export const copyFilesFromHlmLibToGenerator = (
@@ -22,7 +15,11 @@ export const copyFilesFromHlmLibToGenerator = (
 	filesPath: string,
 	options: HlmToCliGeneratorGeneratorSchema,
 ) => {
-	generateFiles(tree, srcPath, filesPath, options);
+	try {
+		generateFiles(tree, srcPath, filesPath, options);
+	} catch (error) {
+		console.error('Error copying files from HLM lib to generator:', error);
+	}
 	tree.delete(path.join(filesPath, 'test-setup.ts'));
 	deleteSpecFiles(tree, filesPath);
 	renameToTemplate(tree, filesPath);

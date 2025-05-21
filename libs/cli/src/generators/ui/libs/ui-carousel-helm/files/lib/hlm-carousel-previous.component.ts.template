@@ -11,8 +11,8 @@ import {
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideArrowLeft } from '@ng-icons/lucide';
 import { hlm } from '@spartan-ng/brain/core';
-import { HlmButtonDirective, provideBrnButtonConfig } from '@spartan-ng/ui-button-helm';
-import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
+import { HlmButtonDirective, provideBrnButtonConfig } from '@spartan-ng/helm/button';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
 import type { ClassValue } from 'clsx';
 import { HlmCarouselComponent } from './hlm-carousel.component';
 

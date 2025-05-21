@@ -1,6 +1,6 @@
 import { Directive, computed, input } from '@angular/core';
 import { hlm } from '@spartan-ng/brain/core';
-import { HlmButtonDirective, provideBrnButtonConfig } from '@spartan-ng/ui-button-helm';
+import { HlmButtonDirective, provideBrnButtonConfig } from '@spartan-ng/helm/button';
 import type { ClassValue } from 'clsx';
 
 @Directive({

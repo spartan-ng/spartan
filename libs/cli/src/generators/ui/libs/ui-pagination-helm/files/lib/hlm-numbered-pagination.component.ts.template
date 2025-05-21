@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrnSelectImports } from '@spartan-ng/brain/select';
-import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
+import { HlmSelectImports } from '@spartan-ng/helm/select';
 import { HlmPaginationContentDirective } from './hlm-pagination-content.directive';
 import { HlmPaginationEllipsisComponent } from './hlm-pagination-ellipsis.component';
 import { HlmPaginationItemDirective } from './hlm-pagination-item.directive';

@@ -5,6 +5,7 @@ import { hlm } from '@spartan-ng/brain/core';
 
 @Component({
 	standalone: true,
+	// eslint-disable-next-line @angular-eslint/component-selector
 	selector: 'button[hlm-command-item]',
 	template: `
 		<ng-content />

@@ -212,7 +212,6 @@ The following is the list of supported scopes:
 - **table**
 - **tabs**
 - **textarea**
-- **toast**
 - **toggle**
 - **toggle-group**
 - **tooltip**

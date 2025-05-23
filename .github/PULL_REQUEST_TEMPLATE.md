@@ -68,7 +68,6 @@ What kind of change does this PR introduce?
 - [ ] table
 - [ ] tabs
 - [ ] textarea
-- [ ] toast
 - [ ] toggle
 - [ ] toggle-group
 - [ ] tooltip

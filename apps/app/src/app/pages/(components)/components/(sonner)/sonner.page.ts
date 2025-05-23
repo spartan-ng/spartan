@@ -1,5 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
+import { hlmP } from '@spartan-ng/ui-typography-helm';
 import { CodePreviewDirective } from '../../../../shared/code/code-preview.directive';
 import { CodeComponent } from '../../../../shared/code/code.component';
 import { MainSectionDirective } from '../../../../shared/layout/main-section.directive';
@@ -12,6 +13,7 @@ import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
+import { link } from '../../../../shared/typography/link';
 import { SonnerPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './sonner.preview';
 
 export const routeMeta: RouteMeta = {
@@ -45,6 +47,26 @@ export const routeMeta: RouteMeta = {
 				</div>
 				<spartan-code secondTab [code]="defaultCode" />
 			</spartan-tabs>
+
+			<spartan-section-sub-heading id="about">About</spartan-section-sub-heading>
+			<p class="${hlmP} mb-6">
+				Sonner is built on top of
+				<a
+					href="https://tutkli.github.io/ngx-sonner/"
+					target="_blank"
+					rel="noreferrer"
+					hlmBtn
+					variant="link"
+					class="${link}"
+				>
+					ngx-sonner
+				</a>
+				by
+				<a href="https://github.com/tutkli" target="_blank" rel="noreferrer" hlmBtn variant="link" class="${link}">
+					&#64;tutkli
+				</a>
+				.
+			</p>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
 			<spartan-cli-tabs

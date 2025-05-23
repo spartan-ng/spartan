@@ -1,7 +1,6 @@
 import { Directive, inject, TemplateRef } from '@angular/core';
 
 @Directive({
-	standalone: true,
 	selector: '[brnSelectValue], [hlmSelectValue]',
 })
 export class BrnSelectValueDirective<T> {

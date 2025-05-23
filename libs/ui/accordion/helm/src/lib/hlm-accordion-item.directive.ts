@@ -5,7 +5,6 @@ import type { ClassValue } from 'clsx';
 
 @Directive({
 	selector: '[hlmAccordionItem],brn-accordion-item[hlm],hlm-accordion-item',
-	standalone: true,
 	host: {
 		'[class]': '_computedClass()',
 	},

@@ -22,7 +22,6 @@ import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 
 @Component({
   selector: 'spartan-input-button',
-  standalone: true,
   imports: [HlmInputDirective, HlmButtonDirective],
   template: \`
     <div class='flex items-center w-full max-w-sm space-x-2'>

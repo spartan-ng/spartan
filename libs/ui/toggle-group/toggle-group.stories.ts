@@ -187,7 +187,6 @@ const CITIES = [
 
 @Component({
 	selector: 'hlm-toggle-group-story',
-	standalone: true,
 	imports: [BrnToggleGroupModule, HlmToggleGroupModule, HlmToggleGroupItemDirective, HlmButtonDirective, FormsModule],
 	template: `
 		<div class="flex space-x-4 p-4">
@@ -328,7 +327,6 @@ export const ToggleGroupMultiple: StoryObj<{ defaultValue: City[] }> = {
 
 @Component({
 	selector: 'hlm-toggle-group-form-story',
-	standalone: true,
 	imports: [
 		BrnToggleGroupModule,
 		HlmToggleGroupModule,

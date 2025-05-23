@@ -4,7 +4,6 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-alert-dialog-content',
-	standalone: true,
 	host: {
 		'[class]': '_computedClass()',
 		'[attr.data-state]': 'state()',

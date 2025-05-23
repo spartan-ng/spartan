@@ -4,7 +4,6 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-dialog-header',
-	standalone: true,
 	template: `
 		<ng-content />
 	`,

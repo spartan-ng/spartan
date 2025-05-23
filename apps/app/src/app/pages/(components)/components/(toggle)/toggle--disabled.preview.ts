@@ -27,7 +27,6 @@ import { lucideUnderline } from '@ng-icons/lucide';
 
 @Component({
   selector: 'spartan-toggle-disabled',
-  standalone: true,
   imports: [BrnToggleDirective, HlmToggleDirective, HlmIconDirective],
   providers: [provideIcons({ lucideUnderline })],
   template: \`

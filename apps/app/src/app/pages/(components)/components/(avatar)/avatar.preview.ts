@@ -19,7 +19,6 @@ import { HlmAvatarComponent, HlmAvatarFallbackDirective, HlmAvatarImageDirective
 
 @Component({
   selector: 'spartan-avatar-preview',
-  standalone: true,
   imports: [HlmAvatarImageDirective, HlmAvatarComponent, HlmAvatarFallbackDirective],
   template: \`
     <hlm-avatar variant="large">

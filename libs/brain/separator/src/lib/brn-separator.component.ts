@@ -5,7 +5,6 @@ export type BrnSeparatorOrientation = 'horizontal' | 'vertical';
 
 @Component({
 	selector: 'brn-separator',
-	standalone: true,
 	template: '',
 	host: {
 		'[role]': 'role()',

@@ -5,7 +5,6 @@ import type { ClassValue } from 'clsx';
 
 @Directive({
 	selector: '[hlmMenuItemRadio]',
-	standalone: true,
 	host: {
 		'[class]': '_computedClass()',
 	},

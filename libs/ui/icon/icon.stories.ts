@@ -54,7 +54,6 @@ export const Tailwind: Story = {
 
 @Component({
 	selector: 'icon-dynamic-story',
-	standalone: true,
 	imports: [FormsModule, NgIcon, HlmIconDirective],
 	providers: [provideIcons({ lucideHouse })],
 	template: /* HTML */ `

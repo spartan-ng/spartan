@@ -125,7 +125,6 @@ import {
 
 @Component({
 	selector: 'spartan-tabs-vertical',
-	standalone: true,
 	imports: [
 		HlmTabsComponent,
 		HlmTabsListComponent,

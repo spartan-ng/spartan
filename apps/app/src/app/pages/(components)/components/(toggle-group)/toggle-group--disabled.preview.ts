@@ -47,7 +47,6 @@ import { lucideBold, lucideItalic, lucideUnderline } from '@ng-icons/lucide';
 
 @Component({
   selector: 'spartan-toggle-group-disabled',
-  standalone: true,
   imports: [
 	 BrnToggleGroupItemDirective,
 	 BrnToggleGroupComponent,

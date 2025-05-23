@@ -5,7 +5,6 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-menu-bar',
-	standalone: true,
 	host: {
 		'[class]': '_computedClass()',
 	},

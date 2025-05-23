@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
-	standalone: true,
 	selector: 'hlm-command-shortcut',
 	template: '<ng-content />',
 	host: {

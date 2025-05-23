@@ -4,7 +4,6 @@ import { HlmButtonDirective, provideBrnButtonConfig } from '@spartan-ng/ui-butto
 
 @Directive({
 	selector: '[spartanNavLink]',
-	standalone: true,
 	providers: [provideBrnButtonConfig({ variant: 'link', size: 'sm' })],
 	hostDirectives: [
 		HlmButtonDirective,

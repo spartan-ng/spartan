@@ -75,7 +75,6 @@ export const Default: Story = {
 
 @Component({
 	selector: 'nested-dialog-story',
-	standalone: true,
 	imports: [
 		HlmDialogComponent,
 		HlmButtonDirective,
@@ -132,7 +131,6 @@ type ExampleUser = {
 
 @Component({
 	selector: 'dialog-dynamic-component-story',
-	standalone: true,
 	imports: [HlmButtonDirective],
 	template: `
 		<button hlmBtn (click)="openDynamicComponent()">Select User</button>
@@ -182,7 +180,6 @@ class DialogDynamicComponentStory {
 
 @Component({
 	selector: 'dynamic-content',
-	standalone: true,
 	imports: [
 		HlmDialogHeaderComponent,
 		HlmDialogTitleDirective,
@@ -249,7 +246,6 @@ export const DynamicComponent: Story = {
 
 @Component({
 	selector: 'nested-dialog-dynamic-first',
-	standalone: true,
 	imports: [
 		HlmButtonDirective,
 		HlmDialogContentComponent,
@@ -279,7 +275,6 @@ class NestedDialogDynamicFirstComponent {
 
 @Component({
 	selector: 'nested-dialog-dynamic-nested',
-	standalone: true,
 	imports: [HlmButtonDirective, HlmDialogHeaderComponent, HlmDialogTitleDirective, HlmDialogDescriptionDirective],
 	template: `
 		<hlm-dialog-header>
@@ -303,7 +298,6 @@ class NestedDialogDynamicNestedComponent {
 
 @Component({
 	selector: 'nested-dialog-dynamic-content-story',
-	standalone: true,
 	imports: [HlmButtonDirective],
 	template: `
 		<button hlmBtn (click)="openDialog()">Open Dialog</button>

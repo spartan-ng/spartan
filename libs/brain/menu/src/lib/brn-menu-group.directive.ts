@@ -3,7 +3,6 @@ import { Directive } from '@angular/core';
 
 @Directive({
 	selector: '[brnMenuGroup]',
-	standalone: true,
 	hostDirectives: [CdkMenuGroup],
 })
 export class BrnMenuGroupDirective {}

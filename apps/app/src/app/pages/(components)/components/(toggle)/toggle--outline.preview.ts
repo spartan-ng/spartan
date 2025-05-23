@@ -27,7 +27,6 @@ import { lucideItalic } from '@ng-icons/lucide';
 
 @Component({
   selector: 'spartan-toggle-outline',
-  standalone: true,
   imports: [BrnToggleDirective, HlmToggleDirective, HlmIconDirective],
   providers: [provideIcons({ lucideItalic })],
   template: \`

@@ -79,7 +79,6 @@ describe('migrate-select generator', () => {
 
 			@Component({
 				selector: 'hlm-option',
-				standalone: true,
 				changeDetection: ChangeDetectionStrategy.OnPush,
 				hostDirectives: [{ directive: BrnSelectOptionDirective, inputs: ['disabled', 'value'] }],
 				providers: [provideIcons({ lucideCheck })],

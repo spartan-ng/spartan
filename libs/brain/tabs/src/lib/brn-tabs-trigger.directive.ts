@@ -14,7 +14,6 @@ import {
 
 @Directive({
 	selector: '[brnTabsContent]',
-	standalone: true,
 	host: {
 		role: 'tabpanel',
 		tabindex: '0',
@@ -51,7 +50,6 @@ export type BrnActivationMode = 'automatic' | 'manual';
 
 @Directive({
 	selector: '[brnTabs]',
-	standalone: true,
 	host: {
 		'[attr.data-orientation]': 'orientation()',
 		'[attr.dir]': 'direction()',
@@ -101,7 +99,6 @@ export class BrnTabsDirective {
 
 @Directive({
 	selector: 'button[brnTabsTrigger]',
-	standalone: true,
 	host: {
 		'[id]': 'labelId()',
 		type: 'button',

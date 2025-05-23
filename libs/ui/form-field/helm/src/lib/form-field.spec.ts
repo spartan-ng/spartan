@@ -15,7 +15,6 @@ import { HlmHintDirective } from './hlm-hint.directive';
 const DIRECTIVES = [HlmFormFieldComponent, HlmErrorDirective, HlmHintDirective, HlmInputDirective];
 
 @Component({
-	standalone: true,
 	selector: 'single-form-field-example',
 	imports: [ReactiveFormsModule, ...DIRECTIVES],
 	template: `
@@ -40,7 +39,6 @@ class SingleFormFieldMock {
 }
 
 @Component({
-	standalone: true,
 	selector: 'single-form-field-dirty-example',
 	imports: [ReactiveFormsModule, ...DIRECTIVES],
 	template: `

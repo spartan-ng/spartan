@@ -38,7 +38,6 @@ import { debounceTime, map } from 'rxjs/operators';
 				<input
 					name="passphrase"
 					hlmInput
-					[ngModelOptions]="{ standalone: true }"
 					[ngModel]="passphrase()"
 					(ngModelChange)="passphrase.set($event)"
 				/>
@@ -86,7 +85,6 @@ import { debounceTime, map } from 'rxjs';
 
 @Component({
 	selector: 'spartan-dialog-declarative-preview',
-	standalone: true,
 	imports: [
 		FormsModule,
 		BrnDialogContentDirective,
@@ -113,7 +111,6 @@ import { debounceTime, map } from 'rxjs';
 				<input
 					name="passphrase"
 					hlmInput
-					[ngModelOptions]="{ standalone: true }"
 					[ngModel]="passphrase()"
 					(ngModelChange)="passphrase.set($event)"
 				/>

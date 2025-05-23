@@ -4,7 +4,6 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-menu-separator',
-	standalone: true,
 	template: '',
 	host: {
 		'[class]': '_computedClass()',

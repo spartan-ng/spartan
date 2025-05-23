@@ -6,7 +6,6 @@ import { BrnTabsDirective, BrnTabsTriggerDirective } from './brn-tabs-trigger.di
 
 @Directive({
 	selector: '[brnTabsList]',
-	standalone: true,
 	host: {
 		role: 'tablist',
 		'[attr.aria-orientation]': '_orientation()',

@@ -6,7 +6,6 @@ export const hlmP = 'leading-7 [&:not(:first-child)]:mt-6';
 
 @Directive({
 	selector: '[hlmP]',
-	standalone: true,
 	host: {
 		'[class]': '_computedClass()',
 	},

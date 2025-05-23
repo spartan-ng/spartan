@@ -20,7 +20,6 @@ import { HlmTooltipComponent, HlmTooltipTriggerDirective } from '@spartan-ng/ui-
 
 @Component({
 	selector: 'spartan-tooltip-simple',
-	standalone: true,
 	imports: [
 		HlmTooltipComponent,
 		HlmTooltipTriggerDirective,

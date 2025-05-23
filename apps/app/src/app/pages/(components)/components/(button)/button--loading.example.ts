@@ -27,7 +27,6 @@ import { lucideLoaderCircle } from '@ng-icons/lucide';
 
 @Component({
   selector: 'spartan-button-loading',
-  standalone: true,
   imports: [HlmButtonDirective, HlmSpinnerComponent, HlmIconDirective],
   providers: [provideIcons({ lucideLoaderCircle })],
   template: \`

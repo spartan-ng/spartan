@@ -7,7 +7,6 @@ import { BrnCheckboxComponent } from './brn-checkbox.component';
 
 @Component({
 	selector: 'brn-checkbox-ng-model',
-	standalone: true,
 	template: `
 		<label>
 			Airplane mode is: {{ airplaneMode() ? 'on' : 'off' }}

@@ -47,7 +47,6 @@ import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 
 @Component({
   selector: 'spartan-toggle-group-preview',
-  standalone: true,
   imports: [
 	 BrnToggleGroupItemDirective,
 	 BrnToggleGroupComponent,

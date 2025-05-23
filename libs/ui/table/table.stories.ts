@@ -27,7 +27,6 @@ const createUsers = (numUsers = 5) => {
 
 @Component({
 	selector: 'table-story',
-	standalone: true,
 	imports: [
 		FormsModule,
 		BrnTableModule,
@@ -182,7 +181,6 @@ class TableStory {
 
 @Component({
 	selector: 'table-toggle-story',
-	standalone: true,
 	imports: [FormsModule, BrnTableModule, HlmTableModule, HlmButtonModule, BrnToggleGroupModule, HlmToggleGroupModule],
 	template: `
 		<brn-toggle-group
@@ -300,7 +298,6 @@ class TableToggleStory {
 
 @Component({
 	selector: 'table-presentation-only-story',
-	standalone: true,
 	imports: [HlmTableModule],
 	template: `
 		<hlm-table>

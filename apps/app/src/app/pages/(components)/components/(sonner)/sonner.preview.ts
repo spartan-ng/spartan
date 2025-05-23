@@ -30,7 +30,6 @@ import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 
 @Component({
 	selector: 'spartan-sonner-preview',
-	standalone: true,
 	imports: [HlmToasterComponent, HlmButtonDirective],
 	template: \`
 	  <hlm-toaster />

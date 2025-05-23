@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 
 @Component({
 	selector: 'spartan-logo',
-	standalone: true,
 	host: {
 		class: 'flex items-center justify-center',
 	},

@@ -24,7 +24,6 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 
 @Component({
 	selector: 'spartan-icon-preview',
-	standalone: true,
 	imports: [HlmIconDirective, NgIcon],
   providers: [provideIcons({ lucideChevronRight })],
 	template: \`

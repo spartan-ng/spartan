@@ -20,7 +20,6 @@ import { HlmNumberedPaginationComponent } from '@spartan-ng/ui-pagination-helm';
 
 @Component({
 	selector: 'spartan-pagination-advanced',
-	standalone: true,
 	imports: [HlmNumberedPaginationComponent],
 	template: \`
     <hlm-numbered-pagination

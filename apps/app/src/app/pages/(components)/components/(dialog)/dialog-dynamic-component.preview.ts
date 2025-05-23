@@ -135,7 +135,6 @@ type ExampleUser = {
 
 @Component({
 	selector: 'spartan-dialog-dynamic-component-preview',
-	standalone: true,
 	imports: [HlmButtonDirective],
 	template: \`
 		<button hlmBtn (click)="openDynamicComponent()">Select User</button>
@@ -185,7 +184,6 @@ export class DialogDynamicComponentPreviewComponent {
 
 @Component({
 	selector: 'dynamic-content',
-	standalone: true,
 	imports: [
 		HlmDialogHeaderComponent,
 		HlmDialogTitleDirective,

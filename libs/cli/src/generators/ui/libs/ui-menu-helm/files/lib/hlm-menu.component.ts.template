@@ -22,7 +22,6 @@ type MenuVariants = VariantProps<typeof menuVariants>;
 
 @Component({
 	selector: 'hlm-menu',
-	standalone: true,
 	host: {
 		'[class]': '_computedClass()',
 	},

@@ -112,7 +112,6 @@ import {
 
 @Component({
 	selector: 'spartan-tabs-preview',
-	standalone: true,
 	imports: [
 		HlmTabsComponent,
 		HlmTabsListComponent,

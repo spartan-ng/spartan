@@ -4,7 +4,6 @@ import { BrnSheetComponent } from './brn-sheet.component';
 
 @Directive({
 	selector: 'button[brnSheetTrigger]',
-	standalone: true,
 })
 export class BrnSheetTriggerDirective extends BrnDialogTriggerDirective {
 	private readonly _sheet = inject(BrnSheetComponent, { optional: true });

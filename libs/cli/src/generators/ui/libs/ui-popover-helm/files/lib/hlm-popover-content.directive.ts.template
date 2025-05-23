@@ -4,7 +4,6 @@ import type { ClassValue } from 'clsx';
 
 @Directive({
 	selector: '[hlmPopoverContent],[brnPopoverContent][hlm]',
-	standalone: true,
 	host: {
 		'[class]': '_computedClass()',
 	},

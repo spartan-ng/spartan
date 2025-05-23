@@ -146,7 +146,6 @@ export const Default: Story = {
 
 @Component({
 	selector: 'stateful-dropdown-story',
-	standalone: true,
 	imports: [
 		BrnMenuTriggerDirective,
 		HlmMenuImports,

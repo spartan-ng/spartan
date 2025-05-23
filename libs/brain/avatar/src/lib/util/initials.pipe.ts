@@ -11,7 +11,6 @@ const firstAndLast = (initials: string[]) => `${initials[0]}${initials[initials.
 
 @Pipe({
 	name: 'initials',
-	standalone: true,
 })
 export class InitialsPipe implements PipeTransform {
 	transform(name: string, capitalize = true, firstAndLastOnly = true, delimiter = ' '): string {

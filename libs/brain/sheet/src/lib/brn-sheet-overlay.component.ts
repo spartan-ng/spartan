@@ -4,7 +4,6 @@ import { BrnDialogOverlayComponent } from '@spartan-ng/brain/dialog';
 
 @Component({
 	selector: 'brn-sheet-overlay',
-	standalone: true,
 	providers: [provideCustomClassSettableExisting(() => BrnSheetOverlayComponent)],
 	template: '',
 	changeDetection: ChangeDetectionStrategy.OnPush,

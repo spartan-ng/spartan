@@ -6,7 +6,6 @@ import type { ClassValue } from 'clsx';
 @Directive({
 	selector: '[hlmSelectGroup], hlm-select-group',
 	hostDirectives: [BrnSelectGroupDirective],
-	standalone: true,
 	host: {
 		'[class]': '_computedClass()',
 	},

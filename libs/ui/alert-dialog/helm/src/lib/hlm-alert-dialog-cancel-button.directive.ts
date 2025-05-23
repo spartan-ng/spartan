@@ -4,6 +4,7 @@ import { HlmButtonDirective, provideBrnButtonConfig } from '@spartan-ng/ui-butto
 import type { ClassValue } from 'clsx';
 
 @Directive({
+	// eslint-disable-next-line @angular-eslint/component-selector
 	selector: 'button[hlmAlertDialogCancel]',
 	standalone: true,
 	hostDirectives: [HlmButtonDirective],

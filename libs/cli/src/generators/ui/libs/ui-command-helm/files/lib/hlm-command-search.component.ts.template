@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { hlm } from '@spartan-ng/brain/core';
-import { provideHlmIconConfig } from '@spartan-ng/ui-icon-helm';
+import { provideHlmIconConfig } from '@spartan-ng/helm/icon';
 
 @Component({
 	standalone: true,

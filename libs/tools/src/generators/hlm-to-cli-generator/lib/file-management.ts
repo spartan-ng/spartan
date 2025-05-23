@@ -3,17 +3,10 @@ import * as path from 'node:path';
 import type { HlmToCliGeneratorGeneratorSchema } from '../schema';
 
 function deleteSpecFiles(tree: Tree, dir: string) {
-	for (const entry of tree.children(dir)) {
-		const fullPath = path.join(dir, entry);
-
-		if (tree.isFile(fullPath)) {
-			if (fullPath.endsWith('.spec.ts')) {
-				tree.delete(fullPath);
-			}
-		} else {
-			deleteSpecFiles(tree, fullPath);
-		}
-	}
+	const files = recursivelyFindFiles(tree, dir).filter((file) => file.endsWith('.spec.ts'));
+	files.forEach((file) => {
+		tree.delete(file);
+	});
 }
 
 export const copyFilesFromHlmLibToGenerator = (
@@ -22,10 +15,13 @@ export const copyFilesFromHlmLibToGenerator = (
 	filesPath: string,
 	options: HlmToCliGeneratorGeneratorSchema,
 ) => {
-	generateFiles(tree, srcPath, filesPath, options);
+	try {
+		generateFiles(tree, srcPath, filesPath, options);
+	} catch (error) {
+		console.error('Error copying files from HLM lib to generator:', error);
+	}
 	tree.delete(path.join(filesPath, 'test-setup.ts'));
 	deleteSpecFiles(tree, filesPath);
-	renameImports(tree, filesPath);
 	renameToTemplate(tree, filesPath);
 };
 
@@ -49,26 +45,6 @@ export function renameToTemplate(tree: Tree, filePath: string) {
 	files.forEach((file) => {
 		tree.rename(file, `${file}.template`);
 	});
-}
-
-function renameImports(tree: Tree, filePath: string) {
-	const files = recursivelyFindFiles(tree, filePath);
-
-	for (const file of files) {
-		const content = tree.read(file, 'utf-8');
-
-		// we must find any imports matching with an import specifier like with `@spartan-ng/helm/aspect-ratio` and rename it to `@spartan-ng/ui-aspect-ratio-helm`
-		const newContent = content.replace(
-			/from\s+['"]@spartan-ng\/helm\/([a-zA-Z0-9-]+)['"]/g,
-			(_match, component) => `from '@spartan-ng/ui-${component}-helm'`,
-		);
-
-		if (content === newContent) {
-			continue;
-		}
-
-		tree.write(file, newContent);
-	}
 }
 
 export function recursivelyDelete(tree: Tree, filePath: string) {

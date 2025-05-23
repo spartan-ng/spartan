@@ -1,4 +1,3 @@
-import { Directive } from '@angular/core';
 import { injectTableClassesSettable } from '@spartan-ng/brain/core';
 
 export class HlmTableDirective {

@@ -44,7 +44,6 @@ import {
 
 @Component({
 	selector: 'spartan-tabs-paginated',
-	standalone: true,
 	imports: [HlmTabsComponent, HlmTabsPaginatedListComponent, HlmTabsTriggerDirective, HlmTabsContentDirective],
 	host: {
 		class: 'block w-full max-w-lg min-h-[150px]',
@@ -63,7 +62,10 @@ import {
 	\`,
 })
 export class TabsPaginatedPreviewComponent {
-	activeTab = input('Tab 0');
+	public activeTab = input('Tab 0');
 
-	lotsOfTabs = Array.from({ length: 30 }).fill(0).map((_, index) => \`Tab \${index}\`);
-}`;
+	public lotsOfTabs = Array.from({ length: 30 })
+		.fill(0)
+		.map((_, index) => \`Tab \${index}\`);
+}
+`;

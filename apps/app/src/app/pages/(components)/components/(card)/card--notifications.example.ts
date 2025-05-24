@@ -101,7 +101,6 @@ import { HlmSwitchComponent } from '@spartan-ng/ui-switch-helm';
 
 @Component({
 	selector: 'spartan-card-notifications',
-	standalone: true,
 	imports: [
 		HlmButtonDirective,
 		HlmCardContentDirective,

@@ -9,7 +9,6 @@ import { BrnSheetComponent } from './brn-sheet.component';
 
 @Directive({
 	selector: '[brnSheetContent]',
-	standalone: true,
 	providers: [
 		provideExposesStateProviderExisting(() => BrnSheetContentDirective),
 		provideExposedSideProviderExisting(() => BrnSheetContentDirective),

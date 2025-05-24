@@ -25,7 +25,6 @@ export async function helmLibraryGenerator(tree: Tree, options: HelmLibraryGener
 		importPath: `@spartan-ng/ui-${normalizedName}-helm`,
 		prefix: 'hlm',
 		linter: 'eslint',
-		standalone: true,
 		strict: true,
 		inlineStyle: true,
 		inlineTemplate: true,

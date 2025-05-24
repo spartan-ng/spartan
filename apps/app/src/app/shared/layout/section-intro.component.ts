@@ -3,7 +3,6 @@ import { hlmLead } from '@spartan-ng/ui-typography-helm';
 
 @Component({
 	selector: 'spartan-section-intro',
-	standalone: true,
 	host: {
 		class: 'mb-8 block space-y-2',
 	},

@@ -4,7 +4,6 @@ import type { BrnPopoverComponent } from './brn-popover.component';
 
 @Directive({
 	selector: 'button[brnPopoverTrigger],button[brnPopoverTriggerFor]',
-	standalone: true,
 	host: {
 		'[id]': 'id()',
 		'aria-haspopup': 'dialog',

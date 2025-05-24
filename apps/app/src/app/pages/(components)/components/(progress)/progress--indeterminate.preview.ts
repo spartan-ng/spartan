@@ -20,7 +20,6 @@ import { HlmProgressDirective, HlmProgressIndicatorDirective } from '@spartan-ng
 
 @Component({
   selector: 'spartan-progress-indeterminate',
-  standalone: true,
   imports: [BrnProgressComponent, BrnProgressIndicatorComponent, HlmProgressIndicatorDirective, HlmProgressDirective],
   template: \`
     <brn-progress hlm aria-labelledby='loading'>

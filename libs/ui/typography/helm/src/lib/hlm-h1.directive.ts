@@ -6,7 +6,6 @@ export const hlmH1 = 'scroll-m-20 text-4xl font-extrabold tracking-tight lg:text
 
 @Directive({
 	selector: '[hlmH1]',
-	standalone: true,
 	host: {
 		'[class]': '_computedClass()',
 	},

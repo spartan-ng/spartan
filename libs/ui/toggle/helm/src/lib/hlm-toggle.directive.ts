@@ -27,7 +27,6 @@ export type ToggleVariants = VariantProps<typeof toggleVariants>;
 
 @Directive({
 	selector: '[hlmToggle],[brnToggle][hlm]',
-	standalone: true,
 	host: {
 		'[class]': '_computedClass()',
 	},

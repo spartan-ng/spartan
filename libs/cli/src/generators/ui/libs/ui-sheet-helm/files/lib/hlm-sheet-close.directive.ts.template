@@ -4,7 +4,6 @@ import type { ClassValue } from 'clsx';
 
 @Directive({
 	selector: '[hlmSheetClose],[brnSheetClose][hlm]',
-	standalone: true,
 	host: {
 		'[class]': '_computedClass()',
 	},

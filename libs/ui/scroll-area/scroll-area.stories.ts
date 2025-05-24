@@ -7,7 +7,6 @@ import { HlmScrollAreaDirective } from './helm/src';
 
 @Component({
 	selector: 'scroll-area-stories',
-	standalone: true,
 	imports: [HlmSeparatorDirective, HlmScrollAreaDirective, NgScrollbarModule],
 	template: `
 		<ng-scrollbar hlm class="border-border h-72 w-48 rounded-md border">

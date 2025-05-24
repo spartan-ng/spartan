@@ -22,7 +22,6 @@ export type AlertVariants = VariantProps<typeof alertVariants>;
 
 @Directive({
 	selector: '[hlmAlert]',
-	standalone: true,
 	host: {
 		role: 'alert',
 		'[class]': '_computedClass()',

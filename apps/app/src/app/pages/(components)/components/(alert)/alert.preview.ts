@@ -48,7 +48,6 @@ import { lucideBox } from '@ng-icons/lucide';
 
 @Component({
   selector: 'spartan-alert-preview',
-  standalone: true,
   imports: [
     HlmAlertDirective,
     HlmAlertDescriptionDirective,

@@ -4,7 +4,6 @@ import { BrnAvatarFallbackDirective } from './brn-avatar-fallback.directive';
 
 @Component({
 	selector: 'brn-mock',
-	standalone: true,
 	imports: [BrnAvatarFallbackDirective],
 	template: `
 		<span *brnAvatarFallback>fallback</span>

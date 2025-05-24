@@ -16,7 +16,6 @@ import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 
 @Component({
   selector: 'spartan-button-outline',
-  standalone: true,
   imports: [HlmButtonDirective],
   template: \`
     <button hlmBtn variant='outline'>Outline</button> \`,})

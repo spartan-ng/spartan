@@ -22,7 +22,6 @@ import { HlmSkeletonComponent } from '@spartan-ng/ui-skeleton-helm';
 
 @Component({
   selector: 'spartan-skeleton-preview',
-  standalone: true,
   imports: [HlmSkeletonComponent],
   template: \`
     <div class='flex items-center p-4 m-4 w-fit space-x-4'>

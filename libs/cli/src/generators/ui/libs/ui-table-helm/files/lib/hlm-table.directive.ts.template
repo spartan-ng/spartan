@@ -1,7 +1,6 @@
 import { Directive } from '@angular/core';
 import { injectTableClassesSettable } from '@spartan-ng/brain/core';
 
-@Directive({ standalone: true, selector: '[hlmTable],brn-table[hlm]' })
 export class HlmTableDirective {
 	private readonly _tableClassesSettable = injectTableClassesSettable({ host: true, optional: true });
 

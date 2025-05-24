@@ -17,7 +17,6 @@ let captionIdSequence = 0;
 
 @Component({
 	selector: 'hlm-caption',
-	standalone: true,
 	host: {
 		'[class]': '_computedClass()',
 		'[id]': 'id()',

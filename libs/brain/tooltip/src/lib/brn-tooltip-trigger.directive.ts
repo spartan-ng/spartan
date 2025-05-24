@@ -96,7 +96,6 @@ const UNBOUNDED_ANCHOR_GAP = 8;
 
 @Directive({
 	selector: '[brnTooltipTrigger]',
-	standalone: true,
 	exportAs: 'brnTooltipTrigger',
 	providers: [BRN_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER],
 	host: {

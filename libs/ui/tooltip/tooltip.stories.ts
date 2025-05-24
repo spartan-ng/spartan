@@ -54,7 +54,6 @@ export const Default: Story = {
 
 @Component({
 	selector: 'simple-tooltip-story',
-	standalone: true,
 	imports: [
 		HlmButtonDirective,
 		HlmTooltipComponent,
@@ -94,7 +93,6 @@ export const Simple: Story = {
 
 @Component({
 	selector: 'disabled-tooltip-story',
-	standalone: true,
 	imports: [
 		HlmButtonDirective,
 		HlmTooltipComponent,

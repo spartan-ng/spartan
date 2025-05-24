@@ -35,13 +35,7 @@ import { debounceTime, map } from 'rxjs/operators';
 			<p hlmH4>Enter passphrase to open dialog</p>
 			<label hlmLabel>
 				Passphrase
-				<input
-					name="passphrase"
-					hlmInput
-					[ngModelOptions]="{ standalone: true }"
-					[ngModel]="passphrase()"
-					(ngModelChange)="passphrase.set($event)"
-				/>
+				<input name="passphrase" hlmInput [ngModel]="passphrase()" (ngModelChange)="passphrase.set($event)" />
 				<span hlmMuted>Hint: It's sparta</span>
 			</label>
 		</div>
@@ -86,7 +80,6 @@ import { debounceTime, map } from 'rxjs';
 
 @Component({
 	selector: 'spartan-dialog-declarative-preview',
-	standalone: true,
 	imports: [
 		FormsModule,
 		BrnDialogContentDirective,
@@ -113,7 +106,6 @@ import { debounceTime, map } from 'rxjs';
 				<input
 					name="passphrase"
 					hlmInput
-					[ngModelOptions]="{ standalone: true }"
 					[ngModel]="passphrase()"
 					(ngModelChange)="passphrase.set($event)"
 				/>

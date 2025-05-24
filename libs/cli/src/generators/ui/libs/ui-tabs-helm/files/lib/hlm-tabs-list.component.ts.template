@@ -22,7 +22,6 @@ type ListVariants = VariantProps<typeof listVariants>;
 
 @Component({
 	selector: 'hlm-tabs-list',
-	standalone: true,
 	hostDirectives: [BrnTabsListDirective],
 	template: '<ng-content/>',
 	host: {

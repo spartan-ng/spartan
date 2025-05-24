@@ -26,7 +26,6 @@ type Framework = { label: string; value: string };
 
 @Component({
 	selector: 'combobox-component',
-	standalone: true,
 	imports: [
 		BrnCommandImports,
 		HlmCommandImports,

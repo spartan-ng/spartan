@@ -9,7 +9,6 @@ import { HlmRadioGroupImports } from './helm/src';
 
 @Component({
 	selector: 'radio-group-example',
-	standalone: true,
 	imports: [
 		HlmRadioGroupImports,
 		FormsModule,

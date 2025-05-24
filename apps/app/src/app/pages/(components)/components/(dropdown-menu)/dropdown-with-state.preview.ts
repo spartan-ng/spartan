@@ -125,7 +125,6 @@ import {
 
 @Component({
   selector: 'spartan-dropdown-with-state',
-  standalone: true,
   imports: [
     BrnMenuTriggerDirective,
 

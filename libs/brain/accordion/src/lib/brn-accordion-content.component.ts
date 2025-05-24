@@ -5,7 +5,6 @@ import { BrnAccordionItemDirective } from './brn-accordion.directive';
 
 @Component({
 	selector: 'brn-accordion-content',
-	standalone: true,
 	host: {
 		'[attr.data-state]': 'state()',
 		'[attr.aria-labelledby]': 'ariaLabeledBy',

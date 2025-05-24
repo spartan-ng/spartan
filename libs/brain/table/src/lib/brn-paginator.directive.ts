@@ -35,7 +35,6 @@ export type PaginatorContext = {
 };
 
 @Directive({
-	standalone: true,
 	selector: '[brnPaginator]',
 	exportAs: 'brnPaginator',
 })

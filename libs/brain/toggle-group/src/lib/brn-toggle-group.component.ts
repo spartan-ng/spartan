@@ -29,7 +29,6 @@ export class BrnButtonToggleChange<T = unknown> {
 
 @Component({
 	selector: 'brn-toggle-group',
-	standalone: true,
 	providers: [provideBrnToggleGroup(BrnToggleGroupComponent), BRN_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR],
 	host: {
 		role: 'group',

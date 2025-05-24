@@ -19,7 +19,6 @@ export type BrnPopoverAlign = 'start' | 'center' | 'end';
 
 @Component({
 	selector: 'brn-popover',
-	standalone: true,
 	template: `
 		<ng-content />
 	`,

@@ -83,7 +83,6 @@ import {
 
 @Component({
   selector: 'spartan-sheet-side-preview',
-  standalone: true,
   imports: [
     BrnSheetTriggerDirective,
     BrnSheetContentDirective,

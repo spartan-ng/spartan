@@ -28,6 +28,16 @@
 			"options": {
 				"jestConfig": "libs/ui/sonner/helm/jest.config.ts"
 			}
+		},
+		"lint": {
+			"executor": "@nx/eslint:lint",
+			"outputs": ["{options.outputFile}"]
+		},
+		"release": {
+			"executor": "@spartan-ng/tools:build-update-publish",
+			"options": {
+				"libName": "ui-sonner-helm"
+			}
 		}
 	}
 }

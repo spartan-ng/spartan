@@ -13,6 +13,7 @@ import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
+import { link } from '../../../../shared/typography/link';
 import { datePickerConfigCode, DatePickerConfigExampleComponent } from './date-picker--config.example';
 import { datePickerFormMultipleCode, DatePickerFormMultipleExampleComponent } from './date-picker--form-multi.example';
 import { datePickerFormCode, DatePickerFormExampleComponent } from './date-picker--form.example';
@@ -25,8 +26,6 @@ export const routeMeta: RouteMeta = {
 	meta: metaWith('spartan/ui - Date Picker', 'A date picker component.'),
 	title: 'spartan/ui - Date Picker',
 };
-
-const link = 'h-6 underline text-base px-0.5';
 
 @Component({
 	selector: 'spartan-calendar',

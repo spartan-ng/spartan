@@ -2,7 +2,6 @@ import { CdkHeaderCellDef } from '@angular/cdk/table';
 import { Directive, TemplateRef, inject } from '@angular/core';
 
 @Directive({
-	standalone: true,
 	selector: '[brnHeaderDef]',
 	exportAs: 'brnHeaderDef',
 })

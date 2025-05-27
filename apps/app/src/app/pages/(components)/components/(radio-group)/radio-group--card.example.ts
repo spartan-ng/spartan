@@ -62,8 +62,7 @@ import { HlmRadioComponent, HlmRadioGroupComponent } from '@spartan-ng/helm/radi
 
 @Component({
 	selector: 'spartan-radio-card-preview',
-	standalone: true,
-	providers: [provideIcons({ lucideCreditCard, remixPaypalFill, remixAppleFill })],
+providers: [provideIcons({ lucideCreditCard, remixPaypalFill, remixAppleFill })],
 	imports: [FormsModule, HlmRadioComponent, HlmRadioGroupComponent, NgIcon, HlmIconDirective],
 	template: \`
 	<hlm-radio-group class="grid grid-cols-3 gap-4" [(ngModel)]="payment">

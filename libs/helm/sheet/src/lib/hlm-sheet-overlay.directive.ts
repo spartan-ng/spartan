@@ -4,7 +4,6 @@ import type { ClassValue } from 'clsx';
 
 @Directive({
 	selector: '[hlmSheetOverlay],brn-sheet-overlay[hlm]',
-	standalone: true,
 	host: {
 		'[class]': '_computedClass()',
 	},

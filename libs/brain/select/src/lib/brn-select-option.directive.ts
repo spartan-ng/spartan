@@ -8,7 +8,6 @@ let nextId = 0;
 
 @Directive({
 	selector: '[brnOption]',
-	standalone: true,
 	host: {
 		role: 'option',
 		'[id]': 'id()',

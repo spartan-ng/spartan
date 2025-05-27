@@ -4,7 +4,6 @@ import { BrnDialogComponent } from './brn-dialog.component';
 
 @Component({
 	selector: 'brn-dialog-overlay',
-	standalone: true,
 	template: '',
 	providers: [provideCustomClassSettableExisting(() => BrnDialogOverlayComponent)],
 	changeDetection: ChangeDetectionStrategy.OnPush,

@@ -20,8 +20,7 @@ import { HlmSwitchComponent } from '@spartan-ng/helm/switch';
 
 @Component({
 	selector: 'spartan-switch-preview',
-	standalone: true,
-	imports: [HlmLabelDirective, HlmSwitchComponent],
+imports: [HlmLabelDirective, HlmSwitchComponent],
 	template: \`
 		<label class="flex items-center" hlmLabel>
 			<hlm-switch class="mr-2" />

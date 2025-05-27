@@ -3,7 +3,6 @@ import { injectBrnProgress } from './brn-progress.token';
 
 @Component({
 	selector: 'brn-progress-indicator',
-	standalone: true,
 	template: '',
 	host: {
 		'[attr.data-state]': 'progress.state()',

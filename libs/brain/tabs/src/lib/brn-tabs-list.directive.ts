@@ -7,7 +7,6 @@ import { BrnTabsDirective } from './brn-tabs.directive';
 
 @Directive({
 	selector: '[brnTabsList]',
-	standalone: true,
 	host: {
 		role: 'tablist',
 		'[attr.aria-orientation]': '_orientation()',

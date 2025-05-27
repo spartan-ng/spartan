@@ -5,7 +5,6 @@ import type { ClassValue } from 'clsx';
 
 @Directive({
 	selector: '[hlmMenuIcon]',
-	standalone: true,
 	providers: [provideHlmIconConfig({ size: 'sm' })],
 	host: {
 		'[class]': '_computedClass()',

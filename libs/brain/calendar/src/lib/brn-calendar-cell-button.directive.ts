@@ -4,7 +4,6 @@ import { injectBrnCalendar } from './brn-calendar.token';
 
 @Directive({
 	selector: 'button[brnCalendarCellButton]',
-	standalone: true,
 	host: {
 		role: 'gridcell',
 		'[tabindex]': 'focusable() ? 0 : -1',

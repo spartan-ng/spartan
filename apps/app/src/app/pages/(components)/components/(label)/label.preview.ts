@@ -21,8 +21,7 @@ import { HlmLabelDirective } from '@spartan-ng/helm/label';
 
 @Component({
   selector: 'spartan-label-preview',
-  standalone: true,
-  imports: [HlmLabelDirective, HlmInputDirective],
+imports: [HlmLabelDirective, HlmInputDirective],
   template: \`
     <label hlmLabel>E-Mail
       <input class='w-80' hlmInput type='email' placeholder='Email'/>

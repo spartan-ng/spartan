@@ -2,7 +2,6 @@ import { CdkFooterCellDef } from '@angular/cdk/table';
 import { Directive, TemplateRef, inject } from '@angular/core';
 
 @Directive({
-	standalone: true,
 	selector: '[brnFooterDef]',
 	exportAs: 'brnFooterDef',
 })

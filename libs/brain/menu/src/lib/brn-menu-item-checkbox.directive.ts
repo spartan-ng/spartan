@@ -4,7 +4,6 @@ import { outputFromObservable } from '@angular/core/rxjs-interop';
 
 @Directive({
 	selector: '[brnMenuItemCheckbox]',
-	standalone: true,
 	hostDirectives: [CdkMenuItemCheckbox],
 	host: {
 		'[class.checked]': 'checked()',

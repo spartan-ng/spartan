@@ -79,8 +79,7 @@ import { HlmLabelDirective } from '@spartan-ng/helm/label';
 
 @Component({
 	selector: 'spartan-dialog-close-preview',
-	standalone: true,
-	imports: [
+imports: [
 		BrnDialogTriggerDirective,
 		BrnDialogContentDirective,
 		BrnDialogCloseDirective,

@@ -3,7 +3,6 @@ import { TaskPriority } from '../services/tasks.service';
 
 @Pipe({
 	name: 'priorityIcon',
-	standalone: true,
 })
 export class PriorityIconPipe implements PipeTransform {
 	transform(value: TaskPriority): string {

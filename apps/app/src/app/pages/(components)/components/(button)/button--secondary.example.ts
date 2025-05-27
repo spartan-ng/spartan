@@ -16,8 +16,7 @@ import { HlmButtonDirective } from '@spartan-ng/helm/button';
 
 @Component({
   selector: 'spartan-button-secondary',
-  standalone: true,
-  imports: [HlmButtonDirective],
+imports: [HlmButtonDirective],
   template: \`
     <button hlmBtn variant='secondary'>Secondary</button> \`,})
 export class ButtonSecondaryComponent {}

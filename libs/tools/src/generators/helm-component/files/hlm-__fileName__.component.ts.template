@@ -4,8 +4,7 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: '<%= selector %>',
-	standalone: true,
-	template: ``,
+template: ``,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class <%= componentName %> {

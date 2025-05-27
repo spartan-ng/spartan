@@ -2,7 +2,6 @@ import { Component, Input, booleanAttribute } from '@angular/core';
 
 @Component({
 	selector: 'spartan-section-sub-heading',
-	standalone: true,
 	host: {
 		class: 'block pb-2',
 		'[class.-mt-12]': '_first',

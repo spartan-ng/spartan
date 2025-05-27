@@ -3,7 +3,6 @@ import { Directive, ElementRef, Renderer2, inject, input } from '@angular/core';
 @Directive({
 	// eslint-disable-next-line @angular-eslint/directive-selector
 	selector: 'img[fallback]',
-	standalone: true,
 	host: {
 		'(error)': 'updateUrl()',
 	},

@@ -4,7 +4,6 @@ import type { ClassValue } from 'clsx';
 
 @Directive({
 	selector: '[hlmProgress],brn-progress[hlm]',
-	standalone: true,
 	host: {
 		'[class]': '_computedClass()',
 	},

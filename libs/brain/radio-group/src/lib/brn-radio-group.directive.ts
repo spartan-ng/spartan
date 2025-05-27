@@ -23,7 +23,6 @@ export const BRN_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = {
 
 @Directive({
 	selector: '[brnRadioGroup]',
-	standalone: true,
 	providers: [BRN_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, provideBrnRadioGroupToken(BrnRadioGroupDirective)],
 	host: {
 		role: 'radiogroup',

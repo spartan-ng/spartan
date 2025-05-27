@@ -20,8 +20,7 @@ import { HlmTooltipComponent, HlmTooltipTriggerDirective } from '@spartan-ng/hel
 
 @Component({
 	selector: 'spartan-tooltip-simple',
-	standalone: true,
-	imports: [
+imports: [
 		HlmTooltipComponent,
 		HlmTooltipTriggerDirective,
 		HlmButtonDirective,

@@ -107,8 +107,7 @@ import {
 
 @Component({
   selector: 'spartan-dialog-context-menu',
-  standalone: true,
-  imports: [
+imports: [
     BrnDialogTriggerDirective,
     BrnDialogContentDirective,
 

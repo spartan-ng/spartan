@@ -3,7 +3,6 @@ import { BrnTooltipDirective } from './brn-tooltip.directive';
 
 @Directive({
 	selector: '[brnTooltipContent]',
-	standalone: true,
 })
 export class BrnTooltipContentDirective {
 	private readonly _brnTooltipDirective = inject(BrnTooltipDirective, { optional: true });

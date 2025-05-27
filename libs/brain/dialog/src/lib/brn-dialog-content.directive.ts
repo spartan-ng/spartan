@@ -5,7 +5,6 @@ import { BrnDialogComponent } from './brn-dialog.component';
 
 @Directive({
 	selector: '[brnDialogContent]',
-	standalone: true,
 	providers: [provideExposesStateProviderExisting(() => BrnDialogContentDirective)],
 })
 export class BrnDialogContentDirective<T> {

@@ -70,8 +70,7 @@ import { HlmIconDirective } from '@spartan-ng/helm/icon';
 export const codeString = `import { Component } from '@angular/core';${codeImports}
 @Component({
 	selector: 'spartan-accordion-preview',
-	standalone: true,
-	imports: [
+imports: [
 		HlmAccordionDirective,
 		HlmAccordionItemDirective,
 		HlmAccordionTriggerDirective,

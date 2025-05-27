@@ -137,8 +137,7 @@ import {
 
 @Component({
   selector: 'spartan-dropdown-with-context',
-  standalone: true,
-  imports: [
+imports: [
     BrnMenuTriggerDirective,
 
     HlmMenuComponent,

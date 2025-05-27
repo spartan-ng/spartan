@@ -15,7 +15,6 @@ import { BrnCollapsibleComponent } from './brn-collapsible.component';
 
 @Component({
 	selector: 'brn-collapsible-content',
-	standalone: true,
 	host: {
 		'[hidden]': '!collapsible?.expanded()',
 		'[attr.data-state]': 'collapsible?.expanded() ? "open" : "closed"',

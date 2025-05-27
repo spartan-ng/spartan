@@ -4,7 +4,6 @@ import { outputFromObservable } from '@angular/core/rxjs-interop';
 
 @Directive({
 	selector: '[brnMenuItem]',
-	standalone: true,
 	hostDirectives: [CdkMenuItem],
 	host: {
 		'[disabled]': 'disabled()',

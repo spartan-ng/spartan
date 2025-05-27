@@ -3,7 +3,6 @@ import { ChangeDetectorRef, Directive, booleanAttribute, computed, inject, input
 
 @Directive({
 	selector: 'button[hlmToggle], button[brnToggle]',
-	standalone: true,
 	host: {
 		'[id]': 'id()',
 		'[attr.disabled]': 'disabled() ? true : null',

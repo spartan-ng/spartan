@@ -33,8 +33,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 
 @Component({
   selector: 'spartan-select-multiple-preview',
-  standalone: true,
-  imports: [BrnSelectImports, HlmSelectImports],
+imports: [BrnSelectImports, HlmSelectImports],
   providers: [provideIcons({ lucideChevronUp, lucideChevronDown })],
   template: \`
     <brn-select class="inline-block" placeholder="Select some fruit" [multiple]="true">

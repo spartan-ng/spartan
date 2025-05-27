@@ -22,7 +22,6 @@ import { provideBrnCommand } from './brn-command.token';
 
 @Directive({
 	selector: '[brnCommand]',
-	standalone: true,
 	providers: [provideBrnCommand(BrnCommandDirective)],
 	host: {
 		'[id]': 'id()',

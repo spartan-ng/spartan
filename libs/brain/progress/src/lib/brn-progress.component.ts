@@ -12,7 +12,6 @@ import { provideBrnProgress } from './brn-progress.token';
 
 @Component({
 	selector: 'brn-progress',
-	standalone: true,
 	template: '<ng-content/>',
 	exportAs: 'brnProgress',
 	providers: [provideBrnProgress(BrnProgressComponent)],

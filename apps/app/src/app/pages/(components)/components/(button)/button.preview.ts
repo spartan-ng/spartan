@@ -16,8 +16,7 @@ import { HlmButtonDirective } from '@spartan-ng/helm/button';
 
 @Component({
   selector: 'spartan-button-preview',
-  standalone: true,
-  imports: [HlmButtonDirective],
+imports: [HlmButtonDirective],
   template: \` <button hlmBtn>Button</button> \`,
 })
 export class ButtonPreviewComponent {}

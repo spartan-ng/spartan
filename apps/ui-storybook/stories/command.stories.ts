@@ -92,7 +92,6 @@ export const Default: Story = {
 
 @Component({
 	selector: 'command-dialog-component',
-	standalone: true,
 	imports: [
 		BrnCommandImports,
 		HlmCommandImports,
@@ -209,7 +208,6 @@ export const Dialog: Story = {
 
 @Component({
 	selector: 'command-dynamic-component',
-	standalone: true,
 	imports: [
 		BrnCommandImports,
 		HlmCommandImports,
@@ -267,7 +265,6 @@ export const DynamicOptions: Story = {
 
 @Component({
 	selector: 'command-reactive-form-component',
-	standalone: true,
 	imports: [
 		BrnCommandImports,
 		HlmCommandImports,
@@ -332,7 +329,6 @@ export const ReactiveForm: Story = {
 
 @Component({
 	selector: 'command-bound-value-component',
-	standalone: true,
 	imports: [BrnCommandImports, HlmCommandImports, NgIcon, HlmIconDirective, HlmButtonDirective],
 	template: `
 		<hlm-command>

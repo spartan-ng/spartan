@@ -5,7 +5,6 @@ import { BrnMenuAlign, getBrnMenuAlign } from './brn-menu-align';
 
 @Directive({
 	selector: '[brnMenuTriggerFor]',
-	standalone: true,
 	hostDirectives: [
 		{
 			directive: CdkMenuTrigger,

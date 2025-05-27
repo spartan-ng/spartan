@@ -16,8 +16,7 @@ import { HlmBadgeDirective } from '@spartan-ng/helm/badge';
 
 @Component({
   selector: 'spartan-badge-destructive',
-  standalone: true,
-  imports: [HlmBadgeDirective],
+imports: [HlmBadgeDirective],
   template: \` <div hlmBadge variant='destructive'>Destructive</div> \`,
 })
 export class BadgeDestructiveComponent {}

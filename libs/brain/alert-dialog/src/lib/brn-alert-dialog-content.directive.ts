@@ -4,7 +4,6 @@ import { BrnDialogContentDirective } from '@spartan-ng/brain/dialog';
 
 @Directive({
 	selector: '[brnAlertDialogContent]',
-	standalone: true,
 	providers: [provideExposesStateProviderExisting(() => BrnAlertDialogContentDirective)],
 })
 export class BrnAlertDialogContentDirective<T> extends BrnDialogContentDirective<T> {}

@@ -3,7 +3,6 @@ import { TaskStatus } from '../services/tasks.service';
 
 @Pipe({
 	name: 'statusIcon',
-	standalone: true,
 })
 export class StatusIconPipe implements PipeTransform {
 	transform(value: TaskStatus): string {

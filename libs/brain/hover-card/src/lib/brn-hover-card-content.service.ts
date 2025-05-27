@@ -39,7 +39,6 @@ import { createHoverObservable } from './createHoverObservable';
 
 @Directive({
 	selector: '[brnHoverCardContent]',
-	standalone: true,
 	exportAs: 'brnHoverCardContent',
 	providers: [
 		provideExposedSideProviderExisting(() => BrnHoverCardContentDirective),
@@ -192,7 +191,6 @@ export class BrnHoverCardContentService {
 
 @Directive({
 	selector: '[brnHoverCardTrigger]:not(ng-container),[brnHoverCardTriggerFor]:not(ng-container)',
-	standalone: true,
 	exportAs: 'brnHoverCardTrigger',
 })
 export class BrnHoverCardTriggerDirective implements OnInit, OnDestroy {

@@ -3,7 +3,6 @@ import { BrnMenuGroupDirective } from '@spartan-ng/brain/menu';
 
 @Component({
 	selector: 'hlm-menu-group',
-	standalone: true,
 	host: {
 		class: 'block',
 	},

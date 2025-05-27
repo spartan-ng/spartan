@@ -3,7 +3,6 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Directive({
 	selector: '[spartanSideNavLink]',
-	standalone: true,
 	hostDirectives: [
 		{
 			directive: RouterLink,

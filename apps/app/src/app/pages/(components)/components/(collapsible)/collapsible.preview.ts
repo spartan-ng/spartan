@@ -57,8 +57,7 @@ import {
 
 @Component({
   selector: 'spartan-collapsible-preview',
-  standalone: true,
-  imports: [
+imports: [
     BrnCollapsibleComponent,
     BrnCollapsibleTriggerDirective,
     HlmButtonDirective,

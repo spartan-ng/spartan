@@ -29,7 +29,6 @@ const SCROLLBY_PIXELS = 100;
 
 @Directive({
 	selector: '[brnSelectScrollUp], brn-select-scroll-up, hlm-select-scroll-up:not(noHlm)',
-	standalone: true,
 	host: {
 		'aria-hidden': 'true',
 		'(mouseenter)': 'startEmittingEvents()',
@@ -57,7 +56,6 @@ export class BrnSelectScrollUpDirective {
 
 @Directive({
 	selector: '[brnSelectScrollDown], brn-select-scroll-down, hlm-select-scroll-down:not(noHlm)',
-	standalone: true,
 	host: {
 		'aria-hidden': 'true',
 		'(mouseenter)': 'startEmittingEvents()',

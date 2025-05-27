@@ -4,7 +4,6 @@ import { HlmAspectRatioDirective } from './helm-aspect-ratio.directive';
 
 @Component({
 	selector: 'hlm-mock',
-	standalone: true,
 	imports: [HlmAspectRatioDirective],
 	template: `
 		<div [hlmAspectRatio]="ratio">

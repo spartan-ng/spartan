@@ -5,8 +5,8 @@ import type { HlmBaseGeneratorSchema } from '../../../base/schema';
 export async function generator(tree: Tree, options: HlmBaseGeneratorSchema) {
 	return await hlmBaseGenerator(tree, {
 		...options,
-		primitiveName: 'inputotp',
+		primitiveName: 'input-otp',
 		internalName: 'ui-input-otp-helm',
-		publicName: 'ui-inputotp-helm',
+		publicName: 'ui-input-otp-helm',
 	});
 }

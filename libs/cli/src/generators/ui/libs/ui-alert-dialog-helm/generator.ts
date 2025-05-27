@@ -5,8 +5,8 @@ import type { HlmBaseGeneratorSchema } from '../../../base/schema';
 export async function generator(tree: Tree, options: HlmBaseGeneratorSchema) {
 	return await hlmBaseGenerator(tree, {
 		...options,
-		primitiveName: 'alertdialog',
+		primitiveName: 'alert-dialog',
 		internalName: 'ui-alert-dialog-helm',
-		publicName: 'ui-alertdialog-helm',
+		publicName: 'ui-alert-dialog-helm',
 	});
 }

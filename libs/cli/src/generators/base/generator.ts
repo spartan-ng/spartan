@@ -22,7 +22,7 @@ export async function hlmBaseGenerator(tree: Tree, options: HlmBaseGeneratorSche
 	const targetLibDir = getTargetLibraryDirectory(options, tree);
 
 	const existingPathsByAlias = readTsConfigPathsFromTree(tree);
-	const tsConfigAliasToUse = `@spartan-ng/${options.publicName}`;
+	const tsConfigAliasToUse = `@spartan-ng/helm/${options.primitiveName}`;
 
 	if (Object.keys(existingPathsByAlias).includes(tsConfigAliasToUse)) {
 		console.log(`Skipping ${tsConfigAliasToUse}. It's already installed!`);

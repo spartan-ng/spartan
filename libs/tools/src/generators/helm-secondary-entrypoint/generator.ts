@@ -1,6 +1,5 @@
-import { VERSION } from '@angular/core';
 import { librarySecondaryEntryPointGenerator } from '@nx/angular/generators';
-import { formatFiles, joinPathFragments, names, Tree, updateJson } from '@nx/devkit';
+import { formatFiles, joinPathFragments, names, Tree } from '@nx/devkit';
 import helmComponentGenerator from '../helm-component/generator';
 import helmDirectiveGenerator from '../helm-directive/generator';
 import helmDocumentationGenerator from '../helm-documentation/generator';
@@ -34,28 +33,6 @@ export const Hlm${className}Imports = [] as const;
 })
 export class Hlm${className}Module {}`,
 	);
-
-	// update the supported libraries json
-	const supportedLibrariesPath = joinPathFragments(
-		'libs',
-		'cli',
-		'src',
-		'generators',
-		'ui',
-		'supported-ui-libraries.json',
-	);
-
-	updateJson(tree, supportedLibrariesPath, (json) => {
-		json[normalizedName.replaceAll('-', '')] = {
-			internalName,
-			peerDependencies: {
-				'@angular/core': `>=${VERSION.major}.0.0`,
-				'class-variance-authority': '^0.7.0',
-				clsx: '^2.1.1',
-			},
-		};
-		return json;
-	});
 
 	// create the generator files
 	const generatorPath = joinPathFragments(

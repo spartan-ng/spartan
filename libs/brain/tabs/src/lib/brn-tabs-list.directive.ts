@@ -2,7 +2,8 @@ import { FocusKeyManager } from '@angular/cdk/a11y';
 import { type AfterContentInit, Directive, ElementRef, contentChildren, inject } from '@angular/core';
 import { fromEvent } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { BrnTabsDirective, BrnTabsTriggerDirective } from './brn-tabs-trigger.directive';
+import { BrnTabsTriggerDirective } from './brn-tabs-trigger.directive';
+import { BrnTabsDirective } from './brn-tabs.directive';
 
 @Directive({
 	selector: '[brnTabsList]',

@@ -26,9 +26,9 @@ import {
 	`,
 })
 export class TabsPaginatedPreviewComponent {
-	public activeTab = input('Tab 0');
+	public readonly activeTab = input('Tab 0');
 
-	public lotsOfTabs = Array.from({ length: 30 })
+	public readonly lotsOfTabs = Array.from({ length: 30 })
 		.fill(0)
 		.map((_, index) => `Tab ${index}`);
 }
@@ -62,9 +62,9 @@ import {
 	\`,
 })
 export class TabsPaginatedPreviewComponent {
-	public activeTab = input('Tab 0');
+	public readonly activeTab = input('Tab 0');
 
-	public lotsOfTabs = Array.from({ length: 30 })
+	public readonly lotsOfTabs = Array.from({ length: 30 })
 		.fill(0)
 		.map((_, index) => \`Tab \${index}\`);
 }

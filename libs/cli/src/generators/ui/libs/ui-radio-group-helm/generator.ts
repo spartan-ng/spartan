@@ -5,8 +5,8 @@ import type { HlmBaseGeneratorSchema } from '../../../base/schema';
 export async function generator(tree: Tree, options: HlmBaseGeneratorSchema) {
 	return await hlmBaseGenerator(tree, {
 		...options,
-		primitiveName: 'radiogroup',
+		primitiveName: 'radio-group',
 		internalName: 'ui-radio-group-helm',
-		publicName: 'ui-radiogroup-helm',
+		publicName: 'ui-radio-group-helm',
 	});
 }

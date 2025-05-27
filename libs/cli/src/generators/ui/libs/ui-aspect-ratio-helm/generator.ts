@@ -5,8 +5,8 @@ import type { HlmBaseGeneratorSchema } from '../../../base/schema';
 export async function generator(tree: Tree, options: HlmBaseGeneratorSchema) {
 	return await hlmBaseGenerator(tree, {
 		...options,
-		primitiveName: 'aspectratio',
+		primitiveName: 'aspect-ratio',
 		internalName: 'ui-aspect-ratio-helm',
-		publicName: 'ui-aspectratio-helm',
+		publicName: 'ui-aspect-ratio-helm',
 	});
 }

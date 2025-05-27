@@ -1,4 +1,4 @@
-import { type Tree, formatFiles, readJson, readProjectConfiguration } from '@nx/devkit';
+import { type Tree, formatFiles, readJson, readProjectConfiguration, writeJson } from '@nx/devkit';
 import * as path from 'node:path';
 import { basename } from 'node:path';
 import { PackageJson } from 'nx/src/utils/package-json';
@@ -46,6 +46,9 @@ async function createGeneratorFromHlmLibrary(
 }
 
 export async function hlmCliNxGeneratorGenerator(tree: Tree, options: HlmToCliGeneratorGeneratorSchema) {
+	// empty the output json file - this ensures that we don't include any old entries
+	writeJson(tree, path.join(outputDir, 'supported-ui-libraries.json'), {});
+
 	// get all the entrypoints within the helm library
 	const entrypoints = getEntrypoints(tree);
 

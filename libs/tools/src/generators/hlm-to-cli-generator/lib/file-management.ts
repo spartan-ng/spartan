@@ -33,9 +33,9 @@ export const createSharedGeneratorFiles = (
 ) => {
 	generateFiles(tree, path.join(__dirname, '..', 'files'), projectRoot, {
 		...options,
-		primitiveName: entrypoint.replaceAll('-', ''),
+		primitiveName: entrypoint,
 		internalName: `ui-${entrypoint}-helm`,
-		publicName: `ui-${entrypoint.replaceAll('-', '')}-helm`,
+		publicName: `ui-${entrypoint}-helm`,
 	});
 };
 

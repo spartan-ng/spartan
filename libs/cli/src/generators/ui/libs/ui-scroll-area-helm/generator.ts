@@ -5,8 +5,8 @@ import type { HlmBaseGeneratorSchema } from '../../../base/schema';
 export async function generator(tree: Tree, options: HlmBaseGeneratorSchema) {
 	return await hlmBaseGenerator(tree, {
 		...options,
-		primitiveName: 'scrollarea',
+		primitiveName: 'scroll-area',
 		internalName: 'ui-scroll-area-helm',
-		publicName: 'ui-scrollarea-helm',
+		publicName: 'ui-scroll-area-helm',
 	});
 }

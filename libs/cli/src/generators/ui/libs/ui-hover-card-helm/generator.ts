@@ -5,8 +5,8 @@ import type { HlmBaseGeneratorSchema } from '../../../base/schema';
 export async function generator(tree: Tree, options: HlmBaseGeneratorSchema) {
 	return await hlmBaseGenerator(tree, {
 		...options,
-		primitiveName: 'hovercard',
+		primitiveName: 'hover-card',
 		internalName: 'ui-hover-card-helm',
-		publicName: 'ui-hovercard-helm',
+		publicName: 'ui-hover-card-helm',
 	});
 }

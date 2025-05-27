@@ -5,8 +5,8 @@ import type { HlmBaseGeneratorSchema } from '../../../base/schema';
 export async function generator(tree: Tree, options: HlmBaseGeneratorSchema) {
 	return await hlmBaseGenerator(tree, {
 		...options,
-		primitiveName: 'togglegroup',
+		primitiveName: 'toggle-group',
 		internalName: 'ui-toggle-group-helm',
-		publicName: 'ui-togglegroup-helm',
+		publicName: 'ui-toggle-group-helm',
 	});
 }

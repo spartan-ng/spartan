@@ -7,6 +7,7 @@ import { getOrCreateConfig } from '../../utils/config';
 import { readTsConfigPathsFromTree } from '../../utils/tsconfig';
 import { deleteFiles } from '../base/lib/deleteFiles';
 import { createPrimitiveLibraries } from '../ui/generator';
+import { Primitive } from '../ui/primitives';
 import { MigrateHelmLibrariesGeneratorSchema } from './schema';
 
 export async function migrateHelmLibrariesGenerator(tree: Tree, options: MigrateHelmLibrariesGeneratorSchema) {
@@ -44,7 +45,7 @@ export async function migrateHelmLibrariesGenerator(tree: Tree, options: Migrate
 		return;
 	}
 
-	let { libraries } = selectedLibraries as { libraries: string[] };
+	let { libraries } = selectedLibraries as { libraries: (Primitive | 'all')[] };
 
 	if (libraries.length === 0) {
 		logger.info('No libraries will be updated.');
@@ -56,34 +57,41 @@ export async function migrateHelmLibrariesGenerator(tree: Tree, options: Migrate
 		libraries = existingLibraries;
 	}
 
-	await removeExistingLibraries(tree, options, libraries);
-	await regenerateLibraries(tree, options, libraries);
+	await removeExistingLibraries(tree, options, libraries as Primitive[]);
+	await regenerateLibraries(tree, options, libraries as Primitive[]);
 
 	await formatFiles(tree);
 }
 
 export default migrateHelmLibrariesGenerator;
 
-async function detectLibraries(tree: Tree) {
+async function detectLibraries(tree: Tree): Promise<Primitive[]> {
 	const supportedLibraries = (await import('../ui/supported-ui-libraries.json').then(
 		(m) => m.default,
 	)) as SupportedLibraries;
 	const tsconfigPaths = readTsConfigPathsFromTree(tree);
 
 	// store the list of libraries in the tsconfig
-	const existingLibraries: string[] = [];
+	const existingLibraries: Primitive[] = [];
 
 	for (const libraryName in supportedLibraries) {
-		const library = supportedLibraries[libraryName];
-		if (tsconfigPaths[`@spartan-ng/${library.internalName}`]) {
-			existingLibraries.push(libraryName);
+		if (tsconfigPaths[`@spartan-ng/ui-${libraryName}-helm`]) {
+			existingLibraries.push(libraryName as Primitive);
+		} else if (tsconfigPaths[`@spartan-ng/ui-${libraryName.replaceAll('-', '')}-helm`]) {
+			existingLibraries.push(libraryName as Primitive);
+		} else if (tsconfigPaths[`@spartan-ng/helm/${libraryName}`]) {
+			existingLibraries.push(libraryName as Primitive);
 		}
 	}
 
 	return existingLibraries;
 }
 
-async function removeExistingLibraries(tree: Tree, options: MigrateHelmLibrariesGeneratorSchema, libraries: string[]) {
+async function removeExistingLibraries(
+	tree: Tree,
+	options: MigrateHelmLibrariesGeneratorSchema,
+	libraries: Primitive[],
+) {
 	const tsconfigPaths = readTsConfigPathsFromTree(tree);
 
 	for (const library of libraries) {
@@ -94,6 +102,9 @@ async function removeExistingLibraries(tree: Tree, options: MigrateHelmLibraries
 			importPath = `@spartan-ng/helm/${library}`;
 		} else if (`@spartan-ng/ui-${library}-helm` in tsconfigPaths) {
 			importPath = `@spartan-ng/ui-${library}-helm`;
+		} // there is also a case where the library previous was added without hypens e.g. ui-aspectratio-helm
+		else if (`@spartan-ng/ui${library}-helm` in tsconfigPaths) {
+			importPath = `@spartan-ng/ui-${library.replaceAll('-', '')}-helm`;
 		}
 
 		// get the tsconfig path for the library
@@ -132,7 +143,7 @@ async function removeExistingLibraries(tree: Tree, options: MigrateHelmLibraries
 	}
 }
 
-async function regenerateLibraries(tree: Tree, options: MigrateHelmLibrariesGeneratorSchema, libraries: string[]) {
+async function regenerateLibraries(tree: Tree, options: MigrateHelmLibrariesGeneratorSchema, libraries: Primitive[]) {
 	const supportedLibraries = (await import('../ui/supported-ui-libraries.json').then(
 		(m) => m.default,
 	)) as SupportedLibraries;
@@ -142,7 +153,7 @@ async function regenerateLibraries(tree: Tree, options: MigrateHelmLibrariesGene
 		{
 			primitives: libraries,
 		},
-		Object.keys(supportedLibraries),
+		Object.keys(supportedLibraries) as Primitive[],
 		supportedLibraries,
 		tree,
 		{ ...options, installPeerDependencies: true },

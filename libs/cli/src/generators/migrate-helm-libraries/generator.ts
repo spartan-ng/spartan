@@ -112,7 +112,6 @@ async function removeExistingLibraries(
 
 		// get the tsconfig path for the library
 		const tsconfigPath = tsconfigPaths[importPath];
-
 		if (!tsconfigPath || !importPath) {
 			throw new Error(`Could not find tsconfig path for library ${library}`);
 		}

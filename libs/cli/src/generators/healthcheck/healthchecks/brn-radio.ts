@@ -10,6 +10,10 @@ export const brainRadioHealthcheck: Healthcheck = {
 			if (!file.endsWith('.ts') && !file.endsWith('.html')) {
 				return;
 			}
+			// if it is the HlmRadioComponent itself skip it.
+			if (file.endsWith('hlm-radio.component.ts')) {
+				return;
+			}
 
 			const contents = tree.read(file, 'utf-8');
 

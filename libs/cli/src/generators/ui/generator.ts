@@ -54,7 +54,7 @@ export async function createPrimitiveLibraries(
 	const primitivesToCreate = allPrimitivesSelected ? availablePrimitiveNames : response.primitives;
 	const tasks: GeneratorCallback[] = [];
 
-	if (!response.primitives.includes('all') || options.installPeerDependencies) {
+	if (!response.primitives.includes('all') && options.installPeerDependencies) {
 		await addDependentPrimitives(primitivesToCreate, false);
 	}
 	await replaceContextAndMenuBar(primitivesToCreate, allPrimitivesSelected);

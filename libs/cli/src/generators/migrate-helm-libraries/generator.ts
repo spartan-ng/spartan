@@ -97,14 +97,17 @@ async function removeExistingLibraries(
 	for (const library of libraries) {
 		// determine the library path
 		let importPath: string;
+		let libraryName = library.toString();
+		const compatLibrary = library.toString().replaceAll('-', '');
 
 		if (`@spartan-ng/helm/${library}` in tsconfigPaths) {
 			importPath = `@spartan-ng/helm/${library}`;
 		} else if (`@spartan-ng/ui-${library}-helm` in tsconfigPaths) {
 			importPath = `@spartan-ng/ui-${library}-helm`;
 		} // there is also a case where the library previous was added without hypens e.g. ui-aspectratio-helm
-		else if (`@spartan-ng/ui${library}-helm` in tsconfigPaths) {
-			importPath = `@spartan-ng/ui-${library.replaceAll('-', '')}-helm`;
+		else if (`@spartan-ng/ui-${compatLibrary}-helm` in tsconfigPaths) {
+			importPath = `@spartan-ng/ui-${compatLibrary}-helm`;
+			libraryName = compatLibrary;
 		}
 
 		// get the tsconfig path for the library
@@ -120,7 +123,7 @@ async function removeExistingLibraries(
 		// if we are in the Nx CLI we can use the nx generator to remove a library
 		if (!options.angularCli) {
 			await removeGenerator(tree, {
-				projectName: `ui-${library}-helm`,
+				projectName: `ui-${libraryName}-helm`,
 				forceRemove: true,
 				skipFormat: true,
 				importPath,
@@ -156,7 +159,7 @@ async function regenerateLibraries(tree: Tree, options: MigrateHelmLibrariesGene
 		Object.keys(supportedLibraries) as Primitive[],
 		supportedLibraries,
 		tree,
-		{ ...options, installPeerDependencies: true },
+		{ ...options, installPeerDependencies: false },
 		config,
 	);
 }

@@ -1,8 +1,8 @@
-import { formatFiles, logger, Tree, updateJson } from '@nx/devkit';
+import { formatFiles, logger, readJson, Tree, updateJson } from '@nx/devkit';
 import { getRootTsConfigPathInTree } from '@nx/js';
 import { removeGenerator } from '@nx/workspace';
 import { prompt } from 'enquirer';
-import { dirname } from 'path';
+import { dirname, join } from 'path';
 import { getOrCreateConfig } from '../../utils/config';
 import { readTsConfigPathsFromTree } from '../../utils/tsconfig';
 import { deleteFiles } from '../base/lib/deleteFiles';
@@ -97,7 +97,6 @@ async function removeExistingLibraries(
 	for (const library of libraries) {
 		// determine the library path
 		let importPath: string;
-		let libraryName = library.toString();
 		const compatLibrary = library.toString().replaceAll('-', '');
 
 		if (`@spartan-ng/helm/${library}` in tsconfigPaths) {
@@ -107,7 +106,6 @@ async function removeExistingLibraries(
 		} // there is also a case where the library previous was added without hypens e.g. ui-aspectratio-helm
 		else if (`@spartan-ng/ui-${compatLibrary}-helm` in tsconfigPaths) {
 			importPath = `@spartan-ng/ui-${compatLibrary}-helm`;
-			libraryName = compatLibrary;
 		}
 
 		// get the tsconfig path for the library
@@ -121,8 +119,21 @@ async function removeExistingLibraries(
 
 		// if we are in the Nx CLI we can use the nx generator to remove a library
 		if (!options.angularCli) {
+			// We get the projectName from the project.json in the path of the library
+			const projectRoot = dirname(path).replace(/\/src$/, '');
+			const packageJsonPath = join(projectRoot, 'project.json');
+			let projectName: string | undefined;
+			if (tree.exists(packageJsonPath)) {
+				const packageJson = readJson(tree, packageJsonPath);
+				console.log(packageJson);
+				projectName = packageJson.name;
+			}
+			if (!projectName) {
+				throw new Error(`Could not find the project name for library: ${library} in project root path ${projectRoot}`);
+			}
+
 			await removeGenerator(tree, {
-				projectName: `ui-${libraryName}-helm`,
+				projectName,
 				forceRemove: true,
 				skipFormat: true,
 				importPath,

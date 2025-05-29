@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HlmSpinnerComponent } from '@spartan-ng/ui-spinner-helm';
+import { HlmSpinnerComponent } from '@spartan-ng/helm/spinner';
 
 @Component({
 	selector: 'spartan-spinner-preview',
@@ -11,7 +11,7 @@ import { HlmSpinnerComponent } from '@spartan-ng/ui-spinner-helm';
 export class SpinnerPreviewComponent {}
 
 export const defaultCode = `import { Component } from '@angular/core';
-import { HlmSpinnerComponent } from '@spartan-ng/ui-spinner-helm';
+import { HlmSpinnerComponent } from '@spartan-ng/helm/spinner';
 
 @Component({
 	selector: 'spartan-spinner-preview',
@@ -25,7 +25,7 @@ export class SpinnerPreviewComponent {}
 `;
 
 export const defaultImports = `
-import { HlmSpinnerComponent } from '@spartan-ng/ui-spinner-helm';
+import { HlmSpinnerComponent } from '@spartan-ng/helm/spinner';
 `;
 export const defaultSkeleton = `
 <hlm-spinner />

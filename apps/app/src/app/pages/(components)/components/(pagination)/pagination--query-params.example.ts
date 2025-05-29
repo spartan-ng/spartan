@@ -8,7 +8,7 @@ import {
 	HlmPaginationLinkDirective,
 	HlmPaginationNextComponent,
 	HlmPaginationPreviousComponent,
-} from '@spartan-ng/ui-pagination-helm';
+} from '@spartan-ng/helm/pagination';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -93,7 +93,7 @@ import {
 	HlmPaginationLinkDirective,
 	HlmPaginationNextComponent,
 	HlmPaginationPreviousComponent,
-} from '@spartan-ng/ui-pagination-helm';
+} from '@spartan-ng/helm/pagination';
 import { map } from 'rxjs';
 
 @Component({

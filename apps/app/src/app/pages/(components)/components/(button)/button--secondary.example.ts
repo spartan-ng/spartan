@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
 
 @Component({
 	selector: 'spartan-button-secondary',
@@ -12,7 +12,7 @@ export class ButtonSecondaryComponent {}
 
 export const secondaryCode = `
 import { Component } from '@angular/core';
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
 
 @Component({
   selector: 'spartan-button-secondary',

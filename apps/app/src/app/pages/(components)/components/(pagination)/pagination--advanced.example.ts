@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { HlmNumberedPaginationComponent } from '@spartan-ng/ui-pagination-helm';
+import { HlmNumberedPaginationComponent } from '@spartan-ng/helm/pagination';
 
 @Component({
 	selector: 'spartan-pagination-advanced',
@@ -16,7 +16,7 @@ export class PaginationAdvancedComponent {
 
 export const advancedCode = `
 import { Component, signal } from '@angular/core';
-import { HlmNumberedPaginationComponent } from '@spartan-ng/ui-pagination-helm';
+import { HlmNumberedPaginationComponent } from '@spartan-ng/helm/pagination';
 
 @Component({
 	selector: 'spartan-pagination-advanced',

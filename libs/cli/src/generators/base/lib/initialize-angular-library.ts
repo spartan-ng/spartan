@@ -13,7 +13,7 @@ export async function initializeAngularLibrary(tree: Tree, options: HlmBaseGener
 		skipFormat: true,
 		simpleName: true,
 		buildable: true,
-		importPath: `@spartan-ng/${options.publicName}`,
+		importPath: `@spartan-ng/helm/${options.primitiveName}`,
 		prefix: 'hlm',
 		skipModule: true,
 		directory: joinPathFragments(options.directory, options.publicName),

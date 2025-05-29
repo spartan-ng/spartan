@@ -4,7 +4,7 @@ import {
 	HlmCardDescriptionDirective,
 	HlmCardDirective,
 	HlmCardTitleDirective,
-} from '@spartan-ng/ui-card-helm';
+} from '@spartan-ng/helm/card';
 
 @Component({
 	// eslint-disable-next-line @angular-eslint/component-selector

@@ -1,6 +1,6 @@
 import { prompt } from 'enquirer';
-import { getDependentPrimitives } from './primivite-deps';
-import type { Primitive } from './primivites';
+import { getDependentPrimitives } from './primitive-deps';
+import type { Primitive } from './primitives';
 
 export const addDependentPrimitives = async (primitivesToCreate: string[], shouldPrompt?: boolean) => {
 	const dependentPrimitives = getDependentPrimitives(primitivesToCreate as Primitive[]);

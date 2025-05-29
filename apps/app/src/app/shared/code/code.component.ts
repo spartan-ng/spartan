@@ -8,8 +8,8 @@ import { Clipboard } from '@angular/cdk/clipboard';
 
 import { provideIcons } from '@ng-icons/core';
 import { lucideCheck, lucideClipboard } from '@ng-icons/lucide';
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
-import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
 import 'prismjs';
 import 'prismjs/components/prism-bash';
 import 'prismjs/components/prism-css';

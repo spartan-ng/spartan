@@ -11,8 +11,8 @@ import {
 	lucideRadio,
 	lucideUser,
 } from '@ng-icons/lucide';
-import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
-import { HlmScrollAreaDirective } from '@spartan-ng/ui-scrollarea-helm';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { HlmScrollAreaDirective } from '@spartan-ng/helm/scroll-area';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { SideMenuButtonComponent } from './side-menu-button.component';
 

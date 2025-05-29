@@ -6,7 +6,7 @@ import { PageBottomNavComponent } from '@spartan-ng/app/app/shared/layout/page-b
 import { PageNavComponent } from '@spartan-ng/app/app/shared/layout/page-nav/page-nav.component';
 import { SectionIntroComponent } from '@spartan-ng/app/app/shared/layout/section-intro.component';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
-import { hlmP } from '@spartan-ng/ui-typography-helm';
+import { hlmP } from '@spartan-ng/helm/typography';
 import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 
 export const routeMeta: RouteMeta = {

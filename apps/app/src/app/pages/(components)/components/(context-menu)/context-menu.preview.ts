@@ -15,7 +15,7 @@ import {
 	HlmMenuSeparatorComponent,
 	HlmMenuShortcutComponent,
 	HlmSubMenuComponent,
-} from '@spartan-ng/ui-menu-helm';
+} from '@spartan-ng/helm/menu';
 
 @Component({
 	selector: 'spartan-context-menu-preview',
@@ -115,8 +115,8 @@ export class ContextMenuPreviewComponent {}
 
 export const defaultCode = `
 import { Component } from '@angular/core';
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
-import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
 import { BrnContextMenuTriggerDirective, BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
 import {
   HlmMenuComponent,
@@ -132,7 +132,7 @@ import {
   HlmMenuSeparatorComponent,
   HlmMenuShortcutComponent,
   HlmSubMenuComponent,
-} from '@spartan-ng/ui-menu-helm';
+} from '@spartan-ng/helm/menu';
 
 @Component({
   selector: 'spartan-context-menu-preview',
@@ -253,7 +253,7 @@ import {
   HlmMenuSeparatorComponent,
   HlmMenuShortcutComponent,
   HlmSubMenuComponent,
-} from '@spartan-ng/ui-menu-helm';
+} from '@spartan-ng/helm/menu';
 `;
 
 export const defaultSkeleton = `

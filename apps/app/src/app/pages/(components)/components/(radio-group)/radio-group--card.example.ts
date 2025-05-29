@@ -4,8 +4,8 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCreditCard } from '@ng-icons/lucide';
 import { remixAppleFill, remixPaypalFill } from '@ng-icons/remixicon';
 import { hlm } from '@spartan-ng/brain/core';
-import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
-import { HlmRadioComponent, HlmRadioGroupComponent } from '@spartan-ng/ui-radiogroup-helm';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { HlmRadioComponent, HlmRadioGroupComponent } from '@spartan-ng/helm/radio-group';
 
 @Component({
 	selector: 'spartan-radio-card-preview',
@@ -57,8 +57,8 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCreditCard } from '@ng-icons/lucide';
 import { remixAppleFill, remixPaypalFill } from '@ng-icons/remixicon';
 import { hlm } from '@spartan-ng/brain/core';
-import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
-import { HlmRadioComponent, HlmRadioGroupComponent } from '@spartan-ng/ui-radiogroup-helm';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { HlmRadioComponent, HlmRadioGroupComponent } from '@spartan-ng/helm/radio-group';
 
 @Component({
 	selector: 'spartan-radio-card-preview',

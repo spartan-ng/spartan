@@ -2,7 +2,10 @@ import { type GeneratorCallback, type Tree, runTasksInSerial } from '@nx/devkit'
 import { prompt } from 'enquirer';
 import { Config, getOrCreateConfig } from '../../utils/config';
 import { addDependentPrimitives } from './add-dependent-primitive';
+import { Primitive } from './primitives';
 import type { HlmUIGeneratorSchema } from './schema';
+
+type PrimitiveResponse = Primitive | 'all';
 
 export default async function hlmUIGenerator(tree: Tree, options: HlmUIGeneratorSchema & { angularCli?: boolean }) {
 	const tasks: GeneratorCallback[] = [];
@@ -12,8 +15,13 @@ export default async function hlmUIGenerator(tree: Tree, options: HlmUIGenerator
 	const availablePrimitives: PrimitiveDefinitions = await import('./supported-ui-libraries.json').then(
 		(m) => m.default,
 	);
-	const availablePrimitiveNames = [...Object.keys(availablePrimitives), 'collapsible', 'menubar', 'contextmenu'];
-	let response: { primitives: string[] } = { primitives: [] };
+	const availablePrimitiveNames: Primitive[] = [
+		...(Object.keys(availablePrimitives) as Primitive[]),
+		'collapsible',
+		'menubar',
+		'context-menu',
+	];
+	let response: { primitives: PrimitiveResponse[] } = { primitives: [] };
 	if (options.name && availablePrimitiveNames.includes(options.name)) {
 		response.primitives.push(options.name);
 	} else {
@@ -34,9 +42,9 @@ export default async function hlmUIGenerator(tree: Tree, options: HlmUIGenerator
 
 export async function createPrimitiveLibraries(
 	response: {
-		primitives: string[];
+		primitives: PrimitiveResponse[];
 	},
-	availablePrimitiveNames: string[],
+	availablePrimitiveNames: Primitive[],
 	availablePrimitives: PrimitiveDefinitions,
 	tree: Tree,
 	options: HlmUIGeneratorSchema & { angularCli?: boolean; installPeerDependencies?: boolean },
@@ -46,7 +54,7 @@ export async function createPrimitiveLibraries(
 	const primitivesToCreate = allPrimitivesSelected ? availablePrimitiveNames : response.primitives;
 	const tasks: GeneratorCallback[] = [];
 
-	if (!response.primitives.includes('all') || options.installPeerDependencies) {
+	if (!response.primitives.includes('all') && options.installPeerDependencies) {
 		await addDependentPrimitives(primitivesToCreate, false);
 	}
 	await replaceContextAndMenuBar(primitivesToCreate, allPrimitivesSelected);
@@ -85,8 +93,8 @@ export async function createPrimitiveLibraries(
 	return tasks;
 }
 
-const replaceContextAndMenuBar = async (primtivesToCreate: string[], silent = false) => {
-	const contextIndex = primtivesToCreate.indexOf('contextmenu');
+const replaceContextAndMenuBar = async (primtivesToCreate: PrimitiveResponse[], silent = false) => {
+	const contextIndex = primtivesToCreate.indexOf('context-menu');
 	if (contextIndex >= 0) {
 		if (!silent) {
 			await prompt({

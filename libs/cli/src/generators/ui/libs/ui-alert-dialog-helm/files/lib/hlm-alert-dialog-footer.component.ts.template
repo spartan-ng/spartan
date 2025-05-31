@@ -4,8 +4,7 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-alert-dialog-footer',
-	standalone: true,
-	template: `
+template: `
 		<ng-content />
 	`,
 	host: {

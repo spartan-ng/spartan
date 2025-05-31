@@ -3,7 +3,6 @@ import { BrnTabsDirective } from './brn-tabs.directive';
 
 @Directive({
 	selector: '[brnTabsContent]',
-	standalone: true,
 	host: {
 		role: 'tabpanel',
 		tabindex: '0',

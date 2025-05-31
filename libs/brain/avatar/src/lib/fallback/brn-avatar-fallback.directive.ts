@@ -4,7 +4,6 @@ import type { ClassValue } from 'clsx';
 
 @Directive({
 	selector: '[brnAvatarFallback]',
-	standalone: true,
 	exportAs: 'avatarFallback',
 })
 export class BrnAvatarFallbackDirective {

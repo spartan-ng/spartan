@@ -5,7 +5,6 @@ import { injectBrnCalendarI18n } from './i18n/calendar-i18n';
 
 @Directive({
 	selector: '[brnCalendarPreviousButton]',
-	standalone: true,
 	host: {
 		type: 'button',
 		'[attr.aria-label]': 'i18n.labelPrevious()',

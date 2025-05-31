@@ -11,8 +11,7 @@ export type InputErrorVariants = VariantProps<typeof inputErrorVariants>;
 
 @Directive({
 	selector: '[hlmInputError]',
-	standalone: true,
-	host: {
+host: {
 		'[class]': '_computedClass()',
 	},
 })

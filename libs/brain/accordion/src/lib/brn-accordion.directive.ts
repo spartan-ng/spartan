@@ -19,7 +19,6 @@ import { fromEvent } from 'rxjs';
 
 @Directive({
 	selector: '[brnAccordionItem]',
-	standalone: true,
 	host: {
 		'[attr.data-state]': 'state()',
 	},
@@ -52,7 +51,6 @@ export class BrnAccordionItemDirective {
 
 @Directive({
 	selector: '[brnAccordionTrigger]',
-	standalone: true,
 	host: {
 		'[attr.data-state]': 'state()',
 		'[attr.aria-expanded]': 'state() === "open"',
@@ -114,7 +112,6 @@ const VERTICAL_KEYS_TO_PREVENT_DEFAULT = ['ArrowUp', 'ArrowDown', 'PageDown', 'P
 
 @Directive({
 	selector: '[brnAccordion]',
-	standalone: true,
 	host: {
 		'[attr.data-state]': 'state()',
 		'[attr.data-orientation]': 'orientation()',

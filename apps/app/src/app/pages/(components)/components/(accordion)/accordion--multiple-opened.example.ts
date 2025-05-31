@@ -79,8 +79,7 @@ import { lucideChevronDown } from '@ng-icons/lucide';
 
 @Component({
 	selector: 'spartan-accordion-multiple-opened',
-	standalone: true,
-	imports: [
+imports: [
 		HlmButtonDirective,
 		HlmAccordionDirective,
 		HlmAccordionItemDirective,

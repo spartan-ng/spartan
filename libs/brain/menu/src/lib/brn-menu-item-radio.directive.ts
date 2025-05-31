@@ -4,7 +4,6 @@ import { outputFromObservable } from '@angular/core/rxjs-interop';
 
 @Directive({
 	selector: '[brnMenuItemRadio]',
-	standalone: true,
 	hostDirectives: [CdkMenuItemRadio],
 	host: {
 		'[class.checked]': 'checked()',

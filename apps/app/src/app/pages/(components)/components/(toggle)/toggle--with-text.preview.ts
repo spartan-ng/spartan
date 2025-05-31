@@ -28,8 +28,7 @@ import { lucideItalic } from '@ng-icons/lucide';
 
 @Component({
   selector: 'spartan-toggle-with-text',
-  standalone: true,
-  imports: [BrnToggleDirective, HlmToggleDirective, HlmIconDirective],
+imports: [BrnToggleDirective, HlmToggleDirective, HlmIconDirective],
   providers: [provideIcons({ lucideItalic })],
   template: \`
     <button brnToggle hlm>

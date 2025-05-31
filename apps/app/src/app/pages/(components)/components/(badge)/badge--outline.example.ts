@@ -16,8 +16,7 @@ import { HlmBadgeDirective } from '@spartan-ng/helm/badge';
 
 @Component({
   selector: 'spartan-badge-outline',
-  standalone: true,
-  imports: [HlmBadgeDirective],
+imports: [HlmBadgeDirective],
   template: \` <div hlmBadge variant="outline">Outline</div> \`,
 })
 export class BadgeOutlineExampleComponent {}

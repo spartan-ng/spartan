@@ -8,7 +8,6 @@ export type BrnActivationMode = 'automatic' | 'manual';
 
 @Directive({
 	selector: '[brnTabs]',
-	standalone: true,
 	host: {
 		'[attr.data-orientation]': 'orientation()',
 		'[attr.dir]': 'direction()',

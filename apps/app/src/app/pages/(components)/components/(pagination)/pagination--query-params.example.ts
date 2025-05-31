@@ -98,8 +98,7 @@ import { map } from 'rxjs';
 
 @Component({
 	selector: 'spartan-pagination-query-params',
-	standalone: true,
-	imports: [
+imports: [
 		HlmPaginationDirective,
 		HlmPaginationContentDirective,
 		HlmPaginationItemDirective,

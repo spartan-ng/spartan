@@ -25,8 +25,7 @@ export class CalendarPreviewComponent {
 export const defaultCode = `
 @Component({
 	selector: 'spartan-calendar-preview',
-	standalone: true,
-	imports: [HlmCalendarComponent],
+imports: [HlmCalendarComponent],
 	template: '<hlm-calendar [(date)]="selectedDate" [min]="minDate" [max]="maxDate" />',
 })
 export class CalendarPreviewComponent {

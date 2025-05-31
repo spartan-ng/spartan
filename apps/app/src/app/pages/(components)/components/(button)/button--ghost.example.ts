@@ -16,8 +16,7 @@ import { HlmButtonDirective } from '@spartan-ng/helm/button';
 
 @Component({
   selector: 'spartan-button-ghost',
-  standalone: true,
-  imports: [HlmButtonDirective],
+imports: [HlmButtonDirective],
   template: \`
     <button hlmBtn variant='ghost'>Ghost</button> \`,})
 export class ButtonGhostComponent {}

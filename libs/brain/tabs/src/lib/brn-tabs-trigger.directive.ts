@@ -3,7 +3,6 @@ import { BrnTabsDirective } from './brn-tabs.directive';
 
 @Directive({
 	selector: 'button[brnTabsTrigger]',
-	standalone: true,
 	host: {
 		'[id]': 'labelId()',
 		type: 'button',

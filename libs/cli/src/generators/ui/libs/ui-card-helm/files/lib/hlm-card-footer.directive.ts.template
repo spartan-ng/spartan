@@ -18,8 +18,7 @@ export type CardFooterVariants = VariantProps<typeof cardFooterVariants>;
 
 @Directive({
 	selector: '[hlmCardFooter]',
-	standalone: true,
-	host: {
+host: {
 		'[class]': '_computedClass()',
 	},
 })

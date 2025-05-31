@@ -22,7 +22,6 @@ import { BrnCalendar, provideBrnCalendar } from '../brn-calendar.token';
 
 @Directive({
 	selector: '[brnCalendarMulti]',
-	standalone: true,
 	providers: [provideBrnCalendar(BrnCalendarMultiDirective)],
 })
 export class BrnCalendarMultiDirective<T> implements BrnCalendar<T> {

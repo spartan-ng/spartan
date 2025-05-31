@@ -4,8 +4,7 @@ import type { ClassValue } from 'clsx';
 
 @Directive({
 	selector: '[hlmSelectContent], hlm-select-content',
-	standalone: true,
-	host: {
+host: {
 		'[class]': '_computedClass()',
 		'[attr.data-state]': '_stateProvider?.state() ?? "open"',
 		'[attr.data-side]': '_sideProvider?.side() ?? "bottom"',

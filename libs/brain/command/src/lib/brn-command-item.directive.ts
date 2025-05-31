@@ -19,7 +19,6 @@ import { injectBrnCommand } from './brn-command.token';
 
 @Directive({
 	selector: 'button[brnCommandItem]',
-	standalone: true,
 	providers: [provideBrnCommandItem(BrnCommandItemDirective)],
 	host: {
 		type: 'button',

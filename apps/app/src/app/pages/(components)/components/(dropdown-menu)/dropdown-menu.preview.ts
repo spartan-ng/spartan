@@ -209,8 +209,7 @@ import {
 
 @Component({
   selector: 'spartan-dropdown-preview',
-  standalone: true,
-  imports: [
+imports: [
     BrnMenuTriggerDirective,
 
     HlmMenuComponent,

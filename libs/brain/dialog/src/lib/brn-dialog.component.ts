@@ -27,7 +27,6 @@ import { BrnDialogService } from './brn-dialog.service';
 
 @Component({
 	selector: 'brn-dialog',
-	standalone: true,
 	template: `
 		<ng-content />
 	`,

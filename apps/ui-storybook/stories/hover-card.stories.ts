@@ -11,7 +11,6 @@ import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
 
 @Component({
 	selector: 'hover-card-example',
-	standalone: true,
 	imports: [BrnHoverCardModule, HlmHoverCardModule, HlmButtonDirective, NgIcon, HlmIconDirective, HlmAvatarModule],
 	providers: [provideIcons({ lucideCalendarDays })],
 	host: {

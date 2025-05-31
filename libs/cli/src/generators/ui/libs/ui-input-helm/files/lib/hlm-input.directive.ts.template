@@ -31,8 +31,7 @@ type InputVariants = VariantProps<typeof inputVariants>;
 
 @Directive({
 	selector: '[hlmInput]',
-	standalone: true,
-	host: {
+host: {
 		'[class]': '_computedClass()',
 	},
 	providers: [

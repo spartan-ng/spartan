@@ -3,8 +3,7 @@ import { BrnCommandListDirective } from '@spartan-ng/brain/command';
 import { hlm } from '@spartan-ng/brain/core';
 
 @Component({
-	standalone: true,
-	selector: 'hlm-command-list',
+selector: 'hlm-command-list',
 	template: '<ng-content />',
 	host: {
 		'[class]': '_computedClass()',

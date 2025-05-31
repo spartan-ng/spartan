@@ -3,7 +3,6 @@ import { hlmBlockquote, hlmH1, hlmH2, hlmH3, hlmLead, hlmP, hlmUl } from '@spart
 
 @Component({
 	selector: 'spartan-typography-preview',
-	standalone: true,
 	template: `
 		<h1 class="${hlmH1}">The Joke Tax Chronicles</h1>
 		<p class="${hlmLead} mt-4">
@@ -59,8 +58,7 @@ import { hlmBlockquote, hlmH1, hlmH2, hlmH3, hlmLead, hlmP, hlmUl } from '@spart
 
 @Component({
   selector: 'spartan-typography-preview',
-  standalone: true,
-  template: \`
+template: \`
     <h1 class="\${hlmH1}">The Joke Tax Chronicles</h1>
     <p class="\${hlmLead} mt-4">
       Once upon a time, in a far-off land, there was a very lazy king who spent all day lounging on his throne. One day,
@@ -116,8 +114,7 @@ import { hlmH1 } from '@spartan-ng/typography-helm';
 
 @Component({
   selector: 'spartan-h1',
-  standalone: true,
-  template: \`
+template: \`
     <h1 class="\${hlmH1}">The Joke Tax Chronicles</h1>
   \`,
 })
@@ -130,8 +127,7 @@ import { hlmH2 } from '@spartan-ng/typography-helm';
 
 @Component({
   selector: 'spartan-h2',
-  standalone: true,
-  template: \`
+template: \`
     <h2 class="\${hlmH2}">The People of the Kingdom</h2>
   \`,
 })
@@ -144,8 +140,7 @@ import { hlmH1 } from '@spartan-ng/typography-helm';
 
 @Component({
   selector: 'spartan-h3',
-  standalone: true,
-  template: \`
+template: \`
     <h3 class="\${hlmH3}">The Joke Tax</h3>
   \`,
 })
@@ -158,8 +153,7 @@ import { hlmH4 } from '@spartan-ng/typography-helm';
 
 @Component({
   selector: 'spartan-h4',
-  standalone: true,
-  template: \`
+template: \`
     <h4 class="\${hlmH4}">People stopped telling jokes</h4>
   \`,
 })
@@ -172,8 +166,7 @@ import { hlmP } from '@spartan-ng/typography-helm';
 
 @Component({
   selector: 'spartan-p',
-  standalone: true,
-  template: \`
+template: \`
     <p class="\${hlmP}">
       The king, seeing how much happier his subjects were,
       realized the error of his ways and repealed the joke tax.
@@ -189,8 +182,7 @@ import { hlmBlockquote } from '@spartan-ng/typography-helm';
 
 @Component({
   selector: 'spartan-blockquote',
-  standalone: true,
-  template: \`
+template: \`
     <blockquote class="\${hlmBlockquote}">
       "After all," he said, "everyone enjoys a good joke,
       so it's only fair that they should pay for the privilege."
@@ -206,8 +198,7 @@ import { hlmUl } from '@spartan-ng/typography-helm';
 
 @Component({
   selector: 'spartan-list',
-  standalone: true,
-  template: \`
+template: \`
   <ul class="\${hlmUl}">
     <li>1st level of puns: 5 gold coins</li>
     <li>2nd level of jokes: 10 gold coins</li>
@@ -224,8 +215,7 @@ import { hlmCode } from '@spartan-ng/typography-helm';
 
 @Component({
   selector: 'spartan-code',
-  standalone: true,
-  template: \`
+template: \`
   <code class="\${hlmCode}">@radix-ui/react-alert-dialog</code>
   \`,
 })
@@ -238,8 +228,7 @@ import { hlmLead } from '@spartan-ng/typography-helm';
 
 @Component({
   selector: 'spartan-lead',
-  standalone: true,
-  template: \`
+template: \`
   <p class="\${hlmLead}">A modal dialog that interrupts the user with important content and expects a response.</p>
   \`,
 })
@@ -252,8 +241,7 @@ import { hlmLarge } from '@spartan-ng/typography-helm';
 
 @Component({
   selector: 'spartan-large',
-  standalone: true,
-  template: \`
+template: \`
   <p class="\${hlmLarge}">Are you sure absolutely sure?</p>
   \`,
 })
@@ -266,8 +254,7 @@ import { hlmSmall } from '@spartan-ng/typography-helm';
 
 @Component({
   selector: 'spartan-small',
-  standalone: true,
-  template: \`
+template: \`
   <p class="\${hlmSmall}">Email address</p>
   \`,
 })
@@ -280,8 +267,7 @@ import { hlmMuted } from '@spartan-ng/typography-helm';
 
 @Component({
   selector: 'spartan-muted',
-  standalone: true,
-  template: \`
+template: \`
   <p class="\${hlmMuted}">Enter your email address.</p>
   \`,
 })

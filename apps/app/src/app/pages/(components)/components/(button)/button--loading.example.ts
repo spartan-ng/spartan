@@ -27,8 +27,7 @@ import { lucideLoaderCircle } from '@ng-icons/lucide';
 
 @Component({
   selector: 'spartan-button-loading',
-  standalone: true,
-  imports: [HlmButtonDirective, HlmSpinnerComponent, HlmIconDirective],
+imports: [HlmButtonDirective, HlmSpinnerComponent, HlmIconDirective],
   providers: [provideIcons({ lucideLoaderCircle })],
   template: \`
     <button disabled hlmBtn><ng-icon hlm name="lucideLoaderCircle" size="sm" class="mr-2 animate-spin" /> Please wait</button>

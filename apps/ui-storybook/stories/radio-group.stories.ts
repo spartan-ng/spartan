@@ -9,7 +9,6 @@ import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
 
 @Component({
 	selector: 'radio-group-example',
-	standalone: true,
 	imports: [
 		HlmRadioGroupImports,
 		FormsModule,

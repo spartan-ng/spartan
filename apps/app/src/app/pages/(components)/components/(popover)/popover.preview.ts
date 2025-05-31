@@ -64,8 +64,7 @@ import { provideIcons } from '@ng-icons/core';
 
 @Component({
   selector: 'spartan-popover-preview',
-  standalone: true,
-  imports: [
+imports: [
     BrnPopoverComponent,
     BrnPopoverTriggerDirective,
     BrnPopoverContentDirective,

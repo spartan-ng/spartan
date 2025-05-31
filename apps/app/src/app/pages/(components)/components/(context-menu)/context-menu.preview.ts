@@ -136,8 +136,7 @@ import {
 
 @Component({
   selector: 'spartan-context-menu-preview',
-  standalone: true,
-  imports: [
+imports: [
     BrnMenuTriggerDirective,
     BrnContextMenuTriggerDirective,
 

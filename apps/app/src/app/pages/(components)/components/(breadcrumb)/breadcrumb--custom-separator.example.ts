@@ -63,8 +63,7 @@ import { HlmIconDirective, provideIcons } from '@spartan-ng/helm/icon';
 
 @Component({
 	selector: 'spartan-breadcrumb-custom-separator',
-	standalone: true,
-	providers: [provideIcons({ lucideSlash })],
+providers: [provideIcons({ lucideSlash })],
 	imports: [
 		HlmBreadcrumbDirective,
 		HlmBreadcrumbSeparatorComponent,

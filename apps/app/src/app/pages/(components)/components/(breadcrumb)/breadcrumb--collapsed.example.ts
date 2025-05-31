@@ -58,8 +58,7 @@ import {
 
 @Component({
 	selector: 'spartan-breadcrumb-collapsed',
-	standalone: true,
-	imports: [
+imports: [
 		HlmBreadcrumbDirective,
 		HlmBreadcrumbSeparatorComponent,
 		HlmBreadcrumbEllipsisComponent,

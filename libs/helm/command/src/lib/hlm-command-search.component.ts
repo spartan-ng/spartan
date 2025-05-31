@@ -3,7 +3,6 @@ import { hlm } from '@spartan-ng/brain/core';
 import { provideHlmIconConfig } from '@spartan-ng/helm/icon';
 
 @Component({
-	standalone: true,
 	selector: 'hlm-command-search',
 	template: `
 		<ng-content />

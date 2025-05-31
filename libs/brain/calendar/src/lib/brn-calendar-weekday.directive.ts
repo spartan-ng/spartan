@@ -14,7 +14,6 @@ import { injectDateAdapter } from '@spartan-ng/brain/date-time';
 import { injectBrnCalendar } from './brn-calendar.token';
 
 @Directive({
-	standalone: true,
 	selector: '[brnCalendarWeekday]',
 })
 export class BrnCalendarWeekdayDirective<T> implements OnDestroy {

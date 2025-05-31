@@ -27,8 +27,7 @@ import { HlmIconDirective } from '@spartan-ng/helm/icon';
 
 @Component({
   selector: 'spartan-toggle-preview',
-  standalone: true,
-  imports: [BrnToggleDirective, HlmToggleDirective, HlmIconDirective],
+imports: [BrnToggleDirective, HlmToggleDirective, HlmIconDirective],
   providers: [provideIcons({ lucideItalic })],
   template: \`
     <button brnToggle hlm>

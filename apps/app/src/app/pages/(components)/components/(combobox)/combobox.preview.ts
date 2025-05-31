@@ -125,8 +125,7 @@ type Framework = { label: string; value: string };
 
 @Component({
   selector: 'spartan-combobox-preview',
-  standalone: true,
-  imports: [
+imports: [
     BrnCommandImports,
     HlmCommandImports,
     HlmIconDirective,

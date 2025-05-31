@@ -86,8 +86,7 @@ import { HlmMenuComponent, HlmMenuItemDirective } from '@spartan-ng/helm/menu';
 
 @Component({
 	selector: 'spartan-breadcrumb-dropdown',
-	standalone: true,
-	providers: [provideIcons({ lucideChevronDown, lucideSlash })],
+providers: [provideIcons({ lucideChevronDown, lucideSlash })],
 	imports: [
 		HlmBreadcrumbDirective,
 		HlmBreadcrumbSeparatorComponent,

@@ -3,7 +3,6 @@ import { BrnDialogRef } from './brn-dialog-ref';
 
 @Directive({
 	selector: '[brnDialogTitle]',
-	standalone: true,
 	host: {
 		'[id]': '_id()',
 	},

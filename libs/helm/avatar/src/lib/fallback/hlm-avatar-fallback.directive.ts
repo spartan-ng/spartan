@@ -19,7 +19,7 @@ import { hlm } from '@spartan-ng/brain/core';
 })
 export class HlmAvatarFallbackDirective {
 	private readonly _brn = inject(BrnAvatarFallbackDirective);
-	private readonly _hex = computed(() => {
+	protected readonly _hex = computed(() => {
 		if (!this._brn.autoColor() || !this._brn.getTextContent()) return;
 		return hexColorFor(this._brn.getTextContent());
 	});

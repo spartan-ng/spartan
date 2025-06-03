@@ -8,8 +8,6 @@ import type { ClassValue } from 'clsx';
 	host: {
 		role: 'link',
 		'[class]': '_computedClass()',
-		'[attr.aria-disabled]': 'disabled',
-		'[attr.aria-current]': 'page',
 	},
 })
 export class HlmBreadcrumbPageDirective {

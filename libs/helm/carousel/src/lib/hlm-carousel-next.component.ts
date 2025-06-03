@@ -34,7 +34,7 @@ import { HlmCarouselComponent } from './hlm-carousel.component';
 })
 export class HlmCarouselNextComponent {
 	private readonly _button = inject(HlmButtonDirective);
-	private readonly _carousel = inject(HlmCarouselComponent);
+	protected readonly _carousel = inject(HlmCarouselComponent);
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	private readonly _computedClass = computed(() =>
 		hlm(

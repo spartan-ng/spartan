@@ -69,8 +69,7 @@ import { HlmButtonDirective } from '@spartan-ng/helm/button';
 
 @Component({
   selector: 'spartan-alert-dialog-preview',
-  standalone: true,
-  imports: [
+imports: [
     BrnAlertDialogTriggerDirective,
     BrnAlertDialogContentDirective,
 

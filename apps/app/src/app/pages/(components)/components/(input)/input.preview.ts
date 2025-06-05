@@ -16,8 +16,7 @@ import { HlmInputDirective } from '@spartan-ng/helm/input';
 
 @Component({
   selector: 'spartan-input-preview',
-  standalone: true,
-  imports: [HlmInputDirective],
+imports: [HlmInputDirective],
   template: \`<input class="w-80" hlmInput placeholder='Email' type='email' />\`,
 })
 export class InputPreviewComponent {}

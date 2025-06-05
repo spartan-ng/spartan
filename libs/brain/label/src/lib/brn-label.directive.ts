@@ -6,7 +6,6 @@ let nextId = 0;
 
 @Directive({
 	selector: '[brnLabel]',
-	standalone: true,
 	host: {
 		'[id]': 'id()',
 		'[class.ng-invalid]': 'this._ngControl?.invalid || null',

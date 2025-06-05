@@ -170,8 +170,7 @@ type Framework = { label: string; value: string };
 
 @Component({
   selector: 'spartan-card-preview',
-  standalone: true,
-  imports: [
+imports: [
     BrnCommandImports,
     HlmCommandImports,
     HlmIconDirective,

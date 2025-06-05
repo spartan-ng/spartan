@@ -2,7 +2,6 @@ import { Directive, HostListener, computed, signal } from '@angular/core';
 
 @Directive({
 	selector: 'img[brnAvatarImage]',
-	standalone: true,
 	exportAs: 'avatarImage',
 })
 export class BrnAvatarImageDirective {

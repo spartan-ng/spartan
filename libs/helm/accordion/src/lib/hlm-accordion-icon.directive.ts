@@ -7,7 +7,6 @@ import type { ClassValue } from 'clsx';
 
 @Directive({
 	selector: 'ng-icon[hlmAccordionIcon], ng-icon[hlmAccIcon]',
-	standalone: true,
 	providers: [provideIcons({ lucideChevronDown }), provideHlmIconConfig({ size: 'sm' })],
 	host: {
 		'[class]': '_computedClass()',

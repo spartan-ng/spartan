@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
 	selector: 'spartan-<%= fileName %>-preview',
-	standalone: true,
-	imports: [
+imports: [
 
 	],
 	template: `
@@ -22,8 +21,7 @@ export const codeString = `import { Component } from '@angular/core';${codeImpor
 
 @Component({
 	selector: 'spartan-<%= fileName %>-preview',
-	standalone: true,
-	imports: [
+imports: [
 
 	],
 	template: \`

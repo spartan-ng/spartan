@@ -86,8 +86,7 @@ import { debounceTime, map } from 'rxjs';
 
 @Component({
 	selector: 'spartan-dialog-declarative-preview',
-	standalone: true,
-	imports: [
+imports: [
 		FormsModule,
 		BrnDialogContentDirective,
 

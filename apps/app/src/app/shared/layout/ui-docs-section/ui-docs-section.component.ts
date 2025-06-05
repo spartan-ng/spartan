@@ -8,7 +8,6 @@ import { UIApiDocsTableComponent } from '../ui-api-docs-table/ui-api-docs-table.
 
 @Component({
 	selector: 'spartan-ui-api-docs',
-	standalone: true,
 	imports: [UIApiDocsTableComponent],
 	template: `
 		@if (componentDocs() && componentEntries() && componentEntries().length > 0) {

@@ -3,7 +3,6 @@ import { BrnCollapsibleComponent } from './brn-collapsible.component';
 
 @Directive({
 	selector: 'button[brnCollapsibleTrigger]',
-	standalone: true,
 	host: {
 		'[attr.data-state]': 'collapsible?.expanded() ? "open" : "closed"',
 		'[attr.disabled]': 'collapsible?.disabled() ? true : undefined',

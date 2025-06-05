@@ -20,8 +20,7 @@ import { HlmCheckboxComponent } from '@spartan-ng/helm/checkbox';
 import { HlmLabelDirective } from '@spartan-ng/helm/label';
 @Component({
 	selector: 'spartan-checkbox-preview',
-	standalone: true,
-	imports: [HlmLabelDirective, HlmCheckboxComponent ],
+imports: [HlmLabelDirective, HlmCheckboxComponent ],
 	template: \`
 		<label class="flex items-center" hlmLabel>
 			<hlm-checkbox class="mr-2" />

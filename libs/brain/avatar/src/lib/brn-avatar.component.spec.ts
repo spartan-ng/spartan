@@ -28,7 +28,6 @@ import { BrnAvatarImageDirective } from './image/brn-avatar-image.directive';
 			<span brnAvatarFallback>fallback</span>
 		</brn-avatar>
 	`,
-	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class MockComponent {}

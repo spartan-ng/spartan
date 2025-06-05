@@ -5,7 +5,6 @@ import { BrnAvatarImageDirective } from './brn-avatar-image.directive';
 
 @Component({
 	selector: 'brn-mock',
-	standalone: true,
 	imports: [BrnAvatarImageDirective],
 	template: `
 		<div id="bad">

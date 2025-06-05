@@ -18,8 +18,7 @@ export type CardHeaderVariants = VariantProps<typeof cardHeaderVariants>;
 
 @Directive({
 	selector: '[hlmCardHeader]',
-	standalone: true,
-	host: {
+host: {
 		'[class]': '_computedClass()',
 	},
 })

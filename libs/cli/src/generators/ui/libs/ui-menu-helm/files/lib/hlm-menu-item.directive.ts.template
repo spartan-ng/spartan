@@ -15,8 +15,7 @@ export type HlmMenuItemVariants = VariantProps<typeof hlmMenuItemVariants>;
 
 @Directive({
 	selector: '[hlmMenuItem]',
-	standalone: true,
-	host: {
+host: {
 		'[class]': '_computedClass()',
 	},
 	hostDirectives: [

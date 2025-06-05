@@ -16,8 +16,7 @@ import { HlmInputDirective } from '@spartan-ng/helm/input';
 
 @Component({
   selector: 'spartan-input-file',
-  standalone: true,
-  imports: [HlmInputDirective],
+imports: [HlmInputDirective],
   template: \`<input class="w-80" hlmInput type="file"/>\`,
 })
 export class InputFilePreviewComponent {}

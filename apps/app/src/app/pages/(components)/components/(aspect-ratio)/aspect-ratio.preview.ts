@@ -20,8 +20,7 @@ import { HlmAspectRatioDirective } from '@spartan-ng/helm/aspect-ratio';
 
 @Component({
   selector: 'spartan-aspect-ratio-preview',
-  standalone: true,
-  imports: [HlmAspectRatioDirective],
+imports: [HlmAspectRatioDirective],
   template: \`
     <div class="max-w-xl overflow-hidden rounded-xl drop-shadow">
       <div [hlmAspectRatio]="16 / 9">

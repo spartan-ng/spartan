@@ -191,8 +191,7 @@ import {
 
 @Component({
   selector: 'spartan-menubar-preview',
-  standalone: true,
-  imports: [
+imports: [
     BrnMenuTriggerDirective,
 
     HlmMenuComponent,

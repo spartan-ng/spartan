@@ -35,7 +35,6 @@ export const Default: Story = {
 };
 
 @Component({
-	standalone: true,
 	selector: 'form-field-error-story',
 	imports: [ReactiveFormsModule, HlmFormFieldModule, HlmInputDirective],
 	template: `
@@ -79,7 +78,6 @@ export const Hint: Story = {
 };
 
 @Component({
-	standalone: true,
 	selector: 'form-field-form-story',
 	imports: [
 		ReactiveFormsModule,

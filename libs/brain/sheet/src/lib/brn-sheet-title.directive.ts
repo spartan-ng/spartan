@@ -3,7 +3,6 @@ import { BrnDialogTitleDirective } from '@spartan-ng/brain/dialog';
 
 @Directive({
 	selector: '[brnSheetTitle]',
-	standalone: true,
 	host: {
 		'[id]': '_id()',
 	},

@@ -16,8 +16,7 @@ import { HlmInputDirective } from '@spartan-ng/helm/input';
 
 @Component({
   selector: 'spartan-input-disabled',
-  standalone: true,
-  imports: [HlmInputDirective],
+imports: [HlmInputDirective],
   template: \`<input class="w-80" hlmInput disabled type='email' placeholder='Email' />\`,
 })
 export class InputDisabledPreviewComponent {}

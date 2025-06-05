@@ -33,8 +33,7 @@ import { HlmSeparatorDirective } from '@spartan-ng/helm/separator';
 
 @Component({
   selector: 'spartan-scroll-area-preview',
-  standalone: true,
-  imports: [NgFor, HlmSeparatorDirective, HlmSeparatorDirective, NgScrollbarModule],
+imports: [NgFor, HlmSeparatorDirective, HlmSeparatorDirective, NgScrollbarModule],
   template: \`<ng-scrollbar hlm class="border-border h-72 w-48 rounded-md border">
 			<div class="p-4">
 				<h4 class="mb-4 text-sm font-medium leading-none">Tags</h4>

@@ -80,8 +80,7 @@ import { HlmMenuComponent, HlmMenuItemDirective } from '@spartan-ng/helm/menu';
 
 @Component({
 	selector: 'spartan-breadcrumb-preview',
-	standalone: true,
-	imports: [
+imports: [
 		HlmBreadcrumbDirective,
 		HlmBreadcrumbSeparatorComponent,
 		HlmBreadcrumbEllipsisComponent,

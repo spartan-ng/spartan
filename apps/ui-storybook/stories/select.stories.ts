@@ -654,7 +654,6 @@ export const CustomTrigger: Story = {
 
 @Component({
 	selector: 'custom-select-trigger',
-	standalone: true,
 	imports: [BrnSelectTriggerDirective, NgIcon, HlmIconDirective],
 	providers: [provideIcons({ lucideChevronDown })],
 	template: `
@@ -690,7 +689,6 @@ export const WithLabelAndForm: Story = {
 };
 @Component({
 	selector: 'label-and-form-component',
-	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
@@ -746,7 +744,6 @@ export const DynamicOptionsMultiSelect: Story = {
 };
 @Component({
 	selector: 'dynamic-options-multi-select-component',
-	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [

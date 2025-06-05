@@ -47,8 +47,7 @@ import { HlmIconDirective } from '@spartan-ng/helm/icon';
 
 @Component({
   selector: 'spartan-hover-card-preview',
-  standalone: true,
-  imports: [BrnHoverCardModule, HlmHoverCardModule, HlmButtonDirective, HlmIconDirective, HlmAvatarModule],
+imports: [BrnHoverCardModule, HlmHoverCardModule, HlmButtonDirective, HlmIconDirective, HlmAvatarModule],
   providers: [provideIcons({ lucideCalendar })],
   template: \`
     <brn-hover-card>

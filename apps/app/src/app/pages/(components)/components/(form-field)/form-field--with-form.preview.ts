@@ -76,8 +76,7 @@ import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { HlmSelectImports, HlmSelectModule } from '@spartan-ng/helm/select';
 
 @Component({
-	standalone: true,
-	selector: 'spartan-form-field-form',
+selector: 'spartan-form-field-form',
 	imports: [
 		ReactiveFormsModule,
 		HlmFormFieldModule,

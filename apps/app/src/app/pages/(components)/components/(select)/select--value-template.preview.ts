@@ -69,8 +69,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 
 @Component({
 	selector: 'spartan-select-value-template-preview',
-	standalone: true,
-	imports: [BrnSelectImports, HlmSelectImports, NgIcon],
+imports: [BrnSelectImports, HlmSelectImports, NgIcon],
 	providers: [
 		provideIcons({
 			lucideChevronUp,

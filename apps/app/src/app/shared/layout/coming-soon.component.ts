@@ -3,7 +3,6 @@ import { hlmMuted } from '@spartan-ng/helm/typography';
 
 @Component({
 	selector: 'spartan-coming-soon',
-	standalone: true,
 	host: {
 		class: 'justify-center relative flex-1 flex items-center mb-8',
 	},

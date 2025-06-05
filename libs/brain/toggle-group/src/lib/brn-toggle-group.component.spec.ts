@@ -5,7 +5,6 @@ import { BrnToggleGroupComponent } from './brn-toggle-group.component';
 import { BrnToggleGroupItemDirective } from './brn-toggle-item.directive';
 
 @Component({
-	standalone: true,
 	imports: [BrnToggleGroupItemDirective, BrnToggleGroupComponent],
 	template: `
 		<brn-toggle-group [(value)]="value" [disabled]="disabled" [multiple]="multiple">
@@ -23,7 +22,6 @@ class BrnToggleGroupDirectiveSpecComponent {
 }
 
 @Component({
-	standalone: true,
 	imports: [BrnToggleGroupItemDirective, BrnToggleGroupComponent, FormsModule],
 	template: `
 		<brn-toggle-group [(ngModel)]="value" [multiple]="multiple">

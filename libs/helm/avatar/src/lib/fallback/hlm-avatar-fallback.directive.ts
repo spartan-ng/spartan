@@ -32,7 +32,7 @@ export class HlmAvatarFallbackDirective {
 
 	protected readonly _computedClass = computed(() => {
 		return hlm(
-			'flex h-full w-full items-center justify-center rounded-full',
+			'bg-muted flex size-full items-center justify-center rounded-full',
 			this._autoColorTextCls() ?? 'bg-muted',
 			this._brn?.userClass(),
 		);

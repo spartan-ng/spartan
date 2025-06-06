@@ -31,5 +31,5 @@ export class HlmBreadcrumbLinkDirective {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	public readonly link = input<RouterLink['routerLink']>();
 
-	protected readonly _computedClass = computed(() => hlm('transition-colors hover:text-foreground', this.userClass()));
+	protected readonly _computedClass = computed(() => hlm('hover:text-foreground transition-colors', this.userClass()));
 }

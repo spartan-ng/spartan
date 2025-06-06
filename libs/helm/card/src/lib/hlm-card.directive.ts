@@ -3,13 +3,10 @@ import { hlm } from '@spartan-ng/brain/core';
 import { type VariantProps, cva } from 'class-variance-authority';
 import type { ClassValue } from 'clsx';
 
-export const cardVariants = cva(
-	'rounded-lg border border-border bg-card focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 text-card-foreground shadow-sm',
-	{
-		variants: {},
-		defaultVariants: {},
-	},
-);
+export const cardVariants = cva('bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm', {
+	variants: {},
+	defaultVariants: {},
+});
 export type CardVariants = VariantProps<typeof cardVariants>;
 
 @Directive({

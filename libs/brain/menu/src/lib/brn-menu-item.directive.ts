@@ -7,6 +7,7 @@ import { outputFromObservable } from '@angular/core/rxjs-interop';
 	hostDirectives: [CdkMenuItem],
 	host: {
 		'[disabled]': 'disabled()',
+		'[attr.data-disabled]': 'disabled() ? "" : null',
 	},
 })
 export class BrnMenuItemDirective {

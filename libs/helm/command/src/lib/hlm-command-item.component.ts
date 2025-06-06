@@ -38,7 +38,7 @@ export class HlmCommandItemComponent {
 	/*** The styles to apply  */
 	protected readonly _computedClass = computed(() =>
 		hlm(
-			'text-start aria-selected:bg-accent aria-selected:text-accent-foreground cursor-default disabled:opacity-50 disabled:pointer-events-none hover:bg-accent/50 items-center outline-none px-2 py-1.5 relative flex rounded-sm select-none text-sm data-[hidden]:hidden',
+			`data-[selected]:bg-accent w-full data-[selected]:text-accent-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[hidden]:hidden`,
 			this.userClass(),
 		),
 	);

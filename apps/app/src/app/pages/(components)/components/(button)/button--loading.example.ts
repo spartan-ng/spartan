@@ -9,8 +9,8 @@ import { HlmIconDirective } from '@spartan-ng/helm/icon';
 	imports: [HlmButtonDirective, NgIcon, HlmIconDirective],
 	providers: [provideIcons({ lucideLoaderCircle })],
 	template: `
-		<button disabled hlmBtn>
-			<ng-icon hlm name="lucideLoaderCircle" size="sm" class="mr-2 animate-spin" />
+		<button disabled hlmBtn size="sm">
+			<ng-icon hlm name="lucideLoaderCircle" size="sm" class="animate-spin" />
 			Please wait
 		</button>
 	`,
@@ -30,7 +30,7 @@ import { lucideLoaderCircle } from '@ng-icons/lucide';
 imports: [HlmButtonDirective, HlmSpinnerComponent, HlmIconDirective],
   providers: [provideIcons({ lucideLoaderCircle })],
   template: \`
-    <button disabled hlmBtn><ng-icon hlm name="lucideLoaderCircle" size="sm" class="mr-2 animate-spin" /> Please wait</button>
+    <button disabled hlmBtn size="sm"><ng-icon hlm name="lucideLoaderCircle" size="sm" class="animate-spin" /> Please wait</button>
   \`,
 })
 export class ButtonLoadingComponent {}

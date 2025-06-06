@@ -35,7 +35,7 @@ type Framework = { label: string; value: string };
 				hlmBtn
 			>
 				{{ currentFramework() ? currentFramework()?.label : 'Select framework...' }}
-				<ng-icon hlm size="sm" name="lucideChevronsUpDown" />
+				<ng-icon hlm size="sm" name="lucideChevronsUpDown" class="opacity-50" />
 			</button>
 			<hlm-command *brnPopoverContent="let ctx" hlmPopoverContent class="w-[200px] p-0">
 				<hlm-command-search>
@@ -150,7 +150,7 @@ imports: [
       hlmBtn
       >
       {{ 'Select framework...' }}
-      <ng-icon hlm size="sm" name="lucideChevronsUpDown" />
+      <ng-icon hlm size="sm" name="lucideChevronsUpDown" class="opacity-50" />
     </button>
     <hlm-command
       *brnPopoverContent="let ctx"

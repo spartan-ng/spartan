@@ -146,7 +146,7 @@ module.exports = {
 				class="mb-6 mt-4"
 				code="
 :root {
-  --font-sans: '';
+	--font-sans: 'Geist Sans', sans-serif;
   --background: 0 0% 100%;
   --foreground: 240 10% 3.9%;
   --card: 0 0% 100%;

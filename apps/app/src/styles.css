@@ -1,11 +1,12 @@
 @import '@angular/cdk/overlay-prebuilt.css';
+@import '@fontsource/geist-sans/latin.css';
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-	--font-sans: '';
+	--font-sans: 'Geist Sans', sans-serif;
 }
 
 select {

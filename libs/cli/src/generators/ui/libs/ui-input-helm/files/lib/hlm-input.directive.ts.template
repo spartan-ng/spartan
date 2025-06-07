@@ -80,7 +80,9 @@ export class HlmInputDirective implements BrnFormFieldControl, DoCheck {
 			const error = this._errorStateTracker.errorState();
 			untracked(() => {
 				if (this.ngControl) {
-					this.setError(error);
+					const shouldShowError = error && this.ngControl.invalid && (this.ngControl.touched || this.ngControl.dirty);
+					this._errorStateTracker.errorState.set(shouldShowError ? true : false);
+					this.setError(shouldShowError ? true : 'auto');
 				}
 			});
 		});

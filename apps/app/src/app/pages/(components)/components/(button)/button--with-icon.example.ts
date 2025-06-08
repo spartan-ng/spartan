@@ -10,7 +10,7 @@ import { HlmIconDirective } from '@spartan-ng/helm/icon';
 	providers: [provideIcons({ lucideMail })],
 	template: `
 		<button hlmBtn>
-			<ng-icon hlm size="sm" class="mr-2" name="lucideMail" />
+			<ng-icon hlm size="sm" name="lucideMail" />
 			Login with Email
 		</button>
 	`,
@@ -31,7 +31,7 @@ import { lucideMail } from '@ng-icons/lucide';
   providers: [provideIcons({ lucideMail })],
   template: \`
     <button hlmBtn>
-      <ng-icon hlm size="sm" class="mr-2" name="lucideMail" />
+      <ng-icon hlm size="sm" name="lucideMail" />
       Login with Email
     </button>
   \`,

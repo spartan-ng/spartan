@@ -3,13 +3,15 @@ import { hlm } from '@spartan-ng/brain/core';
 import type { ClassValue } from 'clsx';
 
 @Directive({
-	selector: '[hlmCardFooter]',
+	selector: '[hlmCardAction]',
 	standalone: true,
 	host: {
 		'[class]': '_computedClass()',
 	},
 })
-export class HlmCardFooterDirective {
+export class HlmCardActionDirective {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected readonly _computedClass = computed(() => hlm('flex items-center px-6 [.border-t]:pt-6', this.userClass()));
+	protected readonly _computedClass = computed(() =>
+		hlm('col-start-2 row-span-2 row-start-1 self-start justify-self-end', this.userClass()),
+	);
 }

@@ -1,3 +1,4 @@
+const { S } = require('@angular/cdk/keycodes');
 const { fontFamily } = require('tailwindcss/defaultTheme');
 
 /** @type {import('tailwindcss').Config} */
@@ -47,9 +48,10 @@ module.exports = {
 				},
 			},
 			borderRadius: {
-				lg: 'var(--radius)',
-				md: 'calc(var(--radius) - 2px)',
 				sm: 'calc(var(--radius) - 4px)',
+				md: 'var(--radius)',
+				lg: 'calc(var(--radius) + 2px)',
+				xl: 'calc(var(--radius) + 4px)',
 			},
 			boxShadow: {
 				xs: '0 1px 2px 0 rgb(0 0 0 / 0.05)',

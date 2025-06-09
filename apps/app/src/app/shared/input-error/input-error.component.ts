@@ -1,11 +1,8 @@
 import { Component, computed } from '@angular/core';
-import { HlmInputErrorDirective } from '@spartan-ng/helm/input';
 import { injectErrorField } from 'ng-signal-forms';
 
 @Component({
 	selector: 'spartan-input-error',
-	imports: [],
-	hostDirectives: [HlmInputErrorDirective],
 	host: {
 		class: 'block mt-1 min-h-[20px] mb-4',
 		'[class.invisible]': "touchedState() === 'UNTOUCHED'",

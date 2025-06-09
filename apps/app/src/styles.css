@@ -39,7 +39,7 @@ select {
 	--destructive-foreground: 0 0% 98%;
 	--border: 240 5.9% 90%;
 	--input: 240 5.9% 90%;
-	--ring: 240 5.9% 10%;
+	--ring: 0 0.02% 63.02%;
 	--radius: 0.625rem;
 }
 
@@ -62,7 +62,7 @@ select {
 	--destructive-foreground: 0 0% 98%;
 	--border: 240 3.7% 15.9%;
 	--input: 240 3.7% 15.9%;
-	--ring: 240 4.9% 83.9%;
+	--ring: 0 0.01% 45.16%;
 }
 
 :root .theme-gray {
@@ -85,7 +85,7 @@ select {
 	--destructive: 0 84.2% 60.2%;
 	--destructive-foreground: 210 20% 98%;
 	--ring: 224 71.4% 4.1%;
-	--radius: 0.5rem;
+	--radius: 0.625rem;
 }
 
 .dark .theme-gray {
@@ -130,7 +130,7 @@ select {
 	--destructive: 0 84.2% 60.2%;
 	--destructive-foreground: 0 0% 98%;
 	--ring: 0 72.2% 50.6%;
-	--radius: 0.5rem;
+	--radius: 0.625rem;
 }
 
 .dark .theme-red {
@@ -175,7 +175,7 @@ select {
 	--border: 240 5.9% 90%;
 	--input: 240 5.9% 90%;
 	--ring: 142.1 76.2% 36.3%;
-	--radius: 0.5rem;
+	--radius: 0.625rem;
 }
 
 .dark .theme-green {

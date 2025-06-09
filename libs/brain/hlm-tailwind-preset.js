@@ -1,4 +1,3 @@
-const { S } = require('@angular/cdk/keycodes');
 const { fontFamily } = require('tailwindcss/defaultTheme');
 
 /** @type {import('tailwindcss').Config} */

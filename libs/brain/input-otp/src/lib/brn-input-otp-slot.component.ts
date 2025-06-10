@@ -4,7 +4,6 @@ import { injectBrnInputOtp } from './brn-input-otp.token';
 
 @Component({
 	selector: 'brn-input-otp-slot',
-	standalone: true,
 	template: `
 		{{ slot().char }}
 

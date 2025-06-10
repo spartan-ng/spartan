@@ -16,8 +16,7 @@ import { HlmBadgeDirective } from '@spartan-ng/helm/badge';
 
 @Component({
   selector: 'spartan-badge-secondary',
-  standalone: true,
-  imports: [HlmBadgeDirective],
+imports: [HlmBadgeDirective],
   template: \` <div hlmBadge variant="secondary">Secondary</div> \`,
 })
 export class BadgeSecondaryExampleComponent {}

@@ -8,7 +8,8 @@
 		"strictInjectionParameters": true,
 		"strictInputAccessModifiers": true,
 		"strictMetadataEmit": true,
-		"strictTemplates": true
+		"strictTemplates": true,
+		"strictStandalone": true
 	},
 	"compileOnSave": false,
 	"compilerOptions": {

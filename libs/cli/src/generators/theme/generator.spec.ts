@@ -28,7 +28,6 @@ describe('Theme generator', () => {
 			name: 'website',
 			skipFormat: true,
 			unitTestRunner: UnitTestRunner.None,
-			standalone: true,
 			skipTests: true,
 		});
 	});

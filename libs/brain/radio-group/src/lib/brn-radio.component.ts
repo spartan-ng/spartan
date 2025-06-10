@@ -24,7 +24,6 @@ export class BrnRadioChange<T> {
 
 @Component({
 	selector: 'brn-radio',
-	standalone: true,
 	host: {
 		class: 'brn-radio',
 		'[attr.id]': 'hostId()',

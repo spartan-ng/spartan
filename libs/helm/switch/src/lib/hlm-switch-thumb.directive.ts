@@ -4,7 +4,6 @@ import type { ClassValue } from 'clsx';
 
 @Directive({
 	selector: 'brn-switch-thumb[hlm],[hlmSwitchThumb]',
-	standalone: true,
 	host: {
 		'[class]': '_computedClass()',
 	},

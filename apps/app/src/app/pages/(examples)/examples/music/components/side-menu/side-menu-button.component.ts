@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 @Component({
 	// eslint-disable-next-line @angular-eslint/component-selector
 	selector: 'music-side-button',
-	standalone: true,
 	host: {
 		class: 'block',
 	},

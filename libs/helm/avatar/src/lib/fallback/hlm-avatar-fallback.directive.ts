@@ -4,7 +4,6 @@ import { hlm } from '@spartan-ng/brain/core';
 
 @Directive({
 	selector: '[hlmAvatarFallback]',
-	standalone: true,
 	exportAs: 'avatarFallback',
 	hostDirectives: [
 		{

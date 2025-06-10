@@ -28,8 +28,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 
 @Component({
   selector: 'spartan-select-preview',
-  standalone: true,
-  imports: [BrnSelectImports, HlmSelectImports],
+imports: [BrnSelectImports, HlmSelectImports],
   template: \`
     <brn-select class="inline-block" placeholder="Select an option">
       <hlm-select-trigger class="w-56">

@@ -13,8 +13,7 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-table',
-	standalone: true,
-	host: {
+host: {
 		'[class]': '_computedClass()',
 		role: 'table',
 		'[attr.aria-labelledby]': 'labeledBy()',

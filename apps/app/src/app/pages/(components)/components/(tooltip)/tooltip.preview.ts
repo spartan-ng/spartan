@@ -41,8 +41,7 @@ import { HlmTooltipComponent, HlmTooltipTriggerDirective } from '@spartan-ng/hel
 
 @Component({
   selector: 'spartan-tooltip-preview',
-  standalone: true,
-  imports: [
+imports: [
     HlmTooltipComponent,
     HlmTooltipTriggerDirective,
     BrnTooltipContentDirective,

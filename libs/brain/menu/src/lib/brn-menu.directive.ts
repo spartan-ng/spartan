@@ -4,7 +4,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Directive({
 	selector: '[brnMenu],[brnSubMenu]',
-	standalone: true,
 	host: {
 		'[attr.data-state]': '_state()',
 		'[attr.data-side]': '_side()',

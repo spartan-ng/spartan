@@ -13,7 +13,6 @@ import { BrnDialogComponent } from '@spartan-ng/brain/dialog';
 
 @Component({
 	selector: 'brn-sheet',
-	standalone: true,
 	template: `
 		<ng-content />
 	`,

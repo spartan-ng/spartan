@@ -9,7 +9,6 @@ export const BRN_ALERT_DIALOG_DEFAULT_OPTIONS: Partial<BrnDialogDefaultOptions> 
 
 @Component({
 	selector: 'brn-alert-dialog',
-	standalone: true,
 	template: `
 		<ng-content />
 	`,

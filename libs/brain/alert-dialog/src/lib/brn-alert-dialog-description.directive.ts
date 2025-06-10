@@ -3,7 +3,6 @@ import { BrnDialogDescriptionDirective } from '@spartan-ng/brain/dialog';
 
 @Directive({
 	selector: '[brnAlertDialogDescription]',
-	standalone: true,
 	host: {
 		'[id]': '_id()',
 	},

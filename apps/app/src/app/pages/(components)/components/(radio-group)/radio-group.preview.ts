@@ -56,8 +56,7 @@ import { HlmSmallDirective } from '@spartan-ng/helm/typography';
 
 @Component({
   selector: 'spartan-radio-group-preview',
-  standalone: true,
-  imports: [FormsModule, HlmRadioComponent, HlmRadioIndicatorComponent, HlmRadioGroupComponent, HlmSmallDirective],
+imports: [FormsModule, HlmRadioComponent, HlmRadioIndicatorComponent, HlmRadioGroupComponent, HlmSmallDirective],
   template: \`
     	<small hlmSmall class="font-semibold">Choose a version</small>
 		<hlm-radio-group class="font-mono text-sm font-medium" [(ngModel)]="version">

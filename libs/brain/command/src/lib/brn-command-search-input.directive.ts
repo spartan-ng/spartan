@@ -7,7 +7,6 @@ import { injectBrnCommand } from './brn-command.token';
 
 @Directive({
 	selector: 'input[brnCommandSearchInput]',
-	standalone: true,
 	providers: [
 		provideBrnCommandSearchInput(BrnCommandSearchInputDirective),
 		{

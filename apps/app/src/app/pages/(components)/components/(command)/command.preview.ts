@@ -101,8 +101,7 @@ import {
 
 @Component({
   selector: 'spartan-command-preview',
-  standalone: true,
-  imports: [BrnCommandImports, HlmCommandImports, HlmIconDirective ],
+imports: [BrnCommandImports, HlmCommandImports, HlmIconDirective ],
   providers: [
     provideIcons({ lucideSearch, lucideCalendar, lucideSmile, lucidePlus, lucideUser, lucideWallet, lucideCog }),
   ],

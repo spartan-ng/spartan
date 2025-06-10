@@ -12,8 +12,7 @@ export type PaginationItemVariants = VariantProps<typeof paginationItemVariants>
 
 @Directive({
 	selector: '[hlmPaginationItem]',
-	standalone: true,
-	host: {
+host: {
 		'[class]': '_computedClass()',
 	},
 })

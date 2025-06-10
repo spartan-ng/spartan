@@ -1,7 +1,6 @@
 import { Directive, input } from '@angular/core';
 
 @Directive({
-	standalone: true,
 	selector: '[brnCommandList]',
 	host: {
 		role: 'listbox',

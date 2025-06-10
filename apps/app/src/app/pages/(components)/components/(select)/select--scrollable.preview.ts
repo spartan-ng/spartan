@@ -73,8 +73,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 
 @Component({
 	selector: 'spartan-select-scrollable-preview',
-	standalone: true,
-	imports: [BrnSelectImports, HlmSelectImports],
+imports: [BrnSelectImports, HlmSelectImports],
 	template: \`
 		<hlm-select scrollable="true" placeholder="Select a timezone">
 			<hlm-select-trigger class="w-[280px]">

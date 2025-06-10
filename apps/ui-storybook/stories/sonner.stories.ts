@@ -21,7 +21,6 @@ type Story = StoryObj<HlmToasterComponent>;
 
 @Component({
 	selector: 'sonner-story',
-	standalone: true,
 	imports: [HlmToasterComponent, HlmButtonDirective],
 	template: `
 		<hlm-toaster />

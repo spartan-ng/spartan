@@ -3,7 +3,6 @@ import { BrnAvatarImageDirective } from './image';
 
 @Component({
 	selector: 'brn-avatar',
-	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	encapsulation: ViewEncapsulation.None,
 	template: `

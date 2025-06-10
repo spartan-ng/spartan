@@ -26,8 +26,7 @@ import { lucideMail } from '@ng-icons/lucide';
 
 @Component({
   selector: 'spartan-button-with-icon',
-  standalone: true,
-  imports: [HlmButtonDirective, HlmIconDirective],
+imports: [HlmButtonDirective, HlmIconDirective],
   providers: [provideIcons({ lucideMail })],
   template: \`
     <button hlmBtn>

@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
 import { hlm } from '@spartan-ng/brain/core';
 
 @Component({
-	standalone: true,
 	selector: 'hlm-command-group-label',
 	template: '<ng-content />',
 	host: {

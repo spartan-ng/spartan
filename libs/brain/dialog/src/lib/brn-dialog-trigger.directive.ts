@@ -7,7 +7,6 @@ let idSequence = 0;
 
 @Directive({
 	selector: 'button[brnDialogTrigger],button[brnDialogTriggerFor]',
-	standalone: true,
 	host: {
 		'[id]': 'id()',
 		'(click)': 'open()',

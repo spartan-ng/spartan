@@ -16,7 +16,6 @@ import { injectBrnSelect } from './brn-select.token';
 
 @Directive({
 	selector: '[brnSelectTrigger]',
-	standalone: true,
 	host: {
 		type: 'button',
 		role: 'combobox',

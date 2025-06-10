@@ -61,8 +61,7 @@ import {
 
 @Component({
 	selector: 'spartan-pagination-icon-only',
-	standalone: true,
-	imports: [
+imports: [
 		HlmPaginationDirective,
 		HlmPaginationContentDirective,
 		HlmPaginationItemDirective,

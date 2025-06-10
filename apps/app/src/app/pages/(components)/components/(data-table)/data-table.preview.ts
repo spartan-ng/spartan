@@ -543,8 +543,7 @@ const PAYMENT_DATA: Payment[] = [
 
 @Component({
   selector: 'spartan-data-table-preview',
-  standalone: true,
-  imports: [
+imports: [
     FormsModule,
 
     BrnMenuTriggerDirective,

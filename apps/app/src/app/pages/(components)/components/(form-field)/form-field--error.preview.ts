@@ -28,8 +28,7 @@ import { HlmFormFieldModule } from '@spartan-ng/helm/form-field';
 import { HlmInputDirective } from '@spartan-ng/helm/input';
 
 @Component({
-	standalone: true,
-	selector: 'spartan-form-field-error',
+selector: 'spartan-form-field-error',
 	imports: [ReactiveFormsModule, HlmFormFieldModule, HlmInputDirective],
 	template: \`
 		<hlm-form-field>

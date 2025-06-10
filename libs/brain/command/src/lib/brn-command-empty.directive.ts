@@ -2,7 +2,6 @@ import { computed, Directive, effect, inject, TemplateRef, ViewContainerRef } fr
 import { injectBrnCommand } from './brn-command.token';
 
 @Directive({
-	standalone: true,
 	selector: '[brnCommandEmpty]',
 })
 export class BrnCommandEmptyDirective {

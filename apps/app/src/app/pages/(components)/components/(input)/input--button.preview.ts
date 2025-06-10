@@ -22,8 +22,7 @@ import { HlmButtonDirective } from '@spartan-ng/helm/button';
 
 @Component({
   selector: 'spartan-input-button',
-  standalone: true,
-  imports: [HlmInputDirective, HlmButtonDirective],
+imports: [HlmInputDirective, HlmButtonDirective],
   template: \`
     <div class='flex items-center w-full max-w-sm space-x-2'>
       <input aria-label='Email' class='w-80' hlmInput type='email' placeholder='Email' />

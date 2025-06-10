@@ -7,7 +7,6 @@ export type BrnCollapsibleState = 'open' | 'closed';
 
 @Component({
 	selector: 'brn-collapsible',
-	standalone: true,
 	host: {
 		'[attr.data-state]': 'expanded() ? "open" : "closed"',
 		'[attr.disabled]': 'disabled() ? true : undefined',

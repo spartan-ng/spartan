@@ -5,7 +5,6 @@ import { BrnSelectGroupDirective } from './brn-select-group.directive';
 @Directive({
 	selector: '[brnSelectLabel]',
 	hostDirectives: [BrnLabelDirective],
-	standalone: true,
 })
 export class BrnSelectLabelDirective {
 	private readonly _group = inject(BrnSelectGroupDirective, { optional: true });

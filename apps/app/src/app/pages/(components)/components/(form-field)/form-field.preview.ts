@@ -25,8 +25,7 @@ import { HlmInputDirective } from '@spartan-ng/helm/input';
 
 @Component({
 	selector: 'spartan-form-field-preview',
-	standalone: true,
-	imports: [HlmInputDirective, HlmFormFieldModule],
+imports: [HlmInputDirective, HlmFormFieldModule],
 	template: \`
 		<hlm-form-field>
 			<input class="w-80" hlmInput type="email" placeholder="Email" />

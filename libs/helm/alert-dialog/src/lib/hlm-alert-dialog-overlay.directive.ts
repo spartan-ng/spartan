@@ -4,7 +4,6 @@ import type { ClassValue } from 'clsx';
 
 @Directive({
 	selector: '[hlmAlertDialogOverlay],brn-alert-dialog-overlay[hlm]',
-	standalone: true,
 })
 export class HlmAlertDialogOverlayDirective {
 	private readonly _classSettable = injectCustomClassSettable({ optional: true, host: true });

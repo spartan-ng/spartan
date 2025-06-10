@@ -5,8 +5,7 @@ import type { ClassValue } from 'clsx';
 
 @Directive({
 	selector: '[hlmDialogTitle]',
-	standalone: true,
-	host: {
+host: {
 		'[class]': '_computedClass()',
 	},
 	hostDirectives: [BrnDialogTitleDirective],

@@ -7,7 +7,6 @@ import {
 
 @Component({
 	selector: 'brn-hover-card',
-	standalone: true,
 	providers: [BrnHoverCardContentService],
 	template: `
 		<ng-content />

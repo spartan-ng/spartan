@@ -31,8 +31,7 @@ import { BrnSeparatorComponent } from '@spartan-ng/brain/separator';
 
 @Component({
   selector: 'spartan-separator-preview',
-  standalone: true,
-  imports: [HlmSeparatorDirective, BrnSeparatorComponent],
+imports: [HlmSeparatorDirective, BrnSeparatorComponent],
   template: \`
     <div>
       <div class="space-y-1">

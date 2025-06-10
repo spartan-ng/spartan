@@ -27,8 +27,7 @@ import { lucideItalic } from '@ng-icons/lucide';
 
 @Component({
   selector: 'spartan-toggle-large',
-  standalone: true,
-  imports: [BrnToggleDirective, HlmToggleDirective, HlmIconDirective],
+imports: [BrnToggleDirective, HlmToggleDirective, HlmIconDirective],
   providers: [provideIcons({ lucideItalic })],
   template: \`
     <button size="lg" brnToggle hlm>

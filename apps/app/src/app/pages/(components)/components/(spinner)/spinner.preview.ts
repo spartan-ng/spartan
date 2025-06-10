@@ -15,8 +15,7 @@ import { HlmSpinnerComponent } from '@spartan-ng/helm/spinner';
 
 @Component({
 	selector: 'spartan-spinner-preview',
-	standalone: true,
-	imports: [ HlmSpinnerComponent],
+imports: [ HlmSpinnerComponent],
 	template: \`
     <hlm-spinner />
 	\`,

@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 
 @Component({
 	selector: 'spartan-architecture-diagram-angular',
-	standalone: true,
 	host: {
 		class: 'block overflow-hidden rounded-xl border border-border',
 	},

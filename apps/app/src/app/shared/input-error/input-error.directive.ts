@@ -6,7 +6,6 @@ import { SignalInputDirective, SignalInputErrorDirective } from 'ng-signal-forms
 	// eslint-disable-next-line @angular-eslint/directive-selector
 	selector: '[ngModel][formField]',
 	hostDirectives: [SignalInputErrorDirective],
-	standalone: true,
 })
 export class SpartanInputErrorDirective implements OnInit {
 	private readonly _injector = inject(Injector);

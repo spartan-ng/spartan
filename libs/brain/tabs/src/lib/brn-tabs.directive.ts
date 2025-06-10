@@ -9,7 +9,6 @@ export type TabEntry = { trigger: BrnTabsTriggerDirective; content: BrnTabsConte
 
 @Directive({
 	selector: '[brnTabs]',
-	standalone: true,
 	host: {
 		'[attr.data-orientation]': 'orientation()',
 		'[attr.dir]': 'direction()',

@@ -44,8 +44,7 @@ import { lucideTriangleAlert } from '@ng-icons/lucide';
 
 @Component({
   selector: 'spartan-alert-destructive',
-  standalone: true,
-  imports: [
+imports: [
     HlmAlertDirective,
     HlmAlertDescriptionDirective,
     HlmAlertIconDirective,

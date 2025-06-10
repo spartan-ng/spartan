@@ -169,7 +169,7 @@ describe('GenerateUiDocs Executor', () => {
 			outputDir: 'dist/extracted-metadata',
 			outputFile: 'ui-api.json',
 			brainDir: 'libs/brain',
-			uiDir: 'libs/ui',
+			helmDir: 'libs/helm',
 		};
 
 		// Setup mock classes and decorators

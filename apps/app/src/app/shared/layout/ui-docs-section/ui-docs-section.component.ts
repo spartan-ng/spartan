@@ -1,6 +1,7 @@
 import { Component, computed, inject, input } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
+import { SubTypeRecord } from '@spartan-ng/app/app/core/models/ui-docs.model';
 import { hlmCode, hlmH4 } from '@spartan-ng/helm/typography';
 import { map } from 'rxjs/operators';
 import { ApiDocsService } from '../../../core/services/api-docs.service';
@@ -71,7 +72,7 @@ export class UIApiDocsComponent {
 	private readonly _route = inject(ActivatedRoute);
 	protected primitive = toSignal(this._route.data.pipe(map((data) => data?.['api'])));
 
-	public docType = input.required<'brain' | 'ui'>();
+	public docType = input.required<SubTypeRecord>();
 
 	protected componentDocs = computed(() => this._apiDocsService.getComponentDocs(this.primitive())());
 	protected componentItems = computed(() => this.componentDocs()?.[this.docType()] ?? {});

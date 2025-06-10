@@ -15,7 +15,7 @@ export interface ComponentMetadata {
 
 export type PrimitveComponent = Record<string, ComponentMetadata>;
 
-export type SubTypeRecord = 'brain' | 'ui';
+export type SubTypeRecord = 'brain' | 'helm';
 
 // Represents the subtype (e.g., "brain", "ui") containing components/directives
 export type PrimitiveSubTypes = Record<SubTypeRecord, PrimitveComponent>;

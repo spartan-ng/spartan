@@ -7,7 +7,7 @@ import { GenerateUiDocsExecutorSchema } from './schema';
 export default async function runExecutor(options: GenerateUiDocsExecutorSchema, context: ExecutorContext) {
 	// Convert relative paths to absolute paths using workspace root
 	const brainDir = path.join(context.root, options.brainDir);
-	const uiDir = path.join(context.root, options.uiDir);
+	const helmDir = path.join(context.root, options.helmDir);
 	const outputDir = path.join(context.root, options.outputDir);
 
 	if (!fs.existsSync(outputDir)) {
@@ -18,8 +18,8 @@ export default async function runExecutor(options: GenerateUiDocsExecutorSchema,
 	project.addSourceFilesAtPaths([
 		`${brainDir}/**/*.component.ts`,
 		`${brainDir}/**/*.directive.ts`,
-		`${uiDir}/**/*.component.ts`,
-		`${uiDir}/**/*.directive.ts`,
+		`${helmDir}/**/*.component.ts`,
+		`${helmDir}/**/*.directive.ts`,
 	]);
 
 	const extractedData = extractInputsOutputs(project, context.root);

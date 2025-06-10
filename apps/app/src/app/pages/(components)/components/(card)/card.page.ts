@@ -60,7 +60,7 @@ export const routeMeta: RouteMeta = {
 			</div>
 
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
-			<spartan-ui-api-docs docType="ui" />
+			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
 			<spartan-tabs firstTab="Preview" secondTab="Code">

@@ -74,7 +74,7 @@ export const routeMeta: RouteMeta = {
 			<spartan-ui-api-docs docType="brain" />
 
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
-			<spartan-ui-api-docs docType="ui" />
+			<spartan-ui-api-docs docType="helm" />
 
 			<h3 id="examples__stateful" class="${hlmH4} mb-2 mt-6">Stateful</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">

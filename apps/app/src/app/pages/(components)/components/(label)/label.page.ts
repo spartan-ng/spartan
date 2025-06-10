@@ -63,7 +63,7 @@ export const routeMeta: RouteMeta = {
 			<spartan-ui-api-docs docType="brain" />
 
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
-			<spartan-ui-api-docs docType="ui" />
+			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="menubar" label="Menubar" />

@@ -17,10 +17,10 @@
 			"type": "string",
 			"description": "Directory containing brain components, relative to workspace root"
 		},
-		"uiDir": {
+		"helmDir": {
 			"type": "string",
-			"description": "Directory containing UI components, relative to workspace root"
+			"description": "Directory containing helm components, relative to workspace root"
 		}
 	},
-	"required": ["outputDir", "outputFile", "brainDir", "uiDir"]
+	"required": ["outputDir", "outputFile", "brainDir", "helmDir"]
 }

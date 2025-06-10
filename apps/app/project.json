@@ -78,7 +78,7 @@
 				"outputDir": "apps/app/src/public/data",
 				"outputFile": "ui-api.json",
 				"brainDir": "libs/brain",
-				"uiDir": "libs/ui"
+				"helmDir": "libs/helm"
 			}
 		}
 	}

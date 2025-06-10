@@ -28,8 +28,8 @@ export class ApiDocsService {
 				}))
 			: [];
 
-		const helmHeaders = docs.ui
-			? Object.keys(docs.ui).map((name) => ({
+		const helmHeaders = docs.helm
+			? Object.keys(docs.helm).map((name) => ({
 					id: name.toLowerCase(),
 					label: name,
 					type: 'helm' as const,

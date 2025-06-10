@@ -1,4 +1,4 @@
-import {computed, Directive, effect, ElementRef, inject, input, OnDestroy, untracked} from '@angular/core';
+import { computed, Directive, effect, ElementRef, inject, input, OnDestroy, untracked } from '@angular/core';
 import { BrnTabsDirective } from './brn-tabs.directive';
 
 @Directive({
@@ -34,6 +34,6 @@ export class BrnTabsContentDirective implements OnDestroy {
 	}
 
 	ngOnDestroy(): void {
-		this._root.unregisterContent(this.contentFor())
+		this._root.unregisterContent(this.contentFor());
 	}
 }

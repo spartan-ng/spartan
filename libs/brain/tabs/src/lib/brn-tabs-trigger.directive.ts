@@ -1,4 +1,4 @@
-import {Directive, ElementRef, Input, computed, effect, inject, input, untracked, OnDestroy} from '@angular/core';
+import { Directive, ElementRef, Input, OnDestroy, computed, effect, inject, input, untracked } from '@angular/core';
 import { BrnTabsDirective } from './brn-tabs.directive';
 
 @Directive({

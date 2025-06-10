@@ -48,7 +48,9 @@ export class BrnTabsDirective {
 
 	public unregisterTrigger(key: string) {
 		this.updateEntry(key, { trigger: undefined });
-		this._activeTab.set(undefined);
+		if (this._activeTab() === key) {
+			this._activeTab.set(undefined);
+		}
 	}
 
 	public unregisterContent(key: string): void {

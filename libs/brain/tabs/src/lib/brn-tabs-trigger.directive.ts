@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, computed, effect, inject, input, untracked } from '@angular/core';
+import {Directive, ElementRef, Input, computed, effect, inject, input, untracked, OnDestroy} from '@angular/core';
 import { BrnTabsDirective } from './brn-tabs.directive';
 
 @Directive({
@@ -18,7 +18,7 @@ import { BrnTabsDirective } from './brn-tabs.directive';
 	},
 	exportAs: 'brnTabsTrigger',
 })
-export class BrnTabsTriggerDirective {
+export class BrnTabsTriggerDirective implements OnDestroy {
 	public readonly elementRef = inject(ElementRef);
 
 	private readonly _root = inject(BrnTabsDirective);
@@ -56,5 +56,9 @@ export class BrnTabsTriggerDirective {
 
 	public get key(): string | undefined {
 		return this.triggerFor();
+	}
+
+	ngOnDestroy(): void {
+		this._root.unregisterTrigger(this.triggerFor());
 	}
 }

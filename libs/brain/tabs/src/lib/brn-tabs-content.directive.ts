@@ -1,4 +1,4 @@
-import { computed, Directive, effect, ElementRef, inject, input, untracked } from '@angular/core';
+import {computed, Directive, effect, ElementRef, inject, input, OnDestroy, untracked} from '@angular/core';
 import { BrnTabsDirective } from './brn-tabs.directive';
 
 @Directive({
@@ -13,7 +13,7 @@ import { BrnTabsDirective } from './brn-tabs.directive';
 	},
 	exportAs: 'brnTabsContent',
 })
-export class BrnTabsContentDirective {
+export class BrnTabsContentDirective implements OnDestroy {
 	private readonly _root = inject(BrnTabsDirective);
 	private readonly _elementRef = inject(ElementRef);
 
@@ -31,5 +31,9 @@ export class BrnTabsContentDirective {
 
 	public focus() {
 		this._elementRef.nativeElement.focus();
+	}
+
+	ngOnDestroy(): void {
+		this._root.unregisterContent(this.contentFor())
 	}
 }

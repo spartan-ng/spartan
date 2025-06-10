@@ -5,6 +5,7 @@ import { BrnTabsTriggerDirective } from './brn-tabs-trigger.directive';
 export type BrnTabsOrientation = 'horizontal' | 'vertical';
 export type BrnTabsDirection = 'ltr' | 'rtl';
 export type BrnActivationMode = 'automatic' | 'manual';
+export type TabEntry = { trigger: BrnTabsTriggerDirective; content: BrnTabsContentDirective };
 
 @Directive({
 	selector: '[brnTabs]',
@@ -34,17 +35,37 @@ export class BrnTabsDirective {
 
 	public readonly tabActivated = output<string>();
 
-	private readonly _tabs = signal<{
-		[key: string]: { trigger: BrnTabsTriggerDirective; content: BrnTabsContentDirective };
-	}>({});
+	private readonly _tabs = signal<{ [key: string]: TabEntry }>({});
 	public readonly $tabs = this._tabs.asReadonly();
 
 	public registerTrigger(key: string, trigger: BrnTabsTriggerDirective) {
-		this._tabs.update((tabs) => ({ ...tabs, [key]: { trigger, content: tabs[key]?.content } }));
+		this.updateEntry(key, { trigger });
 	}
 
 	public registerContent(key: string, content: BrnTabsContentDirective) {
-		this._tabs.update((tabs) => ({ ...tabs, [key]: { trigger: tabs[key]?.trigger, content } }));
+		this.updateEntry(key, { content });
+	}
+
+	public unregisterTrigger(key: string) {
+		this.updateEntry(key, { trigger: undefined });
+		this._activeTab.set(undefined);
+	}
+
+	public unregisterContent(key: string): void {
+		this.updateEntry(key, { content: undefined });
+	}
+
+	private updateEntry(key: string, patch: Partial<TabEntry>) {
+		this._tabs.update((tabs) => {
+			const existing = tabs[key] ?? {};
+			const merged = { ...existing, ...patch };
+			const entryEmpty = !merged.trigger && !merged.content;
+			if (entryEmpty) {
+				const { [key]: removed, ...rest } = tabs;
+				return rest;
+			}
+			return { ...tabs, [key]: merged };
+		});
 	}
 
 	emitTabActivated(key: string) {

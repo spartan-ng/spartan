@@ -5,7 +5,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 	selector: 'hlm-command-shortcut',
 	template: '<ng-content />',
 	host: {
-		class: 'font-light ml-auto opacity-60 text-xs tracking-widest',
+		class: 'text-muted-foreground ml-auto text-xs tracking-widest',
 	},
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })

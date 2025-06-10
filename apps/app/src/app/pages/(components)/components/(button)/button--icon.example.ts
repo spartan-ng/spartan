@@ -9,7 +9,9 @@ import { HlmIconDirective } from '@spartan-ng/helm/icon';
 	imports: [HlmButtonDirective, NgIcon, HlmIconDirective],
 	providers: [provideIcons({ lucideChevronRight })],
 	template: `
-		<button hlmBtn size="icon" variant="outline"><ng-icon hlm size="sm" name="lucideChevronRight" /></button>
+		<button hlmBtn size="icon" variant="secondary" class="size-8">
+			<ng-icon hlm size="sm" name="lucideChevronRight" />
+		</button>
 	`,
 })
 export class ButtonIconComponent {}
@@ -27,7 +29,9 @@ import { lucideChevronRight } from '@ng-icons/lucide';
   standalone: true,
   imports: [HlmButtonDirective, HlmSpinnerComponent, HlmIconDirective],
   providers: [provideIcons({ lucideChevronRight })],
-  template: \` <button hlmBtn size="icon" variant="outline"><ng-icon hlm size='sm' name="lucideChevronRight" /></button> \`,
+  template: \` <button hlmBtn size="icon" variant="secondary" class="size-8">
+		<ng-icon hlm size='sm' name="lucideChevronRight" />
+	</button> \`,
 })
 export class ButtonIconComponent {}
 `;

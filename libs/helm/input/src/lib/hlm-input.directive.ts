@@ -1,39 +1,29 @@
-import { Directive, type DoCheck, Injector, computed, effect, inject, input, signal, untracked } from '@angular/core';
+import { BooleanInput } from '@angular/cdk/coercion';
+import {
+	Directive,
+	type DoCheck,
+	Injector,
+	booleanAttribute,
+	computed,
+	effect,
+	inject,
+	input,
+	signal,
+	untracked,
+} from '@angular/core';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { hlm } from '@spartan-ng/brain/core';
 import { BrnFormFieldControl } from '@spartan-ng/brain/form-field';
 import { ErrorStateMatcher, ErrorStateTracker } from '@spartan-ng/brain/forms';
 
-import { type VariantProps, cva } from 'class-variance-authority';
 import type { ClassValue } from 'clsx';
-
-export const inputVariants = cva(
-	'flex rounded-md border font-normal border-input bg-transparent text-base md:text-sm ring-offset-background file:border-0 file:text-foreground file:bg-transparent file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
-	{
-		variants: {
-			size: {
-				default: 'h-10 py-2 px-4 file:max-md:py-0',
-				sm: 'h-9 px-3 file:md:py-2 file:max-md:py-1.5',
-				lg: 'h-11 px-8 file:md:py-3 file:max-md:py-2.5',
-			},
-			error: {
-				auto: '[&.ng-invalid.ng-touched]:text-destructive [&.ng-invalid.ng-touched]:border-destructive [&.ng-invalid.ng-touched]:focus-visible:ring-destructive',
-				true: 'text-destructive border-destructive focus-visible:ring-destructive',
-			},
-		},
-		defaultVariants: {
-			size: 'default',
-			error: 'auto',
-		},
-	},
-);
-type InputVariants = VariantProps<typeof inputVariants>;
 
 @Directive({
 	selector: '[hlmInput]',
 	standalone: true,
 	host: {
 		'[class]': '_computedClass()',
+		'[attr.aria-invalid]': 'state().error() ? "true" : "false"',
 	},
 	providers: [
 		{
@@ -43,9 +33,9 @@ type InputVariants = VariantProps<typeof inputVariants>;
 	],
 })
 export class HlmInputDirective implements BrnFormFieldControl, DoCheck {
-	public readonly size = input<InputVariants['size']>('default');
-
-	public readonly error = input<InputVariants['error']>('auto');
+	public readonly error = input<boolean, BooleanInput>(false, {
+		transform: booleanAttribute,
+	});
 
 	protected readonly state = computed(() => ({
 		error: signal(this.error()),
@@ -53,7 +43,13 @@ export class HlmInputDirective implements BrnFormFieldControl, DoCheck {
 
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>
-		hlm(inputVariants({ size: this.size(), error: this.state().error() }), this.userClass()),
+		hlm(
+			'file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input flex h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
+			'focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]',
+			'aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive',
+			'[&.ng-invalid.ng-touched]:ring-destructive/20 dark:[&.ng-invalid.ng-touched]:ring-destructive/40 [&.ng-invalid.ng-touched]:border-destructive',
+			this.userClass(),
+		),
 	);
 
 	private readonly _injector = inject(Injector);
@@ -92,7 +88,7 @@ export class HlmInputDirective implements BrnFormFieldControl, DoCheck {
 		this._errorStateTracker.updateErrorState();
 	}
 
-	setError(error: InputVariants['error']) {
+	setError(error: boolean) {
 		this.state().error.set(error);
 	}
 }

@@ -5,7 +5,7 @@ import { provideHlmIconConfig } from '@spartan-ng/helm/icon';
 	standalone: true,
 	selector: '[hlmCommandIcon]',
 	host: {
-		class: 'inline-flex mr-2 w-4 h-4',
+		class: 'text-muted-foreground pointer-events-none shrink-0',
 	},
 	providers: [provideHlmIconConfig({ size: 'sm' })],
 })

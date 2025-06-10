@@ -13,7 +13,6 @@ import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { CardNotificationsComponent, cardNotificationsCode } from './card--notifications.example';
 import { CardPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './card.preview';
 
 export const routeMeta: RouteMeta = {
@@ -37,7 +36,6 @@ export const routeMeta: RouteMeta = {
 		PageBottomNavComponent,
 		PageBottomNavLinkComponent,
 		CardPreviewComponent,
-		CardNotificationsComponent,
 	],
 	template: `
 		<section spartanMainSection>
@@ -62,14 +60,6 @@ export const routeMeta: RouteMeta = {
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="helm" />
 
-			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div spartanCodePreview firstTab>
-					<spartan-card-notifications />
-				</div>
-				<spartan-code secondTab [code]="cardNotificationsCode" />
-			</spartan-tabs>
-
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="carousel" label="Carousel" />
 				<spartan-page-bottom-nav-link direction="previous" href="button" label="Button" />
@@ -82,5 +72,4 @@ export default class CardPageComponent {
 	protected readonly defaultCode = defaultCode;
 	protected readonly defaultSkeleton = defaultSkeleton;
 	protected readonly defaultImports = defaultImports;
-	protected readonly cardNotificationsCode = cardNotificationsCode;
 }

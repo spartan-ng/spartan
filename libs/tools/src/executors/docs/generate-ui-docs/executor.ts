@@ -16,10 +16,10 @@ export default async function runExecutor(options: GenerateUiDocsExecutorSchema,
 
 	const project = new Project();
 	project.addSourceFilesAtPaths([
-		`${brainDir}/**/*.component.ts`,
-		`${brainDir}/**/*.directive.ts`,
-		`${helmDir}/**/*.component.ts`,
-		`${helmDir}/**/*.directive.ts`,
+		`${brainDir}/**/brn-!(*.spec).ts`,
+		`${helmDir}/**/hlm-!(*.spec).ts`,
+		// aspect ratio is odd one out
+		`${helmDir}/**/helm-!(*.spec).ts`,
 	]);
 
 	const extractedData = extractInputsOutputs(project, context.root);

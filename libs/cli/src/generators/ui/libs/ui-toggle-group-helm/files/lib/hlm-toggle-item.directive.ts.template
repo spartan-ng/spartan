@@ -30,7 +30,7 @@ type ToggleGroupItemVariants = VariantProps<typeof toggleGroupItemVariants>;
 
 @Directive({
 	selector: '[hlmToggleGroupItem],[brnToggleGroupItem][hlm]',
-host: {
+	host: {
 		'[class]': '_computedClass()',
 	},
 })

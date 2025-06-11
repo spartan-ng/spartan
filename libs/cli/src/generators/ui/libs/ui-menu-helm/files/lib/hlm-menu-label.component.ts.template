@@ -4,7 +4,7 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-menu-label',
-template: `
+	template: `
 		<ng-content />
 	`,
 	host: {

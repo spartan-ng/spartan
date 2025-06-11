@@ -5,7 +5,7 @@ import type { ClassValue } from 'clsx';
 
 @Directive({
 	selector: '[hlmDialogDescription]',
-host: {
+	host: {
 		'[class]': '_computedClass()',
 	},
 	hostDirectives: [BrnDialogDescriptionDirective],

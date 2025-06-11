@@ -6,7 +6,7 @@ export const hlmLead = 'text-xl text-muted-foreground';
 
 @Directive({
 	selector: '[hlmLead]',
-host: {
+	host: {
 		'[class]': '_computedClass()',
 	},
 })

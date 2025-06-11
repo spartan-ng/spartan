@@ -8,7 +8,7 @@ import { toggleGroupItemVariants } from './hlm-toggle-item.directive';
 type ToggleGroupItemVariants = VariantProps<typeof toggleGroupItemVariants>;
 @Directive({
 	selector: 'brn-toggle-group[hlm],[hlmToggleGroup]',
-host: {
+	host: {
 		'[class]': '_computedClass()',
 	},
 	providers: [provideHlmToggleGroup(HlmToggleGroupDirective)],

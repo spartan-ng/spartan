@@ -14,7 +14,7 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-hover-card-content',
-host: {
+	host: {
 		'[class]': '_computedClass()',
 	},
 	template: `

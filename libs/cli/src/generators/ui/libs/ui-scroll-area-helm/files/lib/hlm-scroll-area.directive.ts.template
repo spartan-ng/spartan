@@ -4,7 +4,7 @@ import type { ClassValue } from 'clsx';
 
 @Directive({
 	selector: 'ng-scrollbar[hlm]',
-host: {
+	host: {
 		'[class]': '_computedClass()',
 		'[style.--scrollbar-border-radius.px]': '100',
 		'[style.--scrollbar-offset]': '3',

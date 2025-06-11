@@ -7,7 +7,7 @@ const btnLike =
 
 @Component({
 	selector: 'hlm-radio-indicator',
-host: {
+	host: {
 		'[class]': '_computedClass()',
 	},
 	template: `

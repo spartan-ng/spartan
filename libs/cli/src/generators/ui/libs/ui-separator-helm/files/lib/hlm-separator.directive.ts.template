@@ -5,7 +5,7 @@ import type { ClassValue } from 'clsx';
 export type HlmSeparatorOrientation = 'horizontal' | 'vertical';
 @Directive({
 	selector: '[hlmSeparator],brn-separator[hlm]',
-host: {
+	host: {
 		'[class]': '_computedClass()',
 	},
 })

@@ -33,7 +33,7 @@ export type ButtonVariants = VariantProps<typeof buttonVariants>;
 
 @Directive({
 	selector: '[hlmBtn]',
-exportAs: 'hlmBtn',
+	exportAs: 'hlmBtn',
 	host: {
 		'[class]': '_computedClass()',
 	},

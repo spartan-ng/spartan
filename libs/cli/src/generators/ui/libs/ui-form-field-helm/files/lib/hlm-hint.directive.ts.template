@@ -3,7 +3,7 @@ import { Directive } from '@angular/core';
 @Directive({
 	// eslint-disable-next-line @angular-eslint/directive-selector
 	selector: 'hlm-hint',
-host: {
+	host: {
 		class: 'block text-sm text-muted-foreground',
 	},
 })

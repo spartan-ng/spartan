@@ -3,7 +3,7 @@ import { BrnTabsDirective } from '@spartan-ng/brain/tabs';
 
 @Component({
 	selector: 'hlm-tabs',
-hostDirectives: [
+	hostDirectives: [
 		{
 			directive: BrnTabsDirective,
 			inputs: ['orientation', 'direction', 'activationMode', 'brnTabs: tab'],

@@ -7,7 +7,7 @@ import { HlmSelectContentDirective } from './hlm-select-content.directive';
 @Directive({
 	selector: '[hlmSelectLabel], hlm-select-label',
 	hostDirectives: [BrnSelectLabelDirective],
-host: {
+	host: {
 		'[class]': '_computedClass()',
 	},
 })

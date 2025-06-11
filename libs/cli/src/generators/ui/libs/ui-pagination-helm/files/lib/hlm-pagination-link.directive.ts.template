@@ -14,7 +14,7 @@ export type PaginationLinkVariants = VariantProps<typeof paginationLinkVariants>
 
 @Directive({
 	selector: '[hlmPaginationLink]',
-hostDirectives: [
+	hostDirectives: [
 		{
 			directive: RouterLink,
 			inputs: [

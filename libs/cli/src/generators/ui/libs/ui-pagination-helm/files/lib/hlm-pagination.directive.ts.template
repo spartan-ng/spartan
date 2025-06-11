@@ -11,7 +11,7 @@ export type PaginationVariants = VariantProps<typeof paginationVariants>;
 
 @Directive({
 	selector: '[hlmPagination]',
-host: {
+	host: {
 		role: 'navigation',
 		'[class]': '_computedClass()',
 		'[attr.aria-label]': 'ariaLabel()',

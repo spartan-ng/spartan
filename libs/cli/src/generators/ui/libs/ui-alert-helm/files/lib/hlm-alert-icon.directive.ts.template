@@ -3,6 +3,6 @@ import { provideHlmIconConfig } from '@spartan-ng/helm/icon';
 
 @Directive({
 	selector: '[hlmAlertIcon]',
-providers: [provideHlmIconConfig({ size: 'sm' })],
+	providers: [provideHlmIconConfig({ size: 'sm' })],
 })
 export class HlmAlertIconDirective {}

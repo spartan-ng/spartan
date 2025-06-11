@@ -22,7 +22,7 @@ type MenuVariants = VariantProps<typeof menuVariants>;
 
 @Component({
 	selector: 'hlm-menu',
-host: {
+	host: {
 		'[class]': '_computedClass()',
 	},
 	hostDirectives: [BrnMenuDirective],

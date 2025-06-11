@@ -5,7 +5,7 @@ import type { ClassValue } from 'clsx';
 
 @Directive({
 	selector: 'button[hlmAlertDialogCancel]',
-hostDirectives: [HlmButtonDirective],
+	hostDirectives: [HlmButtonDirective],
 	providers: [provideBrnButtonConfig({ variant: 'outline' })],
 	host: {
 		'[class]': '_computedClass()',

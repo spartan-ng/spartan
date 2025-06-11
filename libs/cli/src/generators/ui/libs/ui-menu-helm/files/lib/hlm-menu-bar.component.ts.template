@@ -5,7 +5,7 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-menu-bar',
-host: {
+	host: {
 		'[class]': '_computedClass()',
 	},
 	hostDirectives: [BrnMenuBarDirective],

@@ -6,7 +6,7 @@ import { Task } from '../services/tasks.models';
 import { CellContext, injectFlexRenderContext } from '@tanstack/angular-table';
 
 @Component({
-	selector: 'spartan-title-tabledata',
+	selector: 'spartan-title-cell',
 	imports: [],
 	providers: [provideIcons({ lucideEllipsis })],
 	template: `

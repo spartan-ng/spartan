@@ -15,7 +15,7 @@ import { CellContext, injectFlexRenderContext } from '@tanstack/angular-table';
 import { StatusIconPipe } from '../pipes/status-icon.pipe';
 
 @Component({
-	selector: 'spartan-title-tabledata',
+	selector: 'spartan-status-icon-cell',
 	imports: [StatusIconPipe, NgIcon, HlmIconDirective],
 	providers: [
 		provideIcons({

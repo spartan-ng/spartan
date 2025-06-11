@@ -14,7 +14,7 @@ import { CellContext, injectFlexRenderContext } from '@tanstack/angular-table';
 import { PriorityIconPipe } from '../pipes/priority-icon.pipe';
 
 @Component({
-	selector: 'spartan-title-tabledata',
+	selector: 'spartan-priority-icon-cell',
 	imports: [PriorityIconPipe, NgIcon, HlmIconDirective],
 	providers: [
 		provideIcons({

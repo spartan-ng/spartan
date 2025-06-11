@@ -17,7 +17,7 @@ import { CellContext, injectFlexRenderContext } from '@tanstack/angular-table';
 import { Task } from '../services/tasks.models';
 
 @Component({
-	selector: 'spartan-action-dropdown',
+	selector: 'spartan-action-dropdown-tasks',
 	imports: [
 		HlmButtonDirective,
 		NgIcon,

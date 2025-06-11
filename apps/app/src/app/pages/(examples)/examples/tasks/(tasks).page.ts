@@ -153,11 +153,9 @@ import { Task, TASK_DATA } from './services/tasks.models';
 
 			<table-actions table="table" />
 
-			<!-- TODO 	stickyHeader -->
-
-			<div class="w-full overflow-x-auto rounded-md border">
+			<div class="max-h-[700px] w-full overflow-auto rounded-md border">
 				<table hlmTable>
-					<thead hlmTHead>
+					<thead hlmTHead class="bg-background sticky top-0 z-10">
 						@for (headerGroup of table.getHeaderGroups(); track headerGroup.id) {
 							<tr hlmTr>
 								@for (header of headerGroup.headers; track header.id) {
@@ -192,50 +190,43 @@ import { Task, TASK_DATA } from './services/tasks.models';
 						}
 					</tbody>
 				</table>
+			</div>
+			<div class="mt-4 flex flex-col justify-between sm:flex-row sm:items-center">
+				<span class="text-muted-foreground text-sm">
+					{{ table.getSelectedRowModel().rows.length }} of {{ table.getRowCount() }} row(s) selected
+				</span>
+				<div class="mt-2 flex sm:mt-0">
+					<brn-select
+						class="inline-block"
+						placeholder="{{ availablePageSizes[0] }}"
+						[ngModel]="table.getState().pagination.pageSize"
+						(ngModelChange)="table.setPageSize($event); table.resetPageIndex()"
+					>
+						<hlm-select-trigger class="w-15 mr-1 inline-flex h-9">
+							<hlm-select-value />
+						</hlm-select-trigger>
+						<hlm-select-content>
+							@for (size of availablePageSizes; track size) {
+								<hlm-option [value]="size">
+									{{ size === 10000 ? 'All' : size }}
+								</hlm-option>
+							}
+						</hlm-select-content>
+					</brn-select>
 
-				<div class="mt-4 flex flex-col justify-between sm:flex-row sm:items-center">
-					<span class="text-muted-foreground text-sm">
-						{{ table.getSelectedRowModel().rows.length }} of {{ table.getRowCount() }} row(s) selected
-					</span>
-					<div class="mt-2 flex sm:mt-0">
-						<brn-select
-							class="inline-block"
-							placeholder="{{ availablePageSizes[0] }}"
-							[ngModel]="table.getState().pagination.pageSize"
-							(ngModelChange)="table.setPageSize($event); table.resetPageIndex()"
+					<div class="flex space-x-1">
+						<button
+							size="sm"
+							variant="outline"
+							hlmBtn
+							[disabled]="!table.getCanPreviousPage()"
+							(click)="table.previousPage()"
 						>
-							<hlm-select-trigger class="w-15 mr-1 inline-flex h-9">
-								<hlm-select-value />
-							</hlm-select-trigger>
-							<hlm-select-content>
-								@for (size of availablePageSizes; track size) {
-									<hlm-option [value]="size">
-										{{ size === 10000 ? 'All' : size }}
-									</hlm-option>
-								}
-							</hlm-select-content>
-						</brn-select>
-
-						<div class="flex space-x-1">
-							<button
-								size="sm"
-								variant="outline"
-								hlmBtn
-								[disabled]="!table.getCanPreviousPage()"
-								(click)="table.previousPage()"
-							>
-								Previous
-							</button>
-							<button
-								size="sm"
-								variant="outline"
-								hlmBtn
-								[disabled]="!table.getCanNextPage()"
-								(click)="table.nextPage()"
-							>
-								Next
-							</button>
-						</div>
+							Previous
+						</button>
+						<button size="sm" variant="outline" hlmBtn [disabled]="!table.getCanNextPage()" (click)="table.nextPage()">
+							Next
+						</button>
 					</div>
 				</div>
 			</div>

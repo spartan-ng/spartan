@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal, TrackByFunction } from '@angular/core';
+import { Component, inject, signal, TrackByFunction } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
@@ -23,18 +23,38 @@ import {
 } from '@ng-icons/lucide';
 import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
 import { BrnSelectModule } from '@spartan-ng/brain/select';
-import { BrnTableModule, PaginatorState } from '@spartan-ng/brain/table';
 import { HlmAvatarImports } from '@spartan-ng/helm/avatar';
 import { HlmButtonModule } from '@spartan-ng/helm/button';
-import { HlmCheckboxComponent } from '@spartan-ng/helm/checkbox';
 import { HlmIconDirective } from '@spartan-ng/helm/icon';
 import { HlmMenuModule } from '@spartan-ng/helm/menu';
 import { HlmSelectModule } from '@spartan-ng/helm/select';
 import { HlmTableModule } from '@spartan-ng/helm/table';
+import {
+	ColumnDef,
+	ColumnFiltersState,
+	createAngularTable,
+	flexRenderComponent,
+	FlexRenderDirective,
+	getCoreRowModel,
+	getFilteredRowModel,
+	getPaginationRowModel,
+	getSortedRowModel,
+	PaginationState,
+	SortingState,
+	VisibilityState,
+} from '@tanstack/angular-table';
+import {
+	TableHeadSelectionComponent,
+	TableRowSelectionComponent,
+} from '../../../(components)/components/(data-table)/selection-column.component';
+import { TableHeadSortButtonComponent } from '../../../(components)/components/(data-table)/sort-header-button.component';
+import { ActionDropdownComponent } from './components/action-dropdown.component';
+import { PriorityIconCellComponent } from './components/priority-icon-cell.component';
+import { StatusIconCellComponent } from './components/status-icon-cell.component';
 import { TableActionsComponent } from './components/table-actions.component';
-import { PriorityIconPipe } from './pipes/priority-icon.pipe';
-import { StatusIconPipe } from './pipes/status-icon.pipe';
-import { SortingColumns, Task, TasksService } from './services/tasks.service';
+import { TitleCellComponent } from './components/title-cell.component';
+import { DEFAULT_TASK_TABLE_COLUMNS, LocalStorageService } from './services/local-storage.service';
+import { Task, TASK_DATA } from './services/tasks.models';
 
 @Component({
 	selector: 'spartan-data-table-preview',
@@ -42,18 +62,15 @@ import { SortingColumns, Task, TasksService } from './services/tasks.service';
 		FormsModule,
 		BrnMenuTriggerDirective,
 		HlmMenuModule,
-		BrnTableModule,
 		HlmTableModule,
 		HlmButtonModule,
 		HlmIconDirective,
-		HlmCheckboxComponent,
 		BrnSelectModule,
 		HlmSelectModule,
 		TableActionsComponent,
 		NgIcon,
-		StatusIconPipe,
-		PriorityIconPipe,
 		HlmAvatarImports,
+		FlexRenderDirective,
 	],
 	providers: [
 		provideIcons({
@@ -134,145 +151,59 @@ import { SortingColumns, Task, TasksService } from './services/tasks.service';
 				</ng-template>
 			</div>
 
-			<table-actions />
+			<table-actions table="table" />
 
-			<div class="wip-table">
-				<brn-table
-					hlm
-					stickyHeader
-					class="border-border mt-4 block max-h-[700px] overflow-auto rounded-md border"
-					[dataSource]="tableSource()"
-					[displayedColumns]="allDisplayedColumns()"
-					[trackBy]="trackBy"
-				>
-					<brn-column-def name="select" class="w-12">
-						<hlm-th *brnHeaderDef>
-							<hlm-checkbox [checked]="checkboxState()" (changed)="handleHeaderCheckboxChange()" />
-						</hlm-th>
-						<hlm-td *brnCellDef="let element">
-							<hlm-checkbox [checked]="isPaymentSelected(element)" (changed)="togglePayment(element)" />
-						</hlm-td>
-					</brn-column-def>
-					<brn-column-def name="id" class="w-32">
-						<hlm-th truncate *brnHeaderDef>
-							<button hlmBtn size="sm" variant="ghost" (click)="handleTaskSortChange('id')">
-								Id
-								<ng-icon hlm class="ml-3" size="sm" name="lucideArrowUpDown" />
-							</button>
-						</hlm-th>
-						<hlm-td truncate *brnCellDef="let element">
-							{{ element.id }}
-						</hlm-td>
-					</brn-column-def>
-					<brn-column-def name="title" class="w-60 flex-1">
-						<hlm-th *brnHeaderDef>
-							<button hlmBtn size="sm" variant="ghost" (click)="handleTaskSortChange('title')">
-								Title
-								<ng-icon hlm class="ml-3" size="sm" name="lucideArrowUpDown" />
-							</button>
-						</hlm-th>
-						<hlm-td truncate *brnCellDef="let element" class="font-medium">
-							<div
-								class="text-foreground inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-semibold"
-							>
-								{{ element.type }}
-							</div>
-							{{ element.title }}
-						</hlm-td>
-					</brn-column-def>
-					<brn-column-def name="status" class="w-32">
-						<hlm-th *brnHeaderDef>
-							<button hlmBtn size="sm" variant="ghost" (click)="handleTaskSortChange('status')">
-								Status
-								<ng-icon hlm class="ml-3" size="sm" name="lucideArrowUpDown" />
-							</button>
-						</hlm-th>
-						<hlm-td truncate *brnCellDef="let element">
-							<div class="flex items-center">
-								<ng-icon hlm class="text-muted-foreground mr-2" size="sm" [name]="element.status | statusIcon" />
-								<span>{{ element.status }}</span>
-							</div>
-						</hlm-td>
-					</brn-column-def>
-					<brn-column-def name="priority" class="w-32">
-						<hlm-th *brnHeaderDef>
-							<button hlmBtn size="sm" variant="ghost" (click)="handleTaskSortChange('priority')">
-								Priority
-								<ng-icon hlm class="ml-3" size="sm" name="lucideArrowUpDown" />
-							</button>
-						</hlm-th>
-						<hlm-td *brnCellDef="let element">
-							<div class="flex items-center">
-								<ng-icon hlm class="text-muted-foreground mr-2" size="sm" [name]="element.priority | priorityIcon" />
-								{{ element.priority }}
-							</div>
-						</hlm-td>
-					</brn-column-def>
-					<brn-column-def name="actions" class="w-16">
-						<hlm-th *brnHeaderDef></hlm-th>
-						<hlm-td *brnCellDef="let element">
-							<button hlmBtn variant="ghost" class="h-6 w-6 p-0.5" align="end" [brnMenuTriggerFor]="menu">
-								<ng-icon hlm size="sm" name="lucideEllipsis" />
-							</button>
+			<!-- TODO 	stickyHeader -->
 
-							<ng-template #menu>
-								<hlm-menu>
-									<hlm-menu-label>Actions</hlm-menu-label>
-									<hlm-menu-separator />
-									<hlm-menu-group>
-										<button hlmMenuItem>Edit</button>
-										<button hlmMenuItem>Make a copy</button>
-										<button hlmMenuItem>Favorite</button>
-									</hlm-menu-group>
-									<hlm-menu-separator />
-									<hlm-menu-group>
-										<button hlmMenuItem [brnMenuTriggerFor]="labels">
-											Labels
-											<ng-icon hlm name="lucideChevronRight" class="ml-auto" size="sm" />
-										</button>
-									</hlm-menu-group>
-									<hlm-menu-separator />
-									<hlm-menu-group>
-										<button hlmMenuItem>
-											Delete
-											<span class="ml-auto text-xs tracking-widest opacity-60">⌘⌫</span>
-										</button>
-									</hlm-menu-group>
-								</hlm-menu>
-							</ng-template>
-							<ng-template #labels>
-								<hlm-menu>
-									<hlm-menu-group>
-										<button hlmMenuItemCheckbox [checked]="element.type === 'Bug'">
-											<hlm-menu-item-radio />
-											<span>Bug</span>
-										</button>
+			<div class="w-full overflow-x-auto rounded-md border">
+				<table hlmTable>
+					<thead hlmTHead>
+						@for (headerGroup of table.getHeaderGroups(); track headerGroup.id) {
+							<tr hlmTr>
+								@for (header of headerGroup.headers; track header.id) {
+									<th hlmTh [attr.colSpan]="header.colSpan">
+										@if (!header.isPlaceholder) {
+											<ng-container
+												*flexRender="header.column.columnDef.header; props: header.getContext(); let headerText"
+											>
+												<div [innerHTML]="headerText"></div>
+											</ng-container>
+										}
+									</th>
+								}
+							</tr>
+						}
+					</thead>
+					<tbody hlmTBody class="w-full">
+						@for (row of table.getRowModel().rows; track row.id) {
+							<tr hlmTr [attr.key]="row.id" [attr.data-state]="row.getIsSelected() && 'selected'">
+								@for (cell of row.getVisibleCells(); track $index) {
+									<td hlmTd>
+										<ng-container *flexRender="cell.column.columnDef.cell; props: cell.getContext(); let cell">
+											<div [innerHTML]="cell"></div>
+										</ng-container>
+									</td>
+								}
+							</tr>
+						} @empty {
+							<tr hlmTr>
+								<td hlmTd class="h-24 text-center" [attr.colspan]="_columns.length">No results.</td>
+							</tr>
+						}
+					</tbody>
+				</table>
 
-										<button hlmMenuItemCheckbox [checked]="element.type === 'Feature'">
-											<hlm-menu-item-radio />
-											<span>Feature</span>
-										</button>
-
-										<button hlmMenuItemCheckbox [checked]="element.type === 'Documentation'">
-											<hlm-menu-item-radio />
-											<span>Documentation</span>
-										</button>
-									</hlm-menu-group>
-								</hlm-menu>
-							</ng-template>
-						</hlm-td>
-					</brn-column-def>
-					<div class="text-muted-foreground flex items-center justify-center p-20" brnNoDataRow>No data</div>
-				</brn-table>
-				<div
-					class="mt-4 flex flex-col justify-between sm:flex-row sm:items-center"
-					*brnPaginator="let ctx; totalElements: totalElements(); pageSize: pageSize(); onStateChange: _onStateChange"
-				>
+				<div class="mt-4 flex flex-col justify-between sm:flex-row sm:items-center">
 					<span class="text-muted-foreground text-sm">
-						{{ selected().length }} of {{ totalElements() }} row(s) selected
+						{{ table.getSelectedRowModel().rows.length }} of {{ table.getRowCount() }} row(s) selected
 					</span>
 					<div class="mt-2 flex sm:mt-0">
-						<brn-select class="inline-block" placeholder="{{ availablePageSizes[0] }}" [(ngModel)]="pageSize">
+						<brn-select
+							class="inline-block"
+							placeholder="{{ availablePageSizes[0] }}"
+							[ngModel]="table.getState().pagination.pageSize"
+							(ngModelChange)="table.setPageSize($event); table.resetPageIndex()"
+						>
 							<hlm-select-trigger class="w-15 mr-1 inline-flex h-9">
 								<hlm-select-value />
 							</hlm-select-trigger>
@@ -286,10 +217,22 @@ import { SortingColumns, Task, TasksService } from './services/tasks.service';
 						</brn-select>
 
 						<div class="flex space-x-1">
-							<button size="sm" variant="outline" hlmBtn [disabled]="!ctx.decrementable()" (click)="ctx.decrement()">
+							<button
+								size="sm"
+								variant="outline"
+								hlmBtn
+								[disabled]="!table.getCanPreviousPage()"
+								(click)="table.previousPage()"
+							>
 								Previous
 							</button>
-							<button size="sm" variant="outline" hlmBtn [disabled]="!ctx.incrementable()" (click)="ctx.increment()">
+							<button
+								size="sm"
+								variant="outline"
+								hlmBtn
+								[disabled]="!table.getCanNextPage()"
+								(click)="table.nextPage()"
+							>
 								Next
 							</button>
 						</div>
@@ -300,32 +243,97 @@ import { SortingColumns, Task, TasksService } from './services/tasks.service';
 	`,
 })
 export default class TasksExamplePageComponent {
-	private readonly _tasksService = inject(TasksService);
-
 	protected readonly trackBy: TrackByFunction<Task> = (_: number, p: Task) => p.id;
-	protected readonly totalElements = computed(() => this._tasksService._filteredTasks().length);
 	protected readonly availablePageSizes = [5, 10, 20, 10000];
 	protected readonly pageSize = signal(this.availablePageSizes[1]); // default to page size 10
+	private readonly _localStorageService = inject(LocalStorageService);
 
-	protected readonly allDisplayedColumns = this._tasksService.getAllDisplayedColumns();
-	protected readonly selected = this._tasksService.getSelected();
-	protected readonly checkboxState = this._tasksService.getCheckboxState();
-	protected readonly tableSource = this._tasksService.getFilteredSortedPaginatedTasks();
-
-	protected readonly isPaymentSelected = (payment: Task) => this._tasksService.isTaskSelected(payment);
-
-	handleTaskSortChange(column: SortingColumns) {
-		this._tasksService.handleTaskSortChange(column);
+	constructor() {
+		const cols = this._localStorageService.getTaskTableColumns();
+		this._visibility.set(cols as VisibilityState);
 	}
 
-	togglePayment(payment: Task) {
-		this._tasksService.toggleTask(payment);
-	}
+	protected readonly _columns: ColumnDef<Task>[] = [
+		{
+			accessorKey: 'select',
+			id: 'select',
+			header: () => flexRenderComponent(TableHeadSelectionComponent),
+			cell: () => flexRenderComponent(TableRowSelectionComponent),
+			enableSorting: false,
+			enableHiding: false,
+		},
+		{
+			accessorKey: 'id',
+			id: 'id',
+			header: () => flexRenderComponent(TableHeadSortButtonComponent),
+			cell: (info) => info.getValue(),
+		},
+		{
+			accessorKey: 'title',
+			id: 'title',
+			header: () => flexRenderComponent(TableHeadSortButtonComponent),
+			cell: () => flexRenderComponent(TitleCellComponent),
+		},
+		{
+			accessorKey: 'status',
+			id: 'status',
+			filterFn: 'arrIncludesSome',
+			header: () => flexRenderComponent(TableHeadSortButtonComponent),
+			cell: () => flexRenderComponent(StatusIconCellComponent),
+		},
+		{
+			accessorKey: 'priority',
+			id: 'priority',
+			filterFn: 'arrIncludesSome',
+			header: () => flexRenderComponent(TableHeadSortButtonComponent),
+			cell: () => flexRenderComponent(PriorityIconCellComponent),
+		},
+		{
+			id: 'action',
+			enableHiding: false,
+			cell: () => flexRenderComponent(ActionDropdownComponent),
+		},
+	];
 
-	handleHeaderCheckboxChange() {
-		this._tasksService.handleHeaderCheckboxChange();
-	}
+	private readonly _visibility = signal<VisibilityState>(DEFAULT_TASK_TABLE_COLUMNS);
+	private readonly _columnFilters = signal<ColumnFiltersState>([]);
+	private readonly _sorting = signal<SortingState>([]);
+	private readonly _pagination = signal<PaginationState>({
+		pageSize: 10,
+		pageIndex: 0,
+	});
 
-	protected readonly _onStateChange = ({ startIndex, endIndex }: PaginatorState) =>
-		this._tasksService.setDisplayedIndices(startIndex, endIndex);
+	public readonly table = createAngularTable<Task>(() => ({
+		data: TASK_DATA,
+		columns: this._columns,
+		state: {
+			columnFilters: this._columnFilters(),
+			sorting: this._sorting(),
+			pagination: this._pagination(),
+			columnVisibility: this._visibility(),
+		},
+		onColumnVisibilityChange: (updater) => {
+			updater instanceof Function ? this._visibility.update(updater) : this._visibility.set(updater);
+			this._localStorageService.saveTaskTableColumns(this._visibility());
+		},
+
+		onColumnFiltersChange: (updater) => {
+			updater instanceof Function ? this._columnFilters.update(updater) : this._columnFilters.set(updater);
+		},
+		onSortingChange: (updater) => {
+			updater instanceof Function ? this._sorting.update(updater) : this._sorting.set(updater);
+		},
+		onPaginationChange: (updater) => {
+			updater instanceof Function ? this._pagination.update(updater) : this._pagination.set(updater);
+		},
+		getCoreRowModel: getCoreRowModel(),
+		getFilteredRowModel: getFilteredRowModel(),
+		getSortedRowModel: getSortedRowModel(),
+		getPaginationRowModel: getPaginationRowModel(),
+		initialState: {
+			pagination: {
+				pageSize: 10,
+			},
+		},
+	}));
 }

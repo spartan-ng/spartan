@@ -40,7 +40,7 @@ export const routeMeta: RouteMeta = {
 	],
 	template: `
 		<section spartanMainSection>
-			<spartan-section-intro name="Table" lead="A responsive table component." />
+			<spartan-section-intro name="Table" lead="Apply responsive styles to a native HTML table. " />
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -62,24 +62,20 @@ export const routeMeta: RouteMeta = {
 				<spartan-code [code]="defaultSkeleton" />
 			</div>
 
-			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
-			<spartan-ui-api-docs docType="brain" />
-
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-section-sub-heading id="data-table">Data Table</spartan-section-sub-heading>
 			<p class="${hlmP}">
-				You can use the
-				<code class="${hlmCode} mr-0.5">brn-table</code>
-				component to build more complex data tables.
+				For more complex tables, have a look at the data table , which is powered by the incredible work of
+				<code class="${hlmCode} mr-0.5">TanStack-Table</code>
+				.
 			</p>
 			<p class="${hlmP}">
 				See the
 				<a class="font-semibold underline underline-offset-4" routerLink="/components/data-table">Data Table</a>
 				documentation for more information.
 			</p>
-			<p class="${hlmP}">We are also working on an example using the data table...</p>
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="tabs" label="Tabs" />

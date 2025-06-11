@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { TaskStatus } from '../services/tasks.service';
+import { TaskStatus } from '../services/tasks.models';
 
 @Pipe({
 	name: 'statusIcon',

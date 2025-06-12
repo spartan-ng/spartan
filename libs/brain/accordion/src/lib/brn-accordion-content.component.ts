@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed, inject, signal } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	ViewEncapsulation,
+	computed,
+	inject,
+	input,
+	linkedSignal,
+} from '@angular/core';
 import type { CustomElementClassSettable } from '@spartan-ng/brain/core';
 import type { ClassValue } from 'clsx';
 import { BrnAccordionItemDirective } from './brn-accordion.directive';
@@ -29,7 +37,12 @@ export class BrnAccordionContentComponent implements CustomElementClassSettable 
 	public readonly ariaLabeledBy = `brn-accordion-trigger-${this._item.id}`;
 
 	protected readonly _addInert = computed(() => (this.state() === 'closed' ? true : undefined));
-	protected readonly _contentClass = signal<ClassValue>('');
+	/**
+	 * The class to be applied to the content element.
+	 */
+	public readonly contentClass = input<ClassValue>('');
+
+	protected readonly _contentClass = linkedSignal(() => this.contentClass());
 
 	constructor() {
 		if (!this._item) {

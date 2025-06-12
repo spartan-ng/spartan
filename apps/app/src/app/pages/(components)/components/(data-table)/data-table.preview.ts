@@ -1,8 +1,7 @@
-import { CommonModule } from '@angular/common';
 import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideArrowUpDown, lucideChevronDown, lucideEllipsis } from '@ng-icons/lucide';
+import { lucideChevronDown } from '@ng-icons/lucide';
 import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
 import { BrnSelectModule } from '@spartan-ng/brain/select';
 import { HlmButtonModule } from '@spartan-ng/helm/button';
@@ -49,10 +48,9 @@ export type Payment = {
 		HlmInputDirective,
 		BrnSelectModule,
 		HlmSelectModule,
-		CommonModule,
 		...HlmTableImports,
 	],
-	providers: [provideIcons({ lucideChevronDown, lucideEllipsis, lucideArrowUpDown })],
+	providers: [provideIcons({ lucideChevronDown })],
 	host: {
 		class: 'w-full',
 	},
@@ -190,7 +188,8 @@ export class DataTablePreviewComponent {
 		{
 			accessorKey: 'status',
 			id: 'status',
-			header: () => 'Status',
+			header: 'Status',
+			cell: (info) => `<span class="capitalize">${info.getValue<string>()}</span>`,
 			enableSorting: false,
 		},
 		{
@@ -201,9 +200,8 @@ export class DataTablePreviewComponent {
 		{
 			accessorKey: 'amount',
 			id: 'amount',
-			header: () => '<div class="text-right">Amount</div>',
+			header: '<div class="text-right">Amount</div>',
 			enableSorting: false,
-
 			cell: (info) => {
 				const amount = parseFloat(info.getValue<string>());
 				const formatted = new Intl.NumberFormat('en-US', {
@@ -388,11 +386,10 @@ const PAYMENT_DATA: Payment[] = [
 ];
 
 export const defaultCode = `
-import { CommonModule } from '@angular/common';
 import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideArrowUpDown, lucideChevronDown, lucideEllipsis } from '@ng-icons/lucide';
+import { lucideChevronDown } from '@ng-icons/lucide';
 import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
 import { BrnSelectModule } from '@spartan-ng/brain/select';
 import { HlmButtonModule } from '@spartan-ng/helm/button';
@@ -439,10 +436,9 @@ export type Payment = {
 		HlmInputDirective,
 		BrnSelectModule,
 		HlmSelectModule,
-		CommonModule,
 		...HlmTableImports,
 	],
-	providers: [provideIcons({ lucideChevronDown, lucideEllipsis, lucideArrowUpDown })],
+	providers: [provideIcons({ lucideChevronDown })],
 	host: {
 		class: 'w-full',
 	},
@@ -470,7 +466,7 @@ export type Payment = {
 				</hlm-menu>
 			</ng-template>
 		</div>
-		<div class="border-border mt-4 block h-[24rem] w-full overflow-auto rounded-md border">
+		<div class="border-border mt-4 block h-[18rem] w-full overflow-auto rounded-md border">
 			<table hlmTable class="w-full">
 				<thead hlmTHead>
 					@for (headerGroup of _table.getHeaderGroups(); track headerGroup.id) {
@@ -502,7 +498,7 @@ export type Payment = {
 						</tr>
 					} @empty {
 						<tr hlmTr>
-							<td class="h-24 text-center" [attr.colspan]="_columns.length">No results.</td>
+							<td hlmTd class="h-24 text-center" [attr.colspan]="_columns.length">No results.</td>
 						</tr>
 					}
 				</tbody>
@@ -580,7 +576,8 @@ export class DataTablePreviewComponent {
 		{
 			accessorKey: 'status',
 			id: 'status',
-			header: () => 'Status',
+			header: 'Status',
+			cell: (info) => \`<span class="capitalize">\${info.getValue<string>()}</span>\`,
 			enableSorting: false,
 		},
 		{
@@ -591,9 +588,8 @@ export class DataTablePreviewComponent {
 		{
 			accessorKey: 'amount',
 			id: 'amount',
-			header: () => '<div class="text-right">Amount</div>',
+			header: '<div class="text-right">Amount</div>',
 			enableSorting: false,
-
 			cell: (info) => {
 				const amount = parseFloat(info.getValue<string>());
 				const formatted = new Intl.NumberFormat('en-US', {

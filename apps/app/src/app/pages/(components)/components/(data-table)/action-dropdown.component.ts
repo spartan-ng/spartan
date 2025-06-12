@@ -28,12 +28,12 @@ import { Payment } from './data-table.preview';
 	],
 	providers: [provideIcons({ lucideEllipsis })],
 	template: `
-		<button hlmBtn variant="ghost" class="h-8 w-8 p-0" [brnMenuTriggerFor]="menu">
+		<button hlmBtn variant="ghost" class="h-8 w-8 p-0" [brnMenuTriggerFor]="ActionDropDownMenu">
 			<span class="sr-only">Open menu</span>
 			<ng-icon hlm size="sm" name="lucideEllipsis" />
 		</button>
 
-		<ng-template #menu>
+		<ng-template #ActionDropDownMenu>
 			<hlm-menu>
 				<hlm-menu-label>Actions</hlm-menu-label>
 				<button hlmMenuItem (click)="copyPaymentId()">Copy payment ID</button>

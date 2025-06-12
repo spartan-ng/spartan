@@ -1,5 +1,5 @@
 import { FocusKeyManager, FocusMonitor } from '@angular/cdk/a11y';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 import {
 	type AfterContentInit,
 	Directive,
@@ -27,7 +27,11 @@ import { fromEvent } from 'rxjs';
 export class BrnAccordionItemDirective {
 	private static _itemIdGenerator = 0;
 	private readonly _accordion = inject(BrnAccordionDirective);
-	public readonly isOpened = input(false, { transform: coerceBooleanProperty });
+	/**
+	 * Whether the accordion item is opened or closed.
+	 * @default false
+	 */
+	public readonly isOpened = input<boolean, BooleanInput>(false, { transform: coerceBooleanProperty });
 
 	public readonly id = BrnAccordionItemDirective._itemIdGenerator++;
 	public readonly state = computed(() => (this._accordion.openItemIds().includes(this.id) ? 'open' : 'closed'));
@@ -130,8 +134,20 @@ export class BrnAccordionDirective implements AfterContentInit, OnDestroy {
 
 	public triggers = contentChildren(BrnAccordionTriggerDirective, { descendants: true });
 
+	/**
+	 * Whether the accordion is in single or multiple mode.
+	 * @default 'single'
+	 */
 	public readonly type = input<'single' | 'multiple'>('single');
+	/**
+	 * The direction of the accordion, either 'ltr' (left-to-right) or 'rtl' (right-to-left).
+	 * @default null
+	 */
 	public readonly dir = input<'ltr' | 'rtl' | null>(null);
+	/**
+	 * The orientation of the accordion, either 'horizontal' or 'vertical'.
+	 * @default 'vertical'
+	 */
 	public readonly orientation = input<'horizontal' | 'vertical'>('vertical');
 
 	public ngAfterContentInit() {

@@ -137,35 +137,53 @@ imports: [
   ],
   providers: [provideIcons({ lucideChevronsUpDown, lucideSearch, lucideCheck })],
   template: \`
-    <brn-popover [state]="state()" (stateChanged)="stateChanged($event)" sideOffset="5">
-      <button class="w-[200px] justify-between" id="edit-profile" variant="outline" brnPopoverTrigger hlmBtn>
-        {{ currentFramework() ? currentFramework().label : 'Select framework...' }}
-        <ng-icon hlm size="sm" name="lucideChevronsUpDown" />
-      </button>
-      <hlm-command *brnPopoverContent="let ctx" hlmPopoverContent class="p-0 w-[200px]">
-      	<hlm-command-search>
-          <ng-icon hlm name="lucideSearch" />
-          <input placeholder="Search framework..." hlm-command-search-input />
-        </hlm-command-search>
-        <div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
-        <hlm-command-list>
-          <hlm-command-group>
+    <brn-popover
+      [state]="state()"
+      (stateChanged)="stateChanged($event)"
+      sideOffset="5"
+      >
+    <button
+      class="w-[200px] justify-between"
+      id="edit-profile"
+      variant="outline"
+      brnPopoverTrigger
+      hlmBtn
+      >
+      {{ 'Select framework...' }}
+      <ng-icon hlm size="sm" name="lucideChevronsUpDown" />
+    </button>
+    <hlm-command
+      *brnPopoverContent="let ctx"
+      hlmPopoverContent
+      class="p-0 w-[200px]"
+      >
+      <hlm-command-search>
+        <ng-icon hlm name="lucideSearch" />
+        <input placeholder="Search framework..." hlm-command-search-input />
+      </hlm-command-search>
+      <div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
+      <hlm-command-list>
+        <hlm-command-group>
+          @for (framework of frameworks; track framework.value) {
             <button
-              *ngFor="let framework of frameworks"
               hlm-command-item
               [value]="framework.value"
               (selected)="commandSelected(framework)"
-            >
-              <ng-icon hlm
-                [class.opacity-0]="currentFramework()?.value !== framework.value"
+              >
+              <ng-icon
+                hlm
+                [class.opacity-0]="
+                  currentFramework()?.value !== framework.value
+                "
                 name="lucideCheck"
                 hlmCommandIcon
-              />
+                />
               {{ framework.label }}
             </button>
-          </hlm-command-group>
-        </hlm-command-list>
-      </hlm-command>
+          }
+        </hlm-command-group>
+      </hlm-command-list>
+    </hlm-command>
     </brn-popover>
   \`,
 })

@@ -6,6 +6,7 @@ import { CodePreviewDirective } from '../../../../shared/code/code-preview.direc
 import { CodeComponent } from '../../../../shared/code/code.component';
 import { MainSectionDirective } from '../../../../shared/layout/main-section.directive';
 
+import { link } from '@spartan-ng/app/app/shared/typography/link';
 import { PageBottomNavLinkComponent } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav-link.component';
 import { PageBottomNavComponent } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav.component';
 import { PageNavComponent } from '../../../../shared/layout/page-nav/page-nav.component';
@@ -39,10 +40,7 @@ export const routeMeta: RouteMeta = {
 	],
 	template: `
 		<section spartanMainSection>
-			<spartan-section-intro
-				name="Data Table"
-				lead="Powerful table and datagrids similar to Angular Material Tables.."
-			/>
+			<spartan-section-intro name="Data Table" lead="Powerful table and datagrids similar powered by TanStack Table" />
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -51,6 +49,25 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="defaultCode" />
 			</spartan-tabs>
 
+			<spartan-section-sub-heading id="about">About</spartan-section-sub-heading>
+			<p class="${hlmP} mb-6">
+				Data-Table is built on top of
+				<a href="https://tanstack.com/table" target="_blank" rel="noreferrer" hlmBtn variant="link" class="${link}">
+					TanStack-Table
+				</a>
+				by
+				<a
+					href="https://github.com/tannerlinsley"
+					target="_blank"
+					rel="noreferrer"
+					hlmBtn
+					variant="link"
+					class="${link}"
+				>
+					&#64;tannerlinsley
+				</a>
+				.
+			</p>
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
 			<spartan-cli-tabs
 				class="mt-4"
@@ -58,8 +75,10 @@ export const routeMeta: RouteMeta = {
 				ngCode="ng g @spartan-ng/cli:ui table"
 			/>
 
-			<spartan-section-sub-heading id="tutorial">Tutorial</spartan-section-sub-heading>
-			<p class="${hlmP} mb-6">Coming soon...</p>
+			<spartan-section-sub-heading id="tutorial">Documentation</spartan-section-sub-heading>
+			<p class="${hlmP} mb-6">
+				For more information you can check out our Tasks example and have a look at the documentatino of TanStack table.
+			</p>
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="dialog" label="Dialog" />

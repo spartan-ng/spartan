@@ -79,42 +79,45 @@ export type Payment = {
 			</ng-template>
 		</div>
 		<div class="border-border mt-4 block h-[18rem] w-full overflow-auto rounded-md border">
-			<table hlmTable class="w-full">
-				<thead hlmTHead>
-					@for (headerGroup of _table.getHeaderGroups(); track headerGroup.id) {
-						<tr hlmTr>
-							@for (header of headerGroup.headers; track header.id) {
-								<th hlmTh [attr.colSpan]="header.colSpan">
-									@if (!header.isPlaceholder) {
-										<ng-container
-											*flexRender="header.column.columnDef.header; props: header.getContext(); let headerText"
-										>
-											<div [innerHTML]="headerText"></div>
+			<!-- we defer the loading of the table, because tanstack manipulates the DOM with flexRender which can cause errors during SSR -->
+			@defer {
+				<table hlmTable class="w-full">
+					<thead hlmTHead>
+						@for (headerGroup of _table.getHeaderGroups(); track headerGroup.id) {
+							<tr hlmTr>
+								@for (header of headerGroup.headers; track header.id) {
+									<th hlmTh [attr.colSpan]="header.colSpan">
+										@if (!header.isPlaceholder) {
+											<ng-container
+												*flexRender="header.column.columnDef.header; props: header.getContext(); let headerText"
+											>
+												<div [innerHTML]="headerText"></div>
+											</ng-container>
+										}
+									</th>
+								}
+							</tr>
+						}
+					</thead>
+					<tbody hlmTBody class="w-full">
+						@for (row of _table.getRowModel().rows; track row.id) {
+							<tr hlmTr [attr.key]="row.id" [attr.data-state]="row.getIsSelected() && 'selected'">
+								@for (cell of row.getVisibleCells(); track $index) {
+									<td hlmTd>
+										<ng-container *flexRender="cell.column.columnDef.cell; props: cell.getContext(); let cell">
+											<div [innerHTML]="cell"></div>
 										</ng-container>
-									}
-								</th>
-							}
-						</tr>
-					}
-				</thead>
-				<tbody hlmTBody class="w-full">
-					@for (row of _table.getRowModel().rows; track row.id) {
-						<tr hlmTr [attr.key]="row.id" [attr.data-state]="row.getIsSelected() && 'selected'">
-							@for (cell of row.getVisibleCells(); track $index) {
-								<td hlmTd>
-									<ng-container *flexRender="cell.column.columnDef.cell; props: cell.getContext(); let cell">
-										<div [innerHTML]="cell"></div>
-									</ng-container>
-								</td>
-							}
-						</tr>
-					} @empty {
-						<tr hlmTr>
-							<td hlmTd class="h-24 text-center" [attr.colspan]="_columns.length">No results.</td>
-						</tr>
-					}
-				</tbody>
-			</table>
+									</td>
+								}
+							</tr>
+						} @empty {
+							<tr hlmTr>
+								<td hlmTd class="h-24 text-center" [attr.colspan]="_columns.length">No results.</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			}
 		</div>
 
 		<div class="mt-4 flex flex-col justify-between sm:flex-row sm:items-center">

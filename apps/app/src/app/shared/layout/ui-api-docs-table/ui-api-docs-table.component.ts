@@ -1,34 +1,35 @@
 import { Component, input } from '@angular/core';
-import { HlmTableComponent, HlmTdComponent, HlmThComponent, HlmTrowComponent } from '@spartan-ng/helm/table';
+import { HlmTableImports } from '@spartan-ng/helm/table';
 
 type Column = { label: string; key: string; class?: string };
 
 @Component({
 	selector: 'spartan-ui-api-docs-table',
-	imports: [HlmTableComponent, HlmTrowComponent, HlmThComponent, HlmTdComponent],
+	standalone: true,
+	imports: [...HlmTableImports],
 	template: `
 		<h4 class="mb-2 mt-6">{{ title() }}</h4>
 		<div class="w-full overflow-x-auto">
-			<hlm-table class="w-fit min-w-full">
-				<hlm-trow>
+			<table hlmTable class="w-fit min-w-full">
+				<tr hlmTr>
 					@for (col of columns(); track col.key) {
-						<hlm-th [class]="col.class">{{ col.label }}</hlm-th>
+						<th hlmTh [class]="col.class">{{ col.label }}</th>
 					}
-				</hlm-trow>
+				</tr>
 				@for (row of rows(); track row.name + $index) {
-					<hlm-trow>
+					<tr hlmTr>
 						@for (col of columns(); track col.key) {
-							<hlm-td [class]="col.class">
+							<td hlmTd [class]="col.class">
 								@if (row[col.key]) {
 									{{ row[col.key] }}
 								} @else {
 									<span class="sr-hidden">-</span>
 								}
-							</hlm-td>
+							</td>
 						}
-					</hlm-trow>
+					</tr>
 				}
-			</hlm-table>
+			</table>
 		</div>
 	`,
 })

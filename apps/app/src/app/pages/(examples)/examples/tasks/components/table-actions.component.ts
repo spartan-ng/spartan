@@ -30,10 +30,10 @@ import { HlmIconDirective } from '@spartan-ng/helm/icon';
 import { HlmInputDirective } from '@spartan-ng/helm/input';
 import { HlmMenuComponent, HlmMenuItemImports } from '@spartan-ng/helm/menu';
 import { HlmPopoverImports } from '@spartan-ng/helm/popover';
+import TasksExamplePageComponent from '../(tasks).page';
 import { PriorityIconPipe } from '../pipes/priority-icon.pipe';
 import { StatusIconPipe } from '../pipes/status-icon.pipe';
-import { LocalStorageService } from '../services/local-storage.service';
-import { TaskPriority, TasksService, TaskStatus } from '../services/tasks.service';
+import { TaskPriority, TaskStatus } from '../services/tasks.models';
 
 @Component({
 	// eslint-disable-next-line @angular-eslint/component-selector
@@ -82,15 +82,16 @@ import { TaskPriority, TasksService, TaskStatus } from '../services/tasks.servic
 	template: `
 		<div class="wip-table-search flex flex-col justify-between gap-4 sm:flex-row">
 			<div class="flex flex-col justify-between gap-4 sm:flex-row">
+				<!-- TASK TITLE FILTER -->
 				<input
 					hlmInput
 					size="sm"
 					class="w-full md:w-80"
 					placeholder="Filter tasks..."
-					[ngModel]="taskFilter()"
-					(ngModelChange)="rawFilterInput.set($event)"
+					(input)="taskFilterChange($event)"
 				/>
 
+				<!-- STATUS FILTER -->
 				<brn-popover
 					[state]="statusState()"
 					(stateChanged)="statusStateChanged($event)"
@@ -134,6 +135,7 @@ import { TaskPriority, TasksService, TaskStatus } from '../services/tasks.servic
 					</hlm-command>
 				</brn-popover>
 
+				<!-- PRIORITY FILTER -->
 				<brn-popover
 					[state]="priorityState()"
 					(stateChanged)="priorityStateChanged($event)"
@@ -185,21 +187,22 @@ import { TaskPriority, TasksService, TaskStatus } from '../services/tasks.servic
 				}
 			</div>
 
-			<button hlmBtn variant="outline" size="sm" align="end" [brnMenuTriggerFor]="menu">
-				<ng-icon hlm name="lucideSettings2" class="mr-2" size="sm" />
-				View
+			<!-- Column visibility -->
+			<button hlmBtn variant="outline" align="end" [brnMenuTriggerFor]="menu">
+				Columns
+				<ng-icon hlm name="lucideChevronDown" class="ml-2" size="sm" />
 			</button>
 			<ng-template #menu>
 				<hlm-menu class="w-32">
-					@for (column of columnManager.allColumns; track column.name) {
+					@for (column of hidableColumns; track column.id) {
 						<button
 							hlmMenuItemCheckbox
-							[disabled]="columnManager.isColumnDisabled(column.name)"
-							[checked]="columnManager.isColumnVisible(column.name)"
-							(triggered)="onColumnFilterChanged(column.name)"
+							class="capitalize"
+							[checked]="column.getIsVisible()"
+							(triggered)="column.toggleVisibility()"
 						>
 							<hlm-menu-item-check />
-							<span>{{ column.label }}</span>
+							{{ column.columnDef.id }}
 						</button>
 					}
 				</hlm-menu>
@@ -208,28 +211,21 @@ import { TaskPriority, TasksService, TaskStatus } from '../services/tasks.servic
 	`,
 })
 export class TableActionsComponent {
-	private readonly _tasksService = inject(TasksService);
-	private readonly _localStorageService = inject(LocalStorageService);
+	private readonly _tableComponent = inject(TasksExamplePageComponent);
 
-	protected readonly columnManager = this._tasksService.getColumnManager();
-	protected readonly taskFilter = this._tasksService.getTaskFilter();
-	protected readonly rawFilterInput = this._tasksService.getRawFilterInput();
-	protected readonly statusFilter = this._tasksService.getStatusFilter();
+	protected readonly table = this._tableComponent.table;
+
+	protected readonly hidableColumns = this.table.getAllColumns().filter((column) => column.getCanHide());
+	protected readonly statusFilter = signal<TaskStatus[]>([]);
 	protected readonly statuses = signal(['Backlog', 'Todo', 'In Progress', 'Done', 'Canceled'] satisfies TaskStatus[]);
 	protected readonly statusState = signal<'closed' | 'open'>('closed');
 
-	protected readonly priorityFilter = this._tasksService.getPriorityFilter();
+	protected readonly priorityFilter = signal<TaskPriority[]>([]);
 	protected readonly priorities = signal(['Low', 'Medium', 'High', 'Critical'] satisfies TaskPriority[]);
 	protected readonly priorityState = signal<'closed' | 'open'>('closed');
 
-	onColumnFilterChanged(columnName: string): void {
-		this.columnManager.toggleVisibility(columnName as any);
-		const isVisible = this.columnManager.isColumnVisible(columnName);
-		if (isVisible) {
-			this._localStorageService.saveTaskTableColumn(columnName);
-		} else {
-			this._localStorageService.deleteTaskTableColumn(columnName);
-		}
+	protected taskFilterChange(event: Event) {
+		this.table.getColumn('title')?.setFilterValue((event.target as HTMLInputElement).value);
 	}
 
 	isStatusSelected(status: TaskStatus): boolean {
@@ -248,6 +244,7 @@ export class TableActionsComponent {
 		} else {
 			this.statusFilter.set(current.filter((s) => s !== status));
 		}
+		this.table.getColumn('status')?.setFilterValue(this.statusFilter());
 	}
 
 	isPrioritySelected(priority: TaskPriority): boolean {
@@ -266,9 +263,12 @@ export class TableActionsComponent {
 		} else {
 			this.priorityFilter.set(current.filter((p) => p !== priority));
 		}
+		this.table.getColumn('priority')?.setFilterValue(this.priorityFilter());
 	}
 
 	resetFilters(): void {
-		this._tasksService.resetFilters();
+		this.priorityFilter.set([]);
+		this.statusFilter.set([]);
+		this.table.resetColumnFilters();
 	}
 }

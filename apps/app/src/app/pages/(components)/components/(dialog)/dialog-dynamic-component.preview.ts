@@ -1,4 +1,4 @@
-import { Component, HostBinding, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideCheck } from '@ng-icons/lucide';
 import { BrnDialogRef, injectBrnDialogContext } from '@spartan-ng/brain/dialog';
@@ -9,8 +9,7 @@ import {
 	HlmDialogService,
 	HlmDialogTitleDirective,
 } from '@spartan-ng/helm/dialog';
-
-import { HlmTableComponent, HlmTdComponent, HlmThComponent, HlmTrowComponent } from '@spartan-ng/helm/table';
+import { HlmTableImports } from '@spartan-ng/helm/table';
 
 type ExampleUser = {
 	name: string;
@@ -20,7 +19,7 @@ type ExampleUser = {
 
 @Component({
 	selector: 'spartan-dialog-dynamic-component-preview',
-	imports: [HlmButtonDirective],
+	imports: [HlmButtonDirective, ...HlmTableImports],
 	template: `
 		<button hlmBtn (click)="openDynamicComponent()">Select User</button>
 	`,
@@ -70,15 +69,7 @@ export class DialogDynamicComponentPreviewComponent {
 @Component({
 	// eslint-disable-next-line @angular-eslint/component-selector
 	selector: 'dynamic-content',
-	imports: [
-		HlmDialogHeaderComponent,
-		HlmDialogTitleDirective,
-		HlmDialogDescriptionDirective,
-		HlmTableComponent,
-		HlmThComponent,
-		HlmTrowComponent,
-		HlmTdComponent,
-	],
+	imports: [HlmDialogHeaderComponent, HlmDialogTitleDirective, HlmDialogDescriptionDirective, ...HlmTableImports],
 	providers: [provideIcons({ lucideCheck })],
 	template: `
 		<hlm-dialog-header>
@@ -86,27 +77,26 @@ export class DialogDynamicComponentPreviewComponent {
 			<p hlmDialogDescription>Click a row to select a user.</p>
 		</hlm-dialog-header>
 
-		<hlm-table>
-			<hlm-trow>
-				<hlm-th class="w-44">Name</hlm-th>
-				<hlm-th class="w-60">Email</hlm-th>
-				<hlm-th class="w-48">Phone</hlm-th>
-			</hlm-trow>
+		<table hlmTable class="w-full">
+			<tr hlmTr>
+				<th hlmTh>Name</th>
+				<th hlmTh>Email</th>
+				<th hlmTh>Phone</th>
+			</tr>
 			@for (user of users; track user.name) {
-				<button class="text-left" (click)="selectUser(user)">
-					<hlm-trow>
-						<hlm-td truncate class="w-44 font-medium">{{ user.name }}</hlm-td>
-						<hlm-td class="w-60">{{ user.email }}</hlm-td>
-						<hlm-td class="w-48">{{ user.phone }}</hlm-td>
-					</hlm-trow>
-				</button>
+				<tr hlmTr (click)="selectUser(user)" class="cursor-pointer">
+					<td hlmTd truncate class="font-medium">{{ user.name }}</td>
+					<td hlmTd>{{ user.email }}</td>
+					<td hlmTd>{{ user.phone }}</td>
+				</tr>
 			}
-		</hlm-table>
+		</table>
 	`,
+	host: {
+		class: 'flex flex-col gap-4',
+	},
 })
 class SelectUserComponent {
-	@HostBinding('class') private readonly _class: string = 'flex flex-col gap-4';
-
 	private readonly _dialogRef = inject<BrnDialogRef<ExampleUser>>(BrnDialogRef);
 	private readonly _dialogContext = injectBrnDialogContext<{ users: ExampleUser[] }>();
 
@@ -118,14 +108,19 @@ class SelectUserComponent {
 }
 
 export const dynamicComponentCode = `
+
+import { Component, inject } from '@angular/core';
+import { provideIcons } from '@ng-icons/core';
+import { lucideCheck } from '@ng-icons/lucide';
+import { BrnDialogRef, injectBrnDialogContext } from '@spartan-ng/brain/dialog';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
 import {
 	HlmDialogDescriptionDirective,
 	HlmDialogHeaderComponent,
 	HlmDialogService,
 	HlmDialogTitleDirective,
 } from '@spartan-ng/helm/dialog';
-import { HlmIconDirective, provideIcons } from '@spartan-ng/helm/icon';
-import { HlmTableComponent, HlmTdComponent, HlmThComponent, HlmTrowComponent } from '@spartan-ng/helm/table';
+import { HlmTableImports } from '@spartan-ng/helm/table';
 
 type ExampleUser = {
 	name: string;
@@ -135,7 +130,7 @@ type ExampleUser = {
 
 @Component({
 	selector: 'spartan-dialog-dynamic-component-preview',
-imports: [HlmButtonDirective],
+	imports: [HlmButtonDirective, ...HlmTableImports],
 	template: \`
 		<button hlmBtn (click)="openDynamicComponent()">Select User</button>
 	\`,
@@ -183,18 +178,9 @@ export class DialogDynamicComponentPreviewComponent {
 }
 
 @Component({
+	// eslint-disable-next-line @angular-eslint/component-selector
 	selector: 'dynamic-content',
-imports: [
-		HlmDialogHeaderComponent,
-		HlmDialogTitleDirective,
-		HlmDialogDescriptionDirective,
-		HlmTableComponent,
-		HlmThComponent,
-		HlmTrowComponent,
-		HlmTdComponent,
-		HlmButtonDirective,
-		HlmIconDirective,
-	],
+	imports: [HlmDialogHeaderComponent, HlmDialogTitleDirective, HlmDialogDescriptionDirective, ...HlmTableImports],
 	providers: [provideIcons({ lucideCheck })],
 	template: \`
 		<hlm-dialog-header>
@@ -202,27 +188,26 @@ imports: [
 			<p hlmDialogDescription>Click a row to select a user.</p>
 		</hlm-dialog-header>
 
-		<hlm-table>
-			<hlm-trow>
-				<hlm-th class="w-44">Name</hlm-th>
-				<hlm-th class="w-60">Email</hlm-th>
-				<hlm-th class="w-48">Phone</hlm-th>
-			</hlm-trow>
+		<table hlmTable class="w-full">
+			<tr hlmTr>
+				<th hlmTh class="w-44">Name</th>
+				<th hlmTh class="w-60">Email</th>
+				<th hlmTh class="w-48">Phone</th>
+			</tr>
 			@for (user of users; track user.name) {
-				<button class="text-left" (click)="selectUser(user)">
-					<hlm-trow>
-						<hlm-td truncate class="font-medium w-44">{{ user.name }}</hlm-td>
-						<hlm-td class="w-60">{{ user.email }}</hlm-td>
-						<hlm-td class="w-48">{{ user.phone }}</hlm-td>
-					</hlm-trow>
-				</button>
+				<tr hlmTr (click)="selectUser(user)" class="cursor-pointer">
+					<td hlmTd truncate class="font-medium">{{ user.name }}</td>
+					<td hlmTd>{{ user.email }}</td>
+					<td hlmTd>{{ user.phone }}</td>
+				</tr>
 			}
-		</hlm-table>
+		</table>
 	\`,
+	host: {
+		class: 'flex flex-col gap-4',
+	},
 })
 class SelectUserComponent {
-	@HostBinding('class') private readonly _class: string = 'flex flex-col gap-4';
-
 	private readonly _dialogRef = inject<BrnDialogRef<ExampleUser>>(BrnDialogRef);
 	private readonly _dialogContext = injectBrnDialogContext<{ users: ExampleUser[] }>();
 

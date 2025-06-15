@@ -53,7 +53,7 @@ describe('migrate-toggle-group generator', () => {
         [multiple]="multiple"
         [(ngModel)]="selected"
         >
-      @for (city of cities; track city; let last = $last) {
+      @for (city of cities; track city;) {
         <button
           variant="outline"
           [value]="city"
@@ -106,7 +106,7 @@ describe('migrate-toggle-group generator', () => {
         [multiple]="multiple"
         [(ngModel)]="selected"
         >
-      @for (city of cities; track city; let last = $last) {
+      @for (city of cities; track city;) {
         <button
           variant="outline"
           [value]="city"

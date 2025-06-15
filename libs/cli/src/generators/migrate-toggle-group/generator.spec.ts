@@ -43,18 +43,30 @@ describe('migrate-toggle-group generator', () => {
 				import { HlmToggleDirective, HlmToggleGroupModule } from '@spartan-ng/ui-toggle-helm';
 
 				@Component({
-					imports: [BrnToggleGroupModule, HlmToggleGroupModule, HlmButtonDirective, FormsModule, NgForOf, NgIf],
+					imports: [BrnToggleGroupModule, HlmToggleGroupModule, HlmButtonDirective, FormsModule],
 					],
 					template: \`
-     	<div class="flex space-x-4">
-				<brn-toggle-group hlm [disabled]="disabled" [nullable]="nullable" [multiple]="multiple" [(ngModel)]="selected">
-				<button variant="outline" *ngFor="let city of cities; let last = last" [value]="city" hlm brnToggle>
-					{{ city.name }}
-				</button>
-				</brn-toggle-group>
-				<button hlmBtn size="sm" (click)="setToSyracuse()">Set to Syracuse</button>
-				<button hlmBtn size="sm" (click)="addCity()">Add Piraeus</button>
-			</div>
+    <brn-toggle-group
+        hlm
+        [disabled]="disabled"
+        [nullable]="nullable"
+        [multiple]="multiple"
+        [(ngModel)]="selected"
+        >
+      @for (city of cities; track city;) {
+        <button
+          variant="outline"
+          [value]="city"
+          hlm
+          brnToggle
+          >
+          {{ city.name }}
+        </button>
+      }
+    </brn-toggle-group>
+    <button hlmBtn size="sm" (click)="setToSyracuse()">Set to Syracuse</button>
+    <button hlmBtn size="sm" (click)="addCity()">Add Piraeus</button>
+    </div>
 					\`
 				})
 				export class AppModule {}
@@ -72,7 +84,7 @@ describe('migrate-toggle-group generator', () => {
 			"import { HlmToggleGroupDirective, HlmToggleGroupItemDirective } from '@spartan-ng/ui-toggle-group-helm'",
 		);
 		expect(content).toContain(
-			'imports: [BrnToggleGroupComponent, BrnToggleGroupItemDirective, HlmToggleGroupDirective, HlmToggleGroupItemDirective, HlmButtonDirective, FormsModule, NgForOf, NgIf],',
+			'imports: [BrnToggleGroupComponent, BrnToggleGroupItemDirective, HlmToggleGroupDirective, HlmToggleGroupItemDirective, HlmButtonDirective, FormsModule],',
 		);
 	});
 
@@ -82,19 +94,34 @@ describe('migrate-toggle-group generator', () => {
 			`
 				import { Component } from '@angular/core';
 				import { BrnToggleGroupModule } from '@spartan-ng/brain/toggle';
-				import { HlmButtonDirective, FormsModule, NgForOf, NgIf } from '@spartan-ng/ui-toggle-group-helm';
+				import { HlmButtonDirective, FormsModule, } from '@spartan-ng/ui-toggle-group-helm';
 				@Component({
-					imports: [BrnToggleGroupModule, HlmToggleGroupModule, HlmButtonDirective, FormsModule, NgForOf, NgIf],
+					imports: [BrnToggleGroupModule, HlmToggleGroupModule, HlmButtonDirective, FormsModule,],
 					template: \`
-     	<div class="flex space-x-4">
-				<brn-toggle-group hlm [disabled]="disabled" [nullable]="nullable" [multiple]="multiple" [(ngModel)]="selected">
-				<button variant="outline" *ngFor="let city of cities; let last = last" [value]="city" hlm brnToggle>
-					{{ city.name }}
-				</button>
-				</brn-toggle-group>
-				<button hlmBtn size="sm" (click)="setToSyracuse()">Set to Syracuse</button>
-				<button hlmBtn size="sm" (click)="addCity()">Add Piraeus</button>
-			</div>
+      <div class="flex space-x-4">
+      <brn-toggle-group
+        hlm
+        [disabled]="disabled"
+        [nullable]="nullable"
+        [multiple]="multiple"
+        [(ngModel)]="selected"
+        >
+      @for (city of cities; track city;) {
+        <button
+          variant="outline"
+          [value]="city"
+          hlm
+          brnToggle
+          >
+          {{ city.name }}
+        </button>
+      }
+    </brn-toggle-group>
+    <button hlmBtn size="sm" (click)="setToSyracuse()">
+      Set to Syracuse
+    </button>
+    <button hlmBtn size="sm" (click)="addCity()">Add Piraeus</button>
+    </div>
 					\`
 				})
 				export class AppModule {}

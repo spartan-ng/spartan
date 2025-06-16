@@ -23,7 +23,7 @@ import { HlmPaginationLinkDirective } from './hlm-pagination-link.directive';
 			[size]="size()"
 			[attr.aria-label]="ariaLabel()"
 		>
-			<span [class.sr-only]="iconOnly()">{{ text() }}</span>
+			<span [class]="_labelClass()">{{ text() }}</span>
 			<ng-icon hlm size="sm" name="lucideChevronRight" />
 		</a>
 	`,
@@ -40,8 +40,11 @@ export class HlmPaginationNextComponent {
 	public readonly iconOnly = input<boolean, BooleanInput>(false, {
 		transform: booleanAttribute,
 	});
+	protected readonly _labelClass = computed(() => (this.iconOnly() ? 'sr-only' : 'hidden sm:block'));
 
 	protected readonly size = computed<ButtonVariants['size']>(() => (this.iconOnly() ? 'icon' : 'default'));
 
-	protected readonly _computedClass = computed(() => hlm('gap-1', !this.iconOnly() ? 'pr-2.5' : '', this.userClass()));
+	protected readonly _computedClass = computed(() =>
+		hlm('gap-1', !this.iconOnly() ? 'sm:pr-2.5' : '', this.userClass()),
+	);
 }

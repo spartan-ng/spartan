@@ -61,7 +61,7 @@ import {
 
 @Component({
 	selector: 'spartan-pagination-preview',
-imports: [
+	imports: [
 		HlmPaginationDirective,
 		HlmPaginationContentDirective,
 		HlmPaginationItemDirective,

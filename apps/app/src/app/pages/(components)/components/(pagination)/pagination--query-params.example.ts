@@ -94,11 +94,11 @@ import {
 	HlmPaginationNextComponent,
 	HlmPaginationPreviousComponent,
 } from '@spartan-ng/helm/pagination';
-import { map } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
 	selector: 'spartan-pagination-query-params',
-imports: [
+	imports: [
 		HlmPaginationDirective,
 		HlmPaginationContentDirective,
 		HlmPaginationItemDirective,

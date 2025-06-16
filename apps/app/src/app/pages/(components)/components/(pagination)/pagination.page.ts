@@ -1,6 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
-import { hlmH4 } from '@spartan-ng/helm/typography';
+import { hlmCode, hlmH4 } from '@spartan-ng/helm/typography';
 import { CodePreviewDirective } from '../../../../shared/code/code-preview.directive';
 import { CodeComponent } from '../../../../shared/code/code.component';
 import { MainSectionDirective } from '../../../../shared/layout/main-section.directive';
@@ -13,6 +13,7 @@ import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
+import { PaginationAdvancedQueryComponent, advancedQueryParamsCode } from './pagination--advanced-query.example';
 import { PaginationAdvancedComponent, advancedCode } from './pagination--advanced.example';
 import { PaginationIconOnlyComponent, iconOnlyCode } from './pagination--icon-only.example';
 import { PaginationQueryParamsComponent, queryParamsCode } from './pagination--query-params.example';
@@ -42,6 +43,7 @@ export const routeMeta: RouteMeta = {
 		PaginationQueryParamsComponent,
 		PaginationIconOnlyComponent,
 		PaginationAdvancedComponent,
+		PaginationAdvancedQueryComponent,
 	],
 	template: `
 		<section spartanMainSection>
@@ -92,6 +94,20 @@ export const routeMeta: RouteMeta = {
 				</div>
 				<spartan-code secondTab [code]="advancedCode" />
 			</spartan-tabs>
+			<h3 id="examples__advanced" class="${hlmH4} mb-2 mt-6">Advanced Pagination - Query Params</h3>
+			<p class="py-2">
+				Use
+				<code class="${hlmCode}">hlm-numbered-pagination-query-params</code>
+				instead of
+				<code class="${hlmCode}">hlm-numbered-pagination</code>
+				to synchronize pagination state with query params.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-pagination-advanced-query-params />
+				</div>
+				<spartan-code secondTab [code]="advancedQueryParamsCode" />
+			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="popover" label="Popover" />
@@ -109,4 +125,5 @@ export default class PaginationPageComponent {
 	protected readonly queryParamsCode = queryParamsCode;
 	protected readonly iconOnlyCode = iconOnlyCode;
 	protected readonly advancedCode = advancedCode;
+	protected readonly advancedQueryParamsCode = advancedQueryParamsCode;
 }

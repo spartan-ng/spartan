@@ -20,7 +20,8 @@ export class BrnInputOtpSlotComponent {
 	/** Access the input-otp component */
 	protected readonly inputOtp = injectBrnInputOtp();
 
+	/** The index of the slot to render the char or a fake caret */
 	public readonly index = input.required<number, NumberInput>({ transform: numberAttribute });
 
-	public readonly slot = computed(() => this.inputOtp.context()[this.index()]);
+	protected readonly slot = computed(() => this.inputOtp.context()[this.index()]);
 }

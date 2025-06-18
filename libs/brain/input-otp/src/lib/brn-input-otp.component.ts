@@ -11,8 +11,9 @@ import {
 	output,
 	signal,
 } from '@angular/core';
-import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { type ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
+import { type ClassValue } from 'clsx';
 import { provideBrnInputOtp } from './brn-input-otp.token';
 
 export const BRN_INPUT_OTP_VALUE_ACCESSOR = {
@@ -55,14 +56,17 @@ export class BrnInputOtpComponent implements ControlValueAccessor {
 	/** Whether the input has focus. */
 	protected readonly focused = signal<boolean>(false);
 
+	/** Styles applied to the host element. */
 	public readonly hostStyles = input<string>(
 		'position: relative; cursor: text; user-select: none; pointer-events: none;',
 	);
 
+	/** Styles applied to the input element to make it invisible and clickable. */
 	public readonly inputStyles = input<string>(
 		'position: absolute; inset: 0; width: 100%; height: 100%; display: flex; textAlign: left; opacity: 1; color: transparent; pointerEvents: all; background: transparent; caret-color: transparent; border: 0px solid transparent; outline: transparent solid 0px; box-shadow: none; line-height: 1; letter-spacing: -0.5em; font-family: monospace; font-variant-numeric: tabular-nums;',
 	);
 
+	/** Styles applied to the container element. */
 	public readonly containerStyles = input<string>('position: absolute; inset: 0; pointer-events: none;');
 
 	/** Determine if the date picker is disabled. */
@@ -76,7 +80,7 @@ export class BrnInputOtpComponent implements ControlValueAccessor {
 	/** Virtual keyboard appearance on mobile */
 	public readonly inputMode = input<InputMode>('numeric');
 
-	public readonly inputClass = input<string>('');
+	public readonly inputClass = input<ClassValue>('');
 
 	/**
 	 * Defines how the pasted text should be transformed before saving to model/form.
@@ -88,7 +92,7 @@ export class BrnInputOtpComponent implements ControlValueAccessor {
 	public readonly transformPaste = input<(pastedText: string, maxLength: number) => string>((text) => text);
 
 	/** The value controlling the input */
-	public readonly value = model('');
+	public readonly value = model<string>('');
 
 	public readonly context = computed(() => {
 		const value = this.value();

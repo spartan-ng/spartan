@@ -74,10 +74,15 @@ export const routeMeta: RouteMeta = {
 				nxCode="npx nx g @spartan-ng/cli:ui table"
 				ngCode="ng g @spartan-ng/cli:ui table"
 			/>
+			<div class="${hlmP} mb-6">
+				In order to use Data-Table example, you need to install Tanstack Table. See the installation documetation for
+				Angular Table for more information.
+				<spartan-code class="mt-4" [code]="'https://tanstack.com/table/v8/docs/installation'" />
+			</div>
 
 			<spartan-section-sub-heading id="tutorial">Documentation</spartan-section-sub-heading>
 			<p class="${hlmP} mb-6">
-				For more information you can check out our Tasks example and have a look at the documentatino of TanStack table.
+				For more information you can check out our Tasks example and have a look at the documentation of TanStack table.
 			</p>
 
 			<spartan-page-bottom-nav>

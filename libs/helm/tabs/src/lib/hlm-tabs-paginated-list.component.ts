@@ -13,7 +13,7 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronLeft, lucideChevronRight } from '@ng-icons/lucide';
 import { hlm } from '@spartan-ng/brain/core';
 import {
-	BrnPaginatedTabHeaderItem,
+	type BrnPaginatedTabHeaderItem,
 	BrnTabsPaginatedListDirective,
 	BrnTabsTriggerDirective,
 } from '@spartan-ng/brain/tabs';

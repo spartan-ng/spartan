@@ -46,7 +46,7 @@ import {
 
 @Component({
 	selector: 'spartan-input-otp-preview',
-imports: [
+	imports: [
 		HlmInputOtpDirective,
 		HlmInputOtpGroupDirective,
 		HlmInputOtpSeparatorComponent,

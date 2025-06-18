@@ -116,11 +116,7 @@ import { afterNextRender, Component, computed, inject, OnDestroy, signal } from 
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BrnInputOtpComponent } from '@spartan-ng/brain/input-otp';
 import { HlmButtonDirective } from '@spartan-ng/helm/button';
-import {
-	HlmInputOtpDirective,
-	HlmInputOtpGroupDirective,
-	HlmInputOtpSlotComponent,
-} from '@spartan-ng/helm/input-otp';
+import { HlmInputOtpDirective, HlmInputOtpGroupDirective, HlmInputOtpSlotComponent } from '@spartan-ng/helm/input-otp';
 import { HlmToasterComponent } from '@spartan-ng/helm/sonner';
 import { toast } from 'ngx-sonner';
 
@@ -141,7 +137,7 @@ import { toast } from 'ngx-sonner';
 
 		<form [formGroup]="form" (ngSubmit)="submit()" class="space-y-8">
 			<brn-input-otp
-				hlm
+				hlmInputOtp
 				[maxLength]="maxLength"
 				inputClass="disabled:cursor-not-allowed"
 				formControlName="otp"

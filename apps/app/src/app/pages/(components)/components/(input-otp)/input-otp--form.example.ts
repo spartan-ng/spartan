@@ -23,7 +23,7 @@ import { toast } from 'ngx-sonner';
 
 		<form [formGroup]="form" (ngSubmit)="submit()" class="space-y-8">
 			<brn-input-otp
-				hlm
+				hlmInputOtp
 				[maxLength]="maxLength"
 				inputClass="disabled:cursor-not-allowed"
 				formControlName="otp"

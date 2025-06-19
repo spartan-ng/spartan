@@ -11,20 +11,16 @@ export * from './lib/hlm-input-otp-separator.component';
 export * from './lib/hlm-input-otp-slot.component';
 export * from './lib/hlm-input-otp.directive';
 
+export const HlmInputOtpImports = [
+	HlmInputOtpDirective,
+	HlmInputOtpGroupDirective,
+	HlmInputOtpSeparatorComponent,
+	HlmInputOtpSlotComponent,
+	HlmInputOtpFakeCaretComponent,
+] as const;
+
 @NgModule({
-	imports: [
-		HlmInputOtpDirective,
-		HlmInputOtpGroupDirective,
-		HlmInputOtpSeparatorComponent,
-		HlmInputOtpSlotComponent,
-		HlmInputOtpFakeCaretComponent,
-	],
-	exports: [
-		HlmInputOtpDirective,
-		HlmInputOtpGroupDirective,
-		HlmInputOtpSeparatorComponent,
-		HlmInputOtpSlotComponent,
-		HlmInputOtpFakeCaretComponent,
-	],
+	imports: [...HlmInputOtpImports],
+	exports: [...HlmInputOtpImports],
 })
 export class HlmInputOtpModule {}

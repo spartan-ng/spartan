@@ -27,7 +27,7 @@ const meta: Meta<BrnInputOtpComponent> = {
 	render: ({ ...args }) => ({
 		props: args,
 		template: `
-		<brn-input-otp hlm maxLength="6" inputClass="disabled:cursor-not-allowed">
+		<brn-input-otp hlmInputOtp maxLength="6" inputClass="disabled:cursor-not-allowed">
 			<div hlmInputOtpGroup>
 				<hlm-input-otp-slot index="0" />
 				<hlm-input-otp-slot index="1" />

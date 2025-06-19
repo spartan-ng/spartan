@@ -3,7 +3,7 @@ import { hlm } from '@spartan-ng/brain/core';
 import { type ClassValue } from 'clsx';
 
 @Directive({
-	selector: 'brn-input-otp [hlm]',
+	selector: 'brn-input-otp[hlmInputOtp], brn-input-otp[hlm]',
 	host: {
 		'[class]': '_computedClass()',
 	},

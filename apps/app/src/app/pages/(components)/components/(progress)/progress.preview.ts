@@ -25,11 +25,11 @@ import {
   BrnProgressComponent,
   BrnProgressIndicatorComponent,
 } from '@spartan-ng/brain/progress';
-import { HlmProgressIndicatorDirective } from '@spartan-ng/helm/progress';
+import { HlmProgressDirective, HlmProgressIndicatorDirective } from '@spartan-ng/helm/progress';
 
 @Component({
   selector: 'spartan-progress-preview',
-imports: [BrnProgressComponent, BrnProgressIndicatorComponent, HlmProgressIndicatorDirective],
+imports: [BrnProgressComponent, BrnProgressIndicatorComponent, HlmProgressIndicatorDirective, HlmProgressDirective],
   template: \`
     <brn-progress hlm class='w-80' aria-labelledby="loading" [value]="value">
       <brn-progress-indicator hlm />
@@ -50,7 +50,7 @@ import {
   BrnProgressComponent,
   BrnProgressIndicatorComponent,
 } from '@spartan-ng/brain/progress';
-import { HlmProgressIndicatorDirective } from '@spartan-ng/helm/progress';
+import { HlmProgressDirective, HlmProgressIndicatorDirective } from '@spartan-ng/helm/progress';
 `;
 export const defaultSkeleton = `
 <brn-progress hlm [value]="value">

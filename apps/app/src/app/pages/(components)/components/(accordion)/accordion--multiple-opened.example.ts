@@ -1,6 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideChevronDown } from '@ng-icons/lucide';
+import { NgIcon } from '@ng-icons/core';
 import {
 	HlmAccordionContentComponent,
 	HlmAccordionDirective,
@@ -23,7 +22,6 @@ import { HlmIconDirective } from '@spartan-ng/helm/icon';
 		NgIcon,
 		HlmIconDirective,
 	],
-	viewProviders: [provideIcons({ lucideChevronDown })],
 	template: `
 		<div hlmAccordion type="multiple" class="pb-4">
 			<div hlmAccordionItem [isOpened]="true">
@@ -64,7 +62,9 @@ export class AccordionMultipleOpenedComponent {
 	}
 }
 
-export const multipleOpenedCodeString = `import { Component, signal } from '@angular/core';
+export const multipleOpenedCodeString = `
+import { Component, signal } from '@angular/core';
+import { NgIcon } from '@ng-icons/core';
 import {
 	HlmAccordionContentComponent,
 	HlmAccordionDirective,
@@ -74,24 +74,22 @@ import {
 } from '@spartan-ng/helm/accordion';
 import { HlmButtonDirective } from '@spartan-ng/helm/button';
 import { HlmIconDirective } from '@spartan-ng/helm/icon';
-import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideChevronDown } from '@ng-icons/lucide';
 
 @Component({
 	selector: 'spartan-accordion-multiple-opened',
-imports: [
+	imports: [
 		HlmButtonDirective,
 		HlmAccordionDirective,
 		HlmAccordionItemDirective,
 		HlmAccordionTriggerDirective,
 		HlmAccordionContentComponent,
 		HlmAccordionIconDirective,
+		NgIcon,
 		HlmIconDirective,
 	],
-	viewProviders: [provideIcons({ lucideChevronDown })],
 	template: \`
 		<div hlmAccordion type="multiple" class="pb-4">
-			<div hlmAccordionItem isOpened>
+			<div hlmAccordionItem [isOpened]="true">
 				<button hlmAccordionTrigger>
 					Is it accessible?
 					<ng-icon name="lucideChevronDown" hlm hlmAccIcon />

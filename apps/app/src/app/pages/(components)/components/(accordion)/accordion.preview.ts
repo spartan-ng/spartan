@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideChevronDown } from '@ng-icons/lucide';
+import { NgIcon } from '@ng-icons/core';
 import {
 	HlmAccordionContentComponent,
 	HlmAccordionDirective,
@@ -21,7 +20,6 @@ import { HlmIconDirective } from '@spartan-ng/helm/icon';
 		NgIcon,
 		HlmIconDirective,
 	],
-	viewProviders: [provideIcons({ lucideChevronDown })],
 	template: `
 		<div hlmAccordion>
 			<div hlmAccordionItem>
@@ -57,6 +55,7 @@ import { HlmIconDirective } from '@spartan-ng/helm/icon';
 export class AccordionPreviewComponent {}
 
 export const codeImports = `
+import { NgIcon } from '@ng-icons/core';
 import {
   HlmAccordionContentComponent,
   HlmAccordionDirective,
@@ -67,18 +66,29 @@ import {
 import { HlmIconDirective } from '@spartan-ng/helm/icon';
 `;
 
-export const codeString = `import { Component } from '@angular/core';${codeImports}
+export const codeString = `
+import { Component } from '@angular/core';
+import { NgIcon } from '@ng-icons/core';
+import {
+	HlmAccordionContentComponent,
+	HlmAccordionDirective,
+	HlmAccordionIconDirective,
+	HlmAccordionItemDirective,
+	HlmAccordionTriggerDirective,
+} from '@spartan-ng/helm/accordion';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
+
 @Component({
 	selector: 'spartan-accordion-preview',
-imports: [
+	imports: [
 		HlmAccordionDirective,
 		HlmAccordionItemDirective,
 		HlmAccordionTriggerDirective,
-		HlmAccordionContentComponent,
 		HlmAccordionIconDirective,
+		HlmAccordionContentComponent,
+		NgIcon,
 		HlmIconDirective,
 	],
-	viewProviders: [provideIcons({ lucideChevronDown })],
 	template: \`
 		<div hlmAccordion>
 			<div hlmAccordionItem>

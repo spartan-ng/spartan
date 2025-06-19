@@ -16,19 +16,19 @@ import { UIApiDocsTableComponent } from '../ui-api-docs-table/ui-api-docs-table.
 				<h4 class="${hlmH4} mb-2 mt-6 pt-12" [id]="entry.toLowerCase()">{{ entry }}</h4>
 				<p>
 					Selector:
-					<code class="${hlmCode}">{{ componentItems()[entry].selector }}</code>
+					<code class="${hlmCode}">{{ transformedComponentItems()[entry].selector }}</code>
 				</p>
-				@if (componentItems()[entry].exportAs) {
+				@if (transformedComponentItems()[entry].exportAs) {
 					<p>
 						ExportAs:
-						<code class="${hlmCode}">{{ componentItems()[entry].exportAs }}</code>
+						<code class="${hlmCode}">{{ transformedComponentItems()[entry].exportAs }}</code>
 					</p>
 				}
 
-				@if (componentItems()[entry].inputs && componentItems()[entry].inputs.length > 0) {
+				@if (transformedComponentItems()[entry].inputs && transformedComponentItems()[entry].inputs.length > 0) {
 					<spartan-ui-api-docs-table
 						title="Inputs"
-						[rows]="componentItems()[entry].inputs"
+						[rows]="transformedComponentItems()[entry].inputs"
 						[columns]="[
 							{ label: 'Prop', key: 'name', class: 'font-medium' },
 							{ label: 'Type', key: 'type' },
@@ -38,26 +38,14 @@ import { UIApiDocsTableComponent } from '../ui-api-docs-table/ui-api-docs-table.
 					/>
 				}
 
-				@if (componentItems()[entry].models && componentItems()[entry].models.length > 0) {
-					<spartan-ui-api-docs-table
-						title="Models"
-						[rows]="componentItems()[entry].models"
-						[columns]="[
-							{ label: 'Prop', key: 'name', class: 'font-medium' },
-							{ label: 'Type', key: 'type' },
-							{ label: 'Default', key: 'defaultValue' },
-							{ label: 'Description', key: 'description' },
-						]"
-					/>
-				}
-
-				@if (componentItems()[entry].outputs && componentItems()[entry].outputs.length > 0) {
+				@if (transformedComponentItems()[entry].outputs && transformedComponentItems()[entry].outputs.length > 0) {
 					<spartan-ui-api-docs-table
 						title="Outputs"
-						[rows]="componentItems()[entry].outputs"
+						[rows]="transformedComponentItems()[entry].outputs"
 						[columns]="[
 							{ label: 'Prop', key: 'name', class: 'font-medium' },
 							{ label: 'Type', key: 'type' },
+							{ label: 'Default', key: 'defaultValue' },
 							{ label: 'Description', key: 'description' },
 						]"
 					/>
@@ -76,4 +64,29 @@ export class UIApiDocsComponent {
 	protected componentDocs = computed(() => this._apiDocsService.getComponentDocs(this.primitive())());
 	protected componentItems = computed(() => this.componentDocs()?.[this.docType()] ?? {});
 	protected componentEntries = computed(() => Object.keys(this.componentItems() ?? []));
+
+	protected transformedComponentItems = computed(() => {
+		const items = this.componentItems();
+		if (!items) return {};
+
+		const transformed: any = {};
+		for (const [key, value] of Object.entries(items)) {
+			transformed[key] = {
+				...value,
+				inputs: value.inputs?.map((input: any) => ({
+					...input,
+					name: input.required ? `${input.name}<span class="text-destructive">*</span> (required)` : input.name,
+				})),
+				models: value.models?.map((model: any) => ({
+					...model,
+					name: model.required ? `${model.name}<span class="text-destructive">*</span> (required)` : model.name,
+				})),
+				outputs: value.outputs?.map((output: any) => ({
+					...output,
+					name: output.required ? `${output.name}<span class="text-destructive">*</span> (required)` : output.name,
+				})),
+			};
+		}
+		return transformed;
+	});
 }

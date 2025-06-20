@@ -45,6 +45,7 @@
 		"@nx/devkit": "20.8.1",
 		"@nx/plugin": "20.8.1",
 		"@swc/helpers": "0.5.13",
+		"@tanstack/angular-table": "^8.21.3",
 		"@testing-library/cypress": "^10.0.2",
 		"@trpc/client": "10.45.2",
 		"@trpc/server": "10.45.2",

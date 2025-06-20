@@ -1,4 +1,4 @@
-import { Component, HostBinding, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCheck } from '@ng-icons/lucide';
 import {
@@ -21,7 +21,7 @@ import {
 import { HlmIconDirective } from '@spartan-ng/helm/icon';
 import { HlmInputDirective } from '@spartan-ng/helm/input';
 import { HlmLabelDirective } from '@spartan-ng/helm/label';
-import { HlmTableComponent, HlmTdComponent, HlmThComponent, HlmTrowComponent } from '@spartan-ng/helm/table';
+import { HlmTableImports } from '@spartan-ng/helm/table';
 import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
 
 const meta: Meta<HlmDialogComponent> = {
@@ -184,13 +184,10 @@ class DialogDynamicComponentStory {
 		HlmDialogHeaderComponent,
 		HlmDialogTitleDirective,
 		HlmDialogDescriptionDirective,
-		HlmTableComponent,
-		HlmThComponent,
-		HlmTrowComponent,
-		HlmTdComponent,
 		HlmButtonDirective,
 		NgIcon,
 		HlmIconDirective,
+		...HlmTableImports,
 	],
 	providers: [provideIcons({ lucideCheck })],
 	template: `
@@ -199,36 +196,33 @@ class DialogDynamicComponentStory {
 			<p hlmDialogDescription>Click a row to select a user.</p>
 		</hlm-dialog-header>
 
-		<hlm-table>
-			<hlm-trow>
-				<hlm-th class="w-44">Name</hlm-th>
-				<hlm-th class="w-60">Email</hlm-th>
-				<hlm-th class="w-48">Phone</hlm-th>
-			</hlm-trow>
+		<table hlmTable>
+			<tr hlmTr>
+				<th hlmTh>Name</th>
+				<th hlmTh>Email</th>
+				<th hlmTh>Phone</th>
+			</tr>
 			@for (user of users; track user.name) {
-				<button class="text-left" (click)="selectUser(user)">
-					<hlm-trow>
-						<hlm-td truncate class="w-44 font-medium">{{ user.name }}</hlm-td>
-						<hlm-td class="w-60">{{ user.email }}</hlm-td>
-						<hlm-td class="w-48">{{ user.phone }}</hlm-td>
-					</hlm-trow>
-				</button>
+				<tr hlmTr (click)="selectUser(user)" class="cursor-pointer">
+					<td hlmTd truncate class="font-medium">{{ user.name }}</td>
+					<td hlmTd>{{ user.email }}</td>
+					<td hlmTd>{{ user.phone }}</td>
+				</tr>
 			}
-		</hlm-table>
+		</table>
 	`,
+	host: {
+		class: 'flex flex-col gap-4',
+	},
 })
 class SelectUserComponent {
-	@HostBinding('class') private readonly _class: string = 'flex flex-col gap-4';
-
 	private readonly _hlmDialogService = inject(HlmDialogService);
-	private readonly _dialogRef = inject<BrnDialogRef<ExampleUser>>(BrnDialogRef);
 	private readonly _dialogContext = injectBrnDialogContext<{ users: ExampleUser[] }>();
 
 	protected readonly users = this._dialogContext.users;
 
 	public selectUser(user: ExampleUser) {
 		this._hlmDialogService.open(SelectUserComponent, { context: { users: [user] }, contentClass: 'sm:!max-w-[750px]' });
-		// this._dialogRef.close(user);
 	}
 }
 

@@ -58,55 +58,62 @@ export const routeMeta: RouteMeta = {
 			The people of the kingdom, feeling uplifted by the laughter, started to tell jokes and puns again, and soon the
 			entire kingdom was in on the joke.
 		</p>
-		<!-- TODO: add table styles when creating table component -->
 		<div class="my-6 w-full overflow-y-auto">
-			<table class="w-full">
-				<thead>
-					<tr class="border-border even:bg-muted m-0 border-t p-0">
+			<table hlmTable class="w-full">
+				<thead hlmTHead>
+					<tr hlmTr class="border-border even:bg-muted m-0 border-t p-0">
 						<th
+							hlmTh
 							class="border-border border px-4 py-2 text-left font-bold [&[align=center]]:text-center [&[align=right]]:text-right"
 						>
 							King's Treasury
 						</th>
 						<th
+							hlmTh
 							class="border-border border px-4 py-2 text-left font-bold [&[align=center]]:text-center [&[align=right]]:text-right"
 						>
 							People's happiness
 						</th>
 					</tr>
 				</thead>
-				<tbody>
-					<tr class="border-border even:bg-muted m-0 border-t p-0">
+				<tbody hlmTBody>
+					<tr hlmTr class="border-border even:bg-muted m-0 border-t p-0">
 						<td
+							hlmTd
 							class="border-border border px-4 py-2 text-left [&[align=center]]:text-center [&[align=right]]:text-right"
 						>
 							Empty
 						</td>
 						<td
+							hlmTd
 							class="border-border border px-4 py-2 text-left [&[align=center]]:text-center [&[align=right]]:text-right"
 						>
 							Overflowing
 						</td>
 					</tr>
-					<tr class="border-border even:bg-muted m-0 border-t p-0">
+					<tr hlmTr class="border-border even:bg-muted m-0 border-t p-0">
 						<td
+							hlmTd
 							class="border-border border px-4 py-2 text-left [&[align=center]]:text-center [&[align=right]]:text-right"
 						>
 							Modest
 						</td>
 						<td
+							hlmTd
 							class="border-border border px-4 py-2 text-left [&[align=center]]:text-center [&[align=right]]:text-right"
 						>
 							Satisfied
 						</td>
 					</tr>
-					<tr class="border-border even:bg-muted m-0 border-t p-0">
+					<tr hlmTr class="border-border even:bg-muted m-0 border-t p-0">
 						<td
+							hlmTd
 							class="border-border border px-4 py-2 text-left [&[align=center]]:text-center [&[align=right]]:text-right"
 						>
 							Full
 						</td>
 						<td
+							hlmTd
 							class="border-border border px-4 py-2 text-left [&[align=center]]:text-center [&[align=right]]:text-right"
 						>
 							Ecstatic

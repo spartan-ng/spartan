@@ -20,6 +20,7 @@ export type PaginationVariants = VariantProps<typeof paginationVariants>;
 export class HlmPaginationDirective {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 
+	/** The aria-label for the pagination component. */
 	public readonly ariaLabel = input<string>('pagination', { alias: 'aria-label' });
 
 	protected readonly _computedClass = computed(() => hlm(paginationVariants(), this.userClass()));

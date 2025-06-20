@@ -18,6 +18,5 @@ export type PaginationItemVariants = VariantProps<typeof paginationItemVariants>
 })
 export class HlmPaginationItemDirective {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-
 	protected readonly _computedClass = computed(() => hlm(paginationItemVariants(), this.userClass()));
 }

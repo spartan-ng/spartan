@@ -12,10 +12,15 @@ import { toObservable } from '@angular/core/rxjs-interop';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronLeft, lucideChevronRight } from '@ng-icons/lucide';
 import { hlm } from '@spartan-ng/brain/core';
-import { BrnTabsPaginatedListDirective, BrnTabsTriggerDirective } from '@spartan-ng/brain/tabs';
+import {
+	type BrnPaginatedTabHeaderItem,
+	BrnTabsPaginatedListDirective,
+	BrnTabsTriggerDirective,
+} from '@spartan-ng/brain/tabs';
 import { buttonVariants } from '@spartan-ng/helm/button';
 import { HlmIconDirective } from '@spartan-ng/helm/icon';
 import type { ClassValue } from 'clsx';
+import type { Observable } from 'rxjs';
 import { listVariants } from './hlm-tabs-list.component';
 
 @Component({
@@ -72,7 +77,8 @@ import { listVariants } from './hlm-tabs-list.component';
 })
 export class HlmTabsPaginatedListComponent extends BrnTabsPaginatedListDirective {
 	public readonly _items = contentChildren(BrnTabsTriggerDirective, { descendants: false });
-	public readonly _itemsChanges = toObservable(this._items);
+	/** Explicitly annotating type to avoid non-portable inferred type */
+	public readonly _itemsChanges: Observable<ReadonlyArray<BrnPaginatedTabHeaderItem>> = toObservable(this._items);
 
 	public readonly _tabListContainer = viewChild.required<ElementRef<HTMLElement>>('tabListContainer');
 	public readonly _tabList = viewChild.required<ElementRef<HTMLElement>>('tabList');

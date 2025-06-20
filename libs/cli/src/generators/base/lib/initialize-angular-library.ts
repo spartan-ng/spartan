@@ -1,4 +1,4 @@
-import { type Tree, joinPathFragments } from '@nx/devkit';
+import { type Tree, joinPathFragments, readNxJson } from '@nx/devkit';
 import type { HlmBaseGeneratorSchema } from '../schema';
 
 export async function initializeAngularLibrary(tree: Tree, options: HlmBaseGeneratorSchema) {
@@ -9,6 +9,7 @@ export async function initializeAngularLibrary(tree: Tree, options: HlmBaseGener
 			'@nx/angular/generators'
 		)
 	).libraryGenerator(tree, {
+		...(readNxJson(tree).generators?.['@nx/angular:library'] || {}),
 		name: options.publicName,
 		skipFormat: true,
 		simpleName: true,

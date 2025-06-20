@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { hlm } from '@spartan-ng/brain/core';
-import type { ClassValue } from 'clsx';
+import { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-menu-separator',
@@ -13,5 +13,5 @@ import type { ClassValue } from 'clsx';
 })
 export class HlmMenuSeparatorComponent {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected _computedClass = computed(() => hlm('block -mx-1 my-1 h-px bg-muted', this.userClass()));
+	protected readonly _computedClass = computed(() => hlm('block bg-border -mx-1 my-1 h-px', this.userClass()));
 }

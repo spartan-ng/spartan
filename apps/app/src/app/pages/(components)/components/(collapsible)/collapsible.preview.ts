@@ -12,7 +12,7 @@ import { HlmButtonDirective } from '@spartan-ng/helm/button';
 		<brn-collapsible class="flex w-[350px] flex-col gap-2">
 			<div class="flex items-center justify-between gap-4 px-4">
 				<h4 class="text-sm font-semibold">&#64;peduarte starred 3 repositories</h4>
-				<button brnCollapsibleTrigger hlmBtn variant="ghost" size="icon">
+				<button brnCollapsibleTrigger hlmBtn variant="ghost" size="icon" class="size-8">
 					<ng-icon name="lucideChevronsUpDown" />
 				</button>
 			</div>

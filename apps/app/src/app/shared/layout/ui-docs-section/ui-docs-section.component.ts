@@ -30,10 +30,10 @@ import { UIApiDocsTableComponent } from '../ui-api-docs-table/ui-api-docs-table.
 						title="Inputs"
 						[rows]="componentItems()[entry].inputs"
 						[columns]="[
-							{ label: 'Prop', key: 'name', class: 'w-[200px] flex-1 font-medium' },
-							{ label: 'Type', key: 'type', class: 'w-[100px] flex-1 flex-wrap' },
-							{ label: 'Default', key: 'defaultValue', class: 'w-[100px] flex-1' },
-							{ label: 'Description', key: 'description', class: 'flex-1' },
+							{ label: 'Prop', key: 'name', class: 'w-[200px] flex-1 font-medium break-all' },
+							{ label: 'Type', key: 'type', class: 'w-[100px] flex-1 flex-wrap break-all' },
+							{ label: 'Default', key: 'defaultValue', class: 'w-[100px] flex-1 break-all' },
+							{ label: 'Description', key: 'description', class: 'flex-1 break-normal' },
 						]"
 					/>
 				}
@@ -43,10 +43,10 @@ import { UIApiDocsTableComponent } from '../ui-api-docs-table/ui-api-docs-table.
 						title="Models"
 						[rows]="componentItems()[entry].models"
 						[columns]="[
-							{ label: 'Prop', key: 'name', class: 'w-[200px] flex-1 font-medium' },
-							{ label: 'Type', key: 'type', class: 'w-[100px] flex-1 flex-wrap' },
-							{ label: 'Default', key: 'defaultValue', class: 'w-[100px] flex-1' },
-							{ label: 'Description', key: 'description', class: 'flex-1' },
+							{ label: 'Prop', key: 'name', class: 'w-[200px] flex-1 font-medium break-all' },
+							{ label: 'Type', key: 'type', class: 'w-[100px] flex-1 flex-wrap break-all' },
+							{ label: 'Default', key: 'defaultValue', class: 'w-[100px] flex-1 break-all' },
+							{ label: 'Description', key: 'description', class: 'flex-1 break-normal' },
 						]"
 					/>
 				}
@@ -56,9 +56,9 @@ import { UIApiDocsTableComponent } from '../ui-api-docs-table/ui-api-docs-table.
 						title="Outputs"
 						[rows]="componentItems()[entry].outputs"
 						[columns]="[
-							{ label: 'Prop', key: 'name', class: 'w-[200px] flex-1 font-medium' },
-							{ label: 'Type', key: 'type', class: 'w-[100px] flex-1 flex-wrap' },
-							{ label: 'Description', key: 'description', class: 'flex-1' },
+							{ label: 'Prop', key: 'name', class: 'w-[200px] flex-1 font-medium break-all' },
+							{ label: 'Type', key: 'type', class: 'w-[100px] flex-1 flex-wrap break-all' },
+							{ label: 'Description', key: 'description', class: 'flex-1 break-normal' },
 						]"
 					/>
 				}

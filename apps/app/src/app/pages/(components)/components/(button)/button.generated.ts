@@ -20,18 +20,6 @@ import { HlmButtonDirective } from '@spartan-ng/helm/button';
 	\`,
 })
 export class ButtonAnchorComponent {}
-
-export const anchorCode = \`
-import { Component } from '@angular/core';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
-
-@Component({
-  selector: 'spartan-button-anchor',
-imports: [HlmButtonDirective],
-  template: \\` <a hlmBtn target='_blank' variant="link" href="https://github.com/goetzrobin/spartan"> Star on GitHub </a> \\`,
-})
-export class ButtonAnchorComponent {}
-\`;
 `;
 
 export const buttonDestructiveCode = `
@@ -46,18 +34,6 @@ import { HlmButtonDirective } from '@spartan-ng/helm/button';
 	\`,
 })
 export class ButtonDestructiveComponent {}
-
-export const destructiveCode = \`
-import { Component } from '@angular/core';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
-
-@Component({
-  selector: 'spartan-button-destructive',
-imports: [HlmButtonDirective],
-  template: \\`
-    <button hlmBtn variant='destructive'>Destructive</button> \\`,})
-export class ButtonDestructiveComponent {}
-\`;
 `;
 
 export const buttonGhostCode = `
@@ -72,18 +48,6 @@ import { HlmButtonDirective } from '@spartan-ng/helm/button';
 	\`,
 })
 export class ButtonGhostComponent {}
-
-export const ghostCode = \`
-import { Component } from '@angular/core';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
-
-@Component({
-  selector: 'spartan-button-ghost',
-imports: [HlmButtonDirective],
-  template: \\`
-    <button hlmBtn variant='ghost'>Ghost</button> \\`,})
-export class ButtonGhostComponent {}
-\`;
 `;
 
 export const buttonIconCode = `
@@ -102,23 +66,6 @@ import { HlmIconDirective } from '@spartan-ng/helm/icon';
 	\`,
 })
 export class ButtonIconComponent {}
-
-export const iconCode = \`
-import { Component } from '@angular/core';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
-import { HlmSpinnerComponent } from '@spartan-ng/helm/spinner';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
-import { provideIcons } from '@ng-icons/core';
-import { lucideChevronRight } from '@ng-icons/lucide';
-
-@Component({
-  selector: 'spartan-button-icon',
-imports: [HlmButtonDirective, HlmSpinnerComponent, HlmIconDirective],
-  providers: [provideIcons({ lucideChevronRight })],
-  template: \\` <button hlmBtn size="icon" variant="outline"><ng-icon hlm size='sm' name="lucideChevronRight" /></button> \\`,
-})
-export class ButtonIconComponent {}
-\`;
 `;
 
 export const buttonLinkCode = `
@@ -133,18 +80,6 @@ import { HlmButtonDirective } from '@spartan-ng/helm/button';
 	\`,
 })
 export class ButtonLinkComponent {}
-
-export const linkCode = \`
-import { Component } from '@angular/core';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
-
-@Component({
-  selector: 'spartan-button-link',
-imports: [HlmButtonDirective],
-  template: \\`
-    <button hlmBtn variant='link'>Link</button> \\`,})
-export class ButtonLinkComponent {}
-\`;
 `;
 
 export const buttonLoadingCode = `
@@ -166,25 +101,6 @@ import { HlmIconDirective } from '@spartan-ng/helm/icon';
 	\`,
 })
 export class ButtonLoadingComponent {}
-
-export const loadingCode = \`
-import { Component } from '@angular/core';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
-import { HlmSpinnerComponent } from '@spartan-ng/helm/spinner';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
-import { provideIcons } from '@ng-icons/core';
-import { lucideLoaderCircle } from '@ng-icons/lucide';
-
-@Component({
-  selector: 'spartan-button-loading',
-imports: [HlmButtonDirective, HlmSpinnerComponent, HlmIconDirective],
-  providers: [provideIcons({ lucideLoaderCircle })],
-  template: \\`
-    <button disabled hlmBtn><ng-icon hlm name="lucideLoaderCircle" size="sm" class="mr-2 animate-spin" /> Please wait</button>
-  \\`,
-})
-export class ButtonLoadingComponent {}
-\`;
 `;
 
 export const buttonOutlineCode = `
@@ -199,18 +115,6 @@ import { HlmButtonDirective } from '@spartan-ng/helm/button';
 	\`,
 })
 export class ButtonOutlineComponent {}
-
-export const outlineCode = \`
-import { Component } from '@angular/core';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
-
-@Component({
-  selector: 'spartan-button-outline',
-imports: [HlmButtonDirective],
-  template: \\`
-    <button hlmBtn variant='outline'>Outline</button> \\`,})
-export class ButtonOutlineComponent {}
-\`;
 `;
 
 export const buttonSecondaryCode = `
@@ -225,18 +129,6 @@ import { HlmButtonDirective } from '@spartan-ng/helm/button';
 	\`,
 })
 export class ButtonSecondaryComponent {}
-
-export const secondaryCode = \`
-import { Component } from '@angular/core';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
-
-@Component({
-  selector: 'spartan-button-secondary',
-imports: [HlmButtonDirective],
-  template: \\`
-    <button hlmBtn variant='secondary'>Secondary</button> \\`,})
-export class ButtonSecondaryComponent {}
-\`;
 `;
 
 export const buttonWithIconCode = `
@@ -258,27 +150,6 @@ import { HlmIconDirective } from '@spartan-ng/helm/icon';
 	\`,
 })
 export class ButtonWithIconComponent {}
-
-export const withIconCode = \`
-import { Component } from '@angular/core';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
-import { provideIcons } from '@ng-icons/core';
-import { lucideMail } from '@ng-icons/lucide';
-
-@Component({
-  selector: 'spartan-button-with-icon',
-imports: [HlmButtonDirective, HlmIconDirective],
-  providers: [provideIcons({ lucideMail })],
-  template: \\`
-    <button hlmBtn>
-      <ng-icon hlm size="sm" class="mr-2" name="lucideMail" />
-      Login with Email
-    </button>
-  \\`,
-})
-export class ButtonWithIconComponent {}
-\`;
 `;
 
 export const defaultCode = `
@@ -294,5 +165,3 @@ import { HlmButtonDirective } from '@spartan-ng/helm/button';
 })
 export class ButtonPreviewComponent {}
 `;
-
-

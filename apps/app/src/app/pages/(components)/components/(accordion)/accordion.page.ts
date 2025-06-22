@@ -14,8 +14,9 @@ import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { AccordionMultipleOpenedComponent, multipleOpenedCodeString } from './accordion--multiple-opened.example';
-import { AccordionPreviewComponent, codeImports, codeSkeleton, codeString } from './accordion.preview';
+import { AccordionMultipleOpenedComponent } from './accordion--multiple-opened.example';
+import { accordionMultipleOpenedCode, defaultCode } from './accordion.generated';
+import { AccordionPreviewComponent, codeImports, codeSkeleton } from './accordion.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Accordion', api: 'accordion' },
@@ -68,7 +69,7 @@ export const routeMeta: RouteMeta = {
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="space-y-4">
 				<spartan-code [code]="imports" />
-				<spartan-code [code]="codeSkeleton" />
+				<spartan-code [code]="skeleton" />
 			</div>
 
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
@@ -105,9 +106,8 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class AccordionPageComponent {
-	public code = codeString;
+	public code = defaultCode;
 	public imports = codeImports;
 	public skeleton = codeSkeleton;
-	public multipleOpenedCode = multipleOpenedCodeString;
-	protected readonly codeSkeleton = codeSkeleton;
+	public multipleOpenedCode = accordionMultipleOpenedCode;
 }

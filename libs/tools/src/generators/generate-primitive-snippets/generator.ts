@@ -26,20 +26,20 @@ function getSourceFile(tree: Tree, filePath: string): ts.SourceFile | undefined 
 function removeDefaultCodesAndGetContent(sourceFile: ts.SourceFile) {
 	let content = '';
 	ts.forEachChild(sourceFile, (node) => {
-		const nodeText = node.getFullText(sourceFile).trim();
+		const nodeText = node.getFullText(sourceFile);
 		const pattern = /^export\s+const\s+\w+Code\s*=/;
 
 		if (
 			pattern.test(nodeText) ||
-			nodeText.includes('export const defaultSkeleton =') ||
-			nodeText.includes('export const defaultImports =')
+			nodeText.includes('export const codeSkeleton =') ||
+			nodeText.includes('export const codeImports =')
 		) {
 			return;
 		}
 
 		content += nodeText;
 	});
-	return content;
+	return content.trim();
 }
 
 export async function extractPrimitiveCodeGenerator(tree: Tree, _schema: ExtractPrimitiveCodeGeneratorSchema) {

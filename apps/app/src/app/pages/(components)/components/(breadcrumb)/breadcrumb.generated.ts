@@ -9,7 +9,8 @@ Run `pnpm run generate-snippets` to update this file.
 */
 
 export const breadcrumbCollapsedCode = `
-import { Component } from '@angular/core';import {
+import { Component } from '@angular/core';
+import {
 	HlmBreadcrumbDirective,
 	HlmBreadcrumbEllipsisComponent,
 	HlmBreadcrumbItemDirective,
@@ -17,7 +18,9 @@ import { Component } from '@angular/core';import {
 	HlmBreadcrumbListDirective,
 	HlmBreadcrumbPageDirective,
 	HlmBreadcrumbSeparatorComponent,
-} from '@spartan-ng/helm/breadcrumb';@Component({
+} from '@spartan-ng/helm/breadcrumb';
+
+@Component({
 	selector: 'spartan-breadcrumb-collapsed',
 	imports: [
 		HlmBreadcrumbDirective,
@@ -50,7 +53,57 @@ import { Component } from '@angular/core';import {
 		</nav>
 	\`,
 })
-export class BreadcrumbCollapsedComponent {}export const breadcrumbCollapsedSkeleton = \`
+export class BreadcrumbCollapsedComponent {}
+
+export const breadcrumbCollapsedCode = \`
+import { Component } from '@angular/core';
+import {
+	HlmBreadcrumbDirective,
+	HlmBreadcrumbEllipsisComponent,
+	HlmBreadcrumbItemDirective,
+	HlmBreadcrumbLinkDirective,
+	HlmBreadcrumbListDirective,
+	HlmBreadcrumbPageDirective,
+	HlmBreadcrumbSeparatorComponent,
+} from '@spartan-ng/helm/breadcrumb';
+
+@Component({
+	selector: 'spartan-breadcrumb-collapsed',
+imports: [
+		HlmBreadcrumbDirective,
+		HlmBreadcrumbSeparatorComponent,
+		HlmBreadcrumbEllipsisComponent,
+		HlmBreadcrumbListDirective,
+		HlmBreadcrumbItemDirective,
+		HlmBreadcrumbPageDirective,
+		HlmBreadcrumbLinkDirective,
+	],
+	template: \\`
+		<nav hlmBreadcrumb>
+			<ol hlmBreadcrumbList>
+				<li hlmBreadcrumbItem>
+					<a hlmBreadcrumbLink link="/home">Home</a>
+				</li>
+				<li hlmBreadcrumbSeparator></li>
+				<li hlmBreadcrumbItem>
+					<hlm-breadcrumb-ellipsis />
+				</li>
+				<li hlmBreadcrumbSeparator></li>
+				<li hlmBreadcrumbItem>
+					<a hlmBreadcrumbLink link="/components">Components</a>
+				</li>
+				<li hlmBreadcrumbSeparator></li>
+				<li hlmBreadcrumbItem>
+					<span hlmBreadcrumbPage>Breadcrumb</span>
+				</li>
+			</ol>
+		</nav>
+	\\`,
+})
+export class BreadcrumbCollapsedComponent {}
+\`;
+
+export const breadcrumbCollapsedSkeleton = \`
 import { lmBreadcrumbEllipsisComponent } from '@spartan-ng/helm/breadcrumb';
 
 ...
@@ -67,14 +120,20 @@ import { lmBreadcrumbEllipsisComponent } from '@spartan-ng/helm/breadcrumb';
 \`;
 `;
 export const breadcrumbCustomSeparatorCode = `
-import { Component } from '@angular/core';import { NgIcon, provideIcons } from '@ng-icons/core';import { lucideSlash } from '@ng-icons/lucide';import {
+import { Component } from '@angular/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { lucideSlash } from '@ng-icons/lucide';
+import {
 	HlmBreadcrumbDirective,
 	HlmBreadcrumbItemDirective,
 	HlmBreadcrumbLinkDirective,
 	HlmBreadcrumbListDirective,
 	HlmBreadcrumbPageDirective,
 	HlmBreadcrumbSeparatorComponent,
-} from '@spartan-ng/helm/breadcrumb';import { HlmIconDirective } from '@spartan-ng/helm/icon';@Component({
+} from '@spartan-ng/helm/breadcrumb';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
+
+@Component({
 	selector: 'spartan-breadcrumb-custom-separator',
 	providers: [provideIcons({ lucideSlash })],
 	imports: [
@@ -109,7 +168,60 @@ import { Component } from '@angular/core';import { NgIcon, provideIcons } from '
 		</nav>
 	\`,
 })
-export class BreadcrumbCustomSeparatorComponent {}export const breadcrumbCustomSeparatorSkeleton = \`
+export class BreadcrumbCustomSeparatorComponent {}
+
+export const breadcrumbCustomSeparatorCode = \`
+import { Component } from '@angular/core';
+import { lucideSlash } from '@ng-icons/lucide';
+import {
+	HlmBreadcrumbDirective,
+	HlmBreadcrumbItemDirective,
+	HlmBreadcrumbLinkDirective,
+	HlmBreadcrumbListDirective,
+	HlmBreadcrumbPageDirective,
+	HlmBreadcrumbSeparatorComponent,
+} from '@spartan-ng/helm/breadcrumb';
+import { HlmIconDirective, provideIcons } from '@spartan-ng/helm/icon';
+
+@Component({
+	selector: 'spartan-breadcrumb-custom-separator',
+providers: [provideIcons({ lucideSlash })],
+	imports: [
+		HlmBreadcrumbDirective,
+		HlmBreadcrumbSeparatorComponent,
+		HlmBreadcrumbListDirective,
+		HlmBreadcrumbItemDirective,
+		HlmBreadcrumbPageDirective,
+		HlmBreadcrumbLinkDirective,
+
+		HlmIconDirective,
+	],
+	template: \\`
+		<nav hlmBreadcrumb>
+			<ol hlmBreadcrumbList>
+				<li hlmBreadcrumbItem>
+					<a hlmBreadcrumbLink link="/home">Home</a>
+				</li>
+				<li hlmBreadcrumbSeparator>
+					<ng-icon hlm size="sm" name="lucideSlash" />
+				</li>
+				<li hlmBreadcrumbItem>
+					<a hlmBreadcrumbLink link="/components">Components</a>
+				</li>
+				<li hlmBreadcrumbSeparator>
+						<ng-icon hlm size="sm" name="lucideSlash" />
+				</li>
+				<li hlmBreadcrumbItem>
+					<span hlmBreadcrumbPage>Breadcrumb</span>
+				</li>
+			</ol>
+		</nav>
+	\\`,
+})
+export class BreadcrumbCustomSeparatorComponent {}
+\`;
+
+export const breadcrumbCustomSeparatorSkeleton = \`
 import { lucideSlash } from '@ng-icons/lucide';
 import { HlmIconDirective, provideIcons } from '@spartan-ng/helm/icon';
 
@@ -137,14 +249,22 @@ import { HlmIconDirective, provideIcons } from '@spartan-ng/helm/icon';
 \`;
 `;
 export const breadcrumbDropdownCode = `
-import { Component } from '@angular/core';import { NgIcon, provideIcons } from '@ng-icons/core';import { lucideChevronDown, lucideSlash } from '@ng-icons/lucide';import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';import {
+import { Component } from '@angular/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { lucideChevronDown, lucideSlash } from '@ng-icons/lucide';
+import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
+import {
 	HlmBreadcrumbDirective,
 	HlmBreadcrumbItemDirective,
 	HlmBreadcrumbLinkDirective,
 	HlmBreadcrumbListDirective,
 	HlmBreadcrumbPageDirective,
 	HlmBreadcrumbSeparatorComponent,
-} from '@spartan-ng/helm/breadcrumb';import { HlmIconDirective } from '@spartan-ng/helm/icon';import { HlmMenuComponent, HlmMenuItemDirective } from '@spartan-ng/helm/menu';@Component({
+} from '@spartan-ng/helm/breadcrumb';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { HlmMenuComponent, HlmMenuItemDirective } from '@spartan-ng/helm/menu';
+
+@Component({
 	selector: 'spartan-breadcrumb-dropdown',
 	providers: [provideIcons({ lucideChevronDown, lucideSlash })],
 	imports: [
@@ -198,7 +318,81 @@ import { Component } from '@angular/core';import { NgIcon, provideIcons } from '
 		</nav>
 	\`,
 })
-export class BreadcrumbDropdownComponent {}export const breadcrumbDropdownSkeleton = \`
+export class BreadcrumbDropdownComponent {}
+
+export const breadcrumbDropdownCode = \`
+import { Component } from '@angular/core';
+import { lucideChevronDown, lucideSlash } from '@ng-icons/lucide';
+import {
+	HlmBreadcrumbDirective,
+	HlmBreadcrumbItemDirective,
+	HlmBreadcrumbLinkDirective,
+	HlmBreadcrumbListDirective,
+	HlmBreadcrumbPageDirective,
+	HlmBreadcrumbSeparatorComponent,
+} from '@spartan-ng/helm/breadcrumb';
+import { HlmIconDirective, provideIcons } from '@spartan-ng/helm/icon';
+import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
+import { HlmMenuComponent, HlmMenuItemDirective } from '@spartan-ng/helm/menu';
+
+@Component({
+	selector: 'spartan-breadcrumb-dropdown',
+providers: [provideIcons({ lucideChevronDown, lucideSlash })],
+	imports: [
+		HlmBreadcrumbDirective,
+		HlmBreadcrumbSeparatorComponent,
+		HlmBreadcrumbListDirective,
+		HlmBreadcrumbItemDirective,
+		HlmBreadcrumbPageDirective,
+		HlmBreadcrumbLinkDirective,
+
+		HlmIconDirective,
+		BrnMenuTriggerDirective,
+		HlmMenuComponent,
+		HlmMenuItemDirective,
+	],
+	template: \\`
+		<nav hlmBreadcrumb>
+			<ol hlmBreadcrumbList>
+				<li hlmBreadcrumbItem>
+					<a hlmBreadcrumbLink link="/home">Home</a>
+				</li>
+				<li hlmBreadcrumbSeparator>
+						<ng-icon hlm size="sm" name="lucideSlash" />
+				</li>
+				<li hlmBreadcrumbItem [brnMenuTriggerFor]="breadcrumbDropdown">
+					<div class="flex items-center gap-1">
+						Components
+						<ng-icon hlm size="sm" name="lucideChevronDown" />
+					</div>
+					<ng-template #breadcrumbDropdown>
+						<hlm-menu>
+							<button hlmMenuItem id="document">
+								<span>Documentation</span>
+							</button>
+							<button hlmMenuItem id="themes">
+								<span>Themes</span>
+							</button>
+							<button hlmMenuItem id="github">
+								<span>Github</span>
+							</button>
+						</hlm-menu>
+					</ng-template>
+				</li>
+				<li hlmBreadcrumbSeparator>
+						<ng-icon hlm size="sm" name="lucideSlash" />
+				</li>
+				<li hlmBreadcrumbItem>
+					<span hlmBreadcrumbPage>Breadcrumb</span>
+				</li>
+			</ol>
+		</nav>
+	\\`,
+})
+export class BreadcrumbDropdownComponent {}
+\`;
+
+export const breadcrumbDropdownSkeleton = \`
 import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
 import { HlmMenuComponent, HlmMenuItemDirective } from '@spartan-ng/helm/menu';
 
@@ -230,7 +424,9 @@ import { HlmMenuComponent, HlmMenuItemDirective } from '@spartan-ng/helm/menu';
 \`;
 `;
 export const defaultCode = `
-import { Component } from '@angular/core';import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';import {
+import { Component } from '@angular/core';
+import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
+import {
 	HlmBreadcrumbDirective,
 	HlmBreadcrumbEllipsisComponent,
 	HlmBreadcrumbItemDirective,
@@ -238,7 +434,10 @@ import { Component } from '@angular/core';import { BrnMenuTriggerDirective } fro
 	HlmBreadcrumbListDirective,
 	HlmBreadcrumbPageDirective,
 	HlmBreadcrumbSeparatorComponent,
-} from '@spartan-ng/helm/breadcrumb';import { HlmMenuComponent, HlmMenuItemDirective } from '@spartan-ng/helm/menu';@Component({
+} from '@spartan-ng/helm/breadcrumb';
+import { HlmMenuComponent, HlmMenuItemDirective } from '@spartan-ng/helm/menu';
+
+@Component({
 	selector: 'spartan-breadcrumb-preview',
 	imports: [
 		HlmBreadcrumbDirective,
@@ -290,4 +489,107 @@ import { Component } from '@angular/core';import { BrnMenuTriggerDirective } fro
 	\`,
 })
 export class BreadcrumbPreviewComponent {}
+
+export const defaultCode = \`
+import { Component } from '@angular/core';
+import {
+	HlmBreadcrumbDirective,
+	HlmBreadcrumbEllipsisComponent,
+	HlmBreadcrumbItemDirective,
+	HlmBreadcrumbLinkDirective,
+	HlmBreadcrumbListDirective,
+	HlmBreadcrumbPageDirective,
+	HlmBreadcrumbSeparatorComponent,
+} from '@spartan-ng/helm/breadcrumb';
+import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
+import { HlmMenuComponent, HlmMenuItemDirective } from '@spartan-ng/helm/menu';
+
+@Component({
+	selector: 'spartan-breadcrumb-preview',
+imports: [
+		HlmBreadcrumbDirective,
+		HlmBreadcrumbSeparatorComponent,
+		HlmBreadcrumbEllipsisComponent,
+		HlmBreadcrumbListDirective,
+		HlmBreadcrumbItemDirective,
+		HlmBreadcrumbPageDirective,
+		HlmBreadcrumbLinkDirective,
+
+		BrnMenuTriggerDirective,
+		HlmMenuComponent,
+		HlmMenuItemDirective,
+	],
+	template: \\`
+		<nav hlmBreadcrumb>
+			<ol hlmBreadcrumbList>
+				<li hlmBreadcrumbItem>
+					<a hlmBreadcrumbLink link="/home">Home</a>
+				</li>
+				<li hlmBreadcrumbSeparator></li>
+				<li hlmBreadcrumbItem>
+					<hlm-breadcrumb-ellipsis class="h-4 w-4" [brnMenuTriggerFor]="breadcrumbDropdown" />
+					<ng-template #breadcrumbDropdown>
+						<hlm-menu>
+							<button hlmMenuItem id="document">
+								<span>Documentation</span>
+							</button>
+							<button hlmMenuItem id="themes">
+								<span>Themes</span>
+							</button>
+							<button hlmMenuItem id="github">
+								<span>Github</span>
+							</button>
+						</hlm-menu>
+					</ng-template>
+				</li>
+				<li hlmBreadcrumbSeparator></li>
+				<li hlmBreadcrumbItem>
+					<a hlmBreadcrumbLink link="/components">Components</a>
+				</li>
+				<li hlmBreadcrumbSeparator></li>
+				<li hlmBreadcrumbItem>
+					<span hlmBreadcrumbPage>Breadcrumb</span>
+				</li>
+			</ol>
+		</nav>
+	\\`,
+})
+export class BreadcrumbPreviewComponent {}
+\`;
+
+export const defaultImports = \`
+import {
+	HlmBreadcrumbDirective,
+	HlmBreadcrumbEllipsisComponent,
+	HlmBreadcrumbItemDirective,
+	HlmBreadcrumbLinkDirective,
+	HlmBreadcrumbListDirective,
+	HlmBreadcrumbPageDirective,
+	HlmBreadcrumbSeparatorComponent,
+} from '@spartan-ng/helm/breadcrumb';
+\`;
+
+export const defaultSkeleton = \`
+<nav hlmBreadcrumb>
+	<ol hlmBreadcrumbList>
+		<li hlmBreadcrumbItem>
+			<a hlmBreadcrumbLink link="/home">Home</a>
+		</li>
+		<li hlmBreadcrumbSeparator></li>
+		<li hlmBreadcrumbItem>
+			<hlm-breadcrumb-ellipsis />
+		</li>
+		<li hlmBreadcrumbSeparator></li>
+		<li hlmBreadcrumbItem>
+			<a hlmBreadcrumbLink link="/components">Components</a>
+		</li>
+		<li hlmBreadcrumbSeparator></li>
+		<li hlmBreadcrumbItem>
+			<span hlmBreadcrumbPage>Breadcrumb</span>
+		</li>
+	</ol>
+</nav>
+\`;
 `;
+
+

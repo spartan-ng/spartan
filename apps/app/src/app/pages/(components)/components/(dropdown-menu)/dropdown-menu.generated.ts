@@ -9,7 +9,9 @@ Run `pnpm run generate-snippets` to update this file.
 */
 
 export const defaultCode = `
-import { Component } from '@angular/core';import { NgIcon, provideIcons } from '@ng-icons/core';import {
+import { Component } from '@angular/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import {
 	lucideCircleHelp,
 	lucideCirclePlus,
 	lucideCircleUser,
@@ -24,7 +26,11 @@ import { Component } from '@angular/core';import { NgIcon, provideIcons } from '
 	lucidePlus,
 	lucideSmile,
 	lucideUser,
-} from '@ng-icons/lucide';import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';import { HlmButtonDirective } from '@spartan-ng/helm/button';import { HlmIconDirective } from '@spartan-ng/helm/icon';import {
+} from '@ng-icons/lucide';
+import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import {
 	HlmMenuComponent,
 	HlmMenuGroupComponent,
 	HlmMenuItemDirective,
@@ -34,7 +40,9 @@ import { Component } from '@angular/core';import { NgIcon, provideIcons } from '
 	HlmMenuSeparatorComponent,
 	HlmMenuShortcutComponent,
 	HlmSubMenuComponent,
-} from '@spartan-ng/helm/menu';@Component({
+} from '@spartan-ng/helm/menu';
+
+@Component({
 	selector: 'spartan-dropdown-preview',
 	imports: [
 		BrnMenuTriggerDirective,
@@ -175,9 +183,232 @@ import { Component } from '@angular/core';import { NgIcon, provideIcons } from '
 	\`,
 })
 export class DropdownPreviewComponent {}
+
+export const defaultCode = \`
+import { Component } from '@angular/core';
+import { provideIcons } from '@ng-icons/core';
+import {
+  lucideCircleUser,
+  lucideLayers,
+  lucideMessageSquare,
+  lucideCode,
+  lucideMail,
+  lucideLogOut,
+  lucideSmile,
+  lucideCog,
+  lucideGithub,
+  lucideKeyboard,
+  lucideUser,
+  lucidePlus,
+  lucideCirclePlus,
+  lucideCircleHelp,
+} from '@ng-icons/lucide';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
+import {
+  HlmMenuComponent,
+  HlmMenuGroupComponent,
+  HlmMenuItemDirective,
+  HlmMenuItemIconDirective,
+  HlmMenuItemSubIndicatorComponent,
+  HlmMenuLabelComponent,
+  HlmMenuSeparatorComponent,
+  HlmMenuShortcutComponent,
+  HlmSubMenuComponent,
+} from '@spartan-ng/helm/menu';
+
+@Component({
+  selector: 'spartan-dropdown-preview',
+imports: [
+    BrnMenuTriggerDirective,
+
+    HlmMenuComponent,
+    HlmSubMenuComponent,
+    HlmMenuItemDirective,
+    HlmMenuItemSubIndicatorComponent,
+    HlmMenuLabelComponent,
+    HlmMenuShortcutComponent,
+    HlmMenuSeparatorComponent,
+    HlmMenuItemIconDirective,
+    HlmMenuGroupComponent,
+
+    HlmButtonDirective,
+    HlmIconDirective,
+  ],
+  providers: [
+    provideIcons({
+      lucideUser,
+      lucideLayers,
+      lucideCog,
+      lucideKeyboard,
+      lucideCircleUser,
+      lucideSmile,
+      lucidePlus,
+      lucideGithub,
+      lucideCircleHelp,
+      lucideCode,
+      lucideLogOut,
+      lucideMail,
+      lucideMessageSquare,
+      lucideCirclePlus,
+    }),
+  ],
+  template: \\`
+    <div class="flex w-full items-center justify-center pt-[20%]">
+      <button hlmBtn variant="outline" align="end" [brnMenuTriggerFor]="menu">Open</button>
+    </div>
+    <ng-template #menu>
+      <hlm-menu class="w-56">
+        <hlm-menu-label>My Account</hlm-menu-label>
+        <hlm-menu-separator />
+        <hlm-menu-group>
+          <button hlmMenuItem>
+            <ng-icon hlm name="lucideUser" hlmMenuIcon />
+            <span>Profile</span>
+            <hlm-menu-shortcut>⇧⌘P</hlm-menu-shortcut>
+          </button>
+
+          <button hlmMenuItem>
+            <ng-icon hlm name="lucideLayers" hlmMenuIcon />
+            <span>Billing</span>
+            <hlm-menu-shortcut>⌘B</hlm-menu-shortcut>
+          </button>
+
+          <button hlmMenuItem>
+            <ng-icon hlm name="lucideCog" hlmMenuIcon />
+            <span>Settings</span>
+            <hlm-menu-shortcut>⌘S</hlm-menu-shortcut>
+          </button>
+
+          <button hlmMenuItem>
+            <ng-icon hlm name="lucideKeyboard" hlmMenuIcon />
+            <span>Keyboard Shortcuts</span>
+            <hlm-menu-shortcut>⌘K</hlm-menu-shortcut>
+          </button>
+        </hlm-menu-group>
+
+        <hlm-menu-separator />
+
+        <hlm-menu-group>
+          <button hlmMenuItem>
+            <ng-icon hlm name="lucideCircleUser" hlmMenuIcon />
+            <span>Team</span>
+            <hlm-menu-shortcut>⌘B</hlm-menu-shortcut>
+          </button>
+
+          <button hlmMenuItem [brnMenuTriggerFor]="invite">
+            <ng-icon hlm name="lucideSmile" hlmMenuIcon />
+            <span>Invite Users</span>
+            <hlm-menu-item-sub-indicator />
+          </button>
+
+          <button hlmMenuItem>
+            <ng-icon hlm name="lucidePlus" hlmMenuIcon />
+            <span>New Team</span>
+            <hlm-menu-shortcut>⌘+T</hlm-menu-shortcut>
+          </button>
+        </hlm-menu-group>
+
+        <hlm-menu-separator />
+
+        <hlm-menu-group>
+          <button hlmMenuItem>
+            <ng-icon hlm name="lucideGithub" hlmMenuIcon />
+            <span>Github</span>
+          </button>
+
+          <button hlmMenuItem>
+            <ng-icon hlm name="lucideCircleHelp" hlmMenuIcon />
+            <span>Support</span>
+          </button>
+
+          <button hlmMenuItem disabled>
+            <ng-icon hlm name="lucideCode" hlmMenuIcon />
+            <span>API</span>
+          </button>
+        </hlm-menu-group>
+
+        <hlm-menu-separator />
+
+        <button hlmMenuItem>
+          <ng-icon hlm name="lucideLogOut" hlmMenuIcon />
+          <span>Logout</span>
+          <hlm-menu-shortcut>⇧⌘Q</hlm-menu-shortcut>
+        </button>
+      </hlm-menu>
+    </ng-template>
+
+    <ng-template #invite>
+      <hlm-sub-menu>
+        <button hlmMenuItem>
+          <ng-icon hlm name="lucideMail" hlmMenuIcon />
+          Email
+        </button>
+
+        <button hlmMenuItem>
+          <ng-icon hlm name="lucideMessageSquare" hlmMenuIcon />
+          Message
+        </button>
+        <hlm-menu-separator />
+        <button hlmMenuItem>
+          <ng-icon hlm name="lucideCirclePlus" hlmMenuIcon />
+          <span>More</span>
+        </button>
+      </hlm-sub-menu>
+    </ng-template>
+  \\`,
+})
+export class DropdownPreviewComponent {}
+\`;
+
+export const defaultImports = \`
+import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
+import {
+  HlmMenuComponent,
+  HlmMenuGroupComponent,
+  HlmMenuItemDirective,
+  HlmMenuItemIconDirective,
+  HlmMenuItemSubIndicatorComponent,
+  HlmMenuLabelComponent,
+  HlmMenuSeparatorComponent,
+  HlmMenuShortcutComponent,
+  HlmSubMenuComponent,
+} from '@spartan-ng/helm/menu';
+\`;
+
+export const defaultSkeleton = \`
+<button [brnMenuTriggerFor]="menu">Open</button>
+
+<ng-template #menu>
+  <hlm-menu>
+    <hlm-menu-label>My Account</hlm-menu-label>
+    <hlm-menu-separator />
+    <hlm-menu-group>
+      <button hlmMenuItem>
+        Profile
+        <hlm-menu-shortcut>⇧⌘P</hlm-menu-shortcut>
+      </button>
+
+      <hlm-menu-separator />
+
+      <button hlmMenuItem [brnMenuTriggerFor]="invite">
+        Invite Users
+        <hlm-menu-item-sub-indicator />
+      </button>
+    </hlm-menu-group>
+  </hlm-menu>
+</ng-template>
+\`;
 `;
 export const dropdownWithContextCode = `
-import { Component } from '@angular/core';import { NgIcon, provideIcons } from '@ng-icons/core';import { lucideUndo2 } from '@ng-icons/lucide';import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';import { HlmButtonDirective } from '@spartan-ng/helm/button';import { HlmIconDirective } from '@spartan-ng/helm/icon';import {
+import { Component } from '@angular/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { lucideUndo2 } from '@ng-icons/lucide';
+import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import {
 	HlmMenuComponent,
 	HlmMenuGroupComponent,
 	HlmMenuItemCheckComponent,
@@ -188,7 +419,9 @@ import { Component } from '@angular/core';import { NgIcon, provideIcons } from '
 	HlmMenuItemRadioDirective,
 	HlmMenuLabelComponent,
 	HlmMenuSeparatorComponent,
-} from '@spartan-ng/helm/menu';@Component({
+} from '@spartan-ng/helm/menu';
+
+@Component({
 	selector: 'spartan-dropdown-with-context',
 	imports: [
 		BrnMenuTriggerDirective,
@@ -282,9 +515,138 @@ export class DropdownWithContextPreviewComponent {
 		this.selectedPosition = 'Bottom';
 	}
 }
+
+export const dropdownWithContextCode = \`
+import { Component } from '@angular/core';
+import { provideIcons } from '@ng-icons/core';
+import { lucideUndo2 } from '@ng-icons/lucide';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
+import {
+  HlmMenuComponent,
+  HlmMenuGroupComponent,
+  HlmMenuItemCheckboxDirective,
+  HlmMenuItemCheckComponent,
+  HlmMenuItemDirective,
+  HlmMenuItemIconDirective,
+  HlmMenuItemRadioComponent,
+  HlmMenuItemRadioDirective,
+  HlmMenuItemSubIndicatorComponent,
+  HlmMenuLabelComponent,
+  HlmMenuSeparatorComponent,
+  HlmMenuShortcutComponent,
+  HlmSubMenuComponent,
+} from '@spartan-ng/helm/menu';
+
+@Component({
+  selector: 'spartan-dropdown-with-context',
+imports: [
+    BrnMenuTriggerDirective,
+
+    HlmMenuComponent,
+    HlmSubMenuComponent,
+    HlmMenuItemDirective,
+    HlmMenuItemSubIndicatorComponent,
+    HlmMenuLabelComponent,
+    HlmMenuShortcutComponent,
+    HlmMenuSeparatorComponent,
+    HlmMenuItemIconDirective,
+    HlmMenuItemCheckComponent,
+    HlmMenuItemRadioComponent,
+    HlmMenuGroupComponent,
+    HlmMenuItemRadioDirective,
+    HlmMenuItemCheckboxDirective,
+
+    HlmButtonDirective,
+    HlmIconDirective,
+  ],
+  providers: [provideIcons({ lucideUndo2 })],
+  template: \\`
+    <div class="flex w-full items-center justify-center pt-[20%]">
+      <button
+        hlmBtn
+        variant="outline"
+        align="center"
+        [brnMenuTriggerFor]="menu"
+        [brnMenuTriggerData]="{ $implicit: { data: 'SomeContext' } }"
+      >
+        Open
+      </button>
+    </div>
+    <ng-template #menu let-ctx>
+      <hlm-menu class="w-56">
+        <hlm-menu-group>
+          <hlm-menu-label>Context</hlm-menu-label>
+          <button hlmMenuItem> {{ ctx.data }} </button>
+        </hlm-menu-group>
+        <hlm-menu-group>
+          <hlm-menu-label>Appearance</hlm-menu-label>
+
+          <button hlmMenuItemCheckbox [checked]="isPanel" (triggered)="isPanel = !isPanel">
+            <hlm-menu-item-check />
+            <span>Panel</span>
+          </button>
+
+          <button hlmMenuItemCheckbox disabled [checked]="isActivityBar" (triggered)="isActivityBar = !isActivityBar">
+            <hlm-menu-item-check />
+            <span>Activity Bar</span>
+          </button>
+
+          <button hlmMenuItemCheckbox [checked]="isStatusBar" (triggered)="isStatusBar = !isStatusBar">
+            <hlm-menu-item-check />
+            <span>Status Bar</span>
+          </button>
+        </hlm-menu-group>
+
+        <hlm-menu-separator />
+
+        <hlm-menu-label>Panel Position</hlm-menu-label>
+
+        <hlm-menu-group>
+          @for (size of panelPositions; track size) {
+            <button hlmMenuItemRadio [checked]="size === selectedPosition" (triggered)="selectedPosition = size">
+              <hlm-menu-item-radio />
+              <span>{{ size }}</span>
+            </button>
+          }
+        </hlm-menu-group>
+
+        <hlm-menu-separator />
+
+        <button hlmMenuItem (triggered)="reset()">
+          <ng-icon hlm name="lucideUndo2" hlmMenuIcon />
+          Reset
+        </button>
+      </hlm-menu>
+    </ng-template>
+  \\`,
+})
+export class DropdownWithContextPreviewComponent {
+  isStatusBar = false;
+  isPanel = false;
+  isActivityBar = false;
+
+  panelPositions = ['Top', 'Bottom', 'Right', 'Left'] as const;
+  selectedPosition: (typeof this.panelPositions)[number] | undefined = 'Bottom';
+
+  reset() {
+    this.isStatusBar = false;
+    this.isPanel = false;
+    this.isActivityBar = false;
+    this.selectedPosition = 'Bottom';
+  }
+}
+\`;
 `;
 export const dropdownWithStateCode = `
-import { Component } from '@angular/core';import { NgIcon, provideIcons } from '@ng-icons/core';import { lucideUndo2 } from '@ng-icons/lucide';import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';import { HlmButtonDirective } from '@spartan-ng/helm/button';import { HlmIconDirective } from '@spartan-ng/helm/icon';import {
+import { Component } from '@angular/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { lucideUndo2 } from '@ng-icons/lucide';
+import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import {
 	HlmMenuComponent,
 	HlmMenuGroupComponent,
 	HlmMenuItemCheckComponent,
@@ -295,7 +657,9 @@ import { Component } from '@angular/core';import { NgIcon, provideIcons } from '
 	HlmMenuItemRadioDirective,
 	HlmMenuLabelComponent,
 	HlmMenuSeparatorComponent,
-} from '@spartan-ng/helm/menu';@Component({
+} from '@spartan-ng/helm/menu';
+
+@Component({
 	selector: 'spartan-dropdown-with-state',
 	imports: [
 		BrnMenuTriggerDirective,
@@ -377,4 +741,117 @@ export class DropdownWithStatePreviewComponent {
 		this.selectedPosition = 'Bottom';
 	}
 }
+
+export const dropdownWithStateCode = \`
+import { Component } from '@angular/core';
+import { provideIcons } from '@ng-icons/core';
+import { lucideUndo2 } from '@ng-icons/lucide';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
+import {
+  HlmMenuComponent,
+  HlmMenuGroupComponent,
+  HlmMenuItemCheckboxDirective,
+  HlmMenuItemCheckComponent,
+  HlmMenuItemDirective,
+  HlmMenuItemIconDirective,
+  HlmMenuItemRadioComponent,
+  HlmMenuItemRadioDirective,
+  HlmMenuItemSubIndicatorComponent,
+  HlmMenuLabelComponent,
+  HlmMenuSeparatorComponent,
+  HlmMenuShortcutComponent,
+  HlmSubMenuComponent,
+} from '@spartan-ng/helm/menu';
+
+@Component({
+  selector: 'spartan-dropdown-with-state',
+imports: [
+    BrnMenuTriggerDirective,
+
+    HlmMenuComponent,
+    HlmSubMenuComponent,
+    HlmMenuItemDirective,
+    HlmMenuItemSubIndicatorComponent,
+    HlmMenuLabelComponent,
+    HlmMenuShortcutComponent,
+    HlmMenuSeparatorComponent,
+    HlmMenuItemIconDirective,
+    HlmMenuItemCheckComponent,
+    HlmMenuItemRadioComponent,
+    HlmMenuGroupComponent,
+    HlmMenuItemRadioDirective,
+    HlmMenuItemCheckboxDirective,
+
+    HlmButtonDirective,
+    HlmIconDirective,
+  ],
+  providers: [provideIcons({ lucideUndo2 })],
+  template: \\`
+    <div class="flex w-full items-center justify-center pt-[20%]">
+      <button hlmBtn variant="outline" align="center" [brnMenuTriggerFor]="menu">Open</button>
+    </div>
+    <ng-template #menu>
+      <hlm-menu class="w-56">
+        <hlm-menu-group>
+          <hlm-menu-label>Appearance</hlm-menu-label>
+
+          <button hlmMenuItemCheckbox [checked]="isPanel" (triggered)="isPanel = !isPanel">
+            <hlm-menu-item-check />
+            <span>Panel</span>
+          </button>
+
+          <button hlmMenuItemCheckbox disabled [checked]="isActivityBar" (triggered)="isActivityBar = !isActivityBar">
+            <hlm-menu-item-check />
+            <span>Activity Bar</span>
+          </button>
+
+          <button hlmMenuItemCheckbox [checked]="isStatusBar" (triggered)="isStatusBar = !isStatusBar">
+            <hlm-menu-item-check />
+            <span>Status Bar</span>
+          </button>
+        </hlm-menu-group>
+
+        <hlm-menu-separator />
+
+        <hlm-menu-label>Panel Position</hlm-menu-label>
+
+        <hlm-menu-group>
+          @for (size of panelPositions; track size) {
+            <button hlmMenuItemRadio [checked]="size === selectedPosition" (triggered)="selectedPosition = size">
+              <hlm-menu-item-radio />
+              <span>{{ size }}</span>
+            </button>
+          }
+        </hlm-menu-group>
+
+        <hlm-menu-separator />
+
+        <button hlmMenuItem (triggered)="reset()">
+          <ng-icon hlm name="lucideUndo2" hlmMenuIcon />
+          Reset
+        </button>
+      </hlm-menu>
+    </ng-template>
+  \\`,
+})
+export class DropdownWithStatePreviewComponent {
+  isStatusBar = false;
+  isPanel = false;
+  isActivityBar = false;
+
+  panelPositions = ['Top', 'Bottom', 'Right', 'Left'] as const;
+  selectedPosition: (typeof this.panelPositions)[number] | undefined = 'Bottom';
+
+  reset() {
+    this.isStatusBar = false;
+    this.isPanel = false;
+    this.isActivityBar = false;
+    this.selectedPosition = 'Bottom';
+  }
+}
+\`;
 `;
+
+

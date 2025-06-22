@@ -9,7 +9,10 @@ Run `pnpm run generate-snippets` to update this file.
 */
 
 export const badgeDestructiveCode = `
-import { Component } from '@angular/core';import { HlmBadgeDirective } from '@spartan-ng/helm/badge';@Component({
+import { Component } from '@angular/core';
+import { HlmBadgeDirective } from '@spartan-ng/helm/badge';
+
+@Component({
 	selector: 'spartan-badge-destructive',
 	imports: [HlmBadgeDirective],
 	template: \`
@@ -17,9 +20,24 @@ import { Component } from '@angular/core';import { HlmBadgeDirective } from '@sp
 	\`,
 })
 export class BadgeDestructiveComponent {}
+
+export const destructiveCode = \`
+import { Component } from '@angular/core';
+import { HlmBadgeDirective } from '@spartan-ng/helm/badge';
+
+@Component({
+  selector: 'spartan-badge-destructive',
+imports: [HlmBadgeDirective],
+  template: \\` <div hlmBadge variant='destructive'>Destructive</div> \\`,
+})
+export class BadgeDestructiveComponent {}
+\`;
 `;
 export const badgeOutlineCode = `
-import { Component } from '@angular/core';import { HlmBadgeDirective } from '@spartan-ng/helm/badge';@Component({
+import { Component } from '@angular/core';
+import { HlmBadgeDirective } from '@spartan-ng/helm/badge';
+
+@Component({
 	selector: 'spartan-badge-outline',
 	imports: [HlmBadgeDirective],
 	template: \`
@@ -27,9 +45,24 @@ import { Component } from '@angular/core';import { HlmBadgeDirective } from '@sp
 	\`,
 })
 export class BadgeOutlineExampleComponent {}
+
+export const outlineCode = \`
+import { Component } from '@angular/core';
+import { HlmBadgeDirective } from '@spartan-ng/helm/badge';
+
+@Component({
+  selector: 'spartan-badge-outline',
+imports: [HlmBadgeDirective],
+  template: \\` <div hlmBadge variant="outline">Outline</div> \\`,
+})
+export class BadgeOutlineExampleComponent {}
+\`;
 `;
 export const badgeSecondaryCode = `
-import { Component } from '@angular/core';import { HlmBadgeDirective } from '@spartan-ng/helm/badge';@Component({
+import { Component } from '@angular/core';
+import { HlmBadgeDirective } from '@spartan-ng/helm/badge';
+
+@Component({
 	selector: 'spartan-badge-secondary',
 	imports: [HlmBadgeDirective],
 	template: \`
@@ -37,9 +70,24 @@ import { Component } from '@angular/core';import { HlmBadgeDirective } from '@sp
 	\`,
 })
 export class BadgeSecondaryExampleComponent {}
+
+export const secondaryCode = \`
+import { Component } from '@angular/core';
+import { HlmBadgeDirective } from '@spartan-ng/helm/badge';
+
+@Component({
+  selector: 'spartan-badge-secondary',
+imports: [HlmBadgeDirective],
+  template: \\` <div hlmBadge variant="secondary">Secondary</div> \\`,
+})
+export class BadgeSecondaryExampleComponent {}
+\`;
 `;
 export const defaultCode = `
-import { Component } from '@angular/core';import { HlmBadgeDirective } from '@spartan-ng/helm/badge';@Component({
+import { Component } from '@angular/core';
+import { HlmBadgeDirective } from '@spartan-ng/helm/badge';
+
+@Component({
 	selector: 'spartan-badge-preview',
 	imports: [HlmBadgeDirective],
 	template: \`
@@ -47,4 +95,28 @@ import { Component } from '@angular/core';import { HlmBadgeDirective } from '@sp
 	\`,
 })
 export class BadgePreviewComponent {}
+
+export const defaultCode = \`
+import { Component } from '@angular/core';
+import { HlmBadgeDirective } from '@spartan-ng/helm/badge';
+
+@Component({
+  selector: 'spartan-badge-preview',
+imports: [HlmBadgeDirective],
+  template: \\`
+    <a target="_blank" href="https://github.com/goetzrobin/spartan" hlmBadge>This is madness. This is spartan.</a>
+  \\`,
+})
+export class BadgePreviewComponent {}
+\`;
+
+export const defaultImports = \`
+import { HlmBadgeDirective } from '@spartan-ng/helm/badge';
+\`;
+
+export const defaultSkeleton = \`
+<a target="_blank" href="https://github.com/goetzrobin/spartan" hlmBadge>This is madness. This is spartan.</a>
+\`;
 `;
+
+

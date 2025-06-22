@@ -9,7 +9,9 @@ Run `pnpm run generate-snippets` to update this file.
 */
 
 export const commandDialogCode = `
-import { Component, HostListener, signal } from '@angular/core';import { NgIcon, provideIcons } from '@ng-icons/core';import {
+import { Component, HostListener, signal } from '@angular/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import {
 	lucideCalendar,
 	lucideCog,
 	lucideLayers,
@@ -18,12 +20,21 @@ import { Component, HostListener, signal } from '@angular/core';import { NgIcon,
 	lucideSmile,
 	lucideUser,
 	lucideX,
-} from '@ng-icons/lucide';import { BrnCommandImports } from '@spartan-ng/brain/command';import {
+} from '@ng-icons/lucide';
+import { BrnCommandImports } from '@spartan-ng/brain/command';
+import {
 	BrnDialogCloseDirective,
 	BrnDialogComponent,
 	BrnDialogContentDirective,
 	BrnDialogOverlayComponent,
-} from '@spartan-ng/brain/dialog';import { HlmButtonDirective } from '@spartan-ng/helm/button';import { HlmCommandImports } from '@spartan-ng/helm/command';import { HlmDialogOverlayDirective } from '@spartan-ng/helm/dialog';import { HlmIconDirective } from '@spartan-ng/helm/icon';import { HlmCodeDirective } from '@spartan-ng/helm/typography';@Component({
+} from '@spartan-ng/brain/dialog';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmCommandImports } from '@spartan-ng/helm/command';
+import { HlmDialogOverlayDirective } from '@spartan-ng/helm/dialog';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { HlmCodeDirective } from '@spartan-ng/helm/typography';
+
+@Component({
 	selector: 'spartan-command-dialog',
 	providers: [
 		provideIcons({
@@ -128,9 +139,13 @@ export class CommandDialogComponent {
 		this.command.set(selected);
 	}
 }
+export const commandDialogCode = \`
+\`;
 `;
 export const defaultCode = `
-import { Component } from '@angular/core';import { NgIcon, provideIcons } from '@ng-icons/core';import {
+import { Component } from '@angular/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import {
 	lucideCalendar,
 	lucideCog,
 	lucidePlus,
@@ -138,7 +153,12 @@ import { Component } from '@angular/core';import { NgIcon, provideIcons } from '
 	lucideSmile,
 	lucideUser,
 	lucideWallet,
-} from '@ng-icons/lucide';import { BrnCommandImports } from '@spartan-ng/brain/command';import { HlmCommandImports } from '@spartan-ng/helm/command';import { HlmIconDirective } from '@spartan-ng/helm/icon';@Component({
+} from '@ng-icons/lucide';
+import { BrnCommandImports } from '@spartan-ng/brain/command';
+import { HlmCommandImports } from '@spartan-ng/helm/command';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
+
+@Component({
 	selector: 'spartan-command-preview',
 	imports: [BrnCommandImports, HlmCommandImports, NgIcon, HlmIconDirective],
 	providers: [
@@ -207,4 +227,134 @@ import { Component } from '@angular/core';import { NgIcon, provideIcons } from '
 	\`,
 })
 export class CommandPreviewComponent {}
+
+export const defaultCode = \`
+import { Component } from '@angular/core';
+import { BrnCommandImports } from '@spartan-ng/brain/command';
+import { HlmCommandImports } from '@spartan-ng/helm/command';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { provideIcons } from '@ng-icons/core';
+import {
+  lucideCalendar,
+  lucideWallet,
+  lucideSmile,
+  lucideCog,
+  lucideSearch,
+  lucideUser,
+  lucidePlus,
+} from '@ng-icons/lucide';
+
+@Component({
+  selector: 'spartan-command-preview',
+imports: [BrnCommandImports, HlmCommandImports, HlmIconDirective ],
+  providers: [
+    provideIcons({ lucideSearch, lucideCalendar, lucideSmile, lucidePlus, lucideUser, lucideWallet, lucideCog }),
+  ],
+  template: \\`
+ 	<hlm-command>
+  <hlm-command-search>
+    <ng-icon hlm name="lucideSearch" class="inline-flex" />
+
+    <input
+      type="text"
+      hlm-command-search-input
+      placeholder="Type a command or search..."
+    />
+  </hlm-command-search>
+
+  <hlm-command-list>
+    <hlm-command-group>
+      <hlm-command-group-label>Suggestions</hlm-command-group-label>
+
+      <button hlm-command-item value="Calendar">
+        <ng-icon hlm name="lucideCalendar" hlmCommandIcon />
+        Calendar
+      </button>
+      <button hlm-command-item value="Search Emoji">
+        <ng-icon hlm name="lucideSmile" hlmCommandIcon />
+        Search Emoji
+      </button>
+      <button hlm-command-item value="Calculator">
+        <ng-icon hlm name="lucidePlus" hlmCommandIcon />
+        Calculator
+      </button>
+    </hlm-command-group>
+
+    <hlm-command-separator />
+
+    <hlm-command-group>
+      <hlm-command-group-label>Settings</hlm-command-group-label>
+
+      <button hlm-command-item value="Profile">
+        <ng-icon hlm name="lucideUser" hlmCommandIcon />
+        Profile
+        <hlm-command-shortcut>⌘P</hlm-command-shortcut>
+      </button>
+      <button hlm-command-item value="Billing">
+        <ng-icon hlm name="lucideWallet" hlmCommandIcon />
+        Billing
+        <hlm-command-shortcut>⌘B</hlm-command-shortcut>
+      </button>
+      <button hlm-command-item value="Settings">
+        <ng-icon hlm name="lucideCog" hlmCommandIcon />
+        Settings
+        <hlm-command-shortcut>⌘S</hlm-command-shortcut>
+      </button>
+    </hlm-command-group>
+  </hlm-command-list>
+
+  <!-- Empty state -->
+  <div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
+</hlm-command>
+  \\`,
+})
+export class CommandPreviewComponent {}
+\`;
+
+export const defaultImports = \`
+import { BrnCommandImports } from '@spartan-ng/brain/command';
+import { HlmCommandImports } from '@spartan-ng/helm/command';
+\`;
+
+export const defaultSkeleton = \`
+	<hlm-command>
+  <hlm-command-search>
+    <ng-icon hlm name="lucideSearch" />
+
+    <input
+      type="text"
+      hlm-command-search-input
+      placeholder="Type a command or search..."
+    />
+  </hlm-command-search>
+
+  <hlm-command-list>
+    <hlm-command-group>
+      <hlm-command-group-label>Suggestions</hlm-command-group-label>
+
+      <button hlm-command-item value="Calendar">
+        <ng-icon hlm name="lucideCalendar" hlmCommandIcon />
+        Calendar
+      </button>
+    </hlm-command-group>
+
+    <hlm-command-separator />
+
+    <hlm-command-group>
+      <hlm-command-group-label>Settings</hlm-command-group-label>
+
+      <button hlm-command-item value="Profile">
+        <ng-icon hlm name="lucideUser" hlmCommandIcon />
+        Profile
+        <hlm-command-shortcut>⌘P</hlm-command-shortcut>
+      </button>
+    </hlm-command-group>
+  </hlm-command-list>
+
+  <!-- Empty state -->
+  <div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
+</hlm-command>
+\`;
 `;
+
+

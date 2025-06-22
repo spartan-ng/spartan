@@ -9,7 +9,12 @@ Run `pnpm run generate-snippets` to update this file.
 */
 
 export const datePickerConfigCode = `
-import { Component } from '@angular/core';import { FormsModule } from '@angular/forms';import { HlmDatePickerComponent, provideHlmDatePickerConfig } from '@spartan-ng/helm/date-picker';import { DateTime } from 'luxon';@Component({
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { HlmDatePickerComponent, provideHlmDatePickerConfig } from '@spartan-ng/helm/date-picker';
+import { DateTime } from 'luxon';
+
+@Component({
 	selector: 'spartan-date-picker-config',
 	imports: [HlmDatePickerComponent, FormsModule],
 	template: \`
@@ -34,9 +39,48 @@ export class DatePickerConfigExampleComponent {
 	/** The maximum date */
 	public maxDate = new Date(2030, 11, 31);
 }
+
+export const datePickerConfigCode = \`
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { HlmDatePickerComponent, provideHlmDatePickerConfig } from '@spartan-ng/helm/date-picker';
+import { DateTime } from 'luxon';
+
+@Component({
+	selector: 'spartan-date-picker-config',
+	imports: [HlmDatePickerComponent, FormsModule],
+	template: \\`
+		<hlm-date-picker [min]="minDate" [max]="maxDate">
+			<span>Pick a date</span>
+		</hlm-date-picker>
+	\\`,
+	providers: [
+		provideHlmDatePickerConfig({
+			formatDate: (date: Date) => DateTime.fromJSDate(date).toFormat('dd.MM.yyyy'),
+			transformDate: (date: Date) => DateTime.fromJSDate(date).plus({ days: 1 }).toJSDate(),
+		}),
+	],
+	host: {
+		class: 'preview flex min-h-[350px] w-full justify-center p-10 items-center',
+	},
+})
+export class DatePickerConfigExampleComponent {
+	/** The minimum date */
+	public minDate = new Date(2023, 0, 1);
+
+	/** The maximum date */
+	public maxDate = new Date(2030, 11, 31);
+}
+\`;
 `;
 export const datePickerFormMultiCode = `
-import { Component, inject } from '@angular/core';import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';import { HlmButtonDirective } from '@spartan-ng/helm/button';import { HlmDatePickerMultiComponent } from '@spartan-ng/helm/date-picker';import { HlmLabelDirective } from '@spartan-ng/helm/label';@Component({
+import { Component, inject } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmDatePickerMultiComponent } from '@spartan-ng/helm/date-picker';
+import { HlmLabelDirective } from '@spartan-ng/helm/label';
+
+@Component({
 	selector: 'spartan-date-picker-form-multiple',
 	imports: [HlmDatePickerMultiComponent, ReactiveFormsModule, HlmButtonDirective, HlmLabelDirective],
 	template: \`
@@ -79,9 +123,67 @@ export class DatePickerFormMultipleExampleComponent {
 		console.log(this.form.value);
 	}
 }
+
+export const datePickerFormMultipleCode = \`
+import { Component, inject } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmDatePickerMultiComponent } from '@spartan-ng/helm/date-picker';
+import { HlmLabelDirective } from '@spartan-ng/helm/label';
+
+@Component({
+	selector: 'spartan-date-picker-form-multiple',
+	imports: [HlmDatePickerMultiComponent, ReactiveFormsModule, HlmButtonDirective, HlmLabelDirective],
+	template: \\`
+		<form [formGroup]="form" (ngSubmit)="submit()" class="space-y-8">
+			<label hlmLabel>
+				Available dates
+				<hlm-date-picker-multi
+					[min]="minDate"
+					[max]="maxDate"
+					formControlName="availableDates"
+					[autoCloseOnMaxSelection]="true"
+					[minSelection]="2"
+					[maxSelection]="4"
+				>
+					<span>Pick dates</span>
+				</hlm-date-picker-multi>
+			</label>
+
+			<button type="submit" hlmBtn [disabled]="form.invalid">Submit</button>
+		</form>
+	\\`,
+	host: {
+		class: 'preview flex min-h-[350px] w-full justify-center p-10 items-center',
+	},
+})
+export class DatePickerFormMultipleExampleComponent {
+	private readonly _formBuilder = inject(FormBuilder);
+
+	public form = this._formBuilder.group({
+		availableDates: [[], Validators.required],
+	});
+
+	/** The minimum date */
+	public minDate = new Date(2023, 0, 1);
+
+	/** The maximum date */
+	public maxDate = new Date(2030, 11, 31);
+
+	submit() {
+		console.log(this.form.value);
+	}
+}
+\`;
 `;
 export const datePickerFormCode = `
-import { Component, inject } from '@angular/core';import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';import { HlmButtonDirective } from '@spartan-ng/helm/button';import { HlmDatePickerComponent } from '@spartan-ng/helm/date-picker';import { HlmLabelDirective } from '@spartan-ng/helm/label';@Component({
+import { Component, inject } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmDatePickerComponent } from '@spartan-ng/helm/date-picker';
+import { HlmLabelDirective } from '@spartan-ng/helm/label';
+
+@Component({
 	selector: 'spartan-date-picker-form',
 	imports: [HlmDatePickerComponent, ReactiveFormsModule, HlmButtonDirective, HlmLabelDirective],
 	template: \`
@@ -117,9 +219,59 @@ export class DatePickerFormExampleComponent {
 		console.log(this.form.value);
 	}
 }
+
+export const datePickerFormCode = \`
+import { Component, inject } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmDatePickerComponent } from '@spartan-ng/helm/date-picker';
+import { HlmLabelDirective } from '@spartan-ng/helm/label';
+
+@Component({
+	selector: 'spartan-date-picker-form',
+	imports: [HlmDatePickerComponent, ReactiveFormsModule, HlmButtonDirective, HlmLabelDirective],
+	template: \\`
+		<form [formGroup]="form" (ngSubmit)="submit()" class="space-y-8">
+			<label hlmLabel>
+				Date of birth
+				<hlm-date-picker [min]="minDate" [max]="maxDate" formControlName="birthday" [autoCloseOnSelect]="true">
+					<span>Pick a date</span>
+				</hlm-date-picker>
+			</label>
+
+			<button type="submit" hlmBtn>Submit</button>
+		</form>
+	\\`,
+	host: {
+		class: 'preview flex min-h-[350px] w-full justify-center p-10 items-center',
+	},
+})
+export class DatePickerFormExampleComponent {
+	private readonly _formBuilder = inject(FormBuilder);
+
+	public form = this._formBuilder.group({
+		birthday: [null, Validators.required],
+	});
+
+	/** The minimum date */
+	public minDate = new Date(2023, 0, 1);
+
+	/** The maximum date */
+	public maxDate = new Date(2030, 11, 31);
+
+	submit() {
+		console.log(this.form.value);
+	}
+}
+\`;
 `;
 export const datePickerFormatCode = `
-import { Component } from '@angular/core';import { FormsModule } from '@angular/forms';import { HlmDatePickerComponent, provideHlmDatePickerConfig } from '@spartan-ng/helm/date-picker';import { DateTime } from 'luxon';@Component({
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { HlmDatePickerComponent, provideHlmDatePickerConfig } from '@spartan-ng/helm/date-picker';
+import { DateTime } from 'luxon';
+
+@Component({
 	selector: 'spartan-date-picker-format',
 	imports: [HlmDatePickerComponent, FormsModule],
 	template: \`
@@ -145,9 +297,46 @@ export class DatePickerFormatExampleComponent {
 	/** Overrides global formatDate  */
 	public formatDate = (date: Date) => DateTime.fromJSDate(date).toFormat('MMMM dd, yyyy');
 }
+
+export const datePickerFormatCode = \`
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { HlmDatePickerComponent, provideHlmDatePickerConfig } from '@spartan-ng/helm/date-picker';
+import { DateTime } from 'luxon';
+
+@Component({
+	selector: 'spartan-date-picker-format',
+	imports: [HlmDatePickerComponent, FormsModule],
+	template: \\`
+		<hlm-date-picker [min]="minDate" [max]="maxDate" [formatDate]="formatDate">
+			<span>Pick a date</span>
+		</hlm-date-picker>
+	\\`,
+	providers: [
+		// Global formatDate config
+		provideHlmDatePickerConfig({ formatDate: (date: Date) => DateTime.fromJSDate(date).toFormat('dd.MM.yyyy') }),
+	],
+	host: {
+		class: 'preview flex min-h-[350px] w-full justify-center p-10 items-center',
+	},
+})
+export class DatePickerFormatExampleComponent {
+	/** The minimum date */
+	public minDate = new Date(2023, 0, 1);
+
+	/** The maximum date */
+	public maxDate = new Date(2030, 11, 31);
+
+	/** Overrides global formatDate  */
+	public formatDate = (date: Date) => DateTime.fromJSDate(date).toFormat('MMMM dd, yyyy');
+}
+\`;
 `;
 export const datePickerMultiCode = `
-import { Component } from '@angular/core';import { HlmDatePickerMultiComponent } from '@spartan-ng/helm/date-picker';@Component({
+import { Component } from '@angular/core';
+import { HlmDatePickerMultiComponent } from '@spartan-ng/helm/date-picker';
+
+@Component({
 	selector: 'spartan-date-picker-multiple',
 	imports: [HlmDatePickerMultiComponent],
 	template: \`
@@ -172,9 +361,43 @@ export class DatePickerMultipleExampleComponent {
 	/** The maximum date */
 	public maxDate = new Date(2030, 11, 31);
 }
+
+export const datePickerMultipleCode = \`
+import { Component } from '@angular/core';
+import { HlmDatePickerMultiComponent } from '@spartan-ng/helm/date-picker';
+
+@Component({
+	selector: 'spartan-date-picker-multiple',
+	imports: [HlmDatePickerMultiComponent],
+	template: \\`
+		<hlm-date-picker-multi
+			[min]="minDate"
+			[max]="maxDate"
+			[autoCloseOnMaxSelection]="true"
+			[minSelection]="2"
+			[maxSelection]="6"
+		>
+			<span>Pick dates</span>
+		</hlm-date-picker-multi>
+	\\`,
+	host: {
+		class: 'preview flex min-h-[350px] w-full justify-center p-10 items-center',
+	},
+})
+export class DatePickerMultipleExampleComponent {
+	/** The minimum date */
+	public minDate = new Date(2023, 0, 1);
+
+	/** The maximum date */
+	public maxDate = new Date(2030, 11, 31);
+}
+\`;
 `;
 export const defaultCode = `
-import { Component } from '@angular/core';import { HlmDatePickerComponent } from '@spartan-ng/helm/date-picker';@Component({
+import { Component } from '@angular/core';
+import { HlmDatePickerComponent } from '@spartan-ng/helm/date-picker';
+
+@Component({
 	selector: 'spartan-date-picker-preview',
 	imports: [HlmDatePickerComponent],
 	template: \`
@@ -192,9 +415,36 @@ export class DatePickerPreviewComponent {
 
 	/** The maximum date */
 	public maxDate = new Date(2030, 11, 31);
-}export const codeSkeleton = \`
-<hlm-date-picker [min]="minDate" [max]="maxDate">
-	<span>Pick a date</span>
-</hlm-date-picker>
+}
+
+export const defaultCode = \`
+import { Component } from '@angular/core';
+import { HlmDatePickerComponent } from '@spartan-ng/helm/date-picker';
+
+@Component({
+	selector: 'spartan-date-picker-preview',
+	imports: [HlmDatePickerComponent],
+	template: \\`
+		<hlm-date-picker [min]="minDate" [max]="maxDate">
+			<span>Pick a date</span>
+		</hlm-date-picker>
+	\\`,
+	host: {
+		class: 'preview flex min-h-[350px] w-full justify-center p-10 items-center',
+	},
+})
+export class DatePickerPreviewComponent {
+	/** The minimum date */
+	public minDate = new Date(2023, 0, 1);
+
+	/** The maximum date */
+	public maxDate = new Date(2030, 11, 31);
+}
+\`;
+
+export const defaultImports = \`
+import { HlmDatePickerComponent } from '@spartan-ng/helm/date-picker';
 \`;
 `;
+
+

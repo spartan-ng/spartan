@@ -14,10 +14,11 @@ import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { BadgeDestructiveComponent, destructiveCode } from './badge--destructive.example';
-import { BadgeOutlineExampleComponent, outlineCode } from './badge--outline.example';
-import { BadgeSecondaryExampleComponent, secondaryCode } from './badge--secondary.example';
-import { BadgePreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './badge.preview';
+import { BadgeDestructiveComponent } from './badge--destructive.example';
+import { BadgeOutlineExampleComponent } from './badge--outline.example';
+import { BadgeSecondaryExampleComponent } from './badge--secondary.example';
+import { badgeDestructiveCode, badgeOutlineCode, badgeSecondaryCode, defaultCode } from './badge.generated';
+import { BadgePreviewComponent, defaultImports, defaultSkeleton } from './badge.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Badge', api: 'badge' },
@@ -72,13 +73,7 @@ export const routeMeta: RouteMeta = {
 			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__default" class="${hlmH4} mb-2 mt-6">Default</h3>
-			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div spartanCodePreview firstTab>
-					<spartan-badge-preview />
-				</div>
-				<spartan-code secondTab [code]="defaultCode" />
-			</spartan-tabs>
+
 			<h3 id="examples__secondary" class="${hlmH4} mb-2 mt-6">Secondary</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -114,7 +109,7 @@ export default class BadgePageComponent {
 	public readonly defaultSkeleton = defaultSkeleton;
 	public readonly defaultImports = defaultImports;
 
-	public readonly secondaryCode = secondaryCode;
-	public readonly outlineCode = outlineCode;
-	public readonly destructiveCode = destructiveCode;
+	public readonly secondaryCode = badgeSecondaryCode;
+	public readonly outlineCode = badgeOutlineCode;
+	public readonly destructiveCode = badgeDestructiveCode;
 }

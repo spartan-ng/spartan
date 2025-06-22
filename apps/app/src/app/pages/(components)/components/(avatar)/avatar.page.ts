@@ -13,7 +13,8 @@ import { SectionSubHeadingComponent } from '../../../../shared/layout/section-su
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { AvatarPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './avatar.preview';
+import { defaultCode } from './avatar.generated';
+import { AvatarPreviewComponent, defaultImports, defaultSkeleton } from './avatar.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Avatar', api: 'avatar' },

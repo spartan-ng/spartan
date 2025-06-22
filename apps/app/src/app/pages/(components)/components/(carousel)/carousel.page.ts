@@ -13,12 +13,20 @@ import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { CarouselOrientationComponent, orientationCode } from './carousel--orientation.example';
-import { CarouselPluginsComponent, pluginsCode } from './carousel--plugins.example';
-import { CarouselSizesComponent, sizesCode } from './carousel--sizes.example';
-import { CarouselSlideCountComponent, slideCountCode } from './carousel--slide-count.example';
-import { CarouselSpacingComponent, spacingCode } from './carousel--spacing.example';
-import { CarouselPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './carousel.preview';
+import { CarouselOrientationComponent } from './carousel--orientation.example';
+import { CarouselPluginsComponent } from './carousel--plugins.example';
+import { CarouselSizesComponent } from './carousel--sizes.example';
+import { CarouselSlideCountComponent } from './carousel--slide-count.example';
+import { CarouselSpacingComponent } from './carousel--spacing.example';
+import {
+	carouselOrientationCode,
+	carouselPluginsCode,
+	carouselSizesCode,
+	carouselSlideCountCode,
+	carouselSpacingCode,
+	defaultCode,
+} from './carousel.generated';
+import { CarouselPreviewComponent, defaultImports, defaultSkeleton } from './carousel.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Carousel', api: 'carousel' },
@@ -167,9 +175,9 @@ export default class CarouselPageComponent {
 	public readonly defaultCode = defaultCode;
 	public readonly defaultSkeleton = defaultSkeleton;
 	public readonly defaultImports = defaultImports;
-	protected readonly sizesCode = sizesCode;
-	protected readonly spacingCode = spacingCode;
-	protected readonly slideCountCode = slideCountCode;
-	protected readonly pluginsCode = pluginsCode;
-	protected readonly orientationCode = orientationCode;
+	protected readonly sizesCode = carouselSizesCode;
+	protected readonly spacingCode = carouselSpacingCode;
+	protected readonly slideCountCode = carouselSlideCountCode;
+	protected readonly pluginsCode = carouselPluginsCode;
+	protected readonly orientationCode = carouselOrientationCode;
 }

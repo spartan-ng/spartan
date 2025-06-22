@@ -66,7 +66,7 @@ import {
 import { HlmIconDirective } from '@spartan-ng/helm/icon';
 `;
 
-export const codeString = `
+export const defaultCode = `
 import { Component } from '@angular/core';
 import { NgIcon } from '@ng-icons/core';
 import {

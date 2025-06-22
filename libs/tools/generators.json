@@ -49,6 +49,11 @@
 			"factory": "./src/generators/helm-documentation/generator",
 			"schema": "./src/generators/helm-documentation/schema.json",
 			"description": "Generate a documentation page for a Helm component."
-		}
+		},
+		"extract-primitive-code": {
+      "factory": "./src/generators/extract-primitive-code/generator",
+      "schema": "./src/generators/extract-primitive-code/schema.json",
+      "description": "Extracts code parts from primitive components."
+    }
 	}
 }

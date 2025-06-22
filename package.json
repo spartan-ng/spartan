@@ -14,6 +14,7 @@
 		"e2e": "nx run-many --target e2e --projects=tag:scope:e2e --all --parallel=1 --outputStyle=stream",
 		"format": "nx format --write",
 		"lint": "nx run-many --target=lint --parallel",
+		"generate:primitives": "nx g tools:extract-primitive-code",
 		"pre-manual-release": "pnpm run prepare-manual-release && pnpm run format && nx run tools:lint --fix",
 		"pre-nightly-release": "pnpm run prepare-nightly-release && pnpm run format && nx run tools:lint --fix",
 		"prepare-manual-release": "nx g @spartan-ng/tools:replace-ui-version && nx run-many --target=lint --parallel --fix && nx g @spartan-ng/tools:hlm-to-cli-generator && nx g @spartan-ng/tools:replace-cli-version",

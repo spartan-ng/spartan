@@ -62,7 +62,7 @@ export const defaultImports = \`
 		expect(generatedContent).toContain('export const defaultCode = `');
 		expect(generatedContent).toContain('spartan-alert-preview'); // from selector
 		expect(generatedContent).toContain('export class AlertPreviewComponent {}');
-		expect(generatedContent).toContain('export const previousDefaultCode = \\`test\\`;'); // Check escaping and inclusion
+		expect(generatedContent).not.toContain('export const previousDefaultCode = \\`test\\`;'); // Check escaping and inclusion
 		expect(generatedContent).not.toContain('export const Skeleton'); // Check that the Skeleton is not included
 		expect(generatedContent).not.toContain('export const defaultImports');
 

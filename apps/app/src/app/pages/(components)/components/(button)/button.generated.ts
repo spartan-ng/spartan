@@ -293,18 +293,6 @@ import { HlmButtonDirective } from '@spartan-ng/helm/button';
 	\`,
 })
 export class ButtonPreviewComponent {}
-
-export const defaultCode = \`
-import { Component } from '@angular/core';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
-
-@Component({
-  selector: 'spartan-button-preview',
-imports: [HlmButtonDirective],
-  template: \\` <button hlmBtn>Button</button> \\`,
-})
-export class ButtonPreviewComponent {}
-\`;
 `;
 
 

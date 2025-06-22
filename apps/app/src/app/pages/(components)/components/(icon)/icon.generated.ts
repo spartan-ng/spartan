@@ -25,26 +25,4 @@ import { HlmIconDirective } from '@spartan-ng/helm/icon';
 	\`,
 })
 export class IconPreviewComponent {}
-
-export const defaultCode = \`
-import { Component } from '@angular/core';
-import { provideIcons } from '@ng-icons/core';
-import { lucideChevronRight } from '@ng-icons/lucide';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
-import { NgIcon, provideIcons } from '@ng-icons/core';
-
-@Component({
-	selector: 'spartan-icon-preview',
-imports: [HlmIconDirective, NgIcon],
-  providers: [provideIcons({ lucideChevronRight })],
-	template: \\`
-    <div>
-      <ng-icon hlm size='xl' name="lucideChevronRight" />
-    </div>
-	\\`,
-})
-export class IconPreviewComponent {}
-\`;
 `;
-
-

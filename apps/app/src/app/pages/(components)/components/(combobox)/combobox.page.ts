@@ -13,7 +13,8 @@ import { SectionSubHeadingComponent } from '../../../../shared/layout/section-su
 
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { ComboboxPreviewComponent, defaultCode } from './combobox.preview';
+import { defaultCode } from './combobox.generated';
+import { ComboboxPreviewComponent } from './combobox.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Combobox' },

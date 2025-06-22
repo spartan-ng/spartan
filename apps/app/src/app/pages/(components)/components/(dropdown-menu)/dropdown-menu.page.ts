@@ -13,9 +13,10 @@ import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { DropdownPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './dropdown-menu.preview';
-import { DropdownWithContextPreviewComponent, dropdownWithContextCode } from './dropdown-with-context.preview';
-import { DropdownWithStatePreviewComponent, dropdownWithStateCode } from './dropdown-with-state.preview';
+import { defaultCode, dropdownWithContextCode, dropdownWithStateCode } from './dropdown-menu.generated';
+import { DropdownPreviewComponent, defaultImports, defaultSkeleton } from './dropdown-menu.preview';
+import { DropdownWithContextPreviewComponent } from './dropdown-with-context.preview';
+import { DropdownWithStatePreviewComponent } from './dropdown-with-state.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Dropdown', api: 'menu' },

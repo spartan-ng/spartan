@@ -139,8 +139,6 @@ export class CommandDialogComponent {
 		this.command.set(selected);
 	}
 }
-export const commandDialogCode = \`
-\`;
 `;
 
 export const defaultCode = `

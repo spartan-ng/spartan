@@ -45,15 +45,6 @@ imports: [HlmIconDirective, NgIcon],
 })
 export class IconPreviewComponent {}
 \`;
-
-export const defaultImports = \`
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
-import { NgIcon, provideIcons } from '@ng-icons/core';
-\`;
-
-export const defaultSkeleton = \`
-<ng-icon hlm size='sm' name="lucideChevronRight" />
-\`;
 `;
 
 

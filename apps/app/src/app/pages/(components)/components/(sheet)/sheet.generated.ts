@@ -393,28 +393,6 @@ imports: [
   \\`,
 })
 export class SheetPreviewComponent {}\`;
-export const defaultImports = \`
-import { BrnSheetContentDirective, BrnSheetTriggerDirective } from '@spartan-ng/brain/sheet';
-import {
-  HlmSheetComponent,
-  HlmSheetContentComponent,
-  HlmSheetDescriptionDirective,
-  HlmSheetFooterComponent,
-  HlmSheetHeaderComponent,
-  HlmSheetTitleDirective,
-} from '@spartan-ng/helm/sheet';
-\`;
-export const defaultSkeleton = \`
-<hlm-sheet>
-    <button brnSheetTrigger>Edit Profile</button>
-    <hlm-sheet-content *brnSheetContent='let ctx'>
-        <hlm-sheet-header>
-            <h3 hlmSheetTitle>Edit Profile</h3>
-            <p hlmSheetDescription>Make changes to your profile here. Click save when you're done.</p>
-        </hlm-sheet-header>
-    </hlm-sheet-content>
-</hlm-sheet>
-\`;
 `;
 
 

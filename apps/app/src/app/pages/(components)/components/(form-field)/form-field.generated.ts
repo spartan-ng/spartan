@@ -386,17 +386,6 @@ imports: [HlmInputDirective, HlmFormFieldModule],
 })
 export class FormFieldPreviewComponent {}
 \`;
-
-export const defaultImports = \`
-import { HlmFormFieldModule } from '@spartan-ng/helm/form-field';
-import { HlmInputDirective } from '@spartan-ng/helm/input';
-\`;
-export const defaultSkeleton = \`
-<hlm-form-field>
-	<input class="w-80" hlmInput type="email" placeholder="Email" />
-	<hlm-hint>This is your email address.</hlm-hint>
-</hlm-form-field>
-\`;
 `;
 
 

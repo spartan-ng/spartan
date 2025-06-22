@@ -31,8 +31,8 @@ function removeDefaultCodesAndGetContent(sourceFile: ts.SourceFile) {
 
 		if (
 			pattern.test(nodeText) ||
-			nodeText.includes('export const codeSkeleton =') ||
-			nodeText.includes('export const codeImports =')
+			nodeText.includes('export const defaultSkeleton =') ||
+			nodeText.includes('export const defaultImports =')
 		) {
 			return;
 		}

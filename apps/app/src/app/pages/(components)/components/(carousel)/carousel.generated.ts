@@ -610,28 +610,6 @@ export class CarouselPreviewComponent {
 	public items = Array.from({ length: 5 }, (_, i) => i + 1);
 }
 \`;
-
-export const defaultImports = \`
-import {
-	HlmCarouselComponent,
-	HlmCarouselContentComponent,
-	HlmCarouselItemComponent,
-	HlmCarouselNextComponent,
-	HlmCarouselPreviousComponent,
-} from '@spartan-ng/helm/carousel';
-\`;
-
-export const defaultSkeleton = \`
-<hlm-carousel>
-  <hlm-carousel-content>
-    <hlm-carousel-item>
-      Item Content
-    </hlm-carousel-item>
-  </hlm-carousel-content>
-  <button hlm-carousel-previous></button>
-  <button hlm-carousel-next></button>
-</hlm-carousel>
-\`;
 `;
 
 

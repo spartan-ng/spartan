@@ -106,24 +106,6 @@ imports: [
 })
 export class CollapsiblePreviewComponent {}
 \`;
-
-export const defaultImports = \`
-import {
-  BrnCollapsibleComponent,
-  BrnCollapsibleContentComponent,
-  BrnCollapsibleTriggerDirective,
-} from '@spartan-ng/brain/collapsible';
-\`;
-
-export const defaultSkeleton = \`
-<brn-collapsible>
-  <button brnCollapsibleTrigger>Can I use this in my project?</button>
-    <brn-collapsible-content>
-    Yes. Free to use for personal and commercial projects. No attribution
-    required.
-    </brn-collapsible-content>
-</brn-collapsible>
-\`;
 `;
 
 

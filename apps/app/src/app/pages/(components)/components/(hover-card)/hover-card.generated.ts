@@ -84,25 +84,6 @@ imports: [BrnHoverCardModule, HlmHoverCardModule, HlmButtonDirective, HlmIconDir
 })
 export class HoverCardPreviewComponent {}
 \`;
-
-export const defaultImports = \`
-import {
-  BrnHoverCardComponent,
-  BrnHoverCardContentDirective,
-  BrnHoverCardTriggerDirective,
-} from '@spartan-ng/brain/hover-card';
-
-import {
-  HlmHoverCardContentComponent
-} from '@spartan-ng/helm/hover-card';
-\`;
-
-export const defaultSkeleton = \`
-<brn-hover-card>
-  <button hlmBtn variant="link" brnHoverCardTrigger>&#64;analogjs</button>
-  <hlm-hover-card-content *brnHoverCardContent>The Angular meta-framework.</hlm-hover-card-content>
-</brn-hover-card>
-\`;
 `;
 
 

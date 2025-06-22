@@ -115,10 +115,15 @@ export class CalendarPreviewComponent {
 }
 \`;
 
-export const defaultImports = \`
-import {
-  HlmCalendarComponent,
-} from '@spartan-ng/helm/calendar';
+export const codeSkeleton = \`
+<hlm-calendar
+	[(date)]="selectedDate"
+	[min]="minDate"
+	[max]="maxDate"
+	[disabled]="false"
+	[dateDisabled]="(date) => false"
+	[weekStartsOn]="0"
+/>
 \`;
 `;
 

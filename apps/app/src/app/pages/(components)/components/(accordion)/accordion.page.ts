@@ -16,7 +16,7 @@ import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { AccordionMultipleOpenedComponent } from './accordion--multiple-opened.example';
 import { accordionMultipleOpenedCode, defaultCode } from './accordion.generated';
-import { AccordionPreviewComponent, codeImports, codeSkeleton } from './accordion.preview';
+import { AccordionPreviewComponent, defaultImports, defaultSkeleton } from './accordion.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Accordion', api: 'accordion' },
@@ -107,7 +107,7 @@ export const routeMeta: RouteMeta = {
 })
 export default class AccordionPageComponent {
 	public code = defaultCode;
-	public imports = codeImports;
-	public skeleton = codeSkeleton;
+	public imports = defaultImports;
+	public skeleton = defaultSkeleton;
 	public multipleOpenedCode = accordionMultipleOpenedCode;
 }

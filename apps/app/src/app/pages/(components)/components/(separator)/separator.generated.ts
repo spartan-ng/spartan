@@ -62,14 +62,6 @@ imports: [HlmSeparatorDirective, BrnSeparatorComponent],
 })
 export class SeparatorPreviewComponent {}
 \`;
-
-export const defaultImports = \`
-import { HlmSeparatorDirective } from '@spartan-ng/helm/separator';
-import { BrnSeparatorComponent } from '@spartan-ng/brain/separator';
-\`;
-export const defaultSkeleton = \`
-<brn-separator hlmSeparator/>
-\`;
 `;
 
 

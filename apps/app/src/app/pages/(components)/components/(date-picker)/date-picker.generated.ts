@@ -447,8 +447,10 @@ export class DatePickerPreviewComponent {
 }
 \`;
 
-export const defaultImports = \`
-import { HlmDatePickerComponent } from '@spartan-ng/helm/date-picker';
+export const codeSkeleton = \`
+<hlm-date-picker [min]="minDate" [max]="maxDate">
+	<span>Pick a date</span>
+</hlm-date-picker>
 \`;
 `;
 

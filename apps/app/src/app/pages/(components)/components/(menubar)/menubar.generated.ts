@@ -355,55 +355,6 @@ imports: [
 })
 export class MenubarPreviewComponent {}
 \`;
-
-export const defaultImports = \`
-import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
-import {
-  HlmMenuBarComponent,
-  HlmMenuBarItemDirective,
-  HlmMenuComponent,
-  HlmMenuGroupComponent,
-  HlmMenuItemCheckboxDirective,
-  HlmMenuItemCheckComponent,
-  HlmMenuItemDirective,
-  HlmMenuItemIconDirective,
-  HlmMenuItemRadioComponent,
-  HlmMenuItemRadioDirective,
-  HlmMenuItemSubIndicatorComponent,
-  HlmMenuLabelComponent,
-  HlmMenuSeparatorComponent,
-  HlmMenuShortcutComponent,
-  HlmSubMenuComponent,
-} from '@spartan-ng/helm/menu';
-\`;
-export const defaultSkeleton = \`
-<hlm-menu-bar class='w-fit'>
-    <button hlmMenuBarItem brnMenuItem [brnMenuTriggerFor]='file'>File</button>
-</div>
-
-<ng-template #file>
-  <hlm-menu variant='menubar' class='w-48'>
-    <div brnMenuGroup>
-      <button hlmMenuItem>
-        New Tab
-        <hlm-menu-shortcut>⌘T</hlm-menu-shortcut>
-      </button>
-    </div>
-
-    <hlm-menu-separator />
-
-    <button hlmMenuItem [brnMenuTriggerFor]='share'>
-      Share
-      <hlm-menu-item-sub-indicator />
-    </button>
-  </hlm-menu>
-</ng-template>
-<ng-template #share>
-  <hlm-sub-menu>
-    <button hlmMenuItem>Email link</button>
-  </hlm-sub-menu>
-</ng-template>
-\`;
 `;
 
 

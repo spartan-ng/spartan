@@ -54,7 +54,7 @@ import { HlmIconDirective } from '@spartan-ng/helm/icon';
 })
 export class AccordionPreviewComponent {}
 
-export const codeImports = `
+export const defaultImports = `
 import { NgIcon } from '@ng-icons/core';
 import {
   HlmAccordionContentComponent,
@@ -66,7 +66,7 @@ import {
 import { HlmIconDirective } from '@spartan-ng/helm/icon';
 `;
 
-export const codeSkeleton = `
+export const defaultSkeleton = `
 <div hlmAccordion>
 	<div hlmAccordionItem>
 		<button hlmAccordionTrigger>

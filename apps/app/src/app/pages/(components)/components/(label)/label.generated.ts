@@ -42,11 +42,6 @@ imports: [HlmLabelDirective, HlmInputDirective],
 export class LabelPreviewComponent {}
 
 \`;
-
-export const defaultImports = \`
-import { HlmLabelDirective } from '@spartan-ng/helm/label';
-\`;
-export const defaultSkeleton = '<label hlmLabel>Label<input/></label>';
 `;
 
 

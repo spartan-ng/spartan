@@ -110,17 +110,6 @@ imports: [
 })
 export class TooltipPreviewComponent {}
 \`;
-
-export const defaultImports = \`
-import { BrnTooltipContentDirective } from '@spartan-ng/brain/tooltip';
-import { HlmTooltipComponent, HlmTooltipTriggerDirective } from '@spartan-ng/helm/tooltip';
-\`;
-export const defaultSkeleton = \`
-<hlm-tooltip>
-  <button hlmTooltipTrigger aria-describedby="Hello world">Default</button>
-  <span *brnTooltipContent>Add to library</span>
-</hlm-tooltip>
-\`;
 `;
 
 

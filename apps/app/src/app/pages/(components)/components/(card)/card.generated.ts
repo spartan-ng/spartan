@@ -474,28 +474,6 @@ export class CardPreviewComponent {
   }
 }
 \`;
-
-export const defaultImports = \`
-import {
-  HlmCardContentDirective,
-  HlmCardDescriptionDirective,
-  HlmCardDirective,
-  HlmCardFooterDirective,
-  HlmCardHeaderDirective,
-  HlmCardTitleDirective,
-} from '@spartan-ng/helm/card';
-\`;
-
-export const defaultSkeleton = \`
-<section hlmCard>
-  <div hlmCardHeader>
-    <h3 hlmCardTitle>Card Title</h3>
-    <p hlmCardDescription>Card Description</p>
-  </div>
-  <p hlmCardContent>Card Content</p>
-  <p hlmCardFooter>Card Footer</p>
-</section>
-\`;
 `;
 
 

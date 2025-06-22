@@ -803,33 +803,6 @@ imports: [
 })
 export class DialogPreviewComponent {}
 \`;
-
-export const defaultImports = \`
-import { BrnDialogContentDirective, BrnDialogTriggerDirective } from '@spartan-ng/brain/dialog';
-import {
-  HlmDialogComponent,
-  HlmDialogContentComponent,
-  HlmDialogDescriptionDirective,
-  HlmDialogFooterComponent,
-  HlmDialogHeaderComponent,
-  HlmDialogTitleDirective,
-} from '@spartan-ng/helm/dialog';
-\`;
-
-export const defaultSkeleton = \`
-<hlm-dialog>
-  <button brnDialogTrigger hlmBtn>Edit Profile</button>
-  <hlm-dialog-content *brnDialogContent="let ctx">
-    <hlm-dialog-header>
-      <h3 brnDialogTitle hlm>Edit profile</h3>
-      <p brnDialogDescription hlm>Make changes to your profile here. Click save when you're done.</p>
-    </hlm-dialog-header>
-    <hlm-dialog-footer>
-      <button hlmBtn type="submit">Save changes</button>
-    </hlm-dialog-footer>
-  </hlm-dialog-content>
-</hlm-dialog>
-\`;
 `;
 
 

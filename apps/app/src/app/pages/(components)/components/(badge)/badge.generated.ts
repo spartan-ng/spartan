@@ -112,14 +112,6 @@ imports: [HlmBadgeDirective],
 })
 export class BadgePreviewComponent {}
 \`;
-
-export const defaultImports = \`
-import { HlmBadgeDirective } from '@spartan-ng/helm/badge';
-\`;
-
-export const defaultSkeleton = \`
-<a target="_blank" href="https://github.com/goetzrobin/spartan" hlmBadge>This is madness. This is spartan.</a>
-\`;
 `;
 
 

@@ -116,22 +116,6 @@ imports: [
 })
 export class PopoverPreviewComponent {}
 \`;
-
-export const defaultImports = \`
-import {
-  BrnPopoverCloseDirective,
-  BrnPopoverComponent,
-  BrnPopoverContentDirective,
-  BrnPopoverTriggerDirective,
-} from '@spartan-ng/brain/popover';
-import { HlmPopoverCloseDirective, HlmPopoverContentDirective } from '@spartan-ng/helm/popover';
-\`;
-export const defaultSkeleton = \`
- <brn-popover>
-   <button brnPopoverTrigger >Open Popover</button>
-   <div hlmPopoverContent *brnPopoverContent="let ctx"></div>
-</brn-popover>
-\`;
 `;
 
 

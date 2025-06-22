@@ -41,13 +41,6 @@ imports: [HlmLabelDirective, HlmCheckboxComponent ],
 })
 export class CheckboxPreviewComponent {}
 \`;
-
-export const defaultImports = \`
-import { HlmCheckboxComponent } from '@spartan-ng/helm/checkbox';
-\`;
-export const defaultSkeleton = \`
-<hlm-checkbox />
-\`;
 `;
 
 

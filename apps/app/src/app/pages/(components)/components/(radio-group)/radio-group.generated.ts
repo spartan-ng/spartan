@@ -210,24 +210,6 @@ export class RadioGroupPreviewComponent {
   version: string | null = '16.1.4';
 }
 \`;
-
-export const defaultImports = \`
-import {
-  HlmRadioComponent,
-  HlmRadioGroupComponent,
-  HlmRadioIndicatorComponent,
-} from '@spartan-ng/helm/radio-group';
-\`;
-export const defaultSkeleton = \`
-<hlm-radio-group>
-  <label class="flex items-center" hlmLabel>
-		<hlm-radio value="16.1.4">
-			<hlm-radio-indicator indicator />
-		</hlm-radio>
-		v16.1.4
-	</label>
-</hlm-radio-group>
-\`;
 `;
 
 

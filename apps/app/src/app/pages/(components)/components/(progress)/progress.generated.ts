@@ -89,19 +89,6 @@ export class ProgressPreviewComponent implements OnInit {
   }
 }
 \`;
-
-export const defaultImports = \`
-import {
-  BrnProgressComponent,
-  BrnProgressIndicatorComponent,
-} from '@spartan-ng/brain/progress';
-import { HlmProgressDirective, HlmProgressIndicatorDirective } from '@spartan-ng/helm/progress';
-\`;
-export const defaultSkeleton = \`
-<brn-progress hlm [value]="value">
-   <brn-progress-indicator hlm />
-</brn-progress>
-\`;
 `;
 
 

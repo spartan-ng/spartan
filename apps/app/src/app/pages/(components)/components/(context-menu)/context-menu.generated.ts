@@ -340,40 +340,6 @@ imports: [
 })
 export class ContextMenuPreviewComponent {}
 \`;
-
-export const defaultImports = \`
-import { BrnContextMenuTriggerDirective, BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
-import {
-  HlmMenuComponent,
-  HlmMenuGroupComponent,
-  HlmMenuItemCheckComponent,
-  HlmMenuItemCheckboxDirective,
-  HlmMenuItemDirective,
-  HlmMenuItemIconDirective,
-  HlmMenuItemRadioComponent,
-  HlmMenuItemRadioDirective,
-  HlmMenuItemSubIndicatorComponent,
-  HlmMenuLabelComponent,
-  HlmMenuSeparatorComponent,
-  HlmMenuShortcutComponent,
-  HlmSubMenuComponent,
-} from '@spartan-ng/helm/menu';
-\`;
-
-export const defaultSkeleton = \`
-<div [brnCtxMenuTriggerFor]="menu">Right click here</div>
-
-<ng-template #menu>
-  <hlm-menu class="w-64">
-    <hlm-menu-group>
-      <button inset hlmMenuItem>
-        Save
-        <hlm-menu-shortcut>⌘S</hlm-menu-shortcut>
-      </button>
-    </hlm-menu-group>
-  </hlm-menu>
-</ng-template>
-\`;
 `;
 
 

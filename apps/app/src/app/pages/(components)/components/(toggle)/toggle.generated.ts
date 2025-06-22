@@ -262,16 +262,6 @@ imports: [BrnToggleDirective, HlmToggleDirective, HlmIconDirective],
 })
 export class TogglePreviewComponent {}
 \`;
-
-export const defaultImports = \`
-import { HlmToggleDirective } from '@spartan-ng/helm/toggle';
-import { BrnToggleDirective } from '@spartan-ng/brain/toggle';
-\`;
-export const defaultSkeleton = \`
-<button brnToggle hlm>
-  <ng-icon hlm size="sm" name="lucideItalic" />
-</button>
-\`;
 `;
 
 

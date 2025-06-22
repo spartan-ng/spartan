@@ -43,10 +43,6 @@ export class SliderPreviewComponent {
 	public readonly value = signal(50);
 }}
 \`;
-
-export const defaultImports = \`
-import { HlmSliderComponent } from '@spartan-ng/helm/slider';
-\`;
 export const defaultSlider = \`
 <hlm-slider />
 \`;

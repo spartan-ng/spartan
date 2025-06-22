@@ -559,40 +559,6 @@ imports: [
 })
 export class BreadcrumbPreviewComponent {}
 \`;
-
-export const defaultImports = \`
-import {
-	HlmBreadcrumbDirective,
-	HlmBreadcrumbEllipsisComponent,
-	HlmBreadcrumbItemDirective,
-	HlmBreadcrumbLinkDirective,
-	HlmBreadcrumbListDirective,
-	HlmBreadcrumbPageDirective,
-	HlmBreadcrumbSeparatorComponent,
-} from '@spartan-ng/helm/breadcrumb';
-\`;
-
-export const defaultSkeleton = \`
-<nav hlmBreadcrumb>
-	<ol hlmBreadcrumbList>
-		<li hlmBreadcrumbItem>
-			<a hlmBreadcrumbLink link="/home">Home</a>
-		</li>
-		<li hlmBreadcrumbSeparator></li>
-		<li hlmBreadcrumbItem>
-			<hlm-breadcrumb-ellipsis />
-		</li>
-		<li hlmBreadcrumbSeparator></li>
-		<li hlmBreadcrumbItem>
-			<a hlmBreadcrumbLink link="/components">Components</a>
-		</li>
-		<li hlmBreadcrumbSeparator></li>
-		<li hlmBreadcrumbItem>
-			<span hlmBreadcrumbPage>Breadcrumb</span>
-		</li>
-	</ol>
-</nav>
-\`;
 `;
 
 

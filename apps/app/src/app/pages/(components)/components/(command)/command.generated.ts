@@ -311,51 +311,6 @@ imports: [BrnCommandImports, HlmCommandImports, HlmIconDirective ],
 })
 export class CommandPreviewComponent {}
 \`;
-
-export const defaultImports = \`
-import { BrnCommandImports } from '@spartan-ng/brain/command';
-import { HlmCommandImports } from '@spartan-ng/helm/command';
-\`;
-
-export const defaultSkeleton = \`
-	<hlm-command>
-  <hlm-command-search>
-    <ng-icon hlm name="lucideSearch" />
-
-    <input
-      type="text"
-      hlm-command-search-input
-      placeholder="Type a command or search..."
-    />
-  </hlm-command-search>
-
-  <hlm-command-list>
-    <hlm-command-group>
-      <hlm-command-group-label>Suggestions</hlm-command-group-label>
-
-      <button hlm-command-item value="Calendar">
-        <ng-icon hlm name="lucideCalendar" hlmCommandIcon />
-        Calendar
-      </button>
-    </hlm-command-group>
-
-    <hlm-command-separator />
-
-    <hlm-command-group>
-      <hlm-command-group-label>Settings</hlm-command-group-label>
-
-      <button hlm-command-item value="Profile">
-        <ng-icon hlm name="lucideUser" hlmCommandIcon />
-        Profile
-        <hlm-command-shortcut>⌘P</hlm-command-shortcut>
-      </button>
-    </hlm-command-group>
-  </hlm-command-list>
-
-  <!-- Empty state -->
-  <div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
-</hlm-command>
-\`;
 `;
 
 

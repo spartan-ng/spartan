@@ -405,25 +405,6 @@ imports: [
 })
 export class ToggleGroupPreviewComponent {}
 \`;
-
-export const defaultImports = \`
-import {
- BrnToggleGroupItemDirective,
- BrnToggleGroupComponent,
-} from '@spartan-ng/brain/toggle-group';
-import {
- HlmToggleGroupItemDirective,
- HlmToggleGroupDirective,
-} from '@spartan-ng/helm/toggle-group';
-\`;
-
-export const defaultSkeleton = \`
-<brn-toggle-group hlm nullable="true">
-  <button aria-label="Bold" value="bold" hlmToggleGroupItem>
- 	 <ng-icon hlm size="sm" name="lucideBold" />
-  </button>
-</brn-toggle-group>
-\`;
 `;
 
 

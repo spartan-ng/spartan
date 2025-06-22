@@ -35,13 +35,6 @@ imports: [HlmInputDirective],
 })
 export class TextAreaPreviewComponent {}
 \`;
-
-export const defaultImports = \`
-import { HlmInputDirective } from '@spartan-ng/helm/input';
-\`;
-export const defaultSkeleton = \`
-<textarea hlmInput placeholder="Type your message here."></textarea>
-\`;
 `;
 
 

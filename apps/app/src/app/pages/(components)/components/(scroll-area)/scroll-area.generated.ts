@@ -63,19 +63,6 @@ export class ScrollAreaPreviewComponent {
   tags = Array.from({ length: 50 }).map((_, i, a) => \\`v1.2.0-beta.\${a.length - i}\\`);
 }
 \`;
-
-export const defaultImports = \`
-import { HlmScrollAreaDirective } from '@spartan-ng/helm/scroll-area';
-\`;
-export const defaultSkeleton = \`
-<ng-scrollbar hlm class="border w-72 rounded-md border-border">
-  <div class='p-6 whitespace-nowrap'>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium architecto,<br>
-    asperiores beatae consequuntur dolor ducimus et exercitationem facilis fugiat magni<br>
-    nisi officiis quibusdam rem repellat reprehenderit totam veritatis voluptatibus! Nobis.
-  </div>
-</ng-scrollbar>
-\`;
 `;
 
 

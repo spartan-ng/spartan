@@ -41,13 +41,6 @@ imports: [HlmLabelDirective, HlmSwitchComponent],
 })
 export class SwitchPreviewComponent {}
 \`;
-
-export const defaultImports = \`
-import { HlmSwitchComponent } from '@spartan-ng/helm/switch';
-\`;
-export const defaultSkeleton = \`
-<hlm-switch />
-\`;
 `;
 
 

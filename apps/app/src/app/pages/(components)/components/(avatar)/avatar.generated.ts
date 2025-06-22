@@ -40,17 +40,6 @@ imports: [HlmAvatarImageDirective, HlmAvatarComponent, HlmAvatarFallbackDirectiv
 })
 export class AvatarPreviewComponent {}
 \`;
-
-export const defaultImports = \`
-import { HlmAvatarImageDirective, HlmAvatarComponent, HlmAvatarFallbackDirective } from '@spartan-ng/helm/avatar';
-\`;
-
-export const defaultSkeleton = \`
-<hlm-avatar>
-   <img src='/assets/avatar.png' alt='spartan logo. Resembling a spartanic shield' hlmAvatarImage />
-   <span class='text-white bg-destructive' hlmAvatarFallback>RG</span>
-</hlm-avatar>
-\`;
 `;
 
 

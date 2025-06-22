@@ -361,45 +361,6 @@ imports: [
 })
 export class DropdownPreviewComponent {}
 \`;
-
-export const defaultImports = \`
-import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
-import {
-  HlmMenuComponent,
-  HlmMenuGroupComponent,
-  HlmMenuItemDirective,
-  HlmMenuItemIconDirective,
-  HlmMenuItemSubIndicatorComponent,
-  HlmMenuLabelComponent,
-  HlmMenuSeparatorComponent,
-  HlmMenuShortcutComponent,
-  HlmSubMenuComponent,
-} from '@spartan-ng/helm/menu';
-\`;
-
-export const defaultSkeleton = \`
-<button [brnMenuTriggerFor]="menu">Open</button>
-
-<ng-template #menu>
-  <hlm-menu>
-    <hlm-menu-label>My Account</hlm-menu-label>
-    <hlm-menu-separator />
-    <hlm-menu-group>
-      <button hlmMenuItem>
-        Profile
-        <hlm-menu-shortcut>⇧⌘P</hlm-menu-shortcut>
-      </button>
-
-      <hlm-menu-separator />
-
-      <button hlmMenuItem [brnMenuTriggerFor]="invite">
-        Invite Users
-        <hlm-menu-item-sub-indicator />
-      </button>
-    </hlm-menu-group>
-  </hlm-menu>
-</ng-template>
-\`;
 `;
 
 export const dropdownWithContextCode = `

@@ -33,13 +33,6 @@ imports: [ HlmSpinnerComponent],
 })
 export class SpinnerPreviewComponent {}
 \`;
-
-export const defaultImports = \`
-import { HlmSpinnerComponent } from '@spartan-ng/helm/spinner';
-\`;
-export const defaultSkeleton = \`
-<hlm-spinner />
-\`;
 `;
 
 

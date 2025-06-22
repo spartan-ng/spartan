@@ -33,6 +33,7 @@ imports: [HlmButtonDirective],
 export class ButtonAnchorComponent {}
 \`;
 `;
+
 export const buttonDestructiveCode = `
 import { Component } from '@angular/core';
 import { HlmButtonDirective } from '@spartan-ng/helm/button';
@@ -58,6 +59,7 @@ imports: [HlmButtonDirective],
 export class ButtonDestructiveComponent {}
 \`;
 `;
+
 export const buttonGhostCode = `
 import { Component } from '@angular/core';
 import { HlmButtonDirective } from '@spartan-ng/helm/button';
@@ -83,6 +85,7 @@ imports: [HlmButtonDirective],
 export class ButtonGhostComponent {}
 \`;
 `;
+
 export const buttonIconCode = `
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
@@ -117,6 +120,7 @@ imports: [HlmButtonDirective, HlmSpinnerComponent, HlmIconDirective],
 export class ButtonIconComponent {}
 \`;
 `;
+
 export const buttonLinkCode = `
 import { Component } from '@angular/core';
 import { HlmButtonDirective } from '@spartan-ng/helm/button';
@@ -142,6 +146,7 @@ imports: [HlmButtonDirective],
 export class ButtonLinkComponent {}
 \`;
 `;
+
 export const buttonLoadingCode = `
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
@@ -181,6 +186,7 @@ imports: [HlmButtonDirective, HlmSpinnerComponent, HlmIconDirective],
 export class ButtonLoadingComponent {}
 \`;
 `;
+
 export const buttonOutlineCode = `
 import { Component } from '@angular/core';
 import { HlmButtonDirective } from '@spartan-ng/helm/button';
@@ -206,6 +212,7 @@ imports: [HlmButtonDirective],
 export class ButtonOutlineComponent {}
 \`;
 `;
+
 export const buttonSecondaryCode = `
 import { Component } from '@angular/core';
 import { HlmButtonDirective } from '@spartan-ng/helm/button';
@@ -231,6 +238,7 @@ imports: [HlmButtonDirective],
 export class ButtonSecondaryComponent {}
 \`;
 `;
+
 export const buttonWithIconCode = `
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
@@ -272,6 +280,7 @@ imports: [HlmButtonDirective, HlmIconDirective],
 export class ButtonWithIconComponent {}
 \`;
 `;
+
 export const defaultCode = `
 import { Component } from '@angular/core';
 import { HlmButtonDirective } from '@spartan-ng/helm/button';

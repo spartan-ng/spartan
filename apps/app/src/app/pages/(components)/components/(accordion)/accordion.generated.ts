@@ -73,6 +73,7 @@ export class AccordionMultipleOpenedComponent {
 	}
 }
 `;
+
 export const defaultCode = `
 import { Component } from '@angular/core';
 import { NgIcon } from '@ng-icons/core';

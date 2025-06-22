@@ -237,6 +237,7 @@ export class InputOtpFormExampleComponent implements OnDestroy {
 }
 \`;
 `;
+
 export const defaultCode = `
 import { Component } from '@angular/core';
 import { BrnInputOtpComponent } from '@spartan-ng/brain/input-otp';

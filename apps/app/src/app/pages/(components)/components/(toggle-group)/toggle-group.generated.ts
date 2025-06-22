@@ -87,6 +87,7 @@ export class ToggleGroupDisabledPreviewComponent {}
 
 \`;
 `;
+
 export const toggleGroupLargeCode = `
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
@@ -166,6 +167,7 @@ export class ToggleGroupLargePreviewComponent {}
 
 \`;
 `;
+
 export const toggleGroupOutlineCode = `
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
@@ -245,6 +247,7 @@ export class ToggleGroupOutlinePreviewComponent {}
 
 \`;
 `;
+
 export const toggleGroupSmallCode = `
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
@@ -324,6 +327,7 @@ export class ToggleGroupSmallPreviewComponent {}
 
 \`;
 `;
+
 export const defaultCode = `
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';

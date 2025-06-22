@@ -71,6 +71,7 @@ export class CalendarMultipleExampleComponent {
 }
 \`;
 `;
+
 export const defaultCode = `
 import { Component } from '@angular/core';
 import { HlmCalendarComponent } from '@spartan-ng/helm/calendar';

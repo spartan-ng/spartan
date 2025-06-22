@@ -142,6 +142,7 @@ imports: [
 export class SheetSidePreviewComponent {}
 \`;
 `;
+
 export const sheetCloseCode = `
 import { Component, viewChild } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
@@ -269,6 +270,7 @@ export class SheetClosePreviewComponent {
     }
 }\`;
 `;
+
 export const defaultCode = `
 import { Component } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';

@@ -81,6 +81,7 @@ export class TabsPaginatedPreviewComponent {
 }
 \`;
 `;
+
 export const tabsVerticalCode = `
 import { Component } from '@angular/core';
 import { HlmButtonDirective } from '@spartan-ng/helm/button';
@@ -291,6 +292,7 @@ import {
 export class TabsVerticalPreviewComponent {}
 \`;
 `;
+
 export const defaultCode = `
 import { Component } from '@angular/core';
 import { HlmButtonDirective } from '@spartan-ng/helm/button';

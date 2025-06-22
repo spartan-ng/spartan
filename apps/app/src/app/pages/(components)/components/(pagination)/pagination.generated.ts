@@ -103,6 +103,7 @@ export class PaginationAdvancedQueryComponent {
 }
 \`;
 `;
+
 export const paginationAdvancedCode = `
 import { Component, signal } from '@angular/core';
 import { HlmNumberedPaginationComponent } from '@spartan-ng/helm/pagination';
@@ -138,6 +139,7 @@ export class PaginationAdvancedComponent {
 }
 \`;
 `;
+
 export const paginationIconOnlyCode = `
 import { Component } from '@angular/core';
 import {
@@ -239,6 +241,7 @@ import {
 export class PaginationIconOnlyComponent {}
 \`;
 `;
+
 export const paginationQueryParamsCode = `
 import { Component, computed, inject, numberAttribute } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -410,6 +413,7 @@ export class PaginationQueryParamsComponent {
 }
 \`;
 `;
+
 export const defaultCode = `
 import { Component } from '@angular/core';
 import {

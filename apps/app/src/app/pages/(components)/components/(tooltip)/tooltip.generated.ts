@@ -45,6 +45,7 @@ imports: [
 export class TooltipSimpleComponent {}
 \`;
 `;
+
 export const defaultCode = `
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';

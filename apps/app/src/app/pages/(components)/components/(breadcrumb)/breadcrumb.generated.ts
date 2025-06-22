@@ -119,6 +119,7 @@ import { lmBreadcrumbEllipsisComponent } from '@spartan-ng/helm/breadcrumb';
 </nav>
 \`;
 `;
+
 export const breadcrumbCustomSeparatorCode = `
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
@@ -248,6 +249,7 @@ import { HlmIconDirective, provideIcons } from '@spartan-ng/helm/icon';
 </nav>
 \`;
 `;
+
 export const breadcrumbDropdownCode = `
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
@@ -423,6 +425,7 @@ import { HlmMenuComponent, HlmMenuItemDirective } from '@spartan-ng/helm/menu';
 </nav>
 \`;
 `;
+
 export const defaultCode = `
 import { Component } from '@angular/core';
 import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';

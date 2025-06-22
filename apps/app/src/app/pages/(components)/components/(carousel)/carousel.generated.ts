@@ -111,6 +111,7 @@ export class CarouselOrientationComponent {
 }
 \`;
 `;
+
 export const carouselPluginsCode = `
 import { Component } from '@angular/core';
 import { HlmCardContentDirective, HlmCardDirective } from '@spartan-ng/helm/card';
@@ -212,6 +213,7 @@ export class CarouselPluginsComponent {
 }
 \`;
 `;
+
 export const carouselSizesCode = `
 import { Component } from '@angular/core';
 import { HlmCardContentDirective, HlmCardDirective } from '@spartan-ng/helm/card';
@@ -309,6 +311,7 @@ export class CarouselSizesComponent {
 }
 \`;
 `;
+
 export const carouselSlideCountCode = `
 import { Component } from '@angular/core';
 import { HlmCardContentDirective, HlmCardDirective } from '@spartan-ng/helm/card';
@@ -412,6 +415,7 @@ export class CarouselSlideCountComponent {
 }
 \`;
 `;
+
 export const carouselSpacingCode = `
 import { Component } from '@angular/core';
 import { HlmCardContentDirective, HlmCardDirective } from '@spartan-ng/helm/card';
@@ -509,6 +513,7 @@ export class CarouselSpacingComponent {
 }
 \`;
 `;
+
 export const defaultCode = `
 import { Component } from '@angular/core';
 import { HlmCardContentDirective, HlmCardDirective } from '@spartan-ng/helm/card';

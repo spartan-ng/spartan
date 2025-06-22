@@ -33,6 +33,7 @@ imports: [HlmBadgeDirective],
 export class BadgeDestructiveComponent {}
 \`;
 `;
+
 export const badgeOutlineCode = `
 import { Component } from '@angular/core';
 import { HlmBadgeDirective } from '@spartan-ng/helm/badge';
@@ -58,6 +59,7 @@ imports: [HlmBadgeDirective],
 export class BadgeOutlineExampleComponent {}
 \`;
 `;
+
 export const badgeSecondaryCode = `
 import { Component } from '@angular/core';
 import { HlmBadgeDirective } from '@spartan-ng/helm/badge';
@@ -83,6 +85,7 @@ imports: [HlmBadgeDirective],
 export class BadgeSecondaryExampleComponent {}
 \`;
 `;
+
 export const defaultCode = `
 import { Component } from '@angular/core';
 import { HlmBadgeDirective } from '@spartan-ng/helm/badge';

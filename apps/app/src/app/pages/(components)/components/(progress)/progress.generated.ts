@@ -41,6 +41,7 @@ imports: [BrnProgressComponent, BrnProgressIndicatorComponent, HlmProgressIndica
 export class ProgressIndeterminatePreviewComponent {}
 \`;
 `;
+
 export const defaultCode = `
 import { Component, type OnInit } from '@angular/core';
 import { BrnProgressComponent, BrnProgressIndicatorComponent } from '@spartan-ng/brain/progress';

@@ -73,6 +73,7 @@ export class DatePickerConfigExampleComponent {
 }
 \`;
 `;
+
 export const datePickerFormMultiCode = `
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -176,6 +177,7 @@ export class DatePickerFormMultipleExampleComponent {
 }
 \`;
 `;
+
 export const datePickerFormCode = `
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -265,6 +267,7 @@ export class DatePickerFormExampleComponent {
 }
 \`;
 `;
+
 export const datePickerFormatCode = `
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -332,6 +335,7 @@ export class DatePickerFormatExampleComponent {
 }
 \`;
 `;
+
 export const datePickerMultiCode = `
 import { Component } from '@angular/core';
 import { HlmDatePickerMultiComponent } from '@spartan-ng/helm/date-picker';
@@ -393,6 +397,7 @@ export class DatePickerMultipleExampleComponent {
 }
 \`;
 `;
+
 export const defaultCode = `
 import { Component } from '@angular/core';
 import { HlmDatePickerComponent } from '@spartan-ng/helm/date-picker';

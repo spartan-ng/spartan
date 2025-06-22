@@ -137,6 +137,7 @@ export class DialogClosePreviewComponent {
 }
 \`;
 `;
+
 export const dialogContextMenuCode = `
 import { Component } from '@angular/core';
 import { BrnDialogContentDirective, BrnDialogTriggerDirective } from '@spartan-ng/brain/dialog';
@@ -319,6 +320,7 @@ export class DialogContextMenuPreviewComponent {
 }
 \`;
 `;
+
 export const dialogDeclarativeCode = `
 import { Component, signal } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
@@ -461,6 +463,7 @@ export class DialogDeclarativePreviewComponent {
 }
 \`;
 `;
+
 export const dialogDynamicComponentCode = `
 import { Component, inject } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
@@ -683,6 +686,7 @@ class SelectUserComponent {
 }
 \`;
 `;
+
 export const defaultCode = `
 import { Component } from '@angular/core';
 import { BrnDialogContentDirective, BrnDialogTriggerDirective } from '@spartan-ng/brain/dialog';

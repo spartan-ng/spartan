@@ -63,6 +63,7 @@ imports: [BrnSelectImports, HlmSelectImports],
 export class SelectMultiplePreviewComponent {}
 \`;
 `;
+
 export const selectScrollableCode = `
 import { Component } from '@angular/core';
 import { BrnSelectImports } from '@spartan-ng/brain/select';
@@ -202,6 +203,7 @@ imports: [BrnSelectImports, HlmSelectImports],
 })
 export class SelectScrollablePreviewComponent {}\`;
 `;
+
 export const selectValueTemplateCode = `
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
@@ -316,6 +318,7 @@ export class SelectValueTemplatePreviewComponent {
 }
 \`;
 `;
+
 export const defaultCode = `
 import { Component } from '@angular/core';
 import { BrnSelectImports } from '@spartan-ng/brain/select';

@@ -401,6 +401,7 @@ export const defaultSkeleton = \`
 </ng-template>
 \`;
 `;
+
 export const dropdownWithContextCode = `
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
@@ -639,6 +640,7 @@ export class DropdownWithContextPreviewComponent {
 }
 \`;
 `;
+
 export const dropdownWithStateCode = `
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';

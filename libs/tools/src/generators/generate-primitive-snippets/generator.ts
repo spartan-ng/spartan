@@ -112,7 +112,7 @@ ${codeSnippets
 		return `export const ${snippet.exampleName} = \`\n${snippet.code.replace(/`/g, '\\`')}\n\`;
 `;
 	})
-	.join('')}
+	.join('\n')}
 
 `;
 

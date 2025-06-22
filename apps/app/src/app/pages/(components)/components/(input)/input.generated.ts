@@ -45,6 +45,7 @@ export class InputButtonPreviewComponent {}
 
 \`;
 `;
+
 export const inputDisabledCode = `
 import { Component } from '@angular/core';
 import { HlmInputDirective } from '@spartan-ng/helm/input';
@@ -71,6 +72,7 @@ export class InputDisabledPreviewComponent {}
 
 \`;
 `;
+
 export const inputFileCode = `
 import { Component } from '@angular/core';
 import { HlmInputDirective } from '@spartan-ng/helm/input';
@@ -96,6 +98,7 @@ imports: [HlmInputDirective],
 export class InputFilePreviewComponent {}
 \`;
 `;
+
 export const inputLabelCode = `
 import { Component } from '@angular/core';
 import { HlmInputDirective } from '@spartan-ng/helm/input';
@@ -129,6 +132,7 @@ imports: [HlmInputDirective, HlmLabelDirective],
 export class InputLabelPreviewComponent {}
 \`;
 `;
+
 export const defaultCode = `
 import { Component } from '@angular/core';
 import { HlmInputDirective } from '@spartan-ng/helm/input';

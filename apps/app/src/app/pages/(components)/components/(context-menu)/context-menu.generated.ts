@@ -101,6 +101,7 @@ export const defaultCodeWithState = \`
 </ng-template>
 \`;
 `;
+
 export const defaultCode = `
 import { Component } from '@angular/core';
 

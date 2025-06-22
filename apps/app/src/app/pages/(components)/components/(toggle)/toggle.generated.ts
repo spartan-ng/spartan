@@ -49,6 +49,7 @@ imports: [BrnToggleDirective, HlmToggleDirective, HlmIconDirective],
 export class ToggleDisabledPreviewComponent {}
 \`;
 `;
+
 export const toggleLargeCode = `
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
@@ -90,6 +91,7 @@ imports: [BrnToggleDirective, HlmToggleDirective, HlmIconDirective],
 export class ToggleLargePreviewComponent {}
 \`;
 `;
+
 export const toggleOutlineCode = `
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
@@ -132,6 +134,7 @@ export class ToggleOutlinePreviewComponent {}
 
 \`;
 `;
+
 export const toggleSmallCode = `
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
@@ -174,6 +177,7 @@ export class ToggleSmallPreviewComponent {}
 
 \`;
 `;
+
 export const toggleWithTextCode = `
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
@@ -217,6 +221,7 @@ imports: [BrnToggleDirective, HlmToggleDirective, HlmIconDirective],
 export class ToggleWithTextPreviewComponent {}
 \`;
 `;
+
 export const defaultCode = `
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';

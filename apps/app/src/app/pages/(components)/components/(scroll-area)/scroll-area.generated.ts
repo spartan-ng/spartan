@@ -32,6 +32,6 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 	\`,
 })
 export class ScrollAreaPreviewComponent {
-	public tags = Array.from({ length: 50 }).map((_, i, a) => \`v1.2.0-beta.${a.length - i}\`);
+	public tags = Array.from({ length: 50 }).map((_, i, a) => \`v1.2.0-beta.\${a.length - i}\`);
 }
 `;

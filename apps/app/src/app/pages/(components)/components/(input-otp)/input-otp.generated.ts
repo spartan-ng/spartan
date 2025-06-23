@@ -86,7 +86,7 @@ export class InputOtpFormExampleComponent implements OnDestroy {
 	submit() {
 		console.log(this.form.value);
 		toast('OTP submitted', {
-			description: \`Your OTP ${this.form.value.otp} has been submitted\`,
+			description: \`Your OTP \${this.form.value.otp} has been submitted\`,
 		});
 	}
 
@@ -200,7 +200,7 @@ export class InputOtpFormExampleComponent implements OnDestroy {
 	submit() {
 		console.log(this.form.value);
 		toast('OTP submitted', {
-			description: \\`Your OTP \${this.form.value.otp} has been submitted\\`,
+			description: \\`Your OTP \\${this.form.value.otp} has been submitted\\`,
 		});
 	}
 

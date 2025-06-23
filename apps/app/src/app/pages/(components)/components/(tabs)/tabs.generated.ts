@@ -41,7 +41,7 @@ export class TabsPaginatedPreviewComponent {
 
 	public readonly lotsOfTabs = Array.from({ length: 30 })
 		.fill(0)
-		.map((_, index) => \`Tab ${index}\`);
+		.map((_, index) => \`Tab \${index}\`);
 }
 
 export const paginatedCode = \`
@@ -77,7 +77,7 @@ export class TabsPaginatedPreviewComponent {
 
 	public readonly lotsOfTabs = Array.from({ length: 30 })
 		.fill(0)
-		.map((_, index) => \\`Tab \${index}\\`);
+		.map((_, index) => \\`Tab \\${index}\\`);
 }
 \`;
 `;

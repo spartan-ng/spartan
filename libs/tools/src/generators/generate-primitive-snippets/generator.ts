@@ -110,7 +110,8 @@ Run \`pnpm run generate-snippets\` to update this file.
 
 ${codeSnippets
 	.map((snippet) => {
-		return `export const ${snippet.exampleName} = \`\n${snippet.code.replace(/`/g, '\\`')}\n\`;
+		const replacedCode = snippet.code.replace(/`/g, '\\`').replace(/\$\{/g, '\\${');
+		return `export const ${snippet.exampleName} = \`\n${replacedCode}\n\`;
 `;
 	})
 	.join('\n')}

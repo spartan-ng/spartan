@@ -133,7 +133,7 @@ export type Payment = {
 
 		<div class="mt-4 flex flex-col justify-between sm:flex-row sm:items-center">
 			@if (_table.getRowCount() > 0) {
-				<span class="${hlmMuted} text-sm">
+				<span class="\${hlmMuted} text-sm">
 					{{ _table.getSelectedRowModel().rows.length }} of {{ _table.getRowCount() }} row(s) selected
 				</span>
 				<div class="mt-2 flex sm:mt-0">
@@ -203,7 +203,7 @@ export class DataTablePreviewComponent {
 			accessorKey: 'status',
 			id: 'status',
 			header: 'Status',
-			cell: (info) => \`<span class="capitalize">${info.getValue<string>()}</span>\`,
+			cell: (info) => \`<span class="capitalize">\${info.getValue<string>()}</span>\`,
 			enableSorting: false,
 		},
 		{
@@ -223,7 +223,7 @@ export class DataTablePreviewComponent {
 					currency: 'USD',
 				}).format(amount);
 
-				return \`<div class="text-right">${formatted}</div>\`;
+				return \`<div class="text-right">\${formatted}</div>\`;
 			},
 		},
 		{

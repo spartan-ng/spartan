@@ -31,31 +31,6 @@ export class FormFieldErrorPreviewComponent implements OnInit {
 		this.name.markAsTouched();
 	}
 }
-
-export const errorCode = \`
-import { Component, OnInit } from '@angular/core';
-import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { HlmFormFieldModule } from '@spartan-ng/helm/form-field';
-import { HlmInputDirective } from '@spartan-ng/helm/input';
-
-@Component({
-selector: 'spartan-form-field-error',
-	imports: [ReactiveFormsModule, HlmFormFieldModule, HlmInputDirective],
-	template: \\`
-		<hlm-form-field>
-			<input aria-label="Your Name" class="w-80" [formControl]="name" hlmInput type="text" placeholder="Your Name" />
-			<hlm-error>Your name is required</hlm-error>
-		</hlm-form-field>
-	\\`,
-})
-export class FormFieldErrorPreviewComponent implements OnInit {
-	name = new FormControl('', Validators.required);
-
-	ngOnInit(): void {
-		this.name.markAsTouched();
-	}
-}
-\`;
 `;
 
 export const formFieldWithFormDirtyCode = `
@@ -134,78 +109,6 @@ export const providerShowOnDirtyErrorStateMatcher = \`
     { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher }
   ]
 \`;
-
-export const formFieldFormWithDirtyCode = \`
-import { Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { HlmButtonModule } from '@spartan-ng/helm/button';
-import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@spartan-ng/brain/forms';
-import { HlmFormFieldModule } from '@spartan-ng/helm/form-field';
-import { HlmInputDirective } from '@spartan-ng/helm/input';
-import { BrnSelectImports } from '@spartan-ng/brain/select';
-import { HlmSelectImports, HlmSelectModule } from '@spartan-ng/helm/select';
-
-@Component({
-selector: 'spartan-form-field-form',
-	imports: [
-		ReactiveFormsModule,
-		HlmFormFieldModule,
-		HlmSelectModule,
-		HlmInputDirective,
-		HlmSelectImports,
-		BrnSelectImports,
-		HlmButtonModule,
-	],
-	template: \\`
-		<form [formGroup]="form" class="space-y-6">
-			<hlm-form-field>
-				<input
-					aria-label="Your Name"
-					formControlName="name"
-					class="w-80"
-					hlmInput
-					type="text"
-					placeholder="Your Name"
-				/>
-				<hlm-error>Your name is required</hlm-error>
-			</hlm-form-field>
-			<hlm-form-field>
-				<brn-select class="inline-block" placeholder="Select some fruit" formControlName="fruit">
-					<hlm-select-trigger class="w-80">
-						<hlm-select-value />
-					</hlm-select-trigger>
-					<hlm-select-content>
-						<hlm-select-label>Fruits</hlm-select-label>
-						@for (option of options; track option.value) {
-							<hlm-option [value]="option.value">{{ option.label }}</hlm-option>
-						}
-					</hlm-select-content>
-				</brn-select>
-				<hlm-error>The fruit is required</hlm-error>
-			</hlm-form-field>
-
-			<button type="submit" hlmBtn>Submit</button>
-		</form>
-	\\`,
-  providers: [{ provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher }],
-})
-export class FormFieldFormWithDirtyPreviewComponent {
-	private _formBuilder = inject(FormBuilder);
-
-	form = this._formBuilder.group({
-		name: ['', Validators.required],
-		fruit: ['', Validators.required],
-	});
-
-	options = [
-		{ value: 'apple', label: 'Apple' },
-		{ value: 'banana', label: 'Banana' },
-		{ value: 'blueberry', label: 'Blueberry' },
-		{ value: 'grapes', label: 'Grapes' },
-		{ value: 'pineapple', label: 'Pineapple' },
-	];
-}
-\`;
 `;
 
 export const formFieldWithFormCode = `
@@ -276,76 +179,6 @@ export class FormFieldFormPreviewComponent {
 		{ value: 'pineapple', label: 'Pineapple' },
 	];
 }
-
-export const formFieldFormCode = \`
-import { Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { HlmButtonModule } from '@spartan-ng/helm/button';
-import { HlmFormFieldModule } from '@spartan-ng/helm/form-field';
-import { HlmInputDirective } from '@spartan-ng/helm/input';
-import { BrnSelectImports } from '@spartan-ng/brain/select';
-import { HlmSelectImports, HlmSelectModule } from '@spartan-ng/helm/select';
-
-@Component({
-selector: 'spartan-form-field-form',
-	imports: [
-		ReactiveFormsModule,
-		HlmFormFieldModule,
-		HlmSelectModule,
-		HlmInputDirective,
-		HlmSelectImports,
-		BrnSelectImports,
-		HlmButtonModule,
-	],
-	template: \\`
-		<form [formGroup]="form" class="space-y-6">
-			<hlm-form-field>
-				<input
-					aria-label="Your Name"
-					formControlName="name"
-					class="w-80"
-					hlmInput
-					type="text"
-					placeholder="Your Name"
-				/>
-				<hlm-error>Your name is required</hlm-error>
-			</hlm-form-field>
-			<hlm-form-field>
-				<brn-select class="inline-block" placeholder="Select some fruit" formControlName="fruit">
-					<hlm-select-trigger class="w-80">
-						<hlm-select-value />
-					</hlm-select-trigger>
-					<hlm-select-content>
-						<hlm-select-label>Fruits</hlm-select-label>
-						@for (option of options; track option.value) {
-							<hlm-option [value]="option.value">{{ option.label }}</hlm-option>
-						}
-					</hlm-select-content>
-				</brn-select>
-				<hlm-error>The fruit is required</hlm-error>
-			</hlm-form-field>
-
-			<button type="submit" hlmBtn>Submit</button>
-		</form>
-	\\`,
-})
-export class FormFieldFormPreviewComponent {
-	private _formBuilder = inject(FormBuilder);
-
-	form = this._formBuilder.group({
-		name: ['', Validators.required],
-		fruit: ['', Validators.required],
-	});
-
-	options = [
-		{ value: 'apple', label: 'Apple' },
-		{ value: 'banana', label: 'Banana' },
-		{ value: 'blueberry', label: 'Blueberry' },
-		{ value: 'grapes', label: 'Grapes' },
-		{ value: 'pineapple', label: 'Pineapple' },
-	];
-}
-\`;
 `;
 
 export const defaultCode = `
@@ -369,5 +202,3 @@ export class FormFieldPreviewComponent {
 	public control = new FormControl('', Validators.required);
 }
 `;
-
-

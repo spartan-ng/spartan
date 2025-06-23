@@ -16,8 +16,8 @@ import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { CommandDialogComponent, commandDialogCode } from './command--dialog.example';
-import { defaultCode } from './command.generated';
+import { CommandDialogComponent } from './command--dialog.example';
+import { commandDialogCode, defaultCode } from './command.generated';
 import { CommandPreviewComponent, defaultImports, defaultSkeleton } from './command.preview';
 
 export const routeMeta: RouteMeta = {

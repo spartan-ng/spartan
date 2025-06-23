@@ -13,14 +13,19 @@ import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { FormFieldErrorPreviewComponent, errorCode } from './form-field--error.preview';
+import { FormFieldErrorPreviewComponent } from './form-field--error.preview';
 import {
 	FormFieldFormWithDirtyPreviewComponent,
-	formFieldFormWithDirtyCode,
 	providerShowOnDirtyErrorStateMatcher,
 } from './form-field--with-form-dirty.preview';
-import { FormFieldFormPreviewComponent, formFieldFormCode } from './form-field--with-form.preview';
-import { FormFieldPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './form-field.preview';
+import { FormFieldFormPreviewComponent } from './form-field--with-form.preview';
+import {
+	defaultCode,
+	formFieldErrorCode,
+	formFieldWithFormCode,
+	formFieldWithFormDirtyCode,
+} from './form-field.generated';
+import { FormFieldPreviewComponent, defaultImports, defaultSkeleton } from './form-field.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Form Field', api: 'form-field' },
@@ -77,13 +82,6 @@ export const routeMeta: RouteMeta = {
 			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__default" class="${hlmH4} mb-2 mt-6">Default</h3>
-			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div spartanCodePreview firstTab>
-					<spartan-form-field-preview />
-				</div>
-				<spartan-code secondTab [code]="defaultCode" />
-			</spartan-tabs>
 			<h3 id="examples__error" class="${hlmH4} mb-2 mt-6">Error</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -138,8 +136,8 @@ export default class FormFieldPageComponent {
 	protected readonly defaultCode = defaultCode;
 	protected readonly defaultSkeleton = defaultSkeleton;
 	protected readonly defaultImports = defaultImports;
-	protected readonly errorCode = errorCode;
-	protected readonly formFieldFormWithDirtyCode = formFieldFormWithDirtyCode;
-	protected readonly formFieldForm = formFieldFormCode;
+	protected readonly errorCode = formFieldErrorCode;
+	protected readonly formFieldFormWithDirtyCode = formFieldWithFormDirtyCode;
+	protected readonly formFieldForm = formFieldWithFormCode;
 	protected readonly providerShowOnDirtyErrorStateMatcher = providerShowOnDirtyErrorStateMatcher;
 }

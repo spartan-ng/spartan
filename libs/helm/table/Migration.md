@@ -15,7 +15,7 @@ Replace `<hlm-td>` with `<td hlmTd>` and and check the corresponding closing tag
 
 ## Brain to Tanstack Table
 
-The spartan approach was to define the Columns in the template, whereas the Tanstack approach is to define the Columns in the code, via `ColumnDef` and `createAnuglarTable`.
+The spartan approach was to define the Columns in the template, whereas the Tanstack approach is to define the Columns in the code, via `ColumnDef` and `createAngularTable`.
 The easiest way to migrate is to search for the `brn-column-def` and create a corresponding `ColumnDef`.
 
 ```

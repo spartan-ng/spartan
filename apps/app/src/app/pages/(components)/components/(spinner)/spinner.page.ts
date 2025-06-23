@@ -13,7 +13,8 @@ import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { SpinnerPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './spinner.preview';
+import { defaultCode } from './spinner.generated';
+import { SpinnerPreviewComponent, defaultImports, defaultSkeleton } from './spinner.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Spinner', api: 'spinner' },

@@ -15,9 +15,10 @@ import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { TabsPaginatedPreviewComponent, paginatedCode } from './tabs--paginated.preview';
-import { TabsVerticalPreviewComponent, verticalCode } from './tabs--vertical.preview';
-import { TabsPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './tabs.preview';
+import { TabsPaginatedPreviewComponent } from './tabs--paginated.preview';
+import { TabsVerticalPreviewComponent } from './tabs--vertical.preview';
+import { defaultCode, tabsPaginatedCode, tabsVerticalCode } from './tabs.generated';
+import { TabsPreviewComponent, defaultImports, defaultSkeleton } from './tabs.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Tabs', api: 'tabs' },
@@ -141,7 +142,6 @@ export default class TabsPageComponent {
 	protected readonly defaultSkeleton = defaultSkeleton;
 	protected readonly defaultImports = defaultImports;
 
-	protected readonly verticalCode = verticalCode;
-
-	protected readonly paginatedCode = paginatedCode;
+	protected readonly verticalCode = tabsVerticalCode;
+	protected readonly paginatedCode = tabsPaginatedCode;
 }

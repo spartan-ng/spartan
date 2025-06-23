@@ -13,11 +13,18 @@ import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { PaginationAdvancedQueryComponent, advancedQueryParamsCode } from './pagination--advanced-query.example';
-import { PaginationAdvancedComponent, advancedCode } from './pagination--advanced.example';
-import { PaginationIconOnlyComponent, iconOnlyCode } from './pagination--icon-only.example';
-import { PaginationQueryParamsComponent, queryParamsCode } from './pagination--query-params.example';
-import { PaginationPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './pagination.preview';
+import { PaginationAdvancedQueryComponent } from './pagination--advanced-query.example';
+import { PaginationAdvancedComponent } from './pagination--advanced.example';
+import { PaginationIconOnlyComponent } from './pagination--icon-only.example';
+import { PaginationQueryParamsComponent } from './pagination--query-params.example';
+import {
+	defaultCode,
+	paginationAdvancedCode,
+	paginationAdvancedQueryCode,
+	paginationIconOnlyCode,
+	paginationQueryParamsCode,
+} from './pagination.generated';
+import { PaginationPreviewComponent, defaultImports, defaultSkeleton } from './pagination.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Pagination', api: 'pagination' },
@@ -122,8 +129,8 @@ export default class PaginationPageComponent {
 	protected readonly defaultSkeleton = defaultSkeleton;
 	protected readonly defaultImports = defaultImports;
 
-	protected readonly queryParamsCode = queryParamsCode;
-	protected readonly iconOnlyCode = iconOnlyCode;
-	protected readonly advancedCode = advancedCode;
-	protected readonly advancedQueryParamsCode = advancedQueryParamsCode;
+	protected readonly queryParamsCode = paginationQueryParamsCode;
+	protected readonly iconOnlyCode = paginationIconOnlyCode;
+	protected readonly advancedCode = paginationAdvancedCode;
+	protected readonly advancedQueryParamsCode = paginationAdvancedQueryCode;
 }

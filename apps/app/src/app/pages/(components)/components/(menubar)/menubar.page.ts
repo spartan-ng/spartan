@@ -12,7 +12,8 @@ import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { MenubarPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './menubar.preview';
+import { defaultCode } from './menubar.generated';
+import { MenubarPreviewComponent, defaultImports, defaultSkeleton } from './menubar.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Menubar', api: 'menu' },

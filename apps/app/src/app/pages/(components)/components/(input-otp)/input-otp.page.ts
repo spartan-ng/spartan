@@ -13,8 +13,9 @@ import { SectionSubHeadingComponent } from '../../../../shared/layout/section-su
 import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { inputOtpFormCode, InputOtpFormExampleComponent } from './input-otp--form.example';
-import { defaultCode, defaultImports, defaultSkeleton, InputOtpPreviewComponent } from './input-otp.preview';
+import { InputOtpFormExampleComponent } from './input-otp--form.example';
+import { defaultCode, inputOtpFormCode } from './input-otp.generated';
+import { defaultImports, defaultSkeleton, InputOtpPreviewComponent } from './input-otp.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Input OTP', api: 'input-otp' },

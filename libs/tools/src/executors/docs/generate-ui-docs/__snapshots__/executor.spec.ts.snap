@@ -1,0 +1,5730 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`generate-ui-docs executor produces stable output 1`] = `
+{
+  "accordion": {
+    "brain": {
+      "BrnAccordionContentComponent": {
+        "file": "libs/brain/accordion/src/lib/brn-accordion-content.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "The class to be applied to the content element.",
+            "name": "contentClass",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-accordion-content",
+      },
+      "BrnAccordionDirective": {
+        "exportAs": "brnAccordion",
+        "file": "libs/brain/accordion/src/lib/brn-accordion.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "single",
+            "description": "Whether the accordion is in single or multiple mode.",
+            "name": "type",
+            "required": false,
+            "type": "'single' | 'multiple'",
+          },
+          {
+            "defaultValue": "null",
+            "description": "The direction of the accordion, either 'ltr' (left-to-right) or 'rtl' (right-to-left).",
+            "name": "dir",
+            "required": false,
+            "type": "'ltr' | 'rtl' | null",
+          },
+          {
+            "defaultValue": "vertical",
+            "description": "The orientation of the accordion, either 'horizontal' or 'vertical'.",
+            "name": "orientation",
+            "required": false,
+            "type": "'horizontal' | 'vertical'",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnAccordion]",
+      },
+      "BrnAccordionItemDirective": {
+        "exportAs": "brnAccordionItem",
+        "file": "libs/brain/accordion/src/lib/brn-accordion.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "false",
+            "description": "Whether the accordion item is opened or closed.",
+            "name": "isOpened",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnAccordionItem]",
+      },
+      "BrnAccordionTriggerDirective": {
+        "file": "libs/brain/accordion/src/lib/brn-accordion.directive.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnAccordionTrigger]",
+      },
+    },
+    "helm": {
+      "HlmAccordionContentComponent": {
+        "file": "libs/helm/accordion/src/lib/hlm-accordion-content.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-accordion-content",
+      },
+      "HlmAccordionDirective": {
+        "file": "libs/helm/accordion/src/lib/hlm-accordion.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmAccordion], hlm-accordion",
+      },
+      "HlmAccordionIconDirective": {
+        "file": "libs/helm/accordion/src/lib/hlm-accordion-icon.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "ng-icon[hlmAccordionIcon], ng-icon[hlmAccIcon]",
+      },
+      "HlmAccordionItemDirective": {
+        "file": "libs/helm/accordion/src/lib/hlm-accordion-item.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmAccordionItem],brn-accordion-item[hlm],hlm-accordion-item",
+      },
+      "HlmAccordionTriggerDirective": {
+        "file": "libs/helm/accordion/src/lib/hlm-accordion-trigger.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmAccordionTrigger]",
+      },
+    },
+  },
+  "alert": {
+    "helm": {
+      "HlmAlertDescriptionDirective": {
+        "file": "libs/helm/alert/src/lib/hlm-alert-description.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmAlertDesc],[hlmAlertDescription]",
+      },
+      "HlmAlertDirective": {
+        "file": "libs/helm/alert/src/lib/hlm-alert.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "defaultValue": "default",
+            "description": "",
+            "name": "variant",
+            "required": false,
+            "type": "AlertVariants['variant']",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmAlert]",
+      },
+      "HlmAlertIconDirective": {
+        "file": "libs/helm/alert/src/lib/hlm-alert-icon.directive.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmAlertIcon]",
+      },
+      "HlmAlertTitleDirective": {
+        "file": "libs/helm/alert/src/lib/hlm-alert-title.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmAlertTitle]",
+      },
+    },
+  },
+  "alert-dialog": {
+    "brain": {
+      "BrnAlertDialogComponent": {
+        "exportAs": "brnAlertDialog",
+        "file": "libs/brain/alert-dialog/src/lib/brn-alert-dialog.component.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-alert-dialog",
+      },
+      "BrnAlertDialogContentDirective": {
+        "file": "libs/brain/alert-dialog/src/lib/brn-alert-dialog-content.directive.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnAlertDialogContent]",
+      },
+      "BrnAlertDialogDescriptionDirective": {
+        "file": "libs/brain/alert-dialog/src/lib/brn-alert-dialog-description.directive.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnAlertDialogDescription]",
+      },
+      "BrnAlertDialogOverlayComponent": {
+        "file": "libs/brain/alert-dialog/src/lib/brn-alert-dialog-overlay.component.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-alert-dialog-overlay",
+      },
+      "BrnAlertDialogTitleDirective": {
+        "file": "libs/brain/alert-dialog/src/lib/brn-alert-dialog-title.directive.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnAlertDialogTitle]",
+      },
+      "BrnAlertDialogTriggerDirective": {
+        "file": "libs/brain/alert-dialog/src/lib/brn-alert-dialog-trigger.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": null,
+            "description": "",
+            "name": "brnAlertDialogTriggerFor",
+            "required": false,
+            "type": "BrnAlertDialogComponent | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[brnAlertDialogTrigger],button[brnAlertDialogTriggerFor]",
+      },
+    },
+    "helm": {
+      "HlmAlertDialogActionButtonDirective": {
+        "file": "libs/helm/alert-dialog/src/lib/hlm-alert-dialog-action-button.directive.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "button[hlmAlertDialogAction]",
+      },
+      "HlmAlertDialogCancelButtonDirective": {
+        "file": "libs/helm/alert-dialog/src/lib/hlm-alert-dialog-cancel-button.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[hlmAlertDialogCancel]",
+      },
+      "HlmAlertDialogComponent": {
+        "exportAs": "hlmAlertDialog",
+        "file": "libs/helm/alert-dialog/src/lib/hlm-alert-dialog.component.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-alert-dialog",
+      },
+      "HlmAlertDialogContentComponent": {
+        "file": "libs/helm/alert-dialog/src/lib/hlm-alert-dialog-content.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-alert-dialog-content",
+      },
+      "HlmAlertDialogDescriptionDirective": {
+        "file": "libs/helm/alert-dialog/src/lib/hlm-alert-dialog-description.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmAlertDialogDescription]",
+      },
+      "HlmAlertDialogFooterComponent": {
+        "file": "libs/helm/alert-dialog/src/lib/hlm-alert-dialog-footer.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-alert-dialog-footer",
+      },
+      "HlmAlertDialogHeaderComponent": {
+        "file": "libs/helm/alert-dialog/src/lib/hlm-alert-dialog-header.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-alert-dialog-header",
+      },
+      "HlmAlertDialogOverlayDirective": {
+        "file": "libs/helm/alert-dialog/src/lib/hlm-alert-dialog-overlay.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmAlertDialogOverlay],brn-alert-dialog-overlay[hlm]",
+      },
+      "HlmAlertDialogTitleDirective": {
+        "file": "libs/helm/alert-dialog/src/lib/hlm-alert-dialog-title.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmAlertDialogTitle]",
+      },
+    },
+  },
+  "aspect-ratio": {
+    "helm": {
+      "HlmAspectRatioDirective": {
+        "file": "libs/helm/aspect-ratio/src/lib/helm-aspect-ratio.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "1",
+            "description": "",
+            "name": "hlmAspectRatio",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmAspectRatio]",
+      },
+    },
+  },
+  "avatar": {
+    "brain": {
+      "BrnAvatarComponent": {
+        "file": "libs/brain/avatar/src/lib/brn-avatar.component.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-avatar",
+      },
+      "BrnAvatarFallbackDirective": {
+        "exportAs": "avatarFallback",
+        "file": "libs/brain/avatar/src/lib/fallback/brn-avatar-fallback.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "defaultValue": "false",
+            "description": "",
+            "name": "autoColor",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnAvatarFallback]",
+      },
+      "BrnAvatarImageDirective": {
+        "exportAs": "avatarImage",
+        "file": "libs/brain/avatar/src/lib/image/brn-avatar-image.directive.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "img[brnAvatarImage]",
+      },
+    },
+    "helm": {
+      "HlmAvatarComponent": {
+        "file": "libs/helm/avatar/src/lib/hlm-avatar.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "defaultValue": "medium",
+            "description": "",
+            "name": "variant",
+            "required": false,
+            "type": "AvatarVariants['variant']",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-avatar",
+      },
+      "HlmAvatarFallbackDirective": {
+        "exportAs": "avatarFallback",
+        "file": "libs/helm/avatar/src/lib/fallback/hlm-avatar-fallback.directive.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmAvatarFallback]",
+      },
+      "HlmAvatarImageDirective": {
+        "exportAs": "avatarImage",
+        "file": "libs/helm/avatar/src/lib/image/hlm-avatar-image.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "img[hlmAvatarImage]",
+      },
+    },
+  },
+  "badge": {
+    "helm": {
+      "HlmBadgeDirective": {
+        "file": "libs/helm/badge/src/lib/hlm-badge.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "defaultValue": "default",
+            "description": "",
+            "name": "variant",
+            "required": false,
+            "type": "BadgeVariants['variant']",
+          },
+          {
+            "defaultValue": "false",
+            "description": "",
+            "name": "static",
+            "required": false,
+            "type": "BadgeVariants['static']",
+          },
+          {
+            "defaultValue": "default",
+            "description": "",
+            "name": "size",
+            "required": false,
+            "type": "BadgeVariants['size']",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmBadge]",
+      },
+    },
+  },
+  "breadcrumb": {
+    "helm": {
+      "HlmBreadcrumbDirective": {
+        "file": "libs/helm/breadcrumb/src/lib/hlm-breadcrumb.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "defaultValue": "breadcrumb",
+            "description": "",
+            "name": "aria-label",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmBreadcrumb]",
+      },
+      "HlmBreadcrumbEllipsisComponent": {
+        "file": "libs/helm/breadcrumb/src/lib/hlm-breadcrumb-ellipsis.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-breadcrumb-ellipsis",
+      },
+      "HlmBreadcrumbItemDirective": {
+        "file": "libs/helm/breadcrumb/src/lib/hlm-breadcrumb-item.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmBreadcrumbItem]",
+      },
+      "HlmBreadcrumbLinkDirective": {
+        "file": "libs/helm/breadcrumb/src/lib/hlm-breadcrumb-link.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "defaultValue": null,
+            "description": "",
+            "name": "link",
+            "required": false,
+            "type": "RouterLink['routerLink']",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmBreadcrumbLink]",
+      },
+      "HlmBreadcrumbListDirective": {
+        "file": "libs/helm/breadcrumb/src/lib/hlm-breadcrumb-list.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmBreadcrumbList]",
+      },
+      "HlmBreadcrumbPageDirective": {
+        "file": "libs/helm/breadcrumb/src/lib/hlm-breadcrumb-page.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmBreadcrumbPage]",
+      },
+      "HlmBreadcrumbSeparatorComponent": {
+        "file": "libs/helm/breadcrumb/src/lib/hlm-breadcrumb-separator.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmBreadcrumbSeparator]",
+      },
+    },
+  },
+  "button": {
+    "helm": {
+      "HlmButtonDirective": {
+        "exportAs": "hlmBtn",
+        "file": "libs/helm/button/src/lib/hlm-button.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "defaultValue": "this._config.variant",
+            "description": "",
+            "name": "variant",
+            "required": false,
+            "type": "ButtonVariants['variant']",
+          },
+          {
+            "defaultValue": "this._config.size",
+            "description": "",
+            "name": "size",
+            "required": false,
+            "type": "ButtonVariants['size']",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmBtn]",
+      },
+    },
+  },
+  "calendar": {
+    "brain": {
+      "BrnCalendarCellButtonDirective": {
+        "file": "libs/brain/calendar/src/lib/brn-calendar-cell-button.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": null,
+            "description": "The date this cell represents",
+            "name": "date",
+            "required": true,
+            "type": "T",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[brnCalendarCellButton]",
+      },
+      "BrnCalendarCellDirective": {
+        "file": "libs/brain/calendar/src/lib/brn-calendar-cell.directive.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnCalendarCell]",
+      },
+      "BrnCalendarDirective": {
+        "file": "libs/brain/calendar/src/lib/brn-calendar.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": null,
+            "description": "The minimum date that can be selected.",
+            "name": "min",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "defaultValue": null,
+            "description": "The maximum date that can be selected.",
+            "name": "max",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "defaultValue": "false",
+            "description": "Determine if the date picker is disabled.",
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "defaultValue": "() => false",
+            "description": "Whether a specific date is disabled.",
+            "name": "dateDisabled",
+            "required": false,
+            "type": "(date: T) => boolean",
+          },
+          {
+            "defaultValue": "0",
+            "description": "The day the week starts on",
+            "name": "weekStartsOn",
+            "required": false,
+            "type": "Weekday",
+          },
+          {
+            "defaultValue": null,
+            "description": "The default focused date.",
+            "name": "defaultFocusedDate",
+            "required": false,
+            "type": "T",
+          },
+        ],
+        "models": [
+          {
+            "defaultValue": null,
+            "description": "The selected value.",
+            "name": "date",
+            "type": "T",
+          },
+        ],
+        "outputs": [],
+        "selector": "[brnCalendar]",
+      },
+      "BrnCalendarGridDirective": {
+        "file": "libs/brain/calendar/src/lib/brn-calendar-grid.directive.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnCalendarGrid]",
+      },
+      "BrnCalendarHeaderDirective": {
+        "file": "libs/brain/calendar/src/lib/brn-calendar-header.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "\`brn-calendar-header-\${uniqueId++}\`",
+            "description": "The unique id for the header",
+            "name": "id",
+            "required": false,
+            "type": "unknown",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnCalendarHeader]",
+      },
+      "BrnCalendarMultiDirective": {
+        "file": "libs/brain/calendar/src/lib/mode/brn-calendar-multiple.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": null,
+            "description": "The minimum date that can be selected.",
+            "name": "min",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "defaultValue": null,
+            "description": "The maximum date that can be selected.",
+            "name": "max",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "defaultValue": "undefined",
+            "description": "The minimum selectable dates.",
+            "name": "minSelection",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "defaultValue": "undefined",
+            "description": "The maximum selectable dates.",
+            "name": "maxSelection",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "defaultValue": "false",
+            "description": "Determine if the date picker is disabled.",
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "defaultValue": "() => false",
+            "description": "Whether a specific date is disabled.",
+            "name": "dateDisabled",
+            "required": false,
+            "type": "(date: T) => boolean",
+          },
+          {
+            "defaultValue": "0",
+            "description": "The day the week starts on",
+            "name": "weekStartsOn",
+            "required": false,
+            "type": "Weekday",
+          },
+          {
+            "defaultValue": null,
+            "description": "The default focused date.",
+            "name": "defaultFocusedDate",
+            "required": false,
+            "type": "T",
+          },
+        ],
+        "models": [
+          {
+            "defaultValue": null,
+            "description": "The selected value.",
+            "name": "date",
+            "type": "T[]",
+          },
+        ],
+        "outputs": [],
+        "selector": "[brnCalendarMulti]",
+      },
+      "BrnCalendarNextButtonDirective": {
+        "file": "libs/brain/calendar/src/lib/brn-calendar-next-button.directive.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnCalendarNextButton]",
+      },
+      "BrnCalendarPreviousButtonDirective": {
+        "file": "libs/brain/calendar/src/lib/brn-calendar-previous-button.directive.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnCalendarPreviousButton]",
+      },
+      "BrnCalendarWeekDirective": {
+        "file": "libs/brain/calendar/src/lib/brn-calendar-week.directive.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnCalendarWeek]",
+      },
+      "BrnCalendarWeekdayDirective": {
+        "file": "libs/brain/calendar/src/lib/brn-calendar-weekday.directive.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnCalendarWeekday]",
+      },
+    },
+    "helm": {
+      "HlmCalendarComponent": {
+        "file": "libs/helm/calendar/src/lib/hlm-calendar.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "calendarClass",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "defaultValue": null,
+            "description": "The minimum date that can be selected.",
+            "name": "min",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "defaultValue": null,
+            "description": "The maximum date that can be selected.",
+            "name": "max",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "defaultValue": "false",
+            "description": "Determine if the date picker is disabled.",
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "defaultValue": "() => false",
+            "description": "Whether a specific date is disabled.",
+            "name": "dateDisabled",
+            "required": false,
+            "type": "(date: T) => boolean",
+          },
+          {
+            "defaultValue": "0",
+            "description": "The day the week starts on",
+            "name": "weekStartsOn",
+            "required": false,
+            "type": "Weekday",
+          },
+          {
+            "defaultValue": null,
+            "description": "The default focused date.",
+            "name": "defaultFocusedDate",
+            "required": false,
+            "type": "T",
+          },
+        ],
+        "models": [
+          {
+            "defaultValue": null,
+            "description": "The selected value.",
+            "name": "date",
+            "type": "T",
+          },
+        ],
+        "outputs": [],
+        "selector": "hlm-calendar",
+      },
+      "HlmCalendarMultiComponent": {
+        "file": "libs/helm/calendar/src/lib/hlm-calendar-multi.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "calendarClass",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "defaultValue": null,
+            "description": "The minimum date that can be selected.",
+            "name": "min",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "defaultValue": null,
+            "description": "The maximum date that can be selected.",
+            "name": "max",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "defaultValue": "undefined",
+            "description": "The minimum selectable dates.",
+            "name": "minSelection",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "defaultValue": "undefined",
+            "description": "The maximum selectable dates.",
+            "name": "maxSelection",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "defaultValue": "false",
+            "description": "Determine if the date picker is disabled.",
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "defaultValue": "() => false",
+            "description": "Whether a specific date is disabled.",
+            "name": "dateDisabled",
+            "required": false,
+            "type": "(date: T) => boolean",
+          },
+          {
+            "defaultValue": "0",
+            "description": "The day the week starts on",
+            "name": "weekStartsOn",
+            "required": false,
+            "type": "Weekday",
+          },
+          {
+            "defaultValue": null,
+            "description": "The default focused date.",
+            "name": "defaultFocusedDate",
+            "required": false,
+            "type": "T",
+          },
+        ],
+        "models": [
+          {
+            "defaultValue": null,
+            "description": "The selected value.",
+            "name": "date",
+            "type": "T[]",
+          },
+        ],
+        "outputs": [],
+        "selector": "hlm-calendar-multi",
+      },
+    },
+  },
+  "card": {
+    "helm": {
+      "HlmCardContentDirective": {
+        "file": "libs/helm/card/src/lib/hlm-card-content.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmCardContent]",
+      },
+      "HlmCardDescriptionDirective": {
+        "file": "libs/helm/card/src/lib/hlm-card-description.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmCardDescription]",
+      },
+      "HlmCardDirective": {
+        "file": "libs/helm/card/src/lib/hlm-card.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmCard]",
+      },
+      "HlmCardFooterDirective": {
+        "file": "libs/helm/card/src/lib/hlm-card-footer.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "defaultValue": "row",
+            "description": "",
+            "name": "direction",
+            "required": false,
+            "type": "CardFooterVariants['direction']",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmCardFooter]",
+      },
+      "HlmCardHeaderDirective": {
+        "file": "libs/helm/card/src/lib/hlm-card-header.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "defaultValue": "column",
+            "description": "",
+            "name": "direction",
+            "required": false,
+            "type": "CardHeaderVariants['direction']",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmCardHeader]",
+      },
+      "HlmCardTitleDirective": {
+        "file": "libs/helm/card/src/lib/hlm-card-title.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmCardTitle]",
+      },
+    },
+  },
+  "carousel": {
+    "helm": {
+      "HlmCarouselComponent": {
+        "file": "libs/helm/carousel/src/lib/hlm-carousel.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "defaultValue": "horizontal",
+            "description": "",
+            "name": "orientation",
+            "required": false,
+            "type": "'horizontal' | 'vertical'",
+          },
+          {
+            "defaultValue": null,
+            "description": "",
+            "name": "options",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "defaultValue": "[] as EmblaPluginType[]",
+            "description": "",
+            "name": "plugins",
+            "required": false,
+            "type": "unknown",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-carousel",
+      },
+      "HlmCarouselContentComponent": {
+        "file": "libs/helm/carousel/src/lib/hlm-carousel-content.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-carousel-content",
+      },
+      "HlmCarouselItemComponent": {
+        "file": "libs/helm/carousel/src/lib/hlm-carousel-item.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-carousel-item",
+      },
+      "HlmCarouselNextComponent": {
+        "file": "libs/helm/carousel/src/lib/hlm-carousel-next.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[hlm-carousel-next], button[hlmCarouselNext]",
+      },
+      "HlmCarouselPreviousComponent": {
+        "file": "libs/helm/carousel/src/lib/hlm-carousel-previous.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[hlm-carousel-previous], button[hlmCarouselPrevious]",
+      },
+      "HlmCarouselSlideDisplayComponent": {
+        "file": "libs/helm/carousel/src/lib/hlm-carousel-slide-display.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "defaultValue": "Slide",
+            "description": "",
+            "name": "label",
+            "required": false,
+            "type": "unknown",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-carousel-slide-display",
+      },
+    },
+  },
+  "checkbox": {
+    "brain": {
+      "BrnCheckboxComponent": {
+        "file": "libs/brain/checkbox/src/lib/brn-checkbox.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "uniqueIdCounter++ + ",
+            "description": "Unique identifier for checkbox component.
+When provided, inner button gets ID without '-checkbox' suffix.
+Auto-generates ID if not provided.",
+            "name": "id",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "defaultValue": "null",
+            "description": "Form control name for checkbox.
+When provided, inner button gets name without '-checkbox' suffix.",
+            "name": "name",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "defaultValue": "null",
+            "description": "CSS classes applied to inner button element.",
+            "name": "class",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "defaultValue": "null",
+            "description": "Accessibility label for screen readers.
+Use when no visible label exists.",
+            "name": "aria-label",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "defaultValue": "null",
+            "description": "ID of element that labels this checkbox for accessibility.
+Auto-set when checkbox is inside label element.",
+            "name": "aria-labelledby",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "defaultValue": "null",
+            "description": "ID of element that describes this checkbox for accessibility.",
+            "name": "aria-describedby",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "defaultValue": "false",
+            "description": "Whether checkbox is required in a form.",
+            "name": "required",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "defaultValue": "false",
+            "description": "Whether checkbox is disabled.
+Disabled checkboxes cannot be toggled and indicate disabled state through data-disabled attribute.",
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [
+          {
+            "defaultValue": "false",
+            "description": "Current checked state of checkbox.
+Can be boolean (true/false) or 'indeterminate'.
+Can be bound with [(checked)] for two-way binding.",
+            "name": "checked",
+            "type": "BrnCheckboxValue",
+          },
+        ],
+        "outputs": [
+          {
+            "description": "Event emitted when checkbox value changes.
+Emits new checked state (true/false/'indeterminate').",
+            "name": "changed",
+            "type": "BrnCheckboxValue",
+          },
+          {
+            "description": "Event emitted when checkbox is blurred (loses focus).
+Used for form validation.",
+            "name": "touched",
+            "type": "void",
+          },
+        ],
+        "selector": "brn-checkbox",
+      },
+    },
+    "helm": {
+      "HlmCheckboxComponent": {
+        "file": "libs/helm/checkbox/src/lib/hlm-checkbox.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "defaultValue": "null",
+            "description": "Used to set the id on the underlying brn element.",
+            "name": "id",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "defaultValue": "null",
+            "description": "Used to set the aria-label attribute on the underlying brn element.",
+            "name": "aria-label",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "defaultValue": "null",
+            "description": "Used to set the aria-labelledby attribute on the underlying brn element.",
+            "name": "aria-labelledby",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "defaultValue": "null",
+            "description": "Used to set the aria-describedby attribute on the underlying brn element.",
+            "name": "aria-describedby",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "defaultValue": "null",
+            "description": "The name attribute of the checkbox.",
+            "name": "name",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "defaultValue": "false",
+            "description": "Whether the checkbox is required.",
+            "name": "required",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "defaultValue": "false",
+            "description": "Whether the checkbox is disabled.",
+            "name": "disabled",
+            "required": false,
+            "type": "unknown",
+          },
+        ],
+        "models": [
+          {
+            "defaultValue": "false",
+            "description": "The checked state of the checkbox.",
+            "name": "checked",
+            "type": "CheckboxValue",
+          },
+        ],
+        "outputs": [
+          {
+            "description": "",
+            "name": "changed",
+            "type": "boolean",
+          },
+        ],
+        "selector": "hlm-checkbox",
+      },
+    },
+  },
+  "collapsible": {
+    "brain": {
+      "BrnCollapsibleComponent": {
+        "file": "libs/brain/collapsible/src/lib/brn-collapsible.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "false",
+            "description": "The disabled state of the collapsible component.",
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [
+          {
+            "defaultValue": "false",
+            "description": "The expanded or collapsed state of the collapsible component.",
+            "name": "expanded",
+            "type": "boolean",
+          },
+        ],
+        "outputs": [],
+        "selector": "brn-collapsible",
+      },
+      "BrnCollapsibleContentComponent": {
+        "file": "libs/brain/collapsible/src/lib/brn-collapsible-content.component.ts",
+        "inputs": [
+          {
+            "defaultValue": null,
+            "description": "The id of the collapsible content element.",
+            "name": "id",
+            "required": false,
+            "type": "string | null | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-collapsible-content",
+      },
+      "BrnCollapsibleTriggerDirective": {
+        "file": "libs/brain/collapsible/src/lib/brn-collapsible-trigger.directive.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "button[brnCollapsibleTrigger]",
+      },
+    },
+  },
+  "command": {
+    "brain": {
+      "BrnCommandDirective": {
+        "file": "libs/brain/command/src/lib/brn-command.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "\`brn-command-\${BrnCommandDirective._id++}\`",
+            "description": "The id of the command",
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "defaultValue": "this._defaultFilter",
+            "description": "A custom filter function to use when searching.",
+            "name": "filter",
+            "required": false,
+            "type": "CommandFilter",
+          },
+        ],
+        "models": [],
+        "outputs": [
+          {
+            "description": "when the selection has changed",
+            "name": "valueChange",
+            "type": "string",
+          },
+        ],
+        "selector": "[brnCommand]",
+      },
+      "BrnCommandEmptyDirective": {
+        "file": "libs/brain/command/src/lib/brn-command-empty.directive.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnCommandEmpty]",
+      },
+      "BrnCommandGroupDirective": {
+        "file": "libs/brain/command/src/lib/brn-command-group.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "\`brn-command-group-\${BrnCommandGroupDirective._id++}\`",
+            "description": "The id of the command list",
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnCommandGroup]",
+      },
+      "BrnCommandItemDirective": {
+        "file": "libs/brain/command/src/lib/brn-command-item.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "\`brn-command-item-\${BrnCommandItemDirective._id++}\`",
+            "description": "A unique id for the item",
+            "name": "id",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "defaultValue": null,
+            "description": "The value this item represents.",
+            "name": "value",
+            "required": true,
+            "type": "string",
+          },
+          {
+            "defaultValue": "false",
+            "description": "Whether the item is disabled.",
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [
+          {
+            "description": "Emits when the item is selected.",
+            "name": "selected",
+            "type": "void",
+          },
+        ],
+        "selector": "button[brnCommandItem]",
+      },
+      "BrnCommandListDirective": {
+        "file": "libs/brain/command/src/lib/brn-command-list.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "\`brn-command-list-\${BrnCommandListDirective._id++}\`",
+            "description": "The id of the command list",
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnCommandList]",
+      },
+      "BrnCommandSearchInputDirective": {
+        "file": "libs/brain/command/src/lib/brn-command-search-input.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "The initial value of the search input",
+            "name": "value",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "input[brnCommandSearchInput]",
+      },
+    },
+    "helm": {
+      "HlmCommandComponent": {
+        "file": "libs/helm/command/src/lib/hlm-command.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "* The user defined class",
+            "name": "class",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-command",
+      },
+      "HlmCommandDialogCloseButtonDirective": {
+        "file": "libs/helm/command/src/lib/hlm-command-dialog-close-button.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmCommandDialogCloseBtn]",
+      },
+      "HlmCommandDialogDirective": {
+        "file": "libs/helm/command/src/lib/hlm-command-dialog.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmCommandDialog]",
+      },
+      "HlmCommandEmptyDirective": {
+        "file": "libs/helm/command/src/lib/hlm-command-empty.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmCommandEmpty]",
+      },
+      "HlmCommandGroupComponent": {
+        "file": "libs/helm/command/src/lib/hlm-command-group.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "* The user defined class",
+            "name": "class",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-command-group",
+      },
+      "HlmCommandGroupLabelComponent": {
+        "file": "libs/helm/command/src/lib/hlm-command-group-label.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "* The user defined class",
+            "name": "class",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-command-group-label",
+      },
+      "HlmCommandIconDirective": {
+        "file": "libs/helm/command/src/lib/hlm-command-icon.directive.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmCommandIcon]",
+      },
+      "HlmCommandItemComponent": {
+        "file": "libs/helm/command/src/lib/hlm-command-item.component.ts",
+        "inputs": [
+          {
+            "defaultValue": null,
+            "description": "The value this item represents.",
+            "name": "value",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "defaultValue": "false",
+            "description": "Whether the item is disabled.",
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "defaultValue": "",
+            "description": "* The user defined class",
+            "name": "class",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [
+          {
+            "description": "Emits when the item is selected.",
+            "name": "selected",
+            "type": "void",
+          },
+        ],
+        "selector": "button[hlm-command-item]",
+      },
+      "HlmCommandListComponent": {
+        "file": "libs/helm/command/src/lib/hlm-command-list.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "The user defined class",
+            "name": "class",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-command-list",
+      },
+      "HlmCommandSearchComponent": {
+        "file": "libs/helm/command/src/lib/hlm-command-search.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "* The user defined class",
+            "name": "class",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-command-search",
+      },
+      "HlmCommandSearchInputComponent": {
+        "file": "libs/helm/command/src/lib/hlm-command-search-input.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "* The user defined class",
+            "name": "class",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "input[hlm-command-search-input]",
+      },
+      "HlmCommandSeparatorComponent": {
+        "file": "libs/helm/command/src/lib/hlm-command-separator.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "* The user defined class",
+            "name": "class",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-command-separator",
+      },
+      "HlmCommandShortcutComponent": {
+        "file": "libs/helm/command/src/lib/hlm-command-shortcut.component.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-command-shortcut",
+      },
+    },
+  },
+  "date-picker": {
+    "helm": {
+      "HlmDatePickerComponent": {
+        "file": "libs/helm/date-picker/src/lib/hlm-date-picker.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "defaultValue": null,
+            "description": "The minimum date that can be selected.",
+            "name": "min",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "defaultValue": null,
+            "description": "The maximum date that can be selected.",
+            "name": "max",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "defaultValue": "false",
+            "description": "Determine if the date picker is disabled.",
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "defaultValue": "this._config.autoCloseOnSelect",
+            "description": "If true, the date picker will close when a date is selected.",
+            "name": "autoCloseOnSelect",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "defaultValue": "this._config.formatDate",
+            "description": "Defines how the date should be displayed in the UI.",
+            "name": "formatDate",
+            "required": false,
+            "type": "(date: T) => string",
+          },
+          {
+            "defaultValue": "this._config.transformDate",
+            "description": "Defines how the date should be transformed before saving to model/form.",
+            "name": "transformDate",
+            "required": false,
+            "type": "(date: T) => T",
+          },
+        ],
+        "models": [
+          {
+            "defaultValue": null,
+            "description": "The selected value.",
+            "name": "date",
+            "type": "T",
+          },
+        ],
+        "outputs": [
+          {
+            "description": "",
+            "name": "changed",
+            "type": "T",
+          },
+        ],
+        "selector": "hlm-date-picker",
+      },
+      "HlmDatePickerMultiComponent": {
+        "file": "libs/helm/date-picker/src/lib/hlm-date-picker-multi.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "defaultValue": null,
+            "description": "The minimum date that can be selected.",
+            "name": "min",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "defaultValue": null,
+            "description": "The maximum date that can be selected.",
+            "name": "max",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "defaultValue": "undefined",
+            "description": "The minimum selectable dates.",
+            "name": "minSelection",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "defaultValue": "undefined",
+            "description": "The maximum selectable dates.",
+            "name": "maxSelection",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "defaultValue": "false",
+            "description": "Determine if the date picker is disabled.",
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "defaultValue": "this._config.autoCloseOnMaxSelection",
+            "description": "If true, the date picker will close when the max selection of dates is reached..",
+            "name": "autoCloseOnMaxSelection",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "defaultValue": "this._config.formatDates",
+            "description": "Defines how the date should be displayed in the UI.",
+            "name": "formatDates",
+            "required": false,
+            "type": "(date: T[]) => string",
+          },
+          {
+            "defaultValue": "this._config.transformDates",
+            "description": "Defines how the date should be transformed before saving to model/form.",
+            "name": "transformDates",
+            "required": false,
+            "type": "(date: T[]) => T[]",
+          },
+        ],
+        "models": [
+          {
+            "defaultValue": null,
+            "description": "The selected value.",
+            "name": "date",
+            "type": "T[]",
+          },
+        ],
+        "outputs": [
+          {
+            "description": "",
+            "name": "changed",
+            "type": "T[]",
+          },
+        ],
+        "selector": "hlm-date-picker-multi",
+      },
+    },
+  },
+  "dialog": {
+    "brain": {
+      "BrnDialogCloseDirective": {
+        "file": "libs/brain/dialog/src/lib/brn-dialog-close.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "undefined",
+            "description": "",
+            "name": "delay",
+            "required": false,
+            "type": "number | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[brnDialogClose]",
+      },
+      "BrnDialogComponent": {
+        "exportAs": "brnDialog",
+        "file": "libs/brain/dialog/src/lib/brn-dialog.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "null",
+            "description": "",
+            "name": "state",
+            "required": false,
+            "type": "BrnDialogState | null",
+          },
+          {
+            "defaultValue": "this._defaultOptions.role",
+            "description": "",
+            "name": "role",
+            "required": false,
+            "type": "BrnDialogOptions['role']",
+          },
+          {
+            "defaultValue": "this._defaultOptions.hasBackdrop",
+            "description": "",
+            "name": "hasBackdrop",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "defaultValue": "this._defaultOptions.positionStrategy",
+            "description": "",
+            "name": "positionStrategy",
+            "required": false,
+            "type": "BrnDialogOptions['positionStrategy']",
+          },
+          {
+            "defaultValue": "this._defaultOptions.scrollStrategy",
+            "description": "",
+            "name": "scrollStrategy",
+            "required": false,
+            "type": "BrnDialogOptions['scrollStrategy'] | 'close' | 'reposition' | null",
+          },
+          {
+            "defaultValue": "this._defaultOptions.restoreFocus",
+            "description": "",
+            "name": "restoreFocus",
+            "required": false,
+            "type": "BrnDialogOptions['restoreFocus']",
+          },
+          {
+            "defaultValue": "this._defaultOptions.closeOnOutsidePointerEvents",
+            "description": "",
+            "name": "closeOnOutsidePointerEvents",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "defaultValue": "this._defaultOptions.closeOnBackdropClick",
+            "description": "",
+            "name": "closeOnBackdropClick",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "defaultValue": "null",
+            "description": "",
+            "name": "attachTo",
+            "required": false,
+            "type": "BrnDialogOptions['attachTo']",
+          },
+          {
+            "defaultValue": "this._defaultOptions.attachPositions",
+            "description": "",
+            "name": "attachPositions",
+            "required": false,
+            "type": "BrnDialogOptions['attachPositions']",
+          },
+          {
+            "defaultValue": "this._defaultOptions.autoFocus",
+            "description": "",
+            "name": "autoFocus",
+            "required": false,
+            "type": "BrnDialogOptions['autoFocus']",
+          },
+          {
+            "defaultValue": "this._defaultOptions.closeDelay",
+            "description": "",
+            "name": "closeDelay",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "defaultValue": "this._defaultOptions.disableClose",
+            "description": "",
+            "name": "disableClose",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "defaultValue": "null",
+            "description": "",
+            "name": "aria-describedby",
+            "required": false,
+            "type": "BrnDialogOptions['ariaDescribedBy']",
+          },
+          {
+            "defaultValue": "null",
+            "description": "",
+            "name": "aria-labelledby",
+            "required": false,
+            "type": "BrnDialogOptions['ariaLabelledBy']",
+          },
+          {
+            "defaultValue": "null",
+            "description": "",
+            "name": "aria-label",
+            "required": false,
+            "type": "BrnDialogOptions['ariaLabel']",
+          },
+          {
+            "defaultValue": "true",
+            "description": "",
+            "name": "aria-modal",
+            "required": false,
+            "type": "unknown",
+          },
+        ],
+        "models": [],
+        "outputs": [
+          {
+            "description": "",
+            "name": "closed",
+            "type": "any",
+          },
+          {
+            "description": "",
+            "name": "stateChanged",
+            "type": "BrnDialogState",
+          },
+        ],
+        "selector": "brn-dialog",
+      },
+      "BrnDialogContentDirective": {
+        "file": "libs/brain/dialog/src/lib/brn-dialog-content.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "undefined",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "string | null | undefined",
+          },
+          {
+            "defaultValue": "undefined",
+            "description": "",
+            "name": "context",
+            "required": false,
+            "type": "T | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnDialogContent]",
+      },
+      "BrnDialogDescriptionDirective": {
+        "file": "libs/brain/dialog/src/lib/brn-dialog-description.directive.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnDialogDescription]",
+      },
+      "BrnDialogOverlayComponent": {
+        "file": "libs/brain/dialog/src/lib/brn-dialog-overlay.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "undefined",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "string | null | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-dialog-overlay",
+      },
+      "BrnDialogTitleDirective": {
+        "file": "libs/brain/dialog/src/lib/brn-dialog-title.directive.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnDialogTitle]",
+      },
+      "BrnDialogTriggerDirective": {
+        "exportAs": "brnDialogTrigger",
+        "file": "libs/brain/dialog/src/lib/brn-dialog-trigger.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "\`brn-dialog-trigger-\${idSequence++}\`",
+            "description": "",
+            "name": "id",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "defaultValue": "undefined",
+            "description": "",
+            "name": "brnDialogTriggerFor",
+            "required": false,
+            "type": "BrnDialogComponent | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[brnDialogTrigger],button[brnDialogTriggerFor]",
+      },
+    },
+    "helm": {
+      "HlmDialogCloseDirective": {
+        "file": "libs/helm/dialog/src/lib/hlm-dialog-close.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDialogClose],[brnDialogClose][hlm]",
+      },
+      "HlmDialogComponent": {
+        "exportAs": "hlmDialog",
+        "file": "libs/helm/dialog/src/lib/hlm-dialog.component.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-dialog",
+      },
+      "HlmDialogContentComponent": {
+        "file": "libs/helm/dialog/src/lib/hlm-dialog-content.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-dialog-content",
+      },
+      "HlmDialogDescriptionDirective": {
+        "file": "libs/helm/dialog/src/lib/hlm-dialog-description.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDialogDescription]",
+      },
+      "HlmDialogFooterComponent": {
+        "file": "libs/helm/dialog/src/lib/hlm-dialog-footer.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-dialog-footer",
+      },
+      "HlmDialogHeaderComponent": {
+        "file": "libs/helm/dialog/src/lib/hlm-dialog-header.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-dialog-header",
+      },
+      "HlmDialogOverlayDirective": {
+        "file": "libs/helm/dialog/src/lib/hlm-dialog-overlay.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDialogOverlay],brn-dialog-overlay[hlm]",
+      },
+      "HlmDialogTitleDirective": {
+        "file": "libs/helm/dialog/src/lib/hlm-dialog-title.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDialogTitle]",
+      },
+    },
+  },
+  "form-field": {
+    "helm": {
+      "HlmErrorDirective": {
+        "file": "libs/helm/form-field/src/lib/hlm-error.directive.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-error",
+      },
+      "HlmFormFieldComponent": {
+        "file": "libs/helm/form-field/src/lib/hlm-form-field.component.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-form-field",
+      },
+      "HlmHintDirective": {
+        "file": "libs/helm/form-field/src/lib/hlm-hint.directive.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-hint",
+      },
+    },
+  },
+  "hover-card": {
+    "brain": {
+      "BrnHoverCardComponent": {
+        "file": "libs/brain/hover-card/src/lib/brn-hover-card.component.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-hover-card",
+      },
+      "BrnHoverCardContentDirective": {
+        "exportAs": "brnHoverCardContent",
+        "file": "libs/brain/hover-card/src/lib/brn-hover-card-content.service.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnHoverCardContent]",
+      },
+      "BrnHoverCardTriggerDirective": {
+        "exportAs": "brnHoverCardTrigger",
+        "file": "libs/brain/hover-card/src/lib/brn-hover-card-content.service.ts",
+        "inputs": [
+          {
+            "defaultValue": "300",
+            "description": "",
+            "name": "showDelay",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "defaultValue": "500",
+            "description": "",
+            "name": "hideDelay",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "defaultValue": "100",
+            "description": "",
+            "name": "animationDelay",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "defaultValue": "5",
+            "description": "",
+            "name": "sideOffset",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "defaultValue": "bottom",
+            "description": "",
+            "name": "align",
+            "required": false,
+            "type": "'top' | 'bottom'",
+          },
+          {
+            "defaultValue": "undefined",
+            "description": "",
+            "name": "brnHoverCardTriggerFor",
+            "required": false,
+            "type": "TemplateRef<unknown> | BrnHoverCardContentDirective | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnHoverCardTrigger]:not(ng-container),[brnHoverCardTriggerFor]:not(ng-container)",
+      },
+    },
+    "helm": {
+      "HlmHoverCardContentComponent": {
+        "file": "libs/helm/hover-card/src/lib/hlm-hover-card-content.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-hover-card-content",
+      },
+    },
+  },
+  "icon": {
+    "helm": {
+      "HlmIconDirective": {
+        "file": "libs/helm/icon/src/lib/hlm-icon.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "this._config.size",
+            "description": "",
+            "name": "size",
+            "required": false,
+            "type": "IconSize",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "ng-icon[hlm]",
+      },
+    },
+  },
+  "input": {
+    "helm": {
+      "HlmInputDirective": {
+        "file": "libs/helm/input/src/lib/hlm-input.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "default",
+            "description": "",
+            "name": "size",
+            "required": false,
+            "type": "InputVariants['size']",
+          },
+          {
+            "defaultValue": "auto",
+            "description": "",
+            "name": "error",
+            "required": false,
+            "type": "InputVariants['error']",
+          },
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmInput]",
+      },
+      "HlmInputErrorDirective": {
+        "file": "libs/helm/input/src/lib/hlm-input-error.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmInputError]",
+      },
+    },
+  },
+  "input-otp": {
+    "brain": {
+      "BrnInputOtpComponent": {
+        "file": "libs/brain/input-otp/src/lib/brn-input-otp.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "position: relative; cursor: text; user-select: none; pointer-events: none;",
+            "description": "Styles applied to the host element.",
+            "name": "hostStyles",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "defaultValue": "position: absolute; inset: 0; width: 100%; height: 100%; display: flex; textAlign: left; opacity: 1; color: transparent; pointerEvents: all; background: transparent; caret-color: transparent; border: 0px solid transparent; outline: transparent solid 0px; box-shadow: none; line-height: 1; letter-spacing: -0.5em; font-family: monospace; font-variant-numeric: tabular-nums;",
+            "description": "Styles applied to the input element to make it invisible and clickable.",
+            "name": "inputStyles",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "defaultValue": "position: absolute; inset: 0; pointer-events: none;",
+            "description": "Styles applied to the container element.",
+            "name": "containerStyles",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "defaultValue": "false",
+            "description": "Determine if the date picker is disabled.",
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "defaultValue": null,
+            "description": "The number of slots.",
+            "name": "maxLength",
+            "required": true,
+            "type": "number",
+          },
+          {
+            "defaultValue": "numeric",
+            "description": "Virtual keyboard appearance on mobile",
+            "name": "inputMode",
+            "required": false,
+            "type": "InputMode",
+          },
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "inputClass",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "defaultValue": "(text) => text",
+            "description": "Defines how the pasted text should be transformed before saving to model/form.
+Allows pasting text which contains extra characters like spaces, dashes, etc. and are longer than the maxLength.
+
+"XXX-XXX": (pastedText) => pastedText.replaceAll('-', '')
+"XXX XXX": (pastedText) => pastedText.replaceAll(/\\s+/g, '')",
+            "name": "transformPaste",
+            "required": false,
+            "type": "(pastedText: string, maxLength: number) => string",
+          },
+        ],
+        "models": [
+          {
+            "defaultValue": "",
+            "description": "The value controlling the input",
+            "name": "value",
+            "type": "string",
+          },
+        ],
+        "outputs": [
+          {
+            "description": "Emitted when the input is complete, triggered through input or paste.",
+            "name": "completed",
+            "type": "string",
+          },
+        ],
+        "selector": "brn-input-otp",
+      },
+      "BrnInputOtpSlotComponent": {
+        "file": "libs/brain/input-otp/src/lib/brn-input-otp-slot.component.ts",
+        "inputs": [
+          {
+            "defaultValue": null,
+            "description": "The index of the slot to render the char or a fake caret",
+            "name": "index",
+            "required": true,
+            "type": "number",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-input-otp-slot",
+      },
+    },
+    "helm": {
+      "HlmInputOtpDirective": {
+        "file": "libs/helm/input-otp/src/lib/hlm-input-otp.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-input-otp[hlmInputOtp], brn-input-otp[hlm]",
+      },
+      "HlmInputOtpFakeCaretComponent": {
+        "file": "libs/helm/input-otp/src/lib/hlm-input-otp-fake-caret.component.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-input-otp-fake-caret",
+      },
+      "HlmInputOtpGroupDirective": {
+        "file": "libs/helm/input-otp/src/lib/hlm-input-otp-group.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmInputOtpGroup]",
+      },
+      "HlmInputOtpSeparatorComponent": {
+        "file": "libs/helm/input-otp/src/lib/hlm-input-otp-separator.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-input-otp-separator",
+      },
+      "HlmInputOtpSlotComponent": {
+        "file": "libs/helm/input-otp/src/lib/hlm-input-otp-slot.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "defaultValue": null,
+            "description": "The index of the slot to render the char or a fake caret",
+            "name": "index",
+            "required": true,
+            "type": "number",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-input-otp-slot",
+      },
+    },
+  },
+  "label": {
+    "brain": {
+      "BrnLabelDirective": {
+        "file": "libs/brain/label/src/lib/brn-label.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "\`brn-label-\${nextId++}\`",
+            "description": "",
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnLabel]",
+      },
+    },
+    "helm": {
+      "HlmLabelDirective": {
+        "file": "libs/helm/label/src/lib/hlm-label.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "defaultValue": "default",
+            "description": "",
+            "name": "variant",
+            "required": false,
+            "type": "LabelVariants['variant']",
+          },
+          {
+            "defaultValue": "auto",
+            "description": "",
+            "name": "error",
+            "required": false,
+            "type": "LabelVariants['error']",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmLabel]",
+      },
+    },
+  },
+  "menu": {
+    "brain": {
+      "BrnContextMenuTriggerDirective": {
+        "file": "libs/brain/menu/src/lib/brn-context-menu-trigger.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "null",
+            "description": "",
+            "name": "brnCtxMenuTriggerFor",
+            "required": false,
+            "type": "TemplateRef<unknown> | null",
+          },
+          {
+            "defaultValue": "undefined",
+            "description": "",
+            "name": "brnCtxMenuTriggerData",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "defaultValue": "undefined",
+            "description": "",
+            "name": "align",
+            "required": false,
+            "type": "BrnMenuAlign",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnCtxMenuTriggerFor]",
+      },
+      "BrnMenuBarDirective": {
+        "file": "libs/brain/menu/src/lib/brn-menu-bar.directive.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnMenuBar]",
+      },
+      "BrnMenuDirective": {
+        "file": "libs/brain/menu/src/lib/brn-menu.directive.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnMenu],[brnSubMenu]",
+      },
+      "BrnMenuGroupDirective": {
+        "file": "libs/brain/menu/src/lib/brn-menu-group.directive.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnMenuGroup]",
+      },
+      "BrnMenuItemCheckboxDirective": {
+        "file": "libs/brain/menu/src/lib/brn-menu-item-checkbox.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "this._cdkMenuItem.checked",
+            "description": "",
+            "name": "checked",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "defaultValue": "this._cdkMenuItem.disabled",
+            "description": "",
+            "name": "disabled",
+            "required": false,
+            "type": "unknown",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnMenuItemCheckbox]",
+      },
+      "BrnMenuItemDirective": {
+        "file": "libs/brain/menu/src/lib/brn-menu-item.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "this._cdkMenuItem.disabled",
+            "description": "",
+            "name": "disabled",
+            "required": false,
+            "type": "unknown",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnMenuItem]",
+      },
+      "BrnMenuItemRadioDirective": {
+        "file": "libs/brain/menu/src/lib/brn-menu-item-radio.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "this._cdkMenuItem.checked",
+            "description": "",
+            "name": "checked",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "defaultValue": "this._cdkMenuItem.disabled",
+            "description": "",
+            "name": "disabled",
+            "required": false,
+            "type": "unknown",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnMenuItemRadio]",
+      },
+      "BrnMenuTriggerDirective": {
+        "file": "libs/brain/menu/src/lib/brn-menu-trigger.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "undefined",
+            "description": "",
+            "name": "align",
+            "required": false,
+            "type": "BrnMenuAlign",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnMenuTriggerFor]",
+      },
+    },
+    "helm": {
+      "HlmMenuBarComponent": {
+        "file": "libs/helm/menu/src/lib/hlm-menu-bar.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-menu-bar",
+      },
+      "HlmMenuBarItemDirective": {
+        "file": "libs/helm/menu/src/lib/hlm-menu-bar-item.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmMenuBarItem]",
+      },
+      "HlmMenuComponent": {
+        "file": "libs/helm/menu/src/lib/hlm-menu.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-menu",
+      },
+      "HlmMenuGroupComponent": {
+        "file": "libs/helm/menu/src/lib/hlm-menu-group.component.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-menu-group",
+      },
+      "HlmMenuItemCheckComponent": {
+        "file": "libs/helm/menu/src/lib/hlm-menu-item-check.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-menu-item-check",
+      },
+      "HlmMenuItemCheckboxDirective": {
+        "file": "libs/helm/menu/src/lib/hlm-menu-item-checkbox.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmMenuItemCheckbox]",
+      },
+      "HlmMenuItemDirective": {
+        "file": "libs/helm/menu/src/lib/hlm-menu-item.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmMenuItem]",
+      },
+      "HlmMenuItemIconDirective": {
+        "file": "libs/helm/menu/src/lib/hlm-menu-item-icon.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmMenuIcon]",
+      },
+      "HlmMenuItemRadioComponent": {
+        "file": "libs/helm/menu/src/lib/hlm-menu-item-radio.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-menu-item-radio",
+      },
+      "HlmMenuItemRadioDirective": {
+        "file": "libs/helm/menu/src/lib/hlm-menu-item-radio.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmMenuItemRadio]",
+      },
+      "HlmMenuItemSubIndicatorComponent": {
+        "file": "libs/helm/menu/src/lib/hlm-menu-item-sub-indicator.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-menu-item-sub-indicator",
+      },
+      "HlmMenuLabelComponent": {
+        "file": "libs/helm/menu/src/lib/hlm-menu-label.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-menu-label",
+      },
+      "HlmMenuSeparatorComponent": {
+        "file": "libs/helm/menu/src/lib/hlm-menu-separator.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-menu-separator",
+      },
+      "HlmMenuShortcutComponent": {
+        "file": "libs/helm/menu/src/lib/hlm-menu-shortcut.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-menu-shortcut",
+      },
+      "HlmSubMenuComponent": {
+        "file": "libs/helm/menu/src/lib/hlm-sub-menu.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-sub-menu",
+      },
+    },
+  },
+  "pagination": {
+    "helm": {
+      "HlmNumberedPaginationComponent": {
+        "file": "libs/helm/pagination/src/lib/hlm-numbered-pagination.component.ts",
+        "inputs": [
+          {
+            "defaultValue": null,
+            "description": "The total number of items in the collection. Only useful when
+doing server-side paging, where the collection size is limited
+to a single page returned by the server API.",
+            "name": "totalItems",
+            "required": true,
+            "type": "number",
+          },
+          {
+            "defaultValue": "7",
+            "description": "The number of page links to show.",
+            "name": "maxSize",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "defaultValue": "true",
+            "description": "Show the first and last page buttons.",
+            "name": "showEdges",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "defaultValue": "[10, 20, 50, 100]",
+            "description": "The page sizes to show.
+Defaults to [10, 20, 50, 100]",
+            "name": "pageSizes",
+            "required": false,
+            "type": "number[]",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-numbered-pagination",
+      },
+      "HlmNumberedPaginationQueryParamsComponent": {
+        "file": "libs/helm/pagination/src/lib/hlm-numbered-pagination-query-params.component.ts",
+        "inputs": [
+          {
+            "defaultValue": null,
+            "description": "The total number of items in the collection. Only useful when
+doing server-side paging, where the collection size is limited
+to a single page returned by the server API.",
+            "name": "totalItems",
+            "required": true,
+            "type": "number",
+          },
+          {
+            "defaultValue": ".",
+            "description": "The URL path to use for the pagination links.
+Defaults to '.' (current path).",
+            "name": "link",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "defaultValue": "7",
+            "description": "The number of page links to show.",
+            "name": "maxSize",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "defaultValue": "true",
+            "description": "Show the first and last page buttons.",
+            "name": "showEdges",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "defaultValue": "[10, 20, 50, 100]",
+            "description": "The page sizes to show.
+Defaults to [10, 20, 50, 100]",
+            "name": "pageSizes",
+            "required": false,
+            "type": "number[]",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-numbered-pagination-query-params",
+      },
+      "HlmPaginationContentDirective": {
+        "file": "libs/helm/pagination/src/lib/hlm-pagination-content.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmPaginationContent]",
+      },
+      "HlmPaginationDirective": {
+        "file": "libs/helm/pagination/src/lib/hlm-pagination.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "defaultValue": "pagination",
+            "description": "The aria-label for the pagination component.",
+            "name": "aria-label",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmPagination]",
+      },
+      "HlmPaginationEllipsisComponent": {
+        "file": "libs/helm/pagination/src/lib/hlm-pagination-ellipsis.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-pagination-ellipsis",
+      },
+      "HlmPaginationItemDirective": {
+        "file": "libs/helm/pagination/src/lib/hlm-pagination-item.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmPaginationItem]",
+      },
+      "HlmPaginationLinkDirective": {
+        "file": "libs/helm/pagination/src/lib/hlm-pagination-link.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "defaultValue": "false",
+            "description": "Whether the link is active (i.e., the current page).",
+            "name": "isActive",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "defaultValue": "icon",
+            "description": "The size of the button.",
+            "name": "size",
+            "required": false,
+            "type": "ButtonVariants['size']",
+          },
+          {
+            "defaultValue": null,
+            "description": "The link to navigate to the page.",
+            "name": "link",
+            "required": false,
+            "type": "RouterLink['routerLink']",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmPaginationLink]",
+      },
+      "HlmPaginationNextComponent": {
+        "file": "libs/helm/pagination/src/lib/hlm-pagination-next.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "defaultValue": null,
+            "description": "The link to navigate to the next page.",
+            "name": "link",
+            "required": false,
+            "type": "RouterLink['routerLink']",
+          },
+          {
+            "defaultValue": null,
+            "description": "The query parameters to pass to the next page.",
+            "name": "queryParams",
+            "required": false,
+            "type": "RouterLink['queryParams']",
+          },
+          {
+            "defaultValue": null,
+            "description": "How to handle query parameters when navigating to the next page.",
+            "name": "queryParamsHandling",
+            "required": false,
+            "type": "RouterLink['queryParamsHandling']",
+          },
+          {
+            "defaultValue": "Go to next page",
+            "description": "The aria-label for the next page link.",
+            "name": "aria-label",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "defaultValue": "Next",
+            "description": "The text to display for the next page link.",
+            "name": "text",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "defaultValue": "false",
+            "description": "Whether the button should only display the icon.",
+            "name": "iconOnly",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-pagination-next",
+      },
+      "HlmPaginationPreviousComponent": {
+        "file": "libs/helm/pagination/src/lib/hlm-pagination-previous.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "defaultValue": null,
+            "description": "The link to navigate to the previous page.",
+            "name": "link",
+            "required": false,
+            "type": "RouterLink['routerLink']",
+          },
+          {
+            "defaultValue": null,
+            "description": "The query parameters to pass to the previous page.",
+            "name": "queryParams",
+            "required": false,
+            "type": "RouterLink['queryParams']",
+          },
+          {
+            "defaultValue": null,
+            "description": "How to handle query parameters when navigating to the previous page.",
+            "name": "queryParamsHandling",
+            "required": false,
+            "type": "RouterLink['queryParamsHandling']",
+          },
+          {
+            "defaultValue": "Go to previous page",
+            "description": "The aria-label for the previous page link.",
+            "name": "aria-label",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "defaultValue": "Previous",
+            "description": "The text to display for the previous page link.",
+            "name": "text",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "defaultValue": "false",
+            "description": "Whether the button should only display the icon.",
+            "name": "iconOnly",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-pagination-previous",
+      },
+    },
+  },
+  "popover": {
+    "brain": {
+      "BrnPopoverCloseDirective": {
+        "file": "libs/brain/popover/src/lib/brn-popover-close.directive.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "button[brnPopoverClose]",
+      },
+      "BrnPopoverComponent": {
+        "exportAs": "brnPopover",
+        "file": "libs/brain/popover/src/lib/brn-popover.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "center",
+            "description": "",
+            "name": "align",
+            "required": false,
+            "type": "BrnPopoverAlign",
+          },
+          {
+            "defaultValue": "0",
+            "description": "",
+            "name": "sideOffset",
+            "required": false,
+            "type": "unknown",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-popover",
+      },
+      "BrnPopoverContentDirective": {
+        "file": "libs/brain/popover/src/lib/brn-popover-content.directive.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnPopoverContent]",
+      },
+      "BrnPopoverTriggerDirective": {
+        "file": "libs/brain/popover/src/lib/brn-popover-trigger.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "undefined",
+            "description": "",
+            "name": "brnPopoverTriggerFor",
+            "required": false,
+            "type": "BrnPopoverComponent | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[brnPopoverTrigger],button[brnPopoverTriggerFor]",
+      },
+    },
+    "helm": {
+      "HlmPopoverCloseDirective": {
+        "file": "libs/helm/popover/src/lib/hlm-popover-close.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmPopoverClose],[brnPopoverClose][hlm]",
+      },
+      "HlmPopoverContentDirective": {
+        "file": "libs/helm/popover/src/lib/hlm-popover-content.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmPopoverContent],[brnPopoverContent][hlm]",
+      },
+    },
+  },
+  "progress": {
+    "brain": {
+      "BrnProgressComponent": {
+        "exportAs": "brnProgress",
+        "file": "libs/brain/progress/src/lib/brn-progress.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "undefined",
+            "description": "",
+            "name": "value",
+            "required": false,
+            "type": "number | null | undefined",
+          },
+          {
+            "defaultValue": "100",
+            "description": "",
+            "name": "max",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "defaultValue": "(value, max) => \`\${Math.round((value / max) * 100)}%\`",
+            "description": "",
+            "name": "getValueLabel",
+            "required": false,
+            "type": "BrnProgressLabelFn",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-progress",
+      },
+      "BrnProgressIndicatorComponent": {
+        "file": "libs/brain/progress/src/lib/brn-progress-indicator.component.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-progress-indicator",
+      },
+    },
+    "helm": {
+      "HlmProgressDirective": {
+        "file": "libs/helm/progress/src/lib/hlm-progress.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmProgress],brn-progress[hlm]",
+      },
+      "HlmProgressIndicatorDirective": {
+        "file": "libs/helm/progress/src/lib/hlm-progress-indicator.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmProgressIndicator],brn-progress-indicator[hlm]",
+      },
+    },
+  },
+  "radio-group": {
+    "brain": {
+      "BrnRadioComponent": {
+        "exportAs": "brnRadio",
+        "file": "libs/brain/radio-group/src/lib/brn-radio.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "false",
+            "description": "Whether the radio button is disabled.",
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "defaultValue": "undefined",
+            "description": "The unique ID for the radio button input. If none is supplied, it will be auto-generated.",
+            "name": "id",
+            "required": false,
+            "type": "string | undefined",
+          },
+          {
+            "defaultValue": "undefined",
+            "description": "",
+            "name": "aria-label",
+            "required": false,
+            "type": "string | undefined",
+          },
+          {
+            "defaultValue": "undefined",
+            "description": "",
+            "name": "aria-labelledby",
+            "required": false,
+            "type": "string | undefined",
+          },
+          {
+            "defaultValue": "undefined",
+            "description": "",
+            "name": "aria-describedby",
+            "required": false,
+            "type": "string | undefined",
+          },
+          {
+            "defaultValue": null,
+            "description": "The value this radio button represents.",
+            "name": "value",
+            "required": true,
+            "type": "T",
+          },
+          {
+            "defaultValue": "false",
+            "description": "Whether the radio button is required.",
+            "name": "required",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [
+          {
+            "description": "Event emitted when the checked state of this radio button changes.",
+            "name": "change",
+            "type": "BrnRadioChange<T>",
+          },
+        ],
+        "selector": "brn-radio",
+      },
+      "BrnRadioGroupDirective": {
+        "file": "libs/brain/radio-group/src/lib/brn-radio-group.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "\`brn-radio-group-\${BrnRadioGroupDirective._nextUniqueId++}\`",
+            "description": "",
+            "name": "name",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "defaultValue": "false",
+            "description": "Whether the radio group is disabled.",
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "defaultValue": "false",
+            "description": "Whether the radio group should be required.",
+            "name": "required",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "defaultValue": "ltr",
+            "description": "The direction of the radio group.",
+            "name": "direction",
+            "required": false,
+            "type": "'ltr' | 'rtl' | null",
+          },
+        ],
+        "models": [
+          {
+            "defaultValue": null,
+            "description": "The value of the selected radio button.",
+            "name": "value",
+            "type": "T",
+          },
+        ],
+        "outputs": [
+          {
+            "description": "Event emitted when the group value changes.",
+            "name": "change",
+            "type": "BrnRadioChange<T>",
+          },
+        ],
+        "selector": "[brnRadioGroup]",
+      },
+    },
+    "helm": {
+      "HlmRadioComponent": {
+        "file": "libs/helm/radio-group/src/lib/hlm-radio.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "defaultValue": "undefined",
+            "description": "Used to set the id on the underlying brn element.",
+            "name": "id",
+            "required": false,
+            "type": "string | undefined",
+          },
+          {
+            "defaultValue": "undefined",
+            "description": "Used to set the aria-label attribute on the underlying brn element.",
+            "name": "aria-label",
+            "required": false,
+            "type": "string | undefined",
+          },
+          {
+            "defaultValue": "undefined",
+            "description": "Used to set the aria-labelledby attribute on the underlying brn element.",
+            "name": "aria-labelledby",
+            "required": false,
+            "type": "string | undefined",
+          },
+          {
+            "defaultValue": "undefined",
+            "description": "Used to set the aria-describedby attribute on the underlying brn element.",
+            "name": "aria-describedby",
+            "required": false,
+            "type": "string | undefined",
+          },
+          {
+            "defaultValue": null,
+            "description": "The value this radio button represents.",
+            "name": "value",
+            "required": true,
+            "type": "T",
+          },
+          {
+            "defaultValue": "false",
+            "description": "Whether the checkbox is required.",
+            "name": "required",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "defaultValue": "false",
+            "description": "Whether the checkbox is disabled.",
+            "name": "disabled",
+            "required": false,
+            "type": "unknown",
+          },
+        ],
+        "models": [],
+        "outputs": [
+          {
+            "description": "Event emitted when the checked state of this radio button changes.",
+            "name": "change",
+            "type": "BrnRadioChange<T>",
+          },
+        ],
+        "selector": "hlm-radio",
+      },
+      "HlmRadioGroupComponent": {
+        "file": "libs/helm/radio-group/src/lib/hlm-radio-group.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-radio-group",
+      },
+      "HlmRadioIndicatorComponent": {
+        "file": "libs/helm/radio-group/src/lib/hlm-radio-indicator.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-radio-indicator",
+      },
+    },
+  },
+  "scroll-area": {
+    "helm": {
+      "HlmScrollAreaDirective": {
+        "file": "libs/helm/scroll-area/src/lib/hlm-scroll-area.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "ng-scrollbar[hlm]",
+      },
+    },
+  },
+  "select": {
+    "brain": {
+      "BrnSelectComponent": {
+        "file": "libs/brain/select/src/lib/brn-select.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "\`brn-select-\${nextId++}\`",
+            "description": "",
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "defaultValue": "false",
+            "description": "",
+            "name": "multiple",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "placeholder",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "defaultValue": "false",
+            "description": "",
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "defaultValue": "ltr",
+            "description": "",
+            "name": "dir",
+            "required": false,
+            "type": "BrnReadDirection",
+          },
+          {
+            "defaultValue": "100",
+            "description": "",
+            "name": "closeDelay",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "defaultValue": "(o1, o2) => o1 === o2",
+            "description": "",
+            "name": "compareWith",
+            "required": false,
+            "type": "(o1: T, o2: T) => boolean",
+          },
+        ],
+        "models": [
+          {
+            "defaultValue": "false",
+            "description": "",
+            "name": "open",
+            "type": "boolean",
+          },
+          {
+            "defaultValue": null,
+            "description": "",
+            "name": "value",
+            "type": "T | T[]",
+          },
+        ],
+        "outputs": [],
+        "selector": "brn-select, hlm-select",
+      },
+      "BrnSelectContentComponent": {
+        "file": "libs/brain/select/src/lib/brn-select-content.component.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-select-content, hlm-select-content:not(noHlm)",
+      },
+      "BrnSelectGroupDirective": {
+        "file": "libs/brain/select/src/lib/brn-select-group.directive.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnSelectGroup]",
+      },
+      "BrnSelectLabelDirective": {
+        "file": "libs/brain/select/src/lib/brn-select-label.directive.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnSelectLabel]",
+      },
+      "BrnSelectOptionDirective": {
+        "file": "libs/brain/select/src/lib/brn-select-option.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "\`brn-option-\${nextId++}\`",
+            "description": "",
+            "name": "id",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "defaultValue": null,
+            "description": "",
+            "name": "value",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "defaultValue": "false",
+            "description": "",
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnOption]",
+      },
+      "BrnSelectPlaceholderDirective": {
+        "file": "libs/brain/select/src/lib/brn-select-placeholder.directive.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnSelectPlaceholder], [hlmSelectPlaceholder]",
+      },
+      "BrnSelectScrollDownDirective": {
+        "file": "libs/brain/select/src/lib/brn-select-content.component.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnSelectScrollDown], brn-select-scroll-down, hlm-select-scroll-down:not(noHlm)",
+      },
+      "BrnSelectScrollUpDirective": {
+        "file": "libs/brain/select/src/lib/brn-select-content.component.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnSelectScrollUp], brn-select-scroll-up, hlm-select-scroll-up:not(noHlm)",
+      },
+      "BrnSelectTriggerDirective": {
+        "file": "libs/brain/select/src/lib/brn-select-trigger.directive.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnSelectTrigger]",
+      },
+      "BrnSelectValueComponent": {
+        "file": "libs/brain/select/src/lib/brn-select-value.component.ts",
+        "inputs": [
+          {
+            "defaultValue": ", ",
+            "description": "",
+            "name": "transformFn",
+            "required": false,
+            "type": "(values: (string | undefined)[]) => any",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-select-value, hlm-select-value",
+      },
+      "BrnSelectValueDirective": {
+        "file": "libs/brain/select/src/lib/brn-select-value.directive.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnSelectValue], [hlmSelectValue]",
+      },
+    },
+    "helm": {
+      "HlmSelectContentDirective": {
+        "file": "libs/helm/select/src/lib/hlm-select-content.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "defaultValue": "false",
+            "description": "",
+            "name": "stickyLabels",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmSelectContent], hlm-select-content",
+      },
+      "HlmSelectDirective": {
+        "file": "libs/helm/select/src/lib/hlm-select.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-select, brn-select [hlm]",
+      },
+      "HlmSelectGroupDirective": {
+        "file": "libs/helm/select/src/lib/hlm-select-group.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmSelectGroup], hlm-select-group",
+      },
+      "HlmSelectLabelDirective": {
+        "file": "libs/helm/select/src/lib/hlm-select-label.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmSelectLabel], hlm-select-label",
+      },
+      "HlmSelectOptionComponent": {
+        "file": "libs/helm/select/src/lib/hlm-select-option.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-option",
+      },
+      "HlmSelectScrollDownComponent": {
+        "file": "libs/helm/select/src/lib/hlm-select-scroll-down.component.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-select-scroll-down",
+      },
+      "HlmSelectScrollUpComponent": {
+        "file": "libs/helm/select/src/lib/hlm-select-scroll-up.component.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-select-scroll-up",
+      },
+      "HlmSelectTriggerComponent": {
+        "file": "libs/helm/select/src/lib/hlm-select-trigger.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "default",
+            "description": "",
+            "name": "_size",
+            "required": false,
+            "type": "SelectTriggerVariants['size']",
+          },
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-select-trigger",
+      },
+      "HlmSelectValueDirective": {
+        "file": "libs/helm/select/src/lib/hlm-select-value.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-select-value,[hlmSelectValue], brn-select-value[hlm]",
+      },
+    },
+  },
+  "separator": {
+    "brain": {
+      "BrnSeparatorComponent": {
+        "file": "libs/brain/separator/src/lib/brn-separator.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "horizontal",
+            "description": "",
+            "name": "orientation",
+            "required": false,
+            "type": "BrnSeparatorOrientation",
+          },
+          {
+            "defaultValue": "false",
+            "description": "",
+            "name": "decorative",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-separator",
+      },
+    },
+    "helm": {
+      "HlmSeparatorDirective": {
+        "file": "libs/helm/separator/src/lib/hlm-separator.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "horizontal",
+            "description": "",
+            "name": "orientation",
+            "required": false,
+            "type": "HlmSeparatorOrientation",
+          },
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmSeparator],brn-separator[hlm]",
+      },
+    },
+  },
+  "sheet": {
+    "brain": {
+      "BrnSheetCloseDirective": {
+        "file": "libs/brain/sheet/src/lib/brn-sheet-close.directive.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "button[brnSheetClose]",
+      },
+      "BrnSheetComponent": {
+        "exportAs": "brnSheet",
+        "file": "libs/brain/sheet/src/lib/brn-sheet.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "top",
+            "description": "",
+            "name": "side",
+            "required": false,
+            "type": "'top' | 'bottom' | 'left' | 'right'",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-sheet",
+      },
+      "BrnSheetContentDirective": {
+        "file": "libs/brain/sheet/src/lib/brn-sheet-content.directive.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnSheetContent]",
+      },
+      "BrnSheetDescriptionDirective": {
+        "file": "libs/brain/sheet/src/lib/brn-sheet-description.directive.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnSheetDescription]",
+      },
+      "BrnSheetOverlayComponent": {
+        "file": "libs/brain/sheet/src/lib/brn-sheet-overlay.component.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-sheet-overlay",
+      },
+      "BrnSheetTitleDirective": {
+        "file": "libs/brain/sheet/src/lib/brn-sheet-title.directive.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnSheetTitle]",
+      },
+      "BrnSheetTriggerDirective": {
+        "file": "libs/brain/sheet/src/lib/brn-sheet-trigger.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "undefined",
+            "description": "",
+            "name": "side",
+            "required": false,
+            "type": "'top' | 'bottom' | 'left' | 'right' | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[brnSheetTrigger]",
+      },
+    },
+    "helm": {
+      "HlmSheetCloseDirective": {
+        "file": "libs/helm/sheet/src/lib/hlm-sheet-close.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmSheetClose],[brnSheetClose][hlm]",
+      },
+      "HlmSheetComponent": {
+        "exportAs": "hlmSheet",
+        "file": "libs/helm/sheet/src/lib/hlm-sheet.component.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-sheet",
+      },
+      "HlmSheetContentComponent": {
+        "file": "libs/helm/sheet/src/lib/hlm-sheet-content.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-sheet-content",
+      },
+      "HlmSheetDescriptionDirective": {
+        "file": "libs/helm/sheet/src/lib/hlm-sheet-description.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmSheetDescription]",
+      },
+      "HlmSheetFooterComponent": {
+        "file": "libs/helm/sheet/src/lib/hlm-sheet-footer.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-sheet-footer",
+      },
+      "HlmSheetHeaderComponent": {
+        "file": "libs/helm/sheet/src/lib/hlm-sheet-header.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-sheet-header",
+      },
+      "HlmSheetOverlayDirective": {
+        "file": "libs/helm/sheet/src/lib/hlm-sheet-overlay.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmSheetOverlay],brn-sheet-overlay[hlm]",
+      },
+      "HlmSheetTitleDirective": {
+        "file": "libs/helm/sheet/src/lib/hlm-sheet-title.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmSheetTitle]",
+      },
+    },
+  },
+  "skeleton": {
+    "helm": {
+      "HlmSkeletonComponent": {
+        "file": "libs/helm/skeleton/src/lib/hlm-skeleton.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-skeleton",
+      },
+    },
+  },
+  "slider": {
+    "brain": {
+      "BrnSliderDirective": {
+        "exportAs": "brnSlider",
+        "file": "libs/brain/slider/src/lib/brn-slider.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "0",
+            "description": "",
+            "name": "min",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "defaultValue": "100",
+            "description": "",
+            "name": "max",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "defaultValue": "1",
+            "description": "",
+            "name": "step",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "defaultValue": "false",
+            "description": "",
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "defaultValue": "false",
+            "description": "Whether we should show tick marks",
+            "name": "showTicks",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [
+          {
+            "defaultValue": "0",
+            "description": "",
+            "name": "value",
+            "type": "number",
+          },
+        ],
+        "outputs": [],
+        "selector": "[brnSlider]",
+      },
+      "BrnSliderRangeDirective": {
+        "file": "libs/brain/slider/src/lib/brn-slider-range.directive.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnSliderRange]",
+      },
+      "BrnSliderThumbDirective": {
+        "file": "libs/brain/slider/src/lib/brn-slider-thumb.directive.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnSliderThumb]",
+      },
+      "BrnSliderTickDirective": {
+        "file": "libs/brain/slider/src/lib/brn-slider-tick.directive.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnSliderTick]",
+      },
+      "BrnSliderTrackDirective": {
+        "file": "libs/brain/slider/src/lib/brn-slider-track.directive.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnSliderTrack]",
+      },
+      "ReactiveFormSliderComponent": {
+        "file": "libs/brain/slider/src/lib/tests/brn-slider-states.component.ts",
+        "inputs": [],
+        "models": [
+          {
+            "defaultValue": "46",
+            "description": "",
+            "name": "temperature",
+            "type": "number",
+          },
+        ],
+        "outputs": [],
+      },
+      "TemplateDrivenFormSliderComponent": {
+        "file": "libs/brain/slider/src/lib/tests/brn-slider-states.component.ts",
+        "inputs": [],
+        "models": [
+          {
+            "defaultValue": "0",
+            "description": "",
+            "name": "temperature",
+            "type": "number",
+          },
+        ],
+        "outputs": [],
+      },
+    },
+    "helm": {
+      "HlmSliderComponent": {
+        "file": "libs/helm/slider/src/lib/hlm-slider.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-slider, brn-slider [hlm]",
+      },
+    },
+  },
+  "sonner": {
+    "helm": {
+      "HlmToasterComponent": {
+        "file": "libs/helm/sonner/src/lib/hlm-toaster.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "false",
+            "description": "",
+            "name": "invert",
+            "required": false,
+            "type": "ToasterProps['invert']",
+          },
+          {
+            "defaultValue": "light",
+            "description": "",
+            "name": "theme",
+            "required": false,
+            "type": "ToasterProps['theme']",
+          },
+          {
+            "defaultValue": "bottom-right",
+            "description": "",
+            "name": "position",
+            "required": false,
+            "type": "ToasterProps['position']",
+          },
+          {
+            "defaultValue": "[altKey, KeyT]",
+            "description": "",
+            "name": "hotKey",
+            "required": false,
+            "type": "ToasterProps['hotkey']",
+          },
+          {
+            "defaultValue": "false",
+            "description": "",
+            "name": "richColors",
+            "required": false,
+            "type": "ToasterProps['richColors']",
+          },
+          {
+            "defaultValue": "false",
+            "description": "",
+            "name": "expand",
+            "required": false,
+            "type": "ToasterProps['expand']",
+          },
+          {
+            "defaultValue": "4000",
+            "description": "",
+            "name": "duration",
+            "required": false,
+            "type": "ToasterProps['duration']",
+          },
+          {
+            "defaultValue": "3",
+            "description": "",
+            "name": "visibleToasts",
+            "required": false,
+            "type": "ToasterProps['visibleToasts']",
+          },
+          {
+            "defaultValue": "false",
+            "description": "",
+            "name": "closeButton",
+            "required": false,
+            "type": "ToasterProps['closeButton']",
+          },
+          {
+            "defaultValue": "{
+		classes: {
+			toast:
+				group toast group-[.toaster]:bg-background group-[.toaster]:text-foreground group-[.toaster]:border-border group-[.toaster]:shadow-lg,
+			description: group-[.toast]:text-muted-foreground,
+			actionButton: group-[.toast]:bg-primary group-[.toast]:text-primary-foreground,
+			cancelButton: group-[.toast]:bg-muted group-[.toast]:text-muted-foreground,
+		},
+	}",
+            "description": "",
+            "name": "toastOptions",
+            "required": false,
+            "type": "ToasterProps['toastOptions']",
+          },
+          {
+            "defaultValue": "null",
+            "description": "",
+            "name": "offset",
+            "required": false,
+            "type": "ToasterProps['offset']",
+          },
+          {
+            "defaultValue": "auto",
+            "description": "",
+            "name": "dir",
+            "required": false,
+            "type": "ToasterProps['dir']",
+          },
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "defaultValue": "{}",
+            "description": "",
+            "name": "style",
+            "required": false,
+            "type": "Record<string, string>",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-toaster",
+      },
+    },
+  },
+  "spinner": {
+    "helm": {
+      "HlmSpinnerComponent": {
+        "file": "libs/helm/spinner/src/lib/hlm-spinner.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "default",
+            "description": "",
+            "name": "size",
+            "required": false,
+            "type": "SpinnerVariants['size']",
+          },
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-spinner",
+      },
+    },
+  },
+  "switch": {
+    "brain": {
+      "BrnSwitchComponent": {
+        "file": "libs/brain/switch/src/lib/brn-switch.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "uniqueIdCounter++ + ",
+            "description": "Unique identifier for switch component.
+When provided, inner button gets ID without '-switch' suffix.
+Auto-generates ID if not provided.",
+            "name": "id",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "defaultValue": "null",
+            "description": "Form control name for switch.
+When provided, inner button gets name without '-switch' suffix.",
+            "name": "name",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "defaultValue": "null",
+            "description": "CSS classes applied to inner button element.",
+            "name": "class",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "defaultValue": "null",
+            "description": "Accessibility label for screen readers.
+Use when no visible label exists.",
+            "name": "aria-label",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "defaultValue": "null",
+            "description": "ID of element that labels this switch for accessibility.
+Auto-set when switch is inside label element.",
+            "name": "aria-labelledby",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "defaultValue": "null",
+            "description": "ID of element that describes this switch for accessibility.",
+            "name": "aria-describedby",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "defaultValue": "false",
+            "description": "Whether switch is required in a form.",
+            "name": "required",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "defaultValue": "false",
+            "description": "Whether switch is disabled.
+Disabled switches cannot be toggled and indicate disabled state with data attribute.",
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "defaultValue": "0",
+            "description": "Keyboard tab order for switch.",
+            "name": "tabIndex",
+            "required": false,
+            "type": "unknown",
+          },
+        ],
+        "models": [
+          {
+            "defaultValue": "false",
+            "description": "Whether switch is checked/toggled on.
+Can be bound with [(checked)] for two-way binding.",
+            "name": "checked",
+            "type": "boolean",
+          },
+        ],
+        "outputs": [
+          {
+            "description": "Event emitted when switch value changes.
+Emits new checked state (true/false).",
+            "name": "changed",
+            "type": "boolean",
+          },
+          {
+            "description": "Event emitted when switch is blurred (loses focus).
+Used for form validation.",
+            "name": "touched",
+            "type": "void",
+          },
+        ],
+        "selector": "brn-switch",
+      },
+      "BrnSwitchThumbComponent": {
+        "file": "libs/brain/switch/src/lib/brn-switch-thumb.component.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-switch-thumb",
+      },
+    },
+    "helm": {
+      "HlmSwitchComponent": {
+        "file": "libs/helm/switch/src/lib/hlm-switch.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "defaultValue": "false",
+            "description": "The disabled state of the switch.",
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "defaultValue": "null",
+            "description": "Used to set the id on the underlying brn element.",
+            "name": "id",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "defaultValue": "null",
+            "description": "Used to set the aria-label attribute on the underlying brn element.",
+            "name": "aria-label",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "defaultValue": "null",
+            "description": "Used to set the aria-labelledby attribute on the underlying brn element.",
+            "name": "aria-labelledby",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "defaultValue": "null",
+            "description": "Used to set the aria-describedby attribute on the underlying brn element.",
+            "name": "aria-describedby",
+            "required": false,
+            "type": "string | null",
+          },
+        ],
+        "models": [
+          {
+            "defaultValue": "false",
+            "description": "The checked state of the switch.",
+            "name": "checked",
+            "type": "boolean",
+          },
+        ],
+        "outputs": [
+          {
+            "description": "Emits when the checked state of the switch changes.",
+            "name": "changed",
+            "type": "boolean",
+          },
+        ],
+        "selector": "hlm-switch",
+      },
+      "HlmSwitchThumbDirective": {
+        "file": "libs/helm/switch/src/lib/hlm-switch-thumb.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-switch-thumb[hlm],[hlmSwitchThumb]",
+      },
+    },
+  },
+  "table": {
+    "helm": {
+      "HlmCaptionDirective": {
+        "file": "libs/helm/table/src/lib/hlm-table.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "caption[hlmCaption]",
+      },
+      "HlmTBodyDirective": {
+        "file": "libs/helm/table/src/lib/hlm-table.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "tbody[hlmTBody]",
+      },
+      "HlmTFootDirective": {
+        "file": "libs/helm/table/src/lib/hlm-table.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "tfoot[hlmTFoot]",
+      },
+      "HlmTHeadDirective": {
+        "file": "libs/helm/table/src/lib/hlm-table.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "thead[hlmTHead]",
+      },
+      "HlmTableDirective": {
+        "file": "libs/helm/table/src/lib/hlm-table.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "{}",
+            "description": "Input to configure the variant of the table, this input has the highest priority.",
+            "name": "hlmTable",
+            "required": false,
+            "type": "Partial<HlmTableVariant> | string",
+          },
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "table[hlmTable]",
+      },
+      "HlmTdDirective": {
+        "file": "libs/helm/table/src/lib/hlm-table.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "td[hlmTd]",
+      },
+      "HlmThDirective": {
+        "file": "libs/helm/table/src/lib/hlm-table.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "th[hlmTh]",
+      },
+      "HlmTrDirective": {
+        "file": "libs/helm/table/src/lib/hlm-table.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "tr[hlmTr]",
+      },
+    },
+  },
+  "tabs": {
+    "brain": {
+      "BrnTabsContentDirective": {
+        "exportAs": "brnTabsContent",
+        "file": "libs/brain/tabs/src/lib/brn-tabs-content.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": null,
+            "description": "",
+            "name": "contentFor",
+            "required": true,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnTabsContent]",
+      },
+      "BrnTabsDirective": {
+        "exportAs": "brnTabs",
+        "file": "libs/brain/tabs/src/lib/brn-tabs.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "horizontal",
+            "description": "",
+            "name": "orientation",
+            "required": false,
+            "type": "BrnTabsOrientation",
+          },
+          {
+            "defaultValue": "ltr",
+            "description": "",
+            "name": "direction",
+            "required": false,
+            "type": "BrnTabsDirection",
+          },
+          {
+            "defaultValue": "automatic",
+            "description": "",
+            "name": "activationMode",
+            "required": false,
+            "type": "BrnActivationMode",
+          },
+        ],
+        "models": [
+          {
+            "defaultValue": "undefined",
+            "description": "",
+            "name": "_activeTab",
+            "type": "string | undefined",
+          },
+        ],
+        "outputs": [
+          {
+            "description": "",
+            "name": "tabActivated",
+            "type": "string",
+          },
+        ],
+        "selector": "[brnTabs]",
+      },
+      "BrnTabsListDirective": {
+        "exportAs": "brnTabsList",
+        "file": "libs/brain/tabs/src/lib/brn-tabs-list.directive.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnTabsList]",
+      },
+      "BrnTabsPaginatedListDirective": {
+        "exportAs": null,
+        "file": "libs/brain/tabs/src/lib/brn-tabs-paginated-list.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "false",
+            "description": "Whether pagination should be disabled. This can be used to avoid unnecessary
+layout recalculations if it's known that pagination won't be required.",
+            "name": "disablePagination",
+            "required": false,
+            "type": "unknown",
+          },
+        ],
+        "models": [],
+        "outputs": [
+          {
+            "description": "Event emitted when the option is selected.",
+            "name": "selectFocusedIndex",
+            "type": "number",
+          },
+          {
+            "description": "Event emitted when a label is focused.",
+            "name": "indexFocused",
+            "type": "number",
+          },
+        ],
+        "selector": null,
+      },
+      "BrnTabsTriggerDirective": {
+        "exportAs": "brnTabsTrigger",
+        "file": "libs/brain/tabs/src/lib/brn-tabs-trigger.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": null,
+            "description": "",
+            "name": "triggerFor",
+            "required": true,
+            "type": "string",
+          },
+          {
+            "defaultValue": null,
+            "description": "",
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[brnTabsTrigger]",
+      },
+    },
+    "helm": {
+      "HlmTabsComponent": {
+        "file": "libs/helm/tabs/src/lib/hlm-tabs.component.ts",
+        "inputs": [
+          {
+            "defaultValue": null,
+            "description": "",
+            "name": "tab",
+            "required": true,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-tabs",
+      },
+      "HlmTabsContentDirective": {
+        "file": "libs/helm/tabs/src/lib/hlm-tabs-content.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": null,
+            "description": "",
+            "name": "contentFor",
+            "required": true,
+            "type": "string",
+          },
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmTabsContent]",
+      },
+      "HlmTabsListComponent": {
+        "file": "libs/helm/tabs/src/lib/hlm-tabs-list.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "horizontal",
+            "description": "",
+            "name": "orientation",
+            "required": false,
+            "type": "ListVariants['orientation']",
+          },
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-tabs-list",
+      },
+      "HlmTabsPaginatedListComponent": {
+        "file": "libs/helm/tabs/src/lib/hlm-tabs-paginated-list.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "tabListClass",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "paginationButtonClass",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-paginated-tabs-list",
+      },
+      "HlmTabsTriggerDirective": {
+        "file": "libs/helm/tabs/src/lib/hlm-tabs-trigger.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": null,
+            "description": "",
+            "name": "triggerFor",
+            "required": true,
+            "type": "string",
+          },
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmTabsTrigger]",
+      },
+    },
+  },
+  "toggle": {
+    "brain": {
+      "BrnToggleDirective": {
+        "file": "libs/brain/toggle/src/lib/brn-toggle.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "\`brn-toggle-\${BrnToggleDirective._uniqueId++}\`",
+            "description": "The id of the toggle.",
+            "name": "id",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "defaultValue": null,
+            "description": "The value this toggle represents.",
+            "name": "value",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "defaultValue": "false",
+            "description": "Whether the toggle is disabled.",
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "defaultValue": "false",
+            "description": "Whether the toggle is responds to click events.",
+            "name": "disableToggleClick",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [
+          {
+            "defaultValue": "off",
+            "description": "The current state of the toggle when not used in a group.",
+            "name": "state",
+            "type": "'on' | 'off'",
+          },
+        ],
+        "outputs": [],
+        "selector": "button[hlmToggle], button[brnToggle]",
+      },
+    },
+    "helm": {
+      "HlmToggleDirective": {
+        "file": "libs/helm/toggle/src/lib/hlm-toggle.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "default",
+            "description": "",
+            "name": "variant",
+            "required": false,
+            "type": "ToggleVariants['variant']",
+          },
+          {
+            "defaultValue": "default",
+            "description": "",
+            "name": "size",
+            "required": false,
+            "type": "ToggleVariants['size']",
+          },
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmToggle],[brnToggle][hlm]",
+      },
+    },
+  },
+  "toggle-group": {
+    "brain": {
+      "BrnToggleGroupComponent": {
+        "exportAs": "brnToggleGroup",
+        "file": "libs/brain/toggle-group/src/lib/brn-toggle-group.component.ts",
+        "inputs": [
+          {
+            "defaultValue": "false",
+            "description": "Whether the button toggle group has a vertical orientation",
+            "name": "vertical",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "defaultValue": "false",
+            "description": "Whether no button toggles need to be selected.",
+            "name": "nullable",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "defaultValue": "false",
+            "description": "Whether multiple button toggles can be selected.",
+            "name": "multiple",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "defaultValue": "false",
+            "description": "Whether the button toggle group is disabled.",
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [
+          {
+            "defaultValue": "undefined",
+            "description": "Value of the toggle group.",
+            "name": "value",
+            "type": "ToggleValue<T>",
+          },
+        ],
+        "outputs": [
+          {
+            "description": "Emit event when the group value changes.",
+            "name": "change",
+            "type": "BrnButtonToggleChange<T>",
+          },
+        ],
+        "selector": "brn-toggle-group",
+      },
+      "BrnToggleGroupItemDirective": {
+        "file": "libs/brain/toggle-group/src/lib/brn-toggle-item.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "\`brn-toggle-group-item-\${BrnToggleGroupItemDirective._uniqueId++}\`",
+            "description": "The id of the toggle.",
+            "name": "id",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "defaultValue": null,
+            "description": "The value this toggle represents.",
+            "name": "value",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "defaultValue": "false",
+            "description": "Whether the toggle is disabled.",
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "defaultValue": "false",
+            "description": "Whether the toggle is responds to click events.",
+            "name": "disableToggleClick",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [
+          {
+            "defaultValue": "off",
+            "description": "The current state of the toggle when not used in a group.",
+            "name": "state",
+            "type": "'on' | 'off'",
+          },
+        ],
+        "outputs": [],
+        "selector": "button[hlmToggleGroupItem], button[brnToggleGroupItem]",
+      },
+    },
+    "helm": {
+      "HlmToggleGroupDirective": {
+        "file": "libs/helm/toggle-group/src/lib/hlm-toggle-group.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "default",
+            "description": "",
+            "name": "variant",
+            "required": false,
+            "type": "ToggleGroupItemVariants['variant']",
+          },
+          {
+            "defaultValue": "default",
+            "description": "",
+            "name": "size",
+            "required": false,
+            "type": "ToggleGroupItemVariants['size']",
+          },
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-toggle-group[hlm],[hlmToggleGroup]",
+      },
+      "HlmToggleGroupItemDirective": {
+        "file": "libs/helm/toggle-group/src/lib/hlm-toggle-item.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "default",
+            "description": "",
+            "name": "variant",
+            "required": false,
+            "type": "ToggleGroupItemVariants['variant']",
+          },
+          {
+            "defaultValue": "default",
+            "description": "",
+            "name": "size",
+            "required": false,
+            "type": "ToggleGroupItemVariants['size']",
+          },
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmToggleGroupItem],[brnToggleGroupItem][hlm]",
+      },
+    },
+  },
+  "tooltip": {
+    "brain": {
+      "BrnTooltipContentComponent": {
+        "file": "libs/brain/tooltip/src/lib/brn-tooltip-content.component.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-tooltip-content",
+      },
+      "BrnTooltipContentDirective": {
+        "file": "libs/brain/tooltip/src/lib/brn-tooltip-content.directive.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnTooltipContent]",
+      },
+      "BrnTooltipDirective": {
+        "file": "libs/brain/tooltip/src/lib/brn-tooltip.directive.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnTooltip]",
+      },
+      "BrnTooltipTriggerDirective": {
+        "exportAs": "brnTooltipTrigger",
+        "file": "libs/brain/tooltip/src/lib/brn-tooltip-trigger.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "this._defaultOptions?.position ?? above",
+            "description": "Allows the user to define the position of the tooltip relative to the parent element",
+            "name": "position",
+            "required": false,
+            "type": "TooltipPosition",
+          },
+          {
+            "defaultValue": "this._defaultOptions?.positionAtOrigin ?? false",
+            "description": "Whether tooltip should be relative to the click or touch origin
+instead of outside the element bounding box.",
+            "name": "positionAtOrigin",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "defaultValue": "false",
+            "description": "Disables the display of the tooltip.",
+            "name": "brnTooltipDisabled",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "defaultValue": "this._defaultOptions?.showDelay ?? 0",
+            "description": "The default delay in ms before showing the tooltip after show is called",
+            "name": "showDelay",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "defaultValue": "this._defaultOptions?.hideDelay ?? 0",
+            "description": "The default delay in ms before hiding the tooltip after hide is called",
+            "name": "hideDelay",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "defaultValue": "this._defaultOptions?.exitAnimationDuration ?? 0",
+            "description": "The default duration in ms that exit animation takes before hiding",
+            "name": "exitAnimationDuration",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "defaultValue": "this._defaultOptions?.tooltipContentClasses ?? ",
+            "description": "The default delay in ms before hiding the tooltip after hide is called",
+            "name": "tooltipContentClasses",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "defaultValue": "this._defaultOptions?.touchGestures ?? auto",
+            "description": "How touch gestures should be handled by the tooltip. On touch devices the tooltip directive
+uses a long press gesture to show and hide, however it can conflict with the native browser
+gestures. To work around the conflict, Angular Material disables native gestures on the
+trigger, but that might not be desirable on particular elements (e.g. inputs and draggable
+elements). The different values for this option configure the touch event handling as follows:
+- \`auto\` - Enables touch gestures for all elements, but tries to avoid conflicts with native
+  browser gestures on particular elements. In particular, it allows text selection on inputs
+  and textareas, and preserves the native browser dragging on elements marked as \`draggable\`.
+- \`on\` - Enables touch gestures for all elements and disables native
+  browser gestures with no exceptions.
+- \`off\` - Disables touch gestures. Note that this will prevent the tooltip from
+  showing on touch devices.",
+            "name": "touchGestures",
+            "required": false,
+            "type": "TooltipTouchGestures",
+          },
+          {
+            "defaultValue": "",
+            "description": "The message to be used to describe the aria in the tooltip",
+            "name": "aria-describedby",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "defaultValue": "null",
+            "description": "The content to be displayed in the tooltip",
+            "name": "brnTooltipTrigger",
+            "required": false,
+            "type": "string | TemplateRef<unknown> | null",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnTooltipTrigger]",
+      },
+    },
+    "helm": {
+      "HlmTooltipComponent": {
+        "file": "libs/helm/tooltip/src/lib/hlm-tooltip.component.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-tooltip",
+      },
+      "HlmTooltipTriggerDirective": {
+        "file": "libs/helm/tooltip/src/lib/hlm-tooltip-trigger.directive.ts",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmTooltipTrigger]",
+      },
+    },
+  },
+  "typography": {
+    "helm": {
+      "HlmBlockquoteDirective": {
+        "file": "libs/helm/typography/src/lib/hlm-blockquote.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmBlockquote]",
+      },
+      "HlmCodeDirective": {
+        "file": "libs/helm/typography/src/lib/hlm-code.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmCode]",
+      },
+      "HlmH1Directive": {
+        "file": "libs/helm/typography/src/lib/hlm-h1.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmH1]",
+      },
+      "HlmH2Directive": {
+        "file": "libs/helm/typography/src/lib/hlm-h2.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmH2]",
+      },
+      "HlmH3Directive": {
+        "file": "libs/helm/typography/src/lib/hlm-h3.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmH3]",
+      },
+      "HlmH4Directive": {
+        "file": "libs/helm/typography/src/lib/hlm-h4.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmH4]",
+      },
+      "HlmLargeDirective": {
+        "file": "libs/helm/typography/src/lib/hlm-large.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmLarge]",
+      },
+      "HlmLeadDirective": {
+        "file": "libs/helm/typography/src/lib/hlm-lead.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmLead]",
+      },
+      "HlmMutedDirective": {
+        "file": "libs/helm/typography/src/lib/hlm-muted.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmMuted]",
+      },
+      "HlmPDirective": {
+        "file": "libs/helm/typography/src/lib/hlm-p.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmP]",
+      },
+      "HlmSmallDirective": {
+        "file": "libs/helm/typography/src/lib/hlm-small.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmSmall]",
+      },
+      "HlmUlDirective": {
+        "file": "libs/helm/typography/src/lib/hlm-ul.directive.ts",
+        "inputs": [
+          {
+            "defaultValue": "",
+            "description": "",
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmUl]",
+      },
+    },
+  },
+}
+`;

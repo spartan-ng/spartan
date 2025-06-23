@@ -24,35 +24,6 @@ export class ScrollAreaPreviewComponent {
 	public tags = Array.from({ length: 50 }).map((_, i, a) => `v1.2.0-beta.${a.length - i}`);
 }
 
-export const defaultCode = `
-import { Component } from '@angular/core';
-import { HlmSeparatorDirective } from '@spartan-ng/helm/separator';
-import { NgScrollbarModule } from 'ngx-scrollbar';
-import { HlmSeparatorDirective } from '@spartan-ng/helm/separator';
-
-@Component({
-  selector: 'spartan-scroll-area-preview',
-imports: [HlmSeparatorDirective, HlmSeparatorDirective, NgScrollbarModule],
-  template: \`<ng-scrollbar
-      hlm
-      class="border-border h-72 w-48 rounded-md border"
-      >
-      <div class="p-4">
-        <h4 class="mb-4 text-sm font-medium leading-none">Tags</h4>
-        @for (tag of tags; track tag) {
-          <div class="text-sm">
-            {{ tag }}
-            <div hlmSeparator class="my-2"></div>
-          </div>
-        }
-      </div>
-    </ng-scrollbar>\`,
-})
-export class ScrollAreaPreviewComponent {
-  tags = Array.from({ length: 50 }).map((_, i, a) => \`v1.2.0-beta.\${a.length - i}\`);
-}
-`;
-
 export const defaultImports = `
 import { HlmScrollAreaDirective } from '@spartan-ng/helm/scroll-area';
 `;

@@ -15,7 +15,8 @@ import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { ScrollAreaPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './scroll-area.preview';
+import { defaultCode } from './scroll-area.generated';
+import { ScrollAreaPreviewComponent, defaultImports, defaultSkeleton } from './scroll-area.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Scroll Area', api: 'scroll-area' },

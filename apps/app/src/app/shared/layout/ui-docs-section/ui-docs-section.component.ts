@@ -71,20 +71,34 @@ export class UIApiDocsComponent {
 
 		const transformed: any = {};
 		for (const [key, value] of Object.entries(items)) {
-			transformed[key] = {
-				...value,
-				inputs: value.inputs?.map((input: any) => ({
+			// Transform inputs to include models
+			const transformedInputs = [
+				...(value.inputs?.map((input: any) => ({
 					...input,
 					name: input.required ? `${input.name}<span class="text-destructive">*</span> (required)` : input.name,
-				})),
-				models: value.models?.map((model: any) => ({
+				})) || []),
+				...(value.models?.map((model: any) => ({
 					...model,
 					name: model.required ? `${model.name}<span class="text-destructive">*</span> (required)` : model.name,
-				})),
-				outputs: value.outputs?.map((output: any) => ({
+				})) || [])
+			];
+
+			// Transform outputs to include models with "Changed" suffix
+			const transformedOutputs = [
+				...(value.outputs?.map((output: any) => ({
 					...output,
 					name: output.required ? `${output.name}<span class="text-destructive">*</span> (required)` : output.name,
-				})),
+				})) || []),
+				...(value.models?.map((model: any) => ({
+					...model,
+					name: model.required ? `${model.name}Changed<span class="text-destructive">*</span> (required)` : `${model.name}Changed`,
+				})) || [])
+			];
+
+			transformed[key] = {
+				...value,
+				inputs: transformedInputs,
+				outputs: transformedOutputs,
 			};
 		}
 		return transformed;

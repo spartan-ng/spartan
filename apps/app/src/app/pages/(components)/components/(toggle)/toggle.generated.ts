@@ -27,27 +27,6 @@ import { HlmToggleDirective } from '@spartan-ng/helm/toggle';
 	\`,
 })
 export class ToggleDisabledPreviewComponent {}
-
-export const disabledCode = \`
-import { Component } from '@angular/core';
-import { HlmToggleDirective } from '@spartan-ng/helm/toggle';
-import { BrnToggleDirective } from '@spartan-ng/brain/toggle';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
-import { provideIcons } from '@ng-icons/core';
-import { lucideUnderline } from '@ng-icons/lucide';
-
-@Component({
-  selector: 'spartan-toggle-disabled',
-imports: [BrnToggleDirective, HlmToggleDirective, HlmIconDirective],
-  providers: [provideIcons({ lucideUnderline })],
-  template: \\`
-    <button disabled brnToggle hlm>
-      <ng-icon hlm size="sm" name="lucideUnderline" />
-    </button>
-  \\`,
-})
-export class ToggleDisabledPreviewComponent {}
-\`;
 `;
 
 export const toggleLargeCode = `
@@ -69,27 +48,6 @@ import { HlmToggleDirective } from '@spartan-ng/helm/toggle';
 	\`,
 })
 export class ToggleLargePreviewComponent {}
-
-export const largeCode = \`
-import { Component } from '@angular/core';
-import { HlmToggleDirective } from '@spartan-ng/helm/toggle';
-import { BrnToggleDirective } from '@spartan-ng/brain/toggle';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
-import { provideIcons } from '@ng-icons/core';
-import { lucideItalic } from '@ng-icons/lucide';
-
-@Component({
-  selector: 'spartan-toggle-large',
-imports: [BrnToggleDirective, HlmToggleDirective, HlmIconDirective],
-  providers: [provideIcons({ lucideItalic })],
-  template: \\`
-    <button size="lg" brnToggle hlm>
-      <ng-icon hlm size="lg" name="lucideItalic" />
-    </button>
-  \\`,
-})
-export class ToggleLargePreviewComponent {}
-\`;
 `;
 
 export const toggleOutlineCode = `
@@ -111,28 +69,6 @@ import { HlmToggleDirective } from '@spartan-ng/helm/toggle';
 	\`,
 })
 export class ToggleOutlinePreviewComponent {}
-
-export const outlineCode = \`
-import { Component } from '@angular/core';
-import { HlmToggleDirective } from '@spartan-ng/helm/toggle';
-import { BrnToggleDirective } from '@spartan-ng/brain/toggle';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
-import { provideIcons } from '@ng-icons/core';
-import { lucideItalic } from '@ng-icons/lucide';
-
-@Component({
-  selector: 'spartan-toggle-outline',
-imports: [BrnToggleDirective, HlmToggleDirective, HlmIconDirective],
-  providers: [provideIcons({ lucideItalic })],
-  template: \\`
-    <button brnToggle hlm variant="outline">
-      <ng-icon hlm size="sm" name="lucideItalic" />
-    </button>
-  \\`,
-})
-export class ToggleOutlinePreviewComponent {}
-
-\`;
 `;
 
 export const toggleSmallCode = `
@@ -154,28 +90,6 @@ import { HlmToggleDirective } from '@spartan-ng/helm/toggle';
 	\`,
 })
 export class ToggleSmallPreviewComponent {}
-
-export const smallCode = \`
-import { Component } from '@angular/core';
-import { HlmToggleDirective } from '@spartan-ng/helm/toggle';
-import { BrnToggleDirective } from '@spartan-ng/brain/toggle';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
-import { provideIcons } from '@ng-icons/core';
-import { lucideItalic } from '@ng-icons/lucide';
-
-@Component({
-  selector: 'spartan-toggle-small',
-imports: [BrnToggleDirective, HlmToggleDirective, HlmIconDirective],
-  providers: [provideIcons({ lucideItalic })],
-  template: \\`
-    <button size="sm" brnToggle hlm>
-      <ng-icon hlm size="sm" name="lucideItalic" />
-    </button>
-  \\`,
-})
-export class ToggleSmallPreviewComponent {}
-
-\`;
 `;
 
 export const toggleWithTextCode = `
@@ -198,28 +112,6 @@ import { HlmToggleDirective } from '@spartan-ng/helm/toggle';
 	\`,
 })
 export class ToggleWithTextPreviewComponent {}
-
-export const withTextCode = \`
-import { Component } from '@angular/core';
-import { HlmToggleDirective } from '@spartan-ng/helm/toggle';
-import { BrnToggleDirective } from '@spartan-ng/brain/toggle';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
-import { provideIcons } from '@ng-icons/core';
-import { lucideItalic } from '@ng-icons/lucide';
-
-@Component({
-  selector: 'spartan-toggle-with-text',
-imports: [BrnToggleDirective, HlmToggleDirective, HlmIconDirective],
-  providers: [provideIcons({ lucideItalic })],
-  template: \\`
-    <button brnToggle hlm>
-      <ng-icon hlm size="sm" name="lucideItalic" />
-      <span class="ml-2">Italic</span>
-    </button>
-  \\`,
-})
-export class ToggleWithTextPreviewComponent {}
-\`;
 `;
 
 export const defaultCode = `
@@ -242,5 +134,3 @@ import { HlmToggleDirective } from '@spartan-ng/helm/toggle';
 })
 export class TogglePreviewComponent {}
 `;
-
-

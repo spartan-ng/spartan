@@ -14,12 +14,20 @@ import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { ToggleDisabledPreviewComponent, disabledCode } from './toggle--disabled.preview';
-import { ToggleLargePreviewComponent, largeCode } from './toggle--large.preview';
-import { ToggleOutlinePreviewComponent, outlineCode } from './toggle--outline.preview';
-import { ToggleSmallPreviewComponent, smallCode } from './toggle--small.preview';
-import { ToggleWithTextPreviewComponent, withTextCode } from './toggle--with-text.preview';
-import { TogglePreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './toggle.preview';
+import { ToggleDisabledPreviewComponent } from './toggle--disabled.preview';
+import { ToggleLargePreviewComponent } from './toggle--large.preview';
+import { ToggleOutlinePreviewComponent } from './toggle--outline.preview';
+import { ToggleSmallPreviewComponent } from './toggle--small.preview';
+import { ToggleWithTextPreviewComponent } from './toggle--with-text.preview';
+import {
+	defaultCode,
+	toggleDisabledCode,
+	toggleLargeCode,
+	toggleOutlineCode,
+	toggleSmallCode,
+	toggleWithTextCode,
+} from './toggle.generated';
+import { TogglePreviewComponent, defaultImports, defaultSkeleton } from './toggle.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Toggle', api: 'toggle' },
@@ -78,13 +86,6 @@ export const routeMeta: RouteMeta = {
 			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__default" class="${hlmH4} mb-2 mt-6">Default</h3>
-			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div spartanCodePreview firstTab>
-					<spartan-toggle-preview />
-				</div>
-				<spartan-code secondTab [code]="defaultCode" />
-			</spartan-tabs>
 			<h3 id="examples__outline" class="${hlmH4} mb-2 mt-6">Outline</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -133,9 +134,9 @@ export default class TogglePageComponent {
 	protected readonly defaultCode = defaultCode;
 	protected readonly defaultSkeleton = defaultSkeleton;
 	protected readonly defaultImports = defaultImports;
-	protected readonly disabledCode = disabledCode;
-	protected readonly largeCode = largeCode;
-	protected readonly outlineCode = outlineCode;
-	protected readonly smallCode = smallCode;
-	protected readonly withTextCode = withTextCode;
+	protected readonly disabledCode = toggleDisabledCode;
+	protected readonly largeCode = toggleLargeCode;
+	protected readonly outlineCode = toggleOutlineCode;
+	protected readonly smallCode = toggleSmallCode;
+	protected readonly withTextCode = toggleWithTextCode;
 }

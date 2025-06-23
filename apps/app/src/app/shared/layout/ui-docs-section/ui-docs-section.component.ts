@@ -80,7 +80,7 @@ export class UIApiDocsComponent {
 				...(value.models?.map((model: any) => ({
 					...model,
 					name: model.required ? `${model.name}<span class="text-destructive">*</span> (required)` : model.name,
-				})) || [])
+				})) || []),
 			];
 
 			// Transform outputs to include models with "Changed" suffix
@@ -91,8 +91,10 @@ export class UIApiDocsComponent {
 				})) || []),
 				...(value.models?.map((model: any) => ({
 					...model,
-					name: model.required ? `${model.name}Changed<span class="text-destructive">*</span> (required)` : `${model.name}Changed`,
-				})) || [])
+					name: model.required
+						? `${model.name}Changed<span class="text-destructive">*</span> (required)`
+						: `${model.name}Changed`,
+				})) || []),
 			];
 
 			transformed[key] = {

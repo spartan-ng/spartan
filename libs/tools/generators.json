@@ -51,9 +51,9 @@
 			"description": "Generate a documentation page for a Helm component."
 		},
 		"generate-primitive-snippets": {
-      "factory": "./src/generators/generate-primitive-snippets/generator",
-      "schema": "./src/generators/generate-primitive-snippets/schema.json",
-      "description": "Extracts code parts from primitive example and preview components."
-    }
+			"factory": "./src/generators/generate-primitive-snippets/generator",
+			"schema": "./src/generators/generate-primitive-snippets/schema.json",
+			"description": "Extracts code parts from primitive example and preview components."
+		}
 	}
 }

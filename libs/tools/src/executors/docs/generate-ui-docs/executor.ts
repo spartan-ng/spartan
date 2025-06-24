@@ -1,10 +1,11 @@
-import { ExecutorContext } from '@nx/devkit';
+import { ExecutorContext, logger } from '@nx/devkit';
 import fs from 'fs';
 import path from 'path';
 import { CallExpression, ObjectLiteralExpression, Project, PropertyAssignment } from 'ts-morph';
 import { GenerateUiDocsExecutorSchema } from './schema';
 
 export default async function runExecutor(options: GenerateUiDocsExecutorSchema, context: ExecutorContext) {
+	logger.info('Generate UI Docs executor running...');
 	// Convert relative paths to absolute paths using workspace root
 	const brainDir = path.join(context.root, options.brainDir);
 	const helmDir = path.join(context.root, options.helmDir);

@@ -121,6 +121,13 @@ Our initial 300 contributors and sponsors are featured here and on the front pag
 102. [josueggh](https://www.github.com/josueggh)
 103. [namdien177](https://www.github.com/namdien177)
 104. [zelenchuk](https://www.github.com/zelenchuk)
+105. [a-malacarne](https://www.github.com/a-malacarne)
+106. [YasinKuralay](https://www.github.com/YasinKuralay)
+107. [nico13051995](https://www.github.com/nico13051995)
+108. [francotalarico](https://www.github.com/francotalarico)
+109. [koenigderluegner](https://www.github.com/koenigderluegner)
+110. [Turtl3e](https://www.github.com/Turtl3e)
+111. [minhnguyen120898](https://www.github.com/minhnguyen120898)
 
 [Become a spartan today!](https://github.com/sponsors/goetzrobin)
 

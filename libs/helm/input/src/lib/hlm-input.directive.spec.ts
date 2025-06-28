@@ -235,18 +235,8 @@ describe('HlmInputDirective', () => {
 			expect(directive.ngControl?.name).toBe('testField');
 		});
 
-		it('should have default size input', () => {
-			expect(directive.size()).toBe('default');
-		});
-
 		it('should have auto error input by default', () => {
 			expect(directive.error()).toBe('auto');
-		});
-
-		it('should update size input', async () => {
-			await r.rerender({ componentInputs: { size: 'lg' } });
-			r.fixture.detectChanges();
-			expect(directive.size()).toBe('lg');
 		});
 
 		it('should update error input', async () => {

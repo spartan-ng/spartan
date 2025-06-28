@@ -48,8 +48,8 @@ module.exports = {
 			},
 			borderRadius: {
 				sm: 'calc(var(--radius) - 4px)',
-				md: 'var(--radius)',
-				lg: 'calc(var(--radius) + 2px)',
+				md: 'calc(var(--radius) - 2px)',
+				lg: 'var(--radius)',
 				xl: 'calc(var(--radius) + 4px)',
 			},
 			boxShadow: {

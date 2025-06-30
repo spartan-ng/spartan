@@ -11,8 +11,9 @@ import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { calendarMultipleCode, CalendarMultipleExampleComponent } from './calendar--multiple.example';
-import { CalendarPreviewComponent, codeSkeleton, defaultCode, defaultImports } from './calendar.preview';
+import { CalendarMultipleExampleComponent } from './calendar--multiple.example';
+import { calendarMultipleCode, defaultCode } from './calendar.generated';
+import { CalendarPreviewComponent, defaultImports, defaultSkeleton } from './calendar.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Calendar', api: 'calendar' },
@@ -56,7 +57,7 @@ export const routeMeta: RouteMeta = {
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="space-y-4">
 				<spartan-code [code]="defaultImports" />
-				<spartan-code [code]="codeSkeleton" />
+				<spartan-code [code]="defaultSkeleton" />
 			</div>
 
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
@@ -96,6 +97,6 @@ export const routeMeta: RouteMeta = {
 export default class CardPageComponent {
 	protected readonly defaultCode = defaultCode;
 	protected readonly defaultImports = defaultImports;
-	protected readonly codeSkeleton = codeSkeleton;
+	protected readonly defaultSkeleton = defaultSkeleton;
 	protected readonly calendarMultipleCode = calendarMultipleCode;
 }

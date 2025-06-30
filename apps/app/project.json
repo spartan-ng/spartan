@@ -7,7 +7,7 @@
 	"implicitDependencies": [],
 	"targets": {
 		"build": {
-			"dependsOn": ["^build", "generate-ui-docs"],
+			"dependsOn": ["^build", "generate-docs-and-snippets"],
 			"executor": "@analogjs/platform:vite",
 			"outputs": [
 				"{options.outputPath}",
@@ -33,7 +33,7 @@
 			}
 		},
 		"serve": {
-			"dependsOn": ["generate-ui-docs"],
+			"dependsOn": ["generate-docs-and-snippets"],
 			"executor": "@analogjs/platform:vite-dev-server",
 			"defaultConfiguration": "development",
 			"options": {
@@ -79,6 +79,13 @@
 				"outputFile": "ui-api.json",
 				"brainDir": "libs/brain",
 				"helmDir": "libs/helm"
+			}
+		},
+		"generate-docs-and-snippets": {
+			"executor": "nx:run-commands",
+			"options": {
+				"commands": ["nx run app:generate-ui-docs", "npx nx generate @spartan-ng/tools:generate-primitive-snippets"],
+				"parallel": false
 			}
 		}
 	}

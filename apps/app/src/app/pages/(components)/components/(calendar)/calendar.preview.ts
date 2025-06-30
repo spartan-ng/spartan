@@ -22,31 +22,13 @@ export class CalendarPreviewComponent {
 	public maxDate = new Date(2030, 11, 31);
 }
 
-export const defaultCode = `
-@Component({
-	selector: 'spartan-calendar-preview',
-imports: [HlmCalendarComponent],
-	template: '<hlm-calendar [(date)]="selectedDate" [min]="minDate" [max]="maxDate" />',
-})
-export class CalendarPreviewComponent {
-	/** The selected date */
-	selectedDate = new Date();
-
-	/** The minimum date */
-	minDate = new Date(2023, 0, 1);
-
-	/** The maximum date */
-	maxDate = new Date(2030, 11, 31);
-}
-`;
-
 export const defaultImports = `
 import {
   HlmCalendarComponent,
 } from '@spartan-ng/helm/calendar';
 `;
 
-export const codeSkeleton = `
+export const defaultSkeleton = `
 <hlm-calendar
 	[(date)]="selectedDate"
 	[min]="minDate"

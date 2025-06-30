@@ -13,10 +13,11 @@ import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { SelectMultiplePreviewComponent, multipleCode } from './select--multiple.preview';
-import { SelectScrollablePreviewComponent, scrollableCode } from './select--scrollable.preview';
-import { SelectValueTemplatePreviewComponent, previewCode } from './select--value-template.preview';
-import { SelectPreviewComponent, defaultCode, defaultImports, defaultSkeleton, defaultStyles } from './select.preview';
+import { SelectMultiplePreviewComponent } from './select--multiple.preview';
+import { SelectScrollablePreviewComponent } from './select--scrollable.preview';
+import { SelectValueTemplatePreviewComponent } from './select--value-template.preview';
+import { defaultCode, selectMultipleCode, selectScrollableCode, selectValueTemplateCode } from './select.generated';
+import { SelectPreviewComponent, defaultImports, defaultSkeleton, defaultStyles } from './select.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Select', api: 'select' },
@@ -94,7 +95,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-select-value-template-preview />
 				</div>
-				<spartan-code secondTab [code]="previewCode" />
+				<spartan-code secondTab [code]="valueTemplateCode" />
 			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
@@ -110,7 +111,7 @@ export default class SkeletonPageComponent {
 	protected readonly defaultSkeleton = defaultSkeleton;
 	protected readonly defaultImports = defaultImports;
 	protected readonly defaultStyles = defaultStyles;
-	protected readonly multipleCode = multipleCode;
-	protected readonly scrollableCode = scrollableCode;
-	protected readonly previewCode = previewCode;
+	protected readonly multipleCode = selectMultipleCode;
+	protected readonly scrollableCode = selectScrollableCode;
+	protected readonly valueTemplateCode = selectValueTemplateCode;
 }

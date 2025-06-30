@@ -13,9 +13,10 @@ import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { SheetSidePreviewComponent, sideCode } from './sheet--side.preview';
-import { SheetClosePreviewComponent, defaultCloseCode } from './sheet-close.preview';
-import { SheetPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './sheet.preview';
+import { SheetSidePreviewComponent } from './sheet--side.preview';
+import { SheetClosePreviewComponent } from './sheet-close.preview';
+import { defaultCode, sheetCloseCode, sheetSideCode } from './sheet.generated';
+import { SheetPreviewComponent, defaultImports, defaultSkeleton } from './sheet.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Sheet', api: 'sheet' },
@@ -90,7 +91,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-sheet-close-preview />
 				</div>
-				<spartan-code secondTab [code]="defaultCloseCode" />
+				<spartan-code secondTab [code]="closeCode" />
 			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
@@ -105,6 +106,6 @@ export default class LabelPageComponent {
 	protected readonly defaultCode = defaultCode;
 	protected readonly defaultSkeleton = defaultSkeleton;
 	protected readonly defaultImports = defaultImports;
-	protected readonly sideCode = sideCode;
-	protected readonly defaultCloseCode = defaultCloseCode;
+	protected readonly sideCode = sheetSideCode;
+	protected readonly closeCode = sheetCloseCode;
 }

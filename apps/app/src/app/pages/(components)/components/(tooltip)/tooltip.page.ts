@@ -14,8 +14,9 @@ import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { TooltipSimpleComponent, simpleCode } from './tooltip--simple.example';
-import { TooltipPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './tooltip.preview';
+import { TooltipSimpleComponent } from './tooltip--simple.example';
+import { defaultCode, tooltipSimpleCode } from './tooltip.generated';
+import { TooltipPreviewComponent, defaultImports, defaultSkeleton } from './tooltip.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Tooltip', api: 'tooltip' },
@@ -77,13 +78,7 @@ export const routeMeta: RouteMeta = {
 			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__default" class="${hlmH4} mb-2 mt-6">Default</h3>
-			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div spartanCodePreview firstTab>
-					<spartan-tooltip-preview />
-				</div>
-				<spartan-code secondTab [code]="defaultCode" />
-			</spartan-tabs>
+
 			<h3 id="examples__simple" class="${hlmH4} mb-2 mt-6">Simple</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -104,5 +99,5 @@ export default class TooltipPageComponent {
 	protected readonly defaultCode = defaultCode;
 	protected readonly defaultSkeleton = defaultSkeleton;
 	protected readonly defaultImports = defaultImports;
-	protected readonly simpleCode = simpleCode;
+	protected readonly simpleCode = tooltipSimpleCode;
 }

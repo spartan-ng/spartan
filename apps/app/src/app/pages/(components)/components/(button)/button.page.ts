@@ -14,16 +14,28 @@ import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { ButtonAnchorComponent, anchorCode } from './button--anchor.example';
-import { ButtonDestructiveComponent, destructiveCode } from './button--destructive.example';
-import { ButtonGhostComponent, ghostCode } from './button--ghost.example';
-import { ButtonIconComponent, iconCode } from './button--icon.example';
-import { ButtonLinkComponent, linkCode } from './button--link.example';
-import { ButtonLoadingComponent, loadingCode } from './button--loading.example';
-import { ButtonOutlineComponent, outlineCode } from './button--outline.example';
-import { ButtonSecondaryComponent, secondaryCode } from './button--secondary.example';
-import { ButtonWithIconComponent, withIconCode } from './button--with-icon.example';
-import { ButtonPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './button.preview';
+import { ButtonAnchorComponent } from './button--anchor.example';
+import { ButtonDestructiveComponent } from './button--destructive.example';
+import { ButtonGhostComponent } from './button--ghost.example';
+import { ButtonIconComponent } from './button--icon.example';
+import { ButtonLinkComponent } from './button--link.example';
+import { ButtonLoadingComponent } from './button--loading.example';
+import { ButtonOutlineComponent } from './button--outline.example';
+import { ButtonSecondaryComponent } from './button--secondary.example';
+import { ButtonWithIconComponent } from './button--with-icon.example';
+import {
+	buttonAnchorCode,
+	buttonDestructiveCode,
+	buttonGhostCode,
+	buttonIconCode,
+	buttonLinkCode,
+	buttonLoadingCode,
+	buttonOutlineCode,
+	buttonSecondaryCode,
+	buttonWithIconCode,
+	defaultCode,
+} from './button.generated';
+import { ButtonPreviewComponent, defaultImports, defaultSkeleton } from './button.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Button', api: 'button' },
@@ -84,13 +96,6 @@ export const routeMeta: RouteMeta = {
 			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__default" class="${hlmH4} mb-2 mt-6">Default</h3>
-			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div spartanCodePreview firstTab>
-					<spartan-button-preview />
-				</div>
-				<spartan-code secondTab [code]="defaultCode" />
-			</spartan-tabs>
 			<h3 id="examples__secondary" class="${hlmH4} mb-2 mt-6">Secondary</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -168,13 +173,13 @@ export default class ButtonPageComponent {
 	protected readonly defaultSkeleton = defaultSkeleton;
 	protected readonly defaultImports = defaultImports;
 
-	protected readonly secondaryCode = secondaryCode;
-	protected readonly outlineCode = outlineCode;
-	protected readonly destructiveCode = destructiveCode;
-	protected readonly ghostCode = ghostCode;
-	protected readonly linkCode = linkCode;
-	protected readonly iconCode = iconCode;
-	protected readonly withIconCode = withIconCode;
-	protected readonly loadingCode = loadingCode;
-	protected readonly anchorCode = anchorCode;
+	protected readonly secondaryCode = buttonSecondaryCode;
+	protected readonly outlineCode = buttonOutlineCode;
+	protected readonly destructiveCode = buttonDestructiveCode;
+	protected readonly ghostCode = buttonGhostCode;
+	protected readonly linkCode = buttonLinkCode;
+	protected readonly iconCode = buttonIconCode;
+	protected readonly withIconCode = buttonWithIconCode;
+	protected readonly loadingCode = buttonLoadingCode;
+	protected readonly anchorCode = buttonAnchorCode;
 }

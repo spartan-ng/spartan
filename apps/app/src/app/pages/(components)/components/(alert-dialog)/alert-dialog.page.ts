@@ -13,7 +13,8 @@ import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { AlertDialogPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './alert-dialog.preview';
+import { defaultCode } from './alert-dialog.generated';
+import { AlertDialogPreviewComponent, defaultImports, defaultSkeleton } from './alert-dialog.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Alert Dialog', api: 'alert-dialog' },

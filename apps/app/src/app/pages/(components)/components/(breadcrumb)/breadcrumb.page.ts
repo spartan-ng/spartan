@@ -13,18 +13,16 @@ import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
+import { BreadcrumbCollapsedComponent } from './breadcrumb--collapsed.example';
+import { BreadcrumbCustomSeparatorComponent } from './breadcrumb--custom-separator.example';
+import { BreadcrumbDropdownComponent } from './breadcrumb--dropdown.example';
 import {
-	BreadcrumbCollapsedComponent,
 	breadcrumbCollapsedCode,
-	breadcrumbCollapsedSkeleton,
-} from './breadcrumb--collapsed.example';
-import {
-	BreadcrumbCustomSeparatorComponent,
 	breadcrumbCustomSeparatorCode,
-	breadcrumbCustomSeparatorSkeleton,
-} from './breadcrumb--custom-separator.example';
-import { BreadcrumbDropdownComponent, breadcrumbDropdownCode } from './breadcrumb--dropdown.example';
-import { BreadcrumbPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './breadcrumb.preview';
+	breadcrumbDropdownCode,
+	defaultCode,
+} from './breadcrumb.generated';
+import { BreadcrumbPreviewComponent, defaultImports, defaultSkeleton } from './breadcrumb.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Breadcrumb', api: 'breadcrumb' },
@@ -94,9 +92,6 @@ export const routeMeta: RouteMeta = {
 				</div>
 				<spartan-code secondTab [code]="customSeparatorCode" />
 			</spartan-tabs>
-			<div class="mt-6">
-				<spartan-code [code]="customSeparatorSkeleton" />
-			</div>
 
 			<hr class="my-4 md:my-8" />
 
@@ -114,9 +109,6 @@ export const routeMeta: RouteMeta = {
 				</div>
 				<spartan-code secondTab [code]="dropdownCode" />
 			</spartan-tabs>
-			<div class="mt-6">
-				<spartan-code [code]="dropdownSkeleton" />
-			</div>
 
 			<hr class="my-4 md:my-8" />
 
@@ -132,9 +124,6 @@ export const routeMeta: RouteMeta = {
 				</div>
 				<spartan-code secondTab [code]="collapsedCode" />
 			</spartan-tabs>
-			<div class="mt-6">
-				<spartan-code [code]="collapsedSkeleton" />
-			</div>
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="button" label="Button" />
 				<spartan-page-bottom-nav-link direction="previous" href="badge" label="Badge" />
@@ -149,9 +138,6 @@ export default class BreadcrumbPageComponent {
 	protected readonly defaultSkeleton = defaultSkeleton;
 
 	protected readonly customSeparatorCode = breadcrumbCustomSeparatorCode;
-	protected readonly customSeparatorSkeleton = breadcrumbCustomSeparatorSkeleton;
 	protected readonly dropdownCode = breadcrumbDropdownCode;
-	protected readonly dropdownSkeleton = breadcrumbCollapsedSkeleton;
 	protected readonly collapsedCode = breadcrumbCollapsedCode;
-	protected readonly collapsedSkeleton = breadcrumbCollapsedSkeleton;
 }

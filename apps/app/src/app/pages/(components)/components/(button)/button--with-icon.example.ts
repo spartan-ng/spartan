@@ -16,24 +16,3 @@ import { HlmIconDirective } from '@spartan-ng/helm/icon';
 	`,
 })
 export class ButtonWithIconComponent {}
-
-export const withIconCode = `
-import { Component } from '@angular/core';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
-import { provideIcons } from '@ng-icons/core';
-import { lucideMail } from '@ng-icons/lucide';
-
-@Component({
-  selector: 'spartan-button-with-icon',
-imports: [HlmButtonDirective, HlmIconDirective],
-  providers: [provideIcons({ lucideMail })],
-  template: \`
-    <button hlmBtn>
-      <ng-icon hlm size="sm" class="mr-2" name="lucideMail" />
-      Login with Email
-    </button>
-  \`,
-})
-export class ButtonWithIconComponent {}
-`;

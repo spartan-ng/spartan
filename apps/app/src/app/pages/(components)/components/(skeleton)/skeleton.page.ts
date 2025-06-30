@@ -12,7 +12,8 @@ import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { SkeletonPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './skeleton.preview';
+import { defaultCode } from './skeleton.generated';
+import { SkeletonPreviewComponent, defaultImports, defaultSkeleton } from './skeleton.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Skeleton', api: 'skeleton' },

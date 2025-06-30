@@ -22,11 +22,18 @@ import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { DialogClosePreviewComponent, defaultCloseCode } from './dialog-close.preview';
-import { DialogContextMenuPreviewComponent, contextMenuCode } from './dialog-context-menu.preview';
-import { DialogDeclarativePreviewComponent, declarativeCode } from './dialog-declarative.preview';
-import { DialogDynamicComponentPreviewComponent, dynamicComponentCode } from './dialog-dynamic-component.preview';
-import { DialogPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './dialog.preview';
+import { DialogClosePreviewComponent } from './dialog-close.preview';
+import { DialogContextMenuPreviewComponent } from './dialog-context-menu.preview';
+import { DialogDeclarativePreviewComponent } from './dialog-declarative.preview';
+import { DialogDynamicComponentPreviewComponent } from './dialog-dynamic-component.preview';
+import {
+	defaultCode,
+	dialogCloseCode,
+	dialogContextMenuCode,
+	dialogDeclarativeCode,
+	dialogDynamicComponentCode,
+} from './dialog.generated';
+import { DialogPreviewComponent, defaultImports, defaultSkeleton } from './dialog.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Dialog', api: 'dialog' },
@@ -198,8 +205,8 @@ export default class DialogPageComponent {
 	protected readonly defaultCode = defaultCode;
 	protected readonly defaultSkeleton = defaultSkeleton;
 	protected readonly defaultImports = defaultImports;
-	protected readonly contextMenuCode = contextMenuCode;
-	protected readonly dynamicComponentCode = dynamicComponentCode;
-	protected readonly declarativeCode = declarativeCode;
-	protected readonly defaultCloseCode = defaultCloseCode;
+	protected readonly contextMenuCode = dialogContextMenuCode;
+	protected readonly dynamicComponentCode = dialogDynamicComponentCode;
+	protected readonly declarativeCode = dialogDeclarativeCode;
+	protected readonly defaultCloseCode = dialogCloseCode;
 }

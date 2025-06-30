@@ -5,10 +5,11 @@ import * as lucideIcons from '@ng-icons/lucide';
 import { HlmIconDirective } from '@spartan-ng/helm/icon';
 import { HlmInputDirective } from '@spartan-ng/helm/input';
 
-import { IconPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from '../(icon)/icon.preview';
+import { IconPreviewComponent, defaultImports, defaultSkeleton } from '../(icon)/icon.preview';
 import { CodePreviewDirective } from '../../../../shared/code/code-preview.directive';
 import { CodeComponent } from '../../../../shared/code/code.component';
 import { MainSectionDirective } from '../../../../shared/layout/main-section.directive';
+import { defaultCode } from './icon.generated';
 
 import { PageBottomNavLinkComponent } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav-link.component';
 import { PageBottomNavComponent } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav.component';

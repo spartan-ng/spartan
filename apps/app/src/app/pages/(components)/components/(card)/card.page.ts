@@ -13,8 +13,9 @@ import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { CardNotificationsComponent, cardNotificationsCode } from './card--notifications.example';
-import { CardPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './card.preview';
+import { CardNotificationsComponent } from './card--notifications.example';
+import { cardNotificationsCode, defaultCode } from './card.generated';
+import { CardPreviewComponent, defaultImports, defaultSkeleton } from './card.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Card', api: 'card' },

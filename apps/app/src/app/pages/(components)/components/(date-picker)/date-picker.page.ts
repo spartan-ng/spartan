@@ -14,12 +14,20 @@ import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { link } from '../../../../shared/typography/link';
-import { datePickerConfigCode, DatePickerConfigExampleComponent } from './date-picker--config.example';
-import { datePickerFormMultipleCode, DatePickerFormMultipleExampleComponent } from './date-picker--form-multi.example';
-import { datePickerFormCode, DatePickerFormExampleComponent } from './date-picker--form.example';
-import { datePickerFormatCode, DatePickerFormatExampleComponent } from './date-picker--format.example';
-import { datePickerMultipleCode, DatePickerMultipleExampleComponent } from './date-picker--multi.example';
-import { codeSkeleton, DatePickerPreviewComponent, defaultCode, defaultImports } from './date-picker.preview';
+import { DatePickerConfigExampleComponent } from './date-picker--config.example';
+import { DatePickerFormMultipleExampleComponent } from './date-picker--form-multi.example';
+import { DatePickerFormExampleComponent } from './date-picker--form.example';
+import { DatePickerFormatExampleComponent } from './date-picker--format.example';
+import { DatePickerMultipleExampleComponent } from './date-picker--multi.example';
+import {
+	datePickerConfigCode,
+	datePickerFormatCode,
+	datePickerFormCode,
+	datePickerFormMultiCode,
+	datePickerMultiCode,
+	defaultCode,
+} from './date-picker.generated';
+import { DatePickerPreviewComponent, defaultImports, defaultSkeleton } from './date-picker.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Date Picker', api: 'date-picker' },
@@ -190,10 +198,10 @@ export const routeMeta: RouteMeta = {
 export default class CardPageComponent {
 	protected readonly defaultCode = defaultCode;
 	protected readonly defaultImports = defaultImports;
-	protected readonly codeSkeleton = codeSkeleton;
+	protected readonly codeSkeleton = defaultSkeleton;
 	protected readonly datePickerConfigCode = datePickerConfigCode;
 	protected readonly datePickerFormCode = datePickerFormCode;
-	protected readonly datePickerFormMultipleCode = datePickerFormMultipleCode;
+	protected readonly datePickerFormMultipleCode = datePickerFormMultiCode;
 	protected readonly datePickerFormatCode = datePickerFormatCode;
-	protected readonly datePickerMultipleCode = datePickerMultipleCode;
+	protected readonly datePickerMultipleCode = datePickerMultiCode;
 }

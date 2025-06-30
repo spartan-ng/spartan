@@ -12,7 +12,8 @@ import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { LabelPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './label.preview';
+import { defaultCode } from './label.generated';
+import { LabelPreviewComponent, defaultImports, defaultSkeleton } from './label.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Label', api: 'label' },

@@ -13,7 +13,8 @@ import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { AspectRatioPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './aspect-ratio.preview';
+import { defaultCode } from './aspect-ratio.generated';
+import { AspectRatioPreviewComponent, defaultImports, defaultSkeleton } from './aspect-ratio.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Aspect Ratio', api: 'aspect-ratio' },

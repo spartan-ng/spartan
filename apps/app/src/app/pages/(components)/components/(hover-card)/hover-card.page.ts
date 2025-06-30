@@ -13,7 +13,8 @@ import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { HoverCardPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './hover-card.preview';
+import { defaultCode } from './hover-card.generated';
+import { HoverCardPreviewComponent, defaultImports, defaultSkeleton } from './hover-card.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Hover Card', api: 'hover-card' },

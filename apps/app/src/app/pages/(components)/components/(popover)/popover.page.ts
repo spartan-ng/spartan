@@ -12,7 +12,8 @@ import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { PopoverPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './popover.preview';
+import { defaultCode } from './popover.generated';
+import { PopoverPreviewComponent, defaultImports, defaultSkeleton } from './popover.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Popover', api: 'popover' },

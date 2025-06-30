@@ -12,11 +12,13 @@ import { TabsCliComponent } from '@spartan-ng/app/app/shared/layout/tabs-cli.com
 import { TabsComponent } from '@spartan-ng/app/app/shared/layout/tabs.component';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
 import { hlmH4 } from '@spartan-ng/helm/typography';
-import { ToggleGroupDisabledPreviewComponent, disabledCode } from './toggle-group--disabled.preview';
-import { ToggleGroupLargePreviewComponent, largeCode } from './toggle-group--large.preview';
-import { ToggleGroupOutlinePreviewComponent, outlineCode } from './toggle-group--outline.preview';
-import { ToggleGroupSmallPreviewComponent, smallCode } from './toggle-group--small.preview';
-import { ToggleGroupPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './toggle-group.preview';
+import { toggleDisabledCode, toggleLargeCode, toggleOutlineCode, toggleSmallCode } from '../(toggle)/toggle.generated';
+import { ToggleGroupDisabledPreviewComponent } from './toggle-group--disabled.preview';
+import { ToggleGroupLargePreviewComponent } from './toggle-group--large.preview';
+import { ToggleGroupOutlinePreviewComponent } from './toggle-group--outline.preview';
+import { ToggleGroupSmallPreviewComponent } from './toggle-group--small.preview';
+import { defaultCode } from './toggle-group.generated';
+import { ToggleGroupPreviewComponent, defaultImports, defaultSkeleton } from './toggle-group.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Toggle Group' },
@@ -71,14 +73,6 @@ export const routeMeta: RouteMeta = {
 			</div>
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__default" class="${hlmH4} mb-2 mt-6">Default</h3>
-			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div spartanCodePreview firstTab>
-					<spartan-toggle-group-preview />
-				</div>
-				<spartan-code secondTab [code]="defaultCode" />
-			</spartan-tabs>
-
 			<h3 id="examples__outline" class="${hlmH4} mb-2 mt-6">Outline</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -124,8 +118,8 @@ export default class ToggleGroupPageComponent {
 	protected readonly defaultCode = defaultCode;
 	protected readonly defaultImports = defaultImports;
 	protected readonly defaultSkeleton = defaultSkeleton;
-	protected readonly outlineCode = outlineCode;
-	protected readonly smallCode = smallCode;
-	protected readonly largeCode = largeCode;
-	protected readonly disabledCode = disabledCode;
+	protected readonly outlineCode = toggleOutlineCode;
+	protected readonly smallCode = toggleSmallCode;
+	protected readonly largeCode = toggleLargeCode;
+	protected readonly disabledCode = toggleDisabledCode;
 }

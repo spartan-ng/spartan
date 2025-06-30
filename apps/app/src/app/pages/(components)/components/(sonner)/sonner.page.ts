@@ -14,7 +14,8 @@ import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { link } from '../../../../shared/typography/link';
-import { SonnerPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './sonner.preview';
+import { defaultCode } from './sonner.generated';
+import { SonnerPreviewComponent, defaultImports, defaultSkeleton } from './sonner.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Sonner', api: 'sonner' },
@@ -39,7 +40,7 @@ export const routeMeta: RouteMeta = {
 	],
 	template: `
 		<section spartanMainSection>
-			<spartan-section-intro name="Sonner" lead="An opinionated toast component for Angular." />
+			<spartan-section-intro name="Sonner" lead="An opin./ionated toast component for Angular." />
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>

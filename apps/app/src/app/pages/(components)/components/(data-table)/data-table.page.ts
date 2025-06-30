@@ -15,7 +15,8 @@ import { SectionSubHeadingComponent } from '../../../../shared/layout/section-su
 import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { DataTablePreviewComponent, defaultCode } from './data-table.preview';
+import { defaultCode } from './data-table.generated';
+import { DataTablePreviewComponent } from './data-table.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Data Table' },

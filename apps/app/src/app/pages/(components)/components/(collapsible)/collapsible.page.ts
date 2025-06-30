@@ -13,7 +13,8 @@ import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { CollapsiblePreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './collapsible.preview';
+import { defaultCode } from './collapsible.generated';
+import { CollapsiblePreviewComponent, defaultImports, defaultSkeleton } from './collapsible.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Collapsible', api: 'collapsible' },

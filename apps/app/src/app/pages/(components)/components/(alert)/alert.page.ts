@@ -14,8 +14,9 @@ import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { AlertDestructiveComponent, destructiveCode } from './alert--destructive.example';
-import { AlertPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './alert.preview';
+import { AlertDestructiveComponent } from './alert--destructive.example';
+import { alertDestructiveCode, defaultCode } from './alert.generated';
+import { AlertPreviewComponent, defaultImports, defaultSkeleton } from './alert.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Alert', api: 'alert' },
@@ -89,6 +90,5 @@ export default class AlertPageComponent {
 	public readonly defaultCode = defaultCode;
 	public readonly defaultSkeleton = defaultSkeleton;
 	public readonly defaultImports = defaultImports;
-
-	public readonly destructiveCode = destructiveCode;
+	public readonly destructiveCode = alertDestructiveCode;
 }

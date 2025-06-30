@@ -9,15 +9,3 @@ import { HlmButtonDirective } from '@spartan-ng/helm/button';
 	`,
 })
 export class ButtonSecondaryComponent {}
-
-export const secondaryCode = `
-import { Component } from '@angular/core';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
-
-@Component({
-  selector: 'spartan-button-secondary',
-imports: [HlmButtonDirective],
-  template: \`
-    <button hlmBtn variant='secondary'>Secondary</button> \`,})
-export class ButtonSecondaryComponent {}
-`;

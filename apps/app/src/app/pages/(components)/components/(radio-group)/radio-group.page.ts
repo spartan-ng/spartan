@@ -13,8 +13,9 @@ import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { cardCode, RadioGroupCardComponent } from './radio-group--card.example';
-import { defaultCode, defaultImports, defaultSkeleton, RadioGroupPreviewComponent } from './radio-group.preview';
+import { RadioGroupCardComponent } from './radio-group--card.example';
+import { defaultCode, radioGroupCardCode } from './radio-group.generated';
+import { defaultImports, defaultSkeleton, RadioGroupPreviewComponent } from './radio-group.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Radio Group', api: 'radio-group' },
@@ -97,5 +98,5 @@ export default class LabelPageComponent {
 	protected readonly defaultSkeleton = defaultSkeleton;
 	protected readonly defaultImports = defaultImports;
 
-	protected readonly cardCode = cardCode;
+	protected readonly cardCode = radioGroupCardCode;
 }

@@ -18,26 +18,6 @@ import { HlmIconDirective } from '@spartan-ng/helm/icon';
 })
 export class AlertPreviewComponent {}
 
-export const defaultCode = `import { Component } from '@angular/core';
-import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideCircleCheck } from '@ng-icons/lucide';
-import { HlmAlertImports } from '@spartan-ng/helm/alert';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
-
-@Component({
-	selector: 'spartan-alert-preview',
-	imports: [HlmAlertImports, NgIcon, HlmIconDirective],
-	providers: [provideIcons({ lucideCircleCheck })],
-	template: \`
-		<div hlmAlert>
-			<ng-icon hlm hlmAlertIcon name="lucideCircleCheck" />
-			<h4 hlmAlertTitle>Success! Your changes have been saved</h4>
-			<p hlmAlertDescription>This is an alert with icon, title and description.</p>
-		</div>
-	\`,
-})
-export class AlertPreviewComponent {}`;
-
 export const defaultImports = `
 import {
   HlmAlertDescriptionDirective,

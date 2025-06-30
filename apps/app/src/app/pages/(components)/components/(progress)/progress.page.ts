@@ -13,8 +13,9 @@ import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { ProgressIndeterminatePreviewComponent, indeterminateCode } from './progress--indeterminate.preview';
-import { ProgressPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './progress.preview';
+import { ProgressIndeterminatePreviewComponent } from './progress--indeterminate.preview';
+import { defaultCode, progressIndeterminateCode } from './progress.generated';
+import { ProgressPreviewComponent, defaultImports, defaultSkeleton } from './progress.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Progress', api: 'progress' },
@@ -75,13 +76,7 @@ export const routeMeta: RouteMeta = {
 			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__default" class="${hlmH4} mb-2 mt-6">Default</h3>
-			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div spartanCodePreview firstTab>
-					<spartan-progress-preview />
-				</div>
-				<spartan-code secondTab [code]="defaultCode" />
-			</spartan-tabs>
+
 			<h3 id="examples__indeterminate" class="${hlmH4} mb-2 mt-6">Indeterminate</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -102,5 +97,5 @@ export default class LabelPageComponent {
 	protected readonly defaultCode = defaultCode;
 	protected readonly defaultSkeleton = defaultSkeleton;
 	protected readonly defaultImports = defaultImports;
-	protected readonly indeterminateCode = indeterminateCode;
+	protected readonly indeterminateCode = progressIndeterminateCode;
 }

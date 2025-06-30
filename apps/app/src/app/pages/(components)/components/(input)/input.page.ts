@@ -13,11 +13,12 @@ import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { InputButtonPreviewComponent, buttonCode } from './input--button.preview';
-import { InputDisabledPreviewComponent, disabledCode } from './input--disabled.preview';
-import { InputFilePreviewComponent, fileCode } from './input--file.preview';
-import { InputLabelPreviewComponent, labelCode } from './input--label.preview';
-import { InputPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './input.preview';
+import { InputButtonPreviewComponent } from './input--button.preview';
+import { InputDisabledPreviewComponent } from './input--disabled.preview';
+import { InputFilePreviewComponent } from './input--file.preview';
+import { InputLabelPreviewComponent } from './input--label.preview';
+import { defaultCode, inputButtonCode, inputDisabledCode, inputFileCode, inputLabelCode } from './input.generated';
+import { InputPreviewComponent, defaultImports, defaultSkeleton } from './input.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Input', api: 'input' },
@@ -78,13 +79,6 @@ export const routeMeta: RouteMeta = {
 			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__default" class="${hlmH4} mb-2 mt-6">Default</h3>
-			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div spartanCodePreview firstTab>
-					<spartan-input-preview />
-				</div>
-				<spartan-code secondTab [code]="defaultCode" />
-			</spartan-tabs>
 			<h3 id="examples__file" class="${hlmH4} mb-2 mt-6">File</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -126,8 +120,8 @@ export default class InputPageComponent {
 	protected readonly defaultCode = defaultCode;
 	protected readonly defaultSkeleton = defaultSkeleton;
 	protected readonly defaultImports = defaultImports;
-	protected readonly fileCode = fileCode;
-	protected readonly disabledCode = disabledCode;
-	protected readonly labelCode = labelCode;
-	protected readonly buttonCode = buttonCode;
+	protected readonly fileCode = inputFileCode;
+	protected readonly disabledCode = inputDisabledCode;
+	protected readonly labelCode = inputLabelCode;
+	protected readonly buttonCode = inputButtonCode;
 }

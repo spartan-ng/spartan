@@ -12,7 +12,8 @@ import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { SeparatorPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './separator.preview';
+import { defaultCode } from './separator.generated';
+import { SeparatorPreviewComponent, defaultImports, defaultSkeleton } from './separator.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Separator', api: 'separator' },

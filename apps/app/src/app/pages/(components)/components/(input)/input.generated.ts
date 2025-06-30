@@ -33,12 +33,12 @@ import { HlmButtonDirective } from '@spartan-ng/helm/button';
 @Component({
   selector: 'spartan-input-button',
 imports: [HlmInputDirective, HlmButtonDirective],
-  template: \\`
+  template: \`
     <div class='flex items-center w-full max-w-sm space-x-2'>
       <input aria-label='Email' class='w-80' hlmInput type='email' placeholder='Email' />
       <button hlmBtn variant="outline">Subscribe</button>
     </div>
-  \\`,
+  \`,
 })
 export class InputButtonPreviewComponent {}
 
@@ -98,12 +98,12 @@ import { HlmLabelDirective } from '@spartan-ng/helm/label';
 @Component({
 	selector: 'spartan-input-label',
 	imports: [HlmInputDirective, HlmLabelDirective],
-	template: \\`
+	template: \`
 		<div class="grid w-full max-w-sm items-center gap-3">
 			<label for="email" hlmLabel>Email</label>
 			<input hlmInput type="email" id="email" placeholder="Email" />
 		</div>
-	\\`,
+	\`,
 })
 export class InputLabelPreviewComponent {}
 \`;

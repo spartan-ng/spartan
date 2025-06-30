@@ -80,9 +80,9 @@ import { lucideChevronRight } from '@ng-icons/lucide';
   selector: 'spartan-button-icon',
 imports: [HlmButtonDirective, HlmSpinnerComponent, HlmIconDirective],
   providers: [provideIcons({ lucideChevronRight })],
-  template: \\` <button hlmBtn size="icon" variant="secondary" class="size-8">
+  template: \` <button hlmBtn size="icon" variant="secondary" class="size-8">
 		<ng-icon hlm size='sm' name="lucideChevronRight" />
-	</button> \\`,
+	</button> \`,
 })
 export class ButtonIconComponent {}
 \`;
@@ -134,9 +134,9 @@ import { lucideLoaderCircle } from '@ng-icons/lucide';
   selector: 'spartan-button-loading',
 imports: [HlmButtonDirective, HlmSpinnerComponent, HlmIconDirective],
   providers: [provideIcons({ lucideLoaderCircle })],
-  template: \\`
+  template: \`
     <button disabled hlmBtn size="sm"><ng-icon hlm name="lucideLoaderCircle" size="sm" class="animate-spin" /> Please wait</button>
-  \\`,
+  \`,
 })
 export class ButtonLoadingComponent {}
 \`;
@@ -201,12 +201,12 @@ import { lucideGitBranch } from '@ng-icons/lucide';
   selector: 'spartan-button-with-icon',
   imports: [HlmButtonDirective, HlmIconDirective],
   providers: [provideIcons({ lucideGitBranch })],
-  template: \\`
+  template: \`
     <button hlmBtn variant="outline" size="sm">
       <ng-icon hlm size="sm" name="lucideGitBranch" />
       New Branch
     </button>
-  \\`,
+  \`,
 })
 export class ButtonWithIconComponent {}
 \`;

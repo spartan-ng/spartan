@@ -108,7 +108,7 @@ imports: [
     HlmLabelDirective,
   ],
   providers: [provideIcons({ lucideCross })],
-  template: \\`
+  template: \`
     <hlm-sheet>
       <div class="grid grid-cols-2 gap-2">
         <button id="left" variant="outline" brnSheetTrigger side="left" hlmBtn>left</button>
@@ -136,7 +136,7 @@ imports: [
         </hlm-sheet-footer>
       </hlm-sheet-content>
     </hlm-sheet>
-  \\`,
+  \`,
 })
 export class SheetSidePreviewComponent {}
 \`;

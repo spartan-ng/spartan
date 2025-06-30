@@ -200,7 +200,7 @@ imports: [
     HlmMenuComponent,
     HlmMenuGroupComponent,
   ],
-  template: \\`
+  template: \`
     <div
       [brnCtxMenuTriggerFor]="menu"
       class="border-border flex h-[150px] w-[300px] items-center justify-center rounded-md border border-dashed text-sm"
@@ -243,7 +243,7 @@ imports: [
         </hlm-menu-group>
       </hlm-menu>
     </ng-template>
-  \\`,
+  \`,
 })
 export class DialogContextMenuPreviewComponent {
   protected readonly _hlmMenuItemClasses = hlmMenuItemVariants({ inset: true });

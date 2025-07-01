@@ -86,9 +86,6 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
-      colorjs.io:
-        specifier: ^0.5.2
-        version: 0.5.2
       drizzle-orm:
         specifier: ^0.33.0
         version: 0.33.0(@types/react@18.3.23)(postgres@3.4.7)(react@19.1.0)

@@ -52,8 +52,8 @@ exports[`Theme generator Tailwind v3 should add the gray theme styles to the glo
 --accent: 214.98deg 31% 16.95%;
 --accent-foreground: 344.54deg 18.99% 98.19%;
 --destructive: 358.76deg 100% 69.84%;
---border: 0deg 0% 100% / 10%;
---input: 0deg 0% 100% / 15%;
+--border: 0deg 0% 13.73%;
+--input: 0deg 0% 18.43%;
 --ring: 219.99deg 10.27% 46.3%;
 }
 
@@ -116,8 +116,8 @@ exports[`Theme generator Tailwind v3 should add the neutral theme styles to the 
 --accent: 0deg 0% 14.9%;
 --accent-foreground: 0deg 0.5% 98.03%;
 --destructive: 358.76deg 100% 69.84%;
---border: 0deg 0% 100% / 10%;
---input: 0deg 0% 100% / 15%;
+--border: 0deg 0% 13.73%;
+--input: 0deg 0% 18.43%;
 --ring: 0deg 0.01% 45.16%;
 }
 
@@ -180,8 +180,8 @@ exports[`Theme generator Tailwind v3 should add the slate theme styles to the gl
 --accent: 217.27deg 36.08% 17.54%;
 --accent-foreground: 344.69deg 27.87% 98.13%;
 --destructive: 358.76deg 100% 69.84%;
---border: 0deg 0% 100% / 10%;
---input: 0deg 0% 100% / 15%;
+--border: 0deg 0% 13.73%;
+--input: 0deg 0% 18.43%;
 --ring: 219.99deg 10.27% 46.3%;
 }
 
@@ -244,8 +244,8 @@ exports[`Theme generator Tailwind v3 should add the stone theme styles to the gl
 --accent: 344.41deg 5.76% 15.22%;
 --accent-foreground: 344deg 8.87% 98.11%;
 --destructive: 358.76deg 100% 69.84%;
---border: 0deg 0% 100% / 10%;
---input: 0deg 0% 100% / 15%;
+--border: 0deg 0% 13.73%;
+--input: 0deg 0% 18.43%;
 }
 
 @layer base {
@@ -307,8 +307,8 @@ exports[`Theme generator Tailwind v3 should add the zinc theme styles to the glo
 --accent: 344.51deg 4.81% 15.74%;
 --accent-foreground: 0deg 0.5% 98.03%;
 --destructive: 358.76deg 100% 69.84%;
---border: 0deg 0% 100% / 10%;
---input: 0deg 0% 100% / 15%;
+--border: 0deg 0% 13.73%;
+--input: 0deg 0% 18.43%;
 --ring: 239.97deg 4.41% 46.34%;
 }
 

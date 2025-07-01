@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NgIcon, provideIcons } from '@ng-icons/core';
+import { provideIcons } from '@ng-icons/core';
 import {
 	lucideCircleHelp,
 	lucideCirclePlus,
@@ -18,12 +18,10 @@ import {
 } from '@ng-icons/lucide';
 import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
 import { HlmButtonDirective } from '@spartan-ng/helm/button';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
 import {
 	HlmMenuComponent,
 	HlmMenuGroupComponent,
 	HlmMenuItemDirective,
-	HlmMenuItemIconDirective,
 	HlmMenuItemSubIndicatorComponent,
 	HlmMenuLabelComponent,
 	HlmMenuSeparatorComponent,
@@ -42,11 +40,8 @@ import {
 		HlmMenuLabelComponent,
 		HlmMenuShortcutComponent,
 		HlmMenuSeparatorComponent,
-		HlmMenuItemIconDirective,
 		HlmMenuGroupComponent,
 		HlmButtonDirective,
-		NgIcon,
-		HlmIconDirective,
 	],
 	providers: [
 		provideIcons({

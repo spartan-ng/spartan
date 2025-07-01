@@ -59,7 +59,7 @@ export function addThemeToApplicationStyles(
      --font-sans: ''
      }`;
 
-	const colorScheme = tailwindVersion === 4 ? themes[options.theme].cssVarsV4 : themes[options.theme].cssVars;
+	const colorScheme = tailwindVersion === 4 ? themes[options.theme].cssVarsV4 : themes[options.theme].cssVarsV3;
 
 	tree.write(
 		stylesEntryPoint,
@@ -71,13 +71,13 @@ export function addThemeToApplicationStyles(
 
     ${rootFontSans}
 
-		.root${prefix} {
+		:root${prefix} {
 			${Object.entries(colorScheme.light)
 				.map(([key, value]) => `--${key}: ${value};`)
 				.join('\n')}
 		}
 
-		.dark${prefix} {
+		:root.dark${prefix} {
 			${Object.entries(colorScheme.dark)
 				.map(([key, value]) => `--${key}: ${value};`)
 				.join('\n')}

@@ -167,10 +167,10 @@ export class HlmCalendarComponent<T> {
 
 	protected readonly btnClass = hlm(
 		buttonVariants({ variant: 'ghost' }),
-		'h-9 w-9 p-0 font-normal aria-selected:opacity-100',
+		'size-8 p-0 font-normal aria-selected:opacity-100',
 		'data-[outside]:text-muted-foreground data-[outside]:opacity-50 data-[outside]:aria-selected:bg-accent/50 data-[outside]:aria-selected:text-muted-foreground data-[outside]:aria-selected:opacity-30',
 		'data-[today]:bg-accent data-[today]:text-accent-foreground',
-		'data-[selected]:bg-primary data-[selected]:text-primary-foreground data-[selected]:hover:bg-primary data-[selected]:hover:text-primary-foreground data-[selected]:focus:bg-primary data-[selected]:focus:text-primary-foreground',
+		'data-[selected]:bg-primary data-[selected]:text-primary-foreground data-[selected]:hover:bg-primary data-[selected]:hover:text-accent-foreground data-[selected]:focus:bg-primary data-[selected]:focus:text-primary-foreground',
 		'data-[disabled]:text-muted-foreground data-[disabled]:opacity-50',
 	);
 }

@@ -19,6 +19,7 @@ module.exports = {
 				'card',
 				'carousel',
 				'checkbox',
+				'cli',
 				'collapsible',
 				'combobox',
 				'command',

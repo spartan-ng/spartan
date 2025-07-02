@@ -5,6 +5,7 @@ import {
 	computed,
 	Directive,
 	ElementRef,
+	forwardRef,
 	inject,
 	input,
 	linkedSignal,
@@ -25,7 +26,7 @@ import { provideBrnSlider } from './brn-slider.token';
 		provideBrnSlider(BrnSliderDirective),
 		{
 			provide: NG_VALUE_ACCESSOR,
-			useExisting: BrnSliderDirective,
+			useExisting: forwardRef(() => BrnSliderDirective),
 			multi: true,
 		},
 	],

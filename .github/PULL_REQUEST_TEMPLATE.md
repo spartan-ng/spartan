@@ -3,7 +3,7 @@
 Please check if your PR fulfills the following requirements:
 
 - [ ] The commit message follows our
-      guidelines: https://github.com/goetzrobin/spartan/blob/main/CONTRIBUTING.md#-commit-message-guidelines
+      guidelines: https://github.com/spartan-ng/spartan/blob/main/CONTRIBUTING.md#-commit-message-guidelines
 - [ ] Tests for the changes have been added (for bug fixes / features)
 - [ ] Docs have been added / updated (for bug fixes / features)
 
@@ -23,6 +23,8 @@ What kind of change does this PR introduce?
 - [ ] Other... Please describe:
 
 ## Which package are you modifying?
+
+### Primitives
 
 - [ ] accordion
 - [ ] alert
@@ -72,6 +74,13 @@ What kind of change does this PR introduce?
 - [ ] toggle-group
 - [ ] tooltip
 - [ ] typography
+
+### Others
+
+- [ ] trpc
+- [ ] nx
+- [ ] repo
+- [ ] cli
 
 ## What is the current behavior?
 

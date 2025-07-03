@@ -1,7 +1,7 @@
 import { Component, computed, inject, input } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
-import { SubTypeRecord } from '@spartan-ng/app/app/core/models/ui-docs.model';
+import { LibraryType } from '@spartan-ng/app/app/core/models/ui-docs.model';
 import { hlmCode, hlmH4 } from '@spartan-ng/helm/typography';
 import { map } from 'rxjs/operators';
 import { ApiDocsService } from '../../../core/services/api-docs.service';
@@ -69,11 +69,11 @@ import { UIApiDocsTableComponent } from '../ui-api-docs-table/ui-api-docs-table.
 export class UIApiDocsComponent {
 	private readonly _apiDocsService = inject(ApiDocsService);
 	private readonly _route = inject(ActivatedRoute);
-	protected primitive = toSignal(this._route.data.pipe(map((data) => data?.['api'])));
+	protected readonly primitive = toSignal(this._route.data.pipe(map((data) => data?.['api'])));
 
-	public docType = input.required<SubTypeRecord>();
+	public readonly docType = input.required<LibraryType>();
 
-	protected componentDocs = computed(() => this._apiDocsService.getComponentDocs(this.primitive())());
-	protected componentItems = computed(() => this.componentDocs()?.[this.docType()] ?? {});
-	protected componentEntries = computed(() => Object.keys(this.componentItems() ?? []));
+	protected readonly componentDocs = computed(() => this._apiDocsService.getComponentDocs(this.primitive())());
+	protected readonly componentItems = computed(() => this.componentDocs()?.[this.docType()] ?? {});
+	protected readonly componentEntries = computed(() => Object.keys(this.componentItems() ?? []));
 }

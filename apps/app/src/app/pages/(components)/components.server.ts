@@ -1,5 +1,5 @@
-import { PageServerLoad } from '@analogjs/router';
+import docsData from '../../../public/data/ui-api.json';
 
-export const load = async ({ fetch }: PageServerLoad) => {
-	return await fetch('/api/primitive-api');
+export const load = async () => {
+	return docsData;
 };

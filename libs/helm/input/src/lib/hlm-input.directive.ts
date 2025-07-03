@@ -3,6 +3,7 @@ import {
 	Directive,
 	type DoCheck,
 	effect,
+	forwardRef,
 	inject,
 	Injector,
 	input,
@@ -40,7 +41,7 @@ type InputVariants = VariantProps<typeof inputVariants>;
 	providers: [
 		{
 			provide: BrnFormFieldControl,
-			useExisting: HlmInputDirective,
+			useExisting: forwardRef(() => HlmInputDirective),
 		},
 	],
 })

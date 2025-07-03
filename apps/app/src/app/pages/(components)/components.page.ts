@@ -11,7 +11,6 @@ import {
 	HlmAlertTitleDirective,
 } from '@spartan-ng/helm/alert';
 import { HlmIconDirective } from '@spartan-ng/helm/icon';
-import { ComponentApiData } from '../../core/models/ui-docs.model';
 import { ApiDocsService } from '../../core/services/api-docs.service';
 import { PageComponent } from '../../shared/layout/page.component';
 import { metaWith } from '../../shared/meta/meta.util';
@@ -61,6 +60,6 @@ export default class ComponentsPageComponent {
 	private readonly _apiDocsService = inject(ApiDocsService);
 
 	constructor() {
-		this._apiDocsService.setApiDocs(this._apiData() as ComponentApiData);
+		this._apiDocsService.setApiDocs(this._apiData());
 	}
 }

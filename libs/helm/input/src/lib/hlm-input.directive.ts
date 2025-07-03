@@ -1,4 +1,15 @@
-import { Directive, type DoCheck, Injector, computed, effect, inject, input, signal, untracked } from '@angular/core';
+import {
+	Directive,
+	type DoCheck,
+	Injector,
+	computed,
+	effect,
+	forwardRef,
+	inject,
+	input,
+	signal,
+	untracked,
+} from '@angular/core';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { hlm } from '@spartan-ng/brain/core';
 import { BrnFormFieldControl } from '@spartan-ng/brain/form-field';
@@ -37,7 +48,7 @@ type InputVariants = VariantProps<typeof inputVariants>;
 	providers: [
 		{
 			provide: BrnFormFieldControl,
-			useExisting: HlmInputDirective,
+			useExisting: forwardRef(() => HlmInputDirective),
 		},
 	],
 })

@@ -1,4 +1,15 @@
-import { computed, Directive, effect, ElementRef, Inject, input, Optional, Renderer2, signal } from '@angular/core';
+import {
+	computed,
+	Directive,
+	effect,
+	ElementRef,
+	forwardRef,
+	Inject,
+	input,
+	Optional,
+	Renderer2,
+	signal,
+} from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { COMPOSITION_BUFFER_MODE, DefaultValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { startWith } from 'rxjs/operators';
@@ -11,7 +22,7 @@ import { injectBrnCommand } from './brn-command.token';
 		provideBrnCommandSearchInput(BrnCommandSearchInputDirective),
 		{
 			provide: NG_VALUE_ACCESSOR,
-			useExisting: BrnCommandSearchInputDirective,
+			useExisting: forwardRef(() => BrnCommandSearchInputDirective),
 			multi: true,
 		},
 	],

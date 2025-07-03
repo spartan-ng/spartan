@@ -17,6 +17,7 @@ import {
 	computed,
 	contentChild,
 	contentChildren,
+	forwardRef,
 	inject,
 	input,
 	model,
@@ -56,7 +57,7 @@ let nextId = 0;
 		provideBrnSelect(BrnSelectComponent),
 		{
 			provide: BrnFormFieldControl,
-			useExisting: BrnSelectComponent,
+			useExisting: forwardRef(() => BrnSelectComponent),
 		},
 	],
 	template: `

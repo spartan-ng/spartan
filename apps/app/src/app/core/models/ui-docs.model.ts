@@ -2,23 +2,19 @@ export interface PropertyMetadata {
 	name: string;
 	type: string;
 	description: string;
-	defaultValue: string;
+	defaultValue?: string | null; // Made optional since outputs don't have defaultValue
 }
+
 export interface ComponentMetadata {
 	file: string;
 	inputs: PropertyMetadata[];
 	models: PropertyMetadata[];
 	outputs: PropertyMetadata[];
-	selector: string | null;
-	exportAs: string | null;
+	selector?: string | null;
+	exportAs?: string | null;
 }
 
-export type PrimitveComponent = Record<string, ComponentMetadata>;
-
-export type SubTypeRecord = 'brain' | 'helm';
-
-// Represents the subtype (e.g., "brain", "ui") containing components/directives
-export type PrimitiveSubTypes = Record<SubTypeRecord, PrimitveComponent>;
+export type LibraryComponents = Record<string, ComponentMetadata>;
 
 export type Primitives =
 	| 'accordion'
@@ -34,20 +30,16 @@ export type Primitives =
 	| 'carousel'
 	| 'checkbox'
 	| 'collapsible'
-	| 'combobox'
 	| 'command'
-	| 'context-menu'
-	| 'data-table'
 	| 'date-picker'
 	| 'dialog'
-	| 'dropdown-menu'
 	| 'form-field'
 	| 'hover-card'
 	| 'icon'
 	| 'input'
+	| 'input-otp'
 	| 'label'
-	| 'menubar'
-	| 'navigation-menu'
+	| 'menu'
 	| 'pagination'
 	| 'popover'
 	| 'progress'
@@ -63,10 +55,11 @@ export type Primitives =
 	| 'switch'
 	| 'table'
 	| 'tabs'
-	| 'textarea'
 	| 'toggle'
+	| 'toggle-group'
 	| 'tooltip'
 	| 'typography';
 
-// The root structure containing all components and subtypes
-export type ComponentApiData = Record<Primitives, PrimitiveSubTypes>;
+export type LibraryType = 'brain' | 'helm';
+
+export type ComponentApiData = Record<Primitives, Partial<Record<LibraryType, LibraryComponents>>>;

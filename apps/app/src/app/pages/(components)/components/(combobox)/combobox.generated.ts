@@ -57,13 +57,14 @@ type Framework = { label: string; value: string };
 					<hlm-command-group>
 						@for (framework of frameworks; track framework) {
 							<button hlm-command-item [value]="framework.value" (selected)="commandSelected(framework)">
+								<span>{{ framework.label }}</span>
 								<ng-icon
 									hlm
+									class="ml-auto"
 									[class.opacity-0]="currentFramework()?.value !== framework.value"
 									name="lucideCheck"
 									hlmCommandIcon
 								/>
-								{{ framework.label }}
 							</button>
 						}
 					</hlm-command-group>

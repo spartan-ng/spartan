@@ -4,7 +4,7 @@
 <img alt="A spartan shield" width="200px" src="./spartan.svg" title="Spartan logo"/>
 </a>
 
-[![Discord server](https://dcbadge.vercel.app/api/server/EqHnxQ4uQr?style=flat-square)](https://discord.gg/EqHnxQ4uQr) [![Twitter](https://img.shields.io/twitter/follow/goetzrobin?color=%23DD0031&style=flat-square)](https://twitter.com/goetzrobin)
+[![Discord server](https://dcbadge.limes.pink/api/server/EqHnxQ4uQr?style=flat-square)](https://discord.gg/EqHnxQ4uQr) [![Twitter](https://img.shields.io/twitter/follow/goetzrobin?color=%23DD0031&style=flat-square)](https://twitter.com/goetzrobin)
 
 Welcome to the spartan mono-repo. This Nx repository holds both the
 spartan/stack and spartan/ui libraries.
@@ -199,10 +199,6 @@ pnpm run e2e
 ```
 
 To add your own `e2e` tests add them to the `apps/ui-storybook-e2e` application.
-
-### Progress (46/48)
-
-We finished porting over 46/48 UI primitives. See a more detailed breakdown [here!](./libs/helm/README.md)
 
 ## spartan/stack
 

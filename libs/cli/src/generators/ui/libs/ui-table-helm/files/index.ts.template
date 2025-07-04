@@ -14,15 +14,14 @@ import {
 export * from './lib/hlm-table.directive';
 
 export const HlmTableImports = [
-	HlmTableDirective,
-	HlmTHeadDirective,
-	HlmTBodyDirective,
-	HlmTFootDirective,
-	HlmTrDirective,
-	HlmThDirective,
-	HlmTdDirective,
 	HlmCaptionDirective,
 	HlmTableDirective,
+	HlmTBodyDirective,
+	HlmTdDirective,
+	HlmTFootDirective,
+	HlmThDirective,
+	HlmTHeadDirective,
+	HlmTrDirective,
 ] as const;
 
 @NgModule({

@@ -6,8 +6,8 @@ spartan is an MIT-licensed open source project with its ongoing development made
 
 ### Folder structure
 
-Source code for the UI primitives exists under the `libs/ui` folder. To contribute features or bug fixes to the project,
-locate the relevant code in one of the `libs/ui` sub-folder.
+Source code for the UI primitives exists under the `libs/brain` and `libs/helm` folders. To contribute features or bug fixes to the project,
+locate the relevant code in one of these sub-folders.
 
 ### Setup
 
@@ -70,6 +70,15 @@ command:
 
 ```shell
 nx g @spartan-ng/tools:brain-secondary-entrypoint --name=feature-name
+```
+
+## Creating a new Helm feature
+
+Helm features should be added as a secondary entrypoint to the `helm` library. This can be done by running the following
+command:
+
+```shell
+nx g @spartan-ng/tools:helm-secondary-entrypoint --name=feature-name
 ```
 
 ## Submitting pull requests
@@ -216,6 +225,9 @@ The following is the list of supported scopes:
 - **toggle-group**
 - **tooltip**
 - **typography**
+- **trpc**
+- **nx**
+- **repo**
 
 ### Subject
 

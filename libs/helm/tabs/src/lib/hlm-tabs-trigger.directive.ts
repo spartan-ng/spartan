@@ -8,7 +8,7 @@ import type { ClassValue } from 'clsx';
 	hostDirectives: [{ directive: BrnTabsTriggerDirective, inputs: ['brnTabsTrigger: hlmTabsTrigger', 'disabled'] }],
 	host: {
 		'[class]': '_computedClass()',
-		'[attr.disabled]': 'disabled()',
+		'[disabled]': 'disabled()',
 		'[attr.data-disabled]': 'disabled()',
 
 	},

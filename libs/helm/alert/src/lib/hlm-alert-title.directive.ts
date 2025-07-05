@@ -1,12 +1,6 @@
 import { Directive, computed, input } from '@angular/core';
 import { hlm } from '@spartan-ng/brain/core';
-import { type VariantProps, cva } from 'class-variance-authority';
 import type { ClassValue } from 'clsx';
-
-export const alertTitleVariants = cva('mb-1 font-medium leading-none tracking-tight', {
-	variants: {},
-});
-export type AlertTitleVariants = VariantProps<typeof alertTitleVariants>;
 
 @Directive({
 	selector: '[hlmAlertTitle]',
@@ -16,5 +10,7 @@ export type AlertTitleVariants = VariantProps<typeof alertTitleVariants>;
 })
 export class HlmAlertTitleDirective {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected readonly _computedClass = computed(() => hlm(alertTitleVariants(), this.userClass()));
+	protected readonly _computedClass = computed(() =>
+		hlm('col-start-2 line-clamp-1 min-h-4 font-medium tracking-tight', this.userClass()),
+	);
 }

@@ -131,11 +131,11 @@ describe('brn-switch accessibility and functionality tests', () => {
 		verifySwitchOff(labelText);
 
 		// Click on the label to toggle the switch
-		cy.get('brn-switch-thumb').click();
+		cy.findByRole('switch').click();
 		verifySwitchOn(labelText);
 
 		// Click again to toggle back to 'off' state
-		cy.get('brn-switch-thumb').click();
+		cy.findByRole('switch').click();
 		verifySwitchOff(labelText);
 	};
 
@@ -255,7 +255,7 @@ describe('brn-switch accessibility and functionality tests', () => {
 			verifySwitchOff(labelText);
 
 			// Click on the switch thumb to toggle
-			cy.get('brn-switch-thumb').click();
+			cy.findByRole('switch').click();
 			verifySwitchOn(labelText);
 			verifySwitchValueTrue();
 			verifyChangedValueTrue();

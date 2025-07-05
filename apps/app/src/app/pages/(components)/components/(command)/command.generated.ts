@@ -144,6 +144,7 @@ export const defaultCode = `
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
+	lucideCalculator,
 	lucideCalendar,
 	lucideCog,
 	lucidePlus,
@@ -168,12 +169,13 @@ import { HlmIconDirective } from '@spartan-ng/helm/icon';
 			lucideUser,
 			lucideWallet,
 			lucideCog,
+			lucideCalculator,
 		}),
 	],
 	template: \`
-		<hlm-command>
+		<hlm-command class="rounded-lg border shadow-md md:min-w-[450px]">
 			<hlm-command-search>
-				<ng-icon hlm name="lucideSearch" class="inline-flex" />
+				<ng-icon hlm name="lucideSearch" class="shrink-0 opacity-50" />
 
 				<input type="text" hlm-command-search-input placeholder="Type a command or search..." />
 			</hlm-command-search>
@@ -190,8 +192,8 @@ import { HlmIconDirective } from '@spartan-ng/helm/icon';
 						<ng-icon hlm name="lucideSmile" hlmCommandIcon />
 						Search Emoji
 					</button>
-					<button hlm-command-item value="Calculator">
-						<ng-icon hlm name="lucidePlus" hlmCommandIcon />
+					<button hlm-command-item value="Calculator" disabled>
+						<ng-icon hlm name="lucideCalculator" hlmCommandIcon />
 						Calculator
 					</button>
 				</hlm-command-group>

@@ -7,133 +7,23 @@ Instead, edit the `(card).preview.ts` file or the generator itself.
 Run `pnpm run generate-snippets` to update this file.
 */
 
-export const cardNotificationsCode = `
-import { Component } from '@angular/core';
-import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideBell, lucideCheck } from '@ng-icons/lucide';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
-import {
-	HlmCardContentDirective,
-	HlmCardDescriptionDirective,
-	HlmCardDirective,
-	HlmCardFooterDirective,
-	HlmCardHeaderDirective,
-	HlmCardTitleDirective,
-} from '@spartan-ng/helm/card';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
-import { HlmSwitchComponent } from '@spartan-ng/helm/switch';
-
-@Component({
-	selector: 'spartan-card-notifications',
-	imports: [
-		HlmButtonDirective,
-		HlmCardContentDirective,
-		HlmCardDescriptionDirective,
-		HlmCardDirective,
-		HlmCardFooterDirective,
-		HlmCardHeaderDirective,
-		HlmCardTitleDirective,
-		NgIcon,
-		HlmIconDirective,
-		HlmSwitchComponent,
-	],
-	providers: [provideIcons({ lucideCheck, lucideBell })],
-	template: \`
-		<section hlmCard>
-			<div hlmCardHeader>
-				<h3 hlmCardTitle>Notifications</h3>
-				<p hlmCardDescription>You have 3 unread notifications</p>
-			</div>
-			<div hlmCardContent class="grid gap-4">
-				<div class="border-border flex items-center space-x-4 rounded-md border p-4">
-					<ng-icon hlm size="lg" name="lucideBell" />
-					<div class="flex-1 space-y-1">
-						<p class="text-sm font-medium leading-none">Push Notifications</p>
-						<p class="text-muted-foreground text-sm">Send notifications to device.</p>
-					</div>
-					<hlm-switch class="ml-4" aria-label="Enable notifications" />
-				</div>
-				<div>
-					@for (notification of notifications; track notification.id) {
-						<div class="mb-4 grid grid-cols-[25px_1fr] items-start pb-4 last:mb-0 last:pb-0">
-							<span class="flex h-2 w-2 translate-y-1 rounded-full bg-sky-500"></span>
-							<div class="space-y-1">
-								<p class="text-sm font-medium leading-none">{{ notification.title }}</p>
-								<p class="text-muted-foreground text-sm">{{ notification.description }}</p>
-							</div>
-						</div>
-					}
-				</div>
-			</div>
-			<div hlmCardFooter class="justify-between">
-				<button class="w-full" hlmBtn>
-					<ng-icon hlm size="sm" class="mr-2" name="lucideCheck" />
-					Mark all as read
-				</button>
-			</div>
-		</section>
-	\`,
-})
-export class CardNotificationsComponent {
-	protected notifications = [
-		{
-			id: 1,
-			title: 'Your call has been confirmed.',
-			description: '1 hour ago',
-		},
-		{
-			id: 2,
-			title: 'You have a new message!',
-			description: '1 hour ago',
-		},
-		{
-			id: 3,
-			title: 'Your subscription is expiring soon!',
-			description: '2 hours ago',
-		},
-	];
-}
-`;
-
 export const defaultCode = `
-import { Component, signal } from '@angular/core';
-import { NgIcon, provideIcons } from '@ng-icons/core';
+import { Component } from '@angular/core';
+import { provideIcons } from '@ng-icons/core';
 import { lucideCheck, lucideChevronDown } from '@ng-icons/lucide';
 import { BrnCommandImports } from '@spartan-ng/brain/command';
-import { BrnPopoverComponent, BrnPopoverContentDirective, BrnPopoverTriggerDirective } from '@spartan-ng/brain/popover';
 import { HlmButtonDirective } from '@spartan-ng/helm/button';
-import {
-	HlmCardContentDirective,
-	HlmCardDescriptionDirective,
-	HlmCardDirective,
-	HlmCardFooterDirective,
-	HlmCardHeaderDirective,
-	HlmCardTitleDirective,
-} from '@spartan-ng/helm/card';
+import { HlmCardFooterDirective, HlmCardImports } from '@spartan-ng/helm/card';
 import { HlmCommandImports } from '@spartan-ng/helm/command';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
 import { HlmInputDirective } from '@spartan-ng/helm/input';
 import { HlmLabelDirective } from '@spartan-ng/helm/label';
-import { HlmPopoverContentDirective } from '@spartan-ng/helm/popover';
-
-type Framework = { label: string; value: string };
 
 @Component({
 	selector: 'spartan-card-preview',
 	imports: [
 		BrnCommandImports,
 		HlmCommandImports,
-		NgIcon,
-		HlmIconDirective,
-		BrnPopoverComponent,
-		BrnPopoverTriggerDirective,
-		BrnPopoverContentDirective,
-		HlmPopoverContentDirective,
-		HlmCardDirective,
-		HlmCardHeaderDirective,
-		HlmCardTitleDirective,
-		HlmCardDescriptionDirective,
-		HlmCardContentDirective,
+		HlmCardImports,
 		HlmLabelDirective,
 		HlmInputDirective,
 		HlmCardFooterDirective,
@@ -141,102 +31,43 @@ type Framework = { label: string; value: string };
 	],
 	providers: [provideIcons({ lucideCheck, lucideChevronDown })],
 	template: \`
-		<section class="w-80" hlmCard>
+		<section class="w-full max-w-sm" hlmCard>
 			<div hlmCardHeader>
-				<h3 hlmCardTitle>Create new project</h3>
-				<p hlmCardDescription>Deploy your new project in one-click.</p>
+				<h3 hlmCardTitle>Login to your account</h3>
+				<p hlmCardDescription>Enter your email below to login to your account</p>
+
+				<div hlmCardAction>
+					<button hlmBtn variant="link">Sign Up</button>
+				</div>
 			</div>
-			<p hlmCardContent>
-				<label class="block" hlmLabel>
-					Name
-					<input class="mt-1.5 w-full" placeholder="Name of your project" hlmInput />
-				</label>
 
-				<label class="my-4 mb-1.5 block" hlmLabel>
-					Framework
+			<div hlmCardContent>
+				<form>
+					<div class="flex flex-col gap-6">
+						<div class="grid gap-2">
+							<label hlmLabel for="email">Email</label>
+							<input type="email" id="email" placeholder="m@example.com" required hlmInput />
+						</div>
 
-					<brn-popover [state]="state()" (stateChanged)="stateChanged($event)" sideOffset="5">
-						<button
-							class="mt-1.5 w-full justify-between"
-							id="edit-profile"
-							variant="outline"
-							brnPopoverTrigger
-							(click)="state.set('open')"
-							hlmBtn
-						>
-							{{ currentFramework() ? currentFramework()?.label : 'Select' }}
-							<ng-icon hlm size="sm" name="lucideChevronDown" />
-						</button>
-						<hlm-command *brnPopoverContent="let ctx" hlmPopoverContent class="w-[270px] p-0">
-							<div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
-							<hlm-command-list>
-								<hlm-command-group hlm>
-									@for (framework of frameworks; track framework) {
-										<button hlm-command-item [value]="framework.value" (selected)="commandSelected(framework)">
-											<ng-icon
-												hlm
-												[class.opacity-0]="currentFramework()?.value !== framework.value"
-												name="lucideCheck"
-												hlmCommandIcon
-											/>
-											{{ framework.label }}
-										</button>
-									}
-								</hlm-command-group>
-							</hlm-command-list>
-						</hlm-command>
-					</brn-popover>
-				</label>
-			</p>
-			<div hlmCardFooter class="justify-between">
-				<button hlmBtn variant="ghost">Cancel</button>
-				<button hlmBtn>Create</button>
+						<div class="grid gap-2">
+							<div class="flex items-center">
+								<label hlmLabel for="password">Password</label>
+								<a href="#" class="ml-auto inline-block text-sm underline-offset-4 hover:underline">
+									Forgot your password?
+								</a>
+							</div>
+							<input type="password" id="password" hlmInput />
+						</div>
+					</div>
+				</form>
+			</div>
+
+			<div hlmCardFooter class="flex-col gap-2">
+				<button hlmBtn type="submit" class="w-full">Login</button>
+				<button hlmBtn variant="outline" class="w-full">Login with Google</button>
 			</div>
 		</section>
 	\`,
 })
-export class CardPreviewComponent {
-	public frameworks = [
-		{
-			label: 'AnalogJs',
-			value: 'analogjs',
-		},
-		{
-			label: 'Angular',
-			value: 'angular',
-		},
-		{
-			label: 'Vue',
-			value: 'vue',
-		},
-		{
-			label: 'Nuxt',
-			value: 'nuxt',
-		},
-		{
-			label: 'React',
-			value: 'react',
-		},
-		{
-			label: 'NextJs',
-			value: 'nextjs',
-		},
-	];
-
-	public currentFramework = signal<Framework | undefined>(undefined);
-	public state = signal<'closed' | 'open'>('closed');
-
-	stateChanged(state: 'open' | 'closed') {
-		this.state.set(state);
-	}
-
-	commandSelected(framework: Framework) {
-		this.state.set('closed');
-		if (this.currentFramework()?.value === framework.value) {
-			this.currentFramework.set(undefined);
-		} else {
-			this.currentFramework.set(framework);
-		}
-	}
-}
+export class CardPreviewComponent {}
 `;

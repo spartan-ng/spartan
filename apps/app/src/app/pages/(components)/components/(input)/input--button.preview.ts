@@ -8,7 +8,7 @@ import { HlmInputDirective } from '@spartan-ng/helm/input';
 	template: `
 		<div class="flex w-full max-w-sm items-center space-x-2">
 			<input aria-label="Email" class="w-80" hlmInput type="email" placeholder="Email" />
-			<button hlmBtn>Subscribe</button>
+			<button hlmBtn variant="outline">Subscribe</button>
 		</div>
 	`,
 })

@@ -9,7 +9,7 @@ Run `pnpm run generate-snippets` to update this file.
 
 export const defaultCode = `
 import { Component } from '@angular/core';
-import { NgIcon, provideIcons } from '@ng-icons/core';
+import { provideIcons } from '@ng-icons/core';
 import {
 	lucideCircleHelp,
 	lucideCirclePlus,
@@ -28,12 +28,10 @@ import {
 } from '@ng-icons/lucide';
 import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
 import { HlmButtonDirective } from '@spartan-ng/helm/button';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
 import {
 	HlmMenuComponent,
 	HlmMenuGroupComponent,
 	HlmMenuItemDirective,
-	HlmMenuItemIconDirective,
 	HlmMenuItemSubIndicatorComponent,
 	HlmMenuLabelComponent,
 	HlmMenuSeparatorComponent,
@@ -52,11 +50,8 @@ import {
 		HlmMenuLabelComponent,
 		HlmMenuShortcutComponent,
 		HlmMenuSeparatorComponent,
-		HlmMenuItemIconDirective,
 		HlmMenuGroupComponent,
 		HlmButtonDirective,
-		NgIcon,
-		HlmIconDirective,
 	],
 	providers: [
 		provideIcons({
@@ -83,29 +78,25 @@ import {
 		<ng-template #menu>
 			<hlm-menu class="w-56">
 				<hlm-menu-label>My Account</hlm-menu-label>
-				<hlm-menu-separator />
+
 				<hlm-menu-group>
 					<button hlmMenuItem>
-						<ng-icon hlm name="lucideUser" hlmMenuIcon />
 						<span>Profile</span>
 						<hlm-menu-shortcut>⇧⌘P</hlm-menu-shortcut>
 					</button>
 
 					<button hlmMenuItem>
-						<ng-icon hlm name="lucideLayers" hlmMenuIcon />
 						<span>Billing</span>
 						<hlm-menu-shortcut>⌘B</hlm-menu-shortcut>
 					</button>
 
 					<button hlmMenuItem>
-						<ng-icon hlm name="lucideCog" hlmMenuIcon />
 						<span>Settings</span>
 						<hlm-menu-shortcut>⌘S</hlm-menu-shortcut>
 					</button>
 
 					<button hlmMenuItem>
-						<ng-icon hlm name="lucideKeyboard" hlmMenuIcon />
-						<span>Keyboard Shortcuts</span>
+						<span>Keyboard shortcuts</span>
 						<hlm-menu-shortcut>⌘K</hlm-menu-shortcut>
 					</button>
 				</hlm-menu-group>
@@ -114,19 +105,16 @@ import {
 
 				<hlm-menu-group>
 					<button hlmMenuItem>
-						<ng-icon hlm name="lucideCircleUser" hlmMenuIcon />
 						<span>Team</span>
 						<hlm-menu-shortcut>⌘B</hlm-menu-shortcut>
 					</button>
 
 					<button hlmMenuItem [brnMenuTriggerFor]="invite">
-						<ng-icon hlm name="lucideSmile" hlmMenuIcon />
 						<span>Invite Users</span>
 						<hlm-menu-item-sub-indicator />
 					</button>
 
 					<button hlmMenuItem>
-						<ng-icon hlm name="lucidePlus" hlmMenuIcon />
 						<span>New Team</span>
 						<hlm-menu-shortcut>⌘+T</hlm-menu-shortcut>
 					</button>
@@ -136,17 +124,14 @@ import {
 
 				<hlm-menu-group>
 					<button hlmMenuItem>
-						<ng-icon hlm name="lucideGithub" hlmMenuIcon />
-						<span>Github</span>
+						<span>GitHub</span>
 					</button>
 
 					<button hlmMenuItem>
-						<ng-icon hlm name="lucideCircleHelp" hlmMenuIcon />
 						<span>Support</span>
 					</button>
 
 					<button hlmMenuItem disabled>
-						<ng-icon hlm name="lucideCode" hlmMenuIcon />
 						<span>API</span>
 					</button>
 				</hlm-menu-group>
@@ -154,8 +139,7 @@ import {
 				<hlm-menu-separator />
 
 				<button hlmMenuItem>
-					<ng-icon hlm name="lucideLogOut" hlmMenuIcon />
-					<span>Logout</span>
+					Log out
 					<hlm-menu-shortcut>⇧⌘Q</hlm-menu-shortcut>
 				</button>
 			</hlm-menu>
@@ -163,20 +147,11 @@ import {
 
 		<ng-template #invite>
 			<hlm-sub-menu>
-				<button hlmMenuItem>
-					<ng-icon hlm name="lucideMail" hlmMenuIcon />
-					Email
-				</button>
+				<button hlmMenuItem>Email</button>
 
-				<button hlmMenuItem>
-					<ng-icon hlm name="lucideMessageSquare" hlmMenuIcon />
-					Message
-				</button>
+				<button hlmMenuItem>Message</button>
 				<hlm-menu-separator />
-				<button hlmMenuItem>
-					<ng-icon hlm name="lucideCirclePlus" hlmMenuIcon />
-					<span>More</span>
-				</button>
+				<button hlmMenuItem>More...</button>
 			</hlm-sub-menu>
 		</ng-template>
 	\`,

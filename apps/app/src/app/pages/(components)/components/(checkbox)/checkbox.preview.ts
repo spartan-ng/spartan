@@ -6,10 +6,36 @@ import { HlmLabelDirective } from '@spartan-ng/helm/label';
 	selector: 'spartan-checkbox-preview',
 	imports: [HlmLabelDirective, HlmCheckboxComponent],
 	template: `
-		<label class="flex items-center" hlmLabel>
-			<hlm-checkbox class="mr-2" />
-			Accept terms and conditions
-		</label>
+		<div class="flex flex-col gap-6">
+			<div class="flex items-center gap-3">
+				<hlm-checkbox id="terms" />
+				<label hlmLabel for="terms">Accept terms and conditions</label>
+			</div>
+			<div class="flex items-start gap-3">
+				<hlm-checkbox id="terms-2" [checked]="true" />
+				<div class="grid gap-2">
+					<label hlmLabel for="terms-2">Accept terms and conditions</label>
+					<p class="text-muted-foreground text-sm">By clicking this checkbox, you agree to the terms and conditions.</p>
+				</div>
+			</div>
+			<div class="flex items-start gap-3">
+				<hlm-checkbox id="toggle" disabled />
+				<label hlmLabel for="toggle">Enable notifications</label>
+			</div>
+			<label
+				class="hover:bg-accent/50 flex items-start gap-3 rounded-lg border p-3 has-[[aria-checked=true]]:border-blue-600 has-[[aria-checked=true]]:bg-blue-50 dark:has-[[aria-checked=true]]:border-blue-900 dark:has-[[aria-checked=true]]:bg-blue-950"
+			>
+				<hlm-checkbox
+					id="toggle-2"
+					[checked]="true"
+					class="data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 data-[state=checked]:text-white dark:data-[state=checked]:border-blue-700 dark:data-[state=checked]:bg-blue-700"
+				/>
+				<div class="grid gap-1.5 font-normal">
+					<p class="text-sm font-medium leading-none">Enable notifications</p>
+					<p class="text-muted-foreground text-sm">You can enable or disable notifications at any time.</p>
+				</div>
+			</label>
+		</div>
 	`,
 })
 export class CheckboxPreviewComponent {}

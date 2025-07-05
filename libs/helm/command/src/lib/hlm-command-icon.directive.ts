@@ -1,11 +1,18 @@
-import { Directive } from '@angular/core';
+import { computed, Directive, input } from '@angular/core';
+import { hlm } from '@spartan-ng/brain/core';
 import { provideHlmIconConfig } from '@spartan-ng/helm/icon';
+import { ClassValue } from 'clsx';
 
 @Directive({
 	selector: '[hlmCommandIcon]',
 	host: {
-		class: 'inline-flex mr-2 w-4 h-4',
+		'[class]': '_computedClass()',
 	},
 	providers: [provideHlmIconConfig({ size: 'sm' })],
 })
-export class HlmCommandIconDirective {}
+export class HlmCommandIconDirective {
+	public readonly userClass = input<ClassValue>('', { alias: 'class' });
+	protected readonly _computedClass = computed(() =>
+		hlm('text-muted-foreground pointer-events-none shrink-0', this.userClass()),
+	);
+}

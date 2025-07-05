@@ -4,12 +4,11 @@
 import { type ProjectConfiguration, type Tree, joinPathFragments, readJson, stripIndents } from '@nx/devkit';
 import { type PackageJson } from 'nx/src/utils/package-json';
 import * as semver from 'semver';
-import { type SupportedTheme, SupportedThemeGeneratorMap } from './supported-theme-generator-map';
+import { ThemeName, themes } from './colors';
 
 export interface AddThemeToApplicationStylesOptions {
 	project: string;
-	theme: SupportedTheme;
-	radius: number;
+	theme: ThemeName;
 	addCdkStyles: boolean;
 	stylesEntryPoint?: string;
 	prefix?: string;
@@ -60,6 +59,8 @@ export function addThemeToApplicationStyles(
      --font-sans: ''
      }`;
 
+	const colorScheme = tailwindVersion === 4 ? themes[options.theme].cssVarsV4 : themes[options.theme].cssVarsV3;
+
 	tree.write(
 		stylesEntryPoint,
 		stripIndents`
@@ -69,7 +70,18 @@ export function addThemeToApplicationStyles(
     ${tailwindImport}
 
     ${rootFontSans}
-    ${SupportedThemeGeneratorMap[options.theme](options.radius, prefix)}
+
+		:root${prefix} {
+			${Object.entries(colorScheme.light)
+				.map(([key, value]) => `--${key}: ${value};`)
+				.join('\n')}
+		}
+
+		:root.dark${prefix} {
+			${Object.entries(colorScheme.dark)
+				.map(([key, value]) => `--${key}: ${value};`)
+				.join('\n')}
+		}
 
     @layer base {
       * {

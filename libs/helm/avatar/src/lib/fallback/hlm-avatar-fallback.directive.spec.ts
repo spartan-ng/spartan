@@ -1,19 +1,17 @@
 import { ChangeDetectionStrategy, Component, PLATFORM_ID } from '@angular/core';
-import { type ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
-import { hexColorFor, isBright } from '@spartan-ng/brain/avatar';
+import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { HlmAvatarFallbackDirective } from './hlm-avatar-fallback.directive';
 
 @Component({
 	selector: 'hlm-mock',
 	imports: [HlmAvatarFallbackDirective],
 	template: `
-		<span hlmAvatarFallback [class]="userCls" [autoColor]="autoColor">fallback2</span>
+		<span hlmAvatarFallback [class]="userCls">fallback2</span>
 	`,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class HlmMockComponent {
 	public userCls = '';
-	public autoColor = false;
 }
 
 describe('HlmAvatarFallbackDirective', () => {
@@ -32,7 +30,7 @@ describe('HlmAvatarFallbackDirective', () => {
 	it('should contain the default classes if no inputs are provided', () => {
 		fixture.detectChanges();
 		expect(fixture.nativeElement.querySelector('span').className).toBe(
-			'bg-muted flex h-full items-center justify-center rounded-full w-full',
+			'bg-muted flex items-center justify-center rounded-full size-full',
 		);
 	});
 
@@ -47,24 +45,5 @@ describe('HlmAvatarFallbackDirective', () => {
 
 		fixture.detectChanges();
 		expect(fixture.nativeElement.querySelector('span').className).toContain('bg-destructive');
-	});
-
-	describe('autoColor', () => {
-		beforeEach(() => {
-			component.autoColor = true;
-			fixture.detectChanges();
-		});
-
-		it('should remove the bg-muted class from the component', fakeAsync(() => {
-			fixture.detectChanges();
-			expect(fixture.nativeElement.querySelector('span').className).not.toContain('bg-muted');
-		}));
-
-		it('should remove add a text color class and hex backgroundColor style depending on its content', () => {
-			const hex = hexColorFor('fallback2');
-			const textCls = isBright(hex) ? 'text-black' : 'text-white';
-			expect(fixture.nativeElement.querySelector('span').className).toContain(textCls);
-			expect(fixture.nativeElement.querySelector('span').style.backgroundColor).toBe('rgb(144, 53, 149)');
-		});
 	});
 });

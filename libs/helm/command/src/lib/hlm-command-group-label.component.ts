@@ -16,6 +16,6 @@ export class HlmCommandGroupLabelComponent {
 
 	/*** The styles to apply  */
 	protected readonly _computedClass = computed(() =>
-		hlm('font-medium px-2 py-1.5 text-muted-foreground text-xs', this.userClass()),
+		hlm('text-muted-foreground px-2 py-1.5 text-xs font-medium', this.userClass()),
 	);
 }

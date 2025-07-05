@@ -20,5 +20,5 @@ import type { ClassValue } from 'clsx';
 export class HlmBreadcrumbEllipsisComponent {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 
-	protected readonly _computedClass = computed(() => hlm('flex h-9 w-9 items-center justify-center', this.userClass()));
+	protected readonly _computedClass = computed(() => hlm('flex size-9 items-center justify-center', this.userClass()));
 }

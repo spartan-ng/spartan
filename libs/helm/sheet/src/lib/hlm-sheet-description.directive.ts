@@ -12,5 +12,5 @@ import type { ClassValue } from 'clsx';
 })
 export class HlmSheetDescriptionDirective {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected _computedClass = computed(() => hlm('text-sm text-muted-foreground', this.userClass()));
+	protected _computedClass = computed(() => hlm('text-muted-foreground text-sm', this.userClass()));
 }

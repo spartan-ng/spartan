@@ -1,0 +1,620 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Theme generator Tailwind v3 should add the gray theme styles to the global stylesheet 1`] = `
+"@import '@angular/cdk/overlay-prebuilt.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* You can add global styles to this file, and also import other style files */
+
+
+:root {
+--font-sans: ''
+}
+
+:root {
+--background: 0deg 0% 100%;
+--foreground: 224.06deg 72.27% 4.17%;
+--card: 0deg 0% 100%;
+--card-foreground: 224.06deg 72.27% 4.17%;
+--popover: 0deg 0% 100%;
+--popover-foreground: 224.06deg 72.27% 4.17%;
+--primary: 220.99deg 41.69% 11.07%;
+--primary-foreground: 344.54deg 18.99% 98.19%;
+--secondary: 344.7deg 12.65% 95.9%;
+--secondary-foreground: 220.99deg 41.69% 11.07%;
+--muted: 344.7deg 12.65% 95.9%;
+--muted-foreground: 219.99deg 10.27% 46.3%;
+--accent: 344.7deg 12.65% 95.9%;
+--accent-foreground: 220.99deg 41.69% 11.07%;
+--destructive: 351.72deg 100% 40.53%;
+--border: 344.79deg 11.54% 91.05%;
+--input: 344.79deg 11.54% 91.05%;
+--ring: 217.85deg 11.94% 64.27%;
+--radius: 0.625rem;
+}
+
+:root.dark {
+--background: 224.06deg 72.27% 4.17%;
+--foreground: 344.54deg 18.99% 98.19%;
+--card: 220.99deg 41.69% 11.07%;
+--card-foreground: 344.54deg 18.99% 98.19%;
+--popover: 220.99deg 41.69% 11.07%;
+--popover-foreground: 344.54deg 18.99% 98.19%;
+--primary: 344.79deg 11.54% 91.05%;
+--primary-foreground: 220.99deg 41.69% 11.07%;
+--secondary: 214.98deg 31% 16.95%;
+--secondary-foreground: 344.54deg 18.99% 98.19%;
+--muted: 214.98deg 31% 16.95%;
+--muted-foreground: 217.85deg 11.94% 64.27%;
+--accent: 214.98deg 31% 16.95%;
+--accent-foreground: 344.54deg 18.99% 98.19%;
+--destructive: 358.76deg 100% 69.84%;
+--border: 0deg 0% 13.73%;
+--input: 0deg 0% 18.43%;
+--ring: 219.99deg 10.27% 46.3%;
+}
+
+@layer base {
+* {
+@apply border-border;
+}
+}"
+`;
+
+exports[`Theme generator Tailwind v3 should add the neutral theme styles to the global stylesheet 1`] = `
+"@import '@angular/cdk/overlay-prebuilt.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* You can add global styles to this file, and also import other style files */
+
+
+:root {
+--font-sans: ''
+}
+
+:root {
+--background: 0deg 0% 100%;
+--foreground: 0deg 0.02% 3.94%;
+--card: 0deg 0% 100%;
+--card-foreground: 0deg 0.02% 3.94%;
+--popover: 0deg 0% 100%;
+--popover-foreground: 0deg 0.02% 3.94%;
+--primary: 0deg 0.02% 9.06%;
+--primary-foreground: 0deg 0.5% 98.03%;
+--secondary: 0deg 0.24% 96.06%;
+--secondary-foreground: 0deg 0.02% 9.06%;
+--muted: 0deg 0.24% 96.06%;
+--muted-foreground: 0deg 0.01% 45.16%;
+--accent: 0deg 0.24% 96.06%;
+--accent-foreground: 0deg 0.02% 9.06%;
+--destructive: 351.72deg 100% 40.53%;
+--border: 0deg 0.09% 89.82%;
+--input: 0deg 0.09% 89.82%;
+--ring: 0deg 0.02% 63.02%;
+--radius: 0.625rem;
+}
+
+:root.dark {
+--background: 0deg 0.02% 3.94%;
+--foreground: 0deg 0.5% 98.03%;
+--card: 0deg 0.02% 9.06%;
+--card-foreground: 0deg 0.5% 98.03%;
+--popover: 0deg 0.02% 9.06%;
+--popover-foreground: 0deg 0.5% 98.03%;
+--primary: 0deg 0.09% 89.82%;
+--primary-foreground: 0deg 0.02% 9.06%;
+--secondary: 0deg 0.01% 14.94%;
+--secondary-foreground: 0deg 0.5% 98.03%;
+--muted: 0deg 0.01% 14.94%;
+--muted-foreground: 0deg 0.02% 63.02%;
+--accent: 0deg 0% 14.9%;
+--accent-foreground: 0deg 0.5% 98.03%;
+--destructive: 358.76deg 100% 69.84%;
+--border: 0deg 0% 13.73%;
+--input: 0deg 0% 18.43%;
+--ring: 0deg 0.01% 45.16%;
+}
+
+@layer base {
+* {
+@apply border-border;
+}
+}"
+`;
+
+exports[`Theme generator Tailwind v3 should add the slate theme styles to the global stylesheet 1`] = `
+"@import '@angular/cdk/overlay-prebuilt.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* You can add global styles to this file, and also import other style files */
+
+
+:root {
+--font-sans: ''
+}
+
+:root {
+--background: 0deg 0% 100%;
+--foreground: 228.82deg 85.15% 5%;
+--card: 0deg 0% 100%;
+--card-foreground: 228.82deg 85.15% 5%;
+--popover: 0deg 0% 100%;
+--popover-foreground: 228.82deg 85.15% 5%;
+--primary: 222.33deg 49.39% 11.3%;
+--primary-foreground: 344.69deg 27.87% 98.13%;
+--secondary: 344.79deg 33.25% 96.34%;
+--secondary-foreground: 222.33deg 49.39% 11.3%;
+--muted: 344.79deg 33.25% 96.34%;
+--muted-foreground: 215.37deg 18.38% 47.03%;
+--accent: 344.79deg 33.25% 96.34%;
+--accent-foreground: 222.33deg 49.39% 11.3%;
+--destructive: 351.72deg 100% 40.53%;
+--border: 214.19deg 33.11% 91.43%;
+--input: 214.19deg 33.11% 91.43%;
+--ring: 214.97deg 22.62% 64.51%;
+--radius: 0.625rem;
+}
+
+:root.dark {
+--background: 228.82deg 85.15% 5%;
+--foreground: 344.69deg 27.87% 98.13%;
+--card: 222.33deg 49.39% 11.3%;
+--card-foreground: 344.69deg 27.87% 98.13%;
+--popover: 222.33deg 49.39% 11.3%;
+--popover-foreground: 344.69deg 27.87% 98.13%;
+--primary: 214.19deg 33.11% 91.43%;
+--primary-foreground: 222.33deg 49.39% 11.3%;
+--secondary: 217.27deg 36.08% 17.54%;
+--secondary-foreground: 344.69deg 27.87% 98.13%;
+--muted: 217.27deg 36.08% 17.54%;
+--muted-foreground: 214.97deg 22.62% 64.51%;
+--accent: 217.27deg 36.08% 17.54%;
+--accent-foreground: 344.69deg 27.87% 98.13%;
+--destructive: 358.76deg 100% 69.84%;
+--border: 0deg 0% 13.73%;
+--input: 0deg 0% 18.43%;
+--ring: 219.99deg 10.27% 46.3%;
+}
+
+@layer base {
+* {
+@apply border-border;
+}
+}"
+`;
+
+exports[`Theme generator Tailwind v3 should add the stone theme styles to the global stylesheet 1`] = `
+"@import '@angular/cdk/overlay-prebuilt.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* You can add global styles to this file, and also import other style files */
+
+
+:root {
+--font-sans: ''
+}
+
+:root {
+--background: 0deg 0% 100%;
+--foreground: 344.17deg 10.1% 4.29%;
+--card: 0deg 0% 100%;
+--card-foreground: 344.17deg 10.1% 4.29%;
+--popover: 0deg 0% 100%;
+--popover-foreground: 344.17deg 10.1% 4.29%;
+--primary: 344.37deg 6.88% 10.34%;
+--primary-foreground: 344deg 8.87% 98.11%;
+--secondary: 344.02deg 4.34% 96.14%;
+--secondary-foreground: 344.37deg 6.88% 10.34%;
+--muted: 344.02deg 4.34% 96.14%;
+--muted-foreground: 25.05deg 5.89% 44.64%;
+--accent: 344.02deg 4.34% 96.14%;
+--accent-foreground: 344.37deg 6.88% 10.34%;
+--destructive: 351.72deg 100% 40.53%;
+--border: 344.71deg 5.22% 90.18%;
+--input: 344.71deg 5.22% 90.18%;
+--ring: 24.07deg 5.83% 63.06%;
+--radius: 0.625rem;
+}
+
+:root.dark {
+--background: 344.17deg 10.1% 4.29%;
+--foreground: 344deg 8.87% 98.11%;
+--card: 344.37deg 6.88% 10.34%;
+--card-foreground: 344deg 8.87% 98.11%;
+--popover: 344.37deg 6.88% 10.34%;
+--popover-foreground: 344deg 8.87% 98.11%;
+--primary: 344.71deg 5.22% 90.18%;
+--primary-foreground: 344.37deg 6.88% 10.34%;
+--secondary: 344.41deg 5.76% 15.22%;
+--secondary-foreground: 344deg 8.87% 98.11%;
+--muted: 344.41deg 5.76% 15.22%;
+--muted-foreground: 24.07deg 5.83% 63.06%;
+--accent: 344.41deg 5.76% 15.22%;
+--accent-foreground: 344deg 8.87% 98.11%;
+--destructive: 358.76deg 100% 69.84%;
+--border: 0deg 0% 13.73%;
+--input: 0deg 0% 18.43%;
+}
+
+@layer base {
+* {
+@apply border-border;
+}
+}"
+`;
+
+exports[`Theme generator Tailwind v3 should add the zinc theme styles to the global stylesheet 1`] = `
+"@import '@angular/cdk/overlay-prebuilt.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* You can add global styles to this file, and also import other style files */
+
+
+:root {
+--font-sans: ''
+}
+
+:root {
+--background: 0deg 0% 100%;
+--foreground: 344.97deg 13.46% 3.85%;
+--card: 0deg 0% 100%;
+--card-foreground: 344.97deg 13.46% 3.85%;
+--popover: 0deg 0% 100%;
+--popover-foreground: 344.97deg 13.46% 3.85%;
+--primary: 344.35deg 7.21% 9.8%;
+--primary-foreground: 0deg 0.5% 98.03%;
+--secondary: 344.02deg 3.93% 95.75%;
+--secondary-foreground: 344.35deg 7.21% 9.8%;
+--muted: 344.02deg 3.93% 95.75%;
+--muted-foreground: 239.97deg 4.41% 46.34%;
+--accent: 344.02deg 3.93% 95.75%;
+--accent-foreground: 344.35deg 7.21% 9.8%;
+--destructive: 351.72deg 100% 40.53%;
+--border: 344.76deg 6.76% 89.87%;
+--input: 344.76deg 6.76% 89.87%;
+--ring: 239.9deg 5.73% 64.3%;
+--radius: 0.625rem;
+}
+
+:root.dark {
+--background: 344.97deg 13.46% 3.85%;
+--foreground: 0deg 0.5% 98.03%;
+--card: 344.35deg 7.21% 9.8%;
+--card-foreground: 0deg 0.5% 98.03%;
+--popover: 344.35deg 7.21% 9.8%;
+--popover-foreground: 0deg 0.5% 98.03%;
+--primary: 344.76deg 6.76% 89.87%;
+--primary-foreground: 344.35deg 7.21% 9.8%;
+--secondary: 344.51deg 4.81% 15.74%;
+--secondary-foreground: 0deg 0.5% 98.03%;
+--muted: 344.51deg 4.81% 15.74%;
+--muted-foreground: 239.9deg 5.73% 64.3%;
+--accent: 344.51deg 4.81% 15.74%;
+--accent-foreground: 0deg 0.5% 98.03%;
+--destructive: 358.76deg 100% 69.84%;
+--border: 0deg 0% 13.73%;
+--input: 0deg 0% 18.43%;
+--ring: 239.97deg 4.41% 46.34%;
+}
+
+@layer base {
+* {
+@apply border-border;
+}
+}"
+`;
+
+exports[`Theme generator Tailwind v4 should add the gray theme styles to the global stylesheet 1`] = `
+"@import '@angular/cdk/overlay-prebuilt.css';
+
+@import "tailwindcss";
+@import "@spartan-ng/brain/hlm-tailwind-preset.css";
+
+:root {
+--font-sans: ''
+}
+
+:root {
+--background: oklch(1 0 0);
+--foreground: oklch(0.13 0.028 261.692);
+--card: oklch(1 0 0);
+--card-foreground: oklch(0.13 0.028 261.692);
+--popover: oklch(1 0 0);
+--popover-foreground: oklch(0.13 0.028 261.692);
+--primary: oklch(0.21 0.034 264.665);
+--primary-foreground: oklch(0.985 0.002 247.839);
+--secondary: oklch(0.967 0.003 264.542);
+--secondary-foreground: oklch(0.21 0.034 264.665);
+--muted: oklch(0.967 0.003 264.542);
+--muted-foreground: oklch(0.551 0.027 264.364);
+--accent: oklch(0.967 0.003 264.542);
+--accent-foreground: oklch(0.21 0.034 264.665);
+--destructive: oklch(0.577 0.245 27.325);
+--border: oklch(0.928 0.006 264.531);
+--input: oklch(0.928 0.006 264.531);
+--ring: oklch(0.707 0.022 261.325);
+--radius: 0.625rem;
+}
+
+:root.dark {
+--background: oklch(0.13 0.028 261.692);
+--foreground: oklch(0.985 0.002 247.839);
+--card: oklch(0.21 0.034 264.665);
+--card-foreground: oklch(0.985 0.002 247.839);
+--popover: oklch(0.21 0.034 264.665);
+--popover-foreground: oklch(0.985 0.002 247.839);
+--primary: oklch(0.928 0.006 264.531);
+--primary-foreground: oklch(0.21 0.034 264.665);
+--secondary: oklch(0.278 0.033 256.848);
+--secondary-foreground: oklch(0.985 0.002 247.839);
+--muted: oklch(0.278 0.033 256.848);
+--muted-foreground: oklch(0.707 0.022 261.325);
+--accent: oklch(0.278 0.033 256.848);
+--accent-foreground: oklch(0.985 0.002 247.839);
+--destructive: oklch(0.704 0.191 22.216);
+--border: oklch(1 0 0 / 10%);
+--input: oklch(1 0 0 / 15%);
+--ring: oklch(0.551 0.027 264.364);
+}
+
+@layer base {
+* {
+@apply border-border;
+}
+}"
+`;
+
+exports[`Theme generator Tailwind v4 should add the neutral theme styles to the global stylesheet 1`] = `
+"@import '@angular/cdk/overlay-prebuilt.css';
+
+@import "tailwindcss";
+@import "@spartan-ng/brain/hlm-tailwind-preset.css";
+
+:root {
+--font-sans: ''
+}
+
+:root {
+--background: oklch(1 0 0);
+--foreground: oklch(0.145 0 0);
+--card: oklch(1 0 0);
+--card-foreground: oklch(0.145 0 0);
+--popover: oklch(1 0 0);
+--popover-foreground: oklch(0.145 0 0);
+--primary: oklch(0.205 0 0);
+--primary-foreground: oklch(0.985 0 0);
+--secondary: oklch(0.97 0 0);
+--secondary-foreground: oklch(0.205 0 0);
+--muted: oklch(0.97 0 0);
+--muted-foreground: oklch(0.556 0 0);
+--accent: oklch(0.97 0 0);
+--accent-foreground: oklch(0.205 0 0);
+--destructive: oklch(0.577 0.245 27.325);
+--border: oklch(0.922 0 0);
+--input: oklch(0.922 0 0);
+--ring: oklch(0.708 0 0);
+--radius: 0.625rem;
+}
+
+:root.dark {
+--background: oklch(0.145 0 0);
+--foreground: oklch(0.985 0 0);
+--card: oklch(0.205 0 0);
+--card-foreground: oklch(0.985 0 0);
+--popover: oklch(0.205 0 0);
+--popover-foreground: oklch(0.985 0 0);
+--primary: oklch(0.922 0 0);
+--primary-foreground: oklch(0.205 0 0);
+--secondary: oklch(0.269 0 0);
+--secondary-foreground: oklch(0.985 0 0);
+--muted: oklch(0.269 0 0);
+--muted-foreground: oklch(0.708 0 0);
+--accent: oklch(0.269 0 0);
+--accent-foreground: oklch(0.985 0 0);
+--destructive: oklch(0.704 0.191 22.216);
+--border: oklch(1 0 0 / 10%);
+--input: oklch(1 0 0 / 15%);
+--ring: oklch(0.556 0 0);
+}
+
+@layer base {
+* {
+@apply border-border;
+}
+}"
+`;
+
+exports[`Theme generator Tailwind v4 should add the slate theme styles to the global stylesheet 1`] = `
+"@import '@angular/cdk/overlay-prebuilt.css';
+
+@import "tailwindcss";
+@import "@spartan-ng/brain/hlm-tailwind-preset.css";
+
+:root {
+--font-sans: ''
+}
+
+:root {
+--background: oklch(1 0 0);
+--foreground: oklch(0.129 0.042 264.695);
+--card: oklch(1 0 0);
+--card-foreground: oklch(0.129 0.042 264.695);
+--popover: oklch(1 0 0);
+--popover-foreground: oklch(0.129 0.042 264.695);
+--primary: oklch(0.208 0.042 265.755);
+--primary-foreground: oklch(0.984 0.003 247.858);
+--secondary: oklch(0.968 0.007 247.896);
+--secondary-foreground: oklch(0.208 0.042 265.755);
+--muted: oklch(0.968 0.007 247.896);
+--muted-foreground: oklch(0.554 0.046 257.417);
+--accent: oklch(0.968 0.007 247.896);
+--accent-foreground: oklch(0.208 0.042 265.755);
+--destructive: oklch(0.577 0.245 27.325);
+--border: oklch(0.929 0.013 255.508);
+--input: oklch(0.929 0.013 255.508);
+--ring: oklch(0.704 0.04 256.788);
+--radius: 0.625rem;
+}
+
+:root.dark {
+--background: oklch(0.129 0.042 264.695);
+--foreground: oklch(0.984 0.003 247.858);
+--card: oklch(0.208 0.042 265.755);
+--card-foreground: oklch(0.984 0.003 247.858);
+--popover: oklch(0.208 0.042 265.755);
+--popover-foreground: oklch(0.984 0.003 247.858);
+--primary: oklch(0.929 0.013 255.508);
+--primary-foreground: oklch(0.208 0.042 265.755);
+--secondary: oklch(0.279 0.041 260.031);
+--secondary-foreground: oklch(0.984 0.003 247.858);
+--muted: oklch(0.279 0.041 260.031);
+--muted-foreground: oklch(0.704 0.04 256.788);
+--accent: oklch(0.279 0.041 260.031);
+--accent-foreground: oklch(0.984 0.003 247.858);
+--destructive: oklch(0.704 0.191 22.216);
+--border: oklch(1 0 0 / 10%);
+--input: oklch(1 0 0 / 15%);
+--ring: oklch(0.551 0.027 264.364);
+}
+
+@layer base {
+* {
+@apply border-border;
+}
+}"
+`;
+
+exports[`Theme generator Tailwind v4 should add the stone theme styles to the global stylesheet 1`] = `
+"@import '@angular/cdk/overlay-prebuilt.css';
+
+@import "tailwindcss";
+@import "@spartan-ng/brain/hlm-tailwind-preset.css";
+
+:root {
+--font-sans: ''
+}
+
+:root {
+--background: oklch(1 0 0);
+--foreground: oklch(0.147 0.004 49.25);
+--card: oklch(1 0 0);
+--card-foreground: oklch(0.147 0.004 49.25);
+--popover: oklch(1 0 0);
+--popover-foreground: oklch(0.147 0.004 49.25);
+--primary: oklch(0.216 0.006 56.043);
+--primary-foreground: oklch(0.985 0.001 106.423);
+--secondary: oklch(0.97 0.001 106.424);
+--secondary-foreground: oklch(0.216 0.006 56.043);
+--muted: oklch(0.97 0.001 106.424);
+--muted-foreground: oklch(0.553 0.013 58.071);
+--accent: oklch(0.97 0.001 106.424);
+--accent-foreground: oklch(0.216 0.006 56.043);
+--destructive: oklch(0.577 0.245 27.325);
+--border: oklch(0.923 0.003 48.717);
+--input: oklch(0.923 0.003 48.717);
+--ring: oklch(0.709 0.01 56.259);
+--radius: 0.625rem;
+}
+
+:root.dark {
+--background: oklch(0.147 0.004 49.25);
+--foreground: oklch(0.985 0.001 106.423);
+--card: oklch(0.216 0.006 56.043);
+--card-foreground: oklch(0.985 0.001 106.423);
+--popover: oklch(0.216 0.006 56.043);
+--popover-foreground: oklch(0.985 0.001 106.423);
+--primary: oklch(0.923 0.003 48.717);
+--primary-foreground: oklch(0.216 0.006 56.043);
+--secondary: oklch(0.268 0.007 34.298);
+--secondary-foreground: oklch(0.985 0.001 106.423);
+--muted: oklch(0.268 0.007 34.298);
+--muted-foreground: oklch(0.709 0.01 56.259);
+--accent: oklch(0.268 0.007 34.298);
+--accent-foreground: oklch(0.985 0.001 106.423);
+--destructive: oklch(0.704 0.191 22.216);
+--border: oklch(1 0 0 / 10%);
+--input: oklch(1 0 0 / 15%);
+--ring: oklch(0.553 0.013 58.071);
+}
+
+@layer base {
+* {
+@apply border-border;
+}
+}"
+`;
+
+exports[`Theme generator Tailwind v4 should add the zinc theme styles to the global stylesheet 1`] = `
+"@import '@angular/cdk/overlay-prebuilt.css';
+
+@import "tailwindcss";
+@import "@spartan-ng/brain/hlm-tailwind-preset.css";
+
+:root {
+--font-sans: ''
+}
+
+:root {
+--background: oklch(1 0 0);
+--foreground: oklch(0.141 0.005 285.823);
+--card: oklch(1 0 0);
+--card-foreground: oklch(0.141 0.005 285.823);
+--popover: oklch(1 0 0);
+--popover-foreground: oklch(0.141 0.005 285.823);
+--primary: oklch(0.21 0.006 285.885);
+--primary-foreground: oklch(0.985 0 0);
+--secondary: oklch(0.967 0.001 286.375);
+--secondary-foreground: oklch(0.21 0.006 285.885);
+--muted: oklch(0.967 0.001 286.375);
+--muted-foreground: oklch(0.552 0.016 285.938);
+--accent: oklch(0.967 0.001 286.375);
+--accent-foreground: oklch(0.21 0.006 285.885);
+--destructive: oklch(0.577 0.245 27.325);
+--border: oklch(0.92 0.004 286.32);
+--input: oklch(0.92 0.004 286.32);
+--ring: oklch(0.705 0.015 286.067);
+--radius: 0.625rem;
+}
+
+:root.dark {
+--background: oklch(0.141 0.005 285.823);
+--foreground: oklch(0.985 0 0);
+--card: oklch(0.21 0.006 285.885);
+--card-foreground: oklch(0.985 0 0);
+--popover: oklch(0.21 0.006 285.885);
+--popover-foreground: oklch(0.985 0 0);
+--primary: oklch(0.92 0.004 286.32);
+--primary-foreground: oklch(0.21 0.006 285.885);
+--secondary: oklch(0.274 0.006 286.033);
+--secondary-foreground: oklch(0.985 0 0);
+--muted: oklch(0.274 0.006 286.033);
+--muted-foreground: oklch(0.705 0.015 286.067);
+--accent: oklch(0.274 0.006 286.033);
+--accent-foreground: oklch(0.985 0 0);
+--destructive: oklch(0.704 0.191 22.216);
+--border: oklch(1 0 0 / 10%);
+--input: oklch(1 0 0 / 15%);
+--ring: oklch(0.552 0.016 285.938);
+}
+
+@layer base {
+* {
+@apply border-border;
+}
+}"
+`;

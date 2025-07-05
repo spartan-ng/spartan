@@ -15,24 +15,6 @@ const meta: Meta<HlmBadgeDirective> = {
 				defaultValue: { summary: 'default' },
 			},
 		},
-		size: {
-			options: ['default', 'lg'],
-			control: {
-				type: 'select',
-			},
-			table: {
-				defaultValue: { summary: 'default' },
-			},
-		},
-		static: {
-			control: { type: 'boolean' },
-			table: {
-				defaultValue: { summary: 'false' },
-			},
-		},
-	},
-	args: {
-		static: false,
 	},
 	decorators: [
 		moduleMetadata({

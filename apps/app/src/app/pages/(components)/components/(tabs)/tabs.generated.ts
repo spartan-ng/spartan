@@ -192,7 +192,7 @@ import {
 	},
 	template: \`
 		<hlm-tabs tab="account" class="w-full">
-			<hlm-tabs-list class="grid w-full grid-cols-2" aria-label="tabs example">
+			<hlm-tabs-list aria-label="tabs example">
 				<button hlmTabsTrigger="account">Account</button>
 				<button hlmTabsTrigger="password">Password</button>
 			</hlm-tabs-list>

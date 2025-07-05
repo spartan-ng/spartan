@@ -9,6 +9,7 @@ import type { ClassValue } from 'clsx';
 		{
 			directive: BrnRadioGroupDirective,
 			inputs: ['name', 'value', 'disabled', 'required', 'direction'],
+			outputs: ['valueChange'],
 		},
 	],
 	host: {
@@ -19,5 +20,5 @@ import type { ClassValue } from 'clsx';
 })
 export class HlmRadioGroupComponent {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected _computedClass = computed(() => hlm('grid gap-2', this.userClass()));
+	protected readonly _computedClass = computed(() => hlm('grid gap-3', this.userClass()));
 }

@@ -16,7 +16,7 @@ export class HlmProgressIndicatorDirective {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 
 	protected readonly _computedClass = computed(() =>
-		hlm('inline-flex transform-gpu h-full w-full flex-1 bg-primary transition-all', this.userClass()),
+		hlm('bg-primary h-full w-full flex-1 transition-all', this.userClass()),
 	);
 
 	protected readonly transform = computed(() => `translateX(-${100 - (this._progress.value() ?? 100)}%)`);

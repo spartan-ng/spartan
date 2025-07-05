@@ -37,16 +37,16 @@ import {
 				<hlm-sheet-header>
 					<h3 hlmSheetTitle>Sheet</h3>
 				</hlm-sheet-header>
-				<div class="grid gap-4 py-4">
-					<div class="flex items-center justify-between gap-4">
+				<div class="grid flex-1 auto-rows-min gap-6 px-4">
+					<div class="grid gap-3">
 						<label hlmLabel>Close sheet by directive</label>
 						<button hlmBtn brnSheetClose>Close</button>
 					</div>
-					<div class="flex items-center justify-between gap-4">
+					<div class="grid gap-3">
 						<label hlmLabel>Close sheet by reference</label>
 						<button hlmBtn (click)="sheetRef.close({})">Close</button>
 					</div>
-					<div class="flex items-center justify-between gap-4">
+					<div class="grid gap-3">
 						<label hlmLabel>Close sheet by viewchild reference</label>
 						<button hlmBtn (click)="closeSheet()">Close</button>
 					</div>

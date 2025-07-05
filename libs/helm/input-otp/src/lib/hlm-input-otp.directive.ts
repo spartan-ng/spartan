@@ -12,6 +12,6 @@ export class HlmInputOtpDirective {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 
 	protected readonly _computedClass = computed(() =>
-		hlm('flex items-center gap-2 has-[:disabled]:opacity-50', this.userClass()),
+		hlm('flex items-center gap-2 has-disabled:opacity-50', this.userClass()),
 	);
 }

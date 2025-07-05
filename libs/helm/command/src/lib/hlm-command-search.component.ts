@@ -19,6 +19,6 @@ export class HlmCommandSearchComponent {
 
 	/*** The styles to apply  */
 	protected readonly _computedClass = computed(() =>
-		hlm('relative [&_ng-icon]:flex-none border-b border-border flex items-center px-3 space-x-2', this.userClass()),
+		hlm('flex h-9 items-center gap-2 border-b px-3 [&>_ng-icon]:flex-none [&>_ng-icon]:opacity-50', this.userClass()),
 	);
 }

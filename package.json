@@ -41,6 +41,7 @@
 		"@angular/platform-browser-dynamic": "19.2.8",
 		"@angular/platform-server": "19.2.8",
 		"@angular/router": "19.2.8",
+		"@fontsource/geist-sans": "^5.2.5",
 		"@ng-icons/core": "31.4.0",
 		"@nx/angular": "20.8.1",
 		"@nx/devkit": "20.8.1",

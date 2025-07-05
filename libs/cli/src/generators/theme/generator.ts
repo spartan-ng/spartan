@@ -2,7 +2,7 @@ import type { ProjectConfiguration, Tree } from '@nx/devkit';
 import { prompt } from 'enquirer';
 import { getProjectsAndNames } from '../../utils/get-project-names';
 import { addThemeToApplicationStyles } from './libs/add-theme-to-application-styles';
-import { SupportedRadii, type SupportedTheme, SupportedThemes } from './libs/supported-theme-generator-map';
+import { ThemeName, themeNames } from './libs/colors';
 
 export default async function addThemeToApplicationGenerator(tree: Tree) {
 	const { projects, projectNames } = getProjectsAndNames(tree);
@@ -19,8 +19,7 @@ export default async function addThemeToApplicationGenerator(tree: Tree) {
 	if (!project) return;
 
 	const themeOptions: {
-		theme: SupportedTheme;
-		radius: string;
+		theme: ThemeName;
 		addCdkStyles: boolean;
 		stylesEntryPoint?: string;
 		prefix?: string;
@@ -31,15 +30,7 @@ export default async function addThemeToApplicationGenerator(tree: Tree) {
 			name: 'theme',
 			message:
 				'Choose which theme to apply. You can always re-run this generator and add a custom prefix to add other themes.',
-			choices: SupportedThemes,
-		},
-		{
-			type: 'select',
-			required: true,
-			name: 'radius',
-			initial: 2,
-			message: 'Which corner radius do you want to use with your theme:',
-			choices: [...SupportedRadii],
+			choices: themeNames,
 		},
 		{
 			type: 'input',
@@ -51,7 +42,7 @@ export default async function addThemeToApplicationGenerator(tree: Tree) {
 			type: 'input',
 			name: 'prefix',
 			message:
-				"Prefix class name applied to your theme's style definitions: e.g., theme-rose, theme-zinc. Leave empty for global theme.",
+				"Prefix class name applied to your theme's style definitions: e.g., theme-zinc. Leave empty for global theme.",
 		},
 	]);
 
@@ -59,7 +50,6 @@ export default async function addThemeToApplicationGenerator(tree: Tree) {
 		tree,
 		{
 			project: project.name,
-			radius: Number.parseFloat(themeOptions.radius),
 			theme: themeOptions.theme,
 			addCdkStyles: themeOptions.addCdkStyles,
 			stylesEntryPoint: themeOptions.stylesEntryPoint,

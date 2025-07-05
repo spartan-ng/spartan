@@ -5,14 +5,6 @@ const meta: Meta<HlmAvatarComponent> = {
 	title: 'Avatar',
 	component: HlmAvatarComponent,
 	tags: ['autodocs'],
-	argTypes: {
-		variant: {
-			options: ['small', 'medium', 'large'],
-			control: {
-				type: 'select',
-			},
-		},
-	},
 	decorators: [
 		moduleMetadata({
 			imports: [HlmAvatarImports],
@@ -32,20 +24,4 @@ const meta: Meta<HlmAvatarComponent> = {
 export default meta;
 type Story = StoryObj<HlmAvatarComponent>;
 
-export const Small: Story = {
-	args: {
-		variant: 'small',
-	},
-};
-
-export const Medium: Story = {
-	args: {
-		variant: 'medium',
-	},
-};
-
-export const Large: Story = {
-	args: {
-		variant: 'large',
-	},
-};
+export const Default: Story = {};

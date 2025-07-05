@@ -14,7 +14,6 @@ import {
 	HlmMenuGroupComponent,
 	HlmMenuItemDirective,
 	HlmMenuShortcutComponent,
-	hlmMenuItemVariants,
 } from '@spartan-ng/helm/menu';
 
 @Component({
@@ -55,7 +54,7 @@ import {
 					</button>
 
 					<hlm-dialog>
-						<button [class]="_hlmMenuItemClasses" brnDialogTrigger>
+						<button hlmMenuItem inset="true" brnDialogTrigger>
 							Print
 							<hlm-menu-shortcut>⌘P</hlm-menu-shortcut>
 						</button>
@@ -78,6 +77,4 @@ import {
 		</ng-template>
 	`,
 })
-export class DialogContextMenuPreviewComponent {
-	protected readonly _hlmMenuItemClasses = hlmMenuItemVariants({ inset: true });
-}
+export class DialogContextMenuPreviewComponent {}

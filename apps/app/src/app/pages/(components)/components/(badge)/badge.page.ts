@@ -1,6 +1,5 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
-import { hlmH4 } from '@spartan-ng/helm/typography';
 import { CodePreviewDirective } from '../../../../shared/code/code-preview.directive';
 import { CodeComponent } from '../../../../shared/code/code.component';
 import { MainSectionDirective } from '../../../../shared/layout/main-section.directive';
@@ -14,11 +13,7 @@ import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { BadgeDestructiveComponent } from './badge--destructive.example';
-import { BadgeOutlineExampleComponent } from './badge--outline.example';
-import { BadgeSecondaryExampleComponent } from './badge--secondary.example';
-import { badgeDestructiveCode, badgeOutlineCode, badgeSecondaryCode, defaultCode } from './badge.generated';
-import { BadgePreviewComponent, defaultImports, defaultSkeleton } from './badge.preview';
+import { BadgePreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './badge.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Badge', api: 'badge' },
@@ -41,9 +36,6 @@ export const routeMeta: RouteMeta = {
 		PageBottomNavComponent,
 		PageBottomNavLinkComponent,
 		BadgePreviewComponent,
-		BadgeDestructiveComponent,
-		BadgeOutlineExampleComponent,
-		BadgeSecondaryExampleComponent,
 	],
 	template: `
 		<section spartanMainSection>
@@ -72,30 +64,6 @@ export const routeMeta: RouteMeta = {
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="helm" />
 
-			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-
-			<h3 id="examples__secondary" class="${hlmH4} mb-2 mt-6">Secondary</h3>
-			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div spartanCodePreview firstTab>
-					<spartan-badge-secondary />
-				</div>
-				<spartan-code secondTab [code]="secondaryCode" />
-			</spartan-tabs>
-			<h3 id="examples__outline" class="${hlmH4} mb-2 mt-6">Outline</h3>
-			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div spartanCodePreview firstTab>
-					<spartan-badge-outline />
-				</div>
-				<spartan-code secondTab [code]="outlineCode" />
-			</spartan-tabs>
-			<h3 id="examples__destructive" class="${hlmH4} mb-2 mt-6">Destructive</h3>
-			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div spartanCodePreview firstTab>
-					<spartan-badge-destructive />
-				</div>
-				<spartan-code secondTab [code]="destructiveCode" />
-			</spartan-tabs>
-
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="breadcrumb" label="Breadcrumb" />
 				<spartan-page-bottom-nav-link direction="previous" href="avatar" label="Avatar" />
@@ -108,8 +76,4 @@ export default class BadgePageComponent {
 	public readonly defaultCode = defaultCode;
 	public readonly defaultSkeleton = defaultSkeleton;
 	public readonly defaultImports = defaultImports;
-
-	public readonly secondaryCode = badgeSecondaryCode;
-	public readonly outlineCode = badgeOutlineCode;
-	public readonly destructiveCode = badgeDestructiveCode;
 }

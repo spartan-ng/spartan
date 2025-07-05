@@ -14,7 +14,5 @@ import type { ClassValue } from 'clsx';
 })
 export class HlmSheetFooterComponent {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected _computedClass = computed(() =>
-		hlm('flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2', this.userClass()),
-	);
+	protected _computedClass = computed(() => hlm('mt-auto flex flex-col gap-2 p-4', this.userClass()));
 }

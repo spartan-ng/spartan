@@ -2,8 +2,8 @@ import { Directive } from '@angular/core';
 import { BrnTooltipTriggerDirective, provideBrnTooltipDefaultOptions } from '@spartan-ng/brain/tooltip';
 
 const DEFAULT_TOOLTIP_CONTENT_CLASSES =
-	'overflow-hidden rounded-md border border-border bg-popover px-3 py-1.5 text-sm text-popover-foreground shadow-md fade-in-0 zoom-in-95 ' +
-	'data-[state=open]:animate-in ' +
+	'bg-primary text-primary-foreground animate-in fade-in-0 zoom-in-95 z-50 w-fit rounded-md px-3 py-1.5 text-xs text-balance';
+'data-[state=open]:animate-in ' +
 	'data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 ' +
 	'data-[side=below]:slide-in-from-top-2 data-[side=above]:slide-in-from-bottom-2 ' +
 	'data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 ';

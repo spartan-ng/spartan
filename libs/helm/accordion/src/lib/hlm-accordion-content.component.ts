@@ -7,7 +7,7 @@ import type { ClassValue } from 'clsx';
 	selector: 'hlm-accordion-content',
 	template: `
 		<div [attr.inert]="_addInert()" style="overflow: hidden">
-			<p [class]="_contentClass()">
+			<p class="flex flex-col gap-4 text-balance pb-4 pt-0">
 				<ng-content />
 			</p>
 		</div>
@@ -24,9 +24,4 @@ export class HlmAccordionContentComponent extends BrnAccordionContentComponent {
 		const gridRows = this.state() === 'open' ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]';
 		return hlm('text-sm transition-all grid', gridRows, this.userClass());
 	});
-
-	constructor() {
-		super();
-		this.setClassToCustomElement('pt-1 pb-4');
-	}
 }

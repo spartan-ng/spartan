@@ -1,22 +1,15 @@
-import { Directive, Input, booleanAttribute, computed, input, signal } from '@angular/core';
+import { BooleanInput } from '@angular/cdk/coercion';
+import { booleanAttribute, computed, Directive, input } from '@angular/core';
 import { hlm } from '@spartan-ng/brain/core';
 import { BrnMenuItemDirective } from '@spartan-ng/brain/menu';
-import { type VariantProps, cva } from 'class-variance-authority';
-import type { ClassValue } from 'clsx';
-
-export const hlmMenuItemVariants = cva(
-	'group w-full relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:bg-accent focus-visible:text-accent-foreground disabled:pointer-events-none disabled:opacity-50',
-	{
-		variants: { inset: { true: 'pl-8', false: '' } },
-		defaultVariants: { inset: false },
-	},
-);
-export type HlmMenuItemVariants = VariantProps<typeof hlmMenuItemVariants>;
+import { ClassValue } from 'clsx';
 
 @Directive({
 	selector: '[hlmMenuItem]',
 	host: {
 		'[class]': '_computedClass()',
+		'[attr.data-variant]': 'variant()',
+		'[attr.data-inset]': 'inset() ? "" : null',
 	},
 	hostDirectives: [
 		{
@@ -27,13 +20,17 @@ export type HlmMenuItemVariants = VariantProps<typeof hlmMenuItemVariants>;
 	],
 })
 export class HlmMenuItemDirective {
-	private readonly _inset = signal<boolean>(false);
+	public readonly variant = input<'default' | 'destructive'>('default');
+
+	public readonly inset = input<boolean, BooleanInput>(false, {
+		transform: booleanAttribute,
+	});
 
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected _computedClass = computed(() => hlm(hlmMenuItemVariants({ inset: this._inset() }), this.userClass()));
-
-	@Input({ transform: booleanAttribute })
-	public set inset(value: boolean) {
-		this._inset.set(value);
-	}
+	protected _computedClass = computed(() =>
+		hlm(
+			`hover:bg-accent focus-visible:bg-accent w-full focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[ng-icon]:!text-destructive [&_ng-icon:not([class*='text-'])]:text-muted-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[inset]:pl-8 [&_ng-icon]:pointer-events-none [&_ng-icon]:shrink-0`,
+			this.userClass(),
+		),
+	);
 }

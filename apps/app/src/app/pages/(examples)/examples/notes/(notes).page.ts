@@ -14,7 +14,6 @@ import { catchError, switchMap, take, tap } from 'rxjs/operators';
 import type { Note } from '../../../../../db';
 import { injectTRPCClient } from '../../../../../trpc-client';
 import { InputErrorComponent } from '../../../../shared/input-error/input-error.component';
-import { SpartanInputErrorDirective } from '../../../../shared/input-error/input-error.directive';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { NoteSkeletonComponent } from './components/note-skeleton.component';
 import { NoteComponent } from './components/note.component';
@@ -30,7 +29,6 @@ export const routeMeta: RouteMeta = {
 	imports: [
 		FormsModule,
 		SignalInputDirective,
-		SpartanInputErrorDirective,
 		HlmButtonDirective,
 		HlmLabelDirective,
 		HlmInputDirective,

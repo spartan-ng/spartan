@@ -44,12 +44,12 @@ import {
 					<h3 hlmSheetTitle>Edit Profile</h3>
 					<p hlmSheetDescription>Make changes to your profile here. Click save when you're done.</p>
 				</hlm-sheet-header>
-				<div class="grid gap-4 py-4">
-					<div class="grid grid-cols-4 items-center gap-4">
+				<div class="grid flex-1 auto-rows-min gap-6 px-4">
+					<div class="grid gap-3">
 						<label hlmLabel for="name" class="text-right">Name</label>
 						<input hlmInput id="name" value="Pedro Duarte" class="col-span-3" />
 					</div>
-					<div class="grid grid-cols-4 items-center gap-4">
+					<div class="grid gap-3">
 						<label hlmLabel for="username" class="text-right">Username</label>
 						<input hlmInput id="username" value="@peduarte" class="col-span-3" />
 					</div>

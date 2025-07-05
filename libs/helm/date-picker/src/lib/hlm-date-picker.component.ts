@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideCalendar } from '@ng-icons/lucide';
+import { lucideChevronDown } from '@ng-icons/lucide';
 import { hlm } from '@spartan-ng/brain/core';
 import { BrnDialogState } from '@spartan-ng/brain/dialog';
 import { type ChangeFn, type TouchFn } from '@spartan-ng/brain/forms';
@@ -40,12 +40,10 @@ export const HLM_DATE_PICKER_VALUE_ACCESSOR = {
 		HlmPopoverContentDirective,
 		HlmCalendarComponent,
 	],
-	providers: [HLM_DATE_PICKER_VALUE_ACCESSOR, provideIcons({ lucideCalendar })],
+	providers: [HLM_DATE_PICKER_VALUE_ACCESSOR, provideIcons({ lucideChevronDown })],
 	template: `
 		<brn-popover sideOffset="5" [state]="popoverState()" (stateChanged)="popoverState.set($event)">
 			<button type="button" [class]="_computedClass()" [disabled]="state().disabled()" brnPopoverTrigger>
-				<ng-icon hlm size="sm" name="lucideCalendar" />
-
 				<span class="truncate">
 					@if (formattedDate(); as formattedDate) {
 						{{ formattedDate }}
@@ -53,6 +51,8 @@ export const HLM_DATE_PICKER_VALUE_ACCESSOR = {
 						<ng-content />
 					}
 				</span>
+
+				<ng-icon hlm size="sm" name="lucideChevronDown" />
 			</button>
 
 			<div hlmPopoverContent class="w-auto p-0" *brnPopoverContent="let ctx">
@@ -78,7 +78,7 @@ export class HlmDatePickerComponent<T> {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>
 		hlm(
-			'inline-flex items-center gap-2 whitespace-nowrap rounded-md text-sm ring-offset-background transition-colors border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 w-[280px] justify-start text-left font-normal',
+			'inline-flex items-center gap-2 whitespace-nowrap rounded-md text-sm transition-all disabled:pointer-events-none disabled:opacity-50 ring-offset-background transition-colors border border-input bg-background hover:bg-accent dark:bg-input/30 dark:hover:bg-input/50 hover:text-accent-foreground h-9 px-3 py-2 w-[280px] justify-start text-left font-normal cursor-default justify-between',
 			'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
 			'disabled:pointer-events-none disabled:opacity-50',
 			'[&_ng-icon]:pointer-events-none [&_ng-icon]:shrink-0',

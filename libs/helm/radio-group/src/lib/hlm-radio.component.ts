@@ -32,7 +32,7 @@ import { ClassValue } from 'clsx';
 			[aria-describedby]="ariaDescribedby()"
 			(change)="change.emit($event)"
 		>
-			<ng-content select="[target],[indicator]" indicator />
+			<ng-content select="[target],[indicator],hlm-radio-indicator" indicator />
 			<ng-content />
 		</brn-radio>
 	`,
@@ -45,12 +45,7 @@ export class HlmRadioComponent<T = unknown> {
 	private readonly _isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected _computedClass = computed(() =>
-		hlm(
-			'group [&.brn-radio-disabled]:text-muted-foreground flex items-center space-x-2 rtl:space-x-reverse',
-			this.userClass(),
-		),
-	);
+	protected readonly _computedClass = computed(() => hlm('group flex items-center gap-x-3', this.userClass()));
 
 	/** Used to set the id on the underlying brn element. */
 	public readonly id = input<string | undefined>(undefined);

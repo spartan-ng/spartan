@@ -61,7 +61,9 @@ import { HlmIconDirective } from '@spartan-ng/helm/icon';
 	imports: [HlmButtonDirective, NgIcon, HlmIconDirective],
 	providers: [provideIcons({ lucideChevronRight })],
 	template: \`
-		<button hlmBtn size="icon" variant="outline"><ng-icon hlm size="sm" name="lucideChevronRight" /></button>
+		<button hlmBtn size="icon" variant="secondary" class="size-8">
+			<ng-icon hlm size="sm" name="lucideChevronRight" />
+		</button>
 	\`,
 })
 export class ButtonIconComponent {}
@@ -93,8 +95,8 @@ import { HlmIconDirective } from '@spartan-ng/helm/icon';
 	imports: [HlmButtonDirective, NgIcon, HlmIconDirective],
 	providers: [provideIcons({ lucideLoaderCircle })],
 	template: \`
-		<button disabled hlmBtn>
-			<ng-icon hlm name="lucideLoaderCircle" size="sm" class="mr-2 animate-spin" />
+		<button disabled hlmBtn size="sm">
+			<ng-icon hlm name="lucideLoaderCircle" size="sm" class="animate-spin" />
 			Please wait
 		</button>
 	\`,
@@ -133,18 +135,18 @@ export class ButtonSecondaryComponent {}
 export const buttonWithIconCode = `
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideMail } from '@ng-icons/lucide';
+import { lucideGitBranch } from '@ng-icons/lucide';
 import { HlmButtonDirective } from '@spartan-ng/helm/button';
 import { HlmIconDirective } from '@spartan-ng/helm/icon';
 
 @Component({
 	selector: 'spartan-button-with-icon',
 	imports: [HlmButtonDirective, NgIcon, HlmIconDirective],
-	providers: [provideIcons({ lucideMail })],
+	providers: [provideIcons({ lucideGitBranch })],
 	template: \`
-		<button hlmBtn>
-			<ng-icon hlm size="sm" class="mr-2" name="lucideMail" />
-			Login with Email
+		<button hlmBtn variant="outline" size="sm">
+			<ng-icon hlm size="sm" name="lucideGitBranch" />
+			New Branch
 		</button>
 	\`,
 })

@@ -13,7 +13,7 @@ export class HlmSwitchThumbDirective {
 
 	protected readonly _computedClass = computed(() =>
 		hlm(
-			'block h-5 w-5 rounded-full bg-background shadow-lg ring-0 transition-transform group-data-[state=checked]:translate-x-5 group-data-[state=unchecked]:translate-x-0',
+			'bg-background dark:group-data-[state=unchecked]:bg-foreground dark:group-data-[state=checked]:bg-primary-foreground pointer-events-none block size-4 rounded-full ring-0 transition-transform group-data-[state=checked]:translate-x-[calc(100%-2px)] data-[state=unchecked]:translate-x-0',
 			this.userClass(),
 		),
 	);

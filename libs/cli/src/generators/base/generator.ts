@@ -30,7 +30,9 @@ export async function hlmBaseGenerator(tree: Tree, options: HlmBaseGeneratorSche
 	}
 
 	if (options.angularCli) {
-		addTsConfigPath(tree, tsConfigAliasToUse, [`.${path.sep}${joinPathFragments(targetLibDir, 'src', 'index.ts')}`]);
+		addTsConfigPath(tree, tsConfigAliasToUse, [
+			`./${joinPathFragments(targetLibDir, 'src', 'index.ts').replace(/\\/g, '/')}`,
+		]);
 	} else {
 		tasks.push(await initializeAngularLibrary(tree, options));
 	}

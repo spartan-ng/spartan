@@ -6,8 +6,8 @@ spartan is an MIT-licensed open source project with its ongoing development made
 
 ### Folder structure
 
-Source code for the UI primitives exists under the `libs/ui` folder. To contribute features or bug fixes to the project,
-locate the relevant code in one of the `libs/ui` sub-folder.
+Source code for the UI primitives exists under the `libs/brain` and `libs/helm` folders. To contribute features or bug fixes to the project,
+locate the relevant code in one of these sub-folders.
 
 ### Setup
 
@@ -72,6 +72,15 @@ command:
 nx g @spartan-ng/tools:brain-secondary-entrypoint --name=feature-name
 ```
 
+## Creating a new Helm feature
+
+Helm features should be added as a secondary entrypoint to the `helm` library. This can be done by running the following
+command:
+
+```shell
+nx g @spartan-ng/tools:helm-secondary-entrypoint --name=feature-name
+```
+
 ## Submitting pull requests
 
 **Please follow these basic steps to simplify pull request reviews. If you don't you'll probably just be asked to
@@ -81,7 +90,7 @@ anyway.**
 - Run the `Setup` command to make sure your development dependencies are up-to-date.
 - Please ensure the test suite passes before submitting a PR.
 - If you've added new functionality, **please** include tests which validate its behavior.
-- Make reference to possible [issues](https://github.com/goetzrobin/spartan/issues) on PR comment.
+- Make reference to possible [issues](https://github.com/spartan-ng/spartan/issues) on PR comment.
 
 ## Submitting bug reports
 
@@ -101,7 +110,7 @@ anyway.**
 
 Questions and requests for support should not be opened as issues and should be handled in the following ways:
 
-- Start a new [Q&A Discussion](https://github.com/goetzrobin/spartan/discussions/new?category=q-a) on GitHub.
+- Start a new [Q&A Discussion](https://github.com/spartan-ng/spartan/discussions/new?category=q-a) on GitHub.
 
 ## Commit message guidelines
 
@@ -130,7 +139,7 @@ to read on GitHub as well as in various git tools.
 The footer should contain
 a [closing reference to an issue](https://help.github.com/articles/closing-issues-via-commit-messages/) if any.
 
-Samples: (even more [samples](https://github.com/goetzrobin/spartan/commits/main))
+Samples: (even more [samples](https://github.com/spartan-ng/spartan/commits/main))
 
 ```
 docs(changelog): update changelog to beta.5
@@ -167,6 +176,8 @@ The scope should be the name of the npm package affected (as perceived by the pe
 from commit messages.
 
 The following is the list of supported scopes:
+
+#### Primitives
 
 - **accordion**
 - **alert**
@@ -216,6 +227,13 @@ The following is the list of supported scopes:
 - **toggle-group**
 - **tooltip**
 - **typography**
+
+#### And others
+
+- **trpc**
+- **nx**
+- **repo**
+- **cli**
 
 ### Subject
 

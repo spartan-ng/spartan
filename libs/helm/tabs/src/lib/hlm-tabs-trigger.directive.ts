@@ -1,4 +1,8 @@
-import { Directive, computed, input } from '@angular/core';
+import {
+	Directive,
+	computed,
+	input,
+} from '@angular/core';
 import { hlm } from '@spartan-ng/brain/core';
 import { BrnTabsTriggerDirective } from '@spartan-ng/brain/tabs';
 import type { ClassValue } from 'clsx';
@@ -8,14 +12,10 @@ import type { ClassValue } from 'clsx';
 	hostDirectives: [{ directive: BrnTabsTriggerDirective, inputs: ['brnTabsTrigger: hlmTabsTrigger', 'disabled'] }],
 	host: {
 		'[class]': '_computedClass()',
-		'[disabled]': 'disabled()',
-		'[attr.data-disabled]': 'disabled()',
 	},
 })
 export class HlmTabsTriggerDirective {
 	public readonly triggerFor = input.required<string>({ alias: 'hlmTabsTrigger' });
-	public readonly disabled = input<boolean>(false);
-
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected _computedClass = computed(() =>
 		hlm(

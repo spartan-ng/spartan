@@ -40,8 +40,8 @@ const meta: Meta<BrnTabsDirective & { disabled: boolean }> = {
 export default meta;
 type Story = StoryObj<BrnTabsDirective & { disabled: boolean }>;
 export const Default: Story = {
-	render: ({ ...args }) => ({
-		props: args,
+	render: ({ disabled, ...args }) => ({
+		props: { disabled, ...args },
 		template: /* HTML */ `
 			<hlm-tabs tab="account" ${argsToTemplate(args)} class="mx-auto block max-w-3xl">
 				<hlm-tabs-list class="grid w-full grid-cols-2" aria-label="tabs example">

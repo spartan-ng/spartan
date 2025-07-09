@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, OnDestroy, computed, effect, inject, input, untracked } from '@angular/core';
+import { Directive, ElementRef, OnDestroy, computed, effect, inject, input, untracked } from '@angular/core';
 import { BrnTabsDirective } from './brn-tabs.directive';
 
 @Directive({
@@ -13,6 +13,7 @@ import { BrnTabsDirective } from './brn-tabs.directive';
 		'[attr.data-state]': "selected() ? 'active' : 'inactive'",
 		'[attr.data-orientation]': '_orientation()',
 		'[attr.data-disabled]': "disabled ? '' : undefined",
+		'[attr.disabled]': "disabled ? '' : undefined",
 		'(click)': 'activate()',
 	},
 	exportAs: 'brnTabsTrigger',
@@ -29,9 +30,13 @@ export class BrnTabsTriggerDirective implements OnDestroy {
 	protected readonly contentId = computed(() => `brn-tabs-content-${this.triggerFor()}`);
 	protected readonly labelId = computed(() => `brn-tabs-label-${this.triggerFor()}`);
 
-	// leaving this as an @input to be compatible with the `FocusKeyManager` used in the `BrnTabsListDirective`
-	@Input()
-	public disabled = false;
+	// using as an alias due to FocusKeyManager not accepting type inputSignal but allows us to use signal-based input for consistency.
+	public readonly disabledState = input<boolean | undefined>(undefined, {alias: 'disabled'});
+
+	public get disabled(): boolean | undefined {
+		return this.disabledState();
+	}
+
 
 	constructor() {
 		effect(() => {

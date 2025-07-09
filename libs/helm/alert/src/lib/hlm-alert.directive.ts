@@ -3,14 +3,14 @@ import { hlm } from '@spartan-ng/brain/core';
 import { type VariantProps, cva } from 'class-variance-authority';
 import type { ClassValue } from 'clsx';
 
-export const alertVariants = cva(
-	'relative w-full rounded-lg border border-border p-4 [&>[hlmAlertIcon]]:absolute [&>[hlmAlertIcon]]:text-foreground [&>[hlmAlertIcon]]:left-4 [&>[hlmAlertIcon]]:top-4 [&>[hlmAlertIcon]+div]:translate-y-[-3px] [&>[hlmAlertIcon]~*]:pl-7',
+const alertVariants = cva(
+	'relative w-full rounded-lg border px-4 py-3 text-sm grid has-[>[hlmAlertIcon]]:grid-cols-[calc(var(--spacing)*4)_1fr] grid-cols-[0_1fr] has-[>[hlmAlertIcon]]:gap-x-3 gap-y-0.5 items-start [&>[hlmAlertIcon]]:size-4 [&>[hlmAlertIcon]]:translate-y-0.5 [&>[hlmAlertIcon]]:text-current',
 	{
 		variants: {
 			variant: {
-				default: 'bg-background text-foreground',
+				default: 'bg-card text-card-foreground',
 				destructive:
-					'text-destructive border-destructive/50 dark:border-destructive [&>[hlmAlertIcon]]:text-destructive',
+					'text-destructive bg-card [&>[hlmAlertIcon]]:text-current [&>[hlmAlertDescription]]:text-destructive/90 [&>[hlmAlertDesc]]:text-destructive/90',
 			},
 		},
 		defaultVariants: {
@@ -18,6 +18,7 @@ export const alertVariants = cva(
 		},
 	},
 );
+
 export type AlertVariants = VariantProps<typeof alertVariants>;
 
 @Directive({

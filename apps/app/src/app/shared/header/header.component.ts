@@ -8,7 +8,6 @@ import { SpartanLogoComponent } from '../spartan-logo.component';
 import { NavLinkDirective } from '../spartan-nav-link.directive';
 import { HeaderDarkModeComponent } from './header-dark-mode.component';
 import { HeaderMobileNavComponent } from './header-mobile-nav.component';
-import { HeaderThemePickerComponent } from './header-theme-picker.component';
 
 @Component({
 	selector: 'spartan-header',
@@ -17,7 +16,6 @@ import { HeaderThemePickerComponent } from './header-theme-picker.component';
 		RouterLink,
 		NgIcon,
 		HlmIconDirective,
-		HeaderThemePickerComponent,
 		NavLinkDirective,
 		HeaderMobileNavComponent,
 		HeaderDarkModeComponent,
@@ -54,7 +52,6 @@ import { HeaderThemePickerComponent } from './header-theme-picker.component';
 					<span class="sr-only">Github</span>
 					<ng-icon hlm name="lucideGithub" size="sm" />
 				</a>
-				<spartan-theme-picker />
 				<spartan-dark-mode />
 			</div>
 		</div>

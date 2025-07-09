@@ -9,16 +9,9 @@ const meta: Meta<HlmInputDirective> = {
 	component: HlmInputDirective,
 	tags: ['autodocs'],
 	args: {
-		size: 'default',
 		error: 'auto',
 	},
 	argTypes: {
-		size: {
-			options: ['default', 'sm', 'lg'],
-			control: {
-				type: 'select',
-			},
-		},
 		error: {
 			options: ['auto', 'true'],
 			control: {

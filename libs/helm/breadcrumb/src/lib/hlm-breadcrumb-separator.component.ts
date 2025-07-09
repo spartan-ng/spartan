@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronRight } from '@ng-icons/lucide';
 import { hlm } from '@spartan-ng/brain/core';
-import type { ClassValue } from 'clsx';
+import { ClassValue } from 'clsx';
 
 @Component({
 	// eslint-disable-next-line @angular-eslint/component-selector
@@ -11,12 +11,12 @@ import type { ClassValue } from 'clsx';
 	providers: [provideIcons({ lucideChevronRight })],
 	host: {
 		role: 'presentation',
+		'aria-hidden': 'true',
 		'[class]': '_computedClass()',
-		'[attr.aria-hidden]': 'true',
 	},
 	template: `
 		<ng-content>
-			<ng-icon name="lucideChevronRight" />
+			<ng-icon class="flex" size="14px" name="lucideChevronRight" />
 		</ng-content>
 	`,
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -24,7 +24,5 @@ import type { ClassValue } from 'clsx';
 export class HlmBreadcrumbSeparatorComponent {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 
-	protected readonly _computedClass = computed(() =>
-		hlm('[&>ng-icon]:text-[14px] [&>ng-icon]:flex!', this.userClass()),
-	);
+	protected readonly _computedClass = computed(() => hlm('size-3.5', this.userClass()));
 }

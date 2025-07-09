@@ -11,12 +11,11 @@ import { HlmInputDirective } from './hlm-input.directive';
 	imports: [HlmInputDirective, ReactiveFormsModule],
 	template: `
 		<form [formGroup]="form">
-			<input hlmInput formControlName="testField" [class]="userClass" [error]="error" [size]="size" />
+			<input hlmInput formControlName="testField" [class]="userClass" [error]="error" />
 		</form>
 	`,
 })
 class HlmInputMockComponent implements OnInit {
-	@Input() public size: 'default' | 'sm' | 'lg' = 'default';
 	@Input() public error: 'auto' | true = 'auto';
 	@Input() public userClass = '';
 	@Input() public required = true;
@@ -43,28 +42,6 @@ describe('HlmInputDirective', () => {
 		directive = r.fixture.debugElement.query(By.directive(HlmInputDirective)).injector.get(HlmInputDirective);
 	});
 
-	describe('Size variants', () => {
-		it('should add the default size classes', () => {
-			expect(input.classList.contains('h-10')).toBe(true);
-			expect(input.classList.contains('py-2')).toBe(true);
-			expect(input.classList.contains('px-4')).toBe(true);
-		});
-
-		it('should add the sm size classes', async () => {
-			await r.rerender({ componentInputs: { size: 'sm' } });
-			r.fixture.detectChanges();
-			expect(input.classList.contains('h-9')).toBe(true);
-			expect(input.classList.contains('px-3')).toBe(true);
-		});
-
-		it('should add the lg size classes', async () => {
-			await r.rerender({ componentInputs: { size: 'lg' } });
-			r.fixture.detectChanges();
-			expect(input.classList.contains('h-11')).toBe(true);
-			expect(input.classList.contains('px-8')).toBe(true);
-		});
-	});
-
 	describe('Error state and styling', () => {
 		it('should have auto error classes by default', () => {
 			const hasAutoErrorClass = input.className.includes('[&.ng-invalid.ng-touched]:text-destructive');
@@ -74,7 +51,7 @@ describe('HlmInputDirective', () => {
 		it('should apply manual error styling when error is true', async () => {
 			await r.rerender({ componentInputs: { error: true } });
 			r.fixture.detectChanges();
-			expect(input.classList.contains('text-destructive')).toBe(true);
+			expect(input.classList.contains('text-destructive/20')).toBe(true);
 			expect(input.classList.contains('border-destructive')).toBe(true);
 			expect(input.classList.contains('focus-visible:ring-destructive')).toBe(true);
 		});
@@ -160,7 +137,7 @@ describe('HlmInputDirective', () => {
 
 			directive.setError(shouldShowError ? true : 'auto');
 			r.fixture.detectChanges();
-			expect(input.classList.contains('text-destructive')).toBe(true);
+			expect(input.classList.contains('text-destructive/20')).toBe(true);
 		});
 
 		it('should maintain error state when switching between touched and dirty states', async () => {
@@ -235,18 +212,8 @@ describe('HlmInputDirective', () => {
 			expect(directive.ngControl?.name).toBe('testField');
 		});
 
-		it('should have default size input', () => {
-			expect(directive.size()).toBe('default');
-		});
-
 		it('should have auto error input by default', () => {
 			expect(directive.error()).toBe('auto');
-		});
-
-		it('should update size input', async () => {
-			await r.rerender({ componentInputs: { size: 'lg' } });
-			r.fixture.detectChanges();
-			expect(directive.size()).toBe('lg');
 		});
 
 		it('should update error input', async () => {

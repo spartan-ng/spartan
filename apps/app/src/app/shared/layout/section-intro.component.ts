@@ -1,14 +1,13 @@
 import { Component, Input } from '@angular/core';
-import { hlmLead } from '@spartan-ng/helm/typography';
 
 @Component({
 	selector: 'spartan-section-intro',
 	host: {
-		class: 'mb-8 block space-y-2',
+		class: 'flex flex-col gap-2',
 	},
 	template: `
-		<h1 class="scroll-m-20 text-4xl font-bold tracking-tight">{{ name }}</h1>
-		<p class="${hlmLead}">{{ lead }}</p>
+		<h1 class="scroll-m-20 text-4xl font-semibold tracking-tight sm:text-3xl xl:text-4xl">{{ name }}</h1>
+		<p class="text-muted-foreground text-balance text-[1.05rem] sm:text-base">{{ lead }}</p>
 	`,
 })
 export class SectionIntroComponent {

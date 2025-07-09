@@ -18,7 +18,7 @@ import { HlmToggleGroupDirective, HlmToggleGroupItemDirective } from '@spartan-n
 		NgIcon,
 	],
 	template: `
-		<brn-toggle-group hlm multiple="true" nullable="true" variant="default">
+		<brn-toggle-group hlm multiple="true" nullable="true">
 			<button aria-label="Bold" value="bold" hlmToggleGroupItem>
 				<ng-icon hlm size="sm" name="lucideBold" />
 			</button>

@@ -43,20 +43,57 @@ describe('Theme generator', () => {
 		it('should not add the Tailwind 4 preset global stylesheet', async () => {
 			const project = readProjectConfiguration(tree, 'website');
 
-			addThemeToApplicationStyles(
-				tree,
-				{
-					theme: 'zinc',
-					project: 'website',
-					radius: 2,
-					addCdkStyles: true,
-				},
-				project,
-			);
+			addThemeToApplicationStyles(tree, { theme: 'zinc', project: 'website', addCdkStyles: true }, project);
 
 			const styles = tree.read('website/src/styles.css', 'utf8');
 
 			expect(styles).not.toContain('@import "@spartan-ng/brain/hlm-tailwind-preset.css";');
+		});
+
+		it('should add the neutral theme styles to the global stylesheet', async () => {
+			const project = readProjectConfiguration(tree, 'website');
+			addThemeToApplicationStyles(tree, { theme: 'neutral', project: 'website', addCdkStyles: true }, project);
+			const styles = tree.read('website/src/styles.css', 'utf8');
+			expect(styles).toMatchSnapshot();
+		});
+
+		it('should add the zinc theme styles to the global stylesheet', async () => {
+			const project = readProjectConfiguration(tree, 'website');
+			addThemeToApplicationStyles(tree, { theme: 'zinc', project: 'website', addCdkStyles: true }, project);
+			const styles = tree.read('website/src/styles.css', 'utf8');
+			expect(styles).toMatchSnapshot();
+		});
+
+		it('should add the slate theme styles to the global stylesheet', async () => {
+			const project = readProjectConfiguration(tree, 'website');
+			addThemeToApplicationStyles(tree, { theme: 'slate', project: 'website', addCdkStyles: true }, project);
+			const styles = tree.read('website/src/styles.css', 'utf8');
+			expect(styles).toMatchSnapshot();
+		});
+
+		it('should add the stone theme styles to the global stylesheet', async () => {
+			const project = readProjectConfiguration(tree, 'website');
+			addThemeToApplicationStyles(tree, { theme: 'stone', project: 'website', addCdkStyles: true }, project);
+			const styles = tree.read('website/src/styles.css', 'utf8');
+			expect(styles).toMatchSnapshot();
+		});
+
+		it('should add the gray theme styles to the global stylesheet', async () => {
+			const project = readProjectConfiguration(tree, 'website');
+			addThemeToApplicationStyles(tree, { theme: 'gray', project: 'website', addCdkStyles: true }, project);
+			const styles = tree.read('website/src/styles.css', 'utf8');
+			expect(styles).toMatchSnapshot();
+		});
+
+		it('should add the custom prefix to the theme styles', async () => {
+			const project = readProjectConfiguration(tree, 'website');
+			addThemeToApplicationStyles(
+				tree,
+				{ theme: 'zinc', project: 'website', addCdkStyles: true, prefix: 'theme-zinc' },
+				project,
+			);
+			const styles = tree.read('website/src/styles.css', 'utf8');
+			expect(styles).toContain('.theme-zinc');
 		});
 	});
 
@@ -75,21 +112,55 @@ describe('Theme generator', () => {
 
 		it('should add the Tailwind 4 preset global stylesheet', async () => {
 			const project = readProjectConfiguration(tree, 'website');
+			addThemeToApplicationStyles(tree, { theme: 'zinc', project: 'website', addCdkStyles: true }, project);
+			const styles = tree.read('website/src/styles.css', 'utf8');
+			expect(styles).toContain('@import "@spartan-ng/brain/hlm-tailwind-preset.css";');
+		});
 
+		it('should add the neutral theme styles to the global stylesheet', async () => {
+			const project = readProjectConfiguration(tree, 'website');
+			addThemeToApplicationStyles(tree, { theme: 'neutral', project: 'website', addCdkStyles: true }, project);
+			const styles = tree.read('website/src/styles.css', 'utf8');
+			expect(styles).toMatchSnapshot();
+		});
+
+		it('should add the zinc theme styles to the global stylesheet', async () => {
+			const project = readProjectConfiguration(tree, 'website');
+			addThemeToApplicationStyles(tree, { theme: 'zinc', project: 'website', addCdkStyles: true }, project);
+			const styles = tree.read('website/src/styles.css', 'utf8');
+			expect(styles).toMatchSnapshot();
+		});
+
+		it('should add the slate theme styles to the global stylesheet', async () => {
+			const project = readProjectConfiguration(tree, 'website');
+			addThemeToApplicationStyles(tree, { theme: 'slate', project: 'website', addCdkStyles: true }, project);
+			const styles = tree.read('website/src/styles.css', 'utf8');
+			expect(styles).toMatchSnapshot();
+		});
+
+		it('should add the stone theme styles to the global stylesheet', async () => {
+			const project = readProjectConfiguration(tree, 'website');
+			addThemeToApplicationStyles(tree, { theme: 'stone', project: 'website', addCdkStyles: true }, project);
+			const styles = tree.read('website/src/styles.css', 'utf8');
+			expect(styles).toMatchSnapshot();
+		});
+
+		it('should add the gray theme styles to the global stylesheet', async () => {
+			const project = readProjectConfiguration(tree, 'website');
+			addThemeToApplicationStyles(tree, { theme: 'gray', project: 'website', addCdkStyles: true }, project);
+			const styles = tree.read('website/src/styles.css', 'utf8');
+			expect(styles).toMatchSnapshot();
+		});
+
+		it('should add the custom prefix to the theme styles', async () => {
+			const project = readProjectConfiguration(tree, 'website');
 			addThemeToApplicationStyles(
 				tree,
-				{
-					theme: 'zinc',
-					project: 'website',
-					radius: 2,
-					addCdkStyles: true,
-				},
+				{ theme: 'zinc', project: 'website', addCdkStyles: true, prefix: 'theme-zinc' },
 				project,
 			);
-
 			const styles = tree.read('website/src/styles.css', 'utf8');
-
-			expect(styles).toContain('@import "@spartan-ng/brain/hlm-tailwind-preset.css";');
+			expect(styles).toContain('.theme-zinc');
 		});
 	});
 });

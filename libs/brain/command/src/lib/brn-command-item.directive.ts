@@ -26,6 +26,7 @@ import { injectBrnCommand } from './brn-command.token';
 		tabIndex: '-1',
 		'[id]': 'id()',
 		'[attr.disabled]': '_disabled() ? true : null',
+		'[attr.data-disabled]': '_disabled() ? "" : null',
 		'[attr.data-value]': 'value()',
 		'[attr.data-hidden]': "!visible() ? '' : null",
 		'[attr.aria-selected]': 'active()',

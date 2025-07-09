@@ -54,12 +54,12 @@ import {
 					<h3 hlmSheetTitle>Edit Profile</h3>
 					<p hlmSheetDescription>Make changes to your profile here. Click save when you're done.</p>
 				</hlm-sheet-header>
-				<div class="grid gap-4 py-4">
-					<div class="grid grid-cols-4 items-center gap-4">
+				<div class="grid flex-1 auto-rows-min gap-6 px-4">
+					<div class="grid gap-3">
 						<label hlmLabel for="name" class="text-right">Name</label>
 						<input hlmInput id="name" value="Pedro Duarte" class="col-span-3" />
 					</div>
-					<div class="grid grid-cols-4 items-center gap-4">
+					<div class="grid gap-3">
 						<label hlmLabel for="username" class="text-right">Username</label>
 						<input hlmInput id="username" value="@peduarte" class="col-span-3" />
 					</div>
@@ -114,16 +114,16 @@ import {
 				<hlm-sheet-header>
 					<h3 hlmSheetTitle>Sheet</h3>
 				</hlm-sheet-header>
-				<div class="grid gap-4 py-4">
-					<div class="flex items-center justify-between gap-4">
+				<div class="grid flex-1 auto-rows-min gap-6 px-4">
+					<div class="grid gap-3">
 						<label hlmLabel>Close sheet by directive</label>
 						<button hlmBtn brnSheetClose>Close</button>
 					</div>
-					<div class="flex items-center justify-between gap-4">
+					<div class="grid gap-3">
 						<label hlmLabel>Close sheet by reference</label>
 						<button hlmBtn (click)="sheetRef.close({})">Close</button>
 					</div>
-					<div class="flex items-center justify-between gap-4">
+					<div class="grid gap-3">
 						<label hlmLabel>Close sheet by viewchild reference</label>
 						<button hlmBtn (click)="closeSheet()">Close</button>
 					</div>
@@ -183,12 +183,12 @@ import {
 					<h3 hlmSheetTitle>Edit Profile</h3>
 					<p hlmSheetDescription>Make changes to your profile here. Click save when you're done.</p>
 				</hlm-sheet-header>
-				<div class="grid gap-4 py-4">
-					<div class="grid grid-cols-4 items-center gap-4">
+				<div class="grid flex-1 auto-rows-min gap-6 px-4">
+					<div class="grid gap-3">
 						<label hlmLabel for="name" class="text-right">Name</label>
 						<input hlmInput id="name" value="Pedro Duarte" class="col-span-3" />
 					</div>
-					<div class="grid grid-cols-4 items-center gap-4">
+					<div class="grid gap-3">
 						<label hlmLabel for="username" class="text-right">Username</label>
 						<input hlmInput id="username" value="@peduarte" class="col-span-3" />
 					</div>

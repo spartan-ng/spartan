@@ -211,7 +211,7 @@ import { HlmDatePickerComponent } from '@spartan-ng/helm/date-picker';
 	imports: [HlmDatePickerComponent],
 	template: \`
 		<hlm-date-picker [min]="minDate" [max]="maxDate">
-			<span>Pick a date</span>
+			<span>Select date</span>
 		</hlm-date-picker>
 	\`,
 	host: {

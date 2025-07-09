@@ -18,7 +18,7 @@ import { HlmInputDirective } from '@spartan-ng/helm/input';
 	template: \`
 		<div class="flex w-full max-w-sm items-center space-x-2">
 			<input aria-label="Email" class="w-80" hlmInput type="email" placeholder="Email" />
-			<button hlmBtn>Subscribe</button>
+			<button hlmBtn variant="outline">Subscribe</button>
 		</div>
 	\`,
 })
@@ -62,10 +62,10 @@ import { HlmLabelDirective } from '@spartan-ng/helm/label';
 	selector: 'spartan-input-label',
 	imports: [HlmInputDirective, HlmLabelDirective],
 	template: \`
-		<label hlmLabel>
-			Email
-			<input class="w-80" hlmInput type="email" placeholder="Email" />
-		</label>
+		<div class="grid w-full max-w-sm items-center gap-3">
+			<label for="email" hlmLabel>Email</label>
+			<input hlmInput type="email" id="email" placeholder="Email" />
+		</div>
 	\`,
 })
 export class InputLabelPreviewComponent {}

@@ -32,7 +32,7 @@ describe('HlmAvatarComponent', () => {
 
 	it('should add the default classes if no inputs are provided', () => {
 		fixture.detectChanges();
-		expect(fixture.nativeElement.className).toBe('flex h-10 overflow-hidden relative rounded-full shrink-0 w-10');
+		expect(fixture.nativeElement.className).toBe('flex overflow-hidden relative rounded-full shrink-0 size-8');
 	});
 
 	it('should add any user defined classes', () => {
@@ -41,20 +41,6 @@ describe('HlmAvatarComponent', () => {
 		mockFixture.detectChanges();
 		const avatar = mockFixture.nativeElement.querySelector('hlm-avatar');
 		expect(avatar.className).toContain('test-class');
-	});
-
-	it('should change the size when the variant is changed', () => {
-		fixture.componentRef.setInput('variant', 'small');
-		fixture.detectChanges();
-		expect(fixture.nativeElement.className).toContain('h-6');
-		expect(fixture.nativeElement.className).toContain('w-6');
-		expect(fixture.nativeElement.className).toContain('text-xs');
-
-		fixture.componentRef.setInput('variant', 'large');
-		fixture.detectChanges();
-		expect(fixture.nativeElement.className).toContain('h-14');
-		expect(fixture.nativeElement.className).toContain('w-14');
-		expect(fixture.nativeElement.className).toContain('text-lg');
 	});
 
 	it('should support brn directives', () => {

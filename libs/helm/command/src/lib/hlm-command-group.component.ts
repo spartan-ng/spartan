@@ -22,6 +22,6 @@ export class HlmCommandGroupComponent {
 
 	/*** The styles to apply  */
 	protected readonly _computedClass = computed(() =>
-		hlm('flex flex-col overflow-hidden p-1 text-foreground data-[hidden]:hidden', this.userClass()),
+		hlm('text-foreground overflow-hidden p-1 block data-[hidden]:hidden', this.userClass()),
 	);
 }

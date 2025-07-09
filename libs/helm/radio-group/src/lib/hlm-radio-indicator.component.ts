@@ -2,23 +2,22 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
 import { hlm } from '@spartan-ng/brain/core';
 import type { ClassValue } from 'clsx';
 
-const btnLike =
-	'aspect-square rounded-full ring-offset-background group-[.cdk-keyboard-focused]:ring-2 group-[.cdk-keyboard-focused]:ring-ring group-[.cdk-keyboard-focused]:ring-offset-2 group-[.brn-radio-disabled]:cursor-not-allowed group-[.brn-radio-disabled]:opacity-50';
-
 @Component({
 	selector: 'hlm-radio-indicator',
 	host: {
 		'[class]': '_computedClass()',
 	},
 	template: `
-		<div
-			class="bg-foreground absolute inset-0 hidden scale-[55%] rounded-full group-[.brn-radio-checked]:inline-block"
-		></div>
-		<div class="border-primary ${btnLike} rounded-full border"></div>
+		<div class="group-data-[checked=true]:bg-primary size-2 rounded-full bg-transparent"></div>
 	`,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmRadioIndicatorComponent {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected _computedClass = computed(() => hlm('relative inline-flex h-4 w-4', this.userClass()));
+	protected _computedClass = computed(() =>
+		hlm(
+			'relative flex items-center justify-center border-input text-primary group-has-[:focus-visible]:border-ring group-has-[:focus-visible]:ring-ring/50 dark:bg-input/30 aspect-square size-4 shrink-0 rounded-full border shadow-xs transition-[color,box-shadow] outline-none group-has-[:focus-visible]:ring-[3px] group-data=[disabled=true]:cursor-not-allowed group-data=[disabled=true]:opacity-50',
+			this.userClass(),
+		),
+	);
 }

@@ -25,9 +25,6 @@ export class HlmCommandComponent {
 
 	/*** The styles to apply  */
 	protected readonly _computedClass = computed(() =>
-		hlm(
-			'w-96 bg-popover border border-border flex flex-col h-full overflow-hidden rounded-md text-popover-foreground',
-			this.userClass(),
-		),
+		hlm('bg-popover text-popover-foreground flex h-full w-full flex-col overflow-hidden rounded-md', this.userClass()),
 	);
 }

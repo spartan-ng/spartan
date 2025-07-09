@@ -1,16 +1,16 @@
+import { BooleanInput } from '@angular/cdk/coercion';
 import {
 	Directive,
 	ElementRef,
 	OnDestroy,
+	booleanAttribute,
 	computed,
 	effect,
 	inject,
 	input,
 	untracked,
-	booleanAttribute
 } from '@angular/core';
 import { BrnTabsDirective } from './brn-tabs.directive';
-import { BooleanInput } from '@angular/cdk/coercion';
 
 @Directive({
 	selector: 'button[brnTabsTrigger]',
@@ -48,7 +48,6 @@ export class BrnTabsTriggerDirective implements OnDestroy {
 	public get disabled(): boolean | undefined {
 		return this._disabled();
 	}
-
 
 	constructor() {
 		effect(() => {

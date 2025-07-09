@@ -29,7 +29,6 @@ export class BrnTabsListDirective implements AfterContentInit {
 	public triggers = contentChildren(BrnTabsTriggerDirective, { descendants: true });
 
 	public ngAfterContentInit() {
-
 		this._keyManager = new FocusKeyManager<BrnTabsTriggerDirective>(this.triggers())
 			.withHorizontalOrientation(this._direction())
 			.withHomeAndEnd()

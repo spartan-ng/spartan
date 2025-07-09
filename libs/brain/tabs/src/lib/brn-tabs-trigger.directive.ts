@@ -1,5 +1,16 @@
-import { Directive, ElementRef, OnDestroy, computed, effect, inject, input, untracked } from '@angular/core';
+import {
+	Directive,
+	ElementRef,
+	OnDestroy,
+	computed,
+	effect,
+	inject,
+	input,
+	untracked,
+	booleanAttribute
+} from '@angular/core';
 import { BrnTabsDirective } from './brn-tabs.directive';
+import { BooleanInput } from '@angular/cdk/coercion';
 
 @Directive({
 	selector: 'button[brnTabsTrigger]',
@@ -30,11 +41,12 @@ export class BrnTabsTriggerDirective implements OnDestroy {
 	protected readonly contentId = computed(() => `brn-tabs-content-${this.triggerFor()}`);
 	protected readonly labelId = computed(() => `brn-tabs-label-${this.triggerFor()}`);
 
-	// using as an alias due to FocusKeyManager not accepting type inputSignal but allows us to use signal-based input for consistency.
-	public readonly disabledState = input<boolean | undefined>(undefined, {alias: 'disabled'});
-
+	public readonly _disabled = input<boolean, BooleanInput>(false, {
+		alias: 'disabled',
+		transform: booleanAttribute,
+	});
 	public get disabled(): boolean | undefined {
-		return this.disabledState();
+		return this._disabled();
 	}
 
 

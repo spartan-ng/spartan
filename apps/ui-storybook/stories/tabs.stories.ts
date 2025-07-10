@@ -239,7 +239,7 @@ export const Disabled: Story = {
 				</hlm-tabs-list>
 			</hlm-tabs>
 
-			<div class="flex justify-center mt-6">
+			<div class="mt-6 flex justify-center">
 				<button (click)="isDisabled = !isDisabled" name="disabled-toggle" hlmBtn role="switch">Toggle disabled</button>
 			</div>
 		`,

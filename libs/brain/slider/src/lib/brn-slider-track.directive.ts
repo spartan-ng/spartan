@@ -6,23 +6,23 @@ import { injectBrnSlider } from './brn-slider.token';
 	selector: '[brnSliderTrack]',
 	providers: [provideBrnSliderTrack(BrnSliderTrackDirective)],
 	host: {
-		'[attr.data-disabled]': 'slider.disabled()',
+		'[attr.data-disabled]': '_slider.mutableDisabled()',
 	},
 })
 export class BrnSliderTrackDirective {
 	/** Access the slider */
-	protected readonly slider = injectBrnSlider();
+	protected readonly _slider = injectBrnSlider();
 
 	/** @internal Access the slider track */
 	public readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 
 	constructor() {
-		this.slider.track.set(this);
+		this._slider.track.set(this);
 	}
 
 	@HostListener('mousedown', ['$event'])
 	protected moveThumbToPoint(event: MouseEvent): void {
-		if (this.slider.disabled()) {
+		if (this._slider.mutableDisabled()) {
 			return;
 		}
 
@@ -31,6 +31,6 @@ export class BrnSliderTrackDirective {
 		const percentage = (position - rect.left) / rect.width;
 
 		// update the value based on the position
-		this.slider.setValue(this.slider.min() + (this.slider.max() - this.slider.min()) * percentage);
+		this._slider.setValue(this._slider.min() + (this._slider.max() - this._slider.min()) * percentage);
 	}
 }

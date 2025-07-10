@@ -24,13 +24,21 @@ const DEFAULT_OPTIONS: Options[number] = {
 	signalCreationFunctions: [],
 };
 
-const KNOWN_SIGNAL_TYPES: ReadonlySet<string> = new Set(['InputSignal', 'ModelSignal', 'Signal', 'WritableSignal']);
+const KNOWN_SIGNAL_TYPES: ReadonlySet<string> = new Set([
+	'InputSignal',
+	'ModelSignal',
+	'Signal',
+	'WritableSignal',
+	'ResourceRef',
+]);
 const KNOWN_SIGNAL_CREATION_FUNCTIONS: ReadonlySet<string> = new Set([
 	'computed',
 	'contentChild',
 	'contentChildren',
 	'input',
+	'linkedSignal',
 	'model',
+	'resource',
 	'signal',
 	'toSignal',
 	'viewChild',

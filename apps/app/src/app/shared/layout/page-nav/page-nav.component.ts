@@ -41,10 +41,10 @@ type SamePageAnchorLink = {
 				<div class="space-y-2 px-1">
 					<h3 class="font-medium">On this page</h3>
 					<ul class="m-0 flex list-none flex-col">
-						@for (link of links(); track link.id) {
+						@for (link of _computedLinks(); track link.id) {
 							<spartan-page-nav-link [ngClass]="{ 'pl-4': link.isNested }" [fragment]="link.id" [label]="link.label" />
 						} @empty {
-							@if (isDevMode()) {
+							@if (_isDevMode()) {
 								[DEV] Nothing to see here!
 							}
 						}
@@ -61,7 +61,7 @@ export class PageNavComponent implements OnInit, AfterViewInit, OnDestroy {
 	private readonly _routeData = toSignal(this._route.data);
 	private readonly _apiDocsService = inject(ApiDocsService, { optional: true });
 
-	protected readonly isDevMode = signal(isDevMode());
+	protected readonly _isDevMode = signal(isDevMode());
 
 	protected readonly _links = signal<SamePageAnchorLink[]>([]);
 	protected readonly _dynamicLinks = computed(() => {
@@ -111,7 +111,7 @@ export class PageNavComponent implements OnInit, AfterViewInit, OnDestroy {
 		return pageLinks;
 	});
 
-	protected readonly links = computed(() =>
+	protected readonly _computedLinks = computed(() =>
 		this._dynamicLinks() && this._dynamicLinks().length ? this._dynamicLinks() : this._links(),
 	);
 

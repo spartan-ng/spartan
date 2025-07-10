@@ -12,5 +12,5 @@ export const hlmH3 = 'scroll-m-20 text-2xl font-semibold tracking-tight';
 })
 export class HlmH3Directive {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected _computedClass = computed(() => hlm(hlmH3, this.userClass()));
+	protected readonly _computedClass = computed(() => hlm(hlmH3, this.userClass()));
 }

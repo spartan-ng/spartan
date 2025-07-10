@@ -20,10 +20,10 @@ import { BrnTabsDirective } from './brn-tabs.directive';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class BrnTabsDirectiveSpecComponent {
-	public tabsDir = viewChild.required<BrnTabsDirective>('tabs');
+	public readonly tabsDir = viewChild.required<BrnTabsDirective>('tabs');
 
-	public showTrigger = input(true);
-	public showContent = input(true);
+	public readonly showTrigger = input(true);
+	public readonly showContent = input(true);
 }
 
 describe('BrnTabsDirective', () => {

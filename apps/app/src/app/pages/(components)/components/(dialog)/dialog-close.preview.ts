@@ -53,7 +53,7 @@ import { HlmLabelDirective } from '@spartan-ng/helm/label';
 	`,
 })
 export class DialogClosePreviewComponent {
-	public viewchildDialogRef = viewChild(BrnDialogComponent);
+	public readonly viewchildDialogRef = viewChild(BrnDialogComponent);
 
 	closeDialog() {
 		this.viewchildDialogRef()?.close({});

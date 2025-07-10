@@ -34,7 +34,7 @@ import {
 			emblaCarousel
 			class="overflow-hidden"
 			[plugins]="plugins()"
-			[options]="emblaOptions()"
+			[options]="_emblaOptions()"
 			[subscribeToEvents]="['init', 'select', 'reInit']"
 			(emblaChange)="onEmblaEvent($event)"
 		>
@@ -44,7 +44,7 @@ import {
 	`,
 })
 export class HlmCarouselComponent {
-	protected emblaCarousel = viewChild.required(EmblaCarouselDirective);
+	protected readonly _emblaCarousel = viewChild.required(EmblaCarouselDirective);
 
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() => hlm('relative', this.userClass()));
@@ -53,7 +53,7 @@ export class HlmCarouselComponent {
 	public readonly options: InputSignal<Omit<EmblaOptionsType, 'axis'> | undefined> = input();
 	public readonly plugins: InputSignal<EmblaPluginType[]> = input([] as EmblaPluginType[]);
 
-	protected emblaOptions: Signal<EmblaOptionsType> = computed(() => ({
+	protected readonly _emblaOptions: Signal<EmblaOptionsType> = computed(() => ({
 		...this.options(),
 		axis: this.orientation() === 'horizontal' ? 'x' : 'y',
 	}));
@@ -69,7 +69,7 @@ export class HlmCarouselComponent {
 	public readonly slideCount = this._slideCount.asReadonly();
 
 	protected onEmblaEvent(event: EmblaEventType) {
-		const emblaApi = this.emblaCarousel().emblaApi;
+		const emblaApi = this._emblaCarousel().emblaApi;
 
 		if (!emblaApi) {
 			return;
@@ -88,18 +88,18 @@ export class HlmCarouselComponent {
 	protected onKeydown(event: KeyboardEvent) {
 		if (event.key === 'ArrowLeft') {
 			event.preventDefault();
-			this.emblaCarousel().scrollPrev();
+			this._emblaCarousel().scrollPrev();
 		} else if (event.key === 'ArrowRight') {
 			event.preventDefault();
-			this.emblaCarousel().scrollNext();
+			this._emblaCarousel().scrollNext();
 		}
 	}
 
 	scrollPrev() {
-		this.emblaCarousel().scrollPrev();
+		this._emblaCarousel().scrollPrev();
 	}
 
 	scrollNext() {
-		this.emblaCarousel().scrollNext();
+		this._emblaCarousel().scrollNext();
 	}
 }

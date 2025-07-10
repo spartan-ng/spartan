@@ -56,10 +56,10 @@ import { debounceTime, map } from 'rxjs/operators';
 	`,
 })
 export class DialogDeclarativePreviewComponent {
-	protected readonly passphrase = signal<string>('');
+	protected readonly _passphrase = signal<string>('');
 	private readonly _debouncedState$ = toObservable(this.passphrase).pipe(
 		debounceTime(500),
 		map((passphrase) => (passphrase === 'sparta' ? 'open' : 'closed')),
 	);
-	protected readonly state = toSignal(this._debouncedState$, { initialValue: 'closed' as 'open' | 'closed' });
+	protected readonly _state = toSignal(this._debouncedState$, { initialValue: 'closed' as 'open' | 'closed' });
 }

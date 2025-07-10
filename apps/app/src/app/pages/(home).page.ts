@@ -142,7 +142,7 @@ const lead = 'leading-normal text-muted-foreground sm:text-xl sm:leading-8';
 				</p>
 
 				<ul class="mb-8 mt-4 space-y-2">
-					@for (valueProp of valueProps; track $index) {
+					@for (valueProp of _valueProps; track $index) {
 						<li class="flex items-start gap-2">
 							<ng-icon name="lucideCheck" class="text-primary mt-0.5 h-5 w-5 flex-shrink-0" />
 							<span>{{ valueProp }}</span>
@@ -170,7 +170,7 @@ const lead = 'leading-normal text-muted-foreground sm:text-xl sm:leading-8';
 	`,
 })
 export default class HomePageComponent {
-	protected readonly valueProps = [
+	protected readonly _valueProps = [
 		'Our core development team now receives the compensation they deserve',
 		'Component development has accelerated significantly on our path to v1',
 		"We're building production-ready templates that showcase real-world implementation",

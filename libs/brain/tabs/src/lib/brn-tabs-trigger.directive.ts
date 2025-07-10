@@ -4,12 +4,12 @@ import { BrnTabsDirective } from './brn-tabs.directive';
 @Directive({
 	selector: 'button[brnTabsTrigger]',
 	host: {
-		'[id]': 'labelId()',
+		'[id]': '_labelId()',
 		type: 'button',
 		role: 'tab',
 		'[tabindex]': 'selected() ? "0": "-1"',
 		'[attr.aria-selected]': 'selected()',
-		'[attr.aria-controls]': 'contentId()',
+		'[attr.aria-controls]': '_contentId()',
 		'[attr.data-state]': "selected() ? 'active' : 'inactive'",
 		'[attr.data-orientation]': '_orientation()',
 		'[attr.data-disabled]': "disabled ? '' : undefined",
@@ -26,8 +26,8 @@ export class BrnTabsTriggerDirective implements OnDestroy {
 
 	public readonly triggerFor = input.required<string>({ alias: 'brnTabsTrigger' });
 	public readonly selected = computed(() => this._root.$activeTab() === this.triggerFor());
-	protected readonly contentId = computed(() => `brn-tabs-content-${this.triggerFor()}`);
-	protected readonly labelId = computed(() => `brn-tabs-label-${this.triggerFor()}`);
+	protected readonly _contentId = computed(() => `brn-tabs-content-${this.triggerFor()}`);
+	protected readonly _labelId = computed(() => `brn-tabs-label-${this.triggerFor()}`);
 
 	// leaving this as an @input to be compatible with the `FocusKeyManager` used in the `BrnTabsListDirective`
 	@Input()

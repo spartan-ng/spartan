@@ -66,6 +66,18 @@ module.exports = [
 					leadingUnderscore: 'require',
 				},
 				{
+					selector: 'classProperty',
+					modifiers: ['public'],
+					format: ['camelCase'],
+					leadingUnderscore: 'forbid',
+				},
+				{
+					selector: 'classProperty',
+					modifiers: ['protected'],
+					format: ['camelCase'],
+					leadingUnderscore: 'require',
+				},
+				{
 					selector: 'variable',
 					format: ['camelCase', 'UPPER_CASE', 'PascalCase'],
 				},

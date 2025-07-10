@@ -76,7 +76,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-button-preview />
 				</div>
-				<spartan-code secondTab [code]="defaultCode" />
+				<spartan-code secondTab [code]="_defaultCode" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -88,8 +88,8 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="space-y-4">
-				<spartan-code [code]="defaultImports" />
-				<spartan-code [code]="defaultSkeleton" />
+				<spartan-code [code]="_defaultImports" />
+				<spartan-code [code]="_defaultSkeleton" />
 			</div>
 
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
@@ -101,63 +101,63 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-button-secondary />
 				</div>
-				<spartan-code secondTab [code]="secondaryCode" />
+				<spartan-code secondTab [code]="_secondaryCode" />
 			</spartan-tabs>
 			<h3 id="examples__destructive" class="${hlmH4} mb-2 mt-6">Destructive</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-button-destructive />
 				</div>
-				<spartan-code secondTab [code]="destructiveCode" />
+				<spartan-code secondTab [code]="_destructiveCode" />
 			</spartan-tabs>
 			<h3 id="examples__outline" class="${hlmH4} mb-2 mt-6">Outline</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-button-outline />
 				</div>
-				<spartan-code secondTab [code]="outlineCode" />
+				<spartan-code secondTab [code]="_outlineCode" />
 			</spartan-tabs>
 			<h3 id="examples__ghost" class="${hlmH4} mb-2 mt-6">Ghost</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-button-ghost />
 				</div>
-				<spartan-code secondTab [code]="ghostCode" />
+				<spartan-code secondTab [code]="_ghostCode" />
 			</spartan-tabs>
 			<h3 id="examples__link" class="${hlmH4} mb-2 mt-6">Link</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-button-link />
 				</div>
-				<spartan-code secondTab [code]="linkCode" />
+				<spartan-code secondTab [code]="_linkCode" />
 			</spartan-tabs>
 			<h3 id="examples__icon" class="${hlmH4} mb-2 mt-6">Icon</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-button-icon />
 				</div>
-				<spartan-code secondTab [code]="iconCode" />
+				<spartan-code secondTab [code]="_iconCode" />
 			</spartan-tabs>
 			<h3 id="examples__with_icon" class="${hlmH4} mb-2 mt-6">With Icon</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-button-with-icon />
 				</div>
-				<spartan-code secondTab [code]="withIconCode" />
+				<spartan-code secondTab [code]="_withIconCode" />
 			</spartan-tabs>
 			<h3 id="examples__loading" class="${hlmH4} mb-2 mt-6">Loading</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-button-loading />
 				</div>
-				<spartan-code secondTab [code]="loadingCode" />
+				<spartan-code secondTab [code]="_loadingCode" />
 			</spartan-tabs>
 			<h3 id="examples__as_anchor" class="${hlmH4} mb-2 mt-6">As Anchor</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-button-anchor />
 				</div>
-				<spartan-code secondTab [code]="anchorCode" />
+				<spartan-code secondTab [code]="_anchorCode" />
 			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
@@ -169,17 +169,17 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class ButtonPageComponent {
-	protected readonly defaultCode = defaultCode;
-	protected readonly defaultSkeleton = defaultSkeleton;
-	protected readonly defaultImports = defaultImports;
+	protected readonly _defaultCode = defaultCode;
+	protected readonly _defaultSkeleton = defaultSkeleton;
+	protected readonly _defaultImports = defaultImports;
 
-	protected readonly secondaryCode = buttonSecondaryCode;
-	protected readonly outlineCode = buttonOutlineCode;
-	protected readonly destructiveCode = buttonDestructiveCode;
-	protected readonly ghostCode = buttonGhostCode;
-	protected readonly linkCode = buttonLinkCode;
-	protected readonly iconCode = buttonIconCode;
-	protected readonly withIconCode = buttonWithIconCode;
-	protected readonly loadingCode = buttonLoadingCode;
-	protected readonly anchorCode = buttonAnchorCode;
+	protected readonly _secondaryCode = buttonSecondaryCode;
+	protected readonly _outlineCode = buttonOutlineCode;
+	protected readonly _destructiveCode = buttonDestructiveCode;
+	protected readonly _ghostCode = buttonGhostCode;
+	protected readonly _linkCode = buttonLinkCode;
+	protected readonly _iconCode = buttonIconCode;
+	protected readonly _withIconCode = buttonWithIconCode;
+	protected readonly _loadingCode = buttonLoadingCode;
+	protected readonly _anchorCode = buttonAnchorCode;
 }

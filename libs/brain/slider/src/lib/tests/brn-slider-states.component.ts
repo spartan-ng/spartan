@@ -38,11 +38,11 @@ export class TemplateDrivenFormSliderComponent {
 	template: `
 		<div>
 			<pre data-testid="value-indicator-pre">
-				Temperature: {{ temperatureGroup.controls.temperature.getRawValue() }}
+				Temperature: {{ _temperatureGroup.controls.temperature.getRawValue() }}
 			</pre
 			>
 		</div>
-		<form [formGroup]="temperatureGroup">
+		<form [formGroup]="_temperatureGroup">
 			<div brnSlider aria-label="fallback-label" [min]="0" formControlName="temperature">
 				<div brnSliderTrack>
 					<div brnSliderRange></div>
@@ -65,11 +65,11 @@ export class TemplateDrivenFormSliderComponent {
 export class ReactiveFormSliderComponent {
 	public readonly temperature = model<number>(46);
 
-	protected readonly temperatureGroup = new FormGroup({
+	protected readonly _temperatureGroup = new FormGroup({
 		temperature: new FormControl<number>(this.temperature()),
 	});
 
 	changeValue(value: number) {
-		this.temperatureGroup.controls.temperature.patchValue(value);
+		this._temperatureGroup.controls.temperature.patchValue(value);
 	}
 }

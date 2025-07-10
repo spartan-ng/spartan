@@ -56,7 +56,7 @@ import {
 	`,
 })
 export class SheetClosePreviewComponent {
-	public viewchildSheetRef = viewChild(BrnSheetComponent);
+	public readonly viewchildSheetRef = viewChild(BrnSheetComponent);
 
 	closeSheet() {
 		this.viewchildSheetRef()?.close({});

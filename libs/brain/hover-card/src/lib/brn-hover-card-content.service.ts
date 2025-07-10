@@ -229,11 +229,11 @@ export class BrnHoverCardTriggerDirective implements OnInit, OnDestroy {
 		takeUntil(this._destroy$),
 	);
 
-	public showDelay = input(300);
-	public hideDelay = input(500);
-	public animationDelay = input(100);
-	public sideOffset = input(5);
-	public align = input<'top' | 'bottom'>('bottom');
+	public readonly showDelay = input(300);
+	public readonly hideDelay = input(500);
+	public readonly animationDelay = input(100);
+	public readonly sideOffset = input(5);
+	public readonly align = input<'top' | 'bottom'>('bottom');
 
 	public readonly brnHoverCardTriggerFor = input<TemplateRef<unknown> | BrnHoverCardContentDirective | undefined>(
 		undefined,

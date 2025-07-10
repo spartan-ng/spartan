@@ -100,7 +100,7 @@ class SelectUserComponent {
 	private readonly _dialogRef = inject<BrnDialogRef<ExampleUser>>(BrnDialogRef);
 	private readonly _dialogContext = injectBrnDialogContext<{ users: ExampleUser[] }>();
 
-	protected readonly users = this._dialogContext.users;
+	protected readonly _users = this._dialogContext.users;
 
 	public selectUser(user: ExampleUser) {
 		this._dialogRef.close(user);

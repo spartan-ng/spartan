@@ -8,7 +8,7 @@ import { BrnSheetComponent } from './brn-sheet.component';
 export class BrnSheetTriggerDirective extends BrnDialogTriggerDirective {
 	private readonly _sheet = inject(BrnSheetComponent, { optional: true });
 
-	public side = input<'top' | 'bottom' | 'left' | 'right' | undefined>(undefined);
+	public readonly side = input<'top' | 'bottom' | 'left' | 'right' | undefined>(undefined);
 
 	override open() {
 		const side = this.side();

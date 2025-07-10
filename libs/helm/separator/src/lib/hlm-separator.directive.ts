@@ -12,7 +12,7 @@ export type HlmSeparatorOrientation = 'horizontal' | 'vertical';
 export class HlmSeparatorDirective {
 	public readonly orientation = input<HlmSeparatorOrientation>('horizontal');
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected _computedClass = computed(() =>
+	protected readonly _computedClass = computed(() =>
 		hlm(
 			'inline-flex shrink-0 border-0 bg-border',
 			this.orientation() === 'horizontal' ? 'h-[1px] w-full' : 'h-full w-[1px]',

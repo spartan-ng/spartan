@@ -183,13 +183,13 @@ export type Payment = {
 	\`,
 })
 export class DataTablePreviewComponent {
-	protected readonly _availablePageSizes = [5, 10, 20, 10000];
+	protected readonly __availablePageSizes = [5, 10, 20, 10000];
 
 	protected _filterChanged(event: Event) {
 		this._table.getColumn('email')?.setFilterValue((event.target as HTMLInputElement).value);
 	}
 
-	protected readonly _columns: ColumnDef<Payment>[] = [
+	protected readonly __columns: ColumnDef<Payment>[] = [
 		{
 			accessorKey: 'select',
 			id: 'select',
@@ -239,7 +239,7 @@ export class DataTablePreviewComponent {
 		pageIndex: 0,
 	});
 
-	protected readonly _table = createAngularTable<Payment>(() => ({
+	protected readonly __table = createAngularTable<Payment>(() => ({
 		data: PAYMENT_DATA,
 		columns: this._columns,
 		state: {
@@ -266,7 +266,7 @@ export class DataTablePreviewComponent {
 			},
 		},
 	}));
-	protected readonly hidableColumns = this._table.getAllColumns().filter((column) => column.getCanHide());
+	protected readonly _hidableColumns = this._table.getAllColumns().filter((column) => column.getCanHide());
 
 	protected _filterChange(email: Event) {
 		const target = email.target as HTMLInputElement;

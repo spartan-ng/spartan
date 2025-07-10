@@ -83,7 +83,7 @@ export class DialogDynamicComponentPreviewComponent {
 				<th hlmTh>Email</th>
 				<th hlmTh>Phone</th>
 			</tr>
-			@for (user of users; track user.name) {
+			@for (user of _users; track user.name) {
 				<tr hlmTr (click)="selectUser(user)" class="cursor-pointer">
 					<td hlmTd truncate class="font-medium">{{ user.name }}</td>
 					<td hlmTd>{{ user.email }}</td>

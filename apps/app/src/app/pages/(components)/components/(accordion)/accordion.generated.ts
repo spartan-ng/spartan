@@ -66,7 +66,7 @@ import { HlmIconDirective } from '@spartan-ng/helm/icon';
 	\`,
 })
 export class AccordionMultipleOpenedComponent {
-	protected readonly __thirdOpened = signal(false);
+	protected readonly _thirdOpened = signal(false);
 	toggleThird() {
 		this._thirdOpened.set(!this._thirdOpened());
 	}

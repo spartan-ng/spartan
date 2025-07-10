@@ -56,7 +56,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-accordion-preview />
 				</div>
-				<spartan-code secondTab [code]="__code" />
+				<spartan-code secondTab [code]="_code" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -106,8 +106,8 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class AccordionPageComponent {
-	public code = defaultCode;
-	public imports = defaultImports;
-	public skeleton = defaultSkeleton;
-	public multipleOpenedCode = accordionMultipleOpenedCode;
+	protected readonly _code = defaultCode;
+	protected readonly _imports = defaultImports;
+	protected readonly _skeleton = defaultSkeleton;
+	protected readonly _multipleOpenedCode = accordionMultipleOpenedCode;
 }

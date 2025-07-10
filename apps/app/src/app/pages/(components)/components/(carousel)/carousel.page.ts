@@ -172,9 +172,9 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class CarouselPageComponent {
-	public readonly defaultCode = defaultCode;
-	public readonly defaultSkeleton = defaultSkeleton;
-	public readonly defaultImports = defaultImports;
+	protected readonly _defaultCode = defaultCode;
+	protected readonly _defaultSkeleton = defaultSkeleton;
+	protected readonly _defaultImports = defaultImports;
 	protected readonly _sizesCode = carouselSizesCode;
 	protected readonly _spacingCode = carouselSpacingCode;
 	protected readonly _slideCountCode = carouselSlideCountCode;

@@ -74,7 +74,7 @@ export type Payment = {
 			</button>
 			<ng-template #menu>
 				<hlm-menu class="w-32">
-					@for (column of hidableColumns; track column.id) {
+					@for (column of _hidableColumns; track column.id) {
 						<button
 							hlmMenuItemCheckbox
 							class="capitalize"
@@ -183,13 +183,13 @@ export type Payment = {
 	\`,
 })
 export class DataTablePreviewComponent {
-	protected readonly __availablePageSizes = [5, 10, 20, 10000];
+	protected readonly _availablePageSizes = [5, 10, 20, 10000];
 
 	protected _filterChanged(event: Event) {
 		this._table.getColumn('email')?.setFilterValue((event.target as HTMLInputElement).value);
 	}
 
-	protected readonly __columns: ColumnDef<Payment>[] = [
+	protected readonly _columns: ColumnDef<Payment>[] = [
 		{
 			accessorKey: 'select',
 			id: 'select',
@@ -208,7 +208,7 @@ export class DataTablePreviewComponent {
 		{
 			accessorKey: 'email',
 			id: 'email',
-			header: () => flexRenderComponent(TableHeadSortButtonComponent),
+			header: () => flexRenderComponent(TableHeadSortButtonComponent, {inputs: {header: ''}}),
 		},
 		{
 			accessorKey: 'amount',
@@ -239,7 +239,7 @@ export class DataTablePreviewComponent {
 		pageIndex: 0,
 	});
 
-	protected readonly __table = createAngularTable<Payment>(() => ({
+	protected readonly _table = createAngularTable<Payment>(() => ({
 		data: PAYMENT_DATA,
 		columns: this._columns,
 		state: {

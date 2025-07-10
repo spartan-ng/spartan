@@ -380,10 +380,10 @@ export class BrnTooltipTriggerDirective implements OnDestroy, AfterViewInit {
 		this._detach();
 		this._portal = this._portal || new ComponentPortal(this._tooltipComponent, this._viewContainerRef);
 		const instance = (this._tooltipInstance = overlayRef.attach(this._portal).instance);
-		instance._triggerElement = this._elementRef.nativeElement;
-		instance._mouseLeaveHideDelay = this.hideDelay();
-		instance._tooltipClasses.set(this.computedTooltipContentClasses()());
-		instance._exitAnimationDuration = this.exitAnimationDuration();
+		instance.triggerElement = this._elementRef.nativeElement;
+		instance.mouseLeaveHideDelay = this.hideDelay();
+		instance.tooltipClasses.set(this.computedTooltipContentClasses()());
+		instance.exitAnimationDuration = this.exitAnimationDuration();
 		instance.side.set(this._currentPosition ?? 'above');
 		instance.afterHidden.pipe(takeUntil(this._destroyed)).subscribe(() => this._detach());
 		this._updateTooltipContent();

@@ -258,27 +258,27 @@ export default class TasksExamplePageComponent {
 		{
 			accessorKey: 'id',
 			id: 'id',
-			header: () => flexRenderComponent(TableHeadSortButtonComponent),
+			header: () => flexRenderComponent(TableHeadSortButtonComponent, { inputs: { header: '' } }),
 			cell: (info) => info.getValue(),
 		},
 		{
 			accessorKey: 'title',
 			id: 'title',
-			header: () => flexRenderComponent(TableHeadSortButtonComponent),
+			header: () => flexRenderComponent(TableHeadSortButtonComponent, { inputs: { header: '' } }),
 			cell: () => flexRenderComponent(TitleCellComponent),
 		},
 		{
 			accessorKey: 'status',
 			id: 'status',
 			filterFn: 'arrIncludesSome',
-			header: () => flexRenderComponent(TableHeadSortButtonComponent),
+			header: () => flexRenderComponent(TableHeadSortButtonComponent, { inputs: { header: '' } }),
 			cell: () => flexRenderComponent(StatusIconCellComponent),
 		},
 		{
 			accessorKey: 'priority',
 			id: 'priority',
 			filterFn: 'arrIncludesSome',
-			header: () => flexRenderComponent(TableHeadSortButtonComponent),
+			header: () => flexRenderComponent(TableHeadSortButtonComponent, { inputs: { header: '' } }),
 			cell: () => flexRenderComponent(PriorityIconCellComponent),
 		},
 		{

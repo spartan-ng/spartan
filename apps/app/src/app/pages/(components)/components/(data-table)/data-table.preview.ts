@@ -198,7 +198,7 @@ export class DataTablePreviewComponent {
 		{
 			accessorKey: 'email',
 			id: 'email',
-			header: () => flexRenderComponent(TableHeadSortButtonComponent),
+			header: () => flexRenderComponent(TableHeadSortButtonComponent, { inputs: { header: '' } }),
 		},
 		{
 			accessorKey: 'amount',

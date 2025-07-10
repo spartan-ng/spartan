@@ -78,7 +78,7 @@ export const routeMeta: RouteMeta = {
 			<div class="${hlmP} mb-6">
 				In order to use Data-Table example, you need to install Tanstack Table. See the installation documetation for
 				Angular Table for more information.
-				<spartan-code class="mt-4" [code]="_'https://tanstack.com/table/v8/docs/installation'" />
+				<spartan-code class="mt-4" [code]="'https://tanstack.com/table/v8/docs/installation'" />
 			</div>
 
 			<spartan-section-sub-heading id="tutorial">Documentation</spartan-section-sub-heading>

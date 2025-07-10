@@ -94,7 +94,7 @@ export class HlmDatePickerComponent<T> {
 	public readonly max = input<T>();
 
 	/** Determine if the date picker is disabled. */
-	public disabled = input<boolean, BooleanInput>(false, {
+	public readonly disabled = input<boolean, BooleanInput>(false, {
 		transform: booleanAttribute,
 	});
 

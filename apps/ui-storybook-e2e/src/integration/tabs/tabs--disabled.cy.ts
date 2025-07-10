@@ -10,8 +10,8 @@ describe('tabs--disabled', () => {
 
 		cy.findByRole('tablist').should('exist');
 		cy.findByRole('tablist').should('have.attr', 'aria-label');
-		cy.findByRole('tablist').should('have.attr', 'data-orientation', 'vertical');
-		cy.findByRole('tablist').should('have.attr', 'aria-orientation', 'vertical');
+		cy.findByRole('tablist').should('have.attr', 'data-orientation', 'horizontal');
+		cy.findByRole('tablist').should('have.attr', 'aria-orientation', 'horizontal');
 		cy.findAllByRole('tab').should('have.length', 3);
 		cy.findByRole('tab', { name: /account/i }).should('have.attr', 'aria-controls', 'brn-tabs-content-account');
 		cy.findByRole('tab', { name: /password/i }).should('have.attr', 'aria-controls', 'brn-tabs-content-password');

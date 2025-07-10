@@ -17,11 +17,6 @@ const meta: Meta<BrnTabsDirective & { disabled: boolean }> = {
 				type: 'select',
 			},
 		},
-		disabled: {
-			control: {
-				type: 'boolean',
-			},
-		},
 	},
 	decorators: [
 		moduleMetadata({
@@ -45,8 +40,8 @@ export const Default: Story = {
 		template: /* HTML */ `
 			<hlm-tabs tab="account" ${argsToTemplate(args)} class="mx-auto block max-w-3xl">
 				<hlm-tabs-list class="grid w-full grid-cols-2" aria-label="tabs example">
-					<button [disabled]="disabled" hlmTabsTrigger="account">Account</button>
-					<button [disabled]="disabled" hlmTabsTrigger="password">Password</button>
+					<button hlmTabsTrigger="account">Account</button>
+					<button hlmTabsTrigger="password">Password</button>
 				</hlm-tabs-list>
 				<div hlmTabsContent="account">
 					<section hlmCard>
@@ -97,9 +92,9 @@ export const Vertical: Story = {
 		template: /* HTML */ `
 			<hlm-tabs tab="account" class="mx-auto flex max-w-3xl flex-row space-x-2" orientation="vertical">
 				<hlm-tabs-list orientation="vertical" aria-label="tabs example">
-					<button [disabled]="disabled" class="w-full" hlmTabsTrigger="account">Account</button>
-					<button [disabled]="disabled" class="w-full" hlmTabsTrigger="password">Password</button>
-					<button [disabled]="disabled" class="w-full" hlmTabsTrigger="danger">Danger Zone</button>
+					<button class="w-full" hlmTabsTrigger="account">Account</button>
+					<button class="w-full" hlmTabsTrigger="password">Password</button>
+					<button class="w-full" hlmTabsTrigger="danger">Danger Zone</button>
 				</hlm-tabs-list>
 				<div hlmTabsContent="account">
 					<section hlmCard>
@@ -159,26 +154,26 @@ export const Paginated: Story = {
 		template: /* HTML */ `
 			<hlm-tabs tab="1" class="mx-auto block max-w-3xl">
 				<hlm-paginated-tabs-list>
-					<button [disabled]="disabled" hlmTabsTrigger="1">Tab 1</button>
-					<button [disabled]="disabled" hlmTabsTrigger="2">Tab 2</button>
-					<button [disabled]="disabled" hlmTabsTrigger="3">Tab 3</button>
-					<button [disabled]="disabled" hlmTabsTrigger="4">Tab 4</button>
-					<button [disabled]="disabled" hlmTabsTrigger="5">Tab 5</button>
-					<button [disabled]="disabled" hlmTabsTrigger="6">Tab 6</button>
-					<button [disabled]="disabled" hlmTabsTrigger="7">Tab 7</button>
-					<button [disabled]="disabled" hlmTabsTrigger="8">Tab 8</button>
-					<button [disabled]="disabled" hlmTabsTrigger="9">Tab 9</button>
-					<button [disabled]="disabled" hlmTabsTrigger="10">Tab 10</button>
-					<button [disabled]="disabled" hlmTabsTrigger="11">Tab 11</button>
-					<button [disabled]="disabled" hlmTabsTrigger="12">Tab 12</button>
-					<button [disabled]="disabled" hlmTabsTrigger="13">Tab 13</button>
-					<button [disabled]="disabled" hlmTabsTrigger="14">Tab 14</button>
-					<button [disabled]="disabled" hlmTabsTrigger="15">Tab 15</button>
-					<button [disabled]="disabled" hlmTabsTrigger="16">Tab 16</button>
-					<button [disabled]="disabled" hlmTabsTrigger="17">Tab 17</button>
-					<button [disabled]="disabled" hlmTabsTrigger="18">Tab 18</button>
-					<button [disabled]="disabled" hlmTabsTrigger="19">Tab 19</button>
-					<button [disabled]="disabled" hlmTabsTrigger="20">Tab 20</button>
+					<button hlmTabsTrigger="1">Tab 1</button>
+					<button hlmTabsTrigger="2">Tab 2</button>
+					<button hlmTabsTrigger="3">Tab 3</button>
+					<button hlmTabsTrigger="4">Tab 4</button>
+					<button hlmTabsTrigger="5">Tab 5</button>
+					<button hlmTabsTrigger="6">Tab 6</button>
+					<button hlmTabsTrigger="7">Tab 7</button>
+					<button hlmTabsTrigger="8">Tab 8</button>
+					<button hlmTabsTrigger="9">Tab 9</button>
+					<button hlmTabsTrigger="10">Tab 10</button>
+					<button hlmTabsTrigger="11">Tab 11</button>
+					<button hlmTabsTrigger="12">Tab 12</button>
+					<button hlmTabsTrigger="13">Tab 13</button>
+					<button hlmTabsTrigger="14">Tab 14</button>
+					<button hlmTabsTrigger="15">Tab 15</button>
+					<button hlmTabsTrigger="16">Tab 16</button>
+					<button hlmTabsTrigger="17">Tab 17</button>
+					<button hlmTabsTrigger="18">Tab 18</button>
+					<button hlmTabsTrigger="19">Tab 19</button>
+					<button  hlmTabsTrigger="20">Tab 20</button>
 				</hlm-paginated-tabs-list>
 				<div hlmTabsContent="1">Tab 1</div>
 				<div hlmTabsContent="2">Tab 2</div>
@@ -211,8 +206,8 @@ export const BrnOnly: Story = {
 		template: /* HTML */ `
 			<div brnTabs="account" [activationMode]="activationMode" class="mx-auto block max-w-3xl">
 				<div brnTabsList class="grid w-full grid-cols-2" [attr.aria-label]="'tabs example'">
-					<button [disabled]="disabled" brnTabsTrigger="account">Account</button>
-					<button [disabled]="disabled" brnTabsTrigger="password">Password</button>
+					<button brnTabsTrigger="account">Account</button>
+					<button brnTabsTrigger="password">Password</button>
 				</div>
 				<div brnTabsContent="account">Account content</div>
 				<div brnTabsContent="password">Password content</div>
@@ -222,6 +217,17 @@ export const BrnOnly: Story = {
 };
 
 export const Disabled: Story = {
+	args: {
+		disabled: true,
+	},
+	argTypes: {
+		disabled: {
+			control: {
+				type: 'boolean',
+			},
+		},
+	},
+
 	render: ({ disabled }) => ({
 		props: { disabled },
 		template: /* HTML */ `
@@ -234,3 +240,4 @@ export const Disabled: Story = {
 		`,
 	}),
 };
+

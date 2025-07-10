@@ -1,3 +1,4 @@
+import { BooleanInput } from '@angular/cdk/coercion';
 import {
 	ChangeDetectionStrategy,
 	Component,
@@ -41,15 +42,20 @@ export const HLM_CHECKBOX_VALUE_ACCESSOR = {
 			(changed)="_handleChange()"
 			(touched)="_onTouched?.()"
 		>
-			<ng-icon [class]="_computedIconClass()" hlm size="sm" name="lucideCheck" />
+			@if (checked()) {
+				<span class="flex items-center justify-center text-current transition-none">
+					<ng-icon hlm size="14px" name="lucideCheck" />
+				</span>
+			}
 		</brn-checkbox>
 	`,
 	host: {
-		class: 'contents',
+		class: 'contents peer',
 		'[attr.id]': 'null',
 		'[attr.aria-label]': 'null',
 		'[attr.aria-labelledby]': 'null',
 		'[attr.aria-describedby]': 'null',
+		'[attr.data-disabled]': 'state().disabled() ? "" : null',
 	},
 	providers: [HLM_CHECKBOX_VALUE_ACCESSOR],
 	viewProviders: [provideIcons({ lucideCheck })],
@@ -60,15 +66,10 @@ export class HlmCheckboxComponent implements ControlValueAccessor {
 
 	protected readonly _computedClass = computed(() =>
 		hlm(
-			'group inline-flex border border-foreground shrink-0 cursor-pointer items-center rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring' +
-				' focus-visible:ring-offset-2 focus-visible:ring-offset-background data-[state=checked]:text-background data-[state=checked]:bg-primary data-[state=unchecked]:bg-background',
+			'peer border-input dark:bg-input/30 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground dark:data-[state=checked]:bg-primary data-[state=checked]:border-primary focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive size-4 shrink-0 rounded-[4px] border shadow-xs transition-shadow outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 cursor-default',
 			this.userClass(),
 			this.state().disabled() ? 'cursor-not-allowed opacity-50' : '',
 		),
-	);
-
-	protected readonly _computedIconClass = computed(() =>
-		hlm('leading-none group-data-[state=unchecked]:opacity-0', this.checked() === 'indeterminate' ? 'opacity-50' : ''),
 	);
 
 	/** Used to set the id on the underlying brn element. */
@@ -90,10 +91,10 @@ export class HlmCheckboxComponent implements ControlValueAccessor {
 	public readonly name = input<string | null>(null);
 
 	/** Whether the checkbox is required. */
-	public readonly required = input(false, { transform: booleanAttribute });
+	public readonly required = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
 	/** Whether the checkbox is disabled. */
-	public readonly disabled = input(false, { transform: booleanAttribute });
+	public readonly disabled = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
 	protected readonly state = computed(() => ({
 		disabled: signal(this.disabled()),

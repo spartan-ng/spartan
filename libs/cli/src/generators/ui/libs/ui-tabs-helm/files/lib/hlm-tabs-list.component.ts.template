@@ -32,6 +32,9 @@ type ListVariants = VariantProps<typeof listVariants>;
 export class HlmTabsListComponent {
 	public readonly orientation = input<ListVariants['orientation']>('horizontal');
 
-	public readonly userClass = input<ClassValue>('', { alias: 'class' });
+	public readonly userClass = input<ClassValue>(
+		'bg-muted text-muted-foreground inline-flex h-9 w-fit items-center justify-center rounded-lg p-[3px]',
+		{ alias: 'class' },
+	);
 	protected _computedClass = computed(() => hlm(listVariants({ orientation: this.orientation() }), this.userClass()));
 }

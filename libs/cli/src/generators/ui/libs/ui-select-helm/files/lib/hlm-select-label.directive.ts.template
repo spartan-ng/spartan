@@ -17,7 +17,7 @@ export class HlmSelectLabelDirective {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected _computedClass = computed(() =>
 		hlm(
-			'pl-8 pr-2 text-sm font-semibold rtl:pl-2 rtl:pr-8',
+			'text-muted-foreground px-2 py-1.5 text-xs',
 			this._stickyLabels() ? 'sticky top-0 bg-popover block z-[2]' : '',
 			this.userClass(),
 		),

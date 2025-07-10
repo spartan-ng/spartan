@@ -1,5 +1,15 @@
-import { ChangeDetectionStrategy, Component, computed, contentChild, contentChildren, effect } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	computed,
+	contentChild,
+	contentChildren,
+	effect,
+	input,
+} from '@angular/core';
+import { hlm } from '@spartan-ng/brain/core';
 import { BrnFormFieldControl } from '@spartan-ng/brain/form-field';
+import { ClassValue } from 'clsx';
 import { HlmErrorDirective } from './hlm-error.directive';
 
 @Component({
@@ -17,11 +27,13 @@ import { HlmErrorDirective } from './hlm-error.directive';
 		}
 	`,
 	host: {
-		class: 'space-y-2 block',
+		'[class]': '_computedClass()',
 	},
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmFormFieldComponent {
+	public readonly userClass = input<ClassValue>('', { alias: 'class' });
+	protected readonly _computedClass = computed(() => hlm('space-y-2 block', this.userClass()));
 	public readonly control = contentChild(BrnFormFieldControl);
 
 	public readonly errorChildren = contentChildren(HlmErrorDirective);

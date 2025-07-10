@@ -16,6 +16,6 @@ import type { ClassValue } from 'clsx';
 export class HlmAlertDialogHeaderComponent {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>
-		hlm('flex flex-col space-y-2 text-center sm:text-left', this.userClass()),
+		hlm('flex flex-col gap-2 text-center sm:text-left', this.userClass()),
 	);
 }

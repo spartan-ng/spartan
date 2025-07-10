@@ -3,15 +3,15 @@ import { hlm } from '@spartan-ng/brain/core';
 import type { ClassValue } from 'clsx';
 
 @Directive({
-	selector: '[hlmBreadcrumbList]',
+	selector: '[hlmCardAction]',
+	standalone: true,
 	host: {
 		'[class]': '_computedClass()',
 	},
 })
-export class HlmBreadcrumbListDirective {
+export class HlmCardActionDirective {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-
 	protected readonly _computedClass = computed(() =>
-		hlm('text-muted-foreground flex flex-wrap items-center gap-1.5 text-sm break-words sm:gap-2.5', this.userClass()),
+		hlm('col-start-2 row-span-2 row-start-1 self-start justify-self-end', this.userClass()),
 	);
 }

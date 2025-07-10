@@ -6,23 +6,23 @@ import { provideHlmToggleGroup } from './hlm-toggle-group.token';
 import { toggleGroupItemVariants } from './hlm-toggle-item.directive';
 
 type ToggleGroupItemVariants = VariantProps<typeof toggleGroupItemVariants>;
+
 @Directive({
 	selector: 'brn-toggle-group[hlm],[hlmToggleGroup]',
 	host: {
 		'[class]': '_computedClass()',
+		'[attr.data-variant]': 'variant()',
 	},
 	providers: [provideHlmToggleGroup(HlmToggleGroupDirective)],
 })
 export class HlmToggleGroupDirective {
-	public readonly variant = input<ToggleGroupItemVariants['variant']>('default');
-	public readonly size = input<ToggleGroupItemVariants['size']>('default');
+	public readonly variant = input<ToggleGroupItemVariants['variant']>('outline');
+	public readonly size = input<ToggleGroupItemVariants['size']>('sm');
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-
 	protected readonly _computedClass = computed(() =>
-		hlm('inline-flex items-center gap-x-2 focus:[&>[hlm][brnToggle]]:z-10', {
-			'gap-x-0 rounded-md first-of-type:[&>[hlmToggleGroupItem]]:rounded-l-md last-of-type:[&>[hlmToggleGroupItem]]:rounded-r-md [&>[hlmToggleGroupItem][variant="outline"]]:-mx-[0.5px] [&>[hlmToggleGroupItem]]:rounded-none':
-				this.variant() === 'merged',
-			[String(this.userClass())]: !!this.userClass(),
-		}),
+		hlm(
+			'group/toggle-group flex w-fit items-center rounded-md data-[variant=outline]:shadow-xs focus:[&>[hlm][brnToggle]]:z-10',
+			this.userClass(),
+		),
 	);
 }

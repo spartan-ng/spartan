@@ -12,11 +12,9 @@ describe('tabs--disabled', () => {
 		cy.findByRole('tablist').should('have.attr', 'aria-label');
 		cy.findByRole('tablist').should('have.attr', 'data-orientation', 'horizontal');
 		cy.findByRole('tablist').should('have.attr', 'aria-orientation', 'horizontal');
-		cy.findAllByRole('tab').should('have.length', 3);
+		cy.findAllByRole('tab').should('have.length', 2);
 		cy.findByRole('tab', { name: /account/i }).should('have.attr', 'aria-controls', 'brn-tabs-content-account');
 		cy.findByRole('tab', { name: /password/i }).should('have.attr', 'aria-controls', 'brn-tabs-content-password');
-		cy.findByRole('tab', { name: /danger zone/i }).should('have.attr', 'aria-controls', 'brn-tabs-content-danger');
-		cy.findByRole('tabpanel').should('exist');
 	};
 
 	describe('default', () => {
@@ -28,43 +26,43 @@ describe('tabs--disabled', () => {
 		it('click interactions should render with first tab selected and change to second tab when second tab is clicked', () => {
 			verifyTabsSetup();
 
+			cy.findByRole('switch').click();
+
+			// Now we can test the tab interactions
 			cy.findByRole('tab', { name: /password/i }).click();
 
-			cy.findByRole('tabpanel').should('have.attr', 'aria-labelledby', 'brn-tabs-label-password');
-			cy.findByRole('tabpanel').should('have.attr', 'tabindex', '0');
 			cy.findByRole('tab', { name: /password/i }).should('have.attr', 'aria-selected', 'true');
 			cy.findByRole('tab', { name: /account/i }).should('have.attr', 'aria-selected', 'false');
-			cy.findByRole('heading', { name: /password/i }).should('exist');
 
 			cy.findByRole('tab', { name: /account/i }).click();
 
-			cy.findByRole('tabpanel').should('have.attr', 'aria-labelledby', 'brn-tabs-label-account');
-			cy.findByRole('tabpanel').should('have.attr', 'tabindex', '0');
 			cy.findByRole('tab', { name: /account/i }).should('have.attr', 'aria-selected', 'true');
 			cy.findByRole('tab', { name: /password/i }).should('have.attr', 'aria-selected', 'false');
-			cy.findByRole('heading', { name: /account/i }).should('exist');
 		});
 
-		it('Should have the disabled control available', () => {
+		it('should default to disabled with aria tags', () => {
 			verifyTabsSetup();
-			// check that the disabled control is available in storybook
-			cy.findByRole('switch', { name: /disabled/i }).should('exist');
+			cy.findByRole('tab', { name: /account/i }).should('be.disabled');
+			cy.findByRole('tab', { name: /account/i }).should('have.attr', 'aria-disabled', 'true');
+			cy.findByRole('tab', { name: /password/i }).should('be.disabled');
+			cy.findByRole('tab', { name: /password/i }).should('have.attr', 'aria-disabled', 'true');
 		});
 
-		it('Should be disabled by default', () => {
-			verifyTabsSetup();
-			cy.get('[hlmTabsTrigger="account"]').should('be.disabled');
-			cy.get('[hlmTabsTrigger="password"]').should('be.disabled');
-		});
-
-		it('should enable tabs when storybook control is enabled', () => {
+		it('should toggle to active with no disabled attributes or classes', () => {
 			verifyTabsSetup();
 
-			// toggle from disabled to enabled using the storybook control
-			cy.findByRole('switch', { name: /disabled/i }).click();
+			// Click the toggle button to enable the tabs
+			cy.findByRole('switch').click();
+			// Verify tabs are no longer disabled
+			cy.findByRole('tab', { name: /account/i }).should('not.be.disabled');
+			cy.findByRole('tab', { name: /account/i }).should('have.attr', 'aria-disabled', 'false');
+			cy.findByRole('tab', { name: /password/i }).should('not.be.disabled');
+			cy.findByRole('tab', { name: /password/i }).should('have.attr', 'aria-disabled', 'false');
 
-			cy.get('[hlmTabsTrigger="account"]').should('not.be.disabled');
-			cy.get('[hlmTabsTrigger="password"]').should('not.be.disabled');
+			// Verify tabs are now interactive
+			cy.findByRole('tab', { name: /password/i }).click();
+			cy.findByRole('tab', { name: /password/i }).should('have.attr', 'aria-selected', 'true');
+			cy.findByRole('tab', { name: /account/i }).should('have.attr', 'aria-selected', 'false');
 		});
 	});
 });

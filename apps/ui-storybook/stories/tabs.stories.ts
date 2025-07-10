@@ -87,8 +87,8 @@ export const Default: Story = {
 };
 
 export const Vertical: Story = {
-	render: ({ activationMode, disabled }) => ({
-		props: { activationMode, disabled },
+	render: ({ activationMode }) => ({
+		props: { activationMode },
 		template: /* HTML */ `
 			<hlm-tabs tab="account" class="mx-auto flex max-w-3xl flex-row space-x-2" orientation="vertical">
 				<hlm-tabs-list orientation="vertical" aria-label="tabs example">
@@ -149,8 +149,7 @@ export const Vertical: Story = {
 };
 
 export const Paginated: Story = {
-	render: ({ disabled }) => ({
-		props: { disabled },
+	render: () => ({
 		template: /* HTML */ `
 			<hlm-tabs tab="1" class="mx-auto block max-w-3xl">
 				<hlm-paginated-tabs-list>
@@ -229,14 +228,20 @@ export const Disabled: Story = {
 	},
 
 	render: ({ disabled }) => ({
-		props: { disabled },
+		props: {
+			isDisabled: disabled,
+		},
 		template: /* HTML */ `
 			<hlm-tabs tab="account" class="mx-auto block max-w-3xl">
 				<hlm-tabs-list class="grid w-full grid-cols-2" aria-label="tabs example">
-					<button [disabled]="disabled" hlmTabsTrigger="account">Account</button>
-					<button [disabled]="disabled" hlmTabsTrigger="password">Password</button>
+					<button [disabled]="isDisabled" hlmTabsTrigger="account">Account</button>
+					<button [disabled]="isDisabled" hlmTabsTrigger="password">Password</button>
 				</hlm-tabs-list>
 			</hlm-tabs>
+
+			<div class="flex justify-center mt-6">
+				<button (click)="isDisabled = !isDisabled" name="disabled-toggle" hlmBtn role="switch">Toggle disabled</button>
+			</div>
 		`,
 	}),
 };

@@ -21,6 +21,7 @@ import { BrnTabsDirective } from './brn-tabs.directive';
 		'[tabindex]': 'selected() ? "0": "-1"',
 		'[attr.aria-selected]': 'selected()',
 		'[attr.aria-controls]': 'contentId()',
+		'[attr.aria-disabled]': '_disabled()',
 		'[attr.data-state]': "selected() ? 'active' : 'inactive'",
 		'[attr.data-orientation]': '_orientation()',
 		'[attr.data-disabled]': "_disabled() ? '' : undefined",

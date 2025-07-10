@@ -173,7 +173,7 @@ export const Paginated: Story = {
 					<button hlmTabsTrigger="17">Tab 17</button>
 					<button hlmTabsTrigger="18">Tab 18</button>
 					<button hlmTabsTrigger="19">Tab 19</button>
-					<button  hlmTabsTrigger="20">Tab 20</button>
+					<button hlmTabsTrigger="20">Tab 20</button>
 				</hlm-paginated-tabs-list>
 				<div hlmTabsContent="1">Tab 1</div>
 				<div hlmTabsContent="2">Tab 2</div>
@@ -240,4 +240,3 @@ export const Disabled: Story = {
 		`,
 	}),
 };
-

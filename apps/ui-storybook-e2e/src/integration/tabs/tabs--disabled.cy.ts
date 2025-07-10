@@ -47,21 +47,21 @@ describe('tabs--disabled', () => {
 
 		it('Should have the disabled control available', () => {
 			verifyTabsSetup();
-				// check that the disabled control is available in storybook
+			// check that the disabled control is available in storybook
 			cy.findByRole('switch', { name: /disabled/i }).should('exist');
-		})
+		});
 
 		it('Should be disabled by default', () => {
 			verifyTabsSetup();
 			cy.get('[hlmTabsTrigger="account"]').should('be.disabled');
 			cy.get('[hlmTabsTrigger="password"]').should('be.disabled');
-		})
+		});
 
 		it('should enable tabs when storybook control is enabled', () => {
 			verifyTabsSetup();
 
 			// toggle from disabled to enabled using the storybook control
-			cy.findByRole('switch', { name: /disabled/i }).click()
+			cy.findByRole('switch', { name: /disabled/i }).click();
 
 			cy.get('[hlmTabsTrigger="account"]').should('not.be.disabled');
 			cy.get('[hlmTabsTrigger="password"]').should('not.be.disabled');

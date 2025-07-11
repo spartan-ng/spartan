@@ -29,12 +29,5 @@ import {
 `;
 
 export const defaultSkeleton = `
-<hlm-calendar
-	[(date)]="selectedDate"
-	[min]="minDate"
-	[max]="maxDate"
-	[disabled]="false"
-	[dateDisabled]="(date) => false"
-	[weekStartsOn]="0"
-/>
+<hlm-calendar [(date)]="selectedDate" [min]="minDate" [max]="maxDate" />
 `;

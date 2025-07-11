@@ -3,6 +3,9 @@ import { Component } from '@angular/core';
 import { HlmAlertDescriptionDirective, HlmAlertDirective } from '@spartan-ng/helm/alert';
 import { hlmCode, hlmH4 } from '@spartan-ng/helm/typography';
 
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { lucideCircleAlert } from '@ng-icons/lucide';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
 import { CodePreviewDirective } from '../../../../shared/code/code-preview.directive';
 import { CodeComponent } from '../../../../shared/code/code.component';
 import { MainSectionDirective } from '../../../../shared/layout/main-section.directive';
@@ -47,7 +50,10 @@ export const routeMeta: RouteMeta = {
 		TabsPaginatedPreviewComponent,
 		HlmAlertDescriptionDirective,
 		HlmAlertDirective,
+		NgIcon,
+		HlmIconDirective,
 	],
+	providers: [provideIcons({ lucideCircleAlert })],
 	template: `
 		<section spartanMainSection>
 			<spartan-section-intro
@@ -102,17 +108,20 @@ export const routeMeta: RouteMeta = {
 			</p>
 
 			<div hlmAlert class="my-2">
-				<p hlmAlertDesc>
-					<strong>Padding</strong>
-					styles, applied to the tab list (
-					<code class="${hlmCode}">listVariants</code>
-					), are
-					<strong>not</strong>
-					taken into account during
-					<strong>keyboard scrolling</strong>
-					. This affects the active tab's scrolling position and next/previous button remain enabled even when the
-					active tab is at the start or end of the tab list.
-				</p>
+				<ng-icon hlm hlmAlertIcon name="lucideCircleAlert" />
+				<div hlmAlertDesc>
+					<p>
+						<strong>Padding</strong>
+						styles, applied to the tab list (
+						<code class="${hlmCode}">listVariants</code>
+						), are
+						<strong>not</strong>
+						taken into account during
+						<strong>keyboard scrolling</strong>
+						. This affects the active tab's scrolling position and next/previous button remain enabled even when the
+						active tab is at the start or end of the tab list.
+					</p>
+				</div>
 			</div>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">

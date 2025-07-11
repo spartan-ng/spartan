@@ -42,10 +42,12 @@ export class BrnTabsTriggerDirective implements OnDestroy {
 	protected readonly contentId = computed(() => `brn-tabs-content-${this.triggerFor()}`);
 	protected readonly labelId = computed(() => `brn-tabs-label-${this.triggerFor()}`);
 
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	public readonly _disabled = input<boolean, BooleanInput>(false, {
 		alias: 'disabled',
 		transform: booleanAttribute,
 	});
+
 	public get disabled(): boolean | undefined {
 		return this._disabled();
 	}

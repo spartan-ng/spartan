@@ -100,15 +100,11 @@ import {
 `;
 export const defaultSkeleton = `
 <hlm-tabs tab="account" class="w-full">
-	<hlm-tabs-list class="grid w-full grid-cols-2" aria-label="tabs example">
-		<button hlmTabsTrigger="account">Account</button>
-		<button hlmTabsTrigger="password">Password</button>
-	</hlm-tabs-list>
-	<div hlmTabsContent="account">
-    	Make your account here
-  	</div>
-  	<div hlmTabsContent="password">
-    	Change your password here
-  	</div>
+  <hlm-tabs-list class="grid w-full grid-cols-2" aria-label="tabs example">
+    <button hlmTabsTrigger="account">Account</button>
+    <button hlmTabsTrigger="password">Password</button>
+  </hlm-tabs-list>
+  <div hlmTabsContent="account">Make your account here</div>
+  <div hlmTabsContent="password">Change your password here</div>
 </hlm-tabs>
 `;

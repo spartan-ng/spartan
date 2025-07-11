@@ -10,7 +10,7 @@ import {
 	output,
 	signal,
 } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown } from '@ng-icons/lucide';
 import { hlm } from '@spartan-ng/brain/core';
@@ -72,7 +72,7 @@ export const HLM_DATE_PICKER_VALUE_ACCESSOR = {
 	},
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HlmDatePickerComponent<T> {
+export class HlmDatePickerComponent<T> implements ControlValueAccessor {
 	private readonly _config = injectHlmDatePickerConfig<T>();
 
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

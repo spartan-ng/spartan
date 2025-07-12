@@ -14,7 +14,7 @@ import type { ClassValue } from 'clsx';
 })
 export class HlmMenuShortcutComponent {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected _computedClass = computed(() =>
+	protected readonly _computedClass = computed(() =>
 		hlm('text-muted-foreground ml-auto text-xs tracking-widest', this.userClass()),
 	);
 }

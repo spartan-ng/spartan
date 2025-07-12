@@ -89,7 +89,7 @@ export const Tailwind: Story = {
 	`,
 })
 class IconDynamicStory {
-	protected size = signal<IconSize>('base');
+	protected readonly size = signal<IconSize>('base');
 }
 
 export const Dynamic: Story = {

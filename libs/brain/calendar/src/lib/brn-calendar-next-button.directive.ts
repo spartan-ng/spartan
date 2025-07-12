@@ -7,7 +7,7 @@ import { injectBrnCalendarI18n } from './i18n/calendar-i18n';
 	selector: '[brnCalendarNextButton]',
 	host: {
 		type: 'button',
-		'[attr.aria-label]': 'i18n.labelNext()',
+		'[attr.aria-label]': '_i18n.labelNext()',
 	},
 })
 export class BrnCalendarNextButtonDirective {
@@ -18,7 +18,7 @@ export class BrnCalendarNextButtonDirective {
 	private readonly _dateAdapter = injectDateAdapter();
 
 	/** Access the calendar i18n */
-	protected readonly i18n = injectBrnCalendarI18n();
+	protected readonly _i18n = injectBrnCalendarI18n();
 
 	/** Focus the previous month */
 	@HostListener('click')

@@ -8,10 +8,10 @@ import { Directive, ElementRef, Renderer2, inject, input } from '@angular/core';
 	},
 })
 export class FallbackImageDirective {
-	public fallback = input('');
+	public readonly fallback = input('');
 
-	public imgComponent = inject(ElementRef) as ElementRef<HTMLImageElement>;
-	public renderer = inject(Renderer2);
+	public readonly imgComponent = inject(ElementRef) as ElementRef<HTMLImageElement>;
+	public readonly renderer = inject(Renderer2);
 
 	updateUrl() {
 		this.renderer.setAttribute(this.imgComponent.nativeElement, 'src', this.fallback());

@@ -47,5 +47,5 @@ export type SpinnerVariants = VariantProps<typeof spinnerVariants>;
 export class HlmSpinnerComponent {
 	public readonly size = input<SpinnerVariants['size']>('default');
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected _computedClass = computed(() => hlm(spinnerVariants({ size: this.size() }), this.userClass()));
+	protected readonly _computedClass = computed(() => hlm(spinnerVariants({ size: this.size() }), this.userClass()));
 }

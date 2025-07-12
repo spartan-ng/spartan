@@ -59,9 +59,9 @@ export class SelectReactiveFieldComponent {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectSingleValueTestComponent {
-	public form = new FormGroup({ fruit: new FormControl(null) });
+	public readonly form = new FormGroup({ fruit: new FormControl(null) });
 
-	public brnSelectComponent = viewChild(BrnSelectComponent);
+	public readonly brnSelectComponent = viewChild(BrnSelectComponent);
 }
 
 @Component({

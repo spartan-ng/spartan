@@ -64,7 +64,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-date-picker-preview />
 				</div>
-				<spartan-code secondTab [code]="defaultCode" />
+				<spartan-code secondTab [code]="_defaultCode" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -85,8 +85,8 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="space-y-4">
-				<spartan-code [code]="defaultImports" />
-				<spartan-code [code]="codeSkeleton" />
+				<spartan-code [code]="_defaultImports" />
+				<spartan-code [code]="_codeSkeleton" />
 			</div>
 
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
@@ -121,7 +121,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-date-picker-config />
 				</div>
-				<spartan-code secondTab [code]="datePickerConfigCode" />
+				<spartan-code secondTab [code]="_datePickerConfigCode" />
 			</spartan-tabs>
 
 			<h3 id="examples__multiple_selecton" class="${hlmH4} mb-2 mt-6">Multiple Selection</h3>
@@ -140,7 +140,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-date-picker-multiple />
 				</div>
-				<spartan-code secondTab [code]="datePickerMultipleCode" />
+				<spartan-code secondTab [code]="_datePickerMultipleCode" />
 			</spartan-tabs>
 
 			<h3 id="examples__format_date" class="${hlmH4} mb-2 mt-6">Format Date</h3>
@@ -154,7 +154,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-date-picker-format />
 				</div>
-				<spartan-code secondTab [code]="datePickerFormatCode" />
+				<spartan-code secondTab [code]="_datePickerFormatCode" />
 			</spartan-tabs>
 
 			<h3 id="examples__form" class="${hlmH4} mb-2 mt-6">Form</h3>
@@ -169,7 +169,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-date-picker-form />
 				</div>
-				<spartan-code secondTab [code]="datePickerFormCode" />
+				<spartan-code secondTab [code]="_datePickerFormCode" />
 			</spartan-tabs>
 
 			<h3 id="examples__form_multiple_selection" class="${hlmH4} mb-2 mt-6">Form Multiple Selection</h3>
@@ -184,7 +184,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-date-picker-form-multiple />
 				</div>
-				<spartan-code secondTab [code]="datePickerFormMultipleCode" />
+				<spartan-code secondTab [code]="_datePickerFormMultipleCode" />
 			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
@@ -196,12 +196,12 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class CardPageComponent {
-	protected readonly defaultCode = defaultCode;
-	protected readonly defaultImports = defaultImports;
-	protected readonly codeSkeleton = defaultSkeleton;
-	protected readonly datePickerConfigCode = datePickerConfigCode;
-	protected readonly datePickerFormCode = datePickerFormCode;
-	protected readonly datePickerFormMultipleCode = datePickerFormMultiCode;
-	protected readonly datePickerFormatCode = datePickerFormatCode;
-	protected readonly datePickerMultipleCode = datePickerMultiCode;
+	protected readonly _defaultCode = defaultCode;
+	protected readonly _defaultImports = defaultImports;
+	protected readonly _codeSkeleton = defaultSkeleton;
+	protected readonly _datePickerConfigCode = datePickerConfigCode;
+	protected readonly _datePickerFormCode = datePickerFormCode;
+	protected readonly _datePickerFormMultipleCode = datePickerFormMultiCode;
+	protected readonly _datePickerFormatCode = datePickerFormatCode;
+	protected readonly _datePickerMultipleCode = datePickerMultiCode;
 }

@@ -21,9 +21,6 @@ import { ClassValue } from 'clsx';
 export class HlmTabsComponent {
 	public readonly tab = input.required<string>();
 
-	public readonly userClass = input<ClassValue>(
-		'bg-muted text-muted-foreground inline-flex h-9 w-fit items-center justify-center rounded-lg p-[3px]',
-		{ alias: 'class' },
-	);
+	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() => hlm('flex flex-col gap-2', this.userClass()));
 }

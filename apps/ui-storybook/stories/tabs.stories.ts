@@ -6,7 +6,7 @@ import { HlmLabelDirective } from '@spartan-ng/helm/label';
 import { HlmTabsImports } from '@spartan-ng/helm/tabs';
 import { type Meta, type StoryObj, argsToTemplate, moduleMetadata } from '@storybook/angular';
 
-const meta: Meta<BrnTabsDirective> = {
+const meta: Meta<BrnTabsDirective & { disabled: boolean }> = {
 	title: 'Tabs',
 	component: BrnTabsDirective,
 	tags: ['autodocs'],
@@ -33,10 +33,10 @@ const meta: Meta<BrnTabsDirective> = {
 };
 
 export default meta;
-type Story = StoryObj<BrnTabsDirective>;
+type Story = StoryObj<BrnTabsDirective & { disabled: boolean }>;
 export const Default: Story = {
-	render: ({ ...args }) => ({
-		props: args,
+	render: ({ disabled, ...args }) => ({
+		props: { disabled, ...args },
 		template: /* HTML */ `
 			<hlm-tabs tab="account" ${argsToTemplate(args)} class="mx-auto block max-w-3xl">
 				<hlm-tabs-list class="grid w-full grid-cols-2" aria-label="tabs example">
@@ -59,9 +59,7 @@ export const Default: Story = {
 								<input class="mt-1.5 w-full" placeholder="@peduarte" hlmInput />
 							</label>
 						</p>
-						<div hlmCardFooter>
-							<button hlmBtn>Save Changes</button>
-						</div>
+						<div hlmCardFooter><button hlmBtn>Save Changes</button></div>
 					</section>
 				</div>
 				<div hlmTabsContent="password">
@@ -80,9 +78,7 @@ export const Default: Story = {
 								<input class="mt-1.5 w-full" type="password" hlmInput />
 							</label>
 						</p>
-						<div hlmCardFooter>
-							<button hlmBtn>Save Password</button>
-						</div>
+						<div hlmCardFooter><button hlmBtn>Save Password</button></div>
 					</section>
 				</div>
 			</hlm-tabs>
@@ -116,9 +112,7 @@ export const Vertical: Story = {
 								<input class="mt-1.5 w-full" placeholder="@peduarte" hlmInput />
 							</label>
 						</p>
-						<div hlmCardFooter>
-							<button hlmBtn>Save Changes</button>
-						</div>
+						<div hlmCardFooter><button hlmBtn>Save Changes</button></div>
 					</section>
 				</div>
 				<div hlmTabsContent="password">
@@ -137,9 +131,7 @@ export const Vertical: Story = {
 								<input class="mt-1.5 w-full" type="password" hlmInput />
 							</label>
 						</p>
-						<div hlmCardFooter>
-							<button hlmBtn>Save Password</button>
-						</div>
+						<div hlmCardFooter><button hlmBtn>Save Password</button></div>
 					</section>
 				</div>
 				<div hlmTabsContent="danger">
@@ -148,9 +140,7 @@ export const Vertical: Story = {
 							<h3 hlmCardTitle>Delete Account</h3>
 							<p hlmCardDescription>Are you sure you want to delete your account? You cannot undo this action.</p>
 						</div>
-						<div hlmCardFooter>
-							<button variant="destructive" hlmBtn>Delete Account</button>
-						</div>
+						<div hlmCardFooter><button variant="destructive" hlmBtn>Delete Account</button></div>
 					</section>
 				</div>
 			</hlm-tabs>
@@ -220,6 +210,37 @@ export const BrnOnly: Story = {
 				</div>
 				<div brnTabsContent="account">Account content</div>
 				<div brnTabsContent="password">Password content</div>
+			</div>
+		`,
+	}),
+};
+
+export const Disabled: Story = {
+	args: {
+		disabled: true,
+	},
+	argTypes: {
+		disabled: {
+			control: {
+				type: 'boolean',
+			},
+		},
+	},
+
+	render: ({ disabled }) => ({
+		props: {
+			isDisabled: disabled,
+		},
+		template: /* HTML */ `
+			<hlm-tabs tab="account" class="mx-auto block max-w-3xl">
+				<hlm-tabs-list class="grid w-full grid-cols-2" aria-label="tabs example">
+					<button [disabled]="isDisabled" hlmTabsTrigger="account">Account</button>
+					<button [disabled]="isDisabled" hlmTabsTrigger="password">Password</button>
+				</hlm-tabs-list>
+			</hlm-tabs>
+
+			<div class="mt-6 flex justify-center">
+				<button (click)="isDisabled = !isDisabled" name="disabled-toggle" hlmBtn role="switch">Toggle disabled</button>
 			</div>
 		`,
 	}),

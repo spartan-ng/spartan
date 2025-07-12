@@ -1,4 +1,15 @@
-import { Directive, ElementRef, Input, OnDestroy, computed, effect, inject, input, untracked } from '@angular/core';
+import { BooleanInput } from '@angular/cdk/coercion';
+import {
+	Directive,
+	ElementRef,
+	OnDestroy,
+	booleanAttribute,
+	computed,
+	effect,
+	inject,
+	input,
+	untracked,
+} from '@angular/core';
 import { BrnTabsDirective } from './brn-tabs.directive';
 
 @Directive({
@@ -10,9 +21,11 @@ import { BrnTabsDirective } from './brn-tabs.directive';
 		'[tabindex]': 'selected() ? "0": "-1"',
 		'[attr.aria-selected]': 'selected()',
 		'[attr.aria-controls]': 'contentId()',
+		'[attr.aria-disabled]': '_disabled()',
 		'[attr.data-state]': "selected() ? 'active' : 'inactive'",
 		'[attr.data-orientation]': '_orientation()',
-		'[attr.data-disabled]': "disabled ? '' : undefined",
+		'[attr.data-disabled]': "_disabled() ? '' : undefined",
+		'[attr.disabled]': "_disabled() ? '' : undefined",
 		'(click)': 'activate()',
 	},
 	exportAs: 'brnTabsTrigger',
@@ -29,9 +42,15 @@ export class BrnTabsTriggerDirective implements OnDestroy {
 	protected readonly contentId = computed(() => `brn-tabs-content-${this.triggerFor()}`);
 	protected readonly labelId = computed(() => `brn-tabs-label-${this.triggerFor()}`);
 
-	// leaving this as an @input to be compatible with the `FocusKeyManager` used in the `BrnTabsListDirective`
-	@Input()
-	public disabled = false;
+	// eslint-disable-next-line @typescript-eslint/naming-convention
+	public readonly _disabled = input<boolean, BooleanInput>(false, {
+		alias: 'disabled',
+		transform: booleanAttribute,
+	});
+
+	public get disabled(): boolean | undefined {
+		return this._disabled();
+	}
 
 	constructor() {
 		effect(() => {

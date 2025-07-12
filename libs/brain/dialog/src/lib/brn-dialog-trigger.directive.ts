@@ -1,4 +1,4 @@
-import { computed, Directive, effect, inject, input, type Signal, signal } from '@angular/core';
+import { computed, Directive, effect, inject, input, signal } from '@angular/core';
 import { BrnDialogRef } from './brn-dialog-ref';
 import type { BrnDialogState } from './brn-dialog-state';
 import { BrnDialogComponent } from './brn-dialog.component';
@@ -23,7 +23,26 @@ export class BrnDialogTriggerDirective {
 
 	public readonly id = input(`brn-dialog-trigger-${idSequence++}`);
 
-	public readonly state: Signal<BrnDialogState> = this._brnDialogRef?.state ?? signal('closed');
+	public readonly state = computed<BrnDialogState>(() => {
+		// If we have a dialog component from the input, use its state (the highest priority)
+		const dialogFromInput = this.brnDialogTriggerForState();
+		if (dialogFromInput) {
+			return dialogFromInput.stateComputed();
+		}
+
+		// If we have a dialog component, use its state
+		if (this._brnDialog) {
+			return this._brnDialog.stateComputed();
+		}
+
+		// If we have a dialog ref, use its state
+		if (this._brnDialogRef) {
+			return this._brnDialogRef.state();
+		}
+
+		return 'closed';
+	});
+
 	public readonly dialogId = `brn-dialog-${this._brnDialogRef?.dialogId ?? idSequence++}`;
 
 	public readonly brnDialogTriggerFor = input<BrnDialogComponent | undefined>(undefined, {

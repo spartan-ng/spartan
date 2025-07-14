@@ -29,7 +29,7 @@ const meta: Meta<HlmAlertDirective> = {
      <div class='max-w-xl' hlmAlert ${argsToTemplate(args)}>
       <ng-icon hlm name='lucideInfo' hlmAlertIcon />
       <h4 hlmAlertTitle>Introducing SPARTAN helm & brain</h4>
-      <p hlmAlertDesc>
+      <p hlmAlertDescription>
         The components used on this page are also the intial building blocks of a new UI library. It is made up of
         headless UI providers, the brain components/directives, which add ARIA compliant markup and interactions. On top
         of the brain we add helm(et) directives, which add shadcn-like styles to
@@ -59,7 +59,7 @@ export const Destructive: Story = {
      <div hlmAlert class='max-w-xl' ${argsToTemplate(args)}>
       <ng-icon hlm name='lucideCircleAlert' hlmAlertIcon />
       <h4 hlmAlertTitle>Something went wrong...</h4>
-      <p hlmAlertDesc>
+      <p hlmAlertDescription>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam aperiam at autem culpa debitis eius eveniet exercitationem, facilis illo magni mollitia, necessitatibus nesciunt quam quos recusandae tempore ullam velit veniam!
       </p>
      </div>

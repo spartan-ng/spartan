@@ -109,7 +109,7 @@ export const routeMeta: RouteMeta = {
 
 			<div hlmAlert class="my-2">
 				<ng-icon hlm hlmAlertIcon name="lucideCircleAlert" />
-				<div hlmAlertDesc>
+				<div hlmAlertDescription>
 					<p>
 						<strong>Padding</strong>
 						styles, applied to the tab list (

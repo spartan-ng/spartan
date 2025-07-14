@@ -46,11 +46,13 @@ export const routeMeta: RouteMeta = {
 		>
 			<ng-icon hlm hlmAlertIcon name="lucideRocket" class="!text-primary-foreground" />
 			<h2 hlmAlertTitle>Spartans get ready! v1 is coming!</h2>
-			<p hlmAlertDesc>
-				We are very close to our first stable release. Expect more announcements in the coming weeks. v1 was made
-				possible by
-				<a class="underline" target="_blank" href="https://zerops.io">our partner Zerops.</a>
-			</p>
+			<div hlmAlertDescription>
+				<p>
+					We are very close to our first stable release. Expect more announcements in the coming weeks. v1 was made
+					possible by
+					<a class="underline" target="_blank" href="https://zerops.io">our partner Zerops.</a>
+				</p>
+			</div>
 		</div>
 		<spartan-page />
 	`,

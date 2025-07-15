@@ -33,7 +33,7 @@ import { HlmMenuComponent, HlmMenuItemDirective } from '@spartan-ng/helm/menu';
 		<nav hlmBreadcrumb>
 			<ol hlmBreadcrumbList>
 				<li hlmBreadcrumbItem>
-					<a hlmBreadcrumbLink link="/home">Home</a>
+					<a hlmBreadcrumbLink link="/">Home</a>
 				</li>
 				<li hlmBreadcrumbSeparator>
 					<ng-icon hlm size="sm" name="lucideSlash" />

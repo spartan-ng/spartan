@@ -44,7 +44,7 @@ export const routeMeta: RouteMeta = {
 		<spartan-page />
 	`,
 })
-export default class sPage {
+export default class ComponentsPage {
 	private readonly _apiData = toSignal(injectLoad<typeof load>(), { requireSync: true });
 	private readonly _apiDocsService = inject(ApiDocsService);
 

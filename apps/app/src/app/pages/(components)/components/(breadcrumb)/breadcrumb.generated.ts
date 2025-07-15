@@ -67,7 +67,6 @@ import {
 	HlmBreadcrumbPageDirective,
 	HlmBreadcrumbSeparatorComponent,
 } from '@spartan-ng/helm/breadcrumb';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
 
 @Component({
 	selector: 'spartan-breadcrumb-custom-separator',
@@ -80,7 +79,6 @@ import { HlmIconDirective } from '@spartan-ng/helm/icon';
 		HlmBreadcrumbPageDirective,
 		HlmBreadcrumbLinkDirective,
 		NgIcon,
-		HlmIconDirective,
 	],
 	template: \`
 		<nav hlmBreadcrumb>
@@ -89,13 +87,13 @@ import { HlmIconDirective } from '@spartan-ng/helm/icon';
 					<a hlmBreadcrumbLink link="/">Home</a>
 				</li>
 				<li hlmBreadcrumbSeparator>
-					<ng-icon hlm size="sm" name="lucideSlash" />
+					<ng-icon name="lucideSlash" />
 				</li>
 				<li hlmBreadcrumbItem>
 					<a hlmBreadcrumbLink link="/components">Components</a>
 				</li>
 				<li hlmBreadcrumbSeparator>
-					<ng-icon hlm size="sm" name="lucideSlash" />
+					<ng-icon name="lucideSlash" />
 				</li>
 				<li hlmBreadcrumbItem>
 					<span hlmBreadcrumbPage>Breadcrumb</span>

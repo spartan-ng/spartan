@@ -1,5 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
+import { hlmH4 } from '@spartan-ng/helm/typography';
 import { CodePreviewDirective } from '../../../../shared/code/code-preview.directive';
 import { CodeComponent } from '../../../../shared/code/code.component';
 import { MainSectionDirective } from '../../../../shared/layout/main-section.directive';
@@ -13,7 +14,9 @@ import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { BadgePreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './badge.preview';
+import { BadgeLinkComponent } from './badge--link.example';
+import { badgeLinkCode, defaultCode } from './badge.generated';
+import { BadgePreviewComponent, defaultImports, defaultSkeleton } from './badge.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Badge', api: 'badge' },
@@ -36,6 +39,7 @@ export const routeMeta: RouteMeta = {
 		PageBottomNavComponent,
 		PageBottomNavLinkComponent,
 		BadgePreviewComponent,
+		BadgeLinkComponent,
 	],
 	template: `
 		<section spartanMainSection>
@@ -64,6 +68,16 @@ export const routeMeta: RouteMeta = {
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="helm" />
 
+			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
+
+			<h3 id="examples__link" class="${hlmH4} mb-2 mt-6">Link</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-badge-link />
+				</div>
+				<spartan-code secondTab [code]="badgeLinkCode" />
+			</spartan-tabs>
+
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="breadcrumb" label="Breadcrumb" />
 				<spartan-page-bottom-nav-link direction="previous" href="avatar" label="Avatar" />
@@ -76,4 +90,5 @@ export default class BadgePageComponent {
 	public readonly defaultCode = defaultCode;
 	public readonly defaultSkeleton = defaultSkeleton;
 	public readonly defaultImports = defaultImports;
+	public readonly badgeLinkCode = badgeLinkCode;
 }

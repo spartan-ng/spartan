@@ -7,15 +7,33 @@ Instead, edit the `(badge).preview.ts` file or the generator itself.
 Run `pnpm run generate-snippets` to update this file.
 */
 
+export const badgeLinkCode = `
+import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { HlmBadgeDirective } from '@spartan-ng/helm/badge';
+
+@Component({
+	selector: 'spartan-badge-link',
+	imports: [HlmBadgeDirective, RouterLink],
+	template: \`
+		<div class="flex gap-2">
+			<a hlmBadge routerLink=".">Angular Route</a>
+			<a hlmBadge variant="secondary" href="https://spartan.ng">External Link</a>
+		</div>
+	\`,
+})
+export class BadgeLinkComponent {}
+`;
+
 export const defaultCode = `
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideBadgeCheck } from '@ng-icons/lucide';
-import { HlmBadgeImports } from '@spartan-ng/helm/badge';
+import { HlmBadgeDirective } from '@spartan-ng/helm/badge';
 
 @Component({
 	selector: 'spartan-badge-preview',
-	imports: [HlmBadgeImports, NgIcon],
+	imports: [HlmBadgeDirective, NgIcon],
 	providers: [provideIcons({ lucideBadgeCheck })],
 	template: \`
 		<div class="flex flex-col items-center gap-2">

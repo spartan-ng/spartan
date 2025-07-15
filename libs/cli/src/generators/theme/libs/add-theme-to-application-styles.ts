@@ -20,11 +20,12 @@ export function addThemeToApplicationStyles(
 	project: ProjectConfiguration,
 ): void {
 	const packageJson = readJson<PackageJson>(tree, 'package.json');
+	const deps = { ...packageJson.dependencies, ...packageJson.devDependencies };
 
 	let tailwindVersion = 3;
 
-	if ('tailwindcss' in packageJson.devDependencies) {
-		const version = packageJson.devDependencies['tailwindcss'];
+	if ('tailwindcss' in deps) {
+		const version = deps['tailwindcss'];
 		tailwindVersion = semver.coerce(version)?.major ?? 3;
 	}
 

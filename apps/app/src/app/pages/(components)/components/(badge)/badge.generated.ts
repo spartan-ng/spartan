@@ -17,7 +17,7 @@ import { HlmBadgeDirective } from '@spartan-ng/helm/badge';
 	imports: [HlmBadgeDirective, RouterLink],
 	template: \`
 		<div class="flex gap-2">
-			<a hlmBadge routerLink="#">Angular Route</a>
+			<a hlmBadge routerLink=".">Angular Route</a>
 			<a hlmBadge variant="secondary" href="https://spartan.ng">External Link</a>
 		</div>
 	\`,

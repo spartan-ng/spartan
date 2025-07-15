@@ -8,7 +8,7 @@ import { PageNavComponent } from '@spartan-ng/app/app/shared/layout/page-nav/pag
 import { SectionIntroComponent } from '@spartan-ng/app/app/shared/layout/section-intro.component';
 import { SectionSubHeadingComponent } from '@spartan-ng/app/app/shared/layout/section-sub-heading.component';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
-import { HlmAlertDirective } from '@spartan-ng/helm/alert';
+import { HlmAlertDescriptionDirective, HlmAlertDirective } from '@spartan-ng/helm/alert';
 import { hlmCode, hlmH4, hlmP, hlmSmall } from '@spartan-ng/helm/typography';
 
 export const routeMeta: RouteMeta = {
@@ -28,6 +28,7 @@ export const routeMeta: RouteMeta = {
 		SectionSubHeadingComponent,
 		CodeComponent,
 		HlmAlertDirective,
+		HlmAlertDescriptionDirective,
 	],
 	template: `
 		<section spartanMainSection>
@@ -53,9 +54,13 @@ export const routeMeta: RouteMeta = {
 					variable is used for the text color.
 				</p>
 				<div class="mt-4" hlmAlert>
-					The
-					<code class="${hlmCode}">background</code>
-					suffix is omitted when the variable is used for the background color of the component.
+					<div hlmAlertDescription>
+						<p>
+							The
+							<code class="${hlmCode}">background</code>
+							suffix is omitted when the variable is used for the background color of the component.
+						</p>
+					</div>
 				</div>
 				<p class="${hlmP}">Given the following CSS variables:</p>
 				<spartan-code
@@ -78,18 +83,20 @@ export const routeMeta: RouteMeta = {
 				</p>
 				<spartan-code class="mt-4" code='<div class="bg-primary text-primary-foreground">Hello</div>' />
 				<div class="mt-4 text-sm" hlmAlert>
-					<p>
-						<span class="font-semibold">CSS variables must be defined without color space function.</span>
-						See the
-						<a
-							class="font-medium underline"
-							href="https://tailwindcss.com/docs/customizing-colors#using-css-variables"
-							target="_blank"
-						>
-							Tailwind CSS documentation
-						</a>
-						for more information.
-					</p>
+					<div hlmAlertDescription>
+						<p>
+							<span class="font-semibold">CSS variables must be defined without color space function.</span>
+							See the
+							<a
+								class="font-medium underline"
+								href="https://tailwindcss.com/docs/customizing-colors#using-css-variables"
+								target="_blank"
+							>
+								Tailwind CSS documentation
+							</a>
+							for more information.
+						</p>
+					</div>
 				</div>
 			</section>
 

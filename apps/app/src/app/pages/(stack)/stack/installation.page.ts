@@ -110,15 +110,17 @@ export const routeMeta: RouteMeta = {
 			<div class="mb-6 mt-4" hlmAlert>
 				<ng-icon hlm hlmAlertIcon name="lucideTriangleAlert" />
 				<h4 hlmAlertTitle>Dealing with postgres & CommonJs</h4>
-				<p hlmAlertDesc>
-					<code class="${hlmCode}">postgres</code>
-					is a CommonJs package, which directly exposes an augmented function. Therefore, we need to adjust our
-					<code class="${hlmCode}">[YOUR_APP_NAME]/tsconfig.json</code>
-					file to tell the TS compiler how to deal with it properly. Add the following line to
-					<code class="${hlmCode}">compilerOptions</code>
-					:
-				</p>
-				<spartan-code class="mt-3" language="sh" code='"allowSyntheticDefaultImports": true' />
+				<div hlmAlertDescription>
+					<p>
+						<code class="${hlmCode}">postgres</code>
+						is a CommonJs package, which directly exposes an augmented function. Therefore, we need to adjust our
+						<code class="${hlmCode}">[YOUR_APP_NAME]/tsconfig.json</code>
+						file to tell the TS compiler how to deal with it properly. Add the following line to
+						<code class="${hlmCode}">compilerOptions</code>
+						:
+					</p>
+					<spartan-code class="mt-3" language="sh" code='"allowSyntheticDefaultImports": true' />
+				</div>
 			</div>
 
 			<p class="${hlmP}">
@@ -253,14 +255,16 @@ export const noteRouter = router({
 					<div class="mt-4" hlmAlert>
 						<ng-icon hlm name="lucideTriangleAlert" hlmAlertIcon />
 						<p hlmAlertTitle>Make sure to add .env to your .gitignore file.</p>
-						<p hlmAlertDescription>
-							You do not want to accidentally commit your secrets to GitHub. To exclude the file from git add a new line
-							to the
-							<code class="${hlmCode}">.gitignore</code>
-							-file and add
-							<code class="${hlmCode}">.env</code>
-							on a new line.
-						</p>
+						<div hlmAlertDescription>
+							<p>
+								You do not want to accidentally commit your secrets to GitHub. To exclude the file from git add a new
+								line to the
+								<code class="${hlmCode}">.gitignore</code>
+								-file and add
+								<code class="${hlmCode}">.env</code>
+								on a new line.
+							</p>
+						</div>
 					</div>
 				</div>
 
@@ -306,7 +310,7 @@ git init"
 					<div class="mt-8" hlmAlert variant="destructive">
 						<ng-icon hlm hlmAlertIcon name="lucideTriangleAlert" />
 						<h4 hlmAlertTitle>Important: Make sure Docker is running</h4>
-						<p hlmAlertDesc>
+						<p hlmAlertDescription>
 							Make sure Docker is running and configured correctly! I had Docker already installed and running. However,
 							my setup is not compatible with the config Supabase expects by default.
 						</p>

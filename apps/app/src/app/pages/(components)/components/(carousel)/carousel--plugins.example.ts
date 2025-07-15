@@ -1,24 +1,24 @@
 import { Component } from '@angular/core';
-import { HlmCardContentDirective, HlmCardDirective } from '@spartan-ng/helm/card';
+import { HlmCard, HlmCardContent } from '@spartan-ng/helm/card';
 import {
-	HlmCarouselComponent,
-	HlmCarouselContentComponent,
-	HlmCarouselItemComponent,
-	HlmCarouselNextComponent,
-	HlmCarouselPreviousComponent,
+	HlmCarousel,
+	HlmCarouselContent,
+	HlmCarouselItem,
+	HlmCarouselNext,
+	HlmCarouselPrevious,
 } from '@spartan-ng/helm/carousel';
 import Autoplay from 'embla-carousel-autoplay';
 
 @Component({
 	selector: 'spartan-carousel-plugins',
 	imports: [
-		HlmCarouselComponent,
-		HlmCarouselContentComponent,
-		HlmCarouselItemComponent,
-		HlmCarouselNextComponent,
-		HlmCarouselPreviousComponent,
-		HlmCardDirective,
-		HlmCardContentDirective,
+		HlmCarousel,
+		HlmCarouselContent,
+		HlmCarouselItem,
+		HlmCarouselNext,
+		HlmCarouselPrevious,
+		HlmCard,
+		HlmCardContent,
 	],
 	template: `
 		<div class="flex w-full items-center justify-center p-4">
@@ -42,7 +42,7 @@ import Autoplay from 'embla-carousel-autoplay';
 		</div>
 	`,
 })
-export class CarouselPluginsComponent {
+export class CarouselPlugins {
 	public items = Array.from({ length: 5 }, (_, i) => i + 1);
 	public plugins = [Autoplay({ delay: 3000 })];
 }

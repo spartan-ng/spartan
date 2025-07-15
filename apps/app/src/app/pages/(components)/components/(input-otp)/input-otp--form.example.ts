@@ -1,23 +1,14 @@
 import { afterNextRender, Component, computed, inject, OnDestroy, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { BrnInputOtpComponent } from '@spartan-ng/brain/input-otp';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
-import { HlmInputOtpDirective, HlmInputOtpGroupDirective, HlmInputOtpSlotComponent } from '@spartan-ng/helm/input-otp';
-import { HlmToasterComponent } from '@spartan-ng/helm/sonner';
+import { BrnInputOtp } from '@spartan-ng/brain/input-otp';
+import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmInputOtp, HlmInputOtpGroup, HlmInputOtpSlot } from '@spartan-ng/helm/input-otp';
+import { HlmToaster } from '@spartan-ng/helm/sonner';
 import { toast } from 'ngx-sonner';
 
 @Component({
 	selector: 'spartan-input-otp-form',
-	imports: [
-		ReactiveFormsModule,
-		HlmButtonDirective,
-		HlmToasterComponent,
-
-		BrnInputOtpComponent,
-		HlmInputOtpDirective,
-		HlmInputOtpGroupDirective,
-		HlmInputOtpSlotComponent,
-	],
+	imports: [ReactiveFormsModule, HlmButton, HlmToaster, BrnInputOtp, HlmInputOtp, HlmInputOtpGroup, HlmInputOtpSlot],
 	template: `
 		<hlm-toaster />
 
@@ -52,7 +43,7 @@ import { toast } from 'ngx-sonner';
 		class: 'preview flex min-h-[350px] w-full justify-center p-10 items-center',
 	},
 })
-export class InputOtpFormExampleComponent implements OnDestroy {
+export class InputOtpFormExample implements OnDestroy {
 	private readonly _formBuilder = inject(FormBuilder);
 	private _intervalId?: NodeJS.Timeout;
 

@@ -2,9 +2,9 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
 
 import { FormsModule } from '@angular/forms';
-import { BrnSwitchComponent, BrnSwitchImports } from '@spartan-ng/brain/switch';
-import { HlmLabelDirective } from '@spartan-ng/helm/label';
-import { HlmSwitchComponent, HlmSwitchImports } from '@spartan-ng/helm/switch';
+import { BrnSwitch, BrnSwitchImports } from '@spartan-ng/brain/switch';
+import { HlmLabel } from '@spartan-ng/helm/label';
+import { HlmSwitch, HlmSwitchImports } from '@spartan-ng/helm/switch';
 
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
@@ -20,10 +20,10 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 		<p data-testid="switchValue">{{ switchValue }}</p>
 		<p data-testid="changedValue">{{ changedValueTo }}</p>
 	`,
-	imports: [HlmSwitchComponent, FormsModule],
+	imports: [HlmSwitch, FormsModule],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SwitchFormComponent {
+export class SwitchForm {
 	@Input()
 	public switchValue = false;
 
@@ -34,19 +34,19 @@ export class SwitchFormComponent {
 	}
 }
 
-const meta: Meta<BrnSwitchComponent> = {
+const meta: Meta<BrnSwitch> = {
 	title: 'Switch',
-	component: BrnSwitchComponent,
+	component: BrnSwitch,
 	tags: ['autodocs'],
 	decorators: [
 		moduleMetadata({
-			imports: [BrnSwitchImports, HlmSwitchImports, HlmLabelDirective, SwitchFormComponent, FormsModule],
+			imports: [BrnSwitchImports, HlmSwitchImports, HlmLabel, SwitchForm, FormsModule],
 		}),
 	],
 };
 
 export default meta;
-type Story = StoryObj<BrnSwitchComponent>;
+type Story = StoryObj<BrnSwitch>;
 
 export const Default: Story = {
 	render: () => ({
@@ -88,7 +88,7 @@ export const Disabled: Story = {
 	}),
 };
 
-type FormStory = StoryObj<SwitchFormComponent>;
+type FormStory = StoryObj<SwitchForm>;
 export const Form: FormStory = {
 	render: () => ({
 		template: `

@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 
-import { BrnCheckboxComponent } from './lib/brn-checkbox.component';
+import { BrnCheckbox } from './lib/brn-checkbox';
 
-export * from './lib/brn-checkbox.component';
+export * from './lib/brn-checkbox';
 
-export const BrnCheckboxImports = [BrnCheckboxComponent] as const;
+export const BrnCheckboxImports = [BrnCheckbox] as const;
 
 @NgModule({
 	imports: [...BrnCheckboxImports],

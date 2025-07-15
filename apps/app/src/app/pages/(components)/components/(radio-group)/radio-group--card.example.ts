@@ -4,13 +4,13 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCreditCard } from '@ng-icons/lucide';
 import { remixAppleFill, remixPaypalFill } from '@ng-icons/remixicon';
 import { hlm } from '@spartan-ng/brain/core';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
-import { HlmRadioComponent, HlmRadioGroupComponent } from '@spartan-ng/helm/radio-group';
+import { HlmIcon } from '@spartan-ng/helm/icon';
+import { HlmRadio, HlmRadioGroup } from '@spartan-ng/helm/radio-group';
 
 @Component({
 	selector: 'spartan-radio-card-preview',
 	providers: [provideIcons({ lucideCreditCard, remixPaypalFill, remixAppleFill })],
-	imports: [FormsModule, HlmRadioComponent, HlmRadioGroupComponent, NgIcon, HlmIconDirective],
+	imports: [FormsModule, HlmRadio, HlmRadioGroup, NgIcon, HlmIcon],
 	template: `
 		<hlm-radio-group class="grid grid-cols-3 gap-4" [(ngModel)]="payment">
 			<label class="flex items-center" hlmLabel [class]="cardClass">
@@ -34,7 +34,7 @@ import { HlmRadioComponent, HlmRadioGroupComponent } from '@spartan-ng/helm/radi
 		</hlm-radio-group>
 	`,
 })
-export class RadioGroupCardComponent {
+export class RadioGroupCard {
 	public payment = 'card';
 
 	public readonly cardClass = hlm(

@@ -1,39 +1,40 @@
 import { Component } from '@angular/core';
 
-import { BrnContextMenuTriggerDirective, BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
+import { BrnContextMenuTrigger, BrnMenuTrigger } from '@spartan-ng/brain/menu';
 
 import {
-	HlmMenuComponent,
-	HlmMenuGroupComponent,
-	HlmMenuItemCheckComponent,
-	HlmMenuItemCheckboxDirective,
-	HlmMenuItemDirective,
-	HlmMenuItemRadioComponent,
-	HlmMenuItemRadioDirective,
-	HlmMenuItemSubIndicatorComponent,
-	HlmMenuLabelComponent,
-	HlmMenuSeparatorComponent,
-	HlmMenuShortcutComponent,
-	HlmSubMenuComponent,
+	HlmMenu,
+	HlmMenuGroup,
+	HlmMenuItem,
+	HlmMenuItemCheck,
+	HlmMenuItemCheckbox,
+	HlmMenuItemRadio,
+	HlmMenuItemRadioIndicator,
+	HlmMenuItemSubIndicator,
+	HlmMenuLabel,
+	HlmMenuSeparator,
+	HlmMenuShortcut,
+	HlmSubMenu,
 } from '@spartan-ng/helm/menu';
 
 @Component({
 	selector: 'spartan-context-menu-preview',
 	imports: [
-		BrnMenuTriggerDirective,
-		BrnContextMenuTriggerDirective,
-		HlmMenuComponent,
-		HlmSubMenuComponent,
-		HlmMenuItemDirective,
-		HlmMenuItemSubIndicatorComponent,
-		HlmMenuLabelComponent,
-		HlmMenuShortcutComponent,
-		HlmMenuSeparatorComponent,
-		HlmMenuItemCheckComponent,
-		HlmMenuItemRadioComponent,
-		HlmMenuGroupComponent,
-		HlmMenuItemCheckboxDirective,
-		HlmMenuItemRadioDirective,
+		BrnMenuTrigger,
+		BrnContextMenuTrigger,
+		HlmMenu,
+		HlmSubMenu,
+		HlmMenuItem,
+		HlmMenuItemSubIndicator,
+		HlmMenuLabel,
+		HlmMenuShortcut,
+		HlmMenuSeparator,
+		HlmMenuItemCheck,
+		HlmMenuItemRadio,
+		HlmMenuGroup,
+		HlmMenuItemCheckbox,
+		HlmMenuItemRadio,
+		HlmMenuItemRadioIndicator,
 	],
 	template: `
 		<div
@@ -111,7 +112,7 @@ import {
 		</ng-template>
 	`,
 })
-export class ContextMenuPreviewComponent {}
+export class ContextMenuPreview {}
 
 export const defaultCode = `
 import { Component } from '@angular/core';

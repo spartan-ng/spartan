@@ -9,17 +9,17 @@ Run `pnpm run generate-snippets` to update this file.
 
 export const defaultCode = `
 import { Component } from '@angular/core';
-import { HlmInputDirective } from '@spartan-ng/helm/input';
+import { HlmInput } from '@spartan-ng/helm/input';
 
 @Component({
 	selector: 'spartan-textarea-preview',
 	host: {
 		class: 'w-full',
 	},
-	imports: [HlmInputDirective],
+	imports: [HlmInput],
 	template: \`
 		<textarea class="min-h-[80px] w-full" hlmInput placeholder="Type your message here."></textarea>
 	\`,
 })
-export class TextAreaPreviewComponent {}
+export class TextAreaPreview {}
 `;

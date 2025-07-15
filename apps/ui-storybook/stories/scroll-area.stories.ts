@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { HlmScrollAreaDirective } from '@spartan-ng/helm/scroll-area';
-import { HlmSeparatorDirective } from '@spartan-ng/helm/separator';
+import { HlmScrollArea } from '@spartan-ng/helm/scroll-area';
+import { HlmSeparator } from '@spartan-ng/helm/separator';
 import type { Meta, StoryObj } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
 import { NgScrollbar, NgScrollbarModule } from 'ngx-scrollbar';
 
 @Component({
 	selector: 'scroll-area-stories',
-	imports: [HlmSeparatorDirective, HlmScrollAreaDirective, NgScrollbarModule],
+	imports: [HlmSeparator, HlmScrollArea, NgScrollbarModule],
 	template: `
 		<ng-scrollbar hlm class="border-border h-72 w-48 rounded-md border">
 			<div class="p-4">
@@ -22,7 +22,7 @@ import { NgScrollbar, NgScrollbarModule } from 'ngx-scrollbar';
 		</ng-scrollbar>
 	`,
 })
-class ScrollAreaStoriesComponent {
+class ScrollAreaStories {
 	tags = Array.from({ length: 50 }).map((_, i, a) => `v1.2.0-beta.${a.length - i}`);
 }
 
@@ -56,13 +56,13 @@ const meta: Meta<NgScrollbar> = {
 	} as any,
 	decorators: [
 		moduleMetadata({
-			imports: [HlmScrollAreaDirective, NgScrollbarModule, ScrollAreaStoriesComponent],
+			imports: [HlmScrollArea, NgScrollbarModule, ScrollAreaStories],
 		}),
 	],
 };
 
 export default meta;
-type Story = StoryObj<HlmScrollAreaDirective>;
+type Story = StoryObj<HlmScrollArea>;
 
 export const Default: Story = {
 	render: () => ({

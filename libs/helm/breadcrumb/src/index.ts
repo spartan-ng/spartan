@@ -1,28 +1,28 @@
 import { NgModule } from '@angular/core';
-import { HlmBreadcrumbEllipsisComponent } from './lib/hlm-breadcrumb-ellipsis.component';
-import { HlmBreadcrumbItemDirective } from './lib/hlm-breadcrumb-item.directive';
-import { HlmBreadcrumbLinkDirective } from './lib/hlm-breadcrumb-link.directive';
-import { HlmBreadcrumbListDirective } from './lib/hlm-breadcrumb-list.directive';
-import { HlmBreadcrumbPageDirective } from './lib/hlm-breadcrumb-page.directive';
-import { HlmBreadcrumbSeparatorComponent } from './lib/hlm-breadcrumb-separator.component';
-import { HlmBreadcrumbDirective } from './lib/hlm-breadcrumb.directive';
+import { HlmBreadcrumb } from './lib/hlm-breadcrumb';
+import { HlmBreadcrumbEllipsis } from './lib/hlm-breadcrumb-ellipsis';
+import { HlmBreadcrumbItem } from './lib/hlm-breadcrumb-item';
+import { HlmBreadcrumbLink } from './lib/hlm-breadcrumb-link';
+import { HlmBreadcrumbList } from './lib/hlm-breadcrumb-list';
+import { HlmBreadcrumbPage } from './lib/hlm-breadcrumb-page';
+import { HlmBreadcrumbSeparator } from './lib/hlm-breadcrumb-separator';
 
-export * from './lib/hlm-breadcrumb-ellipsis.component';
-export * from './lib/hlm-breadcrumb-item.directive';
-export * from './lib/hlm-breadcrumb-link.directive';
-export * from './lib/hlm-breadcrumb-list.directive';
-export * from './lib/hlm-breadcrumb-page.directive';
-export * from './lib/hlm-breadcrumb-separator.component';
-export * from './lib/hlm-breadcrumb.directive';
+export * from './lib/hlm-breadcrumb';
+export * from './lib/hlm-breadcrumb-ellipsis';
+export * from './lib/hlm-breadcrumb-item';
+export * from './lib/hlm-breadcrumb-link';
+export * from './lib/hlm-breadcrumb-list';
+export * from './lib/hlm-breadcrumb-page';
+export * from './lib/hlm-breadcrumb-separator';
 
 export const HlmBreadCrumbImports = [
-	HlmBreadcrumbDirective,
-	HlmBreadcrumbEllipsisComponent,
-	HlmBreadcrumbSeparatorComponent,
-	HlmBreadcrumbItemDirective,
-	HlmBreadcrumbLinkDirective,
-	HlmBreadcrumbPageDirective,
-	HlmBreadcrumbListDirective,
+	HlmBreadcrumb,
+	HlmBreadcrumbEllipsis,
+	HlmBreadcrumbSeparator,
+	HlmBreadcrumbItem,
+	HlmBreadcrumbLink,
+	HlmBreadcrumbPage,
+	HlmBreadcrumbList,
 ] as const;
 
 @NgModule({

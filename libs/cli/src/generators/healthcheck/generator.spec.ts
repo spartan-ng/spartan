@@ -37,6 +37,15 @@ describe('healthcheck generator', () => {
 		`,
 		);
 
+		// add a file with legacy naming conventions
+		tree.write(
+			'libs/my-lib/src/legacy.component.ts',
+			`			import { HlmMenuItemRadioComponent } from '@spartan-ng/helm/menu';
+			import { BrnTooltipContentDirective } from '@spartan-ng/brain/tooltip';
+			import { BrnSelectValueDirective } from '@spartan-ng/brain/select';
+			`,
+		);
+
 		await healthcheckGenerator(tree, { skipFormat: true, autoFix: true });
 	});
 
@@ -84,5 +93,15 @@ describe('healthcheck generator', () => {
 
 		expect(contents).not.toContain('<hlm-scroll-area');
 		expect(contents).toContain('<ng-scrollbar hlm');
+	});
+
+	it('should update naming conventions', () => {
+		const contents = tree.read('libs/my-lib/src/legacy.component.ts', 'utf-8');
+
+		expect(contents).toContain('HlmMenuItemRadioComponent');
+		expect(contents).not.toContain('BrnTooltipContentDirective');
+		expect(contents).toContain('BrnTooltipContentTemplate');
+		expect(contents).not.toContain('BrnSelectValueDirective');
+		expect(contents).toContain('BrnSelectValueTemplateDirective');
 	});
 });

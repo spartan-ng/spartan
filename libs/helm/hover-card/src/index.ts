@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
-import { HlmHoverCardContentComponent } from './lib/hlm-hover-card-content.component';
+import { HlmHoverCardContent } from './lib/hlm-hover-card-content';
 
-export { HlmHoverCardContentComponent } from './lib/hlm-hover-card-content.component';
+export { HlmHoverCardContent } from './lib/hlm-hover-card-content';
 
-export const HlmHoverCardImports = [HlmHoverCardContentComponent] as const;
+export const HlmHoverCardImports = [HlmHoverCardContent] as const;
 
 @NgModule({
 	imports: [...HlmHoverCardImports],

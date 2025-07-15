@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { HlmCalendarComponent } from '@spartan-ng/helm/calendar';
+import { HlmCalendar } from '@spartan-ng/helm/calendar';
 
 @Component({
 	selector: 'spartan-calendar-preview',
-	imports: [HlmCalendarComponent],
+	imports: [HlmCalendar],
 	template: `
 		<hlm-calendar [(date)]="selectedDate" [min]="minDate" [max]="maxDate" />
 	`,
@@ -11,7 +11,7 @@ import { HlmCalendarComponent } from '@spartan-ng/helm/calendar';
 		class: 'preview flex min-h-[350px] w-full justify-center p-10 items-center',
 	},
 })
-export class CalendarPreviewComponent {
+export class CalendarPreview {
 	/** The selected date */
 	public selectedDate = new Date();
 

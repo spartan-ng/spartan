@@ -1,7 +1,7 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmButton } from '@spartan-ng/helm/button';
 import { hlmBlockquote, hlmH1, hlmH2, hlmH3, hlmLead, hlmP, hlmUl } from '@spartan-ng/helm/typography';
 
 export const routeMeta: RouteMeta = {
@@ -14,7 +14,7 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-typography',
-	imports: [HlmButtonDirective],
+	imports: [HlmButton],
 	host: {
 		class: 'block p-2 sm:p-4 pb-16',
 	},
@@ -131,4 +131,4 @@ export const routeMeta: RouteMeta = {
 		</p>
 	`,
 })
-export default class TypographyPageComponent {}
+export default class TypographyPage {}

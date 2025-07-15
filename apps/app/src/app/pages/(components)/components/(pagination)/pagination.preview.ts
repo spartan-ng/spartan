@@ -1,24 +1,24 @@
 import { Component } from '@angular/core';
 import {
-	HlmPaginationContentDirective,
-	HlmPaginationDirective,
-	HlmPaginationEllipsisComponent,
-	HlmPaginationItemDirective,
-	HlmPaginationLinkDirective,
-	HlmPaginationNextComponent,
-	HlmPaginationPreviousComponent,
+	HlmPagination,
+	HlmPaginationContent,
+	HlmPaginationEllipsis,
+	HlmPaginationItem,
+	HlmPaginationLink,
+	HlmPaginationNext,
+	HlmPaginationPrevious,
 } from '@spartan-ng/helm/pagination';
 
 @Component({
 	selector: 'spartan-pagination-preview',
 	imports: [
-		HlmPaginationDirective,
-		HlmPaginationContentDirective,
-		HlmPaginationItemDirective,
-		HlmPaginationPreviousComponent,
-		HlmPaginationNextComponent,
-		HlmPaginationLinkDirective,
-		HlmPaginationEllipsisComponent,
+		HlmPagination,
+		HlmPaginationContent,
+		HlmPaginationItem,
+		HlmPaginationPrevious,
+		HlmPaginationNext,
+		HlmPaginationLink,
+		HlmPaginationEllipsis,
 	],
 	template: `
 		<nav hlmPagination>
@@ -45,7 +45,7 @@ import {
 		</nav>
 	`,
 })
-export class PaginationPreviewComponent {}
+export class PaginationPreview {}
 
 export const defaultImports = `
 import {

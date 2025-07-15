@@ -47,7 +47,7 @@ import { HlmTableImports } from '@spartan-ng/helm/table';
 		</table>
 	\`,
 })
-export class TablePreviewComponent {
+export class TablePreview {
 	protected _invoices = [
 		{
 			invoice: 'INV001',

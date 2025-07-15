@@ -1,20 +1,15 @@
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import * as lucide from '@ng-icons/lucide';
-import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
-import {
-	HlmMenuComponent,
-	HlmMenuImports,
-	HlmMenuItemCheckComponent,
-	HlmMenuItemRadioComponent,
-} from '@spartan-ng/helm/menu';
+import { BrnMenuTrigger } from '@spartan-ng/brain/menu';
+import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmIcon } from '@spartan-ng/helm/icon';
+import { HlmMenu, HlmMenuImports, HlmMenuItemCheck, HlmMenuItemRadio } from '@spartan-ng/helm/menu';
 import { type Meta, type StoryObj, argsToTemplate, moduleMetadata } from '@storybook/angular';
 
-const meta: Meta<HlmMenuComponent> = {
+const meta: Meta<HlmMenu> = {
 	title: 'Dropdown Menu',
-	component: HlmMenuComponent,
+	component: HlmMenu,
 	tags: ['autodocs'],
 	args: {
 		variant: 'default',
@@ -30,13 +25,13 @@ const meta: Meta<HlmMenuComponent> = {
 	decorators: [
 		moduleMetadata({
 			providers: [provideIcons(lucide)],
-			imports: [BrnMenuTriggerDirective, HlmMenuImports, HlmButtonDirective, NgIcon, HlmIconDirective],
+			imports: [BrnMenuTrigger, HlmMenuImports, HlmButton, NgIcon, HlmIcon],
 		}),
 	],
 };
 
 export default meta;
-type Story = StoryObj<HlmMenuComponent>;
+type Story = StoryObj<HlmMenu>;
 
 export const Default: Story = {
 	render: ({ ...args }) => ({
@@ -151,15 +146,7 @@ export const Default: Story = {
 
 @Component({
 	selector: 'stateful-dropdown-story',
-	imports: [
-		BrnMenuTriggerDirective,
-		HlmMenuImports,
-		HlmButtonDirective,
-		NgIcon,
-		HlmIconDirective,
-		HlmMenuItemCheckComponent,
-		HlmMenuItemRadioComponent,
-	],
+	imports: [BrnMenuTrigger, HlmMenuImports, HlmButton, NgIcon, HlmIcon, HlmMenuItemCheck, HlmMenuItemRadio],
 	template: `
 		<div class="flex w-full items-center justify-center pt-[20%]">
 			<button hlmBtn variant="outline" align="center" [brnMenuTriggerFor]="menu">Open</button>

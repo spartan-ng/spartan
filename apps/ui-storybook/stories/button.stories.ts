@@ -1,9 +1,9 @@
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmButton } from '@spartan-ng/helm/button';
 import { type Meta, type StoryObj, argsToTemplate, moduleMetadata } from '@storybook/angular';
 
-const meta: Meta<HlmButtonDirective> = {
+const meta: Meta<HlmButton> = {
 	title: 'Button',
-	component: HlmButtonDirective,
+	component: HlmButton,
 	tags: ['autodocs'],
 	args: {
 		variant: 'default',
@@ -25,7 +25,7 @@ const meta: Meta<HlmButtonDirective> = {
 	},
 	decorators: [
 		moduleMetadata({
-			imports: [HlmButtonDirective],
+			imports: [HlmButton],
 		}),
 	],
 	render: ({ ...args }) => ({
@@ -35,7 +35,7 @@ const meta: Meta<HlmButtonDirective> = {
 };
 
 export default meta;
-type Story = StoryObj<HlmButtonDirective>;
+type Story = StoryObj<HlmButton>;
 
 export const Default: Story = {
 	args: {

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit, signal, viewChild } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrnSelectComponent, BrnSelectImports } from '../../';
+import { BrnSelect, BrnSelectImports } from '../../';
 
 @Component({
 	imports: [FormsModule, ReactiveFormsModule, BrnSelectImports],
@@ -28,7 +28,7 @@ import { BrnSelectComponent, BrnSelectImports } from '../../';
 	`,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SelectReactiveFieldComponent {
+export class SelectReactiveField {
 	public fruitGroup = new FormGroup({ fruit: new FormControl() });
 }
 
@@ -58,10 +58,10 @@ export class SelectReactiveFieldComponent {
 	`,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SelectSingleValueTestComponent {
+export class SelectSingleValueTest {
 	public form = new FormGroup({ fruit: new FormControl(null) });
 
-	public brnSelectComponent = viewChild(BrnSelectComponent);
+	public brnSelectComponent = viewChild(BrnSelect);
 }
 
 @Component({
@@ -90,7 +90,7 @@ export class SelectSingleValueTestComponent {
 	`,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SelectSingleValueWithInitialValueTestComponent {
+export class SelectSingleValueWithInitialValueTest {
 	public form = new FormGroup({ fruit: new FormControl('apple') });
 }
 
@@ -120,7 +120,7 @@ export class SelectSingleValueWithInitialValueTestComponent {
 	`,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SelectSingleValueWithInitialValueWithAsyncUpdateTestComponent {
+export class SelectSingleValueWithInitialValueWithAsyncUpdateTest {
 	public form = new FormGroup({ fruit: new FormControl('apple') });
 
 	constructor() {
@@ -159,7 +159,7 @@ export class SelectSingleValueWithInitialValueWithAsyncUpdateTestComponent {
 	`,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SelectMultiValueTestComponent {
+export class SelectMultiValueTest {
 	public form = new FormGroup({ fruit: new FormControl<string[]>([]) });
 }
 
@@ -189,7 +189,7 @@ export class SelectMultiValueTestComponent {
 	`,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SelectMultiValueWithInitialValueTestComponent {
+export class SelectMultiValueWithInitialValueTest {
 	public form = new FormGroup({ fruit: new FormControl(['apple', 'blueberry']) });
 }
 
@@ -220,7 +220,7 @@ export class SelectMultiValueWithInitialValueTestComponent {
 		<button (click)="updateDiffOptions()" data-testid="diff-options-btn">Diff Options</button>
 	`,
 })
-export class SelectMultiValueWithInitialValueWithForLoopTestComponent implements OnInit {
+export class SelectMultiValueWithInitialValueWithForLoopTest implements OnInit {
 	public options = signal<{ value: string; label: string }[]>([]);
 	public form = new FormGroup({ fruit: new FormControl(['apple', 'pineapple']) });
 

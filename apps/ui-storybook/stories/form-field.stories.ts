@@ -2,25 +2,25 @@ import { Component, type OnInit, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@spartan-ng/brain/forms';
 import { BrnSelectImports } from '@spartan-ng/brain/select';
-import { HlmButtonDirective, HlmButtonModule } from '@spartan-ng/helm/button';
-import { HlmFormFieldComponent, HlmFormFieldModule } from '@spartan-ng/helm/form-field';
-import { HlmInputDirective } from '@spartan-ng/helm/input';
+import { HlmButton, HlmButtonModule } from '@spartan-ng/helm/button';
+import { HlmFormField, HlmFormFieldModule } from '@spartan-ng/helm/form-field';
+import { HlmInput } from '@spartan-ng/helm/input';
 import { HlmSelectImports, HlmSelectModule } from '@spartan-ng/helm/select';
 import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
 
-const meta: Meta<HlmFormFieldComponent> = {
+const meta: Meta<HlmFormField> = {
 	title: 'Form Field',
-	component: HlmFormFieldComponent,
+	component: HlmFormField,
 	tags: ['autodocs'],
 	decorators: [
 		moduleMetadata({
-			imports: [HlmFormFieldModule, HlmInputDirective, FormsModule, ReactiveFormsModule, HlmButtonDirective],
+			imports: [HlmFormFieldModule, HlmInput, FormsModule, ReactiveFormsModule, HlmButton],
 		}),
 	],
 };
 
 export default meta;
-type Story = StoryObj<HlmFormFieldComponent>;
+type Story = StoryObj<HlmFormField>;
 
 export const Default: Story = {
 	render: ({ ...args }) => ({
@@ -36,7 +36,7 @@ export const Default: Story = {
 
 @Component({
 	selector: 'form-field-error-story',
-	imports: [ReactiveFormsModule, HlmFormFieldModule, HlmInputDirective],
+	imports: [ReactiveFormsModule, HlmFormFieldModule, HlmInput],
 	template: `
 		<hlm-form-field>
 			<input aria-label="Your Name" class="w-80" [formControl]="name" hlmInput type="text" placeholder="Your Name" />
@@ -83,7 +83,7 @@ export const Hint: Story = {
 		ReactiveFormsModule,
 		HlmFormFieldModule,
 		HlmSelectModule,
-		HlmInputDirective,
+		HlmInput,
 		HlmSelectImports,
 		BrnSelectImports,
 		HlmButtonModule,

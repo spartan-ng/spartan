@@ -1,9 +1,9 @@
-import { HlmSpinnerComponent } from '@spartan-ng/helm/spinner';
+import { HlmSpinner } from '@spartan-ng/helm/spinner';
 import { type Meta, type StoryObj, argsToTemplate, moduleMetadata } from '@storybook/angular';
 
-const meta: Meta<HlmSpinnerComponent> = {
+const meta: Meta<HlmSpinner> = {
 	title: 'Spinner',
-	component: HlmSpinnerComponent,
+	component: HlmSpinner,
 	tags: ['autodocs'],
 	argTypes: {
 		size: {
@@ -15,7 +15,7 @@ const meta: Meta<HlmSpinnerComponent> = {
 	},
 	decorators: [
 		moduleMetadata({
-			imports: [HlmSpinnerComponent],
+			imports: [HlmSpinner],
 		}),
 	],
 	render: ({ ...args }) => ({
@@ -27,6 +27,6 @@ const meta: Meta<HlmSpinnerComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<HlmSpinnerComponent>;
+type Story = StoryObj<HlmSpinner>;
 
 export const Default: Story = {};

@@ -2,11 +2,11 @@ import { Component, signal } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCheck, lucideChevronsUpDown, lucideSearch } from '@ng-icons/lucide';
 import { BrnCommandImports } from '@spartan-ng/brain/command';
-import { BrnPopoverComponent, BrnPopoverContentDirective, BrnPopoverTriggerDirective } from '@spartan-ng/brain/popover';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { BrnPopover, BrnPopoverContent, BrnPopoverTrigger } from '@spartan-ng/brain/popover';
+import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmCommandImports } from '@spartan-ng/helm/command';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
-import { HlmPopoverContentDirective } from '@spartan-ng/helm/popover';
+import { HlmIcon } from '@spartan-ng/helm/icon';
+import { HlmPopoverContent } from '@spartan-ng/helm/popover';
 
 type Framework = { label: string; value: string };
 
@@ -16,12 +16,12 @@ type Framework = { label: string; value: string };
 		BrnCommandImports,
 		HlmCommandImports,
 		NgIcon,
-		HlmIconDirective,
-		HlmButtonDirective,
-		BrnPopoverComponent,
-		BrnPopoverTriggerDirective,
-		HlmPopoverContentDirective,
-		BrnPopoverContentDirective,
+		HlmIcon,
+		HlmButton,
+		BrnPopover,
+		BrnPopoverTrigger,
+		HlmPopoverContent,
+		BrnPopoverContent,
 	],
 	providers: [provideIcons({ lucideChevronsUpDown, lucideSearch, lucideCheck })],
 	template: `
@@ -63,7 +63,7 @@ type Framework = { label: string; value: string };
 		</brn-popover>
 	`,
 })
-export class ComboboxPreviewComponent {
+export class ComboboxPreview {
 	public frameworks = [
 		{
 			label: 'AnalogJs',

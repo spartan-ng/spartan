@@ -13,10 +13,10 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown } from '@ng-icons/lucide';
 import { hlm } from '@spartan-ng/brain/core';
-import { BrnSelectImports, BrnSelectTriggerDirective } from '@spartan-ng/brain/select';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
-import { HlmLabelDirective } from '@spartan-ng/helm/label';
+import { BrnSelectImports, BrnSelectTrigger } from '@spartan-ng/brain/select';
+import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmIcon } from '@spartan-ng/helm/icon';
+import { HlmLabel } from '@spartan-ng/helm/label';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
 import { type Meta, type StoryObj, argsToTemplate, moduleMetadata } from '@storybook/angular';
 import type { ClassValue } from 'clsx';
@@ -45,7 +45,7 @@ const meta: Meta<BrnSelectStoryArgs> = {
 	},
 	decorators: [
 		moduleMetadata({
-			imports: [CommonModule, FormsModule, ReactiveFormsModule, BrnSelectImports, HlmSelectImports, HlmLabelDirective],
+			imports: [CommonModule, FormsModule, ReactiveFormsModule, BrnSelectImports, HlmSelectImports, HlmLabel],
 		}),
 	],
 };
@@ -632,7 +632,7 @@ export const CustomTrigger: Story = {
 	render: (args) => ({
 		props: { ...args },
 		moduleMetadata: {
-			imports: [CustomSelectTriggerComponent],
+			imports: [CustomSelectTrigger],
 		},
 		template: /* HTML */ `
 			<hlm-select class="inline-block" ${argsToTemplate(args, { exclude: ['initialValue', 'selectValueTransformFn'] })}>
@@ -654,7 +654,7 @@ export const CustomTrigger: Story = {
 
 @Component({
 	selector: 'custom-select-trigger',
-	imports: [BrnSelectTriggerDirective, NgIcon, HlmIconDirective],
+	imports: [BrnSelectTrigger, NgIcon, HlmIcon],
 	providers: [provideIcons({ lucideChevronDown })],
 	template: `
 		<button [class]="_computedClass()" #button brnSelectTrigger type="button">
@@ -667,8 +667,8 @@ export const CustomTrigger: Story = {
 		</button>
 	`,
 })
-export class CustomSelectTriggerComponent {
-	protected readonly icon = contentChild(HlmIconDirective);
+export class CustomSelectTrigger {
+	protected readonly icon = contentChild(HlmIcon);
 
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>
@@ -682,7 +682,7 @@ export class CustomSelectTriggerComponent {
 export const WithLabelAndForm: Story = {
 	render: () => ({
 		moduleMetadata: {
-			imports: [LabelAndFormComponent],
+			imports: [LabelAndForm],
 		},
 		template: /* HTML */ '<label-and-form-component/>',
 	}),
@@ -691,14 +691,7 @@ export const WithLabelAndForm: Story = {
 	selector: 'label-and-form-component',
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [
-		FormsModule,
-		ReactiveFormsModule,
-		BrnSelectImports,
-		HlmSelectImports,
-		HlmLabelDirective,
-		HlmButtonDirective,
-	],
+	imports: [FormsModule, ReactiveFormsModule, BrnSelectImports, HlmSelectImports, HlmLabel, HlmButton],
 	providers: [],
 	host: {
 		class: '',
@@ -726,7 +719,7 @@ export const WithLabelAndForm: Story = {
 		</form>
 	`,
 })
-class LabelAndFormComponent {
+class LabelAndForm {
 	public fruit = signal<string | undefined>(undefined);
 
 	public handleSubmit(): void {
@@ -746,15 +739,7 @@ export const DynamicOptionsMultiSelect: Story = {
 	selector: 'dynamic-options-multi-select-component',
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [
-		FormsModule,
-		ReactiveFormsModule,
-		BrnSelectImports,
-		HlmSelectImports,
-		HlmLabelDirective,
-		HlmButtonDirective,
-		JsonPipe,
-	],
+	imports: [FormsModule, ReactiveFormsModule, BrnSelectImports, HlmSelectImports, HlmLabel, HlmButton, JsonPipe],
 	providers: [],
 	host: {
 		class: '',

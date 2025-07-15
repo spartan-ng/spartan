@@ -12,11 +12,11 @@ import {
 } from '@ng-icons/lucide';
 import { BrnCommandImports } from '@spartan-ng/brain/command';
 import { HlmCommandImports } from '@spartan-ng/helm/command';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { HlmIcon } from '@spartan-ng/helm/icon';
 
 @Component({
 	selector: 'spartan-command-preview',
-	imports: [BrnCommandImports, HlmCommandImports, NgIcon, HlmIconDirective],
+	imports: [BrnCommandImports, HlmCommandImports, NgIcon, HlmIcon],
 	providers: [
 		provideIcons({
 			lucideSearch,
@@ -83,7 +83,7 @@ import { HlmIconDirective } from '@spartan-ng/helm/icon';
 		</hlm-command>
 	`,
 })
-export class CommandPreviewComponent {}
+export class CommandPreview {}
 
 export const defaultCode = `import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';

@@ -1,31 +1,31 @@
 import { Component } from '@angular/core';
-import { BrnDialogContentDirective, BrnDialogTriggerDirective } from '@spartan-ng/brain/dialog';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { BrnDialogContent, BrnDialogTrigger } from '@spartan-ng/brain/dialog';
+import { HlmButton } from '@spartan-ng/helm/button';
 import {
-	HlmDialogComponent,
-	HlmDialogContentComponent,
-	HlmDialogDescriptionDirective,
-	HlmDialogFooterComponent,
-	HlmDialogHeaderComponent,
-	HlmDialogTitleDirective,
+	HlmDialog,
+	HlmDialogContent,
+	HlmDialogDescription,
+	HlmDialogFooter,
+	HlmDialogHeader,
+	HlmDialogTitle,
 } from '@spartan-ng/helm/dialog';
-import { HlmInputDirective } from '@spartan-ng/helm/input';
-import { HlmLabelDirective } from '@spartan-ng/helm/label';
+import { HlmInput } from '@spartan-ng/helm/input';
+import { HlmLabel } from '@spartan-ng/helm/label';
 
 @Component({
 	selector: 'spartan-dialog-preview',
 	imports: [
-		BrnDialogTriggerDirective,
-		BrnDialogContentDirective,
-		HlmDialogComponent,
-		HlmDialogContentComponent,
-		HlmDialogHeaderComponent,
-		HlmDialogFooterComponent,
-		HlmDialogTitleDirective,
-		HlmDialogDescriptionDirective,
-		HlmLabelDirective,
-		HlmInputDirective,
-		HlmButtonDirective,
+		BrnDialogTrigger,
+		BrnDialogContent,
+		HlmDialog,
+		HlmDialogContent,
+		HlmDialogHeader,
+		HlmDialogFooter,
+		HlmDialogTitle,
+		HlmDialogDescription,
+		HlmLabel,
+		HlmInput,
+		HlmButton,
 	],
 	template: `
 		<hlm-dialog>
@@ -52,7 +52,7 @@ import { HlmLabelDirective } from '@spartan-ng/helm/label';
 		</hlm-dialog>
 	`,
 })
-export class DialogPreviewComponent {}
+export class DialogPreview {}
 
 export const defaultImports = `
 import { BrnDialogContentDirective, BrnDialogTriggerDirective } from '@spartan-ng/brain/dialog';

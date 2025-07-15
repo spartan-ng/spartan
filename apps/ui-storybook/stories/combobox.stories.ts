@@ -3,10 +3,10 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import * as lucide from '@ng-icons/lucide';
 import { BrnCommandImports } from '@spartan-ng/brain/command';
 import { BrnPopoverImports } from '@spartan-ng/brain/popover';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmCommandImports } from '@spartan-ng/helm/command';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
-import { HlmPopoverContentDirective } from '@spartan-ng/helm/popover';
+import { HlmIcon } from '@spartan-ng/helm/icon';
+import { HlmPopoverContent } from '@spartan-ng/helm/popover';
 import type { Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
 
@@ -15,7 +15,7 @@ const meta: Meta<{}> = {
 	decorators: [
 		moduleMetadata({
 			providers: [provideIcons(lucide)],
-			imports: [BrnCommandImports, HlmCommandImports, NgIcon, HlmIconDirective, HlmButtonDirective],
+			imports: [BrnCommandImports, HlmCommandImports, NgIcon, HlmIcon, HlmButton],
 		}),
 	],
 };
@@ -26,15 +26,7 @@ type Framework = { label: string; value: string };
 
 @Component({
 	selector: 'combobox-component',
-	imports: [
-		BrnCommandImports,
-		HlmCommandImports,
-		BrnPopoverImports,
-		HlmPopoverContentDirective,
-		NgIcon,
-		HlmIconDirective,
-		HlmButtonDirective,
-	],
+	imports: [BrnCommandImports, HlmCommandImports, BrnPopoverImports, HlmPopoverContent, NgIcon, HlmIcon, HlmButton],
 	template: `
 		<brn-popover [state]="state()" (stateChanged)="stateChanged($event)" sideOffset="5">
 			<button
@@ -73,7 +65,7 @@ type Framework = { label: string; value: string };
 		</brn-popover>
 	`,
 })
-class ComboboxComponent {
+class Combobox {
 	public frameworks = [
 		{
 			label: 'AnalogJs',
@@ -120,7 +112,7 @@ class ComboboxComponent {
 export const Default: Story = {
 	decorators: [
 		moduleMetadata({
-			imports: [ComboboxComponent],
+			imports: [Combobox],
 		}),
 	],
 	render: () => ({

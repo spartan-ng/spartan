@@ -1,8 +1,8 @@
 import { ExistingProvider, InjectionToken, Type } from '@angular/core';
-import type { BrnCommandItemDirective } from './brn-command-item.directive';
+import type { BrnCommandItem } from './brn-command-item';
 
-export const BrnCommandItemToken = new InjectionToken<BrnCommandItemDirective>('BrnCommandItemToken');
+export const BrnCommandItemToken = new InjectionToken<BrnCommandItem>('BrnCommandItemToken');
 
-export function provideBrnCommandItem(command: Type<BrnCommandItemDirective>): ExistingProvider {
+export function provideBrnCommandItem(command: Type<BrnCommandItem>): ExistingProvider {
 	return { provide: BrnCommandItemToken, useExisting: command };
 }

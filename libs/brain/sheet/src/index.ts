@@ -1,29 +1,29 @@
 import { NgModule } from '@angular/core';
 
-import { BrnSheetCloseDirective } from './lib/brn-sheet-close.directive';
-import { BrnSheetContentDirective } from './lib/brn-sheet-content.directive';
-import { BrnSheetDescriptionDirective } from './lib/brn-sheet-description.directive';
-import { BrnSheetOverlayComponent } from './lib/brn-sheet-overlay.component';
-import { BrnSheetTitleDirective } from './lib/brn-sheet-title.directive';
-import { BrnSheetTriggerDirective } from './lib/brn-sheet-trigger.directive';
-import { BrnSheetComponent } from './lib/brn-sheet.component';
+import { BrnSheet } from './lib/brn-sheet';
+import { BrnSheetClose } from './lib/brn-sheet-close';
+import { BrnSheetContent } from './lib/brn-sheet-content';
+import { BrnSheetDescription } from './lib/brn-sheet-description';
+import { BrnSheetOverlay } from './lib/brn-sheet-overlay';
+import { BrnSheetTitle } from './lib/brn-sheet-title';
+import { BrnSheetTrigger } from './lib/brn-sheet-trigger';
 
-export * from './lib/brn-sheet-close.directive';
-export * from './lib/brn-sheet-content.directive';
-export * from './lib/brn-sheet-description.directive';
-export * from './lib/brn-sheet-overlay.component';
-export * from './lib/brn-sheet-title.directive';
-export * from './lib/brn-sheet-trigger.directive';
-export * from './lib/brn-sheet.component';
+export * from './lib/brn-sheet';
+export * from './lib/brn-sheet-close';
+export * from './lib/brn-sheet-content';
+export * from './lib/brn-sheet-description';
+export * from './lib/brn-sheet-overlay';
+export * from './lib/brn-sheet-title';
+export * from './lib/brn-sheet-trigger';
 
 export const BrnSheetImports = [
-	BrnSheetComponent,
-	BrnSheetOverlayComponent,
-	BrnSheetTriggerDirective,
-	BrnSheetCloseDirective,
-	BrnSheetContentDirective,
-	BrnSheetTitleDirective,
-	BrnSheetDescriptionDirective,
+	BrnSheet,
+	BrnSheetOverlay,
+	BrnSheetTrigger,
+	BrnSheetClose,
+	BrnSheetContent,
+	BrnSheetTitle,
+	BrnSheetDescription,
 ] as const;
 
 @NgModule({

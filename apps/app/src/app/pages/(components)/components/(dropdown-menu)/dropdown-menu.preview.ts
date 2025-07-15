@@ -16,32 +16,32 @@ import {
 	lucideSmile,
 	lucideUser,
 } from '@ng-icons/lucide';
-import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { BrnMenuTrigger } from '@spartan-ng/brain/menu';
+import { HlmButton } from '@spartan-ng/helm/button';
 import {
-	HlmMenuComponent,
-	HlmMenuGroupComponent,
-	HlmMenuItemDirective,
-	HlmMenuItemSubIndicatorComponent,
-	HlmMenuLabelComponent,
-	HlmMenuSeparatorComponent,
-	HlmMenuShortcutComponent,
-	HlmSubMenuComponent,
+	HlmMenu,
+	HlmMenuGroup,
+	HlmMenuItem,
+	HlmMenuItemSubIndicator,
+	HlmMenuLabel,
+	HlmMenuSeparator,
+	HlmMenuShortcut,
+	HlmSubMenu,
 } from '@spartan-ng/helm/menu';
 
 @Component({
 	selector: 'spartan-dropdown-preview',
 	imports: [
-		BrnMenuTriggerDirective,
-		HlmMenuComponent,
-		HlmSubMenuComponent,
-		HlmMenuItemDirective,
-		HlmMenuItemSubIndicatorComponent,
-		HlmMenuLabelComponent,
-		HlmMenuShortcutComponent,
-		HlmMenuSeparatorComponent,
-		HlmMenuGroupComponent,
-		HlmButtonDirective,
+		BrnMenuTrigger,
+		HlmMenu,
+		HlmSubMenu,
+		HlmMenuItem,
+		HlmMenuItemSubIndicator,
+		HlmMenuLabel,
+		HlmMenuShortcut,
+		HlmMenuSeparator,
+		HlmMenuGroup,
+		HlmButton,
 	],
 	providers: [
 		provideIcons({
@@ -146,7 +146,7 @@ import {
 		</ng-template>
 	`,
 })
-export class DropdownPreviewComponent {}
+export class DropdownPreview {}
 
 export const defaultImports = `
 import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';

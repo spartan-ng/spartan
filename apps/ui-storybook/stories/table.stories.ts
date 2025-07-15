@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { faker } from '@faker-js/faker';
-import { HlmTableDirective, HlmTableImports } from '@spartan-ng/helm/table';
+import { HlmTable, HlmTableImports } from '@spartan-ng/helm/table';
 import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
 
 const createUsers = (numUsers = 5) => {
@@ -36,9 +36,9 @@ class TableStory {
 	protected readonly _data = signal(createUsers(20));
 }
 
-const meta: Meta<HlmTableDirective> = {
+const meta: Meta<HlmTable> = {
 	title: 'Table',
-	component: HlmTableDirective,
+	component: HlmTable,
 	tags: ['autodocs'],
 	decorators: [
 		moduleMetadata({
@@ -48,7 +48,7 @@ const meta: Meta<HlmTableDirective> = {
 };
 
 export default meta;
-type Story = StoryObj<HlmTableDirective>;
+type Story = StoryObj<HlmTable>;
 
 export const Default: Story = {
 	render: () => ({

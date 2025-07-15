@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
-import { HlmSpinnerComponent } from './lib/hlm-spinner.component';
+import { HlmSpinner } from './lib/hlm-spinner';
 
-export * from './lib/hlm-spinner.component';
+export * from './lib/hlm-spinner';
 
 @NgModule({
-	imports: [HlmSpinnerComponent],
-	exports: [HlmSpinnerComponent],
+	imports: [HlmSpinner],
+	exports: [HlmSpinner],
 })
 export class HlmSpinnerModule {}

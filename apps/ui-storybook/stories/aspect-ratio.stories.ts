@@ -1,11 +1,11 @@
-import { HlmAspectRatioDirective } from '@spartan-ng/helm/aspect-ratio';
+import { HlmAspectRatio } from '@spartan-ng/helm/aspect-ratio';
 import type { Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
 
 export type AspectRatio = { ratio: string | number };
 const meta: Meta<AspectRatio> = {
 	title: 'Aspect Ratio',
-	component: HlmAspectRatioDirective,
+	component: HlmAspectRatio,
 	tags: ['autodocs'],
 	args: { ratio: '16/9' },
 	argTypes: {
@@ -18,7 +18,7 @@ const meta: Meta<AspectRatio> = {
 	},
 	decorators: [
 		moduleMetadata({
-			imports: [HlmAspectRatioDirective],
+			imports: [HlmAspectRatio],
 		}),
 	],
 };

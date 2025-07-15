@@ -54,6 +54,11 @@
 			"factory": "./src/generators/migrate-helm-libraries/generator",
 			"schema": "./src/generators/migrate-helm-libraries/schema.json",
 			"description": "Migrate Helm libraries to their latest versions"
+		},
+		"migrate-naming-conventions": {
+			"factory": "./src/generators/migrate-naming-convention/generator",
+			"schema": "./src/generators/migrate-naming-convention/schema.json",
+			"description": "Migrate naming conventions to the latest standards"
 		}
 	},
 	"schematics": {
@@ -111,6 +116,11 @@
 			"factory": "./src/generators/migrate-helm-libraries/compat",
 			"schema": "./src/generators/migrate-helm-libraries/schema.json",
 			"description": "Migrate Helm libraries to their latest versions"
+		},
+		"migrate-naming-conventions": {
+			"factory": "./src/generators/migrate-naming-convention/compat",
+			"schema": "./src/generators/migrate-naming-convention/schema.json",
+			"description": "Migrate naming conventions to the latest standards"
 		}
 	}
 }

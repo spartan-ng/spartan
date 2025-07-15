@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { BrnTooltipContentDirective } from '@spartan-ng/brain/tooltip';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
-import { HlmTooltipComponent, HlmTooltipTriggerDirective } from '@spartan-ng/helm/tooltip';
+import { BrnTooltipContent } from '@spartan-ng/brain/tooltip';
+import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmTooltip, HlmTooltipTrigger } from '@spartan-ng/helm/tooltip';
 
 @Component({
 	selector: 'spartan-tooltip-preview',
-	imports: [HlmTooltipComponent, HlmTooltipTriggerDirective, BrnTooltipContentDirective, HlmButtonDirective],
+	imports: [HlmTooltip, HlmTooltipTrigger, BrnTooltipContent, HlmButton],
 	template: `
 		<div>
 			<hlm-tooltip>
@@ -29,7 +29,7 @@ import { HlmTooltipComponent, HlmTooltipTriggerDirective } from '@spartan-ng/hel
 		</div>
 	`,
 })
-export class TooltipPreviewComponent {}
+export class TooltipPreview {}
 
 export const defaultImports = `
 import { BrnTooltipContentDirective } from '@spartan-ng/brain/tooltip';

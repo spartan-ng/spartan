@@ -32,7 +32,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 		</brn-select>
 	\`,
 })
-export class SelectMultiplePreviewComponent {}
+export class SelectMultiplePreview {}
 `;
 
 export const selectScrollableCode = `
@@ -103,7 +103,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 		</hlm-select>
 	\`,
 })
-export class SelectScrollablePreviewComponent {}
+export class SelectScrollablePreview {}
 `;
 
 export const selectValueTemplateCode = `
@@ -154,7 +154,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 		</brn-select>
 	\`,
 })
-export class SelectValueTemplatePreviewComponent {
+export class SelectValueTemplatePreview {
 	public readonly options = [
 		{ label: 'Align Left', icon: 'lucideAlignLeft' },
 		{ label: 'Align Center', icon: 'lucideAlignCenter' },
@@ -186,5 +186,5 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 		</brn-select>
 	\`,
 })
-export class SelectPreviewComponent {}
+export class SelectPreview {}
 `;

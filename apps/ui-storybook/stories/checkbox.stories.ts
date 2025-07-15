@@ -5,14 +5,14 @@ import { moduleMetadata } from '@storybook/angular';
 import { JsonPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { HlmButtonDirective, HlmButtonModule } from '@spartan-ng/helm/button';
-import { HlmCheckboxComponent, HlmCheckboxImports } from '@spartan-ng/helm/checkbox';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
-import { HlmLabelDirective } from '@spartan-ng/helm/label';
+import { HlmButton, HlmButtonModule } from '@spartan-ng/helm/button';
+import { HlmCheckbox, HlmCheckboxImports } from '@spartan-ng/helm/checkbox';
+import { HlmIcon } from '@spartan-ng/helm/icon';
+import { HlmLabel } from '@spartan-ng/helm/label';
 
 @Component({
 	selector: 'hlm-checkbox-component-tester',
-	imports: [HlmCheckboxImports, HlmButtonDirective, HlmLabelDirective, ReactiveFormsModule, JsonPipe],
+	imports: [HlmCheckboxImports, HlmButton, HlmLabel, ReactiveFormsModule, JsonPipe],
 	template: `
 		<form [formGroup]="form">
 			<div class="flex items-center gap-4">
@@ -29,7 +29,7 @@ import { HlmLabelDirective } from '@spartan-ng/helm/label';
 		{{ form.value | json }}
 	`,
 })
-class HlmCheckboxComponentTester {
+class HlmCheckboxTester {
 	form = inject(FormBuilder).group({
 		checkbox: [false],
 	});
@@ -39,27 +39,19 @@ class HlmCheckboxComponentTester {
 	}
 }
 
-const meta: Meta<HlmCheckboxComponent> = {
+const meta: Meta<HlmCheckbox> = {
 	title: 'Checkbox',
-	component: HlmCheckboxComponent,
+	component: HlmCheckbox,
 	tags: ['autodocs'],
 	decorators: [
 		moduleMetadata({
-			imports: [
-				HlmCheckboxImports,
-				HlmLabelDirective,
-				NgIcon,
-				HlmIconDirective,
-				ReactiveFormsModule,
-				HlmButtonModule,
-				HlmCheckboxComponentTester,
-			],
+			imports: [HlmCheckboxImports, HlmLabel, NgIcon, HlmIcon, ReactiveFormsModule, HlmButtonModule, HlmCheckboxTester],
 		}),
 	],
 };
 
 export default meta;
-type Story = StoryObj<HlmCheckboxComponent>;
+type Story = StoryObj<HlmCheckbox>;
 
 export const Default: Story = {
 	render: () => ({

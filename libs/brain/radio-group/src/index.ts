@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 
-import { BrnRadioGroupDirective } from './lib/brn-radio-group.directive';
-import { BrnRadioComponent } from './lib/brn-radio.component';
+import { BrnRadio } from './lib/brn-radio';
+import { BrnRadioGroup } from './lib/brn-radio-group';
 
-export * from './lib/brn-radio-group.directive';
-export * from './lib/brn-radio.component';
+export * from './lib/brn-radio';
+export * from './lib/brn-radio-group';
 
-export const BrnRadioGroupImports = [BrnRadioGroupDirective, BrnRadioComponent] as const;
+export const BrnRadioGroupImports = [BrnRadioGroup, BrnRadio] as const;
 
 @NgModule({
 	imports: [...BrnRadioGroupImports],

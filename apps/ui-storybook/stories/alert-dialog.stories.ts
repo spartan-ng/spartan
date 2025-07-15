@@ -1,23 +1,23 @@
 import { BrnAlertDialogImports } from '@spartan-ng/brain/alert-dialog';
-import { HlmAlertDialogComponent, HlmAlertDialogImports } from '@spartan-ng/helm/alert-dialog';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmAlertDialog, HlmAlertDialogImports } from '@spartan-ng/helm/alert-dialog';
+import { HlmButton } from '@spartan-ng/helm/button';
 import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
 
-const meta: Meta<HlmAlertDialogComponent> = {
+const meta: Meta<HlmAlertDialog> = {
 	title: 'Alert Dialog',
-	component: HlmAlertDialogComponent,
+	component: HlmAlertDialog,
 	tags: ['autodocs'],
 	args: {},
 	argTypes: {},
 	decorators: [
 		moduleMetadata({
-			imports: [BrnAlertDialogImports, HlmAlertDialogImports, HlmButtonDirective],
+			imports: [BrnAlertDialogImports, HlmAlertDialogImports, HlmButton],
 		}),
 	],
 };
 
 export default meta;
-type Story = StoryObj<HlmAlertDialogComponent>;
+type Story = StoryObj<HlmAlertDialog>;
 
 export const Default: Story = {
 	render: () => ({

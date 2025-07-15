@@ -1,23 +1,23 @@
 import { Component } from '@angular/core';
-import { HlmCardContentDirective, HlmCardDirective } from '@spartan-ng/helm/card';
+import { HlmCard, HlmCardContent } from '@spartan-ng/helm/card';
 import {
-	HlmCarouselComponent,
-	HlmCarouselContentComponent,
-	HlmCarouselItemComponent,
-	HlmCarouselNextComponent,
-	HlmCarouselPreviousComponent,
+	HlmCarousel,
+	HlmCarouselContent,
+	HlmCarouselItem,
+	HlmCarouselNext,
+	HlmCarouselPrevious,
 } from '@spartan-ng/helm/carousel';
 
 @Component({
 	selector: 'spartan-carousel-spacing',
 	imports: [
-		HlmCarouselComponent,
-		HlmCarouselContentComponent,
-		HlmCarouselItemComponent,
-		HlmCarouselNextComponent,
-		HlmCarouselPreviousComponent,
-		HlmCardDirective,
-		HlmCardContentDirective,
+		HlmCarousel,
+		HlmCarouselContent,
+		HlmCarouselItem,
+		HlmCarouselNext,
+		HlmCarouselPrevious,
+		HlmCard,
+		HlmCardContent,
 	],
 	template: `
 		<div class="flex w-full items-center justify-center p-4">
@@ -41,6 +41,6 @@ import {
 		</div>
 	`,
 })
-export class CarouselSpacingComponent {
+export class CarouselSpacing {
 	public items = Array.from({ length: 5 }, (_, i) => i + 1);
 }

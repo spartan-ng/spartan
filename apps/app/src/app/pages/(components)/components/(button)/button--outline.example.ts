@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmButton } from '@spartan-ng/helm/button';
 
 @Component({
 	selector: 'spartan-button-outline',
-	imports: [HlmButtonDirective],
+	imports: [HlmButton],
 	template: `
 		<button hlmBtn variant="outline">Outline</button>
 	`,
 })
-export class ButtonOutlineComponent {}
+export class ButtonOutline {}

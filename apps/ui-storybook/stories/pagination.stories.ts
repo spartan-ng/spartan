@@ -1,11 +1,11 @@
 import { RouterTestingModule } from '@angular/router/testing';
-import { HlmPaginationDirective, HlmPaginationImports } from '@spartan-ng/helm/pagination';
+import { HlmPagination, HlmPaginationImports } from '@spartan-ng/helm/pagination';
 import type { Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
 
-const meta: Meta<HlmPaginationDirective> = {
+const meta: Meta<HlmPagination> = {
 	title: 'Pagination',
-	component: HlmPaginationDirective,
+	component: HlmPagination,
 	tags: ['autodocs'],
 	decorators: [
 		moduleMetadata({
@@ -15,7 +15,7 @@ const meta: Meta<HlmPaginationDirective> = {
 };
 
 export default meta;
-type Story = StoryObj<HlmPaginationDirective>;
+type Story = StoryObj<HlmPagination>;
 
 export const Default: Story = {
 	render: () => ({

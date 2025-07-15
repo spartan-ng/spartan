@@ -1,24 +1,24 @@
 import { Component } from '@angular/core';
 import { NgIcon } from '@ng-icons/core';
 import {
-	HlmAccordionContentComponent,
-	HlmAccordionDirective,
-	HlmAccordionIconDirective,
-	HlmAccordionItemDirective,
-	HlmAccordionTriggerDirective,
+	HlmAccordion,
+	HlmAccordionContent,
+	HlmAccordionIcon,
+	HlmAccordionItem,
+	HlmAccordionTrigger,
 } from '@spartan-ng/helm/accordion';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { HlmIcon } from '@spartan-ng/helm/icon';
 
 @Component({
 	selector: 'spartan-accordion-preview',
 	imports: [
-		HlmAccordionDirective,
-		HlmAccordionItemDirective,
-		HlmAccordionTriggerDirective,
-		HlmAccordionIconDirective,
-		HlmAccordionContentComponent,
+		HlmAccordion,
+		HlmAccordionItem,
+		HlmAccordionTrigger,
+		HlmAccordionIcon,
+		HlmAccordionContent,
 		NgIcon,
-		HlmIconDirective,
+		HlmIcon,
 	],
 	template: `
 		<div hlmAccordion>
@@ -72,7 +72,7 @@ import { HlmIconDirective } from '@spartan-ng/helm/icon';
 		</div>
 	`,
 })
-export class AccordionPreviewComponent {}
+export class AccordionPreview {}
 
 export const defaultImports = `
 import { NgIcon } from '@ng-icons/core';

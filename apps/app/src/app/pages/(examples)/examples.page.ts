@@ -2,8 +2,8 @@ import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
-import { NavLinkDirective } from '@spartan-ng/app/app/shared/spartan-nav-link.directive';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { NavLink } from '@spartan-ng/app/app/shared/spartan-nav-link';
+import { HlmButton } from '@spartan-ng/helm/button';
 import { hlmH1, hlmLead } from '@spartan-ng/helm/typography';
 
 export const routeMeta: RouteMeta = {
@@ -12,7 +12,7 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-examples',
-	imports: [RouterOutlet, HlmButtonDirective, RouterLink, NavLinkDirective],
+	imports: [RouterOutlet, HlmButton, RouterLink, NavLink],
 	host: {
 		class: 'block p-4 pt-6 sm:pb-16 sm:pt-12',
 	},
@@ -49,4 +49,4 @@ export const routeMeta: RouteMeta = {
 		</div>
 	`,
 })
-export default class ExamplesPageComponent {}
+export default class ExamplesPage {}

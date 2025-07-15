@@ -41,11 +41,11 @@ import { createHoverObservable } from './createHoverObservable';
 	selector: '[brnHoverCardContent]',
 	exportAs: 'brnHoverCardContent',
 	providers: [
-		provideExposedSideProviderExisting(() => BrnHoverCardContentDirective),
-		provideExposesStateProviderExisting(() => BrnHoverCardContentDirective),
+		provideExposedSideProviderExisting(() => BrnHoverCardContent),
+		provideExposesStateProviderExisting(() => BrnHoverCardContent),
 	],
 })
-export class BrnHoverCardContentDirective implements ExposesState, ExposesSide {
+export class BrnHoverCardContent implements ExposesState, ExposesSide {
 	private readonly _contentService = inject(BrnHoverCardContentService);
 	public readonly state = this._contentService.state;
 	public readonly side = this._contentService.side;
@@ -155,7 +155,7 @@ export class BrnHoverCardContentService {
 		this._overlayRef = this._overlay.create(this._config);
 	}
 
-	public setContent(value: TemplateRef<unknown> | BrnHoverCardContentDirective, vcr: ViewContainerRef) {
+	public setContent(value: TemplateRef<unknown> | BrnHoverCardContent, vcr: ViewContainerRef) {
 		this._content.set(new TemplatePortal<unknown>(value instanceof TemplateRef ? value : value.template, vcr));
 
 		if (!this._overlayRef) {
@@ -193,7 +193,7 @@ export class BrnHoverCardContentService {
 	selector: '[brnHoverCardTrigger]:not(ng-container),[brnHoverCardTriggerFor]:not(ng-container)',
 	exportAs: 'brnHoverCardTrigger',
 })
-export class BrnHoverCardTriggerDirective implements OnInit, OnDestroy {
+export class BrnHoverCardTrigger implements OnInit, OnDestroy {
 	private readonly _destroy$ = new Subject<void>();
 	private readonly _vcr = inject(ViewContainerRef);
 	private readonly _zone = inject(NgZone);
@@ -235,9 +235,7 @@ export class BrnHoverCardTriggerDirective implements OnInit, OnDestroy {
 	public sideOffset = input(5);
 	public align = input<'top' | 'bottom'>('bottom');
 
-	public readonly brnHoverCardTriggerFor = input<TemplateRef<unknown> | BrnHoverCardContentDirective | undefined>(
-		undefined,
-	);
+	public readonly brnHoverCardTriggerFor = input<TemplateRef<unknown> | BrnHoverCardContent | undefined>(undefined);
 	public readonly mutableBrnHoverCardTriggerFor = computed(() => signal(this.brnHoverCardTriggerFor()));
 	private readonly _brnHoverCardTriggerForState = computed(() => this.mutableBrnHoverCardTriggerFor()());
 

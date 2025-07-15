@@ -1,1 +1,1 @@
-export * from './brn-avatar-image.directive';
+export * from './brn-avatar-image';

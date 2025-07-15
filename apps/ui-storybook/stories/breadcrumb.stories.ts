@@ -1,25 +1,25 @@
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideSlash } from '@ng-icons/lucide';
-import { HlmBreadCrumbImports, HlmBreadcrumbDirective } from '@spartan-ng/helm/breadcrumb';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { HlmBreadCrumbImports, HlmBreadcrumb } from '@spartan-ng/helm/breadcrumb';
+import { HlmIcon } from '@spartan-ng/helm/icon';
 import type { Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
 
-const meta: Meta<HlmBreadcrumbDirective> = {
+const meta: Meta<HlmBreadcrumb> = {
 	title: 'Breadcrumb',
-	component: HlmBreadcrumbDirective,
+	component: HlmBreadcrumb,
 	tags: ['autodocs'],
 	decorators: [
 		moduleMetadata({
-			imports: [HlmBreadCrumbImports, NgIcon, HlmIconDirective, RouterTestingModule],
+			imports: [HlmBreadCrumbImports, NgIcon, HlmIcon, RouterTestingModule],
 			providers: [provideIcons({ lucideSlash })],
 		}),
 	],
 };
 
 export default meta;
-type Story = StoryObj<HlmBreadcrumbDirective>;
+type Story = StoryObj<HlmBreadcrumb>;
 
 export const Default: Story = {
 	render: () => ({

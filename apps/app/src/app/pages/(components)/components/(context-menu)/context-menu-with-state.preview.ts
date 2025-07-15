@@ -1,23 +1,12 @@
 import { Component } from '@angular/core';
 
-import { BrnContextMenuTriggerDirective } from '@spartan-ng/brain/menu';
+import { BrnContextMenuTrigger } from '@spartan-ng/brain/menu';
 
-import {
-	HlmMenuComponent,
-	HlmMenuGroupComponent,
-	HlmMenuItemDirective,
-	HlmMenuShortcutComponent,
-} from '@spartan-ng/helm/menu';
+import { HlmMenu, HlmMenuGroup, HlmMenuItem, HlmMenuShortcut } from '@spartan-ng/helm/menu';
 
 @Component({
 	selector: 'spartan-context-menu-with-state',
-	imports: [
-		BrnContextMenuTriggerDirective,
-		HlmMenuComponent,
-		HlmMenuItemDirective,
-		HlmMenuShortcutComponent,
-		HlmMenuGroupComponent,
-	],
+	imports: [BrnContextMenuTrigger, HlmMenu, HlmMenuItem, HlmMenuShortcut, HlmMenuGroup],
 	template: `
 		<div
 			[brnCtxMenuTriggerData]="{ $implicit: { data: 'SomeValue' } }"
@@ -53,7 +42,7 @@ import {
 		</ng-template>
 	`,
 })
-export class ContextMenuPreviewWithStateComponent {}
+export class ContextMenuPreviewWithState {}
 
 export const defaultCodeWithState = `
 <div

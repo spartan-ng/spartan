@@ -1,22 +1,22 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
 import { hlmCode, hlmH4 } from '@spartan-ng/helm/typography';
-import { CodePreviewDirective } from '../../../../shared/code/code-preview.directive';
-import { CodeComponent } from '../../../../shared/code/code.component';
-import { MainSectionDirective } from '../../../../shared/layout/main-section.directive';
-import { PageBottomNavPlaceholderComponent } from '../../../../shared/layout/page-bottom-nav-placeholder.component';
-import { PageBottomNavLinkComponent } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav-link.component';
-import { PageBottomNavComponent } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav.component';
-import { PageNavComponent } from '../../../../shared/layout/page-nav/page-nav.component';
-import { SectionIntroComponent } from '../../../../shared/layout/section-intro.component';
-import { SectionSubHeadingComponent } from '../../../../shared/layout/section-sub-heading.component';
-import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
-import { TabsComponent } from '../../../../shared/layout/tabs.component';
-import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
+import { Code } from '../../../../shared/code/code';
+import { CodePreview } from '../../../../shared/code/code-preview';
+import { MainSection } from '../../../../shared/layout/main-section';
+import { PageBottomNavPlaceholder } from '../../../../shared/layout/page-bottom-nav-placeholder';
+import { PageBottomNav } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav';
+import { PageBottomNavLink } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav-link';
+import { PageNav } from '../../../../shared/layout/page-nav/page-nav';
+import { SectionIntro } from '../../../../shared/layout/section-intro';
+import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading';
+import { Tabs } from '../../../../shared/layout/tabs';
+import { TabsCli } from '../../../../shared/layout/tabs-cli';
+import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { AccordionMultipleOpenedComponent } from './accordion--multiple-opened.example';
+import { AccordionMultipleOpened } from './accordion--multiple-opened.example';
 import { accordionMultipleOpenedCode, defaultCode } from './accordion.generated';
-import { AccordionPreviewComponent, defaultImports, defaultSkeleton } from './accordion.preview';
+import { AccordionPreview, defaultImports, defaultSkeleton } from './accordion.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Accordion', api: 'accordion' },
@@ -30,20 +30,20 @@ export const routeMeta: RouteMeta = {
 @Component({
 	selector: 'spartan-accordion',
 	imports: [
-		MainSectionDirective,
-		CodeComponent,
-		SectionIntroComponent,
-		SectionSubHeadingComponent,
-		TabsComponent,
-		TabsCliComponent,
-		AccordionPreviewComponent,
-		AccordionMultipleOpenedComponent,
-		CodePreviewDirective,
-		PageNavComponent,
-		PageBottomNavComponent,
-		PageBottomNavLinkComponent,
-		PageBottomNavPlaceholderComponent,
-		UIApiDocsComponent,
+		MainSection,
+		Code,
+		SectionIntro,
+		SectionSubHeading,
+		Tabs,
+		TabsCli,
+		AccordionPreview,
+		AccordionMultipleOpened,
+		CodePreview,
+		PageNav,
+		PageBottomNav,
+		PageBottomNavLink,
+		PageBottomNavPlaceholder,
+		UIApiDocs,
 	],
 	template: `
 		<section spartanMainSection>
@@ -105,7 +105,7 @@ export const routeMeta: RouteMeta = {
 		<spartan-page-nav />
 	`,
 })
-export default class AccordionPageComponent {
+export default class AccordionPage {
 	public code = defaultCode;
 	public imports = defaultImports;
 	public skeleton = defaultSkeleton;

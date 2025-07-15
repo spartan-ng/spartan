@@ -1,12 +1,12 @@
 import { ExistingProvider, inject, InjectionToken, Type } from '@angular/core';
-import { BrnInputOtpComponent } from './brn-input-otp.component';
+import { BrnInputOtp } from './brn-input-otp';
 
-export const BrnInputOtpToken = new InjectionToken<BrnInputOtpComponent>('BrnInputOtpToken');
+export const BrnInputOtpToken = new InjectionToken<BrnInputOtp>('BrnInputOtpToken');
 
-export function injectBrnInputOtp(): BrnInputOtpComponent {
-	return inject(BrnInputOtpToken) as BrnInputOtpComponent;
+export function injectBrnInputOtp(): BrnInputOtp {
+	return inject(BrnInputOtpToken) as BrnInputOtp;
 }
 
-export function provideBrnInputOtp(inputOtp: Type<BrnInputOtpComponent>): ExistingProvider {
+export function provideBrnInputOtp(inputOtp: Type<BrnInputOtp>): ExistingProvider {
 	return { provide: BrnInputOtpToken, useExisting: inputOtp };
 }

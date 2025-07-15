@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
-import { BrnLabelDirective } from './lib/brn-label.directive';
+import { BrnLabel } from './lib/brn-label';
 
-export * from './lib/brn-label.directive';
+export * from './lib/brn-label';
 
 @NgModule({
-	imports: [BrnLabelDirective],
-	exports: [BrnLabelDirective],
+	imports: [BrnLabel],
+	exports: [BrnLabel],
 })
 export class BrnLabelModule {}

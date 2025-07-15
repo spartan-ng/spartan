@@ -1,21 +1,10 @@
 import { Component } from '@angular/core';
-import { BrnInputOtpComponent } from '@spartan-ng/brain/input-otp';
-import {
-	HlmInputOtpDirective,
-	HlmInputOtpGroupDirective,
-	HlmInputOtpSeparatorComponent,
-	HlmInputOtpSlotComponent,
-} from '@spartan-ng/helm/input-otp';
+import { BrnInputOtp } from '@spartan-ng/brain/input-otp';
+import { HlmInputOtp, HlmInputOtpGroup, HlmInputOtpSeparator, HlmInputOtpSlot } from '@spartan-ng/helm/input-otp';
 
 @Component({
 	selector: 'spartan-input-otp-preview',
-	imports: [
-		HlmInputOtpDirective,
-		HlmInputOtpGroupDirective,
-		HlmInputOtpSeparatorComponent,
-		HlmInputOtpSlotComponent,
-		BrnInputOtpComponent,
-	],
+	imports: [HlmInputOtp, HlmInputOtpGroup, HlmInputOtpSeparator, HlmInputOtpSlot, BrnInputOtp],
 	template: `
 		<brn-input-otp hlmInputOtp maxLength="6" inputClass="disabled:cursor-not-allowed">
 			<div hlmInputOtpGroup>
@@ -32,7 +21,7 @@ import {
 		</brn-input-otp>
 	`,
 })
-export class InputOtpPreviewComponent {}
+export class InputOtpPreview {}
 
 export const defaultImports = `
 import { BrnInputOtpComponent } from '@spartan-ng/brain/input-otp';

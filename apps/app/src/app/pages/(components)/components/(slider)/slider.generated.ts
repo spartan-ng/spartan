@@ -9,11 +9,11 @@ Run `pnpm run generate-snippets` to update this file.
 
 export const defaultCode = `
 import { Component, signal } from '@angular/core';
-import { HlmSliderComponent } from '@spartan-ng/helm/slider';
+import { HlmSlider } from '@spartan-ng/helm/slider';
 
 @Component({
 	selector: 'spartan-slider-preview',
-	imports: [HlmSliderComponent],
+	imports: [HlmSlider],
 	template: \`
 		<hlm-slider [(value)]="value" />
 	\`,
@@ -24,7 +24,7 @@ import { HlmSliderComponent } from '@spartan-ng/helm/slider';
 		}
 	\`,
 })
-export class SliderPreviewComponent {
+export class SliderPreview {
 	public readonly value = signal(50);
 }
 export const defaultSlider = \`

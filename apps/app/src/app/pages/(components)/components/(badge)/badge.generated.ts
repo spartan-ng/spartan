@@ -55,5 +55,5 @@ import { HlmBadgeDirective } from '@spartan-ng/helm/badge';
 		</div>
 	\`,
 })
-export class BadgePreviewComponent {}
+export class BadgePreview {}
 `;

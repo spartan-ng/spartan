@@ -9,11 +9,11 @@ Run `pnpm run generate-snippets` to update this file.
 
 export const defaultCode = `
 import { Component } from '@angular/core';
-import { HlmAvatarComponent, HlmAvatarFallbackDirective, HlmAvatarImageDirective } from '@spartan-ng/helm/avatar';
+import { HlmAvatar, HlmAvatarFallback, HlmAvatarImage } from '@spartan-ng/helm/avatar';
 
 @Component({
 	selector: 'spartan-avatar-preview',
-	imports: [HlmAvatarImageDirective, HlmAvatarComponent, HlmAvatarFallbackDirective],
+	imports: [HlmAvatarImage, HlmAvatar, HlmAvatarFallback],
 	template: \`
 		<hlm-avatar variant="large">
 			<img src="/assets/avatar.png" alt="spartan logo. Resembling a spartanic shield" hlmAvatarImage />
@@ -21,5 +21,5 @@ import { HlmAvatarComponent, HlmAvatarFallbackDirective, HlmAvatarImageDirective
 		</hlm-avatar>
 	\`,
 })
-export class AvatarPreviewComponent {}
+export class AvatarPreview {}
 `;

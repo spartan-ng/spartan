@@ -1,12 +1,12 @@
 import { FormsModule } from '@angular/forms';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
-import { HlmInputDirective } from '@spartan-ng/helm/input';
-import { HlmLabelDirective } from '@spartan-ng/helm/label';
+import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmInput } from '@spartan-ng/helm/input';
+import { HlmLabel } from '@spartan-ng/helm/label';
 import { type Meta, type StoryObj, argsToTemplate, moduleMetadata } from '@storybook/angular';
 
-const meta: Meta<HlmInputDirective> = {
+const meta: Meta<HlmInput> = {
 	title: 'Input',
-	component: HlmInputDirective,
+	component: HlmInput,
 	tags: ['autodocs'],
 	args: {
 		error: 'auto',
@@ -21,13 +21,13 @@ const meta: Meta<HlmInputDirective> = {
 	},
 	decorators: [
 		moduleMetadata({
-			imports: [HlmInputDirective, HlmLabelDirective, HlmButtonDirective, FormsModule],
+			imports: [HlmInput, HlmLabel, HlmButton, FormsModule],
 		}),
 	],
 };
 
 export default meta;
-type Story = StoryObj<HlmInputDirective>;
+type Story = StoryObj<HlmInput>;
 
 export const Default: Story = {
 	render: ({ ...args }) => ({

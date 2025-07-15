@@ -12,13 +12,15 @@ import type { ClassValue } from 'clsx';
 	template: `
 		<span role="presentation" aria-hidden="true" [class]="_computedClass()">
 			<ng-icon hlm size="sm" name="lucideEllipsis" />
-			<span class="sr-only">More</span>
+			<span class="sr-only">{{ srOnlyText() }}</span>
 		</span>
 	`,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmBreadcrumbEllipsisComponent {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
+	/** Screen reader only text for the ellipsis */
+	public readonly srOnlyText = input<string>('More');
 
 	protected readonly _computedClass = computed(() => hlm('flex size-9 items-center justify-center', this.userClass()));
 }

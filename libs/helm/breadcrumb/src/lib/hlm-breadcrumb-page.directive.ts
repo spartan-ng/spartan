@@ -6,6 +6,8 @@ import type { ClassValue } from 'clsx';
 	selector: '[hlmBreadcrumbPage]',
 	host: {
 		role: 'link',
+		'aria-disabled': 'true',
+		'aria-current': 'page',
 		'[class]': '_computedClass()',
 	},
 })

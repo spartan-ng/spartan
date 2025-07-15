@@ -14,9 +14,13 @@ describe('dialog--default', () => {
 			});
 
 			cy.findByText(/edit profile/i).should('have.attr', 'aria-haspopup', 'dialog');
+			cy.findByText(/edit profile/i).should('have.attr', 'aria-expanded', 'false');
 			cy.findByText(/edit profile/i).click();
 
 			cy.findAllByText(/edit profile/i).should('have.length', 2);
+			cy.findAllByText(/edit profile/i)
+				.first()
+				.should('have.attr', 'aria-expanded', 'true');
 			cy.findByRole('dialog');
 			cy.findByRole('dialog').should('have.attr', 'aria-labelledby', 'brn-dialog-title-0');
 			cy.findByRole('dialog').should('have.attr', 'aria-labelledby', 'brn-dialog-title-0');

@@ -34,7 +34,10 @@ import { HlmMenuComponent, HlmMenuItemDirective } from '@spartan-ng/helm/menu';
 				</li>
 				<li hlmBreadcrumbSeparator></li>
 				<li hlmBreadcrumbItem>
-					<hlm-breadcrumb-ellipsis class="h-4 w-4" [brnMenuTriggerFor]="breadcrumbDropdown" />
+					<button [brnMenuTriggerFor]="breadcrumbDropdown">
+						<hlm-breadcrumb-ellipsis class="size-4" />
+						<span class="sr-only">Toggle menu</span>
+					</button>
 					<ng-template #breadcrumbDropdown>
 						<hlm-menu>
 							<button hlmMenuItem id="document">

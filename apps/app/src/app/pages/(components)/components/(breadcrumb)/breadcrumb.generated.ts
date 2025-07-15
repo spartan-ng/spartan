@@ -148,11 +148,11 @@ import { HlmMenuComponent, HlmMenuItemDirective } from '@spartan-ng/helm/menu';
 				<li hlmBreadcrumbSeparator>
 					<ng-icon hlm size="sm" name="lucideSlash" />
 				</li>
-				<li hlmBreadcrumbItem [brnMenuTriggerFor]="breadcrumbDropdown">
-					<div class="flex items-center gap-1">
+				<li hlmBreadcrumbItem>
+					<button class="flex items-center gap-1" [brnMenuTriggerFor]="breadcrumbDropdown">
 						Components
 						<ng-icon hlm size="sm" name="lucideChevronDown" />
-					</div>
+					</button>
 					<ng-template #breadcrumbDropdown>
 						<hlm-menu>
 							<button hlmMenuItem id="document">
@@ -217,7 +217,10 @@ import { HlmMenuComponent, HlmMenuItemDirective } from '@spartan-ng/helm/menu';
 				</li>
 				<li hlmBreadcrumbSeparator></li>
 				<li hlmBreadcrumbItem>
-					<hlm-breadcrumb-ellipsis class="h-4 w-4" [brnMenuTriggerFor]="breadcrumbDropdown" />
+					<button [brnMenuTriggerFor]="breadcrumbDropdown">
+						<hlm-breadcrumb-ellipsis class="size-4" />
+						<span class="sr-only">Toggle menu</span>
+					</button>
 					<ng-template #breadcrumbDropdown>
 						<hlm-menu>
 							<button hlmMenuItem id="document">

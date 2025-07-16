@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HlmFormFieldModule } from '@spartan-ng/helm/form-field';
-import { HlmInputDirective } from '@spartan-ng/helm/input';
+import { HlmInput } from '@spartan-ng/helm/input';
 
 @Component({
 	selector: 'spartan-form-field-preview',
-	imports: [HlmInputDirective, HlmFormFieldModule, ReactiveFormsModule],
+	imports: [HlmInput, HlmFormFieldModule, ReactiveFormsModule],
 	template: `
 		<hlm-form-field>
 			<input class="w-80" hlmInput [formControl]="control" type="email" placeholder="Email" />
@@ -14,7 +14,7 @@ import { HlmInputDirective } from '@spartan-ng/helm/input';
 		</hlm-form-field>
 	`,
 })
-export class FormFieldPreviewComponent {
+export class FormFieldPreview {
 	public control = new FormControl('', Validators.required);
 }
 

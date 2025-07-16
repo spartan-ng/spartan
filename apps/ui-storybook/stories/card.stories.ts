@@ -1,24 +1,24 @@
-import { HlmBadgeDirective } from '@spartan-ng/helm/badge';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
-import { HlmCardDirective, HlmCardImports } from '@spartan-ng/helm/card';
-import { HlmInputDirective } from '@spartan-ng/helm/input';
-import { HlmLabelDirective } from '@spartan-ng/helm/label';
+import { HlmBadge } from '@spartan-ng/helm/badge';
+import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmCard, HlmCardImports } from '@spartan-ng/helm/card';
+import { HlmInput } from '@spartan-ng/helm/input';
+import { HlmLabel } from '@spartan-ng/helm/label';
 import type { Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
 
-const meta: Meta<HlmCardDirective> = {
+const meta: Meta<HlmCard> = {
 	title: 'Card',
-	component: HlmCardDirective,
+	component: HlmCard,
 	tags: ['autodocs'],
 	decorators: [
 		moduleMetadata({
-			imports: [HlmCardImports, HlmLabelDirective, HlmInputDirective, HlmButtonDirective, HlmBadgeDirective],
+			imports: [HlmCardImports, HlmLabel, HlmInput, HlmButton, HlmBadge],
 		}),
 	],
 };
 
 export default meta;
-type Story = StoryObj<HlmCardDirective>;
+type Story = StoryObj<HlmCard>;
 
 export const Default: Story = {
 	render: () => ({

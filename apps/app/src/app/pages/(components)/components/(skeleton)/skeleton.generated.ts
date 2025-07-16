@@ -9,11 +9,11 @@ Run `pnpm run generate-snippets` to update this file.
 
 export const defaultCode = `
 import { Component } from '@angular/core';
-import { HlmSkeletonComponent } from '@spartan-ng/helm/skeleton';
+import { HlmSkeleton } from '@spartan-ng/helm/skeleton';
 
 @Component({
 	selector: 'spartan-skeleton-preview',
-	imports: [HlmSkeletonComponent],
+	imports: [HlmSkeleton],
 	template: \`
 		<div class="m-4 flex w-fit items-center space-x-4 p-4">
 			<hlm-skeleton class="h-12 w-12 rounded-full" />
@@ -24,5 +24,5 @@ import { HlmSkeletonComponent } from '@spartan-ng/helm/skeleton';
 		</div>
 	\`,
 })
-export class SkeletonPreviewComponent {}
+export class SkeletonPreview {}
 `;

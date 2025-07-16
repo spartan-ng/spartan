@@ -1,11 +1,11 @@
-import { BrnProgressComponent, BrnProgressImports } from '@spartan-ng/brain/progress';
-import { HlmLabelDirective } from '@spartan-ng/helm/label';
+import { BrnProgress, BrnProgressImports } from '@spartan-ng/brain/progress';
+import { HlmLabel } from '@spartan-ng/helm/label';
 import { HlmProgressImports } from '@spartan-ng/helm/progress';
 import { type Meta, type StoryObj, argsToTemplate, moduleMetadata } from '@storybook/angular';
 
-const meta: Meta<BrnProgressComponent> = {
+const meta: Meta<BrnProgress> = {
 	title: 'Progress',
-	component: BrnProgressComponent,
+	component: BrnProgress,
 	tags: ['autodocs'],
 	args: {
 		value: 30,
@@ -17,13 +17,13 @@ const meta: Meta<BrnProgressComponent> = {
 	},
 	decorators: [
 		moduleMetadata({
-			imports: [BrnProgressImports, HlmProgressImports, HlmLabelDirective],
+			imports: [BrnProgressImports, HlmProgressImports, HlmLabel],
 		}),
 	],
 };
 
 export default meta;
-type Story = StoryObj<BrnProgressComponent>;
+type Story = StoryObj<BrnProgress>;
 
 export const LoadingNotStarted: Story = {
 	args: {

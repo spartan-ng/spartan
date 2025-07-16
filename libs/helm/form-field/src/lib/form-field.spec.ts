@@ -5,14 +5,14 @@ import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 
-import { HlmInputDirective } from '@spartan-ng/helm/input';
+import { HlmInput } from '@spartan-ng/helm/input';
 
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@spartan-ng/brain/forms';
-import { HlmErrorDirective } from './hlm-error.directive';
-import { HlmFormFieldComponent } from './hlm-form-field.component';
-import { HlmHintDirective } from './hlm-hint.directive';
+import { HlmError } from './hlm-error';
+import { HlmFormField } from './hlm-form-field';
+import { HlmHint } from './hlm-hint';
 
-const DIRECTIVES = [HlmFormFieldComponent, HlmErrorDirective, HlmHintDirective, HlmInputDirective];
+const DIRECTIVES = [HlmFormField, HlmError, HlmHint, HlmInput];
 
 @Component({
 	selector: 'single-form-field-example',

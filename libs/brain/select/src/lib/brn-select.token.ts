@@ -1,12 +1,12 @@
 import { ExistingProvider, inject, InjectionToken, Type } from '@angular/core';
-import type { BrnSelectComponent } from './brn-select.component';
+import type { BrnSelect } from './brn-select';
 
-const BrnSelectToken = new InjectionToken<BrnSelectComponent>('BrnSelectToken');
+const BrnSelectToken = new InjectionToken<BrnSelect>('BrnSelectToken');
 
-export function injectBrnSelect<T>(): BrnSelectComponent<T> {
-	return inject(BrnSelectToken) as BrnSelectComponent<T>;
+export function injectBrnSelect<T>(): BrnSelect<T> {
+	return inject(BrnSelectToken) as BrnSelect<T>;
 }
 
-export function provideBrnSelect(select: Type<BrnSelectComponent>): ExistingProvider {
+export function provideBrnSelect(select: Type<BrnSelect>): ExistingProvider {
 	return { provide: BrnSelectToken, useExisting: select };
 }

@@ -3,31 +3,26 @@ import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCirclePlus, lucideListMusic, lucidePodcast } from '@ng-icons/lucide';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
-import { TopMusicMenuComponent } from './components/top-menu.component';
+import { TopMusicMenu } from './components/top-menu';
 
-import { BrnContextMenuTriggerDirective, BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
-import { HlmCardDirective } from '@spartan-ng/helm/card';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { BrnContextMenuTrigger, BrnMenuTrigger } from '@spartan-ng/brain/menu';
+import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmCard } from '@spartan-ng/helm/card';
+import { HlmIcon } from '@spartan-ng/helm/icon';
 import {
-	HlmMenuComponent,
-	HlmMenuGroupComponent,
-	HlmMenuItemDirective,
-	HlmMenuItemSubIndicatorComponent,
-	HlmMenuSeparatorComponent,
-	HlmSubMenuComponent,
+	HlmMenu,
+	HlmMenuGroup,
+	HlmMenuItem,
+	HlmMenuItemSubIndicator,
+	HlmMenuSeparator,
+	HlmSubMenu,
 } from '@spartan-ng/helm/menu';
 
-import { HlmSeparatorDirective } from '@spartan-ng/helm/separator';
-import {
-	HlmTabsComponent,
-	HlmTabsContentDirective,
-	HlmTabsListComponent,
-	HlmTabsTriggerDirective,
-} from '@spartan-ng/helm/tabs';
+import { HlmSeparator } from '@spartan-ng/helm/separator';
+import { HlmTabs, HlmTabsContent, HlmTabsList, HlmTabsTrigger } from '@spartan-ng/helm/tabs';
 import { NgScrollbarModule } from 'ngx-scrollbar';
-import { SideMusicMenuComponent } from './components/side-menu/side-menu.component';
-import { FallbackImageDirective } from './directives/fallback-img.directive';
+import { SideMusicMenu } from './components/side-menu/side-menu';
+import { FallbackImage } from './directives/fallback-img';
 
 import img from '/assets/music_img_fallback.svg';
 
@@ -42,27 +37,27 @@ export const routeMeta: RouteMeta = {
 		class: 'block',
 	},
 	imports: [
-		TopMusicMenuComponent,
-		SideMusicMenuComponent,
-		HlmTabsComponent,
-		HlmTabsListComponent,
-		HlmTabsTriggerDirective,
-		HlmTabsContentDirective,
-		HlmButtonDirective,
+		TopMusicMenu,
+		SideMusicMenu,
+		HlmTabs,
+		HlmTabsList,
+		HlmTabsTrigger,
+		HlmTabsContent,
+		HlmButton,
 		NgIcon,
-		HlmIconDirective,
-		HlmSeparatorDirective,
+		HlmIcon,
+		HlmSeparator,
 		NgScrollbarModule,
-		BrnMenuTriggerDirective,
-		BrnContextMenuTriggerDirective,
-		HlmMenuComponent,
-		HlmMenuGroupComponent,
-		HlmMenuItemDirective,
-		HlmSubMenuComponent,
-		HlmMenuItemSubIndicatorComponent,
-		HlmMenuSeparatorComponent,
-		HlmCardDirective,
-		FallbackImageDirective,
+		BrnMenuTrigger,
+		BrnContextMenuTrigger,
+		HlmMenu,
+		HlmMenuGroup,
+		HlmMenuItem,
+		HlmSubMenu,
+		HlmMenuItemSubIndicator,
+		HlmMenuSeparator,
+		HlmCard,
+		FallbackImage,
 	],
 	providers: [provideIcons({ lucideCirclePlus, lucideListMusic, lucidePodcast })],
 	styles: `
@@ -217,7 +212,7 @@ export const routeMeta: RouteMeta = {
 		</div>
 	`,
 })
-export default class MusicPageComponent {
+export default class MusicPage {
 	public imageFallback = img;
 
 	public sectionData = {

@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
-import { HlmToggleDirective } from './lib/hlm-toggle.directive';
+import { HlmToggle } from './lib/hlm-toggle';
 
-export * from './lib/hlm-toggle.directive';
+export * from './lib/hlm-toggle';
 @NgModule({
-	imports: [HlmToggleDirective],
-	exports: [HlmToggleDirective],
+	imports: [HlmToggle],
+	exports: [HlmToggle],
 })
 export class HlmToggleModule {}

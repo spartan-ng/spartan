@@ -1,31 +1,21 @@
 import { Component, viewChild } from '@angular/core';
-import {
-	BrnDialogCloseDirective,
-	BrnDialogComponent,
-	BrnDialogContentDirective,
-	BrnDialogTriggerDirective,
-} from '@spartan-ng/brain/dialog';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
-import {
-	HlmDialogComponent,
-	HlmDialogContentComponent,
-	HlmDialogHeaderComponent,
-	HlmDialogTitleDirective,
-} from '@spartan-ng/helm/dialog';
-import { HlmLabelDirective } from '@spartan-ng/helm/label';
+import { BrnDialog, BrnDialogClose, BrnDialogContent, BrnDialogTrigger } from '@spartan-ng/brain/dialog';
+import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmDialog, HlmDialogContent, HlmDialogHeader, HlmDialogTitle } from '@spartan-ng/helm/dialog';
+import { HlmLabel } from '@spartan-ng/helm/label';
 
 @Component({
 	selector: 'spartan-dialog-close-preview',
 	imports: [
-		BrnDialogTriggerDirective,
-		BrnDialogContentDirective,
-		BrnDialogCloseDirective,
-		HlmDialogComponent,
-		HlmDialogContentComponent,
-		HlmDialogHeaderComponent,
-		HlmDialogTitleDirective,
-		HlmLabelDirective,
-		HlmButtonDirective,
+		BrnDialogTrigger,
+		BrnDialogContent,
+		BrnDialogClose,
+		HlmDialog,
+		HlmDialogContent,
+		HlmDialogHeader,
+		HlmDialogTitle,
+		HlmLabel,
+		HlmButton,
 	],
 	template: `
 		<hlm-dialog #dialogRef>
@@ -52,8 +42,8 @@ import { HlmLabelDirective } from '@spartan-ng/helm/label';
 		</hlm-dialog>
 	`,
 })
-export class DialogClosePreviewComponent {
-	public viewchildDialogRef = viewChild(BrnDialogComponent);
+export class DialogClosePreview {
+	public viewchildDialogRef = viewChild(BrnDialog);
 
 	closeDialog() {
 		this.viewchildDialogRef()?.close({});

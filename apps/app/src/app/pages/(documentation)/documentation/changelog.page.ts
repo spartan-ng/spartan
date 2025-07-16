@@ -1,15 +1,15 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmButton } from '@spartan-ng/helm/button';
 import { hlmCode, hlmH4, hlmP, hlmUl } from '@spartan-ng/helm/typography';
 
-import { MainSectionDirective } from '../../../shared/layout/main-section.directive';
-import { PageBottomNavLinkComponent } from '../../../shared/layout/page-bottom-nav/page-bottom-nav-link.component';
-import { PageBottomNavComponent } from '../../../shared/layout/page-bottom-nav/page-bottom-nav.component';
-import { PageNavComponent } from '../../../shared/layout/page-nav/page-nav.component';
-import { SectionIntroComponent } from '../../../shared/layout/section-intro.component';
-import { SectionSubHeadingComponent } from '../../../shared/layout/section-sub-heading.component';
+import { MainSection } from '../../../shared/layout/main-section';
+import { PageBottomNav } from '../../../shared/layout/page-bottom-nav/page-bottom-nav';
+import { PageBottomNavLink } from '../../../shared/layout/page-bottom-nav/page-bottom-nav-link';
+import { PageNav } from '../../../shared/layout/page-nav/page-nav';
+import { SectionIntro } from '../../../shared/layout/section-intro';
+import { SectionSubHeading } from '../../../shared/layout/section-sub-heading';
 import { metaWith } from '../../../shared/meta/meta.util';
 
 export const routeMeta: RouteMeta = {
@@ -21,14 +21,14 @@ export const routeMeta: RouteMeta = {
 @Component({
 	selector: 'spartan-changelog',
 	imports: [
-		MainSectionDirective,
-		SectionIntroComponent,
-		PageBottomNavComponent,
-		PageBottomNavLinkComponent,
-		PageNavComponent,
-		SectionSubHeadingComponent,
+		MainSection,
+		SectionIntro,
+		PageBottomNav,
+		PageBottomNavLink,
+		PageNav,
+		SectionSubHeading,
 		RouterLink,
-		HlmButtonDirective,
+		HlmButton,
 	],
 	template: `
 		<section spartanMainSection>
@@ -155,4 +155,4 @@ export const routeMeta: RouteMeta = {
 		<spartan-page-nav />
 	`,
 })
-export default class ChangelogPageComponent {}
+export default class ChangelogPage {}

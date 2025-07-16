@@ -1,34 +1,34 @@
 import { Component, signal } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
-import { BrnDialogContentDirective } from '@spartan-ng/brain/dialog';
+import { BrnDialogContent } from '@spartan-ng/brain/dialog';
 
 import {
-	HlmDialogComponent,
-	HlmDialogContentComponent,
-	HlmDialogDescriptionDirective,
-	HlmDialogHeaderComponent,
-	HlmDialogTitleDirective,
+	HlmDialog,
+	HlmDialogContent,
+	HlmDialogDescription,
+	HlmDialogHeader,
+	HlmDialogTitle,
 } from '@spartan-ng/helm/dialog';
-import { HlmInputDirective } from '@spartan-ng/helm/input';
-import { HlmLabelDirective } from '@spartan-ng/helm/label';
-import { HlmH4Directive, HlmMutedDirective } from '@spartan-ng/helm/typography';
+import { HlmInput } from '@spartan-ng/helm/input';
+import { HlmLabel } from '@spartan-ng/helm/label';
+import { HlmH4, HlmMuted } from '@spartan-ng/helm/typography';
 import { debounceTime, map } from 'rxjs/operators';
 
 @Component({
 	selector: 'spartan-dialog-declarative-preview',
 	imports: [
 		FormsModule,
-		BrnDialogContentDirective,
-		HlmDialogComponent,
-		HlmDialogContentComponent,
-		HlmDialogHeaderComponent,
-		HlmDialogTitleDirective,
-		HlmDialogDescriptionDirective,
-		HlmLabelDirective,
-		HlmInputDirective,
-		HlmMutedDirective,
-		HlmH4Directive,
+		BrnDialogContent,
+		HlmDialog,
+		HlmDialogContent,
+		HlmDialogHeader,
+		HlmDialogTitle,
+		HlmDialogDescription,
+		HlmLabel,
+		HlmInput,
+		HlmMuted,
+		HlmH4,
 	],
 	template: `
 		<div class="space-y-4">
@@ -55,7 +55,7 @@ import { debounceTime, map } from 'rxjs/operators';
 		</hlm-dialog>
 	`,
 })
-export class DialogDeclarativePreviewComponent {
+export class DialogDeclarativePreview {
 	protected readonly passphrase = signal<string>('');
 	private readonly _debouncedState$ = toObservable(this.passphrase).pipe(
 		debounceTime(500),

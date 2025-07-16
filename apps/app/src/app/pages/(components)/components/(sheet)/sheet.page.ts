@@ -1,22 +1,22 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
 import { hlmH4 } from '@spartan-ng/helm/typography';
-import { CodePreviewDirective } from '../../../../shared/code/code-preview.directive';
-import { CodeComponent } from '../../../../shared/code/code.component';
-import { MainSectionDirective } from '../../../../shared/layout/main-section.directive';
-import { PageBottomNavLinkComponent } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav-link.component';
-import { PageBottomNavComponent } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav.component';
-import { PageNavComponent } from '../../../../shared/layout/page-nav/page-nav.component';
-import { SectionIntroComponent } from '../../../../shared/layout/section-intro.component';
-import { SectionSubHeadingComponent } from '../../../../shared/layout/section-sub-heading.component';
-import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
-import { TabsComponent } from '../../../../shared/layout/tabs.component';
-import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
+import { Code } from '../../../../shared/code/code';
+import { CodePreview } from '../../../../shared/code/code-preview';
+import { MainSection } from '../../../../shared/layout/main-section';
+import { PageBottomNav } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav';
+import { PageBottomNavLink } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav-link';
+import { PageNav } from '../../../../shared/layout/page-nav/page-nav';
+import { SectionIntro } from '../../../../shared/layout/section-intro';
+import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading';
+import { Tabs } from '../../../../shared/layout/tabs';
+import { TabsCli } from '../../../../shared/layout/tabs-cli';
+import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { SheetSidePreviewComponent } from './sheet--side.preview';
-import { SheetClosePreviewComponent } from './sheet-close.preview';
+import { SheetSidePreview } from './sheet--side.preview';
+import { SheetClosePreview } from './sheet-close.preview';
 import { defaultCode, sheetCloseCode, sheetSideCode } from './sheet.generated';
-import { SheetPreviewComponent, defaultImports, defaultSkeleton } from './sheet.preview';
+import { SheetPreview, defaultImports, defaultSkeleton } from './sheet.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Sheet', api: 'sheet' },
@@ -29,20 +29,20 @@ export const routeMeta: RouteMeta = {
 @Component({
 	selector: 'spartan-sheet',
 	imports: [
-		UIApiDocsComponent,
-		MainSectionDirective,
-		CodeComponent,
-		SectionIntroComponent,
-		SectionSubHeadingComponent,
-		TabsComponent,
-		TabsCliComponent,
-		CodePreviewDirective,
-		PageNavComponent,
-		PageBottomNavComponent,
-		PageBottomNavLinkComponent,
-		SheetPreviewComponent,
-		SheetSidePreviewComponent,
-		SheetClosePreviewComponent,
+		UIApiDocs,
+		MainSection,
+		Code,
+		SectionIntro,
+		SectionSubHeading,
+		Tabs,
+		TabsCli,
+		CodePreview,
+		PageNav,
+		PageBottomNav,
+		PageBottomNavLink,
+		SheetPreview,
+		SheetSidePreview,
+		SheetClosePreview,
 	],
 	template: `
 		<section spartanMainSection>
@@ -102,7 +102,7 @@ export const routeMeta: RouteMeta = {
 		<spartan-page-nav />
 	`,
 })
-export default class LabelPageComponent {
+export default class LabelPage {
 	protected readonly defaultCode = defaultCode;
 	protected readonly defaultSkeleton = defaultSkeleton;
 	protected readonly defaultImports = defaultImports;

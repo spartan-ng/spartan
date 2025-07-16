@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronRight } from '@ng-icons/lucide';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { HlmIcon } from '@spartan-ng/helm/icon';
 
 @Component({
 	selector: 'spartan-icon-preview',
-	imports: [NgIcon, HlmIconDirective],
+	imports: [NgIcon, HlmIcon],
 	providers: [provideIcons({ lucideChevronRight })],
 	template: `
 		<div>
@@ -13,7 +13,7 @@ import { HlmIconDirective } from '@spartan-ng/helm/icon';
 		</div>
 	`,
 })
-export class IconPreviewComponent {}
+export class IconPreview {}
 
 export const defaultImports = `
 import { HlmIconDirective } from '@spartan-ng/helm/icon';

@@ -9,56 +9,56 @@ Run `pnpm run generate-snippets` to update this file.
 
 export const buttonAnchorCode = `
 import { Component } from '@angular/core';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmButton } from '@spartan-ng/helm/button';
 
 @Component({
 	selector: 'spartan-button-anchor',
-	imports: [HlmButtonDirective],
+	imports: [HlmButton],
 	template: \`
 		<a hlmBtn target="_blank" variant="link" href="https://github.com/goetzrobin/spartan">Star on GitHub</a>
 	\`,
 })
-export class ButtonAnchorComponent {}
+export class ButtonAnchor {}
 `;
 
 export const buttonDestructiveCode = `
 import { Component } from '@angular/core';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmButton } from '@spartan-ng/helm/button';
 
 @Component({
 	selector: 'spartan-button-destructive',
-	imports: [HlmButtonDirective],
+	imports: [HlmButton],
 	template: \`
 		<button hlmBtn variant="destructive">Destructive</button>
 	\`,
 })
-export class ButtonDestructiveComponent {}
+export class ButtonDestructive {}
 `;
 
 export const buttonGhostCode = `
 import { Component } from '@angular/core';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmButton } from '@spartan-ng/helm/button';
 
 @Component({
 	selector: 'spartan-button-ghost',
-	imports: [HlmButtonDirective],
+	imports: [HlmButton],
 	template: \`
 		<button hlmBtn variant="ghost">Ghost</button>
 	\`,
 })
-export class ButtonGhostComponent {}
+export class ButtonGhost {}
 `;
 
 export const buttonIconCode = `
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronRight } from '@ng-icons/lucide';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmIcon } from '@spartan-ng/helm/icon';
 
 @Component({
 	selector: 'spartan-button-icon',
-	imports: [HlmButtonDirective, NgIcon, HlmIconDirective],
+	imports: [HlmButton, NgIcon, HlmIcon],
 	providers: [provideIcons({ lucideChevronRight })],
 	template: \`
 		<button hlmBtn size="icon" variant="secondary" class="size-8">
@@ -66,33 +66,33 @@ import { HlmIconDirective } from '@spartan-ng/helm/icon';
 		</button>
 	\`,
 })
-export class ButtonIconComponent {}
+export class ButtonIcon {}
 `;
 
 export const buttonLinkCode = `
 import { Component } from '@angular/core';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmButton } from '@spartan-ng/helm/button';
 
 @Component({
 	selector: 'spartan-button-link',
-	imports: [HlmButtonDirective],
+	imports: [HlmButton],
 	template: \`
 		<button hlmBtn variant="link">Link</button>
 	\`,
 })
-export class ButtonLinkComponent {}
+export class ButtonLink {}
 `;
 
 export const buttonLoadingCode = `
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideLoaderCircle } from '@ng-icons/lucide';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmIcon } from '@spartan-ng/helm/icon';
 
 @Component({
 	selector: 'spartan-button-loading',
-	imports: [HlmButtonDirective, NgIcon, HlmIconDirective],
+	imports: [HlmButton, NgIcon, HlmIcon],
 	providers: [provideIcons({ lucideLoaderCircle })],
 	template: \`
 		<button disabled hlmBtn size="sm">
@@ -101,47 +101,47 @@ import { HlmIconDirective } from '@spartan-ng/helm/icon';
 		</button>
 	\`,
 })
-export class ButtonLoadingComponent {}
+export class ButtonLoading {}
 `;
 
 export const buttonOutlineCode = `
 import { Component } from '@angular/core';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmButton } from '@spartan-ng/helm/button';
 
 @Component({
 	selector: 'spartan-button-outline',
-	imports: [HlmButtonDirective],
+	imports: [HlmButton],
 	template: \`
 		<button hlmBtn variant="outline">Outline</button>
 	\`,
 })
-export class ButtonOutlineComponent {}
+export class ButtonOutline {}
 `;
 
 export const buttonSecondaryCode = `
 import { Component } from '@angular/core';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmButton } from '@spartan-ng/helm/button';
 
 @Component({
 	selector: 'spartan-button-secondary',
-	imports: [HlmButtonDirective],
+	imports: [HlmButton],
 	template: \`
 		<button hlmBtn variant="secondary">Secondary</button>
 	\`,
 })
-export class ButtonSecondaryComponent {}
+export class ButtonSecondary {}
 `;
 
 export const buttonWithIconCode = `
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideGitBranch } from '@ng-icons/lucide';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmIcon } from '@spartan-ng/helm/icon';
 
 @Component({
 	selector: 'spartan-button-with-icon',
-	imports: [HlmButtonDirective, NgIcon, HlmIconDirective],
+	imports: [HlmButton, NgIcon, HlmIcon],
 	providers: [provideIcons({ lucideGitBranch })],
 	template: \`
 		<button hlmBtn variant="outline" size="sm">
@@ -150,19 +150,19 @@ import { HlmIconDirective } from '@spartan-ng/helm/icon';
 		</button>
 	\`,
 })
-export class ButtonWithIconComponent {}
+export class ButtonWithIcon {}
 `;
 
 export const defaultCode = `
 import { Component } from '@angular/core';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmButton } from '@spartan-ng/helm/button';
 
 @Component({
 	selector: 'spartan-button-preview',
-	imports: [HlmButtonDirective],
+	imports: [HlmButton],
 	template: \`
 		<button hlmBtn>Button</button>
 	\`,
 })
-export class ButtonPreviewComponent {}
+export class ButtonPreview {}
 `;

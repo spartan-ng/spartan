@@ -9,11 +9,11 @@ Run `pnpm run generate-snippets` to update this file.
 
 export const calendarMultipleCode = `
 import { Component } from '@angular/core';
-import { HlmCalendarMultiComponent } from '@spartan-ng/helm/calendar';
+import { HlmCalendarMulti } from '@spartan-ng/helm/calendar';
 
 @Component({
 	selector: 'spartan-calendar-multiple',
-	imports: [HlmCalendarMultiComponent],
+	imports: [HlmCalendarMulti],
 	template: \`
 		<hlm-calendar-multi
 			[(date)]="selectedDates"
@@ -27,7 +27,7 @@ import { HlmCalendarMultiComponent } from '@spartan-ng/helm/calendar';
 		class: 'preview flex min-h-[350px] w-full justify-center p-10 items-center',
 	},
 })
-export class CalendarMultipleExampleComponent {
+export class CalendarMultipleExample {
 	/** The selected date */
 	public selectedDates = [new Date()];
 
@@ -41,11 +41,11 @@ export class CalendarMultipleExampleComponent {
 
 export const defaultCode = `
 import { Component } from '@angular/core';
-import { HlmCalendarComponent } from '@spartan-ng/helm/calendar';
+import { HlmCalendar } from '@spartan-ng/helm/calendar';
 
 @Component({
 	selector: 'spartan-calendar-preview',
-	imports: [HlmCalendarComponent],
+	imports: [HlmCalendar],
 	template: \`
 		<hlm-calendar [(date)]="selectedDate" [min]="minDate" [max]="maxDate" />
 	\`,
@@ -53,7 +53,7 @@ import { HlmCalendarComponent } from '@spartan-ng/helm/calendar';
 		class: 'preview flex min-h-[350px] w-full justify-center p-10 items-center',
 	},
 })
-export class CalendarPreviewComponent {
+export class CalendarPreview {
 	/** The selected date */
 	public selectedDate = new Date();
 

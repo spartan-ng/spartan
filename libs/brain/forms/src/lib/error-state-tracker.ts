@@ -1,5 +1,5 @@
 import { signal } from '@angular/core';
-import type { AbstractControl, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
+import type { AbstractControl, FormGroup, NgControl, NgForm } from '@angular/forms';
 import type { ErrorStateMatcher } from './error-options';
 
 export class ErrorStateTracker {
@@ -12,7 +12,7 @@ export class ErrorStateTracker {
 	constructor(
 		private readonly _defaultMatcher: ErrorStateMatcher | null,
 		public ngControl: NgControl | null,
-		private readonly _parentFormGroup: FormGroupDirective | null,
+		private readonly _parentFormGroup: FormGroup | null,
 		private readonly _parentForm: NgForm | null,
 	) {}
 

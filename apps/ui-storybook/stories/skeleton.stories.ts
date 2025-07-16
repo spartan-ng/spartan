@@ -1,20 +1,20 @@
-import { HlmSkeletonComponent } from '@spartan-ng/helm/skeleton';
+import { HlmSkeleton } from '@spartan-ng/helm/skeleton';
 import type { Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
 
-const meta: Meta<HlmSkeletonComponent> = {
+const meta: Meta<HlmSkeleton> = {
 	title: 'Skeleton',
-	component: HlmSkeletonComponent,
+	component: HlmSkeleton,
 	tags: ['autodocs'],
 	decorators: [
 		moduleMetadata({
-			imports: [HlmSkeletonComponent],
+			imports: [HlmSkeleton],
 		}),
 	],
 };
 
 export default meta;
-type Story = StoryObj<HlmSkeletonComponent>;
+type Story = StoryObj<HlmSkeleton>;
 
 export const Default: Story = {
 	render: () => ({

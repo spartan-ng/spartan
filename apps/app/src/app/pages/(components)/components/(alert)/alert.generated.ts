@@ -11,24 +11,12 @@ export const alertDestructiveCode = `
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideTriangleAlert } from '@ng-icons/lucide';
-import {
-	HlmAlertDescriptionDirective,
-	HlmAlertDirective,
-	HlmAlertIconDirective,
-	HlmAlertTitleDirective,
-} from '@spartan-ng/helm/alert';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { HlmAlert, HlmAlertDescription, HlmAlertIcon, HlmAlertTitle } from '@spartan-ng/helm/alert';
+import { HlmIcon } from '@spartan-ng/helm/icon';
 
 @Component({
 	selector: 'spartan-alert-destructive',
-	imports: [
-		HlmAlertDescriptionDirective,
-		HlmAlertDirective,
-		HlmAlertIconDirective,
-		HlmAlertTitleDirective,
-		NgIcon,
-		HlmIconDirective,
-	],
+	imports: [HlmAlertDescription, HlmAlert, HlmAlertIcon, HlmAlertTitle, NgIcon, HlmIcon],
 	providers: [provideIcons({ lucideTriangleAlert })],
 	template: \`
 		<div hlmAlert variant="destructive">
@@ -38,31 +26,19 @@ import { HlmIconDirective } from '@spartan-ng/helm/icon';
 		</div>
 	\`,
 })
-export class AlertDestructiveComponent {}
+export class AlertDestructive {}
 `;
 
 export const defaultCode = `
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCircleAlert, lucideCircleCheck, lucidePopcorn } from '@ng-icons/lucide';
-import {
-	HlmAlertDescriptionDirective,
-	HlmAlertDirective,
-	HlmAlertIconDirective,
-	HlmAlertTitleDirective,
-} from '@spartan-ng/helm/alert';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { HlmAlert, HlmAlertDescription, HlmAlertIcon, HlmAlertTitle } from '@spartan-ng/helm/alert';
+import { HlmIcon } from '@spartan-ng/helm/icon';
 
 @Component({
 	selector: 'spartan-alert-preview',
-	imports: [
-		HlmAlertDescriptionDirective,
-		HlmAlertDirective,
-		HlmAlertIconDirective,
-		HlmAlertTitleDirective,
-		NgIcon,
-		HlmIconDirective,
-	],
+	imports: [HlmAlertDescription, HlmAlert, HlmAlertIcon, HlmAlertTitle, NgIcon, HlmIcon],
 	providers: [provideIcons({ lucideCircleCheck, lucidePopcorn, lucideCircleAlert })],
 	template: \`
 		<div class="grid w-full max-w-xl items-start gap-4">
@@ -90,5 +66,5 @@ import { HlmIconDirective } from '@spartan-ng/helm/icon';
 		</div>
 	\`,
 })
-export class AlertPreviewComponent {}
+export class AlertPreview {}
 `;

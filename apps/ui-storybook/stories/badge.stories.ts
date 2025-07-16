@@ -1,9 +1,9 @@
-import { HlmBadgeDirective } from '@spartan-ng/helm/badge';
+import { HlmBadge } from '@spartan-ng/helm/badge';
 import { type Meta, type StoryObj, argsToTemplate, moduleMetadata } from '@storybook/angular';
 
-const meta: Meta<HlmBadgeDirective> = {
+const meta: Meta<HlmBadge> = {
 	title: 'Badge',
-	component: HlmBadgeDirective,
+	component: HlmBadge,
 	tags: ['autodocs'],
 	argTypes: {
 		variant: {
@@ -18,7 +18,7 @@ const meta: Meta<HlmBadgeDirective> = {
 	},
 	decorators: [
 		moduleMetadata({
-			imports: [HlmBadgeDirective],
+			imports: [HlmBadge],
 		}),
 	],
 	render: ({ ...args }) => ({
@@ -30,7 +30,7 @@ const meta: Meta<HlmBadgeDirective> = {
 };
 
 export default meta;
-type Story = StoryObj<HlmBadgeDirective>;
+type Story = StoryObj<HlmBadge>;
 
 export const Default: Story = {
 	args: {

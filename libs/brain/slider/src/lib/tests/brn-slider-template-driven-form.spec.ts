@@ -1,9 +1,9 @@
 import { render } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
-import { TemplateDrivenFormSliderComponent } from './brn-slider-states.component';
+import { TemplateDrivenFormSlider } from './brn-slider-states';
 
 async function setupSlider() {
-	const { fixture, getByRole, getByTestId } = await render(TemplateDrivenFormSliderComponent);
+	const { fixture, getByRole, getByTestId } = await render(TemplateDrivenFormSlider);
 
 	return {
 		fixture,
@@ -14,7 +14,7 @@ async function setupSlider() {
 }
 
 async function setupSliderWithInitialValue(initialValue: number) {
-	const { getByRole, getByTestId, fixture } = await render(TemplateDrivenFormSliderComponent, {
+	const { getByRole, getByTestId, fixture } = await render(TemplateDrivenFormSlider, {
 		componentInputs: { temperature: initialValue },
 	});
 

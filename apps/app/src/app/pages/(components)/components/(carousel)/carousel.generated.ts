@@ -9,25 +9,25 @@ Run `pnpm run generate-snippets` to update this file.
 
 export const carouselOrientationCode = `
 import { Component } from '@angular/core';
-import { HlmCardContentDirective, HlmCardDirective } from '@spartan-ng/helm/card';
+import { HlmCard, HlmCardContent } from '@spartan-ng/helm/card';
 import {
-	HlmCarouselComponent,
-	HlmCarouselContentComponent,
-	HlmCarouselItemComponent,
-	HlmCarouselNextComponent,
-	HlmCarouselPreviousComponent,
+	HlmCarousel,
+	HlmCarouselContent,
+	HlmCarouselItem,
+	HlmCarouselNext,
+	HlmCarouselPrevious,
 } from '@spartan-ng/helm/carousel';
 
 @Component({
 	selector: 'spartan-carousel-orientation',
 	imports: [
-		HlmCarouselComponent,
-		HlmCarouselContentComponent,
-		HlmCarouselItemComponent,
-		HlmCarouselNextComponent,
-		HlmCarouselPreviousComponent,
-		HlmCardDirective,
-		HlmCardContentDirective,
+		HlmCarousel,
+		HlmCarouselContent,
+		HlmCarouselItem,
+		HlmCarouselNext,
+		HlmCarouselPrevious,
+		HlmCard,
+		HlmCardContent,
 	],
 	host: {
 		class: 'w-full',
@@ -54,33 +54,33 @@ import {
 		</div>
 	\`,
 })
-export class CarouselOrientationComponent {
+export class CarouselOrientation {
 	public items = Array.from({ length: 5 }, (_, i) => i + 1);
 }
 `;
 
 export const carouselPluginsCode = `
 import { Component } from '@angular/core';
-import { HlmCardContentDirective, HlmCardDirective } from '@spartan-ng/helm/card';
+import { HlmCard, HlmCardContent } from '@spartan-ng/helm/card';
 import {
-	HlmCarouselComponent,
-	HlmCarouselContentComponent,
-	HlmCarouselItemComponent,
-	HlmCarouselNextComponent,
-	HlmCarouselPreviousComponent,
+	HlmCarousel,
+	HlmCarouselContent,
+	HlmCarouselItem,
+	HlmCarouselNext,
+	HlmCarouselPrevious,
 } from '@spartan-ng/helm/carousel';
 import Autoplay from 'embla-carousel-autoplay';
 
 @Component({
 	selector: 'spartan-carousel-plugins',
 	imports: [
-		HlmCarouselComponent,
-		HlmCarouselContentComponent,
-		HlmCarouselItemComponent,
-		HlmCarouselNextComponent,
-		HlmCarouselPreviousComponent,
-		HlmCardDirective,
-		HlmCardContentDirective,
+		HlmCarousel,
+		HlmCarouselContent,
+		HlmCarouselItem,
+		HlmCarouselNext,
+		HlmCarouselPrevious,
+		HlmCard,
+		HlmCardContent,
 	],
 	template: \`
 		<div class="flex w-full items-center justify-center p-4">
@@ -104,7 +104,7 @@ import Autoplay from 'embla-carousel-autoplay';
 		</div>
 	\`,
 })
-export class CarouselPluginsComponent {
+export class CarouselPlugins {
 	public items = Array.from({ length: 5 }, (_, i) => i + 1);
 	public plugins = [Autoplay({ delay: 3000 })];
 }
@@ -112,25 +112,25 @@ export class CarouselPluginsComponent {
 
 export const carouselSizesCode = `
 import { Component } from '@angular/core';
-import { HlmCardContentDirective, HlmCardDirective } from '@spartan-ng/helm/card';
+import { HlmCard, HlmCardContent } from '@spartan-ng/helm/card';
 import {
-	HlmCarouselComponent,
-	HlmCarouselContentComponent,
-	HlmCarouselItemComponent,
-	HlmCarouselNextComponent,
-	HlmCarouselPreviousComponent,
+	HlmCarousel,
+	HlmCarouselContent,
+	HlmCarouselItem,
+	HlmCarouselNext,
+	HlmCarouselPrevious,
 } from '@spartan-ng/helm/carousel';
 
 @Component({
 	selector: 'spartan-carousel-sizes',
 	imports: [
-		HlmCarouselComponent,
-		HlmCarouselContentComponent,
-		HlmCarouselItemComponent,
-		HlmCarouselNextComponent,
-		HlmCarouselPreviousComponent,
-		HlmCardDirective,
-		HlmCardContentDirective,
+		HlmCarousel,
+		HlmCarouselContent,
+		HlmCarouselItem,
+		HlmCarouselNext,
+		HlmCarouselPrevious,
+		HlmCard,
+		HlmCardContent,
 	],
 	template: \`
 		<div class="flex w-full items-center justify-center p-4">
@@ -154,34 +154,34 @@ import {
 		</div>
 	\`,
 })
-export class CarouselSizesComponent {
+export class CarouselSizes {
 	public items = Array.from({ length: 5 }, (_, i) => i + 1);
 }
 `;
 
 export const carouselSlideCountCode = `
 import { Component } from '@angular/core';
-import { HlmCardContentDirective, HlmCardDirective } from '@spartan-ng/helm/card';
+import { HlmCard, HlmCardContent } from '@spartan-ng/helm/card';
 import {
-	HlmCarouselComponent,
-	HlmCarouselContentComponent,
-	HlmCarouselItemComponent,
-	HlmCarouselNextComponent,
-	HlmCarouselPreviousComponent,
-	HlmCarouselSlideDisplayComponent,
+	HlmCarousel,
+	HlmCarouselContent,
+	HlmCarouselItem,
+	HlmCarouselNext,
+	HlmCarouselPrevious,
+	HlmCarouselSlideDisplay,
 } from '@spartan-ng/helm/carousel';
 
 @Component({
 	selector: 'spartan-carousel-slide-count',
 	imports: [
-		HlmCarouselComponent,
-		HlmCarouselContentComponent,
-		HlmCarouselItemComponent,
-		HlmCarouselNextComponent,
-		HlmCarouselPreviousComponent,
-		HlmCardDirective,
-		HlmCardContentDirective,
-		HlmCarouselSlideDisplayComponent,
+		HlmCarousel,
+		HlmCarouselContent,
+		HlmCarouselItem,
+		HlmCarouselNext,
+		HlmCarouselPrevious,
+		HlmCard,
+		HlmCardContent,
+		HlmCarouselSlideDisplay,
 	],
 	template: \`
 		<div class="flex w-full items-center justify-center p-4">
@@ -206,32 +206,32 @@ import {
 		</div>
 	\`,
 })
-export class CarouselSlideCountComponent {
+export class CarouselSlideCount {
 	public items = Array.from({ length: 5 }, (_, i) => i + 1);
 }
 `;
 
 export const carouselSpacingCode = `
 import { Component } from '@angular/core';
-import { HlmCardContentDirective, HlmCardDirective } from '@spartan-ng/helm/card';
+import { HlmCard, HlmCardContent } from '@spartan-ng/helm/card';
 import {
-	HlmCarouselComponent,
-	HlmCarouselContentComponent,
-	HlmCarouselItemComponent,
-	HlmCarouselNextComponent,
-	HlmCarouselPreviousComponent,
+	HlmCarousel,
+	HlmCarouselContent,
+	HlmCarouselItem,
+	HlmCarouselNext,
+	HlmCarouselPrevious,
 } from '@spartan-ng/helm/carousel';
 
 @Component({
 	selector: 'spartan-carousel-spacing',
 	imports: [
-		HlmCarouselComponent,
-		HlmCarouselContentComponent,
-		HlmCarouselItemComponent,
-		HlmCarouselNextComponent,
-		HlmCarouselPreviousComponent,
-		HlmCardDirective,
-		HlmCardContentDirective,
+		HlmCarousel,
+		HlmCarouselContent,
+		HlmCarouselItem,
+		HlmCarouselNext,
+		HlmCarouselPrevious,
+		HlmCard,
+		HlmCardContent,
 	],
 	template: \`
 		<div class="flex w-full items-center justify-center p-4">
@@ -255,32 +255,32 @@ import {
 		</div>
 	\`,
 })
-export class CarouselSpacingComponent {
+export class CarouselSpacing {
 	public items = Array.from({ length: 5 }, (_, i) => i + 1);
 }
 `;
 
 export const defaultCode = `
 import { Component } from '@angular/core';
-import { HlmCardContentDirective, HlmCardDirective } from '@spartan-ng/helm/card';
+import { HlmCard, HlmCardContent } from '@spartan-ng/helm/card';
 import {
-	HlmCarouselComponent,
-	HlmCarouselContentComponent,
-	HlmCarouselItemComponent,
-	HlmCarouselNextComponent,
-	HlmCarouselPreviousComponent,
+	HlmCarousel,
+	HlmCarouselContent,
+	HlmCarouselItem,
+	HlmCarouselNext,
+	HlmCarouselPrevious,
 } from '@spartan-ng/helm/carousel';
 
 @Component({
 	selector: 'spartan-carousel-preview',
 	imports: [
-		HlmCarouselComponent,
-		HlmCarouselContentComponent,
-		HlmCarouselItemComponent,
-		HlmCarouselNextComponent,
-		HlmCarouselPreviousComponent,
-		HlmCardDirective,
-		HlmCardContentDirective,
+		HlmCarousel,
+		HlmCarouselContent,
+		HlmCarouselItem,
+		HlmCarouselNext,
+		HlmCarouselPrevious,
+		HlmCard,
+		HlmCardContent,
 	],
 	template: \`
 		<div class="flex w-full items-center justify-center p-4">
@@ -304,7 +304,7 @@ import {
 		</div>
 	\`,
 })
-export class CarouselPreviewComponent {
+export class CarouselPreview {
 	public items = Array.from({ length: 5 }, (_, i) => i + 1);
 }
 `;

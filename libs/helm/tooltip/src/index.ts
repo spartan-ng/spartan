@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
-import { HlmTooltipTriggerDirective } from './lib/hlm-tooltip-trigger.directive';
-import { HlmTooltipComponent } from './lib/hlm-tooltip.component';
+import { HlmTooltip } from './lib/hlm-tooltip';
+import { HlmTooltipTrigger } from './lib/hlm-tooltip-trigger';
 
-export * from './lib/hlm-tooltip-trigger.directive';
-export * from './lib/hlm-tooltip.component';
+export * from './lib/hlm-tooltip';
+export * from './lib/hlm-tooltip-trigger';
 
-export const HlmTooltipImports = [HlmTooltipComponent, HlmTooltipTriggerDirective] as const;
+export const HlmTooltipImports = [HlmTooltip, HlmTooltipTrigger] as const;
 
 @NgModule({
 	imports: [...HlmTooltipImports],

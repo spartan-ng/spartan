@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmButton } from '@spartan-ng/helm/button';
 
 @Component({
 	selector: 'spartan-button-preview',
-	imports: [HlmButtonDirective],
+	imports: [HlmButton],
 	template: `
 		<button hlmBtn>Button</button>
 	`,
 })
-export class ButtonPreviewComponent {}
+export class ButtonPreview {}
 
 export const defaultImports = `
 import { HlmButtonDirective } from '@spartan-ng/helm/button';

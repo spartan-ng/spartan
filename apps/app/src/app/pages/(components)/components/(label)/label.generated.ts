@@ -10,11 +10,11 @@ Run `pnpm run generate-snippets` to update this file.
 export const defaultCode = `
 import { Component } from '@angular/core';
 import { HlmCheckboxImports } from '@spartan-ng/helm/checkbox';
-import { HlmLabelDirective } from '@spartan-ng/helm/label';
+import { HlmLabel } from '@spartan-ng/helm/label';
 
 @Component({
 	selector: 'spartan-label-preview',
-	imports: [HlmLabelDirective, HlmCheckboxImports],
+	imports: [HlmLabel, HlmCheckboxImports],
 	template: \`
 		<div>
 			<div class="flex items-center space-x-2">
@@ -24,5 +24,5 @@ import { HlmLabelDirective } from '@spartan-ng/helm/label';
 		</div>
 	\`,
 })
-export class LabelPreviewComponent {}
+export class LabelPreview {}
 `;

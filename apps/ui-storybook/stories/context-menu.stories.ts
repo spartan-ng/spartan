@@ -1,13 +1,13 @@
 import { NgIcon } from '@ng-icons/core';
-import { BrnContextMenuTriggerDirective, BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
-import { HlmMenuComponent, HlmMenuImports } from '@spartan-ng/helm/menu';
+import { BrnContextMenuTrigger, BrnMenuTrigger } from '@spartan-ng/brain/menu';
+import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmIcon } from '@spartan-ng/helm/icon';
+import { HlmMenu, HlmMenuImports } from '@spartan-ng/helm/menu';
 import { type Meta, type StoryObj, argsToTemplate, moduleMetadata } from '@storybook/angular';
 
-const meta: Meta<HlmMenuComponent> = {
+const meta: Meta<HlmMenu> = {
 	title: 'Context Menu',
-	component: HlmMenuComponent,
+	component: HlmMenu,
 	tags: ['autodocs'],
 	args: {
 		variant: 'default',
@@ -22,20 +22,13 @@ const meta: Meta<HlmMenuComponent> = {
 	},
 	decorators: [
 		moduleMetadata({
-			imports: [
-				BrnContextMenuTriggerDirective,
-				BrnMenuTriggerDirective,
-				HlmMenuImports,
-				HlmButtonDirective,
-				NgIcon,
-				HlmIconDirective,
-			],
+			imports: [BrnContextMenuTrigger, BrnMenuTrigger, HlmMenuImports, HlmButton, NgIcon, HlmIcon],
 		}),
 	],
 };
 
 export default meta;
-type Story = StoryObj<HlmMenuComponent>;
+type Story = StoryObj<HlmMenu>;
 
 export const Default: Story = {
 	render: ({ ...args }) => ({

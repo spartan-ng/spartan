@@ -3,23 +3,23 @@ import { FormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import * as lucide from '@ng-icons/lucide';
 import { lucideHouse } from '@ng-icons/lucide';
-import { HlmIconDirective, type IconSize } from '@spartan-ng/helm/icon';
+import { HlmIcon, type IconSize } from '@spartan-ng/helm/icon';
 import { type Meta, type StoryObj, argsToTemplate, moduleMetadata } from '@storybook/angular';
 
-const meta: Meta<HlmIconDirective> = {
+const meta: Meta<HlmIcon> = {
 	title: 'Icon',
-	component: HlmIconDirective,
+	component: HlmIcon,
 	tags: ['autodocs'],
 	decorators: [
 		moduleMetadata({
-			imports: [NgIcon, HlmIconDirective],
+			imports: [NgIcon, HlmIcon],
 			providers: [provideIcons(lucide)],
 		}),
 	],
 };
 
 export default meta;
-type Story = StoryObj<HlmIconDirective & NgIcon>;
+type Story = StoryObj<HlmIcon & NgIcon>;
 
 export const Default: Story = {
 	args: {
@@ -54,7 +54,7 @@ export const Tailwind: Story = {
 
 @Component({
 	selector: 'icon-dynamic-story',
-	imports: [FormsModule, NgIcon, HlmIconDirective],
+	imports: [FormsModule, NgIcon, HlmIcon],
 	providers: [provideIcons({ lucideHouse })],
 	template: /* HTML */ `
 		<ng-icon hlm name="lucideHouse" [size]="size()" />

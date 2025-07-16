@@ -2,13 +2,8 @@ import { Component, inject } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideCheck } from '@ng-icons/lucide';
 import { BrnDialogRef, injectBrnDialogContext } from '@spartan-ng/brain/dialog';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
-import {
-	HlmDialogDescriptionDirective,
-	HlmDialogHeaderComponent,
-	HlmDialogService,
-	HlmDialogTitleDirective,
-} from '@spartan-ng/helm/dialog';
+import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmDialogDescription, HlmDialogHeader, HlmDialogService, HlmDialogTitle } from '@spartan-ng/helm/dialog';
 import { HlmTableImports } from '@spartan-ng/helm/table';
 
 type ExampleUser = {
@@ -19,12 +14,12 @@ type ExampleUser = {
 
 @Component({
 	selector: 'spartan-dialog-dynamic-component-preview',
-	imports: [HlmButtonDirective, ...HlmTableImports],
+	imports: [HlmButton, ...HlmTableImports],
 	template: `
 		<button hlmBtn (click)="openDynamicComponent()">Select User</button>
 	`,
 })
-export class DialogDynamicComponentPreviewComponent {
+export class DialogDynamicPreview {
 	private readonly _hlmDialogService = inject(HlmDialogService);
 
 	private readonly _users: ExampleUser[] = [
@@ -51,7 +46,7 @@ export class DialogDynamicComponentPreviewComponent {
 	];
 
 	public openDynamicComponent() {
-		const dialogRef = this._hlmDialogService.open(SelectUserComponent, {
+		const dialogRef = this._hlmDialogService.open(SelectUser, {
 			context: {
 				users: this._users,
 			},
@@ -69,7 +64,7 @@ export class DialogDynamicComponentPreviewComponent {
 @Component({
 	// eslint-disable-next-line @angular-eslint/component-selector
 	selector: 'dynamic-content',
-	imports: [HlmDialogHeaderComponent, HlmDialogTitleDirective, HlmDialogDescriptionDirective, ...HlmTableImports],
+	imports: [HlmDialogHeader, HlmDialogTitle, HlmDialogDescription, ...HlmTableImports],
 	providers: [provideIcons({ lucideCheck })],
 	template: `
 		<hlm-dialog-header>
@@ -96,7 +91,7 @@ export class DialogDynamicComponentPreviewComponent {
 		class: 'flex flex-col gap-4',
 	},
 })
-class SelectUserComponent {
+class SelectUser {
 	private readonly _dialogRef = inject<BrnDialogRef<ExampleUser>>(BrnDialogRef);
 	private readonly _dialogContext = injectBrnDialogContext<{ users: ExampleUser[] }>();
 

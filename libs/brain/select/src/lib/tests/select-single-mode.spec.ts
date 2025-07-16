@@ -2,9 +2,9 @@ import { Validators } from '@angular/forms';
 import { render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import {
-	SelectSingleValueTestComponent,
-	SelectSingleValueWithInitialValueTestComponent,
-	SelectSingleValueWithInitialValueWithAsyncUpdateTestComponent,
+	SelectSingleValueTest,
+	SelectSingleValueWithInitialValueTest,
+	SelectSingleValueWithInitialValueWithAsyncUpdateTest,
 } from './select-reactive-form';
 import { getFormControlStatus, getFormValidationClasses } from './utils';
 
@@ -24,7 +24,7 @@ describe('Brn Select Component in single-mode', () => {
 	});
 
 	const setupWithFormValidation = async () => {
-		const { fixture } = await render(SelectSingleValueTestComponent);
+		const { fixture } = await render(SelectSingleValueTest);
 		return {
 			user: userEvent.setup(),
 			fixture,
@@ -34,7 +34,7 @@ describe('Brn Select Component in single-mode', () => {
 	};
 
 	const setupWithFormValidationAndInitialValue = async () => {
-		const { fixture } = await render(SelectSingleValueWithInitialValueTestComponent);
+		const { fixture } = await render(SelectSingleValueWithInitialValueTest);
 		return {
 			user: userEvent.setup(),
 			fixture,
@@ -44,7 +44,7 @@ describe('Brn Select Component in single-mode', () => {
 	};
 
 	const setupWithFormValidationAndInitialValueAndAsyncUpdate = async () => {
-		const { fixture } = await render(SelectSingleValueWithInitialValueWithAsyncUpdateTestComponent);
+		const { fixture } = await render(SelectSingleValueWithInitialValueWithAsyncUpdateTest);
 		return {
 			user: userEvent.setup(),
 			fixture,
@@ -56,7 +56,7 @@ describe('Brn Select Component in single-mode', () => {
 	describe('form validation - single mode', () => {
 		it('should reflect correct formcontrol status and value with no initial value', async () => {
 			const { fixture, trigger, value } = await setupWithFormValidation();
-			const cmpInstance = fixture.componentInstance as SelectSingleValueTestComponent;
+			const cmpInstance = fixture.componentInstance as SelectSingleValueTest;
 
 			const expected = {
 				untouched: true,
@@ -96,7 +96,7 @@ describe('Brn Select Component in single-mode', () => {
 
 		it('should reflect correct formcontrol status after first user selection with no initial value', async () => {
 			const { user, trigger, fixture, value } = await setupWithFormValidation();
-			const cmpInstance = fixture.componentInstance as SelectSingleValueTestComponent;
+			const cmpInstance = fixture.componentInstance as SelectSingleValueTest;
 
 			expect(value.textContent?.trim()).toBe(DEFAULT_LABEL);
 			expect(cmpInstance.form?.get('fruit')?.value).toEqual(null);
@@ -149,7 +149,7 @@ describe('Brn Select Component in single-mode', () => {
 
 		it('should reflect correct formcontrol status after first user selection with initial value', async () => {
 			const { user, trigger, fixture, value } = await setupWithFormValidationAndInitialValue();
-			const cmpInstance = fixture.componentInstance as SelectSingleValueWithInitialValueTestComponent;
+			const cmpInstance = fixture.componentInstance as SelectSingleValueWithInitialValueTest;
 
 			expect(value.textContent?.trim()).toBe(INITIAL_VALUE_TEXT);
 			expect(cmpInstance.form?.get('fruit')?.value).toEqual(INITIAL_VALUE);
@@ -203,7 +203,7 @@ describe('Brn Select Component in single-mode', () => {
 
 		it('should reflect correct formcontrol status after first user selection with initial value and async update', async () => {
 			const { user, trigger, fixture, value } = await setupWithFormValidationAndInitialValueAndAsyncUpdate();
-			const cmpInstance = fixture.componentInstance as SelectSingleValueWithInitialValueTestComponent;
+			const cmpInstance = fixture.componentInstance as SelectSingleValueWithInitialValueTest;
 
 			expect(value.textContent?.trim()).toBe(INITIAL_VALUE_TEXT);
 			expect(cmpInstance.form?.get('fruit')?.value).toEqual(INITIAL_VALUE);
@@ -259,7 +259,7 @@ describe('Brn Select Component in single-mode', () => {
 	describe('form validation - single mode and required', () => {
 		it('should reflect correct formcontrol status with no initial value', async () => {
 			const { fixture, trigger, value } = await setupWithFormValidation();
-			const cmpInstance = fixture.componentInstance as SelectSingleValueTestComponent;
+			const cmpInstance = fixture.componentInstance as SelectSingleValueTest;
 
 			cmpInstance.form?.get('fruit')?.addValidators(Validators.required);
 			cmpInstance.form?.get('fruit')?.updateValueAndValidity();
@@ -283,7 +283,7 @@ describe('Brn Select Component in single-mode', () => {
 
 		it('should have the errorState in true when the select has been triggered and no option has been selected', async () => {
 			const { user, fixture, trigger } = await setupWithFormValidation();
-			const cmpInstance = fixture.componentInstance as SelectSingleValueTestComponent;
+			const cmpInstance = fixture.componentInstance as SelectSingleValueTest;
 
 			cmpInstance.form?.get('fruit')?.addValidators(Validators.required);
 			cmpInstance.form?.get('fruit')?.updateValueAndValidity();
@@ -300,7 +300,7 @@ describe('Brn Select Component in single-mode', () => {
 
 		it('should reflect initial single value set on formcontrol', async () => {
 			const { fixture, trigger, value } = await setupWithFormValidationAndInitialValue();
-			const cmpInstance = fixture.componentInstance as SelectSingleValueTestComponent;
+			const cmpInstance = fixture.componentInstance as SelectSingleValueTest;
 
 			const expected = {
 				untouched: true,

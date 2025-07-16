@@ -4,22 +4,22 @@ import { RouterLink } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronRight } from '@ng-icons/lucide';
 import {
-	HlmAccordionContentComponent,
-	HlmAccordionDirective,
-	HlmAccordionIconDirective,
-	HlmAccordionItemDirective,
-	HlmAccordionTriggerDirective,
+	HlmAccordion,
+	HlmAccordionContent,
+	HlmAccordionIcon,
+	HlmAccordionItem,
+	HlmAccordionTrigger,
 } from '@spartan-ng/helm/accordion';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmIcon } from '@spartan-ng/helm/icon';
 import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
-import { MainSectionDirective } from '../../../shared/layout/main-section.directive';
-import { PageBottomNavPlaceholderComponent } from '../../../shared/layout/page-bottom-nav-placeholder.component';
-import { PageBottomNavLinkComponent } from '../../../shared/layout/page-bottom-nav/page-bottom-nav-link.component';
-import { PageBottomNavComponent } from '../../../shared/layout/page-bottom-nav/page-bottom-nav.component';
-import { PageNavComponent } from '../../../shared/layout/page-nav/page-nav.component';
-import { SectionIntroComponent } from '../../../shared/layout/section-intro.component';
-import { SectionSubHeadingComponent } from '../../../shared/layout/section-sub-heading.component';
+import { MainSection } from '../../../shared/layout/main-section';
+import { PageBottomNavPlaceholder } from '../../../shared/layout/page-bottom-nav-placeholder';
+import { PageBottomNav } from '../../../shared/layout/page-bottom-nav/page-bottom-nav';
+import { PageBottomNavLink } from '../../../shared/layout/page-bottom-nav/page-bottom-nav-link';
+import { PageNav } from '../../../shared/layout/page-nav/page-nav';
+import { SectionIntro } from '../../../shared/layout/section-intro';
+import { SectionSubHeading } from '../../../shared/layout/section-sub-heading';
 import { metaWith } from '../../../shared/meta/meta.util';
 
 export const routeMeta: RouteMeta = {
@@ -34,23 +34,23 @@ export const routeMeta: RouteMeta = {
 @Component({
 	selector: 'spartan-docs-intro',
 	imports: [
-		MainSectionDirective,
-		SectionIntroComponent,
-		SectionSubHeadingComponent,
-		PageNavComponent,
-		HlmAccordionDirective,
-		HlmAccordionContentComponent,
-		HlmAccordionIconDirective,
-		HlmAccordionItemDirective,
-		HlmAccordionTriggerDirective,
+		MainSection,
+		SectionIntro,
+		SectionSubHeading,
+		PageNav,
+		HlmAccordion,
+		HlmAccordionContent,
+		HlmAccordionIcon,
+		HlmAccordionItem,
+		HlmAccordionTrigger,
 		RouterLink,
-		PageNavComponent,
-		PageBottomNavLinkComponent,
-		PageBottomNavComponent,
-		PageBottomNavPlaceholderComponent,
-		HlmButtonDirective,
+		PageNav,
+		PageBottomNavLink,
+		PageBottomNav,
+		PageBottomNavPlaceholder,
+		HlmButton,
 		NgIcon,
-		HlmIconDirective,
+		HlmIcon,
 	],
 	providers: [provideIcons({ lucideChevronRight })],
 	template: `
@@ -163,4 +163,4 @@ export const routeMeta: RouteMeta = {
 		<spartan-page-nav />
 	`,
 })
-export default class DocsIntroPageComponent {}
+export default class DocsIntroPage {}

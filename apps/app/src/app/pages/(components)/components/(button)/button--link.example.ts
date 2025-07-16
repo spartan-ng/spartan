@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmButton } from '@spartan-ng/helm/button';
 
 @Component({
 	selector: 'spartan-button-link',
-	imports: [HlmButtonDirective],
+	imports: [HlmButton],
 	template: `
 		<button hlmBtn variant="link">Link</button>
 	`,
 })
-export class ButtonLinkComponent {}
+export class ButtonLink {}

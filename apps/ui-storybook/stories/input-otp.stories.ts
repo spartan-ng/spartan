@@ -1,27 +1,16 @@
-import { BrnInputOtpComponent } from '@spartan-ng/brain/input-otp';
-import {
-	HlmInputOtpDirective,
-	HlmInputOtpGroupDirective,
-	HlmInputOtpSeparatorComponent,
-	HlmInputOtpSlotComponent,
-} from '@spartan-ng/helm/input-otp';
+import { BrnInputOtp } from '@spartan-ng/brain/input-otp';
+import { HlmInputOtp, HlmInputOtpGroup, HlmInputOtpSeparator, HlmInputOtpSlot } from '@spartan-ng/helm/input-otp';
 import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
 
-const meta: Meta<BrnInputOtpComponent> = {
+const meta: Meta<BrnInputOtp> = {
 	title: 'Input OTP',
-	component: BrnInputOtpComponent,
+	component: BrnInputOtp,
 	tags: ['autodocs'],
 	args: {},
 	argTypes: {},
 	decorators: [
 		moduleMetadata({
-			imports: [
-				BrnInputOtpComponent,
-				HlmInputOtpDirective,
-				HlmInputOtpGroupDirective,
-				HlmInputOtpSeparatorComponent,
-				HlmInputOtpSlotComponent,
-			],
+			imports: [BrnInputOtp, HlmInputOtp, HlmInputOtpGroup, HlmInputOtpSeparator, HlmInputOtpSlot],
 		}),
 	],
 	render: ({ ...args }) => ({
@@ -46,7 +35,7 @@ const meta: Meta<BrnInputOtpComponent> = {
 
 export default meta;
 
-type Story = StoryObj<BrnInputOtpComponent>;
+type Story = StoryObj<BrnInputOtp>;
 
 export const Default: Story = {
 	args: {},

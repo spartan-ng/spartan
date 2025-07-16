@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
-import { BrnToggleGroupComponent } from './lib/brn-toggle-group.component';
-import { BrnToggleGroupItemDirective } from './lib/brn-toggle-item.directive';
+import { BrnToggleGroup } from './lib/brn-toggle-group';
+import { BrnToggleGroupItem } from './lib/brn-toggle-item';
 
-export * from './lib/brn-toggle-group.component';
-export * from './lib/brn-toggle-item.directive';
+export * from './lib/brn-toggle-group';
+export * from './lib/brn-toggle-item';
 
 @NgModule({
-	imports: [BrnToggleGroupItemDirective, BrnToggleGroupComponent],
-	exports: [BrnToggleGroupItemDirective, BrnToggleGroupComponent],
+	imports: [BrnToggleGroupItem, BrnToggleGroup],
+	exports: [BrnToggleGroupItem, BrnToggleGroup],
 })
 export class BrnToggleGroupModule {}
 
 @NgModule({
-	imports: [BrnToggleGroupItemDirective],
-	exports: [BrnToggleGroupItemDirective],
+	imports: [BrnToggleGroupItem],
+	exports: [BrnToggleGroupItem],
 })
 export class BrnToggleGroupItemModule {}

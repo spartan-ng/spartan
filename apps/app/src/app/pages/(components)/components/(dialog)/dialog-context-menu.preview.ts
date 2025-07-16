@@ -1,36 +1,26 @@
 import { Component } from '@angular/core';
-import { BrnDialogContentDirective, BrnDialogTriggerDirective } from '@spartan-ng/brain/dialog';
-import { BrnContextMenuTriggerDirective } from '@spartan-ng/brain/menu';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
-import {
-	HlmDialogComponent,
-	HlmDialogContentComponent,
-	HlmDialogFooterComponent,
-	HlmDialogHeaderComponent,
-} from '@spartan-ng/helm/dialog';
+import { BrnDialogContent, BrnDialogTrigger } from '@spartan-ng/brain/dialog';
+import { BrnContextMenuTrigger } from '@spartan-ng/brain/menu';
+import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmDialog, HlmDialogContent, HlmDialogFooter, HlmDialogHeader } from '@spartan-ng/helm/dialog';
 
-import {
-	HlmMenuComponent,
-	HlmMenuGroupComponent,
-	HlmMenuItemDirective,
-	HlmMenuShortcutComponent,
-} from '@spartan-ng/helm/menu';
+import { HlmMenu, HlmMenuGroup, HlmMenuItem, HlmMenuShortcut } from '@spartan-ng/helm/menu';
 
 @Component({
 	selector: 'spartan-dialog-context-menu',
 	imports: [
-		BrnDialogTriggerDirective,
-		BrnDialogContentDirective,
-		HlmDialogContentComponent,
-		HlmDialogComponent,
-		HlmDialogHeaderComponent,
-		HlmDialogFooterComponent,
-		HlmButtonDirective,
-		BrnContextMenuTriggerDirective,
-		HlmMenuItemDirective,
-		HlmMenuShortcutComponent,
-		HlmMenuComponent,
-		HlmMenuGroupComponent,
+		BrnDialogTrigger,
+		BrnDialogContent,
+		HlmDialogContent,
+		HlmDialog,
+		HlmDialogHeader,
+		HlmDialogFooter,
+		HlmButton,
+		BrnContextMenuTrigger,
+		HlmMenuItem,
+		HlmMenuShortcut,
+		HlmMenu,
+		HlmMenuGroup,
 	],
 	template: `
 		<div
@@ -77,4 +67,4 @@ import {
 		</ng-template>
 	`,
 })
-export class DialogContextMenuPreviewComponent {}
+export class DialogContextMenuPreview {}

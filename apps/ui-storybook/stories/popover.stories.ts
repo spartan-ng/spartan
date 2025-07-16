@@ -1,15 +1,15 @@
 import { NgIcon } from '@ng-icons/core';
-import { BrnPopoverComponent, BrnPopoverImports } from '@spartan-ng/brain/popover';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
-import { HlmInputDirective } from '@spartan-ng/helm/input';
-import { HlmLabelDirective } from '@spartan-ng/helm/label';
+import { BrnPopover, BrnPopoverImports } from '@spartan-ng/brain/popover';
+import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmIcon } from '@spartan-ng/helm/icon';
+import { HlmInput } from '@spartan-ng/helm/input';
+import { HlmLabel } from '@spartan-ng/helm/label';
 import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 import { type Meta, type StoryObj, argsToTemplate, moduleMetadata } from '@storybook/angular';
 
-const meta: Meta<BrnPopoverComponent> = {
+const meta: Meta<BrnPopover> = {
 	title: 'Popover',
-	component: BrnPopoverComponent,
+	component: BrnPopover,
 	tags: ['autodocs'],
 	args: {
 		align: 'center',
@@ -21,21 +21,13 @@ const meta: Meta<BrnPopoverComponent> = {
 	},
 	decorators: [
 		moduleMetadata({
-			imports: [
-				BrnPopoverImports,
-				HlmPopoverImports,
-				HlmButtonDirective,
-				HlmLabelDirective,
-				HlmInputDirective,
-				NgIcon,
-				HlmIconDirective,
-			],
+			imports: [BrnPopoverImports, HlmPopoverImports, HlmButton, HlmLabel, HlmInput, NgIcon, HlmIcon],
 		}),
 	],
 };
 
 export default meta;
-type Story = StoryObj<BrnPopoverComponent>;
+type Story = StoryObj<BrnPopover>;
 
 export const Default: Story = {
 	render: ({ ...args }) => ({

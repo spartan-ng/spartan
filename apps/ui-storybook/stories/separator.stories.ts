@@ -1,10 +1,10 @@
-import { BrnSeparatorComponent } from '@spartan-ng/brain/separator';
-import { HlmSeparatorDirective } from '@spartan-ng/helm/separator';
+import { BrnSeparator } from '@spartan-ng/brain/separator';
+import { HlmSeparator } from '@spartan-ng/helm/separator';
 import { type Meta, type StoryObj, argsToTemplate, moduleMetadata } from '@storybook/angular';
 
-const meta: Meta<BrnSeparatorComponent> = {
+const meta: Meta<BrnSeparator> = {
 	title: 'Separator',
-	component: BrnSeparatorComponent,
+	component: BrnSeparator,
 	tags: ['autodocs'],
 	args: {
 		orientation: 'horizontal',
@@ -31,13 +31,13 @@ const meta: Meta<BrnSeparatorComponent> = {
 	},
 	decorators: [
 		moduleMetadata({
-			imports: [BrnSeparatorComponent, HlmSeparatorDirective],
+			imports: [BrnSeparator, HlmSeparator],
 		}),
 	],
 };
 
 export default meta;
-type Story = StoryObj<BrnSeparatorComponent>;
+type Story = StoryObj<BrnSeparator>;
 
 export const Default: Story = {
 	render: ({ ...args }) => ({

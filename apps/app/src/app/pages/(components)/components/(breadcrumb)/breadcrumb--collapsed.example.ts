@@ -1,24 +1,24 @@
 import { Component } from '@angular/core';
 import {
-	HlmBreadcrumbDirective,
-	HlmBreadcrumbEllipsisComponent,
-	HlmBreadcrumbItemDirective,
-	HlmBreadcrumbLinkDirective,
-	HlmBreadcrumbListDirective,
-	HlmBreadcrumbPageDirective,
-	HlmBreadcrumbSeparatorComponent,
+	HlmBreadcrumb,
+	HlmBreadcrumbEllipsis,
+	HlmBreadcrumbItem,
+	HlmBreadcrumbLink,
+	HlmBreadcrumbList,
+	HlmBreadcrumbPage,
+	HlmBreadcrumbSeparator,
 } from '@spartan-ng/helm/breadcrumb';
 
 @Component({
 	selector: 'spartan-breadcrumb-collapsed',
 	imports: [
-		HlmBreadcrumbDirective,
-		HlmBreadcrumbSeparatorComponent,
-		HlmBreadcrumbEllipsisComponent,
-		HlmBreadcrumbListDirective,
-		HlmBreadcrumbItemDirective,
-		HlmBreadcrumbPageDirective,
-		HlmBreadcrumbLinkDirective,
+		HlmBreadcrumb,
+		HlmBreadcrumbSeparator,
+		HlmBreadcrumbEllipsis,
+		HlmBreadcrumbList,
+		HlmBreadcrumbItem,
+		HlmBreadcrumbPage,
+		HlmBreadcrumbLink,
 	],
 	template: `
 		<nav hlmBreadcrumb>
@@ -42,4 +42,4 @@ import {
 		</nav>
 	`,
 })
-export class BreadcrumbCollapsedComponent {}
+export class BreadcrumbCollapsed {}

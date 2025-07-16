@@ -1,10 +1,8 @@
 import { ExistingProvider, InjectionToken, Type } from '@angular/core';
-import type { BrnCommandSearchInputDirective } from './brn-command-search-input.directive';
+import type { BrnCommandSearchInput } from './brn-command-search-input';
 
-export const BrnCommandSearchInputToken = new InjectionToken<BrnCommandSearchInputDirective>(
-	'BrnCommandSearchInputToken',
-);
+export const BrnCommandSearchInputToken = new InjectionToken<BrnCommandSearchInput>('BrnCommandSearchInputToken');
 
-export function provideBrnCommandSearchInput(command: Type<BrnCommandSearchInputDirective>): ExistingProvider {
+export function provideBrnCommandSearchInput(command: Type<BrnCommandSearchInput>): ExistingProvider {
 	return { provide: BrnCommandSearchInputToken, useExisting: command };
 }

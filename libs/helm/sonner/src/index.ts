@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 
-import { HlmToasterComponent } from './lib/hlm-toaster.component';
+import { HlmToaster } from './lib/hlm-toaster';
 
-export * from './lib/hlm-toaster.component';
+export * from './lib/hlm-toaster';
 
-export const HlmToasterImports = [HlmToasterComponent] as const;
+export const HlmToasterImports = [HlmToaster] as const;
 
 @NgModule({
 	imports: [...HlmToasterImports],

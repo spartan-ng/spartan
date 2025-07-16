@@ -1,24 +1,24 @@
 import { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
-import { CodePreviewDirective } from '@spartan-ng/app/app/shared/code/code-preview.directive';
-import { CodeComponent } from '@spartan-ng/app/app/shared/code/code.component';
-import { MainSectionDirective } from '@spartan-ng/app/app/shared/layout/main-section.directive';
-import { PageBottomNavLinkComponent } from '@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav-link.component';
-import { PageBottomNavComponent } from '@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav.component';
-import { PageNavComponent } from '@spartan-ng/app/app/shared/layout/page-nav/page-nav.component';
-import { SectionIntroComponent } from '@spartan-ng/app/app/shared/layout/section-intro.component';
-import { SectionSubHeadingComponent } from '@spartan-ng/app/app/shared/layout/section-sub-heading.component';
-import { TabsCliComponent } from '@spartan-ng/app/app/shared/layout/tabs-cli.component';
-import { TabsComponent } from '@spartan-ng/app/app/shared/layout/tabs.component';
+import { Code } from '@spartan-ng/app/app/shared/code/code';
+import { CodePreview } from '@spartan-ng/app/app/shared/code/code-preview';
+import { MainSection } from '@spartan-ng/app/app/shared/layout/main-section';
+import { PageBottomNav } from '@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav';
+import { PageBottomNavLink } from '@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav-link';
+import { PageNav } from '@spartan-ng/app/app/shared/layout/page-nav/page-nav';
+import { SectionIntro } from '@spartan-ng/app/app/shared/layout/section-intro';
+import { SectionSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-heading';
+import { Tabs } from '@spartan-ng/app/app/shared/layout/tabs';
+import { TabsCli } from '@spartan-ng/app/app/shared/layout/tabs-cli';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
 import { hlmH4 } from '@spartan-ng/helm/typography';
 import { toggleDisabledCode, toggleLargeCode, toggleOutlineCode, toggleSmallCode } from '../(toggle)/toggle.generated';
-import { ToggleGroupDisabledPreviewComponent } from './toggle-group--disabled.preview';
-import { ToggleGroupLargePreviewComponent } from './toggle-group--large.preview';
-import { ToggleGroupOutlinePreviewComponent } from './toggle-group--outline.preview';
-import { ToggleGroupSmallPreviewComponent } from './toggle-group--small.preview';
+import { ToggleGroupDisabledPreview } from './toggle-group--disabled.preview';
+import { ToggleGroupLargePreview } from './toggle-group--large.preview';
+import { ToggleGroupOutlinePreview } from './toggle-group--outline.preview';
+import { ToggleGroupSmallPreview } from './toggle-group--small.preview';
 import { defaultCode } from './toggle-group.generated';
-import { ToggleGroupPreviewComponent, defaultImports, defaultSkeleton } from './toggle-group.preview';
+import { ToggleGroupPreview, defaultImports, defaultSkeleton } from './toggle-group.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Toggle Group' },
@@ -32,21 +32,21 @@ export const routeMeta: RouteMeta = {
 @Component({
 	selector: 'spartan-toggle-group-page',
 	imports: [
-		CodeComponent,
-		CodePreviewDirective,
-		MainSectionDirective,
-		SectionIntroComponent,
-		SectionSubHeadingComponent,
-		PageNavComponent,
-		PageBottomNavComponent,
-		PageBottomNavLinkComponent,
-		TabsComponent,
-		TabsCliComponent,
-		ToggleGroupPreviewComponent,
-		ToggleGroupOutlinePreviewComponent,
-		ToggleGroupSmallPreviewComponent,
-		ToggleGroupLargePreviewComponent,
-		ToggleGroupDisabledPreviewComponent,
+		Code,
+		CodePreview,
+		MainSection,
+		SectionIntro,
+		SectionSubHeading,
+		PageNav,
+		PageBottomNav,
+		PageBottomNavLink,
+		Tabs,
+		TabsCli,
+		ToggleGroupPreview,
+		ToggleGroupOutlinePreview,
+		ToggleGroupSmallPreview,
+		ToggleGroupLargePreview,
+		ToggleGroupDisabledPreview,
 	],
 	template: `
 		<section spartanMainSection>
@@ -114,7 +114,7 @@ export const routeMeta: RouteMeta = {
 		<spartan-page-nav />
 	`,
 })
-export default class ToggleGroupPageComponent {
+export default class ToggleGroupPage {
 	protected readonly defaultCode = defaultCode;
 	protected readonly defaultImports = defaultImports;
 	protected readonly defaultSkeleton = defaultSkeleton;

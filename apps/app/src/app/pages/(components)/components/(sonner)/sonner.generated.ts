@@ -9,19 +9,19 @@ Run `pnpm run generate-snippets` to update this file.
 
 export const defaultCode = `
 import { Component } from '@angular/core';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
-import { HlmToasterComponent } from '@spartan-ng/helm/sonner';
+import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmToaster } from '@spartan-ng/helm/sonner';
 import { toast } from 'ngx-sonner';
 
 @Component({
 	selector: 'spartan-sonner-preview',
-	imports: [HlmToasterComponent, HlmButtonDirective],
+	imports: [HlmToaster, HlmButton],
 	template: \`
 		<hlm-toaster />
 		<button hlmBtn (click)="showToast()">Show Toast</button>
 	\`,
 })
-export class SonnerPreviewComponent {
+export class SonnerPreview {
 	showToast() {
 		toast('Event has been created', {
 			description: 'Sunday, December 03, 2023 at 9:00 AM',

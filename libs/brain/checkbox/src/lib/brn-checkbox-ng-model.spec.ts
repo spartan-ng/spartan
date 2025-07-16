@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 
 import { ChangeDetectionStrategy, Component, input, model } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { BrnCheckboxComponent } from './brn-checkbox.component';
+import { BrnCheckbox } from './brn-checkbox';
 
 @Component({
 	selector: 'brn-checkbox-ng-model',
@@ -13,10 +13,10 @@ import { BrnCheckboxComponent } from './brn-checkbox.component';
 			<brn-checkbox [disabled]="disabled()" [(ngModel)]="airplaneMode"></brn-checkbox>
 		</label>
 	`,
-	imports: [BrnCheckboxComponent, FormsModule],
+	imports: [BrnCheckbox, FormsModule],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BrnCheckboxNgModelSpecComponent {
+export class BrnCheckboxNgModelSpec {
 	public readonly disabled = input(false);
 
 	public readonly airplaneMode = model(false);
@@ -24,7 +24,7 @@ export class BrnCheckboxNgModelSpecComponent {
 
 describe('BrnCheckboxComponentNgModelIntegration', () => {
 	const setup = async (airplaneMode = false, disabled = false) => {
-		const container = await render(BrnCheckboxNgModelSpecComponent, {
+		const container = await render(BrnCheckboxNgModelSpec, {
 			componentInputs: {
 				disabled,
 				airplaneMode,

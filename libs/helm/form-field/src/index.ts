@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
-import { HlmErrorDirective } from './lib/hlm-error.directive';
-import { HlmFormFieldComponent } from './lib/hlm-form-field.component';
-import { HlmHintDirective } from './lib/hlm-hint.directive';
+import { HlmError } from './lib/hlm-error';
+import { HlmFormField } from './lib/hlm-form-field';
+import { HlmHint } from './lib/hlm-hint';
 
-export * from './lib/hlm-error.directive';
-export * from './lib/hlm-form-field.component';
-export * from './lib/hlm-hint.directive';
+export * from './lib/hlm-error';
+export * from './lib/hlm-form-field';
+export * from './lib/hlm-hint';
 
 @NgModule({
-	imports: [HlmFormFieldComponent, HlmErrorDirective, HlmHintDirective],
-	exports: [HlmFormFieldComponent, HlmErrorDirective, HlmHintDirective],
+	imports: [HlmFormField, HlmError, HlmHint],
+	exports: [HlmFormField, HlmError, HlmHint],
 })
 export class HlmFormFieldModule {}

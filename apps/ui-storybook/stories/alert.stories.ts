@@ -1,13 +1,13 @@
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCircleAlert, lucideInfo } from '@ng-icons/lucide';
-import { HlmAlertDirective, HlmAlertImports } from '@spartan-ng/helm/alert';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { HlmAlert, HlmAlertImports } from '@spartan-ng/helm/alert';
+import { HlmIcon } from '@spartan-ng/helm/icon';
 import type { Meta, StoryObj } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
 
-const meta: Meta<HlmAlertDirective> = {
+const meta: Meta<HlmAlert> = {
 	title: 'Alert',
-	component: HlmAlertDirective,
+	component: HlmAlert,
 	tags: ['autodocs'],
 	argTypes: {
 		variant: {
@@ -19,7 +19,7 @@ const meta: Meta<HlmAlertDirective> = {
 	},
 	decorators: [
 		moduleMetadata({
-			imports: [HlmAlertImports, NgIcon, HlmIconDirective],
+			imports: [HlmAlertImports, NgIcon, HlmIcon],
 			providers: [provideIcons({ lucideInfo, lucideCircleAlert })],
 		}),
 	],
@@ -41,7 +41,7 @@ const meta: Meta<HlmAlertDirective> = {
 };
 
 export default meta;
-type Story = StoryObj<HlmAlertDirective>;
+type Story = StoryObj<HlmAlert>;
 
 export const Default: Story = {
 	args: {

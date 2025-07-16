@@ -1,24 +1,24 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
 import { hlmH4 } from '@spartan-ng/helm/typography';
-import { CodePreviewDirective } from '../../../../shared/code/code-preview.directive';
-import { CodeComponent } from '../../../../shared/code/code.component';
-import { MainSectionDirective } from '../../../../shared/layout/main-section.directive';
+import { Code } from '../../../../shared/code/code';
+import { CodePreview } from '../../../../shared/code/code-preview';
+import { MainSection } from '../../../../shared/layout/main-section';
 
-import { PageBottomNavLinkComponent } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav-link.component';
-import { PageBottomNavComponent } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav.component';
-import { PageNavComponent } from '../../../../shared/layout/page-nav/page-nav.component';
-import { SectionIntroComponent } from '../../../../shared/layout/section-intro.component';
-import { SectionSubHeadingComponent } from '../../../../shared/layout/section-sub-heading.component';
-import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
-import { TabsComponent } from '../../../../shared/layout/tabs.component';
-import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
+import { PageBottomNav } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav';
+import { PageBottomNavLink } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav-link';
+import { PageNav } from '../../../../shared/layout/page-nav/page-nav';
+import { SectionIntro } from '../../../../shared/layout/section-intro';
+import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading';
+import { Tabs } from '../../../../shared/layout/tabs';
+import { TabsCli } from '../../../../shared/layout/tabs-cli';
+import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { ToggleDisabledPreviewComponent } from './toggle--disabled.preview';
-import { ToggleLargePreviewComponent } from './toggle--large.preview';
-import { ToggleOutlinePreviewComponent } from './toggle--outline.preview';
-import { ToggleSmallPreviewComponent } from './toggle--small.preview';
-import { ToggleWithTextPreviewComponent } from './toggle--with-text.preview';
+import { ToggleDisabledPreview } from './toggle--disabled.preview';
+import { ToggleLargePreview } from './toggle--large.preview';
+import { ToggleOutlinePreview } from './toggle--outline.preview';
+import { ToggleSmallPreview } from './toggle--small.preview';
+import { ToggleWithTextPreview } from './toggle--with-text.preview';
 import {
 	defaultCode,
 	toggleDisabledCode,
@@ -27,7 +27,7 @@ import {
 	toggleSmallCode,
 	toggleWithTextCode,
 } from './toggle.generated';
-import { TogglePreviewComponent, defaultImports, defaultSkeleton } from './toggle.preview';
+import { TogglePreview, defaultImports, defaultSkeleton } from './toggle.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Toggle', api: 'toggle' },
@@ -37,23 +37,23 @@ export const routeMeta: RouteMeta = {
 @Component({
 	selector: 'spartan-input',
 	imports: [
-		UIApiDocsComponent,
-		MainSectionDirective,
-		CodeComponent,
-		SectionIntroComponent,
-		SectionSubHeadingComponent,
-		TabsComponent,
-		TabsCliComponent,
-		CodePreviewDirective,
-		PageNavComponent,
-		PageBottomNavComponent,
-		PageBottomNavLinkComponent,
-		TogglePreviewComponent,
-		ToggleDisabledPreviewComponent,
-		ToggleLargePreviewComponent,
-		ToggleOutlinePreviewComponent,
-		ToggleSmallPreviewComponent,
-		ToggleWithTextPreviewComponent,
+		UIApiDocs,
+		MainSection,
+		Code,
+		SectionIntro,
+		SectionSubHeading,
+		Tabs,
+		TabsCli,
+		CodePreview,
+		PageNav,
+		PageBottomNav,
+		PageBottomNavLink,
+		TogglePreview,
+		ToggleDisabledPreview,
+		ToggleLargePreview,
+		ToggleOutlinePreview,
+		ToggleSmallPreview,
+		ToggleWithTextPreview,
 	],
 	template: `
 		<section spartanMainSection>
@@ -130,7 +130,7 @@ export const routeMeta: RouteMeta = {
 		<spartan-page-nav />
 	`,
 })
-export default class TogglePageComponent {
+export default class TogglePage {
 	protected readonly defaultCode = defaultCode;
 	protected readonly defaultSkeleton = defaultSkeleton;
 	protected readonly defaultImports = defaultImports;

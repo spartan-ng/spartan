@@ -9,14 +9,14 @@ Run `pnpm run generate-snippets` to update this file.
 
 export const defaultCode = `
 import { Component } from '@angular/core';
-import { HlmSpinnerComponent } from '@spartan-ng/helm/spinner';
+import { HlmSpinner } from '@spartan-ng/helm/spinner';
 
 @Component({
 	selector: 'spartan-spinner-preview',
-	imports: [HlmSpinnerComponent],
+	imports: [HlmSpinner],
 	template: \`
 		<hlm-spinner />
 	\`,
 })
-export class SpinnerPreviewComponent {}
+export class SpinnerPreview {}
 `;

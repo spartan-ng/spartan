@@ -2,9 +2,9 @@ import { Validators } from '@angular/forms';
 import { render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import {
-	SelectMultiValueTestComponent,
-	SelectMultiValueWithInitialValueTestComponent,
-	SelectMultiValueWithInitialValueWithForLoopTestComponent,
+	SelectMultiValueTest,
+	SelectMultiValueWithInitialValueTest,
+	SelectMultiValueWithInitialValueWithForLoopTest,
 } from './select-reactive-form';
 import { getFormControlStatus, getFormValidationClasses } from './utils';
 
@@ -21,7 +21,7 @@ describe('Brn Select Component in multi-mode', () => {
 	const DEFAULT_LABEL = 'Select a Fruit';
 
 	const setupWithFormValidationMulti = async () => {
-		const { fixture } = await render(SelectMultiValueTestComponent);
+		const { fixture } = await render(SelectMultiValueTest);
 		return {
 			user: userEvent.setup(),
 			fixture,
@@ -31,7 +31,7 @@ describe('Brn Select Component in multi-mode', () => {
 	};
 
 	const setupWithFormValidationMultiWithInitialValue = async () => {
-		const { fixture } = await render(SelectMultiValueWithInitialValueTestComponent);
+		const { fixture } = await render(SelectMultiValueWithInitialValueTest);
 		return {
 			user: userEvent.setup(),
 			fixture,
@@ -41,7 +41,7 @@ describe('Brn Select Component in multi-mode', () => {
 	};
 
 	const setupWithFormValidationMultiWithInitialValueWithForLoop = async () => {
-		const { fixture } = await render(SelectMultiValueWithInitialValueWithForLoopTestComponent);
+		const { fixture } = await render(SelectMultiValueWithInitialValueWithForLoopTest);
 		return {
 			user: userEvent.setup(),
 			fixture,
@@ -100,7 +100,7 @@ describe('Brn Select Component in multi-mode', () => {
 		// should have correct status when initialized with no value and as optional
 		it('should reflect correct form control status with no initial value', async () => {
 			const { fixture, trigger, value } = await setupWithFormValidationMulti();
-			const cmpInstance = fixture.componentInstance as SelectMultiValueTestComponent;
+			const cmpInstance = fixture.componentInstance as SelectMultiValueTest;
 
 			const expected = {
 				untouched: true,
@@ -570,7 +570,7 @@ describe('Brn Select Component in multi-mode', () => {
 		 */
 		it('should reflect correct form control status and value after first user selection with initial value with dynamic options', async () => {
 			const { fixture, trigger, value, user } = await setupWithFormValidationMultiWithInitialValueWithForLoop();
-			const cmpInstance = fixture.componentInstance as SelectMultiValueWithInitialValueWithForLoopTestComponent;
+			const cmpInstance = fixture.componentInstance as SelectMultiValueWithInitialValueWithForLoopTest;
 
 			cmpInstance.form?.get('fruit')?.addValidators(Validators.required);
 			cmpInstance.form?.get('fruit')?.updateValueAndValidity();
@@ -726,7 +726,7 @@ describe('Brn Select Component in multi-mode', () => {
 	describe('deselect option - multi mode', () => {
 		it('should reflect correct form control status with no initial value', async () => {
 			const { fixture, trigger, user } = await setupWithFormValidationMulti();
-			const cmpInstance = fixture.componentInstance as SelectMultiValueTestComponent;
+			const cmpInstance = fixture.componentInstance as SelectMultiValueTest;
 
 			expect(cmpInstance.form?.get('fruit')?.value).toEqual([]);
 

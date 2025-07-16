@@ -1,22 +1,17 @@
 import { NgModule } from '@angular/core';
 
-import { BrnTabsContentDirective } from './lib/brn-tabs-content.directive';
-import { BrnTabsListDirective } from './lib/brn-tabs-list.directive';
-import { BrnTabsTriggerDirective } from './lib/brn-tabs-trigger.directive';
-import { BrnTabsDirective } from './lib/brn-tabs.directive';
+import { BrnTabs } from './lib/brn-tabs';
+import { BrnTabsContent } from './lib/brn-tabs-content';
+import { BrnTabsList } from './lib/brn-tabs-list';
+import { BrnTabsTrigger } from './lib/brn-tabs-trigger';
 
-export * from './lib/brn-tabs-content.directive';
-export * from './lib/brn-tabs-list.directive';
-export * from './lib/brn-tabs-paginated-list.directive';
-export * from './lib/brn-tabs-trigger.directive';
-export * from './lib/brn-tabs.directive';
+export * from './lib/brn-tabs';
+export * from './lib/brn-tabs-content';
+export * from './lib/brn-tabs-list';
+export * from './lib/brn-tabs-paginated-list';
+export * from './lib/brn-tabs-trigger';
 
-export const BrnTabsImports = [
-	BrnTabsDirective,
-	BrnTabsListDirective,
-	BrnTabsTriggerDirective,
-	BrnTabsContentDirective,
-] as const;
+export const BrnTabsImports = [BrnTabs, BrnTabsList, BrnTabsTrigger, BrnTabsContent] as const;
 
 @NgModule({
 	imports: [...BrnTabsImports],

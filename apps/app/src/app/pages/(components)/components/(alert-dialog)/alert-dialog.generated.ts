@@ -9,33 +9,33 @@ Run `pnpm run generate-snippets` to update this file.
 
 export const defaultCode = `
 import { Component } from '@angular/core';
-import { BrnAlertDialogContentDirective, BrnAlertDialogTriggerDirective } from '@spartan-ng/brain/alert-dialog';
+import { BrnAlertDialogContent, BrnAlertDialogTrigger } from '@spartan-ng/brain/alert-dialog';
 import {
-	HlmAlertDialogActionButtonDirective,
-	HlmAlertDialogCancelButtonDirective,
-	HlmAlertDialogComponent,
-	HlmAlertDialogContentComponent,
-	HlmAlertDialogDescriptionDirective,
-	HlmAlertDialogFooterComponent,
-	HlmAlertDialogHeaderComponent,
-	HlmAlertDialogTitleDirective,
+	HlmAlertDialog,
+	HlmAlertDialogActionButton,
+	HlmAlertDialogCancelButton,
+	HlmAlertDialogContent,
+	HlmAlertDialogDescription,
+	HlmAlertDialogFooter,
+	HlmAlertDialogHeader,
+	HlmAlertDialogTitle,
 } from '@spartan-ng/helm/alert-dialog';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmButton } from '@spartan-ng/helm/button';
 
 @Component({
 	selector: 'spartan-alert-dialog-preview',
 	imports: [
-		BrnAlertDialogTriggerDirective,
-		BrnAlertDialogContentDirective,
-		HlmAlertDialogComponent,
-		HlmAlertDialogHeaderComponent,
-		HlmAlertDialogFooterComponent,
-		HlmAlertDialogTitleDirective,
-		HlmAlertDialogDescriptionDirective,
-		HlmAlertDialogCancelButtonDirective,
-		HlmAlertDialogActionButtonDirective,
-		HlmAlertDialogContentComponent,
-		HlmButtonDirective,
+		BrnAlertDialogTrigger,
+		BrnAlertDialogContent,
+		HlmAlertDialog,
+		HlmAlertDialogHeader,
+		HlmAlertDialogFooter,
+		HlmAlertDialogTitle,
+		HlmAlertDialogDescription,
+		HlmAlertDialogCancelButton,
+		HlmAlertDialogActionButton,
+		HlmAlertDialogContent,
+		HlmButton,
 	],
 	template: \`
 		<hlm-alert-dialog>
@@ -56,5 +56,5 @@ import { HlmButtonDirective } from '@spartan-ng/helm/button';
 		</hlm-alert-dialog>
 	\`,
 })
-export class AlertDialogPreviewComponent {}
+export class AlertDialogPreview {}
 `;

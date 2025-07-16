@@ -1,14 +1,14 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
-import { CodeComponent } from '@spartan-ng/app/app/shared/code/code.component';
-import { MainSectionDirective } from '@spartan-ng/app/app/shared/layout/main-section.directive';
-import { PageBottomNavLinkComponent } from '@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav-link.component';
-import { PageBottomNavComponent } from '@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav.component';
-import { PageNavComponent } from '@spartan-ng/app/app/shared/layout/page-nav/page-nav.component';
-import { SectionIntroComponent } from '@spartan-ng/app/app/shared/layout/section-intro.component';
-import { SectionSubHeadingComponent } from '@spartan-ng/app/app/shared/layout/section-sub-heading.component';
+import { Code } from '@spartan-ng/app/app/shared/code/code';
+import { MainSection } from '@spartan-ng/app/app/shared/layout/main-section';
+import { PageBottomNav } from '@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav';
+import { PageBottomNavLink } from '@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav-link';
+import { PageNav } from '@spartan-ng/app/app/shared/layout/page-nav/page-nav';
+import { SectionIntro } from '@spartan-ng/app/app/shared/layout/section-intro';
+import { SectionSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-heading';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
-import { HlmAlertDescriptionDirective, HlmAlertDirective } from '@spartan-ng/helm/alert';
+import { HlmAlert } from '@spartan-ng/helm/alert';
 import { hlmCode, hlmH4, hlmP, hlmSmall } from '@spartan-ng/helm/typography';
 
 export const routeMeta: RouteMeta = {
@@ -19,17 +19,7 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-theming',
-	imports: [
-		MainSectionDirective,
-		SectionIntroComponent,
-		PageBottomNavComponent,
-		PageBottomNavLinkComponent,
-		PageNavComponent,
-		SectionSubHeadingComponent,
-		CodeComponent,
-		HlmAlertDirective,
-		HlmAlertDescriptionDirective,
-	],
+	imports: [MainSection, SectionIntro, PageBottomNav, PageBottomNavLink, PageNav, SectionSubHeading, Code, HlmAlert],
 	template: `
 		<section spartanMainSection>
 			<spartan-section-intro name="Theming" lead="Using CSS Variables for theming." />
@@ -329,4 +319,4 @@ module.exports = {
 		<spartan-page-nav />
 	`,
 })
-export default class ThemingPageComponent {}
+export default class ThemingPage {}

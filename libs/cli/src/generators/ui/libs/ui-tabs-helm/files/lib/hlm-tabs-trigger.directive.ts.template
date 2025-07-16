@@ -12,7 +12,6 @@ import type { ClassValue } from 'clsx';
 })
 export class HlmTabsTriggerDirective {
 	public readonly triggerFor = input.required<string>({ alias: 'hlmTabsTrigger' });
-
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>
 		hlm(

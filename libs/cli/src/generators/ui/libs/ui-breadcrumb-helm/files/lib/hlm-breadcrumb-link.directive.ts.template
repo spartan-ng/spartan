@@ -29,6 +29,7 @@ import type { ClassValue } from 'clsx';
 })
 export class HlmBreadcrumbLinkDirective {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
+	/** The link to navigate to the page. */
 	public readonly link = input<RouterLink['routerLink']>();
 
 	protected readonly _computedClass = computed(() => hlm('hover:text-foreground transition-colors', this.userClass()));

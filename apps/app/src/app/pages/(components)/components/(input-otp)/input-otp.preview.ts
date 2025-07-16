@@ -26,10 +26,10 @@ export class InputOtpPreview {}
 export const defaultImports = `
 import { BrnInputOtpComponent } from '@spartan-ng/brain/input-otp';
 import {
-	HlmInputOtpDirective,
-	HlmInputOtpGroupDirective,
-	HlmInputOtpSeparatorComponent,
-	HlmInputOtpSlotComponent,
+	HlmInputOtp
+	HlmInputOtpGroup
+	HlmInputOtpSeparator
+	HlmInputOtpSlot
 } from '@spartan-ng/helm/input-otp';
 `;
 export const defaultSkeleton = `

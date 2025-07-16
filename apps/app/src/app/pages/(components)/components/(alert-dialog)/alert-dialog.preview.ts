@@ -51,15 +51,15 @@ export class AlertDialogPreview {}
 export const defaultImports = `
 import { BrnAlertDialogContentDirective, BrnAlertDialogTriggerDirective } from '@spartan-ng/brain/alert-dialog';
 import {
-  HlmAlertDialogActionButtonDirective,
-  HlmAlertDialogCancelButtonDirective,
-  HlmAlertDialogComponent,
-  HlmAlertDialogContentComponent,
-  HlmAlertDialogDescriptionDirective,
-  HlmAlertDialogFooterComponent,
-  HlmAlertDialogHeaderComponent,
-  HlmAlertDialogOverlayDirective,
-  HlmAlertDialogTitleDirective,
+  HlmAlertDialogActionButton
+  HlmAlertDialogCancelButton
+  HlmAlertDialog
+  HlmAlertDialogContent
+  HlmAlertDialogDescription
+  HlmAlertDialogFooter
+  HlmAlertDialogHeader
+  HlmAlertDialogOverlay
+  HlmAlertDialogTitle
 } from '@spartan-ng/helm/alert-dialog';
 `;
 

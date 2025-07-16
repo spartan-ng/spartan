@@ -1,7 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucidePlus } from '@ng-icons/lucide';
-import { BrnTooltipContent } from '@spartan-ng/brain/tooltip';
+import { BrnTooltipContent, BrnTooltipContentTemplate } from '@spartan-ng/brain/tooltip';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmTooltip, HlmTooltipTrigger } from '@spartan-ng/helm/tooltip';
@@ -14,7 +14,15 @@ const meta: Meta<HlmTooltip> = {
 	argTypes: {},
 	decorators: [
 		moduleMetadata({
-			imports: [HlmButton, HlmTooltip, BrnTooltipContent, HlmTooltipTrigger, NgIcon, HlmIcon],
+			imports: [
+				HlmButton,
+				HlmTooltip,
+				BrnTooltipContent,
+				BrnTooltipContentTemplate,
+				HlmTooltipTrigger,
+				NgIcon,
+				HlmIcon,
+			],
 			providers: [provideIcons({ lucidePlus })],
 		}),
 	],
@@ -47,7 +55,7 @@ export const Default: Story = {
 
 @Component({
 	selector: 'simple-tooltip-story',
-	imports: [HlmButton, HlmTooltip, BrnTooltipContent, HlmTooltipTrigger, NgIcon, HlmIcon],
+	imports: [HlmButton, HlmTooltip, BrnTooltipContent, BrnTooltipContentTemplate, HlmTooltipTrigger, NgIcon, HlmIcon],
 	providers: [provideIcons({ lucidePlus })],
 	template: `
 		<div class="p-40">
@@ -79,7 +87,7 @@ export const Simple: Story = {
 
 @Component({
 	selector: 'disabled-tooltip-story',
-	imports: [HlmButton, HlmTooltip, BrnTooltipContent, HlmTooltipTrigger, NgIcon, HlmIcon],
+	imports: [HlmButton, HlmTooltip, BrnTooltipContent, BrnTooltipContentTemplate, HlmTooltipTrigger, NgIcon, HlmIcon],
 	providers: [provideIcons({ lucidePlus })],
 	template: `
 		<div class="p-40">

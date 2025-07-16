@@ -67,13 +67,13 @@ export class BreadcrumbPreview {}
 
 export const defaultImports = `
 import {
-	HlmBreadcrumbDirective,
-	HlmBreadcrumbEllipsisComponent,
-	HlmBreadcrumbItemDirective,
-	HlmBreadcrumbLinkDirective,
-	HlmBreadcrumbListDirective,
-	HlmBreadcrumbPageDirective,
-	HlmBreadcrumbSeparatorComponent,
+	HlmBreadcrumb
+	HlmBreadcrumbEllipsis
+	HlmBreadcrumbItem
+	HlmBreadcrumbLink
+	HlmBreadcrumbList
+	HlmBreadcrumbPage
+	HlmBreadcrumbSeparator
 } from '@spartan-ng/helm/breadcrumb';
 `;
 

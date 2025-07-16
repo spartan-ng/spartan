@@ -47,11 +47,11 @@ export class CarouselPreview {
 
 export const defaultImports = `
 import {
-	HlmCarouselComponent,
-	HlmCarouselContentComponent,
-	HlmCarouselItemComponent,
-	HlmCarouselNextComponent,
-	HlmCarouselPreviousComponent,
+	HlmCarousel
+	HlmCarouselContent
+	HlmCarouselItem
+	HlmCarouselNext
+	HlmCarouselPrevious
 } from '@spartan-ng/helm/carousel';
 `;
 

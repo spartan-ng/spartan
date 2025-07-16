@@ -171,21 +171,21 @@ export class MenubarPreview {}
 export const defaultImports = `
 import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
 import {
-  HlmMenuBarComponent,
-  HlmMenuBarItemDirective,
-  HlmMenuComponent,
-  HlmMenuGroupComponent,
-  HlmMenuItemCheckboxDirective,
-  HlmMenuItemCheckComponent,
-  HlmMenuItemDirective,
-  HlmMenuItemIconDirective,
-  HlmMenuItemRadioComponent,
-  HlmMenuItemRadioDirective,
-  HlmMenuItemSubIndicatorComponent,
-  HlmMenuLabelComponent,
-  HlmMenuSeparatorComponent,
-  HlmMenuShortcutComponent,
-  HlmSubMenuComponent,
+  HlmMenuBar
+  HlmMenuBarItem
+  HlmMenu
+  HlmMenuGroup
+  HlmMenuItemCheckbox
+  HlmMenuItemCheck
+  HlmMenuItem
+  HlmMenuItemIcon
+  HlmMenuItemRadio
+  HlmMenuItemRadio
+  HlmMenuItemSubIndicator
+  HlmMenuLabel
+  HlmMenuSeparator
+  HlmMenuShortcut
+  HlmSubMenu
 } from '@spartan-ng/helm/menu';
 `;
 export const defaultSkeleton = `

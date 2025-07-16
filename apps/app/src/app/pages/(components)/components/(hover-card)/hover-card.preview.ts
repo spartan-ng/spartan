@@ -37,13 +37,13 @@ export class HoverCardPreview {}
 
 export const defaultImports = `
 import {
-  BrnHoverCardComponent,
-  BrnHoverCardContentDirective,
-  BrnHoverCardTriggerDirective,
+  BrnHoverCard
+  BrnHoverCardContent
+  BrnHoverCardTrigger
 } from '@spartan-ng/brain/hover-card';
 
 import {
-  HlmHoverCardContentComponent
+  HlmHoverCardContent
 } from '@spartan-ng/helm/hover-card';
 `;
 

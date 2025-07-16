@@ -87,10 +87,10 @@ export class TabsPreview {}
 
 export const defaultImports = `
 import {
-	HlmTabsComponent,
-	HlmTabsContentDirective,
-	HlmTabsListComponent,
-	HlmTabsTriggerDirective,
+	HlmTabs
+	HlmTabsContent
+	HlmTabsList
+	HlmTabsTrigger
 } from '@spartan-ng/helm/tabs';
 `;
 export const defaultSkeleton = `

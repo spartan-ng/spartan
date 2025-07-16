@@ -49,13 +49,13 @@ export class PaginationPreview {}
 
 export const defaultImports = `
 import {
-	HlmPaginationContentDirective,
-	HlmPaginationDirective,
-	HlmPaginationEllipsisComponent,
-	HlmPaginationItemDirective,
-	HlmPaginationLinkDirective,
-	HlmPaginationNextComponent,
-	HlmPaginationPreviousComponent,
+	HlmPaginationContent
+	HlmPagination
+	HlmPaginationEllipsis
+	HlmPaginationItem
+	HlmPaginationLink
+	HlmPaginationNext
+	HlmPaginationPrevious
 } from '@spartan-ng/helm/pagination';
 `;
 

@@ -30,12 +30,12 @@ export class ToggleGroupPreview {}
 
 export const defaultImports = `
 import {
- BrnToggleGroupItemDirective,
- BrnToggleGroupComponent,
+ BrnToggleGroupItem
+ BrnToggleGroup
 } from '@spartan-ng/brain/toggle-group';
 import {
- HlmToggleGroupItemDirective,
- HlmToggleGroupDirective,
+ HlmToggleGroupItem
+ HlmToggleGroup
 } from '@spartan-ng/helm/toggle-group';
 `;
 

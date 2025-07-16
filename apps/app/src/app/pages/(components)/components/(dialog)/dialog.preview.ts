@@ -57,12 +57,12 @@ export class DialogPreview {}
 export const defaultImports = `
 import { BrnDialogContentDirective, BrnDialogTriggerDirective } from '@spartan-ng/brain/dialog';
 import {
-  HlmDialogComponent,
-  HlmDialogContentComponent,
-  HlmDialogDescriptionDirective,
-  HlmDialogFooterComponent,
-  HlmDialogHeaderComponent,
-  HlmDialogTitleDirective,
+  HlmDialog
+  HlmDialogContent
+  HlmDialogDescription
+  HlmDialogFooter
+  HlmDialogHeader
+  HlmDialogTitle
 } from '@spartan-ng/helm/dialog';
 `;
 

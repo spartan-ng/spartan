@@ -27,18 +27,18 @@ export const routeMeta: RouteMeta = {
 @Component({
 	selector: 'spartan-<%= fileName %>',
 imports: [
-		MainSectionDirective,
-		CodeComponent,
-		SectionIntroComponent,
-		SectionSubHeadingComponent,
-		TabsComponent,
-		TabsCliComponent,
+		MainSection
+		Code
+		SectionIntro
+		SectionSubHeading
+		Tabs
+		TabsCli
 		<%= previewComponentName %>,
-		CodePreviewDirective,
-		PageNavComponent,
-		PageBottomNavComponent,
-		PageBottomNavLinkComponent,
-		PageBottomNavPlaceholderComponent,
+		CodePreview
+		PageNav
+		PageBottomNav
+		PageBottomNavLink
+		PageBottomNavPlaceholder
 	],
 	template: `
 		<section spartanMainSection>

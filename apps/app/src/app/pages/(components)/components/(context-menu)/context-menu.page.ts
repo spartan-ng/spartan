@@ -14,8 +14,9 @@ import { Tabs } from '../../../../shared/layout/tabs';
 import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { ContextMenuPreviewWithState, defaultCodeWithState } from './context-menu-with-state.preview';
-import { ContextMenuPreview, defaultCode, defaultImports, defaultSkeleton } from './context-menu.preview';
+import { ContextMenuPreviewWithState } from './context-menu-with-state.preview';
+import { contextMenuWithStateCode, defaultCode } from './context-menu.generated';
+import { ContextMenuPreview, defaultImports, defaultSkeleton } from './context-menu.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Context Menu', api: 'menu' },
@@ -95,6 +96,6 @@ export const routeMeta: RouteMeta = {
 export default class ComboboxPage {
 	protected readonly defaultCode = defaultCode;
 	protected readonly defaultSkeleton = defaultSkeleton;
-	protected readonly defaultCodeWithState = defaultCodeWithState;
+	protected readonly defaultCodeWithState = contextMenuWithStateCode;
 	protected readonly defaultImports = defaultImports;
 }

@@ -28,9 +28,9 @@ export class CollapsiblePreview {}
 
 export const defaultImports = `
 import {
-  BrnCollapsibleComponent,
-  BrnCollapsibleContentComponent,
-  BrnCollapsibleTriggerDirective,
+  BrnCollapsible
+  BrnCollapsibleContent
+  BrnCollapsibleTrigger
 } from '@spartan-ng/brain/collapsible';
 `;
 

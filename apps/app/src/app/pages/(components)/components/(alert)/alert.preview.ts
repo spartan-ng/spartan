@@ -38,10 +38,10 @@ export class AlertPreview {}
 
 export const defaultImports = `
 import {
-  HlmAlertDescriptionDirective,
-  HlmAlertDirective,
-  HlmAlertIconDirective,
-  HlmAlertTitleDirective,
+  HlmAlertDescription
+  HlmAlert
+  HlmAlertIcon
+  HlmAlertTitle
 } from '@spartan-ng/helm/alert';
 `;
 

@@ -13,7 +13,8 @@ import { Tabs } from '../../../../shared/layout/tabs';
 import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { CardPreview, defaultCode, defaultImports, defaultSkeleton } from './card.preview';
+import { defaultCode } from './card.generated';
+import { CardPreview, defaultImports, defaultSkeleton } from './card.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Card', api: 'card' },

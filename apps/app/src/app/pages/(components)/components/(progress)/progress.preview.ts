@@ -21,8 +21,8 @@ export class ProgressPreview implements OnInit {
 
 export const defaultImports = `
 import {
-  BrnProgressComponent,
-  BrnProgressIndicatorComponent,
+  BrnProgress
+  BrnProgressIndicator
 } from '@spartan-ng/brain/progress';
 import { HlmProgressDirective, HlmProgressIndicatorDirective } from '@spartan-ng/helm/progress';
 `;

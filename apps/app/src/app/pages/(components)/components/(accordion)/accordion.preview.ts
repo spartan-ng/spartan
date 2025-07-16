@@ -77,11 +77,11 @@ export class AccordionPreview {}
 export const defaultImports = `
 import { NgIcon } from '@ng-icons/core';
 import {
-  HlmAccordionContentComponent,
-  HlmAccordionDirective,
-  HlmAccordionIconDirective,
-  HlmAccordionItemDirective,
-  HlmAccordionTriggerDirective,
+  HlmAccordionContent
+  HlmAccordion
+  HlmAccordionIcon
+  HlmAccordionItem
+  HlmAccordionTrigger
 } from '@spartan-ng/helm/accordion';
 import { HlmIconDirective } from '@spartan-ng/helm/icon';
 `;

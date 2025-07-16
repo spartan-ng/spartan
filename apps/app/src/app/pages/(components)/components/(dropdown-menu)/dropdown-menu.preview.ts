@@ -151,15 +151,15 @@ export class DropdownPreview {}
 export const defaultImports = `
 import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
 import {
-  HlmMenuComponent,
-  HlmMenuGroupComponent,
-  HlmMenuItemDirective,
-  HlmMenuItemIconDirective,
-  HlmMenuItemSubIndicatorComponent,
-  HlmMenuLabelComponent,
-  HlmMenuSeparatorComponent,
-  HlmMenuShortcutComponent,
-  HlmSubMenuComponent,
+  HlmMenu
+  HlmMenuGroup
+  HlmMenuItem
+  HlmMenuItemIcon
+  HlmMenuItemSubIndicator
+  HlmMenuLabel
+  HlmMenuSeparator
+  HlmMenuShortcut
+  HlmSubMenu
 } from '@spartan-ng/helm/menu';
 `;
 

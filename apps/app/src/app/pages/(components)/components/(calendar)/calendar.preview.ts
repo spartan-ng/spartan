@@ -24,7 +24,7 @@ export class CalendarPreview {
 
 export const defaultImports = `
 import {
-  HlmCalendarComponent,
+  HlmCalendar
 } from '@spartan-ng/helm/calendar';
 `;
 

@@ -42,10 +42,10 @@ export class PopoverPreview {}
 
 export const defaultImports = `
 import {
-  BrnPopoverCloseDirective,
-  BrnPopoverComponent,
-  BrnPopoverContentDirective,
-  BrnPopoverTriggerDirective,
+  BrnPopoverClose
+  BrnPopover
+  BrnPopoverContent
+  BrnPopoverTrigger
 } from '@spartan-ng/brain/popover';
 import { HlmPopoverCloseDirective, HlmPopoverContentDirective } from '@spartan-ng/helm/popover';
 `;

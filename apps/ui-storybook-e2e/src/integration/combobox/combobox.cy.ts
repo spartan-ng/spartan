@@ -17,9 +17,9 @@ describe('combobox--default', () => {
 			cy.findByText(/Select framework.../i)
 				.should('be.visible')
 				.realClick();
-			cy.findByText(/Angular/i).should('be.visible');
-			cy.findByText(/Angular/i).realClick();
-			cy.findByText(/Angular/i).should('not.exist');
+			cy.findByText('Angular').should('be.visible');
+			cy.findByText('Angular').realClick();
+			cy.findByText('Angular').should('not.exist');
 		});
 
 
@@ -29,7 +29,17 @@ describe('combobox--default', () => {
 				.should('be.visible')
 				.realClick();
 			cy.findByRole('combobox').type('Vue')
-			cy.findByText(/Angular/i).should('not.be.visible');
+			cy.findByText('Angular').should('not.be.visible');
+		});
+
+		it('should open the framework dropdown, and a scrollbar should be shown', () => {
+			cy.findByText(/Angular/i).should('not.exist');
+			cy.findByText(/Select framework.../i)
+				.should('be.visible')
+				.realClick();
+			cy.get('[role="listbox"]').should($el => {
+				expect($el[0].scrollHeight).to.be.greaterThan($el[0].clientHeight);
+			});
 		});
 	});
 });

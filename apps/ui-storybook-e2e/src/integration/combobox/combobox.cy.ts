@@ -21,5 +21,15 @@ describe('combobox--default', () => {
 			cy.findByText(/Angular/i).realClick();
 			cy.findByText(/Angular/i).should('not.exist');
 		});
+
+
+		it('should open the framework dropdown, type "Vue", and ensure "Angular" is hidden', () => {
+			cy.findByText(/Angular/i).should('not.exist');
+			cy.findByText(/Select framework.../i)
+				.should('be.visible')
+				.realClick();
+			cy.findByRole('combobox').type('Vue')
+			cy.findByText(/Angular/i).should('not.be.visible');
+		});
 	});
 });

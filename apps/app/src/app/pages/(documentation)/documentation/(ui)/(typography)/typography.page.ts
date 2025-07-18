@@ -22,6 +22,7 @@ import { PageBottomNavComponent } from '../../../../../shared/layout/page-bottom
 import { PageNavComponent } from '../../../../../shared/layout/page-nav/page-nav.component';
 import { SectionIntroComponent } from '../../../../../shared/layout/section-intro.component';
 import { SectionSubHeadingComponent } from '../../../../../shared/layout/section-sub-heading.component';
+import { TabsCliComponent } from '../../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../../shared/layout/tabs.component';
 import { metaWith } from '../../../../../shared/meta/meta.util';
 import TypographyPreviewComponent, {
@@ -57,6 +58,7 @@ export const routeMeta: RouteMeta = {
 		SectionSubHeadingComponent,
 		CodeComponent,
 		TabsComponent,
+		TabsCliComponent,
 		TypographyPreviewComponent,
 		CodePreviewDirective,
 	],
@@ -72,9 +74,11 @@ export const routeMeta: RouteMeta = {
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
-			<spartan-tabs class="mt-4" firstTab="Nx Plugin">
-				<spartan-code firstTab language="sh" code="npx nx g @spartan-ng/cli:ui typography" />
-			</spartan-tabs>
+			<spartan-cli-tabs
+				class="mt-4"
+				nxCode="npx nx g @spartan-ng/cli:ui typography"
+				ngCode="ng g @spartan-ng/cli:ui typography"
+			/>
 
 			<spartan-section-sub-heading id="h1">h1</spartan-section-sub-heading>
 			<spartan-tabs firstTab="Preview" secondTab="Code">

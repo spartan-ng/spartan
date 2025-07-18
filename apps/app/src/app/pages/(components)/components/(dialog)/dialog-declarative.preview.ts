@@ -39,13 +39,13 @@ import { debounceTime, map } from 'rxjs/operators';
 					name="passphrase"
 					hlmInput
 					[ngModelOptions]="{ standalone: true }"
-					[ngModel]="passphrase()"
-					(ngModelChange)="passphrase.set($event)"
+					[ngModel]="_passphrase()"
+					(ngModelChange)="_passphrase.set($event)"
 				/>
 				<span hlmMuted>Hint: It's sparta</span>
 			</label>
 		</div>
-		<hlm-dialog [state]="state()" (closed)="passphrase.set('')">
+		<hlm-dialog [state]="_state()" (closed)="_passphrase.set('')">
 			<hlm-dialog-content *brnDialogContent="let ctx">
 				<hlm-dialog-header class="w-[250px]">
 					<h3 hlmDialogTitle>Welcome to Sparta</h3>
@@ -56,10 +56,10 @@ import { debounceTime, map } from 'rxjs/operators';
 	`,
 })
 export class DialogDeclarativePreviewComponent {
-	protected readonly passphrase = signal<string>('');
-	private readonly _debouncedState$ = toObservable(this.passphrase).pipe(
+	protected readonly _passphrase = signal<string>('');
+	private readonly _debouncedState$ = toObservable(this._passphrase).pipe(
 		debounceTime(500),
 		map((passphrase) => (passphrase === 'sparta' ? 'open' : 'closed')),
 	);
-	protected readonly state = toSignal(this._debouncedState$, { initialValue: 'closed' as 'open' | 'closed' });
+	protected readonly _state = toSignal(this._debouncedState$, { initialValue: 'closed' as 'open' | 'closed' });
 }

@@ -4,11 +4,11 @@ import { injectBrnSlider } from './brn-slider.token';
 @Directive({
 	selector: '[brnSliderRange]',
 	host: {
-		'[attr.data-disabled]': 'slider.disabled()',
-		'[style.width.%]': 'slider.percentage()',
+		'[attr.data-disabled]': '_slider.mutableDisabled()',
+		'[style.width.%]': '_slider.percentage()',
 	},
 })
 export class BrnSliderRangeDirective {
 	/** Access the slider */
-	protected readonly slider = injectBrnSlider();
+	protected readonly _slider = injectBrnSlider();
 }

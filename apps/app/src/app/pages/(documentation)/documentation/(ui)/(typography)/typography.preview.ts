@@ -54,11 +54,11 @@ export default class TypographyPreviewComponent {}
 
 export const themingCode = `
 import { Component } from '@angular/core';
-import { hlmBlockquote, hlmH1, hlmH2, hlmH3, hlmLead, hlmP, hlmUl } from '@spartan-ng/typography-helm';
+import { hlmBlockquote, hlmH1, hlmH2, hlmH3, hlmLead, hlmP, hlmUl } from '@spartan-ng/helm/typography';
 
 @Component({
   selector: 'spartan-typography-preview',
-template: \`
+  template: \`
     <h1 class="\${hlmH1}">The Joke Tax Chronicles</h1>
     <p class="\${hlmLead} mt-4">
       Once upon a time, in a far-off land, there was a very lazy king who spent all day lounging on his throne. One day,
@@ -110,11 +110,11 @@ export default class TypographyPreviewComponent {}
 
 export const h1Code = `
 import { Component } from '@angular/core';
-import { hlmH1 } from '@spartan-ng/typography-helm';
+import { hlmH1 } from '@spartan-ng/helm/typography';
 
 @Component({
   selector: 'spartan-h1',
-template: \`
+  template: \`
     <h1 class="\${hlmH1}">The Joke Tax Chronicles</h1>
   \`,
 })
@@ -123,11 +123,11 @@ export default class H1Component {}
 
 export const h2Code = `
 import { Component } from '@angular/core';
-import { hlmH2 } from '@spartan-ng/typography-helm';
+import { hlmH2 } from '@spartan-ng/helm/typography';
 
 @Component({
   selector: 'spartan-h2',
-template: \`
+  template: \`
     <h2 class="\${hlmH2}">The People of the Kingdom</h2>
   \`,
 })
@@ -136,11 +136,11 @@ export default class H1Component {}
 
 export const h3Code = `
 import { Component } from '@angular/core';
-import { hlmH1 } from '@spartan-ng/typography-helm';
+import { hlmH1 } from '@spartan-ng/helm/typography';
 
 @Component({
   selector: 'spartan-h3',
-template: \`
+  template: \`
     <h3 class="\${hlmH3}">The Joke Tax</h3>
   \`,
 })
@@ -149,11 +149,11 @@ export default class H3Component {}
 
 export const h4Code = `
 import { Component } from '@angular/core';
-import { hlmH4 } from '@spartan-ng/typography-helm';
+import { hlmH4 } from '@spartan-ng/helm/typography';
 
 @Component({
   selector: 'spartan-h4',
-template: \`
+  template: \`
     <h4 class="\${hlmH4}">People stopped telling jokes</h4>
   \`,
 })
@@ -162,11 +162,11 @@ export default class H4Component {}
 
 export const pCode = `
 import { Component } from '@angular/core';
-import { hlmP } from '@spartan-ng/typography-helm';
+import { hlmP } from '@spartan-ng/helm/typography';
 
 @Component({
   selector: 'spartan-p',
-template: \`
+  template: \`
     <p class="\${hlmP}">
       The king, seeing how much happier his subjects were,
       realized the error of his ways and repealed the joke tax.
@@ -178,11 +178,11 @@ export default class PComponent {}
 
 export const blockquoteCode = `
 import { Component } from '@angular/core';
-import { hlmBlockquote } from '@spartan-ng/typography-helm';
+import { hlmBlockquote } from '@spartan-ng/helm/typography';
 
 @Component({
   selector: 'spartan-blockquote',
-template: \`
+  template: \`
     <blockquote class="\${hlmBlockquote}">
       "After all," he said, "everyone enjoys a good joke,
       so it's only fair that they should pay for the privilege."
@@ -194,16 +194,16 @@ export default class BlockquoteComponent {}
 
 export const listCode = `
 import { Component } from '@angular/core';
-import { hlmUl } from '@spartan-ng/typography-helm';
+import { hlmUl } from '@spartan-ng/helm/typography';
 
 @Component({
   selector: 'spartan-list',
-template: \`
-  <ul class="\${hlmUl}">
-    <li>1st level of puns: 5 gold coins</li>
-    <li>2nd level of jokes: 10 gold coins</li>
-    <li>3rd level of one-liners : 20 gold coins</li>
-  </ul>
+  template: \`
+    <ul class="\${hlmUl}">
+      <li>1st level of puns: 5 gold coins</li>
+      <li>2nd level of jokes: 10 gold coins</li>
+      <li>3rd level of one-liners : 20 gold coins</li>
+    </ul>
   \`,
 })
 export default class ListComponent {}
@@ -211,12 +211,12 @@ export default class ListComponent {}
 
 export const codeCode = `
 import { Component } from '@angular/core';
-import { hlmCode } from '@spartan-ng/typography-helm';
+import { hlmCode } from '@spartan-ng/helm/typography';
 
 @Component({
   selector: 'spartan-code',
-template: \`
-  <code class="\${hlmCode}">@radix-ui/react-alert-dialog</code>
+  template: \`
+    <code class="\${hlmCode}">@radix-ui/react-alert-dialog</code>
   \`,
 })
 export default class CodeComponent {}
@@ -224,12 +224,12 @@ export default class CodeComponent {}
 
 export const leadCode = `
 import { Component } from '@angular/core';
-import { hlmLead } from '@spartan-ng/typography-helm';
+import { hlmLead } from '@spartan-ng/helm/typography';
 
 @Component({
   selector: 'spartan-lead',
-template: \`
-  <p class="\${hlmLead}">A modal dialog that interrupts the user with important content and expects a response.</p>
+  template: \`
+    <p class="\${hlmLead}">A modal dialog that interrupts the user with important content and expects a response.</p>
   \`,
 })
 export default class LeadComponent {}
@@ -237,12 +237,12 @@ export default class LeadComponent {}
 
 export const largeCode = `
 import { Component } from '@angular/core';
-import { hlmLarge } from '@spartan-ng/typography-helm';
+import { hlmLarge } from '@spartan-ng/helm/typography';
 
 @Component({
   selector: 'spartan-large',
-template: \`
-  <p class="\${hlmLarge}">Are you sure absolutely sure?</p>
+  template: \`
+    <p class="\${hlmLarge}">Are you sure absolutely sure?</p>
   \`,
 })
 export default class LargeComponent {}
@@ -250,12 +250,12 @@ export default class LargeComponent {}
 
 export const smallCode = `
 import { Component } from '@angular/core';
-import { hlmSmall } from '@spartan-ng/typography-helm';
+import { hlmSmall } from '@spartan-ng/helm/typography';
 
 @Component({
   selector: 'spartan-small',
-template: \`
-  <p class="\${hlmSmall}">Email address</p>
+  template: \`
+    <p class="\${hlmSmall}">Email address</p>
   \`,
 })
 export default class SmallComponent {}
@@ -263,12 +263,12 @@ export default class SmallComponent {}
 
 export const mutedCode = `
 import { Component } from '@angular/core';
-import { hlmMuted } from '@spartan-ng/typography-helm';
+import { hlmMuted } from '@spartan-ng/helm/typography';
 
 @Component({
   selector: 'spartan-muted',
-template: \`
-  <p class="\${hlmMuted}">Enter your email address.</p>
+  template: \`
+    <p class="\${hlmMuted}">Enter your email address.</p>
   \`,
 })
 export default class MutedComponent {}

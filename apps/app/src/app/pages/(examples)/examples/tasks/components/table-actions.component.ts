@@ -93,7 +93,7 @@ import { TaskPriority, TaskStatus } from '../services/tasks.models';
 
 				<!-- STATUS FILTER -->
 				<brn-popover
-					[state]="statusState()"
+					[state]="_statusState()"
 					(stateChanged)="statusStateChanged($event)"
 					sideOffset="5"
 					closeDelay="100"
@@ -102,11 +102,11 @@ import { TaskPriority, TaskStatus } from '../services/tasks.models';
 					<button hlmBtn brnPopoverTrigger variant="outline" size="sm" class="border-dashed">
 						<ng-icon hlm name="lucideCirclePlus" class="mr-2" size="sm" />
 						Status
-						@if (statusFilter().length) {
+						@if (_statusFilter().length) {
 							<div data-orientation="vertical" role="none" class="bg-border mx-2 h-4 w-[1px] shrink-0"></div>
 
 							<div class="flex gap-1">
-								@for (status of statusFilter(); track status) {
+								@for (status of _statusFilter(); track status) {
 									<span class="bg-secondary text-secondary-foreground rounded px-1 py-0.5 text-xs">
 										{{ status }}
 									</span>
@@ -122,7 +122,7 @@ import { TaskPriority, TaskStatus } from '../services/tasks.models';
 						<div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
 						<hlm-command-list>
 							<hlm-command-group>
-								@for (status of statuses(); track status) {
+								@for (status of _statuses(); track status) {
 									<button hlm-command-item [value]="status" (selected)="statusSelected(status)">
 										<hlm-checkbox class="mr-2" [checked]="isStatusSelected(status)" />
 
@@ -137,7 +137,7 @@ import { TaskPriority, TaskStatus } from '../services/tasks.models';
 
 				<!-- PRIORITY FILTER -->
 				<brn-popover
-					[state]="priorityState()"
+					[state]="_priorityState()"
 					(stateChanged)="priorityStateChanged($event)"
 					sideOffset="5"
 					closeDelay="100"
@@ -146,11 +146,11 @@ import { TaskPriority, TaskStatus } from '../services/tasks.models';
 					<button hlmBtn brnPopoverTrigger variant="outline" size="sm" class="border-dashed">
 						<ng-icon hlm name="lucideCirclePlus" class="mr-2" size="sm" />
 						Priority
-						@if (priorityFilter().length) {
+						@if (_priorityFilter().length) {
 							<div data-orientation="vertical" role="none" class="bg-border mx-2 h-4 w-[1px] shrink-0"></div>
 
 							<div class="flex gap-1">
-								@for (priority of priorityFilter(); track priority) {
+								@for (priority of _priorityFilter(); track priority) {
 									<span class="bg-secondary text-secondary-foreground rounded px-1 py-0.5 text-xs">
 										{{ priority }}
 									</span>
@@ -166,7 +166,7 @@ import { TaskPriority, TaskStatus } from '../services/tasks.models';
 						<div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
 						<hlm-command-list>
 							<hlm-command-group>
-								@for (priority of priorities(); track priority) {
+								@for (priority of _priorities(); track priority) {
 									<button hlm-command-item [value]="priority" (selected)="prioritySelected(priority)">
 										<hlm-checkbox class="mr-2" [checked]="isPrioritySelected(priority)" />
 
@@ -179,7 +179,7 @@ import { TaskPriority, TaskStatus } from '../services/tasks.models';
 					</hlm-command>
 				</brn-popover>
 
-				@if (statusFilter().length || priorityFilter().length) {
+				@if (_statusFilter().length || _priorityFilter().length) {
 					<button hlmBtn variant="ghost" size="sm" align="end" (click)="resetFilters()">
 						Reset
 						<ng-icon hlm name="lucideX" class="ml-2" size="sm" />
@@ -194,7 +194,7 @@ import { TaskPriority, TaskStatus } from '../services/tasks.models';
 			</button>
 			<ng-template #menu>
 				<hlm-menu class="w-32">
-					@for (column of hidableColumns; track column.id) {
+					@for (column of _hidableColumns; track column.id) {
 						<button
 							hlmMenuItemCheckbox
 							class="capitalize"
@@ -213,62 +213,62 @@ import { TaskPriority, TaskStatus } from '../services/tasks.models';
 export class TableActionsComponent {
 	private readonly _tableComponent = inject(TasksExamplePageComponent);
 
-	protected readonly table = this._tableComponent.table;
+	protected readonly _table = this._tableComponent.table;
 
-	protected readonly hidableColumns = this.table.getAllColumns().filter((column) => column.getCanHide());
-	protected readonly statusFilter = signal<TaskStatus[]>([]);
-	protected readonly statuses = signal(['Backlog', 'Todo', 'In Progress', 'Done', 'Canceled'] satisfies TaskStatus[]);
-	protected readonly statusState = signal<'closed' | 'open'>('closed');
+	protected readonly _hidableColumns = this._table.getAllColumns().filter((column) => column.getCanHide());
+	protected readonly _statusFilter = signal<TaskStatus[]>([]);
+	protected readonly _statuses = signal(['Backlog', 'Todo', 'In Progress', 'Done', 'Canceled'] satisfies TaskStatus[]);
+	protected readonly _statusState = signal<'closed' | 'open'>('closed');
 
-	protected readonly priorityFilter = signal<TaskPriority[]>([]);
-	protected readonly priorities = signal(['Low', 'Medium', 'High', 'Critical'] satisfies TaskPriority[]);
-	protected readonly priorityState = signal<'closed' | 'open'>('closed');
+	protected readonly _priorityFilter = signal<TaskPriority[]>([]);
+	protected readonly _priorities = signal(['Low', 'Medium', 'High', 'Critical'] satisfies TaskPriority[]);
+	protected readonly _priorityState = signal<'closed' | 'open'>('closed');
 
 	protected taskFilterChange(event: Event) {
-		this.table.getColumn('title')?.setFilterValue((event.target as HTMLInputElement).value);
+		this._table.getColumn('title')?.setFilterValue((event.target as HTMLInputElement).value);
 	}
 
 	isStatusSelected(status: TaskStatus): boolean {
-		return this.statusFilter().some((s) => s === status);
+		return this._statusFilter().some((s) => s === status);
 	}
 
 	statusStateChanged(state: 'open' | 'closed') {
-		this.statusState.set(state);
+		this._statusState.set(state);
 	}
 
 	statusSelected(status: TaskStatus): void {
-		const current = this.statusFilter();
+		const current = this._statusFilter();
 		const index = current.indexOf(status);
 		if (index === -1) {
-			this.statusFilter.set([...current, status]);
+			this._statusFilter.set([...current, status]);
 		} else {
-			this.statusFilter.set(current.filter((s) => s !== status));
+			this._statusFilter.set(current.filter((s) => s !== status));
 		}
-		this.table.getColumn('status')?.setFilterValue(this.statusFilter());
+		this._table.getColumn('status')?.setFilterValue(this._statusFilter());
 	}
 
 	isPrioritySelected(priority: TaskPriority): boolean {
-		return this.priorityFilter().some((p) => p === priority);
+		return this._priorityFilter().some((p) => p === priority);
 	}
 
 	priorityStateChanged(state: 'open' | 'closed') {
-		this.priorityState.set(state);
+		this._priorityState.set(state);
 	}
 
 	prioritySelected(priority: TaskPriority): void {
-		const current = this.priorityFilter();
+		const current = this._priorityFilter();
 		const index = current.indexOf(priority);
 		if (index === -1) {
-			this.priorityFilter.set([...current, priority]);
+			this._priorityFilter.set([...current, priority]);
 		} else {
-			this.priorityFilter.set(current.filter((p) => p !== priority));
+			this._priorityFilter.set(current.filter((p) => p !== priority));
 		}
-		this.table.getColumn('priority')?.setFilterValue(this.priorityFilter());
+		this._table.getColumn('priority')?.setFilterValue(this._priorityFilter());
 	}
 
 	resetFilters(): void {
-		this.priorityFilter.set([]);
-		this.statusFilter.set([]);
-		this.table.resetColumnFilters();
+		this._priorityFilter.set([]);
+		this._statusFilter.set([]);
+		this._table.resetColumnFilters();
 	}
 }

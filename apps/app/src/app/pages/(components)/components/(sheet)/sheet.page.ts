@@ -55,7 +55,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-sheet-preview />
 				</div>
-				<spartan-code secondTab [code]="defaultCode" />
+				<spartan-code secondTab [code]="_defaultCode" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -67,8 +67,8 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="space-y-4">
-				<spartan-code [code]="defaultImports" />
-				<spartan-code [code]="defaultSkeleton" />
+				<spartan-code [code]="_defaultImports" />
+				<spartan-code [code]="_defaultSkeleton" />
 			</div>
 
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
@@ -83,7 +83,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-sheet-side-preview />
 				</div>
-				<spartan-code secondTab [code]="sideCode" />
+				<spartan-code secondTab [code]="_sideCode" />
 			</spartan-tabs>
 
 			<h3 id="examples__close_sheet" class="${hlmH4} mb-2 mt-6">Close Sheet</h3>
@@ -91,7 +91,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-sheet-close-preview />
 				</div>
-				<spartan-code secondTab [code]="closeCode" />
+				<spartan-code secondTab [code]="_closeCode" />
 			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
@@ -103,9 +103,9 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class LabelPageComponent {
-	protected readonly defaultCode = defaultCode;
-	protected readonly defaultSkeleton = defaultSkeleton;
-	protected readonly defaultImports = defaultImports;
-	protected readonly sideCode = sheetSideCode;
-	protected readonly closeCode = sheetCloseCode;
+	protected readonly _defaultCode = defaultCode;
+	protected readonly _defaultSkeleton = defaultSkeleton;
+	protected readonly _defaultImports = defaultImports;
+	protected readonly _sideCode = sheetSideCode;
+	protected readonly _closeCode = sheetCloseCode;
 }

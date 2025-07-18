@@ -5,12 +5,12 @@ import { injectBrnProgress } from './brn-progress.token';
 	selector: 'brn-progress-indicator',
 	template: '',
 	host: {
-		'[attr.data-state]': 'progress.state()',
-		'[attr.data-value]': 'progress.value()',
-		'[attr.data-max]': 'progress.max()',
+		'[attr.data-state]': '_progress.state()',
+		'[attr.data-value]': '_progress.value()',
+		'[attr.data-max]': '_progress.max()',
 	},
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BrnProgressIndicatorComponent {
-	protected readonly progress = injectBrnProgress();
+	protected readonly _progress = injectBrnProgress();
 }

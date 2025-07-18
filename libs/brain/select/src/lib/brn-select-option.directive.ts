@@ -28,6 +28,7 @@ export class BrnSelectOptionDirective<T> implements Highlightable {
 	public readonly value = input<T>();
 
 	// we use "_disabled" here because disabled is already defined in the Highlightable interface
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	public readonly _disabled = input<boolean, BooleanInput>(false, {
 		alias: 'disabled',
 		transform: booleanAttribute,

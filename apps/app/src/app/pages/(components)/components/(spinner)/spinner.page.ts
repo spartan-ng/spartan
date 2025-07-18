@@ -13,7 +13,8 @@ import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { defaultCode } from './spinner.generated';
+import { SpartanSpinnerSizePreviewComponent } from './spinner--size.preview';
+import { defaultCode, spinnerSizeCode } from './spinner.generated';
 import { SpinnerPreviewComponent, defaultImports, defaultSkeleton } from './spinner.preview';
 
 export const routeMeta: RouteMeta = {
@@ -39,6 +40,7 @@ export const routeMeta: RouteMeta = {
 		PageBottomNavComponent,
 		PageBottomNavLinkComponent,
 		SpinnerPreviewComponent,
+		SpartanSpinnerSizePreviewComponent,
 	],
 	template: `
 		<section spartanMainSection>
@@ -51,7 +53,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-spinner-preview />
 				</div>
-				<spartan-code secondTab [code]="defaultCode" />
+				<spartan-code secondTab [code]="_defaultCode" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -63,34 +65,21 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="space-y-4">
-				<spartan-code [code]="defaultImports" />
-				<spartan-code [code]="defaultSkeleton" />
+				<spartan-code [code]="_defaultImports" />
+				<spartan-code [code]="_defaultSkeleton" />
 			</div>
 
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="helm" />
 
-			<spartan-section-sub-heading id="variants">Variants</spartan-section-sub-heading>
-			The spinner component has the following variants:
-
-			<h3 id="variants__size" class="${hlmH4} mb-2 mt-6">size</h3>
-			The size of the spinner. (default: w-8)
-			<!-- <code [innerHTML]="'<hlm-spinner size="xl" />'"></code> -->
-
-			<ul class="list-disc pl-8">
-				<li>
-					<code>xs: w-4</code>
-				</li>
-				<li>
-					<code>sm: w-6</code>
-				</li>
-				<li>
-					<code>lg: w-12</code>
-				</li>
-				<li>
-					<code>xl: w-16</code>
-				</li>
-			</ul>
+			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
+			<h3 id="examples__size" class="${hlmH4} mb-2 mt-6">Sizes</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-spinner-size-preview />
+				</div>
+				<spartan-code secondTab [code]="_spinnerSizeCode" />
+			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="switch" label="Switch" />
@@ -101,7 +90,9 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class SpinnerPageComponent {
-	protected readonly defaultCode = defaultCode;
-	protected readonly defaultSkeleton = defaultSkeleton;
-	protected readonly defaultImports = defaultImports;
+	protected readonly _defaultCode = defaultCode;
+	protected readonly _defaultSkeleton = defaultSkeleton;
+	protected readonly _defaultImports = defaultImports;
+
+	protected readonly _spinnerSizeCode = spinnerSizeCode;
 }

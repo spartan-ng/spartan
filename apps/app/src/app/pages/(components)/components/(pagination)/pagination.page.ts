@@ -60,7 +60,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-pagination-preview />
 				</div>
-				<spartan-code secondTab [code]="defaultCode" />
+				<spartan-code secondTab [code]="_defaultCode" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -72,8 +72,8 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="space-y-4">
-				<spartan-code [code]="defaultImports" />
-				<spartan-code [code]="defaultSkeleton" />
+				<spartan-code [code]="_defaultImports" />
+				<spartan-code [code]="_defaultSkeleton" />
 			</div>
 
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
@@ -85,21 +85,21 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-pagination-query-params />
 				</div>
-				<spartan-code secondTab [code]="queryParamsCode" />
+				<spartan-code secondTab [code]="_queryParamsCode" />
 			</spartan-tabs>
 			<h3 id="examples__icon-only" class="${hlmH4} mb-2 mt-6">Icon Only (Previous/Next)</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-pagination-icon-only />
 				</div>
-				<spartan-code secondTab [code]="iconOnlyCode" />
+				<spartan-code secondTab [code]="_iconOnlyCode" />
 			</spartan-tabs>
 			<h3 id="examples__advanced" class="${hlmH4} mb-2 mt-6">Advanced Pagination</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-pagination-advanced />
 				</div>
-				<spartan-code secondTab [code]="advancedCode" />
+				<spartan-code secondTab [code]="_advancedCode" />
 			</spartan-tabs>
 			<h3 id="examples__advanced" class="${hlmH4} mb-2 mt-6">Advanced Pagination - Query Params</h3>
 			<p class="py-2">
@@ -113,7 +113,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-pagination-advanced-query-params />
 				</div>
-				<spartan-code secondTab [code]="advancedQueryParamsCode" />
+				<spartan-code secondTab [code]="_advancedQueryParamsCode" />
 			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
@@ -125,12 +125,12 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class PaginationPageComponent {
-	protected readonly defaultCode = defaultCode;
-	protected readonly defaultSkeleton = defaultSkeleton;
-	protected readonly defaultImports = defaultImports;
+	protected readonly _defaultCode = defaultCode;
+	protected readonly _defaultSkeleton = defaultSkeleton;
+	protected readonly _defaultImports = defaultImports;
 
-	protected readonly queryParamsCode = paginationQueryParamsCode;
-	protected readonly iconOnlyCode = paginationIconOnlyCode;
-	protected readonly advancedCode = paginationAdvancedCode;
-	protected readonly advancedQueryParamsCode = paginationAdvancedQueryCode;
+	protected readonly _queryParamsCode = paginationQueryParamsCode;
+	protected readonly _iconOnlyCode = paginationIconOnlyCode;
+	protected readonly _advancedCode = paginationAdvancedCode;
+	protected readonly _advancedQueryParamsCode = paginationAdvancedQueryCode;
 }

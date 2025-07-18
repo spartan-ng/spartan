@@ -24,7 +24,7 @@ import {
 	viewChild,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 
 export const BRN_SWITCH_VALUE_ACCESSOR = {
@@ -45,18 +45,18 @@ let uniqueIdCounter = 0;
 			role="switch"
 			type="button"
 			[class]="class()"
-			[id]="getSwitchButtonId(state().id) ?? ''"
-			[name]="getSwitchButtonId(state().name) ?? ''"
+			[id]="getSwitchButtonId(_state().id) ?? ''"
+			[name]="getSwitchButtonId(_state().name) ?? ''"
 			[value]="checked() ? 'on' : 'off'"
 			[attr.aria-checked]="checked()"
 			[attr.aria-label]="ariaLabel() || null"
 			[attr.aria-labelledby]="mutableAriaLabelledby() || null"
 			[attr.aria-describedby]="ariaDescribedby() || null"
 			[attr.data-state]="checked() ? 'checked' : 'unchecked'"
-			[attr.data-focus-visible]="focusVisible()"
-			[attr.data-focus]="focused()"
-			[attr.data-disabled]="state().disabled()"
-			[disabled]="state().disabled()"
+			[attr.data-focus-visible]="_focusVisible()"
+			[attr.data-focus]="_focused()"
+			[attr.data-disabled]="_state().disabled()"
+			[disabled]="_state().disabled()"
 			[tabIndex]="tabIndex()"
 			(click)="$event.preventDefault(); toggle()"
 		>
@@ -65,20 +65,20 @@ let uniqueIdCounter = 0;
 	`,
 	host: {
 		'[style]': '{display: "contents"}',
-		'[attr.id]': 'state().id',
-		'[attr.name]': 'state().name',
+		'[attr.id]': '_state().id',
+		'[attr.name]': '_state().name',
 		'[attr.aria-labelledby]': 'null',
 		'[attr.aria-label]': 'null',
 		'[attr.aria-describedby]': 'null',
 		'[attr.data-state]': 'checked() ? "checked" : "unchecked"',
-		'[attr.data-focus-visible]': 'focusVisible()',
-		'[attr.data-focus]': 'focused()',
-		'[attr.data-disabled]': 'state().disabled()',
+		'[attr.data-focus-visible]': '_focusVisible()',
+		'[attr.data-focus]': '_focused()',
+		'[attr.data-disabled]': '_state().disabled()',
 	},
 	providers: [BRN_SWITCH_VALUE_ACCESSOR],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BrnSwitchComponent implements AfterContentInit, OnDestroy {
+export class BrnSwitchComponent implements AfterContentInit, OnDestroy, ControlValueAccessor {
 	private readonly _destroyRef = inject(DestroyRef);
 	private readonly _renderer = inject(Renderer2);
 	private readonly _isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
@@ -87,8 +87,8 @@ export class BrnSwitchComponent implements AfterContentInit, OnDestroy {
 	private readonly _cdr = inject(ChangeDetectorRef);
 	private readonly _document = inject(DOCUMENT);
 
-	protected readonly focusVisible = signal(false);
-	protected readonly focused = signal(false);
+	protected readonly _focusVisible = signal(false);
+	protected readonly _focused = signal(false);
 
 	/**
 	 * Whether switch is checked/toggled on.
@@ -170,7 +170,7 @@ export class BrnSwitchComponent implements AfterContentInit, OnDestroy {
 
 	public readonly switch = viewChild.required<ElementRef<HTMLInputElement>>('switch');
 
-	protected readonly state = computed(() => {
+	protected readonly _state = computed(() => {
 		const name = this.name();
 		const id = this.id();
 		return {
@@ -182,7 +182,7 @@ export class BrnSwitchComponent implements AfterContentInit, OnDestroy {
 
 	constructor() {
 		effect(() => {
-			const state = this.state();
+			const state = this._state();
 			const isDisabled = state.disabled();
 
 			if (!this._elementRef.nativeElement || !this._isBrowser) return;
@@ -210,7 +210,7 @@ export class BrnSwitchComponent implements AfterContentInit, OnDestroy {
 	 * Does nothing if switch is disabled.
 	 */
 	protected toggle(): void {
-		if (this.state().disabled()) return;
+		if (this._state().disabled()) return;
 
 		this._onTouched();
 		this.touched.emit();
@@ -225,9 +225,9 @@ export class BrnSwitchComponent implements AfterContentInit, OnDestroy {
 			.monitor(this._elementRef, true)
 			.pipe(takeUntilDestroyed(this._destroyRef))
 			.subscribe((focusOrigin) => {
-				if (focusOrigin) this.focused.set(true);
+				if (focusOrigin) this._focused.set(true);
 				if (focusOrigin === 'keyboard' || focusOrigin === 'program') {
-					this.focusVisible.set(true);
+					this._focusVisible.set(true);
 					this._cdr.markForCheck();
 				}
 				if (!focusOrigin) {
@@ -237,8 +237,8 @@ export class BrnSwitchComponent implements AfterContentInit, OnDestroy {
 					// See https://github.com/angular/angular/issues/17793. To work around this, we defer
 					// telling the form control it has been touched until the next tick.
 					Promise.resolve().then(() => {
-						this.focusVisible.set(false);
-						this.focused.set(false);
+						this._focusVisible.set(false);
+						this._focused.set(false);
 						this._onTouched();
 						this.touched.emit();
 						this._cdr.markForCheck();
@@ -303,7 +303,7 @@ export class BrnSwitchComponent implements AfterContentInit, OnDestroy {
 	 * @param isDisabled - Whether switch should be disabled
 	 */
 	public setDisabledState = (isDisabled: boolean): void => {
-		this.state().disabled.set(isDisabled);
+		this._state().disabled.set(isDisabled);
 		this._cdr.markForCheck();
 	};
 }

@@ -66,11 +66,23 @@ module.exports = [
 					leadingUnderscore: 'require',
 				},
 				{
+					selector: 'classProperty',
+					modifiers: ['public'],
+					format: ['camelCase'],
+					leadingUnderscore: 'forbid',
+				},
+				{
+					selector: 'classProperty',
+					modifiers: ['protected'],
+					format: ['camelCase'],
+					leadingUnderscore: 'require',
+				},
+				{
 					selector: 'variable',
 					format: ['camelCase', 'UPPER_CASE', 'PascalCase'],
 				},
 			],
-			'@angular-eslint/prefer-output-readonly': ['error'],
+			'@angular-eslint/prefer-output-readonly': 'error',
 			'@angular-eslint/prefer-on-push-component-change-detection': ['error'],
 			// this should be enabled when we move to signals
 			'@nx/workspace-prefer-signals': 'off',

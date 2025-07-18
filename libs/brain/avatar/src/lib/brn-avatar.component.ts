@@ -6,7 +6,7 @@ import { BrnAvatarImageDirective } from './image';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	encapsulation: ViewEncapsulation.None,
 	template: `
-		@if (image()?.canShow()) {
+		@if (_image()?.canShow()) {
 			<ng-content select="[brnAvatarImage]" />
 		} @else {
 			<ng-content select="[brnAvatarFallback]" />
@@ -14,5 +14,5 @@ import { BrnAvatarImageDirective } from './image';
 	`,
 })
 export class BrnAvatarComponent {
-	protected readonly image = contentChild(BrnAvatarImageDirective);
+	protected readonly _image = contentChild(BrnAvatarImageDirective);
 }

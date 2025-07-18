@@ -70,7 +70,7 @@ export class HlmRadioComponent<T = unknown> {
 	/** Whether the checkbox is disabled. */
 	public readonly disabled = input(false, { transform: booleanAttribute });
 
-	protected readonly state = computed(() => {
+	protected readonly _state = computed(() => {
 		const id = this.id();
 		return {
 			disabled: signal(this.disabled()),
@@ -85,7 +85,7 @@ export class HlmRadioComponent<T = unknown> {
 
 	constructor() {
 		effect(() => {
-			const state = this.state();
+			const state = this._state();
 			const isDisabled = state.disabled();
 
 			if (!this._elementRef.nativeElement || !this._isBrowser) return;

@@ -29,8 +29,8 @@ import { injectBrnCommand } from './brn-command.token';
 		'[attr.data-disabled]': '_disabled() ? "" : null',
 		'[attr.data-value]': 'value()',
 		'[attr.data-hidden]': "!visible() ? '' : null",
-		'[attr.aria-selected]': 'active()',
-		'[attr.data-selected]': "active() ? '' : null",
+		'[attr.aria-selected]': '_active()',
+		'[attr.data-selected]': "_active() ? '' : null",
 	},
 })
 export class BrnCommandItemDirective implements Highlightable, OnInit {
@@ -50,6 +50,7 @@ export class BrnCommandItemDirective implements Highlightable, OnInit {
 	public readonly value = input.required<string>();
 
 	/** Whether the item is disabled. */
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	public readonly _disabled = input<boolean, BooleanInput>(false, {
 		alias: 'disabled',
 		transform: booleanAttribute,
@@ -66,7 +67,7 @@ export class BrnCommandItemDirective implements Highlightable, OnInit {
 	private readonly _initialized = signal(false);
 
 	/** Whether the item is selected. */
-	protected readonly active = signal(false);
+	protected readonly _active = signal(false);
 
 	/** Emits when the item is selected. */
 	public readonly selected = output<void>();
@@ -91,7 +92,7 @@ export class BrnCommandItemDirective implements Highlightable, OnInit {
 
 	/** @internal */
 	setActiveStyles(): void {
-		this.active.set(true);
+		this._active.set(true);
 
 		// ensure the item is in view
 		if (isPlatformBrowser(this._platform)) {
@@ -101,7 +102,7 @@ export class BrnCommandItemDirective implements Highlightable, OnInit {
 
 	/** @internal */
 	setInactiveStyles(): void {
-		this.active.set(false);
+		this._active.set(false);
 	}
 
 	@HostListener('click')

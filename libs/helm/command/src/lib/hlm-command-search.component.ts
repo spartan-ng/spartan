@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { hlm } from '@spartan-ng/brain/core';
 import { provideHlmIconConfig } from '@spartan-ng/helm/icon';
+import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-command-search',
@@ -15,7 +16,7 @@ import { provideHlmIconConfig } from '@spartan-ng/helm/icon';
 })
 export class HlmCommandSearchComponent {
 	/*** The user defined class  */
-	public readonly userClass = input<string>('', { alias: 'class' });
+	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 
 	/*** The styles to apply  */
 	protected readonly _computedClass = computed(() =>

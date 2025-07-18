@@ -47,7 +47,7 @@ export class BrnRadioGroupDirective<T = unknown> implements ControlValueAccessor
 	/**
 	 * Whether the radio group is disabled.
 	 */
-	public disabled = input<boolean, BooleanInput>(false, {
+	public readonly disabled = input<boolean, BooleanInput>(false, {
 		transform: booleanAttribute,
 	});
 

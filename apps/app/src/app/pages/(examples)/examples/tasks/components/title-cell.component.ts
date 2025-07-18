@@ -11,13 +11,13 @@ import { CellContext, injectFlexRenderContext } from '@tanstack/angular-table';
 	providers: [provideIcons({ lucideEllipsis })],
 	template: `
 		<div class="text-foreground inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-semibold">
-			{{ element.type }}
+			{{ _element.type }}
 		</div>
-		{{ element.title }}
+		{{ _element.title }}
 	`,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TitleCellComponent {
 	private readonly _context = injectFlexRenderContext<CellContext<Task, unknown>>();
-	protected readonly element = this._context.row.original;
+	protected readonly _element = this._context.row.original;
 }

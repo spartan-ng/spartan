@@ -11,7 +11,7 @@ import type { ClassValue } from 'clsx';
 		'[class]': '_computedClass()',
 	},
 	template: `
-		@if (image()?.canShow()) {
+		@if (_image()?.canShow()) {
 			<ng-content select="[hlmAvatarImage],[brnAvatarImage]" />
 		} @else {
 			<ng-content select="[hlmAvatarFallback],[brnAvatarFallback]" />

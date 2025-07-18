@@ -14,7 +14,7 @@ export class HlmTabsContentDirective {
 	public readonly contentFor = input.required<string>({ alias: 'hlmTabsContent' });
 
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected _computedClass = computed(() =>
+	protected readonly _computedClass = computed(() =>
 		hlm(
 			'mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
 			this.userClass(),

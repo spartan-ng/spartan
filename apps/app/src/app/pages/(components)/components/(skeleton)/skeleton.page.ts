@@ -41,13 +41,13 @@ export const routeMeta: RouteMeta = {
 	],
 	template: `
 		<section spartanMainSection>
-			<spartan-section-intro name="Skeleton" lead="Use to show a placeholder while content is loading." />
+			<spartan-section-intro name="Skeleton" lead="Use to show a placeholder while content is loading."/>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
-					<spartan-skeleton-preview />
+					<spartan-skeleton-preview/>
 				</div>
-				<spartan-code secondTab [code]="_defaultCode" />
+				<spartan-code secondTab [code]="_defaultCode"/>
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -59,29 +59,29 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="space-y-4">
-				<spartan-code [code]="_defaultImports" />
-				<spartan-code [code]="_defaultSkeleton" />
+				<spartan-code [code]="_defaultImports"/>
+				<spartan-code [code]="_defaultSkeleton"/>
 			</div>
 
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
-			<spartan-ui-api-docs docType="helm" />
+			<spartan-ui-api-docs docType="helm"/>
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
 
 			<h3 id="examples__link" class="${hlmH4} mb-2 mt-6">Card</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
-					<spartan-skeleton-card />
+					<spartan-skeleton-card/>
 				</div>
-				<spartan-code secondTab [code]="_skeletonCardCode" />
+				<spartan-code secondTab [code]="_skeletonCardCode"/>
 			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
-				<spartan-page-bottom-nav-link href="slider" label="Slider" />
-				<spartan-page-bottom-nav-link direction="previous" href="sheet" label="Sheet" />
+				<spartan-page-bottom-nav-link href="slider" label="Slider"/>
+				<spartan-page-bottom-nav-link direction="previous" href="sheet" label="Sheet"/>
 			</spartan-page-bottom-nav>
 		</section>
-		<spartan-page-nav />
+		<spartan-page-nav/>
 	`,
 })
 export default class SkeletonPageComponent {

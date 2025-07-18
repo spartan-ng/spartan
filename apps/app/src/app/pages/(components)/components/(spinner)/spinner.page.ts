@@ -51,9 +51,9 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
-					<spartan-spinner-preview />
+					<spartan-spinner-preview/>
 				</div>
-				<spartan-code secondTab [code]="_defaultCode" />
+				<spartan-code secondTab [code]="_defaultCode"/>
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -65,28 +65,28 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="space-y-4">
-				<spartan-code [code]="_defaultImports" />
-				<spartan-code [code]="_defaultSkeleton" />
+				<spartan-code [code]="_defaultImports"/>
+				<spartan-code [code]="_defaultSkeleton"/>
 			</div>
 
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
-			<spartan-ui-api-docs docType="helm" />
+			<spartan-ui-api-docs docType="helm"/>
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
 			<h3 id="examples__size" class="${hlmH4} mb-2 mt-6">Sizes</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
-					<spartan-spinner-size-preview />
+					<spartan-spinner-size-preview/>
 				</div>
-				<spartan-code secondTab [code]="_spinnerSizeCode" />
+				<spartan-code secondTab [code]="_spinnerSizeCode"/>
 			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
-				<spartan-page-bottom-nav-link href="switch" label="Switch" />
-				<spartan-page-bottom-nav-link direction="previous" href="skeleton" label="Skeleton" />
+				<spartan-page-bottom-nav-link href="switch" label="Switch"/>
+				<spartan-page-bottom-nav-link direction="previous" href="skeleton" label="Skeleton"/>
 			</spartan-page-bottom-nav>
 		</section>
-		<spartan-page-nav />
+		<spartan-page-nav/>
 	`,
 })
 export default class SpinnerPageComponent {

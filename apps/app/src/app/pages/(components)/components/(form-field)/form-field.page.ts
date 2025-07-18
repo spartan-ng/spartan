@@ -62,7 +62,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-form-field-preview />
 				</div>
-				<spartan-code secondTab [code]="defaultCode" />
+				<spartan-code secondTab [code]="_defaultCode" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -74,8 +74,8 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="space-y-4">
-				<spartan-code [code]="defaultImports" />
-				<spartan-code [code]="defaultSkeleton" />
+				<spartan-code [code]="_defaultImports" />
+				<spartan-code [code]="_defaultSkeleton" />
 			</div>
 
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
@@ -87,14 +87,14 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-form-field-error />
 				</div>
-				<spartan-code secondTab [code]="errorCode" />
+				<spartan-code secondTab [code]="_errorCode" />
 			</spartan-tabs>
 			<h3 id="examples__with_form" class="${hlmH4} mb-2 mt-6">With Form</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-form-field-form />
 				</div>
-				<spartan-code secondTab [code]="formFieldForm" />
+				<spartan-code secondTab [code]="_formFieldForm" />
 			</spartan-tabs>
 
 			<h3 id="examples__with_form_dirty_state" class="${hlmH4} mb-4 mt-6">Changing when error messages are shown</h3>
@@ -114,14 +114,14 @@ export const routeMeta: RouteMeta = {
 			</p>
 
 			<div class="mb-4">
-				<spartan-code [code]="providerShowOnDirtyErrorStateMatcher" />
+				<spartan-code [code]="_providerShowOnDirtyErrorStateMatcher" />
 			</div>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-form-field-form-dirty />
 				</div>
-				<spartan-code secondTab [code]="formFieldFormWithDirtyCode" />
+				<spartan-code secondTab [code]="_formFieldFormWithDirtyCode" />
 			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
@@ -133,11 +133,11 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class FormFieldPageComponent {
-	protected readonly defaultCode = defaultCode;
-	protected readonly defaultSkeleton = defaultSkeleton;
-	protected readonly defaultImports = defaultImports;
-	protected readonly errorCode = formFieldErrorCode;
-	protected readonly formFieldFormWithDirtyCode = formFieldWithFormDirtyCode;
-	protected readonly formFieldForm = formFieldWithFormCode;
-	protected readonly providerShowOnDirtyErrorStateMatcher = providerShowOnDirtyErrorStateMatcher;
+	protected readonly _defaultCode = defaultCode;
+	protected readonly _defaultSkeleton = defaultSkeleton;
+	protected readonly _defaultImports = defaultImports;
+	protected readonly _errorCode = formFieldErrorCode;
+	protected readonly _formFieldFormWithDirtyCode = formFieldWithFormDirtyCode;
+	protected readonly _formFieldForm = formFieldWithFormCode;
+	protected readonly _providerShowOnDirtyErrorStateMatcher = providerShowOnDirtyErrorStateMatcher;
 }

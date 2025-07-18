@@ -5,7 +5,7 @@ import { BrnCommandItemToken } from './brn-command-item.token';
 	selector: '[brnCommandGroup]',
 	host: {
 		role: 'group',
-		'[attr.data-hidden]': '!visible() ? "" : null',
+		'[attr.data-hidden]': '!_visible() ? "" : null',
 		'[id]': 'id()',
 	},
 })
@@ -21,5 +21,5 @@ export class BrnCommandGroupDirective {
 	});
 
 	/** Determine if there are any visible items in the group */
-	protected readonly visible = computed(() => this._items().some((item) => item.visible()));
+	protected readonly _visible = computed(() => this._items().some((item) => item.visible()));
 }

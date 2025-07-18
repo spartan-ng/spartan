@@ -200,7 +200,7 @@ import { Task, TASK_DATA } from './services/tasks.models';
 				<div class="mt-2 flex sm:mt-0">
 					<brn-select
 						class="inline-block"
-						placeholder="{{ availablePageSizes[0] }}"
+						placeholder="{{ _availablePageSizes[0] }}"
 						[ngModel]="table.getState().pagination.pageSize"
 						(ngModelChange)="table.setPageSize($event); table.resetPageIndex()"
 					>
@@ -208,7 +208,7 @@ import { Task, TASK_DATA } from './services/tasks.models';
 							<hlm-select-value />
 						</hlm-select-trigger>
 						<hlm-select-content>
-							@for (size of availablePageSizes; track size) {
+							@for (size of _availablePageSizes; track size) {
 								<hlm-option [value]="size">
 									{{ size === 10000 ? 'All' : size }}
 								</hlm-option>
@@ -237,8 +237,8 @@ import { Task, TASK_DATA } from './services/tasks.models';
 })
 export default class TasksExamplePageComponent {
 	protected readonly trackBy: TrackByFunction<Task> = (_: number, p: Task) => p.id;
-	protected readonly availablePageSizes = [5, 10, 20, 10000];
-	protected readonly pageSize = signal(this.availablePageSizes[1]); // default to page size 10
+	protected readonly _availablePageSizes = [5, 10, 20, 10000];
+	protected readonly _pageSize = signal(this._availablePageSizes[1]); // default to page size 10
 	private readonly _localStorageService = inject(LocalStorageService);
 
 	constructor() {
@@ -258,27 +258,27 @@ export default class TasksExamplePageComponent {
 		{
 			accessorKey: 'id',
 			id: 'id',
-			header: () => flexRenderComponent(TableHeadSortButtonComponent),
+			header: () => flexRenderComponent(TableHeadSortButtonComponent, { inputs: { header: '' } }),
 			cell: (info) => info.getValue(),
 		},
 		{
 			accessorKey: 'title',
 			id: 'title',
-			header: () => flexRenderComponent(TableHeadSortButtonComponent),
+			header: () => flexRenderComponent(TableHeadSortButtonComponent, { inputs: { header: '' } }),
 			cell: () => flexRenderComponent(TitleCellComponent),
 		},
 		{
 			accessorKey: 'status',
 			id: 'status',
 			filterFn: 'arrIncludesSome',
-			header: () => flexRenderComponent(TableHeadSortButtonComponent),
+			header: () => flexRenderComponent(TableHeadSortButtonComponent, { inputs: { header: '' } }),
 			cell: () => flexRenderComponent(StatusIconCellComponent),
 		},
 		{
 			accessorKey: 'priority',
 			id: 'priority',
 			filterFn: 'arrIncludesSome',
-			header: () => flexRenderComponent(TableHeadSortButtonComponent),
+			header: () => flexRenderComponent(TableHeadSortButtonComponent, { inputs: { header: '' } }),
 			cell: () => flexRenderComponent(PriorityIconCellComponent),
 		},
 		{

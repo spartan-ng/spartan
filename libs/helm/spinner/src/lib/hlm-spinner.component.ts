@@ -31,7 +31,7 @@ import type { ClassValue } from 'clsx';
 })
 export class HlmSpinnerComponent {
 	public readonly userClass = input<ClassValue>('size-8', { alias: 'class' });
-	protected _computedClass = computed(() =>
+	protected readonly _computedClass = computed(() =>
 		hlm('inline-block [&>svg]:text-foreground/30 [&>svg]:fill-accent', this.userClass()),
 	);
 }

@@ -14,7 +14,7 @@ import type { ClassValue } from 'clsx';
 })
 export class HlmRadioIndicatorComponent {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected _computedClass = computed(() =>
+	protected readonly _computedClass = computed(() =>
 		hlm(
 			'relative flex items-center justify-center border-input text-primary group-has-[:focus-visible]:border-ring group-has-[:focus-visible]:ring-ring/50 dark:bg-input/30 aspect-square size-4 shrink-0 rounded-full border shadow-xs transition-[color,box-shadow] outline-none group-has-[:focus-visible]:ring-[3px] group-data=[disabled=true]:cursor-not-allowed group-data=[disabled=true]:opacity-50',
 			this.userClass(),

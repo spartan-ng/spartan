@@ -63,7 +63,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-carousel-preview />
 				</div>
-				<spartan-code secondTab [code]="defaultCode" />
+				<spartan-code secondTab [code]="_defaultCode" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -75,8 +75,8 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="space-y-4">
-				<spartan-code [code]="defaultImports" />
-				<spartan-code [code]="defaultSkeleton" />
+				<spartan-code [code]="_defaultImports" />
+				<spartan-code [code]="_defaultSkeleton" />
 			</div>
 
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
@@ -95,7 +95,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-carousel-sizes />
 				</div>
-				<spartan-code secondTab [code]="sizesCode" />
+				<spartan-code secondTab [code]="_sizesCode" />
 			</spartan-tabs>
 
 			<h3 id="examples__spacing" class="${hlmH4} mb-2 mt-6">Spacing</h3>
@@ -114,7 +114,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-carousel-spacing />
 				</div>
-				<spartan-code secondTab [code]="spacingCode" />
+				<spartan-code secondTab [code]="_spacingCode" />
 			</spartan-tabs>
 
 			<h3 id="examples__orientation" class="${hlmH4} mb-2 mt-6">Orientation</h3>
@@ -127,7 +127,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-carousel-orientation />
 				</div>
-				<spartan-code secondTab [code]="orientationCode" />
+				<spartan-code secondTab [code]="_orientationCode" />
 			</spartan-tabs>
 
 			<h3 id="examples__slide_count" class="${hlmH4} mb-2 mt-6">Slide Count</h3>
@@ -140,7 +140,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-carousel-slide-count />
 				</div>
-				<spartan-code secondTab [code]="slideCountCode" />
+				<spartan-code secondTab [code]="_slideCountCode" />
 			</spartan-tabs>
 
 			<h3 id="examples__plugins" class="${hlmH4} mb-2 mt-6">Plugins</h3>
@@ -153,7 +153,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-carousel-plugins />
 				</div>
-				<spartan-code secondTab [code]="pluginsCode" />
+				<spartan-code secondTab [code]="_pluginsCode" />
 			</spartan-tabs>
 			<p class="py-2">
 				See the
@@ -172,12 +172,12 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class CarouselPageComponent {
-	public readonly defaultCode = defaultCode;
-	public readonly defaultSkeleton = defaultSkeleton;
-	public readonly defaultImports = defaultImports;
-	protected readonly sizesCode = carouselSizesCode;
-	protected readonly spacingCode = carouselSpacingCode;
-	protected readonly slideCountCode = carouselSlideCountCode;
-	protected readonly pluginsCode = carouselPluginsCode;
-	protected readonly orientationCode = carouselOrientationCode;
+	protected readonly _defaultCode = defaultCode;
+	protected readonly _defaultSkeleton = defaultSkeleton;
+	protected readonly _defaultImports = defaultImports;
+	protected readonly _sizesCode = carouselSizesCode;
+	protected readonly _spacingCode = carouselSpacingCode;
+	protected readonly _slideCountCode = carouselSlideCountCode;
+	protected readonly _pluginsCode = carouselPluginsCode;
+	protected readonly _orientationCode = carouselOrientationCode;
 }

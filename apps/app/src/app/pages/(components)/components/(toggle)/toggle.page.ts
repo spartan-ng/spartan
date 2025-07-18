@@ -63,7 +63,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-toggle-preview />
 				</div>
-				<spartan-code secondTab [code]="defaultCode" />
+				<spartan-code secondTab [code]="_defaultCode" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -75,8 +75,8 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="space-y-4">
-				<spartan-code [code]="defaultImports" />
-				<spartan-code [code]="defaultSkeleton" />
+				<spartan-code [code]="_defaultImports" />
+				<spartan-code [code]="_defaultSkeleton" />
 			</div>
 
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
@@ -91,35 +91,35 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-toggle-outline />
 				</div>
-				<spartan-code secondTab [code]="outlineCode" />
+				<spartan-code secondTab [code]="_outlineCode" />
 			</spartan-tabs>
 			<h3 id="examples__with_text" class="${hlmH4} mb-2 mt-6">With Text</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-toggle-with-text />
 				</div>
-				<spartan-code secondTab [code]="withTextCode" />
+				<spartan-code secondTab [code]="_withTextCode" />
 			</spartan-tabs>
 			<h3 id="examples__small" class="${hlmH4} mb-2 mt-6">Small</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-toggle-small />
 				</div>
-				<spartan-code secondTab [code]="smallCode" />
+				<spartan-code secondTab [code]="_smallCode" />
 			</spartan-tabs>
 			<h3 id="examples__large" class="${hlmH4} mb-2 mt-6">Large</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-toggle-large />
 				</div>
-				<spartan-code secondTab [code]="largeCode" />
+				<spartan-code secondTab [code]="_largeCode" />
 			</spartan-tabs>
 			<h3 id="examples__disabled" class="${hlmH4} mb-2 mt-6">Disabled</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-toggle-disabled />
 				</div>
-				<spartan-code secondTab [code]="disabledCode" />
+				<spartan-code secondTab [code]="_disabledCode" />
 			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
@@ -131,12 +131,12 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class TogglePageComponent {
-	protected readonly defaultCode = defaultCode;
-	protected readonly defaultSkeleton = defaultSkeleton;
-	protected readonly defaultImports = defaultImports;
-	protected readonly disabledCode = toggleDisabledCode;
-	protected readonly largeCode = toggleLargeCode;
-	protected readonly outlineCode = toggleOutlineCode;
-	protected readonly smallCode = toggleSmallCode;
-	protected readonly withTextCode = toggleWithTextCode;
+	protected readonly _defaultCode = defaultCode;
+	protected readonly _defaultSkeleton = defaultSkeleton;
+	protected readonly _defaultImports = defaultImports;
+	protected readonly _disabledCode = toggleDisabledCode;
+	protected readonly _largeCode = toggleLargeCode;
+	protected readonly _outlineCode = toggleOutlineCode;
+	protected readonly _smallCode = toggleSmallCode;
+	protected readonly _withTextCode = toggleWithTextCode;
 }

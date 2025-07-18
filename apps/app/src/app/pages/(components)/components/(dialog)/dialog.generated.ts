@@ -63,7 +63,7 @@ import { HlmLabelDirective } from '@spartan-ng/helm/label';
 	\`,
 })
 export class DialogClosePreviewComponent {
-	public viewchildDialogRef = viewChild(BrnDialogComponent);
+	public readonly viewchildDialogRef = viewChild(BrnDialogComponent);
 
 	closeDialog() {
 		this.viewchildDialogRef()?.close({});
@@ -196,13 +196,13 @@ import { debounceTime, map } from 'rxjs/operators';
 					name="passphrase"
 					hlmInput
 					[ngModelOptions]="{ standalone: true }"
-					[ngModel]="passphrase()"
-					(ngModelChange)="passphrase.set($event)"
+					[ngModel]="_passphrase()"
+					(ngModelChange)="_passphrase.set($event)"
 				/>
 				<span hlmMuted>Hint: It's sparta</span>
 			</label>
 		</div>
-		<hlm-dialog [state]="state()" (closed)="passphrase.set('')">
+		<hlm-dialog [state]="_state()" (closed)="_passphrase.set('')">
 			<hlm-dialog-content *brnDialogContent="let ctx">
 				<hlm-dialog-header class="w-[250px]">
 					<h3 hlmDialogTitle>Welcome to Sparta</h3>
@@ -213,12 +213,12 @@ import { debounceTime, map } from 'rxjs/operators';
 	\`,
 })
 export class DialogDeclarativePreviewComponent {
-	protected readonly passphrase = signal<string>('');
-	private readonly _debouncedState$ = toObservable(this.passphrase).pipe(
+	protected readonly _passphrase = signal<string>('');
+	private readonly _debouncedState$ = toObservable(this._passphrase).pipe(
 		debounceTime(500),
 		map((passphrase) => (passphrase === 'sparta' ? 'open' : 'closed')),
 	);
-	protected readonly state = toSignal(this._debouncedState$, { initialValue: 'closed' as 'open' | 'closed' });
+	protected readonly _state = toSignal(this._debouncedState$, { initialValue: 'closed' as 'open' | 'closed' });
 }
 `;
 
@@ -308,7 +308,7 @@ export class DialogDynamicComponentPreviewComponent {
 				<th hlmTh>Email</th>
 				<th hlmTh>Phone</th>
 			</tr>
-			@for (user of users; track user.name) {
+			@for (user of _users; track user.name) {
 				<tr hlmTr (click)="selectUser(user)" class="cursor-pointer">
 					<td hlmTd truncate class="font-medium">{{ user.name }}</td>
 					<td hlmTd>{{ user.email }}</td>
@@ -325,7 +325,7 @@ class SelectUserComponent {
 	private readonly _dialogRef = inject<BrnDialogRef<ExampleUser>>(BrnDialogRef);
 	private readonly _dialogContext = injectBrnDialogContext<{ users: ExampleUser[] }>();
 
-	protected readonly users = this._dialogContext.users;
+	protected readonly _users = this._dialogContext.users;
 
 	public selectUser(user: ExampleUser) {
 		this._dialogRef.close(user);

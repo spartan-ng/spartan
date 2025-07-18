@@ -99,6 +99,58 @@ class ComboboxComponent {
 			label: 'NextJs',
 			value: 'nextjs',
 		},
+		{
+			label: 'Svelte',
+			value: 'svelte',
+		},
+		{
+			label: 'Astro',
+			value: 'astro',
+		},
+		{
+			label: 'Ember',
+			value: 'ember',
+		},
+		{
+			label: 'Backbone',
+			value: 'backbone',
+		},
+		{
+			label: 'Lit',
+			value: 'lit',
+		},
+		{
+			label: 'Preact',
+			value: 'preact',
+		},
+		{
+			label: 'SolidJS',
+			value: 'solidjs',
+		},
+		{
+			label: 'Remix',
+			value: 'remix',
+		},
+		{
+			label: 'Gatsby',
+			value: 'gatsby',
+		},
+		{
+			label: 'Qwik',
+			value: 'qwik',
+		},
+		{
+			label: 'Blazor',
+			value: 'blazor',
+		},
+		{
+			label: 'Flutter Web',
+			value: 'flutter-web',
+		},
+		{
+			label: 'Ionic Angular',
+			value: 'ionic-angular',
+		},
 	];
 	public currentFramework = signal<Framework | undefined>(undefined);
 	public state = signal<'closed' | 'open'>('closed');

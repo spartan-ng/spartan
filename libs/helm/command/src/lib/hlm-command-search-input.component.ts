@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { BrnCommandSearchInputDirective } from '@spartan-ng/brain/command';
 import { hlm } from '@spartan-ng/brain/core';
+import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'input[hlm-command-search-input]',
@@ -13,7 +14,7 @@ import { hlm } from '@spartan-ng/brain/core';
 })
 export class HlmCommandSearchInputComponent {
 	/*** The user defined class  */
-	public readonly userClass = input<string>('', { alias: 'class' });
+	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 
 	/*** The styles to apply  */
 	protected readonly _computedClass = computed(() =>

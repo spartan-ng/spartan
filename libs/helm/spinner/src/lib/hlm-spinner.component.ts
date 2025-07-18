@@ -1,27 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { hlm } from '@spartan-ng/brain/core';
-import { type VariantProps, cva } from 'class-variance-authority';
 import type { ClassValue } from 'clsx';
-
-export const spinnerVariants = cva('inline-block', {
-	variants: {
-		variant: {
-			default: 'animate-spin [&>svg]:text-foreground/30 [&>svg]:fill-accent',
-		},
-		size: {
-			xs: 'h-4 w-4',
-			sm: 'h-6 w-6',
-			default: 'w-8 h-8 ',
-			lg: 'w-12 h-12',
-			xl: 'w-16 h-16',
-		},
-	},
-	defaultVariants: {
-		variant: 'default',
-		size: 'default',
-	},
-});
-export type SpinnerVariants = VariantProps<typeof spinnerVariants>;
 
 @Component({
 	selector: 'hlm-spinner',
@@ -45,7 +24,8 @@ export type SpinnerVariants = VariantProps<typeof spinnerVariants>;
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmSpinnerComponent {
-	public readonly size = input<SpinnerVariants['size']>('default');
-	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected _computedClass = computed(() => hlm(spinnerVariants({ size: this.size() }), this.userClass()));
+	public readonly userClass = input<ClassValue>('size-8', { alias: 'class' });
+	protected _computedClass = computed(() =>
+		hlm('inline-block animate-spin [&>svg]:text-foreground/30 [&>svg]:fill-accent', this.userClass()),
+	);
 }

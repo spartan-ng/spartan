@@ -12,12 +12,17 @@ import { TabsCliComponent } from '@spartan-ng/app/app/shared/layout/tabs-cli.com
 import { TabsComponent } from '@spartan-ng/app/app/shared/layout/tabs.component';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
 import { hlmH4 } from '@spartan-ng/helm/typography';
-import { toggleDisabledCode, toggleLargeCode, toggleOutlineCode, toggleSmallCode } from '../(toggle)/toggle.generated';
 import { ToggleGroupDisabledPreviewComponent } from './toggle-group--disabled.preview';
 import { ToggleGroupLargePreviewComponent } from './toggle-group--large.preview';
 import { ToggleGroupOutlinePreviewComponent } from './toggle-group--outline.preview';
 import { ToggleGroupSmallPreviewComponent } from './toggle-group--small.preview';
-import { defaultCode } from './toggle-group.generated';
+import {
+	defaultCode,
+	toggleGroupDisabledCode,
+	toggleGroupLargeCode,
+	toggleGroupOutlineCode,
+	toggleGroupSmallCode,
+} from './toggle-group.generated';
 import { ToggleGroupPreviewComponent, defaultImports, defaultSkeleton } from './toggle-group.preview';
 
 export const routeMeta: RouteMeta = {
@@ -118,8 +123,8 @@ export default class ToggleGroupPageComponent {
 	protected readonly defaultCode = defaultCode;
 	protected readonly defaultImports = defaultImports;
 	protected readonly defaultSkeleton = defaultSkeleton;
-	protected readonly outlineCode = toggleOutlineCode;
-	protected readonly smallCode = toggleSmallCode;
-	protected readonly largeCode = toggleLargeCode;
-	protected readonly disabledCode = toggleDisabledCode;
+	protected readonly outlineCode = toggleGroupOutlineCode;
+	protected readonly smallCode = toggleGroupSmallCode;
+	protected readonly largeCode = toggleGroupLargeCode;
+	protected readonly disabledCode = toggleGroupDisabledCode;
 }

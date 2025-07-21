@@ -36,6 +36,9 @@ describe('radio-group', () => {
 			cy.findByTestId('currentVersion').should('have.text', '15.8.0');
 			//5
 			cy.findByText('v15.2.0').realClick();
+
+			cy.findByTestId('disabledLabel').should('have.css', 'cursor', 'not-allowed');
+
 			cy.findByLabelText('v15.2.0').should('not.be.checked');
 			cy.findByLabelText('v16.0.0').should('not.be.checked');
 			cy.findByLabelText('v15.8.0').should('be.checked');
@@ -91,6 +94,26 @@ describe('radio-group', () => {
 			cy.findByLabelText('v15.2.0').should('not.have.focus');
 			cy.findByLabelText('v16.1.4').should('have.focus');
 			cy.findByLabelText('v16.1.4').should('be.checked');
+		});
+		describe('labelFor', () => {
+			beforeEach(() => {
+				cy.visit('/iframe.html?id=radio-group--label-for');
+				cy.injectAxe();
+			});
+
+			it('should check the option when clicking the label', () => {
+				cy.get('#brn-label-0').realClick();
+				cy.get('#default-radio').realClick();
+				cy.findByLabelText('Default').should('be.checked');
+				cy.get('#brn-label-1').realClick();
+				cy.get('#comfortable-radio').realClick();
+				cy.findByLabelText('Comfortable').should('be.checked');
+				cy.get('#brn-label-2').realClick();
+				cy.get('#compact-radio').realClick();
+				cy.findByLabelText('Compact').should('be.checked');
+				cy.findByLabelText('Comfortable').should('not.be.checked');
+				cy.findByLabelText('Default').should('not.be.checked');
+			});
 		});
 	});
 });

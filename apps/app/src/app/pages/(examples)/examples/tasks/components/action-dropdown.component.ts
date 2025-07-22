@@ -64,15 +64,15 @@ import { Task } from '../services/tasks.models';
 		<ng-template #labels>
 			<hlm-menu>
 				<hlm-menu-group>
-					<button hlmMenuItemCheckbox [checked]="element.type === 'Bug'">
+					<button hlmMenuItemCheckbox [checked]="_element.type === 'Bug'">
 						<hlm-menu-item-radio />
 						<span>Bug</span>
 					</button>
-					<button hlmMenuItemCheckbox [checked]="element.type === 'Feature'">
+					<button hlmMenuItemCheckbox [checked]="_element.type === 'Feature'">
 						<hlm-menu-item-radio />
 						<span>Feature</span>
 					</button>
-					<button hlmMenuItemCheckbox [checked]="element.type === 'Documentation'">
+					<button hlmMenuItemCheckbox [checked]="_element.type === 'Documentation'">
 						<hlm-menu-item-radio />
 						<span>Documentation</span>
 					</button>
@@ -84,5 +84,5 @@ import { Task } from '../services/tasks.models';
 })
 export class ActionDropdownComponent {
 	private readonly _context = injectFlexRenderContext<CellContext<Task, unknown>>();
-	protected readonly element = this._context.row.original;
+	protected readonly _element = this._context.row.original;
 }

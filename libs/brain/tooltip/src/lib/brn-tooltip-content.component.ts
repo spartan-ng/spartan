@@ -31,7 +31,7 @@ import { Subject } from 'rxjs';
 		<div
 			(mouseenter)="_contentHovered.set(true)"
 			(mouseleave)="_contentHovered.set(false)"
-			[class]="_tooltipClasses()"
+			[class]="tooltipClasses()"
 			[style.visibility]="'hidden'"
 			#tooltip
 		>
@@ -60,7 +60,7 @@ export class BrnTooltipContentComponent implements OnDestroy {
 
 	protected readonly _contentHovered = signal(false);
 
-	public readonly _tooltipClasses = signal('');
+	public readonly tooltipClasses = signal('');
 	public readonly side = signal('above');
 	/** Message to display in the tooltip */
 	public content: string | TemplateRef<unknown> | null = null;
@@ -73,15 +73,15 @@ export class BrnTooltipContentComponent implements OnDestroy {
 	private _animateTimeoutId: ReturnType<typeof setTimeout> | undefined;
 
 	/** Element that caused the tooltip to open. */
-	public _triggerElement?: HTMLElement;
+	public triggerElement?: HTMLElement;
 
 	/** Amount of milliseconds to delay the closing sequence. */
-	public _mouseLeaveHideDelay = 0;
+	public mouseLeaveHideDelay = 0;
 	/** Amount of milliseconds of closing animation. */
-	public _exitAnimationDuration = 0;
+	public exitAnimationDuration = 0;
 
 	/** Reference to the internal tooltip element. */
-	public _tooltip = viewChild('tooltip', { read: ElementRef<HTMLElement> });
+	public readonly tooltip = viewChild('tooltip', { read: ElementRef<HTMLElement> });
 
 	/** Whether interactions on the page should close the tooltip */
 	private _closeOnInteraction = false;
@@ -146,7 +146,7 @@ export class BrnTooltipContentComponent implements OnDestroy {
 	ngOnDestroy() {
 		this._cancelPendingAnimations();
 		this._onHide.complete();
-		this._triggerElement = undefined;
+		this.triggerElement = undefined;
 	}
 
 	_isTypeOfString(content: unknown): content is string {
@@ -174,9 +174,9 @@ export class BrnTooltipContentComponent implements OnDestroy {
 	}
 
 	_handleMouseLeave({ relatedTarget }: MouseEvent) {
-		if (!relatedTarget || !this._triggerElement?.contains(relatedTarget as Node)) {
+		if (!relatedTarget || !this.triggerElement?.contains(relatedTarget as Node)) {
 			if (this.isVisible()) {
-				this.hide(this._mouseLeaveHideDelay, this._exitAnimationDuration);
+				this.hide(this.mouseLeaveHideDelay, this.exitAnimationDuration);
 			} else {
 				this._finalize(false);
 			}
@@ -210,7 +210,7 @@ export class BrnTooltipContentComponent implements OnDestroy {
 		// We set the classes directly here ourselves so that toggling the tooltip state
 		// isn't bound by change detection. This allows us to hide it even if the
 		// view ref has been detached from the CD tree.
-		const tooltip = this._tooltip()?.nativeElement;
+		const tooltip = this.tooltip()?.nativeElement;
 		if (!tooltip || !this._isBrowser) return;
 		this._renderer2.setStyle(tooltip, 'visibility', isVisible ? 'visible' : 'hidden');
 		if (isVisible) {
@@ -225,7 +225,7 @@ export class BrnTooltipContentComponent implements OnDestroy {
 		// We set the classes directly here ourselves so that toggling the tooltip state
 		// isn't bound by change detection. This allows us to hide it even if the
 		// view ref has been detached from the CD tree.
-		const tooltip = this._tooltip()?.nativeElement;
+		const tooltip = this.tooltip()?.nativeElement;
 		if (!tooltip || !this._isBrowser) return;
 		this._renderer2.setAttribute(tooltip, 'data-side', side);
 		this._renderer2.setAttribute(tooltip, 'data-state', isVisible ? 'open' : 'closed');

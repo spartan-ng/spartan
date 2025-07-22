@@ -34,7 +34,8 @@ type Column = { label: string; key: string; class?: string };
 	`,
 })
 export class UIApiDocsTableComponent {
-	public title = input.required<string>();
-	public rows = input.required<any[]>();
-	public columns = input.required<Column[]>();
+	public readonly title = input.required<string>();
+	// es-lint-disable-next-line @typescript-eslint/no-explicit-any
+	public readonly rows = input.required<any[]>();
+	public readonly columns = input.required<Column[]>();
 }

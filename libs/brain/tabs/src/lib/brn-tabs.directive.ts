@@ -24,9 +24,9 @@ export class BrnTabsDirective {
 	/** internal **/
 	public $direction = this.direction;
 
-	public readonly _activeTab = model<string | undefined>(undefined, { alias: 'brnTabs' });
+	public readonly activeTab = model<string | undefined>(undefined, { alias: 'brnTabs' });
 	/** internal **/
-	public $activeTab = this._activeTab.asReadonly();
+	public $activeTab = this.activeTab.asReadonly();
 
 	public readonly activationMode = input<BrnActivationMode>('automatic');
 	/** internal **/
@@ -47,8 +47,8 @@ export class BrnTabsDirective {
 
 	public unregisterTrigger(key: string) {
 		this.updateEntry(key, { trigger: undefined });
-		if (this._activeTab() === key) {
-			this._activeTab.set(undefined);
+		if (this.activeTab() === key) {
+			this.activeTab.set(undefined);
 		}
 	}
 
@@ -74,6 +74,6 @@ export class BrnTabsDirective {
 	}
 
 	setActiveTab(key: string) {
-		this._activeTab.set(key);
+		this.activeTab.set(key);
 	}
 }

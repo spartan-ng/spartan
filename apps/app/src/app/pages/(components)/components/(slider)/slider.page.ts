@@ -42,7 +42,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-slider-preview />
 				</div>
-				<spartan-code secondTab [code]="defaultCode" />
+				<spartan-code secondTab [code]="_defaultCode" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -54,8 +54,8 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="space-y-4">
-				<spartan-code [code]="defaultImports" />
-				<spartan-code [code]="defaultSlider" />
+				<spartan-code [code]="_defaultImports" />
+				<spartan-code [code]="_defaultSlider" />
 			</div>
 
 			<spartan-page-bottom-nav>
@@ -67,7 +67,7 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class SliderPageComponent {
-	protected readonly defaultCode = defaultCode;
-	protected readonly defaultSlider = defaultSlider;
-	protected readonly defaultImports = defaultImports;
+	protected readonly _defaultCode = defaultCode;
+	protected readonly _defaultSlider = defaultSlider;
+	protected readonly _defaultImports = defaultImports;
 }

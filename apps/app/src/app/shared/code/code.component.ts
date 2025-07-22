@@ -30,7 +30,7 @@ declare const Prism: typeof import('prismjs');
 	template: `
 		@if (!_disableCopy) {
 			<button (click)="copyToClipBoard()" hlmBtn variant="ghost" class="absolute right-2 top-2 h-6 w-6 p-1">
-				<ng-icon hlm size="xs" [name]="copied ? 'lucideCheck' : 'lucideClipboard'" />
+				<ng-icon hlm size="xs" [name]="_copied ? 'lucideCheck' : 'lucideClipboard'" />
 			</button>
 		}
 		<div class="max-h-[650px] w-full overflow-auto whitespace-nowrap p-4">
@@ -81,7 +81,7 @@ export class CodeComponent {
 	private readonly _clipboard = inject(Clipboard);
 	private readonly _marked: typeof marked;
 	protected _content = '';
-	protected copied = false;
+	protected _copied = false;
 
 	protected _disableCopy = false;
 	@Input({ transform: booleanAttribute })
@@ -152,7 +152,7 @@ export class CodeComponent {
 	copyToClipBoard() {
 		if (!this._code) return;
 		this._clipboard.copy(this._code);
-		this.copied = true;
-		setTimeout(() => (this.copied = false), 3000);
+		this._copied = true;
+		setTimeout(() => (this._copied = false), 3000);
 	}
 }

@@ -42,5 +42,5 @@ import { BreadcrumbSharedService } from './breadcrumb-shared.service';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BreadcrumbsComponent {
-	public breadcrumbs = toSignal(inject(BreadcrumbSharedService).breadcrumbs$);
+	public readonly breadcrumbs = toSignal(inject(BreadcrumbSharedService).breadcrumbs$);
 }

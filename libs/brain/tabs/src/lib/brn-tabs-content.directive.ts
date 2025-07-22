@@ -6,8 +6,8 @@ import { BrnTabsDirective } from './brn-tabs.directive';
 	host: {
 		role: 'tabpanel',
 		tabindex: '0',
-		'[id]': 'contentId()',
-		'[attr.aria-labelledby]': 'labelId()',
+		'[id]': '_contentId()',
+		'[attr.aria-labelledby]': '_labelId()',
 		'[hidden]': '_isSelected() === false',
 	},
 	exportAs: 'brnTabsContent',
@@ -18,8 +18,8 @@ export class BrnTabsContentDirective implements OnDestroy {
 
 	public readonly contentFor = input.required<string>({ alias: 'brnTabsContent' });
 	protected readonly _isSelected = computed(() => this._root.$activeTab() === this.contentFor());
-	protected contentId = computed(() => `brn-tabs-content-${this.contentFor()}`);
-	protected labelId = computed(() => `brn-tabs-label-${this.contentFor()}`);
+	protected readonly _contentId = computed(() => `brn-tabs-content-${this.contentFor()}`);
+	protected readonly _labelId = computed(() => `brn-tabs-label-${this.contentFor()}`);
 
 	constructor() {
 		effect(() => {

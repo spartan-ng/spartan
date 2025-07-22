@@ -37,7 +37,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-icon-preview />
 				</div>
-				<spartan-code secondTab [code]="defaultCode" />
+				<spartan-code secondTab [code]="_defaultCode" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -45,8 +45,8 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="space-y-4">
-				<spartan-code [code]="defaultImports" />
-				<spartan-code [code]="defaultSkeleton" />
+				<spartan-code [code]="_defaultImports" />
+				<spartan-code [code]="_defaultSkeleton" />
 			</div>
 
 			<spartan-section-sub-heading id="icons">Icons</spartan-section-sub-heading>
@@ -61,7 +61,7 @@ export const routeMeta: RouteMeta = {
 			<div
 				class="border-border mt-2 grid grid-cols-2 place-items-center gap-4 rounded-md border sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6"
 			>
-				@for (icon of iconsList(); track $index) {
+				@for (icon of _iconsList(); track $index) {
 					<div class="flex w-full flex-col items-center gap-2 p-4">
 						<ng-icon hlm size="lg" [name]="icon" />
 						<span class="whitespace-normal break-all text-center text-sm">{{ icon }}</span>
@@ -99,19 +99,19 @@ export const routeMeta: RouteMeta = {
 	providers: [provideIcons(lucideIcons)],
 })
 export default class IconPageComponent {
-	protected readonly defaultCode = defaultCode;
-	protected readonly defaultSkeleton = defaultSkeleton;
-	protected readonly defaultImports = defaultImports;
+	protected readonly _defaultCode = defaultCode;
+	protected readonly _defaultSkeleton = defaultSkeleton;
+	protected readonly _defaultImports = defaultImports;
 
 	private readonly _searchQuery = signal<string>('');
 
-	protected lucideIconsList = computed(() => {
+	protected readonly _lucideIconsList = computed(() => {
 		return Object.keys(lucideIcons).filter((iconName) => Object.prototype.hasOwnProperty.call(lucideIcons, iconName));
 	});
 
-	protected iconsList = computed(() => {
+	protected readonly _iconsList = computed(() => {
 		const query = this._searchQuery();
-		return this.lucideIconsList().filter((iconName) =>
+		return this._lucideIconsList().filter((iconName) =>
 			iconName.toLocaleLowerCase().includes(query.toLocaleLowerCase()),
 		);
 	});

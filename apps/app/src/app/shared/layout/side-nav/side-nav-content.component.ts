@@ -11,7 +11,7 @@ import { SideNavLinksComponent } from './side-nav-links.directive';
 		class: 'block px-1',
 	},
 	template: `
-		@for (section of sections; track section.label) {
+		@for (section of _sections; track section.label) {
 			<div class="pb-4">
 				<h4 spartanSideNavHeading>{{ section.label }}</h4>
 				<spartan-side-nav-links>
@@ -34,7 +34,7 @@ import { SideNavLinksComponent } from './side-nav-links.directive';
 export class SideNavContentComponent {
 	public readonly linkClicked = output();
 
-	protected readonly sections = [
+	protected readonly _sections = [
 		{
 			label: 'Getting Started',
 			url: '/documentation',

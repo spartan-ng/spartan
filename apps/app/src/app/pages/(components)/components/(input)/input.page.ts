@@ -59,7 +59,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-input-preview />
 				</div>
-				<spartan-code secondTab [code]="defaultCode" />
+				<spartan-code secondTab [code]="_defaultCode" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -71,8 +71,8 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="space-y-4">
-				<spartan-code [code]="defaultImports" />
-				<spartan-code [code]="defaultSkeleton" />
+				<spartan-code [code]="_defaultImports" />
+				<spartan-code [code]="_defaultSkeleton" />
 			</div>
 
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
@@ -84,28 +84,28 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-input-file />
 				</div>
-				<spartan-code secondTab [code]="fileCode" />
+				<spartan-code secondTab [code]="_fileCode" />
 			</spartan-tabs>
 			<h3 id="examples__disabled" class="${hlmH4} mb-2 mt-6">Disabled</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-input-disabled />
 				</div>
-				<spartan-code secondTab [code]="disabledCode" />
+				<spartan-code secondTab [code]="_disabledCode" />
 			</spartan-tabs>
 			<h3 id="examples__with_label" class="${hlmH4} mb-2 mt-6">With Label</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-input-label />
 				</div>
-				<spartan-code secondTab [code]="labelCode" />
+				<spartan-code secondTab [code]="_labelCode" />
 			</spartan-tabs>
 			<h3 id="examples__with_button" class="${hlmH4} mb-2 mt-6">With Button</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-input-button />
 				</div>
-				<spartan-code secondTab [code]="buttonCode" />
+				<spartan-code secondTab [code]="_buttonCode" />
 			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
@@ -117,11 +117,11 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class InputPageComponent {
-	protected readonly defaultCode = defaultCode;
-	protected readonly defaultSkeleton = defaultSkeleton;
-	protected readonly defaultImports = defaultImports;
-	protected readonly fileCode = inputFileCode;
-	protected readonly disabledCode = inputDisabledCode;
-	protected readonly labelCode = inputLabelCode;
-	protected readonly buttonCode = inputButtonCode;
+	protected readonly _defaultCode = defaultCode;
+	protected readonly _defaultSkeleton = defaultSkeleton;
+	protected readonly _defaultImports = defaultImports;
+	protected readonly _fileCode = inputFileCode;
+	protected readonly _disabledCode = inputDisabledCode;
+	protected readonly _labelCode = inputLabelCode;
+	protected readonly _buttonCode = inputButtonCode;
 }

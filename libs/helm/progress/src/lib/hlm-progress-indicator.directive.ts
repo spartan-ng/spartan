@@ -7,8 +7,8 @@ import type { ClassValue } from 'clsx';
 	selector: '[hlmProgressIndicator],brn-progress-indicator[hlm]',
 	host: {
 		'[class]': '_computedClass()',
-		'[class.animate-indeterminate]': 'indeterminate()',
-		'[style.transform]': 'transform()',
+		'[class.animate-indeterminate]': '_indeterminate()',
+		'[style.transform]': '_transform()',
 	},
 })
 export class HlmProgressIndicatorDirective {
@@ -19,9 +19,9 @@ export class HlmProgressIndicatorDirective {
 		hlm('bg-primary h-full w-full flex-1 transition-all', this.userClass()),
 	);
 
-	protected readonly transform = computed(() => `translateX(-${100 - (this._progress.value() ?? 100)}%)`);
+	protected readonly _transform = computed(() => `translateX(-${100 - (this._progress.value() ?? 100)}%)`);
 
-	protected readonly indeterminate = computed(
+	protected readonly _indeterminate = computed(
 		() => this._progress.value() === null || this._progress.value() === undefined,
 	);
 }

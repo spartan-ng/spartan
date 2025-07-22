@@ -61,7 +61,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-toggle-group-preview />
 				</div>
-				<spartan-code secondTab [code]="defaultCode" />
+				<spartan-code secondTab [code]="_defaultCode" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -73,8 +73,8 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="space-y-4">
-				<spartan-code [code]="defaultImports" />
-				<spartan-code [code]="defaultSkeleton" />
+				<spartan-code [code]="_defaultImports" />
+				<spartan-code [code]="_defaultSkeleton" />
 			</div>
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
@@ -83,7 +83,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-toggle-group-outline />
 				</div>
-				<spartan-code secondTab [code]="outlineCode" />
+				<spartan-code secondTab [code]="_outlineCode" />
 			</spartan-tabs>
 
 			<h3 id="examples__small" class="${hlmH4} mb-2 mt-6">Small</h3>
@@ -91,7 +91,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-toggle-group-small />
 				</div>
-				<spartan-code secondTab [code]="smallCode" />
+				<spartan-code secondTab [code]="_smallCode" />
 			</spartan-tabs>
 
 			<h3 id="examples__large" class="${hlmH4} mb-2 mt-6">Large</h3>
@@ -99,7 +99,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-toggle-group-large />
 				</div>
-				<spartan-code secondTab [code]="largeCode" />
+				<spartan-code secondTab [code]="_largeCode" />
 			</spartan-tabs>
 
 			<h3 id="examples__disabled" class="${hlmH4} mb-2 mt-6">Disabled</h3>
@@ -107,7 +107,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-toggle-group-disabled />
 				</div>
-				<spartan-code secondTab [code]="disabledCode" />
+				<spartan-code secondTab [code]="_disabledCode" />
 			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
@@ -120,11 +120,11 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class ToggleGroupPageComponent {
-	protected readonly defaultCode = defaultCode;
-	protected readonly defaultImports = defaultImports;
-	protected readonly defaultSkeleton = defaultSkeleton;
-	protected readonly outlineCode = toggleGroupOutlineCode;
-	protected readonly smallCode = toggleGroupSmallCode;
-	protected readonly largeCode = toggleGroupLargeCode;
-	protected readonly disabledCode = toggleGroupDisabledCode;
+	protected readonly _defaultCode = defaultCode;
+	protected readonly _defaultImports = defaultImports;
+	protected readonly _defaultSkeleton = defaultSkeleton;
+	protected readonly _outlineCode = toggleGroupOutlineCode;
+	protected readonly _smallCode = toggleGroupSmallCode;
+	protected readonly _largeCode = toggleGroupLargeCode;
+	protected readonly _disabledCode = toggleGroupDisabledCode;
 }

@@ -217,11 +217,11 @@ const CITIES = [
 	`,
 })
 class HlmToggleGroupStoryComponent {
-	public multiple = input<BooleanInput>(false);
-	public nullable = input<BooleanInput>(false);
-	public disabled = input<BooleanInput>(false);
-	public defaultValue = input<City | City[] | undefined>(undefined);
-	public selected = signal<City | City[] | undefined>(undefined);
+	public readonly multiple = input<BooleanInput>(false);
+	public readonly nullable = input<BooleanInput>(false);
+	public readonly disabled = input<BooleanInput>(false);
+	public readonly defaultValue = input<City | City[] | undefined>(undefined);
+	public readonly selected = signal<City | City[] | undefined>(undefined);
 
 	private _cities: City[] = [...CITIES];
 	public get cities(): City[] {

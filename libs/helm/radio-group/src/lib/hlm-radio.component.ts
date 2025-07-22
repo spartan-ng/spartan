@@ -42,7 +42,7 @@ import { ClassValue } from 'clsx';
 		'[attr.aria-label]': 'null',
 		'[attr.aria-labelledby]': 'null',
 		'[attr.aria-describedby]': 'null',
-		'[attr.data-disabled]': 'state().disabled() ? "" : null',
+		'[attr.data-disabled]': '_state().disabled() ? "" : null',
 	},
 })
 export class HlmRadioComponent<T = unknown> {
@@ -56,7 +56,7 @@ export class HlmRadioComponent<T = unknown> {
 		hlm(
 			'group flex items-center gap-x-3',
 			this.userClass(),
-			this.state().disabled() ? 'cursor-not-allowed opacity-50' : '',
+			this._state().disabled() ? 'cursor-not-allowed opacity-50' : '',
 		),
 	);
 

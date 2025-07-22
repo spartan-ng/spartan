@@ -38,7 +38,7 @@ import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
 				</hlm-radio>
 				v15.8.0
 			</label>
-			<label class="flex items-center" hlmLabel>
+			<label class="flex items-center" hlmLabel data-testid="disabledLabel">
 				<hlm-radio disabled value="15.2.0">
 					<hlm-radio-indicator indicator />
 				</hlm-radio>
@@ -65,7 +65,15 @@ const meta: Meta<BrnRadioGroupDirective> = {
 	tags: ['autodocs'],
 	decorators: [
 		moduleMetadata({
-			imports: [RadioGroupExampleComponent],
+			imports: [
+				RadioGroupExampleComponent,
+				HlmRadioGroupImports,
+				FormsModule,
+				HlmButtonDirective,
+				HlmCodeDirective,
+				HlmSmallDirective,
+				HlmLabelDirective,
+			],
 			providers: [],
 		}),
 	],
@@ -77,5 +85,46 @@ type Story = StoryObj<BrnRadioGroupDirective>;
 export const Default: Story = {
 	render: () => ({
 		template: '<radio-group-example/>',
+	}),
+};
+
+export const LabelFor: Story = {
+	render: () => ({
+		template: `
+		<hlm-radio-group class="text-sm font-medium" >
+			<div class="flex items-center gap-3">
+				<hlm-radio value="default" id="default">
+					<hlm-radio-indicator indicator />
+				</hlm-radio>
+				<label hlmLabel for="default" >
+					Default
+				</label>
+			</div>
+			<div class="flex items-center gap-3">
+				<hlm-radio value="comfortable" id="comfortable">
+					<hlm-radio-indicator indicator />
+				</hlm-radio>
+				<label hlmLabel for="comfortable" >
+					Comfortable
+				</label>
+			</div>
+			<div class="flex items-center gap-3">
+				<hlm-radio value="compact" id="compact">
+					<hlm-radio-indicator indicator />
+				</hlm-radio>
+				<label hlmLabel for="compact" >
+					Compact
+				</label>
+			</div>
+			<div class="flex items-center gap-3">
+				<hlm-radio class="peer group" disabled=true value="disabled" id="disabled">
+					<hlm-radio-indicator indicator />
+				</hlm-radio>
+				<label hlmLabel for="disabled" >
+					Disabled
+				</label>
+			</div>
+		</hlm-radio-group>
+`,
 	}),
 };

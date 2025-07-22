@@ -3,7 +3,7 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideEllipsis } from '@ng-icons/lucide';
 import { hlm } from '@spartan-ng/brain/core';
 import { HlmIconDirective } from '@spartan-ng/helm/icon';
-import { ClassValue } from 'clsx';
+import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-pagination-ellipsis',
@@ -12,13 +12,15 @@ import { ClassValue } from 'clsx';
 	template: `
 		<span [class]="_computedClass()">
 			<ng-icon hlm size="sm" name="lucideEllipsis" />
-			<span class="sr-only">More pages</span>
+			<span class="sr-only">{{ srOnlyText() }}</span>
 		</span>
 	`,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmPaginationEllipsisComponent {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
+	/** Screen reader only text for the ellipsis */
+	public readonly srOnlyText = input<string>('More pages');
 
-	protected readonly _computedClass = computed(() => hlm('flex h-9 w-9 items-center justify-center', this.userClass()));
+	protected readonly _computedClass = computed(() => hlm('flex size-9 items-center justify-center', this.userClass()));
 }

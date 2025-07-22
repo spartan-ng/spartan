@@ -37,6 +37,13 @@ import { ClassValue } from 'clsx';
 		</brn-radio>
 	`,
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		'[attr.id]': 'null',
+		'[attr.aria-label]': 'null',
+		'[attr.aria-labelledby]': 'null',
+		'[attr.aria-describedby]': 'null',
+		'[attr.data-disabled]': 'state().disabled() ? "" : null',
+	},
 })
 export class HlmRadioComponent<T = unknown> {
 	private readonly _document = inject(DOCUMENT);
@@ -45,7 +52,13 @@ export class HlmRadioComponent<T = unknown> {
 	private readonly _isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected readonly _computedClass = computed(() => hlm('group flex items-center gap-x-3', this.userClass()));
+	protected readonly _computedClass = computed(() =>
+		hlm(
+			'group flex items-center gap-x-3',
+			this.userClass(),
+			this.state().disabled() ? 'cursor-not-allowed opacity-50' : '',
+		),
+	);
 
 	/** Used to set the id on the underlying brn element. */
 	public readonly id = input<string | undefined>(undefined);

@@ -22,6 +22,8 @@ export class BrnRadioChange<T> {
 	) {}
 }
 
+const CONTAINER_POST_FIX = '-radio';
+
 @Component({
 	selector: 'brn-radio',
 	host: {
@@ -143,9 +145,9 @@ export class BrnRadioComponent<T = unknown> implements OnDestroy {
 	 */
 	public readonly change = output<BrnRadioChange<T>>();
 
-	protected readonly _hostId = computed(() =>
-		this.id() ? this.id() : `brn-radio-${++BrnRadioComponent._nextUniqueId}`,
-	);
+	protected readonly _hostId = computed(() => {
+		return this.id() ? this.id() + CONTAINER_POST_FIX : `brn-radio-${++BrnRadioComponent._nextUniqueId}`;
+	});
 
 	protected readonly _inputElement = viewChild.required<ElementRef<HTMLInputElement>>('input');
 

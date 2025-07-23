@@ -5,9 +5,9 @@ import { HlmCarouselComponent } from './hlm-carousel.component';
 @Component({
 	selector: 'hlm-carousel-slide-display',
 	template: `
-		<span class="sr-only">{{ labelContent() }}</span>
+		<span class="sr-only">{{ _labelContent() }}</span>
 		<div aria-hidden="true" class="text-muted-foreground text-sm">
-			{{ currentSlide() }} / {{ carousel.slideCount() }}
+			{{ _currentSlide() }} / {{ _carousel.slideCount() }}
 		</div>
 	`,
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -16,18 +16,18 @@ import { HlmCarouselComponent } from './hlm-carousel.component';
 	},
 })
 export class HlmCarouselSlideDisplayComponent {
-	protected readonly carousel = inject(HlmCarouselComponent);
+	protected readonly _carousel = inject(HlmCarouselComponent);
 
-	protected readonly currentSlide = computed(() => this.carousel.currentSlide() + 1);
+	protected readonly _currentSlide = computed(() => this._carousel.currentSlide() + 1);
 
-	public _userClass = input<ClassValue>('', { alias: 'class' });
-	protected _computedClass = computed(() => this._userClass());
+	public readonly userClass = input<ClassValue>('', { alias: 'class' });
+	protected _computedClass = computed(() => this.userClass());
 
 	public readonly label = input('Slide');
 
-	protected readonly labelContent = computed(() => {
-		const currentSlide = this.currentSlide();
-		const slideCount = this.carousel.slideCount();
+	protected readonly _labelContent = computed(() => {
+		const currentSlide = this._currentSlide();
+		const slideCount = this._carousel.slideCount();
 		return `${this.label()} ${currentSlide} of ${slideCount} is displayed`;
 	});
 }

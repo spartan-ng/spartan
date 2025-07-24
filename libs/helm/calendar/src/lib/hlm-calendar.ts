@@ -63,7 +63,7 @@ import type { ClassValue } from 'clsx';
 				<div class="space-y-4">
 					<div class="relative flex items-center justify-center pt-1">
 						<div brnCalendarHeader class="text-sm font-medium">
-							{{ heading() }}
+							{{ _heading() }}
 						</div>
 
 						<div class="flex items-center space-x-1">
@@ -91,22 +91,22 @@ import type { ClassValue } from 'clsx';
 								*brnCalendarWeekday="let weekday"
 								scope="col"
 								class="text-muted-foreground w-8 rounded-md text-[0.8rem] font-normal"
-								[attr.aria-label]="i18n.labelWeekday(weekday)"
+								[attr.aria-label]="_i18n.labelWeekday(weekday)"
 							>
-								{{ i18n.formatWeekdayName(weekday) }}
+								{{ _i18n.formatWeekdayName(weekday) }}
 							</th>
 						</tr>
 					</thead>
 
 					<tbody role="rowgroup">
 						<tr *brnCalendarWeek="let week" class="mt-2 flex w-full">
-							@for (date of week; track dateAdapter.getTime(date)) {
+							@for (date of week; track _dateAdapter.getTime(date)) {
 								<td
 									brnCalendarCell
 									class="data-[selected]:data-[outside]:bg-accent/50 data-[selected]:bg-accent relative size-8 p-0 text-center text-sm focus-within:relative focus-within:z-20 first:data-[selected]:rounded-l-md last:data-[selected]:rounded-r-md [&:has([aria-selected].day-range-end)]:rounded-r-md"
 								>
-									<button brnCalendarCellButton [date]="date" [class]="btnClass">
-										{{ dateAdapter.getDate(date) }}
+									<button brnCalendarCellButton [date]="date" [class]="_btnClass">
+										{{ _dateAdapter.getDate(date) }}
 									</button>
 								</td>
 							}
@@ -124,10 +124,10 @@ export class HlmCalendar<T> {
 	protected readonly _computedCalenderClass = computed(() => hlm('rounded-md border p-3', this.calendarClass()));
 
 	/** Access the calendar i18n */
-	protected readonly i18n = injectBrnCalendarI18n();
+	protected readonly _i18n = injectBrnCalendarI18n();
 
 	/** Access the date time adapter */
-	protected readonly dateAdapter = injectDateAdapter<T>();
+	protected readonly _dateAdapter = injectDateAdapter<T>();
 
 	/** The minimum date that can be selected.*/
 	public readonly min = input<T>();
@@ -158,14 +158,14 @@ export class HlmCalendar<T> {
 	private readonly _calendar = viewChild.required(BrnCalendar);
 
 	/** Get the heading for the current month and year */
-	protected heading = computed(() =>
-		this.i18n.formatHeader(
-			this.dateAdapter.getMonth(this._calendar().focusedDate()),
-			this.dateAdapter.getYear(this._calendar().focusedDate()),
+	protected readonly _heading = computed(() =>
+		this._i18n.formatHeader(
+			this._dateAdapter.getMonth(this._calendar().focusedDate()),
+			this._dateAdapter.getYear(this._calendar().focusedDate()),
 		),
 	);
 
-	protected readonly btnClass = hlm(
+	protected readonly _btnClass = hlm(
 		buttonVariants({ variant: 'ghost' }),
 		'size-8 p-0 font-normal aria-selected:opacity-100',
 		'data-[outside]:text-muted-foreground data-[outside]:opacity-50 data-[outside]:aria-selected:bg-accent/50 data-[outside]:aria-selected:text-muted-foreground data-[outside]:aria-selected:opacity-30',

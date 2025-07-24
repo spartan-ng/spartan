@@ -30,10 +30,10 @@ import { listVariants } from './hlm-tabs-list';
 			type="button"
 			aria-hidden="true"
 			tabindex="-1"
-			[class.flex]="_showPaginationControls()"
-			[class.hidden]="!_showPaginationControls()"
+			[class.flex]="showPaginationControls()"
+			[class.hidden]="!showPaginationControls()"
 			[class]="_paginationButtonClass()"
-			[disabled]="_disableScrollBefore || null"
+			[disabled]="disableScrollBefore || null"
 			(click)="_handlePaginatorClick('before')"
 			(mousedown)="_handlePaginatorPress('before', $event)"
 			(touchend)="_stopInterval()"
@@ -55,10 +55,10 @@ import { listVariants } from './hlm-tabs-list';
 			type="button"
 			aria-hidden="true"
 			tabindex="-1"
-			[class.flex]="_showPaginationControls()"
-			[class.hidden]="!_showPaginationControls()"
+			[class.flex]="showPaginationControls()"
+			[class.hidden]="!showPaginationControls()"
 			[class]="_paginationButtonClass()"
-			[disabled]="_disableScrollAfter || null"
+			[disabled]="disableScrollAfter || null"
 			(click)="_handlePaginatorClick('after')"
 			(mousedown)="_handlePaginatorPress('after', $event)"
 			(touchend)="_stopInterval()"
@@ -72,15 +72,15 @@ import { listVariants } from './hlm-tabs-list';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmTabsPaginatedList extends BrnTabsPaginatedList {
-	public readonly _items = contentChildren(BrnTabsTrigger, { descendants: false });
+	public readonly items = contentChildren(BrnTabsTrigger, { descendants: false });
 	/** Explicitly annotating type to avoid non-portable inferred type */
-	public readonly _itemsChanges: Observable<ReadonlyArray<BrnPaginatedTabHeaderItem>> = toObservable(this._items);
+	public readonly itemsChanges: Observable<ReadonlyArray<BrnPaginatedTabHeaderItem>> = toObservable(this.items);
 
-	public readonly _tabListContainer = viewChild.required<ElementRef<HTMLElement>>('tabListContainer');
-	public readonly _tabList = viewChild.required<ElementRef<HTMLElement>>('tabList');
-	public readonly _tabListInner = viewChild.required<ElementRef<HTMLElement>>('tabListInner');
-	public readonly _nextPaginator = viewChild.required<ElementRef<HTMLElement>>('nextPaginator');
-	public readonly _previousPaginator = viewChild.required<ElementRef<HTMLElement>>('previousPaginator');
+	public readonly tabListContainer = viewChild.required<ElementRef<HTMLElement>>('tabListContainer');
+	public readonly tabList = viewChild.required<ElementRef<HTMLElement>>('tabList');
+	public readonly tabListInner = viewChild.required<ElementRef<HTMLElement>>('tabListInner');
+	public readonly nextPaginator = viewChild.required<ElementRef<HTMLElement>>('nextPaginator');
+	public readonly previousPaginator = viewChild.required<ElementRef<HTMLElement>>('previousPaginator');
 
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>

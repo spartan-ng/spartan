@@ -22,7 +22,7 @@ export class TableHeadSortButton<T> {
 	protected filterClick() {
 		this._context.column.toggleSorting(this._context.column.getIsSorted() === 'asc');
 	}
-	protected readonly header = input('');
+	public readonly header = input('');
 	protected readonly _header = computed(() => {
 		return this.header() === '' ? this._context.column.id : this.header();
 	});

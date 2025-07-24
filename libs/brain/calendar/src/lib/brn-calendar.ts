@@ -25,7 +25,7 @@ import { BrnCalendarBase, provideBrnCalendar } from './brn-calendar.token';
 })
 export class BrnCalendar<T> implements BrnCalendarBase<T> {
 	/** Access the date adapter */
-	protected readonly dateAdapter = injectDateAdapter<T>();
+	protected readonly _dateAdapter = injectDateAdapter<T>();
 
 	/** Access the change detector */
 	private readonly _changeDetector = inject(ChangeDetectorRef);
@@ -62,7 +62,7 @@ export class BrnCalendar<T> implements BrnCalendarBase<T> {
 	public readonly header = contentChild(BrnCalendarHeader);
 
 	/** Store the cells */
-	protected readonly cells = contentChildren<BrnCalendarCellButton<T>>(BrnCalendarCellButton, {
+	protected readonly _cells = contentChildren<BrnCalendarCellButton<T>>(BrnCalendarCellButton, {
 		descendants: true,
 	});
 
@@ -71,7 +71,7 @@ export class BrnCalendar<T> implements BrnCalendarBase<T> {
 	 * The internal state of the component.
 	 */
 	public readonly state = computed(() => ({
-		focusedDate: signal(this.constrainDate(this.defaultFocusedDate() ?? this.date() ?? this.dateAdapter.now())),
+		focusedDate: signal(this.constrainDate(this.defaultFocusedDate() ?? this.date() ?? this._dateAdapter.now())),
 	}));
 
 	/**
@@ -89,25 +89,25 @@ export class BrnCalendar<T> implements BrnCalendarBase<T> {
 		const days: T[] = [];
 
 		// Get the first and last day of the month.
-		let firstDay = this.dateAdapter.startOfMonth(month);
-		let lastDay = this.dateAdapter.endOfMonth(month);
+		let firstDay = this._dateAdapter.startOfMonth(month);
+		let lastDay = this._dateAdapter.endOfMonth(month);
 
 		// we need to subtract until we get the to starting day before or on the start of the month.
-		while (this.dateAdapter.getDay(firstDay) !== weekStartsOn) {
-			firstDay = this.dateAdapter.subtract(firstDay, { days: 1 });
+		while (this._dateAdapter.getDay(firstDay) !== weekStartsOn) {
+			firstDay = this._dateAdapter.subtract(firstDay, { days: 1 });
 		}
 
 		const weekEndsOn = (weekStartsOn + 6) % 7;
 
 		// we need to add until we get to the ending day after or on the end of the month.
-		while (this.dateAdapter.getDay(lastDay) !== weekEndsOn) {
-			lastDay = this.dateAdapter.add(lastDay, { days: 1 });
+		while (this._dateAdapter.getDay(lastDay) !== weekEndsOn) {
+			lastDay = this._dateAdapter.add(lastDay, { days: 1 });
 		}
 
 		// collect all the days to display.
 		while (firstDay <= lastDay) {
 			days.push(firstDay);
-			firstDay = this.dateAdapter.add(firstDay, { days: 1 });
+			firstDay = this._dateAdapter.add(firstDay, { days: 1 });
 		}
 
 		return days;
@@ -124,12 +124,12 @@ export class BrnCalendar<T> implements BrnCalendarBase<T> {
 		}
 
 		// If there is a min and the date is before the min, return the min.
-		if (min && this.dateAdapter.isBefore(date, this.dateAdapter.startOfDay(min))) {
+		if (min && this._dateAdapter.isBefore(date, this._dateAdapter.startOfDay(min))) {
 			return min;
 		}
 
 		// If there is a max and the date is after the max, return the max.
-		if (max && this.dateAdapter.isAfter(date, this.dateAdapter.endOfDay(max))) {
+		if (max && this._dateAdapter.isAfter(date, this._dateAdapter.endOfDay(max))) {
 			return max;
 		}
 
@@ -148,11 +148,11 @@ export class BrnCalendar<T> implements BrnCalendarBase<T> {
 		const min = this.min();
 		const max = this.max();
 
-		if (min && this.dateAdapter.isBefore(date, this.dateAdapter.startOfDay(min))) {
+		if (min && this._dateAdapter.isBefore(date, this._dateAdapter.startOfDay(min))) {
 			return true;
 		}
 
-		if (max && this.dateAdapter.isAfter(date, this.dateAdapter.endOfDay(max))) {
+		if (max && this._dateAdapter.isAfter(date, this._dateAdapter.endOfDay(max))) {
 			return true;
 		}
 
@@ -168,7 +168,7 @@ export class BrnCalendar<T> implements BrnCalendarBase<T> {
 
 	isSelected(date: T): boolean {
 		const selected = this.date() as T | undefined;
-		return selected !== undefined && this.dateAdapter.isSameDay(date, selected);
+		return selected !== undefined && this._dateAdapter.isSameDay(date, selected);
 	}
 
 	selectDate(date: T): void {
@@ -194,7 +194,7 @@ export class BrnCalendar<T> implements BrnCalendarBase<T> {
 			{
 				write: () => {
 					// focus the cell with the target date.
-					const cell = this.cells().find((c) => this.dateAdapter.isSameDay(c.date(), date));
+					const cell = this._cells().find((c) => this._dateAdapter.isSameDay(c.date(), date));
 
 					if (cell) {
 						cell.focus();

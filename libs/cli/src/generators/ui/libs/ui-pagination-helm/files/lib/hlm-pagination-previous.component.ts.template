@@ -4,9 +4,9 @@ import { RouterLink } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronLeft } from '@ng-icons/lucide';
 import { hlm } from '@spartan-ng/brain/core';
-import { ButtonVariants } from '@spartan-ng/helm/button';
+import type { ButtonVariants } from '@spartan-ng/helm/button';
 import { HlmIconDirective } from '@spartan-ng/helm/icon';
-import { ClassValue } from 'clsx';
+import type { ClassValue } from 'clsx';
 import { HlmPaginationLinkDirective } from './hlm-pagination-link.directive';
 
 @Component({
@@ -20,7 +20,7 @@ import { HlmPaginationLinkDirective } from './hlm-pagination-link.directive';
 			[link]="link()"
 			[queryParams]="queryParams()"
 			[queryParamsHandling]="queryParamsHandling()"
-			[size]="size()"
+			[size]="_size()"
 			[attr.aria-label]="ariaLabel()"
 		>
 			<ng-icon hlm size="sm" name="lucideChevronLeft" />
@@ -48,7 +48,7 @@ export class HlmPaginationPreviousComponent {
 	});
 	protected readonly _labelClass = computed(() => (this.iconOnly() ? 'sr-only' : 'hidden sm:block'));
 
-	protected readonly size = computed<ButtonVariants['size']>(() => (this.iconOnly() ? 'icon' : 'default'));
+	protected readonly _size = computed<ButtonVariants['size']>(() => (this.iconOnly() ? 'icon' : 'default'));
 
 	protected readonly _computedClass = computed(() =>
 		hlm('gap-1', !this.iconOnly() ? 'sm:pl-2.5' : '', this.userClass()),

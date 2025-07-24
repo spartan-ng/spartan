@@ -56,7 +56,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-dropdown-preview />
 				</div>
-				<spartan-code secondTab [code]="defaultCode" />
+				<spartan-code secondTab [code]="_defaultCode" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -64,8 +64,8 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="space-y-4">
-				<spartan-code [code]="defaultImports" />
-				<spartan-code [code]="defaultSkeleton" />
+				<spartan-code [code]="_defaultImports" />
+				<spartan-code [code]="_defaultSkeleton" />
 			</div>
 
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
@@ -80,7 +80,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-dropdown-with-state />
 				</div>
-				<spartan-code secondTab [code]="dropdownWithStateCode" />
+				<spartan-code secondTab [code]="_dropdownWithStateCode" />
 			</spartan-tabs>
 
 			<h3 id="examples__context" class="${hlmH4} mb-2 mt-6">Passing context to menu</h3>
@@ -88,7 +88,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-dropdown-with-context />
 				</div>
-				<spartan-code secondTab [code]="dropdownWithContextCode" />
+				<spartan-code secondTab [code]="_dropdownWithContextCode" />
 			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
@@ -100,9 +100,9 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class DropdownPage {
-	protected readonly defaultCode = defaultCode;
-	protected readonly defaultSkeleton = defaultSkeleton;
-	protected readonly defaultImports = defaultImports;
-	protected readonly dropdownWithStateCode = dropdownWithStateCode;
-	protected readonly dropdownWithContextCode = dropdownWithContextCode;
+	protected readonly _defaultCode = defaultCode;
+	protected readonly _defaultSkeleton = defaultSkeleton;
+	protected readonly _defaultImports = defaultImports;
+	protected readonly _dropdownWithStateCode = dropdownWithStateCode;
+	protected readonly _dropdownWithContextCode = dropdownWithContextCode;
 }

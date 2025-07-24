@@ -35,12 +35,12 @@ export const HLM_DATE_PICKER_MUTLI_VALUE_ACCESSOR = {
 	imports: [NgIcon, HlmIcon, BrnPopover, BrnPopoverTrigger, BrnPopoverContent, HlmPopoverContent, HlmCalendarMulti],
 	providers: [HLM_DATE_PICKER_MUTLI_VALUE_ACCESSOR, provideIcons({ lucideCalendar })],
 	template: `
-		<brn-popover sideOffset="5" [state]="popoverState()" (stateChanged)="popoverState.set($event)">
-			<button type="button" [class]="_computedClass()" [disabled]="state().disabled()" brnPopoverTrigger>
+		<brn-popover sideOffset="5" [state]="_popoverState()" (stateChanged)="_popoverState.set($event)">
+			<button type="button" [class]="_computedClass()" [disabled]="_state().disabled()" brnPopoverTrigger>
 				<ng-icon hlm size="sm" name="lucideCalendar" />
 
 				<span class="truncate">
-					@if (formattedDate(); as formattedDate) {
+					@if (_formattedDate(); as formattedDate) {
 						{{ formattedDate }}
 					} @else {
 						<ng-content />
@@ -56,7 +56,7 @@ export const HLM_DATE_PICKER_MUTLI_VALUE_ACCESSOR = {
 					[max]="max()"
 					[minSelection]="minSelection()"
 					[maxSelection]="maxSelection()"
-					[disabled]="state().disabled()"
+					[disabled]="_state().disabled()"
 					(dateChange)="_handleChange($event)"
 				/>
 			</div>
@@ -117,13 +117,13 @@ export class HlmDatePickerMulti<T> implements ControlValueAccessor {
 	/** Defines how the date should be transformed before saving to model/form. */
 	public readonly transformDates = input<(date: T[]) => T[]>(this._config.transformDates);
 
-	protected readonly popoverState = signal<BrnDialogState | null>(null);
+	protected readonly _popoverState = signal<BrnDialogState | null>(null);
 
-	protected readonly state = computed(() => ({
+	protected readonly _state = computed(() => ({
 		disabled: signal(this.disabled()),
 	}));
 
-	protected readonly formattedDate = computed(() => {
+	protected readonly _formattedDate = computed(() => {
 		const dates = this.date();
 		return dates ? this.formatDates()(dates) : undefined;
 	});
@@ -136,7 +136,7 @@ export class HlmDatePickerMulti<T> implements ControlValueAccessor {
 	protected _handleChange(value: T[] | undefined) {
 		if (value === undefined) return;
 
-		if (this.state().disabled()) return;
+		if (this._state().disabled()) return;
 		const transformedDate = this.transformDates()(value);
 
 		this.date.set(transformedDate);
@@ -144,7 +144,7 @@ export class HlmDatePickerMulti<T> implements ControlValueAccessor {
 		this.changed.emit(transformedDate);
 
 		if (this.autoCloseOnMaxSelection() && this.date()?.length === this.maxSelection()) {
-			this.popoverState.set('closed');
+			this._popoverState.set('closed');
 		}
 	}
 
@@ -165,14 +165,14 @@ export class HlmDatePickerMulti<T> implements ControlValueAccessor {
 	}
 
 	setDisabledState(isDisabled: boolean): void {
-		this.state().disabled.set(isDisabled);
+		this._state().disabled.set(isDisabled);
 	}
 
 	open() {
-		this.popoverState.set('open');
+		this._popoverState.set('open');
 	}
 
 	close() {
-		this.popoverState.set('closed');
+		this._popoverState.set('closed');
 	}
 }

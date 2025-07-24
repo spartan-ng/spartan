@@ -1,13 +1,13 @@
 import { HlmSpinner } from '@spartan-ng/helm/spinner';
-import { type Meta, type StoryObj, argsToTemplate, moduleMetadata } from '@storybook/angular';
+import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
 
 const meta: Meta<HlmSpinner> = {
 	title: 'Spinner',
 	component: HlmSpinner,
 	tags: ['autodocs'],
 	argTypes: {
-		size: {
-			options: ['default', 'xs', 'sm'],
+		userClass: {
+			options: ['size-6', 'size-8', 'size-10'],
 			control: {
 				type: 'select',
 			},
@@ -21,8 +21,8 @@ const meta: Meta<HlmSpinner> = {
 	render: ({ ...args }) => ({
 		props: args,
 		template: `
-    <hlm-spinner ${argsToTemplate(args)}></hlm-spinner>
-    `,
+    		<hlm-spinner  class="${args.userClass || 'size-8'}" />
+		`,
 	}),
 };
 

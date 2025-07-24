@@ -22,15 +22,17 @@ export class BrnRadioChange<T> {
 	) {}
 }
 
+const CONTAINER_POST_FIX = '-radio';
+
 @Component({
 	selector: 'brn-radio',
 	host: {
 		class: 'brn-radio',
-		'[attr.id]': 'hostId()',
-		'[class.brn-radio-checked]': 'checked()',
-		'[class.brn-radio-disabled]': 'disabledState()',
-		'[attr.data-checked]': 'checked()',
-		'[attr.data-disabled]': 'disabledState()',
+		'[attr.id]': '_hostId()',
+		'[class.brn-radio-checked]': '_checked()',
+		'[class.brn-radio-disabled]': '_disabledState()',
+		'[attr.data-checked]': '_checked()',
+		'[attr.data-disabled]': '_disabledState()',
 		'[attr.data-value]': 'value()',
 		// Needs to be removed since it causes some a11y issues (see #21266).
 		'[attr.tabindex]': 'null',
@@ -40,7 +42,7 @@ export class BrnRadioChange<T> {
 		// Note: under normal conditions focus shouldn't land on this element, however it may be
 		// programmatically set, for example inside of a focus trap, in this case we want to forward
 		// the focus to the native element.
-		'(focus)': 'inputElement().nativeElement.focus()',
+		'(focus)': '_inputElement().nativeElement.focus()',
 	},
 	exportAs: 'brnRadio',
 	encapsulation: ViewEncapsulation.None,
@@ -54,17 +56,17 @@ export class BrnRadioChange<T> {
 			style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0;"
 			type="radio"
 			[id]="id()"
-			[checked]="checked()"
-			[disabled]="disabledState()"
-			[tabIndex]="tabIndex()"
-			[attr.name]="radioGroup.name()"
+			[checked]="_checked()"
+			[disabled]="_disabledState()"
+			[tabIndex]="_tabIndex()"
+			[attr.name]="_radioGroup.name()"
 			[attr.value]="value()"
 			[required]="required()"
-			[attr.aria-checked]="checked()"
+			[attr.aria-checked]="_checked()"
 			[attr.aria-label]="ariaLabel()"
 			[attr.aria-labelledby]="ariaLabelledby()"
 			[attr.aria-describedby]="ariaDescribedby()"
-			[attr.aria-disabled]="disabledState()"
+			[attr.aria-disabled]="_disabledState()"
 			(change)="onInputInteraction($event)"
 			(click)="onInputClick($event)"
 		/>
@@ -86,7 +88,7 @@ export class BrnRadio<T = unknown> implements OnDestroy {
 	private static _nextUniqueId = 0;
 	private readonly _focusMonitor = inject(FocusMonitor);
 	private readonly _elementRef = inject(ElementRef);
-	protected readonly radioGroup = injectBrnRadioGroup<T>();
+	protected readonly _radioGroup = injectBrnRadioGroup<T>();
 
 	/**
 	 * Whether the radio button is disabled.
@@ -96,18 +98,18 @@ export class BrnRadio<T = unknown> implements OnDestroy {
 	/**
 	 * Whether the radio button is disabled or the radio group is disabled.
 	 */
-	protected readonly disabledState = computed(() => this.disabled() || this.radioGroup.disabledState());
+	protected readonly _disabledState = computed(() => this.disabled() || this._radioGroup.disabledState());
 
 	/**
 	 * Whether the radio button is checked.
 	 */
-	protected readonly checked = computed(() => this.radioGroup.value() === this.value());
+	protected readonly _checked = computed(() => this._radioGroup.value() === this.value());
 
-	protected readonly tabIndex = computed(() => {
-		const disabled = this.disabledState();
-		const checked = this.checked();
-		const hasSelectedRadio = this.radioGroup.value() !== undefined;
-		const isFirstRadio = this.radioGroup.radioButtons()[0] === this;
+	protected readonly _tabIndex = computed(() => {
+		const disabled = this._disabledState();
+		const checked = this._checked();
+		const hasSelectedRadio = this._radioGroup.value() !== undefined;
+		const isFirstRadio = this._radioGroup.radioButtons()[0] === this;
 
 		if (disabled || (!checked && (hasSelectedRadio || !isFirstRadio))) {
 			return -1;
@@ -143,9 +145,11 @@ export class BrnRadio<T = unknown> implements OnDestroy {
 	 */
 	public readonly change = output<BrnRadioChange<T>>();
 
-	protected readonly hostId = computed(() => (this.id() ? this.id() : `brn-radio-${++BrnRadio._nextUniqueId}`));
+	protected readonly _hostId = computed(() => {
+		return this.id() ? this.id() + CONTAINER_POST_FIX : `brn-radio-${++BrnRadio._nextUniqueId}`;
+	});
 
-	protected readonly inputElement = viewChild.required<ElementRef<HTMLInputElement>>('input');
+	protected readonly _inputElement = viewChild.required<ElementRef<HTMLInputElement>>('input');
 
 	constructor() {
 		this._focusMonitor.monitor(this._elementRef, true);
@@ -177,9 +181,9 @@ export class BrnRadio<T = unknown> implements OnDestroy {
 		// emit its event object to the `change` output.
 		event.stopPropagation();
 
-		if (!this.checked() && !this.disabledState()) {
+		if (!this._checked() && !this._disabledState()) {
 			this.emitChangeEvent();
-			this.radioGroup.select(this, this.value());
+			this._radioGroup.select(this, this.value());
 		}
 	}
 
@@ -187,10 +191,10 @@ export class BrnRadio<T = unknown> implements OnDestroy {
 	protected onTouchTargetClick(event: Event): void {
 		this.onInputInteraction(event);
 
-		if (!this.disabledState()) {
+		if (!this._disabledState()) {
 			// Normally the input should be focused already, but if the click
 			// comes from the touch target, then we might have to focus it ourselves.
-			this.inputElement().nativeElement.focus();
+			this._inputElement().nativeElement.focus();
 		}
 	}
 }

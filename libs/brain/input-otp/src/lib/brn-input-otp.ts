@@ -35,13 +35,13 @@ export type InputMode = 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal'
 				autocomplete="one-time-code"
 				data-slot="input-otp"
 				[style]="inputStyles()"
-				[disabled]="state().disabled()"
+				[disabled]="_state().disabled()"
 				[inputMode]="inputMode()"
 				[ngModel]="value()"
 				(input)="onInputChange($event)"
 				(paste)="onPaste($event)"
-				(focus)="focused.set(true)"
-				(blur)="focused.set(false)"
+				(focus)="_focused.set(true)"
+				(blur)="_focused.set(false)"
 			/>
 		</div>
 	`,
@@ -54,7 +54,7 @@ export type InputMode = 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal'
 })
 export class BrnInputOtp implements ControlValueAccessor {
 	/** Whether the input has focus. */
-	protected readonly focused = signal<boolean>(false);
+	protected readonly _focused = signal<boolean>(false);
 
 	/** Styles applied to the host element. */
 	public readonly hostStyles = input<string>(
@@ -96,7 +96,7 @@ export class BrnInputOtp implements ControlValueAccessor {
 
 	public readonly context = computed(() => {
 		const value = this.value();
-		const focused = this.focused();
+		const focused = this._focused();
 		const maxLength = this.maxLength();
 		const slots = Array.from({ length: this.maxLength() }).map((_, slotIndex) => {
 			const char = value[slotIndex] !== undefined ? value[slotIndex] : null;
@@ -117,7 +117,7 @@ export class BrnInputOtp implements ControlValueAccessor {
 	/** Emitted when the input is complete, triggered through input or paste.  */
 	public readonly completed = output<string>();
 
-	protected readonly state = computed(() => ({
+	protected readonly _state = computed(() => ({
 		disabled: signal(this.disabled()),
 	}));
 
@@ -165,7 +165,7 @@ export class BrnInputOtp implements ControlValueAccessor {
 	}
 
 	setDisabledState(isDisabled: boolean): void {
-		this.state().disabled.set(isDisabled);
+		this._state().disabled.set(isDisabled);
 	}
 
 	private isCompleted(newValue: string, previousValue: string, maxLength: number) {

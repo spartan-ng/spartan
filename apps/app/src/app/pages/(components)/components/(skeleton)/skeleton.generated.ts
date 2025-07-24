@@ -7,6 +7,27 @@ Instead, edit the `(skeleton).preview.ts` file or the generator itself.
 Run `pnpm run generate-snippets` to update this file.
 */
 
+export const skeletonCardCode = `
+import { Component } from '@angular/core';
+
+import { HlmSkeletonComponent } from '@spartan-ng/helm/skeleton';
+
+@Component({
+	selector: 'spartan-skeleton-card',
+	imports: [HlmSkeletonComponent],
+	template: \`
+		<div class="flex flex-col space-y-3">
+			<hlm-skeleton class="h-[125px] w-[250px] rounded-xl" />
+			<div class="space-y-2">
+				<hlm-skeleton class="h-4 w-[250px]" />
+				<hlm-skeleton class="h-4 w-[200px]" />
+			</div>
+		</div>
+	\`,
+})
+export class SkeletonCardComponent {}
+`;
+
 export const defaultCode = `
 import { Component } from '@angular/core';
 import { HlmSkeleton } from '@spartan-ng/helm/skeleton';
@@ -15,8 +36,8 @@ import { HlmSkeleton } from '@spartan-ng/helm/skeleton';
 	selector: 'spartan-skeleton-preview',
 	imports: [HlmSkeleton],
 	template: \`
-		<div class="m-4 flex w-fit items-center space-x-4 p-4">
-			<hlm-skeleton class="h-12 w-12 rounded-full" />
+		<div class="flex items-center space-x-4">
+			<hlm-skeleton class="size-12 rounded-full" />
 			<div class="space-y-2">
 				<hlm-skeleton class="h-4 w-[250px]" />
 				<hlm-skeleton class="h-4 w-[200px]" />

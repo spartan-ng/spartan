@@ -64,7 +64,7 @@ export type Payment = {
 			</button>
 			<ng-template #menu>
 				<hlm-menu class="w-32">
-					@for (column of hidableColumns; track column.id) {
+					@for (column of _hidableColumns; track column.id) {
 						<button
 							hlmMenuItemCheckbox
 							class="capitalize"
@@ -198,7 +198,7 @@ export class DataTablePreview {
 		{
 			accessorKey: 'email',
 			id: 'email',
-			header: () => flexRenderComponent(TableHeadSortButton),
+			header: () => flexRenderComponent(TableHeadSortButton, { inputs: { header: '' } }),
 		},
 		{
 			accessorKey: 'amount',
@@ -256,7 +256,7 @@ export class DataTablePreview {
 			},
 		},
 	}));
-	protected readonly hidableColumns = this._table.getAllColumns().filter((column) => column.getCanHide());
+	protected readonly _hidableColumns = this._table.getAllColumns().filter((column) => column.getCanHide());
 
 	protected _filterChange(email: Event) {
 		const target = email.target as HTMLInputElement;

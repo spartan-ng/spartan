@@ -54,7 +54,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-radio-group-preview />
 				</div>
-				<spartan-code secondTab [code]="defaultCode" />
+				<spartan-code secondTab [code]="_defaultCode" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -66,8 +66,8 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="space-y-4">
-				<spartan-code [code]="defaultImports" />
-				<spartan-code [code]="defaultSkeleton" />
+				<spartan-code [code]="_defaultImports" />
+				<spartan-code [code]="_defaultSkeleton" />
 			</div>
 
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
@@ -82,7 +82,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-radio-card-preview />
 				</div>
-				<spartan-code secondTab [code]="cardCode" />
+				<spartan-code secondTab [code]="_cardCode" />
 			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
@@ -94,9 +94,9 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class LabelPage {
-	protected readonly defaultCode = defaultCode;
-	protected readonly defaultSkeleton = defaultSkeleton;
-	protected readonly defaultImports = defaultImports;
+	protected readonly _defaultCode = defaultCode;
+	protected readonly _defaultSkeleton = defaultSkeleton;
+	protected readonly _defaultImports = defaultImports;
 
-	protected readonly cardCode = radioGroupCardCode;
+	protected readonly _cardCode = radioGroupCardCode;
 }

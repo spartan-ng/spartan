@@ -4,7 +4,7 @@ import { RouterLink } from '@angular/router';
 import { hlm } from '@spartan-ng/brain/core';
 import { type ButtonVariants, buttonVariants } from '@spartan-ng/helm/button';
 import { type VariantProps, cva } from 'class-variance-authority';
-import { ClassValue } from 'clsx';
+import type { ClassValue } from 'clsx';
 
 export const paginationLinkVariants = cva('', {
 	variants: {},

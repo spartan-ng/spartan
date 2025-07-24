@@ -90,7 +90,7 @@ export class BrnSelectScrollDown {
 		role: 'listbox',
 		tabindex: '0',
 		'[attr.aria-multiselectable]': '_select.multiple()',
-		'[attr.aria-disabled]': '_select.disabled() || _select._formDisabled()',
+		'[attr.aria-disabled]': '_select.disabled() || _select.formDisabled()',
 		'aria-orientation': 'vertical',
 		'[attr.aria-activedescendant]': 'keyManager?.activeItem?.id()',
 		'[attr.aria-labelledBy]': '_select.labelId()',
@@ -127,7 +127,7 @@ export class BrnSelectScrollDown {
 			<ng-content select="hlm-select-scroll-up" />
 			<ng-content select="brnSelectScrollUp" />
 		</ng-template>
-		<ng-container *ngTemplateOutlet="canScrollUp() && scrollUpBtn() ? scrollUp : null" />
+		<ng-container *ngTemplateOutlet="_canScrollUp() && _scrollUpBtn() ? scrollUp : null" />
 		<div
 			data-brn-select-viewport
 			#viewport
@@ -146,18 +146,18 @@ export class BrnSelectScrollDown {
 			<ng-content select="brnSelectScrollDown" />
 			<ng-content select="hlm-select-scroll-down" />
 		</ng-template>
-		<ng-container *ngTemplateOutlet="canScrollDown() && scrollDownBtn() ? scrollDown : null" />
+		<ng-container *ngTemplateOutlet="_canScrollDown() && _scrollDownBtn() ? scrollDown : null" />
 	`,
 })
 export class BrnSelectContent<T> implements AfterContentInit {
 	private readonly _elementRef: ElementRef<HTMLElement> = inject(ElementRef);
 	private readonly _injector = inject(Injector);
 	protected readonly _select = injectBrnSelect<T>();
-	protected readonly canScrollUp = signal(false);
-	protected readonly canScrollDown = signal(false);
-	protected readonly viewport = viewChild.required<ElementRef<HTMLElement>>('viewport');
-	protected readonly scrollUpBtn = contentChild(BrnSelectScrollUp);
-	protected readonly scrollDownBtn = contentChild(BrnSelectScrollDown);
+	protected readonly _canScrollUp = signal(false);
+	protected readonly _canScrollDown = signal(false);
+	protected readonly _viewport = viewChild.required<ElementRef<HTMLElement>>('viewport');
+	protected readonly _scrollUpBtn = contentChild(BrnSelectScrollUp);
+	protected readonly _scrollDownBtn = contentChild(BrnSelectScrollDown);
 	private readonly _options = contentChildren(BrnSelectOption, { descendants: true });
 
 	/** @internal */
@@ -203,10 +203,10 @@ export class BrnSelectContent<T> implements AfterContentInit {
 	}
 
 	public updateArrowDisplay(): void {
-		const { scrollTop, scrollHeight, clientHeight } = this.viewport().nativeElement;
-		this.canScrollUp.set(scrollTop > 0);
+		const { scrollTop, scrollHeight, clientHeight } = this._viewport().nativeElement;
+		this._canScrollUp.set(scrollTop > 0);
 		const maxScroll = scrollHeight - clientHeight;
-		this.canScrollDown.set(Math.ceil(scrollTop) < maxScroll);
+		this._canScrollDown.set(Math.ceil(scrollTop) < maxScroll);
 	}
 
 	public handleScroll(): void {
@@ -218,21 +218,21 @@ export class BrnSelectContent<T> implements AfterContentInit {
 	}
 
 	public moveFocusUp(): void {
-		this.viewport().nativeElement.scrollBy({ top: -SCROLLBY_PIXELS, behavior: 'smooth' });
-		if (this.viewport().nativeElement.scrollTop === 0) {
-			this.scrollUpBtn()?.stopEmittingEvents();
+		this._viewport().nativeElement.scrollBy({ top: -SCROLLBY_PIXELS, behavior: 'smooth' });
+		if (this._viewport().nativeElement.scrollTop === 0) {
+			this._scrollUpBtn()?.stopEmittingEvents();
 		}
 	}
 
 	public moveFocusDown(): void {
-		this.viewport().nativeElement.scrollBy({ top: SCROLLBY_PIXELS, behavior: 'smooth' });
+		this._viewport().nativeElement.scrollBy({ top: SCROLLBY_PIXELS, behavior: 'smooth' });
 		const viewportSize = this._elementRef.nativeElement.scrollHeight;
-		const viewportScrollPosition = this.viewport().nativeElement.scrollTop;
+		const viewportScrollPosition = this._viewport().nativeElement.scrollTop;
 		if (
 			viewportSize + viewportScrollPosition + SCROLLBY_PIXELS >
-			this.viewport().nativeElement.scrollHeight + SCROLLBY_PIXELS / 2
+			this._viewport().nativeElement.scrollHeight + SCROLLBY_PIXELS / 2
 		) {
-			this.scrollDownBtn()?.stopEmittingEvents();
+			this._scrollDownBtn()?.stopEmittingEvents();
 		}
 	}
 

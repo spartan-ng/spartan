@@ -34,10 +34,10 @@ export const HLM_DATE_PICKER_VALUE_ACCESSOR = {
 	imports: [NgIcon, HlmIcon, BrnPopover, BrnPopoverTrigger, BrnPopoverContent, HlmPopoverContent, HlmCalendar],
 	providers: [HLM_DATE_PICKER_VALUE_ACCESSOR, provideIcons({ lucideChevronDown })],
 	template: `
-		<brn-popover sideOffset="5" [state]="popoverState()" (stateChanged)="popoverState.set($event)">
-			<button type="button" [class]="_computedClass()" [disabled]="state().disabled()" brnPopoverTrigger>
+		<brn-popover sideOffset="5" [state]="_popoverState()" (stateChanged)="_popoverState.set($event)">
+			<button type="button" [class]="_computedClass()" [disabled]="_state().disabled()" brnPopoverTrigger>
 				<span class="truncate">
-					@if (formattedDate(); as formattedDate) {
+					@if (_formattedDate(); as formattedDate) {
 						{{ formattedDate }}
 					} @else {
 						<ng-content />
@@ -53,7 +53,7 @@ export const HLM_DATE_PICKER_VALUE_ACCESSOR = {
 					[date]="date()"
 					[min]="min()"
 					[max]="max()"
-					[disabled]="state().disabled()"
+					[disabled]="_state().disabled()"
 					(dateChange)="_handleChange($event)"
 				/>
 			</div>
@@ -104,13 +104,13 @@ export class HlmDatePicker<T> implements ControlValueAccessor {
 	/** Defines how the date should be transformed before saving to model/form. */
 	public readonly transformDate = input<(date: T) => T>(this._config.transformDate);
 
-	protected readonly popoverState = signal<BrnDialogState | null>(null);
+	protected readonly _popoverState = signal<BrnDialogState | null>(null);
 
-	protected readonly state = computed(() => ({
+	protected readonly _state = computed(() => ({
 		disabled: signal(this.disabled()),
 	}));
 
-	protected readonly formattedDate = computed(() => {
+	protected readonly _formattedDate = computed(() => {
 		const date = this.date();
 		return date ? this.formatDate()(date) : undefined;
 	});
@@ -121,7 +121,7 @@ export class HlmDatePicker<T> implements ControlValueAccessor {
 	protected _onTouched?: TouchFn;
 
 	protected _handleChange(value: T) {
-		if (this.state().disabled()) return;
+		if (this._state().disabled()) return;
 		const transformedDate = this.transformDate()(value);
 
 		this.date.set(transformedDate);
@@ -129,7 +129,7 @@ export class HlmDatePicker<T> implements ControlValueAccessor {
 		this.changed.emit(transformedDate);
 
 		if (this.autoCloseOnSelect()) {
-			this.popoverState.set('closed');
+			this._popoverState.set('closed');
 		}
 	}
 
@@ -150,14 +150,14 @@ export class HlmDatePicker<T> implements ControlValueAccessor {
 	}
 
 	setDisabledState(isDisabled: boolean): void {
-		this.state().disabled.set(isDisabled);
+		this._state().disabled.set(isDisabled);
 	}
 
 	open() {
-		this.popoverState.set('open');
+		this._popoverState.set('open');
 	}
 
 	close() {
-		this.popoverState.set('closed');
+		this._popoverState.set('closed');
 	}
 }

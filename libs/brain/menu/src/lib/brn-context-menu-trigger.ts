@@ -9,8 +9,8 @@ import { BrnMenuAlign, getBrnMenuAlign } from './brn-menu-align';
 })
 export class BrnContextMenuTrigger {
 	private readonly _cdkTrigger = inject(CdkContextMenuTrigger, { host: true });
-	public brnCtxMenuTriggerFor = input<TemplateRef<unknown> | null>(null);
-	public brnCtxMenuTriggerData = input<unknown>(undefined);
+	public readonly brnCtxMenuTriggerFor = input<TemplateRef<unknown> | null>(null);
+	public readonly brnCtxMenuTriggerData = input<unknown>(undefined);
 	public readonly align = input<BrnMenuAlign>(undefined);
 
 	constructor() {

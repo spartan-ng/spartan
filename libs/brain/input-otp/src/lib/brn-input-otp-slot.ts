@@ -5,23 +5,23 @@ import { injectBrnInputOtp } from './brn-input-otp.token';
 @Component({
 	selector: 'brn-input-otp-slot',
 	template: `
-		{{ slot().char }}
+		{{ _slot().char }}
 
-		@if (slot().hasFakeCaret) {
+		@if (_slot().hasFakeCaret) {
 			<ng-content />
 		}
 	`,
 	host: {
-		'[attr.data-active]': 'slot().isActive',
+		'[attr.data-active]': '_slot().isActive',
 	},
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BrnInputOtpSlot {
 	/** Access the input-otp component */
-	protected readonly inputOtp = injectBrnInputOtp();
+	protected readonly _inputOtp = injectBrnInputOtp();
 
 	/** The index of the slot to render the char or a fake caret */
 	public readonly index = input.required<number, NumberInput>({ transform: numberAttribute });
 
-	protected readonly slot = computed(() => this.inputOtp.context()[this.index()]);
+	protected readonly _slot = computed(() => this._inputOtp.context()[this.index()]);
 }

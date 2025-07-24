@@ -8,7 +8,7 @@ import { BrnSheet } from './brn-sheet';
 export class BrnSheetTrigger extends BrnDialogTrigger {
 	private readonly _sheet = inject(BrnSheet, { optional: true });
 
-	public side = input<'top' | 'bottom' | 'left' | 'right' | undefined>(undefined);
+	public readonly side = input<'top' | 'bottom' | 'left' | 'right' | undefined>(undefined);
 
 	override open() {
 		const side = this.side();

@@ -53,8 +53,7 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 		transform: numberAttribute,
 	});
 
-	public readonly _disabled = input<boolean, BooleanInput>(false, {
-		alias: 'disabled',
+	public readonly disabled = input<boolean, BooleanInput>(false, {
 		transform: booleanAttribute,
 	});
 
@@ -82,7 +81,7 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 	});
 
 	/** @internal */
-	public readonly disabled = linkedSignal(() => this._disabled());
+	public readonly mutableDisabled = linkedSignal(() => this.disabled());
 
 	/** @internal */
 	public readonly percentage = computed(() => ((this.value() - this.min()) / (this.max() - this.min())) * 100);
@@ -115,7 +114,7 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 	}
 
 	setDisabledState(isDisabled: boolean): void {
-		this.disabled.set(isDisabled);
+		this.mutableDisabled.set(isDisabled);
 	}
 
 	writeValue(value: number): void {

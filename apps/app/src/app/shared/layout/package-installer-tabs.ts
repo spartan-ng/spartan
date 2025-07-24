@@ -44,7 +44,7 @@ export class PackageInstallerTabs {
 		const activeTab = this.value();
 		return this.cliInstallationCommands[activeTab] ?? '';
 	});
-	public language = input<'ts' | 'sh' | 'js'>('sh');
+	public readonly language = input<'ts' | 'sh' | 'js'>('sh');
 	public cliInstallationCommands = packageInstallationCommands;
 
 	public collationComparator = () => 0;

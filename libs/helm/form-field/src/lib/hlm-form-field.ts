@@ -17,7 +17,7 @@ import { HlmError } from './hlm-error';
 	template: `
 		<ng-content />
 
-		@switch (hasDisplayedMessage()) {
+		@switch (_hasDisplayedMessage()) {
 			@case ('error') {
 				<ng-content select="hlm-error" />
 			}
@@ -38,7 +38,7 @@ export class HlmFormField {
 
 	public readonly errorChildren = contentChildren(HlmError);
 
-	protected readonly hasDisplayedMessage = computed<'error' | 'hint'>(() =>
+	protected readonly _hasDisplayedMessage = computed<'error' | 'hint'>(() =>
 		this.errorChildren() && this.errorChildren().length > 0 && this.control()?.errorState() ? 'error' : 'hint',
 	);
 

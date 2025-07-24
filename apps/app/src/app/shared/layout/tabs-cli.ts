@@ -14,7 +14,7 @@ import { Tabs } from './tabs';
 			class="mt-4"
 			firstTab="Nx Plugin"
 			secondTab="Angular CLI"
-			[value]="tabValue()"
+			[value]="_tabValue()"
 			(tabActivated)="onTabChanged($event)"
 		>
 			<spartan-code firstTab [language]="language()" [code]="nxCode()" />
@@ -27,7 +27,7 @@ export class TabsCli {
 	public readonly nxCode = input('');
 	public readonly ngCode = input('');
 	public readonly language = input<'ts' | 'sh' | 'js'>('sh');
-	protected tabValue = computed(() => {
+	protected readonly _tabValue = computed(() => {
 		return this._cliService.cliMode() === 'nx' ? 'Nx Plugin' : 'Angular CLI';
 	});
 	protected onTabChanged(value: string) {

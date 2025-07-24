@@ -20,7 +20,7 @@ import { provideBrnProgress } from './brn-progress.token';
 		'[attr.aria-valuemax]': 'max()',
 		'[attr.aria-valuemin]': '0',
 		'[attr.aria-valuenow]': 'value()',
-		'[attr.aria-valuetext]': 'label()',
+		'[attr.aria-valuetext]': '_label()',
 		'[attr.data-state]': 'state()',
 		'[attr.data-value]': 'value()',
 		'[attr.data-max]': 'max()',
@@ -33,12 +33,12 @@ export class BrnProgress implements OnChanges {
 	});
 	public readonly max = input<number, NumberInput>(100, { transform: numberAttribute });
 	public readonly getValueLabel = input<BrnProgressLabelFn>((value, max) => `${Math.round((value / max) * 100)}%`);
-	protected readonly label = computed(() => {
+	protected readonly _label = computed(() => {
 		const value = this.value();
 		return value === null || value === undefined ? undefined : this.getValueLabel()(value, this.max());
 	});
 
-	protected readonly state = computed(() => {
+	public readonly state = computed(() => {
 		const value = this.value();
 		const max = this.max();
 

@@ -8,7 +8,7 @@ import { ChangeDetectorRef, Directive, booleanAttribute, computed, inject, input
 		'[attr.disabled]': 'disabled() ? true : null',
 		'[attr.data-disabled]': 'disabled() ? true : null',
 		'[attr.data-state]': '_state()',
-		'[attr.aria-pressed]': 'isOn()',
+		'[attr.aria-pressed]': '_isOn()',
 		'(click)': 'toggle()',
 	},
 })
@@ -37,7 +37,7 @@ export class BrnToggle<T> {
 	});
 
 	/** Whether the toggle is in the on state. */
-	protected readonly isOn = computed(() => this._state() === 'on');
+	protected readonly _isOn = computed(() => this._state() === 'on');
 
 	/** The current state that reflects the group state or the model state. */
 	protected readonly _state = computed(() => {
@@ -47,6 +47,6 @@ export class BrnToggle<T> {
 	toggle(): void {
 		if (this.disableToggleClick()) return;
 
-		this.state.set(this.isOn() ? 'off' : 'on');
+		this.state.set(this._isOn() ? 'off' : 'on');
 	}
 }

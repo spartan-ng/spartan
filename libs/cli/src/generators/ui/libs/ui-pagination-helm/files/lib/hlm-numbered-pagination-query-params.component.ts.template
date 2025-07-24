@@ -28,13 +28,13 @@ import { HlmPaginationDirective } from './hlm-pagination.directive';
 			<div class="flex items-center gap-1 text-nowrap text-sm text-gray-600">
 				<b>{{ totalItems() }}</b>
 				total items |
-				<b>{{ pages().length }}</b>
+				<b>{{ _pages().length }}</b>
 				pages
 			</div>
 
 			<nav hlmPagination>
 				<ul hlmPaginationContent>
-					@if (showEdges() && !isFirstPageActive()) {
+					@if (showEdges() && !_isFirstPageActive()) {
 						<li hlmPaginationItem>
 							<hlm-pagination-previous
 								[link]="link()"
@@ -44,7 +44,7 @@ import { HlmPaginationDirective } from './hlm-pagination.directive';
 						</li>
 					}
 
-					@for (page of pages(); track page) {
+					@for (page of _pages(); track page) {
 						<li hlmPaginationItem>
 							@if (page === '...') {
 								<hlm-pagination-ellipsis />
@@ -62,7 +62,7 @@ import { HlmPaginationDirective } from './hlm-pagination.directive';
 						</li>
 					}
 
-					@if (showEdges() && !isLastPageActive()) {
+					@if (showEdges() && !_isLastPageActive()) {
 						<li hlmPaginationItem>
 							<hlm-pagination-next
 								[link]="link()"
@@ -80,7 +80,7 @@ import { HlmPaginationDirective } from './hlm-pagination.directive';
 					<hlm-select-value />
 				</hlm-select-trigger>
 				<hlm-select-content>
-					@for (pageSize of pageSizesWithCurrent(); track pageSize) {
+					@for (pageSize of _pageSizesWithCurrent(); track pageSize) {
 						<hlm-option [value]="pageSize">{{ pageSize }} / page</hlm-option>
 					}
 				</hlm-select-content>
@@ -147,17 +147,17 @@ export class HlmNumberedPaginationQueryParamsComponent {
 	 */
 	public readonly pageSizes = input<number[]>([10, 20, 50, 100]);
 
-	protected readonly pageSizesWithCurrent = computed(() => {
+	protected readonly _pageSizesWithCurrent = computed(() => {
 		const pageSizes = this.pageSizes();
 		return pageSizes.includes(this.itemsPerPage())
 			? pageSizes // if current page size is included, return the same array
 			: [...pageSizes, this.itemsPerPage()].sort((a, b) => a - b); // otherwise, add current page size and sort the array
 	});
 
-	protected readonly isFirstPageActive = computed(() => this.currentPage() === 1);
-	protected readonly isLastPageActive = computed(() => this.currentPage() === this.lastPageNumber());
+	protected readonly _isFirstPageActive = computed(() => this.currentPage() === 1);
+	protected readonly _isLastPageActive = computed(() => this.currentPage() === this._lastPageNumber());
 
-	protected readonly lastPageNumber = computed(() => {
+	protected readonly _lastPageNumber = computed(() => {
 		if (this.totalItems() < 1) {
 			// when there are 0 or fewer (an error case) items, there are no "pages" as such,
 			// but it makes sense to consider a single, empty page as the last page.
@@ -166,7 +166,7 @@ export class HlmNumberedPaginationQueryParamsComponent {
 		return Math.ceil(this.totalItems() / this.itemsPerPage());
 	});
 
-	protected readonly pages = computed(() => {
+	protected readonly _pages = computed(() => {
 		const correctedCurrentPage = outOfBoundCorrection(this.totalItems(), this.itemsPerPage(), this.currentPage());
 
 		if (correctedCurrentPage !== this.currentPage()) {

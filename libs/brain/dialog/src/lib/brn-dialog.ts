@@ -71,7 +71,7 @@ export class BrnDialog {
 		this._defaultOptions.scrollStrategy,
 	);
 
-	protected _options = computed<Partial<BrnDialogOptions>>(() => {
+	protected readonly _options = computed<Partial<BrnDialogOptions>>(() => {
 		const scrollStrategyInput = this.scrollStrategy();
 		let scrollStrategy: ScrollStrategy | null | undefined;
 

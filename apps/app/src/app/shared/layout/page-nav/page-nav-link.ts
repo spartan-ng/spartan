@@ -11,7 +11,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 	template: `
 		<a
 			[routerLink]="[]"
-			[relativeTo]="activatedRoute"
+			[relativeTo]="_activatedRoute"
 			[fragment]="fragment"
 			class="hover:text-foreground text-muted-foreground focus-visible:ring-ring inline-block rounded no-underline transition-colors focus-visible:outline-none focus-visible:ring-2"
 		>
@@ -20,7 +20,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 	`,
 })
 export class PageNavLink {
-	protected activatedRoute = inject(ActivatedRoute);
+	protected readonly _activatedRoute = inject(ActivatedRoute);
 	@Input()
 	public fragment = '';
 	@Input()

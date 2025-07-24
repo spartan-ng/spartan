@@ -15,7 +15,7 @@ import { HlmIcon } from '@spartan-ng/helm/icon';
 			variant="secondary"
 			[routerLink]="routerLink"
 			size="sm"
-			[relativeTo]="isAbsolute ? undefined : activatedRoute"
+			[relativeTo]="isAbsolute ? undefined : _activatedRoute"
 		>
 			@if (direction === 'previous') {
 				<ng-icon hlm size="sm" name="lucideArrowLeft" />
@@ -28,7 +28,7 @@ import { HlmIcon } from '@spartan-ng/helm/icon';
 	`,
 })
 export class PageBottomNavLink {
-	protected activatedRoute = inject(ActivatedRoute);
+	protected readonly _activatedRoute = inject(ActivatedRoute);
 	@Input()
 	public direction: 'previous' | 'next' = 'next';
 	@Input()

@@ -27,13 +27,13 @@ import { PriorityIconPipe } from '../pipes/priority-icon.pipe';
 	],
 	template: `
 		<div class="flex items-center">
-			<ng-icon hlm class="text-muted-foreground mr-2" size="sm" [name]="element.priority | priorityIcon" />
-			{{ element.priority }}
+			<ng-icon hlm class="text-muted-foreground mr-2" size="sm" [name]="_element.priority | priorityIcon" />
+			{{ _element.priority }}
 		</div>
 	`,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PriorityIconCell {
 	private readonly _context = injectFlexRenderContext<CellContext<Task, unknown>>();
-	protected readonly element = this._context.row.original;
+	protected readonly _element = this._context.row.original;
 }

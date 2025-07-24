@@ -25,7 +25,7 @@ import type { ClassValue } from 'clsx';
 			<div class="bg-primary absolute h-full" brnSliderRange></div>
 		</div>
 
-		@if (slider.showTicks()) {
+		@if (_slider.showTicks()) {
 			<div class="pointer-events-none absolute -inset-x-px top-2 h-1 w-full cursor-pointer transition-all">
 				<div
 					*brnSliderTick="let tick; let position = position"
@@ -48,12 +48,12 @@ import type { ClassValue } from 'clsx';
 	imports: [BrnSliderThumb, BrnSliderTrack, BrnSliderRange, BrnSliderTick],
 })
 export class HlmSlider {
-	protected readonly slider = injectBrnSlider();
+	protected readonly _slider = injectBrnSlider();
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>
 		hlm(
 			'relative flex w-full touch-none select-none items-center',
-			this.slider.disabled() ? 'opacity-40' : '',
+			this._slider.mutableDisabled() ? 'opacity-40' : '',
 			this.userClass(),
 		),
 	);

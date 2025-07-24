@@ -10,7 +10,7 @@ import { BrnDialogRef } from './brn-dialog-ref';
 export class BrnDialogTitle {
 	private readonly _brnDialogRef = inject(BrnDialogRef);
 
-	protected _id = signal(`brn-dialog-title-${this._brnDialogRef?.dialogId}`);
+	protected readonly _id = signal(`brn-dialog-title-${this._brnDialogRef?.dialogId}`);
 
 	constructor() {
 		effect(() => {

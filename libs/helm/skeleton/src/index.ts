@@ -3,8 +3,10 @@ import { HlmSkeleton } from './lib/hlm-skeleton';
 
 export * from './lib/hlm-skeleton';
 
+export const HlmSkeletonImports = [HlmSkeleton] as const;
+
 @NgModule({
-	imports: [HlmSkeleton],
-	exports: [HlmSkeleton],
+	imports: [...HlmSkeletonImports],
+	exports: [...HlmSkeletonImports],
 })
 export class HlmSkeletonModule {}

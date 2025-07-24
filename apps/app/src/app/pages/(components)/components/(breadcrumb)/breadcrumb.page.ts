@@ -58,7 +58,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-breadcrumb-preview />
 				</div>
-				<spartan-code secondTab [code]="defaultCode" />
+				<spartan-code secondTab [code]="_defaultCode" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -70,8 +70,8 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="space-y-4">
-				<spartan-code [code]="defaultImports" />
-				<spartan-code [code]="defaultSkeleton" />
+				<spartan-code [code]="_defaultImports" />
+				<spartan-code [code]="_defaultSkeleton" />
 			</div>
 
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
@@ -90,7 +90,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-breadcrumb-custom-separator />
 				</div>
-				<spartan-code secondTab [code]="customSeparatorCode" />
+				<spartan-code secondTab [code]="_customSeparatorCode" />
 			</spartan-tabs>
 
 			<hr class="my-4 md:my-8" />
@@ -107,7 +107,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-breadcrumb-dropdown />
 				</div>
-				<spartan-code secondTab [code]="dropdownCode" />
+				<spartan-code secondTab [code]="_dropdownCode" />
 			</spartan-tabs>
 
 			<hr class="my-4 md:my-8" />
@@ -122,7 +122,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-breadcrumb-collapsed />
 				</div>
-				<spartan-code secondTab [code]="collapsedCode" />
+				<spartan-code secondTab [code]="_collapsedCode" />
 			</spartan-tabs>
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="button" label="Button" />
@@ -133,11 +133,11 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class BreadcrumbPage {
-	protected readonly defaultCode = defaultCode;
-	protected readonly defaultImports = defaultImports;
-	protected readonly defaultSkeleton = defaultSkeleton;
+	protected readonly _defaultCode = defaultCode;
+	protected readonly _defaultImports = defaultImports;
+	protected readonly _defaultSkeleton = defaultSkeleton;
 
-	protected readonly customSeparatorCode = breadcrumbCustomSeparatorCode;
-	protected readonly dropdownCode = breadcrumbDropdownCode;
-	protected readonly collapsedCode = breadcrumbCollapsedCode;
+	protected readonly _customSeparatorCode = breadcrumbCustomSeparatorCode;
+	protected readonly _dropdownCode = breadcrumbDropdownCode;
+	protected readonly _collapsedCode = breadcrumbCollapsedCode;
 }

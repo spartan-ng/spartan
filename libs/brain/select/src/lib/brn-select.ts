@@ -61,7 +61,7 @@ let nextId = 0;
 		},
 	],
 	template: `
-		@if (!selectLabel() && placeholder()) {
+		@if (!_selectLabel() && placeholder()) {
 			<label class="hidden" [attr.id]="labelId()">{{ placeholder() }}</label>
 		} @else {
 			<ng-content select="label[hlmLabel],label[brnLabel]" />
@@ -113,13 +113,13 @@ export class BrnSelect<T = unknown>
 	public readonly open = model<boolean>(false);
 	public readonly value = model<T | T[]>();
 	public readonly compareWith = input<(o1: T, o2: T) => boolean>((o1, o2) => o1 === o2);
-	public readonly _formDisabled = signal(false);
+	public readonly formDisabled = signal(false);
 
 	/** Label provided by the consumer. */
-	protected readonly selectLabel = contentChild(BrnLabel, { descendants: false });
+	protected readonly _selectLabel = contentChild(BrnLabel, { descendants: false });
 
 	/** Overlay pane containing the options. */
-	protected readonly selectContent = contentChild.required(BrnSelectContent);
+	protected readonly _selectContent = contentChild.required(BrnSelectContent);
 
 	/** @internal */
 	public readonly options = contentChildren(BrnSelectOption, { descendants: true });
@@ -158,7 +158,7 @@ export class BrnSelect<T = unknown>
 		{ initialValue: 'bottom' },
 	);
 
-	public readonly labelId = computed(() => this.selectLabel()?.id ?? `${this.id()}--label`);
+	public readonly labelId = computed(() => this._selectLabel()?.id ?? `${this.id()}--label`);
 
 	// eslint-disable-next-line @typescript-eslint/no-empty-function
 	private _onChange: ChangeFn<T | T[]> = () => {};
@@ -228,12 +228,12 @@ export class BrnSelect<T = unknown>
 	}
 
 	public show(): void {
-		if (this.open() || this.disabled() || this._formDisabled() || this.options()?.length == 0) {
+		if (this.open() || this.disabled() || this.formDisabled() || this.options()?.length == 0) {
 			return;
 		}
 
 		this.open.set(true);
-		afterNextRender(() => this.selectContent().focusList(), { injector: this._injector });
+		afterNextRender(() => this._selectContent().focusList(), { injector: this._injector });
 	}
 
 	public hide(): void {
@@ -259,7 +259,7 @@ export class BrnSelect<T = unknown>
 	}
 
 	public setDisabledState(isDisabled: boolean) {
-		this._formDisabled.set(isDisabled);
+		this.formDisabled.set(isDisabled);
 	}
 
 	selectOption(value: T): void {

@@ -33,7 +33,7 @@ export class BrnCalendarWeekday<T> implements OnDestroy {
 	private readonly _templateRef = inject<TemplateRef<BrnWeekdayContext>>(TemplateRef);
 
 	/** Get the days of the week to display in the header. */
-	protected readonly weekdays = computed(() => this._calendar.days().slice(0, 7));
+	protected readonly _weekdays = computed(() => this._calendar.days().slice(0, 7));
 
 	/** Store the view refs */
 	private _viewRefs: EmbeddedViewRef<BrnWeekdayContext>[] = [];
@@ -48,7 +48,7 @@ export class BrnCalendarWeekday<T> implements OnDestroy {
 		// Create a new view for each day
 		effect(() => {
 			// Get the weekdays to display
-			const weekdays = this.weekdays();
+			const weekdays = this._weekdays();
 			// Render the weekdays
 			untracked(() => this._renderWeekdays(weekdays));
 		});

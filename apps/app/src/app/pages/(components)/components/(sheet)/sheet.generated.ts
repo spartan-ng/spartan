@@ -11,34 +11,34 @@ export const sheetSideCode = `
 import { Component } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideCross } from '@ng-icons/lucide';
-import { BrnSheetContent, BrnSheetTrigger } from '@spartan-ng/brain/sheet';
-import { HlmButton } from '@spartan-ng/helm/button';
+import { BrnSheetContentDirective, BrnSheetTriggerDirective } from '@spartan-ng/brain/sheet';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
 
-import { HlmInput } from '@spartan-ng/helm/input';
-import { HlmLabel } from '@spartan-ng/helm/label';
+import { HlmInputDirective } from '@spartan-ng/helm/input';
+import { HlmLabelDirective } from '@spartan-ng/helm/label';
 import {
-	HlmSheet,
-	HlmSheetContent,
-	HlmSheetDescription,
-	HlmSheetFooter,
-	HlmSheetHeader,
-	HlmSheetTitle,
+	HlmSheetComponent,
+	HlmSheetContentComponent,
+	HlmSheetDescriptionDirective,
+	HlmSheetFooterComponent,
+	HlmSheetHeaderComponent,
+	HlmSheetTitleDirective,
 } from '@spartan-ng/helm/sheet';
 
 @Component({
 	selector: 'spartan-sheet-side-preview',
 	imports: [
-		BrnSheetTrigger,
-		BrnSheetContent,
-		HlmSheet,
-		HlmSheetContent,
-		HlmSheetHeader,
-		HlmSheetFooter,
-		HlmSheetTitle,
-		HlmSheetDescription,
-		HlmButton,
-		HlmInput,
-		HlmLabel,
+		BrnSheetTriggerDirective,
+		BrnSheetContentDirective,
+		HlmSheetComponent,
+		HlmSheetContentComponent,
+		HlmSheetHeaderComponent,
+		HlmSheetFooterComponent,
+		HlmSheetTitleDirective,
+		HlmSheetDescriptionDirective,
+		HlmButtonDirective,
+		HlmInputDirective,
+		HlmLabelDirective,
 	],
 	providers: [provideIcons({ lucideCross })],
 	template: \`
@@ -71,30 +71,40 @@ import {
 		</hlm-sheet>
 	\`,
 })
-export class SheetSidePreview {}
+export class SheetSidePreviewComponent {}
 `;
 
 export const sheetCloseCode = `
 import { Component, viewChild } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideCross } from '@ng-icons/lucide';
-import { BrnSheet, BrnSheetClose, BrnSheetContent, BrnSheetTrigger } from '@spartan-ng/brain/sheet';
-import { HlmButton } from '@spartan-ng/helm/button';
-import { HlmLabel } from '@spartan-ng/helm/label';
-import { HlmSheet, HlmSheetContent, HlmSheetHeader, HlmSheetTitle } from '@spartan-ng/helm/sheet';
+import {
+	BrnSheetCloseDirective,
+	BrnSheetComponent,
+	BrnSheetContentDirective,
+	BrnSheetTriggerDirective,
+} from '@spartan-ng/brain/sheet';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmLabelDirective } from '@spartan-ng/helm/label';
+import {
+	HlmSheetComponent,
+	HlmSheetContentComponent,
+	HlmSheetHeaderComponent,
+	HlmSheetTitleDirective,
+} from '@spartan-ng/helm/sheet';
 
 @Component({
 	selector: 'spartan-sheet-close-preview',
 	imports: [
-		BrnSheetTrigger,
-		BrnSheetContent,
-		BrnSheetClose,
-		HlmSheet,
-		HlmSheetContent,
-		HlmSheetHeader,
-		HlmSheetTitle,
-		HlmButton,
-		HlmLabel,
+		BrnSheetTriggerDirective,
+		BrnSheetContentDirective,
+		BrnSheetCloseDirective,
+		HlmSheetComponent,
+		HlmSheetContentComponent,
+		HlmSheetHeaderComponent,
+		HlmSheetTitleDirective,
+		HlmButtonDirective,
+		HlmLabelDirective,
 	],
 	providers: [provideIcons({ lucideCross })],
 	template: \`
@@ -122,8 +132,8 @@ import { HlmSheet, HlmSheetContent, HlmSheetHeader, HlmSheetTitle } from '@spart
 		</hlm-sheet>
 	\`,
 })
-export class SheetClosePreview {
-	public viewchildSheetRef = viewChild(BrnSheet);
+export class SheetClosePreviewComponent {
+	public readonly viewchildSheetRef = viewChild(BrnSheetComponent);
 
 	closeSheet() {
 		this.viewchildSheetRef()?.close({});
@@ -135,34 +145,34 @@ export const defaultCode = `
 import { Component } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideCross } from '@ng-icons/lucide';
-import { BrnSheetContent, BrnSheetTrigger } from '@spartan-ng/brain/sheet';
-import { HlmButton } from '@spartan-ng/helm/button';
+import { BrnSheetContentDirective, BrnSheetTriggerDirective } from '@spartan-ng/brain/sheet';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
 
-import { HlmInput } from '@spartan-ng/helm/input';
-import { HlmLabel } from '@spartan-ng/helm/label';
+import { HlmInputDirective } from '@spartan-ng/helm/input';
+import { HlmLabelDirective } from '@spartan-ng/helm/label';
 import {
-	HlmSheet,
-	HlmSheetContent,
-	HlmSheetDescription,
-	HlmSheetFooter,
-	HlmSheetHeader,
-	HlmSheetTitle,
+	HlmSheetComponent,
+	HlmSheetContentComponent,
+	HlmSheetDescriptionDirective,
+	HlmSheetFooterComponent,
+	HlmSheetHeaderComponent,
+	HlmSheetTitleDirective,
 } from '@spartan-ng/helm/sheet';
 
 @Component({
 	selector: 'spartan-sheet-preview',
 	imports: [
-		BrnSheetTrigger,
-		BrnSheetContent,
-		HlmSheet,
-		HlmSheetContent,
-		HlmSheetHeader,
-		HlmSheetFooter,
-		HlmSheetTitle,
-		HlmSheetDescription,
-		HlmButton,
-		HlmInput,
-		HlmLabel,
+		BrnSheetTriggerDirective,
+		BrnSheetContentDirective,
+		HlmSheetComponent,
+		HlmSheetContentComponent,
+		HlmSheetHeaderComponent,
+		HlmSheetFooterComponent,
+		HlmSheetTitleDirective,
+		HlmSheetDescriptionDirective,
+		HlmButtonDirective,
+		HlmInputDirective,
+		HlmLabelDirective,
 	],
 	providers: [provideIcons({ lucideCross })],
 	template: \`
@@ -190,5 +200,5 @@ import {
 		</hlm-sheet>
 	\`,
 })
-export class SheetPreview {}
+export class SheetPreviewComponent {}
 `;

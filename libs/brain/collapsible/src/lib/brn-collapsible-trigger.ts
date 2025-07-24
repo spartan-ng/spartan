@@ -4,23 +4,23 @@ import { BrnCollapsible } from './brn-collapsible';
 @Directive({
 	selector: 'button[brnCollapsibleTrigger]',
 	host: {
-		'[attr.data-state]': 'collapsible?.expanded() ? "open" : "closed"',
-		'[attr.disabled]': 'collapsible?.disabled() ? true : undefined',
-		'[attr.aria-expanded]': 'collapsible?.expanded()',
-		'[attr.aria-controls]': 'collapsible?.contentId()',
+		'[attr.data-state]': '_collapsible?.expanded() ? "open" : "closed"',
+		'[attr.disabled]': '_collapsible?.disabled() ? true : undefined',
+		'[attr.aria-expanded]': '_collapsible?.expanded()',
+		'[attr.aria-controls]': '_collapsible?.contentId()',
 		'(click)': 'toggle()',
 	},
 })
 export class BrnCollapsibleTrigger {
-	protected readonly collapsible = inject(BrnCollapsible, { optional: true });
+	protected readonly _collapsible = inject(BrnCollapsible, { optional: true });
 
 	constructor() {
-		if (!this.collapsible) {
+		if (!this._collapsible) {
 			throw Error('Collapsible trigger directive can only be used inside a brn-collapsible element.');
 		}
 	}
 
 	toggle(): void {
-		this.collapsible?.toggle();
+		this._collapsible?.toggle();
 	}
 }

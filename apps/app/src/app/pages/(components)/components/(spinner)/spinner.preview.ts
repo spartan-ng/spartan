@@ -14,5 +14,5 @@ export const defaultImports = `
 import { HlmSpinnerComponent } from '@spartan-ng/helm/spinner';
 `;
 export const defaultSkeleton = `
-<hlm-spinner />
+<hlm-spinner class="size-8 md:size-10" />
 `;

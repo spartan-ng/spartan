@@ -29,7 +29,7 @@ export class BrnCalendarWeek<T> implements OnDestroy {
 	private readonly _templateRef = inject<TemplateRef<BrnWeekContext<T>>>(TemplateRef);
 
 	// get the weeks to display.
-	protected readonly weeks = computed(() => {
+	protected readonly _weeks = computed(() => {
 		const days = this._calendar.days();
 		const weeks = [];
 
@@ -52,7 +52,7 @@ export class BrnCalendarWeek<T> implements OnDestroy {
 	constructor() {
 		// this should use `afterRenderEffect` but it's not available in the current version
 		effect(() => {
-			const weeks = this.weeks();
+			const weeks = this._weeks();
 			untracked(() => this._renderWeeks(weeks));
 		});
 	}

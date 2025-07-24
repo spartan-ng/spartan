@@ -46,7 +46,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-aspect-ratio-preview class="h-full w-full" />
 				</div>
-				<spartan-code secondTab [code]="defaultCode" />
+				<spartan-code secondTab [code]="_defaultCode" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -58,8 +58,8 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="space-y-4">
-				<spartan-code [code]="defaultImports" />
-				<spartan-code [code]="defaultSkeleton" />
+				<spartan-code [code]="_defaultImports" />
+				<spartan-code [code]="_defaultSkeleton" />
 			</div>
 
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
@@ -74,7 +74,7 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class AlertPage {
-	public readonly defaultCode = defaultCode;
-	public readonly defaultSkeleton = defaultSkeleton;
-	public readonly defaultImports = defaultImports;
+	protected readonly _defaultCode = defaultCode;
+	protected readonly _defaultSkeleton = defaultSkeleton;
+	protected readonly _defaultImports = defaultImports;
 }

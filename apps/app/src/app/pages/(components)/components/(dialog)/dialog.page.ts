@@ -77,7 +77,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-dialog-preview />
 				</div>
-				<spartan-code secondTab [code]="defaultCode" />
+				<spartan-code secondTab [code]="_defaultCode" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -89,8 +89,8 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="space-y-4">
-				<spartan-code [code]="defaultImports" />
-				<spartan-code [code]="defaultSkeleton" />
+				<spartan-code [code]="_defaultImports" />
+				<spartan-code [code]="_defaultSkeleton" />
 			</div>
 
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
@@ -115,7 +115,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-dialog-declarative-preview />
 				</div>
-				<spartan-code secondTab [code]="declarativeCode" />
+				<spartan-code secondTab [code]="_declarativeCode" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="inside-menu">Inside Menu</spartan-section-sub-heading>
@@ -148,7 +148,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-dialog-context-menu />
 				</div>
-				<spartan-code secondTab [code]="contextMenuCode" />
+				<spartan-code secondTab [code]="_contextMenuCode" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="dynamic-component">Dynamic Component</spartan-section-sub-heading>
@@ -173,7 +173,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-dialog-dynamic-component-preview />
 				</div>
-				<spartan-code secondTab [code]="dynamicComponentCode" />
+				<spartan-code secondTab [code]="_dynamicComponentCode" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="close-dialog">Close Dialog</spartan-section-sub-heading>
@@ -185,7 +185,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-dialog-close-preview />
 				</div>
-				<spartan-code secondTab [code]="defaultCloseCode" />
+				<spartan-code secondTab [code]="_defaultCloseCode" />
 			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
@@ -197,11 +197,11 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class DialogPage {
-	protected readonly defaultCode = defaultCode;
-	protected readonly defaultSkeleton = defaultSkeleton;
-	protected readonly defaultImports = defaultImports;
-	protected readonly contextMenuCode = dialogContextMenuCode;
-	protected readonly dynamicComponentCode = dialogDynamicComponentCode;
-	protected readonly declarativeCode = dialogDeclarativeCode;
-	protected readonly defaultCloseCode = dialogCloseCode;
+	protected readonly _defaultCode = defaultCode;
+	protected readonly _defaultSkeleton = defaultSkeleton;
+	protected readonly _defaultImports = defaultImports;
+	protected readonly _contextMenuCode = dialogContextMenuCode;
+	protected readonly _dynamicComponentCode = dialogDynamicComponentCode;
+	protected readonly _declarativeCode = dialogDeclarativeCode;
+	protected readonly _defaultCloseCode = dialogCloseCode;
 }

@@ -44,7 +44,7 @@ export class BrnSelectTrigger<T> implements AfterViewInit, OnDestroy, OnInit {
 	private readonly _platform = inject(PLATFORM_ID);
 	protected readonly _triggerId = computed(() => `${this._select.id()}--trigger`);
 	protected readonly _contentId = computed(() => `${this._select.id()}--content`);
-	protected readonly _disabled = computed(() => this._select.disabled() || this._select._formDisabled());
+	protected readonly _disabled = computed(() => this._select.disabled() || this._select.formDisabled());
 	protected readonly _labelledBy = computed(() => {
 		const value = this._select.value();
 

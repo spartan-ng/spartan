@@ -68,5 +68,7 @@ export class HlmSheetContent {
 	}
 
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected _computedClass = computed(() => hlm(sheetVariants({ side: this._sideProvider.side() }), this.userClass()));
+	protected readonly _computedClass = computed(() =>
+		hlm(sheetVariants({ side: this._sideProvider.side() }), this.userClass()),
+	);
 }

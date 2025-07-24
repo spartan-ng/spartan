@@ -56,7 +56,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-accordion-preview />
 				</div>
-				<spartan-code secondTab [code]="code" />
+				<spartan-code secondTab [code]="_code" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -68,8 +68,8 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="space-y-4">
-				<spartan-code [code]="imports" />
-				<spartan-code [code]="skeleton" />
+				<spartan-code [code]="_imports" />
+				<spartan-code [code]="_skeleton" />
 			</div>
 
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
@@ -94,7 +94,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-accordion-multiple-opened />
 				</div>
-				<spartan-code secondTab [code]="multipleOpenedCode" />
+				<spartan-code secondTab [code]="_multipleOpenedCode" />
 			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
@@ -106,8 +106,8 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class AccordionPage {
-	public code = defaultCode;
-	public imports = defaultImports;
-	public skeleton = defaultSkeleton;
-	public multipleOpenedCode = accordionMultipleOpenedCode;
+	protected readonly _code = defaultCode;
+	protected readonly _imports = defaultImports;
+	protected readonly _skeleton = defaultSkeleton;
+	protected readonly _multipleOpenedCode = accordionMultipleOpenedCode;
 }

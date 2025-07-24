@@ -37,6 +37,13 @@ import { ClassValue } from 'clsx';
 		</brn-radio>
 	`,
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		'[attr.id]': 'null',
+		'[attr.aria-label]': 'null',
+		'[attr.aria-labelledby]': 'null',
+		'[attr.aria-describedby]': 'null',
+		'[attr.data-disabled]': '_state().disabled() ? "" : null',
+	},
 })
 export class HlmRadioComponent<T = unknown> {
 	private readonly _document = inject(DOCUMENT);
@@ -45,7 +52,13 @@ export class HlmRadioComponent<T = unknown> {
 	private readonly _isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected readonly _computedClass = computed(() => hlm('group flex items-center gap-x-3', this.userClass()));
+	protected readonly _computedClass = computed(() =>
+		hlm(
+			'group flex items-center gap-x-3',
+			this.userClass(),
+			this._state().disabled() ? 'cursor-not-allowed opacity-50' : '',
+		),
+	);
 
 	/** Used to set the id on the underlying brn element. */
 	public readonly id = input<string | undefined>(undefined);
@@ -70,7 +83,7 @@ export class HlmRadioComponent<T = unknown> {
 	/** Whether the checkbox is disabled. */
 	public readonly disabled = input(false, { transform: booleanAttribute });
 
-	protected readonly state = computed(() => {
+	protected readonly _state = computed(() => {
 		const id = this.id();
 		return {
 			disabled: signal(this.disabled()),
@@ -85,7 +98,7 @@ export class HlmRadioComponent<T = unknown> {
 
 	constructor() {
 		effect(() => {
-			const state = this.state();
+			const state = this._state();
 			const isDisabled = state.disabled();
 
 			if (!this._elementRef.nativeElement || !this._isBrowser) return;

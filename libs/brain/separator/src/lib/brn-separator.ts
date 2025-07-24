@@ -7,8 +7,8 @@ export type BrnSeparatorOrientation = 'horizontal' | 'vertical';
 	selector: 'brn-separator',
 	template: '',
 	host: {
-		'[role]': 'role()',
-		'[attr.aria-orientation]': 'ariaOrientation()',
+		'[role]': '_role()',
+		'[attr.aria-orientation]': '_ariaOrientation()',
 		'[attr.data-orientation]': 'orientation()',
 	},
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -17,8 +17,8 @@ export class BrnSeparator {
 	public readonly orientation = input<BrnSeparatorOrientation>('horizontal');
 	public readonly decorative = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
-	protected readonly role = computed(() => (this.decorative() ? 'none' : 'separator'));
-	protected readonly ariaOrientation = computed(() =>
+	protected readonly _role = computed(() => (this.decorative() ? 'none' : 'separator'));
+	protected readonly _ariaOrientation = computed(() =>
 		this.decorative() ? undefined : this.orientation() === 'vertical' ? 'vertical' : undefined,
 	);
 }

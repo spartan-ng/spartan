@@ -11,24 +11,24 @@ import { UIApiDocsTable } from '../ui-api-docs-table/ui-api-docs-table';
 	selector: 'spartan-ui-api-docs',
 	imports: [UIApiDocsTable],
 	template: `
-		@if (componentDocs() && componentEntries() && componentEntries().length > 0) {
-			@for (entry of componentEntries(); track entry) {
+		@if (_componentDocs() && _componentEntries() && _componentEntries().length > 0) {
+			@for (entry of _componentEntries(); track entry) {
 				<h4 class="${hlmH4} mb-2 mt-6 pt-12" [id]="entry.toLowerCase()">{{ entry }}</h4>
 				<p>
 					Selector:
-					<code class="${hlmCode}">{{ componentItems()[entry].selector }}</code>
+					<code class="${hlmCode}">{{ _componentItems()[entry].selector }}</code>
 				</p>
-				@if (componentItems()[entry].exportAs) {
+				@if (_componentItems()[entry].exportAs) {
 					<p>
 						ExportAs:
-						<code class="${hlmCode}">{{ componentItems()[entry].exportAs }}</code>
+						<code class="${hlmCode}">{{ _componentItems()[entry].exportAs }}</code>
 					</p>
 				}
 
-				@if (componentItems()[entry].inputs && componentItems()[entry].inputs.length > 0) {
+				@if (_componentItems()[entry].inputs && _componentItems()[entry].inputs.length > 0) {
 					<spartan-ui-api-docs-table
 						title="Inputs"
-						[rows]="componentItems()[entry].inputs"
+						[rows]="_componentItems()[entry].inputs"
 						[columns]="[
 							{ label: 'Prop', key: 'name', class: 'font-medium' },
 							{ label: 'Type', key: 'type' },
@@ -38,10 +38,10 @@ import { UIApiDocsTable } from '../ui-api-docs-table/ui-api-docs-table';
 					/>
 				}
 
-				@if (componentItems()[entry].models && componentItems()[entry].models.length > 0) {
+				@if (_componentItems()[entry].models && _componentItems()[entry].models.length > 0) {
 					<spartan-ui-api-docs-table
 						title="Models"
-						[rows]="componentItems()[entry].models"
+						[rows]="_componentItems()[entry].models"
 						[columns]="[
 							{ label: 'Prop', key: 'name', class: 'font-medium' },
 							{ label: 'Type', key: 'type' },
@@ -51,10 +51,10 @@ import { UIApiDocsTable } from '../ui-api-docs-table/ui-api-docs-table';
 					/>
 				}
 
-				@if (componentItems()[entry].outputs && componentItems()[entry].outputs.length > 0) {
+				@if (_componentItems()[entry].outputs && _componentItems()[entry].outputs.length > 0) {
 					<spartan-ui-api-docs-table
 						title="Outputs"
-						[rows]="componentItems()[entry].outputs"
+						[rows]="_componentItems()[entry].outputs"
 						[columns]="[
 							{ label: 'Prop', key: 'name', class: 'font-medium' },
 							{ label: 'Type', key: 'type' },
@@ -69,11 +69,11 @@ import { UIApiDocsTable } from '../ui-api-docs-table/ui-api-docs-table';
 export class UIApiDocs {
 	private readonly _apiDocsService = inject(ApiDocsService);
 	private readonly _route = inject(ActivatedRoute);
-	protected readonly primitive = toSignal(this._route.data.pipe(map((data) => data?.['api'])));
+	protected readonly _primitive = toSignal(this._route.data.pipe(map((data) => data?.['api'])));
 
 	public readonly docType = input.required<LibraryType>();
 
-	protected readonly componentDocs = computed(() => this._apiDocsService.getComponentDocs(this.primitive())());
-	protected readonly componentItems = computed(() => this.componentDocs()?.[this.docType()] ?? {});
-	protected readonly componentEntries = computed(() => Object.keys(this.componentItems() ?? []));
+	protected readonly _componentDocs = computed(() => this._apiDocsService.getComponentDocs(this._primitive())());
+	protected readonly _componentItems = computed(() => this._componentDocs()?.[this.docType()] ?? {});
+	protected readonly _componentEntries = computed(() => Object.keys(this._componentItems() ?? []));
 }

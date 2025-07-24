@@ -44,19 +44,19 @@ const CONTAINER_POST_FIX = '-checkbox';
 			#checkBox
 			role="checkbox"
 			type="button"
-			[id]="getCheckboxButtonId(state().id) ?? ''"
-			[name]="getCheckboxButtonId(state().name) ?? ''"
+			[id]="getCheckboxButtonId(_state().id) ?? ''"
+			[name]="getCheckboxButtonId(_state().name) ?? ''"
 			[class]="class()"
 			[attr.aria-checked]="_ariaChecked()"
 			[attr.aria-label]="ariaLabel() || null"
 			[attr.aria-labelledby]="mutableAriaLabelledby() || null"
 			[attr.aria-describedby]="ariaDescribedby() || null"
 			[attr.data-state]="_dataState()"
-			[attr.data-focus-visible]="focusVisible()"
-			[attr.data-focus]="focused()"
-			[attr.data-disabled]="state().disabled()"
-			[disabled]="state().disabled()"
-			[tabIndex]="state().disabled() ? -1 : 0"
+			[attr.data-focus-visible]="_focusVisible()"
+			[attr.data-focus]="_focused()"
+			[attr.data-disabled]="_state().disabled()"
+			[disabled]="_state().disabled()"
+			[tabIndex]="_state().disabled() ? -1 : 0"
 			(click)="$event.preventDefault(); toggle()"
 		>
 			<ng-content />
@@ -64,15 +64,15 @@ const CONTAINER_POST_FIX = '-checkbox';
 	`,
 	host: {
 		'[style]': '{display: "contents"}',
-		'[attr.id]': 'state().id',
-		'[attr.name]': 'state().name',
+		'[attr.id]': '_state().id',
+		'[attr.name]': '_state().name',
 		'[attr.aria-labelledby]': 'null',
 		'[attr.aria-label]': 'null',
 		'[attr.aria-describedby]': 'null',
 		'[attr.data-state]': '_dataState()',
-		'[attr.data-focus-visible]': 'focusVisible()',
-		'[attr.data-focus]': 'focused()',
-		'[attr.data-disabled]': 'state().disabled()',
+		'[attr.data-focus-visible]': '_focusVisible()',
+		'[attr.data-focus]': '_focused()',
+		'[attr.data-disabled]': '_state().disabled()',
 	},
 	providers: [BRN_CHECKBOX_VALUE_ACCESSOR],
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -86,8 +86,8 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 	private readonly _document = inject(DOCUMENT);
 	private readonly _isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
-	protected readonly focusVisible = signal(false);
-	protected readonly focused = signal(false);
+	protected readonly _focusVisible = signal(false);
+	protected readonly _focused = signal(false);
 
 	/**
 	 * Current checked state of checkbox.
@@ -173,7 +173,7 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 	 * Computed state for checkbox container and accessibility.
 	 * Manages ID, name, and disabled state.
 	 */
-	protected readonly state = computed(() => {
+	protected readonly _state = computed(() => {
 		const name = this.name();
 		const id = this.id();
 		return {
@@ -207,7 +207,7 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 
 	constructor() {
 		effect(() => {
-			const state = this.state();
+			const state = this._state();
 			const isDisabled = state.disabled();
 
 			if (!this._elementRef.nativeElement || !this._isBrowser) return;
@@ -236,7 +236,7 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 	 * Does nothing if checkbox is disabled.
 	 */
 	toggle() {
-		if (this.state().disabled()) return;
+		if (this._state().disabled()) return;
 
 		this._onTouched();
 		this.touched.emit();
@@ -252,9 +252,9 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 			.monitor(this._elementRef, true)
 			.pipe(takeUntilDestroyed(this._destroyRef))
 			.subscribe((focusOrigin) => {
-				if (focusOrigin) this.focused.set(true);
+				if (focusOrigin) this._focused.set(true);
 				if (focusOrigin === 'keyboard' || focusOrigin === 'program') {
-					this.focusVisible.set(true);
+					this._focusVisible.set(true);
 					this._cdr.markForCheck();
 				}
 				if (!focusOrigin) {
@@ -264,8 +264,8 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 					// See https://github.com/angular/angular/issues/17793. To work around this, we defer
 					// telling the form control it has been touched until the next tick.
 					Promise.resolve().then(() => {
-						this.focusVisible.set(false);
-						this.focused.set(false);
+						this._focusVisible.set(false);
+						this._focused.set(false);
 						this._onTouched();
 						this.touched.emit();
 						this._cdr.markForCheck();
@@ -331,7 +331,7 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 	 * @param isDisabled - Whether checkbox should be disabled
 	 */
 	setDisabledState(isDisabled: boolean): void {
-		this.state().disabled.set(isDisabled);
+		this._state().disabled.set(isDisabled);
 		this._cdr.markForCheck();
 	}
 }

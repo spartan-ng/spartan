@@ -29,13 +29,13 @@ import { StatusIconPipe } from '../pipes/status-icon.pipe';
 	],
 	template: `
 		<div class="flex items-center">
-			<ng-icon hlm class="text-muted-foreground mr-2" size="sm" [name]="element.status | statusIcon" />
-			{{ element.status }}
+			<ng-icon hlm class="text-muted-foreground mr-2" size="sm" [name]="_element.status | statusIcon" />
+			{{ _element.status }}
 		</div>
 	`,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StatusIconCell {
 	private readonly _context = injectFlexRenderContext<CellContext<Task, unknown>>();
-	protected readonly element = this._context.row.original;
+	protected readonly _element = this._context.row.original;
 }

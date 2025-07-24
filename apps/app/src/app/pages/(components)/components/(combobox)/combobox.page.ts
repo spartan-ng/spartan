@@ -47,7 +47,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-combobox-preview />
 				</div>
-				<spartan-code secondTab [code]="defaultCode" />
+				<spartan-code secondTab [code]="_defaultCode" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -62,7 +62,7 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="space-y-4">
-				<spartan-code [code]="defaultCode" />
+				<spartan-code [code]="_defaultCode" />
 			</div>
 
 			<spartan-page-bottom-nav>
@@ -74,5 +74,5 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class ComboboxPage {
-	protected readonly defaultCode = defaultCode;
+	protected readonly _defaultCode = defaultCode;
 }

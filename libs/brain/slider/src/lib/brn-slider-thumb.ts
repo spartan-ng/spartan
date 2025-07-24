@@ -9,16 +9,16 @@ import { injectBrnSlider } from './brn-slider.token';
 	selector: '[brnSliderThumb]',
 	host: {
 		role: 'slider',
-		'[attr.aria-valuenow]': 'slider.value()',
-		'[attr.aria-valuemin]': 'slider.min()',
-		'[attr.aria-valuemax]': 'slider.max()',
-		'[attr.tabindex]': 'slider.disabled() ? -1 : 0',
-		'[attr.data-disabled]': 'slider.disabled()',
-		'[style.inset-inline-start]': 'thumbOffset()',
+		'[attr.aria-valuenow]': '_slider.value()',
+		'[attr.aria-valuemin]': '_slider.min()',
+		'[attr.aria-valuemax]': '_slider.max()',
+		'[attr.tabindex]': '_slider.mutableDisabled() ? -1 : 0',
+		'[attr.data-disabled]': '_slider.mutableDisabled()',
+		'[style.inset-inline-start]': '_thumbOffset()',
 	},
 })
 export class BrnSliderThumb {
-	protected readonly slider = injectBrnSlider();
+	protected readonly _slider = injectBrnSlider();
 	private readonly _document = inject<Document>(DOCUMENT);
 	private readonly _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 	private readonly _platform = inject(PLATFORM_ID);
@@ -28,16 +28,16 @@ export class BrnSliderThumb {
 	 * within the bounds of the slider when reaching the edges.
 	 * Based on https://github.com/radix-ui/primitives/blob/main/packages/react/slider/src/slider.tsx
 	 */
-	protected readonly thumbOffset = computed(() => {
+	protected readonly _thumbOffset = computed(() => {
 		// we can't compute the offset on the server
 		if (isPlatformServer(this._platform)) {
-			return this.slider.percentage() + '%';
+			return this._slider.percentage() + '%';
 		}
 
 		const halfWidth = this._elementRef.nativeElement.offsetWidth / 2;
 		const offset = this.linearScale([0, 50], [0, halfWidth]);
-		const thumbInBoundsOffset = halfWidth - offset(this.slider.percentage());
-		const percent = this.slider.percentage();
+		const thumbInBoundsOffset = halfWidth - offset(this._slider.percentage());
+		const percent = this._slider.percentage();
 
 		return `calc(${percent}% + ${thumbInBoundsOffset}px)`;
 	});
@@ -58,11 +58,11 @@ export class BrnSliderThumb {
 
 	/** @internal */
 	private dragThumb(event: MouseEvent): void {
-		if (this.slider.disabled()) {
+		if (this._slider.mutableDisabled()) {
 			return;
 		}
 
-		const rect = this.slider.track()?.elementRef.nativeElement.getBoundingClientRect();
+		const rect = this._slider.track()?.elementRef.nativeElement.getBoundingClientRect();
 
 		if (!rect) {
 			return;
@@ -70,8 +70,8 @@ export class BrnSliderThumb {
 
 		const percentage = (event.clientX - rect.left) / rect.width;
 
-		this.slider.setValue(
-			this.slider.min() + (this.slider.max() - this.slider.min()) * Math.max(0, Math.min(1, percentage)),
+		this._slider.setValue(
+			this._slider.min() + (this._slider.max() - this._slider.min()) * Math.max(0, Math.min(1, percentage)),
 		);
 	}
 
@@ -83,7 +83,7 @@ export class BrnSliderThumb {
 	protected handleKeydown(event: KeyboardEvent): void {
 		const dir = getComputedStyle(this._elementRef.nativeElement).direction;
 		let multiplier = event.shiftKey ? 10 : 1;
-		const value = this.slider.value();
+		const value = this._slider.value();
 
 		// if the slider is RTL, flip the multiplier
 		if (dir === 'rtl') {
@@ -92,19 +92,19 @@ export class BrnSliderThumb {
 
 		switch (event.key) {
 			case 'ArrowLeft':
-				this.slider.setValue(Math.max(value - this.slider.step() * multiplier, this.slider.min()));
+				this._slider.setValue(Math.max(value - this._slider.step() * multiplier, this._slider.min()));
 				event.preventDefault();
 				break;
 			case 'ArrowRight':
-				this.slider.setValue(Math.min(value + this.slider.step() * multiplier, this.slider.max()));
+				this._slider.setValue(Math.min(value + this._slider.step() * multiplier, this._slider.max()));
 				event.preventDefault();
 				break;
 			case 'Home':
-				this.slider.setValue(this.slider.min());
+				this._slider.setValue(this._slider.min());
 				event.preventDefault();
 				break;
 			case 'End':
-				this.slider.setValue(this.slider.max());
+				this._slider.setValue(this._slider.max());
 				event.preventDefault();
 				break;
 		}

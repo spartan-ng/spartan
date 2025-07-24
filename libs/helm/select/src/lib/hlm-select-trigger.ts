@@ -29,7 +29,7 @@ export const selectTriggerVariants = cva(
 	template: `
 		<button [class]="_computedClass()" #button hlmInput brnSelectTrigger type="button" [attr.data-size]="size()">
 			<ng-content />
-			@if (icon()) {
+			@if (_icon()) {
 				<ng-content select="ng-icon" />
 			} @else {
 				<ng-icon hlm size="sm" class="ml-2 flex-none" name="lucideChevronDown" />
@@ -39,15 +39,15 @@ export const selectTriggerVariants = cva(
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmSelectTrigger {
-	protected readonly icon = contentChild(HlmIcon);
+	protected readonly _icon = contentChild(HlmIcon);
 
-	protected readonly brnSelect = inject(BrnSelect, { optional: true });
+	protected readonly _brnSelect = inject(BrnSelect, { optional: true });
 
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 
 	public readonly size = input<'default' | 'sm'>('default');
 
-	protected _computedClass = computed(() =>
-		hlm(selectTriggerVariants({ error: this.brnSelect?.errorState() }), this.userClass()),
+	protected readonly _computedClass = computed(() =>
+		hlm(selectTriggerVariants({ error: this._brnSelect?.errorState() }), this.userClass()),
 	);
 }

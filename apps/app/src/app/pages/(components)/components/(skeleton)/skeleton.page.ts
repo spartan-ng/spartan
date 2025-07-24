@@ -1,5 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
+import { hlmH4 } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
@@ -12,7 +13,7 @@ import { Tabs } from '../../../../shared/layout/tabs';
 import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { defaultCode } from './skeleton.generated';
+import { defaultCode, skeletonCardCode } from './skeleton.generated';
 import { SkeletonPreview, defaultImports, defaultSkeleton } from './skeleton.preview';
 
 export const routeMeta: RouteMeta = {
@@ -44,7 +45,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-skeleton-preview />
 				</div>
-				<spartan-code secondTab [code]="defaultCode" />
+				<spartan-code secondTab [code]="_defaultCode" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -56,12 +57,22 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="space-y-4">
-				<spartan-code [code]="defaultImports" />
-				<spartan-code [code]="defaultSkeleton" />
+				<spartan-code [code]="_defaultImports" />
+				<spartan-code [code]="_defaultSkeleton" />
 			</div>
 
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="helm" />
+
+			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
+
+			<h3 id="examples__link" class="${hlmH4} mb-2 mt-6">Card</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-skeleton-card />
+				</div>
+				<spartan-code secondTab [code]="_skeletonCardCode" />
+			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="slider" label="Slider" />
@@ -72,7 +83,9 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class SkeletonPage {
-	protected readonly defaultCode = defaultCode;
-	protected readonly defaultSkeleton = defaultSkeleton;
-	protected readonly defaultImports = defaultImports;
+	protected readonly _defaultCode = defaultCode;
+	protected readonly _defaultSkeleton = defaultSkeleton;
+	protected readonly _defaultImports = defaultImports;
+
+	protected readonly _skeletonCardCode = skeletonCardCode;
 }

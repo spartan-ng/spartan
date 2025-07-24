@@ -33,7 +33,7 @@ type MenuVariants = VariantProps<typeof menuVariants>;
 })
 export class HlmMenu {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected _computedClass = computed(() => hlm(menuVariants({ variant: this.variant() }), this.userClass()));
+	protected readonly _computedClass = computed(() => hlm(menuVariants({ variant: this.variant() }), this.userClass()));
 
 	public readonly variant = input<MenuVariants['variant']>('default');
 }

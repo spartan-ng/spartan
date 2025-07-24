@@ -5,10 +5,10 @@ import { injectBrnCalendar } from './brn-calendar.token';
 	selector: '[brnCalendarGrid]',
 	host: {
 		role: 'grid',
-		'[attr.aria-labelledby]': 'calendar.header()?.id()',
+		'[attr.aria-labelledby]': '_calendar.header()?.id()',
 	},
 })
 export class BrnCalendarGrid<T> {
 	/** Access the calendar component */
-	protected readonly calendar = injectBrnCalendar<T>();
+	protected readonly _calendar = injectBrnCalendar<T>();
 }

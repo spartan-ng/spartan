@@ -9,15 +9,15 @@ import { injectBrnSelect } from './brn-select.token';
 	imports: [NgTemplateOutlet],
 	template: `
 		@if (_showPlaceholder()) {
-			<ng-container [ngTemplateOutlet]="customPlaceholderTemplate()?.templateRef ?? defaultPlaceholderTemplate" />
+			<ng-container [ngTemplateOutlet]="_customPlaceholderTemplate()?.templateRef ?? defaultPlaceholderTemplate" />
 		} @else {
 			<ng-container
-				[ngTemplateOutlet]="customValueTemplate()?.templateRef ?? defaultValueTemplate"
+				[ngTemplateOutlet]="_customValueTemplate()?.templateRef ?? defaultValueTemplate"
 				[ngTemplateOutletContext]="{ $implicit: _select.value() }"
 			/>
 		}
 
-		<ng-template #defaultValueTemplate>{{ value() }}</ng-template>
+		<ng-template #defaultValueTemplate>{{ _value() }}</ng-template>
 		<ng-template #defaultPlaceholderTemplate>{{ placeholder() }}</ng-template>
 	`,
 	host: {
@@ -43,14 +43,14 @@ export class BrnSelectValue<T> {
 	public readonly placeholder = computed(() => this._select.placeholder());
 
 	protected readonly _showPlaceholder = computed(
-		() => this.value() === null || this.value() === undefined || this.value() === '',
+		() => this._value() === null || this._value() === undefined || this._value() === '',
 	);
 
 	/** Allow a custom value template */
-	protected readonly customValueTemplate = contentChild(BrnSelectValueTemplate, { descendants: true });
-	protected readonly customPlaceholderTemplate = contentChild(BrnSelectPlaceholder, { descendants: true });
+	protected readonly _customValueTemplate = contentChild(BrnSelectValueTemplate, { descendants: true });
+	protected readonly _customPlaceholderTemplate = contentChild(BrnSelectPlaceholder, { descendants: true });
 
-	protected readonly value = computed(() => {
+	protected readonly _value = computed(() => {
 		const value = this._values();
 
 		if (value.length === 0) {

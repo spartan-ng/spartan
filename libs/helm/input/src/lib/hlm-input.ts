@@ -48,11 +48,11 @@ type InputVariants = VariantProps<typeof inputVariants>;
 export class HlmInput implements BrnFormFieldControl, DoCheck {
 	public readonly error = input<InputVariants['error']>('auto');
 
-	protected readonly state = linkedSignal(() => ({ error: this.error() }));
+	protected readonly _state = linkedSignal(() => ({ error: this.error() }));
 
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>
-		hlm(inputVariants({ error: this.state().error }), this.userClass()),
+		hlm(inputVariants({ error: this._state().error }), this.userClass()),
 	);
 
 	private readonly _injector = inject(Injector);
@@ -92,6 +92,6 @@ export class HlmInput implements BrnFormFieldControl, DoCheck {
 	}
 
 	setError(error: InputVariants['error']) {
-		this.state.set({ error });
+		this._state.set({ error });
 	}
 }

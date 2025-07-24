@@ -15,8 +15,8 @@ import {
 	ColumnDef,
 	ColumnFiltersState,
 	createAngularTable,
-	FlexRender,
 	flexRenderComponent,
+	FlexRenderDirective,
 	getCoreRowModel,
 	getFilteredRowModel,
 	getPaginationRowModel,
@@ -38,7 +38,7 @@ export type Payment = {
 @Component({
 	selector: 'spartan-data-table-preview',
 	imports: [
-		FlexRender,
+		FlexRenderDirective,
 		FormsModule,
 		BrnMenuTrigger,
 		HlmMenuModule,

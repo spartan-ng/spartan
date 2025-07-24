@@ -17,7 +17,7 @@ export async function migrateNamingConventionGenerator(
 
 const renamedIdentifiers: Record<string, string> = {
 	BrnTooltipContentDirective: 'BrnTooltipContentTemplate',
-	BrnSelectValueDirective: 'BrnSelectValueTemplateDirective',
+	BrnSelectValueDirective: 'BrnSelectValueTemplate',
 };
 
 /**

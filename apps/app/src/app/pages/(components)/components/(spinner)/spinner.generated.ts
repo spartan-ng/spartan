@@ -9,11 +9,11 @@ Run `pnpm run generate-snippets` to update this file.
 
 export const spinnerSizeCode = `
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { HlmSpinnerComponent } from '@spartan-ng/helm/spinner';
+import { HlmSpinner } from '@spartan-ng/helm/spinner';
 
 @Component({
 	selector: 'spartan-spinner-size-preview',
-	imports: [HlmSpinnerComponent],
+	imports: [HlmSpinner],
 	template: \`
 		<div class="flex flex-col items-center gap-4">
 			<hlm-spinner class="size-6" />

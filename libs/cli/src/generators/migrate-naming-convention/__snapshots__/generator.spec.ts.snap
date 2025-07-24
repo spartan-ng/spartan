@@ -82,11 +82,11 @@ exports[`migrate-naming-conventions generator should rename the identifiers that
 "import { Component } from '@angular/core';
 import { BrnTooltipContentTemplate } from '@spartan-ng/brain/tooltip';
 import {HlmMenuItemRadioComponent} from '@spartan-ng/helm/menu';
-import { BrnSelectValueTemplateDirective } from '@spartan-ng/brain/select';
+import { BrnSelectValueTemplate } from '@spartan-ng/brain/select';
 
 @Component({
 	selector: 'spartan-tooltip-preview',
-	imports: [BrnTooltipContentTemplate, HlmMenuItemRadioComponent, BrnSelectValueTemplateDirective],
+	imports: [BrnTooltipContentTemplate, HlmMenuItemRadioComponent, BrnSelectValueTemplate],
 	template: \`
 		<brn-tooltip>
 			<button brnTooltipTrigger>Hover me</button>

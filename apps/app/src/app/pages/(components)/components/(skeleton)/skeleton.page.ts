@@ -13,6 +13,7 @@ import { Tabs } from '../../../../shared/layout/tabs';
 import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
+import { SkeletonCard } from './skeleton--card.preview';
 import { defaultCode, skeletonCardCode } from './skeleton.generated';
 import { SkeletonPreview, defaultImports, defaultSkeleton } from './skeleton.preview';
 
@@ -36,6 +37,7 @@ export const routeMeta: RouteMeta = {
 		PageBottomNav,
 		PageBottomNavLink,
 		SkeletonPreview,
+		SkeletonCard,
 	],
 	template: `
 		<section spartanMainSection>

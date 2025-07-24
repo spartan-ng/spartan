@@ -23,6 +23,7 @@ import { PageNav } from '../../../../../shared/layout/page-nav/page-nav';
 import { SectionIntro } from '../../../../../shared/layout/section-intro';
 import { SectionSubHeading } from '../../../../../shared/layout/section-sub-heading';
 import { Tabs } from '../../../../../shared/layout/tabs';
+import { TabsCli } from '../../../../../shared/layout/tabs-cli';
 import { metaWith } from '../../../../../shared/meta/meta.util';
 import TypographyPreview, {
 	blockquoteCode,
@@ -57,6 +58,7 @@ export const routeMeta: RouteMeta = {
 		SectionSubHeading,
 		Code,
 		Tabs,
+		TabsCli,
 		TypographyPreview,
 		CodePreview,
 	],

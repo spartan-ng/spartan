@@ -102,6 +102,6 @@ describe('healthcheck generator', () => {
 		expect(contents).not.toContain('BrnTooltipContentDirective');
 		expect(contents).toContain('BrnTooltipContentTemplate');
 		expect(contents).not.toContain('BrnSelectValueDirective');
-		expect(contents).toContain('BrnSelectValueTemplateDirective');
+		expect(contents).toContain('BrnSelectValueTemplate');
 	});
 });

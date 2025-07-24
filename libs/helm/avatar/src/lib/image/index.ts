@@ -1,1 +1,1 @@
-export * from './hlm-avatar-image.directive';
+export * from './hlm-avatar-image';

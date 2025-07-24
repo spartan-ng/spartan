@@ -1,12 +1,12 @@
 import { Component, computed, inject, numberAttribute, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
-import { HlmNumberedPaginationQueryParamsComponent } from '@spartan-ng/helm/pagination';
+import { HlmNumberedPaginationQueryParams } from '@spartan-ng/helm/pagination';
 import { map } from 'rxjs/operators';
 
 @Component({
 	selector: 'spartan-pagination-advanced-query-params',
-	imports: [HlmNumberedPaginationQueryParamsComponent],
+	imports: [HlmNumberedPaginationQueryParams],
 	template: `
 		<hlm-numbered-pagination-query-params
 			[currentPage]="page()"
@@ -15,7 +15,7 @@ import { map } from 'rxjs/operators';
 		/>
 	`,
 })
-export class PaginationAdvancedQueryComponent {
+export class PaginationAdvancedQuery {
 	private readonly _route = inject(ActivatedRoute);
 
 	/**

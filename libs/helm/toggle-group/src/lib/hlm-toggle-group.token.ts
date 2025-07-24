@@ -1,12 +1,12 @@
 import { ExistingProvider, InjectionToken, Type, inject } from '@angular/core';
-import type { HlmToggleGroupDirective } from './hlm-toggle-group.directive';
+import type { HlmToggleGroup } from './hlm-toggle-group';
 
-const HlmToggleGroupToken = new InjectionToken<HlmToggleGroupDirective>('HlmToggleGroupToken');
+const HlmToggleGroupToken = new InjectionToken<HlmToggleGroup>('HlmToggleGroupToken');
 
-export function provideHlmToggleGroup(config: Type<HlmToggleGroupDirective>): ExistingProvider {
+export function provideHlmToggleGroup(config: Type<HlmToggleGroup>): ExistingProvider {
 	return { provide: HlmToggleGroupToken, useExisting: config };
 }
 
-export function injectHlmToggleGroup(): HlmToggleGroupDirective {
-	return inject(HlmToggleGroupToken, { optional: true }) as HlmToggleGroupDirective;
+export function injectHlmToggleGroup(): HlmToggleGroup {
+	return inject(HlmToggleGroupToken, { optional: true }) as HlmToggleGroup;
 }

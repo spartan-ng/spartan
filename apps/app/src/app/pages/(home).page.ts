@@ -3,18 +3,13 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCheck, lucideLayers, lucidePuzzle, lucideStar } from '@ng-icons/lucide';
-import { ZeropsLogoComponent } from '@spartan-ng/app/app/pages/(home)/components/zerops-logo.component';
-import { HlmBadgeDirective } from '@spartan-ng/helm/badge';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
-import {
-	HlmCardDescriptionDirective,
-	HlmCardDirective,
-	HlmCardHeaderDirective,
-	HlmCardTitleDirective,
-} from '@spartan-ng/helm/card';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { ZeropsLogo } from '@spartan-ng/app/app/pages/(home)/components/zerops-logo';
+import { HlmBadge } from '@spartan-ng/helm/badge';
+import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmCard, HlmCardDescription, HlmCardHeader, HlmCardTitle } from '@spartan-ng/helm/card';
+import { HlmIcon } from '@spartan-ng/helm/icon';
 import { metaWith } from '../shared/meta/meta.util';
-import { ThreeHundredComponent } from './(home)/components/three-hundred.component';
+import { ThreeHundred } from './(home)/components/three-hundred';
 
 export const routeMeta: RouteMeta = {
 	meta: metaWith(
@@ -31,17 +26,17 @@ const lead = 'leading-normal text-muted-foreground sm:text-xl sm:leading-8';
 @Component({
 	selector: 'spartan-home',
 	imports: [
-		HlmButtonDirective,
+		HlmButton,
 		RouterLink,
-		HlmBadgeDirective,
-		HlmCardDirective,
-		HlmCardHeaderDirective,
-		HlmCardTitleDirective,
-		HlmCardDescriptionDirective,
+		HlmBadge,
+		HlmCard,
+		HlmCardHeader,
+		HlmCardTitle,
+		HlmCardDescription,
 		NgIcon,
-		HlmIconDirective,
-		ThreeHundredComponent,
-		ZeropsLogoComponent,
+		HlmIcon,
+		ThreeHundred,
+		ZeropsLogo,
 	],
 	host: {
 		class: 'block p-4 pb-12 pt-6 sm:pb-24 sm:pt-12',
@@ -169,7 +164,7 @@ const lead = 'leading-normal text-muted-foreground sm:text-xl sm:leading-8';
 		</section>
 	`,
 })
-export default class HomePageComponent {
+export default class HomePage {
 	protected readonly _valueProps = [
 		'Our core development team now receives the compensation they deserve',
 		'Component development has accelerated significantly on our path to v1',

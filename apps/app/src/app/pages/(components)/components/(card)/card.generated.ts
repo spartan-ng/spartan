@@ -12,23 +12,15 @@ import { Component } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideCheck, lucideChevronDown } from '@ng-icons/lucide';
 import { BrnCommandImports } from '@spartan-ng/brain/command';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
-import { HlmCardFooterDirective, HlmCardImports } from '@spartan-ng/helm/card';
+import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmCardFooter, HlmCardImports } from '@spartan-ng/helm/card';
 import { HlmCommandImports } from '@spartan-ng/helm/command';
-import { HlmInputDirective } from '@spartan-ng/helm/input';
-import { HlmLabelDirective } from '@spartan-ng/helm/label';
+import { HlmInput } from '@spartan-ng/helm/input';
+import { HlmLabel } from '@spartan-ng/helm/label';
 
 @Component({
 	selector: 'spartan-card-preview',
-	imports: [
-		BrnCommandImports,
-		HlmCommandImports,
-		HlmCardImports,
-		HlmLabelDirective,
-		HlmInputDirective,
-		HlmCardFooterDirective,
-		HlmButtonDirective,
-	],
+	imports: [BrnCommandImports, HlmCommandImports, HlmCardImports, HlmLabel, HlmInput, HlmCardFooter, HlmButton],
 	providers: [provideIcons({ lucideCheck, lucideChevronDown })],
 	template: \`
 		<section class="w-full max-w-sm" hlmCard>
@@ -69,5 +61,5 @@ import { HlmLabelDirective } from '@spartan-ng/helm/label';
 		</section>
 	\`,
 })
-export class CardPreviewComponent {}
+export class CardPreview {}
 `;

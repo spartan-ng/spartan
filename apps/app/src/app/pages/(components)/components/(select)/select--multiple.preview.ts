@@ -22,4 +22,4 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 		</brn-select>
 	`,
 })
-export class SelectMultiplePreviewComponent {}
+export class SelectMultiplePreview {}

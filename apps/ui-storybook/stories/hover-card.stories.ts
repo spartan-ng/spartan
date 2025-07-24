@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCalendarDays } from '@ng-icons/lucide';
-import { type BrnHoverCardComponent, BrnHoverCardModule } from '@spartan-ng/brain/hover-card';
+import { type BrnHoverCard, BrnHoverCardModule } from '@spartan-ng/brain/hover-card';
 import { HlmAvatarModule } from '@spartan-ng/helm/avatar';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
-import { HlmCardDirective } from '@spartan-ng/helm/card';
+import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmCard } from '@spartan-ng/helm/card';
 import { HlmHoverCardModule } from '@spartan-ng/helm/hover-card';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { HlmIcon } from '@spartan-ng/helm/icon';
 import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
 
 @Component({
 	selector: 'hover-card-example',
-	imports: [BrnHoverCardModule, HlmHoverCardModule, HlmButtonDirective, NgIcon, HlmIconDirective, HlmAvatarModule],
+	imports: [BrnHoverCardModule, HlmHoverCardModule, HlmButton, NgIcon, HlmIcon, HlmAvatarModule],
 	providers: [provideIcons({ lucideCalendarDays })],
 	host: {
 		class: 'flex w-full h-full justify-center py-80',
@@ -38,21 +38,21 @@ import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
 		</brn-hover-card>
 	`,
 })
-class HoverCardExampleComponent {}
+class HoverCardExample {}
 
-const meta: Meta<BrnHoverCardComponent> = {
+const meta: Meta<BrnHoverCard> = {
 	title: 'Hover Card',
-	component: HlmCardDirective,
+	component: HlmCard,
 	tags: ['autodocs'],
 	decorators: [
 		moduleMetadata({
-			imports: [HoverCardExampleComponent],
+			imports: [HoverCardExample],
 		}),
 	],
 };
 
 export default meta;
-type Story = StoryObj<BrnHoverCardComponent>;
+type Story = StoryObj<BrnHoverCard>;
 
 export const Default: Story = {
 	render: () => ({

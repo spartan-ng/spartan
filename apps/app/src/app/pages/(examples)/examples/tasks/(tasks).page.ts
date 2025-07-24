@@ -21,11 +21,11 @@ import {
 	lucideLogOut,
 	lucideUser,
 } from '@ng-icons/lucide';
-import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
+import { BrnMenuTrigger } from '@spartan-ng/brain/menu';
 import { BrnSelectModule } from '@spartan-ng/brain/select';
 import { HlmAvatarImports } from '@spartan-ng/helm/avatar';
 import { HlmButtonModule } from '@spartan-ng/helm/button';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmMenuModule } from '@spartan-ng/helm/menu';
 import { HlmSelectModule } from '@spartan-ng/helm/select';
 import { HlmTableModule } from '@spartan-ng/helm/table';
@@ -33,8 +33,8 @@ import {
 	ColumnDef,
 	ColumnFiltersState,
 	createAngularTable,
+	FlexRender,
 	flexRenderComponent,
-	FlexRenderDirective,
 	getCoreRowModel,
 	getFilteredRowModel,
 	getPaginationRowModel,
@@ -43,16 +43,13 @@ import {
 	SortingState,
 	VisibilityState,
 } from '@tanstack/angular-table';
-import {
-	TableHeadSelectionComponent,
-	TableRowSelectionComponent,
-} from '../../../(components)/components/(data-table)/selection-column.component';
-import { TableHeadSortButtonComponent } from '../../../(components)/components/(data-table)/sort-header-button.component';
-import { ActionDropdownComponent } from './components/action-dropdown.component';
-import { PriorityIconCellComponent } from './components/priority-icon-cell.component';
-import { StatusIconCellComponent } from './components/status-icon-cell.component';
-import { TableActionsComponent } from './components/table-actions.component';
-import { TitleCellComponent } from './components/title-cell.component';
+import { TableHeadSelection, TableRowSelection } from '../../../(components)/components/(data-table)/selection-column';
+import { TableHeadSortButton } from '../../../(components)/components/(data-table)/sort-header-button';
+import { ActionDropdown } from './components/action-dropdown';
+import { PriorityIconCell } from './components/priority-icon-cell';
+import { StatusIconCell } from './components/status-icon-cell';
+import { TableActions } from './components/table-actions';
+import { TitleCell } from './components/title-cell';
 import { DEFAULT_TASK_TABLE_COLUMNS, LocalStorageService } from './services/local-storage.service';
 import { Task, TASK_DATA } from './services/tasks.models';
 
@@ -60,17 +57,17 @@ import { Task, TASK_DATA } from './services/tasks.models';
 	selector: 'spartan-data-table-preview',
 	imports: [
 		FormsModule,
-		BrnMenuTriggerDirective,
+		BrnMenuTrigger,
 		HlmMenuModule,
 		HlmTableModule,
 		HlmButtonModule,
-		HlmIconDirective,
+		HlmIcon,
 		BrnSelectModule,
 		HlmSelectModule,
-		TableActionsComponent,
+		TableActions,
 		NgIcon,
 		HlmAvatarImports,
-		FlexRenderDirective,
+		FlexRender,
 	],
 	providers: [
 		provideIcons({
@@ -235,7 +232,7 @@ import { Task, TASK_DATA } from './services/tasks.models';
 		</div>
 	`,
 })
-export default class TasksExamplePageComponent {
+export default class TasksExamplePage {
 	protected readonly trackBy: TrackByFunction<Task> = (_: number, p: Task) => p.id;
 	protected readonly _availablePageSizes = [5, 10, 20, 10000];
 	protected readonly _pageSize = signal(this._availablePageSizes[1]); // default to page size 10
@@ -250,41 +247,41 @@ export default class TasksExamplePageComponent {
 		{
 			accessorKey: 'select',
 			id: 'select',
-			header: () => flexRenderComponent(TableHeadSelectionComponent),
-			cell: () => flexRenderComponent(TableRowSelectionComponent),
+			header: () => flexRenderComponent(TableHeadSelection),
+			cell: () => flexRenderComponent(TableRowSelection),
 			enableSorting: false,
 			enableHiding: false,
 		},
 		{
 			accessorKey: 'id',
 			id: 'id',
-			header: () => flexRenderComponent(TableHeadSortButtonComponent, { inputs: { header: '' } }),
+			header: () => flexRenderComponent(TableHeadSortButton, { inputs: { header: '' } }),
 			cell: (info) => info.getValue(),
 		},
 		{
 			accessorKey: 'title',
 			id: 'title',
-			header: () => flexRenderComponent(TableHeadSortButtonComponent, { inputs: { header: '' } }),
-			cell: () => flexRenderComponent(TitleCellComponent),
+			header: () => flexRenderComponent(TableHeadSortButton, { inputs: { header: '' } }),
+			cell: () => flexRenderComponent(TitleCell),
 		},
 		{
 			accessorKey: 'status',
 			id: 'status',
 			filterFn: 'arrIncludesSome',
-			header: () => flexRenderComponent(TableHeadSortButtonComponent, { inputs: { header: '' } }),
-			cell: () => flexRenderComponent(StatusIconCellComponent),
+			header: () => flexRenderComponent(TableHeadSortButton, { inputs: { header: '' } }),
+			cell: () => flexRenderComponent(StatusIconCell),
 		},
 		{
 			accessorKey: 'priority',
 			id: 'priority',
 			filterFn: 'arrIncludesSome',
-			header: () => flexRenderComponent(TableHeadSortButtonComponent, { inputs: { header: '' } }),
-			cell: () => flexRenderComponent(PriorityIconCellComponent),
+			header: () => flexRenderComponent(TableHeadSortButton, { inputs: { header: '' } }),
+			cell: () => flexRenderComponent(PriorityIconCell),
 		},
 		{
 			id: 'action',
 			enableHiding: false,
-			cell: () => flexRenderComponent(ActionDropdownComponent),
+			cell: () => flexRenderComponent(ActionDropdown),
 		},
 	];
 

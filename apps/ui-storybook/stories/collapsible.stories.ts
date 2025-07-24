@@ -1,11 +1,11 @@
-import { BrnCollapsibleComponent, BrnCollapsibleImports } from '@spartan-ng/brain/collapsible';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { BrnCollapsible, BrnCollapsibleImports } from '@spartan-ng/brain/collapsible';
+import { HlmButton } from '@spartan-ng/helm/button';
 import type { Meta, StoryObj } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
 
-const meta: Meta<BrnCollapsibleComponent> = {
+const meta: Meta<BrnCollapsible> = {
 	title: 'Collapsible',
-	component: BrnCollapsibleComponent,
+	component: BrnCollapsible,
 	tags: ['autodocs'],
 	args: {
 		disabled: false,
@@ -19,7 +19,7 @@ const meta: Meta<BrnCollapsibleComponent> = {
 	},
 	decorators: [
 		moduleMetadata({
-			imports: [HlmButtonDirective, BrnCollapsibleImports],
+			imports: [HlmButton, BrnCollapsibleImports],
 		}),
 	],
 };

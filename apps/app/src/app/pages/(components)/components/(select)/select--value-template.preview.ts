@@ -45,7 +45,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 		</brn-select>
 	`,
 })
-export class SelectValueTemplatePreviewComponent {
+export class SelectValueTemplatePreview {
 	public readonly options = [
 		{ label: 'Align Left', icon: 'lucideAlignLeft' },
 		{ label: 'Align Center', icon: 'lucideAlignCenter' },

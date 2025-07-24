@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { HlmAvatarComponent, HlmAvatarFallbackDirective, HlmAvatarImageDirective } from '@spartan-ng/helm/avatar';
+import { HlmAvatar, HlmAvatarFallback, HlmAvatarImage } from '@spartan-ng/helm/avatar';
 
 @Component({
 	selector: 'spartan-avatar-preview',
-	imports: [HlmAvatarImageDirective, HlmAvatarComponent, HlmAvatarFallbackDirective],
+	imports: [HlmAvatarImage, HlmAvatar, HlmAvatarFallback],
 	template: `
 		<hlm-avatar variant="large">
 			<img src="/assets/avatar.png" alt="spartan logo. Resembling a spartanic shield" hlmAvatarImage />
@@ -11,7 +11,7 @@ import { HlmAvatarComponent, HlmAvatarFallbackDirective, HlmAvatarImageDirective
 		</hlm-avatar>
 	`,
 })
-export class AvatarPreviewComponent {}
+export class AvatarPreview {}
 
 export const defaultImports = `
 import { HlmAvatarImageDirective, HlmAvatarComponent, HlmAvatarFallbackDirective } from '@spartan-ng/helm/avatar';

@@ -1,13 +1,13 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
-import { MainSectionDirective } from '@spartan-ng/app/app/shared/layout/main-section.directive';
-import { PageBottomNavLinkComponent } from '@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav-link.component';
-import { PageBottomNavComponent } from '@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav.component';
-import { PageNavComponent } from '@spartan-ng/app/app/shared/layout/page-nav/page-nav.component';
-import { SectionIntroComponent } from '@spartan-ng/app/app/shared/layout/section-intro.component';
+import { MainSection } from '@spartan-ng/app/app/shared/layout/main-section';
+import { PageBottomNav } from '@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav';
+import { PageBottomNavLink } from '@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav-link';
+import { PageNav } from '@spartan-ng/app/app/shared/layout/page-nav/page-nav';
+import { SectionIntro } from '@spartan-ng/app/app/shared/layout/section-intro';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
 import { hlmP } from '@spartan-ng/helm/typography';
-import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
+import { TabsCli } from '../../../../shared/layout/tabs-cli';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Health Checks' },
@@ -17,14 +17,7 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-health-checks',
-	imports: [
-		MainSectionDirective,
-		SectionIntroComponent,
-		PageBottomNavComponent,
-		PageBottomNavLinkComponent,
-		PageNavComponent,
-		TabsCliComponent,
-	],
+	imports: [MainSection, SectionIntro, PageBottomNav, PageBottomNavLink, PageNav, TabsCli],
 	template: `
 		<section spartanMainSection>
 			<spartan-section-intro
@@ -64,4 +57,4 @@ export const routeMeta: RouteMeta = {
 		<spartan-page-nav />
 	`,
 })
-export default class HealthChecksPageComponent {}
+export default class HealthChecksPage {}

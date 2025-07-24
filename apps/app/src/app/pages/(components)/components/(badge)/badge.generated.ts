@@ -10,11 +10,11 @@ Run `pnpm run generate-snippets` to update this file.
 export const badgeLinkCode = `
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { HlmBadgeDirective } from '@spartan-ng/helm/badge';
+import { HlmBadge } from '@spartan-ng/helm/badge';
 
 @Component({
 	selector: 'spartan-badge-link',
-	imports: [HlmBadgeDirective, RouterLink],
+	imports: [HlmBadge, RouterLink],
 	template: \`
 		<div class="flex gap-2">
 			<a hlmBadge routerLink=".">Angular Route</a>
@@ -22,18 +22,18 @@ import { HlmBadgeDirective } from '@spartan-ng/helm/badge';
 		</div>
 	\`,
 })
-export class BadgeLinkComponent {}
+export class BadgeLink {}
 `;
 
 export const defaultCode = `
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideBadgeCheck } from '@ng-icons/lucide';
-import { HlmBadgeDirective } from '@spartan-ng/helm/badge';
+import { HlmBadge } from '@spartan-ng/helm/badge';
 
 @Component({
 	selector: 'spartan-badge-preview',
-	imports: [HlmBadgeDirective, NgIcon],
+	imports: [HlmBadge, NgIcon],
 	providers: [provideIcons({ lucideBadgeCheck })],
 	template: \`
 		<div class="flex flex-col items-center gap-2">
@@ -55,5 +55,5 @@ import { HlmBadgeDirective } from '@spartan-ng/helm/badge';
 		</div>
 	\`,
 })
-export class BadgePreviewComponent {}
+export class BadgePreview {}
 `;

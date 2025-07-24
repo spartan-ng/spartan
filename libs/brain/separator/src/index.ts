@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
-import { BrnSeparatorComponent } from './lib/brn-separator.component';
+import { BrnSeparator } from './lib/brn-separator';
 
-export * from './lib/brn-separator.component';
+export * from './lib/brn-separator';
 
 @NgModule({
-	imports: [BrnSeparatorComponent],
-	exports: [BrnSeparatorComponent],
+	imports: [BrnSeparator],
+	exports: [BrnSeparator],
 })
 export class BrnSeparatorModule {}

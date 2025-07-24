@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
-import { HlmButtonDirective } from './lib/hlm-button.directive';
-export * from './lib/hlm-button.directive';
+import { HlmButton } from './lib/hlm-button';
+export * from './lib/hlm-button';
 export * from './lib/hlm-button.token';
 
 @NgModule({
-	imports: [HlmButtonDirective],
-	exports: [HlmButtonDirective],
+	imports: [HlmButton],
+	exports: [HlmButton],
 })
 export class HlmButtonModule {}

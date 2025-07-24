@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 
-import { BrnProgressIndicatorComponent } from './lib/brn-progress-indicator.component';
-import { BrnProgressComponent } from './lib/brn-progress.component';
+import { BrnProgress } from './lib/brn-progress';
+import { BrnProgressIndicator } from './lib/brn-progress-indicator';
 export { injectBrnProgress } from './lib/brn-progress.token';
 
-export * from './lib/brn-progress-indicator.component';
-export * from './lib/brn-progress.component';
+export * from './lib/brn-progress';
+export * from './lib/brn-progress-indicator';
 
-export const BrnProgressImports = [BrnProgressComponent, BrnProgressIndicatorComponent] as const;
+export const BrnProgressImports = [BrnProgress, BrnProgressIndicator] as const;
 
 @NgModule({
 	imports: [...BrnProgressImports],

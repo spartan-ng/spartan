@@ -1,29 +1,29 @@
 import { NgModule } from '@angular/core';
 
-import { HlmCardActionDirective } from './lib/hlm-card-action.directive';
-import { HlmCardContentDirective } from './lib/hlm-card-content.directive';
-import { HlmCardDescriptionDirective } from './lib/hlm-card-description.directive';
-import { HlmCardFooterDirective } from './lib/hlm-card-footer.directive';
-import { HlmCardHeaderDirective } from './lib/hlm-card-header.directive';
-import { HlmCardTitleDirective } from './lib/hlm-card-title.directive';
-import { HlmCardDirective } from './lib/hlm-card.directive';
+import { HlmCard } from './lib/hlm-card';
+import { HlmCardAction } from './lib/hlm-card-action';
+import { HlmCardContent } from './lib/hlm-card-content';
+import { HlmCardDescription } from './lib/hlm-card-description';
+import { HlmCardFooter } from './lib/hlm-card-footer';
+import { HlmCardHeader } from './lib/hlm-card-header';
+import { HlmCardTitle } from './lib/hlm-card-title';
 
-export * from './lib/hlm-card-action.directive';
-export * from './lib/hlm-card-content.directive';
-export * from './lib/hlm-card-description.directive';
-export * from './lib/hlm-card-footer.directive';
-export * from './lib/hlm-card-header.directive';
-export * from './lib/hlm-card-title.directive';
-export * from './lib/hlm-card.directive';
+export * from './lib/hlm-card';
+export * from './lib/hlm-card-action';
+export * from './lib/hlm-card-content';
+export * from './lib/hlm-card-description';
+export * from './lib/hlm-card-footer';
+export * from './lib/hlm-card-header';
+export * from './lib/hlm-card-title';
 
 export const HlmCardImports = [
-	HlmCardDirective,
-	HlmCardHeaderDirective,
-	HlmCardFooterDirective,
-	HlmCardTitleDirective,
-	HlmCardDescriptionDirective,
-	HlmCardContentDirective,
-	HlmCardActionDirective,
+	HlmCard,
+	HlmCardHeader,
+	HlmCardFooter,
+	HlmCardTitle,
+	HlmCardDescription,
+	HlmCardContent,
+	HlmCardAction,
 ] as const;
 
 @NgModule({

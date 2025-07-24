@@ -1,15 +1,15 @@
-import { HlmCalendarComponent } from '@spartan-ng/helm/calendar';
+import { HlmCalendar } from '@spartan-ng/helm/calendar';
 import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
 
-const meta: Meta<HlmCalendarComponent<Date>> = {
+const meta: Meta<HlmCalendar<Date>> = {
 	title: 'Calendar',
-	component: HlmCalendarComponent,
+	component: HlmCalendar,
 	tags: ['autodocs'],
 	args: {},
 	argTypes: {},
 	decorators: [
 		moduleMetadata({
-			imports: [HlmCalendarComponent],
+			imports: [HlmCalendar],
 		}),
 	],
 	render: ({ ...args }) => ({
@@ -24,7 +24,7 @@ const meta: Meta<HlmCalendarComponent<Date>> = {
 
 export default meta;
 
-type Story = StoryObj<HlmCalendarComponent<Date>>;
+type Story = StoryObj<HlmCalendar<Date>>;
 
 export const Default: Story = {
 	args: {

@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
-import { HlmInputDirective } from './lib/hlm-input.directive';
+import { HlmInput } from './lib/hlm-input';
 
-export * from './lib/hlm-input.directive';
+export * from './lib/hlm-input';
 
 @NgModule({
-	imports: [HlmInputDirective],
-	exports: [HlmInputDirective],
+	imports: [HlmInput],
+	exports: [HlmInput],
 })
 export class HlmInputModule {}

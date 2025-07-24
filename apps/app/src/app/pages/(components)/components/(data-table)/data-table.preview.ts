@@ -2,11 +2,11 @@ import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown } from '@ng-icons/lucide';
-import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
+import { BrnMenuTrigger } from '@spartan-ng/brain/menu';
 import { BrnSelectModule } from '@spartan-ng/brain/select';
 import { HlmButtonModule } from '@spartan-ng/helm/button';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
-import { HlmInputDirective } from '@spartan-ng/helm/input';
+import { HlmIcon } from '@spartan-ng/helm/icon';
+import { HlmInput } from '@spartan-ng/helm/input';
 import { HlmMenuModule } from '@spartan-ng/helm/menu';
 import { HlmSelectModule } from '@spartan-ng/helm/select';
 import { HlmTableImports } from '@spartan-ng/helm/table';
@@ -24,9 +24,9 @@ import {
 	PaginationState,
 	SortingState,
 } from '@tanstack/angular-table';
-import { ActionDropdownComponent } from './action-dropdown.component';
-import { TableHeadSelectionComponent, TableRowSelectionComponent } from './selection-column.component';
-import { TableHeadSortButtonComponent } from './sort-header-button.component';
+import { ActionDropdown } from './action-dropdown';
+import { TableHeadSelection, TableRowSelection } from './selection-column';
+import { TableHeadSortButton } from './sort-header-button';
 
 export type Payment = {
 	id: string;
@@ -40,12 +40,12 @@ export type Payment = {
 	imports: [
 		FlexRenderDirective,
 		FormsModule,
-		BrnMenuTriggerDirective,
+		BrnMenuTrigger,
 		HlmMenuModule,
 		HlmButtonModule,
 		NgIcon,
-		HlmIconDirective,
-		HlmInputDirective,
+		HlmIcon,
+		HlmInput,
 		BrnSelectModule,
 		HlmSelectModule,
 		...HlmTableImports,
@@ -172,7 +172,7 @@ export type Payment = {
 		</div>
 	`,
 })
-export class DataTablePreviewComponent {
+export class DataTablePreview {
 	protected readonly _availablePageSizes = [5, 10, 20, 10000];
 
 	protected _filterChanged(event: Event) {
@@ -183,8 +183,8 @@ export class DataTablePreviewComponent {
 		{
 			accessorKey: 'select',
 			id: 'select',
-			header: () => flexRenderComponent(TableHeadSelectionComponent),
-			cell: () => flexRenderComponent(TableRowSelectionComponent),
+			header: () => flexRenderComponent(TableHeadSelection),
+			cell: () => flexRenderComponent(TableRowSelection),
 			enableSorting: false,
 			enableHiding: false,
 		},
@@ -198,7 +198,7 @@ export class DataTablePreviewComponent {
 		{
 			accessorKey: 'email',
 			id: 'email',
-			header: () => flexRenderComponent(TableHeadSortButtonComponent, { inputs: { header: '' } }),
+			header: () => flexRenderComponent(TableHeadSortButton, { inputs: { header: '' } }),
 		},
 		{
 			accessorKey: 'amount',
@@ -218,7 +218,7 @@ export class DataTablePreviewComponent {
 		{
 			id: 'action',
 			enableHiding: false,
-			cell: () => flexRenderComponent(ActionDropdownComponent),
+			cell: () => flexRenderComponent(ActionDropdown),
 		},
 	];
 

@@ -11,11 +11,11 @@ export const formFieldErrorCode = `
 import { Component, type OnInit } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HlmFormFieldModule } from '@spartan-ng/helm/form-field';
-import { HlmInputDirective } from '@spartan-ng/helm/input';
+import { HlmInput } from '@spartan-ng/helm/input';
 
 @Component({
 	selector: 'spartan-form-field-error',
-	imports: [ReactiveFormsModule, HlmFormFieldModule, HlmInputDirective],
+	imports: [ReactiveFormsModule, HlmFormFieldModule, HlmInput],
 	template: \`
 		<hlm-form-field>
 			<input aria-label="Your Name" class="w-80" [formControl]="name" hlmInput type="text" placeholder="Your Name" />
@@ -23,7 +23,7 @@ import { HlmInputDirective } from '@spartan-ng/helm/input';
 		</hlm-form-field>
 	\`,
 })
-export class FormFieldErrorPreviewComponent implements OnInit {
+export class FormFieldErrorPreview implements OnInit {
 	public name = new FormControl('', Validators.required);
 
 	ngOnInit(): void {
@@ -39,7 +39,7 @@ import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@spartan-ng/bra
 import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { HlmButtonModule } from '@spartan-ng/helm/button';
 import { HlmFormFieldModule } from '@spartan-ng/helm/form-field';
-import { HlmInputDirective } from '@spartan-ng/helm/input';
+import { HlmInput } from '@spartan-ng/helm/input';
 import { HlmSelectImports, HlmSelectModule } from '@spartan-ng/helm/select';
 
 @Component({
@@ -48,7 +48,7 @@ import { HlmSelectImports, HlmSelectModule } from '@spartan-ng/helm/select';
 		ReactiveFormsModule,
 		HlmFormFieldModule,
 		HlmSelectModule,
-		HlmInputDirective,
+		HlmInput,
 		HlmSelectImports,
 		BrnSelectImports,
 		HlmButtonModule,
@@ -86,7 +86,7 @@ import { HlmSelectImports, HlmSelectModule } from '@spartan-ng/helm/select';
 	\`,
 	providers: [{ provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher }],
 })
-export class FormFieldFormWithDirtyPreviewComponent {
+export class FormFieldFormWithDirtyPreview {
 	private readonly _formBuilder = inject(FormBuilder);
 
 	public form = this._formBuilder.group({
@@ -116,7 +116,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { HlmButtonModule } from '@spartan-ng/helm/button';
 import { HlmFormFieldModule } from '@spartan-ng/helm/form-field';
-import { HlmInputDirective } from '@spartan-ng/helm/input';
+import { HlmInput } from '@spartan-ng/helm/input';
 import { HlmSelectImports, HlmSelectModule } from '@spartan-ng/helm/select';
 
 @Component({
@@ -125,7 +125,7 @@ import { HlmSelectImports, HlmSelectModule } from '@spartan-ng/helm/select';
 		ReactiveFormsModule,
 		HlmFormFieldModule,
 		HlmSelectModule,
-		HlmInputDirective,
+		HlmInput,
 		HlmSelectImports,
 		BrnSelectImports,
 		HlmButtonModule,
@@ -162,7 +162,7 @@ import { HlmSelectImports, HlmSelectModule } from '@spartan-ng/helm/select';
 		</form>
 	\`,
 })
-export class FormFieldFormPreviewComponent {
+export class FormFieldFormPreview {
 	private readonly _formBuilder = inject(FormBuilder);
 
 	public form = this._formBuilder.group({
@@ -184,11 +184,11 @@ export const defaultCode = `
 import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HlmFormFieldModule } from '@spartan-ng/helm/form-field';
-import { HlmInputDirective } from '@spartan-ng/helm/input';
+import { HlmInput } from '@spartan-ng/helm/input';
 
 @Component({
 	selector: 'spartan-form-field-preview',
-	imports: [HlmInputDirective, HlmFormFieldModule, ReactiveFormsModule],
+	imports: [HlmInput, HlmFormFieldModule, ReactiveFormsModule],
 	template: \`
 		<hlm-form-field>
 			<input class="w-80" hlmInput [formControl]="control" type="email" placeholder="Email" />
@@ -197,7 +197,7 @@ import { HlmInputDirective } from '@spartan-ng/helm/input';
 		</hlm-form-field>
 	\`,
 })
-export class FormFieldPreviewComponent {
+export class FormFieldPreview {
 	public control = new FormControl('', Validators.required);
 }
 `;

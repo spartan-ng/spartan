@@ -3,14 +3,14 @@ import { Component } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideTriangleAlert } from '@ng-icons/lucide';
 import { hlmCode, hlmH4, hlmP } from '@spartan-ng/helm/typography';
-import { MainSectionDirective } from '../../../shared/layout/main-section.directive';
-import { PackageInstallerTabsComponent } from '../../../shared/layout/package-installer-tabs.component';
-import { PageBottomNavLinkComponent } from '../../../shared/layout/page-bottom-nav/page-bottom-nav-link.component';
-import { PageBottomNavComponent } from '../../../shared/layout/page-bottom-nav/page-bottom-nav.component';
-import { PageNavComponent } from '../../../shared/layout/page-nav/page-nav.component';
-import { SectionIntroComponent } from '../../../shared/layout/section-intro.component';
-import { SectionSubHeadingComponent } from '../../../shared/layout/section-sub-heading.component';
-import { TabsCliComponent } from '../../../shared/layout/tabs-cli.component';
+import { MainSection } from '../../../shared/layout/main-section';
+import { PackageInstallerTabs } from '../../../shared/layout/package-installer-tabs';
+import { PageBottomNav } from '../../../shared/layout/page-bottom-nav/page-bottom-nav';
+import { PageBottomNavLink } from '../../../shared/layout/page-bottom-nav/page-bottom-nav-link';
+import { PageNav } from '../../../shared/layout/page-nav/page-nav';
+import { SectionIntro } from '../../../shared/layout/section-intro';
+import { SectionSubHeading } from '../../../shared/layout/section-sub-heading';
+import { TabsCli } from '../../../shared/layout/tabs-cli';
 import { metaWith } from '../../../shared/meta/meta.util';
 
 export const routeMeta: RouteMeta = {
@@ -22,14 +22,14 @@ export const routeMeta: RouteMeta = {
 @Component({
 	selector: 'spartan-cli',
 	imports: [
-		MainSectionDirective,
-		SectionIntroComponent,
-		PageBottomNavComponent,
-		PageBottomNavLinkComponent,
-		PageNavComponent,
-		SectionSubHeadingComponent,
-		TabsCliComponent,
-		PackageInstallerTabsComponent,
+		MainSection,
+		SectionIntro,
+		PageBottomNav,
+		PageBottomNavLink,
+		PageNav,
+		SectionSubHeading,
+		TabsCli,
+		PackageInstallerTabs,
 	],
 	providers: [provideIcons({ lucideTriangleAlert })],
 	template: `
@@ -86,4 +86,4 @@ export const routeMeta: RouteMeta = {
 		<spartan-page-nav />
 	`,
 })
-export default class CliPageComponent {}
+export default class CliPage {}

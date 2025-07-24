@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HlmDatePickerComponent, provideHlmDatePickerConfig } from '@spartan-ng/helm/date-picker';
+import { HlmDatePicker, provideHlmDatePickerConfig } from '@spartan-ng/helm/date-picker';
 import { DateTime } from 'luxon';
 
 @Component({
 	selector: 'spartan-date-picker-format',
-	imports: [HlmDatePickerComponent, FormsModule],
+	imports: [HlmDatePicker, FormsModule],
 	template: `
 		<hlm-date-picker [min]="minDate" [max]="maxDate" [formatDate]="formatDate">
 			<span>Pick a date</span>
@@ -19,7 +19,7 @@ import { DateTime } from 'luxon';
 		class: 'preview flex min-h-[350px] w-full justify-center p-10 items-center',
 	},
 })
-export class DatePickerFormatExampleComponent {
+export class DatePickerFormatExample {
 	/** The minimum date */
 	public minDate = new Date(2023, 0, 1);
 

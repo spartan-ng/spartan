@@ -2,30 +2,25 @@ import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideTriangleAlert } from '@ng-icons/lucide';
-import {
-	HlmAlertDescriptionDirective,
-	HlmAlertDirective,
-	HlmAlertIconDirective,
-	HlmAlertTitleDirective,
-} from '@spartan-ng/helm/alert';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { HlmAlert, HlmAlertDescription, HlmAlertIcon, HlmAlertTitle } from '@spartan-ng/helm/alert';
+import { HlmIcon } from '@spartan-ng/helm/icon';
 import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
-import { CodePreviewDirective } from '../../../../shared/code/code-preview.directive';
-import { CodeComponent } from '../../../../shared/code/code.component';
-import { MainSectionDirective } from '../../../../shared/layout/main-section.directive';
-import { PageBottomNavLinkComponent } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav-link.component';
-import { PageBottomNavComponent } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav.component';
-import { PageNavComponent } from '../../../../shared/layout/page-nav/page-nav.component';
-import { SectionIntroComponent } from '../../../../shared/layout/section-intro.component';
-import { SectionSubHeadingComponent } from '../../../../shared/layout/section-sub-heading.component';
-import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
-import { TabsComponent } from '../../../../shared/layout/tabs.component';
-import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
+import { Code } from '../../../../shared/code/code';
+import { CodePreview } from '../../../../shared/code/code-preview';
+import { MainSection } from '../../../../shared/layout/main-section';
+import { PageBottomNav } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav';
+import { PageBottomNavLink } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav-link';
+import { PageNav } from '../../../../shared/layout/page-nav/page-nav';
+import { SectionIntro } from '../../../../shared/layout/section-intro';
+import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading';
+import { Tabs } from '../../../../shared/layout/tabs';
+import { TabsCli } from '../../../../shared/layout/tabs-cli';
+import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { DialogClosePreviewComponent } from './dialog-close.preview';
-import { DialogContextMenuPreviewComponent } from './dialog-context-menu.preview';
-import { DialogDeclarativePreviewComponent } from './dialog-declarative.preview';
-import { DialogDynamicComponentPreviewComponent } from './dialog-dynamic-component.preview';
+import { DialogClosePreview } from './dialog-close.preview';
+import { DialogContextMenuPreview } from './dialog-context-menu.preview';
+import { DialogDeclarativePreview } from './dialog-declarative.preview';
+import { DialogDynamicPreview } from './dialog-dynamic-component.preview';
 import {
 	defaultCode,
 	dialogCloseCode,
@@ -33,7 +28,7 @@ import {
 	dialogDeclarativeCode,
 	dialogDynamicComponentCode,
 } from './dialog.generated';
-import { DialogPreviewComponent, defaultImports, defaultSkeleton } from './dialog.preview';
+import { DialogPreview, defaultImports, defaultSkeleton } from './dialog.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Dialog', api: 'dialog' },
@@ -46,29 +41,29 @@ export const routeMeta: RouteMeta = {
 @Component({
 	selector: 'spartan-dialog',
 	imports: [
-		UIApiDocsComponent,
-		MainSectionDirective,
-		CodeComponent,
-		SectionIntroComponent,
-		SectionSubHeadingComponent,
-		TabsComponent,
-		TabsCliComponent,
-		CodePreviewDirective,
-		PageNavComponent,
-		PageBottomNavComponent,
-		PageBottomNavLinkComponent,
-		DialogPreviewComponent,
-		DialogPreviewComponent,
-		DialogContextMenuPreviewComponent,
-		DialogDynamicComponentPreviewComponent,
-		HlmAlertDirective,
-		HlmAlertDescriptionDirective,
+		UIApiDocs,
+		MainSection,
+		Code,
+		SectionIntro,
+		SectionSubHeading,
+		Tabs,
+		TabsCli,
+		CodePreview,
+		PageNav,
+		PageBottomNav,
+		PageBottomNavLink,
+		DialogPreview,
+		DialogPreview,
+		DialogContextMenuPreview,
+		DialogDynamicPreview,
+		HlmAlert,
+		HlmAlertDescription,
 		NgIcon,
-		HlmIconDirective,
-		HlmAlertIconDirective,
-		HlmAlertTitleDirective,
-		DialogDeclarativePreviewComponent,
-		DialogClosePreviewComponent,
+		HlmIcon,
+		HlmAlertIcon,
+		HlmAlertTitle,
+		DialogDeclarativePreview,
+		DialogClosePreview,
 	],
 	providers: [provideIcons({ lucideTriangleAlert })],
 	template: `
@@ -201,7 +196,7 @@ export const routeMeta: RouteMeta = {
 		<spartan-page-nav />
 	`,
 })
-export default class DialogPageComponent {
+export default class DialogPage {
 	protected readonly _defaultCode = defaultCode;
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;

@@ -1,12 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
-import { HlmDatePickerMultiComponent } from '@spartan-ng/helm/date-picker';
-import { HlmLabelDirective } from '@spartan-ng/helm/label';
+import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmDatePickerMulti } from '@spartan-ng/helm/date-picker';
+import { HlmLabel } from '@spartan-ng/helm/label';
 
 @Component({
 	selector: 'spartan-date-picker-form-multiple',
-	imports: [HlmDatePickerMultiComponent, ReactiveFormsModule, HlmButtonDirective, HlmLabelDirective],
+	imports: [HlmDatePickerMulti, ReactiveFormsModule, HlmButton, HlmLabel],
 	template: `
 		<form [formGroup]="form" (ngSubmit)="submit()" class="space-y-8">
 			<label hlmLabel>
@@ -30,7 +30,7 @@ import { HlmLabelDirective } from '@spartan-ng/helm/label';
 		class: 'preview flex min-h-[350px] w-full justify-center p-10 items-center',
 	},
 })
-export class DatePickerFormMultipleExampleComponent {
+export class DatePickerFormMultipleExample {
 	private readonly _formBuilder = inject(FormBuilder);
 
 	public form = this._formBuilder.group({

@@ -1,9 +1,9 @@
 import { render } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
-import { ReactiveFormSliderComponent } from './brn-slider-states.component';
+import { ReactiveFormSlider } from './brn-slider-states';
 
 async function setupSlider() {
-	const { getByRole, getByTestId, fixture } = await render(ReactiveFormSliderComponent);
+	const { getByRole, getByTestId, fixture } = await render(ReactiveFormSlider);
 
 	return {
 		fixture,

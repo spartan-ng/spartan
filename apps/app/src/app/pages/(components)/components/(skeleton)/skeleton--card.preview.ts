@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 
-import { HlmSkeletonComponent } from '@spartan-ng/helm/skeleton';
+import { HlmSkeleton } from '@spartan-ng/helm/skeleton';
 
 @Component({
 	selector: 'spartan-skeleton-card',
-	imports: [HlmSkeletonComponent],
+	imports: [HlmSkeleton],
 	template: `
 		<div class="flex flex-col space-y-3">
 			<hlm-skeleton class="h-[125px] w-[250px] rounded-xl" />
@@ -15,4 +15,4 @@ import { HlmSkeletonComponent } from '@spartan-ng/helm/skeleton';
 		</div>
 	`,
 })
-export class SkeletonCardComponent {}
+export class SkeletonCard {}

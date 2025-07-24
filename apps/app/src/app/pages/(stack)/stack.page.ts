@@ -1,6 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
-import { PageComponent } from '@spartan-ng/app/app/shared/layout/page.component';
+import { Page } from '@spartan-ng/app/app/shared/layout/page';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
 
 export const routeMeta: RouteMeta = {
@@ -13,9 +13,9 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-stack',
-	imports: [PageComponent],
+	imports: [Page],
 	template: `
 		<spartan-page />
 	`,
 })
-export default class StackPageComponent {}
+export default class StackPage {}

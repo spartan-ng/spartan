@@ -1,34 +1,34 @@
 import { NgModule } from '@angular/core';
-import { HlmSelectContentDirective } from './lib/hlm-select-content.directive';
-import { HlmSelectGroupDirective } from './lib/hlm-select-group.directive';
-import { HlmSelectLabelDirective } from './lib/hlm-select-label.directive';
-import { HlmSelectOptionComponent } from './lib/hlm-select-option.component';
-import { HlmSelectScrollDownComponent } from './lib/hlm-select-scroll-down.component';
-import { HlmSelectScrollUpComponent } from './lib/hlm-select-scroll-up.component';
-import { HlmSelectTriggerComponent } from './lib/hlm-select-trigger.component';
-import { HlmSelectValueDirective } from './lib/hlm-select-value.directive';
-import { HlmSelectDirective } from './lib/hlm-select.directive';
+import { HlmSelect } from './lib/hlm-select';
+import { HlmSelectContent } from './lib/hlm-select-content';
+import { HlmSelectGroup } from './lib/hlm-select-group';
+import { HlmSelectLabel } from './lib/hlm-select-label';
+import { HlmSelectOption } from './lib/hlm-select-option';
+import { HlmSelectScrollDown } from './lib/hlm-select-scroll-down';
+import { HlmSelectScrollUp } from './lib/hlm-select-scroll-up';
+import { HlmSelectTrigger } from './lib/hlm-select-trigger';
+import { HlmSelectValue } from './lib/hlm-select-value';
 
-export * from './lib/hlm-select-content.directive';
-export * from './lib/hlm-select-group.directive';
-export * from './lib/hlm-select-label.directive';
-export * from './lib/hlm-select-option.component';
-export * from './lib/hlm-select-scroll-down.component';
-export * from './lib/hlm-select-scroll-up.component';
-export * from './lib/hlm-select-trigger.component';
-export * from './lib/hlm-select-value.directive';
-export * from './lib/hlm-select.directive';
+export * from './lib/hlm-select';
+export * from './lib/hlm-select-content';
+export * from './lib/hlm-select-group';
+export * from './lib/hlm-select-label';
+export * from './lib/hlm-select-option';
+export * from './lib/hlm-select-scroll-down';
+export * from './lib/hlm-select-scroll-up';
+export * from './lib/hlm-select-trigger';
+export * from './lib/hlm-select-value';
 
 export const HlmSelectImports = [
-	HlmSelectContentDirective,
-	HlmSelectTriggerComponent,
-	HlmSelectOptionComponent,
-	HlmSelectValueDirective,
-	HlmSelectDirective,
-	HlmSelectScrollUpComponent,
-	HlmSelectScrollDownComponent,
-	HlmSelectLabelDirective,
-	HlmSelectGroupDirective,
+	HlmSelectContent,
+	HlmSelectTrigger,
+	HlmSelectOption,
+	HlmSelectValue,
+	HlmSelect,
+	HlmSelectScrollUp,
+	HlmSelectScrollDown,
+	HlmSelectLabel,
+	HlmSelectGroup,
 ] as const;
 
 @NgModule({

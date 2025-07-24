@@ -11,20 +11,13 @@ export const toggleGroupDisabledCode = `
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideBold, lucideItalic, lucideUnderline } from '@ng-icons/lucide';
-import { BrnToggleGroupComponent, BrnToggleGroupItemDirective } from '@spartan-ng/brain/toggle-group';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
-import { HlmToggleGroupDirective, HlmToggleGroupItemDirective } from '@spartan-ng/helm/toggle-group';
+import { BrnToggleGroup, BrnToggleGroupItem } from '@spartan-ng/brain/toggle-group';
+import { HlmIcon } from '@spartan-ng/helm/icon';
+import { HlmToggleGroup, HlmToggleGroupItem } from '@spartan-ng/helm/toggle-group';
 
 @Component({
 	selector: 'spartan-toggle-group-disabled',
-	imports: [
-		BrnToggleGroupItemDirective,
-		BrnToggleGroupComponent,
-		HlmIconDirective,
-		HlmToggleGroupItemDirective,
-		HlmToggleGroupDirective,
-		NgIcon,
-	],
+	imports: [BrnToggleGroupItem, BrnToggleGroup, HlmIcon, HlmToggleGroupItem, HlmToggleGroup, NgIcon],
 	providers: [provideIcons({ lucideBold, lucideItalic, lucideUnderline })],
 	template: \`
 		<brn-toggle-group hlm multiple="false" nullable="true" size="sm" disabled>
@@ -42,27 +35,20 @@ import { HlmToggleGroupDirective, HlmToggleGroupItemDirective } from '@spartan-n
 		</brn-toggle-group>
 	\`,
 })
-export class ToggleGroupDisabledPreviewComponent {}
+export class ToggleGroupDisabledPreview {}
 `;
 
 export const toggleGroupLargeCode = `
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideBold, lucideItalic, lucideUnderline } from '@ng-icons/lucide';
-import { BrnToggleGroupComponent, BrnToggleGroupItemDirective } from '@spartan-ng/brain/toggle-group';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
-import { HlmToggleGroupDirective, HlmToggleGroupItemDirective } from '@spartan-ng/helm/toggle-group';
+import { BrnToggleGroup, BrnToggleGroupItem } from '@spartan-ng/brain/toggle-group';
+import { HlmIcon } from '@spartan-ng/helm/icon';
+import { HlmToggleGroup, HlmToggleGroupItem } from '@spartan-ng/helm/toggle-group';
 
 @Component({
 	selector: 'spartan-toggle-group-large',
-	imports: [
-		BrnToggleGroupItemDirective,
-		BrnToggleGroupComponent,
-		HlmIconDirective,
-		HlmToggleGroupItemDirective,
-		HlmToggleGroupDirective,
-		NgIcon,
-	],
+	imports: [BrnToggleGroupItem, BrnToggleGroup, HlmIcon, HlmToggleGroupItem, HlmToggleGroup, NgIcon],
 	providers: [provideIcons({ lucideBold, lucideItalic, lucideUnderline })],
 	template: \`
 		<brn-toggle-group hlm multiple="false" nullable="true" size="lg">
@@ -80,27 +66,20 @@ import { HlmToggleGroupDirective, HlmToggleGroupItemDirective } from '@spartan-n
 		</brn-toggle-group>
 	\`,
 })
-export class ToggleGroupLargePreviewComponent {}
+export class ToggleGroupLargePreview {}
 `;
 
 export const toggleGroupOutlineCode = `
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideBold, lucideItalic, lucideUnderline } from '@ng-icons/lucide';
-import { BrnToggleGroupComponent, BrnToggleGroupItemDirective } from '@spartan-ng/brain/toggle-group';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
-import { HlmToggleGroupDirective, HlmToggleGroupItemDirective } from '@spartan-ng/helm/toggle-group';
+import { BrnToggleGroup, BrnToggleGroupItem } from '@spartan-ng/brain/toggle-group';
+import { HlmIcon } from '@spartan-ng/helm/icon';
+import { HlmToggleGroup, HlmToggleGroupItem } from '@spartan-ng/helm/toggle-group';
 
 @Component({
 	selector: 'spartan-toggle-group-outline',
-	imports: [
-		BrnToggleGroupItemDirective,
-		BrnToggleGroupComponent,
-		HlmIconDirective,
-		HlmToggleGroupItemDirective,
-		HlmToggleGroupDirective,
-		NgIcon,
-	],
+	imports: [BrnToggleGroupItem, BrnToggleGroup, HlmIcon, HlmToggleGroupItem, HlmToggleGroup, NgIcon],
 	providers: [provideIcons({ lucideBold, lucideItalic, lucideUnderline })],
 	template: \`
 		<brn-toggle-group hlm multiple="true" nullable="true" variant="outline">
@@ -118,27 +97,20 @@ import { HlmToggleGroupDirective, HlmToggleGroupItemDirective } from '@spartan-n
 		</brn-toggle-group>
 	\`,
 })
-export class ToggleGroupOutlinePreviewComponent {}
+export class ToggleGroupOutlinePreview {}
 `;
 
 export const toggleGroupSmallCode = `
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideBold, lucideItalic, lucideUnderline } from '@ng-icons/lucide';
-import { BrnToggleGroupComponent, BrnToggleGroupItemDirective } from '@spartan-ng/brain/toggle-group';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
-import { HlmToggleGroupDirective, HlmToggleGroupItemDirective } from '@spartan-ng/helm/toggle-group';
+import { BrnToggleGroup, BrnToggleGroupItem } from '@spartan-ng/brain/toggle-group';
+import { HlmIcon } from '@spartan-ng/helm/icon';
+import { HlmToggleGroup, HlmToggleGroupItem } from '@spartan-ng/helm/toggle-group';
 
 @Component({
 	selector: 'spartan-toggle-group-small',
-	imports: [
-		BrnToggleGroupItemDirective,
-		BrnToggleGroupComponent,
-		HlmIconDirective,
-		HlmToggleGroupItemDirective,
-		HlmToggleGroupDirective,
-		NgIcon,
-	],
+	imports: [BrnToggleGroupItem, BrnToggleGroup, HlmIcon, HlmToggleGroupItem, HlmToggleGroup, NgIcon],
 	providers: [provideIcons({ lucideBold, lucideItalic, lucideUnderline })],
 	template: \`
 		<brn-toggle-group hlm multiple="false" nullable="true" size="sm">
@@ -156,29 +128,22 @@ import { HlmToggleGroupDirective, HlmToggleGroupItemDirective } from '@spartan-n
 		</brn-toggle-group>
 	\`,
 })
-export class ToggleGroupSmallPreviewComponent {}
+export class ToggleGroupSmallPreview {}
 `;
 
 export const defaultCode = `
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideBold, lucideItalic, lucideUnderline } from '@ng-icons/lucide';
-import { BrnToggleGroupComponent, BrnToggleGroupItemDirective } from '@spartan-ng/brain/toggle-group';
+import { BrnToggleGroup, BrnToggleGroupItem } from '@spartan-ng/brain/toggle-group';
 
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
-import { HlmToggleGroupDirective, HlmToggleGroupItemDirective } from '@spartan-ng/helm/toggle-group';
+import { HlmIcon } from '@spartan-ng/helm/icon';
+import { HlmToggleGroup, HlmToggleGroupItem } from '@spartan-ng/helm/toggle-group';
 
 @Component({
 	selector: 'spartan-toggle-group-preview',
 	providers: [provideIcons({ lucideBold, lucideItalic, lucideUnderline })],
-	imports: [
-		BrnToggleGroupComponent,
-		BrnToggleGroupItemDirective,
-		HlmToggleGroupDirective,
-		HlmToggleGroupItemDirective,
-		HlmIconDirective,
-		NgIcon,
-	],
+	imports: [BrnToggleGroup, BrnToggleGroupItem, HlmToggleGroup, HlmToggleGroupItem, HlmIcon, NgIcon],
 	template: \`
 		<brn-toggle-group hlm multiple="true" nullable="true">
 			<button aria-label="Bold" value="bold" hlmToggleGroupItem>
@@ -195,5 +160,5 @@ import { HlmToggleGroupDirective, HlmToggleGroupItemDirective } from '@spartan-n
 		</brn-toggle-group>
 	\`,
 })
-export class ToggleGroupPreviewComponent {}
+export class ToggleGroupPreview {}
 `;

@@ -3,21 +3,21 @@ import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
-import { HlmInputDirective } from '@spartan-ng/helm/input';
-import { HlmLabelDirective } from '@spartan-ng/helm/label';
-import { HlmSpinnerComponent } from '@spartan-ng/helm/spinner';
+import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmInput } from '@spartan-ng/helm/input';
+import { HlmLabel } from '@spartan-ng/helm/label';
+import { HlmSpinner } from '@spartan-ng/helm/spinner';
 import { waitFor } from '@spartan-ng/trpc';
 import { SignalFormBuilder, SignalInputDirective, V, withErrorComponent } from 'ng-signal-forms';
 import { Observable, Subject, of } from 'rxjs';
 import { catchError, switchMap, take, tap } from 'rxjs/operators';
 import type { Note } from '../../../../../db';
 import { injectTRPCClient } from '../../../../../trpc-client';
-import { InputErrorComponent } from '../../../../shared/input-error/input-error.component';
+import { InputError } from '../../../../shared/input-error/input-error';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { NoteSkeletonComponent } from './components/note-skeleton.component';
-import { NoteComponent } from './components/note.component';
-import { NotesEmptyComponent } from './components/notes-empty.component';
+import { NoteCard } from './components/note';
+import { NoteSkeleton } from './components/note-skeleton';
+import { NotesEmpty } from './components/notes-empty';
 
 export const routeMeta: RouteMeta = {
 	meta: metaWith('spartan/examples - Notes', 'A notes example displaying the SPARTAN stack and new UI primitives'),
@@ -29,15 +29,15 @@ export const routeMeta: RouteMeta = {
 	imports: [
 		FormsModule,
 		SignalInputDirective,
-		HlmButtonDirective,
-		HlmLabelDirective,
-		HlmInputDirective,
-		NoteComponent,
-		NoteSkeletonComponent,
-		NotesEmptyComponent,
-		HlmSpinnerComponent,
+		HlmButton,
+		HlmLabel,
+		HlmInput,
+		NoteCard,
+		NoteSkeleton,
+		NotesEmpty,
+		HlmSpinner,
 	],
-	providers: [withErrorComponent(InputErrorComponent)],
+	providers: [withErrorComponent(InputError)],
 	host: {
 		class: 'block p-2 sm:p-4 pb-16',
 	},
@@ -97,7 +97,7 @@ export const routeMeta: RouteMeta = {
 		</div>
 	`,
 })
-export default class NotesExamplePageComponent {
+export default class NotesExamplePage {
 	private readonly _trpc = injectTRPCClient();
 	private readonly _sfb = inject(SignalFormBuilder);
 	private readonly _refreshNotes$ = new Subject<void>();

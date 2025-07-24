@@ -1,27 +1,27 @@
 import { Component } from '@angular/core';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
-import { HlmToasterComponent } from '@spartan-ng/helm/sonner';
+import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmToaster } from '@spartan-ng/helm/sonner';
 import type { Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
 import { toast } from 'ngx-sonner';
 
-const meta: Meta<HlmToasterComponent> = {
+const meta: Meta<HlmToaster> = {
 	title: 'Sonner',
-	component: HlmToasterComponent,
+	component: HlmToaster,
 	tags: ['autodocs'],
 	decorators: [
 		moduleMetadata({
-			imports: [HlmToasterComponent, HlmButtonDirective],
+			imports: [HlmToaster, HlmButton],
 		}),
 	],
 };
 
 export default meta;
-type Story = StoryObj<HlmToasterComponent>;
+type Story = StoryObj<HlmToaster>;
 
 @Component({
 	selector: 'sonner-story',
-	imports: [HlmToasterComponent, HlmButtonDirective],
+	imports: [HlmToaster, HlmButton],
 	template: `
 		<hlm-toaster />
 		<button hlmBtn (click)="showToast()">Show Toast</button>

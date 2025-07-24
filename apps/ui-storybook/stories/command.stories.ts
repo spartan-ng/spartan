@@ -2,30 +2,30 @@ import { Component, HostListener, signal } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import * as lucide from '@ng-icons/lucide';
-import { BrnCommandDirective, BrnCommandImports } from '@spartan-ng/brain/command';
+import { BrnCommand, BrnCommandImports } from '@spartan-ng/brain/command';
 import { BrnDialogImports } from '@spartan-ng/brain/dialog';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmCommandImports } from '@spartan-ng/helm/command';
-import { HlmDialogOverlayDirective } from '@spartan-ng/helm/dialog';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
-import { HlmCodeDirective } from '@spartan-ng/helm/typography';
+import { HlmDialogOverlay } from '@spartan-ng/helm/dialog';
+import { HlmIcon } from '@spartan-ng/helm/icon';
+import { HlmCode } from '@spartan-ng/helm/typography';
 import type { Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
 
-const meta: Meta<BrnCommandDirective> = {
+const meta: Meta<BrnCommand> = {
 	title: 'Command',
-	component: BrnCommandDirective,
+	component: BrnCommand,
 	tags: ['autodocs'],
 	decorators: [
 		moduleMetadata({
 			providers: [provideIcons(lucide)],
-			imports: [BrnCommandImports, HlmCommandImports, NgIcon, HlmIconDirective, HlmButtonDirective],
+			imports: [BrnCommandImports, HlmCommandImports, NgIcon, HlmIcon, HlmButton],
 		}),
 	],
 };
 
 export default meta;
-type Story = StoryObj<BrnCommandDirective>;
+type Story = StoryObj<BrnCommand>;
 
 export const Default: Story = {
 	render: () => ({
@@ -96,11 +96,11 @@ export const Default: Story = {
 		BrnCommandImports,
 		HlmCommandImports,
 		BrnDialogImports,
-		HlmDialogOverlayDirective,
+		HlmDialogOverlay,
 		NgIcon,
-		HlmIconDirective,
-		HlmButtonDirective,
-		HlmCodeDirective,
+		HlmIcon,
+		HlmButton,
+		HlmCode,
 	],
 	template: `
 		<div class="mx-auto flex max-w-screen-sm items-center justify-center space-x-4 py-20 text-sm">
@@ -174,7 +174,7 @@ export const Default: Story = {
 		</brn-dialog>
 	`,
 })
-class CommandDialogComponent {
+class CommandDialog {
 	public command = signal('');
 	public state = signal<'closed' | 'open'>('closed');
 
@@ -198,7 +198,7 @@ class CommandDialogComponent {
 export const Dialog: Story = {
 	decorators: [
 		moduleMetadata({
-			imports: [CommandDialogComponent],
+			imports: [CommandDialog],
 		}),
 	],
 	render: () => ({
@@ -208,15 +208,7 @@ export const Dialog: Story = {
 
 @Component({
 	selector: 'command-dynamic-component',
-	imports: [
-		BrnCommandImports,
-		HlmCommandImports,
-		BrnDialogImports,
-		NgIcon,
-		HlmIconDirective,
-		HlmButtonDirective,
-		FormsModule,
-	],
+	imports: [BrnCommandImports, HlmCommandImports, BrnDialogImports, NgIcon, HlmIcon, HlmButton, FormsModule],
 	template: `
 		<hlm-command>
 			<hlm-command-search>
@@ -242,7 +234,7 @@ export const Dialog: Story = {
 		</hlm-command>
 	`,
 })
-class CommandDynamicComponent {
+class CommandDynamic {
 	protected readonly search = signal('P');
 	protected readonly items = signal<{ label: string; value: string; icon: string; shortcut: string }[]>([
 		{ label: 'Profile', value: 'Profile', icon: 'lucideUser', shortcut: '⌘P' },
@@ -255,7 +247,7 @@ class CommandDynamicComponent {
 export const DynamicOptions: Story = {
 	decorators: [
 		moduleMetadata({
-			imports: [CommandDynamicComponent],
+			imports: [CommandDynamic],
 		}),
 	],
 	render: () => ({
@@ -265,15 +257,7 @@ export const DynamicOptions: Story = {
 
 @Component({
 	selector: 'command-reactive-form-component',
-	imports: [
-		BrnCommandImports,
-		HlmCommandImports,
-		NgIcon,
-		HlmIconDirective,
-		HlmButtonDirective,
-		FormsModule,
-		ReactiveFormsModule,
-	],
+	imports: [BrnCommandImports, HlmCommandImports, NgIcon, HlmIcon, HlmButton, FormsModule, ReactiveFormsModule],
 	template: `
 		<hlm-command>
 			<hlm-command-search>
@@ -304,7 +288,7 @@ export const DynamicOptions: Story = {
 		</hlm-command>
 	`,
 })
-class CommandReactiveFormComponent {
+class CommandReactiveForm {
 	searchControl = new FormControl('R');
 	protected readonly search = signal('P');
 	protected readonly items = signal<{ label: string; value: string; icon: string; shortcut: string }[]>([
@@ -319,7 +303,7 @@ class CommandReactiveFormComponent {
 export const ReactiveForm: Story = {
 	decorators: [
 		moduleMetadata({
-			imports: [CommandReactiveFormComponent],
+			imports: [CommandReactiveForm],
 		}),
 	],
 	render: () => ({
@@ -329,7 +313,7 @@ export const ReactiveForm: Story = {
 
 @Component({
 	selector: 'command-bound-value-component',
-	imports: [BrnCommandImports, HlmCommandImports, NgIcon, HlmIconDirective, HlmButtonDirective],
+	imports: [BrnCommandImports, HlmCommandImports, NgIcon, HlmIcon, HlmButton],
 	template: `
 		<hlm-command>
 			<hlm-command-search>
@@ -355,7 +339,7 @@ export const ReactiveForm: Story = {
 		</hlm-command>
 	`,
 })
-class CommandBoundValueComponent {
+class CommandBoundValue {
 	protected readonly search = signal('S');
 	protected readonly items = signal<{ label: string; value: string; icon: string; shortcut: string }[]>([
 		{ label: 'Profile', value: 'Profile', icon: 'lucideUser', shortcut: '⌘P' },
@@ -368,7 +352,7 @@ class CommandBoundValueComponent {
 export const BoundValue: Story = {
 	decorators: [
 		moduleMetadata({
-			imports: [CommandBoundValueComponent],
+			imports: [CommandBoundValue],
 		}),
 	],
 	render: () => ({

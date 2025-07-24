@@ -1,10 +1,6 @@
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideBold, lucideItalic, lucideUnderline } from '@ng-icons/lucide';
-import {
-	BrnToggleGroupComponent,
-	BrnToggleGroupItemDirective,
-	BrnToggleGroupModule,
-} from '@spartan-ng/brain/toggle-group';
+import { BrnToggleGroup, BrnToggleGroupItem, BrnToggleGroupModule } from '@spartan-ng/brain/toggle-group';
 import type { Meta, StoryObj } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
 
@@ -12,18 +8,14 @@ import { BooleanInput } from '@angular/cdk/coercion';
 import { JsonPipe } from '@angular/common';
 import { Component, input, signal } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
-import {
-	HlmToggleGroupDirective,
-	HlmToggleGroupItemDirective,
-	HlmToggleGroupModule,
-} from '@spartan-ng/helm/toggle-group';
+import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmIcon } from '@spartan-ng/helm/icon';
+import { HlmToggleGroup, HlmToggleGroupItem, HlmToggleGroupModule } from '@spartan-ng/helm/toggle-group';
 import { hlmP } from '@spartan-ng/helm/typography';
 
-const meta: Meta<HlmToggleGroupDirective> = {
+const meta: Meta<HlmToggleGroup> = {
 	title: 'Toggle Group',
-	component: HlmToggleGroupDirective,
+	component: HlmToggleGroup,
 	tags: ['autodocs'],
 	argTypes: {
 		variant: {
@@ -46,14 +38,14 @@ const meta: Meta<HlmToggleGroupDirective> = {
 	decorators: [
 		moduleMetadata({
 			imports: [
-				BrnToggleGroupComponent,
+				BrnToggleGroup,
 				// BrnToggleGroupModule,
 				HlmToggleGroupModule,
-				BrnToggleGroupItemDirective,
-				HlmToggleGroupDirective,
-				HlmToggleGroupItemDirective,
+				BrnToggleGroupItem,
+				HlmToggleGroup,
+				HlmToggleGroupItem,
 				NgIcon,
-				HlmIconDirective,
+				HlmIcon,
 			],
 			providers: [provideIcons({ lucideBold, lucideItalic, lucideUnderline })],
 		}),
@@ -61,7 +53,7 @@ const meta: Meta<HlmToggleGroupDirective> = {
 };
 
 export default meta;
-type Story = StoryObj<HlmToggleGroupDirective>;
+type Story = StoryObj<HlmToggleGroup>;
 
 export const Default: Story = {
 	render: (args) => ({
@@ -191,7 +183,7 @@ const CITIES = [
 
 @Component({
 	selector: 'hlm-toggle-group-story',
-	imports: [BrnToggleGroupModule, HlmToggleGroupModule, HlmToggleGroupItemDirective, HlmButtonDirective, FormsModule],
+	imports: [BrnToggleGroupModule, HlmToggleGroupModule, HlmToggleGroupItem, HlmButton, FormsModule],
 	template: `
 		<div class="flex space-x-4 p-4">
 			<brn-toggle-group
@@ -216,7 +208,7 @@ const CITIES = [
 		<p class="${hlmP}">{{ multiple() ? 'Cities selected' : 'City selected' }}: {{ selectedCities }}</p>
 	`,
 })
-class HlmToggleGroupStoryComponent {
+class HlmToggleGroupStory {
 	public readonly multiple = input<BooleanInput>(false);
 	public readonly nullable = input<BooleanInput>(false);
 	public readonly disabled = input<BooleanInput>(false);
@@ -265,7 +257,7 @@ export const ToggleGroupSingleNullable: Story = {
 	name: 'Toggle Group - Single Nullable',
 	decorators: [
 		moduleMetadata({
-			imports: [HlmToggleGroupStoryComponent],
+			imports: [HlmToggleGroupStory],
 		}),
 	],
 	render: () => ({
@@ -277,7 +269,7 @@ export const ToggleGroupMultipleNullable: Story = {
 	name: 'Toggle Group - Multiple Nullable',
 	decorators: [
 		moduleMetadata({
-			imports: [HlmToggleGroupStoryComponent],
+			imports: [HlmToggleGroupStory],
 		}),
 	],
 	render: () => ({
@@ -289,7 +281,7 @@ export const ToggleGroupSingle: StoryObj<{ defaultValue: City }> = {
 	name: 'Toggle Group - Single',
 	decorators: [
 		moduleMetadata({
-			imports: [HlmToggleGroupStoryComponent],
+			imports: [HlmToggleGroupStory],
 		}),
 	],
 	args: {
@@ -305,7 +297,7 @@ export const ToggleGroupDisabled: Story = {
 	name: 'Toggle Group - Disabled',
 	decorators: [
 		moduleMetadata({
-			imports: [HlmToggleGroupStoryComponent],
+			imports: [HlmToggleGroupStory],
 		}),
 	],
 	render: () => ({
@@ -317,7 +309,7 @@ export const ToggleGroupMultiple: StoryObj<{ defaultValue: City[] }> = {
 	name: 'Toggle Group - Multiple',
 	decorators: [
 		moduleMetadata({
-			imports: [HlmToggleGroupStoryComponent],
+			imports: [HlmToggleGroupStory],
 		}),
 	],
 	args: {
@@ -331,14 +323,7 @@ export const ToggleGroupMultiple: StoryObj<{ defaultValue: City[] }> = {
 
 @Component({
 	selector: 'hlm-toggle-group-form-story',
-	imports: [
-		BrnToggleGroupModule,
-		HlmToggleGroupModule,
-		HlmToggleGroupItemDirective,
-		FormsModule,
-		ReactiveFormsModule,
-		JsonPipe,
-	],
+	imports: [BrnToggleGroupModule, HlmToggleGroupModule, HlmToggleGroupItem, FormsModule, ReactiveFormsModule, JsonPipe],
 	template: `
 		<form class="flex space-x-4 p-4" [formGroup]="citiesForm">
 			<brn-toggle-group hlm formControlName="selectedCity" variant="merged">
@@ -353,7 +338,7 @@ export const ToggleGroupMultiple: StoryObj<{ defaultValue: City[] }> = {
 		<pre class="${hlmP}" data-testid="selectedCity">{{ citiesForm.controls.selectedCity?.getRawValue()?.name }}</pre>
 	`,
 })
-class HlmToggleGroupFormStoryComponent {
+class HlmToggleGroupFormStory {
 	protected readonly cities: City[] = CITIES;
 	protected readonly citiesForm = new FormGroup({
 		selectedCity: new FormControl(CITIES[0]),
@@ -364,7 +349,7 @@ export const ToggleGroupForm: Story = {
 	name: 'Toggle Group - Form',
 	decorators: [
 		moduleMetadata({
-			imports: [HlmToggleGroupFormStoryComponent],
+			imports: [HlmToggleGroupFormStory],
 		}),
 	],
 	render: () => ({

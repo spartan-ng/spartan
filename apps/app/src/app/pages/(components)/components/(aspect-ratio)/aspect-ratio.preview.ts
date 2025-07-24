@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { HlmAspectRatioDirective } from '@spartan-ng/helm/aspect-ratio';
+import { HlmAspectRatio } from '@spartan-ng/helm/aspect-ratio';
 
 @Component({
 	selector: 'spartan-aspect-ratio-preview',
-	imports: [HlmAspectRatioDirective],
+	imports: [HlmAspectRatio],
 	template: `
 		<div class="max-w-xl overflow-hidden rounded-xl drop-shadow">
 			<div [hlmAspectRatio]="16 / 9">
@@ -12,7 +12,7 @@ import { HlmAspectRatioDirective } from '@spartan-ng/helm/aspect-ratio';
 		</div>
 	`,
 })
-export class AspectRatioPreviewComponent {}
+export class AspectRatioPreview {}
 
 export const defaultImports = `
 import { HlmAspectRatioDirective } from '@spartan-ng/helm/aspect-ratio';

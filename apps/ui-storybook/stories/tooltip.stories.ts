@@ -1,26 +1,27 @@
 import { Component, signal } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucidePlus } from '@ng-icons/lucide';
-import { BrnTooltipContentDirective } from '@spartan-ng/brain/tooltip';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
-import { HlmTooltipComponent, HlmTooltipTriggerDirective } from '@spartan-ng/helm/tooltip';
+import { BrnTooltipContent, BrnTooltipContentTemplate } from '@spartan-ng/brain/tooltip';
+import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmIcon } from '@spartan-ng/helm/icon';
+import { HlmTooltip, HlmTooltipTrigger } from '@spartan-ng/helm/tooltip';
 import { type Meta, type StoryObj, argsToTemplate, moduleMetadata } from '@storybook/angular';
 
-const meta: Meta<HlmTooltipComponent> = {
+const meta: Meta<HlmTooltip> = {
 	title: 'Tooltip',
-	component: HlmTooltipComponent,
+	component: HlmTooltip,
 	tags: ['autodocs'],
 	argTypes: {},
 	decorators: [
 		moduleMetadata({
 			imports: [
-				HlmButtonDirective,
-				HlmTooltipComponent,
-				BrnTooltipContentDirective,
-				HlmTooltipTriggerDirective,
+				HlmButton,
+				HlmTooltip,
+				BrnTooltipContent,
+				BrnTooltipContentTemplate,
+				HlmTooltipTrigger,
 				NgIcon,
-				HlmIconDirective,
+				HlmIcon,
 			],
 			providers: [provideIcons({ lucidePlus })],
 		}),
@@ -28,7 +29,7 @@ const meta: Meta<HlmTooltipComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<HlmTooltipComponent>;
+type Story = StoryObj<HlmTooltip>;
 export const Default: Story = {
 	argTypes: {
 		position: {
@@ -54,14 +55,7 @@ export const Default: Story = {
 
 @Component({
 	selector: 'simple-tooltip-story',
-	imports: [
-		HlmButtonDirective,
-		HlmTooltipComponent,
-		BrnTooltipContentDirective,
-		HlmTooltipTriggerDirective,
-		NgIcon,
-		HlmIconDirective,
-	],
+	imports: [HlmButton, HlmTooltip, BrnTooltipContent, BrnTooltipContentTemplate, HlmTooltipTrigger, NgIcon, HlmIcon],
 	providers: [provideIcons({ lucidePlus })],
 	template: `
 		<div class="p-40">
@@ -93,14 +87,7 @@ export const Simple: Story = {
 
 @Component({
 	selector: 'disabled-tooltip-story',
-	imports: [
-		HlmButtonDirective,
-		HlmTooltipComponent,
-		BrnTooltipContentDirective,
-		HlmTooltipTriggerDirective,
-		NgIcon,
-		HlmIconDirective,
-	],
+	imports: [HlmButton, HlmTooltip, BrnTooltipContent, BrnTooltipContentTemplate, HlmTooltipTrigger, NgIcon, HlmIcon],
 	providers: [provideIcons({ lucidePlus })],
 	template: `
 		<div class="p-40">

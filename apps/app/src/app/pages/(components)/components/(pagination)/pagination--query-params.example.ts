@@ -2,24 +2,24 @@ import { Component, computed, inject, numberAttribute } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import {
-	HlmPaginationContentDirective,
-	HlmPaginationDirective,
-	HlmPaginationItemDirective,
-	HlmPaginationLinkDirective,
-	HlmPaginationNextComponent,
-	HlmPaginationPreviousComponent,
+	HlmPagination,
+	HlmPaginationContent,
+	HlmPaginationItem,
+	HlmPaginationLink,
+	HlmPaginationNext,
+	HlmPaginationPrevious,
 } from '@spartan-ng/helm/pagination';
 import { map } from 'rxjs/operators';
 
 @Component({
 	selector: 'spartan-pagination-query-params',
 	imports: [
-		HlmPaginationDirective,
-		HlmPaginationContentDirective,
-		HlmPaginationItemDirective,
-		HlmPaginationPreviousComponent,
-		HlmPaginationNextComponent,
-		HlmPaginationLinkDirective,
+		HlmPagination,
+		HlmPaginationContent,
+		HlmPaginationItem,
+		HlmPaginationPrevious,
+		HlmPaginationNext,
+		HlmPaginationLink,
 	],
 	template: `
 		<nav hlmPagination>
@@ -52,7 +52,7 @@ import { map } from 'rxjs/operators';
 		</nav>
 	`,
 })
-export class PaginationQueryParamsComponent {
+export class PaginationQueryParams {
 	private readonly _route = inject(ActivatedRoute);
 
 	/**

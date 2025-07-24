@@ -2,41 +2,41 @@ import { Component, inject } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCheck } from '@ng-icons/lucide';
 import {
-	BrnDialogContentDirective,
+	BrnDialogContent,
 	BrnDialogImports,
 	BrnDialogRef,
-	BrnDialogTriggerDirective,
+	BrnDialogTrigger,
 	injectBrnDialogContext,
 } from '@spartan-ng/brain/dialog';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmButton } from '@spartan-ng/helm/button';
 import {
-	HlmDialogComponent,
-	HlmDialogContentComponent,
-	HlmDialogDescriptionDirective,
-	HlmDialogHeaderComponent,
+	HlmDialog,
+	HlmDialogContent,
+	HlmDialogDescription,
+	HlmDialogHeader,
 	HlmDialogImports,
 	HlmDialogService,
-	HlmDialogTitleDirective,
+	HlmDialogTitle,
 } from '@spartan-ng/helm/dialog';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
-import { HlmInputDirective } from '@spartan-ng/helm/input';
-import { HlmLabelDirective } from '@spartan-ng/helm/label';
+import { HlmIcon } from '@spartan-ng/helm/icon';
+import { HlmInput } from '@spartan-ng/helm/input';
+import { HlmLabel } from '@spartan-ng/helm/label';
 import { HlmTableImports } from '@spartan-ng/helm/table';
 import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
 
-const meta: Meta<HlmDialogComponent> = {
+const meta: Meta<HlmDialog> = {
 	title: 'Dialog',
-	component: HlmDialogComponent,
+	component: HlmDialog,
 	tags: ['autodocs'],
 	decorators: [
 		moduleMetadata({
-			imports: [BrnDialogImports, HlmDialogImports, HlmLabelDirective, HlmButtonDirective, HlmInputDirective],
+			imports: [BrnDialogImports, HlmDialogImports, HlmLabel, HlmButton, HlmInput],
 		}),
 	],
 };
 
 export default meta;
-type Story = StoryObj<HlmDialogComponent>;
+type Story = StoryObj<HlmDialog>;
 
 export const Default: Story = {
 	render: () => ({
@@ -76,14 +76,14 @@ export const Default: Story = {
 @Component({
 	selector: 'nested-dialog-story',
 	imports: [
-		HlmDialogComponent,
-		HlmButtonDirective,
-		BrnDialogTriggerDirective,
-		BrnDialogContentDirective,
-		HlmDialogContentComponent,
-		HlmDialogHeaderComponent,
-		HlmDialogDescriptionDirective,
-		HlmDialogTitleDirective,
+		HlmDialog,
+		HlmButton,
+		BrnDialogTrigger,
+		BrnDialogContent,
+		HlmDialogContent,
+		HlmDialogHeader,
+		HlmDialogDescription,
+		HlmDialogTitle,
 	],
 	template: `
 		<hlm-dialog>
@@ -131,12 +131,12 @@ type ExampleUser = {
 
 @Component({
 	selector: 'dialog-dynamic-component-story',
-	imports: [HlmButtonDirective],
+	imports: [HlmButton],
 	template: `
 		<button hlmBtn (click)="openDynamicComponent()">Select User</button>
 	`,
 })
-class DialogDynamicComponentStory {
+class DialogDynamicStory {
 	private readonly _hlmDialogService = inject(HlmDialogService);
 
 	private readonly _users: ExampleUser[] = [
@@ -163,7 +163,7 @@ class DialogDynamicComponentStory {
 	];
 
 	public openDynamicComponent() {
-		const dialogRef = this._hlmDialogService.open(SelectUserComponent, {
+		const dialogRef = this._hlmDialogService.open(SelectUser, {
 			context: {
 				users: this._users,
 			},
@@ -180,15 +180,7 @@ class DialogDynamicComponentStory {
 
 @Component({
 	selector: 'dynamic-content',
-	imports: [
-		HlmDialogHeaderComponent,
-		HlmDialogTitleDirective,
-		HlmDialogDescriptionDirective,
-		HlmButtonDirective,
-		NgIcon,
-		HlmIconDirective,
-		...HlmTableImports,
-	],
+	imports: [HlmDialogHeader, HlmDialogTitle, HlmDialogDescription, HlmButton, NgIcon, HlmIcon, ...HlmTableImports],
 	providers: [provideIcons({ lucideCheck })],
 	template: `
 		<hlm-dialog-header>
@@ -215,14 +207,14 @@ class DialogDynamicComponentStory {
 		class: 'flex flex-col gap-4',
 	},
 })
-class SelectUserComponent {
+class SelectUser {
 	private readonly _hlmDialogService = inject(HlmDialogService);
 	private readonly _dialogContext = injectBrnDialogContext<{ users: ExampleUser[] }>();
 
 	protected readonly users = this._dialogContext.users;
 
 	public selectUser(user: ExampleUser) {
-		this._hlmDialogService.open(SelectUserComponent, { context: { users: [user] }, contentClass: 'sm:!max-w-[750px]' });
+		this._hlmDialogService.open(SelectUser, { context: { users: [user] }, contentClass: 'sm:!max-w-[750px]' });
 	}
 }
 
@@ -230,7 +222,7 @@ export const DynamicComponent: Story = {
 	name: 'Dynamic Component',
 	decorators: [
 		moduleMetadata({
-			imports: [DialogDynamicComponentStory],
+			imports: [DialogDynamicStory],
 		}),
 	],
 	render: () => ({
@@ -240,13 +232,7 @@ export const DynamicComponent: Story = {
 
 @Component({
 	selector: 'nested-dialog-dynamic-first',
-	imports: [
-		HlmButtonDirective,
-		HlmDialogContentComponent,
-		HlmDialogHeaderComponent,
-		HlmDialogTitleDirective,
-		HlmDialogDescriptionDirective,
-	],
+	imports: [HlmButton, HlmDialogContent, HlmDialogHeader, HlmDialogTitle, HlmDialogDescription],
 	template: `
 		<hlm-dialog-header>
 			<h3 hlmDialogTitle>First dialog</h3>
@@ -259,17 +245,17 @@ export const DynamicComponent: Story = {
 		class: 'flex flex-col gap-4',
 	},
 })
-class NestedDialogDynamicFirstComponent {
+class NestedDialogDynamicFirst {
 	private readonly _hlmDialogService = inject(HlmDialogService);
 
 	public openNestedDialog() {
-		this._hlmDialogService.open(NestedDialogDynamicNestedComponent);
+		this._hlmDialogService.open(NestedDialogDynamicNested);
 	}
 }
 
 @Component({
 	selector: 'nested-dialog-dynamic-nested',
-	imports: [HlmButtonDirective, HlmDialogHeaderComponent, HlmDialogTitleDirective, HlmDialogDescriptionDirective],
+	imports: [HlmButton, HlmDialogHeader, HlmDialogTitle, HlmDialogDescription],
 	template: `
 		<hlm-dialog-header>
 			<h3 hlmDialogTitle>Nested dialog</h3>
@@ -282,7 +268,7 @@ class NestedDialogDynamicFirstComponent {
 		class: 'flex flex-col gap-4',
 	},
 })
-class NestedDialogDynamicNestedComponent {
+class NestedDialogDynamicNested {
 	private readonly _brnDialogRef = inject(BrnDialogRef);
 
 	public close() {
@@ -292,16 +278,16 @@ class NestedDialogDynamicNestedComponent {
 
 @Component({
 	selector: 'nested-dialog-dynamic-content-story',
-	imports: [HlmButtonDirective],
+	imports: [HlmButton],
 	template: `
 		<button hlmBtn (click)="openDialog()">Open Dialog</button>
 	`,
 })
-class NestedDialogDynamicComponentStory {
+class NestedDialogDynamicStory {
 	private readonly _hlmDialogService = inject(HlmDialogService);
 
 	public openDialog() {
-		this._hlmDialogService.open(NestedDialogDynamicFirstComponent);
+		this._hlmDialogService.open(NestedDialogDynamicFirst);
 	}
 }
 
@@ -309,7 +295,7 @@ export const NestedDynamicComponent: Story = {
 	name: 'Nested Dynamic Component',
 	decorators: [
 		moduleMetadata({
-			imports: [NestedDialogDynamicComponentStory],
+			imports: [NestedDialogDynamicStory],
 		}),
 	],
 	render: () => ({

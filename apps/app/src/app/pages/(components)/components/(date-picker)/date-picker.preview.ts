@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { HlmDatePickerComponent } from '@spartan-ng/helm/date-picker';
+import { HlmDatePicker } from '@spartan-ng/helm/date-picker';
 
 @Component({
 	selector: 'spartan-date-picker-preview',
-	imports: [HlmDatePickerComponent],
+	imports: [HlmDatePicker],
 	template: `
 		<hlm-date-picker [min]="minDate" [max]="maxDate">
 			<span>Select date</span>
@@ -13,7 +13,7 @@ import { HlmDatePickerComponent } from '@spartan-ng/helm/date-picker';
 		class: 'preview flex min-h-[350px] w-full justify-center p-10 items-center',
 	},
 })
-export class DatePickerPreviewComponent {
+export class DatePickerPreview {
 	/** The minimum date */
 	public minDate = new Date(2023, 0, 1);
 

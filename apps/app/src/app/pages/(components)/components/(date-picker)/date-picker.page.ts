@@ -1,24 +1,24 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmButton } from '@spartan-ng/helm/button';
 import { hlmCode, hlmH4, hlmP, hlmUl } from '@spartan-ng/helm/typography';
-import { CodeComponent } from '../../../../shared/code/code.component';
-import { PageBottomNavLinkComponent } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav-link.component';
-import { PageBottomNavComponent } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav.component';
-import { PageNavComponent } from '../../../../shared/layout/page-nav/page-nav.component';
-import { SectionIntroComponent } from '../../../../shared/layout/section-intro.component';
-import { SectionSubHeadingComponent } from '../../../../shared/layout/section-sub-heading.component';
-import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
-import { TabsComponent } from '../../../../shared/layout/tabs.component';
-import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
+import { Code } from '../../../../shared/code/code';
+import { PageBottomNav } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav';
+import { PageBottomNavLink } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav-link';
+import { PageNav } from '../../../../shared/layout/page-nav/page-nav';
+import { SectionIntro } from '../../../../shared/layout/section-intro';
+import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading';
+import { Tabs } from '../../../../shared/layout/tabs';
+import { TabsCli } from '../../../../shared/layout/tabs-cli';
+import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { link } from '../../../../shared/typography/link';
-import { DatePickerConfigExampleComponent } from './date-picker--config.example';
-import { DatePickerFormMultipleExampleComponent } from './date-picker--form-multi.example';
-import { DatePickerFormExampleComponent } from './date-picker--form.example';
-import { DatePickerFormatExampleComponent } from './date-picker--format.example';
-import { DatePickerMultipleExampleComponent } from './date-picker--multi.example';
+import { DatePickerConfigExample } from './date-picker--config.example';
+import { DatePickerFormMultipleExample } from './date-picker--form-multi.example';
+import { DatePickerFormExample } from './date-picker--form.example';
+import { DatePickerFormatExample } from './date-picker--format.example';
+import { DatePickerMultipleExample } from './date-picker--multi.example';
 import {
 	datePickerConfigCode,
 	datePickerFormatCode,
@@ -27,7 +27,7 @@ import {
 	datePickerMultiCode,
 	defaultCode,
 } from './date-picker.generated';
-import { DatePickerPreviewComponent, defaultImports, defaultSkeleton } from './date-picker.preview';
+import { DatePickerPreview, defaultImports, defaultSkeleton } from './date-picker.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Date Picker', api: 'date-picker' },
@@ -38,23 +38,23 @@ export const routeMeta: RouteMeta = {
 @Component({
 	selector: 'spartan-calendar',
 	imports: [
-		UIApiDocsComponent,
-		DatePickerPreviewComponent,
-		SectionIntroComponent,
-		TabsComponent,
-		CodeComponent,
-		SectionSubHeadingComponent,
-		TabsCliComponent,
-		PageBottomNavComponent,
-		PageBottomNavLinkComponent,
-		PageNavComponent,
-		DatePickerConfigExampleComponent,
-		DatePickerFormatExampleComponent,
-		DatePickerFormExampleComponent,
-		DatePickerMultipleExampleComponent,
-		DatePickerFormMultipleExampleComponent,
+		UIApiDocs,
+		DatePickerPreview,
+		SectionIntro,
+		Tabs,
+		Code,
+		SectionSubHeading,
+		TabsCli,
+		PageBottomNav,
+		PageBottomNavLink,
+		PageNav,
+		DatePickerConfigExample,
+		DatePickerFormatExample,
+		DatePickerFormExample,
+		DatePickerMultipleExample,
+		DatePickerFormMultipleExample,
 		RouterLink,
-		HlmButtonDirective,
+		HlmButton,
 	],
 	template: `
 		<section spartanMainSection>
@@ -195,7 +195,7 @@ export const routeMeta: RouteMeta = {
 		<spartan-page-nav />
 	`,
 })
-export default class CardPageComponent {
+export default class CardPage {
 	protected readonly _defaultCode = defaultCode;
 	protected readonly _defaultImports = defaultImports;
 	protected readonly _codeSkeleton = defaultSkeleton;

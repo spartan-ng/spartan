@@ -11,7 +11,7 @@ export const brainRadioHealthcheck: Healthcheck = {
 				return;
 			}
 			// if it is the HlmRadioComponent itself skip it.
-			if (file.endsWith('hlm-radio.component.ts')) {
+			if (file.endsWith('hlm-radio.component.ts') || file.endsWith('hlm-radio.ts')) {
 				return;
 			}
 

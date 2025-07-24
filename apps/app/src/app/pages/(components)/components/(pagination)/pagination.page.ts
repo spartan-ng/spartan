@@ -1,22 +1,22 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
 import { hlmCode, hlmH4 } from '@spartan-ng/helm/typography';
-import { CodePreviewDirective } from '../../../../shared/code/code-preview.directive';
-import { CodeComponent } from '../../../../shared/code/code.component';
-import { MainSectionDirective } from '../../../../shared/layout/main-section.directive';
-import { PageBottomNavLinkComponent } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav-link.component';
-import { PageBottomNavComponent } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav.component';
-import { PageNavComponent } from '../../../../shared/layout/page-nav/page-nav.component';
-import { SectionIntroComponent } from '../../../../shared/layout/section-intro.component';
-import { SectionSubHeadingComponent } from '../../../../shared/layout/section-sub-heading.component';
-import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
-import { TabsComponent } from '../../../../shared/layout/tabs.component';
-import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
+import { Code } from '../../../../shared/code/code';
+import { CodePreview } from '../../../../shared/code/code-preview';
+import { MainSection } from '../../../../shared/layout/main-section';
+import { PageBottomNav } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav';
+import { PageBottomNavLink } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav-link';
+import { PageNav } from '../../../../shared/layout/page-nav/page-nav';
+import { SectionIntro } from '../../../../shared/layout/section-intro';
+import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading';
+import { Tabs } from '../../../../shared/layout/tabs';
+import { TabsCli } from '../../../../shared/layout/tabs-cli';
+import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { PaginationAdvancedQueryComponent } from './pagination--advanced-query.example';
-import { PaginationAdvancedComponent } from './pagination--advanced.example';
-import { PaginationIconOnlyComponent } from './pagination--icon-only.example';
-import { PaginationQueryParamsComponent } from './pagination--query-params.example';
+import { PaginationAdvancedQuery } from './pagination--advanced-query.example';
+import { PaginationAdvanced } from './pagination--advanced.example';
+import { PaginationIconOnly } from './pagination--icon-only.example';
+import { PaginationQueryParams } from './pagination--query-params.example';
 import {
 	defaultCode,
 	paginationAdvancedCode,
@@ -24,7 +24,7 @@ import {
 	paginationIconOnlyCode,
 	paginationQueryParamsCode,
 } from './pagination.generated';
-import { PaginationPreviewComponent, defaultImports, defaultSkeleton } from './pagination.preview';
+import { PaginationPreview, defaultImports, defaultSkeleton } from './pagination.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Pagination', api: 'pagination' },
@@ -35,22 +35,22 @@ export const routeMeta: RouteMeta = {
 @Component({
 	selector: 'spartan-pagination',
 	imports: [
-		UIApiDocsComponent,
-		MainSectionDirective,
-		CodeComponent,
-		SectionIntroComponent,
-		SectionSubHeadingComponent,
-		TabsComponent,
-		TabsCliComponent,
-		CodePreviewDirective,
-		PageNavComponent,
-		PageBottomNavComponent,
-		PageBottomNavLinkComponent,
-		PaginationPreviewComponent,
-		PaginationQueryParamsComponent,
-		PaginationIconOnlyComponent,
-		PaginationAdvancedComponent,
-		PaginationAdvancedQueryComponent,
+		UIApiDocs,
+		MainSection,
+		Code,
+		SectionIntro,
+		SectionSubHeading,
+		Tabs,
+		TabsCli,
+		CodePreview,
+		PageNav,
+		PageBottomNav,
+		PageBottomNavLink,
+		PaginationPreview,
+		PaginationQueryParams,
+		PaginationIconOnly,
+		PaginationAdvanced,
+		PaginationAdvancedQuery,
 	],
 	template: `
 		<section spartanMainSection>
@@ -124,7 +124,7 @@ export const routeMeta: RouteMeta = {
 		<spartan-page-nav />
 	`,
 })
-export default class PaginationPageComponent {
+export default class PaginationPage {
 	protected readonly _defaultCode = defaultCode;
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;

@@ -4,15 +4,10 @@ import { Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideRocket } from '@ng-icons/lucide';
-import {
-	HlmAlertDescriptionDirective,
-	HlmAlertDirective,
-	HlmAlertIconDirective,
-	HlmAlertTitleDirective,
-} from '@spartan-ng/helm/alert';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { HlmAlert, HlmAlertDescription, HlmAlertIcon, HlmAlertTitle } from '@spartan-ng/helm/alert';
+import { HlmIcon } from '@spartan-ng/helm/icon';
 import { ApiDocsService } from '../../core/services/api-docs.service';
-import { PageComponent } from '../../shared/layout/page.component';
+import { Page } from '../../shared/layout/page';
 import { metaWith } from '../../shared/meta/meta.util';
 import { load } from './components.server';
 
@@ -29,15 +24,7 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-components',
-	imports: [
-		PageComponent,
-		HlmAlertDirective,
-		HlmAlertTitleDirective,
-		HlmAlertDescriptionDirective,
-		NgIcon,
-		HlmIconDirective,
-		HlmAlertIconDirective,
-	],
+	imports: [Page, HlmAlert, HlmAlertTitle, HlmAlertDescription, NgIcon, HlmIcon, HlmAlertIcon],
 	providers: [provideIcons({ lucideRocket }), ApiDocsService],
 	template: `
 		<div
@@ -57,7 +44,7 @@ export const routeMeta: RouteMeta = {
 		<spartan-page />
 	`,
 })
-export default class ComponentsPageComponent {
+export default class ComponentsPage {
 	private readonly _apiData = toSignal(injectLoad<typeof load>(), { requireSync: true });
 	private readonly _apiDocsService = inject(ApiDocsService);
 

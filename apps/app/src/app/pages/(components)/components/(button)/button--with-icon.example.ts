@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideGitBranch } from '@ng-icons/lucide';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmIcon } from '@spartan-ng/helm/icon';
 
 @Component({
 	selector: 'spartan-button-with-icon',
-	imports: [HlmButtonDirective, NgIcon, HlmIconDirective],
+	imports: [HlmButton, NgIcon, HlmIcon],
 	providers: [provideIcons({ lucideGitBranch })],
 	template: `
 		<button hlmBtn variant="outline" size="sm">
@@ -15,4 +15,4 @@ import { HlmIconDirective } from '@spartan-ng/helm/icon';
 		</button>
 	`,
 })
-export class ButtonWithIconComponent {}
+export class ButtonWithIcon {}

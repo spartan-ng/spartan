@@ -1,1 +1,1 @@
-export * from './brn-avatar-fallback.directive';
+export * from './brn-avatar-fallback';

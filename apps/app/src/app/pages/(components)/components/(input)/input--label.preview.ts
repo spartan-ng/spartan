@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { HlmInputDirective } from '@spartan-ng/helm/input';
-import { HlmLabelDirective } from '@spartan-ng/helm/label';
+import { HlmInput } from '@spartan-ng/helm/input';
+import { HlmLabel } from '@spartan-ng/helm/label';
 
 @Component({
 	selector: 'spartan-input-label',
-	imports: [HlmInputDirective, HlmLabelDirective],
+	imports: [HlmInput, HlmLabel],
 	template: `
 		<div class="grid w-full max-w-sm items-center gap-3">
 			<label for="email" hlmLabel>Email</label>
@@ -12,4 +12,4 @@ import { HlmLabelDirective } from '@spartan-ng/helm/label';
 		</div>
 	`,
 })
-export class InputLabelPreviewComponent {}
+export class InputLabelPreview {}

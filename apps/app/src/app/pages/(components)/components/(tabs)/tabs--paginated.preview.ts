@@ -1,14 +1,9 @@
 import { Component, input } from '@angular/core';
-import {
-	HlmTabsComponent,
-	HlmTabsContentDirective,
-	HlmTabsPaginatedListComponent,
-	HlmTabsTriggerDirective,
-} from '@spartan-ng/helm/tabs';
+import { HlmTabs, HlmTabsContent, HlmTabsPaginatedList, HlmTabsTrigger } from '@spartan-ng/helm/tabs';
 
 @Component({
 	selector: 'spartan-tabs-paginated',
-	imports: [HlmTabsComponent, HlmTabsPaginatedListComponent, HlmTabsTriggerDirective, HlmTabsContentDirective],
+	imports: [HlmTabs, HlmTabsPaginatedList, HlmTabsTrigger, HlmTabsContent],
 	host: {
 		class: 'block w-full max-w-lg min-h-[150px]',
 	},
@@ -25,7 +20,7 @@ import {
 		</hlm-tabs>
 	`,
 })
-export class TabsPaginatedPreviewComponent {
+export class TabsPaginatedPreview {
 	public readonly activeTab = input('Tab 0');
 
 	public readonly lotsOfTabs = Array.from({ length: 30 })

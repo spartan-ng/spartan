@@ -1,9 +1,10 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { CodePreviewDirective } from '../../../../shared/code/code-preview.directive';
 import { CodeComponent } from '../../../../shared/code/code.component';
 import { MainSectionDirective } from '../../../../shared/layout/main-section.directive';
 
+import { PrimitiveSnippetsService } from '../../../../core/services/primitive-snippets.service';
 import { PageBottomNavLinkComponent } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav-link.component';
 import { PageBottomNavComponent } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav.component';
 import { PageNavComponent } from '../../../../shared/layout/page-nav/page-nav.component';
@@ -14,7 +15,6 @@ import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { AvatarPreviewComponent, defaultImports, defaultSkeleton } from './avatar.preview';
-import { PrimitiveSnippetsService } from '../../../../core/services/primitive-snippets.service';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Avatar', api: 'avatar' },
@@ -46,7 +46,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-avatar-preview />
 				</div>
-				<spartan-code secondTab [code]="_defaultCode" />
+				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -77,8 +77,8 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class AvatarPageComponent {
-	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('avatar')();
-	protected readonly _defaultCode = this._snippets['default'];
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('avatar');
+	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

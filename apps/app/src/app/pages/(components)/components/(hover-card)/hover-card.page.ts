@@ -1,5 +1,5 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { CodePreviewDirective } from '../../../../shared/code/code-preview.directive';
 import { CodeComponent } from '../../../../shared/code/code.component';
 import { MainSectionDirective } from '../../../../shared/layout/main-section.directive';
@@ -46,7 +46,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-hover-card-preview />
 				</div>
-				<spartan-code secondTab [code]="_defaultCode" />
+				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -77,8 +77,8 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class CardPageComponent {
-	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('hover-card')();
-	protected readonly _defaultCode = this._snippets['default'];
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('hover-card');
+	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

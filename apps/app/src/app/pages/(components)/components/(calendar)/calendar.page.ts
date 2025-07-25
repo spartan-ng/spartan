@@ -1,6 +1,5 @@
 import type { RouteMeta } from '@analogjs/router';
-import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { hlmCode, hlmH4, hlmP } from '@spartan-ng/helm/typography';
 import { PrimitiveSnippetsService } from '../../../../core/services/primitive-snippets.service';
 import { CodePreviewDirective } from '../../../../shared/code/code-preview.directive';
@@ -49,7 +48,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-calendar-preview />
 				</div>
-				<spartan-code secondTab [code]="_defaultCode" />
+				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -88,7 +87,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-calendar-multiple />
 				</div>
-				<spartan-code secondTab [code]="_multipleCode" />
+				<spartan-code secondTab [code]="_multipleCode()" />
 			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
@@ -100,9 +99,9 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class CalendarPageComponent {
-	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('calendar')();
-	protected readonly _defaultCode = this._snippets['default'];
-	protected readonly _multipleCode = this._snippets['multiple'];
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('calendar');
+	protected readonly _defaultCode = computed(() => this._snippets()['default']);
+	protected readonly _multipleCode = computed(() => this._snippets()['multiple']);
 	protected readonly _defaultImports = defaultImports;
 	protected readonly _defaultSkeleton = defaultSkeleton;
 }

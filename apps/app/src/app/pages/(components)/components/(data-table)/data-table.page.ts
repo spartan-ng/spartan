@@ -1,5 +1,5 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { hlmP } from '@spartan-ng/helm/typography';
 import { defaultImports, defaultSkeleton } from '../(context-menu)/context-menu.preview';
 import { CodePreviewDirective } from '../../../../shared/code/code-preview.directive';
@@ -47,7 +47,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-data-table-preview />
 				</div>
-				<spartan-code secondTab [code]="_defaultCode" />
+				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="about">About</spartan-section-sub-heading>
@@ -95,8 +95,8 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class DataTablePageComponent {
-	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('data-table')();
-	protected readonly _defaultCode = this._snippets['default'];
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('data-table');
+	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

@@ -1,5 +1,5 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { HlmAlertDescriptionDirective, HlmAlertDirective } from '@spartan-ng/helm/alert';
 import { hlmCode, hlmH4 } from '@spartan-ng/helm/typography';
 
@@ -65,7 +65,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-tabs-preview />
 				</div>
-				<spartan-code secondTab [code]="_defaultCode" />
+				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -89,7 +89,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-tabs-vertical />
 				</div>
-				<spartan-code secondTab [code]="_verticalCode" />
+				<spartan-code secondTab [code]="_verticalCode()" />
 			</spartan-tabs>
 
 			<h3 id="examples__paginated_tabs" class="${hlmH4} mb-2 mt-6">Paginated Tabs</h3>
@@ -128,7 +128,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-tabs-paginated />
 				</div>
-				<spartan-code secondTab [code]="_paginatedCode" />
+				<spartan-code secondTab [code]="_paginatedCode()" />
 			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
@@ -140,10 +140,10 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class TabsPageComponent {
-	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('tabs')();
-	protected readonly _defaultCode = this._snippets['default'];
-	protected readonly _verticalCode = this._snippets['vertical'];
-	protected readonly _paginatedCode = this._snippets['paginated'];
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('tabs');
+	protected readonly _defaultCode = computed(() => this._snippets()['default']);
+	protected readonly _verticalCode = computed(() => this._snippets()['vertical']);
+	protected readonly _paginatedCode = computed(() => this._snippets()['paginated']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

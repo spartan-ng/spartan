@@ -1,5 +1,5 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { hlmH4 } from '@spartan-ng/helm/typography';
 import { CodePreviewDirective } from '../../../../shared/code/code-preview.directive';
 import { CodeComponent } from '../../../../shared/code/code.component';
@@ -55,7 +55,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-context-menu-preview />
 				</div>
-				<spartan-code secondTab [code]="_defaultCode" />
+				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -82,7 +82,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-context-menu-with-state />
 				</div>
-				<spartan-code secondTab [code]="_codeWithState" />
+				<spartan-code secondTab [code]="_withStateCode()" />
 			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
@@ -94,9 +94,9 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class ComboboxPageComponent {
-	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('context-menu')();
-	protected readonly _defaultCode = this._snippets['default'];
-	protected readonly _codeWithState = this._snippets['withState'];
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('context-menu');
+	protected readonly _defaultCode = computed(() => this._snippets()['default']);
+	protected readonly _withStateCode = computed(() => this._snippets()['withState']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

@@ -1,5 +1,5 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { hlmH4 } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
@@ -54,7 +54,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-radio-group-preview />
 				</div>
-				<spartan-code secondTab [code]="_defaultCode" />
+				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -82,7 +82,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-radio-card-preview />
 				</div>
-				<spartan-code secondTab [code]="_cardCode" />
+				<spartan-code secondTab [code]="_cardCode()" />
 			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
@@ -94,9 +94,9 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class LabelPage {
-	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('radio-group')();
-	protected readonly _defaultCode = this._snippets['default'];
-	protected readonly _cardCode = this._snippets['card'];
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('radio-group');
+	protected readonly _defaultCode = computed(() => this._snippets()['default']);
+	protected readonly _cardCode = computed(() => this._snippets()['card']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

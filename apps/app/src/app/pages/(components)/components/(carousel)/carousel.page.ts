@@ -1,5 +1,5 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { link } from '@spartan-ng/app/app/shared/typography/link';
 import { hlmCode, hlmH4, hlmP } from '@spartan-ng/helm/typography';
@@ -56,7 +56,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-carousel-preview />
 				</div>
-				<spartan-code secondTab [code]="_defaultCode" />
+				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="about">About</spartan-section-sub-heading>
@@ -104,7 +104,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-carousel-sizes />
 				</div>
-				<spartan-code secondTab [code]="_sizesCode" />
+				<spartan-code secondTab [code]="_sizesCode()" />
 			</spartan-tabs>
 
 			<h3 id="examples__spacing" class="${hlmH4} mb-2 mt-6">Spacing</h3>
@@ -123,7 +123,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-carousel-spacing />
 				</div>
-				<spartan-code secondTab [code]="_spacingCode" />
+				<spartan-code secondTab [code]="_spacingCode()" />
 			</spartan-tabs>
 
 			<h3 id="examples__orientation" class="${hlmH4} mb-2 mt-6">Orientation</h3>
@@ -136,7 +136,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-carousel-orientation />
 				</div>
-				<spartan-code secondTab [code]="_orientationCode" />
+				<spartan-code secondTab [code]="_orientationCode()" />
 			</spartan-tabs>
 
 			<h3 id="examples__slide_count" class="${hlmH4} mb-2 mt-6">Slide Count</h3>
@@ -149,7 +149,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-carousel-slide-count />
 				</div>
-				<spartan-code secondTab [code]="_slideCountCode" />
+				<spartan-code secondTab [code]="_slideCountCode()" />
 			</spartan-tabs>
 
 			<h3 id="examples__plugins" class="${hlmH4} mb-2 mt-6">Plugins</h3>
@@ -162,7 +162,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-carousel-plugins />
 				</div>
-				<spartan-code secondTab [code]="_pluginsCode" />
+				<spartan-code secondTab [code]="_pluginsCode()" />
 			</spartan-tabs>
 			<p class="py-2">
 				See the
@@ -181,13 +181,13 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class CarouselPage {
-	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('carousel')();
-	protected readonly _defaultCode = this._snippets['default'];
-	protected readonly _sizesCode = this._snippets['sizes'];
-	protected readonly _spacingCode = this._snippets['spacing'];
-	protected readonly _slideCountCode = this._snippets['slideCount'];
-	protected readonly _pluginsCode = this._snippets['plugins'];
-	protected readonly _orientationCode = this._snippets['orientation'];
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('carousel');
+	protected readonly _defaultCode = computed(() => this._snippets()['default']);
+	protected readonly _sizesCode = computed(() => this._snippets()['sizes']);
+	protected readonly _spacingCode = computed(() => this._snippets()['spacing']);
+	protected readonly _slideCountCode = computed(() => this._snippets()['slideCount']);
+	protected readonly _pluginsCode = computed(() => this._snippets()['plugins']);
+	protected readonly _orientationCode = computed(() => this._snippets()['orientation']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

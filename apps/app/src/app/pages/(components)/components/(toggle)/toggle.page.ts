@@ -1,5 +1,5 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { hlmH4 } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
@@ -56,7 +56,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-toggle-preview />
 				</div>
-				<spartan-code secondTab [code]="_defaultCode" />
+				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -84,35 +84,35 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-toggle-outline />
 				</div>
-				<spartan-code secondTab [code]="_outlineCode" />
+				<spartan-code secondTab [code]="_outlineCode()" />
 			</spartan-tabs>
 			<h3 id="examples__with_text" class="${hlmH4} mb-2 mt-6">With Text</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-toggle-with-text />
 				</div>
-				<spartan-code secondTab [code]="_withTextCode" />
+				<spartan-code secondTab [code]="_withTextCode()" />
 			</spartan-tabs>
 			<h3 id="examples__small" class="${hlmH4} mb-2 mt-6">Small</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-toggle-small />
 				</div>
-				<spartan-code secondTab [code]="_smallCode" />
+				<spartan-code secondTab [code]="_smallCode()" />
 			</spartan-tabs>
 			<h3 id="examples__large" class="${hlmH4} mb-2 mt-6">Large</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-toggle-large />
 				</div>
-				<spartan-code secondTab [code]="_largeCode" />
+				<spartan-code secondTab [code]="_largeCode()" />
 			</spartan-tabs>
 			<h3 id="examples__disabled" class="${hlmH4} mb-2 mt-6">Disabled</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-toggle-disabled />
 				</div>
-				<spartan-code secondTab [code]="_disabledCode" />
+				<spartan-code secondTab [code]="_disabledCode()" />
 			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
@@ -124,13 +124,13 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class TogglePage {
-	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('toggle')();
-	protected readonly _defaultCode = this._snippets['default'];
-	protected readonly _disabledCode = this._snippets['disabled'];
-	protected readonly _largeCode = this._snippets['large'];
-	protected readonly _outlineCode = this._snippets['outline'];
-	protected readonly _smallCode = this._snippets['small'];
-	protected readonly _withTextCode = this._snippets['withText'];
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('toggle');
+	protected readonly _defaultCode = computed(() => this._snippets()['default']);
+	protected readonly _disabledCode = computed(() => this._snippets()['disabled']);
+	protected readonly _largeCode = computed(() => this._snippets()['large']);
+	protected readonly _outlineCode = computed(() => this._snippets()['outline']);
+	protected readonly _smallCode = computed(() => this._snippets()['small']);
+	protected readonly _withTextCode = computed(() => this._snippets()['withText']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

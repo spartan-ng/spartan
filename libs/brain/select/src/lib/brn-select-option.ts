@@ -1,4 +1,4 @@
-import type { Highlightable } from '@angular/cdk/a11y';
+import type { FocusableOption } from '@angular/cdk/a11y';
 import { BooleanInput } from '@angular/cdk/coercion';
 import { booleanAttribute, computed, Directive, ElementRef, inject, input, signal } from '@angular/core';
 import { injectBrnSelectContent } from './brn-select-content.token';
@@ -18,9 +18,11 @@ let nextId = 0;
 		'[attr.data-active]': "_active() ? '' : undefined",
 		'[attr.data-disabled]': "_disabled() ? '' : undefined",
 		'(mouseenter)': 'activate()',
+		'(blur)': 'setInactiveStyles()',
+		'[tabindex]': '-1',
 	},
 })
-export class BrnSelectOption<T> implements Highlightable {
+export class BrnSelectOption<T> implements FocusableOption {
 	protected readonly _select = injectBrnSelect();
 	protected readonly _content = injectBrnSelectContent<T>();
 	public readonly elementRef = inject(ElementRef);
@@ -61,13 +63,6 @@ export class BrnSelectOption<T> implements Highlightable {
 		return this.elementRef.nativeElement.textContent?.trim() ?? '';
 	}
 
-	setActiveStyles(): void {
-		this._active.set(true);
-
-		// scroll the option into view if it is not visible
-		this.elementRef.nativeElement.scrollIntoView({ block: 'nearest' });
-	}
-
 	setInactiveStyles(): void {
 		this._active.set(false);
 	}
@@ -77,5 +72,10 @@ export class BrnSelectOption<T> implements Highlightable {
 			return;
 		}
 		this._content.setActiveOption(this);
+	}
+
+	public focus(): void {
+		this.elementRef.nativeElement.focus();
+		this._active.set(true);
 	}
 }

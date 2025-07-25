@@ -1,5 +1,5 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { hlmCode, hlmH4 } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
@@ -54,7 +54,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-pagination-preview />
 				</div>
-				<spartan-code secondTab [code]="_defaultCode" />
+				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -79,21 +79,21 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-pagination-query-params />
 				</div>
-				<spartan-code secondTab [code]="_queryParamsCode" />
+				<spartan-code secondTab [code]="_queryParamsCode()" />
 			</spartan-tabs>
 			<h3 id="examples__icon-only" class="${hlmH4} mb-2 mt-6">Icon Only (Previous/Next)</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-pagination-icon-only />
 				</div>
-				<spartan-code secondTab [code]="_iconOnlyCode" />
+				<spartan-code secondTab [code]="_iconOnlyCode()" />
 			</spartan-tabs>
 			<h3 id="examples__advanced" class="${hlmH4} mb-2 mt-6">Advanced Pagination</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-pagination-advanced />
 				</div>
-				<spartan-code secondTab [code]="_advancedCode" />
+				<spartan-code secondTab [code]="_advancedCode()" />
 			</spartan-tabs>
 			<h3 id="examples__advanced" class="${hlmH4} mb-2 mt-6">Advanced Pagination - Query Params</h3>
 			<p class="py-2">
@@ -107,7 +107,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-pagination-advanced-query-params />
 				</div>
-				<spartan-code secondTab [code]="_advancedQueryCode" />
+				<spartan-code secondTab [code]="_advancedQueryCode()" />
 			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
@@ -119,12 +119,12 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class PaginationPage {
-	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('pagination')();
-	protected readonly _defaultCode = this._snippets['default'];
-	protected readonly _queryParamsCode = this._snippets['queryParams'];
-	protected readonly _iconOnlyCode = this._snippets['iconOnly'];
-	protected readonly _advancedCode = this._snippets['advanced'];
-	protected readonly _advancedQueryCode = this._snippets['advancedQuery'];
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('pagination');
+	protected readonly _defaultCode = computed(() => this._snippets()['default']);
+	protected readonly _queryParamsCode = computed(() => this._snippets()['queryParams']);
+	protected readonly _iconOnlyCode = computed(() => this._snippets()['iconOnly']);
+	protected readonly _advancedCode = computed(() => this._snippets()['advanced']);
+	protected readonly _advancedQueryCode = computed(() => this._snippets()['advancedQuery']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

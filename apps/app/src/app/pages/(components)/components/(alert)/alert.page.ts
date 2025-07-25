@@ -1,5 +1,5 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { hlmH4 } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
@@ -49,7 +49,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-alert-preview />
 				</div>
-				<spartan-code secondTab [code]="_defaultCode" />
+				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -75,7 +75,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-alert-destructive />
 				</div>
-				<spartan-code secondTab [code]="_destructiveCode" />
+				<spartan-code secondTab [code]="_destructiveCode()" />
 			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
@@ -87,9 +87,9 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class AlertPage {
-	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('alert')();
-	protected readonly _defaultCode = this._snippets['default'];
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('alert');
+	protected readonly _defaultCode = computed(() => this._snippets()['default']);
+	protected readonly _destructiveCode = computed(() => this._snippets()['destructive']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
-	protected readonly _destructiveCode = this._snippets['destructive'];
 }

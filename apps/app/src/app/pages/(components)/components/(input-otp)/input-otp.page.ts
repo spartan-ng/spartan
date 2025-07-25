@@ -1,5 +1,5 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { UIApiDocs } from '@spartan-ng/app/app/shared/layout/ui-docs-section/ui-docs-section';
 import { hlmCode, hlmH4, hlmP } from '@spartan-ng/helm/typography';
@@ -47,7 +47,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-input-otp-preview />
 				</div>
-				<spartan-code secondTab [code]="_defaultCode" />
+				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -83,7 +83,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-input-otp-form />
 				</div>
-				<spartan-code secondTab [code]="_formCode" />
+				<spartan-code secondTab [code]="_formCode()" />
 			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
@@ -95,9 +95,9 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class InputOtpPage {
-	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('input-otp')();
-	protected readonly _defaultCode = this._snippets['default'];
-	protected readonly _formCode = this._snippets['form'];
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('input-otp');
+	protected readonly _defaultCode = computed(() => this._snippets()['default']);
+	protected readonly _formCode = computed(() => this._snippets()['form']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

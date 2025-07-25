@@ -1,5 +1,5 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { CodePreview } from '@spartan-ng/app/app/shared/code/code-preview';
@@ -61,7 +61,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-date-picker-preview />
 				</div>
-				<spartan-code secondTab [code]="_defaultCode" />
+				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -118,7 +118,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-date-picker-config />
 				</div>
-				<spartan-code secondTab [code]="_configCode" />
+				<spartan-code secondTab [code]="_configCode()" />
 			</spartan-tabs>
 
 			<h3 id="examples__multiple_selecton" class="${hlmH4} mb-2 mt-6">Multiple Selection</h3>
@@ -137,7 +137,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-date-picker-multiple />
 				</div>
-				<spartan-code secondTab [code]="_multiCode" />
+				<spartan-code secondTab [code]="_multiCode()" />
 			</spartan-tabs>
 
 			<h3 id="examples__format_date" class="${hlmH4} mb-2 mt-6">Format Date</h3>
@@ -151,7 +151,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-date-picker-format />
 				</div>
-				<spartan-code secondTab [code]="_formatCode" />
+				<spartan-code secondTab [code]="_formatCode()" />
 			</spartan-tabs>
 
 			<h3 id="examples__form" class="${hlmH4} mb-2 mt-6">Form</h3>
@@ -166,7 +166,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-date-picker-form />
 				</div>
-				<spartan-code secondTab [code]="_formCode" />
+				<spartan-code secondTab [code]="_formCode()" />
 			</spartan-tabs>
 
 			<h3 id="examples__form_multiple_selection" class="${hlmH4} mb-2 mt-6">Form Multiple Selection</h3>
@@ -181,7 +181,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-date-picker-form-multiple />
 				</div>
-				<spartan-code secondTab [code]="_formMultiCode" />
+				<spartan-code secondTab [code]="_formMultiCode()" />
 			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
@@ -193,13 +193,13 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class CardPage {
-	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('date-picker')();
-	protected readonly _defaultCode = this._snippets['default'];
-	protected readonly _configCode = this._snippets['config'];
-	protected readonly _formCode = this._snippets['form'];
-	protected readonly _formMultiCode = this._snippets['formMulti'];
-	protected readonly _formatCode = this._snippets['format'];
-	protected readonly _multiCode = this._snippets['multi'];
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('date-picker');
+	protected readonly _defaultCode = computed(() => this._snippets()['default']);
+	protected readonly _configCode = computed(() => this._snippets()['config']);
+	protected readonly _formCode = computed(() => this._snippets()['form']);
+	protected readonly _formMultiCode = computed(() => this._snippets()['formMulti']);
+	protected readonly _formatCode = computed(() => this._snippets()['format']);
+	protected readonly _multiCode = computed(() => this._snippets()['multi']);
 	protected readonly _defaultImports = defaultImports;
 	protected readonly _codeSkeleton = defaultSkeleton;
 }

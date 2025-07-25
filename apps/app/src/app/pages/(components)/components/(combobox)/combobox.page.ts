@@ -1,5 +1,5 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
@@ -47,7 +47,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-combobox-preview />
 				</div>
-				<spartan-code secondTab [code]="_defaultCode" />
+				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -62,7 +62,7 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="space-y-4">
-				<spartan-code [code]="_defaultCode" />
+				<spartan-code [code]="_defaultCode()" />
 			</div>
 
 			<spartan-page-bottom-nav>
@@ -74,6 +74,6 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class ComboboxPage {
-	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('combobox')();
-	protected readonly _defaultCode = this._snippets['default'];
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('combobox');
+	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 }

@@ -1,6 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { hlmCode, hlmH4 } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
@@ -58,7 +58,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-accordion-preview />
 				</div>
-				<spartan-code secondTab [code]="_defaultCode" />
+				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -96,7 +96,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-accordion-multiple-opened />
 				</div>
-				<spartan-code secondTab [code]="_multipleOpenedCode" />
+				<spartan-code secondTab [code]="_multipleOpenedCode()" />
 			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
@@ -108,9 +108,9 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class AccordionPage {
-	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('accordion')();
-	protected readonly _defaultCode = this._snippets['default'];
-	protected readonly _multipleOpenedCode = this._snippets['multipleOpened'];
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('accordion');
+	protected readonly _defaultCode = computed(() => this._snippets()['default']);
+	protected readonly _multipleOpenedCode = computed(() => this._snippets()['multipleOpened']);
 	protected readonly _imports = defaultImports;
 	protected readonly _skeleton = defaultSkeleton;
 }

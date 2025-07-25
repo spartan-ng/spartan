@@ -1,5 +1,5 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideTriangleAlert } from '@ng-icons/lucide';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
@@ -71,7 +71,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-dialog-preview />
 				</div>
-				<spartan-code secondTab [code]="_defaultCode" />
+				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -109,7 +109,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-dialog-declarative-preview />
 				</div>
-				<spartan-code secondTab [code]="_declarativeCode" />
+				<spartan-code secondTab [code]="_declarativeCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="inside-menu">Inside Menu</spartan-section-sub-heading>
@@ -142,7 +142,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-dialog-context-menu />
 				</div>
-				<spartan-code secondTab [code]="_contextMenuCode" />
+				<spartan-code secondTab [code]="_contextMenuCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="dynamic-component">Dynamic Component</spartan-section-sub-heading>
@@ -167,7 +167,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-dialog-dynamic-component-preview />
 				</div>
-				<spartan-code secondTab [code]="_dynamicComponentCode" />
+				<spartan-code secondTab [code]="_dynamicComponentCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="close-dialog">Close Dialog</spartan-section-sub-heading>
@@ -179,7 +179,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-dialog-close-preview />
 				</div>
-				<spartan-code secondTab [code]="_closeCode" />
+				<spartan-code secondTab [code]="_closeCode()" />
 			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
@@ -191,12 +191,12 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class DialogPage {
-	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('dialog')();
-	protected readonly _defaultCode = this._snippets['default'];
-	protected readonly _contextMenuCode = this._snippets['contextMenu'];
-	protected readonly _dynamicComponentCode = this._snippets['dynamicComponent'];
-	protected readonly _declarativeCode = this._snippets['declarative'];
-	protected readonly _closeCode = this._snippets['close'];
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('dialog');
+	protected readonly _defaultCode = computed(() => this._snippets()['default']);
+	protected readonly _contextMenuCode = computed(() => this._snippets()['contextMenu']);
+	protected readonly _dynamicComponentCode = computed(() => this._snippets()['dynamicComponent']);
+	protected readonly _declarativeCode = computed(() => this._snippets()['declarative']);
+	protected readonly _closeCode = computed(() => this._snippets()['close']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

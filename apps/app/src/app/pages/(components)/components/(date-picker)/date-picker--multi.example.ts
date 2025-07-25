@@ -15,9 +15,6 @@ import { HlmDatePickerMulti } from '@spartan-ng/helm/date-picker';
 			<span>Pick dates</span>
 		</hlm-date-picker-multi>
 	`,
-	host: {
-		class: 'preview flex min-h-[350px] w-full justify-center p-10 items-center',
-	},
 })
 export class DatePickerMultipleExample {
 	/** The minimum date */

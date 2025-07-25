@@ -1,6 +1,9 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { CodePreview } from '@spartan-ng/app/app/shared/code/code-preview';
+import { MainSection } from '@spartan-ng/app/app/shared/layout/main-section';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { hlmCode, hlmH4, hlmP, hlmUl } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
@@ -19,14 +22,6 @@ import { DatePickerFormMultipleExample } from './date-picker--form-multi.example
 import { DatePickerFormExample } from './date-picker--form.example';
 import { DatePickerFormatExample } from './date-picker--format.example';
 import { DatePickerMultipleExample } from './date-picker--multi.example';
-import {
-	datePickerConfigCode,
-	datePickerFormatCode,
-	datePickerFormCode,
-	datePickerFormMultiCode,
-	datePickerMultiCode,
-	defaultCode,
-} from './date-picker.generated';
 import { DatePickerPreview, defaultImports, defaultSkeleton } from './date-picker.preview';
 
 export const routeMeta: RouteMeta = {
@@ -47,6 +42,8 @@ export const routeMeta: RouteMeta = {
 		TabsCli,
 		PageBottomNav,
 		PageBottomNavLink,
+		CodePreview,
+		MainSection,
 		PageNav,
 		DatePickerConfigExample,
 		DatePickerFormatExample,
@@ -121,7 +118,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-date-picker-config />
 				</div>
-				<spartan-code secondTab [code]="_datePickerConfigCode" />
+				<spartan-code secondTab [code]="_configCode" />
 			</spartan-tabs>
 
 			<h3 id="examples__multiple_selecton" class="${hlmH4} mb-2 mt-6">Multiple Selection</h3>
@@ -140,7 +137,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-date-picker-multiple />
 				</div>
-				<spartan-code secondTab [code]="_datePickerMultipleCode" />
+				<spartan-code secondTab [code]="_multiCode" />
 			</spartan-tabs>
 
 			<h3 id="examples__format_date" class="${hlmH4} mb-2 mt-6">Format Date</h3>
@@ -154,7 +151,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-date-picker-format />
 				</div>
-				<spartan-code secondTab [code]="_datePickerFormatCode" />
+				<spartan-code secondTab [code]="_formatCode" />
 			</spartan-tabs>
 
 			<h3 id="examples__form" class="${hlmH4} mb-2 mt-6">Form</h3>
@@ -169,7 +166,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-date-picker-form />
 				</div>
-				<spartan-code secondTab [code]="_datePickerFormCode" />
+				<spartan-code secondTab [code]="_formCode" />
 			</spartan-tabs>
 
 			<h3 id="examples__form_multiple_selection" class="${hlmH4} mb-2 mt-6">Form Multiple Selection</h3>
@@ -184,7 +181,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-date-picker-form-multiple />
 				</div>
-				<spartan-code secondTab [code]="_datePickerFormMultipleCode" />
+				<spartan-code secondTab [code]="_formMultiCode" />
 			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
@@ -196,12 +193,13 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class CardPage {
-	protected readonly _defaultCode = defaultCode;
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('date-picker')();
+	protected readonly _defaultCode = this._snippets['default'];
+	protected readonly _configCode = this._snippets['config'];
+	protected readonly _formCode = this._snippets['form'];
+	protected readonly _formMultiCode = this._snippets['formMulti'];
+	protected readonly _formatCode = this._snippets['format'];
+	protected readonly _multiCode = this._snippets['multi'];
 	protected readonly _defaultImports = defaultImports;
 	protected readonly _codeSkeleton = defaultSkeleton;
-	protected readonly _datePickerConfigCode = datePickerConfigCode;
-	protected readonly _datePickerFormCode = datePickerFormCode;
-	protected readonly _datePickerFormMultipleCode = datePickerFormMultiCode;
-	protected readonly _datePickerFormatCode = datePickerFormatCode;
-	protected readonly _datePickerMultipleCode = datePickerMultiCode;
 }

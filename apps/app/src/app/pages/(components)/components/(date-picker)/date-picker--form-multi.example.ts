@@ -26,9 +26,6 @@ import { HlmLabel } from '@spartan-ng/helm/label';
 			<button type="submit" hlmBtn [disabled]="form.invalid">Submit</button>
 		</form>
 	`,
-	host: {
-		class: 'preview flex min-h-[350px] w-full justify-center p-10 items-center',
-	},
 })
 export class DatePickerFormMultipleExample {
 	private readonly _formBuilder = inject(FormBuilder);

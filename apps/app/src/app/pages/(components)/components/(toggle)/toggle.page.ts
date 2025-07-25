@@ -1,10 +1,11 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { hlmH4 } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
 
+import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { PageBottomNav } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav';
 import { PageBottomNavLink } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav-link';
 import { PageNav } from '../../../../shared/layout/page-nav/page-nav';
@@ -19,14 +20,6 @@ import { ToggleLargePreview } from './toggle--large.preview';
 import { ToggleOutlinePreview } from './toggle--outline.preview';
 import { ToggleSmallPreview } from './toggle--small.preview';
 import { ToggleWithTextPreview } from './toggle--with-text.preview';
-import {
-	defaultCode,
-	toggleDisabledCode,
-	toggleLargeCode,
-	toggleOutlineCode,
-	toggleSmallCode,
-	toggleWithTextCode,
-} from './toggle.generated';
 import { TogglePreview, defaultImports, defaultSkeleton } from './toggle.preview';
 
 export const routeMeta: RouteMeta = {
@@ -131,12 +124,13 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class TogglePage {
-	protected readonly _defaultCode = defaultCode;
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('toggle')();
+	protected readonly _defaultCode = this._snippets['default'];
+	protected readonly _disabledCode = this._snippets['disabled'];
+	protected readonly _largeCode = this._snippets['large'];
+	protected readonly _outlineCode = this._snippets['outline'];
+	protected readonly _smallCode = this._snippets['small'];
+	protected readonly _withTextCode = this._snippets['withText'];
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
-	protected readonly _disabledCode = toggleDisabledCode;
-	protected readonly _largeCode = toggleLargeCode;
-	protected readonly _outlineCode = toggleOutlineCode;
-	protected readonly _smallCode = toggleSmallCode;
-	protected readonly _withTextCode = toggleWithTextCode;
 }

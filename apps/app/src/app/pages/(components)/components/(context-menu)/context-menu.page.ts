@@ -1,10 +1,11 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { hlmH4 } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
 
+import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { PageBottomNav } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav';
 import { PageBottomNavLink } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav-link';
 import { PageNav } from '../../../../shared/layout/page-nav/page-nav';
@@ -15,7 +16,6 @@ import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { ContextMenuPreviewWithState } from './context-menu-with-state.preview';
-import { contextMenuWithStateCode, defaultCode } from './context-menu.generated';
 import { ContextMenuPreview, defaultImports, defaultSkeleton } from './context-menu.preview';
 
 export const routeMeta: RouteMeta = {
@@ -82,7 +82,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-context-menu-with-state />
 				</div>
-				<spartan-code secondTab [code]="_defaultCodeWithState" />
+				<spartan-code secondTab [code]="_codeWithState" />
 			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
@@ -94,8 +94,9 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class ComboboxPage {
-	protected readonly _defaultCode = defaultCode;
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('context-menu')();
+	protected readonly _defaultCode = this._snippets['default'];
+	protected readonly _codeWithState = this._snippets['withState'];
 	protected readonly _defaultSkeleton = defaultSkeleton;
-	protected readonly _defaultCodeWithState = contextMenuWithStateCode;
 	protected readonly _defaultImports = defaultImports;
 }

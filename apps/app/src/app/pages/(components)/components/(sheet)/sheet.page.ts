@@ -1,5 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { hlmH4 } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
@@ -15,7 +16,6 @@ import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-sec
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { SheetSidePreview } from './sheet--side.preview';
 import { SheetClosePreview } from './sheet-close.preview';
-import { defaultCode, sheetCloseCode, sheetSideCode } from './sheet.generated';
 import { SheetPreview, defaultImports, defaultSkeleton } from './sheet.preview';
 
 export const routeMeta: RouteMeta = {
@@ -103,9 +103,10 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class LabelPage {
-	protected readonly _defaultCode = defaultCode;
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('sheet')();
+	protected readonly _defaultCode = this._snippets['default'];
+	protected readonly _sideCode = this._snippets['side'];
+	protected readonly _closeCode = this._snippets['close'];
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
-	protected readonly _sideCode = sheetSideCode;
-	protected readonly _closeCode = sheetCloseCode;
 }

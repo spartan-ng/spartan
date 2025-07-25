@@ -33,7 +33,7 @@ import { UIApiDocsTableComponent } from '../ui-api-docs-table/ui-api-docs-table.
 							{ label: 'Prop', key: 'name', class: 'font-medium' },
 							{ label: 'Type', key: 'type' },
 							{ label: 'Default', key: 'defaultValue' },
-							{ label: 'Description', key: 'description' },
+							{ label: 'Description', key: 'description', class: 'whitespace-pre' },
 						]"
 					/>
 				}
@@ -46,7 +46,7 @@ import { UIApiDocsTableComponent } from '../ui-api-docs-table/ui-api-docs-table.
 							{ label: 'Prop', key: 'name', class: 'font-medium' },
 							{ label: 'Type', key: 'type' },
 							{ label: 'Default', key: 'defaultValue' },
-							{ label: 'Description', key: 'description' },
+							{ label: 'Description', key: 'description', class: 'whitespace-pre' },
 						]"
 					/>
 				}
@@ -58,7 +58,7 @@ import { UIApiDocsTableComponent } from '../ui-api-docs-table/ui-api-docs-table.
 						[columns]="[
 							{ label: 'Prop', key: 'name', class: 'font-medium' },
 							{ label: 'Type', key: 'type' },
-							{ label: 'Description', key: 'description' },
+							{ label: 'Description', key: 'description', class: 'whitespace-pre' },
 						]"
 					/>
 				}

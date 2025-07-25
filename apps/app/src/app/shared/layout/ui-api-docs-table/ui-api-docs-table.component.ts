@@ -11,24 +11,28 @@ type Column = { label: string; key: string; class?: string };
 		<h4 class="mb-2 mt-6">{{ title() }}</h4>
 		<div class="w-full overflow-x-auto">
 			<table hlmTable class="w-fit min-w-full">
-				<tr hlmTr>
-					@for (col of columns(); track col.key) {
-						<th hlmTh [class]="col.class">{{ col.label }}</th>
-					}
-				</tr>
-				@for (row of rows(); track row.name + $index) {
+				<thead hlmTHead>
 					<tr hlmTr>
 						@for (col of columns(); track col.key) {
-							<td hlmTd [class]="col.class">
-								@if (row[col.key]) {
-									{{ row[col.key] }}
-								} @else {
-									<span class="sr-hidden">-</span>
-								}
-							</td>
+							<th hlmTh [class]="col.class">{{ col.label }}</th>
 						}
 					</tr>
-				}
+				</thead>
+				<tbody hlmTBody>
+					@for (row of rows(); track row.name + $index) {
+						<tr hlmTr>
+							@for (col of columns(); track col.key) {
+								<td hlmTd [class]="col.class">
+									@if (row[col.key]) {
+										{{ row[col.key] }}
+									} @else {
+										<span class="sr-hidden">-</span>
+									}
+								</td>
+							}
+						</tr>
+					}
+				</tbody>
 			</table>
 		</div>
 	`,

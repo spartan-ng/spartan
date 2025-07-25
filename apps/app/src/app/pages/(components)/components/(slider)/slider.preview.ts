@@ -21,6 +21,6 @@ export class SliderPreviewComponent {
 export const defaultImports = `
 import { HlmSliderComponent } from '@spartan-ng/helm/slider';
 `;
-export const defaultSlider = `
+export const defaultSkeleton = `
 <hlm-slider />
 `;

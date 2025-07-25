@@ -1,5 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
+import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { hlmH4 } from '@spartan-ng/helm/typography';
 import { CodePreviewDirective } from '../../../../shared/code/code-preview.directive';
 import { CodeComponent } from '../../../../shared/code/code.component';
@@ -13,10 +14,9 @@ import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { defaultCode, dropdownWithContextCode, dropdownWithStateCode } from './dropdown-menu.generated';
+import { DropdownWithContextPreviewComponent } from './dropdown-menu-with-context.preview';
+import { DropdownWithStatePreviewComponent } from './dropdown-menu-with-state.preview';
 import { DropdownPreviewComponent, defaultImports, defaultSkeleton } from './dropdown-menu.preview';
-import { DropdownWithContextPreviewComponent } from './dropdown-with-context.preview';
-import { DropdownWithStatePreviewComponent } from './dropdown-with-state.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Dropdown', api: 'menu' },
@@ -56,7 +56,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-dropdown-preview />
 				</div>
-				<spartan-code secondTab [code]="_defaultCode" />
+				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -80,7 +80,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-dropdown-with-state />
 				</div>
-				<spartan-code secondTab [code]="_dropdownWithStateCode" />
+				<spartan-code secondTab [code]="_withStateCode()" />
 			</spartan-tabs>
 
 			<h3 id="examples__context" class="${hlmH4} mb-2 mt-6">Passing context to menu</h3>
@@ -88,7 +88,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-dropdown-with-context />
 				</div>
-				<spartan-code secondTab [code]="_dropdownWithContextCode" />
+				<spartan-code secondTab [code]="_withContextCode()" />
 			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
@@ -100,9 +100,10 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class DropdownPageComponent {
-	protected readonly _defaultCode = defaultCode;
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('dropdown-menu');
+	protected readonly _defaultCode = computed(() => this._snippets()['default']);
+	protected readonly _withStateCode = computed(() => this._snippets()['withState']);
+	protected readonly _withContextCode = computed(() => this._snippets()['withContext']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
-	protected readonly _dropdownWithStateCode = dropdownWithStateCode;
-	protected readonly _dropdownWithContextCode = dropdownWithContextCode;
 }

@@ -1,7 +1,10 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { hlmCode, hlmH4, hlmP } from '@spartan-ng/helm/typography';
+import { PrimitiveSnippetsService } from '../../../../core/services/primitive-snippets.service';
+import { CodePreviewDirective } from '../../../../shared/code/code-preview.directive';
 import { CodeComponent } from '../../../../shared/code/code.component';
+import { MainSectionDirective } from '../../../../shared/layout/main-section.directive';
 import { PageBottomNavLinkComponent } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav-link.component';
 import { PageBottomNavComponent } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav.component';
 import { PageNavComponent } from '../../../../shared/layout/page-nav/page-nav.component';
@@ -12,7 +15,6 @@ import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { CalendarMultipleExampleComponent } from './calendar--multiple.example';
-import { calendarMultipleCode, defaultCode } from './calendar.generated';
 import { CalendarPreviewComponent, defaultImports, defaultSkeleton } from './calendar.preview';
 
 export const routeMeta: RouteMeta = {
@@ -24,6 +26,8 @@ export const routeMeta: RouteMeta = {
 @Component({
 	selector: 'spartan-calendar',
 	imports: [
+		MainSectionDirective,
+		CodePreviewDirective,
 		UIApiDocsComponent,
 		CalendarPreviewComponent,
 		SectionIntroComponent,
@@ -44,7 +48,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-calendar-preview />
 				</div>
-				<spartan-code secondTab [code]="_defaultCode" />
+				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -83,7 +87,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-calendar-multiple />
 				</div>
-				<spartan-code secondTab [code]="_calendarMultipleCode" />
+				<spartan-code secondTab [code]="_multipleCode()" />
 			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
@@ -94,9 +98,10 @@ export const routeMeta: RouteMeta = {
 		<spartan-page-nav />
 	`,
 })
-export default class CardPageComponent {
-	protected readonly _defaultCode = defaultCode;
+export default class CalendarPageComponent {
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('calendar');
+	protected readonly _defaultCode = computed(() => this._snippets()['default']);
+	protected readonly _multipleCode = computed(() => this._snippets()['multiple']);
 	protected readonly _defaultImports = defaultImports;
 	protected readonly _defaultSkeleton = defaultSkeleton;
-	protected readonly _calendarMultipleCode = calendarMultipleCode;
 }

@@ -1,5 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
+import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { CodePreviewDirective } from '../../../../shared/code/code-preview.directive';
 import { CodeComponent } from '../../../../shared/code/code.component';
 import { MainSectionDirective } from '../../../../shared/layout/main-section.directive';
@@ -11,8 +12,7 @@ import { SectionSubHeadingComponent } from '../../../../shared/layout/section-su
 import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { defaultCode } from './slider.generated';
-import { SliderPreviewComponent, defaultImports, defaultSlider } from './slider.preview';
+import { SliderPreviewComponent, defaultImports, defaultSkeleton } from './slider.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Slider' },
@@ -42,7 +42,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-slider-preview />
 				</div>
-				<spartan-code secondTab [code]="_defaultCode" />
+				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -67,7 +67,8 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class SliderPageComponent {
-	protected readonly _defaultCode = defaultCode;
-	protected readonly _defaultSlider = defaultSlider;
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('slider');
+	protected readonly _defaultCode = computed(() => this._snippets()['default']);
+	protected readonly _defaultSlider = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

@@ -1,10 +1,11 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { hlmH4 } from '@spartan-ng/helm/typography';
 import { CodePreviewDirective } from '../../../../shared/code/code-preview.directive';
 import { CodeComponent } from '../../../../shared/code/code.component';
 import { MainSectionDirective } from '../../../../shared/layout/main-section.directive';
 
+import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { PageBottomNavLinkComponent } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav-link.component';
 import { PageBottomNavComponent } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav.component';
 import { PageNavComponent } from '../../../../shared/layout/page-nav/page-nav.component';
@@ -14,8 +15,8 @@ import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { ContextMenuPreviewWithStateComponent, defaultCodeWithState } from './context-menu-with-state.preview';
-import { ContextMenuPreviewComponent, defaultCode, defaultImports, defaultSkeleton } from './context-menu.preview';
+import { ContextMenuPreviewWithStateComponent } from './context-menu-with-state.preview';
+import { ContextMenuPreviewComponent, defaultImports, defaultSkeleton } from './context-menu.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Context Menu', api: 'menu' },
@@ -54,7 +55,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-context-menu-preview />
 				</div>
-				<spartan-code secondTab [code]="_defaultCode" />
+				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -81,7 +82,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-context-menu-with-state />
 				</div>
-				<spartan-code secondTab [code]="_defaultCodeWithState" />
+				<spartan-code secondTab [code]="_withStateCode()" />
 			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
@@ -93,8 +94,9 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class ComboboxPageComponent {
-	protected readonly _defaultCode = defaultCode;
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('context-menu');
+	protected readonly _defaultCode = computed(() => this._snippets()['default']);
+	protected readonly _withStateCode = computed(() => this._snippets()['withState']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
-	protected readonly _defaultCodeWithState = defaultCodeWithState;
 	protected readonly _defaultImports = defaultImports;
 }

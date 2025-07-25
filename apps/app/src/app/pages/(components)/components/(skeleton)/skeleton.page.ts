@@ -1,5 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
+import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { hlmH4 } from '@spartan-ng/helm/typography';
 import { CodePreviewDirective } from '../../../../shared/code/code-preview.directive';
 import { CodeComponent } from '../../../../shared/code/code.component';
@@ -14,7 +15,6 @@ import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { SkeletonCardComponent } from './skeleton--card.preview';
-import { defaultCode, skeletonCardCode } from './skeleton.generated';
 import { SkeletonPreviewComponent, defaultImports, defaultSkeleton } from './skeleton.preview';
 
 export const routeMeta: RouteMeta = {
@@ -47,7 +47,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-skeleton-preview />
 				</div>
-				<spartan-code secondTab [code]="_defaultCode" />
+				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -73,7 +73,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-skeleton-card />
 				</div>
-				<spartan-code secondTab [code]="_skeletonCardCode" />
+				<spartan-code secondTab [code]="_cardCode()" />
 			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
@@ -85,9 +85,9 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class SkeletonPageComponent {
-	protected readonly _defaultCode = defaultCode;
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('skeleton');
+	protected readonly _defaultCode = computed(() => this._snippets()['default']);
+	protected readonly _cardCode = computed(() => this._snippets()['card']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
-
-	protected readonly _skeletonCardCode = skeletonCardCode;
 }

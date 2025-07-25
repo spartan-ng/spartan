@@ -15,9 +15,6 @@ import { DateTime } from 'luxon';
 		// Global formatDate config
 		provideHlmDatePickerConfig({ formatDate: (date: Date) => DateTime.fromJSDate(date).toFormat('dd.MM.yyyy') }),
 	],
-	host: {
-		class: 'preview flex min-h-[350px] w-full justify-center p-10 items-center',
-	},
 })
 export class DatePickerFormatExample {
 	/** The minimum date */

@@ -1,10 +1,11 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { hlmH4 } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
 
+import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { PageBottomNav } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav';
 import { PageBottomNavLink } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav-link';
 import { PageNav } from '../../../../shared/layout/page-nav/page-nav';
@@ -15,7 +16,6 @@ import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { BadgeLink } from './badge--link.example';
-import { badgeLinkCode, defaultCode } from './badge.generated';
 import { BadgePreview, defaultImports, defaultSkeleton } from './badge.preview';
 
 export const routeMeta: RouteMeta = {
@@ -49,7 +49,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-badge-preview />
 				</div>
-				<spartan-code secondTab [code]="defaultCode" />
+				<spartan-code secondTab [code]="_defaultCode" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -61,8 +61,8 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="space-y-4">
-				<spartan-code [code]="defaultImports" />
-				<spartan-code [code]="defaultSkeleton" />
+				<spartan-code [code]="_defaultImports" />
+				<spartan-code [code]="_defaultSkeleton" />
 			</div>
 
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
@@ -75,7 +75,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-badge-link />
 				</div>
-				<spartan-code secondTab [code]="badgeLinkCode" />
+				<spartan-code secondTab [code]="_badgeLinkCode" />
 			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
@@ -87,8 +87,9 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class BadgePage {
-	public readonly defaultCode = defaultCode;
-	public readonly defaultSkeleton = defaultSkeleton;
-	public readonly defaultImports = defaultImports;
-	public readonly badgeLinkCode = badgeLinkCode;
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('badge')();
+	protected readonly _defaultCode = this._snippets['default'];
+	protected readonly _defaultSkeleton = defaultSkeleton;
+	protected readonly _defaultImports = defaultImports;
+	protected readonly _badgeLinkCode = this._snippets['link'];
 }

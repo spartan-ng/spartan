@@ -1,5 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { hlmH4 } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
@@ -14,7 +15,6 @@ import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { SkeletonCard } from './skeleton--card.preview';
-import { defaultCode, skeletonCardCode } from './skeleton.generated';
 import { SkeletonPreview, defaultImports, defaultSkeleton } from './skeleton.preview';
 
 export const routeMeta: RouteMeta = {
@@ -73,7 +73,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-skeleton-card />
 				</div>
-				<spartan-code secondTab [code]="_skeletonCardCode" />
+				<spartan-code secondTab [code]="_cardCode" />
 			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
@@ -85,9 +85,9 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class SkeletonPage {
-	protected readonly _defaultCode = defaultCode;
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('skeleton')();
+	protected readonly _defaultCode = this._snippets['default'];
+	protected readonly _cardCode = this._snippets['card'];
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
-
-	protected readonly _skeletonCardCode = skeletonCardCode;
 }

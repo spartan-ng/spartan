@@ -1,5 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { hlmCode, hlmH4 } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
@@ -18,16 +19,7 @@ import { CarouselPlugins } from './carousel--plugins.example';
 import { CarouselSizes } from './carousel--sizes.example';
 import { CarouselSlideCount } from './carousel--slide-count.example';
 import { CarouselSpacing } from './carousel--spacing.example';
-import {
-	carouselOrientationCode,
-	carouselPluginsCode,
-	carouselSizesCode,
-	carouselSlideCountCode,
-	carouselSpacingCode,
-	defaultCode,
-} from './carousel.generated';
 import { CarouselPreview, defaultImports, defaultSkeleton } from './carousel.preview';
-
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Carousel', api: 'carousel' },
 	meta: metaWith('spartan/ui - Carousel', 'A carousel with motion and swipe built using Embla.'),
@@ -172,12 +164,13 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class CarouselPage {
-	protected readonly _defaultCode = defaultCode;
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('carousel')();
+	protected readonly _defaultCode = this._snippets['default'];
+	protected readonly _sizesCode = this._snippets['sizes'];
+	protected readonly _spacingCode = this._snippets['spacing'];
+	protected readonly _slideCountCode = this._snippets['slideCount'];
+	protected readonly _pluginsCode = this._snippets['plugins'];
+	protected readonly _orientationCode = this._snippets['orientation'];
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
-	protected readonly _sizesCode = carouselSizesCode;
-	protected readonly _spacingCode = carouselSpacingCode;
-	protected readonly _slideCountCode = carouselSlideCountCode;
-	protected readonly _pluginsCode = carouselPluginsCode;
-	protected readonly _orientationCode = carouselOrientationCode;
 }

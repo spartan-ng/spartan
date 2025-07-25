@@ -1,5 +1,4 @@
 import { RouteMeta } from '@analogjs/router';
-import { Component } from '@angular/core';
 import { Code } from '@spartan-ng/app/app/shared/code/code';
 import { CodePreview } from '@spartan-ng/app/app/shared/code/code-preview';
 import { MainSection } from '@spartan-ng/app/app/shared/layout/main-section';
@@ -16,13 +15,9 @@ import { ToggleGroupDisabledPreview } from './toggle-group--disabled.preview';
 import { ToggleGroupLargePreview } from './toggle-group--large.preview';
 import { ToggleGroupOutlinePreview } from './toggle-group--outline.preview';
 import { ToggleGroupSmallPreview } from './toggle-group--small.preview';
-import {
-	defaultCode,
-	toggleGroupDisabledCode,
-	toggleGroupLargeCode,
-	toggleGroupOutlineCode,
-	toggleGroupSmallCode,
-} from './toggle-group.generated';
+
+import { Component, inject } from '@angular/core';
+import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { ToggleGroupPreview, defaultImports, defaultSkeleton } from './toggle-group.preview';
 
 export const routeMeta: RouteMeta = {
@@ -120,11 +115,12 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class ToggleGroupPage {
-	protected readonly _defaultCode = defaultCode;
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('toggle-group')();
+	protected readonly _defaultCode = this._snippets['default'];
+	protected readonly _outlineCode = this._snippets['outline'];
+	protected readonly _smallCode = this._snippets['small'];
+	protected readonly _largeCode = this._snippets['large'];
+	protected readonly _disabledCode = this._snippets['disabled'];
 	protected readonly _defaultImports = defaultImports;
 	protected readonly _defaultSkeleton = defaultSkeleton;
-	protected readonly _outlineCode = toggleGroupOutlineCode;
-	protected readonly _smallCode = toggleGroupSmallCode;
-	protected readonly _largeCode = toggleGroupLargeCode;
-	protected readonly _disabledCode = toggleGroupDisabledCode;
 }

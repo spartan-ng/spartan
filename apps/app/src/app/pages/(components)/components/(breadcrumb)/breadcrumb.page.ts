@@ -1,5 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { hlmCode, hlmH4, hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
@@ -16,12 +17,6 @@ import { metaWith } from '../../../../shared/meta/meta.util';
 import { BreadcrumbCollapsed } from './breadcrumb--collapsed.example';
 import { BreadcrumbCustomSeparator } from './breadcrumb--custom-separator.example';
 import { BreadcrumbDropdown } from './breadcrumb--dropdown.example';
-import {
-	breadcrumbCollapsedCode,
-	breadcrumbCustomSeparatorCode,
-	breadcrumbDropdownCode,
-	defaultCode,
-} from './breadcrumb.generated';
 import { BreadcrumbPreview, defaultImports, defaultSkeleton } from './breadcrumb.preview';
 
 export const routeMeta: RouteMeta = {
@@ -133,11 +128,11 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class BreadcrumbPage {
-	protected readonly _defaultCode = defaultCode;
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('breadcrumb')();
+	protected readonly _defaultCode = this._snippets['default'];
+	protected readonly _customSeparatorCode = this._snippets['customSeparator'];
+	protected readonly _dropdownCode = this._snippets['dropdown'];
+	protected readonly _collapsedCode = this._snippets['collapsed'];
 	protected readonly _defaultImports = defaultImports;
 	protected readonly _defaultSkeleton = defaultSkeleton;
-
-	protected readonly _customSeparatorCode = breadcrumbCustomSeparatorCode;
-	protected readonly _dropdownCode = breadcrumbDropdownCode;
-	protected readonly _collapsedCode = breadcrumbCollapsedCode;
 }

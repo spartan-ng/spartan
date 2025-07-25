@@ -1,5 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { hlmH4 } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
@@ -16,7 +17,6 @@ import { metaWith } from '../../../../shared/meta/meta.util';
 import { SelectMultiplePreview } from './select--multiple.preview';
 import { SelectScrollablePreview } from './select--scrollable.preview';
 import { SelectValueTemplatePreview } from './select--value-template.preview';
-import { defaultCode, selectMultipleCode, selectScrollableCode, selectValueTemplateCode } from './select.generated';
 import { SelectPreview, defaultImports, defaultSkeleton, defaultStyles } from './select.preview';
 
 export const routeMeta: RouteMeta = {
@@ -107,11 +107,12 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class SkeletonPage {
-	protected readonly _defaultCode = defaultCode;
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('select')();
+	protected readonly _defaultCode = this._snippets['default'];
+	protected readonly _multipleCode = this._snippets['multiple'];
+	protected readonly _scrollableCode = this._snippets['scrollable'];
+	protected readonly _valueTemplateCode = this._snippets['valueTemplate'];
+	protected readonly _defaultStyles = defaultStyles;
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
-	protected readonly _defaultStyles = defaultStyles;
-	protected readonly _multipleCode = selectMultipleCode;
-	protected readonly _scrollableCode = selectScrollableCode;
-	protected readonly _valueTemplateCode = selectValueTemplateCode;
 }

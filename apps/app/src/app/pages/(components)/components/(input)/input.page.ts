@@ -1,5 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { hlmH4 } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
@@ -17,7 +18,6 @@ import { InputButtonPreview } from './input--button.preview';
 import { InputDisabledPreview } from './input--disabled.preview';
 import { InputFilePreview } from './input--file.preview';
 import { InputLabelPreview } from './input--label.preview';
-import { defaultCode, inputButtonCode, inputDisabledCode, inputFileCode, inputLabelCode } from './input.generated';
 import { InputPreview, defaultImports, defaultSkeleton } from './input.preview';
 
 export const routeMeta: RouteMeta = {
@@ -117,11 +117,12 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class InputPage {
-	protected readonly _defaultCode = defaultCode;
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('input')();
+	protected readonly _defaultCode = this._snippets['default'];
+	protected readonly _fileCode = this._snippets['file'];
+	protected readonly _disabledCode = this._snippets['disabled'];
+	protected readonly _labelCode = this._snippets['label'];
+	protected readonly _buttonCode = this._snippets['button'];
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
-	protected readonly _fileCode = inputFileCode;
-	protected readonly _disabledCode = inputDisabledCode;
-	protected readonly _labelCode = inputLabelCode;
-	protected readonly _buttonCode = inputButtonCode;
 }

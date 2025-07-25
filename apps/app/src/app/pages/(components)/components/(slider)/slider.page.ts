@@ -1,5 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
@@ -11,8 +12,7 @@ import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading
 import { Tabs } from '../../../../shared/layout/tabs';
 import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { defaultCode } from './slider.generated';
-import { SliderPreview, defaultImports, defaultSlider } from './slider.preview';
+import { SliderPreview, defaultImports, defaultSkeleton } from './slider.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Slider' },
@@ -67,7 +67,8 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class SliderPage {
-	protected readonly _defaultCode = defaultCode;
-	protected readonly _defaultSlider = defaultSlider;
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('slider')();
+	protected readonly _defaultCode = this._snippets['default'];
+	protected readonly _defaultSlider = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

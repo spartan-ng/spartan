@@ -1,7 +1,8 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideTriangleAlert } from '@ng-icons/lucide';
+import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { HlmAlert, HlmAlertDescription, HlmAlertIcon, HlmAlertTitle } from '@spartan-ng/helm/alert';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
@@ -21,13 +22,6 @@ import { DialogClosePreview } from './dialog-close.preview';
 import { DialogContextMenuPreview } from './dialog-context-menu.preview';
 import { DialogDeclarativePreview } from './dialog-declarative.preview';
 import { DialogDynamicPreview } from './dialog-dynamic-component.preview';
-import {
-	defaultCode,
-	dialogCloseCode,
-	dialogContextMenuCode,
-	dialogDeclarativeCode,
-	dialogDynamicComponentCode,
-} from './dialog.generated';
 import { DialogPreview, defaultImports, defaultSkeleton } from './dialog.preview';
 
 export const routeMeta: RouteMeta = {
@@ -185,7 +179,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-dialog-close-preview />
 				</div>
-				<spartan-code secondTab [code]="_defaultCloseCode" />
+				<spartan-code secondTab [code]="_closeCode" />
 			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
@@ -197,11 +191,12 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class DialogPage {
-	protected readonly _defaultCode = defaultCode;
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('dialog')();
+	protected readonly _defaultCode = this._snippets['default'];
+	protected readonly _contextMenuCode = this._snippets['contextMenu'];
+	protected readonly _dynamicComponentCode = this._snippets['dynamicComponent'];
+	protected readonly _declarativeCode = this._snippets['declarative'];
+	protected readonly _closeCode = this._snippets['close'];
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
-	protected readonly _contextMenuCode = dialogContextMenuCode;
-	protected readonly _dynamicComponentCode = dialogDynamicComponentCode;
-	protected readonly _declarativeCode = dialogDeclarativeCode;
-	protected readonly _defaultCloseCode = dialogCloseCode;
 }

@@ -1,10 +1,11 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { HlmAlertDescriptionDirective, HlmAlertDirective } from '@spartan-ng/helm/alert';
 import { hlmCode, hlmH4 } from '@spartan-ng/helm/typography';
 
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCircleAlert } from '@ng-icons/lucide';
+import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { HlmIconDirective } from '@spartan-ng/helm/icon';
 import { CodePreviewDirective } from '../../../../shared/code/code-preview.directive';
 import { CodeComponent } from '../../../../shared/code/code.component';
@@ -20,7 +21,6 @@ import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { TabsPaginatedPreviewComponent } from './tabs--paginated.preview';
 import { TabsVerticalPreviewComponent } from './tabs--vertical.preview';
-import { defaultCode, tabsPaginatedCode, tabsVerticalCode } from './tabs.generated';
 import { TabsPreviewComponent, defaultImports, defaultSkeleton } from './tabs.preview';
 
 export const routeMeta: RouteMeta = {
@@ -140,10 +140,10 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class TabsPageComponent {
-	protected readonly _defaultCode = defaultCode;
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('tabs')();
+	protected readonly _defaultCode = this._snippets['default'];
+	protected readonly _verticalCode = this._snippets['vertical'];
+	protected readonly _paginatedCode = this._snippets['paginated'];
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
-
-	protected readonly _verticalCode = tabsVerticalCode;
-	protected readonly _paginatedCode = tabsPaginatedCode;
 }

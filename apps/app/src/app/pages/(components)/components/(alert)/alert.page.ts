@@ -1,10 +1,11 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { hlmH4 } from '@spartan-ng/helm/typography';
 import { CodePreviewDirective } from '../../../../shared/code/code-preview.directive';
 import { CodeComponent } from '../../../../shared/code/code.component';
 import { MainSectionDirective } from '../../../../shared/layout/main-section.directive';
 
+import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { PageBottomNavLinkComponent } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav-link.component';
 import { PageBottomNavComponent } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav.component';
 import { PageNavComponent } from '../../../../shared/layout/page-nav/page-nav.component';
@@ -15,7 +16,6 @@ import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { AlertDestructiveComponent } from './alert--destructive.example';
-import { alertDestructiveCode, defaultCode } from './alert.generated';
 import { AlertPreviewComponent, defaultImports, defaultSkeleton } from './alert.preview';
 
 export const routeMeta: RouteMeta = {
@@ -87,8 +87,9 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class AlertPageComponent {
-	protected readonly _defaultCode = defaultCode;
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('alert')();
+	protected readonly _defaultCode = this._snippets['default'];
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
-	protected readonly _destructiveCode = alertDestructiveCode;
+	protected readonly _destructiveCode = this._snippets['destructive'];
 }

@@ -1,11 +1,12 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { hlmP } from '@spartan-ng/helm/typography';
 import { defaultImports, defaultSkeleton } from '../(context-menu)/context-menu.preview';
 import { CodePreviewDirective } from '../../../../shared/code/code-preview.directive';
 import { CodeComponent } from '../../../../shared/code/code.component';
 import { MainSectionDirective } from '../../../../shared/layout/main-section.directive';
 
+import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { link } from '@spartan-ng/app/app/shared/typography/link';
 import { PageBottomNavLinkComponent } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav-link.component';
 import { PageBottomNavComponent } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav.component';
@@ -15,7 +16,6 @@ import { SectionSubHeadingComponent } from '../../../../shared/layout/section-su
 import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { defaultCode } from './data-table.generated';
 import { DataTablePreviewComponent } from './data-table.preview';
 
 export const routeMeta: RouteMeta = {
@@ -95,7 +95,8 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class DataTablePageComponent {
-	protected readonly _defaultCode = defaultCode;
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('data-table')();
+	protected readonly _defaultCode = this._snippets['default'];
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

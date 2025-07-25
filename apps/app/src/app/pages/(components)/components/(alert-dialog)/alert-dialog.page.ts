@@ -1,5 +1,5 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CodePreviewDirective } from '../../../../shared/code/code-preview.directive';
 import { CodeComponent } from '../../../../shared/code/code.component';
 import { MainSectionDirective } from '../../../../shared/layout/main-section.directive';
@@ -13,8 +13,8 @@ import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { defaultCode } from './alert-dialog.generated';
 import { AlertDialogPreviewComponent, defaultImports, defaultSkeleton } from './alert-dialog.preview';
+import { PrimitiveSnippetsService } from '../../../../core/services/primitive-snippets.service';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Alert Dialog', api: 'alert-dialog' },
@@ -83,7 +83,8 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class AlertPageComponent {
-	protected readonly _defaultCode = defaultCode;
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('alert-dialog')();
+	protected readonly _defaultCode = this._snippets['default'];
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

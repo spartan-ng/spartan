@@ -1,5 +1,6 @@
 import { RouteMeta } from '@analogjs/router';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { CodePreviewDirective } from '@spartan-ng/app/app/shared/code/code-preview.directive';
 import { CodeComponent } from '@spartan-ng/app/app/shared/code/code.component';
 import { MainSectionDirective } from '@spartan-ng/app/app/shared/layout/main-section.directive';
@@ -16,13 +17,6 @@ import { ToggleGroupDisabledPreviewComponent } from './toggle-group--disabled.pr
 import { ToggleGroupLargePreviewComponent } from './toggle-group--large.preview';
 import { ToggleGroupOutlinePreviewComponent } from './toggle-group--outline.preview';
 import { ToggleGroupSmallPreviewComponent } from './toggle-group--small.preview';
-import {
-	defaultCode,
-	toggleGroupDisabledCode,
-	toggleGroupLargeCode,
-	toggleGroupOutlineCode,
-	toggleGroupSmallCode,
-} from './toggle-group.generated';
 import { ToggleGroupPreviewComponent, defaultImports, defaultSkeleton } from './toggle-group.preview';
 
 export const routeMeta: RouteMeta = {
@@ -120,11 +114,12 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class ToggleGroupPageComponent {
-	protected readonly _defaultCode = defaultCode;
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('toggle-group')();
+	protected readonly _defaultCode = this._snippets['default'];
+	protected readonly _outlineCode = this._snippets['outline'];
+	protected readonly _smallCode = this._snippets['small'];
+	protected readonly _largeCode = this._snippets['large'];
+	protected readonly _disabledCode = this._snippets['disabled'];
 	protected readonly _defaultImports = defaultImports;
 	protected readonly _defaultSkeleton = defaultSkeleton;
-	protected readonly _outlineCode = toggleGroupOutlineCode;
-	protected readonly _smallCode = toggleGroupSmallCode;
-	protected readonly _largeCode = toggleGroupLargeCode;
-	protected readonly _disabledCode = toggleGroupDisabledCode;
 }

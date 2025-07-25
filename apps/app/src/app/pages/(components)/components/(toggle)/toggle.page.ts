@@ -1,10 +1,11 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { hlmH4 } from '@spartan-ng/helm/typography';
 import { CodePreviewDirective } from '../../../../shared/code/code-preview.directive';
 import { CodeComponent } from '../../../../shared/code/code.component';
 import { MainSectionDirective } from '../../../../shared/layout/main-section.directive';
 
+import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { PageBottomNavLinkComponent } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav-link.component';
 import { PageBottomNavComponent } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav.component';
 import { PageNavComponent } from '../../../../shared/layout/page-nav/page-nav.component';
@@ -19,14 +20,6 @@ import { ToggleLargePreviewComponent } from './toggle--large.preview';
 import { ToggleOutlinePreviewComponent } from './toggle--outline.preview';
 import { ToggleSmallPreviewComponent } from './toggle--small.preview';
 import { ToggleWithTextPreviewComponent } from './toggle--with-text.preview';
-import {
-	defaultCode,
-	toggleDisabledCode,
-	toggleLargeCode,
-	toggleOutlineCode,
-	toggleSmallCode,
-	toggleWithTextCode,
-} from './toggle.generated';
 import { TogglePreviewComponent, defaultImports, defaultSkeleton } from './toggle.preview';
 
 export const routeMeta: RouteMeta = {
@@ -131,12 +124,13 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class TogglePageComponent {
-	protected readonly _defaultCode = defaultCode;
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('toggle')();
+	protected readonly _defaultCode = this._snippets['default'];
+	protected readonly _disabledCode = this._snippets['disabled'];
+	protected readonly _largeCode = this._snippets['large'];
+	protected readonly _outlineCode = this._snippets['outline'];
+	protected readonly _smallCode = this._snippets['small'];
+	protected readonly _withTextCode = this._snippets['withText'];
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
-	protected readonly _disabledCode = toggleDisabledCode;
-	protected readonly _largeCode = toggleLargeCode;
-	protected readonly _outlineCode = toggleOutlineCode;
-	protected readonly _smallCode = toggleSmallCode;
-	protected readonly _withTextCode = toggleWithTextCode;
 }

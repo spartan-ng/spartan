@@ -12,6 +12,7 @@ import {
 } from '@spartan-ng/helm/alert';
 import { HlmIconDirective } from '@spartan-ng/helm/icon';
 import { ApiDocsService } from '../../core/services/api-docs.service';
+import { PrimitiveSnippetsService } from '../../core/services/primitive-snippets.service';
 import { PageComponent } from '../../shared/layout/page.component';
 import { metaWith } from '../../shared/meta/meta.util';
 import { load } from './components.server';
@@ -60,8 +61,10 @@ export const routeMeta: RouteMeta = {
 export default class ComponentsPageComponent {
 	private readonly _apiData = toSignal(injectLoad<typeof load>(), { requireSync: true });
 	private readonly _apiDocsService = inject(ApiDocsService);
+	private readonly _primitivesService = inject(PrimitiveSnippetsService);
 
 	constructor() {
-		this._apiDocsService.setApiDocs(this._apiData());
+		this._apiDocsService.setApiDocs(this._apiData().docsData);
+		this._primitivesService.setSnippets(this._apiData().primitivesData);
 	}
 }

@@ -1,5 +1,5 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { HlmButtonDirective } from '@spartan-ng/helm/button';
 import { hlmCode, hlmH4, hlmP } from '@spartan-ng/helm/typography';
@@ -7,6 +7,7 @@ import { CodePreviewDirective } from '../../../../shared/code/code-preview.direc
 import { CodeComponent } from '../../../../shared/code/code.component';
 import { MainSectionDirective } from '../../../../shared/layout/main-section.directive';
 
+import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { PageBottomNavLinkComponent } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav-link.component';
 import { PageBottomNavComponent } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav.component';
 import { PageNavComponent } from '../../../../shared/layout/page-nav/page-nav.component';
@@ -17,7 +18,6 @@ import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { CommandDialogComponent } from './command--dialog.example';
-import { commandDialogCode, defaultCode } from './command.generated';
 import { CommandPreviewComponent, defaultImports, defaultSkeleton } from './command.preview';
 
 export const routeMeta: RouteMeta = {
@@ -102,8 +102,9 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class CommandPageComponent {
-	protected readonly _defaultCode = defaultCode;
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('command')();
+	protected readonly _defaultCode = this._snippets['default'];
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
-	protected readonly _commandDialogCode = commandDialogCode;
+	protected readonly _commandDialogCode = this._snippets['dialog'];
 }

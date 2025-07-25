@@ -1,6 +1,5 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component } from '@angular/core';
-import { TabsCliComponent } from '@spartan-ng/app/app/shared/layout/tabs-cli.component';
+import { Component, inject } from '@angular/core';
 import { CodePreviewDirective } from '../../../../shared/code/code-preview.directive';
 import { CodeComponent } from '../../../../shared/code/code.component';
 import { MainSectionDirective } from '../../../../shared/layout/main-section.directive';
@@ -10,11 +9,12 @@ import { PageBottomNavComponent } from '../../../../shared/layout/page-bottom-na
 import { PageNavComponent } from '../../../../shared/layout/page-nav/page-nav.component';
 import { SectionIntroComponent } from '../../../../shared/layout/section-intro.component';
 import { SectionSubHeadingComponent } from '../../../../shared/layout/section-sub-heading.component';
+import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { defaultCode } from './avatar.generated';
 import { AvatarPreviewComponent, defaultImports, defaultSkeleton } from './avatar.preview';
+import { PrimitiveSnippetsService } from '../../../../core/services/primitive-snippets.service';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Avatar', api: 'avatar' },
@@ -77,7 +77,8 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class AvatarPageComponent {
-	protected readonly _defaultCode = defaultCode;
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('avatar')();
+	protected readonly _defaultCode = this._snippets['default'];
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

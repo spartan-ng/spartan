@@ -1,5 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { hlmCode, hlmH4 } from '@spartan-ng/helm/typography';
 import { CodePreviewDirective } from '../../../../shared/code/code-preview.directive';
 import { CodeComponent } from '../../../../shared/code/code.component';
@@ -17,13 +18,6 @@ import { PaginationAdvancedQueryComponent } from './pagination--advanced-query.e
 import { PaginationAdvancedComponent } from './pagination--advanced.example';
 import { PaginationIconOnlyComponent } from './pagination--icon-only.example';
 import { PaginationQueryParamsComponent } from './pagination--query-params.example';
-import {
-	defaultCode,
-	paginationAdvancedCode,
-	paginationAdvancedQueryCode,
-	paginationIconOnlyCode,
-	paginationQueryParamsCode,
-} from './pagination.generated';
 import { PaginationPreviewComponent, defaultImports, defaultSkeleton } from './pagination.preview';
 
 export const routeMeta: RouteMeta = {
@@ -113,7 +107,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-pagination-advanced-query-params />
 				</div>
-				<spartan-code secondTab [code]="_advancedQueryParamsCode" />
+				<spartan-code secondTab [code]="_advancedQueryCode" />
 			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
@@ -125,12 +119,12 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class PaginationPageComponent {
-	protected readonly _defaultCode = defaultCode;
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('pagination')();
+	protected readonly _defaultCode = this._snippets['default'];
+	protected readonly _queryParamsCode = this._snippets['queryParams'];
+	protected readonly _iconOnlyCode = this._snippets['iconOnly'];
+	protected readonly _advancedCode = this._snippets['advanced'];
+	protected readonly _advancedQueryCode = this._snippets['advancedQuery'];
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
-
-	protected readonly _queryParamsCode = paginationQueryParamsCode;
-	protected readonly _iconOnlyCode = paginationIconOnlyCode;
-	protected readonly _advancedCode = paginationAdvancedCode;
-	protected readonly _advancedQueryParamsCode = paginationAdvancedQueryCode;
 }

@@ -1,5 +1,5 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { CodePreviewDirective } from '../../../../shared/code/code-preview.directive';
 import { CodeComponent } from '../../../../shared/code/code.component';
@@ -11,9 +11,9 @@ import { PageNavComponent } from '../../../../shared/layout/page-nav/page-nav.co
 import { SectionIntroComponent } from '../../../../shared/layout/section-intro.component';
 import { SectionSubHeadingComponent } from '../../../../shared/layout/section-sub-heading.component';
 
+import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { TabsComponent } from '../../../../shared/layout/tabs.component';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { defaultCode } from './combobox.generated';
 import { ComboboxPreviewComponent } from './combobox.preview';
 
 export const routeMeta: RouteMeta = {
@@ -74,5 +74,6 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class ComboboxPageComponent {
-	protected readonly _defaultCode = defaultCode;
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('combobox')();
+	protected readonly _defaultCode = this._snippets['default'];
 }

@@ -1,5 +1,5 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { hlmH4 } from '@spartan-ng/helm/typography';
 import { CodePreviewDirective } from '../../../../shared/code/code-preview.directive';
 import { CodeComponent } from '../../../../shared/code/code.component';
@@ -23,19 +23,8 @@ import { ButtonLoadingComponent } from './button--loading.example';
 import { ButtonOutlineComponent } from './button--outline.example';
 import { ButtonSecondaryComponent } from './button--secondary.example';
 import { ButtonWithIconComponent } from './button--with-icon.example';
-import {
-	buttonAnchorCode,
-	buttonDestructiveCode,
-	buttonGhostCode,
-	buttonIconCode,
-	buttonLinkCode,
-	buttonLoadingCode,
-	buttonOutlineCode,
-	buttonSecondaryCode,
-	buttonWithIconCode,
-	defaultCode,
-} from './button.generated';
 import { ButtonPreviewComponent, defaultImports, defaultSkeleton } from './button.preview';
+import { PrimitiveSnippetsService } from '../../../../core/services/primitive-snippets.service';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Button', api: 'button' },
@@ -169,17 +158,18 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class ButtonPageComponent {
-	protected readonly _defaultCode = defaultCode;
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('button')();
+	protected readonly _defaultCode = this._snippets['default'];
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 
-	protected readonly _secondaryCode = buttonSecondaryCode;
-	protected readonly _outlineCode = buttonOutlineCode;
-	protected readonly _destructiveCode = buttonDestructiveCode;
-	protected readonly _ghostCode = buttonGhostCode;
-	protected readonly _linkCode = buttonLinkCode;
-	protected readonly _iconCode = buttonIconCode;
-	protected readonly _withIconCode = buttonWithIconCode;
-	protected readonly _loadingCode = buttonLoadingCode;
-	protected readonly _anchorCode = buttonAnchorCode;
+	protected readonly _secondaryCode = this._snippets['secondary'];
+	protected readonly _outlineCode = this._snippets['outline'];
+	protected readonly _destructiveCode = this._snippets['destructive'];
+	protected readonly _ghostCode = this._snippets['ghost'];
+	protected readonly _linkCode = this._snippets['link'];
+	protected readonly _iconCode = this._snippets['icon'];
+	protected readonly _withIconCode = this._snippets['withIcon'];
+	protected readonly _loadingCode = this._snippets['loading'];
+	protected readonly _anchorCode = this._snippets['anchor'];
 }

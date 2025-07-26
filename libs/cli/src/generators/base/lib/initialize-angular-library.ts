@@ -1,3 +1,4 @@
+import { UnitTestRunner } from '@nx/angular/generators';
 import { type Tree, joinPathFragments, readNxJson } from '@nx/devkit';
 import type { HlmBaseGeneratorSchema } from '../schema';
 
@@ -19,5 +20,7 @@ export async function initializeAngularLibrary(tree: Tree, options: HlmBaseGener
 		skipModule: true,
 		directory: joinPathFragments(options.directory, options.publicName),
 		tags: options.tags,
+		skipTests: true,
+		unitTestRunner: UnitTestRunner.None,
 	});
 }

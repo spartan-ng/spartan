@@ -1,20 +1,13 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { FooterComponent } from './shared/footer/footer.component';
-import { HeaderComponent } from './shared/header/header.component';
+import { GithubRepoService } from './core/services/github-repo.service';
 
 @Component({
 	selector: 'spartan-root',
-	imports: [RouterOutlet, HeaderComponent, FooterComponent],
-	host: {
-		class: 'text-foreground block antialiased',
-	},
+	imports: [RouterOutlet],
 	template: `
-		<spartan-header />
-		<div class="mx-auto max-w-screen-2xl">
-			<router-outlet />
-		</div>
-		<spartan-footer />
+		<router-outlet />
 	`,
+	providers: [GithubRepoService],
 })
 export class AppComponent {}

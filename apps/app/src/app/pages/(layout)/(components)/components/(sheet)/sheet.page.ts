@@ -1,0 +1,111 @@
+import type { RouteMeta } from '@analogjs/router';
+import { Component } from '@angular/core';
+import { hlmH4 } from '@spartan-ng/helm/typography';
+import { CodePreviewDirective } from '../../../../../shared/code/code-preview.directive';
+import { CodeComponent } from '../../../../../shared/code/code.component';
+import { MainSectionDirective } from '../../../../../shared/layout/main-section.directive';
+import { PageBottomNavLinkComponent } from '../../../../../shared/layout/page-bottom-nav/page-bottom-nav-link.component';
+import { PageBottomNavComponent } from '../../../../../shared/layout/page-bottom-nav/page-bottom-nav.component';
+import { PageNavComponent } from '../../../../../shared/layout/page-nav/page-nav.component';
+import { SectionIntroComponent } from '../../../../../shared/layout/section-intro.component';
+import { SectionSubHeadingComponent } from '../../../../../shared/layout/section-sub-heading.component';
+import { TabsCliComponent } from '../../../../../shared/layout/tabs-cli.component';
+import { TabsComponent } from '../../../../../shared/layout/tabs.component';
+import { UIApiDocsComponent } from '../../../../../shared/layout/ui-docs-section/ui-docs-section.component';
+import { metaWith } from '../../../../../shared/meta/meta.util';
+import { SheetSidePreviewComponent } from './sheet--side.preview';
+import { SheetClosePreviewComponent } from './sheet-close.preview';
+import { defaultCode, sheetCloseCode, sheetSideCode } from './sheet.generated';
+import { SheetPreviewComponent, defaultImports, defaultSkeleton } from './sheet.preview';
+
+export const routeMeta: RouteMeta = {
+	data: { breadcrumb: 'Sheet', api: 'sheet' },
+	meta: metaWith(
+		'spartan/ui - Sheet',
+		'Extends the Dialog component to display content that complements the main content of the screen.',
+	),
+	title: 'spartan/ui - Sheet',
+};
+@Component({
+	selector: 'spartan-sheet',
+	imports: [
+		UIApiDocsComponent,
+		MainSectionDirective,
+		CodeComponent,
+		SectionIntroComponent,
+		SectionSubHeadingComponent,
+		TabsComponent,
+		TabsCliComponent,
+		CodePreviewDirective,
+		PageNavComponent,
+		PageBottomNavComponent,
+		PageBottomNavLinkComponent,
+		SheetPreviewComponent,
+		SheetSidePreviewComponent,
+		SheetClosePreviewComponent,
+	],
+	template: `
+		<section spartanMainSection>
+			<spartan-section-intro
+				name="Sheet"
+				lead="Extends the Dialog component to display content that complements the main content of the screen."
+			/>
+
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-sheet-preview />
+				</div>
+				<spartan-code secondTab [code]="_defaultCode" />
+			</spartan-tabs>
+
+			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
+			<spartan-cli-tabs
+				class="mt-4"
+				nxCode="npx nx g @spartan-ng/cli:ui sheet"
+				ngCode="ng g @spartan-ng/cli:ui sheet"
+			/>
+
+			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
+			<div class="space-y-4">
+				<spartan-code [code]="_defaultImports" />
+				<spartan-code [code]="_defaultSkeleton" />
+			</div>
+
+			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="brain" />
+
+			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="helm" />
+
+			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
+			<h3 id="examples__sides" class="${hlmH4} mb-2 mt-6">Sides</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-sheet-side-preview />
+				</div>
+				<spartan-code secondTab [code]="_sideCode" />
+			</spartan-tabs>
+
+			<h3 id="examples__close_sheet" class="${hlmH4} mb-2 mt-6">Close Sheet</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-sheet-close-preview />
+				</div>
+				<spartan-code secondTab [code]="_closeCode" />
+			</spartan-tabs>
+
+			<spartan-page-bottom-nav>
+				<spartan-page-bottom-nav-link href="skeleton" label="Skeleton" />
+				<spartan-page-bottom-nav-link direction="previous" href="separator" label="Separator" />
+			</spartan-page-bottom-nav>
+		</section>
+		<spartan-page-nav />
+	`,
+})
+export default class LabelPageComponent {
+	protected readonly _defaultCode = defaultCode;
+	protected readonly _defaultSkeleton = defaultSkeleton;
+	protected readonly _defaultImports = defaultImports;
+	protected readonly _sideCode = sheetSideCode;
+	protected readonly _closeCode = sheetCloseCode;
+}

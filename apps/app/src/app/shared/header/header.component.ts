@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideGithub, lucideTwitter } from '@ng-icons/lucide';
 import { HlmButtonDirective } from '@spartan-ng/helm/button';
 import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { GithubRepoService } from '../../core/services/github-repo.service';
 import { SpartanLogoComponent } from '../spartan-logo.component';
 import { NavLinkDirective } from '../spartan-nav-link.directive';
 import { HeaderDarkModeComponent } from './header-dark-mode.component';
@@ -51,10 +52,18 @@ import { HeaderMobileNavComponent } from './header-mobile-nav.component';
 				<a href="https://github.com/goetzrobin/spartan" target="_blank" size="sm" variant="ghost" hlmBtn>
 					<span class="sr-only">Github</span>
 					<ng-icon hlm name="lucideGithub" size="sm" />
+					@if (githubStars()) {
+						<span class="text-xs">
+							{{ githubStars() }}
+						</span>
+					}
 				</a>
 				<spartan-dark-mode />
 			</div>
 		</div>
 	`,
 })
-export class HeaderComponent {}
+export class HeaderComponent {
+	private readonly _githubRepoService = inject(GithubRepoService);
+	public readonly githubStars = computed(() => this._githubRepoService.githubStarsCount());
+}

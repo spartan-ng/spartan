@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 @Component({
 	selector: 'spartan-section-intro',
 	host: {
-		class: 'flex flex-col gap-2',
+		class: 'flex flex-col gap-2 mb-5',
 	},
 	template: `
 		<h1 class="scroll-m-20 text-4xl font-semibold tracking-tight sm:text-3xl xl:text-4xl">{{ name }}</h1>

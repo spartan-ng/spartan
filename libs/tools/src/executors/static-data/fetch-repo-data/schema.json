@@ -1,0 +1,27 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"version": 2,
+	"title": "FetchStaticData executor",
+	"description": "Fetches static data from an API and saves it to a JSON file",
+	"type": "object",
+	"properties": {
+		"apiUrl": {
+			"type": "string",
+			"description": "URL to fetch repository data from",
+			"default": "https://api.github.com/repos/spartan-ng/spartan"
+		},
+		"outputFile": {
+			"type": "string",
+			"description": "Path to the output JSON file, relative to workspace root",
+			"default": ""
+		},
+		"headers": {
+			"type": "object",
+			"description": "Additional headers to include in the request",
+			"additionalProperties": {
+				"type": "string"
+			}
+		}
+	},
+	"required": []
+}

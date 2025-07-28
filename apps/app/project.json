@@ -7,7 +7,7 @@
 	"implicitDependencies": [],
 	"targets": {
 		"build": {
-			"dependsOn": ["^build", "generate-docs-and-snippets"],
+			"dependsOn": ["^build", "generate-docs-and-snippets", "fetch-github-repo-data"],
 			"executor": "@analogjs/platform:vite",
 			"outputs": [
 				"{options.outputPath}",
@@ -33,7 +33,7 @@
 			}
 		},
 		"serve": {
-			"dependsOn": ["generate-docs-and-snippets"],
+			"dependsOn": ["generate-docs-and-snippets", "fetch-github-repo-data"],
 			"executor": "@analogjs/platform:vite-dev-server",
 			"defaultConfiguration": "development",
 			"options": {
@@ -79,6 +79,13 @@
 				"outputFile": "ui-api.json",
 				"brainDir": "libs/brain",
 				"helmDir": "libs/helm"
+			}
+		},
+		"fetch-github-repo-data": {
+			"executor": "@spartan-ng/tools:fetch-static-data",
+			"options": {
+				"apiUrl": "https://api.github.com/repos/spartan-ng/spartan",
+				"outputFile": "apps/app/src/public/data/github-repo.json"
 			}
 		},
 		"generate-docs-and-snippets": {

@@ -182,6 +182,7 @@ export default defineConfig(({ mode }) => {
 		},
 		define: {
 			'import.meta.vitest': mode !== 'production',
+			'import.meta.env.VITE_BASE_URL': JSON.stringify('https://www.spartan.ng'),
 		},
 		server: {
 			fs: {

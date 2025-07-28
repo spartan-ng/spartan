@@ -8,41 +8,31 @@ export const namingConventionHealthcheck: Healthcheck = {
 	name: 'Naming Conventions',
 	async detect(tree, failure) {
 		visitNotIgnoredFiles(tree, '/', (file) => {
-			// if the file is a .ts or .htlm file, check for brain radio
-			if (!file.endsWith('.ts') && !file.endsWith('.html')) {
+			// if the file is a .ts file check for old naming conventions
+			if (!file.endsWith('.ts')) {
 				return;
 			}
 
-			// check if there is an import statement from '@spartan-ng/brain/*' that ends with Directive or Component
+			// check if there are any brain or helm identifiers that ends with Directive or Component
 			const contents = tree.read(file, 'utf-8');
 			if (!contents) {
 				return;
 			}
 
-			const importDeclarations = tsquery.query<ts.ImportDeclaration>(contents, 'ImportDeclaration');
+			const identifiers = tsquery.query<ts.Identifier>(contents, 'Identifier');
 
-			if (importDeclarations.length === 0) {
-				return;
-			}
+			for (const identifier of identifiers) {
+				const name = identifier.getText();
 
-			for (const importDeclaration of importDeclarations) {
-				const moduleSpecifier = importDeclaration.moduleSpecifier.getText();
+				const startsWithPrefix = name.startsWith('Hlm') || name.startsWith('Brn');
+				const endsWithSuffix = name.endsWith('Directive') || name.endsWith('Component');
 
-				if (moduleSpecifier.includes('@spartan-ng/brain/')) {
-					const identifiers = tsquery.query(importDeclaration, 'Identifier');
-
-					// we only care about identifiers that end in 'Directive', 'Component'
-					for (const identifier of identifiers) {
-						const identifierText = identifier.getText();
-
-						if (identifierText.endsWith('Directive') || identifierText.endsWith('Component')) {
-							failure(
-								`Found deprecated naming convention: ${identifierText} in file ${file}. Please migrate to the new naming conventions.`,
-								HealthcheckSeverity.Error,
-								true,
-							);
-						}
-					}
+				if (startsWithPrefix && endsWithSuffix) {
+					failure(
+						`Found legacy naming pattern: ${name} in file ${file}. Consider renaming it to match the new conventions.`,
+						HealthcheckSeverity.Warning,
+						true,
+					);
 				}
 			}
 		});

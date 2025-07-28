@@ -4,24 +4,24 @@ exports[`migrate-naming-conventions generator should not replace helm identifier
 "import { Component } from '@angular/core';
 import { NgIcon } from '@ng-icons/core';
 import {
-	HlmAccordionContentComponent,
-	HlmAccordionDirective,
-	HlmAccordionIconDirective,
-	HlmAccordionItemDirective,
-	HlmAccordionTriggerDirective,
+	HlmAccordionContent,
+	HlmAccordion,
+	HlmAccordionIcon,
+	HlmAccordionItem,
+	HlmAccordionTrigger,
 } from '@spartan-ng/helm/accordion';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { HlmIcon } from '@spartan-ng/helm/icon';
 
 @Component({
 	selector: 'spartan-accordion-preview',
 	imports: [
-		HlmAccordionDirective,
-		HlmAccordionItemDirective,
-		HlmAccordionTriggerDirective,
-		HlmAccordionIconDirective,
-		HlmAccordionContentComponent,
+		HlmAccordion,
+		HlmAccordionItem,
+		HlmAccordionTrigger,
+		HlmAccordionIcon,
+		HlmAccordionContent,
 		NgIcon,
-		HlmIconDirective,
+		HlmIcon,
 	],
 	template: \`
 		<div hlmAccordion>
@@ -81,12 +81,12 @@ export class AccordionPreviewComponent {}"
 exports[`migrate-naming-conventions generator should rename the identifiers that changed name 1`] = `
 "import { Component } from '@angular/core';
 import { BrnTooltipContentTemplate } from '@spartan-ng/brain/tooltip';
-import {HlmMenuItemRadioComponent} from '@spartan-ng/helm/menu';
+import {HlmMenuItemRadioIndicator} from '@spartan-ng/helm/menu';
 import { BrnSelectValueTemplate } from '@spartan-ng/brain/select';
 
 @Component({
 	selector: 'spartan-tooltip-preview',
-	imports: [BrnTooltipContentTemplate, HlmMenuItemRadioComponent, BrnSelectValueTemplate],
+	imports: [BrnTooltipContentTemplate, HlmMenuItemRadioIndicator, BrnSelectValueTemplate],
 	template: \`
 		<brn-tooltip>
 			<button brnTooltipTrigger>Hover me</button>
@@ -106,10 +106,10 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCheck, lucideChevronsUpDown, lucideSearch } from '@ng-icons/lucide';
 import { BrnCommandImports } from '@spartan-ng/brain/command';
 import { BrnPopover, BrnPopoverContent, BrnPopoverTrigger } from '@spartan-ng/brain/popover';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmCommandImports } from '@spartan-ng/helm/command';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
-import { HlmPopoverContentDirective } from '@spartan-ng/helm/popover';
+import { HlmIcon } from '@spartan-ng/helm/icon';
+import { HlmPopoverContent } from '@spartan-ng/helm/popover';
 
 type Framework = { label: string; value: string };
 
@@ -119,11 +119,11 @@ type Framework = { label: string; value: string };
 		BrnCommandImports,
 		HlmCommandImports,
 		NgIcon,
-		HlmIconDirective,
-		HlmButtonDirective,
+		HlmIcon,
+		HlmButton,
 		BrnPopover,
 		BrnPopoverTrigger,
-		HlmPopoverContentDirective,
+		HlmPopoverContent,
 		BrnPopoverContent,
 	],
 	providers: [provideIcons({ lucideChevronsUpDown, lucideSearch, lucideCheck })],

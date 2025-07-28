@@ -8,7 +8,8 @@ export async function migrateNamingConventionGenerator(
 	tree: Tree,
 	{ skipFormat }: MigrateNamingConventionsGeneratorSchema,
 ) {
-	updateIdentifiers(tree);
+	updateBrainIdentifiers(tree);
+	updateHelmIdentifiers(tree);
 
 	if (!skipFormat) {
 		await formatFiles(tree);
@@ -18,13 +19,15 @@ export async function migrateNamingConventionGenerator(
 const renamedIdentifiers: Record<string, string> = {
 	BrnTooltipContentDirective: 'BrnTooltipContentTemplate',
 	BrnSelectValueDirective: 'BrnSelectValueTemplate',
+	HlmSelectValueDirective: 'HlmSelectValueTemplate',
+	HlmMenuItemRadioComponent: 'HlmMenuItemRadioIndicator',
 };
 
 /**
  * Detect any imports from `@spartan-ng/brain/*` that need to be updated.
  * Get the identifiers that need to be replaced, and then replace them.
  */
-function updateIdentifiers(tree: Tree) {
+function updateBrainIdentifiers(tree: Tree) {
 	visitFiles(tree, '/', (path) => {
 		let content = tree.read(path).toString('utf-8');
 
@@ -72,6 +75,40 @@ function updateIdentifiers(tree: Tree) {
 
 				content = content.slice(0, start) + newIdentifier + content.slice(end);
 			}
+		}
+
+		tree.write(path, content);
+	});
+}
+
+/**
+ * Helm identifiers are not necessarily just imports as the class declarations
+ * are defined in the users codebase so we need to update all identifiers that
+ * start with `Hlm` and end with `Directive` or `Component`.
+ * We also must check for known identifiers that have been renamed.
+ */
+function updateHelmIdentifiers(tree: Tree) {
+	visitFiles(tree, '/', (path) => {
+		let content = tree.read(path).toString('utf-8');
+
+		const identifiers = tsquery.query<ts.Identifier>(content, 'Identifier').reverse();
+		const identifiersToReplace: string[] = [];
+		for (const identifier of identifiers) {
+			const identifierText = identifier.getText();
+
+			if (
+				identifierText.startsWith('Hlm') &&
+				(identifierText.endsWith('Directive') || identifierText.endsWith('Component'))
+			) {
+				identifiersToReplace.push(identifierText);
+			}
+		}
+
+		// replace all identifiers in the content
+		for (const oldIdentifier of identifiersToReplace) {
+			const newIdentifier = renamedIdentifiers[oldIdentifier] || oldIdentifier.replace(/(Directive|Component)$/, '');
+
+			content = content.replace(new RegExp(`\\b${oldIdentifier}\\b`, 'g'), newIdentifier);
 		}
 
 		tree.write(path, content);

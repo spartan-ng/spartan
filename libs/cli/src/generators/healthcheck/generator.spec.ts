@@ -98,7 +98,7 @@ describe('healthcheck generator', () => {
 	it('should update naming conventions', () => {
 		const contents = tree.read('libs/my-lib/src/legacy.component.ts', 'utf-8');
 
-		expect(contents).toContain('HlmMenuItemRadioComponent');
+		expect(contents).toContain('HlmMenuItemRadioIndicator');
 		expect(contents).not.toContain('BrnTooltipContentDirective');
 		expect(contents).toContain('BrnTooltipContentTemplate');
 		expect(contents).not.toContain('BrnSelectValueDirective');

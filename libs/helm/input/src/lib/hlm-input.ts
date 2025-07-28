@@ -10,7 +10,7 @@ import {
 	linkedSignal,
 	untracked,
 } from '@angular/core';
-import { FormGroup, NgControl, NgForm } from '@angular/forms';
+import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { hlm } from '@spartan-ng/brain/core';
 import { BrnFormFieldControl } from '@spartan-ng/brain/form-field';
 import { ErrorStateMatcher, ErrorStateTracker } from '@spartan-ng/brain/forms';
@@ -63,7 +63,7 @@ export class HlmInput implements BrnFormFieldControl, DoCheck {
 
 	private readonly _defaultErrorStateMatcher = inject(ErrorStateMatcher);
 	private readonly _parentForm = inject(NgForm, { optional: true });
-	private readonly _parentFormGroup = inject(FormGroup, { optional: true });
+	private readonly _parentFormGroup = inject(FormGroupDirective, { optional: true });
 
 	public readonly errorState = computed(() => this._errorStateTracker.errorState());
 

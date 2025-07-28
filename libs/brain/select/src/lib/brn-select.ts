@@ -26,7 +26,7 @@ import {
 	viewChild,
 } from '@angular/core';
 import { takeUntilDestroyed, toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { type ControlValueAccessor, FormGroup, NgControl, NgForm } from '@angular/forms';
+import { type ControlValueAccessor, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import {
 	type ExposesSide,
 	type ExposesState,
@@ -94,7 +94,7 @@ export class BrnSelect<T = unknown>
 	private readonly _defaultErrorStateMatcher = inject(ErrorStateMatcher);
 	private readonly _parentForm = inject(NgForm, { optional: true });
 	private readonly _injector = inject(Injector);
-	private readonly _parentFormGroup = inject(FormGroup, { optional: true });
+	private readonly _parentFormGroup = inject(FormGroupDirective, { optional: true });
 	public readonly ngControl = inject(NgControl, { optional: true, self: true });
 
 	public readonly id = input<string>(`brn-select-${nextId++}`);

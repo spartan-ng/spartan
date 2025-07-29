@@ -64,7 +64,7 @@ export const Transposed: Story = {
        <div hlmCardHeader direction='row'>
         <h3 hlmCardTitle>AngularGPT</h3>
         <p hlmCardDescription>
-          <span variant='secondary' hlmBadge>beta</span>
+          <span variant='secondary' class='mt-1.5' hlmBadge>beta</span>
         </p>
       </div>
       <p hlmCardContent>

@@ -29,11 +29,10 @@ const renamedIdentifiers: Record<string, string> = {
  */
 function updateBrainIdentifiers(tree: Tree) {
 	visitFiles(tree, '/', (path) => {
-
 		if (!path.endsWith('.ts')) {
 			return;
 		}
-		
+
 		let content = tree.read(path).toString('utf-8');
 
 		const importDeclarations = tsquery.query<ts.ImportDeclaration>(content, 'ImportDeclaration');
@@ -97,7 +96,7 @@ function updateHelmIdentifiers(tree: Tree) {
 		if (!path.endsWith('.ts')) {
 			return;
 		}
-		
+
 		let content = tree.read(path).toString('utf-8');
 
 		const identifiers = tsquery.query<ts.Identifier>(content, 'Identifier').reverse();

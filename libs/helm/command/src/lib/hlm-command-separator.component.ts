@@ -15,5 +15,5 @@ export class HlmCommandSeparatorComponent {
 	public readonly userClass = input<string>('', { alias: 'class' });
 
 	/*** The styles to apply  */
-	protected readonly _computedClass = computed(() => hlm('block bg-border -mx-1 h-px', this.userClass()));
+	protected readonly _computedClass = computed(() => hlm('bg-border -mx-1 h-px', this.userClass()));
 }

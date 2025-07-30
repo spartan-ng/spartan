@@ -9,12 +9,12 @@ Run `pnpm run generate-snippets` to update this file.
 
 export const inputButtonCode = `
 import { Component } from '@angular/core';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
-import { HlmInputDirective } from '@spartan-ng/helm/input';
+import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmInput } from '@spartan-ng/helm/input';
 
 @Component({
 	selector: 'spartan-input-button',
-	imports: [HlmInputDirective, HlmButtonDirective],
+	imports: [HlmInput, HlmButton],
 	template: \`
 		<div class="flex w-full max-w-sm items-center space-x-2">
 			<input aria-label="Email" class="w-80" hlmInput type="email" placeholder="Email" />
@@ -22,45 +22,45 @@ import { HlmInputDirective } from '@spartan-ng/helm/input';
 		</div>
 	\`,
 })
-export class InputButtonPreviewComponent {}
+export class InputButtonPreview {}
 `;
 
 export const inputDisabledCode = `
 import { Component } from '@angular/core';
-import { HlmInputDirective } from '@spartan-ng/helm/input';
+import { HlmInput } from '@spartan-ng/helm/input';
 
 @Component({
 	selector: 'spartan-input-disabled',
-	imports: [HlmInputDirective],
+	imports: [HlmInput],
 	template: \`
 		<input class="w-80" hlmInput disabled type="email" placeholder="Email" />
 	\`,
 })
-export class InputDisabledPreviewComponent {}
+export class InputDisabledPreview {}
 `;
 
 export const inputFileCode = `
 import { Component } from '@angular/core';
-import { HlmInputDirective } from '@spartan-ng/helm/input';
+import { HlmInput } from '@spartan-ng/helm/input';
 
 @Component({
 	selector: 'spartan-input-file',
-	imports: [HlmInputDirective],
+	imports: [HlmInput],
 	template: \`
 		<input class="w-80" hlmInput type="file" />
 	\`,
 })
-export class InputFilePreviewComponent {}
+export class InputFilePreview {}
 `;
 
 export const inputLabelCode = `
 import { Component } from '@angular/core';
-import { HlmInputDirective } from '@spartan-ng/helm/input';
-import { HlmLabelDirective } from '@spartan-ng/helm/label';
+import { HlmInput } from '@spartan-ng/helm/input';
+import { HlmLabel } from '@spartan-ng/helm/label';
 
 @Component({
 	selector: 'spartan-input-label',
-	imports: [HlmInputDirective, HlmLabelDirective],
+	imports: [HlmInput, HlmLabel],
 	template: \`
 		<div class="grid w-full max-w-sm items-center gap-3">
 			<label for="email" hlmLabel>Email</label>
@@ -68,19 +68,19 @@ import { HlmLabelDirective } from '@spartan-ng/helm/label';
 		</div>
 	\`,
 })
-export class InputLabelPreviewComponent {}
+export class InputLabelPreview {}
 `;
 
 export const defaultCode = `
 import { Component } from '@angular/core';
-import { HlmInputDirective } from '@spartan-ng/helm/input';
+import { HlmInput } from '@spartan-ng/helm/input';
 
 @Component({
 	selector: 'spartan-input-preview',
-	imports: [HlmInputDirective],
+	imports: [HlmInput],
 	template: \`
 		<input class="w-80" hlmInput type="email" placeholder="Email" />
 	\`,
 })
-export class InputPreviewComponent {}
+export class InputPreview {}
 `;

@@ -1,14 +1,14 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
 
-import { MainSectionDirective } from '@spartan-ng/app/app/shared/layout/main-section.directive';
-import { PageBottomNavLinkComponent } from '@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav-link.component';
-import { PageBottomNavComponent } from '@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav.component';
-import { PageNavComponent } from '@spartan-ng/app/app/shared/layout/page-nav/page-nav.component';
-import { SectionIntroComponent } from '@spartan-ng/app/app/shared/layout/section-intro.component';
-import { SectionSubHeadingComponent } from '@spartan-ng/app/app/shared/layout/section-sub-heading.component';
+import { MainSection } from '@spartan-ng/app/app/shared/layout/main-section';
+import { PageBottomNav } from '@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav';
+import { PageBottomNavLink } from '@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav-link';
+import { PageNav } from '@spartan-ng/app/app/shared/layout/page-nav/page-nav';
+import { SectionIntro } from '@spartan-ng/app/app/shared/layout/section-intro';
+import { SectionSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-heading';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmButton } from '@spartan-ng/helm/button';
 import { hlmP, hlmUl } from '@spartan-ng/helm/typography';
 
 export const routeMeta: RouteMeta = {
@@ -21,15 +21,7 @@ const aboutLink = 'h-6 underline text-base px-0.5';
 
 @Component({
 	selector: 'spartan-about',
-	imports: [
-		MainSectionDirective,
-		SectionIntroComponent,
-		PageBottomNavComponent,
-		PageBottomNavLinkComponent,
-		PageNavComponent,
-		SectionSubHeadingComponent,
-		HlmButtonDirective,
-	],
+	imports: [MainSection, SectionIntro, PageBottomNav, PageBottomNavLink, PageNav, SectionSubHeading, HlmButton],
 	template: `
 		<section spartanMainSection>
 			<spartan-section-intro name="About" lead="Powered by amazing open source projects." />
@@ -174,6 +166,6 @@ const aboutLink = 'h-6 underline text-base px-0.5';
 		<spartan-page-nav />
 	`,
 })
-export default class ChangelogPageComponent {
+export default class ChangelogPage {
 	public currentYear = new Date().getFullYear();
 }

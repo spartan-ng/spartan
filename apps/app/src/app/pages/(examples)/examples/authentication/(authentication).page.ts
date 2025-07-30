@@ -1,9 +1,9 @@
 import { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmButton } from '@spartan-ng/helm/button';
 
-import { AuthenticationFormComponent } from './components/form.component';
+import { AuthenticationForm } from './components/form';
 
 export const routeMeta: RouteMeta = {
 	meta: metaWith('spartan/examples - Authentication', 'An authenticaton example using spartan UI primitive'),
@@ -12,7 +12,7 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-authentication',
-	imports: [AuthenticationFormComponent, HlmButtonDirective],
+	imports: [AuthenticationForm, HlmButton],
 	host: {
 		class: 'block',
 	},
@@ -58,4 +58,4 @@ export const routeMeta: RouteMeta = {
 		</div>
 	`,
 })
-export default class TypographyPageComponent {}
+export default class TypographyPage {}

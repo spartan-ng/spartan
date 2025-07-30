@@ -50,7 +50,7 @@ import { hlmBlockquote, hlmH1, hlmH2, hlmH3, hlmLead, hlmP, hlmUl } from '@spart
 		</p>
 	`,
 })
-export default class TypographyPreviewComponent {}
+export default class TypographyPreview {}
 
 export const themingCode = `
 import { Component } from '@angular/core';

@@ -9,12 +9,12 @@ Run `pnpm run generate-snippets` to update this file.
 
 export const defaultCode = `
 import { Component } from '@angular/core';
-import { BrnSeparatorComponent } from '@spartan-ng/brain/separator';
-import { HlmSeparatorDirective } from '@spartan-ng/helm/separator';
+import { BrnSeparator } from '@spartan-ng/brain/separator';
+import { HlmSeparator } from '@spartan-ng/helm/separator';
 
 @Component({
 	selector: 'spartan-separator-preview',
-	imports: [HlmSeparatorDirective, BrnSeparatorComponent],
+	imports: [HlmSeparator, BrnSeparator],
 	template: \`
 		<div>
 			<div class="space-y-1">
@@ -32,5 +32,5 @@ import { HlmSeparatorDirective } from '@spartan-ng/helm/separator';
 		</div>
 	\`,
 })
-export class SeparatorPreviewComponent {}
+export class SeparatorPreview {}
 `;

@@ -1,26 +1,26 @@
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown } from '@ng-icons/lucide';
-import { BrnAccordionDirective, BrnAccordionImports } from '@spartan-ng/brain/accordion';
+import { BrnAccordion, BrnAccordionImports } from '@spartan-ng/brain/accordion';
 import { HlmAccordionImports } from '@spartan-ng/helm/accordion';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
-import { HlmInputDirective } from '@spartan-ng/helm/input';
+import { HlmIcon } from '@spartan-ng/helm/icon';
+import { HlmInput } from '@spartan-ng/helm/input';
 import type { Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
 
-const meta: Meta<BrnAccordionDirective> = {
+const meta: Meta<BrnAccordion> = {
 	title: 'Accordion',
-	component: BrnAccordionDirective,
+	component: BrnAccordion,
 	tags: ['autodocs'],
 	decorators: [
 		moduleMetadata({
-			imports: [BrnAccordionImports, HlmAccordionImports, NgIcon, HlmIconDirective, HlmInputDirective],
+			imports: [BrnAccordionImports, HlmAccordionImports, NgIcon, HlmIcon, HlmInput],
 			providers: [provideIcons({ lucideChevronDown })],
 		}),
 	],
 };
 
 export default meta;
-type Story = StoryObj<BrnAccordionDirective>;
+type Story = StoryObj<BrnAccordion>;
 
 export const Default: Story = {
 	render: () => ({

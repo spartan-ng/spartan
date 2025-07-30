@@ -19,7 +19,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 		</brn-select>
 	`,
 })
-export class SelectPreviewComponent {}
+export class SelectPreview {}
 
 export const defaultImports = `
 import { Component } from '@angular/core';

@@ -1,21 +1,16 @@
 import { NgModule } from '@angular/core';
-import { BrnTooltipContentComponent } from './lib/brn-tooltip-content.component';
-import { BrnTooltipContentDirective } from './lib/brn-tooltip-content.directive';
-import { BrnTooltipTriggerDirective } from './lib/brn-tooltip-trigger.directive';
-import { BrnTooltipDirective } from './lib/brn-tooltip.directive';
+import { BrnTooltip } from './lib/brn-tooltip';
+import { BrnTooltipContent } from './lib/brn-tooltip-content';
+import { BrnTooltipContentTemplate } from './lib/brn-tooltip-content-template';
+import { BrnTooltipTrigger } from './lib/brn-tooltip-trigger';
 
-export * from './lib/brn-tooltip-content.component';
-export * from './lib/brn-tooltip-content.directive';
-export * from './lib/brn-tooltip-trigger.directive';
-export * from './lib/brn-tooltip.directive';
+export * from './lib/brn-tooltip';
+export * from './lib/brn-tooltip-content';
+export * from './lib/brn-tooltip-content-template';
+export * from './lib/brn-tooltip-trigger';
 export * from './lib/brn-tooltip.token';
 
-export const BrnTooltipImports = [
-	BrnTooltipDirective,
-	BrnTooltipContentDirective,
-	BrnTooltipTriggerDirective,
-	BrnTooltipContentComponent,
-] as const;
+export const BrnTooltipImports = [BrnTooltip, BrnTooltipContentTemplate, BrnTooltipTrigger, BrnTooltipContent] as const;
 
 @NgModule({
 	imports: [...BrnTooltipImports],

@@ -1,25 +1,25 @@
 import { Component } from '@angular/core';
-import { HlmCardContentDirective, HlmCardDirective } from '@spartan-ng/helm/card';
+import { HlmCard, HlmCardContent } from '@spartan-ng/helm/card';
 import {
-	HlmCarouselComponent,
-	HlmCarouselContentComponent,
-	HlmCarouselItemComponent,
-	HlmCarouselNextComponent,
-	HlmCarouselPreviousComponent,
-	HlmCarouselSlideDisplayComponent,
+	HlmCarousel,
+	HlmCarouselContent,
+	HlmCarouselItem,
+	HlmCarouselNext,
+	HlmCarouselPrevious,
+	HlmCarouselSlideDisplay,
 } from '@spartan-ng/helm/carousel';
 
 @Component({
 	selector: 'spartan-carousel-slide-count',
 	imports: [
-		HlmCarouselComponent,
-		HlmCarouselContentComponent,
-		HlmCarouselItemComponent,
-		HlmCarouselNextComponent,
-		HlmCarouselPreviousComponent,
-		HlmCardDirective,
-		HlmCardContentDirective,
-		HlmCarouselSlideDisplayComponent,
+		HlmCarousel,
+		HlmCarouselContent,
+		HlmCarouselItem,
+		HlmCarouselNext,
+		HlmCarouselPrevious,
+		HlmCard,
+		HlmCardContent,
+		HlmCarouselSlideDisplay,
 	],
 	template: `
 		<div class="flex w-full items-center justify-center p-4">
@@ -44,6 +44,6 @@ import {
 		</div>
 	`,
 })
-export class CarouselSlideCountComponent {
+export class CarouselSlideCount {
 	public items = Array.from({ length: 5 }, (_, i) => i + 1);
 }

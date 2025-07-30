@@ -11,12 +11,12 @@ export const paginationAdvancedQueryCode = `
 import { Component, computed, inject, numberAttribute, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
-import { HlmNumberedPaginationQueryParamsComponent } from '@spartan-ng/helm/pagination';
+import { HlmNumberedPaginationQueryParams } from '@spartan-ng/helm/pagination';
 import { map } from 'rxjs/operators';
 
 @Component({
 	selector: 'spartan-pagination-advanced-query-params',
-	imports: [HlmNumberedPaginationQueryParamsComponent],
+	imports: [HlmNumberedPaginationQueryParams],
 	template: \`
 		<hlm-numbered-pagination-query-params
 			[currentPage]="page()"
@@ -25,7 +25,7 @@ import { map } from 'rxjs/operators';
 		/>
 	\`,
 })
-export class PaginationAdvancedQueryComponent {
+export class PaginationAdvancedQuery {
 	private readonly _route = inject(ActivatedRoute);
 
 	/**
@@ -57,16 +57,16 @@ export class PaginationAdvancedQueryComponent {
 
 export const paginationAdvancedCode = `
 import { Component, signal } from '@angular/core';
-import { HlmNumberedPaginationComponent } from '@spartan-ng/helm/pagination';
+import { HlmNumberedPagination } from '@spartan-ng/helm/pagination';
 
 @Component({
 	selector: 'spartan-pagination-advanced',
-	imports: [HlmNumberedPaginationComponent],
+	imports: [HlmNumberedPagination],
 	template: \`
 		<hlm-numbered-pagination [(currentPage)]="page" [(itemsPerPage)]="pageSize" [totalItems]="totalProducts()" />
 	\`,
 })
-export class PaginationAdvancedComponent {
+export class PaginationAdvanced {
 	public page = signal(1);
 	public pageSize = signal(10);
 	public totalProducts = signal(100);
@@ -76,25 +76,25 @@ export class PaginationAdvancedComponent {
 export const paginationIconOnlyCode = `
 import { Component } from '@angular/core';
 import {
-	HlmPaginationContentDirective,
-	HlmPaginationDirective,
-	HlmPaginationEllipsisComponent,
-	HlmPaginationItemDirective,
-	HlmPaginationLinkDirective,
-	HlmPaginationNextComponent,
-	HlmPaginationPreviousComponent,
+	HlmPagination,
+	HlmPaginationContent,
+	HlmPaginationEllipsis,
+	HlmPaginationItem,
+	HlmPaginationLink,
+	HlmPaginationNext,
+	HlmPaginationPrevious,
 } from '@spartan-ng/helm/pagination';
 
 @Component({
 	selector: 'spartan-pagination-icon-only',
 	imports: [
-		HlmPaginationDirective,
-		HlmPaginationContentDirective,
-		HlmPaginationItemDirective,
-		HlmPaginationPreviousComponent,
-		HlmPaginationNextComponent,
-		HlmPaginationLinkDirective,
-		HlmPaginationEllipsisComponent,
+		HlmPagination,
+		HlmPaginationContent,
+		HlmPaginationItem,
+		HlmPaginationPrevious,
+		HlmPaginationNext,
+		HlmPaginationLink,
+		HlmPaginationEllipsis,
 	],
 	template: \`
 		<nav hlmPagination>
@@ -121,7 +121,7 @@ import {
 		</nav>
 	\`,
 })
-export class PaginationIconOnlyComponent {}
+export class PaginationIconOnly {}
 `;
 
 export const paginationQueryParamsCode = `
@@ -129,24 +129,24 @@ import { Component, computed, inject, numberAttribute } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import {
-	HlmPaginationContentDirective,
-	HlmPaginationDirective,
-	HlmPaginationItemDirective,
-	HlmPaginationLinkDirective,
-	HlmPaginationNextComponent,
-	HlmPaginationPreviousComponent,
+	HlmPagination,
+	HlmPaginationContent,
+	HlmPaginationItem,
+	HlmPaginationLink,
+	HlmPaginationNext,
+	HlmPaginationPrevious,
 } from '@spartan-ng/helm/pagination';
 import { map } from 'rxjs/operators';
 
 @Component({
 	selector: 'spartan-pagination-query-params',
 	imports: [
-		HlmPaginationDirective,
-		HlmPaginationContentDirective,
-		HlmPaginationItemDirective,
-		HlmPaginationPreviousComponent,
-		HlmPaginationNextComponent,
-		HlmPaginationLinkDirective,
+		HlmPagination,
+		HlmPaginationContent,
+		HlmPaginationItem,
+		HlmPaginationPrevious,
+		HlmPaginationNext,
+		HlmPaginationLink,
 	],
 	template: \`
 		<nav hlmPagination>
@@ -179,7 +179,7 @@ import { map } from 'rxjs/operators';
 		</nav>
 	\`,
 })
-export class PaginationQueryParamsComponent {
+export class PaginationQueryParams {
 	private readonly _route = inject(ActivatedRoute);
 
 	/**
@@ -213,25 +213,25 @@ export class PaginationQueryParamsComponent {
 export const defaultCode = `
 import { Component } from '@angular/core';
 import {
-	HlmPaginationContentDirective,
-	HlmPaginationDirective,
-	HlmPaginationEllipsisComponent,
-	HlmPaginationItemDirective,
-	HlmPaginationLinkDirective,
-	HlmPaginationNextComponent,
-	HlmPaginationPreviousComponent,
+	HlmPagination,
+	HlmPaginationContent,
+	HlmPaginationEllipsis,
+	HlmPaginationItem,
+	HlmPaginationLink,
+	HlmPaginationNext,
+	HlmPaginationPrevious,
 } from '@spartan-ng/helm/pagination';
 
 @Component({
 	selector: 'spartan-pagination-preview',
 	imports: [
-		HlmPaginationDirective,
-		HlmPaginationContentDirective,
-		HlmPaginationItemDirective,
-		HlmPaginationPreviousComponent,
-		HlmPaginationNextComponent,
-		HlmPaginationLinkDirective,
-		HlmPaginationEllipsisComponent,
+		HlmPagination,
+		HlmPaginationContent,
+		HlmPaginationItem,
+		HlmPaginationPrevious,
+		HlmPaginationNext,
+		HlmPaginationLink,
+		HlmPaginationEllipsis,
 	],
 	template: \`
 		<nav hlmPagination>
@@ -258,5 +258,5 @@ import {
 		</nav>
 	\`,
 })
-export class PaginationPreviewComponent {}
+export class PaginationPreview {}
 `;

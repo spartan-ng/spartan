@@ -1,25 +1,25 @@
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideItalic } from '@ng-icons/lucide';
-import { BrnToggleDirective } from '@spartan-ng/brain/toggle';
+import { BrnToggle } from '@spartan-ng/brain/toggle';
 import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
 
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
-import { HlmToggleDirective } from '@spartan-ng/helm/toggle';
+import { HlmIcon } from '@spartan-ng/helm/icon';
+import { HlmToggle } from '@spartan-ng/helm/toggle';
 
-const meta: Meta<HlmToggleDirective> = {
+const meta: Meta<HlmToggle> = {
 	title: 'Toggle',
-	component: HlmToggleDirective,
+	component: HlmToggle,
 	tags: ['autodocs'],
 	decorators: [
 		moduleMetadata({
-			imports: [HlmToggleDirective, BrnToggleDirective, NgIcon, HlmIconDirective],
+			imports: [HlmToggle, BrnToggle, NgIcon, HlmIcon],
 			providers: [provideIcons({ lucideItalic })],
 		}),
 	],
 };
 
 export default meta;
-type Story = StoryObj<HlmToggleDirective>;
+type Story = StoryObj<HlmToggle>;
 
 export const Default: Story = {
 	render: () => ({

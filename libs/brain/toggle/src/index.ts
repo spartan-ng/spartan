@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
-import { BrnToggleDirective } from './lib/brn-toggle.directive';
+import { BrnToggle } from './lib/brn-toggle';
 
-export * from './lib/brn-toggle.directive';
+export * from './lib/brn-toggle';
 
 @NgModule({
-	imports: [BrnToggleDirective],
-	exports: [BrnToggleDirective],
+	imports: [BrnToggle],
+	exports: [BrnToggle],
 })
 export class BrnToggleModule {}

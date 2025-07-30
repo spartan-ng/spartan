@@ -1,9 +1,9 @@
-import { HlmAvatarComponent, HlmAvatarImports } from '@spartan-ng/helm/avatar';
+import { HlmAvatar, HlmAvatarImports } from '@spartan-ng/helm/avatar';
 import { type Meta, type StoryObj, argsToTemplate, moduleMetadata } from '@storybook/angular';
 
-const meta: Meta<HlmAvatarComponent> = {
+const meta: Meta<HlmAvatar> = {
 	title: 'Avatar',
-	component: HlmAvatarComponent,
+	component: HlmAvatar,
 	tags: ['autodocs'],
 	decorators: [
 		moduleMetadata({
@@ -22,6 +22,6 @@ const meta: Meta<HlmAvatarComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<HlmAvatarComponent>;
+type Story = StoryObj<HlmAvatar>;
 
 export const Default: Story = {};

@@ -8,6 +8,7 @@ import { helmImportsHealthcheck } from './healthchecks/helm-imports';
 import { helmIconHealthcheck } from './healthchecks/hlm-icon';
 import { scrollAreaHealthcheck } from './healthchecks/hlm-scroll-area';
 import { selectHealthcheck } from './healthchecks/hlm-select';
+import { namingConventionHealthcheck } from './healthchecks/naming-conventions';
 import { versionHealthcheck } from './healthchecks/version';
 import { HealthcheckGeneratorSchema } from './schema';
 import { promptUser } from './utils/prompt';
@@ -27,6 +28,7 @@ export async function healthcheckGenerator(tree: Tree, options: HealthcheckGener
 		selectHealthcheck,
 		brainToggleHealthcheck,
 		helmImportsHealthcheck,
+		namingConventionHealthcheck,
 	];
 
 	const failedReports: HealthcheckReport[] = [];

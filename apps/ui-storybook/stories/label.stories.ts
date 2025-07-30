@@ -1,12 +1,12 @@
 import { FormsModule } from '@angular/forms';
-import { BrnLabelDirective } from '@spartan-ng/brain/label';
-import { HlmInputDirective } from '@spartan-ng/helm/input';
-import { HlmLabelDirective } from '@spartan-ng/helm/label';
+import { BrnLabel } from '@spartan-ng/brain/label';
+import { HlmInput } from '@spartan-ng/helm/input';
+import { HlmLabel } from '@spartan-ng/helm/label';
 import { type Meta, type StoryObj, argsToTemplate, moduleMetadata } from '@storybook/angular';
 
 const meta: Meta<{}> = {
 	title: 'Label',
-	component: HlmLabelDirective,
+	component: HlmLabel,
 	tags: ['autodocs'],
 	args: {
 		variant: 'default',
@@ -31,13 +31,13 @@ const meta: Meta<{}> = {
 	},
 	decorators: [
 		moduleMetadata({
-			imports: [HlmInputDirective, HlmLabelDirective, BrnLabelDirective, FormsModule],
+			imports: [HlmInput, HlmLabel, BrnLabel, FormsModule],
 		}),
 	],
 };
 
 export default meta;
-type Story = StoryObj<HlmLabelDirective>;
+type Story = StoryObj<HlmLabel>;
 
 export const Default: Story = {
 	render: ({ ...args }) => ({

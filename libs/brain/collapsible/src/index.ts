@@ -1,18 +1,14 @@
 import { NgModule } from '@angular/core';
 
-import { BrnCollapsibleContentComponent } from './lib/brn-collapsible-content.component';
-import { BrnCollapsibleTriggerDirective } from './lib/brn-collapsible-trigger.directive';
-import { BrnCollapsibleComponent } from './lib/brn-collapsible.component';
+import { BrnCollapsible } from './lib/brn-collapsible';
+import { BrnCollapsibleContent } from './lib/brn-collapsible-content';
+import { BrnCollapsibleTrigger } from './lib/brn-collapsible-trigger';
 
-export * from './lib/brn-collapsible-content.component';
-export * from './lib/brn-collapsible-trigger.directive';
-export * from './lib/brn-collapsible.component';
+export * from './lib/brn-collapsible';
+export * from './lib/brn-collapsible-content';
+export * from './lib/brn-collapsible-trigger';
 
-export const BrnCollapsibleImports = [
-	BrnCollapsibleComponent,
-	BrnCollapsibleTriggerDirective,
-	BrnCollapsibleContentComponent,
-] as const;
+export const BrnCollapsibleImports = [BrnCollapsible, BrnCollapsibleTrigger, BrnCollapsibleContent] as const;
 
 @NgModule({
 	imports: [...BrnCollapsibleImports],

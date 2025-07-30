@@ -10,11 +10,11 @@ Run `pnpm run generate-snippets` to update this file.
 export const skeletonCardCode = `
 import { Component } from '@angular/core';
 
-import { HlmSkeletonComponent } from '@spartan-ng/helm/skeleton';
+import { HlmSkeleton } from '@spartan-ng/helm/skeleton';
 
 @Component({
 	selector: 'spartan-skeleton-card',
-	imports: [HlmSkeletonComponent],
+	imports: [HlmSkeleton],
 	template: \`
 		<div class="flex flex-col space-y-3">
 			<hlm-skeleton class="h-[125px] w-[250px] rounded-xl" />
@@ -25,16 +25,16 @@ import { HlmSkeletonComponent } from '@spartan-ng/helm/skeleton';
 		</div>
 	\`,
 })
-export class SkeletonCardComponent {}
+export class SkeletonCard {}
 `;
 
 export const defaultCode = `
 import { Component } from '@angular/core';
-import { HlmSkeletonComponent } from '@spartan-ng/helm/skeleton';
+import { HlmSkeleton } from '@spartan-ng/helm/skeleton';
 
 @Component({
 	selector: 'spartan-skeleton-preview',
-	imports: [HlmSkeletonComponent],
+	imports: [HlmSkeleton],
 	template: \`
 		<div class="flex items-center space-x-4">
 			<hlm-skeleton class="size-12 rounded-full" />
@@ -45,5 +45,5 @@ import { HlmSkeletonComponent } from '@spartan-ng/helm/skeleton';
 		</div>
 	\`,
 })
-export class SkeletonPreviewComponent {}
+export class SkeletonPreview {}
 `;

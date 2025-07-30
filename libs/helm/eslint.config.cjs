@@ -40,6 +40,8 @@ module.exports = [
 				},
 			],
 			'@angular-eslint/no-input-rename': 'off',
+			'@angular-eslint/directive-class-suffix': 'off',
+			'@angular-eslint/component-class-suffix': 'off',
 		},
 	},
 	{

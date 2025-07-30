@@ -1,17 +1,17 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
-import { ArchitectureDiagramAnalogComponent } from '@spartan-ng/app/app/pages/(stack)/stack/(technologies)/components/architecture-diagram-analog.component';
-import { ArchitectureDiagramAngularComponent } from '@spartan-ng/app/app/pages/(stack)/stack/(technologies)/components/architecture-diagram-angular.component';
-import { ArchitectureDiagramDrizzleComponent } from '@spartan-ng/app/app/pages/(stack)/stack/(technologies)/components/architecture-diagram-drizzle.component';
-import { ArchitectureDiagramNxComponent } from '@spartan-ng/app/app/pages/(stack)/stack/(technologies)/components/architecture-diagram-nx.component';
-import { ArchitectureDiagramSupabaseComponent } from '@spartan-ng/app/app/pages/(stack)/stack/(technologies)/components/architecture-diagram-supabase.component';
-import { ArchitectureDiagramTrpcComponent } from '@spartan-ng/app/app/pages/(stack)/stack/(technologies)/components/architecture-diagram-trpc.component';
-import { MainSectionDirective } from '@spartan-ng/app/app/shared/layout/main-section.directive';
-import { PageBottomNavLinkComponent } from '@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav-link.component';
-import { PageBottomNavComponent } from '@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav.component';
-import { PageNavComponent } from '@spartan-ng/app/app/shared/layout/page-nav/page-nav.component';
-import { SectionIntroComponent } from '@spartan-ng/app/app/shared/layout/section-intro.component';
-import { SectionSubHeadingComponent } from '@spartan-ng/app/app/shared/layout/section-sub-heading.component';
+import { ArchitectureDiagramAnalog } from '@spartan-ng/app/app/pages/(stack)/stack/(technologies)/components/architecture-diagram-analog';
+import { ArchitectureDiagramAngular } from '@spartan-ng/app/app/pages/(stack)/stack/(technologies)/components/architecture-diagram-angular';
+import { ArchitectureDiagramDrizzle } from '@spartan-ng/app/app/pages/(stack)/stack/(technologies)/components/architecture-diagram-drizzle';
+import { ArchitectureDiagramNx } from '@spartan-ng/app/app/pages/(stack)/stack/(technologies)/components/architecture-diagram-nx';
+import { ArchitectureDiagramSupabase } from '@spartan-ng/app/app/pages/(stack)/stack/(technologies)/components/architecture-diagram-supabase';
+import { ArchitectureDiagramTrpc } from '@spartan-ng/app/app/pages/(stack)/stack/(technologies)/components/architecture-diagram-trpc';
+import { MainSection } from '@spartan-ng/app/app/shared/layout/main-section';
+import { PageBottomNav } from '@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav';
+import { PageBottomNavLink } from '@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav-link';
+import { PageNav } from '@spartan-ng/app/app/shared/layout/page-nav/page-nav';
+import { SectionIntro } from '@spartan-ng/app/app/shared/layout/section-intro';
+import { SectionSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-heading';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
 import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 
@@ -24,18 +24,18 @@ export const routeMeta: RouteMeta = {
 @Component({
 	selector: 'spartan-technologies',
 	imports: [
-		MainSectionDirective,
-		SectionIntroComponent,
-		SectionSubHeadingComponent,
-		PageBottomNavComponent,
-		PageBottomNavLinkComponent,
-		PageNavComponent,
-		ArchitectureDiagramAngularComponent,
-		ArchitectureDiagramAnalogComponent,
-		ArchitectureDiagramTrpcComponent,
-		ArchitectureDiagramDrizzleComponent,
-		ArchitectureDiagramSupabaseComponent,
-		ArchitectureDiagramNxComponent,
+		MainSection,
+		SectionIntro,
+		SectionSubHeading,
+		PageBottomNav,
+		PageBottomNavLink,
+		PageNav,
+		ArchitectureDiagramAngular,
+		ArchitectureDiagramAnalog,
+		ArchitectureDiagramTrpc,
+		ArchitectureDiagramDrizzle,
+		ArchitectureDiagramSupabase,
+		ArchitectureDiagramNx,
 	],
 	template: `
 		<section spartanMainSection>
@@ -148,4 +148,4 @@ export const routeMeta: RouteMeta = {
 		<spartan-page-nav />
 	`,
 })
-export default class AccordionPageComponent {}
+export default class AccordionPage {}

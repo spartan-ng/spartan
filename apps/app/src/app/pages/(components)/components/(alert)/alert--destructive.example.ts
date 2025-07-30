@@ -1,24 +1,12 @@
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideTriangleAlert } from '@ng-icons/lucide';
-import {
-	HlmAlertDescriptionDirective,
-	HlmAlertDirective,
-	HlmAlertIconDirective,
-	HlmAlertTitleDirective,
-} from '@spartan-ng/helm/alert';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { HlmAlert, HlmAlertDescription, HlmAlertIcon, HlmAlertTitle } from '@spartan-ng/helm/alert';
+import { HlmIcon } from '@spartan-ng/helm/icon';
 
 @Component({
 	selector: 'spartan-alert-destructive',
-	imports: [
-		HlmAlertDescriptionDirective,
-		HlmAlertDirective,
-		HlmAlertIconDirective,
-		HlmAlertTitleDirective,
-		NgIcon,
-		HlmIconDirective,
-	],
+	imports: [HlmAlertDescription, HlmAlert, HlmAlertIcon, HlmAlertTitle, NgIcon, HlmIcon],
 	providers: [provideIcons({ lucideTriangleAlert })],
 	template: `
 		<div hlmAlert variant="destructive">
@@ -28,4 +16,4 @@ import { HlmIconDirective } from '@spartan-ng/helm/icon';
 		</div>
 	`,
 })
-export class AlertDestructiveComponent {}
+export class AlertDestructive {}

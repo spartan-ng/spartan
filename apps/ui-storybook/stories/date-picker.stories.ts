@@ -1,15 +1,15 @@
-import { HlmDatePickerComponent } from '@spartan-ng/helm/date-picker';
+import { HlmDatePicker } from '@spartan-ng/helm/date-picker';
 import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
 
-const meta: Meta<HlmDatePickerComponent<Date>> = {
+const meta: Meta<HlmDatePicker<Date>> = {
 	title: 'Date Picker',
-	component: HlmDatePickerComponent,
+	component: HlmDatePicker,
 	tags: ['autodocs'],
 	args: {},
 	argTypes: {},
 	decorators: [
 		moduleMetadata({
-			imports: [HlmDatePickerComponent],
+			imports: [HlmDatePicker],
 		}),
 	],
 	render: ({ ...args }) => ({
@@ -26,7 +26,7 @@ const meta: Meta<HlmDatePickerComponent<Date>> = {
 
 export default meta;
 
-type Story = StoryObj<HlmDatePickerComponent<Date>>;
+type Story = StoryObj<HlmDatePicker<Date>>;
 
 export const Default: Story = {
 	args: { min: new Date(2020, 4, 1), max: new Date(2030, 6, 1) },

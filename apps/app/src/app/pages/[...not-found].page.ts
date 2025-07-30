@@ -2,8 +2,8 @@ import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
-import { HlmSeparatorDirective } from '@spartan-ng/helm/separator';
+import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmSeparator } from '@spartan-ng/helm/separator';
 import { hlmH3, hlmMuted } from '@spartan-ng/helm/typography';
 
 export const routeMeta: RouteMeta = {
@@ -14,7 +14,7 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-not-found',
-	imports: [HlmSeparatorDirective, HlmButtonDirective, RouterLink],
+	imports: [HlmSeparator, HlmButton, RouterLink],
 	host: {
 		class: 'h-full flex flex-col items-center justify-center',
 	},
@@ -27,4 +27,4 @@ export const routeMeta: RouteMeta = {
 		<a routerLink="/" size="sm" class="text-xs" hlmBtn variant="link">Back home</a>
 	`,
 })
-export default class NotFoundComponent {}
+export default class NotFound {}

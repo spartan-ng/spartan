@@ -3,13 +3,13 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCalendar } from '@ng-icons/lucide';
 import { BrnHoverCardModule } from '@spartan-ng/brain/hover-card';
 import { HlmAvatarModule } from '@spartan-ng/helm/avatar';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmHoverCardModule } from '@spartan-ng/helm/hover-card';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { HlmIcon } from '@spartan-ng/helm/icon';
 
 @Component({
 	selector: 'spartan-hover-card-preview',
-	imports: [BrnHoverCardModule, HlmHoverCardModule, HlmButtonDirective, NgIcon, HlmIconDirective, HlmAvatarModule],
+	imports: [BrnHoverCardModule, HlmHoverCardModule, HlmButton, NgIcon, HlmIcon, HlmAvatarModule],
 	providers: [provideIcons({ lucideCalendar })],
 	template: `
 		<brn-hover-card>
@@ -33,17 +33,17 @@ import { HlmIconDirective } from '@spartan-ng/helm/icon';
 		</brn-hover-card>
 	`,
 })
-export class HoverCardPreviewComponent {}
+export class HoverCardPreview {}
 
 export const defaultImports = `
 import {
-  BrnHoverCardComponent,
-  BrnHoverCardContentDirective,
-  BrnHoverCardTriggerDirective,
+  BrnHoverCard
+  BrnHoverCardContent
+  BrnHoverCardTrigger
 } from '@spartan-ng/brain/hover-card';
 
 import {
-  HlmHoverCardContentComponent
+  HlmHoverCardContent
 } from '@spartan-ng/helm/hover-card';
 `;
 

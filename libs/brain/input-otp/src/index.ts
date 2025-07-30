@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
-import { BrnInputOtpSlotComponent } from './lib/brn-input-otp-slot.component';
-import { BrnInputOtpComponent } from './lib/brn-input-otp.component';
+import { BrnInputOtp } from './lib/brn-input-otp';
+import { BrnInputOtpSlot } from './lib/brn-input-otp-slot';
 
-export * from './lib/brn-input-otp-slot.component';
-export * from './lib/brn-input-otp.component';
+export * from './lib/brn-input-otp';
+export * from './lib/brn-input-otp-slot';
 
-export const BrnInputOtpImports = [BrnInputOtpComponent, BrnInputOtpSlotComponent] as const;
+export const BrnInputOtpImports = [BrnInputOtp, BrnInputOtpSlot] as const;
 
 @NgModule({
 	imports: [...BrnInputOtpImports],

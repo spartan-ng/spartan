@@ -10,24 +10,15 @@ Run `pnpm run generate-snippets` to update this file.
 export const inputOtpFormCode = `
 import { afterNextRender, Component, computed, inject, OnDestroy, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { BrnInputOtpComponent } from '@spartan-ng/brain/input-otp';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
-import { HlmInputOtpDirective, HlmInputOtpGroupDirective, HlmInputOtpSlotComponent } from '@spartan-ng/helm/input-otp';
-import { HlmToasterComponent } from '@spartan-ng/helm/sonner';
+import { BrnInputOtp } from '@spartan-ng/brain/input-otp';
+import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmInputOtp, HlmInputOtpGroup, HlmInputOtpSlot } from '@spartan-ng/helm/input-otp';
+import { HlmToaster } from '@spartan-ng/helm/sonner';
 import { toast } from 'ngx-sonner';
 
 @Component({
 	selector: 'spartan-input-otp-form',
-	imports: [
-		ReactiveFormsModule,
-		HlmButtonDirective,
-		HlmToasterComponent,
-
-		BrnInputOtpComponent,
-		HlmInputOtpDirective,
-		HlmInputOtpGroupDirective,
-		HlmInputOtpSlotComponent,
-	],
+	imports: [ReactiveFormsModule, HlmButton, HlmToaster, BrnInputOtp, HlmInputOtp, HlmInputOtpGroup, HlmInputOtpSlot],
 	template: \`
 		<hlm-toaster />
 
@@ -62,7 +53,7 @@ import { toast } from 'ngx-sonner';
 		class: 'preview flex min-h-[350px] w-full justify-center p-10 items-center',
 	},
 })
-export class InputOtpFormExampleComponent implements OnDestroy {
+export class InputOtpFormExample implements OnDestroy {
 	private readonly _formBuilder = inject(FormBuilder);
 	private _intervalId?: NodeJS.Timeout;
 
@@ -124,23 +115,12 @@ export class InputOtpFormExampleComponent implements OnDestroy {
 
 export const defaultCode = `
 import { Component } from '@angular/core';
-import { BrnInputOtpComponent } from '@spartan-ng/brain/input-otp';
-import {
-	HlmInputOtpDirective,
-	HlmInputOtpGroupDirective,
-	HlmInputOtpSeparatorComponent,
-	HlmInputOtpSlotComponent,
-} from '@spartan-ng/helm/input-otp';
+import { BrnInputOtp } from '@spartan-ng/brain/input-otp';
+import { HlmInputOtp, HlmInputOtpGroup, HlmInputOtpSeparator, HlmInputOtpSlot } from '@spartan-ng/helm/input-otp';
 
 @Component({
 	selector: 'spartan-input-otp-preview',
-	imports: [
-		HlmInputOtpDirective,
-		HlmInputOtpGroupDirective,
-		HlmInputOtpSeparatorComponent,
-		HlmInputOtpSlotComponent,
-		BrnInputOtpComponent,
-	],
+	imports: [HlmInputOtp, HlmInputOtpGroup, HlmInputOtpSeparator, HlmInputOtpSlot, BrnInputOtp],
 	template: \`
 		<brn-input-otp hlmInputOtp maxLength="6" inputClass="disabled:cursor-not-allowed">
 			<div hlmInputOtpGroup>
@@ -157,5 +137,5 @@ import {
 		</brn-input-otp>
 	\`,
 })
-export class InputOtpPreviewComponent {}
+export class InputOtpPreview {}
 `;

@@ -14,18 +14,18 @@ import {
 	hlmSmall,
 	hlmUl,
 } from '@spartan-ng/helm/typography';
-import { CodePreviewDirective } from '../../../../../shared/code/code-preview.directive';
-import { CodeComponent } from '../../../../../shared/code/code.component';
-import { MainSectionDirective } from '../../../../../shared/layout/main-section.directive';
-import { PageBottomNavLinkComponent } from '../../../../../shared/layout/page-bottom-nav/page-bottom-nav-link.component';
-import { PageBottomNavComponent } from '../../../../../shared/layout/page-bottom-nav/page-bottom-nav.component';
-import { PageNavComponent } from '../../../../../shared/layout/page-nav/page-nav.component';
-import { SectionIntroComponent } from '../../../../../shared/layout/section-intro.component';
-import { SectionSubHeadingComponent } from '../../../../../shared/layout/section-sub-heading.component';
-import { TabsCliComponent } from '../../../../../shared/layout/tabs-cli.component';
-import { TabsComponent } from '../../../../../shared/layout/tabs.component';
+import { Code } from '../../../../../shared/code/code';
+import { CodePreview } from '../../../../../shared/code/code-preview';
+import { MainSection } from '../../../../../shared/layout/main-section';
+import { PageBottomNav } from '../../../../../shared/layout/page-bottom-nav/page-bottom-nav';
+import { PageBottomNavLink } from '../../../../../shared/layout/page-bottom-nav/page-bottom-nav-link';
+import { PageNav } from '../../../../../shared/layout/page-nav/page-nav';
+import { SectionIntro } from '../../../../../shared/layout/section-intro';
+import { SectionSubHeading } from '../../../../../shared/layout/section-sub-heading';
+import { Tabs } from '../../../../../shared/layout/tabs';
+import { TabsCli } from '../../../../../shared/layout/tabs-cli';
 import { metaWith } from '../../../../../shared/meta/meta.util';
-import TypographyPreviewComponent, {
+import TypographyPreview, {
 	blockquoteCode,
 	codeCode,
 	h1Code,
@@ -50,17 +50,17 @@ export const routeMeta: RouteMeta = {
 @Component({
 	selector: 'spartan-dark-mode',
 	imports: [
-		MainSectionDirective,
-		SectionIntroComponent,
-		PageBottomNavComponent,
-		PageBottomNavLinkComponent,
-		PageNavComponent,
-		SectionSubHeadingComponent,
-		CodeComponent,
-		TabsComponent,
-		TabsCliComponent,
-		TypographyPreviewComponent,
-		CodePreviewDirective,
+		MainSection,
+		SectionIntro,
+		PageBottomNav,
+		PageBottomNavLink,
+		PageNav,
+		SectionSubHeading,
+		Code,
+		Tabs,
+		TabsCli,
+		TypographyPreview,
+		CodePreview,
 	],
 	template: `
 		<section spartanMainSection>
@@ -185,7 +185,7 @@ export const routeMeta: RouteMeta = {
 		<spartan-page-nav />
 	`,
 })
-export default class TypographyPageComponent {
+export default class TypographyPage {
 	protected readonly _themingCode = themingCode;
 	protected readonly _h1Code = h1Code;
 	protected readonly _h2Code = h2Code;

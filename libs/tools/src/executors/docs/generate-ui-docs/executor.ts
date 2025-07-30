@@ -15,12 +15,7 @@ export default async function runExecutor(options: GenerateUiDocsExecutorSchema,
 	}
 
 	const project = new Project();
-	project.addSourceFilesAtPaths([
-		`${brainDir}/**/*.component.ts`,
-		`${brainDir}/**/*.directive.ts`,
-		`${helmDir}/**/*.component.ts`,
-		`${helmDir}/**/*.directive.ts`,
-	]);
+	project.addSourceFilesAtPaths([`${brainDir}/**/*.ts`, `${helmDir}/**/*.ts`]);
 
 	const extractedData = extractInputsOutputs(project, context.root);
 

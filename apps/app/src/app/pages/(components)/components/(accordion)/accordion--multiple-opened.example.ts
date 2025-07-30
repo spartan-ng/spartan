@@ -1,26 +1,26 @@
 import { Component, signal } from '@angular/core';
 import { NgIcon } from '@ng-icons/core';
 import {
-	HlmAccordionContentComponent,
-	HlmAccordionDirective,
-	HlmAccordionIconDirective,
-	HlmAccordionItemDirective,
-	HlmAccordionTriggerDirective,
+	HlmAccordion,
+	HlmAccordionContent,
+	HlmAccordionIcon,
+	HlmAccordionItem,
+	HlmAccordionTrigger,
 } from '@spartan-ng/helm/accordion';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmIcon } from '@spartan-ng/helm/icon';
 
 @Component({
 	selector: 'spartan-accordion-multiple-opened',
 	imports: [
-		HlmButtonDirective,
-		HlmAccordionDirective,
-		HlmAccordionItemDirective,
-		HlmAccordionTriggerDirective,
-		HlmAccordionContentComponent,
-		HlmAccordionIconDirective,
+		HlmButton,
+		HlmAccordion,
+		HlmAccordionItem,
+		HlmAccordionTrigger,
+		HlmAccordionContent,
+		HlmAccordionIcon,
 		NgIcon,
-		HlmIconDirective,
+		HlmIcon,
 	],
 	template: `
 		<div hlmAccordion type="multiple" class="pb-4">
@@ -55,7 +55,7 @@ import { HlmIconDirective } from '@spartan-ng/helm/icon';
 		<button hlmBtn (click)="toggleThird()">Toggle Third Item</button>
 	`,
 })
-export class AccordionMultipleOpenedComponent {
+export class AccordionMultipleOpened {
 	protected readonly _thirdOpened = signal(false);
 	toggleThird() {
 		this._thirdOpened.set(!this._thirdOpened());

@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideItalic } from '@ng-icons/lucide';
-import { BrnToggleDirective } from '@spartan-ng/brain/toggle';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
-import { HlmToggleDirective } from '@spartan-ng/helm/toggle';
+import { BrnToggle } from '@spartan-ng/brain/toggle';
+import { HlmIcon } from '@spartan-ng/helm/icon';
+import { HlmToggle } from '@spartan-ng/helm/toggle';
 
 @Component({
 	selector: 'spartan-toggle-with-text',
-	imports: [BrnToggleDirective, HlmToggleDirective, NgIcon, HlmIconDirective],
+	imports: [BrnToggle, HlmToggle, NgIcon, HlmIcon],
 	providers: [provideIcons({ lucideItalic })],
 	template: `
 		<button brnToggle hlm>
@@ -16,4 +16,4 @@ import { HlmToggleDirective } from '@spartan-ng/helm/toggle';
 		</button>
 	`,
 })
-export class ToggleWithTextPreviewComponent {}
+export class ToggleWithTextPreview {}

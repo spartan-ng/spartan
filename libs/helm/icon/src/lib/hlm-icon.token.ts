@@ -1,5 +1,5 @@
 import { InjectionToken, ValueProvider, inject } from '@angular/core';
-import type { IconSize } from './hlm-icon.directive';
+import type { IconSize } from './hlm-icon';
 
 export interface HlmIconConfig {
 	size: IconSize;

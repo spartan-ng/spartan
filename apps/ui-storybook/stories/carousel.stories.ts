@@ -1,22 +1,22 @@
 import { argsToTemplate, Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 
-import { HlmCardContentDirective, HlmCardDirective } from '@spartan-ng/helm/card';
-import { HlmCarouselComponent, HlmCarouselImports } from '@spartan-ng/helm/carousel';
+import { HlmCard, HlmCardContent } from '@spartan-ng/helm/card';
+import { HlmCarousel, HlmCarouselImports } from '@spartan-ng/helm/carousel';
 import Autoplay from 'embla-carousel-autoplay';
 
-const meta: Meta<HlmCarouselComponent> = {
+const meta: Meta<HlmCarousel> = {
 	title: 'Carousel',
-	component: HlmCarouselComponent,
+	component: HlmCarousel,
 	tags: ['autodocs'],
 	decorators: [
 		moduleMetadata({
-			imports: [HlmCarouselImports, HlmCardDirective, HlmCardContentDirective],
+			imports: [HlmCarouselImports, HlmCard, HlmCardContent],
 		}),
 	],
 };
 
 export default meta;
-type Story = StoryObj<HlmCarouselComponent>;
+type Story = StoryObj<HlmCarousel>;
 
 export const Default: Story = {
 	render: () => ({

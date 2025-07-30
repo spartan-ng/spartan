@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 
-import { BrnSwitchThumbComponent } from './lib/brn-switch-thumb.component';
-import { BrnSwitchComponent } from './lib/brn-switch.component';
+import { BrnSwitch } from './lib/brn-switch';
+import { BrnSwitchThumb } from './lib/brn-switch-thumb';
 
-export * from './lib/brn-switch-thumb.component';
-export * from './lib/brn-switch.component';
+export * from './lib/brn-switch';
+export * from './lib/brn-switch-thumb';
 
-export const BrnSwitchImports = [BrnSwitchComponent, BrnSwitchThumbComponent] as const;
+export const BrnSwitchImports = [BrnSwitch, BrnSwitchThumb] as const;
 
 @NgModule({
 	imports: [...BrnSwitchImports],

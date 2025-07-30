@@ -1,14 +1,14 @@
-import { BrnTabsDirective, BrnTabsImports } from '@spartan-ng/brain/tabs';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { BrnTabs, BrnTabsImports } from '@spartan-ng/brain/tabs';
+import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmCardImports } from '@spartan-ng/helm/card';
-import { HlmInputDirective } from '@spartan-ng/helm/input';
-import { HlmLabelDirective } from '@spartan-ng/helm/label';
+import { HlmInput } from '@spartan-ng/helm/input';
+import { HlmLabel } from '@spartan-ng/helm/label';
 import { HlmTabsImports } from '@spartan-ng/helm/tabs';
 import { type Meta, type StoryObj, argsToTemplate, moduleMetadata } from '@storybook/angular';
 
-const meta: Meta<BrnTabsDirective & { disabled: boolean }> = {
+const meta: Meta<BrnTabs & { disabled: boolean }> = {
 	title: 'Tabs',
-	component: BrnTabsDirective,
+	component: BrnTabs,
 	tags: ['autodocs'],
 	argTypes: {
 		activationMode: {
@@ -20,20 +20,13 @@ const meta: Meta<BrnTabsDirective & { disabled: boolean }> = {
 	},
 	decorators: [
 		moduleMetadata({
-			imports: [
-				BrnTabsImports,
-				HlmTabsImports,
-				HlmCardImports,
-				HlmLabelDirective,
-				HlmInputDirective,
-				HlmButtonDirective,
-			],
+			imports: [BrnTabsImports, HlmTabsImports, HlmCardImports, HlmLabel, HlmInput, HlmButton],
 		}),
 	],
 };
 
 export default meta;
-type Story = StoryObj<BrnTabsDirective & { disabled: boolean }>;
+type Story = StoryObj<BrnTabs & { disabled: boolean }>;
 export const Default: Story = {
 	render: ({ disabled, ...args }) => ({
 		props: { disabled, ...args },

@@ -1,21 +1,16 @@
 import { NgModule } from '@angular/core';
 
-import { BrnPopoverCloseDirective } from './lib/brn-popover-close.directive';
-import { BrnPopoverContentDirective } from './lib/brn-popover-content.directive';
-import { BrnPopoverTriggerDirective } from './lib/brn-popover-trigger.directive';
-import { BrnPopoverComponent } from './lib/brn-popover.component';
+import { BrnPopover } from './lib/brn-popover';
+import { BrnPopoverClose } from './lib/brn-popover-close';
+import { BrnPopoverContent } from './lib/brn-popover-content';
+import { BrnPopoverTrigger } from './lib/brn-popover-trigger';
 
-export * from './lib/brn-popover-close.directive';
-export * from './lib/brn-popover-content.directive';
-export * from './lib/brn-popover-trigger.directive';
-export * from './lib/brn-popover.component';
+export * from './lib/brn-popover';
+export * from './lib/brn-popover-close';
+export * from './lib/brn-popover-content';
+export * from './lib/brn-popover-trigger';
 
-export const BrnPopoverImports = [
-	BrnPopoverComponent,
-	BrnPopoverTriggerDirective,
-	BrnPopoverCloseDirective,
-	BrnPopoverContentDirective,
-] as const;
+export const BrnPopoverImports = [BrnPopover, BrnPopoverTrigger, BrnPopoverClose, BrnPopoverContent] as const;
 
 @NgModule({
 	imports: [...BrnPopoverImports],

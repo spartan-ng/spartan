@@ -65,4 +65,4 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 		</hlm-select>
 	`,
 })
-export class SelectScrollablePreviewComponent {}
+export class SelectScrollablePreview {}

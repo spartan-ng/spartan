@@ -1,22 +1,15 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { BrnRadioGroupDirective } from '@spartan-ng/brain/radio-group';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
-import { HlmLabelDirective } from '@spartan-ng/helm/label';
+import { BrnRadioGroup } from '@spartan-ng/brain/radio-group';
+import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmLabel } from '@spartan-ng/helm/label';
 import { HlmRadioGroupImports } from '@spartan-ng/helm/radio-group';
-import { HlmCodeDirective, HlmSmallDirective } from '@spartan-ng/helm/typography';
+import { HlmCode, HlmSmall } from '@spartan-ng/helm/typography';
 import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
 
 @Component({
 	selector: 'radio-group-example',
-	imports: [
-		HlmRadioGroupImports,
-		FormsModule,
-		HlmButtonDirective,
-		HlmCodeDirective,
-		HlmSmallDirective,
-		HlmLabelDirective,
-	],
+	imports: [HlmRadioGroupImports, FormsModule, HlmButton, HlmCode, HlmSmall, HlmLabel],
 	template: `
 		<small hlmSmall class="font-semibold">Choose a version</small>
 		<hlm-radio-group class="font-mono text-sm font-medium" [(ngModel)]="version">
@@ -55,32 +48,24 @@ import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
 		</small>
 	`,
 })
-class RadioGroupExampleComponent {
+class RadioGroupExample {
 	version: string | null = '16.1.4';
 }
 
-const meta: Meta<BrnRadioGroupDirective> = {
+const meta: Meta<BrnRadioGroup> = {
 	title: 'Radio Group',
-	component: BrnRadioGroupDirective,
+	component: BrnRadioGroup,
 	tags: ['autodocs'],
 	decorators: [
 		moduleMetadata({
-			imports: [
-				RadioGroupExampleComponent,
-				HlmRadioGroupImports,
-				FormsModule,
-				HlmButtonDirective,
-				HlmCodeDirective,
-				HlmSmallDirective,
-				HlmLabelDirective,
-			],
+			imports: [RadioGroupExample, HlmRadioGroupImports, FormsModule, HlmButton, HlmCode, HlmSmall, HlmLabel],
 			providers: [],
 		}),
 	],
 };
 
 export default meta;
-type Story = StoryObj<BrnRadioGroupDirective>;
+type Story = StoryObj<BrnRadioGroup>;
 
 export const Default: Story = {
 	render: () => ({

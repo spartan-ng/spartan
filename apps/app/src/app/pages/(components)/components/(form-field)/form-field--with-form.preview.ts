@@ -3,7 +3,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { HlmButtonModule } from '@spartan-ng/helm/button';
 import { HlmFormFieldModule } from '@spartan-ng/helm/form-field';
-import { HlmInputDirective } from '@spartan-ng/helm/input';
+import { HlmInput } from '@spartan-ng/helm/input';
 import { HlmSelectImports, HlmSelectModule } from '@spartan-ng/helm/select';
 
 @Component({
@@ -12,7 +12,7 @@ import { HlmSelectImports, HlmSelectModule } from '@spartan-ng/helm/select';
 		ReactiveFormsModule,
 		HlmFormFieldModule,
 		HlmSelectModule,
-		HlmInputDirective,
+		HlmInput,
 		HlmSelectImports,
 		BrnSelectImports,
 		HlmButtonModule,
@@ -49,7 +49,7 @@ import { HlmSelectImports, HlmSelectModule } from '@spartan-ng/helm/select';
 		</form>
 	`,
 })
-export class FormFieldFormPreviewComponent {
+export class FormFieldFormPreview {
 	private readonly _formBuilder = inject(FormBuilder);
 
 	public form = this._formBuilder.group({

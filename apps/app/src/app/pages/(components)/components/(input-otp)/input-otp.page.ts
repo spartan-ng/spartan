@@ -1,21 +1,21 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
-import { UIApiDocsComponent } from '@spartan-ng/app/app/shared/layout/ui-docs-section/ui-docs-section.component';
+import { UIApiDocs } from '@spartan-ng/app/app/shared/layout/ui-docs-section/ui-docs-section';
 import { hlmCode, hlmH4, hlmP } from '@spartan-ng/helm/typography';
-import { CodePreviewDirective } from '../../../../shared/code/code-preview.directive';
-import { CodeComponent } from '../../../../shared/code/code.component';
-import { MainSectionDirective } from '../../../../shared/layout/main-section.directive';
-import { PageBottomNavLinkComponent } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav-link.component';
-import { PageBottomNavComponent } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav.component';
-import { PageNavComponent } from '../../../../shared/layout/page-nav/page-nav.component';
-import { SectionIntroComponent } from '../../../../shared/layout/section-intro.component';
-import { SectionSubHeadingComponent } from '../../../../shared/layout/section-sub-heading.component';
-import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
-import { TabsComponent } from '../../../../shared/layout/tabs.component';
+import { Code } from '../../../../shared/code/code';
+import { CodePreview } from '../../../../shared/code/code-preview';
+import { MainSection } from '../../../../shared/layout/main-section';
+import { PageBottomNav } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav';
+import { PageBottomNavLink } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav-link';
+import { PageNav } from '../../../../shared/layout/page-nav/page-nav';
+import { SectionIntro } from '../../../../shared/layout/section-intro';
+import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading';
+import { Tabs } from '../../../../shared/layout/tabs';
+import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { InputOtpFormExampleComponent } from './input-otp--form.example';
+import { InputOtpFormExample } from './input-otp--form.example';
 import { defaultCode, inputOtpFormCode } from './input-otp.generated';
-import { defaultImports, defaultSkeleton, InputOtpPreviewComponent } from './input-otp.preview';
+import { defaultImports, defaultSkeleton, InputOtpPreview } from './input-otp.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Input OTP', api: 'input-otp' },
@@ -25,19 +25,19 @@ export const routeMeta: RouteMeta = {
 @Component({
 	selector: 'spartan-input-otp',
 	imports: [
-		UIApiDocsComponent,
-		MainSectionDirective,
-		CodeComponent,
-		SectionIntroComponent,
-		SectionSubHeadingComponent,
-		TabsComponent,
-		TabsCliComponent,
-		CodePreviewDirective,
-		PageNavComponent,
-		PageBottomNavComponent,
-		PageBottomNavLinkComponent,
-		InputOtpPreviewComponent,
-		InputOtpFormExampleComponent,
+		UIApiDocs,
+		MainSection,
+		Code,
+		SectionIntro,
+		SectionSubHeading,
+		Tabs,
+		TabsCli,
+		CodePreview,
+		PageNav,
+		PageBottomNav,
+		PageBottomNavLink,
+		InputOtpPreview,
+		InputOtpFormExample,
 	],
 	template: `
 		<section spartanMainSection>
@@ -94,7 +94,7 @@ export const routeMeta: RouteMeta = {
 		<spartan-page-nav />
 	`,
 })
-export default class InputOtpPageComponent {
+export default class InputOtpPage {
 	protected readonly _defaultCode = defaultCode;
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;

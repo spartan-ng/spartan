@@ -3,8 +3,8 @@ import userEvent from '@testing-library/user-event';
 
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { BrnSwitchThumbComponent } from './brn-switch-thumb.component';
-import { BrnSwitchComponent } from './brn-switch.component';
+import { BrnSwitch } from './brn-switch';
+import { BrnSwitchThumb } from './brn-switch-thumb';
 
 @Component({
 	selector: 'brn-switch-ng-model',
@@ -16,10 +16,10 @@ import { BrnSwitchComponent } from './brn-switch.component';
 			</brn-switch>
 		</label>
 	`,
-	imports: [BrnSwitchComponent, BrnSwitchThumbComponent, FormsModule],
+	imports: [BrnSwitch, BrnSwitchThumb, FormsModule],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BrnSwitchNgModelSpecComponent {
+export class BrnSwitchNgModelSpec {
 	@Input()
 	public disabled = false;
 	@Input()
@@ -28,7 +28,7 @@ export class BrnSwitchNgModelSpecComponent {
 
 describe('BrnSwitchComponentNgModelIntegration', () => {
 	const setup = async (airplaneMode = false, disabled = false) => {
-		const container = await render(BrnSwitchNgModelSpecComponent, {
+		const container = await render(BrnSwitchNgModelSpec, {
 			componentInputs: {
 				disabled,
 				airplaneMode,

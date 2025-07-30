@@ -1,38 +1,33 @@
 import { Component } from '@angular/core';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmButton } from '@spartan-ng/helm/button';
 import {
-	HlmCardContentDirective,
-	HlmCardDescriptionDirective,
-	HlmCardDirective,
-	HlmCardFooterDirective,
-	HlmCardHeaderDirective,
-	HlmCardTitleDirective,
+	HlmCard,
+	HlmCardContent,
+	HlmCardDescription,
+	HlmCardFooter,
+	HlmCardHeader,
+	HlmCardTitle,
 } from '@spartan-ng/helm/card';
-import { HlmInputDirective } from '@spartan-ng/helm/input';
-import { HlmLabelDirective } from '@spartan-ng/helm/label';
-import {
-	HlmTabsComponent,
-	HlmTabsContentDirective,
-	HlmTabsListComponent,
-	HlmTabsTriggerDirective,
-} from '@spartan-ng/helm/tabs';
+import { HlmInput } from '@spartan-ng/helm/input';
+import { HlmLabel } from '@spartan-ng/helm/label';
+import { HlmTabs, HlmTabsContent, HlmTabsList, HlmTabsTrigger } from '@spartan-ng/helm/tabs';
 
 @Component({
 	selector: 'spartan-tabs-preview',
 	imports: [
-		HlmTabsComponent,
-		HlmTabsListComponent,
-		HlmTabsTriggerDirective,
-		HlmTabsContentDirective,
-		HlmCardContentDirective,
-		HlmCardDescriptionDirective,
-		HlmCardDirective,
-		HlmCardFooterDirective,
-		HlmCardHeaderDirective,
-		HlmCardTitleDirective,
-		HlmLabelDirective,
-		HlmInputDirective,
-		HlmButtonDirective,
+		HlmTabs,
+		HlmTabsList,
+		HlmTabsTrigger,
+		HlmTabsContent,
+		HlmCardContent,
+		HlmCardDescription,
+		HlmCard,
+		HlmCardFooter,
+		HlmCardHeader,
+		HlmCardTitle,
+		HlmLabel,
+		HlmInput,
+		HlmButton,
 	],
 	host: {
 		class: 'block w-full max-w-lg',
@@ -88,14 +83,14 @@ import {
 		</hlm-tabs>
 	`,
 })
-export class TabsPreviewComponent {}
+export class TabsPreview {}
 
 export const defaultImports = `
 import {
-	HlmTabsComponent,
-	HlmTabsContentDirective,
-	HlmTabsListComponent,
-	HlmTabsTriggerDirective,
+	HlmTabs
+	HlmTabsContent
+	HlmTabsList
+	HlmTabsTrigger
 } from '@spartan-ng/helm/tabs';
 `;
 export const defaultSkeleton = `

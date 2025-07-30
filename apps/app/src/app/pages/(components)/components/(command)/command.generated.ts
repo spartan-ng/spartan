@@ -21,17 +21,12 @@ import {
 	lucideX,
 } from '@ng-icons/lucide';
 import { BrnCommandImports } from '@spartan-ng/brain/command';
-import {
-	BrnDialogCloseDirective,
-	BrnDialogComponent,
-	BrnDialogContentDirective,
-	BrnDialogOverlayComponent,
-} from '@spartan-ng/brain/dialog';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { BrnDialog, BrnDialogClose, BrnDialogContent, BrnDialogOverlay } from '@spartan-ng/brain/dialog';
+import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmCommandImports } from '@spartan-ng/helm/command';
-import { HlmDialogOverlayDirective } from '@spartan-ng/helm/dialog';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
-import { HlmCodeDirective } from '@spartan-ng/helm/typography';
+import { HlmDialogOverlay } from '@spartan-ng/helm/dialog';
+import { HlmIcon } from '@spartan-ng/helm/icon';
+import { HlmCode } from '@spartan-ng/helm/typography';
 
 @Component({
 	selector: 'spartan-command-dialog',
@@ -51,14 +46,14 @@ import { HlmCodeDirective } from '@spartan-ng/helm/typography';
 		BrnCommandImports,
 		HlmCommandImports,
 		NgIcon,
-		HlmIconDirective,
-		HlmButtonDirective,
-		BrnDialogComponent,
-		BrnDialogCloseDirective,
-		BrnDialogContentDirective,
-		BrnDialogOverlayComponent,
-		HlmDialogOverlayDirective,
-		HlmCodeDirective,
+		HlmIcon,
+		HlmButton,
+		BrnDialog,
+		BrnDialogClose,
+		BrnDialogContent,
+		BrnDialogOverlay,
+		HlmDialogOverlay,
+		HlmCode,
 	],
 	template: \`
 		<div class="mx-auto flex max-w-screen-sm items-center justify-center space-x-4 py-20 text-sm">
@@ -120,7 +115,7 @@ import { HlmCodeDirective } from '@spartan-ng/helm/typography';
 		</brn-dialog>
 	\`,
 })
-export class CommandDialogComponent {
+export class CommandDialog {
 	public command = signal('');
 	public state = signal<'closed' | 'open'>('closed');
 	@HostListener('window:keydown', ['$event'])
@@ -155,11 +150,11 @@ import {
 } from '@ng-icons/lucide';
 import { BrnCommandImports } from '@spartan-ng/brain/command';
 import { HlmCommandImports } from '@spartan-ng/helm/command';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { HlmIcon } from '@spartan-ng/helm/icon';
 
 @Component({
 	selector: 'spartan-command-preview',
-	imports: [BrnCommandImports, HlmCommandImports, NgIcon, HlmIconDirective],
+	imports: [BrnCommandImports, HlmCommandImports, NgIcon, HlmIcon],
 	providers: [
 		provideIcons({
 			lucideSearch,
@@ -226,5 +221,5 @@ import { HlmIconDirective } from '@spartan-ng/helm/icon';
 		</hlm-command>
 	\`,
 })
-export class CommandPreviewComponent {}
+export class CommandPreview {}
 `;

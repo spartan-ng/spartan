@@ -1,17 +1,17 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
-import { ArchitectureDiagramComponent } from '@spartan-ng/app/app/pages/(stack)/stack/(overview)/components/architecture-diagram.component';
+import { ArchitectureDiagram } from '@spartan-ng/app/app/pages/(stack)/stack/(overview)/components/architecture-diagram';
 
-import { MainSectionDirective } from '@spartan-ng/app/app/shared/layout/main-section.directive';
-import { PageBottomNavPlaceholderComponent } from '@spartan-ng/app/app/shared/layout/page-bottom-nav-placeholder.component';
-import { PageBottomNavLinkComponent } from '@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav-link.component';
-import { PageBottomNavComponent } from '@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav.component';
-import { PageNavComponent } from '@spartan-ng/app/app/shared/layout/page-nav/page-nav.component';
-import { SectionIntroComponent } from '@spartan-ng/app/app/shared/layout/section-intro.component';
-import { SectionSubHeadingComponent } from '@spartan-ng/app/app/shared/layout/section-sub-heading.component';
+import { MainSection } from '@spartan-ng/app/app/shared/layout/main-section';
+import { PageBottomNavPlaceholder } from '@spartan-ng/app/app/shared/layout/page-bottom-nav-placeholder';
+import { PageBottomNav } from '@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav';
+import { PageBottomNavLink } from '@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav-link';
+import { PageNav } from '@spartan-ng/app/app/shared/layout/page-nav/page-nav';
+import { SectionIntro } from '@spartan-ng/app/app/shared/layout/section-intro';
+import { SectionSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-heading';
 
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmButton } from '@spartan-ng/helm/button';
 import { hlmCode, hlmP, hlmUl } from '@spartan-ng/helm/typography';
 
 export const routeMeta: RouteMeta = {
@@ -28,15 +28,15 @@ const stackLink = 'h-6 underline text-base px-0.5';
 @Component({
 	selector: 'spartan-accordion',
 	imports: [
-		MainSectionDirective,
-		SectionIntroComponent,
-		SectionSubHeadingComponent,
-		PageNavComponent,
-		PageBottomNavComponent,
-		PageBottomNavLinkComponent,
-		PageBottomNavPlaceholderComponent,
-		ArchitectureDiagramComponent,
-		HlmButtonDirective,
+		MainSection,
+		SectionIntro,
+		SectionSubHeading,
+		PageNav,
+		PageBottomNav,
+		PageBottomNavLink,
+		PageBottomNavPlaceholder,
+		ArchitectureDiagram,
+		HlmButton,
 	],
 	template: `
 		<section spartanMainSection>
@@ -105,4 +105,4 @@ const stackLink = 'h-6 underline text-base px-0.5';
 		<spartan-page-nav />
 	`,
 })
-export default class AccordionPageComponent {}
+export default class AccordionPage {}

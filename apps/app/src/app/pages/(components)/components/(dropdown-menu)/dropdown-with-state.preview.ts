@@ -1,39 +1,40 @@
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideUndo2 } from '@ng-icons/lucide';
-import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { BrnMenuTrigger } from '@spartan-ng/brain/menu';
+import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmIcon } from '@spartan-ng/helm/icon';
 import {
-	HlmMenuComponent,
-	HlmMenuGroupComponent,
-	HlmMenuItemCheckComponent,
-	HlmMenuItemCheckboxDirective,
-	HlmMenuItemDirective,
-	HlmMenuItemIconDirective,
-	HlmMenuItemRadioComponent,
-	HlmMenuItemRadioDirective,
-	HlmMenuLabelComponent,
-	HlmMenuSeparatorComponent,
+	HlmMenu,
+	HlmMenuGroup,
+	HlmMenuItem,
+	HlmMenuItemCheck,
+	HlmMenuItemCheckbox,
+	HlmMenuItemIcon,
+	HlmMenuItemRadio,
+	HlmMenuItemRadioIndicator,
+	HlmMenuLabel,
+	HlmMenuSeparator,
 } from '@spartan-ng/helm/menu';
 
 @Component({
 	selector: 'spartan-dropdown-with-state',
 	imports: [
-		BrnMenuTriggerDirective,
-		HlmMenuComponent,
-		HlmMenuItemDirective,
-		HlmMenuLabelComponent,
-		HlmMenuSeparatorComponent,
-		HlmMenuItemIconDirective,
-		HlmMenuItemCheckComponent,
-		HlmMenuItemRadioComponent,
-		HlmMenuGroupComponent,
-		HlmMenuItemRadioDirective,
-		HlmMenuItemCheckboxDirective,
-		HlmButtonDirective,
+		BrnMenuTrigger,
+		HlmMenu,
+		HlmMenuItem,
+		HlmMenuLabel,
+		HlmMenuSeparator,
+		HlmMenuItemIcon,
+		HlmMenuItemCheck,
+		HlmMenuItemRadio,
+		HlmMenuGroup,
+		HlmMenuItemRadio,
+		HlmMenuItemCheckbox,
+		HlmButton,
 		NgIcon,
-		HlmIconDirective,
+		HlmIcon,
+		HlmMenuItemRadioIndicator,
 	],
 	providers: [provideIcons({ lucideUndo2 })],
 	template: `
@@ -84,7 +85,7 @@ import {
 		</ng-template>
 	`,
 })
-export class DropdownWithStatePreviewComponent {
+export class DropdownWithStatePreview {
 	public isStatusBar = false;
 	public isPanel = false;
 	public isActivityBar = false;

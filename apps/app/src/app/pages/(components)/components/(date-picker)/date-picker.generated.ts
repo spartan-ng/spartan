@@ -10,12 +10,12 @@ Run `pnpm run generate-snippets` to update this file.
 export const datePickerConfigCode = `
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HlmDatePickerComponent, provideHlmDatePickerConfig } from '@spartan-ng/helm/date-picker';
+import { HlmDatePicker, provideHlmDatePickerConfig } from '@spartan-ng/helm/date-picker';
 import { DateTime } from 'luxon';
 
 @Component({
 	selector: 'spartan-date-picker-config',
-	imports: [HlmDatePickerComponent, FormsModule],
+	imports: [HlmDatePicker, FormsModule],
 	template: \`
 		<hlm-date-picker [min]="minDate" [max]="maxDate">
 			<span>Pick a date</span>
@@ -31,7 +31,7 @@ import { DateTime } from 'luxon';
 		class: 'preview flex min-h-[350px] w-full justify-center p-10 items-center',
 	},
 })
-export class DatePickerConfigExampleComponent {
+export class DatePickerConfigExample {
 	/** The minimum date */
 	public minDate = new Date(2023, 0, 1);
 
@@ -43,13 +43,13 @@ export class DatePickerConfigExampleComponent {
 export const datePickerFormMultiCode = `
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
-import { HlmDatePickerMultiComponent } from '@spartan-ng/helm/date-picker';
-import { HlmLabelDirective } from '@spartan-ng/helm/label';
+import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmDatePickerMulti } from '@spartan-ng/helm/date-picker';
+import { HlmLabel } from '@spartan-ng/helm/label';
 
 @Component({
 	selector: 'spartan-date-picker-form-multiple',
-	imports: [HlmDatePickerMultiComponent, ReactiveFormsModule, HlmButtonDirective, HlmLabelDirective],
+	imports: [HlmDatePickerMulti, ReactiveFormsModule, HlmButton, HlmLabel],
 	template: \`
 		<form [formGroup]="form" (ngSubmit)="submit()" class="space-y-8">
 			<label hlmLabel>
@@ -73,7 +73,7 @@ import { HlmLabelDirective } from '@spartan-ng/helm/label';
 		class: 'preview flex min-h-[350px] w-full justify-center p-10 items-center',
 	},
 })
-export class DatePickerFormMultipleExampleComponent {
+export class DatePickerFormMultipleExample {
 	private readonly _formBuilder = inject(FormBuilder);
 
 	public form = this._formBuilder.group({
@@ -95,13 +95,13 @@ export class DatePickerFormMultipleExampleComponent {
 export const datePickerFormCode = `
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
-import { HlmDatePickerComponent } from '@spartan-ng/helm/date-picker';
-import { HlmLabelDirective } from '@spartan-ng/helm/label';
+import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmDatePicker } from '@spartan-ng/helm/date-picker';
+import { HlmLabel } from '@spartan-ng/helm/label';
 
 @Component({
 	selector: 'spartan-date-picker-form',
-	imports: [HlmDatePickerComponent, ReactiveFormsModule, HlmButtonDirective, HlmLabelDirective],
+	imports: [HlmDatePicker, ReactiveFormsModule, HlmButton, HlmLabel],
 	template: \`
 		<form [formGroup]="form" (ngSubmit)="submit()" class="space-y-8">
 			<label hlmLabel>
@@ -118,7 +118,7 @@ import { HlmLabelDirective } from '@spartan-ng/helm/label';
 		class: 'preview flex min-h-[350px] w-full justify-center p-10 items-center',
 	},
 })
-export class DatePickerFormExampleComponent {
+export class DatePickerFormExample {
 	private readonly _formBuilder = inject(FormBuilder);
 
 	public form = this._formBuilder.group({
@@ -140,12 +140,12 @@ export class DatePickerFormExampleComponent {
 export const datePickerFormatCode = `
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HlmDatePickerComponent, provideHlmDatePickerConfig } from '@spartan-ng/helm/date-picker';
+import { HlmDatePicker, provideHlmDatePickerConfig } from '@spartan-ng/helm/date-picker';
 import { DateTime } from 'luxon';
 
 @Component({
 	selector: 'spartan-date-picker-format',
-	imports: [HlmDatePickerComponent, FormsModule],
+	imports: [HlmDatePicker, FormsModule],
 	template: \`
 		<hlm-date-picker [min]="minDate" [max]="maxDate" [formatDate]="formatDate">
 			<span>Pick a date</span>
@@ -159,7 +159,7 @@ import { DateTime } from 'luxon';
 		class: 'preview flex min-h-[350px] w-full justify-center p-10 items-center',
 	},
 })
-export class DatePickerFormatExampleComponent {
+export class DatePickerFormatExample {
 	/** The minimum date */
 	public minDate = new Date(2023, 0, 1);
 
@@ -173,11 +173,11 @@ export class DatePickerFormatExampleComponent {
 
 export const datePickerMultiCode = `
 import { Component } from '@angular/core';
-import { HlmDatePickerMultiComponent } from '@spartan-ng/helm/date-picker';
+import { HlmDatePickerMulti } from '@spartan-ng/helm/date-picker';
 
 @Component({
 	selector: 'spartan-date-picker-multiple',
-	imports: [HlmDatePickerMultiComponent],
+	imports: [HlmDatePickerMulti],
 	template: \`
 		<hlm-date-picker-multi
 			[min]="minDate"
@@ -193,7 +193,7 @@ import { HlmDatePickerMultiComponent } from '@spartan-ng/helm/date-picker';
 		class: 'preview flex min-h-[350px] w-full justify-center p-10 items-center',
 	},
 })
-export class DatePickerMultipleExampleComponent {
+export class DatePickerMultipleExample {
 	/** The minimum date */
 	public minDate = new Date(2023, 0, 1);
 
@@ -204,11 +204,11 @@ export class DatePickerMultipleExampleComponent {
 
 export const defaultCode = `
 import { Component } from '@angular/core';
-import { HlmDatePickerComponent } from '@spartan-ng/helm/date-picker';
+import { HlmDatePicker } from '@spartan-ng/helm/date-picker';
 
 @Component({
 	selector: 'spartan-date-picker-preview',
-	imports: [HlmDatePickerComponent],
+	imports: [HlmDatePicker],
 	template: \`
 		<hlm-date-picker [min]="minDate" [max]="maxDate">
 			<span>Select date</span>
@@ -218,7 +218,7 @@ import { HlmDatePickerComponent } from '@spartan-ng/helm/date-picker';
 		class: 'preview flex min-h-[350px] w-full justify-center p-10 items-center',
 	},
 })
-export class DatePickerPreviewComponent {
+export class DatePickerPreview {
 	/** The minimum date */
 	public minDate = new Date(2023, 0, 1);
 

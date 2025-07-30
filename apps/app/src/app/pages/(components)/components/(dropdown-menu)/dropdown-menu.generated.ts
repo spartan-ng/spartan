@@ -26,32 +26,32 @@ import {
 	lucideSmile,
 	lucideUser,
 } from '@ng-icons/lucide';
-import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { BrnMenuTrigger } from '@spartan-ng/brain/menu';
+import { HlmButton } from '@spartan-ng/helm/button';
 import {
-	HlmMenuComponent,
-	HlmMenuGroupComponent,
-	HlmMenuItemDirective,
-	HlmMenuItemSubIndicatorComponent,
-	HlmMenuLabelComponent,
-	HlmMenuSeparatorComponent,
-	HlmMenuShortcutComponent,
-	HlmSubMenuComponent,
+	HlmMenu,
+	HlmMenuGroup,
+	HlmMenuItem,
+	HlmMenuItemSubIndicator,
+	HlmMenuLabel,
+	HlmMenuSeparator,
+	HlmMenuShortcut,
+	HlmSubMenu,
 } from '@spartan-ng/helm/menu';
 
 @Component({
 	selector: 'spartan-dropdown-preview',
 	imports: [
-		BrnMenuTriggerDirective,
-		HlmMenuComponent,
-		HlmSubMenuComponent,
-		HlmMenuItemDirective,
-		HlmMenuItemSubIndicatorComponent,
-		HlmMenuLabelComponent,
-		HlmMenuShortcutComponent,
-		HlmMenuSeparatorComponent,
-		HlmMenuGroupComponent,
-		HlmButtonDirective,
+		BrnMenuTrigger,
+		HlmMenu,
+		HlmSubMenu,
+		HlmMenuItem,
+		HlmMenuItemSubIndicator,
+		HlmMenuLabel,
+		HlmMenuShortcut,
+		HlmMenuSeparator,
+		HlmMenuGroup,
+		HlmButton,
 	],
 	providers: [
 		provideIcons({
@@ -156,46 +156,47 @@ import {
 		</ng-template>
 	\`,
 })
-export class DropdownPreviewComponent {}
+export class DropdownPreview {}
 `;
 
 export const dropdownWithContextCode = `
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideUndo2 } from '@ng-icons/lucide';
-import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { BrnMenuTrigger } from '@spartan-ng/brain/menu';
+import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmIcon } from '@spartan-ng/helm/icon';
 import {
-	HlmMenuComponent,
-	HlmMenuGroupComponent,
-	HlmMenuItemCheckComponent,
-	HlmMenuItemCheckboxDirective,
-	HlmMenuItemDirective,
-	HlmMenuItemIconDirective,
-	HlmMenuItemRadioComponent,
-	HlmMenuItemRadioDirective,
-	HlmMenuLabelComponent,
-	HlmMenuSeparatorComponent,
+	HlmMenu,
+	HlmMenuGroup,
+	HlmMenuItem,
+	HlmMenuItemCheck,
+	HlmMenuItemCheckbox,
+	HlmMenuItemIcon,
+	HlmMenuItemRadio,
+	HlmMenuItemRadioIndicator,
+	HlmMenuLabel,
+	HlmMenuSeparator,
 } from '@spartan-ng/helm/menu';
 
 @Component({
 	selector: 'spartan-dropdown-with-context',
 	imports: [
-		BrnMenuTriggerDirective,
-		HlmMenuComponent,
-		HlmMenuItemDirective,
-		HlmMenuLabelComponent,
-		HlmMenuSeparatorComponent,
-		HlmMenuItemIconDirective,
-		HlmMenuItemCheckComponent,
-		HlmMenuItemRadioComponent,
-		HlmMenuGroupComponent,
-		HlmMenuItemRadioDirective,
-		HlmMenuItemCheckboxDirective,
-		HlmButtonDirective,
+		BrnMenuTrigger,
+		HlmMenu,
+		HlmMenuItem,
+		HlmMenuLabel,
+		HlmMenuSeparator,
+		HlmMenuItemIcon,
+		HlmMenuItemCheck,
+		HlmMenuItemRadio,
+		HlmMenuGroup,
+		HlmMenuItemRadio,
+		HlmMenuItemRadioIndicator,
+		HlmMenuItemCheckbox,
+		HlmButton,
 		NgIcon,
-		HlmIconDirective,
+		HlmIcon,
 	],
 	providers: [provideIcons({ lucideUndo2 })],
 	template: \`
@@ -258,7 +259,7 @@ import {
 		</ng-template>
 	\`,
 })
-export class DropdownWithContextPreviewComponent {
+export class DropdownWithContextPreview {
 	public isStatusBar = false;
 	public isPanel = false;
 	public isActivityBar = false;
@@ -279,39 +280,40 @@ export const dropdownWithStateCode = `
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideUndo2 } from '@ng-icons/lucide';
-import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { BrnMenuTrigger } from '@spartan-ng/brain/menu';
+import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmIcon } from '@spartan-ng/helm/icon';
 import {
-	HlmMenuComponent,
-	HlmMenuGroupComponent,
-	HlmMenuItemCheckComponent,
-	HlmMenuItemCheckboxDirective,
-	HlmMenuItemDirective,
-	HlmMenuItemIconDirective,
-	HlmMenuItemRadioComponent,
-	HlmMenuItemRadioDirective,
-	HlmMenuLabelComponent,
-	HlmMenuSeparatorComponent,
+	HlmMenu,
+	HlmMenuGroup,
+	HlmMenuItem,
+	HlmMenuItemCheck,
+	HlmMenuItemCheckbox,
+	HlmMenuItemIcon,
+	HlmMenuItemRadio,
+	HlmMenuItemRadioIndicator,
+	HlmMenuLabel,
+	HlmMenuSeparator,
 } from '@spartan-ng/helm/menu';
 
 @Component({
 	selector: 'spartan-dropdown-with-state',
 	imports: [
-		BrnMenuTriggerDirective,
-		HlmMenuComponent,
-		HlmMenuItemDirective,
-		HlmMenuLabelComponent,
-		HlmMenuSeparatorComponent,
-		HlmMenuItemIconDirective,
-		HlmMenuItemCheckComponent,
-		HlmMenuItemRadioComponent,
-		HlmMenuGroupComponent,
-		HlmMenuItemRadioDirective,
-		HlmMenuItemCheckboxDirective,
-		HlmButtonDirective,
+		BrnMenuTrigger,
+		HlmMenu,
+		HlmMenuItem,
+		HlmMenuLabel,
+		HlmMenuSeparator,
+		HlmMenuItemIcon,
+		HlmMenuItemCheck,
+		HlmMenuItemRadio,
+		HlmMenuGroup,
+		HlmMenuItemRadio,
+		HlmMenuItemCheckbox,
+		HlmButton,
 		NgIcon,
-		HlmIconDirective,
+		HlmIcon,
+		HlmMenuItemRadioIndicator,
 	],
 	providers: [provideIcons({ lucideUndo2 })],
 	template: \`
@@ -362,7 +364,7 @@ import {
 		</ng-template>
 	\`,
 })
-export class DropdownWithStatePreviewComponent {
+export class DropdownWithStatePreview {
 	public isStatusBar = false;
 	public isPanel = false;
 	public isActivityBar = false;

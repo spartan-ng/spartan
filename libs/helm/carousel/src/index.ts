@@ -1,25 +1,25 @@
 import { NgModule } from '@angular/core';
-import { HlmCarouselContentComponent } from './lib/hlm-carousel-content.component';
-import { HlmCarouselItemComponent } from './lib/hlm-carousel-item.component';
-import { HlmCarouselNextComponent } from './lib/hlm-carousel-next.component';
-import { HlmCarouselPreviousComponent } from './lib/hlm-carousel-previous.component';
-import { HlmCarouselSlideDisplayComponent } from './lib/hlm-carousel-slide-display.component';
-import { HlmCarouselComponent } from './lib/hlm-carousel.component';
+import { HlmCarousel } from './lib/hlm-carousel';
+import { HlmCarouselContent } from './lib/hlm-carousel-content';
+import { HlmCarouselItem } from './lib/hlm-carousel-item';
+import { HlmCarouselNext } from './lib/hlm-carousel-next';
+import { HlmCarouselPrevious } from './lib/hlm-carousel-previous';
+import { HlmCarouselSlideDisplay } from './lib/hlm-carousel-slide-display';
 
-export * from './lib/hlm-carousel-content.component';
-export * from './lib/hlm-carousel-item.component';
-export * from './lib/hlm-carousel-next.component';
-export * from './lib/hlm-carousel-previous.component';
-export * from './lib/hlm-carousel-slide-display.component';
-export * from './lib/hlm-carousel.component';
+export * from './lib/hlm-carousel';
+export * from './lib/hlm-carousel-content';
+export * from './lib/hlm-carousel-item';
+export * from './lib/hlm-carousel-next';
+export * from './lib/hlm-carousel-previous';
+export * from './lib/hlm-carousel-slide-display';
 
 export const HlmCarouselImports = [
-	HlmCarouselComponent,
-	HlmCarouselContentComponent,
-	HlmCarouselItemComponent,
-	HlmCarouselPreviousComponent,
-	HlmCarouselNextComponent,
-	HlmCarouselSlideDisplayComponent,
+	HlmCarousel,
+	HlmCarouselContent,
+	HlmCarouselItem,
+	HlmCarouselPrevious,
+	HlmCarouselNext,
+	HlmCarouselSlideDisplay,
 ] as const;
 
 @NgModule({

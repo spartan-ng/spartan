@@ -1,6 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
-import { MainSectionDirective } from '@spartan-ng/app/app/shared/layout/main-section.directive';
+import { MainSection } from '@spartan-ng/app/app/shared/layout/main-section';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
 import { hlmMuted } from '@spartan-ng/helm/typography';
 
@@ -12,7 +12,7 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-stack-not-found',
-	imports: [MainSectionDirective],
+	imports: [MainSection],
 	template: `
 		<section spartanMainSection class="flex flex-col items-center justify-center">
 			<div class="-mt-[25%] mb-8 flex items-center">
@@ -21,4 +21,4 @@ export const routeMeta: RouteMeta = {
 		</section>
 	`,
 })
-export default class ComponentsNotFoundPageComponent {}
+export default class sNotFoundPage {}

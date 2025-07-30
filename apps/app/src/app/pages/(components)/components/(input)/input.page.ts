@@ -1,24 +1,24 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
 import { hlmH4 } from '@spartan-ng/helm/typography';
-import { CodePreviewDirective } from '../../../../shared/code/code-preview.directive';
-import { CodeComponent } from '../../../../shared/code/code.component';
-import { MainSectionDirective } from '../../../../shared/layout/main-section.directive';
-import { PageBottomNavLinkComponent } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav-link.component';
-import { PageBottomNavComponent } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav.component';
-import { PageNavComponent } from '../../../../shared/layout/page-nav/page-nav.component';
-import { SectionIntroComponent } from '../../../../shared/layout/section-intro.component';
-import { SectionSubHeadingComponent } from '../../../../shared/layout/section-sub-heading.component';
-import { TabsCliComponent } from '../../../../shared/layout/tabs-cli.component';
-import { TabsComponent } from '../../../../shared/layout/tabs.component';
-import { UIApiDocsComponent } from '../../../../shared/layout/ui-docs-section/ui-docs-section.component';
+import { Code } from '../../../../shared/code/code';
+import { CodePreview } from '../../../../shared/code/code-preview';
+import { MainSection } from '../../../../shared/layout/main-section';
+import { PageBottomNav } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav';
+import { PageBottomNavLink } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav-link';
+import { PageNav } from '../../../../shared/layout/page-nav/page-nav';
+import { SectionIntro } from '../../../../shared/layout/section-intro';
+import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading';
+import { Tabs } from '../../../../shared/layout/tabs';
+import { TabsCli } from '../../../../shared/layout/tabs-cli';
+import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { InputButtonPreviewComponent } from './input--button.preview';
-import { InputDisabledPreviewComponent } from './input--disabled.preview';
-import { InputFilePreviewComponent } from './input--file.preview';
-import { InputLabelPreviewComponent } from './input--label.preview';
+import { InputButtonPreview } from './input--button.preview';
+import { InputDisabledPreview } from './input--disabled.preview';
+import { InputFilePreview } from './input--file.preview';
+import { InputLabelPreview } from './input--label.preview';
 import { defaultCode, inputButtonCode, inputDisabledCode, inputFileCode, inputLabelCode } from './input.generated';
-import { InputPreviewComponent, defaultImports, defaultSkeleton } from './input.preview';
+import { InputPreview, defaultImports, defaultSkeleton } from './input.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Input', api: 'input' },
@@ -31,22 +31,22 @@ export const routeMeta: RouteMeta = {
 @Component({
 	selector: 'spartan-input',
 	imports: [
-		UIApiDocsComponent,
-		MainSectionDirective,
-		CodeComponent,
-		SectionIntroComponent,
-		SectionSubHeadingComponent,
-		TabsComponent,
-		TabsCliComponent,
-		CodePreviewDirective,
-		PageNavComponent,
-		PageBottomNavComponent,
-		PageBottomNavLinkComponent,
-		InputPreviewComponent,
-		InputFilePreviewComponent,
-		InputDisabledPreviewComponent,
-		InputLabelPreviewComponent,
-		InputButtonPreviewComponent,
+		UIApiDocs,
+		MainSection,
+		Code,
+		SectionIntro,
+		SectionSubHeading,
+		Tabs,
+		TabsCli,
+		CodePreview,
+		PageNav,
+		PageBottomNav,
+		PageBottomNavLink,
+		InputPreview,
+		InputFilePreview,
+		InputDisabledPreview,
+		InputLabelPreview,
+		InputButtonPreview,
 	],
 	template: `
 		<section spartanMainSection>
@@ -116,7 +116,7 @@ export const routeMeta: RouteMeta = {
 		<spartan-page-nav />
 	`,
 })
-export default class InputPageComponent {
+export default class InputPage {
 	protected readonly _defaultCode = defaultCode;
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;

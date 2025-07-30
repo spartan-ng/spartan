@@ -1,13 +1,13 @@
-import { BrnSheetComponent, BrnSheetContentDirective, BrnSheetTriggerDirective } from '@spartan-ng/brain/sheet';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
-import { HlmInputDirective } from '@spartan-ng/helm/input';
+import { BrnSheet, BrnSheetContent, BrnSheetTrigger } from '@spartan-ng/brain/sheet';
+import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmInput } from '@spartan-ng/helm/input';
 import { HlmSheetImports } from '@spartan-ng/helm/sheet';
 import { type Meta, type StoryObj, argsToTemplate, moduleMetadata } from '@storybook/angular';
 
 export type SheetProps = { side: 'top' | 'bottom' | 'left' | 'right' };
 const meta: Meta<SheetProps> = {
 	title: 'Sheet',
-	component: BrnSheetComponent,
+	component: BrnSheet,
 	tags: ['autodocs'],
 	args: { side: 'left' },
 	argTypes: {
@@ -15,13 +15,7 @@ const meta: Meta<SheetProps> = {
 	},
 	decorators: [
 		moduleMetadata({
-			imports: [
-				BrnSheetTriggerDirective,
-				BrnSheetContentDirective,
-				HlmSheetImports,
-				HlmButtonDirective,
-				HlmInputDirective,
-			],
+			imports: [BrnSheetTrigger, BrnSheetContent, HlmSheetImports, HlmButton, HlmInput],
 		}),
 	],
 };

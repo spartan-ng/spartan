@@ -15,7 +15,7 @@ import { HlmAspectRatio } from '@spartan-ng/helm/aspect-ratio';
 export class AspectRatioPreview {}
 
 export const defaultImports = `
-import { HlmAspectRatioDirective } from '@spartan-ng/helm/aspect-ratio';
+import { HlmAspectRatio } from '@spartan-ng/helm/aspect-ratio';
 `;
 
 export const defaultSkeleton = `

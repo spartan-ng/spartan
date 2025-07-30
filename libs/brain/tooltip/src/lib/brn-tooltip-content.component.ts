@@ -11,6 +11,7 @@ import {
 	Component,
 	ElementRef,
 	inject,
+	NgZone,
 	type OnDestroy,
 	PLATFORM_ID,
 	Renderer2,
@@ -57,6 +58,7 @@ export class BrnTooltipContentComponent implements OnDestroy {
 	private readonly _cdr = inject(ChangeDetectorRef);
 	private readonly _isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 	private readonly _renderer2 = inject(Renderer2);
+	private readonly _ngZone = inject(NgZone);
 
 	protected readonly _contentHovered = signal(false);
 
@@ -98,18 +100,20 @@ export class BrnTooltipContentComponent implements OnDestroy {
 	 * @param delay Amount of milliseconds to the delay showing the tooltip.
 	 */
 	show(delay: number): void {
-		// Cancel the delayed hide if it is scheduled
-		if (this._hideTimeoutId !== null) {
-			clearTimeout(this._hideTimeoutId);
-		}
-		if (this._animateTimeoutId !== null) {
-			clearTimeout(this._animateTimeoutId);
-		}
-		this._showTimeoutId = setTimeout(() => {
-			this._toggleDataAttributes(true, this.side());
-			this._toggleVisibility(true);
-			this._showTimeoutId = undefined;
-		}, delay);
+		this._ngZone.runOutsideAngular(() => {
+			// Cancel the delayed hide if it is scheduled
+			if (this._hideTimeoutId !== null) {
+				clearTimeout(this._hideTimeoutId);
+			}
+			if (this._animateTimeoutId !== null) {
+				clearTimeout(this._animateTimeoutId);
+			}
+			this._showTimeoutId = setTimeout(() => {
+				this._toggleDataAttributes(true, this.side());
+				this._toggleVisibility(true);
+				this._showTimeoutId = undefined;
+			}, delay);
+		});
 	}
 
 	/**
@@ -118,24 +122,26 @@ export class BrnTooltipContentComponent implements OnDestroy {
 	 * @param exitAnimationDuration Time before hiding to finish animation
 	 * */
 	hide(delay: number, exitAnimationDuration: number): void {
-		// Cancel the delayed show if it is scheduled
-		if (this._showTimeoutId !== null) {
-			clearTimeout(this._showTimeoutId);
-		}
-		// start out animation at delay minus animation delay or immediately if possible
-		this._animateTimeoutId = setTimeout(
-			() => {
-				this._animateTimeoutId = undefined;
+		this._ngZone.runOutsideAngular(() => {
+			// Cancel the delayed show if it is scheduled
+			if (this._showTimeoutId !== null) {
+				clearTimeout(this._showTimeoutId);
+			}
+			// start out animation at delay minus animation delay or immediately if possible
+			this._animateTimeoutId = setTimeout(
+				() => {
+					this._animateTimeoutId = undefined;
+					if (this._contentHovered()) return;
+					this._toggleDataAttributes(false, this.side());
+				},
+				Math.max(delay, 0),
+			);
+			this._hideTimeoutId = setTimeout(() => {
+				this._hideTimeoutId = undefined;
 				if (this._contentHovered()) return;
-				this._toggleDataAttributes(false, this.side());
-			},
-			Math.max(delay, 0),
-		);
-		this._hideTimeoutId = setTimeout(() => {
-			this._hideTimeoutId = undefined;
-			if (this._contentHovered()) return;
-			this._toggleVisibility(false);
-		}, delay + exitAnimationDuration);
+				this._toggleVisibility(false);
+			}, delay + exitAnimationDuration);
+		});
 	}
 
 	/** Whether the tooltip is being displayed. */

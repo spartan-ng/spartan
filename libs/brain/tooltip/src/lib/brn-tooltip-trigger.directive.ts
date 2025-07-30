@@ -578,7 +578,7 @@ export class BrnTooltipTriggerDirective implements OnDestroy, AfterViewInit {
 		// calculate the correct positioning based on the size of the tek-pate.
 		if (this._tooltipInstance) {
 			this._tooltipInstance.content = this.brnTooltipTriggerState();
-			this._tooltipInstance._markForCheck();
+			// this._tooltipInstance._markForCheck();
 
 			this._ngZone.onMicrotaskEmpty.pipe(take(1), takeUntil(this._destroyed)).subscribe(() => {
 				if (this._tooltipInstance) {

@@ -1,5 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
+import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { hlmH4 } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
@@ -16,7 +17,6 @@ import { metaWith } from '../../../../shared/meta/meta.util';
 import { SelectMultiplePreview } from './select--multiple.preview';
 import { SelectScrollablePreview } from './select--scrollable.preview';
 import { SelectValueTemplatePreview } from './select--value-template.preview';
-import { defaultCode, selectMultipleCode, selectScrollableCode, selectValueTemplateCode } from './select.generated';
 import { SelectPreview, defaultImports, defaultSkeleton, defaultStyles } from './select.preview';
 
 export const routeMeta: RouteMeta = {
@@ -51,7 +51,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-select-preview />
 				</div>
-				<spartan-code secondTab [code]="_defaultCode" />
+				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -80,14 +80,14 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-select-multiple-preview />
 				</div>
-				<spartan-code secondTab [code]="_multipleCode" />
+				<spartan-code secondTab [code]="_multipleCode()" />
 			</spartan-tabs>
 			<h3 id="examples__scrollable" class="${hlmH4} mb-2 mt-6">Scrollable with Groups</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-select-scrollable-preview />
 				</div>
-				<spartan-code secondTab [code]="_scrollableCode" />
+				<spartan-code secondTab [code]="_scrollableCode()" />
 			</spartan-tabs>
 
 			<h3 id="examples__value-template" class="${hlmH4} mb-2 mt-6">Value Template</h3>
@@ -95,7 +95,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-select-value-template-preview />
 				</div>
-				<spartan-code secondTab [code]="_valueTemplateCode" />
+				<spartan-code secondTab [code]="_valueTemplateCode()" />
 			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
@@ -107,11 +107,12 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class SkeletonPage {
-	protected readonly _defaultCode = defaultCode;
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('select');
+	protected readonly _defaultCode = computed(() => this._snippets()['default']);
+	protected readonly _multipleCode = computed(() => this._snippets()['multiple']);
+	protected readonly _scrollableCode = computed(() => this._snippets()['scrollable']);
+	protected readonly _valueTemplateCode = computed(() => this._snippets()['valueTemplate']);
+	protected readonly _defaultStyles = defaultStyles;
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
-	protected readonly _defaultStyles = defaultStyles;
-	protected readonly _multipleCode = selectMultipleCode;
-	protected readonly _scrollableCode = selectScrollableCode;
-	protected readonly _valueTemplateCode = selectValueTemplateCode;
 }

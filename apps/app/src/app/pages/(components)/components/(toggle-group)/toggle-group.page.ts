@@ -1,5 +1,6 @@
 import { RouteMeta } from '@analogjs/router';
-import { Component } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
+import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { Code } from '@spartan-ng/app/app/shared/code/code';
 import { CodePreview } from '@spartan-ng/app/app/shared/code/code-preview';
 import { MainSection } from '@spartan-ng/app/app/shared/layout/main-section';
@@ -16,13 +17,6 @@ import { ToggleGroupDisabledPreview } from './toggle-group--disabled.preview';
 import { ToggleGroupLargePreview } from './toggle-group--large.preview';
 import { ToggleGroupOutlinePreview } from './toggle-group--outline.preview';
 import { ToggleGroupSmallPreview } from './toggle-group--small.preview';
-import {
-	defaultCode,
-	toggleGroupDisabledCode,
-	toggleGroupLargeCode,
-	toggleGroupOutlineCode,
-	toggleGroupSmallCode,
-} from './toggle-group.generated';
 import { ToggleGroupPreview, defaultImports, defaultSkeleton } from './toggle-group.preview';
 
 export const routeMeta: RouteMeta = {
@@ -61,7 +55,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-toggle-group-preview />
 				</div>
-				<spartan-code secondTab [code]="_defaultCode" />
+				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -83,7 +77,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-toggle-group-outline />
 				</div>
-				<spartan-code secondTab [code]="_outlineCode" />
+				<spartan-code secondTab [code]="_outlineCode()" />
 			</spartan-tabs>
 
 			<h3 id="examples__small" class="${hlmH4} mb-2 mt-6">Small</h3>
@@ -91,7 +85,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-toggle-group-small />
 				</div>
-				<spartan-code secondTab [code]="_smallCode" />
+				<spartan-code secondTab [code]="_smallCode()" />
 			</spartan-tabs>
 
 			<h3 id="examples__large" class="${hlmH4} mb-2 mt-6">Large</h3>
@@ -99,7 +93,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-toggle-group-large />
 				</div>
-				<spartan-code secondTab [code]="_largeCode" />
+				<spartan-code secondTab [code]="_largeCode()" />
 			</spartan-tabs>
 
 			<h3 id="examples__disabled" class="${hlmH4} mb-2 mt-6">Disabled</h3>
@@ -107,7 +101,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-toggle-group-disabled />
 				</div>
-				<spartan-code secondTab [code]="_disabledCode" />
+				<spartan-code secondTab [code]="_disabledCode()" />
 			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
@@ -120,11 +114,12 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class ToggleGroupPage {
-	protected readonly _defaultCode = defaultCode;
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('toggle-group');
+	protected readonly _defaultCode = computed(() => this._snippets()['default']);
+	protected readonly _outlineCode = computed(() => this._snippets()['outline']);
+	protected readonly _smallCode = computed(() => this._snippets()['small']);
+	protected readonly _largeCode = computed(() => this._snippets()['large']);
+	protected readonly _disabledCode = computed(() => this._snippets()['disabled']);
 	protected readonly _defaultImports = defaultImports;
 	protected readonly _defaultSkeleton = defaultSkeleton;
-	protected readonly _outlineCode = toggleGroupOutlineCode;
-	protected readonly _smallCode = toggleGroupSmallCode;
-	protected readonly _largeCode = toggleGroupLargeCode;
-	protected readonly _disabledCode = toggleGroupDisabledCode;
 }

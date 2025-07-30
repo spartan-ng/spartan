@@ -1,5 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
+import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { hlmH4 } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
@@ -17,7 +18,6 @@ import { InputButtonPreview } from './input--button.preview';
 import { InputDisabledPreview } from './input--disabled.preview';
 import { InputFilePreview } from './input--file.preview';
 import { InputLabelPreview } from './input--label.preview';
-import { defaultCode, inputButtonCode, inputDisabledCode, inputFileCode, inputLabelCode } from './input.generated';
 import { InputPreview, defaultImports, defaultSkeleton } from './input.preview';
 
 export const routeMeta: RouteMeta = {
@@ -59,7 +59,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-input-preview />
 				</div>
-				<spartan-code secondTab [code]="_defaultCode" />
+				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -84,28 +84,28 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-input-file />
 				</div>
-				<spartan-code secondTab [code]="_fileCode" />
+				<spartan-code secondTab [code]="_fileCode()" />
 			</spartan-tabs>
 			<h3 id="examples__disabled" class="${hlmH4} mb-2 mt-6">Disabled</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-input-disabled />
 				</div>
-				<spartan-code secondTab [code]="_disabledCode" />
+				<spartan-code secondTab [code]="_disabledCode()" />
 			</spartan-tabs>
 			<h3 id="examples__with_label" class="${hlmH4} mb-2 mt-6">With Label</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-input-label />
 				</div>
-				<spartan-code secondTab [code]="_labelCode" />
+				<spartan-code secondTab [code]="_labelCode()" />
 			</spartan-tabs>
 			<h3 id="examples__with_button" class="${hlmH4} mb-2 mt-6">With Button</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-input-button />
 				</div>
-				<spartan-code secondTab [code]="_buttonCode" />
+				<spartan-code secondTab [code]="_buttonCode()" />
 			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
@@ -117,11 +117,12 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class InputPage {
-	protected readonly _defaultCode = defaultCode;
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('input');
+	protected readonly _defaultCode = computed(() => this._snippets()['default']);
+	protected readonly _fileCode = computed(() => this._snippets()['file']);
+	protected readonly _disabledCode = computed(() => this._snippets()['disabled']);
+	protected readonly _labelCode = computed(() => this._snippets()['label']);
+	protected readonly _buttonCode = computed(() => this._snippets()['button']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
-	protected readonly _fileCode = inputFileCode;
-	protected readonly _disabledCode = inputDisabledCode;
-	protected readonly _labelCode = inputLabelCode;
-	protected readonly _buttonCode = inputButtonCode;
 }

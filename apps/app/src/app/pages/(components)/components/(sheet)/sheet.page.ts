@@ -1,5 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
+import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { hlmH4 } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
@@ -15,7 +16,6 @@ import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-sec
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { SheetSidePreview } from './sheet--side.preview';
 import { SheetClosePreview } from './sheet-close.preview';
-import { defaultCode, sheetCloseCode, sheetSideCode } from './sheet.generated';
 import { SheetPreview, defaultImports, defaultSkeleton } from './sheet.preview';
 
 export const routeMeta: RouteMeta = {
@@ -55,7 +55,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-sheet-preview />
 				</div>
-				<spartan-code secondTab [code]="_defaultCode" />
+				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -83,7 +83,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-sheet-side-preview />
 				</div>
-				<spartan-code secondTab [code]="_sideCode" />
+				<spartan-code secondTab [code]="_sideCode()" />
 			</spartan-tabs>
 
 			<h3 id="examples__close_sheet" class="${hlmH4} mb-2 mt-6">Close Sheet</h3>
@@ -91,7 +91,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-sheet-close-preview />
 				</div>
-				<spartan-code secondTab [code]="_closeCode" />
+				<spartan-code secondTab [code]="_closeCode()" />
 			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
@@ -103,9 +103,10 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class LabelPage {
-	protected readonly _defaultCode = defaultCode;
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('sheet');
+	protected readonly _defaultCode = computed(() => this._snippets()['default']);
+	protected readonly _sideCode = computed(() => this._snippets()['side']);
+	protected readonly _closeCode = computed(() => this._snippets()['close']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
-	protected readonly _sideCode = sheetSideCode;
-	protected readonly _closeCode = sheetCloseCode;
 }

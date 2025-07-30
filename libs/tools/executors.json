@@ -14,6 +14,11 @@
 			"implementation": "./src/executors/docs/generate-ui-docs/executor",
 			"schema": "./src/executors/docs/generate-ui-docs/schema.json",
 			"description": "Generates UI API Docs"
+		},
+		"fetch-static-data": {
+			"implementation": "./src/executors/static-data/fetch-repo-data/executor",
+			"schema": "./src/executors/static-data/fetch-repo-data/schema.json",
+			"description": "Fetches static data from an API and saves it to a JSON file needed for the app"
 		}
 	}
 }

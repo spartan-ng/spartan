@@ -1,0 +1,102 @@
+import type { RouteMeta } from '@analogjs/router';
+import { Component } from '@angular/core';
+import { hlmH4 } from '@spartan-ng/helm/typography';
+import { CodePreviewDirective } from '../../../../../shared/code/code-preview.directive';
+import { CodeComponent } from '../../../../../shared/code/code.component';
+import { MainSectionDirective } from '../../../../../shared/layout/main-section.directive';
+import { PageBottomNavLinkComponent } from '../../../../../shared/layout/page-bottom-nav/page-bottom-nav-link.component';
+import { PageBottomNavComponent } from '../../../../../shared/layout/page-bottom-nav/page-bottom-nav.component';
+import { PageNavComponent } from '../../../../../shared/layout/page-nav/page-nav.component';
+import { SectionIntroComponent } from '../../../../../shared/layout/section-intro.component';
+import { SectionSubHeadingComponent } from '../../../../../shared/layout/section-sub-heading.component';
+import { TabsCliComponent } from '../../../../../shared/layout/tabs-cli.component';
+import { TabsComponent } from '../../../../../shared/layout/tabs.component';
+import { UIApiDocsComponent } from '../../../../../shared/layout/ui-docs-section/ui-docs-section.component';
+import { metaWith } from '../../../../../shared/meta/meta.util';
+import { RadioGroupCardComponent } from './radio-group--card.example';
+import { defaultCode, radioGroupCardCode } from './radio-group.generated';
+import { defaultImports, defaultSkeleton, RadioGroupPreviewComponent } from './radio-group.preview';
+
+export const routeMeta: RouteMeta = {
+	data: { breadcrumb: 'Radio Group', api: 'radio-group' },
+	meta: metaWith(
+		'spartan/ui - Radio Group',
+		'A set of checkable buttons—known as radio buttons—where no more than one of the buttons can be checked at a time.',
+	),
+	title: 'spartan/ui - Radio Group',
+};
+@Component({
+	selector: 'spartan-radio-group',
+	imports: [
+		UIApiDocsComponent,
+		MainSectionDirective,
+		CodeComponent,
+		SectionIntroComponent,
+		SectionSubHeadingComponent,
+		TabsComponent,
+		TabsCliComponent,
+		CodePreviewDirective,
+		PageNavComponent,
+		PageBottomNavComponent,
+		PageBottomNavLinkComponent,
+		RadioGroupPreviewComponent,
+		RadioGroupPreviewComponent,
+		RadioGroupCardComponent,
+	],
+	template: `
+		<section spartanMainSection>
+			<spartan-section-intro
+				name="Radio Group"
+				lead="A set of checkable buttons—known as radio buttons—where no more than one of the buttons can be checked at a time."
+			/>
+
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-radio-group-preview />
+				</div>
+				<spartan-code secondTab [code]="_defaultCode" />
+			</spartan-tabs>
+
+			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
+			<spartan-cli-tabs
+				class="mt-4"
+				nxCode="npx nx g @spartan-ng/cli:ui radiogroup"
+				ngCode="ng g @spartan-ng/cli:ui radiogroup"
+			/>
+
+			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
+			<div class="space-y-4">
+				<spartan-code [code]="_defaultImports" />
+				<spartan-code [code]="_defaultSkeleton" />
+			</div>
+
+			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="brain" />
+
+			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="helm" />
+
+			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
+			<h3 id="examples__default" class="${hlmH4} mb-2 mt-6">Card Layout</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-radio-card-preview />
+				</div>
+				<spartan-code secondTab [code]="_cardCode" />
+			</spartan-tabs>
+
+			<spartan-page-bottom-nav>
+				<spartan-page-bottom-nav-link href="scroll-area" label="Scroll Area" />
+				<spartan-page-bottom-nav-link direction="previous" href="progress" label="Progress" />
+			</spartan-page-bottom-nav>
+		</section>
+		<spartan-page-nav />
+	`,
+})
+export default class LabelPageComponent {
+	protected readonly _defaultCode = defaultCode;
+	protected readonly _defaultSkeleton = defaultSkeleton;
+	protected readonly _defaultImports = defaultImports;
+
+	protected readonly _cardCode = radioGroupCardCode;
+}

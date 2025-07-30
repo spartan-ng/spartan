@@ -1,3 +1,4 @@
+import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { HlmBadge } from '@spartan-ng/helm/badge';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmCard, HlmCardImports } from '@spartan-ng/helm/card';
@@ -13,7 +14,7 @@ const meta: Meta<HlmCard> = {
 	tags: ['autodocs'],
 	decorators: [
 		moduleMetadata({
-			imports: [HlmCardImports, HlmLabel, HlmInput, HlmButton, HlmBadge, HlmSelectImports],
+			imports: [HlmCardImports, HlmLabel, HlmInput, HlmButton, HlmBadge, HlmSelectImports, BrnSelectImports],
 		}),
 	],
 };

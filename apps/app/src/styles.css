@@ -78,6 +78,7 @@ select {
 	--docsearch-hit-background: theme('colors.neutral.800');
 	--docsearch-hit-shadow: var(--dark-shadow);
 	--docsearch-hit-color: white;
+	--docsearch-hit-active-color: theme('colors.primary.foreground');
 
 	--docsearch-container-background: rgba(9, 10, 17, 0.8);
 	--docsearch-searchbox-background: theme('colors.neutral.800');

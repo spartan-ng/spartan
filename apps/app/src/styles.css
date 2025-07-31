@@ -1,5 +1,6 @@
 @import '@angular/cdk/overlay-prebuilt.css';
 @import '@fontsource/geist-sans/latin.css';
+@import '@docsearch/css';
 
 @tailwind base;
 @tailwind components;
@@ -40,6 +41,9 @@ select {
 	--input: 0deg 0.09% 89.82%;
 	--ring: 0deg 0.02% 63.02%;
 	--radius: 0.625rem;
+
+	/* docsearch */
+	--docsearch-primary-color: hsl(var(--primary));
 }
 
 :root.dark {
@@ -61,6 +65,26 @@ select {
 	--border: 0deg 0% 13.73%;
 	--input: 0deg 0% 18.43%;
 	--ring: 0deg 0.01% 45.16%;
+
+	/* docsearch */
+	--dark-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.2);
+	--docsearch-modal-background: theme('colors.neutral.900');
+	--docsearch-modal-shadow: var(--dark-shadow);
+	--docsearch-searchbox-focus-background: theme('colors.neutral.800');
+	--docsearch-searchbox-shadow: var(--dark-shadow);
+	--docsearch-footer-background: theme('colors.neutral.900');
+	--docsearch-footer-shadow: var(--dark-shadow);
+	--docsearch-text-color: white;
+	--docsearch-hit-background: theme('colors.neutral.800');
+	--docsearch-hit-shadow: var(--dark-shadow);
+	--docsearch-hit-color: white;
+
+	--docsearch-container-background: rgba(9, 10, 17, 0.8);
+	--docsearch-searchbox-background: theme('colors.neutral.800');
+	--docsearch-key-gradient: linear-gradient(180deg, #333, #444);
+	--docsearch-key-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+	--docsearch-logo-color: white;
+	--docsearch-muted-color: theme('colors.neutral.400');
 }
 
 @layer base {
@@ -69,6 +93,30 @@ select {
 	}
 }
 
-[hidden]:where(:not([hidden=until-found])) {
+[hidden]:where(:not([hidden='until-found'])) {
 	display: none !important;
+}
+
+
+/* docsearch */
+.DocSearch-Button {
+	--docsearch-searchbox-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.2);
+	@apply dark:bg-background inline-flex flex-none items-center gap-x-3 overflow-hidden rounded-lg bg-white px-2.5 shadow-black/5 ring-1 ring-transparent focus-within:ring-2 focus-within:ring-blue-500 md:left-[calc(50%-104px)] md:w-52 md:shadow md:ring-black/10 lg:left-[calc(50%-160px)] lg:w-80 md:dark:bg-neutral-800;
+}
+
+.DocSearch-Button-Placeholder {
+	@apply text-sm font-normal text-neutral-500;
+}
+
+.DocSearch-Button .DocSearch-Search-Icon {
+	@apply size-4 md:text-neutral-400 md:dark:text-neutral-500;
+}
+
+.DocSearch-Button-Keys {
+	min-width: unset;
+}
+
+.DocSearch-Button .DocSearch-Button-Key {
+	--docsearch-key-gradient: transparent;
+	@apply top-0 m-0 h-4 w-3 bg-transparent p-0 font-sans text-xs font-medium text-neutral-400 shadow-none dark:text-neutral-500;
 }

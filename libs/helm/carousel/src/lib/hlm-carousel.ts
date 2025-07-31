@@ -1,7 +1,6 @@
 import {
 	ChangeDetectionStrategy,
 	Component,
-	HostListener,
 	type InputSignal,
 	type Signal,
 	ViewEncapsulation,
@@ -27,6 +26,7 @@ import {
 		'[class]': '_computedClass()',
 		role: 'region',
 		'aria-roledescription': 'carousel',
+		'(keydown)': 'onKeydown($event)',
 	},
 	imports: [EmblaCarouselDirective],
 	template: `
@@ -84,7 +84,6 @@ export class HlmCarousel {
 		}
 	}
 
-	@HostListener('keydown', ['$event'])
 	protected onKeydown(event: KeyboardEvent) {
 		if (event.key === 'ArrowLeft') {
 			event.preventDefault();

@@ -1,19 +1,21 @@
-import { Directive, HostListener, computed, signal } from '@angular/core';
+import { Directive, computed, signal } from '@angular/core';
 
 @Directive({
 	selector: 'img[brnAvatarImage]',
 	exportAs: 'avatarImage',
+	host: {
+		'(load)': '_onLoad()',
+		'(error)': '_onError()',
+	},
 })
 export class BrnAvatarImage {
 	private readonly _loaded = signal(false);
 
-	@HostListener('error')
-	private onError() {
+	protected _onError() {
 		this._loaded.set(false);
 	}
 
-	@HostListener('load')
-	private onLoad() {
+	protected _onLoad() {
 		this._loaded.set(true);
 	}
 

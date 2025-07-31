@@ -23,7 +23,8 @@ export class HlmCarouselSlideDisplay {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected _computedClass = computed(() => this.userClass());
 
-	public readonly label = input('Slide');
+	/** Screen reader only text for the slide display */
+	public readonly label = input<string>('Slide');
 
 	protected readonly _labelContent = computed(() => {
 		const currentSlide = this._currentSlide();

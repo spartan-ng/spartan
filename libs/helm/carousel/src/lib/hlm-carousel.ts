@@ -50,8 +50,9 @@ export class HlmCarousel {
 	protected readonly _computedClass = computed(() => hlm('relative', this.userClass()));
 
 	public readonly orientation = input<'horizontal' | 'vertical'>('horizontal');
-	public readonly options: InputSignal<Omit<EmblaOptionsType, 'axis'> | undefined> = input();
-	public readonly plugins: InputSignal<EmblaPluginType[]> = input([] as EmblaPluginType[]);
+	public readonly options: InputSignal<Omit<EmblaOptionsType, 'axis'> | undefined> =
+		input<Omit<EmblaOptionsType, 'axis'>>();
+	public readonly plugins: InputSignal<EmblaPluginType[]> = input<EmblaPluginType[]>([]);
 
 	protected readonly _emblaOptions: Signal<EmblaOptionsType> = computed(() => ({
 		...this.options(),

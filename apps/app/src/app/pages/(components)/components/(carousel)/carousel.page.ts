@@ -118,7 +118,7 @@ export const routeMeta: RouteMeta = {
 			<h3 id="examples__spacing" class="${hlmH4} mb-2 mt-6">Spacing</h3>
 			<p class="py-2">
 				The spacing between the items can be set by using a
-				<code class="${hlmCode}">p-[VALUE]</code>
+				<code class="${hlmCode}">pl-[VALUE]</code>
 				utility on the
 				<code class="${hlmCode}">hlm-carousel-item</code>
 				and a negative

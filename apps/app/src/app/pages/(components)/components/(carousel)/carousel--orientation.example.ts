@@ -31,7 +31,7 @@ import {
 							<div class="p-1">
 								<section hlmCard>
 									<p hlmCardContent class="flex items-center justify-center p-6">
-										<span class="text-4xl font-semibold">{{ item }}</span>
+										<span class="text-3xl font-semibold">{{ item }}</span>
 									</p>
 								</section>
 							</div>

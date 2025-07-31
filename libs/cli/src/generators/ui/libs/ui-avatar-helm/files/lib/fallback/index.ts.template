@@ -1,1 +1,1 @@
-export * from './hlm-avatar-fallback.directive';
+export * from './hlm-avatar-fallback';

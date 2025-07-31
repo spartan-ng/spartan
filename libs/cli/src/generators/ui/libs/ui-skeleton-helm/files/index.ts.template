@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
-import { HlmSkeletonComponent } from './lib/hlm-skeleton.component';
+import { HlmSkeleton } from './lib/hlm-skeleton';
 
-export * from './lib/hlm-skeleton.component';
+export * from './lib/hlm-skeleton';
 
-export const HlmSkeletonImports = [HlmSkeletonComponent] as const;
+export const HlmSkeletonImports = [HlmSkeleton] as const;
 
 @NgModule({
 	imports: [...HlmSkeletonImports],

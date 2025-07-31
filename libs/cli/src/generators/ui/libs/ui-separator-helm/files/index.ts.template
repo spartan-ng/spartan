@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
-import { HlmSeparatorDirective } from './lib/hlm-separator.directive';
+import { HlmSeparator } from './lib/hlm-separator';
 
-export * from './lib/hlm-separator.directive';
+export * from './lib/hlm-separator';
 
 @NgModule({
-	imports: [HlmSeparatorDirective],
-	exports: [HlmSeparatorDirective],
+	imports: [HlmSeparator],
+	exports: [HlmSeparator],
 })
 export class HlmSeparatorModule {}

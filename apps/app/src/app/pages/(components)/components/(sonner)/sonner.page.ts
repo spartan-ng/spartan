@@ -52,20 +52,9 @@ export const routeMeta: RouteMeta = {
 			<spartan-section-sub-heading id="about">About</spartan-section-sub-heading>
 			<p class="${hlmP} mb-6">
 				Sonner is built on top of
-				<a
-					href="https://tutkli.github.io/ngx-sonner/"
-					target="_blank"
-					rel="noreferrer"
-					hlmBtn
-					variant="link"
-					class="${link}"
-				>
-					ngx-sonner
-				</a>
+				<a href="https://tutkli.github.io/ngx-sonner/" target="_blank" rel="noreferrer" class="${link}">ngx-sonner</a>
 				by
-				<a href="https://github.com/tutkli" target="_blank" rel="noreferrer" hlmBtn variant="link" class="${link}">
-					&#64;tutkli
-				</a>
+				<a href="https://github.com/tutkli" target="_blank" rel="noreferrer" class="${link}">&#64;tutkli</a>
 				.
 			</p>
 

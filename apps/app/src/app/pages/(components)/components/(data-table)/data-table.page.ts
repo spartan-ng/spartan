@@ -53,18 +53,9 @@ export const routeMeta: RouteMeta = {
 			<spartan-section-sub-heading id="about">About</spartan-section-sub-heading>
 			<p class="${hlmP} mb-6">
 				Data-Table is built on top of
-				<a href="https://tanstack.com/table" target="_blank" rel="noreferrer" hlmBtn variant="link" class="${link}">
-					TanStack-Table
-				</a>
+				<a href="https://tanstack.com/table" target="_blank" rel="noreferrer" class="${link}">TanStack-Table</a>
 				by
-				<a
-					href="https://github.com/tannerlinsley"
-					target="_blank"
-					rel="noreferrer"
-					hlmBtn
-					variant="link"
-					class="${link}"
-				>
+				<a href="https://github.com/tannerlinsley" target="_blank" rel="noreferrer" class="${link}">
 					&#64;tannerlinsley
 				</a>
 				.

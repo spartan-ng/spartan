@@ -1,7 +1,6 @@
 import {
 	ChangeDetectionStrategy,
 	Component,
-	HostListener,
 	type InputSignal,
 	type Signal,
 	ViewEncapsulation,
@@ -27,6 +26,7 @@ import {
 		'[class]': '_computedClass()',
 		role: 'region',
 		'aria-roledescription': 'carousel',
+		'(keydown)': 'onKeydown($event)',
 	},
 	imports: [EmblaCarouselDirective],
 	template: `
@@ -50,8 +50,9 @@ export class HlmCarousel {
 	protected readonly _computedClass = computed(() => hlm('relative', this.userClass()));
 
 	public readonly orientation = input<'horizontal' | 'vertical'>('horizontal');
-	public readonly options: InputSignal<Omit<EmblaOptionsType, 'axis'> | undefined> = input();
-	public readonly plugins: InputSignal<EmblaPluginType[]> = input([] as EmblaPluginType[]);
+	public readonly options: InputSignal<Omit<EmblaOptionsType, 'axis'> | undefined> =
+		input<Omit<EmblaOptionsType, 'axis'>>();
+	public readonly plugins: InputSignal<EmblaPluginType[]> = input<EmblaPluginType[]>([]);
 
 	protected readonly _emblaOptions: Signal<EmblaOptionsType> = computed(() => ({
 		...this.options(),
@@ -84,7 +85,6 @@ export class HlmCarousel {
 		}
 	}
 
-	@HostListener('keydown', ['$event'])
 	protected onKeydown(event: KeyboardEvent) {
 		if (event.key === 'ArrowLeft') {
 			event.preventDefault();

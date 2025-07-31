@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { afterNextRender, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideGithub, lucideTwitter } from '@ng-icons/lucide';
@@ -34,7 +34,8 @@ import { HeaderMobileNav } from './header-mobile-nav';
 				</div>
 			</nav>
 
-			<div class="flex space-x-2">
+			<div class="flex items-center space-x-2">
+				<div id="docsearch"></div>
 				<a href="https://twitter.com/goetzrobin" target="_blank" size="sm" variant="ghost" hlmBtn>
 					<span class="sr-only">Twitter</span>
 					<ng-icon hlm name="lucideTwitter" size="sm" />
@@ -48,4 +49,17 @@ import { HeaderMobileNav } from './header-mobile-nav';
 		</div>
 	`,
 })
-export class Header {}
+export class Header {
+	constructor() {
+		afterNextRender(async () => {
+			const { default: docsearch } = await import('@docsearch/js');
+
+			docsearch({
+				container: '#docsearch',
+				indexName: 'spartan-ng',
+				appId: 'JJRQPPSU45',
+				apiKey: '0fe1bcb9dbe76b2a149f00bc0709c5fd',
+			});
+		});
+	}
+}

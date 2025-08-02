@@ -24,7 +24,11 @@ type Column = { label: string; key: string; class?: string };
 							@for (col of columns(); track col.key) {
 								<td hlmTd [class]="col.class">
 									@if (row[col.key]) {
-										{{ row[col.key] }}
+										@if (col.key === 'name') {
+											<span [innerHTML]="row[col.key]"></span>
+										} @else {
+											{{ row[col.key] }}
+										}
 									} @else {
 										<span class="sr-hidden">-</span>
 									}
@@ -37,7 +41,7 @@ type Column = { label: string; key: string; class?: string };
 		</div>
 	`,
 })
-export class UIApiDocsTable {
+export class UIApiDocsTableComponent {
 	public readonly title = input.required<string>();
 	// es-lint-disable-next-line @typescript-eslint/no-explicit-any
 	public readonly rows = input.required<any[]>();

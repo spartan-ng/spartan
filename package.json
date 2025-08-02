@@ -27,10 +27,10 @@
 		"test": "nx run-many --target test --all"
 	},
 	"dependencies": {
-		"@analogjs/content": "1.14.1",
-		"@analogjs/router": "1.14.1",
+		"@analogjs/content": "1.19.3",
+		"@analogjs/router": "1.19.3",
 		"@analogjs/trpc": "~0.3.0",
-		"@analogjs/vite-plugin-angular": "1.14.1",
+		"@analogjs/vite-plugin-angular": "1.19.3",
 		"@angular/animations": "19.2.8",
 		"@angular/cdk": "19.2.2",
 		"@angular/common": "19.2.8",
@@ -61,10 +61,10 @@
 		"h3": "^1.12.0",
 		"isomorphic-fetch": "^3.0.0",
 		"luxon": "^3.5.0",
-		"marked": "^5.1.2",
-		"marked-gfm-heading-id": "3.2.0",
-		"marked-highlight": "^2.1.4",
-		"marked-mangle": "^1.1.9",
+		"marked": "15.0.9",
+		"marked-gfm-heading-id": "4.1.2",
+		"marked-highlight": "2.2.2",
+		"marked-mangle": "1.1.11",
 		"mermaid": "^11.2.1",
 		"ng-signal-forms": "^1.14.0",
 		"ngx-scrollbar": "18.0.0",
@@ -85,7 +85,7 @@
 		"zone.js": "0.15.0"
 	},
 	"devDependencies": {
-		"@analogjs/platform": "1.14.1",
+		"@analogjs/platform": "1.19.3",
 		"@angular-devkit/build-angular": "~19.2.0",
 		"@angular-devkit/core": "19.2.9",
 		"@angular-devkit/schematics": "19.2.9",

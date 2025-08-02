@@ -16,19 +16,19 @@ import { UIApiDocsTable } from '../ui-api-docs-table/ui-api-docs-table';
 				<h4 class="${hlmH4} mb-2 mt-6 pt-12" [id]="entry.toLowerCase()">{{ entry }}</h4>
 				<p>
 					Selector:
-					<code class="${hlmCode}">{{ _componentItems()[entry].selector }}</code>
+					<code class="${hlmCode}">{{ _transformedComponentItems()[entry].selector }}</code>
 				</p>
-				@if (_componentItems()[entry].exportAs) {
+				@if (_transformedComponentItems()[entry].exportAs) {
 					<p>
 						ExportAs:
-						<code class="${hlmCode}">{{ _componentItems()[entry].exportAs }}</code>
+						<code class="${hlmCode}">{{ _transformedComponentItems()[entry].exportAs }}</code>
 					</p>
 				}
 
-				@if (_componentItems()[entry].inputs && _componentItems()[entry].inputs.length > 0) {
+				@if (_transformedComponentItems()[entry].inputs && _transformedComponentItems()[entry].inputs.length > 0) {
 					<spartan-ui-api-docs-table
 						title="Inputs"
-						[rows]="_componentItems()[entry].inputs"
+						[rows]="_transformedComponentItems()[entry].inputs"
 						[columns]="[
 							{ label: 'Prop', key: 'name', class: 'font-medium' },
 							{ label: 'Type', key: 'type' },
@@ -38,26 +38,14 @@ import { UIApiDocsTable } from '../ui-api-docs-table/ui-api-docs-table';
 					/>
 				}
 
-				@if (_componentItems()[entry].models && _componentItems()[entry].models.length > 0) {
-					<spartan-ui-api-docs-table
-						title="Models"
-						[rows]="_componentItems()[entry].models"
-						[columns]="[
-							{ label: 'Prop', key: 'name', class: 'font-medium' },
-							{ label: 'Type', key: 'type' },
-							{ label: 'Default', key: 'defaultValue' },
-							{ label: 'Description', key: 'description', class: 'whitespace-pre' },
-						]"
-					/>
-				}
-
-				@if (_componentItems()[entry].outputs && _componentItems()[entry].outputs.length > 0) {
+				@if (_transformedComponentItems()[entry].outputs && _transformedComponentItems()[entry].outputs.length > 0) {
 					<spartan-ui-api-docs-table
 						title="Outputs"
-						[rows]="_componentItems()[entry].outputs"
+						[rows]="_transformedComponentItems()[entry].outputs"
 						[columns]="[
 							{ label: 'Prop', key: 'name', class: 'font-medium' },
 							{ label: 'Type', key: 'type' },
+							{ label: 'Default', key: 'defaultValue' },
 							{ label: 'Description', key: 'description', class: 'whitespace-pre' },
 						]"
 					/>
@@ -76,4 +64,45 @@ export class UIApiDocs {
 	protected readonly _componentDocs = computed(() => this._apiDocsService.getComponentDocs(this._primitive())());
 	protected readonly _componentItems = computed(() => this._componentDocs()?.[this.docType()] ?? {});
 	protected readonly _componentEntries = computed(() => Object.keys(this._componentItems() ?? []));
+
+	protected readonly _transformedComponentItems = computed(() => {
+		const items = this._componentItems();
+		if (!items) return {};
+
+		const transformed: any = {};
+		for (const [key, value] of Object.entries(items)) {
+			// Transform inputs to include models
+			const transformedInputs = [
+				...(value.inputs?.map((input: any) => ({
+					...input,
+					name: input.required ? `${input.name}<span class="text-destructive">*</span> (required)` : input.name,
+				})) || []),
+				...(value.models?.map((model: any) => ({
+					...model,
+					name: model.required ? `${model.name}<span class="text-destructive">*</span> (required)` : model.name,
+				})) || []),
+			];
+
+			// Transform outputs to include models with "Changed" suffix
+			const transformedOutputs = [
+				...(value.outputs?.map((output: any) => ({
+					...output,
+					name: output.required ? `${output.name}<span class="text-destructive">*</span> (required)` : output.name,
+				})) || []),
+				...(value.models?.map((model: any) => ({
+					...model,
+					name: model.required
+						? `${model.name}Changed<span class="text-destructive">*</span> (required)`
+						: `${model.name}Changed`,
+				})) || []),
+			];
+
+			transformed[key] = {
+				...value,
+				inputs: transformedInputs,
+				outputs: transformedOutputs,
+			};
+		}
+		return transformed;
+	});
 }

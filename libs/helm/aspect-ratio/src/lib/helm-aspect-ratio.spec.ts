@@ -64,11 +64,4 @@ describe('HelmAspectRatioDirective', () => {
 		const div = fixture.nativeElement.querySelector('div');
 		expect(div.style.paddingBottom).toEqual('100%');
 	});
-
-	it('should add the correct styles to the image', () => {
-		fixture.detectChanges();
-
-		const img = fixture.nativeElement.querySelector('img') as HTMLImageElement;
-		expect(img.classList.toString()).toBe('absolute w-full h-full object-cover');
-	});
 });

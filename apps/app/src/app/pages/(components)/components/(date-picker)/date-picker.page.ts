@@ -18,6 +18,7 @@ import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-sec
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { link } from '../../../../shared/typography/link';
 import { DatePickerConfigExample } from './date-picker--config.example';
+import { DateAndTimePickerExample } from './date-picker--date-time.example';
 import { DatePickerFormMultipleExample } from './date-picker--form-multi.example';
 import { DatePickerFormExample } from './date-picker--form.example';
 import { DatePickerFormatExample } from './date-picker--format.example';
@@ -50,6 +51,7 @@ export const routeMeta: RouteMeta = {
 		DatePickerFormExample,
 		DatePickerMultipleExample,
 		DatePickerFormMultipleExample,
+		DateAndTimePickerExample,
 		RouterLink,
 		HlmButton,
 	],
@@ -154,6 +156,14 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_formatCode()" />
 			</spartan-tabs>
 
+			<h3 id="examples__date_and_time_picker" class="${hlmH4} mb-2 mt-6">Date and Time picker</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-date-and-time-picker />
+				</div>
+				<spartan-code secondTab [code]="_dateTimeCode" />
+			</spartan-tabs>
+
 			<h3 id="examples__form" class="${hlmH4} mb-2 mt-6">Form</h3>
 			<p class="${hlmP} mb-6">
 				Sync the date to a form by adding
@@ -200,6 +210,7 @@ export default class CardPage {
 	protected readonly _formMultiCode = computed(() => this._snippets()['formMulti']);
 	protected readonly _formatCode = computed(() => this._snippets()['format']);
 	protected readonly _multiCode = computed(() => this._snippets()['multi']);
+	protected readonly _dateTimeCode = computed(() => this._snippets()['dateTime']);
 	protected readonly _defaultImports = defaultImports;
 	protected readonly _codeSkeleton = defaultSkeleton;
 }

@@ -30,13 +30,15 @@ export const HLM_DATE_PICKER_MUTLI_VALUE_ACCESSOR = {
 	multi: true,
 };
 
+let nextId = 0;
+
 @Component({
 	selector: 'hlm-date-picker-multi',
 	imports: [NgIcon, HlmIcon, BrnPopover, BrnPopoverTrigger, BrnPopoverContent, HlmPopoverContent, HlmCalendarMulti],
 	providers: [HLM_DATE_PICKER_MUTLI_VALUE_ACCESSOR, provideIcons({ lucideCalendar })],
 	template: `
 		<brn-popover sideOffset="5" [state]="_popoverState()" (stateChanged)="_popoverState.set($event)">
-			<button type="button" [class]="_computedClass()" [disabled]="_mutableDisabled()" brnPopoverTrigger>
+			<button [id]="buttonId()" type="button" [class]="_computedClass()" [disabled]="_mutableDisabled()" brnPopoverTrigger>
 				<ng-icon hlm size="sm" name="lucideCalendar" />
 
 				<span class="truncate">
@@ -81,6 +83,9 @@ export class HlmDatePickerMulti<T> implements ControlValueAccessor {
 			this.userClass(),
 		),
 	);
+
+	/** The id of the button that opens the date picker. */
+	public readonly buttonId = input<string>(`hlm-date-picker-${nextId++}`);
 
 	/** The minimum date that can be selected.*/
 	public readonly min = input<T>();

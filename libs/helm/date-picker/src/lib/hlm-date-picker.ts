@@ -29,13 +29,15 @@ export const HLM_DATE_PICKER_VALUE_ACCESSOR = {
 	multi: true,
 };
 
+let nextId = 0;
+
 @Component({
 	selector: 'hlm-date-picker',
 	imports: [NgIcon, HlmIcon, BrnPopover, BrnPopoverTrigger, BrnPopoverContent, HlmPopoverContent, HlmCalendar],
 	providers: [HLM_DATE_PICKER_VALUE_ACCESSOR, provideIcons({ lucideChevronDown })],
 	template: `
 		<brn-popover sideOffset="5" [state]="_popoverState()" (stateChanged)="_popoverState.set($event)">
-			<button type="button" [class]="_computedClass()" [disabled]="_mutableDisabled()" brnPopoverTrigger>
+			<button [id]="buttonId()" type="button" [class]="_computedClass()" [disabled]="_mutableDisabled()" brnPopoverTrigger>
 				<span class="truncate">
 					@if (_formattedDate(); as formattedDate) {
 						{{ formattedDate }}
@@ -78,6 +80,9 @@ export class HlmDatePicker<T> implements ControlValueAccessor {
 			this.userClass(),
 		),
 	);
+
+	/** The id of the button that opens the date picker. */
+	public readonly buttonId = input<string>(`hlm-date-picker-${nextId++}`);
 
 	/** The minimum date that can be selected.*/
 	public readonly min = input<T>();

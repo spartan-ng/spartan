@@ -9,14 +9,21 @@ import { HlmLabel } from '@spartan-ng/helm/label';
 	imports: [HlmDatePicker, ReactiveFormsModule, HlmButton, HlmLabel],
 	template: `
 		<form [formGroup]="form" (ngSubmit)="submit()" class="space-y-8">
-			<label hlmLabel>
-				Date of birth
-				<hlm-date-picker [min]="minDate" [max]="maxDate" formControlName="birthday" [autoCloseOnSelect]="true">
+			<div class="flex flex-col gap-2">
+				<label for="birthday" hlmLabel class="px-1">Date of birth</label>
+				<hlm-date-picker
+					buttonId="birthday"
+					[min]="minDate"
+					[max]="maxDate"
+					formControlName="birthday"
+					[autoCloseOnSelect]="true"
+				>
 					<span>Pick a date</span>
 				</hlm-date-picker>
-			</label>
+				<div class="text-muted-foreground px-1 text-sm">Your date of birth is used to calculate your age.</div>
+			</div>
 
-			<button type="submit" hlmBtn>Submit</button>
+			<button type="submit" hlmBtn [disabled]="form.invalid">Submit</button>
 		</form>
 	`,
 })

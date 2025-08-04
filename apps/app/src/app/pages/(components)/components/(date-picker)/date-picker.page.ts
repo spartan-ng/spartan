@@ -4,6 +4,7 @@ import { RouterLink } from '@angular/router';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { hlmCode, hlmH4, hlmP, hlmUl } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
+import { CodePreview } from '../../../../shared/code/code-preview';
 import { PageBottomNav } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav';
 import { PageBottomNavLink } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav-link';
 import { PageNav } from '../../../../shared/layout/page-nav/page-nav';
@@ -47,6 +48,7 @@ export const routeMeta: RouteMeta = {
 		TabsCli,
 		PageBottomNav,
 		PageBottomNavLink,
+		CodePreview,
 		PageNav,
 		DatePickerConfigExample,
 		DatePickerFormatExample,

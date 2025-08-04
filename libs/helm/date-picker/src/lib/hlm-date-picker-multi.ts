@@ -13,7 +13,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideCalendar } from '@ng-icons/lucide';
+import { lucideChevronDown } from '@ng-icons/lucide';
 import { BrnDialogState } from '@spartan-ng/brain/dialog';
 import { type ChangeFn, type TouchFn } from '@spartan-ng/brain/forms';
 import { BrnPopover, BrnPopoverContent, BrnPopoverTrigger } from '@spartan-ng/brain/popover';
@@ -35,12 +35,16 @@ let nextId = 0;
 @Component({
 	selector: 'hlm-date-picker-multi',
 	imports: [NgIcon, HlmIcon, BrnPopover, BrnPopoverTrigger, BrnPopoverContent, HlmPopoverContent, HlmCalendarMulti],
-	providers: [HLM_DATE_PICKER_MUTLI_VALUE_ACCESSOR, provideIcons({ lucideCalendar })],
+	providers: [HLM_DATE_PICKER_MUTLI_VALUE_ACCESSOR, provideIcons({ lucideChevronDown })],
 	template: `
 		<brn-popover sideOffset="5" [state]="_popoverState()" (stateChanged)="_popoverState.set($event)">
-			<button [id]="buttonId()" type="button" [class]="_computedClass()" [disabled]="_mutableDisabled()" brnPopoverTrigger>
-				<ng-icon hlm size="sm" name="lucideCalendar" />
-
+			<button
+				[id]="buttonId()"
+				type="button"
+				[class]="_computedClass()"
+				[disabled]="_mutableDisabled()"
+				brnPopoverTrigger
+			>
 				<span class="truncate">
 					@if (_formattedDate(); as formattedDate) {
 						{{ formattedDate }}
@@ -48,6 +52,8 @@ let nextId = 0;
 						<ng-content />
 					}
 				</span>
+
+				<ng-icon hlm size="sm" name="lucideChevronDown" />
 			</button>
 
 			<div hlmPopoverContent class="w-auto p-0" *brnPopoverContent="let ctx">
@@ -75,7 +81,7 @@ export class HlmDatePickerMulti<T> implements ControlValueAccessor {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>
 		hlm(
-			'inline-flex items-center gap-2 whitespace-nowrap rounded-md text-sm transition-all disabled:pointer-events-none disabled:opacity-50 ring-offset-background border border-input bg-background hover:bg-accent dark:bg-input/30 dark:hover:bg-input/50 hover:text-accent-foreground h-9 px-3 py-2 w-[280px] justify-start text-left font-normal cursor-default',
+			'inline-flex items-center gap-2 whitespace-nowrap rounded-md text-sm transition-all disabled:pointer-events-none disabled:opacity-50 ring-offset-background border border-input bg-background hover:bg-accent dark:bg-input/30 dark:hover:bg-input/50 hover:text-accent-foreground h-9 px-3 py-2 w-[280px] text-left font-normal cursor-default justify-between',
 			'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
 			'disabled:pointer-events-none disabled:opacity-50',
 			'[&_ng-icon]:pointer-events-none [&_ng-icon]:shrink-0',

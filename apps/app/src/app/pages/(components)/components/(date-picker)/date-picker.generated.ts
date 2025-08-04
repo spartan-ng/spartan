@@ -9,17 +9,20 @@ Run `pnpm run generate-snippets` to update this file.
 
 export const datePickerConfigCode = `
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { HlmDatePicker, provideHlmDatePickerConfig } from '@spartan-ng/helm/date-picker';
+import { HlmLabel } from '@spartan-ng/helm/label';
 import { DateTime } from 'luxon';
 
 @Component({
 	selector: 'spartan-date-picker-config',
-	imports: [HlmDatePicker, FormsModule],
+	imports: [HlmDatePicker, HlmLabel],
 	template: \`
-		<hlm-date-picker [min]="minDate" [max]="maxDate">
-			<span>Pick a date</span>
-		</hlm-date-picker>
+		<div class="flex flex-col gap-3">
+			<label for="customConfig" hlmLabel class="px-1">Date Picker with Config</label>
+			<hlm-date-picker buttonId="customConfig" [min]="minDate" [max]="maxDate">
+				<span>Pick a date</span>
+			</hlm-date-picker>
+		</div>
 	\`,
 	providers: [
 		provideHlmDatePickerConfig({
@@ -179,17 +182,20 @@ export class DatePickerFormExample {
 
 export const datePickerFormatCode = `
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { HlmDatePicker, provideHlmDatePickerConfig } from '@spartan-ng/helm/date-picker';
+import { HlmLabel } from '@spartan-ng/helm/label';
 import { DateTime } from 'luxon';
 
 @Component({
 	selector: 'spartan-date-picker-format',
-	imports: [HlmDatePicker, FormsModule],
+	imports: [HlmDatePicker, HlmLabel],
 	template: \`
-		<hlm-date-picker [min]="minDate" [max]="maxDate" [formatDate]="formatDate">
-			<span>Pick a date</span>
-		</hlm-date-picker>
+		<div class="flex flex-col gap-3">
+			<label for="datePickerFormat" hlmLabel class="px-1">Date Picker with Custom Format</label>
+			<hlm-date-picker buttonId="datePickerFormat" [min]="minDate" [max]="maxDate" [formatDate]="formatDate">
+				<span>Pick a date</span>
+			</hlm-date-picker>
+		</div>
 	\`,
 	providers: [
 		// Global formatDate config
@@ -211,20 +217,25 @@ export class DatePickerFormatExample {
 export const datePickerMultiCode = `
 import { Component } from '@angular/core';
 import { HlmDatePickerMulti } from '@spartan-ng/helm/date-picker';
+import { HlmLabel } from '@spartan-ng/helm/label';
 
 @Component({
 	selector: 'spartan-date-picker-multiple',
-	imports: [HlmDatePickerMulti],
+	imports: [HlmDatePickerMulti, HlmLabel],
 	template: \`
-		<hlm-date-picker-multi
-			[min]="minDate"
-			[max]="maxDate"
-			[autoCloseOnMaxSelection]="true"
-			[minSelection]="2"
-			[maxSelection]="6"
-		>
-			<span>Pick dates</span>
-		</hlm-date-picker-multi>
+		<div class="flex flex-col gap-3">
+			<label for="datePickerMulti" hlmLabel class="px-1">Date Picker Multiple</label>
+			<hlm-date-picker-multi
+				buttonId="datePickerMulti"
+				[min]="minDate"
+				[max]="maxDate"
+				[autoCloseOnMaxSelection]="true"
+				[minSelection]="2"
+				[maxSelection]="6"
+			>
+				<span>Pick dates</span>
+			</hlm-date-picker-multi>
+		</div>
 	\`,
 })
 export class DatePickerMultipleExample {

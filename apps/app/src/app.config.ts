@@ -1,5 +1,5 @@
-import { provideFileRouter } from '@analogjs/router';
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import { provideFileRouter, requestContextInterceptor } from '@analogjs/router';
+import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import type { ApplicationConfig } from '@angular/core';
 import { provideClientHydration } from '@angular/platform-browser';
 import { PreloadAllModules, withInMemoryScrolling, withNavigationErrorHandler, withPreloading } from '@angular/router';
@@ -14,6 +14,6 @@ export const appConfig: ApplicationConfig = {
 		),
 		provideClientHydration(),
 		provideTrpcClient(),
-		provideHttpClient(withFetch()),
+		provideHttpClient(withFetch(), withInterceptors([requestContextInterceptor])),
 	],
 };

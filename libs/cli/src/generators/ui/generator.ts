@@ -47,7 +47,7 @@ export async function createPrimitiveLibraries(
 	availablePrimitiveNames: Primitive[],
 	availablePrimitives: PrimitiveDefinitions,
 	tree: Tree,
-	options: HlmUIGeneratorSchema & { angularCli?: boolean; installPeerDependencies?: boolean },
+	options: HlmUIGeneratorSchema & { angularCli?: boolean; installPeerDependencies?: boolean; buildable?: boolean },
 	config: Config,
 ) {
 	const allPrimitivesSelected = response.primitives.includes('all');
@@ -84,6 +84,7 @@ export async function createPrimitiveLibraries(
 				tags: options.tags,
 				rootProject: options.rootProject,
 				angularCli: options.angularCli,
+				buildable: options.buildable ?? config.buildable,
 			});
 		}),
 	);

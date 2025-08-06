@@ -63,6 +63,7 @@ describe('base generator', () => {
 			internalName: 'ui-button-helm',
 			publicName: 'ui-button-helm',
 			directory: 'libs/test-ui',
+			buildable: true,
 		};
 
 		await hlmBaseGenerator(tree, options);

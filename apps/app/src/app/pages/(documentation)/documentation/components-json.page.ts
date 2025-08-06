@@ -49,15 +49,21 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-section-sub-heading id="configuration">Configuration</spartan-section-sub-heading>
 
-			<h3 id="componentsPath" class="${hlmH4} mt-12">componentsPath</h3>
+			<h3 id="componentsPath" class="${hlmH4} mt-8">componentsPath</h3>
 
 			<p class="${hlmP}">The base path where your components will be generated.</p>
+
+			<h3 id="buildable" class="${hlmH4} mt-8">buildable</h3>
+
+			<p class="${hlmP}">Determines whether the generated library is buildable or not.</p>
+
 			<spartan-code
 				class="mt-3"
 				language="js"
 				code='
 {
 	"componentsPath": "libs/ui"
+	"buildable": true
 }'
 			/>
 

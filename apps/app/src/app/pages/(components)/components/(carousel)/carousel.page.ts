@@ -1,6 +1,7 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
-import { hlmCode, hlmH4 } from '@spartan-ng/helm/typography';
+import { link } from '@spartan-ng/app/app/shared/typography/link';
+import { hlmCode, hlmH4, hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
@@ -66,6 +67,22 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode" />
 			</spartan-tabs>
 
+			<spartan-section-sub-heading id="about">About</spartan-section-sub-heading>
+			<p class="${hlmP} mb-6">
+				Carousel is built on top of
+				<a href="https://www.embla-carousel.com/" target="_blank" rel="noreferrer" class="${link}">Embla Carousel</a>
+				library and the
+				<a
+					href="https://github.com/donaldxdonald/embla-carousel-angular"
+					target="_blank"
+					rel="noreferrer"
+					class="${link}"
+				>
+					embla-carousel-angular
+				</a>
+				wrapper .
+			</p>
+
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
 			<spartan-cli-tabs
 				class="mt-4"
@@ -101,7 +118,7 @@ export const routeMeta: RouteMeta = {
 			<h3 id="examples__spacing" class="${hlmH4} mb-2 mt-6">Spacing</h3>
 			<p class="py-2">
 				The spacing between the items can be set by using a
-				<code class="${hlmCode}">p-[VALUE]</code>
+				<code class="${hlmCode}">pl-[VALUE]</code>
 				utility on the
 				<code class="${hlmCode}">hlm-carousel-item</code>
 				and a negative

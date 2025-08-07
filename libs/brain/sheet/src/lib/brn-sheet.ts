@@ -1,11 +1,10 @@
 import {
 	ChangeDetectionStrategy,
 	Component,
-	computed,
 	effect,
 	forwardRef,
 	input,
-	signal,
+	linkedSignal,
 	untracked,
 	ViewEncapsulation,
 } from '@angular/core';
@@ -27,13 +26,12 @@ import { BrnDialog } from '@spartan-ng/brain/dialog';
 	exportAs: 'brnSheet',
 })
 export class BrnSheet extends BrnDialog {
-	public readonly sideInput = input<'top' | 'bottom' | 'left' | 'right'>('top', { alias: 'side' });
-	public readonly sideInputState = computed(() => signal(this.sideInput()));
-	public readonly side = computed(() => this.sideInputState().asReadonly()());
+	public readonly side = input<'top' | 'bottom' | 'left' | 'right'>('top');
+	public readonly sideState = linkedSignal(() => this.side());
 	constructor() {
 		super();
 		effect(() => {
-			const side = this.side();
+			const side = this.sideState();
 			untracked(() => {
 				if (side === 'top') {
 					this.mutablePositionStrategy().set(this.positionBuilder.global().top());

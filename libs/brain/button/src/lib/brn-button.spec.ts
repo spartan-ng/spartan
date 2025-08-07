@@ -32,7 +32,7 @@ describe('BrnButton', () => {
 
 		const button = container.querySelector('a')!;
 		expect(button.getAttribute('tabindex')).toBe('-1');
-		expect(button.classList.contains('disabled')).toBe(true);
+		expect(button.dataset['disabled']).toBe('true');
 	});
 
 	it('should allow click when not disabled', async () => {
@@ -63,16 +63,16 @@ describe('BrnButton', () => {
 
 		const button = container.querySelector('a')!;
 		expect(button.getAttribute('tabindex')).toBe(null);
-		expect(button.classList.contains('disabled')).toBe(false);
+		expect(button.dataset['disabled']).toBe(undefined);
 
 		fixture.componentInstance.disabled.set(true);
 		fixture.detectChanges();
 		expect(button.getAttribute('tabindex')).toBe('-1');
-		expect(button.classList.contains('disabled')).toBe(true);
+		expect(button.dataset['disabled']).toBe('true');
 
 		fixture.componentInstance.disabled.set(false);
 		fixture.detectChanges();
 		expect(button.getAttribute('tabindex')).toBe(null);
-		expect(button.classList.contains('disabled')).toBe(false);
+		expect(button.dataset['disabled']).toBe(undefined);
 	});
 });

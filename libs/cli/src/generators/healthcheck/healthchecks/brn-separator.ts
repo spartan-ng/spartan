@@ -11,6 +11,11 @@ export const brainSeparatorHealthcheck: Healthcheck = {
 				return;
 			}
 
+			// if it is the HlmSeparator itself skip it.
+			if (file.endsWith('hlm-separator.ts')) {
+				return;
+			}
+
 			const contents = tree.read(file, 'utf-8');
 
 			if (!contents) {

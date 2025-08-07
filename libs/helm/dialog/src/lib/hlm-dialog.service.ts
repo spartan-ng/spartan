@@ -26,7 +26,11 @@ export class HlmDialogService {
 
 			...(options ?? {}),
 			backdropClass: cssClassesToArray(`${hlmDialogOverlayClass} ${options?.backdropClass ?? ''}`),
-			context: { ...(options?.context ?? {}), $component: component, $dynamicComponentClass: options?.contentClass },
+			context: {
+				...(options?.context && typeof options.context === 'object' ? options.context : {}),
+				$component: component,
+				$dynamicComponentClass: options?.contentClass,
+			},
 		};
 
 		return this._brnDialogService.open(HlmDialogContent, undefined, mergedOptions.context, mergedOptions);

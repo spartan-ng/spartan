@@ -13,7 +13,7 @@ export class BrnSheetTrigger extends BrnDialogTrigger {
 	override open() {
 		const side = this.side();
 		if (this._sheet && side) {
-			this._sheet.sideInputState().set(side);
+			this._sheet.sideState.set(side);
 		}
 		super.open();
 	}

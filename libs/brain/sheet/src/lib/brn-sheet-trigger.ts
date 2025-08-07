@@ -8,6 +8,7 @@ import { BrnSheet } from './brn-sheet';
 export class BrnSheetTrigger extends BrnDialogTrigger {
 	private readonly _sheet = inject(BrnSheet, { optional: true });
 
+	/** Override the side from where the sheet appears for this trigger. */
 	public readonly side = input<'top' | 'bottom' | 'left' | 'right' | undefined>(undefined);
 
 	override open() {

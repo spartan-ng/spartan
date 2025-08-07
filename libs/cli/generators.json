@@ -64,6 +64,11 @@
 			"factory": "./src/generators/migrate-progress/generator",
 			"schema": "./src/generators/migrate-progress/schema.json",
 			"description": "Migrate brn-progress to hlm-progress"
+		},
+		"migrate-separator": {
+			"factory": "./src/generators/migrate-separator/generator",
+			"schema": "./src/generators/migrate-separator/schema.json",
+			"description": "Migrate brn-separator to hlm-separator"
 		}
 	},
 	"schematics": {

@@ -26,6 +26,7 @@ import { BrnDialog } from '@spartan-ng/brain/dialog';
 	exportAs: 'brnSheet',
 })
 export class BrnSheet extends BrnDialog {
+	/** Specifies the side of the screen where the sheet will appear. */
 	public readonly side = input<'top' | 'bottom' | 'left' | 'right'>('top');
 	public readonly sideState = linkedSignal(() => this.side());
 	constructor() {

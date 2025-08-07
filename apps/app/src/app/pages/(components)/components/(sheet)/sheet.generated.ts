@@ -7,6 +7,63 @@ Instead, edit the `(sheet).preview.ts` file or the generator itself.
 Run `pnpm run generate-snippets` to update this file.
 */
 
+export const sheetCloseCode = `
+import { Component, viewChild } from '@angular/core';
+import { provideIcons } from '@ng-icons/core';
+import { lucideCross } from '@ng-icons/lucide';
+import { BrnSheet, BrnSheetClose, BrnSheetContent, BrnSheetTrigger } from '@spartan-ng/brain/sheet';
+import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmLabel } from '@spartan-ng/helm/label';
+import { HlmSheet, HlmSheetContent, HlmSheetHeader, HlmSheetTitle } from '@spartan-ng/helm/sheet';
+
+@Component({
+	selector: 'spartan-sheet-close-preview',
+	imports: [
+		BrnSheetTrigger,
+		BrnSheetContent,
+		BrnSheetClose,
+		HlmSheet,
+		HlmSheetContent,
+		HlmSheetHeader,
+		HlmSheetTitle,
+		HlmButton,
+		HlmLabel,
+	],
+	providers: [provideIcons({ lucideCross })],
+	template: \`
+		<hlm-sheet #sheetRef side="right">
+			<button id="edit-profile" variant="outline" brnSheetTrigger hlmBtn>Open</button>
+			<hlm-sheet-content *brnSheetContent="let ctx">
+				<hlm-sheet-header>
+					<h3 hlmSheetTitle>Sheet</h3>
+				</hlm-sheet-header>
+				<div class="grid flex-1 auto-rows-min gap-6 px-4">
+					<div class="grid gap-3">
+						<label hlmLabel>Close sheet by directive</label>
+						<button hlmBtn brnSheetClose>Close</button>
+					</div>
+					<div class="grid gap-3">
+						<label hlmLabel>Close sheet by reference</label>
+						<button hlmBtn (click)="sheetRef.close({})">Close</button>
+					</div>
+					<div class="grid gap-3">
+						<label hlmLabel>Close sheet by viewchild reference</label>
+						<button hlmBtn (click)="closeSheet()">Close</button>
+					</div>
+				</div>
+			</hlm-sheet-content>
+		</hlm-sheet>
+	\`,
+})
+export class SheetClosePreview {
+	public viewchildSheetRef = viewChild(BrnSheet);
+
+	closeSheet() {
+		this.viewchildSheetRef()?.close({});
+	}
+}
+`;
+
 export const sheetSideCode = `
 import { Component } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
@@ -74,64 +131,7 @@ import {
 export class SheetSidePreview {}
 `;
 
-export const sheetCloseCode = `
-import { Component, viewChild } from '@angular/core';
-import { provideIcons } from '@ng-icons/core';
-import { lucideCross } from '@ng-icons/lucide';
-import { BrnSheet, BrnSheetClose, BrnSheetContent, BrnSheetTrigger } from '@spartan-ng/brain/sheet';
-import { HlmButton } from '@spartan-ng/helm/button';
-import { HlmLabel } from '@spartan-ng/helm/label';
-import { HlmSheet, HlmSheetContent, HlmSheetHeader, HlmSheetTitle } from '@spartan-ng/helm/sheet';
-
-@Component({
-	selector: 'spartan-sheet-close-preview',
-	imports: [
-		BrnSheetTrigger,
-		BrnSheetContent,
-		BrnSheetClose,
-		HlmSheet,
-		HlmSheetContent,
-		HlmSheetHeader,
-		HlmSheetTitle,
-		HlmButton,
-		HlmLabel,
-	],
-	providers: [provideIcons({ lucideCross })],
-	template: \`
-		<hlm-sheet #sheetRef side="right">
-			<button id="edit-profile" variant="outline" brnSheetTrigger hlmBtn>Open</button>
-			<hlm-sheet-content *brnSheetContent="let ctx">
-				<hlm-sheet-header>
-					<h3 hlmSheetTitle>Sheet</h3>
-				</hlm-sheet-header>
-				<div class="grid flex-1 auto-rows-min gap-6 px-4">
-					<div class="grid gap-3">
-						<label hlmLabel>Close sheet by directive</label>
-						<button hlmBtn brnSheetClose>Close</button>
-					</div>
-					<div class="grid gap-3">
-						<label hlmLabel>Close sheet by reference</label>
-						<button hlmBtn (click)="sheetRef.close({})">Close</button>
-					</div>
-					<div class="grid gap-3">
-						<label hlmLabel>Close sheet by viewchild reference</label>
-						<button hlmBtn (click)="closeSheet()">Close</button>
-					</div>
-				</div>
-			</hlm-sheet-content>
-		</hlm-sheet>
-	\`,
-})
-export class SheetClosePreview {
-	public viewchildSheetRef = viewChild(BrnSheet);
-
-	closeSheet() {
-		this.viewchildSheetRef()?.close({});
-	}
-}
-`;
-
-export const defaultCode = `
+export const sheetSizeCode = `
 import { Component } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideCross } from '@ng-icons/lucide';
@@ -150,7 +150,7 @@ import {
 } from '@spartan-ng/helm/sheet';
 
 @Component({
-	selector: 'spartan-sheet-preview',
+	selector: 'spartan-sheet-size-preview',
 	imports: [
 		BrnSheetTrigger,
 		BrnSheetContent,
@@ -167,7 +167,70 @@ import {
 	providers: [provideIcons({ lucideCross })],
 	template: \`
 		<hlm-sheet side="right">
-			<button id="edit-profile" variant="outline" brnSheetTrigger hlmBtn>Edit Profile</button>
+			<button id="edit-profile" variant="outline" brnSheetTrigger hlmBtn>Open</button>
+			<hlm-sheet-content *brnSheetContent="let ctx" class="w-[400px] sm:w-[540px] sm:max-w-none">
+				<hlm-sheet-header>
+					<h3 hlmSheetTitle>Edit Profile</h3>
+					<p hlmSheetDescription>Make changes to your profile here. Click save when you're done.</p>
+				</hlm-sheet-header>
+				<div class="grid flex-1 auto-rows-min gap-6 px-4">
+					<div class="grid gap-3">
+						<label hlmLabel for="name" class="text-right">Name</label>
+						<input hlmInput id="name" value="Pedro Duarte" class="col-span-3" />
+					</div>
+					<div class="grid gap-3">
+						<label hlmLabel for="username" class="text-right">Username</label>
+						<input hlmInput id="username" value="@peduarte" class="col-span-3" />
+					</div>
+				</div>
+				<hlm-sheet-footer>
+					<button hlmBtn type="submit">Save Changes</button>
+				</hlm-sheet-footer>
+			</hlm-sheet-content>
+		</hlm-sheet>
+	\`,
+})
+export class SheetSizePreview {}
+`;
+
+export const defaultCode = `
+import { Component } from '@angular/core';
+import { provideIcons } from '@ng-icons/core';
+import { lucideCross } from '@ng-icons/lucide';
+import { BrnSheetClose, BrnSheetContent, BrnSheetTrigger } from '@spartan-ng/brain/sheet';
+import { HlmButton } from '@spartan-ng/helm/button';
+
+import { HlmInput } from '@spartan-ng/helm/input';
+import { HlmLabel } from '@spartan-ng/helm/label';
+import {
+	HlmSheet,
+	HlmSheetContent,
+	HlmSheetDescription,
+	HlmSheetFooter,
+	HlmSheetHeader,
+	HlmSheetTitle,
+} from '@spartan-ng/helm/sheet';
+
+@Component({
+	selector: 'spartan-sheet-preview',
+	imports: [
+		BrnSheetTrigger,
+		BrnSheetContent,
+		BrnSheetClose,
+		HlmSheet,
+		HlmSheetContent,
+		HlmSheetHeader,
+		HlmSheetFooter,
+		HlmSheetTitle,
+		HlmSheetDescription,
+		HlmButton,
+		HlmInput,
+		HlmLabel,
+	],
+	providers: [provideIcons({ lucideCross })],
+	template: \`
+		<hlm-sheet side="right">
+			<button id="edit-profile" variant="outline" brnSheetTrigger hlmBtn>Open</button>
 			<hlm-sheet-content *brnSheetContent="let ctx">
 				<hlm-sheet-header>
 					<h3 hlmSheetTitle>Edit Profile</h3>
@@ -185,6 +248,7 @@ import {
 				</div>
 				<hlm-sheet-footer>
 					<button hlmBtn type="submit">Save Changes</button>
+					<button brnSheetClose hlmBtn variant="outline">Close</button>
 				</hlm-sheet-footer>
 			</hlm-sheet-content>
 		</hlm-sheet>

@@ -1,6 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
-import { hlmH4 } from '@spartan-ng/helm/typography';
+import { hlmCode, hlmH4, hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
@@ -13,9 +13,10 @@ import { Tabs } from '../../../../shared/layout/tabs';
 import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
+import { SheetClosePreview } from './sheet--close.preview';
 import { SheetSidePreview } from './sheet--side.preview';
-import { SheetClosePreview } from './sheet-close.preview';
-import { defaultCode, sheetCloseCode, sheetSideCode } from './sheet.generated';
+import { SheetSizePreview } from './sheet--size.preview';
+import { defaultCode, sheetCloseCode, sheetSideCode, sheetSizeCode } from './sheet.generated';
 import { SheetPreview, defaultImports, defaultSkeleton } from './sheet.preview';
 
 export const routeMeta: RouteMeta = {
@@ -42,6 +43,7 @@ export const routeMeta: RouteMeta = {
 		PageBottomNavLink,
 		SheetPreview,
 		SheetSidePreview,
+		SheetSizePreview,
 		SheetClosePreview,
 	],
 	template: `
@@ -86,7 +88,21 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_sideCode" />
 			</spartan-tabs>
 
+			<h3 id="examples__size_sheet" class="${hlmH4} mb-2 mt-6">Size</h3>
+			<p class="${hlmP} mb-6">
+				You can adjust the size of the sheet by adding CSS classes to
+				<code class="${hlmCode}">hlm-sheet-content</code>
+				.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-sheet-size-preview />
+				</div>
+				<spartan-code secondTab [code]="_sheetSizeCode" />
+			</spartan-tabs>
+
 			<h3 id="examples__close_sheet" class="${hlmH4} mb-2 mt-6">Close Sheet</h3>
+
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-sheet-close-preview />
@@ -107,5 +123,6 @@ export default class LabelPage {
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 	protected readonly _sideCode = sheetSideCode;
+	protected readonly _sheetSizeCode = sheetSizeCode;
 	protected readonly _closeCode = sheetCloseCode;
 }

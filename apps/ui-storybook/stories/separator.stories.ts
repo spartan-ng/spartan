@@ -50,13 +50,13 @@ export const Default: Story = {
           An open-source UI component library.
         </p>
       </div>
-      <brn-separator hlmSeparator ${argsToTemplate(args)} class='my-4' />
-      <div class='flex items-center h-5 text-sm space-x-4'>
+      <hlm-separator ${argsToTemplate(args)} class='my-4' /> 
+	  <div class='flex items-center h-5 text-sm space-x-4'>
         <div>Blog</div>
-        <brn-separator decorative hlmSeparator orientation='vertical' />
-        <div>Docs</div>
-        <brn-separator decorative hlmSeparator orientation='vertical' />
-        <div>Source</div>
+        <hlm-separator decorative orientation='vertical' /> 
+		<div>Docs</div>
+        <hlm-separator decorative orientation='vertical' /> 
+		<div>Source</div>
       </div>
     </div>
        `,

@@ -69,6 +69,11 @@ function replaceBrnSeparator(input) {
  */
 function updateImports(tree: Tree) {
 	visitFiles(tree, '/', (path) => {
+		// skip HlmSeparator itself
+		if (path.endsWith('hlm-separator.ts')) {
+			return;
+		}
+
 		const content = tree.read(path).toString('utf-8');
 
 		if (content.includes('@spartan-ng/brain/separator') || content.includes('@spartan-ng/ui-separator-helm')) {

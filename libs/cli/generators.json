@@ -59,6 +59,11 @@
 			"factory": "./src/generators/migrate-naming-convention/generator",
 			"schema": "./src/generators/migrate-naming-convention/schema.json",
 			"description": "Migrate naming conventions to the latest standards"
+		},
+		"migrate-separator": {
+			"factory": "./src/generators/migrate-separator/generator",
+			"schema": "./src/generators/migrate-separator/schema.json",
+			"description": "Migrate brn-separator to hlm-separator"
 		}
 	},
 	"schematics": {

@@ -123,3 +123,43 @@ export const Disabled: Story = {
 		template: '<disabled-tooltip-story/>',
 	}),
 };
+
+@Component({
+	selector: 'described-by-target-story',
+	standalone: true,
+	imports: [
+		HlmButton,
+		HlmTooltip,
+		BrnTooltipContent,
+		BrnTooltipContentTemplate,
+		HlmTooltipTrigger,
+		NgIcon,
+		HlmIcon,
+	],
+	providers: [provideIcons({ lucidePlus })],
+	template: `
+		<div class="p-40">
+			<input #emailInput placeholder="Enter email" class="mr-2 rounded-md border px-3 py-2" />
+			<button
+				hlmTooltipTrigger="Enter a valid email address"
+				[describedByTarget]="emailInput"
+				aria-describedby="Email help"
+				hlmBtn
+				variant="ghost"
+				size="sm"
+			>
+				<ng-icon hlm name="lucidePlus" size="sm" />
+			</button>
+		</div>
+	`,
+})
+class DescribedByTargetStory {}
+
+export const CustomAriaDescribedByTarget: Story = {
+	render: () => ({
+		moduleMetadata: {
+			imports: [DescribedByTargetStory],
+		},
+		template: '<described-by-target-story/>',
+	}),
+};

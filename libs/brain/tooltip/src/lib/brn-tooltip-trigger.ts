@@ -194,6 +194,13 @@ export class BrnTooltipTrigger implements OnDestroy, AfterViewInit {
 	public readonly computedAriaDescribedBy = computed(() => signal(this.ariaDescribedBy()));
 	public readonly ariaDescribedByPrevious = computedPrevious(this.computedAriaDescribedBy);
 
+	/** The target element that should receive the aria-describedby attribute. Defaults to the trigger element. */
+
+	public readonly describedByTarget = input<HTMLElement | null>(null);
+	private readonly _computedDescribedByTarget = computed(
+		() => this.describedByTarget() ?? this._elementRef.nativeElement,
+	);
+
 	/** The content to be displayed in the tooltip */
 
 	public readonly brnTooltipTrigger = input<string | TemplateRef<unknown> | null>(null);
@@ -270,8 +277,9 @@ export class BrnTooltipTrigger implements OnDestroy, AfterViewInit {
 	private _initAriaDescribedByPreviousEffect(): void {
 		effect(() => {
 			const ariaDescribedBy = this.computedAriaDescribedBy()();
+			const targetElement = this._computedDescribedByTarget();
 			this._ariaDescriber.removeDescription(
-				this._elementRef.nativeElement,
+				targetElement,
 				untracked(() => this.ariaDescribedByPrevious()()),
 				'tooltip',
 			);
@@ -283,7 +291,7 @@ export class BrnTooltipTrigger implements OnDestroy, AfterViewInit {
 					// has a data-bound `aria-label` or when it'll be set for the first time. We can avoid the
 					// issue by deferring the description by a tick so Angular has time to set the `aria-label`.
 					Promise.resolve().then(() => {
-						this._ariaDescriber.describe(this._elementRef.nativeElement, ariaDescribedBy, 'tooltip');
+						this._ariaDescriber.describe(targetElement, ariaDescribedBy, 'tooltip');
 					});
 				});
 			}
@@ -365,7 +373,11 @@ export class BrnTooltipTrigger implements OnDestroy, AfterViewInit {
 		this._destroyed.next();
 		this._destroyed.complete();
 
-		this._ariaDescriber.removeDescription(nativeElement, this.computedAriaDescribedBy()(), 'tooltip');
+		this._ariaDescriber.removeDescription(
+			this._computedDescribedByTarget(),
+			this.computedAriaDescribedBy()(),
+			'tooltip',
+		);
 		this._focusMonitor.stopMonitoring(nativeElement);
 	}
 

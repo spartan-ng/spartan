@@ -3,4 +3,6 @@ export interface MigrateHelmLibrariesGeneratorSchema {
 	rootProject?: boolean;
 	tags?: string;
 	angularCli?: boolean;
+	multiLibs: boolean;
+	buildable: boolean;
 }

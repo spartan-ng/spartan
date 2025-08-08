@@ -114,6 +114,7 @@ const defaultSchema: Partial<Schema> = {
 	prefix: 'hlm',
 	skipModule: true,
 	skipTests: true,
+	strict: true,
 	unitTestRunner: UnitTestRunner.None,
 };
 

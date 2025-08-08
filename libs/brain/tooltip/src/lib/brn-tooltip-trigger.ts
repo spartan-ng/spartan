@@ -45,12 +45,12 @@ import {
 	numberAttribute,
 	type OnDestroy,
 	type Provider,
+	Renderer2,
 	signal,
 	type TemplateRef,
 	untracked,
 	ViewContainerRef,
 } from '@angular/core';
-import { brnDevMode } from '@spartan-ng/brain/core';
 import { Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 import { BrnTooltip } from './brn-tooltip';
@@ -122,6 +122,7 @@ export class BrnTooltipTrigger implements OnDestroy, AfterViewInit {
 	private readonly _dir = inject(Directionality);
 	private readonly _scrollStrategy = inject(BRN_TOOLTIP_SCROLL_STRATEGY);
 	private readonly _document = inject(DOCUMENT);
+	private readonly _renderer = inject(Renderer2);
 
 	private _portal?: ComponentPortal<BrnTooltipContent>;
 	private _viewInitialized = false;
@@ -337,10 +338,6 @@ export class BrnTooltipTrigger implements OnDestroy, AfterViewInit {
 					this._ngZone.run(() => this.show());
 				}
 			});
-
-		if (brnDevMode && !this.computedAriaDescribedBy()) {
-			console.warn('BrnTooltip: "aria-describedby" attribute is required for accessibility');
-		}
 	}
 
 	/**
@@ -387,6 +384,10 @@ export class BrnTooltipTrigger implements OnDestroy, AfterViewInit {
 		instance.side.set(this._currentPosition ?? 'above');
 		instance.afterHidden.pipe(takeUntil(this._destroyed)).subscribe(() => this._detach());
 		this._updateTooltipContent();
+
+		// Automatically set aria-describedby if not manually provided
+		this._setAriaDescribedBy(instance.tooltipId);
+
 		instance.show(delay);
 	}
 
@@ -765,5 +766,15 @@ export class BrnTooltipTrigger implements OnDestroy, AfterViewInit {
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			(style as any).webkitTapHighlightColor = 'transparent';
 		}
+	}
+
+	/** Sets aria-describedby attribute automatically if not manually provided */
+	private _setAriaDescribedBy(tooltipId: string): void {
+		const manualAriaDescribedBy = this.ariaDescribedBy();
+
+		// If user provided manual aria-describedby, use it; otherwise auto-set
+		const ariaDescribedByValue = manualAriaDescribedBy || tooltipId;
+
+		this._renderer.setAttribute(this._elementRef.nativeElement, 'aria-describedby', ariaDescribedByValue);
 	}
 }

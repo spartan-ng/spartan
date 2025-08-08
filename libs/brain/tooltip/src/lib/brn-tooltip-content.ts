@@ -19,6 +19,7 @@ import {
 	viewChild,
 	ViewEncapsulation,
 } from '@angular/core';
+
 import { Subject } from 'rxjs';
 
 /**
@@ -29,6 +30,8 @@ import { Subject } from 'rxjs';
 	selector: 'brn-tooltip-content',
 	template: `
 		<div
+			[id]="tooltipId"
+			role="tooltip"
 			(mouseenter)="_contentHovered.set(true)"
 			(mouseleave)="_contentHovered.set(false)"
 			[class]="tooltipClasses()"
@@ -62,6 +65,8 @@ export class BrnTooltipContent implements OnDestroy {
 
 	public readonly tooltipClasses = signal('');
 	public readonly side = signal('above');
+	/** Unique ID for this tooltip instance */
+	public readonly tooltipId = `brn-tooltip-${Math.random().toString(36).substring(2, 15)}`;
 	/** Message to display in the tooltip */
 	public content: string | TemplateRef<unknown> | null = null;
 

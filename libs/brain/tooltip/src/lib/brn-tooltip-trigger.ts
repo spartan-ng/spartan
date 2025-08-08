@@ -488,6 +488,11 @@ export class BrnTooltipTrigger implements OnDestroy, AfterViewInit {
 			this._overlayRef.detach();
 		}
 
+		// Clean up aria-describedby if it was auto-set (not manual)
+		if (!this.ariaDescribedBy()) {
+			this._renderer.removeAttribute(this._elementRef.nativeElement, 'aria-describedby');
+		}
+
 		this._tooltipInstance = null;
 	}
 
@@ -772,7 +777,7 @@ export class BrnTooltipTrigger implements OnDestroy, AfterViewInit {
 	private _setAriaDescribedBy(tooltipId: string): void {
 		const manualAriaDescribedBy = this.ariaDescribedBy();
 
-		// If user provided manual aria-describedby, use it; otherwise auto-set
+		// If user provided manual aria-describedby, use it; otherwise auto-set with tooltip ID
 		const ariaDescribedByValue = manualAriaDescribedBy || tooltipId;
 
 		this._renderer.setAttribute(this._elementRef.nativeElement, 'aria-describedby', ariaDescribedByValue);

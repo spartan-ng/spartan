@@ -30,8 +30,8 @@ import { Subject } from 'rxjs';
 	selector: 'brn-tooltip-content',
 	template: `
 		<div
-			[id]="tooltipId"
-			role="tooltip"
+			[id]="isVisible() ? tooltipId : null"
+			[attr.role]="isVisible() ? 'tooltip' : null"
 			(mouseenter)="_contentHovered.set(true)"
 			(mouseleave)="_contentHovered.set(false)"
 			[class]="tooltipClasses()"

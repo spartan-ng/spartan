@@ -1,6 +1,6 @@
 import { UnitTestRunner } from '@nx/angular/generators';
 import { Schema } from '@nx/angular/src/generators/library/schema';
-import { type Tree, joinPathFragments, readNxJson } from '@nx/devkit';
+import { type Tree, joinPathFragments, readNxJson, updateJson } from '@nx/devkit';
 import * as path from 'path';
 import { ObjectLiteralExpression, Project, SyntaxKind } from 'ts-morph';
 import type { HlmBaseGeneratorSchema } from '../schema';
@@ -137,6 +137,16 @@ export async function initializeSingleAngularLibrary(
 
 	cleanupSingleLibFolder(tree, dir);
 	addRules(tree, dir);
+
+	updateJson(tree, joinPathFragments(dir, 'tsconfig.lib.json'), (json) => {
+		const include = json.include || [];
+		if (!include.includes('**/*.ts')) {
+			include.push('**/*.ts');
+		}
+		json.include = include;
+		return json;
+	});
+
 	return callback;
 }
 

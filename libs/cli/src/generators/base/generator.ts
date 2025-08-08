@@ -6,6 +6,7 @@ import {
 	joinPathFragments,
 	runTasksInSerial,
 	updateJson,
+	visitNotIgnoredFiles,
 } from '@nx/devkit';
 import { addTsConfigPath } from '@nx/js';
 import * as path from 'node:path';
@@ -35,15 +36,28 @@ function generateSingleLibFiles(tree: Tree, targetLibDir: string, alias: string,
 
 	// Rename lib/ to src/
 	const libDir = joinPathFragments(targetLibDir, 'lib');
+	const srcDir = joinPathFragments(targetLibDir, 'src');
 	if (tree.exists(libDir)) {
-		tree.rename(libDir, joinPathFragments(targetLibDir, 'src'));
+		tree.rename(libDir, srcDir);
 	}
 
-	// Replace './lib' with './src' in index.ts
+	// Replace @spartan-ng/helm/<generic> with ../../ui-<generic>-helm in all src files
+	if (tree.exists(srcDir)) {
+		visitNotIgnoredFiles(tree, srcDir, (filePath) => {
+			if (filePath.endsWith('.ts') || filePath.endsWith('.tsx')) {
+				const content = tree.read(filePath, 'utf-8');
+				const updated = content.replace(/@spartan-ng\/helm\/([a-zA-Z0-9-]+)/g, '../../ui-$1-helm');
+				tree.write(filePath, updated);
+			}
+		});
+	}
+
+	// Also update index.ts (if it exists)
 	const indexPath = joinPathFragments(targetLibDir, 'index.ts');
 	if (tree.exists(indexPath)) {
-		const content = tree.read(indexPath, 'utf-8');
-		tree.write(indexPath, content.replace(/\.\/lib/g, './src'));
+		let content = tree.read(indexPath, 'utf-8');
+		content = content.replace(/\.\/lib/g, './src').replace(/@spartan-ng\/helm\/([a-zA-Z0-9-]+)/g, '../../ui-$1-helm');
+		tree.write(indexPath, content);
 	}
 
 	// Add TS alias to tsconfig.base.json

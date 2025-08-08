@@ -57,6 +57,10 @@ export const routeMeta: RouteMeta = {
 
 			<p class="${hlmP}">Determines whether the generated library is buildable or not.</p>
 
+			<h3 id="buildable" class="${hlmH4} mt-8">multiLibs</h3>
+
+			<p class="${hlmP}">Generates for every component a single library.</p>
+
 			<spartan-code
 				class="mt-3"
 				language="js"
@@ -64,6 +68,7 @@ export const routeMeta: RouteMeta = {
 {
 	"componentsPath": "libs/ui"
 	"buildable": true
+	"multiLibs": true
 }'
 			/>
 

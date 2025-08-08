@@ -127,15 +127,7 @@ export const Disabled: Story = {
 @Component({
 	selector: 'described-by-target-story',
 	standalone: true,
-	imports: [
-		HlmButton,
-		HlmTooltip,
-		BrnTooltipContent,
-		BrnTooltipContentTemplate,
-		HlmTooltipTrigger,
-		NgIcon,
-		HlmIcon,
-	],
+	imports: [HlmButton, HlmTooltip, BrnTooltipContent, BrnTooltipContentTemplate, HlmTooltipTrigger, NgIcon, HlmIcon],
 	providers: [provideIcons({ lucidePlus })],
 	template: `
 		<div class="p-40">

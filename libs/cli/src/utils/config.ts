@@ -6,6 +6,7 @@ const configPath = 'components.json';
 export type Config = {
 	componentsPath: string;
 	buildable: boolean;
+	multiLibs: boolean;
 };
 
 export async function getOrCreateConfig(tree: Tree, defaults?: Partial<Config>): Promise<Config> {
@@ -15,7 +16,7 @@ export async function getOrCreateConfig(tree: Tree, defaults?: Partial<Config>):
 
 	console.log('Configuration file not found, creating a new one...');
 
-	const { componentsPath, buildable } = (await prompt([
+	const { componentsPath, buildable, multiLibs } = (await prompt([
 		{
 			type: 'input',
 			required: true,
@@ -31,9 +32,16 @@ export async function getOrCreateConfig(tree: Tree, defaults?: Partial<Config>):
 			initial: defaults?.buildable ?? true,
 			skip: typeof defaults?.buildable === 'boolean',
 		},
-	])) as { componentsPath: string; buildable: boolean };
+		{
+			type: 'confirm',
+			name: 'multiLibs',
+			message: 'Should generate for each component a single library?',
+			initial: defaults?.multiLibs ?? true,
+			skip: typeof defaults?.multiLibs === 'boolean',
+		},
+	])) as { componentsPath: string; buildable: boolean; multiLibs: boolean };
 
-	const config = { componentsPath, buildable };
+	const config = { componentsPath, buildable, multiLibs };
 
 	tree.write(configPath, JSON.stringify(config, null, 2));
 

@@ -8,4 +8,5 @@ export interface HlmBaseGeneratorSchema {
 	peerDependencies?: Record<string, string>;
 	angularCli?: boolean;
 	buildable: boolean;
+	multiLibs: boolean;
 }

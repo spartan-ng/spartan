@@ -1,5 +1,7 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, computed, inject } from '@angular/core';
+import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { hlmCode, hlmH4 } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
@@ -15,7 +17,6 @@ import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { AccordionMultipleOpened } from './accordion--multiple-opened.example';
-import { accordionMultipleOpenedCode, defaultCode } from './accordion.generated';
 import { AccordionPreview, defaultImports, defaultSkeleton } from './accordion.preview';
 
 export const routeMeta: RouteMeta = {
@@ -30,6 +31,7 @@ export const routeMeta: RouteMeta = {
 @Component({
 	selector: 'spartan-accordion',
 	imports: [
+		CommonModule,
 		MainSection,
 		Code,
 		SectionIntro,
@@ -56,7 +58,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-accordion-preview />
 				</div>
-				<spartan-code secondTab [code]="_code" />
+				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -94,7 +96,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-accordion-multiple-opened />
 				</div>
-				<spartan-code secondTab [code]="_multipleOpenedCode" />
+				<spartan-code secondTab [code]="_multipleOpenedCode()" />
 			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
@@ -106,8 +108,9 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class AccordionPage {
-	protected readonly _code = defaultCode;
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('accordion');
+	protected readonly _defaultCode = computed(() => this._snippets()['default']);
+	protected readonly _multipleOpenedCode = computed(() => this._snippets()['multipleOpened']);
 	protected readonly _imports = defaultImports;
 	protected readonly _skeleton = defaultSkeleton;
-	protected readonly _multipleOpenedCode = accordionMultipleOpenedCode;
 }

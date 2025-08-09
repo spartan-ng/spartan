@@ -1,5 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
+import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { hlmCode, hlmH4, hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
@@ -16,12 +17,6 @@ import { metaWith } from '../../../../shared/meta/meta.util';
 import { BreadcrumbCollapsed } from './breadcrumb--collapsed.example';
 import { BreadcrumbCustomSeparator } from './breadcrumb--custom-separator.example';
 import { BreadcrumbDropdown } from './breadcrumb--dropdown.example';
-import {
-	breadcrumbCollapsedCode,
-	breadcrumbCustomSeparatorCode,
-	breadcrumbDropdownCode,
-	defaultCode,
-} from './breadcrumb.generated';
 import { BreadcrumbPreview, defaultImports, defaultSkeleton } from './breadcrumb.preview';
 
 export const routeMeta: RouteMeta = {
@@ -58,7 +53,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-breadcrumb-preview />
 				</div>
-				<spartan-code secondTab [code]="_defaultCode" />
+				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -90,7 +85,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-breadcrumb-custom-separator />
 				</div>
-				<spartan-code secondTab [code]="_customSeparatorCode" />
+				<spartan-code secondTab [code]="_customSeparatorCode()" />
 			</spartan-tabs>
 
 			<hr class="my-4 md:my-8" />
@@ -107,7 +102,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-breadcrumb-dropdown />
 				</div>
-				<spartan-code secondTab [code]="_dropdownCode" />
+				<spartan-code secondTab [code]="_dropdownCode()" />
 			</spartan-tabs>
 
 			<hr class="my-4 md:my-8" />
@@ -122,7 +117,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-breadcrumb-collapsed />
 				</div>
-				<spartan-code secondTab [code]="_collapsedCode" />
+				<spartan-code secondTab [code]="_collapsedCode()" />
 			</spartan-tabs>
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="button" label="Button" />
@@ -133,11 +128,12 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class BreadcrumbPage {
-	protected readonly _defaultCode = defaultCode;
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('breadcrumb');
+	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _defaultImports = defaultImports;
 	protected readonly _defaultSkeleton = defaultSkeleton;
 
-	protected readonly _customSeparatorCode = breadcrumbCustomSeparatorCode;
-	protected readonly _dropdownCode = breadcrumbDropdownCode;
-	protected readonly _collapsedCode = breadcrumbCollapsedCode;
+	protected readonly _customSeparatorCode = computed(() => this._snippets()['customSeparator']);
+	protected readonly _dropdownCode = computed(() => this._snippets()['dropdown']);
+	protected readonly _collapsedCode = computed(() => this._snippets()['collapsed']);
 }

@@ -1,10 +1,11 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { hlmH4 } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
 
+import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { PageBottomNav } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav';
 import { PageBottomNavLink } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav-link';
 import { PageNav } from '../../../../shared/layout/page-nav/page-nav';
@@ -19,14 +20,6 @@ import { ToggleLargePreview } from './toggle--large.preview';
 import { ToggleOutlinePreview } from './toggle--outline.preview';
 import { ToggleSmallPreview } from './toggle--small.preview';
 import { ToggleWithTextPreview } from './toggle--with-text.preview';
-import {
-	defaultCode,
-	toggleDisabledCode,
-	toggleLargeCode,
-	toggleOutlineCode,
-	toggleSmallCode,
-	toggleWithTextCode,
-} from './toggle.generated';
 import { TogglePreview, defaultImports, defaultSkeleton } from './toggle.preview';
 
 export const routeMeta: RouteMeta = {
@@ -63,7 +56,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-toggle-preview />
 				</div>
-				<spartan-code secondTab [code]="_defaultCode" />
+				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -91,35 +84,35 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-toggle-outline />
 				</div>
-				<spartan-code secondTab [code]="_outlineCode" />
+				<spartan-code secondTab [code]="_outlineCode()" />
 			</spartan-tabs>
 			<h3 id="examples__with_text" class="${hlmH4} mb-2 mt-6">With Text</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-toggle-with-text />
 				</div>
-				<spartan-code secondTab [code]="_withTextCode" />
+				<spartan-code secondTab [code]="_withTextCode()" />
 			</spartan-tabs>
 			<h3 id="examples__small" class="${hlmH4} mb-2 mt-6">Small</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-toggle-small />
 				</div>
-				<spartan-code secondTab [code]="_smallCode" />
+				<spartan-code secondTab [code]="_smallCode()" />
 			</spartan-tabs>
 			<h3 id="examples__large" class="${hlmH4} mb-2 mt-6">Large</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-toggle-large />
 				</div>
-				<spartan-code secondTab [code]="_largeCode" />
+				<spartan-code secondTab [code]="_largeCode()" />
 			</spartan-tabs>
 			<h3 id="examples__disabled" class="${hlmH4} mb-2 mt-6">Disabled</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-toggle-disabled />
 				</div>
-				<spartan-code secondTab [code]="_disabledCode" />
+				<spartan-code secondTab [code]="_disabledCode()" />
 			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
@@ -131,12 +124,13 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class TogglePage {
-	protected readonly _defaultCode = defaultCode;
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('toggle');
+	protected readonly _defaultCode = computed(() => this._snippets()['default']);
+	protected readonly _disabledCode = computed(() => this._snippets()['disabled']);
+	protected readonly _largeCode = computed(() => this._snippets()['large']);
+	protected readonly _outlineCode = computed(() => this._snippets()['outline']);
+	protected readonly _smallCode = computed(() => this._snippets()['small']);
+	protected readonly _withTextCode = computed(() => this._snippets()['withText']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
-	protected readonly _disabledCode = toggleDisabledCode;
-	protected readonly _largeCode = toggleLargeCode;
-	protected readonly _outlineCode = toggleOutlineCode;
-	protected readonly _smallCode = toggleSmallCode;
-	protected readonly _withTextCode = toggleWithTextCode;
 }

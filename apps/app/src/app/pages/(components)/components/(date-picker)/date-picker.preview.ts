@@ -9,9 +9,6 @@ import { HlmDatePicker } from '@spartan-ng/helm/date-picker';
 			<span>Select date</span>
 		</hlm-date-picker>
 	`,
-	host: {
-		class: 'preview flex min-h-[350px] w-full justify-center p-10 items-center',
-	},
 })
 export class DatePickerPreview {
 	/** The minimum date */

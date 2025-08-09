@@ -1,5 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
+import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { hlmH4 } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
@@ -14,7 +15,6 @@ import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { SpartanSpinnerSizePreviewComponent } from './spinner--size.preview';
-import { defaultCode, spinnerSizeCode } from './spinner.generated';
 import { SpinnerPreview, defaultImports, defaultSkeleton } from './spinner.preview';
 
 export const routeMeta: RouteMeta = {
@@ -53,7 +53,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-spinner-preview />
 				</div>
-				<spartan-code secondTab [code]="_defaultCode" />
+				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -78,7 +78,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-spinner-size-preview />
 				</div>
-				<spartan-code secondTab [code]="_spinnerSizeCode" />
+				<spartan-code secondTab [code]="_sizeCode()" />
 			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
@@ -90,9 +90,9 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class SpinnerPage {
-	protected readonly _defaultCode = defaultCode;
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('spinner');
+	protected readonly _defaultCode = computed(() => this._snippets()['default']);
+	protected readonly _sizeCode = computed(() => this._snippets()['size']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
-
-	protected readonly _spinnerSizeCode = spinnerSizeCode;
 }

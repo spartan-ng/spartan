@@ -83,7 +83,7 @@ function extractInputsOutputs(project: Project, workspaceRoot: string) {
 								defaultValue = match[1].replace(/['"]/g, '');
 							}
 						}
-						componentInfo.inputs.push({ name, type, description, defaultValue });
+						componentInfo.inputs.push({ name, type, description, defaultValue, required: false });
 					} else {
 						componentInfo.outputs.push({ name, type, description });
 					}
@@ -100,10 +100,12 @@ function extractInputsOutputs(project: Project, workspaceRoot: string) {
 							inferredType = typeArg.getText();
 						}
 
+						const required = exprText === 'input.required';
+
 						// Extract default value from signal-based input/model
 						let defaultValue = null;
 						const callArgs = callExpr.getArguments();
-						if (callArgs.length > 0) {
+						if (!required && callArgs.length > 0) {
 							const argText = callArgs[0].getText();
 							const match = argText.match(/\(([^()]*)\)$/);
 							if (match && match[1]) {
@@ -113,8 +115,7 @@ function extractInputsOutputs(project: Project, workspaceRoot: string) {
 							}
 						}
 
-						if (exprText === 'input') {
-							// Check for alias in the last argument if it's an object literal
+						if (exprText === 'input' || required) {
 							let inputName = name;
 							if (callArgs.length > 1) {
 								const lastArg = callArgs[callArgs.length - 1];
@@ -126,7 +127,7 @@ function extractInputsOutputs(project: Project, workspaceRoot: string) {
 									}
 								}
 							}
-							componentInfo.inputs.push({ name: inputName, type: inferredType, description, defaultValue });
+							componentInfo.inputs.push({ name: inputName, type: inferredType, description, defaultValue, required });
 						} else if (exprText === 'output') {
 							componentInfo.outputs.push({ name, type: inferredType, description });
 						} else if (exprText === 'model') {

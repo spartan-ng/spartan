@@ -15,5 +15,5 @@ import { BrnSheet } from './brn-sheet';
 	],
 })
 export class BrnSheetContent<T> extends BrnDialogContent<T> implements ExposesSide {
-	public readonly side = inject(BrnSheet).side;
+	public readonly side = inject(BrnSheet).sideState;
 }

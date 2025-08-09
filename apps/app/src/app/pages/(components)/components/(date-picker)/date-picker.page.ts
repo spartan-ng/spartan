@@ -4,6 +4,7 @@ import { RouterLink } from '@angular/router';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { hlmCode, hlmH4, hlmP, hlmUl } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
+import { CodePreview } from '../../../../shared/code/code-preview';
 import { PageBottomNav } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav';
 import { PageBottomNavLink } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav-link';
 import { PageNav } from '../../../../shared/layout/page-nav/page-nav';
@@ -15,12 +16,14 @@ import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-sec
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { link } from '../../../../shared/typography/link';
 import { DatePickerConfigExample } from './date-picker--config.example';
+import { DateAndTimePickerExample } from './date-picker--date-time.example';
 import { DatePickerFormMultipleExample } from './date-picker--form-multi.example';
 import { DatePickerFormExample } from './date-picker--form.example';
 import { DatePickerFormatExample } from './date-picker--format.example';
 import { DatePickerMultipleExample } from './date-picker--multi.example';
 import {
 	datePickerConfigCode,
+	datePickerDateTimeCode,
 	datePickerFormatCode,
 	datePickerFormCode,
 	datePickerFormMultiCode,
@@ -47,12 +50,14 @@ export const routeMeta: RouteMeta = {
 		TabsCli,
 		PageBottomNav,
 		PageBottomNavLink,
+		CodePreview,
 		PageNav,
 		DatePickerConfigExample,
 		DatePickerFormatExample,
 		DatePickerFormExample,
 		DatePickerMultipleExample,
 		DatePickerFormMultipleExample,
+		DateAndTimePickerExample,
 		RouterLink,
 		HlmButton,
 	],
@@ -157,6 +162,14 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_datePickerFormatCode" />
 			</spartan-tabs>
 
+			<h3 id="examples__date_and_time_picker" class="${hlmH4} mb-2 mt-6">Date and Time picker</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-date-and-time-picker />
+				</div>
+				<spartan-code secondTab [code]="_datePickerDateTimeCode" />
+			</spartan-tabs>
+
 			<h3 id="examples__form" class="${hlmH4} mb-2 mt-6">Form</h3>
 			<p class="${hlmP} mb-6">
 				Sync the date to a form by adding
@@ -204,4 +217,5 @@ export default class CardPage {
 	protected readonly _datePickerFormMultipleCode = datePickerFormMultiCode;
 	protected readonly _datePickerFormatCode = datePickerFormatCode;
 	protected readonly _datePickerMultipleCode = datePickerMultiCode;
+	protected readonly _datePickerDateTimeCode = datePickerDateTimeCode;
 }

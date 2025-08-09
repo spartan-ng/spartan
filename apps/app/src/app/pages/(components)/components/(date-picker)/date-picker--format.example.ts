@@ -1,23 +1,23 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { HlmDatePicker, provideHlmDatePickerConfig } from '@spartan-ng/helm/date-picker';
+import { HlmLabel } from '@spartan-ng/helm/label';
 import { DateTime } from 'luxon';
 
 @Component({
 	selector: 'spartan-date-picker-format',
-	imports: [HlmDatePicker, FormsModule],
+	imports: [HlmDatePicker, HlmLabel],
 	template: `
-		<hlm-date-picker [min]="minDate" [max]="maxDate" [formatDate]="formatDate">
-			<span>Pick a date</span>
-		</hlm-date-picker>
+		<div class="flex flex-col gap-3">
+			<label for="datePickerFormat" hlmLabel class="px-1">Date Picker with Custom Format</label>
+			<hlm-date-picker buttonId="datePickerFormat" [min]="minDate" [max]="maxDate" [formatDate]="formatDate">
+				<span>Pick a date</span>
+			</hlm-date-picker>
+		</div>
 	`,
 	providers: [
 		// Global formatDate config
 		provideHlmDatePickerConfig({ formatDate: (date: Date) => DateTime.fromJSDate(date).toFormat('dd.MM.yyyy') }),
 	],
-	host: {
-		class: 'preview flex min-h-[350px] w-full justify-center p-10 items-center',
-	},
 })
 export class DatePickerFormatExample {
 	/** The minimum date */

@@ -1,7 +1,8 @@
 import { type GeneratorCallback, type Tree, getProjects, runTasksInSerial } from '@nx/devkit';
 import { prompt } from 'enquirer';
 import { Config, getOrCreateConfig } from '../../utils/config';
-import { initializeSingleAngularLibrary } from '../base/lib/initialize-angular-library';
+import { GenerateAs } from '../base/lib/generate-as';
+import { initializeAngularEntrypoint } from '../base/lib/initialize-angular-library';
 import { singleLibName } from '../base/lib/single-lib-name';
 import type { HlmBaseGeneratorSchema } from '../base/schema';
 import { addDependentPrimitives } from './add-dependent-primitive';
@@ -54,7 +55,7 @@ export async function createPrimitiveLibraries(
 		angularCli?: boolean;
 		installPeerDependencies?: boolean;
 		buildable?: boolean;
-		multiLibs?: boolean;
+		generateAs?: GenerateAs;
 	},
 	config: Config,
 ) {
@@ -74,12 +75,12 @@ export async function createPrimitiveLibraries(
 	const projects = getProjects(tree);
 
 	if (
-		typeof config.multiLibs === 'boolean' &&
-		!config.multiLibs &&
+		typeof config.generateAs === 'string' &&
+		config.generateAs === 'entrypoint' &&
 		!options.angularCli &&
 		!projects.has(singleLibName)
 	) {
-		const task = await initializeSingleAngularLibrary(tree, {
+		const task = await initializeAngularEntrypoint(tree, {
 			tags: options.tags,
 			directory: options.directory ?? config.componentsPath,
 			buildable: config.buildable,
@@ -109,7 +110,7 @@ export async function createPrimitiveLibraries(
 				rootProject: options.rootProject,
 				angularCli: options.angularCli,
 				buildable: options.buildable ?? config.buildable,
-				multiLibs: options.multiLibs ?? config.multiLibs ?? true,
+				generateAs: options.generateAs ?? config.generateAs ?? 'library',
 			} satisfies HlmBaseGeneratorSchema);
 		}),
 	);

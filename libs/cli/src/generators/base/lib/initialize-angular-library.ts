@@ -118,7 +118,7 @@ const defaultSchema: Partial<Schema> = {
 	unitTestRunner: UnitTestRunner.None,
 };
 
-export async function initializeSingleAngularLibrary(
+export async function initializeAngularEntrypoint(
 	tree: Tree,
 	options: Pick<HlmBaseGeneratorSchema, 'directory' | 'buildable' | 'tags'>,
 ) {

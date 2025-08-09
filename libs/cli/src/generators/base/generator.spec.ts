@@ -52,14 +52,14 @@ describe('hlmBaseGenerator', () => {
 		});
 	});
 
-	it('should delete the default library files under the <publicName>/src/lib/<publicName> directory (multiLibs)', async () => {
+	it('should delete the default library files under the <publicName>/src/lib/<publicName> directory (library)', async () => {
 		const options = {
 			primitiveName: 'button',
 			internalName: 'ui-button-helm',
 			publicName: 'ui-button-helm',
 			directory: 'libs/test-ui',
 			buildable: true,
-			multiLibs: true,
+			generateAs: 'library' as const,
 		};
 
 		await hlmBaseGenerator(tree, options);
@@ -76,7 +76,7 @@ describe('hlmBaseGenerator', () => {
 			publicName: 'ui-input-helm',
 			directory: 'libs/test-ui',
 			buildable: false,
-			multiLibs: false,
+			generateAs: 'entrypoint' as const,
 		};
 
 		await hlmBaseGenerator(tree, options);
@@ -105,7 +105,7 @@ describe('hlmBaseGenerator', () => {
 			publicName: 'ui-icon-helm',
 			directory: 'libs/test-ui',
 			buildable: false,
-			multiLibs: false,
+			generateAs: 'entrypoint' as const,
 		};
 
 		await hlmBaseGenerator(tree, options);
@@ -124,7 +124,7 @@ describe('hlmBaseGenerator', () => {
 			publicName: 'ui-badge-helm',
 			directory: 'libs/test-ui',
 			buildable: false,
-			multiLibs: false,
+			generateAs: 'entrypoint' as const,
 		};
 
 		await hlmBaseGenerator(tree, options);
@@ -143,7 +143,7 @@ describe('hlmBaseGenerator', () => {
 			publicName: 'ui-calendar-helm',
 			directory: 'libs/test-ui',
 			buildable: false,
-			multiLibs: true,
+			generateAs: 'library' as const,
 		};
 
 		await hlmBaseGenerator(tree, options);
@@ -164,7 +164,7 @@ describe('hlmBaseGenerator', () => {
 			publicName: 'ui-calendar-helm',
 			directory: 'libs/test-ui',
 			buildable: false,
-			multiLibs: false,
+			generateAs: 'entrypoint' as const,
 		};
 
 		await hlmBaseGenerator(tree, options);

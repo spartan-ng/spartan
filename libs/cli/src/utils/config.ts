@@ -1,12 +1,13 @@
 import { type Tree, readJson } from '@nx/devkit';
 import { prompt } from 'enquirer';
+import { GenerateAs } from '../generators/base/lib/generate-as';
 
 const configPath = 'components.json';
 
 export type Config = {
 	componentsPath: string;
 	buildable: boolean;
-	multiLibs: boolean;
+	generateAs: GenerateAs;
 };
 
 export async function getOrCreateConfig(tree: Tree, defaults?: Partial<Config>): Promise<Config> {
@@ -16,7 +17,7 @@ export async function getOrCreateConfig(tree: Tree, defaults?: Partial<Config>):
 
 	console.log('Configuration file not found, creating a new one...');
 
-	const { componentsPath, buildable, multiLibs } = (await prompt([
+	const { componentsPath, buildable, generateAs } = (await prompt([
 		{
 			type: 'input',
 			required: true,
@@ -33,15 +34,16 @@ export async function getOrCreateConfig(tree: Tree, defaults?: Partial<Config>):
 			skip: typeof defaults?.buildable === 'boolean',
 		},
 		{
-			type: 'confirm',
-			name: 'multiLibs',
-			message: 'Should generate for each component a single library?',
-			initial: defaults?.multiLibs ?? true,
-			skip: typeof defaults?.multiLibs === 'boolean',
+			type: 'select',
+			choices: ['library', 'entrypoint'],
+			name: 'generateAs',
+			message: 'How should we generate the components?',
+			initial: 0,
+			skip: typeof defaults?.generateAs === 'string',
 		},
-	])) as { componentsPath: string; buildable: boolean; multiLibs: boolean };
+	])) as { componentsPath: string; buildable: boolean; generateAs: GenerateAs };
 
-	const config = { componentsPath, buildable, multiLibs };
+	const config = { componentsPath, buildable, generateAs };
 
 	tree.write(configPath, JSON.stringify(config, null, 2));
 

@@ -30,7 +30,7 @@ function setupTsConfigAlias(tree: Tree, alias: string, targetLibDir: string) {
 	addTsConfigPath(tree, alias, [`./${joinPathFragments(targetLibDir, 'src', 'index.ts').replace(/\\/g, '/')}`]);
 }
 
-function generateSingleLibFiles(tree: Tree, targetLibDir: string, alias: string, options: HlmBaseGeneratorSchema) {
+function generateEntrypointFiles(tree: Tree, targetLibDir: string, alias: string, options: HlmBaseGeneratorSchema) {
 	// Generate files from template
 	generateFiles(tree, path.join(__dirname, '..', 'ui', 'libs', options.internalName, 'files'), targetLibDir, options);
 
@@ -52,6 +52,16 @@ function generateSingleLibFiles(tree: Tree, targetLibDir: string, alias: string,
 		});
 	}
 
+	if (options.buildable) {
+		const ngPackageJson = {
+			lib: {
+				entryFile: 'index.ts',
+			},
+		};
+
+		tree.write(joinPathFragments(targetLibDir, 'ng-package.json'), JSON.stringify(ngPackageJson, null, 2));
+	}
+
 	// Also update index.ts (if it exists)
 	const indexPath = joinPathFragments(targetLibDir, 'index.ts');
 	if (tree.exists(indexPath)) {
@@ -69,7 +79,7 @@ function generateSingleLibFiles(tree: Tree, targetLibDir: string, alias: string,
 	});
 }
 
-function generateMultiLibFiles(tree: Tree, targetLibDir: string, options: HlmBaseGeneratorSchema) {
+function generateLibraryFiles(tree: Tree, targetLibDir: string, options: HlmBaseGeneratorSchema) {
 	const deletePath = joinPathFragments(options.directory, options.publicName, 'src', 'lib', options.publicName);
 	deleteFiles(tree, deletePath);
 
@@ -101,14 +111,14 @@ export async function hlmBaseGenerator(tree: Tree, options: HlmBaseGeneratorSche
 
 	if (options.angularCli) {
 		setupTsConfigAlias(tree, tsConfigAlias, targetLibDir);
-	} else if (options.multiLibs) {
+	} else if (options.generateAs === 'library') {
 		tasks.push(await initializeAngularLibrary(tree, options));
 	}
 
-	if (options.multiLibs) {
-		generateMultiLibFiles(tree, targetLibDir, options);
+	if (options.generateAs === 'entrypoint') {
+		generateEntrypointFiles(tree, targetLibDir, tsConfigAlias, options);
 	} else {
-		generateSingleLibFiles(tree, targetLibDir, tsConfigAlias, options);
+		generateLibraryFiles(tree, targetLibDir, options);
 	}
 
 	tasks.push(registerDependencies(tree, options));

@@ -5,55 +5,124 @@ import {
 	generateFiles,
 	joinPathFragments,
 	runTasksInSerial,
+	updateJson,
+	visitNotIgnoredFiles,
 } from '@nx/devkit';
 import { addTsConfigPath } from '@nx/js';
 import * as path from 'node:path';
+
 import { readTsConfigPathsFromTree } from '../../utils/tsconfig';
 import { getInstalledPackageVersion } from '../../utils/version-utils';
 import { buildDependencyArray, buildDevDependencyArray } from './lib/build-dependency-array';
 import { deleteFiles } from './lib/deleteFiles';
 import { getTargetLibraryDirectory } from './lib/get-target-library-directory';
 import { initializeAngularLibrary } from './lib/initialize-angular-library';
+
 import type { HlmBaseGeneratorSchema } from './schema';
 import { FALLBACK_ANGULAR_VERSION } from './versions';
+
+function isAlreadyInstalled(tree: Tree, alias: string): boolean {
+	const existingPaths = readTsConfigPathsFromTree(tree);
+	return alias in existingPaths;
+}
+
+function setupTsConfigAlias(tree: Tree, alias: string, targetLibDir: string) {
+	addTsConfigPath(tree, alias, [`./${joinPathFragments(targetLibDir, 'src', 'index.ts').replace(/\\/g, '/')}`]);
+}
+
+function generateEntrypointFiles(tree: Tree, targetLibDir: string, alias: string, options: HlmBaseGeneratorSchema) {
+	// Generate files from template
+	generateFiles(tree, path.join(__dirname, '..', 'ui', 'libs', options.internalName, 'files'), targetLibDir, options);
+
+	// Rename lib/ to src/
+	const libDir = joinPathFragments(targetLibDir, 'lib');
+	const srcDir = joinPathFragments(targetLibDir, 'src');
+	if (tree.exists(libDir)) {
+		tree.rename(libDir, srcDir);
+	}
+
+	// Replace @spartan-ng/helm/<generic> with ../../ui-<generic>-helm in all src files
+	if (tree.exists(srcDir)) {
+		visitNotIgnoredFiles(tree, srcDir, (filePath) => {
+			if (filePath.endsWith('.ts') || filePath.endsWith('.tsx')) {
+				const content = tree.read(filePath, 'utf-8');
+				const updated = content.replace(/@spartan-ng\/helm\/([a-zA-Z0-9-]+)/g, '../../ui-$1-helm');
+				tree.write(filePath, updated);
+			}
+		});
+	}
+
+	if (options.buildable) {
+		const ngPackageJson = {
+			lib: {
+				entryFile: 'index.ts',
+			},
+		};
+
+		tree.write(joinPathFragments(targetLibDir, 'ng-package.json'), JSON.stringify(ngPackageJson, null, 2));
+	}
+
+	// Also update index.ts (if it exists)
+	const indexPath = joinPathFragments(targetLibDir, 'index.ts');
+	if (tree.exists(indexPath)) {
+		let content = tree.read(indexPath, 'utf-8');
+		content = content.replace(/\.\/lib/g, './src').replace(/@spartan-ng\/helm\/([a-zA-Z0-9-]+)/g, '../../ui-$1-helm');
+		tree.write(indexPath, content);
+	}
+
+	// Add TS alias to tsconfig.base.json
+	updateJson(tree, 'tsconfig.base.json', (json) => {
+		json.compilerOptions ||= {};
+		json.compilerOptions.paths ||= {};
+		json.compilerOptions.paths[alias] = [`./${joinPathFragments(targetLibDir, 'index.ts').replace(/\\/g, '/')}`];
+		return json;
+	});
+}
+
+function generateLibraryFiles(tree: Tree, targetLibDir: string, options: HlmBaseGeneratorSchema) {
+	const deletePath = joinPathFragments(options.directory, options.publicName, 'src', 'lib', options.publicName);
+	deleteFiles(tree, deletePath);
+
+	generateFiles(
+		tree,
+		path.join(__dirname, '..', 'ui', 'libs', options.internalName, 'files'),
+		joinPathFragments(targetLibDir, 'src'),
+		options,
+	);
+}
+
+function registerDependencies(tree: Tree, options: HlmBaseGeneratorSchema): GeneratorCallback {
+	const angularVersion = getInstalledPackageVersion(tree, '@angular/core', FALLBACK_ANGULAR_VERSION, true);
+	const cdkVersion = getInstalledPackageVersion(tree, '@angular/cdk', FALLBACK_ANGULAR_VERSION, true);
+	const dependencies = buildDependencyArray(options, angularVersion, cdkVersion);
+	const devDependencies = buildDevDependencyArray();
+	return addDependenciesToPackageJson(tree, dependencies, devDependencies);
+}
 
 export async function hlmBaseGenerator(tree: Tree, options: HlmBaseGeneratorSchema) {
 	const tasks: GeneratorCallback[] = [];
 	const targetLibDir = getTargetLibraryDirectory(options, tree);
+	const tsConfigAlias = `@spartan-ng/helm/${options.primitiveName}`;
 
-	const existingPathsByAlias = readTsConfigPathsFromTree(tree);
-	const tsConfigAliasToUse = `@spartan-ng/helm/${options.primitiveName}`;
-
-	if (Object.keys(existingPathsByAlias).includes(tsConfigAliasToUse)) {
-		console.log(`Skipping ${tsConfigAliasToUse}. It's already installed!`);
+	if (isAlreadyInstalled(tree, tsConfigAlias)) {
+		console.log(`Skipping ${tsConfigAlias}. It's already installed!`);
 		return runTasksInSerial(...tasks);
 	}
 
 	if (options.angularCli) {
-		addTsConfigPath(tree, tsConfigAliasToUse, [
-			`./${joinPathFragments(targetLibDir, 'src', 'index.ts').replace(/\\/g, '/')}`,
-		]);
-	} else {
+		setupTsConfigAlias(tree, tsConfigAlias, targetLibDir);
+	} else if (options.generateAs === 'library') {
 		tasks.push(await initializeAngularLibrary(tree, options));
 	}
 
-	// we need to delete the src/lib/{publicName} directory because it is generated by nx and cannot be disabled
-	deleteFiles(tree, joinPathFragments(options.directory, options.publicName, 'src', 'lib', options.publicName));
+	if (options.generateAs === 'entrypoint') {
+		generateEntrypointFiles(tree, targetLibDir, tsConfigAlias, options);
+	} else {
+		generateLibraryFiles(tree, targetLibDir, options);
+	}
 
-	// does add the files to the repository
-	generateFiles(
-		tree,
-		path.join(__dirname, '..', 'ui', 'libs', options.internalName, 'files'),
-		path.join(targetLibDir, 'src'),
-		options,
-	);
+	tasks.push(registerDependencies(tree, options));
 
-	const angularVersion = getInstalledPackageVersion(tree, '@angular/core', FALLBACK_ANGULAR_VERSION, true);
-	const existingCdkVersion = getInstalledPackageVersion(tree, '@angular/cdk', FALLBACK_ANGULAR_VERSION, true);
-	const dependencies = buildDependencyArray(options, angularVersion, existingCdkVersion);
-	const devDependencies = buildDevDependencyArray();
-
-	tasks.push(addDependenciesToPackageJson(tree, dependencies, devDependencies));
 	return runTasksInSerial(...tasks);
 }
 

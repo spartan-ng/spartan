@@ -110,12 +110,12 @@ export class Code {
 
 	constructor() {
 		const renderer = new marked.Renderer();
-		renderer.code = (code, lang) => {
+		renderer.code = ({ text, lang }) => {
 			if (!lang) {
-				return `<pre><code>${code}</code></pre>`;
+				return `<pre><code>${text}</code></pre>`;
 			}
 			const langClass = `language-${lang}`;
-			return `<pre class="${langClass}"><code class="${langClass}">${code}</code></pre>`;
+			return `<pre class="${langClass}"><code class="${langClass}">${text}</code></pre>`;
 		};
 
 		marked.use(
@@ -142,7 +142,6 @@ export class Code {
 				pedantic: false,
 				gfm: true,
 				breaks: false,
-				mangle: false,
 			},
 		);
 

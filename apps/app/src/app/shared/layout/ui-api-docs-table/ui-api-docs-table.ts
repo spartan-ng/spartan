@@ -24,7 +24,11 @@ type Column = { label: string; key: string; class?: string };
 							@for (col of columns(); track col.key) {
 								<td hlmTd [class]="col.class">
 									@if (row[col.key]) {
-										{{ row[col.key] }}
+										@if (col.key === 'name') {
+											<span [innerHTML]="row[col.key]"></span>
+										} @else {
+											{{ row[col.key] }}
+										}
 									} @else {
 										<span class="sr-hidden">-</span>
 									}

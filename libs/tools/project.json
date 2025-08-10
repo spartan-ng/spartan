@@ -41,8 +41,18 @@
 			"executor": "@nx/eslint:lint",
 			"outputs": ["{options.outputFile}"]
 		},
+		"generate-ui-docs": {
+			"executor": "@spartan-ng/tools:generate-ui-docs",
+			"options": {
+				"outputDir": "dist/extracted-metadata",
+				"outputFile": "ui-api.json",
+				"brainDir": "libs/brain",
+				"helmDir": "libs/helm"
+			}
+		},
 		"test": {
 			"executor": "@nx/jest:jest",
+			"dependsOn": ["generate-ui-docs"],
 			"outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
 			"options": {
 				"jestConfig": "libs/tools/jest.config.ts"

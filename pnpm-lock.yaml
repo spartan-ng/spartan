@@ -468,6 +468,9 @@ importers:
       tailwindcss:
         specifier: ^3.4.13
         version: 3.4.17(ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.13))(@types/node@22.6.2)(typescript@5.7.3))
+      tinyglobby:
+        specifier: ^0.2.14
+        version: 0.2.14
       ts-jest:
         specifier: ^29.2.5
         version: 29.4.0(@babel/core@7.27.7)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.27.7))(esbuild@0.24.2)(jest-util@29.7.0)(jest@29.7.0(@types/node@22.6.2)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.13))(@types/node@22.6.2)(typescript@5.7.3)))(typescript@5.7.3)

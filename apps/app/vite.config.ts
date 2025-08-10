@@ -6,6 +6,7 @@ import * as path from 'node:path';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { type Plugin, defineConfig, splitVendorChunkPlugin } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
+import { getPrerenderedRoutes } from './src/utils/prerender-routes';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
@@ -83,80 +84,41 @@ export default defineConfig(({ mode }) => {
 			},
 			analog({
 				prerender: {
-					routes: [
-						'/',
+					routes: async () => {
+						const staticRoutes = [
+							'/',
 
-						'/documentation/dark-mode',
-						'/documentation/figma',
-						'/documentation/health-checks',
-						'/documentation/installation',
-						'/documentation/theming',
-						'/documentation/typography',
+							'/documentation/dark-mode',
+							'/documentation/figma',
+							'/documentation/health-checks',
+							'/documentation/installation',
+							'/documentation/theming',
+							'/documentation/typography',
 
-						'/documentation/about',
-						'/documentation/changelog',
-						'/documentation/cli',
-						'/documentation/components-json',
-						'/documentation/introduction',
+							'/documentation/about',
+							'/documentation/changelog',
+							'/documentation/cli',
+							'/documentation/components-json',
+							'/documentation/introduction',
 
-						'/components/accordion',
-						'/components/alert',
-						'/components/alert-dialog',
-						'/components/aspect-ratio',
-						'/components/avatar',
-						'/components/badge',
-						'/components/breadcrumb',
-						'/components/button',
-						'/components/calendar',
-						'/components/card',
-						'/components/carousel',
-						'/components/checkbox',
-						'/components/collapsible',
-						'/components/combobox',
-						'/components/command',
-						'/components/context-menu',
-						'/components/data-table',
-						'/components/dialog',
-						'/components/dropdown-menu',
-						'/components/form-field',
-						'/components/hover-card',
-						'/components/icon',
-						'/components/input',
-						'/components/label',
-						'/components/menubar',
-						'/components/pagination',
-						'/components/popover',
-						'/components/progress',
-						'/components/radio-group',
-						'/components/scroll-area',
-						'/components/select',
-						'/components/separator',
-						'/components/sheet',
-						'/components/skeleton',
-						'/components/sonner',
-						'/components/spinner',
-						'/components/switch',
-						'/components/table',
-						'/components/tabs',
-						'/components/textarea',
-						'/components/toggle',
-						'/components/toggle-group',
-						'/components/tooltip',
+							'/stack/overview',
+							'/stack/technologies',
+							'/stack/installation',
 
-						'/stack/overview',
-						'/stack/technologies',
-						'/stack/installation',
+							'/examples/notes',
+							'/examples/typography',
+							'/examples/authentication',
+							'/examples/music',
+						];
 
-						'/examples/notes',
-						'/examples/typography',
-						'/examples/authentication',
-						'/examples/music',
-					],
+						return await getPrerenderedRoutes(staticRoutes);
+					},
 					sitemap: {
 						host: 'https://www.spartan.ng',
 					},
 				},
 				nitro: {
+					logLevel: 4,
 					rollupConfig: {
 						plugins: [],
 					},

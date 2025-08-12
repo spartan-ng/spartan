@@ -17,9 +17,6 @@ import { DateTime } from 'luxon';
 			transformDate: (date: Date) => DateTime.fromJSDate(date).plus({ days: 1 }).toJSDate(),
 		}),
 	],
-	host: {
-		class: 'preview flex min-h-[350px] w-full justify-center p-10 items-center',
-	},
 })
 export class DatePickerConfigExample {
 	/** The minimum date */

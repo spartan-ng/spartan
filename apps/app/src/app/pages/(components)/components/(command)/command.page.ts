@@ -1,12 +1,12 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { hlmCode, hlmH4, hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
-
 import { PageBottomNav } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav';
 import { PageBottomNavLink } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav-link';
 import { PageNav } from '../../../../shared/layout/page-nav/page-nav';
@@ -17,7 +17,6 @@ import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { CommandDialog } from './command--dialog.example';
-import { commandDialogCode, defaultCode } from './command.generated';
 import { CommandPreview, defaultImports, defaultSkeleton } from './command.preview';
 
 export const routeMeta: RouteMeta = {
@@ -53,7 +52,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-command-preview />
 				</div>
-				<spartan-code secondTab [code]="_defaultCode" />
+				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -81,7 +80,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-command-dialog />
 				</div>
-				<spartan-code secondTab [code]="_commandDialogCode" />
+				<spartan-code secondTab [code]="_commandDialogCode()" />
 			</spartan-tabs>
 
 			<h3 id="examples__combobox" class="${hlmH4} mb-2 mt-6">Combobox</h3>
@@ -102,8 +101,9 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class CommandPage {
-	protected readonly _defaultCode = defaultCode;
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('command');
+	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
-	protected readonly _commandDialogCode = commandDialogCode;
+	protected readonly _commandDialogCode = computed(() => this._snippets()['dialog']);
 }

@@ -1,5 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
+import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { hlmH4 } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
@@ -15,7 +16,6 @@ import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { TooltipSimple } from './tooltip--simple.example';
-import { defaultCode, tooltipSimpleCode } from './tooltip.generated';
 import { TooltipPreview, defaultImports, defaultSkeleton } from './tooltip.preview';
 
 export const routeMeta: RouteMeta = {
@@ -55,7 +55,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-tooltip-preview />
 				</div>
-				<spartan-code secondTab [code]="_defaultCode" />
+				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -84,7 +84,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-tooltip-simple />
 				</div>
-				<spartan-code secondTab [code]="_simpleCode" />
+				<spartan-code secondTab [code]="_simpleCode()" />
 			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
@@ -96,8 +96,9 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class TooltipPage {
-	protected readonly _defaultCode = defaultCode;
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('tooltip');
+	protected readonly _defaultCode = computed(() => this._snippets()['default']);
+	protected readonly _simpleCode = computed(() => this._snippets()['simple']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
-	protected readonly _simpleCode = tooltipSimpleCode;
 }

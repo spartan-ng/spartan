@@ -1,5 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
+import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { hlmCode, hlmH4 } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
@@ -19,12 +20,6 @@ import {
 	providerShowOnDirtyErrorStateMatcher,
 } from './form-field--with-form-dirty.preview';
 import { FormFieldFormPreview } from './form-field--with-form.preview';
-import {
-	defaultCode,
-	formFieldErrorCode,
-	formFieldWithFormCode,
-	formFieldWithFormDirtyCode,
-} from './form-field.generated';
 import { FormFieldPreview, defaultImports, defaultSkeleton } from './form-field.preview';
 
 export const routeMeta: RouteMeta = {
@@ -62,7 +57,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-form-field-preview />
 				</div>
-				<spartan-code secondTab [code]="_defaultCode" />
+				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -87,14 +82,14 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-form-field-error />
 				</div>
-				<spartan-code secondTab [code]="_errorCode" />
+				<spartan-code secondTab [code]="_errorCode()" />
 			</spartan-tabs>
 			<h3 id="examples__with_form" class="${hlmH4} mb-2 mt-6">With Form</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-form-field-form />
 				</div>
-				<spartan-code secondTab [code]="_formFieldForm" />
+				<spartan-code secondTab [code]="_withFormCode()" />
 			</spartan-tabs>
 
 			<h3 id="examples__with_form_dirty_state" class="${hlmH4} mb-4 mt-6">Changing when error messages are shown</h3>
@@ -121,7 +116,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-form-field-form-dirty />
 				</div>
-				<spartan-code secondTab [code]="_formFieldFormWithDirtyCode" />
+				<spartan-code secondTab [code]="_withFormDirtyCode()" />
 			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
@@ -133,11 +128,12 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class FormFieldPage {
-	protected readonly _defaultCode = defaultCode;
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('form-field');
+	protected readonly _defaultCode = computed(() => this._snippets()['default']);
+	protected readonly _errorCode = computed(() => this._snippets()['error']);
+	protected readonly _withFormDirtyCode = computed(() => this._snippets()['withFormDirty']);
+	protected readonly _withFormCode = computed(() => this._snippets()['withForm']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
-	protected readonly _errorCode = formFieldErrorCode;
-	protected readonly _formFieldFormWithDirtyCode = formFieldWithFormDirtyCode;
-	protected readonly _formFieldForm = formFieldWithFormCode;
 	protected readonly _providerShowOnDirtyErrorStateMatcher = providerShowOnDirtyErrorStateMatcher;
 }

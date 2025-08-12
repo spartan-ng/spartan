@@ -1,11 +1,11 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component } from '@angular/core';
-import { HlmAlert, HlmAlertDescription } from '@spartan-ng/helm/alert';
-import { hlmCode, hlmH4 } from '@spartan-ng/helm/typography';
-
+import { Component, computed, inject } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCircleAlert } from '@ng-icons/lucide';
+import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { HlmAlert, HlmAlertDescription } from '@spartan-ng/helm/alert';
 import { HlmIcon } from '@spartan-ng/helm/icon';
+import { hlmCode, hlmH4 } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
@@ -20,7 +20,6 @@ import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-sec
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { TabsPaginatedPreview } from './tabs--paginated.preview';
 import { TabsVerticalPreview } from './tabs--vertical.preview';
-import { defaultCode, tabsPaginatedCode, tabsVerticalCode } from './tabs.generated';
 import { TabsPreview, defaultImports, defaultSkeleton } from './tabs.preview';
 
 export const routeMeta: RouteMeta = {
@@ -65,7 +64,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-tabs-preview />
 				</div>
-				<spartan-code secondTab [code]="_defaultCode" />
+				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -89,7 +88,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-tabs-vertical />
 				</div>
-				<spartan-code secondTab [code]="_verticalCode" />
+				<spartan-code secondTab [code]="_verticalCode()" />
 			</spartan-tabs>
 
 			<h3 id="examples__paginated_tabs" class="${hlmH4} mb-2 mt-6">Paginated Tabs</h3>
@@ -128,7 +127,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-tabs-paginated />
 				</div>
-				<spartan-code secondTab [code]="_paginatedCode" />
+				<spartan-code secondTab [code]="_paginatedCode()" />
 			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
@@ -140,10 +139,10 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class TabsPage {
-	protected readonly _defaultCode = defaultCode;
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('tabs');
+	protected readonly _defaultCode = computed(() => this._snippets()['default']);
+	protected readonly _verticalCode = computed(() => this._snippets()['vertical']);
+	protected readonly _paginatedCode = computed(() => this._snippets()['paginated']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
-
-	protected readonly _verticalCode = tabsVerticalCode;
-	protected readonly _paginatedCode = tabsPaginatedCode;
 }

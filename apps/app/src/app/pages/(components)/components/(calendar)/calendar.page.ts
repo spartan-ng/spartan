@@ -1,5 +1,7 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
+import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { CodePreview } from '@spartan-ng/app/app/shared/code/code-preview';
 import { hlmCode, hlmH4, hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { PageBottomNav } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav';
@@ -12,7 +14,6 @@ import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { CalendarMultipleExample } from './calendar--multiple.example';
-import { calendarMultipleCode, defaultCode } from './calendar.generated';
 import { CalendarPreview, defaultImports, defaultSkeleton } from './calendar.preview';
 
 export const routeMeta: RouteMeta = {
@@ -29,6 +30,7 @@ export const routeMeta: RouteMeta = {
 		SectionIntro,
 		Tabs,
 		Code,
+		CodePreview,
 		SectionSubHeading,
 		TabsCli,
 		PageBottomNav,
@@ -44,7 +46,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-calendar-preview />
 				</div>
-				<spartan-code secondTab [code]="_defaultCode" />
+				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
@@ -83,7 +85,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-calendar-multiple />
 				</div>
-				<spartan-code secondTab [code]="_calendarMultipleCode" />
+				<spartan-code secondTab [code]="_multipleCode()" />
 			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
@@ -95,8 +97,9 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class CardPage {
-	protected readonly _defaultCode = defaultCode;
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('calendar');
+	protected readonly _defaultCode = computed(() => this._snippets()['default']);
+	protected readonly _multipleCode = computed(() => this._snippets()['multiple']);
 	protected readonly _defaultImports = defaultImports;
 	protected readonly _defaultSkeleton = defaultSkeleton;
-	protected readonly _calendarMultipleCode = calendarMultipleCode;
 }

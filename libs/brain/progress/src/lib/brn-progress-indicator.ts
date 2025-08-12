@@ -1,3 +1,4 @@
+/* eslint-disable @angular-eslint/directive-selector */
 import { Directive } from '@angular/core';
 import { injectBrnProgress } from './brn-progress.token';
 

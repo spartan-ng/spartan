@@ -58,6 +58,12 @@ function addRulesToEslintOverride(tree: Tree, libRoot: string, filePattern: stri
 function addTsRules(tree: Tree, libRoot: string) {
 	addRulesToEslintOverride(tree, libRoot, '"**/*.ts"', {
 		'"@angular-eslint/no-input-rename"': '"off"',
+		'"@nx/enforce-module-boundaries"': `
+		(() => {
+  const r = baseConfig.find(c => c.rules && c.rules["@nx/enforce-module-boundaries"])?.rules["@nx/enforce-module-boundaries"];
+  return r ? [r[0], { ...r[1], allowCircularSelfDependency: true }] : undefined;
+})()
+		`,
 		'"@angular-eslint/directive-class-suffix"': '"off"',
 		'"@angular-eslint/component-class-suffix"': '"off"',
 		'"@typescript-eslint/naming-convention"': `[

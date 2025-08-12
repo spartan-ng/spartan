@@ -69,7 +69,7 @@ describe('hlmBaseGenerator', () => {
 		expect(tree.exists(deletedPath)).toBe(false);
 	});
 
-	it('should generate files correctly for a single lib', async () => {
+	it('should generate files correctly for a secondary entrypoint', async () => {
 		const options = {
 			primitiveName: 'input',
 			internalName: 'ui-input-helm',
@@ -83,18 +83,11 @@ describe('hlmBaseGenerator', () => {
 
 		const baseDir = joinPathFragments(options.directory, options.publicName);
 
-		const indexPath = joinPathFragments(baseDir, 'index.ts');
 		const libDir = joinPathFragments(baseDir, 'lib');
 		expect(tree.exists(libDir)).toBe(false);
-		const indexContent = tree.read(indexPath, 'utf-8');
-		expect(indexContent).not.toContain('./lib');
-		expect(indexContent).toContain('./src');
-
 		const tsconfig = readJson(tree, 'tsconfig.base.json');
 		expect(tsconfig.compilerOptions.paths).toHaveProperty('@spartan-ng/helm/input');
-		expect(tsconfig.compilerOptions.paths['@spartan-ng/helm/input'][0]).toContain(
-			'libs/test-ui/ui-input-helm/index.ts',
-		);
+		expect(tsconfig.compilerOptions.paths['@spartan-ng/helm/input'][0]).toContain('libs/test-ui/input/src/index.ts');
 	});
 
 	it('should register the correct dependencies', async () => {
@@ -134,48 +127,5 @@ describe('hlmBaseGenerator', () => {
 		const tsconfigAfterSecondRun = readJson(tree, 'tsconfig.base.json');
 
 		expect(tsconfigAfterSecondRun.compilerOptions.paths).toEqual(tsconfigAfterFirstRun.compilerOptions.paths);
-	});
-
-	it('should not contain @spartan-ng/helm somewhere in the generated files', async () => {
-		const options = {
-			primitiveName: 'calendar',
-			internalName: 'ui-calendar-helm',
-			publicName: 'ui-calendar-helm',
-			directory: 'libs/test-ui',
-			buildable: false,
-			generateAs: 'library' as const,
-		};
-
-		await hlmBaseGenerator(tree, options);
-
-		const allFiles = tree.children('libs/test-ui/ui-calendar-helm/src/lib');
-		const containsHelmReference = allFiles.some((filePath) => {
-			const content = tree.read(`libs/test-ui/ui-calendar-helm/src/lib/${filePath}`, 'utf-8');
-			return content?.includes('@spartan-ng/helm');
-		});
-
-		expect(containsHelmReference).toBe(true);
-	});
-
-	it('should contain @spartan-ng/helm somewhere in the generated files', async () => {
-		const options = {
-			primitiveName: 'calendar',
-			internalName: 'ui-calendar-helm',
-			publicName: 'ui-calendar-helm',
-			directory: 'libs/test-ui',
-			buildable: false,
-			generateAs: 'entrypoint' as const,
-		};
-
-		await hlmBaseGenerator(tree, options);
-
-		const allFiles = tree.children('libs/test-ui/ui-calendar-helm/src');
-
-		const containsHelmReference = allFiles.some((filePath) => {
-			const content = tree.read(`libs/test-ui/ui-calendar-helm/src/${filePath}`, 'utf-8');
-			return content?.includes('@spartan-ng/helm');
-		});
-
-		expect(containsHelmReference).toBe(false);
 	});
 });

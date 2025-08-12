@@ -1,0 +1,4729 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`generate-ui-docs executor produces stable output 1`] = `
+{
+  "accordion": {
+    "brain": {
+      "BrnAccordion": {
+        "exportAs": "brnAccordion",
+        "inputs": [
+          {
+            "name": "type",
+            "required": false,
+            "type": "'single' | 'multiple'",
+          },
+          {
+            "name": "dir",
+            "required": false,
+            "type": "'ltr' | 'rtl' | null",
+          },
+          {
+            "name": "orientation",
+            "required": false,
+            "type": "'horizontal' | 'vertical'",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnAccordion]",
+      },
+      "BrnAccordionContent": {
+        "inputs": [
+          {
+            "name": "contentClass",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-accordion-content",
+      },
+      "BrnAccordionItem": {
+        "exportAs": "brnAccordionItem",
+        "inputs": [
+          {
+            "name": "isOpened",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnAccordionItem]",
+      },
+      "BrnAccordionTrigger": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnAccordionTrigger]",
+      },
+    },
+    "helm": {
+      "HlmAccordion": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmAccordion], hlm-accordion",
+      },
+      "HlmAccordionContent": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-accordion-content",
+      },
+      "HlmAccordionIcon": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "ng-icon[hlmAccordionIcon], ng-icon[hlmAccIcon]",
+      },
+      "HlmAccordionItem": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmAccordionItem],brn-accordion-item[hlm],hlm-accordion-item",
+      },
+      "HlmAccordionTrigger": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmAccordionTrigger]",
+      },
+    },
+  },
+  "alert": {
+    "helm": {
+      "HlmAlert": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "variant",
+            "required": false,
+            "type": "AlertVariants['variant']",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmAlert]",
+      },
+      "HlmAlertDescription": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmAlertDesc],[hlmAlertDescription]",
+      },
+      "HlmAlertIcon": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmAlertIcon]",
+      },
+      "HlmAlertTitle": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmAlertTitle]",
+      },
+    },
+  },
+  "alert-dialog": {
+    "brain": {
+      "BrnAlertDialog": {
+        "exportAs": "brnAlertDialog",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-alert-dialog",
+      },
+      "BrnAlertDialogContent": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnAlertDialogContent]",
+      },
+      "BrnAlertDialogDescription": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnAlertDialogDescription]",
+      },
+      "BrnAlertDialogOverlay": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-alert-dialog-overlay",
+      },
+      "BrnAlertDialogTitle": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnAlertDialogTitle]",
+      },
+      "BrnAlertDialogTrigger": {
+        "inputs": [
+          {
+            "name": "brnAlertDialogTriggerFor",
+            "required": false,
+            "type": "BrnAlertDialog | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[brnAlertDialogTrigger],button[brnAlertDialogTriggerFor]",
+      },
+    },
+    "helm": {
+      "HlmAlertDialog": {
+        "exportAs": "hlmAlertDialog",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-alert-dialog",
+      },
+      "HlmAlertDialogActionButton": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "button[hlmAlertDialogAction]",
+      },
+      "HlmAlertDialogCancelButton": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[hlmAlertDialogCancel]",
+      },
+      "HlmAlertDialogContent": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-alert-dialog-content",
+      },
+      "HlmAlertDialogDescription": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmAlertDialogDescription]",
+      },
+      "HlmAlertDialogFooter": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-alert-dialog-footer",
+      },
+      "HlmAlertDialogHeader": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-alert-dialog-header",
+      },
+      "HlmAlertDialogOverlay": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmAlertDialogOverlay],brn-alert-dialog-overlay[hlm]",
+      },
+      "HlmAlertDialogTitle": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmAlertDialogTitle]",
+      },
+    },
+  },
+  "aspect-ratio": {
+    "helm": {
+      "HlmAspectRatio": {
+        "inputs": [
+          {
+            "name": "hlmAspectRatio",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmAspectRatio]",
+      },
+      "Mock": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-mock",
+      },
+    },
+  },
+  "avatar": {
+    "brain": {
+      "BrnAvatar": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-avatar",
+      },
+      "BrnAvatarFallback": {
+        "exportAs": "avatarFallback",
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnAvatarFallback]",
+      },
+      "BrnAvatarImage": {
+        "exportAs": "avatarImage",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "img[brnAvatarImage]",
+      },
+      "BrnMock": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-mock",
+      },
+      "Mock": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-mock",
+      },
+    },
+    "helm": {
+      "HlmAvatar": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-avatar",
+      },
+      "HlmAvatarFallback": {
+        "exportAs": "avatarFallback",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmAvatarFallback]",
+      },
+      "HlmAvatarImage": {
+        "exportAs": "avatarImage",
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "img[hlmAvatarImage]",
+      },
+      "HlmMock": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-mock",
+      },
+      "Mock": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-mock",
+      },
+    },
+  },
+  "badge": {
+    "helm": {
+      "HlmBadge": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "variant",
+            "required": false,
+            "type": "BadgeVariants['variant']",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmBadge]",
+      },
+    },
+  },
+  "breadcrumb": {
+    "helm": {
+      "HlmBreadcrumb": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "aria-label",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmBreadcrumb]",
+      },
+      "HlmBreadcrumbEllipsis": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "srOnlyText",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-breadcrumb-ellipsis",
+      },
+      "HlmBreadcrumbItem": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmBreadcrumbItem]",
+      },
+      "HlmBreadcrumbLink": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "link",
+            "required": false,
+            "type": "RouterLink['routerLink']",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmBreadcrumbLink]",
+      },
+      "HlmBreadcrumbList": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmBreadcrumbList]",
+      },
+      "HlmBreadcrumbPage": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmBreadcrumbPage]",
+      },
+      "HlmBreadcrumbSeparator": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmBreadcrumbSeparator]",
+      },
+    },
+  },
+  "button": {
+    "helm": {
+      "HlmButton": {
+        "exportAs": "hlmBtn",
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "variant",
+            "required": false,
+            "type": "ButtonVariants['variant']",
+          },
+          {
+            "name": "size",
+            "required": false,
+            "type": "ButtonVariants['size']",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmBtn]",
+      },
+    },
+  },
+  "calendar": {
+    "brain": {
+      "BrnCalendar": {
+        "inputs": [
+          {
+            "name": "min",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "name": "max",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "dateDisabled",
+            "required": false,
+            "type": "(date: T) => boolean",
+          },
+          {
+            "name": "weekStartsOn",
+            "required": false,
+            "type": "Weekday",
+          },
+          {
+            "name": "defaultFocusedDate",
+            "required": false,
+            "type": "T",
+          },
+        ],
+        "models": [
+          {
+            "name": "date",
+            "type": "T",
+          },
+        ],
+        "outputs": [],
+        "selector": "[brnCalendar]",
+      },
+      "BrnCalendarCell": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnCalendarCell]",
+      },
+      "BrnCalendarCellButton": {
+        "inputs": [
+          {
+            "name": "date",
+            "required": true,
+            "type": "T",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[brnCalendarCellButton]",
+      },
+      "BrnCalendarGrid": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnCalendarGrid]",
+      },
+      "BrnCalendarHeader": {
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "unknown",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnCalendarHeader]",
+      },
+      "BrnCalendarMulti": {
+        "inputs": [
+          {
+            "name": "min",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "name": "max",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "name": "minSelection",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "maxSelection",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "dateDisabled",
+            "required": false,
+            "type": "(date: T) => boolean",
+          },
+          {
+            "name": "weekStartsOn",
+            "required": false,
+            "type": "Weekday",
+          },
+          {
+            "name": "defaultFocusedDate",
+            "required": false,
+            "type": "T",
+          },
+        ],
+        "models": [
+          {
+            "name": "date",
+            "type": "T[]",
+          },
+        ],
+        "outputs": [],
+        "selector": "[brnCalendarMulti]",
+      },
+      "BrnCalendarNextButton": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnCalendarNextButton]",
+      },
+      "BrnCalendarPreviousButton": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnCalendarPreviousButton]",
+      },
+      "BrnCalendarWeek": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnCalendarWeek]",
+      },
+      "BrnCalendarWeekday": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnCalendarWeekday]",
+      },
+    },
+    "helm": {
+      "HlmCalendar": {
+        "inputs": [
+          {
+            "name": "calendarClass",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "min",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "name": "max",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "dateDisabled",
+            "required": false,
+            "type": "(date: T) => boolean",
+          },
+          {
+            "name": "weekStartsOn",
+            "required": false,
+            "type": "Weekday",
+          },
+          {
+            "name": "defaultFocusedDate",
+            "required": false,
+            "type": "T",
+          },
+        ],
+        "models": [
+          {
+            "name": "date",
+            "type": "T",
+          },
+        ],
+        "outputs": [],
+        "selector": "hlm-calendar",
+      },
+      "HlmCalendarMulti": {
+        "inputs": [
+          {
+            "name": "calendarClass",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "min",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "name": "max",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "name": "minSelection",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "maxSelection",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "dateDisabled",
+            "required": false,
+            "type": "(date: T) => boolean",
+          },
+          {
+            "name": "weekStartsOn",
+            "required": false,
+            "type": "Weekday",
+          },
+          {
+            "name": "defaultFocusedDate",
+            "required": false,
+            "type": "T",
+          },
+        ],
+        "models": [
+          {
+            "name": "date",
+            "type": "T[]",
+          },
+        ],
+        "outputs": [],
+        "selector": "hlm-calendar-multi",
+      },
+    },
+  },
+  "card": {
+    "helm": {
+      "HlmCard": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmCard]",
+      },
+      "HlmCardAction": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmCardAction]",
+      },
+      "HlmCardContent": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmCardContent]",
+      },
+      "HlmCardDescription": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmCardDescription]",
+      },
+      "HlmCardFooter": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmCardFooter]",
+      },
+      "HlmCardHeader": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmCardHeader]",
+      },
+      "HlmCardTitle": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmCardTitle]",
+      },
+    },
+  },
+  "carousel": {
+    "helm": {
+      "HlmCarousel": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "orientation",
+            "required": false,
+            "type": "'horizontal' | 'vertical'",
+          },
+          {
+            "name": "options",
+            "required": false,
+            "type": "Omit<EmblaOptionsType, 'axis'>",
+          },
+          {
+            "name": "plugins",
+            "required": false,
+            "type": "EmblaPluginType[]",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-carousel",
+      },
+      "HlmCarouselContent": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-carousel-content",
+      },
+      "HlmCarouselItem": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-carousel-item",
+      },
+      "HlmCarouselNext": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[hlm-carousel-next], button[hlmCarouselNext]",
+      },
+      "HlmCarouselPrevious": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[hlm-carousel-previous], button[hlmCarouselPrevious]",
+      },
+      "HlmCarouselSlideDisplay": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "slideClass",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "label",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-carousel-slide-display",
+      },
+    },
+  },
+  "checkbox": {
+    "brain": {
+      "BrnCheckbox": {
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "name",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "class",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "aria-label",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "aria-labelledby",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "aria-describedby",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "required",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [
+          {
+            "name": "checked",
+            "type": "BrnCheckboxValue",
+          },
+        ],
+        "outputs": [
+          {
+            "name": "changed",
+            "type": "BrnCheckboxValue",
+          },
+          {
+            "name": "touched",
+            "type": "void",
+          },
+        ],
+        "selector": "brn-checkbox",
+      },
+      "BrnCheckboxNgModelSpec": {
+        "inputs": [
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "unknown",
+          },
+        ],
+        "models": [
+          {
+            "name": "airplaneMode",
+            "type": "unknown",
+          },
+        ],
+        "outputs": [],
+        "selector": "brn-checkbox-ng-model",
+      },
+    },
+    "helm": {
+      "HlmCheckbox": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "id",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "aria-label",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "aria-labelledby",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "aria-describedby",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "name",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "required",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [
+          {
+            "name": "checked",
+            "type": "CheckboxValue",
+          },
+        ],
+        "outputs": [
+          {
+            "name": "changed",
+            "type": "boolean",
+          },
+        ],
+        "selector": "hlm-checkbox",
+      },
+    },
+  },
+  "collapsible": {
+    "brain": {
+      "BrnCollapsible": {
+        "inputs": [
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [
+          {
+            "name": "expanded",
+            "type": "boolean",
+          },
+        ],
+        "outputs": [],
+        "selector": "brn-collapsible",
+      },
+      "BrnCollapsibleContent": {
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string | null | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-collapsible-content",
+      },
+      "BrnCollapsibleTrigger": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "button[brnCollapsibleTrigger]",
+      },
+    },
+  },
+  "command": {
+    "brain": {
+      "BrnCommand": {
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "filter",
+            "required": false,
+            "type": "CommandFilter",
+          },
+        ],
+        "models": [],
+        "outputs": [
+          {
+            "name": "valueChange",
+            "type": "string",
+          },
+        ],
+        "selector": "[brnCommand]",
+      },
+      "BrnCommandEmpty": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnCommandEmpty]",
+      },
+      "BrnCommandGroup": {
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnCommandGroup]",
+      },
+      "BrnCommandItem": {
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "value",
+            "required": true,
+            "type": "string",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [
+          {
+            "name": "selected",
+            "type": "void",
+          },
+        ],
+        "selector": "button[brnCommandItem]",
+      },
+      "BrnCommandList": {
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnCommandList]",
+      },
+      "BrnCommandSearchInput": {
+        "inputs": [
+          {
+            "name": "value",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "input[brnCommandSearchInput]",
+      },
+    },
+    "helm": {
+      "HlmCommand": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-command",
+      },
+      "HlmCommandDialog": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmCommandDialog]",
+      },
+      "HlmCommandDialogCloseButton": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmCommandDialogCloseBtn]",
+      },
+      "HlmCommandEmpty": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmCommandEmpty]",
+      },
+      "HlmCommandGroup": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-command-group",
+      },
+      "HlmCommandGroupLabel": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-command-group-label",
+      },
+      "HlmCommandIcon": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmCommandIcon]",
+      },
+      "HlmCommandItem": {
+        "inputs": [
+          {
+            "name": "value",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "class",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [
+          {
+            "name": "selected",
+            "type": "void",
+          },
+        ],
+        "selector": "button[hlm-command-item]",
+      },
+      "HlmCommandList": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-command-list",
+      },
+      "HlmCommandSearch": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-command-search",
+      },
+      "HlmCommandSearchInput": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "input[hlm-command-search-input]",
+      },
+      "HlmCommandSeparator": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-command-separator",
+      },
+      "HlmCommandShortcut": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-command-shortcut",
+      },
+    },
+  },
+  "date-picker": {
+    "helm": {
+      "HlmDatePicker": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "min",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "name": "max",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "autoCloseOnSelect",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "formatDate",
+            "required": false,
+            "type": "(date: T) => string",
+          },
+          {
+            "name": "transformDate",
+            "required": false,
+            "type": "(date: T) => T",
+          },
+        ],
+        "models": [
+          {
+            "name": "date",
+            "type": "T",
+          },
+        ],
+        "outputs": [
+          {
+            "name": "changed",
+            "type": "T",
+          },
+        ],
+        "selector": "hlm-date-picker",
+      },
+      "HlmDatePickerMulti": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "min",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "name": "max",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "name": "minSelection",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "maxSelection",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "autoCloseOnMaxSelection",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "formatDates",
+            "required": false,
+            "type": "(date: T[]) => string",
+          },
+          {
+            "name": "transformDates",
+            "required": false,
+            "type": "(date: T[]) => T[]",
+          },
+        ],
+        "models": [
+          {
+            "name": "date",
+            "type": "T[]",
+          },
+        ],
+        "outputs": [
+          {
+            "name": "changed",
+            "type": "T[]",
+          },
+        ],
+        "selector": "hlm-date-picker-multi",
+      },
+    },
+  },
+  "dialog": {
+    "brain": {
+      "BrnDialog": {
+        "exportAs": "brnDialog",
+        "inputs": [
+          {
+            "name": "state",
+            "required": false,
+            "type": "BrnDialogState | null",
+          },
+          {
+            "name": "role",
+            "required": false,
+            "type": "BrnDialogOptions['role']",
+          },
+          {
+            "name": "hasBackdrop",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "positionStrategy",
+            "required": false,
+            "type": "BrnDialogOptions['positionStrategy']",
+          },
+          {
+            "name": "scrollStrategy",
+            "required": false,
+            "type": "BrnDialogOptions['scrollStrategy'] | 'close' | 'reposition' | null",
+          },
+          {
+            "name": "restoreFocus",
+            "required": false,
+            "type": "BrnDialogOptions['restoreFocus']",
+          },
+          {
+            "name": "closeOnOutsidePointerEvents",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "closeOnBackdropClick",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "attachTo",
+            "required": false,
+            "type": "BrnDialogOptions['attachTo']",
+          },
+          {
+            "name": "attachPositions",
+            "required": false,
+            "type": "BrnDialogOptions['attachPositions']",
+          },
+          {
+            "name": "autoFocus",
+            "required": false,
+            "type": "BrnDialogOptions['autoFocus']",
+          },
+          {
+            "name": "closeDelay",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "disableClose",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "aria-describedby",
+            "required": false,
+            "type": "BrnDialogOptions['ariaDescribedBy']",
+          },
+          {
+            "name": "aria-labelledby",
+            "required": false,
+            "type": "BrnDialogOptions['ariaLabelledBy']",
+          },
+          {
+            "name": "aria-label",
+            "required": false,
+            "type": "BrnDialogOptions['ariaLabel']",
+          },
+          {
+            "name": "aria-modal",
+            "required": false,
+            "type": "unknown",
+          },
+        ],
+        "models": [],
+        "outputs": [
+          {
+            "name": "closed",
+            "type": "any",
+          },
+          {
+            "name": "stateChanged",
+            "type": "BrnDialogState",
+          },
+        ],
+        "selector": "brn-dialog",
+      },
+      "BrnDialogClose": {
+        "inputs": [
+          {
+            "name": "delay",
+            "required": false,
+            "type": "number | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[brnDialogClose]",
+      },
+      "BrnDialogContent": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "string | null | undefined",
+          },
+          {
+            "name": "context",
+            "required": false,
+            "type": "T | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnDialogContent]",
+      },
+      "BrnDialogDescription": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnDialogDescription]",
+      },
+      "BrnDialogOverlay": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "string | null | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-dialog-overlay",
+      },
+      "BrnDialogTitle": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnDialogTitle]",
+      },
+      "BrnDialogTrigger": {
+        "exportAs": "brnDialogTrigger",
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "brnDialogTriggerFor",
+            "required": false,
+            "type": "BrnDialog | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[brnDialogTrigger],button[brnDialogTriggerFor]",
+      },
+    },
+    "helm": {
+      "HlmDialog": {
+        "exportAs": "hlmDialog",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-dialog",
+      },
+      "HlmDialogClose": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDialogClose],[brnDialogClose][hlm]",
+      },
+      "HlmDialogContent": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-dialog-content",
+      },
+      "HlmDialogDescription": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDialogDescription]",
+      },
+      "HlmDialogFooter": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-dialog-footer",
+      },
+      "HlmDialogHeader": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-dialog-header",
+      },
+      "HlmDialogOverlay": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDialogOverlay],brn-dialog-overlay[hlm]",
+      },
+      "HlmDialogTitle": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDialogTitle]",
+      },
+    },
+  },
+  "form-field": {
+    "helm": {
+      "HlmError": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-error",
+      },
+      "HlmFormField": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-form-field",
+      },
+      "HlmHint": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-hint",
+      },
+      "SingleFormFieldDirtyMock": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "single-form-field-dirty-example",
+      },
+      "SingleFormFieldMock": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "single-form-field-example",
+      },
+    },
+  },
+  "hover-card": {
+    "brain": {
+      "BrnHoverCard": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-hover-card",
+      },
+      "BrnHoverCardContent": {
+        "exportAs": "brnHoverCardContent",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnHoverCardContent]",
+      },
+      "BrnHoverCardTrigger": {
+        "exportAs": "brnHoverCardTrigger",
+        "inputs": [
+          {
+            "name": "showDelay",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "hideDelay",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "animationDelay",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "sideOffset",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "align",
+            "required": false,
+            "type": "'top' | 'bottom'",
+          },
+          {
+            "name": "brnHoverCardTriggerFor",
+            "required": false,
+            "type": "TemplateRef<unknown> | BrnHoverCardContent | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnHoverCardTrigger]:not(ng-container),[brnHoverCardTriggerFor]:not(ng-container)",
+      },
+    },
+    "helm": {
+      "HlmHoverCardContent": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-hover-card-content",
+      },
+    },
+  },
+  "icon": {
+    "helm": {
+      "HlmIcon": {
+        "inputs": [
+          {
+            "name": "size",
+            "required": false,
+            "type": "IconSize",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "ng-icon[hlm]",
+      },
+      "HlmMock": {
+        "inputs": [
+          {
+            "name": "size",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-mock",
+      },
+    },
+  },
+  "input": {
+    "helm": {
+      "HlmInput": {
+        "inputs": [
+          {
+            "name": "error",
+            "required": false,
+            "type": "InputVariants['error']",
+          },
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmInput]",
+      },
+      "HlmInputError": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmInputError]",
+      },
+      "HlmInputMock": {
+        "inputs": [
+          {
+            "name": "error",
+            "required": false,
+            "type": "'auto' | true",
+          },
+          {
+            "name": "userClass",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "required",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-input-mock",
+      },
+    },
+  },
+  "input-otp": {
+    "brain": {
+      "BrnInputOtp": {
+        "inputs": [
+          {
+            "name": "hostStyles",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "inputStyles",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "containerStyles",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "maxLength",
+            "required": true,
+            "type": "number",
+          },
+          {
+            "name": "inputMode",
+            "required": false,
+            "type": "InputMode",
+          },
+          {
+            "name": "inputClass",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "transformPaste",
+            "required": false,
+            "type": "(pastedText: string, maxLength: number) => string",
+          },
+        ],
+        "models": [
+          {
+            "name": "value",
+            "type": "string",
+          },
+        ],
+        "outputs": [
+          {
+            "name": "completed",
+            "type": "string",
+          },
+        ],
+        "selector": "brn-input-otp",
+      },
+      "BrnInputOtpSlot": {
+        "inputs": [
+          {
+            "name": "index",
+            "required": true,
+            "type": "number",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-input-otp-slot",
+      },
+    },
+    "helm": {
+      "HlmInputOtp": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-input-otp[hlmInputOtp], brn-input-otp[hlm]",
+      },
+      "HlmInputOtpFakeCaret": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-input-otp-fake-caret",
+      },
+      "HlmInputOtpGroup": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmInputOtpGroup]",
+      },
+      "HlmInputOtpSeparator": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-input-otp-separator",
+      },
+      "HlmInputOtpSlot": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "index",
+            "required": true,
+            "type": "number",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-input-otp-slot",
+      },
+    },
+  },
+  "label": {
+    "brain": {
+      "BrnLabel": {
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnLabel]",
+      },
+    },
+    "helm": {
+      "HlmLabel": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmLabel]",
+      },
+    },
+  },
+  "menu": {
+    "brain": {
+      "BrnContextMenuTrigger": {
+        "inputs": [
+          {
+            "name": "brnCtxMenuTriggerFor",
+            "required": false,
+            "type": "TemplateRef<unknown> | null",
+          },
+          {
+            "name": "brnCtxMenuTriggerData",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "align",
+            "required": false,
+            "type": "BrnMenuAlign",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnCtxMenuTriggerFor]",
+      },
+      "BrnMenu": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnMenu],[brnSubMenu]",
+      },
+      "BrnMenuBar": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnMenuBar]",
+      },
+      "BrnMenuGroup": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnMenuGroup]",
+      },
+      "BrnMenuItem": {
+        "inputs": [
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "unknown",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnMenuItem]",
+      },
+      "BrnMenuItemCheckbox": {
+        "inputs": [
+          {
+            "name": "checked",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "unknown",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnMenuItemCheckbox]",
+      },
+      "BrnMenuItemRadio": {
+        "inputs": [
+          {
+            "name": "checked",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "unknown",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnMenuItemRadio]",
+      },
+      "BrnMenuTrigger": {
+        "inputs": [
+          {
+            "name": "align",
+            "required": false,
+            "type": "BrnMenuAlign",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnMenuTriggerFor]",
+      },
+    },
+    "helm": {
+      "HlmMenu": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "variant",
+            "required": false,
+            "type": "MenuVariants['variant']",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-menu",
+      },
+      "HlmMenuBar": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-menu-bar",
+      },
+      "HlmMenuBarItem": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmMenuBarItem]",
+      },
+      "HlmMenuGroup": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-menu-group",
+      },
+      "HlmMenuItem": {
+        "inputs": [
+          {
+            "name": "variant",
+            "required": false,
+            "type": "'default' | 'destructive'",
+          },
+          {
+            "name": "inset",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmMenuItem]",
+      },
+      "HlmMenuItemCheck": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-menu-item-check",
+      },
+      "HlmMenuItemCheckbox": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmMenuItemCheckbox]",
+      },
+      "HlmMenuItemIcon": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmMenuIcon]",
+      },
+      "HlmMenuItemRadio": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmMenuItemRadio]",
+      },
+      "HlmMenuItemRadioIndicator": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-menu-item-radio",
+      },
+      "HlmMenuItemSubIndicator": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-menu-item-sub-indicator",
+      },
+      "HlmMenuLabel": {
+        "inputs": [
+          {
+            "name": "inset",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-menu-label",
+      },
+      "HlmMenuSeparator": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-menu-separator",
+      },
+      "HlmMenuShortcut": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-menu-shortcut",
+      },
+      "HlmSubMenu": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-sub-menu",
+      },
+    },
+  },
+  "pagination": {
+    "helm": {
+      "HlmNumberedPagination": {
+        "inputs": [
+          {
+            "name": "totalItems",
+            "required": true,
+            "type": "number",
+          },
+          {
+            "name": "maxSize",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "showEdges",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "pageSizes",
+            "required": false,
+            "type": "number[]",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-numbered-pagination",
+      },
+      "HlmNumberedPaginationQueryParams": {
+        "inputs": [
+          {
+            "name": "totalItems",
+            "required": true,
+            "type": "number",
+          },
+          {
+            "name": "link",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "maxSize",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "showEdges",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "pageSizes",
+            "required": false,
+            "type": "number[]",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-numbered-pagination-query-params",
+      },
+      "HlmPagination": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "aria-label",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmPagination]",
+      },
+      "HlmPaginationContent": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmPaginationContent]",
+      },
+      "HlmPaginationEllipsis": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "srOnlyText",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-pagination-ellipsis",
+      },
+      "HlmPaginationItem": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmPaginationItem]",
+      },
+      "HlmPaginationLink": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "isActive",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "size",
+            "required": false,
+            "type": "ButtonVariants['size']",
+          },
+          {
+            "name": "link",
+            "required": false,
+            "type": "RouterLink['routerLink']",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmPaginationLink]",
+      },
+      "HlmPaginationNext": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "link",
+            "required": false,
+            "type": "RouterLink['routerLink']",
+          },
+          {
+            "name": "queryParams",
+            "required": false,
+            "type": "RouterLink['queryParams']",
+          },
+          {
+            "name": "queryParamsHandling",
+            "required": false,
+            "type": "RouterLink['queryParamsHandling']",
+          },
+          {
+            "name": "aria-label",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "text",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "iconOnly",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-pagination-next",
+      },
+      "HlmPaginationPrevious": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "link",
+            "required": false,
+            "type": "RouterLink['routerLink']",
+          },
+          {
+            "name": "queryParams",
+            "required": false,
+            "type": "RouterLink['queryParams']",
+          },
+          {
+            "name": "queryParamsHandling",
+            "required": false,
+            "type": "RouterLink['queryParamsHandling']",
+          },
+          {
+            "name": "aria-label",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "text",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "iconOnly",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-pagination-previous",
+      },
+    },
+  },
+  "popover": {
+    "brain": {
+      "BrnPopover": {
+        "exportAs": "brnPopover",
+        "inputs": [
+          {
+            "name": "align",
+            "required": false,
+            "type": "BrnPopoverAlign",
+          },
+          {
+            "name": "sideOffset",
+            "required": false,
+            "type": "unknown",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-popover",
+      },
+      "BrnPopoverClose": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "button[brnPopoverClose]",
+      },
+      "BrnPopoverContent": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnPopoverContent]",
+      },
+      "BrnPopoverTrigger": {
+        "inputs": [
+          {
+            "name": "brnPopoverTriggerFor",
+            "required": false,
+            "type": "BrnPopover | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[brnPopoverTrigger],button[brnPopoverTriggerFor]",
+      },
+    },
+    "helm": {
+      "HlmPopoverClose": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmPopoverClose],[brnPopoverClose][hlm]",
+      },
+      "HlmPopoverContent": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmPopoverContent],[brnPopoverContent][hlm]",
+      },
+    },
+  },
+  "progress": {
+    "brain": {
+      "BrnProgress": {
+        "exportAs": "brnProgress",
+        "inputs": [
+          {
+            "name": "value",
+            "required": false,
+            "type": "number | null | undefined",
+          },
+          {
+            "name": "max",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "getValueLabel",
+            "required": false,
+            "type": "BrnProgressLabelFn",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-progress",
+      },
+      "BrnProgressIndicator": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-progress-indicator",
+      },
+    },
+    "helm": {
+      "HlmProgress": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmProgress],brn-progress[hlm]",
+      },
+      "HlmProgressIndicator": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmProgressIndicator],brn-progress-indicator[hlm]",
+      },
+    },
+  },
+  "radio-group": {
+    "brain": {
+      "BrnRadio": {
+        "exportAs": "brnRadio",
+        "inputs": [
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "id",
+            "required": false,
+            "type": "string | undefined",
+          },
+          {
+            "name": "aria-label",
+            "required": false,
+            "type": "string | undefined",
+          },
+          {
+            "name": "aria-labelledby",
+            "required": false,
+            "type": "string | undefined",
+          },
+          {
+            "name": "aria-describedby",
+            "required": false,
+            "type": "string | undefined",
+          },
+          {
+            "name": "value",
+            "required": true,
+            "type": "T",
+          },
+          {
+            "name": "required",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [
+          {
+            "name": "change",
+            "type": "BrnRadioChange<T>",
+          },
+        ],
+        "selector": "brn-radio",
+      },
+      "BrnRadioGroup": {
+        "inputs": [
+          {
+            "name": "name",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "required",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "direction",
+            "required": false,
+            "type": "'ltr' | 'rtl' | null",
+          },
+        ],
+        "models": [
+          {
+            "name": "value",
+            "type": "T",
+          },
+        ],
+        "outputs": [
+          {
+            "name": "change",
+            "type": "BrnRadioChange<T>",
+          },
+        ],
+        "selector": "[brnRadioGroup]",
+      },
+    },
+    "helm": {
+      "HlmRadio": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "id",
+            "required": false,
+            "type": "string | undefined",
+          },
+          {
+            "name": "aria-label",
+            "required": false,
+            "type": "string | undefined",
+          },
+          {
+            "name": "aria-labelledby",
+            "required": false,
+            "type": "string | undefined",
+          },
+          {
+            "name": "aria-describedby",
+            "required": false,
+            "type": "string | undefined",
+          },
+          {
+            "name": "value",
+            "required": true,
+            "type": "T",
+          },
+          {
+            "name": "required",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "unknown",
+          },
+        ],
+        "models": [],
+        "outputs": [
+          {
+            "name": "change",
+            "type": "BrnRadioChange<T>",
+          },
+        ],
+        "selector": "hlm-radio",
+      },
+      "HlmRadioGroup": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-radio-group",
+      },
+      "HlmRadioIndicator": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-radio-indicator",
+      },
+    },
+  },
+  "scroll-area": {
+    "helm": {
+      "HlmScrollArea": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "ng-scrollbar[hlm]",
+      },
+    },
+  },
+  "select": {
+    "brain": {
+      "BrnSelect": {
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "multiple",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "placeholder",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "dir",
+            "required": false,
+            "type": "BrnReadDirection",
+          },
+          {
+            "name": "closeDelay",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "compareWith",
+            "required": false,
+            "type": "(o1: T, o2: T) => boolean",
+          },
+        ],
+        "models": [
+          {
+            "name": "open",
+            "type": "boolean",
+          },
+          {
+            "name": "value",
+            "type": "T | T[]",
+          },
+        ],
+        "outputs": [],
+        "selector": "brn-select, hlm-select",
+      },
+      "BrnSelectContent": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-select-content, hlm-select-content:not(noHlm)",
+      },
+      "BrnSelectGroup": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnSelectGroup]",
+      },
+      "BrnSelectLabel": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnSelectLabel]",
+      },
+      "BrnSelectOption": {
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "value",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnOption]",
+      },
+      "BrnSelectPlaceholder": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnSelectPlaceholder], [hlmSelectPlaceholder]",
+      },
+      "BrnSelectScrollDown": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnSelectScrollDown], brn-select-scroll-down, hlm-select-scroll-down:not(noHlm)",
+      },
+      "BrnSelectScrollUp": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnSelectScrollUp], brn-select-scroll-up, hlm-select-scroll-up:not(noHlm)",
+      },
+      "BrnSelectTrigger": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnSelectTrigger]",
+      },
+      "BrnSelectValue": {
+        "inputs": [
+          {
+            "name": "transformFn",
+            "required": false,
+            "type": "(values: (string | undefined)[]) => any",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-select-value, hlm-select-value",
+      },
+      "BrnSelectValueTemplate": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnSelectValue], [hlmSelectValue]",
+      },
+      "SelectMultiValueTest": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "select-reactive-field-fixture",
+      },
+      "SelectMultiValueWithInitialValueTest": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "select-reactive-field-fixture",
+      },
+      "SelectMultiValueWithInitialValueWithForLoopTest": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "select-reactive-field-fixture",
+      },
+      "SelectNgModel": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "select-ngmodel-form",
+      },
+      "SelectReactiveField": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "select-reactive-field-fixture",
+      },
+      "SelectSingleValueTest": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "select-reactive-field-fixture",
+      },
+      "SelectSingleValueWithInitialValueTest": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "select-reactive-field-fixture",
+      },
+      "SelectSingleValueWithInitialValueWithAsyncUpdateTest": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "select-reactive-field-fixture",
+      },
+    },
+    "helm": {
+      "HlmSelect": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-select, brn-select [hlm]",
+      },
+      "HlmSelectContent": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "stickyLabels",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmSelectContent], hlm-select-content",
+      },
+      "HlmSelectGroup": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmSelectGroup], hlm-select-group",
+      },
+      "HlmSelectLabel": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmSelectLabel], hlm-select-label",
+      },
+      "HlmSelectOption": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-option",
+      },
+      "HlmSelectScrollDown": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-select-scroll-down",
+      },
+      "HlmSelectScrollUp": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-select-scroll-up",
+      },
+      "HlmSelectTrigger": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "size",
+            "required": false,
+            "type": "'default' | 'sm'",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-select-trigger",
+      },
+      "HlmSelectValue": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-select-value,[hlmSelectValue], brn-select-value[hlm]",
+      },
+    },
+  },
+  "separator": {
+    "brain": {
+      "BrnSeparator": {
+        "inputs": [
+          {
+            "name": "orientation",
+            "required": false,
+            "type": "BrnSeparatorOrientation",
+          },
+          {
+            "name": "decorative",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-separator",
+      },
+    },
+    "helm": {
+      "HlmSeparator": {
+        "inputs": [
+          {
+            "name": "orientation",
+            "required": false,
+            "type": "HlmSeparatorOrientation",
+          },
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmSeparator],brn-separator[hlm]",
+      },
+    },
+  },
+  "sheet": {
+    "brain": {
+      "BrnSheet": {
+        "exportAs": "brnSheet",
+        "inputs": [
+          {
+            "name": "side",
+            "required": false,
+            "type": "'top' | 'bottom' | 'left' | 'right'",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-sheet",
+      },
+      "BrnSheetClose": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "button[brnSheetClose]",
+      },
+      "BrnSheetContent": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnSheetContent]",
+      },
+      "BrnSheetDescription": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnSheetDescription]",
+      },
+      "BrnSheetOverlay": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-sheet-overlay",
+      },
+      "BrnSheetTitle": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnSheetTitle]",
+      },
+      "BrnSheetTrigger": {
+        "inputs": [
+          {
+            "name": "side",
+            "required": false,
+            "type": "'top' | 'bottom' | 'left' | 'right' | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[brnSheetTrigger]",
+      },
+    },
+    "helm": {
+      "HlmSheet": {
+        "exportAs": "hlmSheet",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-sheet",
+      },
+      "HlmSheetClose": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmSheetClose],[brnSheetClose][hlm]",
+      },
+      "HlmSheetContent": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-sheet-content",
+      },
+      "HlmSheetDescription": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmSheetDescription]",
+      },
+      "HlmSheetFooter": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-sheet-footer",
+      },
+      "HlmSheetHeader": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-sheet-header",
+      },
+      "HlmSheetOverlay": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmSheetOverlay],brn-sheet-overlay[hlm]",
+      },
+      "HlmSheetTitle": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmSheetTitle]",
+      },
+    },
+  },
+  "skeleton": {
+    "helm": {
+      "HlmSkeleton": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-skeleton",
+      },
+    },
+  },
+  "slider": {
+    "brain": {
+      "BrnSlider": {
+        "exportAs": "brnSlider",
+        "inputs": [
+          {
+            "name": "min",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "max",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "step",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "showTicks",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [
+          {
+            "name": "value",
+            "type": "number",
+          },
+        ],
+        "outputs": [],
+        "selector": "[brnSlider]",
+      },
+      "BrnSliderRange": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnSliderRange]",
+      },
+      "BrnSliderThumb": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnSliderThumb]",
+      },
+      "BrnSliderTick": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnSliderTick]",
+      },
+      "BrnSliderTrack": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnSliderTrack]",
+      },
+      "ReactiveFormSlider": {
+        "inputs": [],
+        "models": [
+          {
+            "name": "temperature",
+            "type": "number",
+          },
+        ],
+        "outputs": [],
+      },
+      "TemplateDrivenFormSlider": {
+        "inputs": [],
+        "models": [
+          {
+            "name": "temperature",
+            "type": "number",
+          },
+        ],
+        "outputs": [],
+      },
+    },
+    "helm": {
+      "HlmSlider": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-slider, brn-slider [hlm]",
+      },
+    },
+  },
+  "sonner": {
+    "helm": {
+      "HlmToaster": {
+        "inputs": [
+          {
+            "name": "invert",
+            "required": false,
+            "type": "ToasterProps['invert']",
+          },
+          {
+            "name": "theme",
+            "required": false,
+            "type": "ToasterProps['theme']",
+          },
+          {
+            "name": "position",
+            "required": false,
+            "type": "ToasterProps['position']",
+          },
+          {
+            "name": "hotKey",
+            "required": false,
+            "type": "ToasterProps['hotkey']",
+          },
+          {
+            "name": "richColors",
+            "required": false,
+            "type": "ToasterProps['richColors']",
+          },
+          {
+            "name": "expand",
+            "required": false,
+            "type": "ToasterProps['expand']",
+          },
+          {
+            "name": "duration",
+            "required": false,
+            "type": "ToasterProps['duration']",
+          },
+          {
+            "name": "visibleToasts",
+            "required": false,
+            "type": "ToasterProps['visibleToasts']",
+          },
+          {
+            "name": "closeButton",
+            "required": false,
+            "type": "ToasterProps['closeButton']",
+          },
+          {
+            "name": "toastOptions",
+            "required": false,
+            "type": "ToasterProps['toastOptions']",
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "type": "ToasterProps['offset']",
+          },
+          {
+            "name": "dir",
+            "required": false,
+            "type": "ToasterProps['dir']",
+          },
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "style",
+            "required": false,
+            "type": "Record<string, string>",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-toaster",
+      },
+    },
+  },
+  "spinner": {
+    "helm": {
+      "HlmSpinner": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-spinner",
+      },
+    },
+  },
+  "switch": {
+    "brain": {
+      "BrnSwitch": {
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "name",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "class",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "aria-label",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "aria-labelledby",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "aria-describedby",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "required",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "tabIndex",
+            "required": false,
+            "type": "unknown",
+          },
+        ],
+        "models": [
+          {
+            "name": "checked",
+            "type": "boolean",
+          },
+        ],
+        "outputs": [
+          {
+            "name": "changed",
+            "type": "boolean",
+          },
+          {
+            "name": "touched",
+            "type": "void",
+          },
+        ],
+        "selector": "brn-switch",
+      },
+      "BrnSwitchNgModelSpec": {
+        "inputs": [
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "airplaneMode",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-switch-ng-model",
+      },
+      "BrnSwitchThumb": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-switch-thumb",
+      },
+    },
+    "helm": {
+      "HlmSwitch": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "id",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "aria-label",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "aria-labelledby",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "aria-describedby",
+            "required": false,
+            "type": "string | null",
+          },
+        ],
+        "models": [
+          {
+            "name": "checked",
+            "type": "boolean",
+          },
+        ],
+        "outputs": [
+          {
+            "name": "changed",
+            "type": "boolean",
+          },
+        ],
+        "selector": "hlm-switch",
+      },
+      "HlmSwitchThumb": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-switch-thumb[hlm],[hlmSwitchThumb]",
+      },
+    },
+  },
+  "table": {
+    "helm": {
+      "HlmCaption": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "caption[hlmCaption]",
+      },
+      "HlmTBody": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "tbody[hlmTBody]",
+      },
+      "HlmTFoot": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "tfoot[hlmTFoot]",
+      },
+      "HlmTHead": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "thead[hlmTHead]",
+      },
+      "HlmTable": {
+        "inputs": [
+          {
+            "name": "hlmTable",
+            "required": false,
+            "type": "Partial<HlmTableVariant> | string",
+          },
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "table[hlmTable]",
+      },
+      "HlmTd": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "td[hlmTd]",
+      },
+      "HlmTh": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "th[hlmTh]",
+      },
+      "HlmTr": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "tr[hlmTr]",
+      },
+    },
+  },
+  "tabs": {
+    "brain": {
+      "BrnTabs": {
+        "exportAs": "brnTabs",
+        "inputs": [
+          {
+            "name": "orientation",
+            "required": false,
+            "type": "BrnTabsOrientation",
+          },
+          {
+            "name": "direction",
+            "required": false,
+            "type": "BrnTabsDirection",
+          },
+          {
+            "name": "activationMode",
+            "required": false,
+            "type": "BrnActivationMode",
+          },
+        ],
+        "models": [
+          {
+            "name": "activeTab",
+            "type": "string | undefined",
+          },
+        ],
+        "outputs": [
+          {
+            "name": "tabActivated",
+            "type": "string",
+          },
+        ],
+        "selector": "[brnTabs]",
+      },
+      "BrnTabsContent": {
+        "exportAs": "brnTabsContent",
+        "inputs": [
+          {
+            "name": "contentFor",
+            "required": true,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnTabsContent]",
+      },
+      "BrnTabsDirectiveSpec": {
+        "inputs": [
+          {
+            "name": "showTrigger",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "showContent",
+            "required": false,
+            "type": "unknown",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+      },
+      "BrnTabsList": {
+        "exportAs": "brnTabsList",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnTabsList]",
+      },
+      "BrnTabsPaginatedList": {
+        "exportAs": null,
+        "inputs": [
+          {
+            "name": "disablePagination",
+            "required": false,
+            "type": "unknown",
+          },
+        ],
+        "models": [],
+        "outputs": [
+          {
+            "name": "selectFocusedIndex",
+            "type": "number",
+          },
+          {
+            "name": "indexFocused",
+            "type": "number",
+          },
+        ],
+        "selector": null,
+      },
+      "BrnTabsTrigger": {
+        "exportAs": "brnTabsTrigger",
+        "inputs": [
+          {
+            "name": "triggerFor",
+            "required": true,
+            "type": "string",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[brnTabsTrigger]",
+      },
+    },
+    "helm": {
+      "HlmTabs": {
+        "inputs": [
+          {
+            "name": "tab",
+            "required": true,
+            "type": "string",
+          },
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-tabs",
+      },
+      "HlmTabsContent": {
+        "inputs": [
+          {
+            "name": "contentFor",
+            "required": true,
+            "type": "string",
+          },
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmTabsContent]",
+      },
+      "HlmTabsList": {
+        "inputs": [
+          {
+            "name": "orientation",
+            "required": false,
+            "type": "ListVariants['orientation']",
+          },
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-tabs-list",
+      },
+      "HlmTabsPaginatedList": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "tabListClass",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "paginationButtonClass",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-paginated-tabs-list",
+      },
+      "HlmTabsTrigger": {
+        "inputs": [
+          {
+            "name": "triggerFor",
+            "required": true,
+            "type": "string",
+          },
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmTabsTrigger]",
+      },
+    },
+  },
+  "toggle": {
+    "brain": {
+      "BrnToggle": {
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "value",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "disableToggleClick",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [
+          {
+            "name": "state",
+            "type": "'on' | 'off'",
+          },
+        ],
+        "outputs": [],
+        "selector": "button[hlmToggle], button[brnToggle]",
+      },
+    },
+    "helm": {
+      "HlmToggle": {
+        "inputs": [
+          {
+            "name": "variant",
+            "required": false,
+            "type": "ToggleVariants['variant']",
+          },
+          {
+            "name": "size",
+            "required": false,
+            "type": "ToggleVariants['size']",
+          },
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmToggle],[brnToggle][hlm]",
+      },
+    },
+  },
+  "toggle-group": {
+    "brain": {
+      "BrnToggleGroup": {
+        "exportAs": "brnToggleGroup",
+        "inputs": [
+          {
+            "name": "vertical",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "nullable",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "multiple",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [
+          {
+            "name": "value",
+            "type": "ToggleValue<T>",
+          },
+        ],
+        "outputs": [
+          {
+            "name": "change",
+            "type": "BrnButtonToggleChange<T>",
+          },
+        ],
+        "selector": "brn-toggle-group",
+      },
+      "BrnToggleGroupDirectiveFormSpec": {
+        "inputs": [
+          {
+            "name": "value",
+            "required": false,
+            "type": "string | string[]",
+          },
+          {
+            "name": "multiple",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+      },
+      "BrnToggleGroupDirectiveSpec": {
+        "inputs": [
+          {
+            "name": "value",
+            "required": false,
+            "type": "string | string[]",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "multiple",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+      },
+      "BrnToggleGroupItem": {
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "value",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "disableToggleClick",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [
+          {
+            "name": "state",
+            "type": "'on' | 'off'",
+          },
+        ],
+        "outputs": [],
+        "selector": "button[hlmToggleGroupItem], button[brnToggleGroupItem]",
+      },
+    },
+    "helm": {
+      "HlmToggleGroup": {
+        "inputs": [
+          {
+            "name": "variant",
+            "required": false,
+            "type": "ToggleGroupItemVariants['variant']",
+          },
+          {
+            "name": "size",
+            "required": false,
+            "type": "ToggleGroupItemVariants['size']",
+          },
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-toggle-group[hlm],[hlmToggleGroup]",
+      },
+      "HlmToggleGroupItem": {
+        "inputs": [
+          {
+            "name": "variant",
+            "required": false,
+            "type": "ToggleGroupItemVariants['variant']",
+          },
+          {
+            "name": "size",
+            "required": false,
+            "type": "ToggleGroupItemVariants['size']",
+          },
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmToggleGroupItem],[brnToggleGroupItem][hlm]",
+      },
+    },
+  },
+  "tooltip": {
+    "brain": {
+      "BrnTooltip": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnTooltip]",
+      },
+      "BrnTooltipContent": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-tooltip-content",
+      },
+      "BrnTooltipContentTemplate": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnTooltipContent]",
+      },
+      "BrnTooltipTrigger": {
+        "exportAs": "brnTooltipTrigger",
+        "inputs": [
+          {
+            "name": "position",
+            "required": false,
+            "type": "TooltipPosition",
+          },
+          {
+            "name": "positionAtOrigin",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "brnTooltipDisabled",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "showDelay",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "hideDelay",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "exitAnimationDuration",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "tooltipContentClasses",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "touchGestures",
+            "required": false,
+            "type": "TooltipTouchGestures",
+          },
+          {
+            "name": "aria-describedby",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "brnTooltipTrigger",
+            "required": false,
+            "type": "string | TemplateRef<unknown> | null",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnTooltipTrigger]",
+      },
+    },
+    "helm": {
+      "HlmTooltip": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-tooltip",
+      },
+      "HlmTooltipTrigger": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmTooltipTrigger]",
+      },
+    },
+  },
+  "typography": {
+    "helm": {
+      "HlmBlockquote": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmBlockquote]",
+      },
+      "HlmCode": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmCode]",
+      },
+      "HlmH1": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmH1]",
+      },
+      "HlmH2": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmH2]",
+      },
+      "HlmH3": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmH3]",
+      },
+      "HlmH4": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmH4]",
+      },
+      "HlmLarge": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmLarge]",
+      },
+      "HlmLead": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmLead]",
+      },
+      "HlmMuted": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmMuted]",
+      },
+      "HlmP": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmP]",
+      },
+      "HlmSmall": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmSmall]",
+      },
+      "HlmUl": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmUl]",
+      },
+    },
+  },
+}
+`;

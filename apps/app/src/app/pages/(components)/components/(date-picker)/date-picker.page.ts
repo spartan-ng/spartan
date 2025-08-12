@@ -82,8 +82,8 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-cli-tabs
 				class="mt-4"
-				nxCode="npx nx g @spartan-ng/cli:ui datepicker"
-				ngCode="ng g @spartan-ng/cli:ui datepicker"
+				nxCode="npx nx g @spartan-ng/cli:ui date-picker"
+				ngCode="ng g @spartan-ng/cli:ui date-picker"
 			/>
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>

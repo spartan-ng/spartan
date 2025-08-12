@@ -1,12 +1,15 @@
-import { Directive, computed, input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { hlm } from '@spartan-ng/brain/core';
+import { BrnProgress } from '@spartan-ng/brain/progress';
 import type { ClassValue } from 'clsx';
 
-@Directive({
-	selector: '[hlmProgress],brn-progress[hlm]',
+@Component({
+	selector: 'hlm-progress,[hlmProgress]',
+	template: '<ng-content />',
 	host: {
 		'[class]': '_computedClass()',
 	},
+	hostDirectives: [{ directive: BrnProgress, inputs: ['value', 'max', 'getValueLabel'] }],
 })
 export class HlmProgress {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

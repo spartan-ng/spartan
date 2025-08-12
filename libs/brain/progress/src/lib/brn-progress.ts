@@ -1,18 +1,9 @@
 import { type NumberInput } from '@angular/cdk/coercion';
-import {
-	ChangeDetectionStrategy,
-	Component,
-	OnChanges,
-	SimpleChanges,
-	computed,
-	input,
-	numberAttribute,
-} from '@angular/core';
+import { Directive, OnChanges, SimpleChanges, computed, input, numberAttribute } from '@angular/core';
 import { provideBrnProgress } from './brn-progress.token';
 
-@Component({
+@Directive({
 	selector: 'brn-progress',
-	template: '<ng-content/>',
 	exportAs: 'brnProgress',
 	providers: [provideBrnProgress(BrnProgress)],
 	host: {
@@ -25,14 +16,25 @@ import { provideBrnProgress } from './brn-progress.token';
 		'[attr.data-value]': 'value()',
 		'[attr.data-max]': 'max()',
 	},
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BrnProgress implements OnChanges {
+	/**
+	 * The current progress value.
+	 */
 	public readonly value = input<number | null | undefined, NumberInput>(undefined, {
 		transform: (value) => (value === undefined || value === null ? undefined : Number(value)),
 	});
+
+	/**
+	 * The maximum progress value.
+	 */
 	public readonly max = input<number, NumberInput>(100, { transform: numberAttribute });
+
+	/**
+	 * A function that returns the label for the current progress value.
+	 */
 	public readonly getValueLabel = input<BrnProgressLabelFn>((value, max) => `${Math.round((value / max) * 100)}%`);
+
 	protected readonly _label = computed(() => {
 		const value = this.value();
 		return value === null || value === undefined ? undefined : this.getValueLabel()(value, this.max());

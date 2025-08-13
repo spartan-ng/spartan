@@ -112,6 +112,53 @@ module.exports = {
 
 			<spartan-code class="mt-4" code="@import '@spartan-ng/brain/hlm-tailwind-preset.css';" />
 
+			<p class="${hlmP}">
+				If you are using VSCode and the
+				<a
+					hlmBtn
+					class="h-6 px-0.5 text-base underline"
+					size="sm"
+					href="https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss"
+					target="_blank"
+					variant="link"
+				>
+					Tailwind CSS IntelliSense
+				</a>
+				plugin, it is suggested to add the
+				<code class="${hlmCode}">hlm</code>
+				function to the tailwindCSS.classFunctions in either your workspace settings
+				<code class="${hlmCode}">.code-workspace</code>
+				file or VSCode's
+				<code class="${hlmCode}">settings.json</code>
+				to get all the Tailwind CSS IntelliSense plugin's features to work inside
+				<code class="${hlmCode}">hlm</code>
+				calls.
+			</p>
+
+			<spartan-code
+				code="
+// your-workspace.vscode-workspace
+{
+	'folders': [
+		{
+			'path': '.',
+		},
+	],
+	'settings': {
+		'tailwindCSS.classFunctions': ['hlm'],
+	}
+}
+"
+			/>
+
+			<spartan-code
+				class="mt-4"
+				code="
+// settings.json
+'tailwindCSS.classFunctions': ['hlm'],
+"
+			/>
+
 			<spartan-section-sub-heading id="adding-css-vars">Adding CSS variables</spartan-section-sub-heading>
 			<p class="${hlmP}">
 				To complete your TailwindCSS setup, you need to add our spartan-specific CSS variables to your style entrypoint.

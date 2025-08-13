@@ -1,4 +1,4 @@
-import { Component, HostListener, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
 	lucideCalendar,
@@ -49,7 +49,7 @@ import { HlmCode } from '@spartan-ng/helm/typography';
 		<div class="mx-auto flex max-w-screen-sm items-center justify-center space-x-4 py-20 text-sm">
 			<p>
 				Press
-				<code hlmCode>⌘ + K</code>
+				<code hlmCode>⌘ + Shift + P</code>
 			</p>
 			<p>
 				Last command:
@@ -104,16 +104,20 @@ import { HlmCode } from '@spartan-ng/helm/typography';
 			</hlm-command>
 		</brn-dialog>
 	`,
+	host: {
+		'(window:keydown)': 'onKeyDown($event)',
+	},
 })
 export class CommandDialog {
 	public command = signal('');
 	public state = signal<'closed' | 'open'>('closed');
-	@HostListener('window:keydown', ['$event'])
+
 	onKeyDown(event: KeyboardEvent) {
-		if ((event.metaKey || event.ctrlKey) && (event.key === 'k' || event.key === 'K')) {
+		if ((event.metaKey || event.ctrlKey) && event.shiftKey && (event.key === 'p' || event.key === 'P')) {
 			this.state.set('open');
 		}
 	}
+
 	stateChanged(state: 'open' | 'closed') {
 		this.state.set(state);
 	}

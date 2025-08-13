@@ -32,7 +32,7 @@ import { HlmButton } from '@spartan-ng/helm/button';
 			<button id="edit-profile" variant="outline" brnAlertDialogTrigger hlmBtn>Show Dialog</button>
 			<hlm-alert-dialog-content *brnAlertDialogContent="let ctx">
 				<hlm-alert-dialog-header>
-					<h3 hlmAlertDialogTitle>Are you absolutely sure?</h3>
+					<h2 hlmAlertDialogTitle>Are you absolutely sure?</h2>
 					<p hlmAlertDialogDescription>
 						This action cannot be undone. This will permanently delete your account and remove your data from our
 						servers.
@@ -68,7 +68,7 @@ export const defaultSkeleton = `
   <button id="edit-profile" variant="outline" brnAlertDialogTrigger hlmBtn>Show Dialog</button>
   <hlm-alert-dialog-content *brnAlertDialogContent="let ctx">
     <hlm-alert-dialog-header>
-      <h3 hlmAlertDialogTitle>Are you absolutely sure?</h3>
+      <h2 hlmAlertDialogTitle>Are you absolutely sure?</h2>
       <p hlmAlertDialogDescription>
         This action cannot be undone. This will permanently delete your account and remove your data from our
         servers.

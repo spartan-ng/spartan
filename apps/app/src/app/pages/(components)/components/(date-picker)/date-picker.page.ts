@@ -184,7 +184,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-date-and-time-picker />
 				</div>
-				<spartan-code secondTab [code]="_dateTimeCode" />
+				<spartan-code secondTab [code]="_dateTimeCode()" />
 			</spartan-tabs>
 
 			<h3 id="examples__form" class="${hlmH4} mb-2 mt-6">Form</h3>

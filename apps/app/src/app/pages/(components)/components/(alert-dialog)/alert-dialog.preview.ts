@@ -29,7 +29,7 @@ import { HlmButton } from '@spartan-ng/helm/button';
 	],
 	template: `
 		<hlm-alert-dialog>
-			<button id="edit-profile" variant="outline" brnAlertDialogTrigger hlmBtn>Delete Account</button>
+			<button id="edit-profile" variant="outline" brnAlertDialogTrigger hlmBtn>Show Dialog</button>
 			<hlm-alert-dialog-content *brnAlertDialogContent="let ctx">
 				<hlm-alert-dialog-header>
 					<h3 hlmAlertDialogTitle>Are you absolutely sure?</h3>
@@ -40,7 +40,7 @@ import { HlmButton } from '@spartan-ng/helm/button';
 				</hlm-alert-dialog-header>
 				<hlm-alert-dialog-footer>
 					<button hlmAlertDialogCancel (click)="ctx.close()">Cancel</button>
-					<button hlmAlertDialogAction (click)="ctx.close()">Delete account</button>
+					<button hlmAlertDialogAction (click)="ctx.close()">Continue</button>
 				</hlm-alert-dialog-footer>
 			</hlm-alert-dialog-content>
 		</hlm-alert-dialog>
@@ -65,8 +65,8 @@ import {
 
 export const defaultSkeleton = `
 <hlm-alert-dialog>
-  <button id='edit-profile' variant='outline' brnAlertDialogTrigger hlmBtn>Delete Account</button>
-  <hlm-alert-dialog-content *brnAlertDialogContent='let ctx'>
+  <button id="edit-profile" variant="outline" brnAlertDialogTrigger hlmBtn>Show Dialog</button>
+  <hlm-alert-dialog-content *brnAlertDialogContent="let ctx">
     <hlm-alert-dialog-header>
       <h3 hlmAlertDialogTitle>Are you absolutely sure?</h3>
       <p hlmAlertDialogDescription>
@@ -75,8 +75,8 @@ export const defaultSkeleton = `
       </p>
     </hlm-alert-dialog-header>
     <hlm-alert-dialog-footer>
-      <button hlmAlertDialogCancel (click)='ctx.close()'>Cancel</button>
-      <button hlmAlertDialogAction (click)='ctx.close()'>Delete account</button>
+      <button hlmAlertDialogCancel (click)="ctx.close()">Cancel</button>
+      <button hlmAlertDialogAction (click)="ctx.close()">Continue</button>
     </hlm-alert-dialog-footer>
   </hlm-alert-dialog-content>
 </hlm-alert-dialog>

@@ -37,7 +37,13 @@ let nextId = 0;
 	providers: [HLM_DATE_PICKER_VALUE_ACCESSOR, provideIcons({ lucideChevronDown })],
 	template: `
 		<brn-popover sideOffset="5" [state]="_popoverState()" (stateChanged)="_popoverState.set($event)">
-			<button [id]="buttonId()" type="button" [class]="_computedClass()" [disabled]="_mutableDisabled()" brnPopoverTrigger>
+			<button
+				[id]="buttonId()"
+				type="button"
+				[class]="_computedClass()"
+				[disabled]="_mutableDisabled()"
+				brnPopoverTrigger
+			>
 				<span class="truncate">
 					@if (_formattedDate(); as formattedDate) {
 						{{ formattedDate }}

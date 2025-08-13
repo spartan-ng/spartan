@@ -12,7 +12,6 @@ import {
 	type DoCheck,
 	Injector,
 	type Signal,
-	afterNextRender,
 	booleanAttribute,
 	computed,
 	contentChild,
@@ -233,7 +232,6 @@ export class BrnSelect<T = unknown>
 		}
 
 		this.open.set(true);
-		afterNextRender(() => this._selectContent().focusList(), { injector: this._injector });
 	}
 
 	public hide(): void {

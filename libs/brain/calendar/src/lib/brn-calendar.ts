@@ -209,6 +209,36 @@ export class BrnCalendar<T> implements BrnCalendarBase<T> {
 		// we must update the view to ensure the focused cell is visible.
 		this._changeDetector.detectChanges();
 	}
+
+	/**
+	 * Determine if a date is the start of a range. In a date picker, this is always false.
+	 * @param date The date to check.
+	 * @returns Always false.
+	 * @internal
+	 */
+	isStartOfRange(_: T): boolean {
+		return false;
+	}
+
+	/**
+	 * Determine if a date is the end of a range. In a date picker, this is always false.
+	 * @param date The date to check.
+	 * @returns Always false.
+	 * @internal
+	 */
+	isEndOfRange(_: T): boolean {
+		return false;
+	}
+
+	/**
+	 * Determine if a date is between the start and end dates. In a date picker, this is always false.
+	 * @param date The date to check.
+	 * @returns True if the date is between the start and end dates, false otherwise.
+	 * @internal
+	 */
+	isBetweenRange(_: T): boolean {
+		return false;
+	}
 }
 
 export type Weekday = 0 | 1 | 2 | 3 | 4 | 5 | 6;

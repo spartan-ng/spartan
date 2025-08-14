@@ -2893,7 +2893,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "[hlmProgress],brn-progress[hlm]",
+        "selector": "hlm-progress,[hlmProgress]",
       },
       "HlmProgressIndicator": {
         "inputs": [
@@ -2905,7 +2905,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "[hlmProgressIndicator],brn-progress-indicator[hlm]",
+        "selector": "[hlmProgressIndicator],hlm-progress-indicator",
       },
     },
   },

@@ -21,13 +21,13 @@ describe('progress', () => {
 			cy.findByLabelText(/loading \(not started\)/i).should('have.attr', 'aria-valuenow', 0);
 			cy.findByLabelText(/loading \(not started\)/i).should('have.attr', 'data-state', 'loading');
 			cy.findByLabelText(/loading \(not started\)/i)
-				.find('brn-progress-indicator')
+				.find('hlm-progress-indicator')
 				.should('have.attr', 'data-max', 100);
 			cy.findByLabelText(/loading \(not started\)/i)
-				.find('brn-progress-indicator')
+				.find('hlm-progress-indicator')
 				.should('have.attr', 'data-value', 0);
 			cy.findByLabelText(/loading \(not started\)/i)
-				.find('brn-progress-indicator')
+				.find('hlm-progress-indicator')
 				.should('have.attr', 'data-state', 'loading');
 		});
 	});
@@ -46,7 +46,7 @@ describe('progress', () => {
 				},
 			});
 
-			cy.findByLabelText(/loading \(started\)/i).should('have.attr', 'aria-labelledby', 'loading started');
+			cy.findByLabelText(/loading \(started\)/i).should('have.attr', 'aria-labelledby', 'loading');
 			cy.findByLabelText(/loading \(started\)/i).should('have.attr', 'aria-valuemax', 100);
 			cy.findByLabelText(/loading \(started\)/i).should('have.attr', 'aria-valuemin', 0);
 			cy.findByLabelText(/loading \(started\)/i).should('have.attr', 'data-max', 100);
@@ -54,13 +54,13 @@ describe('progress', () => {
 			cy.findByLabelText(/loading \(started\)/i).should('have.attr', 'aria-valuenow', 30);
 			cy.findByLabelText(/loading \(started\)/i).should('have.attr', 'data-state', 'loading');
 			cy.findByLabelText(/loading \(started\)/i)
-				.find('brn-progress-indicator')
+				.find('hlm-progress-indicator')
 				.should('have.attr', 'data-max', 100);
 			cy.findByLabelText(/loading \(started\)/i)
-				.find('brn-progress-indicator')
+				.find('hlm-progress-indicator')
 				.should('have.attr', 'data-value', 30);
 			cy.findByLabelText(/loading \(started\)/i)
-				.find('brn-progress-indicator')
+				.find('hlm-progress-indicator')
 				.should('have.attr', 'data-state', 'loading');
 		});
 	});
@@ -87,13 +87,13 @@ describe('progress', () => {
 			cy.findByLabelText(/indeterminate/i).should('not.have.attr', 'aria-valuenow');
 			cy.findByLabelText(/indeterminate/i).should('have.attr', 'data-state', 'indeterminate');
 			cy.findByLabelText(/indeterminate/i)
-				.find('brn-progress-indicator')
+				.find('hlm-progress-indicator')
 				.should('have.attr', 'data-max', 100);
 			cy.findByLabelText(/indeterminate/i)
-				.find('brn-progress-indicator')
+				.find('hlm-progress-indicator')
 				.should('not.have.attr', 'data-value');
 			cy.findByLabelText(/indeterminate/i)
-				.find('brn-progress-indicator')
+				.find('hlm-progress-indicator')
 				.should('have.attr', 'data-state', 'indeterminate');
 		});
 	});
@@ -120,13 +120,13 @@ describe('progress', () => {
 			cy.findByLabelText(/complete/i).should('have.attr', 'aria-valuenow', 100);
 			cy.findByLabelText(/complete/i).should('have.attr', 'data-state', 'complete');
 			cy.findByLabelText(/complete/i)
-				.find('brn-progress-indicator')
+				.find('hlm-progress-indicator')
 				.should('have.attr', 'data-max', 100);
 			cy.findByLabelText(/complete/i)
-				.find('brn-progress-indicator')
+				.find('hlm-progress-indicator')
 				.should('have.attr', 'data-value', 100);
 			cy.findByLabelText(/complete/i)
-				.find('brn-progress-indicator')
+				.find('hlm-progress-indicator')
 				.should('have.attr', 'data-state', 'complete');
 		});
 	});

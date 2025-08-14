@@ -33,9 +33,9 @@ export const LoadingNotStarted: Story = {
 		props: { ...args },
 		template: `
     <h2 hlmLabel id='loading'>Loading (not started)</h2>
-    <brn-progress class='mt-2 mb-8' aria-labelledby='loading' hlm ${argsToTemplate(args)}>
-      <brn-progress-indicator hlm/>
-    </brn-progress>
+    <hlm-progress class='mt-2 mb-8' aria-labelledby='loading' ${argsToTemplate(args)}>
+      <hlm-progress-indicator />
+    </hlm-progress>
     `,
 	}),
 };
@@ -45,9 +45,9 @@ export const LoadingStarted: Story = {
 		props: { ...args },
 		template: `
     <h2 hlmLabel id='loading'>Loading (started)</h2>
-    <brn-progress class='mt-2 mb-8' aria-labelledby='loading started' hlm ${argsToTemplate(args)}>
-      <brn-progress-indicator hlm/>
-    </brn-progress>
+    <hlm-progress class='mt-2 mb-8' aria-labelledby='loading' ${argsToTemplate(args)}>
+      <hlm-progress-indicator />
+    </hlm-progress>
     `,
 	}),
 };
@@ -60,9 +60,9 @@ export const Indeterminate: Story = {
 		props: args,
 		template: `
     <h2 hlmLabel id='indeterminate'>Indeterminate</h2>
-    <brn-progress class='mt-2 mb-8' aria-labelledby='indeterminate' hlm ${argsToTemplate(args)}>
-      <brn-progress-indicator hlm/>
-    </brn-progress>
+    <hlm-progress class='mt-2 mb-8' aria-labelledby='indeterminate' ${argsToTemplate(args)}>
+      <hlm-progress-indicator />
+    </hlm-progress>
     `,
 	}),
 };
@@ -75,9 +75,9 @@ export const Complete: Story = {
 		props: args,
 		template: `
     <h2 hlmLabel id='complete'>Complete</h2>
-    <brn-progress class='mt-2 mb-8' aria-labelledby='complete' hlm ${argsToTemplate(args)}>
-      <brn-progress-indicator hlm/>
-    </brn-progress>
+    <hlm-progress class='mt-2 mb-8' aria-labelledby='complete' ${argsToTemplate(args)}>
+      <hlm-progress-indicator />
+    </hlm-progress>
     `,
 	}),
 };

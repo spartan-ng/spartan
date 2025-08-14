@@ -6,6 +6,7 @@ import { brainToggleHealthcheck } from './healthchecks/brn-toggle-group';
 import { coreImportsHealthcheck } from './healthchecks/core-imports';
 import { helmImportsHealthcheck } from './healthchecks/helm-imports';
 import { helmIconHealthcheck } from './healthchecks/hlm-icon';
+import { progressHealthcheck } from './healthchecks/hlm-progress';
 import { scrollAreaHealthcheck } from './healthchecks/hlm-scroll-area';
 import { selectHealthcheck } from './healthchecks/hlm-select';
 import { namingConventionHealthcheck } from './healthchecks/naming-conventions';
@@ -29,6 +30,7 @@ export async function healthcheckGenerator(tree: Tree, options: HealthcheckGener
 		brainToggleHealthcheck,
 		helmImportsHealthcheck,
 		namingConventionHealthcheck,
+		progressHealthcheck,
 	];
 
 	const failedReports: HealthcheckReport[] = [];

@@ -12,7 +12,7 @@ export interface HlmDateRangePickerConfig<T> {
 	 * @param dates
 	 * @returns formatted date
 	 */
-	formatDates: (dates: T[]) => string;
+	formatDates: (dates: [T | undefined, T | undefined]) => string;
 
 	/**
 	 * Defines how the date should be transformed before saving to model/form.
@@ -20,18 +20,22 @@ export interface HlmDateRangePickerConfig<T> {
 	 * @param dates
 	 * @returns transformed date
 	 */
-	transformDates: (dates: T[]) => T[];
+	transformDates: (dates: [T, T]) => [T, T];
 }
 
 function getDefaultConfig<T>(): HlmDateRangePickerConfig<T> {
 	return {
-		formatDates: (dates) => dates.map((date) => (date instanceof Date ? date.toDateString() : `${date}`)).join(', '),
+		formatDates: (dates) =>
+			dates
+				.filter(Boolean)
+				.map((date) => (date instanceof Date ? date.toDateString() : `${date}`))
+				.join(' - '),
 		transformDates: (dates) => dates,
 		autoCloseOnEndSelection: false,
 	};
 }
 
-const HlmDateRangePickerConfigToken = new InjectionToken<HlmDateRangePickerConfig<unknown>>('HlmDatePickerMultiConfig');
+const HlmDateRangePickerConfigToken = new InjectionToken<HlmDateRangePickerConfig<unknown>>('HlmDateRangePickerConfig');
 
 export function provideHlmDateRangePickerConfig<T>(config: Partial<HlmDateRangePickerConfig<T>>): ValueProvider {
 	return { provide: HlmDateRangePickerConfigToken, useValue: { ...getDefaultConfig(), ...config } };

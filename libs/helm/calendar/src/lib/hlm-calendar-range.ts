@@ -51,8 +51,6 @@ import type { ClassValue } from 'clsx';
 			brnCalendarRange
 			[min]="min()"
 			[max]="max()"
-			[minSelection]="minSelection()"
-			[maxSelection]="maxSelection()"
 			[disabled]="disabled()"
 			[(startDate)]="startDate"
 			[(endDate)]="endDate"
@@ -138,24 +136,16 @@ export class HlmCalendarRange<T> {
 	/** The maximum date that can be selected. */
 	public readonly max = input<T>();
 
-	/** The minimum selectable dates.  */
-	public readonly minSelection = input<number, NumberInput>(undefined, {
-		transform: numberAttribute,
-	});
-
-	/** The maximum selectable dates.  */
-	public readonly maxSelection = input<number, NumberInput>(undefined, {
-		transform: numberAttribute,
-	});
-
 	/** Determine if the date picker is disabled. */
 	public readonly disabled = input<boolean, BooleanInput>(false, {
 		transform: booleanAttribute,
 	});
 
-	public readonly startDate = model<T | undefined>(undefined);
+	/** The start date of the range. */
+	public readonly startDate = model<T>();
 
-	public readonly endDate = model<T | undefined>(undefined);
+	/** The end date of the range. */
+	public readonly endDate = model<T>();
 
 	/** Whether a specific date is disabled. */
 	public readonly dateDisabled = input<(date: T) => boolean>(() => false);

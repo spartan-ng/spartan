@@ -12,7 +12,6 @@ import {
 	input,
 	model,
 	numberAttribute,
-	output,
 	signal,
 } from '@angular/core';
 import { injectDateAdapter } from '@spartan-ng/brain/date-time';
@@ -40,16 +39,6 @@ export class BrnCalendarRange<T> implements BrnCalendarBase<T> {
 
 	/** The maximum date that can be selected. */
 	public readonly max = input<T>();
-
-	/** The minimum selectable dates.  */
-	public readonly minSelection = input<number, NumberInput>(undefined, {
-		transform: numberAttribute,
-	});
-
-	/** The maximum selectable dates.  */
-	public readonly maxSelection = input<number, NumberInput>(undefined, {
-		transform: numberAttribute,
-	});
 
 	/** Determine if the date picker is disabled. */
 	public readonly disabled = input<boolean, BooleanInput>(false, {
@@ -94,19 +83,9 @@ export class BrnCalendarRange<T> implements BrnCalendarBase<T> {
 	public readonly startDate = model<T | undefined>(undefined);
 
 	/**
-	 * Emit when the date changes.
-	 */
-	public readonly startDateChange = output<T | undefined>();
-
-	/**
 	 * The selected end date
 	 */
 	public readonly endDate = model<T | undefined>(undefined);
-
-	/**
-	 * Emit when the end date changes.
-	 */
-	public readonly endDateChange = output<T | undefined>();
 
 	/**
 	 * Get all the days to display, this is the days of the current month
@@ -161,26 +140,26 @@ export class BrnCalendarRange<T> implements BrnCalendarBase<T> {
 
 		if (!start && !end) {
 			this.startDate.set(date);
-			this.startDateChange.emit(date);
+
 			return;
 		}
 
 		if (start && !end) {
 			if (this._dateAdapter.isAfter(date, start)) {
 				this.endDate.set(date);
-				this.endDateChange.emit(date);
-			} else {
+			} else if (this._dateAdapter.isBefore(date, start)) {
 				this.startDate.set(date);
-				this.startDateChange.emit(date);
+				this.endDate.set(start);
+			} else if (this._dateAdapter.isSameDay(date, start)) {
+				this.endDate.set(date);
 			}
 			return;
 		}
 
 		// If both start and end are selected, reset selection
 		this.startDate.set(date);
-		this.startDateChange.emit(date);
+
 		this.endDate.set(undefined);
-		this.endDateChange.emit(undefined);
 	}
 
 	// same as in brn-calendar.directive.ts

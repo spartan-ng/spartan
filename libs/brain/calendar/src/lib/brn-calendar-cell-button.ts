@@ -8,7 +8,7 @@ import { injectBrnCalendar } from './brn-calendar.token';
 		role: 'gridcell',
 		'[tabindex]': 'focusable() ? 0 : -1',
 		type: 'button',
-		'[attr.data-outside]': "outside() && !end() ? '' : null",
+		'[attr.data-outside]': "outside() && (!end() && !start())? '' : null",
 		'[attr.data-today]': "today() && !selected() ? '' : null",
 		'[attr.data-selected]': "selected() ? '' : null",
 		'[attr.data-disabled]': "disabled() ? '' : null",

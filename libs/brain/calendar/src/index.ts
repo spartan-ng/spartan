@@ -23,7 +23,7 @@ import { BrnCalendarPreviousButton } from './lib/brn-calendar-previous-button';
 import { BrnCalendarWeek } from './lib/brn-calendar-week';
 import { BrnCalendarWeekday } from './lib/brn-calendar-weekday';
 import { BrnCalendarMulti } from './lib/mode/brn-calendar-multiple';
-import {BrnCalendarRange} from './lib/mode/brn-calendar-range';
+import { BrnCalendarRange } from './lib/mode/brn-calendar-range';
 
 export const BrnCalendarImports = [
 	BrnCalendarCellButton,

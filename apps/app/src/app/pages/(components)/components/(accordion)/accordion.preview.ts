@@ -28,14 +28,15 @@ import { HlmIcon } from '@spartan-ng/helm/icon';
 					<ng-icon name="lucideChevronDown" hlm hlmAccIcon />
 				</button>
 				<hlm-accordion-content>
-					Our flagship product combines cutting-edge technology with sleek design. Built with premium materials, it
-					offers unparalleled performance and reliability.
+					<p>
+						Our flagship product combines cutting-edge technology with sleek design. Built with premium materials, it
+						offers unparalleled performance and reliability.
+					</p>
 
-					<br />
-					<br />
-
-					Key features include advanced processing capabilities, and an intuitive user interface designed for both
-					beginners and experts.
+					<p>
+						Key features include advanced processing capabilities, and an intuitive user interface designed for both
+						beginners and experts.
+					</p>
 				</hlm-accordion-content>
 			</div>
 
@@ -45,13 +46,15 @@ import { HlmIcon } from '@spartan-ng/helm/icon';
 					<ng-icon name="lucideChevronDown" hlm hlmAccIcon />
 				</button>
 				<hlm-accordion-content>
-					We offer worldwide shipping through trusted courier partners. Standard delivery takes 3-5 business days, while
-					express shipping ensures delivery within 1-2 business days.
+					<p>
+						We offer worldwide shipping through trusted courier partners. Standard delivery takes 3-5 business days,
+						while express shipping ensures delivery within 1-2 business days.
+					</p>
 
-					<br />
-					<br />
-					All orders are carefully packaged and fully insured. Track your shipment in real-time through our dedicated
-					tracking portal.
+					<p>
+						All orders are carefully packaged and fully insured. Track your shipment in real-time through our dedicated
+						tracking portal.
+					</p>
 				</hlm-accordion-content>
 			</div>
 
@@ -61,12 +64,15 @@ import { HlmIcon } from '@spartan-ng/helm/icon';
 					<ng-icon name="lucideChevronDown" hlm hlmAccIcon />
 				</button>
 				<hlm-accordion-content>
-					We stand behind our products with a comprehensive 30-day return policy. If you're not completely satisfied,
-					simply return the item in its original condition.
-					<br />
-					<br />
-					Our hassle-free return process includes free return shipping and full refunds processed within 48 hours of
-					receiving the returned item.
+					<p>
+						We stand behind our products with a comprehensive 30-day return policy. If you're not completely satisfied,
+						simply return the item in its original condition.
+					</p>
+
+					<p>
+						Our hassle-free return process includes free return shipping and full refunds processed within 48 hours of
+						receiving the returned item.
+					</p>
 				</hlm-accordion-content>
 			</div>
 		</div>

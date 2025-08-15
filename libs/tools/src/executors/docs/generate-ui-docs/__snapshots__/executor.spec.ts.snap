@@ -735,6 +735,52 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "outputs": [],
         "selector": "[brnCalendarPreviousButton]",
       },
+      "BrnCalendarRange": {
+        "inputs": [
+          {
+            "name": "min",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "name": "max",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "dateDisabled",
+            "required": false,
+            "type": "(date: T) => boolean",
+          },
+          {
+            "name": "weekStartsOn",
+            "required": false,
+            "type": "Weekday",
+          },
+          {
+            "name": "defaultFocusedDate",
+            "required": false,
+            "type": "T",
+          },
+        ],
+        "models": [
+          {
+            "name": "startDate",
+            "type": "T | undefined",
+          },
+          {
+            "name": "endDate",
+            "type": "T | undefined",
+          },
+        ],
+        "outputs": [],
+        "selector": "[brnCalendarRange]",
+      },
       "BrnCalendarWeek": {
         "inputs": [],
         "models": [],
@@ -852,6 +898,57 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "outputs": [],
         "selector": "hlm-calendar-multi",
+      },
+      "HlmCalendarRange": {
+        "inputs": [
+          {
+            "name": "calendarClass",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "min",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "name": "max",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "dateDisabled",
+            "required": false,
+            "type": "(date: T) => boolean",
+          },
+          {
+            "name": "weekStartsOn",
+            "required": false,
+            "type": "Weekday",
+          },
+          {
+            "name": "defaultFocusedDate",
+            "required": false,
+            "type": "T",
+          },
+        ],
+        "models": [
+          {
+            "name": "startDate",
+            "type": "T",
+          },
+          {
+            "name": "endDate",
+            "type": "T",
+          },
+        ],
+        "outputs": [],
+        "selector": "hlm-calendar-range",
       },
     },
   },
@@ -1517,6 +1614,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "boolean",
           },
           {
+            "name": "date",
+            "required": false,
+            "type": "T",
+          },
+          {
             "name": "autoCloseOnSelect",
             "required": false,
             "type": "boolean",
@@ -1532,15 +1634,10 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "(date: T) => T",
           },
         ],
-        "models": [
-          {
-            "name": "date",
-            "type": "T",
-          },
-        ],
+        "models": [],
         "outputs": [
           {
-            "name": "changed",
+            "name": "dateChange",
             "type": "T",
           },
         ],
@@ -1579,6 +1676,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "boolean",
           },
           {
+            "name": "date",
+            "required": false,
+            "type": "T[]",
+          },
+          {
             "name": "autoCloseOnMaxSelection",
             "required": false,
             "type": "boolean",
@@ -1594,19 +1696,66 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "(date: T[]) => T[]",
           },
         ],
-        "models": [
-          {
-            "name": "date",
-            "type": "T[]",
-          },
-        ],
+        "models": [],
         "outputs": [
           {
-            "name": "changed",
+            "name": "dateChange",
             "type": "T[]",
           },
         ],
         "selector": "hlm-date-picker-multi",
+      },
+      "HlmDateRangePicker": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "min",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "name": "max",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "date",
+            "required": false,
+            "type": "[T, T]",
+          },
+          {
+            "name": "autoCloseOnEndSelection",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "formatDates",
+            "required": false,
+            "type": "(dates: [T | undefined, T | undefined]) => string",
+          },
+          {
+            "name": "transformDates",
+            "required": false,
+            "type": "(date: [T, T]) => [T, T]",
+          },
+        ],
+        "models": [],
+        "outputs": [
+          {
+            "name": "dateChange",
+            "type": "[T, T] | null",
+          },
+        ],
+        "selector": "hlm-date-range-picker",
       },
     },
   },

@@ -19,7 +19,7 @@ export class DatePickerPreview {
 }
 
 export const defaultImports = `
-import { HlmDatePickerComponent } from '@spartan-ng/helm/date-picker';
+import { HlmDatePicker } from '@spartan-ng/helm/date-picker';
 `;
 
 export const defaultSkeleton = `

@@ -8,12 +8,15 @@ import { injectBrnCalendar } from './brn-calendar.token';
 		role: 'gridcell',
 		'[tabindex]': 'focusable() ? 0 : -1',
 		type: 'button',
-		'[attr.data-outside]': "outside() ? '' : null",
+		'[attr.data-outside]': "outside() && (!end() && !start())? '' : null",
 		'[attr.data-today]': "today() && !selected() ? '' : null",
 		'[attr.data-selected]': "selected() ? '' : null",
 		'[attr.data-disabled]': "disabled() ? '' : null",
 		'[attr.aria-selected]': "selected() ? 'true' : null",
 		'[attr.aria-disabled]': "disabled() ? 'true' : null",
+		'[attr.data-range-start]': 'start() ? "" : null',
+		'[attr.data-range-end]': 'end() ? "" : null',
+		'[attr.data-range-between]': 'betweenRange() ? "" : null',
 		'[disabled]': 'disabled()',
 		'(click)': '_calendar.selectDate(date())',
 		'(keydown.arrowLeft)': 'focusPrevious($event)',
@@ -41,6 +44,9 @@ export class BrnCalendarCellButton<T> {
 
 	/** Whether this date is currently selected */
 	public readonly selected = computed(() => this._calendar.isSelected(this.date()));
+	public readonly start = computed(() => this._calendar.isStartOfRange(this.date()));
+	public readonly end = computed(() => this._calendar.isEndOfRange(this.date()));
+	public readonly betweenRange = computed(() => this._calendar.isBetweenRange(this.date()));
 
 	/** Whether this date is focusable */
 	public readonly focusable = computed(() => this._dateAdapter.isSameDay(this._calendar.focusedDate(), this.date()));

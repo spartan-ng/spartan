@@ -9,6 +9,10 @@ export interface BrnCalendarBase<T> {
 	isDateDisabled: (date: T) => boolean;
 	setFocusedDate: (date: T) => void;
 
+	isStartOfRange: (date: T) => boolean;
+	isEndOfRange: (date: T) => boolean;
+	isBetweenRange: (date: T) => boolean;
+
 	disabled: Signal<boolean>;
 	focusedDate: Signal<T>;
 	header: Signal<BrnCalendarHeader | undefined>;

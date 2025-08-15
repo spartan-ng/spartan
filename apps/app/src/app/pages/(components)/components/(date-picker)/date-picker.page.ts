@@ -2,6 +2,8 @@ import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { DatePickerFormRangeExample } from '@spartan-ng/app/app/pages/(components)/components/(date-picker)/date-picker--form-range.example';
+import { DatePickerRangeExample } from '@spartan-ng/app/app/pages/(components)/components/(date-picker)/date-picker--range.example';
 import { CodePreview } from '@spartan-ng/app/app/shared/code/code-preview';
 import { MainSection } from '@spartan-ng/app/app/shared/layout/main-section';
 import { HlmButton } from '@spartan-ng/helm/button';
@@ -52,6 +54,8 @@ export const routeMeta: RouteMeta = {
 		DatePickerFormMultipleExample,
 		RouterLink,
 		HlmButton,
+		DatePickerRangeExample,
+		DatePickerFormRangeExample,
 	],
 	template: `
 		<section spartanMainSection>
@@ -140,6 +144,25 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_multiCode()" />
 			</spartan-tabs>
 
+			<h3 id="examples__range" class="${hlmH4} mb-2 mt-6">Range Picker</h3>
+
+			<p class="${hlmP} mb-6">
+				Use
+				<code class="${hlmCode}">hlm-date-range-picker</code>
+				for range date selection. Set the range by using
+				<code class="${hlmCode}">startDate</code>
+				and
+				<code class="${hlmCode}">endDate</code>
+				inputs.
+			</p>
+
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-date-picker-range />
+				</div>
+				<spartan-code secondTab [code]="_rangeCode()" />
+			</spartan-tabs>
+
 			<h3 id="examples__format_date" class="${hlmH4} mb-2 mt-6">Format Date</h3>
 
 			<p class="${hlmP} mb-6">
@@ -184,6 +207,21 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_formMultiCode()" />
 			</spartan-tabs>
 
+			<h3 id="examples__form_range" class="${hlmH4} mb-2 mt-6">Form Range Picker</h3>
+			<p class="${hlmP} mb-6">
+				Sync the dates to a form by adding
+				<code class="${hlmCode}">formControlName</code>
+				to
+				<code class="${hlmCode}">hlm-date-range-picker</code>
+				.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-date-picker-form-range />
+				</div>
+				<spartan-code secondTab [code]="_formRangeCode()" />
+			</spartan-tabs>
+
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="dialog" label="Dialog" />
 				<spartan-page-bottom-nav-link direction="previous" href="data-table" label="Data Table" />
@@ -198,8 +236,10 @@ export default class CardPage {
 	protected readonly _configCode = computed(() => this._snippets()['config']);
 	protected readonly _formCode = computed(() => this._snippets()['form']);
 	protected readonly _formMultiCode = computed(() => this._snippets()['formMulti']);
+	protected readonly _formRangeCode = computed(() => this._snippets()['formRange']);
 	protected readonly _formatCode = computed(() => this._snippets()['format']);
 	protected readonly _multiCode = computed(() => this._snippets()['multi']);
+	protected readonly _rangeCode = computed(() => this._snippets()['range']);
 	protected readonly _defaultImports = defaultImports;
 	protected readonly _codeSkeleton = defaultSkeleton;
 }

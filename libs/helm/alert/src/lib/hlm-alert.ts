@@ -4,7 +4,7 @@ import { type VariantProps, cva } from 'class-variance-authority';
 import type { ClassValue } from 'clsx';
 
 const alertVariants = cva(
-	'relative w-full rounded-lg border px-4 py-3 text-sm grid has-[>[hlmAlertIcon]]:grid-cols-[calc(theme(spacing.1)*4)_1fr] grid-cols-[0_1fr] has-[>[hlmAlertIcon]]:gap-x-3 gap-y-0.5 items-start [&>[hlmAlertIcon]]:size-4 [&>[hlmAlertIcon]]:translate-y-0.5 [&>[hlmAlertIcon]]:text-current',
+	'relative w-full rounded-lg border px-4 py-3 text-sm has-[>[hlmAlertIcon]]:grid has-[>[hlmAlertIcon]]:grid-cols-[calc(theme(spacing.1)*4)_1fr] has-[>[hlmAlertIcon]]:gap-x-3 gap-y-0.5 items-start [&>[hlmAlertIcon]]:size-4 [&>[hlmAlertIcon]]:translate-y-0.5 [&>[hlmAlertIcon]]:text-current',
 	{
 		variants: {
 			variant: {

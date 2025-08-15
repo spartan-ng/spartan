@@ -54,7 +54,7 @@ const lead = 'leading-normal text-muted-foreground sm:text-xl sm:leading-8';
 					Proudly supported by Zerops. The dev-first cloud platform.
 					<spartan-zerops-logo class="ml-1.5 mr-1 h-4 w-4" />
 				</a>
-				<h1 class="font-heading text-3xl sm:text-5xl md:text-6xl lg:text-7xl">
+				<h1 class="text-3xl font-semibold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
 					Cutting-edge tools powering Angular full-stack development.
 				</h1>
 				<p class="${lead} max-w-[42rem]">

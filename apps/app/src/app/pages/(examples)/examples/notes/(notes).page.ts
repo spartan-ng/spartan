@@ -79,7 +79,7 @@ export const routeMeta: RouteMeta = {
 		</form>
 		<div class="flex flex-col space-y-4 pb-12 pt-4">
 			@if (showNotesArray()) {
-				@for (note of state().notes ?? []; track noteTrackBy($index, note)) {
+				@for (note of state().notes; track noteTrackBy($index, note)) {
 					<analog-trpc-note
 						[note]="note"
 						[deletionInProgress]="deleteIdInProgress() === note.id"

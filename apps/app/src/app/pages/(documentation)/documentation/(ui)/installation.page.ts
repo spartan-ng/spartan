@@ -124,9 +124,8 @@ module.exports = {
 				>
 					Tailwind CSS IntelliSense
 				</a>
-				plugin, it is suggested to add the
-				<code class="${hlmCode}">hlm</code>
-				function to the tailwindCSS.classFunctions in either your workspace settings
+				plugin, you can enable autocompletion inside
+				<code class="${hlmCode}">hlm</code> and <code class="${hlmCode}">cva</code>
 				<code class="${hlmCode}">.code-workspace</code>
 				file or VSCode's
 				<code class="${hlmCode}">settings.json</code>

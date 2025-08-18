@@ -38,8 +38,6 @@ export const routeMeta: RouteMeta = {
 		PageBottomNavLink,
 		PageNav,
 		CalendarMultipleExample,
-		CalendarMultipleExample,
-		CalendarMultipleExample,
 		CalendarRangeExample,
 	],
 	template: `

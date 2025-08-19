@@ -5,14 +5,12 @@ import type { ClassValue } from 'clsx';
 
 @Directive({
 	selector: '[hlmDialogTitle]',
+	hostDirectives: [BrnDialogTitle],
 	host: {
 		'[class]': '_computedClass()',
 	},
-	hostDirectives: [BrnDialogTitle],
 })
 export class HlmDialogTitle {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected readonly _computedClass = computed(() =>
-		hlm('text-lg font-semibold leading-none tracking-tight', this.userClass()),
-	);
+	protected readonly _computedClass = computed(() => hlm('text-lg font-semibold leading-none', this.userClass()));
 }

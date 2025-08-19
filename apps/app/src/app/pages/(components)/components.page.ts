@@ -33,8 +33,8 @@ export const routeMeta: RouteMeta = {
 			class="text-primary-foreground border-border bg-primary mx-auto my-2 max-w-[95vw] rounded-lg border p-4"
 		>
 			<ng-icon hlm hlmAlertIcon name="lucideRocket" class="!text-primary-foreground" />
-			<h2 hlmAlertTitle>Spartans get ready! v1 is coming!</h2>
-			<div hlmAlertDescription>
+			<h2 hlmAlertTitle class="font-semibold tracking-normal">Spartans get ready! v1 is coming!</h2>
+			<div hlmAlertDescription class="text-muted">
 				<p>
 					We are very close to our first stable release. Expect more announcements in the coming weeks. v1 was made
 					possible by

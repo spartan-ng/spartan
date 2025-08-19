@@ -136,7 +136,7 @@ export default class H1Component {}
 
 export const h3Code = `
 import { Component } from '@angular/core';
-import { hlmH1 } from '@spartan-ng/helm/typography';
+import { hlmH3 } from '@spartan-ng/helm/typography';
 
 @Component({
   selector: 'spartan-h3',

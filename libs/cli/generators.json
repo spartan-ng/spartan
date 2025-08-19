@@ -59,6 +59,11 @@
 			"factory": "./src/generators/migrate-naming-convention/generator",
 			"schema": "./src/generators/migrate-naming-convention/schema.json",
 			"description": "Migrate naming conventions to the latest standards"
+		},
+		"migrate-progress": {
+			"factory": "./src/generators/migrate-progress/generator",
+			"schema": "./src/generators/migrate-progress/schema.json",
+			"description": "Migrate brn-progress to hlm-progress"
 		}
 	},
 	"schematics": {
@@ -121,6 +126,11 @@
 			"factory": "./src/generators/migrate-naming-convention/compat",
 			"schema": "./src/generators/migrate-naming-convention/schema.json",
 			"description": "Migrate naming conventions to the latest standards"
+		},
+		"migrate-progress": {
+			"factory": "./src/generators/migrate-progress/compat",
+			"schema": "./src/generators/migrate-progress/schema.json",
+			"description": "Migrate brn-progress to hlm-progress"
 		}
 	}
 }

@@ -1,14 +1,13 @@
 import { Component, type OnInit } from '@angular/core';
-import { BrnProgress, BrnProgressIndicator } from '@spartan-ng/brain/progress';
 import { HlmProgress, HlmProgressIndicator } from '@spartan-ng/helm/progress';
 
 @Component({
 	selector: 'spartan-progress-preview',
-	imports: [BrnProgress, BrnProgressIndicator, HlmProgressIndicator, HlmProgress],
+	imports: [HlmProgressIndicator, HlmProgress],
 	template: `
-		<brn-progress hlm class="w-80" aria-labelledby="loading" [value]="value">
-			<brn-progress-indicator hlm />
-		</brn-progress>
+		<hlm-progress class="w-80" aria-labelledby="loading" [value]="value">
+			<hlm-progress-indicator />
+		</hlm-progress>
 	`,
 })
 export class ProgressPreview implements OnInit {
@@ -20,14 +19,11 @@ export class ProgressPreview implements OnInit {
 }
 
 export const defaultImports = `
-import {
-  BrnProgress
-  BrnProgressIndicator
-} from '@spartan-ng/brain/progress';
 import { HlmProgressDirective, HlmProgressIndicatorDirective } from '@spartan-ng/helm/progress';
 `;
+
 export const defaultSkeleton = `
-<brn-progress hlm [value]="value">
-   <brn-progress-indicator hlm />
-</brn-progress>
+<hlm-progress [value]="value">
+   <hlm-progress-indicator />
+</hlm-progress>
 `;

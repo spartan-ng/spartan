@@ -1,6 +1,10 @@
-import { type GeneratorCallback, type Tree, runTasksInSerial } from '@nx/devkit';
+import { type GeneratorCallback, type Tree, getProjects, runTasksInSerial } from '@nx/devkit';
 import { prompt } from 'enquirer';
 import { Config, getOrCreateConfig } from '../../utils/config';
+import { GenerateAs } from '../base/lib/generate-as';
+import { initializeAngularEntrypoint } from '../base/lib/initialize-angular-library';
+import { singleLibName } from '../base/lib/single-lib-name';
+import type { HlmBaseGeneratorSchema } from '../base/schema';
 import { addDependentPrimitives } from './add-dependent-primitive';
 import { Primitive } from './primitives';
 import type { HlmUIGeneratorSchema } from './schema';
@@ -47,7 +51,12 @@ export async function createPrimitiveLibraries(
 	availablePrimitiveNames: Primitive[],
 	availablePrimitives: PrimitiveDefinitions,
 	tree: Tree,
-	options: HlmUIGeneratorSchema & { angularCli?: boolean; installPeerDependencies?: boolean; buildable?: boolean },
+	options: HlmUIGeneratorSchema & {
+		angularCli?: boolean;
+		installPeerDependencies?: boolean;
+		buildable?: boolean;
+		generateAs?: GenerateAs;
+	},
 	config: Config,
 ) {
 	const allPrimitivesSelected = response.primitives.includes('all');
@@ -61,6 +70,22 @@ export async function createPrimitiveLibraries(
 
 	if (primitivesToCreate.length === 1 && primitivesToCreate[0] === 'collapsible') {
 		return tasks;
+	}
+
+	const projects = getProjects(tree);
+
+	if (
+		typeof config.generateAs === 'string' &&
+		config.generateAs === 'entrypoint' &&
+		!options.angularCli &&
+		!projects.has(singleLibName)
+	) {
+		const task = await initializeAngularEntrypoint(tree, {
+			tags: options.tags,
+			directory: options.directory ?? config.componentsPath,
+			buildable: config.buildable,
+		});
+		tasks.push(task);
 	}
 
 	// Use Promise.all() to handle parallel execution of primitive library creation tasks
@@ -85,7 +110,8 @@ export async function createPrimitiveLibraries(
 				rootProject: options.rootProject,
 				angularCli: options.angularCli,
 				buildable: options.buildable ?? config.buildable,
-			});
+				generateAs: options.generateAs ?? config.generateAs ?? 'library',
+			} satisfies HlmBaseGeneratorSchema);
 		}),
 	);
 

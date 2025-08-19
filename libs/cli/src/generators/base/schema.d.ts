@@ -1,3 +1,5 @@
+import { GenerateAs } from './lib/generate-as';
+
 export interface HlmBaseGeneratorSchema {
 	primitiveName: string;
 	internalName: string;
@@ -8,4 +10,5 @@ export interface HlmBaseGeneratorSchema {
 	peerDependencies?: Record<string, string>;
 	angularCli?: boolean;
 	buildable: boolean;
+	generateAs: GenerateAs;
 }

@@ -25,28 +25,34 @@ import { HlmIcon } from '@spartan-ng/helm/icon';
 	template: `
 		<div hlmAccordion type="multiple" class="pb-4">
 			<div hlmAccordionItem [isOpened]="true">
-				<button hlmAccordionTrigger>
-					Is it accessible?
-					<ng-icon name="lucideChevronDown" hlm hlmAccIcon />
-				</button>
+				<h3 class="contents">
+					<button hlmAccordionTrigger>
+						Is it accessible?
+						<ng-icon name="lucideChevronDown" hlm hlmAccIcon />
+					</button>
+				</h3>
 				<hlm-accordion-content>Yes. It adheres to the WAI-ARIA design pattern.</hlm-accordion-content>
 			</div>
 
 			<div hlmAccordionItem>
-				<button hlmAccordionTrigger>
-					Is it styled?
-					<ng-icon name="lucideChevronDown" hlm hlmAccIcon />
-				</button>
+				<h3 class="contents">
+					<button hlmAccordionTrigger>
+						Is it styled?
+						<ng-icon name="lucideChevronDown" hlm hlmAccIcon />
+					</button>
+				</h3>
 				<hlm-accordion-content>
 					Yes. It comes with default styles that match the other components' aesthetics.
 				</hlm-accordion-content>
 			</div>
 
 			<div hlmAccordionItem [isOpened]="_thirdOpened()">
-				<button hlmAccordionTrigger>
-					Is it animated?
-					<ng-icon name="lucideChevronDown" hlm hlmAccIcon />
-				</button>
+				<h3 class="contents">
+					<button hlmAccordionTrigger>
+						Is it animated?
+						<ng-icon name="lucideChevronDown" hlm hlmAccIcon />
+					</button>
+				</h3>
 				<hlm-accordion-content>
 					Yes. It's animated by default, but you can disable it if you prefer.
 				</hlm-accordion-content>

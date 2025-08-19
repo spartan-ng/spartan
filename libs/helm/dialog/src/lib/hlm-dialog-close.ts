@@ -13,7 +13,7 @@ export class HlmDialogClose {
 
 	protected readonly _computedClass = computed(() =>
 		hlm(
-			'ring-offset-background focus:ring-ring data-[state=open]:bg-accent data-[state=open]:text-muted-foreground absolute right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:pointer-events-none',
+			'ring-offset-background focus:ring-ring data-[state=open]:bg-accent data-[state=open]:text-muted-foreground rounded-xs focus:outline-hidden absolute right-4 top-4 opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 disabled:pointer-events-none [&_ng-icon]:pointer-events-none [&_ng-icon]:shrink-0',
 			this.userClass(),
 		),
 	);

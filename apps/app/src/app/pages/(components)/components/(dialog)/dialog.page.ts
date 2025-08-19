@@ -5,7 +5,7 @@ import { lucideTriangleAlert } from '@ng-icons/lucide';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { HlmAlert, HlmAlertDescription, HlmAlertIcon, HlmAlertTitle } from '@spartan-ng/helm/alert';
 import { HlmIcon } from '@spartan-ng/helm/icon';
-import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
+import { hlmCode, hlmH4, hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
@@ -93,7 +93,8 @@ export const routeMeta: RouteMeta = {
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="helm" />
 
-			<spartan-section-sub-heading id="declarative-usage">Declarative Usage</spartan-section-sub-heading>
+			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
+			<h3 id="examples__declarative-usage" class="${hlmH4} mb-2 mt-6">Declarative Usage</h3>
 			<p class="${hlmP} mb-6">
 				Spartan's dialog supports declarative usage. Simply set it's state
 				<code class="${hlmCode}">input</code>
@@ -112,7 +113,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_declarativeCode()" />
 			</spartan-tabs>
 
-			<spartan-section-sub-heading id="inside-menu">Inside Menu</spartan-section-sub-heading>
+			<h3 id="examples__inside-menu" class="${hlmH4} mb-2 mt-6">Inside Menu</h3>
 			<p class="${hlmP} mb-6">
 				You can nest dialogs inside context or dropdown menus. Make sure to wrap the menu-item inside the
 				<code class="${hlmCode}">brn-dialog</code>
@@ -125,18 +126,20 @@ export const routeMeta: RouteMeta = {
 			<div hlmAlert class="mb-6" variant="destructive">
 				<ng-icon hlm name="lucideTriangleAlert" hlmAlertIcon />
 				<p hlmAlertTitle>Note</p>
-				<p hlmAlertDescription class="leading-loose">
-					Do not use the
-					<code class="${hlmCode}">HlmMenuItem</code>
-					or
-					<code class="${hlmCode}">BrnMenuItem</code>
-					directives as they conflict with
-					<code class="${hlmCode}">BrnDialogTrigger</code>
-					&
-					<code class="${hlmCode}">brnDialogTriggerFor!</code>
-					We expose the hlm variants so you can directly use them to style your elements. Check out the code of the
-					example below!
-				</p>
+				<div hlmAlertDescription class="leading-loose">
+					<p>
+						Do not use the
+						<code class="${hlmCode}">HlmMenuItem</code>
+						or
+						<code class="${hlmCode}">BrnMenuItem</code>
+						directives as they conflict with
+						<code class="${hlmCode}">BrnDialogTrigger</code>
+						&
+						<code class="${hlmCode}">brnDialogTriggerFor!</code>
+						We expose the hlm variants so you can directly use them to style your elements. Check out the code of the
+						example below!
+					</p>
+				</div>
 			</div>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -145,7 +148,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_contextMenuCode()" />
 			</spartan-tabs>
 
-			<spartan-section-sub-heading id="dynamic-component">Dynamic Component</spartan-section-sub-heading>
+			<h3 id="examples__dynamic-component" class="${hlmH4} mb-2 mt-6">Dynamic Component</h3>
 			<p class="${hlmP} mb-6">
 				You can dynamically open a dialog with a component rendered as the content. The dialog context can be injected
 				into the dynamic component using the provided
@@ -155,13 +158,15 @@ export const routeMeta: RouteMeta = {
 			<div hlmAlert class="mb-6" variant="destructive">
 				<ng-icon hlm name="lucideTriangleAlert" hlmAlertIcon />
 				<p hlmAlertTitle>Note</p>
-				<p hlmAlertDescription class="leading-loose">
-					Avoid using the
-					<code class="${hlmCode}">&lt;hlm-dialog-content&gt;</code>
-					tag when your dialog relies on dynamic content. Using it in this case can cause the dialog to repeatedly
-					render itself in a loop. The tag is meant to wrap static content for the dialog, but with a dynamic component,
-					the component automatically acts as the wrapper.
-				</p>
+				<div hlmAlertDescription class="leading-loose">
+					<p>
+						Avoid using the
+						<code class="${hlmCode}">&lt;hlm-dialog-content&gt;</code>
+						tag when your dialog relies on dynamic content. Using it in this case can cause the dialog to repeatedly
+						render itself in a loop. The tag is meant to wrap static content for the dialog, but with a dynamic
+						component, the component automatically acts as the wrapper.
+					</p>
+				</div>
 			</div>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -170,7 +175,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_dynamicComponentCode()" />
 			</spartan-tabs>
 
-			<spartan-section-sub-heading id="close-dialog">Close Dialog</spartan-section-sub-heading>
+			<h3 id="examples__close-dialog" class="${hlmH4} mb-2 mt-6">Close Dialog</h3>
 			<p class="${hlmP} mb-6">
 				You can close the dialog by using a directive, a template reference, or a viewchild/contentchild reference to
 				the dialog.

@@ -14,6 +14,11 @@
 			"implementation": "./src/executors/docs/generate-ui-docs/executor",
 			"schema": "./src/executors/docs/generate-ui-docs/schema.json",
 			"description": "Generates UI API Docs"
+		},
+		"static-data-fetcher": {
+			"implementation": "./src/executors/static-data-fetcher/static-data-fetcher",
+			"schema": "./src/executors/static-data-fetcher/schema.json",
+			"description": "Static Data Fetcher Executor"
 		}
 	}
 }

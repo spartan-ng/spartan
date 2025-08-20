@@ -22,15 +22,15 @@ export class BrnPopoverTrigger extends BrnDialogTrigger {
 	constructor() {
 		super();
 		if (!this._brnDialog) return;
-		this._brnDialog.mutableAttachTo().set(this._host.nativeElement);
-		this._brnDialog.mutableCloseOnOutsidePointerEvents().set(true);
+		this._brnDialog.mutableAttachTo.set(this._host.nativeElement);
+		this._brnDialog.mutableCloseOnOutsidePointerEvents.set(true);
 
 		effect(() => {
 			const brnDialog = this.brnPopoverTriggerFor();
 			untracked(() => {
 				if (!brnDialog) return;
-				brnDialog.mutableAttachTo().set(this._host.nativeElement);
-				brnDialog.mutableCloseOnOutsidePointerEvents().set(true);
+				brnDialog.mutableAttachTo.set(this._host.nativeElement);
+				brnDialog.mutableCloseOnOutsidePointerEvents.set(true);
 				this.mutableBrnDialogTriggerFor().set(brnDialog);
 			});
 		});

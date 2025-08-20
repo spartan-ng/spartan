@@ -45,7 +45,7 @@ export class BrnPopover extends BrnDialog {
 		effect(() => {
 			const align = this.align();
 			untracked(() => {
-				this.mutableAttachPositions().set([
+				this.mutableAttachPositions.set([
 					{
 						originX: align,
 						originY: 'bottom',
@@ -73,7 +73,7 @@ export class BrnPopover extends BrnDialog {
 	}
 
 	private applySideOffset(sideOffset: number) {
-		this.mutableAttachPositions().update((positions) =>
+		this.mutableAttachPositions.update((positions) =>
 			positions.map((position) => ({
 				...position,
 				offsetY: position.originY === 'top' ? -sideOffset : sideOffset,

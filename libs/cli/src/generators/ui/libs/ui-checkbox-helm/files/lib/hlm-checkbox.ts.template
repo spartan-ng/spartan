@@ -16,7 +16,7 @@ import { lucideCheck } from '@ng-icons/lucide';
 import { BrnCheckbox } from '@spartan-ng/brain/checkbox';
 import { hlm } from '@spartan-ng/brain/core';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
-import { HlmIcon } from '@spartan-ng/helm/icon';
+import { HlmIcon } from '<%- importAlias %>/icon';
 import type { ClassValue } from 'clsx';
 
 export const HLM_CHECKBOX_VALUE_ACCESSOR = {

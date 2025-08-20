@@ -61,14 +61,19 @@ export const routeMeta: RouteMeta = {
 
 			<p class="${hlmP}">Generate the components as a library or entrypoint.</p>
 
+			<h3 id="importAlias" class="${hlmH4} mt-8">importAlias</h3>
+
+			<p class="${hlmP}">Specify the import path of the component e.g. &#64;spartan-ng/helm.</p>
+
 			<spartan-code
 				class="mt-3"
 				language="js"
 				code='
 {
-	"componentsPath": "libs/ui"
-	"buildable": true
-	"generateAs": "library" | "entrypoint"
+	"componentsPath": "libs/ui",
+	"buildable": true,
+	"generateAs": "library" | "entrypoint",
+	"importAlias": "@spartan-ng/helm"
 }'
 			/>
 

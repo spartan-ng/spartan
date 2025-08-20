@@ -4,7 +4,7 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideX } from '@ng-icons/lucide';
 import { hlm } from '@spartan-ng/brain/core';
 import { BrnDialogClose, BrnDialogRef, injectBrnDialogContext } from '@spartan-ng/brain/dialog';
-import { HlmIcon } from '@spartan-ng/helm/icon';
+import { HlmIcon } from '<%- importAlias %>/icon';
 import type { ClassValue } from 'clsx';
 import { HlmDialogClose } from './hlm-dialog-close';
 

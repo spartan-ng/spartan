@@ -4,8 +4,8 @@ import { RouterLink } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronRight } from '@ng-icons/lucide';
 import { hlm } from '@spartan-ng/brain/core';
-import { ButtonVariants } from '@spartan-ng/helm/button';
-import { HlmIcon } from '@spartan-ng/helm/icon';
+import { ButtonVariants } from '<%- importAlias %>/button';
+import { HlmIcon } from '<%- importAlias %>/icon';
 import { ClassValue } from 'clsx';
 import { HlmPaginationLink } from './hlm-pagination-link';
 

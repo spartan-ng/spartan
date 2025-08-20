@@ -17,7 +17,7 @@ import { HlmSkeleton } from '@spartan-ng/helm/skeleton';
 export class SkeletonPreview {}
 
 export const defaultImports = `
-import { HlmSkeletonComponent } from '@spartan-ng/helm/skeleton';
+import { HlmSkeleton } from '@spartan-ng/helm/skeleton';
 `;
 export const defaultSkeleton = `
 <hlm-skeleton class="h-[20px] w-[100px] rounded-full" />

@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { BrnAlertDialogContent, BrnAlertDialogTrigger } from '@spartan-ng/brain/alert-dialog';
 import {
-	HlmAlertDialog,
-	HlmAlertDialogActionButton,
-	HlmAlertDialogCancelButton,
-	HlmAlertDialogContent,
-	HlmAlertDialogDescription,
-	HlmAlertDialogFooter,
-	HlmAlertDialogHeader,
-	HlmAlertDialogTitle,
+    HlmAlertDialog,
+    HlmAlertDialogActionButton,
+    HlmAlertDialogCancelButton,
+    HlmAlertDialogContent,
+    HlmAlertDialogDescription,
+    HlmAlertDialogFooter,
+    HlmAlertDialogHeader,
+    HlmAlertDialogTitle,
 } from '@spartan-ng/helm/alert-dialog';
 import { HlmButton } from '@spartan-ng/helm/button';
 
@@ -49,7 +49,7 @@ import { HlmButton } from '@spartan-ng/helm/button';
 export class AlertDialogPreview {}
 
 export const defaultImports = `
-import { BrnAlertDialogContentDirective, BrnAlertDialogTriggerDirective } from '@spartan-ng/brain/alert-dialog';
+import { BrnAlertDialogContent, BrnAlertDialogTrigger } from '@spartan-ng/brain/alert-dialog';
 import {
   HlmAlertDialogActionButton
   HlmAlertDialogCancelButton

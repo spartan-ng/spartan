@@ -115,7 +115,7 @@ import {
 export class ContextMenuPreview {}
 
 export const defaultImports = `
-import { BrnContextMenuTriggerDirective, BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
+import { BrnContextMenuTrigger, BrnMenuTrigger } from '@spartan-ng/brain/menu';
 import {
   HlmMenu
   HlmMenuGroup

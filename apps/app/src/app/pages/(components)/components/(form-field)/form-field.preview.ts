@@ -20,7 +20,7 @@ export class FormFieldPreview {
 
 export const defaultImports = `
 import { HlmFormFieldModule } from '@spartan-ng/helm/form-field';
-import { HlmInputDirective } from '@spartan-ng/helm/input';
+import { HlmInput } from '@spartan-ng/helm/input';
 `;
 export const defaultSkeleton = `
 <hlm-form-field>

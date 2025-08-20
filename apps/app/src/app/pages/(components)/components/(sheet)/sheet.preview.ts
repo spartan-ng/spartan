@@ -59,7 +59,7 @@ import {
 export class SheetPreview {}
 
 export const defaultImports = `
-import { BrnSheetContentDirective, BrnSheetTriggerDirective } from '@spartan-ng/brain/sheet';
+import { BrnSheetContent, BrnSheetTrigger } from '@spartan-ng/brain/sheet';
 import {
   HlmSheet
   HlmSheetContent

@@ -14,7 +14,7 @@ import { HlmAvatar, HlmAvatarFallback, HlmAvatarImage } from '@spartan-ng/helm/a
 export class AvatarPreview {}
 
 export const defaultImports = `
-import { HlmAvatarImageDirective, HlmAvatarComponent, HlmAvatarFallbackDirective } from '@spartan-ng/helm/avatar';
+import { HlmAvatarImage, HlmAvatar, HlmAvatarFallback } from '@spartan-ng/helm/avatar';
 `;
 
 export const defaultSkeleton = `

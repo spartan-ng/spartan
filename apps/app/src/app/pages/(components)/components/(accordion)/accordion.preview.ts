@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { NgIcon } from '@ng-icons/core';
 import {
-	HlmAccordion,
-	HlmAccordionContent,
-	HlmAccordionIcon,
-	HlmAccordionItem,
-	HlmAccordionTrigger,
+    HlmAccordion,
+    HlmAccordionContent,
+    HlmAccordionIcon,
+    HlmAccordionItem,
+    HlmAccordionTrigger,
 } from '@spartan-ng/helm/accordion';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 
@@ -89,7 +89,7 @@ import {
   HlmAccordionItem
   HlmAccordionTrigger
 } from '@spartan-ng/helm/accordion';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { HlmIcon } from '@spartan-ng/helm/icon';
 `;
 
 export const defaultSkeleton = `

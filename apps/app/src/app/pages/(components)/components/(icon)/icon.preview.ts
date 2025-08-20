@@ -16,7 +16,7 @@ import { HlmIcon } from '@spartan-ng/helm/icon';
 export class IconPreview {}
 
 export const defaultImports = `
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { HlmIcon } from '@spartan-ng/helm/icon';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 `;
 

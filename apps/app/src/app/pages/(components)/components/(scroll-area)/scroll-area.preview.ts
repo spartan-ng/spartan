@@ -25,7 +25,7 @@ export class ScrollAreaPreview {
 }
 
 export const defaultImports = `
-import { HlmScrollAreaDirective } from '@spartan-ng/helm/scroll-area';
+import { HlmScrollArea } from '@spartan-ng/helm/scroll-area';
 `;
 export const defaultSkeleton = `
 <ng-scrollbar hlm class="border w-72 rounded-md border-border">

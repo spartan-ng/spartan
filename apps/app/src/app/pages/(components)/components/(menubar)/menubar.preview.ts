@@ -169,7 +169,7 @@ import {
 export class MenubarPreview {}
 
 export const defaultImports = `
-import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
+import { BrnMenuTrigger } from '@spartan-ng/brain/menu';
 import {
   HlmMenuBar
   HlmMenuBarItem

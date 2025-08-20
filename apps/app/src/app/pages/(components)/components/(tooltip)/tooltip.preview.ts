@@ -32,8 +32,8 @@ import { HlmTooltip, HlmTooltipTrigger } from '@spartan-ng/helm/tooltip';
 export class TooltipPreview {}
 
 export const defaultImports = `
-import { BrnTooltipContentDirective } from '@spartan-ng/brain/tooltip';
-import { HlmTooltipComponent, HlmTooltipTriggerDirective } from '@spartan-ng/helm/tooltip';
+import { BrnTooltipContent } from '@spartan-ng/brain/tooltip';
+import { HlmTooltip, HlmTooltipTrigger } from '@spartan-ng/helm/tooltip';
 `;
 export const defaultSkeleton = `
 <hlm-tooltip>

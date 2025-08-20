@@ -1,32 +1,32 @@
 import { Component } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import {
-    lucideCircleHelp,
-    lucideCirclePlus,
-    lucideCircleUser,
-    lucideCode,
-    lucideCog,
-    lucideGithub,
-    lucideKeyboard,
-    lucideLayers,
-    lucideLogOut,
-    lucideMail,
-    lucideMessageSquare,
-    lucidePlus,
-    lucideSmile,
-    lucideUser,
+	lucideCircleHelp,
+	lucideCirclePlus,
+	lucideCircleUser,
+	lucideCode,
+	lucideCog,
+	lucideGithub,
+	lucideKeyboard,
+	lucideLayers,
+	lucideLogOut,
+	lucideMail,
+	lucideMessageSquare,
+	lucidePlus,
+	lucideSmile,
+	lucideUser,
 } from '@ng-icons/lucide';
 import { BrnMenuTrigger } from '@spartan-ng/brain/menu';
 import { HlmButton } from '@spartan-ng/helm/button';
 import {
-    HlmMenu,
-    HlmMenuGroup,
-    HlmMenuItem,
-    HlmMenuItemSubIndicator,
-    HlmMenuLabel,
-    HlmMenuSeparator,
-    HlmMenuShortcut,
-    HlmSubMenu,
+	HlmMenu,
+	HlmMenuGroup,
+	HlmMenuItem,
+	HlmMenuItemSubIndicator,
+	HlmMenuLabel,
+	HlmMenuSeparator,
+	HlmMenuShortcut,
+	HlmSubMenu,
 } from '@spartan-ng/helm/menu';
 
 @Component({

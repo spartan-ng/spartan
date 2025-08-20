@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { NgIcon } from '@ng-icons/core';
 import {
-    HlmAccordion,
-    HlmAccordionContent,
-    HlmAccordionIcon,
-    HlmAccordionItem,
-    HlmAccordionTrigger,
+	HlmAccordion,
+	HlmAccordionContent,
+	HlmAccordionIcon,
+	HlmAccordionItem,
+	HlmAccordionTrigger,
 } from '@spartan-ng/helm/accordion';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 

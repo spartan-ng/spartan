@@ -1,11 +1,13 @@
 import { type Tree, readJson } from '@nx/devkit';
 import { prompt } from 'enquirer';
+import { GenerateAs } from '../generators/base/lib/generate-as';
 
 const configPath = 'components.json';
 
 export type Config = {
 	componentsPath: string;
 	buildable: boolean;
+	generateAs: GenerateAs;
 };
 
 export async function getOrCreateConfig(tree: Tree, defaults?: Partial<Config>): Promise<Config> {
@@ -15,7 +17,7 @@ export async function getOrCreateConfig(tree: Tree, defaults?: Partial<Config>):
 
 	console.log('Configuration file not found, creating a new one...');
 
-	const { componentsPath, buildable } = (await prompt([
+	const { componentsPath, buildable, generateAs } = (await prompt([
 		{
 			type: 'input',
 			required: true,
@@ -31,9 +33,17 @@ export async function getOrCreateConfig(tree: Tree, defaults?: Partial<Config>):
 			initial: defaults?.buildable ?? true,
 			skip: typeof defaults?.buildable === 'boolean',
 		},
-	])) as { componentsPath: string; buildable: boolean };
+		{
+			type: 'select',
+			choices: ['library', 'entrypoint'],
+			name: 'generateAs',
+			message: 'How should we generate the components?',
+			initial: 0,
+			skip: typeof defaults?.generateAs === 'string',
+		},
+	])) as { componentsPath: string; buildable: boolean; generateAs: GenerateAs };
 
-	const config = { componentsPath, buildable };
+	const config = { componentsPath, buildable, generateAs };
 
 	tree.write(configPath, JSON.stringify(config, null, 2));
 

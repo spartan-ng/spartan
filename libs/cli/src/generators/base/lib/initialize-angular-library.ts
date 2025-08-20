@@ -1,8 +1,10 @@
 import { UnitTestRunner } from '@nx/angular/generators';
-import { type Tree, joinPathFragments, readNxJson } from '@nx/devkit';
+import { Schema } from '@nx/angular/src/generators/library/schema';
+import { type Tree, joinPathFragments, readNxJson, updateJson } from '@nx/devkit';
 import * as path from 'path';
 import { ObjectLiteralExpression, Project, SyntaxKind } from 'ts-morph';
 import type { HlmBaseGeneratorSchema } from '../schema';
+import { singleLibName } from './single-lib-name';
 
 function addRulesToEslintOverride(tree: Tree, libRoot: string, filePattern: string, newRules: Record<string, string>) {
 	const eslintPath = joinPathFragments(libRoot, 'eslint.config.mjs');
@@ -56,6 +58,12 @@ function addRulesToEslintOverride(tree: Tree, libRoot: string, filePattern: stri
 function addTsRules(tree: Tree, libRoot: string) {
 	addRulesToEslintOverride(tree, libRoot, '"**/*.ts"', {
 		'"@angular-eslint/no-input-rename"': '"off"',
+		'"@nx/enforce-module-boundaries"': `
+		(() => {
+  const r = baseConfig.find(c => c.rules && c.rules["@nx/enforce-module-boundaries"])?.rules["@nx/enforce-module-boundaries"];
+  return r ? [r[0], { ...r[1], allowCircularSelfDependency: true }] : undefined;
+})()
+		`,
 		'"@angular-eslint/directive-class-suffix"': '"off"',
 		'"@angular-eslint/component-class-suffix"': '"off"',
 		'"@typescript-eslint/naming-convention"': `[
@@ -85,25 +93,85 @@ function addRules(tree: Tree, libRoot: string) {
 	addHtmlRules(tree, libRoot);
 }
 
+function cleanupSingleLibFolder(tree: Tree, dir: string) {
+	// delete everything in the src directory except the index.ts file
+	const srcDir = joinPathFragments(dir, 'src');
+	const files = tree.children(srcDir).filter((file) => file !== 'index.ts');
+	for (const file of files) {
+		const filePath = joinPathFragments(srcDir, file);
+		if (tree.exists(filePath)) {
+			tree.delete(filePath);
+		}
+	}
+
+	// replace the content of the index.ts with "export default null;"
+	const indexPath = joinPathFragments(srcDir, 'index.ts');
+	if (tree.exists(indexPath)) {
+		tree.write(
+			indexPath,
+			'// This file is intentionally left empty. Import from the respective entrypoint.\nexport default null;',
+		);
+	}
+}
+
+const defaultSchema: Partial<Schema> = {
+	skipFormat: true,
+	simpleName: true,
+	prefix: 'hlm',
+	skipModule: true,
+	skipTests: true,
+	strict: true,
+	unitTestRunner: UnitTestRunner.None,
+};
+
+export async function initializeAngularEntrypoint(
+	tree: Tree,
+	options: Pick<HlmBaseGeneratorSchema, 'directory' | 'buildable' | 'tags'>,
+) {
+	const { libraryGenerator } = await import('@nx/angular/generators');
+	const dir = joinPathFragments(options.directory);
+	const callback = await libraryGenerator(tree, {
+		...(readNxJson(tree).generators?.['@nx/angular:library'] || {}),
+		...defaultSchema,
+		flat: true,
+		name: singleLibName,
+		buildable: options.buildable,
+		importPath: `@spartan-ng/helm`,
+		directory: dir,
+		tags: options.tags,
+	});
+
+	cleanupSingleLibFolder(tree, dir);
+	addRules(tree, dir);
+
+	updateJson(tree, joinPathFragments(dir, 'tsconfig.lib.json'), (json) => {
+		const include = json.include || [];
+		if (!include.includes('**/*.ts')) {
+			include.push('**/*.ts');
+		}
+		json.include = include;
+		return json;
+	});
+
+	return callback;
+}
+
 export async function initializeAngularLibrary(tree: Tree, options: HlmBaseGeneratorSchema) {
 	const { libraryGenerator } = await import('@nx/angular/generators');
 
+	const dir = joinPathFragments(options.directory, options.publicName);
+
 	const callback = await libraryGenerator(tree, {
 		...(readNxJson(tree).generators?.['@nx/angular:library'] || {}),
+		...defaultSchema,
 		name: options.publicName,
-		skipFormat: true,
-		simpleName: true,
 		buildable: options.buildable,
 		importPath: `@spartan-ng/helm/${options.primitiveName}`,
-		prefix: 'hlm',
-		skipModule: true,
-		directory: joinPathFragments(options.directory, options.publicName),
+		directory: dir,
 		tags: options.tags,
-		skipTests: true,
-		unitTestRunner: UnitTestRunner.None,
 	});
 
-	addRules(tree, joinPathFragments(options.directory, options.publicName));
+	addRules(tree, dir);
 
 	return callback;
 }

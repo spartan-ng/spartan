@@ -33,6 +33,9 @@ export class HlmAspectRatio {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 
 	protected readonly _computedClass = computed(() =>
-		hlm('relative w-full [&_img]:absolute [&_img]:w-full [&_img]:h-full [&_img]:object-cover', this.userClass()),
+		hlm(
+			'relative w-full [&>*:first-child]:absolute [&>*:first-child]:w-full [&>*:first-child]:h-full [&>*:first-child]:object-cover',
+			this.userClass(),
+		),
 	);
 }

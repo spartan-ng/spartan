@@ -14,6 +14,8 @@ export async function migrateHelmLibrariesGenerator(tree: Tree, options: Migrate
 	// Detect the libraries that are already installed
 	const existingLibraries = await detectLibraries(tree);
 
+	const config = await getOrCreateConfig(tree);
+
 	if (existingLibraries.length === 0) {
 		logger.info('No libraries to migrate');
 		return;
@@ -57,8 +59,12 @@ export async function migrateHelmLibrariesGenerator(tree: Tree, options: Migrate
 		libraries = existingLibraries;
 	}
 
-	await removeExistingLibraries(tree, options, libraries as Primitive[]);
-	await regenerateLibraries(tree, options, libraries as Primitive[]);
+	await removeExistingLibraries(tree, { ...options, generateAs: config.generateAs }, libraries as Primitive[]);
+	await regenerateLibraries(
+		tree,
+		{ ...options, generateAs: config.generateAs, buildable: config.buildable },
+		libraries as Primitive[],
+	);
 
 	await formatFiles(tree);
 }
@@ -119,7 +125,7 @@ async function removeExistingLibraries(
 		const path = tsconfigPath[0];
 
 		// if we are in the Nx CLI we can use the nx generator to remove a library
-		if (!options.angularCli) {
+		if (!options.angularCli && options.generateAs === 'library') {
 			// We get the projectName from the project.json in the path of the library
 			const projectRoot = dirname(path).replace(/\/src$/, '');
 			const packageJsonPath = join(projectRoot, 'project.json');

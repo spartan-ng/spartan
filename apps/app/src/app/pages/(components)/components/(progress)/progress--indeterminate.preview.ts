@@ -1,14 +1,13 @@
 import { Component } from '@angular/core';
-import { BrnProgress, BrnProgressIndicator } from '@spartan-ng/brain/progress';
 import { HlmProgress, HlmProgressIndicator } from '@spartan-ng/helm/progress';
 
 @Component({
 	selector: 'spartan-progress-indeterminate',
-	imports: [BrnProgress, BrnProgressIndicator, HlmProgressIndicator, HlmProgress],
+	imports: [HlmProgressIndicator, HlmProgress],
 	template: `
-		<brn-progress class="w-80" hlm aria-labelledby="loading">
-			<brn-progress-indicator hlm />
-		</brn-progress>
+		<hlm-progress class="w-80">
+			<hlm-progress-indicator />
+		</hlm-progress>
 	`,
 })
 export class ProgressIndeterminatePreview {}

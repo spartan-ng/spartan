@@ -69,7 +69,7 @@ export class BrnCalendarRange<T> implements BrnCalendarBase<T> {
 	 * The internal state of the component.
 	 */
 	public readonly state = computed(() => ({
-		focusedDate: signal(this.constrainDate(this.defaultFocusedDate() ?? this._dateAdapter.now())),
+		focusedDate: signal(this.constrainDate(this.defaultFocusedDate() ?? this.startDate() ?? this._dateAdapter.now())),
 	}));
 
 	/**
@@ -80,12 +80,12 @@ export class BrnCalendarRange<T> implements BrnCalendarBase<T> {
 	/**
 	 * The selected start date
 	 */
-	public readonly startDate = model<T | undefined>(undefined);
+	public readonly startDate = model<T>();
 
 	/**
 	 * The selected end date
 	 */
-	public readonly endDate = model<T | undefined>(undefined);
+	public readonly endDate = model<T>();
 
 	/**
 	 * Get all the days to display, this is the days of the current month

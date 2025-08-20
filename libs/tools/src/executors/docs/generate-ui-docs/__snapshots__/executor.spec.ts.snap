@@ -770,11 +770,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [
           {
             "name": "startDate",
-            "type": "T | undefined",
+            "type": "T",
           },
           {
             "name": "endDate",
-            "type": "T | undefined",
+            "type": "T",
           },
         ],
         "outputs": [],

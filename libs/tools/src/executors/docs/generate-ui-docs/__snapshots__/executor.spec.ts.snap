@@ -3405,7 +3405,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "orientation",
             "required": false,
-            "type": "BrnSeparatorOrientation",
+            "type": "'horizontal' | 'vertical'",
           },
           {
             "name": "decorative",
@@ -3415,17 +3415,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "brn-separator",
+        "selector": "[brnSeparator],brn-separator",
       },
     },
     "helm": {
       "HlmSeparator": {
         "inputs": [
-          {
-            "name": "orientation",
-            "required": false,
-            "type": "HlmSeparatorOrientation",
-          },
           {
             "name": "class",
             "required": false,
@@ -3434,7 +3429,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "[hlmSeparator],brn-separator[hlm]",
+        "selector": "[hlmSeparator],hlm-separator",
       },
     },
   },

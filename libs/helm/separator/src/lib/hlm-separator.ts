@@ -14,7 +14,7 @@ export class HlmSeparator {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected _computedClass = computed(() =>
 		hlm(
-			'inline-flex shrink-0 border-0 bg-border',
+			'bg-border inline-flex shrink-0 border-0',
 			this.orientation() === 'horizontal' ? 'h-[1px] w-full' : 'h-full w-[1px]',
 			this.userClass(),
 		),

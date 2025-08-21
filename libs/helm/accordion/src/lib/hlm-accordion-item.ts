@@ -18,6 +18,6 @@ import type { ClassValue } from 'clsx';
 export class HlmAccordionItem {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>
-		hlm('flex flex-1 flex-col border-b border-border', this.userClass()),
+		hlm('border-border flex flex-1 flex-col border-b', this.userClass()),
 	);
 }

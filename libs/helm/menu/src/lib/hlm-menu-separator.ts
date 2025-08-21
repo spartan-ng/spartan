@@ -12,5 +12,5 @@ import { ClassValue } from 'clsx';
 })
 export class HlmMenuSeparator {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected readonly _computedClass = computed(() => hlm('block bg-border -mx-1 my-1 h-px', this.userClass()));
+	protected readonly _computedClass = computed(() => hlm('bg-border -mx-1 my-1 block h-px', this.userClass()));
 }

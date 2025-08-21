@@ -34,7 +34,7 @@ export class HlmAspectRatio {
 
 	protected readonly _computedClass = computed(() =>
 		hlm(
-			'relative w-full [&>*:first-child]:absolute [&>*:first-child]:w-full [&>*:first-child]:h-full [&>*:first-child]:object-cover',
+			'relative w-full [&>*:first-child]:absolute [&>*:first-child]:h-full [&>*:first-child]:w-full [&>*:first-child]:object-cover',
 			this.userClass(),
 		),
 	);

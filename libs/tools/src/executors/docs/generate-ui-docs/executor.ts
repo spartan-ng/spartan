@@ -29,6 +29,11 @@ function extractInputsOutputs(project: Project, workspaceRoot: string) {
 	const inputsOutputs = {};
 
 	project.getSourceFiles().forEach((sourceFile) => {
+		// if the source file is a .spec.ts file then skip
+		if (sourceFile.getFilePath().endsWith('.spec.ts')) {
+			return;
+		}
+
 		sourceFile.getClasses().forEach((cls) => {
 			const className = cls.getName();
 			// Get the full file path and make it relative to workspace root

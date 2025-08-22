@@ -15,7 +15,7 @@ import { HlmSwitch } from '@spartan-ng/helm/switch';
 export class SwitchPreview {}
 
 export const defaultImports = `
-import { HlmSwitchComponent } from '@spartan-ng/helm/switch';
+import { HlmSwitch } from '@spartan-ng/helm/switch';
 `;
 export const defaultSkeleton = `
 <hlm-switch />

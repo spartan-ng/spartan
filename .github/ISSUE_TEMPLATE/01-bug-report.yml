@@ -1,6 +1,6 @@
 name: Bug Report
 description: Report a bug inside spartan
-labels: [bug]
+labels: [ bug ]
 
 body:
   - type: markdown
@@ -56,6 +56,7 @@ body:
         - select
         - separator
         - sheet
+        - sidebar
         - skeleton
         - slider
         - sonner

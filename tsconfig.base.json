@@ -98,6 +98,7 @@
 			"@spartan-ng/helm/select": ["libs/helm/select/src/index.ts"],
 			"@spartan-ng/helm/separator": ["libs/helm/separator/src/index.ts"],
 			"@spartan-ng/helm/sheet": ["libs/helm/sheet/src/index.ts"],
+			"@spartan-ng/helm/sidebar": ["libs/helm/sidebar/src/index.ts"],
 			"@spartan-ng/helm/skeleton": ["libs/helm/skeleton/src/index.ts"],
 			"@spartan-ng/helm/slider": ["libs/helm/slider/src/index.ts"],
 			"@spartan-ng/helm/sonner": ["libs/helm/sonner/src/index.ts"],

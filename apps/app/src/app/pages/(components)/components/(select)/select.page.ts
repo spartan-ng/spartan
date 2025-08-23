@@ -1,7 +1,7 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
-import { hlmH4 } from '@spartan-ng/helm/typography';
+import { hlmH4, hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
@@ -53,6 +53,19 @@ export const routeMeta: RouteMeta = {
 				</div>
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
+
+			<spartan-section-sub-heading id="about">About</spartan-section-sub-heading>
+			<p class="${hlmP} mb-6">
+				Select is built with the help of ListKeyManager from Material CDK
+				<a 
+					href="https://material.angular.dev/cdk/a11y/overview#listkeymanager"
+					target="_blank"
+					rel="noreferrer"
+				>
+				ListKeyManager
+				</a>
+				.
+			</p>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
 			<spartan-cli-tabs

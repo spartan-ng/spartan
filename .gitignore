@@ -58,6 +58,7 @@ vitest.config.*.timestamp*
 ### generated docs file
 apps/app/src/public/data/ui-api.json
 apps/app/src/public/data/primitives-snippets.json
+apps/app/src/public/data/github-repo.json
 
 .cursor/rules/nx-rules.mdc
 .github/instructions/nx.instructions.md

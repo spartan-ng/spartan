@@ -4,6 +4,7 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideGithub, lucideTwitter } from '@ng-icons/lucide';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmIcon } from '@spartan-ng/helm/icon';
+import { GithubStars } from '../github-stars';
 import { SpartanLogo } from '../spartan-logo';
 import { NavLink } from '../spartan-nav-link';
 import { HeaderDarkMode } from './header-dark-mode';
@@ -11,7 +12,7 @@ import { HeaderMobileNav } from './header-mobile-nav';
 
 @Component({
 	selector: 'spartan-header',
-	imports: [HlmButton, RouterLink, NgIcon, HlmIcon, NavLink, HeaderMobileNav, HeaderDarkMode, SpartanLogo],
+	imports: [HlmButton, RouterLink, NgIcon, HlmIcon, NavLink, HeaderMobileNav, HeaderDarkMode, SpartanLogo, GithubStars],
 	providers: [provideIcons({ lucideTwitter, lucideGithub })],
 	host: {
 		class: 'block sticky w-full top-0 z-40 bg-background/95 bg-blur-lg p-2 sm:px-4 border-b border-border',
@@ -43,6 +44,7 @@ import { HeaderMobileNav } from './header-mobile-nav';
 				<a href="https://github.com/goetzrobin/spartan" target="_blank" size="sm" variant="ghost" hlmBtn>
 					<span class="sr-only">Github</span>
 					<ng-icon hlm name="lucideGithub" size="sm" />
+					<github-stars />
 				</a>
 				<spartan-dark-mode />
 			</div>

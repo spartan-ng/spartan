@@ -122,7 +122,7 @@ function processPrimitive(tree: Tree, basePath: string, primitiveName: string): 
 export async function extractPrimitiveCodeGenerator(tree: Tree): Promise<void> {
 	logger.info('Extract Primitive Code generator running...');
 
-	const componentsDir = 'apps/app/src/app/pages/(components)/components';
+	const componentsDir = 'apps/app/src/app/pages/(layout)/(components)/components';
 	const componentDirs = getComponentDirectories(tree, componentsDir);
 
 	if (componentDirs.length === 0) {

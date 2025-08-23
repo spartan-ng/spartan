@@ -1,0 +1,27 @@
+{
+	"$schema": "https://json-schema.org/schema",
+	"version": 2,
+	"title": "StaticDataFetcher executor",
+	"description": "",
+	"type": "object",
+	"properties": {
+		"apiUrl": {
+			"type": "string",
+			"description": "The URL of the API to fetch data from"
+		},
+		"outputFile": {
+			"type": "string",
+			"description": "The file to write the fetched data to"
+		},
+		"headers": {
+			"type": "object",
+			"description": "Headers to send with the request"
+		},
+		"critical": {
+			"type": "boolean",
+			"description": "Whether to throw an error if the data cannot be fetched"
+		}
+	},
+	"required": ["apiUrl", "outputFile"],
+	"additionalProperties": false
+}

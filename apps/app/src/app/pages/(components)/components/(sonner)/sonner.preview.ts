@@ -25,7 +25,7 @@ export class SonnerPreview {
 
 export const defaultImports = `
 import { toast } from 'ngx-sonner';
-import { HlmToasterComponent } from '@spartan-ng/helm/sonner';
+import { HlmToaster } from '@spartan-ng/helm/sonner';
 `;
 export const defaultSkeleton = `
 <hlm-toaster />

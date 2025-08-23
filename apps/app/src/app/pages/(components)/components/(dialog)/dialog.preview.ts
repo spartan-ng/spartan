@@ -55,7 +55,7 @@ import { HlmLabel } from '@spartan-ng/helm/label';
 export class DialogPreview {}
 
 export const defaultImports = `
-import { BrnDialogContentDirective, BrnDialogTriggerDirective } from '@spartan-ng/brain/dialog';
+import { BrnDialogContent, BrnDialogTrigger } from '@spartan-ng/brain/dialog';
 import {
   HlmDialog
   HlmDialogContent

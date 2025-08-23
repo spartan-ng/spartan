@@ -24,7 +24,7 @@ import { HlmInputOtp, HlmInputOtpGroup, HlmInputOtpSeparator, HlmInputOtpSlot } 
 export class InputOtpPreview {}
 
 export const defaultImports = `
-import { BrnInputOtpComponent } from '@spartan-ng/brain/input-otp';
+import { BrnInputOtp } from '@spartan-ng/brain/input-otp';
 import {
 	HlmInputOtp
 	HlmInputOtpGroup

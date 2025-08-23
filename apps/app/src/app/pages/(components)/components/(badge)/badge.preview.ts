@@ -30,7 +30,7 @@ import { HlmBadge } from '@spartan-ng/helm/badge';
 export class BadgePreview {}
 
 export const defaultImports = `
-import { HlmBadgeDirective } from '@spartan-ng/helm/badge';
+import { HlmBadge } from '@spartan-ng/helm/badge';
 `;
 
 export const defaultSkeleton = `

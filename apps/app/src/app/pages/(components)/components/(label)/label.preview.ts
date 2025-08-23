@@ -17,6 +17,6 @@ import { HlmLabel } from '@spartan-ng/helm/label';
 export class LabelPreview {}
 
 export const defaultImports = `
-import { HlmLabelDirective } from '@spartan-ng/helm/label';
+import { HlmLabel } from '@spartan-ng/helm/label';
 `;
 export const defaultSkeleton = '<label hlmLabel>Label</label>';

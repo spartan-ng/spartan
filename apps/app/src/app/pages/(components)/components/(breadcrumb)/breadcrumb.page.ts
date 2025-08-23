@@ -110,7 +110,7 @@ export const routeMeta: RouteMeta = {
 			<h3 id="examples__collapsed" class="${hlmH4}">Collapsed</h3>
 			<p class="${hlmP} mb-2">
 				We provide a
-				<code class="${hlmCode} mr-0.5">HlmBreadcrumbEllipsisComponent</code>
+				<code class="${hlmCode} mr-0.5">HlmBreadcrumbEllipsis</code>
 				component to show a collapsed state when the breadcrumb is too long.
 			</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">

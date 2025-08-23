@@ -18,8 +18,8 @@ import { HlmToggle } from '@spartan-ng/helm/toggle';
 export class TogglePreview {}
 
 export const defaultImports = `
-import { HlmToggleDirective } from '@spartan-ng/helm/toggle';
-import { BrnToggleDirective } from '@spartan-ng/brain/toggle';
+import { HlmToggle } from '@spartan-ng/helm/toggle';
+import { BrnToggle } from '@spartan-ng/brain/toggle';
 `;
 export const defaultSkeleton = `
 <button brnToggle hlm>

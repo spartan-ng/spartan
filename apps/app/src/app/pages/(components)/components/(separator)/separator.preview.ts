@@ -25,8 +25,8 @@ import { HlmSeparator } from '@spartan-ng/helm/separator';
 export class SeparatorPreview {}
 
 export const defaultImports = `
-import { HlmSeparatorDirective } from '@spartan-ng/helm/separator';
-import { BrnSeparatorComponent } from '@spartan-ng/brain/separator';
+import { HlmSeparator } from '@spartan-ng/helm/separator';
+import { BrnSeparator } from '@spartan-ng/brain/separator';
 `;
 export const defaultSkeleton = `
 <brn-separator hlmSeparator/>

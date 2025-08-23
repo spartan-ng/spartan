@@ -11,7 +11,7 @@ import { HlmButton } from '@spartan-ng/helm/button';
 export class ButtonPreview {}
 
 export const defaultImports = `
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { HlmButton } from '@spartan-ng/helm/button';
 `;
 
 export const defaultSkeleton = `

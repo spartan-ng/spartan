@@ -89,7 +89,7 @@ import {
   HlmAccordionItem
   HlmAccordionTrigger
 } from '@spartan-ng/helm/accordion';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { HlmIcon } from '@spartan-ng/helm/icon';
 `;
 
 export const defaultSkeleton = `

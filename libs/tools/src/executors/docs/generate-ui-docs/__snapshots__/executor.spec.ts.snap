@@ -337,12 +337,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "outputs": [],
         "selector": "[hlmAspectRatio]",
       },
-      "Mock": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "hlm-mock",
-      },
     },
   },
   "avatar": {
@@ -372,18 +366,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [],
         "outputs": [],
         "selector": "img[brnAvatarImage]",
-      },
-      "BrnMock": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "brn-mock",
-      },
-      "Mock": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "brn-mock",
       },
     },
     "helm": {
@@ -418,24 +400,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [],
         "outputs": [],
         "selector": "img[hlmAvatarImage]",
-      },
-      "HlmMock": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "hlm-mock",
-      },
-      "Mock": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "string",
-          },
-        ],
-        "models": [],
-        "outputs": [],
-        "selector": "hlm-mock",
       },
     },
   },
@@ -1105,23 +1069,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           },
         ],
         "selector": "brn-checkbox",
-      },
-      "BrnCheckboxNgModelSpec": {
-        "inputs": [
-          {
-            "name": "disabled",
-            "required": false,
-            "type": "unknown",
-          },
-        ],
-        "models": [
-          {
-            "name": "airplaneMode",
-            "type": "unknown",
-          },
-        ],
-        "outputs": [],
-        "selector": "brn-checkbox-ng-model",
       },
     },
     "helm": {
@@ -1917,18 +1864,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "outputs": [],
         "selector": "hlm-hint",
       },
-      "SingleFormFieldDirtyMock": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "single-form-field-dirty-example",
-      },
-      "SingleFormFieldMock": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "single-form-field-example",
-      },
     },
   },
   "hover-card": {
@@ -2014,18 +1949,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "outputs": [],
         "selector": "ng-icon[hlm]",
       },
-      "HlmMock": {
-        "inputs": [
-          {
-            "name": "size",
-            "required": false,
-            "type": "string",
-          },
-        ],
-        "models": [],
-        "outputs": [],
-        "selector": "hlm-mock",
-      },
     },
   },
   "input": {
@@ -2058,28 +1981,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [],
         "outputs": [],
         "selector": "[hlmInputError]",
-      },
-      "HlmInputMock": {
-        "inputs": [
-          {
-            "name": "error",
-            "required": false,
-            "type": "'auto' | true",
-          },
-          {
-            "name": "userClass",
-            "required": false,
-            "type": "string",
-          },
-          {
-            "name": "required",
-            "required": false,
-            "type": "boolean",
-          },
-        ],
-        "models": [],
-        "outputs": [],
-        "selector": "hlm-input-mock",
       },
     },
   },
@@ -3226,54 +3127,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "outputs": [],
         "selector": "[brnSelectValue], [hlmSelectValue]",
       },
-      "SelectMultiValueTest": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "select-reactive-field-fixture",
-      },
-      "SelectMultiValueWithInitialValueTest": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "select-reactive-field-fixture",
-      },
-      "SelectMultiValueWithInitialValueWithForLoopTest": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "select-reactive-field-fixture",
-      },
-      "SelectNgModel": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "select-ngmodel-form",
-      },
-      "SelectReactiveField": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "select-reactive-field-fixture",
-      },
-      "SelectSingleValueTest": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "select-reactive-field-fixture",
-      },
-      "SelectSingleValueWithInitialValueTest": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "select-reactive-field-fixture",
-      },
-      "SelectSingleValueWithInitialValueWithAsyncUpdateTest": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "select-reactive-field-fixture",
-      },
     },
     "helm": {
       "HlmSelect": {
@@ -3668,26 +3521,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "outputs": [],
         "selector": "[brnSliderTrack]",
       },
-      "ReactiveFormSlider": {
-        "inputs": [],
-        "models": [
-          {
-            "name": "temperature",
-            "type": "number",
-          },
-        ],
-        "outputs": [],
-      },
-      "TemplateDrivenFormSlider": {
-        "inputs": [],
-        "models": [
-          {
-            "name": "temperature",
-            "type": "number",
-          },
-        ],
-        "outputs": [],
-      },
     },
     "helm": {
       "HlmSlider": {
@@ -3868,23 +3701,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           },
         ],
         "selector": "brn-switch",
-      },
-      "BrnSwitchNgModelSpec": {
-        "inputs": [
-          {
-            "name": "disabled",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "airplaneMode",
-            "required": false,
-            "type": "boolean",
-          },
-        ],
-        "models": [],
-        "outputs": [],
-        "selector": "brn-switch-ng-model",
       },
       "BrnSwitchThumb": {
         "inputs": [],
@@ -4107,22 +3923,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [],
         "outputs": [],
         "selector": "[brnTabsContent]",
-      },
-      "BrnTabsDirectiveSpec": {
-        "inputs": [
-          {
-            "name": "showTrigger",
-            "required": false,
-            "type": "unknown",
-          },
-          {
-            "name": "showContent",
-            "required": false,
-            "type": "unknown",
-          },
-        ],
-        "models": [],
-        "outputs": [],
       },
       "BrnTabsList": {
         "exportAs": "brnTabsList",
@@ -4364,43 +4164,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           },
         ],
         "selector": "brn-toggle-group",
-      },
-      "BrnToggleGroupDirectiveFormSpec": {
-        "inputs": [
-          {
-            "name": "value",
-            "required": false,
-            "type": "string | string[]",
-          },
-          {
-            "name": "multiple",
-            "required": false,
-            "type": "boolean",
-          },
-        ],
-        "models": [],
-        "outputs": [],
-      },
-      "BrnToggleGroupDirectiveSpec": {
-        "inputs": [
-          {
-            "name": "value",
-            "required": false,
-            "type": "string | string[]",
-          },
-          {
-            "name": "disabled",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "multiple",
-            "required": false,
-            "type": "boolean",
-          },
-        ],
-        "models": [],
-        "outputs": [],
       },
       "BrnToggleGroupItem": {
         "inputs": [

@@ -75,7 +75,7 @@ function registerDependencies(tree: Tree, options: HlmBaseGeneratorSchema): Gene
 export async function hlmBaseGenerator(tree: Tree, options: HlmBaseGeneratorSchema) {
 	const tasks: GeneratorCallback[] = [];
 	const targetLibDir = getTargetLibraryDirectory(options, tree);
-	const tsConfigAlias = `@spartan-ng/helm/${options.primitiveName}`;
+	const tsConfigAlias = `${options.importAlias}/${options.primitiveName}`;
 
 	if (isAlreadyInstalled(tree, tsConfigAlias)) {
 		console.log(`Skipping ${tsConfigAlias}. It's already installed!`);

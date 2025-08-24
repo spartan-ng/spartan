@@ -16,6 +16,7 @@ export default async function hlmUIGenerator(tree: Tree, options: HlmUIGenerator
 	const config = await getOrCreateConfig(tree, {
 		componentsPath: options.directory,
 	});
+
 	const availablePrimitives: PrimitiveDefinitions = await import('./supported-ui-libraries.json').then(
 		(m) => m.default,
 	);
@@ -56,6 +57,7 @@ export async function createPrimitiveLibraries(
 		installPeerDependencies?: boolean;
 		buildable?: boolean;
 		generateAs?: GenerateAs;
+		importAlias?: string;
 	},
 	config: Config,
 ) {
@@ -84,6 +86,7 @@ export async function createPrimitiveLibraries(
 			tags: options.tags,
 			directory: options.directory ?? config.componentsPath,
 			buildable: config.buildable,
+			importAlias: config.importAlias,
 		});
 		tasks.push(task);
 	}
@@ -100,6 +103,7 @@ export async function createPrimitiveLibraries(
 				// @ts-ignore
 				`./libs/${internalName}/generator`
 			);
+
 			return generator(tree, {
 				internalName: '',
 				publicName: '',
@@ -111,6 +115,7 @@ export async function createPrimitiveLibraries(
 				angularCli: options.angularCli,
 				buildable: options.buildable ?? config.buildable,
 				generateAs: options.generateAs ?? config.generateAs ?? 'library',
+				importAlias: options.importAlias ?? config.importAlias ?? `@spartan-ng/helm`,
 			} satisfies HlmBaseGeneratorSchema);
 		}),
 	);

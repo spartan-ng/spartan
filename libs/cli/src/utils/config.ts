@@ -1,23 +1,57 @@
 import { type Tree, readJson } from '@nx/devkit';
 import { prompt } from 'enquirer';
-import { GenerateAs } from '../generators/base/lib/generate-as';
+import z, { ZodError } from 'zod';
+import { GenerateAs, generateOptions } from '../generators/base/lib/generate-as';
 
 const configPath = 'components.json';
 
-export type Config = {
-	componentsPath: string;
-	buildable: boolean;
-	generateAs: GenerateAs;
+export const ConfigSchema = z.object({
+	componentsPath: z.string(),
+	buildable: z.boolean(),
+	generateAs: z.enum(generateOptions),
+	importAlias: z.string().refine((val) => !val.endsWith('/'), { message: 'importAlias should not end with a slash' }),
+});
+
+export type Config = z.infer<typeof ConfigSchema>;
+
+const getConfig = async (tree: Tree): Promise<Config> => {
+	const raw = await readJson(tree, configPath);
+	try {
+		return ConfigSchema.parse(raw);
+	} catch (e) {
+		if (e instanceof ZodError) {
+			const rows = e.issues.map((issue) => {
+				let expected: string | undefined;
+
+				if ('expected' in issue) {
+					expected = String(issue.expected);
+				} else if ('options' in issue) {
+					expected = issue.options.join(' | ');
+				}
+
+				return {
+					path: issue.path.join('.') || 'root',
+					message: issue.message,
+					expected: expected ?? '-',
+				};
+			});
+
+			console.table(rows, ['path', 'expected', 'message']);
+			throw new Error('Config validation failed. Please fix the issues above.');
+		} else {
+			throw e;
+		}
+	}
 };
 
 export async function getOrCreateConfig(tree: Tree, defaults?: Partial<Config>): Promise<Config> {
 	if (tree.exists(configPath)) {
-		return readJson(tree, configPath) as Promise<Config>; // TODO: Parse with zod and handle errors
+		return getConfig(tree);
 	}
 
 	console.log('Configuration file not found, creating a new one...');
 
-	const { componentsPath, buildable, generateAs } = (await prompt([
+	const { componentsPath, buildable, generateAs, importAlias } = (await prompt([
 		{
 			type: 'input',
 			required: true,
@@ -41,9 +75,16 @@ export async function getOrCreateConfig(tree: Tree, defaults?: Partial<Config>):
 			initial: 0,
 			skip: typeof defaults?.generateAs === 'string',
 		},
-	])) as { componentsPath: string; buildable: boolean; generateAs: GenerateAs };
+		{
+			type: 'input',
+			name: 'importAlias',
+			message: 'What import alias should be used for the components?',
+			initial: defaults?.importAlias ?? '@spartan-ng/helm',
+			skip: !!defaults?.importAlias,
+		},
+	])) as { componentsPath: string; buildable: boolean; generateAs: GenerateAs; importAlias: string };
 
-	const config = { componentsPath, buildable, generateAs };
+	const config = { componentsPath, buildable, generateAs, importAlias };
 
 	tree.write(configPath, JSON.stringify(config, null, 2));
 

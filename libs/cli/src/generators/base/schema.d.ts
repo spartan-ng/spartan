@@ -11,4 +11,5 @@ export interface HlmBaseGeneratorSchema {
 	angularCli?: boolean;
 	buildable: boolean;
 	generateAs: GenerateAs;
+	importAlias: string;
 }

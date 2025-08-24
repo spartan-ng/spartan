@@ -26,8 +26,8 @@ import {
 } from '@spartan-ng/brain/calendar';
 import { hlm } from '@spartan-ng/brain/core';
 import { injectDateAdapter } from '@spartan-ng/brain/date-time';
-import { buttonVariants } from '@spartan-ng/helm/button';
-import { HlmIcon } from '@spartan-ng/helm/icon';
+import { buttonVariants } from '<%- importAlias %>/button';
+import { HlmIcon } from '<%- importAlias %>/icon';
 import type { ClassValue } from 'clsx';
 
 @Component({

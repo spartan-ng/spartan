@@ -1,8 +1,8 @@
 import { Directive, computed, input } from '@angular/core';
 import { hlm } from '@spartan-ng/brain/core';
 import { BrnDialogClose } from '@spartan-ng/brain/dialog';
-import { HlmButton, provideBrnButtonConfig } from '@spartan-ng/helm/button';
-import { provideHlmIconConfig } from '@spartan-ng/helm/icon';
+import { HlmButton, provideBrnButtonConfig } from '<%- importAlias %>/button';
+import { provideHlmIconConfig } from '<%- importAlias %>/icon';
 import type { ClassValue } from 'clsx';
 
 @Directive({

@@ -84,7 +84,7 @@ export class HlmTabsPaginatedList extends BrnTabsPaginatedList {
 
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>
-		hlm('flex overflow-hidden relative gap-1 flex-shrink-0', this.userClass()),
+		hlm('relative flex flex-shrink-0 gap-1 overflow-hidden', this.userClass()),
 	);
 
 	public readonly tabListClass = input<ClassValue>('', { alias: 'tabListClass' });

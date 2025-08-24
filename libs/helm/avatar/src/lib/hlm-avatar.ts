@@ -22,6 +22,6 @@ export class HlmAvatar extends BrnAvatar {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 
 	protected readonly _computedClass = computed(() =>
-		hlm('relative flex shrink-0 overflow-hidden rounded-full size-8', this.userClass()),
+		hlm('relative flex size-8 shrink-0 overflow-hidden rounded-full', this.userClass()),
 	);
 }

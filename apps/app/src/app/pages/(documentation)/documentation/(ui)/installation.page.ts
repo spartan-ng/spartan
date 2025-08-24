@@ -5,7 +5,7 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronRight } from '@ng-icons/lucide';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmIcon } from '@spartan-ng/helm/icon';
-import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
+import { hlmCode, hlmH4, hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { MainSection } from '../../../../shared/layout/main-section';
 import { PageBottomNav } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav';
@@ -53,8 +53,8 @@ export const routeMeta: RouteMeta = {
 			<spartan-section-sub-heading id="prerequisites">Prerequisites</spartan-section-sub-heading>
 			<p class="${hlmP}">
 				<code class="${hlmCode}">spartan/ui</code>
-				is built on top of TailwindCSS. Make sure your application has a working TailwindCSS setup before you continue.
-				Tailwind installation instructions can be found
+				is built on top of Tailwind CSS. Make sure your application has a working Tailwind CSS setup before you
+				continue. Tailwind installation instructions can be found
 				<a class="${hlmCode}" href="https://tailwindcss.com/docs/installation/framework-guides/angular" target="_blank">
 					here.
 				</a>
@@ -64,9 +64,9 @@ export const routeMeta: RouteMeta = {
 				also builds on top of angular/cdk. To install it run the following command:
 			</p>
 			<spartan-code class="mt-4" code="npm i @angular/cdk" />
-			<spartan-section-sub-heading id="setting-up-tailwind">Setup Tailwind</spartan-section-sub-heading>
+			<spartan-section-sub-heading id="setting-up-tailwindcss">Setup Tailwind CSS</spartan-section-sub-heading>
 			<p class="${hlmP}">
-				You now have to add our spartan-specific configuration to your TailwindCSS setup. To make the setup as easy as
+				You now have to add our spartan-specific configuration to your Tailwind CSS setup. To make the setup as easy as
 				possible, the
 				<code class="${hlmCode}">&#64;spartan-ng/brain</code>
 				package comes with it own preset.
@@ -112,10 +112,54 @@ module.exports = {
 
 			<spartan-code class="mt-4" code="@import '@spartan-ng/brain/hlm-tailwind-preset.css';" />
 
+			<h3 id="sorting-classes" class="${hlmH4} mb-2 mt-6">Sorting classes</h3>
+
+			<p class="${hlmP} text-pretty">
+				You can enable automatic sorting of Tailwind CSS classes in
+				<span class="${hlmCode}">hlm</span>
+				and
+				<span class="${hlmCode}">cva</span>
+				functions with the
+				<span class="${hlmCode}">prettier-plugin-tailwindcss</span>
+				.
+			</p>
+
+			<ol class="my-6 ml-6 list-decimal [&>li]:mt-2">
+				<li>
+					Install and configure the
+					<a class="${hlmCode}" href="https://github.com/tailwindlabs/prettier-plugin-tailwindcss" target="_blank">
+						prettier-plugin-tailwindcss
+					</a>
+
+					in your project.
+				</li>
+				<li>
+					Add
+					<a
+						class="${hlmCode}"
+						href="https://github.com/tailwindlabs/prettier-plugin-tailwindcss?tab=readme-ov-file#sorting-classes-in-function-calls"
+						target="_blank"
+					>
+						tailwindFunctions
+					</a>
+					option to your prettier config file (e.g.
+					<span class="${hlmCode}">.prettierrc</span>
+					):
+				</li>
+			</ol>
+
+			<spartan-code
+				class="mt-4"
+				code='// .prettierrc
+{
+  "tailwindFunctions": ["hlm", "cva"]
+}'
+			/>
+
 			<spartan-section-sub-heading id="adding-css-vars">Adding CSS variables</spartan-section-sub-heading>
 			<p class="${hlmP}">
-				To complete your TailwindCSS setup, you need to add our spartan-specific CSS variables to your style entrypoint.
-				This is most likely a
+				To complete your Tailwind CSS setup, you need to add our spartan-specific CSS variables to your style
+				entrypoint. This is most likely a
 				<code class="${hlmCode}">styles.css</code>
 				in the
 				<code class="${hlmCode}">src</code>

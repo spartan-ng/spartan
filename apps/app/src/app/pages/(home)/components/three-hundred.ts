@@ -130,6 +130,9 @@ export class ThreeHundred {
 		'koenigderluegner',
 		'Turtl3e',
 		'minhnguyen120898',
+		'liam-langstaff',
+		'dw-0',
+		'Khumozin',
 	];
 	protected readonly _rest = Array(300 - this._contributors.length).map((_, i) => i);
 }

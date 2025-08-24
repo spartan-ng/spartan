@@ -128,6 +128,9 @@ Our initial 300 contributors and sponsors are featured here and on the front pag
 109. [koenigderluegner](https://www.github.com/koenigderluegner)
 110. [Turtl3e](https://www.github.com/Turtl3e)
 111. [minhnguyen120898](https://www.github.com/minhnguyen120898)
+112. [liam-langstaff](https://github.com/liam-langstaff)
+113. [dw-0](https://github.com/dw-0)
+114. [Khumozin](https://github.com/Khumozin)
 
 [Become a spartan today!](https://github.com/sponsors/goetzrobin)
 

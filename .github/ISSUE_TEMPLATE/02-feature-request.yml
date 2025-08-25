@@ -47,6 +47,7 @@ body:
         - select
         - separator
         - sheet
+        - sidebar
         - skeleton
         - slider
         - sonner

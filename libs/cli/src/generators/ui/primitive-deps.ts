@@ -33,6 +33,7 @@ export const primitiveDependencies: Record<Primitive, Primitive[]> = {
 	select: ['icon', 'form-field'],
 	separator: [],
 	sheet: [],
+	sidebar: ['button', 'icon', 'input', 'separator', 'sheet', 'tooltip'],
 	skeleton: [],
 	sonner: ['icon'],
 	spinner: [],

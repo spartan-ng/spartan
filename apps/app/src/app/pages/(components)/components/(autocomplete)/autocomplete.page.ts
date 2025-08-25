@@ -26,7 +26,7 @@ export const routeMeta: RouteMeta = {
 };
 
 @Component({
-	selector: 'spartan-combobox',
+	selector: 'spartan-autocomplete',
 	imports: [
 		MainSection,
 		Code,

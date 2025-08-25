@@ -33,17 +33,18 @@ import { debounceTime, map } from 'rxjs/operators';
 	template: `
 		<div class="space-y-4">
 			<p hlmH4>Enter passphrase to open dialog</p>
-			<label hlmLabel>
-				Passphrase
+			<div class="flex flex-col gap-2">
+				<label hlmLabel for="passphrase" class="px-1">Passphrase</label>
 				<input
+					id="passphrase"
 					name="passphrase"
 					hlmInput
 					[ngModelOptions]="{ standalone: true }"
 					[ngModel]="_passphrase()"
 					(ngModelChange)="_passphrase.set($event)"
 				/>
-				<span hlmMuted>Hint: It's sparta</span>
-			</label>
+				<p hlmMuted class="px-1">Hint: It's sparta</p>
+			</div>
 		</div>
 		<hlm-dialog [state]="_state()" (closed)="_passphrase.set('')">
 			<hlm-dialog-content *brnDialogContent="let ctx">

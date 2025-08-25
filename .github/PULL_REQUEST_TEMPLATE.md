@@ -30,6 +30,7 @@ What kind of change does this PR introduce?
 - [ ] alert
 - [ ] alert-dialog
 - [ ] aspect-ratio
+- [ ] autocomplete
 - [ ] avatar
 - [ ] badge
 - [ ] breadcrumb

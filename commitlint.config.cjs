@@ -11,6 +11,7 @@ module.exports = {
 				'alert',
 				'alert-dialog',
 				'aspect-ratio',
+				'autocomplete',
 				'avatar',
 				'badge',
 				'breadcrumb',

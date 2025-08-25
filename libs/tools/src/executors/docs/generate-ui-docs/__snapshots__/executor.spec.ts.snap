@@ -339,6 +339,64 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       },
     },
   },
+  "autocomplete": {
+    "helm": {
+      "HlmAutocomplete": {
+        "inputs": [
+          {
+            "name": "options",
+            "required": false,
+            "type": "string[]",
+          },
+          {
+            "name": "filter",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "placeholderText",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "inputId",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [
+          {
+            "name": "value",
+            "type": "string",
+          },
+        ],
+        "outputs": [
+          {
+            "name": "filterChange",
+            "type": "string",
+          },
+        ],
+        "selector": "hlm-autocomplete",
+      },
+      "HlmAutocompleteTrigger": {
+        "inputs": [
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmAutocompleteTrigger]",
+      },
+    },
+  },
   "avatar": {
     "brain": {
       "BrnAvatar": {

@@ -9,12 +9,18 @@ import { HlmLabel } from '@spartan-ng/helm/label';
 	imports: [ReactiveFormsModule, HlmButton, HlmLabel, HlmDateRangePicker],
 	template: `
 		<form [formGroup]="form" (ngSubmit)="submit()" class="space-y-8">
-			<label hlmLabel>
-				Enter a date range
-				<hlm-date-range-picker [min]="minDate" [max]="maxDate" formControlName="range" [autoCloseOnEndSelection]="true">
+			<div class="flex flex-col gap-2">
+				<label for="dateRange" hlmLabel class="px-1">Enter a date range</label>
+				<hlm-date-range-picker
+					buttonId="dateRange"
+					[min]="minDate"
+					[max]="maxDate"
+					formControlName="range"
+					[autoCloseOnEndSelection]="true"
+				>
 					<span>Enter a date range</span>
 				</hlm-date-range-picker>
-			</label>
+			</div>
 
 			<button type="submit" hlmBtn [disabled]="form.invalid">Submit</button>
 		</form>

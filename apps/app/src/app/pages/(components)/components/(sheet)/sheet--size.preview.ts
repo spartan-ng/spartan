@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideCross } from '@ng-icons/lucide';
-import { BrnSheetClose, BrnSheetContent, BrnSheetTrigger } from '@spartan-ng/brain/sheet';
+import { BrnSheetContent, BrnSheetTrigger } from '@spartan-ng/brain/sheet';
 import { HlmButton } from '@spartan-ng/helm/button';
 
 import { HlmInput } from '@spartan-ng/helm/input';
@@ -16,11 +16,10 @@ import {
 } from '@spartan-ng/helm/sheet';
 
 @Component({
-	selector: 'spartan-sheet-preview',
+	selector: 'spartan-sheet-size-preview',
 	imports: [
 		BrnSheetTrigger,
 		BrnSheetContent,
-		BrnSheetClose,
 		HlmSheet,
 		HlmSheetContent,
 		HlmSheetHeader,
@@ -35,7 +34,7 @@ import {
 	template: `
 		<hlm-sheet side="right">
 			<button id="edit-profile" variant="outline" brnSheetTrigger hlmBtn>Open</button>
-			<hlm-sheet-content *brnSheetContent="let ctx">
+			<hlm-sheet-content *brnSheetContent="let ctx" class="w-[400px] sm:w-[540px] sm:max-w-none">
 				<hlm-sheet-header>
 					<h3 hlmSheetTitle>Edit Profile</h3>
 					<p hlmSheetDescription>Make changes to your profile here. Click save when you're done.</p>
@@ -52,35 +51,9 @@ import {
 				</div>
 				<hlm-sheet-footer>
 					<button hlmBtn type="submit">Save Changes</button>
-					<button brnSheetClose hlmBtn variant="outline">Close</button>
 				</hlm-sheet-footer>
 			</hlm-sheet-content>
 		</hlm-sheet>
 	`,
 })
-export class SheetPreview {}
-
-export const defaultImports = `
-import { BrnSheetContent, BrnSheetTrigger } from '@spartan-ng/brain/sheet';
-import {
-  HlmSheet
-  HlmSheetContent
-  HlmSheetDescription
-  HlmSheetFooter
-  HlmSheetHeader
-  HlmSheetTitle
-} from '@spartan-ng/helm/sheet';
-`;
-export const defaultSkeleton = `
-<hlm-sheet>
-  <button brnSheetTrigger>Open</button>
-  <hlm-sheet-content *brnSheetContent="let ctx">
-    <hlm-sheet-header>
-      <h3 hlmSheetTitle>Are you absolutely sure?</h3>
-      <p hlmSheetDescription>
-        This action cannot be undone. This will permanently delete your account and remove your data from our servers.
-      </p>
-    </hlm-sheet-header>
-  </hlm-sheet-content>
-</hlm-sheet>
-`;
+export class SheetSizePreview {}

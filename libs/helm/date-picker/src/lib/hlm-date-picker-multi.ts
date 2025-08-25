@@ -90,7 +90,7 @@ export class HlmDatePickerMulti<T> implements ControlValueAccessor {
 	);
 
 	/** The id of the button that opens the date picker. */
-	public readonly buttonId = input<string>(`hlm-date-picker-${nextId++}`);
+	public readonly buttonId = input<string>(`hlm-date-picker-multi-${nextId++}`);
 
 	/** The minimum date that can be selected.*/
 	public readonly min = input<T>();

@@ -5,6 +5,7 @@ export const primitiveDependencies: Record<Primitive, Primitive[]> = {
 	alert: ['utils', 'icon'],
 	'alert-dialog': ['utils', 'button'],
 	'aspect-ratio': ['utils'],
+	autocomplete: ['utils', 'popover', 'command', 'icon'],
 	avatar: ['utils'],
 	badge: ['utils'],
 	breadcrumb: ['utils', 'icon'],

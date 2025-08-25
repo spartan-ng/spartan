@@ -9,7 +9,6 @@ import {
 	inject,
 	input,
 	linkedSignal,
-	model,
 	output,
 	signal,
 } from '@angular/core';
@@ -128,7 +127,8 @@ export class HlmAutocomplete implements ControlValueAccessor {
 	public readonly options = input<string[]>([]);
 
 	/** The selected value. */
-	public readonly value = model<string>();
+	public readonly value = input<string>();
+	protected readonly _value = linkedSignal(() => this.value());
 
 	public readonly filter = input<string>('');
 	protected readonly _filter = linkedSignal(() => this.filter());
@@ -142,6 +142,9 @@ export class HlmAutocomplete implements ControlValueAccessor {
 
 	public readonly disabled = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 	protected readonly _disabled = linkedSignal(() => this.disabled());
+
+	/** Emitted when the selected value changes. */
+	public readonly valueChange = output<string | null>();
 
 	/** Emitted when the filter text changes for asynchronous options */
 	public readonly filterChange = output<string>();
@@ -166,13 +169,15 @@ export class HlmAutocomplete implements ControlValueAccessor {
 	}
 
 	protected _clearOption() {
-		this.value.set(undefined);
+		this._value.set(undefined);
 		this._onChange?.(null);
+		this.valueChange.emit(null);
 	}
 
 	protected _optionSelected(option: string) {
-		this.value.set(option);
+		this._value.set(option);
 		this._onChange?.(option);
+		this.valueChange.emit(option);
 		this._filter.set(option);
 
 		this._stateChanged('closed');
@@ -180,7 +185,7 @@ export class HlmAutocomplete implements ControlValueAccessor {
 
 	/** CONTROL VALUE ACCESSOR */
 	public writeValue(value: string | null): void {
-		this.value.set(value ? value : undefined);
+		this._value.set(value ? value : undefined);
 	}
 
 	public registerOnChange(fn: ChangeFn<string | null>): void {

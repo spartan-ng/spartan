@@ -33,7 +33,6 @@ function setupTsConfigAlias(tree: Tree, alias: string, targetLibDir: string) {
 
 async function generateEntrypointFiles(tree: Tree, alias: string, options: HlmBaseGeneratorSchema) {
 	const targetLibDir = `${options.directory}/${options.primitiveName}/src`;
-	generateFiles(tree, path.join(__dirname, '..', 'ui', 'libs', options.internalName, 'files'), targetLibDir, options);
 
 	if (options.buildable) {
 		await librarySecondaryEntryPointGenerator(tree, {
@@ -49,6 +48,7 @@ async function generateEntrypointFiles(tree: Tree, alias: string, options: HlmBa
 			json.compilerOptions.paths[alias] = [`./${joinPathFragments(targetLibDir, 'index.ts').replace(/\\/g, '/')}`];
 			return json;
 		});
+		generateFiles(tree, path.join(__dirname, '..', 'ui', 'libs', options.internalName, 'files'), targetLibDir, options);
 	}
 }
 

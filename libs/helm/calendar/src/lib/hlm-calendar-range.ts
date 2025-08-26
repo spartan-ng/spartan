@@ -1,14 +1,5 @@
-import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
-import {
-	ChangeDetectionStrategy,
-	Component,
-	booleanAttribute,
-	computed,
-	input,
-	model,
-	numberAttribute,
-	viewChild,
-} from '@angular/core';
+import { BooleanInput } from '@angular/cdk/coercion';
+import { ChangeDetectionStrategy, Component, booleanAttribute, computed, input, model, viewChild } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronLeft, lucideChevronRight } from '@ng-icons/lucide';
 import {
@@ -21,7 +12,6 @@ import {
 	BrnCalendarRange,
 	BrnCalendarWeek,
 	BrnCalendarWeekday,
-	Weekday,
 	injectBrnCalendarI18n,
 } from '@spartan-ng/brain/calendar';
 import { hlm } from '@spartan-ng/brain/core';
@@ -55,7 +45,6 @@ import type { ClassValue } from 'clsx';
 			[(startDate)]="startDate"
 			[(endDate)]="endDate"
 			[dateDisabled]="dateDisabled()"
-			[weekStartsOn]="weekStartsOn()"
 			[defaultFocusedDate]="defaultFocusedDate()"
 			[class]="_computedCalenderClass()"
 		>
@@ -92,9 +81,9 @@ import type { ClassValue } from 'clsx';
 								*brnCalendarWeekday="let weekday"
 								scope="col"
 								class="text-muted-foreground w-8 rounded-md text-[0.8rem] font-normal"
-								[attr.aria-label]="_i18n.labelWeekday(weekday)"
+								[attr.aria-label]="_i18n.config().labelWeekday(weekday)"
 							>
-								{{ _i18n.formatWeekdayName(weekday) }}
+								{{ _i18n.config().formatWeekdayName(weekday) }}
 							</th>
 						</tr>
 					</thead>
@@ -150,11 +139,6 @@ export class HlmCalendarRange<T> {
 	/** Whether a specific date is disabled. */
 	public readonly dateDisabled = input<(date: T) => boolean>(() => false);
 
-	/** The day the week starts on */
-	public readonly weekStartsOn = input<Weekday, NumberInput>(0, {
-		transform: (v: unknown) => numberAttribute(v) as Weekday,
-	});
-
 	/** The default focused date. */
 	public readonly defaultFocusedDate = input<T>();
 
@@ -163,10 +147,12 @@ export class HlmCalendarRange<T> {
 
 	/** Get the heading for the current month and year */
 	protected readonly _heading = computed(() =>
-		this._i18n.formatHeader(
-			this._dateAdapter.getMonth(this._calendar().focusedDate()),
-			this._dateAdapter.getYear(this._calendar().focusedDate()),
-		),
+		this._i18n
+			.config()
+			.formatHeader(
+				this._dateAdapter.getMonth(this._calendar().focusedDate()),
+				this._dateAdapter.getYear(this._calendar().focusedDate()),
+			),
 	);
 
 	protected readonly _btnClass = hlm(

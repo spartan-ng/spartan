@@ -1,4 +1,4 @@
-import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
+import { BooleanInput } from '@angular/cdk/coercion';
 import {
 	ChangeDetectorRef,
 	Directive,
@@ -11,19 +11,21 @@ import {
 	inject,
 	input,
 	model,
-	numberAttribute,
 	signal,
 } from '@angular/core';
 import { injectDateAdapter } from '@spartan-ng/brain/date-time';
 import { BrnCalendarCellButton } from './brn-calendar-cell-button';
 import { BrnCalendarHeader } from './brn-calendar-header';
 import { BrnCalendarBase, provideBrnCalendar } from './brn-calendar.token';
+import { injectBrnCalendarI18n } from './i18n/calendar-i18n';
 
 @Directive({
 	selector: '[brnCalendar]',
 	providers: [provideBrnCalendar(BrnCalendar)],
 })
 export class BrnCalendar<T> implements BrnCalendarBase<T> {
+	private readonly _i18n = injectBrnCalendarI18n();
+
 	/** Access the date adapter */
 	protected readonly _dateAdapter = injectDateAdapter<T>();
 
@@ -51,9 +53,7 @@ export class BrnCalendar<T> implements BrnCalendarBase<T> {
 	public readonly dateDisabled = input<(date: T) => boolean>(() => false);
 
 	/** The day the week starts on */
-	public readonly weekStartsOn = input<Weekday, NumberInput>(0, {
-		transform: (v: unknown) => numberAttribute(v) as Weekday,
-	});
+	protected readonly _weekStartsOn = computed(() => this._i18n.config().firstDayOfWeek());
 
 	/** The default focused date. */
 	public readonly defaultFocusedDate = input<T>();
@@ -84,7 +84,7 @@ export class BrnCalendar<T> implements BrnCalendarBase<T> {
 	 * and the days of the previous and next month to fill the grid.
 	 */
 	public readonly days = computed(() => {
-		const weekStartsOn = this.weekStartsOn();
+		const weekStartsOn = this._weekStartsOn();
 		const month = this.state().focusedDate();
 		const days: T[] = [];
 
@@ -240,5 +240,3 @@ export class BrnCalendar<T> implements BrnCalendarBase<T> {
 		return false;
 	}
 }
-
-export type Weekday = 0 | 1 | 2 | 3 | 4 | 5 | 6;

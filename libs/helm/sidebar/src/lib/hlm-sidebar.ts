@@ -25,6 +25,7 @@ import type { ClassValue } from 'clsx';
 			</div>
 		} @else if (_sidebarService.isMobile()) {
 			<hlm-sheet
+				[side]="'left'"
 				[closeDelay]="0"
 				[state]="_sidebarService.openMobile() ? 'open' : 'closed'"
 				(stateChanged)="_sidebarService.setOpenMobile($event === 'open')"
@@ -34,7 +35,8 @@ import type { ClassValue } from 'clsx';
 					data-slot="sidebar"
 					data-sidebar="sidebar"
 					data-mobile="true"
-					class="bg-sidebar text-sidebar-foreground h-screen w-[var(--sidebar-width-mobile)] p-0 [&>button]:hidden"
+					class="bg-sidebar text-sidebar-foreground h-screen w-[var(--sidebar-width)] p-0 [&>button]:hidden"
+					style="--sidebar-width-mobile: 18rem; --sidebar-width: var(--sidebar-width-mobile);"
 				>
 					<div class="flex h-full w-full flex-col">
 						<ng-container *ngTemplateOutlet="contentContainer"></ng-container>
@@ -63,6 +65,9 @@ import type { ClassValue } from 'clsx';
 			</div>
 		}
 	`,
+	host: {
+		style: '--sidebar-width: 16rem; --sidebar-width-icon: 4rem;',
+	},
 })
 export class HlmSidebar {
 	protected readonly _sidebarService = inject(HlmSidebarService);

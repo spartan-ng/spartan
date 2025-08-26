@@ -1,4 +1,4 @@
-import { DestroyRef, Injectable, Signal, computed, inject, signal } from '@angular/core';
+import { DestroyRef, Injectable, Signal, afterNextRender, computed, inject, signal } from '@angular/core';
 
 const SIDEBAR_COOKIE_NAME = 'sidebar_state';
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7; // 7 days in seconds
@@ -11,7 +11,7 @@ export class HlmSidebarService {
 	private readonly _openMobile = signal<boolean>(false);
 	private readonly _isMobile = signal<boolean>(false);
 	private readonly _variant = signal<'sidebar' | 'floating' | 'inset'>('sidebar');
-	private readonly _mediaQuery: MediaQueryList | null = null;
+	private _mediaQuery: MediaQueryList | null = null;
 
 	public readonly open: Signal<boolean> = this._open.asReadonly();
 	public readonly openMobile: Signal<boolean> = this._openMobile.asReadonly();
@@ -22,54 +22,55 @@ export class HlmSidebarService {
 
 	constructor() {
 		const destroyRef = inject(DestroyRef);
+		afterNextRender(() => {
+			if (typeof window === 'undefined' || typeof document === 'undefined') return;
 
-		if (typeof window === 'undefined' || typeof document === 'undefined') return;
+			// Initialize from cookie
+			const cookie = document.cookie.split('; ').find((row) => row.startsWith(`${SIDEBAR_COOKIE_NAME}=`));
 
-		// Initialize from cookie
-		const cookie = document.cookie.split('; ').find((row) => row.startsWith(`${SIDEBAR_COOKIE_NAME}=`));
-
-		if (cookie) {
-			const value = cookie.split('=')[1];
-			this._open.set(value === 'true');
-		}
-
-		// Initialize MediaQueryList
-		this._mediaQuery = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT})`);
-		this._isMobile.set(this._mediaQuery.matches);
-
-		// Add media query listener
-		const mediaQueryHandler = (e: MediaQueryListEvent) => {
-			this._isMobile.set(e.matches);
-			// If switching from mobile to desktop, close mobile sidebar
-			if (!e.matches) this._openMobile.set(false);
-		};
-		this._mediaQuery.addEventListener('change', mediaQueryHandler);
-
-		// Add keyboard shortcut listener
-		const keydownHandler = (event: KeyboardEvent) => {
-			if (event.key === SIDEBAR_KEYBOARD_SHORTCUT && (event.ctrlKey || event.metaKey)) {
-				event.preventDefault();
-				this.toggleSidebar();
+			if (cookie) {
+				const value = cookie.split('=')[1];
+				this._open.set(value === 'true');
 			}
-		};
-		window.addEventListener('keydown', keydownHandler);
 
-		// Add resize listener with debounce
-		let resizeTimeout: number;
-		const resizeHandler = () => {
-			if (resizeTimeout) window.clearTimeout(resizeTimeout);
-			resizeTimeout = window.setTimeout(() => {
-				if (this._mediaQuery) this._isMobile.set(this._mediaQuery.matches);
-			}, 100);
-		};
-		window.addEventListener('resize', resizeHandler);
+			// Initialize MediaQueryList
+			this._mediaQuery = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT})`);
+			this._isMobile.set(this._mediaQuery.matches);
 
-		// Cleanup listeners on destroy
-		destroyRef.onDestroy(() => {
-			if (this._mediaQuery) this._mediaQuery.removeEventListener('change', mediaQueryHandler);
-			window.removeEventListener('keydown', keydownHandler);
-			window.removeEventListener('resize', resizeHandler);
-			if (resizeTimeout) window.clearTimeout(resizeTimeout);
+			// Add media query listener
+			const mediaQueryHandler = (e: MediaQueryListEvent) => {
+				this._isMobile.set(e.matches);
+				// If switching from mobile to desktop, close mobile sidebar
+				if (!e.matches) this._openMobile.set(false);
+			};
+			this._mediaQuery.addEventListener('change', mediaQueryHandler);
+
+			// Add keyboard shortcut listener
+			const keydownHandler = (event: KeyboardEvent) => {
+				if (event.key === SIDEBAR_KEYBOARD_SHORTCUT && (event.ctrlKey || event.metaKey)) {
+					event.preventDefault();
+					this.toggleSidebar();
+				}
+			};
+			window.addEventListener('keydown', keydownHandler);
+
+			// Add resize listener with debounce
+			let resizeTimeout: number;
+			const resizeHandler = () => {
+				if (resizeTimeout) window.clearTimeout(resizeTimeout);
+				resizeTimeout = window.setTimeout(() => {
+					if (this._mediaQuery) this._isMobile.set(this._mediaQuery.matches);
+				}, 100);
+			};
+			window.addEventListener('resize', resizeHandler);
+
+			// Cleanup listeners on destroy
+			destroyRef.onDestroy(() => {
+				if (this._mediaQuery) this._mediaQuery.removeEventListener('change', mediaQueryHandler);
+				window.removeEventListener('keydown', keydownHandler);
+				window.removeEventListener('resize', resizeHandler);
+				if (resizeTimeout) window.clearTimeout(resizeTimeout);
+			});
 		});
 	}
 

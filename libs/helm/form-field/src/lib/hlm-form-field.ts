@@ -7,8 +7,8 @@ import {
 	effect,
 	input,
 } from '@angular/core';
-import { hlm } from '@spartan-ng/brain/core';
 import { BrnFormFieldControl } from '@spartan-ng/brain/form-field';
+import { hlm } from '@spartan-ng/helm/utils';
 import { ClassValue } from 'clsx';
 import { HlmError } from './hlm-error';
 

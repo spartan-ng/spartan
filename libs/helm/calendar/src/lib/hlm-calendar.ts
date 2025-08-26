@@ -24,10 +24,10 @@ import {
 	Weekday,
 	injectBrnCalendarI18n,
 } from '@spartan-ng/brain/calendar';
-import { hlm } from '@spartan-ng/brain/core';
 import { injectDateAdapter } from '@spartan-ng/brain/date-time';
 import { buttonVariants } from '@spartan-ng/helm/button';
 import { HlmIcon } from '@spartan-ng/helm/icon';
+import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 
 @Component({

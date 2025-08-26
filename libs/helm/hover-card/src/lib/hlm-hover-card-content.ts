@@ -9,7 +9,8 @@ import {
 	input,
 	signal,
 } from '@angular/core';
-import { hlm, injectExposedSideProvider, injectExposesStateProvider } from '@spartan-ng/brain/core';
+import { injectExposedSideProvider, injectExposesStateProvider } from '@spartan-ng/brain/core';
+import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 
 @Component({

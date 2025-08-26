@@ -3,9 +3,9 @@ import { FormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCreditCard } from '@ng-icons/lucide';
 import { remixAppleFill, remixPaypalFill } from '@ng-icons/remixicon';
-import { hlm } from '@spartan-ng/brain/core';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmRadio, HlmRadioGroup } from '@spartan-ng/helm/radio-group';
+import { hlm } from '@spartan-ng/helm/utils';
 
 @Component({
 	selector: 'spartan-radio-card-preview',

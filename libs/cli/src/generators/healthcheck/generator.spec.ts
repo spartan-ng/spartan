@@ -46,6 +46,13 @@ describe('healthcheck generator', () => {
 			`,
 		);
 
+		// add a file with legacy output conventions
+		tree.write(
+			'libs/my-lib/src/date-picker-legacy.component.ts',
+			`<hlm-date-picker (changed)="onDateChange($event)"/>
+		   <hlm-date-picker-multi (changed)="onDateChange($event)">;`,
+		);
+
 		await healthcheckGenerator(tree, { skipFormat: true, autoFix: true });
 	});
 
@@ -103,5 +110,14 @@ describe('healthcheck generator', () => {
 		expect(contents).toContain('BrnTooltipContentTemplate');
 		expect(contents).not.toContain('BrnSelectValueDirective');
 		expect(contents).toContain('BrnSelectValueTemplate');
+	});
+
+	it('should update helm date-picker output conventions', () => {
+		const contents = tree.read('libs/my-lib/src/date-picker-legacy.component.ts', 'utf-8');
+
+		expect(contents).toContain('<hlm-date-picker (dateChange)="onDateChange($event)"/>');
+		expect(contents).not.toContain('<hlm-date-picker (changed)="onDateChange($event)"/>');
+		expect(contents).toContain('<hlm-date-picker-multi (dateChange)="onDateChange($event)">');
+		expect(contents).not.toContain('<hlm-date-picker-multi (changed)="onDateChange($event)">');
 	});
 });

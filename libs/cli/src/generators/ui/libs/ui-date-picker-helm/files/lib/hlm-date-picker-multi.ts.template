@@ -6,7 +6,7 @@ import {
 	computed,
 	forwardRef,
 	input,
-	model,
+	linkedSignal,
 	numberAttribute,
 	output,
 	signal,
@@ -36,7 +36,7 @@ export const HLM_DATE_PICKER_MUTLI_VALUE_ACCESSOR = {
 	providers: [HLM_DATE_PICKER_MUTLI_VALUE_ACCESSOR, provideIcons({ lucideCalendar })],
 	template: `
 		<brn-popover sideOffset="5" [state]="_popoverState()" (stateChanged)="_popoverState.set($event)">
-			<button type="button" [class]="_computedClass()" [disabled]="_state().disabled()" brnPopoverTrigger>
+			<button type="button" [class]="_computedClass()" [disabled]="_mutableDisabled()" brnPopoverTrigger>
 				<ng-icon hlm size="sm" name="lucideCalendar" />
 
 				<span class="truncate">
@@ -51,12 +51,12 @@ export const HLM_DATE_PICKER_MUTLI_VALUE_ACCESSOR = {
 			<div hlmPopoverContent class="w-auto p-0" *brnPopoverContent="let ctx">
 				<hlm-calendar-multi
 					calendarClass="border-0 rounded-none"
-					[date]="date()"
+					[date]="_mutableDate()"
 					[min]="min()"
 					[max]="max()"
 					[minSelection]="minSelection()"
 					[maxSelection]="maxSelection()"
-					[disabled]="_state().disabled()"
+					[disabled]="_mutableDisabled()"
 					(dateChange)="_handleChange($event)"
 				/>
 			</div>
@@ -73,11 +73,11 @@ export class HlmDatePickerMulti<T> implements ControlValueAccessor {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>
 		hlm(
-			'inline-flex items-center gap-2 whitespace-nowrap rounded-md text-sm ring-offset-background transition-colors border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 w-[280px] justify-start text-left font-normal',
+			'inline-flex items-center gap-2 whitespace-nowrap rounded-md text-sm ring-offset-background transition-all border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 w-[280px] justify-start text-left font-normal',
 			'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
 			'disabled:pointer-events-none disabled:opacity-50',
 			'[&_ng-icon]:pointer-events-none [&_ng-icon]:shrink-0',
-			!this.date() ? 'text-muted-foreground' : '',
+			!this._mutableDate() ? 'text-muted-foreground' : '',
 			this.userClass(),
 		),
 	);
@@ -104,9 +104,11 @@ export class HlmDatePickerMulti<T> implements ControlValueAccessor {
 	});
 
 	/** The selected value. */
-	public readonly date = model<T[]>();
+	public readonly date = input<T[]>();
 
-	/** If true, the date picker will close when the max selection of dates is reached.. */
+	protected readonly _mutableDate = linkedSignal(this.date);
+
+	/** If true, the date picker will close when the max selection of dates is reached. */
 	public readonly autoCloseOnMaxSelection = input<boolean, BooleanInput>(this._config.autoCloseOnMaxSelection, {
 		transform: booleanAttribute,
 	});
@@ -119,16 +121,14 @@ export class HlmDatePickerMulti<T> implements ControlValueAccessor {
 
 	protected readonly _popoverState = signal<BrnDialogState | null>(null);
 
-	protected readonly _state = computed(() => ({
-		disabled: signal(this.disabled()),
-	}));
+	protected readonly _mutableDisabled = linkedSignal(this.disabled);
 
 	protected readonly _formattedDate = computed(() => {
-		const dates = this.date();
+		const dates = this._mutableDate();
 		return dates ? this.formatDates()(dates) : undefined;
 	});
 
-	public readonly changed = output<T[]>();
+	public readonly dateChange = output<T[]>();
 
 	protected _onChange?: ChangeFn<T[]>;
 	protected _onTouched?: TouchFn;
@@ -136,43 +136,40 @@ export class HlmDatePickerMulti<T> implements ControlValueAccessor {
 	protected _handleChange(value: T[] | undefined) {
 		if (value === undefined) return;
 
-		if (this._state().disabled()) return;
+		if (this._mutableDisabled()) return;
 		const transformedDate = this.transformDates()(value);
 
-		this.date.set(transformedDate);
+		this._mutableDate.set(transformedDate);
 		this._onChange?.(transformedDate);
-		this.changed.emit(transformedDate);
+		this.dateChange.emit(transformedDate);
 
-		if (this.autoCloseOnMaxSelection() && this.date()?.length === this.maxSelection()) {
+		if (this.autoCloseOnMaxSelection() && this._mutableDate()?.length === this.maxSelection()) {
 			this._popoverState.set('closed');
 		}
 	}
 
-	/** CONROL VALUE ACCESSOR */
-	writeValue(value: T[] | null): void {
-		// optional FormControl is initialized with null value
-		if (value === null) return;
-
-		this.date.set(this.transformDates()(value));
+	/** CONTROL VALUE ACCESSOR */
+	public writeValue(value: T[] | null): void {
+		this._mutableDate.set(value ? this.transformDates()(value) : undefined);
 	}
 
-	registerOnChange(fn: ChangeFn<T[]>): void {
+	public registerOnChange(fn: ChangeFn<T[]>): void {
 		this._onChange = fn;
 	}
 
-	registerOnTouched(fn: TouchFn): void {
+	public registerOnTouched(fn: TouchFn): void {
 		this._onTouched = fn;
 	}
 
-	setDisabledState(isDisabled: boolean): void {
-		this._state().disabled.set(isDisabled);
+	public setDisabledState(isDisabled: boolean): void {
+		this._mutableDisabled.set(isDisabled);
 	}
 
-	open() {
+	public open() {
 		this._popoverState.set('open');
 	}
 
-	close() {
+	public close() {
 		this._popoverState.set('closed');
 	}
 }

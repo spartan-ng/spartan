@@ -21,39 +21,10 @@ import { BrnCalendarHeader } from '../brn-calendar-header';
 import { BrnCalendarBase, provideBrnCalendar } from '../brn-calendar.token';
 
 @Directive({
-	selector: '[brnCalendarMulti]',
-	providers: [provideBrnCalendar(BrnCalendarMulti)],
+	selector: '[brnCalendarRange]',
+	providers: [provideBrnCalendar(BrnCalendarRange)],
 })
-export class BrnCalendarMulti<T> implements BrnCalendarBase<T> {
-	/**
-	 * Determine if a date is the start of a range. In a date picker, this is always false.
-	 * @param date The date to check.
-	 * @returns Always false.
-	 * @internal
-	 */
-	isStartOfRange(_: T): boolean {
-		return false;
-	}
-
-	/**
-	 * Determine if a date is the end of a range. In a date picker, this is always false.
-	 * @param date The date to check.
-	 * @returns Always false.
-	 * @internal
-	 */
-	isEndOfRange(_: T): boolean {
-		return false;
-	}
-
-	/**
-	 * Determine if a date is between the start and end dates. In a date picker, this is always false.
-	 * @param date The date to check.
-	 * @returns True if the date is between the start and end dates, false otherwise.
-	 * @internal
-	 */
-	isBetweenRange(_: T): boolean {
-		return false;
-	}
+export class BrnCalendarRange<T> implements BrnCalendarBase<T> {
 	// /** Access the date adapter */
 	protected readonly _dateAdapter = injectDateAdapter<T>();
 
@@ -69,23 +40,10 @@ export class BrnCalendarMulti<T> implements BrnCalendarBase<T> {
 	/** The maximum date that can be selected. */
 	public readonly max = input<T>();
 
-	/** The minimum selectable dates.  */
-	public readonly minSelection = input<number, NumberInput>(undefined, {
-		transform: numberAttribute,
-	});
-
-	/** The maximum selectable dates.  */
-	public readonly maxSelection = input<number, NumberInput>(undefined, {
-		transform: numberAttribute,
-	});
-
 	/** Determine if the date picker is disabled. */
 	public readonly disabled = input<boolean, BooleanInput>(false, {
 		transform: booleanAttribute,
 	});
-
-	/** The selected value. */
-	public readonly date = model<T[]>();
 
 	/** Whether a specific date is disabled. */
 	public readonly dateDisabled = input<(date: T) => boolean>(() => false);
@@ -111,13 +69,23 @@ export class BrnCalendarMulti<T> implements BrnCalendarBase<T> {
 	 * The internal state of the component.
 	 */
 	public readonly state = computed(() => ({
-		focusedDate: signal(this.constrainDate(this.defaultFocusedDate() ?? this._dateAdapter.now())),
+		focusedDate: signal(this.constrainDate(this.defaultFocusedDate() ?? this.startDate() ?? this._dateAdapter.now())),
 	}));
 
 	/**
 	 * The focused date.
 	 */
 	public readonly focusedDate = computed(() => this.state().focusedDate());
+
+	/**
+	 * The selected start date
+	 */
+	public readonly startDate = model<T>();
+
+	/**
+	 * The selected end date
+	 */
+	public readonly endDate = model<T>();
 
 	/**
 	 * Get all the days to display, this is the days of the current month
@@ -154,29 +122,44 @@ export class BrnCalendarMulti<T> implements BrnCalendarBase<T> {
 	});
 
 	isSelected(date: T): boolean {
-		return this.date()?.some((d) => this._dateAdapter.isSameDay(d, date)) ?? false;
+		const start = this.startDate();
+		const end = this.endDate();
+
+		if (!start && !end) {
+			return false;
+		}
+		const isStartSelected = start ? this._dateAdapter.isSameDay(date, start) : false;
+		const isEndSelected = end ? this._dateAdapter.isSameDay(date, end) : false;
+
+		return isStartSelected || isEndSelected;
 	}
 
 	selectDate(date: T): void {
-		const selected = this.date() as T[] | undefined;
-		if (this.isSelected(date)) {
-			const minSelection = this.minSelection();
-			if (selected?.length === minSelection) {
-				// min selection reached, do not allow to deselect
-				return;
-			}
+		const start = this.startDate();
+		const end = this.endDate();
 
-			this.date.set(selected?.filter((d) => !this._dateAdapter.isSameDay(d, date)));
-		} else {
-			const maxSelection = this.maxSelection();
-			if (selected?.length === maxSelection) {
-				// max selection reached, reset the selection to date
-				this.date.set([date]);
-			} else {
-				// add the date to the selection
-				this.date.set([...(selected ?? []), date]);
-			}
+		if (!start && !end) {
+			this.startDate.set(date);
+
+			return;
 		}
+
+		if (start && !end) {
+			if (this._dateAdapter.isAfter(date, start)) {
+				this.endDate.set(date);
+			} else if (this._dateAdapter.isBefore(date, start)) {
+				this.startDate.set(date);
+				this.endDate.set(start);
+			} else if (this._dateAdapter.isSameDay(date, start)) {
+				this.endDate.set(date);
+			}
+			return;
+		}
+
+		// If both start and end are selected, reset selection
+		this.startDate.set(date);
+
+		this.endDate.set(undefined);
 	}
 
 	// same as in brn-calendar.directive.ts
@@ -261,5 +244,44 @@ export class BrnCalendarMulti<T> implements BrnCalendarBase<T> {
 
 		// we must update the view to ensure the focused cell is visible.
 		this._changeDetector.detectChanges();
+	}
+
+	/**
+	 * Determine if a date is the start of a range.
+	 * @param date The date to check.
+	 * @returns Always false.
+	 * @internal
+	 */
+	isStartOfRange(date: T): boolean {
+		const start = this.startDate();
+		return start ? this._dateAdapter.isSameDay(date, start) : false;
+	}
+
+	/**
+	 * Determine if a date is the end of a range.
+	 * @param date The date to check.
+	 * @returns Always false.
+	 * @internal
+	 */
+	isEndOfRange(date: T): boolean {
+		const end = this.endDate();
+		return end ? this._dateAdapter.isSameDay(date, end) : false;
+	}
+
+	/**
+	 * Determine if a date is between the start and end dates.
+	 * @param date The date to check.
+	 * @returns True if the date is between the start and end dates, false otherwise.
+	 * @internal
+	 */
+	isBetweenRange(date: T): boolean {
+		const start = this.startDate();
+		const end = this.endDate();
+
+		if (!start || !end) {
+			return false;
+		}
+
+		return this._dateAdapter.isAfter(date, start) && this._dateAdapter.isBefore(date, end);
 	}
 }

@@ -6,9 +6,9 @@ import {
 	computed,
 	forwardRef,
 	input,
+	linkedSignal,
 	model,
 	output,
-	signal,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { hlm } from '@spartan-ng/brain/core';
@@ -38,7 +38,7 @@ export const HLM_SWITCH_VALUE_ACCESSOR = {
 			[checked]="checked()"
 			(changed)="handleChange($event)"
 			(touched)="_onTouched?.()"
-			[disabled]="disabled()"
+			[disabled]="_disabled()"
 			[id]="id()"
 			[aria-label]="ariaLabel()"
 			[aria-labelledby]="ariaLabelledby()"
@@ -63,9 +63,8 @@ export class HlmSwitch implements ControlValueAccessor {
 	public readonly checked = model<boolean>(false);
 
 	/** The disabled state of the switch. */
-	public readonly disabledInput = input<boolean, BooleanInput>(false, {
+	public readonly disabled = input<boolean, BooleanInput>(false, {
 		transform: booleanAttribute,
-		alias: 'disabled',
 	});
 
 	/** Used to set the id on the underlying brn element. */
@@ -83,9 +82,7 @@ export class HlmSwitch implements ControlValueAccessor {
 	/** Emits when the checked state of the switch changes. */
 	public readonly changed = output<boolean>();
 
-	private readonly _writableDisabled = computed(() => signal(this.disabledInput()));
-
-	public readonly disabled = computed(() => this._writableDisabled()());
+	protected readonly _disabled = linkedSignal(this.disabled);
 
 	protected _onChange?: ChangeFn<boolean>;
 	protected _onTouched?: TouchFn;
@@ -111,6 +108,6 @@ export class HlmSwitch implements ControlValueAccessor {
 	}
 
 	setDisabledState(isDisabled: boolean): void {
-		this._writableDisabled().set(isDisabled);
+		this._disabled.set(isDisabled);
 	}
 }

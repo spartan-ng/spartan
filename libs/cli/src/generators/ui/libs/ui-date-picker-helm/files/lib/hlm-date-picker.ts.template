@@ -6,7 +6,7 @@ import {
 	computed,
 	forwardRef,
 	input,
-	model,
+	linkedSignal,
 	output,
 	signal,
 } from '@angular/core';
@@ -35,7 +35,7 @@ export const HLM_DATE_PICKER_VALUE_ACCESSOR = {
 	providers: [HLM_DATE_PICKER_VALUE_ACCESSOR, provideIcons({ lucideChevronDown })],
 	template: `
 		<brn-popover sideOffset="5" [state]="_popoverState()" (stateChanged)="_popoverState.set($event)">
-			<button type="button" [class]="_computedClass()" [disabled]="_state().disabled()" brnPopoverTrigger>
+			<button type="button" [class]="_computedClass()" [disabled]="_mutableDisabled()" brnPopoverTrigger>
 				<span class="truncate">
 					@if (_formattedDate(); as formattedDate) {
 						{{ formattedDate }}
@@ -50,10 +50,10 @@ export const HLM_DATE_PICKER_VALUE_ACCESSOR = {
 			<div hlmPopoverContent class="w-auto p-0" *brnPopoverContent="let ctx">
 				<hlm-calendar
 					calendarClass="border-0 rounded-none"
-					[date]="date()"
+					[date]="_mutableDate()"
 					[min]="min()"
 					[max]="max()"
-					[disabled]="_state().disabled()"
+					[disabled]="_mutableDisabled()"
 					(dateChange)="_handleChange($event)"
 				/>
 			</div>
@@ -70,11 +70,11 @@ export class HlmDatePicker<T> implements ControlValueAccessor {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>
 		hlm(
-			'inline-flex items-center gap-2 whitespace-nowrap rounded-md text-sm transition-all disabled:pointer-events-none disabled:opacity-50 ring-offset-background transition-colors border border-input bg-background hover:bg-accent dark:bg-input/30 dark:hover:bg-input/50 hover:text-accent-foreground h-9 px-3 py-2 w-[280px] justify-start text-left font-normal cursor-default justify-between',
+			'inline-flex items-center gap-2 whitespace-nowrap rounded-md text-sm transition-all disabled:pointer-events-none disabled:opacity-50 ring-offset-background border border-input bg-background hover:bg-accent dark:bg-input/30 dark:hover:bg-input/50 hover:text-accent-foreground h-9 px-3 py-2 w-[280px] justify-start text-left font-normal cursor-default justify-between',
 			'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
 			'disabled:pointer-events-none disabled:opacity-50',
 			'[&_ng-icon]:pointer-events-none [&_ng-icon]:shrink-0',
-			!this.date() ? 'text-muted-foreground' : '',
+			!this._mutableDate() ? 'text-muted-foreground' : '',
 			this.userClass(),
 		),
 	);
@@ -91,7 +91,9 @@ export class HlmDatePicker<T> implements ControlValueAccessor {
 	});
 
 	/** The selected value. */
-	public readonly date = model<T>();
+	public readonly date = input<T>();
+
+	protected readonly _mutableDate = linkedSignal(this.date);
 
 	/** If true, the date picker will close when a date is selected. */
 	public readonly autoCloseOnSelect = input<boolean, BooleanInput>(this._config.autoCloseOnSelect, {
@@ -106,58 +108,53 @@ export class HlmDatePicker<T> implements ControlValueAccessor {
 
 	protected readonly _popoverState = signal<BrnDialogState | null>(null);
 
-	protected readonly _state = computed(() => ({
-		disabled: signal(this.disabled()),
-	}));
+	protected readonly _mutableDisabled = linkedSignal(this.disabled);
 
 	protected readonly _formattedDate = computed(() => {
-		const date = this.date();
+		const date = this._mutableDate();
 		return date ? this.formatDate()(date) : undefined;
 	});
 
-	public readonly changed = output<T>();
+	public readonly dateChange = output<T>();
 
 	protected _onChange?: ChangeFn<T>;
 	protected _onTouched?: TouchFn;
 
 	protected _handleChange(value: T) {
-		if (this._state().disabled()) return;
+		if (this._mutableDisabled()) return;
 		const transformedDate = this.transformDate()(value);
 
-		this.date.set(transformedDate);
+		this._mutableDate.set(transformedDate);
 		this._onChange?.(transformedDate);
-		this.changed.emit(transformedDate);
+		this.dateChange.emit(transformedDate);
 
 		if (this.autoCloseOnSelect()) {
 			this._popoverState.set('closed');
 		}
 	}
 
-	/** CONROL VALUE ACCESSOR */
-	writeValue(value: T | null): void {
-		// optional FormControl is initialized with null value
-		if (value === null) return;
-
-		this.date.set(this.transformDate()(value));
+	/** CONTROL VALUE ACCESSOR */
+	public writeValue(value: T | null): void {
+		this._mutableDate.set(value ? this.transformDate()(value) : undefined);
 	}
 
-	registerOnChange(fn: ChangeFn<T>): void {
+	public registerOnChange(fn: ChangeFn<T>): void {
 		this._onChange = fn;
 	}
 
-	registerOnTouched(fn: TouchFn): void {
+	public registerOnTouched(fn: TouchFn): void {
 		this._onTouched = fn;
 	}
 
-	setDisabledState(isDisabled: boolean): void {
-		this._state().disabled.set(isDisabled);
+	public setDisabledState(isDisabled: boolean): void {
+		this._mutableDisabled.set(isDisabled);
 	}
 
-	open() {
+	public open() {
 		this._popoverState.set('open');
 	}
 
-	close() {
+	public close() {
 		this._popoverState.set('closed');
 	}
 }

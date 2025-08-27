@@ -11,11 +11,13 @@ import {
 	linkedSignal,
 	output,
 	signal,
+	viewChild,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown, lucideSearch } from '@ng-icons/lucide';
 import { BrnCommandEmpty } from '@spartan-ng/brain/command';
+import { hlm } from '@spartan-ng/brain/core';
 import { BrnDialogState } from '@spartan-ng/brain/dialog';
 import { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import { BrnPopover, BrnPopoverContent } from '@spartan-ng/brain/popover';
@@ -30,6 +32,7 @@ import {
 } from '@spartan-ng/helm/command';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmPopoverContent } from '@spartan-ng/helm/popover';
+import type { ClassValue } from 'clsx';
 import { HlmAutocompleteTrigger } from './hlm-autocomplete-trigger';
 
 export const HLM_AUTOCOMPLETE_VALUE_ACCESSOR = {
@@ -66,31 +69,40 @@ let nextId = 0;
 		<brn-popover
 			align="start"
 			autoFocus="first-heading"
+			sideOffset="5"
+			closeDelay="100"
 			[closeOnOutsidePointerEvents]="true"
 			[state]="_popoverState()"
 			(stateChanged)="_stateChanged($event)"
-			sideOffset="5"
-			closeDelay="100"
 		>
-			<hlm-command class="border-border w-full border">
-				<hlm-command-search class="h-full" hlmAutocompleteTrigger [disabled]="!_filter()">
+			<hlm-command
+				class="border-input focus-within:border-ring focus-within:ring-ring/50 h-9 border focus-within:ring-[3px]"
+			>
+				<hlm-command-search class="border-none" hlmAutocompleteTrigger [disabled]="!_filter()">
 					<ng-icon name="lucideSearch" hlm />
 					<input
-						[id]="inputId()"
+						#input
+						class="rounded-none py-1 text-base md:text-sm"
 						type="text"
 						autocomplete="off"
 						hlm-command-search-input
+						[id]="inputId()"
 						[placeholder]="placeholderText()"
 						[disabled]="_disabled()"
 						[value]="_filter()"
 						(input)="_onFilterChanged($event)"
+						(keydown.arrowDown)="_stateChanged('open')"
 					/>
 
+					<!-- TODO _toggleOptions and stateChanged interfere with each other  -->
+					<!-- TODO one click sets it popover state to open, second click triggers (stateChanged) with close because click outside and _toggleOptions state is set to open again -->
 					<button
-						class="flex items-center justify-center [&>_ng-icon]:opacity-50"
+						class="flex items-center justify-center outline-none disabled:cursor-not-allowed [&>_ng-icon]:opacity-50"
+						tabindex="-1"
 						type="button"
 						aria-label="Toggle dropdown"
-						(click)="_stateChanged('open')"
+						[disabled]="_disabled()"
+						(click)="_toggleOptions()"
 					>
 						<ng-icon name="lucideChevronDown" hlm />
 					</button>
@@ -118,10 +130,18 @@ let nextId = 0;
 		</brn-popover>
 	`,
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		'[class]': '_computedClass()',
+	},
 })
 export class HlmAutocomplete implements ControlValueAccessor {
+	private readonly inputRef = viewChild.required('input', { read: ElementRef });
+
 	protected readonly _elementRef = inject(ElementRef<HTMLElement>);
 	protected readonly _popoverState = signal<BrnDialogState | null>(null);
+
+	public readonly userClass = input<ClassValue>('', { alias: 'class' });
+	protected readonly _computedClass = computed(() => hlm('block w-full ', this.userClass()));
 
 	/** The list of options to display in the autocomplete. */
 	public readonly options = input<string[]>([]);
@@ -154,6 +174,11 @@ export class HlmAutocomplete implements ControlValueAccessor {
 
 	protected _stateChanged(state: 'open' | 'closed') {
 		this._popoverState.set(state);
+	}
+
+	protected _toggleOptions() {
+		this._popoverState.set(this._popoverState() === 'open' ? 'closed' : 'open');
+		this.inputRef().nativeElement.focus();
 	}
 
 	protected _onFilterChanged(event: Event) {

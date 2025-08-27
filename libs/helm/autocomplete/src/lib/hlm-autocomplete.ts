@@ -64,8 +64,8 @@ let nextId = 0;
 	providers: [HLM_AUTOCOMPLETE_VALUE_ACCESSOR, provideIcons({ lucideSearch, lucideChevronDown })],
 	template: `
 		<brn-popover
-			[align]="'start'"
-			[autoFocus]="'first-heading'"
+			align="start"
+			autoFocus="first-heading"
 			[closeOnOutsidePointerEvents]="true"
 			[state]="_popoverState()"
 			(stateChanged)="_stateChanged($event)"

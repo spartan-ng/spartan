@@ -1,12 +1,59 @@
 import { formatFiles, Tree } from '@nx/devkit';
+import { getOrCreateConfig } from '../../utils/config';
 import { visitFiles } from '../../utils/visit-files';
+import { createPrimitiveLibraries } from '../ui/generator';
+import { Primitive } from '../ui/primitives';
 import { MigrateHlmGeneratorSchema } from './schema';
 
-export async function migrateHlmGenerator(tree: Tree, { skipFormat }: MigrateHlmGeneratorSchema) {
+type SupportedLibraries = Record<string, SupportedLibrary>;
+
+interface SupportedLibrary {
+	internalName: string;
+	peerDependencies: Record<string, string>;
+}
+
+export async function migrateHlmGenerator(tree: Tree, { skipFormat, angularCli }: MigrateHlmGeneratorSchema) {
+	await ensureHelmUtilsInstalled(tree, angularCli);
 	replaceHlmImport(tree);
 
 	if (!skipFormat) {
 		await formatFiles(tree);
+	}
+}
+
+async function ensureHelmUtilsInstalled(tree: Tree, angularCli: boolean) {
+	const tsconfigPath = tree.exists('tsconfig.base.json')
+		? 'tsconfig.base.json'
+		: tree.exists('tsconfig.json')
+			? 'tsconfig.json'
+			: null;
+
+	if (!tsconfigPath) {
+		throw new Error('Could not find tsconfig.base.json or tsconfig.json to verify @spartan-ng/helm/utils.');
+	}
+
+	const tsconfig = JSON.parse(tree.read(tsconfigPath, 'utf-8') || '{}');
+
+	// Check compilerOptions.paths for @spartan-ng/helm/utils
+	const paths = tsconfig.compilerOptions?.paths || {};
+	const hasHelmUtils = Object.keys(paths).some((pkg) => pkg === '@spartan-ng/helm/utils');
+
+	if (!hasHelmUtils) {
+		const supportedLibraries = (await import('../ui/supported-ui-libraries.json').then(
+			(m) => m.default,
+		)) as SupportedLibraries;
+		const config = await getOrCreateConfig(tree);
+
+		await createPrimitiveLibraries(
+			{
+				primitives: ['utils'],
+			},
+			Object.keys(supportedLibraries) as Primitive[],
+			supportedLibraries,
+			tree,
+			{ angularCli, installPeerDependencies: true },
+			config,
+		);
 	}
 }
 

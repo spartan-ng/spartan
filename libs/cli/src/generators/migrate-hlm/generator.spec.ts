@@ -42,7 +42,7 @@ describe('migrate-hlm generator', () => {
       `,
 		);
 
-		await migrateHlmGenerator(tree, { skipFormat: true });
+		await migrateHlmGenerator(tree, { skipFormat: true, angularCli: false });
 
 		const content = tree.read('app/src/app/button.ts', 'utf-8');
 
@@ -58,7 +58,7 @@ describe('migrate-hlm generator', () => {
       `,
 		);
 
-		await migrateHlmGenerator(tree, { skipFormat: true });
+		await migrateHlmGenerator(tree, { skipFormat: true, angularCli: false });
 
 		const content = tree.read('app/src/app/button.ts', 'utf-8');
 
@@ -74,7 +74,7 @@ describe('migrate-hlm generator', () => {
       `,
 		);
 
-		await migrateHlmGenerator(tree, { skipFormat: true });
+		await migrateHlmGenerator(tree, { skipFormat: true, angularCli: false });
 
 		const content = tree.read('app/src/app/button.ts', 'utf-8');
 
@@ -90,7 +90,7 @@ describe('migrate-hlm generator', () => {
       `,
 		);
 
-		await migrateHlmGenerator(tree, { skipFormat: true });
+		await migrateHlmGenerator(tree, { skipFormat: true, angularCli: false });
 
 		const content = tree.read('app/src/app/button.ts', 'utf-8');
 
@@ -108,7 +108,7 @@ describe('migrate-hlm generator', () => {
       `,
 		);
 
-		await migrateHlmGenerator(tree, { skipFormat: true });
+		await migrateHlmGenerator(tree, { skipFormat: true, angularCli: false });
 
 		const content = tree.read('app/src/app/button.ts', 'utf-8');
 

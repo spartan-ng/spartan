@@ -26,8 +26,8 @@ export const hlmImportHealthcheck: Healthcheck = {
 			}
 		});
 	},
-	fix: async (tree) => {
-		await migrateHlmGenerator(tree, { skipFormat: true });
+	fix: async (tree, { angularCli }) => {
+		await migrateHlmGenerator(tree, { skipFormat: true, angularCli });
 		return true;
 	},
 	prompt: 'Would you like to migrate hlm import?',

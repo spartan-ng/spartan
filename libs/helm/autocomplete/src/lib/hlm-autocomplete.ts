@@ -135,7 +135,7 @@ let nextId = 0;
 	},
 })
 export class HlmAutocomplete implements ControlValueAccessor {
-	private readonly inputRef = viewChild.required('input', { read: ElementRef });
+	private readonly _inputRef = viewChild.required('input', { read: ElementRef });
 
 	protected readonly _elementRef = inject(ElementRef<HTMLElement>);
 	protected readonly _popoverState = signal<BrnDialogState | null>(null);
@@ -178,7 +178,7 @@ export class HlmAutocomplete implements ControlValueAccessor {
 
 	protected _toggleOptions() {
 		this._popoverState.set(this._popoverState() === 'open' ? 'closed' : 'open');
-		this.inputRef().nativeElement.focus();
+		this._inputRef().nativeElement.focus();
 	}
 
 	protected _onFilterChanged(event: Event) {

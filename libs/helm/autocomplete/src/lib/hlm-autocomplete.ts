@@ -82,7 +82,7 @@ let nextId = 0;
 					<ng-icon name="lucideSearch" hlm />
 					<input
 						#input
-						class="rounded-none py-1 text-base md:text-sm"
+						class="h-9 rounded-none py-1 text-base md:text-sm"
 						type="text"
 						autocomplete="off"
 						hlm-command-search-input

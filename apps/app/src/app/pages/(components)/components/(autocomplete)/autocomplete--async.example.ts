@@ -1,12 +1,15 @@
 import { ChangeDetectionStrategy, Component, inject, resource, signal } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { HlmAutocomplete } from '@spartan-ng/helm/autocomplete';
+import { HlmSpinner } from '@spartan-ng/helm/spinner';
 
 @Component({
 	selector: 'spartan-autocomplete-async',
-	imports: [HlmAutocomplete],
+	imports: [HlmAutocomplete, HlmSpinner],
 	template: `
-		<hlm-autocomplete [options]="options.value()" (filterChange)="_filter.set($event)" />
+		<hlm-autocomplete [options]="options.value()" [loading]="options.isLoading()" (filterChange)="_filter.set($event)">
+			<hlm-spinner loading class="size-6" />
+		</hlm-autocomplete>
 	`,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -26,6 +29,11 @@ export class AutocompleteAsync {
 			const filter = params.request.filter;
 
 			if (filter.length === 0) {
+				return [];
+			}
+
+			// Simulate empty state
+			if (filter === 'empty') {
 				return [];
 			}
 

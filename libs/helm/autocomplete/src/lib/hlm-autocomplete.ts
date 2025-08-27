@@ -124,7 +124,13 @@ let nextId = 0;
 						</hlm-command-group>
 					</hlm-command-list>
 
-					<div *brnCommandEmpty hlmCommandEmpty>No options found</div>
+					<div *brnCommandEmpty hlmCommandEmpty>
+						@if (loading()) {
+							<ng-content select="[loading]">Loading...</ng-content>
+						} @else {
+							<ng-content select="[empty]">No options found</ng-content>
+						}
+					</div>
 				</div>
 			</hlm-command>
 		</brn-popover>
@@ -156,6 +162,9 @@ export class HlmAutocomplete implements ControlValueAccessor {
 	protected readonly _filteredOptions = computed(() =>
 		this.options().filter((option) => option.toLowerCase().includes(this._filter().toLowerCase())),
 	);
+
+	/** Whether the autocomplete is in a loading state. */
+	public readonly loading = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
 	public readonly placeholderText = input('Select an option');
 	public readonly inputId = input<string>(`hlm-autocomplete-input-${nextId++}`);

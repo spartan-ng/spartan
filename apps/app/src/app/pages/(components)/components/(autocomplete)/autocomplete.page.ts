@@ -78,7 +78,7 @@ export const routeMeta: RouteMeta = {
 			</div>
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__async" class="${hlmH4} mb-2 mt-6">Asynchronos</h3>
+			<h3 id="examples__async" class="${hlmH4} mb-2 mt-6">Asynchronous</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-autocomplete-async />

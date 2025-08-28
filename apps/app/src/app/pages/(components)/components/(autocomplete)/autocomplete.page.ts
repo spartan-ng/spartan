@@ -13,6 +13,7 @@ import { link } from '../../../../shared/typography/link';
 
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { TabsCli } from '@spartan-ng/app/app/shared/layout/tabs-cli';
+import { UIApiDocs } from '@spartan-ng/app/app/shared/layout/ui-docs-section/ui-docs-section';
 import { Tabs } from '../../../../shared/layout/tabs';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { AutocompleteAsync } from './autocomplete--async.example';
@@ -20,7 +21,7 @@ import { AutocompleteForm } from './autocomplete--form.example';
 import { AutocompletePreview, defaultImports, defaultSkeleton } from './autocomplete.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'Autocomplete' },
+	data: { breadcrumb: 'Autocomplete', api: 'autocomplete' },
 	meta: metaWith('spartan/ui - Autocomplete', 'Autocomplete input and dropdown selection with filtering options.'),
 	title: 'spartan/ui - Autocomplete',
 };
@@ -38,6 +39,7 @@ export const routeMeta: RouteMeta = {
 		PageNav,
 		PageBottomNav,
 		PageBottomNavLink,
+		UIApiDocs,
 		AutocompletePreview,
 		AutocompleteAsync,
 		AutocompleteForm,
@@ -76,6 +78,9 @@ export const routeMeta: RouteMeta = {
 				<spartan-code [code]="_defaultImports" />
 				<spartan-code [code]="_codeSkeleton" />
 			</div>
+
+			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
 			<h3 id="examples__async" class="${hlmH4} mb-2 mt-6">Asynchronous</h3>

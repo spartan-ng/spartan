@@ -19,18 +19,13 @@ import { BrnCommandEmpty } from '@spartan-ng/brain/command';
 import { hlm } from '@spartan-ng/brain/core';
 import { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import { BrnPopover, BrnPopoverContent } from '@spartan-ng/brain/popover';
-import {
-	HlmCommand,
-	HlmCommandEmpty,
-	HlmCommandGroup,
-	HlmCommandItem,
-	HlmCommandList,
-	HlmCommandSearch,
-	HlmCommandSearchInput,
-} from '@spartan-ng/helm/command';
+import { HlmCommand, HlmCommandEmpty, HlmCommandGroup, HlmCommandItem, HlmCommandList } from '@spartan-ng/helm/command';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmPopoverContent } from '@spartan-ng/helm/popover';
 import type { ClassValue } from 'clsx';
+import { HlmAutocompleteCommand } from './hlm-autocomplete-command';
+import { HlmAutocompleteSearch } from './hlm-autocomplete-search';
+import { HlmAutocompleteSearchInput } from './hlm-autocomplete-search-input';
 import { HlmAutocompleteTrigger } from './hlm-autocomplete-trigger';
 
 export const HLM_AUTOCOMPLETE_VALUE_ACCESSOR = {
@@ -49,14 +44,15 @@ let nextId = 0;
 		HlmPopoverContent,
 
 		HlmCommand,
-		HlmCommandSearch,
-		HlmCommandSearchInput,
 		HlmCommandList,
 		HlmCommandGroup,
 		HlmCommandItem,
 		BrnCommandEmpty,
 		HlmCommandEmpty,
 
+		HlmAutocompleteCommand,
+		HlmAutocompleteSearch,
+		HlmAutocompleteSearchInput,
 		HlmAutocompleteTrigger,
 
 		NgIcon,
@@ -71,17 +67,14 @@ let nextId = 0;
 			closeDelay="100"
 			[closeOnOutsidePointerEvents]="true"
 		>
-			<hlm-command
-				class="border-input focus-within:border-ring focus-within:ring-ring/50 h-9 border focus-within:ring-[3px]"
-			>
-				<hlm-command-search class="border-none" hlmAutocompleteTrigger [disabled]="!_filter()">
+			<hlm-autocomplete-command>
+				<hlm-autocomplete-search hlmAutocompleteTrigger [disabled]="!_filter()">
 					<ng-icon name="lucideSearch" hlm />
 					<input
 						#input
-						class="h-9 rounded-none py-1 text-base md:text-sm"
 						type="text"
 						autocomplete="off"
-						hlm-command-search-input
+						hlm-autocomplete-search-input
 						[id]="inputId()"
 						[placeholder]="placeholderText()"
 						[disabled]="_disabled()"
@@ -100,7 +93,7 @@ let nextId = 0;
 					>
 						<ng-icon name="lucideChevronDown" hlm />
 					</button>
-				</hlm-command-search>
+				</hlm-autocomplete-search>
 
 				<div
 					*brnPopoverContent="let ctx"
@@ -126,7 +119,7 @@ let nextId = 0;
 						}
 					</div>
 				</div>
-			</hlm-command>
+			</hlm-autocomplete-command>
 		</brn-popover>
 	`,
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -141,7 +134,7 @@ export class HlmAutocomplete implements ControlValueAccessor {
 	protected readonly _elementRef = inject(ElementRef<HTMLElement>);
 
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected readonly _computedClass = computed(() => hlm('block w-full ', this.userClass()));
+	protected readonly _computedClass = computed(() => hlm('block w-full', this.userClass()));
 
 	/** The list of options to display in the autocomplete. */
 	public readonly options = input<string[]>([]);

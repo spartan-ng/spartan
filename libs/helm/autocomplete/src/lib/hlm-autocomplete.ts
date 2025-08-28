@@ -19,7 +19,7 @@ import { BrnCommandEmpty } from '@spartan-ng/brain/command';
 import { hlm } from '@spartan-ng/brain/core';
 import { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import { BrnPopover, BrnPopoverContent } from '@spartan-ng/brain/popover';
-import { HlmCommand, HlmCommandEmpty, HlmCommandGroup, HlmCommandItem, HlmCommandList } from '@spartan-ng/helm/command';
+import { HlmCommandEmpty, HlmCommandGroup, HlmCommandItem, HlmCommandList } from '@spartan-ng/helm/command';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmPopoverContent } from '@spartan-ng/helm/popover';
 import type { ClassValue } from 'clsx';
@@ -43,7 +43,6 @@ let nextId = 0;
 		BrnPopoverContent,
 		HlmPopoverContent,
 
-		HlmCommand,
 		HlmCommandList,
 		HlmCommandGroup,
 		HlmCommandItem,

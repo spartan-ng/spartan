@@ -1,5 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, resource, signal } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, resource, signal } from '@angular/core';
 import { HlmAutocomplete } from '@spartan-ng/helm/autocomplete';
 import { HlmSpinner } from '@spartan-ng/helm/spinner';
 
@@ -14,12 +13,6 @@ import { HlmSpinner } from '@spartan-ng/helm/spinner';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AutocompleteAsync {
-	private readonly _formBuilder = inject(FormBuilder);
-
-	public form = this._formBuilder.group({
-		option: [null, Validators.required],
-	});
-
 	protected readonly _search = signal<string>('');
 
 	public options = resource({
@@ -47,8 +40,4 @@ export class AutocompleteAsync {
 			});
 		},
 	});
-
-	submit() {
-		console.log(this.form.value);
-	}
 }

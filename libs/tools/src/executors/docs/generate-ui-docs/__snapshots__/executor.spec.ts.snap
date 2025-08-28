@@ -361,6 +361,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "filter",
             "required": false,
+            "type": "CommandFilter",
+          },
+          {
+            "name": "search",
+            "required": false,
             "type": "string",
           },
           {
@@ -391,11 +396,47 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "string | null",
           },
           {
-            "name": "filterChange",
+            "name": "searchChange",
             "type": "string",
           },
         ],
         "selector": "hlm-autocomplete",
+      },
+      "HlmAutocompleteCommand": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-autocomplete-command",
+      },
+      "HlmAutocompleteSearch": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-autocomplete-search",
+      },
+      "HlmAutocompleteSearchInput": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "input[hlm-autocomplete-search-input]",
       },
       "HlmAutocompleteTrigger": {
         "inputs": [

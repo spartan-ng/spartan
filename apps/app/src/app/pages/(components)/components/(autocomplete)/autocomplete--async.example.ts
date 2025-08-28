@@ -7,7 +7,7 @@ import { HlmSpinner } from '@spartan-ng/helm/spinner';
 	selector: 'spartan-autocomplete-async',
 	imports: [HlmAutocomplete, HlmSpinner],
 	template: `
-		<hlm-autocomplete [options]="options.value()" [loading]="options.isLoading()" (filterChange)="_filter.set($event)">
+		<hlm-autocomplete [options]="options.value()" [loading]="options.isLoading()" (searchChange)="_search.set($event)">
 			<hlm-spinner loading class="size-6" />
 		</hlm-autocomplete>
 	`,
@@ -20,20 +20,20 @@ export class AutocompleteAsync {
 		option: [null, Validators.required],
 	});
 
-	protected readonly _filter = signal<string>('');
+	protected readonly _search = signal<string>('');
 
 	public options = resource({
 		defaultValue: [],
-		request: () => ({ filter: this._filter() }),
+		request: () => ({ search: this._search() }),
 		loader: async (params) => {
-			const filter = params.request.filter;
+			const search = params.request.search;
 
-			if (filter.length === 0) {
+			if (search.length === 0) {
 				return [];
 			}
 
 			// Simulate empty state
-			if (filter === 'empty') {
+			if (search === 'empty') {
 				return [];
 			}
 
@@ -41,7 +41,7 @@ export class AutocompleteAsync {
 			// simulate async
 			return new Promise<string[]>((resolve) => {
 				setTimeout(() => {
-					const newOptions = Array.from({ length: 15 }, (_, i) => `${filter}-${i + 1}`);
+					const newOptions = Array.from({ length: 15 }, (_, i) => `${search}-${i + 1}`);
 					resolve(newOptions);
 				}, 500);
 			});

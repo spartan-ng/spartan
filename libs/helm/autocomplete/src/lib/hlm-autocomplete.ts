@@ -15,7 +15,7 @@ import {
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown, lucideSearch } from '@ng-icons/lucide';
-import { BrnCommandEmpty } from '@spartan-ng/brain/command';
+import { BrnCommandEmpty, CommandFilter } from '@spartan-ng/brain/command';
 import { hlm } from '@spartan-ng/brain/core';
 import { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import { BrnPopover, BrnPopoverContent } from '@spartan-ng/brain/popover';
@@ -66,8 +66,8 @@ let nextId = 0;
 			closeDelay="100"
 			[closeOnOutsidePointerEvents]="true"
 		>
-			<hlm-autocomplete-command>
-				<hlm-autocomplete-search hlmAutocompleteTrigger [disabled]="!_filter()">
+			<hlm-autocomplete-command [filter]="filter()">
+				<hlm-autocomplete-search hlmAutocompleteTrigger [disabled]="!_search()">
 					<ng-icon name="lucideSearch" hlm />
 					<input
 						#input
@@ -77,8 +77,8 @@ let nextId = 0;
 						[id]="inputId()"
 						[placeholder]="placeholderText()"
 						[disabled]="_disabled()"
-						[value]="_filter()"
-						(input)="_onFilterChanged($event)"
+						[value]="_search()"
+						(input)="_onSearchChanged($event)"
 						(keydown.arrowDown)="_setPopoverState('open')"
 					/>
 
@@ -142,27 +142,39 @@ export class HlmAutocomplete implements ControlValueAccessor {
 	public readonly value = input<string>();
 	protected readonly _value = linkedSignal(() => this.value());
 
-	public readonly filter = input<string>('');
-	protected readonly _filter = linkedSignal(() => this.filter());
+	/** The default filter function */
+	private readonly _defaultFilter = (value: string, search: string) =>
+		value.toLowerCase().includes(search.toLowerCase());
+
+	/** A custom filter function to determine which items are visible when searching. */
+	public readonly filter = input<CommandFilter>(this._defaultFilter);
+
+	/** The search query. */
+	public readonly search = input<string>('');
+	protected readonly _search = linkedSignal(() => this.search());
 
 	protected readonly _filteredOptions = computed(() =>
-		this.options().filter((option) => option.toLowerCase().includes(this._filter().toLowerCase())),
+		this.options().filter((option) => option.toLowerCase().includes(this._search().toLowerCase())),
 	);
 
 	/** Whether the autocomplete is in a loading state. */
 	public readonly loading = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
+	/** Placeholder text for the input field. */
 	public readonly placeholderText = input('Select an option');
+
+	/** The id of the input field. */
 	public readonly inputId = input<string>(`hlm-autocomplete-input-${nextId++}`);
 
+	/** Whether the autocomplete is disabled. */
 	public readonly disabled = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 	protected readonly _disabled = linkedSignal(() => this.disabled());
 
 	/** Emitted when the selected value changes. */
 	public readonly valueChange = output<string | null>();
 
-	/** Emitted when the filter text changes for asynchronous options */
-	public readonly filterChange = output<string>();
+	/** Emitted when the search query changes for asynchronous options */
+	public readonly searchChange = output<string>();
 
 	protected _onChange?: ChangeFn<string | null>;
 	protected _onTouched?: TouchFn;
@@ -186,10 +198,10 @@ export class HlmAutocomplete implements ControlValueAccessor {
 		this._inputRef().nativeElement.focus();
 	}
 
-	protected _onFilterChanged(event: Event) {
+	protected _onSearchChanged(event: Event) {
 		const input = event.target as HTMLInputElement;
-		this._filter.set(input.value);
-		this.filterChange.emit(input.value);
+		this._search.set(input.value);
+		this.searchChange.emit(input.value);
 
 		this._clearOption();
 
@@ -208,7 +220,7 @@ export class HlmAutocomplete implements ControlValueAccessor {
 		this._value.set(option);
 		this._onChange?.(option);
 		this.valueChange.emit(option);
-		this._filter.set(option);
+		this._search.set(option);
 
 		this._setPopoverState('closed');
 	}

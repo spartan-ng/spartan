@@ -21,7 +21,7 @@ export class HlmAutocompleteSearch {
 	/** The styles to apply  */
 	protected readonly _computedClass = computed(() =>
 		hlm(
-			'border-input focus-within:border-ring focus-within:ring-ring/50 shadow-xs dark:bg-input/30 flex h-9 min-w-0 items-center gap-2 rounded-md border px-3 focus-within:ring-[3px] [&>_ng-icon]:flex-none [&>_ng-icon]:opacity-50',
+			'border-input focus-within:border-ring bg-background focus-within:ring-ring/50 shadow-xs dark:bg-input/30 flex h-9 min-w-0 items-center gap-2 rounded-md border px-3 focus-within:ring-[3px] [&>_ng-icon]:flex-none [&>_ng-icon]:opacity-50',
 			this.userClass(),
 		),
 	);

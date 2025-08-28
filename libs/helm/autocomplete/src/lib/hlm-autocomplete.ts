@@ -150,8 +150,8 @@ export class HlmAutocomplete implements ControlValueAccessor {
 	public readonly filter = input<CommandFilter>(this._defaultFilter);
 
 	/** The search query. */
-	public readonly search = input<string>('');
-	protected readonly _search = linkedSignal(() => this.search());
+	public readonly search = input<string>();
+	protected readonly _search = linkedSignal(() => this.search() || '');
 
 	protected readonly _filteredOptions = computed(() =>
 		this.options().filter((option) => option.toLowerCase().includes(this._search().toLowerCase())),

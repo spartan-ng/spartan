@@ -374,7 +374,17 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "boolean",
           },
           {
-            "name": "placeholderText",
+            "name": "searchPlaceholderText",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "loadingText",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "emptyText",
             "required": false,
             "type": "unknown",
           },

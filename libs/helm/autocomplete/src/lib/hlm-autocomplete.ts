@@ -75,7 +75,7 @@ let nextId = 0;
 						autocomplete="off"
 						hlm-autocomplete-search-input
 						[id]="inputId()"
-						[placeholder]="placeholderText()"
+						[placeholder]="searchPlaceholderText()"
 						[disabled]="_disabled()"
 						[value]="_search()"
 						(input)="_onSearchChanged($event)"
@@ -112,9 +112,9 @@ let nextId = 0;
 
 					<div *brnCommandEmpty hlmCommandEmpty>
 						@if (loading()) {
-							<ng-content select="[loading]">Loading...</ng-content>
+							<ng-content select="[loading]">{{ loadingText() }}</ng-content>
 						} @else {
-							<ng-content select="[empty]">No options found</ng-content>
+							<ng-content select="[empty]">{{ emptyText() }}</ng-content>
 						}
 					</div>
 				</div>
@@ -161,7 +161,13 @@ export class HlmAutocomplete implements ControlValueAccessor {
 	public readonly loading = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
 	/** Placeholder text for the input field. */
-	public readonly placeholderText = input('Select an option');
+	public readonly searchPlaceholderText = input('Select an option');
+
+	/** Text to display when loading options. */
+	public readonly loadingText = input('Loading options...');
+
+	/** Text to display when no options are found. */
+	public readonly emptyText = input('No options found');
 
 	/** The id of the input field. */
 	public readonly inputId = input<string>(`hlm-autocomplete-input-${nextId++}`);

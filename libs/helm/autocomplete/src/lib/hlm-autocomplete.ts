@@ -10,7 +10,6 @@ import {
 	input,
 	linkedSignal,
 	output,
-	signal,
 	viewChild,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -18,7 +17,6 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown, lucideSearch } from '@ng-icons/lucide';
 import { BrnCommandEmpty } from '@spartan-ng/brain/command';
 import { hlm } from '@spartan-ng/brain/core';
-import { BrnDialogState } from '@spartan-ng/brain/dialog';
 import { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import { BrnPopover, BrnPopoverContent } from '@spartan-ng/brain/popover';
 import {
@@ -72,8 +70,6 @@ let nextId = 0;
 			sideOffset="5"
 			closeDelay="100"
 			[closeOnOutsidePointerEvents]="true"
-			[state]="_popoverState()"
-			(stateChanged)="_stateChanged($event)"
 		>
 			<hlm-command
 				class="border-input focus-within:border-ring focus-within:ring-ring/50 h-9 border focus-within:ring-[3px]"
@@ -91,11 +87,9 @@ let nextId = 0;
 						[disabled]="_disabled()"
 						[value]="_filter()"
 						(input)="_onFilterChanged($event)"
-						(keydown.arrowDown)="_stateChanged('open')"
+						(keydown.arrowDown)="_setPopoverState('open')"
 					/>
 
-					<!-- TODO _toggleOptions and stateChanged interfere with each other  -->
-					<!-- TODO one click sets it popover state to open, second click triggers (stateChanged) with close because click outside and _toggleOptions state is set to open again -->
 					<button
 						class="flex items-center justify-center outline-none disabled:cursor-not-allowed [&>_ng-icon]:opacity-50"
 						tabindex="-1"
@@ -141,10 +135,10 @@ let nextId = 0;
 	},
 })
 export class HlmAutocomplete implements ControlValueAccessor {
+	private readonly _brnPopover = viewChild.required(BrnPopover);
 	private readonly _inputRef = viewChild.required('input', { read: ElementRef });
 
 	protected readonly _elementRef = inject(ElementRef<HTMLElement>);
-	protected readonly _popoverState = signal<BrnDialogState | null>(null);
 
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() => hlm('block w-full ', this.userClass()));
@@ -181,12 +175,22 @@ export class HlmAutocomplete implements ControlValueAccessor {
 	protected _onChange?: ChangeFn<string | null>;
 	protected _onTouched?: TouchFn;
 
-	protected _stateChanged(state: 'open' | 'closed') {
-		this._popoverState.set(state);
+	protected _setPopoverState(state: 'open' | 'closed') {
+		if (state === 'open') {
+			this._brnPopover().open();
+		} else {
+			this._brnPopover().close();
+		}
 	}
 
 	protected _toggleOptions() {
-		this._popoverState.set(this._popoverState() === 'open' ? 'closed' : 'open');
+		const state = this._brnPopover().stateComputed();
+		if (state === 'open') {
+			this._brnPopover().close();
+		} else {
+			this._brnPopover().open();
+		}
+
 		this._inputRef().nativeElement.focus();
 	}
 
@@ -197,8 +201,8 @@ export class HlmAutocomplete implements ControlValueAccessor {
 
 		this._clearOption();
 
-		if (this._popoverState() !== 'open' && input.value.length > 0) {
-			this._stateChanged('open');
+		if (this._brnPopover().stateComputed() !== 'open' && input.value.length > 0) {
+			this._setPopoverState('open');
 		}
 	}
 
@@ -214,7 +218,7 @@ export class HlmAutocomplete implements ControlValueAccessor {
 		this.valueChange.emit(option);
 		this._filter.set(option);
 
-		this._stateChanged('closed');
+		this._setPopoverState('closed');
 	}
 
 	/** CONTROL VALUE ACCESSOR */

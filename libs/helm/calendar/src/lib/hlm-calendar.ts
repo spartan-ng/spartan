@@ -1,5 +1,14 @@
-import { BooleanInput } from '@angular/cdk/coercion';
-import { ChangeDetectionStrategy, Component, booleanAttribute, computed, input, model, viewChild } from '@angular/core';
+import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
+import {
+	booleanAttribute,
+	ChangeDetectionStrategy,
+	Component,
+	computed,
+	input,
+	model,
+	numberAttribute,
+	viewChild,
+} from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronLeft, lucideChevronRight } from '@ng-icons/lucide';
 import {
@@ -13,6 +22,7 @@ import {
 	BrnCalendarWeek,
 	BrnCalendarWeekday,
 	injectBrnCalendarI18n,
+	Weekday,
 } from '@spartan-ng/brain/calendar';
 import { hlm } from '@spartan-ng/brain/core';
 import { injectDateAdapter } from '@spartan-ng/brain/date-time';
@@ -44,6 +54,7 @@ import type { ClassValue } from 'clsx';
 			[disabled]="disabled()"
 			[(date)]="date"
 			[dateDisabled]="dateDisabled()"
+			[weekStartsOn]="weekStartsOn()"
 			[defaultFocusedDate]="defaultFocusedDate()"
 			[class]="_computedCalenderClass()"
 		>
@@ -134,6 +145,11 @@ export class HlmCalendar<T> {
 
 	/** Whether a specific date is disabled. */
 	public readonly dateDisabled = input<(date: T) => boolean>(() => false);
+
+	/** The day the week starts on */
+	public readonly weekStartsOn = input<Weekday, NumberInput>(undefined, {
+		transform: (v: unknown) => numberAttribute(v) as Weekday,
+	});
 
 	/** The default focused date. */
 	public readonly defaultFocusedDate = input<T>();

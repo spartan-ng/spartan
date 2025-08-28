@@ -593,6 +593,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "(date: T) => boolean",
           },
           {
+            "name": "weekStartsOn",
+            "required": false,
+            "type": "Weekday",
+          },
+          {
             "name": "defaultFocusedDate",
             "required": false,
             "type": "T",
@@ -676,6 +681,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "(date: T) => boolean",
           },
           {
+            "name": "weekStartsOn",
+            "required": false,
+            "type": "Weekday",
+          },
+          {
             "name": "defaultFocusedDate",
             "required": false,
             "type": "T",
@@ -723,6 +733,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "name": "dateDisabled",
             "required": false,
             "type": "(date: T) => boolean",
+          },
+          {
+            "name": "weekStartsOn",
+            "required": false,
+            "type": "Weekday",
           },
           {
             "name": "defaultFocusedDate",
@@ -785,6 +800,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "(date: T) => boolean",
           },
           {
+            "name": "weekStartsOn",
+            "required": false,
+            "type": "Weekday",
+          },
+          {
             "name": "defaultFocusedDate",
             "required": false,
             "type": "T",
@@ -837,6 +857,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "(date: T) => boolean",
           },
           {
+            "name": "weekStartsOn",
+            "required": false,
+            "type": "Weekday",
+          },
+          {
             "name": "defaultFocusedDate",
             "required": false,
             "type": "T",
@@ -877,6 +902,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "name": "dateDisabled",
             "required": false,
             "type": "(date: T) => boolean",
+          },
+          {
+            "name": "weekStartsOn",
+            "required": false,
+            "type": "Weekday",
           },
           {
             "name": "defaultFocusedDate",

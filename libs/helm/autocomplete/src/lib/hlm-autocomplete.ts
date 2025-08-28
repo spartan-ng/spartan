@@ -173,7 +173,7 @@ export class HlmAutocomplete implements ControlValueAccessor {
 	/** Emitted when the selected value changes. */
 	public readonly valueChange = output<string | null>();
 
-	/** Emitted when the search query changes for asynchronous options */
+	/** Emitted when the search query changes. */
 	public readonly searchChange = output<string>();
 
 	protected _onChange?: ChangeFn<string | null>;

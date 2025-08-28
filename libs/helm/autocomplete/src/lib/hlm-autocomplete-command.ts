@@ -21,9 +21,9 @@ import type { ClassValue } from 'clsx';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmAutocompleteCommand {
-	/*** The user defined class */
+	/** The user defined class */
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 
-	/*** The styles to apply  */
+	/** The styles to apply  */
 	protected readonly _computedClass = computed(() => hlm('', this.userClass()));
 }

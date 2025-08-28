@@ -13,10 +13,10 @@ import type { ClassValue } from 'clsx';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmAutocompleteSearchInput {
-	/*** The user defined class  */
+	/** The user defined class  */
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 
-	/*** The styles to apply  */
+	/** The styles to apply  */
 	protected readonly _computedClass = computed(() =>
 		hlm(
 			'placeholder:text-muted-foreground flex h-9 w-full bg-transparent py-1 text-base outline-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',

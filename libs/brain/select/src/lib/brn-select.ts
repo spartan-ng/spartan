@@ -97,7 +97,7 @@ export class BrnSelect<T = unknown>
 	private readonly _parentFormGroup = inject(FormGroupDirective, { optional: true });
 	public readonly ngControl = inject(NgControl, { optional: true, self: true });
 
-	public readonly id = input<string>(`brn-select-${nextId++}`);
+	public readonly id = input<string>(`brn-select-${++nextId}`);
 	public readonly multiple = input<boolean, BooleanInput>(false, {
 		transform: booleanAttribute,
 	});

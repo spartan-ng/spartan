@@ -22,7 +22,7 @@ export class BrnToggleGroupItem<T> {
 	protected readonly _group = injectBrnToggleGroup<T>();
 
 	/** The id of the toggle. */
-	public readonly id = input(`brn-toggle-group-item-${BrnToggleGroupItem._uniqueId++}`);
+	public readonly id = input(`brn-toggle-group-item-${++BrnToggleGroupItem._uniqueId}`);
 
 	/** The value this toggle represents. */
 	public readonly value = input<T>();

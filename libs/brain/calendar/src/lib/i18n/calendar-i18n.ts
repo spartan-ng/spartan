@@ -60,7 +60,7 @@ export class BrnCalendarI18nService {
 
 	public readonly config = this._config.asReadonly();
 
-	public use(config: BrnCalendarI18n) {
-		this._config.set(config);
+	public use(config: Partial<BrnCalendarI18n>) {
+		this._config.set({ ...this.config(), ...config });
 	}
 }

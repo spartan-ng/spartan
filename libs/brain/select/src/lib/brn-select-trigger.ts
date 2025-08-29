@@ -46,7 +46,7 @@ export class BrnSelectTrigger<T> implements AfterViewInit, OnDestroy, OnInit {
 	protected readonly _contentId = computed(() => `${this._select.id()}--content`);
 	protected readonly _disabled = computed(() => this._select.disabled() || this._select.formDisabled());
 	protected readonly _labelledBy = computed(() => {
-		const value = this._select.mutableValue();
+		const value = this._select.value();
 
 		if (Array.isArray(value) && value.length > 0) {
 			return `${this._select.labelId()} ${this._select.id()}--value`;

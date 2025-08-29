@@ -20,7 +20,6 @@ import {
 	forwardRef,
 	inject,
 	input,
-	linkedSignal,
 	model,
 	numberAttribute,
 	output,
@@ -113,12 +112,8 @@ export class BrnSelect<T = unknown>
 	});
 
 	public readonly open = model<boolean>(false);
-	// public readonly value = model<T | T[]>();
-	public readonly value = input<T | T[]>();
-	public readonly mutableValue = linkedSignal(this.value);
-
+	public readonly value = model<T | T[]>();
 	public readonly valueChange = output<T | T[]>();
-
 	public readonly compareWith = input<(o1: T, o2: T) => boolean>((o1, o2) => o1 === o2);
 	public readonly formDisabled = signal(false);
 
@@ -254,7 +249,7 @@ export class BrnSelect<T = unknown>
 	}
 
 	public writeValue(value: T): void {
-		this.mutableValue.set(value);
+		this.value.set(value);
 	}
 
 	public registerOnChange(fn: ChangeFn<T | T[]>): void {
@@ -272,16 +267,16 @@ export class BrnSelect<T = unknown>
 	selectOption(value: T): void {
 		// if this is a multiple select we need to add the value to the array
 		if (this.multiple()) {
-			const currentValue = this.mutableValue() as T[];
+			const currentValue = this.value() as T[];
 			const newValue = currentValue ? [...currentValue, value] : [value];
-			this.mutableValue.set(newValue);
+			this.value.set(newValue);
 			this.valueChange.emit(newValue);
 		} else {
-			this.mutableValue.set(value);
+			this.value.set(value);
 			this.valueChange.emit(value);
 		}
 
-		this._onChange?.(this.mutableValue() as T | T[]);
+		this._onChange?.(this.value() as T | T[]);
 
 		// if this is single select close the dropdown
 		if (!this.multiple()) {
@@ -291,16 +286,16 @@ export class BrnSelect<T = unknown>
 
 	deselectOption(value: T): void {
 		if (this.multiple()) {
-			const currentValue = this.mutableValue() as T[];
+			const currentValue = this.value() as T[];
 			const val = currentValue.filter((val) => !this.compareWith()(val, value));
-			this.mutableValue.set(val);
+			this.value.set(val);
 			this.valueChange.emit(val);
 		} else {
-			this.mutableValue.set(null as T);
+			this.value.set(null as T);
 			this.valueChange.emit(null as T);
 		}
 
-		this._onChange?.(this.mutableValue() as T | T[]);
+		this._onChange?.(this.value() as T | T[]);
 	}
 
 	toggleSelect(value: T): void {
@@ -312,7 +307,7 @@ export class BrnSelect<T = unknown>
 	}
 
 	isSelected(value: T): boolean {
-		const selection = this.mutableValue();
+		const selection = this.value();
 
 		if (Array.isArray(selection)) {
 			return selection.some((val) => this.compareWith()(val, value));

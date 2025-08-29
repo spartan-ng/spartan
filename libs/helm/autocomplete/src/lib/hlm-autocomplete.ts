@@ -60,13 +60,14 @@ let nextId = 0;
 	providers: [HLM_AUTOCOMPLETE_VALUE_ACCESSOR, provideIcons({ lucideSearch, lucideChevronDown })],
 	template: `
 		<brn-popover
+			#popover
 			align="start"
 			autoFocus="first-heading"
 			sideOffset="5"
 			closeDelay="100"
 			[closeOnOutsidePointerEvents]="true"
 		>
-			<hlm-autocomplete-command>
+			<hlm-autocomplete-command [focusActiveOnEnter]="popover.stateComputed() === 'open'">
 				<hlm-autocomplete-search hlmAutocompleteTrigger [disabled]="!_search()">
 					<ng-icon name="lucideSearch" hlm />
 					<input

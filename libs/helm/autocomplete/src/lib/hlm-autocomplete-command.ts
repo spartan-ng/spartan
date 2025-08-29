@@ -11,7 +11,7 @@ import type { ClassValue } from 'clsx';
 	hostDirectives: [
 		{
 			directive: BrnCommand,
-			inputs: ['id'],
+			inputs: ['id', 'focusActiveOnEnter'],
 			outputs: ['valueChange'],
 		},
 	],

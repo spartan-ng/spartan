@@ -7,7 +7,6 @@ import {
 	contentChildren,
 	Directive,
 	effect,
-	HostListener,
 	inject,
 	Injector,
 	input,
@@ -25,6 +24,7 @@ import { CommandFilter, injectBrnCommandConfig, provideBrnCommand } from './brn-
 	providers: [provideBrnCommand(BrnCommand)],
 	host: {
 		'[id]': 'id()',
+		'(keydown.enter)': 'selectActiveItem()',
 	},
 })
 export class BrnCommand implements AfterViewInit {
@@ -41,6 +41,9 @@ export class BrnCommand implements AfterViewInit {
 
 	/** A custom filter function to use when searching. */
 	public readonly filter = input<CommandFilter>(this._config.filter);
+
+	/** Whether the command should focus active items on enter keydown. */
+	public readonly focusActiveOnEnter = input<boolean>(true);
 
 	/** when the selection has changed */
 	public readonly valueChange = output<string>();
@@ -93,8 +96,9 @@ export class BrnCommand implements AfterViewInit {
 		}
 	}
 
-	@HostListener('keydown.enter')
 	protected selectActiveItem(): void {
-		this.keyManager.activeItem?.selected.emit();
+		if (this.focusActiveOnEnter()) {
+			this.keyManager.activeItem?.selected.emit();
+		}
 	}
 }

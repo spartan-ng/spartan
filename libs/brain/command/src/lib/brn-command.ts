@@ -18,7 +18,7 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { BrnCommandItemToken } from './brn-command-item.token';
 import { BrnCommandSearchInput } from './brn-command-search-input';
-import { provideBrnCommand } from './brn-command.token';
+import { CommandFilter, injectBrnCommandConfig, provideBrnCommand } from './brn-command.token';
 
 @Directive({
 	selector: '[brnCommand]',
@@ -34,15 +34,13 @@ export class BrnCommand implements AfterViewInit {
 
 	private readonly _injector = inject(Injector);
 
+	private readonly _config = injectBrnCommandConfig();
+
 	/** The id of the command */
 	public readonly id = input<string>(`brn-command-${++BrnCommand._id}`);
 
-	/** The default filter function */
-	private readonly _defaultFilter = (value: string, search: string) =>
-		value.toLowerCase().includes(search.toLowerCase());
-
 	/** A custom filter function to use when searching. */
-	public readonly filter = input<CommandFilter>(this._defaultFilter);
+	public readonly filter = input<CommandFilter>(this._config.filter);
 
 	/** when the selection has changed */
 	public readonly valueChange = output<string>();
@@ -100,5 +98,3 @@ export class BrnCommand implements AfterViewInit {
 		this.keyManager.activeItem?.selected.emit();
 	}
 }
-
-export type CommandFilter = (value: string, search: string) => boolean;

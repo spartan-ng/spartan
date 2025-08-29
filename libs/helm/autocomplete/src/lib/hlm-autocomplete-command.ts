@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
-import { BrnCommand } from '@spartan-ng/brain/command';
+import { BrnCommand, provideBrnCommandConfig } from '@spartan-ng/brain/command';
 import { hlm } from '@spartan-ng/brain/core';
 import type { ClassValue } from 'clsx';
 
@@ -11,13 +11,19 @@ import type { ClassValue } from 'clsx';
 	hostDirectives: [
 		{
 			directive: BrnCommand,
-			inputs: ['id', 'filter'],
+			inputs: ['id'],
 			outputs: ['valueChange'],
 		},
 	],
 	host: {
 		'[class]': '_computedClass()',
 	},
+	providers: [
+		provideBrnCommandConfig({
+			// override default command filter behavior to show all options
+			filter: () => true,
+		}),
+	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmAutocompleteCommand {

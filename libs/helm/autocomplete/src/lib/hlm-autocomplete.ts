@@ -15,7 +15,7 @@ import {
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown, lucideSearch } from '@ng-icons/lucide';
-import { BrnCommandEmpty, CommandFilter } from '@spartan-ng/brain/command';
+import { BrnCommandEmpty } from '@spartan-ng/brain/command';
 import { hlm } from '@spartan-ng/brain/core';
 import { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import { BrnPopover, BrnPopoverContent } from '@spartan-ng/brain/popover';
@@ -66,7 +66,7 @@ let nextId = 0;
 			closeDelay="100"
 			[closeOnOutsidePointerEvents]="true"
 		>
-			<hlm-autocomplete-command [filter]="filter()">
+			<hlm-autocomplete-command>
 				<hlm-autocomplete-search hlmAutocompleteTrigger [disabled]="!_search()">
 					<ng-icon name="lucideSearch" hlm />
 					<input
@@ -141,13 +141,6 @@ export class HlmAutocomplete implements ControlValueAccessor {
 	/** The selected value. */
 	public readonly value = input<string>();
 	protected readonly _value = linkedSignal(() => this.value());
-
-	/** The default filter function */
-	private readonly _defaultFilter = (value: string, search: string) =>
-		value.toLowerCase().includes(search.toLowerCase());
-
-	/** A custom filter function to determine which items are visible when searching. */
-	public readonly filter = input<CommandFilter>(this._defaultFilter);
 
 	/** The search query. */
 	public readonly search = input<string>();

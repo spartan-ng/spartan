@@ -7,7 +7,7 @@ export interface BrnCalendarI18n {
 	labelNext: () => string;
 	labelWeekday: (index: number) => string;
 	months: () => [string, string, string, string, string, string, string, string, string, string, string, string];
-	years: (startYear: number, endYear: number) => number[];
+	years: (startYear?: number, endYear?: number) => number[];
 }
 
 export const BrnCalendarI18nToken = new InjectionToken<BrnCalendarI18n>('BrnCalendarI18nToken');
@@ -25,7 +25,8 @@ const defaultCalendarI18n: BrnCalendarI18n = {
 		return weekdays[index];
 	},
 	months: () => ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-	years: (startYear = 1925, endYear = 2025) => Array.from({ length: endYear - startYear + 1 }, (_, i) => startYear + i),
+	years: (startYear = 1925, endYear = new Date().getFullYear()) =>
+		Array.from({ length: endYear - startYear + 1 }, (_, i) => startYear + i),
 	formatHeader: (month: number, year: number) => {
 		return new Date(year, month).toLocaleDateString(undefined, {
 			month: 'long',

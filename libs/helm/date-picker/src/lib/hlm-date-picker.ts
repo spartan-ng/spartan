@@ -50,6 +50,7 @@ export const HLM_DATE_PICKER_VALUE_ACCESSOR = {
 			<div hlmPopoverContent class="w-auto p-0" *brnPopoverContent="let ctx">
 				<hlm-calendar
 					calendarClass="border-0 rounded-none"
+					[captionLayout]="captionLayout()"
 					[date]="_mutableDate()"
 					[min]="min()"
 					[max]="max()"
@@ -78,6 +79,9 @@ export class HlmDatePicker<T> implements ControlValueAccessor {
 			this.userClass(),
 		),
 	);
+
+	/** Show dropdowns to navigate between months or years. */
+	public readonly captionLayout = input<'dropdown' | 'label' | 'dropdown-months' | 'dropdown-years'>('label');
 
 	/** The minimum date that can be selected.*/
 	public readonly min = input<T>();

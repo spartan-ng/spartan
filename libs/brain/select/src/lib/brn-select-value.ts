@@ -13,7 +13,7 @@ import { injectBrnSelect } from './brn-select.token';
 		} @else {
 			<ng-container
 				[ngTemplateOutlet]="_customValueTemplate()?.templateRef ?? defaultValueTemplate"
-				[ngTemplateOutletContext]="{ $implicit: _select.value() }"
+				[ngTemplateOutletContext]="{ $implicit: _select.mutableValue() }"
 			/>
 		}
 
@@ -79,7 +79,9 @@ export class BrnSelectValue<T> {
 
 	/** Normalize the values as an array */
 	protected readonly _values = computed(() =>
-		Array.isArray(this._select.value()) ? (this._select.value() as T[]) : ([this._select.value()] as T[]),
+		Array.isArray(this._select.mutableValue())
+			? (this._select.mutableValue() as T[])
+			: ([this._select.mutableValue()] as T[]),
 	);
 
 	public readonly transformFn = input<(values: (string | undefined)[]) => any>((values) => (values ?? []).join(', '));

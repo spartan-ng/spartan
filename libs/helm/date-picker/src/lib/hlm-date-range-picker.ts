@@ -18,7 +18,7 @@ import { hlm } from '@spartan-ng/brain/core';
 import { BrnDialogState } from '@spartan-ng/brain/dialog';
 import { type ChangeFn, type TouchFn } from '@spartan-ng/brain/forms';
 import { BrnPopover, BrnPopoverContent, BrnPopoverTrigger } from '@spartan-ng/brain/popover';
-import { HlmCalendarRange } from '@spartan-ng/helm/calendar';
+import { HlmCalendar, HlmCalendarRange } from '@spartan-ng/helm/calendar';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmPopoverContent } from '@spartan-ng/helm/popover';
 import type { ClassValue } from 'clsx';
@@ -32,7 +32,16 @@ export const HLM_DATE_RANGE_PICKER_VALUE_ACCESSOR = {
 
 @Component({
 	selector: 'hlm-date-range-picker',
-	imports: [NgIcon, HlmIcon, BrnPopover, BrnPopoverTrigger, BrnPopoverContent, HlmPopoverContent, HlmCalendarRange],
+	imports: [
+		NgIcon,
+		HlmIcon,
+		BrnPopover,
+		BrnPopoverTrigger,
+		BrnPopoverContent,
+		HlmPopoverContent,
+		HlmCalendarRange,
+		HlmCalendar,
+	],
 	providers: [HLM_DATE_RANGE_PICKER_VALUE_ACCESSOR, provideIcons({ lucideCalendar })],
 	template: `
 		<brn-popover
@@ -57,6 +66,7 @@ export const HLM_DATE_RANGE_PICKER_VALUE_ACCESSOR = {
 				<hlm-calendar-range
 					calendarClass="border-0 rounded-none"
 					[startDate]="_start()"
+					[captionLayout]="captionLayout()"
 					[endDate]="_end()"
 					[min]="min()"
 					[max]="max()"
@@ -86,6 +96,9 @@ export class HlmDateRangePicker<T> implements ControlValueAccessor {
 			this.userClass(),
 		),
 	);
+
+	/** Show dropdowns to navigate between months or years. */
+	public readonly captionLayout = input<'dropdown' | 'label' | 'dropdown-months' | 'dropdown-years'>('label');
 
 	/** The minimum date that can be selected.*/
 	public readonly min = input<T>();

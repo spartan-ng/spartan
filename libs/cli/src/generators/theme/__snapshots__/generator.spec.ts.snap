@@ -11,10 +11,10 @@ exports[`Theme generator Tailwind v3 should add the gray theme styles to the glo
 
 
 :root {
---font-sans: ''
-}
+color-scheme: light;
 
-:root {
+--font-sans: ''
+
 --background: 0deg 0% 100%;
 --foreground: 224.06deg 72.27% 4.17%;
 --card: 0deg 0% 100%;
@@ -37,6 +37,8 @@ exports[`Theme generator Tailwind v3 should add the gray theme styles to the glo
 }
 
 :root.dark {
+color-scheme: dark;
+
 --background: 224.06deg 72.27% 4.17%;
 --foreground: 344.54deg 18.99% 98.19%;
 --card: 220.99deg 41.69% 11.07%;
@@ -75,10 +77,10 @@ exports[`Theme generator Tailwind v3 should add the neutral theme styles to the 
 
 
 :root {
---font-sans: ''
-}
+color-scheme: light;
 
-:root {
+--font-sans: ''
+
 --background: 0deg 0% 100%;
 --foreground: 0deg 0.02% 3.94%;
 --card: 0deg 0% 100%;
@@ -101,6 +103,8 @@ exports[`Theme generator Tailwind v3 should add the neutral theme styles to the 
 }
 
 :root.dark {
+color-scheme: dark;
+
 --background: 0deg 0.02% 3.94%;
 --foreground: 0deg 0.5% 98.03%;
 --card: 0deg 0.02% 9.06%;
@@ -139,10 +143,10 @@ exports[`Theme generator Tailwind v3 should add the slate theme styles to the gl
 
 
 :root {
---font-sans: ''
-}
+color-scheme: light;
 
-:root {
+--font-sans: ''
+
 --background: 0deg 0% 100%;
 --foreground: 228.82deg 85.15% 5%;
 --card: 0deg 0% 100%;
@@ -165,6 +169,8 @@ exports[`Theme generator Tailwind v3 should add the slate theme styles to the gl
 }
 
 :root.dark {
+color-scheme: dark;
+
 --background: 228.82deg 85.15% 5%;
 --foreground: 344.69deg 27.87% 98.13%;
 --card: 222.33deg 49.39% 11.3%;
@@ -203,10 +209,10 @@ exports[`Theme generator Tailwind v3 should add the stone theme styles to the gl
 
 
 :root {
---font-sans: ''
-}
+color-scheme: light;
 
-:root {
+--font-sans: ''
+
 --background: 0deg 0% 100%;
 --foreground: 344.17deg 10.1% 4.29%;
 --card: 0deg 0% 100%;
@@ -229,6 +235,8 @@ exports[`Theme generator Tailwind v3 should add the stone theme styles to the gl
 }
 
 :root.dark {
+color-scheme: dark;
+
 --background: 344.17deg 10.1% 4.29%;
 --foreground: 344deg 8.87% 98.11%;
 --card: 344.37deg 6.88% 10.34%;
@@ -266,10 +274,10 @@ exports[`Theme generator Tailwind v3 should add the zinc theme styles to the glo
 
 
 :root {
---font-sans: ''
-}
+color-scheme: light;
 
-:root {
+--font-sans: ''
+
 --background: 0deg 0% 100%;
 --foreground: 344.97deg 13.46% 3.85%;
 --card: 0deg 0% 100%;
@@ -292,6 +300,8 @@ exports[`Theme generator Tailwind v3 should add the zinc theme styles to the glo
 }
 
 :root.dark {
+color-scheme: dark;
+
 --background: 344.97deg 13.46% 3.85%;
 --foreground: 0deg 0.5% 98.03%;
 --card: 344.35deg 7.21% 9.8%;
@@ -326,10 +336,10 @@ exports[`Theme generator Tailwind v4 should add the gray theme styles to the glo
 @import "@spartan-ng/brain/hlm-tailwind-preset.css";
 
 :root {
---font-sans: ''
-}
+color-scheme: light;
 
-:root {
+--font-sans: ''
+
 --background: oklch(1 0 0);
 --foreground: oklch(0.13 0.028 261.692);
 --card: oklch(1 0 0);
@@ -352,6 +362,8 @@ exports[`Theme generator Tailwind v4 should add the gray theme styles to the glo
 }
 
 :root.dark {
+color-scheme: dark;
+
 --background: oklch(0.13 0.028 261.692);
 --foreground: oklch(0.985 0.002 247.839);
 --card: oklch(0.21 0.034 264.665);
@@ -386,10 +398,10 @@ exports[`Theme generator Tailwind v4 should add the neutral theme styles to the 
 @import "@spartan-ng/brain/hlm-tailwind-preset.css";
 
 :root {
---font-sans: ''
-}
+color-scheme: light;
 
-:root {
+--font-sans: ''
+
 --background: oklch(1 0 0);
 --foreground: oklch(0.145 0 0);
 --card: oklch(1 0 0);
@@ -412,6 +424,8 @@ exports[`Theme generator Tailwind v4 should add the neutral theme styles to the 
 }
 
 :root.dark {
+color-scheme: dark;
+
 --background: oklch(0.145 0 0);
 --foreground: oklch(0.985 0 0);
 --card: oklch(0.205 0 0);
@@ -446,10 +460,10 @@ exports[`Theme generator Tailwind v4 should add the slate theme styles to the gl
 @import "@spartan-ng/brain/hlm-tailwind-preset.css";
 
 :root {
---font-sans: ''
-}
+color-scheme: light;
 
-:root {
+--font-sans: ''
+
 --background: oklch(1 0 0);
 --foreground: oklch(0.129 0.042 264.695);
 --card: oklch(1 0 0);
@@ -472,6 +486,8 @@ exports[`Theme generator Tailwind v4 should add the slate theme styles to the gl
 }
 
 :root.dark {
+color-scheme: dark;
+
 --background: oklch(0.129 0.042 264.695);
 --foreground: oklch(0.984 0.003 247.858);
 --card: oklch(0.208 0.042 265.755);
@@ -506,10 +522,10 @@ exports[`Theme generator Tailwind v4 should add the stone theme styles to the gl
 @import "@spartan-ng/brain/hlm-tailwind-preset.css";
 
 :root {
---font-sans: ''
-}
+color-scheme: light;
 
-:root {
+--font-sans: ''
+
 --background: oklch(1 0 0);
 --foreground: oklch(0.147 0.004 49.25);
 --card: oklch(1 0 0);
@@ -532,6 +548,8 @@ exports[`Theme generator Tailwind v4 should add the stone theme styles to the gl
 }
 
 :root.dark {
+color-scheme: dark;
+
 --background: oklch(0.147 0.004 49.25);
 --foreground: oklch(0.985 0.001 106.423);
 --card: oklch(0.216 0.006 56.043);
@@ -566,10 +584,10 @@ exports[`Theme generator Tailwind v4 should add the zinc theme styles to the glo
 @import "@spartan-ng/brain/hlm-tailwind-preset.css";
 
 :root {
---font-sans: ''
-}
+color-scheme: light;
 
-:root {
+--font-sans: ''
+
 --background: oklch(1 0 0);
 --foreground: oklch(0.141 0.005 285.823);
 --card: oklch(1 0 0);
@@ -592,6 +610,8 @@ exports[`Theme generator Tailwind v4 should add the zinc theme styles to the glo
 }
 
 :root.dark {
+color-scheme: dark;
+
 --background: oklch(0.141 0.005 285.823);
 --foreground: oklch(0.985 0 0);
 --card: oklch(0.21 0.006 285.885);

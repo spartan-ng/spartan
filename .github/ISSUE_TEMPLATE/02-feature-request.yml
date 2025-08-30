@@ -22,7 +22,9 @@ body:
         - button
         - calendar
         - card
+        - carousel
         - checkbox
+        - cli
         - collapsible
         - combobox
         - command

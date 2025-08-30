@@ -20,6 +20,7 @@ export type Primitive =
 	| 'hover-card'
 	| 'icon'
 	| 'input'
+	| 'input-otp'
 	| 'label'
 	| 'menu'
 	| 'menubar'

@@ -35,6 +35,7 @@ export const primitiveDependencies: Record<Primitive, Primitive[]> = {
 	separator: [],
 	sheet: [],
 	skeleton: [],
+	slider: [],
 	sonner: ['icon'],
 	spinner: [],
 	switch: [],

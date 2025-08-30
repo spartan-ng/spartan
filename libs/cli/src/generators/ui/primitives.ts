@@ -33,6 +33,7 @@ export type Primitive =
 	| 'separator'
 	| 'sheet'
 	| 'skeleton'
+	| 'slider'
 	| 'sonner'
 	| 'spinner'
 	| 'switch'

@@ -1,8 +1,8 @@
 import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import {
+	booleanAttribute,
 	ChangeDetectionStrategy,
 	Component,
-	booleanAttribute,
 	computed,
 	input,
 	model,
@@ -21,8 +21,8 @@ import {
 	BrnCalendarPreviousButton,
 	BrnCalendarWeek,
 	BrnCalendarWeekday,
-	Weekday,
 	injectBrnCalendarI18n,
+	Weekday,
 } from '@spartan-ng/brain/calendar';
 import { injectDateAdapter } from '@spartan-ng/brain/date-time';
 import { buttonVariants } from '@spartan-ng/helm/button';
@@ -91,9 +91,9 @@ import type { ClassValue } from 'clsx';
 								*brnCalendarWeekday="let weekday"
 								scope="col"
 								class="text-muted-foreground w-8 rounded-md text-[0.8rem] font-normal"
-								[attr.aria-label]="_i18n.labelWeekday(weekday)"
+								[attr.aria-label]="_i18n.config().labelWeekday(weekday)"
 							>
-								{{ _i18n.formatWeekdayName(weekday) }}
+								{{ _i18n.config().formatWeekdayName(weekday) }}
 							</th>
 						</tr>
 					</thead>
@@ -147,7 +147,7 @@ export class HlmCalendar<T> {
 	public readonly dateDisabled = input<(date: T) => boolean>(() => false);
 
 	/** The day the week starts on */
-	public readonly weekStartsOn = input<Weekday, NumberInput>(0, {
+	public readonly weekStartsOn = input<Weekday, NumberInput>(undefined, {
 		transform: (v: unknown) => numberAttribute(v) as Weekday,
 	});
 
@@ -159,10 +159,12 @@ export class HlmCalendar<T> {
 
 	/** Get the heading for the current month and year */
 	protected readonly _heading = computed(() =>
-		this._i18n.formatHeader(
-			this._dateAdapter.getMonth(this._calendar().focusedDate()),
-			this._dateAdapter.getYear(this._calendar().focusedDate()),
-		),
+		this._i18n
+			.config()
+			.formatHeader(
+				this._dateAdapter.getMonth(this._calendar().focusedDate()),
+				this._dateAdapter.getYear(this._calendar().focusedDate()),
+			),
 	);
 
 	protected readonly _btnClass = hlm(

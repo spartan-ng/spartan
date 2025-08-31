@@ -15,7 +15,7 @@ import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { CalendarMultipleExample } from './calendar--multiple.example';
-import { CalendarPreview, defaultImports, defaultSkeleton } from './calendar.preview';
+import { CalendarPreview, defaultImports, defaultSkeleton, i18nProviders, i18nRuntimeChange } from './calendar.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Calendar', api: 'calendar' },
@@ -63,6 +63,36 @@ export const routeMeta: RouteMeta = {
 				<spartan-code [code]="_defaultImports" />
 				<spartan-code [code]="_defaultSkeleton" />
 			</div>
+
+			<spartan-section-sub-heading id="i18n">Internationalization</spartan-section-sub-heading>
+
+			<p class="${hlmP} mb-6">
+				The calendar supports internationalization (i18n) via the
+				<code class="${hlmCode}">BrnCalendarI18nService</code>
+				. By default, weekday names and month headers are rendered in English. You can provide a custom configuration
+				globally or swap it at runtime to support multiple locales.
+			</p>
+
+			<h3 id="i18n__global_config" class="${hlmH4} mb-2 mt-6">Global Configuration</h3>
+
+			<p class="${hlmP} mb-6">
+				Use
+				<code class="${hlmCode}">provideBrnCalendarI18n</code>
+				in your app bootstrap to configure labels and formats globally:
+			</p>
+
+			<spartan-code [code]="_i18nProviders" />
+
+			<h3 id="i18n__runtime_config" class="${hlmH4} mb-2 mt-6">Runtime Configuration</h3>
+
+			<p class="${hlmP} mb-6">
+				You can dynamically switch calendar language at runtime by injecting
+				<code class="${hlmCode}">BrnCalendarI18nService</code>
+				and calling
+				<code class="${hlmCode}">use()</code>
+				:
+			</p>
+			<spartan-code [code]="_i18nRuntimeChange" />
 
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="brain" />
@@ -124,4 +154,6 @@ export default class CardPage {
 	protected readonly _rangeCode = computed(() => this._snippets()['range']);
 	protected readonly _defaultImports = defaultImports;
 	protected readonly _defaultSkeleton = defaultSkeleton;
+	protected readonly _i18nProviders = i18nProviders;
+	protected readonly _i18nRuntimeChange = i18nRuntimeChange;
 }

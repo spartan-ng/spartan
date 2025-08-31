@@ -17,7 +17,7 @@ let nextId = 0;
 export class BrnLabel implements OnInit {
 	protected readonly _ngControl = inject(NgControl, { optional: true });
 
-	public readonly id = input<string>(`brn-label-${nextId++}`);
+	public readonly id = input<string>(`brn-label-${++nextId}`);
 
 	private readonly _isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 	private readonly _element = inject(ElementRef).nativeElement;

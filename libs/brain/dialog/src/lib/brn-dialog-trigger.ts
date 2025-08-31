@@ -21,7 +21,7 @@ export class BrnDialogTrigger {
 	protected _brnDialog = inject(BrnDialog, { optional: true });
 	protected readonly _brnDialogRef = inject(BrnDialogRef, { optional: true });
 
-	public readonly id = input(`brn-dialog-trigger-${idSequence++}`);
+	public readonly id = input(`brn-dialog-trigger-${++idSequence}`);
 
 	public readonly state = computed<BrnDialogState>(() => {
 		// If we have a dialog component from the input, use its state (the highest priority)
@@ -43,7 +43,7 @@ export class BrnDialogTrigger {
 		return 'closed';
 	});
 
-	public readonly dialogId = `brn-dialog-${this._brnDialogRef?.dialogId ?? idSequence++}`;
+	public readonly dialogId = `brn-dialog-${this._brnDialogRef?.dialogId ?? ++idSequence}`;
 
 	public readonly brnDialogTriggerFor = input<BrnDialog | undefined>(undefined, {
 		alias: 'brnDialogTriggerFor',

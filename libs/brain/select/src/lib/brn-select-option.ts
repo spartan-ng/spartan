@@ -26,7 +26,7 @@ export class BrnSelectOption<T> implements FocusableOption {
 	protected readonly _select = injectBrnSelect();
 	protected readonly _content = injectBrnSelectContent<T>();
 	public readonly elementRef = inject(ElementRef);
-	public readonly id = input(`brn-option-${nextId++}`);
+	public readonly id = input(`brn-option-${++nextId}`);
 	public readonly value = input<T>();
 
 	// we use "_disabled" here because disabled is already defined in the Highlightable interface

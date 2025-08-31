@@ -44,7 +44,7 @@ export class BrnCommandItem implements Highlightable, OnInit {
 	private readonly _command = injectBrnCommand();
 
 	/** A unique id for the item */
-	public readonly id = input(`brn-command-item-${BrnCommandItem._id++}`);
+	public readonly id = input(`brn-command-item-${++BrnCommandItem._id}`);
 
 	/** The value this item represents. */
 	public readonly value = input.required<string>();

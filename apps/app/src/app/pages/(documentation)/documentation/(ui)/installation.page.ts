@@ -146,7 +146,10 @@ module.exports = {
 				class="mb-6 mt-4"
 				code="
 :root {
-	--font-sans: 'Geist Sans', sans-serif;
+  color-scheme: light;
+  
+  --font-sans: 'Geist Sans', sans-serif;
+  
   --background: 0 0% 100%;
   --foreground: 240 10% 3.9%;
   --card: 0 0% 100%;
@@ -167,10 +170,11 @@ module.exports = {
   --input: 240 5.9% 90%;
   --ring: 240 5.9% 10%;
   --radius: 0.5rem;
-  color-scheme: light;
 }
 
-.dark {
+:root.dark {
+  color-scheme: dark;
+
   --background: 240 10% 3.9%;
   --foreground: 0 0% 98%;
   --card: 240 10% 3.9%;
@@ -190,7 +194,6 @@ module.exports = {
   --border: 240 3.7% 15.9%;
   --input: 240 3.7% 15.9%;
   --ring: 240 4.9% 83.9%;
-  color-scheme: dark;
 }
 
 @layer base {

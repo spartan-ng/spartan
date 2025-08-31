@@ -35,7 +35,7 @@ export class BrnCommand implements AfterViewInit {
 	private readonly _injector = inject(Injector);
 
 	/** The id of the command */
-	public readonly id = input<string>(`brn-command-${BrnCommand._id++}`);
+	public readonly id = input<string>(`brn-command-${++BrnCommand._id}`);
 
 	/** The default filter function */
 	private readonly _defaultFilter = (value: string, search: string) =>

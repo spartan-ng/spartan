@@ -24,12 +24,15 @@ export class BrnCalendarMonthSelect {
 	protected readonly _i18n = injectBrnCalendarI18n();
 
 	protected readonly _selectedMonth = computed(() => {
-		return this._i18n.months()[this._dateAdapter.getMonth(this._calendar.focusedDate())];
+		return this._i18n.config().months()[this._dateAdapter.getMonth(this._calendar.focusedDate())];
 	});
 
 	/** Focus selected month */
 	protected monthSelected(selectedMonth: string): void {
-		const month = this._i18n.months().findIndex((month) => month === selectedMonth);
+		const month = this._i18n
+			.config()
+			.months()
+			.findIndex((month) => month === selectedMonth);
 		const targetDate = this._dateAdapter.set(this._calendar.state().focusedDate(), { month });
 		this._calendar.state().focusedDate.set(targetDate);
 	}

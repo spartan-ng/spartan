@@ -15,6 +15,7 @@
 		"clsx": "^2.1.1",
 		"embla-carousel-angular": ">=19.0.0",
 		"ngx-sonner": ">=3.0.0",
-		"rxjs": "^7.8.0"
+		"rxjs": "^7.8.0",
+		"tailwind-merge": "^2.5.2"
 	}
 }

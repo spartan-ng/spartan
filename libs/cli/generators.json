@@ -64,6 +64,16 @@
 			"factory": "./src/generators/migrate-progress/generator",
 			"schema": "./src/generators/migrate-progress/schema.json",
 			"description": "Migrate brn-progress to hlm-progress"
+		},
+		"migrate-date-picker": {
+			"factory": "./src/generators/migrate-date-picker/generator",
+			"schema": "./src/generators/migrate-date-picker/schema.json",
+			"description": "Migrate hlm-date-picker changed event to dateChange"
+		},
+		"migrate-hlm": {
+			"factory": "./src/generators/migrate-hlm/generator",
+			"schema": "./src/generators/migrate-hlm/schema.json",
+			"description": "Migrate hlm import from @spartan-ng/brain to @spartan-ng/helm/utils"
 		}
 	},
 	"schematics": {
@@ -131,6 +141,16 @@
 			"factory": "./src/generators/migrate-progress/compat",
 			"schema": "./src/generators/migrate-progress/schema.json",
 			"description": "Migrate brn-progress to hlm-progress"
+		},
+		"migrate-date-picker": {
+			"factory": "./src/generators/migrate-date-picker/compat",
+			"schema": "./src/generators/migrate-date-picker/schema.json",
+			"description": "Migrate hlm-date-picker changed event to dateChange"
+		},
+		"migrate-hlm": {
+			"factory": "./src/generators/migrate-hlm/compat",
+			"schema": "./src/generators/migrate-hlm/schema.json",
+			"description": "Migrate hlm import from @spartan-ng/brain to @spartan-ng/helm/utils"
 		}
 	}
 }

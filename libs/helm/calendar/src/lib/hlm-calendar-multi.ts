@@ -1,9 +1,9 @@
 import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import { NgTemplateOutlet } from '@angular/common';
 import {
+	booleanAttribute,
 	ChangeDetectionStrategy,
 	Component,
-	booleanAttribute,
 	computed,
 	input,
 	model,
@@ -24,15 +24,15 @@ import {
 	BrnCalendarWeek,
 	BrnCalendarWeekday,
 	BrnCalendarYearSelect,
-	Weekday,
 	injectBrnCalendarI18n,
+	Weekday,
 } from '@spartan-ng/brain/calendar';
-import { hlm } from '@spartan-ng/brain/core';
 import { injectDateAdapter } from '@spartan-ng/brain/date-time';
 import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { buttonVariants } from '@spartan-ng/helm/button';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
+import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 
 @Component({
@@ -81,7 +81,7 @@ import type { ClassValue } from 'clsx';
 										<brn-select-value />
 									</hlm-select-trigger>
 									<hlm-select-content class="max-h-80">
-										@for (month of _i18n.months(); track month) {
+										@for (month of _i18n.config().months(); track month) {
 											<hlm-option [value]="month">{{ month }}</hlm-option>
 										}
 									</hlm-select-content>
@@ -93,7 +93,7 @@ import type { ClassValue } from 'clsx';
 										<brn-select-value />
 									</hlm-select-trigger>
 									<hlm-select-content class="max-h-80">
-										@for (year of _i18n.years(); track year) {
+										@for (year of _i18n.config().years(); track year) {
 											<hlm-option [value]="year">{{ year }}</hlm-option>
 										}
 									</hlm-select-content>
@@ -141,9 +141,9 @@ import type { ClassValue } from 'clsx';
 								*brnCalendarWeekday="let weekday"
 								scope="col"
 								class="text-muted-foreground w-8 rounded-md text-[0.8rem] font-normal"
-								[attr.aria-label]="_i18n.labelWeekday(weekday)"
+								[attr.aria-label]="_i18n.config().labelWeekday(weekday)"
 							>
-								{{ _i18n.formatWeekdayName(weekday) }}
+								{{ _i18n.config().formatWeekdayName(weekday) }}
 							</th>
 						</tr>
 					</thead>
@@ -210,7 +210,7 @@ export class HlmCalendarMulti<T> {
 	public readonly dateDisabled = input<(date: T) => boolean>(() => false);
 
 	/** The day the week starts on */
-	public readonly weekStartsOn = input<Weekday, NumberInput>(0, {
+	public readonly weekStartsOn = input<Weekday, NumberInput>(undefined, {
 		transform: (v: unknown) => numberAttribute(v) as Weekday,
 	});
 
@@ -222,10 +222,12 @@ export class HlmCalendarMulti<T> {
 
 	/** Get the heading for the current month and year */
 	protected readonly _heading = computed(() =>
-		this._i18n.formatHeader(
-			this._dateAdapter.getMonth(this._calendar().focusedDate()),
-			this._dateAdapter.getYear(this._calendar().focusedDate()),
-		),
+		this._i18n
+			.config()
+			.formatHeader(
+				this._dateAdapter.getMonth(this._calendar().focusedDate()),
+				this._dateAdapter.getYear(this._calendar().focusedDate()),
+			),
 	);
 
 	protected readonly _btnClass = hlm(

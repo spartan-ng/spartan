@@ -12,13 +12,12 @@ import {
 	effect,
 	inject,
 	signal,
-	untracked,
 	viewChild,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { BrnSelectOption } from './brn-select-option';
 
-import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
+import { FocusKeyManager } from '@angular/cdk/a11y';
 import { Directive } from '@angular/core';
 import { Subject, fromEvent, interval } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -88,11 +87,9 @@ export class BrnSelectScrollDown {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		role: 'listbox',
-		tabindex: '0',
 		'[attr.aria-multiselectable]': '_select.multiple()',
 		'[attr.aria-disabled]': '_select.disabled() || _select.formDisabled()',
 		'aria-orientation': 'vertical',
-		'[attr.aria-activedescendant]': 'keyManager?.activeItem?.id()',
 		'[attr.aria-labelledBy]': '_select.labelId()',
 		'[attr.aria-controlledBy]': "_select.id() +'--trigger'",
 		'[id]': "_select.id() + '--content'",
@@ -161,7 +158,7 @@ export class BrnSelectContent<T> implements AfterContentInit {
 	private readonly _options = contentChildren(BrnSelectOption, { descendants: true });
 
 	/** @internal */
-	public keyManager: ActiveDescendantKeyManager<BrnSelectOption<T>> | null = null;
+	public keyManager: FocusKeyManager<BrnSelectOption<T>> | null = null;
 
 	constructor() {
 		effect(() => {
@@ -170,17 +167,15 @@ export class BrnSelectContent<T> implements AfterContentInit {
 	}
 
 	ngAfterContentInit(): void {
-		this.keyManager = new ActiveDescendantKeyManager(this._options, this._injector)
+		this.keyManager = new FocusKeyManager(this._options, this._injector)
 			.withHomeAndEnd()
 			.withVerticalOrientation()
 			.withTypeAhead()
-			.withAllowedModifierKeys(['shiftKey'])
 			.withWrap()
-			.skipPredicate((option) => option._disabled());
+			.skipPredicate((option) => option.disabled);
 
 		effect(
 			() => {
-				// any time the select is opened, we need to focus the first selected option or the first option
 				const open = this._select.open();
 				const options = this._options();
 
@@ -188,15 +183,23 @@ export class BrnSelectContent<T> implements AfterContentInit {
 					return;
 				}
 
-				untracked(() => {
-					const selectedOption = options.find((option) => option.selected());
+				const selectedOption = options.find((option) => option.selected());
 
-					if (selectedOption) {
-						this.keyManager?.setActiveItem(selectedOption);
-					} else {
-						this.keyManager?.setFirstItemActive();
-					}
-				});
+				if (selectedOption) {
+					afterNextRender(
+						() => {
+							this.keyManager?.setActiveItem(selectedOption);
+						},
+						{ injector: this._injector },
+					);
+				} else {
+					afterNextRender(
+						() => {
+							this.keyManager?.setFirstItemActive();
+						},
+						{ injector: this._injector },
+					);
+				}
 			},
 			{ injector: this._injector },
 		);

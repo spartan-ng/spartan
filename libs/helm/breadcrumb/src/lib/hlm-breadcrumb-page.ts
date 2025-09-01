@@ -14,5 +14,5 @@ import type { ClassValue } from 'clsx';
 export class HlmBreadcrumbPage {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 
-	protected readonly _computedClass = computed(() => hlm('font-normal text-foreground', this.userClass()));
+	protected readonly _computedClass = computed(() => hlm('text-foreground font-normal', this.userClass()));
 }

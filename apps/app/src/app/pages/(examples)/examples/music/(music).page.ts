@@ -135,8 +135,7 @@ export const routeMeta: RouteMeta = {
 									<h2 class="text-2xl font-semibold tracking-tight">Listen Now</h2>
 									<p class="text-muted-foreground text-sm">Top picks for you. Updated daily.</p>
 								</div>
-								<brn-separator hlmSeparator />
-
+								<hlm-separator />
 								<div class="mt-2">
 									<div class="mt-2 grid grid-cols-2 gap-4 pb-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4">
 										@for (item of sectionData.listenNow; track item) {
@@ -163,8 +162,7 @@ export const routeMeta: RouteMeta = {
 									<p class="text-muted-foreground text-sm">Your personal playlists. Updated daily.</p>
 								</div>
 
-								<brn-separator hlmSeparator />
-
+								<hlm-separator />
 								<div class="mt-2 pb-4">
 									<div class="mt-2 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
 										@for (item of sectionData.madeForYou; track item) {
@@ -191,8 +189,7 @@ export const routeMeta: RouteMeta = {
 									<h2 class="text-2xl font-semibold tracking-tight">New Episodes</h2>
 									<p class="text-muted-foreground text-sm">Your favorite podcasts. Updated daily.</p>
 								</div>
-								<brn-separator hlmSeparator />
-
+								<hlm-separator />
 								<div hlmCard class="flex min-h-[450px] flex-col justify-center p-6 align-middle">
 									<div class="text-center">
 										<ng-icon hlm size="xl" name="lucidePodcast" class="text-muted-foreground" />

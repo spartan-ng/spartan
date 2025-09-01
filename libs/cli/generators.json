@@ -65,6 +65,7 @@
 			"schema": "./src/generators/migrate-progress/schema.json",
 			"description": "Migrate brn-progress to hlm-progress"
 		},
+
 		"migrate-date-picker": {
 			"factory": "./src/generators/migrate-date-picker/generator",
 			"schema": "./src/generators/migrate-date-picker/schema.json",
@@ -74,6 +75,11 @@
 			"factory": "./src/generators/migrate-hlm/generator",
 			"schema": "./src/generators/migrate-hlm/schema.json",
 			"description": "Migrate hlm import from @spartan-ng/brain to @spartan-ng/helm/utils"
+		},
+		"migrate-separator": {
+			"factory": "./src/generators/migrate-separator/generator",
+			"schema": "./src/generators/migrate-separator/schema.json",
+			"description": "Migrate brn-separator to hlm-separator"
 		}
 	},
 	"schematics": {

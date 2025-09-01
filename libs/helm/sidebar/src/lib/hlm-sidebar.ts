@@ -7,6 +7,7 @@ import { HlmSidebarService } from './hlm-sidebar.service';
 
 import { NgTemplateOutlet } from '@angular/common';
 import type { ClassValue } from 'clsx';
+import { injectHlmSidebarConfig } from './hlm-sidebar.token';
 
 @Component({
 	selector: 'hlm-sidebar',
@@ -36,7 +37,7 @@ import type { ClassValue } from 'clsx';
 					data-sidebar="sidebar"
 					data-mobile="true"
 					class="bg-sidebar text-sidebar-foreground h-screen w-[var(--sidebar-width)] p-0 [&>button]:hidden"
-					style="--sidebar-width-mobile: 18rem; --sidebar-width: var(--sidebar-width-mobile);"
+					[style.--sidebar-width]="sidebarWidthMobile()"
 				>
 					<div class="flex h-full w-full flex-col">
 						<ng-container *ngTemplateOutlet="contentContainer"></ng-container>
@@ -53,10 +54,11 @@ import type { ClassValue } from 'clsx';
 				data-slot="sidebar"
 			>
 				<!-- Sidebar gap on desktop -->
-				<div [class]="_sidebarGapComputedClass()"></div>
-				<div [class]="_sidebarContainerComputedClass()">
+				<div data-slot="sidebar-gap" [class]="_sidebarGapComputedClass()"></div>
+				<div data-slot="sidebar-container" [class]="_sidebarContainerComputedClass()">
 					<div
 						data-sidebar="sidebar"
+						data-slot="sidebar-inner"
 						class="bg-sidebar group-data-[variant=floating]:border-sidebar-border flex h-full w-full flex-col group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:shadow"
 					>
 						<ng-container *ngTemplateOutlet="contentContainer"></ng-container>
@@ -65,12 +67,12 @@ import type { ClassValue } from 'clsx';
 			</div>
 		}
 	`,
-	host: {
-		style: '--sidebar-width: 16rem; --sidebar-width-icon: 4rem;',
-	},
 })
 export class HlmSidebar {
 	protected readonly _sidebarService = inject(HlmSidebarService);
+	private readonly _config = injectHlmSidebarConfig();
+
+	public readonly sidebarWidthMobile = input(this._config.sidebarWidthMobile);
 
 	public readonly side = input<'left' | 'right'>('left');
 	public readonly variant = input<'sidebar' | 'floating' | 'inset'>('sidebar');
@@ -82,7 +84,7 @@ export class HlmSidebar {
 	);
 	protected readonly _sidebarGapComputedClass = computed(() =>
 		hlm(
-			'relative h-svh w-[var(--sidebar-width)] bg-transparent transition-[width] duration-200 ease-linear',
+			'relative w-[var(--sidebar-width)] bg-transparent transition-[width] duration-200 ease-linear',
 			'group-data-[collapsible=offcanvas]:w-0',
 			'group-data-[side=right]:rotate-180',
 			this.variant() === 'floating' || this.variant() === 'inset'

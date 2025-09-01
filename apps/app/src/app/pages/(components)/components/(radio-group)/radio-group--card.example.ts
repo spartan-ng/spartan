@@ -38,14 +38,14 @@ export class RadioGroupCard {
 	public payment = 'card';
 
 	public readonly cardClass = hlm(
-		'block space-x-0 relative',
+		'relative block space-x-0',
 		// base card styles
-		'flex flex-col items-center justify-center py-8 px-4 rounded-lg border-2 border-border',
+		'border-border flex flex-col items-center justify-center rounded-lg border-2 px-4 py-8',
 		// hover and background styles
 		'bg-background hover:bg-accent/10 cursor-pointer transition-colors',
 		// spacing for the icon and text
 		'[&>span]:mt-4',
 		// target the checked state properly
-		'[&:has([data-checked=true])]:border-2 [&:has([data-checked=true])]:border-primary',
+		'[&:has([data-checked=true])]:border-primary [&:has([data-checked=true])]:border-2',
 	);
 }

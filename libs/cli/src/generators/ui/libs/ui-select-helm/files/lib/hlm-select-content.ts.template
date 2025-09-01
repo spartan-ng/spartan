@@ -1,6 +1,7 @@
 import { BooleanInput } from '@angular/cdk/coercion';
 import { Directive, booleanAttribute, computed, input } from '@angular/core';
-import { hlm, injectExposedSideProvider, injectExposesStateProvider } from '@spartan-ng/brain/core';
+import { injectExposedSideProvider, injectExposesStateProvider } from '@spartan-ng/brain/core';
+import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 
 @Directive({

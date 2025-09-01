@@ -18,7 +18,7 @@ export class BrnToggle<T> {
 	private readonly _changeDetector = inject(ChangeDetectorRef);
 
 	/** The id of the toggle. */
-	public readonly id = input(`brn-toggle-${BrnToggle._uniqueId++}`);
+	public readonly id = input(`brn-toggle-${++BrnToggle._uniqueId}`);
 
 	/** The value this toggle represents. */
 	public readonly value = input<T>();

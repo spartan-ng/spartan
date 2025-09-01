@@ -15,6 +15,7 @@ export function buildDependencyArray(
 	let dependencies: Record<string, string> = {
 		'@angular/cdk': existingCdkVersion ?? angularVersion,
 		'@spartan-ng/brain': SPARTAN_BRAIN_VERSION,
+		'tailwind-merge': TAILWIND_MERGE_VERSION,
 	};
 
 	if (options.peerDependencies) {
@@ -29,7 +30,6 @@ export function buildDependencyArray(
 
 export function buildDevDependencyArray() {
 	return {
-		'tailwind-merge': TAILWIND_MERGE_VERSION,
 		tailwindcss: TAILWINDCSS_VERSION,
 		'tailwindcss-animate': TAILWIND_ANIMATE_VERSION,
 	};

@@ -33,7 +33,7 @@ export class BrnAccordionItem {
 	 */
 	public readonly isOpened = input<boolean, BooleanInput>(false, { transform: coerceBooleanProperty });
 
-	public readonly id = BrnAccordionItem._itemIdGenerator++;
+	public readonly id = ++BrnAccordionItem._itemIdGenerator;
 	public readonly state = computed(() => (this._accordion.openItemIds().includes(this.id) ? 'open' : 'closed'));
 
 	constructor() {
@@ -194,6 +194,7 @@ export class BrnAccordion implements AfterContentInit, OnDestroy {
 		}
 		this._openItemIds.update((ids) => [...ids, id]);
 	}
+
 	public closeItem(id: number) {
 		this._openItemIds.update((ids) => ids.filter((openId) => id !== openId));
 	}

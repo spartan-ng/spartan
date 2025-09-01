@@ -11,9 +11,10 @@ import {
 } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideX } from '@ng-icons/lucide';
-import { hlm, injectExposedSideProvider, injectExposesStateProvider } from '@spartan-ng/brain/core';
+import { injectExposedSideProvider, injectExposesStateProvider } from '@spartan-ng/brain/core';
 import { BrnSheetClose } from '@spartan-ng/brain/sheet';
 import { HlmIcon } from '@spartan-ng/helm/icon';
+import { hlm } from '@spartan-ng/helm/utils';
 import { cva } from 'class-variance-authority';
 import type { ClassValue } from 'clsx';
 import { HlmSheetClose } from './hlm-sheet-close';
@@ -57,7 +58,7 @@ export const sheetVariants = cva(
 export class HlmSheetContent {
 	private readonly _stateProvider = injectExposesStateProvider({ host: true });
 	private readonly _sideProvider = injectExposedSideProvider({ host: true });
-	public state = this._stateProvider.state ?? signal('closed');
+	public readonly state = this._stateProvider.state ?? signal('closed');
 	private readonly _renderer = inject(Renderer2);
 	private readonly _element = inject(ElementRef);
 

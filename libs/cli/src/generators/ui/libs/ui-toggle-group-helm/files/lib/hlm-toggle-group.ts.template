@@ -1,5 +1,5 @@
 import { Directive, computed, input } from '@angular/core';
-import { hlm } from '@spartan-ng/brain/core';
+import { hlm } from '@spartan-ng/helm/utils';
 import { VariantProps } from 'class-variance-authority';
 import type { ClassValue } from 'clsx';
 import { provideHlmToggleGroup } from './hlm-toggle-group.token';

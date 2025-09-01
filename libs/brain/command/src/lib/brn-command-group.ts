@@ -13,7 +13,7 @@ export class BrnCommandGroup {
 	private static _id = 0;
 
 	/** The id of the command list */
-	public readonly id = input<string>(`brn-command-group-${BrnCommandGroup._id++}`);
+	public readonly id = input<string>(`brn-command-group-${++BrnCommandGroup._id}`);
 
 	/** Get the items in the group */
 	private readonly _items = contentChildren(BrnCommandItemToken, {

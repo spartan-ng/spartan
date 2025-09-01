@@ -528,6 +528,20 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
     },
   },
   "button": {
+    "brain": {
+      "BrnButton": {
+        "inputs": [
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "unknown",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "a[brnButton], button[brnButton]",
+      },
+    },
     "helm": {
       "HlmButton": {
         "exportAs": "hlmBtn",
@@ -550,7 +564,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "[hlmBtn]",
+        "selector": "button[hlmBtn], a[hlmBtn]",
       },
     },
   },

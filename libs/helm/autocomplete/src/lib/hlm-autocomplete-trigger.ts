@@ -20,7 +20,7 @@ export class HlmAutocompleteTrigger {
 	constructor() {
 		if (!this._brnDialog) return;
 
-		this._brnDialog.mutableAttachTo().set(this._host.nativeElement);
+		this._brnDialog.mutableAttachTo.set(this._host.nativeElement);
 	}
 
 	open() {

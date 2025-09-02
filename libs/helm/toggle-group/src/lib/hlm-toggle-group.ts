@@ -1,5 +1,5 @@
 import { Directive, computed, input } from '@angular/core';
-import { hlm } from '@spartan-ng/brain/core';
+import { hlm } from '@spartan-ng/helm/utils';
 import { VariantProps } from 'class-variance-authority';
 import type { ClassValue } from 'clsx';
 import { provideHlmToggleGroup } from './hlm-toggle-group.token';
@@ -21,7 +21,7 @@ export class HlmToggleGroup {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>
 		hlm(
-			'group/toggle-group flex w-fit items-center rounded-md data-[variant=outline]:shadow-xs focus:[&>[hlm][brnToggle]]:z-10',
+			'group/toggle-group data-[variant=outline]:shadow-xs flex w-fit items-center rounded-md focus:[&>[hlm][brnToggle]]:z-10',
 			this.userClass(),
 		),
 	);

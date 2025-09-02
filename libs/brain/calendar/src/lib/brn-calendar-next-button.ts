@@ -7,7 +7,7 @@ import { injectBrnCalendarI18n } from './i18n/calendar-i18n';
 	selector: '[brnCalendarNextButton]',
 	host: {
 		type: 'button',
-		'[attr.aria-label]': '_i18n.labelNext()',
+		'[attr.aria-label]': '_i18n.config().labelNext()',
 	},
 })
 export class BrnCalendarNextButton {

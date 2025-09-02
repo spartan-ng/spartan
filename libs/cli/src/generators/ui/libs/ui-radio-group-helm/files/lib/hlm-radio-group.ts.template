@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
-import { hlm } from '@spartan-ng/brain/core';
 import { BrnRadioGroup } from '@spartan-ng/brain/radio-group';
+import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 
 @Component({

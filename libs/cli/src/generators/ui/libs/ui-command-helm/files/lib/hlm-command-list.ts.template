@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { BrnCommandList } from '@spartan-ng/brain/command';
-import { hlm } from '@spartan-ng/brain/core';
+import { hlm } from '@spartan-ng/helm/utils';
 
 @Component({
 	selector: 'hlm-command-list',
@@ -22,6 +22,6 @@ export class HlmCommandList {
 
 	/** The styles to apply  */
 	protected readonly _computedClass = computed(() =>
-		hlm('max-h-[300px] overflow-x-hidden overflow-y-auto', this.userClass()),
+		hlm('max-h-[300px] overflow-y-auto overflow-x-hidden', this.userClass()),
 	);
 }

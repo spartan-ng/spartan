@@ -1,5 +1,6 @@
 import { Directive, computed, effect, input, untracked } from '@angular/core';
-import { hlm, injectCustomClassSettable } from '@spartan-ng/brain/core';
+import { injectCustomClassSettable } from '@spartan-ng/brain/core';
+import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 
 @Directive({
@@ -13,7 +14,7 @@ export class HlmSheetOverlay {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>
 		hlm(
-			'bg-black/50 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
+			'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 bg-black/50',
 			this.userClass(),
 		),
 	);

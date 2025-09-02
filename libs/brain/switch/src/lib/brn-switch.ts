@@ -101,7 +101,7 @@ export class BrnSwitch implements AfterContentInit, OnDestroy, ControlValueAcces
 	 * When provided, inner button gets ID without '-switch' suffix.
 	 * Auto-generates ID if not provided.
 	 */
-	public readonly id = input<string | null>(uniqueIdCounter++ + '');
+	public readonly id = input<string | null>(++uniqueIdCounter + '');
 
 	/**
 	 * Form control name for switch.

@@ -12,12 +12,12 @@ import {
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown } from '@ng-icons/lucide';
-import { hlm } from '@spartan-ng/brain/core';
 import { BrnSelectImports, BrnSelectTrigger } from '@spartan-ng/brain/select';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmLabel } from '@spartan-ng/helm/label';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
+import { hlm } from '@spartan-ng/helm/utils';
 import { type Meta, type StoryObj, argsToTemplate, moduleMetadata } from '@storybook/angular';
 import type { ClassValue } from 'clsx';
 
@@ -673,7 +673,7 @@ export class CustomSelectTrigger {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>
 		hlm(
-			'!bg-sky-500 flex h-10 items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 w-[180px]',
+			'border-input bg-background ring-offset-background placeholder:text-muted-foreground focus:ring-ring flex h-10 w-[180px] items-center justify-between rounded-md border !bg-sky-500 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
 			this.userClass(),
 		),
 	);

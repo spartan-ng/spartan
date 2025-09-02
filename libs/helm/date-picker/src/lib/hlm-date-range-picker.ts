@@ -14,13 +14,13 @@ import {
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCalendar } from '@ng-icons/lucide';
-import { hlm } from '@spartan-ng/brain/core';
 import { BrnDialogState } from '@spartan-ng/brain/dialog';
 import { type ChangeFn, type TouchFn } from '@spartan-ng/brain/forms';
 import { BrnPopover, BrnPopoverContent, BrnPopoverTrigger } from '@spartan-ng/brain/popover';
 import { HlmCalendarRange } from '@spartan-ng/helm/calendar';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmPopoverContent } from '@spartan-ng/helm/popover';
+import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 import { injectHlmDateRangePickerConfig } from './hlm-date-range-picker.token';
 
@@ -78,8 +78,8 @@ export class HlmDateRangePicker<T> implements ControlValueAccessor {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>
 		hlm(
-			'inline-flex items-center gap-2 whitespace-nowrap rounded-md text-sm ring-offset-background transition-all border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 w-[280px] justify-start text-left font-normal',
-			'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
+			'ring-offset-background border-input bg-background hover:bg-accent hover:text-accent-foreground inline-flex h-10 w-[280px] items-center justify-start gap-2 whitespace-nowrap rounded-md border px-4 py-2 text-left text-sm font-normal transition-all',
+			'focus-visible:ring-ring focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
 			'disabled:pointer-events-none disabled:opacity-50',
 			'[&_ng-icon]:pointer-events-none [&_ng-icon]:shrink-0',
 			!this._mutableDate() ? 'text-muted-foreground' : '',

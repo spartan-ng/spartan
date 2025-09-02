@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
-import { hlm } from '@spartan-ng/brain/core';
+import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 
 @Component({
@@ -32,6 +32,6 @@ import type { ClassValue } from 'clsx';
 export class HlmSpinner {
 	public readonly userClass = input<ClassValue>('size-8', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>
-		hlm('inline-block [&>svg]:text-foreground/30 [&>svg]:fill-accent', this.userClass()),
+		hlm('[&>svg]:text-foreground/30 [&>svg]:fill-accent inline-block', this.userClass()),
 	);
 }

@@ -17,7 +17,7 @@ export type BrnCollapsibleState = 'open' | 'closed';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BrnCollapsible {
-	public readonly contentId = signal(`brn-collapsible-content-${collapsibleContentIdSequence++}`);
+	public readonly contentId = signal(`brn-collapsible-content-${++collapsibleContentIdSequence}`);
 
 	/**
 	 * The expanded or collapsed state of the collapsible component.

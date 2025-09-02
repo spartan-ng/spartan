@@ -17,7 +17,7 @@ import { lucideCalendar } from '@ng-icons/lucide';
 import { BrnDialogState } from '@spartan-ng/brain/dialog';
 import { type ChangeFn, type TouchFn } from '@spartan-ng/brain/forms';
 import { BrnPopover, BrnPopoverContent, BrnPopoverTrigger } from '@spartan-ng/brain/popover';
-import { HlmCalendar, HlmCalendarMulti } from '@spartan-ng/helm/calendar';
+import { HlmCalendarMulti } from '@spartan-ng/helm/calendar';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmPopoverContent } from '@spartan-ng/helm/popover';
 import { hlm } from '@spartan-ng/helm/utils';
@@ -32,16 +32,7 @@ export const HLM_DATE_PICKER_MUTLI_VALUE_ACCESSOR = {
 
 @Component({
 	selector: 'hlm-date-picker-multi',
-	imports: [
-		NgIcon,
-		HlmIcon,
-		BrnPopover,
-		BrnPopoverTrigger,
-		BrnPopoverContent,
-		HlmPopoverContent,
-		HlmCalendarMulti,
-		HlmCalendar,
-	],
+	imports: [NgIcon, HlmIcon, BrnPopover, BrnPopoverTrigger, BrnPopoverContent, HlmPopoverContent, HlmCalendarMulti],
 	providers: [HLM_DATE_PICKER_MUTLI_VALUE_ACCESSOR, provideIcons({ lucideCalendar })],
 	template: `
 		<brn-popover sideOffset="5" [state]="_popoverState()" (stateChanged)="_popoverState.set($event)">

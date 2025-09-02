@@ -127,7 +127,7 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 	 * When provided, inner button gets ID without '-checkbox' suffix.
 	 * Auto-generates ID if not provided.
 	 */
-	public readonly id = input<string | null>(uniqueIdCounter++ + '');
+	public readonly id = input<string | null>(++uniqueIdCounter + '');
 
 	/**
 	 * Form control name for checkbox.

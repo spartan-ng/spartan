@@ -149,7 +149,7 @@ import {
 export class DropdownPreview {}
 
 export const defaultImports = `
-import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
+import { BrnMenuTrigger } from '@spartan-ng/brain/menu';
 import {
   HlmMenu
   HlmMenuGroup

@@ -125,7 +125,6 @@ async function removeExistingLibraries(
 
 		// get the tsconfig path for the library
 
-		console.log(importPath);
 		const tsconfigPath = tsconfigPaths[importPath];
 
 		if (!tsconfigPath || !importPath) {

@@ -101,7 +101,7 @@ export class BrnSwitch implements AfterContentInit, OnDestroy, ControlValueAcces
 	 * When provided, inner button gets ID without '-switch' suffix.
 	 * Auto-generates ID if not provided.
 	 */
-	public readonly id = input<string | null>(uniqueIdCounter++ + '');
+	public readonly id = input<string | null>(++uniqueIdCounter + '');
 
 	/**
 	 * Form control name for switch.
@@ -220,7 +220,7 @@ export class BrnSwitch implements AfterContentInit, OnDestroy, ControlValueAcces
 		this.changed.emit(this.checked());
 	}
 
-	public ngAfterContentInit() {
+	public ngAfterContentInit(): void {
 		this._focusMonitor
 			.monitor(this._elementRef, true)
 			.pipe(takeUntilDestroyed(this._destroyRef))
@@ -302,8 +302,8 @@ export class BrnSwitch implements AfterContentInit, OnDestroy, ControlValueAcces
 	 *
 	 * @param isDisabled - Whether switch should be disabled
 	 */
-	public setDisabledState = (isDisabled: boolean): void => {
+	public setDisabledState(isDisabled: boolean): void {
 		this._state().disabled.set(isDisabled);
 		this._cdr.markForCheck();
-	};
+	}
 }

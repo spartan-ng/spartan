@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { BrnCommandGroup } from '@spartan-ng/brain/command';
-import { hlm } from '@spartan-ng/brain/core';
+import { hlm } from '@spartan-ng/helm/utils';
 
 @Component({
 	selector: 'hlm-command-group',
@@ -22,6 +22,6 @@ export class HlmCommandGroup {
 
 	/*** The styles to apply  */
 	protected readonly _computedClass = computed(() =>
-		hlm('text-foreground overflow-hidden p-1 block data-[hidden]:hidden', this.userClass()),
+		hlm('text-foreground block overflow-hidden p-1 data-[hidden]:hidden', this.userClass()),
 	);
 }

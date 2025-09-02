@@ -49,7 +49,7 @@ import { HlmButton } from '@spartan-ng/helm/button';
 export class AlertDialogPreview {}
 
 export const defaultImports = `
-import { BrnAlertDialogContentDirective, BrnAlertDialogTriggerDirective } from '@spartan-ng/brain/alert-dialog';
+import { BrnAlertDialogContent, BrnAlertDialogTrigger } from '@spartan-ng/brain/alert-dialog';
 import {
   HlmAlertDialogActionButton
   HlmAlertDialogCancelButton

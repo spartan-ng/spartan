@@ -19,7 +19,7 @@ export class ProgressPreview implements OnInit {
 }
 
 export const defaultImports = `
-import { HlmProgressDirective, HlmProgressIndicatorDirective } from '@spartan-ng/helm/progress';
+import { HlmProgress, HlmProgressIndicator } from '@spartan-ng/helm/progress';
 `;
 
 export const defaultSkeleton = `

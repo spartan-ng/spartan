@@ -1,21 +1,21 @@
 import { Directive, computed, input } from '@angular/core';
-import { hlm } from '@spartan-ng/brain/core';
+import { hlm } from '<%- importAlias %>/utils';
 import { type VariantProps, cva } from 'class-variance-authority';
 import type { ClassValue } from 'clsx';
 import { injectHlmToggleGroup } from './hlm-toggle-group.token';
 
 export const toggleGroupItemVariants = cva(
-	'inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors hover:bg-muted hover:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=on]:bg-accent data-[state=on]:text-accent-foreground [&_ng-icon]:pointer-events-none [&_ng-icon]:text-base [&_ng-icon]:shrink-0 gap-2',
+	'ring-offset-background hover:bg-muted hover:text-muted-foreground focus-visible:ring-ring data-[state=on]:bg-accent data-[state=on]:text-accent-foreground inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_ng-icon]:pointer-events-none [&_ng-icon]:shrink-0 [&_ng-icon]:text-base',
 	{
 		variants: {
 			variant: {
 				default: 'bg-transparent',
-				outline: 'border border-input bg-transparent hover:bg-accent hover:text-accent-foreground',
+				outline: 'border-input hover:bg-accent hover:text-accent-foreground border bg-transparent',
 			},
 			size: {
-				default: 'h-10 px-3 min-w-10',
-				sm: 'h-9 px-2 min-w-9',
-				lg: 'h-11 px-5 min-w-11',
+				default: 'h-10 min-w-10 px-3',
+				sm: 'h-9 min-w-9 px-2',
+				lg: 'h-11 min-w-11 px-5',
 			},
 		},
 		defaultVariants: {

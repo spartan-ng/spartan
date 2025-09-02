@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideCross } from '@ng-icons/lucide';
-import { BrnSheetContent, BrnSheetTrigger } from '@spartan-ng/brain/sheet';
+import { BrnSheetClose, BrnSheetContent, BrnSheetTrigger } from '@spartan-ng/brain/sheet';
 import { HlmButton } from '@spartan-ng/helm/button';
 
 import { HlmInput } from '@spartan-ng/helm/input';
@@ -20,6 +20,7 @@ import {
 	imports: [
 		BrnSheetTrigger,
 		BrnSheetContent,
+		BrnSheetClose,
 		HlmSheet,
 		HlmSheetContent,
 		HlmSheetHeader,
@@ -33,7 +34,7 @@ import {
 	providers: [provideIcons({ lucideCross })],
 	template: `
 		<hlm-sheet side="right">
-			<button id="edit-profile" variant="outline" brnSheetTrigger hlmBtn>Edit Profile</button>
+			<button id="edit-profile" variant="outline" brnSheetTrigger hlmBtn>Open</button>
 			<hlm-sheet-content *brnSheetContent="let ctx">
 				<hlm-sheet-header>
 					<h3 hlmSheetTitle>Edit Profile</h3>
@@ -51,6 +52,7 @@ import {
 				</div>
 				<hlm-sheet-footer>
 					<button hlmBtn type="submit">Save Changes</button>
+					<button brnSheetClose hlmBtn variant="outline">Close</button>
 				</hlm-sheet-footer>
 			</hlm-sheet-content>
 		</hlm-sheet>
@@ -59,7 +61,7 @@ import {
 export class SheetPreview {}
 
 export const defaultImports = `
-import { BrnSheetContentDirective, BrnSheetTriggerDirective } from '@spartan-ng/brain/sheet';
+import { BrnSheetContent, BrnSheetTrigger } from '@spartan-ng/brain/sheet';
 import {
   HlmSheet
   HlmSheetContent
@@ -71,12 +73,14 @@ import {
 `;
 export const defaultSkeleton = `
 <hlm-sheet>
-    <button brnSheetTrigger>Edit Profile</button>
-    <hlm-sheet-content *brnSheetContent='let ctx'>
-        <hlm-sheet-header>
-            <h3 hlmSheetTitle>Edit Profile</h3>
-            <p hlmSheetDescription>Make changes to your profile here. Click save when you're done.</p>
-        </hlm-sheet-header>
-    </hlm-sheet-content>
+  <button brnSheetTrigger>Open</button>
+  <hlm-sheet-content *brnSheetContent="let ctx">
+    <hlm-sheet-header>
+      <h3 hlmSheetTitle>Are you absolutely sure?</h3>
+      <p hlmSheetDescription>
+        This action cannot be undone. This will permanently delete your account and remove your data from our servers.
+      </p>
+    </hlm-sheet-header>
+  </hlm-sheet-content>
 </hlm-sheet>
 `;

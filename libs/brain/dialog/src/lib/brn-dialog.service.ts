@@ -75,7 +75,7 @@ export class BrnDialogService {
 		const destroyed$ = new Subject<void>();
 		const open = signal<boolean>(true);
 		const state = computed<BrnDialogState>(() => (open() ? 'open' : 'closed'));
-		const dialogId = dialogSequence++;
+		const dialogId = ++dialogSequence;
 
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 		// @ts-ignore

@@ -1,6 +1,7 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { CalendarRangeExample } from '@spartan-ng/app/app/pages/(components)/components/(calendar)/calendar--range.example';
 import { CodePreview } from '@spartan-ng/app/app/shared/code/code-preview';
 import { hlmCode, hlmH4, hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
@@ -14,7 +15,7 @@ import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { CalendarMultipleExample } from './calendar--multiple.example';
-import { CalendarPreview, defaultImports, defaultSkeleton } from './calendar.preview';
+import { CalendarPreview, defaultImports, defaultSkeleton, i18nProviders, i18nRuntimeChange } from './calendar.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Calendar', api: 'calendar' },
@@ -37,6 +38,7 @@ export const routeMeta: RouteMeta = {
 		PageBottomNavLink,
 		PageNav,
 		CalendarMultipleExample,
+		CalendarRangeExample,
 	],
 	template: `
 		<section spartanMainSection>
@@ -61,6 +63,36 @@ export const routeMeta: RouteMeta = {
 				<spartan-code [code]="_defaultImports" />
 				<spartan-code [code]="_defaultSkeleton" />
 			</div>
+
+			<spartan-section-sub-heading id="i18n">Internationalization</spartan-section-sub-heading>
+
+			<p class="${hlmP} mb-6">
+				The calendar supports internationalization (i18n) via the
+				<code class="${hlmCode}">BrnCalendarI18nService</code>
+				. By default, weekday names and month headers are rendered in English. You can provide a custom configuration
+				globally or swap it at runtime to support multiple locales.
+			</p>
+
+			<h3 id="i18n__global_config" class="${hlmH4} mb-2 mt-6">Global Configuration</h3>
+
+			<p class="${hlmP} mb-6">
+				Use
+				<code class="${hlmCode}">provideBrnCalendarI18n</code>
+				in your app bootstrap to configure labels and formats globally:
+			</p>
+
+			<spartan-code [code]="_i18nProviders" />
+
+			<h3 id="i18n__runtime_config" class="${hlmH4} mb-2 mt-6">Runtime Configuration</h3>
+
+			<p class="${hlmP} mb-6">
+				You can dynamically switch calendar language at runtime by injecting
+				<code class="${hlmCode}">BrnCalendarI18nService</code>
+				and calling
+				<code class="${hlmCode}">use()</code>
+				:
+			</p>
+			<spartan-code [code]="_i18nRuntimeChange" />
 
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="brain" />
@@ -88,6 +120,25 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_multipleCode()" />
 			</spartan-tabs>
 
+			<h3 id="examples__range_selection" class="${hlmH4} mb-2 mt-6">Range Selection</h3>
+
+			<p class="${hlmP} mb-6">
+				Use
+				<code class="${hlmCode}">hlm-calendar-range</code>
+				for range date selection. Set the range by using
+				<code class="${hlmCode}">startDate</code>
+				and
+				<code class="${hlmCode}">endDate</code>
+				inputs.
+			</p>
+
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-calendar-range />
+				</div>
+				<spartan-code secondTab [code]="_rangeCode()" />
+			</spartan-tabs>
+
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="carousel" label="Carousel" />
 				<spartan-page-bottom-nav-link direction="previous" href="button" label="Button" />
@@ -100,6 +151,9 @@ export default class CardPage {
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('calendar');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _multipleCode = computed(() => this._snippets()['multiple']);
+	protected readonly _rangeCode = computed(() => this._snippets()['range']);
 	protected readonly _defaultImports = defaultImports;
 	protected readonly _defaultSkeleton = defaultSkeleton;
+	protected readonly _i18nProviders = i18nProviders;
+	protected readonly _i18nRuntimeChange = i18nRuntimeChange;
 }

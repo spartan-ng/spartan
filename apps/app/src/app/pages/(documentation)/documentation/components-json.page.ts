@@ -49,6 +49,18 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-section-sub-heading id="configuration">Configuration</spartan-section-sub-heading>
 
+			<spartan-code
+				class="mt-3"
+				language="js"
+				code='
+{
+	"componentsPath": "libs/ui",
+	"buildable": true,
+	"generateAs": "library" | "entrypoint",
+	"importAlias": "@spartan-ng/helm"
+}'
+			/>
+
 			<h3 id="componentsPath" class="${hlmH4} mt-8">componentsPath</h3>
 
 			<p class="${hlmP}">The base path where your components will be generated.</p>
@@ -64,18 +76,6 @@ export const routeMeta: RouteMeta = {
 			<h3 id="importAlias" class="${hlmH4} mt-8">importAlias</h3>
 
 			<p class="${hlmP}">Specify the import path of the component e.g. &#64;spartan-ng/helm.</p>
-
-			<spartan-code
-				class="mt-3"
-				language="js"
-				code='
-{
-	"componentsPath": "libs/ui",
-	"buildable": true,
-	"generateAs": "library" | "entrypoint",
-	"importAlias": "@spartan-ng/helm"
-}'
-			/>
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="changelog" label="Changelog" />

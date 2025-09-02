@@ -15,7 +15,14 @@ export default async function runExecutor(options: GenerateUiDocsExecutorSchema,
 	}
 
 	const project = new Project();
-	project.addSourceFilesAtPaths([`${brainDir}/**/*.ts`, `${helmDir}/**/*.ts`]);
+	project.addSourceFilesAtPaths([
+		`${brainDir}/**/*.ts`,
+		`${helmDir}/**/*.ts`,
+		`!${brainDir}/**/__tests__/**/*.ts`,
+		`!${helmDir}/**/__tests__/**/*.ts`,
+		`!${brainDir}/**/*.(spec|test).ts`,
+		`!${helmDir}/**/*.(spec|test).ts`,
+	]);
 
 	const extractedData = extractInputsOutputs(project, context.root);
 
@@ -29,6 +36,11 @@ function extractInputsOutputs(project: Project, workspaceRoot: string) {
 	const inputsOutputs = {};
 
 	project.getSourceFiles().forEach((sourceFile) => {
+		// if the source file is a .spec.ts file then skip
+		if (sourceFile.getFilePath().endsWith('.spec.ts')) {
+			return;
+		}
+
 		sourceFile.getClasses().forEach((cls) => {
 			const className = cls.getName();
 			// Get the full file path and make it relative to workspace root

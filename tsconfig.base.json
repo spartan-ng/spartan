@@ -39,6 +39,7 @@
 			"@spartan-ng/brain/accordion": ["libs/brain/accordion/src/index.ts"],
 			"@spartan-ng/brain/alert-dialog": ["libs/brain/alert-dialog/src/index.ts"],
 			"@spartan-ng/brain/avatar": ["libs/brain/avatar/src/index.ts"],
+			"@spartan-ng/brain/button": ["libs/brain/button/src/index.ts"],
 			"@spartan-ng/brain/calendar": ["libs/brain/calendar/src/index.ts"],
 			"@spartan-ng/brain/checkbox": ["libs/brain/checkbox/src/index.ts"],
 			"@spartan-ng/brain/collapsible": ["libs/brain/collapsible/src/index.ts"],
@@ -109,6 +110,7 @@
 			"@spartan-ng/helm/toggle-group": ["libs/helm/toggle-group/src/index.ts"],
 			"@spartan-ng/helm/tooltip": ["libs/helm/tooltip/src/index.ts"],
 			"@spartan-ng/helm/typography": ["libs/helm/typography/src/index.ts"],
+			"@spartan-ng/helm/utils": ["libs/helm/utils/src/index.ts"],
 			"@spartan-ng/tools": ["libs/tools/src/index.ts"],
 			"@spartan-ng/trpc": ["libs/trpc/src/index.ts"]
 		}

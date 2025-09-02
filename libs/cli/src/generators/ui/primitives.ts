@@ -40,4 +40,5 @@ export type Primitive =
 	| 'tabs'
 	| 'toggle'
 	| 'toggle-group'
-	| 'tooltip';
+	| 'tooltip'
+	| 'utils';

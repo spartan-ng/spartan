@@ -1,5 +1,5 @@
 import { computed, Directive, ElementRef, inject, input, OnInit } from '@angular/core';
-import { hlm } from '@spartan-ng/brain/core';
+import { hlm } from '@spartan-ng/helm/utils';
 
 import type { ClassValue } from 'clsx';
 
@@ -17,7 +17,7 @@ export class HlmSidebarGroupAction implements OnInit {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>
 		hlm(
-			'absolute right-3 top-3.5 flex aspect-square w-5 items-center justify-center rounded-md p-0 text-sidebar-foreground outline-none ring-sidebar-ring transition-transform hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0 hover:cursor-pointer disabled:hover:cursor-default',
+			'text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground absolute right-3 top-3.5 flex aspect-square w-5 items-center justify-center rounded-md p-0 outline-none transition-transform hover:cursor-pointer focus-visible:ring-2 disabled:hover:cursor-default [&>svg]:size-4 [&>svg]:shrink-0',
 			// Increases the hit area of the button on mobile.
 			'after:absolute after:-inset-2 after:md:hidden',
 			'group-data-[collapsible=icon]:hidden',

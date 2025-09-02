@@ -1,5 +1,5 @@
 import { computed, Directive, ElementRef, inject, input, OnInit } from '@angular/core';
-import { hlm } from '@spartan-ng/brain/core';
+import { hlm } from '@spartan-ng/helm/utils';
 
 import { HlmSidebarService } from './hlm-sidebar.service';
 
@@ -22,7 +22,7 @@ export class HlmSidebarInset implements OnInit {
 		hlm(
 			'bg-background relative flex w-full flex-1 flex-col',
 			this._sidebarService.variant() === 'inset' &&
-				'min-h-[calc(100svh-theme(spacing.4)))] md:m-2  md:rounded-xl md:shadow-sm',
+				'min-h-[calc(100svh-theme(spacing.4)))] md:m-2 md:rounded-xl md:shadow-sm',
 			this._sidebarService.open() ? 'md:ml-0' : 'md:ml-2',
 			this.userClass(),
 		),

@@ -13,8 +13,8 @@ import {
 	Renderer2,
 	signal,
 } from '@angular/core';
-import { hlm } from '@spartan-ng/brain/core';
 import { BrnRadio, BrnRadioChange } from '@spartan-ng/brain/radio-group';
+import { hlm } from '@spartan-ng/helm/utils';
 import { ClassValue } from 'clsx';
 
 @Component({

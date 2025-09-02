@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronRight } from '@ng-icons/lucide';
-import { hlm } from '@spartan-ng/brain/core';
+import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 
 @Component({
@@ -24,5 +24,5 @@ import type { ClassValue } from 'clsx';
 export class HlmBreadcrumbSeparator {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 
-	protected readonly _computedClass = computed(() => hlm('[&_ng-icon]:size-3.5 [&_ng-icon]:block', this.userClass()));
+	protected readonly _computedClass = computed(() => hlm('[&_ng-icon]:block [&_ng-icon]:size-3.5', this.userClass()));
 }

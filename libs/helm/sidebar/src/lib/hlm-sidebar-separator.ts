@@ -1,6 +1,6 @@
 import { Directive, computed, input } from '@angular/core';
-import { hlm } from '@spartan-ng/brain/core';
 import { HlmSeparator } from '@spartan-ng/helm/separator';
+import { hlm } from '@spartan-ng/helm/utils';
 
 import type { ClassValue } from 'clsx';
 
@@ -16,5 +16,5 @@ import type { ClassValue } from 'clsx';
 export class HlmSidebarSeparator {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 
-	protected readonly _computedClass = computed(() => hlm('w-auto bg-sidebar-border', this.userClass()));
+	protected readonly _computedClass = computed(() => hlm('bg-sidebar-border w-auto', this.userClass()));
 }

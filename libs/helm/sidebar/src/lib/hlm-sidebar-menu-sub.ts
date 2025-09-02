@@ -1,5 +1,5 @@
 import { computed, Directive, ElementRef, inject, input, OnInit } from '@angular/core';
-import { hlm } from '@spartan-ng/brain/core';
+import { hlm } from '@spartan-ng/helm/utils';
 
 import type { ClassValue } from 'clsx';
 
@@ -17,7 +17,7 @@ export class HlmSidebarMenuSub implements OnInit {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>
 		hlm(
-			'mx-3.5 flex min-w-0 translate-x-px flex-col gap-1 border-l border-sidebar-border px-2.5 py-0.5',
+			'border-sidebar-border mx-3.5 flex min-w-0 translate-x-px flex-col gap-1 border-l px-2.5 py-0.5',
 			'group-data-[collapsible=icon]:hidden',
 			this.userClass(),
 		),

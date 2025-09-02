@@ -1,5 +1,6 @@
 import { ClassProvider, InjectionToken, Type, inject } from '@angular/core';
 import { BrnNativeDateAdapter } from './native-date-adapter';
+import { BrnUtcDateAdapter } from './utc-date-adapter';
 
 /**
  * An abstraction that can be used to create and modify date time objects
@@ -222,4 +223,18 @@ export function injectDateAdapter<T>(): BrnDateAdapter<T> {
  */
 export function provideDateAdapter<T>(adapter: Type<BrnDateAdapter<T>>): ClassProvider {
 	return { provide: BrnDateAdapterToken, useClass: adapter };
+}
+
+/**
+ * Provide the native date adapter
+ */
+export function provideNativeDateAdapter(): ClassProvider {
+	return provideDateAdapter(BrnNativeDateAdapter);
+}
+
+/**
+ * Provide the UTC date adapter
+ */
+export function provideUtcDateAdapter(): ClassProvider {
+	return provideDateAdapter(BrnUtcDateAdapter);
 }

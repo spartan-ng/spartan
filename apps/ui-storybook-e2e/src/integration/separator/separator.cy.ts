@@ -12,7 +12,7 @@ describe('separator', () => {
 	});
 
 	it('should find one horizontal decorator and two vertical decorators, which are display only', () => {
-		cy.get('brn-separator').should('have.length', 3);
+		cy.get('hlm-separator').should('have.length', 3);
 		cy.findAllByRole('separator').should('have.length', 1);
 		cy.findAllByRole('separator').should('have.attr', 'data-orientation', 'horizontal');
 		// not needed since it's the default

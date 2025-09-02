@@ -1,6 +1,6 @@
 import { computed, Directive, ElementRef, inject, OnInit } from '@angular/core';
-import { hlm } from '@spartan-ng/brain/core';
 import { HlmInput, inputVariants } from '@spartan-ng/helm/input';
+import { hlm } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: 'input[hlmSidebarInput]',
@@ -16,7 +16,7 @@ export class HlmSidebarInput extends HlmInput implements OnInit {
 	protected override readonly _computedClass = computed(() =>
 		hlm(
 			inputVariants({ error: this._state().error }),
-			'h-8 w-full bg-background shadow-none focus-visible:ring-2 focus-visible:ring-sidebar-ring',
+			'bg-background focus-visible:ring-sidebar-ring h-8 w-full shadow-none focus-visible:ring-2',
 			this.userClass(),
 		),
 	);

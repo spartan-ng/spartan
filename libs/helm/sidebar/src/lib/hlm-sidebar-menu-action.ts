@@ -1,5 +1,5 @@
 import { computed, Directive, ElementRef, inject, input, OnInit } from '@angular/core';
-import { hlm } from '@spartan-ng/brain/core';
+import { hlm } from '@spartan-ng/helm/utils';
 
 import type { ClassValue } from 'clsx';
 
@@ -18,7 +18,7 @@ export class HlmSidebarMenuAction implements OnInit {
 	public readonly showOnHover = input<boolean>(false);
 	protected readonly _computedClass = computed(() =>
 		hlm(
-			'absolute right-1 top-1.5 flex aspect-square w-5 items-center justify-center rounded-md p-0 text-sidebar-foreground outline-none ring-sidebar-ring transition-transform hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 peer-hover/menu-button:text-sidebar-accent-foreground [&>svg]:size-4 [&>svg]:shrink-0 hover:cursor-pointer disabled:hover:cursor-default',
+			'text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground peer-hover/menu-button:text-sidebar-accent-foreground absolute right-1 top-1.5 flex aspect-square w-5 items-center justify-center rounded-md p-0 outline-none transition-transform hover:cursor-pointer focus-visible:ring-2 disabled:hover:cursor-default [&>svg]:size-4 [&>svg]:shrink-0',
 			// Increases the hit area of the button on mobile.
 			'after:absolute after:-inset-2 after:md:hidden',
 			'peer-data-[size=sm]/menu-button:top-1',
@@ -26,7 +26,7 @@ export class HlmSidebarMenuAction implements OnInit {
 			'peer-data-[size=lg]/menu-button:top-2.5',
 			'group-data-[collapsible=icon]:hidden',
 			this.showOnHover() &&
-				'group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 data-[state=open]:opacity-100 peer-data-[active=true]/menu-button:text-sidebar-accent-foreground md:opacity-0',
+				'peer-data-[active=true]/menu-button:text-sidebar-accent-foreground group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 data-[state=open]:opacity-100 md:opacity-0',
 			this.userClass(),
 		),
 	);

@@ -1,6 +1,7 @@
 @plugin "tailwindcss-animate";
 
 @theme inline {
+  --radius-xs: 0.125rem;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);

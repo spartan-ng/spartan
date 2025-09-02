@@ -1,6 +1,6 @@
 import { Directive, computed, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { hlm } from '@spartan-ng/brain/core';
+import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 
 @Directive({

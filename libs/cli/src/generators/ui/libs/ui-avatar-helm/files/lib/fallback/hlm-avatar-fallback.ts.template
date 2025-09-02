@@ -1,6 +1,6 @@
 import { Directive, computed, inject } from '@angular/core';
 import { BrnAvatarFallback } from '@spartan-ng/brain/avatar';
-import { hlm } from '@spartan-ng/brain/core';
+import { hlm } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmAvatarFallback]',

@@ -1,5 +1,5 @@
 import { computed, Directive, input } from '@angular/core';
-import { hlm } from '@spartan-ng/brain/core';
+import { hlm } from '@spartan-ng/helm/utils';
 import { type ClassValue } from 'clsx';
 
 @Directive({
@@ -12,6 +12,6 @@ export class HlmInputOtp {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 
 	protected readonly _computedClass = computed(() =>
-		hlm('flex items-center gap-2 has-disabled:opacity-50', this.userClass()),
+		hlm('has-disabled:opacity-50 flex items-center gap-2', this.userClass()),
 	);
 }

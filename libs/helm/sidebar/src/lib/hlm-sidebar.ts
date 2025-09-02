@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, effect, inject, input } from '@angular/core';
-import { hlm } from '@spartan-ng/brain/core';
 import { BrnSheetContent } from '@spartan-ng/brain/sheet';
 import { HlmSheet, HlmSheetContent } from '@spartan-ng/helm/sheet';
+import { hlm } from '@spartan-ng/helm/utils';
 
 import { HlmSidebarService } from './hlm-sidebar.service';
 

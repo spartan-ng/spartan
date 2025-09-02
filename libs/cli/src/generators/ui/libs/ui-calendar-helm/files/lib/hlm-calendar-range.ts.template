@@ -180,6 +180,6 @@ export class HlmCalendarRange<T> {
 		'data-[disabled]:text-muted-foreground data-[disabled]:opacity-50',
 		'data-[range-start]:rounded-l-md',
 		'data-[range-end]:rounded-r-md',
-		'data-[range-between]:rounded-none data-[range-between]:bg-accent data-[range-between]:text-accent-foreground',
+		'data-[range-between]:bg-accent data-[range-between]:text-accent-foreground data-[range-between]:rounded-none',
 	);
 }

@@ -11,5 +11,5 @@ import { ClassValue } from 'clsx';
 })
 export class HlmHint {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected readonly _computedClass = computed(() => hlm('block text-sm text-muted-foreground', this.userClass()));
+	protected readonly _computedClass = computed(() => hlm('text-muted-foreground block text-sm', this.userClass()));
 }

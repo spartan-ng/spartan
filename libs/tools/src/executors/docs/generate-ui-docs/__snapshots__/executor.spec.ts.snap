@@ -3604,6 +3604,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       "HlmSidebar": {
         "inputs": [
           {
+            "name": "sidebarWidthMobile",
+            "required": false,
+            "type": "unknown",
+          },
+          {
             "name": "side",
             "required": false,
             "type": "'left' | 'right'",
@@ -3880,6 +3885,16 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "name": "class",
             "required": false,
             "type": "ClassValue",
+          },
+          {
+            "name": "sidebarWidth",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "sidebarWidthIcon",
+            "required": false,
+            "type": "unknown",
           },
         ],
         "models": [],

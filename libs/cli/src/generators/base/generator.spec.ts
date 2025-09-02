@@ -61,6 +61,7 @@ describe('hlmBaseGenerator', () => {
 			directory: 'libs/test-ui',
 			buildable: true,
 			generateAs: 'library' as const,
+			importAlias: '@spartan-ng/helm',
 		};
 
 		await hlmBaseGenerator(tree, options);
@@ -78,6 +79,7 @@ describe('hlmBaseGenerator', () => {
 			directory: 'libs/test-ui',
 			buildable: false,
 			generateAs: 'entrypoint' as const,
+			importAlias: '@spartan-ng/helm',
 		};
 
 		await hlmBaseGenerator(tree, options);
@@ -102,6 +104,7 @@ describe('hlmBaseGenerator', () => {
 			directory: 'libs/test-ui',
 			buildable: true,
 			generateAs: 'entrypoint' as const,
+			importAlias: '@spartan-ng/helm',
 		};
 
 		await libraryGenerator(tree, {
@@ -133,6 +136,7 @@ describe('hlmBaseGenerator', () => {
 			directory: 'libs/test-ui',
 			buildable: false,
 			generateAs: 'entrypoint' as const,
+			importAlias: '@spartan-ng/helm',
 		};
 
 		await hlmBaseGenerator(tree, options);
@@ -152,6 +156,7 @@ describe('hlmBaseGenerator', () => {
 			directory: 'libs/test-ui',
 			buildable: false,
 			generateAs: 'entrypoint' as const,
+			importAlias: '@spartan-ng/helm',
 		};
 
 		await hlmBaseGenerator(tree, options);

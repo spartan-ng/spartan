@@ -14,7 +14,7 @@ import {
 	signal,
 } from '@angular/core';
 import { BrnRadio, BrnRadioChange } from '@spartan-ng/brain/radio-group';
-import { hlm } from '@spartan-ng/helm/utils';
+import { hlm } from '<%- importAlias %>/utils';
 import { ClassValue } from 'clsx';
 
 @Component({

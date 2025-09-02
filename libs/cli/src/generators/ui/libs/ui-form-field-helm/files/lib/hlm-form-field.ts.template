@@ -8,7 +8,7 @@ import {
 	input,
 } from '@angular/core';
 import { BrnFormFieldControl } from '@spartan-ng/brain/form-field';
-import { hlm } from '@spartan-ng/helm/utils';
+import { hlm } from '<%- importAlias %>/utils';
 import { ClassValue } from 'clsx';
 import { HlmError } from './hlm-error';
 

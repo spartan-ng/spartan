@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { BrnCommandGroup } from '@spartan-ng/brain/command';
-import { hlm } from '@spartan-ng/helm/utils';
+import { hlm } from '<%- importAlias %>/utils';
 
 @Component({
 	selector: 'hlm-command-group',

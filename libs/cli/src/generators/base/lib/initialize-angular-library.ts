@@ -126,7 +126,7 @@ const defaultSchema: Partial<Schema> = {
 
 export async function initializeAngularEntrypoint(
 	tree: Tree,
-	options: Pick<HlmBaseGeneratorSchema, 'directory' | 'buildable' | 'tags'>,
+	options: Pick<HlmBaseGeneratorSchema, 'directory' | 'buildable' | 'tags' | 'importAlias'>,
 ) {
 	const { libraryGenerator } = await import('@nx/angular/generators');
 	const dir = joinPathFragments(options.directory);
@@ -136,7 +136,7 @@ export async function initializeAngularEntrypoint(
 		flat: true,
 		name: singleLibName,
 		buildable: options.buildable,
-		importPath: `@spartan-ng/helm`,
+		importPath: options.importAlias,
 		directory: dir,
 		tags: options.tags,
 	});
@@ -166,7 +166,7 @@ export async function initializeAngularLibrary(tree: Tree, options: HlmBaseGener
 		...defaultSchema,
 		name: options.publicName,
 		buildable: options.buildable,
-		importPath: `@spartan-ng/helm/${options.primitiveName}`,
+		importPath: `${options.importAlias}/${options.primitiveName}`,
 		directory: dir,
 		tags: options.tags,
 	});

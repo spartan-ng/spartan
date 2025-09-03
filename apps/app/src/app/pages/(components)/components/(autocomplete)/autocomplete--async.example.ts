@@ -6,7 +6,12 @@ import { HlmSpinner } from '@spartan-ng/helm/spinner';
 	selector: 'spartan-autocomplete-async',
 	imports: [HlmAutocomplete, HlmSpinner],
 	template: `
-		<hlm-autocomplete [options]="options.value()" [loading]="options.isLoading()" (searchChange)="_search.set($event)">
+		<hlm-autocomplete
+			[options]="options.value()"
+			[filter]="filter"
+			[loading]="options.isLoading()"
+			(searchChange)="_search.set($event)"
+		>
 			<hlm-spinner loading class="size-6" />
 		</hlm-autocomplete>
 	`,
@@ -14,6 +19,10 @@ import { HlmSpinner } from '@spartan-ng/helm/spinner';
 })
 export class AutocompleteAsync {
 	protected readonly _search = signal<string>('');
+
+	public readonly filter = (options: string[], search: string) => {
+		return options.filter((option) => option.toLowerCase().includes(search.toLowerCase()));
+	};
 
 	public options = resource({
 		defaultValue: [],

@@ -11,7 +11,7 @@ import { HlmLabel } from '@spartan-ng/helm/label';
 		<form [formGroup]="form" (ngSubmit)="submit()" class="space-y-8">
 			<div class="flex flex-col gap-2">
 				<label for="autocomplete" hlmLabel class="px-1">Choose your favorite character</label>
-				<hlm-autocomplete inputId="autocomplete" [options]="options" formControlName="option" />
+				<hlm-autocomplete inputId="autocomplete" [options]="options" [filter]="filter" formControlName="option" />
 			</div>
 
 			<button type="submit" hlmBtn>Submit</button>
@@ -25,6 +25,10 @@ export class AutocompleteForm {
 	public form = this._formBuilder.group({
 		option: [null, Validators.required],
 	});
+
+	public readonly filter = (options: string[], search: string) => {
+		return options.filter((option) => option.toLowerCase().includes(search.toLowerCase()));
+	};
 
 	public readonly options: string[] = [
 		'Marty McFly',

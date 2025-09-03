@@ -17,6 +17,7 @@ import { UIApiDocs } from '@spartan-ng/app/app/shared/layout/ui-docs-section/ui-
 import { Tabs } from '../../../../shared/layout/tabs';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { AutocompleteAsync } from './autocomplete--async.example';
+import { AutocompleteCountries } from './autocomplete--countries.example';
 import { AutocompleteForm } from './autocomplete--form.example';
 import { AutocompletePreview, defaultImports, defaultSkeleton } from './autocomplete.preview';
 
@@ -43,6 +44,7 @@ export const routeMeta: RouteMeta = {
 		AutocompletePreview,
 		AutocompleteAsync,
 		AutocompleteForm,
+		AutocompleteCountries,
 	],
 	template: `
 		<section spartanMainSection>
@@ -79,10 +81,21 @@ export const routeMeta: RouteMeta = {
 				<spartan-code [code]="_codeSkeleton" />
 			</div>
 
+			<spartan-section-sub-heading id="hlm-api">Brain API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="brain" />
+
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
+			<h3 id="examples__objects" class="${hlmH4} mb-2 mt-6">Objects</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-autocomplete-countries />
+				</div>
+				<spartan-code secondTab [code]="_countriesCode()" />
+			</spartan-tabs>
+
 			<h3 id="examples__async" class="${hlmH4} mb-2 mt-6">Asynchronous</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -110,6 +123,7 @@ export const routeMeta: RouteMeta = {
 export default class AutocompletePage {
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('autocomplete');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
+	protected readonly _countriesCode = computed(() => this._snippets()['countries']);
 	protected readonly _asyncCode = computed(() => this._snippets()['async']);
 	protected readonly _formCode = computed(() => this._snippets()['form']);
 	protected readonly _defaultImports = defaultImports;

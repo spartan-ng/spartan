@@ -5,11 +5,15 @@ import { HlmAutocomplete } from '@spartan-ng/helm/autocomplete';
 	selector: 'spartan-autocomplete-preview',
 	imports: [HlmAutocomplete],
 	template: `
-		<hlm-autocomplete [options]="options" />
+		<hlm-autocomplete [options]="options" [filter]="filter" />
 	`,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AutocompletePreview {
+	public readonly filter = (options: string[], search: string) => {
+		return options.filter((option) => option.toLowerCase().includes(search.toLowerCase()));
+	};
+
 	public readonly options: string[] = [
 		'Marty McFly',
 		'Doc Brown',

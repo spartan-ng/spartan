@@ -1,4 +1,5 @@
 import { BooleanInput } from '@angular/cdk/coercion';
+import { NgTemplateOutlet } from '@angular/common';
 import {
 	booleanAttribute,
 	ChangeDetectionStrategy,
@@ -10,6 +11,7 @@ import {
 	input,
 	linkedSignal,
 	output,
+	TemplateRef,
 	viewChild,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -30,6 +32,7 @@ import { HlmAutocompleteList } from './hlm-autocomplete-list';
 import { HlmAutocompleteSearch } from './hlm-autocomplete-search';
 import { HlmAutocompleteSearchInput } from './hlm-autocomplete-search-input';
 import { HlmAutocompleteTrigger } from './hlm-autocomplete-trigger';
+import { injectHlmAutocompleteConfig } from './hlm-autocomplete.token';
 
 export const HLM_AUTOCOMPLETE_VALUE_ACCESSOR = {
 	provide: NG_VALUE_ACCESSOR,
@@ -42,6 +45,8 @@ let nextId = 0;
 @Component({
 	selector: 'hlm-autocomplete',
 	imports: [
+		NgTemplateOutlet,
+
 		BrnPopover,
 		BrnPopoverContent,
 		HlmPopoverContent,
@@ -107,7 +112,11 @@ let nextId = 0;
 						<hlm-autocomplete-group>
 							@for (option of _filteredOptions(); track option) {
 								<button hlm-autocomplete-item [value]="option" (selected)="_optionSelected(option)">
-									{{ option }}
+									@if (optionTemplate(); as optionTemplate) {
+										<ng-container *ngTemplateOutlet="optionTemplate; context: { $implicit: option }" />
+									} @else {
+										{{ option }}
+									}
 								</button>
 							}
 						</hlm-autocomplete-group>
@@ -129,29 +138,36 @@ let nextId = 0;
 		'[class]': '_computedClass()',
 	},
 })
-export class HlmAutocomplete implements ControlValueAccessor {
+export class HlmAutocomplete<T> implements ControlValueAccessor {
 	private readonly _brnPopover = viewChild.required(BrnPopover);
 	private readonly _inputRef = viewChild.required('input', { read: ElementRef });
+
+	private readonly _config = injectHlmAutocompleteConfig<T>();
 
 	protected readonly _elementRef = inject(ElementRef<HTMLElement>);
 
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() => hlm('block w-full', this.userClass()));
 
+	// TODO maybe replace with `filteredOptions` and remove options and filter inputs?
 	/** The list of options to display in the autocomplete. */
-	public readonly options = input<string[]>([]);
+	public readonly options = input<T[]>([]);
 
 	/** The selected value. */
-	public readonly value = input<string>();
+	public readonly value = input<T>();
 	protected readonly _value = linkedSignal(() => this.value());
 
 	/** The search query. */
 	public readonly search = input<string>();
 	protected readonly _search = linkedSignal(() => this.search() || '');
 
-	protected readonly _filteredOptions = computed(() =>
-		this.options().filter((option) => option.toLowerCase().includes(this._search().toLowerCase())),
-	);
+	public readonly filter = input.required<(options: T[], search: string) => T[]>();
+
+	public readonly transformValueToSearch = input<(value: T) => string>(this._config.transformValueToSearch);
+
+	protected readonly _filteredOptions = computed(() => this.filter()(this.options(), this._search()));
+
+	public readonly optionTemplate = input<TemplateRef<any>>();
 
 	/** Whether the autocomplete is in a loading state. */
 	public readonly loading = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
@@ -173,12 +189,12 @@ export class HlmAutocomplete implements ControlValueAccessor {
 	protected readonly _disabled = linkedSignal(() => this.disabled());
 
 	/** Emitted when the selected value changes. */
-	public readonly valueChange = output<string | null>();
+	public readonly valueChange = output<T | null>();
 
 	/** Emitted when the search query changes. */
 	public readonly searchChange = output<string>();
 
-	protected _onChange?: ChangeFn<string | null>;
+	protected _onChange?: ChangeFn<T | null>;
 	protected _onTouched?: TouchFn;
 
 	protected _setPopoverState(state: 'open' | 'closed') {
@@ -218,21 +234,21 @@ export class HlmAutocomplete implements ControlValueAccessor {
 		this.valueChange.emit(null);
 	}
 
-	protected _optionSelected(option: string) {
+	protected _optionSelected(option: T) {
 		this._value.set(option);
 		this._onChange?.(option);
 		this.valueChange.emit(option);
-		this._search.set(option);
+		this._search.set(this.transformValueToSearch()(option));
 
 		this._setPopoverState('closed');
 	}
 
 	/** CONTROL VALUE ACCESSOR */
-	public writeValue(value: string | null): void {
+	public writeValue(value: T | null): void {
 		this._value.set(value ? value : undefined);
 	}
 
-	public registerOnChange(fn: ChangeFn<string | null>): void {
+	public registerOnChange(fn: ChangeFn<T | null>): void {
 		this._onChange = fn;
 	}
 

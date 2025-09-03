@@ -1,5 +1,4 @@
-import { BooleanInput } from '@angular/cdk/coercion';
-import { booleanAttribute, ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { BrnCommandItem } from '@spartan-ng/brain/command';
 import { hlm } from '@spartan-ng/helm/utils';
 
@@ -21,17 +20,6 @@ import { hlm } from '@spartan-ng/helm/utils';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmCommandItem {
-	/** The value this item represents. */
-	public readonly value = input<string>();
-
-	/** Whether the item is disabled. */
-	public readonly disabled = input<boolean, BooleanInput>(false, {
-		transform: booleanAttribute,
-	});
-
-	/** Emits when the item is selected. */
-	public readonly selected = output<void>();
-
 	/** The user defined class  */
 	public readonly userClass = input<string>('', { alias: 'class' });
 

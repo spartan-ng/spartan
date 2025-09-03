@@ -42,9 +42,6 @@ export class BrnCommand implements AfterViewInit {
 	/** A custom filter function to use when searching. */
 	public readonly filter = input<CommandFilter>(this._config.filter);
 
-	/** Whether the command should focus active items on enter keydown. */
-	public readonly focusActiveOnEnter = input<boolean>(true);
-
 	/** when the selection has changed */
 	public readonly valueChange = output<string>();
 
@@ -97,8 +94,6 @@ export class BrnCommand implements AfterViewInit {
 	}
 
 	protected selectActiveItem(): void {
-		if (this.focusActiveOnEnter()) {
-			this.keyManager.activeItem?.selected.emit();
-		}
+		this.keyManager.activeItem?.selected.emit();
 	}
 }

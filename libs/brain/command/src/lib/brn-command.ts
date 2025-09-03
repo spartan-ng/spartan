@@ -56,7 +56,7 @@ export class BrnCommand implements AfterViewInit {
 		descendants: true,
 	});
 
-	/** @internal Access all the items within the commmand */
+	/** @internal Access all the items within the command */
 	public readonly items = contentChildren(BrnCommandItemToken, {
 		descendants: true,
 	});

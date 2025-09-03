@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
-import { BrnCommand, provideBrnCommandConfig } from '@spartan-ng/brain/command';
+import { BrnAutocomplete } from '@spartan-ng/brain/autocomplete';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 
+// TODO rename selector and class - remove comand
 @Component({
 	selector: 'hlm-autocomplete-command',
 	template: `
@@ -10,20 +11,14 @@ import type { ClassValue } from 'clsx';
 	`,
 	hostDirectives: [
 		{
-			directive: BrnCommand,
-			inputs: ['id', 'focusActiveOnEnter'],
+			directive: BrnAutocomplete,
+			inputs: ['id'],
 			outputs: ['valueChange'],
 		},
 	],
 	host: {
 		'[class]': '_computedClass()',
 	},
-	providers: [
-		provideBrnCommandConfig({
-			// override default command filter behavior to show all options
-			filter: () => true,
-		}),
-	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmAutocompleteCommand {

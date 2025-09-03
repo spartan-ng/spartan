@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
-import { BrnCommandSearchInput } from '@spartan-ng/brain/command';
+import { BrnAutocompleteSearchInput } from '@spartan-ng/brain/autocomplete';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'input[hlm-autocomplete-search-input]',
 	template: '',
-	hostDirectives: [{ directive: BrnCommandSearchInput, inputs: ['value'] }],
+	hostDirectives: [{ directive: BrnAutocompleteSearchInput, inputs: ['value'] }],
 	host: {
 		'[class]': '_computedClass()',
 	},

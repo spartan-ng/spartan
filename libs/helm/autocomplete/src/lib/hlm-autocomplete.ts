@@ -15,15 +15,18 @@ import {
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown, lucideSearch } from '@ng-icons/lucide';
-import { BrnCommandEmpty } from '@spartan-ng/brain/command';
+import { BrnAutocompleteEmpty } from '@spartan-ng/brain/autocomplete';
 import { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import { BrnPopover, BrnPopoverContent } from '@spartan-ng/brain/popover';
-import { HlmCommandEmpty, HlmCommandGroup, HlmCommandItem, HlmCommandList } from '@spartan-ng/helm/command';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmPopoverContent } from '@spartan-ng/helm/popover';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 import { HlmAutocompleteCommand } from './hlm-autocomplete-command';
+import { HlmAutocompleteEmpty } from './hlm-autocomplete-empty';
+import { HlmAutocompleteGroup } from './hlm-autocomplete-group';
+import { HlmAutocompleteItem } from './hlm-autocomplete-item';
+import { HlmAutocompleteList } from './hlm-autocomplete-list';
 import { HlmAutocompleteSearch } from './hlm-autocomplete-search';
 import { HlmAutocompleteSearchInput } from './hlm-autocomplete-search-input';
 import { HlmAutocompleteTrigger } from './hlm-autocomplete-trigger';
@@ -43,13 +46,12 @@ let nextId = 0;
 		BrnPopoverContent,
 		HlmPopoverContent,
 
-		HlmCommandList,
-		HlmCommandGroup,
-		HlmCommandItem,
-		BrnCommandEmpty,
-		HlmCommandEmpty,
-
+		BrnAutocompleteEmpty,
+		HlmAutocompleteEmpty,
 		HlmAutocompleteCommand,
+		HlmAutocompleteGroup,
+		HlmAutocompleteItem,
+		HlmAutocompleteList,
 		HlmAutocompleteSearch,
 		HlmAutocompleteSearchInput,
 		HlmAutocompleteTrigger,
@@ -67,7 +69,7 @@ let nextId = 0;
 			closeDelay="100"
 			[closeOnOutsidePointerEvents]="true"
 		>
-			<hlm-autocomplete-command [focusActiveOnEnter]="popover.stateComputed() === 'open'">
+			<hlm-autocomplete-command>
 				<hlm-autocomplete-search hlmAutocompleteTrigger [disabled]="!_search()">
 					<ng-icon name="lucideSearch" hlm />
 					<input
@@ -101,17 +103,17 @@ let nextId = 0;
 					class="max-h-60 overflow-y-auto p-0"
 					[style.width.px]="_elementRef.nativeElement.offsetWidth"
 				>
-					<hlm-command-list>
-						<hlm-command-group>
+					<hlm-autocomplete-list>
+						<hlm-autocomplete-group>
 							@for (option of _filteredOptions(); track option) {
-								<button hlm-command-item [value]="option" (selected)="_optionSelected(option)">
+								<button hlm-autocomplete-item [value]="option" (selected)="_optionSelected(option)">
 									{{ option }}
 								</button>
 							}
-						</hlm-command-group>
-					</hlm-command-list>
+						</hlm-autocomplete-group>
+					</hlm-autocomplete-list>
 
-					<div *brnCommandEmpty hlmCommandEmpty>
+					<div *brnAutocompleteEmpty hlmAutocompleteEmpty>
 						@if (loading()) {
 							<ng-content select="[loading]">{{ loadingText() }}</ng-content>
 						} @else {

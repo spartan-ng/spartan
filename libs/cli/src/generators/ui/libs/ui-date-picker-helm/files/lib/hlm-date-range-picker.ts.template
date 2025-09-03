@@ -13,7 +13,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideCalendar } from '@ng-icons/lucide';
+import { lucideChevronDown } from '@ng-icons/lucide';
 import { BrnDialogState } from '@spartan-ng/brain/dialog';
 import { type ChangeFn, type TouchFn } from '@spartan-ng/brain/forms';
 import { BrnPopover, BrnPopoverContent, BrnPopoverTrigger } from '@spartan-ng/brain/popover';
@@ -30,10 +30,12 @@ export const HLM_DATE_RANGE_PICKER_VALUE_ACCESSOR = {
 	multi: true,
 };
 
+let nextId = 0;
+
 @Component({
 	selector: 'hlm-date-range-picker',
 	imports: [NgIcon, HlmIcon, BrnPopover, BrnPopoverTrigger, BrnPopoverContent, HlmPopoverContent, HlmCalendarRange],
-	providers: [HLM_DATE_RANGE_PICKER_VALUE_ACCESSOR, provideIcons({ lucideCalendar })],
+	providers: [HLM_DATE_RANGE_PICKER_VALUE_ACCESSOR, provideIcons({ lucideChevronDown })],
 	template: `
 		<brn-popover
 			sideOffset="5"
@@ -41,9 +43,13 @@ export const HLM_DATE_RANGE_PICKER_VALUE_ACCESSOR = {
 			(stateChanged)="_popoverState.set($event)"
 			(closed)="_onClose()"
 		>
-			<button type="button" [class]="_computedClass()" [disabled]="_mutableDisabled()" brnPopoverTrigger>
-				<ng-icon hlm size="sm" name="lucideCalendar" />
-
+			<button
+				[id]="buttonId()"
+				type="button"
+				[class]="_computedClass()"
+				[disabled]="_mutableDisabled()"
+				brnPopoverTrigger
+			>
 				<span class="truncate">
 					@if (_formattedDate(); as formattedDate) {
 						{{ formattedDate }}
@@ -51,6 +57,8 @@ export const HLM_DATE_RANGE_PICKER_VALUE_ACCESSOR = {
 						<ng-content />
 					}
 				</span>
+
+				<ng-icon hlm size="sm" name="lucideChevronDown" />
 			</button>
 
 			<div hlmPopoverContent class="w-auto p-0" *brnPopoverContent="let ctx">
@@ -78,14 +86,16 @@ export class HlmDateRangePicker<T> implements ControlValueAccessor {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>
 		hlm(
-			'ring-offset-background border-input bg-background hover:bg-accent hover:text-accent-foreground inline-flex h-10 w-[280px] items-center justify-start gap-2 whitespace-nowrap rounded-md border px-4 py-2 text-left text-sm font-normal transition-all',
+			'ring-offset-background border-input bg-background hover:bg-accent dark:bg-input/30 dark:hover:bg-input/50 hover:text-accent-foreground inline-flex h-9 w-[280px] cursor-default items-center justify-between gap-2 whitespace-nowrap rounded-md border px-3 py-2 text-left text-sm font-normal transition-all disabled:pointer-events-none disabled:opacity-50',
 			'focus-visible:ring-ring focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
 			'disabled:pointer-events-none disabled:opacity-50',
 			'[&_ng-icon]:pointer-events-none [&_ng-icon]:shrink-0',
-			!this._mutableDate() ? 'text-muted-foreground' : '',
 			this.userClass(),
 		),
 	);
+
+	/** The id of the button that opens the date picker. */
+	public readonly buttonId = input<string>(`hlm-date-picker-range-${nextId++}`);
 
 	/** The minimum date that can be selected.*/
 	public readonly min = input<T>();

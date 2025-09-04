@@ -24,7 +24,7 @@ type Country = {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AutocompleteCountries {
-	private readonly countries: Country[] = [
+	private readonly _countries: Country[] = [
 		{ name: 'Argentina', code: 'AR', flag: '🇦🇷' },
 		{ name: 'Australia', code: 'AU', flag: '🇦🇺' },
 		{ name: 'Belgium', code: 'BE', flag: '🇧🇪' },
@@ -52,7 +52,7 @@ export class AutocompleteCountries {
 	public readonly search = signal<string>('');
 
 	public readonly filteredCountries = computed(() =>
-		this.countries.filter(
+		this._countries.filter(
 			(country) =>
 				country.name.toLowerCase().includes(this.search().toLowerCase()) ||
 				`${country.flag} ${country.name}`.toLowerCase().includes(this.search().toLowerCase()),

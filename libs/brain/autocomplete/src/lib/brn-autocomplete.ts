@@ -9,7 +9,6 @@ import {
 	Injector,
 	input,
 	output,
-	PLATFORM_ID,
 	untracked,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -17,7 +16,7 @@ import { BrnPopover } from '@spartan-ng/brain/popover';
 import { BrnAutocompleteItem } from './brn-autocomplete-item';
 import { BrnAutocompleteItemToken } from './brn-autocomplete-item.token';
 import { BrnAutocompleteSearchInput } from './brn-autocomplete-search-input';
-import { injectBrnAutocompleteConfig, provideBrnAutocomplete } from './brn-autocomplete.token';
+import { provideBrnAutocomplete } from './brn-autocomplete.token';
 
 @Directive({
 	selector: '[brnAutocomplete]',
@@ -30,12 +29,7 @@ import { injectBrnAutocompleteConfig, provideBrnAutocomplete } from './brn-autoc
 export class BrnAutocomplete<T> {
 	private static _id = 0;
 
-	private readonly _platform = inject(PLATFORM_ID);
-
 	private readonly _injector = inject(Injector);
-
-	// TODO remove not used
-	private readonly _config = injectBrnAutocompleteConfig();
 
 	/** The id of the autocomplete */
 	public readonly id = input<string>(`brn-autocomplete-${++BrnAutocomplete._id}`);

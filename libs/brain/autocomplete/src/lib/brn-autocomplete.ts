@@ -69,28 +69,15 @@ export class BrnAutocomplete<T> {
 			.withWrap()
 			.skipPredicate((item) => item.disabled);
 
-		// TODO change active to first when searchInput changes
-		// When clearing the search input we also want to reset the active item to the first one
 		effect(() => {
-			const searchInput = this.search();
+			const items = this.items();
+
 			untracked(() => {
-				if (searchInput !== undefined && searchInput.length === 0) {
+				const activeItem = this.keyManager.activeItem;
+				if (!activeItem || !items.includes(activeItem) || items[0] !== activeItem) {
 					this.keyManager.setFirstItemActive();
 				}
 			});
-		});
-
-		effect(() => {
-			const state = this._brnPopover?.stateComputed();
-
-			if (this.keyManager.activeItem === null && state === 'open') {
-				// When opening the popover we want to set the active item to the first one
-				this.keyManager.setFirstItemActive();
-			}
-
-			if (this.keyManager.activeItem !== null && state === 'closed') {
-				this.keyManager.setActiveItem(-1);
-			}
 		});
 
 		this.keyManager.change.pipe(takeUntilDestroyed()).subscribe(() => {

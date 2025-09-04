@@ -17,14 +17,13 @@ import {
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown, lucideSearch } from '@ng-icons/lucide';
-import { BrnAutocompleteEmpty } from '@spartan-ng/brain/autocomplete';
+import { BrnAutocomplete, BrnAutocompleteEmpty } from '@spartan-ng/brain/autocomplete';
 import { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import { BrnPopover, BrnPopoverContent } from '@spartan-ng/brain/popover';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmPopoverContent } from '@spartan-ng/helm/popover';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
-import { HlmAutocompleteCommand } from './hlm-autocomplete-command';
 import { HlmAutocompleteEmpty } from './hlm-autocomplete-empty';
 import { HlmAutocompleteGroup } from './hlm-autocomplete-group';
 import { HlmAutocompleteItem } from './hlm-autocomplete-item';
@@ -51,9 +50,9 @@ let nextId = 0;
 		BrnPopoverContent,
 		HlmPopoverContent,
 
+		BrnAutocomplete,
 		BrnAutocompleteEmpty,
 		HlmAutocompleteEmpty,
-		HlmAutocompleteCommand,
 		HlmAutocompleteGroup,
 		HlmAutocompleteItem,
 		HlmAutocompleteList,
@@ -74,7 +73,7 @@ let nextId = 0;
 			closeDelay="100"
 			[closeOnOutsidePointerEvents]="true"
 		>
-			<hlm-autocomplete-command>
+			<div brnAutocomplete>
 				<hlm-autocomplete-search hlmAutocompleteTrigger [disabled]="!_search()">
 					<ng-icon name="lucideSearch" hlm />
 					<input
@@ -105,7 +104,7 @@ let nextId = 0;
 				<div
 					*brnPopoverContent="let ctx"
 					hlmPopoverContent
-					class="max-h-60 overflow-y-auto p-0"
+					[class]="_computedPopoverContentClass()"
 					[style.width.px]="_elementRef.nativeElement.offsetWidth"
 				>
 					<hlm-autocomplete-list>
@@ -130,7 +129,7 @@ let nextId = 0;
 						}
 					</div>
 				</div>
-			</hlm-autocomplete-command>
+			</div>
 		</brn-popover>
 	`,
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -148,6 +147,11 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() => hlm('block w-full', this.userClass()));
+
+	public readonly popoverContentClass = input<ClassValue>('');
+	protected readonly _computedPopoverContentClass = computed(() =>
+		hlm('max-h-60 overflow-y-auto p-0', this.popoverContentClass()),
+	);
 
 	// TODO maybe replace with `filteredOptions` and remove options and filter inputs?
 	/** The list of options to display in the autocomplete. */

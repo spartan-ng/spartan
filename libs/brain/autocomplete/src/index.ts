@@ -13,6 +13,7 @@ export * from './lib/brn-autocomplete-item';
 export * from './lib/brn-autocomplete-item.token';
 export * from './lib/brn-autocomplete-list';
 export * from './lib/brn-autocomplete-search-input';
+export * from './lib/brn-autocomplete-search-input.token';
 export * from './lib/brn-autocomplete.token';
 
 export const BrnAutocompleteImports = [

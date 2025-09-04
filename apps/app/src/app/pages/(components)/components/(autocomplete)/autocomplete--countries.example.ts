@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { HlmAutocomplete } from '@spartan-ng/helm/autocomplete';
 import { provideHlmAutocompleteConfig } from 'libs/helm/autocomplete/src/lib/hlm-autocomplete.token';
 
@@ -12,12 +12,7 @@ type Country = {
 	selector: 'spartan-autocomplete-countries',
 	imports: [HlmAutocomplete],
 	template: `
-		<hlm-autocomplete
-			[options]="countries"
-			[filter]="filter"
-			[optionTemplate]="option"
-			(searchChange)="_search.set($event)"
-		/>
+		<hlm-autocomplete [filteredOptions]="filteredCountries()" [optionTemplate]="option" [(search)]="search" />
 
 		<ng-template #option let-option>{{ option.flag }} {{ option.name }}</ng-template>
 	`,
@@ -29,17 +24,7 @@ type Country = {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AutocompleteCountries {
-	protected readonly _search = signal<string>('');
-
-	public readonly filter = (options: Country[], search: string) => {
-		return options.filter(
-			(option) =>
-				option.name.toLowerCase().includes(search.toLowerCase()) ||
-				`${option.flag} ${option.name}`.toLowerCase().includes(search.toLowerCase()),
-		);
-	};
-
-	public readonly countries: Country[] = [
+	private readonly countries: Country[] = [
 		{ name: 'Argentina', code: 'AR', flag: '🇦🇷' },
 		{ name: 'Australia', code: 'AU', flag: '🇦🇺' },
 		{ name: 'Belgium', code: 'BE', flag: '🇧🇪' },
@@ -63,4 +48,14 @@ export class AutocompleteCountries {
 		{ name: 'United Kingdom', code: 'GB', flag: '🇬🇧' },
 		{ name: 'United States', code: 'US', flag: '🇺🇸' },
 	];
+
+	public readonly search = signal<string>('');
+
+	public readonly filteredCountries = computed(() =>
+		this.countries.filter(
+			(country) =>
+				country.name.toLowerCase().includes(this.search().toLowerCase()) ||
+				`${country.flag} ${country.name}`.toLowerCase().includes(this.search().toLowerCase()),
+		),
+	);
 }

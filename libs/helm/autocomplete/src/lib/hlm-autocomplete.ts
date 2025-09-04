@@ -109,7 +109,7 @@ let nextId = 0;
 				>
 					<hlm-autocomplete-list>
 						<hlm-autocomplete-group>
-							@for (option of _filteredOptions(); track option) {
+							@for (option of filteredOptions(); track option) {
 								<button hlm-autocomplete-item [value]="option" (selected)="_optionSelected(option)">
 									@if (optionTemplate(); as optionTemplate) {
 										<ng-container *ngTemplateOutlet="optionTemplate; context: { $implicit: option }" />
@@ -153,9 +153,8 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 		hlm('max-h-60 overflow-y-auto p-0', this.popoverContentClass()),
 	);
 
-	// TODO maybe replace with `filteredOptions` and remove options and filter inputs?
-	/** The list of options to display in the autocomplete. */
-	public readonly options = input<T[]>([]);
+	/** The list of filtered options to display in the autocomplete. */
+	public readonly filteredOptions = input<T[]>([]);
 
 	/** The selected value. */
 	public readonly value = input<T>();
@@ -165,13 +164,11 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 	public readonly search = input<string>();
 	protected readonly _search = linkedSignal(() => this.search() || '');
 
-	public readonly filter = input.required<(options: T[], search: string) => T[]>();
-
+	/** Function to transform an option value to a search string. Defaults to identity function for strings. */
 	public readonly transformValueToSearch = input<(value: T) => string>(this._config.transformValueToSearch);
 
-	protected readonly _filteredOptions = computed(() => this.filter()(this.options(), this._search()));
-
-	public readonly optionTemplate = input<TemplateRef<any>>();
+	/** Optional template for rendering each option. */
+	public readonly optionTemplate = input<TemplateRef<HlmAutocompleteOption<T>>>();
 
 	/** Whether the autocomplete is in a loading state. */
 	public readonly loading = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
@@ -242,7 +239,11 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 		this._value.set(option);
 		this._onChange?.(option);
 		this.valueChange.emit(option);
-		this._search.set(this.transformValueToSearch()(option));
+
+		const searchValue = this.transformValueToSearch()(option);
+
+		this._search.set(searchValue);
+		this.searchChange.emit(searchValue);
 
 		this._setPopoverState('closed');
 	}
@@ -263,4 +264,8 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 	public setDisabledState(isDisabled: boolean): void {
 		this._disabled.set(isDisabled);
 	}
+}
+
+interface HlmAutocompleteOption<T> {
+	$implicit: T;
 }

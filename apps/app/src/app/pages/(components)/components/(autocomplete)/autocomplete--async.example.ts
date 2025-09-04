@@ -6,27 +6,18 @@ import { HlmSpinner } from '@spartan-ng/helm/spinner';
 	selector: 'spartan-autocomplete-async',
 	imports: [HlmAutocomplete, HlmSpinner],
 	template: `
-		<hlm-autocomplete
-			[options]="options.value()"
-			[filter]="filter"
-			[loading]="options.isLoading()"
-			(searchChange)="_search.set($event)"
-		>
+		<hlm-autocomplete [filteredOptions]="options.value()" [loading]="options.isLoading()" [(search)]="search">
 			<hlm-spinner loading class="size-6" />
 		</hlm-autocomplete>
 	`,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AutocompleteAsync {
-	protected readonly _search = signal<string>('');
-
-	public readonly filter = (options: string[], search: string) => {
-		return options.filter((option) => option.toLowerCase().includes(search.toLowerCase()));
-	};
+	public readonly search = signal('');
 
 	public options = resource({
 		defaultValue: [],
-		request: () => ({ search: this._search() }),
+		request: () => ({ search: this.search() }),
 		loader: async (params) => {
 			const search = params.request.search;
 
@@ -39,7 +30,7 @@ export class AutocompleteAsync {
 				return [];
 			}
 
-			// TODO call your API or 3rd party service here
+			// DEV - call your API or 3rd party service here
 			// simulate async
 			return new Promise<string[]>((resolve) => {
 				setTimeout(() => {

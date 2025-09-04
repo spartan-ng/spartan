@@ -22,6 +22,6 @@ export class HlmAutocompleteList {
 
 	/** The styles to apply  */
 	protected readonly _computedClass = computed(() =>
-		hlm('max-h-[300px] overflow-y-auto overflow-x-hidden', this.userClass()),
+		hlm('block max-h-60 overflow-y-auto overflow-x-hidden', this.userClass()),
 	);
 }

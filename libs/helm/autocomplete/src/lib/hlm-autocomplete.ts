@@ -39,8 +39,6 @@ export const HLM_AUTOCOMPLETE_VALUE_ACCESSOR = {
 	multi: true,
 };
 
-let nextId = 0;
-
 @Component({
 	selector: 'hlm-autocomplete',
 	imports: [
@@ -74,7 +72,7 @@ let nextId = 0;
 			[closeOnOutsidePointerEvents]="true"
 		>
 			<div brnAutocomplete>
-				<hlm-autocomplete-search hlmAutocompleteTrigger [disabled]="!_search()">
+				<hlm-autocomplete-search hlmAutocompleteTrigger [disabledTrigger]="!_search()">
 					<ng-icon name="lucideSearch" hlm />
 					<input
 						#input
@@ -104,10 +102,10 @@ let nextId = 0;
 				<div
 					*brnPopoverContent="let ctx"
 					hlmPopoverContent
-					[class]="_computedPopoverContentClass()"
+					class="p-0"
 					[style.width.px]="_elementRef.nativeElement.offsetWidth"
 				>
-					<hlm-autocomplete-list>
+					<hlm-autocomplete-list [class]="_computedAutocompleteListClass()">
 						<hlm-autocomplete-group>
 							@for (option of filteredOptions(); track option) {
 								<button hlm-autocomplete-item [value]="option" (selected)="_optionSelected(option)">
@@ -138,20 +136,21 @@ let nextId = 0;
 	},
 })
 export class HlmAutocomplete<T> implements ControlValueAccessor {
+	private static _id = 0;
+	private readonly _config = injectHlmAutocompleteConfig<T>();
+
 	private readonly _brnPopover = viewChild.required(BrnPopover);
 	private readonly _inputRef = viewChild.required('input', { read: ElementRef });
 
-	private readonly _config = injectHlmAutocompleteConfig<T>();
-
 	protected readonly _elementRef = inject(ElementRef<HTMLElement>);
 
+	/** The user defined class  */
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() => hlm('block w-full', this.userClass()));
 
-	public readonly popoverContentClass = input<ClassValue>('');
-	protected readonly _computedPopoverContentClass = computed(() =>
-		hlm('max-h-60 overflow-y-auto p-0', this.popoverContentClass()),
-	);
+	/** Custom class for the autocomplete list. */
+	public readonly autocompleteListClass = input<ClassValue>('');
+	protected readonly _computedAutocompleteListClass = computed(() => hlm('', this.autocompleteListClass()));
 
 	/** The list of filtered options to display in the autocomplete. */
 	public readonly filteredOptions = input<T[]>([]);
@@ -183,7 +182,7 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 	public readonly emptyText = input('No options found');
 
 	/** The id of the input field. */
-	public readonly inputId = input<string>(`hlm-autocomplete-input-${nextId++}`);
+	public readonly inputId = input<string>(`hlm-autocomplete-input-${++HlmAutocomplete._id}`);
 
 	/** Whether the autocomplete is disabled. */
 	public readonly disabled = input<boolean, BooleanInput>(false, { transform: booleanAttribute });

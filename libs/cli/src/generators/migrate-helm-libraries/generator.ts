@@ -12,9 +12,10 @@ import { MigrateHelmLibrariesGeneratorSchema } from './schema';
 
 export async function migrateHelmLibrariesGenerator(tree: Tree, options: MigrateHelmLibrariesGeneratorSchema) {
 	// Detect the libraries that are already installed
-	const existingLibraries = await detectLibraries(tree);
 
 	const config = await getOrCreateConfig(tree);
+
+	const existingLibraries = await detectLibraries(tree, config.importAlias);
 
 	if (existingLibraries.length === 0) {
 		logger.info('No libraries to migrate');
@@ -59,7 +60,11 @@ export async function migrateHelmLibrariesGenerator(tree: Tree, options: Migrate
 		libraries = existingLibraries;
 	}
 
-	await removeExistingLibraries(tree, { ...options, generateAs: config.generateAs }, libraries as Primitive[]);
+	await removeExistingLibraries(
+		tree,
+		{ ...options, generateAs: config.generateAs, importAlias: config.importAlias },
+		libraries as Primitive[],
+	);
 	await regenerateLibraries(
 		tree,
 		{ ...options, generateAs: config.generateAs, buildable: config.buildable },
@@ -71,7 +76,7 @@ export async function migrateHelmLibrariesGenerator(tree: Tree, options: Migrate
 
 export default migrateHelmLibrariesGenerator;
 
-async function detectLibraries(tree: Tree): Promise<Primitive[]> {
+async function detectLibraries(tree: Tree, importAlias: string): Promise<Primitive[]> {
 	const supportedLibraries = (await import('../ui/supported-ui-libraries.json').then(
 		(m) => m.default,
 	)) as SupportedLibraries;
@@ -86,6 +91,8 @@ async function detectLibraries(tree: Tree): Promise<Primitive[]> {
 		} else if (tsconfigPaths[`@spartan-ng/ui-${libraryName.replaceAll('-', '')}-helm`]) {
 			existingLibraries.push(libraryName as Primitive);
 		} else if (tsconfigPaths[`@spartan-ng/helm/${libraryName}`]) {
+			existingLibraries.push(libraryName as Primitive);
+		} else if (tsconfigPaths[`${importAlias}/${libraryName}`]) {
 			existingLibraries.push(libraryName as Primitive);
 		}
 	}
@@ -105,7 +112,9 @@ async function removeExistingLibraries(
 		let importPath: string;
 		const compatLibrary = library.toString().replaceAll('-', '');
 
-		if (`@spartan-ng/helm/${library}` in tsconfigPaths) {
+		if (`${options.importAlias}/${library}` in tsconfigPaths) {
+			importPath = `${options.importAlias}/${library}`;
+		} else if (`@spartan-ng/helm/${library}` in tsconfigPaths) {
 			importPath = `@spartan-ng/helm/${library}`;
 		} else if (`@spartan-ng/ui-${library}-helm` in tsconfigPaths) {
 			importPath = `@spartan-ng/ui-${library}-helm`;
@@ -115,6 +124,7 @@ async function removeExistingLibraries(
 		}
 
 		// get the tsconfig path for the library
+
 		const tsconfigPath = tsconfigPaths[importPath];
 
 		if (!tsconfigPath || !importPath) {

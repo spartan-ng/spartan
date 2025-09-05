@@ -11,6 +11,6 @@ import type { ClassValue } from 'clsx';
 export class HlmSelectValue {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>
-		hlm('line-clamp-1 flex items-center gap-2 data-[placeholder]:text-muted-foreground', this.userClass()),
+		hlm('data-[placeholder]:text-muted-foreground line-clamp-1 flex items-center gap-2', this.userClass()),
 	);
 }

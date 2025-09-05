@@ -22,6 +22,6 @@ export class HlmAccordionContent extends BrnAccordionContent {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() => {
 		const gridRows = this.state() === 'open' ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]';
-		return hlm('text-sm transition-all grid', gridRows, this.userClass());
+		return hlm('grid text-sm transition-all', gridRows, this.userClass());
 	});
 }

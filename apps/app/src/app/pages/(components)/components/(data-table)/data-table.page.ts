@@ -77,7 +77,7 @@ export const routeMeta: RouteMeta = {
 			</p>
 
 			<spartan-page-bottom-nav>
-				<spartan-page-bottom-nav-link href="dialog" label="Dialog" />
+				<spartan-page-bottom-nav-link href="date-picker" label="Date Picker" />
 				<spartan-page-bottom-nav-link direction="previous" href="context-menu" label="Context Menu" />
 			</spartan-page-bottom-nav>
 		</section>

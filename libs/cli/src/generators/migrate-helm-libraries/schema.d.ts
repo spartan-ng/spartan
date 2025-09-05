@@ -7,4 +7,5 @@ export interface MigrateHelmLibrariesGeneratorSchema {
 	angularCli?: boolean;
 	generateAs: GenerateAs;
 	buildable: boolean;
+	importAlias: string;
 }

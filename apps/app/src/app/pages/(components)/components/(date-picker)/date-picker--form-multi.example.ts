@@ -9,9 +9,10 @@ import { HlmLabel } from '@spartan-ng/helm/label';
 	imports: [HlmDatePickerMulti, ReactiveFormsModule, HlmButton, HlmLabel],
 	template: `
 		<form [formGroup]="form" (ngSubmit)="submit()" class="space-y-8">
-			<label hlmLabel>
-				Available dates
+			<div class="flex flex-col gap-2">
+				<label for="availableDates" hlmLabel class="px-1">Available dates</label>
 				<hlm-date-picker-multi
+					buttonId="availableDates"
 					[min]="minDate"
 					[max]="maxDate"
 					formControlName="availableDates"
@@ -21,7 +22,7 @@ import { HlmLabel } from '@spartan-ng/helm/label';
 				>
 					<span>Pick dates</span>
 				</hlm-date-picker-multi>
-			</label>
+			</div>
 
 			<button type="submit" hlmBtn [disabled]="form.invalid">Submit</button>
 		</form>

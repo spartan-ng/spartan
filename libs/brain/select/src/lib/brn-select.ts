@@ -61,7 +61,7 @@ let nextId = 0;
 	],
 	template: `
 		@if (!_selectLabel() && placeholder()) {
-			<label class="hidden" [attr.id]="labelId()">{{ placeholder() }}</label>
+			<label style="display: none;" [attr.id]="labelId()">{{ placeholder() }}</label>
 		} @else {
 			<ng-content select="label[hlmLabel],label[brnLabel]" />
 		}

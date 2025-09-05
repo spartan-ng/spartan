@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
-import { BrnCommandGroup } from '@spartan-ng/brain/command';
+import { BrnAutocompleteGroup } from '@spartan-ng/brain/autocomplete';
 import { hlm } from '@spartan-ng/helm/utils';
 
 @Component({
-	selector: 'hlm-command-group',
+	selector: 'hlm-autocomplete-group',
 	template: '<ng-content />',
 	hostDirectives: [
 		{
-			directive: BrnCommandGroup,
+			directive: BrnAutocompleteGroup,
 			inputs: ['id'],
 		},
 	],
@@ -16,12 +16,12 @@ import { hlm } from '@spartan-ng/helm/utils';
 	},
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HlmCommandGroup {
+export class HlmAutocompleteGroup {
 	/** The user defined class  */
 	public readonly userClass = input<string>('', { alias: 'class' });
 
 	/** The styles to apply  */
 	protected readonly _computedClass = computed(() =>
-		hlm('text-foreground block overflow-hidden p-1 data-[hidden]:hidden', this.userClass()),
+		hlm('text-foreground block overflow-hidden p-1', this.userClass()),
 	);
 }

@@ -3,6 +3,7 @@ export type Primitive =
 	| 'alert'
 	| 'alert-dialog'
 	| 'aspect-ratio'
+	| 'autocomplete'
 	| 'avatar'
 	| 'badge'
 	| 'breadcrumb'

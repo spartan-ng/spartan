@@ -1,24 +1,13 @@
 import { Highlightable } from '@angular/cdk/a11y';
 import { BooleanInput } from '@angular/cdk/coercion';
 import { isPlatformBrowser } from '@angular/common';
-import {
-	booleanAttribute,
-	computed,
-	Directive,
-	ElementRef,
-	inject,
-	input,
-	OnInit,
-	output,
-	PLATFORM_ID,
-	signal,
-} from '@angular/core';
-import { provideBrnCommandItem } from './brn-command-item.token';
-import { injectBrnCommand } from './brn-command.token';
+import { booleanAttribute, Directive, ElementRef, inject, input, output, PLATFORM_ID, signal } from '@angular/core';
+import { provideBrnAutocompleteItem } from './brn-autocomplete-item.token';
+import { injectBrnAutocomplete } from './brn-autocomplete.token';
 
 @Directive({
-	selector: 'button[brnCommandItem]',
-	providers: [provideBrnCommandItem(BrnCommandItem)],
+	selector: 'button[brnAutocompleteItem]',
+	providers: [provideBrnAutocompleteItem(BrnAutocompleteItem)],
 	host: {
 		type: 'button',
 		role: 'option',
@@ -27,28 +16,27 @@ import { injectBrnCommand } from './brn-command.token';
 		'[attr.disabled]': '_disabled() ? true : null',
 		'[attr.data-disabled]': '_disabled() ? "" : null',
 		'[attr.data-value]': 'value()',
-		'[attr.data-hidden]': "!visible() ? '' : null",
 		'[attr.aria-selected]': '_active()',
 		'[attr.data-selected]': "_active() ? '' : null",
 		'(click)': 'onClick()',
 		'(mouseenter)': 'activate()',
 	},
 })
-export class BrnCommandItem implements Highlightable, OnInit {
+export class BrnAutocompleteItem<T> implements Highlightable {
 	private static _id = 0;
 
 	private readonly _platform = inject(PLATFORM_ID);
 
 	private readonly _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 
-	/** Access the command component */
-	private readonly _command = injectBrnCommand();
+	/** Access the autocomplete component */
+	private readonly _autocomplete = injectBrnAutocomplete<T>();
 
 	/** A unique id for the item */
-	public readonly id = input(`brn-command-item-${++BrnCommandItem._id}`);
+	public readonly id = input(`brn-autocomplete-item-${++BrnAutocompleteItem._id}`);
 
 	/** The value this item represents. */
-	public readonly value = input.required<string>();
+	public readonly value = input.required<T>();
 
 	/** Whether the item is disabled. */
 	// eslint-disable-next-line @typescript-eslint/naming-convention
@@ -62,33 +50,15 @@ export class BrnCommandItem implements Highlightable, OnInit {
 		return this._disabled();
 	}
 
-	/** Whether the item is initialized, this is to prevent accessing the value-input before the component is initialized.
-	 * The brn-command-empty directive accesses the value before the component is initialized, which causes an error.
-	 */
-	private readonly _initialized = signal(false);
-
 	/** Whether the item is selected. */
 	protected readonly _active = signal(false);
 
 	/** Emits when the item is selected. */
 	public readonly selected = output<void>();
 
-	/** @internal Determine if this item is visible based on the current search query */
-	public readonly visible = computed(() => {
-		return this._command.filter()(this.safeValue(), this._command.search());
-	});
-
-	/** @internal Get the value of the item, with check if it has been initialized to avoid errors */
-	public safeValue = computed(() => {
-		if (!this._initialized()) {
-			return '';
-		}
-		return this.value();
-	});
-
 	/** @internal Get the display value */
 	public getLabel(): string {
-		return this.safeValue();
+		return this._elementRef.nativeElement.textContent?.trim() ?? '';
 	}
 
 	/** @internal */
@@ -107,7 +77,7 @@ export class BrnCommandItem implements Highlightable, OnInit {
 	}
 
 	protected onClick(): void {
-		this._command.keyManager.setActiveItem(this);
+		this._autocomplete.keyManager.setActiveItem(this);
 		this.selected.emit();
 	}
 
@@ -116,10 +86,6 @@ export class BrnCommandItem implements Highlightable, OnInit {
 			return;
 		}
 
-		this._command.keyManager.setActiveItem(this);
-	}
-
-	ngOnInit(): void {
-		this._initialized.set(true);
+		this._autocomplete.keyManager.setActiveItem(this);
 	}
 }

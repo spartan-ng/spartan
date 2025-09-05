@@ -99,6 +99,7 @@ import type { ClassValue } from 'clsx';
 									</hlm-select-content>
 								</brn-select>
 							</ng-template>
+							@let heading = _heading();
 							@switch (captionLayout()) {
 								@case ('dropdown') {
 									<ng-container [ngTemplateOutlet]="month" />
@@ -106,14 +107,14 @@ import type { ClassValue } from 'clsx';
 								}
 								@case ('dropdown-months') {
 									<ng-container [ngTemplateOutlet]="month" />
-									<div brnCalendarHeader class="text-sm font-medium">{{ _year() }}</div>
+									<div brnCalendarHeader class="text-sm font-medium">{{ heading.year }}</div>
 								}
 								@case ('dropdown-years') {
-									<div brnCalendarHeader class="text-sm font-medium">{{ _month() }}</div>
+									<div brnCalendarHeader class="text-sm font-medium">{{ heading.month }}</div>
 									<ng-container [ngTemplateOutlet]="year" />
 								}
 								@case ('label') {
-									<div brnCalendarHeader class="text-sm font-medium">{{ _heading() }}</div>
+									<div brnCalendarHeader class="text-sm font-medium">{{ heading.header }}</div>
 								}
 							}
 						</div>
@@ -223,24 +224,16 @@ export class HlmCalendarMulti<T> {
 	private readonly _calendar = viewChild.required(BrnCalendarMulti);
 
 	/** Get the heading for the current month and year */
-	protected readonly _heading = computed(() =>
-		this._i18n
-			.config()
-			.formatHeader(
-				this._dateAdapter.getMonth(this._calendar().focusedDate()),
-				this._dateAdapter.getYear(this._calendar().focusedDate()),
-			),
-	);
+	protected readonly _heading = computed(() => {
+		const config = this._i18n.config();
+		const date = this._calendar().focusedDate();
 
-	/** Get the heading for the current month */
-	protected readonly _month = computed(() =>
-		this._i18n.config().formatMonth(this._dateAdapter.getMonth(this._calendar().focusedDate())),
-	);
-
-	/** Get the heading for the current year */
-	protected readonly _year = computed(() =>
-		this._i18n.config().formatYear(this._dateAdapter.getYear(this._calendar().focusedDate())),
-	);
+		return {
+			header: config.formatHeader(this._dateAdapter.getMonth(date), this._dateAdapter.getYear(date)),
+			month: config.formatMonth(this._dateAdapter.getMonth(date)),
+			year: config.formatYear(this._dateAdapter.getYear(date)),
+		};
+	});
 
 	protected readonly _btnClass = hlm(
 		buttonVariants({ variant: 'ghost' }),

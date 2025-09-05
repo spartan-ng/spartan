@@ -318,7 +318,7 @@ export class BrnSelect<T = unknown>
 		return false;
 	}
 
-	protected _onOverlayOutsideClick($event: PointerEvent): void {
+	protected _onOverlayOutsideClick($event: MouseEvent): void {
 		if (!this.hasBackdrop()) {
 			$event.stopImmediatePropagation();
 			this.hide();

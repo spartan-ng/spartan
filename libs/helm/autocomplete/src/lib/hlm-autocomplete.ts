@@ -84,14 +84,14 @@ export const HLM_AUTOCOMPLETE_VALUE_ACCESSOR = {
 						[disabled]="_disabled()"
 						[value]="_search()"
 						(input)="_onSearchChanged($event)"
-						(keydown.arrowDown)="_setPopoverState('open')"
+						(keydown.arrowDown)="_openPopover()"
 					/>
 
 					<button
 						class="flex items-center justify-center outline-none disabled:cursor-not-allowed [&>_ng-icon]:opacity-50"
 						tabindex="-1"
 						type="button"
-						aria-label="Toggle dropdown"
+						[attr.aria-label]="ariaLabelToggleButton()"
 						[disabled]="_disabled()"
 						(click)="_toggleOptions()"
 					>
@@ -105,7 +105,10 @@ export const HLM_AUTOCOMPLETE_VALUE_ACCESSOR = {
 					class="p-0"
 					[style.width.px]="_elementRef.nativeElement.offsetWidth"
 				>
-					<hlm-autocomplete-list [class]="_computedAutocompleteListClass()">
+					<hlm-autocomplete-list
+						[class]="_computedAutocompleteListClass()"
+						[class.hidden]="filteredOptions().length === 0"
+					>
 						<hlm-autocomplete-group>
 							@for (option of filteredOptions(); track option) {
 								<button hlm-autocomplete-item [value]="option" (selected)="_optionSelected(option)">
@@ -119,7 +122,7 @@ export const HLM_AUTOCOMPLETE_VALUE_ACCESSOR = {
 						</hlm-autocomplete-group>
 					</hlm-autocomplete-list>
 
-					<div *brnAutocompleteEmpty hlmAutocompleteEmpty>
+					<div *brnAutocompleteEmpty hlmAutocompleteEmpty [class]="_computedAutocompleteEmptyClass()">
 						@if (loading()) {
 							<ng-content select="[loading]">{{ loadingText() }}</ng-content>
 						} @else {
@@ -152,6 +155,10 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 	public readonly autocompleteListClass = input<ClassValue>('');
 	protected readonly _computedAutocompleteListClass = computed(() => hlm('', this.autocompleteListClass()));
 
+	/** Custom class for the empty and loading state container. */
+	public readonly autocompleteEmptyClass = input<ClassValue>('');
+	protected readonly _computedAutocompleteEmptyClass = computed(() => hlm('', this.autocompleteEmptyClass()));
+
 	/** The list of filtered options to display in the autocomplete. */
 	public readonly filteredOptions = input<T[]>([]);
 
@@ -181,6 +188,9 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 	/** Text to display when no options are found. */
 	public readonly emptyText = input('No options found');
 
+	/** Aria label for the toggle button. */
+	public readonly ariaLabelToggleButton = input<string>('Toggle options');
+
 	/** The id of the input field. */
 	public readonly inputId = input<string>(`hlm-autocomplete-input-${++HlmAutocomplete._id}`);
 
@@ -205,12 +215,18 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 		}
 	}
 
-	protected _toggleOptions() {
-		const state = this._brnPopover().stateComputed();
-		if (state === 'open') {
-			this._brnPopover().close();
-		} else {
+	protected _openPopover() {
+		if (this._search() || this.filteredOptions().length > 0) {
+			// only open if there's a search term or options to show
 			this._brnPopover().open();
+		}
+	}
+
+	protected _toggleOptions() {
+		if (this._search() || this.filteredOptions().length > 0) {
+			// only toggle if there's a search term or options to show
+			const state = this._brnPopover().stateComputed();
+			this._setPopoverState(state === 'open' ? 'closed' : 'open');
 		}
 
 		this._inputRef().nativeElement.focus();

@@ -38,6 +38,7 @@ export class BrnCalendarMonthSelect {
 	}
 
 	constructor() {
+		this._select.hasBackdrop.set(false);
 		effect(() => {
 			this._select.writeValue(this._selectedMonth());
 		});

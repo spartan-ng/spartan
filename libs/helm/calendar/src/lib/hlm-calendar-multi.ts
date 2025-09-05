@@ -106,8 +106,10 @@ import type { ClassValue } from 'clsx';
 								}
 								@case ('dropdown-months') {
 									<ng-container [ngTemplateOutlet]="month" />
+									<div brnCalendarHeader class="text-sm font-medium">{{ _year() }}</div>
 								}
 								@case ('dropdown-years') {
+									<div brnCalendarHeader class="text-sm font-medium">{{ _month() }}</div>
 									<ng-container [ngTemplateOutlet]="year" />
 								}
 								@case ('label') {
@@ -230,10 +232,20 @@ export class HlmCalendarMulti<T> {
 			),
 	);
 
+	/** Get the heading for the current month */
+	protected readonly _month = computed(() =>
+		this._i18n.config().formatMonth(this._dateAdapter.getMonth(this._calendar().focusedDate())),
+	);
+
+	/** Get the heading for the current year */
+	protected readonly _year = computed(() =>
+		this._i18n.config().formatYear(this._dateAdapter.getYear(this._calendar().focusedDate())),
+	);
+
 	protected readonly _btnClass = hlm(
 		buttonVariants({ variant: 'ghost' }),
 		'size-8 p-0 font-normal aria-selected:opacity-100',
-		'data-[outside]:text-muted-foreground data-[outside]:opacity-50 data-[outside]:aria-selected:bg-accent/50 data-[outside]:aria-selected:text-muted-foreground data-[outside]:aria-selected:opacity-30',
+		'data-[outside]:text-muted-foreground data-[outside]:aria-selected:bg-accent/50 data-[outside]:aria-selected:text-muted-foreground data-[outside]:opacity-50 data-[outside]:aria-selected:opacity-30',
 		'data-[today]:bg-accent data-[today]:text-accent-foreground',
 		'data-[selected]:bg-primary data-[selected]:text-primary-foreground data-[selected]:hover:bg-primary data-[selected]:hover:text-primary-foreground data-[selected]:focus:bg-primary data-[selected]:focus:text-primary-foreground',
 		'data-[disabled]:text-muted-foreground data-[disabled]:opacity-50',

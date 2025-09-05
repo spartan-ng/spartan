@@ -5,6 +5,8 @@ export type Weekday = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 interface BrnCalendarI18n {
 	formatWeekdayName: (index: number) => string;
 	formatHeader: (month: number, year: number) => string;
+	formatYear: (year: number) => string;
+	formatMonth: (month: number) => string;
 	labelPrevious: () => string;
 	labelNext: () => string;
 	labelWeekday: (index: number) => string;
@@ -40,6 +42,16 @@ const defaultCalendarI18n: BrnCalendarI18n = {
 	formatHeader: (month: number, year: number) => {
 		return new Date(year, month).toLocaleDateString(undefined, {
 			month: 'long',
+			year: 'numeric',
+		});
+	},
+	formatMonth: (month: number) => {
+		return new Date(2000, month).toLocaleDateString(undefined, {
+			month: 'short',
+		});
+	},
+	formatYear: (year: number): string => {
+		return new Date(year, 0).toLocaleDateString(undefined, {
 			year: 'numeric',
 		});
 	},

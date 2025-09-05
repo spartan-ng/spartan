@@ -107,8 +107,10 @@ import type { ClassValue } from 'clsx';
 								}
 								@case ('dropdown-months') {
 									<ng-container [ngTemplateOutlet]="month" />
+									<div brnCalendarHeader class="text-sm font-medium">{{ _year() }}</div>
 								}
 								@case ('dropdown-years') {
+									<div brnCalendarHeader class="text-sm font-medium">{{ _month() }}</div>
 									<ng-container [ngTemplateOutlet]="year" />
 								}
 								@case ('label') {
@@ -219,6 +221,16 @@ export class HlmCalendar<T> {
 				this._dateAdapter.getMonth(this._calendar().focusedDate()),
 				this._dateAdapter.getYear(this._calendar().focusedDate()),
 			),
+	);
+
+	/** Get the heading for the current month */
+	protected readonly _month = computed(() =>
+		this._i18n.config().formatMonth(this._dateAdapter.getMonth(this._calendar().focusedDate())),
+	);
+
+	/** Get the heading for the current year */
+	protected readonly _year = computed(() =>
+		this._i18n.config().formatYear(this._dateAdapter.getYear(this._calendar().focusedDate())),
 	);
 
 	protected readonly _btnClass = hlm(

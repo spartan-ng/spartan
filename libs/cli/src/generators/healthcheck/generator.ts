@@ -1,6 +1,7 @@
 import { formatFiles, logger, Tree } from '@nx/devkit';
 import { Healthcheck, HealthcheckReport, HealthcheckStatus, isHealthcheckFixable } from './healthchecks';
 import { brainImportsHealthcheck } from './healthchecks/brain-imports';
+import { brainAccordionTriggerHealthcheck } from './healthchecks/brn-accordion-trigger';
 import { brainRadioHealthcheck } from './healthchecks/brn-radio';
 import { brainSeparatorHealthcheck } from './healthchecks/brn-separator';
 import { brainToggleHealthcheck } from './healthchecks/brn-toggle-group';
@@ -37,6 +38,7 @@ export async function healthcheckGenerator(tree: Tree, options: HealthcheckGener
 		progressHealthcheck,
 		hlmImportHealthcheck,
 		brainSeparatorHealthcheck,
+		brainAccordionTriggerHealthcheck,
 	];
 
 	const failedReports: HealthcheckReport[] = [];

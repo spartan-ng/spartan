@@ -1,4 +1,5 @@
 import { formatFiles, Tree } from '@nx/devkit';
+import { NodeType } from 'node-html-parser';
 import { Project } from 'ts-morph';
 import { visitFiles } from '../../utils/visit-files';
 import { MigrateAccordionTriggerGeneratorSchema } from './schema';
@@ -8,7 +9,13 @@ import {
 	parseHtmlForAccordionMigration,
 	wrapButtonInHeading,
 } from './utils/html-utils';
-import { analyzeButton, extractInlineTemplate, hasAccordionTriggers, shouldProcessFile } from './utils/shared-utils';
+import {
+	analyzeButton,
+	ButtonAnalysis,
+	extractInlineTemplate,
+	hasAccordionTriggers,
+	shouldProcessFile,
+} from './utils/shared-utils';
 
 export default async function migrateAccordionTriggerGenerator(
 	tree: Tree,
@@ -128,7 +135,7 @@ function fixComponentFile(content: string, filePath: string, project: Project, i
 	return { content, modified: false, fixedCount: 0 };
 }
 
-function logSiblingIssue(analysis: any, filePath: string, issues: string[]) {
+function logSiblingIssue(analysis: ButtonAnalysis, filePath: string, issues: string[]) {
 	const parent = analysis.parent;
 	const siblingContent = getSiblingPreview(analysis.button, parent);
 
@@ -140,13 +147,11 @@ function logSiblingIssue(analysis: any, filePath: string, issues: string[]) {
 }
 
 function getSiblingPreview(button: HTMLElement, parent: HTMLElement): string {
-	const NodeType = 3; // TEXT_NODE
-
 	return parent.childNodes
 		.filter((child) => child !== button)
 		.map((child) => {
-			if (child.nodeType === NodeType) {
-				return (child as any).text?.trim();
+			if (child.nodeType === NodeType.TEXT_NODE) {
+				return child.text?.trim();
 			}
 			return child.toString();
 		})
@@ -156,7 +161,7 @@ function getSiblingPreview(button: HTMLElement, parent: HTMLElement): string {
 }
 
 function formatHtmlOutput(root: HTMLElement): string {
-	let output = root.toString();
+	const output = root.toString();
 	// Convert empty tags to self-closing
 	return output.replace(/<([^>\s]+)([^>]*)><\/\1>/g, '<$1$2/>');
 }

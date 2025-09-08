@@ -20,12 +20,10 @@ jest.mock('@nx/devkit', () => {
 describe('migrate-accordion-trigger generator', () => {
 	let tree: Tree;
 	let consoleLogSpy: jest.SpyInstance;
-	let consoleWarnSpy: jest.SpyInstance;
 
 	beforeEach(async () => {
 		tree = createTreeWithEmptyWorkspace();
 		consoleLogSpy = jest.spyOn(console, 'log').mockImplementation();
-		consoleWarnSpy = jest.spyOn(console, 'warn').mockImplementation((_) => {});
 
 		await applicationGenerator(tree, {
 			name: 'app',

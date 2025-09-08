@@ -1,4 +1,4 @@
-import { PropertyAssignment, SyntaxKind } from 'ts-morph';
+import { Decorator, PropertyAssignment, SourceFile, SyntaxKind } from 'ts-morph';
 import { getButtonText, hasSignificantSiblings, HTMLElement, isInHeading } from './html-utils';
 
 export function shouldProcessFile(file: string): boolean {
@@ -16,7 +16,7 @@ export interface TemplateInfo {
 	originalQuoteStyle?: string; // '`' or '"' or "'"
 }
 
-export function extractInlineTemplate(sourceFile: any): TemplateInfo | null {
+export function extractInlineTemplate(sourceFile: SourceFile): TemplateInfo | null {
 	// Find all @Something decorators in the file
 	// (like @Component, @Directive, etc.)
 	const decorators = sourceFile.getDescendantsOfKind(SyntaxKind.Decorator);
@@ -43,7 +43,7 @@ export function extractInlineTemplate(sourceFile: any): TemplateInfo | null {
  *
  * We need to navigate down this tree to find the template!
  */
-export function findComponentTemplate(decorator: any): TemplateInfo | null {
+export function findComponentTemplate(decorator: Decorator): TemplateInfo | null {
 	// Step 1: Get the function call part of @Component(...)
 	//         We want the Component(...) part
 	const callExpression = decorator.getCallExpression();

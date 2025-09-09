@@ -18,8 +18,8 @@ describe('alert-dialog', () => {
 
 			cy.findAllByText(/are you absolutely sure/i).should('have.length', 1);
 			cy.findByRole('alertdialog');
-			cy.findByRole('alertdialog').should('have.attr', 'aria-labelledby', 'brn-dialog-title-0');
-			cy.findByRole('alertdialog').should('have.attr', 'aria-labelledby', 'brn-dialog-title-0');
+			cy.findByRole('alertdialog').should('have.attr', 'aria-labelledby', 'brn-dialog-title-1');
+			cy.findByRole('alertdialog').should('have.attr', 'aria-labelledby', 'brn-dialog-title-1');
 			cy.findByRole('alertdialog').should('have.attr', 'aria-modal', 'true');
 			cy.findByRole('alertdialog').should('have.attr', 'tabindex', '-1');
 
@@ -55,8 +55,8 @@ describe('alert-dialog', () => {
 
 			cy.findAllByText(/are you absolutely sure/i).should('have.length', 1);
 			cy.findByRole('alertdialog');
-			cy.findByRole('alertdialog').should('have.attr', 'aria-labelledby', 'brn-dialog-title-0');
-			cy.findByRole('alertdialog').should('have.attr', 'aria-labelledby', 'brn-dialog-title-0');
+			cy.findByRole('alertdialog').should('have.attr', 'aria-labelledby', 'brn-dialog-title-1');
+			cy.findByRole('alertdialog').should('have.attr', 'aria-labelledby', 'brn-dialog-title-1');
 			cy.findByRole('alertdialog').should('have.attr', 'aria-modal', 'true');
 			cy.findByRole('alertdialog').should('have.attr', 'tabindex', '-1');
 
@@ -85,8 +85,8 @@ describe('alert-dialog', () => {
 
 			cy.findAllByText(/are you absolutely sure/i).should('have.length', 1);
 			cy.findByRole('alertdialog');
-			cy.findByRole('alertdialog').should('have.attr', 'aria-labelledby', 'brn-dialog-title-0');
-			cy.findByRole('alertdialog').should('have.attr', 'aria-labelledby', 'brn-dialog-title-0');
+			cy.findByRole('alertdialog').should('have.attr', 'aria-labelledby', 'brn-dialog-title-1');
+			cy.findByRole('alertdialog').should('have.attr', 'aria-labelledby', 'brn-dialog-title-1');
 			cy.findByRole('alertdialog').should('have.attr', 'aria-modal', 'true');
 			cy.findByRole('alertdialog').should('have.attr', 'tabindex', '-1');
 

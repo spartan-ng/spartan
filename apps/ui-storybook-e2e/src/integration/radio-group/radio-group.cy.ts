@@ -102,7 +102,7 @@ describe('radio-group', () => {
 			});
 
 			it('should check the option when clicking the label', () => {
-				cy.get('#brn-label-0').realClick();
+				cy.get('#brn-label-1').realClick();
 				cy.get('#default-radio').realClick();
 				cy.findByLabelText('Default').should('be.checked');
 				cy.get('#brn-label-1').realClick();

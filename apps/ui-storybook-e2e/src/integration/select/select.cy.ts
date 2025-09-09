@@ -1,9 +1,9 @@
 describe('select', () => {
 	const verifySelectSetup = ({ multiple = false, disabled = false, groups = false } = {}) => {
-		const labelId = 'brn-select-0--label';
-		const triggerId = 'brn-select-0--trigger';
-		const listboxtId = 'brn-select-0--content';
-		const valueId = 'brn-select-0--value';
+		const labelId = 'brn-select-1--label';
+		const triggerId = 'brn-select-1--trigger';
+		const listboxtId = 'brn-select-1--content';
+		const valueId = 'brn-select-1--value';
 
 		// label
 		cy.get('hlm-select').find('label').should('not.be.visible').should('have.id', labelId);
@@ -196,7 +196,7 @@ describe('select', () => {
 			cy.get('hlm-option').eq(0).click();
 			cy.get('hlm-option').eq(2).click();
 			cy.get('body').click();
-			cy.get('#brn-select-0--value').should('contain.text', 'Apple | Blueberry');
+			cy.get('#brn-select-1--value').should('contain.text', 'Apple | Blueberry');
 		});
 	});
 

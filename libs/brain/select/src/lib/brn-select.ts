@@ -74,14 +74,13 @@ let nextId = 0;
 		<ng-template
 			cdk-connected-overlay
 			cdkConnectedOverlayLockPosition
-			[cdkConnectedOverlayHasBackdrop]="hasBackdrop()"
+			cdkConnectedOverlayHasBackdrop
 			cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
 			[cdkConnectedOverlayOrigin]="trigger"
 			[cdkConnectedOverlayOpen]="_delayedExpanded()"
 			[cdkConnectedOverlayPositions]="_positions"
 			[cdkConnectedOverlayWidth]="triggerWidth() > 0 ? triggerWidth() : 'auto'"
 			(backdropClick)="hide()"
-			(overlayOutsideClick)="_onOverlayOutsideClick($event)"
 			(detach)="hide()"
 			(positionChange)="_positionChanges$.next($event)"
 		>
@@ -111,7 +110,6 @@ export class BrnSelect<T = unknown>
 		transform: numberAttribute,
 	});
 
-	public readonly hasBackdrop = signal(true);
 	public readonly open = model<boolean>(false);
 	public readonly value = model<T | T[]>();
 	public readonly valueChange = output<T | T[]>();
@@ -316,12 +314,5 @@ export class BrnSelect<T = unknown>
 		}
 
 		return false;
-	}
-
-	protected _onOverlayOutsideClick($event: MouseEvent): void {
-		if (!this.hasBackdrop()) {
-			$event.stopImmediatePropagation();
-			this.hide();
-		}
 	}
 }

@@ -30,7 +30,6 @@ export class BrnCalendarYearSelect {
 	}
 
 	constructor() {
-		this._select.hasBackdrop.set(false);
 		effect(() => {
 			this._select.writeValue(this._dateAdapter.getYear(this._calendar.focusedDate()));
 		});

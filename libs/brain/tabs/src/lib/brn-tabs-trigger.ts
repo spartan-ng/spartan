@@ -18,14 +18,14 @@ import { BrnTabs } from './brn-tabs';
 		'[id]': '_labelId()',
 		type: 'button',
 		role: 'tab',
-		'[tabindex]': 'selected() ? "0": "-1"',
+		'[tabindex]': 'disabled() ? "-1" : (selected() ? "0" : "-1")',
 		'[attr.aria-selected]': 'selected()',
 		'[attr.aria-controls]': '_contentId()',
-		'[attr.aria-disabled]': '_disabled()',
+		'[attr.aria-disabled]': 'disabled()',
 		'[attr.data-state]': "selected() ? 'active' : 'inactive'",
 		'[attr.data-orientation]': '_orientation()',
-		'[attr.data-disabled]': "_disabled() ? '' : undefined",
-		'[attr.disabled]': "_disabled() ? '' : undefined",
+		'[attr.data-disabled]': "disabled() ? '' : undefined",
+		'[attr.disabled]': "disabled() ? '' : undefined",
 		'(click)': 'activate()',
 	},
 	exportAs: 'brnTabsTrigger',
@@ -42,15 +42,9 @@ export class BrnTabsTrigger implements OnDestroy {
 	protected readonly _contentId = computed(() => `brn-tabs-content-${this.triggerFor()}`);
 	protected readonly _labelId = computed(() => `brn-tabs-label-${this.triggerFor()}`);
 
-	// eslint-disable-next-line @typescript-eslint/naming-convention
-	public readonly _disabled = input<boolean, BooleanInput>(false, {
-		alias: 'disabled',
+	public readonly disabled = input<boolean, BooleanInput>(false, {
 		transform: booleanAttribute,
 	});
-
-	public get disabled(): boolean | undefined {
-		return this._disabled();
-	}
 
 	constructor() {
 		effect(() => {

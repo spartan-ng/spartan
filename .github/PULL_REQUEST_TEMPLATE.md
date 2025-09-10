@@ -58,6 +58,7 @@ What kind of change does this PR introduce?
 - [ ] popover
 - [ ] progress
 - [ ] radio-group
+- [ ] resizable
 - [ ] scroll-area
 - [ ] select
 - [ ] separator

@@ -1,13 +1,10 @@
 import { afterNextRender, booleanAttribute, computed, Directive, ElementRef, inject, input } from '@angular/core';
 
-import { provideIcons } from '@ng-icons/core';
-import { lucideGripVertical } from '@ng-icons/lucide';
 import { BrnResizableGroup } from './brn-resizable-group';
 
 @Directive({
 	selector: 'brn-resizable-handle, [brnResizeHandle]',
 	exportAs: 'brnResizableHandle',
-	providers: [provideIcons({ lucideGripVertical })],
 	host: {
 		'[attr.data-layout]': '_layout()',
 		'[attr.tabindex]': 'disabled() ? null : 0',

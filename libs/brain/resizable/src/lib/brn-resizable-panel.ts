@@ -54,7 +54,7 @@ export class BrnResizablePanel {
 	public readonly collapsible = input(true, { transform: booleanAttribute });
 
 	/** Reactive signal holding the current size of the panel. */
-	protected readonly _panelSize = signal<number | undefined>(undefined);
+	protected readonly _panelSize = signal<number>(100);
 
 	/**
 	 * CSS flex style for this panel, derived from its current size.

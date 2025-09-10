@@ -1,4 +1,15 @@
-import { afterNextRender, contentChildren, Directive, ElementRef, inject, input, model, output } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import {
+	afterNextRender,
+	contentChildren,
+	Directive,
+	ElementRef,
+	inject,
+	input,
+	model,
+	NgZone,
+	output,
+} from '@angular/core';
 import { BrnResizablePanel } from './brn-resizable-panel';
 
 let nextId = 0;
@@ -24,6 +35,7 @@ export class BrnResizableGroup {
 	/** Group orientation */
 	public readonly direction = input<'horizontal' | 'vertical'>('horizontal');
 
+	/** @internal Access all the panels within the group */
 	public readonly panels = contentChildren(BrnResizablePanel);
 
 	/** event when resize starts */
@@ -37,6 +49,14 @@ export class BrnResizableGroup {
 
 	/** Called when group layout changes */
 	public readonly layoutChanged = output<number[]>();
+
+	private readonly _document = inject(DOCUMENT);
+
+	private readonly _zone = inject(NgZone);
+
+	private _resizeRaf: number | null = null;
+
+	private _pendingSizes: number[] | null = null;
 
 	constructor() {
 		afterNextRender(() => {
@@ -59,7 +79,9 @@ export class BrnResizableGroup {
 			panel.setSize(size);
 		});
 
-		this._setLayout(sizes);
+		if (this.layout().toString() !== sizes.toString()) {
+			this._setLayout(sizes);
+		}
 	}
 
 	public startResize(handleIndex: number, event: MouseEvent | TouchEvent): void {
@@ -72,21 +94,26 @@ export class BrnResizableGroup {
 		const startSizes = [...sizes];
 
 		const handleMove = (moveEvent: MouseEvent | TouchEvent) => {
-			this._handleResize(moveEvent, handleIndex, startPosition, startSizes);
+			this._zone.runOutsideAngular(() => {
+				this._handleResize(moveEvent, handleIndex, startPosition, startSizes);
+			});
 		};
 
 		const handleEnd = () => {
-			this._endResize();
-			document.removeEventListener('mousemove', handleMove);
-			document.removeEventListener('touchmove', handleMove);
-			document.removeEventListener('mouseup', handleEnd);
-			document.removeEventListener('touchend', handleEnd);
+			this._zone.run(() => this._endResize());
+
+			this._document.removeEventListener('mousemove', handleMove);
+			this._document.removeEventListener('touchmove', handleMove);
+			this._document.removeEventListener('mouseup', handleEnd);
+			this._document.removeEventListener('touchend', handleEnd);
 		};
 
-		document.addEventListener('mousemove', handleMove);
-		document.addEventListener('touchmove', handleMove);
-		document.addEventListener('mouseup', handleEnd);
-		document.addEventListener('touchend', handleEnd);
+		this._zone.runOutsideAngular(() => {
+			this._document.addEventListener('mousemove', handleMove);
+			this._document.addEventListener('touchmove', handleMove);
+			this._document.addEventListener('mouseup', handleEnd);
+			this._document.addEventListener('touchend', handleEnd);
+		});
 	}
 
 	private _handleResize(
@@ -126,13 +153,32 @@ export class BrnResizableGroup {
 			newSizes[handleIndex] = newLeftSize;
 			newSizes[handleIndex + 1] = newRightSize;
 
-			this._setLayout(newSizes);
-
-			this.updatePanelStyles();
+			// batch update
+			this._queueResize(newSizes);
 		}
 	}
 
+	private _queueResize(sizes: number[]): void {
+		this._pendingSizes = sizes;
+
+		if (this._resizeRaf !== null) return;
+
+		this._resizeRaf = requestAnimationFrame(() => {
+			this._resizeRaf = null;
+			if (this._pendingSizes) {
+				this._setLayout(this._pendingSizes);
+				this.updatePanelStyles();
+				this._pendingSizes = null;
+			}
+		});
+	}
+
 	private _endResize(): void {
+		if (this._resizeRaf !== null) {
+			cancelAnimationFrame(this._resizeRaf);
+			this._resizeRaf = null;
+			this._pendingSizes = null;
+		}
 		this.dragEnd.emit();
 	}
 

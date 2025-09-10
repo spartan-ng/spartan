@@ -1,15 +1,15 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
-import { BrnCommandItem } from '@spartan-ng/brain/command';
+import { BrnAutocompleteItem } from '@spartan-ng/brain/autocomplete';
 import { hlm } from '<%- importAlias %>/utils';
 
 @Component({
-	selector: 'button[hlm-command-item]',
+	selector: 'button[hlm-autocomplete-item]',
 	template: `
 		<ng-content />
 	`,
 	hostDirectives: [
 		{
-			directive: BrnCommandItem,
+			directive: BrnAutocompleteItem,
 			inputs: ['value', 'disabled', 'id'],
 			outputs: ['selected'],
 		},
@@ -19,7 +19,7 @@ import { hlm } from '<%- importAlias %>/utils';
 	},
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HlmCommandItem {
+export class HlmAutocompleteItem {
 	/** The user defined class  */
 	public readonly userClass = input<string>('', { alias: 'class' });
 

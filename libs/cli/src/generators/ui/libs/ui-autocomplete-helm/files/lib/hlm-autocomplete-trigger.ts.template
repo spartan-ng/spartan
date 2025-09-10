@@ -13,18 +13,19 @@ export class HlmAutocompleteTrigger {
 
 	private readonly _brnDialog = inject(BrnDialog, { optional: true });
 
-	public readonly disabled = input<boolean, BooleanInput>(false, {
+	/** Whether the trigger is disabled. */
+	public readonly disabledTrigger = input<boolean, BooleanInput>(false, {
 		transform: booleanAttribute,
 	});
 
 	constructor() {
 		if (!this._brnDialog) return;
 
-		this._brnDialog.mutableAttachTo().set(this._host.nativeElement);
+		this._brnDialog.mutableAttachTo.set(this._host.nativeElement);
 	}
 
 	open() {
-		if (this.disabled()) return;
+		if (this.disabledTrigger()) return;
 
 		this._brnDialog?.open();
 	}

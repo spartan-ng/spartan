@@ -1,25 +1,26 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
-import { provideHlmIconConfig } from '<%- importAlias %>/icon';
+import { BrnAutocompleteSearchInput } from '@spartan-ng/brain/autocomplete';
 import { hlm } from '<%- importAlias %>/utils';
 import type { ClassValue } from 'clsx';
 
 @Component({
-	selector: 'hlm-command-search',
-	template: `
-		<ng-content />
-	`,
+	selector: 'input[hlm-autocomplete-search-input]',
+	template: '',
+	hostDirectives: [{ directive: BrnAutocompleteSearchInput, inputs: ['value'] }],
 	host: {
 		'[class]': '_computedClass()',
 	},
-	providers: [provideHlmIconConfig({ size: 'sm' })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HlmCommandSearch {
+export class HlmAutocompleteSearchInput {
 	/** The user defined class  */
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 
 	/** The styles to apply  */
 	protected readonly _computedClass = computed(() =>
-		hlm('flex h-9 items-center gap-2 border-b px-3 [&>_ng-icon]:flex-none [&>_ng-icon]:opacity-50', this.userClass()),
+		hlm(
+			'placeholder:text-muted-foreground flex h-9 w-full bg-transparent py-1 text-base outline-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
+			this.userClass(),
+		),
 	);
 }

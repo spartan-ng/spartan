@@ -17,10 +17,10 @@ import { hlm } from '<%- importAlias %>/utils';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmCommandGroup {
-	/*** The user defined class  */
+	/** The user defined class  */
 	public readonly userClass = input<string>('', { alias: 'class' });
 
-	/*** The styles to apply  */
+	/** The styles to apply  */
 	protected readonly _computedClass = computed(() =>
 		hlm('text-foreground block overflow-hidden p-1 data-[hidden]:hidden', this.userClass()),
 	);

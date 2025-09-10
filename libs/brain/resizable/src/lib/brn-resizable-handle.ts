@@ -27,7 +27,7 @@ export class BrnResizableHandle {
 	private readonly _el = inject(ElementRef<HTMLElement>);
 
 	/** Whether a visual handle is rendered inside the separator. */
-	public readonly withHandle = input(true, { transform: booleanAttribute });
+	public readonly withHandle = input(false, { transform: booleanAttribute });
 
 	/** Whether the handle is disabled (not interactive). */
 	public readonly disabled = input(false, { transform: booleanAttribute });

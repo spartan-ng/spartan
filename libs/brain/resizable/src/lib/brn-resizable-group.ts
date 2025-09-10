@@ -15,30 +15,36 @@ let nextId = 0;
 	},
 })
 export class BrnResizableGroup {
+	/** The id of the BrnResizableGroup */
 	public readonly id = input<string>(`brn-resizable-group-${++nextId}`);
 
+	/** Host element reference. */
 	private readonly _el = inject(ElementRef<HTMLElement>);
 
+	/** Group orientation */
 	public readonly direction = input<'horizontal' | 'vertical'>('horizontal');
 
 	public readonly panels = contentChildren(BrnResizablePanel);
 
+	/** event when resize starts */
 	public readonly dragStart = output<void>();
+
+	/** event when resize ends */
 	public readonly dragEnd = output<void>();
 
 	/** Resize panel group to the specified layout ([1 - 100, ...]). */
 	public readonly layout = model<number[]>([]);
 
 	/** Called when group layout changes */
-	public readonly layoutChange = output<number[]>();
+	public readonly layoutChanged = output<number[]>();
 
 	constructor() {
 		afterNextRender(() => {
-			this.initializePanelSizes();
+			this._initializePanelSizes();
 		});
 	}
 
-	private initializePanelSizes(): void {
+	private _initializePanelSizes(): void {
 		const panels = this.panels();
 		const totalPanels = panels.length;
 
@@ -56,21 +62,21 @@ export class BrnResizableGroup {
 		this._setLayout(sizes);
 	}
 
-	startResize(handleIndex: number, event: MouseEvent | TouchEvent): void {
+	public startResize(handleIndex: number, event: MouseEvent | TouchEvent): void {
 		event.preventDefault();
 
 		const sizes = [...this.layout()];
 		this.dragStart.emit();
 
-		const startPosition = this.getEventPosition(event);
+		const startPosition = this._getEventPosition(event);
 		const startSizes = [...sizes];
 
 		const handleMove = (moveEvent: MouseEvent | TouchEvent) => {
-			this.handleResize(moveEvent, handleIndex, startPosition, startSizes);
+			this._handleResize(moveEvent, handleIndex, startPosition, startSizes);
 		};
 
 		const handleEnd = () => {
-			this.endResize();
+			this._endResize();
 			document.removeEventListener('mousemove', handleMove);
 			document.removeEventListener('touchmove', handleMove);
 			document.removeEventListener('mouseup', handleEnd);
@@ -83,15 +89,15 @@ export class BrnResizableGroup {
 		document.addEventListener('touchend', handleEnd);
 	}
 
-	private handleResize(
+	private _handleResize(
 		event: MouseEvent | TouchEvent,
 		handleIndex: number,
 		startPosition: number,
 		startSizes: number[],
 	): void {
-		const currentPosition = this.getEventPosition(event);
+		const currentPosition = this._getEventPosition(event);
 		const delta = currentPosition - startPosition;
-		const containerSize = this.getContainerSize();
+		const containerSize = this._getContainerSize();
 		const deltaPercentage = (delta / containerSize) * 100;
 
 		const newSizes = [...startSizes];
@@ -123,16 +129,14 @@ export class BrnResizableGroup {
 			this._setLayout(newSizes);
 
 			this.updatePanelStyles();
-
-			// this.zResize.emit({ sizes: newSizes, layout: this.zLayout() || 'horizontal' });
 		}
 	}
 
-	private endResize(): void {
+	private _endResize(): void {
 		this.dragEnd.emit();
 	}
 
-	updatePanelStyles(): void {
+	public updatePanelStyles(): void {
 		const panels = this.panels();
 		const sizes = this.layout();
 
@@ -144,7 +148,7 @@ export class BrnResizableGroup {
 		});
 	}
 
-	private getEventPosition(event: MouseEvent | TouchEvent): number {
+	private _getEventPosition(event: MouseEvent | TouchEvent): number {
 		const layout = this.direction();
 		if (event instanceof MouseEvent) {
 			return layout === 'vertical' ? event.clientY : event.clientX;
@@ -154,13 +158,13 @@ export class BrnResizableGroup {
 		}
 	}
 
-	getContainerSize(): number {
+	private _getContainerSize(): number {
 		const element = this._el.nativeElement as HTMLElement;
 		const layout = this.direction();
 		return layout === 'vertical' ? element.offsetHeight : element.offsetWidth;
 	}
 
-	collapsePanel(index: number): void {
+	public collapsePanel(index: number): void {
 		const panels = this.panels();
 		const panel = panels[index];
 
@@ -202,6 +206,6 @@ export class BrnResizableGroup {
 
 	private _setLayout(sizes: number[]): void {
 		this.layout.set(sizes);
-		this.layoutChange.emit(sizes);
+		this.layoutChanged.emit(sizes);
 	}
 }

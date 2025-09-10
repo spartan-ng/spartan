@@ -17,15 +17,12 @@ import { metaWith } from '../../../../shared/meta/meta.util';
 import { defaultImports, defaultSkeleton, ResizablePreviewComponent } from './resizable.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'Resizable', api: 'radio-group' },
-	meta: metaWith(
-		'spartan/ui - Resizable',
-		'A set of checkable buttons—known as radio buttons—where no more than one of the buttons can be checked at a time.',
-	),
+	data: { breadcrumb: 'Resizable', api: 'resizable' },
+	meta: metaWith('spartan/ui - Resizable', 'A group of resizable horizontal and vertical panels.'),
 	title: 'spartan/ui - Resizable',
 };
 @Component({
-	selector: 'spartan-radio-group',
+	selector: 'spartan-resizable',
 	imports: [
 		UIApiDocs,
 		MainSection,
@@ -42,10 +39,7 @@ export const routeMeta: RouteMeta = {
 	],
 	template: `
 		<section spartanMainSection>
-			<spartan-section-intro
-				name="Resizable"
-				lead="A set of checkable buttons—known as radio buttons—where no more than one of the buttons can be checked at a time."
-			/>
+			<spartan-section-intro name="Resizable" lead="A group of resizable horizontal and vertical panels." />
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -57,8 +51,8 @@ export const routeMeta: RouteMeta = {
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
 			<spartan-cli-tabs
 				class="mt-4"
-				nxCode="npx nx g @spartan-ng/cli:ui radiogroup"
-				ngCode="ng g @spartan-ng/cli:ui radiogroup"
+				nxCode="npx nx g @spartan-ng/cli:ui resizable"
+				ngCode="ng g @spartan-ng/cli:ui resizable"
 			/>
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>

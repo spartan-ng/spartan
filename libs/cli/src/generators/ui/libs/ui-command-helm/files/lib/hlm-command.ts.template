@@ -21,10 +21,10 @@ import type { ClassValue } from 'clsx';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmCommand {
-	/*** The user defined class */
+	/** The user defined class */
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 
-	/*** The styles to apply  */
+	/** The styles to apply  */
 	protected readonly _computedClass = computed(() =>
 		hlm('bg-popover text-popover-foreground flex h-full w-full flex-col overflow-hidden rounded-md', this.userClass()),
 	);

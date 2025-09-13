@@ -43,6 +43,15 @@ select {
 	--ring: 0deg 0.02% 63.02%;
 	--radius: 0.625rem;
 
+	--sidebar: 300 0% 98%;
+	--sidebar-foreground: 300 0% 4%;
+	--sidebar-primary: 330 0% 9%;
+	--sidebar-primary-foreground: 300 0% 98%;
+	--sidebar-accent: 300 0% 96%;
+	--sidebar-accent-foreground: 330 0% 9%;
+	--sidebar-border: 330 0% 90%;
+	--sidebar-ring: 0 0% 63%;
+
 	/* docsearch */
 	--docsearch-primary-color: hsl(var(--primary));
 }
@@ -68,6 +77,15 @@ select {
 	--border: 0deg 0% 13.73%;
 	--input: 0deg 0% 18.43%;
 	--ring: 0deg 0.01% 45.16%;
+
+	--sidebar: 300 0% 98%;
+	--sidebar-foreground: 300 0% 4%;
+	--sidebar-primary: 330 0% 9%;
+	--sidebar-primary-foreground: 300 0% 98%;
+	--sidebar-accent: 300 0% 96%;
+	--sidebar-accent-foreground: 330 0% 9%;
+	--sidebar-border: 330 0% 90%;
+	--sidebar-ring: 0 0% 63%;
 
 	/* docsearch */
 	--dark-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.2);

@@ -5,9 +5,13 @@ export type Weekday = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 interface BrnCalendarI18n {
 	formatWeekdayName: (index: number) => string;
 	formatHeader: (month: number, year: number) => string;
+	formatYear: (year: number) => string;
+	formatMonth: (month: number) => string;
 	labelPrevious: () => string;
 	labelNext: () => string;
 	labelWeekday: (index: number) => string;
+	months: () => [string, string, string, string, string, string, string, string, string, string, string, string];
+	years: (startYear?: number, endYear?: number) => number[];
 	firstDayOfWeek: () => Weekday;
 }
 
@@ -32,9 +36,22 @@ const defaultCalendarI18n: BrnCalendarI18n = {
 		const weekdays = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
 		return weekdays[index];
 	},
+	months: () => ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+	years: (startYear = 1925, endYear = new Date().getFullYear()) =>
+		Array.from({ length: endYear - startYear + 1 }, (_, i) => startYear + i),
 	formatHeader: (month: number, year: number) => {
 		return new Date(year, month).toLocaleDateString(undefined, {
 			month: 'long',
+			year: 'numeric',
+		});
+	},
+	formatMonth: (month: number) => {
+		return new Date(2000, month).toLocaleDateString(undefined, {
+			month: 'short',
+		});
+	},
+	formatYear: (year: number): string => {
+		return new Date(year, 0).toLocaleDateString(undefined, {
 			year: 'numeric',
 		});
 	},

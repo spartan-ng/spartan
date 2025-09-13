@@ -915,6 +915,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "outputs": [],
         "selector": "[brnCalendarHeader]",
       },
+      "BrnCalendarMonthSelect": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-select[brnCalendarMonthSelect]",
+      },
       "BrnCalendarMulti": {
         "inputs": [
           {
@@ -1037,6 +1043,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "outputs": [],
         "selector": "[brnCalendarWeekday]",
       },
+      "BrnCalendarYearSelect": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-select[brnCalendarYearSelect]",
+      },
     },
     "helm": {
       "HlmCalendar": {
@@ -1055,6 +1067,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "name": "max",
             "required": false,
             "type": "T",
+          },
+          {
+            "name": "captionLayout",
+            "required": false,
+            "type": "'dropdown' | 'label' | 'dropdown-months' | 'dropdown-years'",
           },
           {
             "name": "disabled",
@@ -1102,6 +1119,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "name": "max",
             "required": false,
             "type": "T",
+          },
+          {
+            "name": "captionLayout",
+            "required": false,
+            "type": "'dropdown' | 'label' | 'dropdown-months' | 'dropdown-years'",
           },
           {
             "name": "minSelection",
@@ -1159,6 +1181,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "name": "max",
             "required": false,
             "type": "T",
+          },
+          {
+            "name": "captionLayout",
+            "required": false,
+            "type": "'dropdown' | 'label' | 'dropdown-months' | 'dropdown-years'",
           },
           {
             "name": "disabled",
@@ -1816,6 +1843,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "string",
           },
           {
+            "name": "captionLayout",
+            "required": false,
+            "type": "'dropdown' | 'label' | 'dropdown-months' | 'dropdown-years'",
+          },
+          {
             "name": "min",
             "required": false,
             "type": "T",
@@ -1871,6 +1903,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "name": "buttonId",
             "required": false,
             "type": "string",
+          },
+          {
+            "name": "captionLayout",
+            "required": false,
+            "type": "'dropdown' | 'label' | 'dropdown-months' | 'dropdown-years'",
           },
           {
             "name": "min",
@@ -1938,6 +1975,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "name": "buttonId",
             "required": false,
             "type": "string",
+          },
+          {
+            "name": "captionLayout",
+            "required": false,
+            "type": "'dropdown' | 'label' | 'dropdown-months' | 'dropdown-years'",
           },
           {
             "name": "min",
@@ -3472,7 +3514,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "T | T[]",
           },
         ],
-        "outputs": [],
+        "outputs": [
+          {
+            "name": "valueChange",
+            "type": "T | T[]",
+          },
+        ],
         "selector": "brn-select, hlm-select",
       },
       "BrnSelectContent": {

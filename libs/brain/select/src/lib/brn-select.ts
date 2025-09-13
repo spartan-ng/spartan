@@ -21,6 +21,7 @@ import {
 	input,
 	model,
 	numberAttribute,
+	output,
 	signal,
 	viewChild,
 } from '@angular/core';
@@ -111,6 +112,7 @@ export class BrnSelect<T = unknown>
 
 	public readonly open = model<boolean>(false);
 	public readonly value = model<T | T[]>();
+	public readonly valueChange = output<T | T[]>();
 	public readonly compareWith = input<(o1: T, o2: T) => boolean>((o1, o2) => o1 === o2);
 	public readonly formDisabled = signal(false);
 
@@ -266,8 +268,10 @@ export class BrnSelect<T = unknown>
 			const currentValue = this.value() as T[];
 			const newValue = currentValue ? [...currentValue, value] : [value];
 			this.value.set(newValue);
+			this.valueChange.emit(newValue);
 		} else {
 			this.value.set(value);
+			this.valueChange.emit(value);
 		}
 
 		this._onChange?.(this.value() as T | T[]);
@@ -281,9 +285,12 @@ export class BrnSelect<T = unknown>
 	deselectOption(value: T): void {
 		if (this.multiple()) {
 			const currentValue = this.value() as T[];
-			this.value.set(currentValue.filter((val) => !this.compareWith()(val, value)));
+			const val = currentValue.filter((val) => !this.compareWith()(val, value));
+			this.value.set(val);
+			this.valueChange.emit(val);
 		} else {
 			this.value.set(null as T);
+			this.valueChange.emit(null as T);
 		}
 
 		this._onChange?.(this.value() as T | T[]);

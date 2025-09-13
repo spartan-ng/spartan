@@ -106,6 +106,7 @@ export class SideNavContent {
 				{ label: 'Popover', url: '/popover' },
 				{ label: 'Progress', url: '/progress' },
 				{ label: 'Radio Group', url: '/radio-group' },
+				{ label: 'Resizable', url: '/resizable' },
 				{ label: 'Scroll Area', url: '/scroll-area' },
 				{ label: 'Select', url: '/select' },
 				{ label: 'Separator', url: '/separator' },

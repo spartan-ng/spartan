@@ -1,0 +1,76 @@
+import type { RouteMeta } from '@analogjs/router';
+import { Component } from '@angular/core';
+import { Code } from '../../../../shared/code/code';
+import { CodePreview } from '../../../../shared/code/code-preview';
+import { MainSection } from '../../../../shared/layout/main-section';
+import { PageBottomNavPlaceholder } from '../../../../shared/layout/page-bottom-nav-placeholder';
+import { PageBottomNav } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav';
+import { PageBottomNavLink } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav-link';
+import { PageNav } from '../../../../shared/layout/page-nav/page-nav';
+import { SectionIntro } from '../../../../shared/layout/section-intro';
+import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading';
+import { Tabs } from '../../../../shared/layout/tabs';
+import { TabsCli } from '../../../../shared/layout/tabs-cli';
+import { metaWith } from '../../../../shared/meta/meta.util';
+import { NavigationMenuPreview, codeImports, codeSkeleton, codeString } from './navigation-menu.preview';
+
+export const routeMeta: RouteMeta = {
+	data: { breadcrumb: 'navigation-menu' },
+	meta: metaWith('spartan/ui - navigation-menu', 'TODO: Add a description'),
+	title: 'spartan/ui - navigation-menu',
+};
+
+@Component({
+	selector: 'spartan-navigation-menu',
+	imports: [
+		MainSection,
+		Code,
+		SectionIntro,
+		SectionSubHeading,
+		Tabs,
+		TabsCli,
+		NavigationMenuPreview,
+		CodePreview,
+		PageNav,
+		PageBottomNav,
+		PageBottomNavLink,
+		PageBottomNavPlaceholder,
+	],
+	template: `
+		<section spartanMainSection>
+			<spartan-section-intro name="navigation-menu" lead="TODO: Add a description" />
+
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-navigation-menu-preview />
+				</div>
+				<spartan-code secondTab [code]="code" />
+			</spartan-tabs>
+
+			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
+			<spartan-cli-tabs
+				class="mt-4"
+				nxCode="npx nx g @spartan-ng/cli:ui navigation-menu"
+				ngCode="ng g @spartan-ng/cli:ui navigation-menu"
+			/>
+
+			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
+			<div class="space-y-4">
+				<spartan-code [code]="imports" />
+				<spartan-code [code]="codeSkeleton" />
+			</div>
+
+			<spartan-page-bottom-nav>
+				<spartan-page-bottom-nav-link href="alert" label="Alert" />
+				<spartan-page-bottom-nav-placeholder />
+			</spartan-page-bottom-nav>
+		</section>
+		<spartan-page-nav />
+	`,
+})
+export default class NavigationMenuPage {
+	public readonly code = codeString;
+	public readonly imports = codeImports;
+	public readonly skeleton = codeSkeleton;
+	protected readonly codeSkeleton = codeSkeleton;
+}

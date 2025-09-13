@@ -9,8 +9,8 @@ export async function helmDocumentationGenerator(tree: Tree, options: HelmDocume
 		name: options.name,
 		description: options.description,
 		...names(options.name),
-		previewComponentName: `${names(options.name).className}PreviewComponent`,
-		pageComponentName: `${names(options.name).className}PageComponent`,
+		previewComponentName: `${names(options.name).className}Preview`,
+		pageComponentName: `${names(options.name).className}Page`,
 	});
 	await formatFiles(tree);
 }

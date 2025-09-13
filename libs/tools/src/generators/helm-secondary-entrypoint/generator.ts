@@ -65,7 +65,7 @@ export async function generator(tree: Tree, options: HlmBaseGeneratorSchema) {
 	if (options.story) {
 		await helmStoryGenerator(tree, {
 			entrypoint: normalizedName,
-			componentName: `Hlm${className}Component`,
+			componentName: `Hlm${className}`,
 		});
 	}
 

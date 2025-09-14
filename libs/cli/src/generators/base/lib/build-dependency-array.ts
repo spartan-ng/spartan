@@ -18,6 +18,7 @@ export function buildDependencyArray(
 		'tailwind-merge': TAILWIND_MERGE_VERSION,
 	};
 
+	console.log(options.peerDependencies)
 	if (options.peerDependencies) {
 		dependencies = { ...dependencies, ...options.peerDependencies };
 	}

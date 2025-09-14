@@ -1,27 +1,30 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component } from '@angular/core';
-
-import { SidebarPreviewComponent, codeImports, codeSkeleton, codeString, cssCode } from './sidebar.preview';
-import { MainSection } from '@spartan-ng/app/app/shared/layout/main-section';
-import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
+import { Component, viewChild } from '@angular/core';
+import { createApplication } from '@angular/platform-browser';
 import { Code } from '@spartan-ng/app/app/shared/code/code';
-import { SectionIntro } from '@spartan-ng/app/app/shared/layout/section-intro';
-import { SectionSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-heading';
-import { Tabs } from '@spartan-ng/app/app/shared/layout/tabs';
-import { TabsCli } from '@spartan-ng/app/app/shared/layout/tabs-cli';
-import { CodePreview } from '@spartan-ng/app/app/shared/code/code-preview';
-import { PageNav } from '@spartan-ng/app/app/shared/layout/page-nav/page-nav';
+import { MainSection } from '@spartan-ng/app/app/shared/layout/main-section';
+import { PageBottomNavPlaceholder } from '@spartan-ng/app/app/shared/layout/page-bottom-nav-placeholder';
 import { PageBottomNav } from '@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav';
 import { PageBottomNavLink } from '@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav-link';
-import { PageBottomNavPlaceholder } from '@spartan-ng/app/app/shared/layout/page-bottom-nav-placeholder';
-import { HlmCode, HlmH4, HlmLead, HlmP } from '@spartan-ng/helm/typography';
+import { PageNav } from '@spartan-ng/app/app/shared/layout/page-nav/page-nav';
+import { SectionIntro } from '@spartan-ng/app/app/shared/layout/section-intro';
+import { SectionSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-heading';
+import { TabsCli } from '@spartan-ng/app/app/shared/layout/tabs-cli';
+import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
+import { HlmCode, HlmH3, HlmP } from '@spartan-ng/helm/typography';
+import {
+	cssCode,
+	firstSidebar,
+	firstSidebarApp,
+	firstSidebarInitial,
+	SidebarPreviewComponent,
+	usageApp,
+	usageLayout,
+} from './sidebar.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'sidebar' },
-	meta: metaWith(
-		'spartan/ui - sidebar',
-		'A composable, themeable and customizable sidebar component.',
-	),
+	meta: metaWith('spartan/ui - sidebar', 'A composable, themeable and customizable sidebar component.'),
 	title: 'spartan/ui - sidebar',
 };
 
@@ -32,29 +35,20 @@ export const routeMeta: RouteMeta = {
 		Code,
 		SectionIntro,
 		SectionSubHeading,
-		Tabs,
 		TabsCli,
-		SidebarPreviewComponent,
-		CodePreview,
 		PageNav,
 		PageBottomNav,
 		PageBottomNavLink,
 		PageBottomNavPlaceholder,
 		HlmP,
 		HlmCode,
-		HlmLead,
-		HlmH4,
+
+		HlmH3,
 	],
 	template: `
 		<section spartanMainSection>
 			<spartan-section-intro name="Sidebar" lead="A composable, themeable and customizable sidebar component." />
-
-			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div spartanCodePreview firstTab>
-					<spartan-sidebar-preview />
-				</div>
-				<spartan-code secondTab [code]="_code" />
-			</spartan-tabs>
+			<iframe #iFrameOne></iframe>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
 			<spartan-cli-tabs
@@ -63,7 +57,7 @@ export const routeMeta: RouteMeta = {
 				ngCode="ng g @spartan-ng/cli:ui sidebar"
 			/>
 
-			<h3 class="font-heading mt-8 scroll-m-32 text-xl font-medium tracking-tight">
+			<h3 class="font-heading mt-8 scroll-m-32 text-xl font-medium tracking-tight" id="add-colors">
 				Add the following colors to your CSS file
 			</h3>
 			<p hlmP class="mb-6">
@@ -72,60 +66,101 @@ export const routeMeta: RouteMeta = {
 				We'll go over the colors later in the theming section.
 			</p>
 
-			<spartan-code [code]="cssCode" />
+			<spartan-code [code]="_cssCode" />
 
-			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
+			<spartan-section-sub-heading id="structure">Structure</spartan-section-sub-heading>
+
+			<div class="leading-relaxed [&:not(:first-child)]:mt-6" hlmP>
+				A
+				<span hlmCode>Sidebar</span>
+				component is composed of the following parts:
+			</div>
+			<ul class="list-inside list-disc pl-4 text-sm">
+				<li class="mt-2">
+					<span hlmCode>HlmSidebarService</span>
+					- Handles collapsible state.
+				</li>
+				<li class="mt-2">
+					<span hlmCode>HlmSidebar</span>
+					- The sidebar container.
+				</li>
+				<li class="mt-2">
+					<span hlmCode>HlmSidebarHeader</span>
+					and
+					<span hlmCode>HlmSidebarFooter</span>
+					- Sticky at the top and bottom of the sidebar.
+				</li>
+				<li class="mt-2">
+					<span hlmCode>HlmSidebarContent</span>
+					- Scrollable content.
+				</li>
+				<li class="mt-2">
+					<span hlmCode>HlmSidebarGroup</span>
+					- Section within the
+					<span hlmCode>HlmSidebarContent</span>
+					.
+				</li>
+				<li class="mt-2">
+					<span hlmCode>HlmSidebarTrigger</span>
+					- Trigger for the
+					<span hlmCode>HlmSidebar</span>
+					.
+				</li>
+			</ul>
+
+			<img src="/assets/sidebar-structure.png" alt="Sidebar structure" class="border-border mt-4 rounded border" />
+
 			<div class="space-y-4">
-				<spartan-code [code]="_imports" />
-				<spartan-code [code]="_codeSkeleton" />
+				<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
+				<spartan-code fileName="src/app/app.ts" [code]="_usageApp" />
+				<spartan-code fileName="src/app/app-sidebar.ts" [code]="_usageLayout" />
 			</div>
 
-			<spartan-section-sub-heading id="components">Components</spartan-section-sub-heading>
-			<p hlmP>
-				The components in <code hlmCode>sidebar.tsx</code> are built to be composable. You build your sidebar by
-				putting the provided components together. They also compose well with other shadcn/ui components.
-			</p>
+			<div class="space-y-4">
+				<spartan-section-sub-heading id="first-sidebar">Your First Sidebar</spartan-section-sub-heading>
 
-			<spartan-section-sub-heading id="sidebar-header">SidebarHeader</spartan-section-sub-heading>
-			<p hlmP>
-				A wrapper for the header part of the sidebar. Usually contains the logo and the app name.
-			</p>
+				<p hlmP>Let's start with the most basic sidebar. A collapsible sidebar with a menu.</p>
 
-			<spartan-section-sub-heading id="sidebar-footer">SidebarFooter</spartan-section-sub-heading>
-			<p hlmP>
-				A wrapper for the footer part of the sidebar. Usually contains the user menu or other app-wide controls.
-			</p>
+				<h3 hlmH3>
+					Add a
+					<span hlmCode>HlmSidebarTrigger</span>
+					at the root of your application.
+				</h3>
+				<spartan-code fileName="src/app/app.ts" [code]="_firstSidebarApp" />
+				<h3 hlmH3>
+					Create a new sidebar component at
+					<span hlmCode>src/app/app-sidebar.ts</span>
+				</h3>
 
-			<spartan-section-sub-heading id="sidebar-menu">SidebarMenu</spartan-section-sub-heading>
-			<p hlmP>
-				A wrapper for grouping multiple <code hlmCode>SidebarMenuItem</code> or <code hlmCode>SidebarMenuButton</code>.
-			</p>
+				<spartan-code fileName="src/app/app-sidebar.ts" [code]="_firstSidebarInitial" />
 
-			<spartan-section-sub-heading id="sidebar-menu-item">SidebarMenuItem</spartan-section-sub-heading>
-			<p hlmP>
-				Represents a single item inside the sidebar menu. Can contain a link, button, or custom content.
-			</p>
-
-			<spartan-section-sub-heading id="sidebar-menu-button">SidebarMenuButton</spartan-section-sub-heading>
-			<p hlmP>
-				A button-styled menu item that can be used for navigation or actions.
-			</p>
-
-			<spartan-section-sub-heading id="sidebar-separator">SidebarSeparator</spartan-section-sub-heading>
-			<p hlmP>
-				A visual separator to group different sections inside the sidebar.
-			</p>
-
-			<spartan-section-sub-heading id="sidebar-provider">SidebarProvider</spartan-section-sub-heading>
-			<p hlmP>
-				Provides context for sidebar state (collapsed/expanded) to all child components.
-			</p>
+				<h3 hlmH3>
+					Now, let's add a
+					<span hlmCode>HlmSidebarMenu</span>
+					to the sidebar.
+				</h3>
+				<p hlmP>
+					We'll use the
+					<span hlmCode>HlmSidebarMenu</span>
+					component in a
+					<span hlmCode>HlmSidebarGroup</span>
+					.
+				</p>
+				<spartan-code fileName="src/app/app-sidebar.ts" [code]="_firstSidebar" />
+				<h3 hlmH3>You've created your first sidebar.</h3>
+				<p>You should see something like this:</p>
+			</div>
 
 			<spartan-section-sub-heading id="theming">Theming</spartan-section-sub-heading>
+			<p hlmP>We use dedicated CSS variables for theming the sidebar, separate from the rest of the application.</p>
+			<spartan-code [code]="_cssCode" />
 			<p hlmP>
-				We use dedicated CSS variables for theming the sidebar, separate from the rest of the application.
+				<strong class="font-medium">
+					We intentionally use different variables for the sidebar and the rest of the application
+				</strong>
+				to make it easy to have a sidebar that is styled differently from the rest of the application. Think a sidebar
+				with a darker shade from the main application.
 			</p>
-			<spartan-code [code]="cssCode" />
 
 			<spartan-section-sub-heading id="responsive-behavior">Responsive behavior</spartan-section-sub-heading>
 			<p hlmP>
@@ -148,9 +183,35 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class SidebarPageComponent {
-	protected readonly _code = codeString;
-	protected readonly _imports = codeImports;
-	protected readonly _skeleton = codeSkeleton;
-	protected readonly _codeSkeleton = codeSkeleton;
-	protected readonly cssCode = cssCode;
+	protected readonly _cssCode = cssCode;
+
+	protected readonly _usageLayout = usageLayout;
+	protected readonly _usageApp = usageApp;
+	protected readonly _firstSidebarApp = firstSidebarApp;
+	protected readonly _firstSidebar = firstSidebar;
+	protected readonly _firstSidebarInitial = firstSidebarInitial;
+
+	iFrameOne = viewChild.required<HTMLIFrameElement>('iFrameOne');
+
+	async ngAfterViewInit() {
+		const iframe = this.iFrameOne();
+		const doc = iframe.contentDocument || iframe.contentWindow?.document;
+
+		if (!doc) return;
+
+		// Reset iframe
+		doc.open();
+		doc.write(`<html><body></body></html>`);
+		doc.close();
+
+		// Find the iframe body as host element
+		const host = doc.body;
+
+		// Dynamically bootstrap Angular inside the iframe
+		await createApplication({
+			providers: [],
+		}).then((appRef) => {
+			appRef.bootstrap(SidebarPreviewComponent, host);
+		});
+	}
 }

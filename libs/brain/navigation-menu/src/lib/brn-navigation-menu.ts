@@ -1,14 +1,21 @@
-import { ChangeDetectionStrategy, Component, input, model } from '@angular/core';
+import { Directionality } from '@angular/cdk/bidi';
+import { computed, Directive, inject, input, model } from '@angular/core';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { combineLatest, map, of, startWith } from 'rxjs';
+import { provideBrnNavigationMenu } from './brn-navigation-menu.token';
 
-@Component({
-	selector: 'brn-navigation-menu',
+@Directive({
+	selector: 'nav[brn-navigation-menu]',
 	host: {
+		'[attr.aria-label]': '"Main"',
 		'[attr.data-orientation]': 'orientation()',
+		'[attr.dir]': '_dir()',
 	},
-	template: ``,
-	changeDetection: ChangeDetectionStrategy.OnPush,
+	providers: [provideBrnNavigationMenu(BrnNavigationMenu)],
 })
 export class BrnNavigationMenu {
+	private readonly _directionality = inject(Directionality);
+
 	/**
 	 * The value of the menu item that should be active when initially rendered.
 	 * Use when you do not need to control the value state.
@@ -32,7 +39,6 @@ export class BrnNavigationMenu {
 
 	/**
 	 * The reading direction of the menu when applicable.
-	 * If omitted, inherits globally from Directionality or assumes LTR (left-to-right) reading mode.
 	 */
 	public readonly dir = input<'ltr' | 'rtl'>();
 
@@ -40,4 +46,20 @@ export class BrnNavigationMenu {
 	 * The orientation of the menu.
 	 */
 	public readonly orientation = input<'horizontal' | 'vertical'>('horizontal');
+
+	private readonly _dir$ = toObservable(this.dir);
+
+	/**
+	 * The reading direction of the menu when applicable.
+	 * If input is not passed, inherits globally from Directionality or assumes LTR (left-to-right) reading mode.
+	 */
+	private readonly _dir = toSignal(
+		combineLatest([
+			this._dir$.pipe(startWith(undefined)),
+			this._directionality.change.pipe(startWith(undefined)),
+			of('ltr' as const),
+		]).pipe(map(([dir, dirChange, fallback]) => dir ?? dirChange ?? fallback)),
+	);
+
+	public readonly context = computed(() => ({ orientation: this.orientation() }));
 }

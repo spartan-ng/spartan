@@ -21,7 +21,7 @@ import 'prismjs/components/prism-typescript';
 declare const Prism: typeof import('prismjs');
 
 @Component({
-	selector: 'spartan-code',
+	selector: '	spartan-code',
 	imports: [HlmButton, NgIcon, HlmIcon],
 	providers: [provideIcons({ lucideClipboard, lucideCheck })],
 	host: {

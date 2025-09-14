@@ -48,6 +48,7 @@ export type Primitives =
 	| 'select'
 	| 'separator'
 	| 'sheet'
+	| 'sidebar'
 	| 'skeleton'
 	| 'slider'
 	| 'sonner'

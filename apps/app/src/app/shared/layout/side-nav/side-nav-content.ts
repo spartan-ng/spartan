@@ -109,6 +109,7 @@ export class SideNavContent {
 				{ label: 'Select', url: '/select' },
 				{ label: 'Separator', url: '/separator' },
 				{ label: 'Sheet', url: '/sheet' },
+				{ label: 'Sidebar', url: '/sidebar' },
 				{ label: 'Skeleton', url: '/skeleton' },
 				{ label: 'Slider', url: '/slider' },
 				{ label: 'Sonner (Toast)', url: '/sonner' },

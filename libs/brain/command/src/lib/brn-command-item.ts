@@ -6,7 +6,6 @@ import {
 	computed,
 	Directive,
 	ElementRef,
-	HostListener,
 	inject,
 	input,
 	OnInit,
@@ -31,6 +30,8 @@ import { injectBrnCommand } from './brn-command.token';
 		'[attr.data-hidden]': "!visible() ? '' : null",
 		'[attr.aria-selected]': '_active()',
 		'[attr.data-selected]': "_active() ? '' : null",
+		'(click)': 'onClick()',
+		'(mouseenter)': 'activate()',
 	},
 })
 export class BrnCommandItem implements Highlightable, OnInit {
@@ -44,7 +45,7 @@ export class BrnCommandItem implements Highlightable, OnInit {
 	private readonly _command = injectBrnCommand();
 
 	/** A unique id for the item */
-	public readonly id = input(`brn-command-item-${BrnCommandItem._id++}`);
+	public readonly id = input(`brn-command-item-${++BrnCommandItem._id}`);
 
 	/** The value this item represents. */
 	public readonly value = input.required<string>();
@@ -105,10 +106,17 @@ export class BrnCommandItem implements Highlightable, OnInit {
 		this._active.set(false);
 	}
 
-	@HostListener('click')
 	protected onClick(): void {
 		this._command.keyManager.setActiveItem(this);
 		this.selected.emit();
+	}
+
+	protected activate(): void {
+		if (this._disabled()) {
+			return;
+		}
+
+		this._command.keyManager.setActiveItem(this);
 	}
 
 	ngOnInit(): void {

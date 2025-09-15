@@ -33,7 +33,6 @@ function setupTsConfigAlias(tree: Tree, alias: string, targetLibDir: string) {
 
 async function generateEntrypointFiles(tree: Tree, alias: string, options: HlmBaseGeneratorSchema) {
 	const targetLibDir = `${options.directory}/${options.primitiveName}/src`;
-	generateFiles(tree, path.join(__dirname, '..', 'ui', 'libs', options.internalName, 'files'), targetLibDir, options);
 
 	if (options.buildable) {
 		await librarySecondaryEntryPointGenerator(tree, {
@@ -50,6 +49,7 @@ async function generateEntrypointFiles(tree: Tree, alias: string, options: HlmBa
 			return json;
 		});
 	}
+	generateFiles(tree, path.join(__dirname, '..', 'ui', 'libs', options.internalName, 'files'), targetLibDir, options);
 }
 
 function generateLibraryFiles(tree: Tree, targetLibDir: string, options: HlmBaseGeneratorSchema) {
@@ -75,7 +75,7 @@ function registerDependencies(tree: Tree, options: HlmBaseGeneratorSchema): Gene
 export async function hlmBaseGenerator(tree: Tree, options: HlmBaseGeneratorSchema) {
 	const tasks: GeneratorCallback[] = [];
 	const targetLibDir = getTargetLibraryDirectory(options, tree);
-	const tsConfigAlias = `@spartan-ng/helm/${options.primitiveName}`;
+	const tsConfigAlias = `${options.importAlias}/${options.primitiveName}`;
 
 	if (isAlreadyInstalled(tree, tsConfigAlias)) {
 		console.log(`Skipping ${tsConfigAlias}. It's already installed!`);

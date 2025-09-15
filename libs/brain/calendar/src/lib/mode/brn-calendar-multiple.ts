@@ -15,16 +15,18 @@ import {
 	signal,
 } from '@angular/core';
 import { injectDateAdapter } from '@spartan-ng/brain/date-time';
-import { Weekday } from '../brn-calendar';
 import { BrnCalendarCellButton } from '../brn-calendar-cell-button';
 import { BrnCalendarHeader } from '../brn-calendar-header';
 import { BrnCalendarBase, provideBrnCalendar } from '../brn-calendar.token';
+import { injectBrnCalendarI18n, Weekday } from '../i18n/calendar-i18n';
 
 @Directive({
 	selector: '[brnCalendarMulti]',
 	providers: [provideBrnCalendar(BrnCalendarMulti)],
 })
 export class BrnCalendarMulti<T> implements BrnCalendarBase<T> {
+	private readonly _i18n = injectBrnCalendarI18n();
+
 	/**
 	 * Determine if a date is the start of a range. In a date picker, this is always false.
 	 * @param date The date to check.
@@ -54,6 +56,7 @@ export class BrnCalendarMulti<T> implements BrnCalendarBase<T> {
 	isBetweenRange(_: T): boolean {
 		return false;
 	}
+
 	// /** Access the date adapter */
 	protected readonly _dateAdapter = injectDateAdapter<T>();
 
@@ -91,9 +94,11 @@ export class BrnCalendarMulti<T> implements BrnCalendarBase<T> {
 	public readonly dateDisabled = input<(date: T) => boolean>(() => false);
 
 	/** The day the week starts on */
-	public readonly weekStartsOn = input<Weekday, NumberInput>(0, {
-		transform: (v: unknown) => numberAttribute(v) as Weekday,
+	public readonly weekStartsOn = input<Weekday, NumberInput | undefined>(undefined, {
+		transform: (v: unknown) => (v === undefined || v === null ? undefined : (numberAttribute(v) as Weekday)),
 	});
+
+	protected readonly _weekStartsOn = computed(() => this.weekStartsOn() ?? this._i18n.config().firstDayOfWeek());
 
 	/** The default focused date. */
 	public readonly defaultFocusedDate = input<T>();
@@ -124,7 +129,7 @@ export class BrnCalendarMulti<T> implements BrnCalendarBase<T> {
 	 * and the days of the previous and next month to fill the grid.
 	 */
 	public readonly days = computed(() => {
-		const weekStartsOn = this.weekStartsOn();
+		const weekStartsOn = this._weekStartsOn();
 		const month = this.state().focusedDate();
 		const days: T[] = [];
 

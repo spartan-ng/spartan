@@ -7,7 +7,6 @@ import {
 	contentChildren,
 	Directive,
 	effect,
-	HostListener,
 	inject,
 	Injector,
 	input,
@@ -18,13 +17,14 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { BrnCommandItemToken } from './brn-command-item.token';
 import { BrnCommandSearchInput } from './brn-command-search-input';
-import { provideBrnCommand } from './brn-command.token';
+import { CommandFilter, injectBrnCommandConfig, provideBrnCommand } from './brn-command.token';
 
 @Directive({
 	selector: '[brnCommand]',
 	providers: [provideBrnCommand(BrnCommand)],
 	host: {
 		'[id]': 'id()',
+		'(keydown.enter)': 'selectActiveItem()',
 	},
 })
 export class BrnCommand implements AfterViewInit {
@@ -34,15 +34,13 @@ export class BrnCommand implements AfterViewInit {
 
 	private readonly _injector = inject(Injector);
 
-	/** The id of the command */
-	public readonly id = input<string>(`brn-command-${BrnCommand._id++}`);
+	private readonly _config = injectBrnCommandConfig();
 
-	/** The default filter function */
-	private readonly _defaultFilter = (value: string, search: string) =>
-		value.toLowerCase().includes(search.toLowerCase());
+	/** The id of the command */
+	public readonly id = input<string>(`brn-command-${++BrnCommand._id}`);
 
 	/** A custom filter function to use when searching. */
-	public readonly filter = input<CommandFilter>(this._defaultFilter);
+	public readonly filter = input<CommandFilter>(this._config.filter);
 
 	/** when the selection has changed */
 	public readonly valueChange = output<string>();
@@ -55,7 +53,7 @@ export class BrnCommand implements AfterViewInit {
 		descendants: true,
 	});
 
-	/** @internal Access all the items within the commmand */
+	/** @internal Access all the items within the command */
 	public readonly items = contentChildren(BrnCommandItemToken, {
 		descendants: true,
 	});
@@ -95,10 +93,7 @@ export class BrnCommand implements AfterViewInit {
 		}
 	}
 
-	@HostListener('keydown.enter')
 	protected selectActiveItem(): void {
 		this.keyManager.activeItem?.selected.emit();
 	}
 }
-
-export type CommandFilter = (value: string, search: string) => boolean;

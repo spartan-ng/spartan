@@ -18,7 +18,7 @@ import { BrnTabs } from './brn-tabs';
 		'[id]': '_labelId()',
 		type: 'button',
 		role: 'tab',
-		'[tabindex]': 'selected() ? "0": "-1"',
+		'[tabindex]': '_disabled() ? -1 : (selected() ? 0 : -1)',
 		'[attr.aria-selected]': 'selected()',
 		'[attr.aria-controls]': '_contentId()',
 		'[attr.aria-disabled]': '_disabled()',
@@ -48,7 +48,7 @@ export class BrnTabsTrigger implements OnDestroy {
 		transform: booleanAttribute,
 	});
 
-	public get disabled(): boolean | undefined {
+	public get disabled(): boolean {
 		return this._disabled();
 	}
 

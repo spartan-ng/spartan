@@ -9,6 +9,7 @@ import {
 	inject,
 	Injector,
 	input,
+	linkedSignal,
 	numberAttribute,
 	output,
 	runInInjectionContext,
@@ -64,8 +65,7 @@ export class BrnDialog {
 	public readonly hasBackdrop = input(this._defaultOptions.hasBackdrop, { transform: booleanAttribute });
 
 	public readonly positionStrategy = input<BrnDialogOptions['positionStrategy']>(this._defaultOptions.positionStrategy);
-	public readonly mutablePositionStrategy = computed(() => signal(this.positionStrategy()));
-	private readonly _positionStrategyState = computed(() => this.mutablePositionStrategy()());
+	public readonly mutablePositionStrategy = linkedSignal(() => this.positionStrategy());
 
 	public readonly scrollStrategy = input<BrnDialogOptions['scrollStrategy'] | 'close' | 'reposition' | null>(
 		this._defaultOptions.scrollStrategy,
@@ -86,22 +86,22 @@ export class BrnDialog {
 		return {
 			role: this.role(),
 			hasBackdrop: this.hasBackdrop(),
-			positionStrategy: this._positionStrategyState(),
+			positionStrategy: this.mutablePositionStrategy(),
 			scrollStrategy,
 			restoreFocus: this.restoreFocus(),
-			closeOnOutsidePointerEvents: this._closeOnOutsidePointerEventsState(),
+			closeOnOutsidePointerEvents: this.mutableCloseOnOutsidePointerEvents(),
 			closeOnBackdropClick: this.closeOnBackdropClick(),
-			attachTo: this._attachToState(),
-			attachPositions: this._attachPositionsState(),
+			attachTo: this.mutableAttachTo(),
+			attachPositions: this.mutableAttachPositions(),
 			autoFocus: this.autoFocus(),
 			closeDelay: this.closeDelay(),
 			disableClose: this.disableClose(),
 			backdropClass: this._backdropClass() ?? '',
 			panelClass: this._panelClass() ?? '',
-			ariaDescribedBy: this._ariaDescribedByState(),
-			ariaLabelledBy: this._ariaLabelledByState(),
-			ariaLabel: this._ariaLabelState(),
-			ariaModal: this._ariaModalState(),
+			ariaDescribedBy: this._mutableAriaDescribedBy(),
+			ariaLabelledBy: this._mutableAriaLabelledBy(),
+			ariaLabel: this._mutableAriaLabel(),
+			ariaModal: this._mutableAriaModal(),
 		};
 	});
 
@@ -122,20 +122,17 @@ export class BrnDialog {
 	public readonly closeOnOutsidePointerEvents = input(this._defaultOptions.closeOnOutsidePointerEvents, {
 		transform: booleanAttribute,
 	});
-	public readonly mutableCloseOnOutsidePointerEvents = computed(() => signal(this.closeOnOutsidePointerEvents()));
-	private readonly _closeOnOutsidePointerEventsState = computed(() => this.mutableCloseOnOutsidePointerEvents()());
+	public readonly mutableCloseOnOutsidePointerEvents = linkedSignal(() => this.closeOnOutsidePointerEvents());
 
 	public readonly closeOnBackdropClick = input(this._defaultOptions.closeOnBackdropClick, {
 		transform: booleanAttribute,
 	});
 
 	public readonly attachTo = input<BrnDialogOptions['attachTo']>(null);
-	public readonly mutableAttachTo = computed(() => signal(this.attachTo()));
-	private readonly _attachToState = computed(() => this.mutableAttachTo()());
+	public readonly mutableAttachTo = linkedSignal(() => this.attachTo());
 
 	public readonly attachPositions = input<BrnDialogOptions['attachPositions']>(this._defaultOptions.attachPositions);
-	public readonly mutableAttachPositions = computed(() => signal(this.attachPositions()));
-	private readonly _attachPositionsState = computed(() => this.mutableAttachPositions()());
+	public readonly mutableAttachPositions = linkedSignal(() => this.attachPositions());
 
 	public readonly autoFocus = input<BrnDialogOptions['autoFocus']>(this._defaultOptions.autoFocus);
 
@@ -148,20 +145,16 @@ export class BrnDialog {
 	public readonly ariaDescribedBy = input<BrnDialogOptions['ariaDescribedBy']>(null, {
 		alias: 'aria-describedby',
 	});
-	private readonly _mutableAriaDescribedBy = computed(() => signal(this.ariaDescribedBy()));
-	private readonly _ariaDescribedByState = computed(() => this._mutableAriaDescribedBy()());
+	private readonly _mutableAriaDescribedBy = linkedSignal(() => this.ariaDescribedBy());
 
 	public readonly ariaLabelledBy = input<BrnDialogOptions['ariaLabelledBy']>(null, { alias: 'aria-labelledby' });
-	private readonly _mutableAriaLabelledBy = computed(() => signal(this.ariaLabelledBy()));
-	private readonly _ariaLabelledByState = computed(() => this._mutableAriaLabelledBy()());
+	private readonly _mutableAriaLabelledBy = linkedSignal(() => this.ariaLabelledBy());
 
 	public readonly ariaLabel = input<BrnDialogOptions['ariaLabel']>(null, { alias: 'aria-label' });
-	private readonly _mutableAriaLabel = computed(() => signal(this.ariaLabel()));
-	private readonly _ariaLabelState = computed(() => this._mutableAriaLabel()());
+	private readonly _mutableAriaLabel = linkedSignal(() => this.ariaLabel());
 
 	public readonly ariaModal = input(true, { alias: 'aria-modal', transform: booleanAttribute });
-	private readonly _mutableAriaModal = computed(() => signal(this.ariaModal()));
-	private readonly _ariaModalState = computed(() => this._mutableAriaModal()());
+	private readonly _mutableAriaModal = linkedSignal(() => this.ariaModal());
 
 	public open<DialogContext>() {
 		if (!this._contentTemplate || this._dialogRef()) return;
@@ -216,21 +209,21 @@ export class BrnDialog {
 	}
 
 	public setAriaDescribedBy(ariaDescribedBy: string | null | undefined) {
-		this._mutableAriaDescribedBy().set(ariaDescribedBy);
+		this._mutableAriaDescribedBy.set(ariaDescribedBy);
 		this._dialogRef()?.setAriaDescribedBy(ariaDescribedBy);
 	}
 
 	public setAriaLabelledBy(ariaLabelledBy: string | null | undefined) {
-		this._mutableAriaLabelledBy().set(ariaLabelledBy);
+		this._mutableAriaLabelledBy.set(ariaLabelledBy);
 		this._dialogRef()?.setAriaLabelledBy(ariaLabelledBy);
 	}
 
 	public setAriaLabel(ariaLabel: string | null | undefined) {
-		this._mutableAriaLabel().set(ariaLabel);
+		this._mutableAriaLabel.set(ariaLabel);
 		this._dialogRef()?.setAriaLabel(ariaLabel);
 	}
 
 	public setAriaModal(ariaModal: boolean) {
-		this._mutableAriaModal().set(ariaModal);
+		this._mutableAriaModal.set(ariaModal);
 	}
 }

@@ -3,6 +3,7 @@ export type Primitive =
 	| 'alert'
 	| 'alert-dialog'
 	| 'aspect-ratio'
+	| 'autocomplete'
 	| 'avatar'
 	| 'badge'
 	| 'breadcrumb'
@@ -20,6 +21,7 @@ export type Primitive =
 	| 'hover-card'
 	| 'icon'
 	| 'input'
+	| 'input-otp'
 	| 'label'
 	| 'menu'
 	| 'menubar'
@@ -32,6 +34,7 @@ export type Primitive =
 	| 'separator'
 	| 'sheet'
 	| 'skeleton'
+	| 'slider'
 	| 'sonner'
 	| 'spinner'
 	| 'switch'
@@ -39,4 +42,5 @@ export type Primitive =
 	| 'tabs'
 	| 'toggle'
 	| 'toggle-group'
-	| 'tooltip';
+	| 'tooltip'
+	| 'utils';

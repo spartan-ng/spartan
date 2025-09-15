@@ -18,8 +18,8 @@ describe('sheet--default', () => {
 
 			cy.findAllByText(/edit profile/i).should('have.length', 2);
 			cy.findByRole('dialog');
-			cy.findByRole('dialog').should('have.attr', 'aria-labelledby', 'brn-dialog-title-0');
-			cy.findByRole('dialog').should('have.attr', 'aria-labelledby', 'brn-dialog-title-0');
+			cy.findByRole('dialog').should('have.attr', 'aria-labelledby', 'brn-dialog-title-1');
+			cy.findByRole('dialog').should('have.attr', 'aria-labelledby', 'brn-dialog-title-1');
 			cy.findByRole('dialog').should('have.attr', 'aria-modal', 'true');
 			cy.findByRole('dialog').should('have.attr', 'tabindex', '-1');
 
@@ -48,8 +48,8 @@ describe('sheet--default', () => {
 
 			cy.findAllByText(/edit profile/i).should('have.length', 2);
 			cy.findByRole('dialog');
-			cy.findByRole('dialog').should('have.attr', 'aria-labelledby', 'brn-dialog-title-0');
-			cy.findByRole('dialog').should('have.attr', 'aria-labelledby', 'brn-dialog-title-0');
+			cy.findByRole('dialog').should('have.attr', 'aria-labelledby', 'brn-dialog-title-1');
+			cy.findByRole('dialog').should('have.attr', 'aria-labelledby', 'brn-dialog-title-1');
 			cy.findByRole('dialog').should('have.attr', 'aria-modal', 'true');
 			cy.findByRole('dialog').should('have.attr', 'tabindex', '-1');
 
@@ -79,8 +79,8 @@ describe('sheet--default', () => {
 
 			cy.findAllByText(/edit profile/i).should('have.length', 2);
 			cy.findByRole('dialog');
-			cy.findByRole('dialog').should('have.attr', 'aria-labelledby', 'brn-dialog-title-0');
-			cy.findByRole('dialog').should('have.attr', 'aria-labelledby', 'brn-dialog-title-0');
+			cy.findByRole('dialog').should('have.attr', 'aria-labelledby', 'brn-dialog-title-1');
+			cy.findByRole('dialog').should('have.attr', 'aria-labelledby', 'brn-dialog-title-1');
 			cy.findByRole('dialog').should('have.attr', 'aria-modal', 'true');
 			cy.findByRole('dialog').should('have.attr', 'tabindex', '-1');
 

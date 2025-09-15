@@ -2,9 +2,11 @@ import { formatFiles, logger, Tree } from '@nx/devkit';
 import { Healthcheck, HealthcheckReport, HealthcheckStatus, isHealthcheckFixable } from './healthchecks';
 import { brainImportsHealthcheck } from './healthchecks/brain-imports';
 import { brainRadioHealthcheck } from './healthchecks/brn-radio';
+import { brainSeparatorHealthcheck } from './healthchecks/brn-separator';
 import { brainToggleHealthcheck } from './healthchecks/brn-toggle-group';
 import { coreImportsHealthcheck } from './healthchecks/core-imports';
 import { helmImportsHealthcheck } from './healthchecks/helm-imports';
+import { hlmImportHealthcheck } from './healthchecks/hlm';
 import { datePickerHealthcheck } from './healthchecks/hlm-date-picker';
 import { helmIconHealthcheck } from './healthchecks/hlm-icon';
 import { progressHealthcheck } from './healthchecks/hlm-progress';
@@ -33,6 +35,8 @@ export async function healthcheckGenerator(tree: Tree, options: HealthcheckGener
 		namingConventionHealthcheck,
 		datePickerHealthcheck,
 		progressHealthcheck,
+		hlmImportHealthcheck,
+		brainSeparatorHealthcheck,
 	];
 
 	const failedReports: HealthcheckReport[] = [];

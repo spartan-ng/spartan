@@ -10,9 +10,9 @@ import {
 } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideArrowRight } from '@ng-icons/lucide';
-import { hlm } from '@spartan-ng/brain/core';
-import { HlmButton, provideBrnButtonConfig } from '@spartan-ng/helm/button';
-import { HlmIcon } from '@spartan-ng/helm/icon';
+import { HlmButton, provideBrnButtonConfig } from '<%- importAlias %>/button';
+import { HlmIcon } from '<%- importAlias %>/icon';
+import { hlm } from '<%- importAlias %>/utils';
 import type { ClassValue } from 'clsx';
 import { HlmCarousel } from './hlm-carousel';
 

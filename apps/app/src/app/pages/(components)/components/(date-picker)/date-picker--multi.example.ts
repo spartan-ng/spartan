@@ -1,19 +1,24 @@
 import { Component } from '@angular/core';
 import { HlmDatePickerMulti } from '@spartan-ng/helm/date-picker';
+import { HlmLabel } from '@spartan-ng/helm/label';
 
 @Component({
 	selector: 'spartan-date-picker-multiple',
-	imports: [HlmDatePickerMulti],
+	imports: [HlmDatePickerMulti, HlmLabel],
 	template: `
-		<hlm-date-picker-multi
-			[min]="minDate"
-			[max]="maxDate"
-			[autoCloseOnMaxSelection]="true"
-			[minSelection]="2"
-			[maxSelection]="6"
-		>
-			<span>Pick dates</span>
-		</hlm-date-picker-multi>
+		<div class="flex flex-col gap-3">
+			<label for="datePickerMulti" hlmLabel class="px-1">Date Picker Multiple</label>
+			<hlm-date-picker-multi
+				buttonId="datePickerMulti"
+				[min]="minDate"
+				[max]="maxDate"
+				[autoCloseOnMaxSelection]="true"
+				[minSelection]="2"
+				[maxSelection]="6"
+			>
+				<span>Pick dates</span>
+			</hlm-date-picker-multi>
+		</div>
 	`,
 })
 export class DatePickerMultipleExample {

@@ -1,5 +1,5 @@
 import { Directive, computed, input } from '@angular/core';
-import { hlm } from '@spartan-ng/brain/core';
+import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 
 @Directive({
@@ -12,6 +12,6 @@ export class HlmBreadcrumbList {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 
 	protected readonly _computedClass = computed(() =>
-		hlm('text-muted-foreground flex flex-wrap items-center gap-1.5 text-sm break-words sm:gap-2.5', this.userClass()),
+		hlm('text-muted-foreground flex flex-wrap items-center gap-1.5 break-words text-sm sm:gap-2.5', this.userClass()),
 	);
 }

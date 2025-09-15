@@ -1,6 +1,6 @@
 import { computed, Directive, input } from '@angular/core';
-import { hlm } from '@spartan-ng/brain/core';
-import { provideHlmIconConfig } from '@spartan-ng/helm/icon';
+import { provideHlmIconConfig } from '<%- importAlias %>/icon';
+import { hlm } from '<%- importAlias %>/utils';
 import { ClassValue } from 'clsx';
 
 @Directive({

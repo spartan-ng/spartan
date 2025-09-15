@@ -38,6 +38,7 @@
 			"@spartan-ng/brain": ["libs/brain/src/index.ts"],
 			"@spartan-ng/brain/accordion": ["libs/brain/accordion/src/index.ts"],
 			"@spartan-ng/brain/alert-dialog": ["libs/brain/alert-dialog/src/index.ts"],
+			"@spartan-ng/brain/autocomplete": ["libs/brain/autocomplete/src/index.ts"],
 			"@spartan-ng/brain/avatar": ["libs/brain/avatar/src/index.ts"],
 			"@spartan-ng/brain/button": ["libs/brain/button/src/index.ts"],
 			"@spartan-ng/brain/calendar": ["libs/brain/calendar/src/index.ts"],
@@ -73,6 +74,7 @@
 			"@spartan-ng/helm/alert": ["libs/helm/alert/src/index.ts"],
 			"@spartan-ng/helm/alert-dialog": ["libs/helm/alert-dialog/src/index.ts"],
 			"@spartan-ng/helm/aspect-ratio": ["libs/helm/aspect-ratio/src/index.ts"],
+			"@spartan-ng/helm/autocomplete": ["libs/helm/autocomplete/src/index.ts"],
 			"@spartan-ng/helm/avatar": ["libs/helm/avatar/src/index.ts"],
 			"@spartan-ng/helm/badge": ["libs/helm/badge/src/index.ts"],
 			"@spartan-ng/helm/breadcrumb": ["libs/helm/breadcrumb/src/index.ts"],
@@ -110,6 +112,7 @@
 			"@spartan-ng/helm/toggle-group": ["libs/helm/toggle-group/src/index.ts"],
 			"@spartan-ng/helm/tooltip": ["libs/helm/tooltip/src/index.ts"],
 			"@spartan-ng/helm/typography": ["libs/helm/typography/src/index.ts"],
+			"@spartan-ng/helm/utils": ["libs/helm/utils/src/index.ts"],
 			"@spartan-ng/tools": ["libs/tools/src/index.ts"],
 			"@spartan-ng/trpc": ["libs/trpc/src/index.ts"]
 		}

@@ -1,5 +1,5 @@
 import { computed, Directive, input } from '@angular/core';
-import { hlm } from '@spartan-ng/brain/core';
+import { hlm } from '@spartan-ng/helm/utils';
 import { ClassValue } from 'clsx';
 
 @Directive({
@@ -12,6 +12,6 @@ import { ClassValue } from 'clsx';
 export class HlmError {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>
-		hlm('block text-destructive text-sm font-medium', this.userClass()),
+		hlm('text-destructive block text-sm font-medium', this.userClass()),
 	);
 }

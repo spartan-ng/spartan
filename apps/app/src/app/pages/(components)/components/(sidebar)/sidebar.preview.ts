@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCalendar, lucideHouse, lucideInbox, lucideSearch, lucideSettings } from '@ng-icons/lucide';
-import { HlmSidebarImports, HlmSidebarInset, HlmSidebarTrigger } from '@spartan-ng/helm/sidebar';
 import { HlmIcon } from '@spartan-ng/helm/icon';
+import { HlmSidebarImports, HlmSidebarInset, HlmSidebarTrigger } from '@spartan-ng/helm/sidebar';
 
 @Component({
 	selector: 'spartan-sidebar',

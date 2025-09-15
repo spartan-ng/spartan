@@ -92,10 +92,13 @@ export class BrnInputOtp implements ControlValueAccessor {
 	public readonly transformPaste = input<(pastedText: string, maxLength: number) => string>((text) => text);
 
 	/** The value controlling the input */
-	public readonly value = model<string>('');
+	public readonly value = model<string | null>(null);
+
+	/** Emits when the value changes. */
+	public readonly valueChange = output<string>();
 
 	public readonly context = computed(() => {
-		const value = this.value();
+		const value = this.value() ?? '';
 		const focused = this._focused();
 		const maxLength = this.maxLength();
 		const slots = Array.from({ length: this.maxLength() }).map((_, slotIndex) => {
@@ -150,10 +153,10 @@ export class BrnInputOtp implements ControlValueAccessor {
 
 	/** CONTROL VALUE ACCESSOR */
 	writeValue(value: string | null): void {
-		// optional FormControl is initialized with null value
-		if (value === null) return;
-
-		this.updateValue(value, this.maxLength());
+		this.value.set(value);
+		if (value?.length === this.maxLength()) {
+			this.completed.emit(value ?? '');
+		}
 	}
 
 	registerOnChange(fn: ChangeFn<string>): void {
@@ -173,7 +176,7 @@ export class BrnInputOtp implements ControlValueAccessor {
 	}
 
 	private updateValue(newValue: string, maxLength: number) {
-		const previousValue = this.value();
+		const previousValue = this.value() ?? '';
 
 		this.value.set(newValue);
 		this._onChange?.(newValue);

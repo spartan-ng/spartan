@@ -147,11 +147,11 @@ describe('brn-switch accessibility and functionality tests', () => {
 		verifySwitchOff(labelText);
 
 		// Click on the label to toggle the switch
-		cy.get('brn-switch').find('button').click();
+		cy.get('brn-switch').find('button').click('right');
 		verifySwitchOn(labelText);
 
 		// Click again to toggle back to 'off' state
-		cy.get('brn-switch').find('button').click();
+		cy.get('brn-switch').find('button').click('left');
 		verifySwitchOff(labelText);
 	};
 

@@ -339,6 +339,273 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       },
     },
   },
+  "autocomplete": {
+    "brain": {
+      "BrnAutocomplete": {
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [
+          {
+            "name": "valueChange",
+            "type": "T",
+          },
+        ],
+        "selector": "[brnAutocomplete]",
+      },
+      "BrnAutocompleteEmpty": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnAutocompleteEmpty]",
+      },
+      "BrnAutocompleteGroup": {
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnAutocompleteGroup]",
+      },
+      "BrnAutocompleteItem": {
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "value",
+            "required": true,
+            "type": "T",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [
+          {
+            "name": "selected",
+            "type": "void",
+          },
+        ],
+        "selector": "button[brnAutocompleteItem]",
+      },
+      "BrnAutocompleteList": {
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnAutocompleteList]",
+      },
+      "BrnAutocompleteSearchInput": {
+        "inputs": [
+          {
+            "name": "value",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "input[brnAutocompleteSearchInput]",
+      },
+    },
+    "helm": {
+      "HlmAutocomplete": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "autocompleteListClass",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "autocompleteEmptyClass",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "filteredOptions",
+            "required": false,
+            "type": "T[]",
+          },
+          {
+            "name": "value",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "name": "search",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "transformValueToSearch",
+            "required": false,
+            "type": "(value: T) => string",
+          },
+          {
+            "name": "optionTemplate",
+            "required": false,
+            "type": "TemplateRef<HlmAutocompleteOption<T>>",
+          },
+          {
+            "name": "loading",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "searchPlaceholderText",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "loadingText",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "emptyText",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "ariaLabelToggleButton",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "inputId",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [
+          {
+            "name": "valueChange",
+            "type": "T | null",
+          },
+          {
+            "name": "searchChange",
+            "type": "string",
+          },
+        ],
+        "selector": "hlm-autocomplete",
+      },
+      "HlmAutocompleteEmpty": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmAutocompleteEmpty]",
+      },
+      "HlmAutocompleteGroup": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-autocomplete-group",
+      },
+      "HlmAutocompleteItem": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[hlm-autocomplete-item]",
+      },
+      "HlmAutocompleteList": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-autocomplete-list",
+      },
+      "HlmAutocompleteSearch": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-autocomplete-search",
+      },
+      "HlmAutocompleteSearchInput": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "input[hlm-autocomplete-search-input]",
+      },
+      "HlmAutocompleteTrigger": {
+        "inputs": [
+          {
+            "name": "disabledTrigger",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmAutocompleteTrigger]",
+      },
+    },
+  },
   "avatar": {
     "brain": {
       "BrnAvatar": {
@@ -1171,6 +1438,10 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "outputs": [
           {
+            "name": "checkedChange",
+            "type": "BrnCheckboxValue",
+          },
+          {
             "name": "changed",
             "type": "BrnCheckboxValue",
           },
@@ -1233,6 +1504,10 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           },
         ],
         "outputs": [
+          {
+            "name": "checkedChange",
+            "type": "CheckboxValue",
+          },
           {
             "name": "changed",
             "type": "boolean",
@@ -1463,28 +1738,13 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       "HlmCommandItem": {
         "inputs": [
           {
-            "name": "value",
-            "required": false,
-            "type": "string",
-          },
-          {
-            "name": "disabled",
-            "required": false,
-            "type": "boolean",
-          },
-          {
             "name": "class",
             "required": false,
             "type": "string",
           },
         ],
         "models": [],
-        "outputs": [
-          {
-            "name": "selected",
-            "type": "void",
-          },
-        ],
+        "outputs": [],
         "selector": "button[hlm-command-item]",
       },
       "HlmCommandList": {
@@ -1559,6 +1819,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "ClassValue",
           },
           {
+            "name": "buttonId",
+            "required": false,
+            "type": "string",
+          },
+          {
             "name": "min",
             "required": false,
             "type": "T",
@@ -1609,6 +1874,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "name": "class",
             "required": false,
             "type": "ClassValue",
+          },
+          {
+            "name": "buttonId",
+            "required": false,
+            "type": "string",
           },
           {
             "name": "min",
@@ -1671,6 +1941,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "name": "class",
             "required": false,
             "type": "ClassValue",
+          },
+          {
+            "name": "buttonId",
+            "required": false,
+            "type": "string",
           },
           {
             "name": "min",
@@ -2195,10 +2470,14 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [
           {
             "name": "value",
-            "type": "string",
+            "type": "string | null",
           },
         ],
         "outputs": [
+          {
+            "name": "valueChange",
+            "type": "string",
+          },
           {
             "name": "completed",
             "type": "string",
@@ -3053,6 +3332,10 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "outputs": [
           {
+            "name": "valueChange",
+            "type": "T",
+          },
+          {
             "name": "change",
             "type": "BrnRadioChange<T>",
           },
@@ -3205,7 +3488,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "T | T[]",
           },
         ],
-        "outputs": [],
+        "outputs": [
+          {
+            "name": "valueChange",
+            "type": "T | T[]",
+          },
+        ],
         "selector": "brn-select, hlm-select",
       },
       "BrnSelectContent": {
@@ -3956,7 +4244,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "number",
           },
         ],
-        "outputs": [],
+        "outputs": [
+          {
+            "name": "valueChange",
+            "type": "number",
+          },
+        ],
         "selector": "[brnSlider]",
       },
       "BrnSliderRange": {
@@ -4154,6 +4447,10 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "outputs": [
           {
+            "name": "checkedChange",
+            "type": "boolean",
+          },
+          {
             "name": "changed",
             "type": "boolean",
           },
@@ -4212,6 +4509,10 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           },
         ],
         "outputs": [
+          {
+            "name": "checkedChange",
+            "type": "boolean",
+          },
           {
             "name": "changed",
             "type": "boolean",
@@ -4620,6 +4921,10 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           },
         ],
         "outputs": [
+          {
+            "name": "valueChange",
+            "type": "ToggleValue<T>",
+          },
           {
             "name": "change",
             "type": "BrnButtonToggleChange<T>",

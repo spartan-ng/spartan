@@ -1,13 +1,17 @@
 import { Component } from '@angular/core';
 import { HlmDatePicker } from '@spartan-ng/helm/date-picker';
+import { HlmLabel } from '@spartan-ng/helm/label';
 
 @Component({
 	selector: 'spartan-date-picker-preview',
-	imports: [HlmDatePicker],
+	imports: [HlmDatePicker, HlmLabel],
 	template: `
-		<hlm-date-picker [min]="minDate" [max]="maxDate">
-			<span>Select date</span>
-		</hlm-date-picker>
+		<div class="flex flex-col gap-3">
+			<label for="date" hlmLabel class="px-1">Date of birth</label>
+			<hlm-date-picker buttonId="date" [min]="minDate" [max]="maxDate">
+				<span>Select date</span>
+			</hlm-date-picker>
+		</div>
 	`,
 })
 export class DatePickerPreview {

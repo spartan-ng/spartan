@@ -13,13 +13,13 @@ describe('accordion', () => {
 		cy.get('@firstItem')
 			.find('[hlmAccordionTrigger]')
 			.should('have.attr', 'role', 'heading')
-			.should('have.id', 'brn-accordion-trigger-0')
+			.should('have.id', 'brn-accordion-trigger-1')
 			.should('have.attr', 'data-state', 'closed')
 			.should('have.attr', 'aria-expanded', 'false');
 		cy.get('@firstItem')
 			.find('hlm-accordion-content')
 			.should('have.attr', 'role', 'region')
-			.should('have.id', 'brn-accordion-content-0')
+			.should('have.id', 'brn-accordion-content-1')
 			.should('have.attr', 'data-state', 'closed');
 	};
 	const verifyTwoAccordionSetup = () => {
@@ -46,13 +46,13 @@ describe('accordion', () => {
 		cy.get('@item1.1')
 			.find('[hlmAccordionTrigger]')
 			.should('have.attr', 'role', 'heading')
-			.should('have.id', 'brn-accordion-trigger-0')
+			.should('have.id', 'brn-accordion-trigger-1')
 			.should('have.attr', 'data-state', 'closed')
 			.should('have.attr', 'aria-expanded', 'false');
 		cy.get('@item2.4')
 			.find('[hlmAccordionTrigger]')
 			.should('have.attr', 'role', 'heading')
-			.should('have.id', 'brn-accordion-trigger-6')
+			.should('have.id', 'brn-accordion-trigger-7')
 			.should('have.attr', 'data-state', 'closed')
 			.should('have.attr', 'aria-expanded', 'false');
 	};
@@ -170,23 +170,23 @@ describe('accordion', () => {
 			verifyTwoAccordionSetup();
 			cy.get('@item1.1').find('[hlmAccordionTrigger]').click();
 			cy.get('@item1.1').type('{downArrow}');
-			cy.focused().should('have.attr', 'id', 'brn-accordion-trigger-1');
-			cy.get('@item1.2').type('{downArrow}');
 			cy.focused().should('have.attr', 'id', 'brn-accordion-trigger-2');
+			cy.get('@item1.2').type('{downArrow}');
+			cy.focused().should('have.attr', 'id', 'brn-accordion-trigger-3');
 			cy.get('@item1.3').type('{downArrow}');
-			cy.focused().should('have.attr', 'id', 'brn-accordion-trigger-0');
+			cy.focused().should('have.attr', 'id', 'brn-accordion-trigger-1');
 
 			cy.get('@item1.2').type('{downArrow}');
-			cy.focused().should('have.attr', 'id', 'brn-accordion-trigger-2');
+			cy.focused().should('have.attr', 'id', 'brn-accordion-trigger-3');
 			cy.get('@item2.1').find('[hlmAccordionTrigger]').click();
 			cy.get('@item2.1').type('{downArrow}');
-			cy.focused().should('have.attr', 'id', 'brn-accordion-trigger-4');
-			cy.get('@item2.2').type('{downArrow}');
 			cy.focused().should('have.attr', 'id', 'brn-accordion-trigger-5');
-			cy.get('@item2.3').type('{downArrow}');
+			cy.get('@item2.2').type('{downArrow}');
 			cy.focused().should('have.attr', 'id', 'brn-accordion-trigger-6');
+			cy.get('@item2.3').type('{downArrow}');
+			cy.focused().should('have.attr', 'id', 'brn-accordion-trigger-7');
 			cy.get('@item2.4').type('{downArrow}');
-			cy.focused().should('have.attr', 'id', 'brn-accordion-trigger-3');
+			cy.focused().should('have.attr', 'id', 'brn-accordion-trigger-4');
 		});
 	});
 	describe('multiple and isOpened', () => {
@@ -209,24 +209,24 @@ describe('accordion', () => {
 			cy.get('@firstItem')
 				.find('[hlmAccordionTrigger]')
 				.should('have.attr', 'role', 'heading')
-				.should('have.id', 'brn-accordion-trigger-0')
+				.should('have.id', 'brn-accordion-trigger-1')
 				.should('have.attr', 'data-state', 'open')
 				.should('have.attr', 'aria-expanded', 'true');
 			cy.get('@firstItem')
 				.find('hlm-accordion-content')
 				.should('have.attr', 'role', 'region')
-				.should('have.id', 'brn-accordion-content-0')
+				.should('have.id', 'brn-accordion-content-1')
 				.should('have.attr', 'data-state', 'open');
 			cy.get('@thirdItem')
 				.find('[hlmAccordionTrigger]')
 				.should('have.attr', 'role', 'heading')
-				.should('have.id', 'brn-accordion-trigger-2')
+				.should('have.id', 'brn-accordion-trigger-3')
 				.should('have.attr', 'data-state', 'open')
 				.should('have.attr', 'aria-expanded', 'true');
 			cy.get('@thirdItem')
 				.find('hlm-accordion-content')
 				.should('have.attr', 'role', 'region')
-				.should('have.id', 'brn-accordion-content-2')
+				.should('have.id', 'brn-accordion-content-3')
 				.should('have.attr', 'data-state', 'open');
 		});
 	});

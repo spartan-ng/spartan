@@ -7,7 +7,7 @@ import {
 	BrnSliderTrack,
 	injectBrnSlider,
 } from '@spartan-ng/brain/slider';
-import { hlm } from '@spartan-ng/helm/utils';
+import { hlm } from '<%- importAlias %>/utils';
 import type { ClassValue } from 'clsx';
 
 @Component({

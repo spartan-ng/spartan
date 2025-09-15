@@ -76,6 +76,7 @@ export class SideNavContent {
 				{ label: 'Alert', url: '/alert' },
 				{ label: 'Alert Dialog', url: '/alert-dialog' },
 				{ label: 'Aspect Ratio', url: '/aspect-ratio' },
+				{ label: 'Autocomplete', url: '/autocomplete' },
 				{ label: 'Avatar', url: '/avatar' },
 				{ label: 'Badge', url: '/badge' },
 				{ label: 'Breadcrumb', url: '/breadcrumb' },

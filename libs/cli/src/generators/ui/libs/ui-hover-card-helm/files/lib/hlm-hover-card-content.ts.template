@@ -10,7 +10,7 @@ import {
 	signal,
 } from '@angular/core';
 import { injectExposedSideProvider, injectExposesStateProvider } from '@spartan-ng/brain/core';
-import { hlm } from '@spartan-ng/helm/utils';
+import { hlm } from '<%- importAlias %>/utils';
 import type { ClassValue } from 'clsx';
 
 @Component({

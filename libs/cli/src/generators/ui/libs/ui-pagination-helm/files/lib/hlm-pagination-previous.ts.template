@@ -3,9 +3,9 @@ import { booleanAttribute, ChangeDetectionStrategy, Component, computed, input }
 import { RouterLink } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronLeft } from '@ng-icons/lucide';
-import { ButtonVariants } from '@spartan-ng/helm/button';
-import { HlmIcon } from '@spartan-ng/helm/icon';
-import { hlm } from '@spartan-ng/helm/utils';
+import { ButtonVariants } from '<%- importAlias %>/button';
+import { HlmIcon } from '<%- importAlias %>/icon';
+import { hlm } from '<%- importAlias %>/utils';
 import { ClassValue } from 'clsx';
 import { HlmPaginationLink } from './hlm-pagination-link';
 

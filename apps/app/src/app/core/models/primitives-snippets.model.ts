@@ -3,6 +3,7 @@ export type PrimitiveSnippet =
 	| 'alert'
 	| 'alert-dialog'
 	| 'aspect-ratio'
+	| 'autocomplete'
 	| 'avatar'
 	| 'badge'
 	| 'breadcrumb'

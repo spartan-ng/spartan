@@ -16,13 +16,16 @@ body:
         - alert
         - alert-dialog
         - aspect-ratio
+        - autocomplete
         - avatar
         - badge
         - breadcrumb
         - button
         - calendar
         - card
+        - carousel
         - checkbox
+        - cli
         - collapsible
         - combobox
         - command

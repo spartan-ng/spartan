@@ -53,6 +53,12 @@ describe('healthcheck generator', () => {
 		   <hlm-date-picker-multi (changed)="onDateChange($event)">;`,
 		);
 
+		// add a file with legacy output conventions
+		tree.write('libs/my-lib/src/switch-legacy.component.ts', `<brn-switch (changed)="onChange($event)"/>`);
+
+		// add a file with legacy output conventions
+		tree.write('libs/my-lib/src/checkbox-legacy.component.ts', `<brn-checkbox (changed)="onChange($event)"/>`);
+
 		await healthcheckGenerator(tree, { skipFormat: true, autoFix: true });
 	});
 
@@ -119,5 +125,19 @@ describe('healthcheck generator', () => {
 		expect(contents).not.toContain('<hlm-date-picker (changed)="onDateChange($event)"/>');
 		expect(contents).toContain('<hlm-date-picker-multi (dateChange)="onDateChange($event)">');
 		expect(contents).not.toContain('<hlm-date-picker-multi (changed)="onDateChange($event)">');
+	});
+
+	it('should update brn-switch output conventions', () => {
+		const contents = tree.read('libs/my-lib/src/switch-legacy.component.ts', 'utf-8');
+
+		expect(contents).toContain('<brn-switch (checkedChange)="onChange($event)"/>');
+		expect(contents).not.toContain('<brn-switch (changed)="onChange($event)"/>');
+	});
+
+	it('should update brn-checkbox output conventions', () => {
+		const contents = tree.read('libs/my-lib/src/checkbox-legacy.component.ts', 'utf-8');
+
+		expect(contents).toContain('<brn-checkbox (checkedChange)="onChange($event)"/>');
+		expect(contents).not.toContain('<brn-checkbox (changed)="onChange($event)"/>');
 	});
 });

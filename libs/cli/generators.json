@@ -80,6 +80,16 @@
 			"factory": "./src/generators/migrate-separator/generator",
 			"schema": "./src/generators/migrate-separator/schema.json",
 			"description": "Migrate brn-separator to hlm-separator"
+		},
+		"migrate-brn-checkbox-changed-event": {
+			"factory": "./src/generators/migrate-brn-checkbox-changed-event/compat",
+			"schema": "./src/generators/migrate-brn-checkbox-changed-event/schema.json",
+			"description": "Migrate brn-checkbox changed event to checkedChange"
+		},
+		"migrate-brn-switch-changed-event": {
+			"factory": "./src/generators/migrate-brn-switch-changed-event/compat",
+			"schema": "./src/generators/migrate-brn-switch-changed-event/schema.json",
+			"description": "Migrate brn-switch changed event to checkedChange"
 		}
 	},
 	"schematics": {
@@ -157,6 +167,16 @@
 			"factory": "./src/generators/migrate-hlm/compat",
 			"schema": "./src/generators/migrate-hlm/schema.json",
 			"description": "Migrate hlm import from @spartan-ng/brain to @spartan-ng/helm/utils"
+		},
+		"migrate-brn-checkbox-changed-event": {
+			"factory": "./src/generators/migrate-brn-checkbox-changed-event/compat",
+			"schema": "./src/generators/migrate-brn-checkbox-changed-event/schema.json",
+			"description": "Migrate brn-checkbox changed event to checkedChange"
+		},
+		"migrate-brn-switch-changed-event": {
+			"factory": "./src/generators/migrate-brn-switch-changed-event/compat",
+			"schema": "./src/generators/migrate-brn-switch-changed-event/schema.json",
+			"description": "Migrate brn-switch changed event to checkedChange"
 		}
 	}
 }

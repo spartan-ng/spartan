@@ -1,6 +1,5 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component, viewChild } from '@angular/core';
-import { createApplication } from '@angular/platform-browser';
+import { Component } from '@angular/core';
 import { Code } from '@spartan-ng/app/app/shared/code/code';
 import { MainSection } from '@spartan-ng/app/app/shared/layout/main-section';
 import { PageBottomNavPlaceholder } from '@spartan-ng/app/app/shared/layout/page-bottom-nav-placeholder';
@@ -12,15 +11,7 @@ import { SectionSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub
 import { TabsCli } from '@spartan-ng/app/app/shared/layout/tabs-cli';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
 import { HlmCode, HlmH3, HlmP } from '@spartan-ng/helm/typography';
-import {
-	cssCode,
-	firstSidebar,
-	firstSidebarApp,
-	firstSidebarInitial,
-	SidebarPreviewComponent,
-	usageApp,
-	usageLayout,
-} from './sidebar.preview';
+import { cssCode, firstSidebar, firstSidebarApp, firstSidebarInitial, usageApp, usageLayout } from './sidebar.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'sidebar' },
@@ -48,7 +39,6 @@ export const routeMeta: RouteMeta = {
 	template: `
 		<section spartanMainSection>
 			<spartan-section-intro name="Sidebar" lead="A composable, themeable and customizable sidebar component." />
-			<iframe #iFrameOne></iframe>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
 			<spartan-cli-tabs
@@ -190,28 +180,4 @@ export default class SidebarPageComponent {
 	protected readonly _firstSidebarApp = firstSidebarApp;
 	protected readonly _firstSidebar = firstSidebar;
 	protected readonly _firstSidebarInitial = firstSidebarInitial;
-
-	iFrameOne = viewChild.required<HTMLIFrameElement>('iFrameOne');
-
-	async ngAfterViewInit() {
-		const iframe = this.iFrameOne();
-		const doc = iframe.contentDocument || iframe.contentWindow?.document;
-
-		if (!doc) return;
-
-		// Reset iframe
-		doc.open();
-		doc.write(`<html><body></body></html>`);
-		doc.close();
-
-		// Find the iframe body as host element
-		const host = doc.body;
-
-		// Dynamically bootstrap Angular inside the iframe
-		await createApplication({
-			providers: [],
-		}).then((appRef) => {
-			appRef.bootstrap(SidebarPreviewComponent, host);
-		});
-	}
 }

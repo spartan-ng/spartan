@@ -12,6 +12,7 @@ import {
 	model,
 	numberAttribute,
 	OnInit,
+	output,
 	signal,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -40,6 +41,9 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 	private readonly _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 
 	public readonly value = model<number>(0);
+
+	/** Emits when the value changes. */
+	public readonly valueChange = output<number>();
 
 	public readonly min = input<number, NumberInput>(0, {
 		transform: numberAttribute,
@@ -99,9 +103,11 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 		// ensure the value is within the min and max range
 		if (this.value() < this.min()) {
 			this.value.set(this.min());
+			this.valueChange.emit(this.min());
 		}
 		if (this.value() > this.max()) {
 			this.value.set(this.max());
+			this.valueChange.emit(this.max());
 		}
 	}
 
@@ -123,6 +129,7 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 
 		if (value !== clampedValue) {
 			this._onChange?.(clampedValue);
+			this.valueChange.emit(clampedValue);
 		}
 
 		this._changeDetectorRef.detectChanges();
@@ -138,6 +145,7 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 		value = clamp(snapToStep, [this.min(), this.max()]);
 
 		this.value.set(value);
+		this.valueChange.emit(value);
 		this._onChange?.(value);
 	}
 }

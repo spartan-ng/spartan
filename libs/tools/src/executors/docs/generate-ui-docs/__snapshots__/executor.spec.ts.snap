@@ -1438,6 +1438,10 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "outputs": [
           {
+            "name": "checkedChange",
+            "type": "BrnCheckboxValue",
+          },
+          {
             "name": "changed",
             "type": "BrnCheckboxValue",
           },
@@ -1500,6 +1504,10 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           },
         ],
         "outputs": [
+          {
+            "name": "checkedChange",
+            "type": "CheckboxValue",
+          },
           {
             "name": "changed",
             "type": "boolean",
@@ -2462,10 +2470,14 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [
           {
             "name": "value",
-            "type": "string",
+            "type": "string | null",
           },
         ],
         "outputs": [
+          {
+            "name": "valueChange",
+            "type": "string",
+          },
           {
             "name": "completed",
             "type": "string",
@@ -3320,6 +3332,10 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "outputs": [
           {
+            "name": "valueChange",
+            "type": "T",
+          },
+          {
             "name": "change",
             "type": "BrnRadioChange<T>",
           },
@@ -3472,7 +3488,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "T | T[]",
           },
         ],
-        "outputs": [],
+        "outputs": [
+          {
+            "name": "valueChange",
+            "type": "T | T[]",
+          },
+        ],
         "selector": "brn-select, hlm-select",
       },
       "BrnSelectContent": {
@@ -3919,7 +3940,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "number",
           },
         ],
-        "outputs": [],
+        "outputs": [
+          {
+            "name": "valueChange",
+            "type": "number",
+          },
+        ],
         "selector": "[brnSlider]",
       },
       "BrnSliderRange": {
@@ -4117,6 +4143,10 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "outputs": [
           {
+            "name": "checkedChange",
+            "type": "boolean",
+          },
+          {
             "name": "changed",
             "type": "boolean",
           },
@@ -4175,6 +4205,10 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           },
         ],
         "outputs": [
+          {
+            "name": "checkedChange",
+            "type": "boolean",
+          },
           {
             "name": "changed",
             "type": "boolean",
@@ -4583,6 +4617,10 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           },
         ],
         "outputs": [
+          {
+            "name": "valueChange",
+            "type": "ToggleValue<T>",
+          },
           {
             "name": "change",
             "type": "BrnButtonToggleChange<T>",

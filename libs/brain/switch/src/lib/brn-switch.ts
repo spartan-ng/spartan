@@ -96,6 +96,9 @@ export class BrnSwitch implements AfterContentInit, OnDestroy, ControlValueAcces
 	 */
 	public readonly checked = model<boolean>(false);
 
+	/** Emits when checked state changes. */
+	public readonly checkedChange = output<boolean>();
+
 	/**
 	 * Unique identifier for switch component.
 	 * When provided, inner button gets ID without '-switch' suffix.
@@ -218,6 +221,7 @@ export class BrnSwitch implements AfterContentInit, OnDestroy, ControlValueAcces
 		this.checked.update((checked) => !checked);
 		this._onChange(this.checked());
 		this.changed.emit(this.checked());
+		this.checkedChange.emit(this.checked());
 	}
 
 	public ngAfterContentInit(): void {

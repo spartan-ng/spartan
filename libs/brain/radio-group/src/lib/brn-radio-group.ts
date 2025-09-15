@@ -44,6 +44,9 @@ export class BrnRadioGroup<T = unknown> implements ControlValueAccessor {
 	 */
 	public readonly value = model<T>();
 
+	/** Emits when the value changes. */
+	public readonly valueChange = output<T>();
+
 	/**
 	 * Whether the radio group is disabled.
 	 */
@@ -106,6 +109,7 @@ export class BrnRadioGroup<T = unknown> implements ControlValueAccessor {
 		}
 
 		this.value.set(value);
+		this.valueChange.emit(value);
 		this.onChange(value);
 		this.change.emit(new BrnRadioChange<T>(radioButton, value));
 	}

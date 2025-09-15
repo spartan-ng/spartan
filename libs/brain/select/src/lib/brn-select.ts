@@ -7,21 +7,21 @@ import {
 	OverlayModule,
 } from '@angular/cdk/overlay';
 import {
+	booleanAttribute,
 	ChangeDetectionStrategy,
 	Component,
-	type DoCheck,
-	Injector,
-	type Signal,
-	booleanAttribute,
 	computed,
 	contentChild,
 	contentChildren,
+	type DoCheck,
 	forwardRef,
 	inject,
+	Injector,
 	input,
 	model,
 	numberAttribute,
 	output,
+	type Signal,
 	signal,
 	viewChild,
 } from '@angular/core';
@@ -36,7 +36,7 @@ import {
 import { BrnFormFieldControl } from '@spartan-ng/brain/form-field';
 import { ChangeFn, ErrorStateMatcher, ErrorStateTracker, TouchFn } from '@spartan-ng/brain/forms';
 import { BrnLabel } from '@spartan-ng/brain/label';
-import { Subject, of } from 'rxjs';
+import { of, Subject } from 'rxjs';
 import { delay, map, switchMap } from 'rxjs/operators';
 import { BrnSelectContent } from './brn-select-content';
 import { BrnSelectOption } from './brn-select-option';
@@ -285,9 +285,9 @@ export class BrnSelect<T = unknown>
 	deselectOption(value: T): void {
 		if (this.multiple()) {
 			const currentValue = this.value() as T[];
-			const val = currentValue.filter((val) => !this.compareWith()(val, value));
-			this.value.set(val);
-			this.valueChange.emit(val);
+			const newValue = currentValue.filter((val) => !this.compareWith()(val, value));
+			this.value.set(newValue);
+			this.valueChange.emit(newValue);
 		} else {
 			this.value.set(null as T);
 			this.valueChange.emit(null as T);

@@ -11,10 +11,10 @@ import { hlm } from '@spartan-ng/helm/utils';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmCommandGroupLabel {
-	/*** The user defined class  */
+	/** The user defined class  */
 	public readonly userClass = input<string>('', { alias: 'class' });
 
-	/*** The styles to apply  */
+	/** The styles to apply  */
 	protected readonly _computedClass = computed(() =>
 		hlm('text-muted-foreground px-2 py-1.5 text-xs font-medium', this.userClass()),
 	);

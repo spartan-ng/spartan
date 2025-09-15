@@ -22,8 +22,8 @@ describe('dialog--default', () => {
 				.first()
 				.should('have.attr', 'aria-expanded', 'true');
 			cy.findByRole('dialog');
-			cy.findByRole('dialog').should('have.attr', 'aria-labelledby', 'brn-dialog-title-0');
-			cy.findByRole('dialog').should('have.attr', 'aria-labelledby', 'brn-dialog-title-0');
+			cy.findByRole('dialog').should('have.attr', 'aria-labelledby', 'brn-dialog-title-1');
+			cy.findByRole('dialog').should('have.attr', 'aria-labelledby', 'brn-dialog-title-1');
 			cy.findByRole('dialog').should('have.attr', 'aria-modal', 'true');
 			cy.findByRole('dialog').should('have.attr', 'tabindex', '-1');
 
@@ -52,8 +52,8 @@ describe('dialog--default', () => {
 
 			cy.findAllByText(/edit profile/i).should('have.length', 2);
 			cy.findByRole('dialog');
-			cy.findByRole('dialog').should('have.attr', 'aria-labelledby', 'brn-dialog-title-0');
-			cy.findByRole('dialog').should('have.attr', 'aria-labelledby', 'brn-dialog-title-0');
+			cy.findByRole('dialog').should('have.attr', 'aria-labelledby', 'brn-dialog-title-1');
+			cy.findByRole('dialog').should('have.attr', 'aria-labelledby', 'brn-dialog-title-1');
 			cy.findByRole('dialog').should('have.attr', 'aria-modal', 'true');
 			cy.findByRole('dialog').should('have.attr', 'tabindex', '-1');
 
@@ -83,8 +83,8 @@ describe('dialog--default', () => {
 
 			cy.findAllByText(/edit profile/i).should('have.length', 2);
 			cy.findByRole('dialog');
-			cy.findByRole('dialog').should('have.attr', 'aria-labelledby', 'brn-dialog-title-0');
-			cy.findByRole('dialog').should('have.attr', 'aria-labelledby', 'brn-dialog-title-0');
+			cy.findByRole('dialog').should('have.attr', 'aria-labelledby', 'brn-dialog-title-1');
+			cy.findByRole('dialog').should('have.attr', 'aria-labelledby', 'brn-dialog-title-1');
 			cy.findByRole('dialog').should('have.attr', 'aria-modal', 'true');
 			cy.findByRole('dialog').should('have.attr', 'tabindex', '-1');
 
@@ -113,23 +113,23 @@ describe('dialog--default', () => {
 			cy.findByText(/open dialog/i).should('have.attr', 'aria-haspopup', 'dialog');
 			cy.findByText(/open dialog/i).click();
 
-			cy.get('#brn-dialog-0');
-			cy.get('#brn-dialog-0').should('have.attr', 'aria-labelledby', 'brn-dialog-title-0');
-			cy.get('#brn-dialog-0').should('have.attr', 'aria-labelledby', 'brn-dialog-title-0');
-			cy.get('#brn-dialog-0').should('have.attr', 'aria-modal', 'true');
-			cy.get('#brn-dialog-0').should('have.attr', 'tabindex', '-1');
-
-			cy.findByText(/first dialog/i);
-			cy.findByText(/open nested dialog/i).should('have.attr', 'aria-haspopup', 'dialog');
-			cy.findByText(/open nested dialog/i).click();
-
 			cy.get('#brn-dialog-1');
 			cy.get('#brn-dialog-1').should('have.attr', 'aria-labelledby', 'brn-dialog-title-1');
 			cy.get('#brn-dialog-1').should('have.attr', 'aria-labelledby', 'brn-dialog-title-1');
 			cy.get('#brn-dialog-1').should('have.attr', 'aria-modal', 'true');
 			cy.get('#brn-dialog-1').should('have.attr', 'tabindex', '-1');
 
-			cy.get('#brn-dialog-1')
+			cy.findByText(/first dialog/i);
+			cy.findByText(/open nested dialog/i).should('have.attr', 'aria-haspopup', 'dialog');
+			cy.findByText(/open nested dialog/i).click();
+
+			cy.get('#brn-dialog-2');
+			cy.get('#brn-dialog-2').should('have.attr', 'aria-labelledby', 'brn-dialog-title-2');
+			cy.get('#brn-dialog-2').should('have.attr', 'aria-labelledby', 'brn-dialog-title-2');
+			cy.get('#brn-dialog-2').should('have.attr', 'aria-modal', 'true');
+			cy.get('#brn-dialog-2').should('have.attr', 'tabindex', '-1');
+
+			cy.get('#brn-dialog-2')
 				.findByText(/close nested dialog/i)
 				.click();
 
@@ -154,8 +154,8 @@ describe('dialog--dynamic-component', () => {
 		it('click on button should open dyanmic component, click on close should close, click outside should close', () => {
 			cy.findAllByText(/select user/i).click();
 			cy.findByRole('dialog');
-			cy.findByRole('dialog').should('have.attr', 'aria-labelledby', 'brn-dialog-title-0');
-			cy.findByRole('dialog').should('have.attr', 'aria-labelledby', 'brn-dialog-title-0');
+			cy.findByRole('dialog').should('have.attr', 'aria-labelledby', 'brn-dialog-title-1');
+			cy.findByRole('dialog').should('have.attr', 'aria-labelledby', 'brn-dialog-title-1');
 			cy.findByRole('dialog').should('have.attr', 'aria-modal', 'true');
 			cy.findByRole('dialog').should('have.attr', 'tabindex', '-1');
 			cy.get('dynamic-content');
@@ -183,22 +183,22 @@ describe('dialog--dynamic-component', () => {
 		it('click on trigger should open the first dialog, click on button inside first dialog should open a nested dialog, click on button inside nested dialog closes nested dialog', () => {
 			cy.findByText(/open dialog/i).click();
 
-			cy.get('#brn-dialog-0');
-			cy.get('#brn-dialog-0').should('have.attr', 'aria-labelledby', 'brn-dialog-title-0');
-			cy.get('#brn-dialog-0').should('have.attr', 'aria-labelledby', 'brn-dialog-title-0');
-			cy.get('#brn-dialog-0').should('have.attr', 'aria-modal', 'true');
-			cy.get('#brn-dialog-0').should('have.attr', 'tabindex', '-1');
-
-			cy.findByText(/first dialog/i);
-			cy.findByText(/open nested dialog/i).click();
-
 			cy.get('#brn-dialog-1');
 			cy.get('#brn-dialog-1').should('have.attr', 'aria-labelledby', 'brn-dialog-title-1');
 			cy.get('#brn-dialog-1').should('have.attr', 'aria-labelledby', 'brn-dialog-title-1');
 			cy.get('#brn-dialog-1').should('have.attr', 'aria-modal', 'true');
 			cy.get('#brn-dialog-1').should('have.attr', 'tabindex', '-1');
 
-			cy.get('#brn-dialog-1')
+			cy.findByText(/first dialog/i);
+			cy.findByText(/open nested dialog/i).click();
+
+			cy.get('#brn-dialog-2');
+			cy.get('#brn-dialog-2').should('have.attr', 'aria-labelledby', 'brn-dialog-title-2');
+			cy.get('#brn-dialog-2').should('have.attr', 'aria-labelledby', 'brn-dialog-title-2');
+			cy.get('#brn-dialog-2').should('have.attr', 'aria-modal', 'true');
+			cy.get('#brn-dialog-2').should('have.attr', 'tabindex', '-1');
+
+			cy.get('#brn-dialog-2')
 				.findByText(/close nested dialog/i)
 				.click();
 

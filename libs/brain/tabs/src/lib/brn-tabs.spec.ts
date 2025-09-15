@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input, viewChild } from '@angular/core';
-import { render, RenderResult } from '@testing-library/angular';
+import { render, RenderResult, screen } from '@testing-library/angular';
 import { BrnTabs } from './brn-tabs';
 import { BrnTabsContent } from './brn-tabs-content';
 import { BrnTabsTrigger } from './brn-tabs-trigger';
@@ -10,7 +10,9 @@ import { BrnTabsTrigger } from './brn-tabs-trigger';
 	template: `
 		<div brnTabs="tab1" #tabs="brnTabs">
 			@if (showTrigger()) {
-				<button brnTabsTrigger [brnTabsTrigger]="'tab1'" data-testid="trigger">Tab Trigger</button>
+				<button brnTabsTrigger [brnTabsTrigger]="'tab1'" data-testid="trigger" [disabled]="disabled()">
+					Tab Trigger
+				</button>
 			}
 			@if (showContent()) {
 				<div brnTabsContent [brnTabsContent]="'tab1'" data-testid="content">Tab Content</div>
@@ -24,6 +26,7 @@ class BrnTabsDirectiveSpec {
 
 	public showTrigger = input(true);
 	public showContent = input(true);
+	public disabled = input(false);
 }
 
 describe('BrnTabsDirective', () => {
@@ -71,5 +74,11 @@ describe('BrnTabsDirective', () => {
 		renderResult.fixture.componentRef.setInput('showTrigger', false);
 		renderResult.fixture.detectChanges();
 		expect(renderResult.fixture.componentInstance.tabsDir().$activeTab()).toBeUndefined();
+	});
+
+	it('should have tabindex -1 when it is disabled', async () => {
+		renderResult.fixture.componentRef.setInput('disabled', true);
+		renderResult.fixture.detectChanges();
+		expect(screen.getByTestId('trigger').tabIndex).toBe(-1);
 	});
 });

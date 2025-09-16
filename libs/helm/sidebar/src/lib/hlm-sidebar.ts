@@ -75,7 +75,7 @@ export class HlmSidebar {
 	public readonly sidebarWidthMobile = input(this._config.sidebarWidthMobile);
 
 	public readonly side = input<'left' | 'right'>('left');
-	public readonly variant = input<'sidebar' | 'floating' | 'inset'>('sidebar');
+	public readonly variant = input<'sidebar' | 'floating' | 'inset'>(this._sidebarService.variant());
 	public readonly collapsible = input<'offcanvas' | 'icon' | 'none'>('offcanvas');
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 

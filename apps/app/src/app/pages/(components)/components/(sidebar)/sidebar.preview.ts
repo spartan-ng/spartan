@@ -314,3 +314,232 @@ export class AppSidebar {
   ];
 }
 `;
+
+export const provider = `
+import { ApplicationConfig } from '@angular/core';
+import { provideHlmSidebarConfig } from '@spartan-ng/helm/sidebar';
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    ...
+    provideHlmSidebarConfig({
+      sidebarWidth: '18rem',
+      sidebarWidthMobile: '16rem',
+      sidebarWidthIcon: '4rem',
+    })
+  ],
+};
+
+`;
+
+export const header = `
+import { Component } from '@angular/core';
+import {
+  HlmSidebar,
+  HlmSidebarHeader,
+  HlmSidebarMenu,
+  HlmSidebarMenuButton,
+  HlmSidebarMenuItem,
+  HlmSidebarWrapper,
+} from '@spartan-ng/helm/sidebar';
+import { HlmMenu, HlmMenuStructureImports } from '@spartan-ng/helm/menu';
+import { BrnMenuTrigger } from '@spartan-ng/brain/menu';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { HlmIcon } from '@spartan-ng/helm/icon';
+import { lucideChevronDown } from '@ng-icons/lucide';
+
+@Component({
+  selector: 'app-sidebar',
+  imports: [
+    HlmSidebar,
+    HlmSidebarWrapper,
+    HlmSidebarHeader,
+    HlmSidebarMenu,
+    HlmSidebarMenuItem,
+    HlmMenu,
+    HlmMenuStructureImports,
+    BrnMenuTrigger,
+    HlmSidebarMenuButton,
+    NgIcon,
+    HlmIcon,
+  ],
+  template: \`
+    <div hlmSidebarWrapper>
+      <hlm-sidebar>
+        <div hlmSidebarHeader>
+          <ul hlmSidebarMenu>
+            <li hlmSidebarMenuItem>
+              <button hlmSidebarMenuButton [brnMenuTriggerFor]="menu">
+                Select Workspace
+                <ng-icon hlm name="lucideChevronDown" class="ml-auto" />
+              </button>
+              <ng-template #menu>
+                <hlm-menu class="w-60">
+                  <hlm-menu-label>Acme Inc</hlm-menu-label>
+                  <hlm-menu-label>Acme Corp.</hlm-menu-label>
+                </hlm-menu>
+              </ng-template>
+            </li>
+          </ul>
+        </div>
+      </hlm-sidebar>
+      <ng-content />
+    </div>
+  \`,
+  providers: [
+    provideIcons({
+      lucideChevronDown,
+    }),
+  ],
+})
+export class AppSidebar {}
+`;
+
+export const footer = `
+import { Component } from '@angular/core';
+import {
+  HlmSidebar,
+  HlmSidebarContent,
+  HlmSidebarFooter,
+  HlmSidebarHeader,
+  HlmSidebarMenu,
+  HlmSidebarMenuButton,
+  HlmSidebarMenuItem,
+  HlmSidebarWrapper,
+} from '@spartan-ng/helm/sidebar';
+import { HlmMenu, HlmMenuStructureImports } from '@spartan-ng/helm/menu';
+import { BrnMenuTrigger } from '@spartan-ng/brain/menu';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { HlmIcon } from '@spartan-ng/helm/icon';
+import { lucideChevronUp } from '@ng-icons/lucide';
+
+@Component({
+  selector: 'app-sidebar',
+  imports: [
+    HlmSidebar,
+    HlmSidebarWrapper,
+    HlmSidebarMenu,
+    HlmSidebarMenuItem,
+    HlmMenu,
+    HlmMenuStructureImports,
+    BrnMenuTrigger,
+    HlmSidebarMenuButton,
+    NgIcon,
+    HlmIcon,
+    HlmSidebarFooter,
+    HlmSidebarHeader,
+    HlmSidebarContent,
+  ],
+  template: \`
+    <div hlmSidebarWrapper>
+      <hlm-sidebar>
+        <div hlmSidebarHeader></div>
+        <div hlmSidebarContent></div>
+        <div hlmSidebarFooter>
+          <ul hlmSidebarMenu>
+            <li hlmSidebarMenuItem>
+              <button hlmSidebarMenuButton [brnMenuTriggerFor]="menu">
+                Select Workspace
+                <ng-icon hlm name="lucideChevronUp" class="ml-auto" />
+              </button>
+              <ng-template #menu>
+                <hlm-menu class="w-60">
+                  <hlm-menu-label>Account</hlm-menu-label>
+                  <hlm-menu-label>Billing</hlm-menu-label>
+                  <hlm-menu-label>Sign out</hlm-menu-label>
+                </hlm-menu>
+              </ng-template>
+            </li>
+          </ul>
+        </div>
+      </hlm-sidebar>
+      <ng-content />
+    </div>
+  \`,
+  providers: [
+    provideIcons({
+      lucideChevronUp,
+    }),
+  ],
+})
+export class AppSidebar {}
+`;
+
+export const content = `
+import { Component } from '@angular/core';
+import {
+  HlmSidebar,
+  HlmSidebarContent,
+  HlmSidebarGroup,
+  HlmSidebarWrapper,
+} from '@spartan-ng/helm/sidebar';
+
+@Component({
+  selector: 'app-sidebar',
+  imports: [HlmSidebar, HlmSidebarWrapper, HlmSidebarContent, HlmSidebarGroup],
+  template: \`
+    <div hlmSidebarWrapper>
+      <hlm-sidebar>
+        <div hlmSidebarContent>
+          <div hlmSidebarGroup></div>
+          <div hlmSidebarGroup></div>
+        </div>
+      </hlm-sidebar>
+      <ng-content />
+    </div>
+  \`,
+})
+export class AppSidebar {}`;
+
+export const group = `
+import { Component } from '@angular/core';
+import {
+  HlmSidebar,
+  HlmSidebarContent,
+  HlmSidebarGroup,
+  HlmSidebarGroupAction, HlmSidebarGroupContent,
+  HlmSidebarGroupLabel,
+  HlmSidebarWrapper,
+} from '@spartan-ng/helm/sidebar';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { HlmIcon } from '@spartan-ng/helm/icon';
+import { lucidePlus } from '@ng-icons/lucide';
+
+@Component({
+  selector: 'app-sidebar',
+  imports: [
+    HlmSidebar,
+    HlmSidebarWrapper,
+    HlmSidebarContent,
+    HlmSidebarGroup,
+    HlmSidebarGroupLabel,
+    HlmSidebarGroupAction,
+    NgIcon,
+    HlmIcon,
+    HlmSidebarGroupContent,
+  ],
+  template: \`
+    <div hlmSidebarWrapper>
+      <hlm-sidebar>
+        <div hlmSidebarContent>
+          <div hlmSidebarGroup>
+            <div hlmSidebarGroupLabel>Application</div>
+            <button hlmSidebarGroupAction>
+              <ng-icon hlm name="lucidePlus" />
+              <span class="sr-only">Add Project</span>
+            </button>
+            <div hlmSidebarGroupContent></div>
+          </div>
+        </div>
+      </hlm-sidebar>
+      <ng-content />
+    </div>
+  \`,
+  providers: [
+    provideIcons({
+      lucidePlus,
+    }),
+  ],
+})
+export class AppSidebar {}
+`;

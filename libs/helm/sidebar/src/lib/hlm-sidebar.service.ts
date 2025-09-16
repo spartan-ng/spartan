@@ -1,4 +1,4 @@
-import { DestroyRef, Injectable, Signal, afterNextRender, computed, inject, signal } from '@angular/core';
+import { afterNextRender, computed, DestroyRef, inject, Injectable, Signal, signal } from '@angular/core';
 
 const SIDEBAR_COOKIE_NAME = 'sidebar_state';
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7; // 7 days in seconds
@@ -80,7 +80,9 @@ export class HlmSidebarService {
 	}
 
 	public setOpenMobile(open: boolean): void {
-		if (this._isMobile()) this._openMobile.set(open);
+		if (this._isMobile()) {
+			this._openMobile.set(open);
+		}
 	}
 
 	public setVariant(variant: 'sidebar' | 'floating' | 'inset'): void {
@@ -88,7 +90,10 @@ export class HlmSidebarService {
 	}
 
 	public toggleSidebar(): void {
-		if (this._isMobile()) this._openMobile.update((value) => !value);
-		else this.setOpen(!this._open());
+		if (this._isMobile()) {
+			this._openMobile.update((value) => !value);
+		} else {
+			this.setOpen(!this._open());
+		}
 	}
 }

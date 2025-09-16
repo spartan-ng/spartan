@@ -44,6 +44,7 @@ export * from './lib/hlm-sidebar-separator';
 export * from './lib/hlm-sidebar-trigger';
 export * from './lib/hlm-sidebar-wrapper';
 export * from './lib/hlm-sidebar.service';
+export * from './lib/hlm-sidebar.token';
 
 export const HlmSidebarImports = [
 	HlmSidebar,

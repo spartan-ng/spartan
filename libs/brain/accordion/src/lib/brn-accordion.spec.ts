@@ -98,6 +98,32 @@ describe('BrnAccordionDirective', () => {
 			input: screen.getByTestId('accordion-input'),
 		};
 	};
+
+	const setupWithTextarea = async () => {
+		const container = await render(
+			`
+      <div brnAccordion aria-label="acco">
+        <div brnAccordionItem>
+          <button brnAccordionTrigger aria-label="trigger">
+            Enter description
+          </button>
+          <textarea data-testid="accordion-textarea"></textarea>
+        </div>
+      </div>
+    `,
+			{
+				imports: [BrnAccordion, BrnAccordionItem, BrnAccordionTrigger],
+			},
+		);
+		return {
+			user: userEvent.setup(),
+			container,
+			trigger: screen.getByLabelText('trigger'),
+			accordion: screen.getByLabelText('acco'),
+			textarea: screen.getByTestId('accordion-textarea'),
+		};
+	};
+
 	const validateOpenClosed = async (triggers: HTMLElement[], accordion: HTMLElement, openedTriggers: boolean[]) => {
 		await waitFor(() => {
 			expect(triggers[0]).toHaveAttribute('data-state', openedTriggers[0] ? 'open' : 'closed');
@@ -174,28 +200,38 @@ describe('BrnAccordionDirective', () => {
 			await validateOpenClosed(triggers, accordion, [true, true, true]);
 		});
 	});
-	describe('accordion with input', () => {
-		it('should allow typing space', async () => {
-			const { user, trigger, input } = await setupWithInput();
 
-			// Open the accordion and tab to the input
+	describe('keyboard handling inside form controls', () => {
+		it('should allow typing space in input', async () => {
+			const { user, trigger, input } = await setupWithInput();
 			await user.click(trigger);
 			await user.tab();
 
 			expect(trigger).toHaveAttribute('data-state', 'open');
 			expect(input).toHaveFocus();
 
-			// Type a name with a space
 			await user.type(input, 'John Doe');
 			expect(input).toHaveValue('John Doe');
 
-			// Go back to the trigger and hit space
 			await user.tab({ shift: true });
 			await user.keyboard('[Space]');
-
-			// Trigger should be closed
 			expect(trigger).toHaveAttribute('data-state', 'closed');
 			expect(trigger).toHaveFocus();
+		});
+
+		it('should allow typing enter and space in textarea', async () => {
+			const { user, trigger, textarea } = await setupWithTextarea();
+			await user.click(trigger);
+			await user.tab();
+
+			expect(trigger).toHaveAttribute('data-state', 'open');
+			expect(textarea).toHaveFocus();
+
+			await user.type(textarea, 'Hello{enter}World');
+			expect(textarea).toHaveValue('Hello\nWorld');
+
+			await user.type(textarea, ' with space');
+			expect(textarea).toHaveValue('Hello\nWorld with space');
 		});
 	});
 });

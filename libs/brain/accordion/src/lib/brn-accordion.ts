@@ -163,7 +163,7 @@ export class BrnAccordion implements AfterContentInit, OnDestroy {
 		this._el.nativeElement.addEventListener('keydown', (event: KeyboardEvent) => {
 			const target = event.target as HTMLElement;
 
-			if (target.tagName === 'INPUT') return;
+			if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA') return;
 
 			this._keyManager?.onKeydown(event);
 			this.preventDefaultEvents(event);

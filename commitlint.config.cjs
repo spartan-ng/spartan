@@ -41,6 +41,7 @@ module.exports = {
 				'popover',
 				'progress',
 				'radio-group',
+				'resizable',
 				'scroll-area',
 				'select',
 				'separator',

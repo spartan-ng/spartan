@@ -1,22 +1,12 @@
 import { Component, viewChild } from '@angular/core';
-import { BrnDialog, BrnDialogClose, BrnDialogContent, BrnDialogTrigger } from '@spartan-ng/brain/dialog';
-import { HlmButton } from '@spartan-ng/helm/button';
-import { HlmDialog, HlmDialogContent, HlmDialogHeader, HlmDialogTitle } from '@spartan-ng/helm/dialog';
-import { HlmLabel } from '@spartan-ng/helm/label';
+import { BrnDialog, BrnDialogImports } from '@spartan-ng/brain/dialog';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmDialogImports } from '@spartan-ng/helm/dialog';
+import { HlmLabelImports } from '@spartan-ng/helm/label';
 
 @Component({
 	selector: 'spartan-dialog-close-preview',
-	imports: [
-		BrnDialogTrigger,
-		BrnDialogContent,
-		BrnDialogClose,
-		HlmDialog,
-		HlmDialogContent,
-		HlmDialogHeader,
-		HlmDialogTitle,
-		HlmLabel,
-		HlmButton,
-	],
+	imports: [BrnDialogImports, HlmDialogImports, HlmLabelImports, HlmButtonImports],
 	template: `
 		<hlm-dialog #dialogRef>
 			<button id="edit-profile" brnDialogTrigger hlmBtn>Open</button>

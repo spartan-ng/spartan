@@ -7,7 +7,7 @@ import { PageNav } from '@spartan-ng/app/app/shared/layout/page-nav/page-nav';
 import { SectionIntro } from '@spartan-ng/app/app/shared/layout/section-intro';
 import { SectionSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-heading';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
-import { HlmAspectRatio } from '@spartan-ng/helm/aspect-ratio';
+import { HlmAspectRatioImports } from '@spartan-ng/helm/aspect-ratio';
 import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 
 export const routeMeta: RouteMeta = {
@@ -21,7 +21,15 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-figma',
-	imports: [MainSection, SectionIntro, PageBottomNav, PageBottomNavLink, PageNav, SectionSubHeading, HlmAspectRatio],
+	imports: [
+		MainSection,
+		SectionIntro,
+		PageBottomNav,
+		PageBottomNavLink,
+		PageNav,
+		SectionSubHeading,
+		HlmAspectRatioImports,
+	],
 	template: `
 		<section spartanMainSection>
 			<spartan-section-intro

@@ -2,15 +2,23 @@ import { Component } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideCheck, lucideChevronDown } from '@ng-icons/lucide';
 import { BrnCommandImports } from '@spartan-ng/brain/command';
-import { HlmButton } from '@spartan-ng/helm/button';
-import { HlmCardFooter, HlmCardImports } from '@spartan-ng/helm/card';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmCardImports } from '@spartan-ng/helm/card';
 import { HlmCommandImports } from '@spartan-ng/helm/command';
-import { HlmInput } from '@spartan-ng/helm/input';
-import { HlmLabel } from '@spartan-ng/helm/label';
+import { HlmInputImports } from '@spartan-ng/helm/input';
+import { HlmLabelImports } from '@spartan-ng/helm/label';
 
 @Component({
 	selector: 'spartan-card-preview',
-	imports: [BrnCommandImports, HlmCommandImports, HlmCardImports, HlmLabel, HlmInput, HlmCardFooter, HlmButton],
+	imports: [
+		BrnCommandImports,
+		HlmCommandImports,
+		HlmCardImports,
+		HlmLabelImports,
+		HlmInputImports,
+		HlmCardImports,
+		HlmButtonImports,
+	],
 	providers: [provideIcons({ lucideCheck, lucideChevronDown })],
 	template: `
 		<section class="w-full max-w-sm" hlmCard>
@@ -54,15 +62,7 @@ import { HlmLabel } from '@spartan-ng/helm/label';
 export class CardPreview {}
 
 export const defaultImports = `
-import {
-  HlmCardContent
-  HlmCardDescription
-  HlmCard
-  HlmCardFooter
-  HlmCardHeader
-  HlmCardTitle
-	HlmCardAction
-} from '@spartan-ng/helm/card';
+import { HlmCardImports } from '@spartan-ng/helm/card';
 `;
 
 export const defaultSkeleton = `

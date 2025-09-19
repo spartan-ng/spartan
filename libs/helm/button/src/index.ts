@@ -3,6 +3,8 @@ import { HlmButton } from './lib/hlm-button';
 export * from './lib/hlm-button';
 export * from './lib/hlm-button.token';
 
+export const HlmButtonImports = [HlmButton];
+
 @NgModule({
 	imports: [HlmButton],
 	exports: [HlmButton],

@@ -8,7 +8,7 @@ import { PageNav } from '@spartan-ng/app/app/shared/layout/page-nav/page-nav';
 import { SectionIntro } from '@spartan-ng/app/app/shared/layout/section-intro';
 import { SectionSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-heading';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
-import { HlmAlert } from '@spartan-ng/helm/alert';
+import { HlmAlertImports } from '@spartan-ng/helm/alert';
 import { hlmCode, hlmH4, hlmP, hlmSmall } from '@spartan-ng/helm/typography';
 
 export const routeMeta: RouteMeta = {
@@ -19,7 +19,16 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-theming',
-	imports: [MainSection, SectionIntro, PageBottomNav, PageBottomNavLink, PageNav, SectionSubHeading, Code, HlmAlert],
+	imports: [
+		MainSection,
+		SectionIntro,
+		PageBottomNav,
+		PageBottomNavLink,
+		PageNav,
+		SectionSubHeading,
+		Code,
+		HlmAlertImports,
+	],
 	template: `
 		<section spartanMainSection>
 			<spartan-section-intro name="Theming" lead="Using CSS Variables for theming." />

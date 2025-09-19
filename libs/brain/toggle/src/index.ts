@@ -3,8 +3,10 @@ import { BrnToggle } from './lib/brn-toggle';
 
 export * from './lib/brn-toggle';
 
+export const BrnToggleImports = [BrnToggle] as const;
+
 @NgModule({
-	imports: [BrnToggle],
-	exports: [BrnToggle],
+	imports: [...BrnToggleImports],
+	exports: [...BrnToggleImports],
 })
 export class BrnToggleModule {}

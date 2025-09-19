@@ -53,6 +53,12 @@ describe('healthcheck generator', () => {
 		   <hlm-date-picker-multi (changed)="onDateChange($event)">;`,
 		);
 
+		// add a file with legacy output conventions
+		tree.write('libs/my-lib/src/switch-legacy.component.ts', `<brn-switch (changed)="onChange($event)"/>`);
+
+		// add a file with legacy output conventions
+		tree.write('libs/my-lib/src/checkbox-legacy.component.ts', `<brn-checkbox (changed)="onChange($event)"/>`);
+
 		// add a html file with legacy brain accordion trigger
 		tree.write(
 			'libs/my-lib/src/brn-accordion-trigger-legacy.component.html',
@@ -174,5 +180,19 @@ describe('healthcheck generator', () => {
 
 		expect(contents).toContain(`<h3 class="contents"><button brnAccordionTrigger>`);
 		expect(contents).toContain(`</button></h3>`);
+	});
+
+	it('should update brn-switch output conventions', () => {
+		const contents = tree.read('libs/my-lib/src/switch-legacy.component.ts', 'utf-8');
+
+		expect(contents).toContain('<brn-switch (checkedChange)="onChange($event)"/>');
+		expect(contents).not.toContain('<brn-switch (changed)="onChange($event)"/>');
+	});
+
+	it('should update brn-checkbox output conventions', () => {
+		const contents = tree.read('libs/my-lib/src/checkbox-legacy.component.ts', 'utf-8');
+
+		expect(contents).toContain('<brn-checkbox (checkedChange)="onChange($event)"/>');
+		expect(contents).not.toContain('<brn-checkbox (changed)="onChange($event)"/>');
 	});
 });

@@ -14,13 +14,13 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 		<!-- eslint-disable-next-line @angular-eslint/template/label-has-associated-control -->
 		<label class="flex items-center" hlmLabel>
 			test switch
-			<hlm-switch [(ngModel)]="switchValue" id="testSwitchForm" (changed)="handleChange($event)" />
+			<hlm-switch [(ngModel)]="switchValue" id="testSwitchForm" (checkedChange)="handleChange($event)" />
 		</label>
 
 		<p data-testid="switchValue">{{ switchValue }}</p>
 		<p data-testid="changedValue">{{ changedValueTo }}</p>
 	`,
-	imports: [HlmSwitch, FormsModule],
+	imports: [HlmSwitch, FormsModule, HlmLabel],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SwitchForm {

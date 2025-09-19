@@ -15,6 +15,16 @@
 			"schema": "./src/generators/migrate-brain-imports/schema.json",
 			"description": "Migrate Brain imports to use secondary entrypoints."
 		},
+		"migrate-brn-checkbox-changed-event": {
+			"factory": "./src/generators/migrate-brn-checkbox-changed-event/compat",
+			"schema": "./src/generators/migrate-brn-checkbox-changed-event/schema.json",
+			"description": "Migrate brn-checkbox changed event to checkedChange"
+		},
+		"migrate-brn-switch-changed-event": {
+			"factory": "./src/generators/migrate-brn-switch-changed-event/compat",
+			"schema": "./src/generators/migrate-brn-switch-changed-event/schema.json",
+			"description": "Migrate brn-switch changed event to checkedChange"
+		},
 		"migrate-core": {
 			"factory": "./src/generators/migrate-core/generator",
 			"schema": "./src/generators/migrate-core/schema.json",
@@ -106,6 +116,16 @@
 			"factory": "./src/generators/migrate-brain-imports/compat",
 			"schema": "./src/generators/migrate-brain-imports/schema.json",
 			"description": "Migrate Brain imports to use secondary entrypoints."
+		},
+		"migrate-brn-checkbox-changed-event": {
+			"factory": "./src/generators/migrate-brn-checkbox-changed-event/compat",
+			"schema": "./src/generators/migrate-brn-checkbox-changed-event/schema.json",
+			"description": "Migrate brn-checkbox changed event to checkedChange"
+		},
+		"migrate-brn-switch-changed-event": {
+			"factory": "./src/generators/migrate-brn-switch-changed-event/compat",
+			"schema": "./src/generators/migrate-brn-switch-changed-event/schema.json",
+			"description": "Migrate brn-switch changed event to checkedChange"
 		},
 		"migrate-core": {
 			"factory": "./src/generators/migrate-scroll-area/compat",

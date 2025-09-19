@@ -1,8 +1,8 @@
 import { BooleanInput } from '@angular/cdk/coercion';
 import {
+	booleanAttribute,
 	ChangeDetectionStrategy,
 	Component,
-	booleanAttribute,
 	computed,
 	forwardRef,
 	input,
@@ -16,6 +16,7 @@ import { BrnSwitch, BrnSwitchThumb } from '@spartan-ng/brain/switch';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 import { HlmSwitchThumb } from './hlm-switch-thumb';
+
 export const HLM_SWITCH_VALUE_ACCESSOR = {
 	provide: NG_VALUE_ACCESSOR,
 	useExisting: forwardRef(() => HlmSwitch),
@@ -36,7 +37,7 @@ export const HLM_SWITCH_VALUE_ACCESSOR = {
 		<brn-switch
 			[class]="_computedClass()"
 			[checked]="checked()"
-			(changed)="handleChange($event)"
+			(checkedChange)="handleChange($event)"
 			(touched)="_onTouched?.()"
 			[disabled]="_disabled()"
 			[id]="id()"
@@ -82,9 +83,6 @@ export class HlmSwitch implements ControlValueAccessor {
 	/** Used to set the aria-describedby attribute on the underlying brn element. */
 	public readonly ariaDescribedby = input<string | null>(null, { alias: 'aria-describedby' });
 
-	/** Emits when the checked state of the switch changes. */
-	public readonly changed = output<boolean>();
-
 	protected readonly _disabled = linkedSignal(this.disabled);
 
 	protected _onChange?: ChangeFn<boolean>;
@@ -93,7 +91,6 @@ export class HlmSwitch implements ControlValueAccessor {
 	protected handleChange(value: boolean): void {
 		this.checked.set(value);
 		this._onChange?.(value);
-		this.changed.emit(value);
 		this.checkedChange.emit(value);
 	}
 

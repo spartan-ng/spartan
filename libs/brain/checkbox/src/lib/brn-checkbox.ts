@@ -3,23 +3,23 @@ import { BooleanInput } from '@angular/cdk/coercion';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
 	type AfterContentInit,
+	booleanAttribute,
 	ChangeDetectionStrategy,
 	ChangeDetectorRef,
 	Component,
-	DestroyRef,
-	ElementRef,
-	type OnDestroy,
-	PLATFORM_ID,
-	Renderer2,
-	booleanAttribute,
 	computed,
+	DestroyRef,
 	effect,
+	ElementRef,
 	forwardRef,
 	inject,
 	input,
 	linkedSignal,
 	model,
+	type OnDestroy,
 	output,
+	PLATFORM_ID,
+	Renderer2,
 	signal,
 	viewChild,
 } from '@angular/core';
@@ -197,12 +197,6 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 	public readonly checkbox = viewChild.required<ElementRef<HTMLButtonElement>>('checkBox');
 
 	/**
-	 * Event emitted when checkbox value changes.
-	 * Emits new checked state (true/false/'indeterminate').
-	 */
-	public readonly changed = output<BrnCheckboxValue>();
-
-	/**
 	 * Event emitted when checkbox is blurred (loses focus).
 	 * Used for form validation.
 	 */
@@ -247,7 +241,6 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 		const previousChecked = this.checked();
 		this.checked.set(previousChecked === 'indeterminate' ? true : !previousChecked);
 		this._onChange(this.checked());
-		this.changed.emit(this.checked());
 		this.checkedChange.emit(this.checked());
 	}
 

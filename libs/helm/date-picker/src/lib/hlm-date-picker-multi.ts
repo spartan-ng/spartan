@@ -60,6 +60,7 @@ let nextId = 0;
 				<hlm-calendar-multi
 					calendarClass="border-0 rounded-none"
 					[date]="_mutableDate()"
+					[captionLayout]="captionLayout()"
 					[min]="min()"
 					[max]="max()"
 					[minSelection]="minSelection()"
@@ -90,7 +91,10 @@ export class HlmDatePickerMulti<T> implements ControlValueAccessor {
 	);
 
 	/** The id of the button that opens the date picker. */
-	public readonly buttonId = input<string>(`hlm-date-picker-multi-${nextId++}`);
+	public readonly buttonId = input<string>(`hlm-date-picker-multi-${++nextId}`);
+
+	/** Show dropdowns to navigate between months or years. */
+	public readonly captionLayout = input<'dropdown' | 'label' | 'dropdown-months' | 'dropdown-years'>('label');
 
 	/** The minimum date that can be selected.*/
 	public readonly min = input<T>();

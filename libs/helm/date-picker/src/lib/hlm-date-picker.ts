@@ -58,6 +58,7 @@ let nextId = 0;
 			<div hlmPopoverContent class="w-auto p-0" *brnPopoverContent="let ctx">
 				<hlm-calendar
 					calendarClass="border-0 rounded-none"
+					[captionLayout]="captionLayout()"
 					[date]="_mutableDate()"
 					[min]="min()"
 					[max]="max()"
@@ -87,7 +88,10 @@ export class HlmDatePicker<T> implements ControlValueAccessor {
 	);
 
 	/** The id of the button that opens the date picker. */
-	public readonly buttonId = input<string>(`hlm-date-picker-${nextId++}`);
+	public readonly buttonId = input<string>(`hlm-date-picker-${++nextId}`);
+
+	/** Show dropdowns to navigate between months or years. */
+	public readonly captionLayout = input<'dropdown' | 'label' | 'dropdown-months' | 'dropdown-years'>('label');
 
 	/** The minimum date that can be selected.*/
 	public readonly min = input<T>();

@@ -1,5 +1,10 @@
 import { DIALOG_DATA, Dialog } from '@angular/cdk/dialog';
-import { type ComponentType, OverlayPositionBuilder, ScrollStrategyOptions } from '@angular/cdk/overlay';
+import {
+	type ComponentType,
+	OverlayOutsideClickDispatcher,
+	OverlayPositionBuilder,
+	ScrollStrategyOptions,
+} from '@angular/cdk/overlay';
 import {
 	type EffectRef,
 	type InjectOptions,
@@ -39,6 +44,7 @@ export const injectBrnDialogContext = <DialogContext = any>(options: InjectOptio
 
 @Injectable({ providedIn: 'root' })
 export class BrnDialogService {
+	private readonly _overlayCloseDispatcher = inject(OverlayOutsideClickDispatcher);
 	private readonly _cdkDialog = inject(Dialog);
 	private readonly _rendererFactory = inject(RendererFactory2);
 	private readonly _renderer = this._rendererFactory.createRenderer(null, null);
@@ -139,7 +145,10 @@ export class BrnDialogService {
 
 		if (options?.closeOnOutsidePointerEvents) {
 			cdkDialogRef.outsidePointerEvents.pipe(takeUntil(destroyed$)).subscribe(() => {
-				brnDialogRef.close(undefined, options?.closeDelay);
+				// only close if this is the topmost overlay
+				if (this._overlayCloseDispatcher._attachedOverlays.at(-1) === cdkDialogRef.overlayRef) {
+					brnDialogRef.close(undefined, options?.closeDelay);
+				}
 			});
 		}
 

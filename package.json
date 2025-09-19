@@ -72,6 +72,7 @@
 		"ng-signal-forms": "^1.14.0",
 		"ngx-scrollbar": "18.0.0",
 		"ngx-sonner": "3.0.0",
+		"node-html-parser": "^7.0.1",
 		"ofetch": "^1.4.0",
 		"ohash": "^1.1.4",
 		"postgres": "^3.4.4",

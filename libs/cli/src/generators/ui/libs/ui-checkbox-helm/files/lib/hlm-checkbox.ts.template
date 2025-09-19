@@ -87,6 +87,9 @@ export class HlmCheckbox implements ControlValueAccessor {
 	/** The checked state of the checkbox. */
 	public readonly checked = model<CheckboxValue>(false);
 
+	/** Emits when checked state changes. */
+	public readonly checkedChange = output<CheckboxValue>();
+
 	/** The name attribute of the checkbox. */
 	public readonly name = input<string | null>(null);
 
@@ -112,6 +115,7 @@ export class HlmCheckbox implements ControlValueAccessor {
 		this.checked.set(previousChecked === 'indeterminate' ? true : !previousChecked);
 		this._onChange?.(!previousChecked);
 		this.changed.emit(!previousChecked);
+		this.checkedChange.emit(!previousChecked);
 	}
 
 	/** CONTROL VALUE ACCESSOR */

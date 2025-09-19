@@ -10,6 +10,7 @@ import {
 	HostListener,
 	inject,
 	input,
+	isDevMode,
 	type OnDestroy,
 	signal,
 	untracked,
@@ -109,7 +110,12 @@ export class BrnAccordionTrigger implements FocusableOption {
 
 		const parent = element.parentElement;
 		if (!parent) {
-			throw Error('BrnAccordionTrigger: The trigger button must be wrapped in a heading element.');
+			const message = 'BrnAccordionTrigger: The trigger button must be wrapped in a heading element.';
+			if (isDevMode()) {
+				throw Error(message);
+			} else {
+				console.warn(message);
+			}
 		}
 
 		const isNativeHeading = /^H[1-6]$/.test(parent.tagName);

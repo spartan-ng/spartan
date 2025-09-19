@@ -87,7 +87,7 @@ export const routeMeta: RouteMeta = {
 				<code class="${hlmCode}">Drizzle</code>
 			</p>
 			<div class="mt-6 flex items-center justify-end">
-				<a routerLink="/stack" variant="outline" size="sm" hlmBtn outline="">
+				<a routerLink="/stack" variant="secondary" size="sm" hlmBtn outline="">
 					Check out spartan/stack
 					<ng-icon hlm name="lucideChevronRight" class="ml-2" size="sm" />
 				</a>
@@ -108,7 +108,7 @@ export const routeMeta: RouteMeta = {
 				look.
 			</p>
 			<div class="mt-6 flex items-center justify-end">
-				<a routerLink="/documentation/installation" variant="outline" size="sm" hlmBtn outline="">
+				<a routerLink="/documentation/installation" variant="secondary" size="sm" hlmBtn outline="">
 					Check out spartan/ui
 					<ng-icon hlm name="lucideChevronRight" class="ml-2" size="sm" />
 				</a>
@@ -116,41 +116,49 @@ export const routeMeta: RouteMeta = {
 			<spartan-section-sub-heading id="faq">FAQ</spartan-section-sub-heading>
 			<div hlmAccordion>
 				<div hlmAccordionItem>
-					<button hlmAccordionTrigger>
-						<span>What is spartan/stack</span>
-						<ng-icon name="lucideChevronDown" hlm hlmAccIcon />
-					</button>
-					<hlm-accordion-content>
-						It is a collection of full-stack technologies that power end-to-end type-safe Angular development.
-					</hlm-accordion-content>
+					<h3 class="contents">
+						<button hlmAccordionTrigger>
+							<span>What is spartan/stack</span>
+							<ng-icon name="lucideChevronDown" hlm hlmAccIcon />
+						</button>
+						<hlm-accordion-content>
+							It is a collection of full-stack technologies that power end-to-end type-safe Angular development.
+						</hlm-accordion-content>
+					</h3>
 				</div>
 
 				<div hlmAccordionItem>
-					<button hlmAccordionTrigger>
-						<span>What is spartan/ui</span>
-						<ng-icon name="lucideChevronDown" hlm hlmAccIcon />
-					</button>
-					<hlm-accordion-content>
-						A collection of Angular UI primitives that are both beautiful and accessible.
-					</hlm-accordion-content>
+					<h3 class="contents">
+						<button hlmAccordionTrigger>
+							<span>What is spartan/ui</span>
+							<ng-icon name="lucideChevronDown" hlm hlmAccIcon />
+						</button>
+						<hlm-accordion-content>
+							A collection of Angular UI primitives that are both beautiful and accessible.
+						</hlm-accordion-content>
+					</h3>
 				</div>
 				<div hlmAccordionItem>
-					<button hlmAccordionTrigger>
-						<span>What is spartan/ui/brain</span>
-						<ng-icon name="lucideChevronDown" hlm hlmAccIcon />
-					</button>
-					<hlm-accordion-content>
-						A collection of unstyled UI primitives that provide accessibility out of the box.
-					</hlm-accordion-content>
+					<h3 class="contents">
+						<button hlmAccordionTrigger>
+							<span>What is spartan/ui/brain</span>
+							<ng-icon name="lucideChevronDown" hlm hlmAccIcon />
+						</button>
+						<hlm-accordion-content>
+							A collection of unstyled UI primitives that provide accessibility out of the box.
+						</hlm-accordion-content>
+					</h3>
 				</div>
 				<div hlmAccordionItem>
-					<button hlmAccordionTrigger>
-						<span>What is spartan/ui/helm</span>
-						<ng-icon name="lucideChevronDown" hlm hlmAccIcon />
-					</button>
-					<hlm-accordion-content>
-						Directives, sometimes additional components, that give spartan/brain a shadcn look.
-					</hlm-accordion-content>
+					<h3 class="contents">
+						<button hlmAccordionTrigger>
+							<span>What is spartan/ui/helm</span>
+							<ng-icon name="lucideChevronDown" hlm hlmAccIcon />
+						</button>
+						<hlm-accordion-content>
+							Directives, sometimes additional components, that give spartan/brain a shadcn look.
+						</hlm-accordion-content>
+					</h3>
 				</div>
 			</div>
 

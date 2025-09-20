@@ -35,6 +35,7 @@ export type PrimitiveSnippet =
 	| 'select'
 	| 'separator'
 	| 'sheet'
+	| 'sidebar'
 	| 'skeleton'
 	| 'slider'
 	| 'sonner'

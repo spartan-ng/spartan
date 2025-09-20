@@ -1,4 +1,4 @@
-import { computed, Directive, ElementRef, inject, input, OnInit } from '@angular/core';
+import { computed, Directive, inject, input } from '@angular/core';
 import { hlm } from '@spartan-ng/helm/utils';
 
 import { HlmSidebarService } from './hlm-sidebar.service';
@@ -17,8 +17,7 @@ import type { ClassValue } from 'clsx';
 		'(click)': 'onClick()',
 	},
 })
-export class HlmSidebarRail implements OnInit {
-	private readonly _element = inject<ElementRef<HTMLButtonElement>>(ElementRef);
+export class HlmSidebarRail {
 	private readonly _sidebarService = inject(HlmSidebarService);
 
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
@@ -33,12 +32,6 @@ export class HlmSidebarRail implements OnInit {
 			this.userClass(),
 		),
 	);
-
-	ngOnInit() {
-		if (this._element.nativeElement.tagName.toLowerCase() !== 'button') {
-			console.warn('hlmSidebarRail directive should only be used on <button> elements');
-		}
-	}
 
 	protected onClick(): void {
 		this._sidebarService.toggleSidebar();

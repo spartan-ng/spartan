@@ -1,4 +1,4 @@
-import { computed, Directive, ElementRef, inject, input, OnInit } from '@angular/core';
+import { computed, Directive, input } from '@angular/core';
 import { hlm } from '@spartan-ng/helm/utils';
 
 import type { ClassValue } from 'clsx';
@@ -11,9 +11,7 @@ import type { ClassValue } from 'clsx';
 		'[class]': '_computedClass()',
 	},
 })
-export class HlmSidebarContent implements OnInit {
-	private readonly _element = inject<ElementRef<HTMLDivElement>>(ElementRef);
-
+export class HlmSidebarContent {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>
 		hlm(
@@ -21,10 +19,4 @@ export class HlmSidebarContent implements OnInit {
 			this.userClass(),
 		),
 	);
-
-	ngOnInit() {
-		if (this._element.nativeElement.tagName.toLowerCase() !== 'div') {
-			console.warn('hlmSidebarContent directive should only be used on <div> elements');
-		}
-	}
 }

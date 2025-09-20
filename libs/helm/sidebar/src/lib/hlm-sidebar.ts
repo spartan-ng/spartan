@@ -3,7 +3,7 @@ import { BrnSheetContent } from '@spartan-ng/brain/sheet';
 import { HlmSheet, HlmSheetContent } from '@spartan-ng/helm/sheet';
 import { hlm } from '@spartan-ng/helm/utils';
 
-import { HlmSidebarService } from './hlm-sidebar.service';
+import { HlmSidebarService, SidebarVariant } from './hlm-sidebar.service';
 
 import { NgTemplateOutlet } from '@angular/common';
 import type { ClassValue } from 'clsx';
@@ -75,7 +75,7 @@ export class HlmSidebar {
 	public readonly sidebarWidthMobile = input(this._config.sidebarWidthMobile);
 
 	public readonly side = input<'left' | 'right'>('left');
-	public readonly variant = input<'sidebar' | 'floating' | 'inset'>(this._sidebarService.variant());
+	public readonly variant = input<SidebarVariant>(this._sidebarService.variant());
 	public readonly collapsible = input<'offcanvas' | 'icon' | 'none'>('offcanvas');
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 

@@ -1,4 +1,4 @@
-import { computed, Directive, ElementRef, inject, OnInit } from '@angular/core';
+import { computed, Directive } from '@angular/core';
 import { HlmInput, inputVariants } from '@spartan-ng/helm/input';
 import { hlm } from '@spartan-ng/helm/utils';
 
@@ -10,9 +10,7 @@ import { hlm } from '@spartan-ng/helm/utils';
 		'[class]': '_computedClass()',
 	},
 })
-export class HlmSidebarInput extends HlmInput implements OnInit {
-	private readonly _element = inject<ElementRef<HTMLInputElement>>(ElementRef);
-
+export class HlmSidebarInput extends HlmInput {
 	protected override readonly _computedClass = computed(() =>
 		hlm(
 			inputVariants({ error: this._state().error }),
@@ -20,10 +18,4 @@ export class HlmSidebarInput extends HlmInput implements OnInit {
 			this.userClass(),
 		),
 	);
-
-	ngOnInit() {
-		if (this._element.nativeElement.tagName.toLowerCase() !== 'input') {
-			console.warn('hlmSidebarInput directive should only be used on <input> elements');
-		}
-	}
 }

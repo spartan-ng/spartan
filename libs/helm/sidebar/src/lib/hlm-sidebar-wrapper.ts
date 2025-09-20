@@ -1,4 +1,4 @@
-import { Directive, ElementRef, computed, inject, input } from '@angular/core';
+import { computed, Directive, input } from '@angular/core';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 import { injectHlmSidebarConfig } from './hlm-sidebar.token';
@@ -13,7 +13,6 @@ import { injectHlmSidebarConfig } from './hlm-sidebar.token';
 	},
 })
 export class HlmSidebarWrapper {
-	private readonly _element = inject<ElementRef<HTMLElement>>(ElementRef);
 	private readonly _config = injectHlmSidebarConfig();
 
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
@@ -23,10 +22,4 @@ export class HlmSidebarWrapper {
 
 	public readonly sidebarWidth = input(this._config.sidebarWidth);
 	public readonly sidebarWidthIcon = input(this._config.sidebarWidthIcon);
-
-	constructor() {
-		if (this._element.nativeElement.tagName.toLowerCase() !== 'div') {
-			console.warn('hlmSidebarWrapper directive should only be used on <div> elements');
-		}
-	}
 }

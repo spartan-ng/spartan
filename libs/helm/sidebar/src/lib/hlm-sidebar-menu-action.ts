@@ -1,4 +1,4 @@
-import { computed, Directive, ElementRef, inject, input, OnInit } from '@angular/core';
+import { computed, Directive, input } from '@angular/core';
 import { hlm } from '@spartan-ng/helm/utils';
 
 import type { ClassValue } from 'clsx';
@@ -11,9 +11,7 @@ import type { ClassValue } from 'clsx';
 		'[class]': '_computedClass()',
 	},
 })
-export class HlmSidebarMenuAction implements OnInit {
-	private readonly _element = inject<ElementRef<HTMLButtonElement>>(ElementRef);
-
+export class HlmSidebarMenuAction {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	public readonly showOnHover = input<boolean>(false);
 	protected readonly _computedClass = computed(() =>
@@ -30,10 +28,4 @@ export class HlmSidebarMenuAction implements OnInit {
 			this.userClass(),
 		),
 	);
-
-	ngOnInit() {
-		if (this._element.nativeElement.tagName.toLowerCase() !== 'button') {
-			console.warn('hlmSidebarMenuAction directive should only be used on <button> elements');
-		}
-	}
 }

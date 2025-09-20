@@ -1,12 +1,10 @@
-import { Component, Input, ViewEncapsulation, booleanAttribute, inject, input } from '@angular/core';
-import { NgIcon } from '@ng-icons/core';
+import { booleanAttribute, Component, inject, Input, input, ViewEncapsulation } from '@angular/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
 import { marked } from 'marked';
 import { gfmHeadingId } from 'marked-gfm-heading-id';
 import { markedHighlight } from 'marked-highlight';
 
 import { Clipboard } from '@angular/cdk/clipboard';
-
-import { provideIcons } from '@ng-icons/core';
 import { lucideCheck, lucideClipboard } from '@ng-icons/lucide';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmIcon } from '@spartan-ng/helm/icon';
@@ -21,7 +19,7 @@ import 'prismjs/components/prism-typescript';
 declare const Prism: typeof import('prismjs');
 
 @Component({
-	selector: '	spartan-code',
+	selector: 'spartan-code',
 	imports: [HlmButton, NgIcon, HlmIcon],
 	providers: [provideIcons({ lucideClipboard, lucideCheck })],
 	host: {

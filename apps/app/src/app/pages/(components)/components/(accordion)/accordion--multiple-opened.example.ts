@@ -1,27 +1,12 @@
 import { Component, signal } from '@angular/core';
 import { NgIcon } from '@ng-icons/core';
-import {
-	HlmAccordion,
-	HlmAccordionContent,
-	HlmAccordionIcon,
-	HlmAccordionItem,
-	HlmAccordionTrigger,
-} from '@spartan-ng/helm/accordion';
-import { HlmButton } from '@spartan-ng/helm/button';
-import { HlmIcon } from '@spartan-ng/helm/icon';
+import { HlmAccordionImports } from '@spartan-ng/helm/accordion';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmIconImports } from '@spartan-ng/helm/icon';
 
 @Component({
 	selector: 'spartan-accordion-multiple-opened',
-	imports: [
-		HlmButton,
-		HlmAccordion,
-		HlmAccordionItem,
-		HlmAccordionTrigger,
-		HlmAccordionContent,
-		HlmAccordionIcon,
-		NgIcon,
-		HlmIcon,
-	],
+	imports: [HlmButtonImports, HlmAccordionImports, HlmIconImports, NgIcon],
 	template: `
 		<div hlmAccordion type="multiple" class="pb-4">
 			<div hlmAccordionItem [isOpened]="true">

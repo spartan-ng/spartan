@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { HlmCalendarRange } from '@spartan-ng/helm/calendar';
+import { HlmCalendarImports } from '@spartan-ng/helm/calendar';
 
 @Component({
 	selector: 'spartan-calendar-range',
-	imports: [HlmCalendarRange],
+	imports: [HlmCalendarImports],
 	template: `
 		<hlm-calendar-range [(startDate)]="start" [(endDate)]="end" [min]="minDate" [max]="maxDate" />
 	`,

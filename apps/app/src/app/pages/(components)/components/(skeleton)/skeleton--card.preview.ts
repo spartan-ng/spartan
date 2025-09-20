@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 
-import { HlmSkeleton } from '@spartan-ng/helm/skeleton';
+import { HlmSkeletonImports } from '@spartan-ng/helm/skeleton';
 
 @Component({
 	selector: 'spartan-skeleton-card',
-	imports: [HlmSkeleton],
+	imports: [HlmSkeletonImports],
 	template: `
 		<div class="flex flex-col space-y-3">
 			<hlm-skeleton class="h-[125px] w-[250px] rounded-xl" />

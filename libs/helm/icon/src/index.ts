@@ -4,8 +4,10 @@ import { HlmIcon } from './lib/hlm-icon';
 export * from './lib/hlm-icon';
 export * from './lib/hlm-icon.token';
 
+export const HlmIconImports = [HlmIcon];
+
 @NgModule({
-	imports: [HlmIcon],
-	exports: [HlmIcon],
+	imports: [...HlmIconImports],
+	exports: [...HlmIconImports],
 })
 export class HlmIconModule {}

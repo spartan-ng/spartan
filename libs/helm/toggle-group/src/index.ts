@@ -5,8 +5,10 @@ import { HlmToggleGroupItem } from './lib/hlm-toggle-item';
 export * from './lib/hlm-toggle-group';
 export * from './lib/hlm-toggle-item';
 
+export const HlmToggleGroupImports = [HlmToggleGroup, HlmToggleGroupItem] as const;
+
 @NgModule({
-	imports: [HlmToggleGroupItem, HlmToggleGroup],
-	exports: [HlmToggleGroupItem, HlmToggleGroup],
+	imports: [...HlmToggleGroupImports],
+	exports: [...HlmToggleGroupImports],
 })
 export class HlmToggleGroupModule {}

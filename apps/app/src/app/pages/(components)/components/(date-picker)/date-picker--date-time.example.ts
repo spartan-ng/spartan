@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { HlmDatePicker } from '@spartan-ng/helm/date-picker';
-import { HlmInput } from '@spartan-ng/helm/input';
-import { HlmLabel } from '@spartan-ng/helm/label';
+import { HlmDatePickerImports } from '@spartan-ng/helm/date-picker';
+import { HlmInputImports } from '@spartan-ng/helm/input';
+import { HlmLabelImports } from '@spartan-ng/helm/label';
 
 @Component({
 	selector: 'spartan-date-and-time-picker',
-	imports: [HlmDatePicker, HlmLabel, HlmInput],
+	imports: [HlmDatePickerImports, HlmLabelImports, HlmInputImports],
 	template: `
 		<div class="flex gap-4">
 			<div class="flex flex-col gap-3">

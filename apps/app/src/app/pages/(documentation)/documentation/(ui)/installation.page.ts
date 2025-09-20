@@ -3,8 +3,8 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronRight } from '@ng-icons/lucide';
-import { HlmButton } from '@spartan-ng/helm/button';
-import { HlmIcon } from '@spartan-ng/helm/icon';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmIconImports } from '@spartan-ng/helm/icon';
 import { hlmCode, hlmH4, hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { MainSection } from '../../../../shared/layout/main-section';
@@ -33,9 +33,9 @@ export const routeMeta: RouteMeta = {
 		PageNav,
 		SectionSubHeading,
 		Code,
-		HlmButton,
+		HlmButtonImports,
 		NgIcon,
-		HlmIcon,
+		HlmIconImports,
 		RouterLink,
 		TabsCli,
 	],
@@ -191,9 +191,9 @@ module.exports = {
 				code="
 :root {
   color-scheme: light;
-  
+
   --font-sans: 'Geist Sans', sans-serif;
-  
+
   --background: 0 0% 100%;
   --foreground: 240 10% 3.9%;
   --card: 0 0% 100%;

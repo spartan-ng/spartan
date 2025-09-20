@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { HlmScrollArea } from '@spartan-ng/helm/scroll-area';
-import { HlmSeparator } from '@spartan-ng/helm/separator';
+import { HlmScrollAreaImports } from '@spartan-ng/helm/scroll-area';
+import { HlmSeparatorImports } from '@spartan-ng/helm/separator';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 
 @Component({
 	selector: 'spartan-scroll-area-preview',
-	imports: [HlmSeparator, HlmScrollArea, NgScrollbarModule],
+	imports: [HlmSeparatorImports, HlmScrollAreaImports, NgScrollbarModule],
 	template: `
 		<ng-scrollbar hlm class="border-border h-72 w-48 rounded-md border" visibility="hover">
 			<div class="p-4">
@@ -25,7 +25,7 @@ export class ScrollAreaPreview {
 }
 
 export const defaultImports = `
-import { HlmScrollArea } from '@spartan-ng/helm/scroll-area';
+import { HlmScrollAreaImports } from '@spartan-ng/helm/scroll-area';
 `;
 export const defaultSkeleton = `
 <ng-scrollbar hlm class="border w-72 rounded-md border-border">

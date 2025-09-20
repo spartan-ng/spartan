@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HlmLabel } from '@spartan-ng/helm/label';
-import { HlmRadio, HlmRadioGroup, HlmRadioIndicator } from '@spartan-ng/helm/radio-group';
+import { HlmLabelImports } from '@spartan-ng/helm/label';
+import { HlmRadioGroupImports } from '@spartan-ng/helm/radio-group';
 
 @Component({
 	selector: 'spartan-radio-group-preview',
-	imports: [FormsModule, HlmRadio, HlmRadioIndicator, HlmRadioGroup, HlmLabel],
+	imports: [FormsModule, HlmRadioGroupImports, HlmLabelImports],
 	template: `
 		<hlm-radio-group [(ngModel)]="spacing">
 			<label class="flex items-center gap-3" hlmLabel>
@@ -34,11 +34,7 @@ export class RadioGroupPreview {
 }
 
 export const defaultImports = `
-import {
-  HlmRadio
-  HlmRadioGroup
-  HlmRadioIndicator
-} from '@spartan-ng/helm/radio-group';
+import { HlmRadioGroupImports } from '@spartan-ng/helm/radio-group';
 `;
 export const defaultSkeleton = `
 <hlm-radio-group>

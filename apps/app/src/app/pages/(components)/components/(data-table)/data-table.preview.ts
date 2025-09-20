@@ -2,13 +2,13 @@ import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown } from '@ng-icons/lucide';
-import { BrnMenuTrigger } from '@spartan-ng/brain/menu';
-import { BrnSelectModule } from '@spartan-ng/brain/select';
-import { HlmButtonModule } from '@spartan-ng/helm/button';
-import { HlmIcon } from '@spartan-ng/helm/icon';
-import { HlmInput } from '@spartan-ng/helm/input';
-import { HlmMenuModule } from '@spartan-ng/helm/menu';
-import { HlmSelectModule } from '@spartan-ng/helm/select';
+import { BrnMenuImports } from '@spartan-ng/brain/menu';
+import { BrnSelectImports } from '@spartan-ng/brain/select';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmIconImports } from '@spartan-ng/helm/icon';
+import { HlmInputImports } from '@spartan-ng/helm/input';
+import { HlmMenuImports } from '@spartan-ng/helm/menu';
+import { HlmSelectImports } from '@spartan-ng/helm/select';
 import { HlmTableImports } from '@spartan-ng/helm/table';
 import { hlmMuted } from '@spartan-ng/helm/typography';
 import {
@@ -40,15 +40,15 @@ export type Payment = {
 	imports: [
 		FlexRenderDirective,
 		FormsModule,
-		BrnMenuTrigger,
-		HlmMenuModule,
-		HlmButtonModule,
+		BrnMenuImports,
+		HlmMenuImports,
+		HlmButtonImports,
 		NgIcon,
-		HlmIcon,
-		HlmInput,
-		BrnSelectModule,
-		HlmSelectModule,
-		...HlmTableImports,
+		HlmIconImports,
+		HlmInputImports,
+		BrnSelectImports,
+		HlmSelectImports,
+		HlmTableImports,
 	],
 	providers: [provideIcons({ lucideChevronDown })],
 	host: {

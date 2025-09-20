@@ -1,41 +1,12 @@
 import { Component } from '@angular/core';
 
-import { BrnContextMenuTrigger, BrnMenuTrigger } from '@spartan-ng/brain/menu';
+import { BrnMenuImports } from '@spartan-ng/brain/menu';
 
-import {
-	HlmMenu,
-	HlmMenuGroup,
-	HlmMenuItem,
-	HlmMenuItemCheck,
-	HlmMenuItemCheckbox,
-	HlmMenuItemRadio,
-	HlmMenuItemRadioIndicator,
-	HlmMenuItemSubIndicator,
-	HlmMenuLabel,
-	HlmMenuSeparator,
-	HlmMenuShortcut,
-	HlmSubMenu,
-} from '@spartan-ng/helm/menu';
+import { HlmMenuImports } from '@spartan-ng/helm/menu';
 
 @Component({
 	selector: 'spartan-context-menu-preview',
-	imports: [
-		BrnMenuTrigger,
-		BrnContextMenuTrigger,
-		HlmMenu,
-		HlmSubMenu,
-		HlmMenuItem,
-		HlmMenuItemSubIndicator,
-		HlmMenuLabel,
-		HlmMenuShortcut,
-		HlmMenuSeparator,
-		HlmMenuItemCheck,
-		HlmMenuItemRadio,
-		HlmMenuGroup,
-		HlmMenuItemCheckbox,
-		HlmMenuItemRadio,
-		HlmMenuItemRadioIndicator,
-	],
+	imports: [BrnMenuImports, HlmMenuImports],
 	template: `
 		<div
 			[brnCtxMenuTriggerFor]="menu"
@@ -115,22 +86,8 @@ import {
 export class ContextMenuPreview {}
 
 export const defaultImports = `
-import { BrnContextMenuTrigger, BrnMenuTrigger } from '@spartan-ng/brain/menu';
-import {
-  HlmMenu
-  HlmMenuGroup
-  HlmMenuItemCheck
-  HlmMenuItemCheckbox
-  HlmMenuItem
-  HlmMenuItemIcon
-  HlmMenuItemRadio
-  HlmMenuItemRadio
-  HlmMenuItemSubIndicator
-  HlmMenuLabel
-  HlmMenuSeparator
-  HlmMenuShortcut
-  HlmSubMenu
-} from '@spartan-ng/helm/menu';
+import { BrnContextMenuImports } from '@spartan-ng/brain/menu';
+import { HlmMenuImports } from '@spartan-ng/helm/menu';
 `;
 
 export const defaultSkeleton = `

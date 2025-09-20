@@ -3,8 +3,10 @@ import { BrnLabel } from './lib/brn-label';
 
 export * from './lib/brn-label';
 
+export const BrnLabelImports = [BrnLabel] as const;
+
 @NgModule({
-	imports: [BrnLabel],
-	exports: [BrnLabel],
+	imports: [...BrnLabelImports],
+	exports: [...BrnLabelImports],
 })
 export class BrnLabelModule {}

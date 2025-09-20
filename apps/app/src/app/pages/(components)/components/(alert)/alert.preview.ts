@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCircleAlert, lucideCircleCheck, lucidePopcorn } from '@ng-icons/lucide';
-import { HlmAlert, HlmAlertDescription, HlmAlertIcon, HlmAlertTitle } from '@spartan-ng/helm/alert';
+import { HlmAlertImports } from '@spartan-ng/helm/alert';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 
 @Component({
 	selector: 'spartan-alert-preview',
-	imports: [HlmAlertDescription, HlmAlert, HlmAlertIcon, HlmAlertTitle, NgIcon, HlmIcon],
+	imports: [HlmAlertImports, NgIcon, HlmIcon],
 	providers: [provideIcons({ lucideCircleCheck, lucidePopcorn, lucideCircleAlert })],
 	template: `
 		<div class="grid w-full max-w-xl items-start gap-4">
@@ -37,12 +37,7 @@ import { HlmIcon } from '@spartan-ng/helm/icon';
 export class AlertPreview {}
 
 export const defaultImports = `
-import {
-  HlmAlertDescription
-  HlmAlert
-  HlmAlertIcon
-  HlmAlertTitle
-} from '@spartan-ng/helm/alert';
+import { HlmAlertImports } from '@spartan-ng/helm/alert';
 `;
 
 export const defaultSkeleton = `

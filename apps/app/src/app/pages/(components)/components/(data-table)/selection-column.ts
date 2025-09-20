@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { HlmCheckbox } from '@spartan-ng/helm/checkbox';
+import { HlmCheckboxImports } from '@spartan-ng/helm/checkbox';
 import { CellContext, HeaderContext, injectFlexRenderContext } from '@tanstack/angular-table';
 
 @Component({
-	imports: [HlmCheckbox],
+	imports: [HlmCheckboxImports],
 	template: `
 		<hlm-checkbox [checked]="_checkedState()" (changed)="_context.table.toggleAllRowsSelected()" />
 	`,
@@ -27,7 +27,7 @@ export class TableHeadSelection<T> {
 }
 
 @Component({
-	imports: [HlmCheckbox],
+	imports: [HlmCheckboxImports],
 	template: `
 		<hlm-checkbox
 			type="checkbox"

@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
-
-import { BrnContextMenuTrigger } from '@spartan-ng/brain/menu';
-
-import { HlmMenu, HlmMenuGroup, HlmMenuItem, HlmMenuShortcut } from '@spartan-ng/helm/menu';
+import { BrnContextMenuImports } from '@spartan-ng/brain/menu';
+import { HlmMenuImports } from '@spartan-ng/helm/menu';
 
 @Component({
 	selector: 'spartan-context-menu-with-state',
-	imports: [BrnContextMenuTrigger, HlmMenu, HlmMenuItem, HlmMenuShortcut, HlmMenuGroup],
+	imports: [BrnContextMenuImports, HlmMenuImports],
 	template: `
 		<div
 			[brnCtxMenuTriggerData]="{ $implicit: { data: 'SomeValue' } }"

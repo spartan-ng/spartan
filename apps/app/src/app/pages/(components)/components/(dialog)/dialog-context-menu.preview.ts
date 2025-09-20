@@ -1,27 +1,13 @@
 import { Component } from '@angular/core';
-import { BrnDialogContent, BrnDialogTrigger } from '@spartan-ng/brain/dialog';
-import { BrnContextMenuTrigger } from '@spartan-ng/brain/menu';
-import { HlmButton } from '@spartan-ng/helm/button';
-import { HlmDialog, HlmDialogContent, HlmDialogFooter, HlmDialogHeader } from '@spartan-ng/helm/dialog';
-
-import { HlmMenu, HlmMenuGroup, HlmMenuItem, HlmMenuShortcut } from '@spartan-ng/helm/menu';
+import { BrnDialogImports } from '@spartan-ng/brain/dialog';
+import { BrnContextMenuImports } from '@spartan-ng/brain/menu';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmDialogImports } from '@spartan-ng/helm/dialog';
+import { HlmMenuImports } from '@spartan-ng/helm/menu';
 
 @Component({
 	selector: 'spartan-dialog-context-menu',
-	imports: [
-		BrnDialogTrigger,
-		BrnDialogContent,
-		HlmDialogContent,
-		HlmDialog,
-		HlmDialogHeader,
-		HlmDialogFooter,
-		HlmButton,
-		BrnContextMenuTrigger,
-		HlmMenuItem,
-		HlmMenuShortcut,
-		HlmMenu,
-		HlmMenuGroup,
-	],
+	imports: [BrnDialogImports, HlmDialogImports, HlmButtonImports, BrnContextMenuImports, HlmMenuImports],
 	template: `
 		<div
 			[brnCtxMenuTriggerFor]="menu"

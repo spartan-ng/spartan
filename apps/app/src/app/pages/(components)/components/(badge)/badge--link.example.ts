@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { HlmBadge } from '@spartan-ng/helm/badge';
+import { HlmBadgeImports } from '@spartan-ng/helm/badge';
 
 @Component({
 	selector: 'spartan-badge-link',
-	imports: [HlmBadge, RouterLink],
+	imports: [HlmBadgeImports, RouterLink],
 	template: `
 		<div class="flex gap-2">
 			<a hlmBadge routerLink=".">Angular Route</a>

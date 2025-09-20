@@ -3,8 +3,10 @@ import { BrnButton } from './lib/brn-button';
 
 export * from './lib/brn-button';
 
+export const BrnButtonImports = [BrnButton] as const;
+
 @NgModule({
-	imports: [BrnButton],
-	exports: [BrnButton],
+	imports: [...BrnButtonImports],
+	exports: [...BrnButtonImports],
 })
 export class BrnButtonModule {}

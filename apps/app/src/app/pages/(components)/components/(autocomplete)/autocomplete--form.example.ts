@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { HlmAutocomplete } from '@spartan-ng/helm/autocomplete';
-import { HlmButton } from '@spartan-ng/helm/button';
-import { HlmLabel } from '@spartan-ng/helm/label';
+import { HlmAutocompleteImports } from '@spartan-ng/helm/autocomplete';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmLabelImports } from '@spartan-ng/helm/label';
 
 @Component({
 	selector: 'spartan-autocomplete-form',
-	imports: [HlmAutocomplete, ReactiveFormsModule, HlmButton, HlmLabel],
+	imports: [HlmAutocompleteImports, ReactiveFormsModule, HlmButtonImports, HlmLabelImports],
 	template: `
 		<form [formGroup]="form" (ngSubmit)="submit()" class="space-y-8">
 			<div class="flex flex-col gap-2">

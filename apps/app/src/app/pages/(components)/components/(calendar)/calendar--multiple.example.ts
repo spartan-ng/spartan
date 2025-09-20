@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { HlmCalendarMulti } from '@spartan-ng/helm/calendar';
+import { HlmCalendarImports } from '@spartan-ng/helm/calendar';
 
 @Component({
 	selector: 'spartan-calendar-multiple',
-	imports: [HlmCalendarMulti],
+	imports: [HlmCalendarImports],
 	template: `
 		<hlm-calendar-multi
 			[(date)]="selectedDates"

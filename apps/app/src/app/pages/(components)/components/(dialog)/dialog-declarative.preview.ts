@@ -1,35 +1,17 @@
 import { Component, signal } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
-import { BrnDialogContent } from '@spartan-ng/brain/dialog';
+import { BrnDialogImports } from '@spartan-ng/brain/dialog';
 
-import {
-	HlmDialog,
-	HlmDialogContent,
-	HlmDialogDescription,
-	HlmDialogHeader,
-	HlmDialogTitle,
-} from '@spartan-ng/helm/dialog';
-import { HlmInput } from '@spartan-ng/helm/input';
-import { HlmLabel } from '@spartan-ng/helm/label';
-import { HlmH4, HlmMuted } from '@spartan-ng/helm/typography';
+import { HlmDialogImports } from '@spartan-ng/helm/dialog';
+import { HlmInputImports } from '@spartan-ng/helm/input';
+import { HlmLabelImports } from '@spartan-ng/helm/label';
+import { HlmTypographyImports } from '@spartan-ng/helm/typography';
 import { debounceTime, map } from 'rxjs/operators';
 
 @Component({
 	selector: 'spartan-dialog-declarative-preview',
-	imports: [
-		FormsModule,
-		BrnDialogContent,
-		HlmDialog,
-		HlmDialogContent,
-		HlmDialogHeader,
-		HlmDialogTitle,
-		HlmDialogDescription,
-		HlmLabel,
-		HlmInput,
-		HlmMuted,
-		HlmH4,
-	],
+	imports: [FormsModule, BrnDialogImports, HlmDialogImports, HlmLabelImports, HlmInputImports, HlmTypographyImports],
 	template: `
 		<div class="space-y-4">
 			<p hlmH4>Enter passphrase to open dialog</p>

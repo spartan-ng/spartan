@@ -1,8 +1,8 @@
 import { BooleanInput } from '@angular/cdk/coercion';
 import {
+	booleanAttribute,
 	ChangeDetectionStrategy,
 	Component,
-	booleanAttribute,
 	computed,
 	forwardRef,
 	input,
@@ -39,7 +39,7 @@ export const HLM_CHECKBOX_VALUE_ACCESSOR = {
 			[aria-label]="ariaLabel()"
 			[aria-labelledby]="ariaLabelledby()"
 			[aria-describedby]="ariaDescribedby()"
-			(changed)="_handleChange()"
+			(checkedChange)="_handleChange()"
 			(touched)="_onTouched?.()"
 		>
 			@if (checked()) {
@@ -103,8 +103,6 @@ export class HlmCheckbox implements ControlValueAccessor {
 		disabled: signal(this.disabled()),
 	}));
 
-	public readonly changed = output<boolean>();
-
 	protected _onChange?: ChangeFn<CheckboxValue>;
 	protected _onTouched?: TouchFn;
 
@@ -114,7 +112,6 @@ export class HlmCheckbox implements ControlValueAccessor {
 		const previousChecked = this.checked();
 		this.checked.set(previousChecked === 'indeterminate' ? true : !previousChecked);
 		this._onChange?.(!previousChecked);
-		this.changed.emit(!previousChecked);
 		this.checkedChange.emit(!previousChecked);
 	}
 

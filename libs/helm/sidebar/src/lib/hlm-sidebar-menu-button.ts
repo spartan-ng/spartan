@@ -1,4 +1,4 @@
-import { computed, Directive, inject, input } from '@angular/core';
+import { booleanAttribute, computed, Directive, inject, input } from '@angular/core';
 import { BrnTooltipTrigger, provideBrnTooltipDefaultOptions } from '@spartan-ng/brain/tooltip';
 import { DEFAULT_TOOLTIP_CONTENT_CLASSES } from '@spartan-ng/helm/tooltip';
 import { hlm } from '@spartan-ng/helm/utils';
@@ -60,7 +60,7 @@ export class HlmSidebarMenuButton {
 
 	public readonly variant = input<'default' | 'outline'>('default');
 	public readonly size = input<'default' | 'sm' | 'lg'>('default');
-	public readonly isActive = input<boolean>(false);
+	public readonly isActive = input<boolean, boolean>(false, { transform: booleanAttribute });
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 
 	protected readonly _isTooltipHidden = computed(

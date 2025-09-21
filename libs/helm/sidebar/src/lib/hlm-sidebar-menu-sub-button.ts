@@ -1,4 +1,4 @@
-import { computed, Directive, input } from '@angular/core';
+import { booleanAttribute, computed, Directive, input } from '@angular/core';
 import { hlm } from '@spartan-ng/helm/utils';
 
 import type { ClassValue } from 'clsx';
@@ -8,12 +8,14 @@ import type { ClassValue } from 'clsx';
 
 	host: {
 		'data-sidebar': 'menu-sub-button',
+		'[attr.data-active]': 'isActive()',
+		'[attr.data-size]': 'size()',
 		'[class]': '_computedClass()',
 	},
 })
 export class HlmSidebarMenuSubButton {
 	public readonly size = input<'sm' | 'md'>('md');
-	public readonly isActive = input<boolean>(false);
+	public readonly isActive = input<boolean, boolean>(false, { transform: booleanAttribute });
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>
 		hlm(

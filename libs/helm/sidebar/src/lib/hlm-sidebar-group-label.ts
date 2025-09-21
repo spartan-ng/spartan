@@ -4,7 +4,7 @@ import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 
 @Directive({
-	selector: 'div[hlmSidebarGroupLabel]',
+	selector: 'div[hlmSidebarGroupLabel], button[hlmSidebarGroupLabel]',
 
 	host: {
 		'data-sidebar': 'group-label',

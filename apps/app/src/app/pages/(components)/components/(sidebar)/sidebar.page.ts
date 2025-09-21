@@ -10,8 +10,10 @@ import { SectionIntro } from '@spartan-ng/app/app/shared/layout/section-intro';
 import { SectionSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-heading';
 import { TabsCli } from '@spartan-ng/app/app/shared/layout/tabs-cli';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
-import { HlmCode, HlmH3, HlmP } from '@spartan-ng/helm/typography';
+import { HlmCode, HlmH4, HlmP } from '@spartan-ng/helm/typography';
 import {
+	button,
+	collapsable,
 	content,
 	cssCode,
 	firstSidebar,
@@ -19,7 +21,14 @@ import {
 	firstSidebarInitial,
 	footer,
 	group,
+	groupAction,
 	header,
+	link,
+	linkActive,
+	linkWithIcon,
+	menu,
+	menuAction,
+	menuActionExample,
 	provider,
 	usageApp,
 	usageLayout,
@@ -46,7 +55,7 @@ export const routeMeta: RouteMeta = {
 		HlmP,
 		HlmCode,
 
-		HlmH3,
+		HlmH4,
 	],
 	template: `
 		<section spartanMainSection class="space-y-4">
@@ -120,20 +129,20 @@ export const routeMeta: RouteMeta = {
 
 				<p hlmP>Let's start with the most basic sidebar. A collapsible sidebar with a menu.</p>
 
-				<h3 hlmH3>
+				<h3 hlmH4>
 					Add a
 					<span hlmCode>HlmSidebarTrigger</span>
 					at the root of your application.
 				</h3>
 				<spartan-code fileName="src/app/app.ts" [code]="_firstSidebarApp" />
-				<h3 hlmH3>
+				<h3 hlmH4>
 					Create a new sidebar component at
 					<span hlmCode>src/app/app-sidebar.ts</span>
 				</h3>
 
 				<spartan-code fileName="src/app/app-sidebar.ts" [code]="_firstSidebarInitial" />
 
-				<h3 hlmH3>
+				<h3 hlmH4>
 					Now, let's add a
 					<span hlmCode>HlmSidebarMenu</span>
 					to the sidebar.
@@ -146,7 +155,7 @@ export const routeMeta: RouteMeta = {
 					.
 				</p>
 				<spartan-code fileName="src/app/app-sidebar.ts" [code]="_firstSidebar" />
-				<h3 hlmH3>You've created your first sidebar.</h3>
+				<h3 hlmH4>You've created your first sidebar.</h3>
 				<p>You should see something like this:</p>
 			</div>
 
@@ -158,7 +167,7 @@ export const routeMeta: RouteMeta = {
 				consistently across devices, remembers user preferences, and provides developer APIs for customization.
 			</p>
 
-			<h3 hlmH3>Core Responsibilities</h3>
+			<h3 hlmH4 id="core_responsibilities">Core Responsibilities</h3>
 			<ul class="list-inside list-disc pl-4 text-sm">
 				<li class="mt-2">
 					<span hlmCode>State Management</span>
@@ -194,7 +203,7 @@ export const routeMeta: RouteMeta = {
 				</li>
 			</ul>
 
-			<h3 hlmH3>Signals & Computed</h3>
+			<h3 hlmH4 id="signals_and_computed">Signals & Computed</h3>
 			<ul class="list-inside list-disc pl-4 text-sm">
 				<li class="mt-2">
 					<span hlmCode>open</span>
@@ -228,7 +237,7 @@ export const routeMeta: RouteMeta = {
 				</li>
 			</ul>
 
-			<h3 hlmH3>Public API</h3>
+			<h3 hlmH4 id="public_api">Public API</h3>
 			<ul class="list-inside list-disc pl-4 text-sm">
 				<li class="mt-2">
 					<span hlmCode>setOpen(open: boolean)</span>
@@ -248,7 +257,7 @@ export const routeMeta: RouteMeta = {
 				</li>
 			</ul>
 
-			<h3 hlmH3>Keyboard Shortcut</h3>
+			<h3 hlmH4 id="keyboard_shortcut">Keyboard Shortcut</h3>
 			<p hlmP>
 				The
 				<span hlmCode>SIDEBAR_KEYBOARD_SHORTCUT</span>
@@ -287,7 +296,7 @@ export const routeMeta: RouteMeta = {
 				. It applies styles, sets CSS variables, and ensures consistent layout across different sidebar variants.
 			</p>
 
-			<h3 hlmH3>Inputs</h3>
+			<h3 hlmH4 id="inputs">Inputs</h3>
 			<ul class="list-inside list-disc pl-4 text-sm">
 				<li class="mt-2">
 					<span hlmCode>[class]</span>
@@ -307,7 +316,7 @@ export const routeMeta: RouteMeta = {
 				</li>
 			</ul>
 
-			<h3 hlmH3>Defaults</h3>
+			<h3 hlmH4 id="defaults">Defaults</h3>
 			<ul class="list-inside list-disc pl-4 text-sm">
 				<li class="mt-2">
 					<span hlmCode>sidebarWidth</span>
@@ -326,7 +335,7 @@ export const routeMeta: RouteMeta = {
 				</li>
 			</ul>
 
-			<h3 hlmH3>Config</h3>
+			<h3 hlmH4 id="config">Config</h3>
 			<p hlmP>
 				To override defaults, provide a custom configuration in your application config using
 				<span hlmCode>provideHlmSidebarConfig</span>
@@ -396,6 +405,124 @@ export const routeMeta: RouteMeta = {
 			</ul>
 			<spartan-code fileName="src/app/app-sidebar.ts" [code]="_group" />
 
+			<spartan-section-sub-heading id="sidebar-collapsable">Collapsable</spartan-section-sub-heading>
+			<p hlmP>
+				To make a
+				<span hlmCode>HlmSidebarGroup</span>
+				collapsible, wrap it in a
+				<span hlmCode>BrnCollapsible</span>
+			</p>
+			<spartan-code fileName="src/app/app-sidebar.ts" [code]="_collapsable" />
+
+			<spartan-section-sub-heading id="sidebar-group-action">Group Action</spartan-section-sub-heading>
+			<p hlmP>
+				Use the
+				<span hlmCode>HlmSidebarGroupAction</span>
+				component to add an action button to the
+				<span hlmCode>HlmSidebarGroup</span>
+				.
+			</p>
+			<spartan-code fileName="src/app/app-sidebar.ts" [code]="_groupAction" />
+
+			<spartan-section-sub-heading id="sidebar-menu">Menu</spartan-section-sub-heading>
+			<p hlmP>
+				The
+				<span hlmCode>HlmSidebarMenu</span>
+				component is used for building a menu inside a
+				<span hlmCode>HlmSidebarGroup</span>
+				. It is composed of the following parts:
+			</p>
+
+			<ul class="list-inside list-disc pl-4 text-sm">
+				<li class="mt-2">
+					<span hlmCode>HlmSidebarMenuItem</span>
+					– A single menu entry within the menu.
+				</li>
+				<li class="mt-2">
+					<span hlmCode>HlmSidebarMenuButton</span>
+					– A clickable button or link inside a menu item.
+				</li>
+				<li class="mt-2">
+					<span hlmCode>HlmSidebarMenuAction</span>
+					– An optional action (e.g., context menu, settings) for the menu item.
+				</li>
+				<li class="mt-2">
+					<span hlmCode>HlmSidebarMenuSub</span>
+					– A nested submenu within a menu item.
+				</li>
+			</ul>
+
+			<img src="/assets/sidebar-menu.png" alt="Sidebar menu" class="border-border rounded border" />
+
+			<p hlmP>
+				Here's an example of a
+				<span hlmCode>HlmSidebarMenu</span>
+				component rendering a list of projects.
+			</p>
+
+			<spartan-code fileName="src/app/app-sidebar.ts" [code]="_menu" />
+
+			<spartan-section-sub-heading id="sidebar-menu-button">Menu Button</spartan-section-sub-heading>
+			<p hlmP>
+				The
+				<span hlmCode>HlmSidebarMenuButton</span>
+				component is used to render a menu button within a
+				<span hlmCode>HlmSidebarMenuItem</span>
+				.
+			</p>
+
+			<h3 hlmH4 id="link_or_anchor">Link or Anchor</h3>
+			<spartan-code [code]="_link" />
+
+			<h3 hlmH4 id="button">Button</h3>
+			<spartan-code [code]="_button" />
+			<h3 hlmH4 id="icon_and_label">Icon and Label</h3>
+			<spartan-code [code]="_linkWithIcon" />
+			<p hlmP>
+				You can render an icon and a truncated label inside the button. Remember to wrap the label in a
+				<span hlmCode [innerHTML]="'<span>'"></span>
+				.
+			</p>
+			<h3 hlmH4 id="isactive">isActive</h3>
+			<p hlmP>
+				Use the
+				<span hlmCode>isActive</span>
+				prop to mark a menu item as active.
+			</p>
+			<spartan-code [code]="_linkActive" />
+
+			<spartan-section-sub-heading id="sidebar-menu-action">Sidebar Menu Action</spartan-section-sub-heading>
+			<p hlmP>
+				The
+				<span hlmCode>HlmSidebarMenuAction</span>
+				component is used to render a menu action within a
+				<span hlmCode>HlmSidebarMenuItem</span>
+				.
+			</p>
+
+			<p hlmP>
+				This button works independently of the
+				<span hlmCode>HlmSidebarMenuButton</span>
+				. For example, you can have a
+				<span hlmCode>SidebarMenuButton</span>
+				as a clickable link, while the
+				<span hlmCode>SidebarMenuAction</span>
+				provides a secondary action, such as editing, deleting, or opening a context menu.
+			</p>
+
+			<spartan-code [code]="_menuAction" />
+
+			<h3 hlmH4 id="dropdown_menu">DropdownMenu</h3>
+			<p hlmP>
+				Here's an example of a
+				<span hlmCode>HlmSidebarMenuAction</span>
+				component rendering a
+				<span hlmCode>HlmMenu</span>
+				.
+			</p>
+
+			<spartan-code fileName="src/app/app-sidebar.ts" [code]="_menuActionExample" />
+
 			<div>
 				<spartan-section-sub-heading id="theming">Theming</spartan-section-sub-heading>
 				<p hlmP>We use dedicated CSS variables for theming the sidebar, separate from the rest of the application.</p>
@@ -442,4 +569,13 @@ export default class SidebarPageComponent {
 	protected readonly _footer = footer;
 	protected readonly _content = content;
 	protected readonly _group = group;
+	protected readonly _collapsable = collapsable;
+	protected readonly _groupAction = groupAction;
+	protected readonly _menu = menu;
+	protected readonly _link = link;
+	protected readonly _linkWithIcon = linkWithIcon;
+	protected readonly _linkActive = linkActive;
+	protected readonly _button = button;
+	protected readonly _menuAction = menuAction;
+	protected readonly _menuActionExample = menuActionExample;
 }

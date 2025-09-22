@@ -3,15 +3,9 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronRight } from '@ng-icons/lucide';
-import {
-	HlmAccordion,
-	HlmAccordionContent,
-	HlmAccordionIcon,
-	HlmAccordionItem,
-	HlmAccordionTrigger,
-} from '@spartan-ng/helm/accordion';
-import { HlmButton } from '@spartan-ng/helm/button';
-import { HlmIcon } from '@spartan-ng/helm/icon';
+import { HlmAccordionImports } from '@spartan-ng/helm/accordion';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmIconImports } from '@spartan-ng/helm/icon';
 import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { MainSection } from '../../../shared/layout/main-section';
 import { PageBottomNavPlaceholder } from '../../../shared/layout/page-bottom-nav-placeholder';
@@ -38,19 +32,15 @@ export const routeMeta: RouteMeta = {
 		SectionIntro,
 		SectionSubHeading,
 		PageNav,
-		HlmAccordion,
-		HlmAccordionContent,
-		HlmAccordionIcon,
-		HlmAccordionItem,
-		HlmAccordionTrigger,
+		HlmAccordionImports,
 		RouterLink,
 		PageNav,
 		PageBottomNavLink,
 		PageBottomNav,
 		PageBottomNavPlaceholder,
-		HlmButton,
+		HlmButtonImports,
 		NgIcon,
-		HlmIcon,
+		HlmIconImports,
 	],
 	providers: [provideIcons({ lucideChevronRight })],
 	template: `

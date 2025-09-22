@@ -7,8 +7,10 @@ export * from './lib/hlm-error';
 export * from './lib/hlm-form-field';
 export * from './lib/hlm-hint';
 
+export const HlmFormFieldImports = [HlmFormField, HlmError, HlmHint] as const;
+
 @NgModule({
-	imports: [HlmFormField, HlmError, HlmHint],
-	exports: [HlmFormField, HlmError, HlmHint],
+	imports: [...HlmFormFieldImports],
+	exports: [...HlmFormFieldImports],
 })
 export class HlmFormFieldModule {}

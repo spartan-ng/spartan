@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronsUpDown } from '@ng-icons/lucide';
 import { BrnCollapsibleImports } from '@spartan-ng/brain/collapsible';
-import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
 
 @Component({
 	selector: 'spartan-collapsible-preview',
-	imports: [BrnCollapsibleImports, HlmButton, NgIcon],
+	imports: [BrnCollapsibleImports, HlmButtonImports, NgIcon],
 	providers: [provideIcons({ lucideChevronsUpDown })],
 	template: `
 		<brn-collapsible class="flex w-[350px] flex-col gap-2">
@@ -27,11 +27,7 @@ import { HlmButton } from '@spartan-ng/helm/button';
 export class CollapsiblePreview {}
 
 export const defaultImports = `
-import {
-  BrnCollapsible
-  BrnCollapsibleContent
-  BrnCollapsibleTrigger
-} from '@spartan-ng/brain/collapsible';
+import { BrnCollapsibleImports } from '@spartan-ng/brain/collapsible';
 `;
 
 export const defaultSkeleton = `

@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { HlmInput } from '@spartan-ng/helm/input';
+import { HlmInputImports } from '@spartan-ng/helm/input';
 
 @Component({
 	selector: 'spartan-input-preview',
-	imports: [HlmInput],
+	imports: [HlmInputImports],
 	template: `
 		<input class="w-80" hlmInput type="email" placeholder="Email" />
 	`,
@@ -11,6 +11,6 @@ import { HlmInput } from '@spartan-ng/helm/input';
 export class InputPreview {}
 
 export const defaultImports = `
-import { HlmInput } from '@spartan-ng/helm/input';
+import { HlmInputImports } from '@spartan-ng/helm/input';
 `;
 export const defaultSkeleton = '<input hlmInput/>';

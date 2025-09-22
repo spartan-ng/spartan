@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideBadgeCheck } from '@ng-icons/lucide';
-import { HlmBadge } from '@spartan-ng/helm/badge';
+import { HlmBadgeImports } from '@spartan-ng/helm/badge';
 
 @Component({
 	selector: 'spartan-badge-preview',
-	imports: [HlmBadge, NgIcon],
+	imports: [HlmBadgeImports, NgIcon],
 	providers: [provideIcons({ lucideBadgeCheck })],
 	template: `
 		<div class="flex flex-col items-center gap-2">
@@ -30,7 +30,7 @@ import { HlmBadge } from '@spartan-ng/helm/badge';
 export class BadgePreview {}
 
 export const defaultImports = `
-import { HlmBadge } from '@spartan-ng/helm/badge';
+import { HlmBadgeImports } from '@spartan-ng/helm/badge';
 `;
 
 export const defaultSkeleton = `

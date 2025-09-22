@@ -3,8 +3,10 @@ import { HlmLabel } from './lib/hlm-label';
 
 export * from './lib/hlm-label';
 
+export const HlmLabelImports = [HlmLabel] as const;
+
 @NgModule({
-	imports: [HlmLabel],
-	exports: [HlmLabel],
+	imports: [...HlmLabelImports],
+	exports: [...HlmLabelImports],
 })
 export class HlmLabelModule {}

@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { HlmSkeleton } from '@spartan-ng/helm/skeleton';
+import { HlmSkeletonImports } from '@spartan-ng/helm/skeleton';
 
 @Component({
 	selector: 'spartan-skeleton-preview',
-	imports: [HlmSkeleton],
+	imports: [HlmSkeletonImports],
 	template: `
 		<div class="flex items-center space-x-4">
 			<hlm-skeleton class="size-12 rounded-full" />
@@ -17,7 +17,7 @@ import { HlmSkeleton } from '@spartan-ng/helm/skeleton';
 export class SkeletonPreview {}
 
 export const defaultImports = `
-import { HlmSkeleton } from '@spartan-ng/helm/skeleton';
+import { HlmSkeletonImports } from '@spartan-ng/helm/skeleton';
 `;
 export const defaultSkeleton = `
 <hlm-skeleton class="h-[20px] w-[100px] rounded-full" />

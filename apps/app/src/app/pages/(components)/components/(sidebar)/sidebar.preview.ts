@@ -423,7 +423,7 @@ import { Component } from '@angular/core';
 import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { HlmIcon } from '@spartan-ng/helm/icon';
-import { lucidePlus } from '@ng-icons/lucide';
+import { lucideLifeBuoy, lucideSend } from '@ng-icons/lucide';
 
 @Component({
   selector: 'app-sidebar',
@@ -434,25 +434,37 @@ import { lucidePlus } from '@ng-icons/lucide';
   ],
   template: \`
     <div hlmSidebarWrapper>
-      <hlm-sidebar>
-        <div hlmSidebarContent>
-          <div hlmSidebarGroup>
-            <div hlmSidebarGroupLabel>Application</div>
-            <button hlmSidebarGroupAction>
-              <ng-icon hlm name="lucidePlus" />
-              <span class="sr-only">Add Project</span>
-            </button>
-            <div hlmSidebarGroupContent></div>
-          </div>
-        </div>
-      </hlm-sidebar>
+			<hlm-sidebar>
+				<div hlmSidebarContent>
+					<div hlmSidebarGroup>
+						<div hlmSidebarGroupLabel>Help</div>
+						<div hlmSidebarGroupContent>
+							<ul hlmSidebarMenu>
+								<li hlmSidebarMenuItem>
+									<a hlmSidebarMenuButton>
+										<ng-icon hlm name="lucideLifeBuoy" />
+										<span>Support</span>
+									</a>
+								</li>
+								<li hlmSidebarMenuItem>
+									<a hlmSidebarMenuButton>
+										<ng-icon hlm name="lucideSend" />
+										<span>Feedback</span>
+									</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</hlm-sidebar>
       <ng-content />
     </div>
   \`,
   providers: [
-    provideIcons({
-      lucidePlus,
-    }),
+		provideIcons({
+			lucideLifeBuoy,
+			lucideSend,
+		}),
   ],
 })
 export class AppSidebar {}
@@ -543,7 +555,6 @@ import { HlmToasterImports } from '@spartan-ng/helm/sonner';
 
 @Component({
   selector: 'app-sidebar',
-  standalone: true,
   imports: [HlmSidebarImports, NgIcon, HlmIcon, HlmToasterImports],
   template: \`
     <hlm-toaster />
@@ -628,7 +639,7 @@ import {
             <div hlmSidebarGroupLabel>Projects</div>
             <div hlmSidebarGroupContent>
               <ul hlmSidebarMenu>
-                @for (project of projects; track project){
+                @for (project of _projects; track project){
                 <li hlmSidebarMenuItem>
                   <a hlmSidebarMenuButton [href]="project.url">
                     <ng-icon hlm [name]="project.icon" />
@@ -655,7 +666,7 @@ import {
   ],
 })
 export class AppSidebar {
-  projects = [
+  protected readonly _projects = [
     { name: 'Design Engineering', url: '#', icon: 'lucideFrame' },
     { name: 'Sales & Marketing', url: '#', icon: 'lucideChartPie' },
     { name: 'Travel', url: '#', icon: 'lucideMap' },
@@ -727,7 +738,6 @@ import { HlmMenuImports } from '@spartan-ng/helm/menu';
 
 @Component({
   selector: 'app-sidebar',
-  standalone: true,
   imports: [HlmSidebarImports, BrnMenuImports, NgIcon, HlmIcon, HlmMenuImports],
   template: \`
     <div hlmSidebarWrapper>
@@ -784,4 +794,290 @@ export class AppSidebar {
     { name: 'Feedback', url: '#', icon: 'lucideSend' },
   ];
 }
+`;
+export const menuSubExample = `
+import { Component } from '@angular/core';
+import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
+
+@Component({
+  selector: 'app-sidebar',
+	imports: [HlmSidebarImports],
+  template: \`
+    <div hlmSidebarWrapper>
+      <hlm-sidebar>
+        <div hlmSidebarContent>
+          <div hlmSidebarGroup>
+            <div hlmSidebarGroupContent>
+              <ul hlmSidebarMenu>
+                @for (item of _items; track item.title) {
+                  <li hlmSidebarMenuItem>
+                    <button hlmSidebarMenuButton>
+                      <span>{{ item.title }}</span>
+                    </button>
+                    <ul hlmSidebarMenuSub>
+                      @for (subItem of item.items; track subItem.title) {
+                        <li hlmSidebarMenuSubItem>
+                          <button hlmSidebarMenuSubButton class="w-full">
+                            <span>{{ subItem.title }}</span>
+                          </button>
+                        </li>
+                      }
+                    </ul>
+                  </li>
+                }
+              </ul>
+            </div>
+          </div>
+        </div>
+      </hlm-sidebar>
+      <main hlmSidebarInset>
+        <header class="flex h-12 items-center justify-between px-4">
+          <button hlmSidebarTrigger><span class="sr-only"></span></button>
+        </header>
+      </main>
+    </div>
+  \`,
+})
+export default class AppSidebar {
+  protected readonly _items = [
+    {
+      title: 'Getting Started',
+      items: [{ title: 'Installation' }, { title: 'Project Structure' }],
+    },
+    {
+      title: 'Building Your Application',
+      items: [
+        { title: 'Routing' },
+        { title: 'Data Fetching', isActive: true },
+        { title: 'Rendering' },
+        { title: 'Caching' },
+        { title: 'Styling' },
+        { title: 'Optimizing' },
+        { title: 'Configuring' },
+        { title: 'Testing' },
+        { title: 'Authentication' },
+        { title: 'Deploying' },
+        { title: 'Upgrading' },
+        { title: 'Examples' },
+      ],
+    },
+    {
+      title: 'API Reference',
+      items: [
+        { title: 'Components' },
+        { title: 'File Conventions' },
+        { title: 'Functions' },
+        { title: 'next.config.js Options' },
+        { title: 'CLI' },
+        { title: 'Edge Runtime' },
+      ],
+    },
+    {
+      title: 'Architecture',
+      items: [
+        { title: 'Accessibility' },
+        { title: 'Fast Refresh' },
+        { title: 'Next.js Compiler' },
+        { title: 'Supported Browsers' },
+        { title: 'Turbopack' },
+      ],
+    },
+  ];
+}
+
+`;
+
+export const menuSubCollapsableExample = `
+import { Component, ViewEncapsulation } from '@angular/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { lucideChevronRight } from '@ng-icons/lucide';
+import { BrnCollapsibleImports } from '@spartan-ng/brain/collapsible';
+import { HlmIcon } from '@spartan-ng/helm/icon';
+import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
+
+@Component({
+  selector: 'app-sidebar',
+	imports: [HlmSidebarImports, BrnCollapsibleImports, BrnCollapsibleImports, NgIcon, HlmIcon],
+  template: \`
+    <div hlmSidebarWrapper>
+			<hlm-sidebar>
+				<div hlmSidebarContent>
+					<div hlmSidebarGroup>
+						<div hlmSidebarGroupContent>
+							<ul hlmSidebarMenu>
+								@for (item of _items; track item.title) {
+									<brn-collapsible [expanded]="item.defaultOpen" class="group/collapsible">
+										<li hlmSidebarMenuItem>
+											<button
+												brnCollapsibleTrigger
+												hlmSidebarMenuButton
+												class="flex w-full items-center justify-between"
+											>
+												<span>{{ item.title }}</span>
+												<ng-icon
+													name="lucideChevronRight"
+													class="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-90"
+													hlm
+												/>
+											</button>
+											<brn-collapsible-content>
+												<ul hlmSidebarMenuSub>
+													@for (subItem of item.items; track subItem.title) {
+														<li hlmSidebarMenuSubItem>
+															<button hlmSidebarMenuSubButton class="w-full">
+																<span>{{ subItem.title }}</span>
+															</button>
+														</li>
+													}
+												</ul>
+											</brn-collapsible-content>
+										</li>
+									</brn-collapsible>
+								}
+							</ul>
+						</div>
+					</div>
+				</div>
+			</hlm-sidebar>
+      <main hlmSidebarInset>
+        <header class="flex h-12 items-center justify-between px-4">
+          <button hlmSidebarTrigger><span class="sr-only"></span></button>
+        </header>
+      </main>
+    </div>
+  \`,
+  providers: [provideIcons({ lucideChevronRight })],
+})
+export default class AppSidebar {
+  protected readonly _items = [
+    {
+      title: 'Getting Started',
+      defaultOpen: true,
+      items: [{ title: 'Installation' }, { title: 'Project Structure' }],
+    },
+    {
+      title: 'Building Your Application',
+      defaultOpen: false,
+      items: [
+        { title: 'Routing' },
+        { title: 'Data Fetching', isActive: true },
+        { title: 'Rendering' },
+        { title: 'Caching' },
+        { title: 'Styling' },
+        { title: 'Optimizing' },
+        { title: 'Configuring' },
+        { title: 'Testing' },
+        { title: 'Authentication' },
+        { title: 'Deploying' },
+        { title: 'Upgrading' },
+        { title: 'Examples' },
+      ],
+    },
+    {
+      title: 'API Reference',
+      defaultOpen: false,
+      items: [
+        { title: 'Components' },
+        { title: 'File Conventions' },
+        { title: 'Functions' },
+        { title: 'next.config.js Options' },
+        { title: 'CLI' },
+        { title: 'Edge Runtime' },
+      ],
+    },
+    {
+      title: 'Architecture',
+      defaultOpen: false,
+      items: [
+        { title: 'Accessibility' },
+        { title: 'Fast Refresh' },
+        { title: 'Next.js Compiler' },
+        { title: 'Supported Browsers' },
+        { title: 'Turbopack' },
+      ],
+    },
+  ];
+}
+`;
+
+export const menuBadge = `
+import { Component } from '@angular/core';
+import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { HlmIcon } from '@spartan-ng/helm/icon';
+import {
+  lucideChartPie,
+  lucideFrame,
+  lucideLifeBuoy,
+  lucideMap,
+  lucideSend,
+} from '@ng-icons/lucide';
+
+@Component({
+  selector: 'app-sidebar',
+  imports: [HlmSidebarImports, NgIcon, HlmIcon],
+  template: \`
+    <div hlmSidebarWrapper>
+      <hlm-sidebar>
+        <div hlmSidebarContent>
+          <div hlmSidebarGroup>
+            <div hlmSidebarGroupLabel>Projects</div>
+            <div hlmSidebarGroupContent>
+              <ul hlmSidebarMenu>
+                @for (project of _projects; track project){
+                <li hlmSidebarMenuItem>
+									<button hlmSidebarMenuButton>
+										<ng-icon hlm [name]="project.icon" />
+										<span>{{ project.name }}</span>
+									</button>
+									<div hlmSidebarMenuBadge>{{ project.info }}</div>
+								</li>
+                }
+              </ul>
+            </div>
+          </div>
+        </div>
+      </hlm-sidebar>
+      <ng-content />
+    </div>
+  \`,
+  providers: [
+    provideIcons({
+      lucideFrame,
+      lucideChartPie,
+      lucideMap,
+      lucideLifeBuoy,
+      lucideSend,
+    }),
+  ],
+})
+export class AppSidebar {
+  protected readonly _projects = [
+    { info: 24, name: 'Design Engineering', url: '#', icon: 'lucideFrame' },
+    { info: 12, name: 'Sales & Marketing', url: '#', icon: 'lucideChartPie' },
+    { info: 3, name: 'Travel', url: '#', icon: 'lucideMap' },
+    { info: 21, name: 'Support', url: '#', icon: 'lucideLifeBuoy' },
+    { info: 8, name: 'Feedback', url: '#', icon: 'lucideSend' },
+  ];
+}
+`;
+
+export const skeleton = `
+<ul hlmSidebarMenu>
+	@for (project of _projects; track project) {
+		<li hlmSidebarMenuItem>
+			<div hlmSidebarMenuSkeleton></div>
+		</li>
+	}
+</ul>
+`;
+
+export const separator = `
+<hlm-sidebar>
+  <div hlmSidebarContent>
+    <div hlmSidebarGroup></div>
+		<div hlmSidebarSeparator></div>
+    <div hlmSidebarGroup></div>
+  </div>
+</hlm-sidebar>
 `;

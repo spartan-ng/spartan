@@ -4,7 +4,7 @@ import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 
 @Directive({
-	selector: 'a[hlmSidebarMenuSubButton]',
+	selector: 'a[hlmSidebarMenuSubButton], button[hlmSidebarMenuSubButton]',
 
 	host: {
 		'data-sidebar': 'menu-sub-button',

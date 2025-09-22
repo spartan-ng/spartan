@@ -43,10 +43,26 @@ export const HlmMenuItemImports = [
 	HlmMenuItemCheckbox,
 	HlmMenuItemRadio,
 ];
-export const HlmMenuStructureImports = [HlmMenuLabel, HlmMenuSeparator] as const;
-export const HlmMenuImports = [...HlmMenuItemImports, ...HlmMenuStructureImports, HlmMenu, HlmSubMenu] as const;
-export const HlmMenuBarImports = [...HlmMenuImports, HlmMenuBar, HlmMenuBarItem] as const;
 
+export const HlmMenuImports = [
+	HlmMenuItem,
+	HlmMenuItemIcon,
+	HlmMenuGroup,
+	HlmMenuItemSubIndicator,
+	HlmMenuItemRadioIndicator,
+	HlmMenuItemCheck,
+	HlmMenuShortcut,
+	HlmMenuItemCheckbox,
+	HlmMenuItemRadio,
+	HlmMenuLabel,
+	HlmMenuSeparator,
+	HlmMenu,
+	HlmSubMenu,
+	HlmMenuBar,
+	HlmMenuBarItem,
+] as const;
+
+export const HlmMenuBarImports = [...HlmMenuImports] as const;
 @NgModule({
 	imports: [...HlmMenuItemImports],
 	exports: [...HlmMenuItemImports],

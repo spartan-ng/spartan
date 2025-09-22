@@ -3904,7 +3904,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "variant",
             "required": false,
-            "type": "'sidebar' | 'floating' | 'inset'",
+            "type": "SidebarVariant",
           },
           {
             "name": "collapsible",
@@ -3991,7 +3991,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "div[hlmSidebarGroupLabel]",
+        "selector": "div[hlmSidebarGroupLabel], button[hlmSidebarGroupLabel]",
       },
       "HlmSidebarHeader": {
         "inputs": [
@@ -4089,7 +4089,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "button[hlmSidebarMenuButton]",
+        "selector": "button[hlmSidebarMenuButton], a[hlmSidebarMenuButton]",
       },
       "HlmSidebarMenuItem": {
         "inputs": [
@@ -4102,6 +4102,23 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [],
         "outputs": [],
         "selector": "li[hlmSidebarMenuItem]",
+      },
+      "HlmSidebarMenuSkeleton": {
+        "inputs": [
+          {
+            "name": "showIcon",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "div[hlmSidebarMenuSkeleton]",
       },
       "HlmSidebarMenuSub": {
         "inputs": [
@@ -4135,7 +4152,19 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "a[hlmSidebarMenuSubButton]",
+        "selector": "a[hlmSidebarMenuSubButton], button[hlmSidebarMenuSubButton]",
+      },
+      "HlmSidebarMenuSubItem": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "li[hlmSidebarMenuSubItem]",
       },
       "HlmSidebarRail": {
         "inputs": [
@@ -4159,7 +4188,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "brn-separator[hlmSidebarSeparator]",
+        "selector": "div[hlmSidebarSeparator]",
       },
       "HlmSidebarTrigger": {
         "inputs": [],

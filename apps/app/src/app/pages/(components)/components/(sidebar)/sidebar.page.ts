@@ -8,6 +8,7 @@ import { PageBottomNavLink } from '@spartan-ng/app/app/shared/layout/page-bottom
 import { PageNav } from '@spartan-ng/app/app/shared/layout/page-nav/page-nav';
 import { SectionIntro } from '@spartan-ng/app/app/shared/layout/section-intro';
 import { SectionSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-heading';
+import { Tabs } from '@spartan-ng/app/app/shared/layout/tabs';
 import { TabsCli } from '@spartan-ng/app/app/shared/layout/tabs-cli';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
 import { HlmCode, HlmH4, HlmP } from '@spartan-ng/helm/typography';
@@ -29,7 +30,12 @@ import {
 	menu,
 	menuAction,
 	menuActionExample,
+	menuBadge,
+	menuSubCollapsableExample,
+	menuSubExample,
 	provider,
+	separator,
+	skeleton,
 	usageApp,
 	usageLayout,
 } from './sidebar.preview';
@@ -54,8 +60,8 @@ export const routeMeta: RouteMeta = {
 		PageBottomNavPlaceholder,
 		HlmP,
 		HlmCode,
-
 		HlmH4,
+		Tabs,
 	],
 	template: `
 		<section spartanMainSection class="space-y-4">
@@ -157,6 +163,12 @@ export const routeMeta: RouteMeta = {
 				<spartan-code fileName="src/app/app-sidebar.ts" [code]="_firstSidebar" />
 				<h3 hlmH4>You've created your first sidebar.</h3>
 				<p>You should see something like this:</p>
+
+				<img src="/assets/first-sidebar.png" alt="First sidebar" class="border-border flex rounded border md:hidden" />
+
+				<div class="hidden h-[500px] rounded border border-r md:block">
+					<iframe src="/sidebar-preview/first-sidebar" class="size-full rounded"></iframe>
+				</div>
 			</div>
 
 			<spartan-section-sub-heading id="sidebar-service">SidebarService</spartan-section-sub-heading>
@@ -344,7 +356,7 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-code fileName="src/app/app.config.ts" [code]="_provider" />
 
-			<spartan-section-sub-heading id="sidebar-header">Header</spartan-section-sub-heading>
+			<spartan-section-sub-heading id="sidebar-header">HlmSidebarHeader</spartan-section-sub-heading>
 			<p hlmP>
 				Use the
 				<span hlmCode>HlmSidebarHeader</span>
@@ -352,9 +364,21 @@ export const routeMeta: RouteMeta = {
 				<strong>sticky header</strong>
 				at the top of your sidebar. This is useful for branding, application titles, or quick-access navigation.
 			</p>
-			<spartan-code fileName="src/app/app-sidebar.ts" [code]="_header" />
 
-			<spartan-section-sub-heading id="sidebar-footer">Footer</spartan-section-sub-heading>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div class="md:h-[500px]" firstTab>
+					<img
+						src="/assets/sidebar-header.png"
+						alt="sidebar-header"
+						class="border-border flex rounded border md:hidden"
+					/>
+					<iframe src="/sidebar-preview/sidebar-header" class="hidden size-full rounded md:block"></iframe>
+				</div>
+
+				<spartan-code secondTab fileName="src/app/app-sidebar.ts" [code]="_header" />
+			</spartan-tabs>
+
+			<spartan-section-sub-heading id="sidebar-footer">HlmSidebarFooter</spartan-section-sub-heading>
 			<p hlmP>
 				Use the
 				<span hlmCode>HlmSidebarFooter</span>
@@ -362,9 +386,21 @@ export const routeMeta: RouteMeta = {
 				<strong>sticky footer</strong>
 				at the bottom of your sidebar. This is useful for secondary actions, user profile information, or app settings.
 			</p>
-			<spartan-code fileName="src/app/app-sidebar.ts" [code]="_footer" />
 
-			<spartan-section-sub-heading id="sidebar-content">Content</spartan-section-sub-heading>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div class="md:h-[500px]" firstTab>
+					<img
+						src="/assets/sidebar-footer.png"
+						alt="sidebar-footer"
+						class="border-border flex rounded border md:hidden"
+					/>
+					<iframe src="/sidebar-preview/sidebar-footer" class="hidden size-full rounded md:block"></iframe>
+				</div>
+
+				<spartan-code secondTab fileName="src/app/app-sidebar.ts" [code]="_footer" />
+			</spartan-tabs>
+
+			<spartan-section-sub-heading id="sidebar-content">HlmSidebarContent</spartan-section-sub-heading>
 			<p hlmP>
 				The
 				<span hlmCode>HlmSidebarContent</span>
@@ -378,7 +414,7 @@ export const routeMeta: RouteMeta = {
 			</p>
 			<spartan-code fileName="src/app/app-sidebar.ts" [code]="_content" />
 
-			<spartan-section-sub-heading id="sidebar-content">Group</spartan-section-sub-heading>
+			<spartan-section-sub-heading id="sidebar-group">HlmSidebarGroup</spartan-section-sub-heading>
 			<p hlmP>
 				Use the
 				<span hlmCode>HlmSidebarGroup</span>
@@ -403,18 +439,42 @@ export const routeMeta: RouteMeta = {
 					(optional) – a button or action element associated with the group, e.g. "Add" or "Settings".
 				</li>
 			</ul>
-			<spartan-code fileName="src/app/app-sidebar.ts" [code]="_group" />
 
-			<spartan-section-sub-heading id="sidebar-collapsable">Collapsable</spartan-section-sub-heading>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div class="md:h-[500px]" firstTab>
+					<img
+						src="/assets/sidebar-group.png"
+						alt="sidebar-group"
+						class="border-border flex rounded border md:hidden"
+					/>
+					<iframe src="/sidebar-preview/sidebar-group" class="hidden size-full rounded md:block"></iframe>
+				</div>
+
+				<spartan-code secondTab fileName="src/app/app-sidebar.ts" [code]="_group" />
+			</spartan-tabs>
+
+			<spartan-section-sub-heading id="sidebar-collapsable">Collapsable HlmSidebarGroup</spartan-section-sub-heading>
 			<p hlmP>
 				To make a
 				<span hlmCode>HlmSidebarGroup</span>
 				collapsible, wrap it in a
 				<span hlmCode>BrnCollapsible</span>
 			</p>
-			<spartan-code fileName="src/app/app-sidebar.ts" [code]="_collapsable" />
 
-			<spartan-section-sub-heading id="sidebar-group-action">Group Action</spartan-section-sub-heading>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div class="md:h-[500px]" firstTab>
+					<img
+						src="/assets/sidebar-collapsable.png"
+						alt="sidebar-collapsable"
+						class="border-border flex rounded border md:hidden"
+					/>
+					<iframe src="/sidebar-preview/sidebar-collapsable" class="hidden size-full rounded md:block"></iframe>
+				</div>
+
+				<spartan-code secondTab fileName="src/app/app-sidebar.ts" [code]="_collapsable" />
+			</spartan-tabs>
+
+			<spartan-section-sub-heading id="sidebar-group-action">HlmSidebarGroupAction</spartan-section-sub-heading>
 			<p hlmP>
 				Use the
 				<span hlmCode>HlmSidebarGroupAction</span>
@@ -422,9 +482,21 @@ export const routeMeta: RouteMeta = {
 				<span hlmCode>HlmSidebarGroup</span>
 				.
 			</p>
-			<spartan-code fileName="src/app/app-sidebar.ts" [code]="_groupAction" />
 
-			<spartan-section-sub-heading id="sidebar-menu">Menu</spartan-section-sub-heading>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div class="md:h-[500px]" firstTab>
+					<img
+						src="/assets/sidebar-group-action.png"
+						alt="sidebar-group-action"
+						class="border-border flex rounded border md:hidden"
+					/>
+					<iframe src="/sidebar-preview/sidebar-group-action" class="hidden size-full rounded md:block"></iframe>
+				</div>
+
+				<spartan-code secondTab fileName="src/app/app-sidebar.ts" [code]="_groupAction" />
+			</spartan-tabs>
+
+			<spartan-section-sub-heading id="sidebar-menu">HlmSidebarMenu</spartan-section-sub-heading>
 			<p hlmP>
 				The
 				<span hlmCode>HlmSidebarMenu</span>
@@ -460,9 +532,15 @@ export const routeMeta: RouteMeta = {
 				component rendering a list of projects.
 			</p>
 
-			<spartan-code fileName="src/app/app-sidebar.ts" [code]="_menu" />
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div class="border-border h-[500px] rounded" firstTab>
+					<img src="/assets/sidebar-menu.png" alt="sidebar-menu" class="border-border flex rounded border md:hidden" />
+					<iframe src="/sidebar-preview/sidebar-menu" class="hidden size-full rounded md:block"></iframe>
+				</div>
+				<spartan-code secondTab fileName="src/app/app-sidebar.ts" [code]="_menu" />
+			</spartan-tabs>
 
-			<spartan-section-sub-heading id="sidebar-menu-button">Menu Button</spartan-section-sub-heading>
+			<spartan-section-sub-heading id="sidebar-menu-button">HlmSidebarMenuButton</spartan-section-sub-heading>
 			<p hlmP>
 				The
 				<span hlmCode>HlmSidebarMenuButton</span>
@@ -483,7 +561,7 @@ export const routeMeta: RouteMeta = {
 				<span hlmCode [innerHTML]="'<span>'"></span>
 				.
 			</p>
-			<h3 hlmH4 id="isactive">isActive</h3>
+			<h3 hlmH4 id="is-active">isActive</h3>
 			<p hlmP>
 				Use the
 				<span hlmCode>isActive</span>
@@ -491,7 +569,7 @@ export const routeMeta: RouteMeta = {
 			</p>
 			<spartan-code [code]="_linkActive" />
 
-			<spartan-section-sub-heading id="sidebar-menu-action">Sidebar Menu Action</spartan-section-sub-heading>
+			<spartan-section-sub-heading id="sidebar-menu-action">HlmSidebarMenuAction</spartan-section-sub-heading>
 			<p hlmP>
 				The
 				<span hlmCode>HlmSidebarMenuAction</span>
@@ -512,7 +590,7 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-code [code]="_menuAction" />
 
-			<h3 hlmH4 id="dropdown_menu">DropdownMenu</h3>
+			<h3 hlmH4 id="dropdown-menu">DropdownMenu</h3>
 			<p hlmP>
 				Here's an example of a
 				<span hlmCode>HlmSidebarMenuAction</span>
@@ -521,7 +599,115 @@ export const routeMeta: RouteMeta = {
 				.
 			</p>
 
-			<spartan-code fileName="src/app/app-sidebar.ts" [code]="_menuActionExample" />
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div class="md:h-[500px]" firstTab>
+					<img
+						src="/assets/sidebar-dropdown-menu.png"
+						alt="sidebar-dropdown-menu"
+						class="border-border flex rounded border md:hidden"
+					/>
+					<iframe src="/sidebar-preview/sidebar-dropdown-menu" class="hidden size-full rounded md:block"></iframe>
+				</div>
+				<spartan-code secondTab fileName="src/app/app-sidebar.ts" [code]="_menuActionExample" />
+			</spartan-tabs>
+
+			<spartan-section-sub-heading id="sidebar-menu-sub">HlmMenuSub</spartan-section-sub-heading>
+
+			<p hlmP>
+				The
+				<span hlmCode>HlmSidebarMenuSub</span>
+				component is used to render a submenu within a
+				<span hlmCode>HlmSidebarMenu</span>
+				.
+			</p>
+
+			<p hlmP>
+				Use
+				<span hlmCode>HlmSidebarMenuSubItem</span>
+				and
+				<span hlmCode>HlmSidebarMenuSubButton</span>
+				to render a submenu item.
+			</p>
+
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div class="md:h-[500px]" firstTab>
+					<img
+						src="/assets/sidebar-menu-sub.png"
+						alt="sidebar-menu-sub"
+						class="border-border flex rounded border md:hidden"
+					/>
+					<iframe src="/sidebar-preview/sidebar-menu-sub" class="hidden size-full rounded md:block"></iframe>
+				</div>
+				<spartan-code secondTab fileName="src/app/app-sidebar.ts" [code]="_menuSubExample" />
+			</spartan-tabs>
+
+			<spartan-section-sub-heading id="sidebar-menu-sub-collapsable">
+				Collapsable HlmSidebarSubMenu
+			</spartan-section-sub-heading>
+			<p hlmP>
+				To make a
+				<span hlmCode>HlmSidebarMenu</span>
+				component collapsible, wrap it and the
+				<span>HlmSidebarMenuSub</span>
+				components in a
+				<span hlmCode>BrnCollapsible</span>
+				.
+			</p>
+
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div class="md:h-[500px]" firstTab>
+					<img
+						src="/assets/sidebar-menu-sub-collapsable.png"
+						alt="sidebar-menu-sub-collapsable"
+						class="border-border flex rounded border md:hidden"
+					/>
+					<iframe
+						src="/sidebar-preview/sidebar-menu-sub-collapsable"
+						class="hidden size-full rounded md:block"
+					></iframe>
+				</div>
+				<spartan-code secondTab fileName="src/app/app-sidebar.ts" [code]="_menuSubCollapsableExample" />
+			</spartan-tabs>
+
+			<spartan-section-sub-heading id="sidebar-menu-badge">HlmSidebarMenuBadge</spartan-section-sub-heading>
+			<p hlmP>
+				The
+				<span hlmCode>HlmSidebarMenuBadge</span>
+				component is used to render a badge within a
+				<span hlmCode>HlmSidebarMenuItem</span>
+				.
+			</p>
+
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div class="md:h-[500px]" firstTab>
+					<img
+						src="/assets/sidebar-menu-badge.png"
+						alt="sidebar-menu-badge"
+						class="border-border flex rounded border md:hidden"
+					/>
+					<iframe src="/sidebar-preview/sidebar-menu-badge" class="hidden size-full rounded md:block"></iframe>
+				</div>
+				<spartan-code secondTab fileName="src/app/app-sidebar.ts" [code]="_menuBadge" />
+			</spartan-tabs>
+
+			<spartan-section-sub-heading id="sidebar-menu-skeleton">HlmSidebarMenuSkeleton</spartan-section-sub-heading>
+			<p hlmP>
+				The
+				<span hlmCode>HlmSidebarMenuSkeleton</span>
+				component is used to render a skeleton for a SidebarMenu. You can use this to show a loading state while
+				fetching data.
+			</p>
+			<spartan-code [code]="_skeleton" />
+
+			<spartan-section-sub-heading id="sidebar-menu-separator">HlmSidebarMenuSeparator</spartan-section-sub-heading>
+			<p hlmP>
+				The
+				<span hlmCode>HlmSidebarMenuSeparator</span>
+				component is used to render a separator within a
+				<span hlmCode>Sidebar</span>
+				.
+			</p>
+			<spartan-code [code]="_separator" />
 
 			<div>
 				<spartan-section-sub-heading id="theming">Theming</spartan-section-sub-heading>
@@ -578,4 +764,9 @@ export default class SidebarPageComponent {
 	protected readonly _button = button;
 	protected readonly _menuAction = menuAction;
 	protected readonly _menuActionExample = menuActionExample;
+	protected readonly _menuSubExample = menuSubExample;
+	protected readonly _menuSubCollapsableExample = menuSubCollapsableExample;
+	protected readonly _menuBadge = menuBadge;
+	protected readonly _skeleton = skeleton;
+	protected readonly _separator = separator;
 }

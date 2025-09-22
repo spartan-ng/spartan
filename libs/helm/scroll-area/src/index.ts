@@ -3,10 +3,10 @@ import { HlmScrollArea } from './lib/hlm-scroll-area';
 
 export * from './lib/hlm-scroll-area';
 
-export const HlmScrollAreaImports = [HlmScrollArea];
+export const HlmScrollAreaImports = [HlmScrollArea] as const;
 
 @NgModule({
-	imports: [HlmScrollArea],
-	exports: [HlmScrollArea],
+	imports: [...HlmScrollAreaImports],
+	exports: [...HlmScrollAreaImports],
 })
 export class HlmScrollAreaModule {}

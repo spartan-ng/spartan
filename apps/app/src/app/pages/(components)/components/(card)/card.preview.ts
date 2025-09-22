@@ -10,15 +10,7 @@ import { HlmLabelImports } from '@spartan-ng/helm/label';
 
 @Component({
 	selector: 'spartan-card-preview',
-	imports: [
-		BrnCommandImports,
-		HlmCommandImports,
-		HlmCardImports,
-		HlmLabelImports,
-		HlmInputImports,
-		HlmCardImports,
-		HlmButtonImports,
-	],
+	imports: [BrnCommandImports, HlmCommandImports, HlmCardImports, HlmLabelImports, HlmInputImports, HlmButtonImports],
 	providers: [provideIcons({ lucideCheck, lucideChevronDown })],
 	template: `
 		<section class="w-full max-w-sm" hlmCard>

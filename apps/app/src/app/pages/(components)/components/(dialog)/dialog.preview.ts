@@ -37,15 +37,8 @@ import { HlmLabelImports } from '@spartan-ng/helm/label';
 export class DialogPreview {}
 
 export const defaultImports = `
-import { BrnDialogClose, BrnDialogContent, BrnDialogTrigger } from '@spartan-ng/brain/dialog';
-import {
-  HlmDialog
-  HlmDialogContent
-  HlmDialogDescription
-  HlmDialogFooter
-  HlmDialogHeader
-  HlmDialogTitle
-} from '@spartan-ng/helm/dialog';
+import { BrnDialogImports } from '@spartan-ng/brain/dialog';
+import { HlmDialogImports } from '@spartan-ng/helm/dialog';
 `;
 
 export const defaultSkeleton = `

@@ -53,6 +53,57 @@ describe('healthcheck generator', () => {
 		   <hlm-date-picker-multi (changed)="onDateChange($event)">;`,
 		);
 
+		// add a file with legacy output conventions
+		tree.write('libs/my-lib/src/switch-legacy.component.ts', `<brn-switch (changed)="onChange($event)"/>`);
+
+		// add a file with legacy output conventions
+		tree.write('libs/my-lib/src/checkbox-legacy.component.ts', `<brn-checkbox (changed)="onChange($event)"/>`);
+
+		// add a html file with legacy brain accordion trigger
+		tree.write(
+			'libs/my-lib/src/brn-accordion-trigger-legacy.component.html',
+			`
+			<div hlmAccordion>
+			<div hlmAccordionItem>
+					<button hlmAccordionTrigger>
+						Product Information
+						<ng-icon name="lucideChevronDown" hlm hlmAccIcon />
+					</button>
+				<hlm-accordion-content>
+					<p>
+						Our flagship product combines cutting-edge technology with sleek design. Built with premium materials, it
+						offers unparalleled performance and reliability.
+					</p>
+
+					<p>
+						Key features include advanced processing capabilities, and an intuitive user interface designed for both
+						beginners and experts.
+					</p>
+				</hlm-accordion-content>
+			</div>
+
+
+			<div hlmAccordionItem>
+					<button brnAccordionTrigger>
+						Product Information
+					</button>
+					<ng-icon name="lucideChevronDown" hlm hlmAccIcon />
+				<hlm-accordion-content>
+					<p>
+						Our flagship product combines cutting-edge technology with sleek design. Built with premium materials, it
+						offers unparalleled performance and reliability.
+					</p>
+
+					<p>
+						Key features include advanced processing capabilities, and an intuitive user interface designed for both
+						beginners and experts.
+					</p>
+				</hlm-accordion-content>
+			</div>
+			</div>
+		`,
+		);
+
 		await healthcheckGenerator(tree, { skipFormat: true, autoFix: true });
 	});
 
@@ -119,5 +170,29 @@ describe('healthcheck generator', () => {
 		expect(contents).not.toContain('<hlm-date-picker (changed)="onDateChange($event)"/>');
 		expect(contents).toContain('<hlm-date-picker-multi (dateChange)="onDateChange($event)">');
 		expect(contents).not.toContain('<hlm-date-picker-multi (changed)="onDateChange($event)">');
+	});
+
+	it('should update brn accordion triggers', () => {
+		const contents = tree.read('libs/my-lib/src/brn-accordion-trigger-legacy.component.html', 'utf-8');
+
+		expect(contents).toContain(`<h3 class="contents"><button hlmAccordionTrigger>`);
+		expect(contents).toContain(`</button></h3>`);
+
+		expect(contents).toContain(`<h3 class="contents"><button brnAccordionTrigger>`);
+		expect(contents).toContain(`</button></h3>`);
+	});
+
+	it('should update brn-switch output conventions', () => {
+		const contents = tree.read('libs/my-lib/src/switch-legacy.component.ts', 'utf-8');
+
+		expect(contents).toContain('<brn-switch (checkedChange)="onChange($event)"/>');
+		expect(contents).not.toContain('<brn-switch (changed)="onChange($event)"/>');
+	});
+
+	it('should update brn-checkbox output conventions', () => {
+		const contents = tree.read('libs/my-lib/src/checkbox-legacy.component.ts', 'utf-8');
+
+		expect(contents).toContain('<brn-checkbox (checkedChange)="onChange($event)"/>');
+		expect(contents).not.toContain('<brn-checkbox (changed)="onChange($event)"/>');
 	});
 });

@@ -69,7 +69,7 @@ export const routeMeta: RouteMeta = {
 
 			<p class="${hlmP}">Determines whether the generated library is buildable or not.</p>
 
-			<h3 id="buildable" class="${hlmH4} mt-8">generateAs</h3>
+			<h3 id="generateAs" class="${hlmH4} mt-8">generateAs</h3>
 
 			<p class="${hlmP}">Generate the components as a library or entrypoint.</p>
 

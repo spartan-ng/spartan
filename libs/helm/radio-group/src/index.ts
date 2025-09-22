@@ -8,7 +8,7 @@ export * from './lib/hlm-radio';
 export * from './lib/hlm-radio-group';
 export * from './lib/hlm-radio-indicator';
 
-export const HlmRadioGroupImports = [HlmRadioGroup, HlmRadio, HlmRadioIndicator];
+export const HlmRadioGroupImports = [HlmRadioGroup, HlmRadio, HlmRadioIndicator] as const;
 
 @NgModule({
 	imports: [...HlmRadioGroupImports],

@@ -1,27 +1,12 @@
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideSlash } from '@ng-icons/lucide';
-import {
-	HlmBreadcrumb,
-	HlmBreadcrumbItem,
-	HlmBreadcrumbLink,
-	HlmBreadcrumbList,
-	HlmBreadcrumbPage,
-	HlmBreadcrumbSeparator,
-} from '@spartan-ng/helm/breadcrumb';
+import { HlmBreadCrumbImports } from '@spartan-ng/helm/breadcrumb';
 
 @Component({
 	selector: 'spartan-breadcrumb-custom-separator',
 	providers: [provideIcons({ lucideSlash })],
-	imports: [
-		HlmBreadcrumb,
-		HlmBreadcrumbSeparator,
-		HlmBreadcrumbList,
-		HlmBreadcrumbItem,
-		HlmBreadcrumbPage,
-		HlmBreadcrumbLink,
-		NgIcon,
-	],
+	imports: [HlmBreadCrumbImports, NgIcon],
 	template: `
 		<nav hlmBreadcrumb>
 			<ol hlmBreadcrumbList>

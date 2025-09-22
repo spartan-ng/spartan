@@ -52,15 +52,7 @@ import { HlmLabel } from '@spartan-ng/helm/label';
 export class CardPreview {}
 
 export const defaultImports = `
-import {
-  HlmCardContent
-  HlmCardDescription
-  HlmCard
-  HlmCardFooter
-  HlmCardHeader
-  HlmCardTitle
-	HlmCardAction
-} from '@spartan-ng/helm/card';
+import { HlmCardImports } from '@spartan-ng/helm/card';
 `;
 
 export const defaultSkeleton = `

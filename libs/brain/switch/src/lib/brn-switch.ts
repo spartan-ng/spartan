@@ -155,12 +155,6 @@ export class BrnSwitch implements AfterContentInit, OnDestroy, ControlValueAcces
 	public readonly tabIndex = input(0);
 
 	/**
-	 * Event emitted when switch value changes.
-	 * Emits new checked state (true/false).
-	 */
-	public readonly changed = output<boolean>();
-
-	/**
 	 * Event emitted when switch is blurred (loses focus).
 	 * Used for form validation.
 	 */
@@ -220,7 +214,6 @@ export class BrnSwitch implements AfterContentInit, OnDestroy, ControlValueAcces
 
 		this.checked.update((checked) => !checked);
 		this._onChange(this.checked());
-		this.changed.emit(this.checked());
 		this.checkedChange.emit(this.checked());
 	}
 

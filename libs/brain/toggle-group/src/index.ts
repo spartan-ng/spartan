@@ -5,9 +5,11 @@ import { BrnToggleGroupItem } from './lib/brn-toggle-item';
 export * from './lib/brn-toggle-group';
 export * from './lib/brn-toggle-item';
 
+export const BrnToggleGroupImports = [BrnToggleGroup, BrnToggleGroupItem] as const;
+
 @NgModule({
-	imports: [BrnToggleGroupItem, BrnToggleGroup],
-	exports: [BrnToggleGroupItem, BrnToggleGroup],
+	imports: [...BrnToggleGroupImports],
+	exports: [...BrnToggleGroupImports],
 })
 export class BrnToggleGroupModule {}
 

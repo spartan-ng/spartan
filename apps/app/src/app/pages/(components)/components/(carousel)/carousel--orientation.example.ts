@@ -1,24 +1,10 @@
 import { Component } from '@angular/core';
-import { HlmCard, HlmCardContent } from '@spartan-ng/helm/card';
-import {
-	HlmCarousel,
-	HlmCarouselContent,
-	HlmCarouselItem,
-	HlmCarouselNext,
-	HlmCarouselPrevious,
-} from '@spartan-ng/helm/carousel';
+import { HlmCardImports } from '@spartan-ng/helm/card';
+import { HlmCarouselImports } from '@spartan-ng/helm/carousel';
 
 @Component({
 	selector: 'spartan-carousel-orientation',
-	imports: [
-		HlmCarousel,
-		HlmCarouselContent,
-		HlmCarouselItem,
-		HlmCarouselNext,
-		HlmCarouselPrevious,
-		HlmCard,
-		HlmCardContent,
-	],
+	imports: [HlmCarouselImports, HlmCardImports],
 	host: {
 		class: 'w-full',
 	},

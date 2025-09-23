@@ -14,6 +14,7 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown } from '@ng-icons/lucide';
 import { BrnSelectImports, BrnSelectTrigger } from '@spartan-ng/brain/select';
 import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmFormFieldModule } from '@spartan-ng/helm/form-field';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmLabel } from '@spartan-ng/helm/label';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
@@ -45,7 +46,15 @@ const meta: Meta<BrnSelectStoryArgs> = {
 	},
 	decorators: [
 		moduleMetadata({
-			imports: [CommonModule, FormsModule, ReactiveFormsModule, BrnSelectImports, HlmSelectImports, HlmLabel],
+			imports: [
+				CommonModule,
+				FormsModule,
+				ReactiveFormsModule,
+				BrnSelectImports,
+				HlmSelectImports,
+				HlmLabel,
+				HlmFormFieldModule,
+			],
 		}),
 	],
 };
@@ -314,27 +323,28 @@ export const ReactiveFormControlWithValidation: Story = {
 				<pre>Form Control Value: {{ fruitGroup.controls.fruit.valueChanges | async | json }}</pre>
 			</div>
 			<form [formGroup]="fruitGroup">
-				<brn-select
-					class="w-56"
-					formControlName="fruit"
-					${argsToTemplate(args, { exclude: ['initialValue', 'selectValueTransformFn'] })}
-				>
-					<hlm-select-trigger>
-						<brn-select-value hlm />
-					</hlm-select-trigger>
-					<hlm-select-content>
-						<hlm-select-label>Fruits</hlm-select-label>
-						<hlm-option value="apple">Apple</hlm-option>
-						<hlm-option value="banana">Banana</hlm-option>
-						<hlm-option value="blueberry">Blueberry</hlm-option>
-						<hlm-option value="grapes">Grapes</hlm-option>
-						<hlm-option value="pineapple">Pineapple</hlm-option>
-						<hlm-option>Clear</hlm-option>
-					</hlm-select-content>
-				</brn-select>
-				@if (fruitGroup.controls.fruit.invalid && fruitGroup.controls.fruit.touched){
-				<span class="text-destructive">Required</span>
-				}
+				<hlm-form-field>
+					<hlm-select
+						class="w-56"
+						formControlName="fruit"
+						${argsToTemplate(args, { exclude: ['initialValue', 'selectValueTransformFn'] })}
+					>
+						<hlm-select-trigger>
+							<brn-select-value hlm />
+						</hlm-select-trigger>
+						<hlm-select-content>
+							<hlm-select-label>Fruits</hlm-select-label>
+							<hlm-option value="apple">Apple</hlm-option>
+							<hlm-option value="banana">Banana</hlm-option>
+							<hlm-option value="blueberry">Blueberry</hlm-option>
+							<hlm-option value="grapes">Grapes</hlm-option>
+							<hlm-option value="pineapple">Pineapple</hlm-option>
+							<hlm-option>Clear</hlm-option>
+						</hlm-select-content>
+					</hlm-select>
+					<hlm-hint>This is your favorite fruit</hlm-hint>
+					<hlm-error>The fruit is required</hlm-error>
+				</hlm-form-field>
 			</form>
 		`,
 	}),

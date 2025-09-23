@@ -132,4 +132,25 @@ describe('Hlm Form Field Component', () => {
 			expect(error()?.textContent?.trim()).toBe(TEXT_ERROR);
 		});
 	});
+
+	describe('Hlm Form Field Component ID Tests', () => {
+		it('should have an id that begins with "brn-hint-" on the hint directive', async () => {
+			const { hint } = await setupFormField();
+			expect(hint.getAttribute('id')).toBeDefined(); // Check if the id attribute exists
+			expect(hint.getAttribute('id')).toMatch(/^brn-hint-/); // Assert that the id begins with "brn-hint-"
+		});
+
+		it('should have an id that begins with "brn-error-" on the error directive', async () => {
+			const { error, user, trigger } = await setupFormFieldWithErrorStateDirty();
+
+			await user.click(trigger);
+			await user.type(trigger, 'a');
+			await user.clear(trigger);
+
+			await user.click(document.body);
+
+			expect(error()?.getAttribute('id')).toBeDefined(); // Check if the id attribute exists
+			expect(error()?.getAttribute('id')).toMatch(/^brn-error-/); // Assert that the id begins with "brn-error-"
+		});
+	});
 });

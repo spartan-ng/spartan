@@ -56,15 +56,13 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-section-sub-heading id="about">About</spartan-section-sub-heading>
 			<p class="${hlmP} mb-6">
-				Select is built with the help of ListKeyManager from Material CDK
-				<a 
-					href="https://material.angular.dev/cdk/a11y/overview#listkeymanager"
-					target="_blank"
-					rel="noreferrer"
-				>
-				ListKeyManager
+				Select is built with the help of
+				<a href="https://material.angular.dev/cdk/a11y/overview#listkeymanager" target="_blank" rel="noreferrer">
+					ListKeyManager
 				</a>
-				.
+				and
+				<a href="https://material.angular.dev/cdk/overlay/overview" target="_blank" rel="noreferrer">Overlay</a>
+				from Material CDK .
 			</p>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>

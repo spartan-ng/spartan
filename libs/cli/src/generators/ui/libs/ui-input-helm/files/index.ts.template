@@ -3,8 +3,10 @@ import { HlmInput } from './lib/hlm-input';
 
 export * from './lib/hlm-input';
 
+export const HlmInputImports = [HlmInput] as const;
+
 @NgModule({
-	imports: [HlmInput],
-	exports: [HlmInput],
+	imports: [...HlmInputImports],
+	exports: [...HlmInputImports],
 })
 export class HlmInputModule {}

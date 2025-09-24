@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { HlmCheckboxImports } from '@spartan-ng/helm/checkbox';
-import { HlmLabel } from '@spartan-ng/helm/label';
+import { HlmLabelImports } from '@spartan-ng/helm/label';
 
 @Component({
 	selector: 'spartan-label-preview',
-	imports: [HlmLabel, HlmCheckboxImports],
+	imports: [HlmLabelImports, HlmCheckboxImports],
 	template: `
 		<div>
 			<div class="flex items-center space-x-2">
@@ -17,6 +17,6 @@ import { HlmLabel } from '@spartan-ng/helm/label';
 export class LabelPreview {}
 
 export const defaultImports = `
-import { HlmLabel } from '@spartan-ng/helm/label';
+import { HlmLabelImports } from '@spartan-ng/helm/label';
 `;
 export const defaultSkeleton = '<label hlmLabel>Label</label>';

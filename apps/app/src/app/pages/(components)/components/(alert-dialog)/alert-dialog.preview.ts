@@ -1,32 +1,11 @@
 import { Component } from '@angular/core';
-import { BrnAlertDialogContent, BrnAlertDialogTrigger } from '@spartan-ng/brain/alert-dialog';
-import {
-	HlmAlertDialog,
-	HlmAlertDialogActionButton,
-	HlmAlertDialogCancelButton,
-	HlmAlertDialogContent,
-	HlmAlertDialogDescription,
-	HlmAlertDialogFooter,
-	HlmAlertDialogHeader,
-	HlmAlertDialogTitle,
-} from '@spartan-ng/helm/alert-dialog';
+import { BrnAlertDialogImports } from '@spartan-ng/brain/alert-dialog';
+import { HlmAlertDialogImports } from '@spartan-ng/helm/alert-dialog';
 import { HlmButton } from '@spartan-ng/helm/button';
 
 @Component({
 	selector: 'spartan-alert-dialog-preview',
-	imports: [
-		BrnAlertDialogTrigger,
-		BrnAlertDialogContent,
-		HlmAlertDialog,
-		HlmAlertDialogHeader,
-		HlmAlertDialogFooter,
-		HlmAlertDialogTitle,
-		HlmAlertDialogDescription,
-		HlmAlertDialogCancelButton,
-		HlmAlertDialogActionButton,
-		HlmAlertDialogContent,
-		HlmButton,
-	],
+	imports: [BrnAlertDialogImports, HlmAlertDialogImports, HlmButton],
 	template: `
 		<hlm-alert-dialog>
 			<button id="edit-profile" variant="outline" brnAlertDialogTrigger hlmBtn>Show Dialog</button>
@@ -49,18 +28,8 @@ import { HlmButton } from '@spartan-ng/helm/button';
 export class AlertDialogPreview {}
 
 export const defaultImports = `
-import { BrnAlertDialogContent, BrnAlertDialogTrigger } from '@spartan-ng/brain/alert-dialog';
-import {
-  HlmAlertDialogActionButton
-  HlmAlertDialogCancelButton
-  HlmAlertDialog
-  HlmAlertDialogContent
-  HlmAlertDialogDescription
-  HlmAlertDialogFooter
-  HlmAlertDialogHeader
-  HlmAlertDialogOverlay
-  HlmAlertDialogTitle
-} from '@spartan-ng/helm/alert-dialog';
+import { BrnAlertDialogImports } from '@spartan-ng/brain/alert-dialog';
+import { HlmAlertDialogImports } from '@spartan-ng/helm/alert-dialog';
 `;
 
 export const defaultSkeleton = `

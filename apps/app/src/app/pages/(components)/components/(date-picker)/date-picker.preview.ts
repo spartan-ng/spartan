@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { HlmDatePicker } from '@spartan-ng/helm/date-picker';
-import { HlmLabel } from '@spartan-ng/helm/label';
+import { HlmDatePickerImports } from '@spartan-ng/helm/date-picker';
+import { HlmLabelImports } from '@spartan-ng/helm/label';
 
 @Component({
 	selector: 'spartan-date-picker-preview',
-	imports: [HlmDatePicker, HlmLabel],
+	imports: [HlmDatePickerImports, HlmLabelImports],
 	template: `
 		<div class="flex flex-col gap-3">
 			<label for="date" hlmLabel class="px-1">Date of birth</label>
@@ -23,7 +23,7 @@ export class DatePickerPreview {
 }
 
 export const defaultImports = `
-import { HlmDatePicker } from '@spartan-ng/helm/date-picker';
+import { HlmDatePickerImports } from '@spartan-ng/helm/date-picker';
 `;
 
 export const defaultSkeleton = `

@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HlmDateRangePicker } from '@spartan-ng/helm/date-picker';
+import { HlmDatePickerImports } from '@spartan-ng/helm/date-picker';
 
 @Component({
 	selector: 'spartan-date-picker-range',
-	imports: [HlmDateRangePicker, FormsModule],
+	imports: [HlmDatePickerImports, FormsModule],
 	template: `
 		<hlm-date-range-picker [min]="minDate" [max]="maxDate" [autoCloseOnEndSelection]="true">
 			<span>Enter a date range</span>

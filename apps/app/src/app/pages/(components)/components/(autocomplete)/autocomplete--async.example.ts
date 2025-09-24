@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, resource, signal } from '@angular/core';
-import { HlmAutocomplete } from '@spartan-ng/helm/autocomplete';
-import { HlmSpinner } from '@spartan-ng/helm/spinner';
+import { HlmAutocompleteImports } from '@spartan-ng/helm/autocomplete';
+import { HlmSpinnerImports } from '@spartan-ng/helm/spinner';
 
 @Component({
 	selector: 'spartan-autocomplete-async',
-	imports: [HlmAutocomplete, HlmSpinner],
+	imports: [HlmAutocompleteImports, HlmSpinnerImports],
 	template: `
 		<hlm-autocomplete [filteredOptions]="options.value()" [loading]="options.isLoading()" [(search)]="search">
 			<hlm-spinner loading class="size-6" />

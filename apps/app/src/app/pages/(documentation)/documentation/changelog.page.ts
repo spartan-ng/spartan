@@ -1,7 +1,7 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { hlmCode, hlmH4, hlmP, hlmUl } from '@spartan-ng/helm/typography';
 
 import { MainSection } from '../../../shared/layout/main-section';
@@ -28,7 +28,7 @@ export const routeMeta: RouteMeta = {
 		PageNav,
 		SectionSubHeading,
 		RouterLink,
-		HlmButton,
+		HlmButtonImports,
 	],
 	template: `
 		<section spartanMainSection>

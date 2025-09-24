@@ -1,32 +1,20 @@
 import { Component } from '@angular/core';
 import { NgIcon } from '@ng-icons/core';
-import {
-	HlmAccordion,
-	HlmAccordionContent,
-	HlmAccordionIcon,
-	HlmAccordionItem,
-	HlmAccordionTrigger,
-} from '@spartan-ng/helm/accordion';
-import { HlmIcon } from '@spartan-ng/helm/icon';
+import { HlmAccordionImports } from '@spartan-ng/helm/accordion';
+import { HlmIconImports } from '@spartan-ng/helm/icon';
 
 @Component({
 	selector: 'spartan-accordion-preview',
-	imports: [
-		HlmAccordion,
-		HlmAccordionItem,
-		HlmAccordionTrigger,
-		HlmAccordionIcon,
-		HlmAccordionContent,
-		NgIcon,
-		HlmIcon,
-	],
+	imports: [HlmAccordionImports, NgIcon, HlmIconImports],
 	template: `
 		<div hlmAccordion>
 			<div hlmAccordionItem>
-				<button hlmAccordionTrigger>
-					Product Information
-					<ng-icon name="lucideChevronDown" hlm hlmAccIcon />
-				</button>
+				<h3 class="contents">
+					<button hlmAccordionTrigger>
+						Product Information
+						<ng-icon name="lucideChevronDown" hlm hlmAccIcon />
+					</button>
+				</h3>
 				<hlm-accordion-content>
 					<p>
 						Our flagship product combines cutting-edge technology with sleek design. Built with premium materials, it
@@ -41,10 +29,12 @@ import { HlmIcon } from '@spartan-ng/helm/icon';
 			</div>
 
 			<div hlmAccordionItem>
-				<button hlmAccordionTrigger>
-					Shipping Details
-					<ng-icon name="lucideChevronDown" hlm hlmAccIcon />
-				</button>
+				<h3 class="contents">
+					<button hlmAccordionTrigger>
+						Shipping Details
+						<ng-icon name="lucideChevronDown" hlm hlmAccIcon />
+					</button>
+				</h3>
 				<hlm-accordion-content>
 					<p>
 						We offer worldwide shipping through trusted courier partners. Standard delivery takes 3-5 business days,
@@ -59,10 +49,12 @@ import { HlmIcon } from '@spartan-ng/helm/icon';
 			</div>
 
 			<div hlmAccordionItem>
-				<button hlmAccordionTrigger>
-					Return Policy
-					<ng-icon name="lucideChevronDown" hlm hlmAccIcon />
-				</button>
+				<h3 class="contents">
+					<button hlmAccordionTrigger>
+						Return Policy
+						<ng-icon name="lucideChevronDown" hlm hlmAccIcon />
+					</button>
+				</h3>
 				<hlm-accordion-content>
 					<p>
 						We stand behind our products with a comprehensive 30-day return policy. If you're not completely satisfied,
@@ -82,23 +74,19 @@ export class AccordionPreview {}
 
 export const defaultImports = `
 import { NgIcon } from '@ng-icons/core';
-import {
-  HlmAccordionContent
-  HlmAccordion
-  HlmAccordionIcon
-  HlmAccordionItem
-  HlmAccordionTrigger
-} from '@spartan-ng/helm/accordion';
-import { HlmIcon } from '@spartan-ng/helm/icon';
+import { HlmAccordionImports } from '@spartan-ng/helm/accordion';
+import { HlmIconImports } from '@spartan-ng/helm/icon';
 `;
 
 export const defaultSkeleton = `
 <div hlmAccordion>
 	<div hlmAccordionItem>
-		<button hlmAccordionTrigger>
-			Is it accessible?
-			<ng-icon name="lucideChevronDown" hlm hlmAccIcon />
-		</button>
+		<h3 class='contents'>
+			<button hlmAccordionTrigger>
+				Is it accessible?
+				<ng-icon name="lucideChevronDown" hlm hlmAccIcon />
+			</button>
+		</h3>
 		<hlm-accordion-content>Yes. It adheres to the WAI-ARIA design pattern.</hlm-accordion-content>
 	</div>
 </div>

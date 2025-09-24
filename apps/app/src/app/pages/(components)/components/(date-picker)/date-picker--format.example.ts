@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { HlmDatePicker, provideHlmDatePickerConfig } from '@spartan-ng/helm/date-picker';
-import { HlmLabel } from '@spartan-ng/helm/label';
+import { HlmDatePickerImports, provideHlmDatePickerConfig } from '@spartan-ng/helm/date-picker';
+import { HlmLabelImports } from '@spartan-ng/helm/label';
 import { DateTime } from 'luxon';
 
 @Component({
 	selector: 'spartan-date-picker-format',
-	imports: [HlmDatePicker, HlmLabel],
+	imports: [HlmDatePickerImports, HlmLabelImports],
 	template: `
 		<div class="flex flex-col gap-3">
 			<label for="datePickerFormat" hlmLabel class="px-1">Date Picker with Custom Format</label>

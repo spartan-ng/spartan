@@ -34,7 +34,7 @@ export class AutocompletePreview {
 }
 
 export const defaultImports = `
-import { HlmAutocomplete } from '@spartan-ng/helm/autocomplete';
+import { HlmAutocompleteImports } from '@spartan-ng/helm/autocomplete';
 `;
 
 export const defaultSkeleton = `

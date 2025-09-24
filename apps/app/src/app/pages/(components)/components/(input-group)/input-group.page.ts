@@ -1,59 +1,55 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
-import { hlmCode, hlmH4 } from '@spartan-ng/helm/typography';
-import { CodePreview } from '../../../../shared/code/code-preview';
+import { UIApiDocs } from '@spartan-ng/app/app/shared/layout/ui-docs-section/ui-docs-section';
 import { Code } from '../../../../shared/code/code';
+import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
-import { PageBottomNavPlaceholder } from '../../../../shared/layout/page-bottom-nav-placeholder';
-import { PageBottomNavLink } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav-link';
 import { PageBottomNav } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav';
+import { PageBottomNavLink } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav-link';
 import { PageNav } from '../../../../shared/layout/page-nav/page-nav';
 import { SectionIntro } from '../../../../shared/layout/section-intro';
 import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading';
-import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { Tabs } from '../../../../shared/layout/tabs';
+import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { UIApiDocs } from '@spartan-ng/app/app/shared/layout/ui-docs-section/ui-docs-section';
-import { <%= previewComponentName %>, defaultImports, defaultSkeleton } from './<%= fileName %>.preview';
+import { defaultImports, defaultSkeleton, InputGroupPreview } from './input-group.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: '<%= name %>', api: '<%= name %>' },
+	data: { breadcrumb: 'input-group', api: 'input-group' },
 	meta: metaWith(
-		'spartan/ui - <%= name %>',
-		'<%= description %>',
+		'spartan/ui - input-group',
+		'A flexible input group that combines inputs with addons, prefixes, and suffixes to improve usability.',
 	),
-	title: 'spartan/ui - <%= name %>',
+	title: 'spartan/ui - input-group',
 };
 
 @Component({
-	selector: 'spartan-<%= fileName %>',
-imports: [
+	selector: 'spartan-input-group',
+	imports: [
 		MainSection,
 		Code,
 		SectionIntro,
 		SectionSubHeading,
 		Tabs,
 		TabsCli,
-		<%= previewComponentName %>,
+		InputGroupPreview,
 		CodePreview,
 		PageNav,
 		PageBottomNav,
 		PageBottomNavLink,
-		PageBottomNavPlaceholder,
 		UIApiDocs,
-
 	],
 	template: `
 		<section spartanMainSection>
 			<spartan-section-intro
-				name="<%= name %>"
-				lead="<%= description %>"
+				name="input-group"
+				lead="A flexible input group that combines inputs with addons, prefixes, and suffixes to improve usability."
 			/>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
-					<spartan-<%= fileName %>-preview />
+					<spartan-input-group-preview />
 				</div>
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
@@ -61,8 +57,8 @@ imports: [
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
 			<spartan-cli-tabs
 				class="mt-4"
-				nxCode="npx nx g @spartan-ng/cli:ui <%= name %>"
-				ngCode="ng g @spartan-ng/cli:ui <%= name %>"
+				nxCode="npx nx g @spartan-ng/cli:ui input-group"
+				ngCode="ng g @spartan-ng/cli:ui input-group"
 			/>
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
@@ -72,21 +68,21 @@ imports: [
 			</div>
 
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
-      <spartan-ui-api-docs docType="brain" />
+			<spartan-ui-api-docs docType="brain" />
 
-      <spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
-      <spartan-ui-api-docs docType="helm" />
+			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-page-bottom-nav>
-				<spartan-page-bottom-nav-link href="alert" label="Alert" />
-				<spartan-page-bottom-nav-placeholder />
+				<spartan-page-bottom-nav-link label="Input OTP" href="input-otp" />
+				<spartan-page-bottom-nav-link direction="previous" label="Input" />
 			</spartan-page-bottom-nav>
 		</section>
 		<spartan-page-nav />
 	`,
 })
-export default class <%= pageComponentName %> {
-	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('<%= name %>');
+export default class InputGroupPage {
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('input-group');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _imports = defaultImports;
 	protected readonly _codeSkeleton = defaultSkeleton;

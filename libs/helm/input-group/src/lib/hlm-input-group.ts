@@ -1,0 +1,71 @@
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { BrnInputGroup } from '@spartan-ng/brain/input-group';
+import { provideHlmIconConfig } from '@spartan-ng/helm/icon';
+import { hlm } from '@spartan-ng/helm/utils';
+import type { ClassValue } from 'clsx';
+
+@Component({
+	selector: 'hlm-input-group',
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	providers: [
+		provideHlmIconConfig({
+			size: 'sm',
+		}),
+	],
+	hostDirectives: [
+		{
+			directive: BrnInputGroup,
+			inputs: ['id', 'ariaLabel'],
+		},
+	],
+	template: `
+		<ng-content select="[brnPrefixAddon]" />
+		<div [class]="_inputWrapperClasses()">
+			<ng-content select="[brnPrefix]" />
+			<ng-content select="input[hlmInput], textarea[hlmInput]"></ng-content>
+			<ng-content select="[brnSuffix]" />
+		</div>
+		<ng-content select="[brnSuffixAddon]" />
+	`,
+	host: {
+		'[class]': '_wrapperClasses()',
+	},
+})
+export class HlmInputGroup {
+	public readonly userClass = input<ClassValue>('', { alias: 'class' });
+	public readonly inputWrapperClass = input<ClassValue>('');
+
+	protected readonly _wrapperClasses = computed(() =>
+		hlm(
+			'shadow-xs group flex w-full items-stretch rounded-md has-[*:disabled]:pointer-events-none has-[*:disabled]:opacity-50 ' +
+				// Reset inner input/textarea
+				'[&_[hlmInput]]:h-auto [&_[hlmInput]]:flex-1 [&_[hlmInput]]:border-0 [&_[hlmInput]]:bg-transparent [&_[hlmInput]]:px-0 [&_[hlmInput]]:py-0 [&_[hlmInput]]:shadow-none [&_[hlmInput]]:outline-none [&_[hlmInput]]:ring-0 [&_[hlmInput]]:ring-offset-0 [&_textarea[hlmInput]]:min-h-6' +
+				// Shared addon classes
+				' [&>[data-type="addon"]]:bg-muted [&>[data-type="addon"]]:border-input [&>[data-type="addon"]]:focus-visible:ring-ring' +
+				' [&>[data-type="addon"]]:text-muted-foreground [&>[data-type="addon"]]:inline-flex [&>[data-type="addon"]]:h-auto [&>[data-type="addon"]]:min-h-9' +
+				' [&>[data-type="addon"]]:items-center [&>[data-type="addon"]]:justify-center [&>[data-type="addon"]]:whitespace-nowrap [&>[data-type="addon"]]:border' +
+				' [&>[data-type="addon"]]:px-3 [&>[data-type="addon"]]:text-sm [&>[data-type="addon"]]:font-medium [&>[data-type="addon"]]:transition-colors' +
+				' [&>[data-type="addon"]]:focus-visible:outline-none [&>[data-type="addon"]]:focus-visible:ring-2 [&>[data-type="addon"]]:focus-visible:ring-offset-2' +
+				' [&>[data-type="addon"]]:disabled:pointer-events-none [&>[data-type="addon"]]:disabled:opacity-50' +
+				// Prefix and suffix specific
+				' [&>[brnPrefixAddon]]:rounded-l-md [&>[brnPrefixAddon]]:border-r-0 [&>[brnSuffixAddon]]:rounded-r-md [&>[brnSuffixAddon]]:border-l-0' +
+				this.userClass(),
+		),
+	);
+
+	protected readonly _inputWrapperClasses = computed(() =>
+		hlm(
+			'border-input bg-background placeholder:text-muted-foreground focus-within:border-ring focus-within:ring-ring/50 flex flex-row gap-2 ' +
+				'z-20 flex h-auto min-h-9 w-full rounded-md border px-3 text-sm transition-colors' +
+				' file:border-0 file:bg-transparent file:text-sm file:font-medium focus-within:outline-none focus-within:ring-[3px]' +
+				// Inline shared classes
+				' [&>[data-type="inline"]]:text-muted-foreground [&>[data-type="inline"]]:pointer-events-none' +
+				' [&>[data-type="inline"]]:inset-y-0 [&>[data-type="inline"]]:z-10 [&>[data-type="inline"]]:flex [&>[data-type="inline"]]:items-center' +
+				// Invalid States
+				' has-[>.ng-invalid.ng-touched]:text-destructive/20 dark:[&.ng-invalid.ng-touched]:text-destructive/40 has-[>.ng-invalid.ng-touched]:border-destructive has-[>.ng-invalid.ng-touched]:focus-within:ring-destructive' +
+				// Group addon specific
+				' group-has-[[data-type="addon"]]:rounded-none group-has-[[brnPrefixAddon]]:border-l-0 group-has-[[brnSuffixAddon]]:border-r-0' +
+				this.inputWrapperClass(),
+		),
+	);
+}

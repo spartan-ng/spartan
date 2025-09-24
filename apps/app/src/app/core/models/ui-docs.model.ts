@@ -38,6 +38,7 @@ export type Primitives =
 	| 'hover-card'
 	| 'icon'
 	| 'input'
+	| 'input-group'
 	| 'input-otp'
 	| 'label'
 	| 'menu'

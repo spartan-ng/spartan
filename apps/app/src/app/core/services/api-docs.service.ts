@@ -1,4 +1,4 @@
-import { Injectable, computed, signal } from '@angular/core';
+import { computed, Injectable, signal } from '@angular/core';
 import { ComponentApiData, Primitives } from '../models/ui-docs.model';
 
 @Injectable({

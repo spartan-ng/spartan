@@ -189,6 +189,14 @@
 			"@spartan-ng/brain": "0.0.1-alpha.511"
 		}
 	},
+	"input-group": {
+		"internalName": "ui-input-group-helm",
+		"peerDependencies": {
+			"@angular/core": ">=19.0.0",
+			"@spartan-ng/brain": "0.0.1-alpha.511",
+			"clsx": "^2.1.1"
+		}
+	},
 	"input-otp": {
 		"internalName": "ui-input-otp-helm",
 		"peerDependencies": {

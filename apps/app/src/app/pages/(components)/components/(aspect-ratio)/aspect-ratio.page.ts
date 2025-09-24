@@ -65,7 +65,7 @@ export const routeMeta: RouteMeta = {
 			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-page-bottom-nav>
-				<spartan-page-bottom-nav-link href="avatar" label="Avatar" />
+				<spartan-page-bottom-nav-link href="autocomplete" label="Autocomplete" />
 				<spartan-page-bottom-nav-link direction="previous" href="alert-dialog" label="Alert Dialog" />
 			</spartan-page-bottom-nav>
 		</section>

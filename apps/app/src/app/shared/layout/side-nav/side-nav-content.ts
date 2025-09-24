@@ -98,6 +98,7 @@ export class SideNavContent {
 				{ label: 'Hover Card', url: '/hover-card' },
 				{ label: 'Icon', url: '/icon' },
 				{ label: 'Input', url: '/input' },
+				{ label: 'Input Group', url: '/input-group' },
 				{ label: 'Input OTP', url: '/input-otp' },
 				{ label: 'Label', url: '/label' },
 				{ label: 'Menubar', url: '/menubar' },

@@ -2,7 +2,7 @@ import { Directive } from '@angular/core';
 import { injectBrnNavigationMenu } from './brn-navigation-menu.token';
 
 @Directive({
-	selector: '[brn-navigation-menu-list]',
+	selector: '[brnNavigationMenuList]',
 	host: {
 		'[attr.data-orientation]': '_orientation()',
 	},
@@ -10,5 +10,5 @@ import { injectBrnNavigationMenu } from './brn-navigation-menu.token';
 export class BrnNavigationMenuList {
 	private readonly _navigationMenu = injectBrnNavigationMenu();
 
-	private readonly _orientation = this._navigationMenu.context().orientation;
+	protected readonly _orientation = this._navigationMenu.context().orientation;
 }

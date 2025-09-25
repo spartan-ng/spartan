@@ -11,7 +11,9 @@ import { BrnButton } from './brn-button';
 })
 class TestHost {
 	public disabled = false;
-	public onClick = () => {};
+	public onClick = () => {
+		// Placeholder for click handler
+	};
 }
 
 describe('BrnButton', () => {

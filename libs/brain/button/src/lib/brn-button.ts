@@ -1,7 +1,8 @@
 import { BooleanInput } from '@angular/cdk/coercion';
 import { booleanAttribute, Directive, ElementRef, HOST_TAG_NAME, inject, input } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { filter, fromEvent } from 'rxjs';
+import { fromEvent } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 @Directive({
 	selector: 'a[brnButton], button[brnButton]',

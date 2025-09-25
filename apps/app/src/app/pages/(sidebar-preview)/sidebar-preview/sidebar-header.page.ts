@@ -22,8 +22,8 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 							</button>
 							<ng-template #menu>
 								<hlm-menu class="w-60">
-									<hlm-menu-label>Acme Inc</hlm-menu-label>
-									<hlm-menu-label>Acme Corp.</hlm-menu-label>
+									<button hlmMenuItem>Acme Inc</button>
+									<button hlmMenuItem>Acme Corp.</button>
 								</hlm-menu>
 							</ng-template>
 						</li>

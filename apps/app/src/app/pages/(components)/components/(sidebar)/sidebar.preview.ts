@@ -376,9 +376,9 @@ import { lucideChevronUp } from '@ng-icons/lucide';
               </button>
               <ng-template #menu>
                 <hlm-menu class="w-60">
-                  <hlm-menu-label>Account</hlm-menu-label>
-                  <hlm-menu-label>Billing</hlm-menu-label>
-                  <hlm-menu-label>Sign out</hlm-menu-label>
+                  <button hlmMenuItem>Account</button>
+									<button hlmMenuItem>Billing</button>
+									<button hlmMenuItem>Sign out</button>
                 </hlm-menu>
               </ng-template>
             </li>

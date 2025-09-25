@@ -18,10 +18,19 @@ export * from './lib/brn-menu-item-checkbox';
 export * from './lib/brn-menu-item-radio';
 export * from './lib/brn-menu-trigger';
 
-export const BrnMenuItemImports = [BrnMenuGroup, BrnMenuItem, BrnMenuItemRadio, BrnMenuItemCheckbox] as const;
-export const BrnMenuImports = [BrnMenuTrigger, BrnMenu, ...BrnMenuItemImports] as const;
-export const BrnMenuBarImports = [...BrnMenuImports, BrnMenuBar] as const;
-export const BrnContextMenuImports = [...BrnMenuImports, BrnContextMenuTrigger] as const;
+export const BrnMenuImports = [
+	BrnMenuTrigger,
+	BrnMenu,
+	BrnMenuGroup,
+	BrnMenuItem,
+	BrnMenuItemRadio,
+	BrnMenuItemCheckbox,
+	BrnMenuBar,
+	BrnContextMenuTrigger,
+] as const;
+export const BrnMenuBarImports = [...BrnMenuImports] as const;
+export const BrnMenuItemImports = [...BrnMenuImports] as const;
+export const BrnContextMenuImports = [...BrnMenuImports] as const;
 
 @NgModule({
 	imports: [...BrnMenuItemImports],

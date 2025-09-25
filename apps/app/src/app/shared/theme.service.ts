@@ -1,8 +1,8 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { Injectable, PLATFORM_ID, RendererFactory2, inject, signal } from '@angular/core';
+import { inject, Injectable, PLATFORM_ID, RendererFactory2, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ReplaySubject, combineLatest } from 'rxjs';
+import { combineLatest, ReplaySubject } from 'rxjs';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const DarkModes = ['light', 'dark', 'system'] as const;
@@ -10,6 +10,9 @@ export type DarkMode = (typeof DarkModes)[number];
 
 export const AppThemes = ['default', 'gray', 'red', 'green'] as const;
 export type Theme = (typeof AppThemes)[number];
+
+export const Layouts = ['full', 'fixed'] as const;
+export type Layout = (typeof Layouts)[number];
 
 @Injectable({
 	providedIn: 'root',
@@ -24,7 +27,9 @@ export class ThemeService {
 	public darkMode$ = this._darkMode$.asObservable();
 
 	private readonly _theme = signal<Theme | undefined>(undefined);
-	public theme = this._theme.asReadonly();
+	public readonly theme = this._theme.asReadonly();
+	private readonly _layout = signal<Layout | undefined>(undefined);
+	public readonly layout = this._layout.asReadonly();
 
 	constructor() {
 		this._systemDarkMode$.next(this._query.matches ? 'dark' : 'light');
@@ -37,6 +42,7 @@ export class ThemeService {
 		if (isPlatformBrowser(this._platformId)) {
 			this._darkMode$.next((localStorage.getItem('darkMode') as DarkMode) ?? 'system');
 			this.setTheme((localStorage.getItem('theme') as Theme) ?? 'default');
+			this.setLayout((localStorage.getItem('layout') as Layout) ?? 'fixed');
 		}
 	}
 	private toggleClassOnDarkModeChanges(): void {
@@ -69,5 +75,14 @@ export class ThemeService {
 
 		this._renderer.addClass(this._document.body, `theme-${newTheme}`);
 		localStorage.setItem('theme', newTheme);
+	}
+
+	public setLayout(layout: Layout): void {
+		console.log(layout);
+		const oldLayout = this._layout();
+		this._renderer.removeClass(this._document.documentElement, `layout-${oldLayout}`);
+		this._layout.set(layout);
+		this._renderer.addClass(this._document.documentElement, `layout-${layout}`);
+		localStorage.setItem('layout', layout);
 	}
 }

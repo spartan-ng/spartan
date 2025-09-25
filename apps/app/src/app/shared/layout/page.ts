@@ -13,12 +13,14 @@ import { SideNav } from '@spartan-ng/app/app/shared/layout/side-nav/side-nav';
 	template: `
 		<spartan-side-nav />
 		<main class="sticky top-0 overflow-hidden py-6 lg:gap-10 lg:py-8 xl:grid xl:grid-cols-[minmax(0,1fr)_280px]">
-			<div class="px-2">
-				<spartan-breadcrumbs />
-				<router-outlet />
-			</div>
+			<spartan-breadcrumbs />
+			<router-outlet />
+
 			<spartan-page-nav-outlet />
 		</main>
 	`,
+	host: {
+		class: 'container-wrapper flex flex-1 flex-col',
+	},
 })
 export class Page {}

@@ -8,7 +8,7 @@ import { SideNavLinks } from './side-nav-links';
 	selector: 'spartan-side-nav-content',
 	imports: [SideNavLink, SideNavLinks, SideNavHeading, SideNav],
 	host: {
-		class: 'block px-1',
+		class: 'block',
 	},
 	template: `
 		@for (section of _sections; track section.label) {

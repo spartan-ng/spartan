@@ -1,17 +1,11 @@
 @import "tailwindcss";
-@import '@angular/cdk/overlay-prebuilt.css';
-@import '@docsearch/css';
-
 @import "tw-animate-css";
-@import "@fontsource/geist-mono/latin";
-@import "@fontsource/geist/latin";
+@import "@fontsource/geist-mono";
+@import "@fontsource/geist-sans";
 
 @custom-variant dark (&:is(.dark *));
-@custom-variant fixed (&:is(.layout-fixed *));
 
 @theme inline {
-	--breakpoint-3xl: 1600px;
-	--breakpoint-4xl: 2000px;
 	--color-background: var(--background);
 	--color-foreground: var(--foreground);
 	--font-sans: var(--font-geist-sans);
@@ -24,6 +18,11 @@
 	--color-sidebar-primary: var(--sidebar-primary);
 	--color-sidebar-foreground: var(--sidebar-foreground);
 	--color-sidebar: var(--sidebar);
+	--color-chart-5: var(--chart-5);
+	--color-chart-4: var(--chart-4);
+	--color-chart-3: var(--chart-3);
+	--color-chart-2: var(--chart-2);
+	--color-chart-1: var(--chart-1);
 	--color-ring: var(--ring);
 	--color-input: var(--input);
 	--color-border: var(--border);
@@ -47,7 +46,7 @@
 }
 
 :root {
-	--font-geist-sans: "Geist", sans-serif;
+	--font-geist-sans: "Geist Sans", sans-serif;
 	--font-geist-mono: "Geist Mono", monospace;
 	--radius: 0.625rem;
 	--background: oklch(1 0 0);
@@ -68,6 +67,11 @@
 	--border: oklch(0.922 0 0);
 	--input: oklch(0.922 0 0);
 	--ring: oklch(0.708 0 0);
+	--chart-1: oklch(0.646 0.222 41.116);
+	--chart-2: oklch(0.6 0.118 184.704);
+	--chart-3: oklch(0.398 0.07 227.392);
+	--chart-4: oklch(0.828 0.189 84.429);
+	--chart-5: oklch(0.769 0.188 70.08);
 	--sidebar: oklch(0.985 0 0);
 	--sidebar-foreground: oklch(0.145 0 0);
 	--sidebar-primary: oklch(0.205 0 0);
@@ -76,9 +80,6 @@
 	--sidebar-accent-foreground: oklch(0.205 0 0);
 	--sidebar-border: oklch(0.922 0 0);
 	--sidebar-ring: oklch(0.708 0 0);
-
-	--docsearch-primary-color: hsl(var(--primary));
-
 }
 
 .dark {
@@ -113,27 +114,6 @@
 	--sidebar-accent-foreground: oklch(0.985 0 0);
 	--sidebar-border: oklch(1 0 0 / 10%);
 	--sidebar-ring: oklch(0.556 0 0);
-
-	/* docsearch */
-	--dark-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.2);
-	--docsearch-modal-background: theme('colors.neutral.900');
-	--docsearch-modal-shadow: var(--dark-shadow);
-	--docsearch-searchbox-focus-background: theme('colors.neutral.800');
-	--docsearch-searchbox-shadow: var(--dark-shadow);
-	--docsearch-footer-background: theme('colors.neutral.900');
-	--docsearch-footer-shadow: var(--dark-shadow);
-	--docsearch-text-color: white;
-	--docsearch-hit-background: theme('colors.neutral.800');
-	--docsearch-hit-shadow: var(--dark-shadow);
-	--docsearch-hit-color: white;
-	--docsearch-hit-active-color: theme('colors.primary.foreground');
-
-	--docsearch-container-background: rgba(9, 10, 17, 0.8);
-	--docsearch-searchbox-background: theme('colors.neutral.800');
-	--docsearch-key-gradient: linear-gradient(180deg, #333, #444);
-	--docsearch-key-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-	--docsearch-logo-color: white;
-	--docsearch-muted-color: theme('colors.neutral.400');
 }
 
 @layer base {
@@ -143,47 +123,4 @@
 	body {
 		@apply bg-background text-foreground;
 	}
-}
-
-@utility container-wrapper {
-	@apply 3xl:fixed:max-w-[calc(var(--breakpoint-2xl)+2rem)] mx-auto w-full px-2;
-}
-
-[hidden]:where(:not([hidden='until-found'])) {
-	display: none !important;
-}
-
-
-/* docsearch */
-.DocSearch-Button {
-
-	@apply !bg-secondary inline-flex flex-none items-center gap-x-3 overflow-hidden rounded-md px-2.5 md:w-52 lg:w-64 h-8;
-}
-
-.DocSearch-Button-Placeholder {
-	@apply text-sm font-normal text-neutral-500;
-}
-
-.DocSearch-Button .DocSearch-Search-Icon {
-	@apply hidden;
-}
-
-.DocSearch-Button-Keys {
-	min-width: unset;
-}
-
-.DocSearch-Button .DocSearch-Button-Key {
-	--docsearch-key-gradient: transparent;
-	@apply  h-4 w-3 p-2 bg-white dark:bg-black font-sans border-border border rounded text-xs font-medium  shadow-none text-muted-foreground;
-}
-
-select {
-	background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
-	background-position: right 0.5rem center;
-	background-repeat: no-repeat;
-	background-size: 1.5em 1.5em;
-	-webkit-print-color-adjust: exact;
-	appearance: none;
-	display: inline-flex;
-	align-items: center;
 }

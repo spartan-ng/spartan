@@ -7,13 +7,13 @@ import { Header } from './shared/header/header';
 	selector: 'spartan-root',
 	imports: [RouterOutlet, Header, Footer],
 	host: {
-		class: 'text-foreground block antialiased',
+		class: 'bg-background relative z-10 flex min-h-svh flex-col',
 	},
 	template: `
 		<spartan-header />
-		<div class="mx-auto max-w-screen-2xl">
+		<main class="flex flex-1 flex-col">
 			<router-outlet />
-		</div>
+		</main>
 		<spartan-footer />
 	`,
 })

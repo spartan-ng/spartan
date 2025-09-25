@@ -5,7 +5,7 @@ import { combineLatest, map, of, startWith } from 'rxjs';
 import { provideBrnNavigationMenu } from './brn-navigation-menu.token';
 
 @Directive({
-	selector: 'nav[brn-navigation-menu]',
+	selector: 'nav[brnNavigationMenu]',
 	host: {
 		'[attr.aria-label]': '"Main"',
 		'[attr.data-orientation]': 'orientation()',
@@ -53,7 +53,7 @@ export class BrnNavigationMenu {
 	 * The reading direction of the menu when applicable.
 	 * If input is not passed, inherits globally from Directionality or assumes LTR (left-to-right) reading mode.
 	 */
-	private readonly _dir = toSignal(
+	protected readonly _dir = toSignal(
 		combineLatest([
 			this._dir$.pipe(startWith(undefined)),
 			this._directionality.change.pipe(startWith(undefined)),

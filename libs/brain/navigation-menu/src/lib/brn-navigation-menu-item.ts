@@ -2,7 +2,7 @@ import { computed, Directive, input } from '@angular/core';
 import { injectBrnNavigationMenu } from './brn-navigation-menu.token';
 
 @Directive({
-	selector: '[brn-navigation-menu-item]',
+	selector: '[brnNavigationMenuItem]',
 	host: {
 		'[id]': 'id()',
 	},
@@ -16,4 +16,6 @@ export class BrnNavigationMenuItem {
 	public readonly id = input<string>(`brn-navigation-menu-item-${++BrnNavigationMenuItem._id}`);
 
 	public readonly isActive = computed(() => this.id() === this._navigationMenu.value());
+
+	public readonly state = computed(() => (this.isActive() ? 'open' : 'closed'));
 }

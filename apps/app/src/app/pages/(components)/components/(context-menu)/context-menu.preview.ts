@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 
-import { BrnMenuImports } from '@spartan-ng/brain/menu';
+import { BrnContextMenuImports } from '@spartan-ng/brain/menu';
 
 import { HlmMenuImports } from '@spartan-ng/helm/menu';
 
 @Component({
 	selector: 'spartan-context-menu-preview',
-	imports: [BrnMenuImports, HlmMenuImports],
+	imports: [BrnContextMenuImports, HlmMenuImports],
 	template: `
 		<div
 			[brnCtxMenuTriggerFor]="menu"

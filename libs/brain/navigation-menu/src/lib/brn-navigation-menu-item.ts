@@ -17,5 +17,7 @@ export class BrnNavigationMenuItem {
 
 	public readonly isActive = computed(() => this.id() === this._navigationMenu.value());
 
+	public readonly wasActive = computed(() => this.id() === this._navigationMenu.previousValue());
+
 	public readonly state = computed(() => (this.isActive() ? 'open' : 'closed'));
 }

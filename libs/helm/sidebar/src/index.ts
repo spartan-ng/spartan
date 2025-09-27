@@ -1,5 +1,3 @@
-import { NgModule } from '@angular/core';
-
 import { HlmSidebar } from './lib/hlm-sidebar';
 import { HlmSidebarContent } from './lib/hlm-sidebar-content';
 import { HlmSidebarFooter } from './lib/hlm-sidebar-footer';
@@ -75,9 +73,3 @@ export const HlmSidebarImports = [
 	HlmSidebarWrapper,
 	HlmSidebarMenuSubItem,
 ] as const;
-
-@NgModule({
-	imports: [...HlmSidebarImports],
-	exports: [...HlmSidebarImports],
-})
-export class HlmSidebarModule {}

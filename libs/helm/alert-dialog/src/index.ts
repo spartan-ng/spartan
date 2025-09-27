@@ -1,5 +1,3 @@
-import { NgModule } from '@angular/core';
-
 import { HlmAlertDialog } from './lib/hlm-alert-dialog';
 import { HlmAlertDialogActionButton } from './lib/hlm-alert-dialog-action-button';
 import { HlmAlertDialogCancelButton } from './lib/hlm-alert-dialog-cancel-button';
@@ -31,9 +29,3 @@ export const HlmAlertDialogImports = [
 	HlmAlertDialogCancelButton,
 	HlmAlertDialog,
 ] as const;
-
-@NgModule({
-	imports: [...HlmAlertDialogImports],
-	exports: [...HlmAlertDialogImports],
-})
-export class HlmAlertDialogModule {}

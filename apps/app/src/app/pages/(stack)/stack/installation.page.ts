@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronRight, lucideTriangleAlert } from '@ng-icons/lucide';
-import { HlmAlertModule } from '@spartan-ng/helm/alert';
+import { HlmAlertImports } from '@spartan-ng/helm/alert';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import { hlmCode, hlmH4, hlmP } from '@spartan-ng/helm/typography';
@@ -35,7 +35,7 @@ export const routeMeta: RouteMeta = {
 		PageNav,
 		Code,
 		Tabs,
-		HlmAlertModule,
+		HlmAlertImports,
 		NgIcon,
 		HlmIcon,
 		HlmButton,

@@ -1,5 +1,3 @@
-import { NgModule } from '@angular/core';
-
 import { HlmDialog } from './lib/hlm-dialog';
 import { HlmDialogClose } from './lib/hlm-dialog-close';
 import { HlmDialogContent } from './lib/hlm-dialog-content';
@@ -29,9 +27,3 @@ export const HlmDialogImports = [
 	HlmDialogOverlay,
 	HlmDialogTitle,
 ] as const;
-
-@NgModule({
-	imports: [...HlmDialogImports],
-	exports: [...HlmDialogImports],
-})
-export class HlmDialogModule {}

@@ -1,4 +1,3 @@
-import { NgModule } from '@angular/core';
 import { BrnTooltip } from './lib/brn-tooltip';
 import { BrnTooltipContent } from './lib/brn-tooltip-content';
 import { BrnTooltipContentTemplate } from './lib/brn-tooltip-content-template';
@@ -11,9 +10,3 @@ export * from './lib/brn-tooltip-trigger';
 export * from './lib/brn-tooltip.token';
 
 export const BrnTooltipImports = [BrnTooltip, BrnTooltipContentTemplate, BrnTooltipTrigger, BrnTooltipContent] as const;
-
-@NgModule({
-	imports: [...BrnTooltipImports],
-	exports: [...BrnTooltipImports],
-})
-export class BrnTooltipModule {}

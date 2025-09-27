@@ -1,5 +1,3 @@
-import { NgModule } from '@angular/core';
-
 import { BrnAvatar } from './lib/brn-avatar';
 import { BrnAvatarFallback } from './lib/fallback';
 import { BrnAvatarImage } from './lib/image';
@@ -10,9 +8,3 @@ export * from './lib/image';
 export * from './lib/util';
 
 export const BrnAvatarImports = [BrnAvatar, BrnAvatarFallback, BrnAvatarImage] as const;
-
-@NgModule({
-	imports: [...BrnAvatarImports],
-	exports: [...BrnAvatarImports],
-})
-export class BrnAvatarModule {}

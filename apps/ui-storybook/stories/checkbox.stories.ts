@@ -5,7 +5,7 @@ import { moduleMetadata } from '@storybook/angular';
 import { JsonPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { HlmButton, HlmButtonModule } from '@spartan-ng/helm/button';
+import { HlmButton, HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmCheckbox, HlmCheckboxImports } from '@spartan-ng/helm/checkbox';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmLabel } from '@spartan-ng/helm/label';
@@ -45,7 +45,15 @@ const meta: Meta<HlmCheckbox> = {
 	tags: ['autodocs'],
 	decorators: [
 		moduleMetadata({
-			imports: [HlmCheckboxImports, HlmLabel, NgIcon, HlmIcon, ReactiveFormsModule, HlmButtonModule, HlmCheckboxTester],
+			imports: [
+				HlmCheckboxImports,
+				HlmLabel,
+				NgIcon,
+				HlmIcon,
+				ReactiveFormsModule,
+				HlmButtonImports,
+				HlmCheckboxTester,
+			],
 		}),
 	],
 };

@@ -1,4 +1,3 @@
-import { NgModule } from '@angular/core';
 import { HlmBreadcrumb } from './lib/hlm-breadcrumb';
 import { HlmBreadcrumbEllipsis } from './lib/hlm-breadcrumb-ellipsis';
 import { HlmBreadcrumbItem } from './lib/hlm-breadcrumb-item';
@@ -24,9 +23,3 @@ export const HlmBreadCrumbImports = [
 	HlmBreadcrumbPage,
 	HlmBreadcrumbList,
 ] as const;
-
-@NgModule({
-	imports: [...HlmBreadCrumbImports],
-	exports: [...HlmBreadCrumbImports],
-})
-export class HlmBreadCrumbModule {}

@@ -1,4 +1,3 @@
-import { NgModule } from '@angular/core';
 import { BrnCommand } from './lib/brn-command';
 import { BrnCommandEmpty } from './lib/brn-command-empty';
 import { BrnCommandGroup } from './lib/brn-command-group';
@@ -24,9 +23,3 @@ export const BrnCommandImports = [
 	BrnCommandSearchInput,
 	BrnCommand,
 ] as const;
-
-@NgModule({
-	imports: [...BrnCommandImports],
-	exports: [...BrnCommandImports],
-})
-export class BrnCommandModule {}

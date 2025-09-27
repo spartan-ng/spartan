@@ -22,13 +22,13 @@ import {
 	lucideUser,
 } from '@ng-icons/lucide';
 import { BrnMenuTrigger } from '@spartan-ng/brain/menu';
-import { BrnSelectModule } from '@spartan-ng/brain/select';
+import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { HlmAvatarImports } from '@spartan-ng/helm/avatar';
-import { HlmButtonModule } from '@spartan-ng/helm/button';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmIcon } from '@spartan-ng/helm/icon';
-import { HlmMenuModule } from '@spartan-ng/helm/menu';
-import { HlmSelectModule } from '@spartan-ng/helm/select';
-import { HlmTableModule } from '@spartan-ng/helm/table';
+import { HlmMenuImports } from '@spartan-ng/helm/menu';
+import { HlmSelectImports } from '@spartan-ng/helm/select';
+import { HlmTableImports } from '@spartan-ng/helm/table';
 import {
 	ColumnDef,
 	ColumnFiltersState,
@@ -58,12 +58,12 @@ import { Task, TASK_DATA } from './services/tasks.models';
 	imports: [
 		FormsModule,
 		BrnMenuTrigger,
-		HlmMenuModule,
-		HlmTableModule,
-		HlmButtonModule,
+		HlmMenuImports,
+		HlmTableImports,
+		HlmButtonImports,
 		HlmIcon,
-		BrnSelectModule,
-		HlmSelectModule,
+		BrnSelectImports,
+		HlmSelectImports,
 		TableActions,
 		NgIcon,
 		HlmAvatarImports,

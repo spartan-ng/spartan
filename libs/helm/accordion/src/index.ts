@@ -1,5 +1,3 @@
-import { NgModule } from '@angular/core';
-
 import { HlmAccordion } from './lib/hlm-accordion';
 import { HlmAccordionContent } from './lib/hlm-accordion-content';
 import { HlmAccordionIcon } from './lib/hlm-accordion-icon';
@@ -19,9 +17,3 @@ export const HlmAccordionImports = [
 	HlmAccordionIcon,
 	HlmAccordionContent,
 ] as const;
-
-@NgModule({
-	imports: [...HlmAccordionImports],
-	exports: [...HlmAccordionImports],
-})
-export class HlmAccordionModule {}

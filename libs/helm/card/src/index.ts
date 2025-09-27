@@ -1,5 +1,3 @@
-import { NgModule } from '@angular/core';
-
 import { HlmCard } from './lib/hlm-card';
 import { HlmCardAction } from './lib/hlm-card-action';
 import { HlmCardContent } from './lib/hlm-card-content';
@@ -25,9 +23,3 @@ export const HlmCardImports = [
 	HlmCardContent,
 	HlmCardAction,
 ] as const;
-
-@NgModule({
-	imports: [...HlmCardImports],
-	exports: [...HlmCardImports],
-})
-export class HlmCardModule {}

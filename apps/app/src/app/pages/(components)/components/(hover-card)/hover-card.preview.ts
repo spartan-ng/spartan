@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCalendar } from '@ng-icons/lucide';
-import { BrnHoverCardModule } from '@spartan-ng/brain/hover-card';
-import { HlmAvatarModule } from '@spartan-ng/helm/avatar';
+import { BrnHoverCardImports } from '@spartan-ng/brain/hover-card';
+import { HlmAvatarImports } from '@spartan-ng/helm/avatar';
 import { HlmButton } from '@spartan-ng/helm/button';
-import { HlmHoverCardModule } from '@spartan-ng/helm/hover-card';
+import { HlmHoverCardImports } from '@spartan-ng/helm/hover-card';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 
 @Component({
 	selector: 'spartan-hover-card-preview',
-	imports: [BrnHoverCardModule, HlmHoverCardModule, HlmButton, NgIcon, HlmIcon, HlmAvatarModule],
+	imports: [BrnHoverCardImports, HlmHoverCardImports, HlmButton, NgIcon, HlmIcon, HlmAvatarImports],
 	providers: [provideIcons({ lucideCalendar })],
 	template: `
 		<brn-hover-card>

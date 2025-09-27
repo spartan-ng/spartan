@@ -1,4 +1,3 @@
-import { NgModule } from '@angular/core';
 import { HlmSelect } from './lib/hlm-select';
 import { HlmSelectContent } from './lib/hlm-select-content';
 import { HlmSelectGroup } from './lib/hlm-select-group';
@@ -30,9 +29,3 @@ export const HlmSelectImports = [
 	HlmSelectLabel,
 	HlmSelectGroup,
 ] as const;
-
-@NgModule({
-	imports: [...HlmSelectImports],
-	exports: [...HlmSelectImports],
-})
-export class HlmSelectModule {}

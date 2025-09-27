@@ -1,11 +1,11 @@
 import { Component, type OnInit } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { HlmFormFieldModule } from '@spartan-ng/helm/form-field';
+import { HlmFormFieldImports } from '@spartan-ng/helm/form-field';
 import { HlmInputImports } from '@spartan-ng/helm/input';
 
 @Component({
 	selector: 'spartan-form-field-error',
-	imports: [ReactiveFormsModule, HlmFormFieldModule, HlmInputImports],
+	imports: [ReactiveFormsModule, HlmFormFieldImports, HlmInputImports],
 	template: `
 		<hlm-form-field>
 			<input aria-label="Your Name" class="w-80" [formControl]="name" hlmInput type="text" placeholder="Your Name" />

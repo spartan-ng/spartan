@@ -1,5 +1,3 @@
-import { NgModule } from '@angular/core';
-
 import { HlmSheet } from './lib/hlm-sheet';
 import { HlmSheetClose } from './lib/hlm-sheet-close';
 import { HlmSheetContent } from './lib/hlm-sheet-content';
@@ -28,9 +26,3 @@ export const HlmSheetImports = [
 	HlmSheetOverlay,
 	HlmSheetTitle,
 ] as const;
-
-@NgModule({
-	imports: [...HlmSheetImports],
-	exports: [...HlmSheetImports],
-})
-export class HlmSheetModule {}

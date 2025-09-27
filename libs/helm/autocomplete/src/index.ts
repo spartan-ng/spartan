@@ -1,4 +1,3 @@
-import { NgModule } from '@angular/core';
 import { HlmAutocomplete } from './lib/hlm-autocomplete';
 import { HlmAutocompleteEmpty } from './lib/hlm-autocomplete-empty';
 import { HlmAutocompleteGroup } from './lib/hlm-autocomplete-group';
@@ -28,9 +27,3 @@ export const HlmAutocompleteImports = [
 	HlmAutocompleteSearchInput,
 	HlmAutocompleteTrigger,
 ] as const;
-
-@NgModule({
-	imports: [...HlmAutocompleteImports],
-	exports: [...HlmAutocompleteImports],
-})
-export class HlmAutocompleteModule {}

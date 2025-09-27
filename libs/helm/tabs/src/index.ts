@@ -1,5 +1,3 @@
-import { NgModule } from '@angular/core';
-
 import { HlmTabs } from './lib/hlm-tabs';
 import { HlmTabsContent } from './lib/hlm-tabs-content';
 import { HlmTabsList } from './lib/hlm-tabs-list';
@@ -13,9 +11,3 @@ export * from './lib/hlm-tabs-paginated-list';
 export * from './lib/hlm-tabs-trigger';
 
 export const HlmTabsImports = [HlmTabs, HlmTabsList, HlmTabsTrigger, HlmTabsContent, HlmTabsPaginatedList] as const;
-
-@NgModule({
-	imports: [...HlmTabsImports],
-	exports: [...HlmTabsImports],
-})
-export class HlmTabsModule {}

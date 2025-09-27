@@ -1,6 +1,6 @@
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { render } from '@testing-library/angular';
-import { BrnRadioGroupModule } from '../index';
+import { BrnRadioGroupImports } from '../index';
 
 describe('BrnRadioComponent', () => {
 	it('should disable the radio button when disabled is true (reactive forms)', async () => {
@@ -22,7 +22,7 @@ describe('BrnRadioComponent', () => {
     </form>
 			`,
 			{
-				imports: [ReactiveFormsModule, BrnRadioGroupModule],
+				imports: [ReactiveFormsModule, BrnRadioGroupImports],
 				componentProperties: {
 					form,
 				},

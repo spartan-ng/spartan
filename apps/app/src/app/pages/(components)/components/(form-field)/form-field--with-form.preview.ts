@@ -1,21 +1,21 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BrnSelectImports } from '@spartan-ng/brain/select';
-import { HlmButtonModule } from '@spartan-ng/helm/button';
-import { HlmFormFieldModule } from '@spartan-ng/helm/form-field';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmFormFieldImports } from '@spartan-ng/helm/form-field';
 import { HlmInput } from '@spartan-ng/helm/input';
-import { HlmSelectImports, HlmSelectModule } from '@spartan-ng/helm/select';
+import { HlmSelectImports } from '@spartan-ng/helm/select';
 
 @Component({
 	selector: 'spartan-form-field-form',
 	imports: [
 		ReactiveFormsModule,
-		HlmFormFieldModule,
-		HlmSelectModule,
+		HlmFormFieldImports,
+		HlmSelectImports,
 		HlmInput,
 		HlmSelectImports,
 		BrnSelectImports,
-		HlmButtonModule,
+		HlmButtonImports,
 	],
 	template: `
 		<form [formGroup]="form" class="space-y-6">

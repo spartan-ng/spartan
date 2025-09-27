@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCalendarDays } from '@ng-icons/lucide';
-import { type BrnHoverCard, BrnHoverCardModule } from '@spartan-ng/brain/hover-card';
-import { HlmAvatarModule } from '@spartan-ng/helm/avatar';
+import { type BrnHoverCard, BrnHoverCardImports } from '@spartan-ng/brain/hover-card';
+import { HlmAvatarImports } from '@spartan-ng/helm/avatar';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmCard } from '@spartan-ng/helm/card';
-import { HlmHoverCardModule } from '@spartan-ng/helm/hover-card';
+import { HlmHoverCardImports } from '@spartan-ng/helm/hover-card';
 import { HlmIcon } from '@spartan-ng/helm/icon';
-import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
+import { type Meta, moduleMetadata, type StoryObj } from '@storybook/angular';
 
 @Component({
 	selector: 'hover-card-example',
-	imports: [BrnHoverCardModule, HlmHoverCardModule, HlmButton, NgIcon, HlmIcon, HlmAvatarModule],
+	imports: [BrnHoverCardImports, HlmHoverCardImports, HlmButton, NgIcon, HlmIcon, HlmAvatarImports],
 	providers: [provideIcons({ lucideCalendarDays })],
 	host: {
 		class: 'flex w-full h-full justify-center py-80',

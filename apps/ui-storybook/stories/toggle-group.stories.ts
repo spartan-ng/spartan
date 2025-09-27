@@ -1,16 +1,15 @@
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideBold, lucideItalic, lucideUnderline } from '@ng-icons/lucide';
-import { BrnToggleGroup, BrnToggleGroupItem, BrnToggleGroupModule } from '@spartan-ng/brain/toggle-group';
+import { BrnToggleGroupImports } from '@spartan-ng/brain/toggle-group';
 import type { Meta, StoryObj } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
 
 import { BooleanInput } from '@angular/cdk/coercion';
-import { JsonPipe } from '@angular/common';
 import { Component, input, signal } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmIcon } from '@spartan-ng/helm/icon';
-import { HlmToggleGroup, HlmToggleGroupItem, HlmToggleGroupModule } from '@spartan-ng/helm/toggle-group';
+import { HlmToggleGroup, HlmToggleGroupImports } from '@spartan-ng/helm/toggle-group';
 import { hlmP } from '@spartan-ng/helm/typography';
 
 const meta: Meta<HlmToggleGroup> = {
@@ -37,16 +36,7 @@ const meta: Meta<HlmToggleGroup> = {
 	},
 	decorators: [
 		moduleMetadata({
-			imports: [
-				BrnToggleGroup,
-				// BrnToggleGroupModule,
-				HlmToggleGroupModule,
-				BrnToggleGroupItem,
-				HlmToggleGroup,
-				HlmToggleGroupItem,
-				NgIcon,
-				HlmIcon,
-			],
+			imports: [BrnToggleGroupImports, HlmToggleGroupImports, NgIcon, HlmIcon],
 			providers: [provideIcons({ lucideBold, lucideItalic, lucideUnderline })],
 		}),
 	],
@@ -183,7 +173,7 @@ const CITIES = [
 
 @Component({
 	selector: 'hlm-toggle-group-story',
-	imports: [BrnToggleGroupModule, HlmToggleGroupModule, HlmToggleGroupItem, HlmButton, FormsModule],
+	imports: [BrnToggleGroupImports, HlmToggleGroupImports, HlmButton, FormsModule],
 	template: `
 		<div class="flex space-x-4 p-4">
 			<brn-toggle-group
@@ -323,7 +313,7 @@ export const ToggleGroupMultiple: StoryObj<{ defaultValue: City[] }> = {
 
 @Component({
 	selector: 'hlm-toggle-group-form-story',
-	imports: [BrnToggleGroupModule, HlmToggleGroupModule, HlmToggleGroupItem, FormsModule, ReactiveFormsModule, JsonPipe],
+	imports: [BrnToggleGroupImports, HlmToggleGroupImports, FormsModule, ReactiveFormsModule],
 	template: `
 		<form class="flex space-x-4 p-4" [formGroup]="citiesForm">
 			<brn-toggle-group hlm formControlName="selectedCity" variant="merged">

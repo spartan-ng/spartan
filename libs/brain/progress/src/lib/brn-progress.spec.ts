@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { render } from '@testing-library/angular';
-import { BrnProgressModule } from '../index';
+import { BrnProgressImports } from '../index';
 import { BrnProgress, BrnProgressLabelFn } from './brn-progress';
 import { BrnProgressIndicator } from './brn-progress-indicator';
 
 @Component({
-	imports: [BrnProgressModule],
+	imports: [BrnProgressImports],
 	template: `
 		<brn-progress [value]="value" [max]="max" [getValueLabel]="getValueLabel">
 			<brn-progress-indicator />

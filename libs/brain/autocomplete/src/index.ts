@@ -1,4 +1,3 @@
-import { NgModule } from '@angular/core';
 import { BrnAutocomplete } from './lib/brn-autocomplete';
 import { BrnAutocompleteEmpty } from './lib/brn-autocomplete-empty';
 import { BrnAutocompleteGroup } from './lib/brn-autocomplete-group';
@@ -24,9 +23,3 @@ export const BrnAutocompleteImports = [
 	BrnAutocompleteList,
 	BrnAutocompleteSearchInput,
 ] as const;
-
-@NgModule({
-	imports: [...BrnAutocompleteImports],
-	exports: [...BrnAutocompleteImports],
-})
-export class BrnAutocompleteModule {}

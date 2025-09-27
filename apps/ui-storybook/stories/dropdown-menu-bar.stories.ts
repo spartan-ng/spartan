@@ -2,8 +2,8 @@ import { NgIcon } from '@ng-icons/core';
 import { BrnMenuTrigger } from '@spartan-ng/brain/menu';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmIcon } from '@spartan-ng/helm/icon';
-import { HlmMenu, HlmMenuBarImports, HlmMenuImports } from '@spartan-ng/helm/menu';
-import { type Meta, type StoryObj, argsToTemplate, moduleMetadata } from '@storybook/angular';
+import { HlmMenu, HlmMenuImports } from '@spartan-ng/helm/menu';
+import { argsToTemplate, type Meta, moduleMetadata, type StoryObj } from '@storybook/angular';
 
 const meta: Meta<HlmMenu> = {
 	title: ' Menubar',
@@ -22,7 +22,7 @@ const meta: Meta<HlmMenu> = {
 	},
 	decorators: [
 		moduleMetadata({
-			imports: [BrnMenuTrigger, HlmMenuImports, HlmMenuBarImports, HlmButton, NgIcon, HlmIcon],
+			imports: [BrnMenuTrigger, HlmMenuImports, HlmButton, NgIcon, HlmIcon],
 		}),
 	],
 };

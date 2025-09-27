@@ -1,5 +1,3 @@
-import { NgModule } from '@angular/core';
-
 import { HlmCommand } from './lib/hlm-command';
 import { HlmCommandDialog } from './lib/hlm-command-dialog';
 import { HlmCommandDialogCloseButton } from './lib/hlm-command-dialog-close-button';
@@ -43,9 +41,3 @@ export const HlmCommandImports = [
 	HlmCommandGroupLabel,
 	HlmCommandEmpty,
 ] as const;
-
-@NgModule({
-	imports: [...HlmCommandImports],
-	exports: [...HlmCommandImports],
-})
-export class HlmCommandModule {}

@@ -1,5 +1,3 @@
-import { NgModule } from '@angular/core';
-
 import { BrnTabs } from './lib/brn-tabs';
 import { BrnTabsContent } from './lib/brn-tabs-content';
 import { BrnTabsList } from './lib/brn-tabs-list';
@@ -12,9 +10,3 @@ export * from './lib/brn-tabs-paginated-list';
 export * from './lib/brn-tabs-trigger';
 
 export const BrnTabsImports = [BrnTabs, BrnTabsList, BrnTabsTrigger, BrnTabsContent] as const;
-
-@NgModule({
-	imports: [...BrnTabsImports],
-	exports: [...BrnTabsImports],
-})
-export class BrnTabsModule {}

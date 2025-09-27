@@ -4,7 +4,7 @@ import { injectBrnNavigationMenuItem } from './brn-navigation-menu-item.token';
 import { injectBrnNavigationMenu } from './brn-navigation-menu.token';
 
 @Directive({
-	selector: 'button[brnNavigationMenuTrigger]',
+	selector: 'a[brnNavigationMenuLink]',
 	host: {
 		'(click)': 'onClick()',
 		'(mouseenter)': 'activate()',

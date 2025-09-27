@@ -1,6 +1,7 @@
 import { Directionality } from '@angular/cdk/bidi';
 import { computed, Directive, inject, input, model } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { computedPrevious } from 'libs/brain/tooltip/src/lib/computed-previous';
 import { combineLatest, map, of, startWith } from 'rxjs';
 import { provideBrnNavigationMenu } from './brn-navigation-menu.token';
 
@@ -46,6 +47,8 @@ export class BrnNavigationMenu {
 	 * The orientation of the menu.
 	 */
 	public readonly orientation = input<'horizontal' | 'vertical'>('horizontal');
+
+	public readonly previousValue = computedPrevious(this.value);
 
 	private readonly _dir$ = toObservable(this.dir);
 

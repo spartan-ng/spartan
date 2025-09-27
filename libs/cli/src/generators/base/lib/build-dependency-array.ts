@@ -2,9 +2,9 @@ import type { HlmBaseGeneratorSchema } from '../schema';
 import {
 	NG_ICONS_VERSION,
 	SPARTAN_BRAIN_VERSION,
-	TAILWINDCSS_VERSION,
 	TAILWIND_ANIMATE_VERSION,
 	TAILWIND_MERGE_VERSION,
+	TAILWINDCSS_VERSION,
 } from '../versions';
 
 export function buildDependencyArray(

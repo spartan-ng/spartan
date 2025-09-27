@@ -1,5 +1,3 @@
-import { NgModule } from '@angular/core';
-
 import { BrnContextMenuTrigger } from './lib/brn-context-menu-trigger';
 import { BrnMenu } from './lib/brn-menu';
 import { BrnMenuBar } from './lib/brn-menu-bar';
@@ -18,31 +16,13 @@ export * from './lib/brn-menu-item-checkbox';
 export * from './lib/brn-menu-item-radio';
 export * from './lib/brn-menu-trigger';
 
-export const BrnMenuItemImports = [BrnMenuGroup, BrnMenuItem, BrnMenuItemRadio, BrnMenuItemCheckbox] as const;
-export const BrnMenuImports = [BrnMenuTrigger, BrnMenu, ...BrnMenuItemImports] as const;
-export const BrnMenuBarImports = [...BrnMenuImports, BrnMenuBar] as const;
-export const BrnContextMenuImports = [...BrnMenuImports, BrnContextMenuTrigger] as const;
-
-@NgModule({
-	imports: [...BrnMenuItemImports],
-	exports: [...BrnMenuItemImports],
-})
-export class BrnMenuItemModule {}
-
-@NgModule({
-	imports: [...BrnMenuImports],
-	exports: [...BrnMenuImports],
-})
-export class BrnMenuModule {}
-
-@NgModule({
-	imports: [...BrnMenuBarImports],
-	exports: [...BrnMenuBarImports],
-})
-export class BrnMenuBarModule {}
-
-@NgModule({
-	imports: [...BrnContextMenuImports],
-	exports: [...BrnContextMenuImports],
-})
-export class BrnContextMenuModule {}
+export const BrnMenuImports = [
+	BrnMenuTrigger,
+	BrnMenu,
+	BrnMenuBar,
+	BrnContextMenuTrigger,
+	BrnMenuGroup,
+	BrnMenuItem,
+	BrnMenuItemRadio,
+	BrnMenuItemCheckbox,
+] as const;

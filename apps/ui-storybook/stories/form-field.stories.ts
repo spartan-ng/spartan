@@ -1,12 +1,12 @@
-import { Component, type OnInit, inject } from '@angular/core';
+import { Component, inject, type OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@spartan-ng/brain/forms';
 import { BrnSelectImports } from '@spartan-ng/brain/select';
-import { HlmButton, HlmButtonModule } from '@spartan-ng/helm/button';
-import { HlmFormField, HlmFormFieldModule } from '@spartan-ng/helm/form-field';
+import { HlmButton, HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmFormField, HlmFormFieldImports } from '@spartan-ng/helm/form-field';
 import { HlmInput } from '@spartan-ng/helm/input';
-import { HlmSelectImports, HlmSelectModule } from '@spartan-ng/helm/select';
-import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
+import { HlmSelectImports } from '@spartan-ng/helm/select';
+import { type Meta, moduleMetadata, type StoryObj } from '@storybook/angular';
 
 const meta: Meta<HlmFormField> = {
 	title: 'Form Field',
@@ -14,7 +14,7 @@ const meta: Meta<HlmFormField> = {
 	tags: ['autodocs'],
 	decorators: [
 		moduleMetadata({
-			imports: [HlmFormFieldModule, HlmInput, FormsModule, ReactiveFormsModule, HlmButton],
+			imports: [HlmFormFieldImports, HlmInput, FormsModule, ReactiveFormsModule, HlmButton],
 		}),
 	],
 };
@@ -36,7 +36,7 @@ export const Default: Story = {
 
 @Component({
 	selector: 'form-field-error-story',
-	imports: [ReactiveFormsModule, HlmFormFieldModule, HlmInput],
+	imports: [ReactiveFormsModule, HlmFormFieldImports, HlmInput],
 	template: `
 		<hlm-form-field>
 			<input aria-label="Your Name" class="w-80" [formControl]="name" hlmInput type="text" placeholder="Your Name" />
@@ -81,12 +81,12 @@ export const Hint: Story = {
 	selector: 'form-field-form-story',
 	imports: [
 		ReactiveFormsModule,
-		HlmFormFieldModule,
-		HlmSelectModule,
+		HlmFormFieldImports,
+		HlmSelectImports,
 		HlmInput,
 		HlmSelectImports,
 		BrnSelectImports,
-		HlmButtonModule,
+		HlmButtonImports,
 	],
 	template: `
 		<form [formGroup]="form" class="space-y-6">

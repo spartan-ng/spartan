@@ -1,5 +1,3 @@
-import { NgModule } from '@angular/core';
-
 import { HlmNumberedPagination } from './lib/hlm-numbered-pagination';
 import { HlmNumberedPaginationQueryParams } from './lib/hlm-numbered-pagination-query-params';
 import { HlmPagination } from './lib/hlm-pagination';
@@ -31,9 +29,3 @@ export const HlmPaginationImports = [
 	HlmNumberedPagination,
 	HlmNumberedPaginationQueryParams,
 ] as const;
-
-@NgModule({
-	imports: [...HlmPaginationImports],
-	exports: [...HlmPaginationImports],
-})
-export class HlmPaginationModule {}

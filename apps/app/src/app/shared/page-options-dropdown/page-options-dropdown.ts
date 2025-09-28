@@ -5,7 +5,7 @@ import { lucideChevronDown } from '@ng-icons/lucide';
 import { remixClaudeFill, remixOpenaiFill } from '@ng-icons/remixicon';
 import { BrnMenuTrigger } from '@spartan-ng/brain/menu';
 import { HlmButton } from '@spartan-ng/helm/button';
-import { HlmMenuModule } from '@spartan-ng/helm/menu';
+import { HlmMenuImports } from '@spartan-ng/helm/menu';
 import { AiChatLinkDirective } from './ai-chat-link-directive';
 
 @Component({
@@ -28,7 +28,7 @@ import { AiChatLinkDirective } from './ai-chat-link-directive';
 			</hlm-menu>
 		</ng-template>
 	`,
-	imports: [HlmMenuModule, BrnMenuTrigger, HlmButton, NgIconComponent, AiChatLinkDirective],
+	imports: [HlmMenuImports, BrnMenuTrigger, HlmButton, NgIconComponent, AiChatLinkDirective],
 	providers: [provideIcons({ remixOpenaiFill, remixClaudeFill, lucideChevronDown })],
 })
 export class PageOptionsDropdown {}

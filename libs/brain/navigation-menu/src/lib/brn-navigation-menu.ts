@@ -18,12 +18,6 @@ export class BrnNavigationMenu {
 	private readonly _directionality = inject(Directionality);
 
 	/**
-	 * The value of the menu item that should be active when initially rendered.
-	 * Use when you do not need to control the value state.
-	 */
-	public readonly defaultValue = input<string>();
-
-	/**
 	 * The controlled value of the menu item to activate.
 	 */
 	public readonly value = model<string>();

@@ -65,6 +65,7 @@ let nextId = 0;
 				<hlm-calendar-range
 					calendarClass="border-0 rounded-none"
 					[startDate]="_start()"
+					[captionLayout]="captionLayout()"
 					[endDate]="_end()"
 					[min]="min()"
 					[max]="max()"
@@ -95,7 +96,10 @@ export class HlmDateRangePicker<T> implements ControlValueAccessor {
 	);
 
 	/** The id of the button that opens the date picker. */
-	public readonly buttonId = input<string>(`hlm-date-picker-range-${nextId++}`);
+	public readonly buttonId = input<string>(`hlm-date-picker-range-${++nextId}`);
+
+	/** Show dropdowns to navigate between months or years. */
+	public readonly captionLayout = input<'dropdown' | 'label' | 'dropdown-months' | 'dropdown-years'>('label');
 
 	/** The minimum date that can be selected.*/
 	public readonly min = input<T>();

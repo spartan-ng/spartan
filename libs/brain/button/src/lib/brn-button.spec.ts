@@ -1,17 +1,19 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { fireEvent, render } from '@testing-library/angular';
 import { BrnButton } from './brn-button';
 
 @Component({
-	standalone: true,
 	imports: [BrnButton],
 	template: `
-		<a brnButton [disabled]="disabled()">Click me</a>
+		<a brnButton [disabled]="disabled" (click)="onClick()">Click me</a>
 	`,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class TestHost {
-	public disabled = signal(false);
+	public disabled = false;
+	public onClick = () => {
+		// Placeholder for click handler
+	};
 }
 
 describe('BrnButton', () => {
@@ -26,7 +28,7 @@ describe('BrnButton', () => {
 
 	it('should reflect disabled state: tabindex -1, class added, and prevent click', async () => {
 		const { fixture, container } = await render(TestHost, {
-			componentProperties: { disabled: signal(true) },
+			componentProperties: { disabled: true },
 		});
 		fixture.detectChanges();
 
@@ -36,28 +38,37 @@ describe('BrnButton', () => {
 	});
 
 	it('should allow click when not disabled', async () => {
+		const onClick = jest.fn();
 		const { fixture, container } = await render(TestHost, {
-			componentProperties: { disabled: signal(false) },
+			componentProperties: { disabled: false, onClick },
 		});
 		fixture.detectChanges();
 
 		const button = container.querySelector('a')!;
-		expect(fireEvent.click(button)).toBe(true);
+		fireEvent.click(button);
+		expect(onClick).toHaveBeenCalled();
 	});
 
 	it('should not allow click when is disabled', async () => {
+		const onClick = jest.fn();
 		const { fixture, container } = await render(TestHost, {
-			componentProperties: { disabled: signal(true) },
+			componentProperties: {
+				disabled: true,
+				onClick,
+			},
 		});
 		fixture.detectChanges();
 
 		const button = container.querySelector('a')!;
-		expect(fireEvent.click(button)).toBe(false);
+		expect(button.getAttribute('tabindex')).toBe('-1');
+		expect(button.dataset['disabled']).toBe('true');
+		fireEvent.click(button);
+		expect(onClick).not.toHaveBeenCalled();
 	});
 
 	it('should toggle disabled dynamically and update attributes/classes accordingly', async () => {
-		const { fixture, container } = await render(TestHost, {
-			componentProperties: { disabled: signal(false) },
+		const { fixture, container, rerender } = await render(TestHost, {
+			componentProperties: { disabled: false },
 		});
 		fixture.detectChanges();
 
@@ -65,12 +76,12 @@ describe('BrnButton', () => {
 		expect(button.getAttribute('tabindex')).toBe(null);
 		expect(button.dataset['disabled']).toBe(undefined);
 
-		fixture.componentInstance.disabled.set(true);
+		await rerender({ componentProperties: { disabled: true } });
 		fixture.detectChanges();
 		expect(button.getAttribute('tabindex')).toBe('-1');
 		expect(button.dataset['disabled']).toBe('true');
 
-		fixture.componentInstance.disabled.set(false);
+		await rerender({ componentProperties: { disabled: false } });
 		fixture.detectChanges();
 		expect(button.getAttribute('tabindex')).toBe(null);
 		expect(button.dataset['disabled']).toBe(undefined);

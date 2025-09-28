@@ -15,6 +15,7 @@ import { helmIconHealthcheck } from './healthchecks/hlm-icon';
 import { progressHealthcheck } from './healthchecks/hlm-progress';
 import { scrollAreaHealthcheck } from './healthchecks/hlm-scroll-area';
 import { selectHealthcheck } from './healthchecks/hlm-select';
+import { moduleImportsHealthcheck } from './healthchecks/module-imports';
 import { namingConventionHealthcheck } from './healthchecks/naming-conventions';
 import { versionHealthcheck } from './healthchecks/version';
 import { HealthcheckGeneratorSchema } from './schema';
@@ -43,6 +44,7 @@ export async function healthcheckGenerator(tree: Tree, options: HealthcheckGener
 		brnCheckboxChangedEventRename,
 		brnSwitchChangedEventRename,
 		brainAccordionTriggerHealthcheck,
+		moduleImportsHealthcheck,
 	];
 
 	const failedReports: HealthcheckReport[] = [];

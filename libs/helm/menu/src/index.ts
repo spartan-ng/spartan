@@ -1,5 +1,3 @@
-import { NgModule } from '@angular/core';
-
 import { HlmMenu } from './lib/hlm-menu';
 import { HlmMenuBar } from './lib/hlm-menu-bar';
 import { HlmMenuBarItem } from './lib/hlm-menu-bar-item';
@@ -32,18 +30,6 @@ export * from './lib/hlm-menu-separator';
 export * from './lib/hlm-menu-shortcut';
 export * from './lib/hlm-sub-menu';
 
-export const HlmMenuItemImports = [
-	HlmMenuItem,
-	HlmMenuItemIcon,
-	HlmMenuGroup,
-	HlmMenuItemSubIndicator,
-	HlmMenuItemRadioIndicator,
-	HlmMenuItemCheck,
-	HlmMenuShortcut,
-	HlmMenuItemCheckbox,
-	HlmMenuItemRadio,
-];
-
 export const HlmMenuImports = [
 	HlmMenuItem,
 	HlmMenuItemIcon,
@@ -61,22 +47,3 @@ export const HlmMenuImports = [
 	HlmMenuBar,
 	HlmMenuBarItem,
 ] as const;
-
-export const HlmMenuBarImports = [...HlmMenuImports] as const;
-@NgModule({
-	imports: [...HlmMenuItemImports],
-	exports: [...HlmMenuItemImports],
-})
-export class HlmMenuItemModule {}
-
-@NgModule({
-	imports: [...HlmMenuImports],
-	exports: [...HlmMenuImports],
-})
-export class HlmMenuModule {}
-
-@NgModule({
-	imports: [...HlmMenuBarImports],
-	exports: [...HlmMenuBarImports],
-})
-export class HlmMenuBarModule {}

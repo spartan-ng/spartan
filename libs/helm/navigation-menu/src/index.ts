@@ -1,9 +1,16 @@
-import { NgModule } from '@angular/core';
+import { HlmNavigationMenu } from './hlm-navigation-menu';
+import { HlmNavigationMenuItem } from './hlm-navigation-menu-item';
+import { HlmNavigationMenuList } from './hlm-navigation-menu-list';
+import { HlmNavigationMenuTrigger } from './hlm-navigation-menu-trigger';
 
-export const HlmNavigationMenuImports = [] as const;
+export * from './hlm-navigation-menu';
+export * from './hlm-navigation-menu-item';
+export * from './hlm-navigation-menu-list';
+export * from './hlm-navigation-menu-trigger';
 
-@NgModule({
-	imports: [...HlmNavigationMenuImports],
-	exports: [...HlmNavigationMenuImports],
-})
-export class HlmNavigationMenuModule {}
+export const HlmNavigationMenuImports = [
+	HlmNavigationMenu,
+	HlmNavigationMenuList,
+	HlmNavigationMenuItem,
+	HlmNavigationMenuTrigger,
+] as const;

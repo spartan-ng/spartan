@@ -2,7 +2,7 @@ import { computed, Directive, input } from '@angular/core';
 import { injectBrnNavigationMenu } from './brn-navigation-menu.token';
 
 @Directive({
-	selector: '[brnNavigationMenuItem]',
+	selector: 'li[brnNavigationMenuItem]',
 	host: {
 		'[id]': 'id()',
 	},

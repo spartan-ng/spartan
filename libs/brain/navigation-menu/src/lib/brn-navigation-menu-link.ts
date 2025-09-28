@@ -8,7 +8,7 @@ import { injectBrnNavigationMenu } from './brn-navigation-menu.token';
 	host: {
 		'(click)': 'onClick()',
 		'(mouseenter)': 'activate()',
-		'[attr.data-state]': 'state()',
+		'[attr.data-active]': 'isActive()',
 	},
 	hostDirectives: [
 		{
@@ -17,11 +17,11 @@ import { injectBrnNavigationMenu } from './brn-navigation-menu.token';
 		},
 	],
 })
-export class BrnNavigationMenuTrigger {
+export class BrnNavigationMenuLink {
 	private readonly _navigationMenu = injectBrnNavigationMenu();
 	private readonly _navigationMenuItem = injectBrnNavigationMenuItem();
 
-	protected readonly state = this._navigationMenuItem.state;
+	protected readonly isActive = this._navigationMenuItem.isActive;
 
 	protected onClick() {
 		this._navigationMenu.value.set(this._navigationMenuItem.id());

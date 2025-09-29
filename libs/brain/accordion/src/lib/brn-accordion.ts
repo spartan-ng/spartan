@@ -181,7 +181,7 @@ export class BrnAccordion implements AfterContentInit, OnDestroy {
 	public readonly openItemIds = this._openItemIds.asReadonly();
 	public readonly state = computed(() => (this._openItemIds().length > 0 ? 'open' : 'closed'));
 
-	public triggers = contentChildren(BrnAccordionTrigger, { descendants: true });
+	public readonly triggers = contentChildren(BrnAccordionTrigger, { descendants: true });
 
 	/**
 	 * Whether the accordion is in single or multiple mode.

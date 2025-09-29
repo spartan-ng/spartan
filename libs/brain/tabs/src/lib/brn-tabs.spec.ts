@@ -22,11 +22,11 @@ import { BrnTabsTrigger } from './brn-tabs-trigger';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class BrnTabsDirectiveSpec {
-	public tabsDir = viewChild.required<BrnTabs>('tabs');
+	public readonly tabsDir = viewChild.required<BrnTabs>('tabs');
 
-	public showTrigger = input(true);
-	public showContent = input(true);
-	public disabled = input(false);
+	public readonly showTrigger = input(true);
+	public readonly showContent = input(true);
+	public readonly disabled = input(false);
 }
 
 describe('BrnTabsDirective', () => {

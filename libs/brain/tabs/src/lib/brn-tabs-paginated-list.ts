@@ -98,7 +98,7 @@ export abstract class BrnTabsPaginatedList implements AfterContentChecked, After
 	protected readonly _destroyed = new Subject<void>();
 
 	/** Whether the controls for pagination should be displayed */
-	public showPaginationControls = signal(false);
+	public readonly showPaginationControls = signal(false);
 
 	/** Whether the tab list can be scrolled more towards the end of the tab label list. */
 	public disableScrollAfter = true;

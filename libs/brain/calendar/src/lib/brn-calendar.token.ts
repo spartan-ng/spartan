@@ -1,4 +1,11 @@
-import { type ExistingProvider, InjectionToken, type Signal, type Type, type WritableSignal, inject } from '@angular/core';
+import {
+	type ExistingProvider,
+	InjectionToken,
+	type Signal,
+	type Type,
+	type WritableSignal,
+	inject,
+} from '@angular/core';
 import type { BrnCalendarHeader } from './brn-calendar-header';
 
 export interface BrnCalendarBase<T> {

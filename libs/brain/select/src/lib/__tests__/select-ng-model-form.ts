@@ -28,5 +28,5 @@ import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectNgModel {
-	public fruit = signal('');
+	public readonly fruit = signal('');
 }

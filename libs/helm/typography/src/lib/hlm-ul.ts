@@ -12,5 +12,5 @@ export const hlmUl = 'my-6 ml-6 list-disc [&>li]:mt-2';
 })
 export class HlmUl {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected _computedClass = computed(() => hlm(hlmUl, this.userClass()));
+	protected readonly _computedClass = computed(() => hlm(hlmUl, this.userClass()));
 }

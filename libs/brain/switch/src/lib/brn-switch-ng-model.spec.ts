@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, model } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrnSwitch } from './brn-switch';
 import { BrnSwitchThumb } from './brn-switch-thumb';
@@ -10,8 +10,8 @@ import { BrnSwitchThumb } from './brn-switch-thumb';
 	selector: 'brn-switch-ng-model',
 	template: `
 		<label>
-			Airplane mode is: {{ airplaneMode ? 'on' : 'off' }}
-			<brn-switch [disabled]="disabled" [(ngModel)]="airplaneMode">
+			Airplane mode is: {{ airplaneMode() ? 'on' : 'off' }}
+			<brn-switch [disabled]="disabled()" [(ngModel)]="airplaneMode">
 				<brn-switch-thumb />
 			</brn-switch>
 		</label>
@@ -20,10 +20,9 @@ import { BrnSwitchThumb } from './brn-switch-thumb';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BrnSwitchNgModelSpec {
-	@Input()
-	public disabled = false;
-	@Input()
-	public airplaneMode = false;
+	public readonly disabled = input(false);
+
+	public readonly airplaneMode = model(false);
 }
 
 describe('BrnSwitchComponentNgModelIntegration', () => {

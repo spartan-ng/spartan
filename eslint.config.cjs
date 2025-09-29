@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
 const nx = require('@nx/eslint-plugin');
 
 module.exports = [
@@ -83,18 +82,8 @@ module.exports = [
 					format: ['camelCase', 'UPPER_CASE', 'PascalCase'],
 				},
 			],
-			'@angular-eslint/prefer-output-readonly': 'error',
-			'@angular-eslint/prefer-on-push-component-change-detection': ['error'],
 			// this should be enabled when we move to signals
-			'@nx/workspace-prefer-signals': 'off',
 			'@nx/workspace-prefer-rxjs-operator-compat': 'error',
-		},
-	},
-	{
-		files: ['**/*.spec.ts', '**/tests/**/*.ts'],
-		// Override or add rules here
-		rules: {
-			'@nx/workspace-prefer-signals': 'off',
 		},
 	},
 	{

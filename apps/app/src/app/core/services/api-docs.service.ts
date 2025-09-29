@@ -6,7 +6,7 @@ import type { ComponentApiData, Primitives } from '../models/ui-docs.model';
 })
 export class ApiDocsService {
 	private readonly _apiDocs = signal<ComponentApiData | null>(null);
-	public apiDocs = computed(() => this._apiDocs());
+	public readonly apiDocs = computed(() => this._apiDocs());
 
 	setApiDocs(data: ComponentApiData): void {
 		this._apiDocs.set(data);

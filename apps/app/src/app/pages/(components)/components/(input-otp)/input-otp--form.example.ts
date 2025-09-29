@@ -47,8 +47,8 @@ export class InputOtpFormExample implements OnDestroy {
 	private readonly _formBuilder = inject(FormBuilder);
 	private _intervalId?: NodeJS.Timeout;
 
-	public countdown = signal(60);
-	public isResendDisabled = computed(() => this.countdown() > 0);
+	public readonly countdown = signal(60);
+	public readonly isResendDisabled = computed(() => this.countdown() > 0);
 
 	public maxLength = 6;
 

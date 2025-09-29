@@ -1,20 +1,20 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
-import { BrnAvatarFallback, BrnAvatarImage } from '@spartan-ng/brain/avatar';
+import { BrnAvatarFallback } from '@spartan-ng/brain/avatar';
 import { HlmAvatar } from './hlm-avatar';
 
 @Component({
 	selector: 'hlm-mock',
-	imports: [BrnAvatarImage, BrnAvatarFallback, HlmAvatar],
+	imports: [BrnAvatarFallback, HlmAvatar],
 	template: `
-		<hlm-avatar [class]="class" id="fallbackOnly">
+		<hlm-avatar [class]="class()" id="fallbackOnly">
 			<span brnAvatarFallback>fallback</span>
 		</hlm-avatar>
 	`,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class Mock {
-	@Input() public class = '';
+	public readonly class = input<string>();
 }
 
 describe('HlmAvatarComponent', () => {

@@ -42,6 +42,9 @@ module.exports = [
 			'@angular-eslint/no-input-rename': 'off',
 			'@angular-eslint/directive-class-suffix': 'off',
 			'@angular-eslint/component-class-suffix': 'off',
+			'@angular-eslint/prefer-output-readonly': 'error',
+			'@angular-eslint/prefer-on-push-component-change-detection': ['error'],
+			'@angular-eslint/prefer-signals': ['error'],
 		},
 	},
 	{

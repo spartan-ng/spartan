@@ -79,7 +79,7 @@ export class BrnCommandItem implements Highlightable, OnInit {
 	});
 
 	/** @internal Get the value of the item, with check if it has been initialized to avoid errors */
-	public safeValue = computed(() => {
+	public readonly safeValue = computed(() => {
 		if (!this._initialized()) {
 			return '';
 		}

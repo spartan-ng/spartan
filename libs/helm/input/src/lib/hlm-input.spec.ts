@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, Input, type OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, type OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { type RenderResult, render } from '@testing-library/angular';
+import { render, type RenderResult } from '@testing-library/angular';
 import { HlmInput } from './hlm-input';
 
 @Component({
@@ -11,21 +11,21 @@ import { HlmInput } from './hlm-input';
 	imports: [HlmInput, ReactiveFormsModule],
 	template: `
 		<form [formGroup]="form">
-			<input hlmInput formControlName="testField" [class]="userClass" [error]="error" />
+			<input hlmInput formControlName="testField" [class]="userClass()" [error]="error()" />
 		</form>
 	`,
 })
 class HlmInputMock implements OnInit {
-	@Input() public error: 'auto' | true = 'auto';
-	@Input() public userClass = '';
-	@Input() public required = true;
+	public readonly error = input<'auto' | true>('auto');
+	public readonly userClass = input('');
+	public readonly required = input(true);
 
 	public form = new FormGroup({
 		testField: new FormControl(''),
 	});
 
 	ngOnInit() {
-		if (this.required) {
+		if (this.required()) {
 			this.form.get('testField')?.setValidators([Validators.required]);
 		}
 	}

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, model } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { fireEvent, render } from '@testing-library/angular';
 import { BrnToggleGroup } from './brn-toggle-group';
@@ -7,7 +7,7 @@ import { BrnToggleGroupItem } from './brn-toggle-item';
 @Component({
 	imports: [BrnToggleGroupItem, BrnToggleGroup],
 	template: `
-		<brn-toggle-group [(value)]="value" [disabled]="disabled" [multiple]="multiple">
+		<brn-toggle-group [(value)]="value" [disabled]="disabled()" [multiple]="multiple()">
 			<button brnToggleGroupItem value="option-1">Option 1</button>
 			<button brnToggleGroupItem value="option-2">Option 2</button>
 			<button brnToggleGroupItem value="option-3">Option 3</button>
@@ -16,15 +16,15 @@ import { BrnToggleGroupItem } from './brn-toggle-item';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class BrnToggleGroupDirectiveSpec {
-	@Input() public value?: string | string[];
-	@Input() public disabled = false;
-	@Input() public multiple = false;
+	public readonly value? = model<string | string[]>();
+	public readonly disabled = input(false);
+	public readonly multiple = input(false);
 }
 
 @Component({
 	imports: [BrnToggleGroupItem, BrnToggleGroup, FormsModule],
 	template: `
-		<brn-toggle-group [(ngModel)]="value" [multiple]="multiple">
+		<brn-toggle-group [(ngModel)]="value" [multiple]="multiple()">
 			<button brnToggleGroupItem value="option-1">Option 1</button>
 			<button brnToggleGroupItem value="option-2">Option 2</button>
 			<button brnToggleGroupItem value="option-3">Option 3</button>
@@ -33,8 +33,8 @@ class BrnToggleGroupDirectiveSpec {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class BrnToggleGroupDirectiveFormSpec {
-	@Input() public value?: string | string[];
-	@Input() public multiple = false;
+	public readonly value? = model<string | string[]>();
+	public readonly multiple = input(false);
 }
 
 describe('BrnToggleGroupDirective', () => {

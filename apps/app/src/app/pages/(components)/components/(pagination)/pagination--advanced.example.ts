@@ -9,7 +9,7 @@ import { HlmNumberedPagination } from '@spartan-ng/helm/pagination';
 	`,
 })
 export class PaginationAdvanced {
-	public page = signal(1);
-	public pageSize = signal(10);
-	public totalProducts = signal(100);
+	public readonly page = signal(1);
+	public readonly pageSize = signal(10);
+	public readonly totalProducts = signal(100);
 }

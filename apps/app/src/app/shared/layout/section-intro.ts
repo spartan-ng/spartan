@@ -4,7 +4,7 @@ import { PageOptionsDropdown } from '../page-options-dropdown/page-options-dropd
 @Component({
 	selector: 'spartan-section-intro',
 	host: {
-		class: 'flex flex-col gap-2',
+		class: 'flex flex-col gap-2 mb-8',
 	},
 	imports: [PageOptionsDropdown],
 	template: `

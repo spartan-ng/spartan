@@ -10,6 +10,7 @@ import { BrnSelectValueTemplate } from './lib/brn-select-value-template';
 
 export * from './lib/brn-select';
 export * from './lib/brn-select-content';
+export * from './lib/brn-select-content.token';
 export * from './lib/brn-select-group';
 export * from './lib/brn-select-label';
 export * from './lib/brn-select-option';
@@ -17,6 +18,7 @@ export * from './lib/brn-select-placeholder';
 export * from './lib/brn-select-trigger';
 export * from './lib/brn-select-value';
 export * from './lib/brn-select-value-template';
+export * from './lib/brn-select.token';
 
 export const BrnSelectImports = [
 	BrnSelect,

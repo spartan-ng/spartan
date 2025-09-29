@@ -3,7 +3,7 @@ import { BrnSheetContent } from '@spartan-ng/brain/sheet';
 import { HlmSheet, HlmSheetContent } from '@spartan-ng/helm/sheet';
 import { hlm } from '@spartan-ng/helm/utils';
 
-import { HlmSidebarService, SidebarVariant } from './hlm-sidebar.service';
+import { HlmSidebarService, type SidebarVariant } from './hlm-sidebar.service';
 
 import { NgTemplateOutlet } from '@angular/common';
 import type { ClassValue } from 'clsx';

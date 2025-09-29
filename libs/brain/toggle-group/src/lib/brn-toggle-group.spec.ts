@@ -33,7 +33,7 @@ class BrnToggleGroupDirectiveSpec {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class BrnToggleGroupDirectiveFormSpec {
-	public readonly value? = model<string | string[]>();
+	public readonly value = model<string | string[]>();
 	public readonly multiple = input(false);
 }
 

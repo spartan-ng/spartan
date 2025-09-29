@@ -28,7 +28,7 @@ export class BrnSwitchNgModelSpec {
 describe('BrnSwitchComponentNgModelIntegration', () => {
 	const setup = async (airplaneMode = false, disabled = false) => {
 		const container = await render(BrnSwitchNgModelSpec, {
-			componentInputs: {
+			inputs: {
 				disabled,
 				airplaneMode,
 			},
@@ -47,7 +47,7 @@ describe('BrnSwitchComponentNgModelIntegration', () => {
 		expect(labelElement).toBeInTheDocument();
 		await user.click(labelElement);
 		expect(await screen.findByRole('switch')).toHaveAttribute('value', 'on');
-		expect(container.fixture.componentInstance.airplaneMode).toBe(true);
+		expect(container.fixture.componentInstance.airplaneMode()).toBe(true);
 	});
 
 	it('should set input as default correctly and click should toggle then', async () => {
@@ -55,21 +55,21 @@ describe('BrnSwitchComponentNgModelIntegration', () => {
 
 		await user.click(labelElement);
 		expect(await screen.findByRole('switch')).toHaveAttribute('value', 'off');
-		expect(container.fixture.componentInstance.airplaneMode).toBe(false);
+		expect(container.fixture.componentInstance.airplaneMode()).toBe(false);
 
 		await user.click(labelElement);
 		expect(await screen.findByRole('switch')).toHaveAttribute('value', 'on');
-		expect(container.fixture.componentInstance.airplaneMode).toBe(true);
+		expect(container.fixture.componentInstance.airplaneMode()).toBe(true);
 	});
 
 	it('should set input as default correctly and enter should toggle then', async () => {
 		const { user, container } = await setup(true);
 
 		await user.keyboard('[Tab][Enter]');
-		expect(container.fixture.componentInstance.airplaneMode).toBe(false);
+		expect(container.fixture.componentInstance.airplaneMode()).toBe(false);
 
 		await user.keyboard('[Enter]');
-		expect(container.fixture.componentInstance.airplaneMode).toBe(true);
+		expect(container.fixture.componentInstance.airplaneMode()).toBe(true);
 	});
 
 	it('should do nothing when disabled', async () => {
@@ -77,10 +77,10 @@ describe('BrnSwitchComponentNgModelIntegration', () => {
 
 		await user.click(labelElement);
 		expect(await screen.findByRole('switch')).toHaveAttribute('value', 'off');
-		expect(container.fixture.componentInstance.airplaneMode).toBe(false);
+		expect(container.fixture.componentInstance.airplaneMode()).toBe(false);
 
 		await user.click(labelElement);
 		expect(await screen.findByRole('switch')).toHaveAttribute('value', 'off');
-		expect(container.fixture.componentInstance.airplaneMode).toBe(false);
+		expect(container.fixture.componentInstance.airplaneMode()).toBe(false);
 	});
 });

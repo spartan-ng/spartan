@@ -343,7 +343,27 @@ export const routeMeta: RouteMeta = {
 				<li class="mt-2">
 					<span hlmCode>sidebarWidthIcon</span>
 					–
-					<span hlmCode>4rem</span>
+					<span hlmCode>3rem</span>
+				</li>
+				<li class="mt-2">
+					<span hlmCode>sidebarCookieName</span>
+					–
+					<span hlmCode>sidebar_state</span>
+				</li>
+				<li class="mt-2">
+					<span hlmCode>sidebarCookieMaxAge</span>
+					–
+					<span hlmCode>60 * 60 * 24 * 7</span>
+				</li>
+				<li class="mt-2">
+					<span hlmCode>sidebarKeyboardShortcut</span>
+					–
+					<span hlmCode>b</span>
+				</li>
+				<li class="mt-2">
+					<span hlmCode>mobileBreakpoint</span>
+					–
+					<span hlmCode>768px</span>
 				</li>
 			</ul>
 

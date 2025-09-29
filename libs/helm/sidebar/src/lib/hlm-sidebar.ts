@@ -26,7 +26,7 @@ import { injectHlmSidebarConfig } from './hlm-sidebar.token';
 			</div>
 		} @else if (_sidebarService.isMobile()) {
 			<hlm-sheet
-				[side]="'left'"
+				[side]="side()"
 				[closeDelay]="0"
 				[state]="_sidebarService.openMobile() ? 'open' : 'closed'"
 				(stateChanged)="_sidebarService.setOpenMobile($event === 'open')"

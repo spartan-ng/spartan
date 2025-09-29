@@ -1,15 +1,23 @@
-import { InjectionToken, ValueProvider, inject } from '@angular/core';
+import { inject, InjectionToken, ValueProvider } from '@angular/core';
 
 export interface HlmSidebarConfig {
 	sidebarWidth: string;
 	sidebarWidthMobile: string;
 	sidebarWidthIcon: string;
+	sidebarCookieName: string;
+	sidebarCookieMaxAge: number;
+	sidebarKeyboardShortcut: string;
+	mobileBreakpoint: string;
 }
 
 const defaultConfig: HlmSidebarConfig = {
 	sidebarWidth: '16rem',
 	sidebarWidthMobile: '18rem',
-	sidebarWidthIcon: '4rem',
+	sidebarWidthIcon: '3rem',
+	sidebarCookieName: 'sidebar_state',
+	sidebarCookieMaxAge: 60 * 60 * 24 * 7, // 7 days in seconds
+	sidebarKeyboardShortcut: 'b',
+	mobileBreakpoint: '768px',
 };
 
 const HlmSidebarConfigToken = new InjectionToken<HlmSidebarConfig>('HlmSidebarConfig');

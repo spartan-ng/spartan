@@ -1,15 +1,12 @@
 import { DOCUMENT } from '@angular/common';
 import { afterNextRender, computed, DestroyRef, inject, Injectable, Signal, signal } from '@angular/core';
+import { injectHlmSidebarConfig } from './hlm-sidebar.token';
 
 export type SidebarVariant = 'sidebar' | 'floating' | 'inset';
 
-const SIDEBAR_COOKIE_NAME = 'sidebar_state';
-const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7; // 7 days in seconds
-const SIDEBAR_KEYBOARD_SHORTCUT = 'b';
-const MOBILE_BREAKPOINT = '768px';
-
 @Injectable({ providedIn: 'root' })
 export class HlmSidebarService {
+	private readonly _config = injectHlmSidebarConfig();
 	private readonly _document = inject(DOCUMENT);
 	private readonly _window = this._document.defaultView;
 	private readonly _open = signal<boolean>(true);
@@ -30,7 +27,9 @@ export class HlmSidebarService {
 		afterNextRender(() => {
 			if (!this._window) return;
 			// Initialize from cookie
-			const cookie = this._document.cookie.split('; ').find((row) => row.startsWith(`${SIDEBAR_COOKIE_NAME}=`));
+			const cookie = this._document.cookie
+				.split('; ')
+				.find((row) => row.startsWith(`${this._config.sidebarCookieName}=`));
 
 			if (cookie) {
 				const value = cookie.split('=')[1];
@@ -38,7 +37,7 @@ export class HlmSidebarService {
 			}
 
 			// Initialize MediaQueryList
-			this._mediaQuery = this._window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT})`);
+			this._mediaQuery = this._window.matchMedia(`(max-width: ${this._config.mobileBreakpoint})`);
 			this._isMobile.set(this._mediaQuery.matches);
 
 			// Add media query listener
@@ -51,7 +50,7 @@ export class HlmSidebarService {
 
 			// Add keyboard shortcut listener
 			const keydownHandler = (event: KeyboardEvent) => {
-				if (event.key === SIDEBAR_KEYBOARD_SHORTCUT && (event.ctrlKey || event.metaKey)) {
+				if (event.key === this._config.sidebarKeyboardShortcut && (event.ctrlKey || event.metaKey)) {
 					event.preventDefault();
 					this.toggleSidebar();
 				}
@@ -84,7 +83,7 @@ export class HlmSidebarService {
 
 	public setOpen(open: boolean): void {
 		this._open.set(open);
-		this._document.cookie = `${SIDEBAR_COOKIE_NAME}=${open}; path=/; max-age=${SIDEBAR_COOKIE_MAX_AGE}`;
+		this._document.cookie = `${this._config.sidebarCookieName}=${open}; path=/; max-age=${this._config.sidebarCookieMaxAge}`;
 	}
 
 	public setOpenMobile(open: boolean): void {

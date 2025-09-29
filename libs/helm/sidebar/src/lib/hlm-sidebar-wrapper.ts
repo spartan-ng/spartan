@@ -4,7 +4,7 @@ import type { ClassValue } from 'clsx';
 import { injectHlmSidebarConfig } from './hlm-sidebar.token';
 
 @Directive({
-	selector: 'div[hlmSidebarWrapper]', // Restrict to main elements only
+	selector: 'div[hlmSidebarWrapper]',
 	host: {
 		'data-slot': 'sidebar-wrapper',
 		'[class]': '_computedClass()',

@@ -285,9 +285,13 @@ export const appConfig: ApplicationConfig = {
   providers: [
     ...
     provideHlmSidebarConfig({
-      sidebarWidth: '18rem',
-      sidebarWidthMobile: '16rem',
-      sidebarWidthIcon: '4rem',
+			sidebarWidth: '16rem',
+			sidebarWidthMobile: '18rem',
+			sidebarWidthIcon: '3rem',
+			sidebarCookieName: 'sidebar_state',
+			sidebarCookieMaxAge: 60 * 60 * 24 * 7,
+			sidebarKeyboardShortcut: 'b',
+			mobileBreakpoint: '768px',
     })
   ],
 };

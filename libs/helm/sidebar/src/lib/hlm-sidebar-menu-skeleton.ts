@@ -9,7 +9,6 @@ import type { ClassValue } from 'clsx';
 	selector: 'div[hlmSidebarMenuSkeleton]',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		{{ _width }}
 		@if (showIcon()) {
 			<hlm-skeleton data-sidebar="menu-skeleton-icon" class="size-4 rounded-md" />
 		} @else {

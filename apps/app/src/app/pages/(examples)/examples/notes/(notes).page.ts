@@ -9,7 +9,7 @@ import { HlmLabel } from '@spartan-ng/helm/label';
 import { HlmSpinner } from '@spartan-ng/helm/spinner';
 import { waitFor } from '@spartan-ng/trpc';
 import { SignalFormBuilder, SignalInputDirective, V, withErrorComponent } from 'ng-signal-forms';
-import { Observable, Subject, of } from 'rxjs';
+import { type Observable, Subject, of } from 'rxjs';
 import { catchError, switchMap, take, tap } from 'rxjs/operators';
 import type { Note } from '../../../../../db';
 import { injectTRPCClient } from '../../../../../trpc-client';

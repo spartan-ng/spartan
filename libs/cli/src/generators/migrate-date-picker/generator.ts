@@ -1,6 +1,6 @@
-import { formatFiles, Tree } from '@nx/devkit';
+import { formatFiles, type Tree } from '@nx/devkit';
 import { visitFiles } from '../../utils/visit-files';
-import { MigrateDatePickerGeneratorSchema } from './schema';
+import type { MigrateDatePickerGeneratorSchema } from './schema';
 
 export async function migrateDatePickerGenerator(tree: Tree, { skipFormat }: MigrateDatePickerGeneratorSchema) {
 	replaceOpenChangeEvent(tree);

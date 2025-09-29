@@ -1,7 +1,7 @@
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { isPlatformBrowser } from '@angular/common';
 import {
-	AfterViewInit,
+	type AfterViewInit,
 	computed,
 	contentChild,
 	contentChildren,
@@ -17,7 +17,7 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { BrnCommandItemToken } from './brn-command-item.token';
 import { BrnCommandSearchInput } from './brn-command-search-input';
-import { CommandFilter, injectBrnCommandConfig, provideBrnCommand } from './brn-command.token';
+import { type CommandFilter, injectBrnCommandConfig, provideBrnCommand } from './brn-command.token';
 
 @Directive({
 	selector: '[brnCommand]',

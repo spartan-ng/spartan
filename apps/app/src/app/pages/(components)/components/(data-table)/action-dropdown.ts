@@ -5,8 +5,8 @@ import { BrnMenuImports } from '@spartan-ng/brain/menu';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmIconImports } from '@spartan-ng/helm/icon';
 import { HlmMenuImports } from '@spartan-ng/helm/menu';
-import { CellContext, injectFlexRenderContext } from '@tanstack/angular-table';
-import { Payment } from './data-table.preview';
+import { type CellContext, injectFlexRenderContext } from '@tanstack/angular-table';
+import type { Payment } from './data-table.preview';
 
 @Component({
 	selector: 'spartan-action-dropdown',

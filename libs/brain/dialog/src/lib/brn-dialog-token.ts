@@ -1,5 +1,5 @@
-import { inject, InjectionToken, ValueProvider } from '@angular/core';
-import { BrnDialogOptions } from './brn-dialog-options';
+import { inject, InjectionToken, type ValueProvider } from '@angular/core';
+import type { BrnDialogOptions } from './brn-dialog-options';
 
 export interface BrnDialogDefaultOptions {
 	/** A connected position as specified by the user. */

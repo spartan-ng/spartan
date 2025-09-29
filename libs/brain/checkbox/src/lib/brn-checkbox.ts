@@ -1,5 +1,5 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { BooleanInput } from '@angular/cdk/coercion';
+import type { BooleanInput } from '@angular/cdk/coercion';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
 	type AfterContentInit,
@@ -24,8 +24,8 @@ import {
 	viewChild,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
+import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 
 export const BRN_CHECKBOX_VALUE_ACCESSOR = {
 	provide: NG_VALUE_ACCESSOR,

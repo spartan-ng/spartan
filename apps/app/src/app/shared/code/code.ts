@@ -1,12 +1,10 @@
-import { Component, Input, ViewEncapsulation, booleanAttribute, inject } from '@angular/core';
-import { NgIcon } from '@ng-icons/core';
+import { booleanAttribute, Component, inject, Input, ViewEncapsulation } from '@angular/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
 import { marked } from 'marked';
 import { gfmHeadingId } from 'marked-gfm-heading-id';
 import { markedHighlight } from 'marked-highlight';
 
 import { Clipboard } from '@angular/cdk/clipboard';
-
-import { provideIcons } from '@ng-icons/core';
 import { lucideCheck, lucideClipboard } from '@ng-icons/lucide';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmIcon } from '@spartan-ng/helm/icon';
@@ -18,6 +16,7 @@ import 'prismjs/components/prism-json';
 import 'prismjs/components/prism-markup';
 import 'prismjs/components/prism-typescript';
 
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
 declare const Prism: typeof import('prismjs');
 
 @Component({

@@ -1,7 +1,7 @@
-import { BooleanInput } from '@angular/cdk/coercion';
+import type { BooleanInput } from '@angular/cdk/coercion';
 import { booleanAttribute, ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { hlm } from '@spartan-ng/helm/utils';
-import { ClassValue } from 'clsx';
+import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-menu-label',

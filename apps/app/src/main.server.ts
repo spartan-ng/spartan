@@ -2,7 +2,7 @@ import '@angular/platform-server/init';
 import 'zone.js/node';
 
 import { provideServerContext } from '@analogjs/router/server';
-import { ServerContext } from '@analogjs/router/tokens';
+import type { ServerContext } from '@analogjs/router/tokens';
 import { enableProdMode } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { renderApplication } from '@angular/platform-server';

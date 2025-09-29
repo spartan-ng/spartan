@@ -1,4 +1,4 @@
-import { Tree } from '@nx/devkit'; // update with actual path
+import type { Tree } from '@nx/devkit'; // update with actual path
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
 import { renameToTemplate } from './file-management';
 

@@ -1,4 +1,4 @@
-import { Directive, effect, EmbeddedViewRef, inject, OnDestroy, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Directive, effect, type EmbeddedViewRef, inject, type OnDestroy, TemplateRef, ViewContainerRef } from '@angular/core';
 import { injectBrnSlider } from './brn-slider.token';
 
 @Directive({

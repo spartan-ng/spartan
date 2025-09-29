@@ -1,7 +1,7 @@
 import { type Tree, readJson } from '@nx/devkit';
 import { prompt } from 'enquirer';
 import z, { ZodError } from 'zod';
-import { GenerateAs, generateOptions } from '../generators/base/lib/generate-as';
+import { type GenerateAs, generateOptions } from '../generators/base/lib/generate-as';
 
 const configPath = 'components.json';
 

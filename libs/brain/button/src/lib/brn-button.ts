@@ -1,4 +1,4 @@
-import { BooleanInput } from '@angular/cdk/coercion';
+import type { BooleanInput } from '@angular/cdk/coercion';
 import { booleanAttribute, Directive, ElementRef, HOST_TAG_NAME, inject, input } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { fromEvent } from 'rxjs';

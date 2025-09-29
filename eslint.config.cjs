@@ -42,6 +42,7 @@ module.exports = [
 					ignoreRestSiblings: true,
 				},
 			],
+			'@typescript-eslint/consistent-type-imports': 'error',
 			'@typescript-eslint/no-non-null-assertion': 'off',
 			'@typescript-eslint/no-unused-expressions': 'off',
 			'@typescript-eslint/prefer-readonly': 'error',

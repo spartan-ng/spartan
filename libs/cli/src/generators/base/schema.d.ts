@@ -1,4 +1,4 @@
-import { GenerateAs } from './lib/generate-as';
+import { type GenerateAs } from './lib/generate-as';
 
 export interface HlmBaseGeneratorSchema {
 	primitiveName: string;

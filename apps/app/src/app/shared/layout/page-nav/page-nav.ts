@@ -7,7 +7,7 @@ import {
 	type OnDestroy,
 	type OnInit,
 	PLATFORM_ID,
-	TemplateRef,
+	type TemplateRef,
 	computed,
 	inject,
 	isDevMode,

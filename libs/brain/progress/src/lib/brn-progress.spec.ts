@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { render } from '@testing-library/angular';
 import { BrnProgressImports } from '../index';
-import { BrnProgress, BrnProgressLabelFn } from './brn-progress';
+import { BrnProgress, type BrnProgressLabelFn } from './brn-progress';
 import { BrnProgressIndicator } from './brn-progress-indicator';
 
 @Component({

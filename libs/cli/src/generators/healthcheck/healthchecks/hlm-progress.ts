@@ -1,6 +1,6 @@
 import { visitNotIgnoredFiles } from '@nx/devkit';
 import migrateProgressGenerator from '../../migrate-progress/generator';
-import { Healthcheck, HealthcheckSeverity } from '../healthchecks';
+import { type Healthcheck, HealthcheckSeverity } from '../healthchecks';
 
 export const progressHealthcheck: Healthcheck = {
 	name: 'Helm Progress',

@@ -1,4 +1,4 @@
-import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
+import type { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import {
 	booleanAttribute,
 	ChangeDetectionStrategy,
@@ -11,11 +11,11 @@ import {
 	output,
 	signal,
 } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown } from '@ng-icons/lucide';
-import { BrnDialogState } from '@spartan-ng/brain/dialog';
-import { type ChangeFn, type TouchFn } from '@spartan-ng/brain/forms';
+import type { BrnDialogState } from '@spartan-ng/brain/dialog';
+import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import { BrnPopover, BrnPopoverContent, BrnPopoverTrigger } from '@spartan-ng/brain/popover';
 import { HlmCalendarMulti } from '@spartan-ng/helm/calendar';
 import { HlmIcon } from '@spartan-ng/helm/icon';

@@ -1,5 +1,5 @@
 // src/app/directives/hlm-table-directives.ts
-import { computed, Directive, inject, InjectionToken, input, ValueProvider } from '@angular/core';
+import { computed, Directive, inject, InjectionToken, input, type ValueProvider } from '@angular/core';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 

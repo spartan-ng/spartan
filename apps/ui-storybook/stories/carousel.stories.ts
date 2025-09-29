@@ -1,4 +1,4 @@
-import { argsToTemplate, Meta, moduleMetadata, StoryObj } from '@storybook/angular';
+import { argsToTemplate, type Meta, moduleMetadata, type StoryObj } from '@storybook/angular';
 
 import { HlmCard, HlmCardContent } from '@spartan-ng/helm/card';
 import { HlmCarousel, HlmCarouselImports } from '@spartan-ng/helm/carousel';

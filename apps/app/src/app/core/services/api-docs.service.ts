@@ -1,5 +1,5 @@
 import { Injectable, computed, signal } from '@angular/core';
-import { ComponentApiData, Primitives } from '../models/ui-docs.model';
+import type { ComponentApiData, Primitives } from '../models/ui-docs.model';
 
 @Injectable({
 	providedIn: 'root',

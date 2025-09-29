@@ -1,4 +1,4 @@
-import { afterNextRender, Component, computed, inject, OnDestroy, signal } from '@angular/core';
+import { afterNextRender, Component, computed, inject, type OnDestroy, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BrnInputOtp } from '@spartan-ng/brain/input-otp';
 import { HlmButton } from '@spartan-ng/helm/button';

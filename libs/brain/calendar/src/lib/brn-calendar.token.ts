@@ -1,5 +1,5 @@
-import { ExistingProvider, InjectionToken, Signal, Type, WritableSignal, inject } from '@angular/core';
-import { BrnCalendarHeader } from './brn-calendar-header';
+import { type ExistingProvider, InjectionToken, type Signal, type Type, type WritableSignal, inject } from '@angular/core';
+import type { BrnCalendarHeader } from './brn-calendar-header';
 
 export interface BrnCalendarBase<T> {
 	isSelected: (date: T) => boolean;

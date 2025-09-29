@@ -1,4 +1,4 @@
-import { BooleanInput } from '@angular/cdk/coercion';
+import type { BooleanInput } from '@angular/cdk/coercion';
 import {
 	booleanAttribute,
 	ChangeDetectionStrategy,
@@ -10,8 +10,8 @@ import {
 	model,
 	output,
 } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
+import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import { BrnSwitch, BrnSwitchThumb } from '@spartan-ng/brain/switch';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';

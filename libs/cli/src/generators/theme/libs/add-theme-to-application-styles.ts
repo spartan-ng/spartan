@@ -2,9 +2,9 @@
 // Check out the code here: https://github.com/nrwl/nx/blob/master/packages/angular/src/generators/setup-tailwind/lib/update-application-styles.ts
 
 import { type ProjectConfiguration, type Tree, joinPathFragments, readJson, stripIndents } from '@nx/devkit';
-import { type PackageJson } from 'nx/src/utils/package-json';
+import type { PackageJson } from 'nx/src/utils/package-json';
 import * as semver from 'semver';
-import { ThemeName, themes } from './colors';
+import { type ThemeName, themes } from './colors';
 
 export interface AddThemeToApplicationStylesOptions {
 	project: string;

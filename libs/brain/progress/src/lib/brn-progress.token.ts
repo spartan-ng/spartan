@@ -1,4 +1,4 @@
-import { ExistingProvider, InjectionToken, Type, inject } from '@angular/core';
+import { type ExistingProvider, InjectionToken, type Type, inject } from '@angular/core';
 import type { BrnProgress } from './brn-progress';
 
 const BrnProgressToken = new InjectionToken<BrnProgress>('BrnProgressComponent');

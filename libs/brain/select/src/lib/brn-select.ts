@@ -1,4 +1,4 @@
-import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
+import type { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import { CdkListboxModule } from '@angular/cdk/listbox';
 import {
 	CdkConnectedOverlay,
@@ -34,13 +34,13 @@ import {
 	provideExposesStateProviderExisting,
 } from '@spartan-ng/brain/core';
 import { BrnFormFieldControl } from '@spartan-ng/brain/form-field';
-import { ChangeFn, ErrorStateMatcher, ErrorStateTracker, TouchFn } from '@spartan-ng/brain/forms';
+import { type ChangeFn, ErrorStateMatcher, ErrorStateTracker, type TouchFn } from '@spartan-ng/brain/forms';
 import { BrnLabel } from '@spartan-ng/brain/label';
 import { of, Subject } from 'rxjs';
 import { delay, map, switchMap } from 'rxjs/operators';
 import { BrnSelectContent } from './brn-select-content';
 import { BrnSelectOption } from './brn-select-option';
-import { BrnSelectTrigger } from './brn-select-trigger';
+import type { BrnSelectTrigger } from './brn-select-trigger';
 import { provideBrnSelect } from './brn-select.token';
 
 export type BrnReadDirection = 'ltr' | 'rtl';

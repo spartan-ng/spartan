@@ -1,4 +1,4 @@
-import { Tree } from '@nx/devkit';
+import type { Tree } from '@nx/devkit';
 import { join } from 'path/posix';
 
 export function deleteFiles(tree: Tree, path: string) {

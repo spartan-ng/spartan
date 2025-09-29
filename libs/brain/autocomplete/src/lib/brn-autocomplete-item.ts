@@ -1,5 +1,5 @@
-import { Highlightable } from '@angular/cdk/a11y';
-import { BooleanInput } from '@angular/cdk/coercion';
+import type { Highlightable } from '@angular/cdk/a11y';
+import type { BooleanInput } from '@angular/cdk/coercion';
 import { isPlatformBrowser } from '@angular/common';
 import { booleanAttribute, Directive, ElementRef, inject, input, output, PLATFORM_ID, signal } from '@angular/core';
 import { provideBrnAutocompleteItem } from './brn-autocomplete-item.token';

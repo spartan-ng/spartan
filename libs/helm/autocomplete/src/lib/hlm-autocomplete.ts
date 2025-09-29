@@ -1,4 +1,4 @@
-import { BooleanInput } from '@angular/cdk/coercion';
+import type { BooleanInput } from '@angular/cdk/coercion';
 import { NgTemplateOutlet } from '@angular/common';
 import {
 	booleanAttribute,
@@ -11,14 +11,14 @@ import {
 	input,
 	linkedSignal,
 	output,
-	TemplateRef,
+	type TemplateRef,
 	viewChild,
 } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown, lucideSearch } from '@ng-icons/lucide';
 import { BrnAutocomplete, BrnAutocompleteEmpty } from '@spartan-ng/brain/autocomplete';
-import { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
+import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import { BrnPopover, BrnPopoverContent } from '@spartan-ng/brain/popover';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmPopoverContent } from '@spartan-ng/helm/popover';

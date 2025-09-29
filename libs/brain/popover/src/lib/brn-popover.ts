@@ -8,7 +8,7 @@ import {
 	untracked,
 	ViewEncapsulation,
 } from '@angular/core';
-import { BrnDialog, BrnDialogDefaultOptions, provideBrnDialogDefaultOptions } from '@spartan-ng/brain/dialog';
+import { BrnDialog, type BrnDialogDefaultOptions, provideBrnDialogDefaultOptions } from '@spartan-ng/brain/dialog';
 
 export const BRN_POPOVER_DIALOG_DEFAULT_OPTIONS: Partial<BrnDialogDefaultOptions> = {
 	hasBackdrop: false,

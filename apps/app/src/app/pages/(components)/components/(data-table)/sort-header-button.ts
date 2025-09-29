@@ -3,7 +3,7 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideArrowUpDown } from '@ng-icons/lucide';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmIconImports } from '@spartan-ng/helm/icon';
-import { HeaderContext, injectFlexRenderContext } from '@tanstack/angular-table';
+import { type HeaderContext, injectFlexRenderContext } from '@tanstack/angular-table';
 
 @Component({
 	imports: [HlmButtonImports, NgIcon, HlmIconImports],

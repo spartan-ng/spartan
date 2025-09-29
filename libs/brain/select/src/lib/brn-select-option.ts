@@ -1,5 +1,5 @@
 import type { FocusableOption } from '@angular/cdk/a11y';
-import { BooleanInput } from '@angular/cdk/coercion';
+import type { BooleanInput } from '@angular/cdk/coercion';
 import { booleanAttribute, computed, Directive, ElementRef, inject, input, signal } from '@angular/core';
 import { injectBrnSelectContent } from './brn-select-content.token';
 import { injectBrnSelect } from './brn-select.token';

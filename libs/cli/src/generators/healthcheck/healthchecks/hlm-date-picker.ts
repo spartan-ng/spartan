@@ -1,6 +1,6 @@
 import { visitNotIgnoredFiles } from '@nx/devkit';
 import migrateDatePickerGenerator from '../../migrate-date-picker/generator';
-import { Healthcheck, HealthcheckSeverity } from '../healthchecks';
+import { type Healthcheck, HealthcheckSeverity } from '../healthchecks';
 
 export const datePickerHealthcheck: Healthcheck = {
 	name: 'Helm DatePicker',

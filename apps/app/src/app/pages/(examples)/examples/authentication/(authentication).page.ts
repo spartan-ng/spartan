@@ -1,4 +1,4 @@
-import { RouteMeta } from '@analogjs/router';
+import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
 import { HlmButton } from '@spartan-ng/helm/button';

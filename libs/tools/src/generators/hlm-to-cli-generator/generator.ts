@@ -1,7 +1,7 @@
 import { type Tree, formatFiles, readJson, readProjectConfiguration, writeJson } from '@nx/devkit';
 import * as path from 'node:path';
 import { basename } from 'node:path';
-import { PackageJson } from 'nx/src/utils/package-json';
+import type { PackageJson } from 'nx/src/utils/package-json';
 import { addPrimitiveToSupportedUILibraries } from './lib/add-primitive-to-supported-ui-libraries';
 import {
 	copyFilesFromHlmLibToGenerator,
@@ -9,7 +9,7 @@ import {
 	recursivelyDelete,
 	recursivelyFindFiles,
 } from './lib/file-management';
-import { HlmToCliGeneratorGeneratorSchema } from './schema';
+import type { HlmToCliGeneratorGeneratorSchema } from './schema';
 
 const outputDir = 'libs/cli/src/generators/ui';
 

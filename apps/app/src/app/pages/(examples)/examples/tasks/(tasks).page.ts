@@ -1,4 +1,4 @@
-import { Component, inject, signal, TrackByFunction } from '@angular/core';
+import { Component, inject, signal, type TrackByFunction } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
@@ -30,8 +30,8 @@ import { HlmMenuImports } from '@spartan-ng/helm/menu';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
 import { HlmTableImports } from '@spartan-ng/helm/table';
 import {
-	ColumnDef,
-	ColumnFiltersState,
+	type ColumnDef,
+	type ColumnFiltersState,
 	createAngularTable,
 	FlexRender,
 	flexRenderComponent,
@@ -39,9 +39,9 @@ import {
 	getFilteredRowModel,
 	getPaginationRowModel,
 	getSortedRowModel,
-	PaginationState,
-	SortingState,
-	VisibilityState,
+	type PaginationState,
+	type SortingState,
+	type VisibilityState,
 } from '@tanstack/angular-table';
 import { TableHeadSelection, TableRowSelection } from '../../../(components)/components/(data-table)/selection-column';
 import { TableHeadSortButton } from '../../../(components)/components/(data-table)/sort-header-button';
@@ -51,7 +51,7 @@ import { StatusIconCell } from './components/status-icon-cell';
 import { TableActions } from './components/table-actions';
 import { TitleCell } from './components/title-cell';
 import { DEFAULT_TASK_TABLE_COLUMNS, LocalStorageService } from './services/local-storage.service';
-import { Task, TASK_DATA } from './services/tasks.models';
+import { type Task, TASK_DATA } from './services/tasks.models';
 
 @Component({
 	selector: 'spartan-data-table-preview',

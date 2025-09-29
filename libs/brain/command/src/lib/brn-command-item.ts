@@ -1,5 +1,5 @@
-import { Highlightable } from '@angular/cdk/a11y';
-import { BooleanInput } from '@angular/cdk/coercion';
+import type { Highlightable } from '@angular/cdk/a11y';
+import type { BooleanInput } from '@angular/cdk/coercion';
 import { isPlatformBrowser } from '@angular/common';
 import {
 	booleanAttribute,
@@ -8,7 +8,7 @@ import {
 	ElementRef,
 	inject,
 	input,
-	OnInit,
+	type OnInit,
 	output,
 	PLATFORM_ID,
 	signal,

@@ -1,9 +1,9 @@
-import { formatFiles, Tree } from '@nx/devkit';
-import { applyChangesToString, ChangeType, StringChange } from '@nx/devkit/src/utils/string-change';
+import { formatFiles, type Tree } from '@nx/devkit';
+import { applyChangesToString, ChangeType, type StringChange } from '@nx/devkit/src/utils/string-change';
 import { isImported } from '@schematics/angular/utility/ast-utils';
 import ts from 'typescript';
 import { visitFiles } from '../../utils/visit-files';
-import { MigrateIconGeneratorSchema } from './schema';
+import type { MigrateIconGeneratorSchema } from './schema';
 
 export async function migrateIconGenerator(tree: Tree, { skipFormat }: MigrateIconGeneratorSchema) {
 	replaceImports(tree);

@@ -1,7 +1,7 @@
-import { formatFiles, generateFiles, joinPathFragments, names, readProjectConfiguration, Tree } from '@nx/devkit';
+import { formatFiles, generateFiles, joinPathFragments, names, readProjectConfiguration, type Tree } from '@nx/devkit';
 import * as path from 'path';
 import { addExportStatement, addImportStatement, addToExportConstArray } from '../utils/ast';
-import { HelmDirectiveGeneratorSchema } from './schema';
+import type { HelmDirectiveGeneratorSchema } from './schema';
 
 export async function helmDirectiveGenerator(tree: Tree, options: HelmDirectiveGeneratorSchema) {
 	const { root } = readProjectConfiguration(tree, 'helm');

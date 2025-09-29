@@ -1,4 +1,4 @@
-import { BooleanInput } from '@angular/cdk/coercion';
+import type { BooleanInput } from '@angular/cdk/coercion';
 import {
 	booleanAttribute,
 	ChangeDetectionStrategy,
@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { provideBrnToggleGroup } from './brn-toggle-group.token';
-import { BrnToggleGroupItem } from './brn-toggle-item';
+import type { BrnToggleGroupItem } from './brn-toggle-item';
 
 export const BRN_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR = {
 	provide: NG_VALUE_ACCESSOR,

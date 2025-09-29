@@ -1,4 +1,4 @@
-import { BooleanInput } from '@angular/cdk/coercion';
+import type { BooleanInput } from '@angular/cdk/coercion';
 import { ChangeDetectorRef, Directive, booleanAttribute, computed, inject, input, model } from '@angular/core';
 import { injectBrnToggleGroup } from './brn-toggle-group.token';
 

@@ -29,7 +29,7 @@ import {
 	Injector,
 	NgZone,
 	type OnDestroy,
-	Signal,
+	type Signal,
 	afterNextRender,
 	booleanAttribute,
 	computed,

@@ -1,5 +1,5 @@
 import { applicationGenerator, E2eTestRunner, setupTailwindGenerator, UnitTestRunner } from '@nx/angular/generators';
-import { readProjectConfiguration, Tree, updateJson } from '@nx/devkit';
+import { readProjectConfiguration, type Tree, updateJson } from '@nx/devkit';
 import { createTreeWithEmptyWorkspace } from 'nx/src/devkit-testing-exports';
 import { addThemeToApplicationStyles } from './libs/add-theme-to-application-styles';
 

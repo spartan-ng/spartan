@@ -33,7 +33,7 @@ import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 import TasksExamplePage from '../(tasks).page';
 import { PriorityIconPipe } from '../pipes/priority-icon.pipe';
 import { StatusIconPipe } from '../pipes/status-icon.pipe';
-import { TaskPriority, TaskStatus } from '../services/tasks.models';
+import type { TaskPriority, TaskStatus } from '../services/tasks.models';
 
 @Component({
 	// eslint-disable-next-line @angular-eslint/component-selector

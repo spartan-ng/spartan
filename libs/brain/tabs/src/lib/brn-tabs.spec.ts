@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input, viewChild } from '@angular/core';
-import { render, RenderResult, screen } from '@testing-library/angular';
+import { render, type RenderResult, screen } from '@testing-library/angular';
 import { BrnTabs } from './brn-tabs';
 import { BrnTabsContent } from './brn-tabs-content';
 import { BrnTabsTrigger } from './brn-tabs-trigger';

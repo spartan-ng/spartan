@@ -1,6 +1,6 @@
 import { visitNotIgnoredFiles } from '@nx/devkit';
 import { migrateSeparatorGenerator } from '../../migrate-separator/generator';
-import { Healthcheck, HealthcheckSeverity } from '../healthchecks';
+import { type Healthcheck, HealthcheckSeverity } from '../healthchecks';
 
 export const brainSeparatorHealthcheck: Healthcheck = {
 	name: 'Brain Separator',

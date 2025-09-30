@@ -1,4 +1,4 @@
-import { afterNextRender, Component, computed, inject, OnDestroy, signal } from '@angular/core';
+import { afterNextRender, Component, computed, inject, type OnDestroy, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BrnInputOtp } from '@spartan-ng/brain/input-otp';
 import { HlmButton } from '@spartan-ng/helm/button';
@@ -47,8 +47,8 @@ export class InputOtpFormExample implements OnDestroy {
 	private readonly _formBuilder = inject(FormBuilder);
 	private _intervalId?: NodeJS.Timeout;
 
-	public countdown = signal(60);
-	public isResendDisabled = computed(() => this.countdown() > 0);
+	public readonly countdown = signal(60);
+	public readonly isResendDisabled = computed(() => this.countdown() > 0);
 
 	public maxLength = 6;
 

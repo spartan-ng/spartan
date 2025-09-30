@@ -1,8 +1,8 @@
-import { formatFiles, Tree, visitNotIgnoredFiles } from '@nx/devkit';
-import { applyChangesToString, ChangeType, StringChange } from '@nx/devkit/src/utils/string-change';
+import { formatFiles, type Tree, visitNotIgnoredFiles } from '@nx/devkit';
+import { applyChangesToString, ChangeType, type StringChange } from '@nx/devkit/src/utils/string-change';
 import { isImported } from '@schematics/angular/utility/ast-utils';
 import ts from 'typescript';
-import { MigrateScrollAreaGeneratorSchema } from './schema';
+import type { MigrateScrollAreaGeneratorSchema } from './schema';
 
 export async function migrateScrollAreaGenerator(tree: Tree, { skipFormat }: MigrateScrollAreaGeneratorSchema) {
 	replaceImports(tree);

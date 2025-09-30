@@ -1,4 +1,4 @@
-import { BooleanInput } from '@angular/cdk/coercion';
+import type { BooleanInput } from '@angular/cdk/coercion';
 import { ChangeDetectionStrategy, Component, booleanAttribute, input, model, signal } from '@angular/core';
 
 let collapsibleContentIdSequence = 0;

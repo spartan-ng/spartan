@@ -12,5 +12,5 @@ export const hlmLead = 'text-xl text-muted-foreground';
 })
 export class HlmLead {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected _computedClass = computed(() => hlm(hlmLead, this.userClass()));
+	protected readonly _computedClass = computed(() => hlm(hlmLead, this.userClass()));
 }

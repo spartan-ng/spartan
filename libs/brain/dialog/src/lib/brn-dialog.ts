@@ -1,4 +1,4 @@
-import { OverlayPositionBuilder, ScrollStrategy, ScrollStrategyOptions } from '@angular/cdk/overlay';
+import { OverlayPositionBuilder, type ScrollStrategy, ScrollStrategyOptions } from '@angular/cdk/overlay';
 import {
 	booleanAttribute,
 	ChangeDetectionStrategy,
@@ -20,7 +20,7 @@ import {
 	ViewEncapsulation,
 } from '@angular/core';
 import { take } from 'rxjs/operators';
-import { type BrnDialogOptions } from './brn-dialog-options';
+import type { BrnDialogOptions } from './brn-dialog-options';
 import type { BrnDialogRef } from './brn-dialog-ref';
 import type { BrnDialogState } from './brn-dialog-state';
 import { injectBrnDialogDefaultOptions } from './brn-dialog-token';

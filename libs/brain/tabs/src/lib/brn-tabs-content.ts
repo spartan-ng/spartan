@@ -1,4 +1,4 @@
-import { computed, Directive, effect, ElementRef, inject, input, OnDestroy, untracked } from '@angular/core';
+import { computed, Directive, effect, ElementRef, inject, input, type OnDestroy, untracked } from '@angular/core';
 import { BrnTabs } from './brn-tabs';
 
 @Directive({

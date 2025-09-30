@@ -6,12 +6,12 @@ import {
 	Directive,
 	ElementRef,
 	inject,
-	OnDestroy,
-	OnInit,
+	type OnDestroy,
+	type OnInit,
 	PLATFORM_ID,
 } from '@angular/core';
 import { NgControl } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import type { Subscription } from 'rxjs';
 import { injectBrnSelect } from './brn-select.token';
 
 @Directive({

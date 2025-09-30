@@ -16,6 +16,7 @@ import 'prismjs/components/prism-json';
 import 'prismjs/components/prism-markup';
 import 'prismjs/components/prism-typescript';
 
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
 declare const Prism: typeof import('prismjs');
 
 @Component({
@@ -39,7 +40,6 @@ declare const Prism: typeof import('prismjs');
 									></path>
 								</svg>
 							}
-
 							@case ('css') {
 								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="fill-foreground">
 									<path

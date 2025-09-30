@@ -1,12 +1,12 @@
 import { type GeneratorCallback, type Tree, getProjects, runTasksInSerial } from '@nx/devkit';
 import { prompt } from 'enquirer';
-import { Config, getOrCreateConfig } from '../../utils/config';
-import { GenerateAs } from '../base/lib/generate-as';
+import { type Config, getOrCreateConfig } from '../../utils/config';
+import type { GenerateAs } from '../base/lib/generate-as';
 import { initializeAngularEntrypoint } from '../base/lib/initialize-angular-library';
 import { singleLibName } from '../base/lib/single-lib-name';
 import type { HlmBaseGeneratorSchema } from '../base/schema';
 import { addDependentPrimitives } from './add-dependent-primitive';
-import { Primitive } from './primitives';
+import type { Primitive } from './primitives';
 import type { HlmUIGeneratorSchema } from './schema';
 
 type PrimitiveResponse = Primitive | 'all';

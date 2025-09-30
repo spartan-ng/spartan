@@ -1,4 +1,4 @@
-import { ClassProvider, InjectionToken, Type, inject } from '@angular/core';
+import { type ClassProvider, InjectionToken, type Type, inject } from '@angular/core';
 import { BrnNativeDateAdapter } from './native-date-adapter';
 import { BrnUtcDateAdapter } from './utc-date-adapter';
 

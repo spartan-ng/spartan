@@ -1,5 +1,5 @@
-import { inject, InjectionToken, ValueProvider } from '@angular/core';
-import { TooltipPosition, TooltipTouchGestures } from './brn-tooltip-trigger';
+import { inject, InjectionToken, type ValueProvider } from '@angular/core';
+import type { TooltipPosition, TooltipTouchGestures } from './brn-tooltip-trigger';
 
 export interface BrnTooltipOptions {
 	/** Default delay when the tooltip is shown. */

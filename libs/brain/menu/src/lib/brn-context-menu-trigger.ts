@@ -1,7 +1,7 @@
 import { CdkContextMenuTrigger } from '@angular/cdk/menu';
 import { Directive, effect, inject, input, type TemplateRef } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { BrnMenuAlign, getBrnMenuAlign } from './brn-menu-align';
+import { type BrnMenuAlign, getBrnMenuAlign } from './brn-menu-align';
 
 @Directive({
 	selector: '[brnCtxMenuTriggerFor]',

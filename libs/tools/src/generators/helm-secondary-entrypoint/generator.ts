@@ -1,10 +1,10 @@
 import { librarySecondaryEntryPointGenerator } from '@nx/angular/generators';
-import { formatFiles, joinPathFragments, names, Tree } from '@nx/devkit';
+import { formatFiles, joinPathFragments, names, type Tree } from '@nx/devkit';
 import helmComponentGenerator from '../helm-component/generator';
 import helmDirectiveGenerator from '../helm-directive/generator';
 import helmDocumentationGenerator from '../helm-documentation/generator';
 import { helmStoryGenerator } from '../helm-story/generator';
-import { HelmSecondaryEntrypointGeneratorSchema } from './schema';
+import type { HelmSecondaryEntrypointGeneratorSchema } from './schema';
 
 export async function helmSecondaryEntrypointGenerator(tree: Tree, options: HelmSecondaryEntrypointGeneratorSchema) {
 	const { fileName: normalizedName, className } = names(options.name);

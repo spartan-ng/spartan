@@ -39,7 +39,7 @@ export class PaginationAdvancedQuery {
 			}),
 		),
 	);
-	public page = computed(() => this._pageQuery() ?? 1);
-	public pageSize = signal(10);
-	public totalProducts = signal(100);
+	public readonly page = computed(() => this._pageQuery() ?? 1);
+	public readonly pageSize = signal(10);
+	public readonly totalProducts = signal(100);
 }

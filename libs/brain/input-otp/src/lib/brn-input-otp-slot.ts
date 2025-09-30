@@ -1,4 +1,4 @@
-import { NumberInput } from '@angular/cdk/coercion';
+import type { NumberInput } from '@angular/cdk/coercion';
 import { ChangeDetectionStrategy, Component, computed, input, numberAttribute } from '@angular/core';
 import { injectBrnInputOtp } from './brn-input-otp.token';
 

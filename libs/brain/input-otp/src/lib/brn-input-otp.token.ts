@@ -1,5 +1,5 @@
-import { ExistingProvider, inject, InjectionToken, Type } from '@angular/core';
-import { BrnInputOtp } from './brn-input-otp';
+import { type ExistingProvider, inject, InjectionToken, type Type } from '@angular/core';
+import type { BrnInputOtp } from './brn-input-otp';
 
 export const BrnInputOtpToken = new InjectionToken<BrnInputOtp>('BrnInputOtpToken');
 

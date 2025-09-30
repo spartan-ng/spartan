@@ -9,7 +9,7 @@ import { HlmLabel } from '@spartan-ng/helm/label';
 import { HlmSpinner } from '@spartan-ng/helm/spinner';
 import { waitFor } from '@spartan-ng/trpc';
 import { SignalFormBuilder, SignalInputDirective, V, withErrorComponent } from 'ng-signal-forms';
-import { Observable, Subject, of } from 'rxjs';
+import { type Observable, Subject, of } from 'rxjs';
 import { catchError, switchMap, take, tap } from 'rxjs/operators';
 import type { Note } from '../../../../../db';
 import { injectTRPCClient } from '../../../../../trpc-client';
@@ -122,7 +122,7 @@ export default class NotesExamplePage {
 		}),
 	);
 
-	public state = signal<{
+	public readonly state = signal<{
 		status: 'idle' | 'loading' | 'success' | 'error';
 		notes: Note[];
 		error: unknown | null;
@@ -134,15 +134,19 @@ export default class NotesExamplePage {
 		error: null,
 		updatedFrom: 'initial',
 	});
-	public initialLoad = computed(() => this.state().status === 'loading' && this.state().updatedFrom === 'initial');
-	public createLoad = computed(() => this.state().status === 'loading' && this.state().updatedFrom === 'create');
-	public deleteIdInProgress = computed(() =>
+	public readonly initialLoad = computed(
+		() => this.state().status === 'loading' && this.state().updatedFrom === 'initial',
+	);
+	public readonly createLoad = computed(
+		() => this.state().status === 'loading' && this.state().updatedFrom === 'create',
+	);
+	public readonly deleteIdInProgress = computed(() =>
 		this.state().status === 'loading' && this.state().updatedFrom === 'delete'
 			? this.state().idBeingDeleted
 			: undefined,
 	);
-	public noNotes = computed(() => this.state().notes.length === 0);
-	public showNotesArray = computed(
+	public readonly noNotes = computed(() => this.state().notes.length === 0);
+	public readonly showNotesArray = computed(
 		() => this.state().updatedFrom === 'delete' || this.state().notes.length > 0 || this.state().status === 'success',
 	);
 

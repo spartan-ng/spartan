@@ -1,4 +1,4 @@
-import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
+import type { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import {
 	ChangeDetectionStrategy,
 	Component,

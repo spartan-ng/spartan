@@ -46,7 +46,7 @@ import { HlmSheet, HlmSheetContent, HlmSheetHeader, HlmSheetTitle } from '@spart
 	`,
 })
 export class SheetClosePreview {
-	public viewchildSheetRef = viewChild(BrnSheet);
+	public readonly viewchildSheetRef = viewChild(BrnSheet);
 
 	closeSheet() {
 		this.viewchildSheetRef()?.close({});

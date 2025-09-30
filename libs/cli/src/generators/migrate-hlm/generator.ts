@@ -1,9 +1,9 @@
-import { formatFiles, Tree } from '@nx/devkit';
+import { formatFiles, type Tree } from '@nx/devkit';
 import { getOrCreateConfig } from '../../utils/config';
 import { visitFiles } from '../../utils/visit-files';
 import { createPrimitiveLibraries } from '../ui/generator';
-import { Primitive } from '../ui/primitives';
-import { MigrateHlmGeneratorSchema } from './schema';
+import type { Primitive } from '../ui/primitives';
+import type { MigrateHlmGeneratorSchema } from './schema';
 
 type SupportedLibraries = Record<string, SupportedLibrary>;
 

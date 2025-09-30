@@ -1,5 +1,5 @@
-import { Highlightable } from '@angular/cdk/a11y';
-import { BooleanInput } from '@angular/cdk/coercion';
+import type { Highlightable } from '@angular/cdk/a11y';
+import type { BooleanInput } from '@angular/cdk/coercion';
 import { isPlatformBrowser } from '@angular/common';
 import {
 	booleanAttribute,
@@ -8,7 +8,7 @@ import {
 	ElementRef,
 	inject,
 	input,
-	OnInit,
+	type OnInit,
 	output,
 	PLATFORM_ID,
 	signal,
@@ -79,7 +79,7 @@ export class BrnCommandItem implements Highlightable, OnInit {
 	});
 
 	/** @internal Get the value of the item, with check if it has been initialized to avoid errors */
-	public safeValue = computed(() => {
+	public readonly safeValue = computed(() => {
 		if (!this._initialized()) {
 			return '';
 		}

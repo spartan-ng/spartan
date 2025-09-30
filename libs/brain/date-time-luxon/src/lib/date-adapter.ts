@@ -1,4 +1,4 @@
-import { BrnDateAdapter, BrnDateUnits, BrnDuration } from '@spartan-ng/brain/date-time';
+import type { BrnDateAdapter, BrnDateUnits, BrnDuration } from '@spartan-ng/brain/date-time';
 import { DateTime } from 'luxon';
 
 export class BrnLuxonDateAdapter implements BrnDateAdapter<DateTime> {

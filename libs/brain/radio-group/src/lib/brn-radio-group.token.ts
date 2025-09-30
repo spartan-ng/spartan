@@ -1,4 +1,4 @@
-import { ExistingProvider, inject, InjectionToken, Type } from '@angular/core';
+import { type ExistingProvider, inject, InjectionToken, type Type } from '@angular/core';
 import type { BrnRadioGroup } from './brn-radio-group';
 
 const BrnRadioGroupToken = new InjectionToken<BrnRadioGroup<unknown>>('BrnRadioGroupToken');

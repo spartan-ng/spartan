@@ -33,11 +33,15 @@ module.exports = [
 			'@angular-eslint/no-input-rename': 'off',
 			'@angular-eslint/no-output-rename': 'off',
 			'@angular-eslint/no-output-native': 'off',
+			'@angular-eslint/prefer-output-readonly': 'error',
+			'@angular-eslint/prefer-on-push-component-change-detection': ['error'],
+			'@angular-eslint/prefer-signals': ['error'],
 		},
 	},
 	{
 		files: ['**/__tests__/*.ts'],
 		rules: {
+			'@angular-eslint/prefer-signals': 'off',
 			'@angular-eslint/directive-selector': 'off',
 			'@angular-eslint/component-selector': 'off',
 		},

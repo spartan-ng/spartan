@@ -5,7 +5,7 @@ import {
 	findAccordionButtons,
 	getButtonText,
 	hasSignificantSiblings,
-	HTMLElement,
+	type HTMLElement,
 	isInHeading,
 	parseHtmlForAccordionMigration,
 } from '../../migrate-brain-accordion-trigger/utils/html-utils';
@@ -14,7 +14,7 @@ import {
 	hasAccordionTriggers,
 	shouldProcessFile,
 } from '../../migrate-brain-accordion-trigger/utils/shared-utils';
-import { Healthcheck, HealthcheckSeverity } from '../healthchecks';
+import { type Healthcheck, HealthcheckSeverity } from '../healthchecks';
 
 interface Violation {
 	file: string;

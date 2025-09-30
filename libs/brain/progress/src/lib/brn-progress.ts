@@ -1,6 +1,6 @@
 /* eslint-disable @angular-eslint/directive-selector */
-import { type NumberInput } from '@angular/cdk/coercion';
-import { Directive, OnChanges, SimpleChanges, computed, input, numberAttribute } from '@angular/core';
+import type { NumberInput } from '@angular/cdk/coercion';
+import { Directive, type OnChanges, type SimpleChanges, computed, input, numberAttribute } from '@angular/core';
 import { provideBrnProgress } from './brn-progress.token';
 
 @Directive({

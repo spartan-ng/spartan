@@ -1,6 +1,6 @@
 import { visitNotIgnoredFiles } from '@nx/devkit';
 import { migrateRadioGenerator } from '../../migrate-radio/generator';
-import { Healthcheck, HealthcheckSeverity } from '../healthchecks';
+import { type Healthcheck, HealthcheckSeverity } from '../healthchecks';
 
 export const brainRadioHealthcheck: Healthcheck = {
 	name: 'Brain Radio',

@@ -1,6 +1,6 @@
-import { formatFiles, Tree } from '@nx/devkit';
+import { formatFiles, type Tree } from '@nx/devkit';
 import { visitFiles } from '../../utils/visit-files';
-import { MigrateBrnCheckboxChangedEvent } from './schema';
+import type { MigrateBrnCheckboxChangedEvent } from './schema';
 
 export async function migrateBrnCheckboxChangedEvent(tree: Tree, { skipFormat }: MigrateBrnCheckboxChangedEvent) {
 	replaceOpenChangeEvent(tree);

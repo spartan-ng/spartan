@@ -1,4 +1,4 @@
-import { ExistingProvider, inject, InjectionToken, Type } from '@angular/core';
+import { type ExistingProvider, inject, InjectionToken, type Type } from '@angular/core';
 import type { BrnSliderTrack } from './brn-slider-track';
 
 export const BrnSliderTrackToken = new InjectionToken<BrnSliderTrack>('BrnSliderTrackToken');

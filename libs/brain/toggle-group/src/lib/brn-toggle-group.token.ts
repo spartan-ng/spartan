@@ -1,4 +1,4 @@
-import { ExistingProvider, InjectionToken, Type, inject } from '@angular/core';
+import { type ExistingProvider, InjectionToken, type Type, inject } from '@angular/core';
 import type { BrnToggleGroup } from './brn-toggle-group';
 
 const BrnToggleGroupToken = new InjectionToken<BrnToggleGroup>('BrnToggleGroupToken');

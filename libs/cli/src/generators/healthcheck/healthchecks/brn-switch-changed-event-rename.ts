@@ -1,6 +1,6 @@
 import { visitNotIgnoredFiles } from '@nx/devkit';
 import migrateBrnSwitchChangedEvent from '../../migrate-brn-switch-changed-event/generator';
-import { Healthcheck, HealthcheckSeverity } from '../healthchecks';
+import { type Healthcheck, HealthcheckSeverity } from '../healthchecks';
 
 export const brnSwitchChangedEventRename: Healthcheck = {
 	name: 'Switch changed event rename',

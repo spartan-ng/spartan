@@ -54,7 +54,7 @@ export async function createPrimitiveLibraries(
 	tree: Tree,
 	options: HlmUIGeneratorSchema & {
 		angularCli?: boolean;
-		installPeerDependencies?: boolean;
+		installPeerDependencies?: boolean | string | undefined;
 		buildable?: boolean;
 		generateAs?: GenerateAs;
 		importAlias?: string;
@@ -64,8 +64,14 @@ export async function createPrimitiveLibraries(
 	const allPrimitivesSelected = response.primitives.includes('all');
 	const primitivesToCreate = allPrimitivesSelected ? availablePrimitiveNames : response.primitives;
 	const tasks: GeneratorCallback[] = [];
+	const installPeerDependencies =
+		options.installPeerDependencies === undefined
+			? true
+			: typeof options.installPeerDependencies === 'string'
+				? options.installPeerDependencies === 'true'
+				: options.installPeerDependencies;
 
-	if (!response.primitives.includes('all') && options.installPeerDependencies) {
+	if (!response.primitives.includes('all') && installPeerDependencies) {
 		await addDependentPrimitives(primitivesToCreate, false);
 	}
 	await replaceContextAndMenuBar(primitivesToCreate, allPrimitivesSelected);

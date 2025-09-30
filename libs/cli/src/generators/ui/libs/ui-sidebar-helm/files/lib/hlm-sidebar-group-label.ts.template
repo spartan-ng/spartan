@@ -1,0 +1,31 @@
+import { computed, Directive, ElementRef, inject, input, OnInit } from '@angular/core';
+import { hlm } from '@spartan-ng/helm/utils';
+
+import type { ClassValue } from 'clsx';
+
+@Directive({
+	selector: 'div[hlmSidebarGroupLabel]',
+
+	host: {
+		'data-sidebar': 'group-label',
+		'[class]': '_computedClass()',
+	},
+})
+export class HlmSidebarGroupLabel implements OnInit {
+	private readonly _element = inject<ElementRef<HTMLDivElement>>(ElementRef);
+
+	public readonly userClass = input<ClassValue>('', { alias: 'class' });
+	protected readonly _computedClass = computed(() =>
+		hlm(
+			'text-sidebar-foreground/70 ring-sidebar-ring flex h-8 shrink-0 items-center rounded-md px-2 text-xs font-medium outline-none transition-[margin,opa] duration-200 ease-linear focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0',
+			'group-data-[collapsible=icon]:-mt-8 group-data-[collapsible=icon]:opacity-0',
+			this.userClass(),
+		),
+	);
+
+	ngOnInit() {
+		if (this._element.nativeElement.tagName.toLowerCase() !== 'div') {
+			console.warn('hlmSidebarGroupLabel directive should only be used on <div> elements');
+		}
+	}
+}

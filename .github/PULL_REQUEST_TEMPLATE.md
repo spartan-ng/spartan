@@ -64,6 +64,7 @@ What kind of change does this PR introduce?
 - [ ] select
 - [ ] separator
 - [ ] sheet
+- [ ] sidebar
 - [ ] skeleton
 - [ ] slider
 - [ ] sonner

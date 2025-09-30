@@ -113,7 +113,7 @@ export const routeMeta: RouteMeta = {
 			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
-				<spartan-page-bottom-nav-link href="Avatar" label="Avatar" />
+				<spartan-page-bottom-nav-link href="avatar" label="Avatar" />
 				<spartan-page-bottom-nav-link direction="previous" href="aspect-ratio" label="Aspect Ratio" />
 			</spartan-page-bottom-nav>
 		</section>

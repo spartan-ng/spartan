@@ -1,6 +1,6 @@
 name: Feature Request
 description: Request a new or improved a feature in SPARTAN UI
-labels: [ enhancement ]
+labels: [enhancement]
 
 body:
   - type: markdown

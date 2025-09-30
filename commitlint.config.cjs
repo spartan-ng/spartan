@@ -45,6 +45,7 @@ module.exports = {
 				'select',
 				'separator',
 				'sheet',
+				'sidebar',
 				'skeleton',
 				'slider',
 				'sonner',

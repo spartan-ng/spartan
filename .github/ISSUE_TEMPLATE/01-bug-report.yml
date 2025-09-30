@@ -1,6 +1,6 @@
 name: Bug Report
 description: Report a bug inside spartan
-labels: [bug]
+labels: [ bug ]
 
 body:
   - type: markdown
@@ -47,6 +47,7 @@ body:
         - hover-card
         - icon
         - input
+        - input-group
         - input-otp
         - label
         - menubar

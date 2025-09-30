@@ -1,7 +1,7 @@
 import { visitNotIgnoredFiles } from '@nx/devkit';
 import migrateModuleImportsGenerator from '../../migrate-module-imports/generator';
 import importMap from '../../migrate-module-imports/import-map';
-import { Healthcheck, HealthcheckSeverity } from '../healthchecks';
+import { type Healthcheck, HealthcheckSeverity } from '../healthchecks';
 
 export const moduleImportsHealthcheck: Healthcheck = {
 	name: 'Module imports',

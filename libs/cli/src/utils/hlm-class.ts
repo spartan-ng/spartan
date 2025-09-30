@@ -1,4 +1,4 @@
-import { Tree } from '@nx/devkit';
+import type { Tree } from '@nx/devkit';
 import { tsquery } from '@phenomnomnominal/tsquery';
 
 export function hasHelmClasses(tree: Tree, path: string, { component, classes }: HasHelmClassesSchema): boolean {

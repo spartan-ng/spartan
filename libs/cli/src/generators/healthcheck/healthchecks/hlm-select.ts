@@ -1,7 +1,7 @@
 import { visitNotIgnoredFiles } from '@nx/devkit';
 import { hasHelmClasses } from '../../../utils/hlm-class';
 import migrateSelectGenerator from '../../migrate-select/generator';
-import { Healthcheck, HealthcheckSeverity } from '../healthchecks';
+import { type Healthcheck, HealthcheckSeverity } from '../healthchecks';
 
 export const selectHealthcheck: Healthcheck = {
 	name: 'Helm Select',

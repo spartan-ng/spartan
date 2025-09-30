@@ -19,5 +19,5 @@ export class BrnAvatarImage {
 		this._loaded.set(true);
 	}
 
-	public canShow = computed(() => this._loaded());
+	public readonly canShow = computed(() => this._loaded());
 }

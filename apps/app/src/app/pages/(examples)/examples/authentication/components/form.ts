@@ -66,7 +66,7 @@ import { HlmLabel } from '@spartan-ng/helm/label';
 	`,
 })
 export class AuthenticationForm {
-	public isLoading = signal(false);
+	public readonly isLoading = signal(false);
 
 	send() {
 		this.isLoading.set(true);

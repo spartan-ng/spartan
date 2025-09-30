@@ -1,5 +1,5 @@
-import { Decorator, PropertyAssignment, SourceFile, SyntaxKind } from 'ts-morph';
-import { getButtonText, hasSignificantSiblings, HTMLElement, isInHeading } from './html-utils';
+import { type Decorator, type PropertyAssignment, type SourceFile, SyntaxKind } from 'ts-morph';
+import { getButtonText, hasSignificantSiblings, type HTMLElement, isInHeading } from './html-utils';
 
 export function shouldProcessFile(file: string): boolean {
 	return file.endsWith('.ts') || file.endsWith('.html');

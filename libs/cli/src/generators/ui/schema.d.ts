@@ -1,4 +1,4 @@
-import { Primitive } from './primitives';
+import { type Primitive } from './primitives';
 
 export interface HlmUIGeneratorSchema {
 	name?: Primitive;

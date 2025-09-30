@@ -1,6 +1,6 @@
 import { visitNotIgnoredFiles } from '@nx/devkit';
 import migrateBrnCheckboxChangedEvent from '../../migrate-brn-checkbox-changed-event/generator';
-import { Healthcheck, HealthcheckSeverity } from '../healthchecks';
+import { type Healthcheck, HealthcheckSeverity } from '../healthchecks';
 
 export const brnCheckboxChangedEventRename: Healthcheck = {
 	name: 'Checkbox changed event rename',

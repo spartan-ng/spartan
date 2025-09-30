@@ -1,5 +1,5 @@
 import { Injectable, computed, signal } from '@angular/core';
-import { PrimitiveSnippet, PrimitiveSnippets } from '../models/primitives-snippets.model';
+import type { PrimitiveSnippet, PrimitiveSnippets } from '../models/primitives-snippets.model';
 
 @Injectable({
 	providedIn: 'root',

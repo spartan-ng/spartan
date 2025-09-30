@@ -1,6 +1,6 @@
-import { formatFiles, generateFiles, joinPathFragments, names, Tree } from '@nx/devkit';
+import { formatFiles, generateFiles, joinPathFragments, names, type Tree } from '@nx/devkit';
 import * as path from 'path';
-import { HelmDocumentationGeneratorSchema } from './schema';
+import type { HelmDocumentationGeneratorSchema } from './schema';
 
 export async function helmDocumentationGenerator(tree: Tree, options: HelmDocumentationGeneratorSchema) {
 	const documentationPath = joinPathFragments('apps', 'app', 'src', 'app', 'pages', '(components)', 'components');

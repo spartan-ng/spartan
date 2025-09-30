@@ -1,6 +1,6 @@
 import { visitNotIgnoredFiles } from '@nx/devkit';
 import { migrateScrollAreaGenerator } from '../../migrate-scroll-area/generator';
-import { Healthcheck, HealthcheckSeverity } from '../healthchecks';
+import { type Healthcheck, HealthcheckSeverity } from '../healthchecks';
 
 export const scrollAreaHealthcheck: Healthcheck = {
 	name: 'Helm Scroll Area',

@@ -1,4 +1,4 @@
-import { ExecutorContext } from '@nx/devkit';
+import type { ExecutorContext } from '@nx/devkit';
 import * as child_process from 'node:child_process';
 import * as process from 'node:process';
 import * as projectHelpers from '../helpers/projects.helpers';

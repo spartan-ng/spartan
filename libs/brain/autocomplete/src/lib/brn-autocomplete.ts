@@ -13,7 +13,7 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { BrnPopover } from '@spartan-ng/brain/popover';
-import { BrnAutocompleteItem } from './brn-autocomplete-item';
+import type { BrnAutocompleteItem } from './brn-autocomplete-item';
 import { BrnAutocompleteItemToken } from './brn-autocomplete-item.token';
 import { BrnAutocompleteSearchInput } from './brn-autocomplete-search-input';
 import { provideBrnAutocomplete } from './brn-autocomplete.token';

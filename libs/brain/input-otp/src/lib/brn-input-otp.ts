@@ -1,4 +1,4 @@
-import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
+import type { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import {
 	booleanAttribute,
 	ChangeDetectionStrategy,
@@ -12,8 +12,8 @@ import {
 	signal,
 } from '@angular/core';
 import { type ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
-import { type ClassValue } from 'clsx';
+import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
+import type { ClassValue } from 'clsx';
 import { provideBrnInputOtp } from './brn-input-otp.token';
 
 export const BRN_INPUT_OTP_VALUE_ACCESSOR = {

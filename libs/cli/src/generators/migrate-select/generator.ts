@@ -1,7 +1,7 @@
-import { formatFiles, Tree } from '@nx/devkit';
+import { formatFiles, type Tree } from '@nx/devkit';
 import { updateHelmClasses } from '../../utils/hlm-class';
 import { visitFiles } from '../../utils/visit-files';
-import { MigrateSelectGeneratorSchema } from './schema';
+import type { MigrateSelectGeneratorSchema } from './schema';
 
 export async function migrateSelectGenerator(tree: Tree, { skipFormat }: MigrateSelectGeneratorSchema) {
 	replaceOpenChangeEvent(tree);

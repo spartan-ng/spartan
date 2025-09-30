@@ -1,4 +1,4 @@
-import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
+import type { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import {
 	afterNextRender,
 	booleanAttribute,
@@ -17,8 +17,8 @@ import {
 import { injectDateAdapter } from '@spartan-ng/brain/date-time';
 import { BrnCalendarCellButton } from './brn-calendar-cell-button';
 import { BrnCalendarHeader } from './brn-calendar-header';
-import { BrnCalendarBase, provideBrnCalendar } from './brn-calendar.token';
-import { injectBrnCalendarI18n, Weekday } from './i18n/calendar-i18n';
+import { type BrnCalendarBase, provideBrnCalendar } from './brn-calendar.token';
+import { injectBrnCalendarI18n, type Weekday } from './i18n/calendar-i18n';
 
 @Directive({
 	selector: '[brnCalendar]',

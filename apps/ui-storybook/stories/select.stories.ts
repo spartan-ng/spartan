@@ -2,7 +2,7 @@ import { CommonModule, JsonPipe } from '@angular/common';
 import {
 	ChangeDetectionStrategy,
 	Component,
-	OnInit,
+	type OnInit,
 	ViewEncapsulation,
 	computed,
 	contentChild,

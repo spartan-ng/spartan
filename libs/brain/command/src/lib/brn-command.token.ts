@@ -1,4 +1,4 @@
-import { ExistingProvider, inject, InjectionToken, Type, ValueProvider } from '@angular/core';
+import { type ExistingProvider, inject, InjectionToken, type Type, type ValueProvider } from '@angular/core';
 import type { BrnCommand } from './brn-command';
 
 export const BrnCommandToken = new InjectionToken<BrnCommand>('BrnCommandToken');

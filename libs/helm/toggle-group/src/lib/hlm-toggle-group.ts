@@ -1,9 +1,9 @@
 import { Directive, computed, input } from '@angular/core';
 import { hlm } from '@spartan-ng/helm/utils';
-import { VariantProps } from 'class-variance-authority';
+import type { VariantProps } from 'class-variance-authority';
 import type { ClassValue } from 'clsx';
 import { provideHlmToggleGroup } from './hlm-toggle-group.token';
-import { toggleGroupItemVariants } from './hlm-toggle-item';
+import type { toggleGroupItemVariants } from './hlm-toggle-item';
 
 type ToggleGroupItemVariants = VariantProps<typeof toggleGroupItemVariants>;
 

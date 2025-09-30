@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, signal, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, type OnInit, signal, viewChild } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrnSelect, BrnSelectImports } from '../../';
 
@@ -221,7 +221,7 @@ export class SelectMultiValueWithInitialValueTest {
 	`,
 })
 export class SelectMultiValueWithInitialValueWithForLoopTest implements OnInit {
-	public options = signal<{ value: string; label: string }[]>([]);
+	public readonly options = signal<{ value: string; label: string }[]>([]);
 	public form = new FormGroup({ fruit: new FormControl(['apple', 'pineapple']) });
 
 	ngOnInit(): void {

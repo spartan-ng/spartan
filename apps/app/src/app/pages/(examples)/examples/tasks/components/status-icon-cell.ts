@@ -8,10 +8,10 @@ import {
 	lucideCircleHelp,
 	lucideCircleOff,
 } from '@ng-icons/lucide';
-import { Task } from '../services/tasks.models';
+import type { Task } from '../services/tasks.models';
 
 import { HlmIcon } from '@spartan-ng/helm/icon';
-import { CellContext, injectFlexRenderContext } from '@tanstack/angular-table';
+import { type CellContext, injectFlexRenderContext } from '@tanstack/angular-table';
 import { StatusIconPipe } from '../pipes/status-icon.pipe';
 
 @Component({

@@ -1,17 +1,17 @@
-import { formatFiles, Tree } from '@nx/devkit';
+import { formatFiles, type Tree } from '@nx/devkit';
 import { NodeType } from 'node-html-parser';
 import { Project } from 'ts-morph';
 import { visitFiles } from '../../utils/visit-files';
-import { MigrateAccordionTriggerGeneratorSchema } from './schema';
+import type { MigrateAccordionTriggerGeneratorSchema } from './schema';
 import {
 	findAccordionButtons,
-	HTMLElement,
+	type HTMLElement,
 	parseHtmlForAccordionMigration,
 	wrapButtonInHeading,
 } from './utils/html-utils';
 import {
 	analyzeButton,
-	ButtonAnalysis,
+	type ButtonAnalysis,
 	extractInlineTemplate,
 	hasAccordionTriggers,
 	shouldProcessFile,

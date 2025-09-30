@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCheck } from '@ng-icons/lucide';
-import { type RenderResult, render } from '@testing-library/angular';
+import { render, type RenderResult } from '@testing-library/angular';
 import { HlmIcon } from './hlm-icon';
 
 @Component({
@@ -11,11 +11,11 @@ import { HlmIcon } from './hlm-icon';
 	imports: [HlmIcon, NgIcon],
 	providers: [provideIcons({ lucideCheck })],
 	template: `
-		<ng-icon hlm class="test" name="lucideCheck" [size]="size" color="red" strokeWidth="2" />
+		<ng-icon hlm class="test" name="lucideCheck" [size]="size()" color="red" strokeWidth="2" />
 	`,
 })
 class HlmMock {
-	@Input() public size = 'base';
+	public readonly size = input('base');
 }
 
 describe('HlmIconDirective', () => {

@@ -1,6 +1,6 @@
-import { formatFiles, Tree } from '@nx/devkit';
+import { formatFiles, type Tree } from '@nx/devkit';
 import { visitFiles } from '../../utils/visit-files';
-import { MigrateToggleGroupGeneratorSchema } from './schema';
+import type { MigrateToggleGroupGeneratorSchema } from './schema';
 
 export async function migrateToggleGroupGenerator(tree: Tree, { skipFormat }: MigrateToggleGroupGeneratorSchema) {
 	updateBrainImports(tree);

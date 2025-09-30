@@ -1,4 +1,4 @@
-import { readJson, Tree, writeJson } from '@nx/devkit';
+import { readJson, type Tree, writeJson } from '@nx/devkit';
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
 import { healthcheckGenerator } from './generator';
 

@@ -1,4 +1,4 @@
-import { BooleanInput } from '@angular/cdk/coercion';
+import type { BooleanInput } from '@angular/cdk/coercion';
 import { Directive, booleanAttribute, computed, input } from '@angular/core';
 
 @Directive({

@@ -77,7 +77,7 @@ export class PaginationQueryParams {
 		),
 	);
 
-	public currentPage = computed(() => this._pageQuery() ?? 1);
+	public readonly currentPage = computed(() => this._pageQuery() ?? 1);
 
 	public pages = [1, 2, 3, 4];
 }

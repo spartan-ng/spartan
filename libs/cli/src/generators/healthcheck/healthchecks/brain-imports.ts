@@ -1,7 +1,7 @@
 import { visitNotIgnoredFiles } from '@nx/devkit';
 import { migrateBrainImportsGenerator } from '../../migrate-brain-imports/generator';
 import importMap from '../../migrate-brain-imports/import-map';
-import { Healthcheck, HealthcheckSeverity } from '../healthchecks';
+import { type Healthcheck, HealthcheckSeverity } from '../healthchecks';
 
 export const brainImportsHealthcheck: Healthcheck = {
 	name: 'Brain imports',

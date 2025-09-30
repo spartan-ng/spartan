@@ -1,6 +1,6 @@
 import { applicationGenerator, E2eTestRunner, UnitTestRunner } from '@nx/angular/generators';
-import { Schema } from '@nx/angular/src/generators/library/schema';
-import { joinPathFragments, readJson, Tree } from '@nx/devkit';
+import type { Schema } from '@nx/angular/src/generators/library/schema';
+import { joinPathFragments, readJson, type Tree } from '@nx/devkit';
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
 import { hlmBaseGenerator } from './generator';
 import { singleLibName } from './lib/single-lib-name';

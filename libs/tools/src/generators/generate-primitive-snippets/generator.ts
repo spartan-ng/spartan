@@ -1,4 +1,4 @@
-import { Tree, formatFiles, joinPathFragments, logger } from '@nx/devkit';
+import { type Tree, formatFiles, joinPathFragments, logger } from '@nx/devkit';
 import ts from 'typescript';
 import { getVariableNameFromFilename } from './getVarNameFromFileName';
 

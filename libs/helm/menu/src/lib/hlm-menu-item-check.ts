@@ -20,7 +20,7 @@ import type { ClassValue } from 'clsx';
 })
 export class HlmMenuItemCheck {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected _computedClass = computed(() =>
+	protected readonly _computedClass = computed(() =>
 		hlm(
 			'absolute left-2 flex h-3.5 w-3.5 items-center justify-center opacity-0 group-[.checked]:opacity-100',
 			this.userClass(),

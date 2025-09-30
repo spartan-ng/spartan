@@ -1,5 +1,5 @@
-import { FocusableOption, FocusKeyManager, FocusMonitor } from '@angular/cdk/a11y';
-import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
+import { type FocusableOption, FocusKeyManager, FocusMonitor } from '@angular/cdk/a11y';
+import { type BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 import {
 	type AfterContentInit,
 	computed,
@@ -181,7 +181,7 @@ export class BrnAccordion implements AfterContentInit, OnDestroy {
 	public readonly openItemIds = this._openItemIds.asReadonly();
 	public readonly state = computed(() => (this._openItemIds().length > 0 ? 'open' : 'closed'));
 
-	public triggers = contentChildren(BrnAccordionTrigger, { descendants: true });
+	public readonly triggers = contentChildren(BrnAccordionTrigger, { descendants: true });
 
 	/**
 	 * Whether the accordion is in single or multiple mode.

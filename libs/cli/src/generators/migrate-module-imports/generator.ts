@@ -1,9 +1,9 @@
-import { formatFiles, Tree, visitNotIgnoredFiles } from '@nx/devkit';
+import { formatFiles, type Tree, visitNotIgnoredFiles } from '@nx/devkit';
 import { logger } from 'nx/src/devkit-exports';
 import { basename } from 'path';
 import { isBinaryPath } from '../migrate-brain-imports/utils/binary-extensions';
 import importMap from './import-map';
-import { MigrateModuleImportsGeneratorSchema } from './schema';
+import type { MigrateModuleImportsGeneratorSchema } from './schema';
 
 export async function migrateModuleImportsGenerator(tree: Tree, options: MigrateModuleImportsGeneratorSchema) {
 	for (const [from, to] of Object.entries(importMap)) {

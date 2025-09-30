@@ -1,6 +1,6 @@
 import { NgTemplateOutlet } from '@angular/common';
 import {
-	AfterContentInit,
+	type AfterContentInit,
 	ChangeDetectionStrategy,
 	Component,
 	DestroyRef,

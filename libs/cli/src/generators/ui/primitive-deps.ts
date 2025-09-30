@@ -23,6 +23,7 @@ export const primitiveDependencies: Record<Primitive, Primitive[]> = {
 	'hover-card': ['utils'],
 	icon: ['utils'],
 	input: ['utils', 'form-field'],
+	'input-group': ['utils'],
 	'input-otp': ['utils', 'icon'],
 	label: ['utils'],
 	menu: ['utils', 'icon'],

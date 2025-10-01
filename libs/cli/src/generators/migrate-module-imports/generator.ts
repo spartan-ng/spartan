@@ -10,7 +10,7 @@ export async function migrateModuleImportsGenerator(tree: Tree, options: Migrate
 		replaceUsages(tree, from, to);
 	}
 
-	deduplicateBrainImports(tree);
+	deduplicateImports(tree);
 
 	if (!options.skipFormat) {
 		await formatFiles(tree);
@@ -46,25 +46,28 @@ function replaceUsages(tree: Tree, oldPackageName: string, newPackageName: strin
 				return;
 			}
 
-			tree.write(path, contents.replace(new RegExp(oldPackageName, 'g'), newPackageName));
+			const regex = new RegExp(`(?<!export\\s+class\\s+)\\b${oldPackageName}\\b`, 'g');
+
+			tree.write(path, contents.replace(new RegExp(regex, 'g'), newPackageName));
 		} catch {
 			logger.warn(`Could not replace ${oldPackageName} with ${newPackageName} in ${path}.`);
 		}
 	});
 }
 
-function deduplicateBrainImports(tree: Tree) {
+function deduplicateImports(tree: Tree) {
 	visitNotIgnoredFiles(tree, '.', (path) => {
 		if (isBinaryPath(path)) return;
 
 		try {
 			let contents = tree.read(path)!.toString();
-			if (!contents.includes('@spartan-ng/brain')) return;
+			if (!contents.includes('@spartan-ng/brain') && !contents.includes('@spartan-ng/helm')) return;
 
 			// -----------------------------
-			// Step 1: Deduplicate import statements
+			// Step 1: Deduplicate import statements (brain + helm)
 			// -----------------------------
-			const importRegex = /import\s+{([^}]+)}\s+from\s+'(@spartan-ng\/brain\/[^']+)';/g;
+			const importRegex = /import\s+{([^}]+)}\s+from\s+'(@spartan-ng\/(brain|helm)\/[^']+)';/g;
+
 			const importMap: Record<string, Set<string>> = {};
 
 			[...contents.matchAll(importRegex)].forEach((match) => {
@@ -89,7 +92,6 @@ function deduplicateBrainImports(tree: Tree) {
 			// -----------------------------
 			// Step 2: Deduplicate @Component/@NgModule imports array
 			// -----------------------------
-			// Match imports: [ ... ] arrays
 			const importsArrayRegex = /imports\s*:\s*\[([\s\S]*?)\]/g;
 			contents = contents.replace(importsArrayRegex, (match, inner) => {
 				const identifiers = inner
@@ -97,14 +99,13 @@ function deduplicateBrainImports(tree: Tree) {
 					.map((i) => i.trim())
 					.filter(Boolean);
 
-				// Deduplicate Brn* imports only
 				const deduped = Array.from(new Set(identifiers));
 				return `imports: [${deduped.join(', ')}]`;
 			});
 
 			tree.write(path, contents);
 		} catch {
-			logger.warn(`Could not deduplicate brain imports in ${path}`);
+			logger.warn(`Could not deduplicate imports in ${path}`);
 		}
 	});
 }

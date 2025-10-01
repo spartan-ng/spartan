@@ -1,5 +1,5 @@
-import { computed, Directive, ElementRef, inject, input, OnInit } from '@angular/core';
-import { hlm } from '@spartan-ng/helm/utils';
+import { computed, Directive, input } from '@angular/core';
+import { hlm } from '<%- importAlias %>/utils';
 
 import type { ClassValue } from 'clsx';
 
@@ -11,9 +11,7 @@ import type { ClassValue } from 'clsx';
 		'[class]': '_computedClass()',
 	},
 })
-export class HlmSidebarMenuSub implements OnInit {
-	private readonly _element = inject<ElementRef<HTMLUListElement>>(ElementRef);
-
+export class HlmSidebarMenuSub {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>
 		hlm(
@@ -22,10 +20,4 @@ export class HlmSidebarMenuSub implements OnInit {
 			this.userClass(),
 		),
 	);
-
-	ngOnInit() {
-		if (this._element.nativeElement.tagName.toLowerCase() !== 'ul') {
-			console.warn('hlmSidebarMenuSub directive should only be used on <ul> elements');
-		}
-	}
 }

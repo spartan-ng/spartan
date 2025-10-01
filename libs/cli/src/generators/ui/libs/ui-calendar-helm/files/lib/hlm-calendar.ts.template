@@ -1,4 +1,4 @@
-import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
+import type { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import { NgTemplateOutlet } from '@angular/common';
 import {
 	booleanAttribute,
@@ -25,7 +25,7 @@ import {
 	BrnCalendarWeekday,
 	BrnCalendarYearSelect,
 	injectBrnCalendarI18n,
-	Weekday,
+	type Weekday,
 } from '@spartan-ng/brain/calendar';
 import { injectDateAdapter } from '@spartan-ng/brain/date-time';
 import { BrnSelectImports } from '@spartan-ng/brain/select';

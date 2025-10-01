@@ -1,11 +1,11 @@
-import { Directive, computed, input } from '@angular/core';
-import { HlmSeparator } from '@spartan-ng/helm/separator';
-import { hlm } from '@spartan-ng/helm/utils';
+import { computed, Directive, input } from '@angular/core';
+import { HlmSeparator } from '<%- importAlias %>/separator';
+import { hlm } from '<%- importAlias %>/utils';
 
 import type { ClassValue } from 'clsx';
 
 @Directive({
-	selector: 'brn-separator[hlmSidebarSeparator]',
+	selector: 'div[hlmSidebarSeparator]',
 
 	hostDirectives: [{ directive: HlmSeparator }],
 	host: {

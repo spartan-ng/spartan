@@ -15,5 +15,5 @@ export class HlmAvatarImage {
 	public canShow = inject(BrnAvatarImage).canShow;
 
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected _computedClass = computed(() => hlm('aspect-square size-full', this.userClass()));
+	protected readonly _computedClass = computed(() => hlm('aspect-square size-full', this.userClass()));
 }

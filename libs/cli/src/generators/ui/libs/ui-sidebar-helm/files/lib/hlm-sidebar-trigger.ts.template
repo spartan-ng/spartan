@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucidePanelLeft } from '@ng-icons/lucide';
-import { HlmButton, provideBrnButtonConfig } from '@spartan-ng/helm/button';
+import { HlmButton, provideBrnButtonConfig } from '<%- importAlias %>/button';
 
 import { HlmSidebarService } from './hlm-sidebar.service';
 
-import { HlmIcon } from '@spartan-ng/helm/icon';
+import { HlmIcon } from '<%- importAlias %>/icon';
 
 @Component({
 	// eslint-disable-next-line @angular-eslint/component-selector

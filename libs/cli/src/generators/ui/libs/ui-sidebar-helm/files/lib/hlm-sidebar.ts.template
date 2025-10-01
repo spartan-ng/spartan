@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, computed, effect, inject, input } from '@angular/core';
 import { BrnSheetContent } from '@spartan-ng/brain/sheet';
-import { HlmSheet, HlmSheetContent } from '@spartan-ng/helm/sheet';
-import { hlm } from '@spartan-ng/helm/utils';
+import { HlmSheet, HlmSheetContent } from '<%- importAlias %>/sheet';
+import { hlm } from '<%- importAlias %>/utils';
 
-import { HlmSidebarService } from './hlm-sidebar.service';
+import { HlmSidebarService, type SidebarVariant } from './hlm-sidebar.service';
 
 import { NgTemplateOutlet } from '@angular/common';
 import type { ClassValue } from 'clsx';
@@ -26,7 +26,7 @@ import { injectHlmSidebarConfig } from './hlm-sidebar.token';
 			</div>
 		} @else if (_sidebarService.isMobile()) {
 			<hlm-sheet
-				[side]="'left'"
+				[side]="side()"
 				[closeDelay]="0"
 				[state]="_sidebarService.openMobile() ? 'open' : 'closed'"
 				(stateChanged)="_sidebarService.setOpenMobile($event === 'open')"
@@ -75,7 +75,7 @@ export class HlmSidebar {
 	public readonly sidebarWidthMobile = input(this._config.sidebarWidthMobile);
 
 	public readonly side = input<'left' | 'right'>('left');
-	public readonly variant = input<'sidebar' | 'floating' | 'inset'>('sidebar');
+	public readonly variant = input<SidebarVariant>(this._sidebarService.variant());
 	public readonly collapsible = input<'offcanvas' | 'icon' | 'none'>('offcanvas');
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 

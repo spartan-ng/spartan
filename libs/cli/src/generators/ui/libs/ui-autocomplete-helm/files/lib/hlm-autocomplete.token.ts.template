@@ -1,4 +1,4 @@
-import { inject, InjectionToken, ValueProvider } from '@angular/core';
+import { inject, InjectionToken, type ValueProvider } from '@angular/core';
 
 export type TransformValueToString<T> = (value: T) => string;
 

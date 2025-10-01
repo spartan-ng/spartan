@@ -1,5 +1,5 @@
-import { computed, Directive, ElementRef, inject, input, OnInit } from '@angular/core';
-import { hlm } from '@spartan-ng/helm/utils';
+import { computed, Directive, inject, input } from '@angular/core';
+import { hlm } from '<%- importAlias %>/utils';
 
 import { HlmSidebarService } from './hlm-sidebar.service';
 
@@ -13,8 +13,7 @@ import type { ClassValue } from 'clsx';
 		'[class]': '_computedClass()',
 	},
 })
-export class HlmSidebarInset implements OnInit {
-	private readonly _element = inject<ElementRef<HTMLElement>>(ElementRef);
+export class HlmSidebarInset {
 	private readonly _sidebarService = inject(HlmSidebarService);
 
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
@@ -27,10 +26,4 @@ export class HlmSidebarInset implements OnInit {
 			this.userClass(),
 		),
 	);
-
-	ngOnInit() {
-		if (this._element.nativeElement.tagName.toLowerCase() !== 'main') {
-			console.warn('hlmSidebarInset directive should only be used on <main> elements');
-		}
-	}
 }

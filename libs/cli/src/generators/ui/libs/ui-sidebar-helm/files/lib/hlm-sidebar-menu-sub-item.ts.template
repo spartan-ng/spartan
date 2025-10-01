@@ -1,17 +1,17 @@
 import { computed, Directive, input } from '@angular/core';
 import { hlm } from '<%- importAlias %>/utils';
+
 import type { ClassValue } from 'clsx';
 
 @Directive({
-	selector: 'brn-input-otp[hlmInputOtp], brn-input-otp[hlm]',
+	selector: 'li[hlmSidebarMenuSubItem]',
+
 	host: {
+		'data-sidebar': 'menu-sub-item',
 		'[class]': '_computedClass()',
 	},
 })
-export class HlmInputOtp {
+export class HlmSidebarMenuSubItem {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-
-	protected readonly _computedClass = computed(() =>
-		hlm('has-disabled:opacity-50 flex items-center gap-2', this.userClass()),
-	);
+	protected readonly _computedClass = computed(() => hlm('group/menu-sub-item relative', this.userClass()));
 }

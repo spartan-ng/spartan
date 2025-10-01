@@ -19,7 +19,9 @@ export const moduleImportsHealthcheck: Healthcheck = {
 			}
 
 			for (const [importPath, helmPackage] of Object.entries(importMap)) {
-				if (contents.includes(importPath)) {
+				const regex = new RegExp(`(?<!export\\s+class\\s+)\\b${importPath}\\b`, 'g');
+
+				if (regex.test(contents)) {
 					failure(
 						`The import ${importPath} is deprecated. Please use the ${helmPackage} package instead.`,
 						HealthcheckSeverity.Error,

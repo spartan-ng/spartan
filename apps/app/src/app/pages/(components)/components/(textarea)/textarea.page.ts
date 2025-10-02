@@ -1,7 +1,7 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
-import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
+import { hlmCode, hlmH4, hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
@@ -14,6 +14,10 @@ import { Tabs } from '../../../../shared/layout/tabs';
 import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
+import { TextareaButtonPreview } from './textarea--button.preview';
+import { TextareaDisabledPreview } from './textarea--disabled.preview';
+import { TextareaFormPreview } from './textarea--form.preview';
+import { TextareaLabelPreview } from './textarea--label.preview';
 import { TextAreaPreview, defaultImports, defaultSkeleton } from './textarea.preview';
 
 export const routeMeta: RouteMeta = {
@@ -39,6 +43,10 @@ export const routeMeta: RouteMeta = {
 		PageBottomNav,
 		PageBottomNavLink,
 		TextAreaPreview,
+		TextareaDisabledPreview,
+		TextareaLabelPreview,
+		TextareaButtonPreview,
+		TextareaFormPreview,
 	],
 	template: `
 		<section spartanMainSection>
@@ -77,6 +85,36 @@ export const routeMeta: RouteMeta = {
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="helm" />
 
+			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
+			<h3 id="examples__disabled" class="${hlmH4} mb-2 mt-6">Disabled</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-textarea-disabled />
+				</div>
+				<spartan-code secondTab [code]="_disabledCode()" />
+			</spartan-tabs>
+			<h3 id="examples__with_label" class="${hlmH4} mb-2 mt-6">With Label</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-textarea-label />
+				</div>
+				<spartan-code secondTab [code]="_labelCode()" />
+			</spartan-tabs>
+			<h3 id="examples__with_button" class="${hlmH4} mb-2 mt-6">With Button</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-textarea-button />
+				</div>
+				<spartan-code secondTab [code]="_buttonCode()" />
+			</spartan-tabs>
+			<h3 id="examples__form" class="${hlmH4} mb-2 mt-6">Form</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-textarea-form />
+				</div>
+				<spartan-code secondTab [code]="_formCode()" />
+			</spartan-tabs>
+
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="toggle" label="Toggle" />
 				<spartan-page-bottom-nav-link direction="previous" href="tabs" label="Tabs" />
@@ -88,6 +126,10 @@ export const routeMeta: RouteMeta = {
 export default class TextAreaPage {
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('textarea');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
+	protected readonly _disabledCode = computed(() => this._snippets()['disabled']);
+	protected readonly _labelCode = computed(() => this._snippets()['label']);
+	protected readonly _buttonCode = computed(() => this._snippets()['button']);
+	protected readonly _formCode = computed(() => this._snippets()['form']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

@@ -91,8 +91,6 @@ export const cssCode = `
   :root {
     --sidebar: 0 0% 98%;
     --sidebar-foreground: 0 0% 4%;
-    --sidebar-primary: 0 0% 9%;
-    --sidebar-primary-foreground: 0 0% 98%;
     --sidebar-accent: 0 0% 96%;
     --sidebar-accent-foreground: 0 0% 9%;
     --sidebar-border: 0 0% 90%;
@@ -102,8 +100,6 @@ export const cssCode = `
   .dark {
     --sidebar: 0 0% 9%;
     --sidebar-foreground: 0 0% 98%;
-    --sidebar-primary: 225 84% 49%;
-    --sidebar-primary-foreground: 0 0% 98%;
     --sidebar-accent: 0 0% 15%;
     --sidebar-accent-foreground: 0 0% 98%;
     --sidebar-border: 0 0% 100% / 0.1;

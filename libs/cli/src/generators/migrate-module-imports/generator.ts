@@ -58,7 +58,7 @@ function replaceUsages(tree: Tree, oldPackageName: string, newPackageName: strin
 function deduplicateImports(tree: Tree) {
 	const changedFiles = tree
 		.listChanges()
-		// 'CREATE' should never occur but is needed for testing
+		// 'CREATE' is needed for testing
 		.filter((change) => change.type === 'CREATE' || change.type === 'UPDATE')
 		.map((change) => change.path);
 

@@ -56,7 +56,13 @@ function replaceUsages(tree: Tree, oldPackageName: string, newPackageName: strin
 }
 
 function deduplicateImports(tree: Tree) {
-	visitNotIgnoredFiles(tree, '.', (path) => {
+	const changedFiles = tree
+		.listChanges()
+		// 'CREATE' should never occur but is needed for testing
+		.filter((change) => change.type === 'CREATE' || change.type === 'UPDATE')
+		.map((change) => change.path);
+
+	changedFiles.forEach((path) => {
 		if (isBinaryPath(path)) return;
 
 		try {

@@ -1,6 +1,6 @@
 {
 	"name": "@spartan-ng/brain",
-	"version": "0.0.1-alpha.521",
+	"version": "0.0.1-alpha.522",
 	"sideEffects": false,
 	"exports": {
 		"./hlm-tailwind-preset": {

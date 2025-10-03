@@ -32,6 +32,7 @@ export type PrimitiveSnippet =
 	| 'popover'
 	| 'progress'
 	| 'radio-group'
+	| 'resizable'
 	| 'scroll-area'
 	| 'select'
 	| 'separator'

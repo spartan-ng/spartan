@@ -30,6 +30,7 @@ export type Primitive =
 	| 'popover'
 	| 'progress'
 	| 'radio-group'
+	| 'resizable'
 	| 'scroll-area'
 	| 'select'
 	| 'separator'

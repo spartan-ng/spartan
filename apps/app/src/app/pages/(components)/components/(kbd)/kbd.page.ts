@@ -1,7 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
-import { InputGroupButtonPreview } from '@spartan-ng/app/app/pages/(components)/components/(input-group)/input-group--button.preview';
 import { KbdButtonPreview } from '@spartan-ng/app/app/pages/(components)/components/(kbd)/kbd--button.preview';
 import { KbdGroupPreview } from '@spartan-ng/app/app/pages/(components)/components/(kbd)/kbd--group.preview';
 import { UIApiDocs } from '@spartan-ng/app/app/shared/layout/ui-docs-section/ui-docs-section';
@@ -9,7 +8,6 @@ import { HlmH4, HlmTypographyImports } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
-import { PageBottomNavPlaceholder } from '../../../../shared/layout/page-bottom-nav-placeholder';
 import { PageBottomNav } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav';
 import { PageBottomNavLink } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav-link';
 import { PageNav } from '../../../../shared/layout/page-nav/page-nav';
@@ -40,9 +38,7 @@ export const routeMeta: RouteMeta = {
 		PageNav,
 		PageBottomNav,
 		PageBottomNavLink,
-		PageBottomNavPlaceholder,
 		UIApiDocs,
-		InputGroupButtonPreview,
 		KbdGroupPreview,
 		HlmH4,
 		HlmTypographyImports,
@@ -50,7 +46,7 @@ export const routeMeta: RouteMeta = {
 	],
 	template: `
 		<section spartanMainSection>
-			<spartan-section-intro name="kbd" lead="Used to display textual user input from keyboard." />
+			<spartan-section-intro name="Kbd" lead="Used to display textual user input from keyboard." />
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>

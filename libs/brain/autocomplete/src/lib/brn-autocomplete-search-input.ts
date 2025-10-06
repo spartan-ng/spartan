@@ -67,6 +67,11 @@ export class BrnAutocompleteSearchInput extends DefaultValueAccessor {
 
 	/** Listen for keydown events */
 	protected onKeyDown(event: KeyboardEvent): void {
+		if (event.key === 'Enter') {
+			// prevent form submission if inside a form
+			event.preventDefault();
+		}
+
 		this._autocomplete.keyManager.onKeydown(event);
 	}
 

@@ -77,6 +77,11 @@ export const routeMeta: RouteMeta = {
 				<a class="font-semibold underline underline-offset-4" routerLink="/components/data-table">Data Table</a>
 				documentation for more information.
 			</p>
+			<p class="${hlmP}">
+				You can also see an example of a data table in the
+				<a class="font-semibold underline underline-offset-4" routerLink="/examples/tasks">Tasks</a>
+				demo.
+			</p>
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="tabs" label="Tabs" />

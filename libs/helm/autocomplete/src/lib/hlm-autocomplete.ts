@@ -115,7 +115,7 @@ export const HLM_AUTOCOMPLETE_VALUE_ACCESSOR = {
 									@if (optionTemplate(); as optionTemplate) {
 										<ng-container *ngTemplateOutlet="optionTemplate; context: { $implicit: option }" />
 									} @else {
-										{{ option }}
+										{{ transformOptionToString()(option) }}
 									}
 								</button>
 							}
@@ -171,7 +171,10 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 	protected readonly _search = linkedSignal(() => this.search() || '');
 
 	/** Function to transform an option value to a search string. Defaults to identity function for strings. */
-	public readonly transformValueToSearch = input<(value: T) => string>(this._config.transformValueToSearch);
+	public readonly transformValueToSearch = input<(option: T) => string>(this._config.transformValueToSearch);
+
+	/** Function to transform an option value to a display string. Defaults to identity function for strings. */
+	public readonly transformOptionToString = input<(option: T) => string>(this._config.transformOptionToString);
 
 	/** Optional template for rendering each option. */
 	public readonly optionTemplate = input<TemplateRef<HlmAutocompleteOption<T>>>();
@@ -281,6 +284,6 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 	}
 }
 
-interface HlmAutocompleteOption<T> {
+export interface HlmAutocompleteOption<T> {
 	$implicit: T;
 }

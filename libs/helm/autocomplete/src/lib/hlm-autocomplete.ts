@@ -72,7 +72,11 @@ export const HLM_AUTOCOMPLETE_VALUE_ACCESSOR = {
 			[closeOnOutsidePointerEvents]="true"
 		>
 			<div brnAutocomplete>
-				<hlm-autocomplete-search hlmAutocompleteTrigger [disabledTrigger]="!_search()">
+				<hlm-autocomplete-search
+					hlmAutocompleteTrigger
+					[class]="_computedAutocompleteSearchClass()"
+					[disabledTrigger]="!_search()"
+				>
 					<ng-icon name="lucideSearch" hlm />
 					<input
 						#input
@@ -80,6 +84,7 @@ export const HLM_AUTOCOMPLETE_VALUE_ACCESSOR = {
 						autocomplete="off"
 						hlm-autocomplete-search-input
 						[id]="inputId()"
+						[class]="_computedAutocompleteInputClass()"
 						[placeholder]="searchPlaceholderText()"
 						[disabled]="_disabled()"
 						[value]="_search()"
@@ -111,7 +116,12 @@ export const HLM_AUTOCOMPLETE_VALUE_ACCESSOR = {
 					>
 						<hlm-autocomplete-group>
 							@for (option of filteredOptions(); track option) {
-								<button hlm-autocomplete-item [value]="option" (selected)="_optionSelected(option)">
+								<button
+									hlm-autocomplete-item
+									[class]="_computedAutocompleteItemClass()"
+									[value]="option"
+									(selected)="_optionSelected(option)"
+								>
 									@if (optionTemplate(); as optionTemplate) {
 										<ng-container *ngTemplateOutlet="optionTemplate; context: { $implicit: option }" />
 									} @else {
@@ -151,9 +161,21 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() => hlm('block w-full', this.userClass()));
 
+	/** Custom class for the autocomplete search container. */
+	public readonly autocompleteSearchClass = input<ClassValue>('');
+	protected readonly _computedAutocompleteSearchClass = computed(() => hlm('', this.autocompleteSearchClass()));
+
+	/** Custom class for the autocomplete input. */
+	public readonly autocompleteInputClass = input<ClassValue>('');
+	protected readonly _computedAutocompleteInputClass = computed(() => hlm('', this.autocompleteInputClass()));
+
 	/** Custom class for the autocomplete list. */
 	public readonly autocompleteListClass = input<ClassValue>('');
 	protected readonly _computedAutocompleteListClass = computed(() => hlm('', this.autocompleteListClass()));
+
+	/** Custom class for each autocomplete item. */
+	public readonly autocompleteItemClass = input<ClassValue>('');
+	protected readonly _computedAutocompleteItemClass = computed(() => hlm('', this.autocompleteItemClass()));
 
 	/** Custom class for the empty and loading state container. */
 	public readonly autocompleteEmptyClass = input<ClassValue>('');

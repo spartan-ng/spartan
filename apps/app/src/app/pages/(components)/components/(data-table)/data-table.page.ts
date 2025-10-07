@@ -3,7 +3,7 @@ import { Component, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { link } from '@spartan-ng/app/app/shared/typography/link';
-import { hlmP } from '@spartan-ng/helm/typography';
+import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { defaultImports, defaultSkeleton } from '../(context-menu)/context-menu.preview';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
@@ -59,19 +59,40 @@ export const routeMeta: RouteMeta = {
 				<a href="https://github.com/tannerlinsley" target="_blank" rel="noreferrer" class="${link}">
 					&#64;tannerlinsley
 				</a>
-				.
+				and the
+				<a class="${link}" routerLink="/components/table">Table</a>
+				directives.
 			</p>
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
+
+			<p class="${hlmP}">
+				Add the
+				<a class="${link}" routerLink="/components/table">Table</a>
+				directives to your project.
+			</p>
+
 			<spartan-cli-tabs
 				class="mt-4"
 				nxCode="npx nx g @spartan-ng/cli:ui table"
 				ngCode="ng g @spartan-ng/cli:ui table"
 			/>
-			<div class="${hlmP} mb-6">
-				In order to use Data-Table example, you need to install Tanstack Table. See the installation documetation for
-				Angular Table for more information.
-				<spartan-code class="mt-4" [code]="'https://tanstack.com/table/v8/docs/installation#angular-table'" />
-			</div>
+
+			<p class="${hlmP} mb-6">
+				Add
+				<code class="${hlmCode}">&#64;tanstack/angular-table</code>
+				to your project, more information in the
+				<a
+					href="https://tanstack.com/table/v8/docs/installation#angular-table"
+					target="_blank"
+					rel="noreferrer"
+					class="${link}"
+				>
+					TanStack Table
+				</a>
+				documentation.
+			</p>
+
+			<spartan-code [code]="'npm install @tanstack/angular-table'" />
 
 			<spartan-section-sub-heading id="tutorial">Documentation</spartan-section-sub-heading>
 			<p class="${hlmP} mb-6">

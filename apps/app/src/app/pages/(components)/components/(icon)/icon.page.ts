@@ -11,6 +11,8 @@ import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
 
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { link } from '@spartan-ng/app/app/shared/typography/link';
+import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { PageBottomNav } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav';
 import { PageBottomNavLink } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav-link';
 import { PageNav } from '../../../../shared/layout/page-nav/page-nav';
@@ -40,8 +42,35 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
+			<spartan-section-sub-heading id="about">About</spartan-section-sub-heading>
+			<p class="${hlmP} mb-6">
+				Icon is built on top of
+				<a href="https://ng-icons.github.io/ng-icons" target="_blank" rel="noreferrer" class="${link}">ng-icons</a>
+				by
+				<a href="https://github.com/ashley-hunter" target="_blank" rel="noreferrer" class="${link}">
+					&#64;ashley-hunter
+				</a>
+				.
+			</p>
+
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
 			<spartan-cli-tabs class="mt-4" nxCode="npx nx g @spartan-ng/cli:ui icon" ngCode="ng g @spartan-ng/cli:ui icon" />
+
+			<p class="${hlmP} mb-6">
+				This will also install
+				<code class="${hlmCode}">&#64;ng-icons/core</code>
+				and
+				<code class="${hlmCode}">&#64;ng-icons/lucide</code>
+				. ng-icons comes with multiple
+				<a href="https://ng-icons.github.io/ng-icons/#/browse-icons" target="_blank" rel="noreferrer" class="${link}">
+					icon sets
+				</a>
+				. By default, we use the popular
+				<a href="https://lucide.dev/" target="_blank" rel="noreferrer" class="${link}">Lucide</a>
+				icon set. If you want to use a different icon set, replace
+				<code class="${hlmCode}">&#64;ng-icons/lucide</code>
+				with your preferred icon set.
+			</p>
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="space-y-4">

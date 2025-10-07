@@ -3,7 +3,7 @@ import { Component, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { link } from '@spartan-ng/app/app/shared/typography/link';
-import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
+import { hlmCode, hlmP, hlmUl } from '@spartan-ng/helm/typography';
 import { defaultImports, defaultSkeleton } from '../(context-menu)/context-menu.preview';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
@@ -94,12 +94,43 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-code [code]="'npm install @tanstack/angular-table'" />
 
-			<spartan-section-sub-heading id="tutorial">Documentation</spartan-section-sub-heading>
-			<p class="${hlmP} mb-6">
+			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
+			<p class="${hlmP}">
 				For more information you can check out our
 				<a class="${link}" routerLink="/examples/tasks">Tasks</a>
-				example and have a look at the documentation of TanStack table.
+				example and have a look at the documentation of
+				<a
+					href="https://tanstack.com/table/v8/docs/framework/angular/angular-table"
+					target="_blank"
+					rel="noreferrer"
+					class="${link}"
+				>
+					TanStack Table
+				</a>
+				. TanStack Table provides multiple examples on
+				<a
+					href="https://github.com/TanStack/table/tree/main/examples/angular"
+					target="_blank"
+					rel="noreferrer"
+					class="${link}"
+				>
+					GitHub
+				</a>
+				and interactive examples on the documentation site. These examples are unstyled and can be used as a foundation
+				for your own implementations using the
+				<a class="${link}" routerLink="/components/table">Table</a>
+				directives to apply consistent styling. Here are some examples to get you started:
 			</p>
+
+			<ul class="${hlmUl}">
+				@for (example of _tanstackExamples; track $index) {
+					<li>
+						<a [href]="example.link" target="_blank" rel="noreferrer" class="${link}">{{ example.label }}</a>
+						-
+						{{ example.description }}
+					</li>
+				}
+			</ul>
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="date-picker" label="Date Picker" />
@@ -114,4 +145,27 @@ export default class DataTablePage {
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
+
+	protected readonly _tanstackExamples: { label: string; description: string; link: string }[] = [
+		{
+			label: 'Basic',
+			description: 'A basic table example with multiple columns',
+			link: 'https://tanstack.com/table/v8/docs/framework/angular/examples/basic',
+		},
+		{
+			label: 'Column Visibility',
+			description: 'An example of how to implement column visibility',
+			link: 'https://tanstack.com/table/v8/docs/framework/angular/examples/column-visibility',
+		},
+		{
+			label: 'Column Filters',
+			description: 'An example of how to implement column filters',
+			link: 'https://tanstack.com/table/v8/docs/framework/angular/examples/filters',
+		},
+		{
+			label: 'Row Selection',
+			description: 'An example of how to implement row selection',
+			link: 'https://tanstack.com/table/v8/docs/framework/angular/examples/row-selection',
+		},
+	];
 }

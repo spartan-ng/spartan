@@ -8,7 +8,7 @@ import { type CellContext, type HeaderContext, injectFlexRenderContext } from '@
 		<hlm-checkbox [checked]="_checkedState()" (checkedChange)="_context.table.toggleAllRowsSelected()" />
 	`,
 	host: {
-		class: 'px-1 block',
+		class: 'px-1 flex',
 		'aria-label': 'Select all',
 	},
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -36,7 +36,7 @@ export class TableHeadSelection<T> {
 		/>
 	`,
 	host: {
-		class: 'px-1 block',
+		class: 'px-1 flex',
 		'aria-label': 'Select Row',
 	},
 	changeDetection: ChangeDetectionStrategy.OnPush,

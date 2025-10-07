@@ -1,5 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { link } from '@spartan-ng/app/app/shared/typography/link';
 import { hlmP } from '@spartan-ng/helm/typography';
@@ -37,6 +38,7 @@ export const routeMeta: RouteMeta = {
 		PageBottomNav,
 		PageBottomNavLink,
 		DataTablePreview,
+		RouterLink,
 	],
 	template: `
 		<section spartanMainSection>
@@ -68,12 +70,14 @@ export const routeMeta: RouteMeta = {
 			<div class="${hlmP} mb-6">
 				In order to use Data-Table example, you need to install Tanstack Table. See the installation documetation for
 				Angular Table for more information.
-				<spartan-code class="mt-4" [code]="'https://tanstack.com/table/v8/docs/installation'" />
+				<spartan-code class="mt-4" [code]="'https://tanstack.com/table/v8/docs/installation#angular-table'" />
 			</div>
 
 			<spartan-section-sub-heading id="tutorial">Documentation</spartan-section-sub-heading>
 			<p class="${hlmP} mb-6">
-				For more information you can check out our Tasks example and have a look at the documentation of TanStack table.
+				For more information you can check out our
+				<a class="${link}" routerLink="/examples/tasks">Tasks</a>
+				example and have a look at the documentation of TanStack table.
 			</p>
 
 			<spartan-page-bottom-nav>

@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown } from '@ng-icons/lucide';
@@ -21,7 +21,9 @@ import {
 	getFilteredRowModel,
 	getPaginationRowModel,
 	getSortedRowModel,
+	type RowSelectionState,
 	type SortingState,
+	type VisibilityState,
 } from '@tanstack/angular-table';
 import { ActionDropdown } from './action-dropdown';
 import { TableHeadSelection, TableRowSelection } from './selection-column';
@@ -147,6 +149,7 @@ export type Payment = {
 			}
 		</div>
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DataTablePreview {
 	protected _filterChanged(event: Event) {
@@ -198,6 +201,8 @@ export class DataTablePreview {
 
 	private readonly _columnFilters = signal<ColumnFiltersState>([]);
 	private readonly _sorting = signal<SortingState>([]);
+	private readonly _rowSelection = signal<RowSelectionState>({});
+	private readonly _columnVisibility = signal<VisibilityState>({});
 
 	protected readonly _table = createAngularTable<Payment>(() => ({
 		data: PAYMENT_DATA,
@@ -212,9 +217,17 @@ export class DataTablePreview {
 		getPaginationRowModel: getPaginationRowModel(),
 		getSortedRowModel: getSortedRowModel(),
 		getFilteredRowModel: getFilteredRowModel(),
+		onColumnVisibilityChange: (updater) => {
+			updater instanceof Function ? this._columnVisibility.update(updater) : this._columnVisibility.set(updater);
+		},
+		onRowSelectionChange: (updater) => {
+			updater instanceof Function ? this._rowSelection.update(updater) : this._rowSelection.set(updater);
+		},
 		state: {
-			columnFilters: this._columnFilters(),
 			sorting: this._sorting(),
+			columnFilters: this._columnFilters(),
+			columnVisibility: this._columnVisibility(),
+			rowSelection: this._rowSelection(),
 		},
 	}));
 	protected readonly _hidableColumns = this._table.getAllColumns().filter((column) => column.getCanHide());

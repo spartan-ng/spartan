@@ -9,8 +9,8 @@ import { type CellContext, type HeaderContext, injectFlexRenderContext } from '@
 	`,
 	host: {
 		class: 'px-1 block',
+		'aria-label': 'Select all',
 	},
-	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TableHeadSelection<T> {
@@ -37,8 +37,8 @@ export class TableHeadSelection<T> {
 	`,
 	host: {
 		class: 'px-1 block',
+		'aria-label': 'Select Row',
 	},
-	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TableRowSelection<T> {

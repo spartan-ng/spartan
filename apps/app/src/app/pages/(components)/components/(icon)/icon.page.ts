@@ -128,7 +128,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_sizeCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__responsive" class="${hlmH4} mb-2 mt-6">Responsive</h3>
+			<h3 id="examples__responsive_size" class="${hlmH4} mb-2 mt-6">Responsive Size</h3>
 
 			<p class="${hlmP} mb-6">
 				Use font-sizes (e.g.

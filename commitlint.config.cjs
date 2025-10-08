@@ -16,6 +16,7 @@ module.exports = {
 				'badge',
 				'breadcrumb',
 				'button',
+				'button-group',
 				'calendar',
 				'card',
 				'carousel',

@@ -8,6 +8,7 @@ export type PrimitiveSnippet =
 	| 'badge'
 	| 'breadcrumb'
 	| 'button'
+	| 'button-group'
 	| 'calendar'
 	| 'card'
 	| 'carousel'

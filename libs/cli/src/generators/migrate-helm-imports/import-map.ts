@@ -9,6 +9,7 @@ export default {
 	'@spartan-ng/ui-badge-helm': '@spartan-ng/helm/badge',
 	'@spartan-ng/ui-breadcrumb-helm': '@spartan-ng/helm/breadcrumb',
 	'@spartan-ng/ui-button-helm': '@spartan-ng/helm/button',
+	'@spartan-ng/ui-button-group-helm': '@spartan-ng/helm/button-group',
 	'@spartan-ng/ui-calendar-helm': '@spartan-ng/helm/calendar',
 	'@spartan-ng/ui-card-helm': '@spartan-ng/helm/card',
 	'@spartan-ng/ui-carousel-helm': '@spartan-ng/helm/carousel',

@@ -10,6 +10,6 @@ import type { ClassValue } from 'clsx';
 	},
 })
 export class HlmKbdGroup {
-	public readonly class = input<ClassValue>('');
-	protected readonly _computedClass = computed(() => hlm('inline-flex items-center gap-1', this.class()));
+	public readonly userClass = input<ClassValue>('', { alias: 'class' });
+	protected readonly _computedClass = computed(() => hlm('inline-flex items-center gap-1', this.userClass()));
 }

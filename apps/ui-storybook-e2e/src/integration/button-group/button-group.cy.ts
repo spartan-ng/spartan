@@ -81,7 +81,7 @@ describe('button-group', () => {
 			cy.get('[hlmbuttongroup] button').first().focus();
 			cy.realPress('Tab');
 			cy.get('[hlmbuttongroup] button').eq(1).should('be.focused');
-			
+
 			// Test Shift+Tab navigation
 			cy.realPress(['Shift', 'Tab']);
 			cy.get('[hlmbuttongroup] button').first().should('be.focused');
@@ -173,7 +173,7 @@ describe('button-group', () => {
 		it('should maintain proper keyboard navigation in nested structure', () => {
 			// Focus first button
 			cy.get('[hlmbuttongroup] button').first().focus();
-			
+
 			// Navigate through all buttons
 			for (let i = 1; i < 4; i++) {
 				cy.realPress('Tab');
@@ -183,17 +183,21 @@ describe('button-group', () => {
 
 		it('should maintain proper grouping semantics', () => {
 			// Verify that nested groups maintain their individual identity
-			cy.get('[hlmbuttongroup] [hlmbuttongroup]').first().within(() => {
-				cy.get('button').should('have.length', 2);
-				cy.get('button').first().should('contain.text', 'Button 1');
-				cy.get('button').last().should('contain.text', 'Button 2');
-			});
+			cy.get('[hlmbuttongroup] [hlmbuttongroup]')
+				.first()
+				.within(() => {
+					cy.get('button').should('have.length', 2);
+					cy.get('button').first().should('contain.text', 'Button 1');
+					cy.get('button').last().should('contain.text', 'Button 2');
+				});
 
-			cy.get('[hlmbuttongroup] [hlmbuttongroup]').last().within(() => {
-				cy.get('button').should('have.length', 2);
-				cy.get('button').first().should('contain.text', 'Button 3');
-				cy.get('button').last().should('contain.text', 'Button 4');
-			});
+			cy.get('[hlmbuttongroup] [hlmbuttongroup]')
+				.last()
+				.within(() => {
+					cy.get('button').should('have.length', 2);
+					cy.get('button').first().should('contain.text', 'Button 3');
+					cy.get('button').last().should('contain.text', 'Button 4');
+				});
 		});
 	});
 
@@ -219,26 +223,32 @@ describe('button-group', () => {
 		it('should have separator and text element', () => {
 			// Verify separator exists
 			cy.get('hlm-button-group-separator').should('exist').should('be.visible');
-			
+
 			// Verify text element exists and has correct content
 			cy.get('[hlmbuttongrouptext]').should('exist').should('be.visible').should('contain.text', 'Text');
 		});
 
 		it('should have proper structure with text group', () => {
-			cy.get('[hlmbuttongroup]').first().within(() => {
-				// First nested group should have buttons
-				cy.get('[hlmbuttongroup]').first().within(() => {
-					cy.get('button').should('have.length', 2);
-				});
+			cy.get('[hlmbuttongroup]')
+				.first()
+				.within(() => {
+					// First nested group should have buttons
+					cy.get('[hlmbuttongroup]')
+						.first()
+						.within(() => {
+							cy.get('button').should('have.length', 2);
+						});
 
-				// Separator should exist
-				cy.get('hlm-button-group-separator').should('exist');
+					// Separator should exist
+					cy.get('hlm-button-group-separator').should('exist');
 
-				// Second nested group should have text
-				cy.get('[hlmbuttongroup]').last().within(() => {
-					cy.get('[hlmbuttongrouptext]').should('exist').should('contain.text', 'Text');
+					// Second nested group should have text
+					cy.get('[hlmbuttongroup]')
+						.last()
+						.within(() => {
+							cy.get('[hlmbuttongrouptext]').should('exist').should('contain.text', 'Text');
+						});
 				});
-			});
 		});
 
 		it('should support button interactions with text element', () => {
@@ -286,7 +296,7 @@ describe('button-group', () => {
 		it('should have proper visual styling', () => {
 			// Verify buttons are visually grouped together
 			cy.get('[hlmbuttongroup]').should('be.visible');
-			
+
 			// Check that buttons appear as a cohesive group
 			cy.get('[hlmbuttongroup] button').each(($btn) => {
 				cy.wrap($btn).should('be.visible');

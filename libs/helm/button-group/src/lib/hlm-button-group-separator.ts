@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { HlmSeparator } from '@spartan-ng/helm/separator';
 import { hlm } from '@spartan-ng/helm/utils';
 import { ClassValue } from 'clsx';
@@ -14,6 +14,7 @@ import { ClassValue } from 'clsx';
 			[attr.data-slot]="'separator'"
 		/>
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmButtonGroupSeparator {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

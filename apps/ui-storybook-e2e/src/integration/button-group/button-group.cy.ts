@@ -334,7 +334,7 @@ describe('button-group', () => {
 		});
 
 		it('should have proper focus indicators', () => {
-			cy.get('[hlmbuttongroup] button').each(($btn, index) => {
+			cy.get('[hlmbuttongroup] button').each(($btn) => {
 				cy.wrap($btn).focus();
 				cy.wrap($btn).should('be.focused');
 				// Verify focus is visible (this would typically check for focus ring styles)

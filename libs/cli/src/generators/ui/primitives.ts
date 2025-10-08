@@ -23,6 +23,7 @@ export type Primitive =
 	| 'input'
 	| 'input-group'
 	| 'input-otp'
+	| 'item'
 	| 'kbd'
 	| 'label'
 	| 'menu'

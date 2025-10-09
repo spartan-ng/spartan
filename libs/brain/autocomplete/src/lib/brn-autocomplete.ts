@@ -56,6 +56,9 @@ export class BrnAutocomplete<T> {
 	/** @internal The key manager for managing active descendant */
 	public readonly keyManager = new ActiveDescendantKeyManager(this.items, this._injector);
 
+	/** @internal Whether the autocomplete is expanded */
+	public readonly isExpanded = computed(() => this._brnPopover?.stateComputed() === 'open');
+
 	constructor() {
 		this.keyManager
 			.withVerticalOrientation()

@@ -30,6 +30,7 @@ import { injectBrnAutocomplete } from './brn-autocomplete.token';
 		role: 'combobox',
 		'aria-autocomplete': 'list',
 		'[attr.aria-activedescendant]': '_activeDescendant()',
+		'[attr.aria-expanded]': '_isExpanded()',
 		'(keydown)': 'onKeyDown($event)',
 		'(input)': 'onInput()',
 	},
@@ -42,6 +43,8 @@ export class BrnAutocompleteSearchInput extends DefaultValueAccessor {
 
 	/** @internal The "real" value of the search input */
 	public readonly valueState = linkedSignal(() => this.value());
+
+	protected readonly _isExpanded = this._autocomplete.isExpanded;
 
 	/** The id of the active option */
 	protected readonly _activeDescendant = signal<string | undefined>(undefined);

@@ -14,21 +14,11 @@ import { BrnMenuTrigger } from '@spartan-ng/brain/menu';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmButtonGroup } from '@spartan-ng/helm/button-group';
 import { HlmIcon } from '@spartan-ng/helm/icon';
-import { HlmMenu, HlmMenuGroup, HlmMenuItem, HlmMenuSeparator } from '@spartan-ng/helm/menu';
+import { HlmMenuImports } from '@spartan-ng/helm/menu';
 
 @Component({
 	selector: 'spartan-button-group-dropdown-menu',
-	imports: [
-		HlmIcon,
-		NgIcon,
-		HlmButton,
-		HlmButtonGroup,
-		HlmMenu,
-		HlmMenuGroup,
-		HlmMenuItem,
-		HlmMenuSeparator,
-		BrnMenuTrigger,
-	],
+	imports: [HlmIcon, NgIcon, HlmButton, HlmButtonGroup, BrnMenuTrigger, HlmMenuImports],
 	providers: [
 		provideIcons({
 			lucideChevronDown,

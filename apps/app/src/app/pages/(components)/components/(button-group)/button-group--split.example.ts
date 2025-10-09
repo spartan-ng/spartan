@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucidePlus } from '@ng-icons/lucide';
 import { HlmButton } from '@spartan-ng/helm/button';
-import { HlmButtonGroup, HlmButtonGroupSeparator } from '@spartan-ng/helm/button-group';
+import { HlmButtonGroupImports } from '@spartan-ng/helm/button-group';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 
 @Component({
 	selector: 'spartan-button-group-split',
-	imports: [HlmIcon, NgIcon, HlmButton, HlmButtonGroup, HlmButtonGroupSeparator],
+	imports: [HlmIcon, NgIcon, HlmButton, HlmButtonGroupImports],
 	providers: [
 		provideIcons({
 			lucidePlus,

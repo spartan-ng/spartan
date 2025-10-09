@@ -16,31 +16,10 @@ import { BrnMenuTrigger } from '@spartan-ng/brain/menu';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmButtonGroup } from '@spartan-ng/helm/button-group';
 import { HlmIcon } from '@spartan-ng/helm/icon';
-import {
-	HlmMenu,
-	HlmMenuGroup,
-	HlmMenuItem,
-	HlmMenuItemRadio,
-	HlmMenuItemRadioIndicator,
-	HlmMenuSeparator,
-	HlmSubMenu,
-} from '@spartan-ng/helm/menu';
+import { HlmMenuImports } from '@spartan-ng/helm/menu';
 @Component({
 	selector: 'spartan-button-group-preview',
-	imports: [
-		NgIcon,
-		HlmIcon,
-		HlmButton,
-		HlmButtonGroup,
-		HlmMenu,
-		HlmMenuGroup,
-		HlmMenuItem,
-		HlmMenuSeparator,
-		BrnMenuTrigger,
-		HlmSubMenu,
-		HlmMenuItemRadio,
-		HlmMenuItemRadioIndicator,
-	],
+	imports: [NgIcon, HlmIcon, HlmButton, HlmButtonGroup, BrnMenuTrigger, HlmMenuImports],
 	providers: [
 		provideIcons({
 			lucideArrowLeft,

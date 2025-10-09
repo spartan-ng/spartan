@@ -2,13 +2,13 @@ import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCopy } from '@ng-icons/lucide';
 import { HlmButton } from '@spartan-ng/helm/button';
-import { HlmButtonGroup, HlmButtonGroupText } from '@spartan-ng/helm/button-group';
+import { HlmButtonGroupImports } from '@spartan-ng/helm/button-group';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmInput } from '@spartan-ng/helm/input';
 
 @Component({
 	selector: 'spartan-button-group-with-text',
-	imports: [HlmIcon, NgIcon, HlmButton, HlmButtonGroup, HlmButtonGroupText, HlmInput],
+	imports: [HlmIcon, NgIcon, HlmButton, HlmInput, HlmButtonGroupImports],
 	providers: [
 		provideIcons({
 			lucideCopy,

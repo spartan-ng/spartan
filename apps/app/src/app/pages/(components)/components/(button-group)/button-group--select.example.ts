@@ -3,14 +3,14 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideArrowRight } from '@ng-icons/lucide';
 import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { HlmButton } from '@spartan-ng/helm/button';
-import { HlmButtonGroup } from '@spartan-ng/helm/button-group';
+import { HlmButtonGroupImports } from '@spartan-ng/helm/button-group';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmInput } from '@spartan-ng/helm/input';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
 
 @Component({
 	selector: 'spartan-button-group-select',
-	imports: [HlmIcon, NgIcon, HlmButton, HlmButtonGroup, HlmInput, BrnSelectImports, HlmSelectImports],
+	imports: [HlmIcon, NgIcon, HlmInput, HlmButton, BrnSelectImports, HlmSelectImports, HlmButtonGroupImports],
 	providers: [
 		provideIcons({
 			lucideArrowRight,

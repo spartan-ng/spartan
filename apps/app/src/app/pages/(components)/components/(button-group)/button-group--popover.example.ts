@@ -10,7 +10,7 @@ import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 
 @Component({
 	selector: 'spartan-button-group-popover',
-	imports: [HlmIcon, NgIcon, HlmButton, HlmButtonGroup, BrnPopoverImports, HlmPopoverImports, HlmInput],
+	imports: [HlmIcon, NgIcon, HlmInput, HlmButton, HlmButtonGroup, BrnPopoverImports, HlmPopoverImports],
 	providers: [
 		provideIcons({
 			lucideChevronDown,

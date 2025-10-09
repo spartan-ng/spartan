@@ -13,7 +13,7 @@ exports[`Theme generator Tailwind v3 should add the gray theme styles to the glo
 :root {
 color-scheme: light;
 
---font-sans: ''
+--font-sans: '';
 
 --background: 0deg 0% 100%;
 --foreground: 224.06deg 72.27% 4.17%;
@@ -79,7 +79,7 @@ exports[`Theme generator Tailwind v3 should add the neutral theme styles to the 
 :root {
 color-scheme: light;
 
---font-sans: ''
+--font-sans: '';
 
 --background: 0deg 0% 100%;
 --foreground: 0deg 0.02% 3.94%;
@@ -145,7 +145,7 @@ exports[`Theme generator Tailwind v3 should add the slate theme styles to the gl
 :root {
 color-scheme: light;
 
---font-sans: ''
+--font-sans: '';
 
 --background: 0deg 0% 100%;
 --foreground: 228.82deg 85.15% 5%;
@@ -211,7 +211,7 @@ exports[`Theme generator Tailwind v3 should add the stone theme styles to the gl
 :root {
 color-scheme: light;
 
---font-sans: ''
+--font-sans: '';
 
 --background: 0deg 0% 100%;
 --foreground: 344.17deg 10.1% 4.29%;
@@ -276,7 +276,7 @@ exports[`Theme generator Tailwind v3 should add the zinc theme styles to the glo
 :root {
 color-scheme: light;
 
---font-sans: ''
+--font-sans: '';
 
 --background: 0deg 0% 100%;
 --foreground: 344.97deg 13.46% 3.85%;
@@ -338,7 +338,7 @@ exports[`Theme generator Tailwind v4 should add the gray theme styles to the glo
 :root {
 color-scheme: light;
 
---font-sans: ''
+--font-sans: '';
 
 --background: oklch(1 0 0);
 --foreground: oklch(0.13 0.028 261.692);
@@ -400,7 +400,7 @@ exports[`Theme generator Tailwind v4 should add the neutral theme styles to the 
 :root {
 color-scheme: light;
 
---font-sans: ''
+--font-sans: '';
 
 --background: oklch(1 0 0);
 --foreground: oklch(0.145 0 0);
@@ -462,7 +462,7 @@ exports[`Theme generator Tailwind v4 should add the slate theme styles to the gl
 :root {
 color-scheme: light;
 
---font-sans: ''
+--font-sans: '';
 
 --background: oklch(1 0 0);
 --foreground: oklch(0.129 0.042 264.695);
@@ -524,7 +524,7 @@ exports[`Theme generator Tailwind v4 should add the stone theme styles to the gl
 :root {
 color-scheme: light;
 
---font-sans: ''
+--font-sans: '';
 
 --background: oklch(1 0 0);
 --foreground: oklch(0.147 0.004 49.25);
@@ -586,7 +586,7 @@ exports[`Theme generator Tailwind v4 should add the zinc theme styles to the glo
 :root {
 color-scheme: light;
 
---font-sans: ''
+--font-sans: '';
 
 --background: oklch(1 0 0);
 --foreground: oklch(0.141 0.005 285.823);

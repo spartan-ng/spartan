@@ -54,7 +54,7 @@ export function addThemeToApplicationStyles(
 	const CDK_IMPORT = `@import '@angular/cdk/overlay-prebuilt.css';`;
 	const ckdOverlayImport = stylesEntryPointContent.includes(CDK_IMPORT) ? '' : CDK_IMPORT;
 
-	const fontSans = stylesEntryPointContent.includes('--font-sans') ? '' : `--font-sans: ''`;
+	const fontSans = stylesEntryPointContent.includes('--font-sans') ? '' : `--font-sans: '';`;
 
 	const colorScheme = tailwindVersion === 4 ? themes[options.theme].cssVarsV4 : themes[options.theme].cssVarsV3;
 

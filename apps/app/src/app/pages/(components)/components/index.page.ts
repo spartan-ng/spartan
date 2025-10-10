@@ -1,6 +1,56 @@
 import type { RouteMeta } from '@analogjs/router';
+import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { components } from '@spartan-ng/app/app/shared/components';
+import { MainSection } from '@spartan-ng/app/app/shared/layout/main-section';
+import { PageBottomNav } from '@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav';
+import { PageBottomNavLink } from '@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav-link';
+import { PageNav } from '@spartan-ng/app/app/shared/layout/page-nav/page-nav';
+import { SectionIntro } from '@spartan-ng/app/app/shared/layout/section-intro';
+import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
 
 export const routeMeta: RouteMeta = {
-	redirectTo: '/components/accordion',
-	pathMatch: 'full',
+	data: { breadcrumb: 'Components' },
+	meta: metaWith(
+		'spartan/ui - Components',
+		'Here you can find all the components available in the library. We are working on adding more components.',
+	),
+	title: 'spartan/ui - Components',
 };
+@Component({
+	selector: 'spartan-input',
+	imports: [MainSection, SectionIntro, PageBottomNav, PageBottomNavLink, PageNav, RouterLink],
+	template: `
+		<section spartanMainSection>
+			<spartan-section-intro
+				name="Components"
+				lead="Here you can find all the components available in the library. We are working on adding more components."
+			/>
+
+			<div
+				class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-x-8 lg:gap-x-16 lg:gap-y-6 xl:gap-x-20"
+			>
+				@for (component of _components; track component.url) {
+					<a
+						class="inline-flex items-center gap-2 text-lg font-medium underline-offset-4 hover:underline md:text-base"
+						[routerLink]="'/components' + component.url"
+					>
+						{{ component.label }}
+						@if (component.new) {
+							<span class="flex size-2 rounded-full bg-blue-500"></span>
+						}
+					</a>
+				}
+			</div>
+
+			<spartan-page-bottom-nav>
+				<spartan-page-bottom-nav-link href="accordion" label="Accordion" />
+				<spartan-page-bottom-nav-link direction="previous" href="/documentation/introduction" label="Docs" />
+			</spartan-page-bottom-nav>
+		</section>
+		<spartan-page-nav />
+	`,
+})
+export default class TogglePage {
+	protected readonly _components = components;
+}

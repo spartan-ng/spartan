@@ -42,6 +42,7 @@ export const routeMeta: RouteMeta = {
 				</p>
 			</div>
 		</div>
+
 		<spartan-page />
 	`,
 })

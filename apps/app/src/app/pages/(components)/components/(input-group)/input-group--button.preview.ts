@@ -11,17 +11,17 @@ import { toast } from 'ngx-sonner';
 	imports: [HlmInputGroupImports, HlmIcon, NgIcon, HlmToasterImports],
 	providers: [provideIcons({ lucideSend })],
 	template: `
-		<hlm-toaster />
-		<div class="flex flex-col gap-4">
-			<hlm-input-group>
-				<input hlmInput />
-				<button hlmSuffix><ng-icon hlm name="lucideSend" (click)="_send()" /></button>
-			</hlm-input-group>
-			<hlm-input-group>
-				<input hlmInput />
-				<button hlmSuffixAddon><ng-icon hlm name="lucideSend" (click)="_send()" /></button>
-			</hlm-input-group>
-		</div>
+		<!--		<hlm-toaster />-->
+		<!--		<div class="flex flex-col gap-4">-->
+		<!--			<hlm-input-group>-->
+		<!--				<input hlmInput />-->
+		<!--				<button hlmSuffix><ng-icon hlm name="lucideSend" (click)="_send()" /></button>-->
+		<!--			</hlm-input-group>-->
+		<!--			<hlm-input-group>-->
+		<!--				<input hlmInput />-->
+		<!--				<button hlmSuffixAddon><ng-icon hlm name="lucideSend" (click)="_send()" /></button>-->
+		<!--			</hlm-input-group>-->
+		<!--		</div>-->
 	`,
 })
 export class InputGroupButtonPreview {

@@ -1,4 +1,4 @@
-import { Directive, input } from '@angular/core';
+import { computed, Directive, input } from '@angular/core';
 import { hlm } from '@spartan-ng/helm/utils';
 import { cva } from 'class-variance-authority';
 import { ClassValue } from 'clsx';
@@ -23,16 +23,17 @@ export const buttonGroupVariants = cva(
 @Directive({
 	selector: '[hlmButtonGroup]',
 	host: {
+		'data-slot': 'button-group',
+		role: 'group',
 		'[class]': '_computedClass()',
 		'[attr.data-orientation]': 'orientation()',
-		'[attr.data-slot]': '"button-group"',
-		role: 'group',
 	},
 })
 export class HlmButtonGroup {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	public readonly orientation = input<'horizontal' | 'vertical'>('horizontal');
 
-	protected readonly _computedClass = () =>
-		hlm(buttonGroupVariants({ orientation: this.orientation() }), this.userClass());
+	protected readonly _computedClass = computed(() =>
+		hlm(buttonGroupVariants({ orientation: this.orientation() }), this.userClass()),
+	);
 }

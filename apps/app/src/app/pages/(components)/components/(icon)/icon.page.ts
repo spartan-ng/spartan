@@ -11,6 +11,8 @@ import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
 
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { link } from '@spartan-ng/app/app/shared/typography/link';
+import { hlmCode, hlmH4, hlmP, hlmUl } from '@spartan-ng/helm/typography';
 import { PageBottomNav } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav';
 import { PageBottomNavLink } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav-link';
 import { PageNav } from '../../../../shared/layout/page-nav/page-nav';
@@ -20,6 +22,9 @@ import { Tabs } from '../../../../shared/layout/tabs';
 import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
+import { IconMultipleSetsPreview } from './icon--multiple.example';
+import { IconResponsivePreview } from './icon--responsive.example';
+import { IconSizePreview } from './icon--size.example';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Icon', api: 'icon' },
@@ -29,6 +34,27 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-icon',
+	imports: [
+		UIApiDocs,
+		MainSection,
+		Code,
+		SectionIntro,
+		SectionSubHeading,
+		Tabs,
+		TabsCli,
+		CodePreview,
+		PageNav,
+		PageBottomNav,
+		PageBottomNavLink,
+		IconPreview,
+		HlmInput,
+		NgIcon,
+		HlmIcon,
+		IconMultipleSetsPreview,
+		IconSizePreview,
+		IconResponsivePreview,
+	],
+	providers: [provideIcons(lucideIcons)],
 	template: `
 		<section spartanMainSection>
 			<spartan-section-intro name="Icon" lead="Visual cues for enhancing user interaction." />
@@ -40,8 +66,48 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
+			<spartan-section-sub-heading id="about">About</spartan-section-sub-heading>
+			<p class="${hlmP} mb-6">
+				Icon is built on top of
+				<a href="https://ng-icons.github.io/ng-icons" target="_blank" rel="noreferrer" class="${link}">ng-icons</a>
+				by
+				<a href="https://github.com/ashley-hunter" target="_blank" rel="noreferrer" class="${link}">
+					&#64;ashley-hunter
+				</a>
+				.
+			</p>
+
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
 			<spartan-cli-tabs class="mt-4" nxCode="npx nx g @spartan-ng/cli:ui icon" ngCode="ng g @spartan-ng/cli:ui icon" />
+
+			<p class="${hlmP}">
+				This will also install
+				<code class="${hlmCode}">&#64;ng-icons/core</code>
+				and
+				<code class="${hlmCode}">&#64;ng-icons/lucide</code>
+				. ng-icons supports multiple
+				<a href="https://ng-icons.github.io/ng-icons/#/browse-icons" target="_blank" rel="noreferrer" class="${link}">
+					icon sets
+				</a>
+				, each with its own package.
+			</p>
+
+			<p class="${hlmP}">
+				By default, spartan/ui components use the
+				<a href="https://lucide.dev/" target="_blank" rel="noreferrer" class="${link}">Lucide</a>
+				(
+				<code class="${hlmCode}">&#64;ng-icons/lucide</code>
+				) icon set. You can customize this behavior in two ways:
+			</p>
+
+			<ul class="${hlmUl}">
+				<li>
+					Replace
+					<code class="${hlmCode}">&#64;ng-icons/lucide</code>
+					entirely with another icon set - icon names vary and must be updated manually
+				</li>
+				<li>Use multiple icon sets side-by-side by installing additional packages</li>
+			</ul>
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="space-y-4">
@@ -49,7 +115,45 @@ export const routeMeta: RouteMeta = {
 				<spartan-code [code]="_defaultSkeleton" />
 			</div>
 
-			<spartan-section-sub-heading id="icons">Icons</spartan-section-sub-heading>
+			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="helm" />
+
+			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
+
+			<h3 id="examples__size" class="${hlmH4} mb-2 mt-6">Size</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-icon-size />
+				</div>
+				<spartan-code secondTab [code]="_sizeCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__responsive_size" class="${hlmH4} mb-2 mt-6">Responsive Size</h3>
+
+			<p class="${hlmP} mb-6">
+				Use font-sizes (e.g.
+				<code class="${hlmCode}">text-lg</code>
+				) utilities to adjust icon size responsively. The
+				<code class="${hlmCode}">HlmIcon</code>
+				directive is not required.
+			</p>
+
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-icon-responsive />
+				</div>
+				<spartan-code secondTab [code]="_responsiveCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__multiple_icon_sets" class="${hlmH4} mb-2 mt-6">Multiple Icon Sets</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-icon-multiple-sets />
+				</div>
+				<spartan-code secondTab [code]="_multipleCode()" />
+			</spartan-tabs>
+
+			<spartan-section-sub-heading id="icons">Lucide Icons</spartan-section-sub-heading>
 			<input
 				#searchQuery
 				class="w-full"
@@ -69,9 +173,6 @@ export const routeMeta: RouteMeta = {
 				}
 			</div>
 
-			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
-			<spartan-ui-api-docs docType="helm" />
-
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="input" label="Input" />
 				<spartan-page-bottom-nav-link direction="previous" href="hover-card" label="Hover Card" />
@@ -79,28 +180,13 @@ export const routeMeta: RouteMeta = {
 		</section>
 		<spartan-page-nav />
 	`,
-	imports: [
-		UIApiDocs,
-		MainSection,
-		Code,
-		SectionIntro,
-		SectionSubHeading,
-		Tabs,
-		TabsCli,
-		CodePreview,
-		PageNav,
-		PageBottomNav,
-		PageBottomNavLink,
-		IconPreview,
-		HlmInput,
-		NgIcon,
-		HlmIcon,
-	],
-	providers: [provideIcons(lucideIcons)],
 })
 export default class IconPage {
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('icon');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
+	protected readonly _sizeCode = computed(() => this._snippets()['size']);
+	protected readonly _responsiveCode = computed(() => this._snippets()['responsive']);
+	protected readonly _multipleCode = computed(() => this._snippets()['multiple']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 

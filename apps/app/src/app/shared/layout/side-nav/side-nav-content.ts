@@ -100,6 +100,7 @@ export class SideNavContent {
 				{ label: 'Input', url: '/input' },
 				{ label: 'Input Group', url: '/input-group' },
 				{ label: 'Input OTP', url: '/input-otp' },
+				{ label: 'Item', url: '/item' },
 				{ label: 'Kbd', url: '/kbd' },
 				{ label: 'Label', url: '/label' },
 				{ label: 'Menubar', url: '/menubar' },

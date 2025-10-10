@@ -23,15 +23,9 @@ export async function helmSecondaryEntrypointGenerator(tree: Tree, options: Helm
 	// empty the index.ts file
 	tree.write(
 		joinPathFragments(sourceRoot, 'index.ts'),
-		`import { NgModule } from '@angular/core';
-
+		`
 export const Hlm${className}Imports = [] as const;
-
-@NgModule({
-	imports: [...Hlm${className}Imports],
-	exports: [...Hlm${className}Imports],
-})
-export class Hlm${className}Module {}`,
+`,
 	);
 
 	// create the generator files
@@ -42,7 +36,7 @@ export class Hlm${className}Module {}`,
 		'generators',
 		'ui',
 		'libs',
-		normalizedName,
+		internalName,
 		'generator.ts',
 	);
 
@@ -57,7 +51,7 @@ export async function generator(tree: Tree, options: HlmBaseGeneratorSchema) {
 		...options,
 		primitiveName: '${normalizedName}',
 		internalName: '${internalName}',
-		publicName: '${normalizedName}',
+		publicName: '${internalName}',
 	});
 }`,
 	);

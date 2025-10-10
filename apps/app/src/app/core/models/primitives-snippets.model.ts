@@ -26,6 +26,7 @@ export type PrimitiveSnippet =
 	| 'input'
 	| 'input-group'
 	| 'input-otp'
+	| 'item'
 	| 'kbd'
 	| 'label'
 	| 'menubar'

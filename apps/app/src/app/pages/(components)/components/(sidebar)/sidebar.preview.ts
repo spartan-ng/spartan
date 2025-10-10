@@ -89,25 +89,21 @@ export class SidebarPreviewComponent {}
 export const cssCode = `
 @layer base {
   :root {
-       --sidebar: 300 0% 98%;
-        --sidebar-foreground: 300 0% 4%;
-        --sidebar-primary: 330 0% 9%;
-        --sidebar-primary-foreground: 300 0% 98%;
-        --sidebar-accent: 300 0% 96%;
-        --sidebar-accent-foreground: 330 0% 9%;
-        --sidebar-border: 330 0% 90%;
-        --sidebar-ring: 0 0% 63%;
+    --sidebar: 0 0% 98%;
+    --sidebar-foreground: 0 0% 4%;
+    --sidebar-accent: 0 0% 96%;
+    --sidebar-accent-foreground: 0 0% 9%;
+    --sidebar-border: 0 0% 90%;
+    --sidebar-ring: 0 0% 63%;
   }
 
   .dark {
-    --sidebar: 300 0% 98%;
-        --sidebar-foreground: 300 0% 4%;
-        --sidebar-primary: 330 0% 9%;
-        --sidebar-primary-foreground: 300 0% 98%;
-        --sidebar-accent: 300 0% 96%;
-        --sidebar-accent-foreground: 330 0% 9%;
-        --sidebar-border: 330 0% 90%;
-        --sidebar-ring: 0 0% 63%;
+    --sidebar: 0 0% 9%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-accent: 0 0% 15%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 0 0% 100% / 0.1;
+    --sidebar-ring: 0 0% 32%;
   }
 }
 `;

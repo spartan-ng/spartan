@@ -9,22 +9,20 @@ type Country = {
 };
 
 @Component({
-	selector: 'spartan-autocomplete-countries',
+	selector: 'spartan-autocomplete-config',
 	imports: [HlmAutocompleteImports],
 	template: `
-		<hlm-autocomplete [filteredOptions]="filteredCountries()" [optionTemplate]="option" [(search)]="search" />
-
-		<!-- custom option template with access to the option item -->
-		<ng-template #option let-option>{{ option.flag }} {{ option.name }}</ng-template>
+		<hlm-autocomplete [filteredOptions]="filteredCountries()" [(search)]="search" />
 	`,
 	providers: [
 		provideHlmAutocompleteConfig({
+			transformOptionToString: (option: Country) => `${option.flag} ${option.name}`,
 			transformValueToSearch: (option: Country) => `${option.flag} ${option.name}`,
 		}),
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AutocompleteCountries {
+export class AutocompleteConfig {
 	private readonly _countries: Country[] = [
 		{ name: 'Argentina', code: 'AR', flag: '🇦🇷' },
 		{ name: 'Australia', code: 'AU', flag: '🇦🇺' },

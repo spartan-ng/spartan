@@ -442,7 +442,22 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "ClassValue",
           },
           {
+            "name": "autocompleteSearchClass",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "autocompleteInputClass",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
             "name": "autocompleteListClass",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "autocompleteItemClass",
             "required": false,
             "type": "ClassValue",
           },
@@ -469,7 +484,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "transformValueToSearch",
             "required": false,
-            "type": "(value: T) => string",
+            "type": "(option: T) => string",
+          },
+          {
+            "name": "transformOptionToString",
+            "required": false,
+            "type": "(option: T) => string",
           },
           {
             "name": "optionTemplate",

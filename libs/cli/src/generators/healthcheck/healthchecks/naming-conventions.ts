@@ -1,8 +1,8 @@
 import { visitNotIgnoredFiles } from '@nx/devkit';
 import { tsquery } from '@phenomnomnominal/tsquery';
-import ts from 'typescript';
+import type ts from 'typescript';
 import migrateNamingConventionGenerator from '../../migrate-naming-convention/generator';
-import { Healthcheck, HealthcheckSeverity } from '../healthchecks';
+import { type Healthcheck, HealthcheckSeverity } from '../healthchecks';
 
 export const namingConventionHealthcheck: Healthcheck = {
 	name: 'Naming Conventions',

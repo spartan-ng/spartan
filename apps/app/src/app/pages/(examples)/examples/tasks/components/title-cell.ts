@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideEllipsis } from '@ng-icons/lucide';
-import { Task } from '../services/tasks.models';
+import type { Task } from '../services/tasks.models';
 
-import { CellContext, injectFlexRenderContext } from '@tanstack/angular-table';
+import { type CellContext, injectFlexRenderContext } from '@tanstack/angular-table';
 
 @Component({
 	selector: 'spartan-title-cell',

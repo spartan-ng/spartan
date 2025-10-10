@@ -1,4 +1,4 @@
-import parse, { NodeType, HTMLElement as ParsedHTMLElement } from 'node-html-parser';
+import parse, { NodeType, type HTMLElement as ParsedHTMLElement } from 'node-html-parser';
 export type HTMLElement = ParsedHTMLElement;
 
 export const HTML_PARSE_CONFIG = {

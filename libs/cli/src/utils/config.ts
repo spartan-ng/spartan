@@ -1,15 +1,19 @@
 import { type Tree, readJson } from '@nx/devkit';
 import { prompt } from 'enquirer';
 import z, { ZodError } from 'zod';
-import { GenerateAs, generateOptions } from '../generators/base/lib/generate-as';
+import { type GenerateAs, generateOptions } from '../generators/base/lib/generate-as';
 
 const configPath = 'components.json';
 
 export const ConfigSchema = z.object({
-	componentsPath: z.string(),
-	buildable: z.boolean(),
-	generateAs: z.enum(generateOptions),
-	importAlias: z.string().refine((val) => !val.endsWith('/'), { message: 'importAlias should not end with a slash' }),
+	componentsPath: z.string().optional().default('libs/ui'),
+	buildable: z.boolean().optional().default(true),
+	generateAs: z.enum(generateOptions).optional().default('library'),
+	importAlias: z
+		.string()
+		.optional()
+		.default('@spartan-ng/helm')
+		.refine((val) => !val.endsWith('/'), { message: 'importAlias should not end with a slash' }),
 });
 
 export type Config = z.infer<typeof ConfigSchema>;

@@ -1,6 +1,6 @@
 import { visitNotIgnoredFiles } from '@nx/devkit';
 import { migrateIconGenerator } from '../../migrate-icon/generator';
-import { Healthcheck, HealthcheckSeverity } from '../healthchecks';
+import { type Healthcheck, HealthcheckSeverity } from '../healthchecks';
 
 export const helmIconHealthcheck: Healthcheck = {
 	name: 'Helm Icons',

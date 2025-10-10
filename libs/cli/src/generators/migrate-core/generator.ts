@@ -1,6 +1,6 @@
-import { formatFiles, Tree } from '@nx/devkit';
+import { formatFiles, type Tree } from '@nx/devkit';
 import { visitFiles } from '../../utils/visit-files';
-import { MigrateCoreGeneratorSchema } from './schema';
+import type { MigrateCoreGeneratorSchema } from './schema';
 
 export async function migrateCoreGenerator(tree: Tree, options: MigrateCoreGeneratorSchema) {
 	updateImports(tree);

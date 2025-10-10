@@ -1,4 +1,4 @@
-import { ExistingProvider, InjectionToken, Type } from '@angular/core';
+import { type ExistingProvider, InjectionToken, type Type } from '@angular/core';
 import type { BrnAutocompleteSearchInput } from './brn-autocomplete-search-input';
 
 export const BrnAutocompleteSearchInputToken = new InjectionToken<BrnAutocompleteSearchInput>(

@@ -33,7 +33,7 @@ import {
 	provideExposedSideProviderExisting,
 	provideExposesStateProviderExisting,
 } from '@spartan-ng/brain/core';
-import { BehaviorSubject, fromEvent, merge, Observable, of, Subject } from 'rxjs';
+import { BehaviorSubject, fromEvent, merge, type Observable, of, Subject } from 'rxjs';
 import { delay, distinctUntilChanged, filter, map, share, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { createHoverObservable } from './createHoverObservable';
 

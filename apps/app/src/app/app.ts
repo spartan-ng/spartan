@@ -10,11 +10,11 @@ import { Header } from './shared/header/header';
 		class: 'bg-background relative z-10 flex min-h-svh flex-col',
 	},
 	template: `
-		<spartan-header />
-		<main class="flex flex-1 flex-col">
+		<spartan-header id="spartan-header" />
+		<main class="flex flex-1 flex-col"  id="spartan-main">
 			<router-outlet />
 		</main>
-		<spartan-footer />
+		<spartan-footer id="spartan-footer" />
 	`,
 })
 export class App {}

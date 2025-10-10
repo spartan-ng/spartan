@@ -1,4 +1,4 @@
-import { GenerateAs } from '../base/lib/generate-as';
+import { type GenerateAs } from '../base/lib/generate-as';
 
 export interface MigrateHelmLibrariesGeneratorSchema {
 	directory?: string;

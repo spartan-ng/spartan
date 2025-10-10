@@ -1,4 +1,4 @@
-import { BooleanInput } from '@angular/cdk/coercion';
+import type { BooleanInput } from '@angular/cdk/coercion';
 import { booleanAttribute, Directive, ElementRef, inject, input } from '@angular/core';
 import { BrnDialog } from '@spartan-ng/brain/dialog';
 

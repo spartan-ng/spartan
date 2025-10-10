@@ -442,7 +442,22 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "ClassValue",
           },
           {
+            "name": "autocompleteSearchClass",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "autocompleteInputClass",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
             "name": "autocompleteListClass",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "autocompleteItemClass",
             "required": false,
             "type": "ClassValue",
           },
@@ -469,7 +484,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "transformValueToSearch",
             "required": false,
-            "type": "(value: T) => string",
+            "type": "(option: T) => string",
+          },
+          {
+            "name": "transformOptionToString",
+            "required": false,
+            "type": "(option: T) => string",
           },
           {
             "name": "optionTemplate",
@@ -806,7 +826,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "disabled",
             "required": false,
-            "type": "unknown",
+            "type": "boolean",
           },
         ],
         "models": [],
@@ -2461,6 +2481,88 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       },
     },
   },
+  "input-group": {
+    "brain": {
+      "BrnAffixes": {
+        "inputs": [
+          {
+            "name": "tabindex",
+            "required": false,
+            "type": "number",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+      },
+    },
+    "helm": {
+      "HlmInputGroup": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "inputWrapperClass",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-input-group",
+      },
+      "HlmPrefix": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-prefix,[hlmPrefix]",
+      },
+      "HlmPrefixAddon": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-prefix-addon,[hlmPrefixAddon]",
+      },
+      "HlmSuffix": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-suffix,[hlmSuffix]",
+      },
+      "HlmSuffixAddon": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-suffix-addon,[hlmSuffixAddon]",
+      },
+    },
+  },
   "input-otp": {
     "brain": {
       "BrnInputOtp": {
@@ -2596,6 +2698,34 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [],
         "outputs": [],
         "selector": "hlm-input-otp-slot",
+      },
+    },
+  },
+  "kbd": {
+    "helm": {
+      "HlmKbd": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "kbd[hlmKbd]",
+      },
+      "HlmKbdGroup": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "kbd[hlmKbdGroup]",
       },
     },
   },
@@ -3923,6 +4053,339 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [],
         "outputs": [],
         "selector": "[hlmSheetTitle]",
+      },
+    },
+  },
+  "sidebar": {
+    "helm": {
+      "HlmSidebar": {
+        "inputs": [
+          {
+            "name": "sidebarWidthMobile",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "side",
+            "required": false,
+            "type": "'left' | 'right'",
+          },
+          {
+            "name": "variant",
+            "required": false,
+            "type": "SidebarVariant",
+          },
+          {
+            "name": "collapsible",
+            "required": false,
+            "type": "'offcanvas' | 'icon' | 'none'",
+          },
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-sidebar",
+      },
+      "HlmSidebarContent": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "div[hlmSidebarContent]",
+      },
+      "HlmSidebarFooter": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "div[hlmSidebarFooter]",
+      },
+      "HlmSidebarGroup": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "div[hlmSidebarGroup]",
+      },
+      "HlmSidebarGroupAction": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[hlmSidebarGroupAction]",
+      },
+      "HlmSidebarGroupContent": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "div[hlmSidebarGroupContent]",
+      },
+      "HlmSidebarGroupLabel": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "div[hlmSidebarGroupLabel], button[hlmSidebarGroupLabel]",
+      },
+      "HlmSidebarHeader": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "div[hlmSidebarHeader]",
+      },
+      "HlmSidebarInput": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "input[hlmSidebarInput]",
+      },
+      "HlmSidebarInset": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "main[hlmSidebarInset]",
+      },
+      "HlmSidebarMenu": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "ul[hlmSidebarMenu]",
+      },
+      "HlmSidebarMenuAction": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "showOnHover",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[hlmSidebarMenuAction]",
+      },
+      "HlmSidebarMenuBadge": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "div[hlmSidebarMenuBadge]",
+      },
+      "HlmSidebarMenuButton": {
+        "inputs": [
+          {
+            "name": "variant",
+            "required": false,
+            "type": "'default' | 'outline'",
+          },
+          {
+            "name": "size",
+            "required": false,
+            "type": "'default' | 'sm' | 'lg'",
+          },
+          {
+            "name": "isActive",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[hlmSidebarMenuButton], a[hlmSidebarMenuButton]",
+      },
+      "HlmSidebarMenuItem": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "li[hlmSidebarMenuItem]",
+      },
+      "HlmSidebarMenuSkeleton": {
+        "inputs": [
+          {
+            "name": "showIcon",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "div[hlmSidebarMenuSkeleton]",
+      },
+      "HlmSidebarMenuSub": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "ul[hlmSidebarMenuSub]",
+      },
+      "HlmSidebarMenuSubButton": {
+        "inputs": [
+          {
+            "name": "size",
+            "required": false,
+            "type": "'sm' | 'md'",
+          },
+          {
+            "name": "isActive",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "a[hlmSidebarMenuSubButton], button[hlmSidebarMenuSubButton]",
+      },
+      "HlmSidebarMenuSubItem": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "li[hlmSidebarMenuSubItem]",
+      },
+      "HlmSidebarRail": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[hlmSidebarRail]",
+      },
+      "HlmSidebarSeparator": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "div[hlmSidebarSeparator]",
+      },
+      "HlmSidebarTrigger": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "button[hlmSidebarTrigger]",
+      },
+      "HlmSidebarWrapper": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "sidebarWidth",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "sidebarWidthIcon",
+            "required": false,
+            "type": "unknown",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "div[hlmSidebarWrapper]",
       },
     },
   },

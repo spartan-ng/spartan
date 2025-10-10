@@ -26,7 +26,7 @@ export class BrnTabsList implements AfterContentInit {
 
 	private _keyManager?: FocusKeyManager<BrnTabsTrigger>;
 
-	public triggers = contentChildren(BrnTabsTrigger, { descendants: true });
+	public readonly triggers = contentChildren(BrnTabsTrigger, { descendants: true });
 
 	public ngAfterContentInit() {
 		this._keyManager = new FocusKeyManager<BrnTabsTrigger>(this.triggers())

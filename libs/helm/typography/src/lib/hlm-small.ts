@@ -12,5 +12,5 @@ export const hlmSmall = 'text-sm font-medium leading-none';
 })
 export class HlmSmall {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected _computedClass = computed(() => hlm(hlmSmall, this.userClass()));
+	protected readonly _computedClass = computed(() => hlm(hlmSmall, this.userClass()));
 }

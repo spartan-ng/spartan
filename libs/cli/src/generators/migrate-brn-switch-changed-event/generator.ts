@@ -1,6 +1,6 @@
-import { formatFiles, Tree } from '@nx/devkit';
+import { formatFiles, type Tree } from '@nx/devkit';
 import { visitFiles } from '../../utils/visit-files';
-import { MigrateBrnSwitchChangedEvent } from './schema';
+import type { MigrateBrnSwitchChangedEvent } from './schema';
 
 export async function migrateBrnSwitchChangedEvent(tree: Tree, { skipFormat }: MigrateBrnSwitchChangedEvent) {
 	replaceOpenChangeEvent(tree);

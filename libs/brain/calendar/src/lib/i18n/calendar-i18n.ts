@@ -1,4 +1,4 @@
-import { inject, Injectable, InjectionToken, Provider, signal } from '@angular/core';
+import { inject, Injectable, InjectionToken, type Provider, signal } from '@angular/core';
 
 export type Weekday = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 

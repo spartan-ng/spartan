@@ -14,7 +14,7 @@
  * https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin/src/rules
  */
 
-import { ESLintUtils, TSESTree } from '@typescript-eslint/utils';
+import { ESLintUtils, type TSESTree } from '@typescript-eslint/utils';
 
 export const RULE_NAME = 'prefer-rxjs-operator-compat';
 

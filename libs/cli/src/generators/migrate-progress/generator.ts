@@ -1,5 +1,5 @@
-import { formatFiles, Tree, visitNotIgnoredFiles } from '@nx/devkit';
-import { MigrateScrollAreaGeneratorSchema } from './schema';
+import { formatFiles, type Tree, visitNotIgnoredFiles } from '@nx/devkit';
+import type { MigrateScrollAreaGeneratorSchema } from './schema';
 
 export async function migrateProgressGenerator(tree: Tree, { skipFormat }: MigrateScrollAreaGeneratorSchema) {
 	replaceSelector(tree);

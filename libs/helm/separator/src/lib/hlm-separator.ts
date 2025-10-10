@@ -12,7 +12,7 @@ import type { ClassValue } from 'clsx';
 })
 export class HlmSeparator {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected _computedClass = computed(() =>
+	protected readonly _computedClass = computed(() =>
 		hlm(
 			'bg-border inline-flex shrink-0 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px',
 			this.userClass(),

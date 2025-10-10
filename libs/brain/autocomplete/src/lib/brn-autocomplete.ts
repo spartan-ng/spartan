@@ -13,7 +13,7 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { BrnPopover } from '@spartan-ng/brain/popover';
-import { BrnAutocompleteItem } from './brn-autocomplete-item';
+import type { BrnAutocompleteItem } from './brn-autocomplete-item';
 import { BrnAutocompleteItemToken } from './brn-autocomplete-item.token';
 import { BrnAutocompleteSearchInput } from './brn-autocomplete-search-input';
 import { provideBrnAutocomplete } from './brn-autocomplete.token';
@@ -55,6 +55,9 @@ export class BrnAutocomplete<T> {
 
 	/** @internal The key manager for managing active descendant */
 	public readonly keyManager = new ActiveDescendantKeyManager(this.items, this._injector);
+
+	/** @internal Whether the autocomplete is expanded */
+	public readonly isExpanded = computed(() => this._brnPopover?.stateComputed() === 'open');
 
 	constructor() {
 		this.keyManager

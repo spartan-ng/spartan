@@ -1,6 +1,6 @@
-import { formatFiles, generateFiles, names, Tree } from '@nx/devkit';
+import { formatFiles, generateFiles, names, type Tree } from '@nx/devkit';
 import * as path from 'path';
-import { HelmStoryGeneratorSchema } from './schema';
+import type { HelmStoryGeneratorSchema } from './schema';
 
 export async function helmStoryGenerator(tree: Tree, options: HelmStoryGeneratorSchema) {
 	// derive the story name from the normalizedName - e.g. radio-button => Radio Button

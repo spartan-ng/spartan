@@ -1,6 +1,6 @@
 import type { DialogRef } from '@angular/cdk/dialog';
 import type { Signal, WritableSignal } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { type Observable, Subject } from 'rxjs';
 import { take } from 'rxjs/operators';
 import type { BrnDialogOptions } from './brn-dialog-options';
 import type { BrnDialogState } from './brn-dialog-state';

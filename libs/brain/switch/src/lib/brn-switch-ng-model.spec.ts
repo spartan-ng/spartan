@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, model } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrnSwitch } from './brn-switch';
 import { BrnSwitchThumb } from './brn-switch-thumb';
@@ -10,8 +10,8 @@ import { BrnSwitchThumb } from './brn-switch-thumb';
 	selector: 'brn-switch-ng-model',
 	template: `
 		<label>
-			Airplane mode is: {{ airplaneMode ? 'on' : 'off' }}
-			<brn-switch [disabled]="disabled" [(ngModel)]="airplaneMode">
+			Airplane mode is: {{ airplaneMode() ? 'on' : 'off' }}
+			<brn-switch [disabled]="disabled()" [(ngModel)]="airplaneMode">
 				<brn-switch-thumb />
 			</brn-switch>
 		</label>
@@ -20,16 +20,15 @@ import { BrnSwitchThumb } from './brn-switch-thumb';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BrnSwitchNgModelSpec {
-	@Input()
-	public disabled = false;
-	@Input()
-	public airplaneMode = false;
+	public readonly disabled = input(false);
+
+	public readonly airplaneMode = model(false);
 }
 
 describe('BrnSwitchComponentNgModelIntegration', () => {
 	const setup = async (airplaneMode = false, disabled = false) => {
 		const container = await render(BrnSwitchNgModelSpec, {
-			componentInputs: {
+			inputs: {
 				disabled,
 				airplaneMode,
 			},
@@ -48,7 +47,7 @@ describe('BrnSwitchComponentNgModelIntegration', () => {
 		expect(labelElement).toBeInTheDocument();
 		await user.click(labelElement);
 		expect(await screen.findByRole('switch')).toHaveAttribute('value', 'on');
-		expect(container.fixture.componentInstance.airplaneMode).toBe(true);
+		expect(container.fixture.componentInstance.airplaneMode()).toBe(true);
 	});
 
 	it('should set input as default correctly and click should toggle then', async () => {
@@ -56,21 +55,21 @@ describe('BrnSwitchComponentNgModelIntegration', () => {
 
 		await user.click(labelElement);
 		expect(await screen.findByRole('switch')).toHaveAttribute('value', 'off');
-		expect(container.fixture.componentInstance.airplaneMode).toBe(false);
+		expect(container.fixture.componentInstance.airplaneMode()).toBe(false);
 
 		await user.click(labelElement);
 		expect(await screen.findByRole('switch')).toHaveAttribute('value', 'on');
-		expect(container.fixture.componentInstance.airplaneMode).toBe(true);
+		expect(container.fixture.componentInstance.airplaneMode()).toBe(true);
 	});
 
 	it('should set input as default correctly and enter should toggle then', async () => {
 		const { user, container } = await setup(true);
 
 		await user.keyboard('[Tab][Enter]');
-		expect(container.fixture.componentInstance.airplaneMode).toBe(false);
+		expect(container.fixture.componentInstance.airplaneMode()).toBe(false);
 
 		await user.keyboard('[Enter]');
-		expect(container.fixture.componentInstance.airplaneMode).toBe(true);
+		expect(container.fixture.componentInstance.airplaneMode()).toBe(true);
 	});
 
 	it('should do nothing when disabled', async () => {
@@ -78,10 +77,10 @@ describe('BrnSwitchComponentNgModelIntegration', () => {
 
 		await user.click(labelElement);
 		expect(await screen.findByRole('switch')).toHaveAttribute('value', 'off');
-		expect(container.fixture.componentInstance.airplaneMode).toBe(false);
+		expect(container.fixture.componentInstance.airplaneMode()).toBe(false);
 
 		await user.click(labelElement);
 		expect(await screen.findByRole('switch')).toHaveAttribute('value', 'off');
-		expect(container.fixture.componentInstance.airplaneMode).toBe(false);
+		expect(container.fixture.componentInstance.airplaneMode()).toBe(false);
 	});
 });

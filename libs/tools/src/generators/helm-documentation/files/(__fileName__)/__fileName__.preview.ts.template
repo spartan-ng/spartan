@@ -11,25 +11,12 @@ imports: [
 })
 export class <%= previewComponentName %> {}
 
-export const codeImports = `
+export const defaultImports = `
 import {
 
 } from '@spartan-ng/helm/<%= fileName %>';
 `;
 
-export const codeString = `import { Component } from '@angular/core';${codeImports}
-
-@Component({
-	selector: 'spartan-<%= fileName %>-preview',
-imports: [
-
-	],
-	template: \`
-
-	\`,
-})
-export class <%= previewComponentName %> {}`;
-
-export const codeSkeleton = `
+export const defaultSkeleton = `
 
 `;

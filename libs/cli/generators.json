@@ -55,6 +55,11 @@
 			"schema": "./src/generators/migrate-icon/schema.json",
 			"description": "Migrate hlm-icon to ng-icon"
 		},
+		"migrate-module-imports": {
+			"factory": "./src/generators/migrate-module-imports/generator",
+			"schema": "./src/generators/migrate-module-imports/schema.json",
+			"description": "Migrate module imports to const imports"
+		},
 		"migrate-naming-conventions": {
 			"factory": "./src/generators/migrate-naming-convention/generator",
 			"schema": "./src/generators/migrate-naming-convention/schema.json",
@@ -156,6 +161,11 @@
 			"factory": "./src/generators/migrate-icon/compat",
 			"schema": "./src/generators/migrate-icon/schema.json",
 			"description": "Migrate hlm-icon to ng-icon"
+		},
+		"migrate-module-imports": {
+			"factory": "./src/generators/migrate-module-imports/compat",
+			"schema": "./src/generators/migrate-module-imports/schema.json",
+			"description": "Migrate module imports to const imports"
 		},
 		"migrate-naming-conventions": {
 			"factory": "./src/generators/migrate-naming-convention/compat",

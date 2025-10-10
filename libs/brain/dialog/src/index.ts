@@ -1,5 +1,3 @@
-import { NgModule } from '@angular/core';
-
 import { BrnDialog } from './lib/brn-dialog';
 import { BrnDialogClose } from './lib/brn-dialog-close';
 import { BrnDialogContent } from './lib/brn-dialog-content';
@@ -31,9 +29,3 @@ export const BrnDialogImports = [
 	BrnDialogTitle,
 	BrnDialogDescription,
 ] as const;
-
-@NgModule({
-	imports: [...BrnDialogImports],
-	exports: [...BrnDialogImports],
-})
-export class BrnDialogModule {}

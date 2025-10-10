@@ -2,9 +2,9 @@
 // Check out the code here: https://github.com/nrwl/nx/blob/master/packages/angular/src/generators/setup-tailwind/lib/update-application-styles.ts
 
 import { type ProjectConfiguration, type Tree, joinPathFragments, readJson, stripIndents } from '@nx/devkit';
-import { type PackageJson } from 'nx/src/utils/package-json';
+import type { PackageJson } from 'nx/src/utils/package-json';
 import * as semver from 'semver';
-import { ThemeName, themes } from './colors';
+import { type ThemeName, themes } from './colors';
 
 export interface AddThemeToApplicationStylesOptions {
 	project: string;
@@ -54,7 +54,7 @@ export function addThemeToApplicationStyles(
 	const CDK_IMPORT = `@import '@angular/cdk/overlay-prebuilt.css';`;
 	const ckdOverlayImport = stylesEntryPointContent.includes(CDK_IMPORT) ? '' : CDK_IMPORT;
 
-	const fontSans = stylesEntryPointContent.includes('--font-sans') ? '' : `--font-sans: ''`;
+	const fontSans = stylesEntryPointContent.includes('--font-sans') ? '' : `--font-sans: '';`;
 
 	const colorScheme = tailwindVersion === 4 ? themes[options.theme].cssVarsV4 : themes[options.theme].cssVarsV3;
 

@@ -1,8 +1,8 @@
 import {
 	ChangeDetectorRef,
 	Directive,
-	EmbeddedViewRef,
-	OnDestroy,
+	type EmbeddedViewRef,
+	type OnDestroy,
 	TemplateRef,
 	ViewContainerRef,
 	computed,

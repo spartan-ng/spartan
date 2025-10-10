@@ -79,8 +79,8 @@ export class ComboboxPreview {
 			value: 'nextjs',
 		},
 	];
-	public currentFramework = signal<Framework | undefined>(undefined);
-	public state = signal<'closed' | 'open'>('closed');
+	public readonly currentFramework = signal<Framework | undefined>(undefined);
+	public readonly state = signal<'closed' | 'open'>('closed');
 
 	stateChanged(state: 'open' | 'closed') {
 		this.state.set(state);

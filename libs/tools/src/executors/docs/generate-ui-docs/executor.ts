@@ -1,8 +1,8 @@
-import { ExecutorContext } from '@nx/devkit';
+import type { ExecutorContext } from '@nx/devkit';
 import fs from 'fs';
 import path from 'path';
 import { CallExpression, ObjectLiteralExpression, Project, PropertyAssignment } from 'ts-morph';
-import { GenerateUiDocsExecutorSchema } from './schema';
+import type { GenerateUiDocsExecutorSchema } from './schema';
 
 export default async function runExecutor(options: GenerateUiDocsExecutorSchema, context: ExecutorContext) {
 	// Convert relative paths to absolute paths using workspace root

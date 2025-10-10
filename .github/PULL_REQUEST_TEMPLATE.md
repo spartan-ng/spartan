@@ -51,7 +51,9 @@ What kind of change does this PR introduce?
 - [ ] hover-card
 - [ ] icon
 - [ ] input
+- [ ] input-group
 - [ ] input-otp
+- [ ] kbd
 - [ ] label
 - [ ] menubar
 - [ ] navigation-menu
@@ -63,6 +65,7 @@ What kind of change does this PR introduce?
 - [ ] select
 - [ ] separator
 - [ ] sheet
+- [ ] sidebar
 - [ ] skeleton
 - [ ] slider
 - [ ] sonner

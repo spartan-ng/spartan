@@ -1,7 +1,7 @@
 import { readJson } from '@nx/devkit';
-import { PackageJson } from 'nx/src/utils/package-json';
+import type { PackageJson } from 'nx/src/utils/package-json';
 import * as semver from 'semver';
-import { Healthcheck, HealthcheckSeverity } from '../healthchecks';
+import { type Healthcheck, HealthcheckSeverity } from '../healthchecks';
 
 export const versionHealthcheck: Healthcheck = {
 	name: 'Spartan - Dependency Check',

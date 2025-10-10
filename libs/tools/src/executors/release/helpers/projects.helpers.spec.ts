@@ -1,4 +1,4 @@
-import { ExecutorContext } from '@nx/devkit';
+import type { ExecutorContext } from '@nx/devkit';
 import { getProjectName, getRoot } from './projects.helpers';
 
 describe('executor project helper', () => {

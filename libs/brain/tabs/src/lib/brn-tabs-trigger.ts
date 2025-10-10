@@ -1,8 +1,8 @@
-import { BooleanInput } from '@angular/cdk/coercion';
+import type { BooleanInput } from '@angular/cdk/coercion';
 import {
 	Directive,
 	ElementRef,
-	OnDestroy,
+	type OnDestroy,
 	booleanAttribute,
 	computed,
 	effect,

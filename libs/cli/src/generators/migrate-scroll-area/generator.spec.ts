@@ -1,5 +1,5 @@
 import { applicationGenerator, E2eTestRunner, UnitTestRunner } from '@nx/angular/generators';
-import { Tree } from '@nx/devkit';
+import type { Tree } from '@nx/devkit';
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
 import { migrateScrollAreaGenerator } from './generator';
 

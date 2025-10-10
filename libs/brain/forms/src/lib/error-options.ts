@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, FormGroupDirective, NgForm } from '@angular/forms';
+import { type AbstractControl, type FormGroupDirective, NgForm } from '@angular/forms';
 
 /** Error state matcher that matches when a control is invalid and dirty. */
 @Injectable()

@@ -7,7 +7,7 @@ import {
 	type OnDestroy,
 	type OnInit,
 	PLATFORM_ID,
-	TemplateRef,
+	type TemplateRef,
 	computed,
 	inject,
 	isDevMode,
@@ -55,7 +55,7 @@ type SamePageAnchorLink = {
 	`,
 })
 export class PageNav implements OnInit, AfterViewInit, OnDestroy {
-	public pageNavTpl = viewChild.required<TemplateRef<unknown>>('pageNav');
+	public readonly pageNavTpl = viewChild.required<TemplateRef<unknown>>('pageNav');
 
 	private readonly _route = inject(ActivatedRoute);
 	private readonly _routeData = toSignal(this._route.data);

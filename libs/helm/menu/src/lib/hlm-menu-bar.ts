@@ -14,7 +14,7 @@ import type { ClassValue } from 'clsx';
 })
 export class HlmMenuBar {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected _computedClass = computed(() =>
+	protected readonly _computedClass = computed(() =>
 		hlm('bg-background shadow-xs flex h-9 items-center gap-1 rounded-md border p-1', this.userClass()),
 	);
 }

@@ -3,7 +3,7 @@ import {
 	ChangeDetectionStrategy,
 	Component,
 	ElementRef,
-	OnInit,
+	type OnInit,
 	PLATFORM_ID,
 	effect,
 	inject,

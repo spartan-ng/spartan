@@ -1,4 +1,3 @@
-import { NgModule } from '@angular/core';
 import { BrnSelect } from './lib/brn-select';
 import { BrnSelectContent, BrnSelectScrollDown, BrnSelectScrollUp } from './lib/brn-select-content';
 import { BrnSelectGroup } from './lib/brn-select-group';
@@ -8,6 +7,7 @@ import { BrnSelectPlaceholder } from './lib/brn-select-placeholder';
 import { BrnSelectTrigger } from './lib/brn-select-trigger';
 import { BrnSelectValue } from './lib/brn-select-value';
 import { BrnSelectValueTemplate } from './lib/brn-select-value-template';
+
 export * from './lib/brn-select';
 export * from './lib/brn-select-content';
 export * from './lib/brn-select-group';
@@ -31,9 +31,3 @@ export const BrnSelectImports = [
 	BrnSelectValueTemplate,
 	BrnSelectPlaceholder,
 ] as const;
-
-@NgModule({
-	imports: [...BrnSelectImports],
-	exports: [...BrnSelectImports],
-})
-export class BrnSelectModule {}

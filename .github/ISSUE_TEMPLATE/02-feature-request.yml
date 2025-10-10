@@ -38,7 +38,9 @@ body:
         - hover-card
         - icon
         - input
+        - input-group
         - input-otp
+        - kbd
         - label
         - menubar
         - navigation-menu
@@ -50,6 +52,7 @@ body:
         - select
         - separator
         - sheet
+        - sidebar
         - skeleton
         - slider
         - sonner

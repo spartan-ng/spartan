@@ -10,7 +10,7 @@ import { ApiDocsService } from '../../core/services/api-docs.service';
 import { PrimitiveSnippetsService } from '../../core/services/primitive-snippets.service';
 import { Page } from '../../shared/layout/page';
 import { metaWith } from '../../shared/meta/meta.util';
-import { load } from './components.server';
+import type { load } from './components.server';
 
 export const routeMeta: RouteMeta = {
 	meta: metaWith(

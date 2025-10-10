@@ -106,8 +106,8 @@ import { HlmCode } from '@spartan-ng/helm/typography';
 	},
 })
 export class CommandDialog {
-	public command = signal('');
-	public state = signal<'closed' | 'open'>('closed');
+	public readonly command = signal('');
+	public readonly state = signal<'closed' | 'open'>('closed');
 
 	onKeyDown(event: KeyboardEvent) {
 		if ((event.metaKey || event.ctrlKey) && event.shiftKey && (event.key === 'p' || event.key === 'P')) {

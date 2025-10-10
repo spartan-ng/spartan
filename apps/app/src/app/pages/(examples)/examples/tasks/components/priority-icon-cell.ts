@@ -7,10 +7,10 @@ import {
 	lucideChevronUp,
 	lucideCircleHelp,
 } from '@ng-icons/lucide';
-import { Task } from '../services/tasks.models';
+import type { Task } from '../services/tasks.models';
 
 import { HlmIcon } from '@spartan-ng/helm/icon';
-import { CellContext, injectFlexRenderContext } from '@tanstack/angular-table';
+import { type CellContext, injectFlexRenderContext } from '@tanstack/angular-table';
 import { PriorityIconPipe } from '../pipes/priority-icon.pipe';
 
 @Component({

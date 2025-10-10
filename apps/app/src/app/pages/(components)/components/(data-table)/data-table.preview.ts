@@ -12,8 +12,8 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 import { HlmTableImports } from '@spartan-ng/helm/table';
 import { hlmMuted } from '@spartan-ng/helm/typography';
 import {
-	ColumnDef,
-	ColumnFiltersState,
+	type ColumnDef,
+	type ColumnFiltersState,
 	createAngularTable,
 	flexRenderComponent,
 	FlexRenderDirective,
@@ -21,8 +21,8 @@ import {
 	getFilteredRowModel,
 	getPaginationRowModel,
 	getSortedRowModel,
-	PaginationState,
-	SortingState,
+	type PaginationState,
+	type SortingState,
 } from '@tanstack/angular-table';
 import { ActionDropdown } from './action-dropdown';
 import { TableHeadSelection, TableRowSelection } from './selection-column';

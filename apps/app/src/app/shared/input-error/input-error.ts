@@ -18,7 +18,7 @@ export class InputError {
 	public touchedState = this._formField.touchedState;
 	public errors = this._formField.errors;
 
-	public errorMessages = computed(() =>
+	public readonly errorMessages = computed(() =>
 		Object.values(this.errors() ?? {}).map((error) => error.message ?? 'Field invalid'),
 	);
 }

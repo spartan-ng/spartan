@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import { hlm } from '@spartan-ng/helm/utils';
-import { ClassValue } from 'clsx';
+import type { ClassValue } from 'clsx';
 import { HlmCarousel } from './hlm-carousel';
 
 @Component({
@@ -20,7 +20,7 @@ export class HlmCarouselSlideDisplay {
 	protected readonly _currentSlide = computed(() => this._carousel.currentSlide() + 1);
 
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected _computedClass = computed(() => hlm('', this.userClass()));
+	protected readonly _computedClass = computed(() => hlm('', this.userClass()));
 
 	public readonly slideClass = input<ClassValue>('text-muted-foreground text-sm');
 

@@ -1,8 +1,8 @@
 // breadcrumb.service.ts
 import { Injectable, inject } from '@angular/core';
-import { ActivatedRoute, Data, NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, type Data, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { Breadcrumb, BreadcrumbSharedService } from './breadcrumb-shared.service';
+import { type Breadcrumb, BreadcrumbSharedService } from './breadcrumb-shared.service';
 
 @Injectable({
 	providedIn: 'root',

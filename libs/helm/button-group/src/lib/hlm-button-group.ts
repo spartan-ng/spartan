@@ -23,10 +23,10 @@ export const buttonGroupVariants = cva(
 @Directive({
 	selector: '[hlmButtonGroup]',
 	host: {
+		'data-slot': 'button-group',
+		role: 'group',
 		'[class]': '_computedClass()',
 		'[attr.data-orientation]': 'orientation()',
-		'[attr.data-slot]': '"button-group"',
-		role: 'group',
 	},
 })
 export class HlmButtonGroup {

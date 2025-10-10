@@ -78,7 +78,7 @@ export const routeMeta: RouteMeta = {
 			<p class="${hlmP}">If you are using Tailwind 3 add the following to your config file:</p>
 			<spartan-cli-tabs
 				language="js"
-				class="mb-6 mt-4"
+				class="mt-4 mb-6"
 				nxCode="
 const { createGlobPatternsForDependencies } = require('@nx/angular/tailwind');
 const { join } = require('path');
@@ -116,7 +116,7 @@ module.exports = {
 
 			<spartan-code class="mt-4" code="@import '@spartan-ng/brain/hlm-tailwind-preset.css';" />
 
-			<h3 id="intellisense" class="${hlmH4} mb-2 mt-6">IntelliSense</h3>
+			<h3 id="intellisense" class="${hlmH4} mt-6 mb-2">IntelliSense</h3>
 
 			<p>
 				You can enable autocompletion inside
@@ -168,7 +168,7 @@ module.exports = {
 }'
 			/>
 
-			<h3 id="sorting-classes" class="${hlmH4} mb-2 mt-6">Sorting classes</h3>
+			<h3 id="sorting-classes" class="${hlmH4} mt-6 mb-2">Sorting classes</h3>
 
 			<p class="${hlmP} text-pretty">
 				You can enable automatic sorting of Tailwind CSS classes in
@@ -231,7 +231,7 @@ module.exports = {
 				Again, if you are using Nx, we have written a plugin that will take care of the heavy lifting:
 			</p>
 			<spartan-cli-tabs
-				class="mb-6 mt-4"
+				class="mt-4 mb-6"
 				nxCode="npx nx g @spartan-ng/cli:ui-theme"
 				ngCode="ng g @spartan-ng/cli:ui-theme"
 			/>
@@ -249,7 +249,7 @@ module.exports = {
 				:
 			</p>
 			<spartan-code
-				class="mb-6 mt-4"
+				class="mt-4 mb-6"
 				code="
 :root {
   color-scheme: light;
@@ -313,7 +313,7 @@ module.exports = {
 				If you have manually added the variables to your style entrypoint, don't forget to import the Angular CDK
 				overlay styles too.
 			</p>
-			<spartan-code class="mb-6 mt-4" code="@import '@angular/cdk/overlay-prebuilt.css';" />
+			<spartan-code class="mt-4 mb-6" code="@import '@angular/cdk/overlay-prebuilt.css';" />
 			<p class="${hlmP}">
 				Also, make sure to check out the theming section to better understand the convention behind them and learn how
 				to customize your theme.
@@ -325,7 +325,7 @@ module.exports = {
 				choose which primitives to add to your project. It will add all brain dependencies and copy helm code into its
 				own library:
 			</p>
-			<spartan-cli-tabs class="mb-6 mt-4" nxCode="npx nx g @spartan-ng/cli:ui" ngCode="ng g @spartan-ng/cli:ui" />
+			<spartan-cli-tabs class="mt-4 mb-6" nxCode="npx nx g @spartan-ng/cli:ui" ngCode="ng g @spartan-ng/cli:ui" />
 			<p class="${hlmP}">To learn more about the command line interface check out the docs below.</p>
 			<div class="my-2 flex items-center justify-end">
 				<a routerLink="/documentation/cli" variant="outline" size="sm" hlmBtn outline="">

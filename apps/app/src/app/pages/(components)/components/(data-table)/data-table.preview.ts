@@ -131,7 +131,7 @@ export type Payment = {
 						[ngModel]="_table.getState().pagination.pageSize"
 						(ngModelChange)="_table.setPageSize($event); _table.resetPageIndex()"
 					>
-						<hlm-select-trigger class="w-15 mr-1 inline-flex h-9">
+						<hlm-select-trigger class="mr-1 inline-flex h-9 w-15">
 							<hlm-select-value />
 						</hlm-select-trigger>
 						<hlm-select-content>

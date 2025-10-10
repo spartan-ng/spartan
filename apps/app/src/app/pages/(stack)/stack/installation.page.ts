@@ -107,7 +107,7 @@ export const routeMeta: RouteMeta = {
 			</p>
 			<spartan-code class="mt-3" language="sh" code="npm install drizzle-orm postgres" />
 
-			<div class="mb-6 mt-4" hlmAlert>
+			<div class="mt-4 mb-6" hlmAlert>
 				<ng-icon hlm hlmAlertIcon name="lucideTriangleAlert" />
 				<h4 hlmAlertTitle>Dealing with postgres & CommonJs</h4>
 				<div hlmAlertDescription>
@@ -229,13 +229,13 @@ export const noteRouter = router({
 				Supabase:
 			</p>
 
-			<ol class="mb-6 ml-6 list-decimal [&>li]:ml-2 [&>li]:mt-2">
+			<ol class="mb-6 ml-6 list-decimal [&>li]:mt-2 [&>li]:ml-2">
 				<li>Connecting directly to your managed instance on supabase.com</li>
 				<li>Locally using Docker</li>
 			</ol>
 
 			<spartan-tabs firstTab="supabase.com" secondTab="Local">
-				<div class="px-4 pb-8 pt-4" firstTab>
+				<div class="px-4 pt-4 pb-8" firstTab>
 					<h3 class="${hlmH4}">Option 1: Connecting to supabase.com instance</h3>
 					<p class="${hlmP}">
 						This way is super easy! Simply by creating your account, you will also have set up your first project. This
@@ -268,16 +268,16 @@ export const noteRouter = router({
 					</div>
 				</div>
 
-				<div class="px-4 pb-8 pt-4" secondTab>
+				<div class="px-4 pt-4 pb-8" secondTab>
 					<h3 class="${hlmH4}">Option 2: Connecting to local Supabase instance</h3>
 					<p class="${hlmP}">
 						Supabase also allows you to run a version of their system locally! To get up and running you can follow this
 						guide! They do a great job explaining how to get started and there is plenty of resources to help you if you
 						get stuck. If you want the quick and dirty way and are on a Mac. Here is what I did to get up and running:
 					</p>
-					<h4 class="${hlmH4} mb-2 mt-6 !text-sm">Install supabase CLI</h4>
+					<h4 class="${hlmH4} mt-6 mb-2 !text-sm">Install supabase CLI</h4>
 					<spartan-code code="brew install supabase/tap/supabase" />
-					<h4 class="${hlmH4} mb-2 mt-6 !text-sm">Log into CLI</h4>
+					<h4 class="${hlmH4} mt-6 mb-2 !text-sm">Log into CLI</h4>
 					<spartan-code code="supabase login" />
 					<p class="${hlmP}">
 						Create your access token from
@@ -287,7 +287,7 @@ export const noteRouter = router({
 						and paste it into your terminal window.
 					</p>
 
-					<h4 class="${hlmH4} mb-2 mt-6 !text-sm">Create Supabase project</h4>
+					<h4 class="${hlmH4} mt-6 mb-2 !text-sm">Create Supabase project</h4>
 					<spartan-code
 						code="
         # if you are in the spartan directory move UP!!!
@@ -303,7 +303,7 @@ cd spartan-supabase
 git init"
 					></spartan-code>
 
-					<h4 class="${hlmH4} mb-2 mt-6 !text-sm">Start Supabase services</h4>
+					<h4 class="${hlmH4} mt-6 mb-2 !text-sm">Start Supabase services</h4>
 					<spartan-code code="supabase init" />
 					<spartan-code class="mt-3" code="supabase start" />
 

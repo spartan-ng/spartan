@@ -84,63 +84,63 @@ export const routeMeta: RouteMeta = {
 			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__secondary" class="${hlmH4} mb-2 mt-6">Secondary</h3>
+			<h3 id="examples__secondary" class="${hlmH4} mt-6 mb-2">Secondary</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-button-secondary />
 				</div>
 				<spartan-code secondTab [code]="_secondaryCode()" />
 			</spartan-tabs>
-			<h3 id="examples__destructive" class="${hlmH4} mb-2 mt-6">Destructive</h3>
+			<h3 id="examples__destructive" class="${hlmH4} mt-6 mb-2">Destructive</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-button-destructive />
 				</div>
 				<spartan-code secondTab [code]="_destructiveCode()" />
 			</spartan-tabs>
-			<h3 id="examples__outline" class="${hlmH4} mb-2 mt-6">Outline</h3>
+			<h3 id="examples__outline" class="${hlmH4} mt-6 mb-2">Outline</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-button-outline />
 				</div>
 				<spartan-code secondTab [code]="_outlineCode()" />
 			</spartan-tabs>
-			<h3 id="examples__ghost" class="${hlmH4} mb-2 mt-6">Ghost</h3>
+			<h3 id="examples__ghost" class="${hlmH4} mt-6 mb-2">Ghost</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-button-ghost />
 				</div>
 				<spartan-code secondTab [code]="_ghostCode()" />
 			</spartan-tabs>
-			<h3 id="examples__link" class="${hlmH4} mb-2 mt-6">Link</h3>
+			<h3 id="examples__link" class="${hlmH4} mt-6 mb-2">Link</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-button-link />
 				</div>
 				<spartan-code secondTab [code]="_linkCode()" />
 			</spartan-tabs>
-			<h3 id="examples__icon" class="${hlmH4} mb-2 mt-6">Icon</h3>
+			<h3 id="examples__icon" class="${hlmH4} mt-6 mb-2">Icon</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-button-icon />
 				</div>
 				<spartan-code secondTab [code]="_iconCode()" />
 			</spartan-tabs>
-			<h3 id="examples__with_icon" class="${hlmH4} mb-2 mt-6">With Icon</h3>
+			<h3 id="examples__with_icon" class="${hlmH4} mt-6 mb-2">With Icon</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-button-with-icon />
 				</div>
 				<spartan-code secondTab [code]="_withIconCode()" />
 			</spartan-tabs>
-			<h3 id="examples__loading" class="${hlmH4} mb-2 mt-6">Loading</h3>
+			<h3 id="examples__loading" class="${hlmH4} mt-6 mb-2">Loading</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-button-loading />
 				</div>
 				<spartan-code secondTab [code]="_loadingCode()" />
 			</spartan-tabs>
-			<h3 id="examples__as_anchor" class="${hlmH4} mb-2 mt-6">As Anchor</h3>
+			<h3 id="examples__as_anchor" class="${hlmH4} mt-6 mb-2">As Anchor</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-button-anchor />

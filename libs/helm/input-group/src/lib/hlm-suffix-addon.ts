@@ -25,9 +25,9 @@ export class HlmSuffixAddon {
 		hlm(
 			'bg-muted border-input focus-visible:border-ring focus-visible:ring-ring/50 block' +
 				' text-muted-foreground inline-flex h-auto min-h-9' +
-				' items-center justify-center whitespace-nowrap border' +
+				' items-center justify-center border whitespace-nowrap' +
 				' px-3 text-sm font-medium transition-colors' +
-				' focus-visible:outline-none focus-visible:ring-[3px]' +
+				' focus-visible:ring-[3px] focus-visible:outline-none' +
 				' disabled:pointer-events-none disabled:opacity-50' +
 				' border-p-0 rounded-r-md',
 			this.userClass(),

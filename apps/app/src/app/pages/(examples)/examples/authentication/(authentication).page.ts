@@ -19,9 +19,9 @@ export const routeMeta: RouteMeta = {
 	template: `
 		<div hmlcard class="bg-background overflow-hidden shadow-md md:shadow-xl">
 			<div
-				class="container relative flex h-[600px] flex-col items-center justify-center md:grid md:h-[800px] lg:max-w-none lg:grid-cols-2 lg:px-0"
+				class="relative container flex h-[600px] flex-col items-center justify-center md:grid md:h-[800px] lg:max-w-none lg:grid-cols-2 lg:px-0"
 			>
-				<a hlmBtn variant="ghost" class="absolute right-4 top-4 md:right-8 md:top-8" href="/examples/authentication">
+				<a hlmBtn variant="ghost" class="absolute top-4 right-4 md:top-8 md:right-8" href="/examples/authentication">
 					Login
 				</a>
 				<div class="bg-muted relative hidden h-full flex-col border-r p-10 text-white lg:flex dark:border-r-zinc-800">

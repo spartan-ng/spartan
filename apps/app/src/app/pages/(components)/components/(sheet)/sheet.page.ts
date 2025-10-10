@@ -80,7 +80,7 @@ export const routeMeta: RouteMeta = {
 			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__sides" class="${hlmH4} mb-2 mt-6">Sides</h3>
+			<h3 id="examples__sides" class="${hlmH4} mt-6 mb-2">Sides</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-sheet-side-preview />
@@ -88,7 +88,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_sideCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__size_sheet" class="${hlmH4} mb-2 mt-6">Size</h3>
+			<h3 id="examples__size_sheet" class="${hlmH4} mt-6 mb-2">Size</h3>
 			<p class="${hlmP} mb-6">
 				You can adjust the size of the sheet by adding CSS classes to
 				<code class="${hlmCode}">hlm-sheet-content</code>
@@ -101,7 +101,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_sizeCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__close_sheet" class="${hlmH4} mb-2 mt-6">Close Sheet</h3>
+			<h3 id="examples__close_sheet" class="${hlmH4} mt-6 mb-2">Close Sheet</h3>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>

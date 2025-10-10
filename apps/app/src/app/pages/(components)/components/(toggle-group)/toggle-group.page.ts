@@ -72,7 +72,7 @@ export const routeMeta: RouteMeta = {
 			</div>
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__outline" class="${hlmH4} mb-2 mt-6">Outline</h3>
+			<h3 id="examples__outline" class="${hlmH4} mt-6 mb-2">Outline</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-toggle-group-outline />
@@ -80,7 +80,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_outlineCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__small" class="${hlmH4} mb-2 mt-6">Small</h3>
+			<h3 id="examples__small" class="${hlmH4} mt-6 mb-2">Small</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-toggle-group-small />
@@ -88,7 +88,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_smallCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__large" class="${hlmH4} mb-2 mt-6">Large</h3>
+			<h3 id="examples__large" class="${hlmH4} mt-6 mb-2">Large</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-toggle-group-large />
@@ -96,7 +96,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_largeCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__disabled" class="${hlmH4} mb-2 mt-6">Disabled</h3>
+			<h3 id="examples__disabled" class="${hlmH4} mt-6 mb-2">Disabled</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-toggle-group-disabled />

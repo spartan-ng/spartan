@@ -14,7 +14,7 @@ import { UIApiDocsTable } from '../ui-api-docs-table/ui-api-docs-table';
 		@if (_componentDocs() && _componentEntries() && _componentEntries().length > 0) {
 			@for (entry of _componentEntries(); track entry) {
 				@let properties = _transformedComponentItems()[entry];
-				<h4 class="${hlmH4} mb-2 mt-6 pt-12" [id]="entry.toLowerCase()">{{ entry }}</h4>
+				<h4 class="${hlmH4} mt-6 mb-2 pt-12" [id]="entry.toLowerCase()">{{ entry }}</h4>
 				@let selector = properties.selector;
 				@if (selector) {
 					<p>

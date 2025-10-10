@@ -11,7 +11,7 @@ import { Header } from './shared/header/header';
 	},
 	template: `
 		<spartan-header id="spartan-header" />
-		<main class="flex flex-1 flex-col"  id="spartan-main">
+		<main class="flex flex-1 flex-col" id="spartan-main">
 			<router-outlet />
 		</main>
 		<spartan-footer id="spartan-footer" />

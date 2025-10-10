@@ -77,7 +77,7 @@ export const routeMeta: RouteMeta = {
 				}
 			</button>
 		</form>
-		<div class="flex flex-col space-y-4 pb-12 pt-4">
+		<div class="flex flex-col space-y-4 pt-4 pb-12">
 			@if (showNotesArray()) {
 				@for (note of state().notes; track noteTrackBy($index, note)) {
 					<analog-trpc-note

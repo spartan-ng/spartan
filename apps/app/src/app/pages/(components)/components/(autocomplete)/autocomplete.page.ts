@@ -90,7 +90,7 @@ export const routeMeta: RouteMeta = {
 			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__custom_config" class="${hlmH4} mb-2 mt-6">Custom Config</h3>
+			<h3 id="examples__custom_config" class="${hlmH4} mt-6 mb-2">Custom Config</h3>
 
 			<p class="${hlmP}">
 				Use
@@ -131,7 +131,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_configCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__custom_option_template" class="${hlmH4} mb-2 mt-6">Custom Option Template</h3>
+			<h3 id="examples__custom_option_template" class="${hlmH4} mt-6 mb-2">Custom Option Template</h3>
 
 			<p class="${hlmP} mb-6">
 				You can customize the rendering of each option in the dropdown list by using the
@@ -151,7 +151,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_countriesCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__async" class="${hlmH4} mb-2 mt-6">Asynchronous</h3>
+			<h3 id="examples__async" class="${hlmH4} mt-6 mb-2">Asynchronous</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-autocomplete-async />
@@ -159,7 +159,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_asyncCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__form" class="${hlmH4} mb-2 mt-6">Form</h3>
+			<h3 id="examples__form" class="${hlmH4} mt-6 mb-2">Form</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-autocomplete-form />

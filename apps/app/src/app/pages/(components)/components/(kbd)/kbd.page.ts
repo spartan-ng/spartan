@@ -69,7 +69,7 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
 
-			<h3 id="examples_group" hlmH4 class="mb-2 mt-6">Group</h3>
+			<h3 id="examples_group" hlmH4 class="mt-6 mb-2">Group</h3>
 
 			<p hlmP>
 				Use the
@@ -84,7 +84,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_groupCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples_button" hlmH4 class="mb-2 mt-6">Button</h3>
+			<h3 id="examples_button" hlmH4 class="mt-6 mb-2">Button</h3>
 
 			<p hlmP>
 				Use the

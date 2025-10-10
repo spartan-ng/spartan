@@ -81,14 +81,14 @@ export const routeMeta: RouteMeta = {
 			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__icon" hlmH4 class="mb-2 mt-6">With Icons</h3>
+			<h3 id="examples__icon" hlmH4 class="mt-6 mb-2">With Icons</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-input-group-icon-preview />
 				</div>
 				<spartan-code secondTab [code]="_iconCode()" />
 			</spartan-tabs>
-			<h3 id="examples_button" hlmH4 class="mb-2 mt-6">With Buttons</h3>
+			<h3 id="examples_button" hlmH4 class="mt-6 mb-2">With Buttons</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-input-group-button-preview />

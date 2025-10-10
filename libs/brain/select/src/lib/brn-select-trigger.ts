@@ -11,7 +11,7 @@ import {
 	PLATFORM_ID,
 } from '@angular/core';
 import { NgControl } from '@angular/forms';
-import type { Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { injectBrnSelect } from './brn-select.token';
 
 @Directive({
@@ -24,6 +24,7 @@ import { injectBrnSelect } from './brn-select.token';
 		'[attr.aria-expanded]': '_select.open()',
 		'[attr.aria-controls]': '_contentId()',
 		'[attr.aria-labelledBy]': '_labelledBy()',
+		'[attr.aria-describedby]': 'ariaDescribedBy || null',
 		'aria-autocomplete': 'none',
 		'[attr.dir]': '_select.dir()',
 		'[class.ng-invalid]': '_ngControl?.invalid || null',
@@ -42,6 +43,8 @@ export class BrnSelectTrigger<T> implements AfterViewInit, OnDestroy, OnInit {
 	protected readonly _select = injectBrnSelect<T>();
 	protected readonly _ngControl = inject(NgControl, { optional: true });
 	private readonly _platform = inject(PLATFORM_ID);
+
+	public ariaDescribedBy = '';
 	protected readonly _triggerId = computed(() => `${this._select.id()}--trigger`);
 	protected readonly _contentId = computed(() => `${this._select.id()}--content`);
 	protected readonly _disabled = computed(() => this._select.disabled() || this._select.formDisabled());
@@ -59,6 +62,11 @@ export class BrnSelectTrigger<T> implements AfterViewInit, OnDestroy, OnInit {
 
 	constructor() {
 		this._select.trigger.set(this);
+	}
+
+	public setAriaDescribedBy(ids: string) {
+		this.ariaDescribedBy = ids;
+		this._changeDetector.markForCheck();
 	}
 
 	ngOnInit() {

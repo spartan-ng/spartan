@@ -7,7 +7,7 @@ import {
 	effect,
 	input,
 } from '@angular/core';
-import { BrnFormFieldControl } from '@spartan-ng/brain/form-field';
+import { BrnFormFieldControl, BrnFormFieldDirective } from '@spartan-ng/brain/form-field';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 import { HlmError } from './hlm-error';
@@ -29,6 +29,7 @@ import { HlmError } from './hlm-error';
 	host: {
 		'[class]': '_computedClass()',
 	},
+	hostDirectives: [BrnFormFieldDirective],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmFormField {

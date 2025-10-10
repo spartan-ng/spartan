@@ -16,7 +16,6 @@ import {
 	type DoCheck,
 	forwardRef,
 	inject,
-	Injector,
 	input,
 	model,
 	numberAttribute,
@@ -93,7 +92,6 @@ export class BrnSelect<T = unknown>
 {
 	private readonly _defaultErrorStateMatcher = inject(ErrorStateMatcher);
 	private readonly _parentForm = inject(NgForm, { optional: true });
-	private readonly _injector = inject(Injector);
 	private readonly _parentFormGroup = inject(FormGroupDirective, { optional: true });
 	public readonly ngControl = inject(NgControl, { optional: true, self: true });
 
@@ -102,8 +100,9 @@ export class BrnSelect<T = unknown>
 		transform: booleanAttribute,
 	});
 	public readonly placeholder = input<string>('');
-	public readonly disabled = input<boolean, BooleanInput>(false, {
+	public readonly isDisabled = input<boolean, BooleanInput>(false, {
 		transform: booleanAttribute,
+		alias: 'disabled',
 	});
 	public readonly dir = input<BrnReadDirection>('ltr');
 	public readonly closeDelay = input<number, NumberInput>(100, {
@@ -203,6 +202,10 @@ export class BrnSelect<T = unknown>
 
 	public readonly errorState = computed(() => this.errorStateTracker.errorState());
 
+	public readonly required = computed(() => this.ngControl?.hasError('required') ?? false);
+
+	public readonly disabled = computed(() => this.isDisabled() || this.formDisabled());
+
 	constructor() {
 		if (this.ngControl !== null) {
 			this.ngControl.valueAccessor = this;
@@ -229,7 +232,7 @@ export class BrnSelect<T = unknown>
 	}
 
 	public show(): void {
-		if (this.open() || this.disabled() || this.formDisabled() || this.options()?.length == 0) {
+		if (this.open() || this.disabled() || this.options()?.length == 0) {
 			return;
 		}
 

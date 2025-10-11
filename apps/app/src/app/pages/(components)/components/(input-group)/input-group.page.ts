@@ -2,8 +2,6 @@ import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 
-import { InputGroupButtonPreview } from '@spartan-ng/app/app/pages/(components)/components/(input-group)/input-group--button.preview';
-import { InputGroupIconPreview } from '@spartan-ng/app/app/pages/(components)/components/(input-group)/input-group--icon.preview';
 import { UIApiDocs } from '@spartan-ng/app/app/shared/layout/ui-docs-section/ui-docs-section';
 import { HlmH4 } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
@@ -17,6 +15,9 @@ import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading
 import { Tabs } from '../../../../shared/layout/tabs';
 import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { metaWith } from '../../../../shared/meta/meta.util';
+import { InputGroupButtonPreview } from './input-group--button.preview';
+import { InputGroupIconPreview } from './input-group--icon.preview';
+import { InputGroupTextPreview } from './input-group--text.preview';
 import { defaultImports, defaultSkeleton, InputGroupPreview } from './input-group.preview';
 
 export const routeMeta: RouteMeta = {
@@ -46,6 +47,10 @@ export const routeMeta: RouteMeta = {
 		HlmH4,
 		InputGroupIconPreview,
 		InputGroupButtonPreview,
+		InputGroupIconPreview,
+		InputGroupIconPreview,
+		InputGroupIconPreview,
+		InputGroupTextPreview,
 	],
 	template: `
 		<section spartanMainSection>
@@ -81,14 +86,21 @@ export const routeMeta: RouteMeta = {
 			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__icon" hlmH4 class="mb-2 mt-6">With Icons</h3>
+			<h3 id="examples__icon" hlmH4 class="mb-2 mt-6">Icons</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-input-group-icon-preview />
 				</div>
 				<spartan-code secondTab [code]="_iconCode()" />
 			</spartan-tabs>
-			<h3 id="examples_button" hlmH4 class="mb-2 mt-6">With Buttons</h3>
+			<h3 id="examples__text" hlmH4 class="mb-2 mt-6">Text</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-input-group-text-preview />
+				</div>
+				<spartan-code secondTab [code]="_iconCode()" />
+			</spartan-tabs>
+			<h3 id="examples_button" hlmH4 class="mb-2 mt-6">Buttons</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-input-group-button-preview />

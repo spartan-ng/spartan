@@ -36,6 +36,7 @@ module.exports = {
 				'input',
 				'input-group',
 				'input-otp',
+				'kbd',
 				'label',
 				'menubar',
 				'navigation-menu',

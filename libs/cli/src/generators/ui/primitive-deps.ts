@@ -26,6 +26,7 @@ export const primitiveDependencies: Record<Primitive, Primitive[]> = {
 	input: ['utils', 'form-field'],
 	'input-group': ['utils'],
 	'input-otp': ['utils', 'icon'],
+	kbd: ['utils'],
 	label: ['utils'],
 	menu: ['utils', 'icon'],
 	menubar: ['utils'],

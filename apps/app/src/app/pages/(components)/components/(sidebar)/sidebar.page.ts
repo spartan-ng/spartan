@@ -1,8 +1,8 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { Code } from '@spartan-ng/app/app/shared/code/code';
 import { MainSection } from '@spartan-ng/app/app/shared/layout/main-section';
-import { PageBottomNavPlaceholder } from '@spartan-ng/app/app/shared/layout/page-bottom-nav-placeholder';
 import { PageBottomNav } from '@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav';
 import { PageBottomNavLink } from '@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav-link';
 import { PageNav } from '@spartan-ng/app/app/shared/layout/page-nav/page-nav';
@@ -12,6 +12,7 @@ import { Tabs } from '@spartan-ng/app/app/shared/layout/tabs';
 import { TabsCli } from '@spartan-ng/app/app/shared/layout/tabs-cli';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
 import { HlmCode, HlmH4, HlmP } from '@spartan-ng/helm/typography';
+import { link } from '../../../../shared/typography/link';
 import {
 	button,
 	collapsable,
@@ -24,7 +25,6 @@ import {
 	group,
 	groupAction,
 	header,
-	link,
 	linkActive,
 	linkWithIcon,
 	menu,
@@ -57,11 +57,11 @@ export const routeMeta: RouteMeta = {
 		PageNav,
 		PageBottomNav,
 		PageBottomNavLink,
-		PageBottomNavPlaceholder,
 		HlmP,
 		HlmCode,
 		HlmH4,
 		Tabs,
+		RouterLink,
 	],
 	template: `
 		<section spartanMainSection class="space-y-4">
@@ -77,7 +77,9 @@ export const routeMeta: RouteMeta = {
 				<p hlmP class="mb-6">
 					The command above should install the colors for you. If not, copy and paste the following in your CSS file.
 					<br />
-					We'll go over the colors later in the theming section.
+					We'll go over the colors later in the
+					<a class="${link}" routerLink="." fragment="theming">theming section</a>
+					.
 				</p>
 
 				<spartan-code [code]="_cssCode" />

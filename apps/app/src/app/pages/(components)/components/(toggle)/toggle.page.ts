@@ -1,6 +1,5 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
-import { hlmH4 } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
@@ -60,14 +59,10 @@ export const routeMeta: RouteMeta = {
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
-			<spartan-cli-tabs
-				class="mt-4"
-				nxCode="npx nx g @spartan-ng/cli:ui toggle"
-				ngCode="ng g @spartan-ng/cli:ui toggle"
-			/>
+			<spartan-cli-tabs nxCode="npx nx g @spartan-ng/cli:ui toggle" ngCode="ng g @spartan-ng/cli:ui toggle" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
-			<div class="space-y-4">
+			<div class="mt-6 space-y-4">
 				<spartan-code [code]="_defaultImports" />
 				<spartan-code [code]="_defaultSkeleton" />
 			</div>
@@ -79,35 +74,35 @@ export const routeMeta: RouteMeta = {
 			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__outline" class="${hlmH4} mb-2 mt-6">Outline</h3>
+			<h3 id="examples__outline" spartanH4>Outline</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-toggle-outline />
 				</div>
 				<spartan-code secondTab [code]="_outlineCode()" />
 			</spartan-tabs>
-			<h3 id="examples__with_text" class="${hlmH4} mb-2 mt-6">With Text</h3>
+			<h3 id="examples__with_text" spartanH4>With Text</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-toggle-with-text />
 				</div>
 				<spartan-code secondTab [code]="_withTextCode()" />
 			</spartan-tabs>
-			<h3 id="examples__small" class="${hlmH4} mb-2 mt-6">Small</h3>
+			<h3 id="examples__small" spartanH4>Small</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-toggle-small />
 				</div>
 				<spartan-code secondTab [code]="_smallCode()" />
 			</spartan-tabs>
-			<h3 id="examples__large" class="${hlmH4} mb-2 mt-6">Large</h3>
+			<h3 id="examples__large" spartanH4>Large</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-toggle-large />
 				</div>
 				<spartan-code secondTab [code]="_largeCode()" />
 			</spartan-tabs>
-			<h3 id="examples__disabled" class="${hlmH4} mb-2 mt-6">Disabled</h3>
+			<h3 id="examples__disabled" spartanH4>Disabled</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-toggle-disabled />

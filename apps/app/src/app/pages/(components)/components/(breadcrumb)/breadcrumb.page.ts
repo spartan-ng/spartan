@@ -57,20 +57,13 @@ export const routeMeta: RouteMeta = {
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
-			<spartan-cli-tabs
-				class="mt-4"
-				nxCode="npx nx g @spartan-ng/cli:ui breadcrumb"
-				ngCode="ng g @spartan-ng/cli:ui breadcrumb"
-			/>
+			<spartan-cli-tabs nxCode="npx nx g @spartan-ng/cli:ui breadcrumb" ngCode="ng g @spartan-ng/cli:ui breadcrumb" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
-			<div class="space-y-4">
+			<div class="mt-6 space-y-4">
 				<spartan-code [code]="_defaultImports" />
 				<spartan-code [code]="_defaultSkeleton" />
 			</div>
-
-			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
-			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
 			<h3 id="examples__custom-separator" class="${hlmH4} mt-6">Custom separator</h3>
@@ -119,6 +112,10 @@ export const routeMeta: RouteMeta = {
 				</div>
 				<spartan-code secondTab [code]="_collapsedCode()" />
 			</spartan-tabs>
+
+			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="helm" />
+
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="button" label="Button" />
 				<spartan-page-bottom-nav-link direction="previous" href="badge" label="Badge" />

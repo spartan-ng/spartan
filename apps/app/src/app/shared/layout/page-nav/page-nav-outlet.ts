@@ -6,7 +6,7 @@ export const pageNavTmpl = signal<TemplateRef<unknown> | null>(null);
 @Component({
 	selector: 'spartan-page-nav-outlet',
 	host: {
-		class: 'hidden xl:block text-[0.8rem] sticky top-14 -mt-10 h-[calc(100vh-3.5rem)] overflow-hidden pt-6',
+		class: `block sticky top-[calc(var(--header-height)+1px)] z-30 ml-auto hidden h-[calc(100svh-var(--footer-height)+2rem)] w-72 flex-col gap-4 overflow-hidden overscroll-none pb-8 xl:flex`,
 	},
 	template: `
 		<ng-container [ngTemplateOutlet]="pageNavTmpl()" />

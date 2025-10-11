@@ -2,7 +2,8 @@ import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideTriangleAlert } from '@ng-icons/lucide';
-import { hlmCode, hlmH4, hlmP } from '@spartan-ng/helm/typography';
+import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
+import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { MainSection } from '../../../shared/layout/main-section';
 import { PackageInstallerTabs } from '../../../shared/layout/package-installer-tabs';
 import { PageBottomNav } from '../../../shared/layout/page-bottom-nav/page-bottom-nav';
@@ -30,6 +31,7 @@ export const routeMeta: RouteMeta = {
 		SectionSubHeading,
 		TabsCli,
 		PackageInstallerTabs,
+		SectionSubSubHeading,
 	],
 	providers: [provideIcons({ lucideTriangleAlert })],
 	template: `
@@ -53,7 +55,7 @@ export const routeMeta: RouteMeta = {
 			</p>
 			<spartan-package-installer-tab class="mt-4" />
 
-			<h3 id="nx__ui" class="${hlmH4} mt-12">ui</h3>
+			<h3 id="nx__ui" spartanH4>ui</h3>
 			<p class="${hlmP}">
 				To add
 				<code class="${hlmCode}">spartan/ui</code>
@@ -65,13 +67,9 @@ export const routeMeta: RouteMeta = {
 				of your choice.
 			</p>
 
-			<h3 id="nx__ui_theme" class="${hlmH4} mt-12">ui-theme</h3>
+			<h3 id="nx__ui_theme" spartanH4>ui-theme</h3>
 			<p class="${hlmP}">Adding a theme can also be done on itself. Use the command below:</p>
-			<spartan-cli-tabs
-				class="mt-4"
-				nxCode="npx nx g @spartan-ng/cli:ui-theme"
-				ngCode="ng g @spartan-ng/cli:ui-theme"
-			/>
+			<spartan-cli-tabs nxCode="npx nx g @spartan-ng/cli:ui-theme" ngCode="ng g @spartan-ng/cli:ui-theme" />
 			<p class="${hlmP}">
 				You can then select which application you want to add the theme to. Where your styles entrypoint is located.
 				Which theme to add & what border radius to use.

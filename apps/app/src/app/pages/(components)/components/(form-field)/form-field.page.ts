@@ -61,14 +61,10 @@ export const routeMeta: RouteMeta = {
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
-			<spartan-cli-tabs
-				class="mt-4"
-				nxCode="npx nx g @spartan-ng/cli:ui formfield"
-				ngCode="ng g @spartan-ng/cli:ui formfield"
-			/>
+			<spartan-cli-tabs nxCode="npx nx g @spartan-ng/cli:ui formfield" ngCode="ng g @spartan-ng/cli:ui formfield" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
-			<div class="space-y-4">
+			<div class="mt-6 space-y-4">
 				<spartan-code [code]="_defaultImports" />
 				<spartan-code [code]="_defaultSkeleton" />
 			</div>
@@ -77,14 +73,14 @@ export const routeMeta: RouteMeta = {
 			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__error" class="${hlmH4} mb-2 mt-6">Error</h3>
+			<h3 id="examples__error" spartanH4>Error</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-form-field-error />
 				</div>
 				<spartan-code secondTab [code]="_errorCode()" />
 			</spartan-tabs>
-			<h3 id="examples__with_form" class="${hlmH4} mb-2 mt-6">With Form</h3>
+			<h3 id="examples__with_form" spartanH4>With Form</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-form-field-form />
@@ -92,7 +88,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_withFormCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__with_form_dirty_state" class="${hlmH4} mb-4 mt-6">Changing when error messages are shown</h3>
+			<h3 id="examples__with_form_dirty_state" class="${hlmH4} mt-6 mb-4">Changing when error messages are shown</h3>
 
 			<p class="mb-2">
 				By default, these error messages are shown when the control is invalid and the user has interacted with

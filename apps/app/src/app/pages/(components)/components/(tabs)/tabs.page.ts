@@ -5,7 +5,7 @@ import { lucideCircleAlert } from '@ng-icons/lucide';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { HlmAlert, HlmAlertDescription } from '@spartan-ng/helm/alert';
 import { HlmIcon } from '@spartan-ng/helm/icon';
-import { hlmCode, hlmH4 } from '@spartan-ng/helm/typography';
+import { hlmCode } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
@@ -71,7 +71,7 @@ export const routeMeta: RouteMeta = {
 			<spartan-cli-tabs class="mt-4" nxCode="npx nx g @spartan-ng/cli:ui tabs" ngCode="ng g @spartan-ng/cli:ui tabs" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
-			<div class="space-y-4">
+			<div class="mt-6 space-y-4">
 				<spartan-code [code]="_defaultImports" />
 				<spartan-code [code]="_defaultSkeleton" />
 			</div>
@@ -83,7 +83,7 @@ export const routeMeta: RouteMeta = {
 			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__vertical" class="${hlmH4} mb-2 mt-6">Vertical</h3>
+			<h3 id="examples__vertical" spartanH4>Vertical</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-tabs-vertical />
@@ -91,7 +91,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_verticalCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__paginated_tabs" class="${hlmH4} mb-2 mt-6">Paginated Tabs</h3>
+			<h3 id="examples__paginated_tabs" spartanH4>Paginated Tabs</h3>
 
 			<p class="pt-2">
 				Use

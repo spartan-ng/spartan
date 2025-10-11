@@ -31,15 +31,15 @@ import { HeaderMobileNav } from './header-mobile-nav';
 	},
 	template: `
 		<div class="container-wrapper 3xl:fixed:px-0 px-6">
-			<div class="3xl:fixed:container flex h-(--header-height) items-center gap-2">
-				<a hlmBtn variant="ghost" class="mr-3 hidden p-1.5 sm:flex" routerLink="/">
+			<div class="3xl:fixed:container flex h-(--header-height) items-center gap-2 **:data-[slot=separator]:!h-4">
+				<a hlmBtn variant="ghost" class="mr-3 hidden p-1.5 lg:flex" routerLink="/">
 					<spartan-logo class="w-14" />
 					<span class="sr-only">spartan</span>
 				</a>
 
-				<spartan-mobile-nav class="sm:hidden" />
+				<spartan-mobile-nav class="lg:hidden" />
 
-				<div class="hidden sm:flex sm:space-x-2">
+				<div class="hidden sm:space-x-2 lg:flex">
 					<a spartanNavLink="/documentation">Docs</a>
 					<a spartanNavLink="/stack">Stack</a>
 					<a spartanNavLink="/components">Components</a>
@@ -59,7 +59,7 @@ import { HeaderMobileNav } from './header-mobile-nav';
 						<ng-icon hlm name="lucideGithub" size="sm" />
 					</a>
 					<hlm-separator orientation="vertical" class="!h-4" />
-					<spartan-layout-mode />
+					<spartan-layout-mode class="3xl:flex hidden" />
 					<spartan-dark-mode />
 				</div>
 			</div>

@@ -44,7 +44,7 @@ export const routeMeta: RouteMeta = {
 			<spartan-cli-tabs class="mt-4" nxCode="npx nx g @spartan-ng/cli:ui icon" ngCode="ng g @spartan-ng/cli:ui icon" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
-			<div class="space-y-4">
+			<div class="mt-6 space-y-4">
 				<spartan-code [code]="_defaultImports" />
 				<spartan-code [code]="_defaultSkeleton" />
 			</div>
@@ -64,7 +64,7 @@ export const routeMeta: RouteMeta = {
 				@for (icon of _iconsList(); track $index) {
 					<div class="flex w-full flex-col items-center gap-2 p-4">
 						<ng-icon hlm size="lg" [name]="icon" />
-						<span class="whitespace-normal break-all text-center text-sm">{{ icon }}</span>
+						<span class="text-center text-sm break-all whitespace-normal">{{ icon }}</span>
 					</div>
 				}
 			</div>

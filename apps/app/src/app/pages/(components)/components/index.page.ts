@@ -1,13 +1,14 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { components } from '@spartan-ng/app/app/shared/components';
+import { components } from '@spartan-ng/app/app/shared/components/navigation-items';
 import { MainSection } from '@spartan-ng/app/app/shared/layout/main-section';
 import { PageBottomNav } from '@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav';
 import { PageBottomNavLink } from '@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav-link';
 import { PageNav } from '@spartan-ng/app/app/shared/layout/page-nav/page-nav';
 import { SectionIntro } from '@spartan-ng/app/app/shared/layout/section-intro';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
+import { HlmBadge } from '@spartan-ng/helm/badge';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Components' },
@@ -19,7 +20,7 @@ export const routeMeta: RouteMeta = {
 };
 @Component({
 	selector: 'spartan-input',
-	imports: [MainSection, SectionIntro, PageBottomNav, PageBottomNavLink, PageNav, RouterLink],
+	imports: [MainSection, SectionIntro, PageBottomNav, PageBottomNavLink, PageNav, RouterLink, HlmBadge],
 	template: `
 		<section spartanMainSection>
 			<spartan-section-intro
@@ -38,6 +39,9 @@ export const routeMeta: RouteMeta = {
 						{{ component.label }}
 						@if (component.new) {
 							<span class="flex size-2 rounded-full bg-blue-500"></span>
+						}
+						@if (component.wip) {
+							<span hlmBadge>soon</span>
 						}
 					</a>
 				}

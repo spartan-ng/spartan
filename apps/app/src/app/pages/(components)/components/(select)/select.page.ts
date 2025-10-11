@@ -1,7 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
-import { hlmH4 } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
@@ -55,14 +54,10 @@ export const routeMeta: RouteMeta = {
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
-			<spartan-cli-tabs
-				class="mt-4"
-				nxCode="npx nx g @spartan-ng/cli:ui select"
-				ngCode="ng g @spartan-ng/cli:ui select"
-			/>
+			<spartan-cli-tabs nxCode="npx nx g @spartan-ng/cli:ui select" ngCode="ng g @spartan-ng/cli:ui select" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
-			<div class="space-y-4">
+			<div class="mt-6 space-y-4">
 				<spartan-code [code]="_defaultImports" />
 				<spartan-code [code]="_defaultSkeleton" />
 				<spartan-code [code]="_defaultStyles" />
@@ -75,14 +70,14 @@ export const routeMeta: RouteMeta = {
 			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__multiple" class="${hlmH4} mb-2 mt-6">Multiple</h3>
+			<h3 id="examples__multiple" spartanH4>Multiple</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-select-multiple-preview />
 				</div>
 				<spartan-code secondTab [code]="_multipleCode()" />
 			</spartan-tabs>
-			<h3 id="examples__scrollable" class="${hlmH4} mb-2 mt-6">Scrollable with Groups</h3>
+			<h3 id="examples__scrollable" spartanH4>Scrollable with Groups</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-select-scrollable-preview />
@@ -90,7 +85,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_scrollableCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__value-template" class="${hlmH4} mb-2 mt-6">Value Template</h3>
+			<h3 id="examples__value-template" spartanH4>Value Template</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-select-value-template-preview />

@@ -1,7 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
-import { hlmH4 } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
@@ -58,14 +57,10 @@ export const routeMeta: RouteMeta = {
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
-			<spartan-cli-tabs
-				class="mt-4"
-				nxCode="npx nx g @spartan-ng/cli:ui contextmenu"
-				ngCode="ng @spartan-ng/cli:ui contextmenu"
-			/>
+			<spartan-cli-tabs nxCode="npx nx g @spartan-ng/cli:ui contextmenu" ngCode="ng @spartan-ng/cli:ui contextmenu" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
-			<div class="space-y-4">
+			<div class="mt-6 space-y-4">
 				<spartan-code [code]="_defaultImports" />
 				<spartan-code [code]="_defaultSkeleton" />
 			</div>
@@ -76,7 +71,7 @@ export const routeMeta: RouteMeta = {
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="helm" />
 
-			<h3 id="examples__stateful" class="${hlmH4} mb-2 mt-6">Stateful</h3>
+			<h3 id="examples__stateful" spartanH4>Stateful</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-context-menu-with-state />

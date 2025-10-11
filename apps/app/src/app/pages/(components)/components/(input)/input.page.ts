@@ -1,7 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
-import { hlmH4 } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
@@ -63,14 +62,10 @@ export const routeMeta: RouteMeta = {
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
-			<spartan-cli-tabs
-				class="mt-4"
-				nxCode="npx nx g @spartan-ng/cli:ui input"
-				ngCode="ng g @spartan-ng/cli:ui input"
-			/>
+			<spartan-cli-tabs nxCode="npx nx g @spartan-ng/cli:ui input" ngCode="ng g @spartan-ng/cli:ui input" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
-			<div class="space-y-4">
+			<div class="mt-6 space-y-4">
 				<spartan-code [code]="_defaultImports" />
 				<spartan-code [code]="_defaultSkeleton" />
 			</div>
@@ -79,28 +74,28 @@ export const routeMeta: RouteMeta = {
 			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__file" class="${hlmH4} mb-2 mt-6">File</h3>
+			<h3 id="examples__file" spartanH4>File</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-input-file />
 				</div>
 				<spartan-code secondTab [code]="_fileCode()" />
 			</spartan-tabs>
-			<h3 id="examples__disabled" class="${hlmH4} mb-2 mt-6">Disabled</h3>
+			<h3 id="examples__disabled" spartanH4>Disabled</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-input-disabled />
 				</div>
 				<spartan-code secondTab [code]="_disabledCode()" />
 			</spartan-tabs>
-			<h3 id="examples__with_label" class="${hlmH4} mb-2 mt-6">With Label</h3>
+			<h3 id="examples__with_label" spartanH4>With Label</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-input-label />
 				</div>
 				<spartan-code secondTab [code]="_labelCode()" />
 			</spartan-tabs>
-			<h3 id="examples__with_button" class="${hlmH4} mb-2 mt-6">With Button</h3>
+			<h3 id="examples__with_button" spartanH4>With Button</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-input-button />

@@ -126,13 +126,13 @@ export const routeMeta: RouteMeta = {
 
 			<img src="/assets/sidebar-structure.png" alt="Sidebar structure" class="border-border rounded border" />
 
-			<div class="space-y-4">
+			<div class="mt-6 space-y-4">
 				<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 				<spartan-code fileName="src/app/app.ts" [code]="_usageApp" />
 				<spartan-code fileName="src/app/app-sidebar.ts" [code]="_usageLayout" />
 			</div>
 
-			<div class="space-y-4">
+			<div class="mt-6 space-y-4">
 				<spartan-section-sub-heading id="first-sidebar">Your First Sidebar</spartan-section-sub-heading>
 
 				<p hlmP>Let's start with the most basic sidebar. A collapsible sidebar with a menu.</p>

@@ -7,7 +7,7 @@ import { DatePickerRangeExample } from '@spartan-ng/app/app/pages/(components)/c
 import { CodePreview } from '@spartan-ng/app/app/shared/code/code-preview';
 import { MainSection } from '@spartan-ng/app/app/shared/layout/main-section';
 import { HlmButton } from '@spartan-ng/helm/button';
-import { hlmCode, hlmH4, hlmP, hlmUl } from '@spartan-ng/helm/typography';
+import { hlmCode, hlmP, hlmUl } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { PageBottomNav } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav';
 import { PageBottomNavLink } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav-link';
@@ -80,14 +80,10 @@ export const routeMeta: RouteMeta = {
 				components.
 			</p>
 
-			<spartan-cli-tabs
-				class="mt-4"
-				nxCode="npx nx g @spartan-ng/cli:ui date-picker"
-				ngCode="ng g @spartan-ng/cli:ui date-picker"
-			/>
+			<spartan-cli-tabs nxCode="npx nx g @spartan-ng/cli:ui date-picker" ngCode="ng g @spartan-ng/cli:ui date-picker" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
-			<div class="space-y-4">
+			<div class="mt-6 space-y-4">
 				<spartan-code [code]="_defaultImports" />
 				<spartan-code [code]="_codeSkeleton" />
 			</div>
@@ -96,7 +92,7 @@ export const routeMeta: RouteMeta = {
 			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__custom_config" class="${hlmH4} mb-2 mt-6">Custom Configs</h3>
+			<h3 id="examples__custom_config" spartanH4>Custom Configs</h3>
 
 			<p class="${hlmP} mb-6">
 				Use
@@ -127,7 +123,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_configCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__multiple_selecton" class="${hlmH4} mb-2 mt-6">Multiple Selection</h3>
+			<h3 id="examples__multiple_selecton" spartanH4>Multiple Selection</h3>
 
 			<p class="${hlmP} mb-6">
 				Use
@@ -146,7 +142,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_multiCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__range" class="${hlmH4} mb-2 mt-6">Range Picker</h3>
+			<h3 id="examples__range" spartanH4>Range Picker</h3>
 
 			<p class="${hlmP} mb-6">
 				Use
@@ -165,7 +161,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_rangeCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__format_date" class="${hlmH4} mb-2 mt-6">Format Date</h3>
+			<h3 id="examples__format_date" spartanH4>Format Date</h3>
 
 			<p class="${hlmP} mb-6">
 				Use
@@ -179,7 +175,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_formatCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__date_and_time_picker" class="${hlmH4} mb-2 mt-6">Date and Time picker</h3>
+			<h3 id="examples__date_and_time_picker" spartanH4>Date and Time picker</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-date-and-time-picker />
@@ -187,7 +183,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_dateTimeCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__form" class="${hlmH4} mb-2 mt-6">Form</h3>
+			<h3 id="examples__form" spartanH4>Form</h3>
 			<p class="${hlmP} mb-6">
 				Sync the date to a form by adding
 				<code class="${hlmCode}">formControlName</code>
@@ -202,7 +198,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_formCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__form_multiple_selection" class="${hlmH4} mb-2 mt-6">Form Multiple Selection</h3>
+			<h3 id="examples__form_multiple_selection" spartanH4>Form Multiple Selection</h3>
 			<p class="${hlmP} mb-6">
 				Sync the dates to a form by adding
 				<code class="${hlmCode}">formControlName</code>
@@ -217,7 +213,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_formMultiCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__form_range" class="${hlmH4} mb-2 mt-6">Form Range Picker</h3>
+			<h3 id="examples__form_range" spartanH4>Form Range Picker</h3>
 			<p class="${hlmP} mb-6">
 				Sync the dates to a form by adding
 				<code class="${hlmCode}">formControlName</code>

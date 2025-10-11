@@ -5,7 +5,7 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronRight } from '@ng-icons/lucide';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmIconImports } from '@spartan-ng/helm/icon';
-import { hlmCode, hlmH4, hlmP } from '@spartan-ng/helm/typography';
+import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { MainSection } from '../../../../shared/layout/main-section';
 import { PageBottomNav } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav';
@@ -15,6 +15,7 @@ import { SectionIntro } from '../../../../shared/layout/section-intro';
 import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading';
 import { TabsCli } from '../../../../shared/layout/tabs-cli';
 
+import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { metaWith } from '../../../../shared/meta/meta.util';
 
 export const routeMeta: RouteMeta = {
@@ -38,6 +39,7 @@ export const routeMeta: RouteMeta = {
 		HlmIconImports,
 		RouterLink,
 		TabsCli,
+		SectionSubSubHeading,
 	],
 	providers: [provideIcons({ lucideChevronRight })],
 	template: `
@@ -116,7 +118,7 @@ module.exports = {
 
 			<spartan-code class="mt-4" code="@import '@spartan-ng/brain/hlm-tailwind-preset.css';" />
 
-			<h3 id="intellisense" class="${hlmH4} mt-6 mb-2">IntelliSense</h3>
+			<h3 id="intellisense" spartanH4>IntelliSense</h3>
 
 			<p>
 				You can enable autocompletion inside
@@ -168,7 +170,7 @@ module.exports = {
 }'
 			/>
 
-			<h3 id="sorting-classes" class="${hlmH4} mt-6 mb-2">Sorting classes</h3>
+			<h3 id="sorting-classes" spartanH4>Sorting classes</h3>
 
 			<p class="${hlmP} text-pretty">
 				You can enable automatic sorting of Tailwind CSS classes in

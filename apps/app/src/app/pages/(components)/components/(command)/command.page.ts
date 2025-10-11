@@ -3,7 +3,7 @@ import { Component, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { HlmButton } from '@spartan-ng/helm/button';
-import { hlmCode, hlmH4, hlmP } from '@spartan-ng/helm/typography';
+import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
@@ -56,14 +56,10 @@ export const routeMeta: RouteMeta = {
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
-			<spartan-cli-tabs
-				class="mt-4"
-				nxCode="npx nx g @spartan-ng/cli:ui command"
-				ngCode="ng g @spartan-ng/cli:ui command"
-			/>
+			<spartan-cli-tabs nxCode="npx nx g @spartan-ng/cli:ui command" ngCode="ng g @spartan-ng/cli:ui command" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
-			<div class="space-y-4">
+			<div class="mt-6 space-y-4">
 				<spartan-code [code]="_defaultImports" />
 				<spartan-code [code]="_defaultSkeleton" />
 			</div>
@@ -75,7 +71,7 @@ export const routeMeta: RouteMeta = {
 			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__dialog" class="${hlmH4} mb-2 mt-6">Dialog</h3>
+			<h3 id="examples__dialog" spartanH4>Dialog</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-command-dialog />
@@ -83,7 +79,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_commandDialogCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__combobox" class="${hlmH4} mb-2 mt-6">Combobox</h3>
+			<h3 id="examples__combobox" spartanH4>Combobox</h3>
 			<p class="${hlmP}">
 				You can use the
 				<code class="${hlmCode}">brn-command</code>

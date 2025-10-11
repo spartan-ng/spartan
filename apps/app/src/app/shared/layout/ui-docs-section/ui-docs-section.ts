@@ -2,19 +2,20 @@ import { Component, computed, inject, input } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import type { LibraryType } from '@spartan-ng/app/app/core/models/ui-docs.model';
-import { hlmCode, hlmH4 } from '@spartan-ng/helm/typography';
+import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
+import { hlmCode } from '@spartan-ng/helm/typography';
 import { map } from 'rxjs/operators';
 import { ApiDocsService } from '../../../core/services/api-docs.service';
 import { UIApiDocsTable } from '../ui-api-docs-table/ui-api-docs-table';
 
 @Component({
 	selector: 'spartan-ui-api-docs',
-	imports: [UIApiDocsTable],
+	imports: [UIApiDocsTable, SectionSubSubHeading],
 	template: `
 		@if (_componentDocs() && _componentEntries() && _componentEntries().length > 0) {
 			@for (entry of _componentEntries(); track entry) {
 				@let properties = _transformedComponentItems()[entry];
-				<h4 class="${hlmH4} mt-6 mb-2 pt-12" [id]="entry.toLowerCase()">{{ entry }}</h4>
+				<h4 spartanH4 [id]="entry.toLowerCase()">{{ entry }}</h4>
 				@let selector = properties.selector;
 				@if (selector) {
 					<p>
@@ -57,6 +58,9 @@ import { UIApiDocsTable } from '../ui-api-docs-table/ui-api-docs-table';
 			}
 		}
 	`,
+	host: {
+		class: 'block ',
+	},
 })
 export class UIApiDocs {
 	private readonly _apiDocsService = inject(ApiDocsService);

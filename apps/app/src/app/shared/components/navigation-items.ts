@@ -1,11 +1,16 @@
-export type ComponentRoute = {
+export type Link = {
 	label: string;
 	url: string;
 	wip?: boolean;
 	new?: boolean;
 };
+type NavItem = {
+	label: string;
+	url: string;
+	links: Link[];
+};
 
-export const components: ComponentRoute[] = [
+export const components: Link[] = [
 	{ label: 'Accordion', url: '/accordion' },
 	{ label: 'Alert', url: '/alert' },
 	{ label: 'Alert Dialog', url: '/alert-dialog' },
@@ -58,4 +63,45 @@ export const components: ComponentRoute[] = [
 	{ label: 'Toggle', url: '/toggle' },
 	{ label: 'Toggle Group', url: '/toggle-group' },
 	{ label: 'Tooltip', url: '/tooltip' },
+];
+
+export const sidenavItems: NavItem[] = [
+	{
+		label: 'Getting Started',
+		url: '/documentation',
+		links: [
+			{ label: 'Introduction', url: '/introduction' },
+			{ label: 'CLI', url: '/cli' },
+			{ label: 'components.json', url: '/components-json' },
+			{ label: 'Changelog', url: '/changelog' },
+			{ label: 'About & Credits', url: '/about' },
+		],
+	},
+	{
+		label: 'Stack',
+		url: '/stack',
+		links: [
+			{ label: 'Overview', url: '/overview' },
+			{ label: 'Technologies', url: '/technologies' },
+			{ label: 'Installation', url: '/installation' },
+		],
+	},
+	{
+		label: 'UI',
+		url: '/documentation',
+		links: [
+			{ label: 'Installation', url: '/installation' },
+			{ label: 'Theming', url: '/theming' },
+			{ label: 'Dark Mode', url: '/dark-mode' },
+			{ label: 'Typography', url: '/typography' },
+			{ label: 'Figma', url: '/figma' },
+			{ label: 'Health Checks', url: '/health-checks' },
+			{ label: 'Update Guide', url: '/update-guide' },
+		],
+	},
+	{
+		label: 'Components',
+		url: '/components',
+		links: components,
+	},
 ];

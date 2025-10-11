@@ -45,7 +45,7 @@ export const routeMeta: RouteMeta = {
       multiple technologies providing e2e type safety to Angular developers."
 			/>
 
-			<spartan-section-sub-heading first id="nx">Nx</spartan-section-sub-heading>
+			<spartan-section-sub-heading first id="nx" class="pt-6">Nx</spartan-section-sub-heading>
 			<spartan-architecture-diagram-nx />
 			<p class="${hlmP}">
 				Let's start with the workspace. The location where your code will reside and the features that meet the needs of

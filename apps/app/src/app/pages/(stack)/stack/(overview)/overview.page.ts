@@ -46,7 +46,7 @@ const stackLink = 'h-6 underline text-base px-0.5';
       multiple technologies providing e2e type safety to Angular developers."
 			/>
 
-			<spartan-architecture-diagram />
+			<spartan-architecture-diagram class="mt-6" />
 
 			<spartan-section-sub-heading id="motivation">Motivation</spartan-section-sub-heading>
 			<p class="${hlmP}">

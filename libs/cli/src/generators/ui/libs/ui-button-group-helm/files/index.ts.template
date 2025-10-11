@@ -1,0 +1,9 @@
+import { HlmButtonGroup } from './lib/hlm-button-group.ts';
+import { HlmButtonGroupSeparator } from './lib/hlm-button-group-separator';
+import { HlmButtonGroupText } from './lib/hlm-button-group-text.ts';
+
+export * from './lib/hlm-button-group.ts';
+export * from './lib/hlm-button-group-separator';
+export * from './lib/hlm-button-group-text.ts';
+
+export const HlmButtonGroupImports = [HlmButtonGroup, HlmButtonGroupText, HlmButtonGroupSeparator] as const;

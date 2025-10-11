@@ -81,6 +81,14 @@
 			"clsx": "^2.1.1"
 		}
 	},
+	"button-group": {
+		"internalName": "ui-button-group-helm",
+		"peerDependencies": {
+			"@angular/core": ">=19.0.0",
+			"clsx": "^2.1.1",
+			"@angular/router": ">=19.0.0"
+		}
+	},
 	"calendar": {
 		"internalName": "ui-calendar-helm",
 		"peerDependencies": {

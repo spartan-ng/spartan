@@ -80,6 +80,7 @@
 			"@spartan-ng/helm/badge": ["libs/helm/badge/src/index.ts"],
 			"@spartan-ng/helm/breadcrumb": ["libs/helm/breadcrumb/src/index.ts"],
 			"@spartan-ng/helm/button": ["libs/helm/button/src/index.ts"],
+			"@spartan-ng/helm/button-group": ["libs/helm/button-group/src/index.ts"],
 			"@spartan-ng/helm/calendar": ["libs/helm/calendar/src/index.ts"],
 			"@spartan-ng/helm/card": ["libs/helm/card/src/index.ts"],
 			"@spartan-ng/helm/carousel": ["libs/helm/carousel/src/index.ts"],

@@ -10,6 +10,7 @@ export const primitiveDependencies: Record<Primitive, Primitive[]> = {
 	badge: ['utils'],
 	breadcrumb: ['utils', 'icon'],
 	button: ['utils'],
+	'button-group': ['utils', 'separator', 'button'],
 	calendar: ['utils', 'button', 'icon'],
 	card: ['utils'],
 	carousel: ['utils'],

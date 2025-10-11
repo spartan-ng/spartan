@@ -35,6 +35,7 @@ What kind of change does this PR introduce?
 - [ ] badge
 - [ ] breadcrumb
 - [ ] button
+- [ ] button-group
 - [ ] calendar
 - [ ] card
 - [ ] carousel

@@ -187,6 +187,7 @@ The following is the list of supported scopes:
 - **badge**
 - **breadcrumb**
 - **button**
+- **button-group**
 - **calendar**
 - **card**
 - **carousel**

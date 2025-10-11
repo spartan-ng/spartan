@@ -866,20 +866,10 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "ClassValue",
           },
-          {
-            "name": "orientation",
-            "required": false,
-            "type": "'horizontal' | 'vertical'",
-          },
-          {
-            "name": "decorative",
-            "required": false,
-            "type": "boolean",
-          },
         ],
         "models": [],
         "outputs": [],
-        "selector": "hlm-button-group-separator",
+        "selector": "[hlmButtonGroupSeparator],hlm-button-group-separator",
       },
       "HlmButtonGroupText": {
         "inputs": [
@@ -3883,7 +3873,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "orientation",
             "required": false,
-            "type": "'horizontal' | 'vertical'",
+            "type": "SeparatorOrientation",
           },
           {
             "name": "decorative",

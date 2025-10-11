@@ -6,6 +6,7 @@ import type { ClassValue } from 'clsx';
 // Configuration Interface and InjectionToken
 export const HlmTableConfigToken = new InjectionToken<HlmTableVariant>('HlmTableConfig');
 export interface HlmTableVariant {
+	tableContainer: string;
 	table: string;
 	thead: string;
 	tbody: string;
@@ -17,6 +18,7 @@ export interface HlmTableVariant {
 }
 
 export const HlmTableVariantDefault: HlmTableVariant = {
+	tableContainer: 'relative w-full overflow-x-auto',
 	table: 'w-full caption-bottom text-sm',
 	thead: '[&_tr]:border-b',
 	tbody: '[&_tr:last-child]:border-0',
@@ -38,6 +40,22 @@ export function injectHlmTableConfig(): HlmTableVariant {
 	return inject(HlmTableConfigToken, { optional: true }) ?? HlmTableVariantDefault;
 }
 
+@Directive({
+	selector: 'div[hlmTableContainer]',
+	host: {
+		'[class]': '_computedClass()',
+		'data-slot': 'table-container',
+	},
+})
+export class HlmTableContainer {
+	private readonly _globalOrDefaultConfig = injectHlmTableConfig();
+	public readonly userClass = input<ClassValue>('', { alias: 'class' });
+
+	protected readonly _computedClass = computed(() =>
+		hlm(this._globalOrDefaultConfig ? this._globalOrDefaultConfig.tableContainer.trim() : '', this.userClass()),
+	);
+}
+
 /**
  * Directive to apply Shadcn-like styling to a <table> element.
  * It resolves and provides base classes for its child table elements.
@@ -46,9 +64,9 @@ export function injectHlmTableConfig(): HlmTableVariant {
  */
 @Directive({
 	selector: 'table[hlmTable]',
-	standalone: true,
 	host: {
 		'[class]': '_computedClass()',
+		'data-slot': 'table',
 	},
 })
 export class HlmTable {
@@ -85,9 +103,9 @@ export class HlmTable {
  */
 @Directive({
 	selector: 'thead[hlmTHead]',
-	standalone: true,
 	host: {
 		'[class]': '_computedClass()',
+		'data-slot': 'table-header',
 	},
 })
 export class HlmTHead {
@@ -105,9 +123,9 @@ export class HlmTHead {
  */
 @Directive({
 	selector: 'tbody[hlmTBody]',
-	standalone: true,
 	host: {
 		'[class]': '_computedClass()',
+		'data-slot': 'table-body',
 	},
 })
 export class HlmTBody {
@@ -125,9 +143,9 @@ export class HlmTBody {
  */
 @Directive({
 	selector: 'tfoot[hlmTFoot]',
-	standalone: true,
 	host: {
 		'[class]': '_computedClass()',
+		'data-slot': 'table-footer',
 	},
 })
 export class HlmTFoot {
@@ -145,9 +163,9 @@ export class HlmTFoot {
  */
 @Directive({
 	selector: 'tr[hlmTr]',
-	standalone: true,
 	host: {
 		'[class]': '_computedClass()',
+		'data-slot': 'table-row',
 	},
 })
 export class HlmTr {
@@ -165,9 +183,9 @@ export class HlmTr {
  */
 @Directive({
 	selector: 'th[hlmTh]',
-	standalone: true,
 	host: {
 		'[class]': '_computedClass()',
+		'data-slot': 'table-head',
 	},
 })
 export class HlmTh {
@@ -188,6 +206,7 @@ export class HlmTh {
 	standalone: true,
 	host: {
 		'[class]': '_computedClass()',
+		'data-slot': 'table-cell',
 	},
 })
 export class HlmTd {
@@ -205,9 +224,9 @@ export class HlmTd {
  */
 @Directive({
 	selector: 'caption[hlmCaption]',
-	standalone: true,
 	host: {
 		'[class]': '_computedClass()',
+		'data-slot': 'table-caption',
 	},
 })
 export class HlmCaption {

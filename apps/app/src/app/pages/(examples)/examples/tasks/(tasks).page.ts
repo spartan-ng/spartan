@@ -152,42 +152,44 @@ import { type Task, TASK_DATA } from './services/tasks.models';
 
 			<div class="max-h-[700px] w-full overflow-auto rounded-md border">
 				@defer {
-					<table hlmTable>
-						<thead hlmTHead class="bg-background sticky top-0 z-10">
-							@for (headerGroup of table.getHeaderGroups(); track headerGroup.id) {
-								<tr hlmTr>
-									@for (header of headerGroup.headers; track header.id) {
-										<th hlmTh [attr.colSpan]="header.colSpan">
-											@if (!header.isPlaceholder) {
-												<ng-container
-													*flexRender="header.column.columnDef.header; props: header.getContext(); let headerText"
-												>
-													<div [innerHTML]="headerText"></div>
+					<div hlmTableContainer>
+						<table hlmTable>
+							<thead hlmTHead class="bg-background sticky top-0 z-10">
+								@for (headerGroup of table.getHeaderGroups(); track headerGroup.id) {
+									<tr hlmTr>
+										@for (header of headerGroup.headers; track header.id) {
+											<th hlmTh [attr.colSpan]="header.colSpan">
+												@if (!header.isPlaceholder) {
+													<ng-container
+														*flexRender="header.column.columnDef.header; props: header.getContext(); let headerText"
+													>
+														<div [innerHTML]="headerText"></div>
+													</ng-container>
+												}
+											</th>
+										}
+									</tr>
+								}
+							</thead>
+							<tbody hlmTBody class="w-full">
+								@for (row of table.getRowModel().rows; track row.id) {
+									<tr hlmTr [attr.key]="row.id" [attr.data-state]="row.getIsSelected() && 'selected'">
+										@for (cell of row.getVisibleCells(); track $index) {
+											<td hlmTd>
+												<ng-container *flexRender="cell.column.columnDef.cell; props: cell.getContext(); let cell">
+													<div [innerHTML]="cell"></div>
 												</ng-container>
-											}
-										</th>
-									}
-								</tr>
-							}
-						</thead>
-						<tbody hlmTBody class="w-full">
-							@for (row of table.getRowModel().rows; track row.id) {
-								<tr hlmTr [attr.key]="row.id" [attr.data-state]="row.getIsSelected() && 'selected'">
-									@for (cell of row.getVisibleCells(); track $index) {
-										<td hlmTd>
-											<ng-container *flexRender="cell.column.columnDef.cell; props: cell.getContext(); let cell">
-												<div [innerHTML]="cell"></div>
-											</ng-container>
-										</td>
-									}
-								</tr>
-							} @empty {
-								<tr hlmTr>
-									<td hlmTd class="h-24 text-center" [attr.colspan]="_columns.length">No results.</td>
-								</tr>
-							}
-						</tbody>
-					</table>
+											</td>
+										}
+									</tr>
+								} @empty {
+									<tr hlmTr>
+										<td hlmTd class="h-24 text-center" [attr.colspan]="_columns.length">No results.</td>
+									</tr>
+								}
+							</tbody>
+						</table>
+					</div>
 				}
 			</div>
 			<div class="mt-4 flex flex-col justify-between sm:flex-row sm:items-center">

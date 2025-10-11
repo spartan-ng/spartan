@@ -9,7 +9,6 @@ import type { ClassValue } from 'clsx';
 	providers: [provideBrnSeparatorConfig({ orientation: 'vertical' })],
 	host: {
 		'data-slot': 'button-group-separator',
-		role: 'none',
 		'[class]': '_computedClass()',
 	},
 })

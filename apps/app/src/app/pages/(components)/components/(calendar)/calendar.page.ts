@@ -4,6 +4,8 @@ import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/prim
 import { CalendarRangeExample } from '@spartan-ng/app/app/pages/(components)/components/(calendar)/calendar--range.example';
 import { CalendarYearAndMonthExample } from '@spartan-ng/app/app/pages/(components)/components/(calendar)/calendar--year-and-month.example';
 import { CodePreview } from '@spartan-ng/app/app/shared/code/code-preview';
+import { MainSection } from '@spartan-ng/app/app/shared/layout/main-section';
+import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { PageBottomNav } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav';
@@ -41,6 +43,8 @@ export const routeMeta: RouteMeta = {
 		CalendarMultipleExample,
 		CalendarRangeExample,
 		CalendarYearAndMonthExample,
+		MainSection,
+		SectionSubSubHeading,
 	],
 	template: `
 		<section spartanMainSection>
@@ -92,12 +96,6 @@ export const routeMeta: RouteMeta = {
 			</p>
 			<spartan-code [code]="_i18nRuntimeChange" />
 
-			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
-			<spartan-ui-api-docs docType="brain" />
-
-			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
-			<spartan-ui-api-docs docType="helm" />
-
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
 			<h3 id="examples__multiple_selection" spartanH4>Multiple Selection</h3>
 
@@ -145,6 +143,12 @@ export const routeMeta: RouteMeta = {
 				</div>
 				<spartan-code secondTab [code]="_yearAndMonthCode()" />
 			</spartan-tabs>
+
+			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="brain" />
+
+			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="carousel" label="Carousel" />

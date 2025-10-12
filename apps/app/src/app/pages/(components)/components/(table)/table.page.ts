@@ -2,6 +2,7 @@ import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
@@ -38,6 +39,7 @@ export const routeMeta: RouteMeta = {
 		PageBottomNavLink,
 		TablePreview,
 		RouterLink,
+		HlmButtonImports,
 	],
 	template: `
 		<section spartanMainSection>
@@ -59,9 +61,6 @@ export const routeMeta: RouteMeta = {
 				<spartan-code [code]="_defaultSkeleton" />
 			</div>
 
-			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
-			<spartan-ui-api-docs docType="helm" />
-
 			<spartan-section-sub-heading id="data-table">Data Table</spartan-section-sub-heading>
 			<p class="${hlmP}">
 				For more complex tables, have a look at the data table , which is powered by the incredible work of
@@ -70,9 +69,12 @@ export const routeMeta: RouteMeta = {
 			</p>
 			<p class="${hlmP}">
 				See the
-				<a class="font-semibold underline underline-offset-4" routerLink="/components/data-table">Data Table</a>
+				<a hlmBtn variant="link" routerLink="/components/data-table">Data Table</a>
 				documentation for more information.
 			</p>
+
+			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="tabs" label="Tabs" />

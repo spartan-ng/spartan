@@ -52,7 +52,7 @@ export const routeMeta: RouteMeta = {
 			<spartan-section-sub-heading id="icons">Icons</spartan-section-sub-heading>
 			<input
 				#searchQuery
-				class="w-full"
+				class="mt-4 w-full"
 				hlmInput
 				placeholder="Search icons..."
 				type="text"

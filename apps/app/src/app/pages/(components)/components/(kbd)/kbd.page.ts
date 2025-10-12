@@ -64,9 +64,6 @@ export const routeMeta: RouteMeta = {
 				<spartan-code [code]="_codeSkeleton" />
 			</div>
 
-			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
-			<spartan-ui-api-docs docType="helm" />
-
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
 
 			<h3 id="examples_group" hlmH4 class="mt-6 mb-2">Group</h3>
@@ -100,6 +97,9 @@ export const routeMeta: RouteMeta = {
 				</div>
 				<spartan-code secondTab [code]="_buttonCode()" />
 			</spartan-tabs>
+
+			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="label" label="Label" />

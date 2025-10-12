@@ -40,6 +40,8 @@
 	--color-popover: var(--popover);
 	--color-card-foreground: var(--card-foreground);
 	--color-card: var(--card);
+	--color-surface: var(--surface);
+	--color-surface-foreground: var(--surface-foreground);
 	--radius-sm: calc(var(--radius) - 4px);
 	--radius-md: calc(var(--radius) - 2px);
 	--radius-lg: var(--radius);
@@ -76,8 +78,8 @@
 	--sidebar-accent-foreground: oklch(0.205 0 0);
 	--sidebar-border: oklch(0.922 0 0);
 	--sidebar-ring: oklch(0.708 0 0);
-
-	--docsearch-primary-color: hsl(var(--primary));
+	--surface: oklch(0.98 0 0);
+	--surface-foreground: var(--foreground);
 
 }
 
@@ -113,27 +115,8 @@
 	--sidebar-accent-foreground: oklch(0.985 0 0);
 	--sidebar-border: oklch(1 0 0 / 10%);
 	--sidebar-ring: oklch(0.556 0 0);
-
-	/* docsearch */
-	--dark-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.2);
-	--docsearch-modal-background: theme('colors.neutral.900');
-	--docsearch-modal-shadow: var(--dark-shadow);
-	--docsearch-searchbox-focus-background: theme('colors.neutral.800');
-	--docsearch-searchbox-shadow: var(--dark-shadow);
-	--docsearch-footer-background: theme('colors.neutral.900');
-	--docsearch-footer-shadow: var(--dark-shadow);
-	--docsearch-text-color: white;
-	--docsearch-hit-background: theme('colors.neutral.800');
-	--docsearch-hit-shadow: var(--dark-shadow);
-	--docsearch-hit-color: white;
-	--docsearch-hit-active-color: theme('colors.primary.foreground');
-
-	--docsearch-container-background: rgba(9, 10, 17, 0.8);
-	--docsearch-searchbox-background: theme('colors.neutral.800');
-	--docsearch-key-gradient: linear-gradient(180deg, #333, #444);
-	--docsearch-key-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-	--docsearch-logo-color: white;
-	--docsearch-muted-color: theme('colors.neutral.400');
+	--surface: oklch(0.2 0 0);
+	--surface-foreground: oklch(0.708 0 0);
 }
 
 @layer base {
@@ -151,29 +134,6 @@
 	display: none !important;
 }
 
-
-/* docsearch */
-.DocSearch-Button {
-
-	@apply !bg-secondary inline-flex flex-none items-center gap-x-3 overflow-hidden rounded-md px-2.5 md:w-52 lg:w-64 h-8;
-}
-
-.DocSearch-Button-Placeholder {
-	@apply text-sm font-normal text-neutral-500;
-}
-
-.DocSearch-Button .DocSearch-Search-Icon {
-	@apply hidden;
-}
-
-.DocSearch-Button-Keys {
-	min-width: unset;
-}
-
-.DocSearch-Button .DocSearch-Button-Key {
-	--docsearch-key-gradient: transparent;
-	@apply h-4 w-3 p-2 bg-white dark:bg-black font-sans border-border border rounded text-xs font-medium  shadow-none text-muted-foreground;
-}
 
 select {
 	background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");

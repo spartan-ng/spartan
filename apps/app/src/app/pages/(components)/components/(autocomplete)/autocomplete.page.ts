@@ -11,9 +11,11 @@ import { SectionIntro } from '../../../../shared/layout/section-intro';
 import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading';
 import { link } from '../../../../shared/typography/link';
 
+import { RouterLink } from '@angular/router';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { TabsCli } from '@spartan-ng/app/app/shared/layout/tabs-cli';
 import { UIApiDocs } from '@spartan-ng/app/app/shared/layout/ui-docs-section/ui-docs-section';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { Tabs } from '../../../../shared/layout/tabs';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { AutocompleteAsync } from './autocomplete--async.example';
@@ -47,6 +49,8 @@ export const routeMeta: RouteMeta = {
 		AutocompleteForm,
 		AutocompleteCountries,
 		AutocompleteConfig,
+		RouterLink,
+		HlmButtonImports,
 	],
 	template: `
 		<section spartanMainSection>

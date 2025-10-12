@@ -39,7 +39,7 @@ type SamePageAnchorLink = {
 		<ng-template #pageNav>
 			@if (_computedLinks().length > 0) {
 				<div class="h-(--top-spacing) shrink-0"></div>
-				<ng-scrollbar hlm class="h-[calc(100vh-3.5rem)] py-2">
+				<ng-scrollbar hlm class="h-[calc(100svh-var(--footer-height)+2rem-var(--stable-height))] py-2">
 					<div class="flex flex-col gap-2 p-4 pt-0 text-sm">
 						<p class="text-muted-foreground bg-background sticky top-0 h-6 text-xs">On this page</p>
 

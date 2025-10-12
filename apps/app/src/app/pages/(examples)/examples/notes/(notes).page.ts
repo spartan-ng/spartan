@@ -42,9 +42,9 @@ export const routeMeta: RouteMeta = {
 		class: 'block p-2 sm:p-4 pb-16',
 	},
 	template: `
-		<form class="flex flex-col items-end py-2">
-			<label hlmLabel class="w-full">
-				Title
+		<form class="flex flex-col items-end gap-4 py-2">
+			<label hlmLabel class="flex w-full flex-col items-start gap-2">
+				<span>Title</span>
 				<input
 					class="mt-1.5 w-full"
 					placeholder="Buy groceries"
@@ -56,8 +56,8 @@ export const routeMeta: RouteMeta = {
 				/>
 			</label>
 
-			<label hlmLabel class="w-full">
-				Content
+			<label hlmLabel class="flex w-full flex-col items-start gap-2">
+				<span>Content</span>
 				<textarea
 					class="mt-1.5 h-fit w-full"
 					placeholder="2x eggs, 1x milk,..."

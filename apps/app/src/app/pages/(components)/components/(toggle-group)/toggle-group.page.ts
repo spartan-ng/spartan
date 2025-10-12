@@ -11,6 +11,7 @@ import { SectionIntro } from '@spartan-ng/app/app/shared/layout/section-intro';
 import { SectionSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-heading';
 import { Tabs } from '@spartan-ng/app/app/shared/layout/tabs';
 import { TabsCli } from '@spartan-ng/app/app/shared/layout/tabs-cli';
+import { UIApiDocs } from '@spartan-ng/app/app/shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
 import { hlmH4 } from '@spartan-ng/helm/typography';
 import { ToggleGroupDisabledPreview } from './toggle-group--disabled.preview';
@@ -20,7 +21,7 @@ import { ToggleGroupSmallPreview } from './toggle-group--small.preview';
 import { ToggleGroupPreview, defaultImports, defaultSkeleton } from './toggle-group.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'Toggle Group' },
+	data: { breadcrumb: 'Toggle Group', api: 'toggle-group' },
 	meta: metaWith(
 		'spartan/ui - Toggle Group',
 		'A group of two-state buttons that can be used to select one or more options.',
@@ -46,6 +47,7 @@ export const routeMeta: RouteMeta = {
 		ToggleGroupSmallPreview,
 		ToggleGroupLargePreview,
 		ToggleGroupDisabledPreview,
+		UIApiDocs,
 	],
 	template: `
 		<section spartanMainSection>
@@ -102,6 +104,12 @@ export const routeMeta: RouteMeta = {
 				</div>
 				<spartan-code secondTab [code]="_disabledCode()" />
 			</spartan-tabs>
+
+			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="brain" />
+
+			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="tooltip" label="Tooltip" />

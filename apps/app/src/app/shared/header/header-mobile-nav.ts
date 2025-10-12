@@ -1,40 +1,17 @@
 import { Component, computed, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { NgIcon, provideIcons } from '@ng-icons/core';
+import { provideIcons } from '@ng-icons/core';
 import { lucideMenu, lucideX } from '@ng-icons/lucide';
-import { sidenavItems } from '@spartan-ng/app/app/shared/components/navigation-items';
+import { pageNavs, sidenavItems } from '@spartan-ng/app/app/shared/components/navigation-items';
 import { BrnPopoverImports } from '@spartan-ng/brain/popover';
-import { BrnSheetContent, BrnSheetTrigger } from '@spartan-ng/brain/sheet';
 import { HlmBadgeImports } from '@spartan-ng/helm/badge';
 import { HlmButton } from '@spartan-ng/helm/button';
-import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmPopoverImports } from '@spartan-ng/helm/popover';
-import { HlmScrollArea } from '@spartan-ng/helm/scroll-area';
-import { HlmSheetImports } from '@spartan-ng/helm/sheet';
-import { HlmSidebarMenuButton } from '@spartan-ng/helm/sidebar';
 import { NgScrollbarModule } from 'ngx-scrollbar';
-import { SideNavContent } from '../layout/side-nav/side-nav-content';
-import { SpartanLogo } from '../spartan-logo';
 
 @Component({
 	selector: 'spartan-mobile-nav',
-	imports: [
-		BrnSheetTrigger,
-		BrnSheetContent,
-		HlmSheetImports,
-		HlmButton,
-		NgIcon,
-		HlmIcon,
-		SideNavContent,
-		HlmScrollArea,
-		NgScrollbarModule,
-		RouterLink,
-		SpartanLogo,
-		BrnPopoverImports,
-		HlmPopoverImports,
-		HlmSidebarMenuButton,
-		HlmBadgeImports,
-	],
+	imports: [HlmButton, NgScrollbarModule, RouterLink, BrnPopoverImports, HlmPopoverImports, HlmBadgeImports],
 	providers: [provideIcons({ lucideMenu, lucideX })],
 	template: `
 		<brn-popover align="start" sideOffset="56">
@@ -67,11 +44,9 @@ import { SpartanLogo } from '../spartan-logo';
 				<div class="flex flex-col gap-12 overflow-auto px-6 py-6 [&_a]:text-2xl [&_a]:font-medium">
 					<div class="flex flex-col gap-4">
 						<div class="text-muted-foreground text-sm font-medium">Menu</div>
-						<a routerLink="/">Home</a>
-						<a routerLink="/documentation">Docs</a>
-						<a routerLink="/stack">Stack</a>
-						<a routerLink="/components">Components</a>
-						<a routerLink="/examples">Examples</a>
+						@for (pageNav of _pageNavs; track pageNav.url) {
+							<a [routerLink]="pageNav.url">{{ pageNav.label }}</a>
+						}
 					</div>
 
 					@for (item of _navItems; track item.label) {
@@ -105,4 +80,5 @@ export class HeaderMobileNav {
 	}
 
 	protected readonly _navItems = sidenavItems;
+	protected readonly _pageNavs = pageNavs;
 }

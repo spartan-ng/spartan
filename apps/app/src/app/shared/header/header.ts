@@ -1,10 +1,12 @@
-import { afterNextRender, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideGithub, lucideTwitter } from '@ng-icons/lucide';
+import { DocsDialog } from '@spartan-ng/app/app/shared/header/docs-dialog';
 import { HeaderLayoutMode } from '@spartan-ng/app/app/shared/header/header-layout-mode';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmIcon } from '@spartan-ng/helm/icon';
+import { HlmKbdImports } from '@spartan-ng/helm/kbd';
 import { HlmSeparatorImports } from '@spartan-ng/helm/separator';
 import { SpartanLogo } from '../spartan-logo';
 import { NavLink } from '../spartan-nav-link';
@@ -24,6 +26,8 @@ import { HeaderMobileNav } from './header-mobile-nav';
 		SpartanLogo,
 		HlmSeparatorImports,
 		HeaderLayoutMode,
+		HlmKbdImports,
+		DocsDialog,
 	],
 	providers: [provideIcons({ lucideTwitter, lucideGithub })],
 	host: {
@@ -44,10 +48,11 @@ import { HeaderMobileNav } from './header-mobile-nav';
 					<a spartanNavLink="/stack">Stack</a>
 					<a spartanNavLink="/components">Components</a>
 					<a spartanNavLink="/examples">Examples</a>
+					<a spartanNavLink="/colors">Colors</a>
 				</div>
 
 				<div class="ml-auto flex items-center gap-2 md:flex-1 md:justify-end">
-					<div id="docsearch" class="mr-2.5"></div>
+					<spartan-docs-dialog class="hidden w-full flex-1 md:flex md:w-auto md:flex-none" />
 					<hlm-separator orientation="vertical" class="!h-4" />
 					<a href="https://twitter.com/goetzrobin" target="_blank" size="sm" variant="ghost" hlmBtn>
 						<span class="sr-only">Twitter</span>
@@ -66,17 +71,4 @@ import { HeaderMobileNav } from './header-mobile-nav';
 		</div>
 	`,
 })
-export class Header {
-	constructor() {
-		afterNextRender(async () => {
-			const { default: docsearch } = await import('@docsearch/js');
-
-			docsearch({
-				container: '#docsearch',
-				indexName: 'spartan-ng',
-				appId: 'JJRQPPSU45',
-				apiKey: '0fe1bcb9dbe76b2a149f00bc0709c5fd',
-			});
-		});
-	}
-}
+export class Header {}

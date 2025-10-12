@@ -5,6 +5,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ReplaySubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const DarkModes = ['light', 'dark'] as const;
 export type DarkMode = (typeof DarkModes)[number];
 

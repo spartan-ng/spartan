@@ -10,6 +10,15 @@ type NavItem = {
 	links: Link[];
 };
 
+export const pageNavs: Link[] = [
+	{ label: 'Home', url: '/' },
+	{ label: 'Docs', url: '/documentation' },
+	{ label: 'Stack', url: '/stack' },
+	{ label: 'Components', url: '/components' },
+	{ label: 'Examples', url: '/examples' },
+	{ label: 'Colors', url: '/colors' },
+];
+
 export const components: Link[] = [
 	{ label: 'Accordion', url: '/accordion' },
 	{ label: 'Alert', url: '/alert' },

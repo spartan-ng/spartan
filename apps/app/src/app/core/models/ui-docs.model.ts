@@ -34,6 +34,7 @@ export type Primitives =
 	| 'command'
 	| 'date-picker'
 	| 'dialog'
+	| 'empty'
 	| 'form-field'
 	| 'hover-card'
 	| 'icon'

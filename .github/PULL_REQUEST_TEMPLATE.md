@@ -46,6 +46,7 @@ What kind of change does this PR introduce?
 - [ ] data-table
 - [ ] date-picker
 - [ ] dialog
+- [ ] empty
 - [ ] dropdown-menu
 - [ ] form-field
 - [ ] hover-card

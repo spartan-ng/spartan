@@ -1,4 +1,4 @@
-import { Directive } from '@angular/core';
+import { computed, Directive } from '@angular/core';
 import { injectBrnNavigationMenu } from './brn-navigation-menu.token';
 
 @Directive({
@@ -10,5 +10,5 @@ import { injectBrnNavigationMenu } from './brn-navigation-menu.token';
 export class BrnNavigationMenuList {
 	private readonly _navigationMenu = injectBrnNavigationMenu();
 
-	protected readonly _orientation = this._navigationMenu.context().orientation;
+	protected readonly _orientation = computed(() => this._navigationMenu.context().orientation);
 }

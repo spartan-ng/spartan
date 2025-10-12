@@ -24,7 +24,11 @@ export class BrnNavigationMenuTrigger {
 	protected readonly state = this._navigationMenuItem.state;
 
 	protected onClick() {
-		this._navigationMenu.value.set(this._navigationMenuItem.id());
+		const selectedMenuItem = this._navigationMenu.value();
+		const menuItemId = this._navigationMenuItem.id();
+
+		const value = selectedMenuItem === menuItemId ? undefined : menuItemId;
+		this._navigationMenu.value.set(value);
 	}
 
 	protected activate() {

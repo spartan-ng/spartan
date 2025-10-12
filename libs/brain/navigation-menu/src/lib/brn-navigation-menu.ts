@@ -1,13 +1,14 @@
 import { Directionality } from '@angular/cdk/bidi';
 import { computed, Directive, inject, input, model } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { computedPrevious } from 'libs/brain/tooltip/src/lib/computed-previous';
+import { computedPrevious } from '@spartan-ng/brain/tooltip';
 import { combineLatest, map, of, startWith } from 'rxjs';
 import { provideBrnNavigationMenu } from './brn-navigation-menu.token';
 
 @Directive({
 	selector: 'nav[brnNavigationMenu]',
 	host: {
+		'(mouseleave)': 'value.set()',
 		'[attr.aria-label]': '"Main"',
 		'[attr.data-orientation]': 'orientation()',
 		'[attr.dir]': '_dir()',

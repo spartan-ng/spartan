@@ -8,5 +8,6 @@ export * from './lib/brn-tooltip-content';
 export * from './lib/brn-tooltip-content-template';
 export * from './lib/brn-tooltip-trigger';
 export * from './lib/brn-tooltip.token';
+export * from './lib/computed-previous';
 
 export const BrnTooltipImports = [BrnTooltip, BrnTooltipContentTemplate, BrnTooltipTrigger, BrnTooltipContent] as const;

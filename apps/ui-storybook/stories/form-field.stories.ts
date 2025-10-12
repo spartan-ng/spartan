@@ -70,10 +70,25 @@ export const Hint: Story = {
 		},
 		template: `
 		<hlm-form-field>
-			<input aria-label='Your Name' class='w-80' hlmInput type='text' placeholder='shadcn'/>
+			<input aria-label='Your Name' class='w-80' hlmInput type='text' placeholder='Leonidas'/>
 			<hlm-hint>This is your public display name.</hlm-hint>
 		</hlm-form-field>
 		`,
+	}),
+};
+
+export const HintAndError: Story = {
+	render: (args) => ({
+		props: {
+			...args,
+			username: new FormControl(null, { validators: Validators.required }),
+		},
+		template: `
+		<hlm-form-field>
+			<input aria-label='Your Name' class='w-80' hlmInput type='text' placeholder='Leonidas' [formControl]="username"/>
+			<hlm-hint>This is your public display name.</hlm-hint>
+			<hlm-error>Username is required</hlm-error>
+		</hlm-form-field>`,
 	}),
 };
 
@@ -102,7 +117,7 @@ export const Hint: Story = {
 				<hlm-error>Your name is required</hlm-error>
 			</hlm-form-field>
 			<hlm-form-field>
-				<brn-select class="inline-block" placeholder="Select some fruit" formControlName="fruit">
+				<brn-select class="inline-block" placeholder="Select some fruit" formControlName="fruit" hlm>
 					<hlm-select-trigger class="w-80">
 						<hlm-select-value />
 					</hlm-select-trigger>
@@ -113,6 +128,7 @@ export const Hint: Story = {
 						}
 					</hlm-select-content>
 				</brn-select>
+				<hlm-hint>Select a fruit from the list</hlm-hint>
 				<hlm-error>The fruit is required</hlm-error>
 			</hlm-form-field>
 

@@ -1,4 +1,5 @@
-import { computed, Directive, input } from '@angular/core';
+import { computed, Directive, input, signal, TemplateRef } from '@angular/core';
+import { provideBrnNavigationMenuItem } from './brn-navigation-menu-item.token';
 import { injectBrnNavigationMenu } from './brn-navigation-menu.token';
 
 @Directive({
@@ -6,6 +7,7 @@ import { injectBrnNavigationMenu } from './brn-navigation-menu.token';
 	host: {
 		'[id]': 'id()',
 	},
+	providers: [provideBrnNavigationMenuItem(BrnNavigationMenuItem)],
 })
 export class BrnNavigationMenuItem {
 	private static _id = 0;
@@ -20,4 +22,6 @@ export class BrnNavigationMenuItem {
 	public readonly wasActive = computed(() => this.id() === this._navigationMenu.previousValue());
 
 	public readonly state = computed(() => (this.isActive() ? 'open' : 'closed'));
+
+	public readonly contentTemplate = signal<TemplateRef<unknown> | null>(null);
 }

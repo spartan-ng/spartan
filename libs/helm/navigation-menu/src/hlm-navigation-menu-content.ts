@@ -2,9 +2,8 @@ import { computed, Directive, input } from '@angular/core';
 import { hlm } from '@spartan-ng/helm/utils';
 import { ClassValue } from 'clsx';
 
-// TODO: change this to apply to brn structural directive
 @Directive({
-	selector: 'brn-navigation-menu-content[hlm]',
+	selector: '[hlmNavigationMenuContent]',
 	host: {
 		'[class]': '_computedClass()',
 	},

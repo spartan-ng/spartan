@@ -94,6 +94,7 @@
 			"@spartan-ng/helm/input": ["libs/helm/input/src/index.ts"],
 			"@spartan-ng/helm/input-group": ["libs/helm/input-group/src/index.ts"],
 			"@spartan-ng/helm/input-otp": ["libs/helm/input-otp/src/index.ts"],
+			"@spartan-ng/helm/kbd": ["libs/helm/kbd/src/index.ts"],
 			"@spartan-ng/helm/label": ["libs/helm/label/src/index.ts"],
 			"@spartan-ng/helm/menu": ["libs/helm/menu/src/index.ts"],
 			"@spartan-ng/helm/pagination": ["libs/helm/pagination/src/index.ts"],

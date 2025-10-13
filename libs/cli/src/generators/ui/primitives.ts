@@ -24,6 +24,7 @@ export type Primitive =
 	| 'input'
 	| 'input-group'
 	| 'input-otp'
+	| 'kbd'
 	| 'label'
 	| 'menu'
 	| 'menubar'

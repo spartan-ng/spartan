@@ -54,6 +54,7 @@ What kind of change does this PR introduce?
 - [ ] input
 - [ ] input-group
 - [ ] input-otp
+- [ ] kbd
 - [ ] label
 - [ ] menubar
 - [ ] navigation-menu

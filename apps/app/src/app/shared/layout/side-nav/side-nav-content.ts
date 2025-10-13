@@ -1,12 +1,13 @@
-import { Component, output } from '@angular/core';
-import { SideNav } from './side-nav-coming-soon';
+import { ChangeDetectionStrategy, Component, output } from '@angular/core';
+import { SideNavNew } from './side-nav-coming-new';
+import { SideNavCommingSoon } from './side-nav-coming-soon';
 import { SideNavHeading } from './side-nav-heading';
 import { SideNavLink } from './side-nav-link';
 import { SideNavLinks } from './side-nav-links';
 
 @Component({
 	selector: 'spartan-side-nav-content',
-	imports: [SideNavLink, SideNavLinks, SideNavHeading, SideNav],
+	imports: [SideNavLink, SideNavLinks, SideNavHeading, SideNavCommingSoon, SideNavNew],
 	host: {
 		class: 'block px-1',
 	},
@@ -23,13 +24,19 @@ import { SideNavLinks } from './side-nav-links';
 								<spartan-side-nav-cs />
 							</a>
 						} @else {
-							<a (click)="linkClicked.emit()" [spartanSideNavLink]="url">{{ link.label }}</a>
+							<a (click)="linkClicked.emit()" [spartanSideNavLink]="url">
+								{{ link.label }}
+								@if (link.new) {
+									<spartan-side-nav-new />
+								}
+							</a>
 						}
 					}
 				</spartan-side-nav-links>
 			</div>
 		}
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SideNavContent {
 	public readonly linkClicked = output();
@@ -99,9 +106,9 @@ export class SideNavContent {
 				{ label: 'Hover Card', url: '/hover-card' },
 				{ label: 'Icon', url: '/icon' },
 				{ label: 'Input', url: '/input' },
-				{ label: 'Input Group', url: '/input-group' },
+				{ label: 'Input Group', url: '/input-group', new: true },
 				{ label: 'Input OTP', url: '/input-otp' },
-				{ label: 'Kbd', url: '/kbd' },
+				{ label: 'Kbd', url: '/kbd', new: true },
 				{ label: 'Label', url: '/label' },
 				{ label: 'Menubar', url: '/menubar' },
 				{ label: 'Navigation Menu', url: '/navigation-menu', wip: true },

@@ -1,4 +1,5 @@
 import { computed, Directive, input, signal, TemplateRef } from '@angular/core';
+import { BrnNavigationMenuContentService } from './brn-navigation-menu-content.service';
 import { provideBrnNavigationMenuItem } from './brn-navigation-menu-item.token';
 import { injectBrnNavigationMenu } from './brn-navigation-menu.token';
 
@@ -7,7 +8,7 @@ import { injectBrnNavigationMenu } from './brn-navigation-menu.token';
 	host: {
 		'[id]': 'id()',
 	},
-	providers: [provideBrnNavigationMenuItem(BrnNavigationMenuItem)],
+	providers: [provideBrnNavigationMenuItem(BrnNavigationMenuItem), BrnNavigationMenuContentService],
 })
 export class BrnNavigationMenuItem {
 	private static _id = 0;

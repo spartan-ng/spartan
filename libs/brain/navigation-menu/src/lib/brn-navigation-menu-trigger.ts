@@ -1,13 +1,29 @@
-import { Directive } from '@angular/core';
+import { FocusMonitor } from '@angular/cdk/a11y';
+import { Directive, effect, ElementRef, inject, input, NgZone, untracked, ViewContainerRef } from '@angular/core';
+import { toObservable } from '@angular/core/rxjs-interop';
 import { BrnButton } from '@spartan-ng/brain/button';
+import { createHoverObservable } from '@spartan-ng/brain/core';
+import {
+	delay,
+	distinctUntilChanged,
+	fromEvent,
+	map,
+	merge,
+	Observable,
+	of,
+	share,
+	Subject,
+	switchMap,
+	takeUntil,
+	tap,
+} from 'rxjs';
+import { BrnNavigationMenuContentService } from './brn-navigation-menu-content.service';
 import { injectBrnNavigationMenuItem } from './brn-navigation-menu-item.token';
 import { injectBrnNavigationMenu } from './brn-navigation-menu.token';
 
 @Directive({
 	selector: 'button[brnNavigationMenuTrigger]',
 	host: {
-		'(click)': 'onClick()',
-		'(mouseenter)': 'activate()',
 		'[attr.data-state]': 'state()',
 	},
 	hostDirectives: [
@@ -20,15 +36,84 @@ import { injectBrnNavigationMenu } from './brn-navigation-menu.token';
 export class BrnNavigationMenuTrigger {
 	private readonly _navigationMenu = injectBrnNavigationMenu();
 	private readonly _navigationMenuItem = injectBrnNavigationMenuItem();
+	private readonly _destroy$ = new Subject<void>();
+	private readonly _vcr = inject(ViewContainerRef);
+	private readonly _zone = inject(NgZone);
+	private readonly _el = inject(ElementRef);
+	private readonly _contentService = inject(BrnNavigationMenuContentService);
+	private readonly _focusMonitor = inject(FocusMonitor);
 
 	protected readonly state = this._navigationMenuItem.state;
 
-	protected onClick() {
-		const selectedMenuItem = this._navigationMenu.value();
-		const menuItemId = this._navigationMenuItem.id();
+	private readonly _contentTemplate = this._navigationMenuItem.contentTemplate;
 
-		const value = selectedMenuItem === menuItemId ? undefined : menuItemId;
-		this._navigationMenu.value.set(value);
+	public readonly focused$: Observable<boolean> = this._focusMonitor.monitor(this._el).pipe(map((e) => e !== null));
+
+	private readonly _isActive$ = toObservable(this._navigationMenuItem.isActive);
+
+	private readonly _clicked$ = fromEvent(this._el.nativeElement, 'click').pipe(
+		map(() => !this._navigationMenuItem.isActive()),
+	);
+
+	private readonly _hovered$: Observable<boolean> = merge(
+		createHoverObservable(this._el.nativeElement, this._zone, this._destroy$),
+		this._contentService.hovered$,
+		this.focused$,
+	).pipe(distinctUntilChanged());
+
+	private readonly _showing$: Observable<boolean> = merge(this._isActive$, this._clicked$, this._hovered$).pipe(
+		// we set the state to open here because we are about to open show the content
+		tap((visible) => visible && this.activate()),
+		switchMap((visible) => {
+			// we are delaying based on the configure-able input
+			return of(visible).pipe(delay(visible ? this.showDelay() : this.hideDelay()));
+		}),
+		switchMap((visible) => {
+			// don't do anything when we are in the process of showing the content
+			if (visible) return of(visible);
+			// we set the state to closed here to trigger any animations for the element leaving
+			// this._contentService.setState('closed');
+			// then delay to wait for the leaving animation to finish
+			return of(visible).pipe(delay(this.animationDelay()));
+		}),
+		distinctUntilChanged(),
+		share(),
+		takeUntil(this._destroy$),
+	);
+
+	public readonly showDelay = input(300);
+	public readonly hideDelay = input(500);
+	public readonly animationDelay = input(100);
+	public readonly sideOffset = input(5);
+	public readonly align = input<'top' | 'bottom'>('bottom');
+
+	constructor() {
+		effect(() => {
+			const value = this._contentTemplate();
+			untracked(() => {
+				if (value) {
+					this._contentService.setContent(value, this._vcr);
+				}
+			});
+		});
+	}
+
+	public ngOnInit() {
+		// this._contentService.setConfig({ attachTo: this._el, align: this.align(), sideOffset: this.sideOffset() });
+		this._showing$.subscribe((isHovered) => {
+			if (isHovered) {
+				// this._contentService.show();
+			} else {
+				// this._contentService.hide();
+			}
+		});
+
+		this._clicked$.subscribe((e) => {
+			const template = this._navigationMenuItem.contentTemplate();
+			if (!template) return;
+
+			this._vcr.createEmbeddedView(template);
+		});
 	}
 
 	protected activate() {

@@ -10,7 +10,7 @@ import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 			<ul hlmNavigationMenuList>
 				<li hlmNavigationMenuItem>
 					<button hlmNavigationMenuTrigger>Home</button>
-					<brn-navigation-menu-content hlm>
+					<div hlmNavigationMenuContent *brnNavigationMenuContent>
 						<ul class="grid gap-2 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
 							<li class="row-span-3">
 								<a
@@ -29,11 +29,10 @@ import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 							<li class="line-clamp-2 text-sm leading-snug">How to install dependencies and structure your app.</li>
 							<li class="line-clamp-2 text-sm leading-snug">Styles for headings, paragraphs, lists...etc</li>
 						</ul>
-					</brn-navigation-menu-content>
+					</div>
 				</li>
 				<li hlmNavigationMenuItem>
 					<button hlmNavigationMenuTrigger>Components</button>
-					<brn-navigation-menu-content></brn-navigation-menu-content>
 				</li>
 			</ul>
 		</nav>

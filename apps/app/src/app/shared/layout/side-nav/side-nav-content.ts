@@ -88,7 +88,7 @@ export class SideNavContent {
 				{ label: 'Badge', url: '/badge' },
 				{ label: 'Breadcrumb', url: '/breadcrumb' },
 				{ label: 'Button', url: '/button' },
-				{ label: 'Button Group', url: '/button-group' },
+				{ label: 'Button Group', url: '/button-group', new: true },
 				{ label: 'Calendar', url: '/calendar' },
 				{ label: 'Card', url: '/card' },
 				{ label: 'Carousel', url: '/carousel' },

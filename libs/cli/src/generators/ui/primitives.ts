@@ -8,6 +8,7 @@ export type Primitive =
 	| 'badge'
 	| 'breadcrumb'
 	| 'button'
+	| 'button-group'
 	| 'calendar'
 	| 'card'
 	| 'carousel'

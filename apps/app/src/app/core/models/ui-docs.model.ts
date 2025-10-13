@@ -26,6 +26,7 @@ export type Primitives =
 	| 'badge'
 	| 'breadcrumb'
 	| 'button'
+	| 'button-group'
 	| 'calendar'
 	| 'card'
 	| 'carousel'

@@ -5,16 +5,17 @@ import { type CellContext, type HeaderContext, injectFlexRenderContext } from '@
 @Component({
 	imports: [HlmCheckboxImports],
 	template: `
-		<hlm-checkbox [checked]="_checkedState()" (changed)="_context.table.toggleAllRowsSelected()" />
+		<hlm-checkbox [checked]="_checkedState()" (checkedChange)="_context.table.toggleAllRowsSelected()" />
 	`,
 	host: {
-		class: 'px-1 block',
+		class: 'flex',
+		'aria-label': 'Select all',
 	},
-	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TableHeadSelection<T> {
 	protected readonly _context = injectFlexRenderContext<HeaderContext<T, unknown>>();
+
 	protected _checkedState(): boolean | 'indeterminate' {
 		if (this._context.table.getIsAllRowsSelected()) {
 			return true;
@@ -30,15 +31,14 @@ export class TableHeadSelection<T> {
 	imports: [HlmCheckboxImports],
 	template: `
 		<hlm-checkbox
-			type="checkbox"
 			[checked]="_context.row.getIsSelected()"
-			(changed)="_context.row.getToggleSelectedHandler()($event)"
+			(checkedChange)="_context.row.getToggleSelectedHandler()($event)"
 		/>
 	`,
 	host: {
-		class: 'px-1 block',
+		class: 'flex',
+		'aria-label': 'Select Row',
 	},
-	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TableRowSelection<T> {

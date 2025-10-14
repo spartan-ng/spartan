@@ -1,8 +1,9 @@
 import { Directionality } from '@angular/cdk/bidi';
-import { computed, Directive, inject, input, model } from '@angular/core';
+import { computed, contentChildren, Directive, inject, input, model } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { computedPrevious } from '@spartan-ng/brain/tooltip';
 import { combineLatest, map, of, startWith } from 'rxjs';
+import { BrnNavigationMenuItem } from './brn-navigation-menu-item';
 import { provideBrnNavigationMenu } from './brn-navigation-menu.token';
 
 @Directive({
@@ -42,6 +43,10 @@ export class BrnNavigationMenu {
 	 * The orientation of the menu.
 	 */
 	public readonly orientation = input<'horizontal' | 'vertical'>('horizontal');
+
+	private readonly _menuItems = contentChildren(BrnNavigationMenuItem, { descendants: true });
+
+	public readonly menuItemsIds = computed(() => this._menuItems().map((mi) => mi.id()));
 
 	public readonly previousValue = computedPrevious(this.value);
 

@@ -99,20 +99,13 @@ export class BrnNavigationMenuTrigger {
 	}
 
 	public ngOnInit() {
-		// this._contentService.setConfig({ attachTo: this._el, align: this.align(), sideOffset: this.sideOffset() });
-		this._showing$.subscribe((isHovered) => {
-			if (isHovered) {
-				// this._contentService.show();
+		this._contentService.setConfig({ attachTo: this._el });
+		this._showing$.subscribe((isShowing) => {
+			if (isShowing) {
+				this._contentService.show();
 			} else {
-				// this._contentService.hide();
+				this._contentService.hide();
 			}
-		});
-
-		this._clicked$.subscribe((e) => {
-			const template = this._navigationMenuItem.contentTemplate();
-			if (!template) return;
-
-			this._vcr.createEmbeddedView(template);
 		});
 	}
 

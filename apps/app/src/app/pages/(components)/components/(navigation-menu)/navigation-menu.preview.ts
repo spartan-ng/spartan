@@ -33,6 +33,13 @@ import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 				</li>
 				<li hlmNavigationMenuItem>
 					<button hlmNavigationMenuTrigger>Components</button>
+					<div hlmNavigationMenuContent *brnNavigationMenuContent>
+						<ul className="grid w-[400px] gap-2 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+							<li class="line-clamp-2 text-sm leading-snug">Dialog component</li>
+							<li class="line-clamp-2 text-sm leading-snug">Input</li>
+							<li class="line-clamp-2 text-sm leading-snug">Form</li>
+						</ul>
+					</div>
 				</li>
 			</ul>
 		</nav>

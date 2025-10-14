@@ -143,7 +143,7 @@ export class BrnHoverCardContentService {
 		if (config.attachTo) {
 			this._positionStrategy = this._psBuilder
 				.flexibleConnectedTo(config.attachTo)
-				.withPositions((config.attachPositions ?? config.align === 'top') ? topFirstPositions : bottomFirstPositions)
+				.withPositions(config.attachPositions ?? (config.align === 'top' ? topFirstPositions : bottomFirstPositions))
 				.withDefaultOffsetY(config.sideOffset ?? 0);
 			this._config = {
 				...this._config,

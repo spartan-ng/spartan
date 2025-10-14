@@ -2489,7 +2489,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "ng-icon[hlm]",
+        "selector": "ng-icon[hlmIcon], ng-icon[hlm]",
       },
     },
   },

@@ -4,22 +4,17 @@ import { lucideChevronRight } from '@ng-icons/lucide';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 
 @Component({
-	selector: 'spartan-icon-preview',
+	selector: 'spartan-icon-size',
 	imports: [NgIcon, HlmIcon],
 	providers: [provideIcons({ lucideChevronRight })],
 	template: `
-		<div>
+		<div class="flex items-center gap-6">
+			<ng-icon hlm size="sm" name="lucideChevronRight" />
+			<ng-icon hlm name="lucideChevronRight" />
+			<ng-icon hlm size="lg" name="lucideChevronRight" />
 			<ng-icon hlm size="xl" name="lucideChevronRight" />
+			<ng-icon hlm size="64px" name="lucideChevronRight" />
 		</div>
 	`,
 })
-export class IconPreview {}
-
-export const defaultImports = `
-import { HlmIcon } from '@spartan-ng/helm/icon';
-import { NgIcon, provideIcons } from '@ng-icons/core';
-`;
-
-export const defaultSkeleton = `
-<ng-icon hlm size="sm" name="lucideChevronRight" />
-`;
+export class IconSizePreview {}

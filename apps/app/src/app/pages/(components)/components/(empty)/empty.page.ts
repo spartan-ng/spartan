@@ -14,19 +14,19 @@ import { Tabs } from '../../../../shared/layout/tabs';
 import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { EmptyAvatar } from './empty--avatar';
-import { EmptyAvatarGroup } from './empty--avatar-group';
-import { EmptyBackground } from './empty--background';
-import { EmptyOutline } from './empty--outline';
+import { EmptyAvatar } from './empty--avatar.preview';
+import { EmptyAvatarGroup } from './empty--avatar-group.preview';
+import { EmptyBackground } from './empty--background.preview';
+import { EmptyOutline } from './empty--outline.preview';
 import { defaultImports, defaultSkeleton, EmptyPreview } from './empty.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Empty', api: 'empty' },
 	meta: metaWith('spartan/ui - Empty', 'Use the Empty component to display a empty state.'),
-	title: 'spartan/ui - Dropdown',
+	title: 'spartan/ui - empty',
 };
 @Component({
-	selector: 'spartan-dropdown-menu',
+	selector: 'spartan-empty',
 	imports: [
 		UIApiDocs,
 		MainSection,
@@ -68,6 +68,9 @@ export const routeMeta: RouteMeta = {
 				<spartan-code [code]="_defaultImports" />
 				<spartan-code [code]="_defaultSkeleton" />
 			</div>
+
+			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
 
@@ -124,9 +127,6 @@ export const routeMeta: RouteMeta = {
 				</div>
 				<spartan-code secondTab [code]="_avatarGroupCode()" />
 			</spartan-tabs>
-
-			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
-			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="form-field" label="Form Field" />

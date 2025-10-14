@@ -14,7 +14,7 @@ import { HlmEmptyImports } from '@spartan-ng/helm/empty';
 				<div hlmEmptyMedia variant="icon">
 					<ng-icon name="lucideCloud" />
 				</div>
-				<div hlmEmptyTitle>Clound Storage Empty</div>
+				<div hlmEmptyTitle>Cloud Storage Empty</div>
 				<div hlmEmptyDescription>Upload files to your cloud storage to access them anywhere.</div>
 			</div>
 			<div hlmEmptyContent>

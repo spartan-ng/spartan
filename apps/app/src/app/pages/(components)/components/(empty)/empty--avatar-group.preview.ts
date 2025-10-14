@@ -19,26 +19,26 @@ import { HlmEmptyImports } from '@spartan-ng/helm/empty';
 						<hlm-avatar class="size-12">
 							<img
 								src="https://picsum.photos/1000/800?grayscale&random=1"
-								alt="spartan logo. Resembling a spartanic shield"
+								alt="avatar 1"
 								hlmAvatarImage
 							/>
-							<span class="bg-[#FD005B] text-white" hlmAvatarFallback>RG</span>
+							<span class="bg-[#FD005B] text-white" hlmAvatarFallback>A1</span>
 						</hlm-avatar>
 						<hlm-avatar class="size-12">
 							<img
 								src="https://picsum.photos/1000/800?grayscale&random=2"
-								alt="spartan logo. Resembling a spartanic shield"
+								alt="avatar 2"
 								hlmAvatarImage
 							/>
-							<span class="bg-[#FD005B] text-white" hlmAvatarFallback>RG</span>
+							<span class="bg-[#FD005B] text-white" hlmAvatarFallback>A2</span>
 						</hlm-avatar>
 						<hlm-avatar class="size-12">
 							<img
 								src="https://picsum.photos/1000/800?grayscale&random=3"
-								alt="spartan logo. Resembling a spartanic shield"
+								alt="avatar 3"
 								hlmAvatarImage
 							/>
-							<span class="bg-[#FD005B] text-white" hlmAvatarFallback>RG</span>
+							<span class="bg-[#FD005B] text-white" hlmAvatarFallback>A3</span>
 						</hlm-avatar>
 					</div>
 				</div>

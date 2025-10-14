@@ -15,7 +15,7 @@ import { HlmIcon } from '@spartan-ng/helm/icon';
 				<div hlmEmptyMedia variant="icon">
 					<ng-icon name="lucideFolderCode" />
 				</div>
-				<div hlmEmptyTitle>No projects yet</div>
+				<div hlmEmptyTitle>No Projects Yet</div>
 				<div hlmEmptyDescription>
 					You haven&apos;t created any projects yet. Get started by creating your first project.
 				</div>
@@ -45,7 +45,7 @@ export const defaultSkeleton = `
 		<div hlmEmptyMedia variant="icon">
 			<ng-icon name="lucideFolderCode" />
 		</div>
-		<div hlmEmptyTitle>No projects yet</div>
+		<div hlmEmptyTitle>No Projects Yet</div>
 		<div hlmEmptyDescription>
 			You haven&apos;t created any projects yet. Get started by creating your first project.
 		</div>

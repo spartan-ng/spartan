@@ -28,6 +28,7 @@
 		"update-ui-docs-snapshot": "nx run tools:generate-ui-docs && npm test -- libs/tools/src/executors/docs/generate-ui-docs/executor.spec.ts --updateSnapshot"
 	},
 	"dependencies": {
+		"@algolia/client-search": "^5.40.0",
 		"@analogjs/content": "1.19.3",
 		"@analogjs/router": "1.19.3",
 		"@analogjs/trpc": "~0.3.0",

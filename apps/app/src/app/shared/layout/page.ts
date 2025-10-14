@@ -5,6 +5,7 @@ import { Breadcrumbs } from '@spartan-ng/app/app/shared/breadcrumbs/breadcrumbs'
 import { sidenavItems } from '@spartan-ng/app/app/shared/components/navigation-items';
 import { PageNavOutlet } from '@spartan-ng/app/app/shared/layout/page-nav/page-nav-outlet';
 import { SideNav } from '@spartan-ng/app/app/shared/layout/side-nav/side-nav';
+import { SpartanNewMarker } from '@spartan-ng/app/app/shared/spartan-new-marker';
 import { HlmBadge } from '@spartan-ng/helm/badge';
 import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 
@@ -19,6 +20,7 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 		RouterLinkActive,
 		RouterLink,
 		HlmBadge,
+		SpartanNewMarker,
 	],
 	template: `
 		<div
@@ -55,7 +57,7 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 													<span class="inline-flex items-center gap-2">
 														{{ link.label }}
 														@if (link.new) {
-															<span class="flex size-2 rounded-full bg-blue-500"></span>
+															<span spartanNewMarker></span>
 														}
 													</span>
 												</a>

@@ -6,7 +6,6 @@ import { DocsDialog } from '@spartan-ng/app/app/shared/header/docs-dialog';
 import { HeaderLayoutMode } from '@spartan-ng/app/app/shared/header/header-layout-mode';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmIcon } from '@spartan-ng/helm/icon';
-import { HlmKbdImports } from '@spartan-ng/helm/kbd';
 import { HlmSeparatorImports } from '@spartan-ng/helm/separator';
 import { SpartanLogo } from '../spartan-logo';
 import { NavLink } from '../spartan-nav-link';
@@ -26,7 +25,7 @@ import { HeaderMobileNav } from './header-mobile-nav';
 		SpartanLogo,
 		HlmSeparatorImports,
 		HeaderLayoutMode,
-		HlmKbdImports,
+
 		DocsDialog,
 	],
 	providers: [provideIcons({ lucideTwitter, lucideGithub })],

@@ -8,6 +8,7 @@ import { PageBottomNavLink } from '@spartan-ng/app/app/shared/layout/page-bottom
 import { PageNav } from '@spartan-ng/app/app/shared/layout/page-nav/page-nav';
 import { SectionIntro } from '@spartan-ng/app/app/shared/layout/section-intro';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
+import { SpartanNewMarker } from '@spartan-ng/app/app/shared/spartan-new-marker';
 import { HlmBadge } from '@spartan-ng/helm/badge';
 
 export const routeMeta: RouteMeta = {
@@ -20,7 +21,16 @@ export const routeMeta: RouteMeta = {
 };
 @Component({
 	selector: 'spartan-input',
-	imports: [MainSection, SectionIntro, PageBottomNav, PageBottomNavLink, PageNav, RouterLink, HlmBadge],
+	imports: [
+		MainSection,
+		SectionIntro,
+		PageBottomNav,
+		PageBottomNavLink,
+		PageNav,
+		RouterLink,
+		HlmBadge,
+		SpartanNewMarker,
+	],
 	template: `
 		<section spartanMainSection>
 			<spartan-section-intro
@@ -38,7 +48,7 @@ export const routeMeta: RouteMeta = {
 					>
 						{{ component.label }}
 						@if (component.new) {
-							<span class="flex size-2 rounded-full bg-blue-500"></span>
+							<span spartanNewMarker></span>
 						}
 						@if (component.wip) {
 							<span hlmBadge>soon</span>

@@ -1,6 +1,5 @@
 @import "tailwindcss";
 @import '@angular/cdk/overlay-prebuilt.css';
-@import '@docsearch/css';
 
 @import "tw-animate-css";
 @import "@fontsource/geist-mono/latin";

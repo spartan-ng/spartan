@@ -1,15 +1,85 @@
-import { Component, viewChild } from '@angular/core';
+import { searchClient, SearchHits } from '@algolia/client-search';
+import { JsonPipe } from '@angular/common';
+import { Component, computed, resource, signal, viewChild } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCornerDownLeft, lucideSearch } from '@ng-icons/lucide';
-import { pageNavs, sidenavItems } from '@spartan-ng/app/app/shared/components/navigation-items';
 import { BrnCommandImports } from '@spartan-ng/brain/command';
 import { BrnDialogImports, BrnDialogTrigger } from '@spartan-ng/brain/dialog';
-import { HlmBadge } from '@spartan-ng/helm/badge';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmCommandImports } from '@spartan-ng/helm/command';
 import { HlmDialogImports } from '@spartan-ng/helm/dialog';
 import { HlmIconImports } from '@spartan-ng/helm/icon';
 import { HlmKbdImports } from '@spartan-ng/helm/kbd';
+
+type AlgoliaHits = {
+	url: string;
+	content?: string;
+	type: string;
+	hierarchy: Record<string, string>;
+	objectID: string;
+	_snippetResult: {
+		hierarchy: {
+			lvl1: {
+				value: string;
+				matchLevel: string;
+			};
+			lvl2?: {
+				value: string;
+				matchLevel: string;
+			};
+			lvl3?: {
+				value: string;
+				matchLevel: string;
+			};
+			lvl4?: {
+				value: string;
+				matchLevel: string;
+			};
+		};
+		content?: {
+			value: string;
+			matchLevel: string;
+		};
+	};
+	_highlightResult: {
+		hierarchy: {
+			lvl0: {
+				value: string;
+				matchLevel: string;
+				matchedWords: Array<any>;
+			};
+			lvl1: {
+				value: string;
+				matchLevel: string;
+				fullyHighlighted?: boolean;
+				matchedWords: Array<string>;
+			};
+			lvl2?: {
+				value: string;
+				matchLevel: string;
+				matchedWords: Array<any>;
+			};
+			lvl3?: {
+				value: string;
+				matchLevel: string;
+				matchedWords: Array<any>;
+			};
+			lvl4?: {
+				value: string;
+				matchLevel: string;
+				fullyHighlighted: boolean;
+				matchedWords: Array<string>;
+			};
+		};
+		content?: {
+			value: string;
+			matchLevel: string;
+			fullyHighlighted: boolean;
+			matchedWords: Array<string>;
+		};
+	};
+};
 
 @Component({
 	selector: 'spartan-docs-dialog',
@@ -28,7 +98,8 @@ import { HlmKbdImports } from '@spartan-ng/helm/kbd';
 		HlmCommandImports,
 		NgIcon,
 		BrnCommandImports,
-		HlmBadge,
+		FormsModule,
+		JsonPipe,
 	],
 	template: `
 		<hlm-dialog>
@@ -52,31 +123,49 @@ import { HlmKbdImports } from '@spartan-ng/helm/kbd';
 				<hlm-command class="min-h-[400px] md:min-w-[450px]">
 					<hlm-command-search>
 						<ng-icon hlm name="lucideSearch" class="shrink-0 opacity-50" />
-
-						<input type="text" hlm-command-search-input placeholder="Type a command or search..." />
+						<input
+							type="text"
+							hlm-command-search-input
+							placeholder="Type a command or search..."
+							[(ngModel)]="_searchVal"
+						/>
 					</hlm-command-search>
 
 					<hlm-command-list>
-						<hlm-command-group>
-							<hlm-command-group-label>Pages</hlm-command-group-label>
-							@for (pageNav of _pageNavs; track pageNav.url) {
-								<button hlm-command-item [value]="pageNav.url">{{ pageNav.label }}</button>
-							}
-						</hlm-command-group>
-
-						<hlm-command-separator />
-						@for (item of _navItems; track item.label; let last = $last) {
+						@for (item of _values(); track item.objectID) {
 							<hlm-command-group>
-								<hlm-command-group-label>{{ item.label }}</hlm-command-group-label>
-								@for (link of item.links; track link.url) {
-									<button hlm-command-item [value]="item.url + link.url">
-										{{ link.label }}
+								<!-- lvl1 -->
+								@if (item.type === 'lvl1' && item.hierarchy[item.type]) {
+									<button hlm-command-item [value]="item.hierarchy['lvl1']">
+										{{ item.hierarchy['lvl1'] }}
+										@if (item.content) {
+											{{ item['content'] }}
+										}
+									</button>
+								}
+
+								<!-- askAI -->
+								@if (item.type === 'askAI') {
+									<button hlm-command-item [value]="item.hierarchy['lvl1']">
+										{{ item.hierarchy['lvl1'] }}
+									</button>
+								}
+
+								@if (['lvl2', 'lvl3', 'lvl4', 'lvl5', 'lvl6'].includes(item.type) && item.hierarchy[item.type]) {
+									<button hlm-command-item [value]="item.hierarchy['lvl1']">
+										<span>{{ item.hierarchy[item.type] }}</span>
+										<span>{{ item.hierarchy['lvl1'] }}</span>
+									</button>
+								}
+
+								<!-- content -->
+								@if (item.type === 'content') {
+									<button hlm-command-item [value]="item.content ?? item.hierarchy['lvl1']">
+										<span>{{ item.content }}</span>
+										<span>{{ item.hierarchy['lvl1'] }}</span>
 									</button>
 								}
 							</hlm-command-group>
-							@if (!last) {
-								<hlm-command-separator />
-							}
 						}
 					</hlm-command-list>
 
@@ -98,16 +187,67 @@ import { HlmKbdImports } from '@spartan-ng/helm/kbd';
 		</hlm-dialog>
 	`,
 	host: {
-		'(window:keydown)': 'onKeyDown($event)',
+		'(window:keydown)': '_onKeyDown($event)',
 	},
 })
 export class DocsDialog {
-	protected readonly _isMac = navigator.platform.toUpperCase().includes('MAC');
+	private readonly _client = searchClient('JJRQPPSU45', '0fe1bcb9dbe76b2a149f00bc0709c5fd');
 	private readonly _brnDialogTrigger = viewChild.required(BrnDialogTrigger);
 
-	protected readonly _pageNavs = pageNavs;
+	protected readonly _values = computed(() => {
+		const value = this._algoliaResource.value();
+		if (!value) return [];
+		value.hits.length = 5;
+		return value.hits;
+	});
 
-	onKeyDown(e: KeyboardEvent) {
+	protected readonly _isMac = navigator.platform.toUpperCase().includes('MAC');
+	protected readonly _searchVal = signal('');
+	private readonly _cache = new Map<string, SearchHits<AlgoliaHits>>();
+
+	private readonly _algoliaResource = resource<SearchHits<AlgoliaHits> | undefined, string>({
+		request: () => this._searchVal(),
+		loader: async ({ request }) => {
+			if (!request) return undefined;
+			const cache = this._cache.get(request);
+			if (cache) return cache;
+			const result = await this._client.searchSingleIndex<AlgoliaHits>({
+				indexName: 'spartan-ng',
+				searchParams: {
+					highlightPreTag: '<span>',
+					highlightPostTag: '</span>',
+					attributesToRetrieve: [
+						'hierarchy.lvl0',
+						'hierarchy.lvl1',
+						'hierarchy.lvl2',
+						'hierarchy.lvl3',
+						'hierarchy.lvl4',
+						'hierarchy.lvl5',
+						'hierarchy.lvl6',
+						'content',
+						'type',
+						'url',
+					],
+					attributesToSnippet: [
+						'hierarchy.lvl1:5',
+						'hierarchy.lvl2:5',
+						'hierarchy.lvl3:5',
+						'hierarchy.lvl4:5',
+						'hierarchy.lvl5:5',
+						'hierarchy.lvl6:5',
+						'content:5',
+					],
+					clickAnalytics: false,
+					snippetEllipsisText: '...',
+					query: request,
+				},
+			});
+			this._cache.set(request, result);
+			return result;
+		},
+	});
+
+	protected _onKeyDown(e: KeyboardEvent) {
 		if ((e.key === 'k' && (e.metaKey || e.ctrlKey)) || e.key === '/') {
 			if (
 				(e.target instanceof HTMLElement && e.target.isContentEditable) ||
@@ -122,6 +262,4 @@ export class DocsDialog {
 			this._brnDialogTrigger().open();
 		}
 	}
-
-	protected readonly _navItems = sidenavItems;
 }

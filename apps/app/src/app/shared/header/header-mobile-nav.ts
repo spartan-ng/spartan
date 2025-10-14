@@ -3,6 +3,7 @@ import { RouterLink } from '@angular/router';
 import { provideIcons } from '@ng-icons/core';
 import { lucideMenu, lucideX } from '@ng-icons/lucide';
 import { pageNavs, sidenavItems } from '@spartan-ng/app/app/shared/components/navigation-items';
+import { SpartanNewMarker } from '@spartan-ng/app/app/shared/spartan-new-marker';
 import { BrnPopoverImports } from '@spartan-ng/brain/popover';
 import { HlmBadgeImports } from '@spartan-ng/helm/badge';
 import { HlmButton } from '@spartan-ng/helm/button';
@@ -11,7 +12,15 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 
 @Component({
 	selector: 'spartan-mobile-nav',
-	imports: [HlmButton, NgScrollbarModule, RouterLink, BrnPopoverImports, HlmPopoverImports, HlmBadgeImports],
+	imports: [
+		HlmButton,
+		NgScrollbarModule,
+		RouterLink,
+		BrnPopoverImports,
+		HlmPopoverImports,
+		HlmBadgeImports,
+		SpartanNewMarker,
+	],
 	providers: [provideIcons({ lucideMenu, lucideX })],
 	template: `
 		<brn-popover align="start" sideOffset="56">
@@ -56,7 +65,7 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 								<a [routerLink]="item.url + link.url" class="inline-flex items-center gap-2">
 									{{ link.label }}
 									@if (link.new) {
-										<span class="flex size-2 rounded-full bg-blue-500"></span>
+										<span spartanNewMarker></span>
 									}
 									@if (link.wip) {
 										<span hlmBadge>soon</span>

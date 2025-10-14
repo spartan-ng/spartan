@@ -113,6 +113,7 @@
 			"@spartan-ng/helm/switch": ["libs/helm/switch/src/index.ts"],
 			"@spartan-ng/helm/table": ["libs/helm/table/src/index.ts"],
 			"@spartan-ng/helm/tabs": ["libs/helm/tabs/src/index.ts"],
+			"@spartan-ng/helm/textarea": ["libs/helm/textarea/src/index.ts"],
 			"@spartan-ng/helm/toggle": ["libs/helm/toggle/src/index.ts"],
 			"@spartan-ng/helm/toggle-group": ["libs/helm/toggle-group/src/index.ts"],
 			"@spartan-ng/helm/tooltip": ["libs/helm/tooltip/src/index.ts"],

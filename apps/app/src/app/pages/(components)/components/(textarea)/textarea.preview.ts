@@ -1,18 +1,19 @@
 import { Component } from '@angular/core';
-import { HlmInputImports } from '@spartan-ng/helm/input';
+import { HlmTextareaImports } from '@spartan-ng/helm/textarea';
 
 @Component({
 	selector: 'spartan-textarea-preview',
-	imports: [HlmInputImports],
+	imports: [HlmTextareaImports],
 	template: `
-		<textarea class="min-h-16 w-80" hlmInput placeholder="Type your message here."></textarea>
+		<textarea hlmTextarea class="w-80" placeholder="Type your message here."></textarea>
 	`,
 })
-export class TextAreaPreview {}
+export class TextareaPreview {}
 
 export const defaultImports = `
-import { HlmInputImports } from '@spartan-ng/helm/input';
+import { HlmTextareaImports } from '@spartan-ng/helm/textarea';
 `;
+
 export const defaultSkeleton = `
-<textarea hlmInput placeholder="Type your message here."></textarea>
+<textarea hlmTextarea placeholder="Type your message here."></textarea>
 `;

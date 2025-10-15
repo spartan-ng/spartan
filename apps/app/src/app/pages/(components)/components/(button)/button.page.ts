@@ -148,7 +148,7 @@ export const routeMeta: RouteMeta = {
 			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-page-bottom-nav>
-				<spartan-page-bottom-nav-link href="calendar" label="Calendar" />
+				<spartan-page-bottom-nav-link href="button-group" label="Button Group" />
 				<spartan-page-bottom-nav-link direction="previous" href="breadcrumb" label="Breadcrumb" />
 			</spartan-page-bottom-nav>
 		</section>

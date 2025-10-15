@@ -2,7 +2,6 @@ import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
-import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
@@ -16,7 +15,9 @@ import { Tabs } from '../../../../shared/layout/tabs';
 import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
+import { link } from '../../../../shared/typography/link';
 import { TablePreview, defaultImports, defaultSkeleton } from './table.preview';
+
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Table', api: 'table' },
 	meta: metaWith('spartan/ui - Table', 'A responsive table component.'),
@@ -39,7 +40,6 @@ export const routeMeta: RouteMeta = {
 		PageBottomNavLink,
 		TablePreview,
 		RouterLink,
-		HlmButtonImports,
 	],
 	template: `
 		<section spartanMainSection>
@@ -53,13 +53,20 @@ export const routeMeta: RouteMeta = {
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
-			<spartan-cli-tabs nxCode="npx nx g @spartan-ng/cli:ui table" ngCode="ng g @spartan-ng/cli:ui table" />
+			<spartan-cli-tabs
+				class="mt-4"
+				nxCode="npx nx g @spartan-ng/cli:ui table"
+				ngCode="ng g @spartan-ng/cli:ui table"
+			/>
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
-			<div class="mt-6 space-y-4">
+			<div class="space-y-4">
 				<spartan-code [code]="_defaultImports" />
 				<spartan-code [code]="_defaultSkeleton" />
 			</div>
+
+			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-section-sub-heading id="data-table">Data Table</spartan-section-sub-heading>
 			<p class="${hlmP}">
@@ -69,12 +76,14 @@ export const routeMeta: RouteMeta = {
 			</p>
 			<p class="${hlmP}">
 				See the
-				<a hlmBtn variant="link" routerLink="/components/data-table">Data Table</a>
+				<a class="${link}" routerLink="/components/data-table">Data Table</a>
 				documentation for more information.
 			</p>
-
-			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
-			<spartan-ui-api-docs docType="helm" />
+			<p class="${hlmP}">
+				You can also see an example of a data table in the
+				<a class="${link}" routerLink="/examples/tasks">Tasks</a>
+				demo.
+			</p>
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="tabs" label="Tabs" />

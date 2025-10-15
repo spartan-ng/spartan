@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { HlmScrollArea } from '@spartan-ng/helm/scroll-area';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { SideNavContent } from './side-nav-content';
@@ -14,5 +14,6 @@ import { SideNavContent } from './side-nav-content';
 			<spartan-side-nav-content />
 		</ng-scrollbar>
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SideNav {}

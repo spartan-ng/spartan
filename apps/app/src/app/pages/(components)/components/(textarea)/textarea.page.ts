@@ -1,7 +1,7 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
-import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
+import { hlmH4 } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
@@ -14,14 +14,15 @@ import { Tabs } from '../../../../shared/layout/tabs';
 import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { TextAreaPreview, defaultImports, defaultSkeleton } from './textarea.preview';
+import { TextareaButtonPreview } from './textarea--button.preview';
+import { TextareaDisabledPreview } from './textarea--disabled.preview';
+import { TextareaFormPreview } from './textarea--form.preview';
+import { TextareaLabelPreview } from './textarea--label.preview';
+import { TextareaPreview, defaultImports, defaultSkeleton } from './textarea.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'Textarea', api: 'input' },
-	meta: metaWith(
-		'spartan/ui - Textarea',
-		'Gives a textarea field or a component a distinct look that indicates its input capabilities.',
-	),
+	data: { breadcrumb: 'Textarea', api: 'textarea' },
+	meta: metaWith('spartan/ui - Textarea', 'Displays a form textarea or a component that looks like a textarea.'),
 	title: 'spartan/ui - Textarea',
 };
 @Component({
@@ -38,13 +39,17 @@ export const routeMeta: RouteMeta = {
 		PageNav,
 		PageBottomNav,
 		PageBottomNavLink,
-		TextAreaPreview,
+		TextareaPreview,
+		TextareaDisabledPreview,
+		TextareaLabelPreview,
+		TextareaButtonPreview,
+		TextareaFormPreview,
 	],
 	template: `
 		<section spartanMainSection>
 			<spartan-section-intro
 				name="Textarea"
-				lead="Gives a textarea field or a component a distinct look that indicates its input capabilities."
+				lead="Displays a form textarea or a component that looks like a textarea."
 			/>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
@@ -54,24 +59,51 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
-			<spartan-section-sub-heading id="note">Note</spartan-section-sub-heading>
-			<p class="${hlmP} mb-6">
-				To get that same distinct look of a spartan/ui input we can simply apply the same
-				<code class="${hlmCode}">hlmInput</code>
-				directive we would apply to other input elements.
-			</p>
-
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
-			<spartan-cli-tabs nxCode="npx nx g @spartan-ng/cli:ui input" ngCode="ng g @spartan-ng/cli:ui input" />
+			<spartan-cli-tabs
+				class="mt-4"
+				nxCode="npx nx g @spartan-ng/cli:ui textarea"
+				ngCode="ng g @spartan-ng/cli:ui textarea"
+			/>
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
-			<div class="mt-6 space-y-4">
+			<div class="space-y-4">
 				<spartan-code [code]="_defaultImports" />
 				<spartan-code [code]="_defaultSkeleton" />
 			</div>
 
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="helm" />
+
+			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
+			<h3 id="examples__disabled" class="${hlmH4} mb-2 mt-6">Disabled</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-textarea-disabled />
+				</div>
+				<spartan-code secondTab [code]="_disabledCode()" />
+			</spartan-tabs>
+			<h3 id="examples__with_label" class="${hlmH4} mb-2 mt-6">With Label</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-textarea-label />
+				</div>
+				<spartan-code secondTab [code]="_labelCode()" />
+			</spartan-tabs>
+			<h3 id="examples__with_button" class="${hlmH4} mb-2 mt-6">With Button</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-textarea-button />
+				</div>
+				<spartan-code secondTab [code]="_buttonCode()" />
+			</spartan-tabs>
+			<h3 id="examples__form" class="${hlmH4} mb-2 mt-6">Form</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-textarea-form />
+				</div>
+				<spartan-code secondTab [code]="_formCode()" />
+			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="toggle" label="Toggle" />
@@ -84,6 +116,10 @@ export const routeMeta: RouteMeta = {
 export default class TextAreaPage {
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('textarea');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
+	protected readonly _disabledCode = computed(() => this._snippets()['disabled']);
+	protected readonly _labelCode = computed(() => this._snippets()['label']);
+	protected readonly _buttonCode = computed(() => this._snippets()['button']);
+	protected readonly _formCode = computed(() => this._snippets()['form']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

@@ -860,6 +860,51 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       },
     },
   },
+  "button-group": {
+    "helm": {
+      "HlmButtonGroup": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "orientation",
+            "required": false,
+            "type": "'horizontal' | 'vertical'",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmButtonGroup]",
+      },
+      "HlmButtonGroupSeparator": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmButtonGroupSeparator],hlm-button-group-separator",
+      },
+      "HlmButtonGroupText": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmButtonGroupText]",
+      },
+    },
+  },
   "calendar": {
     "brain": {
       "BrnCalendar": {
@@ -2323,6 +2368,87 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       },
     },
   },
+  "empty": {
+    "helm": {
+      "HlmEmpty": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmEmpty]",
+      },
+      "HlmEmptyContent": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmEmptyContent]",
+      },
+      "HlmEmptyDescription": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmEmptyDescription]",
+      },
+      "HlmEmptyHeader": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmEmptyHeader]",
+      },
+      "HlmEmptyMedia": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "variant",
+            "required": false,
+            "type": "EmptyMediaVariants['variant']",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmEmptyMedia]",
+      },
+      "HlmEmptyTitle": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmEmptyTitle]",
+      },
+    },
+  },
   "form-field": {
     "helm": {
       "HlmError": {
@@ -2444,7 +2570,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "ng-icon[hlm]",
+        "selector": "ng-icon[hlmIcon], ng-icon[hlm]",
       },
     },
   },
@@ -2453,31 +2579,19 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       "HlmInput": {
         "inputs": [
           {
-            "name": "error",
-            "required": false,
-            "type": "InputVariants['error']",
-          },
-          {
             "name": "class",
             "required": false,
             "type": "ClassValue",
+          },
+          {
+            "name": "error",
+            "required": false,
+            "type": "InputVariants['error']",
           },
         ],
         "models": [],
         "outputs": [],
         "selector": "[hlmInput]",
-      },
-      "HlmInputError": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
-        "models": [],
-        "outputs": [],
-        "selector": "[hlmInputError]",
       },
     },
   },
@@ -3876,7 +3990,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "orientation",
             "required": false,
-            "type": "'horizontal' | 'vertical'",
+            "type": "SeparatorOrientation",
           },
           {
             "name": "decorative",
@@ -4791,6 +4905,18 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "outputs": [],
         "selector": "table[hlmTable]",
       },
+      "HlmTableContainer": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "div[hlmTableContainer]",
+      },
       "HlmTd": {
         "inputs": [
           {
@@ -5015,6 +5141,27 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [],
         "outputs": [],
         "selector": "[hlmTabsTrigger]",
+      },
+    },
+  },
+  "textarea": {
+    "helm": {
+      "HlmTextarea": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "error",
+            "required": false,
+            "type": "TextareaVariants['error']",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmTextarea]",
       },
     },
   },

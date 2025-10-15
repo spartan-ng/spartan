@@ -21,5 +21,5 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 `;
 
 export const defaultSkeleton = `
-<ng-icon hlm size='sm' name="lucideChevronRight" />
+<ng-icon hlm size="sm" name="lucideChevronRight" />
 `;

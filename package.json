@@ -25,7 +25,7 @@
 		"start": "nx serve app",
 		"storybook": "nx storybook ui-storybook",
 		"test": "nx run-many --target test --all",
-		"update-ui-docs-snapshot": "nx run tools:generate-ui-docs && npm test -- libs/tools/src/executors/docs/generate-ui-docs/executor.spec.ts --updateSnapshot"
+		"update-ui-docs-snapshot": "nx run tools:generate-ui-docs && npm test -- libs/tools/src/executors/docs/generate-ui-docs/executor.spec.ts --updateSnapshot --skip-cache"
 	},
 	"dependencies": {
 		"@algolia/client-search": "^5.40.0",

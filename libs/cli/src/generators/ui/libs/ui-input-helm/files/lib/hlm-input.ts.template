@@ -46,24 +46,24 @@ type InputVariants = VariantProps<typeof inputVariants>;
 	],
 })
 export class HlmInput implements BrnFormFieldControl, DoCheck {
-	public readonly error = input<InputVariants['error']>('auto');
-
-	protected readonly _state = linkedSignal(() => ({ error: this.error() }));
-
-	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected readonly _computedClass = computed(() =>
-		hlm(inputVariants({ error: this._state().error }), this.userClass()),
-	);
-
 	private readonly _injector = inject(Injector);
-
-	public readonly ngControl: NgControl | null = this._injector.get(NgControl, null);
 
 	private readonly _errorStateTracker: ErrorStateTracker;
 
 	private readonly _defaultErrorStateMatcher = inject(ErrorStateMatcher);
 	private readonly _parentForm = inject(NgForm, { optional: true });
 	private readonly _parentFormGroup = inject(FormGroupDirective, { optional: true });
+
+	public readonly userClass = input<ClassValue>('', { alias: 'class' });
+	protected readonly _computedClass = computed(() =>
+		hlm(inputVariants({ error: this._state().error }), this.userClass()),
+	);
+
+	public readonly error = input<InputVariants['error']>('auto');
+
+	protected readonly _state = linkedSignal(() => ({ error: this.error() }));
+
+	public readonly ngControl: NgControl | null = this._injector.get(NgControl, null);
 
 	public readonly errorState = computed(() => this._errorStateTracker.errorState());
 

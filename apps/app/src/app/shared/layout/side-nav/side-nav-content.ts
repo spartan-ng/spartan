@@ -101,7 +101,7 @@ export class SideNavContent {
 				{ label: 'Date Picker', url: '/date-picker' },
 				{ label: 'Dialog', url: '/dialog' },
 				{ label: 'Dropdown Menu', url: '/dropdown-menu' },
-				{ label: 'Empty', url: '/empty' },
+				{ label: 'Empty', url: '/empty', new: true },
 				{ label: 'Form', url: '/form', wip: true },
 				{ label: 'Form Field', url: '/form-field' },
 				{ label: 'Hover Card', url: '/hover-card' },

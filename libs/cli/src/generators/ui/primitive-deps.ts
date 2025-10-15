@@ -20,6 +20,7 @@ export const primitiveDependencies: Record<Primitive, Primitive[]> = {
 	'context-menu': ['utils'],
 	'date-picker': ['utils', 'calendar', 'icon', 'popover'],
 	dialog: ['utils'],
+	empty: ['utils'],
 	'form-field': ['utils'],
 	'hover-card': ['utils'],
 	icon: ['utils'],

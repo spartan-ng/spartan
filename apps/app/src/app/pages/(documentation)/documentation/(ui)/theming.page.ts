@@ -82,16 +82,17 @@ export const routeMeta: RouteMeta = {
 				</p>
 				<spartan-code class="mt-4" code='<div class="bg-primary text-primary-foreground">Hello</div>' />
 				<div class="mt-4 text-sm" hlmAlert>
+					<h4 hlmAlertTitle>Tailwind CSS v3 - CSS variables limitation</h4>
 					<div hlmAlertDescription>
 						<p>
-							<span class="font-semibold">CSS variables must be defined without color space function.</span>
-							See the
+							<span class="font-semibold">CSS variables must be defined without color space function,</span>
+							otherwise opacity modifier syntax won't work. See the
 							<a
 								class="font-medium underline"
-								href="https://tailwindcss.com/docs/customizing-colors#using-css-variables"
+								href="https://v3.tailwindcss.com/docs/customizing-colors#using-css-variables"
 								target="_blank"
 							>
-								Tailwind CSS documentation
+								Tailwind CSS v3 documentation
 							</a>
 							for more information.
 						</p>

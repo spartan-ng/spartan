@@ -1,11 +1,9 @@
 import { isPlatformServer } from '@angular/common';
 import {
-	ChangeDetectionStrategy,
-	Component,
+	Directive,
 	ElementRef,
 	OnInit,
 	PLATFORM_ID,
-	ViewEncapsulation,
 	computed,
 	inject,
 	input,
@@ -16,8 +14,8 @@ import type { CustomElementClassSettable } from '@spartan-ng/brain/core';
 import type { ClassValue } from 'clsx';
 import { BrnAccordionItem } from './brn-accordion';
 
-@Component({
-	selector: 'brn-accordion-content',
+@Directive({
+	selector: 'brn-accordion-content,[brnAccordionContent]',
 	host: {
 		'[attr.data-state]': 'state()',
 		'[attr.aria-labelledby]': 'ariaLabeledBy',
@@ -28,13 +26,6 @@ import { BrnAccordionItem } from './brn-accordion';
 		'[attr.inert]': '_addInert() ? true : undefined',
 		'[attr.style]': '_mutableContentStyle() ?? "opacity: 0;"',
 	},
-	template: `
-		<p [class]="_mutableContentClass()">
-			<ng-content />
-		</p>
-	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	encapsulation: ViewEncapsulation.None,
 })
 export class BrnAccordionContent implements OnInit, CustomElementClassSettable {
 	private readonly _item = inject(BrnAccordionItem);

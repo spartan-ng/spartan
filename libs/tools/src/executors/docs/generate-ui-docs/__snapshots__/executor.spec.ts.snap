@@ -42,7 +42,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "brn-accordion-content",
+        "selector": "brn-accordion-content,[brnAccordionContent]",
       },
       "BrnAccordionItem": {
         "exportAs": "brnAccordionItem",

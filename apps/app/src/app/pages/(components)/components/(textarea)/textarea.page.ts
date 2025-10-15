@@ -1,7 +1,7 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
-import { hlmCode, hlmH4, hlmP } from '@spartan-ng/helm/typography';
+import { hlmH4 } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
@@ -18,14 +18,11 @@ import { TextareaButtonPreview } from './textarea--button.preview';
 import { TextareaDisabledPreview } from './textarea--disabled.preview';
 import { TextareaFormPreview } from './textarea--form.preview';
 import { TextareaLabelPreview } from './textarea--label.preview';
-import { TextAreaPreview, defaultImports, defaultSkeleton } from './textarea.preview';
+import { TextareaPreview, defaultImports, defaultSkeleton } from './textarea.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'Textarea', api: 'input' },
-	meta: metaWith(
-		'spartan/ui - Textarea',
-		'Gives a textarea field or a component a distinct look that indicates its input capabilities.',
-	),
+	data: { breadcrumb: 'Textarea', api: 'textarea' },
+	meta: metaWith('spartan/ui - Textarea', 'Displays a form textarea or a component that looks like a textarea.'),
 	title: 'spartan/ui - Textarea',
 };
 @Component({
@@ -42,7 +39,7 @@ export const routeMeta: RouteMeta = {
 		PageNav,
 		PageBottomNav,
 		PageBottomNavLink,
-		TextAreaPreview,
+		TextareaPreview,
 		TextareaDisabledPreview,
 		TextareaLabelPreview,
 		TextareaButtonPreview,
@@ -52,7 +49,7 @@ export const routeMeta: RouteMeta = {
 		<section spartanMainSection>
 			<spartan-section-intro
 				name="Textarea"
-				lead="Gives a textarea field or a component a distinct look that indicates its input capabilities."
+				lead="Displays a form textarea or a component that looks like a textarea."
 			/>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
@@ -62,18 +59,11 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
-			<spartan-section-sub-heading id="note">Note</spartan-section-sub-heading>
-			<p class="${hlmP} mb-6">
-				To get that same distinct look of a spartan/ui input we can simply apply the same
-				<code class="${hlmCode}">hlmInput</code>
-				directive we would apply to other input elements.
-			</p>
-
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
 			<spartan-cli-tabs
 				class="mt-4"
-				nxCode="npx nx g @spartan-ng/cli:ui input"
-				ngCode="ng g @spartan-ng/cli:ui input"
+				nxCode="npx nx g @spartan-ng/cli:ui textarea"
+				ngCode="ng g @spartan-ng/cli:ui textarea"
 			/>
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>

@@ -2,19 +2,19 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmFormFieldImports } from '@spartan-ng/helm/form-field';
-import { HlmInputImports } from '@spartan-ng/helm/input';
 import { HlmLabelImports } from '@spartan-ng/helm/label';
+import { HlmTextareaImports } from '@spartan-ng/helm/textarea';
 
 @Component({
 	selector: 'spartan-textarea-form',
-	imports: [HlmInputImports, HlmLabelImports, HlmButtonImports, HlmFormFieldImports, ReactiveFormsModule],
+	imports: [HlmTextareaImports, HlmLabelImports, HlmButtonImports, HlmFormFieldImports, ReactiveFormsModule],
 	template: `
 		<form class="space-y-6" [formGroup]="form" (ngSubmit)="submit()">
 			<div class="grid w-full max-w-sm items-center gap-2">
 				<label hlmLabel for="username">Bio</label>
 				<textarea
-					class="min-h-16 w-80"
-					hlmInput
+					hlmTextarea
+					class="w-80"
 					id="username"
 					placeholder="Tell us a little bit about yourself"
 					formControlName="bio"

@@ -44,6 +44,7 @@ export type Primitive =
 	| 'switch'
 	| 'table'
 	| 'tabs'
+	| 'textarea'
 	| 'toggle'
 	| 'toggle-group'
 	| 'tooltip'

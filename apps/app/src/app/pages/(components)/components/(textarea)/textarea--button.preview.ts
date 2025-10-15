@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { HlmButton } from '@spartan-ng/helm/button';
-import { HlmInputImports } from '@spartan-ng/helm/input';
 import { HlmLabelImports } from '@spartan-ng/helm/label';
+import { HlmTextareaImports } from '@spartan-ng/helm/textarea';
 
 @Component({
 	selector: 'spartan-textarea-button',
-	imports: [HlmInputImports, HlmLabelImports, HlmButton],
+	imports: [HlmTextareaImports, HlmLabelImports, HlmButton],
 	template: `
 		<div class="w-fill grid gap-2">
-			<textarea class="min-h-16 w-80" hlmInput placeholder="Type ypur message here."></textarea>
+			<textarea hlmTextarea class="w-80" placeholder="Type ypur message here."></textarea>
 			<button hlmBtn>Send message</button>
 		</div>
 	`,

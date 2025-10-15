@@ -17,8 +17,8 @@ import { hlm } from '@spartan-ng/helm/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 import type { ClassValue } from 'clsx';
 
-export const inputVariants = cva(
-	'file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input shadow-xs focus-visible:border-ring focus-visible:ring-ring/50 flex h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base outline-none transition-[color,box-shadow] file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
+export const textareaVariants = cva(
+	'border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 dark:bg-input/30 shadow-xs flex min-h-16 w-full rounded-md border bg-transparent px-3 py-2 text-base outline-none transition-[color,box-shadow] [field-sizing:content] focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
 	{
 		variants: {
 			error: {
@@ -31,21 +31,22 @@ export const inputVariants = cva(
 		},
 	},
 );
-type InputVariants = VariantProps<typeof inputVariants>;
+type TextareaVariants = VariantProps<typeof textareaVariants>;
 
 @Directive({
-	selector: '[hlmInput]',
+	selector: '[hlmTextarea]',
 	host: {
+		'data-slot': 'textarea',
 		'[class]': '_computedClass()',
 	},
 	providers: [
 		{
 			provide: BrnFormFieldControl,
-			useExisting: forwardRef(() => HlmInput),
+			useExisting: forwardRef(() => HlmTextarea),
 		},
 	],
 })
-export class HlmInput implements BrnFormFieldControl, DoCheck {
+export class HlmTextarea implements BrnFormFieldControl, DoCheck {
 	private readonly _injector = inject(Injector);
 
 	private readonly _errorStateTracker: ErrorStateTracker;
@@ -56,10 +57,10 @@ export class HlmInput implements BrnFormFieldControl, DoCheck {
 
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>
-		hlm(inputVariants({ error: this._state().error }), this.userClass()),
+		hlm(textareaVariants({ error: this._state().error }), this.userClass()),
 	);
 
-	public readonly error = input<InputVariants['error']>('auto');
+	public readonly error = input<TextareaVariants['error']>('auto');
 
 	protected readonly _state = linkedSignal(() => ({ error: this.error() }));
 
@@ -91,7 +92,7 @@ export class HlmInput implements BrnFormFieldControl, DoCheck {
 		this._errorStateTracker.updateErrorState();
 	}
 
-	setError(error: InputVariants['error']) {
+	setError(error: TextareaVariants['error']) {
 		this._state.set({ error });
 	}
 }

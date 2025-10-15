@@ -128,7 +128,7 @@ export class SideNavContent {
 				{ label: 'Switch', url: '/switch' },
 				{ label: 'Table', url: '/table' },
 				{ label: 'Tabs', url: '/tabs' },
-				{ label: 'Textarea', url: '/textarea' },
+				{ label: 'Textarea', url: '/textarea', new: true },
 				{ label: 'Toggle', url: '/toggle' },
 				{ label: 'Toggle Group', url: '/toggle-group' },
 				{ label: 'Tooltip', url: '/tooltip' },

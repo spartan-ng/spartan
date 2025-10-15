@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { HlmInputImports } from '@spartan-ng/helm/input';
+import { HlmTextareaImports } from '@spartan-ng/helm/textarea';
 
 @Component({
 	selector: 'spartan-textarea-disabled',
-	imports: [HlmInputImports],
+	imports: [HlmTextareaImports],
 	template: `
-		<textarea class="min-h-16 w-80" hlmInput disabled placeholder="Type your message here."></textarea>
+		<textarea hlmTextarea class="w-80" disabled placeholder="Type your message here."></textarea>
 	`,
 })
 export class TextareaDisabledPreview {}

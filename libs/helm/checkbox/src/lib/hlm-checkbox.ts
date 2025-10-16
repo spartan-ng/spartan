@@ -84,14 +84,14 @@ export class HlmCheckbox implements ControlValueAccessor {
 	/** Used to set the aria-describedby attribute on the underlying brn element. */
 	public readonly ariaDescribedby = input<string | null>(null, { alias: 'aria-describedby' });
 
-	/** The indeterminate state of the checkbox. */
-	public readonly indeterminate = model<boolean>(false);
-
 	/** The checked state of the checkbox. */
 	public readonly checked = model<boolean>(false);
 
-	// /** Emits when checked state changes. */
-	// public readonly checkedChange = output<boolean>();
+	/**
+	 * The indeterminate state of the checkbox.
+	 * For example, a "select all/deselect all" checkbox may be in the indeterminate state when some but not all of its sub-controls are checked.
+	 */
+	public readonly indeterminate = model<boolean>(false);
 
 	/** The name attribute of the checkbox. */
 	public readonly name = input<string | null>(null);

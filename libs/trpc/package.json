@@ -33,7 +33,7 @@
 		"rxjs": "~7.8.1",
 		"superjson": "^2.2.1",
 		"ufo": "1.5.4",
-		"vite": "6.2.1"
+		"vite": "7.1.9"
 	},
 	"publishConfig": {
 		"access": "public"

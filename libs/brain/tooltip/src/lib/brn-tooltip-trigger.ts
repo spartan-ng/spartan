@@ -29,12 +29,13 @@ import {
 } from '@angular/cdk/overlay';
 import { normalizePassiveListenerOptions, Platform } from '@angular/cdk/platform';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { DOCUMENT } from '@angular/common';
+
 import {
 	type AfterViewInit,
 	booleanAttribute,
 	computed,
 	Directive,
+	DOCUMENT,
 	effect,
 	ElementRef,
 	inject,

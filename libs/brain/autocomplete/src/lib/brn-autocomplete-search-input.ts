@@ -1,17 +1,18 @@
 import {
+	DestroyRef,
 	Directive,
 	effect,
 	ElementRef,
 	forwardRef,
-	Inject,
+	inject,
+	Injector,
 	input,
 	linkedSignal,
-	Optional,
-	Renderer2,
+	OnInit,
 	signal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { COMPOSITION_BUFFER_MODE, DefaultValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { DefaultValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { startWith } from 'rxjs/operators';
 import { provideBrnAutocompleteSearchInput } from './brn-autocomplete-search-input.token';
 import { injectBrnAutocomplete } from './brn-autocomplete.token';
@@ -35,7 +36,10 @@ import { injectBrnAutocomplete } from './brn-autocomplete.token';
 		'(input)': 'onInput()',
 	},
 })
-export class BrnAutocompleteSearchInput extends DefaultValueAccessor {
+export class BrnAutocompleteSearchInput extends DefaultValueAccessor implements OnInit {
+	private readonly _el = inject(ElementRef<HTMLInputElement>);
+	private readonly _destroyRef = inject(DestroyRef);
+	private readonly _injector = inject(Injector);
 	private readonly _autocomplete = injectBrnAutocomplete();
 
 	/** The initial value of the search input */
@@ -49,23 +53,22 @@ export class BrnAutocompleteSearchInput extends DefaultValueAccessor {
 	/** The id of the active option */
 	protected readonly _activeDescendant = signal<string | undefined>(undefined);
 
-	constructor(
-		renderer: Renderer2,
-		private readonly elementRef: ElementRef,
-		@Optional() @Inject(COMPOSITION_BUFFER_MODE) compositionMode: boolean,
-	) {
-		super(renderer, elementRef, compositionMode);
+	ngOnInit(): void {
 		this._autocomplete.keyManager.change
-			.pipe(startWith(this._autocomplete.keyManager.activeItemIndex), takeUntilDestroyed())
+			.pipe(startWith(this._autocomplete.keyManager.activeItemIndex), takeUntilDestroyed(this._destroyRef))
 			.subscribe(() => this._activeDescendant.set(this._autocomplete.keyManager.activeItem?.id()));
 
-		effect(() => {
-			this.elementRef.nativeElement.value = this.valueState();
-		});
+		effect(
+			() => {
+				this._el.nativeElement.value = this.valueState();
+			},
+			{ injector: this._injector },
+		);
 	}
+
 	/** Listen for changes to the input value */
 	protected onInput(): void {
-		this.valueState.set(this.elementRef.nativeElement.value);
+		this.valueState.set(this._el.nativeElement.value);
 	}
 
 	/** Listen for keydown events */

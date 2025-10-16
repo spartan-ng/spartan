@@ -4,7 +4,7 @@ import analog from '@analogjs/platform';
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 import * as path from 'node:path';
 import { visualizer } from 'rollup-plugin-visualizer';
-import { type Plugin, defineConfig, splitVendorChunkPlugin } from 'vite';
+import { defineConfig, type Plugin } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import { getPrerenderedRoutes } from './src/utils/prerender-routes';
 
@@ -126,7 +126,6 @@ export default defineConfig(({ mode }) => {
 			}),
 			nxViteTsPaths(),
 			visualizer() as Plugin,
-			splitVendorChunkPlugin(),
 		],
 		test: {
 			reporters: ['default'],

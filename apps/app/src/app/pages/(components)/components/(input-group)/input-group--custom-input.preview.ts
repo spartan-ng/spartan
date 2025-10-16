@@ -18,10 +18,10 @@ import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 	template: `
 		<div hlmInputGroup>
 			<textarea
-				hlmInputGroupTextarea
+				data-slot="input-group-control"
 				placeholder="Autoresize textarea..."
 				cdkTextareaAutosize
-				class="field-sizing-content flex min-h-16 w-full resize-none rounded-md bg-transparent px-3 py-2.5 text-base outline-none transition-[color,box-shadow] md:text-sm"
+				class="flex min-h-16 w-full resize-none rounded-md bg-transparent px-3 py-2.5 text-base outline-none transition-[color,box-shadow] md:text-sm"
 			></textarea>
 
 			<div hlmInputGroupAddon align="block-end">

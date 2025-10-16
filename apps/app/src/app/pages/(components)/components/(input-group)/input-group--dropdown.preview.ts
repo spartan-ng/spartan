@@ -47,7 +47,7 @@ import { HlmMenuImports } from '@spartan-ng/helm/menu';
 					align="end"
 				>
 					Search In...
-					<ng-icon hlm name="lucideChevronDown" class="size-3" />
+					<ng-icon hlm name="lucideChevronDown" />
 				</button>
 			</div>
 		</div>

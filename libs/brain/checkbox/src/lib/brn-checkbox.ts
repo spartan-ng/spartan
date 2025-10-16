@@ -44,8 +44,8 @@ const CONTAINER_POST_FIX = '-checkbox';
 			#checkBox
 			role="checkbox"
 			type="button"
-			[id]="getCheckboxButtonId(_state().id) ?? ''"
-			[name]="getCheckboxButtonId(_state().name) ?? ''"
+			[id]="_getCheckboxButtonId(_state().id) ?? ''"
+			[name]="_getCheckboxButtonId(_state().name) ?? ''"
 			[class]="class()"
 			[attr.aria-checked]="_ariaChecked()"
 			[attr.aria-label]="ariaLabel() || null"
@@ -209,7 +209,7 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 			if (!this._elementRef.nativeElement || !this._isBrowser) return;
 
 			const newLabelId = state.id + '-label';
-			const checkboxButtonId = this.getCheckboxButtonId(state.id);
+			const checkboxButtonId = this._getCheckboxButtonId(state.id);
 			const labelElement =
 				this._elementRef.nativeElement.closest('label') ??
 				this._document.querySelector(`label[for="${checkboxButtonId}"]`);
@@ -281,7 +281,7 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 	 * @param idPassedToContainer - ID applied to container element
 	 * @returns ID to use for inner button or null
 	 */
-	protected getCheckboxButtonId(idPassedToContainer: string | null | undefined): string | null {
+	protected _getCheckboxButtonId(idPassedToContainer: string | null | undefined): string | null {
 		return idPassedToContainer ? idPassedToContainer.replace(CONTAINER_POST_FIX, '') : null;
 	}
 

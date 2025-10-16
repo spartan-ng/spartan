@@ -103,6 +103,7 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 
 	/*
 	 * The indeterminate state of the checkbox.
+	 * For example, a "select all/deselect all" checkbox may be in the indeterminate state when some but not all of its sub-controls are checked.
 	 */
 	public readonly indeterminate = model<boolean>(false);
 

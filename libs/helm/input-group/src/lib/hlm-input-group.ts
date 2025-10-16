@@ -25,7 +25,7 @@ export class HlmInputGroup {
 			// Focus state.
 			'has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-ring/50 has-[[data-slot=input-group-control]:focus-visible]:ring-[3px]',
 			// Error state.
-			'has-[[data-slot][aria-invalid=true]]:ring-destructive/20 has-[[data-slot][aria-invalid=true]]:border-destructive dark:has-[[data-slot][aria-invalid=true]]:ring-destructive/40',
+			'has-[>.ng-invalid.ng-touched]:ring-destructive/20 has-[>.ng-invalid.ng-touched]:border-destructive dark:has-[>.ng-invalid.ng-touched]:ring-destructive/40',
 
 			this.userClass(),
 		),

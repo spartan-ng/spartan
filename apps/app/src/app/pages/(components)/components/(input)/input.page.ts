@@ -19,7 +19,7 @@ import { InputDisabledPreview } from './input--disabled.preview';
 import { InputFilePreview } from './input--file.preview';
 import { InputFormPreview } from './input--form.preview';
 import { InputLabelPreview } from './input--label.preview';
-import { InputPreview, defaultImports, defaultSkeleton } from './input.preview';
+import { defaultImports, defaultSkeleton, InputPreview } from './input.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Input', api: 'input' },
@@ -118,7 +118,7 @@ export const routeMeta: RouteMeta = {
 			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
-				<spartan-page-bottom-nav-link href="input-otp" label="Input OTP" />
+				<spartan-page-bottom-nav-link href="input-group" label="Input Group" />
 				<spartan-page-bottom-nav-link direction="previous" href="icon" label="Icon" />
 			</spartan-page-bottom-nav>
 		</section>

@@ -1,31 +1,87 @@
-import { Component } from '@angular/core';
-import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideSend } from '@ng-icons/lucide';
-import { HlmIcon } from '@spartan-ng/helm/icon';
+import { Component, computed, signal } from '@angular/core';
+import { provideIcons } from '@ng-icons/core';
 import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
-import { HlmToasterImports } from '@spartan-ng/helm/sonner';
-import { toast } from 'ngx-sonner';
+
+import { tablerCheck, tablerCopy, tablerInfoCircle, tablerStar } from '@ng-icons/tabler-icons';
+import { BrnPopoverImports } from '@spartan-ng/brain/popover';
+import { HlmIconImports } from '@spartan-ng/helm/icon';
+import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 
 @Component({
 	selector: 'spartan-input-group-button-preview',
-	imports: [HlmInputGroupImports, HlmIcon, NgIcon, HlmToasterImports],
-	providers: [provideIcons({ lucideSend })],
+	imports: [HlmInputGroupImports, HlmIconImports, BrnPopoverImports, HlmPopoverImports],
+	providers: [provideIcons({ tablerCheck, tablerCopy, tablerInfoCircle, tablerStar })],
+	host: {
+		class: 'grid w-full max-w-sm gap-6',
+	},
 	template: `
-		<!--		<hlm-toaster />-->
-		<!--		<div class="flex flex-col gap-4">-->
-		<!--			<hlm-input-group>-->
-		<!--				<input hlmInput />-->
-		<!--				<button hlmSuffix><ng-icon hlm name="lucideSend" (click)="_send()" /></button>-->
-		<!--			</hlm-input-group>-->
-		<!--			<hlm-input-group>-->
-		<!--				<input hlmInput />-->
-		<!--				<button hlmSuffixAddon><ng-icon hlm name="lucideSend" (click)="_send()" /></button>-->
-		<!--			</hlm-input-group>-->
-		<!--		</div>-->
+		<div hlmInputGroup>
+			<input hlmInputGroupInput placeholder="https://github.com/spartan-ng/spartan" readOnly />
+			<div hlmInputGroupAddon align="inline-end">
+				<button
+					hlmInputGroupButton
+					aria-label="Copy"
+					title="Copy"
+					size="icon-xs"
+					(click)="_copy('https://github.com/spartan-ng/spartan')"
+				>
+					<ng-icon hlm [name]="_isCopied() ? 'tablerCheck' : 'tablerCopy'" />
+				</button>
+			</div>
+		</div>
+		<div hlmInputGroup class="[--radius:9999px]">
+			<div hlmInputGroupAddon>
+				<button
+					hlmInputGroupButton
+					variant="secondary"
+					size="icon-xs"
+					brnPopoverTrigger
+					[brnPopoverTriggerFor]="brnPopover"
+				>
+					<ng-icon hlm name="tablerInfoCircle" />
+				</button>
+			</div>
+
+			<div hlmInputGroupAddon class="text-muted-foreground pl-1.5">https://</div>
+			<input hlmInputGroupInput id="input-secure-19" />
+			<div hlmInputGroupAddon align="inline-end">
+				<button hlmInputGroupButton size="icon-xs" (click)="_toggleFavorite()">
+					<ng-icon hlm name="tablerStar" [class]="_favoriteClass()" />
+				</button>
+			</div>
+		</div>
+		<div hlmInputGroup>
+			<input hlmInputGroupInput placeholder="Type to search..." />
+			<div hlmInputGroupAddon align="inline-end">
+				<button hlmInputGroupButton variant="secondary">Search</button>
+			</div>
+		</div>
+
+		<brn-popover sideOffset="5" #brnPopover>
+			<div hlmPopoverContent class="flex flex-col gap-1 rounded-xl text-sm" *brnPopoverContent="let ctx">
+				<p class="font-medium">Your connection is not secure.</p>
+				<p>You should not enter any sensitive information on this site.</p>
+			</div>
+		</brn-popover>
 	`,
 })
 export class InputGroupButtonPreview {
-	protected _send(): void {
-		toast.success('Message successful sent');
+	protected readonly _isCopied = signal(false);
+	protected readonly _isFavorite = signal(false);
+	protected readonly _favoriteClass = computed(() =>
+		this._isFavorite() ? '[&>svg]:fill-blue-600 [&>svg]:stroke-blue-600' : '',
+	);
+
+	protected _copy(text: string) {
+		void navigator.clipboard.writeText(text);
+		this._isCopied.set(true);
+
+		setTimeout(() => {
+			this._isCopied.set(false);
+		}, 3000);
+	}
+
+	protected _toggleFavorite(): void {
+		this._isFavorite.update((f) => !f);
 	}
 }

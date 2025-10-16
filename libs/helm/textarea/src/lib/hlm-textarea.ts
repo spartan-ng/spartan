@@ -8,6 +8,7 @@ import {
 	Injector,
 	input,
 	linkedSignal,
+	signal,
 	untracked,
 } from '@angular/core';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
@@ -48,6 +49,7 @@ type TextareaVariants = VariantProps<typeof textareaVariants>;
 })
 export class HlmTextarea implements BrnFormFieldControl, DoCheck {
 	private readonly _injector = inject(Injector);
+	private readonly _additionalClasses = signal<ClassValue>('');
 
 	private readonly _errorStateTracker: ErrorStateTracker;
 
@@ -57,7 +59,7 @@ export class HlmTextarea implements BrnFormFieldControl, DoCheck {
 
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>
-		hlm(textareaVariants({ error: this._state().error }), this.userClass()),
+		hlm(textareaVariants({ error: this._state().error }), this.userClass(), this._additionalClasses()),
 	);
 
 	public readonly error = input<TextareaVariants['error']>('auto');
@@ -92,7 +94,11 @@ export class HlmTextarea implements BrnFormFieldControl, DoCheck {
 		this._errorStateTracker.updateErrorState();
 	}
 
-	setError(error: TextareaVariants['error']) {
+	public setError(error: TextareaVariants['error']): void {
 		this._state.set({ error });
+	}
+
+	public setClass(classes: string): void {
+		this._additionalClasses.set(classes);
 	}
 }

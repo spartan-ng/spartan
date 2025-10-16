@@ -48,9 +48,7 @@ type InputVariants = VariantProps<typeof inputVariants>;
 })
 export class HlmInput implements BrnFormFieldControl, DoCheck {
 	private readonly _injector = inject(Injector);
-
 	private readonly _additionalClasses = signal<ClassValue>('');
-
 
 	private readonly _errorStateTracker: ErrorStateTracker;
 

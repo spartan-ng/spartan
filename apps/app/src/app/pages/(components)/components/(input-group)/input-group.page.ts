@@ -2,6 +2,12 @@ import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 
+import { InputGroupButtonGroupPreview } from '@spartan-ng/app/app/pages/(components)/components/(input-group)/input-group--button-group.preview';
+import { InputGroupCustomInputPreview } from '@spartan-ng/app/app/pages/(components)/components/(input-group)/input-group--custom-input.preview';
+import { InputGroupDropdownPreview } from '@spartan-ng/app/app/pages/(components)/components/(input-group)/input-group--dropdown.preview';
+import { InputGroupLabelPreview } from '@spartan-ng/app/app/pages/(components)/components/(input-group)/input-group--label.preview';
+import { InputGroupTextareaPreview } from '@spartan-ng/app/app/pages/(components)/components/(input-group)/input-group--textarea.preview';
+import { InputGroupTooltipPreview } from '@spartan-ng/app/app/pages/(components)/components/(input-group)/input-group--tooltip.preview';
 import { UIApiDocs } from '@spartan-ng/app/app/shared/layout/ui-docs-section/ui-docs-section';
 import { HlmH4 } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
@@ -51,6 +57,14 @@ export const routeMeta: RouteMeta = {
 		InputGroupIconPreview,
 		InputGroupIconPreview,
 		InputGroupTextPreview,
+		InputGroupTextPreview,
+		InputGroupTextPreview,
+		InputGroupTooltipPreview,
+		InputGroupTextareaPreview,
+		InputGroupLabelPreview,
+		InputGroupDropdownPreview,
+		InputGroupButtonGroupPreview,
+		InputGroupCustomInputPreview,
 	],
 	template: `
 		<section spartanMainSection>
@@ -108,6 +122,56 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_buttonCode()" />
 			</spartan-tabs>
 
+			<h3 id="examples_tooltip" hlmH4 class="mb-2 mt-6">Tooltip</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-input-group-tooltip-preview />
+				</div>
+				<spartan-code secondTab [code]="_tooltipCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples_textarea" hlmH4 class="mb-2 mt-6">Textarea</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-input-group-textarea-preview />
+				</div>
+				<spartan-code secondTab [code]="_textareaCode()" />
+			</spartan-tabs>
+
+			<!--	todo add spinner when spinner is available		-->
+
+			<h3 id="examples_label" hlmH4 class="mb-2 mt-6">Label</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-input-group-label-preview />
+				</div>
+				<spartan-code secondTab [code]="_labelCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples_dropdown" hlmH4 class="mb-2 mt-6">Dropdown</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-input-group-dropdown-preview />
+				</div>
+				<spartan-code secondTab [code]="_dropdownCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples_button-group" hlmH4 class="mb-2 mt-6">Button Group</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-input-group-button-group-preview />
+				</div>
+				<spartan-code secondTab [code]="_buttonGroupCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples_custom-input" hlmH4 class="mb-2 mt-6">Custom Input</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-input-group-custom-input-preview />
+				</div>
+				<spartan-code secondTab [code]="_customInputCode()" />
+			</spartan-tabs>
+
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link label="Input OTP" href="input-otp" />
 				<spartan-page-bottom-nav-link direction="previous" label="Input" />
@@ -121,6 +185,12 @@ export default class InputGroupPage {
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _iconCode = computed(() => this._snippets()['icon']);
 	protected readonly _buttonCode = computed(() => this._snippets()['button']);
+	protected readonly _tooltipCode = computed(() => this._snippets()['tooltip']);
+	protected readonly _textareaCode = computed(() => this._snippets()['textarea']);
+	protected readonly _labelCode = computed(() => this._snippets()['label']);
+	protected readonly _dropdownCode = computed(() => this._snippets()['dropdown']);
+	protected readonly _buttonGroupCode = computed(() => this._snippets()['buttonGroup']);
+	protected readonly _customInputCode = computed(() => this._snippets()['customInput']);
 	protected readonly _imports = defaultImports;
 	protected readonly _codeSkeleton = defaultSkeleton;
 }

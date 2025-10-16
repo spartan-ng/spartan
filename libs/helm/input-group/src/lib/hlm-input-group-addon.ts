@@ -28,7 +28,7 @@ type InputGroupAddonVariants = VariantProps<typeof inputGroupAddonVariants>;
 	host: {
 		role: 'group',
 		'data-slot': 'input-group-addon',
-		'[data-align]': 'align()',
+		'[attr.data-align]': 'align()',
 		'[class]': '_computedClass()',
 	},
 })

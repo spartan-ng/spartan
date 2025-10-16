@@ -1,13 +1,22 @@
 import { HlmInputGroup } from './lib/hlm-input-group';
-import { HlmPrefix } from './lib/hlm-prefix';
-import { HlmPrefixAddon } from './lib/hlm-prefix-addon';
-import { HlmSuffix } from './lib/hlm-suffix';
-import { HlmSuffixAddon } from './lib/hlm-suffix-addon';
+import { HlmInputGroupAddon } from './lib/hlm-input-group-addon';
+import { HlmInputGroupButton } from './lib/hlm-input-group-button';
+import { HlmInputGroupInput } from './lib/hlm-input-group-input';
+import { HlmInputGroupText } from './lib/hlm-input-group-text';
+import { HlmInputGroupTextarea } from './lib/hlm-input-group-textarea';
 
 export * from './lib/hlm-input-group';
-export * from './lib/hlm-prefix';
-export * from './lib/hlm-prefix-addon';
-export * from './lib/hlm-suffix';
-export * from './lib/hlm-suffix-addon';
+export * from './lib/hlm-input-group-addon';
+export * from './lib/hlm-input-group-button';
+export * from './lib/hlm-input-group-input';
+export * from './lib/hlm-input-group-text';
+export * from './lib/hlm-input-group-textarea';
 
-export const HlmInputGroupImports = [HlmInputGroup, HlmSuffixAddon, HlmPrefixAddon, HlmPrefix, HlmSuffix] as const;
+export const HlmInputGroupImports = [
+	HlmInputGroup,
+	HlmInputGroupAddon,
+	HlmInputGroupButton,
+	HlmInputGroupInput,
+	HlmInputGroupText,
+	HlmInputGroupTextarea,
+] as const;

@@ -120,7 +120,7 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
 
-			<h3 id="examples__size" class="${hlmH4} mb-2 mt-6">Size</h3>
+			<h3 id="examples__size" class="${hlmH4} mt-6 mb-2">Size</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-icon-size />
@@ -128,7 +128,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_sizeCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__responsive_size" class="${hlmH4} mb-2 mt-6">Responsive Size</h3>
+			<h3 id="examples__responsive_size" class="${hlmH4} mt-6 mb-2">Responsive Size</h3>
 
 			<p class="${hlmP} mb-6">
 				Use font-sizes (e.g.
@@ -145,7 +145,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_responsiveCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__multiple_icon_sets" class="${hlmH4} mb-2 mt-6">Multiple Icon Sets</h3>
+			<h3 id="examples__multiple_icon_sets" class="${hlmH4} mt-6 mb-2">Multiple Icon Sets</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-icon-multiple-sets />

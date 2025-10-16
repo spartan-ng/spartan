@@ -1,9 +1,9 @@
 import { searchClient, SearchHits } from '@algolia/client-search';
-import { JsonPipe } from '@angular/common';
-import { Component, computed, resource, signal, viewChild } from '@angular/core';
+import { Component, computed, inject, resource, signal, viewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideCornerDownLeft, lucideSearch } from '@ng-icons/lucide';
+import { lucideArrowRight, lucideCornerDownLeft, lucideSearch } from '@ng-icons/lucide';
 import { BrnCommandImports } from '@spartan-ng/brain/command';
 import { BrnDialogImports, BrnDialogTrigger } from '@spartan-ng/brain/dialog';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
@@ -87,6 +87,7 @@ type AlgoliaHits = {
 		provideIcons({
 			lucideSearch,
 			lucideCornerDownLeft,
+			lucideArrowRight,
 		}),
 	],
 	imports: [
@@ -99,7 +100,6 @@ type AlgoliaHits = {
 		NgIcon,
 		BrnCommandImports,
 		FormsModule,
-		JsonPipe,
 	],
 	template: `
 		<hlm-dialog>
@@ -134,41 +134,63 @@ type AlgoliaHits = {
 					<hlm-command-list>
 						@for (item of _values(); track item.objectID) {
 							<hlm-command-group>
-								<!-- lvl1 -->
-								@if (item.type === 'lvl1' && item.hierarchy[item.type]) {
-									<button hlm-command-item [value]="item.hierarchy['lvl1']">
-										{{ item.hierarchy['lvl1'] }}
-										@if (item.content) {
-											{{ item['content'] }}
-										}
-									</button>
-								}
+								@if (item.url) {
+									<!-- lvl1 -->
+									@if (item.type === 'lvl1' && item.hierarchy[item.type]) {
+										<button hlm-command-item (selected)="onSelect(item.url)" [value]="item.hierarchy['lvl1']">
+											<a [href]="item.url" class="flex w-full items-center gap-2">
+												<ng-icon hlm name="lucideArrowRight" size="sm" />
+												<div class="flex flex-col items-start gap-0.5">
+													<span class="font-semibold">{{ item.hierarchy['lvl1'] }}</span>
+													@if (item.content) {
+														<span class="text-sm">{{ item['content'] }}</span>
+													}
+												</div>
+											</a>
+										</button>
+									}
 
-								<!-- askAI -->
-								@if (item.type === 'askAI') {
-									<button hlm-command-item [value]="item.hierarchy['lvl1']">
-										{{ item.hierarchy['lvl1'] }}
-									</button>
-								}
+									<!-- askAI -->
+									@if (item.type === 'askAI') {
+										<button hlm-command-item (selected)="onSelect(item.url)" [value]="item.hierarchy['lvl1']">
+											<a [href]="item.url" class="flex w-full items-center gap-2">
+												{{ item.hierarchy['lvl1'] }}
+											</a>
+										</button>
+									}
 
-								@if (['lvl2', 'lvl3', 'lvl4', 'lvl5', 'lvl6'].includes(item.type) && item.hierarchy[item.type]) {
-									<button hlm-command-item [value]="item.hierarchy['lvl1']">
-										<span>{{ item.hierarchy[item.type] }}</span>
-										<span>{{ item.hierarchy['lvl1'] }}</span>
-									</button>
-								}
+									@if (['lvl2', 'lvl3', 'lvl4', 'lvl5', 'lvl6'].includes(item.type) && item.hierarchy[item.type]) {
+										<button hlm-command-item (selected)="onSelect(item.url)" [value]="item.hierarchy['lvl1']">
+											<a [href]="item.url" class="flex w-full items-center gap-2">
+												<ng-icon hlm name="lucideArrowRight" size="sm" />
+												<div class="flex flex-col items-start gap-0.5">
+													<span class="font-semibold">{{ item.hierarchy[item.type] }}</span>
+													<span class="text-sm">{{ item.hierarchy['lvl1'] }}</span>
+												</div>
+											</a>
+										</button>
+									}
 
-								<!-- content -->
-								@if (item.type === 'content') {
-									<button hlm-command-item [value]="item.content ?? item.hierarchy['lvl1']">
-										<span>{{ item.content }}</span>
-										<span>{{ item.hierarchy['lvl1'] }}</span>
-									</button>
+									<!-- content -->
+									@if (item.type === 'content') {
+										<button
+											hlm-command-item
+											(selected)="onSelect(item.url)"
+											[value]="item.content ?? item.hierarchy['lvl1']"
+										>
+											<a [href]="item.url" class="flex w-full items-center gap-2">
+												<ng-icon hlm name="lucideArrowRight" size="sm" />
+												<div class="flex flex-col items-start gap-0.5">
+													<span class="font-semibold">{{ item.content }}</span>
+													<span class="text-sm">{{ item.hierarchy['lvl1'] }}</span>
+												</div>
+											</a>
+										</button>
+									}
 								}
 							</hlm-command-group>
 						}
 					</hlm-command-list>
-
 					<!-- Empty state -->
 					<div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
 				</hlm-command>
@@ -194,11 +216,14 @@ export class DocsDialog {
 	private readonly _client = searchClient('JJRQPPSU45', '0fe1bcb9dbe76b2a149f00bc0709c5fd');
 	private readonly _brnDialogTrigger = viewChild.required(BrnDialogTrigger);
 
+	protected readonly _activatedRoute = inject(ActivatedRoute);
 	protected readonly _values = computed(() => {
 		const value = this._algoliaResource.value();
 		if (!value) return [];
-		value.hits.length = 5;
-		return value.hits;
+		return value.hits.map((h) => {
+			const u = new URL(h.url);
+			return { ...h, url: u.pathname + u.hash };
+		});
 	});
 
 	protected readonly _isMac = navigator.platform.toUpperCase().includes('MAC');
@@ -261,5 +286,9 @@ export class DocsDialog {
 			e.preventDefault();
 			this._brnDialogTrigger().open();
 		}
+	}
+
+	protected onSelect(url: string): void {
+		window.location.href = url;
 	}
 }

@@ -1,9 +1,10 @@
-@import "tailwindcss";
+@import "tailwindcss" important;
 @import '@angular/cdk/overlay-prebuilt.css';
 
 @import "tw-animate-css";
 @import "@fontsource/geist-mono/latin";
 @import "@fontsource/geist/latin";
+
 
 @custom-variant dark (&:is(.dark *));
 @custom-variant fixed (&:is(.layout-fixed *));

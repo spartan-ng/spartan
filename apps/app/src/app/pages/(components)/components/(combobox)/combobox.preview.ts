@@ -6,12 +6,21 @@ import { BrnPopoverImports } from '@spartan-ng/brain/popover';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmCommandImports } from '@spartan-ng/helm/command';
 import { HlmIconImports } from '@spartan-ng/helm/icon';
+import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 
 type Framework = { label: string; value: string };
 
 @Component({
 	selector: 'spartan-combobox-preview',
-	imports: [BrnCommandImports, HlmCommandImports, NgIcon, HlmIconImports, HlmButtonImports, BrnPopoverImports],
+	imports: [
+		BrnCommandImports,
+		HlmCommandImports,
+		NgIcon,
+		HlmIconImports,
+		HlmButtonImports,
+		BrnPopoverImports,
+		HlmPopoverImports,
+	],
 	providers: [provideIcons({ lucideChevronsUpDown, lucideSearch, lucideCheck })],
 	template: `
 		<brn-popover [state]="state()" (stateChanged)="stateChanged($event)" sideOffset="5">

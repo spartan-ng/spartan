@@ -7,7 +7,7 @@ import { HlmLabelImports } from '@spartan-ng/helm/label';
 	imports: [HlmInputImports, HlmLabelImports],
 	template: `
 		<div class="grid w-full max-w-sm items-center gap-3">
-			<label for="email" hlmLabel>Email</label>
+			<label hlmLabel for="email">Email</label>
 			<input hlmInput type="email" id="email" placeholder="Email" />
 		</div>
 	`,

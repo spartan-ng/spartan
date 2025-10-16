@@ -187,6 +187,7 @@ The following is the list of supported scopes:
 - **badge**
 - **breadcrumb**
 - **button**
+- **button-group**
 - **calendar**
 - **card**
 - **carousel**
@@ -199,6 +200,7 @@ The following is the list of supported scopes:
 - **date-picker**
 - **dialog**
 - **dropdown-menu**
+- **empty**
 - **form-field**
 - **hover-card**
 - **icon**

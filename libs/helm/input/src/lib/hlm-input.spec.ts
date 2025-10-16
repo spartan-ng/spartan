@@ -44,16 +44,15 @@ describe('HlmInputDirective', () => {
 
 	describe('Error state and styling', () => {
 		it('should have auto error classes by default', () => {
-			const hasAutoErrorClass = input.className.includes('[&.ng-invalid.ng-touched]:text-destructive');
+			const hasAutoErrorClass = input.className.includes('[&.ng-invalid.ng-touched]:border-destructive');
 			expect(hasAutoErrorClass).toBe(true);
 		});
 
 		it('should apply manual error styling when error is true', async () => {
 			await r.rerender({ componentInputs: { error: true } });
 			r.fixture.detectChanges();
-			expect(input.classList.contains('text-destructive/20')).toBe(true);
 			expect(input.classList.contains('border-destructive')).toBe(true);
-			expect(input.classList.contains('focus-visible:ring-destructive')).toBe(true);
+			expect(input.classList.contains('focus-visible:ring-destructive/20')).toBe(true);
 		});
 
 		it('should not show error state initially for untouched invalid field', () => {
@@ -62,7 +61,6 @@ describe('HlmInputDirective', () => {
 			expect(form.get('testField')?.touched).toBe(false);
 			expect(directive.errorState()).toBe(false);
 
-			expect(input.classList.contains('text-destructive')).toBe(false);
 			expect(input.classList.contains('border-destructive')).toBe(false);
 		});
 
@@ -100,7 +98,7 @@ describe('HlmInputDirective', () => {
 			input.classList.add('ng-invalid', 'ng-dirty');
 			r.fixture.detectChanges();
 
-			const hasAutoErrorClass = input.className.includes('[&.ng-invalid.ng-touched]:text-destructive');
+			const hasAutoErrorClass = input.className.includes('[&.ng-invalid.ng-touched]:border-destructive');
 			expect(hasAutoErrorClass).toBe(true);
 		});
 
@@ -137,7 +135,7 @@ describe('HlmInputDirective', () => {
 
 			directive.setError(shouldShowError ? true : 'auto');
 			r.fixture.detectChanges();
-			expect(input.classList.contains('text-destructive/20')).toBe(true);
+			expect(input.classList.contains('border-destructive')).toBe(true);
 		});
 
 		it('should maintain error state when switching between touched and dirty states', async () => {

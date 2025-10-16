@@ -23,8 +23,8 @@ export const inputVariants = cva(
 	{
 		variants: {
 			error: {
-				auto: '[&.ng-invalid.ng-touched]:text-destructive/20 dark:[&.ng-invalid.ng-touched]:text-destructive/40 [&.ng-invalid.ng-touched]:border-destructive [&.ng-invalid.ng-touched]:focus-visible:ring-destructive',
-				true: 'text-destructive/20 dark:text-destructive/40 border-destructive focus-visible:ring-destructive',
+				auto: '[&.ng-invalid.ng-touched]:border-destructive [&.ng-invalid.ng-touched]:ring-destructive/20 dark:[&.ng-invalid.ng-touched]:ring-destructive/40',
+				true: 'border-destructive focus-visible:border-destructive focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40',
 			},
 		},
 		defaultVariants: {
@@ -47,24 +47,27 @@ type InputVariants = VariantProps<typeof inputVariants>;
 	],
 })
 export class HlmInput implements BrnFormFieldControl, DoCheck {
-	public readonly error = input<InputVariants['error']>('auto');
-	private readonly _additionalClasses = signal<ClassValue>('');
-
-	protected readonly _state = linkedSignal(() => ({ error: this.error() }));
-	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected readonly _computedClass = computed(() =>
-		hlm(inputVariants({ error: this._state().error }), this.userClass(), this._additionalClasses()),
-	);
-
 	private readonly _injector = inject(Injector);
 
-	public readonly ngControl: NgControl | null = this._injector.get(NgControl, null);
+	private readonly _additionalClasses = signal<ClassValue>('');
+
 
 	private readonly _errorStateTracker: ErrorStateTracker;
 
 	private readonly _defaultErrorStateMatcher = inject(ErrorStateMatcher);
 	private readonly _parentForm = inject(NgForm, { optional: true });
 	private readonly _parentFormGroup = inject(FormGroupDirective, { optional: true });
+
+	public readonly userClass = input<ClassValue>('', { alias: 'class' });
+	protected readonly _computedClass = computed(() =>
+		hlm(inputVariants({ error: this._state().error }), this.userClass(), this._additionalClasses()),
+	);
+
+	public readonly error = input<InputVariants['error']>('auto');
+
+	protected readonly _state = linkedSignal(() => ({ error: this.error() }));
+
+	public readonly ngControl: NgControl | null = this._injector.get(NgControl, null);
 
 	public readonly errorState = computed(() => this._errorStateTracker.errorState());
 

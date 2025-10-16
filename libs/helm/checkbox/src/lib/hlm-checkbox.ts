@@ -7,7 +7,6 @@ import {
 	forwardRef,
 	input,
 	model,
-	output,
 	signal,
 } from '@angular/core';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -34,15 +33,16 @@ export const HLM_CHECKBOX_VALUE_ACCESSOR = {
 			[name]="name()"
 			[class]="_computedClass()"
 			[checked]="checked()"
+			[(indeterminate)]="indeterminate"
 			[disabled]="_state().disabled()"
 			[required]="required()"
 			[aria-label]="ariaLabel()"
 			[aria-labelledby]="ariaLabelledby()"
 			[aria-describedby]="ariaDescribedby()"
-			(checkedChange)="_handleChange()"
+			(checkedChange)="_handleChange($event)"
 			(touched)="_onTouched?.()"
 		>
-			@if (checked()) {
+			@if (checked() || indeterminate()) {
 				<span class="flex items-center justify-center text-current transition-none">
 					<ng-icon hlm size="14px" name="lucideCheck" />
 				</span>
@@ -84,11 +84,14 @@ export class HlmCheckbox implements ControlValueAccessor {
 	/** Used to set the aria-describedby attribute on the underlying brn element. */
 	public readonly ariaDescribedby = input<string | null>(null, { alias: 'aria-describedby' });
 
-	/** The checked state of the checkbox. */
-	public readonly checked = model<CheckboxValue>(false);
+	/** The indeterminate state of the checkbox. */
+	public readonly indeterminate = model<boolean>(false);
 
-	/** Emits when checked state changes. */
-	public readonly checkedChange = output<CheckboxValue>();
+	/** The checked state of the checkbox. */
+	public readonly checked = model<boolean>(false);
+
+	// /** Emits when checked state changes. */
+	// public readonly checkedChange = output<boolean>();
 
 	/** The name attribute of the checkbox. */
 	public readonly name = input<string | null>(null);
@@ -103,24 +106,21 @@ export class HlmCheckbox implements ControlValueAccessor {
 		disabled: signal(this.disabled()),
 	}));
 
-	protected _onChange?: ChangeFn<CheckboxValue>;
+	protected _onChange?: ChangeFn<boolean>;
 	protected _onTouched?: TouchFn;
 
-	protected _handleChange(): void {
+	protected _handleChange(value: boolean): void {
 		if (this._state().disabled()) return;
-
-		const previousChecked = this.checked();
-		this.checked.set(previousChecked === 'indeterminate' ? true : !previousChecked);
-		this._onChange?.(!previousChecked);
-		this.checkedChange.emit(!previousChecked);
+		this.checked.set(value);
+		this._onChange?.(value);
 	}
 
 	/** CONTROL VALUE ACCESSOR */
-	writeValue(value: CheckboxValue): void {
-		this.checked.set(!!value);
+	writeValue(value: boolean): void {
+		this.checked.set(value);
 	}
 
-	registerOnChange(fn: ChangeFn<CheckboxValue>): void {
+	registerOnChange(fn: ChangeFn<boolean>): void {
 		this._onChange = fn;
 	}
 
@@ -132,5 +132,3 @@ export class HlmCheckbox implements ControlValueAccessor {
 		this._state().disabled.set(isDisabled);
 	}
 }
-
-type CheckboxValue = boolean | 'indeterminate';

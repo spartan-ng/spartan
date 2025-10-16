@@ -1,0 +1,24 @@
+{
+	"name": "trpc-app-e2e",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "apps/trpc-app-e2e/src",
+	"projectType": "application",
+	"tags": [],
+	"implicitDependencies": ["app"],
+	"targets": {
+		"vitest": {
+			"executor": "@nx/vite:test"
+		},
+		"e2e": {
+			"executor": "nx:run-commands",
+			"options": {
+				"cwd": "",
+				"command": "start-server-and-test 'nx serve-nitro app' http://localhost:4205/api/health 'nx run trpc-app-e2e:vitest'"
+			}
+		},
+		"lint": {
+			"executor": "@nx/eslint:lint",
+			"outputs": ["{options.outputFile}"]
+		}
+	}
+}

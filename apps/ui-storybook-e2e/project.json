@@ -1,0 +1,27 @@
+{
+	"name": "ui-storybook-e2e",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "apps/ui-storybook-e2e/src",
+	"projectType": "application",
+	"tags": ["scope:e2e"],
+	"implicitDependencies": ["ui-storybook"],
+	"targets": {
+		"e2e": {
+			"executor": "@nx/cypress:cypress",
+			"options": {
+				"cypressConfig": "apps/ui-storybook-e2e/cypress.config.cjs",
+				"devServerTarget": "ui-storybook:storybook",
+				"testingType": "e2e"
+			},
+			"configurations": {
+				"ci": {
+					"devServerTarget": "ui-storybook:static-storybook:ci"
+				}
+			}
+		},
+		"lint": {
+			"executor": "@nx/eslint:lint",
+			"outputs": ["{options.outputFile}"]
+		}
+	}
+}

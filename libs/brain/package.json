@@ -1,0 +1,26 @@
+{
+	"name": "@spartan-ng/brain",
+	"version": "0.0.1-alpha.530",
+	"sideEffects": false,
+	"exports": {
+		"./hlm-tailwind-preset": {
+			"default": "./hlm-tailwind-preset.js"
+		},
+		"./hlm-tailwind-preset.css": "./hlm-tailwind-preset.css"
+	},
+	"peerDependencies": {
+		"@angular/cdk": ">=19.0.0",
+		"@angular/common": ">=19.0.0",
+		"@angular/core": ">=19.0.0",
+		"@angular/forms": ">=19.0.0",
+		"clsx": ">=2.0.0",
+		"luxon": ">=3.0.0",
+		"rxjs": ">=6.6.0",
+		"tailwindcss": ">=3.3.0"
+	},
+	"peerDependenciesMeta": {
+		"luxon": {
+			"optional": true
+		}
+	}
+}

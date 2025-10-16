@@ -1,0 +1,23 @@
+{
+	"name": "spartan",
+	"$schema": "node_modules/nx/schemas/project-schema.json",
+	"targets": {
+		"local-registry": {
+			"executor": "@nx/js:verdaccio",
+			"options": {
+				"port": 4873,
+				"config": ".verdaccio/config.yml"
+			}
+		},
+		"ui-api-definition": {
+			"executor": "@spartan-ng/tools:generate-ui-docs",
+			"options": {
+				"outputDir": "apps/app/src/public/data",
+				"outputFile": "ui-api.json",
+				"brainDir": "libs/brain",
+				"helmDir": "libs/helm"
+			},
+			"outputs": ["{options.outputDir}/{options.outputFile}"]
+		}
+	}
+}

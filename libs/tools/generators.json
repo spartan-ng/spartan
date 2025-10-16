@@ -1,0 +1,59 @@
+{
+	"generators": {
+		"replace-cli-version": {
+			"factory": "./src/generators/replace-cli-version/generator",
+			"schema": "./src/generators/replace-cli-version/schema.json",
+			"description": "Updates the CLI's version"
+		},
+		"replace-ui-version": {
+			"factory": "./src/generators/replace-ui-version/generator",
+			"schema": "./src/generators/replace-ui-version/schema.json",
+			"description": "Replaces version for all UI libs and their references in the CLI"
+		},
+		"auto-increment-version": {
+			"factory": "./src/generators/auto-increment-version/generator",
+			"schema": "./src/generators/auto-increment-version/schema.json",
+			"description": "During alpha we are using this to automatically increment the version number for nightly releases"
+		},
+		"hlm-to-cli-generator": {
+			"factory": "./src/generators/hlm-to-cli-generator/generator",
+			"schema": "./src/generators/hlm-to-cli-generator/schema.json",
+			"description": "hlm-to-cli-generator generator"
+		},
+		"brain-secondary-entrypoint": {
+			"factory": "./src/generators/brain-secondary-entrypoint/generator",
+			"schema": "./src/generators/brain-secondary-entrypoint/schema.json",
+			"description": "Add a secondary entrypoint to the Brain library"
+		},
+		"helm-secondary-entrypoint": {
+			"factory": "./src/generators/helm-secondary-entrypoint/generator",
+			"schema": "./src/generators/helm-secondary-entrypoint/schema.json",
+			"description": "Create a new Helm secondary entrypoint."
+		},
+		"helm-story": {
+			"factory": "./src/generators/helm-story/generator",
+			"schema": "./src/generators/helm-story/schema.json",
+			"description": "Generate a story for a helm component."
+		},
+		"helm-component": {
+			"factory": "./src/generators/helm-component/generator",
+			"schema": "./src/generators/helm-component/schema.json",
+			"description": "Generate a helm component."
+		},
+		"helm-directive": {
+			"factory": "./src/generators/helm-directive/generator",
+			"schema": "./src/generators/helm-directive/schema.json",
+			"description": "Generate a helm directive."
+		},
+		"helm-documentation": {
+			"factory": "./src/generators/helm-documentation/generator",
+			"schema": "./src/generators/helm-documentation/schema.json",
+			"description": "Generate a documentation page for a Helm component."
+		},
+		"generate-primitive-snippets": {
+			"factory": "./src/generators/generate-primitive-snippets/generator",
+			"schema": "./src/generators/generate-primitive-snippets/schema.json",
+			"description": "Extracts code parts from primitive example and preview components."
+		}
+	}
+}

@@ -1,0 +1,18 @@
+project:
+  name: spartan-ng
+  corePackage: LIGHT
+  tags:
+    - spartan-recipe
+
+services:
+  - hostname: db
+    type: postgresql@16
+    mode: NON_HA
+    priority: 100
+
+  - hostname: spartanng
+    type: nodejs@22
+    buildFromGit: https://github.com/spartan-ng/spartan
+    enableSubdomainAccess: true
+    verticalAutoscaling:
+      minRam: 0.50

@@ -1,0 +1,25 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"$id": "HlmUIGeneratorSchema",
+	"title": "",
+	"type": "object",
+	"properties": {
+		"name": {
+			"type": "string",
+			"description": "Primitive name",
+			"$default": {
+				"$source": "argv",
+				"index": 0
+			}
+		},
+		"directory": {
+			"type": "string",
+			"description": "A directory where the libraries are placed.",
+			"x-priority": "important"
+		},
+		"tags": {
+			"type": "string",
+			"description": "Add tags to the library (used for linting)."
+		}
+	}
+}

@@ -1,0 +1,110 @@
+name: Bug Report
+description: Report a bug inside spartan
+labels: [bug]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please search GitHub for a similar [issue](https://github.com/goetzrobin/spartan/issues) or [PR](https://github.com/goetzrobin/spartan/issues) before submitting a new issue.
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Please provide the environment you discovered this bug in.
+      description: Please create a minimal reproduction.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: type_bug
+    attributes:
+      label: Which area/package is the issue in?
+      options:
+        - accordion
+        - alert
+        - alert-dialog
+        - aspect-ratio
+        - autocomplete
+        - avatar
+        - badge
+        - breadcrumb
+        - button
+        - button-group
+        - calendar
+        - card
+        - carousel
+        - checkbox
+        - cli
+        - collapsible
+        - combobox
+        - command
+        - context-menu
+        - data-table
+        - date-picker
+        - dialog
+        - dropdown-menu
+        - empty
+        - form-field
+        - hover-card
+        - icon
+        - input
+        - input-group
+        - input-otp
+        - kbd
+        - label
+        - menubar
+        - navigation-menu
+        - pagination
+        - popover
+        - progress
+        - radio-group
+        - scroll-area
+        - select
+        - separator
+        - sheet
+        - sidebar
+        - skeleton
+        - slider
+        - sonner
+        - spinner
+        - switch
+        - table
+        - tabs
+        - textarea
+        - toggle
+        - toggle-group
+        - tooltip
+        - trpc
+        - typography
+        - Docs
+        - Don't know / other
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+    validations:
+      required: true
+
+  - type: textarea
+    id: exception-or-error
+    attributes:
+      label: Please provide the exception or error you saw
+      render: true
+
+  - type: textarea
+    id: other
+    attributes:
+      label: Other information
+
+  - type: checkboxes
+    id: assistance
+    attributes:
+      label: I would be willing to submit a PR to fix this issue
+      description: Assistance is provided if you need help submitting a pull request
+      options:
+        - label: 'Yes'
+        - label: 'No'

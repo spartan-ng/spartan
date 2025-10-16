@@ -1,0 +1,13 @@
+{
+	"version": "7",
+	"dialect": "postgresql",
+	"entries": [
+		{
+			"idx": 0,
+			"version": "7",
+			"when": 1733318438843,
+			"tag": "0000_melted_weapon_omega",
+			"breakpoints": true
+		}
+	]
+}

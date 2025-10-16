@@ -1,0 +1,26 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"version": 2,
+	"title": "GenerateUiDocs executor",
+	"description": "Generates UI API documentation from component metadata",
+	"type": "object",
+	"properties": {
+		"outputDir": {
+			"type": "string",
+			"description": "Directory where the output JSON file will be written, relative to workspace root"
+		},
+		"outputFile": {
+			"type": "string",
+			"description": "Name of the output JSON file"
+		},
+		"brainDir": {
+			"type": "string",
+			"description": "Directory containing brain components, relative to workspace root"
+		},
+		"helmDir": {
+			"type": "string",
+			"description": "Directory containing helm components, relative to workspace root"
+		}
+	},
+	"required": ["outputDir", "outputFile", "brainDir", "helmDir"]
+}

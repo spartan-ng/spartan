@@ -1,0 +1,4 @@
+#!/bin/sh
+
+pnpm nx affected -t lint --parallel
+pnpm nx format:check

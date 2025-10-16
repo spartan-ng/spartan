@@ -1,0 +1,8 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"version": 2,
+	"title": "Update version executor",
+	"description": "",
+	"type": "object",
+	"properties": {}
+}

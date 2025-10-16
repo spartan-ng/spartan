@@ -1,0 +1,17 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"$id": "HlmBaseGeneratorSchema",
+	"title": "",
+	"type": "object",
+	"properties": {
+		"directory": {
+			"type": "string",
+			"description": "A directory where the lib is placed.",
+			"x-priority": "important"
+		},
+		"tags": {
+			"type": "string",
+			"description": "Add tags to the library (used for linting)."
+		}
+	}
+}

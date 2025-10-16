@@ -1,0 +1,31 @@
+{
+	"name": "@spartan-ng/cli",
+	"version": "0.0.1-alpha.530",
+	"type": "commonjs",
+	"dependencies": {
+		"@nx/angular": ">=20.0.0",
+		"@nx/devkit": ">=20.0.0",
+		"@nx/js": ">=20.0.0",
+		"@nx/workspace": ">=20.0.0",
+		"@phenomnomnominal/tsquery": "^6.1.3",
+		"@schematics/angular": ">=19.0.0",
+		"enquirer": "2.3.6",
+		"jsonc-eslint-parser": "^2.1.0",
+		"node-html-parser": "^7.0.1",
+		"nx": ">=20.0.0",
+		"picocolors": "^1.1.1",
+		"semver": "7.5.4",
+		"ts-morph": "25.0.1",
+		"typescript": ">=5.0.0",
+		"zod": "3.23.8"
+	},
+	"peerDependencies": {
+		"tslib": "^2.3.0"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"executors": "./executors.json",
+	"generators": "./generators.json",
+	"schematics": "./generators.json"
+}

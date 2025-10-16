@@ -1,0 +1,7 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"$id": "HlmThemeGeneratorSchema",
+	"title": "",
+	"type": "object",
+	"properties": {}
+}

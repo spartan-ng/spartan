@@ -1,0 +1,22 @@
+{
+	"eslint.validate": ["json"],
+	"eslint.useFlatConfig": true,
+	"eslint.format.enable": true,
+	"[typescript]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[json]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[typescriptreact]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[javascript]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"editor.formatOnPaste": true,
+	"editor.formatOnSave": false,
+	"nxConsole.generateAiAgentRules": true,
+	"tailwindCSS.classFunctions": ["hlm", "cva"]
+}

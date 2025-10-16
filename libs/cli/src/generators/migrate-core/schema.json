@@ -1,0 +1,14 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"$id": "MigrateCore",
+	"title": "",
+	"type": "object",
+	"properties": {
+		"skipFormat": {
+			"type": "boolean",
+			"default": false,
+			"description": "Skip formatting files"
+		}
+	},
+	"required": []
+}

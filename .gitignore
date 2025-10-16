@@ -1,0 +1,63 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
+dist
+tmp
+/out-tsc
+.vercel
+
+# dependencies
+node_modules
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+yarn-error.log
+testem.log
+/typings
+
+# System Files
+.DS_Store
+Thumbs.db
+
+.angular
+
+#env
+.env
+
+#
+/stats.html
+build-storybook.log
+
+.nx/cache
+.nx/workspace-data
+
+
+vite.config.*.timestamp*
+
+vitest.config.*.timestamp*
+### generated docs file
+apps/app/src/public/data/ui-api.json
+apps/app/src/public/data/primitives-snippets.json
+
+.cursor/rules/nx-rules.mdc
+.github/instructions/nx.instructions.md

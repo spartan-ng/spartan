@@ -1,0 +1,143 @@
+name: nightly-release
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  check_date:
+    runs-on: ubuntu-latest
+    name: Check latest commit
+    outputs:
+      should_run: ${{ steps.should_run.outputs.should_run }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: print latest_commit
+        run: echo ${{ github.sha }}
+
+      - id: should_run
+        continue-on-error: true
+        name: check latest commit is less than a day
+        if: ${{ github.event_name == 'schedule' }}
+        # This command checks if there were any commits in the last 24 hours.
+        # If there were NO recent commits, it sets should_run=false.
+        # How it works:
+        # 1. git rev-list gets a list of all commits in last 24h
+        #    (--after="24 hours" means "show commits from 24h ago until now",
+        #     so if it runs at 2pm, it checks commits after 2pm yesterday)
+        # 2. test -z checks if that list is empty (meaning no recent commits)
+        # 3. If empty (no commits), it sets GitHub Actions output variable 'should_run' to false
+        #    This output variable can then be used in other workflow steps like:
+        #    if: ${{ steps.your-step-id.outputs.should_run != 'false' }}
+        #    to skip steps when there were no recent commits
+        run: test -z $(git rev-list  --after="23 hours 55 minutes"  ${{ github.sha }}) && echo "::set-output name=should_run::false"
+
+  commitlint:
+    needs: check_date
+    if: ${{ needs.check_date.outputs.should_run != 'false' }}
+
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      # Required by wagoid/commitlint-github-action
+      pull-requests: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Required by wagoid/commitlint-github-action
+          fetch-depth: 0
+      - name: Install Node v22
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+      - name: Install pnpm globally
+        run: npm install -g pnpm
+      - name: Lint commit messages
+        uses: wagoid/commitlint-github-action@v5
+        with:
+          failOnWarnings: true
+          helpURL: https://github.com/goetzrobin/spartan/blob/main/CONTRIBUTING.md#-commit-message-guidelines
+
+  format-and-lint:
+    needs: check_date
+    if: ${{ needs.check_date.outputs.should_run != 'false' }}
+
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Required by wagoid/commitlint-github-action
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+      - name: Install PNPM globally
+        run: npm install -g pnpm
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+      - name: lint
+        run: pnpm run lint
+      - name: format
+        run: pnpm nx format:check --base=origin/main
+
+  build:
+    needs: check_date
+    if: ${{ needs.check_date.outputs.should_run != 'false' }}
+
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Required by wagoid/commitlint-github-action
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+      - name: Install PNPM globally
+        run: npm install -g pnpm
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build
+        run: pnpm run build
+
+  release:
+    needs:
+      - check_date
+      - build
+      - format-and-lint
+    if: ${{ needs.check_date.outputs.should_run != 'false' }}
+
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Required by wagoid/commitlint-github-action
+          fetch-depth: 0
+          ref: ${{ github.head_ref }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          registry-url: 'https://registry.npmjs.org'
+      - name: Install PNPM globally
+        run: npm install -g pnpm
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Pre Release
+        run: pnpm run pre-nightly-release
+      - name: Get the current date time
+        id: datetime
+        run: echo "release_date=$(date '+%Y-%m-%d')" >> $GITHUB_OUTPUT
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          author_name: Leonidas
+          author_email: leonidas@spartan.ng
+          message: 'chore: nightly release ${{steps.datetime.outputs.release_date}} ⚡'
+      - name: Release
+        run: pnpm run release
+        env:
+          TAG: ${{ secrets.TAG }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

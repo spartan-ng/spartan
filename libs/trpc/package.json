@@ -1,0 +1,45 @@
+{
+	"name": "@spartan-ng/trpc",
+	"version": "0.2.29",
+	"description": "Angular/Nitro-based tRPC integration",
+	"keywords": [
+		"angular",
+		"trpc",
+		"remote-procedure-call",
+		"meta-framework"
+	],
+	"homepage": "https://spartan.ng",
+	"bugs": {
+		"url": "https://github.com/goetzrobin/spartan/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/goetzrobin/spartan.git"
+	},
+	"license": "MIT",
+	"author": "Robin Goetz",
+	"sideEffects": false,
+	"dependencies": {},
+	"peerDependencies": {
+		"@analogjs/vite-plugin-angular": ">=1.9.4",
+		"@angular/common": ">=19.0.0",
+		"@angular/compiler": ">=19.0.0",
+		"@angular/core": ">=19.0.0",
+		"@angular/platform-browser-dynamic": ">=19.0.0",
+		"@trpc/client": "^10.45.2",
+		"@trpc/server": "^10.45.2",
+		"h3": "^1.12.0",
+		"isomorphic-fetch": "^3.0.0",
+		"rxjs": "~7.8.1",
+		"superjson": "^2.2.1",
+		"ufo": "1.5.4",
+		"vite": "6.2.1"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"ng-update": {
+		"packageGroup": [],
+		"migrations": "./migrations/migration.json"
+	}
+}

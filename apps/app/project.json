@@ -1,0 +1,92 @@
+{
+	"name": "app",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"projectType": "application",
+	"sourceRoot": "apps/app/src",
+	"tags": [],
+	"implicitDependencies": [],
+	"targets": {
+		"build": {
+			"dependsOn": ["^build", "generate-docs-and-snippets"],
+			"executor": "@analogjs/platform:vite",
+			"outputs": [
+				"{options.outputPath}",
+				"{workspaceRoot}/dist/apps/app/.nitro",
+				"{workspaceRoot}/dist/apps/app/ssr",
+				"{workspaceRoot}/dist/apps/app/analog"
+			],
+			"options": {
+				"main": "apps/app/src/main.ts",
+				"configFile": "apps/app/vite.config.ts",
+				"outputPath": "dist/apps/app/client",
+				"tsConfig": "apps/app/tsconfig.app.json"
+			},
+			"defaultConfiguration": "production",
+			"configurations": {
+				"development": {
+					"mode": "development"
+				},
+				"production": {
+					"sourcemap": false,
+					"mode": "production"
+				}
+			}
+		},
+		"serve": {
+			"dependsOn": ["generate-docs-and-snippets"],
+			"executor": "@analogjs/platform:vite-dev-server",
+			"defaultConfiguration": "development",
+			"options": {
+				"buildTarget": "app:build",
+				"port": 4200
+			},
+			"configurations": {
+				"development": {
+					"buildTarget": "app:build:development",
+					"hmr": true
+				},
+				"production": {
+					"buildTarget": "app:build:production"
+				}
+			}
+		},
+		"extract-i18n": {
+			"executor": "@angular/build:extract-i18n",
+			"options": {
+				"browserTarget": "app:build"
+			}
+		},
+		"lint": {
+			"executor": "@nx/eslint:lint",
+			"outputs": ["{options.outputFile}"]
+		},
+		"test": {
+			"executor": "@analogjs/platform:vitest",
+			"outputs": ["{projectRoot}/coverage"]
+		},
+		"serve-nitro": {
+			"executor": "nx:run-commands",
+			"options": {
+				"cwd": "",
+				"command": "PORT=4205 node dist/apps/app/analog/server/index.mjs"
+			},
+			"dependsOn": ["build"]
+		},
+		"generate-ui-docs": {
+			"executor": "@spartan-ng/tools:generate-ui-docs",
+			"options": {
+				"outputDir": "apps/app/src/public/data",
+				"outputFile": "ui-api.json",
+				"brainDir": "libs/brain",
+				"helmDir": "libs/helm"
+			}
+		},
+		"generate-docs-and-snippets": {
+			"executor": "nx:run-commands",
+			"options": {
+				"commands": ["nx run app:generate-ui-docs", "npx nx generate @spartan-ng/tools:generate-primitive-snippets"],
+				"parallel": false
+			}
+		}
+	}
+}

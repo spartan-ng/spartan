@@ -1,0 +1,36 @@
+{
+	"name": "trpc",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "libs/trpc/src",
+	"prefix": "spartan-ng",
+	"projectType": "library",
+	"tags": ["trpc"],
+	"targets": {
+		"build": {
+			"executor": "@angular/build:ng-packagr",
+			"outputs": ["{workspaceRoot}/dist/libs/trpc"],
+			"options": {
+				"project": "libs/trpc/ng-package.json"
+			},
+			"configurations": {
+				"production": {
+					"tsConfig": "libs/trpc/tsconfig.lib.prod.json"
+				},
+				"development": {
+					"tsConfig": "libs/trpc/tsconfig.lib.json"
+				}
+			},
+			"defaultConfiguration": "production"
+		},
+		"lint": {
+			"executor": "@nx/eslint:lint",
+			"outputs": ["{options.outputFile}"]
+		},
+		"release": {
+			"executor": "@spartan-ng/tools:build-update-publish",
+			"options": {
+				"libName": "trpc"
+			}
+		}
+	}
+}

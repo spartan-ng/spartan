@@ -19,7 +19,7 @@ import { InputDisabledPreview } from './input--disabled.preview';
 import { InputFilePreview } from './input--file.preview';
 import { InputFormPreview } from './input--form.preview';
 import { InputLabelPreview } from './input--label.preview';
-import { InputPreview, defaultImports, defaultSkeleton } from './input.preview';
+import { defaultImports, defaultSkeleton, InputPreview } from './input.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Input', api: 'input' },
@@ -81,35 +81,35 @@ export const routeMeta: RouteMeta = {
 			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__file" class="${hlmH4} mb-2 mt-6">File</h3>
+			<h3 id="examples__file" class="${hlmH4} mt-6 mb-2">File</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-input-file />
 				</div>
 				<spartan-code secondTab [code]="_fileCode()" />
 			</spartan-tabs>
-			<h3 id="examples__disabled" class="${hlmH4} mb-2 mt-6">Disabled</h3>
+			<h3 id="examples__disabled" class="${hlmH4} mt-6 mb-2">Disabled</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-input-disabled />
 				</div>
 				<spartan-code secondTab [code]="_disabledCode()" />
 			</spartan-tabs>
-			<h3 id="examples__with_label" class="${hlmH4} mb-2 mt-6">With Label</h3>
+			<h3 id="examples__with_label" class="${hlmH4} mt-6 mb-2">With Label</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-input-label />
 				</div>
 				<spartan-code secondTab [code]="_labelCode()" />
 			</spartan-tabs>
-			<h3 id="examples__with_button" class="${hlmH4} mb-2 mt-6">With Button</h3>
+			<h3 id="examples__with_button" class="${hlmH4} mt-6 mb-2">With Button</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-input-button />
 				</div>
 				<spartan-code secondTab [code]="_buttonCode()" />
 			</spartan-tabs>
-			<h3 id="examples__form" class="${hlmH4} mb-2 mt-6">Form</h3>
+			<h3 id="examples__form" class="${hlmH4} mt-6 mb-2">Form</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-input-form />
@@ -118,7 +118,7 @@ export const routeMeta: RouteMeta = {
 			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
-				<spartan-page-bottom-nav-link href="input-otp" label="Input OTP" />
+				<spartan-page-bottom-nav-link href="input-group" label="Input Group" />
 				<spartan-page-bottom-nav-link direction="previous" href="icon" label="Icon" />
 			</spartan-page-bottom-nav>
 		</section>

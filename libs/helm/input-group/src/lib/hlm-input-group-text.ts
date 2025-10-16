@@ -1,20 +1,19 @@
 import { computed, Directive, input } from '@angular/core';
-import { hlm } from '<%- importAlias %>/utils';
+import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 
 @Directive({
-	selector: '[hlmEmptyDescription]',
+	selector: 'span[hlmInputGroupText]',
 	host: {
-		'data-slot': 'empty-description',
 		'[class]': '_computedClass()',
 	},
 })
-export class HlmEmptyDescription {
+export class HlmInputGroupText {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 
 	protected readonly _computedClass = computed(() =>
 		hlm(
-			'text-muted-foreground [&>a:hover]:text-primary text-sm/relaxed [&>a]:underline [&>a]:underline-offset-4',
+			`text-muted-foreground flex items-center gap-2 text-sm [&_ng-icon]:pointer-events-none [&_ng-icon:not([class*='size-'])]:size-4`,
 			this.userClass(),
 		),
 	);

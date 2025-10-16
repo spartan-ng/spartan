@@ -1,4 +1,4 @@
-import { Directive, ElementRef, effect, inject, input, untracked } from '@angular/core';
+import { Directive, effect, ElementRef, inject, input, untracked } from '@angular/core';
 import { BrnDialogTrigger } from '@spartan-ng/brain/dialog';
 import type { BrnPopover } from './brn-popover';
 
@@ -21,10 +21,6 @@ export class BrnPopoverTrigger extends BrnDialogTrigger {
 
 	constructor() {
 		super();
-		if (!this._brnDialog) return;
-		this._brnDialog.mutableAttachTo.set(this._host.nativeElement);
-		this._brnDialog.mutableCloseOnOutsidePointerEvents.set(true);
-
 		effect(() => {
 			const brnDialog = this.brnPopoverTriggerFor();
 			untracked(() => {
@@ -34,5 +30,9 @@ export class BrnPopoverTrigger extends BrnDialogTrigger {
 				this.mutableBrnDialogTriggerFor().set(brnDialog);
 			});
 		});
+
+		if (!this._brnDialog) return;
+		this._brnDialog.mutableAttachTo.set(this._host.nativeElement);
+		this._brnDialog.mutableCloseOnOutsidePointerEvents.set(true);
 	}
 }

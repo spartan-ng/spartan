@@ -8,6 +8,7 @@ import {
 	Injector,
 	input,
 	linkedSignal,
+	signal,
 	untracked,
 } from '@angular/core';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
@@ -18,7 +19,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import type { ClassValue } from 'clsx';
 
 export const textareaVariants = cva(
-	'border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 dark:bg-input/30 shadow-xs flex min-h-16 w-full rounded-md border bg-transparent px-3 py-2 text-base outline-none transition-[color,box-shadow] [field-sizing:content] focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
+	'border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 dark:bg-input/30 flex [field-sizing:content] min-h-16 w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
 	{
 		variants: {
 			error: {
@@ -48,6 +49,7 @@ type TextareaVariants = VariantProps<typeof textareaVariants>;
 })
 export class HlmTextarea implements BrnFormFieldControl, DoCheck {
 	private readonly _injector = inject(Injector);
+	private readonly _additionalClasses = signal<ClassValue>('');
 
 	private readonly _errorStateTracker: ErrorStateTracker;
 
@@ -57,7 +59,7 @@ export class HlmTextarea implements BrnFormFieldControl, DoCheck {
 
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>
-		hlm(textareaVariants({ error: this._state().error }), this.userClass()),
+		hlm(textareaVariants({ error: this._state().error }), this.userClass(), this._additionalClasses()),
 	);
 
 	public readonly error = input<TextareaVariants['error']>('auto');
@@ -92,7 +94,11 @@ export class HlmTextarea implements BrnFormFieldControl, DoCheck {
 		this._errorStateTracker.updateErrorState();
 	}
 
-	setError(error: TextareaVariants['error']) {
+	public setError(error: TextareaVariants['error']): void {
 		this._state.set({ error });
+	}
+
+	public setClass(classes: string): void {
+		this._additionalClasses.set(classes);
 	}
 }

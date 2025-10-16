@@ -1,13 +1,13 @@
 import { Component, output } from '@angular/core';
 import { components } from '@spartan-ng/app/app/shared/components/navigation-items';
-import { SideNav } from './side-nav-coming-soon';
+import { SideNavCommingSoon } from './side-nav-coming-soon';
 import { SideNavHeading } from './side-nav-heading';
 import { SideNavLink } from './side-nav-link';
 import { SideNavLinks } from './side-nav-links';
 
 @Component({
 	selector: 'spartan-side-nav-content',
-	imports: [SideNavLink, SideNavLinks, SideNavHeading, SideNav],
+	imports: [SideNavLink, SideNavLinks, SideNavHeading, SideNavCommingSoon],
 	host: {
 		class: 'block',
 	},

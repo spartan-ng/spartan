@@ -1,5 +1,5 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import * as lucideIcons from '@ng-icons/lucide';
 import { HlmIcon } from '@spartan-ng/helm/icon';
@@ -11,8 +11,9 @@ import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
 
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { link } from '@spartan-ng/app/app/shared/typography/link';
-import { hlmCode, hlmH4, hlmP, hlmUl } from '@spartan-ng/helm/typography';
+import { hlmCode, hlmP, hlmUl } from '@spartan-ng/helm/typography';
 import { PageBottomNav } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav';
 import { PageBottomNavLink } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav-link';
 import { PageNav } from '../../../../shared/layout/page-nav/page-nav';
@@ -34,6 +35,7 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-icon',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
 		UIApiDocs,
 		MainSection,
@@ -53,6 +55,7 @@ export const routeMeta: RouteMeta = {
 		IconMultipleSetsPreview,
 		IconSizePreview,
 		IconResponsivePreview,
+		SectionSubSubHeading,
 	],
 	providers: [provideIcons(lucideIcons)],
 	template: `
@@ -120,7 +123,7 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
 
-			<h3 id="examples__size" class="${hlmH4} mt-6 mb-2">Size</h3>
+			<h3 id="examples__size" spartanH4>Size</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-icon-size />
@@ -128,7 +131,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_sizeCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__responsive_size" class="${hlmH4} mt-6 mb-2">Responsive Size</h3>
+			<h3 id="examples__responsive_size" spartanH4>Responsive Size</h3>
 
 			<p class="${hlmP} mb-6">
 				Use font-sizes (e.g.
@@ -145,7 +148,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_responsiveCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__multiple_icon_sets" class="${hlmH4} mt-6 mb-2">Multiple Icon Sets</h3>
+			<h3 id="examples__multiple_icon_sets" spartanH4>Multiple Icon Sets</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-icon-multiple-sets />

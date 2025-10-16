@@ -1,5 +1,5 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 
 import { InputGroupButtonGroupPreview } from '@spartan-ng/app/app/pages/(components)/components/(input-group)/input-group--button-group.preview';
@@ -39,6 +39,7 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-input-group',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
 		MainSection,
 		Code,
@@ -94,13 +95,10 @@ export const routeMeta: RouteMeta = {
 			/>
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
-			<div class="space-y-4">
+			<div class="mt-6 space-y-4">
 				<spartan-code [code]="_imports" />
 				<spartan-code [code]="_codeSkeleton" />
 			</div>
-
-			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
-			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
 			<h3 id="examples__icon" spartanH4>Icons</h3>
@@ -210,6 +208,9 @@ export const routeMeta: RouteMeta = {
 				</div>
 				<spartan-code secondTab [code]="_customInputCode()" />
 			</spartan-tabs>
+
+			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link label="Input OTP" href="input-otp" />

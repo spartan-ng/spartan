@@ -30,7 +30,7 @@ export const routeMeta: RouteMeta = {
 	template: `
 		<div
 			hlmAlert
-			class="text-primary-foreground border-border bg-primary container mx-auto my-2 h-[var(--stable-height)] rounded-lg border p-4"
+			class="text-primary-foreground border-border bg-primary container mx-auto my-2 rounded-lg border p-4 lg:h-[var(--stable-height)]"
 		>
 			<ng-icon hlm hlmAlertIcon name="lucideRocket" class="!text-primary-foreground" />
 			<h2 hlmAlertTitle class="font-semibold tracking-normal">Spartans get ready! v1 is coming!</h2>

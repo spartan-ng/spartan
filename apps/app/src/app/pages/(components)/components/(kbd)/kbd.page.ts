@@ -1,10 +1,11 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { KbdButtonPreview } from '@spartan-ng/app/app/pages/(components)/components/(kbd)/kbd--button.preview';
 import { KbdGroupPreview } from '@spartan-ng/app/app/pages/(components)/components/(kbd)/kbd--group.preview';
+import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { UIApiDocs } from '@spartan-ng/app/app/shared/layout/ui-docs-section/ui-docs-section';
-import { HlmH4, HlmTypographyImports } from '@spartan-ng/helm/typography';
+import { HlmTypographyImports } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
@@ -26,6 +27,7 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-kbd',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
 		MainSection,
 		Code,
@@ -40,9 +42,9 @@ export const routeMeta: RouteMeta = {
 		PageBottomNavLink,
 		UIApiDocs,
 		KbdGroupPreview,
-		HlmH4,
 		HlmTypographyImports,
 		KbdButtonPreview,
+		SectionSubSubHeading,
 	],
 	template: `
 		<section spartanMainSection>
@@ -66,7 +68,7 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
 
-			<h3 id="examples_group" hlmH4 class="mt-6 mb-2">Group</h3>
+			<h3 id="examples_group" spartanH4>Group</h3>
 
 			<p hlmP>
 				Use the
@@ -81,7 +83,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_groupCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples_button" hlmH4 class="mt-6 mb-2">Button</h3>
+			<h3 id="examples_button" spartanH4>Button</h3>
 
 			<p hlmP>
 				Use the

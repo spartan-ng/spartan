@@ -1,6 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component, computed, inject } from '@angular/core';
-import { hlmCode, hlmH4, hlmP, hlmUl } from '@spartan-ng/helm/typography';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { hlmCode, hlmP, hlmUl } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
@@ -13,6 +13,7 @@ import { link } from '../../../../shared/typography/link';
 
 import { RouterLink } from '@angular/router';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { TabsCli } from '@spartan-ng/app/app/shared/layout/tabs-cli';
 import { UIApiDocs } from '@spartan-ng/app/app/shared/layout/ui-docs-section/ui-docs-section';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
@@ -32,6 +33,7 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-autocomplete',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
 		MainSection,
 		Code,
@@ -51,6 +53,7 @@ export const routeMeta: RouteMeta = {
 		AutocompleteConfig,
 		RouterLink,
 		HlmButtonImports,
+		SectionSubSubHeading,
 	],
 	template: `
 		<section spartanMainSection>
@@ -87,7 +90,7 @@ export const routeMeta: RouteMeta = {
 			</div>
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__custom_config" class="${hlmH4} mt-6 mb-2">Custom Config</h3>
+			<h3 id="examples__custom_config" spartanH4>Custom Config</h3>
 
 			<p class="${hlmP}">
 				Use
@@ -128,7 +131,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_configCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__custom_option_template" class="${hlmH4} mt-6 mb-2">Custom Option Template</h3>
+			<h3 id="examples__custom_option_template" spartanH4>Custom Option Template</h3>
 
 			<p class="${hlmP} mb-6">
 				You can customize the rendering of each option in the dropdown list by using the
@@ -148,7 +151,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_countriesCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__async" class="${hlmH4} mt-6 mb-2">Asynchronous</h3>
+			<h3 id="examples__async" spartanH4>Asynchronous</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-autocomplete-async />
@@ -156,7 +159,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_asyncCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__form" class="${hlmH4} mt-6 mb-2">Form</h3>
+			<h3 id="examples__form" spartanH4>Form</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-autocomplete-form />

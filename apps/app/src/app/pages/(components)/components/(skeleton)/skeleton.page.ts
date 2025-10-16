@@ -1,7 +1,7 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
-import { hlmH4 } from '@spartan-ng/helm/typography';
+import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
@@ -24,6 +24,7 @@ export const routeMeta: RouteMeta = {
 };
 @Component({
 	selector: 'spartan-skeleton',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
 		UIApiDocs,
 		MainSection,
@@ -38,6 +39,7 @@ export const routeMeta: RouteMeta = {
 		PageBottomNavLink,
 		SkeletonPreview,
 		SkeletonCard,
+		SectionSubSubHeading,
 	],
 	template: `
 		<section spartanMainSection>
@@ -61,7 +63,7 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
 
-			<h3 id="examples__link" class="${hlmH4} mt-6 mb-2">Card</h3>
+			<h3 id="examples__link" spartanH4>Card</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-skeleton-card />

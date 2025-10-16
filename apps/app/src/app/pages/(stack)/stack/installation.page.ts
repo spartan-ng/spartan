@@ -6,8 +6,9 @@ import { lucideChevronRight, lucideTriangleAlert } from '@ng-icons/lucide';
 import { HlmAlertImports } from '@spartan-ng/helm/alert';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmIcon } from '@spartan-ng/helm/icon';
-import { hlmCode, hlmH4, hlmP } from '@spartan-ng/helm/typography';
+import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 
+import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { Code } from '../../../shared/code/code';
 import { MainSection } from '../../../shared/layout/main-section';
 import { PageBottomNav } from '../../../shared/layout/page-bottom-nav/page-bottom-nav';
@@ -39,6 +40,7 @@ export const routeMeta: RouteMeta = {
 		NgIcon,
 		HlmIcon,
 		HlmButton,
+		SectionSubSubHeading,
 	],
 	providers: [provideIcons({ lucideTriangleAlert, lucideChevronRight })],
 	template: `
@@ -236,7 +238,7 @@ export const noteRouter = router({
 
 			<spartan-tabs firstTab="supabase.com" secondTab="Local">
 				<div class="px-4 pt-4 pb-8" firstTab>
-					<h3 class="${hlmH4}">Option 1: Connecting to supabase.com instance</h3>
+					<h3 spartanH4>Option 1: Connecting to supabase.com instance</h3>
 					<p class="${hlmP}">
 						This way is super easy! Simply by creating your account, you will also have set up your first project. This
 						means that you are ready to connect to your projects database already!
@@ -269,15 +271,15 @@ export const noteRouter = router({
 				</div>
 
 				<div class="px-4 pt-4 pb-8" secondTab>
-					<h3 class="${hlmH4}">Option 2: Connecting to local Supabase instance</h3>
+					<h3 spartanH4>Option 2: Connecting to local Supabase instance</h3>
 					<p class="${hlmP}">
 						Supabase also allows you to run a version of their system locally! To get up and running you can follow this
 						guide! They do a great job explaining how to get started and there is plenty of resources to help you if you
 						get stuck. If you want the quick and dirty way and are on a Mac. Here is what I did to get up and running:
 					</p>
-					<h4 class="${hlmH4} mt-6 mb-2 !text-sm">Install supabase CLI</h4>
+					<h4 spartanH4 class="!text-sm">Install supabase CLI</h4>
 					<spartan-code code="brew install supabase/tap/supabase" />
-					<h4 class="${hlmH4} mt-6 mb-2 !text-sm">Log into CLI</h4>
+					<h4 spartanH4 class="!text-sm">Log into CLI</h4>
 					<spartan-code code="supabase login" />
 					<p class="${hlmP}">
 						Create your access token from
@@ -287,7 +289,7 @@ export const noteRouter = router({
 						and paste it into your terminal window.
 					</p>
 
-					<h4 class="${hlmH4} mt-6 mb-2 !text-sm">Create Supabase project</h4>
+					<h4 spartanH4 class="!text-sm">Create Supabase project</h4>
 					<spartan-code
 						code="
         # if you are in the spartan directory move UP!!!
@@ -303,7 +305,7 @@ cd spartan-supabase
 git init"
 					></spartan-code>
 
-					<h4 class="${hlmH4} mt-6 mb-2 !text-sm">Start Supabase services</h4>
+					<h4 spartanH4 class="!text-sm">Start Supabase services</h4>
 					<spartan-code code="supabase init" />
 					<spartan-code class="mt-3" code="supabase start" />
 

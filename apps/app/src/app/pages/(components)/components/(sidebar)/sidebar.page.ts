@@ -12,7 +12,7 @@ import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-
 import { Tabs } from '@spartan-ng/app/app/shared/layout/tabs';
 import { TabsCli } from '@spartan-ng/app/app/shared/layout/tabs-cli';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
-import { HlmCode, HlmH4, HlmP } from '@spartan-ng/helm/typography';
+import { HlmCode, HlmP } from '@spartan-ng/helm/typography';
 import { link } from '../../../../shared/typography/link';
 import {
 	button,
@@ -60,7 +60,7 @@ export const routeMeta: RouteMeta = {
 		PageBottomNavLink,
 		HlmP,
 		HlmCode,
-		HlmH4,
+
 		Tabs,
 		RouterLink,
 		SectionSubSubHeading,

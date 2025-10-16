@@ -1,8 +1,8 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
-import { hlmCode, hlmH4 } from '@spartan-ng/helm/typography';
+import { hlmCode } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
@@ -33,6 +33,7 @@ export const routeMeta: RouteMeta = {
 };
 @Component({
 	selector: 'spartan-form-field',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
 		UIApiDocs,
 		MainSection,
@@ -87,7 +88,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_withFormCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__with_form_dirty_state" class="${hlmH4} mt-6 mb-4">Changing when error messages are shown</h3>
+			<h3 id="examples__with_form_dirty_state" spartanH4>Changing when error messages are shown</h3>
 
 			<p class="mb-2">
 				By default, these error messages are shown when the control is invalid and the user has interacted with

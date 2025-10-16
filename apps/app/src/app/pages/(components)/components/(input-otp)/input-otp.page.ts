@@ -1,8 +1,9 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { UIApiDocs } from '@spartan-ng/app/app/shared/layout/ui-docs-section/ui-docs-section';
-import { hlmCode, hlmH4, hlmP } from '@spartan-ng/helm/typography';
+import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
@@ -24,6 +25,7 @@ export const routeMeta: RouteMeta = {
 };
 @Component({
 	selector: 'spartan-input-otp',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
 		UIApiDocs,
 		MainSection,
@@ -38,6 +40,7 @@ export const routeMeta: RouteMeta = {
 		PageBottomNavLink,
 		InputOtpPreview,
 		InputOtpFormExample,
+		SectionSubSubHeading,
 	],
 	template: `
 		<section spartanMainSection>
@@ -61,7 +64,7 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
 
-			<h3 id="examples__form" class="${hlmH4} mt-6 mb-2">Form</h3>
+			<h3 id="examples__form" spartanH4>Form</h3>
 			<p class="${hlmP} mb-6">
 				Sync the otp to a form by adding
 				<code class="${hlmCode}">formControlName</code>

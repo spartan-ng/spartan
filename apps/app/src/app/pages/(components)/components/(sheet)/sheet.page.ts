@@ -1,7 +1,8 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
-import { hlmCode, hlmH4, hlmP } from '@spartan-ng/helm/typography';
+import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
+import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
@@ -29,6 +30,7 @@ export const routeMeta: RouteMeta = {
 };
 @Component({
 	selector: 'spartan-sheet',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
 		UIApiDocs,
 		MainSection,
@@ -45,6 +47,7 @@ export const routeMeta: RouteMeta = {
 		SheetSidePreview,
 		SheetSizePreview,
 		SheetClosePreview,
+		SectionSubSubHeading,
 	],
 	template: `
 		<section spartanMainSection>
@@ -70,7 +73,7 @@ export const routeMeta: RouteMeta = {
 			</div>
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__sides" class="${hlmH4} mt-6 mb-2">Sides</h3>
+			<h3 id="examples__sides" spartanH4>Sides</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-sheet-side-preview />
@@ -78,7 +81,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_sideCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__size_sheet" class="${hlmH4} mt-6 mb-2">Size</h3>
+			<h3 id="examples__size_sheet" spartanH4>Size</h3>
 			<p class="${hlmP} mb-6">
 				You can adjust the size of the sheet by adding CSS classes to
 				<code class="${hlmCode}">hlm-sheet-content</code>
@@ -91,7 +94,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_sizeCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__close_sheet" class="${hlmH4} mt-6 mb-2">Close Sheet</h3>
+			<h3 id="examples__close_sheet" spartanH4>Close Sheet</h3>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>

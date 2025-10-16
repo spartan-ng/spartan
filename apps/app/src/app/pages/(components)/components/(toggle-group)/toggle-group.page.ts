@@ -13,7 +13,6 @@ import { Tabs } from '@spartan-ng/app/app/shared/layout/tabs';
 import { TabsCli } from '@spartan-ng/app/app/shared/layout/tabs-cli';
 import { UIApiDocs } from '@spartan-ng/app/app/shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
-import { hlmH4 } from '@spartan-ng/helm/typography';
 import { ToggleGroupDisabledPreview } from './toggle-group--disabled.preview';
 import { ToggleGroupLargePreview } from './toggle-group--large.preview';
 import { ToggleGroupOutlinePreview } from './toggle-group--outline.preview';
@@ -73,7 +72,7 @@ export const routeMeta: RouteMeta = {
 			</div>
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__outline" class="${hlmH4} mt-6 mb-2">Outline</h3>
+			<h3 id="examples__outline" spartanH4>Outline</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-toggle-group-outline />
@@ -81,7 +80,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_outlineCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__small" class="${hlmH4} mt-6 mb-2">Small</h3>
+			<h3 id="examples__small" spartanH4>Small</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-toggle-group-small />
@@ -89,7 +88,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_smallCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__large" class="${hlmH4} mt-6 mb-2">Large</h3>
+			<h3 id="examples__large" spartanH4>Large</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-toggle-group-large />
@@ -97,7 +96,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_largeCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__disabled" class="${hlmH4} mt-6 mb-2">Disabled</h3>
+			<h3 id="examples__disabled" spartanH4>Disabled</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-toggle-group-disabled />

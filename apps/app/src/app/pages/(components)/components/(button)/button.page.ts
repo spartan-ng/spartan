@@ -1,7 +1,7 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
-import { hlmH4 } from '@spartan-ng/helm/typography';
+import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
@@ -33,6 +33,7 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-button',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
 		UIApiDocs,
 		MainSection,
@@ -55,6 +56,7 @@ export const routeMeta: RouteMeta = {
 		ButtonWithIcon,
 		ButtonLoading,
 		ButtonAnchor,
+		SectionSubSubHeading,
 	],
 	template: `
 		<section spartanMainSection>
@@ -77,63 +79,63 @@ export const routeMeta: RouteMeta = {
 			</div>
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__secondary" class="${hlmH4} mt-6 mb-2">Secondary</h3>
+			<h3 id="examples__secondary" spartanH4>Secondary</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-button-secondary />
 				</div>
 				<spartan-code secondTab [code]="_secondaryCode()" />
 			</spartan-tabs>
-			<h3 id="examples__destructive" class="${hlmH4} mt-6 mb-2">Destructive</h3>
+			<h3 id="examples__destructive" spartanH4>Destructive</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-button-destructive />
 				</div>
 				<spartan-code secondTab [code]="_destructiveCode()" />
 			</spartan-tabs>
-			<h3 id="examples__outline" class="${hlmH4} mt-6 mb-2">Outline</h3>
+			<h3 id="examples__outline" spartanH4>Outline</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-button-outline />
 				</div>
 				<spartan-code secondTab [code]="_outlineCode()" />
 			</spartan-tabs>
-			<h3 id="examples__ghost" class="${hlmH4} mt-6 mb-2">Ghost</h3>
+			<h3 id="examples__ghost" spartanH4>Ghost</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-button-ghost />
 				</div>
 				<spartan-code secondTab [code]="_ghostCode()" />
 			</spartan-tabs>
-			<h3 id="examples__link" class="${hlmH4} mt-6 mb-2">Link</h3>
+			<h3 id="examples__link" spartanH4>Link</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-button-link />
 				</div>
 				<spartan-code secondTab [code]="_linkCode()" />
 			</spartan-tabs>
-			<h3 id="examples__icon" class="${hlmH4} mt-6 mb-2">Icon</h3>
+			<h3 id="examples__icon" spartanH4>Icon</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-button-icon />
 				</div>
 				<spartan-code secondTab [code]="_iconCode()" />
 			</spartan-tabs>
-			<h3 id="examples__with_icon" class="${hlmH4} mt-6 mb-2">With Icon</h3>
+			<h3 id="examples__with_icon" spartanH4>With Icon</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-button-with-icon />
 				</div>
 				<spartan-code secondTab [code]="_withIconCode()" />
 			</spartan-tabs>
-			<h3 id="examples__loading" class="${hlmH4} mt-6 mb-2">Loading</h3>
+			<h3 id="examples__loading" spartanH4>Loading</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-button-loading />
 				</div>
 				<spartan-code secondTab [code]="_loadingCode()" />
 			</spartan-tabs>
-			<h3 id="examples__as_anchor" class="${hlmH4} mt-6 mb-2">As Anchor</h3>
+			<h3 id="examples__as_anchor" spartanH4>As Anchor</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-button-anchor />

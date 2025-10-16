@@ -1,8 +1,9 @@
 import { RouteMeta } from '@analogjs/router';
-import { Component, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
-import { hlmCode, hlmH4, hlmP } from '@spartan-ng/helm/typography';
+import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
@@ -34,6 +35,7 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-button-group',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
 		UIApiDocs,
 		MainSection,
@@ -57,6 +59,7 @@ export const routeMeta: RouteMeta = {
 		ButtonGroupSelect,
 		ButtonGroupPopover,
 		ButtonGroupWithText,
+		SectionSubSubHeading,
 	],
 	template: `
 		<section spartanMainSection>
@@ -129,7 +132,7 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
 
-			<h3 id="examples__orientation" class="${hlmH4} mt-6">Orientation</h3>
+			<h3 id="examples__orientation" spartanH4>Orientation</h3>
 			<p class="${hlmP} mb-2">
 				Set the
 				<code class="${hlmCode} mr-0.5">orientation</code>
@@ -142,7 +145,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_orientationCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__size" class="${hlmH4} mt-6">Size</h3>
+			<h3 id="examples__size" spartanH4>Size</h3>
 			<p class="${hlmP} mb-2">
 				Control the size of buttons using the
 				<code class="${hlmCode} mr-0.5">size</code>
@@ -155,7 +158,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_sizeCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__nested" class="${hlmH4} mt-6">Nested</h3>
+			<h3 id="examples__nested" spartanH4>Nested</h3>
 			<p class="${hlmP} mb-2">
 				Nest
 				<code class="${hlmCode} mr-0.5">HlmButtonGroup</code>
@@ -168,7 +171,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_nestedCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__separator" class="${hlmH4} mt-6">Separator</h3>
+			<h3 id="examples__separator" spartanH4>Separator</h3>
 			<p class="${hlmP} mb-2">
 				The
 				<code class="${hlmCode} mr-0.5">HlmButtonGroupSeparator</code>
@@ -187,7 +190,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_separatorCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__split" class="${hlmH4} mt-6">Split</h3>
+			<h3 id="examples__split" spartanH4>Split</h3>
 			<p class="${hlmP} mb-2">
 				Create a split button group by adding two buttons separated by a
 				<code class="${hlmCode} mr-0.5">HlmButtonGroupSeparator</code>
@@ -200,7 +203,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_splitCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__with-text" class="${hlmH4} mt-6">With text</h3>
+			<h3 id="examples__with-text" spartanH4>With text</h3>
 			<p class="${hlmP} mb-2">
 				Add text to the button group using the
 				<code class="${hlmCode} mr-0.5">HlmButtonGroupText</code>
@@ -213,7 +216,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_textCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__input" class="${hlmH4} mt-6">Input</h3>
+			<h3 id="examples__input" spartanH4>Input</h3>
 			<p class="${hlmP} mb-2">
 				Wrap an
 				<code class="${hlmCode} mr-0.5">Input</code>
@@ -226,7 +229,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_inputCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__dropdown-menu" class="${hlmH4} mt-6">Dropdown Menu</h3>
+			<h3 id="examples__dropdown-menu" spartanH4>Dropdown Menu</h3>
 			<p class="${hlmP} mb-2">
 				Create a split button group with a
 				<code class="${hlmCode} mr-0.5">HlmDropdownMenu</code>
@@ -239,7 +242,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_dropdownMenuCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__select" class="${hlmH4} mt-6">Select</h3>
+			<h3 id="examples__select" spartanH4>Select</h3>
 			<p class="${hlmP} mb-2">
 				Pair with a
 				<code class="${hlmCode} mr-0.5">Select</code>
@@ -252,7 +255,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_selectCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__popover" class="${hlmH4} mt-6">Popover</h3>
+			<h3 id="examples__popover" spartanH4>Popover</h3>
 			<p class="${hlmP} mb-2">
 				Use with a
 				<code class="${hlmCode} mr-0.5">Popover</code>

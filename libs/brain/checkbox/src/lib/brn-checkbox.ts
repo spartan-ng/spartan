@@ -95,6 +95,9 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 	 */
 	public readonly checked = model<boolean>(false);
 
+	/** Emits when checked state changes. */
+	public readonly checkedChange = output<boolean>();
+
 	/**
 	 * Read-only signal of current checkbox state.
 	 * Use this when you only need to read state without changing it.
@@ -240,6 +243,7 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 
 		const newChecked = this.indeterminate() ? true : !this.checked();
 		this.indeterminate.set(false);
+		this.checkedChange.emit(newChecked);
 		this.checked.set(newChecked);
 		this._onChange(newChecked);
 	}

@@ -6,8 +6,9 @@ import {
 	computed,
 	forwardRef,
 	input,
+	linkedSignal,
 	model,
-	signal,
+	output,
 } from '@angular/core';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
@@ -34,7 +35,7 @@ export const HLM_CHECKBOX_VALUE_ACCESSOR = {
 			[class]="_computedClass()"
 			[checked]="checked()"
 			[(indeterminate)]="indeterminate"
-			[disabled]="_state().disabled()"
+			[disabled]="_disabled()"
 			[required]="required()"
 			[aria-label]="ariaLabel()"
 			[aria-labelledby]="ariaLabelledby()"
@@ -55,7 +56,7 @@ export const HLM_CHECKBOX_VALUE_ACCESSOR = {
 		'[attr.aria-label]': 'null',
 		'[attr.aria-labelledby]': 'null',
 		'[attr.aria-describedby]': 'null',
-		'[attr.data-disabled]': '_state().disabled() ? "" : null',
+		'[attr.data-disabled]': '_disabled() ? "" : null',
 	},
 	providers: [HLM_CHECKBOX_VALUE_ACCESSOR],
 	viewProviders: [provideIcons({ lucideCheck })],
@@ -68,7 +69,7 @@ export class HlmCheckbox implements ControlValueAccessor {
 		hlm(
 			'border-input dark:bg-input/30 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground dark:data-[state=checked]:bg-primary data-[state=checked]:border-primary focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive peer size-4 shrink-0 cursor-default rounded-[4px] border shadow-xs transition-shadow outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50',
 			this.userClass(),
-			this._state().disabled() ? 'cursor-not-allowed opacity-50' : '',
+			this._disabled() ? 'cursor-not-allowed opacity-50' : '',
 		),
 	);
 
@@ -87,6 +88,9 @@ export class HlmCheckbox implements ControlValueAccessor {
 	/** The checked state of the checkbox. */
 	public readonly checked = model<boolean>(false);
 
+	/** Emits when checked state changes. */
+	public readonly checkedChange = output<boolean>();
+
 	/**
 	 * The indeterminate state of the checkbox.
 	 * For example, a "select all/deselect all" checkbox may be in the indeterminate state when some but not all of its sub-controls are checked.
@@ -102,16 +106,15 @@ export class HlmCheckbox implements ControlValueAccessor {
 	/** Whether the checkbox is disabled. */
 	public readonly disabled = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
-	protected readonly _state = computed(() => ({
-		disabled: signal(this.disabled()),
-	}));
+	protected readonly _disabled = linkedSignal(() => this.disabled());
 
 	protected _onChange?: ChangeFn<boolean>;
 	protected _onTouched?: TouchFn;
 
 	protected _handleChange(value: boolean): void {
-		if (this._state().disabled()) return;
+		if (this._disabled()) return;
 		this.checked.set(value);
+		this.checkedChange.emit(value);
 		this._onChange?.(value);
 	}
 
@@ -129,6 +132,6 @@ export class HlmCheckbox implements ControlValueAccessor {
 	}
 
 	setDisabledState(isDisabled: boolean): void {
-		this._state().disabled.set(isDisabled);
+		this._disabled.set(isDisabled);
 	}
 }

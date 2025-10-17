@@ -9,7 +9,7 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 	selector: 'spartan-side-nav',
 	imports: [HlmSidebarImports, RouterLink, RouterLinkActive, SpartanNewMarker, HlmBadgeImports],
 	host: {
-		class: 'fixed text-sm top-12 pt-6 pb-12 flex z-30 hidden w-full shrink-0 md:sticky md:block',
+		class: 'contents',
 	},
 	template: `
 		<div

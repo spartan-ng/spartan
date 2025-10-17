@@ -72,9 +72,6 @@ export const routeMeta: RouteMeta = {
 				<spartan-code [code]="_defaultSkeleton" />
 			</div>
 
-			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
-			<spartan-ui-api-docs docType="helm" />
-
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
 
 			<h3 id="examples__outline" spartanH4>Outline</h3>
@@ -130,6 +127,9 @@ export const routeMeta: RouteMeta = {
 				</div>
 				<spartan-code secondTab [code]="_avatarGroupCode()" />
 			</spartan-tabs>
+
+			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="form-field" label="Form Field" />

@@ -44,6 +44,8 @@ export const routeMeta: RouteMeta = {
 				@for (component of _components; track component.url) {
 					<a
 						class="inline-flex items-center gap-2 text-lg font-medium underline-offset-4 hover:underline md:text-base"
+						[class.opacity-50]="component.wip"
+						[class.pointer-events-none]="component.wip"
 						[routerLink]="'/components' + component.url"
 					>
 						{{ component.label }}

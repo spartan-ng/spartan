@@ -1,10 +1,10 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, signal, viewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { provideIcons } from '@ng-icons/core';
 import { lucideMenu, lucideX } from '@ng-icons/lucide';
 import { pageNavs, sidenavItems } from '@spartan-ng/app/app/shared/components/navigation-items';
 import { SpartanNewMarker } from '@spartan-ng/app/app/shared/spartan-new-marker';
-import { BrnPopoverImports } from '@spartan-ng/brain/popover';
+import { BrnPopover, BrnPopoverImports } from '@spartan-ng/brain/popover';
 import { HlmBadgeImports } from '@spartan-ng/helm/badge';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmPopoverImports } from '@spartan-ng/helm/popover';
@@ -54,7 +54,7 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 					<div class="flex flex-col gap-4">
 						<div class="text-muted-foreground text-sm font-medium">Menu</div>
 						@for (pageNav of _pageNavs; track pageNav.url) {
-							<a [routerLink]="pageNav.url">{{ pageNav.label }}</a>
+							<a [routerLink]="pageNav.url" (click)="_closePopover()">{{ pageNav.label }}</a>
 						}
 					</div>
 
@@ -62,7 +62,13 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 						<div class="flex flex-col gap-4">
 							<div class="text-muted-foreground text-sm font-medium">{{ item.label }}</div>
 							@for (link of item.links; track link.url) {
-								<a [routerLink]="item.url + link.url" class="inline-flex items-center gap-2">
+								<a
+									[routerLink]="item.url + link.url"
+									class="inline-flex items-center gap-2"
+									(click)="_closePopover()"
+									[class.opacity-50]="link.wip"
+									[class.pointer-events-none]="link.wip"
+								>
 									{{ link.label }}
 									@if (link.new) {
 										<span spartanNewMarker></span>
@@ -80,6 +86,7 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 	`,
 })
 export class HeaderMobileNav {
+	protected readonly _popOver = viewChild.required(BrnPopover);
 	protected readonly _isOpen = signal(false);
 	protected readonly _burgerClass = computed(() => (this._isOpen() ? 'top-[0.4rem] -rotate-45' : 'top-1'));
 	protected readonly _closeClass = computed(() => (this._isOpen() ? 'top-[0.4rem] rotate-45' : 'top-2'));
@@ -90,4 +97,9 @@ export class HeaderMobileNav {
 
 	protected readonly _navItems = sidenavItems;
 	protected readonly _pageNavs = pageNavs;
+
+	protected _closePopover(): void {
+		this._popOver().close();
+		this._isOpen.set(false);
+	}
 }

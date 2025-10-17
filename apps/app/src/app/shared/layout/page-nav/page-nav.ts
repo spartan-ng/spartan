@@ -41,7 +41,7 @@ type SamePageAnchorLink = {
 				<div class="h-(--top-spacing) shrink-0"></div>
 				<ng-scrollbar hlm class="h-[calc(100svh-var(--footer-height)+2rem-var(--stable-height))] py-2">
 					<div class="flex flex-col gap-2 p-4 pt-0 text-sm">
-						<p class="text-muted-foreground bg-background sticky top-0 h-6 text-xs">On this page</p>
+						<p class="text-muted-foreground bg-background text-xs">On this page</p>
 
 						@for (link of _computedLinks(); track link.id) {
 							<spartan-page-nav-link [ngClass]="{ 'pl-4': link.isNested }" [fragment]="link.id" [label]="link.label" />

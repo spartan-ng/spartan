@@ -1,16 +1,13 @@
-import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideMoon } from '@ng-icons/lucide';
-import { BrnMenuTrigger } from '@spartan-ng/brain/menu';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmIcon } from '@spartan-ng/helm/icon';
-import { HlmMenu, HlmMenuImports } from '@spartan-ng/helm/menu';
 import { ThemeService } from '../theme.service';
 
 @Component({
 	selector: 'spartan-dark-mode',
-	imports: [BrnMenuTrigger, HlmMenuImports, HlmButton, NgIcon, HlmIcon, AsyncPipe, HlmMenu],
+	imports: [HlmButton, NgIcon, HlmIcon],
 	providers: [provideIcons({ lucideMoon })],
 	template: `
 		<button size="sm" variant="ghost" hlmBtn (click)="toggleMode()">

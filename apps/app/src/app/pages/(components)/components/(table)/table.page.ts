@@ -65,9 +65,6 @@ export const routeMeta: RouteMeta = {
 				<spartan-code [code]="_defaultSkeleton" />
 			</div>
 
-			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
-			<spartan-ui-api-docs docType="helm" />
-
 			<spartan-section-sub-heading id="data-table">Data Table</spartan-section-sub-heading>
 			<p class="${hlmP}">
 				For more complex tables, have a look at the data table , which is powered by the incredible work of
@@ -84,6 +81,9 @@ export const routeMeta: RouteMeta = {
 				<a class="${link}" routerLink="/examples/tasks">Tasks</a>
 				demo.
 			</p>
+
+			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="tabs" label="Tabs" />

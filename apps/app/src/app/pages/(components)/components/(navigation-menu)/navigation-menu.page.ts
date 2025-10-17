@@ -15,8 +15,8 @@ import { metaWith } from '../../../../shared/meta/meta.util';
 import { NavigationMenuPreview, codeImports, codeSkeleton, codeString } from './navigation-menu.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'navigation-menu' },
-	meta: metaWith('spartan/ui - navigation-menu', 'TODO: Add a description'),
+	data: { breadcrumb: 'Navigation Menu', api: 'navigation-menu' },
+	meta: metaWith('spartan/ui - navigation-menu', 'A collection of links for navigating websites'),
 	title: 'spartan/ui - navigation-menu',
 };
 
@@ -38,7 +38,7 @@ export const routeMeta: RouteMeta = {
 	],
 	template: `
 		<section spartanMainSection>
-			<spartan-section-intro name="navigation-menu" lead="TODO: Add a description" />
+			<spartan-section-intro name="Navigation Menu" lead="A collection of links for navigating websites" />
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>

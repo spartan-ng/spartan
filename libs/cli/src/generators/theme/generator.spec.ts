@@ -93,6 +93,7 @@ describe('Theme generator', () => {
 				project,
 			);
 			const styles = tree.read('website/src/styles.css', 'utf8');
+			console.log(styles);
 			expect(styles).toContain('.theme-zinc');
 		});
 	});

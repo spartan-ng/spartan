@@ -1596,11 +1596,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [
           {
-            "name": "indeterminate",
+            "name": "checked",
             "type": "boolean",
           },
           {
-            "name": "checked",
+            "name": "indeterminate",
             "type": "boolean",
           },
         ],

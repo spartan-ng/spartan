@@ -46,7 +46,7 @@ export default async function addThemeToApplicationGenerator(tree: Tree) {
 		},
 	]);
 
-	addThemeToApplicationStyles(
+	await addThemeToApplicationStyles(
 		tree,
 		{
 			project: project.name,

@@ -4,6 +4,9 @@
 @import "tw-animate-css";
 @import "@fontsource/geist-mono";
 
+@source "../**/*.{ts}";
+@source "../../../libs/helm/**/*.{ts}";
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {

@@ -1,10 +1,10 @@
 import {
-	type GeneratorCallback,
-	type Tree,
 	addDependenciesToPackageJson,
 	generateFiles,
+	type GeneratorCallback,
 	joinPathFragments,
 	runTasksInSerial,
+	type Tree,
 	updateJson,
 } from '@nx/devkit';
 import { addTsConfigPath } from '@nx/js';
@@ -12,7 +12,7 @@ import * as path from 'node:path';
 
 import { readTsConfigPathsFromTree } from '../../utils/tsconfig';
 import { getInstalledPackageVersion } from '../../utils/version-utils';
-import { buildDependencyArray, buildDevDependencyArray } from './lib/build-dependency-array';
+import { buildDependencyArray } from './lib/build-dependency-array';
 import { deleteFiles } from './lib/deleteFiles';
 import { getTargetLibraryDirectory } from './lib/get-target-library-directory';
 import { initializeAngularLibrary } from './lib/initialize-angular-library';
@@ -68,8 +68,7 @@ function registerDependencies(tree: Tree, options: HlmBaseGeneratorSchema): Gene
 	const angularVersion = getInstalledPackageVersion(tree, '@angular/core', FALLBACK_ANGULAR_VERSION, true);
 	const cdkVersion = getInstalledPackageVersion(tree, '@angular/cdk', FALLBACK_ANGULAR_VERSION, true);
 	const dependencies = buildDependencyArray(options, angularVersion, cdkVersion);
-	const devDependencies = buildDevDependencyArray();
-	return addDependenciesToPackageJson(tree, dependencies, devDependencies);
+	return addDependenciesToPackageJson(tree, dependencies, {});
 }
 
 export async function hlmBaseGenerator(tree: Tree, options: HlmBaseGeneratorSchema) {

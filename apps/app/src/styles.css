@@ -1,5 +1,9 @@
-@import "tailwindcss" important;
-@import '@angular/cdk/overlay-prebuilt.css';
+@layer theme, base, components, utilities;
+
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/preflight.css" layer(base);
+@import "tailwindcss/utilities.css";
+@import "@angular/cdk/overlay-prebuilt.css";
 
 @import "tw-animate-css";
 @import "@fontsource/geist-mono/latin";

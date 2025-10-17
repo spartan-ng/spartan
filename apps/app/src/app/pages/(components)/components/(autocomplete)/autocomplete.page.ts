@@ -66,9 +66,7 @@ export const routeMeta: RouteMeta = {
 			<p class="${hlmP} mb-6">
 				The Autocomplete component is built with the
 				<a routerLink="/components/popover" hlmBtn variant="link" class="${link}">Popover</a>
-				and the
-				<a routerLink="/components/command" hlmBtn variant="link" class="${link}">Command</a>
-				components.
+				component.
 			</p>
 
 			<spartan-cli-tabs

@@ -1,15 +1,4 @@
-import { isPlatformServer } from '@angular/common';
-import {
-	Directive,
-	ElementRef,
-	OnInit,
-	PLATFORM_ID,
-	computed,
-	inject,
-	input,
-	linkedSignal,
-	signal,
-} from '@angular/core';
+import { Directive, ElementRef, afterNextRender, computed, inject, input, linkedSignal, signal } from '@angular/core';
 import type { CustomElementClassSettable } from '@spartan-ng/brain/core';
 import type { ClassValue } from 'clsx';
 import { BrnAccordionItem } from './brn-accordion';
@@ -27,10 +16,9 @@ import { BrnAccordionItem } from './brn-accordion';
 		'[attr.style]': '_mutableContentStyle() ?? "opacity: 0;"',
 	},
 })
-export class BrnAccordionContent implements OnInit, CustomElementClassSettable {
+export class BrnAccordionContent implements CustomElementClassSettable {
 	private readonly _item = inject(BrnAccordionItem);
 	private readonly _elementRef = inject(ElementRef);
-	private readonly _platformId = inject(PLATFORM_ID);
 
 	public readonly state = this._item.state;
 	public readonly id = `brn-accordion-content-${this._item.id}`;
@@ -59,18 +47,14 @@ export class BrnAccordionContent implements OnInit, CustomElementClassSettable {
 		if (!this._item) {
 			throw Error('Accordion Content can only be used inside an AccordionItem. Add brnAccordionItem to parent.');
 		}
-	}
-
-	ngOnInit() {
-		if (isPlatformServer(this._platformId)) {
-			return;
-		}
-		const content = this._elementRef.nativeElement.firstChild as HTMLElement | null;
-		if (!content) return;
-		const { width, height } = content.getBoundingClientRect();
-		this._width.set(width);
-		this._height.set(height);
-		this._dimensionsInitiated.set(true);
+		afterNextRender(() => {
+			const content = this._elementRef.nativeElement.firstChild as HTMLElement | null;
+			if (!content) return;
+			const { width, height } = content.getBoundingClientRect();
+			this._width.set(width);
+			this._height.set(height);
+			this._dimensionsInitiated.set(true);
+		});
 	}
 	public setClassToCustomElement(classes: ClassValue) {
 		this._mutableContentClass.set(classes);

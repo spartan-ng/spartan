@@ -7,7 +7,6 @@ import { BrnNavigationMenuTrigger } from './lib/brn-navigation-menu-trigger';
 
 export * from './lib/brn-navigation-menu';
 export * from './lib/brn-navigation-menu-content';
-export * from './lib/brn-navigation-menu-content-options';
 export * from './lib/brn-navigation-menu-item';
 export * from './lib/brn-navigation-menu-link';
 export * from './lib/brn-navigation-menu-list';

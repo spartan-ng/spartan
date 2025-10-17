@@ -2,14 +2,20 @@ import {
 	ConnectedPosition,
 	FlexibleConnectedPositionStrategy,
 	Overlay,
+	OverlayConfig,
 	OverlayPositionBuilder,
 	OverlayRef,
 } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
-import { inject, Injectable, NgZone, signal, TemplateRef, ViewContainerRef } from '@angular/core';
+import { ElementRef, inject, Injectable, NgZone, signal, TemplateRef, ViewContainerRef } from '@angular/core';
 import { createHoverObservable } from '@spartan-ng/brain/core';
 import { BehaviorSubject, Observable, of, Subject, switchMap } from 'rxjs';
-import { BrnNavigationMenuContentOptions } from './brn-navigation-menu-content-options';
+
+export type BrnNavigationMenuContentOptions = Partial<
+	{
+		attachTo: ElementRef;
+	} & OverlayConfig
+>;
 
 const bottomFirstPositions: ConnectedPosition[] = [
 	{

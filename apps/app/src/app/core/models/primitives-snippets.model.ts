@@ -32,6 +32,7 @@ export type PrimitiveSnippet =
 	| 'kbd'
 	| 'label'
 	| 'menubar'
+	| 'navigation-menu'
 	| 'pagination'
 	| 'popover'
 	| 'progress'

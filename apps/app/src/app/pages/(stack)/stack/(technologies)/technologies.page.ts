@@ -46,7 +46,7 @@ export const routeMeta: RouteMeta = {
 			/>
 
 			<spartan-section-sub-heading first id="nx" class="pt-6">Nx</spartan-section-sub-heading>
-			<spartan-architecture-diagram-nx />
+			<spartan-architecture-diagram-nx class="mt-4" />
 			<p class="${hlmP}">
 				Let's start with the workspace. The location where your code will reside and the features that meet the needs of
 				your users will be implemented.
@@ -58,7 +58,7 @@ export const routeMeta: RouteMeta = {
 			</p>
 
 			<spartan-section-sub-heading id="analogjs">AnalogJs</spartan-section-sub-heading>
-			<spartan-architecture-diagram-analog />
+			<spartan-architecture-diagram-analog class="mt-4" />
 			<p class="${hlmP}">
 				AnalogJs is a meta-framework for Angular. It provides you with all the benefits of Angular but extends its
 				capabilities with even more:
@@ -82,7 +82,7 @@ export const routeMeta: RouteMeta = {
 			</p>
 
 			<spartan-section-sub-heading id="angular">Angular</spartan-section-sub-heading>
-			<spartan-architecture-diagram-angular />
+			<spartan-architecture-diagram-angular class="mt-4" />
 			<p class="${hlmP}">
 				Angular has opinionated routing solutions, a strong HttpClient for making asynchronous web queries, and, my
 				personal favorite, an outstanding dependency injection system. Angular provides programmers with all the
@@ -90,7 +90,7 @@ export const routeMeta: RouteMeta = {
 			</p>
 
 			<spartan-section-sub-heading id="trpc">tRPC</spartan-section-sub-heading>
-			<spartan-architecture-diagram-trpc />
+			<spartan-architecture-diagram-trpc class="mt-4" />
 			<p class="${hlmP}">
 				tRPC stands for TypeScript Remote Procedure Call, and is a lightweight library for remotely calling backend
 				functions on the client side. It makes communication between the backend and frontend incredibly easy, taking
@@ -100,7 +100,7 @@ export const routeMeta: RouteMeta = {
 			</p>
 
 			<spartan-section-sub-heading id="drizzle">Drizzle</spartan-section-sub-heading>
-			<spartan-architecture-diagram-drizzle />
+			<spartan-architecture-diagram-drizzle class="mt-4" />
 			<p class="${hlmP}">
 				We're just a few steps away from having complete type safety from our database to the template generating the
 				DOM. Drizzle is the tool that will bring us there. Drizzle is a Node.js and TypeScript ORM. It allows you to
@@ -108,7 +108,7 @@ export const routeMeta: RouteMeta = {
 			</p>
 
 			<spartan-section-sub-heading id="supabase">Supabase</spartan-section-sub-heading>
-			<spartan-architecture-diagram-supabase />
+			<spartan-architecture-diagram-supabase class="mt-4" />
 			<p class="${hlmP}">
 				PostgreSQL is one of the world's most scalable databases. It is a sophisticated object-relational system
 				applying SQL. Postgres allows you to securely store vast quantities of complex data. It enables developers to

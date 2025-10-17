@@ -9,7 +9,11 @@ import { ClassValue } from 'clsx';
 		'[class]': '_computedClass()',
 	},
 	hostDirectives: [
-		{ directive: BrnNavigationMenu, inputs: ['value', 'delayDuration', 'skipDelayDuration', 'dir', 'orientation'] },
+		{
+			directive: BrnNavigationMenu,
+			inputs: ['value', 'delayDuration', 'skipDelayDuration', 'dir', 'orientation'],
+			outputs: ['valueChange'],
+		},
 	],
 })
 export class HlmNavigationMenu {

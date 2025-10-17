@@ -1,5 +1,15 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { Directive, effect, ElementRef, inject, NgZone, untracked, ViewContainerRef } from '@angular/core';
+import {
+	Directive,
+	effect,
+	ElementRef,
+	inject,
+	NgZone,
+	OnDestroy,
+	OnInit,
+	untracked,
+	ViewContainerRef,
+} from '@angular/core';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { BrnButton } from '@spartan-ng/brain/button';
 import { createHoverObservable } from '@spartan-ng/brain/core';
@@ -21,6 +31,11 @@ import { BrnNavigationMenuContentService } from './brn-navigation-menu-content.s
 import { injectBrnNavigationMenuItem } from './brn-navigation-menu-item.token';
 import { injectBrnNavigationMenu } from './brn-navigation-menu.token';
 
+interface TriggerEvent {
+	type: 'click' | 'hover' | 'set';
+	visible: boolean;
+}
+
 @Directive({
 	selector: 'button[brnNavigationMenuTrigger]',
 	host: {
@@ -33,7 +48,7 @@ import { injectBrnNavigationMenu } from './brn-navigation-menu.token';
 		},
 	],
 })
-export class BrnNavigationMenuTrigger {
+export class BrnNavigationMenuTrigger implements OnInit, OnDestroy {
 	private readonly _navigationMenu = injectBrnNavigationMenu();
 	private readonly _navigationMenuItem = injectBrnNavigationMenuItem();
 	private readonly _destroy$ = new Subject<void>();
@@ -53,24 +68,29 @@ export class BrnNavigationMenuTrigger {
 
 	public readonly focused$: Observable<boolean> = this._focusMonitor.monitor(this._el).pipe(map((e) => e !== null));
 
-	private readonly _isActive$ = toObservable(this._navigationMenuItem.isActive);
-
-	private readonly _clicked$ = fromEvent(this._el.nativeElement, 'click').pipe(
-		map(() => !this._navigationMenuItem.isActive()),
+	private readonly _isActive$: Observable<TriggerEvent> = toObservable(this._navigationMenuItem.isActive).pipe(
+		map((value) => ({ type: 'set', visible: value })),
 	);
 
-	private readonly _hovered$: Observable<boolean> = merge(
+	private readonly _clicked$: Observable<TriggerEvent> = fromEvent(this._el.nativeElement, 'click').pipe(
+		map(() => !this._navigationMenuItem.isActive()),
+		map((value) => ({ type: 'click', visible: value })),
+	);
+
+	private readonly _hovered$: Observable<TriggerEvent> = merge(
 		createHoverObservable(this._el.nativeElement, this._zone, this._destroy$),
 		this._contentService.hovered$,
 		this.focused$,
-	).pipe(distinctUntilChanged());
+	).pipe(
+		map((value) => ({ type: 'hover' as const, visible: value })),
+		distinctUntilChanged((prev, curr) => prev.visible === curr.visible),
+	);
 
-	private readonly _showing$: Observable<boolean> = merge(this._isActive$, this._clicked$, this._hovered$).pipe(
-		// we set the state to open here because we are about to open show the content
-		tap((visible) => visible && this.activate()),
-		switchMap((visible) => {
+	private readonly _showing$ = merge(this._isActive$, this._clicked$, this._hovered$).pipe(
+		tap((ev) => (ev.visible ? this._activate() : ev.type === 'click' && this._deactivate())),
+		switchMap((ev) => {
 			// we are delaying based on the configure-able input
-			return of(visible).pipe(delay(visible ? this._delayDuration() : 0));
+			return of(ev.visible).pipe(delay(ev.visible ? this._delayDuration() : 0));
 		}),
 		// switchMap((visible) => {
 		// 	// don't do anything when we are in the process of showing the content
@@ -107,7 +127,16 @@ export class BrnNavigationMenuTrigger {
 		});
 	}
 
-	protected activate() {
+	public ngOnDestroy() {
+		this._destroy$.next();
+		this._destroy$.complete();
+	}
+
+	private _activate() {
 		this._navigationMenu.value.set(this._navigationMenuItem.id());
+	}
+
+	private _deactivate() {
+		this._navigationMenu.value.set(undefined);
 	}
 }

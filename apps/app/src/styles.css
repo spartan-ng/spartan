@@ -136,3 +136,17 @@ select {
 	--docsearch-key-gradient: transparent;
 	@apply top-0 m-0 h-4 w-3 bg-transparent p-0 font-sans text-xs font-medium text-neutral-400 shadow-none dark:text-neutral-500;
 }
+
+.DocSearch-Input {
+	padding: 0 0 0 44px;
+	margin-inline: -12px;
+}
+
+.DocSearch-LoadingIndicator, .DocSearch-MagnifierLabel, .DocSearch-Reset {
+	@apply absolute;
+}
+
+.DocSearch-Reset {
+	margin-inline: 12px;
+}
+

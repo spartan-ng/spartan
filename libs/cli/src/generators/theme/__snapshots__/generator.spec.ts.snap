@@ -1,46 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Theme generator Tailwind v3 should add the gray theme styles to the global stylesheet 1`] = `
-"@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* You can add global styles to this file, and also import other style files */"
-`;
-
-exports[`Theme generator Tailwind v3 should add the neutral theme styles to the global stylesheet 1`] = `
-"@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* You can add global styles to this file, and also import other style files */"
-`;
-
-exports[`Theme generator Tailwind v3 should add the slate theme styles to the global stylesheet 1`] = `
-"@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* You can add global styles to this file, and also import other style files */"
-`;
-
-exports[`Theme generator Tailwind v3 should add the stone theme styles to the global stylesheet 1`] = `
-"@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* You can add global styles to this file, and also import other style files */"
-`;
-
-exports[`Theme generator Tailwind v3 should add the zinc theme styles to the global stylesheet 1`] = `
-"@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* You can add global styles to this file, and also import other style files */"
-`;
-
-exports[`Theme generator Tailwind v4 should add the gray theme styles to the global stylesheet 1`] = `
+exports[`Theme generator should add the gray theme styles to the global stylesheet 1`] = `
 "@import "@angular/cdk/overlay-prebuilt.css";
 
 @import "tailwindcss";
@@ -121,7 +81,7 @@ body {
 }"
 `;
 
-exports[`Theme generator Tailwind v4 should add the neutral theme styles to the global stylesheet 1`] = `
+exports[`Theme generator should add the neutral theme styles to the global stylesheet 1`] = `
 "@import "@angular/cdk/overlay-prebuilt.css";
 
 @import "tailwindcss";
@@ -202,7 +162,7 @@ body {
 }"
 `;
 
-exports[`Theme generator Tailwind v4 should add the slate theme styles to the global stylesheet 1`] = `
+exports[`Theme generator should add the slate theme styles to the global stylesheet 1`] = `
 "@import "@angular/cdk/overlay-prebuilt.css";
 
 @import "tailwindcss";
@@ -283,7 +243,7 @@ body {
 }"
 `;
 
-exports[`Theme generator Tailwind v4 should add the stone theme styles to the global stylesheet 1`] = `
+exports[`Theme generator should add the stone theme styles to the global stylesheet 1`] = `
 "@import "@angular/cdk/overlay-prebuilt.css";
 
 @import "tailwindcss";
@@ -364,7 +324,7 @@ body {
 }"
 `;
 
-exports[`Theme generator Tailwind v4 should add the zinc theme styles to the global stylesheet 1`] = `
+exports[`Theme generator should add the zinc theme styles to the global stylesheet 1`] = `
 "@import "@angular/cdk/overlay-prebuilt.css";
 
 @import "tailwindcss";

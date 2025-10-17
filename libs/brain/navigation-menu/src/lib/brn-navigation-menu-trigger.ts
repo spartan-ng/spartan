@@ -1,5 +1,5 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { Directive, effect, ElementRef, inject, input, NgZone, untracked, ViewContainerRef } from '@angular/core';
+import { Directive, effect, ElementRef, inject, NgZone, untracked, ViewContainerRef } from '@angular/core';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { BrnButton } from '@spartan-ng/brain/button';
 import { createHoverObservable } from '@spartan-ng/brain/core';
@@ -45,6 +45,10 @@ export class BrnNavigationMenuTrigger {
 
 	protected readonly state = this._navigationMenuItem.state;
 
+	private readonly _delayDuration = this._navigationMenu.delayDuration;
+
+	private readonly _skipDelayDuration = this._navigationMenu.skipDelayDuration;
+
 	private readonly _contentTemplate = this._navigationMenuItem.contentTemplate;
 
 	public readonly focused$: Observable<boolean> = this._focusMonitor.monitor(this._el).pipe(map((e) => e !== null));
@@ -66,26 +70,20 @@ export class BrnNavigationMenuTrigger {
 		tap((visible) => visible && this.activate()),
 		switchMap((visible) => {
 			// we are delaying based on the configure-able input
-			return of(visible).pipe(delay(visible ? this.showDelay() : this.hideDelay()));
+			return of(visible).pipe(delay(visible ? this._delayDuration() : 0));
 		}),
-		switchMap((visible) => {
-			// don't do anything when we are in the process of showing the content
-			if (visible) return of(visible);
-			// we set the state to closed here to trigger any animations for the element leaving
-			// this._contentService.setState('closed');
-			// then delay to wait for the leaving animation to finish
-			return of(visible).pipe(delay(this.animationDelay()));
-		}),
+		// switchMap((visible) => {
+		// 	// don't do anything when we are in the process of showing the content
+		// 	if (visible) return of(visible);
+		// 	// we set the state to closed here to trigger any animations for the element leaving
+		// 	// this._contentService.setState('closed');
+		// 	// then delay to wait for the leaving animation to finish
+		// 	return of(visible).pipe(delay(this.animationDelay()));
+		// }),
 		distinctUntilChanged(),
 		share(),
 		takeUntil(this._destroy$),
 	);
-
-	public readonly showDelay = input(300);
-	public readonly hideDelay = input(500);
-	public readonly animationDelay = input(100);
-	public readonly sideOffset = input(5);
-	public readonly align = input<'top' | 'bottom'>('bottom');
 
 	constructor() {
 		effect(() => {

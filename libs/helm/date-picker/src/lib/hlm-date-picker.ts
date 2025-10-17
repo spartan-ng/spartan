@@ -2,18 +2,24 @@ import type { BooleanInput } from '@angular/cdk/coercion';
 import {
 	booleanAttribute,
 	ChangeDetectionStrategy,
+	ChangeDetectorRef,
 	Component,
 	computed,
+	effect,
 	forwardRef,
+	inject,
 	input,
 	linkedSignal,
 	output,
 	signal,
+	viewChild,
 } from '@angular/core';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown } from '@ng-icons/lucide';
+import { BrnDatePicker } from '@spartan-ng/brain/date-picker';
 import type { BrnDialogState } from '@spartan-ng/brain/dialog';
+import { BrnFormFieldControl } from '@spartan-ng/brain/form-field';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import { BrnPopover, BrnPopoverContent, BrnPopoverTrigger } from '@spartan-ng/brain/popover';
 import { HlmCalendar } from '@spartan-ng/helm/calendar';
@@ -33,8 +39,24 @@ let nextId = 0;
 
 @Component({
 	selector: 'hlm-date-picker',
-	imports: [NgIcon, HlmIcon, BrnPopover, BrnPopoverTrigger, BrnPopoverContent, HlmPopoverContent, HlmCalendar],
-	providers: [HLM_DATE_PICKER_VALUE_ACCESSOR, provideIcons({ lucideChevronDown })],
+	imports: [
+		NgIcon,
+		HlmIcon,
+		BrnPopover,
+		BrnPopoverTrigger,
+		BrnPopoverContent,
+		HlmPopoverContent,
+		HlmCalendar,
+		BrnDatePicker,
+	],
+	providers: [
+		HLM_DATE_PICKER_VALUE_ACCESSOR,
+		provideIcons({ lucideChevronDown }),
+		{
+			provide: BrnFormFieldControl,
+			useExisting: forwardRef(() => HlmDatePicker),
+		},
+	],
 	template: `
 		<brn-popover sideOffset="5" [state]="_popoverState()" (stateChanged)="_popoverState.set($event)">
 			<button
@@ -42,6 +64,7 @@ let nextId = 0;
 				type="button"
 				[class]="_computedClass()"
 				[disabled]="_mutableDisabled()"
+				brnDatePicker
 				brnPopoverTrigger
 			>
 				<span class="truncate">
@@ -73,8 +96,24 @@ let nextId = 0;
 	},
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HlmDatePicker<T> implements ControlValueAccessor {
+export class HlmDatePicker<T> implements ControlValueAccessor, BrnFormFieldControl {
 	private readonly _config = injectHlmDatePickerConfig<T>();
+	private readonly _cdRef = inject(ChangeDetectorRef);
+	
+	// Get reference to the brain date picker directive on the button
+	private readonly _brnDatePicker = viewChild.required(BrnDatePicker);
+
+	constructor() {
+		// Watch for error state changes and mark for check
+		effect(() => {
+			const brnDatePicker = this._brnDatePicker();
+			if (brnDatePicker) {
+				// Subscribe to error state changes
+				brnDatePicker.errorState();
+				this._cdRef.markForCheck();
+			}
+		});
+	}
 
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>
@@ -100,8 +139,9 @@ export class HlmDatePicker<T> implements ControlValueAccessor {
 	public readonly max = input<T>();
 
 	/** Determine if the date picker is disabled. */
-	public readonly disabled = input<boolean, BooleanInput>(false, {
+	public readonly isDisabled = input<boolean, BooleanInput>(false, {
 		transform: booleanAttribute,
+		alias: 'disabled',
 	});
 
 	/** The selected value. */
@@ -122,7 +162,7 @@ export class HlmDatePicker<T> implements ControlValueAccessor {
 
 	protected readonly _popoverState = signal<BrnDialogState | null>(null);
 
-	protected readonly _mutableDisabled = linkedSignal(this.disabled);
+	protected readonly _mutableDisabled = linkedSignal(this.isDisabled);
 
 	protected readonly _formattedDate = computed(() => {
 		const date = this._mutableDate();
@@ -170,5 +210,30 @@ export class HlmDatePicker<T> implements ControlValueAccessor {
 
 	public close() {
 		this._popoverState.set('closed');
+	}
+
+	// BrnFormFieldControl implementation - delegate to brain directive
+	get ngControl() {
+		return this._brnDatePicker().ngControl;
+	}
+
+	get errorState() {
+		return this._brnDatePicker().errorState;
+	}
+
+	get required() {
+		return this._brnDatePicker().required;
+	}
+
+	get disabled() {
+		return this._brnDatePicker().disabled;
+	}
+
+	get id() {
+		return this._brnDatePicker().id;
+	}
+
+	setAriaDescribedBy(ids: string) {
+		this._brnDatePicker().setAriaDescribedBy(ids);
 	}
 }

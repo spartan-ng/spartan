@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, forwardRef, input } from '@angular/core';
 import { BrnAutocompleteSearchInput } from '@spartan-ng/brain/autocomplete';
+import { BrnFormFieldControl } from '@spartan-ng/brain/form-field';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 
@@ -7,6 +8,12 @@ import type { ClassValue } from 'clsx';
 	selector: 'input[hlm-autocomplete-search-input]',
 	template: '',
 	hostDirectives: [{ directive: BrnAutocompleteSearchInput, inputs: ['value'] }],
+	providers: [
+		{
+			provide: BrnFormFieldControl,
+			useExisting: forwardRef(() => BrnAutocompleteSearchInput),
+		},
+	],
 	host: {
 		'[class]': '_computedClass()',
 	},

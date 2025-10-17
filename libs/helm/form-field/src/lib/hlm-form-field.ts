@@ -35,7 +35,7 @@ import { HlmError } from './hlm-error';
 export class HlmFormField {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() => hlm('block space-y-2', this.userClass()));
-	public readonly control = contentChild(BrnFormFieldControl);
+	public readonly control = contentChild(BrnFormFieldControl, { descendants: true });
 
 	public readonly errorChildren = contentChildren(HlmError);
 

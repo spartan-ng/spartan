@@ -3,8 +3,10 @@ import { NgTemplateOutlet } from '@angular/common';
 import {
 	booleanAttribute,
 	ChangeDetectionStrategy,
+	ChangeDetectorRef,
 	Component,
 	computed,
+	effect,
 	ElementRef,
 	forwardRef,
 	inject,
@@ -12,12 +14,14 @@ import {
 	linkedSignal,
 	output,
 	type TemplateRef,
+	untracked,
 	viewChild,
 } from '@angular/core';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown, lucideSearch } from '@ng-icons/lucide';
-import { BrnAutocomplete, BrnAutocompleteEmpty } from '@spartan-ng/brain/autocomplete';
+import { BrnAutocomplete, BrnAutocompleteEmpty, BrnAutocompleteSearchInput } from '@spartan-ng/brain/autocomplete';
+import { BrnFormFieldControl } from '@spartan-ng/brain/form-field';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import { BrnPopover, BrnPopoverContent } from '@spartan-ng/brain/popover';
 import { HlmIcon } from '@spartan-ng/helm/icon';
@@ -32,12 +36,31 @@ import { HlmAutocompleteSearch } from './hlm-autocomplete-search';
 import { HlmAutocompleteSearchInput } from './hlm-autocomplete-search-input';
 import { HlmAutocompleteTrigger } from './hlm-autocomplete-trigger';
 import { injectHlmAutocompleteConfig } from './hlm-autocomplete.token';
+import { cva, VariantProps } from 'class-variance-authority';
+
+export const inputVariants = cva(
+	'file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input shadow-xs focus-visible:border-ring focus-visible:ring-ring/50 flex h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base outline-none transition-[color,box-shadow] file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
+	{
+		variants: {
+			error: {
+				auto: '[&.ng-invalid.ng-touched]:text-destructive/20 dark:[&.ng-invalid.ng-touched]:text-destructive/40 [&.ng-invalid.ng-touched]:border-destructive [&.ng-invalid.ng-touched]:focus-visible:ring-destructive',
+				true: 'text-destructive/20 dark:text-destructive/40 border-destructive focus-visible:ring-destructive',
+			},
+		},
+		defaultVariants: {
+			error: 'auto',
+		},
+	},
+);
+
 
 export const HLM_AUTOCOMPLETE_VALUE_ACCESSOR = {
 	provide: NG_VALUE_ACCESSOR,
 	useExisting: forwardRef(() => HlmAutocomplete),
 	multi: true,
 };
+
+type AutocompleteVariants = VariantProps<typeof inputVariants>;
 
 @Component({
 	selector: 'hlm-autocomplete',
@@ -61,7 +84,14 @@ export const HLM_AUTOCOMPLETE_VALUE_ACCESSOR = {
 		NgIcon,
 		HlmIcon,
 	],
-	providers: [HLM_AUTOCOMPLETE_VALUE_ACCESSOR, provideIcons({ lucideSearch, lucideChevronDown })],
+	providers: [
+		HLM_AUTOCOMPLETE_VALUE_ACCESSOR,
+		provideIcons({ lucideSearch, lucideChevronDown }),
+		{
+			provide: BrnFormFieldControl,
+			useExisting: forwardRef(() => HlmAutocomplete),
+		},
+	],
 	template: `
 		<brn-popover
 			#popover
@@ -72,7 +102,11 @@ export const HLM_AUTOCOMPLETE_VALUE_ACCESSOR = {
 			[closeOnOutsidePointerEvents]="true"
 		>
 			<div brnAutocomplete>
-				<hlm-autocomplete-search hlmAutocompleteTrigger [disabledTrigger]="!_search()">
+				<hlm-autocomplete-search
+					hlmAutocompleteTrigger
+					[disabledTrigger]="!_search()"
+					[class]="_computedAutocompleteTriggerClass()"
+				>
 					<ng-icon name="lucideSearch" hlm />
 					<input
 						#input
@@ -138,14 +172,36 @@ export const HLM_AUTOCOMPLETE_VALUE_ACCESSOR = {
 		'[class]': '_computedClass()',
 	},
 })
-export class HlmAutocomplete<T> implements ControlValueAccessor {
+export class HlmAutocomplete<T> implements ControlValueAccessor, BrnFormFieldControl {
 	private static _id = 0;
 	private readonly _config = injectHlmAutocompleteConfig<T>();
 
 	private readonly _brnPopover = viewChild.required(BrnPopover);
 	private readonly _inputRef = viewChild.required('input', { read: ElementRef });
-
+	private readonly _brnAutocompleteSearchInput = viewChild.required(BrnAutocompleteSearchInput);
+	public readonly error = input<AutocompleteVariants['error']>('auto');
 	protected readonly _elementRef = inject(ElementRef<HTMLElement>);
+	protected readonly _state = linkedSignal(() => ({ error: this.error() }));
+
+	protected readonly _computedAutocompleteTriggerClass = computed(() =>
+		hlm(inputVariants({ error: this._state().error }), this.userClass()),
+	);
+
+	constructor() {
+		// Watch the brain input's error state and update our visual state accordingly
+		effect(() => {
+			console.log('error state changed');
+			const hasError = this._brnAutocompleteSearchInput().errorState();
+			const currentError = this.error();
+
+			// Only update if we're in 'auto' mode or if the error state has changed
+			if (currentError === 'auto') {
+				untracked(() => {
+					this.setError(hasError ? true : 'auto');
+				});
+			}
+		});
+	}
 
 	/** The user defined class  */
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
@@ -195,8 +251,11 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 	public readonly inputId = input<string>(`hlm-autocomplete-input-${++HlmAutocomplete._id}`);
 
 	/** Whether the autocomplete is disabled. */
-	public readonly disabled = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
-	protected readonly _disabled = linkedSignal(() => this.disabled());
+	public readonly isDisabledInput = input<boolean, BooleanInput>(false, {
+		transform: booleanAttribute,
+		alias: 'disabled',
+	});
+	protected readonly _disabled = linkedSignal(() => this.isDisabledInput());
 
 	/** Emitted when the selected value changes. */
 	public readonly valueChange = output<T | null>();
@@ -278,6 +337,36 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 
 	public setDisabledState(isDisabled: boolean): void {
 		this._disabled.set(isDisabled);
+	}
+
+	setError(error: AutocompleteVariants['error']) {
+		this._state.set({ error });
+	}
+
+	// BrnFormFieldControl implementation - delegate to brain directive
+	get ngControl() {
+		return this._brnAutocompleteSearchInput().ngControl;
+	}
+
+	get errorState() {
+		return this._brnAutocompleteSearchInput().errorState;
+	}
+
+	get required() {
+		return this._brnAutocompleteSearchInput().required;
+	}
+
+	// Note: This overrides the input property, but the input is still accessible via alias 'disabled'
+	get disabled() {
+		return this._brnAutocompleteSearchInput().disabled;
+	}
+
+	get id() {
+		return this._brnAutocompleteSearchInput().id;
+	}
+
+	setAriaDescribedBy(ids: string) {
+		this._brnAutocompleteSearchInput().setAriaDescribedBy(ids);
 	}
 }
 

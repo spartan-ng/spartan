@@ -31,7 +31,7 @@ let nextFormFieldId = 0;
 export class BrnFormFieldDirective implements BrnFormFieldContextValue, AfterContentInit {
 	public readonly hintChildren = contentChildren(BrnHint);
 	public readonly errorChildren = contentChildren(BrnError);
-	public readonly formControl = contentChild(BrnFormFieldControl);
+	public readonly formControl = contentChild(BrnFormFieldControl, { descendants: true });
 
 	// Form field configuration
 	public readonly required = input<boolean>(false);

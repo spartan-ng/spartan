@@ -14,7 +14,7 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown } from '@ng-icons/lucide';
 import { BrnSelectImports, BrnSelectTrigger } from '@spartan-ng/brain/select';
 import { HlmButton } from '@spartan-ng/helm/button';
-import { HlmFormFieldModule } from '@spartan-ng/helm/form-field';
+import { HlmFormFieldImports } from '@spartan-ng/helm/form-field';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmLabel } from '@spartan-ng/helm/label';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
@@ -53,7 +53,7 @@ const meta: Meta<BrnSelectStoryArgs> = {
 				BrnSelectImports,
 				HlmSelectImports,
 				HlmLabel,
-				HlmFormFieldModule,
+				HlmFormFieldImports,
 			],
 		}),
 	],

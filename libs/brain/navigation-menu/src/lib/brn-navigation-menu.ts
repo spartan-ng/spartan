@@ -1,5 +1,5 @@
 import { Directionality } from '@angular/cdk/bidi';
-import { computed, contentChildren, Directive, inject, input, model } from '@angular/core';
+import { computed, contentChildren, Directive, effect, inject, input, model, signal } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { computedPrevious } from '@spartan-ng/brain/tooltip';
 import { combineLatest, map, of, startWith } from 'rxjs';
@@ -44,6 +44,10 @@ export class BrnNavigationMenu {
 	 */
 	public readonly orientation = input<'horizontal' | 'vertical'>('horizontal');
 
+	public readonly isOpenDelayed = signal(true);
+
+	private _skipDelayTimerRef: NodeJS.Timeout | number = 0;
+
 	private readonly _menuItems = contentChildren(BrnNavigationMenuItem, { descendants: true });
 
 	public readonly menuItemsIds = computed(() => this._menuItems().map((mi) => mi.id()));
@@ -65,4 +69,21 @@ export class BrnNavigationMenu {
 	);
 
 	public readonly context = computed(() => ({ orientation: this.orientation() }));
+
+	constructor() {
+		effect(() => {
+			const isOpen = this.value() !== undefined;
+			const hasSkipDelayDuration = this.skipDelayDuration() > 0;
+
+			if (isOpen) {
+				clearTimeout(this._skipDelayTimerRef);
+				if (hasSkipDelayDuration) this.isOpenDelayed.set(false);
+			} else {
+				clearTimeout(this._skipDelayTimerRef);
+				this._skipDelayTimerRef = setTimeout(() => {
+					this.isOpenDelayed.set(true);
+				}, this.skipDelayDuration());
+			}
+		});
+	}
 }

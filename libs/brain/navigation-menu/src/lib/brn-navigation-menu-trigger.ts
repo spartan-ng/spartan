@@ -60,9 +60,9 @@ export class BrnNavigationMenuTrigger implements OnInit, OnDestroy {
 
 	protected readonly state = this._navigationMenuItem.state;
 
-	private readonly _delayDuration = this._navigationMenu.delayDuration;
+	private readonly _isOpenDelayed = this._navigationMenu.isOpenDelayed;
 
-	private readonly _skipDelayDuration = this._navigationMenu.skipDelayDuration;
+	private readonly _delayDuration = this._navigationMenu.delayDuration;
 
 	private readonly _contentTemplate = this._navigationMenuItem.contentTemplate;
 
@@ -87,11 +87,14 @@ export class BrnNavigationMenuTrigger implements OnInit, OnDestroy {
 	);
 
 	private readonly _showing$ = merge(this._isActive$, this._clicked$, this._hovered$).pipe(
-		tap((ev) => (ev.visible ? this._activate() : ev.type === 'click' && this._deactivate())),
+		distinctUntilChanged((curr, prev) => curr.visible === prev.visible),
 		switchMap((ev) => {
-			// we are delaying based on the configure-able input
-			return of(ev.visible).pipe(delay(ev.visible ? this._delayDuration() : 0));
+			const shouldDelay = ev.visible && ev.type !== 'click' && this._isOpenDelayed();
+			return of(ev).pipe(delay(shouldDelay ? this._delayDuration() : 0));
 		}),
+		// Deactivate only needs to be called if the menu item content is hidden with a user click.
+		tap((ev) => (ev.visible ? this._activate() : ev.type === 'click' && this._deactivate())),
+		map((ev) => ev.visible),
 		// switchMap((visible) => {
 		// 	// don't do anything when we are in the process of showing the content
 		// 	if (visible) return of(visible);
@@ -100,7 +103,6 @@ export class BrnNavigationMenuTrigger implements OnInit, OnDestroy {
 		// 	// then delay to wait for the leaving animation to finish
 		// 	return of(visible).pipe(delay(this.animationDelay()));
 		// }),
-		distinctUntilChanged(),
 		share(),
 		takeUntil(this._destroy$),
 	);

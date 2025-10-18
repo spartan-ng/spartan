@@ -106,7 +106,7 @@ export class HlmCheckbox implements ControlValueAccessor {
 	/** Whether the checkbox is disabled. */
 	public readonly disabled = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
-	protected readonly _disabled = linkedSignal(() => this.disabled());
+	protected readonly _disabled = linkedSignal(this.disabled);
 
 	protected _onChange?: ChangeFn<boolean>;
 	protected _onTouched?: TouchFn;

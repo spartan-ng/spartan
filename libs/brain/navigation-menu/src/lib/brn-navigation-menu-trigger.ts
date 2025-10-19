@@ -97,14 +97,6 @@ export class BrnNavigationMenuTrigger implements OnInit, OnDestroy {
 		// Deactivate only needs to be called if the menu item content is hidden with a user click.
 		tap((ev) => (ev.visible ? this._activate() : ev.type === 'click' && this._deactivate())),
 		map((ev) => ev.visible),
-		// switchMap((visible) => {
-		// 	// don't do anything when we are in the process of showing the content
-		// 	if (visible) return of(visible);
-		// 	// we set the state to closed here to trigger any animations for the element leaving
-		// 	// this._contentService.setState('closed');
-		// 	// then delay to wait for the leaving animation to finish
-		// 	return of(visible).pipe(delay(this.animationDelay()));
-		// }),
 		share(),
 		takeUntil(this._destroy$),
 	);

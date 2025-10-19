@@ -40,6 +40,8 @@ export class BrnNavigationMenuContentService {
 
 	private readonly _content = signal<TemplatePortal<unknown> | null>(null);
 
+	private _shouldDetach = false;
+
 	private _config: BrnNavigationMenuContentOptions = {};
 	private _overlayRef?: OverlayRef;
 	private _positionStrategy?: FlexibleConnectedPositionStrategy;
@@ -82,24 +84,49 @@ export class BrnNavigationMenuContentService {
 	public show() {
 		const content = this._content();
 		if (!content || !this._overlayRef) return;
+		this._shouldDetach = false;
 
 		this._overlayRef?.detach();
 		const embededViewRef = this._overlayRef?.attach(content);
 
 		this._destroyed$ = new Subject<void>();
 
-		this._contentEl.set(embededViewRef.rootNodes[0] as HTMLElement);
+		const contentEl = embededViewRef.rootNodes[0] as HTMLElement;
+		this._contentEl.set(contentEl);
+
+		contentEl.addEventListener('animationend', this._detach);
+		contentEl.addEventListener('animationcancel', this._detach);
+
 		this._overlayHoveredObservables$.next(
 			createHoverObservable(this._overlayRef.hostElement, this._zone, this._destroyed$),
 		);
 	}
 
 	public hide() {
+		const contentEl = this._contentEl();
+		if (!contentEl) return;
+
+		this._shouldDetach = true;
+		if (!this._hasAnimation()) {
+			this._detach();
+		}
+	}
+
+	private readonly _detach = () => {
+		if (!this._shouldDetach) return;
+
 		this._overlayRef?.detach();
 		this._contentEl.set(undefined);
 
 		this._destroyed$.next();
 		this._destroyed$.complete();
 		this._destroyed$ = new Subject<void>();
+	};
+
+	private _hasAnimation() {
+		const contentEl = this.contentEl();
+		if (!contentEl) return;
+
+		return getComputedStyle(contentEl).animationName !== 'none';
 	}
 }

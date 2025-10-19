@@ -1,5 +1,6 @@
 import type { BooleanInput } from '@angular/cdk/coercion';
 import {
+	type AfterViewChecked,
 	booleanAttribute,
 	ChangeDetectionStrategy,
 	ChangeDetectorRef,
@@ -96,7 +97,7 @@ let nextId = 0;
 	},
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HlmDatePicker<T> implements ControlValueAccessor, BrnFormFieldControl {
+export class HlmDatePicker<T> implements ControlValueAccessor, BrnFormFieldControl, AfterViewChecked {
 	private readonly _config = injectHlmDatePickerConfig<T>();
 	private readonly _cdRef = inject(ChangeDetectorRef);
 	
@@ -113,6 +114,14 @@ export class HlmDatePicker<T> implements ControlValueAccessor, BrnFormFieldContr
 				this._cdRef.markForCheck();
 			}
 		});
+	}
+
+	ngAfterViewChecked() {
+		// Trigger error state update on the nested brain directive.
+		// This is necessary because BrnDatePicker is applied to a nested <button> element
+		// in our template (not a hostDirective), so its lifecycle hooks won't be called automatically
+		// by Angular's change detection when this OnPush component is checked.
+		this._brnDatePicker().updateErrorState();
 	}
 
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

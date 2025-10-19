@@ -1,20 +1,16 @@
 import {
+	type AfterViewChecked,
 	ChangeDetectorRef,
 	computed,
-	DestroyRef,
 	Directive,
-	type DoCheck,
 	forwardRef,
 	inject,
 	input,
 	type OnInit,
 } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { BrnFormFieldControl } from '@spartan-ng/brain/form-field';
 import { ErrorStateMatcher, ErrorStateTracker } from '@spartan-ng/brain/forms';
-import { EMPTY, interval, merge, type Observable } from 'rxjs';
-import { distinctUntilChanged, map, skip, startWith } from 'rxjs/operators';
 
 @Directive({
 	selector: '[brnDatePicker]',
@@ -29,9 +25,8 @@ import { distinctUntilChanged, map, skip, startWith } from 'rxjs/operators';
 		},
 	],
 })
-export class BrnDatePicker implements BrnFormFieldControl, DoCheck, OnInit {
+export class BrnDatePicker implements BrnFormFieldControl, OnInit, AfterViewChecked {
 	private readonly _cdRef = inject(ChangeDetectorRef);
-	private readonly _destroyRef = inject(DestroyRef);
 
 	private readonly _errorStateTracker: ErrorStateTracker;
 	private readonly _defaultErrorStateMatcher = inject(ErrorStateMatcher);
@@ -62,37 +57,20 @@ export class BrnDatePicker implements BrnFormFieldControl, DoCheck, OnInit {
 	}
 
 	ngOnInit() {
-		// Subscribe to form control events to detect error state changes
-		if (this.ngControl) {
-			merge(
-				this.ngControl.statusChanges || EMPTY,
-				this.ngControl.valueChanges || EMPTY,
-				this._createTouchStream()
-			).pipe(
-				takeUntilDestroyed(this._destroyRef),
-				startWith(null) // Trigger initial check
-			).subscribe(() => {
-				const oldState = this._errorStateTracker.errorState();
-				this._errorStateTracker.updateErrorState();
-				const newState = this._errorStateTracker.errorState();
-				if (oldState !== newState) {
-					this._cdRef.markForCheck();
-				}
-			});
-		}
+		// No subscription needed - AfterViewChecked will handle error state updates
 	}
 
-	private _createTouchStream(): Observable<unknown> {
-		if (!this.ngControl) return EMPTY;
-		// Poll for touched state changes since Angular doesn't provide a touched observable
-		return interval(100).pipe(
-			map(() => this.ngControl?.touched),
-			distinctUntilChanged(),
-			skip(1) // Skip the initial value
-		);
+	ngAfterViewChecked() {
+		this.updateErrorState();
 	}
 
-	ngDoCheck() {
+	/**
+	 * Checks and updates the error state of the form control.
+	 * This method should be called whenever the error state might have changed.
+	 * It's called automatically via ngAfterViewChecked, but can also be called
+	 * manually when needed (e.g., from parent components).
+	 */
+	public updateErrorState(): void {
 		const oldState = this._errorStateTracker.errorState();
 		this._errorStateTracker.updateErrorState();
 		const newState = this._errorStateTracker.errorState();

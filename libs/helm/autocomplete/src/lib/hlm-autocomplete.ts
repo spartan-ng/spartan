@@ -1,6 +1,7 @@
 import type { BooleanInput } from '@angular/cdk/coercion';
 import { NgTemplateOutlet } from '@angular/common';
 import {
+	type AfterViewChecked,
 	booleanAttribute,
 	ChangeDetectionStrategy,
 	Component,
@@ -168,7 +169,7 @@ type AutocompleteVariants = VariantProps<typeof inputVariants>;
 		'[class]': '_computedClass()',
 	},
 })
-export class HlmAutocomplete<T> implements ControlValueAccessor, BrnFormFieldControl {
+export class HlmAutocomplete<T> implements ControlValueAccessor, BrnFormFieldControl, AfterViewChecked {
 	private static _id = 0;
 	private readonly _config = injectHlmAutocompleteConfig<T>();
 
@@ -196,6 +197,14 @@ export class HlmAutocomplete<T> implements ControlValueAccessor, BrnFormFieldCon
 				});
 			}
 		});
+	}
+
+	ngAfterViewChecked() {
+		// Trigger error state update on the nested brain directive.
+		// This is necessary because BrnAutocompleteSearchInput is applied to a nested <input> element
+		// in our template (not a hostDirective), so its lifecycle hooks won't be called automatically
+		// by Angular's change detection when this OnPush component is checked.
+		this._brnAutocompleteSearchInput().updateErrorState();
 	}
 
 	/** The user defined class  */

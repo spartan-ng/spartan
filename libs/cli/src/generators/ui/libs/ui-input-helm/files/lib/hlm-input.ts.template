@@ -8,6 +8,7 @@ import {
 	Injector,
 	input,
 	linkedSignal,
+	signal,
 	untracked,
 } from '@angular/core';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
@@ -47,6 +48,7 @@ type InputVariants = VariantProps<typeof inputVariants>;
 })
 export class HlmInput implements BrnFormFieldControl, DoCheck {
 	private readonly _injector = inject(Injector);
+	private readonly _additionalClasses = signal<ClassValue>('');
 
 	private readonly _errorStateTracker: ErrorStateTracker;
 
@@ -56,7 +58,7 @@ export class HlmInput implements BrnFormFieldControl, DoCheck {
 
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>
-		hlm(inputVariants({ error: this._state().error }), this.userClass()),
+		hlm(inputVariants({ error: this._state().error }), this.userClass(), this._additionalClasses()),
 	);
 
 	public readonly error = input<InputVariants['error']>('auto');
@@ -93,5 +95,9 @@ export class HlmInput implements BrnFormFieldControl, DoCheck {
 
 	setError(error: InputVariants['error']) {
 		this._state.set({ error });
+	}
+
+	setClass(classes: string): void {
+		this._additionalClasses.set(classes);
 	}
 }

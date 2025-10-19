@@ -100,7 +100,7 @@ let nextId = 0;
 export class HlmDatePicker<T> implements ControlValueAccessor, BrnFormFieldControl, AfterViewChecked {
 	private readonly _config = injectHlmDatePickerConfig<T>();
 	private readonly _cdRef = inject(ChangeDetectorRef);
-	
+
 	// Get reference to the brain date picker directive on the button
 	private readonly _brnDatePicker = viewChild.required(BrnDatePicker);
 

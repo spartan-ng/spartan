@@ -1,8 +1,8 @@
 import { ApplicationRef, ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { HlmDatePicker } from '@spartan-ng/helm/date-picker';
 import { HlmFormFieldImports } from '@spartan-ng/helm/form-field';
 import { HlmLabelImports } from '@spartan-ng/helm/label';
-import { HlmDatePicker } from '@spartan-ng/helm/date-picker';
 import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
 
 const meta: Meta<HlmDatePicker<Date>> = {
@@ -50,15 +50,10 @@ export const Default: Story = {
 	standalone: true,
 	imports: [ReactiveFormsModule, HlmLabelImports, HlmFormFieldImports, HlmDatePicker],
 	template: `
-		<div class="space-y-8 max-w-md">
+		<div class="max-w-md space-y-8">
 			<hlm-form-field>
 				<label hlmLabel>Birth Date</label>
-				<hlm-date-picker
-					[formControl]="birthDate"
-					[min]="minDate"
-					[max]="maxDate"
-					captionLayout="dropdown"
-				>
+				<hlm-date-picker [formControl]="birthDate" [min]="minDate" [max]="maxDate" captionLayout="dropdown">
 					<span>Pick your birth date</span>
 				</hlm-date-picker>
 				<hlm-hint>Select the date you were born</hlm-hint>
@@ -83,23 +78,23 @@ export const Default: Story = {
 				<hlm-error>Deadline must be a future date</hlm-error>
 			</hlm-form-field>
 
-			<div class="flex gap-2 pt-4 border-t">
+			<div class="flex gap-2 border-t pt-4">
 				<button
-					class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background bg-primary text-primary-foreground hover:bg-primary/90 h-10 py-2 px-4"
+					class="focus-visible:ring-ring ring-offset-background bg-primary text-primary-foreground hover:bg-primary/90 inline-flex h-10 items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
 					(click)="markAllAsTouched()"
 				>
 					Validate Form
 				</button>
 				<button
-					class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background border border-input hover:bg-accent hover:text-accent-foreground h-10 py-2 px-4"
+					class="focus-visible:ring-ring ring-offset-background border-input hover:bg-accent hover:text-accent-foreground inline-flex h-10 items-center justify-center rounded-md border px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
 					(click)="resetForm()"
 				>
 					Reset
 				</button>
 			</div>
 
-			<div class="p-4 rounded-md bg-muted">
-				<h3 class="text-sm font-semibold mb-2">Form Values:</h3>
+			<div class="bg-muted rounded-md p-4">
+				<h3 class="mb-2 text-sm font-semibold">Form Values:</h3>
 				<pre class="text-xs">{{ getFormValues() }}</pre>
 			</div>
 		</div>

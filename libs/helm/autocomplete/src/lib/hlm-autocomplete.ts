@@ -27,6 +27,7 @@ import { BrnPopover, BrnPopoverContent } from '@spartan-ng/brain/popover';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmPopoverContent } from '@spartan-ng/helm/popover';
 import { hlm } from '@spartan-ng/helm/utils';
+import { cva, VariantProps } from 'class-variance-authority';
 import type { ClassValue } from 'clsx';
 import { HlmAutocompleteEmpty } from './hlm-autocomplete-empty';
 import { HlmAutocompleteGroup } from './hlm-autocomplete-group';
@@ -36,7 +37,6 @@ import { HlmAutocompleteSearch } from './hlm-autocomplete-search';
 import { HlmAutocompleteSearchInput } from './hlm-autocomplete-search-input';
 import { HlmAutocompleteTrigger } from './hlm-autocomplete-trigger';
 import { injectHlmAutocompleteConfig } from './hlm-autocomplete.token';
-import { cva, VariantProps } from 'class-variance-authority';
 
 export const inputVariants = cva(
 	'file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input shadow-xs focus-visible:border-ring focus-visible:ring-ring/50 flex h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base outline-none transition-[color,box-shadow] file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
@@ -52,7 +52,6 @@ export const inputVariants = cva(
 		},
 	},
 );
-
 
 export const HLM_AUTOCOMPLETE_VALUE_ACCESSOR = {
 	provide: NG_VALUE_ACCESSOR,

@@ -6,7 +6,6 @@ import {
 	forwardRef,
 	inject,
 	input,
-	type OnInit,
 } from '@angular/core';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { BrnFormFieldControl } from '@spartan-ng/brain/form-field';
@@ -25,7 +24,7 @@ import { ErrorStateMatcher, ErrorStateTracker } from '@spartan-ng/brain/forms';
 		},
 	],
 })
-export class BrnDatePicker implements BrnFormFieldControl, OnInit, AfterViewChecked {
+export class BrnDatePicker implements BrnFormFieldControl, AfterViewChecked {
 	private readonly _cdRef = inject(ChangeDetectorRef);
 
 	private readonly _errorStateTracker: ErrorStateTracker;
@@ -56,10 +55,6 @@ export class BrnDatePicker implements BrnFormFieldControl, OnInit, AfterViewChec
 		);
 	}
 
-	ngOnInit() {
-		// No subscription needed - AfterViewChecked will handle error state updates
-	}
-
 	ngAfterViewChecked() {
 		this.updateErrorState();
 	}
@@ -74,11 +69,10 @@ export class BrnDatePicker implements BrnFormFieldControl, OnInit, AfterViewChec
 		const oldState = this._errorStateTracker.errorState();
 		this._errorStateTracker.updateErrorState();
 		const newState = this._errorStateTracker.errorState();
-		
+
 		// Mark for check if error state changed to ensure OnPush components update
 		if (oldState !== newState) {
 			this._cdRef.markForCheck();
 		}
 	}
 }
-

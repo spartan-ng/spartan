@@ -10,7 +10,6 @@ import {
 	Inject,
 	input,
 	linkedSignal,
-	type OnInit,
 	Optional,
 	Renderer2,
 	signal,
@@ -53,7 +52,7 @@ import { injectBrnAutocomplete } from './brn-autocomplete.token';
 		'(input)': 'onInput()',
 	},
 })
-export class BrnAutocompleteSearchInput extends DefaultValueAccessor implements BrnFormFieldControl, OnInit, AfterViewChecked {
+export class BrnAutocompleteSearchInput extends DefaultValueAccessor implements BrnFormFieldControl, AfterViewChecked {
 	private readonly _cdRef = inject(ChangeDetectorRef);
 	private readonly _autocomplete = injectBrnAutocomplete();
 
@@ -109,10 +108,6 @@ export class BrnAutocompleteSearchInput extends DefaultValueAccessor implements 
 		});
 	}
 
-	ngOnInit() {
-		// No subscription needed - AfterViewChecked will handle error state updates
-	}
-
 	ngAfterViewChecked() {
 		this.updateErrorState();
 	}
@@ -127,13 +122,13 @@ export class BrnAutocompleteSearchInput extends DefaultValueAccessor implements 
 		const oldState = this._errorStateTracker.errorState();
 		this._errorStateTracker.updateErrorState();
 		const newState = this._errorStateTracker.errorState();
-		
+
 		// Mark for check if error state changed to ensure OnPush components update
 		if (oldState !== newState) {
 			this._cdRef.markForCheck();
 		}
 	}
-	
+
 	/** Listen for changes to the input value */
 	protected onInput(): void {
 		this.valueState.set(this.elementRef.nativeElement.value);

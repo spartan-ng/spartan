@@ -4,8 +4,8 @@ import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 
-import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@spartan-ng/brain/forms';
+import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
 
 import { HlmError } from './hlm-error';
@@ -35,7 +35,7 @@ global.ResizeObserver = class ResizeObserver {
 					<hlm-option value="apple">Apple</hlm-option>
 					<hlm-option value="banana">Banana</hlm-option>
 					<hlm-option value="orange">Orange</hlm-option>
-					<hlm-option >Clear</hlm-option>
+					<hlm-option>Clear</hlm-option>
 				</hlm-select-content>
 			</hlm-select>
 			<hlm-hint data-testid="hlm-hint">Select a fruit from the list</hlm-hint>
@@ -53,12 +53,7 @@ class SelectFormFieldMock {
 	imports: [ReactiveFormsModule, HlmFormField, HlmError, HlmHint, ...SELECT_IMPORTS],
 	template: `
 		<hlm-form-field>
-			<brn-select
-				data-testid="brn-select"
-				[formControl]="fruit"
-				placeholder="Select a fruit"
-				hlm
-			>
+			<brn-select data-testid="brn-select" [formControl]="fruit" placeholder="Select a fruit" hlm>
 				<hlm-select-trigger data-testid="hlm-select-trigger" class="w-80">
 					<hlm-select-value />
 				</hlm-select-trigger>
@@ -299,7 +294,7 @@ describe('Hlm Form Field with Select Component', () => {
 
 			// Trigger error state
 			await user.click(selectTrigger);
-            await user.click(screen.getByText('Clear'));
+			await user.click(screen.getByText('Clear'));
 			await user.click(document.body);
 
 			const errorElement = error();
@@ -313,7 +308,7 @@ describe('Hlm Form Field with Select Component', () => {
 		it('should have proper ARIA attributes on select trigger', async () => {
 			const { selectTrigger } = await setupSelectFormField();
 
-            console.log(selectTrigger);
+			console.log(selectTrigger);
 			// expect(selectTrigger.getAttribute('role')).toBe('combobox');
 			expect(selectTrigger.getAttribute('aria-expanded')).toBe('false');
 			expect(selectTrigger.getAttribute('aria-describedby')).toBeDefined();

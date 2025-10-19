@@ -13,13 +13,14 @@ export class BrnNavigationMenuContent {
 	private readonly _tpl = inject(TemplateRef);
 	private readonly _renderer = inject(Renderer2);
 
-	private readonly _previousSelected = this._navigationMenu.previousValue;
+	private readonly _menuItemsIds = this._navigationMenu.menuItemsIds;
+	private readonly _navMenuValue = this._navigationMenu.value;
+	private readonly _prevNavMenuValue = this._navigationMenu.previousValue;
+
 	private readonly _id = this._navigationMenuItem.id;
-	private readonly _menuItems = this._navigationMenu.menuItemsIds;
 	private readonly _isActive = this._navigationMenuItem.isActive;
 	private readonly _wasActive = this._navigationMenuItem.wasActive;
 	private readonly _state = this._navigationMenuItem.state;
-	private readonly _value = this._navigationMenu.value;
 
 	private readonly _contentEl = this._contentService.contentEl;
 
@@ -34,33 +35,28 @@ export class BrnNavigationMenuContent {
 			}
 		});
 
-		// TODO: refactor
 		effect(() => {
 			const isActive = this._isActive();
 			const wasActive = this._wasActive();
 
-			const previousSelected = this._previousSelected();
+			const el = untracked(this._contentEl);
+			if (!el) return;
+
 			const id = this._id();
-			const menuItems = this._menuItems();
+			const prevNavMenuValue = this._prevNavMenuValue();
+			const menuItemsIds = this._menuItemsIds();
 
 			if (isActive) {
-				if (previousSelected) {
-					const motion = menuItems.indexOf(id) > menuItems.indexOf(previousSelected) ? 'from-end' : 'from-start';
-					const el = untracked(this._contentEl);
-					if (el) {
-						this._renderer.setAttribute(el, 'data-motion', motion);
-					}
-				}
-			} else if (wasActive) {
-				const value = this._value();
-				if (!value) return;
-
-				const motion = menuItems.indexOf(id) > menuItems.indexOf(value!) ? 'to-end' : 'to-start';
-				const el = untracked(this._contentEl);
-
-				if (el) {
+				if (prevNavMenuValue) {
+					const motion = menuItemsIds.indexOf(id) > menuItemsIds.indexOf(prevNavMenuValue) ? 'from-end' : 'from-start';
 					this._renderer.setAttribute(el, 'data-motion', motion);
 				}
+			} else if (wasActive) {
+				const navMenuValue = this._navMenuValue();
+				if (!navMenuValue) return;
+
+				const motion = menuItemsIds.indexOf(id) > menuItemsIds.indexOf(navMenuValue) ? 'to-end' : 'to-start';
+				this._renderer.setAttribute(el, 'data-motion', motion);
 			}
 		});
 	}

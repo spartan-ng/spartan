@@ -14,6 +14,7 @@ import { toObservable } from '@angular/core/rxjs-interop';
 import { BrnButton } from '@spartan-ng/brain/button';
 import { createHoverObservable } from '@spartan-ng/brain/core';
 import {
+	debounceTime,
 	delay,
 	distinctUntilChanged,
 	fromEvent,
@@ -87,6 +88,7 @@ export class BrnNavigationMenuTrigger implements OnInit, OnDestroy {
 	);
 
 	private readonly _showing$ = merge(this._isActive$, this._clicked$, this._hovered$).pipe(
+		debounceTime(0),
 		distinctUntilChanged((curr, prev) => curr.visible === prev.visible),
 		switchMap((ev) => {
 			const shouldDelay = ev.visible && ev.type !== 'click' && this._isOpenDelayed();

@@ -1,23 +1,40 @@
+import { FocusMonitor } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
-import { computed, contentChildren, Directive, effect, inject, input, model, signal } from '@angular/core';
+import {
+	computed,
+	contentChildren,
+	Directive,
+	effect,
+	ElementRef,
+	inject,
+	input,
+	model,
+	NgZone,
+	OnDestroy,
+	signal,
+} from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { createHoverObservable } from '@spartan-ng/brain/core';
 import { computedPrevious } from '@spartan-ng/brain/tooltip';
-import { combineLatest, map, of, startWith } from 'rxjs';
+import { combineLatest, debounceTime, map, merge, of, startWith, Subject, switchMap, takeUntil } from 'rxjs';
 import { BrnNavigationMenuItem } from './brn-navigation-menu-item';
 import { provideBrnNavigationMenu } from './brn-navigation-menu.token';
 
 @Directive({
 	selector: 'nav[brnNavigationMenu]',
 	host: {
-		'(mouseleave)': 'value.set()',
 		'[attr.aria-label]': '"Main"',
 		'[attr.data-orientation]': 'orientation()',
 		'[attr.dir]': '_dir()',
 	},
 	providers: [provideBrnNavigationMenu(BrnNavigationMenu)],
 })
-export class BrnNavigationMenu {
+export class BrnNavigationMenu implements OnDestroy {
 	private readonly _directionality = inject(Directionality);
+	private readonly _el = inject(ElementRef);
+	private readonly _focusMonitor = inject(FocusMonitor);
+	private readonly _zone = inject(NgZone);
+	private readonly _destroy$ = new Subject<void>();
 
 	/**
 	 * The controlled value of the menu item to activate.
@@ -52,6 +69,17 @@ export class BrnNavigationMenu {
 
 	public readonly menuItemsIds = computed(() => this._menuItems().map((mi) => mi.id()));
 
+	public readonly focused$ = this._focusMonitor.monitor(this._el).pipe(map((e) => e !== null));
+
+	private readonly _hovered$ = merge(
+		createHoverObservable(this._el.nativeElement, this._zone, this._destroy$),
+		this.focused$,
+	);
+
+	private readonly _contentHovered$ = toObservable(this._menuItems).pipe(
+		switchMap((menuItems) => merge(...menuItems.map((mi) => mi.contentHovered$))),
+	);
+
 	public readonly previousValue = computedPrevious(this.value);
 
 	private readonly _dir$ = toObservable(this.dir);
@@ -85,5 +113,16 @@ export class BrnNavigationMenu {
 				}, this.skipDelayDuration());
 			}
 		});
+
+		combineLatest([this._hovered$, this._contentHovered$])
+			.pipe(debounceTime(0), takeUntil(this._destroy$))
+			.subscribe(([hovered, contentHovered]) => {
+				if (!hovered && !contentHovered) this.value.set(undefined);
+			});
+	}
+
+	ngOnDestroy() {
+		this._destroy$.next();
+		this._destroy$.complete();
 	}
 }

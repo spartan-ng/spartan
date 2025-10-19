@@ -1,15 +1,25 @@
 import { Component } from '@angular/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { lucideChevronDown } from '@ng-icons/lucide';
 import { BrnNavigationMenuImports } from '@spartan-ng/brain/navigation-menu';
 import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 
 @Component({
 	selector: 'spartan-navigation-menu-preview',
-	imports: [HlmNavigationMenuImports, BrnNavigationMenuImports],
+	imports: [HlmNavigationMenuImports, BrnNavigationMenuImports, NgIcon],
+	providers: [provideIcons({ lucideChevronDown })],
 	template: `
 		<nav hlmNavigationMenu>
 			<ul hlmNavigationMenuList>
 				<li hlmNavigationMenuItem>
-					<button hlmNavigationMenuTrigger>Home</button>
+					<button hlmNavigationMenuTrigger>
+						Home
+						<ng-icon
+							name="lucideChevronDown"
+							hlm
+							class="relative top-[1px] ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
+						/>
+					</button>
 					<div hlmNavigationMenuContent *brnNavigationMenuContent>
 						<ul class="grid gap-2 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
 							<li class="row-span-3">

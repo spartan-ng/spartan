@@ -27,7 +27,8 @@ import {
 } from '@angular/forms';
 import { BrnFormFieldControl } from '@spartan-ng/brain/form-field';
 import { ErrorStateMatcher, ErrorStateTracker } from '@spartan-ng/brain/forms';
-import { startWith } from 'rxjs/operators';
+import { EMPTY, interval, merge, type Observable } from 'rxjs';
+import { distinctUntilChanged, map, skip, startWith } from 'rxjs/operators';
 import { provideBrnAutocompleteSearchInput } from './brn-autocomplete-search-input.token';
 import { injectBrnAutocomplete } from './brn-autocomplete.token';
 
@@ -112,9 +113,16 @@ export class BrnAutocompleteSearchInput extends DefaultValueAccessor implements 
 	}
 
 	ngOnInit() {
-		// Subscribe to form control status changes
+		// Subscribe to form control events to detect error state changes
 		if (this.ngControl) {
-			this.ngControl.statusChanges?.pipe(takeUntilDestroyed(this._destroyRef)).subscribe(() => {
+			merge(
+				this.ngControl.statusChanges || EMPTY,
+				this.ngControl.valueChanges || EMPTY,
+				this._createTouchStream()
+			).pipe(
+				takeUntilDestroyed(this._destroyRef),
+				startWith(null) // Trigger initial check
+			).subscribe(() => {
 				const oldState = this._errorStateTracker.errorState();
 				this._errorStateTracker.updateErrorState();
 				const newState = this._errorStateTracker.errorState();
@@ -123,6 +131,16 @@ export class BrnAutocompleteSearchInput extends DefaultValueAccessor implements 
 				}
 			});
 		}
+	}
+
+	private _createTouchStream(): Observable<unknown> {
+		if (!this.ngControl) return EMPTY;
+		// Poll for touched state changes since Angular doesn't provide a touched observable
+		return interval(100).pipe(
+			map(() => this.ngControl?.touched),
+			distinctUntilChanged(),
+			skip(1) // Skip the initial value
+		);
 	}
 
 	ngDoCheck() {
@@ -135,6 +153,7 @@ export class BrnAutocompleteSearchInput extends DefaultValueAccessor implements 
 			this._cdRef.markForCheck();
 		}
 	}
+	
 	/** Listen for changes to the input value */
 	protected onInput(): void {
 		this.valueState.set(this.elementRef.nativeElement.value);

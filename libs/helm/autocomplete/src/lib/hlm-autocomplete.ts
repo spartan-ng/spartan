@@ -3,7 +3,6 @@ import { NgTemplateOutlet } from '@angular/common';
 import {
 	booleanAttribute,
 	ChangeDetectionStrategy,
-	ChangeDetectorRef,
 	Component,
 	computed,
 	effect,
@@ -66,11 +65,9 @@ type AutocompleteVariants = VariantProps<typeof inputVariants>;
 	selector: 'hlm-autocomplete',
 	imports: [
 		NgTemplateOutlet,
-
 		BrnPopover,
 		BrnPopoverContent,
 		HlmPopoverContent,
-
 		BrnAutocomplete,
 		BrnAutocompleteEmpty,
 		HlmAutocompleteEmpty,
@@ -80,7 +77,6 @@ type AutocompleteVariants = VariantProps<typeof inputVariants>;
 		HlmAutocompleteSearch,
 		HlmAutocompleteSearchInput,
 		HlmAutocompleteTrigger,
-
 		NgIcon,
 		HlmIcon,
 	],
@@ -190,11 +186,10 @@ export class HlmAutocomplete<T> implements ControlValueAccessor, BrnFormFieldCon
 	constructor() {
 		// Watch the brain input's error state and update our visual state accordingly
 		effect(() => {
-			console.log('error state changed');
 			const hasError = this._brnAutocompleteSearchInput().errorState();
 			const currentError = this.error();
 
-			// Only update if we're in 'auto' mode or if the error state has changed
+			// Only update if we're in 'auto' mode
 			if (currentError === 'auto') {
 				untracked(() => {
 					this.setError(hasError ? true : 'auto');

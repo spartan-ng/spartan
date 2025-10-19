@@ -69,44 +69,44 @@ export const Default: Story = {
 	imports: [ReactiveFormsModule, HlmLabelImports, HlmFormFieldImports, HlmAutocomplete],
 	template: `
 		<div class="space-y-8 max-w-md">
-			<hlm-form-field>
-				<label hlmLabel>Favorite Fruit</label>
-				<hlm-autocomplete
-					[formControl]="favoriteFruit"
-					[filteredOptions]="filteredFruits()"
-					searchPlaceholderText="Search fruits..."
-					emptyText="No fruit found"
-					(searchChange)="onFruitSearchChange($event)"
-				/>
-				<hlm-hint>Choose your favorite fruit</hlm-hint>
-				<hlm-error>Please select a fruit</hlm-error>
-			</hlm-form-field>
+		<hlm-form-field>
+			<label hlmLabel>Favorite Fruit</label>
+			<hlm-autocomplete
+				[formControl]="favoriteFruit"
+				[filteredOptions]="filteredFruits()"
+				searchPlaceholderText="Search fruits..."
+				emptyText="No fruit found"
+				(searchChange)="onFruitSearchChange($event)"
+			/>
+			<hlm-hint>Choose your favorite fruit</hlm-hint>
+			<hlm-error>Please select a fruit</hlm-error>
+		</hlm-form-field>
 
-			<hlm-form-field>
-				<label hlmLabel>Country</label>
-				<hlm-autocomplete
-					[formControl]="country"
-					[filteredOptions]="filteredCountries()"
-					searchPlaceholderText="Search countries..."
-					emptyText="No country found"
-					(searchChange)="onCountrySearchChange($event)"
-				/>
-				<hlm-hint>Select your country of residence</hlm-hint>
-				<hlm-error>Country is required</hlm-error>
-			</hlm-form-field>
+		<hlm-form-field>
+			<label hlmLabel>Country</label>
+			<hlm-autocomplete
+				[formControl]="country"
+				[filteredOptions]="filteredCountries()"
+				searchPlaceholderText="Search countries..."
+				emptyText="No country found"
+				(searchChange)="onCountrySearchChange($event)"
+			/>
+			<hlm-hint>Select your country of residence</hlm-hint>
+			<hlm-error>Country is required</hlm-error>
+		</hlm-form-field>
 
-			<hlm-form-field>
-				<label hlmLabel>Programming Language (Optional)</label>
-				<hlm-autocomplete
-					[formControl]="programmingLanguage"
-					[filteredOptions]="filteredLanguages()"
-					searchPlaceholderText="Search languages..."
-					emptyText="No language found"
-					(searchChange)="onLanguageSearchChange($event)"
-				/>
-				<hlm-hint>Optional: Choose your preferred programming language</hlm-hint>
-				<hlm-error>Invalid selection</hlm-error>
-			</hlm-form-field>
+		<hlm-form-field>
+			<label hlmLabel>Programming Language (Optional)</label>
+			<hlm-autocomplete
+				[formControl]="programmingLanguage"
+				[filteredOptions]="filteredLanguages()"
+				searchPlaceholderText="Search languages..."
+				emptyText="No language found"
+				(searchChange)="onLanguageSearchChange($event)"
+			/>
+			<hlm-hint>Optional: Choose your preferred programming language</hlm-hint>
+			<hlm-error>Invalid selection</hlm-error>
+		</hlm-form-field>
 
 			<div class="flex gap-2 pt-4 border-t">
 				<button

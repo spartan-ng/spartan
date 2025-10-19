@@ -13,6 +13,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { BrnFormFieldControl } from '@spartan-ng/brain/form-field';
 import { ErrorStateMatcher, ErrorStateTracker } from '@spartan-ng/brain/forms';
+import { EMPTY, interval, merge, type Observable } from 'rxjs';
+import { distinctUntilChanged, map, skip, startWith } from 'rxjs/operators';
 
 @Directive({
 	selector: '[brnDatePicker]',
@@ -60,9 +62,16 @@ export class BrnDatePicker implements BrnFormFieldControl, DoCheck, OnInit {
 	}
 
 	ngOnInit() {
-		// Subscribe to form control status changes
+		// Subscribe to form control events to detect error state changes
 		if (this.ngControl) {
-			this.ngControl.statusChanges?.pipe(takeUntilDestroyed(this._destroyRef)).subscribe(() => {
+			merge(
+				this.ngControl.statusChanges || EMPTY,
+				this.ngControl.valueChanges || EMPTY,
+				this._createTouchStream()
+			).pipe(
+				takeUntilDestroyed(this._destroyRef),
+				startWith(null) // Trigger initial check
+			).subscribe(() => {
 				const oldState = this._errorStateTracker.errorState();
 				this._errorStateTracker.updateErrorState();
 				const newState = this._errorStateTracker.errorState();
@@ -71,6 +80,16 @@ export class BrnDatePicker implements BrnFormFieldControl, DoCheck, OnInit {
 				}
 			});
 		}
+	}
+
+	private _createTouchStream(): Observable<unknown> {
+		if (!this.ngControl) return EMPTY;
+		// Poll for touched state changes since Angular doesn't provide a touched observable
+		return interval(100).pipe(
+			map(() => this.ngControl?.touched),
+			distinctUntilChanged(),
+			skip(1) // Skip the initial value
+		);
 	}
 
 	ngDoCheck() {

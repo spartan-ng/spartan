@@ -1,5 +1,5 @@
 import type { RouteMeta } from '@analogjs/router';
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { hlmCode, hlmP, hlmUl } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
@@ -33,7 +33,7 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-autocomplete',
-	changeDetection: ChangeDetectionStrategy.OnPush,
+
 	imports: [
 		MainSection,
 		Code,

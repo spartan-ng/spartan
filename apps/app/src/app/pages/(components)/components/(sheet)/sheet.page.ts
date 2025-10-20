@@ -1,5 +1,5 @@
 import type { RouteMeta } from '@analogjs/router';
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
@@ -30,7 +30,7 @@ export const routeMeta: RouteMeta = {
 };
 @Component({
 	selector: 'spartan-sheet',
-	changeDetection: ChangeDetectionStrategy.OnPush,
+
 	imports: [
 		UIApiDocs,
 		MainSection,

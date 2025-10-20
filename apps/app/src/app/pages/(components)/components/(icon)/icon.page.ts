@@ -1,5 +1,5 @@
 import type { RouteMeta } from '@analogjs/router';
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import * as lucideIcons from '@ng-icons/lucide';
 import { HlmIcon } from '@spartan-ng/helm/icon';
@@ -35,7 +35,7 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-icon',
-	changeDetection: ChangeDetectionStrategy.OnPush,
+
 	imports: [
 		UIApiDocs,
 		MainSection,

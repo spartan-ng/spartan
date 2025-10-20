@@ -1,5 +1,5 @@
 import type { RouteMeta } from '@analogjs/router';
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { KbdButtonPreview } from '@spartan-ng/app/app/pages/(components)/components/(kbd)/kbd--button.preview';
 import { KbdGroupPreview } from '@spartan-ng/app/app/pages/(components)/components/(kbd)/kbd--group.preview';
@@ -27,7 +27,7 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-kbd',
-	changeDetection: ChangeDetectionStrategy.OnPush,
+
 	imports: [
 		MainSection,
 		Code,

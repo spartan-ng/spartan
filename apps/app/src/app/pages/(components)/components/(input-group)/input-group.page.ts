@@ -1,5 +1,5 @@
 import type { RouteMeta } from '@analogjs/router';
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 
 import { InputGroupButtonGroupPreview } from '@spartan-ng/app/app/pages/(components)/components/(input-group)/input-group--button-group.preview';
@@ -39,7 +39,6 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-input-group',
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
 		MainSection,
 		Code,

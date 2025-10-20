@@ -1,7 +1,6 @@
 import { NgClass, isPlatformServer } from '@angular/common';
 import {
 	type AfterViewInit,
-	ChangeDetectionStrategy,
 	Component,
 	ElementRef,
 	type OnDestroy,
@@ -30,7 +29,7 @@ type SamePageAnchorLink = {
 
 @Component({
 	selector: 'spartan-page-nav',
-	changeDetection: ChangeDetectionStrategy.OnPush,
+
 	imports: [HlmScrollArea, NgScrollbarModule, NgClass, PageNavLink],
 	host: {
 		class: 'hidden xl:block text-sm',

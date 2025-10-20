@@ -1,5 +1,5 @@
 import type { RouteMeta } from '@analogjs/router';
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { hlmP } from '@spartan-ng/helm/typography';
@@ -18,7 +18,7 @@ import { metaWith } from '../../../../shared/meta/meta.util';
 import { SelectMultiplePreview } from './select--multiple.preview';
 import { SelectScrollablePreview } from './select--scrollable.preview';
 import { SelectValueTemplatePreview } from './select--value-template.preview';
-import { SelectPreview, defaultImports, defaultSkeleton, defaultStyles } from './select.preview';
+import { defaultImports, defaultSkeleton, defaultStyles, SelectPreview } from './select.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Select', api: 'select' },
@@ -27,7 +27,7 @@ export const routeMeta: RouteMeta = {
 };
 @Component({
 	selector: 'spartan-select',
-	changeDetection: ChangeDetectionStrategy.OnPush,
+
 	imports: [
 		UIApiDocs,
 		MainSection,
@@ -76,17 +76,11 @@ export const routeMeta: RouteMeta = {
 			/>
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
-			<div class="space-y-4">
+			<div class="mt-6 space-y-4">
 				<spartan-code [code]="_defaultImports" />
 				<spartan-code [code]="_defaultSkeleton" />
 				<spartan-code [code]="_defaultStyles" />
 			</div>
-
-			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
-			<spartan-ui-api-docs docType="brain" />
-
-			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
-			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
 			<h3 id="examples__multiple" spartanH4>Multiple</h3>
@@ -111,6 +105,12 @@ export const routeMeta: RouteMeta = {
 				</div>
 				<spartan-code secondTab [code]="_valueTemplateCode()" />
 			</spartan-tabs>
+
+			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="brain" />
+
+			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="separator" label="Separator" />

@@ -134,6 +134,13 @@ export class BrnNavigationMenuTrigger implements OnInit, OnDestroy {
 				this._contentService.updateOrientation(orientation);
 			});
 		});
+
+		effect(() => {
+			const dir = this._dir();
+			untracked(() => {
+				this._contentService.updateDirection(dir);
+			});
+		});
 	}
 
 	public ngOnInit() {

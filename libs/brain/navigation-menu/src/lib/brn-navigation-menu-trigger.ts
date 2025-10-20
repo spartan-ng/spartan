@@ -10,13 +10,14 @@ import {
 	untracked,
 	ViewContainerRef,
 } from '@angular/core';
-import { toObservable } from '@angular/core/rxjs-interop';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { BrnButton } from '@spartan-ng/brain/button';
 import { createHoverObservable } from '@spartan-ng/brain/core';
 import {
 	debounceTime,
 	delay,
 	distinctUntilChanged,
+	filter,
 	fromEvent,
 	map,
 	merge,
@@ -59,6 +60,8 @@ export class BrnNavigationMenuTrigger implements OnInit, OnDestroy {
 	private readonly _contentService = inject(BrnNavigationMenuContentService);
 	private readonly _focusMonitor = inject(FocusMonitor);
 
+	private readonly _parentNavMenu = this._navigationMenu.parentNavMenu;
+
 	protected readonly state = this._navigationMenuItem.state;
 
 	private readonly _isOpenDelayed = this._navigationMenu.isOpenDelayed;
@@ -66,6 +69,10 @@ export class BrnNavigationMenuTrigger implements OnInit, OnDestroy {
 	private readonly _delayDuration = this._navigationMenu.delayDuration;
 
 	private readonly _contentTemplate = this._navigationMenuItem.contentTemplate;
+
+	private readonly _isSubNavHovered = toSignal(this._navigationMenuItem.subNavHover$.pipe(switchMap((c) => c)), {
+		initialValue: false,
+	});
 
 	public readonly focused$: Observable<boolean> = this._focusMonitor.monitor(this._el).pipe(map((e) => e !== null));
 
@@ -83,6 +90,11 @@ export class BrnNavigationMenuTrigger implements OnInit, OnDestroy {
 		this._contentService.hovered$,
 		this.focused$,
 	).pipe(
+		// Hover is NOT allowed when:
+		// - this is a root navigation menu (no parent), AND
+		// - a sub-navigation is currently hovered, AND
+		// - the current hover event is false.
+		filter((v) => !!this._parentNavMenu || !this._isSubNavHovered() || v),
 		map((value) => ({ type: 'hover' as const, visible: value })),
 		distinctUntilChanged((prev, curr) => prev.visible === curr.visible),
 	);
@@ -115,6 +127,10 @@ export class BrnNavigationMenuTrigger implements OnInit, OnDestroy {
 	public ngOnInit() {
 		this._contentService.setConfig({ attachTo: this._el });
 		this._showing$.subscribe((isShowing) => {
+			if (this._parentNavMenu) {
+				this._parentNavMenu.subNavHover$.next(isShowing);
+			}
+
 			if (isShowing) {
 				this._contentService.show();
 			} else {

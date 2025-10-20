@@ -30,6 +30,7 @@ export class BrnNavigationMenuContent {
 	private readonly _contentEl = this._contentService.contentEl;
 
 	private readonly _orientation = computed(() => this._navigationMenu.context().orientation);
+	private readonly _dir = computed(() => this._navigationMenu.context().dir);
 
 	constructor() {
 		if (!this._tpl) return;
@@ -53,13 +54,16 @@ export class BrnNavigationMenuContent {
 		effect(() => {
 			const isActive = this._isActive();
 			const wasActive = this._wasActive();
+			const dir = this._dir();
+			const orientation = this._orientation();
 
 			const el = untracked(this._contentEl);
 			if (!el) return;
 
 			const id = this._id();
 			const prevNavMenuValue = this._prevNavMenuValue();
-			const menuItemsIds = this._menuItemsIds();
+			const menuItemsIds =
+				dir === 'rtl' && orientation === 'horizontal' ? this._menuItemsIds().slice().reverse() : this._menuItemsIds();
 
 			if (isActive) {
 				if (prevNavMenuValue) {

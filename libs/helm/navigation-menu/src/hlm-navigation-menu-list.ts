@@ -17,6 +17,10 @@ import { ClassValue } from 'clsx';
 export class HlmNavigationMenuList {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>
-		hlm('gap-1" group flex flex-1 list-none items-center justify-center', this.userClass()),
+		hlm(
+			'gap-1" group flex flex-1 list-none items-center justify-center',
+			'data-[orientation=vertical]:flex-col',
+			this.userClass(),
+		),
 	);
 }

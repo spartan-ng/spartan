@@ -1,5 +1,6 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
 import {
+	computed,
 	Directive,
 	effect,
 	ElementRef,
@@ -64,6 +65,10 @@ export class BrnNavigationMenuTrigger implements OnInit, OnDestroy {
 
 	protected readonly state = this._navigationMenuItem.state;
 
+	private readonly _dir = computed(() => this._navigationMenu.context().dir);
+
+	private readonly _orientation = computed(() => this._navigationMenu.context().orientation);
+
 	private readonly _isOpenDelayed = this._navigationMenu.isOpenDelayed;
 
 	private readonly _delayDuration = this._navigationMenu.delayDuration;
@@ -122,10 +127,17 @@ export class BrnNavigationMenuTrigger implements OnInit, OnDestroy {
 				}
 			});
 		});
+
+		effect(() => {
+			const orientation = this._orientation();
+			untracked(() => {
+				this._contentService.updateOrientation(orientation);
+			});
+		});
 	}
 
 	public ngOnInit() {
-		this._contentService.setConfig({ attachTo: this._el });
+		this._contentService.setConfig({ attachTo: this._el, direction: this._dir(), orientation: this._orientation() });
 		this._showing$.subscribe((isShowing) => {
 			if (this._parentNavMenu) {
 				this._parentNavMenu.subNavHover$.next(isShowing);

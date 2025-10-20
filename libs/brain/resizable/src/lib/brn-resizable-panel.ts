@@ -62,7 +62,7 @@ export class BrnResizablePanel {
 	 *
 	 * Example: `"25 1 0"` means 25% width (or height in vertical layout).
 	 */
-	protected _flex = computed(() => `${this._panelSize()} 1 0`);
+	protected readonly _flex = computed(() => `${this._panelSize()} 1 0`);
 
 	/**
 	 * Sets the size of the panel.

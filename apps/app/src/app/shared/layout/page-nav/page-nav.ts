@@ -1,11 +1,9 @@
-import { NgClass, isPlatformServer } from '@angular/common';
+import { NgClass } from '@angular/common';
 import {
 	type AfterViewInit,
 	Component,
 	ElementRef,
 	type OnDestroy,
-	type OnInit,
-	PLATFORM_ID,
 	type TemplateRef,
 	computed,
 	inject,
@@ -55,7 +53,7 @@ type SamePageAnchorLink = {
 		</ng-template>
 	`,
 })
-export class PageNav implements OnInit, AfterViewInit, OnDestroy {
+export class PageNav implements AfterViewInit, OnDestroy {
 	public readonly pageNavTpl = viewChild.required<TemplateRef<unknown>>('pageNav');
 
 	private readonly _route = inject(ActivatedRoute);
@@ -64,7 +62,24 @@ export class PageNav implements OnInit, AfterViewInit, OnDestroy {
 
 	protected readonly _isDevMode = signal(isDevMode());
 
-	protected readonly _links = signal<SamePageAnchorLink[]>([]);
+	protected readonly _links = computed<SamePageAnchorLink[]>(() => {
+		const selectors = ['[spartanMainSection] spartan-section-sub-heading', '[spartanMainSection] > h3'];
+		const headings = Array.from(this._page?.querySelectorAll(selectors.join(',')) ?? []);
+		const links = headings.map((element) => {
+			const { id, children, localName, textContent } = element;
+			const isSubHeading = localName === 'spartan-section-sub-heading';
+			const label =
+				(isSubHeading ? (children?.[0]?.childNodes?.[0]?.textContent ?? '[DEV] Empty heading!') : textContent) ??
+				'[DEV] Empty heading!';
+			if (this._isDevMode() && id === '') {
+				console.error(`[DEV] id missing for heading "${label}"`);
+			}
+			return { id, label, isNested: !isSubHeading };
+		});
+
+		return links;
+	});
+
 	protected readonly _dynamicLinks = computed(() => {
 		const apiComponent = this._routeData()?.['api'];
 		if (!apiComponent || !this._apiDocsService) {
@@ -116,37 +131,12 @@ export class PageNav implements OnInit, AfterViewInit, OnDestroy {
 		this._dynamicLinks() && this._dynamicLinks().length ? this._dynamicLinks() : this._links(),
 	);
 
-	private readonly _platformId = inject(PLATFORM_ID);
-
 	/**
 	 * Reference to the tag with the main content of the page.
 	 * For this to work, the component should be added immediately after a tag with the [spartanMainSection] directive.
 	 */
 	private readonly _page: HTMLElement = (inject(ElementRef).nativeElement as HTMLElement)
 		.previousSibling as HTMLElement;
-
-	ngOnInit() {
-		if (isPlatformServer(this._platformId)) {
-			if (isDevMode()) {
-				console.error('This component should not be used for non-SSG/SPA pages.');
-			}
-			return;
-		}
-
-		const selectors = ['[spartanMainSection] spartan-section-sub-heading', '[spartanMainSection] > h3'];
-		const headings = Array.from(this._page.querySelectorAll(selectors.join(',')));
-		const links = headings.map((element) => {
-			const { id, children, localName, textContent } = element;
-			const isSubHeading = localName === 'spartan-section-sub-heading';
-			const label = (isSubHeading ? children[0].childNodes[0].textContent : textContent) ?? '[DEV] Empty heading!';
-			if (isDevMode() && id === '') {
-				console.error(`[DEV] id missing for heading "${label}"`);
-			}
-			return { id, label, isNested: !isSubHeading };
-		});
-
-		this._links.set(links);
-	}
 
 	ngAfterViewInit(): void {
 		if (!this.pageNavTpl()) return;

@@ -1,3 +1,4 @@
+import { Direction } from '@angular/cdk/bidi';
 import {
 	ConnectedPosition,
 	FlexibleConnectedPositionStrategy,
@@ -96,6 +97,10 @@ export class BrnNavigationMenuContentService {
 		};
 
 		this._overlayRef?.updatePositionStrategy(this._positionStrategy);
+	}
+
+	public updateDirection(dir: Direction) {
+		this._overlayRef?.setDirection(dir);
 	}
 
 	public setContent(value: TemplateRef<unknown>, vcr: ViewContainerRef) {

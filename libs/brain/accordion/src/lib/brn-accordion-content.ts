@@ -1,6 +1,4 @@
 import { Directive, ElementRef, afterNextRender, computed, inject, input, linkedSignal, signal } from '@angular/core';
-import type { CustomElementClassSettable } from '@spartan-ng/brain/core';
-import type { ClassValue } from 'clsx';
 import { BrnAccordionItem } from './brn-accordion';
 
 @Directive({
@@ -12,35 +10,34 @@ import { BrnAccordionItem } from './brn-accordion';
 		'[id]': 'id',
 		'[style.--brn-accordion-content-width.px]': '_width()',
 		'[style.--brn-accordion-content-height.px]': '_height()',
-		'[attr.inert]': '_addInert() ? true : undefined',
-		'[attr.style]': '_mutableContentStyle() ?? "opacity: 0;"',
+		'[attr.inert]': '_inert()',
+		'[attr.style]': '_mutableStyle()',
 	},
 })
-export class BrnAccordionContent implements CustomElementClassSettable {
+export class BrnAccordionContent {
 	private readonly _item = inject(BrnAccordionItem);
 	private readonly _elementRef = inject(ElementRef);
+
+	protected readonly _width = signal<number | null>(null);
+	protected readonly _height = signal<number | null>(null);
+	protected readonly _dimensionsInitiated = signal(false);
+	protected readonly _inert = computed(() => (this.state() === 'closed' ? true : undefined));
 
 	public readonly state = this._item.state;
 	public readonly id = `brn-accordion-content-${this._item.id}`;
 	public readonly ariaLabeledBy = `brn-accordion-trigger-${this._item.id}`;
-	protected readonly _width = signal<number | null>(null);
-	protected readonly _height = signal<number | null>(null);
-	protected readonly _dimensionsInitiated = signal(false);
-
-	protected readonly _addInert = computed(() => (this.state() === 'closed' ? true : undefined));
 	/**
-	 * The class to be applied to the content element.
+	 * The style to be applied to the host element after the dimensions are calculated.
+	 * @default 'overflow: hidden'
 	 */
-	public readonly contentClass = input<ClassValue>('');
-
-	protected readonly _mutableContentClass = linkedSignal(() => this.contentClass());
-
+	public readonly style = input<string>('overflow: hidden');
 	/**
-	 * The style to be applied to the content element.
+	 * The style to be applied to the host element while the dimensions are being calculated.
+	 * @default 'opacity: 0'
 	 */
-	public readonly contentStyle = input<string>('overflow: hidden;');
-	protected readonly _mutableContentStyle = linkedSignal(() =>
-		this._dimensionsInitiated() ? this.contentStyle() : undefined,
+	public readonly styleWhileDimensionsAreInitiating = input<string>('overflow: hidden');
+	protected readonly _mutableStyle = linkedSignal(() =>
+		this._dimensionsInitiated() ? this.style() : this.styleWhileDimensionsAreInitiating(),
 	);
 
 	constructor() {
@@ -55,8 +52,5 @@ export class BrnAccordionContent implements CustomElementClassSettable {
 			this._height.set(height);
 			this._dimensionsInitiated.set(true);
 		});
-	}
-	public setClassToCustomElement(classes: ClassValue) {
-		this._mutableContentClass.set(classes);
 	}
 }

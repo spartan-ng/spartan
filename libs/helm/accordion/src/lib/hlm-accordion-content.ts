@@ -10,13 +10,14 @@ import type { ClassValue } from 'clsx';
 	host: {
 		'[class]': '_computedClass()',
 	},
+	hostDirectives: [{ directive: BrnAccordionContent, inputs: ['style'] }],
 	template: `
 		<div class="flex flex-col gap-4 text-balance pb-4 pt-0">
 			<ng-content />
 		</div>
 	`,
 })
-export class HlmAccordionContent extends BrnAccordionContent {
+export class HlmAccordionContent {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 
 	protected readonly _computedClass = computed(() => {

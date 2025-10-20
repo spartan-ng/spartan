@@ -30,12 +30,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       "BrnAccordionContent": {
         "inputs": [
           {
-            "name": "contentClass",
+            "name": "style",
             "required": false,
-            "type": "ClassValue",
+            "type": "string",
           },
           {
-            "name": "contentStyle",
+            "name": "styleWhileDimensionsAreInitiating",
             "required": false,
             "type": "string",
           },

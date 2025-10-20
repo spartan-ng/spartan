@@ -2,6 +2,7 @@ import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { CalendarRangeExample } from '@spartan-ng/app/app/pages/(components)/components/(calendar)/calendar--range.example';
+import { CalendarYearAndMonthExample } from '@spartan-ng/app/app/pages/(components)/components/(calendar)/calendar--year-and-month.example';
 import { CodePreview } from '@spartan-ng/app/app/shared/code/code-preview';
 import { hlmCode, hlmH4, hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
@@ -39,6 +40,7 @@ export const routeMeta: RouteMeta = {
 		PageNav,
 		CalendarMultipleExample,
 		CalendarRangeExample,
+		CalendarYearAndMonthExample,
 	],
 	template: `
 		<section spartanMainSection>
@@ -139,9 +141,18 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_rangeCode()" />
 			</spartan-tabs>
 
+			<h3 id="examples__month_and_year_selection" class="${hlmH4} mb-2 mt-6">Month and Year Selector</h3>
+
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-calendar-year-and-month />
+				</div>
+				<spartan-code secondTab [code]="_yearAndMonthCode()" />
+			</spartan-tabs>
+
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="carousel" label="Carousel" />
-				<spartan-page-bottom-nav-link direction="previous" href="button" label="Button" />
+				<spartan-page-bottom-nav-link direction="previous" href="button-group" label="Button Group" />
 			</spartan-page-bottom-nav>
 		</section>
 		<spartan-page-nav />
@@ -152,6 +163,7 @@ export default class CardPage {
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _multipleCode = computed(() => this._snippets()['multiple']);
 	protected readonly _rangeCode = computed(() => this._snippets()['range']);
+	protected readonly _yearAndMonthCode = computed(() => this._snippets()['yearAndMonth']);
 	protected readonly _defaultImports = defaultImports;
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _i18nProviders = i18nProviders;

@@ -1,8 +1,8 @@
 import { UnitTestRunner } from '@nx/angular/generators';
-import { Schema } from '@nx/angular/src/generators/library/schema';
+import type { Schema } from '@nx/angular/src/generators/library/schema';
 import { type Tree, joinPathFragments, readNxJson, updateJson } from '@nx/devkit';
 import * as path from 'path';
-import { ObjectLiteralExpression, Project, SyntaxKind } from 'ts-morph';
+import { type ObjectLiteralExpression, Project, SyntaxKind } from 'ts-morph';
 import type { HlmBaseGeneratorSchema } from '../schema';
 import { singleLibName } from './single-lib-name';
 

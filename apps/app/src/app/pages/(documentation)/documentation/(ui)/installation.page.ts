@@ -3,8 +3,8 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronRight } from '@ng-icons/lucide';
-import { HlmButton } from '@spartan-ng/helm/button';
-import { HlmIcon } from '@spartan-ng/helm/icon';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmIconImports } from '@spartan-ng/helm/icon';
 import { hlmCode, hlmH4, hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { MainSection } from '../../../../shared/layout/main-section';
@@ -33,9 +33,9 @@ export const routeMeta: RouteMeta = {
 		PageNav,
 		SectionSubHeading,
 		Code,
-		HlmButton,
+		HlmButtonImports,
 		NgIcon,
-		HlmIcon,
+		HlmIconImports,
 		RouterLink,
 		TabsCli,
 	],
@@ -55,7 +55,11 @@ export const routeMeta: RouteMeta = {
 				<code class="${hlmCode}">spartan/ui</code>
 				is built on top of Tailwind CSS. Make sure your application has a working Tailwind CSS setup before you
 				continue. Tailwind installation instructions can be found
-				<a class="${hlmCode}" href="https://tailwindcss.com/docs/installation/framework-guides/angular" target="_blank">
+				<a
+					class="${hlmCode} underline"
+					href="https://tailwindcss.com/docs/installation/framework-guides/angular"
+					target="_blank"
+				>
 					here.
 				</a>
 			</p>
@@ -112,6 +116,58 @@ module.exports = {
 
 			<spartan-code class="mt-4" code="@import '@spartan-ng/brain/hlm-tailwind-preset.css';" />
 
+			<h3 id="intellisense" class="${hlmH4} mb-2 mt-6">IntelliSense</h3>
+
+			<p>
+				You can enable autocompletion inside
+				<span class="${hlmCode}">hlm</span>
+				and
+				<span class="${hlmCode}">cva</span>
+				functions.
+			</p>
+
+			<ol class="my-6 ml-6 list-decimal [&>li]:mt-2">
+				<li>
+					Install
+					<a
+						class="${hlmCode} underline"
+						href="https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss"
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						"Tailwind CSS IntelliSense"
+					</a>
+					Visual Studio Code extension
+				</li>
+				<li>
+					Add
+					<a
+						class="${hlmCode} underline"
+						href="https://github.com/tailwindlabs/tailwindcss-intellisense?tab=readme-ov-file#tailwindcssclassfunctions"
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						tailwindCSS.classFunctions
+					</a>
+					to your
+					<a
+						class="${hlmCode} underline"
+						href="https://code.visualstudio.com/docs/configure/settings"
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						settings.json
+					</a>
+				</li>
+			</ol>
+
+			<spartan-code
+				class="mt-4"
+				code='{
+  "tailwindCSS.classFunctions": ["hlm", "cva"]
+}'
+			/>
+
 			<h3 id="sorting-classes" class="${hlmH4} mb-2 mt-6">Sorting classes</h3>
 
 			<p class="${hlmP} text-pretty">
@@ -127,7 +183,12 @@ module.exports = {
 			<ol class="my-6 ml-6 list-decimal [&>li]:mt-2">
 				<li>
 					Install and configure the
-					<a class="${hlmCode}" href="https://github.com/tailwindlabs/prettier-plugin-tailwindcss" target="_blank">
+					<a
+						class="${hlmCode} underline"
+						href="https://github.com/tailwindlabs/prettier-plugin-tailwindcss"
+						target="_blank"
+						rel="noopener noreferrer"
+					>
 						prettier-plugin-tailwindcss
 					</a>
 
@@ -136,9 +197,10 @@ module.exports = {
 				<li>
 					Add
 					<a
-						class="${hlmCode}"
+						class="${hlmCode} underline"
 						href="https://github.com/tailwindlabs/prettier-plugin-tailwindcss?tab=readme-ov-file#sorting-classes-in-function-calls"
 						target="_blank"
+						rel="noopener noreferrer"
 					>
 						tailwindFunctions
 					</a>
@@ -191,9 +253,9 @@ module.exports = {
 				code="
 :root {
   color-scheme: light;
-  
+
   --font-sans: 'Geist Sans', sans-serif;
-  
+
   --background: 0 0% 100%;
   --foreground: 240 10% 3.9%;
   --card: 0 0% 100%;

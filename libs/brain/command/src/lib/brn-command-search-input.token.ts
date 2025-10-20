@@ -1,4 +1,4 @@
-import { ExistingProvider, InjectionToken, Type } from '@angular/core';
+import { type ExistingProvider, InjectionToken, type Type } from '@angular/core';
 import type { BrnCommandSearchInput } from './brn-command-search-input';
 
 export const BrnCommandSearchInputToken = new InjectionToken<BrnCommandSearchInput>('BrnCommandSearchInputToken');

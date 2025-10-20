@@ -87,8 +87,8 @@ export const routeMeta: RouteMeta = {
 			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
-				<spartan-page-bottom-nav-link href="label" label="Label" />
-				<spartan-page-bottom-nav-link direction="previous" href="input" label="Input" />
+				<spartan-page-bottom-nav-link href="kbd" label="Kbd" />
+				<spartan-page-bottom-nav-link direction="previous" href="input-group" label="Input Group" />
 			</spartan-page-bottom-nav>
 		</section>
 		<spartan-page-nav />

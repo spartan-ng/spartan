@@ -28,12 +28,12 @@ import { HlmCheckboxImports } from '@spartan-ng/helm/checkbox';
 import { HlmCommandImports } from '@spartan-ng/helm/command';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmInput } from '@spartan-ng/helm/input';
-import { HlmMenu, HlmMenuItemImports } from '@spartan-ng/helm/menu';
+import { HlmMenuImports } from '@spartan-ng/helm/menu';
 import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 import TasksExamplePage from '../(tasks).page';
 import { PriorityIconPipe } from '../pipes/priority-icon.pipe';
 import { StatusIconPipe } from '../pipes/status-icon.pipe';
-import { TaskPriority, TaskStatus } from '../services/tasks.models';
+import type { TaskPriority, TaskStatus } from '../services/tasks.models';
 
 @Component({
 	// eslint-disable-next-line @angular-eslint/component-selector
@@ -48,8 +48,7 @@ import { TaskPriority, TaskStatus } from '../services/tasks.models';
 		BrnMenuTrigger,
 		NgIcon,
 		HlmIcon,
-		HlmMenu,
-		HlmMenuItemImports,
+		HlmMenuImports,
 		BrnPopoverImports,
 		HlmCommandImports,
 		BrnCommandImports,

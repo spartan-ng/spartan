@@ -1,4 +1,4 @@
-import { formatFiles, logger, readJson, Tree, updateJson } from '@nx/devkit';
+import { formatFiles, logger, readJson, type Tree, updateJson } from '@nx/devkit';
 import { getRootTsConfigPathInTree } from '@nx/js';
 import { removeGenerator } from '@nx/workspace';
 import { prompt } from 'enquirer';
@@ -7,8 +7,8 @@ import { getOrCreateConfig } from '../../utils/config';
 import { readTsConfigPathsFromTree } from '../../utils/tsconfig';
 import { deleteFiles } from '../base/lib/deleteFiles';
 import { createPrimitiveLibraries } from '../ui/generator';
-import { Primitive } from '../ui/primitives';
-import { MigrateHelmLibrariesGeneratorSchema } from './schema';
+import type { Primitive } from '../ui/primitives';
+import type { MigrateHelmLibrariesGeneratorSchema } from './schema';
 
 export async function migrateHelmLibrariesGenerator(tree: Tree, options: MigrateHelmLibrariesGeneratorSchema) {
 	// Detect the libraries that are already installed

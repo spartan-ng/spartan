@@ -1,14 +1,16 @@
-import { inject, InjectionToken, ValueProvider } from '@angular/core';
+import { inject, InjectionToken, type ValueProvider } from '@angular/core';
 
-export type TransformValueToString<T> = (value: T) => string;
+export type TransformValueToString<T> = (option: T) => string;
 
 export interface HlmAutocompleteConfig<T> {
 	transformValueToSearch: TransformValueToString<T>;
+	transformOptionToString: TransformValueToString<T>;
 }
 
 function getDefaultConfig<T>(): HlmAutocompleteConfig<T> {
 	return {
-		transformValueToSearch: (value: T) => (typeof value === 'string' ? value : String(value)),
+		transformValueToSearch: (option: T) => (typeof option === 'string' ? option : String(option)),
+		transformOptionToString: (option: T) => (typeof option === 'string' ? option : String(option)),
 	};
 }
 

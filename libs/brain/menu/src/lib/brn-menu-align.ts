@@ -1,4 +1,4 @@
-import { ConnectedPosition } from '@angular/cdk/overlay';
+import type { ConnectedPosition } from '@angular/cdk/overlay';
 
 export type BrnMenuAlign = 'start' | 'center' | 'end' | undefined;
 export const getBrnMenuAlign = (align: Exclude<BrnMenuAlign, undefined>): ConnectedPosition[] => [

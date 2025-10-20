@@ -1,4 +1,4 @@
-import { ExistingProvider, inject, InjectionToken, Type } from '@angular/core';
+import { type ExistingProvider, inject, InjectionToken, type Type } from '@angular/core';
 import type { BrnSelect } from './brn-select';
 
 const BrnSelectToken = new InjectionToken<BrnSelect>('BrnSelectToken');

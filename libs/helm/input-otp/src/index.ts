@@ -1,4 +1,3 @@
-import { NgModule } from '@angular/core';
 import { HlmInputOtp } from './lib/hlm-input-otp';
 import { HlmInputOtpFakeCaret } from './lib/hlm-input-otp-fake-caret';
 import { HlmInputOtpGroup } from './lib/hlm-input-otp-group';
@@ -18,9 +17,3 @@ export const HlmInputOtpImports = [
 	HlmInputOtpSlot,
 	HlmInputOtpFakeCaret,
 ] as const;
-
-@NgModule({
-	imports: [...HlmInputOtpImports],
-	exports: [...HlmInputOtpImports],
-})
-export class HlmInputOtpModule {}

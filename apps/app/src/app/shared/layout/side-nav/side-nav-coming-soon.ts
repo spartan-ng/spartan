@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
 	selector: 'spartan-side-nav-cs',
@@ -8,5 +8,6 @@ import { Component } from '@angular/core';
 	template: `
 		<span class="text-primary-foreground bg-primary rounded-lg px-1 py-0.5 text-[0.5rem] font-medium">soon</span>
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SideNav {}
+export class SideNavCommingSoon {}

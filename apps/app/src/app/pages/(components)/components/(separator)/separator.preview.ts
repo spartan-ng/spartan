@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { HlmSeparator } from '@spartan-ng/helm/separator';
+import { HlmSeparatorImports } from '@spartan-ng/helm/separator';
 
 @Component({
 	selector: 'spartan-separator-preview',
-	imports: [HlmSeparator],
+	imports: [HlmSeparatorImports],
 	template: `
 		<div>
 			<div class="space-y-1">
@@ -24,7 +24,7 @@ import { HlmSeparator } from '@spartan-ng/helm/separator';
 export class SeparatorPreview {}
 
 export const defaultImports = `
-import { HlmSeparator } from '@spartan-ng/helm/separator';
+import { HlmSeparatorImports } from '@spartan-ng/helm/separator';
 `;
 export const defaultSkeleton = `
 <hlm-separator />

@@ -15,7 +15,9 @@ import { Tabs } from '../../../../shared/layout/tabs';
 import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
+import { link } from '../../../../shared/typography/link';
 import { TablePreview, defaultImports, defaultSkeleton } from './table.preview';
+
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Table', api: 'table' },
 	meta: metaWith('spartan/ui - Table', 'A responsive table component.'),
@@ -74,8 +76,13 @@ export const routeMeta: RouteMeta = {
 			</p>
 			<p class="${hlmP}">
 				See the
-				<a class="font-semibold underline underline-offset-4" routerLink="/components/data-table">Data Table</a>
+				<a class="${link}" routerLink="/components/data-table">Data Table</a>
 				documentation for more information.
+			</p>
+			<p class="${hlmP}">
+				You can also see an example of a data table in the
+				<a class="${link}" routerLink="/examples/tasks">Tasks</a>
+				demo.
 			</p>
 
 			<spartan-page-bottom-nav>

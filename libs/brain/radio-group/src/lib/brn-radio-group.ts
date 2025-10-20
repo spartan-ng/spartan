@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { BooleanInput } from '@angular/cdk/coercion';
+import type { BooleanInput } from '@angular/cdk/coercion';
 import {
 	booleanAttribute,
 	contentChildren,
@@ -10,8 +10,8 @@ import {
 	model,
 	output,
 } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
+import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import { BrnRadio, BrnRadioChange } from './brn-radio';
 import { provideBrnRadioGroupToken } from './brn-radio-group.token';
 
@@ -43,6 +43,9 @@ export class BrnRadioGroup<T = unknown> implements ControlValueAccessor {
 	 * The value of the selected radio button.
 	 */
 	public readonly value = model<T>();
+
+	/** Emits when the value changes. */
+	public readonly valueChange = output<T>();
 
 	/**
 	 * Whether the radio group is disabled.
@@ -106,6 +109,7 @@ export class BrnRadioGroup<T = unknown> implements ControlValueAccessor {
 		}
 
 		this.value.set(value);
+		this.valueChange.emit(value);
 		this.onChange(value);
 		this.change.emit(new BrnRadioChange<T>(radioButton, value));
 	}

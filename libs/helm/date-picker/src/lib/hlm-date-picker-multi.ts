@@ -1,4 +1,4 @@
-import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
+import type { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import {
 	booleanAttribute,
 	ChangeDetectionStrategy,
@@ -11,11 +11,11 @@ import {
 	output,
 	signal,
 } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown } from '@ng-icons/lucide';
-import { BrnDialogState } from '@spartan-ng/brain/dialog';
-import { type ChangeFn, type TouchFn } from '@spartan-ng/brain/forms';
+import type { BrnDialogState } from '@spartan-ng/brain/dialog';
+import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import { BrnPopover, BrnPopoverContent, BrnPopoverTrigger } from '@spartan-ng/brain/popover';
 import { HlmCalendarMulti } from '@spartan-ng/helm/calendar';
 import { HlmIcon } from '@spartan-ng/helm/icon';
@@ -60,6 +60,7 @@ let nextId = 0;
 				<hlm-calendar-multi
 					calendarClass="border-0 rounded-none"
 					[date]="_mutableDate()"
+					[captionLayout]="captionLayout()"
 					[min]="min()"
 					[max]="max()"
 					[minSelection]="minSelection()"
@@ -90,7 +91,10 @@ export class HlmDatePickerMulti<T> implements ControlValueAccessor {
 	);
 
 	/** The id of the button that opens the date picker. */
-	public readonly buttonId = input<string>(`hlm-date-picker-multi-${nextId++}`);
+	public readonly buttonId = input<string>(`hlm-date-picker-multi-${++nextId}`);
+
+	/** Show dropdowns to navigate between months or years. */
+	public readonly captionLayout = input<'dropdown' | 'label' | 'dropdown-months' | 'dropdown-years'>('label');
 
 	/** The minimum date that can be selected.*/
 	public readonly min = input<T>();

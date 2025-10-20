@@ -1,8 +1,8 @@
 import { applicationGenerator, E2eTestRunner, UnitTestRunner } from '@nx/angular/generators';
-import { Tree } from '@nx/devkit';
+import type { Tree } from '@nx/devkit';
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
 import { migrateCoreGenerator } from './generator';
-import { MigrateCoreGeneratorSchema } from './schema';
+import type { MigrateCoreGeneratorSchema } from './schema';
 
 // patch some imports to avoid running the actual code
 jest.mock('enquirer');

@@ -1,4 +1,4 @@
-import { Component, inject, signal, TrackByFunction } from '@angular/core';
+import { Component, inject, signal, type TrackByFunction } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
@@ -22,16 +22,16 @@ import {
 	lucideUser,
 } from '@ng-icons/lucide';
 import { BrnMenuTrigger } from '@spartan-ng/brain/menu';
-import { BrnSelectModule } from '@spartan-ng/brain/select';
+import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { HlmAvatarImports } from '@spartan-ng/helm/avatar';
-import { HlmButtonModule } from '@spartan-ng/helm/button';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmIcon } from '@spartan-ng/helm/icon';
-import { HlmMenuModule } from '@spartan-ng/helm/menu';
-import { HlmSelectModule } from '@spartan-ng/helm/select';
-import { HlmTableModule } from '@spartan-ng/helm/table';
+import { HlmMenuImports } from '@spartan-ng/helm/menu';
+import { HlmSelectImports } from '@spartan-ng/helm/select';
+import { HlmTableImports } from '@spartan-ng/helm/table';
 import {
-	ColumnDef,
-	ColumnFiltersState,
+	type ColumnDef,
+	type ColumnFiltersState,
 	createAngularTable,
 	FlexRender,
 	flexRenderComponent,
@@ -39,9 +39,9 @@ import {
 	getFilteredRowModel,
 	getPaginationRowModel,
 	getSortedRowModel,
-	PaginationState,
-	SortingState,
-	VisibilityState,
+	type PaginationState,
+	type SortingState,
+	type VisibilityState,
 } from '@tanstack/angular-table';
 import { TableHeadSelection, TableRowSelection } from '../../../(components)/components/(data-table)/selection-column';
 import { TableHeadSortButton } from '../../../(components)/components/(data-table)/sort-header-button';
@@ -51,19 +51,19 @@ import { StatusIconCell } from './components/status-icon-cell';
 import { TableActions } from './components/table-actions';
 import { TitleCell } from './components/title-cell';
 import { DEFAULT_TASK_TABLE_COLUMNS, LocalStorageService } from './services/local-storage.service';
-import { Task, TASK_DATA } from './services/tasks.models';
+import { type Task, TASK_DATA } from './services/tasks.models';
 
 @Component({
 	selector: 'spartan-data-table-preview',
 	imports: [
 		FormsModule,
 		BrnMenuTrigger,
-		HlmMenuModule,
-		HlmTableModule,
-		HlmButtonModule,
+		HlmMenuImports,
+		HlmTableImports,
+		HlmButtonImports,
 		HlmIcon,
-		BrnSelectModule,
-		HlmSelectModule,
+		BrnSelectImports,
+		HlmSelectImports,
 		TableActions,
 		NgIcon,
 		HlmAvatarImports,
@@ -152,42 +152,44 @@ import { Task, TASK_DATA } from './services/tasks.models';
 
 			<div class="max-h-[700px] w-full overflow-auto rounded-md border">
 				@defer {
-					<table hlmTable>
-						<thead hlmTHead class="bg-background sticky top-0 z-10">
-							@for (headerGroup of table.getHeaderGroups(); track headerGroup.id) {
-								<tr hlmTr>
-									@for (header of headerGroup.headers; track header.id) {
-										<th hlmTh [attr.colSpan]="header.colSpan">
-											@if (!header.isPlaceholder) {
-												<ng-container
-													*flexRender="header.column.columnDef.header; props: header.getContext(); let headerText"
-												>
-													<div [innerHTML]="headerText"></div>
+					<div hlmTableContainer>
+						<table hlmTable>
+							<thead hlmTHead class="bg-background sticky top-0 z-10">
+								@for (headerGroup of table.getHeaderGroups(); track headerGroup.id) {
+									<tr hlmTr>
+										@for (header of headerGroup.headers; track header.id) {
+											<th hlmTh [attr.colSpan]="header.colSpan">
+												@if (!header.isPlaceholder) {
+													<ng-container
+														*flexRender="header.column.columnDef.header; props: header.getContext(); let headerText"
+													>
+														<div [innerHTML]="headerText"></div>
+													</ng-container>
+												}
+											</th>
+										}
+									</tr>
+								}
+							</thead>
+							<tbody hlmTBody class="w-full">
+								@for (row of table.getRowModel().rows; track row.id) {
+									<tr hlmTr [attr.key]="row.id" [attr.data-state]="row.getIsSelected() && 'selected'">
+										@for (cell of row.getVisibleCells(); track $index) {
+											<td hlmTd>
+												<ng-container *flexRender="cell.column.columnDef.cell; props: cell.getContext(); let cell">
+													<div [innerHTML]="cell"></div>
 												</ng-container>
-											}
-										</th>
-									}
-								</tr>
-							}
-						</thead>
-						<tbody hlmTBody class="w-full">
-							@for (row of table.getRowModel().rows; track row.id) {
-								<tr hlmTr [attr.key]="row.id" [attr.data-state]="row.getIsSelected() && 'selected'">
-									@for (cell of row.getVisibleCells(); track $index) {
-										<td hlmTd>
-											<ng-container *flexRender="cell.column.columnDef.cell; props: cell.getContext(); let cell">
-												<div [innerHTML]="cell"></div>
-											</ng-container>
-										</td>
-									}
-								</tr>
-							} @empty {
-								<tr hlmTr>
-									<td hlmTd class="h-24 text-center" [attr.colspan]="_columns.length">No results.</td>
-								</tr>
-							}
-						</tbody>
-					</table>
+											</td>
+										}
+									</tr>
+								} @empty {
+									<tr hlmTr>
+										<td hlmTd class="h-24 text-center" [attr.colspan]="_columns.length">No results.</td>
+									</tr>
+								}
+							</tbody>
+						</table>
+					</div>
 				}
 			</div>
 			<div class="mt-4 flex flex-col justify-between sm:flex-row sm:items-center">

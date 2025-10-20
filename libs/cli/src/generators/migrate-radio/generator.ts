@@ -1,6 +1,6 @@
-import { formatFiles, Tree } from '@nx/devkit';
+import { formatFiles, type Tree } from '@nx/devkit';
 import { visitFiles } from '../../utils/visit-files';
-import { MigrateRadioGeneratorSchema } from './schema';
+import type { MigrateRadioGeneratorSchema } from './schema';
 
 export async function migrateRadioGenerator(tree: Tree, { skipFormat }: MigrateRadioGeneratorSchema) {
 	updateImports(tree);

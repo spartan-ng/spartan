@@ -1,7 +1,7 @@
 import { visitNotIgnoredFiles } from '@nx/devkit';
 import migrateHelmImportsGenerator from '../../migrate-helm-imports/generator';
 import importMap from '../../migrate-helm-imports/import-map';
-import { Healthcheck, HealthcheckSeverity } from '../healthchecks';
+import { type Healthcheck, HealthcheckSeverity } from '../healthchecks';
 
 export const helmImportsHealthcheck: Healthcheck = {
 	name: 'Helm imports',

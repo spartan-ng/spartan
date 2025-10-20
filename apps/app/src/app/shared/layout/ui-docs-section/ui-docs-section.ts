@@ -1,7 +1,7 @@
 import { Component, computed, inject, input } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
-import { LibraryType } from '@spartan-ng/app/app/core/models/ui-docs.model';
+import type { LibraryType } from '@spartan-ng/app/app/core/models/ui-docs.model';
 import { hlmCode, hlmH4 } from '@spartan-ng/helm/typography';
 import { map } from 'rxjs/operators';
 import { ApiDocsService } from '../../../core/services/api-docs.service';
@@ -13,22 +13,26 @@ import { UIApiDocsTable } from '../ui-api-docs-table/ui-api-docs-table';
 	template: `
 		@if (_componentDocs() && _componentEntries() && _componentEntries().length > 0) {
 			@for (entry of _componentEntries(); track entry) {
+				@let properties = _transformedComponentItems()[entry];
 				<h4 class="${hlmH4} mb-2 mt-6 pt-12" [id]="entry.toLowerCase()">{{ entry }}</h4>
-				<p>
-					Selector:
-					<code class="${hlmCode}">{{ _transformedComponentItems()[entry].selector }}</code>
-				</p>
-				@if (_transformedComponentItems()[entry].exportAs) {
+				@let selector = properties.selector;
+				@if (selector) {
+					<p>
+						Selector:
+						<code class="${hlmCode}">{{ selector }}</code>
+					</p>
+				}
+				@if (properties.exportAs) {
 					<p>
 						ExportAs:
-						<code class="${hlmCode}">{{ _transformedComponentItems()[entry].exportAs }}</code>
+						<code class="${hlmCode}">{{ properties.exportAs }}</code>
 					</p>
 				}
 
-				@if (_transformedComponentItems()[entry].inputs && _transformedComponentItems()[entry].inputs.length > 0) {
+				@if (properties.inputs && properties.inputs.length > 0) {
 					<spartan-ui-api-docs-table
 						title="Inputs"
-						[rows]="_transformedComponentItems()[entry].inputs"
+						[rows]="properties.inputs"
 						[columns]="[
 							{ label: 'Prop', key: 'name', class: 'font-medium' },
 							{ label: 'Type', key: 'type' },
@@ -38,10 +42,10 @@ import { UIApiDocsTable } from '../ui-api-docs-table/ui-api-docs-table';
 					/>
 				}
 
-				@if (_transformedComponentItems()[entry].outputs && _transformedComponentItems()[entry].outputs.length > 0) {
+				@if (properties.outputs && properties.outputs.length > 0) {
 					<spartan-ui-api-docs-table
 						title="Outputs"
-						[rows]="_transformedComponentItems()[entry].outputs"
+						[rows]="properties.outputs"
 						[columns]="[
 							{ label: 'Prop', key: 'name', class: 'font-medium' },
 							{ label: 'Type', key: 'type' },

@@ -21,6 +21,7 @@ body:
         - badge
         - breadcrumb
         - button
+        - button-group
         - calendar
         - card
         - carousel
@@ -34,11 +35,14 @@ body:
         - date-picker
         - dialog
         - dropdown-menu
+        - empty
         - form-field
         - hover-card
         - icon
         - input
+        - input-group
         - input-otp
+        - kbd
         - label
         - menubar
         - navigation-menu
@@ -51,6 +55,7 @@ body:
         - select
         - separator
         - sheet
+        - sidebar
         - skeleton
         - slider
         - sonner

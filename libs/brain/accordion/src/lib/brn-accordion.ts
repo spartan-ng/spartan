@@ -1,16 +1,17 @@
-import { FocusKeyManager, FocusMonitor } from '@angular/cdk/a11y';
-import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
+import { type FocusableOption, FocusKeyManager, FocusMonitor } from '@angular/cdk/a11y';
+import { type BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 import {
 	type AfterContentInit,
-	Directive,
-	ElementRef,
-	HostListener,
-	type OnDestroy,
 	computed,
 	contentChildren,
+	Directive,
 	effect,
+	ElementRef,
+	HostListener,
 	inject,
 	input,
+	isDevMode,
+	type OnDestroy,
 	signal,
 	untracked,
 } from '@angular/core';
@@ -26,19 +27,18 @@ import { fromEvent } from 'rxjs';
 })
 export class BrnAccordionItem {
 	private static _itemIdGenerator = 0;
+	public readonly id = ++BrnAccordionItem._itemIdGenerator;
 	private readonly _accordion = inject(BrnAccordion);
 	/**
 	 * Whether the accordion item is opened or closed.
 	 * @default false
 	 */
 	public readonly isOpened = input<boolean, BooleanInput>(false, { transform: coerceBooleanProperty });
-
-	public readonly id = ++BrnAccordionItem._itemIdGenerator;
 	public readonly state = computed(() => (this._accordion.openItemIds().includes(this.id) ? 'open' : 'closed'));
 
 	constructor() {
 		if (!this._accordion) {
-			throw Error('Accordion trigger can only be used inside an Accordion. Add brnAccordion to ancestor.');
+			throw Error('Accordion item can only be used inside an Accordion. Add brnAccordion to ancestor.');
 		}
 		effect(() => {
 			const isOpened = this.isOpened();
@@ -59,30 +59,24 @@ export class BrnAccordionItem {
 		'[attr.data-state]': 'state()',
 		'[attr.aria-expanded]': 'state() === "open"',
 		'[attr.aria-controls]': 'ariaControls',
-		role: 'heading',
-		'aria-level': '3',
 		'[id]': 'id',
+		'[attr.role]': '"button"',
 	},
 })
-export class BrnAccordionTrigger {
+export class BrnAccordionTrigger implements FocusableOption {
 	private readonly _accordion = inject(BrnAccordion);
 	private readonly _item = inject(BrnAccordionItem);
-	private readonly _elementRef = inject(ElementRef);
+	private readonly _el = inject(ElementRef<HTMLElement>);
 
 	public readonly state = this._item.state;
 	public readonly id = `brn-accordion-trigger-${this._item.id}`;
 	public readonly ariaControls = `brn-accordion-content-${this._item.id}`;
-
 	constructor() {
-		if (!this._accordion) {
-			throw Error('Accordion trigger can only be used inside an Accordion. Add brnAccordion to ancestor.');
-		}
+		if (!this._accordion) throw Error('Accordion trigger requires a parent Accordion.');
+		if (!this._item) throw Error('Accordion trigger requires a parent AccordionItem.');
+		this.validateAriaStructure();
 
-		if (!this._item) {
-			throw Error('Accordion trigger can only be used inside an AccordionItem. Add brnAccordionItem to parent.');
-		}
-
-		fromEvent(this._elementRef.nativeElement, 'focus')
+		fromEvent(this._el.nativeElement, 'focus')
 			.pipe(takeUntilDestroyed())
 			.subscribe(() => {
 				this._accordion.setActiveItem(this);
@@ -98,7 +92,45 @@ export class BrnAccordionTrigger {
 	}
 
 	public focus() {
-		this._elementRef.nativeElement.focus();
+		this._el.nativeElement.focus();
+	}
+
+	private validateAriaStructure(): void {
+		const element = this._el.nativeElement;
+
+		const isButton = element.tagName === 'BUTTON';
+		const hasButtonRole = element.getAttribute('role') === 'button';
+
+		if (!isButton && !hasButtonRole) {
+			throw Error(
+				`BrnAccordionTrigger: The trigger element must be a <button> or have role="button". ` +
+					`Found: <${element.tagName.toLowerCase()}>`,
+			);
+		}
+
+		const parent = element.parentElement;
+		if (!parent) {
+			const message = 'BrnAccordionTrigger: The trigger button must be wrapped in a heading element.';
+			if (isDevMode()) {
+				throw Error(message);
+			} else {
+				console.warn(message);
+			}
+		}
+
+		const isNativeHeading = /^H[1-6]$/.test(parent.tagName);
+		const hasHeadingRole = parent.getAttribute('role') === 'heading';
+
+		if (!isNativeHeading && !hasHeadingRole) {
+			throw Error(
+				`BrnAccordionTrigger: The trigger button must be wrapped in a heading element ` +
+					`(h1-h6) or an element with role="heading". Found parent: <${parent.tagName.toLowerCase()}>`,
+			);
+		}
+
+		if (hasHeadingRole && !parent.hasAttribute('aria-level')) {
+			throw Error('BrnAccordionTrigger: Elements with role="heading" must have an aria-level attribute.');
+		}
 	}
 }
 
@@ -111,8 +143,18 @@ const HORIZONTAL_KEYS_TO_PREVENT_DEFAULT = [
 	'End',
 	' ',
 	'Enter',
-];
-const VERTICAL_KEYS_TO_PREVENT_DEFAULT = ['ArrowUp', 'ArrowDown', 'PageDown', 'PageUp', 'Home', 'End', ' ', 'Enter'];
+] as const;
+
+const VERTICAL_KEYS_TO_PREVENT_DEFAULT = [
+	'ArrowUp',
+	'ArrowDown',
+	'PageDown',
+	'PageUp',
+	'Home',
+	'End',
+	' ',
+	'Enter',
+] as const;
 
 @Directive({
 	selector: '[brnAccordion]',
@@ -123,16 +165,23 @@ const VERTICAL_KEYS_TO_PREVENT_DEFAULT = ['ArrowUp', 'ArrowDown', 'PageDown', 'P
 	exportAs: 'brnAccordion',
 })
 export class BrnAccordion implements AfterContentInit, OnDestroy {
-	private readonly _el = inject(ElementRef);
-	private _keyManager?: FocusKeyManager<BrnAccordionTrigger>;
+	private readonly _el = inject(ElementRef<HTMLElement>);
 	private readonly _focusMonitor = inject(FocusMonitor);
+	private readonly _keyManager = computed(() =>
+		new FocusKeyManager<BrnAccordionTrigger>(this.triggers())
+			.withHomeAndEnd()
+			.withPageUpDown()
+			.withWrap()
+			.withHorizontalOrientation(this.orientation() === 'vertical' ? null : (this.dir() ?? 'ltr'))
+			.withVerticalOrientation(this.orientation() === 'vertical'),
+	);
 
 	private readonly _focused = signal<boolean>(false);
 	private readonly _openItemIds = signal<number[]>([]);
 	public readonly openItemIds = this._openItemIds.asReadonly();
 	public readonly state = computed(() => (this._openItemIds().length > 0 ? 'open' : 'closed'));
 
-	public triggers = contentChildren(BrnAccordionTrigger, { descendants: true });
+	public readonly triggers = contentChildren(BrnAccordionTrigger, { descendants: true });
 
 	/**
 	 * Whether the accordion is in single or multiple mode.
@@ -151,21 +200,9 @@ export class BrnAccordion implements AfterContentInit, OnDestroy {
 	public readonly orientation = input<'horizontal' | 'vertical'>('vertical');
 
 	public ngAfterContentInit() {
-		this._keyManager = new FocusKeyManager<BrnAccordionTrigger>(this.triggers())
-			.withHomeAndEnd()
-			.withPageUpDown()
-			.withWrap();
-
-		if (this.orientation() === 'horizontal') {
-			this._keyManager.withHorizontalOrientation(this.dir() ?? 'ltr').withVerticalOrientation(false);
-		}
-
 		this._el.nativeElement.addEventListener('keydown', (event: KeyboardEvent) => {
-			const target = event.target as HTMLElement;
-
-			if (target.tagName === 'INPUT') return;
-
-			this._keyManager?.onKeydown(event);
+			if (this.shouldIgnoreEvent(event)) return;
+			this._keyManager()?.onKeydown(event);
 			this.preventDefaultEvents(event);
 		});
 		this._focusMonitor.monitor(this._el, true).subscribe((origin) => this._focused.set(origin !== null));
@@ -176,7 +213,7 @@ export class BrnAccordion implements AfterContentInit, OnDestroy {
 	}
 
 	public setActiveItem(item: BrnAccordionTrigger) {
-		this._keyManager?.setActiveItem(item);
+		this._keyManager()?.setActiveItem(item);
 	}
 
 	public toggleItem(id: number) {
@@ -192,19 +229,46 @@ export class BrnAccordion implements AfterContentInit, OnDestroy {
 			this._openItemIds.set([id]);
 			return;
 		}
-		this._openItemIds.update((ids) => [...ids, id]);
+		this._openItemIds.update((ids) => (ids.includes(id) ? ids : [...ids, id]));
 	}
 
 	public closeItem(id: number) {
-		this._openItemIds.update((ids) => ids.filter((openId) => id !== openId));
+		this._openItemIds.update((ids) => ids.filter((openId) => openId !== id));
+	}
+
+	private isEditableTarget(el: EventTarget | null): boolean {
+		const node = el as HTMLElement | null;
+		if (!node) return false;
+
+		const tag = node.tagName;
+		if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return true;
+		if (node.isContentEditable) return true;
+
+		const role = node.getAttribute?.('role') ?? '';
+		if (/^(textbox|searchbox|combobox|listbox|grid|tree|menu|spinbutton|slider)$/.test(role)) return true;
+
+		const editableAncestor = node.closest?.(
+			'input, textarea, select, [contenteditable=""], [contenteditable="true"], ' +
+				'[role="textbox"], [role="searchbox"], [role="combobox"], [role="listbox"], ' +
+				'[role="grid"], [role="tree"], [role="menu"], [role="spinbutton"], [role="slider"]',
+		);
+		return !!editableAncestor;
+	}
+
+	private shouldIgnoreEvent(e: KeyboardEvent): boolean {
+		if (e.defaultPrevented) return true; // another handler already acted
+		if (e.ctrlKey || e.metaKey || e.altKey) return true; // let shortcuts through
+		return this.isEditableTarget(e.target); // don't steal from editable/ARIA widgets
 	}
 
 	private preventDefaultEvents(event: KeyboardEvent) {
+		if (event.defaultPrevented) return;
 		if (!this._focused()) return;
 		if (!('key' in event)) return;
 
-		const keys =
+		const keys: readonly string[] =
 			this.orientation() === 'horizontal' ? HORIZONTAL_KEYS_TO_PREVENT_DEFAULT : VERTICAL_KEYS_TO_PREVENT_DEFAULT;
+
 		if (keys.includes(event.key) && event.code !== 'NumpadEnter') {
 			event.preventDefault();
 		}

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
 	selector: 'spartan-side-nav-links',
@@ -7,5 +7,6 @@ import { Component } from '@angular/core';
 		class: 'grid grid-flow-row auto-rows-max',
 	},
 	template: '<ng-content/>',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SideNavLinks {}

@@ -1,6 +1,6 @@
 import { visitNotIgnoredFiles } from '@nx/devkit';
 import { migrateToggleGroupGenerator } from '../../migrate-toggle-group/generator';
-import { Healthcheck, HealthcheckSeverity } from '../healthchecks';
+import { type Healthcheck, HealthcheckSeverity } from '../healthchecks';
 
 export const brainToggleHealthcheck: Healthcheck = {
 	name: 'Brain Toggle Group',

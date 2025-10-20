@@ -1,8 +1,11 @@
-import { formatFiles, logger, Tree } from '@nx/devkit';
-import { Healthcheck, HealthcheckReport, HealthcheckStatus, isHealthcheckFixable } from './healthchecks';
+import { formatFiles, logger, type Tree } from '@nx/devkit';
+import { type Healthcheck, type HealthcheckReport, HealthcheckStatus, isHealthcheckFixable } from './healthchecks';
 import { brainImportsHealthcheck } from './healthchecks/brain-imports';
+import { brainAccordionTriggerHealthcheck } from './healthchecks/brn-accordion-trigger';
+import { brnCheckboxChangedEventRename } from './healthchecks/brn-checkbox-changed-event-rename';
 import { brainRadioHealthcheck } from './healthchecks/brn-radio';
 import { brainSeparatorHealthcheck } from './healthchecks/brn-separator';
+import { brnSwitchChangedEventRename } from './healthchecks/brn-switch-changed-event-rename';
 import { brainToggleHealthcheck } from './healthchecks/brn-toggle-group';
 import { coreImportsHealthcheck } from './healthchecks/core-imports';
 import { helmImportsHealthcheck } from './healthchecks/helm-imports';
@@ -12,9 +15,10 @@ import { helmIconHealthcheck } from './healthchecks/hlm-icon';
 import { progressHealthcheck } from './healthchecks/hlm-progress';
 import { scrollAreaHealthcheck } from './healthchecks/hlm-scroll-area';
 import { selectHealthcheck } from './healthchecks/hlm-select';
+import { moduleImportsHealthcheck } from './healthchecks/module-imports';
 import { namingConventionHealthcheck } from './healthchecks/naming-conventions';
 import { versionHealthcheck } from './healthchecks/version';
-import { HealthcheckGeneratorSchema } from './schema';
+import type { HealthcheckGeneratorSchema } from './schema';
 import { promptUser } from './utils/prompt';
 import { printReport } from './utils/reporter';
 import { runHealthcheck } from './utils/runner';
@@ -37,6 +41,10 @@ export async function healthcheckGenerator(tree: Tree, options: HealthcheckGener
 		progressHealthcheck,
 		hlmImportHealthcheck,
 		brainSeparatorHealthcheck,
+		brnCheckboxChangedEventRename,
+		brnSwitchChangedEventRename,
+		brainAccordionTriggerHealthcheck,
+		moduleImportsHealthcheck,
 	];
 
 	const failedReports: HealthcheckReport[] = [];

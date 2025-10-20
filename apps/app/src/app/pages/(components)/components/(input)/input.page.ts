@@ -17,8 +17,9 @@ import { metaWith } from '../../../../shared/meta/meta.util';
 import { InputButtonPreview } from './input--button.preview';
 import { InputDisabledPreview } from './input--disabled.preview';
 import { InputFilePreview } from './input--file.preview';
+import { InputFormPreview } from './input--form.preview';
 import { InputLabelPreview } from './input--label.preview';
-import { InputPreview, defaultImports, defaultSkeleton } from './input.preview';
+import { defaultImports, defaultSkeleton, InputPreview } from './input.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Input', api: 'input' },
@@ -47,6 +48,7 @@ export const routeMeta: RouteMeta = {
 		InputDisabledPreview,
 		InputLabelPreview,
 		InputButtonPreview,
+		InputFormPreview,
 	],
 	template: `
 		<section spartanMainSection>
@@ -107,9 +109,16 @@ export const routeMeta: RouteMeta = {
 				</div>
 				<spartan-code secondTab [code]="_buttonCode()" />
 			</spartan-tabs>
+			<h3 id="examples__form" class="${hlmH4} mb-2 mt-6">Form</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-input-form />
+				</div>
+				<spartan-code secondTab [code]="_formCode()" />
+			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
-				<spartan-page-bottom-nav-link href="input-otp" label="Input OTP" />
+				<spartan-page-bottom-nav-link href="input-group" label="Input Group" />
 				<spartan-page-bottom-nav-link direction="previous" href="icon" label="Icon" />
 			</spartan-page-bottom-nav>
 		</section>
@@ -123,6 +132,7 @@ export default class InputPage {
 	protected readonly _disabledCode = computed(() => this._snippets()['disabled']);
 	protected readonly _labelCode = computed(() => this._snippets()['label']);
 	protected readonly _buttonCode = computed(() => this._snippets()['button']);
+	protected readonly _formCode = computed(() => this._snippets()['form']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

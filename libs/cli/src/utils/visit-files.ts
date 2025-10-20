@@ -1,4 +1,4 @@
-import { Tree, visitNotIgnoredFiles } from '@nx/devkit';
+import { type Tree, visitNotIgnoredFiles } from '@nx/devkit';
 
 export function visitFiles(tree: Tree, dirPath: string, visitor: (path: string) => void): void {
 	visitNotIgnoredFiles(tree, dirPath, (path) => {

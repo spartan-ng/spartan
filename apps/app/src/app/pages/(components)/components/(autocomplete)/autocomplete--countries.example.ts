@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
-import { HlmAutocomplete } from '@spartan-ng/helm/autocomplete';
+import { HlmAutocompleteImports } from '@spartan-ng/helm/autocomplete';
 import { provideHlmAutocompleteConfig } from 'libs/helm/autocomplete/src/lib/hlm-autocomplete.token';
 
 type Country = {
@@ -10,15 +10,16 @@ type Country = {
 
 @Component({
 	selector: 'spartan-autocomplete-countries',
-	imports: [HlmAutocomplete],
+	imports: [HlmAutocompleteImports],
 	template: `
 		<hlm-autocomplete [filteredOptions]="filteredCountries()" [optionTemplate]="option" [(search)]="search" />
 
+		<!-- custom option template with access to the option item -->
 		<ng-template #option let-option>{{ option.flag }} {{ option.name }}</ng-template>
 	`,
 	providers: [
 		provideHlmAutocompleteConfig({
-			transformValueToSearch: (value: Country) => `${value.flag} ${value.name}`,
+			transformValueToSearch: (option: Country) => `${option.flag} ${option.name}`,
 		}),
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,

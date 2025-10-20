@@ -1,4 +1,4 @@
-import { Tree, readJson } from '@nx/devkit';
+import { type Tree, readJson } from '@nx/devkit';
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
 
 import { extractPrimitiveCodeGenerator } from './generator';

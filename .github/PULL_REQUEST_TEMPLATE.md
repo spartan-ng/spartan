@@ -35,6 +35,7 @@ What kind of change does this PR introduce?
 - [ ] badge
 - [ ] breadcrumb
 - [ ] button
+- [ ] button-group
 - [ ] calendar
 - [ ] card
 - [ ] carousel
@@ -46,12 +47,15 @@ What kind of change does this PR introduce?
 - [ ] data-table
 - [ ] date-picker
 - [ ] dialog
+- [ ] empty
 - [ ] dropdown-menu
 - [ ] form-field
 - [ ] hover-card
 - [ ] icon
 - [ ] input
+- [ ] input-group
 - [ ] input-otp
+- [ ] kbd
 - [ ] label
 - [ ] menubar
 - [ ] navigation-menu
@@ -64,6 +68,7 @@ What kind of change does this PR introduce?
 - [ ] select
 - [ ] separator
 - [ ] sheet
+- [ ] sidebar
 - [ ] skeleton
 - [ ] slider
 - [ ] sonner

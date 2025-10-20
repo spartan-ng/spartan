@@ -1,5 +1,5 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { BooleanInput } from '@angular/cdk/coercion';
+import type { BooleanInput } from '@angular/cdk/coercion';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
 	type AfterContentInit,
@@ -24,8 +24,8 @@ import {
 	viewChild,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
+import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 
 export const BRN_SWITCH_VALUE_ACCESSOR = {
 	provide: NG_VALUE_ACCESSOR,
@@ -96,6 +96,9 @@ export class BrnSwitch implements AfterContentInit, OnDestroy, ControlValueAcces
 	 */
 	public readonly checked = model<boolean>(false);
 
+	/** Emits when checked state changes. */
+	public readonly checkedChange = output<boolean>();
+
 	/**
 	 * Unique identifier for switch component.
 	 * When provided, inner button gets ID without '-switch' suffix.
@@ -150,12 +153,6 @@ export class BrnSwitch implements AfterContentInit, OnDestroy, ControlValueAcces
 	 * @default 0
 	 */
 	public readonly tabIndex = input(0);
-
-	/**
-	 * Event emitted when switch value changes.
-	 * Emits new checked state (true/false).
-	 */
-	public readonly changed = output<boolean>();
 
 	/**
 	 * Event emitted when switch is blurred (loses focus).
@@ -217,7 +214,7 @@ export class BrnSwitch implements AfterContentInit, OnDestroy, ControlValueAcces
 
 		this.checked.update((checked) => !checked);
 		this._onChange(this.checked());
-		this.changed.emit(this.checked());
+		this.checkedChange.emit(this.checked());
 	}
 
 	public ngAfterContentInit(): void {

@@ -1,5 +1,5 @@
 import { tsquery } from '@phenomnomnominal/tsquery';
-import * as ts from 'typescript';
+import type * as ts from 'typescript';
 
 export function addToExportConstArray(sourceCode: string, newEntry: string): string {
 	const ast = tsquery.ast(sourceCode);

@@ -8,7 +8,7 @@ import { PageNav } from '@spartan-ng/app/app/shared/layout/page-nav/page-nav';
 import { SectionIntro } from '@spartan-ng/app/app/shared/layout/section-intro';
 import { SectionSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-heading';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
-import { HlmAlert } from '@spartan-ng/helm/alert';
+import { HlmAlertImports } from '@spartan-ng/helm/alert';
 import { hlmCode, hlmH4, hlmP, hlmSmall } from '@spartan-ng/helm/typography';
 
 export const routeMeta: RouteMeta = {
@@ -19,7 +19,16 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-theming',
-	imports: [MainSection, SectionIntro, PageBottomNav, PageBottomNavLink, PageNav, SectionSubHeading, Code, HlmAlert],
+	imports: [
+		MainSection,
+		SectionIntro,
+		PageBottomNav,
+		PageBottomNavLink,
+		PageNav,
+		SectionSubHeading,
+		Code,
+		HlmAlertImports,
+	],
 	template: `
 		<section spartanMainSection>
 			<spartan-section-intro name="Theming" lead="Using CSS Variables for theming." />
@@ -73,16 +82,17 @@ export const routeMeta: RouteMeta = {
 				</p>
 				<spartan-code class="mt-4" code='<div class="bg-primary text-primary-foreground">Hello</div>' />
 				<div class="mt-4 text-sm" hlmAlert>
+					<h4 hlmAlertTitle>Tailwind CSS v3 - CSS variables limitation</h4>
 					<div hlmAlertDescription>
 						<p>
-							<span class="font-semibold">CSS variables must be defined without color space function.</span>
-							See the
+							<span class="font-semibold">CSS variables must be defined without color space function,</span>
+							otherwise opacity modifier syntax won't work. See the
 							<a
 								class="font-medium underline"
-								href="https://tailwindcss.com/docs/customizing-colors#using-css-variables"
+								href="https://v3.tailwindcss.com/docs/customizing-colors#using-css-variables"
 								target="_blank"
 							>
-								Tailwind CSS documentation
+								Tailwind CSS v3 documentation
 							</a>
 							for more information.
 						</p>

@@ -11,11 +11,11 @@ import {
 	lucideX,
 } from '@ng-icons/lucide';
 import { BrnCommandImports } from '@spartan-ng/brain/command';
-import { BrnDialog, BrnDialogClose, BrnDialogContent, BrnDialogOverlay } from '@spartan-ng/brain/dialog';
-import { HlmButton } from '@spartan-ng/helm/button';
+import { BrnDialogImports } from '@spartan-ng/brain/dialog';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmCommandImports } from '@spartan-ng/helm/command';
-import { HlmDialogOverlay } from '@spartan-ng/helm/dialog';
-import { HlmIcon } from '@spartan-ng/helm/icon';
+import { HlmDialogImports } from '@spartan-ng/helm/dialog';
+import { HlmIconImports } from '@spartan-ng/helm/icon';
 import { HlmCode } from '@spartan-ng/helm/typography';
 
 @Component({
@@ -36,13 +36,10 @@ import { HlmCode } from '@spartan-ng/helm/typography';
 		BrnCommandImports,
 		HlmCommandImports,
 		NgIcon,
-		HlmIcon,
-		HlmButton,
-		BrnDialog,
-		BrnDialogClose,
-		BrnDialogContent,
-		BrnDialogOverlay,
-		HlmDialogOverlay,
+		HlmIconImports,
+		HlmButtonImports,
+		BrnDialogImports,
+		HlmDialogImports,
 		HlmCode,
 	],
 	template: `
@@ -109,8 +106,8 @@ import { HlmCode } from '@spartan-ng/helm/typography';
 	},
 })
 export class CommandDialog {
-	public command = signal('');
-	public state = signal<'closed' | 'open'>('closed');
+	public readonly command = signal('');
+	public readonly state = signal<'closed' | 'open'>('closed');
 
 	onKeyDown(event: KeyboardEvent) {
 		if ((event.metaKey || event.ctrlKey) && event.shiftKey && (event.key === 'p' || event.key === 'P')) {

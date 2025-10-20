@@ -10,11 +10,11 @@ import { Header } from './shared/header/header';
 		class: 'text-foreground block antialiased',
 	},
 	template: `
-		<spartan-header />
-		<div class="mx-auto max-w-screen-2xl">
+		<spartan-header id="spartan-header" />
+		<div class="mx-auto max-w-screen-2xl" id="spartan-main">
 			<router-outlet />
 		</div>
-		<spartan-footer />
+		<spartan-footer id="spartan-footer" />
 	`,
 })
 export class App {}

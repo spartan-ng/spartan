@@ -1,59 +1,64 @@
 {
 	"generators": {
-		"ui": {
-			"factory": "./src/generators/ui/generator",
-			"schema": "./src/generators/ui/schema.json",
-			"description": "spartan-ng ui generator"
+		"healthcheck": {
+			"factory": "./src/generators/healthcheck/generator",
+			"schema": "./src/generators/healthcheck/schema.json",
+			"description": "Run a healthcheck on the project to identify any potential issues or outdated code."
 		},
-		"ui-theme": {
-			"factory": "./src/generators/theme/generator",
-			"schema": "./src/generators/theme/schema.json",
-			"description": "spartan-ng theme generator"
+		"migrate-brain-accordion-trigger": {
+			"factory": "./src/generators/migrate-brain-accordion-trigger/generator",
+			"schema": "./src/generators/migrate-brain-accordion-trigger/schema.json",
+			"description": "Migrate brain accordion trigger to be wrapped by a heading element."
 		},
 		"migrate-brain-imports": {
 			"factory": "./src/generators/migrate-brain-imports/generator",
 			"schema": "./src/generators/migrate-brain-imports/schema.json",
 			"description": "Migrate Brain imports to use secondary entrypoints."
 		},
-		"migrate-scroll-area": {
-			"factory": "./src/generators/migrate-scroll-area/generator",
-			"schema": "./src/generators/migrate-scroll-area/schema.json",
-			"description": "Migrate hlm-scroll-area to ngx-scrollbar"
+		"migrate-brn-checkbox-changed-event": {
+			"factory": "./src/generators/migrate-brn-checkbox-changed-event/compat",
+			"schema": "./src/generators/migrate-brn-checkbox-changed-event/schema.json",
+			"description": "Migrate brn-checkbox changed event to checkedChange"
+		},
+		"migrate-brn-switch-changed-event": {
+			"factory": "./src/generators/migrate-brn-switch-changed-event/compat",
+			"schema": "./src/generators/migrate-brn-switch-changed-event/schema.json",
+			"description": "Migrate brn-switch changed event to checkedChange"
+		},
+		"migrate-core": {
+			"factory": "./src/generators/migrate-core/generator",
+			"schema": "./src/generators/migrate-core/schema.json",
+			"description": "Migrate core library to brain core entrypoint"
+		},
+		"migrate-date-picker": {
+			"factory": "./src/generators/migrate-date-picker/generator",
+			"schema": "./src/generators/migrate-date-picker/schema.json",
+			"description": "Migrate hlm-date-picker changed event to dateChange"
+		},
+		"migrate-helm-imports": {
+			"factory": "./src/generators/migrate-helm-imports/generator",
+			"schema": "./src/generators/migrate-helm-imports/schema.json",
+			"description": "Migrate Helm imports to use the new imports structure."
+		},
+		"migrate-helm-libraries": {
+			"factory": "./src/generators/migrate-helm-libraries/generator",
+			"schema": "./src/generators/migrate-helm-libraries/schema.json",
+			"description": "Migrate Helm libraries to their latest versions"
+		},
+		"migrate-hlm": {
+			"factory": "./src/generators/migrate-hlm/generator",
+			"schema": "./src/generators/migrate-hlm/schema.json",
+			"description": "Migrate hlm import from @spartan-ng/brain to @spartan-ng/helm/utils"
 		},
 		"migrate-icon": {
 			"factory": "./src/generators/migrate-icon/generator",
 			"schema": "./src/generators/migrate-icon/schema.json",
 			"description": "Migrate hlm-icon to ng-icon"
 		},
-		"migrate-radio": {
-			"factory": "./src/generators/migrate-radio/generator",
-			"schema": "./src/generators/migrate-radio/schema.json",
-			"description": "Migrate brn-radio to hlm-radio"
-		},
-		"migrate-toggle-group": {
-			"factory": "./src/generators/migrate-toggle-group/generator",
-			"schema": "./src/generators/migrate-toggle-group/schema.json",
-			"description": "Migrate brn-toggle-group from @spartan-ng/brain/toggle to @spartan-ng/brain/toggle-group"
-		},
-		"migrate-select": {
-			"factory": "./src/generators/migrate-select/generator",
-			"schema": "./src/generators/migrate-select/schema.json",
-			"description": "Migrate brn-select and hlm-select to use openChange and active descendants"
-		},
-		"migrate-core": {
-			"factory": "./src/generators/migrate-core/generator",
-			"schema": "./src/generators/migrate-core/schema.json",
-			"description": "Migrate core library to brain core entrypoing"
-		},
-		"healthcheck": {
-			"factory": "./src/generators/healthcheck/generator",
-			"schema": "./src/generators/healthcheck/schema.json",
-			"description": "Run a healthcheck on the project to identify any potential issues or outdated code."
-		},
-		"migrate-helm-libraries": {
-			"factory": "./src/generators/migrate-helm-libraries/generator",
-			"schema": "./src/generators/migrate-helm-libraries/schema.json",
-			"description": "Migrate Helm libraries to their latest versions"
+		"migrate-module-imports": {
+			"factory": "./src/generators/migrate-module-imports/generator",
+			"schema": "./src/generators/migrate-module-imports/schema.json",
+			"description": "Migrate module imports to const imports"
 		},
 		"migrate-naming-conventions": {
 			"factory": "./src/generators/migrate-naming-convention/generator",
@@ -65,78 +70,102 @@
 			"schema": "./src/generators/migrate-progress/schema.json",
 			"description": "Migrate brn-progress to hlm-progress"
 		},
-
-		"migrate-date-picker": {
-			"factory": "./src/generators/migrate-date-picker/generator",
-			"schema": "./src/generators/migrate-date-picker/schema.json",
-			"description": "Migrate hlm-date-picker changed event to dateChange"
+		"migrate-radio": {
+			"factory": "./src/generators/migrate-radio/generator",
+			"schema": "./src/generators/migrate-radio/schema.json",
+			"description": "Migrate brn-radio to hlm-radio"
 		},
-		"migrate-hlm": {
-			"factory": "./src/generators/migrate-hlm/generator",
-			"schema": "./src/generators/migrate-hlm/schema.json",
-			"description": "Migrate hlm import from @spartan-ng/brain to @spartan-ng/helm/utils"
+		"migrate-scroll-area": {
+			"factory": "./src/generators/migrate-scroll-area/generator",
+			"schema": "./src/generators/migrate-scroll-area/schema.json",
+			"description": "Migrate hlm-scroll-area to ngx-scrollbar"
+		},
+		"migrate-select": {
+			"factory": "./src/generators/migrate-select/generator",
+			"schema": "./src/generators/migrate-select/schema.json",
+			"description": "Migrate brn-select and hlm-select to use openChange and active descendants"
 		},
 		"migrate-separator": {
 			"factory": "./src/generators/migrate-separator/generator",
 			"schema": "./src/generators/migrate-separator/schema.json",
 			"description": "Migrate brn-separator to hlm-separator"
-		}
-	},
-	"schematics": {
+		},
+		"migrate-toggle-group": {
+			"factory": "./src/generators/migrate-toggle-group/generator",
+			"schema": "./src/generators/migrate-toggle-group/schema.json",
+			"description": "Migrate brn-toggle-group from @spartan-ng/brain/toggle to @spartan-ng/brain/toggle-group"
+		},
 		"ui": {
-			"factory": "./src/generators/ui/compat",
+			"factory": "./src/generators/ui/generator",
 			"schema": "./src/generators/ui/schema.json",
 			"description": "spartan-ng ui generator"
 		},
 		"ui-theme": {
-			"factory": "./src/generators/theme/compat",
+			"factory": "./src/generators/theme/generator",
 			"schema": "./src/generators/theme/schema.json",
 			"description": "spartan-ng theme generator"
+		}
+	},
+	"schematics": {
+		"healthcheck": {
+			"factory": "./src/generators/healthcheck/compat",
+			"schema": "./src/generators/healthcheck/schema.json",
+			"description": "Run a healthcheck on the project to identify any potential issues or outdated code."
+		},
+		"migrate-brain-accordion-trigger": {
+			"factory": "./src/generators/migrate-brain-accordion-trigger/compat",
+			"schema": "./src/generators/migrate-brain-accordion-trigger/schema.json",
+			"description": "Migrate brain accordion trigger to be wrapped by a heading element."
 		},
 		"migrate-brain-imports": {
 			"factory": "./src/generators/migrate-brain-imports/compat",
 			"schema": "./src/generators/migrate-brain-imports/schema.json",
 			"description": "Migrate Brain imports to use secondary entrypoints."
 		},
+		"migrate-brn-checkbox-changed-event": {
+			"factory": "./src/generators/migrate-brn-checkbox-changed-event/compat",
+			"schema": "./src/generators/migrate-brn-checkbox-changed-event/schema.json",
+			"description": "Migrate brn-checkbox changed event to checkedChange"
+		},
+		"migrate-brn-switch-changed-event": {
+			"factory": "./src/generators/migrate-brn-switch-changed-event/compat",
+			"schema": "./src/generators/migrate-brn-switch-changed-event/schema.json",
+			"description": "Migrate brn-switch changed event to checkedChange"
+		},
+		"migrate-core": {
+			"factory": "./src/generators/migrate-scroll-area/compat",
+			"schema": "./src/generators/migrate-core/schema.json",
+			"description": "Migrate core library to brain core entrypoint"
+		},
+		"migrate-date-picker": {
+			"factory": "./src/generators/migrate-date-picker/compat",
+			"schema": "./src/generators/migrate-date-picker/schema.json",
+			"description": "Migrate hlm-date-picker changed event to dateChange"
+		},
 		"migrate-helm-imports": {
 			"factory": "./src/generators/migrate-helm-imports/compat",
 			"schema": "./src/generators/migrate-helm-imports/schema.json",
 			"description": "Migrate Helm imports to use the new imports structure."
 		},
-		"migrate-scroll-area": {
-			"factory": "./src/generators/migrate-scroll-area/compat",
-			"schema": "./src/generators/migrate-scroll-area/schema.json",
-			"description": "Migrate hlm-scroll-area to ngx-scrollbar"
+		"migrate-helm-libraries": {
+			"factory": "./src/generators/migrate-helm-libraries/compat",
+			"schema": "./src/generators/migrate-helm-libraries/schema.json",
+			"description": "Migrate Helm libraries to their latest versions"
+		},
+		"migrate-hlm": {
+			"factory": "./src/generators/migrate-hlm/compat",
+			"schema": "./src/generators/migrate-hlm/schema.json",
+			"description": "Migrate hlm import from @spartan-ng/brain to @spartan-ng/helm/utils"
 		},
 		"migrate-icon": {
 			"factory": "./src/generators/migrate-icon/compat",
 			"schema": "./src/generators/migrate-icon/schema.json",
 			"description": "Migrate hlm-icon to ng-icon"
 		},
-		"migrate-radio": {
-			"factory": "./src/generators/migrate-radio/compat",
-			"schema": "./src/generators/migrate-radio/schema.json",
-			"description": "Migrate brn-radio to hlm-radio"
-		},
-		"migrate-select": {
-			"factory": "./src/generators/migrate-select/compat",
-			"schema": "./src/generators/migrate-select/schema.json",
-			"description": "Migrate brn-select and hlm-select to use openChange and active descendants"
-		},
-		"migrate-core": {
-			"factory": "./src/generators/migrate-scroll-area/compat",
-			"schema": "./src/generators/migrate-core/schema.json",
-			"description": "Migrate core library to brain core entrypoing"
-		},
-		"healthcheck": {
-			"factory": "./src/generators/healthcheck/compat",
-			"schema": "./src/generators/healthcheck/schema.json",
-			"description": "Run a healthcheck on the project to identify any potential issues or outdated code."
-		},
-		"migrate-helm-libraries": {
-			"factory": "./src/generators/migrate-helm-libraries/compat",
-			"schema": "./src/generators/migrate-helm-libraries/schema.json",
-			"description": "Migrate Helm libraries to their latest versions"
+		"migrate-module-imports": {
+			"factory": "./src/generators/migrate-module-imports/compat",
+			"schema": "./src/generators/migrate-module-imports/schema.json",
+			"description": "Migrate module imports to const imports"
 		},
 		"migrate-naming-conventions": {
 			"factory": "./src/generators/migrate-naming-convention/compat",
@@ -148,15 +177,40 @@
 			"schema": "./src/generators/migrate-progress/schema.json",
 			"description": "Migrate brn-progress to hlm-progress"
 		},
-		"migrate-date-picker": {
-			"factory": "./src/generators/migrate-date-picker/compat",
-			"schema": "./src/generators/migrate-date-picker/schema.json",
-			"description": "Migrate hlm-date-picker changed event to dateChange"
+		"migrate-radio": {
+			"factory": "./src/generators/migrate-radio/compat",
+			"schema": "./src/generators/migrate-radio/schema.json",
+			"description": "Migrate brn-radio to hlm-radio"
 		},
-		"migrate-hlm": {
-			"factory": "./src/generators/migrate-hlm/compat",
-			"schema": "./src/generators/migrate-hlm/schema.json",
-			"description": "Migrate hlm import from @spartan-ng/brain to @spartan-ng/helm/utils"
+		"migrate-scroll-area": {
+			"factory": "./src/generators/migrate-scroll-area/compat",
+			"schema": "./src/generators/migrate-scroll-area/schema.json",
+			"description": "Migrate hlm-scroll-area to ngx-scrollbar"
+		},
+		"migrate-select": {
+			"factory": "./src/generators/migrate-select/compat",
+			"schema": "./src/generators/migrate-select/schema.json",
+			"description": "Migrate brn-select and hlm-select to use openChange and active descendants"
+		},
+		"migrate-separator": {
+			"factory": "./src/generators/migrate-separator/compat",
+			"schema": "./src/generators/migrate-separator/schema.json",
+			"description": "Migrate brn-separator to hlm-separator"
+		},
+		"migrate-toggle-group": {
+			"factory": "./src/generators/migrate-toggle-group/compat",
+			"schema": "./src/generators/migrate-toggle-group/schema.json",
+			"description": "Migrate brn-toggle-group from @spartan-ng/brain/toggle to @spartan-ng/brain/toggle-group"
+		},
+		"ui": {
+			"factory": "./src/generators/ui/compat",
+			"schema": "./src/generators/ui/schema.json",
+			"description": "spartan-ng ui generator"
+		},
+		"ui-theme": {
+			"factory": "./src/generators/theme/compat",
+			"schema": "./src/generators/theme/schema.json",
+			"description": "spartan-ng theme generator"
 		}
 	}
 }

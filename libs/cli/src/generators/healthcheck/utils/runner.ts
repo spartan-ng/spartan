@@ -1,9 +1,9 @@
-import { Tree } from '@nx/devkit';
+import type { Tree } from '@nx/devkit';
 import {
-	Healthcheck,
-	HealthcheckFailureFn,
-	HealthcheckReport,
-	HealthcheckSeverity,
+	type Healthcheck,
+	type HealthcheckFailureFn,
+	type HealthcheckReport,
+	type HealthcheckSeverity,
 	HealthcheckStatus,
 	isHealthcheckFixable,
 } from '../healthchecks';

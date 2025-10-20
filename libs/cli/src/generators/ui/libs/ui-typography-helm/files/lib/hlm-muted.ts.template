@@ -12,5 +12,5 @@ export const hlmMuted = 'text-sm text-muted-foreground';
 })
 export class HlmMuted {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected _computedClass = computed(() => hlm(hlmMuted, this.userClass()));
+	protected readonly _computedClass = computed(() => hlm(hlmMuted, this.userClass()));
 }

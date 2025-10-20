@@ -1,8 +1,8 @@
-import { BooleanInput } from '@angular/cdk/coercion';
+import type { BooleanInput } from '@angular/cdk/coercion';
 import {
+	booleanAttribute,
 	ChangeDetectionStrategy,
 	Component,
-	booleanAttribute,
 	computed,
 	forwardRef,
 	input,
@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { provideBrnToggleGroup } from './brn-toggle-group.token';
-import { BrnToggleGroupItem } from './brn-toggle-item';
+import type { BrnToggleGroupItem } from './brn-toggle-item';
 
 export const BRN_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR = {
 	provide: NG_VALUE_ACCESSOR,
@@ -62,6 +62,9 @@ export class BrnToggleGroup<T = unknown> implements ControlValueAccessor {
 
 	/** Value of the toggle group. */
 	public readonly value = model<ToggleValue<T>>(undefined);
+
+	/** Emits when the value changes. */
+	public readonly valueChange = output<ToggleValue<T>>();
 
 	/** Whether no button toggles need to be selected. */
 	public readonly nullable = input<boolean, BooleanInput>(false, {
@@ -186,6 +189,7 @@ export class BrnToggleGroup<T = unknown> implements ControlValueAccessor {
 	/** Update the value of the group */
 	private emitSelectionChange(value: ToggleValue<T>, source: BrnToggleGroupItem<T>): void {
 		this.value.set(value);
+		this.valueChange.emit(value);
 		this._onChange(value);
 		this.change.emit(new BrnButtonToggleChange<T>(source, this.value()));
 	}

@@ -1,6 +1,6 @@
-import { formatFiles, Tree } from '@nx/devkit';
+import { formatFiles, type Tree } from '@nx/devkit';
 import { visitFiles } from '../../utils/visit-files';
-import { MigrateSeparatorGeneratorSchema } from './schema';
+import type { MigrateSeparatorGeneratorSchema } from './schema';
 
 export async function migrateSeparatorGenerator(tree: Tree, { skipFormat }: MigrateSeparatorGeneratorSchema) {
 	updateImports(tree);

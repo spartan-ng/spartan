@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { BrnPopover, BrnPopoverContent, BrnPopoverTrigger } from '@spartan-ng/brain/popover';
-import { HlmButton } from '@spartan-ng/helm/button';
-import { HlmInput } from '@spartan-ng/helm/input';
-import { HlmLabel } from '@spartan-ng/helm/label';
-import { HlmPopoverContent } from '@spartan-ng/helm/popover';
+import { BrnPopoverImports } from '@spartan-ng/brain/popover';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmInputImports } from '@spartan-ng/helm/input';
+import { HlmLabelImports } from '@spartan-ng/helm/label';
+import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 
 @Component({
 	selector: 'spartan-popover-preview',
-	imports: [BrnPopover, BrnPopoverTrigger, BrnPopoverContent, HlmPopoverContent, HlmButton, HlmLabel, HlmInput],
+	imports: [BrnPopoverImports, HlmPopoverImports, HlmButtonImports, HlmLabelImports, HlmInputImports],
 	template: `
 		<brn-popover sideOffset="5">
 			<button id="edit-profile" variant="outline" brnPopoverTrigger hlmBtn>Open Popover</button>
@@ -41,13 +41,8 @@ import { HlmPopoverContent } from '@spartan-ng/helm/popover';
 export class PopoverPreview {}
 
 export const defaultImports = `
-import {
-  BrnPopoverClose
-  BrnPopover
-  BrnPopoverContent
-  BrnPopoverTrigger
-} from '@spartan-ng/brain/popover';
-import { HlmPopoverClose, HlmPopoverContent } from '@spartan-ng/helm/popover';
+import { BrnPopoverImports } from '@spartan-ng/brain/popover';
+import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 `;
 export const defaultSkeleton = `
  <brn-popover>

@@ -1,12 +1,12 @@
 import { type GeneratorCallback, type Tree, getProjects, runTasksInSerial } from '@nx/devkit';
 import { prompt } from 'enquirer';
-import { Config, getOrCreateConfig } from '../../utils/config';
-import { GenerateAs } from '../base/lib/generate-as';
+import { type Config, getOrCreateConfig } from '../../utils/config';
+import type { GenerateAs } from '../base/lib/generate-as';
 import { initializeAngularEntrypoint } from '../base/lib/initialize-angular-library';
 import { singleLibName } from '../base/lib/single-lib-name';
 import type { HlmBaseGeneratorSchema } from '../base/schema';
 import { addDependentPrimitives } from './add-dependent-primitive';
-import { Primitive } from './primitives';
+import type { Primitive } from './primitives';
 import type { HlmUIGeneratorSchema } from './schema';
 
 type PrimitiveResponse = Primitive | 'all';
@@ -54,7 +54,7 @@ export async function createPrimitiveLibraries(
 	tree: Tree,
 	options: HlmUIGeneratorSchema & {
 		angularCli?: boolean;
-		installPeerDependencies?: boolean;
+		installPeerDependencies?: boolean | string | undefined;
 		buildable?: boolean;
 		generateAs?: GenerateAs;
 		importAlias?: string;
@@ -64,8 +64,14 @@ export async function createPrimitiveLibraries(
 	const allPrimitivesSelected = response.primitives.includes('all');
 	const primitivesToCreate = allPrimitivesSelected ? availablePrimitiveNames : response.primitives;
 	const tasks: GeneratorCallback[] = [];
+	const installPeerDependencies =
+		options.installPeerDependencies === undefined
+			? true
+			: typeof options.installPeerDependencies === 'string'
+				? options.installPeerDependencies === 'true'
+				: options.installPeerDependencies;
 
-	if (!response.primitives.includes('all') && options.installPeerDependencies) {
+	if (!response.primitives.includes('all') && installPeerDependencies) {
 		await addDependentPrimitives(primitivesToCreate, false);
 	}
 	await replaceContextAndMenuBar(primitivesToCreate, allPrimitivesSelected);

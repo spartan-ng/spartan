@@ -1,6 +1,6 @@
 import { logger } from '@nx/devkit';
 import pc from 'picocolors';
-import { HealthcheckReport, HealthcheckSeverity, HealthcheckStatus } from '../healthchecks';
+import { type HealthcheckReport, HealthcheckSeverity, HealthcheckStatus } from '../healthchecks';
 
 export function printReport(report: HealthcheckReport): void {
 	logger.log(`${getStatus(report.status)} ${report.name}`);

@@ -1,5 +1,3 @@
-import { NgModule } from '@angular/core';
-
 import { BrnAlertDialog } from './lib/brn-alert-dialog';
 import { BrnAlertDialogContent } from './lib/brn-alert-dialog-content';
 import { BrnAlertDialogDescription } from './lib/brn-alert-dialog-description';
@@ -22,9 +20,3 @@ export const BrnAlertDialogImports = [
 	BrnAlertDialogTitle,
 	BrnAlertDialogDescription,
 ] as const;
-
-@NgModule({
-	imports: [...BrnAlertDialogImports],
-	exports: [...BrnAlertDialogImports],
-})
-export class BrnAlertDialogModule {}

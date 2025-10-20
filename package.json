@@ -25,7 +25,7 @@
 		"start": "nx serve app",
 		"storybook": "nx storybook ui-storybook",
 		"test": "nx run-many --target test --all",
-		"update-ui-docs-snapshot": "nx run tools:generate-ui-docs && npm test -- libs/tools/src/executors/docs/generate-ui-docs/executor.spec.ts --updateSnapshot"
+		"update-ui-docs-snapshot": "nx run tools:generate-ui-docs && npm test -- libs/tools/src/executors/docs/generate-ui-docs/executor.spec.ts --updateSnapshot --skip-cache"
 	},
 	"dependencies": {
 		"@analogjs/content": "1.19.3",
@@ -45,7 +45,7 @@
 		"@docsearch/css": "^3.9.0",
 		"@docsearch/js": "^3.9.0",
 		"@fontsource/geist-sans": "^5.2.5",
-		"@ng-icons/core": "31.4.0",
+		"@ng-icons/core": "32.2.0",
 		"@nx/angular": "20.8.1",
 		"@nx/devkit": "20.8.1",
 		"@nx/plugin": "20.8.1",
@@ -72,6 +72,7 @@
 		"ng-signal-forms": "^1.14.0",
 		"ngx-scrollbar": "18.0.0",
 		"ngx-sonner": "3.0.0",
+		"node-html-parser": "^7.0.1",
 		"ofetch": "^1.4.0",
 		"ohash": "^1.1.4",
 		"postgres": "^3.4.4",
@@ -101,8 +102,9 @@
 		"@commitlint/config-conventional": "^19.5.0",
 		"@eslint/js": "^9.15.0",
 		"@faker-js/faker": "^9.0.3",
-		"@ng-icons/lucide": "31.4.0",
-		"@ng-icons/remixicon": "31.4.0",
+		"@ng-icons/lucide": "32.2.0",
+		"@ng-icons/remixicon": "32.2.0",
+		"@ng-icons/tabler-icons": "32.2.0",
 		"@ngtools/webpack": "19.1.7",
 		"@nx/cypress": "20.8.1",
 		"@nx/eslint": "20.8.1",

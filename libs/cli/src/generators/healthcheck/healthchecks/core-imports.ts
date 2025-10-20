@@ -1,6 +1,6 @@
 import { visitNotIgnoredFiles } from '@nx/devkit';
 import { migrateCoreGenerator } from '../../migrate-core/generator';
-import { Healthcheck, HealthcheckSeverity } from '../healthchecks';
+import { type Healthcheck, HealthcheckSeverity } from '../healthchecks';
 
 export const coreImportsHealthcheck: Healthcheck = {
 	name: 'Core imports',

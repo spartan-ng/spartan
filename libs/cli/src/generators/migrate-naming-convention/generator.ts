@@ -1,8 +1,8 @@
-import { formatFiles, Tree } from '@nx/devkit';
+import { formatFiles, type Tree } from '@nx/devkit';
 import { tsquery } from '@phenomnomnominal/tsquery';
-import * as ts from 'typescript';
+import type * as ts from 'typescript';
 import { visitFiles } from '../../utils/visit-files';
-import { MigrateNamingConventionsGeneratorSchema } from './schema';
+import type { MigrateNamingConventionsGeneratorSchema } from './schema';
 
 export async function migrateNamingConventionGenerator(
 	tree: Tree,

@@ -1,31 +1,31 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { BooleanInput } from '@angular/cdk/coercion';
+import type { BooleanInput } from '@angular/cdk/coercion';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
 	type AfterContentInit,
+	booleanAttribute,
 	ChangeDetectionStrategy,
 	ChangeDetectorRef,
 	Component,
-	DestroyRef,
-	ElementRef,
-	type OnDestroy,
-	PLATFORM_ID,
-	Renderer2,
-	booleanAttribute,
 	computed,
+	DestroyRef,
 	effect,
+	ElementRef,
 	forwardRef,
 	inject,
 	input,
 	linkedSignal,
 	model,
+	type OnDestroy,
 	output,
+	PLATFORM_ID,
+	Renderer2,
 	signal,
 	viewChild,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
+import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 
 export const BRN_CHECKBOX_VALUE_ACCESSOR = {
 	provide: NG_VALUE_ACCESSOR,
@@ -95,6 +95,9 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 	 * Can be bound with [(checked)] for two-way binding.
 	 */
 	public readonly checked = model<BrnCheckboxValue>(false);
+
+	/** Emits when checked state changes. */
+	public readonly checkedChange = output<BrnCheckboxValue>();
 
 	/**
 	 * Read-only signal of current checkbox state.
@@ -194,12 +197,6 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 	public readonly checkbox = viewChild.required<ElementRef<HTMLButtonElement>>('checkBox');
 
 	/**
-	 * Event emitted when checkbox value changes.
-	 * Emits new checked state (true/false/'indeterminate').
-	 */
-	public readonly changed = output<BrnCheckboxValue>();
-
-	/**
 	 * Event emitted when checkbox is blurred (loses focus).
 	 * Used for form validation.
 	 */
@@ -244,7 +241,7 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 		const previousChecked = this.checked();
 		this.checked.set(previousChecked === 'indeterminate' ? true : !previousChecked);
 		this._onChange(this.checked());
-		this.changed.emit(this.checked());
+		this.checkedChange.emit(this.checked());
 	}
 
 	ngAfterContentInit() {

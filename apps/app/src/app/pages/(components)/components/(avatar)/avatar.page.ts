@@ -69,7 +69,7 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="badge" label="Badge" />
-				<spartan-page-bottom-nav-link direction="previous" href="aspect-ratio" label="Aspect Ratio" />
+				<spartan-page-bottom-nav-link direction="previous" href="autocomplete" label="Autocomplete" />
 			</spartan-page-bottom-nav>
 		</section>
 		<spartan-page-nav />

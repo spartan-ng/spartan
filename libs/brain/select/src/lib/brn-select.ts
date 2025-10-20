@@ -1,4 +1,4 @@
-import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
+import type { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import { CdkListboxModule } from '@angular/cdk/listbox';
 import {
 	CdkConnectedOverlay,
@@ -7,20 +7,21 @@ import {
 	OverlayModule,
 } from '@angular/cdk/overlay';
 import {
+	booleanAttribute,
 	ChangeDetectionStrategy,
 	Component,
-	type DoCheck,
-	Injector,
-	type Signal,
-	booleanAttribute,
 	computed,
 	contentChild,
 	contentChildren,
+	type DoCheck,
 	forwardRef,
 	inject,
+	Injector,
 	input,
 	model,
 	numberAttribute,
+	output,
+	type Signal,
 	signal,
 	viewChild,
 } from '@angular/core';
@@ -33,13 +34,13 @@ import {
 	provideExposesStateProviderExisting,
 } from '@spartan-ng/brain/core';
 import { BrnFormFieldControl } from '@spartan-ng/brain/form-field';
-import { ChangeFn, ErrorStateMatcher, ErrorStateTracker, TouchFn } from '@spartan-ng/brain/forms';
+import { type ChangeFn, ErrorStateMatcher, ErrorStateTracker, type TouchFn } from '@spartan-ng/brain/forms';
 import { BrnLabel } from '@spartan-ng/brain/label';
-import { Subject, of } from 'rxjs';
+import { of, Subject } from 'rxjs';
 import { delay, map, switchMap } from 'rxjs/operators';
 import { BrnSelectContent } from './brn-select-content';
 import { BrnSelectOption } from './brn-select-option';
-import { BrnSelectTrigger } from './brn-select-trigger';
+import type { BrnSelectTrigger } from './brn-select-trigger';
 import { provideBrnSelect } from './brn-select.token';
 
 export type BrnReadDirection = 'ltr' | 'rtl';
@@ -61,7 +62,7 @@ let nextId = 0;
 	],
 	template: `
 		@if (!_selectLabel() && placeholder()) {
-			<label class="hidden" [attr.id]="labelId()">{{ placeholder() }}</label>
+			<label style="display: none;" [attr.id]="labelId()">{{ placeholder() }}</label>
 		} @else {
 			<ng-content select="label[hlmLabel],label[brnLabel]" />
 		}
@@ -111,6 +112,7 @@ export class BrnSelect<T = unknown>
 
 	public readonly open = model<boolean>(false);
 	public readonly value = model<T | T[]>();
+	public readonly valueChange = output<T | T[]>();
 	public readonly compareWith = input<(o1: T, o2: T) => boolean>((o1, o2) => o1 === o2);
 	public readonly formDisabled = signal(false);
 
@@ -266,8 +268,10 @@ export class BrnSelect<T = unknown>
 			const currentValue = this.value() as T[];
 			const newValue = currentValue ? [...currentValue, value] : [value];
 			this.value.set(newValue);
+			this.valueChange.emit(newValue);
 		} else {
 			this.value.set(value);
+			this.valueChange.emit(value);
 		}
 
 		this._onChange?.(this.value() as T | T[]);
@@ -281,9 +285,12 @@ export class BrnSelect<T = unknown>
 	deselectOption(value: T): void {
 		if (this.multiple()) {
 			const currentValue = this.value() as T[];
-			this.value.set(currentValue.filter((val) => !this.compareWith()(val, value)));
+			const newValue = currentValue.filter((val) => !this.compareWith()(val, value));
+			this.value.set(newValue);
+			this.valueChange.emit(newValue);
 		} else {
 			this.value.set(null as T);
+			this.valueChange.emit(null as T);
 		}
 
 		this._onChange?.(this.value() as T | T[]);

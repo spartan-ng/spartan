@@ -1,5 +1,5 @@
-import { Pipe, PipeTransform } from '@angular/core';
-import { TaskPriority } from '../services/tasks.models';
+import { Pipe, type PipeTransform } from '@angular/core';
+import type { TaskPriority } from '../services/tasks.models';
 
 @Pipe({
 	name: 'priorityIcon',

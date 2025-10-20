@@ -13,8 +13,8 @@ import {
 	HlmMenuLabel,
 	HlmMenuSeparator,
 } from '@spartan-ng/helm/menu';
-import { CellContext, injectFlexRenderContext } from '@tanstack/angular-table';
-import { Task } from '../services/tasks.models';
+import { type CellContext, injectFlexRenderContext } from '@tanstack/angular-table';
+import type { Task } from '../services/tasks.models';
 
 @Component({
 	selector: 'spartan-action-dropdown-tasks',

@@ -291,6 +291,10 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 	/** CONTROL VALUE ACCESSOR */
 	public writeValue(value: T | null): void {
 		this._value.set(value ? value : undefined);
+
+		const searchValue = value ? this.transformValueToSearch()(value) : '';
+		this._search.set(searchValue);
+		this.searchChange.emit(searchValue);
 	}
 
 	public registerOnChange(fn: ChangeFn<T | null>): void {

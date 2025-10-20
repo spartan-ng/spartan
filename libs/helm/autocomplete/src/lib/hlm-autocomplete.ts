@@ -89,7 +89,6 @@ export const HLM_AUTOCOMPLETE_VALUE_ACCESSOR = {
 						[disabled]="_disabled()"
 						[value]="_search()"
 						(input)="_onSearchChanged($event)"
-						(keydown.arrowDown)="_openPopover()"
 					/>
 
 					<button
@@ -152,7 +151,8 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 	private static _id = 0;
 	private readonly _config = injectHlmAutocompleteConfig<T>();
 
-	private readonly _brnPopover = viewChild.required(BrnPopover);
+	private readonly _brnAutocomplete = viewChild.required(BrnAutocomplete);
+
 	private readonly _inputRef = viewChild.required('input', { read: ElementRef });
 
 	protected readonly _elementRef = inject(ElementRef<HTMLElement>);
@@ -232,26 +232,10 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 	protected _onChange?: ChangeFn<T | null>;
 	protected _onTouched?: TouchFn;
 
-	protected _setPopoverState(state: 'open' | 'closed') {
-		if (state === 'open') {
-			this._brnPopover().open();
-		} else {
-			this._brnPopover().close();
-		}
-	}
-
-	protected _openPopover() {
-		if (this._search() || this.filteredOptions().length > 0) {
-			// only open if there's a search term or options to show
-			this._brnPopover().open();
-		}
-	}
-
 	protected _toggleOptions() {
 		if (this._search() || this.filteredOptions().length > 0) {
 			// only toggle if there's a search term or options to show
-			const state = this._brnPopover().stateComputed();
-			this._setPopoverState(state === 'open' ? 'closed' : 'open');
+			this._brnAutocomplete().toggle();
 		}
 
 		this._inputRef().nativeElement.focus();
@@ -264,8 +248,8 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 
 		this._clearOption();
 
-		if (this._brnPopover().stateComputed() !== 'open' && input.value.length > 0) {
-			this._setPopoverState('open');
+		if (!this._brnAutocomplete().isExpanded() && input.value.length > 0) {
+			this._brnAutocomplete().open();
 		}
 	}
 
@@ -285,7 +269,7 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 		this._search.set(searchValue);
 		this.searchChange.emit(searchValue);
 
-		this._setPopoverState('closed');
+		this._brnAutocomplete().close();
 	}
 
 	/** CONTROL VALUE ACCESSOR */

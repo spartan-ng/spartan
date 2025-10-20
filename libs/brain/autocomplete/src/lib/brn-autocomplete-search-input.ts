@@ -44,6 +44,7 @@ export class BrnAutocompleteSearchInput extends DefaultValueAccessor {
 	/** @internal The "real" value of the search input */
 	public readonly valueState = linkedSignal(() => this.value());
 
+	/** Whether the autocomplete panel is expanded */
 	protected readonly _isExpanded = this._autocomplete.isExpanded;
 
 	/** The id of the active option */
@@ -73,6 +74,16 @@ export class BrnAutocompleteSearchInput extends DefaultValueAccessor {
 		if (event.key === 'Enter') {
 			// prevent form submission if inside a form
 			event.preventDefault();
+		}
+
+		if (!this._isExpanded()) {
+			if (event.key === 'ArrowDown') {
+				this._autocomplete.open('first');
+			}
+
+			if (event.key === 'ArrowUp') {
+				this._autocomplete.open('last');
+			}
 		}
 
 		this._autocomplete.keyManager.onKeydown(event);

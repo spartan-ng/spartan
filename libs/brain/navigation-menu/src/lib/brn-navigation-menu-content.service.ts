@@ -14,14 +14,30 @@ import { BehaviorSubject, Observable, of, Subject, switchMap } from 'rxjs';
 export type BrnNavigationMenuContentOptions = Partial<
 	{
 		attachTo: ElementRef;
+		orientation: 'horizontal' | 'vertical';
 	} & OverlayConfig
 >;
 
-const positions: ConnectedPosition[] = [
+const horizontalPositions: ConnectedPosition[] = [
 	{
 		originX: 'start',
 		originY: 'bottom',
 		overlayX: 'start',
+		overlayY: 'top',
+	},
+];
+
+const verticalPositions: ConnectedPosition[] = [
+	{
+		originX: 'end',
+		originY: 'top',
+		overlayX: 'start',
+		overlayY: 'top',
+	},
+	{
+		originX: 'start',
+		originY: 'top',
+		overlayX: 'end',
 		overlayY: 'top',
 	},
 ];
@@ -52,20 +68,34 @@ export class BrnNavigationMenuContentService {
 
 	public setConfig(config: BrnNavigationMenuContentOptions) {
 		this._config = config;
+
 		if (config.attachTo) {
-			this._positionStrategy = this._psBuilder
-				.flexibleConnectedTo(config.attachTo)
-				.withPositions(positions)
-				.withDefaultOffsetY(0)
-				.withDefaultOffsetX(0)
-				.withPush(false);
+			const positions = this._getPositions(config.orientation);
+			this._positionStrategy = this._buildPositionStrategy(config.attachTo, positions);
+
 			this._config = {
 				...this._config,
 				positionStrategy: this._positionStrategy,
 				scrollStrategy: this._overlay.scrollStrategies.reposition(),
 			};
 		}
+
 		this._overlayRef = this._overlay.create(this._config);
+	}
+
+	public updateOrientation(orientation: 'horizontal' | 'vertical') {
+		if (!this._config.attachTo) return;
+
+		const positions = this._getPositions(orientation);
+		this._positionStrategy = this._buildPositionStrategy(this._config.attachTo, positions);
+
+		this._config = {
+			...this._config,
+			positionStrategy: this._positionStrategy,
+			scrollStrategy: this._overlay.scrollStrategies.reposition(),
+		};
+
+		this._overlayRef?.updatePositionStrategy(this._positionStrategy);
 	}
 
 	public setContent(value: TemplateRef<unknown>, vcr: ViewContainerRef) {
@@ -123,5 +153,18 @@ export class BrnNavigationMenuContentService {
 		if (!contentEl) return;
 
 		return getComputedStyle(contentEl).animationName !== 'none';
+	}
+
+	private _getPositions(orientation?: 'horizontal' | 'vertical') {
+		return orientation === 'vertical' ? verticalPositions : horizontalPositions;
+	}
+
+	private _buildPositionStrategy(attachTo: ElementRef, positions: ConnectedPosition[]) {
+		return this._psBuilder
+			.flexibleConnectedTo(attachTo)
+			.withPositions(positions)
+			.withDefaultOffsetY(0)
+			.withDefaultOffsetX(0)
+			.withPush(false);
 	}
 }

@@ -103,7 +103,7 @@ export class BrnNavigationMenu implements OnDestroy {
 		]).pipe(map(([dir, dirChange, fallback]) => dir ?? dirChange ?? fallback)),
 	);
 
-	public readonly context = computed(() => ({ orientation: this.orientation() }));
+	public readonly context = computed(() => ({ orientation: this.orientation(), dir: this._dir() }));
 
 	constructor() {
 		effect(() => {

@@ -1,4 +1,4 @@
-import { Directive, effect, inject, Renderer2, TemplateRef, untracked } from '@angular/core';
+import { computed, Directive, effect, inject, Renderer2, TemplateRef, untracked } from '@angular/core';
 import { Subject } from 'rxjs';
 import { BrnNavigationMenuContentService } from './brn-navigation-menu-content.service';
 import { injectBrnNavigationMenuItem } from './brn-navigation-menu-item.token';
@@ -29,6 +29,8 @@ export class BrnNavigationMenuContent {
 
 	private readonly _contentEl = this._contentService.contentEl;
 
+	private readonly _orientation = computed(() => this._navigationMenu.context().orientation);
+
 	constructor() {
 		if (!this._tpl) return;
 		this._navigationMenuItem.contentTemplate.set(this._tpl);
@@ -38,6 +40,13 @@ export class BrnNavigationMenuContent {
 			const el = this._contentEl();
 			if (el) {
 				this._renderer.setAttribute(el, 'data-state', this._state());
+			}
+		});
+
+		effect(() => {
+			const el = this._contentEl();
+			if (el) {
+				this._renderer.setAttribute(el, 'data-orientation', this._orientation());
 			}
 		});
 

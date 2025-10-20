@@ -88,7 +88,7 @@ export const HLM_AUTOCOMPLETE_VALUE_ACCESSOR = {
 						[placeholder]="searchPlaceholderText()"
 						[disabled]="_disabled()"
 						[value]="_search()"
-						(input)="_onSearchChanged($event)"
+						(valueChanged)="_onSearchChanged($event)"
 					/>
 
 					<button
@@ -241,14 +241,13 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 		this._inputRef().nativeElement.focus();
 	}
 
-	protected _onSearchChanged(event: Event) {
-		const input = event.target as HTMLInputElement;
-		this._search.set(input.value);
-		this.searchChange.emit(input.value);
+	protected _onSearchChanged(value: string) {
+		this._search.set(value);
+		this.searchChange.emit(value);
 
 		this._clearOption();
 
-		if (!this._brnAutocomplete().isExpanded() && input.value.length > 0) {
+		if (!this._brnAutocomplete().isExpanded() && value.length > 0) {
 			this._brnAutocomplete().open();
 		}
 	}

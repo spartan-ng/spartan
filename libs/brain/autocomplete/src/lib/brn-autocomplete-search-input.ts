@@ -7,6 +7,7 @@ import {
 	input,
 	linkedSignal,
 	Optional,
+	output,
 	Renderer2,
 	signal,
 } from '@angular/core';
@@ -44,6 +45,9 @@ export class BrnAutocompleteSearchInput extends DefaultValueAccessor {
 	/** @internal The "real" value of the search input */
 	public readonly valueState = linkedSignal(() => this.value());
 
+	/** Emitted when the value changes */
+	public readonly valueChanged = output<string>();
+
 	/** Whether the autocomplete panel is expanded */
 	protected readonly _isExpanded = this._autocomplete.isExpanded;
 
@@ -61,7 +65,9 @@ export class BrnAutocompleteSearchInput extends DefaultValueAccessor {
 			.subscribe(() => this._activeDescendant.set(this._autocomplete.keyManager.activeItem?.id()));
 
 		effect(() => {
-			this.elementRef.nativeElement.value = this.valueState();
+			const value = this.valueState();
+			this.elementRef.nativeElement.value = value;
+			this.valueChanged.emit(value);
 		});
 	}
 	/** Listen for changes to the input value */
@@ -83,6 +89,10 @@ export class BrnAutocompleteSearchInput extends DefaultValueAccessor {
 
 			if (event.key === 'ArrowUp') {
 				this._autocomplete.open('last');
+			}
+
+			if (event.key === 'Escape') {
+				this.valueState.set('');
 			}
 		}
 

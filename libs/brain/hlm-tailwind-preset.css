@@ -24,7 +24,7 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-	--animate-indeterminate: indeterminate 4s ease-in-out;
+	--animate-indeterminate: indeterminate 4s ease-in-out infinite;
 }
 
 @keyframes indeterminate {

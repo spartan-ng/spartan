@@ -1,4 +1,5 @@
 import { computed, Directive, inject, input, signal, TemplateRef } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 import { BrnNavigationMenuContentService } from './brn-navigation-menu-content.service';
 import { provideBrnNavigationMenuItem } from './brn-navigation-menu-item.token';
 import { injectBrnNavigationMenu } from './brn-navigation-menu.token';
@@ -16,6 +17,8 @@ export class BrnNavigationMenuItem {
 	private readonly _navigationMenu = injectBrnNavigationMenu();
 	private readonly _contentService = inject(BrnNavigationMenuContentService);
 
+	public readonly navMenuElRef = this._navigationMenu.el;
+
 	/** The id of the navigation menu item */
 	public readonly id = input<string>(`brn-navigation-menu-item-${++BrnNavigationMenuItem._id}`);
 
@@ -28,4 +31,6 @@ export class BrnNavigationMenuItem {
 	public readonly contentTemplate = signal<TemplateRef<unknown> | null>(null);
 
 	public readonly contentHovered$ = this._contentService.hovered$;
+
+	public readonly subNavHover$ = new Subject<Observable<boolean>>();
 }

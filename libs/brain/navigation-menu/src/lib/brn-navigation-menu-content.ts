@@ -1,10 +1,15 @@
 import { Directive, effect, inject, Renderer2, TemplateRef, untracked } from '@angular/core';
+import { Subject } from 'rxjs';
 import { BrnNavigationMenuContentService } from './brn-navigation-menu-content.service';
 import { injectBrnNavigationMenuItem } from './brn-navigation-menu-item.token';
 import { injectBrnNavigationMenu } from './brn-navigation-menu.token';
+import { provideBrnParentNavMenu } from './brn-parent-nav-menu.token';
+
+const subNavHover$ = new Subject<boolean>();
 
 @Directive({
 	selector: '[brnNavigationMenuContent]',
+	providers: [provideBrnParentNavMenu({ subNavHover$: subNavHover$ })],
 })
 export class BrnNavigationMenuContent {
 	private readonly _navigationMenu = injectBrnNavigationMenu();
@@ -27,6 +32,7 @@ export class BrnNavigationMenuContent {
 	constructor() {
 		if (!this._tpl) return;
 		this._navigationMenuItem.contentTemplate.set(this._tpl);
+		this._navigationMenuItem.subNavHover$.next(subNavHover$);
 
 		effect(() => {
 			const el = this._contentEl();

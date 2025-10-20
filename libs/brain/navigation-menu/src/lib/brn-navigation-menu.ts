@@ -19,6 +19,7 @@ import { computedPrevious } from '@spartan-ng/brain/tooltip';
 import { combineLatest, debounceTime, map, merge, of, startWith, Subject, switchMap, takeUntil } from 'rxjs';
 import { BrnNavigationMenuItem } from './brn-navigation-menu-item';
 import { provideBrnNavigationMenu } from './brn-navigation-menu.token';
+import { injectBrnParentNavMenu } from './brn-parent-nav-menu.token';
 
 @Directive({
 	selector: 'nav[brnNavigationMenu]',
@@ -31,10 +32,12 @@ import { provideBrnNavigationMenu } from './brn-navigation-menu.token';
 })
 export class BrnNavigationMenu implements OnDestroy {
 	private readonly _directionality = inject(Directionality);
-	private readonly _el = inject(ElementRef);
 	private readonly _focusMonitor = inject(FocusMonitor);
 	private readonly _zone = inject(NgZone);
 	private readonly _destroy$ = new Subject<void>();
+
+	public readonly el = inject(ElementRef);
+	public readonly parentNavMenu = injectBrnParentNavMenu();
 
 	/**
 	 * The controlled value of the menu item to activate.
@@ -65,18 +68,22 @@ export class BrnNavigationMenu implements OnDestroy {
 
 	private _skipDelayTimerRef: NodeJS.Timeout | number = 0;
 
-	private readonly _menuItems = contentChildren(BrnNavigationMenuItem, { descendants: true });
+	private readonly _navAndSubnavMenuItems = contentChildren(BrnNavigationMenuItem, { descendants: true });
+
+	private readonly _menuItems = computed(() =>
+		this._navAndSubnavMenuItems().filter((mi) => mi.navMenuElRef === this.el),
+	);
 
 	public readonly menuItemsIds = computed(() => this._menuItems().map((mi) => mi.id()));
 
-	public readonly focused$ = this._focusMonitor.monitor(this._el).pipe(map((e) => e !== null));
+	public readonly focused$ = this._focusMonitor.monitor(this.el).pipe(map((e) => e !== null));
 
 	private readonly _hovered$ = merge(
-		createHoverObservable(this._el.nativeElement, this._zone, this._destroy$),
+		createHoverObservable(this.el.nativeElement, this._zone, this._destroy$),
 		this.focused$,
 	);
 
-	private readonly _contentHovered$ = toObservable(this._menuItems).pipe(
+	private readonly _contentHovered$ = toObservable(this._navAndSubnavMenuItems).pipe(
 		switchMap((menuItems) => merge(...menuItems.map((mi) => mi.contentHovered$))),
 	);
 

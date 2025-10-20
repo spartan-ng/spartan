@@ -17,18 +17,12 @@ export type BrnNavigationMenuContentOptions = Partial<
 	} & OverlayConfig
 >;
 
-const bottomFirstPositions: ConnectedPosition[] = [
+const positions: ConnectedPosition[] = [
 	{
 		originX: 'start',
 		originY: 'bottom',
 		overlayX: 'start',
 		overlayY: 'top',
-	},
-	{
-		originX: 'start',
-		originY: 'top',
-		overlayX: 'start',
-		overlayY: 'bottom',
 	},
 ];
 
@@ -61,9 +55,10 @@ export class BrnNavigationMenuContentService {
 		if (config.attachTo) {
 			this._positionStrategy = this._psBuilder
 				.flexibleConnectedTo(config.attachTo)
-				.withPositions(bottomFirstPositions)
+				.withPositions(positions)
 				.withDefaultOffsetY(0)
-				.withDefaultOffsetX(0);
+				.withDefaultOffsetX(0)
+				.withPush(false);
 			this._config = {
 				...this._config,
 				positionStrategy: this._positionStrategy,

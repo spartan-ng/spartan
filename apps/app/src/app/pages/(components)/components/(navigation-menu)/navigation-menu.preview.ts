@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideChevronDown } from '@ng-icons/lucide';
+import { lucideChevronDown, lucideLink } from '@ng-icons/lucide';
 import { BrnNavigationMenuImports } from '@spartan-ng/brain/navigation-menu';
 import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 
 @Component({
 	selector: 'spartan-navigation-menu-preview',
 	imports: [HlmNavigationMenuImports, BrnNavigationMenuImports, NgIcon],
-	providers: [provideIcons({ lucideChevronDown })],
+	providers: [provideIcons({ lucideChevronDown, lucideLink })],
 	template: `
 		<nav hlmNavigationMenu>
 			<ul hlmNavigationMenuList>
@@ -16,7 +16,6 @@ import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 						Home
 						<ng-icon
 							name="lucideChevronDown"
-							hlm
 							class="relative top-[1px] ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
 						/>
 					</button>
@@ -40,6 +39,18 @@ import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 							<li class="line-clamp-2 text-sm leading-snug">Styles for headings, paragraphs, lists...etc</li>
 						</ul>
 					</div>
+				</li>
+				<li hlmNavigationMenuItem>
+					<a
+						hlmNavigationMenuLink
+						disabled
+						href="https://github.com"
+						target="_blank"
+						class="flex-row items-center gap-2"
+					>
+						<ng-icon name="lucideLink" />
+						GitHub
+					</a>
 				</li>
 				<li hlmNavigationMenuItem>
 					<button hlmNavigationMenuTrigger>Components</button>

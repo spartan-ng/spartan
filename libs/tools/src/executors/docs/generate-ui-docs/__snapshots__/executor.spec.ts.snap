@@ -2896,6 +2896,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "BrnMenuAlign",
           },
+          {
+            "name": "side",
+            "required": false,
+            "type": "BrnMenuSide",
+          },
         ],
         "models": [],
         "outputs": [],
@@ -2971,6 +2976,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "name": "align",
             "required": false,
             "type": "BrnMenuAlign",
+          },
+          {
+            "name": "side",
+            "required": false,
+            "type": "BrnMenuSide",
           },
         ],
         "models": [],

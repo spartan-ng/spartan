@@ -46,7 +46,7 @@ export class BrnNavigationMenu implements OnDestroy {
 	private readonly _zone = inject(NgZone);
 	private readonly _destroy$ = new Subject<void>();
 
-	public readonly el = inject(ElementRef);
+	public readonly el = inject<ElementRef<HTMLElement>>(ElementRef);
 	public readonly parentNavMenu = injectBrnParentNavMenu();
 
 	/**

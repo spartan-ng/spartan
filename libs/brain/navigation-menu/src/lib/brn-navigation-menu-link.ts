@@ -1,5 +1,6 @@
 import { Directive } from '@angular/core';
 import { BrnButton } from '@spartan-ng/brain/button';
+import { provideBrnNavigationMenuInteractable } from './brn-navigation-menu-item-interactable.token';
 import { injectBrnNavigationMenuItem } from './brn-navigation-menu-item.token';
 import { injectBrnNavigationMenu } from './brn-navigation-menu.token';
 
@@ -16,6 +17,7 @@ import { injectBrnNavigationMenu } from './brn-navigation-menu.token';
 			inputs: ['disabled'],
 		},
 	],
+	providers: [provideBrnNavigationMenuInteractable(BrnNavigationMenuLink)],
 })
 export class BrnNavigationMenuLink {
 	private readonly _navigationMenu = injectBrnNavigationMenu();

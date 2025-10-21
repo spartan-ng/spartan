@@ -1,6 +1,8 @@
-import { computed, Directive, inject, input, signal, TemplateRef } from '@angular/core';
+import { computed, contentChild, Directive, ElementRef, inject, input, signal, TemplateRef } from '@angular/core';
+import { BrnButton } from '@spartan-ng/brain/button';
 import { Observable, Subject } from 'rxjs';
 import { BrnNavigationMenuContentService } from './brn-navigation-menu-content.service';
+import { BrnNavigationMenuInteractable } from './brn-navigation-menu-item-interactable.token';
 import { provideBrnNavigationMenuItem } from './brn-navigation-menu-item.token';
 import { injectBrnNavigationMenu } from './brn-navigation-menu.token';
 
@@ -8,6 +10,7 @@ import { injectBrnNavigationMenu } from './brn-navigation-menu.token';
 	selector: 'li[brnNavigationMenuItem]',
 	host: {
 		'[id]': 'id()',
+		'[attr.data-disabled]': 'disabled() || null',
 	},
 	providers: [provideBrnNavigationMenuItem(BrnNavigationMenuItem), BrnNavigationMenuContentService],
 })
@@ -16,6 +19,8 @@ export class BrnNavigationMenuItem {
 
 	private readonly _navigationMenu = injectBrnNavigationMenu();
 	private readonly _contentService = inject(BrnNavigationMenuContentService);
+
+	public readonly el = inject<ElementRef<HTMLElement>>(ElementRef);
 
 	public readonly navMenuElRef = this._navigationMenu.el;
 
@@ -33,4 +38,8 @@ export class BrnNavigationMenuItem {
 	public readonly contentHovered$ = this._contentService.hovered$;
 
 	public readonly subNavHover$ = new Subject<Observable<boolean>>();
+
+	private readonly triggerOrLink = contentChild(BrnNavigationMenuInteractable, { read: BrnButton });
+
+	protected readonly disabled = computed(() => this.triggerOrLink()?.disabled());
 }

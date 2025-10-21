@@ -13,7 +13,7 @@ import {
 } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { BrnButton } from '@spartan-ng/brain/button';
-import { createHoverObservable } from '@spartan-ng/brain/core';
+import { areSiblings, createHoverObservableWithData, isElement } from '@spartan-ng/brain/core';
 import {
 	debounceTime,
 	delay,
@@ -31,12 +31,14 @@ import {
 	tap,
 } from 'rxjs';
 import { BrnNavigationMenuContentService } from './brn-navigation-menu-content.service';
+import { provideBrnNavigationMenuInteractable } from './brn-navigation-menu-item-interactable.token';
 import { injectBrnNavigationMenuItem } from './brn-navigation-menu-item.token';
 import { injectBrnNavigationMenu } from './brn-navigation-menu.token';
 
 interface TriggerEvent {
 	type: 'click' | 'hover' | 'set';
 	visible: boolean;
+	relatedTarget?: EventTarget | null;
 }
 
 @Directive({
@@ -52,6 +54,7 @@ interface TriggerEvent {
 			inputs: ['disabled'],
 		},
 	],
+	providers: [provideBrnNavigationMenuInteractable(BrnNavigationMenuTrigger)],
 })
 export class BrnNavigationMenuTrigger implements OnInit, OnDestroy {
 	private readonly _navigationMenu = injectBrnNavigationMenu();
@@ -90,15 +93,15 @@ export class BrnNavigationMenuTrigger implements OnInit, OnDestroy {
 	);
 
 	private readonly _hovered$: Observable<TriggerEvent> = merge(
-		createHoverObservable(this._el.nativeElement, this._zone, this._destroy$),
-		this._contentService.hovered$,
+		createHoverObservableWithData(this._el.nativeElement, this._zone, this._destroy$),
+		this._contentService.hovered$.pipe(map((value) => ({ hover: value, relatedTarget: null }))),
 	).pipe(
 		// Hover is NOT allowed when:
 		// - this is a root navigation menu (no parent), AND
 		// - a sub-navigation is currently hovered, AND
 		// - the current hover event is false.
 		filter((v) => !(!this._parentNavMenu && this._isSubNavHovered() && !v)),
-		map((value) => ({ type: 'hover' as const, visible: value })),
+		map((value) => ({ type: 'hover' as const, visible: value.hover, relatedTarget: value.relatedTarget })),
 	);
 
 	private readonly _showing$ = merge(this._isActive$, this._clicked$, this._hovered$).pipe(
@@ -108,8 +111,20 @@ export class BrnNavigationMenuTrigger implements OnInit, OnDestroy {
 			const shouldDelay = ev.visible && ev.type !== 'click' && this._isOpenDelayed();
 			return of(ev).pipe(delay(shouldDelay ? this._delayDuration() : 0));
 		}),
-		// Deactivate only needs to be called if the menu item content is hidden with a user click.
+		// Deactivate needs to be called if the menu item content is hidden with a user click.
 		tap((ev) => (ev.visible ? this._activate() : ev.type === 'click' && this._deactivate())),
+		// Deactivate if nav item is hovered out to a disabled sibling nav item
+		tap((ev) => {
+			if (
+				!ev.visible &&
+				ev.type == 'hover' &&
+				isElement(ev.relatedTarget) &&
+				areSiblings(this._navigationMenuItem.el.nativeElement, ev.relatedTarget) &&
+				ev.relatedTarget.getAttribute('data-disabled') === 'true'
+			) {
+				this._deactivate();
+			}
+		}),
 		share(),
 		takeUntil(this._destroy$),
 	);

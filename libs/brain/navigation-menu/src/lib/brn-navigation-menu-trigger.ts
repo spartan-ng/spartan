@@ -1,4 +1,4 @@
-import { FocusMonitor } from '@angular/cdk/a11y';
+import { hasModifierKey } from '@angular/cdk/keycodes';
 import {
 	computed,
 	Directive,
@@ -42,6 +42,8 @@ interface TriggerEvent {
 @Directive({
 	selector: 'button[brnNavigationMenuTrigger]',
 	host: {
+		'(keydown.escape)': 'onEscape($event)',
+		'(keydown.tab)': 'onTab($event)',
 		'[attr.data-state]': 'state()',
 	},
 	hostDirectives: [
@@ -57,9 +59,8 @@ export class BrnNavigationMenuTrigger implements OnInit, OnDestroy {
 	private readonly _destroy$ = new Subject<void>();
 	private readonly _vcr = inject(ViewContainerRef);
 	private readonly _zone = inject(NgZone);
-	private readonly _el = inject(ElementRef);
+	private readonly _el = inject<ElementRef<HTMLElement>>(ElementRef);
 	private readonly _contentService = inject(BrnNavigationMenuContentService);
-	private readonly _focusMonitor = inject(FocusMonitor);
 
 	private readonly _parentNavMenu = this._navigationMenu.parentNavMenu;
 
@@ -79,8 +80,6 @@ export class BrnNavigationMenuTrigger implements OnInit, OnDestroy {
 		initialValue: false,
 	});
 
-	public readonly focused$: Observable<boolean> = this._focusMonitor.monitor(this._el).pipe(map((e) => e !== null));
-
 	private readonly _isActive$: Observable<TriggerEvent> = toObservable(this._navigationMenuItem.isActive).pipe(
 		map((value) => ({ type: 'set', visible: value })),
 	);
@@ -93,15 +92,13 @@ export class BrnNavigationMenuTrigger implements OnInit, OnDestroy {
 	private readonly _hovered$: Observable<TriggerEvent> = merge(
 		createHoverObservable(this._el.nativeElement, this._zone, this._destroy$),
 		this._contentService.hovered$,
-		this.focused$,
 	).pipe(
 		// Hover is NOT allowed when:
 		// - this is a root navigation menu (no parent), AND
 		// - a sub-navigation is currently hovered, AND
 		// - the current hover event is false.
-		filter((v) => !!this._parentNavMenu || !this._isSubNavHovered() || v),
+		filter((v) => !(!this._parentNavMenu && this._isSubNavHovered() && !v)),
 		map((value) => ({ type: 'hover' as const, visible: value })),
-		distinctUntilChanged((prev, curr) => prev.visible === curr.visible),
 	);
 
 	private readonly _showing$ = merge(this._isActive$, this._clicked$, this._hovered$).pipe(
@@ -113,7 +110,6 @@ export class BrnNavigationMenuTrigger implements OnInit, OnDestroy {
 		}),
 		// Deactivate only needs to be called if the menu item content is hidden with a user click.
 		tap((ev) => (ev.visible ? this._activate() : ev.type === 'click' && this._deactivate())),
-		map((ev) => ev.visible),
 		share(),
 		takeUntil(this._destroy$),
 	);
@@ -145,16 +141,22 @@ export class BrnNavigationMenuTrigger implements OnInit, OnDestroy {
 
 	public ngOnInit() {
 		this._contentService.setConfig({ attachTo: this._el, direction: this._dir(), orientation: this._orientation() });
-		this._showing$.subscribe((isShowing) => {
+		this._showing$.pipe(takeUntil(this._destroy$)).subscribe((ev) => {
 			if (this._parentNavMenu) {
-				this._parentNavMenu.subNavHover$.next(isShowing);
+				this._parentNavMenu.subNavHover$.next(ev.visible);
 			}
 
-			if (isShowing) {
+			if (ev.visible) {
 				this._contentService.show();
 			} else {
 				this._contentService.hide();
 			}
+		});
+
+		this._contentService.escapePressed$.pipe(takeUntil(this._destroy$)).subscribe((e) => {
+			e.preventDefault();
+			this._el.nativeElement.focus();
+			this._deactivate();
 		});
 	}
 
@@ -169,5 +171,19 @@ export class BrnNavigationMenuTrigger implements OnInit, OnDestroy {
 
 	private _deactivate() {
 		this._navigationMenu.value.set(undefined);
+	}
+
+	protected onTab(e: KeyboardEvent) {
+		const contentEl = this._contentService.contentEl();
+
+		if (contentEl && !hasModifierKey(e)) {
+			e.preventDefault();
+			contentEl.focus();
+		}
+	}
+
+	protected onEscape(e: KeyboardEvent) {
+		e.preventDefault();
+		this._deactivate();
 	}
 }

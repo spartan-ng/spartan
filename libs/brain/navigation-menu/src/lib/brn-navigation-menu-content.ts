@@ -40,6 +40,13 @@ export class BrnNavigationMenuContent {
 		effect(() => {
 			const el = this._contentEl();
 			if (el) {
+				this._renderer.setAttribute(el, 'tabindex', '0');
+			}
+		});
+
+		effect(() => {
+			const el = this._contentEl();
+			if (el) {
 				this._renderer.setAttribute(el, 'data-state', this._state());
 			}
 		});

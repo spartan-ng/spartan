@@ -28,6 +28,9 @@ export const createHoverObservable = (
 		 * NOTE: onmouseout events don't trigger when objects move under mouse in Safari
 		 * https://bugs.webkit.org/show_bug.cgi?id=4117
 		 */
-		fromEvent(nativeElement, 'transitionend').pipe(map(() => nativeElement.matches(':hover'))),
+		fromEvent(nativeElement, 'transitionend').pipe(
+			filter(() => nativeElement.matches(':hover')),
+			map(() => true),
+		),
 	).pipe(distinctUntilChanged(), brnZoneOptimized(zone), takeUntil(destroyed$));
 };

@@ -176,7 +176,7 @@ export const routeMeta: RouteMeta = {
 }"
 			/>
 
-			<spartan-section-sub-heading id="list-of-variables">Adding new colors</spartan-section-sub-heading>
+			<spartan-section-sub-heading id="adding-new-color">Adding new colors</spartan-section-sub-heading>
 
 			<p class="${hlmP}">To add new colors, you need to add them to your CSS file.</p>
 

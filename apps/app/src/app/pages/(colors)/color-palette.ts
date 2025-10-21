@@ -7,6 +7,7 @@ import { FormatColorPipe } from '@spartan-ng/app/app/pages/(colors)/format-color
 import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
 import { ColorFormat } from './format-color';
+
 @Component({
 	selector: 'spartan-color-palette',
 	template: `

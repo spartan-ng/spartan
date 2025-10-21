@@ -1,4 +1,4 @@
-import { booleanAttribute, Component, inject, Input, input, ViewEncapsulation } from '@angular/core';
+import { booleanAttribute, Component, effect, inject, Input, input, ViewEncapsulation } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { marked } from 'marked';
 import { gfmHeadingId } from 'marked-gfm-heading-id';
@@ -148,6 +148,16 @@ export class Code {
 			const langClass = `language-${lang}`;
 			return `<pre class="${langClass}"><code class="${langClass}">${text}</code></pre>`;
 		};
+
+		effect(() => {
+			const fileName = this.fileName();
+			if (fileName) {
+				const ext = fileName.split('.').pop();
+				if (ext && ['ts', 'sh', 'js', 'css'].includes(ext)) {
+					this._language = ext as 'ts' | 'sh' | 'js' | 'css';
+				}
+			}
+		});
 
 		marked.use(
 			gfmHeadingId(),

@@ -14,6 +14,14 @@ import { ColorFormat } from './format-color';
 			lucideClipboard,
 		}),
 	],
+	imports: [NgIcon, HlmIconImports],
+	host: {
+		class:
+			'group relative flex aspect-[3/1] w-full flex-1 cursor-pointer flex-col gap-2 text-(--text) sm:aspect-[2/3] sm:h-auto sm:w-auto [&>ng-icon]:absolute [&>ng-icon]:top-4 [&>ng-icon]:right-4 [&>ng-icon]:z-10 [&>ng-icon]:opacity-0 [&>ng-icon]:transition-opacity',
+		'[style.--bg]': 'color().oklch',
+		'[style.--text]': 'color().foreground',
+		'(click)': 'onClick()',
+	},
 	template: `
 		@let col = color();
 
@@ -40,14 +48,6 @@ import { ColorFormat } from './format-color';
 			</span>
 		</div>
 	`,
-	imports: [NgIcon, HlmIconImports],
-	host: {
-		class:
-			'group relative flex aspect-[3/1] w-full flex-1 cursor-pointer flex-col gap-2 text-(--text) sm:aspect-[2/3] sm:h-auto sm:w-auto [&>ng-icon]:absolute [&>ng-icon]:top-4 [&>ng-icon]:right-4 [&>ng-icon]:z-10 [&>ng-icon]:opacity-0 [&>ng-icon]:transition-opacity',
-		'[style.--bg]': 'color().oklch',
-		'[style.--text]': 'color().foreground',
-		'(click)': 'onClick()',
-	},
 })
 export class Color {
 	public readonly color = input.required<ColorType>();

@@ -1,4 +1,5 @@
 import { z } from 'zod';
+
 const colors = {
 	inherit: 'inherit',
 	current: 'currentColor',
@@ -1775,6 +1776,9 @@ const colorPaletteSchema = z.object({
 
 export type ColorPalette = z.infer<typeof colorPaletteSchema>;
 
+/**
+ * Map the colors object to an array of color palettes with additional properties that we can easier iterate in the angular template
+ */
 export function getColors() {
 	const tailwindColors = colorPaletteSchema.array().parse(
 		Object.entries(colors)

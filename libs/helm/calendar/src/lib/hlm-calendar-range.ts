@@ -12,21 +12,7 @@ import {
 } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronLeft, lucideChevronRight } from '@ng-icons/lucide';
-import {
-	BrnCalendarCell,
-	BrnCalendarCellButton,
-	BrnCalendarGrid,
-	BrnCalendarHeader,
-	BrnCalendarMonthSelect,
-	BrnCalendarNextButton,
-	BrnCalendarPreviousButton,
-	BrnCalendarRange,
-	BrnCalendarWeek,
-	BrnCalendarWeekday,
-	BrnCalendarYearSelect,
-	injectBrnCalendarI18n,
-	type Weekday,
-} from '@spartan-ng/brain/calendar';
+import { BrnCalendarImports, BrnCalendarRange, injectBrnCalendarI18n, type Weekday } from '@spartan-ng/brain/calendar';
 import { injectDateAdapter } from '@spartan-ng/brain/date-time';
 import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { buttonVariants } from '@spartan-ng/helm/button';
@@ -37,24 +23,7 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-calendar-range',
-	imports: [
-		BrnCalendarHeader,
-		BrnCalendarNextButton,
-		BrnCalendarPreviousButton,
-		BrnCalendarWeekday,
-		BrnCalendarWeek,
-		BrnCalendarCellButton,
-		BrnCalendarCell,
-		BrnCalendarGrid,
-		NgIcon,
-		HlmIcon,
-		BrnCalendarRange,
-		BrnCalendarMonthSelect,
-		HlmSelectImports,
-		BrnSelectImports,
-		BrnCalendarYearSelect,
-		NgTemplateOutlet,
-	],
+	imports: [BrnCalendarImports, NgIcon, HlmIcon, HlmSelectImports, BrnSelectImports, NgTemplateOutlet],
 	viewProviders: [provideIcons({ lucideChevronLeft, lucideChevronRight })],
 	template: `
 		<div

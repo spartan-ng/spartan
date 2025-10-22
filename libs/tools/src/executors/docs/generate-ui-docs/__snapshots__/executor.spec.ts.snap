@@ -429,7 +429,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           },
         ],
         "models": [],
-        "outputs": [],
+        "outputs": [
+          {
+            "name": "valueChanged",
+            "type": "string",
+          },
+        ],
         "selector": "input[brnAutocompleteSearchInput]",
       },
     },

@@ -13,6 +13,6 @@ export class HlmEmptyContent {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 
 	protected readonly _computedClass = computed(() =>
-		hlm('text-balancet flex w-full min-w-0 max-w-sm flex-col items-center gap-4 text-sm', this.userClass()),
+		hlm('text-balancet flex w-full max-w-sm min-w-0 flex-col items-center gap-4 text-sm', this.userClass()),
 	);
 }

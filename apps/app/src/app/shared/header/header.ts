@@ -61,10 +61,9 @@ import { HeaderMobileNav } from './header-mobile-nav';
 					</a>
 					<hlm-separator orientation="vertical" class="!h-4" />
 					<a href="https://github.com/goetzrobin/spartan" target="_blank" size="sm" variant="ghost" hlmBtn>
-						<span class="sr-only">Github</span>
 						<ng-icon hlm [svg]="_githubIcon" size="sm" />
 						@if (_stars(); as stars) {
-							<span class="text-muted-foreground w-8 text-xs tabular-nums">{{ stars }}</span>
+							<span class="text-muted-foreground text-xs">{{ stars }}</span>
 						}
 					</a>
 					<hlm-separator orientation="vertical" class="!h-4" />

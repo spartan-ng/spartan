@@ -8,8 +8,8 @@ type Column = { label: string; key: string; class?: string };
 	standalone: true,
 	imports: [...HlmTableImports],
 	template: `
-		<h4 class="mb-2 mt-6">{{ title() }}</h4>
-		<div class="w-full overflow-x-auto">
+		<h4 class="mt-6 mb-2">{{ title() }}</h4>
+		<div class="no-scrollbar my-6 w-full overflow-y-auto rounded-lg border">
 			<table hlmTable class="w-fit min-w-full">
 				<thead hlmTHead>
 					<tr hlmTr>

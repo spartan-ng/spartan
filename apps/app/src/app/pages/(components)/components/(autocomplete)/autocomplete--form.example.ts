@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HlmAutocompleteImports } from '@spartan-ng/helm/autocomplete';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
@@ -22,7 +22,6 @@ import { HlmLabelImports } from '@spartan-ng/helm/label';
 			<button type="submit" hlmBtn>Submit</button>
 		</form>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AutocompleteForm {
 	private readonly _formBuilder = inject(FormBuilder);

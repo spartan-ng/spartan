@@ -1,7 +1,8 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
-import { hlmCode, hlmH4 } from '@spartan-ng/helm/typography';
+import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
+import { hlmCode } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
@@ -45,6 +46,7 @@ export const routeMeta: RouteMeta = {
 		PaginationIconOnly,
 		PaginationAdvanced,
 		PaginationAdvancedQuery,
+		SectionSubSubHeading,
 	],
 	template: `
 		<section spartanMainSection>
@@ -58,44 +60,37 @@ export const routeMeta: RouteMeta = {
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
-			<spartan-cli-tabs
-				class="mt-4"
-				nxCode="npx nx g @spartan-ng/cli:ui pagination"
-				ngCode="ng g @spartan-ng/cli:ui pagination"
-			/>
+			<spartan-cli-tabs nxCode="npx nx g @spartan-ng/cli:ui pagination" ngCode="ng g @spartan-ng/cli:ui pagination" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
-			<div class="space-y-4">
+			<div class="mt-6 space-y-4">
 				<spartan-code [code]="_defaultImports" />
 				<spartan-code [code]="_defaultSkeleton" />
 			</div>
 
-			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
-			<spartan-ui-api-docs docType="helm" />
-
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__query_params" class="${hlmH4} mb-2 mt-6">Query Params</h3>
+			<h3 id="examples__query_params" spartanH4>Query Params</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-pagination-query-params />
 				</div>
 				<spartan-code secondTab [code]="_queryParamsCode()" />
 			</spartan-tabs>
-			<h3 id="examples__icon-only" class="${hlmH4} mb-2 mt-6">Icon Only (Previous/Next)</h3>
+			<h3 id="examples__icon-only" spartanH4>Icon Only (Previous/Next)</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-pagination-icon-only />
 				</div>
 				<spartan-code secondTab [code]="_iconOnlyCode()" />
 			</spartan-tabs>
-			<h3 id="examples__advanced" class="${hlmH4} mb-2 mt-6">Advanced Pagination</h3>
+			<h3 id="examples__advanced" spartanH4>Advanced Pagination</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-pagination-advanced />
 				</div>
 				<spartan-code secondTab [code]="_advancedCode()" />
 			</spartan-tabs>
-			<h3 id="examples__advanced" class="${hlmH4} mb-2 mt-6">Advanced Pagination - Query Params</h3>
+			<h3 id="examples__advanced" spartanH4>Advanced Pagination - Query Params</h3>
 			<p class="py-2">
 				Use
 				<code class="${hlmCode}">hlm-numbered-pagination-query-params</code>
@@ -109,6 +104,9 @@ export const routeMeta: RouteMeta = {
 				</div>
 				<spartan-code secondTab [code]="_advancedQueryCode()" />
 			</spartan-tabs>
+
+			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="popover" label="Popover" />

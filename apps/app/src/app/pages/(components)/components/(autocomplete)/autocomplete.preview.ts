@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { HlmAutocomplete } from '@spartan-ng/helm/autocomplete';
 
 @Component({
@@ -7,7 +7,6 @@ import { HlmAutocomplete } from '@spartan-ng/helm/autocomplete';
 	template: `
 		<hlm-autocomplete [filteredOptions]="filteredOptions()" [(search)]="search" />
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AutocompletePreview {
 	private readonly _options: string[] = [

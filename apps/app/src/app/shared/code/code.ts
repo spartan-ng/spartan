@@ -1,4 +1,4 @@
-import { booleanAttribute, Component, inject, Input, input, ViewEncapsulation } from '@angular/core';
+import { booleanAttribute, Component, effect, inject, Input, input, ViewEncapsulation } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { marked } from 'marked';
 import { gfmHeadingId } from 'marked-gfm-heading-id';
@@ -54,12 +54,12 @@ declare const Prism: typeof import('prismjs');
 			</div>
 		}
 		@if (!_disableCopy) {
-			<button (click)="copyToClipBoard()" hlmBtn variant="ghost" class="absolute right-2 top-1.5 h-6 w-6">
+			<button (click)="copyToClipBoard()" hlmBtn variant="ghost" class="absolute top-1.5 right-2 h-6 w-6">
 				<ng-icon hlm size="xs" [name]="_copied ? 'lucideCheck' : 'lucideClipboard'" />
 			</button>
 		}
-		<div class="max-h-[650px] w-full overflow-auto whitespace-nowrap p-4">
-			<div class="max-w-screen max-w-full" [innerHTML]="_content"></div>
+		<div class="max-h-[650px] w-full overflow-auto p-4 whitespace-nowrap">
+			<div class="max-w-full max-w-screen" [innerHTML]="_content"></div>
 		</div>
 	`,
 	styles: [
@@ -148,6 +148,16 @@ export class Code {
 			const langClass = `language-${lang}`;
 			return `<pre class="${langClass}"><code class="${langClass}">${text}</code></pre>`;
 		};
+
+		effect(() => {
+			const fileName = this.fileName();
+			if (fileName) {
+				const ext = fileName.split('.').pop();
+				if (ext && ['ts', 'sh', 'js', 'css'].includes(ext)) {
+					this._language = ext as 'ts' | 'sh' | 'js' | 'css';
+				}
+			}
+		});
 
 		marked.use(
 			gfmHeadingId(),

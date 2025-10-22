@@ -10,7 +10,7 @@ import { Component, computed, input } from '@angular/core';
 	template: `
 		<a class="flex flex-col items-center" [href]="href()" target="_blank">
 			<img loading="lazy" [ngSrc]="src()" width="40" height="40" [alt]="contributor()" class="rounded-full" />
-			<span class="mt-1 inline-block whitespace-nowrap text-[.7rem] font-medium hover:underline">
+			<span class="mt-1 inline-block text-[.7rem] font-medium whitespace-nowrap hover:underline">
 				{{ contributor() }}
 			</span>
 		</a>

@@ -11,7 +11,6 @@ import { Tabs } from './tabs';
 	},
 	template: `
 		<spartan-tabs
-			class="mt-4"
 			firstTab="Nx Plugin"
 			secondTab="Angular CLI"
 			[value]="_tabValue()"

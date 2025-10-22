@@ -1,7 +1,6 @@
 import { NgClass } from '@angular/common';
 import {
 	type AfterViewInit,
-	ChangeDetectionStrategy,
 	Component,
 	ElementRef,
 	type OnDestroy,
@@ -28,27 +27,29 @@ type SamePageAnchorLink = {
 
 @Component({
 	selector: 'spartan-page-nav',
-	changeDetection: ChangeDetectionStrategy.OnPush,
+
 	imports: [HlmScrollArea, NgScrollbarModule, NgClass, PageNavLink],
 	host: {
 		class: 'hidden xl:block text-sm',
 	},
 	template: `
 		<ng-template #pageNav>
-			<ng-scrollbar hlm class="h-[calc(100vh-3.5rem)]">
-				<div class="space-y-2 px-1">
-					<h3 class="font-medium">On this page</h3>
-					<ul class="m-0 flex list-none flex-col">
+			@if (_computedLinks().length > 0) {
+				<div class="h-(--top-spacing) shrink-0"></div>
+				<ng-scrollbar hlm class="h-[calc(100svh-var(--footer-height)+2rem-var(--stable-height))] py-2">
+					<div class="flex flex-col gap-2 p-4 pt-0 text-sm">
+						<p class="text-muted-foreground bg-background text-xs">On this page</p>
+
 						@for (link of _computedLinks(); track link.id) {
 							<spartan-page-nav-link [ngClass]="{ 'pl-4': link.isNested }" [fragment]="link.id" [label]="link.label" />
-						} @empty {
-							@if (_isDevMode()) {
-								[DEV] Nothing to see here!
-							}
 						}
-					</ul>
-				</div>
-			</ng-scrollbar>
+					</div>
+				</ng-scrollbar>
+			} @else {
+				@if (_isDevMode()) {
+					[DEV] Nothing to see here!
+				}
+			}
 		</ng-template>
 	`,
 })

@@ -1,7 +1,8 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
-import { hlmCode, hlmH4, hlmP } from '@spartan-ng/helm/typography';
+import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
+import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
@@ -27,6 +28,7 @@ export const routeMeta: RouteMeta = {
 };
 @Component({
 	selector: 'spartan-empty',
+
 	imports: [
 		UIApiDocs,
 		MainSection,
@@ -44,6 +46,7 @@ export const routeMeta: RouteMeta = {
 		EmptyBackground,
 		EmptyAvatar,
 		EmptyAvatarGroup,
+		SectionSubSubHeading,
 	],
 	template: `
 		<section spartanMainSection>
@@ -64,17 +67,14 @@ export const routeMeta: RouteMeta = {
 			/>
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
-			<div class="space-y-4">
+			<div class="mt-6 space-y-4">
 				<spartan-code [code]="_defaultImports" />
 				<spartan-code [code]="_defaultSkeleton" />
 			</div>
 
-			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
-			<spartan-ui-api-docs docType="helm" />
-
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
 
-			<h3 id="examples__outline" class="${hlmH4} mt-6">Outline</h3>
+			<h3 id="examples__outline" spartanH4>Outline</h3>
 			<p class="${hlmP} mb-2">
 				Use the
 				<code class="${hlmCode} mr-0.5">border</code>
@@ -87,7 +87,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_outlineCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__background" class="${hlmH4} mt-6">Background</h3>
+			<h3 id="examples__background" spartanH4>Background</h3>
 			<p class="${hlmP} mb-2">
 				Use the
 				<code class="${hlmCode} mr-0.5">bg-*</code>
@@ -102,7 +102,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_backgroundCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__avatar" class="${hlmH4} mt-6">Avatar</h3>
+			<h3 id="examples__avatar" spartanH4>Avatar</h3>
 			<p class="${hlmP} mb-2">
 				Use the
 				<code class="${hlmCode} mr-0.5">EmptyMedia</code>
@@ -115,7 +115,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_avatarCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__avatar-group" class="${hlmH4} mt-6">Avatar Group</h3>
+			<h3 id="examples__avatar-group" spartanH4>Avatar Group</h3>
 			<p class="${hlmP} mb-2">
 				Use the
 				<code class="${hlmCode} mr-0.5">EmptyMedia</code>
@@ -127,6 +127,9 @@ export const routeMeta: RouteMeta = {
 				</div>
 				<spartan-code secondTab [code]="_avatarGroupCode()" />
 			</spartan-tabs>
+
+			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="form-field" label="Form Field" />

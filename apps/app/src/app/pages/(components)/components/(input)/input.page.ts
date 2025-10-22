@@ -1,7 +1,7 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
-import { hlmH4 } from '@spartan-ng/helm/typography';
+import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
@@ -31,6 +31,7 @@ export const routeMeta: RouteMeta = {
 };
 @Component({
 	selector: 'spartan-input',
+
 	imports: [
 		UIApiDocs,
 		MainSection,
@@ -49,6 +50,7 @@ export const routeMeta: RouteMeta = {
 		InputLabelPreview,
 		InputButtonPreview,
 		InputFormPreview,
+		SectionSubSubHeading,
 	],
 	template: `
 		<section spartanMainSection>
@@ -72,50 +74,50 @@ export const routeMeta: RouteMeta = {
 			/>
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
-			<div class="space-y-4">
+			<div class="mt-6 space-y-4">
 				<spartan-code [code]="_defaultImports" />
 				<spartan-code [code]="_defaultSkeleton" />
 			</div>
 
-			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
-			<spartan-ui-api-docs docType="helm" />
-
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__file" class="${hlmH4} mb-2 mt-6">File</h3>
+			<h3 id="examples__file" spartanH4>File</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-input-file />
 				</div>
 				<spartan-code secondTab [code]="_fileCode()" />
 			</spartan-tabs>
-			<h3 id="examples__disabled" class="${hlmH4} mb-2 mt-6">Disabled</h3>
+			<h3 id="examples__disabled" spartanH4>Disabled</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-input-disabled />
 				</div>
 				<spartan-code secondTab [code]="_disabledCode()" />
 			</spartan-tabs>
-			<h3 id="examples__with_label" class="${hlmH4} mb-2 mt-6">With Label</h3>
+			<h3 id="examples__with_label" spartanH4>With Label</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-input-label />
 				</div>
 				<spartan-code secondTab [code]="_labelCode()" />
 			</spartan-tabs>
-			<h3 id="examples__with_button" class="${hlmH4} mb-2 mt-6">With Button</h3>
+			<h3 id="examples__with_button" spartanH4>With Button</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-input-button />
 				</div>
 				<spartan-code secondTab [code]="_buttonCode()" />
 			</spartan-tabs>
-			<h3 id="examples__form" class="${hlmH4} mb-2 mt-6">Form</h3>
+			<h3 id="examples__form" spartanH4>Form</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-input-form />
 				</div>
 				<spartan-code secondTab [code]="_formCode()" />
 			</spartan-tabs>
+
+			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="input-group" label="Input Group" />

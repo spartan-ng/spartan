@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideEllipsis } from '@ng-icons/lucide';
 import { BrnMenuImports } from '@spartan-ng/brain/menu';
@@ -28,7 +28,6 @@ import type { Payment } from './data-table.preview';
 			</hlm-menu>
 		</ng-template>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ActionDropdown {
 	private readonly _context = injectFlexRenderContext<CellContext<Payment, unknown>>();

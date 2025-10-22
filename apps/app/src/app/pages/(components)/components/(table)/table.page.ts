@@ -60,13 +60,10 @@ export const routeMeta: RouteMeta = {
 			/>
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
-			<div class="space-y-4">
+			<div class="mt-6 space-y-4">
 				<spartan-code [code]="_defaultImports" />
 				<spartan-code [code]="_defaultSkeleton" />
 			</div>
-
-			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
-			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-section-sub-heading id="data-table">Data Table</spartan-section-sub-heading>
 			<p class="${hlmP}">
@@ -84,6 +81,9 @@ export const routeMeta: RouteMeta = {
 				<a class="${link}" routerLink="/examples/tasks">Tasks</a>
 				demo.
 			</p>
+
+			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="tabs" label="Tabs" />

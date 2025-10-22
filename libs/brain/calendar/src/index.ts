@@ -28,7 +28,7 @@ export * from './lib/i18n/calendar-i18n';
 export * from './lib/mode/brn-calendar-multiple';
 export * from './lib/mode/brn-calendar-range';
 
-const DefaultCalendarImports = [
+export const BrnCalendarImports = [
 	BrnCalendarCellButton,
 	BrnCalendarGrid,
 	BrnCalendarHeader,
@@ -36,13 +36,10 @@ const DefaultCalendarImports = [
 	BrnCalendarPreviousButton,
 	BrnCalendarWeek,
 	BrnCalendarWeekday,
+	BrnCalendar,
 	BrnCalendarCell,
+	BrnCalendarMulti,
+	BrnCalendarRange,
 	BrnCalendarMonthSelect,
 	BrnCalendarYearSelect,
-];
-
-export const BrnCalendarImports = [...DefaultCalendarImports, BrnCalendar] as const;
-
-export const BrnCalendarMultipleImports = [...DefaultCalendarImports, BrnCalendarMulti] as const;
-
-export const BrnCalendarRangeImports = [...DefaultCalendarImports, BrnCalendarRange] as const;
+] as const;

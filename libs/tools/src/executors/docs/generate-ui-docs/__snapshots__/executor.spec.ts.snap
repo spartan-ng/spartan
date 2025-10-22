@@ -421,15 +421,19 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "[brnAutocompleteList]",
       },
       "BrnAutocompleteSearchInput": {
-        "inputs": [
+        "inputs": [],
+        "models": [
           {
             "name": "value",
-            "required": false,
             "type": "string",
           },
         ],
-        "models": [],
-        "outputs": [],
+        "outputs": [
+          {
+            "name": "valueChange",
+            "type": "string",
+          },
+        ],
         "selector": "input[brnAutocompleteSearchInput]",
       },
     },
@@ -442,7 +446,22 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "ClassValue",
           },
           {
+            "name": "autocompleteSearchClass",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "autocompleteInputClass",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
             "name": "autocompleteListClass",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "autocompleteItemClass",
             "required": false,
             "type": "ClassValue",
           },
@@ -469,7 +488,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "transformValueToSearch",
             "required": false,
-            "type": "(value: T) => string",
+            "type": "(option: T) => string",
+          },
+          {
+            "name": "transformOptionToString",
+            "required": false,
+            "type": "(option: T) => string",
           },
           {
             "name": "optionTemplate",
@@ -837,6 +861,51 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [],
         "outputs": [],
         "selector": "button[hlmBtn], a[hlmBtn]",
+      },
+    },
+  },
+  "button-group": {
+    "helm": {
+      "HlmButtonGroup": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "orientation",
+            "required": false,
+            "type": "'horizontal' | 'vertical'",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmButtonGroup]",
+      },
+      "HlmButtonGroupSeparator": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmButtonGroupSeparator],hlm-button-group-separator",
+      },
+      "HlmButtonGroupText": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmButtonGroupText]",
       },
     },
   },
@@ -2303,6 +2372,87 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       },
     },
   },
+  "empty": {
+    "helm": {
+      "HlmEmpty": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmEmpty]",
+      },
+      "HlmEmptyContent": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmEmptyContent]",
+      },
+      "HlmEmptyDescription": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmEmptyDescription]",
+      },
+      "HlmEmptyHeader": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmEmptyHeader]",
+      },
+      "HlmEmptyMedia": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "variant",
+            "required": false,
+            "type": "EmptyMediaVariants['variant']",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmEmptyMedia]",
+      },
+      "HlmEmptyTitle": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmEmptyTitle]",
+      },
+    },
+  },
   "form-field": {
     "helm": {
       "HlmError": {
@@ -2424,7 +2574,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "ng-icon[hlm]",
+        "selector": "ng-icon[hlmIcon], ng-icon[hlm]",
       },
     },
   },
@@ -2433,48 +2583,23 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       "HlmInput": {
         "inputs": [
           {
-            "name": "error",
-            "required": false,
-            "type": "InputVariants['error']",
-          },
-          {
             "name": "class",
             "required": false,
             "type": "ClassValue",
+          },
+          {
+            "name": "error",
+            "required": false,
+            "type": "InputVariants['error']",
           },
         ],
         "models": [],
         "outputs": [],
         "selector": "[hlmInput]",
       },
-      "HlmInputError": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
-        "models": [],
-        "outputs": [],
-        "selector": "[hlmInputError]",
-      },
     },
   },
   "input-group": {
-    "brain": {
-      "BrnAffixes": {
-        "inputs": [
-          {
-            "name": "tabindex",
-            "required": false,
-            "type": "number",
-          },
-        ],
-        "models": [],
-        "outputs": [],
-      },
-    },
     "helm": {
       "HlmInputGroup": {
         "inputs": [
@@ -2483,17 +2608,46 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "ClassValue",
           },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmInputGroup],hlm-input-group",
+      },
+      "HlmInputGroupAddon": {
+        "inputs": [
           {
-            "name": "inputWrapperClass",
+            "name": "align",
+            "required": false,
+            "type": "InputGroupAddonVariants['align']",
+          },
+          {
+            "name": "class",
             "required": false,
             "type": "ClassValue",
           },
         ],
         "models": [],
         "outputs": [],
-        "selector": "hlm-input-group",
+        "selector": "hlm-input-group-addon,[hlmInputGroupAddon]",
       },
-      "HlmPrefix": {
+      "HlmInputGroupButton": {
+        "inputs": [
+          {
+            "name": "size",
+            "required": false,
+            "type": "InputGroupAddonVariants['size']",
+          },
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[hlmInputGroupButton]",
+      },
+      "HlmInputGroupInput": {
         "inputs": [
           {
             "name": "class",
@@ -2503,9 +2657,9 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "hlm-prefix,[hlmPrefix]",
+        "selector": "input[hlmInputGroupInput]",
       },
-      "HlmPrefixAddon": {
+      "HlmInputGroupText": {
         "inputs": [
           {
             "name": "class",
@@ -2515,9 +2669,9 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "hlm-prefix-addon,[hlmPrefixAddon]",
+        "selector": "span[hlmInputGroupText]",
       },
-      "HlmSuffix": {
+      "HlmInputGroupTextarea": {
         "inputs": [
           {
             "name": "class",
@@ -2527,19 +2681,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "hlm-suffix,[hlmSuffix]",
-      },
-      "HlmSuffixAddon": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
-        "models": [],
-        "outputs": [],
-        "selector": "hlm-suffix-addon,[hlmSuffixAddon]",
+        "selector": "textarea[hlmInputGroupTextarea]",
       },
     },
   },
@@ -3856,7 +3998,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "orientation",
             "required": false,
-            "type": "'horizontal' | 'vertical'",
+            "type": "SeparatorOrientation",
           },
           {
             "name": "decorative",
@@ -4771,6 +4913,18 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "outputs": [],
         "selector": "table[hlmTable]",
       },
+      "HlmTableContainer": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "div[hlmTableContainer]",
+      },
       "HlmTd": {
         "inputs": [
           {
@@ -4995,6 +5149,27 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [],
         "outputs": [],
         "selector": "[hlmTabsTrigger]",
+      },
+    },
+  },
+  "textarea": {
+    "helm": {
+      "HlmTextarea": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "error",
+            "required": false,
+            "type": "TextareaVariants['error']",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmTextarea]",
       },
     },
   },

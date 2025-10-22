@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideArrowUpDown } from '@ng-icons/lucide';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
@@ -11,11 +11,9 @@ import { type HeaderContext, injectFlexRenderContext } from '@tanstack/angular-t
 	template: `
 		<button hlmBtn size="sm" variant="ghost" (click)="filterClick()" [class.capitalize]="header() === ''">
 			{{ _header() }}
-			<ng-icon hlm class="ml-3" size="sm" name="lucideArrowUpDown" />
+			<ng-icon hlm size="sm" name="lucideArrowUpDown" />
 		</button>
 	`,
-	standalone: true,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TableHeadSortButton<T> {
 	protected readonly _context = injectFlexRenderContext<HeaderContext<T, unknown>>();

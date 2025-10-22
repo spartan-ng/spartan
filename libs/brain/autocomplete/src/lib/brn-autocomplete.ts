@@ -9,6 +9,7 @@ import {
 	Injector,
 	input,
 	output,
+	signal,
 	untracked,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -38,7 +39,7 @@ export class BrnAutocomplete<T> {
 	public readonly valueChange = output<T>();
 
 	/** @internal The search query */
-	public readonly search = computed(() => this._searchInput()?.valueState() ?? '');
+	public readonly search = computed(() => this._searchInput()?.value() ?? '');
 
 	/** Access the popover if present */
 	private readonly _brnPopover = inject(BrnPopover, { optional: true });
@@ -48,6 +49,9 @@ export class BrnAutocomplete<T> {
 		descendants: true,
 	});
 
+	/** @internal The focus strategy when opening */
+	private readonly _focus = signal<'first' | 'last'>('first');
+
 	/** @internal Access all the items within the autocomplete */
 	public readonly items = contentChildren<BrnAutocompleteItem<T>>(BrnAutocompleteItemToken, {
 		descendants: true,
@@ -55,6 +59,9 @@ export class BrnAutocomplete<T> {
 
 	/** @internal The key manager for managing active descendant */
 	public readonly keyManager = new ActiveDescendantKeyManager(this.items, this._injector);
+
+	/** @internal Whether the autocomplete is expanded */
+	public readonly isExpanded = computed(() => this._brnPopover?.stateComputed() === 'open');
 
 	constructor() {
 		this.keyManager
@@ -65,11 +72,15 @@ export class BrnAutocomplete<T> {
 
 		effect(() => {
 			const items = this.items();
+			const focus = this._focus();
 
 			untracked(() => {
+				if (!items.length) return;
+
 				const activeItem = this.keyManager.activeItem;
-				if (!activeItem || !items.includes(activeItem) || items[0] !== activeItem) {
-					this.keyManager.setFirstItemActive();
+
+				if (!activeItem || !items.includes(activeItem)) {
+					focus === 'first' ? this.keyManager.setFirstItemActive() : this.keyManager.setLastItemActive();
 				}
 			});
 		});
@@ -86,5 +97,18 @@ export class BrnAutocomplete<T> {
 		if (this._brnPopover?.stateComputed() === 'open') {
 			this.keyManager.activeItem?.selected.emit();
 		}
+	}
+
+	open(focus: 'first' | 'last' = 'first') {
+		this._brnPopover?.open();
+		this._focus.set(focus);
+	}
+
+	close() {
+		this._brnPopover?.close();
+	}
+
+	toggle() {
+		this.isExpanded() ? this.close() : this.open();
 	}
 }

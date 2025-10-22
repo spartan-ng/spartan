@@ -72,7 +72,11 @@ export const HLM_AUTOCOMPLETE_VALUE_ACCESSOR = {
 			[closeOnOutsidePointerEvents]="true"
 		>
 			<div brnAutocomplete>
-				<hlm-autocomplete-search hlmAutocompleteTrigger [disabledTrigger]="!_search()">
+				<hlm-autocomplete-search
+					hlmAutocompleteTrigger
+					[class]="_computedAutocompleteSearchClass()"
+					[disabledTrigger]="!_search()"
+				>
 					<ng-icon name="lucideSearch" hlm />
 					<input
 						#input
@@ -80,11 +84,11 @@ export const HLM_AUTOCOMPLETE_VALUE_ACCESSOR = {
 						autocomplete="off"
 						hlm-autocomplete-search-input
 						[id]="inputId()"
+						[class]="_computedAutocompleteInputClass()"
 						[placeholder]="searchPlaceholderText()"
 						[disabled]="_disabled()"
 						[value]="_search()"
-						(input)="_onSearchChanged($event)"
-						(keydown.arrowDown)="_openPopover()"
+						(valueChange)="_onSearchChanged($event)"
 					/>
 
 					<button
@@ -111,11 +115,16 @@ export const HLM_AUTOCOMPLETE_VALUE_ACCESSOR = {
 					>
 						<hlm-autocomplete-group>
 							@for (option of filteredOptions(); track option) {
-								<button hlm-autocomplete-item [value]="option" (selected)="_optionSelected(option)">
+								<button
+									hlm-autocomplete-item
+									[class]="_computedAutocompleteItemClass()"
+									[value]="option"
+									(selected)="_optionSelected(option)"
+								>
 									@if (optionTemplate(); as optionTemplate) {
 										<ng-container *ngTemplateOutlet="optionTemplate; context: { $implicit: option }" />
 									} @else {
-										{{ option }}
+										{{ transformOptionToString()(option) }}
 									}
 								</button>
 							}
@@ -142,7 +151,8 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 	private static _id = 0;
 	private readonly _config = injectHlmAutocompleteConfig<T>();
 
-	private readonly _brnPopover = viewChild.required(BrnPopover);
+	private readonly _brnAutocomplete = viewChild.required(BrnAutocomplete);
+
 	private readonly _inputRef = viewChild.required('input', { read: ElementRef });
 
 	protected readonly _elementRef = inject(ElementRef<HTMLElement>);
@@ -151,9 +161,21 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() => hlm('block w-full', this.userClass()));
 
+	/** Custom class for the autocomplete search container. */
+	public readonly autocompleteSearchClass = input<ClassValue>('');
+	protected readonly _computedAutocompleteSearchClass = computed(() => hlm('', this.autocompleteSearchClass()));
+
+	/** Custom class for the autocomplete input. */
+	public readonly autocompleteInputClass = input<ClassValue>('');
+	protected readonly _computedAutocompleteInputClass = computed(() => hlm('', this.autocompleteInputClass()));
+
 	/** Custom class for the autocomplete list. */
 	public readonly autocompleteListClass = input<ClassValue>('');
 	protected readonly _computedAutocompleteListClass = computed(() => hlm('', this.autocompleteListClass()));
+
+	/** Custom class for each autocomplete item. */
+	public readonly autocompleteItemClass = input<ClassValue>('');
+	protected readonly _computedAutocompleteItemClass = computed(() => hlm('', this.autocompleteItemClass()));
 
 	/** Custom class for the empty and loading state container. */
 	public readonly autocompleteEmptyClass = input<ClassValue>('');
@@ -171,7 +193,10 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 	protected readonly _search = linkedSignal(() => this.search() || '');
 
 	/** Function to transform an option value to a search string. Defaults to identity function for strings. */
-	public readonly transformValueToSearch = input<(value: T) => string>(this._config.transformValueToSearch);
+	public readonly transformValueToSearch = input<(option: T) => string>(this._config.transformValueToSearch);
+
+	/** Function to transform an option value to a display string. Defaults to identity function for strings. */
+	public readonly transformOptionToString = input<(option: T) => string>(this._config.transformOptionToString);
 
 	/** Optional template for rendering each option. */
 	public readonly optionTemplate = input<TemplateRef<HlmAutocompleteOption<T>>>();
@@ -207,40 +232,23 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 	protected _onChange?: ChangeFn<T | null>;
 	protected _onTouched?: TouchFn;
 
-	protected _setPopoverState(state: 'open' | 'closed') {
-		if (state === 'open') {
-			this._brnPopover().open();
-		} else {
-			this._brnPopover().close();
-		}
-	}
-
-	protected _openPopover() {
-		if (this._search() || this.filteredOptions().length > 0) {
-			// only open if there's a search term or options to show
-			this._brnPopover().open();
-		}
-	}
-
 	protected _toggleOptions() {
 		if (this._search() || this.filteredOptions().length > 0) {
 			// only toggle if there's a search term or options to show
-			const state = this._brnPopover().stateComputed();
-			this._setPopoverState(state === 'open' ? 'closed' : 'open');
+			this._brnAutocomplete().toggle();
 		}
 
 		this._inputRef().nativeElement.focus();
 	}
 
-	protected _onSearchChanged(event: Event) {
-		const input = event.target as HTMLInputElement;
-		this._search.set(input.value);
-		this.searchChange.emit(input.value);
+	protected _onSearchChanged(value: string) {
+		this._search.set(value);
+		this.searchChange.emit(value);
 
 		this._clearOption();
 
-		if (this._brnPopover().stateComputed() !== 'open' && input.value.length > 0) {
-			this._setPopoverState('open');
+		if (!this._brnAutocomplete().isExpanded() && value.length > 0) {
+			this._brnAutocomplete().open();
 		}
 	}
 
@@ -260,12 +268,16 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 		this._search.set(searchValue);
 		this.searchChange.emit(searchValue);
 
-		this._setPopoverState('closed');
+		this._brnAutocomplete().close();
 	}
 
 	/** CONTROL VALUE ACCESSOR */
 	public writeValue(value: T | null): void {
 		this._value.set(value ? value : undefined);
+
+		const searchValue = value ? this.transformValueToSearch()(value) : '';
+		this._search.set(searchValue);
+		this.searchChange.emit(searchValue);
 	}
 
 	public registerOnChange(fn: ChangeFn<T | null>): void {
@@ -281,6 +293,6 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 	}
 }
 
-interface HlmAutocompleteOption<T> {
+export interface HlmAutocompleteOption<T> {
 	$implicit: T;
 }

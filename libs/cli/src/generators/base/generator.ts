@@ -1,10 +1,10 @@
 import {
-	type GeneratorCallback,
-	type Tree,
 	addDependenciesToPackageJson,
 	generateFiles,
+	type GeneratorCallback,
 	joinPathFragments,
 	runTasksInSerial,
+	type Tree,
 	updateJson,
 } from '@nx/devkit';
 import { addTsConfigPath } from '@nx/js';
@@ -68,7 +68,7 @@ function registerDependencies(tree: Tree, options: HlmBaseGeneratorSchema): Gene
 	const angularVersion = getInstalledPackageVersion(tree, '@angular/core', FALLBACK_ANGULAR_VERSION, true);
 	const cdkVersion = getInstalledPackageVersion(tree, '@angular/cdk', FALLBACK_ANGULAR_VERSION, true);
 	const dependencies = buildDependencyArray(options, angularVersion, cdkVersion);
-	const devDependencies = buildDevDependencyArray();
+	const devDependencies = buildDevDependencyArray(tree);
 	return addDependenciesToPackageJson(tree, dependencies, devDependencies);
 }
 

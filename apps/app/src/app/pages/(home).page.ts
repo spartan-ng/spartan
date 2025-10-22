@@ -20,8 +20,9 @@ export const routeMeta: RouteMeta = {
 };
 
 const container = 'mx-auto flex flex-col items-center gap-4 text-center';
-const subHeading = 'font-heading text-3xl leading-[1.1] sm:text-3xl md:text-6xl';
-const lead = 'leading-normal text-muted-foreground sm:text-xl sm:leading-8';
+const subHeading =
+	'text-primary leading-tighter max-w-4xl text-3xl font-semibold tracking-tight text-balance lg:leading-[1.1] lg:font-semibold xl:text-4xl xl:tracking-tighter';
+const lead = 'text-foreground max-w-3xl text-base text-balance sm:text-lg';
 
 @Component({
 	selector: 'spartan-home',
@@ -39,11 +40,11 @@ const lead = 'leading-normal text-muted-foreground sm:text-xl sm:leading-8';
 		ZeropsLogo,
 	],
 	host: {
-		class: 'block p-4 pb-12 pt-6 sm:pb-24 sm:pt-12',
+		class: 'block px-2',
 	},
 	providers: [provideIcons({ lucideLayers, lucidePuzzle, lucideStar, lucideCheck })],
 	template: `
-		<section class="space-y-6 pb-8 pt-6 md:pb-12 md:pt-10 lg:py-32">
+		<section class="flex flex-col items-center gap-2 py-8 text-center md:py-16 lg:py-20 xl:gap-4">
 			<div class="${container} max-w-[64rem]">
 				<a
 					target="_blank"
@@ -52,9 +53,11 @@ const lead = 'leading-normal text-muted-foreground sm:text-xl sm:leading-8';
 					class="!bg-primary !text-foreground-primary !hover:bg-primary/90"
 				>
 					Proudly supported by Zerops. The dev-first cloud platform.
-					<spartan-zerops-logo class="ml-1.5 mr-1 h-4 w-4" />
+					<spartan-zerops-logo class="mr-1 ml-1.5 h-4 w-4" />
 				</a>
-				<h1 class="text-3xl font-semibold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
+				<h1
+					class="text-primary leading-tighter max-w-4xl text-4xl font-semibold tracking-tight text-balance lg:leading-[1.1] lg:font-semibold xl:text-5xl xl:tracking-tighter"
+				>
 					Cutting-edge tools powering Angular full-stack development.
 				</h1>
 				<p class="${lead} max-w-[42rem]">
@@ -62,11 +65,12 @@ const lead = 'leading-normal text-muted-foreground sm:text-xl sm:leading-8';
 					incredible with spartan/ui.
 				</p>
 				<div class="flex flex-wrap justify-center gap-4">
-					<a hlmBtn size="lg" routerLink="/documentation">Get Started</a>
+					<a hlmBtn size="sm" routerLink="/documentation">Get Started</a>
+					<a hlmBtn size="sm" variant="ghost" routerLink="/components">Components</a>
 					<a
 						hlmBtn
-						size="lg"
-						variant="outline"
+						size="sm"
+						variant="ghost"
 						target="_blank"
 						rel="noreferrer"
 						href="https://github.com/goetzrobin/spartan"
@@ -78,7 +82,7 @@ const lead = 'leading-normal text-muted-foreground sm:text-xl sm:leading-8';
 			</div>
 		</section>
 
-		<section id="tools" class="space-y-6 py-8 md:py-12 lg:py-24">
+		<section id="tools" class="space-y-6 py-8 md:py-12">
 			<div class="${container} max-w-[58rem]">
 				<h2 class="${subHeading}">The Tools</h2>
 				<p class="${lead} max-w-[42rem]">
@@ -107,7 +111,7 @@ const lead = 'leading-normal text-muted-foreground sm:text-xl sm:leading-8';
 			</div>
 		</section>
 
-		<section id="the-300" class="space-y-6 py-8 md:py-12 lg:py-24">
+		<section id="the-300" class="space-y-6 py-8 md:py-12">
 			<div class="${container} max-w-[58rem]">
 				<h2 class="${subHeading}">The 300</h2>
 				<p class="${lead} max-w-[42rem]">
@@ -126,7 +130,7 @@ const lead = 'leading-normal text-muted-foreground sm:text-xl sm:leading-8';
 			</div>
 		</section>
 
-		<section id="zerops" class="space-y-6 py-8 md:py-12 lg:py-24">
+		<section id="zerops" class="space-y-6 py-8 md:py-12">
 			<div class="${container} max-w-[58rem]">
 				<h2 class="${subHeading}">Spearheading Our Development</h2>
 				<p class="${lead} max-w-[42rem]">
@@ -136,7 +140,7 @@ const lead = 'leading-normal text-muted-foreground sm:text-xl sm:leading-8';
 					components and further our ecosystem.
 				</p>
 
-				<ul class="mb-8 mt-4 space-y-2">
+				<ul class="mt-4 mb-8 space-y-2">
 					@for (valueProp of _valueProps; track $index) {
 						<li class="flex items-start gap-2">
 							<ng-icon name="lucideCheck" class="text-primary mt-0.5 h-5 w-5 flex-shrink-0" />

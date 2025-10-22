@@ -6,8 +6,15 @@
 	"projectType": "library",
 	"tags": [],
 	"targets": {
+		"pre-tailwind": {
+			"executor": "nx:run-commands",
+			"options": {
+				"command": "npx @tailwindcss/cli -i ./apps/app/src/styles.css -o ./apps/ui-storybook/.storybook/tailwind.css --minify"
+			}
+		},
 		"storybook": {
 			"executor": "@storybook/angular:start-storybook",
+			"dependsOn": ["pre-tailwind"],
 			"options": {
 				"port": 4400,
 				"configDir": "apps/ui-storybook/.storybook",
@@ -23,6 +30,7 @@
 		},
 		"build-storybook": {
 			"executor": "@storybook/angular:build-storybook",
+			"dependsOn": ["pre-tailwind"],
 			"outputs": ["{options.outputDir}"],
 			"options": {
 				"outputDir": "dist/storybook/ui-storybook",
@@ -39,6 +47,7 @@
 		},
 		"static-storybook": {
 			"executor": "@nx/web:file-server",
+			"dependsOn": ["pre-tailwind"],
 			"options": {
 				"buildTarget": "ui-storybook:build-storybook",
 				"staticFilePath": "dist/storybook/ui-storybook"

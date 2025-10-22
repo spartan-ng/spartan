@@ -13,7 +13,7 @@ import { debounceTime, map } from 'rxjs/operators';
 	selector: 'spartan-dialog-declarative-preview',
 	imports: [FormsModule, BrnDialogImports, HlmDialogImports, HlmLabelImports, HlmInputImports, HlmTypographyImports],
 	template: `
-		<div class="space-y-4">
+		<div class="mt-6 space-y-4">
 			<p hlmH4>Enter passphrase to open dialog</p>
 			<div class="flex flex-col gap-2">
 				<label hlmLabel for="passphrase" class="px-1">Passphrase</label>

@@ -2,8 +2,9 @@ import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideTriangleAlert } from '@ng-icons/lucide';
+import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import {} from '@spartan-ng/helm/icon';
-import { hlmCode, hlmH4, hlmP } from '@spartan-ng/helm/typography';
+import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../shared/code/code';
 import { MainSection } from '../../../shared/layout/main-section';
 import { PageBottomNav } from '../../../shared/layout/page-bottom-nav/page-bottom-nav';
@@ -21,7 +22,16 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-components-json',
-	imports: [MainSection, SectionIntro, PageBottomNav, PageBottomNavLink, PageNav, SectionSubHeading, Code],
+	imports: [
+		MainSection,
+		SectionIntro,
+		PageBottomNav,
+		PageBottomNavLink,
+		PageNav,
+		SectionSubHeading,
+		Code,
+		SectionSubSubHeading,
+	],
 	providers: [provideIcons({ lucideTriangleAlert })],
 	template: `
 		<section spartanMainSection>
@@ -61,19 +71,19 @@ export const routeMeta: RouteMeta = {
 }'
 			/>
 
-			<h3 id="componentsPath" class="${hlmH4} mt-8">componentsPath</h3>
+			<h3 id="componentsPath" spartanH4>componentsPath</h3>
 
 			<p class="${hlmP}">The base path where your components will be generated.</p>
 
-			<h3 id="buildable" class="${hlmH4} mt-8">buildable</h3>
+			<h3 id="buildable" spartanH4>buildable</h3>
 
 			<p class="${hlmP}">Determines whether the generated library is buildable or not.</p>
 
-			<h3 id="generateAs" class="${hlmH4} mt-8">generateAs</h3>
+			<h3 id="generateAs" spartanH4>generateAs</h3>
 
 			<p class="${hlmP}">Generate the components as a library or entrypoint.</p>
 
-			<h3 id="importAlias" class="${hlmH4} mt-8">importAlias</h3>
+			<h3 id="importAlias" spartanH4>importAlias</h3>
 
 			<p class="${hlmP}">Specify the import path of the component e.g. &#64;spartan-ng/helm.</p>
 

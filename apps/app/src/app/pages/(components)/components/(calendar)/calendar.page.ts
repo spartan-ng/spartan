@@ -4,7 +4,9 @@ import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/prim
 import { CalendarRangeExample } from '@spartan-ng/app/app/pages/(components)/components/(calendar)/calendar--range.example';
 import { CalendarYearAndMonthExample } from '@spartan-ng/app/app/pages/(components)/components/(calendar)/calendar--year-and-month.example';
 import { CodePreview } from '@spartan-ng/app/app/shared/code/code-preview';
-import { hlmCode, hlmH4, hlmP } from '@spartan-ng/helm/typography';
+import { MainSection } from '@spartan-ng/app/app/shared/layout/main-section';
+import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
+import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { PageBottomNav } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav';
 import { PageBottomNavLink } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav-link';
@@ -41,6 +43,8 @@ export const routeMeta: RouteMeta = {
 		CalendarMultipleExample,
 		CalendarRangeExample,
 		CalendarYearAndMonthExample,
+		MainSection,
+		SectionSubSubHeading,
 	],
 	template: `
 		<section spartanMainSection>
@@ -54,14 +58,10 @@ export const routeMeta: RouteMeta = {
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
-			<spartan-cli-tabs
-				class="mt-4"
-				nxCode="npx nx g @spartan-ng/cli:ui calendar"
-				ngCode="ng g @spartan-ng/cli:ui calendar"
-			/>
+			<spartan-cli-tabs nxCode="npx nx g @spartan-ng/cli:ui calendar" ngCode="ng g @spartan-ng/cli:ui calendar" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
-			<div class="space-y-4">
+			<div class="mt-6 space-y-4">
 				<spartan-code [code]="_defaultImports" />
 				<spartan-code [code]="_defaultSkeleton" />
 			</div>
@@ -75,7 +75,7 @@ export const routeMeta: RouteMeta = {
 				globally or swap it at runtime to support multiple locales.
 			</p>
 
-			<h3 id="i18n__global_config" class="${hlmH4} mb-2 mt-6">Global Configuration</h3>
+			<h3 id="i18n__global_config" spartanH4>Global Configuration</h3>
 
 			<p class="${hlmP} mb-6">
 				Use
@@ -85,7 +85,7 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-code [code]="_i18nProviders" />
 
-			<h3 id="i18n__runtime_config" class="${hlmH4} mb-2 mt-6">Runtime Configuration</h3>
+			<h3 id="i18n__runtime_config" spartanH4>Runtime Configuration</h3>
 
 			<p class="${hlmP} mb-6">
 				You can dynamically switch calendar language at runtime by injecting
@@ -96,14 +96,8 @@ export const routeMeta: RouteMeta = {
 			</p>
 			<spartan-code [code]="_i18nRuntimeChange" />
 
-			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
-			<spartan-ui-api-docs docType="brain" />
-
-			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
-			<spartan-ui-api-docs docType="helm" />
-
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__multiple_selection" class="${hlmH4} mb-2 mt-6">Multiple Selection</h3>
+			<h3 id="examples__multiple_selection" spartanH4>Multiple Selection</h3>
 
 			<p class="${hlmP} mb-6">
 				Use
@@ -122,7 +116,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_multipleCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__range_selection" class="${hlmH4} mb-2 mt-6">Range Selection</h3>
+			<h3 id="examples__range_selection" spartanH4>Range Selection</h3>
 
 			<p class="${hlmP} mb-6">
 				Use
@@ -141,7 +135,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_rangeCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__month_and_year_selection" class="${hlmH4} mb-2 mt-6">Month and Year Selector</h3>
+			<h3 id="examples__month_and_year_selection" spartanH4>Month and Year Selector</h3>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -150,9 +144,15 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_yearAndMonthCode()" />
 			</spartan-tabs>
 
+			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="brain" />
+
+			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="helm" />
+
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="carousel" label="Carousel" />
-				<spartan-page-bottom-nav-link direction="previous" href="button" label="Button" />
+				<spartan-page-bottom-nav-link direction="previous" href="button-group" label="Button Group" />
 			</spartan-page-bottom-nav>
 		</section>
 		<spartan-page-nav />

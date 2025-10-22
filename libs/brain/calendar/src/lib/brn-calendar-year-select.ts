@@ -23,15 +23,15 @@ export class BrnCalendarYearSelect {
 	/** Access the calendar i18n */
 	protected readonly _i18n = injectBrnCalendarI18n();
 
-	/** Focus selected year */
-	protected yearSelected(year: number): void {
-		const targetDate = this._dateAdapter.set(this._calendar.state().focusedDate(), { year });
-		this._calendar.state().focusedDate.set(targetDate);
-	}
-
 	constructor() {
 		effect(() => {
 			this._select.writeValue(this._dateAdapter.getYear(this._calendar.focusedDate()));
 		});
+	}
+
+	/** Focus selected year */
+	protected yearSelected(year: number): void {
+		const targetDate = this._dateAdapter.set(this._calendar.focusedDate(), { year });
+		this._calendar.focusedDate.set(targetDate);
 	}
 }

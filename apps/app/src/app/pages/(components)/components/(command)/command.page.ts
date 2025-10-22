@@ -2,8 +2,9 @@ import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { HlmButton } from '@spartan-ng/helm/button';
-import { hlmCode, hlmH4, hlmP } from '@spartan-ng/helm/typography';
+import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
@@ -43,6 +44,7 @@ export const routeMeta: RouteMeta = {
 		HlmButton,
 		CommandDialog,
 		RouterLink,
+		SectionSubSubHeading,
 	],
 	template: `
 		<section spartanMainSection>
@@ -56,26 +58,16 @@ export const routeMeta: RouteMeta = {
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
-			<spartan-cli-tabs
-				class="mt-4"
-				nxCode="npx nx g @spartan-ng/cli:ui command"
-				ngCode="ng g @spartan-ng/cli:ui command"
-			/>
+			<spartan-cli-tabs nxCode="npx nx g @spartan-ng/cli:ui command" ngCode="ng g @spartan-ng/cli:ui command" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
-			<div class="space-y-4">
+			<div class="mt-6 space-y-4">
 				<spartan-code [code]="_defaultImports" />
 				<spartan-code [code]="_defaultSkeleton" />
 			</div>
 
-			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
-			<spartan-ui-api-docs docType="brain" />
-
-			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
-			<spartan-ui-api-docs docType="helm" />
-
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__dialog" class="${hlmH4} mb-2 mt-6">Dialog</h3>
+			<h3 id="examples__dialog" spartanH4>Dialog</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-command-dialog />
@@ -83,7 +75,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_commandDialogCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__combobox" class="${hlmH4} mb-2 mt-6">Combobox</h3>
+			<h3 id="examples__combobox" spartanH4>Combobox</h3>
 			<p class="${hlmP}">
 				You can use the
 				<code class="${hlmCode}">brn-command</code>
@@ -91,6 +83,12 @@ export const routeMeta: RouteMeta = {
 				<a hlmBtn class="!px-1 text-base" variant="link" routerLink="../combobox">Combobox</a>
 				page for more information.
 			</p>
+
+			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="brain" />
+
+			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="context-menu" label="Context Menu" />

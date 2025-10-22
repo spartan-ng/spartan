@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { HlmSpinner } from '@spartan-ng/helm/spinner';
 
 @Component({
@@ -12,6 +12,5 @@ import { HlmSpinner } from '@spartan-ng/helm/spinner';
 			<hlm-spinner class="size-12" />
 		</div>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SpartanSpinnerSizePreviewComponent {}

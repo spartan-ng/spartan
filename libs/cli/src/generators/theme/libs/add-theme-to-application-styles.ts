@@ -1,10 +1,10 @@
 // All credit goes to the incredible folks at Nx who use this code to update the app styles when adding tailwind
 // Check out the code here: https://github.com/nrwl/nx/blob/master/packages/angular/src/generators/setup-tailwind/lib/update-application-styles.ts
 
-import { type ProjectConfiguration, type Tree, joinPathFragments, readJson, stripIndents } from '@nx/devkit';
-import type { PackageJson } from 'nx/src/utils/package-json';
-import * as semver from 'semver';
-import { type ThemeName, themes } from './colors';
+import { joinPathFragments, type ProjectConfiguration, stripIndents, type Tree } from '@nx/devkit';
+import { prompt } from 'enquirer';
+import { getTailwindVersion } from '../../../utils/get-tailwind-version';
+import { legacyThemes, type ThemeName, themes } from './colors';
 
 export interface AddThemeToApplicationStylesOptions {
 	project: string;
@@ -14,21 +14,20 @@ export interface AddThemeToApplicationStylesOptions {
 	prefix?: string;
 }
 
-export function addThemeToApplicationStyles(
+export async function addThemeToApplicationStyles(
 	tree: Tree,
 	options: AddThemeToApplicationStylesOptions,
 	project: ProjectConfiguration,
-): void {
-	const packageJson = readJson<PackageJson>(tree, 'package.json');
-	const deps = { ...packageJson.dependencies, ...packageJson.devDependencies };
-
-	let tailwindVersion = 3;
-
-	if ('tailwindcss' in deps) {
-		const version = deps['tailwindcss'];
-		tailwindVersion = semver.coerce(version)?.major ?? 3;
+): Promise<void> {
+	const tailwindVersion = getTailwindVersion(tree);
+	if (tailwindVersion === 3) {
+		await prompt({
+			type: 'confirm',
+			name: 'Tailwind 3 detected',
+			initial: true,
+			message: `Please note that we cannot guarantee full compatibility of the components with Tailwind CSS version 3, and some features may not function as expected. Are you sure you want to proceed with Tailwind CSS v3?`,
+		});
 	}
-
 	const tailwindImport = tailwindVersion === 4 ? '@import "@spartan-ng/brain/hlm-tailwind-preset.css";' : '';
 
 	const prefix = options.prefix ? ` .${options.prefix}` : '';
@@ -51,12 +50,12 @@ export function addThemeToApplicationStyles(
 
 	const stylesEntryPointContent = tree.read(stylesEntryPoint, 'utf-8');
 
-	const CDK_IMPORT = `@import '@angular/cdk/overlay-prebuilt.css';`;
+	const CDK_IMPORT = `@import "@angular/cdk/overlay-prebuilt.css";`;
 	const ckdOverlayImport = stylesEntryPointContent.includes(CDK_IMPORT) ? '' : CDK_IMPORT;
 
-	const fontSans = stylesEntryPointContent.includes('--font-sans') ? '' : `--font-sans: ''`;
+	const fontSans = stylesEntryPointContent.includes('--font-sans') ? '' : `--font-sans: '';`;
 
-	const colorScheme = tailwindVersion === 4 ? themes[options.theme].cssVarsV4 : themes[options.theme].cssVarsV3;
+	const colorScheme = tailwindVersion === 4 ? themes[options.theme] : legacyThemes[options.theme];
 
 	tree.write(
 		stylesEntryPoint,
@@ -78,7 +77,7 @@ export function addThemeToApplicationStyles(
 
 		:root.dark${prefix} {
 			color-scheme: dark;
-			
+
 			${Object.entries(colorScheme.dark)
 				.map(([key, value]) => `--${key}: ${value};`)
 				.join('\n')}
@@ -86,8 +85,11 @@ export function addThemeToApplicationStyles(
 
     @layer base {
       * {
-        @apply border-border;
-      }
+    		@apply border-border outline-ring/50;
+ 			}
+  		body {
+  		  @apply bg-background text-foreground;
+  		}
     }`,
 	);
 }

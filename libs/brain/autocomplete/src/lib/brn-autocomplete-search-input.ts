@@ -4,9 +4,9 @@ import {
 	ElementRef,
 	forwardRef,
 	Inject,
-	input,
-	linkedSignal,
+	model,
 	Optional,
+	output,
 	Renderer2,
 	signal,
 } from '@angular/core';
@@ -30,6 +30,7 @@ import { injectBrnAutocomplete } from './brn-autocomplete.token';
 		role: 'combobox',
 		'aria-autocomplete': 'list',
 		'[attr.aria-activedescendant]': '_activeDescendant()',
+		'[attr.aria-expanded]': '_isExpanded()',
 		'(keydown)': 'onKeyDown($event)',
 		'(input)': 'onInput()',
 	},
@@ -38,10 +39,13 @@ export class BrnAutocompleteSearchInput extends DefaultValueAccessor {
 	private readonly _autocomplete = injectBrnAutocomplete();
 
 	/** The initial value of the search input */
-	public readonly value = input<string>('');
+	public readonly value = model<string>('');
 
-	/** @internal The "real" value of the search input */
-	public readonly valueState = linkedSignal(() => this.value());
+	/** Emitted when the value changes */
+	public readonly valueChange = output<string>();
+
+	/** Whether the autocomplete panel is expanded */
+	protected readonly _isExpanded = this._autocomplete.isExpanded;
 
 	/** The id of the active option */
 	protected readonly _activeDescendant = signal<string | undefined>(undefined);
@@ -57,12 +61,14 @@ export class BrnAutocompleteSearchInput extends DefaultValueAccessor {
 			.subscribe(() => this._activeDescendant.set(this._autocomplete.keyManager.activeItem?.id()));
 
 		effect(() => {
-			this.elementRef.nativeElement.value = this.valueState();
+			const value = this.value();
+			this.elementRef.nativeElement.value = value;
+			this.valueChange.emit(value);
 		});
 	}
 	/** Listen for changes to the input value */
 	protected onInput(): void {
-		this.valueState.set(this.elementRef.nativeElement.value);
+		this.value.set(this.elementRef.nativeElement.value);
 	}
 
 	/** Listen for keydown events */
@@ -72,6 +78,20 @@ export class BrnAutocompleteSearchInput extends DefaultValueAccessor {
 			event.preventDefault();
 		}
 
+		if (!this._isExpanded()) {
+			if (event.key === 'ArrowDown') {
+				this._autocomplete.open('first');
+			}
+
+			if (event.key === 'ArrowUp') {
+				this._autocomplete.open('last');
+			}
+
+			if (event.key === 'Escape') {
+				this.value.set('');
+			}
+		}
+
 		this._autocomplete.keyManager.onKeydown(event);
 	}
 
@@ -79,7 +99,7 @@ export class BrnAutocompleteSearchInput extends DefaultValueAccessor {
 	override writeValue(value: string | null): void {
 		super.writeValue(value);
 		if (value) {
-			this.valueState.set(value);
+			this.value.set(value);
 		}
 	}
 }

@@ -27,19 +27,19 @@ export class BrnCalendarMonthSelect {
 		return this._i18n.config().months()[this._dateAdapter.getMonth(this._calendar.focusedDate())];
 	});
 
+	constructor() {
+		effect(() => {
+			this._select.writeValue(this._selectedMonth());
+		});
+	}
+
 	/** Focus selected month */
 	protected monthSelected(selectedMonth: string): void {
 		const month = this._i18n
 			.config()
 			.months()
 			.findIndex((month) => month === selectedMonth);
-		const targetDate = this._dateAdapter.set(this._calendar.state().focusedDate(), { month });
-		this._calendar.state().focusedDate.set(targetDate);
-	}
-
-	constructor() {
-		effect(() => {
-			this._select.writeValue(this._selectedMonth());
-		});
+		const targetDate = this._dateAdapter.set(this._calendar.focusedDate(), { month });
+		this._calendar.focusedDate.set(targetDate);
 	}
 }

@@ -1,7 +1,7 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
-import { hlmH4 } from '@spartan-ng/helm/typography';
+import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
@@ -33,6 +33,7 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-button',
+
 	imports: [
 		UIApiDocs,
 		MainSection,
@@ -55,6 +56,7 @@ export const routeMeta: RouteMeta = {
 		ButtonWithIcon,
 		ButtonLoading,
 		ButtonAnchor,
+		SectionSubSubHeading,
 	],
 	template: `
 		<section spartanMainSection>
@@ -68,79 +70,72 @@ export const routeMeta: RouteMeta = {
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
-			<spartan-cli-tabs
-				class="mt-4"
-				nxCode="npx nx g @spartan-ng/cli:ui button"
-				ngCode="ng g @spartan-ng/cli:ui button"
-			/>
+			<spartan-cli-tabs nxCode="npx nx g @spartan-ng/cli:ui button" ngCode="ng g @spartan-ng/cli:ui button" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
-			<div class="space-y-4">
+			<div class="mt-6 space-y-4">
 				<spartan-code [code]="_defaultImports" />
 				<spartan-code [code]="_defaultSkeleton" />
 			</div>
 
-			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
-			<spartan-ui-api-docs docType="helm" />
-
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__secondary" class="${hlmH4} mb-2 mt-6">Secondary</h3>
+			<h3 id="examples__secondary" spartanH4>Secondary</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-button-secondary />
 				</div>
 				<spartan-code secondTab [code]="_secondaryCode()" />
 			</spartan-tabs>
-			<h3 id="examples__destructive" class="${hlmH4} mb-2 mt-6">Destructive</h3>
+			<h3 id="examples__destructive" spartanH4>Destructive</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-button-destructive />
 				</div>
 				<spartan-code secondTab [code]="_destructiveCode()" />
 			</spartan-tabs>
-			<h3 id="examples__outline" class="${hlmH4} mb-2 mt-6">Outline</h3>
+			<h3 id="examples__outline" spartanH4>Outline</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-button-outline />
 				</div>
 				<spartan-code secondTab [code]="_outlineCode()" />
 			</spartan-tabs>
-			<h3 id="examples__ghost" class="${hlmH4} mb-2 mt-6">Ghost</h3>
+			<h3 id="examples__ghost" spartanH4>Ghost</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-button-ghost />
 				</div>
 				<spartan-code secondTab [code]="_ghostCode()" />
 			</spartan-tabs>
-			<h3 id="examples__link" class="${hlmH4} mb-2 mt-6">Link</h3>
+			<h3 id="examples__link" spartanH4>Link</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-button-link />
 				</div>
 				<spartan-code secondTab [code]="_linkCode()" />
 			</spartan-tabs>
-			<h3 id="examples__icon" class="${hlmH4} mb-2 mt-6">Icon</h3>
+			<h3 id="examples__icon" spartanH4>Icon</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-button-icon />
 				</div>
 				<spartan-code secondTab [code]="_iconCode()" />
 			</spartan-tabs>
-			<h3 id="examples__with_icon" class="${hlmH4} mb-2 mt-6">With Icon</h3>
+			<h3 id="examples__with_icon" spartanH4>With Icon</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-button-with-icon />
 				</div>
 				<spartan-code secondTab [code]="_withIconCode()" />
 			</spartan-tabs>
-			<h3 id="examples__loading" class="${hlmH4} mb-2 mt-6">Loading</h3>
+			<h3 id="examples__loading" spartanH4>Loading</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-button-loading />
 				</div>
 				<spartan-code secondTab [code]="_loadingCode()" />
 			</spartan-tabs>
-			<h3 id="examples__as_anchor" class="${hlmH4} mb-2 mt-6">As Anchor</h3>
+			<h3 id="examples__as_anchor" spartanH4>As Anchor</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-button-anchor />
@@ -148,8 +143,14 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_anchorCode()" />
 			</spartan-tabs>
 
+			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="brain" />
+
+			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="helm" />
+
 			<spartan-page-bottom-nav>
-				<spartan-page-bottom-nav-link href="calendar" label="Calendar" />
+				<spartan-page-bottom-nav-link href="button-group" label="Button Group" />
 				<spartan-page-bottom-nav-link direction="previous" href="breadcrumb" label="Breadcrumb" />
 			</spartan-page-bottom-nav>
 		</section>

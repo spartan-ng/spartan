@@ -1,7 +1,8 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
-import { hlmCode, hlmH4 } from '@spartan-ng/helm/typography';
+import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
+import { hlmCode } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
@@ -32,6 +33,7 @@ export const routeMeta: RouteMeta = {
 };
 @Component({
 	selector: 'spartan-form-field',
+
 	imports: [
 		UIApiDocs,
 		MainSection,
@@ -48,6 +50,7 @@ export const routeMeta: RouteMeta = {
 		FormFieldErrorPreview,
 		FormFieldFormWithDirtyPreview,
 		FormFieldFormPreview,
+		SectionSubSubHeading,
 	],
 	template: `
 		<section spartanMainSection>
@@ -61,30 +64,23 @@ export const routeMeta: RouteMeta = {
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
-			<spartan-cli-tabs
-				class="mt-4"
-				nxCode="npx nx g @spartan-ng/cli:ui formfield"
-				ngCode="ng g @spartan-ng/cli:ui formfield"
-			/>
+			<spartan-cli-tabs nxCode="npx nx g @spartan-ng/cli:ui formfield" ngCode="ng g @spartan-ng/cli:ui formfield" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
-			<div class="space-y-4">
+			<div class="mt-6 space-y-4">
 				<spartan-code [code]="_defaultImports" />
 				<spartan-code [code]="_defaultSkeleton" />
 			</div>
 
-			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
-			<spartan-ui-api-docs docType="helm" />
-
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__error" class="${hlmH4} mb-2 mt-6">Error</h3>
+			<h3 id="examples__error" spartanH4>Error</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-form-field-error />
 				</div>
 				<spartan-code secondTab [code]="_errorCode()" />
 			</spartan-tabs>
-			<h3 id="examples__with_form" class="${hlmH4} mb-2 mt-6">With Form</h3>
+			<h3 id="examples__with_form" spartanH4>With Form</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-form-field-form />
@@ -92,7 +88,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_withFormCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__with_form_dirty_state" class="${hlmH4} mb-4 mt-6">Changing when error messages are shown</h3>
+			<h3 id="examples__with_form_dirty_state" spartanH4>Changing when error messages are shown</h3>
 
 			<p class="mb-2">
 				By default, these error messages are shown when the control is invalid and the user has interacted with
@@ -119,9 +115,12 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_withFormDirtyCode()" />
 			</spartan-tabs>
 
+			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="helm" />
+
 			<spartan-page-bottom-nav>
-				<spartan-page-bottom-nav-link href="label" label="Label" />
-				<spartan-page-bottom-nav-link direction="previous" href="icon" label="Icon" />
+				<spartan-page-bottom-nav-link href="hover-card" label="Hover Card" />
+				<spartan-page-bottom-nav-link direction="previous" href="empty" label="Empty" />
 			</spartan-page-bottom-nav>
 		</section>
 		<spartan-page-nav />

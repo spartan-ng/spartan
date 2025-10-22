@@ -21,12 +21,7 @@ export async function helmSecondaryEntrypointGenerator(tree: Tree, options: Helm
 	const sourceRoot = `libs/helm/${normalizedName}/src`;
 
 	// empty the index.ts file
-	tree.write(
-		joinPathFragments(sourceRoot, 'index.ts'),
-		`
-export const Hlm${className}Imports = [] as const;
-`,
-	);
+	tree.write(joinPathFragments(sourceRoot, 'index.ts'), `export const Hlm${className}Imports = [] as const;`);
 
 	// create the generator files
 	const generatorPath = joinPathFragments(

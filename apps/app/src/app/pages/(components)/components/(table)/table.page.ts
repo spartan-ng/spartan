@@ -15,7 +15,9 @@ import { Tabs } from '../../../../shared/layout/tabs';
 import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
+import { link } from '../../../../shared/typography/link';
 import { TablePreview, defaultImports, defaultSkeleton } from './table.preview';
+
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Table', api: 'table' },
 	meta: metaWith('spartan/ui - Table', 'A responsive table component.'),
@@ -58,13 +60,10 @@ export const routeMeta: RouteMeta = {
 			/>
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
-			<div class="space-y-4">
+			<div class="mt-6 space-y-4">
 				<spartan-code [code]="_defaultImports" />
 				<spartan-code [code]="_defaultSkeleton" />
 			</div>
-
-			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
-			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-section-sub-heading id="data-table">Data Table</spartan-section-sub-heading>
 			<p class="${hlmP}">
@@ -74,9 +73,17 @@ export const routeMeta: RouteMeta = {
 			</p>
 			<p class="${hlmP}">
 				See the
-				<a class="font-semibold underline underline-offset-4" routerLink="/components/data-table">Data Table</a>
+				<a class="${link}" routerLink="/components/data-table">Data Table</a>
 				documentation for more information.
 			</p>
+			<p class="${hlmP}">
+				You can also see an example of a data table in the
+				<a class="${link}" routerLink="/examples/tasks">Tasks</a>
+				demo.
+			</p>
+
+			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="tabs" label="Tabs" />

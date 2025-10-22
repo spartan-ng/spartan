@@ -1,12 +1,9 @@
-import { NgClass, isPlatformServer } from '@angular/common';
+import { NgClass } from '@angular/common';
 import {
 	type AfterViewInit,
-	ChangeDetectionStrategy,
 	Component,
 	ElementRef,
 	type OnDestroy,
-	type OnInit,
-	PLATFORM_ID,
 	type TemplateRef,
 	computed,
 	inject,
@@ -30,31 +27,33 @@ type SamePageAnchorLink = {
 
 @Component({
 	selector: 'spartan-page-nav',
-	changeDetection: ChangeDetectionStrategy.OnPush,
+
 	imports: [HlmScrollArea, NgScrollbarModule, NgClass, PageNavLink],
 	host: {
 		class: 'hidden xl:block text-sm',
 	},
 	template: `
 		<ng-template #pageNav>
-			<ng-scrollbar hlm class="h-[calc(100vh-3.5rem)]">
-				<div class="space-y-2 px-1">
-					<h3 class="font-medium">On this page</h3>
-					<ul class="m-0 flex list-none flex-col">
+			@if (_computedLinks().length > 0) {
+				<div class="h-(--top-spacing) shrink-0"></div>
+				<ng-scrollbar hlm class="h-[calc(100svh-var(--footer-height)+2rem-var(--stable-height))] py-2">
+					<div class="flex flex-col gap-2 p-4 pt-0 text-sm">
+						<p class="text-muted-foreground bg-background text-xs">On this page</p>
+
 						@for (link of _computedLinks(); track link.id) {
 							<spartan-page-nav-link [ngClass]="{ 'pl-4': link.isNested }" [fragment]="link.id" [label]="link.label" />
-						} @empty {
-							@if (_isDevMode()) {
-								[DEV] Nothing to see here!
-							}
 						}
-					</ul>
-				</div>
-			</ng-scrollbar>
+					</div>
+				</ng-scrollbar>
+			} @else {
+				@if (_isDevMode()) {
+					[DEV] Nothing to see here!
+				}
+			}
 		</ng-template>
 	`,
 })
-export class PageNav implements OnInit, AfterViewInit, OnDestroy {
+export class PageNav implements AfterViewInit, OnDestroy {
 	public readonly pageNavTpl = viewChild.required<TemplateRef<unknown>>('pageNav');
 
 	private readonly _route = inject(ActivatedRoute);
@@ -63,7 +62,24 @@ export class PageNav implements OnInit, AfterViewInit, OnDestroy {
 
 	protected readonly _isDevMode = signal(isDevMode());
 
-	protected readonly _links = signal<SamePageAnchorLink[]>([]);
+	protected readonly _links = computed<SamePageAnchorLink[]>(() => {
+		const selectors = ['[spartanMainSection] spartan-section-sub-heading', '[spartanMainSection] > h3'];
+		const headings = Array.from(this._page?.querySelectorAll(selectors.join(',')) ?? []);
+		const links = headings.map((element) => {
+			const { id, children, localName, textContent } = element;
+			const isSubHeading = localName === 'spartan-section-sub-heading';
+			const label =
+				(isSubHeading ? (children?.[0]?.childNodes?.[0]?.textContent ?? '[DEV] Empty heading!') : textContent) ??
+				'[DEV] Empty heading!';
+			if (this._isDevMode() && id === '') {
+				console.error(`[DEV] id missing for heading "${label}"`);
+			}
+			return { id, label, isNested: !isSubHeading };
+		});
+
+		return links;
+	});
+
 	protected readonly _dynamicLinks = computed(() => {
 		const apiComponent = this._routeData()?.['api'];
 		if (!apiComponent || !this._apiDocsService) {
@@ -115,37 +131,12 @@ export class PageNav implements OnInit, AfterViewInit, OnDestroy {
 		this._dynamicLinks() && this._dynamicLinks().length ? this._dynamicLinks() : this._links(),
 	);
 
-	private readonly _platformId = inject(PLATFORM_ID);
-
 	/**
 	 * Reference to the tag with the main content of the page.
 	 * For this to work, the component should be added immediately after a tag with the [spartanMainSection] directive.
 	 */
 	private readonly _page: HTMLElement = (inject(ElementRef).nativeElement as HTMLElement)
 		.previousSibling as HTMLElement;
-
-	ngOnInit() {
-		if (isPlatformServer(this._platformId)) {
-			if (isDevMode()) {
-				console.error('This component should not be used for non-SSG/SPA pages.');
-			}
-			return;
-		}
-
-		const selectors = ['[spartanMainSection] spartan-section-sub-heading', '[spartanMainSection] > h3'];
-		const headings = Array.from(this._page.querySelectorAll(selectors.join(',')));
-		const links = headings.map((element) => {
-			const { id, children, localName, textContent } = element;
-			const isSubHeading = localName === 'spartan-section-sub-heading';
-			const label = (isSubHeading ? children[0].childNodes[0].textContent : textContent) ?? '[DEV] Empty heading!';
-			if (isDevMode() && id === '') {
-				console.error(`[DEV] id missing for heading "${label}"`);
-			}
-			return { id, label, isNested: !isSubHeading };
-		});
-
-		this._links.set(links);
-	}
 
 	ngAfterViewInit(): void {
 		if (!this.pageNavTpl()) return;

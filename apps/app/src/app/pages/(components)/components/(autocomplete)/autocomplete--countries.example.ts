@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { HlmAutocompleteImports } from '@spartan-ng/helm/autocomplete';
 import { provideHlmAutocompleteConfig } from 'libs/helm/autocomplete/src/lib/hlm-autocomplete.token';
 
@@ -14,14 +14,14 @@ type Country = {
 	template: `
 		<hlm-autocomplete [filteredOptions]="filteredCountries()" [optionTemplate]="option" [(search)]="search" />
 
+		<!-- custom option template with access to the option item -->
 		<ng-template #option let-option>{{ option.flag }} {{ option.name }}</ng-template>
 	`,
 	providers: [
 		provideHlmAutocompleteConfig({
-			transformValueToSearch: (value: Country) => `${value.flag} ${value.name}`,
+			transformValueToSearch: (option: Country) => `${option.flag} ${option.name}`,
 		}),
 	],
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AutocompleteCountries {
 	private readonly _countries: Country[] = [

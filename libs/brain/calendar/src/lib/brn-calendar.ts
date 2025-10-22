@@ -10,9 +10,9 @@ import {
 	inject,
 	Injector,
 	input,
+	linkedSignal,
 	model,
 	numberAttribute,
-	signal,
 } from '@angular/core';
 import { injectDateAdapter } from '@spartan-ng/brain/date-time';
 import { BrnCalendarCellButton } from './brn-calendar-cell-button';
@@ -72,17 +72,11 @@ export class BrnCalendar<T> implements BrnCalendarBase<T> {
 	});
 
 	/**
-	 * @internal
-	 * The internal state of the component.
-	 */
-	public readonly state = computed(() => ({
-		focusedDate: signal(this.constrainDate(this.defaultFocusedDate() ?? this.date() ?? this._dateAdapter.now())),
-	}));
-
-	/**
 	 * The focused date.
 	 */
-	public readonly focusedDate = computed(() => this.state().focusedDate());
+	public readonly focusedDate = linkedSignal(() =>
+		this.constrainDate(this.defaultFocusedDate() ?? this.date() ?? this._dateAdapter.now()),
+	);
 
 	/**
 	 * Get all the days to display, this is the days of the current month
@@ -90,7 +84,7 @@ export class BrnCalendar<T> implements BrnCalendarBase<T> {
 	 */
 	public readonly days = computed(() => {
 		const weekStartsOn = this._weekStartsOn();
-		const month = this.state().focusedDate();
+		const month = this.focusedDate();
 		const days: T[] = [];
 
 		// Get the first and last day of the month.
@@ -182,7 +176,7 @@ export class BrnCalendar<T> implements BrnCalendarBase<T> {
 		} else {
 			this.date.set(date);
 		}
-		this.state().focusedDate.set(date);
+		this.focusedDate.set(date);
 	}
 
 	/** @internal Set the focused date */
@@ -192,7 +186,7 @@ export class BrnCalendar<T> implements BrnCalendarBase<T> {
 			return;
 		}
 
-		this.state().focusedDate.set(date);
+		this.focusedDate.set(date);
 
 		// wait until the cells have all updated
 		afterNextRender(

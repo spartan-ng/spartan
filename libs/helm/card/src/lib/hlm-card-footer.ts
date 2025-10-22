@@ -10,5 +10,5 @@ import type { ClassValue } from 'clsx';
 })
 export class HlmCardFooter {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected readonly _computedClass = computed(() => hlm('[.border-t]:pt-6 flex items-center px-6', this.userClass()));
+	protected readonly _computedClass = computed(() => hlm('flex items-center px-6 [.border-t]:pt-6', this.userClass()));
 }

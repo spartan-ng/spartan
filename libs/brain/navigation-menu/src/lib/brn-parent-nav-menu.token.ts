@@ -2,7 +2,7 @@ import { inject, InjectionToken, ValueProvider } from '@angular/core';
 import { Subject } from 'rxjs';
 
 export interface BrnParentNavMenu {
-	subNavHover$: Subject<boolean>;
+	subNavVisible$: Subject<boolean>;
 }
 
 export const BrnParentNavMenu = new InjectionToken<BrnParentNavMenu>('ParentNavMenu');

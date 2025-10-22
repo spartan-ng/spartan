@@ -37,9 +37,9 @@ export class BrnNavigationMenuItem {
 
 	public readonly contentHovered$ = this._contentService.hovered$;
 
-	public readonly subNavHover$ = new Subject<Observable<boolean>>();
+	public readonly subNavVisible$ = new Subject<Observable<boolean>>();
 
-	private readonly triggerOrLink = contentChild(BrnNavigationMenuInteractable, { read: BrnButton });
+	private readonly _triggerOrLink = contentChild(BrnNavigationMenuInteractable, { read: BrnButton });
 
-	protected readonly disabled = computed(() => this.triggerOrLink()?.disabled());
+	protected readonly disabled = computed(() => this._triggerOrLink()?.disabled());
 }

@@ -5,11 +5,11 @@ import { injectBrnNavigationMenuItem } from './brn-navigation-menu-item.token';
 import { injectBrnNavigationMenu } from './brn-navigation-menu.token';
 import { provideBrnParentNavMenu } from './brn-parent-nav-menu.token';
 
-const subNavHover$ = new Subject<boolean>();
+const subNavVisible$ = new Subject<boolean>();
 
 @Directive({
 	selector: '[brnNavigationMenuContent]',
-	providers: [provideBrnParentNavMenu({ subNavHover$: subNavHover$ })],
+	providers: [provideBrnParentNavMenu({ subNavVisible$: subNavVisible$ })],
 })
 export class BrnNavigationMenuContent {
 	private readonly _navigationMenu = injectBrnNavigationMenu();
@@ -35,7 +35,7 @@ export class BrnNavigationMenuContent {
 	constructor() {
 		if (!this._tpl) return;
 		this._navigationMenuItem.contentTemplate.set(this._tpl);
-		this._navigationMenuItem.subNavHover$.next(subNavHover$);
+		this._navigationMenuItem.subNavVisible$.next(subNavVisible$);
 
 		effect(() => {
 			const el = this._contentEl();

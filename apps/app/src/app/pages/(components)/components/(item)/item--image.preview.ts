@@ -9,7 +9,7 @@ import { HlmItemImports } from '@spartan-ng/helm/item';
 	},
 	template: `
 		<div hlmItemGroup class="gap-4">
-			@for (song of songs; track song.title) {
+			@for (song of _songs; track song.title) {
 				<a hlmItem variant="outline" role="listitem" href="#">
 					<div hlmItemMedia variant="image">
 						<img
@@ -38,7 +38,7 @@ import { HlmItemImports } from '@spartan-ng/helm/item';
 	`,
 })
 export class ItemImagePreview {
-	songs = [
+	protected readonly _songs = [
 		{
 			title: 'Midnight City Lights',
 			artist: 'Neon Dreams',

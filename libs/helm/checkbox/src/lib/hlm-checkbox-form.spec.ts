@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { render, screen } from '@testing-library/angular';
@@ -7,7 +6,7 @@ import { HlmCheckbox } from './hlm-checkbox';
 
 @Component({
 	selector: 'hlm-checkbox-form',
-	imports: [HlmCheckbox, FormsModule, CommonModule, ReactiveFormsModule],
+	imports: [HlmCheckbox, FormsModule, ReactiveFormsModule],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<form [formGroup]="form">
@@ -21,7 +20,7 @@ import { HlmCheckbox } from './hlm-checkbox';
 				></hlm-checkbox>
 			</label>
 		</form>
-		{{ form.value | json }}
+		{{ form.value }}
 	`,
 })
 export class HlmCheckboxFormSpec {

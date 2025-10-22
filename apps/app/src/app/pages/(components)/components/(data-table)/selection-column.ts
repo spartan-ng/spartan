@@ -7,8 +7,8 @@ import { type CellContext, type HeaderContext, injectFlexRenderContext } from '@
 	template: `
 		<hlm-checkbox
 			[checked]="_context.table.getIsAllRowsSelected()"
-			(checkedChange)="_context.table.toggleAllRowsSelected()"
 			[indeterminate]="_context.table.getIsSomeRowsSelected()"
+			(checkedChange)="_context.table.toggleAllRowsSelected()"
 		/>
 	`,
 	host: {

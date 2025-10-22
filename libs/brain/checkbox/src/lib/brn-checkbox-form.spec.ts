@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { render, screen } from '@testing-library/angular';
@@ -7,7 +6,7 @@ import { BrnCheckbox } from './brn-checkbox';
 
 @Component({
 	selector: 'brn-checkbox-form',
-	imports: [BrnCheckbox, FormsModule, CommonModule, ReactiveFormsModule],
+	imports: [BrnCheckbox, FormsModule, ReactiveFormsModule],
 	template: `
 		<form [formGroup]="form">
 			<label>
@@ -15,7 +14,7 @@ import { BrnCheckbox } from './brn-checkbox';
 				<brn-checkbox (checkedChange)="onCheckedChange($event)" formControlName="checkbox"></brn-checkbox>
 			</label>
 		</form>
-		{{ form.value | json }}
+		{{ form.value }}
 	`,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })

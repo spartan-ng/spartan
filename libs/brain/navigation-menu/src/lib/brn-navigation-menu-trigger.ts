@@ -79,7 +79,7 @@ export class BrnNavigationMenuTrigger implements OnInit, OnDestroy {
 
 	private readonly _contentTemplate = this._navigationMenuItem.contentTemplate;
 
-	private readonly _isSubNavHovered = toSignal(this._navigationMenuItem.subNavHover$.pipe(switchMap((c) => c)), {
+	private readonly _isSubNavVisible = toSignal(this._navigationMenuItem.subNavVisible$.pipe(switchMap((c) => c)), {
 		initialValue: false,
 	});
 
@@ -100,7 +100,7 @@ export class BrnNavigationMenuTrigger implements OnInit, OnDestroy {
 		// - this is a root navigation menu (no parent), AND
 		// - a sub-navigation is currently hovered, AND
 		// - the current hover event is false.
-		filter((v) => !(!this._parentNavMenu && this._isSubNavHovered() && !v)),
+		filter((v) => !(!this._parentNavMenu && this._isSubNavVisible() && !v.hover)),
 		map((value) => ({ type: 'hover' as const, visible: value.hover, relatedTarget: value.relatedTarget })),
 	);
 
@@ -158,7 +158,7 @@ export class BrnNavigationMenuTrigger implements OnInit, OnDestroy {
 		this._contentService.setConfig({ attachTo: this._el, direction: this._dir(), orientation: this._orientation() });
 		this._showing$.pipe(takeUntil(this._destroy$)).subscribe((ev) => {
 			if (this._parentNavMenu) {
-				this._parentNavMenu.subNavHover$.next(ev.visible);
+				this._parentNavMenu.subNavVisible$.next(ev.visible);
 			}
 
 			if (ev.visible) {

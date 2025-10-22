@@ -146,9 +146,7 @@ export class BrnNavigationMenu implements OnDestroy {
 				takeUntil(this._destroy$),
 			)
 			.subscribe(([hovered, contentHovered]) => {
-				const shouldHide = (hovered === false && !contentHovered) || (contentHovered === false && !hovered);
-
-				if (shouldHide) {
+				if (!hovered && !contentHovered) {
 					this.value.set(undefined);
 				}
 			});

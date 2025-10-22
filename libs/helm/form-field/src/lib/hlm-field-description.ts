@@ -2,6 +2,7 @@ import { computed, Directive, input } from '@angular/core';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 
+// TODO merge HlmHint into HlmFieldDescription
 @Directive({
 	selector: '[hlmFieldDescription],hlm-field-description',
 	host: {
@@ -14,8 +15,8 @@ export class HlmFieldDescription {
 
 	protected readonly _computedClass = computed(() =>
 		hlm(
-			'text-muted-foreground text-sm font-normal leading-normal group-has-[[data-orientation=horizontal]]/field:text-balance',
-			'nth-last-2:-mt-1 last:mt-0 [[data-variant=legend]+&]:-mt-1.5',
+			'text-muted-foreground text-sm leading-normal font-normal group-has-[[data-orientation=horizontal]]/field:text-balance',
+			'last:mt-0 nth-last-2:-mt-1 [[data-variant=legend]+&]:-mt-1.5',
 			// TODO test link styles inside description
 			'[&>a:hover]:text-primary [&>a]:underline [&>a]:underline-offset-4',
 			this.userClass(),

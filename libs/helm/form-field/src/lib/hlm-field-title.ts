@@ -14,7 +14,7 @@ export class HlmFieldTitle {
 
 	protected readonly _computedClass = computed(() =>
 		hlm(
-			'flex w-fit items-center gap-2 text-sm font-medium leading-snug group-data-[disabled=true]/field:opacity-50',
+			'flex w-fit items-center gap-2 text-sm leading-snug font-medium group-data-[disabled=true]/field:opacity-50',
 			this.userClass(),
 		),
 	);

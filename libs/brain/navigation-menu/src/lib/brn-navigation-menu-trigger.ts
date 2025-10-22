@@ -96,6 +96,7 @@ export class BrnNavigationMenuTrigger implements OnInit, OnDestroy {
 		createHoverObservableWithData(this._el.nativeElement, this._zone, this._destroy$),
 		this._contentService.hovered$.pipe(map((value) => ({ hover: value, relatedTarget: null }))),
 	).pipe(
+		distinctUntilChanged((prev, curr) => prev.hover === curr.hover),
 		// Hover is NOT allowed when:
 		// - this is a root navigation menu (no parent), AND
 		// - a sub-navigation is currently hovered, AND

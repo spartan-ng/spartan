@@ -12,6 +12,6 @@ import type { ClassValue } from 'clsx';
 export class HlmItemTitle {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>
-		hlm('flex w-fit items-center gap-2 text-sm font-medium leading-snug', this.userClass()),
+		hlm('flex w-fit items-center gap-2 text-sm leading-snug font-medium', this.userClass()),
 	);
 }

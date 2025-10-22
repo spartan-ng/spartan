@@ -13,7 +13,7 @@ export class HlmItemDescription {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>
 		hlm(
-			'text-muted-foreground line-clamp-2 text-balance text-sm font-normal leading-normal',
+			'text-muted-foreground line-clamp-2 text-sm leading-normal font-normal text-balance',
 			'[&>a:hover]:text-primary [&>a]:underline [&>a]:underline-offset-4',
 			this.userClass(),
 		),

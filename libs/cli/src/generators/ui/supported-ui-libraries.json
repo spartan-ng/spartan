@@ -226,6 +226,15 @@
 			"@spartan-ng/brain": "0.0.1-alpha.533"
 		}
 	},
+	"item": {
+		"internalName": "ui-item-helm",
+		"peerDependencies": {
+			"@angular/core": ">=19.0.0",
+			"clsx": "^2.1.1",
+			"class-variance-authority": "^0.7.0",
+			"@spartan-ng/brain": "0.0.1-alpha.533"
+		}
+	},
 	"kbd": {
 		"internalName": "ui-kbd-helm",
 		"peerDependencies": {
@@ -446,7 +455,7 @@
 		"internalName": "ui-utils-helm",
 		"peerDependencies": {
 			"clsx": "^2.1.1",
-			"tailwind-merge": "^2.5.2"
+			"tailwind-merge": "^3.3.1"
 		}
 	}
 }

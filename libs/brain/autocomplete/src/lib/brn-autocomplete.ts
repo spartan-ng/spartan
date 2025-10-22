@@ -39,7 +39,7 @@ export class BrnAutocomplete<T> {
 	public readonly valueChange = output<T>();
 
 	/** @internal The search query */
-	public readonly search = computed(() => this._searchInput()?.valueState() ?? '');
+	public readonly search = computed(() => this._searchInput()?.value() ?? '');
 
 	/** Access the popover if present */
 	private readonly _brnPopover = inject(BrnPopover, { optional: true });

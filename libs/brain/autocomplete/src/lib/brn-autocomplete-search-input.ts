@@ -4,8 +4,7 @@ import {
 	ElementRef,
 	forwardRef,
 	Inject,
-	input,
-	linkedSignal,
+	model,
 	Optional,
 	output,
 	Renderer2,
@@ -40,13 +39,10 @@ export class BrnAutocompleteSearchInput extends DefaultValueAccessor {
 	private readonly _autocomplete = injectBrnAutocomplete();
 
 	/** The initial value of the search input */
-	public readonly value = input<string>('');
-
-	/** @internal The "real" value of the search input */
-	public readonly valueState = linkedSignal(() => this.value());
+	public readonly value = model<string>('');
 
 	/** Emitted when the value changes */
-	public readonly valueChanged = output<string>();
+	public readonly valueChange = output<string>();
 
 	/** Whether the autocomplete panel is expanded */
 	protected readonly _isExpanded = this._autocomplete.isExpanded;
@@ -65,14 +61,14 @@ export class BrnAutocompleteSearchInput extends DefaultValueAccessor {
 			.subscribe(() => this._activeDescendant.set(this._autocomplete.keyManager.activeItem?.id()));
 
 		effect(() => {
-			const value = this.valueState();
+			const value = this.value();
 			this.elementRef.nativeElement.value = value;
-			this.valueChanged.emit(value);
+			this.valueChange.emit(value);
 		});
 	}
 	/** Listen for changes to the input value */
 	protected onInput(): void {
-		this.valueState.set(this.elementRef.nativeElement.value);
+		this.value.set(this.elementRef.nativeElement.value);
 	}
 
 	/** Listen for keydown events */
@@ -92,7 +88,7 @@ export class BrnAutocompleteSearchInput extends DefaultValueAccessor {
 			}
 
 			if (event.key === 'Escape') {
-				this.valueState.set('');
+				this.value.set('');
 			}
 		}
 
@@ -103,7 +99,7 @@ export class BrnAutocompleteSearchInput extends DefaultValueAccessor {
 	override writeValue(value: string | null): void {
 		super.writeValue(value);
 		if (value) {
-			this.valueState.set(value);
+			this.value.set(value);
 		}
 	}
 }

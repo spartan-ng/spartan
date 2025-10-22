@@ -88,7 +88,7 @@ export const HLM_AUTOCOMPLETE_VALUE_ACCESSOR = {
 						[placeholder]="searchPlaceholderText()"
 						[disabled]="_disabled()"
 						[value]="_search()"
-						(valueChanged)="_onSearchChanged($event)"
+						(valueChange)="_onSearchChanged($event)"
 					/>
 
 					<button

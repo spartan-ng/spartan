@@ -29,7 +29,7 @@ import { HlmRadioGroupImports } from '@spartan-ng/helm/radio-group';
 					<hlm-radio value="lifetime" id="plan-lifetime">
 						<hlm-radio-indicator indicator />
 					</hlm-radio>
-					<label hlmFieldLabel for="plan-lifetime" class="font-normal"s>Lifetime ($299.99/lifetime)</label>
+					<label hlmFieldLabel for="plan-lifetime" class="font-normal">Lifetime ($299.99/lifetime)</label>
 				</div>
 			</hlm-radio-group>
 		</fieldset>

@@ -1534,13 +1534,17 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [
           {
             "name": "checked",
-            "type": "BrnCheckboxValue",
+            "type": "boolean",
+          },
+          {
+            "name": "indeterminate",
+            "type": "boolean",
           },
         ],
         "outputs": [
           {
             "name": "checkedChange",
-            "type": "BrnCheckboxValue",
+            "type": "boolean",
           },
           {
             "name": "touched",
@@ -1597,13 +1601,17 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [
           {
             "name": "checked",
-            "type": "CheckboxValue",
+            "type": "boolean",
+          },
+          {
+            "name": "indeterminate",
+            "type": "boolean",
           },
         ],
         "outputs": [
           {
             "name": "checkedChange",
-            "type": "CheckboxValue",
+            "type": "boolean",
           },
         ],
         "selector": "hlm-checkbox",

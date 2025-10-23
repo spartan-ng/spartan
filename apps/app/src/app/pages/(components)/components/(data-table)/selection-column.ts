@@ -5,7 +5,11 @@ import { type CellContext, type HeaderContext, injectFlexRenderContext } from '@
 @Component({
 	imports: [HlmCheckboxImports],
 	template: `
-		<hlm-checkbox [checked]="_checkedState()" (checkedChange)="_context.table.toggleAllRowsSelected()" />
+		<hlm-checkbox
+			[checked]="_context.table.getIsAllRowsSelected()"
+			[indeterminate]="_context.table.getIsSomeRowsSelected()"
+			(checkedChange)="_context.table.toggleAllRowsSelected()"
+		/>
 	`,
 	host: {
 		class: 'flex',
@@ -14,16 +18,6 @@ import { type CellContext, type HeaderContext, injectFlexRenderContext } from '@
 })
 export class TableHeadSelection<T> {
 	protected readonly _context = injectFlexRenderContext<HeaderContext<T, unknown>>();
-
-	protected _checkedState(): boolean | 'indeterminate' {
-		if (this._context.table.getIsAllRowsSelected()) {
-			return true;
-		}
-		if (this._context.table.getIsSomeRowsSelected()) {
-			return 'indeterminate';
-		}
-		return false;
-	}
 }
 
 @Component({

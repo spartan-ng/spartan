@@ -24,29 +24,28 @@ export const routeMeta: RouteMeta = {
 				name="Health Checks"
 				lead="Ensure your project is up to date with the latest best practices."
 			/>
-			<section>
-				<p class="${hlmP}">
-					Spartan CLI comes with a health check tool that will scan your project and provide you with a report of any
-					issues that need to be addressed, and guidance on how to resolve them.
-				</p>
 
-				<p class="${hlmP}">
-					Additionally, while Spartan is still in its alpha stage we are working hard to make sure our components and
-					tooling is built with the latest best practices and is structure in a way that will serve us well into the
-					future. As a result we have been making some changes that may result in breaking changes to your project.
-				</p>
+			<p class="${hlmP}">
+				Spartan CLI comes with a health check tool that will scan your project and provide you with a report of any
+				issues that need to be addressed, and guidance on how to resolve them.
+			</p>
 
-				<p class="${hlmP}">
-					To help minimize the impact of such changes, in most cases the health check tool will automatically be able to
-					fix the issues for you. To run the health check tool simply run the following command:
-				</p>
+			<p class="${hlmP}">
+				Additionally, while Spartan is still in its alpha stage we are working hard to make sure our components and
+				tooling is built with the latest best practices and is structure in a way that will serve us well into the
+				future. As a result we have been making some changes that may result in breaking changes to your project.
+			</p>
 
-				<spartan-cli-tabs
-					class="mb-6 mt-4"
-					nxCode="nx g @spartan-ng/cli:healthcheck"
-					ngCode="ng g @spartan-ng/cli:healthcheck"
-				/>
-			</section>
+			<p class="${hlmP}">
+				To help minimize the impact of such changes, in most cases the health check tool will automatically be able to
+				fix the issues for you. To run the health check tool simply run the following command:
+			</p>
+
+			<spartan-cli-tabs
+				class="mt-4 mb-6"
+				nxCode="nx g @spartan-ng/cli:healthcheck"
+				ngCode="ng g @spartan-ng/cli:healthcheck"
+			/>
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="update-guide" label="Update Guide" />

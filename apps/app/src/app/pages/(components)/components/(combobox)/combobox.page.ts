@@ -61,7 +61,7 @@ export const routeMeta: RouteMeta = {
 			<p class="${hlmP}">See installation instructions for the Popover and the Command components.</p>
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
-			<div class="space-y-4">
+			<div class="mt-6 space-y-4">
 				<spartan-code [code]="_defaultCode()" />
 			</div>
 

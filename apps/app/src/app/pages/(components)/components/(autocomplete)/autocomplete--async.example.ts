@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, resource, signal } from '@angular/core';
+import { Component, resource, signal } from '@angular/core';
 import { HlmAutocompleteImports } from '@spartan-ng/helm/autocomplete';
 import { HlmSpinnerImports } from '@spartan-ng/helm/spinner';
 
@@ -10,7 +10,6 @@ import { HlmSpinnerImports } from '@spartan-ng/helm/spinner';
 			<hlm-spinner loading class="size-6" />
 		</hlm-autocomplete>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AutocompleteAsync {
 	public readonly search = signal('');

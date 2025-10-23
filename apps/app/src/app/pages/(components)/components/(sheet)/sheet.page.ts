@@ -1,7 +1,8 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
-import { hlmCode, hlmH4, hlmP } from '@spartan-ng/helm/typography';
+import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
+import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
@@ -29,6 +30,7 @@ export const routeMeta: RouteMeta = {
 };
 @Component({
 	selector: 'spartan-sheet',
+
 	imports: [
 		UIApiDocs,
 		MainSection,
@@ -45,6 +47,7 @@ export const routeMeta: RouteMeta = {
 		SheetSidePreview,
 		SheetSizePreview,
 		SheetClosePreview,
+		SectionSubSubHeading,
 	],
 	template: `
 		<section spartanMainSection>
@@ -61,26 +64,16 @@ export const routeMeta: RouteMeta = {
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
-			<spartan-cli-tabs
-				class="mt-4"
-				nxCode="npx nx g @spartan-ng/cli:ui sheet"
-				ngCode="ng g @spartan-ng/cli:ui sheet"
-			/>
+			<spartan-cli-tabs nxCode="npx nx g @spartan-ng/cli:ui sheet" ngCode="ng g @spartan-ng/cli:ui sheet" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
-			<div class="space-y-4">
+			<div class="mt-6 space-y-4">
 				<spartan-code [code]="_defaultImports" />
 				<spartan-code [code]="_defaultSkeleton" />
 			</div>
 
-			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
-			<spartan-ui-api-docs docType="brain" />
-
-			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
-			<spartan-ui-api-docs docType="helm" />
-
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__sides" class="${hlmH4} mb-2 mt-6">Sides</h3>
+			<h3 id="examples__sides" spartanH4>Sides</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-sheet-side-preview />
@@ -88,7 +81,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_sideCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__size_sheet" class="${hlmH4} mb-2 mt-6">Size</h3>
+			<h3 id="examples__size_sheet" spartanH4>Size</h3>
 			<p class="${hlmP} mb-6">
 				You can adjust the size of the sheet by adding CSS classes to
 				<code class="${hlmCode}">hlm-sheet-content</code>
@@ -101,7 +94,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_sizeCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__close_sheet" class="${hlmH4} mb-2 mt-6">Close Sheet</h3>
+			<h3 id="examples__close_sheet" spartanH4>Close Sheet</h3>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -109,6 +102,12 @@ export const routeMeta: RouteMeta = {
 				</div>
 				<spartan-code secondTab [code]="_closeCode()" />
 			</spartan-tabs>
+
+			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="brain" />
+
+			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="sidebar" label="Sidebar" />

@@ -1,6 +1,6 @@
 import { NgIcon } from '@ng-icons/core';
 // breadcrumbs.component.ts
-import { ChangeDetectionStrategy, Component, ViewEncapsulation, inject } from '@angular/core';
+import { Component, ViewEncapsulation, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 import { provideIcons } from '@ng-icons/core';
@@ -17,7 +17,7 @@ import { BreadcrumbSharedService } from './breadcrumb-shared.service';
 			@if (breadcrumbs && breadcrumbs.length > 0) {
 				<nav class="text-muted-foreground mb-4 flex items-center space-x-1 text-sm">
 					<a
-						class="focus-visible:ring-ring rounded focus-visible:outline-none focus-visible:ring-2"
+						class="focus-visible:ring-ring rounded focus-visible:ring-2 focus-visible:outline-none"
 						[href]="breadcrumbs[0].url"
 						[routerLink]="breadcrumbs[0].url"
 					>
@@ -26,7 +26,7 @@ import { BreadcrumbSharedService } from './breadcrumb-shared.service';
 					@for (breadcrumb of breadcrumbs.slice(1, breadcrumbs.length); track breadcrumb; let last = $last) {
 						<ng-icon hlm size="sm" name="lucideChevronRight" />
 						<a
-							class="focus-visible:ring-ring rounded focus-visible:outline-none focus-visible:ring-2"
+							class="focus-visible:ring-ring rounded focus-visible:ring-2 focus-visible:outline-none"
 							[class]="last ? 'text-foreground' : 'text-muted-foreground'"
 							[href]="breadcrumb.url"
 							[routerLink]="breadcrumb.url"
@@ -39,7 +39,6 @@ import { BreadcrumbSharedService } from './breadcrumb-shared.service';
 		}
 	`,
 	encapsulation: ViewEncapsulation.Emulated,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Breadcrumbs {
 	public readonly breadcrumbs = toSignal(inject(BreadcrumbSharedService).breadcrumbs$);

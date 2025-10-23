@@ -4,16 +4,13 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 @Component({
 	selector: 'spartan-page-nav-link',
 	imports: [RouterLink],
-	host: {
-		class: 'mt-0 pt-2',
-		role: 'listitem',
-	},
+
 	template: `
 		<a
 			[routerLink]="[]"
 			[relativeTo]="_activatedRoute"
 			[fragment]="fragment"
-			class="hover:text-foreground text-muted-foreground focus-visible:ring-ring inline-block rounded no-underline transition-colors focus-visible:outline-none focus-visible:ring-2"
+			class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
 		>
 			{{ label }}
 		</a>

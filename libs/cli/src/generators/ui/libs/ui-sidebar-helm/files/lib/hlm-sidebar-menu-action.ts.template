@@ -16,7 +16,7 @@ export class HlmSidebarMenuAction {
 	public readonly showOnHover = input<boolean, boolean>(false, { transform: booleanAttribute });
 	protected readonly _computedClass = computed(() =>
 		hlm(
-			'text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground peer-hover/menu-button:text-sidebar-accent-foreground absolute right-1 top-1.5 flex aspect-square w-5 items-center justify-center rounded-md p-0 outline-none transition-transform hover:cursor-pointer focus-visible:ring-2 disabled:hover:cursor-default [&>_ng-icon]:size-4 [&>_ng-icon]:shrink-0',
+			'text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground peer-hover/menu-button:text-sidebar-accent-foreground absolute top-1.5 right-1 flex aspect-square w-5 items-center justify-center rounded-md p-0 transition-transform outline-none hover:cursor-pointer focus-visible:ring-2 disabled:hover:cursor-default [&>_ng-icon]:size-4 [&>_ng-icon]:shrink-0',
 			// Increases the hit area of the button on mobile.
 			'after:absolute after:-inset-2 after:md:hidden',
 			'peer-data-[size=sm]/menu-button:top-1',

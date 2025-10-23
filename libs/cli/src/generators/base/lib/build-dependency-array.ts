@@ -1,11 +1,7 @@
+import type { Tree } from '@nx/devkit';
+import { getTailwindVersion } from '../../../utils/get-tailwind-version';
 import type { HlmBaseGeneratorSchema } from '../schema';
-import {
-	NG_ICONS_VERSION,
-	SPARTAN_BRAIN_VERSION,
-	TAILWIND_ANIMATE_VERSION,
-	TAILWIND_MERGE_VERSION,
-	TAILWINDCSS_VERSION,
-} from '../versions';
+import { NG_ICONS_VERSION, SPARTAN_BRAIN_VERSION, TAILWIND_MERGE_VERSION, TW_ANIMATE_CSS } from '../versions';
 
 export function buildDependencyArray(
 	options: HlmBaseGeneratorSchema,
@@ -28,9 +24,9 @@ export function buildDependencyArray(
 	return dependencies;
 }
 
-export function buildDevDependencyArray() {
+export function buildDevDependencyArray(tree: Tree) {
+	const tailwindVersion = getTailwindVersion(tree);
 	return {
-		tailwindcss: TAILWINDCSS_VERSION,
-		'tailwindcss-animate': TAILWIND_ANIMATE_VERSION,
+		...(tailwindVersion === 4 && { 'tw-animate-css': TW_ANIMATE_CSS }),
 	};
 }

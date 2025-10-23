@@ -8,10 +8,11 @@ import { PageBottomNavLink } from '@spartan-ng/app/app/shared/layout/page-bottom
 import { PageNav } from '@spartan-ng/app/app/shared/layout/page-nav/page-nav';
 import { SectionIntro } from '@spartan-ng/app/app/shared/layout/section-intro';
 import { SectionSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-heading';
+import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { Tabs } from '@spartan-ng/app/app/shared/layout/tabs';
 import { TabsCli } from '@spartan-ng/app/app/shared/layout/tabs-cli';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
-import { HlmCode, HlmH4, HlmP } from '@spartan-ng/helm/typography';
+import { HlmCode, HlmP } from '@spartan-ng/helm/typography';
 import { link } from '../../../../shared/typography/link';
 import {
 	button,
@@ -59,9 +60,10 @@ export const routeMeta: RouteMeta = {
 		PageBottomNavLink,
 		HlmP,
 		HlmCode,
-		HlmH4,
+
 		Tabs,
 		RouterLink,
+		SectionSubSubHeading,
 	],
 	template: `
 		<section spartanMainSection class="space-y-4">
@@ -71,9 +73,9 @@ export const routeMeta: RouteMeta = {
 				<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
 				<spartan-cli-tabs nxCode="npx nx g @spartan-ng/cli:ui sidebar" ngCode="ng g @spartan-ng/cli:ui sidebar" />
 
-				<h3 class="font-heading mt-4 scroll-m-32 text-xl font-medium tracking-tight" id="add-colors">
+				<spartan-section-sub-heading id="add-colors">
 					Add the following colors to your CSS file
-				</h3>
+				</spartan-section-sub-heading>
 				<p hlmP class="mb-6">
 					The command above should install the colors for you. If not, copy and paste the following in your CSS file.
 					<br />
@@ -126,31 +128,31 @@ export const routeMeta: RouteMeta = {
 
 			<img src="/assets/sidebar-structure.png" alt="Sidebar structure" class="border-border rounded border" />
 
-			<div class="space-y-4">
+			<div class="mt-6 space-y-4">
 				<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 				<spartan-code fileName="src/app/app.ts" [code]="_usageApp" />
 				<spartan-code fileName="src/app/app-sidebar.ts" [code]="_usageLayout" />
 			</div>
 
-			<div class="space-y-4">
+			<div class="mt-6 space-y-4">
 				<spartan-section-sub-heading id="first-sidebar">Your First Sidebar</spartan-section-sub-heading>
 
 				<p hlmP>Let's start with the most basic sidebar. A collapsible sidebar with a menu.</p>
 
-				<h3 hlmH4>
+				<h3 spartanH4>
 					Add a
 					<span hlmCode>HlmSidebarTrigger</span>
 					at the root of your application.
 				</h3>
 				<spartan-code fileName="src/app/app.ts" [code]="_firstSidebarApp" />
-				<h3 hlmH4>
+				<h3 spartanH4>
 					Create a new sidebar component at
 					<span hlmCode>src/app/app-sidebar.ts</span>
 				</h3>
 
 				<spartan-code fileName="src/app/app-sidebar.ts" [code]="_firstSidebarInitial" />
 
-				<h3 hlmH4>
+				<h3 spartanH4>
 					Now, let's add a
 					<span hlmCode>HlmSidebarMenu</span>
 					to the sidebar.
@@ -163,7 +165,7 @@ export const routeMeta: RouteMeta = {
 					.
 				</p>
 				<spartan-code fileName="src/app/app-sidebar.ts" [code]="_firstSidebar" />
-				<h3 hlmH4>You've created your first sidebar.</h3>
+				<h3 spartanH4>You've created your first sidebar.</h3>
 				<p>You should see something like this:</p>
 
 				<img src="/assets/first-sidebar.png" alt="First sidebar" class="border-border flex rounded border md:hidden" />
@@ -181,7 +183,7 @@ export const routeMeta: RouteMeta = {
 				consistently across devices, remembers user preferences, and provides developer APIs for customization.
 			</p>
 
-			<h3 hlmH4 id="core_responsibilities">Core Responsibilities</h3>
+			<h3 spartanH4 id="core_responsibilities">Core Responsibilities</h3>
 			<ul class="list-inside list-disc pl-4 text-sm">
 				<li class="mt-2">
 					<span hlmCode>State Management</span>
@@ -217,7 +219,7 @@ export const routeMeta: RouteMeta = {
 				</li>
 			</ul>
 
-			<h3 hlmH4 id="signals_and_computed">Signals & Computed</h3>
+			<h3 spartanH4 id="signals_and_computed">Signals & Computed</h3>
 			<ul class="list-inside list-disc pl-4 text-sm">
 				<li class="mt-2">
 					<span hlmCode>open</span>
@@ -251,7 +253,7 @@ export const routeMeta: RouteMeta = {
 				</li>
 			</ul>
 
-			<h3 hlmH4 id="public_api">Public API</h3>
+			<h3 spartanH4 id="public_api">Public API</h3>
 			<ul class="list-inside list-disc pl-4 text-sm">
 				<li class="mt-2">
 					<span hlmCode>setOpen(open: boolean)</span>
@@ -271,7 +273,7 @@ export const routeMeta: RouteMeta = {
 				</li>
 			</ul>
 
-			<h3 hlmH4 id="keyboard_shortcut">Keyboard Shortcut</h3>
+			<h3 spartanH4 id="keyboard_shortcut">Keyboard Shortcut</h3>
 			<p hlmP>
 				The
 				<span hlmCode>SIDEBAR_KEYBOARD_SHORTCUT</span>
@@ -310,7 +312,7 @@ export const routeMeta: RouteMeta = {
 				. It applies styles, sets CSS variables, and ensures consistent layout across different sidebar variants.
 			</p>
 
-			<h3 hlmH4 id="inputs">Inputs</h3>
+			<h3 spartanH4 id="inputs">Inputs</h3>
 			<ul class="list-inside list-disc pl-4 text-sm">
 				<li class="mt-2">
 					<span hlmCode>[class]</span>
@@ -330,7 +332,7 @@ export const routeMeta: RouteMeta = {
 				</li>
 			</ul>
 
-			<h3 hlmH4 id="defaults">Defaults</h3>
+			<h3 spartanH4 id="defaults">Defaults</h3>
 			<ul class="list-inside list-disc pl-4 text-sm">
 				<li class="mt-2">
 					<span hlmCode>sidebarWidth</span>
@@ -369,7 +371,7 @@ export const routeMeta: RouteMeta = {
 				</li>
 			</ul>
 
-			<h3 hlmH4 id="config">Config</h3>
+			<h3 spartanH4 id="config">Config</h3>
 			<p hlmP>
 				To override defaults, provide a custom configuration in your application config using
 				<span hlmCode>provideHlmSidebarConfig</span>
@@ -571,19 +573,19 @@ export const routeMeta: RouteMeta = {
 				.
 			</p>
 
-			<h3 hlmH4 id="link_or_anchor">Link or Anchor</h3>
+			<h3 spartanH4 id="link_or_anchor">Link or Anchor</h3>
 			<spartan-code [code]="_link" />
 
-			<h3 hlmH4 id="button">Button</h3>
+			<h3 spartanH4 id="button">Button</h3>
 			<spartan-code [code]="_button" />
-			<h3 hlmH4 id="icon_and_label">Icon and Label</h3>
+			<h3 spartanH4 id="icon_and_label">Icon and Label</h3>
 			<spartan-code [code]="_linkWithIcon" />
 			<p hlmP>
 				You can render an icon and a truncated label inside the button. Remember to wrap the label in a
 				<span hlmCode [innerHTML]="'<span>'"></span>
 				.
 			</p>
-			<h3 hlmH4 id="is-active">isActive</h3>
+			<h3 spartanH4 id="is-active">isActive</h3>
 			<p hlmP>
 				Use the
 				<span hlmCode>isActive</span>
@@ -612,7 +614,7 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-code [code]="_menuAction" />
 
-			<h3 hlmH4 id="dropdown-menu">DropdownMenu</h3>
+			<h3 spartanH4 id="dropdown-menu">DropdownMenu</h3>
 			<p hlmP>
 				Here's an example of a
 				<span hlmCode>HlmSidebarMenuAction</span>

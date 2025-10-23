@@ -5,6 +5,7 @@ import type { ClassValue } from 'clsx';
 @Directive({
 	selector: 'brn-input-otp[hlmInputOtp], brn-input-otp[hlm]',
 	host: {
+		'data-slot': 'input-otp',
 		'[class]': '_computedClass()',
 	},
 })

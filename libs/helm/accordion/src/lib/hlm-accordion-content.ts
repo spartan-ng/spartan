@@ -12,7 +12,7 @@ import type { ClassValue } from 'clsx';
 	},
 	hostDirectives: [{ directive: BrnAccordionContent, inputs: ['style'] }],
 	template: `
-		<div class="flex flex-col gap-4 text-balance pb-4 pt-0">
+		<div class="flex flex-col gap-4 pt-0 pb-4 text-balance">
 			<ng-content />
 		</div>
 	`,
@@ -22,7 +22,7 @@ export class HlmAccordionContent {
 
 	protected readonly _computedClass = computed(() => {
 		return hlm(
-			'text-sm transition-all data-[state=closed]:h-0 data-[state=open]:h-[--brn-accordion-content-height]',
+			'text-sm transition-all data-[state=closed]:h-0 data-[state=open]:h-[var(--brn-accordion-content-height)]',
 			this.userClass(),
 		);
 	});

@@ -149,7 +149,7 @@ export const routeMeta: RouteMeta = {
 													/>
 												</picture>
 												<figcaption class="space-y-1 text-sm">
-													<h3 class="font-medium leading-none">{{ item.title }}</h3>
+													<h3 class="leading-none font-medium">{{ item.title }}</h3>
 													<p class="text-muted-foreground text-xs">{{ item.subtitle }}</p>
 												</figcaption>
 											</figure>
@@ -176,7 +176,7 @@ export const routeMeta: RouteMeta = {
 													/>
 												</picture>
 												<figcaption class="space-y-1 text-sm">
-													<h3 class="font-medium leading-none">{{ item.title }}</h3>
+													<h3 class="leading-none font-medium">{{ item.title }}</h3>
 													<p class="text-muted-foreground text-xs">{{ item.subtitle }}</p>
 												</figcaption>
 											</figure>
@@ -194,7 +194,7 @@ export const routeMeta: RouteMeta = {
 									<div class="text-center">
 										<ng-icon hlm size="xl" name="lucidePodcast" class="text-muted-foreground" />
 										<h2 class="mt-4 text-lg font-semibold">No episodes added</h2>
-										<p class="text-muted-foreground mb-4 mt-2 text-sm">
+										<p class="text-muted-foreground mt-2 mb-4 text-sm">
 											You have not added any podcasts. Add one below
 										</p>
 										<button hlmBtn class="h-8 text-xs">Add Podcast</button>

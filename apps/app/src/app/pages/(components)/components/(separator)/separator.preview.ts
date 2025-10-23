@@ -7,7 +7,7 @@ import { HlmSeparatorImports } from '@spartan-ng/helm/separator';
 	template: `
 		<div>
 			<div class="space-y-1">
-				<h4 class="text-sm font-medium leading-none">Radix Primitives</h4>
+				<h4 class="text-sm leading-none font-medium">Radix Primitives</h4>
 				<p class="text-muted-foreground text-sm">An open-source UI component library.</p>
 			</div>
 			<hlm-separator class="my-4" />

@@ -2840,6 +2840,145 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       },
     },
   },
+  "item": {
+    "helm": {
+      "HlmItem": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "variant",
+            "required": false,
+            "type": "ItemVariants['variant']",
+          },
+          {
+            "name": "size",
+            "required": false,
+            "type": "ItemVariants['size']",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "div[hlmItem], a[hlmItem]",
+      },
+      "HlmItemActions": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "div[hlmItemActions]",
+      },
+      "HlmItemContent": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "div[hlmItemContent]",
+      },
+      "HlmItemDescription": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "p[hlmItemDescription]",
+      },
+      "HlmItemFooter": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "div[hlmItemFooter]",
+      },
+      "HlmItemGroup": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "div[hlmItemGroup]",
+      },
+      "HlmItemHeader": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "div[hlmItemHeader]",
+      },
+      "HlmItemMedia": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "variant",
+            "required": false,
+            "type": "ItemMediaVariants['variant']",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "div[hlmItemMedia]",
+      },
+      "HlmItemSeparator": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "div[hlmItemSeparator]",
+      },
+      "HlmItemTitle": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "div[hlmItemTitle]",
+      },
+    },
+  },
   "kbd": {
     "helm": {
       "HlmKbd": {

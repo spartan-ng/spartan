@@ -12,7 +12,7 @@ import type { ClassValue } from 'clsx';
 	},
 	hostDirectives: [{ directive: BrnAccordionContent, inputs: ['style'] }],
 	template: `
-		<div class="flex flex-col gap-4 text-balance pb-4 pt-0">
+		<div class="flex flex-col gap-4 pt-0 pb-4 text-balance">
 			<ng-content />
 		</div>
 	`,

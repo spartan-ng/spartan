@@ -17,7 +17,7 @@ export class HlmButtonGroupSeparator {
 
 	protected readonly _computedClass = computed(() =>
 		hlm(
-			'bg-input relative inline-flex shrink-0 self-stretch data-[orientation=horizontal]:h-px data-[orientation=vertical]:h-auto data-[orientation=horizontal]:w-full data-[orientation=vertical]:w-px',
+			'bg-input relative inline-flex shrink-0 self-stretch data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-auto data-[orientation=vertical]:w-px',
 			this.userClass(),
 		),
 	);

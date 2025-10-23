@@ -123,9 +123,9 @@
 	"checkbox": {
 		"internalName": "ui-checkbox-helm",
 		"peerDependencies": {
-			"@angular/cdk": ">=19.0.0",
 			"@angular/core": ">=19.0.0",
 			"@angular/forms": ">=19.0.0",
+			"@angular/cdk": ">=19.0.0",
 			"@ng-icons/core": ">=29.0.0",
 			"@ng-icons/lucide": ">=29.0.0",
 			"@spartan-ng/brain": "0.0.1-alpha.534",
@@ -223,6 +223,15 @@
 			"@ng-icons/core": ">=29.0.0",
 			"@ng-icons/lucide": ">=29.0.0",
 			"@angular/cdk": ">=19.0.0",
+			"@spartan-ng/brain": "0.0.1-alpha.534"
+		}
+	},
+	"item": {
+		"internalName": "ui-item-helm",
+		"peerDependencies": {
+			"@angular/core": ">=19.0.0",
+			"clsx": "^2.1.1",
+			"class-variance-authority": "^0.7.0",
 			"@spartan-ng/brain": "0.0.1-alpha.534"
 		}
 	},

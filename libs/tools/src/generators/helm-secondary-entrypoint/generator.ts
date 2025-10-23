@@ -31,7 +31,7 @@ export async function helmSecondaryEntrypointGenerator(tree: Tree, options: Helm
 		'generators',
 		'ui',
 		'libs',
-		normalizedName,
+		internalName,
 		'generator.ts',
 	);
 
@@ -46,7 +46,7 @@ export async function generator(tree: Tree, options: HlmBaseGeneratorSchema) {
 		...options,
 		primitiveName: '${normalizedName}',
 		internalName: '${internalName}',
-		publicName: '${normalizedName}',
+		publicName: '${internalName}',
 	});
 }`,
 	);

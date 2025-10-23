@@ -42,6 +42,7 @@ export type Primitives =
 	| 'input'
 	| 'input-group'
 	| 'input-otp'
+	| 'item'
 	| 'label'
 	| 'menu'
 	| 'pagination'

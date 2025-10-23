@@ -7,11 +7,11 @@ import {
 	Directive,
 	effect,
 	ElementRef,
-	HostListener,
 	inject,
 	input,
 	isDevMode,
 	type OnDestroy,
+	output,
 	signal,
 	untracked,
 } from '@angular/core';
@@ -30,16 +30,35 @@ export class BrnAccordionItem {
 	public readonly id = ++BrnAccordionItem._itemIdGenerator;
 	private readonly _accordion = inject(BrnAccordion);
 	/**
-	 * Whether the accordion item is opened or closed.
+	 * Whether the item is opened or closed.
 	 * @default false
 	 */
 	public readonly isOpened = input<boolean, BooleanInput>(false, { transform: coerceBooleanProperty });
+	/**
+	 * Computed state of the item, either 'open' or 'closed'
+	 * @default closed
+	 */
 	public readonly state = computed(() => (this._accordion.openItemIds().includes(this.id) ? 'open' : 'closed'));
+	/**
+	 * Emits boolean when the item is opened or closed.
+	 */
+	public readonly stateChange = output<'open' | 'closed'>();
+	/**
+	 * Emits state change when item is opened or closed
+	 */
+	public readonly openedChange = output<boolean>();
 
 	constructor() {
 		if (!this._accordion) {
 			throw Error('Accordion item can only be used inside an Accordion. Add brnAccordion to ancestor.');
 		}
+		effect(() => {
+			const state = this.state();
+			untracked(() => {
+				this.stateChange.emit(state);
+				this.openedChange.emit(state === 'open');
+			});
+		});
 		effect(() => {
 			const isOpened = this.isOpened();
 			untracked(() => {
@@ -61,6 +80,9 @@ export class BrnAccordionItem {
 		'[attr.aria-controls]': 'ariaControls',
 		'[id]': 'id',
 		'[attr.role]': '"button"',
+		'(click)': 'toggle($event)',
+		'(keyup.space)': 'toggle($event)',
+		'(keyup.enter)': 'toggle($event)',
 	},
 })
 export class BrnAccordionTrigger implements FocusableOption {
@@ -83,9 +105,6 @@ export class BrnAccordionTrigger implements FocusableOption {
 			});
 	}
 
-	@HostListener('click', ['$event'])
-	@HostListener('keyup.space', ['$event'])
-	@HostListener('keyup.enter', ['$event'])
 	protected toggle(event: Event): void {
 		event.preventDefault();
 		this._accordion.toggleItem(this._item.id);

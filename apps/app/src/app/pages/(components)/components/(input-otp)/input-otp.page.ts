@@ -3,6 +3,7 @@ import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { UIApiDocs } from '@spartan-ng/app/app/shared/layout/ui-docs-section/ui-docs-section';
+import { link } from '@spartan-ng/app/app/shared/typography/link';
 import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
@@ -61,6 +62,49 @@ export const routeMeta: RouteMeta = {
 				<spartan-code [code]="_defaultImports" />
 				<spartan-code [code]="_defaultSkeleton" />
 			</div>
+
+			<spartan-section-sub-heading id="animation">Animation</spartan-section-sub-heading>
+
+			<p class="${hlmP}">
+				The fake caret animation
+				<code class="${hlmCode}">animate-caret-blink</code>
+				is provided by
+				<a href="https://github.com/Wombosvideo/tw-animate-css" target="_blank" rel="noreferrer" class="${link}">
+					tw-animate-css
+				</a>
+				, which is included in
+				<code class="${hlmCode}">&#64;spartan-ng/brain/hlm-tailwind-preset.css</code>
+				.
+			</p>
+
+			<p class="${hlmP}">
+				If you are not using
+				<code class="${hlmCode}">&#64;spartan-ng/brain/hlm-tailwind-preset.css</code>
+				/
+				<code class="${hlmCode}">tw-animate-css</code>
+				or want to
+				<strong>adjust</strong>
+				the animation to your needs, you can add the following animation to your global styles.
+			</p>
+			<spartan-code
+				class="mt-4"
+				code="@theme inline {
+  --animate-caret-blink: caret-blink 1.25s ease-out infinite;
+
+  @keyframes caret-blink {
+    0%,
+    70%,
+    100% {
+      opacity: 1;
+    }
+    20%,
+    50% {
+      opacity: 0;
+    }
+  }
+}"
+				fileName="src/styles.css"
+			/>
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
 

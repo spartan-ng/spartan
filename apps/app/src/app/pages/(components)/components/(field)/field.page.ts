@@ -255,7 +255,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-field-responsive-layout-preview />
 				</div>
-				<spartan-code secondTab [code]="_groupCode()" />
+				<spartan-code secondTab [code]="_responsiveLayoutCode()" />
 			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
@@ -279,6 +279,7 @@ export default class FieldPage {
 	protected readonly _switchCode = computed(() => this._snippets()['switch']);
 	protected readonly _choiceCardCode = computed(() => this._snippets()['choiceCard']);
 	protected readonly _groupCode = computed(() => this._snippets()['group']);
+	protected readonly _responsiveLayoutCode = computed(() => this._snippets()['responsiveLayout']);
 
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;

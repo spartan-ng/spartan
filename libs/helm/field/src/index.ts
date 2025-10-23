@@ -31,4 +31,4 @@ export const HlmFieldImports = [
 	HlmFieldGroup,
 	HlmFieldLegend,
 	HlmFieldSet,
-];
+] as const;

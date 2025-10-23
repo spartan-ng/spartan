@@ -3,13 +3,11 @@ import { Subject } from 'rxjs';
 import { BrnNavigationMenuContentService } from './brn-navigation-menu-content.service';
 import { injectBrnNavigationMenuItem } from './brn-navigation-menu-item.token';
 import { injectBrnNavigationMenu } from './brn-navigation-menu.token';
-import { provideBrnParentNavMenu } from './brn-parent-nav-menu.token';
-
-const subNavVisible$ = new Subject<boolean>();
+import { BrnParentNavMenu, provideBrnParentNavMenu } from './brn-parent-nav-menu.token';
 
 @Directive({
 	selector: '[brnNavigationMenuContent]',
-	providers: [provideBrnParentNavMenu({ subNavVisible$: subNavVisible$ })],
+	providers: [provideBrnParentNavMenu(() => ({ subNavVisible$: new Subject<boolean>() }))],
 })
 export class BrnNavigationMenuContent {
 	private readonly _navigationMenu = injectBrnNavigationMenu();
@@ -17,8 +15,8 @@ export class BrnNavigationMenuContent {
 	private readonly _contentService = inject(BrnNavigationMenuContentService);
 	private readonly _tpl = inject(TemplateRef);
 	private readonly _renderer = inject(Renderer2);
+	private readonly _subNavContext = inject(BrnParentNavMenu);
 
-	private readonly _menuItemsIds = this._navigationMenu.menuItemsIds;
 	private readonly _navMenuValue = this._navigationMenu.value;
 	private readonly _prevNavMenuValue = this._navigationMenu.previousValue;
 
@@ -29,13 +27,15 @@ export class BrnNavigationMenuContent {
 
 	private readonly _contentEl = this._contentService.contentEl;
 
+	private readonly _menuItemsIds = computed(() => this._navigationMenu.menuItems().map((mi) => mi.id()));
+
 	private readonly _orientation = computed(() => this._navigationMenu.context().orientation);
 	private readonly _dir = computed(() => this._navigationMenu.context().dir);
 
 	constructor() {
 		if (!this._tpl) return;
 		this._navigationMenuItem.contentTemplate.set(this._tpl);
-		this._navigationMenuItem.subNavVisible$.next(subNavVisible$);
+		this._navigationMenuItem.subNavVisible$.next(this._subNavContext.subNavVisible$);
 
 		effect(() => {
 			const el = this._contentEl();

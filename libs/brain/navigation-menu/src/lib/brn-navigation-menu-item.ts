@@ -41,5 +41,5 @@ export class BrnNavigationMenuItem {
 
 	private readonly _triggerOrLink = contentChild(BrnNavigationMenuInteractable, { read: BrnButton });
 
-	protected readonly disabled = computed(() => this._triggerOrLink()?.disabled());
+	public readonly disabled = computed(() => this._triggerOrLink()?.disabled());
 }

@@ -11,7 +11,7 @@ import {
 } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { ElementRef, inject, Injectable, NgZone, signal, TemplateRef, ViewContainerRef } from '@angular/core';
-import { createHoverObservable } from '@spartan-ng/brain/core';
+import { createHoverObservable, waitForElementAnimations } from '@spartan-ng/brain/core';
 import { BehaviorSubject, fromEvent, map, Observable, of, share, Subject, switchMap, takeUntil } from 'rxjs';
 
 export type BrnNavigationMenuContentOptions = Partial<
@@ -155,11 +155,8 @@ export class BrnNavigationMenuContentService {
 		const contentEl = embededViewRef.rootNodes[0] as HTMLElement;
 		this._contentEl.set(contentEl);
 
-		contentEl.addEventListener('animationend', this._detach);
-		contentEl.addEventListener('animationcancel', this._detach);
-
 		this._overlayHoveredObservables$.next(
-			createHoverObservable(this._overlayRef.hostElement, this._zone, this._destroyed$),
+			createHoverObservable(this._overlayRef.hostElement, this._zone, this._destroyed$).pipe(map((e) => e.hover)),
 		);
 
 		this._overlayFocusedObservables$.next(
@@ -184,7 +181,7 @@ export class BrnNavigationMenuContentService {
 		);
 	}
 
-	public hide() {
+	public async hide() {
 		const contentEl = this._contentEl();
 		if (!contentEl) return;
 
@@ -192,6 +189,9 @@ export class BrnNavigationMenuContentService {
 		if (!this._hasAnimation()) {
 			this._detach();
 		}
+
+		await waitForElementAnimations(contentEl);
+		this._detach();
 	}
 
 	private readonly _detach = () => {

@@ -80,11 +80,7 @@ export class BrnNavigationMenu implements OnDestroy {
 
 	private readonly _navAndSubnavMenuItems = contentChildren(BrnNavigationMenuItem, { descendants: true });
 
-	private readonly _menuItems = computed(() =>
-		this._navAndSubnavMenuItems().filter((mi) => mi.navMenuElRef === this.el),
-	);
-
-	public readonly menuItemsIds = computed(() => this._menuItems().map((mi) => mi.id()));
+	public readonly menuItems = computed(() => this._navAndSubnavMenuItems().filter((mi) => mi.navMenuElRef === this.el));
 
 	private readonly _reset$ = toObservable(this.value).pipe(
 		pairwise(),
@@ -93,7 +89,7 @@ export class BrnNavigationMenu implements OnDestroy {
 	);
 
 	private readonly _hovered$ = merge(
-		createHoverObservable(this.el.nativeElement, this._zone, this._destroy$),
+		createHoverObservable(this.el.nativeElement, this._zone, this._destroy$).pipe(map((e) => e.hover)),
 		this._reset$,
 	).pipe(startWith(undefined));
 

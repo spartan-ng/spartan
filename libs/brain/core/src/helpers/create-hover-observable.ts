@@ -11,7 +11,7 @@ export function isElement(node?: Element | EventTarget | Node | null): node is E
 	return !!node && 'nodeType' in node && node.nodeType === Node.ELEMENT_NODE;
 }
 
-export const createHoverObservableWithData = (
+export const createHoverObservable = (
 	nativeElement: HTMLElement,
 	zone: NgZone,
 	destroyed$: Subject<void>,
@@ -24,23 +24,7 @@ export const createHoverObservableWithData = (
 		// Hello, Safari
 		fromEvent<MouseEvent>(nativeElement, 'mouseout').pipe(
 			filter(movedOut),
-			map(() => ({ hover: false })),
-		),
-		/**
-		 * NOTE: onmouseout events don't trigger when objects move under mouse in Safari
-		 * https://bugs.webkit.org/show_bug.cgi?id=4117
-		 */
-		fromEvent(nativeElement, 'transitionend').pipe(
-			filter(() => nativeElement.matches(':hover')),
-			map(() => ({ hover: true })),
+			map((e) => ({ hover: false, relatedTarget: e.relatedTarget })),
 		),
 	).pipe(distinctUntilChanged(), brnZoneOptimized(zone), takeUntil(destroyed$));
-};
-
-export const createHoverObservable = (
-	nativeElement: HTMLElement,
-	zone: NgZone,
-	destroyed$: Subject<void>,
-): Observable<boolean> => {
-	return createHoverObservableWithData(nativeElement, zone, destroyed$).pipe(map((e) => e.hover));
 };

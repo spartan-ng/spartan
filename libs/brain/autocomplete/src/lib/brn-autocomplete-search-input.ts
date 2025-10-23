@@ -1,15 +1,4 @@
-import {
-	Directive,
-	effect,
-	ElementRef,
-	forwardRef,
-	Inject,
-	model,
-	Optional,
-	output,
-	Renderer2,
-	signal,
-} from '@angular/core';
+import { Directive, ElementRef, forwardRef, Inject, model, Optional, output, Renderer2, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { COMPOSITION_BUFFER_MODE, DefaultValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { startWith } from 'rxjs/operators';
@@ -39,7 +28,7 @@ export class BrnAutocompleteSearchInput extends DefaultValueAccessor {
 	private readonly _autocomplete = injectBrnAutocomplete();
 
 	/** The initial value of the search input */
-	public readonly value = model<string>('');
+	public readonly value = model<string | null>(null);
 
 	/** Emitted when the value changes */
 	public readonly valueChange = output<string>();
@@ -59,16 +48,12 @@ export class BrnAutocompleteSearchInput extends DefaultValueAccessor {
 		this._autocomplete.keyManager.change
 			.pipe(startWith(this._autocomplete.keyManager.activeItemIndex), takeUntilDestroyed())
 			.subscribe(() => this._activeDescendant.set(this._autocomplete.keyManager.activeItem?.id()));
-
-		effect(() => {
-			const value = this.value();
-			this.elementRef.nativeElement.value = value;
-			this.valueChange.emit(value);
-		});
 	}
 	/** Listen for changes to the input value */
 	protected onInput(): void {
-		this.value.set(this.elementRef.nativeElement.value);
+		const value = this.elementRef.nativeElement.value;
+		this.value.set(value);
+		this.valueChange.emit(value);
 	}
 
 	/** Listen for keydown events */
@@ -98,8 +83,7 @@ export class BrnAutocompleteSearchInput extends DefaultValueAccessor {
 	/** CONROL VALUE ACCESSOR */
 	override writeValue(value: string | null): void {
 		super.writeValue(value);
-		if (value) {
-			this.value.set(value);
-		}
+		this.value.set(value);
+		this.elementRef.nativeElement.value = value;
 	}
 }

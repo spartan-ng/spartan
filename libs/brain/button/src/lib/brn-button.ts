@@ -7,7 +7,7 @@ import { filter } from 'rxjs/operators';
 @Directive({
 	selector: 'a[brnButton], button[brnButton]',
 	host: {
-		'[attr.tabindex]': 'disabled() ? -1 : undefined',
+		'[attr.tabindex]': 'disabled() ? -1 : 0',
 		'[attr.disabled]': '!_isAnchor && disabled() || null',
 		'[attr.data-disabled]': 'disabled() || null',
 	},

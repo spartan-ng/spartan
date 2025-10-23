@@ -1,4 +1,3 @@
-import { FocusMonitor } from '@angular/cdk/a11y';
 import { Direction } from '@angular/cdk/bidi';
 import { hasModifierKey } from '@angular/cdk/keycodes';
 import {
@@ -50,7 +49,6 @@ export class BrnNavigationMenuContentService {
 	private readonly _overlay = inject(Overlay);
 	private readonly _zone = inject(NgZone);
 	private readonly _psBuilder = inject(OverlayPositionBuilder);
-	private readonly _focusMonitor = inject(FocusMonitor);
 
 	private readonly _content = signal<TemplatePortal<unknown> | null>(null);
 
@@ -66,8 +64,6 @@ export class BrnNavigationMenuContentService {
 
 	private readonly _overlayHoveredObservables$ = new BehaviorSubject<Observable<boolean> | undefined>(undefined);
 
-	private readonly _overlayFocusedObservables$ = new BehaviorSubject<Observable<boolean> | undefined>(undefined);
-
 	private readonly _overlayShiftTabObservables$ = new BehaviorSubject<Observable<KeyboardEvent> | undefined>(undefined);
 
 	private readonly _overlayEscapeObservables$ = new BehaviorSubject<Observable<KeyboardEvent> | undefined>(undefined);
@@ -82,10 +78,6 @@ export class BrnNavigationMenuContentService {
 	);
 
 	public readonly escapePressed$ = this._overlayEscapeObservables$.pipe(
-		switchMap((contentFocused$) => (contentFocused$ !== undefined ? contentFocused$ : of())),
-	);
-
-	public readonly focused$ = this._overlayFocusedObservables$.pipe(
 		switchMap((contentFocused$) => (contentFocused$ !== undefined ? contentFocused$ : of())),
 	);
 
@@ -157,13 +149,6 @@ export class BrnNavigationMenuContentService {
 
 		this._overlayHoveredObservables$.next(
 			createHoverObservable(this._overlayRef.hostElement, this._zone, this._destroyed$).pipe(map((e) => e.hover)),
-		);
-
-		this._overlayFocusedObservables$.next(
-			this._focusMonitor.monitor(contentEl, true).pipe(
-				map((e) => e !== null),
-				takeUntil(this._destroyed$),
-			),
 		);
 
 		this._overlayShiftTabObservables$.next(

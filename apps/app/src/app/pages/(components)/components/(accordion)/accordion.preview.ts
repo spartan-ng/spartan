@@ -6,9 +6,12 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 @Component({
 	selector: 'spartan-accordion-preview',
 	imports: [HlmAccordionImports, NgIcon, HlmIconImports],
+	host: {
+		class: 'max-w-lg block h-[250px]',
+	},
 	template: `
-		<div hlmAccordion>
-			<div hlmAccordionItem>
+		<hlm-accordion>
+			<hlm-accordion-item>
 				<h3 class="contents">
 					<button hlmAccordionTrigger>
 						Product Information
@@ -26,9 +29,9 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 						beginners and experts.
 					</p>
 				</hlm-accordion-content>
-			</div>
+			</hlm-accordion-item>
 
-			<div hlmAccordionItem>
+			<hlm-accordion-item>
 				<h3 class="contents">
 					<button hlmAccordionTrigger>
 						Shipping Details
@@ -46,9 +49,9 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 						tracking portal.
 					</p>
 				</hlm-accordion-content>
-			</div>
+			</hlm-accordion-item>
 
-			<div hlmAccordionItem>
+			<hlm-accordion-item>
 				<h3 class="contents">
 					<button hlmAccordionTrigger>
 						Return Policy
@@ -66,8 +69,8 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 						receiving the returned item.
 					</p>
 				</hlm-accordion-content>
-			</div>
-		</div>
+			</hlm-accordion-item>
+		</hlm-accordion>
 	`,
 })
 export class AccordionPreview {}
@@ -79,8 +82,8 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 `;
 
 export const defaultSkeleton = `
-<div hlmAccordion>
-	<div hlmAccordionItem>
+<hlm-accordion>
+	<hlm-accordion-item>
 		<h3 class='contents'>
 			<button hlmAccordionTrigger>
 				Is it accessible?
@@ -88,6 +91,6 @@ export const defaultSkeleton = `
 			</button>
 		</h3>
 		<hlm-accordion-content>Yes. It adheres to the WAI-ARIA design pattern.</hlm-accordion-content>
-	</div>
-</div>
+	</hlm-accordion-item>
+</hlm-accordion>
 `;

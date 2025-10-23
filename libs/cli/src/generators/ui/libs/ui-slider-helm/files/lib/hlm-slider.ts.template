@@ -38,7 +38,7 @@ import type { ClassValue } from 'clsx';
 		}
 
 		<span
-			class="border-primary bg-background ring-ring/50 focus-visible:outline-hidden absolute block size-4 shrink-0 -translate-x-1/2 rounded-full border shadow-sm transition-[color,box-shadow] hover:ring-4 focus-visible:ring-4 disabled:pointer-events-none disabled:opacity-50"
+			class="border-primary bg-background ring-ring/50 absolute block size-4 shrink-0 -translate-x-1/2 rounded-full border shadow-sm transition-[color,box-shadow] hover:ring-4 focus-visible:ring-4 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50"
 			brnSliderThumb
 		></span>
 	`,
@@ -52,7 +52,7 @@ export class HlmSlider {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>
 		hlm(
-			'relative flex w-full touch-none select-none items-center',
+			'relative flex w-full touch-none items-center select-none',
 			this._slider.mutableDisabled() ? 'opacity-40' : '',
 			this.userClass(),
 		),

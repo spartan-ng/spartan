@@ -25,7 +25,7 @@ export type ItemMediaVariants = VariantProps<typeof itemMediaVariants>;
 	selector: 'div[hlmItemMedia]',
 	host: {
 		'data-slot': 'item-media',
-		'[data-variant]': 'variant()',
+		'[attr.data-variant]': 'variant()',
 		'[class]': '_computedClass()',
 	},
 })

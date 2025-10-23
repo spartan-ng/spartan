@@ -12,6 +12,7 @@ import type { ClassValue } from 'clsx';
 		{
 			directive: BrnAccordionItem,
 			inputs: ['isOpened'],
+			outputs: ['openedChange'],
 		},
 	],
 })

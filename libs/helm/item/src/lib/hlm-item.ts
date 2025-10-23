@@ -31,8 +31,8 @@ export type ItemVariants = VariantProps<typeof itemVariants>;
 	selector: 'div[hlmItem], a[hlmItem]',
 	host: {
 		'data-slot': 'item',
-		'[data-variant]': 'variant()',
-		'[data-size]': 'size()',
+		'[attr.data-variant]': 'variant()',
+		'[attr.data-size]': 'size()',
 		'[class]': '_computedClass()',
 	},
 })

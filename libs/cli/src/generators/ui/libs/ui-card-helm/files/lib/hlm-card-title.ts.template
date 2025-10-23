@@ -10,5 +10,5 @@ import type { ClassValue } from 'clsx';
 })
 export class HlmCardTitle {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected readonly _computedClass = computed(() => hlm('font-semibold leading-none', this.userClass()));
+	protected readonly _computedClass = computed(() => hlm('leading-none font-semibold', this.userClass()));
 }

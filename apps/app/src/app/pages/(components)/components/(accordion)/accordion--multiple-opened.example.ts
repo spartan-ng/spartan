@@ -7,9 +7,12 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 @Component({
 	selector: 'spartan-accordion-multiple-opened',
 	imports: [HlmButtonImports, HlmAccordionImports, HlmIconImports, NgIcon],
+	host: {
+		class: 'max-w-lg h-[320px] flex flex-col justify-between',
+	},
 	template: `
-		<div hlmAccordion type="multiple" class="pb-4">
-			<div hlmAccordionItem [isOpened]="true">
+		<hlm-accordion type="multiple" class="pb-4">
+			<hlm-accordion-item [isOpened]="true">
 				<h3 class="contents">
 					<button hlmAccordionTrigger>
 						Is it accessible?
@@ -17,9 +20,9 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 					</button>
 				</h3>
 				<hlm-accordion-content>Yes. It adheres to the WAI-ARIA design pattern.</hlm-accordion-content>
-			</div>
+			</hlm-accordion-item>
 
-			<div hlmAccordionItem>
+			<hlm-accordion-item>
 				<h3 class="contents">
 					<button hlmAccordionTrigger>
 						Is it styled?
@@ -29,9 +32,9 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 				<hlm-accordion-content>
 					Yes. It comes with default styles that match the other components' aesthetics.
 				</hlm-accordion-content>
-			</div>
+			</hlm-accordion-item>
 
-			<div hlmAccordionItem [isOpened]="_thirdOpened()">
+			<hlm-accordion-item (openedChange)="_thirdOpened.set($event)" [isOpened]="_thirdOpened()">
 				<h3 class="contents">
 					<button hlmAccordionTrigger>
 						Is it animated?
@@ -41,9 +44,9 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 				<hlm-accordion-content>
 					Yes. It's animated by default, but you can disable it if you prefer.
 				</hlm-accordion-content>
-			</div>
-		</div>
-		<button hlmBtn (click)="toggleThird()">Toggle Third Item</button>
+			</hlm-accordion-item>
+		</hlm-accordion>
+		<button hlmBtn class="w-fit" (click)="toggleThird()">Toggle Third Item</button>
 	`,
 })
 export class AccordionMultipleOpened {

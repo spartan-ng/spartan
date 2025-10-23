@@ -464,18 +464,57 @@ describe('accordion', () => {
 			});
 		});
 	});
-	describe('default accessibility', () => {
-		['default', 'multiple', 'horizontal', 'with-form-inputs', 'with-tapable'].forEach((story) => {
-			it(`should have no accessibility violations in ${story} story`, () => {
-				cy.visit(`/iframe.html?id=accordion--${story}`);
-				cy.injectAxe();
-				cy.checkA11y('#storybook-root', {
-					rules: {
-						'page-has-heading-one': { enabled: false },
-						'landmark-one-main': { enabled: false },
-					},
-				});
-			});
+
+	describe('button state sync', () => {
+		beforeEach(() => {
+			cy.visit('/iframe.html?id=accordion--button-state-sync');
+			cy.get('hlm-accordion-item').should('have.length', 3);
+			cy.get('hlm-accordion-item').first().as('firstItem');
+			cy.get('@firstItem').next().as('secondItem');
+			cy.get('@secondItem').next().as('thirdItem');
 		});
+		it(
+			'should have the first item open by default, toggle all 3 items by pressing on them, ' +
+				'close third item on button click, open third item on button click, close third item on click on its own trigger',
+			() => {
+				verifyStateOpen('@firstItem');
+				verifyStateClosed('@secondItem');
+				verifyStateClosed('@thirdItem');
+
+				cy.get('@firstItem').find('[hlmAccordionTrigger]').click();
+				verifyStateClosed('@firstItem');
+				cy.get('@secondItem').find('[hlmAccordionTrigger]').click();
+
+				verifyStateOpen('@secondItem');
+				cy.get('@secondItem').find('[hlmAccordionTrigger]').click();
+				verifyStateClosed('@secondItem');
+
+				cy.get('@thirdItem').find('[hlmAccordionTrigger]').click();
+				verifyStateOpen('@thirdItem');
+				cy.findByText(/toggle third item/i).click();
+				verifyStateClosed('@thirdItem');
+				cy.findByText(/toggle third item/i).click();
+				verifyStateOpen('@thirdItem');
+				cy.get('@thirdItem').find('[hlmAccordionTrigger]').click();
+				verifyStateClosed('@thirdItem');
+			},
+		);
+	});
+
+	describe('default accessibility', () => {
+		['default', 'multiple', 'horizontal', 'with-form-inputs', 'with-tapable', 'accordion--button-state-sync'].forEach(
+			(story) => {
+				it(`should have no accessibility violations in ${story} story`, () => {
+					cy.visit(`/iframe.html?id=accordion--${story}`);
+					cy.injectAxe();
+					cy.checkA11y('#storybook-root', {
+						rules: {
+							'page-has-heading-one': { enabled: false },
+							'landmark-one-main': { enabled: false },
+						},
+					});
+				});
+			},
+		);
 	});
 });

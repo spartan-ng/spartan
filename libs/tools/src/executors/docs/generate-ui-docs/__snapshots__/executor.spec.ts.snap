@@ -30,14 +30,19 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       "BrnAccordionContent": {
         "inputs": [
           {
-            "name": "contentClass",
+            "name": "style",
             "required": false,
-            "type": "ClassValue",
+            "type": "string",
+          },
+          {
+            "name": "styleWhileDimensionsAreInitiating",
+            "required": false,
+            "type": "string",
           },
         ],
         "models": [],
         "outputs": [],
-        "selector": "brn-accordion-content",
+        "selector": "brn-accordion-content,[brnAccordionContent]",
       },
       "BrnAccordionItem": {
         "exportAs": "brnAccordionItem",
@@ -49,7 +54,16 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           },
         ],
         "models": [],
-        "outputs": [],
+        "outputs": [
+          {
+            "name": "stateChange",
+            "type": "'open' | 'closed'",
+          },
+          {
+            "name": "openedChange",
+            "type": "boolean",
+          },
+        ],
         "selector": "[brnAccordionItem]",
       },
       "BrnAccordionTrigger": {
@@ -78,11 +92,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "name": "class",
             "required": false,
             "type": "ClassValue",
-          },
-          {
-            "name": "contentStyle",
-            "required": false,
-            "type": "string",
           },
         ],
         "models": [],
@@ -1534,13 +1543,17 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [
           {
             "name": "checked",
-            "type": "BrnCheckboxValue",
+            "type": "boolean",
+          },
+          {
+            "name": "indeterminate",
+            "type": "boolean",
           },
         ],
         "outputs": [
           {
             "name": "checkedChange",
-            "type": "BrnCheckboxValue",
+            "type": "boolean",
           },
           {
             "name": "touched",
@@ -1597,13 +1610,17 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [
           {
             "name": "checked",
-            "type": "CheckboxValue",
+            "type": "boolean",
+          },
+          {
+            "name": "indeterminate",
+            "type": "boolean",
           },
         ],
         "outputs": [
           {
             "name": "checkedChange",
-            "type": "CheckboxValue",
+            "type": "boolean",
           },
         ],
         "selector": "hlm-checkbox",
@@ -3039,6 +3056,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "BrnMenuAlign",
           },
+          {
+            "name": "side",
+            "required": false,
+            "type": "BrnMenuSide",
+          },
         ],
         "models": [],
         "outputs": [],
@@ -3114,6 +3136,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "name": "align",
             "required": false,
             "type": "BrnMenuAlign",
+          },
+          {
+            "name": "side",
+            "required": false,
+            "type": "BrnMenuSide",
           },
         ],
         "models": [],

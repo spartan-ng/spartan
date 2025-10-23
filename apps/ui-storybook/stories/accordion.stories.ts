@@ -1,8 +1,10 @@
+import { Component, signal } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown } from '@ng-icons/lucide';
 import { BrnAccordion, BrnAccordionImports } from '@spartan-ng/brain/accordion';
 import { HlmAccordionImports } from '@spartan-ng/helm/accordion';
-import { HlmIcon } from '@spartan-ng/helm/icon';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmIcon, HlmIconImports } from '@spartan-ng/helm/icon';
 import { HlmInput } from '@spartan-ng/helm/input';
 import type { Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
@@ -609,3 +611,64 @@ export const TestAriaInvalidAriaLevelValue: Story = {
 		},
 	},
 };
+
+// Button State Sync
+export const ButtonStateSync: Story = {
+	render: () => ({
+		moduleMetadata: {
+			imports: [ButtonStateSyncStory],
+		},
+		template: `<accordion-button-state-sync/>`,
+	}),
+};
+@Component({
+	selector: 'accordion-button-state-sync',
+	imports: [HlmButtonImports, HlmAccordionImports, HlmIconImports, NgIcon],
+	host: {
+		class: 'max-w-lg h-[320px] flex flex-col justify-between',
+	},
+	template: `
+		<hlm-accordion type="multiple" class="pb-4">
+			<hlm-accordion-item [isOpened]="true">
+				<h3 class="contents">
+					<button hlmAccordionTrigger>
+						Is it accessible?
+						<ng-icon name="lucideChevronDown" hlm hlmAccIcon />
+					</button>
+				</h3>
+				<hlm-accordion-content>Yes. It adheres to the WAI-ARIA design pattern.</hlm-accordion-content>
+			</hlm-accordion-item>
+
+			<hlm-accordion-item>
+				<h3 class="contents">
+					<button hlmAccordionTrigger>
+						Is it styled?
+						<ng-icon name="lucideChevronDown" hlm hlmAccIcon />
+					</button>
+				</h3>
+				<hlm-accordion-content>
+					Yes. It comes with default styles that match the other components' aesthetics.
+				</hlm-accordion-content>
+			</hlm-accordion-item>
+
+			<hlm-accordion-item (openedChange)="_thirdOpened.set($event)" [isOpened]="_thirdOpened()">
+				<h3 class="contents">
+					<button hlmAccordionTrigger>
+						Is it animated?
+						<ng-icon name="lucideChevronDown" hlm hlmAccIcon />
+					</button>
+				</h3>
+				<hlm-accordion-content>
+					Yes. It's animated by default, but you can disable it if you prefer.
+				</hlm-accordion-content>
+			</hlm-accordion-item>
+		</hlm-accordion>
+		<button hlmBtn class="w-fit" (click)="toggleThird()">Toggle Third Item</button>
+	`,
+})
+export class ButtonStateSyncStory {
+	protected readonly _thirdOpened = signal(false);
+	toggleThird() {
+		this._thirdOpened.set(!this._thirdOpened());
+	}
+}

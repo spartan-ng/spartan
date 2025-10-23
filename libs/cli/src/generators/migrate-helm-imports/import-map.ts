@@ -19,6 +19,7 @@ export default {
 	'@spartan-ng/ui-datepicker-helm': '@spartan-ng/helm/date-picker',
 	'@spartan-ng/ui-dialog-helm': '@spartan-ng/helm/dialog',
 	'@spartan-ng/ui-empty-helm': '@spartan-ng/helm/empty',
+	'@spartan-ng/ui-field-helm': '@spartan-ng/helm/field',
 	'@spartan-ng/ui-form-field-helm': '@spartan-ng/helm/form-field',
 	'@spartan-ng/ui-formfield-helm': '@spartan-ng/helm/form-field',
 	'@spartan-ng/ui-hover-card-helm': '@spartan-ng/helm/hover-card',

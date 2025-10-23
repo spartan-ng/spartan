@@ -88,6 +88,7 @@
 			"@spartan-ng/helm/date-picker": ["libs/helm/date-picker/src/index.ts"],
 			"@spartan-ng/helm/dialog": ["libs/helm/dialog/src/index.ts"],
 			"@spartan-ng/helm/empty": ["libs/helm/empty/src/index.ts"],
+			"@spartan-ng/helm/field": ["libs/helm/field/src/index.ts"],
 			"@spartan-ng/helm/form-field": ["libs/helm/form-field/src/index.ts"],
 			"@spartan-ng/helm/hover-card": ["libs/helm/hover-card/src/index.ts"],
 			"@spartan-ng/helm/icon": ["libs/helm/icon/src/index.ts"],

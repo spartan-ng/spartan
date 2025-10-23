@@ -177,7 +177,7 @@ export class BrnHoverCardContentService {
 		this._destroyed$ = new Subject<void>();
 
 		this._overlayHoveredObservables$.next(
-			createHoverObservable(this._overlayRef.hostElement, this._zone, this._destroyed$),
+			createHoverObservable(this._overlayRef.hostElement, this._zone, this._destroyed$).pipe(map((e) => e.hover)),
 		);
 	}
 
@@ -205,7 +205,7 @@ export class BrnHoverCardTrigger implements OnInit, OnDestroy {
 
 	public readonly hovered$: Observable<boolean> = merge(
 		fromEvent(this._el.nativeElement, 'click').pipe(map(() => false)),
-		createHoverObservable(this._el.nativeElement, this._zone, this._destroy$),
+		createHoverObservable(this._el.nativeElement, this._zone, this._destroy$).pipe(map((e) => e.hover)),
 		this._contentService.hovered$,
 		this.focused$,
 	).pipe(distinctUntilChanged());

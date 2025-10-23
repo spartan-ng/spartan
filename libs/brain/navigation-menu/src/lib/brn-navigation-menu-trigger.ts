@@ -13,7 +13,7 @@ import {
 } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { BrnButton } from '@spartan-ng/brain/button';
-import { areSiblings, createHoverObservableWithData, isElement } from '@spartan-ng/brain/core';
+import { createHoverObservable, isElement } from '@spartan-ng/brain/core';
 import {
 	debounceTime,
 	delay,
@@ -93,37 +93,33 @@ export class BrnNavigationMenuTrigger implements OnInit, OnDestroy {
 	);
 
 	private readonly _hovered$: Observable<TriggerEvent> = merge(
-		createHoverObservableWithData(this._el.nativeElement, this._zone, this._destroy$),
-		this._contentService.hovered$.pipe(map((value) => ({ hover: value, relatedTarget: null }))),
+		createHoverObservable(this._el.nativeElement, this._zone, this._destroy$),
+		this._contentService.hovered$.pipe(map((v) => ({ hover: v, relatedTarget: null }))),
 	).pipe(
-		distinctUntilChanged((prev, curr) => prev.hover === curr.hover),
-		// Hover is NOT allowed when:
-		// - this is a root navigation menu (no parent), AND
-		// - a sub-navigation is currently hovered, AND
-		// - the current hover event is false.
-		filter((v) => !(!this._parentNavMenu && this._isSubNavVisible() && !v.hover)),
-		map((value) => ({ type: 'hover' as const, visible: value.hover, relatedTarget: value.relatedTarget })),
+		// Hover event is NOT allowed when a sub-navigation is currently visible, AND the current hover event is false.
+		filter((e) => !(this._isSubNavVisible() && !e.hover)),
+		map((e) => ({ type: 'hover' as const, visible: e.hover, relatedTarget: e.relatedTarget })),
 	);
 
 	private readonly _showing$ = merge(this._isActive$, this._clicked$, this._hovered$).pipe(
 		debounceTime(0),
-		distinctUntilChanged((curr, prev) => curr.visible === prev.visible),
+		distinctUntilChanged((prev, curr) => prev.visible === curr.visible),
 		switchMap((ev) => {
 			const shouldDelay = ev.visible && ev.type !== 'click' && this._isOpenDelayed();
 			return of(ev).pipe(delay(shouldDelay ? this._delayDuration() : 0));
 		}),
-		// Deactivate needs to be called if the menu item content is hidden with a user click.
-		tap((ev) => (ev.visible ? this._activate() : ev.type === 'click' && this._deactivate())),
-		// Deactivate if nav item is hovered out to a disabled sibling nav item
+		// Deactivate needs to be called if the menu item content is hidden with a user click OR
+		// If nav item is hovered out to a disabled sibling nav item
 		tap((ev) => {
-			if (
-				!ev.visible &&
-				ev.type == 'hover' &&
-				isElement(ev.relatedTarget) &&
-				areSiblings(this._navigationMenuItem.el.nativeElement, ev.relatedTarget) &&
-				ev.relatedTarget.getAttribute('data-disabled') === 'true'
-			) {
-				this._deactivate();
+			if (ev.visible) {
+				this._activate();
+			} else {
+				const shouldDeactivate =
+					(ev.type === 'click' || !this._isHoverOnSibling(ev)) && this._navigationMenuItem.isActive();
+
+				if (shouldDeactivate) {
+					this._deactivate();
+				}
 			}
 		}),
 		share(),
@@ -181,14 +177,6 @@ export class BrnNavigationMenuTrigger implements OnInit, OnDestroy {
 		this._destroy$.complete();
 	}
 
-	private _activate() {
-		this._navigationMenu.value.set(this._navigationMenuItem.id());
-	}
-
-	private _deactivate() {
-		this._navigationMenu.value.set(undefined);
-	}
-
 	protected onTab(e: KeyboardEvent) {
 		const contentEl = this._contentService.contentEl();
 
@@ -201,5 +189,27 @@ export class BrnNavigationMenuTrigger implements OnInit, OnDestroy {
 	protected onEscape(e: KeyboardEvent) {
 		e.preventDefault();
 		this._deactivate();
+	}
+
+	private _activate() {
+		this._navigationMenu.value.set(this._navigationMenuItem.id());
+	}
+
+	private _deactivate() {
+		this._navigationMenu.value.set(undefined);
+	}
+
+	private _isHoverOnSibling(ev: TriggerEvent) {
+		if (ev.type !== 'hover' || !isElement(ev.relatedTarget)) return false;
+
+		const menuItem = this._isMenuItemOrChild(ev.relatedTarget);
+
+		return menuItem && !menuItem.disabled();
+	}
+
+	private _isMenuItemOrChild(node: Node) {
+		return this._navigationMenu
+			.menuItems()
+			.find((ref) => ref.el.nativeElement === node || ref.el.nativeElement.contains(node));
 	}
 }

@@ -1,4 +1,4 @@
-import { inject, InjectionToken, ValueProvider } from '@angular/core';
+import { FactoryProvider, inject, InjectionToken } from '@angular/core';
 import { Subject } from 'rxjs';
 
 export interface BrnParentNavMenu {
@@ -11,6 +11,6 @@ export function injectBrnParentNavMenu(): BrnParentNavMenu | null {
 	return inject(BrnParentNavMenu, { optional: true });
 }
 
-export function provideBrnParentNavMenu(parentNavMenu: BrnParentNavMenu): ValueProvider {
-	return { provide: BrnParentNavMenu, useValue: parentNavMenu };
+export function provideBrnParentNavMenu(parentNavMenu: () => BrnParentNavMenu): FactoryProvider {
+	return { provide: BrnParentNavMenu, useFactory: parentNavMenu };
 }

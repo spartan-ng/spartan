@@ -19,21 +19,23 @@ import { HlmTextarea } from '@spartan-ng/helm/textarea';
 				<div hlmFieldGroup>
 					<div hlmField orientation="responsive">
 						<div hlmFieldContent>
-							<label hlmFieldLabel for="field-input-preview-firstname">Name</label>
+							<label hlmFieldLabel for="field-responsive-name">Name</label>
 							<p hlmFieldDescription>Provide your full name for identification</p>
 						</div>
-						<input hlmInput id="field-input-preview-firstname" type="text" placeholder="Alex Cooper" />
+						<input hlmInput id="field-responsive-name" type="text" placeholder="Alex Cooper" />
 					</div>
 					<hlm-field-separator />
 					<div hlmField orientation="responsive">
 						<div hlmFieldContent>
-							<label hlmFieldLabel for="field-input-preview-firstname">Name</label>
-							<p hlmFieldDescription>Provide your full name for identification</p>
+							<label hlmFieldLabel for="field-responsive-message">Message</label>
+							<p hlmFieldDescription>
+								You can write your message here. Keep it short, preferably under 100 characters.
+							</p>
 						</div>
 						<textarea
 							hlmTextarea
-							id="field-input-preview-firstname"
-							placeholder="Alex Cooper"
+							id="field-responsive-message"
+							placeholder="Hello, World!"
 							class="min-h-[100px] resize-none sm:min-w-[300px]"
 						></textarea>
 					</div>

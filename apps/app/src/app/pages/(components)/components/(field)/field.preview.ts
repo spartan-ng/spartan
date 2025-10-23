@@ -161,3 +161,10 @@ export const anatomyCode = `
     <hlm-field-error>Validation message.</hlm-field-error>
 </div>
 `;
+export const validationAndErrorCode = `
+<div hlmField data-invalid="true">
+	<label hlmFieldLabel for="validation-error-email">Email</label>
+	<input hlmInput id="validation-error-email" type="email" aria-invalid="true" />
+	<hlm-field-error>Enter a valid email address.</hlm-field-error>
+</div>
+`;

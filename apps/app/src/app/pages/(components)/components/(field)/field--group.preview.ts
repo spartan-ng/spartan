@@ -17,8 +17,8 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 				</p>
 				<div hlmFieldGroup data-slot="checkbox-group">
 					<div hlmField orientation="horizontal">
-						<hlm-checkbox id="field-hard-disks" disabled [checked]="true" />
-						<label hlmFieldLabel for="field-hard-disks" class="font-normal">Hard disks</label>
+						<hlm-checkbox id="field-group-push-notifications" disabled [checked]="true" />
+						<label hlmFieldLabel for="field-group-push-notifications" class="font-normal">Push notifications</label>
 					</div>
 				</div>
 			</fieldset>
@@ -31,12 +31,12 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 				</p>
 				<div hlmFieldGroup class="gap-3" data-slot="checkbox-group">
 					<div hlmField orientation="horizontal">
-						<hlm-checkbox id="field-hard-disks" [checked]="true" />
-						<label hlmFieldLabel for="field-hard-disks" class="font-normal">Hard disks</label>
+						<hlm-checkbox id="field-group-push-task" />
+						<label hlmFieldLabel for="field-group-push-task" class="font-normal">Push notifications</label>
 					</div>
 					<div hlmField orientation="horizontal">
-						<hlm-checkbox id="field-hard-disks" [checked]="true" />
-						<label hlmFieldLabel for="field-hard-disks" class="font-normal">Hard disks</label>
+						<hlm-checkbox id="field-group-email-task" />
+						<label hlmFieldLabel for="field-group-email-task" class="font-normal">Email notifications</label>
 					</div>
 				</div>
 			</fieldset>

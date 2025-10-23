@@ -25,7 +25,7 @@ import { FieldSetPreview } from './field--set.preview';
 import { FieldSliderPreview } from './field--slider.preview';
 import { FieldSwitchPreview } from './field--switch.preview';
 import { FieldTextareaPreview } from './field--textarea.preview';
-import { anatomyCode, defaultImports, defaultSkeleton, FieldPreview } from './field.preview';
+import { anatomyCode, defaultImports, defaultSkeleton, FieldPreview, validationAndErrorCode } from './field.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Field', api: 'field' },
@@ -224,7 +224,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_groupCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__orientation" class="${hlmH4} mt-6">Resposive Layout</h3>
+			<h3 id="examples__orientation" class="${hlmH4} mt-6">Responsive Layout</h3>
 			<ul class="my-6 ml-6 list-disc">
 				<li class="mt-2">
 					<strong class="font-medium">Vertical fields:</strong>
@@ -258,6 +258,55 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_responsiveLayoutCode()" />
 			</spartan-tabs>
 
+			<h3 id="examples__orientation" class="${hlmH4} mt-6">Validation and Errors</h3>
+			<ul class="my-6 ml-6 list-disc">
+				<li class="mt-2">
+					Add
+					<code class="${hlmCode} mr-0.5">data-invalid</code>
+					to
+					<code class="${hlmCode} mr-0.5">HlmField</code>
+					to switch the entire block into an error state.
+				</li>
+				<li class="mt-2">
+					Add
+					<code class="${hlmCode} mr-0.5">aria-invalid</code>
+					on the input itself for assistive technologies.
+				</li>
+				<li class="mt-2">
+					Render
+					<code class="${hlmCode} mr-0.5">FieldError</code>
+					immediately after the control or inside
+					<code class="${hlmCode} mr-0.5">FieldContent</code>
+					to keep error messages aligned with the field.
+				</li>
+			</ul>
+			<spartan-code [code]="_validationAndErrorCode" />
+
+			<h3 id="examples__orientation" class="${hlmH4} mt-6">Accessibility</h3>
+			<ul class="my-6 ml-6 list-disc">
+				<li class="mt-2">
+					<code class="${hlmCode} mr-0.5">HlmFieldSet</code>
+					and
+					<code class="${hlmCode} mr-0.5">HlmFieldLegend</code>
+					keep related controls grouped for keyboard and assistive tech users.
+				</li>
+				<li class="mt-2">
+					<code class="${hlmCode} mr-0.5">HlmField</code>
+					outputs
+					<code class="${hlmCode} mr-0.5">role="group"</code>
+					so nested controls inherit labeling from
+					<code class="${hlmCode} mr-0.5">HlmFieldLabel</code>
+					and
+					<code class="${hlmCode} mr-0.5">HlmFieldLegend</code>
+					when combined.
+				</li>
+				<li class="mt-2">
+					Apply
+					<code class="${hlmCode} mr-0.5">HlmFieldSeparator</code>
+					sparingly to ensure screen readers encounter clear section boundaries.
+				</li>
+			</ul>
+
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="hover-card" label="Hover Card" />
 				<spartan-page-bottom-nav-link direction="previous" href="empty" label="Empty" />
@@ -284,4 +333,5 @@ export default class FieldPage {
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 	protected readonly _anatomyCode = anatomyCode;
+	protected readonly _validationAndErrorCode = validationAndErrorCode;
 }

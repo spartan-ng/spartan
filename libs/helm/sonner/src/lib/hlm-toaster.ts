@@ -48,19 +48,19 @@ export class HlmToaster {
 	public readonly closeButton = input<ToasterProps['closeButton'], boolean | string>(false, {
 		transform: booleanAttribute,
 	});
-	public readonly toastOptions = input<ToasterProps['toastOptions']>({
-		classes: {
-			toast:
-				'group toast group-[.toaster]:bg-background group-[.toaster]:text-foreground group-[.toaster]:border-border group-[.toaster]:shadow-lg',
-			description: 'group-[.toast]:text-muted-foreground',
-			actionButton: 'group-[.toast]:bg-primary group-[.toast]:text-primary-foreground',
-			cancelButton: 'group-[.toast]:bg-muted group-[.toast]:text-muted-foreground',
-		},
-	});
+	public readonly toastOptions = input<ToasterProps['toastOptions']>({});
 	public readonly offset = input<ToasterProps['offset']>(null);
 	public readonly dir = input<ToasterProps['dir']>('auto');
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	public readonly userStyle = input<Record<string, string>>({}, { alias: 'style' });
+	public readonly userStyle = input<Record<string, string>>(
+		{
+			'--normal-bg': 'var(--popover)',
+			'--normal-text': 'var(--popover-foreground)',
+			'--normal-border': 'var(--border)',
+			'--border-radius': 'var(--radius)',
+		},
+		{ alias: 'style' },
+	);
 
 	protected readonly _computedClass = computed(() => hlm('toaster group', this.userClass()));
 }

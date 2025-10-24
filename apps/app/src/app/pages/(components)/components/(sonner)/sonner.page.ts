@@ -40,7 +40,7 @@ export const routeMeta: RouteMeta = {
 	],
 	template: `
 		<section spartanMainSection>
-			<spartan-section-intro name="Sonner" lead="An opin./ionated toast component for Angular." />
+			<spartan-section-intro name="Sonner" lead="An opinionated toast component for Angular." />
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>

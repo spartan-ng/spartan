@@ -18,6 +18,7 @@ import { ResizableHandlePreview } from '@spartan-ng/app/app/pages/(components)/c
 import { ResizableVerticalPreview } from '@spartan-ng/app/app/pages/(components)/components/(resizable)/resizable--vertical.preview';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { defaultImports, defaultSkeleton, ResizablePreviewComponent } from './resizable.preview';
+import { HlmCode, HlmP } from '@spartan-ng/helm/typography';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Resizable', api: 'resizable' },
@@ -42,6 +43,8 @@ export const routeMeta: RouteMeta = {
 		SectionSubSubHeading,
 		ResizableVerticalPreview,
 		ResizableHandlePreview,
+		HlmP,
+		HlmCode,
 	],
 	template: `
 		<section spartanMainSection>
@@ -70,6 +73,11 @@ export const routeMeta: RouteMeta = {
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
 
 			<h3 id="examples__vertical" spartanH4>Vertical</h3>
+			<p hlmP>
+				Use the
+				<span hlmCode>direction</span>
+				prop to set the direction of the resizable panels.
+			</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-resizable-vertical-preview />
@@ -78,6 +86,13 @@ export const routeMeta: RouteMeta = {
 			</spartan-tabs>
 
 			<h3 id="examples__handle" spartanH4>Handle</h3>
+			<p hlmP>
+				You can set or hide the handle by using the
+				<span hlmCode>withHandle</span>
+				prop on the
+				<span hlmCode>hlm-resizable-handle</span>
+				component.
+			</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-resizable-handle-preview />

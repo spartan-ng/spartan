@@ -90,7 +90,7 @@ const lead = 'text-foreground max-w-3xl text-base text-balance sm:text-lg';
 					primitives.
 				</p>
 			</div>
-			<div class="mx-auto grid justify-center gap-4 sm:grid-cols-2 md:max-w-[64rem]">
+			<div class="mx-auto grid gap-4 sm:grid-cols-2 md:max-w-[64rem]">
 				<a routerLink="/stack" hlmCard class="group">
 					<div hlmCardHeader>
 						<ng-icon hlm class="group-hover:text-primary transition-colors" name="lucideLayers" size="xl" />
@@ -161,7 +161,7 @@ const lead = 'text-foreground max-w-3xl text-base text-balance sm:text-lg';
 						</p>
 					</div>
 				</div>
-				<div class="mx-auto p-12 text-center md:max-w-[64rem]">
+				<div class="mx-auto p-4 text-center md:max-w-[64rem] md:p-12">
 					<a hlmBtn size="lg" target="_blank" href="https://zerops.io">Learn How Zerops Can Help Your Team</a>
 				</div>
 			</div>

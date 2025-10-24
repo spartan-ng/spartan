@@ -1,7 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
-import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
@@ -14,19 +13,20 @@ import { Tabs } from '../../../../shared/layout/tabs';
 import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { RadioGroupCard } from './radio-group--card.example';
-import { defaultImports, defaultSkeleton, RadioGroupPreview } from './radio-group.preview';
+
+import { ResizableHandlePreview } from '@spartan-ng/app/app/pages/(components)/components/(resizable)/resizable--handle.preview';
+import { ResizableVerticalPreview } from '@spartan-ng/app/app/pages/(components)/components/(resizable)/resizable--vertical.preview';
+import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
+import { HlmCode, HlmP } from '@spartan-ng/helm/typography';
+import { defaultImports, defaultSkeleton, ResizablePreviewComponent } from './resizable.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'Radio Group', api: 'radio-group' },
-	meta: metaWith(
-		'spartan/ui - Radio Group',
-		'A set of checkable buttons—known as radio buttons—where no more than one of the buttons can be checked at a time.',
-	),
-	title: 'spartan/ui - Radio Group',
+	data: { breadcrumb: 'Resizable', api: 'resizable' },
+	meta: metaWith('spartan/ui - Resizable', 'A group of resizable horizontal and vertical panels.'),
+	title: 'spartan/ui - Resizable',
 };
 @Component({
-	selector: 'spartan-radio-group',
+	selector: 'spartan-resizable',
 	imports: [
 		UIApiDocs,
 		MainSection,
@@ -39,27 +39,30 @@ export const routeMeta: RouteMeta = {
 		PageNav,
 		PageBottomNav,
 		PageBottomNavLink,
-		RadioGroupPreview,
-		RadioGroupPreview,
-		RadioGroupCard,
+		ResizablePreviewComponent,
 		SectionSubSubHeading,
+		ResizableVerticalPreview,
+		ResizableHandlePreview,
+		HlmP,
+		HlmCode,
 	],
 	template: `
 		<section spartanMainSection>
-			<spartan-section-intro
-				name="Radio Group"
-				lead="A set of checkable buttons—known as radio buttons—where no more than one of the buttons can be checked at a time."
-			/>
+			<spartan-section-intro name="Resizable" lead="A group of resizable horizontal and vertical panels." />
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
-					<spartan-radio-group-preview />
+					<spartan-resizable-example />
 				</div>
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
-			<spartan-cli-tabs nxCode="npx nx g @spartan-ng/cli:ui radiogroup" ngCode="ng g @spartan-ng/cli:ui radiogroup" />
+			<spartan-cli-tabs
+				class="mt-4"
+				nxCode="npx nx g @spartan-ng/cli:ui resizable"
+				ngCode="ng g @spartan-ng/cli:ui resizable"
+			/>
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">
@@ -68,12 +71,33 @@ export const routeMeta: RouteMeta = {
 			</div>
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__default" spartanH4>Card Layout</h3>
+
+			<h3 id="examples__vertical" spartanH4>Vertical</h3>
+			<p hlmP>
+				Use the
+				<span hlmCode>direction</span>
+				prop to set the direction of the resizable panels.
+			</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
-					<spartan-radio-card-preview />
+					<spartan-resizable-vertical-preview />
 				</div>
-				<spartan-code secondTab [code]="_cardCode()" />
+				<spartan-code secondTab [code]="_verticalCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__handle" spartanH4>Handle</h3>
+			<p hlmP>
+				You can set or hide the handle by using the
+				<span hlmCode>withHandle</span>
+				prop on the
+				<span hlmCode>hlm-resizable-handle</span>
+				component.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-resizable-handle-preview />
+				</div>
+				<spartan-code secondTab [code]="_handleCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
@@ -83,17 +107,18 @@ export const routeMeta: RouteMeta = {
 			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-page-bottom-nav>
-				<spartan-page-bottom-nav-link href="resizable" label="Resizable" />
-				<spartan-page-bottom-nav-link direction="previous" href="progress" label="Progress" />
+				<spartan-page-bottom-nav-link href="scroll-area" label="Scroll Area" />
+				<spartan-page-bottom-nav-link direction="previous" href="radio-group" label="Radio Group" />
 			</spartan-page-bottom-nav>
 		</section>
 		<spartan-page-nav />
 	`,
 })
-export default class LabelPage {
-	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('radio-group');
+export default class ResizablePage {
+	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('resizable');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
-	protected readonly _cardCode = computed(() => this._snippets()['card']);
+	protected readonly _verticalCode = computed(() => this._snippets()['vertical']);
+	protected readonly _handleCode = computed(() => this._snippets()['handle']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

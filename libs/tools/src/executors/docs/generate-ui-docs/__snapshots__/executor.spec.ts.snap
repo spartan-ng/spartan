@@ -3879,6 +3879,136 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       },
     },
   },
+  "resizable": {
+    "brain": {
+      "BrnResizableGroup": {
+        "exportAs": "brnResizableGroup",
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "direction",
+            "required": false,
+            "type": "'horizontal' | 'vertical'",
+          },
+        ],
+        "models": [
+          {
+            "name": "layout",
+            "type": "number[]",
+          },
+        ],
+        "outputs": [
+          {
+            "name": "dragStart",
+            "type": "void",
+          },
+          {
+            "name": "dragEnd",
+            "type": "void",
+          },
+          {
+            "name": "layoutChanged",
+            "type": "number[]",
+          },
+        ],
+        "selector": "brn-resizable-group, [brnResizableGroup]",
+      },
+      "BrnResizableHandle": {
+        "exportAs": "brnResizableHandle",
+        "inputs": [
+          {
+            "name": "withHandle",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "unknown",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-resizable-handle, [brnResizeHandle]",
+      },
+      "BrnResizablePanel": {
+        "exportAs": "brnResizablePanel",
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "defaultSize",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "minSize",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "maxSize",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "collapsible",
+            "required": false,
+            "type": "unknown",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-resizable-panel, [brnResizablePanel]",
+      },
+    },
+    "helm": {
+      "HlmResizableGroup": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-resizable-group",
+      },
+      "HlmResizableHandle": {
+        "exportAs": "hlmResizableHandle",
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-resizable-handle",
+      },
+      "HlmResizablePanel": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-resizable-panel",
+      },
+    },
+  },
   "scroll-area": {
     "helm": {
       "HlmScrollArea": {

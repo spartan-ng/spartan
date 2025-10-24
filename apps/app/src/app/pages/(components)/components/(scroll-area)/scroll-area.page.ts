@@ -15,7 +15,7 @@ import { Tabs } from '../../../../shared/layout/tabs';
 import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { ScrollAreaPreview, defaultImports, defaultSkeleton } from './scroll-area.preview';
+import { defaultImports, defaultSkeleton, ScrollAreaPreview } from './scroll-area.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Scroll Area', api: 'scroll-area' },
@@ -67,7 +67,7 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="select" label="Select" />
-				<spartan-page-bottom-nav-link direction="previous" href="radio-group" label="Radio Group" />
+				<spartan-page-bottom-nav-link direction="previous" href="resizable" label="Resizable" />
 			</spartan-page-bottom-nav>
 		</section>
 		<spartan-page-nav />

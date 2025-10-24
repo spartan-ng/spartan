@@ -30,14 +30,19 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       "BrnAccordionContent": {
         "inputs": [
           {
-            "name": "contentClass",
+            "name": "style",
             "required": false,
-            "type": "ClassValue",
+            "type": "string",
+          },
+          {
+            "name": "styleWhileDimensionsAreInitiating",
+            "required": false,
+            "type": "string",
           },
         ],
         "models": [],
         "outputs": [],
-        "selector": "brn-accordion-content",
+        "selector": "brn-accordion-content,[brnAccordionContent]",
       },
       "BrnAccordionItem": {
         "exportAs": "brnAccordionItem",
@@ -49,7 +54,16 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           },
         ],
         "models": [],
-        "outputs": [],
+        "outputs": [
+          {
+            "name": "stateChange",
+            "type": "'open' | 'closed'",
+          },
+          {
+            "name": "openedChange",
+            "type": "boolean",
+          },
+        ],
         "selector": "[brnAccordionItem]",
       },
       "BrnAccordionTrigger": {
@@ -78,11 +92,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "name": "class",
             "required": false,
             "type": "ClassValue",
-          },
-          {
-            "name": "contentStyle",
-            "required": false,
-            "type": "string",
           },
         ],
         "models": [],
@@ -421,15 +430,19 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "[brnAutocompleteList]",
       },
       "BrnAutocompleteSearchInput": {
-        "inputs": [
+        "inputs": [],
+        "models": [
           {
             "name": "value",
-            "required": false,
             "type": "string",
           },
         ],
-        "models": [],
-        "outputs": [],
+        "outputs": [
+          {
+            "name": "valueChange",
+            "type": "string",
+          },
+        ],
         "selector": "input[brnAutocompleteSearchInput]",
       },
     },
@@ -1530,13 +1543,17 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [
           {
             "name": "checked",
-            "type": "BrnCheckboxValue",
+            "type": "boolean",
+          },
+          {
+            "name": "indeterminate",
+            "type": "boolean",
           },
         ],
         "outputs": [
           {
             "name": "checkedChange",
-            "type": "BrnCheckboxValue",
+            "type": "boolean",
           },
           {
             "name": "touched",
@@ -1593,13 +1610,17 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [
           {
             "name": "checked",
-            "type": "CheckboxValue",
+            "type": "boolean",
+          },
+          {
+            "name": "indeterminate",
+            "type": "boolean",
           },
         ],
         "outputs": [
           {
             "name": "checkedChange",
-            "type": "CheckboxValue",
+            "type": "boolean",
           },
         ],
         "selector": "hlm-checkbox",
@@ -2819,6 +2840,145 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       },
     },
   },
+  "item": {
+    "helm": {
+      "HlmItem": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "variant",
+            "required": false,
+            "type": "ItemVariants['variant']",
+          },
+          {
+            "name": "size",
+            "required": false,
+            "type": "ItemVariants['size']",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "div[hlmItem], a[hlmItem]",
+      },
+      "HlmItemActions": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "div[hlmItemActions]",
+      },
+      "HlmItemContent": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "div[hlmItemContent]",
+      },
+      "HlmItemDescription": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "p[hlmItemDescription]",
+      },
+      "HlmItemFooter": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "div[hlmItemFooter]",
+      },
+      "HlmItemGroup": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "div[hlmItemGroup]",
+      },
+      "HlmItemHeader": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "div[hlmItemHeader]",
+      },
+      "HlmItemMedia": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "variant",
+            "required": false,
+            "type": "ItemMediaVariants['variant']",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "div[hlmItemMedia]",
+      },
+      "HlmItemSeparator": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "div[hlmItemSeparator]",
+      },
+      "HlmItemTitle": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "div[hlmItemTitle]",
+      },
+    },
+  },
   "kbd": {
     "helm": {
       "HlmKbd": {
@@ -2896,6 +3056,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "BrnMenuAlign",
           },
+          {
+            "name": "side",
+            "required": false,
+            "type": "BrnMenuSide",
+          },
         ],
         "models": [],
         "outputs": [],
@@ -2971,6 +3136,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "name": "align",
             "required": false,
             "type": "BrnMenuAlign",
+          },
+          {
+            "name": "side",
+            "required": false,
+            "type": "BrnMenuSide",
           },
         ],
         "models": [],

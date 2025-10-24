@@ -125,12 +125,7 @@ export const indeterminate: Story = {
 		template: /* HTML */ `
 			<div id="checkbox-label" class="flex items-center">
 				<label id="testCheckbox" for="testCheckboxIndeterminate" hlmLabel>Test Checkbox</label>
-				<hlm-checkbox
-					checked="indeterminate"
-					class="ml-2"
-					id="testCheckboxIndeterminate"
-					aria-labelledby="testCheckbox"
-				/>
+				<hlm-checkbox indeterminate="true" class="ml-2" id="testCheckboxIndeterminate" aria-labelledby="testCheckbox" />
 			</div>
 		`,
 	}),

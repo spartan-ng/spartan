@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
 	lucideChevronDown,
@@ -31,7 +31,6 @@ import { PriorityIconPipe } from '../pipes/priority-icon.pipe';
 			{{ _element.priority }}
 		</div>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PriorityIconCell {
 	private readonly _context = injectFlexRenderContext<CellContext<Task, unknown>>();

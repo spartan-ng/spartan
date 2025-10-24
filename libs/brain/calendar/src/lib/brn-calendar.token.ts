@@ -21,11 +21,8 @@ export interface BrnCalendarBase<T> {
 	isBetweenRange: (date: T) => boolean;
 
 	disabled: Signal<boolean>;
-	focusedDate: Signal<T>;
+	focusedDate: WritableSignal<T>;
 	header: Signal<BrnCalendarHeader | undefined>;
-	state: Signal<{
-		focusedDate: WritableSignal<T>;
-	}>;
 	days: Signal<T[]>;
 }
 

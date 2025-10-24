@@ -3,8 +3,9 @@ import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { KbdButtonPreview } from '@spartan-ng/app/app/pages/(components)/components/(kbd)/kbd--button.preview';
 import { KbdGroupPreview } from '@spartan-ng/app/app/pages/(components)/components/(kbd)/kbd--group.preview';
+import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { UIApiDocs } from '@spartan-ng/app/app/shared/layout/ui-docs-section/ui-docs-section';
-import { HlmH4, HlmTypographyImports } from '@spartan-ng/helm/typography';
+import { HlmTypographyImports } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
@@ -26,6 +27,7 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-kbd',
+
 	imports: [
 		MainSection,
 		Code,
@@ -40,9 +42,9 @@ export const routeMeta: RouteMeta = {
 		PageBottomNavLink,
 		UIApiDocs,
 		KbdGroupPreview,
-		HlmH4,
 		HlmTypographyImports,
 		KbdButtonPreview,
+		SectionSubSubHeading,
 	],
 	template: `
 		<section spartanMainSection>
@@ -59,17 +61,14 @@ export const routeMeta: RouteMeta = {
 			<spartan-cli-tabs class="mt-4" nxCode="npx nx g @spartan-ng/cli:ui kbd" ngCode="ng g @spartan-ng/cli:ui kbd" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
-			<div class="space-y-4">
+			<div class="mt-6 space-y-4">
 				<spartan-code [code]="_imports" />
 				<spartan-code [code]="_codeSkeleton" />
 			</div>
 
-			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
-			<spartan-ui-api-docs docType="helm" />
-
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
 
-			<h3 id="examples_group" hlmH4 class="mb-2 mt-6">Group</h3>
+			<h3 id="examples_group" spartanH4>Group</h3>
 
 			<p hlmP>
 				Use the
@@ -84,7 +83,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_groupCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples_button" hlmH4 class="mb-2 mt-6">Button</h3>
+			<h3 id="examples_button" spartanH4>Button</h3>
 
 			<p hlmP>
 				Use the
@@ -101,9 +100,12 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_buttonCode()" />
 			</spartan-tabs>
 
+			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="helm" />
+
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="label" label="Label" />
-				<spartan-page-bottom-nav-link direction="previous" href="input-otp" label="Input OTP" />
+				<spartan-page-bottom-nav-link direction="previous" href="item" label="Item" />
 			</spartan-page-bottom-nav>
 		</section>
 		<spartan-page-nav />

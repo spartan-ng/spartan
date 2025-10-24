@@ -1,8 +1,9 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { link } from '@spartan-ng/app/app/shared/typography/link';
-import { hlmCode, hlmH4, hlmP } from '@spartan-ng/helm/typography';
+import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
@@ -47,6 +48,7 @@ export const routeMeta: RouteMeta = {
 		CarouselPlugins,
 		CarouselOrientation,
 		CarouselSlideCount,
+		SectionSubSubHeading,
 	],
 	template: `
 		<section spartanMainSection>
@@ -76,23 +78,16 @@ export const routeMeta: RouteMeta = {
 			</p>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
-			<spartan-cli-tabs
-				class="mt-4"
-				nxCode="npx nx g @spartan-ng/cli:ui carousel"
-				ngCode="ng g @spartan-ng/cli:ui carousel"
-			/>
+			<spartan-cli-tabs nxCode="npx nx g @spartan-ng/cli:ui carousel" ngCode="ng g @spartan-ng/cli:ui carousel" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
-			<div class="space-y-4">
+			<div class="mt-6 space-y-4">
 				<spartan-code [code]="_defaultImports" />
 				<spartan-code [code]="_defaultSkeleton" />
 			</div>
 
-			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
-			<spartan-ui-api-docs docType="helm" />
-
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__sizes" class="${hlmH4} mb-2 mt-6">Sizes</h3>
+			<h3 id="examples__sizes" spartanH4>Sizes</h3>
 			<p class="py-2">
 				The size of the items can be set by using the
 				<code class="${hlmCode}">basis</code>
@@ -107,7 +102,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_sizesCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__spacing" class="${hlmH4} mb-2 mt-6">Spacing</h3>
+			<h3 id="examples__spacing" spartanH4>Spacing</h3>
 			<p class="py-2">
 				The spacing between the items can be set by using a
 				<code class="${hlmCode}">pl-[VALUE]</code>
@@ -126,7 +121,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_spacingCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__orientation" class="${hlmH4} mb-2 mt-6">Orientation</h3>
+			<h3 id="examples__orientation" spartanH4>Orientation</h3>
 			<p class="py-2">
 				The
 				<code class="${hlmCode}">orientation</code>
@@ -139,7 +134,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_orientationCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__slide_count" class="${hlmH4} mb-2 mt-6">Slide Count</h3>
+			<h3 id="examples__slide_count" spartanH4>Slide Count</h3>
 			<p class="py-2">
 				Use
 				<code class="${hlmCode}">hlm-carousel-slide-display</code>
@@ -152,7 +147,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_slideCountCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__plugins" class="${hlmH4} mb-2 mt-6">Plugins</h3>
+			<h3 id="examples__plugins" spartanH4>Plugins</h3>
 			<p class="py-2">
 				You can use the plugins
 				<code class="${hlmCode}">plugins</code>
@@ -171,6 +166,9 @@ export const routeMeta: RouteMeta = {
 				</a>
 				for more information on using plugins.
 			</p>
+
+			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="checkbox" label="Checkbox" />

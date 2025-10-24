@@ -31,11 +31,7 @@ import { HlmResizableImports } from '@spartan-ng/helm/resizable';
 export class ResizablePreviewComponent {}
 
 export const defaultImports = `
-import {
-  HlmResizableGroup
-  HlmResizablePanel
-  HlmResizableHandle
-} from '@spartan-ng/helm/resizable';
+import { HlmResizableImports } from '@spartan-ng/helm/resizable';
 `;
 
 export const defaultSkeleton = `

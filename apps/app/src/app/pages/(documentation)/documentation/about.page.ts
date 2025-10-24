@@ -26,15 +26,14 @@ const aboutLink = 'h-6 underline text-base px-0.5';
 		<section spartanMainSection>
 			<spartan-section-intro name="About" lead="Powered by amazing open source projects." />
 
-			<spartan-section-sub-heading first id="about">About</spartan-section-sub-heading>
-			<section>
-				<p class="${hlmP}">
-					<a hlmBtn variant="link" class="${aboutLink}" href="https://spartan.ng">spartan.ng</a>
-					is a project by
-					<a hlmBtn variant="link" class="${aboutLink}" href="https://twitter.com/goetzrobin">goetzrobin</a>
-					.
-				</p>
-			</section>
+			<spartan-section-sub-heading first id="about" class="pt-6">About</spartan-section-sub-heading>
+
+			<p class="${hlmP}">
+				<a hlmBtn variant="link" class="${aboutLink}" href="https://spartan.ng">spartan.ng</a>
+				is a project by
+				<a hlmBtn variant="link" class="${aboutLink}" href="https://twitter.com/goetzrobin">goetzrobin</a>
+				.
+			</p>
 
 			<spartan-section-sub-heading id="spartans">
 				<span class="flex items-center">
@@ -56,106 +55,101 @@ const aboutLink = 'h-6 underline text-base px-0.5';
 					</svg>
 				</span>
 			</spartan-section-sub-heading>
-			<section>
-				<ul class="${hlmP} ${hlmUl} mt-0">
-					<li>
-						<a class="${aboutLink}" hlmBtn href="https://twitter.com/goetzrobin" target="_blank" variant="link">
-							goetzrobin
-						</a>
-						- working on spartan/stack & spartan/ui.
-					</li>
-					<li>
-						<a class="${aboutLink}" hlmBtn href="https://github.com/mihajm" target="_blank" variant="link">mihajm</a>
-						- working on spartan/ui.
-					</li>
-					<li>
-						<a class="${aboutLink}" hlmBtn href="https://github.com/AdditionAddict" target="_blank" variant="link">
-							AdditionAddict
-						</a>
-						- supporting spartan/stack & spartan/ui.
-					</li>
-				</ul>
-			</section>
 
-			<spartan-section-sub-heading id="credits">Credits</spartan-section-sub-heading>
-			<section>
-				<p class="${hlmP}">
-					First and foremost, credit goes to the incredible
-					<a hlmBtn variant="link" class="${aboutLink}" href="https://brandonroberts.dev/blog">Brandon Roberts</a>
-					and
-					<a hlmBtn variant="link" class="${aboutLink}" href="https://shadcn.com">shadcn.</a>
-				</p>
-
-				<p class="${hlmP}">
-					Brandon's AnalogJs is the absolute backbone of the spartan/stack and brings incredible value to the Angular
-					ecosystem.
-				</p>
-				<p class="${hlmP}">
-					The UI library shadcn has created is simply beautiful and spartan/ui tries its best to emulate its style and
-					quality.
-				</p>
-				<p class="${hlmP}">Other awesome work we are building upon is:</p>
-				<ul class="${hlmUl}">
-					<li>
-						<a class="${aboutLink}" hlmBtn href="https://analogjs.org" target="_blank" variant="link">AnalogJs</a>
-						- The full-stack Angular meta-framework.
-					</li>
-					<li>
-						<a class="${aboutLink}" hlmBtn href="https://ui.shadcn.com" target="_blank" variant="link">ui.shadcn.com</a>
-						- Styles for UI primitives.
-					</li>
-					<li>
-						<a class="${aboutLink}" hlmBtn href="https://radix-ui.com" target="_blank" variant="link">Radix</a>
-						- Patterns & inspiration for accessible unstyled UI primitives.
-					</li>
-					<li>
-						<a class="${aboutLink}" hlmBtn href="https://material.angular.io" target="_blank" variant="link">
-							Angular Material
-						</a>
-						- An incredible CDK, patterns & inspiration for accessible unstyled ui primitives.
-					</li>
-					<li>
-						<a
-							class="${aboutLink}"
-							hlmBtn
-							href="https://github.com/timdeschryver/ng-signal-forms"
-							target="_blank"
-							variant="link"
-						>
-							ng-signal-forms
-						</a>
-						- Form library based on Angular signals, which makes working with even the most complex scenarios a breeze.
-					</li>
-					<li>
-						<a
-							class="${aboutLink}"
-							hlmBtn
-							href="https://github.com/MurhafSousli/ngx-scrollbar"
-							target="_blank"
-							variant="link"
-						>
-							ngx-scrollbar
-						</a>
-						- Custom overlay-scrollbars with native scrolling mechanism.
-					</li>
-					<li>
-						<a class="${aboutLink}" hlmBtn href="https://ng-icons.github.io/ng-icons" target="_blank" variant="link">
-							ng-icons
-						</a>
-						- The ultimate icon library for Angular.
-					</li>
-				</ul>
-			</section>
-
-			<spartan-section-sub-heading id="license">License</spartan-section-sub-heading>
-			<section>
-				<p class="${hlmP}">
-					MIT &copy; {{ currentYear }} -
-					<a hlmBtn variant="link" class="px-0.5 text-base underline" href="https://twitter.com/goetzrobin">
+			<ul class="${hlmP} ${hlmUl}">
+				<li class="mt-0!">
+					<a class="${aboutLink}" hlmBtn href="https://twitter.com/goetzrobin" target="_blank" variant="link">
 						goetzrobin
 					</a>
-				</p>
-			</section>
+					- working on spartan/stack & spartan/ui.
+				</li>
+				<li>
+					<a class="${aboutLink}" hlmBtn href="https://github.com/mihajm" target="_blank" variant="link">mihajm</a>
+					- working on spartan/ui.
+				</li>
+				<li>
+					<a class="${aboutLink}" hlmBtn href="https://github.com/AdditionAddict" target="_blank" variant="link">
+						AdditionAddict
+					</a>
+					- supporting spartan/stack & spartan/ui.
+				</li>
+			</ul>
+
+			<spartan-section-sub-heading id="credits">Credits</spartan-section-sub-heading>
+
+			<p class="${hlmP}">
+				First and foremost, credit goes to the incredible
+				<a hlmBtn variant="link" class="${aboutLink}" href="https://brandonroberts.dev/blog">Brandon Roberts</a>
+				and
+				<a hlmBtn variant="link" class="${aboutLink}" href="https://shadcn.com">shadcn.</a>
+			</p>
+
+			<p class="${hlmP}">
+				Brandon's AnalogJs is the absolute backbone of the spartan/stack and brings incredible value to the Angular
+				ecosystem.
+			</p>
+			<p class="${hlmP}">
+				The UI library shadcn has created is simply beautiful and spartan/ui tries its best to emulate its style and
+				quality.
+			</p>
+			<p class="${hlmP}">Other awesome work we are building upon is:</p>
+			<ul class="${hlmUl}">
+				<li>
+					<a class="${aboutLink}" hlmBtn href="https://analogjs.org" target="_blank" variant="link">AnalogJs</a>
+					- The full-stack Angular meta-framework.
+				</li>
+				<li>
+					<a class="${aboutLink}" hlmBtn href="https://ui.shadcn.com" target="_blank" variant="link">ui.shadcn.com</a>
+					- Styles for UI primitives.
+				</li>
+				<li>
+					<a class="${aboutLink}" hlmBtn href="https://radix-ui.com" target="_blank" variant="link">Radix</a>
+					- Patterns & inspiration for accessible unstyled UI primitives.
+				</li>
+				<li>
+					<a class="${aboutLink}" hlmBtn href="https://material.angular.io" target="_blank" variant="link">
+						Angular Material
+					</a>
+					- An incredible CDK, patterns & inspiration for accessible unstyled ui primitives.
+				</li>
+				<li>
+					<a
+						class="${aboutLink}"
+						hlmBtn
+						href="https://github.com/timdeschryver/ng-signal-forms"
+						target="_blank"
+						variant="link"
+					>
+						ng-signal-forms
+					</a>
+					- Form library based on Angular signals, which makes working with even the most complex scenarios a breeze.
+				</li>
+				<li>
+					<a
+						class="${aboutLink}"
+						hlmBtn
+						href="https://github.com/MurhafSousli/ngx-scrollbar"
+						target="_blank"
+						variant="link"
+					>
+						ngx-scrollbar
+					</a>
+					- Custom overlay-scrollbars with native scrolling mechanism.
+				</li>
+				<li>
+					<a class="${aboutLink}" hlmBtn href="https://ng-icons.github.io/ng-icons" target="_blank" variant="link">
+						ng-icons
+					</a>
+					- The ultimate icon library for Angular.
+				</li>
+			</ul>
+
+			<spartan-section-sub-heading id="license">License</spartan-section-sub-heading>
+
+			<p class="${hlmP}">
+				MIT &copy; {{ currentYear }} -
+				<a hlmBtn variant="link" class="px-0.5 text-base underline" href="https://twitter.com/goetzrobin">goetzrobin</a>
+			</p>
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="/stack/overview" label="Stack" />

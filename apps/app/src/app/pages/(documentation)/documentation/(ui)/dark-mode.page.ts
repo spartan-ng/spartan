@@ -22,24 +22,22 @@ export const routeMeta: RouteMeta = {
 	template: `
 		<section spartanMainSection>
 			<spartan-section-intro name="Dark Mode" lead="Adding dark mode to your site." />
-			<section>
-				<p class="${hlmP}">
-					<code class="${hlmCode}">spartan/ui</code>
-					is built on TailwindCSS with custom CSS variables. These variables change based on whether or not a
-					<code class="${hlmCode}">dark</code>
-					class is applied to the root element of your page.
-				</p>
-				<p class="${hlmP}">
-					Here is a comprehensive guide on how to toggle that class with Angular:
-					<a
-						class="font-medium underline"
-						target="_blank"
-						href="https://dev.to/this-is-angular/dark-mode-with-analog-tailwind-4049"
-					>
-						Dark mode with Analog & Tailwind
-					</a>
-				</p>
-			</section>
+			<p class="${hlmP}">
+				<code class="${hlmCode}">spartan/ui</code>
+				is built on TailwindCSS with custom CSS variables. These variables change based on whether or not a
+				<code class="${hlmCode}">dark</code>
+				class is applied to the root element of your page.
+			</p>
+			<p class="${hlmP}">
+				Here is a comprehensive guide on how to toggle that class with Angular:
+				<a
+					class="font-medium underline"
+					target="_blank"
+					href="https://dev.to/this-is-angular/dark-mode-with-analog-tailwind-4049"
+				>
+					Dark mode with Analog & Tailwind
+				</a>
+			</p>
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="typography" label="Typography" />
 				<spartan-page-bottom-nav-link direction="previous" href="theming" label="Theming" />

@@ -105,7 +105,7 @@ type Story = StoryObj<{}>;
 								hlm
 								name="lucideSearch"
 								size="sm"
-								class="pointer-events-none absolute left-2 top-1/2 size-4 -translate-y-1/2 select-none opacity-50"
+								class="pointer-events-none absolute top-1/2 left-2 size-4 -translate-y-1/2 opacity-50 select-none"
 							></ng-icon>
 						</div>
 					</div>
@@ -325,7 +325,7 @@ export const Default: Story = {
 								hlm
 								name="lucideSearch"
 								size="sm"
-								class="pointer-events-none absolute left-2 top-1/2 size-4 -translate-y-1/2 select-none opacity-50"
+								class="pointer-events-none absolute top-1/2 left-2 size-4 -translate-y-1/2 opacity-50 select-none"
 							></ng-icon>
 						</div>
 					</div>

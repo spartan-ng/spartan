@@ -6,7 +6,7 @@ import type { ClassValue } from 'clsx';
 @Component({
 	selector: 'input[hlm-autocomplete-search-input]',
 	template: '',
-	hostDirectives: [{ directive: BrnAutocompleteSearchInput, inputs: ['value'] }],
+	hostDirectives: [{ directive: BrnAutocompleteSearchInput, inputs: ['value'], outputs: ['valueChange'] }],
 	host: {
 		'[class]': '_computedClass()',
 	},

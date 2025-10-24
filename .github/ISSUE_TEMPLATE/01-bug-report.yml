@@ -51,6 +51,7 @@ body:
         - input
         - input-group
         - input-otp
+        - item
         - kbd
         - label
         - menubar

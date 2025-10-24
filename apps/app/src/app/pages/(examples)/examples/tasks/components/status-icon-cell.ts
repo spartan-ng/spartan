@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
 	lucideCircle,
@@ -33,7 +33,6 @@ import { StatusIconPipe } from '../pipes/status-icon.pipe';
 			{{ _element.status }}
 		</div>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StatusIconCell {
 	private readonly _context = injectFlexRenderContext<CellContext<Task, unknown>>();

@@ -109,7 +109,7 @@ import { type Task, TASK_DATA } from './services/tasks.models';
 				<ng-template #profile>
 					<hlm-menu>
 						<div class="flex flex-col space-y-1" hlmMenuItem>
-							<p class="text-sm font-medium leading-none">spartan</p>
+							<p class="text-sm leading-none font-medium">spartan</p>
 							<p class="text-muted-foreground text-xs leading-none">m&#64;example.com</p>
 						</div>
 
@@ -203,7 +203,7 @@ import { type Task, TASK_DATA } from './services/tasks.models';
 						[ngModel]="table.getState().pagination.pageSize"
 						(ngModelChange)="table.setPageSize($event); table.resetPageIndex()"
 					>
-						<hlm-select-trigger class="w-15 mr-1 inline-flex h-9">
+						<hlm-select-trigger class="mr-1 inline-flex h-9 w-15">
 							<hlm-select-value />
 						</hlm-select-trigger>
 						<hlm-select-content>

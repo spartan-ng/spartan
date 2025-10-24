@@ -2,8 +2,9 @@ import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
-import { hlmCode, hlmH4, hlmP, hlmUl } from '@spartan-ng/helm/typography';
+import { hlmCode, hlmP, hlmUl } from '@spartan-ng/helm/typography';
 
+import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { MainSection } from '../../../shared/layout/main-section';
 import { PageBottomNav } from '../../../shared/layout/page-bottom-nav/page-bottom-nav';
 import { PageBottomNavLink } from '../../../shared/layout/page-bottom-nav/page-bottom-nav-link';
@@ -29,11 +30,12 @@ export const routeMeta: RouteMeta = {
 		SectionSubHeading,
 		RouterLink,
 		HlmButtonImports,
+		SectionSubSubHeading,
 	],
 	template: `
 		<section spartanMainSection>
 			<spartan-section-intro name="Changelog" lead="Latest updates and announcements." />
-			<spartan-section-sub-heading id="initial-alpha" class="-mt-12">
+			<spartan-section-sub-heading id="initial-alpha" first class="pt-6">
 				August 2023 - Initial Alpha release
 			</spartan-section-sub-heading>
 
@@ -42,7 +44,7 @@ export const routeMeta: RouteMeta = {
 				is an open-source collection of an initial 30 UI primitives designed to streamline your development process and
 				empower your Angular projects with enhanced efficiency and accessibility.
 			</p>
-			<h3 id="initial-alpha__why" class="${hlmH4} mt-12">Why spartan/ui?</h3>
+			<h3 id="initial-alpha__why" spartanH4>Why spartan/ui?</h3>
 			<p class="${hlmP}">
 				Creating seamless, captivating, and accessible user interfaces is hard. Through
 				<code class="${hlmCode}">spartan/ui/brain</code>
@@ -56,7 +58,7 @@ export const routeMeta: RouteMeta = {
 				, we provide pre-designed styles that not only look great from the start but also let you to retain full control
 				over their code, appearance, and overall experience.
 			</p>
-			<h3 id="initial-alpha__brain" class="${hlmH4} mt-12">spartan/ui/brain</h3>
+			<h3 id="initial-alpha__brain" spartanH4>spartan/ui/brain</h3>
 			<p class="${hlmP}">
 				Each
 				<code class="${hlmCode}">spartan/ui/brain</code>
@@ -68,7 +70,7 @@ export const routeMeta: RouteMeta = {
 				This brain-first approach empowers developers to build UI components with enhanced accessibility and modularity,
 				offering flexibility in crafting custom interfaces that cater to diverse project requirements.
 			</p>
-			<h3 id="initial-alpha__helm" class="${hlmH4} mt-12">spartan/ui/helm</h3>
+			<h3 id="initial-alpha__helm" spartanH4>spartan/ui/helm</h3>
 			<p class="${hlmP}">
 				On top of these brain components we put our helmet. Our helmet adds SPARTAN-like swagger to our UI.
 			</p>
@@ -78,7 +80,7 @@ export const routeMeta: RouteMeta = {
 				primitives are not libraries. Instead, just like with shadcn, they are recipes, which code you can copy directly
 				into your own project.
 			</p>
-			<h3 id="initial-alpha__nx" class="${hlmH4} mt-12">Powered by &#64;spartan-ng/nx</h3>
+			<h3 id="initial-alpha__nx" spartanH4>Powered by &#64;spartan-ng/nx</h3>
 			<p class="${hlmP}">
 				To make this as easy as possible,
 				<code class="${hlmCode}">spartan/ui</code>
@@ -92,7 +94,7 @@ export const routeMeta: RouteMeta = {
 				to incorporate one of 12 custom themes into your Nx applications, letting you truly own the visual appearance of
 				your projects.
 			</p>
-			<h3 id="initial-alpha__initial_30" class="${hlmH4} mt-12">The initial 30</h3>
+			<h3 id="initial-alpha__initial_30" spartanH4>The initial 30</h3>
 			<p class="${hlmP}">The initial 30 components we launch today are:</p>
 			<ul class="${hlmUl}">
 				<li><a class="font-medium hover:underline" routerLink="/components/accordion">Accordion</a></li>
@@ -138,7 +140,7 @@ export const routeMeta: RouteMeta = {
 				<li><a class="font-medium hover:underline" routerLink="/components/toggle">Toggle</a></li>
 				<li><a class="font-medium hover:underline" routerLink="/components/typography">Typography</a></li>
 			</ul>
-			<h3 id="initial-alpha__getting_started" class="${hlmH4} mt-12">Getting Started</h3>
+			<h3 id="initial-alpha__getting_started" spartanH4>Getting Started</h3>
 			<p class="${hlmP}">
 				Excited to try any of these? What are you waiting for? Head over to the installation page and start your spartan
 				journey!

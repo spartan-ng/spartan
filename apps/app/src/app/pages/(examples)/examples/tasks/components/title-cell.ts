@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideEllipsis } from '@ng-icons/lucide';
 import type { Task } from '../services/tasks.models';
@@ -15,7 +15,6 @@ import { type CellContext, injectFlexRenderContext } from '@tanstack/angular-tab
 		</div>
 		{{ _element.title }}
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TitleCell {
 	private readonly _context = injectFlexRenderContext<CellContext<Task, unknown>>();

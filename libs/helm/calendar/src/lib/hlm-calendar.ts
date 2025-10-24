@@ -12,21 +12,7 @@ import {
 } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronLeft, lucideChevronRight } from '@ng-icons/lucide';
-import {
-	BrnCalendar,
-	BrnCalendarCell,
-	BrnCalendarCellButton,
-	BrnCalendarGrid,
-	BrnCalendarHeader,
-	BrnCalendarMonthSelect,
-	BrnCalendarNextButton,
-	BrnCalendarPreviousButton,
-	BrnCalendarWeek,
-	BrnCalendarWeekday,
-	BrnCalendarYearSelect,
-	injectBrnCalendarI18n,
-	type Weekday,
-} from '@spartan-ng/brain/calendar';
+import { BrnCalendar, BrnCalendarImports, injectBrnCalendarI18n, type Weekday } from '@spartan-ng/brain/calendar';
 import { injectDateAdapter } from '@spartan-ng/brain/date-time';
 import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { buttonVariants } from '@spartan-ng/helm/button';
@@ -37,27 +23,7 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-calendar',
-	imports: [
-		BrnCalendar,
-		BrnCalendarHeader,
-		BrnCalendarNextButton,
-		BrnCalendarPreviousButton,
-		BrnCalendarWeekday,
-		BrnCalendarWeek,
-		BrnCalendarCellButton,
-		BrnCalendarCell,
-		BrnCalendarGrid,
-		NgIcon,
-		HlmIcon,
-		BrnSelectImports,
-		HlmSelectImports,
-		BrnCalendarPreviousButton,
-		BrnCalendarMonthSelect,
-		BrnCalendarMonthSelect,
-		BrnCalendarMonthSelect,
-		BrnCalendarYearSelect,
-		NgTemplateOutlet,
-	],
+	imports: [BrnCalendarImports, NgIcon, HlmIcon, BrnSelectImports, HlmSelectImports, NgTemplateOutlet],
 	viewProviders: [provideIcons({ lucideChevronLeft, lucideChevronRight })],
 	template: `
 		<div
@@ -123,14 +89,14 @@ import type { ClassValue } from 'clsx';
 						<div class="flex items-center space-x-1">
 							<button
 								brnCalendarPreviousButton
-								class="focus-visible:ring-ring hover:bg-accent hover:text-accent-foreground text-popover-foreground absolute left-1 inline-flex size-8 items-center justify-center whitespace-nowrap rounded-md bg-transparent p-0 text-sm font-medium transition-colors hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+								class="focus-visible:ring-ring hover:bg-accent hover:text-accent-foreground text-popover-foreground absolute left-1 inline-flex size-8 items-center justify-center rounded-md bg-transparent p-0 text-sm font-medium whitespace-nowrap transition-colors hover:opacity-100 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
 							>
 								<ng-icon hlm name="lucideChevronLeft" size="sm" />
 							</button>
 
 							<button
 								brnCalendarNextButton
-								class="focus-visible:ring-ring hover:bg-accent hover:text-accent-foreground text-popover-foreground absolute right-1 inline-flex size-8 items-center justify-center whitespace-nowrap rounded-md bg-transparent p-0 text-sm font-medium transition-colors hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+								class="focus-visible:ring-ring hover:bg-accent hover:text-accent-foreground text-popover-foreground absolute right-1 inline-flex size-8 items-center justify-center rounded-md bg-transparent p-0 text-sm font-medium whitespace-nowrap transition-colors hover:opacity-100 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
 							>
 								<ng-icon hlm name="lucideChevronRight" size="sm" />
 							</button>

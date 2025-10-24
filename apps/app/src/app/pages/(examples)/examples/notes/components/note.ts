@@ -42,7 +42,7 @@ import { HlmSpinner } from '@spartan-ng/helm/spinner';
 			</p>
 			<button
 				[disabled]="deletionInProgress"
-				class="absolute right-2 top-2"
+				class="absolute top-2 right-2"
 				hlmBtn
 				size="sm"
 				variant="ghost"

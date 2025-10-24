@@ -44,8 +44,8 @@ const CONTAINER_POST_FIX = '-checkbox';
 			#checkBox
 			role="checkbox"
 			type="button"
-			[id]="getCheckboxButtonId(_state().id) ?? ''"
-			[name]="getCheckboxButtonId(_state().name) ?? ''"
+			[id]="_getCheckboxButtonId(_state().id) ?? ''"
+			[name]="_getCheckboxButtonId(_state().name) ?? ''"
 			[class]="class()"
 			[attr.aria-checked]="_ariaChecked()"
 			[attr.aria-label]="ariaLabel() || null"
@@ -90,14 +90,13 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 	protected readonly _focused = signal(false);
 
 	/**
-	 * Current checked state of checkbox.
-	 * Can be boolean (true/false) or 'indeterminate'.
+	 * The checked state of the checkbox.
 	 * Can be bound with [(checked)] for two-way binding.
 	 */
-	public readonly checked = model<BrnCheckboxValue>(false);
+	public readonly checked = model<boolean>(false);
 
 	/** Emits when checked state changes. */
-	public readonly checkedChange = output<BrnCheckboxValue>();
+	public readonly checkedChange = output<boolean>();
 
 	/**
 	 * Read-only signal of current checkbox state.
@@ -105,14 +104,19 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 	 */
 	public readonly isChecked = this.checked.asReadonly();
 
+	/*
+	 * The indeterminate state of the checkbox.
+	 * For example, a "select all/deselect all" checkbox may be in the indeterminate state when some but not all of its sub-controls are checked.
+	 */
+	public readonly indeterminate = model<boolean>(false);
+
 	/**
 	 * Computed data-state attribute value based on checked state.
 	 * Returns 'checked', 'unchecked', or 'indeterminate'.
 	 */
 	protected readonly _dataState = computed(() => {
-		const checked = this.checked();
-		if (checked === 'indeterminate') return 'indeterminate';
-		return checked ? 'checked' : 'unchecked';
+		if (this.indeterminate()) return 'indeterminate';
+		return this.checked() ? 'checked' : 'unchecked';
 	});
 
 	/**
@@ -120,9 +124,8 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 	 * Returns 'true', 'false', or 'mixed' (for indeterminate).
 	 */
 	protected readonly _ariaChecked = computed(() => {
-		const checked = this.checked();
-		if (checked === 'indeterminate') return 'mixed';
-		return checked ? 'true' : 'false';
+		if (this.indeterminate()) return 'mixed';
+		return this.checked() ? 'true' : 'false';
 	});
 
 	/**
@@ -187,7 +190,7 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 	});
 
 	// eslint-disable-next-line @typescript-eslint/no-empty-function
-	protected _onChange: ChangeFn<BrnCheckboxValue> = () => {};
+	protected _onChange: ChangeFn<boolean> = () => {};
 	// eslint-disable-next-line @typescript-eslint/no-empty-function
 	private _onTouched: TouchFn = () => {};
 
@@ -210,7 +213,7 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 			if (!this._elementRef.nativeElement || !this._isBrowser) return;
 
 			const newLabelId = state.id + '-label';
-			const checkboxButtonId = this.getCheckboxButtonId(state.id);
+			const checkboxButtonId = this._getCheckboxButtonId(state.id);
 			const labelElement =
 				this._elementRef.nativeElement.closest('label') ??
 				this._document.querySelector(`label[for="${checkboxButtonId}"]`);
@@ -238,10 +241,11 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 		this._onTouched();
 		this.touched.emit();
 
-		const previousChecked = this.checked();
-		this.checked.set(previousChecked === 'indeterminate' ? true : !previousChecked);
-		this._onChange(this.checked());
-		this.checkedChange.emit(this.checked());
+		const newChecked = this.indeterminate() ? true : !this.checked();
+		this.indeterminate.set(false);
+		this.checkedChange.emit(newChecked);
+		this.checked.set(newChecked);
+		this._onChange(newChecked);
 	}
 
 	ngAfterContentInit() {
@@ -282,7 +286,7 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 	 * @param idPassedToContainer - ID applied to container element
 	 * @returns ID to use for inner button or null
 	 */
-	protected getCheckboxButtonId(idPassedToContainer: string | null | undefined): string | null {
+	protected _getCheckboxButtonId(idPassedToContainer: string | null | undefined): string | null {
 		return idPassedToContainer ? idPassedToContainer.replace(CONTAINER_POST_FIX, '') : null;
 	}
 
@@ -293,12 +297,8 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 	 *
 	 * @param value - New checkbox state (true/false/'indeterminate')
 	 */
-	writeValue(value: BrnCheckboxValue): void {
-		if (value === 'indeterminate') {
-			this.checked.set('indeterminate');
-		} else {
-			this.checked.set(value);
-		}
+	writeValue(value: boolean): void {
+		this.checked.set(value);
 	}
 
 	/**
@@ -307,7 +307,7 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 	 *
 	 * @param fn - Function to call when value changes
 	 */
-	registerOnChange(fn: ChangeFn<BrnCheckboxValue>): void {
+	registerOnChange(fn: ChangeFn<boolean>): void {
 		this._onChange = fn;
 	}
 
@@ -332,5 +332,3 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 		this._cdr.markForCheck();
 	}
 }
-
-type BrnCheckboxValue = boolean | 'indeterminate';

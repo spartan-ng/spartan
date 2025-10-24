@@ -36,28 +36,26 @@ export const routeMeta: RouteMeta = {
 				name="Figma"
 				lead="Every component recreated in Figma. With customizable props, typography and icons."
 			/>
-			<section>
-				<p class="${hlmP}">
-					Since
-					<code class="${hlmCode}">spartan/ui</code>
-					proudly & shamelessly piggybacks on top of the incredible work by
-					<span>shadcn,</span>
-					it can leverage their (non Angular specific) ecosystem.
-				</p>
-				<p class="${hlmP}">
-					That means we get access to incredibly work like
-					<a class="font-medium hover:underline" href="https://twitter.com/skirano" target="_blank">
-						Pietro Schirano's
-					</a>
-					Figma UI Kit!
-				</p>
-				<div class="mt-4" hlmAspectRatio="16/9">
-					<iframe
-						src="https://embed.figma.com/file/1203061493325953101/hf_embed?community_viewer=true&amp;embed_host=shadcn&amp;hub_file_id=1203061493325953101&amp;kind=&amp;viewer=1"
-						class="bg-muted h-full w-full overflow-hidden rounded-lg border"
-					></iframe>
-				</div>
-			</section>
+
+			<p class="${hlmP}">
+				Since
+				<code class="${hlmCode}">spartan/ui</code>
+				proudly & shamelessly piggybacks on top of the incredible work by
+				<span>shadcn,</span>
+				it can leverage their (non Angular specific) ecosystem.
+			</p>
+			<p class="${hlmP}">
+				That means we get access to incredibly work like
+				<a class="font-medium hover:underline" href="https://twitter.com/skirano" target="_blank">Pietro Schirano's</a>
+				Figma UI Kit!
+			</p>
+			<div class="mt-4" hlmAspectRatio="16/9">
+				<iframe
+					src="https://embed.figma.com/file/1203061493325953101/hf_embed?community_viewer=true&amp;embed_host=shadcn&amp;hub_file_id=1203061493325953101&amp;kind=&amp;viewer=1"
+					class="bg-muted h-full w-full overflow-hidden rounded-lg border"
+				></iframe>
+			</div>
+
 			<spartan-section-sub-heading id="copy">Grab a copy</spartan-section-sub-heading>
 			<a
 				class="text-lg font-medium underline"

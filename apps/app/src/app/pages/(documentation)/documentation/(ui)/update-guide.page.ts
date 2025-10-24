@@ -40,7 +40,7 @@ export const routeMeta: RouteMeta = {
 				</p>
 
 				<spartan-cli-tabs
-					class="mb-6 mt-4"
+					class="mt-4 mb-6"
 					nxCode="nx g @spartan-ng/cli:migrate-helm-libraries"
 					ngCode="ng g @spartan-ng/cli:migrate-helm-libraries"
 				/>

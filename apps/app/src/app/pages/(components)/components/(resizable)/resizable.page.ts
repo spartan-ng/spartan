@@ -14,6 +14,9 @@ import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
 
+import { ResizableHandlePreview } from '@spartan-ng/app/app/pages/(components)/components/(resizable)/resizable--handle.preview';
+import { ResizableVerticalPreview } from '@spartan-ng/app/app/pages/(components)/components/(resizable)/resizable--vertical.preview';
+import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { defaultImports, defaultSkeleton, ResizablePreviewComponent } from './resizable.preview';
 
 export const routeMeta: RouteMeta = {
@@ -36,6 +39,9 @@ export const routeMeta: RouteMeta = {
 		PageBottomNav,
 		PageBottomNavLink,
 		ResizablePreviewComponent,
+		SectionSubSubHeading,
+		ResizableVerticalPreview,
+		ResizableHandlePreview,
 	],
 	template: `
 		<section spartanMainSection>
@@ -61,6 +67,24 @@ export const routeMeta: RouteMeta = {
 				<spartan-code [code]="_defaultSkeleton" />
 			</div>
 
+			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
+
+			<h3 id="examples__vertical" spartanH4>Vertical</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-resizable-vertical-preview />
+				</div>
+				<spartan-code secondTab [code]="_verticalCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__handle" spartanH4>Handle</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-resizable-handle-preview />
+				</div>
+				<spartan-code secondTab [code]="_handleCode()" />
+			</spartan-tabs>
+
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="brain" />
 
@@ -69,7 +93,7 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="scroll-area" label="Scroll Area" />
-				<spartan-page-bottom-nav-link direction="previous" href="progress" label="Progress" />
+				<spartan-page-bottom-nav-link direction="previous" href="radio-group" label="Radio Group" />
 			</spartan-page-bottom-nav>
 		</section>
 		<spartan-page-nav />
@@ -78,6 +102,8 @@ export const routeMeta: RouteMeta = {
 export default class ResizablePage {
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('resizable');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
+	protected readonly _verticalCode = computed(() => this._snippets()['vertical']);
+	protected readonly _handleCode = computed(() => this._snippets()['handle']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

@@ -26,7 +26,7 @@ import { HlmTooltipImports } from '@spartan-ng/helm/tooltip';
 		</div>
 
 		<div hlmInputGroup>
-			<input hlmInputGroupInput id="email-2" placeholder="spartan-ng@github.com" class="pb-3" />
+			<input hlmInputGroupInput id="email-2" placeholder="spartan-ng@github.com" />
 			<div hlmInputGroupAddon align="block-start">
 				<label for="email-2" class="text-foreground" hlmLabel>Email</label>
 				<button

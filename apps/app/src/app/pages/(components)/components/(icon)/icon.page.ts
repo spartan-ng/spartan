@@ -11,8 +11,9 @@ import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
 
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { link } from '@spartan-ng/app/app/shared/typography/link';
-import { hlmCode, hlmH4, hlmP, hlmUl } from '@spartan-ng/helm/typography';
+import { hlmCode, hlmP, hlmUl } from '@spartan-ng/helm/typography';
 import { PageBottomNav } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav';
 import { PageBottomNavLink } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav-link';
 import { PageNav } from '../../../../shared/layout/page-nav/page-nav';
@@ -34,6 +35,7 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-icon',
+
 	imports: [
 		UIApiDocs,
 		MainSection,
@@ -53,6 +55,7 @@ export const routeMeta: RouteMeta = {
 		IconMultipleSetsPreview,
 		IconSizePreview,
 		IconResponsivePreview,
+		SectionSubSubHeading,
 	],
 	providers: [provideIcons(lucideIcons)],
 	template: `
@@ -110,17 +113,14 @@ export const routeMeta: RouteMeta = {
 			</ul>
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
-			<div class="space-y-4">
+			<div class="mt-6 space-y-4">
 				<spartan-code [code]="_defaultImports" />
 				<spartan-code [code]="_defaultSkeleton" />
 			</div>
 
-			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
-			<spartan-ui-api-docs docType="helm" />
-
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
 
-			<h3 id="examples__size" class="${hlmH4} mb-2 mt-6">Size</h3>
+			<h3 id="examples__size" spartanH4>Size</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-icon-size />
@@ -128,7 +128,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_sizeCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__responsive_size" class="${hlmH4} mb-2 mt-6">Responsive Size</h3>
+			<h3 id="examples__responsive_size" spartanH4>Responsive Size</h3>
 
 			<p class="${hlmP} mb-6">
 				Use font-sizes (e.g.
@@ -145,7 +145,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_responsiveCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__multiple_icon_sets" class="${hlmH4} mb-2 mt-6">Multiple Icon Sets</h3>
+			<h3 id="examples__multiple_icon_sets" spartanH4>Multiple Icon Sets</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-icon-multiple-sets />
@@ -156,7 +156,7 @@ export const routeMeta: RouteMeta = {
 			<spartan-section-sub-heading id="icons">Lucide Icons</spartan-section-sub-heading>
 			<input
 				#searchQuery
-				class="w-full"
+				class="mt-4 w-full"
 				hlmInput
 				placeholder="Search icons..."
 				type="text"
@@ -168,10 +168,13 @@ export const routeMeta: RouteMeta = {
 				@for (icon of _iconsList(); track $index) {
 					<div class="flex w-full flex-col items-center gap-2 p-4">
 						<ng-icon hlm size="lg" [name]="icon" />
-						<span class="whitespace-normal break-all text-center text-sm">{{ icon }}</span>
+						<span class="text-center text-sm break-all whitespace-normal">{{ icon }}</span>
 					</div>
 				}
 			</div>
+
+			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="input" label="Input" />

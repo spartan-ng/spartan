@@ -13,7 +13,7 @@ export class HlmInputGroupText {
 
 	protected readonly _computedClass = computed(() =>
 		hlm(
-			`text-muted-foreground flex items-center gap-2 text-sm [&_ng-icon:not([class*='size-'])]:size-4 [&_ng-icon]:pointer-events-none`,
+			`text-muted-foreground flex items-center gap-2 text-sm [&_ng-icon]:pointer-events-none [&_ng-icon:not([class*='size-'])]:size-4`,
 			this.userClass(),
 		),
 	);

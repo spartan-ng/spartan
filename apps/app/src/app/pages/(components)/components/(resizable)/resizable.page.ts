@@ -17,8 +17,8 @@ import { metaWith } from '../../../../shared/meta/meta.util';
 import { ResizableHandlePreview } from '@spartan-ng/app/app/pages/(components)/components/(resizable)/resizable--handle.preview';
 import { ResizableVerticalPreview } from '@spartan-ng/app/app/pages/(components)/components/(resizable)/resizable--vertical.preview';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
-import { defaultImports, defaultSkeleton, ResizablePreviewComponent } from './resizable.preview';
 import { HlmCode, HlmP } from '@spartan-ng/helm/typography';
+import { defaultImports, defaultSkeleton, ResizablePreviewComponent } from './resizable.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Resizable', api: 'resizable' },

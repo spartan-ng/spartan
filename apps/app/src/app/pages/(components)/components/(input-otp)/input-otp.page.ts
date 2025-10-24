@@ -74,34 +74,51 @@ export const routeMeta: RouteMeta = {
 				</a>
 				, which is included in
 				<code class="${hlmCode}">&#64;spartan-ng/brain/hlm-tailwind-preset.css</code>
-				.
+				. Here are three options for adding the animation to your project.
 			</p>
 
+			<spartan-code
+				class="mt-4"
+				code="/* 1. default import includes 'tw-animate-css' */
+@import '@spartan-ng/brain/hlm-tailwind-preset.css';
+
+/* 2. import 'tw-animate-css' direclty */
+@import 'tw-animate-css';
+
+/* 3. add animate-caret-blink animation from 'tw-animate-css'  */
+@theme inline {
+	--animate-caret-blink: caret-blink 1.25s ease-out infinite;
+	@keyframes caret-blink {
+		0%,
+		70%,
+		100% {
+			opacity: 1;
+		}
+		20%,
+		50% {
+			opacity: 0;
+		}
+	}
+}"
+				fileName="src/styles.css"
+			/>
+
 			<p class="${hlmP}">
-				If you are not using
-				<code class="${hlmCode}">&#64;spartan-ng/brain/hlm-tailwind-preset.css</code>
-				/
-				<code class="${hlmCode}">tw-animate-css</code>
-				or want to
-				<strong>adjust</strong>
-				the animation to your needs, you can add the following animation to your global styles.
+				Adjust the animation to your needs by changing duration, easing function or keyframes by overriding the CSS
+				variable
+				<code class="${hlmCode}">--animate-caret-blink</code>
+				or the
+				<code class="${hlmCode}">&#64;keyframes caret-blink</code>
+				in your global styles.
 			</p>
 			<spartan-code
 				class="mt-4"
-				code="@theme inline {
-  --animate-caret-blink: caret-blink 1.25s ease-out infinite;
+				code="@import '@spartan-ng/brain/hlm-tailwind-preset.css';
 
-  @keyframes caret-blink {
-    0%,
-    70%,
-    100% {
-      opacity: 1;
-    }
-    20%,
-    50% {
-      opacity: 0;
-    }
-  }
+/* adjust animation duration  */
+@theme inline {
+-	--animate-caret-blink: caret-blink 1.25s ease-out infinite;
++	--animate-caret-blink: caret-blink 2s ease-out infinite;
 }"
 				fileName="src/styles.css"
 			/>

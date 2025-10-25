@@ -118,18 +118,7 @@ export class FieldPreview {
 }
 
 export const defaultImports = `
-import {
-  HlmField,
-  HlmFieldContent,
-  HlmFieldDescription,
-  HlmFieldError,
-  HlmFieldGroup,
-  HlmFieldLabel,
-  HlmFieldLegend,
-  HlmFieldSeparator,
-  HlmFieldSet,
-  HlmFieldTitle,
-} from "@spartan-ng/helm/field";
+import { HlmFieldImports } from "@spartan-ng/helm/field";
 `;
 export const defaultSkeleton = `
 <fieldset hlmFieldSet>

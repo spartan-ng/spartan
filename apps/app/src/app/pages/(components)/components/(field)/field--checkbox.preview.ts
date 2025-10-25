@@ -34,7 +34,7 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 			</fieldset>
 			<hlm-field-separator />
 			<div hlmField orientation="horizontal">
-				<hlm-checkbox id="field-sync-desktop-documents" />
+				<hlm-checkbox id="field-sync-desktop-documents" [checked]="true" />
 				<div hlmFieldContent>
 					<label hlmFieldLabel for="field-sync-desktop-documents">Sync Desktop & Documents folders</label>
 					<p hlmFieldDescription>

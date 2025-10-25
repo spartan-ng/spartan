@@ -3,7 +3,7 @@ import { hlm } from '@spartan-ng/helm/utils';
 import { ClassValue } from 'clsx';
 
 @Directive({
-	selector: '[hlmFieldDescription]',
+	selector: '[hlmFieldDescription],hlm-field-description',
 	host: {
 		'data-slot': 'field-description',
 		'[class]': '_computedClass()',

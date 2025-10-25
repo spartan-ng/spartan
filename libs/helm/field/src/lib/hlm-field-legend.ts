@@ -3,7 +3,7 @@ import { hlm } from '@spartan-ng/helm/utils';
 import { ClassValue } from 'clsx';
 
 @Directive({
-	selector: '[hlmFieldLegend]',
+	selector: 'legend[hlmFieldLegend]',
 	host: {
 		'data-slot': 'field-legend',
 		'[attr.data-variant]': 'variant()',

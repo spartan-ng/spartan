@@ -27,11 +27,11 @@ const fieldVariants = cva('group/field data-[invalid=true]:text-destructive flex
 export type FieldVariants = VariantProps<typeof fieldVariants>;
 
 @Directive({
-	selector: '[hlmField]',
+	selector: '[hlmField],hlm-field',
 	host: {
 		role: 'group',
 		'data-slot': 'field',
-		'[data-orientation]': 'orientation()',
+		'[attr.data-orientation]': 'orientation()',
 		'[class]': '_computedClass()',
 	},
 })

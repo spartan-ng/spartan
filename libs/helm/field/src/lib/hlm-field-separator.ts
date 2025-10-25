@@ -4,7 +4,7 @@ import { hlm } from '@spartan-ng/helm/utils';
 import { ClassValue } from 'clsx';
 
 @Component({
-	selector: '[hlmFieldSeparator],hlm-field-separator',
+	selector: 'hlm-field-separator',
 	imports: [HlmSeparator],
 	template: `
 		<div data-slot="separator" [class]="_computedClass()">

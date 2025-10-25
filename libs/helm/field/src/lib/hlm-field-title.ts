@@ -3,7 +3,7 @@ import { hlm } from '@spartan-ng/helm/utils';
 import { ClassValue } from 'class-variance-authority/dist/types';
 
 @Directive({
-	selector: '[hlmFieldTitle]',
+	selector: '[hlmFieldTitle],hlm-field-title',
 	host: {
 		'data-slot': 'field-label',
 		'[class]': '_computedClass()',

@@ -116,11 +116,9 @@ describe('field', () => {
 		});
 
 		it('should toggle switch', () => {
-			const switchElement = cy.findByRole('switch', { name: /multi-factor authentication/i });
-
-			switchElement.should('have.attr', 'aria-checked', 'false');
-			switchElement.click();
-			switchElement.should('have.attr', 'aria-checked', 'true');
+			cy.findByRole('switch', { name: /multi-factor authentication/i }).should('have.attr', 'aria-checked', 'false');
+			cy.findByRole('switch', { name: /multi-factor authentication/i }).click();
+			cy.findByRole('switch', { name: /multi-factor authentication/i }).should('have.attr', 'aria-checked', 'true');
 		});
 	});
 
@@ -214,8 +212,7 @@ describe('field', () => {
 		});
 
 		it('should handle disabled checkbox in first group', () => {
-			const firstPushNotifications = cy.get('[hlmfield]').first().find('hlm-checkbox');
-			firstPushNotifications.should('have.attr', 'disabled');
+			cy.get('[hlmfield]').first().find('hlm-checkbox').should('have.attr', 'disabled');
 		});
 	});
 

@@ -31,6 +31,7 @@ module.exports = {
 				'dialog',
 				'dropdown-menu',
 				'empty',
+				'field',
 				'form-field',
 				'hover-card',
 				'icon',

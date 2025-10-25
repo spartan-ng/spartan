@@ -43,6 +43,7 @@ export const components: Link[] = [
 	{ label: 'Dialog', url: '/dialog' },
 	{ label: 'Dropdown Menu', url: '/dropdown-menu' },
 	{ label: 'Empty', url: '/empty', new: true },
+	{ label: 'Field', url: '/field', new: true },
 	{ label: 'Form', url: '/form', wip: true },
 	{ label: 'Form Field', url: '/form-field' },
 	{ label: 'Hover Card', url: '/hover-card' },

@@ -22,6 +22,7 @@ export type PrimitiveSnippet =
 	| 'dialog'
 	| 'dropdown-menu'
 	| 'empty'
+	| 'field'
 	| 'form-field'
 	| 'hover-card'
 	| 'icon'

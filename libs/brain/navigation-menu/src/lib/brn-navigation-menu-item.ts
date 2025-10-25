@@ -2,7 +2,7 @@ import { computed, contentChild, Directive, ElementRef, inject, input, signal, T
 import { BrnButton } from '@spartan-ng/brain/button';
 import { Observable, Subject } from 'rxjs';
 import { BrnNavigationMenuContentService } from './brn-navigation-menu-content.service';
-import { BrnNavigationMenuInteractable } from './brn-navigation-menu-item-interactable.token';
+import { BrnNavigationMenuFocusable } from './brn-navigation-menu-item-focusable.token';
 import { provideBrnNavigationMenuItem } from './brn-navigation-menu-item.token';
 import { injectBrnNavigationMenu } from './brn-navigation-menu.token';
 
@@ -39,7 +39,9 @@ export class BrnNavigationMenuItem {
 
 	public readonly subNavVisible$ = new Subject<Observable<boolean>>();
 
-	private readonly _triggerOrLink = contentChild(BrnNavigationMenuInteractable, { read: BrnButton });
+	public readonly focusable = contentChild.required(BrnNavigationMenuFocusable);
 
-	public readonly disabled = computed(() => this._triggerOrLink()?.disabled());
+	private readonly _triggerOrLinkBtn = contentChild(BrnNavigationMenuFocusable, { read: BrnButton });
+
+	public readonly disabled = computed(() => this._triggerOrLinkBtn()?.disabled());
 }

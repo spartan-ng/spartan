@@ -14,6 +14,7 @@ import { HlmInputOtpFakeCaret } from './hlm-input-otp-fake-caret';
 		</brn-input-otp-slot>
 	`,
 	host: {
+		'data-slot': 'input-otp-slot',
 		'[class]': '_computedClass()',
 	},
 	changeDetection: ChangeDetectionStrategy.OnPush,

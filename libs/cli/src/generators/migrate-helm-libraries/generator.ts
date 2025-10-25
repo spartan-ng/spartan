@@ -9,6 +9,7 @@ import { deleteFiles } from '../base/lib/deleteFiles';
 import type { SupportedLibraries } from '../base/lib/supported-libs';
 import { createPrimitiveLibraries } from '../ui/generator';
 import type { Primitive } from '../ui/primitives';
+import { categorizeLibraries, regenerateAllMetadata } from './detect-customizations';
 import type { MigrateHelmLibrariesGeneratorSchema } from './schema';
 
 export async function migrateHelmLibrariesGenerator(tree: Tree, options: MigrateHelmLibrariesGeneratorSchema) {
@@ -31,7 +32,7 @@ export async function migrateHelmLibrariesGenerator(tree: Tree, options: Migrate
 	logger.info(`   ✓ ${unchanged.length} unchanged libraries (can be safely migrated)`);
 	logger.info(`   ⚠ ${customized.length} customized libraries (contains modifications)\n`);
 
-	// Show information about customized libraries
+	// Show detailed information about customized libraries
 	if (customized.length > 0) {
 		logger.warn('⚠️  Customized libraries detected:\n');
 		for (const { primitive, details } of customized) {
@@ -49,9 +50,10 @@ export async function migrateHelmLibrariesGenerator(tree: Tree, options: Migrate
 		logger.warn('');
 	}
 
+	// Build choices array with visual indicators
 	const choices: Array<{ name: string; message: string }> = [];
 
-	// Add "all" as first option
+	// Always add "all" option first for convenience
 	choices.push({ name: 'all', message: 'all' });
 
 	// Add category options if there are both types
@@ -60,6 +62,7 @@ export async function migrateHelmLibrariesGenerator(tree: Tree, options: Migrate
 		choices.push({ name: 'all-customized', message: 'all-customized ⚠️' });
 	}
 
+	// Add individual libraries with visual indicators for customized ones
 	if (unchanged.length > 0) {
 		for (const lib of unchanged) {
 			choices.push({ name: lib, message: lib });
@@ -77,11 +80,12 @@ export async function migrateHelmLibrariesGenerator(tree: Tree, options: Migrate
 		return;
 	}
 
-	const selectedLibraries = await prompt({
+	// allow the user to select which libraries to migrate
+	const selectedLibraries = await prompt<{ libraries: (Primitive | 'all' | 'all-unchanged' | 'all-customized')[] }>({
 		type: 'multiselect',
 		name: 'libraries',
 		message: 'The following libraries are installed. Select the ones you want to replace with the latest version:',
-		choices: ['all', ...existingLibraries],
+		choices,
 	});
 
 	const { libraries } = selectedLibraries;
@@ -94,6 +98,7 @@ export async function migrateHelmLibrariesGenerator(tree: Tree, options: Migrate
 	const librariesToMigrate: Primitive[] = [];
 
 	if (libraries.includes('all')) {
+		// When "all" is selected, add all libraries (both unchanged and customized)
 		librariesToMigrate.push(...unchanged);
 		librariesToMigrate.push(...customized.map((c) => c.primitive));
 	} else {
@@ -129,35 +134,44 @@ export async function migrateHelmLibrariesGenerator(tree: Tree, options: Migrate
 			initial: false,
 		});
 
-	if (!confirmation.confirm) {
-		logger.info('Aborting migration.');
-		return;
-	}
+		if (!confirmation.confirm) {
+			logger.info('Aborting migration of customized libraries.');
+			return;
+		}
+	} else {
+		const confirmation = await prompt<{ confirm: boolean }>({
+			type: 'confirm',
+			name: 'confirm',
+			message: `Migrate ${uniqueLibraries.length} ${uniqueLibraries.length === 1 ? 'library' : 'libraries'}?`,
+			initial: true,
+		});
 
-	let { libraries } = selectedLibraries as { libraries: (Primitive | 'all')[] };
-
-	if (libraries.length === 0) {
-		logger.info('No libraries will be updated.');
-		return;
-	}
-
-	// if the user selected all libraries then we will update all libraries
-	if (libraries.includes('all')) {
-		libraries = existingLibraries;
+		if (!confirmation.confirm) {
+			logger.info('Aborting migration.');
+			return;
+		}
 	}
 
 	await removeExistingLibraries(
 		tree,
 		{ ...options, generateAs: config.generateAs, importAlias: config.importAlias },
-		libraries as Primitive[],
+		uniqueLibraries,
 	);
+
 	await regenerateLibraries(
 		tree,
-		{ ...options, generateAs: config.generateAs, buildable: config.buildable },
-		libraries as Primitive[],
+		{ ...options, generateAs: config.generateAs, buildable: config.buildable, importAlias: config.importAlias },
+		uniqueLibraries,
 	);
 
 	await formatFiles(tree);
+
+	// update metadata after we have formatted the files
+	updateMetadataForLibraries(tree, uniqueLibraries, config.importAlias);
+
+	logger.info(
+		`\n✅ Successfully migrated ${uniqueLibraries.length} ${uniqueLibraries.length === 1 ? 'library' : 'libraries'}`,
+	);
 }
 
 export default migrateHelmLibrariesGenerator;
@@ -276,4 +290,73 @@ async function regenerateLibraries(tree: Tree, options: MigrateHelmLibrariesGene
 		{ ...options, installPeerDependencies: false },
 		config,
 	);
+}
+
+/**
+ * Get the library path from a primitive name
+ */
+function getLibraryPathFromPrimitive(tree: Tree, primitive: Primitive, importAlias: string): string {
+	const tsconfigPaths = readTsConfigPathsFromTree(tree);
+	const compatLibrary = primitive.toString().replaceAll('-', '');
+
+	let importPath: string | undefined;
+
+	if (`${importAlias}/${primitive}` in tsconfigPaths) {
+		importPath = `${importAlias}/${primitive}`;
+	} else if (`@spartan-ng/helm/${primitive}` in tsconfigPaths) {
+		importPath = `@spartan-ng/helm/${primitive}`;
+	} else if (`@spartan-ng/ui-${primitive}-helm` in tsconfigPaths) {
+		importPath = `@spartan-ng/ui-${primitive}-helm`;
+	} else if (`@spartan-ng/ui-${compatLibrary}-helm` in tsconfigPaths) {
+		importPath = `@spartan-ng/ui-${compatLibrary}-helm`;
+	}
+
+	if (!importPath) {
+		throw new Error(`Could not find tsconfig path for library ${primitive}`);
+	}
+
+	const tsconfigPath = tsconfigPaths[importPath];
+	if (!tsconfigPath) {
+		throw new Error(`Could not find tsconfig path for library ${primitive}`);
+	}
+
+	const path = tsconfigPath[0];
+	return dirname(path).replace(/\/src$/, '');
+}
+
+/**
+ * Update metadata for migrated libraries
+ */
+function updateMetadataForLibraries(tree: Tree, libraries: Primitive[], importAlias: string): void {
+	// Get the current package version to use as version in metadata
+	const packageJsonPath = 'package.json';
+	let version = '1.0.0';
+
+	if (tree.exists(packageJsonPath)) {
+		const packageJson = readJson(tree, packageJsonPath);
+		version =
+			packageJson.dependencies?.['@spartan-ng/cli'] ||
+			packageJson.devDependencies?.['@spartan-ng/cli'] ||
+			packageJson.version ||
+			'1.0.0';
+	}
+
+	try {
+		logger.info(`Updating metadata ${version} for libraries: ${libraries.join(', ')}`);
+		regenerateAllMetadata(
+			tree,
+			libraries,
+			(primitive) => getLibraryPathFromPrimitive(tree, primitive, importAlias),
+			version,
+		);
+	} catch (error) {
+		logger.warn(`Failed to update metadata for libraries: ${error}`);
+	}
+}
+
+type SupportedLibraries = Record<string, SupportedLibrary>;
+
+interface SupportedLibrary {
+	internalName: string;
+	peerDependencies: Record<string, string>;
 }

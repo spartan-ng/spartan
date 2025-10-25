@@ -1,3 +1,4 @@
+import { FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
 import { hasModifierKey } from '@angular/cdk/keycodes';
 import {
 	computed,
@@ -31,7 +32,7 @@ import {
 	tap,
 } from 'rxjs';
 import { BrnNavigationMenuContentService } from './brn-navigation-menu-content.service';
-import { provideBrnNavigationMenuInteractable } from './brn-navigation-menu-item-interactable.token';
+import { provideBrnNavigationMenuFocusable } from './brn-navigation-menu-item-focusable.token';
 import { injectBrnNavigationMenuItem } from './brn-navigation-menu-item.token';
 import { injectBrnNavigationMenu } from './brn-navigation-menu.token';
 
@@ -47,6 +48,7 @@ interface TriggerEvent {
 		'(keydown.escape)': 'onEscape($event)',
 		'(keydown.tab)': 'onTab($event)',
 		'[attr.data-state]': 'state()',
+		'(focus)': 'handleFocus()',
 	},
 	hostDirectives: [
 		{
@@ -54,9 +56,9 @@ interface TriggerEvent {
 			inputs: ['disabled'],
 		},
 	],
-	providers: [provideBrnNavigationMenuInteractable(BrnNavigationMenuTrigger)],
+	providers: [provideBrnNavigationMenuFocusable(BrnNavigationMenuTrigger)],
 })
-export class BrnNavigationMenuTrigger implements OnInit, OnDestroy {
+export class BrnNavigationMenuTrigger implements OnInit, OnDestroy, FocusableOption {
 	private readonly _navigationMenu = injectBrnNavigationMenu();
 	private readonly _navigationMenuItem = injectBrnNavigationMenuItem();
 	private readonly _destroy$ = new Subject<void>();
@@ -126,6 +128,10 @@ export class BrnNavigationMenuTrigger implements OnInit, OnDestroy {
 		takeUntil(this._destroy$),
 	);
 
+	get disabled() {
+		return this._navigationMenuItem.disabled();
+	}
+
 	constructor() {
 		effect(() => {
 			const value = this._contentTemplate();
@@ -175,6 +181,16 @@ export class BrnNavigationMenuTrigger implements OnInit, OnDestroy {
 	public ngOnDestroy() {
 		this._destroy$.next();
 		this._destroy$.complete();
+	}
+
+	public focus(_origin?: FocusOrigin) {
+		if (this._navigationMenuItem.disabled()) return;
+
+		this._el.nativeElement.focus();
+	}
+
+	protected handleFocus() {
+		this._navigationMenu.setActiveItem(this);
 	}
 
 	protected onTab(e: KeyboardEvent) {

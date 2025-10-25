@@ -1,3 +1,4 @@
+import { FocusableOption, FocusKeyManager } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import {
 	computed,
@@ -32,9 +33,15 @@ import { BrnNavigationMenuItem } from './brn-navigation-menu-item';
 import { provideBrnNavigationMenu } from './brn-navigation-menu.token';
 import { injectBrnParentNavMenu } from './brn-parent-nav-menu.token';
 
+function areArraysSameByElRef(arr1: unknown[], arr2: unknown[]) {
+	if (arr1.length !== arr2.length) return false;
+	return arr1.every((item, index) => item === arr2[index]);
+}
+
 @Directive({
 	selector: 'nav[brnNavigationMenu]',
 	host: {
+		'(keydown)': 'handleKeydown($event)',
 		'[attr.aria-label]': '"Main"',
 		'[attr.data-orientation]': 'orientation()',
 		'[attr.dir]': '_dir()',
@@ -80,7 +87,25 @@ export class BrnNavigationMenu implements OnDestroy {
 
 	private readonly _navAndSubnavMenuItems = contentChildren(BrnNavigationMenuItem, { descendants: true });
 
-	public readonly menuItems = computed(() => this._navAndSubnavMenuItems().filter((mi) => mi.navMenuElRef === this.el));
+	public readonly menuItems = computed(
+		() => this._navAndSubnavMenuItems().filter((mi) => mi.navMenuElRef === this.el),
+		{
+			equal: areArraysSameByElRef,
+		},
+	);
+
+	public readonly menuItemIds = computed(() => this.menuItems().map((mi) => mi.id()));
+
+	private readonly _triggersAndLinks = computed(() => this.menuItems().map((mi) => mi.focusable()));
+
+	private readonly _keyManager = computed(() => {
+		return new FocusKeyManager<FocusableOption>(this._triggersAndLinks())
+			.withHorizontalOrientation(this._dir())
+			.withHomeAndEnd()
+			.withPageUpDown()
+			.withWrap()
+			.skipPredicate((e) => !!e.disabled);
+	});
 
 	private readonly _reset$ = toObservable(this.value).pipe(
 		pairwise(),
@@ -148,8 +173,17 @@ export class BrnNavigationMenu implements OnDestroy {
 			});
 	}
 
+	public setActiveItem(item: FocusableOption) {
+		this._keyManager().setActiveItem(item);
+	}
+
+	protected handleKeydown(event: KeyboardEvent) {
+		this._keyManager().onKeydown(event);
+	}
+
 	ngOnDestroy() {
 		this._destroy$.next();
 		this._destroy$.complete();
+		clearTimeout(this._skipDelayTimerRef);
 	}
 }

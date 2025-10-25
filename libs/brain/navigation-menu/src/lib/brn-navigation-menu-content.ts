@@ -27,8 +27,7 @@ export class BrnNavigationMenuContent {
 
 	private readonly _contentEl = this._contentService.contentEl;
 
-	private readonly _menuItemsIds = computed(() => this._navigationMenu.menuItems().map((mi) => mi.id()));
-
+	private readonly _menuItemsIds = this._navigationMenu.menuItemIds;
 	private readonly _orientation = computed(() => this._navigationMenu.context().orientation);
 	private readonly _dir = computed(() => this._navigationMenu.context().dir);
 

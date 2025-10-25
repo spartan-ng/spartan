@@ -11,7 +11,8 @@ import { injectBrnNavigationMenu } from './brn-navigation-menu.token';
 		'(click)': 'onClick()',
 		'(mouseenter)': 'activate()',
 		'(focus)': 'handleFocus()',
-		'[attr.data-active]': 'isActive()',
+		'[attr.data-active]': 'isActive() ? "" : undefined',
+		'[attr.aria-current]': 'isActive() ? "page" : undefined',
 	},
 	hostDirectives: [
 		{

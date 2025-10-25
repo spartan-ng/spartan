@@ -47,7 +47,10 @@ interface TriggerEvent {
 	host: {
 		'(keydown.escape)': 'onEscape($event)',
 		'(keydown.tab)': 'onTab($event)',
+		'[id]': 'id',
 		'[attr.data-state]': 'state()',
+		'[attr.aria-expanded]': 'isActive()',
+		'[attr.aria-controls]': 'contentId',
 		'(focus)': 'handleFocus()',
 	},
 	hostDirectives: [
@@ -59,6 +62,8 @@ interface TriggerEvent {
 	providers: [provideBrnNavigationMenuFocusable(BrnNavigationMenuTrigger)],
 })
 export class BrnNavigationMenuTrigger implements OnInit, OnDestroy, FocusableOption {
+	private static _id = 0;
+
 	private readonly _navigationMenu = injectBrnNavigationMenu();
 	private readonly _navigationMenuItem = injectBrnNavigationMenuItem();
 	private readonly _destroy$ = new Subject<void>();
@@ -67,7 +72,13 @@ export class BrnNavigationMenuTrigger implements OnInit, OnDestroy, FocusableOpt
 	private readonly _el = inject<ElementRef<HTMLElement>>(ElementRef);
 	private readonly _contentService = inject(BrnNavigationMenuContentService);
 
+	protected readonly id = `brn-navigation-menu-trigger-${++BrnNavigationMenuTrigger._id}`;
+
 	private readonly _parentNavMenu = this._navigationMenu.parentNavMenu;
+
+	protected readonly isActive = this._navigationMenuItem.isActive;
+
+	protected readonly contentId = this._contentService.id;
 
 	protected readonly state = this._navigationMenuItem.state;
 

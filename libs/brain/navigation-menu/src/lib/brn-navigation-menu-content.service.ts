@@ -46,11 +46,15 @@ const verticalPositions: ConnectedPosition[] = [
 
 @Injectable()
 export class BrnNavigationMenuContentService {
+	private static _id = 0;
+
 	private readonly _overlay = inject(Overlay);
 	private readonly _zone = inject(NgZone);
 	private readonly _psBuilder = inject(OverlayPositionBuilder);
 
 	private readonly _content = signal<TemplatePortal<unknown> | null>(null);
+
+	public readonly id = `brn-navigation-menu-content-${++BrnNavigationMenuContentService._id}`;
 
 	private _shouldDetach = false;
 
@@ -145,6 +149,14 @@ export class BrnNavigationMenuContentService {
 		this._destroyed$ = new Subject<void>();
 
 		const contentEl = embededViewRef.rootNodes[0] as HTMLElement;
+
+		const attachToId = this._config.attachTo?.nativeElement.id;
+
+		contentEl.setAttribute('id', this.id);
+		if (attachToId !== undefined) {
+			contentEl.setAttribute('aria-labelledby', attachToId);
+		}
+
 		this._contentEl.set(contentEl);
 
 		this._overlayHoveredObservables$.next(

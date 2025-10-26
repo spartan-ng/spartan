@@ -78,7 +78,6 @@ export const routeMeta: RouteMeta = {
 				</div>
 				<spartan-code secondTab [code]="_verticalCode()" />
 			</spartan-tabs>
-			The controlled value of the menu item to activate.
 
 			<h3 id="examples__controlled" spartanH4>Controlled</h3>
 			<p class="py-2">

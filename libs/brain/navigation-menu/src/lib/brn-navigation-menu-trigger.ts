@@ -1,5 +1,6 @@
 import { FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
 import { hasModifierKey } from '@angular/cdk/keycodes';
+import { isPlatformBrowser } from '@angular/common';
 import {
 	computed,
 	Directive,
@@ -9,6 +10,7 @@ import {
 	NgZone,
 	OnDestroy,
 	OnInit,
+	PLATFORM_ID,
 	untracked,
 	ViewContainerRef,
 } from '@angular/core';
@@ -64,6 +66,7 @@ interface TriggerEvent {
 export class BrnNavigationMenuTrigger implements OnInit, OnDestroy, FocusableOption {
 	private static _id = 0;
 
+	private readonly _isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 	private readonly _navigationMenu = injectBrnNavigationMenu();
 	private readonly _navigationMenuItem = injectBrnNavigationMenuItem();
 	private readonly _destroy$ = new Subject<void>();
@@ -176,7 +179,9 @@ export class BrnNavigationMenuTrigger implements OnInit, OnDestroy, FocusableOpt
 			}
 
 			if (ev.visible) {
-				this._contentService.show();
+				if (this._isBrowser) {
+					this._contentService.show();
+				}
 			} else {
 				this._contentService.hide();
 			}

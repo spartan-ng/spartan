@@ -67,18 +67,21 @@ export class BrnNavigationMenuContent {
 			if (!el) return;
 
 			const id = this._id();
-			const prevNavMenuValue = this._prevNavMenuValue();
 			const menuItemsIds =
 				dir === 'rtl' && orientation === 'horizontal' ? this._menuItemsIds().slice().reverse() : this._menuItemsIds();
 
 			if (isActive) {
-				if (prevNavMenuValue) {
+				const prevNavMenuValue = this._prevNavMenuValue();
+				const isPrevLink = untracked(() => this._navigationMenu.isLink(prevNavMenuValue));
+
+				if (prevNavMenuValue && !isPrevLink) {
 					const motion = menuItemsIds.indexOf(id) > menuItemsIds.indexOf(prevNavMenuValue) ? 'from-end' : 'from-start';
 					this._renderer.setAttribute(el, 'data-motion', motion);
 				}
 			} else if (wasActive) {
 				const navMenuValue = this._navMenuValue();
-				if (!navMenuValue) return;
+				const isLink = untracked(() => this._navigationMenu.isLink(navMenuValue));
+				if (!navMenuValue || isLink) return;
 
 				const motion = menuItemsIds.indexOf(id) > menuItemsIds.indexOf(navMenuValue) ? 'to-end' : 'to-start';
 				this._renderer.setAttribute(el, 'data-motion', motion);

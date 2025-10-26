@@ -30,6 +30,7 @@ import {
 	takeUntil,
 } from 'rxjs';
 import { BrnNavigationMenuItem } from './brn-navigation-menu-item';
+import { BrnNavigationMenuLink } from './brn-navigation-menu-link';
 import { provideBrnNavigationMenu } from './brn-navigation-menu.token';
 import { injectBrnParentNavMenu } from './brn-parent-nav-menu.token';
 
@@ -97,6 +98,10 @@ export class BrnNavigationMenu implements OnDestroy {
 	public readonly menuItemIds = computed(() => this.menuItems().map((mi) => mi.id()));
 
 	private readonly _triggersAndLinks = computed(() => this.menuItems().map((mi) => mi.focusable()));
+
+	private readonly _linkMenuItems = computed(() =>
+		this.menuItems().filter((i) => i.focusable() instanceof BrnNavigationMenuLink),
+	);
 
 	private readonly _keyManager = computed(() => {
 		return new FocusKeyManager<FocusableOption>(this._triggersAndLinks())
@@ -171,6 +176,10 @@ export class BrnNavigationMenu implements OnDestroy {
 					this.value.set(undefined);
 				}
 			});
+	}
+
+	public isLink(id?: string) {
+		return !!this._linkMenuItems().find((item) => item.id() === id);
 	}
 
 	public setActiveItem(item: FocusableOption) {

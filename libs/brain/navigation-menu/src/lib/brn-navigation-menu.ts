@@ -81,7 +81,8 @@ export class BrnNavigationMenu implements OnDestroy {
 	 */
 	public readonly orientation = input<'horizontal' | 'vertical'>('horizontal');
 
-	public readonly isOpenDelayed = signal(true);
+	private readonly _isOpenDelayed = signal(true);
+	public readonly isOpenDelayed = this._isOpenDelayed.asReadonly();
 
 	private _skipDelayTimerRef: NodeJS.Timeout | number = 0;
 
@@ -155,11 +156,11 @@ export class BrnNavigationMenu implements OnDestroy {
 
 			if (isOpen) {
 				clearTimeout(this._skipDelayTimerRef);
-				if (hasSkipDelayDuration) this.isOpenDelayed.set(false);
+				if (hasSkipDelayDuration) this._isOpenDelayed.set(false);
 			} else {
 				clearTimeout(this._skipDelayTimerRef);
 				this._skipDelayTimerRef = setTimeout(() => {
-					this.isOpenDelayed.set(true);
+					this._isOpenDelayed.set(true);
 				}, this.skipDelayDuration());
 			}
 		});

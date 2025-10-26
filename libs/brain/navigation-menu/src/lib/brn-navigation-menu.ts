@@ -14,8 +14,7 @@ import {
 	signal,
 } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { createHoverObservable } from '@spartan-ng/brain/core';
-import { computedPrevious } from '@spartan-ng/brain/tooltip';
+import { computedPrevious, createHoverObservable } from '@spartan-ng/brain/core';
 import {
 	combineLatest,
 	debounceTime,

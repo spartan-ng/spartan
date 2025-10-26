@@ -22,7 +22,7 @@ import { HlmNavigationMenuImports, hlmNavLink } from '@spartan-ng/helm/navigatio
 					</button>
 					<div hlmNavigationMenuContent *brnNavigationMenuContent>
 						<nav hlmNavigationMenu orientation="vertical">
-							<ul hlmNavigationMenuList class="w-30 flex-wrap">
+							<ul hlmNavigationMenuList class="w-35 flex-wrap">
 								<li hlmNavigationMenuItem class="w-full">
 									<button hlmNavigationMenuTrigger class="w-full">
 										Home

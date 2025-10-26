@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideCheckCircle2, lucideChevronDown, lucideCircle, lucideHelpCircle, lucideLink } from '@ng-icons/lucide';
 import { BrnNavigationMenuImports } from '@spartan-ng/brain/navigation-menu';
@@ -6,13 +6,13 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 import { hlmLink, HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 
 @Component({
-	selector: 'spartan-navigation-menu-preview',
+	selector: 'spartan-navigation-menu-controlled',
 	imports: [HlmNavigationMenuImports, BrnNavigationMenuImports, HlmIconImports],
 	providers: [provideIcons({ lucideChevronDown, lucideLink, lucideCircle, lucideHelpCircle, lucideCheckCircle2 })],
 	template: `
-		<nav hlmNavigationMenu>
+		<nav hlmNavigationMenu [(value)]="_value">
 			<ul hlmNavigationMenuList class="flex-wrap">
-				<li hlmNavigationMenuItem>
+				<li hlmNavigationMenuItem id="home">
 					<button hlmNavigationMenuTrigger>
 						Home
 						<ng-icon
@@ -171,8 +171,10 @@ import { hlmLink, HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-m
 		</nav>
 	`,
 })
-export class NavigationMenuPreview {
+export class NavigationMenuControlled {
 	protected readonly hlmLink = hlmLink;
+
+	protected readonly _value = signal('home');
 
 	protected readonly components = [
 		{

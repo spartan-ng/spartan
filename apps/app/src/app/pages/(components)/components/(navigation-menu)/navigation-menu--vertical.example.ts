@@ -6,14 +6,14 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 import { hlmLink, HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 
 @Component({
-	selector: 'spartan-navigation-menu-preview',
+	selector: 'spartan-navigation-menu-vertical',
 	imports: [HlmNavigationMenuImports, BrnNavigationMenuImports, HlmIconImports],
 	providers: [provideIcons({ lucideChevronDown, lucideLink, lucideCircle, lucideHelpCircle, lucideCheckCircle2 })],
 	template: `
-		<nav hlmNavigationMenu>
-			<ul hlmNavigationMenuList class="flex-wrap">
-				<li hlmNavigationMenuItem>
-					<button hlmNavigationMenuTrigger>
+		<nav hlmNavigationMenu orientation="vertical">
+			<ul hlmNavigationMenuList class="w-30 flex-wrap">
+				<li hlmNavigationMenuItem class="w-full">
+					<button hlmNavigationMenuTrigger class="w-full">
 						Home
 						<ng-icon
 							name="lucideChevronDown"
@@ -65,8 +65,8 @@ import { hlmLink, HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-m
 				</li>
 
 				<!-- Components Menu -->
-				<li hlmNavigationMenuItem>
-					<button hlmNavigationMenuTrigger>
+				<li hlmNavigationMenuItem class="w-full">
+					<button hlmNavigationMenuTrigger class="w-full">
 						Components
 						<ng-icon
 							name="lucideChevronDown"
@@ -89,12 +89,12 @@ import { hlmLink, HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-m
 					</div>
 				</li>
 
-				<li hlmNavigationMenuItem>
-					<a hlmNavigationMenuLink href="/docs">Docs</a>
+				<li hlmNavigationMenuItem class="w-full">
+					<a hlmNavigationMenuLink class="w-full text-center" href="/docs">Docs</a>
 				</li>
 
-				<li hlmNavigationMenuItem class="hidden md:block">
-					<button hlmNavigationMenuTrigger>
+				<li hlmNavigationMenuItem class="w-full">
+					<button hlmNavigationMenuTrigger class="w-full">
 						List
 						<ng-icon
 							name="lucideChevronDown"
@@ -121,8 +121,8 @@ import { hlmLink, HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-m
 					</div>
 				</li>
 
-				<li hlmNavigationMenuItem class="hidden md:block">
-					<button hlmNavigationMenuTrigger>
+				<li hlmNavigationMenuItem class="w-full">
+					<button hlmNavigationMenuTrigger class="w-full">
 						Simple
 						<ng-icon
 							name="lucideChevronDown"
@@ -140,8 +140,8 @@ import { hlmLink, HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-m
 					</div>
 				</li>
 
-				<li hlmNavigationMenuItem class="hidden md:block">
-					<button hlmNavigationMenuTrigger>
+				<li hlmNavigationMenuItem class="w-full">
+					<button hlmNavigationMenuTrigger class="w-full">
 						With Icon
 						<ng-icon
 							name="lucideChevronDown"
@@ -171,7 +171,7 @@ import { hlmLink, HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-m
 		</nav>
 	`,
 })
-export class NavigationMenuPreview {
+export class NavigationMenuVertical {
 	protected readonly hlmLink = hlmLink;
 
 	protected readonly components = [

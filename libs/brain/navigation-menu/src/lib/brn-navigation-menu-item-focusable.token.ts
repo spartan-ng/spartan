@@ -1,5 +1,5 @@
-import { FocusableOption } from '@angular/cdk/a11y';
-import { ExistingProvider, InjectionToken, Type } from '@angular/core';
+import type { FocusableOption } from '@angular/cdk/a11y';
+import { type ExistingProvider, InjectionToken, type Type } from '@angular/core';
 
 export const BrnNavigationMenuFocusable = new InjectionToken<FocusableOption>('BrnNavigationMenuFocusable');
 

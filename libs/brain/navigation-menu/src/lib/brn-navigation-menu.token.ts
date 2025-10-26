@@ -1,5 +1,5 @@
-import { ExistingProvider, inject, InjectionToken, Type } from '@angular/core';
-import { BrnNavigationMenu } from './brn-navigation-menu';
+import { type ExistingProvider, inject, InjectionToken, type Type } from '@angular/core';
+import type { BrnNavigationMenu } from './brn-navigation-menu';
 
 export const BrnNavigationMenuToken = new InjectionToken<BrnNavigationMenu>('BrnNavigationMenuToken');
 

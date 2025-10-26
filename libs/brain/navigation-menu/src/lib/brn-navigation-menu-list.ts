@@ -4,11 +4,11 @@ import { injectBrnNavigationMenu } from './brn-navigation-menu.token';
 @Directive({
 	selector: 'ul[brnNavigationMenuList]',
 	host: {
-		'[attr.data-orientation]': 'orientation()',
+		'[attr.data-orientation]': '_orientation()',
 	},
 })
 export class BrnNavigationMenuList {
 	private readonly _navigationMenu = injectBrnNavigationMenu();
 
-	protected readonly orientation = computed(() => this._navigationMenu.context().orientation);
+	protected readonly _orientation = computed(() => this._navigationMenu.context().orientation);
 }

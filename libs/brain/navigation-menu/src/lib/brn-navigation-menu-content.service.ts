@@ -11,7 +11,8 @@ import {
 import { TemplatePortal } from '@angular/cdk/portal';
 import { ElementRef, inject, Injectable, NgZone, signal, TemplateRef, ViewContainerRef } from '@angular/core';
 import { createHoverObservable, waitForElementAnimations } from '@spartan-ng/brain/core';
-import { BehaviorSubject, fromEvent, map, Observable, of, share, Subject, switchMap, takeUntil } from 'rxjs';
+import { BehaviorSubject, fromEvent, Observable, of, Subject } from 'rxjs';
+import { map, share, switchMap, takeUntil } from 'rxjs/operators';
 
 export type BrnNavigationMenuContentOptions = Partial<
 	{

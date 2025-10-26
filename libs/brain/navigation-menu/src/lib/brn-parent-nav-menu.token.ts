@@ -1,5 +1,5 @@
-import { FactoryProvider, inject, InjectionToken } from '@angular/core';
-import { Subject } from 'rxjs';
+import { type FactoryProvider, inject, InjectionToken } from '@angular/core';
+import type { Subject } from 'rxjs';
 
 export interface BrnParentNavMenu {
 	subNavVisible$: Subject<boolean>;

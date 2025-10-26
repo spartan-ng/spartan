@@ -11,8 +11,8 @@ import { injectBrnNavigationMenu } from './brn-navigation-menu.token';
 		'(click)': 'onClick()',
 		'(mouseenter)': 'activate()',
 		'(focus)': 'handleFocus()',
-		'[attr.data-active]': 'isActive() ? "" : undefined',
-		'[attr.aria-current]': 'isActive() ? "page" : undefined',
+		'[attr.data-active]': '_isActive() ? "" : undefined',
+		'[attr.aria-current]': '_isActive() ? "page" : undefined',
 	},
 	hostDirectives: [
 		{
@@ -27,9 +27,9 @@ export class BrnNavigationMenuLink implements FocusableOption {
 	private readonly _navigationMenuItem = injectBrnNavigationMenuItem();
 	private readonly _el = inject(ElementRef);
 
-	protected readonly isActive = this._navigationMenuItem.isActive;
+	protected readonly _isActive = this._navigationMenuItem.isActive;
 
-	get disabled() {
+	public get disabled() {
 		return this._navigationMenuItem.disabled();
 	}
 

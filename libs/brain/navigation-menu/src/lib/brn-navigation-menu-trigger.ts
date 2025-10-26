@@ -17,22 +17,18 @@ import {
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { BrnButton } from '@spartan-ng/brain/button';
 import { createHoverObservable, isElement } from '@spartan-ng/brain/core';
+import { fromEvent, merge, Observable, of, Subject } from 'rxjs';
 import {
 	debounceTime,
 	delay,
 	distinctUntilChanged,
 	filter,
-	fromEvent,
 	map,
-	merge,
-	Observable,
-	of,
 	share,
-	Subject,
 	switchMap,
 	takeUntil,
 	tap,
-} from 'rxjs';
+} from 'rxjs/operators';
 import { BrnNavigationMenuContentService } from './brn-navigation-menu-content.service';
 import { provideBrnNavigationMenuFocusable } from './brn-navigation-menu-item-focusable.token';
 import { injectBrnNavigationMenuItem } from './brn-navigation-menu-item.token';
@@ -49,10 +45,10 @@ interface TriggerEvent {
 	host: {
 		'(keydown.escape)': 'onEscape($event)',
 		'(keydown.tab)': 'onTab($event)',
-		'[id]': 'id',
-		'[attr.data-state]': 'state()',
-		'[attr.aria-expanded]': 'isActive()',
-		'[attr.aria-controls]': 'contentId',
+		'[id]': '_id',
+		'[attr.data-state]': '_state()',
+		'[attr.aria-expanded]': '_isActive()',
+		'[attr.aria-controls]': '_contentId',
 		'(focus)': 'handleFocus()',
 	},
 	hostDirectives: [
@@ -75,15 +71,15 @@ export class BrnNavigationMenuTrigger implements OnInit, OnDestroy, FocusableOpt
 	private readonly _el = inject<ElementRef<HTMLElement>>(ElementRef);
 	private readonly _contentService = inject(BrnNavigationMenuContentService);
 
-	protected readonly id = `brn-navigation-menu-trigger-${++BrnNavigationMenuTrigger._id}`;
+	protected readonly _id = `brn-navigation-menu-trigger-${++BrnNavigationMenuTrigger._id}`;
 
 	private readonly _parentNavMenu = this._navigationMenu.parentNavMenu;
 
-	protected readonly isActive = this._navigationMenuItem.isActive;
+	protected readonly _isActive = this._navigationMenuItem.isActive;
 
-	protected readonly contentId = this._contentService.id;
+	protected readonly _contentId = this._contentService.id;
 
-	protected readonly state = this._navigationMenuItem.state;
+	protected readonly _state = this._navigationMenuItem.state;
 
 	private readonly _dir = computed(() => this._navigationMenu.context().dir);
 
@@ -142,7 +138,7 @@ export class BrnNavigationMenuTrigger implements OnInit, OnDestroy, FocusableOpt
 		takeUntil(this._destroy$),
 	);
 
-	get disabled() {
+	public get disabled() {
 		return this._navigationMenuItem.disabled();
 	}
 

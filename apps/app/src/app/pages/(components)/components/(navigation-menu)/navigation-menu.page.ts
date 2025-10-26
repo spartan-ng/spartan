@@ -85,7 +85,7 @@ export const routeMeta: RouteMeta = {
 				<code class="${hlmCode}">value</code>
 				input can be set to the menu item's
 				<code class="${hlmCode}">id</code>
-				to activate it.
+				to activate it. Declaratively set navigation menu item stays activated until it is hovered or focused out.
 			</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab class="justify-start">

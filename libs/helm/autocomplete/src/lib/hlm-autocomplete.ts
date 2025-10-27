@@ -222,10 +222,10 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 	public readonly emptyText = input('No options found');
 
 	/** Aria label for the toggle button. */
-	public readonly ariaLabelToggleButton = input<string>('Toggle options');
+	public readonly ariaLabelToggleButton = input('Toggle options');
 
 	/** The id of the input field. */
-	public readonly inputId = input<string>(`hlm-autocomplete-input-${++HlmAutocomplete._id}`);
+	public readonly inputId = input(`hlm-autocomplete-input-${++HlmAutocomplete._id}`);
 
 	/** Whether the autocomplete is disabled. */
 	public readonly disabled = input<boolean, BooleanInput>(false, { transform: booleanAttribute });

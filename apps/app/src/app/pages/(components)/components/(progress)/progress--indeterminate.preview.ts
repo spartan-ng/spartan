@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { HlmProgress, HlmProgressIndicator } from '@spartan-ng/helm/progress';
+import { HlmProgressImports } from '@spartan-ng/helm/progress';
 
 @Component({
 	selector: 'spartan-progress-indeterminate',
-	imports: [HlmProgressIndicator, HlmProgress],
+	imports: [HlmProgressImports],
 	template: `
 		<hlm-progress class="w-80">
 			<hlm-progress-indicator />

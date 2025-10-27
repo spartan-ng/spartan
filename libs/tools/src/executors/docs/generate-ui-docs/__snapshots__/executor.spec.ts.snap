@@ -484,9 +484,9 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "T",
           },
           {
-            "name": "search",
+            "name": "debounceTime",
             "required": false,
-            "type": "string",
+            "type": "number",
           },
           {
             "name": "transformValueToSearch",
@@ -526,12 +526,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "ariaLabelToggleButton",
             "required": false,
-            "type": "string",
+            "type": "unknown",
           },
           {
             "name": "inputId",
             "required": false,
-            "type": "string",
+            "type": "unknown",
           },
           {
             "name": "disabled",
@@ -539,7 +539,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "boolean",
           },
         ],
-        "models": [],
+        "models": [
+          {
+            "name": "search",
+            "type": "string",
+          },
+        ],
         "outputs": [
           {
             "name": "valueChange",

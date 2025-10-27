@@ -12,7 +12,7 @@ import { HlmRadioGroupImports } from '@spartan-ng/helm/radio-group';
 		<fieldset hlmFieldSet>
 			<label hlmFieldLabel>Subscription Plan</label>
 			<p hlmFieldDescription>Yearly and lifetime plans offer significant savings.</p>
-			<hlm-radio-group data-slot="radio-group" value="monthly">
+			<hlm-radio-group value="monthly">
 				<div hlmField orientation="horizontal">
 					<hlm-radio value="monthly" id="plan-monthly">
 						<hlm-radio-indicator indicator />

@@ -13,7 +13,7 @@ import { HlmRadioGroupImports } from '@spartan-ng/helm/radio-group';
 			<fieldset hlmFieldSet>
 				<label hlmFieldLabel>Compute Environment</label>
 				<p hlmFieldDescription>Select the compute environment for your cluster.</p>
-				<hlm-radio-group data-slot="radio-group" value="kubernetes">
+				<hlm-radio-group value="kubernetes">
 					<label hlmFieldLabel for="kubernetes">
 						<div hlmField orientation="horizontal">
 							<div hlmFieldContent>

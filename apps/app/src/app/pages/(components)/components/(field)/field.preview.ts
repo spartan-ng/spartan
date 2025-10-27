@@ -42,9 +42,9 @@ import { HlmTextarea } from '@spartan-ng/helm/textarea';
 						</div>
 						<div class="grid grid-cols-3 gap-4">
 							<div hlmField>
-								<label hlmFieldLabel for="field-preview-expiration-month">Month</label>
-								<brn-select class="inline-block" placeholder="MM">
-									<hlm-select-trigger class="w-full" id="field-preview-expiration-month">
+								<label hlmFieldLabel for="field-exp-month--trigger">Month</label>
+								<brn-select id="field-exp-month" class="inline-block" placeholder="MM">
+									<hlm-select-trigger class="w-full">
 										<hlm-select-value />
 									</hlm-select-trigger>
 									<hlm-select-content>
@@ -64,9 +64,9 @@ import { HlmTextarea } from '@spartan-ng/helm/textarea';
 								</brn-select>
 							</div>
 							<div hlmField>
-								<label hlmFieldLabel for="field-preview-expiration-year">Year</label>
-								<brn-select class="inline-block" placeholder="YYYY">
-									<hlm-select-trigger class="w-full" id="field-preview-expiration-year">
+								<label hlmFieldLabel for="field-exp-year--trigger">Year</label>
+								<brn-select id="field-exp-year" class="inline-block" placeholder="YYYY">
+									<hlm-select-trigger class="w-full">
 										<hlm-select-value />
 									</hlm-select-trigger>
 									<hlm-select-content>

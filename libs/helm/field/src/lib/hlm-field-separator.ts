@@ -6,14 +6,18 @@ import { ClassValue } from 'clsx';
 @Component({
 	selector: 'hlm-field-separator',
 	imports: [HlmSeparator],
+	host: {
+		'data-slot': 'field-separator',
+		'[class]': '_computedClass()',
+	},
 	template: `
-		<div data-slot="separator" [class]="_computedClass()">
-			<hlm-separator class="absolute inset-0 top-1/2" />
-			<ng-content
-				class="bg-background text-muted-foreground relative mx-auto block w-fit px-2"
-				data-slot="field-separator-content"
-			></ng-content>
-		</div>
+		<hlm-separator class="absolute inset-0 top-1/2" />
+		<span
+			data-slot="field-separator-content"
+			class="bg-background text-muted-foreground relative mx-auto block w-fit px-2"
+		>
+			<ng-content />
+		</span>
 	`,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })

@@ -29,7 +29,7 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 					Get notified when tasks you've created have updates.
 					<a href="#">Manage tasks</a>
 				</p>
-				<div hlmFieldGroup class="gap-3" data-slot="checkbox-group">
+				<div hlmFieldGroup data-slot="checkbox-group">
 					<div hlmField orientation="horizontal">
 						<hlm-checkbox id="field-group-push-task" />
 						<label hlmFieldLabel for="field-group-push-task" class="font-normal">Push notifications</label>

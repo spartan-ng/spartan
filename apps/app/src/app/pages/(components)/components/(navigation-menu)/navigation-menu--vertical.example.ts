@@ -90,7 +90,7 @@ import { HlmNavigationMenuImports, hlmNavLink } from '@spartan-ng/helm/navigatio
 				</li>
 
 				<li hlmNavigationMenuItem class="w-full">
-					<a hlmNavigationMenuLink class="w-full text-center" href="/docs">Docs</a>
+					<a hlmNavigationMenuLink class="w-full text-center" href="/documentation/introduction">Docs</a>
 				</li>
 
 				<li hlmNavigationMenuItem class="w-full">

@@ -180,7 +180,7 @@ import { HlmNavigationMenuImports, hlmNavLink } from '@spartan-ng/helm/navigatio
 				</li>
 
 				<li hlmNavigationMenuItem>
-					<a hlmNavigationMenuLink href="/docs">Docs</a>
+					<a hlmNavigationMenuLink href="/documentation/introduction">Docs</a>
 				</li>
 			</ul>
 		</nav>

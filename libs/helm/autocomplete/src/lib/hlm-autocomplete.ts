@@ -5,11 +5,13 @@ import {
 	ChangeDetectionStrategy,
 	Component,
 	computed,
+	effect,
 	ElementRef,
 	forwardRef,
 	inject,
 	input,
 	linkedSignal,
+	model,
 	output,
 	type TemplateRef,
 	viewChild,
@@ -18,6 +20,7 @@ import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown, lucideSearch } from '@ng-icons/lucide';
 import { BrnAutocomplete, BrnAutocompleteEmpty } from '@spartan-ng/brain/autocomplete';
+import { debouncedSignal } from '@spartan-ng/brain/core';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import { BrnPopover, BrnPopoverContent } from '@spartan-ng/brain/popover';
 import { HlmIcon } from '@spartan-ng/helm/icon';
@@ -87,8 +90,8 @@ export const HLM_AUTOCOMPLETE_VALUE_ACCESSOR = {
 						[class]="_computedAutocompleteInputClass()"
 						[placeholder]="searchPlaceholderText()"
 						[disabled]="_disabled()"
-						[value]="_search()"
-						(input)="_onSearchChanged($event)"
+						[value]="search()"
+						(input)="_searchChanged($event)"
 					/>
 
 					<button
@@ -188,9 +191,14 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 	public readonly value = input<T>();
 	protected readonly _value = linkedSignal(() => this.value());
 
+	/** Debounce time in milliseconds for the search input. */
+	public readonly debounceTime = input<number>(this._config.debounceTime);
+
 	/** The search query. */
-	public readonly search = input<string>();
-	protected readonly _search = linkedSignal(() => this.search() || '');
+	public readonly search = model<string>('');
+
+	/** Debounced search query. */
+	protected readonly _search = debouncedSignal(this.search, this.debounceTime());
 
 	/** Function to transform an option value to a search string. Defaults to identity function for strings. */
 	public readonly transformValueToSearch = input<(option: T) => string>(this._config.transformValueToSearch);
@@ -232,6 +240,22 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 	protected _onChange?: ChangeFn<T | null>;
 	protected _onTouched?: TouchFn;
 
+	constructor() {
+		effect(() => {
+			const search = this._search();
+			this.searchChange.emit(search);
+		});
+	}
+
+	protected _searchChanged(event: Event) {
+		const value = (event.target as HTMLInputElement).value;
+		this.search.set(value);
+
+		if (!this._brnAutocomplete().isExpanded() && value.length > 0) {
+			this._brnAutocomplete().open();
+		}
+	}
+
 	/** Toggle the options panel */
 	protected _toggleOptions() {
 		if (this._search() || this.filteredOptions().length > 0) {
@@ -244,22 +268,8 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 
 	/** Clear the current selection and search input */
 	protected _selectionCleared() {
-		this._search.set('');
-		this.searchChange.emit('');
+		this.search.set('');
 		this._clearOption();
-	}
-
-	protected _onSearchChanged(event: Event) {
-		const value = (event.target as HTMLInputElement).value;
-
-		this._search.set(value);
-		this.searchChange.emit(value);
-
-		this._clearOption();
-
-		if (!this._brnAutocomplete().isExpanded() && value.length > 0) {
-			this._brnAutocomplete().open();
-		}
 	}
 
 	protected _clearOption() {
@@ -275,8 +285,7 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 
 		const searchValue = this.transformValueToSearch()(option);
 
-		this._search.set(searchValue);
-		this.searchChange.emit(searchValue);
+		this.search.set(searchValue);
 
 		this._brnAutocomplete().close();
 	}
@@ -286,8 +295,7 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 		this._value.set(value ? value : undefined);
 
 		const searchValue = value ? this.transformValueToSearch()(value) : '';
-		this._search.set(searchValue);
-		this.searchChange.emit(searchValue);
+		this.search.set(searchValue);
 	}
 
 	public registerOnChange(fn: ChangeFn<T | null>): void {

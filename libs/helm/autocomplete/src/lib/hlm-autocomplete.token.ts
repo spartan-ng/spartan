@@ -5,12 +5,14 @@ export type TransformValueToString<T> = (option: T) => string;
 export interface HlmAutocompleteConfig<T> {
 	transformValueToSearch: TransformValueToString<T>;
 	transformOptionToString: TransformValueToString<T>;
+	debounceTime: number;
 }
 
 function getDefaultConfig<T>(): HlmAutocompleteConfig<T> {
 	return {
 		transformValueToSearch: (option: T) => (typeof option === 'string' ? option : String(option)),
 		transformOptionToString: (option: T) => (typeof option === 'string' ? option : String(option)),
+		debounceTime: 150,
 	};
 }
 

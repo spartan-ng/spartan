@@ -5,13 +5,13 @@ export const addPrimitiveToSupportedUILibraries = (
 	tree: Tree,
 	supportedJsonPath: string,
 	generatorName: string,
-	internalName: string,
+	name: string,
 	peerDependencies: Record<string, string>,
 ) => {
 	updateJson(tree, supportedJsonPath, (old) => ({
 		...old,
 		[generatorName]: {
-			internalName,
+			name,
 			peerDependencies,
 		},
 	}));

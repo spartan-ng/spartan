@@ -1,4 +1,4 @@
-import { type Tree, generateFiles } from '@nx/devkit';
+import { generateFiles, type Tree } from '@nx/devkit';
 import * as path from 'node:path';
 import { Project } from 'ts-morph';
 import type { HlmToCliGeneratorGeneratorSchema } from '../schema';
@@ -34,9 +34,7 @@ export const createSharedGeneratorFiles = (
 ) => {
 	generateFiles(tree, path.join(__dirname, '..', 'files'), projectRoot, {
 		...options,
-		primitiveName: entrypoint,
-		internalName: `ui-${entrypoint}-helm`,
-		publicName: `ui-${entrypoint}-helm`,
+		name: entrypoint,
 	});
 };
 

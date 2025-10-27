@@ -6,6 +6,7 @@ import { dirname, join } from 'path';
 import { getOrCreateConfig } from '../../utils/config';
 import { readTsConfigPathsFromTree } from '../../utils/tsconfig';
 import { deleteFiles } from '../base/lib/deleteFiles';
+import type { SupportedLibraries } from '../base/lib/supported-libs';
 import { createPrimitiveLibraries } from '../ui/generator';
 import type { Primitive } from '../ui/primitives';
 import type { MigrateHelmLibrariesGeneratorSchema } from './schema';
@@ -190,11 +191,4 @@ async function regenerateLibraries(tree: Tree, options: MigrateHelmLibrariesGene
 		{ ...options, installPeerDependencies: false },
 		config,
 	);
-}
-
-type SupportedLibraries = Record<string, SupportedLibrary>;
-
-interface SupportedLibrary {
-	internalName: string;
-	peerDependencies: Record<string, string>;
 }

@@ -71,7 +71,7 @@ export const HLM_AUTOCOMPLETE_VALUE_ACCESSOR = {
 			closeDelay="100"
 			[closeOnOutsidePointerEvents]="true"
 		>
-			<div brnAutocomplete>
+			<div brnAutocomplete (selectionCleared)="_selectionCleared()">
 				<hlm-autocomplete-search
 					hlmAutocompleteTrigger
 					[class]="_computedAutocompleteSearchClass()"
@@ -88,7 +88,7 @@ export const HLM_AUTOCOMPLETE_VALUE_ACCESSOR = {
 						[placeholder]="searchPlaceholderText()"
 						[disabled]="_disabled()"
 						[value]="_search()"
-						(valueChange)="_onSearchChanged($event)"
+						(input)="_onSearchChanged($event)"
 					/>
 
 					<button
@@ -232,6 +232,7 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 	protected _onChange?: ChangeFn<T | null>;
 	protected _onTouched?: TouchFn;
 
+	/** Toggle the options panel */
 	protected _toggleOptions() {
 		if (this._search() || this.filteredOptions().length > 0) {
 			// only toggle if there's a search term or options to show
@@ -241,7 +242,16 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 		this._inputRef().nativeElement.focus();
 	}
 
-	protected _onSearchChanged(value: string) {
+	/** Clear the current selection and search input */
+	protected _selectionCleared() {
+		this._search.set('');
+		this.searchChange.emit('');
+		this._clearOption();
+	}
+
+	protected _onSearchChanged(event: Event) {
+		const value = (event.target as HTMLInputElement).value;
+
 		this._search.set(value);
 		this.searchChange.emit(value);
 

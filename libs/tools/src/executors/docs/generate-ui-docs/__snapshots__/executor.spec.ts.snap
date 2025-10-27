@@ -369,6 +369,10 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "name": "valueChange",
             "type": "T",
           },
+          {
+            "name": "selectionCleared",
+            "type": "void",
+          },
         ],
         "selector": "[brnAutocomplete]",
       },
@@ -431,18 +435,8 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       },
       "BrnAutocompleteSearchInput": {
         "inputs": [],
-        "models": [
-          {
-            "name": "value",
-            "type": "string",
-          },
-        ],
-        "outputs": [
-          {
-            "name": "valueChange",
-            "type": "string",
-          },
-        ],
+        "models": [],
+        "outputs": [],
         "selector": "input[brnAutocompleteSearchInput]",
       },
     },

@@ -1,6 +1,6 @@
-import { Signal } from '@angular/core';
+import type { Signal } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 /**
  * Creates a debounced version of a source signal.

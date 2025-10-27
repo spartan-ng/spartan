@@ -268,14 +268,11 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 
 	/** Clear the current selection and search input */
 	protected _selectionCleared() {
-		this.search.set('');
-		this._clearOption();
-	}
-
-	protected _clearOption() {
 		this._value.set(undefined);
 		this._onChange?.(null);
+
 		this.valueChange.emit(null);
+		this.search.set('');
 	}
 
 	protected _optionSelected(option: T) {

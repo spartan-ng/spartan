@@ -11,6 +11,7 @@ import { injectBrnNavigationMenu } from './brn-navigation-menu.token';
 	host: {
 		'[id]': 'id()',
 		'[attr.data-disabled]': 'disabled() || null',
+		'data-slot': 'navigation-menu-item',
 	},
 	providers: [provideBrnNavigationMenuItem(BrnNavigationMenuItem), BrnNavigationMenuContentService],
 })

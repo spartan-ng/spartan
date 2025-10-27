@@ -30,6 +30,7 @@ import {
 	tap,
 } from 'rxjs/operators';
 import { BrnNavigationMenuContentService } from './brn-navigation-menu-content.service';
+import { BrnNavigationMenuItem } from './brn-navigation-menu-item';
 import { provideBrnNavigationMenuFocusable } from './brn-navigation-menu-item-focusable.token';
 import { injectBrnNavigationMenuItem } from './brn-navigation-menu-item.token';
 import { injectBrnNavigationMenu } from './brn-navigation-menu.token';
@@ -45,11 +46,12 @@ interface TriggerEvent {
 	host: {
 		'(keydown.escape)': 'onEscape($event)',
 		'(keydown.tab)': 'onTab($event)',
+		'(focus)': 'handleFocus()',
 		'[id]': '_id',
 		'[attr.data-state]': '_state()',
 		'[attr.aria-expanded]': '_isActive()',
 		'[attr.aria-controls]': '_contentId',
-		'(focus)': 'handleFocus()',
+		'data-slot': 'navigation-menu-trigger',
 	},
 	hostDirectives: [
 		{
@@ -227,15 +229,15 @@ export class BrnNavigationMenuTrigger implements OnInit, OnDestroy, FocusableOpt
 		this._navigationMenu.value.set(undefined);
 	}
 
-	private _isHoverOnSibling(ev: TriggerEvent) {
+	private _isHoverOnSibling(ev: TriggerEvent): boolean {
 		if (ev.type !== 'hover' || !isElement(ev.relatedTarget)) return false;
 
 		const menuItem = this._isMenuItemOrChild(ev.relatedTarget);
 
-		return menuItem && !menuItem.disabled();
+		return !!menuItem && !menuItem.disabled();
 	}
 
-	private _isMenuItemOrChild(node: Node) {
+	private _isMenuItemOrChild(node: Node): BrnNavigationMenuItem | undefined {
 		return this._navigationMenu
 			.menuItems()
 			.find((ref) => ref.el.nativeElement === node || ref.el.nativeElement.contains(node));

@@ -9,7 +9,16 @@ import {
 	OverlayRef,
 } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
-import { ElementRef, inject, Injectable, NgZone, signal, TemplateRef, ViewContainerRef } from '@angular/core';
+import {
+	ElementRef,
+	inject,
+	Injectable,
+	NgZone,
+	Renderer2,
+	signal,
+	TemplateRef,
+	ViewContainerRef,
+} from '@angular/core';
 import { createHoverObservable, waitForElementAnimations } from '@spartan-ng/brain/core';
 import { BehaviorSubject, fromEvent, Observable, of, Subject } from 'rxjs';
 import { map, share, switchMap, takeUntil } from 'rxjs/operators';
@@ -52,6 +61,7 @@ export class BrnNavigationMenuContentService {
 	private readonly _overlay = inject(Overlay);
 	private readonly _zone = inject(NgZone);
 	private readonly _psBuilder = inject(OverlayPositionBuilder);
+	private readonly _renderer = inject(Renderer2);
 
 	private readonly _content = signal<TemplatePortal<unknown> | null>(null);
 
@@ -153,9 +163,9 @@ export class BrnNavigationMenuContentService {
 
 		const attachToId = this._config.attachTo?.nativeElement.id;
 
-		contentEl.setAttribute('id', this.id);
+		this._renderer.setAttribute(contentEl, 'id', this.id);
 		if (attachToId !== undefined) {
-			contentEl.setAttribute('aria-labelledby', attachToId);
+			this._renderer.setAttribute(contentEl, 'aria-labelledby', attachToId);
 		}
 
 		this._contentEl.set(contentEl);

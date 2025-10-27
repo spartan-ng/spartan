@@ -31,9 +31,10 @@ function areArraysSameByElRef(arr1: unknown[], arr2: unknown[]) {
 	selector: 'nav[brnNavigationMenu]',
 	host: {
 		'(keydown)': 'handleKeydown($event)',
-		'[attr.aria-label]': '"Main"',
 		'[attr.data-orientation]': 'orientation()',
 		'[attr.dir]': '_dir()',
+		'aria-label': 'Main',
+		'data-slot': 'navigation-menu',
 	},
 	providers: [provideBrnNavigationMenu(BrnNavigationMenu)],
 })
@@ -73,7 +74,7 @@ export class BrnNavigationMenu implements OnDestroy {
 	private readonly _isOpenDelayed = signal(true);
 	public readonly isOpenDelayed = this._isOpenDelayed.asReadonly();
 
-	private _skipDelayTimerRef: NodeJS.Timeout | number = 0;
+	private _skipDelayTimerRef: ReturnType<typeof setTimeout> | undefined;
 
 	private readonly _navAndSubnavMenuItems = contentChildren(BrnNavigationMenuItem, { descendants: true });
 
@@ -167,7 +168,7 @@ export class BrnNavigationMenu implements OnDestroy {
 			});
 	}
 
-	public isLink(id?: string) {
+	public isLink(id?: string): boolean {
 		return !!this._linkMenuItems().find((item) => item.id() === id);
 	}
 

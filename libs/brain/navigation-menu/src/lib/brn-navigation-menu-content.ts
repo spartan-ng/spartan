@@ -40,6 +40,7 @@ export class BrnNavigationMenuContent {
 			const el = this._contentEl();
 			if (el) {
 				this._renderer.setAttribute(el, 'tabindex', '0');
+				this._renderer.setAttribute(el, 'data-slot', 'navigation-menu-content');
 			}
 		});
 

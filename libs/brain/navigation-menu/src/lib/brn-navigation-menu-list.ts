@@ -5,6 +5,7 @@ import { injectBrnNavigationMenu } from './brn-navigation-menu.token';
 	selector: 'ul[brnNavigationMenuList]',
 	host: {
 		'[attr.data-orientation]': '_orientation()',
+		'data-slot': 'navigation-menu-list',
 	},
 })
 export class BrnNavigationMenuList {

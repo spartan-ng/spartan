@@ -6,11 +6,11 @@ import { ClassValue } from 'clsx';
 	selector: '[hlmNavigationMenuContent]',
 	host: {
 		'[class]': '_computedClass()',
+		'data-slot': 'navigation-menu-content',
 	},
 })
 export class HlmNavigationMenuContent {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	// TODO: revise applied styles
 	protected readonly _computedClass = computed(() =>
 		hlm(
 			'data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out data-[motion^=from-]:fade-in data-[motion^=to-]:fade-out top-0 left-0 w-full p-2 pr-2.5 md:w-auto',

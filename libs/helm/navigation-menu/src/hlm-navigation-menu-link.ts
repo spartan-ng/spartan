@@ -11,7 +11,6 @@ export const hlmNavLink = hlm(
 @Directive({
 	selector: 'a[hlmNavigationMenuLink]',
 	host: {
-		'[attr.data-slot]': '"navigation-menu-link"',
 		'[class]': '_computedClass()',
 	},
 	hostDirectives: [BrnNavigationMenuLink],

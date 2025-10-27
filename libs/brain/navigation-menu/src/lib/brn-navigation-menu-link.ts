@@ -13,6 +13,7 @@ import { injectBrnNavigationMenu } from './brn-navigation-menu.token';
 		'(focus)': 'handleFocus()',
 		'[attr.data-active]': '_isActive() ? "" : undefined',
 		'[attr.aria-current]': '_isActive() ? "page" : undefined',
+		'data-slot': 'navigation-menu-link',
 	},
 	hostDirectives: [
 		{

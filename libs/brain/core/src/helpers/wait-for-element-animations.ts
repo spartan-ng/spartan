@@ -11,16 +11,16 @@ export async function waitForElementAnimations(el: HTMLElement): Promise<void> {
 	el.style.animationFillMode = 'forwards';
 
 	await Promise.all(
-		animations.map(async (animation) => {
-			try {
-				await animation.finished;
-			} catch (err) {
+		animations.map((animation) =>
+			animation.finished.catch((err) => {
 				// Ignore AbortError from canceled animations (treated as "finished")
 				if (!(err instanceof Error && err.name === 'AbortError')) {
 					throw err;
 				}
-			}
-		}),
+
+				return animation;
+			}),
+		),
 	);
 
 	setTimeout(() => {

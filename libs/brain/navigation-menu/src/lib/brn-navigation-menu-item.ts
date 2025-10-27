@@ -41,7 +41,7 @@ export class BrnNavigationMenuItem {
 
 	public readonly focusable = contentChild.required(BrnNavigationMenuFocusable);
 
-	private readonly _triggerOrLinkBtn = contentChild(BrnNavigationMenuFocusable, { read: BrnButton });
+	private readonly _triggerOrLinkBtn = contentChild.required(BrnNavigationMenuFocusable, { read: BrnButton });
 
-	public readonly disabled = computed(() => this._triggerOrLinkBtn()?.disabled());
+	public readonly disabled = computed(() => this._triggerOrLinkBtn().disabled());
 }

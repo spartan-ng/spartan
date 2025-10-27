@@ -1,11 +1,11 @@
 import { Component, type OnInit } from '@angular/core';
-import { HlmProgress, HlmProgressIndicator } from '@spartan-ng/helm/progress';
+import { HlmProgressImports } from '@spartan-ng/helm/progress';
 
 @Component({
 	selector: 'spartan-progress-preview',
-	imports: [HlmProgressIndicator, HlmProgress],
+	imports: [HlmProgressImports],
 	template: `
-		<hlm-progress class="w-80" aria-labelledby="loading" [value]="value">
+		<hlm-progress class="w-80" [value]="value">
 			<hlm-progress-indicator />
 		</hlm-progress>
 	`,
@@ -19,11 +19,11 @@ export class ProgressPreview implements OnInit {
 }
 
 export const defaultImports = `
-import { HlmProgress, HlmProgressIndicator } from '@spartan-ng/helm/progress';
+import { HlmProgressImports } from '@spartan-ng/helm/progress';
 `;
 
 export const defaultSkeleton = `
-<hlm-progress [value]="value">
+<hlm-progress value="33">
    <hlm-progress-indicator />
 </hlm-progress>
 `;

@@ -37,14 +37,14 @@
 	--radius-lg: var(--radius);
 	--radius-xl: calc(var(--radius) + 4px);
 	--animate-indeterminate: indeterminate 4s ease-in-out infinite;
-}
 
-@keyframes indeterminate {
-	0% {
-		transform: translateX(-100%) scaleX(0.5);
-	}
-	100% {
-		transform: translateX(100%) scaleX(0.5);
+	@keyframes indeterminate {
+		0% {
+			transform: translateX(-100%) scaleX(0.5);
+		}
+		100% {
+			transform: translateX(100%) scaleX(0.5);
+		}
 	}
 }
 

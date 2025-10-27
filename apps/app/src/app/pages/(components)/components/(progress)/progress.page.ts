@@ -2,6 +2,7 @@ import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
+import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
@@ -65,6 +66,56 @@ export const routeMeta: RouteMeta = {
 				<spartan-code [code]="_defaultImports" />
 				<spartan-code [code]="_defaultSkeleton" />
 			</div>
+
+			<spartan-section-sub-heading id="animation">Animation</spartan-section-sub-heading>
+
+			<p class="${hlmP}">
+				The indeterminate animation
+				<code class="${hlmCode}">animate-indeterminate</code>
+				is provided by
+				<code class="${hlmCode}">&#64;spartan-ng/brain/hlm-tailwind-preset.css</code>
+				. Here are two options for adding the animation to your project.
+			</p>
+
+			<spartan-code
+				class="mt-4"
+				code="/* 1. default import */
+@import '@spartan-ng/brain/hlm-tailwind-preset.css';
+
+/* 2. add animate-indeterminate animation */
+@theme inline {
+	--animate-indeterminate: indeterminate 4s ease-in-out infinite;
+	@keyframes indeterminate {
+		0% {
+			transform: translateX(-100%) scaleX(0.5);
+		}
+		100% {
+			transform: translateX(100%) scaleX(0.5);
+		}
+	}
+}"
+				fileName="src/styles.css"
+			/>
+
+			<p class="${hlmP}">
+				Adjust the animation to your needs by changing duration, easing function or keyframes by overriding the CSS
+				variable
+				<code class="${hlmCode}">--animate-indeterminate</code>
+				or the
+				<code class="${hlmCode}">&#64;keyframes indeterminate</code>
+				in your global styles.
+			</p>
+			<spartan-code
+				class="mt-4"
+				code="@import '@spartan-ng/brain/hlm-tailwind-preset.css';
+
+/* adjust animation duration  */
+@theme inline {
+-	--animate-indeterminate: indeterminate 4s ease-in-out infinite;
++	--animate-indeterminate: indeterminate 3s ease-in-out infinite;
+}"
+				fileName="src/styles.css"
+			/>
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
 

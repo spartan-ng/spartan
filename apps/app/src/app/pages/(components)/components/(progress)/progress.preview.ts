@@ -5,7 +5,7 @@ import { HlmProgressImports } from '@spartan-ng/helm/progress';
 	selector: 'spartan-progress-preview',
 	imports: [HlmProgressImports],
 	template: `
-		<hlm-progress class="w-80" aria-labelledby="loading" [value]="value">
+		<hlm-progress class="w-80" [value]="value">
 			<hlm-progress-indicator />
 		</hlm-progress>
 	`,

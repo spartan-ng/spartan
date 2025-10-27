@@ -18,7 +18,7 @@ export class HlmNavigationMenuList {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>
 		hlm(
-			'gap-1" group flex flex-1 list-none items-center justify-center',
+			'group flex flex-1 list-none items-center justify-center gap-1',
 			'data-[orientation=vertical]:flex-col',
 			this.userClass(),
 		),

@@ -5,6 +5,7 @@ import type { ClassValue } from 'clsx';
 @Directive({
 	selector: '[hlmInputOtpGroup]',
 	host: {
+		'data-slot': 'input-otp-group',
 		'[class]': '_computedClass()',
 	},
 })

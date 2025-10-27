@@ -3,6 +3,7 @@ import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { UIApiDocs } from '@spartan-ng/app/app/shared/layout/ui-docs-section/ui-docs-section';
+import { link } from '@spartan-ng/app/app/shared/typography/link';
 import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
@@ -61,6 +62,66 @@ export const routeMeta: RouteMeta = {
 				<spartan-code [code]="_defaultImports" />
 				<spartan-code [code]="_defaultSkeleton" />
 			</div>
+
+			<spartan-section-sub-heading id="animation">Animation</spartan-section-sub-heading>
+
+			<p class="${hlmP}">
+				The fake caret animation
+				<code class="${hlmCode}">animate-caret-blink</code>
+				is provided by
+				<a href="https://github.com/Wombosvideo/tw-animate-css" target="_blank" rel="noreferrer" class="${link}">
+					tw-animate-css
+				</a>
+				, which is included in
+				<code class="${hlmCode}">&#64;spartan-ng/brain/hlm-tailwind-preset.css</code>
+				. Here are three options for adding the animation to your project.
+			</p>
+
+			<spartan-code
+				class="mt-4"
+				code="/* 1. default import includes 'tw-animate-css' */
+@import '@spartan-ng/brain/hlm-tailwind-preset.css';
+
+/* 2. import 'tw-animate-css' direclty */
+@import 'tw-animate-css';
+
+/* 3. add animate-caret-blink animation from 'tw-animate-css'  */
+@theme inline {
+	--animate-caret-blink: caret-blink 1.25s ease-out infinite;
+	@keyframes caret-blink {
+		0%,
+		70%,
+		100% {
+			opacity: 1;
+		}
+		20%,
+		50% {
+			opacity: 0;
+		}
+	}
+}"
+				fileName="src/styles.css"
+			/>
+
+			<p class="${hlmP}">
+				Adjust the animation to your needs by changing duration, easing function or keyframes by overriding the CSS
+				variable
+				<code class="${hlmCode}">--animate-caret-blink</code>
+				or the
+				<code class="${hlmCode}">&#64;keyframes caret-blink</code>
+				in your global styles.
+			</p>
+			<spartan-code
+				class="mt-4"
+				code="@import '@spartan-ng/brain/hlm-tailwind-preset.css';
+
+/* adjust animation duration  */
+@theme inline {
+-	--animate-caret-blink: caret-blink 1.25s ease-out infinite;
++	--animate-caret-blink: caret-blink 2s ease-out infinite;
+}"
+				fileName="src/styles.css"
+			/>
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
 

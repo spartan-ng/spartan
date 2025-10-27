@@ -6,6 +6,7 @@ import {
 	computed,
 	forwardRef,
 	input,
+	linkedSignal,
 	model,
 	numberAttribute,
 	output,
@@ -35,7 +36,7 @@ export type InputMode = 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal'
 				autocomplete="one-time-code"
 				data-slot="input-otp"
 				[style]="inputStyles()"
-				[disabled]="_state().disabled()"
+				[disabled]="_disabled()"
 				[inputMode]="inputMode()"
 				[ngModel]="value()"
 				(input)="onInputChange($event)"
@@ -73,6 +74,8 @@ export class BrnInputOtp implements ControlValueAccessor {
 	public readonly disabled = input<boolean, BooleanInput>(false, {
 		transform: booleanAttribute,
 	});
+
+	protected readonly _disabled = linkedSignal(this.disabled);
 
 	/** The number of slots. */
 	public readonly maxLength = input.required<number, NumberInput>({ transform: numberAttribute });
@@ -120,10 +123,6 @@ export class BrnInputOtp implements ControlValueAccessor {
 	/** Emitted when the input is complete, triggered through input or paste.  */
 	public readonly completed = output<string>();
 
-	protected readonly _state = computed(() => ({
-		disabled: signal(this.disabled()),
-	}));
-
 	protected _onChange?: ChangeFn<string>;
 	protected _onTouched?: TouchFn;
 
@@ -168,7 +167,7 @@ export class BrnInputOtp implements ControlValueAccessor {
 	}
 
 	setDisabledState(isDisabled: boolean): void {
-		this._state().disabled.set(isDisabled);
+		this._disabled.set(isDisabled);
 	}
 
 	private isCompleted(newValue: string, previousValue: string, maxLength: number) {

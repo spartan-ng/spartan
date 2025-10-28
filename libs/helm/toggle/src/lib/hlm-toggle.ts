@@ -30,7 +30,9 @@ export type ToggleVariants = VariantProps<typeof toggleVariants>;
 
 @Directive({
 	selector: '[hlmToggle]',
-	hostDirectives: [{ directive: BrnToggle, inputs: ['id', 'value', 'disabled', 'state'], outputs: ['stateChange'] }],
+	hostDirectives: [
+		{ directive: BrnToggle, inputs: ['id', 'value', 'disabled', 'state', 'aria-label'], outputs: ['stateChange'] },
+	],
 	host: {
 		'data-slot': 'toggle',
 		'[class]': '_computedClass()',

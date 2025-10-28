@@ -16,6 +16,7 @@ import { UIApiDocs } from '@spartan-ng/app/app/shared/layout/ui-docs-section/ui-
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
 import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { ToggleGroupDisabledPreview } from './toggle-group--disabled.preview';
+import { ToggleGroupSpacingForm } from './toggle-group--form.preview';
 import { ToggleGroupLargePreview } from './toggle-group--large.preview';
 import { ToggleGroupOutlinePreview } from './toggle-group--outline.preview';
 import { ToggleGroupSinglePreview } from './toggle-group--single.preview';
@@ -53,6 +54,7 @@ export const routeMeta: RouteMeta = {
 		ToggleGroupDisabledPreview,
 		ToggleGroupSinglePreview,
 		ToggleGroupSpacingPreview,
+		ToggleGroupSpacingForm,
 		UIApiDocs,
 	],
 	template: `
@@ -134,6 +136,14 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_spacingCode()" />
 			</spartan-tabs>
 
+			<h3 id="examples__form" spartanH4>Form</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-toggle-group-form />
+				</div>
+				<spartan-code secondTab [code]="_formCode()" />
+			</spartan-tabs>
+
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="brain" />
 
@@ -158,6 +168,7 @@ export default class ToggleGroupPage {
 	protected readonly _largeCode = computed(() => this._snippets()['large']);
 	protected readonly _disabledCode = computed(() => this._snippets()['disabled']);
 	protected readonly _spacingCode = computed(() => this._snippets()['spacing']);
+	protected readonly _formCode = computed(() => this._snippets()['form']);
 	protected readonly _defaultImports = defaultImports;
 	protected readonly _defaultSkeleton = defaultSkeleton;
 }

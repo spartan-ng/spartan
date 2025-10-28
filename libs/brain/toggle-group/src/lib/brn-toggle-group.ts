@@ -22,7 +22,6 @@ export class BrnButtonToggleChange<T = unknown> {
 	providers: [provideBrnToggleGroup(BrnToggleGroup), BRN_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR],
 	host: {
 		role: 'group',
-		tabindex: '0',
 		'[attr.aria-disabled]': 'disabledState()',
 		'[attr.data-disabled]': 'disabledState()',
 		'(focusout)': 'onTouched()',

@@ -3,6 +3,7 @@ import { Component, input, signal } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideBold, lucideItalic, lucideUnderline } from '@ng-icons/lucide';
+import { ToggleType } from '@spartan-ng/brain/toggle-group';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmToggleGroup, HlmToggleGroupImports } from '@spartan-ng/helm/toggle-group';
@@ -172,7 +173,7 @@ const CITIES = [
 			<hlm-toggle-group
 				[disabled]="disabled()"
 				[nullable]="nullable()"
-				[multiple]="multiple()"
+				[type]="type()"
 				[(ngModel)]="selected"
 				variant="merged"
 			>
@@ -187,11 +188,11 @@ const CITIES = [
 			<button hlmBtn size="sm" (click)="addCity()">Add Piraeus</button>
 		</div>
 
-		<p class="${hlmP}">{{ multiple() ? 'Cities selected' : 'City selected' }}: {{ selectedCities }}</p>
+		<p class="${hlmP}">{{ type() === 'multiple' ? 'Cities selected' : 'City selected' }}: {{ selectedCities }}</p>
 	`,
 })
 class HlmToggleGroupStory {
-	public readonly multiple = input<BooleanInput>(false);
+	public readonly type = input<ToggleType>('single');
 	public readonly nullable = input<BooleanInput>(false);
 	public readonly disabled = input<BooleanInput>(false);
 	public readonly defaultValue = input<City | City[] | undefined>(undefined);
@@ -208,7 +209,7 @@ class HlmToggleGroupStory {
 
 	get selectedCities() {
 		if (!this.selected()) {
-			return this.multiple() ? 'No cities selected' : 'No city selected';
+			return this.type() === 'multiple' ? 'No cities selected' : 'No city selected';
 		}
 
 		if (Array.isArray(this.selected())) {
@@ -224,7 +225,7 @@ class HlmToggleGroupStory {
 	}
 
 	setToSyracuse() {
-		this.selected.set(this.multiple() ? [this.cities[3]] : this.cities[3]);
+		this.selected.set(this.type() === 'multiple' ? [this.cities[3]] : this.cities[3]);
 	}
 
 	addCity() {
@@ -255,7 +256,7 @@ export const ToggleGroupMultipleNullable: Story = {
 		}),
 	],
 	render: () => ({
-		template: '<hlm-toggle-group-story nullable="true" multiple="true"/>',
+		template: '<hlm-toggle-group-story nullable="true" type="multiple"/>',
 	}),
 };
 
@@ -299,7 +300,7 @@ export const ToggleGroupMultiple: StoryObj<{ defaultValue: City[] }> = {
 	},
 	render: ({ defaultValue }) => ({
 		props: { defaultValue },
-		template: '<hlm-toggle-group-story multiple="true" [defaultValue]="defaultValue"/>',
+		template: '<hlm-toggle-group-story type="multiple" [defaultValue]="defaultValue"/>',
 	}),
 };
 
@@ -308,7 +309,7 @@ export const ToggleGroupMultiple: StoryObj<{ defaultValue: City[] }> = {
 	imports: [HlmToggleGroupImports, FormsModule, ReactiveFormsModule],
 	template: `
 		<form class="flex space-x-4 p-4" [formGroup]="citiesForm">
-			<hlm-toggle-group formControlName="selectedCity" variant="merged">
+			<hlm-toggle-group formControlName="selectedCity">
 				@for (city of cities; track city.name; let last = $last) {
 					<button [value]="city" hlmToggleGroupItem>
 						{{ city.name }}

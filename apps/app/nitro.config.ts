@@ -88,4 +88,7 @@ export default defineNitroConfig({
 			},
 		},
 	},
+	routeRules: {
+		'/api/github-info': { cache: { maxAge: 1000 * 60 * 60 * 24 } },
+	},
 });

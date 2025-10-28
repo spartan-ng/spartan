@@ -9,7 +9,7 @@ import { HlmToggle } from '@spartan-ng/helm/toggle';
 	imports: [HlmToggle, NgIcon, HlmIcon],
 	providers: [provideIcons({ lucideItalic })],
 	template: `
-		<button size="lg" hlmToggle>
+		<button hlmToggle size="lg" aria-label="Toggle italic">
 			<ng-icon hlm size="lg" name="lucideItalic" />
 		</button>
 	`,

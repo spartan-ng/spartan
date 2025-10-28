@@ -10,9 +10,9 @@ import { HlmToggleImports } from '@spartan-ng/helm/toggle';
 	template: `
 		<button
 			hlmToggle
-			aria-label="Toggle bookmark"
 			size="sm"
 			variant="outline"
+			aria-label="Toggle bookmark"
 			class="data-[state=on]:bg-transparent data-[state=on]:*:[ng-icon]:*:[svg]:fill-red-500 data-[state=on]:*:[ng-icon]:*:[svg]:stroke-red-500"
 		>
 			<ng-icon name="lucideBookmark" />

@@ -2,14 +2,14 @@ import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideUnderline } from '@ng-icons/lucide';
 import { HlmIcon } from '@spartan-ng/helm/icon';
-import { HlmToggle } from '@spartan-ng/helm/toggle';
+import { HlmToggleImports } from '@spartan-ng/helm/toggle';
 
 @Component({
 	selector: 'spartan-toggle-disabled',
-	imports: [HlmToggle, NgIcon, HlmIcon],
+	imports: [HlmToggleImports, NgIcon, HlmIcon],
 	providers: [provideIcons({ lucideUnderline })],
 	template: `
-		<button disabled hlmToggle>
+		<button hlmToggle aria-label="Toggle underline" disabled>
 			<ng-icon hlm size="sm" name="lucideUnderline" />
 		</button>
 	`,

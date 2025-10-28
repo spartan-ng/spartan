@@ -167,9 +167,9 @@ export const HLM_AUTOCOMPLETE_VALUE_ACCESSOR = {
 		</brn-popover>
 	`,
 })
-export class HlmAutocomplete<T> implements ControlValueAccessor {
+export class HlmAutocomplete<T, V = T> implements ControlValueAccessor {
 	private static _id = 0;
-	private readonly _config = injectHlmAutocompleteConfig<T>();
+	private readonly _config = injectHlmAutocompleteConfig<T, V>();
 
 	private readonly _brnAutocomplete = viewChild.required(BrnAutocomplete);
 
@@ -205,7 +205,7 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 	public readonly filteredOptions = input<T[]>([]);
 
 	/** The selected value. */
-	public readonly value = model<T>();
+	public readonly value = model<T | V>();
 
 	/** Debounce time in milliseconds for the search input. */
 	public readonly debounceTime = input<number>(this._config.debounceTime);
@@ -228,10 +228,10 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 	public readonly transformOptionToString = input<(option: T) => string>(this._config.transformOptionToString);
 
 	/** Function to transform the object to the value. */
-	public readonly transformOptionToValue = input<((option: T) => any) | undefined>(this._config.transformOptionToValue);
+	public readonly transformOptionToValue = input<((option: T) => V) | undefined>(this._config.transformOptionToValue);
 
 	/** Function to display the selected value as a string. */
-	public readonly displayWith = input<((value: any) => string) | undefined>(this._config.displayWith);
+	public readonly displayWith = input<((value: V) => string) | undefined>(this._config.displayWith);
 
 	/** Computed function to get the display value for the selected option. */
 	protected readonly _displaySearchValue = computed(() => {
@@ -275,12 +275,12 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 	protected readonly _disabled = linkedSignal(() => this.disabled());
 
 	/** Emitted when the selected value changes. */
-	public readonly valueChange = output<T | null>();
+	public readonly valueChange = output<T | V | null>();
 
 	/** Emitted when the search query changes. */
 	public readonly searchChange = output<string>();
 
-	protected _onChange?: ChangeFn<T | null>;
+	protected _onChange?: ChangeFn<T | V | null>;
 	protected _onTouched?: TouchFn;
 
 	constructor() {
@@ -319,28 +319,27 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 
 	protected _optionSelected(option: T) {
 		const transformer = this.transformOptionToValue();
-		if (transformer) {
-			option = transformer(option);
-		}
 
-		this.value.set(option);
-		this._onChange?.(option);
-		this.valueChange.emit(option);
+		const value = transformer ? transformer(option) : option;
 
-		const searchValue = this._displaySearchValue()(option);
+		this.value.set(value);
+		this._onChange?.(value);
+		this.valueChange.emit(value);
+
+		const searchValue = this._displaySearchValue()(value as any);
 		this.search.set(searchValue ?? '');
 		this._brnAutocomplete().close();
 	}
 
 	/** CONTROL VALUE ACCESSOR */
-	public writeValue(value: T | null): void {
+	public writeValue(value: T | V | null): void {
 		this.value.set(value ? value : undefined);
 
-		const searchValue = value ? this._displaySearchValue()(value) : '';
+		const searchValue = value ? this._displaySearchValue()(value as any) : '';
 		this.search.set(searchValue);
 	}
 
-	public registerOnChange(fn: ChangeFn<T | null>): void {
+	public registerOnChange(fn: ChangeFn<T | V | null>): void {
 		this._onChange = fn;
 	}
 
@@ -355,7 +354,7 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 	protected _closed() {
 		if (this.requireSelection()) {
 			const value = this.value();
-			const searchValue = value ? this.transformValueToSearch()(value) : '';
+			const searchValue = value ? this._displaySearchValue()(value as any) : '';
 			this.search.set(searchValue ?? '');
 		}
 	}

@@ -2,17 +2,17 @@ import { inject, InjectionToken, type ValueProvider } from '@angular/core';
 
 export type TransformValueToString<T> = (option: T) => string;
 
-export interface HlmAutocompleteConfig<T> {
+export interface HlmAutocompleteConfig<T, V = T> {
 	transformValueToSearch: TransformValueToString<T>;
 	transformOptionToString: TransformValueToString<T>;
-	transformOptionToValue: ((option: T) => any) | undefined;
-	displayWith: ((value: any) => string) | undefined;
+	transformOptionToValue: ((option: T) => V) | undefined;
+	displayWith: ((value: V) => string) | undefined;
 	requireSelection: boolean;
 	showClearBtn: boolean;
 	debounceTime: number;
 }
 
-function getDefaultConfig<T>(): HlmAutocompleteConfig<T> {
+function getDefaultConfig<T, V = T>(): HlmAutocompleteConfig<T, V> {
 	return {
 		transformValueToSearch: (option: T) => (typeof option === 'string' ? option : String(option)),
 		transformOptionToString: (option: T) => (typeof option === 'string' ? option : String(option)),
@@ -21,15 +21,17 @@ function getDefaultConfig<T>(): HlmAutocompleteConfig<T> {
 		requireSelection: false,
 		showClearBtn: false,
 		debounceTime: 150,
-	} as HlmAutocompleteConfig<T>;
+	};
 }
 
-const HlmAutocompleteConfigToken = new InjectionToken<HlmAutocompleteConfig<unknown>>('HlmAutocompleteConfig');
+const HlmAutocompleteConfigToken = new InjectionToken<HlmAutocompleteConfig<unknown, unknown>>('HlmAutocompleteConfig');
 
-export function provideHlmAutocompleteConfig<T>(config: Partial<HlmAutocompleteConfig<T>>): ValueProvider {
+export function provideHlmAutocompleteConfig<T, V = T>(config: Partial<HlmAutocompleteConfig<T, V>>): ValueProvider {
 	return { provide: HlmAutocompleteConfigToken, useValue: { ...getDefaultConfig(), ...config } };
 }
 
-export function injectHlmAutocompleteConfig<T>(): HlmAutocompleteConfig<T> {
-	return inject(HlmAutocompleteConfigToken, { optional: true }) ?? getDefaultConfig();
+export function injectHlmAutocompleteConfig<T, V = T>(): HlmAutocompleteConfig<T, V> {
+	return (
+		(inject(HlmAutocompleteConfigToken, { optional: true }) as HlmAutocompleteConfig<T, V> | null) ?? getDefaultConfig()
+	);
 }

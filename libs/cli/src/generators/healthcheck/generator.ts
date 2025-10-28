@@ -8,6 +8,7 @@ import { brainSeparatorHealthcheck } from './healthchecks/brn-separator';
 import { brnSwitchChangedEventRename } from './healthchecks/brn-switch-changed-event-rename';
 import { brainToggleHealthcheck } from './healthchecks/brn-toggle';
 import { brainToggleGroupHealthcheck } from './healthchecks/brn-toggle-group';
+import { brainToggleGroup2Healthcheck } from './healthchecks/brn-toggle-group-2';
 import { coreImportsHealthcheck } from './healthchecks/core-imports';
 import { helmImportsHealthcheck } from './healthchecks/helm-imports';
 import { hlmImportHealthcheck } from './healthchecks/hlm';
@@ -47,6 +48,7 @@ export async function healthcheckGenerator(tree: Tree, options: HealthcheckGener
 		brainAccordionTriggerHealthcheck,
 		moduleImportsHealthcheck,
 		brainToggleHealthcheck,
+		brainToggleGroup2Healthcheck,
 	];
 
 	const failedReports: HealthcheckReport[] = [];

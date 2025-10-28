@@ -2,7 +2,7 @@ import { visitNotIgnoredFiles } from '@nx/devkit';
 import { migrateToggleGroupGenerator } from '../../migrate-toggle-group/generator';
 import { type Healthcheck, HealthcheckSeverity } from '../healthchecks';
 
-export const brainToggleHealthcheck: Healthcheck = {
+export const brainToggleGroupHealthcheck: Healthcheck = {
 	name: 'Brain Toggle Group',
 	async detect(tree, failure) {
 		visitNotIgnoredFiles(tree, '/', (file) => {

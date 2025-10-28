@@ -6,7 +6,7 @@ import { brnCheckboxChangedEventRename } from './healthchecks/brn-checkbox-chang
 import { brainRadioHealthcheck } from './healthchecks/brn-radio';
 import { brainSeparatorHealthcheck } from './healthchecks/brn-separator';
 import { brnSwitchChangedEventRename } from './healthchecks/brn-switch-changed-event-rename';
-import { brainToggleHealthcheck } from './healthchecks/brn-toggle-group';
+import { brainToggleGroupHealthcheck } from './healthchecks/brn-toggle-group';
 import { coreImportsHealthcheck } from './healthchecks/core-imports';
 import { helmImportsHealthcheck } from './healthchecks/helm-imports';
 import { hlmImportHealthcheck } from './healthchecks/hlm';
@@ -34,7 +34,7 @@ export async function healthcheckGenerator(tree: Tree, options: HealthcheckGener
 		scrollAreaHealthcheck,
 		brainRadioHealthcheck,
 		selectHealthcheck,
-		brainToggleHealthcheck,
+		brainToggleGroupHealthcheck,
 		helmImportsHealthcheck,
 		namingConventionHealthcheck,
 		datePickerHealthcheck,

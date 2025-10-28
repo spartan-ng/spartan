@@ -4,7 +4,7 @@ import { lucideBookmark, lucideHeart, lucideStar } from '@ng-icons/lucide';
 import { HlmToggleGroupImports } from '@spartan-ng/helm/toggle-group';
 
 @Component({
-	selector: 'spartan-toggle-group-preview',
+	selector: 'spartan-toggle-group-spacing',
 	imports: [HlmToggleGroupImports, NgIcon],
 	providers: [provideIcons({ lucideStar, lucideHeart, lucideBookmark })],
 	template: `
@@ -39,16 +39,4 @@ import { HlmToggleGroupImports } from '@spartan-ng/helm/toggle-group';
 		</hlm-toggle-group>
 	`,
 })
-export class ToggleGroupPreview {}
-
-export const defaultImports = `
-import { HlmToggleGroupImports } from '@spartan-ng/helm/toggle-group';
-`;
-
-export const defaultSkeleton = `
-<hlm-toggle-group type="single">
-	<button hlmToggleGroupItem value="a">A</button>
-	<button hlmToggleGroupItem value="b">B</button>
-	<button hlmToggleGroupItem value="c">C</button>
-</hlm-toggle-group>
-`;
+export class ToggleGroupSpacingPreview {}

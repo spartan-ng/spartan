@@ -5,11 +5,11 @@ import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmToggleGroup, HlmToggleGroupItem } from '@spartan-ng/helm/toggle-group';
 
 @Component({
-	selector: 'spartan-toggle-group-disabled',
+	selector: 'spartan-toggle-group-single',
 	imports: [HlmIcon, HlmToggleGroupItem, HlmToggleGroup, NgIcon],
 	providers: [provideIcons({ lucideBold, lucideItalic, lucideUnderline })],
 	template: `
-		<hlm-toggle-group type="multiple" disabled>
+		<hlm-toggle-group type="single">
 			<button hlmToggleGroupItem value="bold" aria-label="Toggle bold">
 				<ng-icon hlm size="sm" name="lucideBold" />
 			</button>
@@ -24,4 +24,4 @@ import { HlmToggleGroup, HlmToggleGroupItem } from '@spartan-ng/helm/toggle-grou
 		</hlm-toggle-group>
 	`,
 })
-export class ToggleGroupDisabledPreview {}
+export class ToggleGroupSinglePreview {}

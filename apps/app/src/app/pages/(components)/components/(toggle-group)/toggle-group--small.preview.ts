@@ -9,16 +9,16 @@ import { HlmToggleGroup, HlmToggleGroupItem } from '@spartan-ng/helm/toggle-grou
 	imports: [HlmIcon, HlmToggleGroupItem, HlmToggleGroup, NgIcon],
 	providers: [provideIcons({ lucideBold, lucideItalic, lucideUnderline })],
 	template: `
-		<hlm-toggle-group type="single" nullable="true" size="sm">
-			<button aria-label="Bold" value="bold" hlmToggleGroupItem>
+		<hlm-toggle-group type="single" size="sm">
+			<button hlmToggleGroupItem value="bold" aria-label="Toggle bold">
 				<ng-icon hlm size="sm" name="lucideBold" />
 			</button>
 
-			<button aria-label="Italic" value="italic" hlmToggleGroupItem>
+			<button hlmToggleGroupItem value="italic" aria-label="Toggle italic">
 				<ng-icon hlm size="sm" name="lucideItalic" />
 			</button>
 
-			<button aria-label="Underline" value="underline" hlmToggleGroupItem>
+			<button hlmToggleGroupItem value="underline" aria-label="Toggle underline">
 				<ng-icon hlm size="sm" name="lucideUnderline" />
 			</button>
 		</hlm-toggle-group>

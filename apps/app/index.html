@@ -36,6 +36,9 @@
 			if (localStorage.layout) {
 				document.documentElement.classList.add('layout-' + localStorage.layout);
 			}
+			if (window.navigator.userAgent.toUpperCase().includes('MAC')) {
+				document.documentElement.style.setProperty('--is-mac', 'true');
+			}
 		</script>
 	</head>
 	<body

@@ -106,13 +106,14 @@ type AlgoliaHits = {
 				brnDialogTrigger
 				hlmBtn
 				variant="secondary"
-				class="bg-surface text-foreground dark:bg-card relative h-8 w-full justify-start pl-3 font-medium shadow-none sm:pr-12 md:w-48 lg:w-56 xl:w-64"
+				class="bg-surface text-foreground dark:bg-card relative h-8 w-full justify-start pl-3 font-medium shadow-none sm:pr-12 md:w-48 lg:w-60 xl:w-64"
 			>
 				<span class="hidden lg:inline-flex">Search documentation...</span>
 				<span class="inline-flex lg:hidden">Search...</span>
 				<div class="absolute top-1.5 right-1.5 hidden gap-1 sm:flex">
 					<kbd hlmKbdGroup>
-						<kbd hlmKbd class="border">{{ _isMac ? '⌘' : 'Ctrl' }}</kbd>
+						<kbd hlmKbd class="hidden border [html[style*='--is-mac']_&]:inline">⌘</kbd>
+						<kbd hlmKbd class="border [html[style*='--is-mac']_&]:hidden">Ctrl</kbd>
 						<kbd hlmKbd class="border">K</kbd>
 					</kbd>
 				</div>
@@ -214,6 +215,7 @@ type AlgoliaHits = {
 export class DocsDialog {
 	private readonly _client = searchClient('JJRQPPSU45', '0fe1bcb9dbe76b2a149f00bc0709c5fd');
 	private readonly _brnDialogTrigger = viewChild.required(BrnDialogTrigger);
+
 	protected readonly _values = computed(() => {
 		const value = this._algoliaResource.value();
 		if (!value) return [];
@@ -235,7 +237,6 @@ export class DocsDialog {
 			});
 	});
 
-	protected readonly _isMac = navigator.platform.toUpperCase().includes('MAC');
 	protected readonly _searchVal = signal('');
 	private readonly _cache = new Map<string, SearchHits<AlgoliaHits>>();
 

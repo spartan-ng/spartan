@@ -3,10 +3,5 @@ import hlmBaseGenerator from '../../../base/generator';
 import type { HlmBaseGeneratorSchema } from '../../../base/schema';
 
 export async function generator(tree: Tree, options: HlmBaseGeneratorSchema) {
-	return await hlmBaseGenerator(tree, {
-		...options,
-		primitiveName: 'field',
-		internalName: 'ui-field-helm',
-		publicName: 'ui-field-helm',
-	});
+	return await hlmBaseGenerator(tree, { ...options, name: 'field' });
 }

@@ -5,6 +5,7 @@ import type { ClassValue } from 'clsx';
 @Component({
 	selector: 'hlm-radio-indicator',
 	host: {
+		'data-slot': 'radio-group-indicator',
 		'[class]': '_computedClass()',
 	},
 	template: `

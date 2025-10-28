@@ -1,21 +1,18 @@
 import { computed, Directive, input } from '@angular/core';
-import { hlm } from '@spartan-ng/helm/utils';
+import { hlm } from '<%- importAlias %>/utils';
 import { ClassValue } from 'clsx';
 
 @Directive({
-	selector: 'fieldset[hlmFieldSet]',
+	selector: '[hlmFieldContent],hlm-field-content',
 	host: {
-		'data-slot': 'field-set',
+		'data-slot': 'field-content',
 		'[class]': '_computedClass()',
 	},
 })
-export class HlmFieldSet {
+export class HlmFieldContent {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 
 	protected readonly _computedClass = computed(() =>
-		hlm(
-			'flex flex-col gap-6 has-[>[data-slot=checkbox-group]]:gap-3 has-[>[data-slot=radio-group]]:gap-3',
-			this.userClass(),
-		),
+		hlm('group/field-content flex flex-1 flex-col gap-1.5 leading-snug', this.userClass()),
 	);
 }

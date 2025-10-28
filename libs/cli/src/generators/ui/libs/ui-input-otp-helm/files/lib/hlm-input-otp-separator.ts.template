@@ -14,6 +14,7 @@ import type { ClassValue } from 'clsx';
 	`,
 	host: {
 		role: 'separator',
+		'data-slot': 'input-otp-separator',
 		'[class]': '_computedClass()',
 	},
 	changeDetection: ChangeDetectionStrategy.OnPush,

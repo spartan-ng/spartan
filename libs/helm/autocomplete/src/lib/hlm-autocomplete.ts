@@ -84,10 +84,9 @@ export const HLM_AUTOCOMPLETE_VALUE_ACCESSOR = {
 					[disabledTrigger]="!_search() || _disabled()"
 				>
 					<input
+						#input
 						brnAutocompleteSearchInput
 						hlmInputGroupInput
-						placeholder="Search..."
-						#input
 						type="text"
 						autocomplete="off"
 						[id]="inputId()"
@@ -100,25 +99,24 @@ export const HLM_AUTOCOMPLETE_VALUE_ACCESSOR = {
 					<div hlmInputGroupAddon>
 						<ng-icon hlm name="lucideSearch" />
 					</div>
-
-					@if (showClearBtn() && value() !== null) {
-						<div hlmInputGroupAddon align="inline-end">
+					<div hlmInputGroupAddon align="inline-end">
+						@if (showClearBtn() && value() !== undefined) {
 							<button
 								hlmInputGroupButton
+								type="button"
 								tabindex="-1"
 								aria-label="clear"
 								[disabled]="_disabled()"
-								(click)="_clearSelectedOption($event)"
+								(click)="_selectionCleared()"
 								size="icon-xs"
 							>
 								<ng-icon name="lucideCircleX" hlm />
 							</button>
-						</div>
-					}
+						}
 
-					<div hlmInputGroupAddon align="inline-end">
 						<button
 							hlmInputGroupButton
+							type="button"
 							tabindex="-1"
 							[attr.aria-label]="ariaLabelToggleButton()"
 							[disabled]="_disabled()"
@@ -208,7 +206,7 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 	public readonly filteredOptions = input<T[]>([]);
 
 	/** The selected value. */
-	public readonly value = model<any>();
+	public readonly value = model<T>();
 
 	/** Debounce time in milliseconds for the search input. */
 	public readonly debounceTime = input<number>(this._config.debounceTime);
@@ -222,8 +220,8 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 	/** Function to transform an option value to a search string. Defaults to identity function for strings. */
 	public readonly transformValueToSearch = input<(option: T) => string>(this._config.transformValueToSearch);
 
-	/** Function to transform an option value to a search string. Defaults to identity function for strings. */
-	public readonly requireSelection = input<boolean, BooleanInput>(!!this._config.requireSelection, {
+	/** Whether selection of an option is required. */
+	public readonly requireSelection = input<boolean, BooleanInput>(this._config.requireSelection, {
 		transform: booleanAttribute,
 	});
 
@@ -243,7 +241,9 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 	public readonly loading = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
 	/** Whether to show the clear button when a option is selected. */
-	public readonly showClearBtn = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
+	public readonly showClearBtn = input<boolean, BooleanInput>(this._config.showClearBtn, {
+		transform: booleanAttribute,
+	});
 
 	/** Placeholder text for the input field. */
 	public readonly searchPlaceholderText = input('Select an option');
@@ -310,7 +310,7 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 
 	/** Clear the current selection and search input */
 	protected _selectionCleared() {
-		this.value.set(null);
+		this.value.set(undefined);
 		this._onChange?.(null);
 		this.valueChange.emit(null);
 		this.search.set('');
@@ -347,12 +347,6 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 
 	public setDisabledState(isDisabled: boolean): void {
 		this._disabled.set(isDisabled);
-	}
-
-	protected _clearSelectedOption(event: Event) {
-		event.preventDefault();
-		event.stopPropagation();
-		this._selectionCleared();
 	}
 
 	protected _closed() {

@@ -1,15 +1,5 @@
 import type { BooleanInput } from '@angular/cdk/coercion';
-import {
-	booleanAttribute,
-	ChangeDetectionStrategy,
-	Component,
-	computed,
-	forwardRef,
-	input,
-	model,
-	output,
-	signal,
-} from '@angular/core';
+import { booleanAttribute, computed, Directive, forwardRef, input, linkedSignal, model, output } from '@angular/core';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { provideBrnToggleGroup } from './brn-toggle-group.token';
 import type { BrnToggleGroupItem } from './brn-toggle-item';
@@ -27,38 +17,23 @@ export class BrnButtonToggleChange<T = unknown> {
 	) {}
 }
 
-@Component({
-	selector: 'brn-toggle-group',
+@Directive({
+	selector: '[brnToggleGroup],brn-toggle-group',
 	providers: [provideBrnToggleGroup(BrnToggleGroup), BRN_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR],
 	host: {
 		role: 'group',
-		class: 'brn-button-toggle-group',
-		'[attr.aria-disabled]': 'state().disabled()',
-		'[attr.data-disabled]': 'state().disabled()',
-		'[attr.data-vertical]': 'vertical()',
+		tabindex: '0',
+		'[attr.aria-disabled]': 'disabledState()',
+		'[attr.data-disabled]': 'disabledState()',
 		'(focusout)': 'onTouched()',
 	},
 	exportAs: 'brnToggleGroup',
-	template: `
-		<ng-content />
-	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BrnToggleGroup<T = unknown> implements ControlValueAccessor {
-	/**
-	 * The method to be called in order to update ngModel.
-	 */
-	// eslint-disable-next-line @typescript-eslint/no-empty-function
-	private _onChange: (value: ToggleValue<T>) => void = () => {};
+	/** The type of the toggle group. */
+	public readonly type = input<ToggleType>('single');
 
-	/** onTouch function registered via registerOnTouch (ControlValueAccessor). */
-	// eslint-disable-next-line @typescript-eslint/no-empty-function
-	protected onTouched: () => void = () => {};
-
-	/** Whether the button toggle group has a vertical orientation */
-	public readonly vertical = input<boolean, BooleanInput>(false, {
-		transform: booleanAttribute,
-	});
+	protected readonly _multiple = computed(() => this.type() === 'multiple');
 
 	/** Value of the toggle group. */
 	public readonly value = model<ToggleValue<T>>(undefined);
@@ -71,23 +46,26 @@ export class BrnToggleGroup<T = unknown> implements ControlValueAccessor {
 		transform: booleanAttribute,
 	});
 
-	/** Whether multiple button toggles can be selected. */
-	public readonly multiple = input<boolean, BooleanInput>(false, {
-		transform: booleanAttribute,
-	});
-
 	/** Whether the button toggle group is disabled. */
 	public readonly disabled = input<boolean, BooleanInput>(false, {
 		transform: booleanAttribute,
 	});
 
-	/** The internal state of the component. This can be replaced with linkedSignal in the future. */
-	public readonly state = computed(() => ({
-		disabled: signal(this.disabled()),
-	}));
+	/** The disabled state. */
+	public readonly disabledState = linkedSignal(this.disabled);
 
 	/** Emit event when the group value changes. */
 	public readonly change = output<BrnButtonToggleChange<T>>();
+
+	/**
+	 * The method to be called in order to update ngModel.
+	 */
+	// eslint-disable-next-line @typescript-eslint/no-empty-function
+	private _onChange: (value: ToggleValue<T>) => void = () => {};
+
+	/** onTouch function registered via registerOnTouch (ControlValueAccessor). */
+	// eslint-disable-next-line @typescript-eslint/no-empty-function
+	protected onTouched: () => void = () => {};
 
 	writeValue(value: ToggleValue<T>): void {
 		this.value.set(value);
@@ -102,7 +80,7 @@ export class BrnToggleGroup<T = unknown> implements ControlValueAccessor {
 	}
 
 	setDisabledState(isDisabled: boolean): void {
-		this.state().disabled.set(isDisabled);
+		this.disabledState.set(isDisabled);
 	}
 
 	/**
@@ -115,7 +93,7 @@ export class BrnToggleGroup<T = unknown> implements ControlValueAccessor {
 
 		const currentValue = this.value();
 
-		if (this.multiple() && Array.isArray(currentValue)) {
+		if (this._multiple() && Array.isArray(currentValue)) {
 			return !(currentValue.length === 1 && currentValue[0] === value);
 		}
 
@@ -127,14 +105,14 @@ export class BrnToggleGroup<T = unknown> implements ControlValueAccessor {
 	 * Selects a value.
 	 */
 	select(value: T, source: BrnToggleGroupItem<T>): void {
-		if (this.state().disabled() || this.isSelected(value)) {
+		if (this.disabledState() || this.isSelected(value)) {
 			return;
 		}
 
 		const currentValue = this.value();
 
 		// emit the valueChange event here as we should only emit based on user interaction
-		if (this.multiple()) {
+		if (this._multiple()) {
 			this.emitSelectionChange([...((currentValue ?? []) as T[]), value], source);
 		} else {
 			this.emitSelectionChange(value, source);
@@ -149,13 +127,13 @@ export class BrnToggleGroup<T = unknown> implements ControlValueAccessor {
 	 * Deselects a value.
 	 */
 	deselect(value: T, source: BrnToggleGroupItem<T>): void {
-		if (this.state().disabled() || !this.isSelected(value) || !this.canDeselect(value)) {
+		if (this.disabledState() || !this.isSelected(value) || !this.canDeselect(value)) {
 			return;
 		}
 
 		const currentValue = this.value();
 
-		if (this.multiple()) {
+		if (this._multiple()) {
 			this.emitSelectionChange(
 				((currentValue ?? []) as T[]).filter((v) => v !== value),
 				source,
@@ -180,7 +158,7 @@ export class BrnToggleGroup<T = unknown> implements ControlValueAccessor {
 			return false;
 		}
 
-		if (this.multiple()) {
+		if (this._multiple()) {
 			return (currentValue as T[])?.includes(value);
 		}
 		return currentValue === value;
@@ -195,4 +173,5 @@ export class BrnToggleGroup<T = unknown> implements ControlValueAccessor {
 	}
 }
 
-type ToggleValue<T> = T | T[] | null | undefined;
+export type ToggleValue<T> = T | T[] | null | undefined;
+export type ToggleType = 'single' | 'multiple';

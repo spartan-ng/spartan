@@ -14,25 +14,26 @@ import {
 	model,
 	output,
 	type TemplateRef,
+	untracked,
 	viewChild,
 } from '@angular/core';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideChevronDown, lucideSearch } from '@ng-icons/lucide';
+import { provideIcons } from '@ng-icons/core';
+import { lucideChevronDown, lucideCircleX, lucideSearch } from '@ng-icons/lucide';
 import { BrnAutocomplete, BrnAutocompleteEmpty } from '@spartan-ng/brain/autocomplete';
 import { debouncedSignal } from '@spartan-ng/brain/core';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
-import { BrnPopover, BrnPopoverContent } from '@spartan-ng/brain/popover';
-import { HlmIcon } from '@spartan-ng/helm/icon';
-import { HlmPopoverContent } from '@spartan-ng/helm/popover';
+import { BrnPopoverImports } from '@spartan-ng/brain/popover';
+import { HlmIconImports } from '@spartan-ng/helm/icon';
+import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 import { HlmAutocompleteEmpty } from './hlm-autocomplete-empty';
 import { HlmAutocompleteGroup } from './hlm-autocomplete-group';
 import { HlmAutocompleteItem } from './hlm-autocomplete-item';
 import { HlmAutocompleteList } from './hlm-autocomplete-list';
-import { HlmAutocompleteSearch } from './hlm-autocomplete-search';
-import { HlmAutocompleteSearchInput } from './hlm-autocomplete-search-input';
+
+import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 import { HlmAutocompleteTrigger } from './hlm-autocomplete-trigger';
 import { injectHlmAutocompleteConfig } from './hlm-autocomplete.token';
 
@@ -44,48 +45,49 @@ export const HLM_AUTOCOMPLETE_VALUE_ACCESSOR = {
 
 @Component({
 	selector: 'hlm-autocomplete',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
 		NgTemplateOutlet,
-
-		BrnPopover,
-		BrnPopoverContent,
-		HlmPopoverContent,
-
 		BrnAutocomplete,
 		BrnAutocompleteEmpty,
 		HlmAutocompleteEmpty,
 		HlmAutocompleteGroup,
 		HlmAutocompleteItem,
 		HlmAutocompleteList,
-		HlmAutocompleteSearch,
-		HlmAutocompleteSearchInput,
 		HlmAutocompleteTrigger,
-
-		NgIcon,
-		HlmIcon,
+		BrnPopoverImports,
+		HlmPopoverImports,
+		HlmIconImports,
+		HlmInputGroupImports,
 	],
-	providers: [HLM_AUTOCOMPLETE_VALUE_ACCESSOR, provideIcons({ lucideSearch, lucideChevronDown })],
+	providers: [HLM_AUTOCOMPLETE_VALUE_ACCESSOR, provideIcons({ lucideSearch, lucideChevronDown, lucideCircleX })],
+	host: {
+		'[class]': '_computedClass()',
+	},
 	template: `
+		@let transformer = transformOptionToValue();
 		<brn-popover
 			#popover
 			align="start"
 			autoFocus="first-heading"
 			sideOffset="5"
 			closeDelay="100"
+			(closed)="_closed()"
 			[closeOnOutsidePointerEvents]="true"
 		>
 			<div brnAutocomplete (selectionCleared)="_selectionCleared()">
-				<hlm-autocomplete-search
+				<div
+					hlmInputGroup
 					hlmAutocompleteTrigger
 					[class]="_computedAutocompleteSearchClass()"
-					[disabledTrigger]="!_search()"
+					[disabledTrigger]="!_search() || _disabled()"
 				>
-					<ng-icon name="lucideSearch" hlm />
 					<input
+						hlmInputGroupInput
+						placeholder="Search..."
 						#input
 						type="text"
 						autocomplete="off"
-						hlm-autocomplete-search-input
 						[id]="inputId()"
 						[class]="_computedAutocompleteInputClass()"
 						[placeholder]="searchPlaceholderText()"
@@ -93,18 +95,38 @@ export const HLM_AUTOCOMPLETE_VALUE_ACCESSOR = {
 						[value]="search()"
 						(input)="_searchChanged($event)"
 					/>
+					<div hlmInputGroupAddon>
+						<ng-icon hlm name="lucideSearch" />
+					</div>
 
-					<button
-						class="flex items-center justify-center outline-none disabled:cursor-not-allowed [&>_ng-icon]:opacity-50"
-						tabindex="-1"
-						type="button"
-						[attr.aria-label]="ariaLabelToggleButton()"
-						[disabled]="_disabled()"
-						(click)="_toggleOptions()"
-					>
-						<ng-icon name="lucideChevronDown" hlm />
-					</button>
-				</hlm-autocomplete-search>
+					@if (showClearBtn() && value() !== null) {
+						<div hlmInputGroupAddon align="inline-end">
+							<button
+								hlmInputGroupButton
+								tabindex="-1"
+								aria-label="clear"
+								[disabled]="_disabled()"
+								(click)="_clearSelectedOption($event)"
+								size="icon-xs"
+							>
+								<ng-icon name="lucideCircleX" hlm />
+							</button>
+						</div>
+					}
+
+					<div hlmInputGroupAddon align="inline-end">
+						<button
+							hlmInputGroupButton
+							tabindex="-1"
+							[attr.aria-label]="ariaLabelToggleButton()"
+							[disabled]="_disabled()"
+							(click)="_toggleOptions()"
+							size="icon-xs"
+						>
+							<ng-icon name="lucideChevronDown" hlm />
+						</button>
+					</div>
+				</div>
 
 				<div
 					*brnPopoverContent="let ctx"
@@ -121,7 +143,7 @@ export const HLM_AUTOCOMPLETE_VALUE_ACCESSOR = {
 								<button
 									hlm-autocomplete-item
 									[class]="_computedAutocompleteItemClass()"
-									[value]="option"
+									[value]="transformer ? transformer(option) : option"
 									(selected)="_optionSelected(option)"
 								>
 									@if (optionTemplate(); as optionTemplate) {
@@ -145,10 +167,6 @@ export const HLM_AUTOCOMPLETE_VALUE_ACCESSOR = {
 			</div>
 		</brn-popover>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	host: {
-		'[class]': '_computedClass()',
-	},
 })
 export class HlmAutocomplete<T> implements ControlValueAccessor {
 	private static _id = 0;
@@ -188,8 +206,7 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 	public readonly filteredOptions = input<T[]>([]);
 
 	/** The selected value. */
-	public readonly value = input<T>();
-	protected readonly _value = linkedSignal(() => this.value());
+	public readonly value = model<any>();
 
 	/** Debounce time in milliseconds for the search input. */
 	public readonly debounceTime = input<number>(this._config.debounceTime);
@@ -203,14 +220,28 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 	/** Function to transform an option value to a search string. Defaults to identity function for strings. */
 	public readonly transformValueToSearch = input<(option: T) => string>(this._config.transformValueToSearch);
 
+	/** Function to transform an option value to a search string. Defaults to identity function for strings. */
+	public readonly requireSelection = input<boolean, BooleanInput>(!!this._config.requireSelection, {
+		transform: booleanAttribute,
+	});
+
 	/** Function to transform an option value to a display string. Defaults to identity function for strings. */
 	public readonly transformOptionToString = input<(option: T) => string>(this._config.transformOptionToString);
+
+	/** Function to transform the object to the value. */
+	public readonly transformOptionToValue = input<((option: T) => any) | undefined>(this._config.transformOptionToValue);
+
+	/** Function to transform an option value to a display string. Defaults to identity function for strings. */
+	public readonly displayWith = input<((value: any) => string) | null>(null);
 
 	/** Optional template for rendering each option. */
 	public readonly optionTemplate = input<TemplateRef<HlmAutocompleteOption<T>>>();
 
 	/** Whether the autocomplete is in a loading state. */
 	public readonly loading = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
+
+	/** Whether to show the clear button when a option is selected. */
+	public readonly showClearBtn = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
 	/** Placeholder text for the input field. */
 	public readonly searchPlaceholderText = input('Select an option');
@@ -229,6 +260,7 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 
 	/** Whether the autocomplete is disabled. */
 	public readonly disabled = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
+
 	protected readonly _disabled = linkedSignal(() => this.disabled());
 
 	/** Emitted when the selected value changes. */
@@ -244,6 +276,14 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 		effect(() => {
 			const search = this._search();
 			this.searchChange.emit(search);
+		});
+
+		effect(() => {
+			const displayWith = untracked(this.displayWith);
+			const value = this.value();
+			if (displayWith) {
+				this.search.set(displayWith(value));
+			}
 		});
 	}
 
@@ -268,31 +308,31 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 
 	/** Clear the current selection and search input */
 	protected _selectionCleared() {
-		this._value.set(undefined);
+		this.value.set(null);
 		this._onChange?.(null);
-
 		this.valueChange.emit(null);
 		this.search.set('');
 	}
 
 	protected _optionSelected(option: T) {
-		this._value.set(option);
+		const transformer = this.transformOptionToValue();
+		if (transformer) {
+			option = transformer(option);
+		}
+		this.value.set(option);
 		this._onChange?.(option);
 		this.valueChange.emit(option);
 
 		const searchValue = this.transformValueToSearch()(option);
-
 		this.search.set(searchValue);
-
 		this._brnAutocomplete().close();
 	}
 
 	/** CONTROL VALUE ACCESSOR */
 	public writeValue(value: T | null): void {
-		this._value.set(value ? value : undefined);
-
+		this.value.set(value ? value : undefined);
 		const searchValue = value ? this.transformValueToSearch()(value) : '';
-		this.search.set(searchValue);
+		this.search.set(searchValue ?? '');
 	}
 
 	public registerOnChange(fn: ChangeFn<T | null>): void {
@@ -305,6 +345,20 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 
 	public setDisabledState(isDisabled: boolean): void {
 		this._disabled.set(isDisabled);
+	}
+
+	protected _clearSelectedOption(event: Event) {
+		event.preventDefault();
+		event.stopPropagation();
+		this._selectionCleared();
+	}
+
+	protected _closed() {
+		if (this.requireSelection()) {
+			const value = this.value();
+			const searchValue = value ? this.transformValueToSearch()(value) : '';
+			this.search.set(searchValue ?? '');
+		}
 	}
 }
 

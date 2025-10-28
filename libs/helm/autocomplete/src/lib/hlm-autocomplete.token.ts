@@ -5,6 +5,8 @@ export type TransformValueToString<T> = (option: T) => string;
 export interface HlmAutocompleteConfig<T> {
 	transformValueToSearch: TransformValueToString<T>;
 	transformOptionToString: TransformValueToString<T>;
+	transformOptionToValue?: ((option: T) => any) | undefined;
+	requireSelection?: boolean;
 	debounceTime: number;
 }
 
@@ -12,8 +14,10 @@ function getDefaultConfig<T>(): HlmAutocompleteConfig<T> {
 	return {
 		transformValueToSearch: (option: T) => (typeof option === 'string' ? option : String(option)),
 		transformOptionToString: (option: T) => (typeof option === 'string' ? option : String(option)),
+		transformOptionToValue: undefined,
+		requireSelection: false,
 		debounceTime: 150,
-	};
+	} as HlmAutocompleteConfig<T>;
 }
 
 const HlmAutocompleteConfigToken = new InjectionToken<HlmAutocompleteConfig<unknown>>('HlmAutocompleteConfig');

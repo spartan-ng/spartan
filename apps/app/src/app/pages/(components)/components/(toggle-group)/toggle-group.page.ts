@@ -72,7 +72,7 @@ export const routeMeta: RouteMeta = {
 			</div>
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__outline" spartanH4>Outline</h3>
+			<!-- <h3 id="examples__outline" spartanH4>Outline</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-toggle-group-outline />
@@ -102,7 +102,7 @@ export const routeMeta: RouteMeta = {
 					<spartan-toggle-group-disabled />
 				</div>
 				<spartan-code secondTab [code]="_disabledCode()" />
-			</spartan-tabs>
+			</spartan-tabs> -->
 
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="brain" />

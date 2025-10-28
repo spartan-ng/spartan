@@ -5881,6 +5881,16 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "boolean",
           },
+          {
+            "name": "type",
+            "required": false,
+            "type": "'button' | 'submit' | 'reset'",
+          },
+          {
+            "name": "aria-label",
+            "required": false,
+            "type": "string | null",
+          },
         ],
         "models": [
           {

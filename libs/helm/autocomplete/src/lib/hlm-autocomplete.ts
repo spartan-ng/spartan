@@ -20,7 +20,7 @@ import {
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { provideIcons } from '@ng-icons/core';
 import { lucideChevronDown, lucideCircleX, lucideSearch } from '@ng-icons/lucide';
-import { BrnAutocomplete, BrnAutocompleteEmpty } from '@spartan-ng/brain/autocomplete';
+import { BrnAutocomplete, BrnAutocompleteEmpty, BrnAutocompleteImports } from '@spartan-ng/brain/autocomplete';
 import { debouncedSignal } from '@spartan-ng/brain/core';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import { BrnPopoverImports } from '@spartan-ng/brain/popover';
@@ -59,6 +59,7 @@ export const HLM_AUTOCOMPLETE_VALUE_ACCESSOR = {
 		HlmPopoverImports,
 		HlmIconImports,
 		HlmInputGroupImports,
+		BrnAutocompleteImports,
 	],
 	providers: [HLM_AUTOCOMPLETE_VALUE_ACCESSOR, provideIcons({ lucideSearch, lucideChevronDown, lucideCircleX })],
 	host: {
@@ -83,6 +84,7 @@ export const HLM_AUTOCOMPLETE_VALUE_ACCESSOR = {
 					[disabledTrigger]="!_search() || _disabled()"
 				>
 					<input
+						brnAutocompleteSearchInput
 						hlmInputGroupInput
 						placeholder="Search..."
 						#input
@@ -282,14 +284,14 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 			const displayWith = untracked(this.displayWith);
 			const value = this.value();
 			if (displayWith) {
-				this.search.set(displayWith(value));
+				this.search.set(displayWith(value) ?? '');
 			}
 		});
 	}
 
 	protected _searchChanged(event: Event) {
 		const value = (event.target as HTMLInputElement).value;
-		this.search.set(value);
+		this.search.set(value ?? '');
 
 		if (!this._brnAutocomplete().isExpanded() && value.length > 0) {
 			this._brnAutocomplete().open();
@@ -324,7 +326,7 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 		this.valueChange.emit(option);
 
 		const searchValue = this.transformValueToSearch()(option);
-		this.search.set(searchValue);
+		this.search.set(searchValue ?? '');
 		this._brnAutocomplete().close();
 	}
 

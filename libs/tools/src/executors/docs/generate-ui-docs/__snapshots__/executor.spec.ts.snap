@@ -479,11 +479,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "T[]",
           },
           {
-            "name": "value",
-            "required": false,
-            "type": "T",
-          },
-          {
             "name": "debounceTime",
             "required": false,
             "type": "number",
@@ -494,9 +489,24 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "(option: T) => string",
           },
           {
+            "name": "requireSelection",
+            "required": false,
+            "type": "boolean",
+          },
+          {
             "name": "transformOptionToString",
             "required": false,
             "type": "(option: T) => string",
+          },
+          {
+            "name": "transformOptionToValue",
+            "required": false,
+            "type": "((option: T) => any) | undefined",
+          },
+          {
+            "name": "displayWith",
+            "required": false,
+            "type": "((value: any) => string) | null",
           },
           {
             "name": "optionTemplate",
@@ -505,6 +515,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           },
           {
             "name": "loading",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "showClearBtn",
             "required": false,
             "type": "boolean",
           },
@@ -540,6 +555,10 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           },
         ],
         "models": [
+          {
+            "name": "value",
+            "type": "any",
+          },
           {
             "name": "search",
             "type": "string",
@@ -604,30 +623,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [],
         "outputs": [],
         "selector": "hlm-autocomplete-list",
-      },
-      "HlmAutocompleteSearch": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
-        "models": [],
-        "outputs": [],
-        "selector": "hlm-autocomplete-search",
-      },
-      "HlmAutocompleteSearchInput": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
-        "models": [],
-        "outputs": [],
-        "selector": "input[hlm-autocomplete-search-input]",
       },
       "HlmAutocompleteTrigger": {
         "inputs": [

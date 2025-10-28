@@ -8,7 +8,13 @@ import { provideHlmToggleGroup } from './hlm-toggle-group.token';
 
 @Directive({
 	selector: '[hlmToggleGroup],hlm-toggle-group',
-	hostDirectives: [{ directive: BrnToggleGroup, inputs: ['type', 'disabled'] }],
+	hostDirectives: [
+		{
+			directive: BrnToggleGroup,
+			inputs: ['type', 'value', 'nullable', 'disabled'],
+			outputs: ['valueChange', 'change'],
+		},
+	],
 	host: {
 		'data-slot': 'toggle-group',
 		'[class]': '_computedClass()',

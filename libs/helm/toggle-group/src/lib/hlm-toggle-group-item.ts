@@ -7,7 +7,13 @@ import { injectHlmToggleGroup } from './hlm-toggle-group.token';
 
 @Directive({
 	selector: 'button[hlmToggleGroupItem]',
-	hostDirectives: [{ directive: BrnToggleGroupItem, inputs: ['value', 'disabled', 'aria-label', 'type'] }],
+	hostDirectives: [
+		{
+			directive: BrnToggleGroupItem,
+			inputs: ['id', 'value', 'disabled', 'state', 'aria-label', 'type'],
+			outputs: ['stateChange'],
+		},
+	],
 	host: {
 		'data-slot': 'toggle-group-item',
 		'[class]': '_computedClass()',

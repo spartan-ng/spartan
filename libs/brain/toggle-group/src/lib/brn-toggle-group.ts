@@ -33,6 +33,7 @@ export class BrnToggleGroup<T = unknown> implements ControlValueAccessor {
 	/** The type of the toggle group. */
 	public readonly type = input<ToggleType>('single');
 
+	/** Whether the toggle group allows multiple selections. */
 	protected readonly _multiple = computed(() => this.type() === 'multiple');
 
 	/** Value of the toggle group. */

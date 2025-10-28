@@ -1,7 +1,6 @@
 import { searchClient, SearchHits } from '@algolia/client-search';
-import { Component, computed, inject, resource, signal, viewChild } from '@angular/core';
+import { Component, computed, resource, signal, viewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideArrowRight, lucideCornerDownLeft, lucideSearch } from '@ng-icons/lucide';
 import { BrnCommandImports } from '@spartan-ng/brain/command';
@@ -215,15 +214,24 @@ type AlgoliaHits = {
 export class DocsDialog {
 	private readonly _client = searchClient('JJRQPPSU45', '0fe1bcb9dbe76b2a149f00bc0709c5fd');
 	private readonly _brnDialogTrigger = viewChild.required(BrnDialogTrigger);
-
-	protected readonly _activatedRoute = inject(ActivatedRoute);
 	protected readonly _values = computed(() => {
 		const value = this._algoliaResource.value();
 		if (!value) return [];
-		return value.hits.map((h) => {
-			const u = new URL(h.url);
-			return { ...h, url: u.pathname + u.hash };
-		});
+		return value.hits
+			.filter((h) => {
+				const url = new URL(h.url);
+				let isPageNotFound = false;
+				for (const [_, value] of Object.entries(h.hierarchy)) {
+					if (value) {
+						isPageNotFound = value.toLowerCase().includes('page not found');
+					}
+				}
+				return url.hash !== '#spartan-main' && url.pathname !== '/' && !isPageNotFound;
+			})
+			.map((h) => {
+				const u = new URL(h.url);
+				return { ...h, url: u.pathname + u.hash };
+			});
 	});
 
 	protected readonly _isMac = navigator.platform.toUpperCase().includes('MAC');
@@ -233,13 +241,13 @@ export class DocsDialog {
 	private readonly _algoliaResource = resource<SearchHits<AlgoliaHits> | undefined, string>({
 		request: () => this._searchVal(),
 		loader: async ({ request }) => {
-			if (!request) return undefined;
 			const cache = this._cache.get(request);
 			if (cache) return cache;
 			const result = await this._client.searchSingleIndex<AlgoliaHits>({
 				indexName: 'spartan-ng',
 				searchParams: {
 					highlightPreTag: '<span>',
+					hitsPerPage: 100,
 					highlightPostTag: '</span>',
 					attributesToRetrieve: [
 						'hierarchy.lvl0',
@@ -267,6 +275,15 @@ export class DocsDialog {
 					query: request,
 				},
 			});
+
+			if (result.hits) {
+				result.hits.sort((a, b) => {
+					const nameA = (a.hierarchy['lvl1'] || '').toLowerCase();
+					const nameB = (b.hierarchy['lvl1'] || '').toLowerCase();
+					return nameA.localeCompare(nameB);
+				});
+			}
+
 			this._cache.set(request, result);
 			return result;
 		},

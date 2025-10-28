@@ -1,3 +1,4 @@
+import type { RouteMeta } from '@analogjs/router';
 import { Component, inject, signal, type TrackByFunction } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
@@ -21,6 +22,7 @@ import {
 	lucideLogOut,
 	lucideUser,
 } from '@ng-icons/lucide';
+import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
 import { BrnMenuTrigger } from '@spartan-ng/brain/menu';
 import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { HlmAvatarImports } from '@spartan-ng/helm/avatar';
@@ -52,6 +54,11 @@ import { TableActions } from './components/table-actions';
 import { TitleCell } from './components/title-cell';
 import { DEFAULT_TASK_TABLE_COLUMNS, LocalStorageService } from './services/local-storage.service';
 import { type Task, TASK_DATA } from './services/tasks.models';
+
+export const routeMeta: RouteMeta = {
+	meta: metaWith('spartan/examples - Tasks', 'A tasks list example displaying the SPARTAN table and new UI primitives'),
+	title: 'spartan/examples - Tasks',
+};
 
 @Component({
 	selector: 'spartan-data-table-preview',

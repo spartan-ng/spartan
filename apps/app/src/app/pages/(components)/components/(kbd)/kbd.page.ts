@@ -17,12 +17,12 @@ import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading
 import { Tabs } from '../../../../shared/layout/tabs';
 import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { KbdPreview, defaultImports, defaultSkeleton } from './kbd.preview';
+import { defaultImports, defaultSkeleton, KbdPreview } from './kbd.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'kbd', api: 'kbd' },
 	meta: metaWith('spartan/ui - kbd', 'Used to display textual user input from keyboard.'),
-	title: 'spartan/ui - kbd',
+	title: 'spartan/ui - Kbd',
 };
 
 @Component({

@@ -14,7 +14,7 @@ type Item = {
 	imports: [HlmAutocompleteImports, ReactiveFormsModule, HlmButtonImports, HlmLabelImports],
 	providers: [
 		provideHlmAutocompleteConfig({
-			transformOptionToString: (option: A) => option.label,
+			transformOptionToString: (option: Item) => option.label,
 		}),
 	],
 	template: `

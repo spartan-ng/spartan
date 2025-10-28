@@ -12,7 +12,7 @@ import { provideHlmToggleGroup } from './hlm-toggle-group.token';
 		{
 			directive: BrnToggleGroup,
 			inputs: ['type', 'value', 'nullable', 'disabled'],
-			outputs: ['valueChange', 'change'],
+			outputs: ['valueChange'],
 		},
 	],
 	host: {

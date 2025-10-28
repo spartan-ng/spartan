@@ -45,12 +45,7 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 			lucideSettings,
 		}),
 	],
-	styles: `
-		#spartan-header,
-		#spartan-footer {
-			display: none !important;
-		}
-	`,
+	styleUrl: 'sidebar-default.css',
 })
 export default class FirstSidebarPage {
 	protected readonly _items = [

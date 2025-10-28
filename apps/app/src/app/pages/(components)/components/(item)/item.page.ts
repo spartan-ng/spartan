@@ -29,7 +29,7 @@ import { defaultImports, defaultSkeleton, ItemPreview } from './item.preview';
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'item', api: 'item' },
 	meta: metaWith('spartan/ui - item', 'A versatile component that you can use to display any content.'),
-	title: 'spartan/ui - item',
+	title: 'spartan/ui - Item',
 };
 
 @Component({

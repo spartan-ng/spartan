@@ -15,6 +15,7 @@ import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { RadioGroupCard } from './radio-group--card.example';
+import { RadioGroupFormPreview } from './radio-group--form.example';
 import { defaultImports, defaultSkeleton, RadioGroupPreview } from './radio-group.preview';
 
 export const routeMeta: RouteMeta = {
@@ -42,6 +43,7 @@ export const routeMeta: RouteMeta = {
 		RadioGroupPreview,
 		RadioGroupPreview,
 		RadioGroupCard,
+		RadioGroupFormPreview,
 		SectionSubSubHeading,
 	],
 	template: `
@@ -68,12 +70,20 @@ export const routeMeta: RouteMeta = {
 			</div>
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__default" spartanH4>Card Layout</h3>
+			<h3 id="examples__card_layout" spartanH4>Card Layout</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-radio-card-preview />
 				</div>
 				<spartan-code secondTab [code]="_cardCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__form" spartanH4>Form</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-radio-group-form />
+				</div>
+				<spartan-code secondTab [code]="_formCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
@@ -94,6 +104,7 @@ export default class LabelPage {
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('radio-group');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _cardCode = computed(() => this._snippets()['card']);
+	protected readonly _formCode = computed(() => this._snippets()['form']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

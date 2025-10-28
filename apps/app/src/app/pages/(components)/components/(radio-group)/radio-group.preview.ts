@@ -8,24 +8,24 @@ import { HlmRadioGroupImports } from '@spartan-ng/helm/radio-group';
 	imports: [FormsModule, HlmRadioGroupImports, HlmLabelImports],
 	template: `
 		<hlm-radio-group [(ngModel)]="spacing">
-			<label class="flex items-center gap-3" hlmLabel>
-				<hlm-radio value="default">
+			<div class="flex items-center gap-3">
+				<hlm-radio value="default" id="r1" disabled>
 					<hlm-radio-indicator indicator />
 				</hlm-radio>
-				Default
-			</label>
-			<label class="flex items-center gap-3" hlmLabel>
-				<hlm-radio value="comfortable">
+				<label hlmLabel for="r1">Default</label>
+			</div>
+			<div class="flex items-center gap-3">
+				<hlm-radio value="comfortable" id="r2">
 					<hlm-radio-indicator indicator />
 				</hlm-radio>
-				Comfortable
-			</label>
-			<label class="flex items-center gap-3" hlmLabel>
-				<hlm-radio value="compact">
+				<label hlmLabel for="r2">Comfortable</label>
+			</div>
+			<div class="flex items-center gap-3">
+				<hlm-radio value="compact" id="r3">
 					<hlm-radio-indicator indicator />
 				</hlm-radio>
-				Compact
-			</label>
+				<label hlmLabel for="r3">Compact</label>
+			</div>
 		</hlm-radio-group>
 	`,
 })
@@ -38,11 +38,17 @@ import { HlmRadioGroupImports } from '@spartan-ng/helm/radio-group';
 `;
 export const defaultSkeleton = `
 <hlm-radio-group>
-  <label class="flex items-center" hlmLabel>
-		<hlm-radio value="16.1.4">
-			<hlm-radio-indicator indicator />
-		</hlm-radio>
-		v16.1.4
-	</label>
+  <div class="flex items-center gap-3">
+    <hlm-radio value="option-one" id="option-one">
+      <hlm-radio-indicator indicator />
+    </hlm-radio>
+    <label hlmLabel for="option-one"> option-one</label>
+  </div>
+  <div class="flex items-center gap-3">
+    <hlm-radio value="option-two" id="option-two">
+      <hlm-radio-indicator indicator />
+    </hlm-radio>
+    <label hlmLabel for="option-two"> option-two</label>
+  </div>
 </hlm-radio-group>
 `;

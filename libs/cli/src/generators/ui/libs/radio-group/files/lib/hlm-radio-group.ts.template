@@ -13,6 +13,7 @@ import type { ClassValue } from 'clsx';
 		},
 	],
 	host: {
+		'data-slot': 'radio-group',
 		'[class]': '_computedClass()',
 	},
 	template: '<ng-content />',

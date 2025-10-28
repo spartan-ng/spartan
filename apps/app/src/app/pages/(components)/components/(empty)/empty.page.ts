@@ -24,7 +24,7 @@ import { defaultImports, defaultSkeleton, EmptyPreview } from './empty.preview';
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Empty', api: 'empty' },
 	meta: metaWith('spartan/ui - Empty', 'Use the Empty component to display a empty state.'),
-	title: 'spartan/ui - empty',
+	title: 'spartan/ui - Empty',
 };
 @Component({
 	selector: 'spartan-empty',
@@ -132,7 +132,7 @@ export const routeMeta: RouteMeta = {
 			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-page-bottom-nav>
-				<spartan-page-bottom-nav-link href="form-field" label="Form Field" />
+				<spartan-page-bottom-nav-link href="field" label="Field" />
 				<spartan-page-bottom-nav-link direction="previous" href="dropdown-menu" label="Dropdown Menu" />
 			</spartan-page-bottom-nav>
 		</section>

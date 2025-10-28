@@ -72,7 +72,7 @@ export class BrnRadioGroup<T = unknown> implements ControlValueAccessor {
 	public readonly change = output<BrnRadioChange<T>>();
 
 	/**
-	 * The internal disabled state of the radio group. This could be switched to a linkedSignal when we can drop v18 support.
+	 * The internal disabled state of the radio group.
 	 * @internal
 	 */
 	public readonly disabledState = linkedSignal(() => this.disabled());

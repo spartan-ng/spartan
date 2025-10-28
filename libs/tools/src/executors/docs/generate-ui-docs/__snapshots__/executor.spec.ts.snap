@@ -506,7 +506,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "displayWith",
             "required": false,
-            "type": "((value: any) => string) | null",
+            "type": "((value: any) => string) | undefined",
           },
           {
             "name": "optionTemplate",
@@ -557,7 +557,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [
           {
             "name": "value",
-            "type": "any",
+            "type": "T",
           },
           {
             "name": "search",

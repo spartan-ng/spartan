@@ -14,7 +14,6 @@ import {
 	model,
 	output,
 	type TemplateRef,
-	untracked,
 	viewChild,
 } from '@angular/core';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -231,8 +230,18 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 	/** Function to transform the object to the value. */
 	public readonly transformOptionToValue = input<((option: T) => any) | undefined>(this._config.transformOptionToValue);
 
-	/** Function to transform an option value to a display string. Defaults to identity function for strings. */
-	public readonly displayWith = input<((value: any) => string) | null>(null);
+	/** Function to display the selected value as a string. */
+	public readonly displayWith = input<((value: any) => string) | undefined>(this._config.displayWith);
+
+	/** Computed function to get the display value for the selected option. */
+	protected readonly _displaySearchValue = computed(() => {
+		const displayWith = this.displayWith();
+		if (displayWith) {
+			return displayWith;
+		} else {
+			return this.transformValueToSearch();
+		}
+	});
 
 	/** Optional template for rendering each option. */
 	public readonly optionTemplate = input<TemplateRef<HlmAutocompleteOption<T>>>();
@@ -279,14 +288,6 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 			const search = this._search();
 			this.searchChange.emit(search);
 		});
-
-		effect(() => {
-			const displayWith = untracked(this.displayWith);
-			const value = this.value();
-			if (displayWith) {
-				this.search.set(displayWith(value) ?? '');
-			}
-		});
 	}
 
 	protected _searchChanged(event: Event) {
@@ -321,11 +322,12 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 		if (transformer) {
 			option = transformer(option);
 		}
+
 		this.value.set(option);
 		this._onChange?.(option);
 		this.valueChange.emit(option);
 
-		const searchValue = this.transformValueToSearch()(option);
+		const searchValue = this._displaySearchValue()(option);
 		this.search.set(searchValue ?? '');
 		this._brnAutocomplete().close();
 	}
@@ -333,8 +335,9 @@ export class HlmAutocomplete<T> implements ControlValueAccessor {
 	/** CONTROL VALUE ACCESSOR */
 	public writeValue(value: T | null): void {
 		this.value.set(value ? value : undefined);
-		const searchValue = value ? this.transformValueToSearch()(value) : '';
-		this.search.set(searchValue ?? '');
+
+		const searchValue = value ? this._displaySearchValue()(value) : '';
+		this.search.set(searchValue);
 	}
 
 	public registerOnChange(fn: ChangeFn<T | null>): void {

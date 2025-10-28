@@ -221,6 +221,7 @@ export class DocsDialog {
 			.filter((h) => {
 				const url = new URL(h.url);
 				let isPageNotFound = false;
+				// eslint-disable-next-line @typescript-eslint/naming-convention
 				for (const [_, value] of Object.entries(h.hierarchy)) {
 					if (value) {
 						isPageNotFound = value.toLowerCase().includes('page not found');

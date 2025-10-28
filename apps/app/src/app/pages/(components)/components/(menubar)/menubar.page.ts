@@ -69,7 +69,7 @@ export const routeMeta: RouteMeta = {
 			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-page-bottom-nav>
-				<spartan-page-bottom-nav-link href="pagination" label="Pagination" />
+				<spartan-page-bottom-nav-link href="navigation-menu" label="Navigation Menu" />
 				<spartan-page-bottom-nav-link direction="previous" href="label" label="Label" />
 			</spartan-page-bottom-nav>
 		</section>

@@ -50,13 +50,12 @@ import {
 	untracked,
 	ViewContainerRef,
 } from '@angular/core';
-import { brnDevMode } from '@spartan-ng/brain/core';
+import { brnDevMode, computedPrevious } from '@spartan-ng/brain/core';
 import { Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 import { BrnTooltip } from './brn-tooltip';
 import { BrnTooltipContent } from './brn-tooltip-content';
 import { injectBrnTooltipDefaultOptions } from './brn-tooltip.token';
-import { computedPrevious } from './computed-previous';
 
 export type TooltipPosition = 'left' | 'right' | 'above' | 'below' | 'before' | 'after';
 export type TooltipTouchGestures = 'auto' | 'on' | 'off';

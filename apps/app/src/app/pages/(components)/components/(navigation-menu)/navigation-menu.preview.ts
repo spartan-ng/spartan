@@ -3,7 +3,7 @@ import { provideIcons } from '@ng-icons/core';
 import { lucideCheckCircle2, lucideChevronDown, lucideCircle, lucideHelpCircle, lucideLink } from '@ng-icons/lucide';
 import { BrnNavigationMenuImports } from '@spartan-ng/brain/navigation-menu';
 import { HlmIconImports } from '@spartan-ng/helm/icon';
-import { HlmNavigationMenuImports, hlmNavLink } from '@spartan-ng/helm/navigation-menu';
+import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 
 @Component({
 	selector: 'spartan-navigation-menu-preview',
@@ -24,9 +24,8 @@ import { HlmNavigationMenuImports, hlmNavLink } from '@spartan-ng/helm/navigatio
 						<ul class="grid gap-2 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
 							<li class="row-span-3">
 								<a
-									class="{{
-										_hlmNavLink
-									}} from-muted/50 to-muted flex h-full w-full flex-col justify-end rounded-md bg-linear-to-b p-4 no-underline outline-hidden select-none focus:shadow-md md:p-6"
+									hlmNavigationMenuLink
+									class="from-muted/50 to-muted flex h-full w-full flex-col justify-end rounded-md bg-linear-to-b p-4 no-underline outline-hidden select-none focus:shadow-md md:p-6"
 									href="/"
 								>
 									<div class="mb-2 text-lg font-medium sm:mt-4">spartan.ng</div>
@@ -37,7 +36,7 @@ import { HlmNavigationMenuImports, hlmNavLink } from '@spartan-ng/helm/navigatio
 							</li>
 
 							<li>
-								<a [class]="_hlmNavLink" href="/documentation/introduction">
+								<a hlmNavigationMenuLink href="/documentation/introduction">
 									<div class="text-sm leading-none font-medium">Introduction</div>
 									<p class="text-muted-foreground line-clamp-2 text-sm leading-snug">
 										Re-usable components built using Radix UI and Tailwind CSS.
@@ -45,7 +44,7 @@ import { HlmNavigationMenuImports, hlmNavLink } from '@spartan-ng/helm/navigatio
 								</a>
 							</li>
 							<li>
-								<a [class]="_hlmNavLink" href="/documentation/installation">
+								<a hlmNavigationMenuLink href="/documentation/installation">
 									<div class="text-sm leading-none font-medium">Installation</div>
 									<p class="text-muted-foreground line-clamp-2 text-sm leading-snug">
 										How to install dependencies and structure your app.
@@ -53,7 +52,7 @@ import { HlmNavigationMenuImports, hlmNavLink } from '@spartan-ng/helm/navigatio
 								</a>
 							</li>
 							<li>
-								<a [class]="_hlmNavLink" href="/documentation/typography">
+								<a hlmNavigationMenuLink href="/documentation/typography">
 									<div class="text-sm leading-none font-medium">Typography</div>
 									<p class="text-muted-foreground line-clamp-2 text-sm leading-snug">
 										Styles for headings, paragraphs, lists...etc
@@ -77,7 +76,7 @@ import { HlmNavigationMenuImports, hlmNavLink } from '@spartan-ng/helm/navigatio
 						<ul class="grid gap-2 sm:w-[400px] md:w-[500px] md:grid-cols-2 lg:w-[600px]">
 							@for (component of _components; track $index) {
 								<li>
-									<a [class]="_hlmNavLink" [href]="component.href">
+									<a hlmNavigationMenuLink [href]="component.href">
 										<div class="text-sm leading-none font-medium">{{ component.title }}</div>
 										<p class="text-muted-foreground line-clamp-2 text-sm leading-snug">
 											{{ component.description }}
@@ -104,15 +103,15 @@ import { HlmNavigationMenuImports, hlmNavLink } from '@spartan-ng/helm/navigatio
 					<div hlmNavigationMenuContent *brnNavigationMenuContent>
 						<ul class="grid w-[300px] gap-4">
 							<li>
-								<a [class]="_hlmNavLink" class="cursor-pointer">
+								<a hlmNavigationMenuLink class="cursor-pointer">
 									<div class="font-medium">Components</div>
 									<div class="text-muted-foreground">Browse all components in the library.</div>
 								</a>
-								<a [class]="_hlmNavLink" class="cursor-pointer">
+								<a hlmNavigationMenuLink class="cursor-pointer">
 									<div class="font-medium">Documentation</div>
 									<div class="text-muted-foreground">Learn how to use the library.</div>
 								</a>
-								<a [class]="_hlmNavLink" class="cursor-pointer">
+								<a hlmNavigationMenuLink class="cursor-pointer">
 									<div class="font-medium">Blog</div>
 									<div class="text-muted-foreground">Read our latest blog posts.</div>
 								</a>
@@ -132,9 +131,9 @@ import { HlmNavigationMenuImports, hlmNavLink } from '@spartan-ng/helm/navigatio
 					<div hlmNavigationMenuContent *brnNavigationMenuContent>
 						<ul class="grid w-[200px] gap-4">
 							<li>
-								<a [class]="_hlmNavLink" class="cursor-pointer">Components</a>
-								<a [class]="_hlmNavLink" class="cursor-pointer">Documentation</a>
-								<a [class]="_hlmNavLink" class="cursor-pointer">Blocks</a>
+								<a hlmNavigationMenuLink class="cursor-pointer">Components</a>
+								<a hlmNavigationMenuLink class="cursor-pointer">Documentation</a>
+								<a hlmNavigationMenuLink class="cursor-pointer">Blocks</a>
 							</li>
 						</ul>
 					</div>
@@ -151,15 +150,15 @@ import { HlmNavigationMenuImports, hlmNavLink } from '@spartan-ng/helm/navigatio
 					<div hlmNavigationMenuContent *brnNavigationMenuContent>
 						<ul class="grid w-[200px] gap-4">
 							<li>
-								<a class="{{ _hlmNavLink }} cursor-pointer flex-row items-center gap-2">
+								<a hlmNavigationMenuLink class="cursor-pointer flex-row items-center gap-2">
 									<ng-icon name="lucideHelpCircle" />
 									Backlog
 								</a>
-								<a class="{{ _hlmNavLink }} cursor-pointer flex-row items-center gap-2">
+								<a hlmNavigationMenuLink class="cursor-pointer flex-row items-center gap-2">
 									<ng-icon name="lucideCircle" />
 									To Do
 								</a>
-								<a class="{{ _hlmNavLink }} cursor-pointer flex-row items-center gap-2">
+								<a hlmNavigationMenuLink class="cursor-pointer flex-row items-center gap-2">
 									<ng-icon name="lucideCheckCircle2" />
 									Done
 								</a>
@@ -172,8 +171,6 @@ import { HlmNavigationMenuImports, hlmNavLink } from '@spartan-ng/helm/navigatio
 	`,
 })
 export class NavigationMenuPreview {
-	protected readonly _hlmNavLink = hlmNavLink;
-
 	protected readonly _components = [
 		{
 			title: 'Alert Dialog',

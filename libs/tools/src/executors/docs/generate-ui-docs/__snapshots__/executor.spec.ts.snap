@@ -3537,7 +3537,13 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "li[brnNavigationMenuItem]",
       },
       "BrnNavigationMenuLink": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "active",
+            "required": false,
+            "type": "boolean | undefined",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "a[brnNavigationMenuLink]",

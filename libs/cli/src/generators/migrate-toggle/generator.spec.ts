@@ -17,7 +17,7 @@ jest.mock('@nx/devkit', () => {
 	};
 });
 
-describe('migrate-separator generator', () => {
+describe('migrate-toggle generator', () => {
 	let tree: Tree;
 
 	beforeEach(async () => {
@@ -41,7 +41,7 @@ describe('migrate-separator generator', () => {
 			import { NgModule } from '@angular/core';
 			import { BrowserModule } from '@angular/platform-browser';
 			import { BrnToggle } from '@spartan-ng/brain/toggle';
-			import { HlmToggle } from '@spartan-ng/helm/separator';
+			import { HlmToggle } from '@spartan-ng/helm/toggle';
 
 			@NgModule({
 				imports: [BrowserModule, BrnToggle, HlmToggle],

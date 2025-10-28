@@ -5797,7 +5797,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           },
         ],
         "outputs": [],
-        "selector": "button[hlmToggle], button[brnToggle]",
+        "selector": "button[brnToggle]",
       },
     },
     "helm": {
@@ -5821,7 +5821,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "[hlmToggle]",
+        "selector": "button[hlmToggle]",
       },
     },
   },

@@ -29,7 +29,7 @@ export const toggleVariants = cva(
 export type ToggleVariants = VariantProps<typeof toggleVariants>;
 
 @Directive({
-	selector: '[hlmToggle]',
+	selector: 'button[hlmToggle]',
 	hostDirectives: [
 		{ directive: BrnToggle, inputs: ['id', 'value', 'disabled', 'state', 'aria-label'], outputs: ['stateChange'] },
 	],

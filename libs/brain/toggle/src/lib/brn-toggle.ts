@@ -2,7 +2,7 @@ import type { BooleanInput } from '@angular/cdk/coercion';
 import { Directive, booleanAttribute, computed, input, model } from '@angular/core';
 
 @Directive({
-	selector: 'button[hlmToggle], button[brnToggle]',
+	selector: 'button[brnToggle]',
 	host: {
 		'[id]': 'id()',
 		'[attr.disabled]': 'disabled() ? true : null',

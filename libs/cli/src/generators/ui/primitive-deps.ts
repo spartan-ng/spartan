@@ -21,6 +21,7 @@ export const primitiveDependencies: Record<Primitive, Primitive[]> = {
 	'date-picker': ['utils', 'calendar', 'icon', 'popover'],
 	dialog: ['utils'],
 	empty: ['utils'],
+	field: ['utils', 'label', 'separator'],
 	'form-field': ['utils'],
 	'hover-card': ['utils'],
 	'input-group': ['utils'],

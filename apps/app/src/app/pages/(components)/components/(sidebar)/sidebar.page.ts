@@ -12,6 +12,7 @@ import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-
 import { Tabs } from '@spartan-ng/app/app/shared/layout/tabs';
 import { TabsCli } from '@spartan-ng/app/app/shared/layout/tabs-cli';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
+import { SidebarPreview } from '@spartan-ng/app/app/shared/sidebar-preview/sidebar-preview';
 import { HlmCode, HlmP } from '@spartan-ng/helm/typography';
 import { link } from '../../../../shared/typography/link';
 import {
@@ -64,6 +65,7 @@ export const routeMeta: RouteMeta = {
 		Tabs,
 		RouterLink,
 		SectionSubSubHeading,
+		SidebarPreview,
 	],
 	template: `
 		<section spartanMainSection class="space-y-4">
@@ -168,11 +170,7 @@ export const routeMeta: RouteMeta = {
 				<h3 spartanH4>You've created your first sidebar.</h3>
 				<p>You should see something like this:</p>
 
-				<img src="/assets/first-sidebar.png" alt="First sidebar" class="border-border flex rounded border md:hidden" />
-
-				<div class="hidden h-[500px] rounded border border-r md:block">
-					<iframe src="/sidebar-preview/first-sidebar" class="size-full rounded"></iframe>
-				</div>
+				<spartan-sidebar-preview name="first-sidebar" />
 			</div>
 
 			<spartan-section-sub-heading id="sidebar-service">SidebarService</spartan-section-sub-heading>
@@ -390,13 +388,8 @@ export const routeMeta: RouteMeta = {
 			</p>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div class="md:h-[500px]" firstTab>
-					<img
-						src="/assets/sidebar-header.png"
-						alt="sidebar-header"
-						class="border-border flex rounded border md:hidden"
-					/>
-					<iframe src="/sidebar-preview/sidebar-header" class="hidden size-full rounded md:block"></iframe>
+				<div firstTab>
+					<spartan-sidebar-preview name="sidebar-header" />
 				</div>
 
 				<spartan-code secondTab fileName="src/app/app-sidebar.ts" [code]="_header" />
@@ -412,13 +405,8 @@ export const routeMeta: RouteMeta = {
 			</p>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div class="md:h-[500px]" firstTab>
-					<img
-						src="/assets/sidebar-footer.png"
-						alt="sidebar-footer"
-						class="border-border flex rounded border md:hidden"
-					/>
-					<iframe src="/sidebar-preview/sidebar-footer" class="hidden size-full rounded md:block"></iframe>
+				<div firstTab>
+					<spartan-sidebar-preview name="sidebar-footer" />
 				</div>
 
 				<spartan-code secondTab fileName="src/app/app-sidebar.ts" [code]="_footer" />
@@ -465,13 +453,8 @@ export const routeMeta: RouteMeta = {
 			</ul>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div class="md:h-[500px]" firstTab>
-					<img
-						src="/assets/sidebar-group.png"
-						alt="sidebar-group"
-						class="border-border flex rounded border md:hidden"
-					/>
-					<iframe src="/sidebar-preview/sidebar-group" class="hidden size-full rounded md:block"></iframe>
+				<div firstTab>
+					<spartan-sidebar-preview name="sidebar-group" />
 				</div>
 
 				<spartan-code secondTab fileName="src/app/app-sidebar.ts" [code]="_group" />
@@ -486,13 +469,8 @@ export const routeMeta: RouteMeta = {
 			</p>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div class="md:h-[500px]" firstTab>
-					<img
-						src="/assets/sidebar-collapsable.png"
-						alt="sidebar-collapsable"
-						class="border-border flex rounded border md:hidden"
-					/>
-					<iframe src="/sidebar-preview/sidebar-collapsable" class="hidden size-full rounded md:block"></iframe>
+				<div firstTab>
+					<spartan-sidebar-preview name="sidebar-collapsable" />
 				</div>
 
 				<spartan-code secondTab fileName="src/app/app-sidebar.ts" [code]="_collapsable" />
@@ -508,13 +486,8 @@ export const routeMeta: RouteMeta = {
 			</p>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div class="md:h-[500px]" firstTab>
-					<img
-						src="/assets/sidebar-group-action.png"
-						alt="sidebar-group-action"
-						class="border-border flex rounded border md:hidden"
-					/>
-					<iframe src="/sidebar-preview/sidebar-group-action" class="hidden size-full rounded md:block"></iframe>
+				<div firstTab>
+					<spartan-sidebar-preview name="sidebar-group-action" />
 				</div>
 
 				<spartan-code secondTab fileName="src/app/app-sidebar.ts" [code]="_groupAction" />
@@ -557,9 +530,8 @@ export const routeMeta: RouteMeta = {
 			</p>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div class="border-border h-[500px] rounded" firstTab>
-					<img src="/assets/sidebar-menu.png" alt="sidebar-menu" class="border-border flex rounded border md:hidden" />
-					<iframe src="/sidebar-preview/sidebar-menu" class="hidden size-full rounded md:block"></iframe>
+				<div firstTab>
+					<spartan-sidebar-preview name="sidebar-menu" />
 				</div>
 				<spartan-code secondTab fileName="src/app/app-sidebar.ts" [code]="_menu" />
 			</spartan-tabs>
@@ -624,13 +596,8 @@ export const routeMeta: RouteMeta = {
 			</p>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div class="md:h-[500px]" firstTab>
-					<img
-						src="/assets/sidebar-dropdown-menu.png"
-						alt="sidebar-dropdown-menu"
-						class="border-border flex rounded border md:hidden"
-					/>
-					<iframe src="/sidebar-preview/sidebar-dropdown-menu" class="hidden size-full rounded md:block"></iframe>
+				<div firstTab>
+					<spartan-sidebar-preview name="sidebar-dropdown-menu" />
 				</div>
 				<spartan-code secondTab fileName="src/app/app-sidebar.ts" [code]="_menuActionExample" />
 			</spartan-tabs>
@@ -654,13 +621,8 @@ export const routeMeta: RouteMeta = {
 			</p>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div class="md:h-[500px]" firstTab>
-					<img
-						src="/assets/sidebar-menu-sub.png"
-						alt="sidebar-menu-sub"
-						class="border-border flex rounded border md:hidden"
-					/>
-					<iframe src="/sidebar-preview/sidebar-menu-sub" class="hidden size-full rounded md:block"></iframe>
+				<div firstTab>
+					<spartan-sidebar-preview name="sidebar-menu-sub" />
 				</div>
 				<spartan-code secondTab fileName="src/app/app-sidebar.ts" [code]="_menuSubExample" />
 			</spartan-tabs>
@@ -679,16 +641,8 @@ export const routeMeta: RouteMeta = {
 			</p>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div class="md:h-[500px]" firstTab>
-					<img
-						src="/assets/sidebar-menu-sub-collapsable.png"
-						alt="sidebar-menu-sub-collapsable"
-						class="border-border flex rounded border md:hidden"
-					/>
-					<iframe
-						src="/sidebar-preview/sidebar-menu-sub-collapsable"
-						class="hidden size-full rounded md:block"
-					></iframe>
+				<div firstTab>
+					<spartan-sidebar-preview name="sidebar-menu-sub-collapsable" />
 				</div>
 				<spartan-code secondTab fileName="src/app/app-sidebar.ts" [code]="_menuSubCollapsableExample" />
 			</spartan-tabs>
@@ -703,13 +657,8 @@ export const routeMeta: RouteMeta = {
 			</p>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div class="md:h-[500px]" firstTab>
-					<img
-						src="/assets/sidebar-menu-badge.png"
-						alt="sidebar-menu-badge"
-						class="border-border flex rounded border md:hidden"
-					/>
-					<iframe src="/sidebar-preview/sidebar-menu-badge" class="hidden size-full rounded md:block"></iframe>
+				<div firstTab>
+					<spartan-sidebar-preview name="sidebar-menu-badge" />
 				</div>
 				<spartan-code secondTab fileName="src/app/app-sidebar.ts" [code]="_menuBadge" />
 			</spartan-tabs>

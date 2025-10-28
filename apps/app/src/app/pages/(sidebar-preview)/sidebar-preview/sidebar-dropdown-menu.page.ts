@@ -59,12 +59,7 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 			lucideEllipsis,
 		}),
 	],
-	styles: `
-		#spartan-header,
-		#spartan-footer {
-			display: none !important;
-		}
-	`,
+	styleUrl: 'sidebar-default.css',
 })
 export default class SidebarDropdownMenuPage {
 	protected readonly _projects = [

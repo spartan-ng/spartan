@@ -40,12 +40,7 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 			</main>
 		</div>
 	`,
-	styles: `
-		#spartan-header,
-		#spartan-footer {
-			display: none !important;
-		}
-	`,
+	styleUrl: 'sidebar-default.css',
 })
 export default class SidebarMenuSubPage {
 	protected readonly _items = [

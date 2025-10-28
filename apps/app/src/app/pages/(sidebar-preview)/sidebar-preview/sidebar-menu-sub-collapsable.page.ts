@@ -58,12 +58,7 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 		</div>
 	`,
 	providers: [provideIcons({ lucideChevronRight })],
-	styles: `
-		#spartan-header,
-		#spartan-footer {
-			display: none !important;
-		}
-	`,
+	styleUrl: 'sidebar-default.css',
 })
 export default class SidebarMenuSubPageCollapsable {
 	protected readonly _items = [

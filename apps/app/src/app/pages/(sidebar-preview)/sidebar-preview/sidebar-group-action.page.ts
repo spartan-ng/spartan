@@ -61,12 +61,7 @@ import { toast } from 'ngx-sonner';
 			lucidePlus,
 		}),
 	],
-	styles: `
-		#spartan-header,
-		#spartan-footer {
-			display: none !important;
-		}
-	`,
+	styleUrl: 'sidebar-default.css',
 })
 export default class SidebarGroupActionPage {
 	protected _onAddProject(): void {

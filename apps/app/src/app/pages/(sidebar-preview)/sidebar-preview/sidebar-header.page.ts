@@ -42,11 +42,6 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 			lucideChevronDown,
 		}),
 	],
-	styles: `
-		#spartan-header,
-		#spartan-footer {
-			display: none !important;
-		}
-	`,
+	styleUrl: 'sidebar-default.css',
 })
 export default class SidebarHeaderPage {}

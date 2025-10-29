@@ -11,7 +11,6 @@ import {
 	output,
 	PLATFORM_ID,
 	Renderer2,
-	signal,
 } from '@angular/core';
 import { BrnRadio, type BrnRadioChange } from '@spartan-ng/brain/radio-group';
 import { hlm } from '<%- importAlias %>/utils';
@@ -42,7 +41,8 @@ import type { ClassValue } from 'clsx';
 		'[attr.aria-label]': 'null',
 		'[attr.aria-labelledby]': 'null',
 		'[attr.aria-describedby]': 'null',
-		'[attr.data-disabled]': '_state().disabled() ? "" : null',
+		'[attr.data-disabled]': 'disabled() ? "" : null',
+		'data-slot': 'radio-group-item',
 	},
 })
 export class HlmRadio<T = unknown> {
@@ -55,8 +55,8 @@ export class HlmRadio<T = unknown> {
 	protected readonly _computedClass = computed(() =>
 		hlm(
 			'group flex items-center gap-x-3',
+			'data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-50',
 			this.userClass(),
-			this._state().disabled() ? 'cursor-not-allowed opacity-50' : '',
 		),
 	);
 
@@ -83,13 +83,6 @@ export class HlmRadio<T = unknown> {
 	/** Whether the checkbox is disabled. */
 	public readonly disabled = input(false, { transform: booleanAttribute });
 
-	protected readonly _state = computed(() => {
-		const id = this.id();
-		return {
-			disabled: signal(this.disabled()),
-			id: id ? id : null,
-		};
-	});
 	/**
 	 * Event emitted when the checked state of this radio button changes.
 	 */
@@ -98,13 +91,12 @@ export class HlmRadio<T = unknown> {
 
 	constructor() {
 		effect(() => {
-			const state = this._state();
-			const isDisabled = state.disabled();
+			const isDisabled = this.disabled();
 
 			if (!this._elementRef.nativeElement || !this._isBrowser) return;
 
 			const labelElement =
-				this._elementRef.nativeElement.closest('label') ?? this._document.querySelector(`label[for="${state.id}"]`);
+				this._elementRef.nativeElement.closest('label') ?? this._document.querySelector(`label[for="${this.id()}"]`);
 
 			if (!labelElement) return;
 			this._renderer.setAttribute(labelElement, 'data-disabled', isDisabled ? 'true' : 'false');

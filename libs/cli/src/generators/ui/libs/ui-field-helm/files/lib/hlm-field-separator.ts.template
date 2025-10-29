@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
-import { HlmSeparator } from '@spartan-ng/helm/separator';
-import { hlm } from '@spartan-ng/helm/utils';
+import { HlmSeparator } from '<%- importAlias %>/separator';
+import { hlm } from '<%- importAlias %>/utils';
 import { ClassValue } from 'clsx';
 
 @Component({

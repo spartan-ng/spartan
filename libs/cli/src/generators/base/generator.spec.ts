@@ -55,9 +55,7 @@ describe('hlmBaseGenerator', () => {
 
 	it('should delete the default library files under the <publicName>/src/lib/<publicName> directory (library)', async () => {
 		const options = {
-			primitiveName: 'button',
-			internalName: 'ui-button-helm',
-			publicName: 'ui-button-helm',
+			name: 'button',
 			directory: 'libs/test-ui',
 			buildable: true,
 			generateAs: 'library' as const,
@@ -66,16 +64,15 @@ describe('hlmBaseGenerator', () => {
 
 		await hlmBaseGenerator(tree, options);
 
-		const deletedPath = joinPathFragments(options.directory, options.publicName, 'src', 'lib', options.publicName);
+		const deletedPath = joinPathFragments(options.directory, options.name, 'src', 'lib', options.name);
 
 		expect(tree.exists(deletedPath)).toBe(false);
 	});
 
 	it('should generate files correctly for a secondary entrypoint and buildable false', async () => {
 		const options = {
-			primitiveName: 'input',
-			internalName: 'ui-input-helm',
-			publicName: 'ui-input-helm',
+			name: 'input',
+
 			directory: 'libs/test-ui',
 			buildable: false,
 			generateAs: 'entrypoint' as const,
@@ -84,7 +81,7 @@ describe('hlmBaseGenerator', () => {
 
 		await hlmBaseGenerator(tree, options);
 
-		const baseDir = joinPathFragments(options.directory, options.publicName);
+		const baseDir = joinPathFragments(options.directory, options.name);
 
 		const libDir = joinPathFragments(baseDir, 'lib');
 		expect(tree.exists(libDir)).toBe(false);
@@ -98,9 +95,8 @@ describe('hlmBaseGenerator', () => {
 		const { libraryGenerator } = require('@nx/angular/generators');
 
 		const options = {
-			primitiveName: 'input',
-			internalName: 'ui-input-helm',
-			publicName: 'ui-input-helm',
+			name: 'input',
+
 			directory: 'libs/test-ui',
 			buildable: true,
 			generateAs: 'entrypoint' as const,
@@ -118,7 +114,7 @@ describe('hlmBaseGenerator', () => {
 
 		await hlmBaseGenerator(tree, options);
 
-		const baseDir = joinPathFragments(options.directory, options.publicName);
+		const baseDir = joinPathFragments(options.directory, options.name);
 
 		const libDir = joinPathFragments(baseDir, 'lib');
 		expect(tree.exists(libDir)).toBe(false);
@@ -130,9 +126,8 @@ describe('hlmBaseGenerator', () => {
 	it('should register the correct dependencies', async () => {
 		const { addDependenciesToPackageJson } = require('@nx/devkit');
 		const options = {
-			primitiveName: 'icon',
-			internalName: 'ui-icon-helm',
-			publicName: 'ui-icon-helm',
+			name: 'icon',
+
 			directory: 'libs/test-ui',
 			buildable: false,
 			generateAs: 'entrypoint' as const,
@@ -150,9 +145,8 @@ describe('hlmBaseGenerator', () => {
 
 	it('should not duplicate paths in tsconfig.base.json on second run (idempotent)', async () => {
 		const options = {
-			primitiveName: 'badge',
-			internalName: 'ui-badge-helm',
-			publicName: 'ui-badge-helm',
+			name: 'badge',
+
 			directory: 'libs/test-ui',
 			buildable: false,
 			generateAs: 'entrypoint' as const,

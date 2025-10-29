@@ -1,16 +1,10 @@
 import { formatFiles, type Tree } from '@nx/devkit';
 import { getOrCreateConfig } from '../../utils/config';
 import { visitFiles } from '../../utils/visit-files';
+import type { SupportedLibraries } from '../base/lib/supported-libs';
 import { createPrimitiveLibraries } from '../ui/generator';
 import type { Primitive } from '../ui/primitives';
 import type { MigrateHlmGeneratorSchema } from './schema';
-
-type SupportedLibraries = Record<string, SupportedLibrary>;
-
-interface SupportedLibrary {
-	internalName: string;
-	peerDependencies: Record<string, string>;
-}
 
 export async function migrateHlmGenerator(tree: Tree, { skipFormat, angularCli }: MigrateHlmGeneratorSchema) {
 	await ensureHelmUtilsInstalled(tree, angularCli);

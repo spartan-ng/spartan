@@ -1,4 +1,4 @@
-import { type Tree, formatFiles, readJson, readProjectConfiguration, writeJson } from '@nx/devkit';
+import { formatFiles, readJson, readProjectConfiguration, type Tree, writeJson } from '@nx/devkit';
 import * as path from 'node:path';
 import { basename } from 'node:path';
 import type { PackageJson } from 'nx/src/utils/package-json';
@@ -21,7 +21,7 @@ async function createGeneratorFromHlmLibrary(
 	const supportedUILibsJsonPath = path.join(outputDir, 'supported-ui-libraries.json');
 
 	// delete the current generator if it exists
-	const generatorPath = path.join(outputDir, 'libs', `ui-${entrypoint}-helm`);
+	const generatorPath = path.join(outputDir, 'libs', entrypoint);
 
 	if (tree.exists(generatorPath)) {
 		recursivelyDelete(tree, generatorPath);
@@ -31,16 +31,10 @@ async function createGeneratorFromHlmLibrary(
 	const peerDependencies = getPeerDependencies(tree, entrypoint);
 
 	const srcPath = path.join('libs/helm', entrypoint, 'src');
-	const projectRoot = path.join(outputDir, 'libs', `ui-${entrypoint}-helm`);
+	const projectRoot = path.join(outputDir, 'libs', entrypoint);
 	const filesPath = path.join(projectRoot, 'files');
 
-	addPrimitiveToSupportedUILibraries(
-		tree,
-		supportedUILibsJsonPath,
-		entrypoint,
-		`ui-${entrypoint}-helm`,
-		peerDependencies,
-	);
+	addPrimitiveToSupportedUILibraries(tree, supportedUILibsJsonPath, entrypoint, entrypoint, peerDependencies);
 	copyFilesFromHlmLibToGenerator(tree, srcPath, filesPath, options);
 	createSharedGeneratorFiles(tree, projectRoot, options, entrypoint);
 }

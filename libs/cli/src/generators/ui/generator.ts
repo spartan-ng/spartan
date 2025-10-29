@@ -1,4 +1,4 @@
-import { type GeneratorCallback, type Tree, getProjects, runTasksInSerial } from '@nx/devkit';
+import { type GeneratorCallback, getProjects, runTasksInSerial, type Tree } from '@nx/devkit';
 import { prompt } from 'enquirer';
 import { type Config, getOrCreateConfig } from '../../utils/config';
 import type { GenerateAs } from '../base/lib/generate-as';
@@ -102,18 +102,12 @@ export async function createPrimitiveLibraries(
 		primitivesToCreate.map(async (primitiveName) => {
 			if (primitiveName === 'collapsible') return;
 
-			const internalName = availablePrimitives[primitiveName].internalName;
+			const name = availablePrimitives[primitiveName].name;
 			const peerDependencies = removeHelmKeys(availablePrimitives[primitiveName].peerDependencies);
-			const { generator } = await import(
-				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-				// @ts-ignore
-				`./libs/${internalName}/generator`
-			);
+			const { generator } = await import(`./libs/${name}/generator`);
 
 			return generator(tree, {
-				internalName: '',
-				publicName: '',
-				primitiveName: '',
+				name: '',
 				peerDependencies,
 				directory: options.directory ?? config.componentsPath,
 				tags: options.tags,
@@ -161,7 +155,7 @@ const removeHelmKeys = (obj: Record<string, string>) =>
 
 interface PrimitiveDefinitions {
 	[componentName: string]: {
-		internalName: string;
+		name: string;
 		peerDependencies: Record<string, string>;
 	};
 }

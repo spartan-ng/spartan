@@ -9,8 +9,6 @@ import type { HelmSecondaryEntrypointGeneratorSchema } from './schema';
 export async function helmSecondaryEntrypointGenerator(tree: Tree, options: HelmSecondaryEntrypointGeneratorSchema) {
 	const { fileName: normalizedName, className } = names(options.name);
 
-	const internalName = `ui-${normalizedName}-helm`;
-
 	await librarySecondaryEntryPointGenerator(tree, {
 		name: options.name,
 		library: 'helm',
@@ -31,7 +29,7 @@ export async function helmSecondaryEntrypointGenerator(tree: Tree, options: Helm
 		'generators',
 		'ui',
 		'libs',
-		internalName,
+		normalizedName,
 		'generator.ts',
 	);
 
@@ -44,9 +42,7 @@ import type { HlmBaseGeneratorSchema } from '../../../base/schema';
 export async function generator(tree: Tree, options: HlmBaseGeneratorSchema) {
 	return await hlmBaseGenerator(tree, {
 		...options,
-		primitiveName: '${normalizedName}',
-		internalName: '${internalName}',
-		publicName: '${internalName}',
+		name: '${normalizedName}',
 	});
 }`,
 	);

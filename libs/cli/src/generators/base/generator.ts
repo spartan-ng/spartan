@@ -32,11 +32,11 @@ function setupTsConfigAlias(tree: Tree, alias: string, targetLibDir: string) {
 }
 
 async function generateEntrypointFiles(tree: Tree, alias: string, options: HlmBaseGeneratorSchema) {
-	const targetLibDir = `${options.directory}/${options.primitiveName}/src`;
+	const targetLibDir = `${options.directory}/${options.name}/src`;
 
 	if (options.buildable) {
 		await librarySecondaryEntryPointGenerator(tree, {
-			name: options.primitiveName,
+			name: options.name,
 			library: singleLibName,
 			skipFormat: true,
 			skipModule: true,
@@ -49,16 +49,16 @@ async function generateEntrypointFiles(tree: Tree, alias: string, options: HlmBa
 			return json;
 		});
 	}
-	generateFiles(tree, path.join(__dirname, '..', 'ui', 'libs', options.internalName, 'files'), targetLibDir, options);
+	generateFiles(tree, path.join(__dirname, '..', 'ui', 'libs', options.name, 'files'), targetLibDir, options);
 }
 
 function generateLibraryFiles(tree: Tree, targetLibDir: string, options: HlmBaseGeneratorSchema) {
-	const deletePath = joinPathFragments(options.directory, options.publicName, 'src', 'lib', options.publicName);
+	const deletePath = joinPathFragments(options.directory, options.name, 'src', 'lib', options.name);
 	deleteFiles(tree, deletePath);
 
 	generateFiles(
 		tree,
-		path.join(__dirname, '..', 'ui', 'libs', options.internalName, 'files'),
+		path.join(__dirname, '..', 'ui', 'libs', options.name, 'files'),
 		joinPathFragments(targetLibDir, 'src'),
 		options,
 	);
@@ -75,7 +75,7 @@ function registerDependencies(tree: Tree, options: HlmBaseGeneratorSchema): Gene
 export async function hlmBaseGenerator(tree: Tree, options: HlmBaseGeneratorSchema) {
 	const tasks: GeneratorCallback[] = [];
 	const targetLibDir = getTargetLibraryDirectory(options, tree);
-	const tsConfigAlias = `${options.importAlias}/${options.primitiveName}`;
+	const tsConfigAlias = `${options.importAlias}/${options.name}`;
 
 	if (isAlreadyInstalled(tree, tsConfigAlias)) {
 		console.log(`Skipping ${tsConfigAlias}. It's already installed!`);

@@ -3,10 +3,5 @@ import hlmBaseGenerator from '../../../base/generator';
 import type { HlmBaseGeneratorSchema } from '../../../base/schema';
 
 export async function generator(tree: Tree, options: HlmBaseGeneratorSchema) {
-	return await hlmBaseGenerator(tree, {
-		...options,
-		primitiveName: 'textarea',
-		internalName: 'ui-textarea-helm',
-		publicName: 'textarea',
-	});
+	return await hlmBaseGenerator(tree, { ...options, name: 'textarea' });
 }

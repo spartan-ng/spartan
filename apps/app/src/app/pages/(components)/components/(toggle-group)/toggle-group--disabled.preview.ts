@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { NgIcon, provideIcons } from '@ng-icons/core';
+import { provideIcons } from '@ng-icons/core';
 import { lucideBold, lucideItalic, lucideUnderline } from '@ng-icons/lucide';
-import { HlmIcon } from '@spartan-ng/helm/icon';
-import { HlmToggleGroup, HlmToggleGroupItem } from '@spartan-ng/helm/toggle-group';
+import { HlmIconImports } from '@spartan-ng/helm/icon';
+import { HlmToggleGroupImports } from '@spartan-ng/helm/toggle-group';
 
 @Component({
 	selector: 'spartan-toggle-group-disabled',
-	imports: [HlmIcon, HlmToggleGroupItem, HlmToggleGroup, NgIcon],
+	imports: [HlmToggleGroupImports, HlmIconImports],
 	providers: [provideIcons({ lucideBold, lucideItalic, lucideUnderline })],
 	template: `
 		<hlm-toggle-group type="multiple" disabled>

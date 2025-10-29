@@ -23,6 +23,7 @@ import { AutocompleteAsync } from './autocomplete--async.example';
 import { AutocompleteConfig } from './autocomplete--config.example';
 import { AutocompleteCountries } from './autocomplete--countries.example';
 import { AutocompleteForm } from './autocomplete--form.example';
+import { AutocompleteTransformOptionValue } from './autocomplete--transform-option-value.example';
 import { AutocompletePreview, defaultImports, defaultSkeleton } from './autocomplete.preview';
 
 export const routeMeta: RouteMeta = {
@@ -54,6 +55,7 @@ export const routeMeta: RouteMeta = {
 		RouterLink,
 		HlmButtonImports,
 		SectionSubSubHeading,
+		AutocompleteTransformOptionValue,
 	],
 	template: `
 		<section spartanMainSection>
@@ -165,6 +167,35 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_formCode()" />
 			</spartan-tabs>
 
+			<h3 id="examples__transform_option_value" spartanH4>Transform option value</h3>
+
+			<p class="${hlmP}">
+				Use
+				<code class="${hlmCode}">transformOptionToValue</code>
+				to transform an object value into a single value and use
+				<code class="${hlmCode}">displayWith</code>
+				to define how the selected value is displayed in the search input.
+			</p>
+
+			<p class="${hlmP}">
+				In the following example, a list with
+				<code class="${hlmCode}">id: string, label: string</code>
+				objects is used as options. The selected option is transformed to its
+				<code class="${hlmCode}">id</code>
+				using
+				<code class="${hlmCode}">transformOptionToValue</code>
+				and the label is displayed in the search input using
+				<code class="${hlmCode}">displayWith</code>
+				.
+			</p>
+
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-autocomplete-transform-option-value />
+				</div>
+				<spartan-code secondTab [code]="_transformOptionValueCode()" />
+			</spartan-tabs>
+
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="brain" />
 
@@ -186,6 +217,7 @@ export default class AutocompletePage {
 	protected readonly _configCode = computed(() => this._snippets()['config']);
 	protected readonly _asyncCode = computed(() => this._snippets()['async']);
 	protected readonly _formCode = computed(() => this._snippets()['form']);
+	protected readonly _transformOptionValueCode = computed(() => this._snippets()['transformOptionValue']);
 	protected readonly _defaultImports = defaultImports;
 	protected readonly _codeSkeleton = defaultSkeleton;
 }

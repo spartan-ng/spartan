@@ -1,6 +1,7 @@
 export * from './helpers/computed-previous';
 export * from './helpers/create-hover-observable';
 export * from './helpers/custom-element-class-settable';
+export * from './helpers/debounced-signal';
 export * from './helpers/dev-mode';
 export * from './helpers/exposes-side';
 export * from './helpers/exposes-state';

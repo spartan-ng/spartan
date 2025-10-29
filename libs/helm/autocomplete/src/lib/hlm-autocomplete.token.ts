@@ -6,7 +6,6 @@ export interface HlmAutocompleteConfig<T, V = T> {
 	transformValueToSearch: TransformValueToString<T>;
 	transformOptionToString: TransformValueToString<T>;
 	transformOptionToValue: ((option: T) => V) | undefined;
-	displayWith: ((value: V) => string) | undefined;
 	requireSelection: boolean;
 	showClearBtn: boolean;
 	debounceTime: number;
@@ -17,7 +16,6 @@ function getDefaultConfig<T, V = T>(): HlmAutocompleteConfig<T, V> {
 		transformValueToSearch: (option: T) => (typeof option === 'string' ? option : String(option)),
 		transformOptionToString: (option: T) => (typeof option === 'string' ? option : String(option)),
 		transformOptionToValue: undefined,
-		displayWith: undefined,
 		requireSelection: false,
 		showClearBtn: false,
 		debounceTime: 150,

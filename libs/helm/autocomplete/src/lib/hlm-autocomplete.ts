@@ -231,7 +231,7 @@ export class HlmAutocomplete<T, V = T> implements ControlValueAccessor {
 	public readonly transformOptionToValue = input<((option: T) => V) | undefined>(this._config.transformOptionToValue);
 
 	/** Function to display the selected value as a string. */
-	public readonly displayWith = input<((value: V) => string) | undefined>(this._config.displayWith);
+	public readonly displayWith = input<((value: V) => string) | undefined>(undefined);
 
 	/** Computed function to get the display value for the selected option. */
 	protected readonly _displaySearchValue = computed(() => {

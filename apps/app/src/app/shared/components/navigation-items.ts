@@ -55,7 +55,7 @@ export const components: Link[] = [
 	{ label: 'Kbd', url: '/kbd', new: true },
 	{ label: 'Label', url: '/label' },
 	{ label: 'Menubar', url: '/menubar' },
-	{ label: 'Navigation Menu', url: '/navigation-menu', wip: true },
+	{ label: 'Navigation Menu', url: '/navigation-menu', new: true },
 	{ label: 'Pagination', url: '/pagination' },
 	{ label: 'Popover', url: '/popover' },
 	{ label: 'Progress', url: '/progress' },

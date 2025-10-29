@@ -501,12 +501,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "transformOptionToValue",
             "required": false,
-            "type": "((option: T) => any) | undefined",
+            "type": "((option: T) => V) | undefined",
           },
           {
             "name": "displayWith",
             "required": false,
-            "type": "((value: any) => string) | undefined",
+            "type": "((value: V) => string) | undefined",
           },
           {
             "name": "optionTemplate",
@@ -557,7 +557,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [
           {
             "name": "value",
-            "type": "T",
+            "type": "T | V",
           },
           {
             "name": "search",
@@ -567,7 +567,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "outputs": [
           {
             "name": "valueChange",
-            "type": "T | null",
+            "type": "T | V | null",
           },
           {
             "name": "searchChange",

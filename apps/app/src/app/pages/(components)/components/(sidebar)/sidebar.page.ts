@@ -465,7 +465,7 @@ export const routeMeta: RouteMeta = {
 				To make a
 				<span hlmCode>HlmSidebarGroup</span>
 				collapsible, wrap it in a
-				<span hlmCode>BrnCollapsible</span>
+				<span hlmCode>HlmCollapsible</span>
 			</p>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
@@ -636,7 +636,7 @@ export const routeMeta: RouteMeta = {
 				component collapsible, wrap it and the
 				<span>HlmSidebarMenuSub</span>
 				components in a
-				<span hlmCode>BrnCollapsible</span>
+				<span hlmCode>HlmCollapsible</span>
 				.
 			</p>
 

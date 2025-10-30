@@ -22,7 +22,7 @@ const itemMediaVariants = cva(
 export type ItemMediaVariants = VariantProps<typeof itemMediaVariants>;
 
 @Directive({
-	selector: 'div[hlmItemMedia]',
+	selector: '[hlmItemMedia],hlm-item-media',
 	host: {
 		'data-slot': 'item-media',
 		'[attr.data-variant]': 'variant()',

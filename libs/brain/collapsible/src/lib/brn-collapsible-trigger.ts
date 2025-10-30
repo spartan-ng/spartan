@@ -1,5 +1,5 @@
-import { Directive, inject } from '@angular/core';
-import { BrnCollapsible } from './brn-collapsible';
+import { Directive } from '@angular/core';
+import { injectBrnCollapsible } from './brn-collapsible-token';
 
 @Directive({
 	selector: 'button[brnCollapsibleTrigger]',
@@ -12,7 +12,7 @@ import { BrnCollapsible } from './brn-collapsible';
 	},
 })
 export class BrnCollapsibleTrigger {
-	protected readonly _collapsible = inject(BrnCollapsible, { optional: true });
+	protected readonly _collapsible = injectBrnCollapsible();
 
 	constructor() {
 		if (!this._collapsible) {

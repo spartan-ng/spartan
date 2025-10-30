@@ -1,6 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
 
 export const routeMeta: RouteMeta = {
-	redirectTo: '/examples/notes',
+	redirectTo: '/examples/overview',
 	pathMatch: 'full',
 };

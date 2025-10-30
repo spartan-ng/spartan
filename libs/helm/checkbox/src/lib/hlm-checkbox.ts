@@ -52,6 +52,7 @@ export const HLM_CHECKBOX_VALUE_ACCESSOR = {
 	`,
 	host: {
 		class: 'contents peer',
+		'data-slot': 'checkbox',
 		'[attr.id]': 'null',
 		'[attr.aria-label]': 'null',
 		'[attr.aria-labelledby]': 'null',

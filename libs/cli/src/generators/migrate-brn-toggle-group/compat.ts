@@ -1,4 +1,4 @@
 import { convertNxGenerator } from '@nx/devkit';
-import migrateRadioGenerator from './generator';
+import migrateBrnToggleGroupGenerator from './generator';
 
-export default convertNxGenerator(migrateRadioGenerator);
+export default convertNxGenerator(migrateBrnToggleGroupGenerator);

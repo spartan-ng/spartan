@@ -75,7 +75,7 @@ function replaceBrnToggleGroup(input) {
 	return input
 		.split(/(?=<)/)
 		.map((tag) => {
-			// Skip if not a brn-separator tag
+			// Skip if not a brn-toggle-group tag
 			if (!tag.startsWith('<brn-toggle-group')) {
 				return tag;
 			}

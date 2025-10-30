@@ -1,7 +1,6 @@
 import { isPlatformServer } from '@angular/common';
 import {
-	ChangeDetectionStrategy,
-	Component,
+	Directive,
 	ElementRef,
 	type OnInit,
 	PLATFORM_ID,
@@ -11,10 +10,10 @@ import {
 	signal,
 	untracked,
 } from '@angular/core';
-import { BrnCollapsible } from './brn-collapsible';
+import { injectBrnCollapsible } from './brn-collapsible-token';
 
-@Component({
-	selector: 'brn-collapsible-content',
+@Directive({
+	selector: '[brnCollapsibleContent],brn-collapsible-content',
 	host: {
 		'[hidden]': '!_collapsible?.expanded()',
 		'[attr.data-state]': '_collapsible?.expanded() ? "open" : "closed"',
@@ -22,13 +21,9 @@ import { BrnCollapsible } from './brn-collapsible';
 		'[style.--brn-collapsible-content-width.px]': '_width()',
 		'[style.--brn-collapsible-content-height.px]': '_height()',
 	},
-	template: `
-		<ng-content />
-	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BrnCollapsibleContent implements OnInit {
-	protected readonly _collapsible = inject(BrnCollapsible, { optional: true });
+	protected readonly _collapsible = injectBrnCollapsible();
 	private readonly _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 	private readonly _platformId = inject(PLATFORM_ID);
 	/**

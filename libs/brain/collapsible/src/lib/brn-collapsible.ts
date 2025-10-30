@@ -1,20 +1,18 @@
 import type { BooleanInput } from '@angular/cdk/coercion';
-import { ChangeDetectionStrategy, Component, booleanAttribute, input, model, signal } from '@angular/core';
+import { Directive, booleanAttribute, input, model, signal } from '@angular/core';
+import { provideBrnCollapsible } from './brn-collapsible-token';
 
 let collapsibleContentIdSequence = 0;
 
 export type BrnCollapsibleState = 'open' | 'closed';
 
-@Component({
-	selector: 'brn-collapsible',
+@Directive({
+	selector: '[brnCollapsible],brn-collapsible',
 	host: {
 		'[attr.data-state]': 'expanded() ? "open" : "closed"',
 		'[attr.disabled]': 'disabled() ? true : undefined',
 	},
-	template: `
-		<ng-content />
-	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
+	providers: [provideBrnCollapsible(BrnCollapsible)],
 })
 export class BrnCollapsible {
 	public readonly contentId = signal(`brn-collapsible-content-${++collapsibleContentIdSequence}`);

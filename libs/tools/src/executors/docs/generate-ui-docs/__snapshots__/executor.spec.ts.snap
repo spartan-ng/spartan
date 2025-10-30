@@ -1638,7 +1638,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           },
         ],
         "outputs": [],
-        "selector": "brn-collapsible",
+        "selector": "[brnCollapsible],brn-collapsible",
       },
       "BrnCollapsibleContent": {
         "inputs": [
@@ -1650,13 +1650,39 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "brn-collapsible-content",
+        "selector": "[brnCollapsibleContent],brn-collapsible-content",
       },
       "BrnCollapsibleTrigger": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "type",
+            "required": false,
+            "type": "'button' | 'submit' | 'reset'",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "button[brnCollapsibleTrigger]",
+      },
+    },
+    "helm": {
+      "HlmCollapsible": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmCollapsible],hlm-collapsible",
+      },
+      "HlmCollapsibleContent": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmCollapsibleContent],hlm-collapsible-content",
+      },
+      "HlmCollapsibleTrigger": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "button[hlmCollapsibleTrigger]",
       },
     },
   },

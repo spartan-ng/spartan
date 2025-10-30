@@ -52,7 +52,7 @@ export const primitiveDependencies: Record<Primitive, Primitive[]> = {
 	tabs: ['utils'],
 	textarea: ['utils', 'form-field'],
 	toggle: ['utils'],
-	'toggle-group': ['utils'],
+	'toggle-group': ['utils', 'toggle'],
 	tooltip: ['utils'],
 	utils: [],
 };

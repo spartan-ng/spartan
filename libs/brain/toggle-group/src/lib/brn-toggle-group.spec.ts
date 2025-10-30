@@ -7,7 +7,7 @@ import { BrnToggleGroupItem } from './brn-toggle-item';
 @Component({
 	imports: [BrnToggleGroupItem, BrnToggleGroup],
 	template: `
-		<brn-toggle-group [(value)]="value" [disabled]="disabled()" [multiple]="multiple()">
+		<brn-toggle-group [(value)]="value" [disabled]="disabled()" [type]="type()">
 			<button brnToggleGroupItem value="option-1">Option 1</button>
 			<button brnToggleGroupItem value="option-2">Option 2</button>
 			<button brnToggleGroupItem value="option-3">Option 3</button>
@@ -18,13 +18,13 @@ import { BrnToggleGroupItem } from './brn-toggle-item';
 class BrnToggleGroupDirectiveSpec {
 	public readonly value? = model<string | string[]>();
 	public readonly disabled = input(false);
-	public readonly multiple = input(false);
+	public readonly type = input('single');
 }
 
 @Component({
 	imports: [BrnToggleGroupItem, BrnToggleGroup, FormsModule],
 	template: `
-		<brn-toggle-group [(ngModel)]="value" [multiple]="multiple()">
+		<brn-toggle-group [(ngModel)]="value" [type]="type()">
 			<button brnToggleGroupItem value="option-1">Option 1</button>
 			<button brnToggleGroupItem value="option-2">Option 2</button>
 			<button brnToggleGroupItem value="option-3">Option 3</button>
@@ -34,11 +34,11 @@ class BrnToggleGroupDirectiveSpec {
 })
 class BrnToggleGroupDirectiveFormSpec {
 	public readonly value = model<string | string[]>();
-	public readonly multiple = input(false);
+	public readonly type = input('single');
 }
 
 describe('BrnToggleGroupDirective', () => {
-	it('should allow only a single selected toggle button when multiple is false', async () => {
+	it('should allow only a single selected toggle button when type is single', async () => {
 		const { getAllByRole } = await render(BrnToggleGroupDirectiveSpec);
 		const buttons = getAllByRole('button');
 
@@ -57,10 +57,10 @@ describe('BrnToggleGroupDirective', () => {
 		expect(buttons[2]).toHaveAttribute('data-state', 'off');
 	});
 
-	it('should allow multiple selected toggle buttons when multiple is true', async () => {
+	it('should allow multiple selected toggle buttons when type is multiple', async () => {
 		const { getAllByRole, detectChanges } = await render(BrnToggleGroupDirectiveSpec, {
 			inputs: {
-				multiple: true,
+				type: 'multiple',
 			},
 		});
 		const buttons = getAllByRole('button');
@@ -95,7 +95,7 @@ describe('BrnToggleGroupDirective', () => {
 		expect(buttons[2]).toHaveAttribute('disabled');
 	});
 
-	it('should initially select the button with the provided value (multiple = false)', async () => {
+	it('should initially select the button with the provided value (type = single)', async () => {
 		const { getAllByRole, detectChanges } = await render(BrnToggleGroupDirectiveFormSpec, {
 			inputs: {
 				value: 'option-2',
@@ -109,11 +109,11 @@ describe('BrnToggleGroupDirective', () => {
 		expect(buttons[2]).toHaveAttribute('data-state', 'off');
 	});
 
-	it('should initially select the buttons with the provided values (multiple = true)', async () => {
+	it('should initially select the buttons with the provided values (type = multiple)', async () => {
 		const { getAllByRole, detectChanges } = await render(BrnToggleGroupDirectiveFormSpec, {
 			inputs: {
 				value: ['option-1', 'option-3'],
-				multiple: true,
+				type: 'multiple',
 			},
 		});
 		detectChanges();
@@ -124,7 +124,7 @@ describe('BrnToggleGroupDirective', () => {
 		expect(buttons[2]).toHaveAttribute('data-state', 'on');
 	});
 
-	it('should initially select the button with the provided value (multiple = false) using ngModel', async () => {
+	it('should initially select the button with the provided value (type = single) using ngModel', async () => {
 		const { getAllByRole, detectChanges } = await render(BrnToggleGroupDirectiveFormSpec, {
 			inputs: {
 				value: 'option-2',
@@ -138,11 +138,11 @@ describe('BrnToggleGroupDirective', () => {
 		expect(buttons[2]).toHaveAttribute('data-state', 'off');
 	});
 
-	it('should initially select the buttons with the provided values (multiple = true) using ngModel', async () => {
+	it('should initially select the buttons with the provided values (type = multiple) using ngModel', async () => {
 		const { getAllByRole, detectChanges } = await render(BrnToggleGroupDirectiveFormSpec, {
 			inputs: {
 				value: ['option-1', 'option-3'],
-				multiple: true,
+				type: 'multiple',
 			},
 		});
 		detectChanges();

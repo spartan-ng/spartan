@@ -2,14 +2,14 @@ import { Component } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideBold, lucideItalic, lucideUnderline } from '@ng-icons/lucide';
 import { HlmIconImports } from '@spartan-ng/helm/icon';
-import { HlmToggleGroupImports } from '@spartan-ng/helm/toggle-group';
+import { HlmToggleGroup, HlmToggleGroupItem } from '@spartan-ng/helm/toggle-group';
 
 @Component({
-	selector: 'spartan-toggle-group-large',
-	imports: [HlmToggleGroupImports, HlmIconImports],
+	selector: 'spartan-toggle-group-single',
+	imports: [HlmToggleGroupItem, HlmToggleGroup, HlmIconImports],
 	providers: [provideIcons({ lucideBold, lucideItalic, lucideUnderline })],
 	template: `
-		<hlm-toggle-group type="multiple" size="lg">
+		<hlm-toggle-group type="single">
 			<button hlmToggleGroupItem value="bold" aria-label="Toggle bold">
 				<ng-icon hlm size="sm" name="lucideBold" />
 			</button>
@@ -24,4 +24,4 @@ import { HlmToggleGroupImports } from '@spartan-ng/helm/toggle-group';
 		</hlm-toggle-group>
 	`,
 })
-export class ToggleGroupLargePreview {}
+export class ToggleGroupSinglePreview {}

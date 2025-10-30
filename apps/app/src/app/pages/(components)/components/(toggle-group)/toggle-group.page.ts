@@ -9,14 +9,19 @@ import { PageBottomNavLink } from '@spartan-ng/app/app/shared/layout/page-bottom
 import { PageNav } from '@spartan-ng/app/app/shared/layout/page-nav/page-nav';
 import { SectionIntro } from '@spartan-ng/app/app/shared/layout/section-intro';
 import { SectionSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-heading';
+import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { Tabs } from '@spartan-ng/app/app/shared/layout/tabs';
 import { TabsCli } from '@spartan-ng/app/app/shared/layout/tabs-cli';
 import { UIApiDocs } from '@spartan-ng/app/app/shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
+import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { ToggleGroupDisabledPreview } from './toggle-group--disabled.preview';
+import { ToggleGroupSpacingForm } from './toggle-group--form.preview';
 import { ToggleGroupLargePreview } from './toggle-group--large.preview';
 import { ToggleGroupOutlinePreview } from './toggle-group--outline.preview';
+import { ToggleGroupSinglePreview } from './toggle-group--single.preview';
 import { ToggleGroupSmallPreview } from './toggle-group--small.preview';
+import { ToggleGroupSpacingPreview } from './toggle-group--spacing.preview';
 import { ToggleGroupPreview, defaultImports, defaultSkeleton } from './toggle-group.preview';
 
 export const routeMeta: RouteMeta = {
@@ -36,6 +41,7 @@ export const routeMeta: RouteMeta = {
 		MainSection,
 		SectionIntro,
 		SectionSubHeading,
+		SectionSubSubHeading,
 		PageNav,
 		PageBottomNav,
 		PageBottomNavLink,
@@ -46,6 +52,9 @@ export const routeMeta: RouteMeta = {
 		ToggleGroupSmallPreview,
 		ToggleGroupLargePreview,
 		ToggleGroupDisabledPreview,
+		ToggleGroupSinglePreview,
+		ToggleGroupSpacingPreview,
+		ToggleGroupSpacingForm,
 		UIApiDocs,
 	],
 	template: `
@@ -80,6 +89,14 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_outlineCode()" />
 			</spartan-tabs>
 
+			<h3 id="examples__single" spartanH4>Single</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-toggle-group-single />
+				</div>
+				<spartan-code secondTab [code]="_singleCode()" />
+			</spartan-tabs>
+
 			<h3 id="examples__small" spartanH4>Small</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -104,6 +121,29 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_disabledCode()" />
 			</spartan-tabs>
 
+			<h3 id="examples__spacing" spartanH4>Spacing</h3>
+
+			<p class="${hlmP}">
+				Use
+				<code class="${hlmCode}">spacing="2"</code>
+				to add spacing between toggle group items.
+			</p>
+
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-toggle-group-spacing />
+				</div>
+				<spartan-code secondTab [code]="_spacingCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__form" spartanH4>Form</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-toggle-group-form />
+				</div>
+				<spartan-code secondTab [code]="_formCode()" />
+			</spartan-tabs>
+
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="brain" />
 
@@ -124,8 +164,11 @@ export default class ToggleGroupPage {
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _outlineCode = computed(() => this._snippets()['outline']);
 	protected readonly _smallCode = computed(() => this._snippets()['small']);
+	protected readonly _singleCode = computed(() => this._snippets()['single']);
 	protected readonly _largeCode = computed(() => this._snippets()['large']);
 	protected readonly _disabledCode = computed(() => this._snippets()['disabled']);
+	protected readonly _spacingCode = computed(() => this._snippets()['spacing']);
+	protected readonly _formCode = computed(() => this._snippets()['form']);
 	protected readonly _defaultImports = defaultImports;
 	protected readonly _defaultSkeleton = defaultSkeleton;
 }

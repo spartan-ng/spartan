@@ -5774,9 +5774,14 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "boolean",
           },
           {
-            "name": "disableToggleClick",
+            "name": "type",
             "required": false,
-            "type": "boolean",
+            "type": "'button' | 'submit' | 'reset'",
+          },
+          {
+            "name": "aria-label",
+            "required": false,
+            "type": "string | null",
           },
         ],
         "models": [
@@ -5786,7 +5791,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           },
         ],
         "outputs": [],
-        "selector": "button[hlmToggle], button[brnToggle]",
+        "selector": "button[brnToggle]",
       },
     },
     "helm": {
@@ -5810,7 +5815,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "[hlmToggle],[brnToggle][hlm]",
+        "selector": "button[hlmToggle]",
       },
     },
   },
@@ -5820,17 +5825,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "exportAs": "brnToggleGroup",
         "inputs": [
           {
-            "name": "vertical",
+            "name": "type",
             "required": false,
-            "type": "boolean",
+            "type": "ToggleType",
           },
           {
             "name": "nullable",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "multiple",
             "required": false,
             "type": "boolean",
           },
@@ -5856,7 +5856,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "BrnButtonToggleChange<T>",
           },
         ],
-        "selector": "brn-toggle-group",
+        "selector": "[brnToggleGroup],brn-toggle-group",
       },
       "BrnToggleGroupItem": {
         "inputs": [
@@ -5876,9 +5876,14 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "boolean",
           },
           {
-            "name": "disableToggleClick",
+            "name": "type",
             "required": false,
-            "type": "boolean",
+            "type": "'button' | 'submit' | 'reset'",
+          },
+          {
+            "name": "aria-label",
+            "required": false,
+            "type": "string | null",
           },
         ],
         "models": [
@@ -5888,7 +5893,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           },
         ],
         "outputs": [],
-        "selector": "button[hlmToggleGroupItem], button[brnToggleGroupItem]",
+        "selector": "button[brnToggleGroupItem]",
       },
     },
     "helm": {
@@ -5897,12 +5902,17 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "variant",
             "required": false,
-            "type": "ToggleGroupItemVariants['variant']",
+            "type": "ToggleVariants['variant']",
           },
           {
             "name": "size",
             "required": false,
-            "type": "ToggleGroupItemVariants['size']",
+            "type": "ToggleVariants['size']",
+          },
+          {
+            "name": "spacing",
+            "required": false,
+            "type": "number",
           },
           {
             "name": "class",
@@ -5912,19 +5922,19 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "brn-toggle-group[hlm],[hlmToggleGroup]",
+        "selector": "[hlmToggleGroup],hlm-toggle-group",
       },
       "HlmToggleGroupItem": {
         "inputs": [
           {
             "name": "variant",
             "required": false,
-            "type": "ToggleGroupItemVariants['variant']",
+            "type": "ToggleVariants['variant']",
           },
           {
             "name": "size",
             "required": false,
-            "type": "ToggleGroupItemVariants['size']",
+            "type": "ToggleVariants['size']",
           },
           {
             "name": "class",
@@ -5934,7 +5944,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "[hlmToggleGroupItem],[brnToggleGroupItem][hlm]",
+        "selector": "button[hlmToggleGroupItem]",
       },
     },
   },

@@ -19,9 +19,9 @@ import { ButtonDestructive } from './button--destructive.example';
 import { ButtonGhost } from './button--ghost.example';
 import { ButtonIcon } from './button--icon.example';
 import { ButtonLink } from './button--link.example';
-import { ButtonLoading } from './button--loading.example';
 import { ButtonOutline } from './button--outline.example';
 import { ButtonSecondary } from './button--secondary.example';
+import { ButtonSpinner } from './button--spinner.example';
 import { ButtonWithIcon } from './button--with-icon.example';
 import { ButtonPreview, defaultImports, defaultSkeleton } from './button.preview';
 
@@ -54,7 +54,7 @@ export const routeMeta: RouteMeta = {
 		ButtonLink,
 		ButtonIcon,
 		ButtonWithIcon,
-		ButtonLoading,
+		ButtonSpinner,
 		ButtonAnchor,
 		SectionSubSubHeading,
 	],
@@ -128,12 +128,12 @@ export const routeMeta: RouteMeta = {
 				</div>
 				<spartan-code secondTab [code]="_withIconCode()" />
 			</spartan-tabs>
-			<h3 id="examples__loading" spartanH4>Loading</h3>
+			<h3 id="examples__spinner" spartanH4>Spinner</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
-					<spartan-button-loading />
+					<spartan-button-spinner />
 				</div>
-				<spartan-code secondTab [code]="_loadingCode()" />
+				<spartan-code secondTab [code]="_spinnerCode()" />
 			</spartan-tabs>
 			<h3 id="examples__as_anchor" spartanH4>As Anchor</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
@@ -167,7 +167,7 @@ export default class ButtonPage {
 	protected readonly _linkCode = computed(() => this._snippets()['link']);
 	protected readonly _iconCode = computed(() => this._snippets()['icon']);
 	protected readonly _withIconCode = computed(() => this._snippets()['withIcon']);
-	protected readonly _loadingCode = computed(() => this._snippets()['loading']);
+	protected readonly _spinnerCode = computed(() => this._snippets()['spinner']);
 	protected readonly _anchorCode = computed(() => this._snippets()['anchor']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;

@@ -116,7 +116,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_customCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__size" spartanH4>Sizes</h3>
+			<h3 id="examples__size" spartanH4>Size</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-spinner-size-preview />

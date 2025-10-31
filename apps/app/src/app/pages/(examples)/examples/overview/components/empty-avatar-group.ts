@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucidePlus } from '@ng-icons/lucide';
 import { HlmAvatarImports } from '@spartan-ng/helm/avatar';
+import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmEmptyImports } from '@spartan-ng/helm/empty';
 
 @Component({
 	selector: 'spartan-empty-avatar-group',
-	imports: [HlmEmptyImports, HlmAvatarImports, NgIcon],
+	imports: [HlmEmptyImports, HlmAvatarImports, HlmButton, NgIcon],
 	providers: [provideIcons({ lucidePlus })],
 	template: `
 		<div hlmEmpty class="border border-dashed">

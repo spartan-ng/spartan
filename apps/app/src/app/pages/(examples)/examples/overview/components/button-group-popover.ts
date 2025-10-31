@@ -5,10 +5,12 @@ import { BrnPopoverImports } from '@spartan-ng/brain/popover';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmButtonGroupImports } from '@spartan-ng/helm/button-group';
 import { HlmIcon } from '@spartan-ng/helm/icon';
+import { HlmPopoverImports } from '@spartan-ng/helm/popover';
+import { HlmTextarea } from '@spartan-ng/helm/textarea';
 
 @Component({
 	selector: 'spartan-button-group-popover',
-	imports: [HlmButtonGroupImports, BrnPopoverImports, HlmButton, NgIcon, HlmIcon],
+	imports: [HlmButtonGroupImports, BrnPopoverImports, HlmPopoverImports, HlmTextarea, HlmButton, NgIcon, HlmIcon],
 	providers: [provideIcons({ lucideArrowLeft, lucideArrowRight })],
 	template: `
 		<brn-popover sideOffset="5">
@@ -26,7 +28,7 @@ import { HlmIcon } from '@spartan-ng/helm/icon';
 					</div>
 					<div class="p-4 text-sm">
 						<textarea
-							hlmInput
+							hlmTextarea
 							placeholder="Describe your task in natural language."
 							class="mb-4 min-h-16 resize-none"
 						></textarea>

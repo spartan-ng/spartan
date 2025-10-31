@@ -144,26 +144,20 @@ export const routeMeta: RouteMeta = {
 			<div class="flex flex-col gap-6 *:[div]:w-full *:[div]:max-w-full">
 				<spartan-empty-avatar-group />
 				<spartan-spinner-badge />
-
 				<spartan-button-group-input-group />
 				<spartan-field-slider />
-
 				<spartan-input-group />
 			</div>
 			<div class="flex flex-col gap-6 *:[div]:w-full *:[div]:max-w-full">
 				<spartan-input-group-button-example />
-
 				<spartan-item-demo />
-
 				<hlm-field-separator>Appearance Settings</hlm-field-separator>
-
 				<spartan-appearance-settings />
 			</div>
 			<div class="flex flex-col gap-6 *:[div]:w-full *:[div]:max-w-full">
 				<spartan-notion-prompt />
 				<spartan-button-group-demo />
 				<spartan-field-checkbox />
-
 				<div class="flex justify-between gap-4">
 					<spartan-button-group-nested />
 					<spartan-button-group-popover />

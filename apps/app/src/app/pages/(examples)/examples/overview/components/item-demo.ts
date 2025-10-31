@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideBadgeCheck, lucideChevronRight } from '@ng-icons/lucide';
+import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmItemImports } from '@spartan-ng/helm/item';
 
 @Component({
 	selector: 'spartan-item-demo',
-	imports: [HlmItemImports, HlmIcon, NgIcon],
+	imports: [HlmItemImports, HlmButton, HlmIcon, NgIcon],
 	providers: [
 		provideIcons({
 			lucideBadgeCheck,
@@ -17,11 +18,10 @@ import { HlmItemImports } from '@spartan-ng/helm/item';
 	template: `
 		<div hlmItem variant="outline">
 			<div hlmItemContent>
-				<div hlmItemTitle>Basic Item</div>
-				<p hlmItemDescription>A simple item with title and description.</p>
+				<div hlmItemTitle>Two-factor authentication</div>
 			</div>
 			<div hlmItemActions>
-				<button hlmBtn size="sm">Action</button>
+				<button hlmBtn size="sm">Enable</button>
 			</div>
 		</div>
 		<a hlmItem variant="outline" size="sm">

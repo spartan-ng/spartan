@@ -13,17 +13,17 @@ import { HlmMenuImports } from '@spartan-ng/helm/menu';
 	template: `
 		<div hlmButtonGroup>
 			<div hlmButtonGroup>
-				<button hlmBtn variant="outline" size="icon" aria-label="Go Back">
+				<button hlmBtn variant="outline" size="icon-sm" aria-label="Go Back">
 					<ng-icon name="lucideArrowLeft" />
 				</button>
 			</div>
 			<div hlmButtonGroup>
-				<button hlmBtn variant="outline">Archive</button>
-				<button hlmBtn variant="outline">Report</button>
+				<button hlmBtn variant="outline" size="sm">Archive</button>
+				<button hlmBtn variant="outline" size="sm">Report</button>
 			</div>
 			<div hlmButtonGroup>
-				<button hlmBtn variant="outline">Snooze</button>
-				<button hlmBtn variant="outline" align="end" [brnMenuTriggerFor]="menu">
+				<button hlmBtn variant="outline" size="sm">Snooze</button>
+				<button hlmBtn variant="outline" size="sm" align="end" [brnMenuTriggerFor]="menu">
 					<ng-icon name="lucideEllipsis" />
 				</button>
 			</div>

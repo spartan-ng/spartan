@@ -18,7 +18,7 @@ export function buildDependencyArray(
 		dependencies = { ...dependencies, ...options.peerDependencies };
 	}
 
-	if (options.name === 'icon') {
+	if (options.name === 'icon' || options.name === 'spinner') {
 		dependencies = { ...dependencies, '@ng-icons/core': NG_ICONS_VERSION };
 	}
 	return dependencies;

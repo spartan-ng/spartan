@@ -2395,7 +2395,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "[hlmEmpty]",
+        "selector": "[hlmEmpty],hlm-empty",
       },
       "HlmEmptyContent": {
         "inputs": [
@@ -2407,7 +2407,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "[hlmEmptyContent]",
+        "selector": "[hlmEmptyContent],hlm-empty-content",
       },
       "HlmEmptyDescription": {
         "inputs": [
@@ -2431,7 +2431,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "[hlmEmptyHeader]",
+        "selector": "[hlmEmptyHeader],hlm-empty-header",
       },
       "HlmEmptyMedia": {
         "inputs": [
@@ -2448,7 +2448,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "[hlmEmptyMedia]",
+        "selector": "[hlmEmptyMedia],hlm-empty-media",
       },
       "HlmEmptyTitle": {
         "inputs": [
@@ -3007,7 +3007,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "div[hlmItemActions]",
+        "selector": "[hlmItemActions],hlm-item-actions",
       },
       "HlmItemContent": {
         "inputs": [
@@ -3019,7 +3019,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "div[hlmItemContent]",
+        "selector": "[hlmItemContent],hlm-item-content",
       },
       "HlmItemDescription": {
         "inputs": [
@@ -3043,7 +3043,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "div[hlmItemFooter]",
+        "selector": "[hlmItemFooter],hlm-item-footer",
       },
       "HlmItemGroup": {
         "inputs": [
@@ -3055,7 +3055,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "div[hlmItemGroup]",
+        "selector": "[hlmItemGroup],hlm-item-group",
       },
       "HlmItemHeader": {
         "inputs": [
@@ -3067,7 +3067,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "div[hlmItemHeader]",
+        "selector": "[hlmItemHeader],hlm-item-header",
       },
       "HlmItemMedia": {
         "inputs": [
@@ -3084,7 +3084,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "div[hlmItemMedia]",
+        "selector": "[hlmItemMedia],hlm-item-media",
       },
       "HlmItemSeparator": {
         "inputs": [
@@ -3108,7 +3108,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "div[hlmItemTitle]",
+        "selector": "[hlmItemTitle],hlm-item-title",
       },
     },
   },
@@ -5278,6 +5278,16 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
     "helm": {
       "HlmSpinner": {
         "inputs": [
+          {
+            "name": "icon",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "aria-label",
+            "required": false,
+            "type": "string",
+          },
           {
             "name": "class",
             "required": false,

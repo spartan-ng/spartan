@@ -1,20 +1,23 @@
 import { Directive, computed, input } from '@angular/core';
+import { BrnToggle } from '@spartan-ng/brain/toggle';
 import { hlm } from '<%- importAlias %>/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 import type { ClassValue } from 'clsx';
 
+// TODO invalid styles uses aria-invalid
+// aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive
 export const toggleVariants = cva(
-	'ring-offset-background hover:bg-muted hover:text-muted-foreground focus-visible:ring-ring data-[state=on]:bg-accent data-[state=on]:text-accent-foreground inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50',
+	'hover:bg-muted hover:text-muted-foreground focus-visible:border-ring data-[state=on]:bg-accent data-[state=on]:text-accent-foreground focus-visible:ring-ring/50 inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium whitespace-nowrap transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 [&_ng-icon]:pointer-events-none [&_ng-icon]:shrink-0 [&_ng-icon:not([class*="size-"])]:size-4',
 	{
 		variants: {
 			variant: {
 				default: 'bg-transparent',
-				outline: 'border-input hover:bg-accent hover:text-accent-foreground border bg-transparent',
+				outline: 'border-input hover:bg-accent hover:text-accent-foreground border bg-transparent shadow-xs',
 			},
 			size: {
-				default: 'h-9 px-3',
-				sm: 'h-8 px-2',
-				lg: 'h-10 px-3',
+				default: 'h-9 min-w-9 px-2',
+				sm: 'h-8 min-w-8 px-1.5',
+				lg: 'h-10 min-w-10 px-2.5',
 			},
 		},
 		defaultVariants: {
@@ -26,8 +29,16 @@ export const toggleVariants = cva(
 export type ToggleVariants = VariantProps<typeof toggleVariants>;
 
 @Directive({
-	selector: '[hlmToggle],[brnToggle][hlm]',
+	selector: 'button[hlmToggle]',
+	hostDirectives: [
+		{
+			directive: BrnToggle,
+			inputs: ['id', 'value', 'disabled', 'state', 'aria-label', 'type'],
+			outputs: ['stateChange'],
+		},
+	],
 	host: {
+		'data-slot': 'toggle',
 		'[class]': '_computedClass()',
 	},
 })
@@ -36,17 +47,13 @@ export class HlmToggle {
 	public readonly size = input<ToggleVariants['size']>('default');
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 
-	protected readonly _computedClass = computed(() => {
-		const variantToUse = this.variant();
-		const sizeToUse = this.size();
-		const userClass = this.userClass();
-
-		return hlm(
+	protected readonly _computedClass = computed(() =>
+		hlm(
 			toggleVariants({
-				variant: variantToUse,
-				size: sizeToUse,
+				variant: this.variant(),
+				size: this.size(),
 			}),
-			userClass,
-		);
-	});
+			this.userClass(),
+		),
+	);
 }

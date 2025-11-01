@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { BrnMenuImports } from '@spartan-ng/brain/menu';
 import { HlmMenuImports } from '@spartan-ng/helm/menu';
 
@@ -7,22 +7,25 @@ import { HlmMenuImports } from '@spartan-ng/helm/menu';
 	imports: [BrnMenuImports, HlmMenuImports],
 	template: `
 		<div
-			[brnCtxMenuTriggerData]="{ $implicit: { data: 'SomeValue' } }"
+			align="start"
+			side="right"
+			[brnCtxMenuTriggerData]="{ $implicit: { data: 'Changes Saved' } }"
 			[brnCtxMenuTriggerFor]="menu"
 			class="border-border flex h-[150px] w-[300px] items-center justify-center rounded-md border border-dashed text-sm"
 		>
 			Right click here
 		</div>
+		<div class="mt-2 text-center font-mono text-xs">{{ pastedContent() }}</div>
 
 		<ng-template #menu let-ctx>
 			<hlm-menu class="w-64">
 				<hlm-menu-group>
-					<button inset hlmMenuItem>
-						{{ ctx.data }}
+					<button (click)="pastedContent.set(ctx.data)" inset hlmMenuItem>
+						Save
 						<hlm-menu-shortcut>⌘S</hlm-menu-shortcut>
 					</button>
 				</hlm-menu-group>
-				<button inset hlmMenuItem>
+				<button (click)="pastedContent.set('Unsaved Changes')" inset hlmMenuItem>
 					Back
 					<hlm-menu-shortcut>⌘[</hlm-menu-shortcut>
 				</button>
@@ -40,4 +43,6 @@ import { HlmMenuImports } from '@spartan-ng/helm/menu';
 		</ng-template>
 	`,
 })
-export class ContextMenuPreviewWithState {}
+export class ContextMenuPreviewWithState {
+	protected pastedContent = signal('Unsaved Changes');
+}

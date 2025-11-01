@@ -13,7 +13,7 @@ import { HlmCode, hlmCode, hlmP } from '@spartan-ng/helm/typography';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Theming' },
-	meta: metaWith('spartan - Theming', 'Using CSS Variables for theming.'),
+	meta: metaWith('spartan - Theming', 'Customize colors with CSS variables'),
 	title: 'spartan - Theming',
 };
 
@@ -32,86 +32,97 @@ export const routeMeta: RouteMeta = {
 	],
 	template: `
 		<section spartanMainSection>
-			<spartan-section-intro name="Theming" lead="Using CSS Variables for theming." />
-
-			<div hlmAlert variant="destructive" class="mt-6">
-				<h4 hlmAlertTitle>We recommend using Tailwind CSS version 4.</h4>
-				<div hlmAlertDescription>
-					<p>
-						Please note that we cannot guarantee full compatibility of the components with Tailwind CSS version 3, and
-						some features may not function as expected.
-					</p>
-				</div>
-			</div>
+			<spartan-section-intro
+				name="Theming"
+				lead="Customize your design system with CSS variables. No theming API required."
+			/>
 
 			<p class="${hlmP}">
-				<code class="${hlmCode}">spartan/ui</code>
-				is built on TailwindCSS with custom CSS variables:
+				spartan/ui uses CSS variables for theming. Change colors across your entire application by updating values in
+				your
+				<code class="${hlmCode}">styles.css</code>
+				file - no component props, no complex configuration.
 			</p>
-			<spartan-code class="mt-6" code='<div class="bg-background text-foreground">spartan</div>' />
 
-			<spartan-section-sub-heading id="convention">Convention</spartan-section-sub-heading>
+			<spartan-code class="mt-6" code='<div class="bg-background text-foreground">Themed content</div>' />
+
+			<spartan-section-sub-heading id="how-it-works">How it works</spartan-section-sub-heading>
 
 			<p class="${hlmP}">
-				As shadcn, we use a simple
+				CSS variables are defined in your
+				<code class="${hlmCode}">styles.css</code>
+				and referenced in Tailwind utility classes. Update the variable, and every component using that color updates
+				automatically.
+			</p>
+
+			<spartan-code
+				class="mt-6"
+				fileName="styles.css"
+				code=":root {
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+}"
+			/>
+
+			<p class="${hlmP}">Use the color in your markup with Tailwind classes:</p>
+
+			<spartan-code class="mt-6" code='<button class="bg-primary text-primary-foreground">Click me</button>' />
+
+			<spartan-section-sub-heading id="convention">Color naming convention</spartan-section-sub-heading>
+
+			<p class="${hlmP}">
+				spartan follows a
 				<code class="${hlmCode}">background</code>
 				and
 				<code class="${hlmCode}">foreground</code>
-				convention for colors. The
-				<code class="${hlmCode}">background</code>
-				variable is used for the background color of the component and the
-				<code class="${hlmCode}">foreground</code>
-				variable is used for the text color.
+				convention for semantic color pairs. Each background color has a corresponding foreground color for text that
+				sits on top of it.
 			</p>
+
+			<div class="mt-6 grid gap-4 md:grid-cols-2">
+				<div>
+					<p class="mb-2 text-sm font-semibold">Background colors:</p>
+					<ul class="space-y-1 text-sm">
+						<li><code class="${hlmCode}">bg-primary</code></li>
+						<li><code class="${hlmCode}">bg-secondary</code></li>
+						<li><code class="${hlmCode}">bg-destructive</code></li>
+						<li><code class="${hlmCode}">bg-muted</code></li>
+					</ul>
+				</div>
+				<div>
+					<p class="mb-2 text-sm font-semibold">Foreground colors:</p>
+					<ul class="space-y-1 text-sm">
+						<li><code class="${hlmCode}">text-primary-foreground</code></li>
+						<li><code class="${hlmCode}">text-secondary-foreground</code></li>
+						<li><code class="${hlmCode}">text-destructive-foreground</code></li>
+						<li><code class="${hlmCode}">text-muted-foreground</code></li>
+					</ul>
+				</div>
+			</div>
+
 			<div class="mt-6" hlmAlert>
 				<div hlmAlertDescription>
 					<p>
 						The
-						<code class="${hlmCode}">background</code>
-						suffix is omitted when the variable is used for the background color of the component.
+						<code class="${hlmCode}">-background</code>
+						suffix is omitted from CSS variable names. The variable
+						<code class="${hlmCode}">--primary</code>
+						maps to the class
+						<code class="${hlmCode}">bg-primary</code>
+						.
 					</p>
 				</div>
 			</div>
-			<p class="${hlmP}">Given the following CSS variables:</p>
-			<spartan-code
-				class="mt-6"
-				code="
---primary: oklch(0.205 0 0);
---primary-foreground: oklch(0.985 0 0);
-"
-			/>
+
+			<spartan-section-sub-heading id="available-variables">Available variables</spartan-section-sub-heading>
+
 			<p class="${hlmP}">
-				The
-				<code class="${hlmCode}">background</code>
-				color of the following component will be
-				<code class="${hlmCode}">hsl(var(--primary))</code>
-				and the
-				<code class="${hlmCode}">foreground</code>
-				color will be
-				<code class="${hlmCode}">hsl(var(--primary-foreground))</code>
-				.
+				Here are all CSS variables you can customize. Define them in
+				<code class="${hlmCode}">:root</code>
+				for light mode and
+				<code class="${hlmCode}">.dark</code>
+				for dark mode:
 			</p>
-			<spartan-code class="mt-6" code='<div class="bg-primary text-primary-foreground">Hello</div>' />
-			<div class="mt-6 text-sm" hlmAlert>
-				<div hlmAlertDescription>
-					<p>
-						<span class="font-semibold">CSS variables must be defined without color space function.</span>
-						See the
-						<a
-							class="font-medium underline"
-							href="https://tailwindcss.com/docs/customizing-colors#using-css-variables"
-							target="_blank"
-						>
-							Tailwind CSS documentation
-						</a>
-						for more information.
-					</p>
-				</div>
-			</div>
-
-			<spartan-section-sub-heading id="list-of-variables">List of variables</spartan-section-sub-heading>
-
-			<p class="${hlmP}">Here's the list of variables available for customization:</p>
 
 			<spartan-code
 				class="mt-6"
@@ -176,11 +187,33 @@ export const routeMeta: RouteMeta = {
 }"
 			/>
 
-			<spartan-section-sub-heading id="adding-new-color">Adding new colors</spartan-section-sub-heading>
+			<div class="mt-6 text-sm" hlmAlert>
+				<div hlmAlertDescription>
+					<p>
+						<span class="font-semibold">Use OKLCH without the color space function.</span>
+						Define variables as
+						<code class="${hlmCode}">oklch(0.5 0.2 180)</code>
+						, not
+						<code class="${hlmCode}">oklch(0.5, 0.2, 180)</code>
+						. See the
+						<a
+							class="font-medium underline"
+							href="https://tailwindcss.com/docs/customizing-colors#using-css-variables"
+							target="_blank"
+						>
+							Tailwind documentation
+						</a>
+						for details.
+					</p>
+				</div>
+			</div>
 
-			<p class="${hlmP}">To add new colors, you need to add them to your CSS file.</p>
+			<spartan-section-sub-heading id="adding-colors">Adding custom colors</spartan-section-sub-heading>
+
+			<p class="${hlmP}">Add new semantic colors by defining the CSS variable and registering it with Tailwind:</p>
 
 			<spartan-code
+				class="mt-6"
 				fileName="styles.css"
 				code=":root {
   --warning: oklch(0.84 0.16 84);
@@ -197,13 +230,26 @@ export const routeMeta: RouteMeta = {
   --color-warning-foreground: var(--warning-foreground);
 }"
 			/>
-			<p class="${hlmP}">
-				You can now use the
-				<span hlmCode>warning</span>
-				utility class in your components.
-			</p>
 
-			<spartan-code code='<div class="bg-warning text-warning-foreground"</div>' />
+			<p class="${hlmP}">Use the new color with Tailwind classes:</p>
+
+			<spartan-code class="mt-6" code='<div class="bg-warning text-warning-foreground">Warning message</div>' />
+
+			<spartan-section-sub-heading id="tailwind-version">Tailwind CSS version</spartan-section-sub-heading>
+
+			<div hlmAlert variant="destructive" class="mt-4 mb-6">
+				<h4 hlmAlertTitle>Use Tailwind CSS v4</h4>
+				<div hlmAlertDescription>
+					<p>
+						spartan/ui is optimized for Tailwind CSS v4. Some theming features may not work correctly with v3. We
+						recommend
+						<a href="https://tailwindcss.com/docs/upgrade-guide" target="_blank" class="font-medium underline">
+							upgrading to v4
+						</a>
+						for the best experience.
+					</p>
+				</div>
+			</div>
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="dark-mode" label="Dark Mode" />

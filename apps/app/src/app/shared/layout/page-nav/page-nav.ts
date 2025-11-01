@@ -14,6 +14,8 @@ import {
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { ApiDocsService } from '@spartan-ng/app/app/core/services/api-docs.service';
+import { PageNavZeropsAd } from '@spartan-ng/app/app/shared/layout/page-nav/page-nav-zerops-ad';
+import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmScrollArea } from '@spartan-ng/helm/scroll-area';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { PageNavLink } from './page-nav-link';
@@ -28,27 +30,38 @@ type SamePageAnchorLink = {
 @Component({
 	selector: 'spartan-page-nav',
 
-	imports: [HlmScrollArea, NgScrollbarModule, NgClass, PageNavLink],
+	imports: [HlmScrollArea, NgScrollbarModule, NgClass, PageNavLink, HlmButton, PageNavZeropsAd],
 	host: {
-		class: 'hidden xl:block text-sm',
+		class: 'hidden max-w-sm xl:block text-sm',
 	},
 	template: `
 		<ng-template #pageNav>
 			@if (_computedLinks().length > 0) {
 				<div class="h-(--top-spacing) shrink-0"></div>
-				<ng-scrollbar hlm class="h-[calc(100svh-var(--footer-height)+2rem-var(--stable-height))] py-2">
-					<div class="flex flex-col gap-2 p-4 pt-0 text-sm">
-						<p class="text-muted-foreground bg-background text-xs">On this page</p>
-
-						@for (link of _computedLinks(); track link.id) {
-							<spartan-page-nav-link [ngClass]="{ 'pl-4': link.isNested }" [fragment]="link.id" [label]="link.label" />
-						}
+				<div>
+					<p class="text-muted-foreground bg-background px-4 pb-2 text-xs">On This Page</p>
+					<ng-scrollbar hlm class="h-[calc(100svh-14rem-var(--footer-height)+2rem-var(--stable-height))] py-2">
+						<div class="flex flex-col gap-2 p-4 pt-0 text-sm">
+							@for (link of _computedLinks(); track link.id) {
+								<spartan-page-nav-link
+									[ngClass]="{ 'pl-4': link.isNested }"
+									[fragment]="link.id"
+									[label]="link.label"
+								/>
+							}
+						</div>
+					</ng-scrollbar>
+					<div class="flex items-center justify-center px-4">
+						<spartan-page-nav-zerops-ad />
 					</div>
-				</ng-scrollbar>
+				</div>
 			} @else {
 				@if (_isDevMode()) {
-					[DEV] Nothing to see here!
+					<div>[DEV] Nothing to see here!</div>
 				}
+				<div class="px-4">
+					<spartan-page-nav-zerops-ad />
+				</div>
 			}
 		</ng-template>
 	`,

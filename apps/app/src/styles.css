@@ -17,6 +17,7 @@
 
 	--color-surface: var(--surface);
 	--color-surface-foreground: var(--surface-foreground);
+	--spotlight-gradient: 68.54% 68.72% at 55.02% 31.46%, #d9d9d914 0, #8c8c8c05 50%, #73737300 80%;
 }
 
 :root {

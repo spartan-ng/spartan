@@ -31,12 +31,12 @@ import { HeaderMobileNav } from './header-mobile-nav';
 	],
 	providers: [provideIcons({ lucideTwitter, lucideGithub })],
 	host: {
-		class: 'bg-background sticky top-0 z-50 w-full',
+		class: 'backdrop-blur-sm sticky top-0 z-50 w-full',
 	},
 	template: `
 		<div class="container-wrapper 3xl:fixed:px-0 px-6">
 			<div class="3xl:fixed:container flex h-(--header-height) items-center gap-2 **:data-[slot=separator]:!h-4">
-				<a hlmBtn variant="ghost" class="mr-3 hidden p-1.5 lg:flex" routerLink="/">
+				<a hlmBtn variant="ghost" class="hidden p-1.5 lg:flex" routerLink="/">
 					<spartan-logo class="w-14" />
 					<span class="sr-only">spartan</span>
 				</a>
@@ -45,10 +45,10 @@ import { HeaderMobileNav } from './header-mobile-nav';
 
 				<div class="hidden sm:space-x-2 lg:flex">
 					<a spartanNavLink="/documentation">Docs</a>
-					<a spartanNavLink="/stack">Stack</a>
 					<a spartanNavLink="/components">Components</a>
 					<a spartanNavLink="/examples">Examples</a>
 					<a spartanNavLink="/colors">Colors</a>
+					<a spartanNavLink="/stack">Stack</a>
 				</div>
 
 				<div class="ml-auto flex items-center gap-2 md:flex-1 md:justify-end">

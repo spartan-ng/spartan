@@ -60,7 +60,7 @@ import {
 
 				<hlm-menu-separator />
 
-				<button hlmMenuItem [brnMenuTriggerFor]="share">
+				<button hlmMenuItem align="start" side="right" [brnMenuTriggerFor]="share">
 					Share
 					<hlm-menu-item-sub-indicator />
 				</button>
@@ -96,7 +96,7 @@ import {
 
 				<hlm-menu-separator />
 
-				<button hlmMenuItem [brnMenuTriggerFor]="find">
+				<button hlmMenuItem align="start" side="right" [brnMenuTriggerFor]="find">
 					Share
 					<hlm-menu-item-sub-indicator />
 				</button>

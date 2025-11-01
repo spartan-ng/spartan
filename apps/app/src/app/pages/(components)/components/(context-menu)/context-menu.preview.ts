@@ -10,6 +10,8 @@ import { HlmMenuImports } from '@spartan-ng/helm/menu';
 	template: `
 		<div
 			[brnCtxMenuTriggerFor]="menu"
+			align="start"
+			side="right"
 			class="border-border flex h-[150px] w-[300px] items-center justify-center rounded-md border border-dashed text-sm"
 		>
 			Right click here
@@ -33,7 +35,7 @@ import { HlmMenuImports } from '@spartan-ng/helm/menu';
 						<hlm-menu-shortcut>⌘R</hlm-menu-shortcut>
 					</button>
 
-					<button inset hlmMenuItem [brnMenuTriggerFor]="moreTools">
+					<button inset hlmMenuItem [brnMenuTriggerFor]="moreTools" align="start" side="right">
 						More Tools
 						<hlm-menu-item-sub-indicator />
 					</button>

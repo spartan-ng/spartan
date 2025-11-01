@@ -13,7 +13,7 @@ export class HlmButtonGroupText {
 
 	protected readonly _computedClass = computed(() =>
 		hlm(
-			"bg-muted flex items-center gap-2 rounded-md border px-4 text-sm font-medium shadow-xs [&_ng-icon]:pointer-events-none [&_ng-icon:not([class*='size-'])]:size-4",
+			"bg-muted flex items-center gap-2 rounded-md border px-4 text-sm font-medium shadow-xs [&_ng-icon]:pointer-events-none [&_ng-icon:not([class*='text-'])]:text-base",
 			this.userClass(),
 		),
 	);

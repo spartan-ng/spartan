@@ -7,7 +7,7 @@ import type { ClassValue } from 'clsx';
 // TODO invalid styles uses aria-invalid
 // aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive
 export const toggleVariants = cva(
-	'hover:bg-muted hover:text-muted-foreground focus-visible:border-ring data-[state=on]:bg-accent data-[state=on]:text-accent-foreground focus-visible:ring-ring/50 inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium whitespace-nowrap transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 [&_ng-icon]:pointer-events-none [&_ng-icon]:shrink-0 [&_ng-icon:not([class*="size-"])]:size-4',
+	'hover:bg-muted hover:text-muted-foreground focus-visible:border-ring data-[state=on]:bg-accent data-[state=on]:text-accent-foreground focus-visible:ring-ring/50 inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium whitespace-nowrap transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 [&_ng-icon]:pointer-events-none [&_ng-icon]:shrink-0 [&_ng-icon:not([class*="text-"])]:text-base',
 	{
 		variants: {
 			variant: {

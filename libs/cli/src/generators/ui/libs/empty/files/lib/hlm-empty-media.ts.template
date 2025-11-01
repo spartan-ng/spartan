@@ -9,7 +9,7 @@ const emptyMediaVariants = cva(
 		variants: {
 			variant: {
 				default: 'bg-transparent',
-				icon: "bg-muted text-foreground flex size-10 shrink-0 items-center justify-center rounded-lg [&_ng-icon:not([class*='size-'])]:size-6",
+				icon: "bg-muted text-foreground flex size-10 shrink-0 items-center justify-center rounded-lg [&_ng-icon:not([class*='text-'])]:text-2xl",
 			},
 		},
 		defaultVariants: {
@@ -21,7 +21,7 @@ const emptyMediaVariants = cva(
 export type EmptyMediaVariants = VariantProps<typeof emptyMediaVariants>;
 
 @Directive({
-	selector: '[hlmEmptyMedia]',
+	selector: '[hlmEmptyMedia],hlm-empty-media',
 	host: {
 		'data-slot': 'empty-media',
 		'[class]': '_computedClass()',

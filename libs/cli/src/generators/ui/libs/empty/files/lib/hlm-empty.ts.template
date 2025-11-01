@@ -3,7 +3,7 @@ import { hlm } from '<%- importAlias %>/utils';
 import type { ClassValue } from 'clsx';
 
 @Directive({
-	selector: '[hlmEmpty]',
+	selector: '[hlmEmpty],hlm-empty',
 	host: {
 		'data-slot': 'empty',
 		'[class]': '_computedClass()',

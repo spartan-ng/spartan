@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucidePlus } from '@ng-icons/lucide';
 import { HlmAvatarImports } from '@spartan-ng/helm/avatar';
@@ -41,5 +41,6 @@ import { HlmEmptyImports } from '@spartan-ng/helm/empty';
 			</div>
 		</div>
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EmptyAvatarGroup {}

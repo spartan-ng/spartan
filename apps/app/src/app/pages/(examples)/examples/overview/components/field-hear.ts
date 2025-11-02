@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { HlmCardImports } from '@spartan-ng/helm/card';
 import { HlmCheckbox } from '@spartan-ng/helm/checkbox';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
@@ -27,6 +27,7 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 											<hlm-checkbox
 												class="-ml-6 -translate-x-1 rounded-full! transition-all duration-100 ease-linear data-[state=checked]:ml-0 data-[state=checked]:translate-x-0"
 												[id]="option.value"
+												[checked]="option.value === 'social-media'"
 											/>
 											<div hlmFieldTitle>{{ option.label }}</div>
 										</div>
@@ -39,6 +40,7 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 			</div>
 		</div>
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FieldHear {
 	options = [

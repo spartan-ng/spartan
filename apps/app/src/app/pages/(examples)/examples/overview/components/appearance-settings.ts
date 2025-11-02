@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideMinus, lucidePlus } from '@ng-icons/lucide';
 import { HlmButton } from '@spartan-ng/helm/button';
@@ -26,7 +26,7 @@ import { HlmSwitch } from '@spartan-ng/helm/switch';
 		<fieldset hlmFieldSet>
 			<div hlmFieldGroup>
 				<fieldset hlmFieldSet>
-					<label hlmFieldLabel>Compute Environment</label>
+					<legend hlmFieldLegend>Compute Environment</legend>
 					<p hlmFieldDescription>Select the compute environment for your cluster.</p>
 					<hlm-radio-group value="kubernetes">
 						<label hlmFieldLabel for="kubernetes">
@@ -70,7 +70,7 @@ import { HlmSwitch } from '@spartan-ng/helm/switch';
 					</button>
 				</div>
 			</div>
-
+			<hlm-field-separator />
 			<div hlmField orientation="horizontal">
 				<div hlmFieldContent>
 					<label hlmFieldLabel for="exp-wallpaper-tinting">Wallpaper Tinting</label>
@@ -80,6 +80,7 @@ import { HlmSwitch } from '@spartan-ng/helm/switch';
 			</div>
 		</fieldset>
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppearanceSettings {
 	protected readonly _gpuCount = signal(8);

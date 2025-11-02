@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideBadgeCheck, lucideChevronRight } from '@ng-icons/lucide';
 import { HlmButton } from '@spartan-ng/helm/button';
@@ -36,5 +36,6 @@ import { HlmItemImports } from '@spartan-ng/helm/item';
 			</div>
 		</a>
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ItemDemo {}

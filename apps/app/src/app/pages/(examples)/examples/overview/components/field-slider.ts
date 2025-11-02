@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
 import { HlmSlider } from '@spartan-ng/helm/slider';
 
@@ -16,6 +16,7 @@ import { HlmSlider } from '@spartan-ng/helm/slider';
 			</div>
 		</fieldset>
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FieldSlider {
 	public readonly sliderValue = signal(500);

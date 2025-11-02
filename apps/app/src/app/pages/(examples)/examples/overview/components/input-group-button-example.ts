@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { tablerInfoCircle, tablerStar } from '@ng-icons/tabler-icons';
 import { HlmIcon } from '@spartan-ng/helm/icon';
@@ -30,12 +30,13 @@ import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 			</div>
 		</div>
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InputGroupButtonExample {
 	protected readonly _isFavorite = signal(false);
 
 	protected readonly _favoriteClass = computed(() =>
-		this._isFavorite() ? '[&>svg]:fill-blue-600 [&>svg]:stroke-blue-600' : '',
+		this._isFavorite() ? '[&>svg]:fill-primary [&>svg]:stroke-primary' : '',
 	);
 
 	protected _toggleFavorite(): void {

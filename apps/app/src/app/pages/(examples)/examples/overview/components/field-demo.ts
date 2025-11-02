@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmCheckbox } from '@spartan-ng/helm/checkbox';
@@ -29,7 +29,7 @@ import { HlmTextarea } from '@spartan-ng/helm/textarea';
 							<div hlmField class="col-span-2">
 								<label hlmFieldLabel for="field-preview-card-number">Card number</label>
 								<input hlmInput placeholder="1234 1234 1234 1234" id="field-preview-card-number" />
-								<p hlmFieldDescription>Enter your 16-digit card number without spaces or dashes.</p>
+								<p hlmFieldDescription>Enter your 16-digit card number.</p>
 							</div>
 							<div hlmField>
 								<label hlmFieldLabel for="field-preview-cvv">CVV</label>
@@ -93,7 +93,7 @@ import { HlmTextarea } from '@spartan-ng/helm/textarea';
 					<div hlmFieldGroup>
 						<div hlmField>
 							<label hlmFieldLabel for="field-preview-comments">Comments</label>
-							<textarea hlmTextarea class="resize-none" id="field-preview-comments"></textarea>
+							<textarea hlmTextarea id="field-preview-comments"></textarea>
 						</div>
 					</div>
 				</fieldset>
@@ -104,5 +104,6 @@ import { HlmTextarea } from '@spartan-ng/helm/textarea';
 			</div>
 		</form>
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FieldDemo {}

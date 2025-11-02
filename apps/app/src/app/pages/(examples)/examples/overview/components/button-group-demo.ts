@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideArrowLeft, lucideEllipsis } from '@ng-icons/lucide';
 import { BrnMenuTrigger } from '@spartan-ng/brain/menu';
@@ -89,6 +89,7 @@ import { HlmMenuImports } from '@spartan-ng/helm/menu';
 			</hlm-sub-menu>
 		</ng-template>
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ButtonGroupDemo {
 	public readonly label = signal('personal');

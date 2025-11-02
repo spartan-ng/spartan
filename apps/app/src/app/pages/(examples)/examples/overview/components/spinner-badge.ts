@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { HlmBadge } from '@spartan-ng/helm/badge';
 import { HlmSpinner } from '@spartan-ng/helm/spinner';
 
@@ -11,7 +11,7 @@ import { HlmSpinner } from '@spartan-ng/helm/spinner';
 	template: `
 		<span hlmBadge class="rounded-full">
 			<hlm-spinner class="size-3" />
-			Verified
+			Loading
 		</span>
 		<span hlmBadge variant="secondary" class="rounded-full">
 			<hlm-spinner class="size-3" />
@@ -22,5 +22,6 @@ import { HlmSpinner } from '@spartan-ng/helm/spinner';
 			Updating
 		</span>
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SpinnerBadge {}

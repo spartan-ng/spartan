@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmEmptyImports } from '@spartan-ng/helm/empty';
 import { HlmSpinner } from '@spartan-ng/helm/spinner';
@@ -20,5 +20,6 @@ import { HlmSpinner } from '@spartan-ng/helm/spinner';
 			</div>
 		</div>
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SpinnerEmpty {}

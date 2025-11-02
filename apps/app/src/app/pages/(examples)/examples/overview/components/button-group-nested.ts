@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideArrowLeft, lucideArrowRight } from '@ng-icons/lucide';
 import { HlmButton } from '@spartan-ng/helm/button';
@@ -26,5 +26,6 @@ import { HlmIcon } from '@spartan-ng/helm/icon';
 			</div>
 		</div>
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ButtonGroupNested {}

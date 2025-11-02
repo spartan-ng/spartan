@@ -1,48 +1,7 @@
 import { RouteMeta } from '@analogjs/router';
-import { Component, computed, signal } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
-import { NgIcon, provideIcons } from '@ng-icons/core';
-import {
-	lucideArrowLeft,
-	lucideArrowRight,
-	lucideArrowUp,
-	lucideAudioLines,
-	lucideBadgeCheck,
-	lucideBot,
-	lucideCheck,
-	lucideChevronDown,
-	lucideEllipsis,
-	lucideInfo,
-	lucideMinus,
-	lucidePlus,
-	lucideSearch,
-	lucideSend,
-} from '@ng-icons/lucide';
-import { tablerInfoCircle, tablerStar } from '@ng-icons/tabler-icons';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
-import { BrnMenuTrigger } from '@spartan-ng/brain/menu';
-import { BrnPopoverImports } from '@spartan-ng/brain/popover';
-import { BrnSelectImports } from '@spartan-ng/brain/select';
-import { HlmAvatarImports } from '@spartan-ng/helm/avatar';
-import { HlmBadgeImports } from '@spartan-ng/helm/badge';
-import { HlmButton } from '@spartan-ng/helm/button';
-import { HlmButtonGroupImports } from '@spartan-ng/helm/button-group';
-import { HlmCheckbox } from '@spartan-ng/helm/checkbox';
-import { HlmEmptyImports } from '@spartan-ng/helm/empty';
-import { HlmFieldImports } from '@spartan-ng/helm/field';
-import { HlmIcon } from '@spartan-ng/helm/icon';
-import { HlmInputImports } from '@spartan-ng/helm/input';
-import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
-import { HlmItemImports } from '@spartan-ng/helm/item';
-import { HlmMenuImports } from '@spartan-ng/helm/menu';
-import { HlmRadioGroupImports } from '@spartan-ng/helm/radio-group';
-import { HlmSelectImports } from '@spartan-ng/helm/select';
-import { HlmSeparatorImports } from '@spartan-ng/helm/separator';
-import { HlmSliderImports } from '@spartan-ng/helm/slider';
-import { HlmSwitch } from '@spartan-ng/helm/switch';
-import { HlmTextarea } from '@spartan-ng/helm/textarea';
-import { HlmTooltipImports } from '@spartan-ng/helm/tooltip';
-import { HlmLabel } from '../../../../../../../../libs/helm/label/src/lib/hlm-label';
+import { HlmFieldSeparator } from '@spartan-ng/helm/field';
 import { AppearanceSettings } from './components/appearance-settings';
 import { ButtonGroupDemo } from './components/button-group-demo';
 import { ButtonGroupInputGroup } from './components/button-group-input-group';
@@ -71,32 +30,7 @@ export const routeMeta: RouteMeta = {
 @Component({
 	selector: 'spartan-examples-overview',
 	imports: [
-		HlmCheckbox,
-		HlmTextarea,
-		HlmButton,
-		HlmInputImports,
-		HlmFieldImports,
-		BrnSelectImports,
-		HlmSelectImports,
-		HlmEmptyImports,
-		HlmAvatarImports,
-		HlmBadgeImports,
-		HlmButtonGroupImports,
-		HlmInputGroupImports,
-		HlmFieldImports,
-		HlmSliderImports,
-		HlmSeparatorImports,
-		HlmTooltipImports,
-		BrnPopoverImports,
-		HlmItemImports,
-		HlmRadioGroupImports,
-		BrnMenuTrigger,
-		HlmMenuImports,
-		NgIcon,
-		HlmIcon,
-		ReactiveFormsModule,
-		HlmSwitch,
-		HlmLabel,
+		HlmFieldSeparator,
 		FieldDemo,
 		EmptyAvatarGroup,
 		SpinnerBadge,
@@ -113,26 +47,6 @@ export const routeMeta: RouteMeta = {
 		ButtonGroupNested,
 		FieldHear,
 		SpinnerEmpty,
-	],
-	providers: [
-		provideIcons({
-			lucidePlus,
-			lucideAudioLines,
-			lucideSearch,
-			lucideSend,
-			lucideInfo,
-			lucideArrowUp,
-			lucideCheck,
-			lucideBadgeCheck,
-			lucideMinus,
-			lucideArrowLeft,
-			lucideArrowRight,
-			lucideBot,
-			lucideChevronDown,
-			lucideEllipsis,
-			tablerStar,
-			tablerInfoCircle,
-		}),
 	],
 	template: `
 		<div
@@ -151,7 +65,7 @@ export const routeMeta: RouteMeta = {
 			<div class="flex flex-col gap-6 *:[div]:w-full *:[div]:max-w-full">
 				<spartan-input-group-button-example />
 				<spartan-item-demo />
-				<hlm-field-separator>Appearance Settings</hlm-field-separator>
+				<hlm-field-separator class="my-4">Appearance Settings</hlm-field-separator>
 				<spartan-appearance-settings />
 			</div>
 			<div class="flex flex-col gap-6 *:[div]:w-full *:[div]:max-w-full">
@@ -167,6 +81,7 @@ export const routeMeta: RouteMeta = {
 			</div>
 		</div>
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class OverviewPage {
 	protected readonly _isFavorite = signal(false);

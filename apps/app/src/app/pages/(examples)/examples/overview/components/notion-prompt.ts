@@ -1,6 +1,16 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideAtSign, lucideCheck, lucidePaperclip, lucideX } from '@ng-icons/lucide';
+import {
+	lucideAtSign,
+	lucideBlocks,
+	lucideBookOpen,
+	lucideCheck,
+	lucideGlobe,
+	lucidePaperclip,
+	lucidePlus,
+	lucideX,
+} from '@ng-icons/lucide';
+import { tablerCircleDashedPlus } from '@ng-icons/tabler-icons';
 import { BrnMenuImports } from '@spartan-ng/brain/menu';
 import { BrnPopoverImports } from '@spartan-ng/brain/popover';
 import { HlmAvatarImports } from '@spartan-ng/helm/avatar';
@@ -10,7 +20,7 @@ import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 import { HlmMenuImports } from '@spartan-ng/helm/menu';
 import { HlmPopoverImports } from '@spartan-ng/helm/popover';
-import { HlmSeparator } from '@spartan-ng/helm/separator';
+import { HlmSwitch } from '@spartan-ng/helm/switch';
 import { MentionableItem } from './mentionable-item';
 
 export type MentionItem = {
@@ -39,16 +49,28 @@ type GroupedItems = {
 		HlmAvatarImports,
 		HlmMenuImports,
 		BrnMenuImports,
-		HlmSeparator,
 		HlmIcon,
 		NgIcon,
 		MentionableItem,
 		HlmBadge,
+		HlmSwitch,
 	],
-	providers: [provideIcons({ lucideAtSign, lucideX, lucidePaperclip, lucideCheck })],
+	providers: [
+		provideIcons({
+			lucideAtSign,
+			lucideX,
+			lucidePaperclip,
+			lucideCheck,
+			lucideGlobe,
+			lucideBlocks,
+			lucideBookOpen,
+			lucidePlus,
+			tablerCircleDashedPlus,
+		}),
+	],
 	host: { class: 'w-full' },
 	template: `
-		<div hlmInputGroup>
+		<div hlmInputGroup class="[--radius:1.2rem]">
 			<div hlmInputGroupAddon align="block-start">
 				<brn-popover sideOffset="5">
 					<button
@@ -77,7 +99,7 @@ type GroupedItems = {
 									<hlm-command-group [id]="groupType">
 										<hlm-command-group-label>{{ groupType === 'page' ? 'Pages' : 'Users' }}</hlm-command-group-label>
 										@for (item of grouped()[groupType]; track item.title) {
-											<button hlm-command-item [value]="item.title" (click)="addMention(item)">
+											<button hlm-command-item [value]="item.title" (click)="addMention(item, ctx)">
 												<mentionable-item [item]="item" />
 												{{ item.title }}
 											</button>
@@ -107,25 +129,21 @@ type GroupedItems = {
 					}
 				</div>
 			</div>
-			<textarea hlmInputGroupTextarea placeholder="Ask, Search or Chat..."></textarea>
-			<div hlmInputGroupAddon align="block-end">
-				<button hlmInputGroupButton variant="secondary" class="rounded-full" size="icon-sm">
+			<textarea hlmInputGroupTextarea placeholder="Ask, Search or make anything..."></textarea>
+			<div hlmInputGroupAddon align="block-end" class="no-scrollbar gap-1 overflow-y-auto">
+				<button hlmInputGroupButton class="rounded-full" size="icon-sm">
 					<ng-icon hlm name="lucidePaperclip" />
+					<span class="sr-only">Attachment</span>
 				</button>
-				<button hlmInputGroupButton class="rounded-full" size="sm" [brnMenuTriggerFor]="model">
+				<button hlmInputGroupButton class="rounded-full" size="sm" [brnMenuTriggerFor]="model" #menuTrigger>
 					{{ selectedModel() ? selectedModel()?.name : 'Agent Mode' }}
 				</button>
 				<ng-template #model>
-					<hlm-menu class="w-42">
+					<hlm-menu class="w-50 [--radius:1rem]">
 						<hlm-menu-group>
 							<hlm-menu-label class="text-muted-foreground text-xs">Select Agent Mode</hlm-menu-label>
 							@for (model of models; track model.name) {
-								<button
-									hlmMenuItemCheckbox
-									[checked]="isChecked(model)"
-									(click)="selectModel(model)"
-									class="pl-2 *:[span:first-child]:right-2 *:[span:first-child]:left-auto"
-								>
+								<button hlmMenuItemCheckbox [checked]="isChecked(model)" (click)="selectModel(model)">
 									<span>{{ model.name }}</span>
 									@if (model.badge) {
 										<span
@@ -136,11 +154,63 @@ type GroupedItems = {
 											{{ model.badge }}
 										</span>
 									}
+									<hlm-menu-item-check />
 								</button>
 							}
 						</hlm-menu-group>
 					</hlm-menu>
 				</ng-template>
+
+				<button hlmInputGroupButton class="rounded-full" size="sm" [brnMenuTriggerFor]="sources">
+					<ng-icon hlm name="lucideGlobe" />
+					All Sources
+				</button>
+				<ng-template #sources>
+					<hlm-menu class="w-75 [--radius:1rem]">
+						<hlm-menu-group>
+							<button hlmMenuItem (click)="$event.stopPropagation()">
+								<label for="web-search" (click)="$event.stopPropagation()" class="flex flex-1 items-center">
+									<ng-icon hlm name="lucideGlobe" class="mr-2" size="sm" />
+									Web Search
+									<hlm-switch id="web-search" class="ml-auto" (click)="$event.stopPropagation()" />
+								</label>
+							</button>
+						</hlm-menu-group>
+						<hlm-menu-separator />
+						<hlm-menu-group>
+							<button hlmMenuItem (click)="$event.stopPropagation()">
+								<label for="app-integrations" class="flex flex-1" (click)="$event.stopPropagation()">
+									<ng-icon hlm name="lucideBlocks" class="mr-2" size="sm" />
+									Apps and Integrations
+									<hlm-switch id="app-integrations" class="ml-auto" (click)="$event.stopPropagation()" />
+								</label>
+							</button>
+							<button hlmMenuItem>
+								<ng-icon hlm name="tablerCircleDashedPlus" size="sm" />
+								All Sources I can access
+							</button>
+							<button hlmMenuItem>
+								<ng-icon hlm name="lucideBookOpen" size="sm" />
+								Help Center
+							</button>
+						</hlm-menu-group>
+						<hlm-menu-separator />
+						<hlm-menu-group>
+							<button hlmMenuItem>
+								<ng-icon hlm name="lucidePlus" size="sm" />
+								Connect Apps
+							</button>
+							<hlm-menu-label class="text-muted-foreground text-xs">
+								We&apos;ll only search in the sources selected here.
+							</hlm-menu-label>
+						</hlm-menu-group>
+					</hlm-menu>
+				</ng-template>
+
+				<button hlmInputGroupButton variant="default" class="ml-auto rounded-full" size="icon-sm">
+					<ng-icon hlm name="lucideArrowUp" />
+					<span class="sr-only">Send</span>
+				</button>
 			</div>
 		</div>
 	`,
@@ -174,8 +244,9 @@ export class NotionPrompt {
 	});
 	groupTypes = computed(() => Object.keys(this.grouped()));
 
-	addMention(item: MentionItem) {
+	addMention(item: MentionItem, ctx: any) {
 		this.mentions.update((mentions) => [...mentions, item]);
+		ctx.close();
 	}
 
 	removeMention(item: MentionItem) {

@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideArrowLeft, lucideArrowRight } from '@ng-icons/lucide';
+import { lucideArrowLeft, lucideArrowRight, lucideBot, lucideChevronDown } from '@ng-icons/lucide';
 import { BrnPopoverImports } from '@spartan-ng/brain/popover';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmButtonGroupImports } from '@spartan-ng/helm/button-group';
@@ -11,15 +11,15 @@ import { HlmTextarea } from '@spartan-ng/helm/textarea';
 @Component({
 	selector: 'spartan-button-group-popover',
 	imports: [HlmButtonGroupImports, BrnPopoverImports, HlmPopoverImports, HlmTextarea, HlmButton, NgIcon, HlmIcon],
-	providers: [provideIcons({ lucideArrowLeft, lucideArrowRight })],
+	providers: [provideIcons({ lucideArrowLeft, lucideArrowRight, lucideBot, lucideChevronDown })],
 	template: `
 		<brn-popover sideOffset="5">
 			<div hlmButtonGroup>
-				<button hlmBtn variant="outline">
+				<button hlmBtn variant="outline" size="sm">
 					<ng-icon hlm name="lucideBot" size="sm" />
 					Copilot
 				</button>
-				<button id="edit-profile" variant="outline" brnPopoverTrigger hlmBtn variant="outline" size="icon">
+				<button id="edit-profile" variant="outline" brnPopoverTrigger hlmBtn variant="outline" size="icon-sm">
 					<ng-icon hlm name="lucideChevronDown" size="sm" />
 				</button>
 				<div hlmPopoverContent class="rounded-xl p-0 text-sm" *brnPopoverContent="let ctx">
@@ -42,5 +42,6 @@ import { HlmTextarea } from '@spartan-ng/helm/textarea';
 			</div>
 		</brn-popover>
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ButtonGroupPopover {}

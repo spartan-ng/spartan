@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { HlmAvatarImports } from '@spartan-ng/helm/avatar';
 import { MentionItem } from './notion-prompt';
 
@@ -17,6 +17,7 @@ import { MentionItem } from './notion-prompt';
 			</span>
 		}
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MentionableItem {
 	item = input.required<MentionItem>();

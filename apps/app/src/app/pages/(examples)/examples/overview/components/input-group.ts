@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideArrowUp, lucideCheck, lucideInfo, lucideSearch } from '@ng-icons/lucide';
+import { lucideArrowUp, lucideCheck, lucideInfo, lucidePlus, lucideSearch } from '@ng-icons/lucide';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 import { HlmSeparator } from '@spartan-ng/helm/separator';
@@ -15,6 +15,7 @@ import { HlmTooltipImports } from '@spartan-ng/helm/tooltip';
 			lucideInfo,
 			lucideArrowUp,
 			lucideCheck,
+			lucidePlus,
 		}),
 	],
 	host: {
@@ -53,7 +54,7 @@ import { HlmTooltipImports } from '@spartan-ng/helm/tooltip';
 					</button>
 					<span hlmInputGroupText class="ml-auto">52% used</span>
 					<hlm-separator orientation="vertical" class="!h-4" />
-					<button hlmInputGroupButton variant="default" class="rounded-full" size="icon-xs" disabled>
+					<button hlmInputGroupButton variant="default" class="rounded-full" size="icon-xs">
 						<ng-icon hlm name="lucideArrowUp" />
 						<span class="sr-only">Send</span>
 					</button>
@@ -69,5 +70,6 @@ import { HlmTooltipImports } from '@spartan-ng/helm/tooltip';
 			</div>
 		</div>
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InputGroupDemo {}

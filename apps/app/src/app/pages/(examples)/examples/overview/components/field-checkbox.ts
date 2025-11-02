@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { HlmCheckbox } from '@spartan-ng/helm/checkbox';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
 
@@ -15,5 +15,6 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 			</label>
 		</fieldset>
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FieldCheckbox {}

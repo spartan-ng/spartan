@@ -201,6 +201,7 @@ The following is the list of supported scopes:
 - **dialog**
 - **dropdown-menu**
 - **empty**
+- **field**
 - **form-field**
 - **hover-card**
 - **icon**

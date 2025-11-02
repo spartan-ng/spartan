@@ -133,7 +133,7 @@ export class ThreeHundred {
 		'liam-langstaff',
 		'dw-0',
 		'Khumozin',
-		'abiramcodes'
+		'abiramcodes',
 	];
 	protected readonly _rest = Array(300 - this._contributors.length).map((_, i) => i);
 }

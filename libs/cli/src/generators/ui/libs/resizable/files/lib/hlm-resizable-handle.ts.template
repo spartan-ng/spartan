@@ -1,4 +1,4 @@
-import { ClassValue } from 'class-variance-authority/dist/types';
+import type { ClassValue } from 'clsx';
 
 import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 

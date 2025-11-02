@@ -18,6 +18,6 @@ import { Component, computed, input } from '@angular/core';
 })
 export class ThreeHundredItem {
 	public readonly contributor = input.required<string>();
-	public readonly href = computed(() => `https://github.com/${this.contributor()}`);
-	public readonly src = computed(() => `${this.href()}.png?size=80`);
+	protected readonly href = computed(() => `https://github.com/${this.contributor()}`);
+	protected readonly src = computed(() => `${this.href()}.png?size=80`);
 }

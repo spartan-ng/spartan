@@ -8,8 +8,8 @@ import { Component, computed, input } from '@angular/core';
 		class: 'inline-flex flex-col justify-center items-center',
 	},
 	template: `
-		<a class="flex flex-col items-center" [href]="href()" target="_blank">
-			<img loading="lazy" [ngSrc]="src()" width="40" height="40" [alt]="contributor()" class="rounded-full" />
+		<a class="flex flex-col items-center" [href]="_href()" target="_blank">
+			<img loading="lazy" [ngSrc]="_src()" width="40" height="40" [alt]="contributor()" class="rounded-full" />
 			<span class="mt-1 inline-block text-[.7rem] font-medium whitespace-nowrap hover:underline">
 				{{ contributor() }}
 			</span>
@@ -18,6 +18,6 @@ import { Component, computed, input } from '@angular/core';
 })
 export class ThreeHundredItem {
 	public readonly contributor = input.required<string>();
-	protected readonly href = computed(() => `https://github.com/${this.contributor()}`);
-	protected readonly src = computed(() => `${this.href()}.png?size=80`);
+	protected readonly _href = computed(() => `https://github.com/${this.contributor()}`);
+	protected readonly _src = computed(() => `${this._href()}.png?size=80`);
 }

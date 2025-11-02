@@ -186,26 +186,30 @@ import type { TaskPriority, TaskStatus } from '../services/tasks.models';
 				}
 			</div>
 
-			<!-- Column visibility -->
-			<button hlmBtn variant="outline" align="end" [brnMenuTriggerFor]="menu">
-				Columns
-				<ng-icon hlm name="lucideChevronDown" class="ml-2" size="sm" />
-			</button>
-			<ng-template #menu>
-				<hlm-menu class="w-32">
-					@for (column of _hidableColumns; track column.id) {
-						<button
-							hlmMenuItemCheckbox
-							class="capitalize"
-							[checked]="column.getIsVisible()"
-							(triggered)="column.toggleVisibility()"
-						>
-							<hlm-menu-item-check />
-							{{ column.columnDef.id }}
-						</button>
-					}
-				</hlm-menu>
-			</ng-template>
+			<div class="flex gap-2">
+				<!-- Column visibility -->
+				<button hlmBtn variant="outline" align="end" [brnMenuTriggerFor]="menu">
+					<ng-icon hlm name="lucideSettings2" size="sm" />
+					View
+					<ng-icon hlm name="lucideChevronDown" size="sm" />
+				</button>
+				<button hlmBtn>Add Tasks</button>
+				<ng-template #menu>
+					<hlm-menu class="w-32">
+						@for (column of _hidableColumns; track column.id) {
+							<button
+								hlmMenuItemCheckbox
+								class="capitalize"
+								[checked]="column.getIsVisible()"
+								(triggered)="column.toggleVisibility()"
+							>
+								<hlm-menu-item-check />
+								{{ column.columnDef.id }}
+							</button>
+						}
+					</hlm-menu>
+				</ng-template>
+			</div>
 		</div>
 	`,
 })

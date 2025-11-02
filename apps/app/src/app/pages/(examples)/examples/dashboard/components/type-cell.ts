@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { HlmBadge } from '@spartan-ng/helm/badge';
 import { type CellContext, injectFlexRenderContext } from '@tanstack/angular-table';
 import type { DashboardData } from './dashboard-data.model';
@@ -16,6 +16,7 @@ import type { DashboardData } from './dashboard-data.model';
 			{{ _element.type }}
 		</span>
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TypeCell {
 	private readonly _context = injectFlexRenderContext<CellContext<DashboardData, unknown>>();

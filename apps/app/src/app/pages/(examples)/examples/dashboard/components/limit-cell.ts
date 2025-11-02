@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { HlmInput } from '@spartan-ng/helm/input';
 import { type CellContext, injectFlexRenderContext } from '@tanstack/angular-table';
 import type { DashboardData } from './dashboard-data.model';
@@ -14,6 +14,7 @@ import type { DashboardData } from './dashboard-data.model';
 			[value]="_element.limit"
 		/>
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LimitCell {
 	private readonly _context = injectFlexRenderContext<CellContext<DashboardData, unknown>>();

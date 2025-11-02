@@ -7,6 +7,8 @@ import {
 	lucideChevronDown,
 	lucideChevronLeft,
 	lucideChevronRight,
+	lucideChevronsLeft,
+	lucideChevronsRight,
 	lucideChevronsUp,
 	lucideChevronUp,
 	lucideCircle,
@@ -28,6 +30,7 @@ import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { HlmAvatarImports } from '@spartan-ng/helm/avatar';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmIcon } from '@spartan-ng/helm/icon';
+import { HlmLabel } from '@spartan-ng/helm/label';
 import { HlmMenuImports } from '@spartan-ng/helm/menu';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
 import { HlmTableImports } from '@spartan-ng/helm/table';
@@ -75,6 +78,7 @@ export const routeMeta: RouteMeta = {
 		NgIcon,
 		HlmAvatarImports,
 		FlexRender,
+		HlmLabel,
 	],
 	providers: [
 		provideIcons({
@@ -96,13 +100,15 @@ export const routeMeta: RouteMeta = {
 			lucideLayers,
 			lucideLogOut,
 			lucideUser,
+			lucideChevronsRight,
+			lucideChevronsLeft,
 		}),
 	],
 	host: {
 		class: 'w-full',
 	},
 	template: `
-		<div class="h-full flex-1 flex-col space-y-4 p-8 py-6">
+		<div class="h-full flex-1 flex-col space-y-4 rounded-lg border p-8 py-6">
 			<div class="flex items-center justify-between space-y-2">
 				<div class="flex flex-col">
 					<h2 class="text-2xl font-bold tracking-tight">Welcome back!</h2>
@@ -203,37 +209,66 @@ export const routeMeta: RouteMeta = {
 				<span class="text-muted-foreground text-sm">
 					{{ table.getSelectedRowModel().rows.length }} of {{ table.getRowCount() }} row(s) selected
 				</span>
-				<div class="mt-2 flex sm:mt-0">
-					<brn-select
-						class="inline-block"
-						placeholder="{{ _availablePageSizes[0] }}"
-						[ngModel]="table.getState().pagination.pageSize"
-						(ngModelChange)="table.setPageSize($event); table.resetPageIndex()"
-					>
-						<hlm-select-trigger class="mr-1 inline-flex h-9 w-15">
-							<hlm-select-value />
-						</hlm-select-trigger>
-						<hlm-select-content>
-							@for (size of _availablePageSizes; track size) {
-								<hlm-option [value]="size">
-									{{ size === 10000 ? 'All' : size }}
-								</hlm-option>
-							}
-						</hlm-select-content>
-					</brn-select>
+				<div class="mt-2 flex gap-8 sm:mt-0">
+					<div class="flex gap-2">
+						<span hlmLabel>Row per page:</span>
+						<brn-select
+							class="inline-block"
+							placeholder="{{ _availablePageSizes[0] }}"
+							[ngModel]="table.getState().pagination.pageSize"
+							(ngModelChange)="table.setPageSize($event); table.resetPageIndex()"
+						>
+							<hlm-select-trigger size="sm" class="mr-1 inline-flex h-8 w-fit">
+								<hlm-select-value />
+							</hlm-select-trigger>
+							<hlm-select-content>
+								@for (size of _availablePageSizes; track size) {
+									<hlm-option [value]="size">
+										{{ size === 10000 ? 'All' : size }}
+									</hlm-option>
+								}
+							</hlm-select-content>
+						</brn-select>
+					</div>
+
+					<span hlmLabel>Page {{ table.getState().pagination.pageIndex + 1 }} of {{ table.getPageCount() }}</span>
 
 					<div class="flex space-x-1">
 						<button
-							size="sm"
+							size="icon-sm"
+							variant="outline"
+							hlmBtn
+							[disabled]="!table.getCanPreviousPage()"
+							(click)="table.firstPage()"
+						>
+							<ng-icon hlm name="lucideChevronsLeft" size="sm" />
+						</button>
+						<button
+							size="icon-sm"
 							variant="outline"
 							hlmBtn
 							[disabled]="!table.getCanPreviousPage()"
 							(click)="table.previousPage()"
 						>
-							Previous
+							<ng-icon hlm name="lucideChevronLeft" size="sm" />
 						</button>
-						<button size="sm" variant="outline" hlmBtn [disabled]="!table.getCanNextPage()" (click)="table.nextPage()">
-							Next
+						<button
+							size="icon-sm"
+							variant="outline"
+							hlmBtn
+							[disabled]="!table.getCanNextPage()"
+							(click)="table.nextPage()"
+						>
+							<ng-icon hlm name="lucideChevronRight" size="sm" />
+						</button>
+						<button
+							size="icon-sm"
+							variant="outline"
+							hlmBtn
+							[disabled]="!table.getCanNextPage()"
+							(click)="table.lastPage()"
+						>
+							<ng-icon hlm name="lucideChevronsRight" size="sm" />
 						</button>
 					</div>
 				</div>
@@ -331,7 +366,7 @@ export default class TasksExamplePage {
 		getPaginationRowModel: getPaginationRowModel(),
 		initialState: {
 			pagination: {
-				pageSize: 10,
+				pageSize: 20,
 			},
 		},
 	}));

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
 import { type CellContext, injectFlexRenderContext } from '@tanstack/angular-table';
@@ -25,6 +25,7 @@ import type { DashboardData } from './dashboard-data.model';
 			</brn-select>
 		}
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReviewerCell {
 	private readonly _context = injectFlexRenderContext<CellContext<DashboardData, unknown>>();

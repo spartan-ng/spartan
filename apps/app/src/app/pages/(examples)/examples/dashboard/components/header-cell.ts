@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideEllipsis } from '@ng-icons/lucide';
 import { type CellContext, injectFlexRenderContext } from '@tanstack/angular-table';
@@ -13,6 +13,7 @@ import type { DashboardData } from './dashboard-data.model';
 			{{ _element.header }}
 		</span>
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderCell {
 	private readonly _context = injectFlexRenderContext<CellContext<DashboardData, unknown>>();

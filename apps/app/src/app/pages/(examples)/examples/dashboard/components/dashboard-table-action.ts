@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { tablerChevronDown, tablerColumns2 } from '@ng-icons/tabler-icons';
 import { BrnMenuTrigger } from '@spartan-ng/brain/menu';
@@ -43,6 +43,7 @@ import { DashboardTableSection } from './table-section';
 			</ng-template>
 		</div>
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DashboardTableActions {
 	private readonly _tableComponent = inject(DashboardTableSection);

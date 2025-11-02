@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { tablerCircleCheck, tablerLoader } from '@ng-icons/tabler-icons';
 import { HlmBadge } from '@spartan-ng/helm/badge';
@@ -25,6 +25,7 @@ import type { DashboardData } from './dashboard-data.model';
 			{{ _element.status }}
 		</span>
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StatusCell {
 	private readonly _context = injectFlexRenderContext<CellContext<DashboardData, unknown>>();

@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { tablerChevronLeft, tablerChevronRight, tablerChevronsLeft, tablerChevronsRight } from '@ng-icons/tabler-icons';
@@ -206,6 +206,7 @@ import { TypeCell } from './type-cell';
 			</div>
 		</hlm-tabs>
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DashboardTableSection {
 	private readonly _localStorageService = inject(DashboardLocalStorageService);

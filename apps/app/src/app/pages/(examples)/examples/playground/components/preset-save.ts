@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { BrnDialogImports } from '@spartan-ng/brain/dialog';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmDialogImports } from '@spartan-ng/helm/dialog';
@@ -35,5 +35,6 @@ import { HlmTextarea } from '@spartan-ng/helm/textarea';
 			</hlm-dialog-content>
 		</hlm-dialog>
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PresetSave {}

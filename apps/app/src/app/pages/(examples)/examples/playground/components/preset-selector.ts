@@ -1,4 +1,4 @@
-import { Component, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCheck, lucideChevronsUpDown, lucideSearch } from '@ng-icons/lucide';
 import { BrnPopoverImports } from '@spartan-ng/brain/popover';
@@ -19,7 +19,7 @@ import { Preset } from '../data/presets';
 				variant="outline"
 				brnPopoverTrigger
 				hlmBtn
-				class="flex-1 justify-between md:max-w-[200px] lg:max-w-[300px]"
+				class="w-[300px] flex-1 justify-between md:max-w-[200px] lg:max-w-[300px]"
 			>
 				{{ selectedPreset() ? selectedPreset()?.name : 'Load a preset...' }}
 				<ng-icon hlm name="lucideChevronsUpDown" size="sm" />
@@ -28,7 +28,7 @@ import { Preset } from '../data/presets';
 				<hlm-command>
 					<hlm-command-search>
 						<ng-icon hlm name="lucideSearch" size="sm" />
-						<input type="text" hlm-command-search-input placeholder="Type a command or search..." />
+						<input type="text" hlm-command-search-input placeholder="Search Presets" />
 					</hlm-command-search>
 
 					<hlm-command-list>
@@ -61,6 +61,7 @@ import { Preset } from '../data/presets';
 			</div>
 		</brn-popover>
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PresetSelector {
 	public readonly presets = input.required<Preset[]>();

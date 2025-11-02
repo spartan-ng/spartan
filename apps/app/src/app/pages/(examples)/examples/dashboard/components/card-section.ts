@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { tablerTrendingDown, tablerTrendingUp } from '@ng-icons/tabler-icons';
 import { HlmBadge } from '@spartan-ng/helm/badge';
@@ -101,5 +101,6 @@ import { HlmIcon } from '@spartan-ng/helm/icon';
 			</div>
 		</div>
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DashboardCardSection {}

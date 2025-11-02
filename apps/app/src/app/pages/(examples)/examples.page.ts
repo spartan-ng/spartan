@@ -43,10 +43,10 @@ export const routeMeta: RouteMeta = {
 			<ul class="flex space-x-2">
 				<li><a class="!font-medium" spartanNavLink="/examples/overview">Overview</a></li>
 				<li><a class="!font-medium" spartanNavLink="/examples/dashboard">Dashboard</a></li>
+				<li><a class="!font-medium" spartanNavLink="/examples/tasks">Tasks</a></li>
 				<li><a class="!font-medium" spartanNavLink="/examples/playground">Playground</a></li>
 				<li><a class="!font-medium" spartanNavLink="/examples/authentication">Authentication</a></li>
 				<li><a class="!font-medium" spartanNavLink="/examples/music">Music</a></li>
-				<li><a class="!font-medium" spartanNavLink="/examples/tasks">Tasks</a></li>
 			</ul>
 		</nav>
 		<div class="overflow-hidden rounded-lg">

@@ -1,5 +1,5 @@
 import { RouteMeta } from '@analogjs/router';
-import { Component, computed, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
 import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
@@ -15,18 +15,14 @@ export const routeMeta: RouteMeta = {
 @Component({
 	selector: 'spartan-dashboard-example',
 	imports: [HlmSidebarImports],
-	styles: `
-		main {
-			padding-inline: 0;
-		}
-	`,
 	template: `
-		<div class="relative hidden aspect-[4/2.5] w-full overflow-hidden rounded-md border md:block">
+		<div class="relative hidden aspect-[4/2.5] w-full overflow-hidden rounded-lg border md:block">
 			<div class="bg-background absolute inset-0 hidden md:block">
 				<iframe [src]="_iframeSrc()" class="size-full"></iframe>
 			</div>
 		</div>
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class DashboardPage {
 	private readonly _sanitizer = inject(DomSanitizer);

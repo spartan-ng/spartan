@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCopy } from '@ng-icons/lucide';
 import { BrnPopoverImports } from '@spartan-ng/brain/popover';
@@ -41,5 +41,6 @@ import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 			</div>
 		</brn-popover>
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PresetShare {}

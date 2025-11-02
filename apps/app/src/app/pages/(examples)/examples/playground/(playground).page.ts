@@ -3,10 +3,22 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { tablerBrowserPlus, tablerEdit, tablerMessageCheck, tablerRotate } from '@ng-icons/tabler-icons';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmIcon } from '@spartan-ng/helm/icon';
+import { HlmLabel } from '@spartan-ng/helm/label';
 import { HlmSeparator } from '@spartan-ng/helm/separator';
 import { HlmTabsImports } from '@spartan-ng/helm/tabs';
 import { HlmTextarea } from '@spartan-ng/helm/textarea';
-import { CodeViewer, PresetActions, PresetSave, PresetSelector, PresetShare } from './components';
+import {
+	CodeViewer,
+	MaxLengthSelector,
+	ModelSelector,
+	PresetActions,
+	PresetSave,
+	PresetSelector,
+	PresetShare,
+	TemperatureSelector,
+	TopPSelector,
+} from './components';
+import { MODELS, TYPES } from './data/models';
 import { PRESETS_DATA } from './data/presets';
 
 @Component({
@@ -23,6 +35,11 @@ import { PRESETS_DATA } from './data/presets';
 		NgIcon,
 		HlmTextarea,
 		HlmButton,
+		HlmLabel,
+		ModelSelector,
+		TemperatureSelector,
+		TopPSelector,
+		MaxLengthSelector,
 	],
 	providers: [provideIcons({ tablerMessageCheck, tablerBrowserPlus, tablerEdit, tablerRotate })],
 	template: `
@@ -53,18 +70,63 @@ import { PRESETS_DATA } from './data/presets';
 							></textarea>
 							<div class="flex items-center gap-2">
 								<button hlmBtn>Submit</button>
-								<Button hlmBtn variant="secondary">
+								<button hlmBtn variant="secondary" size="icon">
 									<span class="sr-only">Show history</span>
-									<ng-icon hlm name="tablerRotate" size="sm" />
-								</Button>
+									<ng-icon hlm name="tablerRotate" />
+								</button>
 							</div>
 						</div>
 					</div>
-					<div hlmTabsContent="insert"></div>
-					<div hlmTabsContent="edit"></div>
+					<div hlmTabsContent="insert" class="mt-0">
+						<div class="flex h-full flex-col gap-4">
+							<div class="grid grid-cols-2 gap-4">
+								<textarea
+									hlmTextarea
+									placeholder="We're writing to [inset]. Congrats from OpenAI!"
+									class="min-h-[400px] flex-1 p-4 md:min-h-[700px] lg:min-h-[700px]"
+								></textarea>
+								<div class="bg-muted rounded-md border"></div>
+							</div>
+
+							<div class="flex items-center gap-2">
+								<button hlmBtn>Submit</button>
+								<button hlmBtn variant="secondary" size="icon">
+									<span class="sr-only">Show history</span>
+									<ng-icon hlm name="tablerRotate" />
+								</button>
+							</div>
+						</div>
+					</div>
+					<div hlmTabsContent="edit" class="mt-0">
+						<div class="flex h-full flex-col gap-4">
+							<div class="grid grid-cols-2 gap-4">
+								<div class="flex flex-col gap-4">
+									<textarea
+										hlmTextarea
+										placeholder="We're writing to [inset]. Congrats from OpenAI!"
+										class="min-h-[298px] flex-1 p-4 md:min-h-[598px] lg:min-h-[598px]"
+									></textarea>
+									<div class="flex flex-col gap-2">
+										<span hlmLabel>Instructions</span>
+										<textarea hlmTextarea placeholder="Fix the spelling mistakes"></textarea>
+									</div>
+								</div>
+								<div class="bg-muted rounded-md border"></div>
+							</div>
+
+							<div class="flex items-center gap-2">
+								<button hlmBtn>Submit</button>
+								<button hlmBtn variant="secondary" size="icon">
+									<span class="sr-only">Show history</span>
+									<ng-icon hlm name="tablerRotate" />
+								</button>
+							</div>
+						</div>
+					</div>
 				</div>
 				<div class="hidden flex-col gap-6 sm:flex md:order-2">
 					<div class="grid gap-3">
+						<span hlmLabel>Mode</span>
 						<hlm-tabs-list aria-label="tabs example" class="w-full">
 							<button hlmTabsTrigger="complete">
 								<ng-icon hlm name="tablerMessageCheck" size="sm" />
@@ -77,6 +139,10 @@ import { PRESETS_DATA } from './data/presets';
 							</button>
 						</hlm-tabs-list>
 					</div>
+					<model-selector [models]="models" [types]="types" />
+					<temperature-selector />
+					<max-length-selector />
+					<top-p-selector />
 				</div>
 			</hlm-tabs>
 		</div>
@@ -84,4 +150,6 @@ import { PRESETS_DATA } from './data/presets';
 })
 export default class ExamplesPlaygroundPage {
 	protected readonly presets = PRESETS_DATA;
+	protected readonly models = MODELS;
+	protected readonly types = TYPES;
 }

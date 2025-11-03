@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideTriangleAlert } from '@ng-icons/lucide';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
-import {} from '@spartan-ng/helm/icon';
 import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../shared/code/code';
 import { MainSection } from '../../../shared/layout/main-section';
@@ -57,7 +56,7 @@ export const routeMeta: RouteMeta = {
 				command.
 			</p>
 
-			<spartan-section-sub-heading id="configuration">Configuration</spartan-section-sub-heading>
+			<spartan-section-sub-heading id="nx-configuration">NX Workspace Configuration</spartan-section-sub-heading>
 
 			<spartan-code
 				class="mt-3"
@@ -65,27 +64,41 @@ export const routeMeta: RouteMeta = {
 				code='
 {
 	"componentsPath": "libs/ui",
+	"importAlias": "@spartan-ng/helm",
 	"buildable": true,
-	"generateAs": "library" | "entrypoint",
-	"importAlias": "@spartan-ng/helm"
+	"generateAs": "library" | "entrypoint"
 }'
 			/>
+
+			<spartan-section-sub-heading id="ng-configuration">NG Workspace Configuration</spartan-section-sub-heading>
+
+			<spartan-code
+				class="mt-3"
+				language="js"
+				code='
+{
+	"componentsPath": "libs/ui",
+	"importAlias": "@spartan-ng/helm",
+}'
+			/>
+
+			<spartan-section-sub-heading id="configuration">Configuration Flags</spartan-section-sub-heading>
 
 			<h3 id="componentsPath" spartanH4>componentsPath</h3>
 
 			<p class="${hlmP}">The base path where your components will be generated.</p>
 
-			<h3 id="buildable" spartanH4>buildable</h3>
-
-			<p class="${hlmP}">Determines whether the generated library is buildable or not.</p>
-
-			<h3 id="generateAs" spartanH4>generateAs</h3>
-
-			<p class="${hlmP}">Generate the components as a library or entrypoint.</p>
-
 			<h3 id="importAlias" spartanH4>importAlias</h3>
 
 			<p class="${hlmP}">Specify the import path of the component e.g. &#64;spartan-ng/helm.</p>
+
+			<h3 id="buildable" spartanH4>buildable (nx only)</h3>
+
+			<p class="${hlmP}">Determines whether the generated library is buildable or not.</p>
+
+			<h3 id="generateAs" spartanH4>generateAs (nx only)</h3>
+
+			<p class="${hlmP}">Generate the components as a library or entrypoint.</p>
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="changelog" label="Changelog" />

@@ -106,6 +106,16 @@ export const routeMeta: RouteMeta = {
 			<spartan-section-sub-heading id="workflow">Recommended Workflow</spartan-section-sub-heading>
 			<ol class="my-4 ml-6 list-decimal [&>li]:mt-2">
 				<li>
+					Install tailwindcss:
+					<a
+						class="${hlmCode} underline"
+						href="https://tailwindcss.com/docs/installation/framework-guides/angular"
+						target="_blank"
+					>
+						official Angular installation guide
+					</a>
+				</li>
+				<li>
 					Install the CLI:
 					<code class="${hlmCode}">npm install -D &#64;spartan-ng/cli</code>
 				</li>

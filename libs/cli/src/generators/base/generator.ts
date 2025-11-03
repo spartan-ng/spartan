@@ -84,11 +84,11 @@ function generateLibraryFiles(tree: Tree, targetLibDir: string, options: HlmBase
 	);
 }
 
-async function registerDependencies(tree: Tree, options: HlmBaseGeneratorSchema): Promise<GeneratorCallback> {
+function registerDependencies(tree: Tree, options: HlmBaseGeneratorSchema): GeneratorCallback {
 	const angularVersion = getInstalledPackageVersion(tree, '@angular/core', FALLBACK_ANGULAR_VERSION, true);
 	const cdkVersion = getInstalledPackageVersion(tree, '@angular/cdk', FALLBACK_ANGULAR_VERSION, true);
-	const dependencies = await buildDependencyArray(options, angularVersion, cdkVersion);
-	const devDependencies = await buildDevDependencyArray(tree);
+	const dependencies = buildDependencyArray(tree, options, angularVersion, cdkVersion);
+	const devDependencies = buildDevDependencyArray(tree);
 	return addDependenciesToPackageJson(tree, dependencies, devDependencies);
 }
 
@@ -114,7 +114,7 @@ export async function hlmBaseGenerator(tree: Tree, options: HlmBaseGeneratorSche
 		generateLibraryFiles(tree, targetLibDir, options);
 	}
 
-	tasks.push(await registerDependencies(tree, options));
+	tasks.push(registerDependencies(tree, options));
 
 	return runTasksInSerial(...tasks);
 }

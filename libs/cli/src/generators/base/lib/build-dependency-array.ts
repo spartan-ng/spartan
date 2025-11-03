@@ -1,16 +1,19 @@
 import { type Tree } from '@nx/devkit';
 import { getTailwindVersion } from '../../../utils/get-tailwind-version';
+import { getInstalledPackageVersion } from '../../../utils/version-utils';
 import type { HlmBaseGeneratorSchema } from '../schema';
+import { NG_ICONS_VERSION, TAILWIND_MERGE_VERSION, TW_ANIMATE_CSS } from '../versions';
 
-export async function buildDependencyArray(
+export function buildDependencyArray(
+	tree: Tree,
 	options: HlmBaseGeneratorSchema,
 	angularVersion: string,
 	existingCdkVersion: string,
 ) {
 	let dependencies: Record<string, string> = {
 		'@angular/cdk': existingCdkVersion ?? angularVersion,
-		'@spartan-ng/brain': await getLatestPkgVersion('@spartan-ng/brain'),
-		'tailwind-merge': await getLatestPkgVersion('tailwind-merge'),
+		'@spartan-ng/brain': getInstalledPackageVersion(tree, '@spartan-ng/cli'),
+		'tailwind-merge': TAILWIND_MERGE_VERSION,
 	};
 
 	if (options.peerDependencies) {
@@ -18,21 +21,14 @@ export async function buildDependencyArray(
 	}
 
 	if (options.name === 'icon' || options.name === 'spinner') {
-		dependencies['@ng-icons/core'] = await getLatestPkgVersion('@ng-icons/core');
+		dependencies['@ng-icons/core'] = NG_ICONS_VERSION;
 	}
 	return dependencies;
 }
 
-export async function buildDevDependencyArray(tree: Tree) {
+export function buildDevDependencyArray(tree: Tree) {
 	const tailwindVersion = getTailwindVersion(tree);
 	return {
-		...(tailwindVersion === 4 && { 'tw-animate-css': await getLatestPkgVersion('tw-animate-css') }),
+		...(tailwindVersion === 4 && { 'tw-animate-css': TW_ANIMATE_CSS }),
 	};
-}
-
-function getLatestPkgVersion(pkgName: string): Promise<string> {
-	return fetch(`https://registry.npmjs.org/${pkgName}/latest`)
-		.then((res) => res.json())
-		.then((data) => data.version)
-		.catch((err) => console.error(err));
 }

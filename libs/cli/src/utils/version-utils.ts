@@ -1,4 +1,4 @@
-import { type Tree, readJson } from '@nx/devkit';
+import { readJson, type Tree } from '@nx/devkit';
 import { clean, coerce } from 'semver';
 
 export function getInstalledPackageVersion(

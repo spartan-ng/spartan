@@ -70,7 +70,7 @@ export const routeMeta: RouteMeta = {
 }'
 			/>
 
-			<spartan-section-sub-heading id="ng-configuration">NG Workspace Configuration</spartan-section-sub-heading>
+			<spartan-section-sub-heading id="ng-configuration">Angular CLI Project Configuration</spartan-section-sub-heading>
 
 			<spartan-code
 				class="mt-3"

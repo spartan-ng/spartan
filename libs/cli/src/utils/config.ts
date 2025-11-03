@@ -5,7 +5,7 @@ import { type GenerateAs, generateOptions } from '../generators/base/lib/generat
 
 const configPath = 'components.json';
 
-export const NGConfigSchema = z.object({
+export const AngularCliConfigSchema = z.object({
 	componentsPath: z.string().optional().default('libs/ui'),
 	importAlias: z
 		.string()
@@ -13,7 +13,6 @@ export const NGConfigSchema = z.object({
 		.default('@spartan-ng/helm')
 		.refine((val) => !val.endsWith('/'), { message: 'importAlias should not end with a slash' }),
 });
-export type NGConfig = z.infer<typeof NGConfigSchema>;
 
 export const NXConfigSchema = z.object({
 	componentsPath: z.string().optional().default('libs/ui'),
@@ -32,7 +31,7 @@ const getConfig = async (tree: Tree, isAngularCli: boolean): Promise<Config> => 
 	const raw = await readJson(tree, configPath);
 	try {
 		if (isAngularCli) {
-			return NGConfigSchema.parse(raw);
+			return AngularCliConfigSchema.parse(raw);
 		} else {
 			return NXConfigSchema.parse(raw);
 		}
@@ -79,7 +78,7 @@ export async function getOrCreateConfig(
 			initial: defaults?.componentsPath ?? 'libs/ui',
 			skip: !!defaults?.componentsPath,
 		},
-		// Conditionally add Angular CLI–specific questions
+		// Conditionally add NX specific questions
 		...(!defaults?.angularCli
 			? [
 					{

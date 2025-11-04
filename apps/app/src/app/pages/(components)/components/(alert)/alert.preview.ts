@@ -8,28 +8,29 @@ import { HlmIcon } from '@spartan-ng/helm/icon';
 	selector: 'spartan-alert-preview',
 	imports: [HlmAlertImports, NgIcon, HlmIcon],
 	providers: [provideIcons({ lucideCircleCheck, lucidePopcorn, lucideCircleAlert })],
+	host: {
+		class: 'grid w-full max-w-xl items-start gap-4',
+	},
 	template: `
-		<div class="grid w-full max-w-xl items-start gap-4">
-			<div hlmAlert>
-				<ng-icon hlm hlmAlertIcon name="lucideCircleCheck" />
-				<h4 hlmAlertTitle>Success! Your changes have been saved</h4>
-				<p hlmAlertDescription>This is an alert with icon, title and description.</p>
-			</div>
-			<div hlmAlert>
-				<ng-icon hlm hlmAlertIcon name="lucidePopcorn" />
-				<h4 hlmAlertTitle>This Alert has a title and an icon. No description.</h4>
-			</div>
-			<div hlmAlert variant="destructive">
-				<ng-icon hlm hlmAlertIcon name="lucideCircleAlert" />
-				<h4 hlmAlertTitle>Unable to process your payment.</h4>
-				<div hlmAlertDescription>
-					<p>Please verify your billing information and try again.</p>
-					<ul class="list-inside list-disc text-sm">
-						<li>Check your card details</li>
-						<li>Ensure sufficient funds</li>
-						<li>Verify billing address</li>
-					</ul>
-				</div>
+		<div hlmAlert>
+			<ng-icon hlm hlmAlertIcon name="lucideCircleCheck" />
+			<h4 hlmAlertTitle>Success! Your changes have been saved</h4>
+			<p hlmAlertDescription>This is an alert with icon, title and description.</p>
+		</div>
+		<div hlmAlert>
+			<ng-icon hlm hlmAlertIcon name="lucidePopcorn" />
+			<h4 hlmAlertTitle>This Alert has a title and an icon. No description.</h4>
+		</div>
+		<div hlmAlert variant="destructive">
+			<ng-icon hlm hlmAlertIcon name="lucideCircleAlert" />
+			<h4 hlmAlertTitle>Unable to process your payment.</h4>
+			<div hlmAlertDescription>
+				<p>Please verify your billing information and try again.</p>
+				<ul class="list-inside list-disc text-sm">
+					<li>Check your card details</li>
+					<li>Ensure sufficient funds</li>
+					<li>Verify billing address</li>
+				</ul>
 			</div>
 		</div>
 	`,

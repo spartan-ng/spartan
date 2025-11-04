@@ -7,10 +7,10 @@ import { PageBottomNavLink } from '@spartan-ng/app/app/shared/layout/page-bottom
 import { PageNav } from '@spartan-ng/app/app/shared/layout/page-nav/page-nav';
 import { SectionIntro } from '@spartan-ng/app/app/shared/layout/section-intro';
 import { SectionSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-heading';
+import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
 import { HlmAlertImports } from '@spartan-ng/helm/alert';
 import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
-import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Theming' },

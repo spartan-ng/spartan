@@ -3,9 +3,25 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideArrowRight, lucideStar } from '@ng-icons/lucide';
+import { AlertPreview } from '@spartan-ng/app/app/pages/(components)/components/(alert)/alert.preview';
+import { ButtonGroupPreview } from '@spartan-ng/app/app/pages/(components)/components/(button-group)/button-group.preview';
+import { EmptyAvatarGroup } from '@spartan-ng/app/app/pages/(components)/components/(empty)/empty--avatar-group.preview';
+import { FieldChoiceCardPreview } from '@spartan-ng/app/app/pages/(components)/components/(field)/field--choice-card.preview';
+import { FieldRadioPreview } from '@spartan-ng/app/app/pages/(components)/components/(field)/field--radio.preview';
+import { FieldSwitchPreview } from '@spartan-ng/app/app/pages/(components)/components/(field)/field--switch.preview';
+import { FieldPreview } from '@spartan-ng/app/app/pages/(components)/components/(field)/field.preview';
+import { InputGroupButtonPreview } from '@spartan-ng/app/app/pages/(components)/components/(input-group)/input-group--button.preview';
+import { InputGroupTextareaPreview } from '@spartan-ng/app/app/pages/(components)/components/(input-group)/input-group--textarea.preview';
+import { InputGroupPreview } from '@spartan-ng/app/app/pages/(components)/components/(input-group)/input-group.preview';
+import { ItemPreview } from '@spartan-ng/app/app/pages/(components)/components/(item)/item.preview';
+import { KbdButtonPreview } from '@spartan-ng/app/app/pages/(components)/components/(kbd)/kbd--button.preview';
+import { KbdPreview } from '@spartan-ng/app/app/pages/(components)/components/(kbd)/kbd.preview';
+import { PaginationPreview } from '@spartan-ng/app/app/pages/(components)/components/(pagination)/pagination.preview';
+import { SpartanSpinnerBadgePreview } from '@spartan-ng/app/app/pages/(components)/components/(spinner)/spinner--badge.preview';
 import { ZeropsLogo } from '@spartan-ng/app/app/pages/(home)/components/zerops-logo';
 import { HlmBadge } from '@spartan-ng/helm/badge';
 import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmFieldSeparator } from '@spartan-ng/helm/field';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import { metaWith } from '../shared/meta/meta.util';
 import { ThreeHundred } from './(home)/components/three-hundred';
@@ -25,7 +41,31 @@ const lead = 'text-foreground max-w-3xl text-base text-balance sm:text-lg';
 
 @Component({
 	selector: 'spartan-home',
-	imports: [HlmButton, HlmIcon, RouterLink, HlmBadge, NgIcon, ThreeHundred, ZeropsLogo],
+	imports: [
+		HlmButton,
+		HlmIcon,
+		RouterLink,
+		HlmBadge,
+		NgIcon,
+		ThreeHundred,
+		ZeropsLogo,
+		FieldPreview,
+		EmptyAvatarGroup,
+		InputGroupPreview,
+		SpartanSpinnerBadgePreview,
+		KbdPreview,
+		KbdButtonPreview,
+		InputGroupButtonPreview,
+		FieldChoiceCardPreview,
+		ItemPreview,
+		HlmFieldSeparator,
+		FieldRadioPreview,
+		InputGroupTextareaPreview,
+		ButtonGroupPreview,
+		FieldSwitchPreview,
+		PaginationPreview,
+		AlertPreview,
+	],
 	host: {
 		class: 'block px-2',
 	},
@@ -61,6 +101,41 @@ const lead = 'text-foreground max-w-3xl text-base text-balance sm:text-lg';
 						<ng-icon hlm size="sm" class="mr-0.5" name="lucideStar" />
 						Star on GitHub
 					</a>
+				</div>
+			</div>
+		</section>
+
+		<section class="hidden md:block">
+			<div
+				class="theme-container mx-auto grid gap-8 py-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-6 2xl:gap-8"
+			>
+				<div class="flex flex-col gap-6 *:[div]:w-full *:[div]:max-w-full">
+					<div class="w-full max-w-md rounded-lg border p-6">
+						<spartan-field-preview />
+					</div>
+				</div>
+				<div class="flex flex-col gap-6 *:[div]:w-full *:[div]:max-w-full">
+					<spartan-empty-avatar-group class="rounded-lg border border-dashed" />
+					<spartan-spinner-badge-preview />
+					<spartan-input-group-preview />
+					<spartan-kbd-preview />
+					<spartan-kbd-button-preview class="self-center" />
+				</div>
+
+				<div class="flex flex-col gap-6 *:[div]:w-full *:[div]:max-w-full">
+					<spartan-input-group-button-preview class="[&>*:not(:nth-child(2))]:hidden" />
+					<spartan-item-preview class="[&>*:not(:nth-child(2))]:hidden" />
+					<hlm-field-separator class="my-4">Appearance Settings</hlm-field-separator>
+					<spartan-field-choice-card-preview />
+					<hlm-field-separator class="my-4" />
+					<spartan-field-radio-preview />
+				</div>
+				<div class="flex flex-col gap-6 *:[div]:w-full *:[div]:max-w-full">
+					<spartan-input-group-textarea-preview />
+					<spartan-button-group-preview />
+					<spartan-field-switch-preview class="rounded-lg border p-4" />
+					<spartan-pagination-preview />
+					<spartan-alert-preview class="[&>*:not(:nth-child(3))]:hidden" />
 				</div>
 			</div>
 		</section>

@@ -96,7 +96,7 @@ export const HLM_AUTOCOMPLETE_VALUE_ACCESSOR = {
 						(input)="_searchChanged($event)"
 					/>
 					<div hlmInputGroupAddon>
-						<ng-icon hlm name="lucideSearch" />
+						<ng-icon name="lucideSearch" />
 					</div>
 					<div hlmInputGroupAddon align="inline-end">
 						@if (showClearBtn() && value() !== undefined) {
@@ -109,7 +109,7 @@ export const HLM_AUTOCOMPLETE_VALUE_ACCESSOR = {
 								(click)="_selectionCleared()"
 								size="icon-xs"
 							>
-								<ng-icon name="lucideCircleX" hlm />
+								<ng-icon name="lucideCircleX" />
 							</button>
 						}
 
@@ -122,7 +122,7 @@ export const HLM_AUTOCOMPLETE_VALUE_ACCESSOR = {
 							(click)="_toggleOptions()"
 							size="icon-xs"
 						>
-							<ng-icon name="lucideChevronDown" hlm />
+							<ng-icon name="lucideChevronDown" />
 						</button>
 					</div>
 				</div>

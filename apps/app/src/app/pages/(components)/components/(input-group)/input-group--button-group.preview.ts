@@ -25,7 +25,7 @@ import { HlmLabelImports } from '@spartan-ng/helm/label';
 			<div hlmInputGroup>
 				<input hlmInputGroupInput id="url" />
 				<div hlmInputGroupAddon align="inline-end">
-					<ng-icon hlm name="lucideLink2" />
+					<ng-icon name="lucideLink2" />
 				</div>
 			</div>
 			<div hlmButtonGroupText>.com</div>

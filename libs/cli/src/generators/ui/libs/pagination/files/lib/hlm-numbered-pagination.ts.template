@@ -27,7 +27,7 @@ import { HlmPaginationPrevious } from './hlm-pagination-previous';
 			<div class="flex items-center gap-1 text-sm text-nowrap text-gray-600">
 				<b>{{ totalItems() }}</b>
 				total items |
-				<b>{{ _pages().length }}</b>
+				<b>{{ _lastPageNumber() }}</b>
 				pages
 			</div>
 

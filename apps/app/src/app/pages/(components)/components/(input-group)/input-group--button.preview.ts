@@ -25,7 +25,7 @@ import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 					size="icon-xs"
 					(click)="_copy('https://github.com/spartan-ng/spartan')"
 				>
-					<ng-icon hlm [name]="_isCopied() ? 'tablerCheck' : 'tablerCopy'" />
+					<ng-icon [name]="_isCopied() ? 'tablerCheck' : 'tablerCopy'" />
 				</button>
 			</div>
 		</div>
@@ -38,7 +38,7 @@ import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 					brnPopoverTrigger
 					[brnPopoverTriggerFor]="brnPopover"
 				>
-					<ng-icon hlm name="tablerInfoCircle" />
+					<ng-icon name="tablerInfoCircle" />
 				</button>
 			</div>
 
@@ -46,7 +46,7 @@ import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 			<input hlmInputGroupInput id="input-secure-19" />
 			<div hlmInputGroupAddon align="inline-end">
 				<button hlmInputGroupButton size="icon-xs" (click)="_toggleFavorite()">
-					<ng-icon hlm name="tablerStar" [class]="_favoriteClass()" />
+					<ng-icon name="tablerStar" [class]="_favoriteClass()" />
 				</button>
 			</div>
 		</div>

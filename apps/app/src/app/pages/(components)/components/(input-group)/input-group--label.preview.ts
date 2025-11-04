@@ -37,7 +37,7 @@ import { HlmTooltipImports } from '@spartan-ng/helm/tooltip';
 					class="ml-auto rounded-full"
 					size="icon-xs"
 				>
-					<ng-icon hlm name="lucideInfo" />
+					<ng-icon name="lucideInfo" />
 				</button>
 			</div>
 		</div>

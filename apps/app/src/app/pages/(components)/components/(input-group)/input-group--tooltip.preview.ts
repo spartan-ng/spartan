@@ -28,7 +28,7 @@ import { HlmTooltipImports } from '@spartan-ng/helm/tooltip';
 					aria-label="Info"
 					size="icon-xs"
 				>
-					<ng-icon hlm name="lucideInfo" />
+					<ng-icon name="lucideInfo" />
 				</button>
 			</div>
 		</div>
@@ -42,7 +42,7 @@ import { HlmTooltipImports } from '@spartan-ng/helm/tooltip';
 					aria-label="Info"
 					size="icon-xs"
 				>
-					<ng-icon hlm name="lucideHelpCircle" />
+					<ng-icon name="lucideHelpCircle" />
 				</button>
 			</div>
 		</div>
@@ -57,7 +57,7 @@ import { HlmTooltipImports } from '@spartan-ng/helm/tooltip';
 					aria-label="Info"
 					size="icon-xs"
 				>
-					<ng-icon hlm name="lucideHelpCircle" />
+					<ng-icon name="lucideHelpCircle" />
 				</button>
 			</div>
 		</div>

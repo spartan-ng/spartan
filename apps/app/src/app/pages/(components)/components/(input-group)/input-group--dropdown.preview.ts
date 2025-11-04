@@ -31,7 +31,7 @@ import { HlmMenuImports } from '@spartan-ng/helm/menu';
 					[brnMenuTriggerFor]="fileMenu"
 					align="end"
 				>
-					<ng-icon hlm name="lucideMoreHorizontal" />
+					<ng-icon name="lucideMoreHorizontal" />
 				</button>
 			</div>
 		</div>
@@ -47,7 +47,7 @@ import { HlmMenuImports } from '@spartan-ng/helm/menu';
 					align="end"
 				>
 					Search In...
-					<ng-icon hlm name="lucideChevronDown" />
+					<ng-icon name="lucideChevronDown" />
 				</button>
 			</div>
 		</div>

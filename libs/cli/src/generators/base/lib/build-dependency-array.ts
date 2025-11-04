@@ -12,7 +12,7 @@ export function buildDependencyArray(
 ) {
 	let dependencies: Record<string, string> = {
 		'@angular/cdk': existingCdkVersion ?? angularVersion,
-		'@spartan-ng/brain': getInstalledPackageVersion(tree, '@spartan-ng/cli'),
+		'@spartan-ng/brain': getInstalledPackageVersion(tree, '@spartan-ng/cli', undefined, true),
 		'tailwind-merge': TAILWIND_MERGE_VERSION,
 	};
 

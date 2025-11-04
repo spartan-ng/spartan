@@ -42,6 +42,7 @@ export type ButtonVariants = VariantProps<typeof buttonVariants>;
 	exportAs: 'hlmBtn',
 	hostDirectives: [{ directive: BrnButton, inputs: ['disabled'] }],
 	host: {
+		'data-slot': 'button',
 		'[class]': '_computedClass()',
 	},
 })

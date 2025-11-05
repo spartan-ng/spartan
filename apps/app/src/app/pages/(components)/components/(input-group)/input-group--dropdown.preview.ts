@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
-import { lucideChevronDown, lucideMoreHorizontal } from '@ng-icons/lucide';
+import { lucideChevronDown, lucideEllipsis } from '@ng-icons/lucide';
 import { BrnMenuImports } from '@spartan-ng/brain/menu';
 import { HlmIconImports } from '@spartan-ng/helm/icon';
 import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
@@ -11,7 +11,7 @@ import { HlmMenuImports } from '@spartan-ng/helm/menu';
 	imports: [HlmInputGroupImports, HlmIconImports, BrnMenuImports, HlmMenuImports],
 	providers: [
 		provideIcons({
-			lucideMoreHorizontal,
+			lucideEllipsis,
 			lucideChevronDown,
 		}),
 	],
@@ -31,7 +31,7 @@ import { HlmMenuImports } from '@spartan-ng/helm/menu';
 					[brnMenuTriggerFor]="fileMenu"
 					align="end"
 				>
-					<ng-icon name="lucideMoreHorizontal" />
+					<ng-icon name="lucideEllipsis" />
 				</button>
 			</div>
 		</div>

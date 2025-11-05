@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
-import { lucideHelpCircle, lucideInfo } from '@ng-icons/lucide';
+import { lucideInfo } from '@ng-icons/lucide';
 import { HlmIconImports } from '@spartan-ng/helm/icon';
 import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 import { HlmTooltipImports } from '@spartan-ng/helm/tooltip';
@@ -10,7 +10,6 @@ import { HlmTooltipImports } from '@spartan-ng/helm/tooltip';
 	providers: [
 		provideIcons({
 			lucideInfo,
-			lucideHelpCircle,
 		}),
 	],
 	imports: [HlmInputGroupImports, HlmTooltipImports, HlmIconImports],
@@ -42,7 +41,7 @@ import { HlmTooltipImports } from '@spartan-ng/helm/tooltip';
 					aria-label="Info"
 					size="icon-xs"
 				>
-					<ng-icon name="lucideHelpCircle" />
+					<ng-icon name="lucideInfo" />
 				</button>
 			</div>
 		</div>
@@ -57,7 +56,7 @@ import { HlmTooltipImports } from '@spartan-ng/helm/tooltip';
 					aria-label="Info"
 					size="icon-xs"
 				>
-					<ng-icon name="lucideHelpCircle" />
+					<ng-icon name="lucideInfo" />
 				</button>
 			</div>
 		</div>

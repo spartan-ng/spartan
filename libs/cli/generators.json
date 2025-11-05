@@ -5,6 +5,11 @@
 			"schema": "./src/generators/healthcheck/schema.json",
 			"description": "Run a healthcheck on the project to identify any potential issues or outdated code."
 		},
+		"init": {
+			"factory": "./src/generators/init/generator",
+			"schema": "./src/generators/init/schema.json",
+			"description": "Initialize a Spartan NG project with necessary configurations and dependencies."
+		},
 		"migrate-brain-accordion-trigger": {
 			"factory": "./src/generators/migrate-brain-accordion-trigger/generator",
 			"schema": "./src/generators/migrate-brain-accordion-trigger/schema.json",
@@ -111,6 +116,11 @@
 			"factory": "./src/generators/healthcheck/compat",
 			"schema": "./src/generators/healthcheck/schema.json",
 			"description": "Run a healthcheck on the project to identify any potential issues or outdated code."
+		},
+		"init": {
+			"factory": "./src/generators/init/compat",
+			"schema": "./src/generators/init/schema.json",
+			"description": "Initialize a Spartan NG project with necessary configurations and dependencies."
 		},
 		"migrate-brain-accordion-trigger": {
 			"factory": "./src/generators/migrate-brain-accordion-trigger/compat",

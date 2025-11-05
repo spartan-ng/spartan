@@ -4,7 +4,7 @@ import { getProjectsAndNames } from '../../utils/get-project-names';
 import { addThemeToApplicationStyles } from './libs/add-theme-to-application-styles';
 import { type ThemeName, themeNames } from './libs/colors';
 
-export default async function addThemeToApplicationGenerator(tree: Tree) {
+export default async function addThemeToApplicationGenerator(tree: Tree, setupTailwindCss = false) {
 	const { projects, projectNames } = getProjectsAndNames(tree);
 
 	const response: { app: string } = await prompt({
@@ -49,6 +49,7 @@ export default async function addThemeToApplicationGenerator(tree: Tree) {
 	await addThemeToApplicationStyles(
 		tree,
 		{
+			setupTailwindCss,
 			project: project.name,
 			theme: themeOptions.theme,
 			addCdkStyles: themeOptions.addCdkStyles,

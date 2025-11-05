@@ -12,6 +12,7 @@ export interface AddThemeToApplicationStylesOptions {
 	addCdkStyles: boolean;
 	stylesEntryPoint?: string;
 	prefix?: string;
+	setupTailwindCss?: boolean;
 }
 
 export async function addThemeToApplicationStyles(
@@ -53,6 +54,14 @@ export async function addThemeToApplicationStyles(
 	const CDK_IMPORT = `@import "@angular/cdk/overlay-prebuilt.css";`;
 	const ckdOverlayImport = stylesEntryPointContent.includes(CDK_IMPORT) ? '' : CDK_IMPORT;
 
+	const twSetup = options.setupTailwindCss
+		? `@layer theme, base, components, utilities;
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/preflight.css' layer(base);
+@import 'tailwindcss/utilities.css';
+		`
+		: '';
+
 	const fontSans = stylesEntryPointContent.includes('--font-sans') ? '' : `--font-sans: '';`;
 
 	const colorScheme = tailwindVersion === 4 ? themes[options.theme] : legacyThemes[options.theme];
@@ -60,6 +69,7 @@ export async function addThemeToApplicationStyles(
 	tree.write(
 		stylesEntryPoint,
 		stripIndents`
+		${twSetup}
     ${ckdOverlayImport}
 
     ${stylesEntryPointContent}

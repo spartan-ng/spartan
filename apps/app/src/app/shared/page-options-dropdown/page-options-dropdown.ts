@@ -11,7 +11,7 @@ import { AiChatLinkDirective } from './ai-chat-link-directive';
 @Component({
 	selector: 'spartan-page-options-dropdown',
 	template: `
-		<button hlmBtn variant="outline" [brnMenuTriggerFor]="menu">
+		<button hlmBtn size="sm" variant="secondary" side="bottom" align="end" [brnMenuTriggerFor]="menu">
 			AI Assist
 			<ng-icon hlm name="lucideChevronDown" />
 		</button>

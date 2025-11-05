@@ -10,6 +10,9 @@ import { HlmLabelImports } from '@spartan-ng/helm/label';
 	selector: 'spartan-card-preview',
 	imports: [HlmCardImports, HlmLabelImports, HlmInputImports, HlmButtonImports],
 	providers: [provideIcons({ lucideCheck, lucideChevronDown })],
+	host: {
+		class: 'contents',
+	},
 	template: `
 		<section class="w-full max-w-sm" hlmCard>
 			<div hlmCardHeader>

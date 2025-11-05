@@ -8,14 +8,11 @@ import { SectionIntro } from '@spartan-ng/app/app/shared/layout/section-intro';
 import { SectionSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-heading';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
 import { HlmAspectRatioImports } from '@spartan-ng/helm/aspect-ratio';
-import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
+import { hlmP } from '@spartan-ng/helm/typography';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Figma' },
-	meta: metaWith(
-		'spartan - Figma',
-		'Every component recreated in Figma. With customizable props, typography and icons.',
-	),
+	meta: metaWith('spartan - Figma', 'Design with the same components you build. Figma UI kit for spartan components.'),
 	title: 'spartan - Figma',
 };
 
@@ -32,38 +29,42 @@ export const routeMeta: RouteMeta = {
 	],
 	template: `
 		<section spartanMainSection>
-			<spartan-section-intro
-				name="Figma"
-				lead="Every component recreated in Figma. With customizable props, typography and icons."
-			/>
+			<spartan-section-intro name="Figma" lead="Design with shadcn components. Build with spartan." />
 
 			<p class="${hlmP}">
-				Since
-				<code class="${hlmCode}">spartan/ui</code>
-				proudly & shamelessly piggybacks on top of the incredible work by
-				<span>shadcn,</span>
-				it can leverage their (non Angular specific) ecosystem.
+				Because spartan adapts shadcn/ui patterns for Angular, you can use shadcn design resources for prototyping. This
+				includes Figma UI kits created by the community.
 			</p>
+
 			<p class="${hlmP}">
-				That means we get access to incredibly work like
-				<a class="font-medium hover:underline" href="https://twitter.com/skirano" target="_blank">Pietro Schirano's</a>
-				Figma UI Kit!
+				<a class="font-medium hover:underline" href="https://twitter.com/skirano" target="_blank">Pietro Schirano</a>
+				created a Figma UI kit for shadcn components. Explore the kit below:
 			</p>
-			<div class="mt-4" hlmAspectRatio="16/9">
+
+			<div class="mt-6" hlmAspectRatio="16/9">
 				<iframe
 					src="https://embed.figma.com/file/1203061493325953101/hf_embed?community_viewer=true&amp;embed_host=shadcn&amp;hub_file_id=1203061493325953101&amp;kind=&amp;viewer=1"
 					class="bg-muted h-full w-full overflow-hidden rounded-lg border"
 				></iframe>
 			</div>
 
-			<spartan-section-sub-heading id="copy">Grab a copy</spartan-section-sub-heading>
+			<spartan-section-sub-heading id="get-started">Get the Figma Kit</spartan-section-sub-heading>
+
+			<p class="${hlmP}">Duplicate the file to your Figma account:</p>
+
 			<a
-				class="text-lg font-medium underline"
+				class="mt-2 block text-lg font-medium underline"
 				target="_blank"
 				href="https://www.figma.com/community/file/1203061493325953101"
 			>
-				https://www.figma.com/community/file/1203061493325953101
+				Get Figma UI Kit →
 			</a>
+
+			<p class="${hlmP} mt-6">
+				Since spartan components follow shadcn patterns, designs created with shadcn-based Figma kits can be implemented
+				with matching spartan components in your Angular app.
+			</p>
+
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="health-checks" label="Health Checks" />
 				<spartan-page-bottom-nav-link direction="previous" href="typography" label="Typography" />

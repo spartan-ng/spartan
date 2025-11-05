@@ -13,18 +13,18 @@ import { hlmP, hlmUl } from '@spartan-ng/helm/typography';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'About' },
-	meta: metaWith('spartan - About', 'Powered by amazing open source projects.'),
+	meta: metaWith('spartan - About', 'Built on the shoulders of incredible open source projects.'),
 	title: 'spartan - About',
 };
 
-const aboutLink = 'h-6 underline text-base px-0.5';
+const aboutLink = 'h-6 underline text-sm px-0.5';
 
 @Component({
 	selector: 'spartan-about',
 	imports: [MainSection, SectionIntro, PageBottomNav, PageBottomNavLink, PageNav, SectionSubHeading, HlmButtonImports],
 	template: `
 		<section spartanMainSection>
-			<spartan-section-intro name="About" lead="Powered by amazing open source projects." />
+			<spartan-section-intro name="About" lead="Built on the shoulders of incredible open source projects." />
 
 			<spartan-section-sub-heading first id="about" class="pt-6">About</spartan-section-sub-heading>
 
@@ -35,94 +35,52 @@ const aboutLink = 'h-6 underline text-base px-0.5';
 				.
 			</p>
 
-			<spartan-section-sub-heading id="spartans">
-				<span class="flex items-center">
-					<span>spartans</span>
-					<svg
-						class="ml-2 h-5 w-5"
-						width="587"
-						height="587"
-						viewBox="0 0 587 587"
-						fill="none"
-						xmlns="http://www.w3.org/2000/svg"
-					>
-						<path
-							fill-rule="evenodd"
-							clip-rule="evenodd"
-							d="M293.5 66C167.855 66 66 167.855 66 293.5C66 345.005 83.088 392.483 111.949 430.623L293.5 217.629L475.051 430.623C503.912 392.483 521 345.005 521 293.5C521 167.855 419.145 66 293.5 66ZM427.916 477.068L293.5 319.371L159.084 477.068C196.752 504.705 243.2 521 293.5 521C343.8 521 390.248 504.705 427.916 477.068ZM0 293.5C0 131.404 131.404 0 293.5 0C455.596 0 587 131.404 587 293.5C587 376.362 552.619 451.25 497.432 504.579C444.66 555.574 372.716 587 293.5 587C214.284 587 142.34 555.574 89.5685 504.579C34.3812 451.25 0 376.362 0 293.5Z"
-							fill="currentColor"
-						/>
-					</svg>
-				</span>
-			</spartan-section-sub-heading>
-
-			<ul class="${hlmP} ${hlmUl}">
-				<li class="mt-0!">
-					<a class="${aboutLink}" hlmBtn href="https://twitter.com/goetzrobin" target="_blank" variant="link">
-						goetzrobin
-					</a>
-					- working on spartan/stack & spartan/ui.
-				</li>
-				<li>
-					<a class="${aboutLink}" hlmBtn href="https://github.com/mihajm" target="_blank" variant="link">mihajm</a>
-					- working on spartan/ui.
-				</li>
-				<li>
-					<a class="${aboutLink}" hlmBtn href="https://github.com/AdditionAddict" target="_blank" variant="link">
-						AdditionAddict
-					</a>
-					- supporting spartan/stack & spartan/ui.
-				</li>
-			</ul>
-
 			<spartan-section-sub-heading id="credits">Credits</spartan-section-sub-heading>
 
 			<p class="${hlmP}">
-				First and foremost, credit goes to the incredible
-				<a hlmBtn variant="link" class="${aboutLink}" href="https://brandonroberts.dev/blog">Brandon Roberts</a>
-				and
-				<a hlmBtn variant="link" class="${aboutLink}" href="https://shadcn.com">shadcn.</a>
+				spartan/ui wouldn't exist without the pioneering work of
+				<a hlmBtn variant="link" class="${aboutLink}" href="https://shadcn.com">shadcn</a>
+				and the patterns established by
+				<a hlmBtn variant="link" class="${aboutLink}" href="https://radix-ui.com">Radix UI.</a>
 			</p>
 
 			<p class="${hlmP}">
-				Brandon's AnalogJs is the absolute backbone of the spartan/stack and brings incredible value to the Angular
-				ecosystem.
+				shadcn showed the world that developers prefer copying code over installing packages. Radix pioneered
+				accessible, unstyled primitives. spartan adapts both philosophies for the Angular ecosystem.
 			</p>
+
 			<p class="${hlmP}">
-				The UI library shadcn has created is simply beautiful and spartan/ui tries its best to emulate its style and
-				quality.
+				Massive thanks to
+				<a hlmBtn variant="link" class="${aboutLink}" href="https://brandonroberts.dev/blog">Brandon Roberts</a>
+				for AnalogJs, which powers the full-stack capabilities of spartan/stack.
 			</p>
-			<p class="${hlmP}">Other awesome work we are building upon is:</p>
+
+			<p class="${hlmP}">Other incredible projects we build upon:</p>
 			<ul class="${hlmUl}">
 				<li>
-					<a class="${aboutLink}" hlmBtn href="https://analogjs.org" target="_blank" variant="link">AnalogJs</a>
-					- The full-stack Angular meta-framework.
+					<a class="${aboutLink}" hlmBtn href="https://ui.shadcn.com" target="_blank" variant="link">shadcn/ui</a>
+					- Design system and copy-paste philosophy that inspired spartan/ui.
 				</li>
 				<li>
-					<a class="${aboutLink}" hlmBtn href="https://ui.shadcn.com" target="_blank" variant="link">ui.shadcn.com</a>
-					- Styles for UI primitives.
-				</li>
-				<li>
-					<a class="${aboutLink}" hlmBtn href="https://radix-ui.com" target="_blank" variant="link">Radix</a>
-					- Patterns & inspiration for accessible unstyled UI primitives.
+					<a class="${aboutLink}" hlmBtn href="https://radix-ui.com" target="_blank" variant="link">Radix UI</a>
+					- Patterns and architecture for accessible, unstyled primitives.
 				</li>
 				<li>
 					<a class="${aboutLink}" hlmBtn href="https://material.angular.io" target="_blank" variant="link">
-						Angular Material
+						Angular Material CDK
 					</a>
-					- An incredible CDK, patterns & inspiration for accessible unstyled ui primitives.
+					- Battle-tested patterns for building accessible Angular components.
 				</li>
 				<li>
-					<a
-						class="${aboutLink}"
-						hlmBtn
-						href="https://github.com/timdeschryver/ng-signal-forms"
-						target="_blank"
-						variant="link"
-					>
-						ng-signal-forms
+					<a class="${aboutLink}" hlmBtn href="https://analogjs.org" target="_blank" variant="link">AnalogJs</a>
+					- The full-stack Angular meta-framework powering spartan/stack.
+				</li>
+				<li>
+					<a class="${aboutLink}" hlmBtn href="https://tutkli.github.io/ngx-sonner" target="_blank" variant="link">
+						ngx-sonner
 					</a>
-					- Form library based on Angular signals, which makes working with even the most complex scenarios a breeze.
+					- Elegant toast notifications by
+					<a hlmBtn variant="link" class="${aboutLink}" href="https://github.com/tutkli">Tutkli.</a>
 				</li>
 				<li>
 					<a
@@ -134,13 +92,14 @@ const aboutLink = 'h-6 underline text-base px-0.5';
 					>
 						ngx-scrollbar
 					</a>
-					- Custom overlay-scrollbars with native scrolling mechanism.
+					- Custom overlay scrollbars with native scrolling mechanism.
 				</li>
 				<li>
 					<a class="${aboutLink}" hlmBtn href="https://ng-icons.github.io/ng-icons" target="_blank" variant="link">
 						ng-icons
 					</a>
-					- The ultimate icon library for Angular.
+					- The ultimate icon library for Angular by
+					<a hlmBtn variant="link" class="${aboutLink}" href="https://github.com/ashley-hunter">Ashley Hunter.</a>
 				</li>
 			</ul>
 
@@ -148,7 +107,7 @@ const aboutLink = 'h-6 underline text-base px-0.5';
 
 			<p class="${hlmP}">
 				MIT &copy; {{ currentYear }} -
-				<a hlmBtn variant="link" class="px-0.5 text-base underline" href="https://twitter.com/goetzrobin">goetzrobin</a>
+				<a hlmBtn variant="link" class="px-0.5 text-sm underline" href="https://twitter.com/goetzrobin">goetzrobin</a>
 			</p>
 
 			<spartan-page-bottom-nav>

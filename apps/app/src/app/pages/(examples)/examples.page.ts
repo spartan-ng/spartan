@@ -41,11 +41,11 @@ export const routeMeta: RouteMeta = {
 
 		<nav class="scrollbar-w-0 mt-12 mb-2 h-11 overflow-x-auto sm:h-auto">
 			<ul class="flex space-x-2">
-				<li><a class="!font-medium" spartanNavLink="/examples/notes">Notes</a></li>
-				<li><a class="!font-medium" spartanNavLink="/examples/typography">Typography</a></li>
-				<li><a class="!font-medium" spartanNavLink="/examples/authentication">Authentication</a></li>
-				<li><a class="!font-medium" spartanNavLink="/examples/music">Music</a></li>
 				<li><a class="!font-medium" spartanNavLink="/examples/tasks">Tasks</a></li>
+				<li><a class="!font-medium" spartanNavLink="/examples/music">Music</a></li>
+				<li><a class="!font-medium" spartanNavLink="/examples/notes">Notes</a></li>
+				<li><a class="!font-medium" spartanNavLink="/examples/authentication">Authentication</a></li>
+				<li><a class="!font-medium" spartanNavLink="/examples/typography">Typography</a></li>
 			</ul>
 		</nav>
 		<div class="border-border overflow-hidden rounded-lg border">

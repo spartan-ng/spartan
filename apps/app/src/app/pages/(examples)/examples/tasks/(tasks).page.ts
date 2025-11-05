@@ -19,6 +19,7 @@ import {
 	lucideDot,
 	lucideEllipsis,
 	lucideLayers,
+	lucideLoader,
 	lucideLogOut,
 	lucideUser,
 } from '@ng-icons/lucide';
@@ -96,6 +97,7 @@ export const routeMeta: RouteMeta = {
 			lucideLayers,
 			lucideLogOut,
 			lucideUser,
+			lucideLoader,
 		}),
 	],
 	host: {
@@ -110,7 +112,7 @@ export const routeMeta: RouteMeta = {
 				</div>
 				<hlm-avatar [brnMenuTriggerFor]="profile" align="center">
 					<img src="/assets/avatar.png" alt="spartan logo. Resembling a spartanic shield" hlmAvatarImage />
-					<span class="bg-destructive text-white" hlmAvatarFallback>AH</span>
+					<span class="bg-destructive text-white" hlmAvatarFallback>KL</span>
 				</hlm-avatar>
 
 				<ng-template #profile>
@@ -196,6 +198,10 @@ export const routeMeta: RouteMeta = {
 								}
 							</tbody>
 						</table>
+					</div>
+				} @placeholder {
+					<div class="flex h-96 items-center justify-center">
+						<ng-icon name="lucideLoader" class="h-4 w-4 animate-spin" />
 					</div>
 				}
 			</div>

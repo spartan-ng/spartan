@@ -92,15 +92,6 @@ export const sidenavItems: NavItem[] = [
 		],
 	},
 	{
-		label: 'Stack',
-		url: '/stack',
-		links: [
-			{ label: 'Overview', url: '/overview' },
-			{ label: 'Technologies', url: '/technologies' },
-			{ label: 'Installation', url: '/installation' },
-		],
-	},
-	{
 		label: 'UI',
 		url: '/documentation',
 		links: [
@@ -117,5 +108,14 @@ export const sidenavItems: NavItem[] = [
 		label: 'Components',
 		url: '/components',
 		links: components,
+	},
+	{
+		label: 'Stack',
+		url: '/stack',
+		links: [
+			{ label: 'Overview', url: '/overview' },
+			{ label: 'Technologies', url: '/technologies' },
+			{ label: 'Installation', url: '/installation' },
+		],
 	},
 ];

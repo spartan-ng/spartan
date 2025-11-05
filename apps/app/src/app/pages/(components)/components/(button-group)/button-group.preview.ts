@@ -79,7 +79,7 @@ import { HlmMenuImports } from '@spartan-ng/helm/menu';
 							<ng-icon hlm name="lucideCalendarPlus" size="sm" />
 							<span>Add to List</span>
 						</button>
-						<button hlmMenuItem class="flex justify-between" [brnMenuTriggerFor]="submenu">
+						<button hlmMenuItem class="flex justify-between" align="start" side="right" [brnMenuTriggerFor]="submenu">
 							<div class="flex items-center gap-2">
 								<ng-icon hlm name="lucideTag" size="sm" />
 								<span>Label as...</span>
@@ -120,10 +120,10 @@ export class ButtonGroupPreview {
 }
 
 export const defaultImports = `
-import { 
-	HlmButtonGroup, 
-	HlmButtonGroupSeparator, 
-	HlmButtonGroupText 
+import {
+	HlmButtonGroup,
+	HlmButtonGroupSeparator,
+	HlmButtonGroupText
 } from '@spartan-ng/helm/button-group';
 `;
 

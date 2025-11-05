@@ -39,7 +39,7 @@ export const routeMeta: RouteMeta = {
 			/>
 
 			<div
-				class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-x-8 lg:gap-x-16 lg:gap-y-6 xl:gap-x-20"
+				class="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-x-8 lg:gap-x-16 lg:gap-y-6 xl:gap-x-20"
 			>
 				@for (component of _components; track component.url) {
 					<a

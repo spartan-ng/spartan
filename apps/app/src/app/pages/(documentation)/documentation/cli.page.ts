@@ -2,7 +2,6 @@ import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideTriangleAlert } from '@ng-icons/lucide';
-import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { MainSection } from '../../../shared/layout/main-section';
 import { PackageInstallerTabs } from '../../../shared/layout/package-installer-tabs';
@@ -16,7 +15,7 @@ import { metaWith } from '../../../shared/meta/meta.util';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'CLI' },
-	meta: metaWith('spartan - CLI', 'Supercharge your spartan experience with our CLI.'),
+	meta: metaWith('spartan - CLI', 'Add accessible UI primitives to any Angular project with one command.'),
 	title: 'spartan - CLI',
 };
 
@@ -31,49 +30,106 @@ export const routeMeta: RouteMeta = {
 		SectionSubHeading,
 		TabsCli,
 		PackageInstallerTabs,
-		SectionSubSubHeading,
 	],
 	providers: [provideIcons({ lucideTriangleAlert })],
 	template: `
 		<section spartanMainSection>
-			<spartan-section-intro name="CLI" lead="Supercharge your spartan experience with our CLI." />
+			<spartan-section-intro name="CLI" lead="Add accessible UI primitives to any Angular project with one command." />
+
 			<p class="${hlmP}">
-				Ultimately our goal is to provide a standalone CLI that allows you to simply add spartan primitives to any
-				Angular project.
-			</p>
-			<p class="${hlmP}">
-				However, our initial focus is to provide a tight integration with the
-				<code class="${hlmCode}">spartan/stack</code>
-				, which runs on Nx. Therefore, the initial version of our CLI is a Nx plugin.
+				The spartan CLI is the fastest way to add components to your project. It works with both Angular CLI projects
+				and Nx workspaces - no additional configuration required.
 			</p>
 
-			<spartan-section-sub-heading id="nx">&#64;spartan-ng/nx</spartan-section-sub-heading>
 			<p class="${hlmP}">
-				To add
-				<code class="${hlmCode}">spartan</code>
-				to your Angular CLI project or Nx workspace simply install the plugin with the command below:
+				For each component you add, the CLI automatically installs the Brain primitive from npm and copies the Helm
+				styles into your codebase. You choose individual components or install them all at once.
 			</p>
+
+			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
+			<p class="${hlmP}">Install the spartan CLI as a dev dependency:</p>
 			<spartan-package-installer-tab class="mt-4" />
 
-			<h3 id="nx__ui" spartanH4>ui</h3>
+			<spartan-section-sub-heading id="setup-theme">Setup Your Theme</spartan-section-sub-heading>
+			<p class="${hlmP}">Before adding components, configure your theme and Tailwind settings:</p>
+			<spartan-cli-tabs
+				class="mt-4"
+				nxCode="npx nx g @spartan-ng/cli:ui-theme"
+				ngCode="ng g @spartan-ng/cli:ui-theme"
+			/>
+
 			<p class="${hlmP}">
-				To add
-				<code class="${hlmCode}">spartan/ui</code>
-				primitives to your workspace run the following command:
-			</p>
-			<spartan-cli-tabs class="mt-4" nxCode="npx nx g @spartan-ng/cli:ui" ngCode="ng g @spartan-ng/cli:ui" />
-			<p class="${hlmP}">
-				You can then select which primitives you want to add. For each primitive we create a buildable library at a path
-				of your choice.
+				The CLI will prompt you to select your application, locate your styles entry point, choose a theme, and set your
+				preferred border radius. This only needs to be done once.
 			</p>
 
-			<h3 id="nx__ui_theme" spartanH4>ui-theme</h3>
-			<p class="${hlmP}">Adding a theme can also be done on itself. Use the command below:</p>
-			<spartan-cli-tabs nxCode="npx nx g @spartan-ng/cli:ui-theme" ngCode="ng g @spartan-ng/cli:ui-theme" />
+			<spartan-section-sub-heading id="add-components">Add Components</spartan-section-sub-heading>
+			<p class="${hlmP}">Add spartan/ui components to your project:</p>
+			<spartan-cli-tabs class="mt-4" nxCode="npx nx g @spartan-ng/cli:ui" ngCode="ng g @spartan-ng/cli:ui" />
+
 			<p class="${hlmP}">
-				You can then select which application you want to add the theme to. Where your styles entrypoint is located.
-				Which theme to add & what border radius to use.
+				You'll be prompted to select components to add - choose individual components or all of them. The CLI takes care
+				of the rest.
 			</p>
+
+			<spartan-section-sub-heading id="what-happens">What the CLI Does</spartan-section-sub-heading>
+			<p class="${hlmP}">When you add a component, the CLI automatically:</p>
+
+			<ul class="my-4 ml-6 list-disc [&>li]:mt-2">
+				<li>
+					<strong>Installs the Brain primitives:</strong>
+					Adds the
+					<code class="${hlmCode}">&#64;spartan-ng/brain</code>
+					package to your
+					<code class="${hlmCode}">package.json</code>
+					if needed
+				</li>
+				<li>
+					<strong>Copies Helm files:</strong>
+					Places styled component code into your project at your specified location
+				</li>
+				<li>
+					<strong>Configures imports:</strong>
+					Updates your project configuration to recognize the new components
+				</li>
+				<li>
+					<strong>Creates libraries (Nx only):</strong>
+					Optionally generates buildable libraries for better code organization
+				</li>
+			</ul>
+
+			<p class="${hlmP}">
+				Result: Brain primitives are installed as maintained npm dependencies. Helm styles live in your codebase where
+				you can edit them freely. No manual setup required.
+			</p>
+
+			<spartan-section-sub-heading id="workflow">Recommended Workflow</spartan-section-sub-heading>
+			<ol class="my-4 ml-6 list-decimal [&>li]:mt-2">
+				<li>
+					Install tailwindcss:
+					<a
+						class="${hlmCode} underline"
+						href="https://tailwindcss.com/docs/installation/framework-guides/angular"
+						target="_blank"
+					>
+						official Angular installation guide
+					</a>
+				</li>
+				<li>
+					Install the CLI:
+					<code class="${hlmCode}">npm i -D &#64;spartan-ng/cli</code>
+				</li>
+				<li>
+					Set up your theme:
+					<code class="${hlmCode}">ng g &#64;spartan-ng/cli:ui-theme</code>
+				</li>
+				<li>
+					Add components as needed:
+					<code class="${hlmCode}">ng g &#64;spartan-ng/cli:ui</code>
+				</li>
+				<li>Customize the copied Helm files to match your design system</li>
+				<li>Ship your app with complete control over every style</li>
+			</ol>
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="components-json" label="components.json" />

@@ -6,7 +6,7 @@ export type CLIMode = 'cli' | 'nx';
 	providedIn: 'root',
 })
 export class CLIModeService {
-	private readonly _cliMode = signal<CLIMode>('nx');
+	private readonly _cliMode = signal<CLIMode>('cli');
 
 	public setCliMode(value: CLIMode): void {
 		this._cliMode.set(value);

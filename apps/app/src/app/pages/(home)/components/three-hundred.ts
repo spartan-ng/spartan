@@ -6,15 +6,16 @@ import { ThreeHundredItemPlaceholder } from './th-item-placeholder';
 	selector: 'spartan-three-hundred',
 	imports: [ThreeHundredItem, ThreeHundredItemPlaceholder],
 	host: {
-		class: 'grid gap-2 grid-cols-3 sm:grid-cols-5 lg:grid-cols-10',
+		class: 'relative grid gap-2 grid-cols-3 sm:grid-cols-5 lg:grid-cols-10',
 	},
 	template: `
 		@for (contributor of _contributors; track $index) {
 			<spartan-th-item class="mb-2" [contributor]="contributor" />
 		}
-		@for (item of _rest; track $index) {
+		@for (_ of _rest; track $index) {
 			<spartan-th-item-placeholder class="mb-2 hidden md:inline-flex" />
 		}
+		<div class="from-background pointer-events-none absolute right-0 bottom-0 left-0 h-3/12 bg-gradient-to-t"></div>
 	`,
 })
 export class ThreeHundred {
@@ -23,6 +24,8 @@ export class ThreeHundred {
 		'thatsamsonkid',
 		'elite-benni',
 		'ashley-hunter',
+		'marcjulian',
+		'MerlinMoos',
 		'zeropsio',
 		'snydertechnologies',
 		'mihajm',
@@ -38,7 +41,6 @@ export class ThreeHundred {
 		'tutkli',
 		'Pascalmh',
 		'okkindel',
-		'marcjulian',
 		'oidre',
 		'nartc',
 		'santoshyadavdev',
@@ -95,7 +97,6 @@ export class ThreeHundred {
 		'shinkhouse',
 		'donaldxdonald',
 		'BenoitPE',
-		'MerlinMoos',
 		'miljan-code',
 		'Georg632',
 		'hillin',
@@ -134,5 +135,8 @@ export class ThreeHundred {
 		'dw-0',
 		'Khumozin',
 	];
-	protected readonly _rest = Array(300 - this._contributors.length).map((_, i) => i);
+	protected readonly _contributorCountRoundedToNextMultipleOf10 = Math.ceil(this._contributors.length / 10) * 10;
+	protected readonly _countNeededToGetToNextMultipleOf10 =
+		this._contributorCountRoundedToNextMultipleOf10 - this._contributors.length;
+	protected readonly _rest = Array(this._countNeededToGetToNextMultipleOf10 + 20).map((_, i) => i);
 }

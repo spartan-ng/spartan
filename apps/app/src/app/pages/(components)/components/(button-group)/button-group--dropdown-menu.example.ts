@@ -39,7 +39,7 @@ import { HlmMenuImports } from '@spartan-ng/helm/menu';
 			</button>
 		</div>
 		<ng-template #menu>
-			<hlm-menu class="w-45 [--radius:1rem]">
+			<hlm-menu class="w-[49] [--radius:1rem]">
 				<hlm-menu-group>
 					<button hlmMenuItem>
 						<ng-icon hlm name="lucideVolumeOff" size="sm" />

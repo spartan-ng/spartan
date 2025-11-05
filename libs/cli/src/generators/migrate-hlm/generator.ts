@@ -36,7 +36,7 @@ async function ensureHelmUtilsInstalled(tree: Tree, angularCli: boolean) {
 		const supportedLibraries = (await import('../ui/supported-ui-libraries.json').then(
 			(m) => m.default,
 		)) as SupportedLibraries;
-		const config = await getOrCreateConfig(tree);
+		const config = await getOrCreateConfig(tree, { angularCli });
 
 		await createPrimitiveLibraries(
 			{

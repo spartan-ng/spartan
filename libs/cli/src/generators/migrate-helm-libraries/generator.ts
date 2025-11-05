@@ -14,7 +14,7 @@ import type { MigrateHelmLibrariesGeneratorSchema } from './schema';
 export async function migrateHelmLibrariesGenerator(tree: Tree, options: MigrateHelmLibrariesGeneratorSchema) {
 	// Detect the libraries that are already installed
 
-	const config = await getOrCreateConfig(tree);
+	const config = await getOrCreateConfig(tree, { angularCli: options.angularCli });
 
 	const existingLibraries = await detectLibraries(tree, config.importAlias);
 
@@ -179,7 +179,7 @@ async function regenerateLibraries(tree: Tree, options: MigrateHelmLibrariesGene
 	const supportedLibraries = (await import('../ui/supported-ui-libraries.json').then(
 		(m) => m.default,
 	)) as SupportedLibraries;
-	const config = await getOrCreateConfig(tree);
+	const config = await getOrCreateConfig(tree, { angularCli: options.angularCli });
 
 	await createPrimitiveLibraries(
 		{

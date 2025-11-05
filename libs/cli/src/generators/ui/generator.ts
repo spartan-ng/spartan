@@ -15,6 +15,7 @@ export default async function hlmUIGenerator(tree: Tree, options: HlmUIGenerator
 	const tasks: GeneratorCallback[] = [];
 	const config = await getOrCreateConfig(tree, {
 		componentsPath: options.directory,
+		angularCli: options.angularCli,
 	});
 
 	const availablePrimitives: PrimitiveDefinitions = await import('./supported-ui-libraries.json').then(

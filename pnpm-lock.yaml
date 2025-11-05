@@ -174,13 +174,13 @@ importers:
         specifier: ^2.2.1
         version: 2.2.2
       tailwind-merge:
-        specifier: ^3.0.1
+        specifier: ^3.3.1
         version: 3.3.1
       tslib:
         specifier: ~2.7.0
         version: 2.7.0
       tw-animate-css:
-        specifier: ^1.2.4
+        specifier: ^1.4.0
         version: 1.4.0
       ufo:
         specifier: 1.5.4

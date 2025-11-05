@@ -5104,7 +5104,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "hlm-skeleton",
+        "selector": "[hlmSkeleton],hlm-skeleton",
       },
     },
   },

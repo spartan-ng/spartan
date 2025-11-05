@@ -47,7 +47,7 @@ export async function spartanInitGenerator(
 
 	if (addDependencies) {
 		const angularVersionStr = getInstalledPackageVersion(tree, '@angular/core', FALLBACK_ANGULAR_VERSION, true);
-		const cdkVersionStr = await getLatestVersion('@angular/cdk');
+		const cdkVersionStr = getInstalledPackageVersion(tree, '@angular/core', FALLBACK_ANGULAR_VERSION, true);
 		dependencies = {
 			...dependencies,
 			...buildDependencyArray(tree, {} as HlmBaseGeneratorSchema, angularVersionStr, cdkVersionStr),

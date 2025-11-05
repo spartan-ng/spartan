@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { ThreeHundredItem } from './th-item';
 import { ThreeHundredItemPlaceholder } from './th-item-placeholder';
 
-const INCREMENT = 50;
 @Component({
 	selector: 'spartan-three-hundred',
 	imports: [ThreeHundredItem, ThreeHundredItemPlaceholder],

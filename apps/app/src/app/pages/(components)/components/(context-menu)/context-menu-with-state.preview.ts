@@ -15,17 +15,17 @@ import { HlmMenuImports } from '@spartan-ng/helm/menu';
 		>
 			Right click here
 		</div>
-		<div class="mt-2 text-center font-mono text-xs">{{ pastedContent() }}</div>
+		<div class="mt-2 text-center font-mono text-xs">{{ _pastedContent() }}</div>
 
 		<ng-template #menu let-ctx>
 			<hlm-menu class="w-64">
 				<hlm-menu-group>
-					<button (click)="pastedContent.set(ctx.data)" inset hlmMenuItem>
+					<button (click)="_pastedContent.set(ctx.data)" inset hlmMenuItem>
 						Save
 						<hlm-menu-shortcut>⌘S</hlm-menu-shortcut>
 					</button>
 				</hlm-menu-group>
-				<button (click)="pastedContent.set('Unsaved Changes')" inset hlmMenuItem>
+				<button (click)="_pastedContent.set('Unsaved Changes')" inset hlmMenuItem>
 					Back
 					<hlm-menu-shortcut>⌘[</hlm-menu-shortcut>
 				</button>
@@ -44,5 +44,5 @@ import { HlmMenuImports } from '@spartan-ng/helm/menu';
 	`,
 })
 export class ContextMenuPreviewWithState {
-	protected pastedContent = signal('Unsaved Changes');
+	protected readonly _pastedContent = signal('Unsaved Changes');
 }

@@ -1,29 +1,28 @@
 import { NgOptimizedImage } from '@angular/common';
 import { Component, computed, input, signal } from '@angular/core';
-import { SpartanLogo } from '@spartan-ng/app/app/shared/spartan-logo';
 
 @Component({
 	selector: 'spartan-th-item',
-	imports: [NgOptimizedImage, SpartanLogo],
+	imports: [NgOptimizedImage],
 	host: {
 		class: 'inline-flex flex-col justify-center items-center',
 	},
 	template: `
 		<a
-			[class.opacity-40]="!imageLoaded()"
-			[class.opacity-100]="imageLoaded()"
-			[class.scale-95]="!imageLoaded()"
-			[class.scale-100]="imageLoaded()"
-			[class.backdrop-blur-sm]="!imageLoaded()"
+			[class.opacity-40]="!_imageLoaded()"
+			[class.opacity-100]="_imageLoaded()"
+			[class.scale-95]="!_imageLoaded()"
+			[class.scale-100]="_imageLoaded()"
+			[class.backdrop-blur-sm]="!_imageLoaded()"
 			class="flex flex-col items-center transition-all duration-400"
-			[href]="href()"
+			[href]="_href()"
 			target="_blank"
 		>
 			<div class="relative rounded-full">
 				<img
-					(load)="imageLoaded.set(true)"
+					(load)="_imageLoaded.set(true)"
 					loading="lazy"
-					[ngSrc]="src()"
+					[ngSrc]="_src()"
 					width="40"
 					height="40"
 					[alt]="contributor()"
@@ -40,7 +39,7 @@ import { SpartanLogo } from '@spartan-ng/app/app/shared/spartan-logo';
 })
 export class ThreeHundredItem {
 	public readonly contributor = input.required<string>();
-	protected readonly href = computed(() => `https://github.com/${this.contributor()}`);
-	protected readonly src = computed(() => `${this.href()}.png?size=80`);
-	protected readonly imageLoaded = signal(false);
+	protected readonly _href = computed(() => `https://github.com/${this.contributor()}`);
+	protected readonly _src = computed(() => `${this._href()}.png?size=80`);
+	protected readonly _imageLoaded = signal(false);
 }

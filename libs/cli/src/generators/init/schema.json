@@ -3,25 +3,6 @@
 	"$id": "Init",
 	"title": "Initialize Spartan in your project",
 	"type": "object",
-	"properties": {
-		"installTailwind": {
-			"type": "boolean",
-			"default": true,
-			"description": "Automatically install Tailwind 4",
-			"x-prompt": "Would you like to install Tailwind 4?"
-		},
-		"addDependencies": {
-			"type": "boolean",
-			"default": true,
-			"description": "Install all necessary dependencies",
-			"x-prompt": "Should I install all required dependencies?"
-		},
-		"applyTheming": {
-			"type": "boolean",
-			"default": true,
-			"description": "Add color palette and base theming files",
-			"x-prompt": "Do you want to apply base theming and color palette?"
-		}
-	},
+	"properties": {},
 	"required": []
 }

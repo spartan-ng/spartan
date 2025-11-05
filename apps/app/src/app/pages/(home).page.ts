@@ -105,7 +105,7 @@ const lead = 'text-foreground max-w-3xl text-base text-balance sm:text-lg';
 			</div>
 		</section>
 
-		<section class="hidden md:block">
+		<section class="container-wrapper hidden px-6 md:block">
 			<div
 				class="theme-container mx-auto grid gap-8 py-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-6 2xl:gap-8"
 			>

@@ -14,7 +14,7 @@ import { SideNav } from '@spartan-ng/app/app/shared/layout/side-nav/side-nav';
 					<div class="flex min-w-0 flex-1 flex-col">
 						<div class="h-(--top-spacing) shrink-0"></div>
 						<div
-							class="mx-auto flex w-full max-w-2xl min-w-0 flex-1 px-4 py-6 text-neutral-800 md:px-0 lg:py-8 dark:text-neutral-300 [&>*:nth-child(2)]:block [&>*:nth-child(2)]:w-full"
+							class="mx-auto flex w-full max-w-2xl min-w-0 flex-1 flex-col px-4 py-6 text-neutral-800 md:px-0 lg:py-8 dark:text-neutral-300 [&>*:nth-child(2)]:block [&>*:nth-child(2)]:w-full"
 						>
 							<router-outlet />
 						</div>

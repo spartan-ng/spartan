@@ -23,7 +23,7 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 	],
 	providers: [provideIcons({ lucideMenu, lucideX })],
 	template: `
-		<brn-popover align="start" sideOffset="56">
+		<brn-popover align="start" (closed)="_closePopover()" offsetX="-24" sideOffset="12">
 			<button
 				hlmBtn
 				brnPopoverTrigger
@@ -47,7 +47,7 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 
 			<div
 				hlmPopoverContent
-				class="bg-background/90 no-scrollbar h-screen w-screen overflow-y-auto rounded-none border-none p-0 shadow-none backdrop-blur duration-100"
+				class="no-scrollbar bg-background/90 h-screen w-screen overflow-y-auto rounded-none border-none p-0 shadow-none backdrop-blur duration-100"
 				*brnPopoverContent="let ctx"
 			>
 				<div class="flex flex-col gap-12 overflow-auto px-6 py-6 [&_a]:text-2xl [&_a]:font-medium">

@@ -15,6 +15,7 @@ import { SectionIntro } from '../../../../shared/layout/section-intro';
 import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading';
 import { TabsCli } from '../../../../shared/layout/tabs-cli';
 
+import { PackageInstallerTabs } from '@spartan-ng/app/app/shared/layout/package-installer-tabs';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { HlmAlert, HlmAlertDescription, HlmAlertTitle } from '@spartan-ng/helm/alert';
 import { metaWith } from '../../../../shared/meta/meta.util';
@@ -44,6 +45,7 @@ export const routeMeta: RouteMeta = {
 		HlmAlert,
 		HlmAlertDescription,
 		HlmAlertTitle,
+		PackageInstallerTabs,
 	],
 	providers: [provideIcons({ lucideChevronRight })],
 	template: `
@@ -58,16 +60,15 @@ export const routeMeta: RouteMeta = {
 				styles into your codebase for customization.
 			</p>
 
-			<spartan-section-sub-heading id="quick-start">Quick Start</spartan-section-sub-heading>
-
-			<p class="${hlmP}">Install the CLI plugin:</p>
-			<spartan-code class="mt-4" code="npm i -D @spartan-ng/cli" />
-
-			<p class="${hlmP}">Install the brain (accessible primitives):</p>
-			<spartan-code class="mt-4" code="npm i @spartan-ng/brain" />
-
-			<p class="${hlmP}">Install Angular CDK (required for overlays and accessibility):</p>
-			<spartan-code class="mt-4" code="npm i @angular/cdk" />
+			<div hlmAlert variant="destructive" class="mt-4">
+				<h4 hlmAlertTitle>We recommend to use PNPM</h4>
+				<div hlmAlertDescription>
+					<p>
+						Currently we are supporting angular version 19 with npm. For angular version 20 we recommend to use pnpm as
+						package manager to avoid potential dependency issues.
+					</p>
+				</div>
+			</div>
 
 			<spartan-section-sub-heading id="prerequisites">Prerequisites</spartan-section-sub-heading>
 
@@ -82,6 +83,17 @@ export const routeMeta: RouteMeta = {
 				</a>
 				before continuing.
 			</p>
+
+			<spartan-section-sub-heading id="quick-start">Quick Start</spartan-section-sub-heading>
+
+			<p class="${hlmP}">Install the CLI plugin:</p>
+			<spartan-package-installer-tab class="mt-4" />
+
+			<p class="${hlmP}">Install the brain (accessible primitives):</p>
+			<spartan-package-installer-tab class="mt-4" package="brn" />
+
+			<p class="${hlmP}">Install Angular CDK (required for overlays and accessibility):</p>
+			<spartan-package-installer-tab class="mt-4" package="cdk" />
 
 			<spartan-section-sub-heading id="setting-up-tailwindcss">Configure Tailwind CSS</spartan-section-sub-heading>
 

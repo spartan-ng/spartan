@@ -3877,6 +3877,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "unknown",
           },
+          {
+            "name": "offsetX",
+            "required": false,
+            "type": "unknown",
+          },
         ],
         "models": [],
         "outputs": [],

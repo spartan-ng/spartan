@@ -2,6 +2,7 @@ import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MainSection } from '@spartan-ng/app/app/shared/layout/main-section';
+import { PackageInstallerTabs } from '@spartan-ng/app/app/shared/layout/package-installer-tabs';
 import { PageBottomNav } from '@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav';
 import { PageBottomNavLink } from '@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav-link';
 import { PageNav } from '@spartan-ng/app/app/shared/layout/page-nav/page-nav';
@@ -30,6 +31,7 @@ export const routeMeta: RouteMeta = {
 		TabsCli,
 		HlmAlertImports,
 		RouterLink,
+		PackageInstallerTabs,
 	],
 	template: `
 		<section spartanMainSection>
@@ -47,7 +49,7 @@ export const routeMeta: RouteMeta = {
 
 			<p class="${hlmP}">Brain packages are installed from npm and can be updated like any dependency:</p>
 
-			<spartan-cli-tabs class="mt-4 mb-6" nxCode="npm update @spartan-ng/brain" ngCode="npm update @spartan-ng/brain" />
+			<spartan-package-installer-tab class="mt-4" package="brn-update" />
 
 			<p class="${hlmP}">
 				After updating brain packages, run the health check tool to automatically apply any necessary migrations:
@@ -116,7 +118,7 @@ export const routeMeta: RouteMeta = {
 				<li>
 					<strong>Update brain:</strong>
 					Run
-					<code class="${hlmCode}">npm update &#64;spartan-ng/brain</code>
+					<code class="${hlmCode}">pnpm/npm/yarn/bun update &#64;spartan-ng/brain</code>
 				</li>
 				<li>
 					<strong>Run health checks:</strong>

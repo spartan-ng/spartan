@@ -117,7 +117,7 @@ export const routeMeta: RouteMeta = {
 				</li>
 				<li>
 					Install the CLI:
-					<code class="${hlmCode}">npm install -D &#64;spartan-ng/cli</code>
+					<code class="${hlmCode}">npm i -D &#64;spartan-ng/cli</code>
 				</li>
 				<li>
 					Set up your theme:

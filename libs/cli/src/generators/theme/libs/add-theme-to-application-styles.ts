@@ -29,7 +29,8 @@ export async function addThemeToApplicationStyles(
 			message: `Please note that we cannot guarantee full compatibility of the components with Tailwind CSS version 3, and some features may not function as expected. Are you sure you want to proceed with Tailwind CSS v3?`,
 		});
 	}
-	const tailwindImport = tailwindVersion === 4 ? '@import "@spartan-ng/brain/hlm-tailwind-preset.css";' : '';
+	const spartantTailwindPresetImport =
+		tailwindVersion === 4 ? '@import "@spartan-ng/brain/hlm-tailwind-preset.css";' : '';
 
 	const prefix = options.prefix ? ` .${options.prefix}` : '';
 	let stylesEntryPoint = options.stylesEntryPoint;
@@ -62,18 +63,18 @@ export async function addThemeToApplicationStyles(
 		`
 		: '';
 
-	const fontSans = stylesEntryPointContent.includes('--font-sans') ? '' : `--font-sans: '';`;
+	const fontSans = stylesEntryPointContent.includes('--font-sans')
+		? ''
+		: `--font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";`;
 
 	const colorScheme = tailwindVersion === 4 ? themes[options.theme] : legacyThemes[options.theme];
 
-	tree.write(
-		stylesEntryPoint,
-		stripIndents`
+	let stylesCssContentWithPotentialTailwindCssImport = stripIndents`
 		${twSetup}
     ${ckdOverlayImport}
 
     ${stylesEntryPointContent}
-    ${tailwindImport}
+    ${spartantTailwindPresetImport}
 
 		:root${prefix} {
 			color-scheme: light;
@@ -100,8 +101,16 @@ export async function addThemeToApplicationStyles(
   		body {
   		  @apply bg-background text-foreground;
   		}
-    }`,
-	);
+    }`;
+
+	if (options.setupTailwindCss) {
+		stylesCssContentWithPotentialTailwindCssImport = stylesCssContentWithPotentialTailwindCssImport.replace(
+			/^\s*@import\s+['"]tailwindcss['"]\s*;\s*$/gm,
+			'',
+		);
+	}
+
+	tree.write(stylesEntryPoint, stylesCssContentWithPotentialTailwindCssImport);
 }
 
 function findStylesEntryPoint(tree: Tree, project: ProjectConfiguration): string | undefined {

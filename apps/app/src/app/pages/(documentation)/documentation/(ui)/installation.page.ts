@@ -60,16 +60,6 @@ export const routeMeta: RouteMeta = {
 				styles into your codebase for customization.
 			</p>
 
-			<div hlmAlert variant="destructive" class="mt-4">
-				<h4 hlmAlertTitle>We recommend to use PNPM</h4>
-				<div hlmAlertDescription>
-					<p>
-						Currently we are supporting angular version 19 with npm. For angular version 20 we recommend to use pnpm as
-						package manager to avoid potential dependency issues.
-					</p>
-				</div>
-			</div>
-
 			<spartan-section-sub-heading id="prerequisites">Prerequisites</spartan-section-sub-heading>
 
 			<p class="${hlmP}">
@@ -89,13 +79,39 @@ export const routeMeta: RouteMeta = {
 			<p class="${hlmP}">Install the CLI plugin:</p>
 			<spartan-package-installer-tab class="mt-4" />
 
+			<p class="${hlmP}">Run the spartan/cli init command:</p>
+			<spartan-cli-tabs nxCode="npx nx g @spartan-ng/cli:init" ngCode="ng g @spartan-ng/cli:init" />
+
+			<p class="${hlmP}">
+				Use the CLI to add components to your project. This installs the brain dependency (npm) and copies helm code
+				(styles) into your codebase:
+			</p>
+			<spartan-cli-tabs class="mt-4 mb-6" nxCode="npx nx g @spartan-ng/cli:ui" ngCode="ng g @spartan-ng/cli:ui" />
+
+			<p class="${hlmP}">The CLI will prompt you to select which components to add. Each component includes:</p>
+			<ul class="my-4 ml-6 list-disc [&>li]:mt-2">
+				<li>Brain primitive (installed to node_modules)</li>
+				<li>Helm styles (copied to your project)</li>
+				<li>All necessary dependencies</li>
+			</ul>
+
+			<div class="my-2 flex items-center justify-end">
+				<a routerLink="/components" variant="outline" size="sm" hlmBtn outline="">
+					Check out the Components
+					<ng-icon hlm name="lucideChevronRight" class="ml-2" size="sm" />
+				</a>
+			</div>
+
+			<spartan-section-sub-heading id="manual-setup">Manual Setup</spartan-section-sub-heading>
+			<h3 spartanH4 id="install-dependencies">1. Install Dependencies</h3>
+
 			<p class="${hlmP}">Install the brain (accessible primitives):</p>
 			<spartan-package-installer-tab class="mt-4" package="brn" />
 
 			<p class="${hlmP}">Install Angular CDK (required for overlays and accessibility):</p>
 			<spartan-package-installer-tab class="mt-4" package="cdk" />
 
-			<spartan-section-sub-heading id="setting-up-tailwindcss">Configure Tailwind CSS</spartan-section-sub-heading>
+			<h3 spartanH4 id="configure-tailwind-css">2. Configure Tailwind CSS</h3>
 
 			<div hlmAlert variant="destructive" class="mt-6">
 				<h4 hlmAlertTitle>Use Tailwind CSS v4</h4>
@@ -107,7 +123,7 @@ export const routeMeta: RouteMeta = {
 				</div>
 			</div>
 
-			<h3 spartanH4 id="configure-layers">1. Configure CSS Layers</h3>
+			<h4 spartanH4 id="configure-layers">2.1 Configure CSS Layers</h4>
 			<p class="${hlmP}">
 				Add these layers to your
 				<code class="${hlmCode}">styles.css</code>
@@ -121,7 +137,7 @@ export const routeMeta: RouteMeta = {
 @import "tailwindcss/utilities.css";'
 			/>
 
-			<h3 spartanH4 id="import-preset" class="mt-8">2. Import spartan Preset</h3>
+			<h4 spartanH4 id="import-preset" class="mt-8">2.2 Import spartan Preset</h4>
 			<p class="${hlmP}">Add the spartan preset to your CSS file:</p>
 			<spartan-code
 				class="mt-4"
@@ -129,7 +145,7 @@ export const routeMeta: RouteMeta = {
 				fileName="src/styles.css"
 			/>
 
-			<h3 spartanH4 id="add-theme-variables" class="mt-8">3. Add Theme Variables</h3>
+			<h4 spartanH4 id="add-theme-variables" class="mt-8">2.3 Add Theme Variables</h4>
 			<p class="${hlmP}">You have two options for adding spartan's CSS variables:</p>
 
 			<h4 class="mt-4 text-sm font-semibold">Option A: Use the Theme Generator (Recommended)</h4>
@@ -228,7 +244,7 @@ export const routeMeta: RouteMeta = {
 			<p class="${hlmP}">Also make sure to import the Angular CDK overlay styles:</p>
 			<spartan-code class="mt-4 mb-6" code="@import '@angular/cdk/overlay-prebuilt.css';" />
 
-			<spartan-section-sub-heading id="adding-components">Add Components</spartan-section-sub-heading>
+			<h3 spartanH4 id="adding-components">3. Add Components</h3>
 
 			<p class="${hlmP}">
 				Use the CLI to add components to your project. This installs the brain dependency (npm) and copies helm code

@@ -66,7 +66,7 @@ importers:
         specifier: ^5.2.5
         version: 5.2.7
       '@ng-icons/core':
-        specifier: 31.4.0
+        specifier: ^31.4.0
         version: 31.4.0(@angular/common@19.2.8(@angular/core@19.2.8(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2))(@angular/core@19.2.8(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2)
       '@nx/angular':
         specifier: 20.8.1

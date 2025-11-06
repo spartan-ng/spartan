@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
-import { lucideCheckCircle2, lucideChevronDown, lucideCircle, lucideHelpCircle, lucideLink } from '@ng-icons/lucide';
+import { lucideChevronDown, lucideCircle, lucideCircleCheck, lucideCircleHelp, lucideLink } from '@ng-icons/lucide';
 import { BrnNavigationMenuImports } from '@spartan-ng/brain/navigation-menu';
 import { HlmIconImports } from '@spartan-ng/helm/icon';
 import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
@@ -10,7 +10,7 @@ import { moduleMetadata } from '@storybook/angular';
 @Component({
 	selector: 'navigation-menu-example',
 	imports: [HlmNavigationMenuImports, BrnNavigationMenuImports, HlmIconImports],
-	providers: [provideIcons({ lucideChevronDown, lucideLink, lucideCircle, lucideHelpCircle, lucideCheckCircle2 })],
+	providers: [provideIcons({ lucideChevronDown, lucideLink, lucideCircle, lucideCircleHelp, lucideCircleCheck })],
 	template: `
 		<nav hlmNavigationMenu>
 			<ul hlmNavigationMenuList class="flex-wrap">
@@ -153,7 +153,7 @@ import { moduleMetadata } from '@storybook/angular';
 						<ul class="grid w-[200px] gap-4">
 							<li>
 								<a hlmNavigationMenuLink class="cursor-pointer flex-row items-center gap-2">
-									<ng-icon name="lucideHelpCircle" />
+									<ng-icon name="lucideCircleHelp" />
 									Backlog
 								</a>
 								<a hlmNavigationMenuLink class="cursor-pointer flex-row items-center gap-2">
@@ -161,7 +161,7 @@ import { moduleMetadata } from '@storybook/angular';
 									To Do
 								</a>
 								<a hlmNavigationMenuLink class="cursor-pointer flex-row items-center gap-2">
-									<ng-icon name="lucideCheckCircle2" />
+									<ng-icon name="lucideCircleCheck" />
 									Done
 								</a>
 							</li>

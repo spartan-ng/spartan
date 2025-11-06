@@ -359,8 +359,8 @@ export const routeMeta: RouteMeta = {
   --ring: oklch(0.553 0.013 58.071);
   --sidebar: oklch(0.216 0.006 56.043);
   --sidebar-foreground: oklch(0.985 0.001 106.423);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0.001 106.423);
+  --sidebar-primary: oklch(0.985 0.001 106.423);
+  --sidebar-primary-foreground: oklch(0.216 0.006 56.043);
   --sidebar-accent: oklch(0.268 0.007 34.298);
   --sidebar-accent-foreground: oklch(0.985 0.001 106.423);
   --sidebar-border: oklch(1 0 0 / 10%);
@@ -489,8 +489,8 @@ export const routeMeta: RouteMeta = {
   --ring: oklch(0.551 0.027 264.364);
   --sidebar: oklch(0.21 0.034 264.665);
   --sidebar-foreground: oklch(0.985 0.002 247.839);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0.002 247.839);
+  --sidebar-primary: oklch(0.985 0.002 247.839);
+  --sidebar-primary-foreground: oklch(0.21 0.034 264.665);
   --sidebar-accent: oklch(0.278 0.033 256.848);
   --sidebar-accent-foreground: oklch(0.985 0.002 247.839);
   --sidebar-border: oklch(1 0 0 / 10%);
@@ -554,8 +554,8 @@ export const routeMeta: RouteMeta = {
   --ring: oklch(0.551 0.027 264.364);
   --sidebar: oklch(0.208 0.042 265.755);
   --sidebar-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
+  --sidebar-primary: oklch(0.984 0.003 247.858);
+  --sidebar-primary-foreground: oklch(0.208 0.042 265.755);
   --sidebar-accent: oklch(0.279 0.041 260.031);
   --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
   --sidebar-border: oklch(1 0 0 / 10%);

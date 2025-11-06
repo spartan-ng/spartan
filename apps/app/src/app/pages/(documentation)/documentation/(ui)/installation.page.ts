@@ -60,20 +60,6 @@ export const routeMeta: RouteMeta = {
 				styles into your codebase for customization.
 			</p>
 
-			<spartan-section-sub-heading id="prerequisites">Prerequisites</spartan-section-sub-heading>
-
-			<p class="${hlmP}">
-				spartan/ui requires Tailwind CSS. If you haven't set it up yet, follow the
-				<a
-					class="${hlmCode} underline"
-					href="https://tailwindcss.com/docs/installation/framework-guides/angular"
-					target="_blank"
-				>
-					official Angular installation guide
-				</a>
-				before continuing.
-			</p>
-
 			<spartan-section-sub-heading id="quick-start">Quick Start</spartan-section-sub-heading>
 
 			<p class="${hlmP}">Install the CLI plugin:</p>
@@ -111,7 +97,7 @@ export const routeMeta: RouteMeta = {
 			<p class="${hlmP}">Install Angular CDK (required for overlays and accessibility):</p>
 			<spartan-package-installer-tab class="mt-4" package="cdk" />
 
-			<h3 spartanH4 id="configure-tailwind-css">2. Configure Tailwind CSS</h3>
+			<h3 spartanH4 id="configure-tailwind-css">2. Install Tailwind CSS</h3>
 
 			<div hlmAlert variant="destructive" class="mt-6">
 				<h4 hlmAlertTitle>Use Tailwind CSS v4</h4>
@@ -122,6 +108,18 @@ export const routeMeta: RouteMeta = {
 					</a>
 				</div>
 			</div>
+
+			<p class="${hlmP}">
+				Install Tailwind CSS. If you haven't set it up yet, follow the
+				<a
+					class="${hlmCode} underline"
+					href="https://tailwindcss.com/docs/installation/framework-guides/angular"
+					target="_blank"
+				>
+					official Angular installation guide
+				</a>
+				.
+			</p>
 
 			<h4 spartanH4 id="configure-layers">2.1 Configure CSS Layers</h4>
 			<p class="${hlmP}">

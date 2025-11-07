@@ -3,8 +3,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideGithub } from '@ng-icons/lucide';
+import { BlockPreview } from '@spartan-ng/app/app/shared/blocks/block-preview';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
-import { SidebarPreview } from '@spartan-ng/app/app/shared/sidebar-preview/sidebar-preview';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { hlmCode } from '@spartan-ng/helm/typography';
 
@@ -15,7 +15,7 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-sidebar',
-	imports: [SidebarPreview, RouterLink, HlmButtonImports, NgIcon],
+	imports: [BlockPreview, RouterLink, HlmButtonImports, NgIcon],
 	providers: [provideIcons({ lucideGithub })],
 	template: `
 		<div id="sidebar-1" class="flex flex-col gap-4">
@@ -48,7 +48,7 @@ export const routeMeta: RouteMeta = {
 			</p>
 
 			<!-- TODO iframe width is overflowing the container cutting of content -->
-			<spartan-sidebar-preview name="sidebar-sticky-header" />
+			<spartan-block-preview path="sidebar-preview" name="sidebar-sticky-header" />
 		</div>
 	`,
 	changeDetection: ChangeDetectionStrategy.OnPush,

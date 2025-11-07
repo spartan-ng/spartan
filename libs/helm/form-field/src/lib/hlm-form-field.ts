@@ -16,15 +16,8 @@ import { HlmError } from './hlm-error';
 	selector: 'hlm-form-field',
 	template: `
 		<ng-content />
-
-		@switch (_hasDisplayedMessage()) {
-			@case ('error') {
-				<ng-content select="hlm-error" />
-			}
-			@default {
-				<ng-content select="hlm-hint" />
-			}
-		}
+		<ng-content select="hlm-hint" />
+		<ng-content select="hlm-error" />
 	`,
 	host: {
 		'[class]': '_computedClass()',

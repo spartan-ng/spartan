@@ -423,6 +423,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       "BrnAutocompleteSearchInput": {
         "inputs": [
           {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+          {
             "name": "value",
             "required": false,
             "type": "string",
@@ -436,6 +441,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
     "helm": {
       "HlmAutocomplete": {
         "inputs": [
+          {
+            "name": "error",
+            "required": false,
+            "type": "AutocompleteVariants['error']",
+          },
           {
             "name": "class",
             "required": false,
@@ -1834,6 +1844,20 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
     },
   },
   "date-picker": {
+    "brain": {
+      "BrnDatePicker": {
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnDatePicker]",
+      },
+    },
     "helm": {
       "HlmDatePicker": {
         "inputs": [

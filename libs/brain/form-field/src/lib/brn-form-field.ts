@@ -19,13 +19,16 @@ let nextFormFieldId = 0;
 @Directive({
 	selector: '[brnFormField]',
 	providers: [
-		provideBrnFormFieldContext({
-			control: signal(null),
-			errorState: signal(false),
-			required: signal(false),
-			disabled: signal(false),
-			id: signal(`brn-form-field-${++nextFormFieldId}`),
-		}),
+		{
+			provide: provideBrnFormFieldContext({
+				control: signal(null),
+				errorState: signal(false),
+				required: signal(false),
+				disabled: signal(false),
+				id: signal(''),
+			}).provide,
+			useExisting: BrnFormFieldDirective,
+		},
 	],
 })
 export class BrnFormFieldDirective implements BrnFormFieldContextValue, AfterContentInit {

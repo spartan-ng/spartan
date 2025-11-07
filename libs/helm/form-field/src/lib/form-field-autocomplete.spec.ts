@@ -1,9 +1,12 @@
 /* eslint-disable @angular-eslint/component-selector */
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ApplicationRef, ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { By } from '@angular/platform-browser';
 import { render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 
+import { BrnAutocompleteSearchInput } from '@spartan-ng/brain/autocomplete';
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@spartan-ng/brain/forms';
 import { HlmAutocomplete } from '@spartan-ng/helm/autocomplete';
 
@@ -104,11 +107,13 @@ describe('Hlm Form Field with Autocomplete Component', () => {
 			expect(hint.style.display).not.toBe('none');
 		});
 
-		it('should hide the error initially when no error state', async () => {
-			const { error } = await setupAutocompleteFormField();
+	it('should hide the error initially when no error state', async () => {
+		const { error } = await setupAutocompleteFormField();
 
-			expect(error()).toBeNull();
-		});
+		const errorElement = error();
+		expect(errorElement).not.toBeNull();
+		expect(errorElement?.classList.contains('hidden')).toBe(true);
+	});
 
 		it('should show the error when form is invalid and touched', async () => {
 			const { user, error, autocompleteInput } = await setupAutocompleteFormField();
@@ -123,11 +128,12 @@ describe('Hlm Form Field with Autocomplete Component', () => {
 			// Click outside to blur and trigger touched state
 			await user.click(document.body);
 
-			// Check that error is now visible
-			const errorElement = error();
-			expect(errorElement?.textContent?.trim()).toBe(TEXT_ERROR);
-			expect(errorElement).not.toBeNull();
-		});
+		// Check that error is now visible
+		const errorElement = error();
+		expect(errorElement?.textContent?.trim()).toBe(TEXT_ERROR);
+		expect(errorElement).not.toBeNull();
+		expect(errorElement?.classList.contains('hidden')).toBe(false);
+	});
 
 		it('should hide the hint when error is shown', async () => {
 			const { user, autocompleteInput } = await setupAutocompleteFormField();
@@ -139,12 +145,14 @@ describe('Hlm Form Field with Autocomplete Component', () => {
 			// Focus the input
 			await user.click(autocompleteInput);
 
-			// Click outside to blur and trigger touched state
-			await user.click(document.body);
+		// Click outside to blur and trigger touched state
+		await user.click(document.body);
 
-			// Check that hint is now hidden
-			expect(screen.queryByTestId('hlm-hint')).toBeNull();
-		});
+		// Check that hint is now hidden
+		const hintElement = screen.queryByTestId('hlm-hint');
+		expect(hintElement).not.toBeNull();
+		expect(hintElement?.classList.contains('hidden')).toBe(true);
+	});
 	});
 
 	describe('Autocomplete Form Field ARIA DescribedBy', () => {
@@ -225,13 +233,15 @@ describe('Hlm Form Field with Autocomplete Component', () => {
 				throw new Error('Autocomplete input not found');
 			}
 
-			// Just focus and blur without selecting anything
-			await user.click(autocompleteInput);
-			await user.click(document.body);
+		// Just focus and blur without selecting anything
+		await user.click(autocompleteInput);
+		await user.click(document.body);
 
-			// Should not show error because it's not dirty yet (no value change)
-			expect(error()).toBeNull();
-		});
+		// Should not show error because it's not dirty yet (no value change)
+		const errorElement = error();
+		expect(errorElement).not.toBeNull();
+		expect(errorElement?.classList.contains('hidden')).toBe(true);
+	});
 
 		it('should show error after typing and clearing', async () => {
 			const { user, error, autocompleteInput } = await setupAutocompleteFormFieldWithErrorStateDirty();
@@ -247,13 +257,14 @@ describe('Hlm Form Field with Autocomplete Component', () => {
 			// Clear the input
 			await user.clear(autocompleteInput);
 
-			// Click outside
-			await user.click(document.body);
+		// Click outside
+		await user.click(document.body);
 
-			// Should now show error because it was dirty and is now invalid
-			const errorElement = error();
-			expect(errorElement).not.toBeNull();
-		});
+		// Should now show error because it was dirty and is now invalid
+		const errorElement = error();
+		expect(errorElement).not.toBeNull();
+		expect(errorElement?.classList.contains('hidden')).toBe(false);
+	});
 	});
 
 	describe('Autocomplete Form Field ID Generation', () => {
@@ -338,6 +349,101 @@ describe('Hlm Form Field with Autocomplete Component', () => {
 			expect(autocompleteInput.getAttribute('role')).toBe('combobox');
 			expect(autocompleteInput.getAttribute('aria-autocomplete')).toBe('list');
 			expect(autocompleteInput.getAttribute('aria-describedby')).toBeDefined();
+		});
+	});
+
+	describe('Autocomplete updateErrorState Method', () => {
+		it('should update error state when called manually', async () => {
+			const { fixture, autocompleteInput } = await setupAutocompleteFormField();
+			const control = fixture.componentInstance.fruit;
+
+			if (!autocompleteInput) {
+				throw new Error('Autocomplete input not found');
+			}
+
+			// Mark as touched but don't trigger change detection
+			control.markAsTouched();
+
+			// Get the BrnAutocompleteSearchInput directive
+			const brnDirective = fixture.debugElement
+				.query(By.directive(BrnAutocompleteSearchInput))
+				?.injector.get(BrnAutocompleteSearchInput);
+
+			expect(brnDirective).toBeDefined();
+
+			// Manually call updateErrorState
+			brnDirective?.updateErrorState();
+			fixture.detectChanges();
+
+			// Error should now be visible
+			const errorElement = screen.queryByTestId('hlm-error');
+			expect(errorElement?.textContent?.trim()).toBe(TEXT_ERROR);
+		});
+
+		it('should mark for check when error state changes', async () => {
+			const { fixture, autocompleteInput } = await setupAutocompleteFormField();
+			const control = fixture.componentInstance.fruit;
+
+			if (!autocompleteInput) {
+				throw new Error('Autocomplete input not found');
+			}
+
+			// Get the BrnAutocompleteSearchInput directive
+			const brnDirective = fixture.debugElement
+				.query(By.directive(BrnAutocompleteSearchInput))
+				?.injector.get(BrnAutocompleteSearchInput);
+
+			expect(brnDirective).toBeDefined();
+
+			const initialErrorState = brnDirective?.errorState();
+			expect(initialErrorState).toBe(false);
+
+			// Mark as touched and update error state
+			control.markAsTouched();
+			brnDirective?.updateErrorState();
+
+			const newErrorState = brnDirective?.errorState();
+			expect(newErrorState).toBe(true);
+			expect(newErrorState).not.toBe(initialErrorState);
+		});
+
+		it('should update error state immediately with ApplicationRef.tick()', async () => {
+			const { fixture, autocompleteInput } = await setupAutocompleteFormField();
+			const control = fixture.componentInstance.fruit;
+			const appRef = TestBed.inject(ApplicationRef);
+
+			if (!autocompleteInput) {
+				throw new Error('Autocomplete input not found');
+			}
+
+			// Mark as touched and trigger full change detection cycle
+			control.markAsTouched();
+			appRef.tick();
+
+			// Error should be visible immediately
+			const errorElement = screen.queryByTestId('hlm-error');
+			expect(errorElement?.textContent?.trim()).toBe(TEXT_ERROR);
+			expect(errorElement).not.toBeNull();
+		});
+
+		it('should update error state on view check', async () => {
+			const { fixture, autocompleteInput } = await setupAutocompleteFormField();
+			const control = fixture.componentInstance.fruit;
+
+			if (!autocompleteInput) {
+				throw new Error('Autocomplete input not found');
+			}
+
+			// Mark as touched
+			control.markAsTouched();
+
+			// Trigger view check
+			fixture.detectChanges();
+
+			// Error should be visible after change detection
+			const errorElement = screen.queryByTestId('hlm-error');
+			expect(errorElement?.textContent?.trim()).toBe(TEXT_ERROR);
+			expect(errorElement).not.toBeNull();
 		});
 	});
 });

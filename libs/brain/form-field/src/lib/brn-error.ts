@@ -13,7 +13,13 @@ let uniqueId = 0;
 	},
 })
 export class BrnError {
-	private readonly _formFieldContext = inject(injectBrnFormFieldContext, { optional: true });
+	private readonly _formFieldContext = (() => {
+		try {
+			return injectBrnFormFieldContext();
+		} catch {
+			return null;
+		}
+	})();
 
 	/** The unique id for the error */
 	public readonly id = input(`brn-error-${uniqueId++}`);

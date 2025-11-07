@@ -8,6 +8,7 @@ import type { ClassValue } from 'clsx';
 	selector: '[hlmSidebarSeparator],hlm-sidebar-separator',
 	hostDirectives: [{ directive: HlmSeparator }],
 	host: {
+		'data-slot': 'sidebar-separator',
 		'data-sidebar': 'separator',
 		'[class]': '_computedClass()',
 	},

@@ -23,8 +23,8 @@ import { HlmIcon } from '@spartan-ng/helm/icon';
 		},
 	],
 	host: {
-		'data-sidebar': 'trigger',
 		'data-slot': 'sidebar-trigger',
+		'data-sidebar': 'trigger',
 		'(click)': '_onClick()',
 	},
 })

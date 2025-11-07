@@ -1,12 +1,11 @@
 import { booleanAttribute, computed, Directive, input } from '@angular/core';
 import { hlm } from '@spartan-ng/helm/utils';
-
 import type { ClassValue } from 'clsx';
 
 @Directive({
 	selector: 'a[hlmSidebarMenuSubButton], button[hlmSidebarMenuSubButton]',
-
 	host: {
+		'data-slot': 'sidebar-menu-sub-button',
 		'data-sidebar': 'menu-sub-button',
 		'[attr.data-active]': 'isActive()',
 		'[attr.data-size]': 'size()',

@@ -5,7 +5,7 @@ import { BrnCollapsibleImports } from '@spartan-ng/brain/collapsible';
 import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 
 @Component({
-	selector: 'nav-main',
+	selector: 'spartan-nav-main',
 	imports: [HlmSidebarImports, NgIcon, BrnCollapsibleImports],
 	providers: [provideIcons({ lucideSquareTerminal, lucideBot, lucideBookOpen, lucideSettings2, lucideChevronRight })],
 	template: `

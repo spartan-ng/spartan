@@ -9,7 +9,7 @@ import { NavSecondary } from './nav-secondary';
 import { NavUser } from './nav-user';
 
 @Component({
-	selector: 'app-sidebar',
+	selector: 'spartan-app-sidebar',
 	imports: [HlmSidebarImports, NgIcon, NavMain, NavProjects, NavUser, NavSecondary],
 	providers: [provideIcons({ lucideCommand })],
 	template: `
@@ -33,17 +33,17 @@ import { NavUser } from './nav-user';
 			</hlm-sidebar-header>
 
 			<hlm-sidebar-content>
-				<nav-main [items]="data.navMain" />
-				<nav-projects />
-				<nav-secondary class="mt-auto" />
+				<spartan-nav-main [items]="data.navMain" />
+				<spartan-nav-projects />
+				<spartan-nav-secondary class="mt-auto" />
 			</hlm-sidebar-content>
 			<hlm-sidebar-footer>
-				<nav-user />
+				<spartan-nav-user />
 			</hlm-sidebar-footer>
 		</hlm-sidebar>
 	`,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppSidebar {
-	data = data;
+	public readonly data = data;
 }

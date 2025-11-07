@@ -5,7 +5,7 @@ import { HlmAvatarImports } from '@spartan-ng/helm/avatar';
 import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 
 @Component({
-	selector: 'nav-user',
+	selector: 'spartan-nav-user',
 	imports: [HlmSidebarImports, HlmAvatarImports, NgIcon],
 	providers: [provideIcons({ lucideChevronsUpDown })],
 	template: `

@@ -7,7 +7,7 @@ import { HlmSeparatorImports } from '@spartan-ng/helm/separator';
 import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 
 @Component({
-	selector: 'site-header',
+	selector: 'spartan-site-header',
 	imports: [HlmSidebarImports, HlmSeparatorImports, HlmBreadCrumbImports, HlmInputGroupImports, NgIcon],
 	providers: [provideIcons({ lucideSearch })],
 	template: `

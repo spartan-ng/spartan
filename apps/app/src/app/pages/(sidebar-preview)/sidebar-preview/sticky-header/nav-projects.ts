@@ -4,7 +4,7 @@ import { lucideChartPie, lucideEllipsis, lucideFrame, lucideMap } from '@ng-icon
 import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 
 @Component({
-	selector: 'nav-projects',
+	selector: 'spartan-nav-projects',
 	imports: [HlmSidebarImports, NgIcon],
 	providers: [provideIcons({ lucideFrame, lucideChartPie, lucideMap, lucideEllipsis })],
 	template: `

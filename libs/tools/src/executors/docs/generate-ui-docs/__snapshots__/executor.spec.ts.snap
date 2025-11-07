@@ -4789,7 +4789,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "'offcanvas' | 'icon' | 'none'",
           },
           {
-            "name": "class",
+            "name": "nonCollapsibleClass",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "sidebarContainerClass",
             "required": false,
             "type": "ClassValue",
           },
@@ -4808,7 +4813,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "div[hlmSidebarContent]",
+        "selector": "[hlmSidebarContent],hlm-sidebar-content",
       },
       "HlmSidebarFooter": {
         "inputs": [
@@ -4820,7 +4825,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "div[hlmSidebarFooter]",
+        "selector": "[hlmSidebarFooter],hlm-sidebar-footer",
       },
       "HlmSidebarGroup": {
         "inputs": [
@@ -4832,7 +4837,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "div[hlmSidebarGroup]",
+        "selector": "[hlmSidebarGroup],hlm-sidebar-group",
       },
       "HlmSidebarGroupAction": {
         "inputs": [
@@ -4880,7 +4885,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "div[hlmSidebarHeader]",
+        "selector": "[hlmSidebarHeader],hlm-sidebar-header",
       },
       "HlmSidebarInput": {
         "inputs": [],
@@ -4939,7 +4944,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "div[hlmSidebarMenuBadge]",
+        "selector": "[hlmSidebarMenuBadge],hlm-sidebar-menu-badge",
       },
       "HlmSidebarMenuButton": {
         "inputs": [
@@ -5046,6 +5051,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       "HlmSidebarRail": {
         "inputs": [
           {
+            "name": "aria-label",
+            "required": false,
+            "type": "string",
+          },
+          {
             "name": "class",
             "required": false,
             "type": "ClassValue",
@@ -5065,7 +5075,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "div[hlmSidebarSeparator]",
+        "selector": "[hlmSidebarSeparator],hlm-sidebar-separator",
       },
       "HlmSidebarTrigger": {
         "inputs": [],
@@ -5093,7 +5103,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "div[hlmSidebarWrapper]",
+        "selector": "[hlmSidebarWrapper],hlm-sidebar-wrapper",
       },
     },
   },

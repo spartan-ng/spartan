@@ -1,7 +1,6 @@
 import { booleanAttribute, ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
-import { hlm } from '@spartan-ng/helm/utils';
-
 import { HlmSkeletonImports } from '@spartan-ng/helm/skeleton';
+import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 
 @Component({
@@ -16,6 +15,7 @@ import type { ClassValue } from 'clsx';
 		}
 	`,
 	host: {
+		'data-slot': 'sidebar-menu-skeleton',
 		'data-sidebar': 'menu-skeleton',
 		'[class]': '_computedClass()',
 		'[style.--skeleton-width]': '_width',

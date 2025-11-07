@@ -1,12 +1,11 @@
 import { computed, Directive, input } from '@angular/core';
 import { hlm } from '@spartan-ng/helm/utils';
-
 import type { ClassValue } from 'clsx';
 
 @Directive({
 	selector: 'ul[hlmSidebarMenu]',
-
 	host: {
+		'data-slot': 'sidebar-menu',
 		'data-sidebar': 'menu',
 		'[class]': '_computedClass()',
 	},

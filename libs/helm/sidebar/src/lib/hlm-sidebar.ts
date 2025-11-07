@@ -1,20 +1,15 @@
+import { NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, effect, inject, input } from '@angular/core';
 import { BrnSheetContent } from '@spartan-ng/brain/sheet';
 import { HlmSheet, HlmSheetContent } from '@spartan-ng/helm/sheet';
 import { hlm } from '@spartan-ng/helm/utils';
-
-import { HlmSidebarService, type SidebarVariant } from './hlm-sidebar.service';
-
-import { NgTemplateOutlet } from '@angular/common';
 import type { ClassValue } from 'clsx';
+import { HlmSidebarService, type SidebarVariant } from './hlm-sidebar.service';
 import { injectHlmSidebarConfig } from './hlm-sidebar.token';
 
 @Component({
 	selector: 'hlm-sidebar',
-
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [HlmSheet, HlmSheetContent, NgTemplateOutlet, BrnSheetContent],
-
 	template: `
 		<ng-template #contentContainer>
 			<ng-content></ng-content>
@@ -66,6 +61,7 @@ import { injectHlmSidebarConfig } from './hlm-sidebar.token';
 			</div>
 		}
 	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmSidebar {
 	protected readonly _sidebarService = inject(HlmSidebarService);
@@ -76,11 +72,12 @@ export class HlmSidebar {
 	public readonly side = input<'left' | 'right'>('left');
 	public readonly variant = input<SidebarVariant>(this._sidebarService.variant());
 	public readonly collapsible = input<'offcanvas' | 'icon' | 'none'>('offcanvas');
-	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 
+	public readonly nonCollapsibleClass = input<ClassValue>('');
 	protected readonly _nonCollapsibleComputedClass = computed(() =>
-		hlm('bg-sidebar text-sidebar-foreground flex h-full w-[var(--sidebar-width)] flex-col', this.userClass()),
+		hlm('bg-sidebar text-sidebar-foreground flex h-full w-[var(--sidebar-width)] flex-col', this.nonCollapsibleClass()),
 	);
+
 	protected readonly _sidebarGapComputedClass = computed(() =>
 		hlm(
 			'relative w-[var(--sidebar-width)] bg-transparent transition-[width] duration-200 ease-linear',
@@ -92,6 +89,7 @@ export class HlmSidebar {
 		),
 	);
 
+	public readonly sidebarContainerClass = input<ClassValue>('');
 	protected readonly _sidebarContainerComputedClass = computed(() =>
 		hlm(
 			'fixed inset-y-0 z-10 hidden h-svh w-[var(--sidebar-width)] transition-[left,right,width] duration-200 ease-linear md:flex',
@@ -101,7 +99,7 @@ export class HlmSidebar {
 			this.variant() === 'floating' || this.variant() === 'inset'
 				? 'p-2 group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)_+_theme(spacing.4)_+2px)]'
 				: 'group-data-[collapsible=icon]:w-[var(--sidebar-width-icon)] group-data-[side=left]:border-r group-data-[side=right]:border-l',
-			this.userClass(),
+			this.sidebarContainerClass(),
 		),
 	);
 

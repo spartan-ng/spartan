@@ -4,8 +4,7 @@ import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 
 @Directive({
-	selector: 'div[hlmSidebarContent]',
-
+	selector: '[hlmSidebarContent],hlm-sidebar-content',
 	host: {
 		'data-sidebar': 'content',
 		'[class]': '_computedClass()',

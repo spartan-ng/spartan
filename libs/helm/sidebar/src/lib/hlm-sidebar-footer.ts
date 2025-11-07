@@ -4,8 +4,7 @@ import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 
 @Directive({
-	selector: 'div[hlmSidebarFooter]',
-
+	selector: '[hlmSidebarFooter],hlm-sidebar-footer',
 	host: {
 		'data-sidebar': 'footer',
 		'[class]': '_computedClass()',

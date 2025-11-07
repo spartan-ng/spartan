@@ -5,8 +5,7 @@ import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 
 @Directive({
-	selector: 'div[hlmSidebarSeparator]',
-
+	selector: '[hlmSidebarSeparator],hlm-sidebar-separator',
 	hostDirectives: [{ directive: HlmSeparator }],
 	host: {
 		'data-sidebar': 'separator',

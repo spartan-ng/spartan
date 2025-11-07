@@ -4,8 +4,7 @@ import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 
 @Directive({
-	selector: 'div[hlmSidebarMenuBadge]',
-
+	selector: '[hlmSidebarMenuBadge],hlm-sidebar-menu-badge',
 	host: {
 		'data-sidebar': 'menu-badge',
 		'[class]': '_computedClass()',

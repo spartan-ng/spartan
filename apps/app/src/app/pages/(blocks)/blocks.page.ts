@@ -7,14 +7,14 @@ import { HlmButton } from '@spartan-ng/helm/button';
 import { hlmLead } from '@spartan-ng/helm/typography';
 
 export const routeMeta: RouteMeta = {
-	meta: metaWith('Examples - SPARTAN', 'Examples built with the SPARTAN stack and its UI primitives'),
+	meta: metaWith('Blocks - spartan', 'Blocks built with the spartan/ui'),
 };
 
 @Component({
-	selector: 'spartan-examples',
+	selector: 'spartan-blocks',
 	imports: [RouterOutlet, HlmButton, RouterLink, NavLink],
 	host: {
-		class: 'block p-4 pt-6 sm:pb-16 sm:pt-12',
+		class: 'block p-4 pt-6 sm:pb-16 sm:pt-12 container',
 	},
 	styles: `
 		.scrollbar-w-0 {
@@ -29,11 +29,9 @@ export const routeMeta: RouteMeta = {
 		<h1
 			class="text-primary leading-tighter max-w-2xl text-4xl font-semibold tracking-tight text-balance lg:leading-[1.1] lg:font-semibold xl:text-5xl xl:tracking-tighter"
 		>
-			Check out some examples.
+			Building Blocks with spartan/ui
 		</h1>
-		<p class="${hlmLead} mt-4 max-w-xl">
-			Dashboard, cards, authentication. Some examples built using the components. Use this as a guide to build your own.
-		</p>
+		<p class="${hlmLead} mt-4 max-w-xl">Clean, modern building blocks.</p>
 		<div class="mt-6 space-x-2">
 			<a hlmBtn size="sm" routerLink="/documentation">Get Started</a>
 			<a hlmBtn size="sm" variant="outline" routerLink="/components">Components</a>
@@ -41,18 +39,12 @@ export const routeMeta: RouteMeta = {
 
 		<nav class="scrollbar-w-0 mt-12 mb-2 h-11 overflow-x-auto sm:h-auto">
 			<ul class="flex space-x-2">
-				<li><a class="text-muted-foreground !font-medium" spartanNavLink="/examples/tasks">Tasks</a></li>
-				<li><a class="text-muted-foreground !font-medium" spartanNavLink="/examples/music">Music</a></li>
-				<li><a class="text-muted-foreground !font-medium" spartanNavLink="/examples/notes">Notes</a></li>
-				<li>
-					<a class="text-muted-foreground !font-medium" spartanNavLink="/examples/authentication">Authentication</a>
-				</li>
-				<li><a class="text-muted-foreground !font-medium" spartanNavLink="/examples/typography">Typography</a></li>
+				<li><a class="text-muted-foreground !font-medium" spartanNavLink="/blocks/sidebar">Sidebar</a></li>
 			</ul>
 		</nav>
-		<div class="border-border overflow-hidden rounded-lg border">
+		<div class="">
 			<router-outlet />
 		</div>
 	`,
 })
-export default class ExamplesPage {}
+export default class BlocksPage {}

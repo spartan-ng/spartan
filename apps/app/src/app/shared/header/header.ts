@@ -47,6 +47,7 @@ import { HeaderMobileNav } from './header-mobile-nav';
 					<a spartanNavLink="/documentation">Docs</a>
 					<a spartanNavLink="/components">Components</a>
 					<a spartanNavLink="/examples">Examples</a>
+					<a spartanNavLink="/blocks">Blocks</a>
 					<a spartanNavLink="/colors">Colors</a>
 					<a spartanNavLink="/stack">Stack</a>
 				</div>

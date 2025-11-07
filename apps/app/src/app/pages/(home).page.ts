@@ -9,11 +9,11 @@ import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmTabsImports } from '@spartan-ng/helm/tabs';
 import { metaWith } from '../shared/meta/meta.util';
-import AuthenticationExample from './(home)/(examples)/(authentication)/authentication';
-import DashboardExample from './(home)/(examples)/(dashboard)/dashboard';
-import OverviewExample from './(home)/(examples)/(overview)/overview.page';
-import PlaygroundExample from './(home)/(examples)/(playground)/playground';
-import TasksExample from './(home)/(examples)/(tasks)/tasks';
+import { AuthenticationExample } from './(home)/components/authentication/authentication';
+import { DashboardExample } from './(home)/components/dashboard/dashboard';
+import { OverviewExample } from './(home)/components/overview/overview';
+import { PlaygroundExample } from './(home)/components/playground/playground';
+import { TasksExample } from './(home)/components/tasks/tasks';
 import { ThreeHundred } from './(home)/components/three-hundred';
 
 export const routeMeta: RouteMeta = {

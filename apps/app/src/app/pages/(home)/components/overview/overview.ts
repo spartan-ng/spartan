@@ -71,7 +71,7 @@ import { SpinnerEmpty } from './components/spinner-empty';
 	`,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class OverviewExample {
+export class OverviewExample {
 	protected readonly _isFavorite = signal(false);
 	protected readonly _gpuCount = signal(8);
 	public readonly label = signal('personal');

@@ -50,4 +50,4 @@ import { AuthenticationForm } from './components/form';
 		</div>
 	`,
 })
-export default class AuthenticationExample {}
+export class AuthenticationExample {}

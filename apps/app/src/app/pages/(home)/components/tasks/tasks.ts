@@ -275,7 +275,7 @@ import { type Task, TASK_DATA } from './services/tasks.models';
 		</div>
 	`,
 })
-export default class TasksExample {
+export class TasksExample {
 	protected readonly trackBy: TrackByFunction<Task> = (_: number, p: Task) => p.id;
 	protected readonly _availablePageSizes = [5, 10, 20, 10000];
 	protected readonly _pageSize = signal(this._availablePageSizes[1]); // default to page size 10

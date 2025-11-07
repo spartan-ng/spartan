@@ -25,8 +25,8 @@ import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 							hlmInputGroupButton
 							class="data-[active=true]:bg-primary data-[active=true]:text-primary-foreground"
 							size="icon-xs"
-							[attr.data-active]="enableVoiceMode()"
-							(click)="enableVoiceMode.set(!enableVoiceMode())"
+							[attr.data-active]="_enableVoiceMode()"
+							(click)="_enableVoiceMode.set(!_enableVoiceMode())"
 						>
 							<ng-icon hlm name="lucideAudioLines" />
 						</button>
@@ -38,5 +38,5 @@ import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ButtonGroupInputGroup {
-	protected readonly enableVoiceMode = signal(false);
+	protected readonly _enableVoiceMode = signal(false);
 }

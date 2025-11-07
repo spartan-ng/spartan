@@ -8,7 +8,7 @@ import { HlmMenuImports } from '@spartan-ng/helm/menu';
 import { DashboardTableSection } from './table-section';
 
 @Component({
-	selector: 'dashboard-table-actions',
+	selector: 'spartan-dashboard-table-actions',
 	host: {
 		class: 'block',
 	},

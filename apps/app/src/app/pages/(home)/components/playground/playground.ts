@@ -49,7 +49,7 @@ import { PRESETS_DATA } from './data/presets';
 			>
 				<h2 class="pl-0.5 text-lg font-semibold">Playground</h2>
 				<div class="ml-auto flex w-full gap-2 sm:justify-end">
-					<preset-selector [presets]="presets" />
+					<preset-selector [presets]="_presets" />
 					<preset-save />
 					<div class="hidden gap-2 md:flex">
 						<code-viewer />
@@ -139,7 +139,7 @@ import { PRESETS_DATA } from './data/presets';
 							</button>
 						</hlm-tabs-list>
 					</div>
-					<model-selector [models]="models" [types]="types" />
+					<model-selector [models]="_models" [types]="_types" />
 					<temperature-selector />
 					<max-length-selector />
 					<top-p-selector />
@@ -148,8 +148,8 @@ import { PRESETS_DATA } from './data/presets';
 		</div>
 	`,
 })
-export default class PlaygroundExample {
-	protected readonly presets = PRESETS_DATA;
-	protected readonly models = MODELS;
-	protected readonly types = TYPES;
+export class PlaygroundExample {
+	protected readonly _presets = PRESETS_DATA;
+	protected readonly _models = MODELS;
+	protected readonly _types = TYPES;
 }

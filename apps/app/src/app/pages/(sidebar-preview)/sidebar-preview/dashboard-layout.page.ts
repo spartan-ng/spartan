@@ -33,8 +33,8 @@ import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmMenuImports } from '@spartan-ng/helm/menu';
 import { HlmSidebarImports, HlmSidebarService } from '@spartan-ng/helm/sidebar';
-import { DashboardCardSection } from '../../(home)/(examples)/(dashboard)/components/card-section';
-import { DashboardTableSection } from '../../(home)/(examples)/(dashboard)/components/table-section';
+import { DashboardCardSection } from '../../(home)/components/dashboard/components/card-section';
+import { DashboardTableSection } from '../../(home)/components/dashboard/components/table-section';
 
 @Component({
 	selector: 'spartan-dashboard-layout',

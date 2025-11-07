@@ -14,7 +14,7 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 	`,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class DashboardExample {
+export class DashboardExample {
 	private readonly _sanitizer = inject(DomSanitizer);
 	protected readonly _iframeSrc = computed(() =>
 		this._sanitizer.bypassSecurityTrustResourceUrl('/sidebar-preview/dashboard-layout'),

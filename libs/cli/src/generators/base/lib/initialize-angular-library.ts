@@ -159,14 +159,14 @@ export async function initializeAngularEntrypoint(
 export async function initializeAngularLibrary(tree: Tree, options: HlmBaseGeneratorSchema) {
 	const { libraryGenerator } = await import('@nx/angular/generators');
 
-	const dir = joinPathFragments(options.directory, options.publicName);
+	const dir = joinPathFragments(options.directory, options.name);
 
 	const callback = await libraryGenerator(tree, {
 		...(readNxJson(tree).generators?.['@nx/angular:library'] || {}),
 		...defaultSchema,
-		name: options.publicName,
+		name: options.name,
 		buildable: options.buildable,
-		importPath: `${options.importAlias}/${options.primitiveName}`,
+		importPath: `${options.importAlias}/${options.name}`,
 		directory: dir,
 		tags: options.tags,
 	});

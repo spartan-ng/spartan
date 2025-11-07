@@ -28,6 +28,7 @@ import {
 } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import {
+	createHoverObservable,
 	type ExposesSide,
 	type ExposesState,
 	provideExposedSideProviderExisting,
@@ -35,7 +36,6 @@ import {
 } from '@spartan-ng/brain/core';
 import { BehaviorSubject, fromEvent, merge, type Observable, of, Subject } from 'rxjs';
 import { delay, distinctUntilChanged, filter, map, share, switchMap, takeUntil, tap } from 'rxjs/operators';
-import { createHoverObservable } from './createHoverObservable';
 
 @Directive({
 	selector: '[brnHoverCardContent]',
@@ -143,7 +143,7 @@ export class BrnHoverCardContentService {
 		if (config.attachTo) {
 			this._positionStrategy = this._psBuilder
 				.flexibleConnectedTo(config.attachTo)
-				.withPositions((config.attachPositions ?? config.align === 'top') ? topFirstPositions : bottomFirstPositions)
+				.withPositions(config.attachPositions ?? (config.align === 'top' ? topFirstPositions : bottomFirstPositions))
 				.withDefaultOffsetY(config.sideOffset ?? 0);
 			this._config = {
 				...this._config,
@@ -177,7 +177,7 @@ export class BrnHoverCardContentService {
 		this._destroyed$ = new Subject<void>();
 
 		this._overlayHoveredObservables$.next(
-			createHoverObservable(this._overlayRef.hostElement, this._zone, this._destroyed$),
+			createHoverObservable(this._overlayRef.hostElement, this._zone, this._destroyed$).pipe(map((e) => e.hover)),
 		);
 	}
 
@@ -205,7 +205,7 @@ export class BrnHoverCardTrigger implements OnInit, OnDestroy {
 
 	public readonly hovered$: Observable<boolean> = merge(
 		fromEvent(this._el.nativeElement, 'click').pipe(map(() => false)),
-		createHoverObservable(this._el.nativeElement, this._zone, this._destroy$),
+		createHoverObservable(this._el.nativeElement, this._zone, this._destroy$).pipe(map((e) => e.hover)),
 		this._contentService.hovered$,
 		this.focused$,
 	).pipe(distinctUntilChanged());

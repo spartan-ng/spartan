@@ -1,12 +1,11 @@
 import { computed, Directive, input } from '@angular/core';
 import { hlm } from '@spartan-ng/helm/utils';
-
 import type { ClassValue } from 'clsx';
 
 @Directive({
 	selector: 'button[hlmSidebarGroupAction]',
-
 	host: {
+		'data-slot': 'sidebar-group-action',
 		'data-sidebar': 'group-action',
 		'[class]': '_computedClass()',
 	},

@@ -6,7 +6,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Please search GitHub for a similar [issue](https://github.com/goetzrobin/spartan/issues) or [PR](https://github.com/goetzrobin/spartan/issues) before submitting a new issue.
+        Please search GitHub for a similar [issue](https://github.com/goetzrobin/spartan/issues) or [PR](https://github.com/goetzrobin/spartan/pulls) before submitting a new issue.
 
   - type: textarea
     id: environment
@@ -45,6 +45,7 @@ body:
         - dialog
         - dropdown-menu
         - empty
+        - field
         - form-field
         - hover-card
         - icon

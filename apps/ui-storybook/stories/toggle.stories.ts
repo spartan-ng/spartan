@@ -1,6 +1,5 @@
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideItalic } from '@ng-icons/lucide';
-import { BrnToggle } from '@spartan-ng/brain/toggle';
 import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
 
 import { HlmIcon } from '@spartan-ng/helm/icon';
@@ -12,7 +11,7 @@ const meta: Meta<HlmToggle> = {
 	tags: ['autodocs'],
 	decorators: [
 		moduleMetadata({
-			imports: [HlmToggle, BrnToggle, NgIcon, HlmIcon],
+			imports: [HlmToggle, NgIcon, HlmIcon],
 			providers: [provideIcons({ lucideItalic })],
 		}),
 	],

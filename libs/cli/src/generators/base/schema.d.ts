@@ -1,9 +1,7 @@
 import { type GenerateAs } from './lib/generate-as';
 
 export interface HlmBaseGeneratorSchema {
-	primitiveName: string;
-	internalName: string;
-	publicName: string;
+	name: string;
 	directory?: string;
 	rootProject?: boolean;
 	tags?: string;

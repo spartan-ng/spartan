@@ -55,7 +55,7 @@ export const components: Link[] = [
 	{ label: 'Kbd', url: '/kbd', new: true },
 	{ label: 'Label', url: '/label' },
 	{ label: 'Menubar', url: '/menubar' },
-	{ label: 'Navigation Menu', url: '/navigation-menu', wip: true },
+	{ label: 'Navigation Menu', url: '/navigation-menu', new: true },
 	{ label: 'Pagination', url: '/pagination' },
 	{ label: 'Popover', url: '/popover' },
 	{ label: 'Progress', url: '/progress' },
@@ -92,15 +92,6 @@ export const sidenavItems: NavItem[] = [
 		],
 	},
 	{
-		label: 'Stack',
-		url: '/stack',
-		links: [
-			{ label: 'Overview', url: '/overview' },
-			{ label: 'Technologies', url: '/technologies' },
-			{ label: 'Installation', url: '/installation' },
-		],
-	},
-	{
 		label: 'UI',
 		url: '/documentation',
 		links: [
@@ -117,5 +108,14 @@ export const sidenavItems: NavItem[] = [
 		label: 'Components',
 		url: '/components',
 		links: components,
+	},
+	{
+		label: 'Stack',
+		url: '/stack',
+		links: [
+			{ label: 'Overview', url: '/overview' },
+			{ label: 'Technologies', url: '/technologies' },
+			{ label: 'Installation', url: '/installation' },
+		],
 	},
 ];

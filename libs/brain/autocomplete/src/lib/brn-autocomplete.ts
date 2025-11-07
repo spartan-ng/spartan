@@ -1,7 +1,6 @@
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import {
 	computed,
-	contentChild,
 	contentChildren,
 	Directive,
 	effect,
@@ -16,7 +15,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { BrnPopover } from '@spartan-ng/brain/popover';
 import type { BrnAutocompleteItem } from './brn-autocomplete-item';
 import { BrnAutocompleteItemToken } from './brn-autocomplete-item.token';
-import { BrnAutocompleteSearchInput } from './brn-autocomplete-search-input';
 import { provideBrnAutocomplete } from './brn-autocomplete.token';
 
 @Directive({
@@ -38,16 +36,11 @@ export class BrnAutocomplete<T> {
 	/** when the selection has changed */
 	public readonly valueChange = output<T>();
 
-	/** @internal The search query */
-	public readonly search = computed(() => this._searchInput()?.value() ?? '');
+	/** when the selection has been cleared */
+	public readonly selectionCleared = output<void>();
 
 	/** Access the popover if present */
 	private readonly _brnPopover = inject(BrnPopover, { optional: true });
-
-	/** Access the search input if present */
-	private readonly _searchInput = contentChild(BrnAutocompleteSearchInput, {
-		descendants: true,
-	});
 
 	/** @internal The focus strategy when opening */
 	private readonly _focus = signal<'first' | 'last'>('first');

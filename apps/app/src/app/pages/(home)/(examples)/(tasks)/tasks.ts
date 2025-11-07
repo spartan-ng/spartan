@@ -20,6 +20,7 @@ import {
 	lucideDot,
 	lucideEllipsis,
 	lucideLayers,
+	lucideLoader,
 	lucideLogOut,
 	lucideUser,
 } from '@ng-icons/lucide';
@@ -95,6 +96,7 @@ import { type Task, TASK_DATA } from './services/tasks.models';
 			lucideUser,
 			lucideChevronsRight,
 			lucideChevronsLeft,
+			lucideLoader,
 		}),
 	],
 	host: {
@@ -109,7 +111,7 @@ import { type Task, TASK_DATA } from './services/tasks.models';
 				</div>
 				<hlm-avatar [brnMenuTriggerFor]="profile" align="center">
 					<img src="/assets/avatar.png" alt="spartan logo. Resembling a spartanic shield" hlmAvatarImage />
-					<span class="bg-destructive text-white" hlmAvatarFallback>AH</span>
+					<span class="bg-destructive text-white" hlmAvatarFallback>KL</span>
 				</hlm-avatar>
 
 				<ng-template #profile>
@@ -195,6 +197,10 @@ import { type Task, TASK_DATA } from './services/tasks.models';
 								}
 							</tbody>
 						</table>
+					</div>
+				} @placeholder {
+					<div class="flex h-96 items-center justify-center">
+						<ng-icon name="lucideLoader" class="h-4 w-4 animate-spin" />
 					</div>
 				}
 			</div>

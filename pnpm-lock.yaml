@@ -66,8 +66,8 @@ importers:
         specifier: ^5.2.5
         version: 5.2.7
       '@ng-icons/core':
-        specifier: 32.2.0
-        version: 32.2.0(@angular/common@19.2.8(@angular/core@19.2.8(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2))(@angular/core@19.2.8(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2)
+        specifier: ^31.4.0
+        version: 31.4.0(@angular/common@19.2.8(@angular/core@19.2.8(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2))(@angular/core@19.2.8(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2)
       '@nx/angular':
         specifier: 20.8.1
         version: 20.8.1(42awknuy3qs37me6la2csjgdoa)
@@ -174,13 +174,13 @@ importers:
         specifier: ^2.2.1
         version: 2.2.2
       tailwind-merge:
-        specifier: ^3.0.1
+        specifier: ^3.3.1
         version: 3.3.1
       tslib:
         specifier: ~2.7.0
         version: 2.7.0
       tw-animate-css:
-        specifier: ^1.2.4
+        specifier: ^1.4.0
         version: 1.4.0
       ufo:
         specifier: 1.5.4
@@ -232,14 +232,14 @@ importers:
         specifier: ^9.0.3
         version: 9.8.0
       '@ng-icons/lucide':
-        specifier: 32.2.0
-        version: 32.2.0
+        specifier: ^31.4.0
+        version: 31.4.0
       '@ng-icons/remixicon':
-        specifier: 32.2.0
-        version: 32.2.0
+        specifier: ^31.4.0
+        version: 31.4.0
       '@ng-icons/tabler-icons':
-        specifier: 32.2.0
-        version: 32.2.0
+        specifier: ^31.4.0
+        version: 31.4.0
       '@ngtools/webpack':
         specifier: 19.1.7
         version: 19.1.7(@angular/compiler-cli@19.2.8(@angular/compiler@19.2.8)(typescript@5.7.3))(typescript@5.7.3)(webpack@5.99.9(@swc/core@1.7.26(@swc/helpers@0.5.13))(esbuild@0.24.2))
@@ -3813,21 +3813,21 @@ packages:
     engines: {node: '>=18.14.0'}
     hasBin: true
 
-  '@ng-icons/core@32.2.0':
-    resolution: {integrity: sha512-42S9QFH+FaigjXQp0QtWLHyJz8G8EaqJqcrK3qfZH4OyH86o32s3pkkf+lWnEtp2tR+07qNPSLYKCIgDE64Tug==}
+  '@ng-icons/core@31.4.0':
+    resolution: {integrity: sha512-JfLiJGDX/ihWmawcnLGXtwyCqMi2qXz7gMJyXXWdUN5JA18EAnt3JnyuxDAGkoU/u7wRlcOI7irlXHU4spAKOg==}
     peerDependencies:
-      '@angular/common': '>=20.0.0'
-      '@angular/core': '>=20.0.0'
+      '@angular/common': '>=18.0.0'
+      '@angular/core': '>=18.0.0'
       rxjs: ^6.5.3 || ^7.4.0
 
-  '@ng-icons/lucide@32.2.0':
-    resolution: {integrity: sha512-9nFdsi9KInMfr9Q1lETdGJTPBwfkWteQi4hrzSHNa/J4fvvWB5CKrIIICb3MOKv7AW+Rb+t2p8yWcCf1fWPa7Q==}
+  '@ng-icons/lucide@31.4.0':
+    resolution: {integrity: sha512-OLpBugUaPE19eo2syeOVidslwOZX8rFNVpmky6PwkTr44ZdYwT1SFTu8TFbBNLOb09TIqkesh2xR5nA+GRHAvQ==}
 
-  '@ng-icons/remixicon@32.2.0':
-    resolution: {integrity: sha512-Elh6d64DZRxlrf7XQEU+2pkm0nL/xhnyW0oiyLg5jpyd6fQbMyS9mxebTsPul7NEs8+g0PPxTNQikGIp4a2ThA==}
+  '@ng-icons/remixicon@31.4.0':
+    resolution: {integrity: sha512-22AeNP8nFxCl7wNR0eE7LxDSjYqH8b6EnotpJLCMeqlqLqzPd2+MKKRQngoFEkQ1jpmRSsgQmwnbsfIm2YSdoA==}
 
-  '@ng-icons/tabler-icons@32.2.0':
-    resolution: {integrity: sha512-1dIEMo6xIOCv6fh25VSE2iwEjZJVF9VsBxKStOCNT4WYDRFavnD3GdaoTS/+2wsCx/+39cOEHu4XGMP787AIvA==}
+  '@ng-icons/tabler-icons@31.4.0':
+    resolution: {integrity: sha512-+fQHyKf++N8h7EmNlb1QOuEf2AWd5GwUfB1hwjfuxsg3q39e3qZ0HFtPNKHDkJ3NMGgPWtB9n5wAAcfP5y4qGw==}
 
   '@ngtools/webpack@19.1.7':
     resolution: {integrity: sha512-U39LVqHWj+GtKzBA3+AseHZgLPlL5YE/iRkZJ4PHQVrgW9LtyMzPuUmnW+e0XQwPFHq9xQxaoj3w8gApj4/MIg==}
@@ -18191,22 +18191,22 @@ snapshots:
       - rollup
       - supports-color
 
-  '@ng-icons/core@32.2.0(@angular/common@19.2.8(@angular/core@19.2.8(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2))(@angular/core@19.2.8(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2)':
+  '@ng-icons/core@31.4.0(@angular/common@19.2.8(@angular/core@19.2.8(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2))(@angular/core@19.2.8(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2)':
     dependencies:
       '@angular/common': 19.2.8(@angular/core@19.2.8(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2)
       '@angular/core': 19.2.8(rxjs@7.8.2)(zone.js@0.15.0)
       rxjs: 7.8.2
       tslib: 2.7.0
 
-  '@ng-icons/lucide@32.2.0':
+  '@ng-icons/lucide@31.4.0':
     dependencies:
       tslib: 2.7.0
 
-  '@ng-icons/remixicon@32.2.0':
+  '@ng-icons/remixicon@31.4.0':
     dependencies:
       tslib: 2.7.0
 
-  '@ng-icons/tabler-icons@32.2.0':
+  '@ng-icons/tabler-icons@31.4.0':
     dependencies:
       tslib: 2.7.0
 

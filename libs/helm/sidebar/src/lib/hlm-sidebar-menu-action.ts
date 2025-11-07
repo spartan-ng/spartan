@@ -1,12 +1,11 @@
 import { booleanAttribute, computed, Directive, input } from '@angular/core';
 import { hlm } from '@spartan-ng/helm/utils';
-
 import type { ClassValue } from 'clsx';
 
 @Directive({
 	selector: 'button[hlmSidebarMenuAction]',
-
 	host: {
+		'data-slot': 'sidebar-menu-action',
 		'data-sidebar': 'menu-action',
 		'[class]': '_computedClass()',
 	},

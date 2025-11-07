@@ -1,3 +1,4 @@
+import { type FlexibleConnectedPositionStrategy } from '@angular/cdk/overlay';
 import {
 	ChangeDetectionStrategy,
 	Component,
@@ -36,6 +37,8 @@ export type BrnPopoverAlign = 'start' | 'center' | 'end';
 export class BrnPopover extends BrnDialog {
 	public readonly align = input<BrnPopoverAlign>('center');
 	public readonly sideOffset = input(0, { transform: numberAttribute });
+	public readonly offsetX = input(0, { transform: numberAttribute });
+	private _positionStrategy?: FlexibleConnectedPositionStrategy;
 
 	constructor() {
 		super();
@@ -70,6 +73,26 @@ export class BrnPopover extends BrnDialog {
 				this.applySideOffset(sideOffset);
 			});
 		});
+		effect(() => {
+			const offsetX = this.offsetX();
+			untracked(() => {
+				this.applyOffsetX(offsetX);
+			});
+		});
+		effect(() => {
+			const attachTo = this.mutableAttachTo();
+			const positions = this.mutableAttachPositions();
+			if (!attachTo || !positions || positions.length === 0) return;
+			untracked(() => {
+				if (!this._positionStrategy) {
+					this._positionStrategy = this.positionBuilder.flexibleConnectedTo(attachTo).withPush(false);
+				} else {
+					this._positionStrategy.setOrigin(attachTo);
+				}
+				this._positionStrategy.withPositions(positions);
+				this.mutablePositionStrategy.set(this._positionStrategy);
+			});
+		});
 	}
 
 	private applySideOffset(sideOffset: number) {
@@ -77,6 +100,14 @@ export class BrnPopover extends BrnDialog {
 			positions.map((position) => ({
 				...position,
 				offsetY: position.originY === 'top' ? -sideOffset : sideOffset,
+			})),
+		);
+	}
+	private applyOffsetX(offsetX: number) {
+		this.mutableAttachPositions.update((positions) =>
+			positions.map((position) => ({
+				...position,
+				offsetX,
 			})),
 		);
 	}

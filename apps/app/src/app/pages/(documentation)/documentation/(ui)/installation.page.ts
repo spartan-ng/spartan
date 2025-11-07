@@ -15,13 +15,14 @@ import { SectionIntro } from '../../../../shared/layout/section-intro';
 import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading';
 import { TabsCli } from '../../../../shared/layout/tabs-cli';
 
+import { PackageInstallerTabs } from '@spartan-ng/app/app/shared/layout/package-installer-tabs';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { HlmAlert, HlmAlertDescription, HlmAlertTitle } from '@spartan-ng/helm/alert';
 import { metaWith } from '../../../../shared/meta/meta.util';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Installation' },
-	meta: metaWith('spartan - Installation', 'Getting up and running with spartan'),
+	meta: metaWith('spartan - Installation', 'Install spartan/ui in your Angular project'),
 	title: 'spartan - Installation',
 };
 
@@ -44,86 +45,116 @@ export const routeMeta: RouteMeta = {
 		HlmAlert,
 		HlmAlertDescription,
 		HlmAlertTitle,
+		PackageInstallerTabs,
 	],
 	providers: [provideIcons({ lucideChevronRight })],
 	template: `
 		<section spartanMainSection>
-			<spartan-section-intro name="Installation" lead="Getting up and running with spartan." />
+			<spartan-section-intro name="Installation" lead="Install behavior. Copy styles. Start building." />
+
 			<p class="${hlmP}">
-				Adding
-				<code class="${hlmCode}">spartan/ui</code>
-				to your project requires only a couple steps!
+				spartan/ui uses a two-layer architecture: you install
+				<code class="${hlmCode}">&#64;spartan-ng/brain</code>
+				from npm for accessible primitives, then copy
+				<code class="${hlmCode}">helm</code>
+				styles into your codebase for customization.
 			</p>
-			<p class="${hlmP}">We support the Angular CLI & Nx! Start with installing our plugin:</p>
-			<spartan-code class="mt-4" code="npm i -D @spartan-ng/cli" />
-			<p class="${hlmP}">Install our brain:</p>
-			<spartan-code class="mt-4" code="npm i @spartan-ng/brain" />
+
 			<spartan-section-sub-heading id="prerequisites">Prerequisites</spartan-section-sub-heading>
+
 			<p class="${hlmP}">
-				<code class="${hlmCode}">spartan/ui</code>
-				is built on top of Tailwind CSS. Make sure your application has a working Tailwind CSS setup before you
-				continue. Tailwind installation instructions can be found
+				spartan/ui requires Tailwind CSS. If you haven't set it up yet, follow the
 				<a
 					class="${hlmCode} underline"
 					href="https://tailwindcss.com/docs/installation/framework-guides/angular"
 					target="_blank"
 				>
-					here.
+					official Angular installation guide
 				</a>
+				before continuing.
 			</p>
+
+			<spartan-section-sub-heading id="quick-start">Quick Start</spartan-section-sub-heading>
+
+			<p class="${hlmP}">Install the CLI plugin:</p>
+			<spartan-package-installer-tab class="mt-4" />
+
+			<p class="${hlmP}">Run the spartan/cli init command:</p>
+			<spartan-cli-tabs nxCode="npx nx g @spartan-ng/cli:init" ngCode="ng g @spartan-ng/cli:init" />
+
 			<p class="${hlmP}">
-				<code class="${hlmCode}">spartan/ui</code>
-				also builds on top of angular/cdk. To install it run the following command:
+				Use the CLI to add components to your project. This installs the brain dependency (npm) and copies helm code
+				(styles) into your codebase:
 			</p>
-			<spartan-code class="mt-4" code="npm i @angular/cdk" />
-			<spartan-section-sub-heading id="setting-up-tailwindcss">Setup Tailwind CSS</spartan-section-sub-heading>
+			<spartan-cli-tabs class="mt-4 mb-6" nxCode="npx nx g @spartan-ng/cli:ui" ngCode="ng g @spartan-ng/cli:ui" />
+
+			<p class="${hlmP}">The CLI will prompt you to select which components to add. Each component includes:</p>
+			<ul class="my-4 ml-6 list-disc [&>li]:mt-2">
+				<li>Brain primitive (installed to node_modules)</li>
+				<li>Helm styles (copied to your project)</li>
+				<li>All necessary dependencies</li>
+			</ul>
+
+			<div class="my-2 flex items-center justify-end">
+				<a routerLink="/components" variant="outline" size="sm" hlmBtn outline="">
+					Check out the Components
+					<ng-icon hlm name="lucideChevronRight" class="ml-2" size="sm" />
+				</a>
+			</div>
+
+			<spartan-section-sub-heading id="manual-setup">Manual Setup</spartan-section-sub-heading>
+			<h3 spartanH4 id="install-dependencies">1. Install Dependencies</h3>
+
+			<p class="${hlmP}">Install the brain (accessible primitives):</p>
+			<spartan-package-installer-tab class="mt-4" package="brn" />
+
+			<p class="${hlmP}">Install Angular CDK (required for overlays and accessibility):</p>
+			<spartan-package-installer-tab class="mt-4" package="cdk" />
+
+			<h3 spartanH4 id="configure-tailwind-css">2. Configure Tailwind CSS</h3>
 
 			<div hlmAlert variant="destructive" class="mt-6">
-				<h4 hlmAlertTitle>We recommend using Tailwind CSS version 4.</h4>
+				<h4 hlmAlertTitle>Use Tailwind CSS v4</h4>
 				<div hlmAlertDescription>
-					<p>
-						Please note that we cannot guarantee full compatibility of the components with Tailwind CSS version 3, and
-						some features may not function as expected.
-						<a [routerLink]="[]" [relativeTo]="_activatedRoute" fragment="adding-t3-guide" class="${hlmCode} underline">
-							Tailwind 3 Guide
-						</a>
-					</p>
+					<p>We recommend Tailwind CSS v4. Some features may not work correctly with v3.</p>
+					<a [routerLink]="[]" [relativeTo]="_activatedRoute" fragment="tailwind-v3" class="${hlmCode} underline">
+						See Tailwind v3 guide
+					</a>
 				</div>
 			</div>
-			<div hlmAlert class="mt-6">
-				<h4 hlmAlertTitle>Define layers that ng-icons styles are applied correctly</h4>
-				<div hlmAlertDescription>
-					<p>
-						After you setup Tailwind CSS, make sure to define the layers that ng-icons styles are applied correctly. You
-						can do this by adding the following code to your styles.css file:
-					</p>
-					<spartan-code
-						class="mt-4 w-full"
-						code='
-@layer theme, base, components, utilities;
+
+			<h4 spartanH4 id="configure-layers">2.1 Configure CSS Layers</h4>
+			<p class="${hlmP}">
+				Add these layers to your
+				<code class="${hlmCode}">styles.css</code>
+				to ensure ng-icons styles load correctly:
+			</p>
+			<spartan-code
+				class="mt-4 w-full"
+				code='@layer theme, base, components, utilities;
 @import "tailwindcss/theme.css" layer(theme);
 @import "tailwindcss/preflight.css" layer(base);
-@import "tailwindcss/utilities.css";
-'
-					/>
-				</div>
-			</div>
+@import "tailwindcss/utilities.css";'
+			/>
 
-			<p class="${hlmP}">
-				You now have to add our spartan-specific configuration to your Tailwind CSS setup. To make the setup as easy as
-				possible, the
-				<code class="${hlmCode}">&#64;spartan-ng/brain</code>
-				package comes with it own preset.
-			</p>
+			<h4 spartanH4 id="import-preset" class="mt-8">2.2 Import spartan Preset</h4>
+			<p class="${hlmP}">Add the spartan preset to your CSS file:</p>
+			<spartan-code
+				class="mt-4"
+				code='@import "@spartan-ng/brain/hlm-tailwind-preset.css";'
+				fileName="src/styles.css"
+			/>
 
-			<h3 spartanH4 id="theme-generator">Theme Generator</h3>
-			<p class="${hlmP}">If you are using Nx, we have written a plugin that will take care of the heavy lifting:</p>
+			<h4 spartanH4 id="add-theme-variables" class="mt-8">2.3 Add Theme Variables</h4>
+			<p class="${hlmP}">You have two options for adding spartan's CSS variables:</p>
+
+			<h4 class="mt-4 text-sm font-semibold">Option A: Use the Theme Generator (Recommended)</h4>
+			<p class="${hlmP}">Generate theme configuration automatically with our CLI:</p>
 			<spartan-cli-tabs
 				class="mt-4 mb-6"
 				nxCode="npx nx g @spartan-ng/cli:ui-theme"
 				ngCode="ng g @spartan-ng/cli:ui-theme"
 			/>
-			<p class="${hlmP}">To learn more about the Nx plugin check out the CLI docs below.</p>
 			<div class="my-2 flex items-center justify-end">
 				<a routerLink="/documentation/cli" variant="outline" size="sm" hlmBtn outline="">
 					CLI documentation
@@ -131,28 +162,9 @@ export const routeMeta: RouteMeta = {
 				</a>
 			</div>
 
-			<h3 spartanH4 id="manual-setup">Manual Setup</h3>
-
-			<p class="${hlmP}">If you want to install it manually, add the following line to your css file.</p>
-			<spartan-code
-				class="mt-4"
-				code='@import "@spartan-ng/brain/hlm-tailwind-preset.css";'
-				fileName="src/styles.css"
-			/>
-
-			<h3 spartanH4 id="adding-css-vars">Adding CSS variables</h3>
+			<h4 class="mt-6 text-sm font-semibold">Option B: Manual Setup</h4>
 			<p class="${hlmP}">
-				To complete your Tailwind CSS setup, you need to add our spartan-specific CSS variables to your style
-				entrypoint. This is most likely a
-				<code class="${hlmCode}">styles.css</code>
-				in the
-				<code class="${hlmCode}">src</code>
-				folder of your application.
-			</p>
-
-			<p class="${hlmP}">
-				If you are not using Nx (yet) you can copy the variables of the default theme below and manually add them to
-				your style entrypoint, such as
+				Copy these CSS variables to your
 				<code class="${hlmCode}">styles.css</code>
 				:
 			</p>
@@ -198,7 +210,7 @@ export const routeMeta: RouteMeta = {
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
   --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.269 0 0);
+  --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
   --primary: oklch(0.922 0 0);
   --primary-foreground: oklch(0.205 0 0);
@@ -206,7 +218,7 @@ export const routeMeta: RouteMeta = {
   --secondary-foreground: oklch(0.985 0 0);
   --muted: oklch(0.269 0 0);
   --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.371 0 0);
+  --accent: oklch(0.269 0 0);
   --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.704 0.191 22.216);
   --border: oklch(1 0 0 / 10%);
@@ -214,61 +226,74 @@ export const routeMeta: RouteMeta = {
   --ring: oklch(0.556 0 0);
   --sidebar: oklch(0.205 0 0);
   --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.985 0 0);
+  --sidebar-primary-foreground: oklch(0.205 0 0);
   --sidebar-accent: oklch(0.269 0 0);
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.439 0 0);
+  --sidebar-ring: oklch(0.556 0 0);
 }"
 			/>
+
 			<p class="${hlmP}">
-				Also, make sure to check out the theming section to better understand the convention behind them and learn how
-				to customize your theme.
+				Learn how to customize these variables in the
+				<a routerLink="/documentation/theming" class="${hlmCode} underline">theming documentation</a>
+				.
 			</p>
 
-			<h3 id="intellisense" spartanH4>IntelliSense</h3>
+			<p class="${hlmP}">Also make sure to import the Angular CDK overlay styles:</p>
+			<spartan-code class="mt-4 mb-6" code="@import '@angular/cdk/overlay-prebuilt.css';" />
 
-			<p>
-				You can enable autocompletion inside
-				<span class="${hlmCode}">hlm</span>
+			<h3 spartanH4 id="adding-components">3. Add Components</h3>
+
+			<p class="${hlmP}">
+				Use the CLI to add components to your project. This installs the brain dependency (npm) and copies helm code
+				(styles) into your codebase:
+			</p>
+			<spartan-cli-tabs class="mt-4 mb-6" nxCode="npx nx g @spartan-ng/cli:ui" ngCode="ng g @spartan-ng/cli:ui" />
+
+			<p class="${hlmP}">The CLI will prompt you to select which components to add. Each component includes:</p>
+			<ul class="my-4 ml-6 list-disc [&>li]:mt-2">
+				<li>Brain primitive (installed to node_modules)</li>
+				<li>Helm styles (copied to your project)</li>
+				<li>All necessary dependencies</li>
+			</ul>
+
+			<div class="my-2 flex items-center justify-end">
+				<a routerLink="/documentation/cli" variant="outline" size="sm" hlmBtn outline="">
+					CLI documentation
+					<ng-icon hlm name="lucideChevronRight" class="ml-2" size="sm" />
+				</a>
+			</div>
+
+			<spartan-section-sub-heading id="editor-setup">Editor Setup (Optional)</spartan-section-sub-heading>
+
+			<h3 spartanH4 id="intellisense">IntelliSense</h3>
+			<p class="${hlmP}">
+				Enable Tailwind autocompletion in
+				<code class="${hlmCode}">hlm</code>
 				and
-				<span class="${hlmCode}">cva</span>
-				functions.
+				<code class="${hlmCode}">cva</code>
+				functions:
 			</p>
 
 			<ol class="my-6 ml-6 list-decimal [&>li]:mt-2">
 				<li>
-					Install
+					Install the
 					<a
 						class="${hlmCode} underline"
 						href="https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss"
 						target="_blank"
 						rel="noopener noreferrer"
 					>
-						"Tailwind CSS IntelliSense"
+						Tailwind CSS IntelliSense
 					</a>
-					Visual Studio Code extension
+					extension
 				</li>
 				<li>
-					Add
-					<a
-						class="${hlmCode} underline"
-						href="https://github.com/tailwindlabs/tailwindcss-intellisense?tab=readme-ov-file#tailwindcssclassfunctions"
-						target="_blank"
-						rel="noopener noreferrer"
-					>
-						tailwindCSS.classFunctions
-					</a>
-					to your
-					<a
-						class="${hlmCode} underline"
-						href="https://code.visualstudio.com/docs/configure/settings"
-						target="_blank"
-						rel="noopener noreferrer"
-					>
-						settings.json
-					</a>
+					Add this to your
+					<code class="${hlmCode}">settings.json</code>
+					:
 				</li>
 			</ol>
 
@@ -279,21 +304,12 @@ export const routeMeta: RouteMeta = {
 }'
 			/>
 
-			<h3 id="sorting-classes" spartanH4>Sorting classes</h3>
-
-			<p class="${hlmP} text-pretty">
-				You can enable automatic sorting of Tailwind CSS classes in
-				<span class="${hlmCode}">hlm</span>
-				and
-				<span class="${hlmCode}">cva</span>
-				functions with the
-				<span class="${hlmCode}">prettier-plugin-tailwindcss</span>
-				.
-			</p>
+			<h3 spartanH4 id="sorting-classes" class="mt-8">Class Sorting</h3>
+			<p class="${hlmP}">Automatically sort Tailwind classes with Prettier:</p>
 
 			<ol class="my-6 ml-6 list-decimal [&>li]:mt-2">
 				<li>
-					Install and configure the
+					Install
 					<a
 						class="${hlmCode} underline"
 						href="https://github.com/tailwindlabs/prettier-plugin-tailwindcss"
@@ -302,53 +318,36 @@ export const routeMeta: RouteMeta = {
 					>
 						prettier-plugin-tailwindcss
 					</a>
-
-					in your project.
 				</li>
 				<li>
-					Add
-					<a
-						class="${hlmCode} underline"
-						href="https://github.com/tailwindlabs/prettier-plugin-tailwindcss?tab=readme-ov-file#sorting-classes-in-function-calls"
-						target="_blank"
-						rel="noopener noreferrer"
-					>
-						tailwindFunctions
-					</a>
-					option to your prettier config file (e.g.
-					<span class="${hlmCode}">.prettierrc</span>
-					):
+					Add this to your
+					<code class="${hlmCode}">.prettierrc</code>
+					:
 				</li>
 			</ol>
 
 			<spartan-code
 				class="mt-4"
-				code='// .prettierrc
-{
+				code='{
   "tailwindFunctions": ["hlm", "cva"]
 }'
 			/>
 
-			<spartan-section-sub-heading id="adding-primitives">Adding primitives</spartan-section-sub-heading>
-			<p class="${hlmP}">
-				With the Nx plugin, adding primitives is as simple as running a single command. It will allow you to pick and
-				choose which primitives to add to your project. It will add all brain dependencies and copy helm code into its
-				own library:
-			</p>
-			<spartan-cli-tabs class="mt-4 mb-6" nxCode="npx nx g @spartan-ng/cli:ui" ngCode="ng g @spartan-ng/cli:ui" />
-			<p class="${hlmP}">To learn more about the command line interface check out the docs below.</p>
-			<div class="my-2 flex items-center justify-end">
-				<a routerLink="/documentation/cli" variant="outline" size="sm" hlmBtn outline="">
-					CLI documentation
-					<ng-icon hlm name="lucideChevronRight" class="ml-2" size="sm" />
-				</a>
-			</div>
-
-			<spartan-section-sub-heading id="adding-t3-guide" class="text-destructive">
-				Tailwind 3 Guide (Not recommended)
+			<spartan-section-sub-heading id="tailwind-v3" class="text-destructive">
+				Tailwind CSS v3 (Not Recommended)
 			</spartan-section-sub-heading>
 
-			<p class="${hlmP}">If you are using Tailwind 3 add the following to your config file:</p>
+			<div hlmAlert variant="destructive" class="mt-4 mb-6">
+				<h4 hlmAlertTitle>Limited v3 Support</h4>
+				<div hlmAlertDescription>
+					<p>
+						Tailwind CSS v3 support is not guaranteed. Some components may not work as expected. We strongly recommend
+						upgrading to v4.
+					</p>
+				</div>
+			</div>
+
+			<p class="${hlmP}">If you must use Tailwind v3, add this to your config:</p>
 			<spartan-cli-tabs
 				language="js"
 				class="mt-4 mb-6"
@@ -384,12 +383,6 @@ module.exports = {
 };
 "
 			/>
-
-			<p class="${hlmP}">
-				If you have manually added the variables to your style entrypoint, don't forget to import the Angular CDK
-				overlay styles too.
-			</p>
-			<spartan-code class="mt-4 mb-6" code="@import '@angular/cdk/overlay-prebuilt.css';" />
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="theming" label="Theming" />

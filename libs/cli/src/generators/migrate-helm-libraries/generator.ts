@@ -6,6 +6,7 @@ import { dirname, join } from 'path';
 import { getOrCreateConfig } from '../../utils/config';
 import { readTsConfigPathsFromTree } from '../../utils/tsconfig';
 import { deleteFiles } from '../base/lib/deleteFiles';
+import type { SupportedLibraries } from '../base/lib/supported-libs';
 import { createPrimitiveLibraries } from '../ui/generator';
 import type { Primitive } from '../ui/primitives';
 import type { MigrateHelmLibrariesGeneratorSchema } from './schema';
@@ -13,7 +14,7 @@ import type { MigrateHelmLibrariesGeneratorSchema } from './schema';
 export async function migrateHelmLibrariesGenerator(tree: Tree, options: MigrateHelmLibrariesGeneratorSchema) {
 	// Detect the libraries that are already installed
 
-	const config = await getOrCreateConfig(tree);
+	const config = await getOrCreateConfig(tree, { angularCli: options.angularCli });
 
 	const existingLibraries = await detectLibraries(tree, config.importAlias);
 
@@ -178,7 +179,7 @@ async function regenerateLibraries(tree: Tree, options: MigrateHelmLibrariesGene
 	const supportedLibraries = (await import('../ui/supported-ui-libraries.json').then(
 		(m) => m.default,
 	)) as SupportedLibraries;
-	const config = await getOrCreateConfig(tree);
+	const config = await getOrCreateConfig(tree, { angularCli: options.angularCli });
 
 	await createPrimitiveLibraries(
 		{
@@ -190,11 +191,4 @@ async function regenerateLibraries(tree: Tree, options: MigrateHelmLibrariesGene
 		{ ...options, installPeerDependencies: false },
 		config,
 	);
-}
-
-type SupportedLibraries = Record<string, SupportedLibrary>;
-
-interface SupportedLibrary {
-	internalName: string;
-	peerDependencies: Record<string, string>;
 }

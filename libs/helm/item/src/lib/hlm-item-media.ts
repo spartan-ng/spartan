@@ -10,7 +10,7 @@ const itemMediaVariants = cva(
 		variants: {
 			variant: {
 				default: 'bg-transparent',
-				icon: "bg-muted size-8 rounded-sm border [&_ng-icon:not([class*='size-'])]:size-4",
+				icon: "bg-muted size-8 rounded-sm border [&_ng-icon:not([class*='text-'])]:text-base",
 				image: 'size-10 overflow-hidden rounded-sm [&_img]:size-full [&_img]:object-cover',
 			},
 		},
@@ -22,7 +22,7 @@ const itemMediaVariants = cva(
 export type ItemMediaVariants = VariantProps<typeof itemMediaVariants>;
 
 @Directive({
-	selector: 'div[hlmItemMedia]',
+	selector: '[hlmItemMedia],hlm-item-media',
 	host: {
 		'data-slot': 'item-media',
 		'[attr.data-variant]': 'variant()',

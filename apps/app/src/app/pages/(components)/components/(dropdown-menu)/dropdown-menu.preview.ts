@@ -99,7 +99,7 @@ import {
 						<hlm-menu-shortcut>⌘B</hlm-menu-shortcut>
 					</button>
 
-					<button hlmMenuItem [brnMenuTriggerFor]="invite">
+					<button hlmMenuItem side="right" align="start" [brnMenuTriggerFor]="invite">
 						<span>Invite Users</span>
 						<hlm-menu-item-sub-indicator />
 					</button>

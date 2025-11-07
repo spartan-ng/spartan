@@ -6,7 +6,7 @@ import { hlmMuted } from '@spartan-ng/helm/typography';
 	selector: 'spartan-footer',
 	imports: [HlmButton],
 	host: {
-		class: 'block px-4 py-8',
+		class: 'block px-4 py-6',
 	},
 	template: `
 		<footer class="${hlmMuted} mx-auto max-w-screen-xl text-center text-sm">

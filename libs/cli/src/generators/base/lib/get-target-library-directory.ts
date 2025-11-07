@@ -7,5 +7,5 @@ export function getTargetLibraryDirectory(options: HlmBaseGeneratorSchema, tree:
 	const workspaceLayout = getWorkspaceLayout(tree);
 	const baseLibsDir = layoutDirectory ?? workspaceLayout.libsDir;
 	const libsDir = options.rootProject ? '.' : baseLibsDir;
-	return path.join(libsDir, projectDirectory, options.publicName);
+	return path.join(libsDir, projectDirectory, options.name);
 }

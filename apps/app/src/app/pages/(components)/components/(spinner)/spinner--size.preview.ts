@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
-import { HlmSpinner } from '@spartan-ng/helm/spinner';
+import { HlmSpinnerImports } from '@spartan-ng/helm/spinner';
 
 @Component({
 	selector: 'spartan-spinner-size-preview',
-	imports: [HlmSpinner],
+	imports: [HlmSpinnerImports],
 	template: `
-		<div class="flex flex-col items-center gap-4">
-			<hlm-spinner class="size-6" />
-			<hlm-spinner class="size-8" />
-			<hlm-spinner class="size-10" />
-			<hlm-spinner class="size-12" />
+		<div class="flex items-center gap-6">
+			<hlm-spinner class="text-xs" />
+			<hlm-spinner class="text-base" />
+			<hlm-spinner class="text-2xl" />
+			<hlm-spinner class="text-[2rem]" />
 		</div>
 	`,
 })
-export class SpartanSpinnerSizePreviewComponent {}
+export class SpartanSpinnerSizePreview {}

@@ -11,13 +11,13 @@ import { Tabs } from './tabs';
 	},
 	template: `
 		<spartan-tabs
-			firstTab="Nx Plugin"
-			secondTab="Angular CLI"
+			firstTab="Angular CLI"
+			secondTab="Nx Plugin"
 			[value]="_tabValue()"
 			(tabActivated)="onTabChanged($event)"
 		>
-			<spartan-code firstTab [language]="language()" [code]="nxCode()" />
-			<spartan-code secondTab [language]="language()" [code]="ngCode()" />
+			<spartan-code firstTab [language]="language()" [code]="ngCode()" />
+			<spartan-code secondTab [language]="language()" [code]="nxCode()" />
 		</spartan-tabs>
 	`,
 })

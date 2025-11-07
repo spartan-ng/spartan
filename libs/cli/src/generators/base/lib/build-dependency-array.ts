@@ -1,16 +1,18 @@
-import type { Tree } from '@nx/devkit';
+import { type Tree } from '@nx/devkit';
 import { getTailwindVersion } from '../../../utils/get-tailwind-version';
+import { getInstalledPackageVersion } from '../../../utils/version-utils';
 import type { HlmBaseGeneratorSchema } from '../schema';
-import { NG_ICONS_VERSION, SPARTAN_BRAIN_VERSION, TAILWIND_MERGE_VERSION, TW_ANIMATE_CSS } from '../versions';
+import { NG_ICONS_VERSION, TAILWIND_MERGE_VERSION, TW_ANIMATE_CSS } from '../versions';
 
 export function buildDependencyArray(
+	tree: Tree,
 	options: HlmBaseGeneratorSchema,
 	angularVersion: string,
 	existingCdkVersion: string,
 ) {
 	let dependencies: Record<string, string> = {
 		'@angular/cdk': existingCdkVersion ?? angularVersion,
-		'@spartan-ng/brain': SPARTAN_BRAIN_VERSION,
+		'@spartan-ng/brain': getInstalledPackageVersion(tree, '@spartan-ng/cli', undefined, true),
 		'tailwind-merge': TAILWIND_MERGE_VERSION,
 	};
 
@@ -18,8 +20,8 @@ export function buildDependencyArray(
 		dependencies = { ...dependencies, ...options.peerDependencies };
 	}
 
-	if (options.primitiveName === 'icon') {
-		dependencies = { ...dependencies, '@ng-icons/core': NG_ICONS_VERSION };
+	if (options.name === 'icon' || options.name === 'spinner') {
+		dependencies['@ng-icons/core'] = NG_ICONS_VERSION;
 	}
 	return dependencies;
 }

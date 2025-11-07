@@ -44,7 +44,7 @@ import {
 				variant="outline"
 				align="center"
 				[brnMenuTriggerFor]="menu"
-				[brnMenuTriggerData]="{ $implicit: { data: 'SomeContext' } }"
+				[brnMenuTriggerData]="{ $implicit: { data: 'Context Window Full' } }"
 			>
 				Open
 			</button>

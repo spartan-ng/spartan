@@ -1,6 +1,4 @@
-import { RouteMeta } from '@analogjs/router';
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
-import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
 import { HlmFieldSeparator } from '@spartan-ng/helm/field';
 import { AppearanceSettings } from './components/appearance-settings';
 import { ButtonGroupDemo } from './components/button-group-demo';
@@ -19,16 +17,8 @@ import { NotionPrompt } from './components/notion-prompt';
 import { SpinnerBadge } from './components/spinner-badge';
 import { SpinnerEmpty } from './components/spinner-empty';
 
-export const routeMeta: RouteMeta = {
-	meta: metaWith(
-		'spartan/examples - Examples Overview',
-		"SPARTAN comes with helpful directives that enforce consistent styling across your application's typography.",
-	),
-	title: 'spartan/examples - Examples Overview',
-};
-
 @Component({
-	selector: 'spartan-examples-overview',
+	selector: 'spartan-overview-example',
 	imports: [
 		HlmFieldSeparator,
 		FieldDemo,
@@ -49,9 +39,7 @@ export const routeMeta: RouteMeta = {
 		SpinnerEmpty,
 	],
 	template: `
-		<div
-			class="theme-container mx-auto grid gap-8 py-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-6 2xl:gap-8"
-		>
+		<div class="theme-container mx-auto grid gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-6 2xl:gap-8">
 			<div class="flex flex-col gap-6 *:[div]:w-full *:[div]:max-w-full">
 				<spartan-field-demo />
 			</div>
@@ -83,7 +71,7 @@ export const routeMeta: RouteMeta = {
 	`,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class OverviewPage {
+export default class OverviewExample {
 	protected readonly _isFavorite = signal(false);
 	protected readonly _gpuCount = signal(8);
 	public readonly label = signal('personal');

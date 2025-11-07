@@ -1,4 +1,3 @@
-import type { RouteMeta } from '@analogjs/router';
 import { Component, inject, signal, type TrackByFunction } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
@@ -24,7 +23,6 @@ import {
 	lucideLogOut,
 	lucideUser,
 } from '@ng-icons/lucide';
-import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
 import { BrnMenuTrigger } from '@spartan-ng/brain/menu';
 import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { HlmAvatarImports } from '@spartan-ng/helm/avatar';
@@ -58,13 +56,8 @@ import { TitleCell } from './components/title-cell';
 import { DEFAULT_TASK_TABLE_COLUMNS, LocalStorageService } from './services/local-storage.service';
 import { type Task, TASK_DATA } from './services/tasks.models';
 
-export const routeMeta: RouteMeta = {
-	meta: metaWith('spartan/examples - Tasks', 'A tasks list example displaying the SPARTAN table and new UI primitives'),
-	title: 'spartan/examples - Tasks',
-};
-
 @Component({
-	selector: 'spartan-data-table-preview',
+	selector: 'spartan-tasks-example',
 	imports: [
 		FormsModule,
 		BrnMenuTrigger,
@@ -276,7 +269,7 @@ export const routeMeta: RouteMeta = {
 		</div>
 	`,
 })
-export default class TasksExamplePage {
+export default class TasksExample {
 	protected readonly trackBy: TrackByFunction<Task> = (_: number, p: Task) => p.id;
 	protected readonly _availablePageSizes = [5, 10, 20, 10000];
 	protected readonly _pageSize = signal(this._availablePageSizes[1]); // default to page size 10
@@ -333,7 +326,7 @@ export default class TasksExamplePage {
 	private readonly _columnFilters = signal<ColumnFiltersState>([]);
 	private readonly _sorting = signal<SortingState>([]);
 	private readonly _pagination = signal<PaginationState>({
-		pageSize: 10,
+		pageSize: 20,
 		pageIndex: 0,
 	});
 

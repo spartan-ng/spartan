@@ -30,7 +30,7 @@ import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmInput } from '@spartan-ng/helm/input';
 import { HlmMenuImports } from '@spartan-ng/helm/menu';
 import { HlmPopoverImports } from '@spartan-ng/helm/popover';
-import TasksExamplePage from '../(tasks).page';
+import TasksExamplePage from '../tasks';
 import { PriorityIconPipe } from '../pipes/priority-icon.pipe';
 import { StatusIconPipe } from '../pipes/status-icon.pipe';
 import type { TaskPriority, TaskStatus } from '../services/tasks.models';

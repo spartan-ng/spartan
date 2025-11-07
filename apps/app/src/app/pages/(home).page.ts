@@ -8,7 +8,13 @@ import { HlmBadge } from '@spartan-ng/helm/badge';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmCard, HlmCardDescription, HlmCardHeader, HlmCardTitle } from '@spartan-ng/helm/card';
 import { HlmIcon } from '@spartan-ng/helm/icon';
+import { HlmTabsImports } from '@spartan-ng/helm/tabs';
 import { metaWith } from '../shared/meta/meta.util';
+import AuthenticationExample from './(home)/(examples)/(authentication)/authentication';
+import DashboardExample from './(home)/(examples)/(dashboard)/dashboard';
+import OverviewExample from './(home)/(examples)/(overview)/overview.page';
+import PlaygroundExample from './(home)/(examples)/(playground)/playground';
+import TasksExample from './(home)/(examples)/(tasks)/tasks';
 import { ThreeHundred } from './(home)/components/three-hundred';
 
 export const routeMeta: RouteMeta = {
@@ -38,6 +44,12 @@ const lead = 'text-foreground max-w-3xl text-base text-balance sm:text-lg';
 		HlmIcon,
 		ThreeHundred,
 		ZeropsLogo,
+		HlmTabsImports,
+		OverviewExample,
+		DashboardExample,
+		TasksExample,
+		AuthenticationExample,
+		PlaygroundExample,
 	],
 	host: {
 		class: 'block px-2',
@@ -81,6 +93,34 @@ const lead = 'text-foreground max-w-3xl text-base text-balance sm:text-lg';
 				</div>
 			</div>
 		</section>
+
+		<hlm-tabs tab="examples" class="w-full">
+			<hlm-tabs-list
+				aria-label="tabs example"
+				class="bg-background [&>button]:text-muted-foreground [&>button]:data-[state=active]:text-primary [&>button]:hover:text-primary [&>button]:cursor-pointer [&>button]:data-[state=active]:shadow-none"
+			>
+				<button hlmTabsTrigger="examples">Examples</button>
+				<button hlmTabsTrigger="dashboard">Dashboard</button>
+				<button hlmTabsTrigger="tasks">Tasks</button>
+				<button hlmTabsTrigger="playground">Playground</button>
+				<button hlmTabsTrigger="authentication">Authentication</button>
+			</hlm-tabs-list>
+			<div hlmTabsContent="examples">
+				<spartan-overview-example />
+			</div>
+			<div hlmTabsContent="dashboard">
+				<spartan-dashboard-example />
+			</div>
+			<div hlmTabsContent="tasks">
+				<spartan-tasks-example />
+			</div>
+			<div hlmTabsContent="playground">
+				<spartan-playground-example />
+			</div>
+			<div hlmTabsContent="authentication">
+				<spartan-authentication-example />
+			</div>
+		</hlm-tabs>
 
 		<section id="tools" class="space-y-6 py-8 md:py-12">
 			<div class="${container} max-w-[58rem]">

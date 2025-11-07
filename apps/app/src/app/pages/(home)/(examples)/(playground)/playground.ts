@@ -22,7 +22,7 @@ import { MODELS, TYPES } from './data/models';
 import { PRESETS_DATA } from './data/presets';
 
 @Component({
-	selector: 'spartan-examples-playground-page',
+	selector: 'spartan-playground-example',
 	imports: [
 		PresetShare,
 		PresetSave,
@@ -148,7 +148,7 @@ import { PRESETS_DATA } from './data/presets';
 		</div>
 	`,
 })
-export default class ExamplesPlaygroundPage {
+export default class PlaygroundExample {
 	protected readonly presets = PRESETS_DATA;
 	protected readonly models = MODELS;
 	protected readonly types = TYPES;

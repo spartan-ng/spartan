@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
+	lucideArrowUp,
 	lucideAtSign,
 	lucideBlocks,
 	lucideBookOpen,
@@ -66,6 +67,7 @@ type GroupedItems = {
 			lucideBookOpen,
 			lucidePlus,
 			tablerCircleDashedPlus,
+			lucideArrowUp,
 		}),
 	],
 	host: { class: 'w-full' },

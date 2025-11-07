@@ -1,16 +1,6 @@
-import { RouteMeta } from '@analogjs/router';
-import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
 import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
-
-export const routeMeta: RouteMeta = {
-	meta: metaWith(
-		'spartan/examples/dashboard - Dashboard Example',
-		"SPARTAN comes with helpful directives that enforce consistent styling across your application's typography.",
-	),
-	title: 'spartan/examples/dashboard - Dashboard Example',
-};
 
 @Component({
 	selector: 'spartan-dashboard-example',
@@ -24,9 +14,8 @@ export const routeMeta: RouteMeta = {
 	`,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class DashboardPage {
+export default class DashboardExample {
 	private readonly _sanitizer = inject(DomSanitizer);
-	public readonly name = input.required<string>();
 	protected readonly _iframeSrc = computed(() =>
 		this._sanitizer.bypassSecurityTrustResourceUrl('/sidebar-preview/dashboard-layout'),
 	);

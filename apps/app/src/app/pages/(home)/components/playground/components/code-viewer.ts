@@ -4,7 +4,7 @@ import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmDialogImports } from '@spartan-ng/helm/dialog';
 
 @Component({
-	selector: 'code-viewer',
+	selector: 'spartan-code-viewer',
 	imports: [BrnDialogImports, HlmDialogImports, HlmButton],
 	template: `
 		<hlm-dialog>

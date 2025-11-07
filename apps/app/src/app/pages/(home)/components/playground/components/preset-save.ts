@@ -7,7 +7,7 @@ import { HlmLabel } from '@spartan-ng/helm/label';
 import { HlmTextarea } from '@spartan-ng/helm/textarea';
 
 @Component({
-	selector: 'preset-save',
+	selector: 'spartan-preset-save',
 	imports: [BrnDialogImports, HlmDialogImports, HlmInput, HlmTextarea, HlmButton, HlmLabel],
 	template: `
 		<hlm-dialog>

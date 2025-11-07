@@ -17,7 +17,7 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 								Select the option that best describes how you heard about us.
 							</p>
 							<div hlmFieldGroup class="flex flex-row flex-wrap gap-2 [--radius:9999rem]">
-								@for (option of options; track option.value) {
+								@for (option of _options; track option.value) {
 									<label hlmFieldLabel class="!w-fit">
 										<div
 											hlmField
@@ -43,7 +43,7 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FieldHear {
-	options = [
+	protected _options = [
 		{
 			label: 'Social Media',
 			value: 'social-media',

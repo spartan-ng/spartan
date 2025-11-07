@@ -3,7 +3,7 @@ import { HlmLabel } from '@spartan-ng/helm/label';
 import { HlmSliderImports } from '@spartan-ng/helm/slider';
 
 @Component({
-	selector: 'top-p-selector',
+	selector: 'spartan-top-p-selector',
 	imports: [HlmSliderImports, HlmLabel],
 	host: {
 		class: 'grid gap-3',

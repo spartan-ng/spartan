@@ -3,7 +3,7 @@ import { HlmLabel } from '@spartan-ng/helm/label';
 import { HlmSliderImports } from '@spartan-ng/helm/slider';
 
 @Component({
-	selector: 'temperature-selector',
+	selector: 'spartan-temperature-selector',
 	imports: [HlmSliderImports, HlmLabel],
 	host: {
 		class: 'grid gap-3',

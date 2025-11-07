@@ -9,7 +9,7 @@ import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 import { Preset } from '../data/presets';
 
 @Component({
-	selector: 'preset-selector',
+	selector: 'spartan-preset-selector',
 	imports: [BrnPopoverImports, HlmPopoverImports, HlmCommandImports, NgIcon, HlmIcon, HlmButton],
 	providers: [provideIcons({ lucideSearch, lucideCheck, lucideChevronsUpDown })],
 	template: `

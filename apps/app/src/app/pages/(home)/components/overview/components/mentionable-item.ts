@@ -3,7 +3,7 @@ import { HlmAvatarImports } from '@spartan-ng/helm/avatar';
 import { MentionItem } from './notion-prompt';
 
 @Component({
-	selector: 'mentionable-item',
+	selector: 'spartan-mentionable-item',
 	imports: [HlmAvatarImports],
 	template: `
 		@if (item().type === 'user') {
@@ -20,5 +20,5 @@ import { MentionItem } from './notion-prompt';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MentionableItem {
-	item = input.required<MentionItem>();
+	public item = input.required<MentionItem>();
 }

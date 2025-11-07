@@ -11,7 +11,7 @@ import { HlmMenuImports } from '@spartan-ng/helm/menu';
 import { HlmSwitch } from '@spartan-ng/helm/switch';
 
 @Component({
-	selector: 'preset-actions',
+	selector: 'spartan-preset-actions',
 	imports: [
 		HlmMenuImports,
 		HlmDialogImports,

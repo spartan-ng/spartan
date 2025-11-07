@@ -81,7 +81,7 @@ import { TypeCell } from './type-cell';
 					</button>
 					<button hlmTabsTrigger="focus-documents">Focus Documents</button>
 				</hlm-tabs-list>
-				<dashboard-table-actions table="table" />
+				<spartan-dashboard-table-actions table="table" />
 			</div>
 			<div hlmTabsContent="account">
 				<div class="max-h-[700px] w-full overflow-auto rounded-md border">

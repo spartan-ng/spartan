@@ -3,7 +3,7 @@ import { HlmLabel } from '@spartan-ng/helm/label';
 import { HlmSliderImports } from '@spartan-ng/helm/slider';
 
 @Component({
-	selector: 'max-length-selector',
+	selector: 'spartan-max-length-selector',
 	imports: [HlmSliderImports, HlmLabel],
 	host: {
 		class: 'grid gap-3',

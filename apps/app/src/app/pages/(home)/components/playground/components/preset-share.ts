@@ -10,7 +10,7 @@ import { HlmLabel } from '@spartan-ng/helm/label';
 import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 
 @Component({
-	selector: 'preset-share',
+	selector: 'spartan-preset-share',
 	imports: [BrnPopoverImports, HlmPopoverImports, HlmCommandImports, NgIcon, HlmIcon, HlmButton, HlmLabel, HlmInput],
 	providers: [provideIcons({ lucideCopy })],
 	template: `

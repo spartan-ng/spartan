@@ -12,6 +12,7 @@ import {
 	lucideX,
 } from '@ng-icons/lucide';
 import { tablerCircleDashedPlus } from '@ng-icons/tabler-icons';
+import { BrnCommandEmpty } from '@spartan-ng/brain/command';
 import { BrnMenuImports } from '@spartan-ng/brain/menu';
 import { BrnPopoverImports } from '@spartan-ng/brain/popover';
 import { HlmAvatarImports } from '@spartan-ng/helm/avatar';
@@ -50,6 +51,7 @@ type GroupedItems = {
 		HlmAvatarImports,
 		HlmMenuImports,
 		BrnMenuImports,
+		BrnCommandEmpty,
 		HlmIcon,
 		NgIcon,
 		MentionableItem,
@@ -80,10 +82,10 @@ type GroupedItems = {
 						brnPopoverTrigger
 						variant="outline"
 						class="rounded-full"
-						[size]="mentionButtonSize()"
+						[size]="_mentionButtonSize()"
 					>
 						<ng-icon hlm name="lucideAtSign" />
-						@if (!hasMention()) {
+						@if (!_hasMention()) {
 							<span>Add mention</span>
 						}
 					</button>
@@ -97,12 +99,12 @@ type GroupedItems = {
 							</hlm-command-search>
 
 							<hlm-command-list>
-								@for (groupType of groupTypes(); track groupType) {
+								@for (groupType of _groupTypes(); track groupType) {
 									<hlm-command-group [id]="groupType">
 										<hlm-command-group-label>{{ groupType === 'page' ? 'Pages' : 'Users' }}</hlm-command-group-label>
-										@for (item of grouped()[groupType]; track item.title) {
+										@for (item of _grouped()[groupType]; track item.title) {
 											<button hlm-command-item [value]="item.title" (click)="addMention(item, ctx)">
-												<mentionable-item [item]="item" />
+												<spartan-mentionable-item [item]="item" />
 												{{ item.title }}
 											</button>
 										}
@@ -116,7 +118,7 @@ type GroupedItems = {
 					</div>
 				</brn-popover>
 				<div class="no-scrollbar -m-1.5 flex gap-1 overflow-y-auto p-1.5">
-					@for (mention of mentions(); track mention) {
+					@for (mention of _mentions(); track mention) {
 						<button
 							hlmInputGroupButton
 							variant="secondary"
@@ -124,7 +126,7 @@ type GroupedItems = {
 							size="sm"
 							(click)="removeMention(mention)"
 						>
-							<mentionable-item [item]="mention" />
+							<spartan-mentionable-item [item]="mention" />
 							{{ mention.title }}
 							<ng-icon hlm name="lucideX" class="ml-1" />
 						</button>
@@ -138,13 +140,13 @@ type GroupedItems = {
 					<span class="sr-only">Attachment</span>
 				</button>
 				<button hlmInputGroupButton class="rounded-full" size="sm" [brnMenuTriggerFor]="model" #menuTrigger>
-					{{ selectedModel() ? selectedModel()?.name : 'Agent Mode' }}
+					{{ _selectedModel() ? _selectedModel()?.name : 'Agent Mode' }}
 				</button>
 				<ng-template #model>
 					<hlm-menu class="w-50 [--radius:1rem]">
 						<hlm-menu-group>
 							<hlm-menu-label class="text-muted-foreground text-xs">Select Agent Mode</hlm-menu-label>
-							@for (model of models; track model.name) {
+							@for (model of _models; track model.name) {
 								<button hlmMenuItemCheckbox [checked]="isChecked(model)" (click)="selectModel(model)">
 									<span>{{ model.name }}</span>
 									@if (model.badge) {
@@ -219,17 +221,17 @@ type GroupedItems = {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NotionPrompt {
-	models = SAMPLE_DATA.models;
-	mentions = signal<MentionItem[]>([]);
-	selectedModel = signal<ModelItem | undefined>(this.models[0]);
+	protected _models = SAMPLE_DATA.models;
+	protected _mentions = signal<MentionItem[]>([]);
+	protected _selectedModel = signal<ModelItem | undefined>(this._models[0]);
 
-	hasMention = computed(() => this.mentions().length > 0);
-	mentionButtonSize = computed(() => (this.hasMention() ? 'icon-sm' : 'sm'));
+	protected _hasMention = computed(() => this._mentions().length > 0);
+	protected _mentionButtonSize = computed(() => (this._hasMention() ? 'icon-sm' : 'sm'));
 
-	grouped = computed(() => {
+	protected _grouped = computed(() => {
 		return SAMPLE_DATA.mentionable.reduce(
 			(acc, item) => {
-				const isAvailable = !this.mentions()
+				const isAvailable = !this._mentions()
 					.map((mention) => mention.title)
 					.includes(item?.title);
 
@@ -244,23 +246,23 @@ export class NotionPrompt {
 			{} as Record<string, typeof SAMPLE_DATA.mentionable>,
 		);
 	});
-	groupTypes = computed(() => Object.keys(this.grouped()));
+	protected _groupTypes = computed(() => Object.keys(this._grouped()));
 
 	addMention(item: MentionItem, ctx: any) {
-		this.mentions.update((mentions) => [...mentions, item]);
+		this._mentions.update((mentions) => [...mentions, item]);
 		ctx.close();
 	}
 
 	removeMention(item: MentionItem) {
-		this.mentions.update((mentions) => mentions.filter((mention) => mention.title !== item.title));
+		this._mentions.update((mentions) => mentions.filter((mention) => mention.title !== item.title));
 	}
 
 	selectModel(model: ModelItem) {
-		this.selectedModel.set(model);
+		this._selectedModel.set(model);
 	}
 
 	isChecked(model: ModelItem) {
-		return this.selectedModel() === model;
+		return this._selectedModel() === model;
 	}
 }
 

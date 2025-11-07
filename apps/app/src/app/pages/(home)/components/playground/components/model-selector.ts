@@ -10,7 +10,7 @@ import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 import { Model, ModelType } from '../data/models';
 
 @Component({
-	selector: 'model-selector',
+	selector: 'spartan-model-selector',
 	imports: [BrnPopoverImports, HlmPopoverImports, HlmCommandImports, NgIcon, HlmIcon, HlmButton, HlmLabel],
 	providers: [provideIcons({ lucideChevronsUpDown, lucideSearch, lucideCheck })],
 	host: {

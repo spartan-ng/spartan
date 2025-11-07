@@ -49,13 +49,13 @@ import { PRESETS_DATA } from './data/presets';
 			>
 				<h2 class="pl-0.5 text-lg font-semibold">Playground</h2>
 				<div class="ml-auto flex w-full gap-2 sm:justify-end">
-					<preset-selector [presets]="_presets" />
-					<preset-save />
+					<spartan-preset-selector [presets]="_presets" />
+					<spartan-preset-save />
 					<div class="hidden gap-2 md:flex">
-						<code-viewer />
-						<preset-share />
+						<spartan-code-viewer />
+						<spartan-preset-share />
 					</div>
-					<preset-actions />
+					<spartan-preset-actions />
 				</div>
 			</div>
 			<hlm-separator />
@@ -139,10 +139,10 @@ import { PRESETS_DATA } from './data/presets';
 							</button>
 						</hlm-tabs-list>
 					</div>
-					<model-selector [models]="_models" [types]="_types" />
-					<temperature-selector />
-					<max-length-selector />
-					<top-p-selector />
+					<spartan-model-selector [models]="_models" [types]="_types" />
+					<spartan-temperature-selector />
+					<spartan-max-length-selector />
+					<spartan-top-p-selector />
 				</div>
 			</hlm-tabs>
 		</div>

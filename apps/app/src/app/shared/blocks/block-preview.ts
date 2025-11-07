@@ -4,7 +4,11 @@ import { DomSanitizer } from '@angular/platform-browser';
 @Component({
 	selector: 'spartan-block-preview',
 	template: `
-		<img [src]="'/assets/' + name() + '.png'" [alt]="name()" class="border-border flex rounded border md:hidden" />
+		<img
+			[src]="'/assets/blocks/' + name() + '.png'"
+			[alt]="name()"
+			class="border-border flex rounded-xl border md:hidden"
+		/>
 
 		<div
 			class="bg-background relative hidden aspect-[4/2.5] h-[930px] overflow-hidden rounded-lg border md:block md:aspect-auto md:rounded-xl"

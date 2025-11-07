@@ -47,7 +47,6 @@ export const routeMeta: RouteMeta = {
 				header height.
 			</p>
 
-			<!-- TODO iframe width is overflowing the container cutting of content -->
 			<spartan-block-preview path="sidebar-preview" name="sidebar-sticky-header" />
 		</div>
 	`,

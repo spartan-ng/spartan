@@ -85,33 +85,35 @@ const lead = 'text-foreground max-w-3xl text-base text-balance sm:text-lg';
 			</div>
 		</section>
 
-		<hlm-tabs tab="examples" class="w-full">
-			<hlm-tabs-list
-				aria-label="tabs example"
-				class="bg-background [&>button]:text-muted-foreground [&>button]:data-[state=active]:text-primary [&>button]:hover:text-primary [&>button]:cursor-pointer [&>button]:data-[state=active]:shadow-none"
-			>
-				<button hlmTabsTrigger="examples">Examples</button>
-				<button hlmTabsTrigger="dashboard">Dashboard</button>
-				<button hlmTabsTrigger="tasks">Tasks</button>
-				<button hlmTabsTrigger="playground">Playground</button>
-				<button hlmTabsTrigger="authentication">Authentication</button>
-			</hlm-tabs-list>
-			<div hlmTabsContent="examples">
-				<spartan-overview-example />
-			</div>
-			<div hlmTabsContent="dashboard">
-				<spartan-dashboard-example />
-			</div>
-			<div hlmTabsContent="tasks">
-				<spartan-tasks-example />
-			</div>
-			<div hlmTabsContent="playground">
-				<spartan-playground-example />
-			</div>
-			<div hlmTabsContent="authentication">
-				<spartan-authentication-example />
-			</div>
-		</hlm-tabs>
+		<section class="container-wrapper hidden px-6 md:block">
+			<hlm-tabs tab="examples" class="w-full">
+				<hlm-tabs-list
+					aria-label="tabs example"
+					class="bg-background [&>button]:text-muted-foreground [&>button]:data-[state=active]:text-primary [&>button]:hover:text-primary [&>button]:cursor-pointer [&>button]:data-[state=active]:shadow-none"
+				>
+					<button hlmTabsTrigger="examples">Examples</button>
+					<button hlmTabsTrigger="dashboard">Dashboard</button>
+					<button hlmTabsTrigger="tasks">Tasks</button>
+					<button hlmTabsTrigger="playground">Playground</button>
+					<button hlmTabsTrigger="authentication">Authentication</button>
+				</hlm-tabs-list>
+				<div hlmTabsContent="examples">
+					<spartan-overview-example />
+				</div>
+				<div hlmTabsContent="dashboard">
+					<spartan-dashboard-example />
+				</div>
+				<div hlmTabsContent="tasks">
+					<spartan-tasks-example />
+				</div>
+				<div hlmTabsContent="playground">
+					<spartan-playground-example />
+				</div>
+				<div hlmTabsContent="authentication">
+					<spartan-authentication-example />
+				</div>
+			</hlm-tabs>
+		</section>
 
 		<section id="the-300" class="space-y-6 py-8 md:py-12">
 			<div class="${container} max-w-[58rem]">

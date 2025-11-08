@@ -85,7 +85,7 @@ const lead = 'text-foreground max-w-3xl text-base text-balance sm:text-lg';
 			</div>
 		</section>
 
-		<section class="container-wrapper hidden px-6 md:block">
+		<section class="container-wrapper px-6">
 			<hlm-tabs tab="examples" class="w-full">
 				<hlm-tabs-list
 					aria-label="tabs example"

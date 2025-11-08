@@ -9,7 +9,11 @@ import { AuthenticationForm } from './components/form';
 		class: 'block',
 	},
 	template: `
-		<div class="bg-background overflow-hidden rounded-lg border shadow-md md:shadow-xl">
+		<div class="md:hidden">
+			<img src="/assets/authentication-light.png" alt="Authentication" class="block dark:hidden" />
+			<img src="/assets/authentication-dark.png" alt="Authentication" class="hidden dark:block" />
+		</div>
+		<div class="bg-background hidden overflow-hidden rounded-lg border shadow-md md:block md:shadow-xl">
 			<div
 				class="relative container flex h-[600px] flex-col items-center justify-center md:grid md:h-[800px] lg:max-w-none lg:grid-cols-2 lg:px-0"
 			>

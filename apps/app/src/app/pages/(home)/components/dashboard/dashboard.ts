@@ -6,6 +6,10 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 	selector: 'spartan-dashboard-example',
 	imports: [HlmSidebarImports],
 	template: `
+		<div class="md:hidden">
+			<img src="/assets/dashboard-light.png" alt="Dashboard" class="block dark:hidden" />
+			<img src="/assets/dashboard-dark.png" alt="Dashboard" class="hidden dark:block" />
+		</div>
 		<div class="relative hidden aspect-[4/2.5] w-full overflow-hidden rounded-lg border md:block">
 			<div class="bg-background absolute inset-0 hidden md:block">
 				<iframe [src]="_iframeSrc()" class="size-full"></iframe>

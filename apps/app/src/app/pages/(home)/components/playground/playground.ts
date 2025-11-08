@@ -43,6 +43,10 @@ import { PRESETS_DATA } from './data/presets';
 	],
 	providers: [provideIcons({ tablerMessageCheck, tablerBrowserPlus, tablerEdit, tablerRotate })],
 	template: `
+		<div class="md:hidden">
+			<img src="/assets/playground-light.png" alt="Playground" class="block dark:hidden" />
+			<img src="/assets/playground-dark.png" alt="Playground" class="hidden dark:block" />
+		</div>
 		<div class="hidden flex-1 flex-col rounded-lg border md:flex">
 			<div
 				class="flex flex-col items-start justify-between gap-2 px-8 py-4 sm:flex-row sm:items-center sm:gap-0 md:h-16"

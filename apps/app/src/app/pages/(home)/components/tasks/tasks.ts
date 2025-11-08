@@ -103,7 +103,11 @@ import { type Task, TASK_DATA } from './services/tasks.models';
 		class: 'w-full',
 	},
 	template: `
-		<div class="h-full flex-1 flex-col space-y-4 rounded-lg border p-8 py-6">
+		<div class="md:hidden">
+			<img src="/assets/tasks-light.png" alt="Tasks" class="block dark:hidden" />
+			<img src="/assets/tasks-dark.png" alt="Tasks" class="hidden dark:block" />
+		</div>
+		<div class="hidden h-full flex-1 flex-col space-y-4 rounded-lg border p-8 py-6 md:flex">
 			<div class="flex items-center justify-between space-y-2">
 				<div class="flex flex-col">
 					<h2 class="text-2xl font-bold tracking-tight">Welcome back!</h2>

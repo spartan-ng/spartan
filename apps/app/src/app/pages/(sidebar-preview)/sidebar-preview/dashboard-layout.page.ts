@@ -1,4 +1,4 @@
-import { Component, inject, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
 	tablerCamera,
@@ -32,7 +32,7 @@ import { HlmAvatarImports } from '@spartan-ng/helm/avatar';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmMenuImports } from '@spartan-ng/helm/menu';
-import { HlmSidebarImports, HlmSidebarService } from '@spartan-ng/helm/sidebar';
+import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 import { DashboardCardSection } from '../../(home)/components/dashboard/components/card-section';
 import { DashboardTableSection } from '../../(home)/components/dashboard/components/table-section';
 
@@ -264,8 +264,6 @@ import { DashboardTableSection } from '../../(home)/components/dashboard/compone
 	styleUrl: 'sidebar-default.css',
 })
 export default class DashboardLayoutPage {
-	private readonly _sidebarService = inject(HlmSidebarService);
-	protected readonly isMobile = this._sidebarService.isMobile;
 	protected readonly _items = {
 		user: {
 			name: 'spartan',

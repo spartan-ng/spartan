@@ -39,8 +39,12 @@ import { SpinnerEmpty } from './components/spinner-empty';
 		SpinnerEmpty,
 	],
 	template: `
+		<div class="md:hidden">
+			<img src="/assets/examples-light.png" alt="Examples" class="block dark:hidden" />
+			<img src="/assets/examples-dark.png" alt="Examples" class="hidden dark:block" />
+		</div>
 		<div
-			class="theme-container mx-auto grid h-full gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-6 2xl:gap-8"
+			class="theme-container mx-auto hidden h-full gap-8 md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-6 2xl:gap-8"
 		>
 			<div class="flex flex-col gap-6 *:[div]:w-full *:[div]:max-w-full">
 				<spartan-field-demo />

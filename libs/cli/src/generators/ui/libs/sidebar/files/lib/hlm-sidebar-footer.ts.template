@@ -1,12 +1,11 @@
 import { computed, Directive, input } from '@angular/core';
 import { hlm } from '<%- importAlias %>/utils';
-
 import type { ClassValue } from 'clsx';
 
 @Directive({
-	selector: 'div[hlmSidebarFooter]',
-
+	selector: '[hlmSidebarFooter],hlm-sidebar-footer',
 	host: {
+		'data-slot': 'sidebar-footer',
 		'data-sidebar': 'footer',
 		'[class]': '_computedClass()',
 	},

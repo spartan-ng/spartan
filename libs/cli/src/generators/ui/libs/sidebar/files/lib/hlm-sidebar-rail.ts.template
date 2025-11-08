@@ -1,17 +1,14 @@
 import { computed, Directive, inject, input } from '@angular/core';
 import { hlm } from '<%- importAlias %>/utils';
-
-import { HlmSidebarService } from './hlm-sidebar.service';
-
 import type { ClassValue } from 'clsx';
+import { HlmSidebarService } from './hlm-sidebar.service';
 
 @Directive({
 	selector: 'button[hlmSidebarRail]',
-
 	host: {
 		'data-sidebar': 'rail',
 		'data-slot': 'sidebar-rail',
-		'aria-label': 'Toggle Sidebar',
+		'[attr.aria-label]': 'ariaLabel()',
 		tabindex: '-1',
 		'[class]': '_computedClass()',
 		'(click)': 'onClick()',
@@ -19,6 +16,8 @@ import type { ClassValue } from 'clsx';
 })
 export class HlmSidebarRail {
 	private readonly _sidebarService = inject(HlmSidebarService);
+
+	public readonly ariaLabel = input<string>('Toggle Sidebar', { alias: 'aria-label' });
 
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>

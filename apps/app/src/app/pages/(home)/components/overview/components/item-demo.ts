@@ -19,6 +19,7 @@ import { HlmItemImports } from '@spartan-ng/helm/item';
 		<div hlmItem variant="outline">
 			<div hlmItemContent>
 				<div hlmItemTitle>Two-factor authentication</div>
+				<p hlmItemDescription>Verify via email or phone number.</p>
 			</div>
 			<div hlmItemActions>
 				<button hlmBtn size="sm">Enable</button>

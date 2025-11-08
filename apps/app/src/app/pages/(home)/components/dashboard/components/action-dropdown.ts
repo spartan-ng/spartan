@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideEllipsis } from '@ng-icons/lucide';
+import { lucideChevronRight, lucideEllipsis } from '@ng-icons/lucide';
 import { BrnMenuTrigger } from '@spartan-ng/brain/menu';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmIcon } from '@spartan-ng/helm/icon';
@@ -21,26 +21,17 @@ import type { DashboardData } from './dashboard-data.model';
 		HlmMenuSeparator,
 		HlmMenuGroup,
 	],
-	providers: [provideIcons({ lucideEllipsis })],
+	providers: [provideIcons({ lucideEllipsis, lucideChevronRight })],
 	template: `
 		<button hlmBtn variant="ghost" class="h-6 w-6 p-0.5" align="end" [brnMenuTriggerFor]="menu">
 			<ng-icon hlm size="sm" name="lucideEllipsis" />
 		</button>
 		<ng-template #menu>
 			<hlm-menu>
-				<hlm-menu-label>Actions</hlm-menu-label>
-				<hlm-menu-separator />
 				<hlm-menu-group>
 					<button hlmMenuItem>Edit</button>
 					<button hlmMenuItem>Make a copy</button>
 					<button hlmMenuItem>Favorite</button>
-				</hlm-menu-group>
-				<hlm-menu-separator />
-				<hlm-menu-group>
-					<button hlmMenuItem>
-						Labels
-						<ng-icon hlm name="lucideChevronRight" class="ml-auto" size="sm" />
-					</button>
 				</hlm-menu-group>
 				<hlm-menu-separator />
 				<hlm-menu-group>

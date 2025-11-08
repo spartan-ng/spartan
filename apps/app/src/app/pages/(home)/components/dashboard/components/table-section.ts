@@ -29,9 +29,12 @@ import {
 	SortingState,
 	VisibilityState,
 } from '@tanstack/angular-table';
+import {
+	DashboardLocalStorageService,
+	DEFAULT_DASHBOARD_TABLE_COLUMNS,
+} from '../services/dashboard-local-storage.service';
 import { ActionDropdown } from './action-dropdown';
 import { DASHBOARD_DATA, DashboardData } from './dashboard-data.model';
-import { DashboardLocalStorageService, DEFAULT_DASHBOARD_TABLE_COLUMNS } from './dashboard-local-storage.service';
 import { DashboardTableActions } from './dashboard-table-action';
 import { HeaderCell } from './header-cell';
 import { LimitCell } from './limit-cell';
@@ -88,7 +91,7 @@ import { TypeCell } from './type-cell';
 					@defer {
 						<div hlmTableContainer>
 							<table hlmTable>
-								<thead hlmTHead class="bg-background sticky top-0 z-10">
+								<thead hlmTHead class="bg-muted sticky top-0 z-10">
 									@for (headerGroup of table.getHeaderGroups(); track headerGroup.id) {
 										<tr hlmTr>
 											@for (header of headerGroup.headers; track header.id) {
@@ -230,22 +233,25 @@ export class DashboardTableSection {
 		{
 			accessorKey: 'header',
 			id: 'header',
-			header: () => flexRenderComponent(TableHeadSortButton, { inputs: { header: '' } }),
+			header: () => 'Header',
 			cell: () => flexRenderComponent(HeaderCell),
+			enableSorting: false,
 		},
 		{
 			accessorKey: 'type',
 			id: 'type',
 			filterFn: 'arrIncludesSome',
-			header: () => flexRenderComponent(TableHeadSortButton, { inputs: { header: '' } }),
+			header: () => 'Type',
 			cell: () => flexRenderComponent(TypeCell),
+			enableSorting: false,
 		},
 		{
 			accessorKey: 'status',
 			id: 'status',
 			filterFn: 'arrIncludesSome',
-			header: () => flexRenderComponent(TableHeadSortButton, { inputs: { header: '' } }),
+			header: () => 'Status',
 			cell: () => flexRenderComponent(StatusCell),
+			enableSorting: false,
 		},
 		{
 			accessorKey: 'target',
@@ -265,8 +271,9 @@ export class DashboardTableSection {
 			accessorKey: 'reviewer',
 			id: 'reviewer',
 			filterFn: 'arrIncludesSome',
-			header: () => flexRenderComponent(TableHeadSortButton, { inputs: { header: '' } }),
+			header: () => 'Reviewer',
 			cell: () => flexRenderComponent(ReviewerCell),
+			enableSorting: false,
 		},
 		{
 			id: 'action',

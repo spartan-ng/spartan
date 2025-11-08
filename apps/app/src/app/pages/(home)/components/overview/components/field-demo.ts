@@ -11,7 +11,7 @@ import { HlmTextarea } from '@spartan-ng/helm/textarea';
 	selector: 'spartan-field-demo',
 	imports: [HlmFieldImports, BrnSelectImports, HlmSelectImports, HlmInput, HlmTextarea, HlmButton, HlmCheckbox],
 	host: {
-		class: 'w-full max-w-md rounded-lg border p-6',
+		class: 'w-full max-w-md rounded-lg border p-6 h-full',
 	},
 	template: `
 		<form>

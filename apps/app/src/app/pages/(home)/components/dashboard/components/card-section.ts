@@ -81,7 +81,7 @@ import { HlmIcon } from '@spartan-ng/helm/icon';
 			<div class="@container/card" hlmCard>
 				<div hlmCardHeader>
 					<p hlmCardDescription>Growth Rate</p>
-					<h3 hlmCardTitle class="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">4.5%</h3>
+					<h3 hlmCardTitle class="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">+4.5%</h3>
 
 					<div hlmCardAction>
 						<span hlmBadge variant="outline">

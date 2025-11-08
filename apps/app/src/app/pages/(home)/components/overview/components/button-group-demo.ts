@@ -1,15 +1,40 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideArrowLeft, lucideEllipsis } from '@ng-icons/lucide';
+import {
+	lucideArchive,
+	lucideArrowLeft,
+	lucideCalendarPlus,
+	lucideChevronRight,
+	lucideClock,
+	lucideEllipsis,
+	lucideListFilterPlus,
+	lucideMailCheck,
+	lucideTag,
+	lucideTrash,
+} from '@ng-icons/lucide';
 import { BrnMenuTrigger } from '@spartan-ng/brain/menu';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmButtonGroupImports } from '@spartan-ng/helm/button-group';
+import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmMenuImports } from '@spartan-ng/helm/menu';
 
 @Component({
 	selector: 'spartan-button-group-demo',
-	imports: [HlmButtonGroupImports, BrnMenuTrigger, HlmMenuImports, HlmButton, NgIcon],
-	providers: [provideIcons({ lucideArrowLeft, lucideEllipsis })],
+	imports: [HlmButtonGroupImports, BrnMenuTrigger, HlmMenuImports, HlmButton, NgIcon, HlmIcon],
+	providers: [
+		provideIcons({
+			lucideArrowLeft,
+			lucideEllipsis,
+			lucideMailCheck,
+			lucideArchive,
+			lucideClock,
+			lucideCalendarPlus,
+			lucideTag,
+			lucideChevronRight,
+			lucideTrash,
+			lucideListFilterPlus,
+		}),
+	],
 	template: `
 		<div hlmButtonGroup>
 			<div hlmButtonGroup>
@@ -51,7 +76,7 @@ import { HlmMenuImports } from '@spartan-ng/helm/menu';
 						<span>Add to Calendar</span>
 					</button>
 					<button hlmMenuItem>
-						<ng-icon hlm name="lucideCalendarPlus" size="sm" />
+						<ng-icon hlm name="lucideListFilterPlus" size="sm" />
 						<span>Add to List</span>
 					</button>
 					<button hlmMenuItem class="flex justify-between" [brnMenuTriggerFor]="submenu">

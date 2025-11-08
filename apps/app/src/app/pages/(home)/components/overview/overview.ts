@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { HlmFieldSeparator } from '@spartan-ng/helm/field';
 import { AppearanceSettings } from './components/appearance-settings';
 import { ButtonGroupDemo } from './components/button-group-demo';
@@ -39,7 +39,9 @@ import { SpinnerEmpty } from './components/spinner-empty';
 		SpinnerEmpty,
 	],
 	template: `
-		<div class="theme-container mx-auto grid gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-6 2xl:gap-8">
+		<div
+			class="theme-container mx-auto grid h-full gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-6 2xl:gap-8"
+		>
 			<div class="flex flex-col gap-6 *:[div]:w-full *:[div]:max-w-full">
 				<spartan-field-demo />
 			</div>
@@ -71,24 +73,4 @@ import { SpinnerEmpty } from './components/spinner-empty';
 	`,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class OverviewExample {
-	protected readonly _isFavorite = signal(false);
-	protected readonly _gpuCount = signal(8);
-	public readonly label = signal('personal');
-	public readonly sliderValue = signal(500);
-	protected readonly _favoriteClass = computed(() =>
-		this._isFavorite() ? '[&>svg]:fill-blue-600 [&>svg]:stroke-blue-600' : '',
-	);
-
-	protected _toggleFavorite(): void {
-		this._isFavorite.update((f) => !f);
-	}
-
-	protected _gpuCountIncrease(): void {
-		this._gpuCount.update((count) => count + 1);
-	}
-
-	protected _gpuCountDecrease(): void {
-		this._gpuCount.update((count) => Math.max(0, count - 1));
-	}
-}
+export class OverviewExample {}

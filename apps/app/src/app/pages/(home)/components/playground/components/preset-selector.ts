@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCheck, lucideChevronsUpDown, lucideSearch } from '@ng-icons/lucide';
+import { BrnCommandEmpty } from '@spartan-ng/brain/command';
 import { BrnPopoverImports } from '@spartan-ng/brain/popover';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmCommandImports } from '@spartan-ng/helm/command';
@@ -10,7 +11,7 @@ import { Preset } from '../data/presets';
 
 @Component({
 	selector: 'spartan-preset-selector',
-	imports: [BrnPopoverImports, HlmPopoverImports, HlmCommandImports, NgIcon, HlmIcon, HlmButton],
+	imports: [BrnPopoverImports, HlmPopoverImports, HlmCommandImports, NgIcon, HlmIcon, HlmButton, BrnCommandEmpty],
 	providers: [provideIcons({ lucideSearch, lucideCheck, lucideChevronsUpDown })],
 	template: `
 		<brn-popover sideOffset="5">

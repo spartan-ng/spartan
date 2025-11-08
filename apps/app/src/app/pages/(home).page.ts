@@ -97,19 +97,19 @@ const lead = 'text-foreground max-w-3xl text-base text-balance sm:text-lg';
 					<button hlmTabsTrigger="playground">Playground</button>
 					<button hlmTabsTrigger="authentication">Authentication</button>
 				</hlm-tabs-list>
-				<div hlmTabsContent="examples">
+				<div hlmTabsContent="examples" class="mt-0">
 					<spartan-overview-example />
 				</div>
-				<div hlmTabsContent="dashboard">
+				<div hlmTabsContent="dashboard" class="mt-0">
 					<spartan-dashboard-example />
 				</div>
-				<div hlmTabsContent="tasks">
+				<div hlmTabsContent="tasks" class="mt-0">
 					<spartan-tasks-example />
 				</div>
-				<div hlmTabsContent="playground">
+				<div hlmTabsContent="playground" class="mt-0">
 					<spartan-playground-example />
 				</div>
-				<div hlmTabsContent="authentication">
+				<div hlmTabsContent="authentication" class="mt-0">
 					<spartan-authentication-example />
 				</div>
 			</hlm-tabs>

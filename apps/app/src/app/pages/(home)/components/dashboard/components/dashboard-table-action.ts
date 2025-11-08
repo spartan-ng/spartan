@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { tablerChevronDown, tablerColumns2 } from '@ng-icons/tabler-icons';
+import { tablerChevronDown, tablerColumns2, tablerPlus } from '@ng-icons/tabler-icons';
 import { BrnMenuTrigger } from '@spartan-ng/brain/menu';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmIcon } from '@spartan-ng/helm/icon';
@@ -17,14 +17,19 @@ import { DashboardTableSection } from './table-section';
 		provideIcons({
 			tablerChevronDown,
 			tablerColumns2,
+			tablerPlus,
 		}),
 	],
 	template: `
-		<div class="wip-table-search flex flex-col justify-between gap-4 sm:flex-row">
+		<div class="wip-table-search flex flex-col justify-between gap-2 sm:flex-row">
 			<button hlmBtn variant="outline" align="end" size="sm" [brnMenuTriggerFor]="columns">
-				<ng-icon hlm name="tablerColumns2" class="mr-2" size="sm" />
+				<ng-icon hlm name="tablerColumns2" size="sm" />
 				Customize Columns
-				<ng-icon hlm name="tablerChevronDown" class="ml-2" size="sm" />
+				<ng-icon hlm name="tablerChevronDown" size="sm" />
+			</button>
+			<button hlmBtn variant="outline" align="end" size="sm">
+				<ng-icon hlm name="tablerPlus" size="sm" />
+				Add section
 			</button>
 			<ng-template #columns>
 				<hlm-menu class="w-32">

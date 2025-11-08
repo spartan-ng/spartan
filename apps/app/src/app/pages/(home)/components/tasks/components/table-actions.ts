@@ -82,13 +82,7 @@ import { TasksExample } from '../tasks';
 		<div class="wip-table-search flex flex-col justify-between gap-4 sm:flex-row">
 			<div class="flex flex-col justify-between gap-4 sm:flex-row">
 				<!-- TASK TITLE FILTER -->
-				<input
-					hlmInput
-					size="sm"
-					class="w-full md:w-80"
-					placeholder="Filter tasks..."
-					(input)="taskFilterChange($event)"
-				/>
+				<input hlmInput class="h-8 w-full md:w-80" placeholder="Filter tasks..." (input)="taskFilterChange($event)" />
 
 				<!-- STATUS FILTER -->
 				<brn-popover
@@ -188,12 +182,12 @@ import { TasksExample } from '../tasks';
 
 			<div class="flex gap-2">
 				<!-- Column visibility -->
-				<button hlmBtn variant="outline" align="end" [brnMenuTriggerFor]="menu">
+				<button hlmBtn variant="outline" size="sm" align="end" [brnMenuTriggerFor]="menu">
 					<ng-icon hlm name="lucideSettings2" size="sm" />
 					View
 					<ng-icon hlm name="lucideChevronDown" size="sm" />
 				</button>
-				<button hlmBtn>Add Tasks</button>
+				<button hlmBtn size="sm">Add Tasks</button>
 				<ng-template #menu>
 					<hlm-menu class="w-32">
 						@for (column of _hidableColumns; track column.id) {

@@ -58,9 +58,7 @@ import { DashboardTableSection } from '../../(home)/components/dashboard/compone
 			}
 		`,
 	],
-	host: {
-		class: '-mx-2',
-	},
+
 	template: `
 		<div hlmSidebarWrapper>
 			<hlm-sidebar>
@@ -173,7 +171,7 @@ import { DashboardTableSection } from '../../(home)/components/dashboard/compone
 						<hlm-menu class="min-w-56 rounded-lg">
 							<hlm-menu-label class="p-0 font-normal">
 								<div class="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-									<hlm-avatar class="size-8 rounded-lg grayscale">
+									<hlm-avatar class="size-8 rounded-lg">
 										<img [src]="_items.user.avatar" alt="spartan logo. Resembling a spartanic shield" hlmAvatarImage />
 										<span class="rounded-lg bg-[#FD005B] text-white" hlmAvatarFallback>SP</span>
 									</hlm-avatar>

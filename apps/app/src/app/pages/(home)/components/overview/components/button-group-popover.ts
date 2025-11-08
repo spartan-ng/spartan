@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideArrowLeft, lucideArrowRight, lucideBot, lucideChevronDown } from '@ng-icons/lucide';
+import { lucideBot, lucideChevronDown } from '@ng-icons/lucide';
 import { BrnPopoverImports } from '@spartan-ng/brain/popover';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmButtonGroupImports } from '@spartan-ng/helm/button-group';
@@ -11,7 +11,7 @@ import { HlmTextarea } from '@spartan-ng/helm/textarea';
 @Component({
 	selector: 'spartan-button-group-popover',
 	imports: [HlmButtonGroupImports, BrnPopoverImports, HlmPopoverImports, HlmTextarea, HlmButton, NgIcon, HlmIcon],
-	providers: [provideIcons({ lucideArrowLeft, lucideArrowRight, lucideBot, lucideChevronDown })],
+	providers: [provideIcons({ lucideBot, lucideChevronDown })],
 	template: `
 		<brn-popover sideOffset="5">
 			<div hlmButtonGroup>

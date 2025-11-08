@@ -17,7 +17,7 @@ import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 		<div hlmInputGroup class="[--radius:9999px]">
 			<div hlmInputGroupAddon>
 				<button hlmInputGroupButton variant="secondary" size="icon-xs" brnPopoverTrigger>
-					<ng-icon hlm name="tablerInfoCircle" />
+					<ng-icon hlm name="tablerInfoCircle" size="sm" />
 				</button>
 			</div>
 
@@ -25,7 +25,7 @@ import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 			<input hlmInputGroupInput id="input-secure-19" />
 			<div hlmInputGroupAddon align="inline-end">
 				<button hlmInputGroupButton size="icon-xs" (click)="_toggleFavorite()">
-					<ng-icon hlm name="tablerStar" [class]="_favoriteClass()" />
+					<ng-icon hlm name="tablerStar" size="sm" [class]="_favoriteClass()" />
 				</button>
 			</div>
 		</div>

@@ -9,6 +9,7 @@ import {
 	lucideGlobe,
 	lucidePaperclip,
 	lucidePlus,
+	lucideSearch,
 	lucideX,
 } from '@ng-icons/lucide';
 import { tablerCircleDashedPlus } from '@ng-icons/tabler-icons';
@@ -68,8 +69,9 @@ type GroupedItems = {
 			lucideBlocks,
 			lucideBookOpen,
 			lucidePlus,
-			tablerCircleDashedPlus,
 			lucideArrowUp,
+			lucideSearch,
+			tablerCircleDashedPlus,
 		}),
 	],
 	host: { class: 'w-full' },
@@ -84,7 +86,7 @@ type GroupedItems = {
 						class="rounded-full"
 						[size]="_mentionButtonSize()"
 					>
-						<ng-icon hlm name="lucideAtSign" />
+						<ng-icon hlm name="lucideAtSign" size="sm" />
 						@if (!_hasMention()) {
 							<span>Add mention</span>
 						}
@@ -93,7 +95,7 @@ type GroupedItems = {
 					<div hlmPopoverContent class="p-0 [--radius:1.2rem]" *brnPopoverContent="let ctx">
 						<hlm-command>
 							<hlm-command-search>
-								<ng-icon hlm name="lucideSearch" class="shrink-0 opacity-50" />
+								<ng-icon hlm name="lucideSearch" size="sm" class="shrink-0 opacity-50" />
 
 								<input type="text" hlm-command-search-input placeholder="Type a command or search..." />
 							</hlm-command-search>
@@ -128,7 +130,7 @@ type GroupedItems = {
 						>
 							<spartan-mentionable-item [item]="mention" />
 							{{ mention.title }}
-							<ng-icon hlm name="lucideX" class="ml-1" />
+							<ng-icon hlm name="lucideX" size="sm" class="ml-1" />
 						</button>
 					}
 				</div>
@@ -136,7 +138,7 @@ type GroupedItems = {
 			<textarea hlmInputGroupTextarea placeholder="Ask, Search or make anything..."></textarea>
 			<div hlmInputGroupAddon align="block-end" class="no-scrollbar gap-1 overflow-y-auto">
 				<button hlmInputGroupButton class="rounded-full" size="icon-sm">
-					<ng-icon hlm name="lucidePaperclip" />
+					<ng-icon hlm name="lucidePaperclip" size="sm" />
 					<span class="sr-only">Attachment</span>
 				</button>
 				<button hlmInputGroupButton class="rounded-full" size="sm" [brnMenuTriggerFor]="model" #menuTrigger>
@@ -166,7 +168,7 @@ type GroupedItems = {
 				</ng-template>
 
 				<button hlmInputGroupButton class="rounded-full" size="sm" [brnMenuTriggerFor]="sources">
-					<ng-icon hlm name="lucideGlobe" />
+					<ng-icon hlm name="lucideGlobe" size="sm" />
 					All Sources
 				</button>
 				<ng-template #sources>
@@ -176,7 +178,7 @@ type GroupedItems = {
 								<label for="web-search" (click)="$event.stopPropagation()" class="flex flex-1 items-center">
 									<ng-icon hlm name="lucideGlobe" class="mr-2" size="sm" />
 									Web Search
-									<hlm-switch id="web-search" class="ml-auto" (click)="$event.stopPropagation()" />
+									<hlm-switch id="web-search" class="ml-auto" [checked]="true" (click)="$event.stopPropagation()" />
 								</label>
 							</button>
 						</hlm-menu-group>
@@ -186,7 +188,12 @@ type GroupedItems = {
 								<label for="app-integrations" class="flex flex-1" (click)="$event.stopPropagation()">
 									<ng-icon hlm name="lucideBlocks" class="mr-2" size="sm" />
 									Apps and Integrations
-									<hlm-switch id="app-integrations" class="ml-auto" (click)="$event.stopPropagation()" />
+									<hlm-switch
+										id="app-integrations"
+										class="ml-auto"
+										[checked]="true"
+										(click)="$event.stopPropagation()"
+									/>
 								</label>
 							</button>
 							<button hlmMenuItem>
@@ -212,7 +219,7 @@ type GroupedItems = {
 				</ng-template>
 
 				<button hlmInputGroupButton variant="default" class="ml-auto rounded-full" size="icon-sm">
-					<ng-icon hlm name="lucideArrowUp" />
+					<ng-icon hlm name="lucideArrowUp" size="sm" />
 					<span class="sr-only">Send</span>
 				</button>
 			</div>

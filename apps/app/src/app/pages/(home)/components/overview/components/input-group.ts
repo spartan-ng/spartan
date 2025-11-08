@@ -26,7 +26,7 @@ import { HlmTooltipImports } from '@spartan-ng/helm/tooltip';
 			<div hlmInputGroup>
 				<input hlmInputGroupInput placeholder="Search..." />
 				<div hlmInputGroupAddon>
-					<ng-icon hlm name="lucideSearch" />
+					<ng-icon hlm name="lucideSearch" size="sm" />
 				</div>
 				<div hlmInputGroupAddon align="inline-end">12 results</div>
 			</div>
@@ -42,7 +42,7 @@ import { HlmTooltipImports } from '@spartan-ng/helm/tooltip';
 						size="icon-xs"
 						[hlmTooltipTrigger]="'This is content in a tooltip.'"
 					>
-						<ng-icon hlm name="lucideInfo" />
+						<ng-icon hlm name="lucideInfo" size="sm" />
 					</button>
 				</div>
 			</div>
@@ -50,12 +50,12 @@ import { HlmTooltipImports } from '@spartan-ng/helm/tooltip';
 				<textarea hlmInputGroupTextarea placeholder="Ask, Search or Chat..."></textarea>
 				<div hlmInputGroupAddon align="block-end">
 					<button hlmInputGroupButton variant="outline" class="rounded-full" size="icon-xs">
-						<ng-icon hlm name="lucidePlus" />
+						<ng-icon hlm name="lucidePlus" size="sm" />
 					</button>
 					<span hlmInputGroupText class="ml-auto">52% used</span>
 					<hlm-separator orientation="vertical" class="!h-4" />
 					<button hlmInputGroupButton variant="default" class="rounded-full" size="icon-xs">
-						<ng-icon hlm name="lucideArrowUp" />
+						<ng-icon hlm name="lucideArrowUp" size="sm" />
 						<span class="sr-only">Send</span>
 					</button>
 				</div>

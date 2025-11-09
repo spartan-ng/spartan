@@ -83,6 +83,9 @@ export default defineConfig(({ mode }) => {
 				},
 			},
 			analog({
+				content: {
+					highlighter: 'prism',
+				},
 				prerender: {
 					routes: async () => {
 						const staticRoutes = [

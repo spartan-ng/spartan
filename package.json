@@ -205,7 +205,7 @@
 	},
 	"packageManager": "pnpm@9.11.0",
 	"engines": {
-		"node": "20.x || 21.x || 22.x",
+		"node": ">=22.15",
 		"npm": "please-use-pnpm",
 		"pnpm": ">=9",
 		"yarn": "please-use-pnpm"

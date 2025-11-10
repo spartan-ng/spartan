@@ -16,7 +16,6 @@ import { DomSanitizer } from '@angular/platform-browser';
 			<iframe [src]="_iframeSrc()" class="bg-background no-scrollbar relative z-20 h-full w-full"></iframe>
 		</div>
 	`,
-	host: {},
 })
 export class BlockPreview {
 	private readonly _sanitizer = inject(DomSanitizer);

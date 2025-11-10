@@ -241,9 +241,9 @@ export class DocsDialog {
 	private readonly _cache = new Map<string, SearchHits<AlgoliaHits>>();
 
 	private readonly _algoliaResource = resource<SearchHits<AlgoliaHits> | undefined, string>({
-		request: () => this._searchVal(),
-		loader: async ({ request }) => {
-			const cache = this._cache.get(request);
+		params: () => this._searchVal(),
+		loader: async ({ params }) => {
+			const cache = this._cache.get(params);
 			if (cache) return cache;
 			const result = await this._client.searchSingleIndex<AlgoliaHits>({
 				indexName: 'spartan-ng',
@@ -274,7 +274,7 @@ export class DocsDialog {
 					],
 					clickAnalytics: false,
 					snippetEllipsisText: '...',
-					query: request,
+					query: params,
 				},
 			});
 
@@ -286,7 +286,7 @@ export class DocsDialog {
 				});
 			}
 
-			this._cache.set(request, result);
+			this._cache.set(params, result);
 			return result;
 		},
 	});

@@ -3,16 +3,17 @@ import { readProjectConfiguration, type Tree, updateJson } from '@nx/devkit';
 import { createTreeWithEmptyWorkspace } from 'nx/src/devkit-testing-exports';
 import { addThemeToApplicationStyles } from './libs/add-theme-to-application-styles';
 
+jest.mock('enquirer');
 jest.mock('@nx/devkit', () => {
 	const original = jest.requireActual('@nx/devkit');
 	return {
 		...original,
-		// eslint-disable-next-line @typescript-eslint/no-empty-function
-		ensurePackage: () => {},
+		ensurePackage: (pkg: string) => jest.requireActual(pkg),
 		createProjectGraphAsync: jest.fn().mockResolvedValue({
 			nodes: {},
 			dependencies: {},
 		}),
+		addDependenciesToPackageJson: jest.fn(original.addDependenciesToPackageJson),
 	};
 });
 
@@ -22,12 +23,12 @@ describe('Theme generator', () => {
 	beforeEach(async () => {
 		tree = createTreeWithEmptyWorkspace();
 		await applicationGenerator(tree, {
-			directory: 'website',
-			e2eTestRunner: E2eTestRunner.None,
-			linter: 'none',
 			name: 'website',
+			directory: 'website',
 			skipFormat: true,
+			e2eTestRunner: E2eTestRunner.None,
 			unitTestRunner: UnitTestRunner.None,
+			skipPackageJson: true,
 			skipTests: true,
 		});
 

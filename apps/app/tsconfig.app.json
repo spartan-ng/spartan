@@ -5,7 +5,8 @@
 		"types": ["node"],
 		"target": "ES2022",
 		"useDefineForClassFields": false,
-		"resolveJsonModule": true
+		"resolveJsonModule": true,
+		"moduleResolution": "bundler"
 	},
 	"files": ["src/main.ts", "src/main.server.ts"],
 	"include": ["src/**/*.d.ts", "src/app/routes/**/*.ts", "src/app/pages/**/*.page.ts"],

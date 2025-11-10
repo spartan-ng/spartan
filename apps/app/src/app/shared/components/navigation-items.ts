@@ -100,6 +100,7 @@ export const sidenavItems: NavItem[] = [
 			{ label: 'Dark Mode', url: '/dark-mode' },
 			{ label: 'Typography', url: '/typography' },
 			{ label: 'Figma', url: '/figma' },
+			{ label: 'Version Support', url: '/version-support' },
 			{ label: 'Health Checks', url: '/health-checks' },
 			{ label: 'Update Guide', url: '/update-guide' },
 		],

@@ -159,7 +159,7 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class VersionSupportPage {
-	protected readonly version = Number(VERSION.major);
+	public readonly version = Number(VERSION.major);
 
 	protected getSupportEndDate(angularVersion: number): string {
 		// Support ends when Angular version + 2 is released (we support 2 latest versions)

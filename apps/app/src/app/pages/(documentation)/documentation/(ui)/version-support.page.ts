@@ -1,6 +1,5 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, VERSION } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronRight, lucideExternalLink } from '@ng-icons/lucide';
 import { HlmBadgeImports } from '@spartan-ng/helm/badge';
@@ -33,7 +32,6 @@ export const routeMeta: RouteMeta = {
 		HlmButtonImports,
 		NgIcon,
 		HlmIconImports,
-		RouterLink,
 		HlmBadgeImports,
 	],
 	providers: [provideIcons({ lucideChevronRight, lucideExternalLink })],
@@ -54,17 +52,26 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-section-sub-heading id="current-support">Current Support Status</spartan-section-sub-heading>
 			<div class="mt-4 flex flex-col gap-4 rounded-lg border p-6">
-				<div class="flex flex-wrap items-center gap-3">
-					<span hlmBadge variant="default">Angular {{ version + 1 }}</span>
-					<span class="text-muted-foreground text-sm">Actively supported</span>
+				<div class="flex flex-wrap items-center justify-between gap-3">
+					<div class="flex flex-wrap items-center gap-3">
+						<span hlmBadge variant="default">Angular {{ version + 1 }}</span>
+						<span class="text-muted-foreground text-sm">Actively supported</span>
+					</div>
+					<span class="text-muted-foreground text-sm">Until {{ getSupportEndDate(version + 1) }}</span>
 				</div>
-				<div class="flex flex-wrap items-center gap-3">
-					<span hlmBadge variant="outline">Angular {{ version }}</span>
-					<span class="text-muted-foreground text-sm">Actively supported</span>
+				<div class="flex flex-wrap items-center justify-between gap-3">
+					<div class="flex flex-wrap items-center gap-3">
+						<span hlmBadge variant="outline">Angular {{ version }}</span>
+						<span class="text-muted-foreground text-sm">Actively supported</span>
+					</div>
+					<span class="text-muted-foreground text-sm">Until {{ getSupportEndDate(version) }}</span>
 				</div>
-				<div class="flex flex-wrap items-center gap-3">
-					<span hlmBadge variant="secondary">Angular {{ version - 1 }}</span>
-					<span class="text-muted-foreground text-sm">Not supported</span>
+				<div class="flex flex-wrap items-center justify-between gap-3">
+					<div class="flex flex-wrap items-center gap-3">
+						<span hlmBadge variant="secondary">Angular {{ version - 1 }}</span>
+						<span class="text-muted-foreground text-sm">Not supported</span>
+					</div>
+					<span class="text-muted-foreground text-sm">Support ended</span>
 				</div>
 			</div>
 
@@ -153,4 +160,36 @@ export const routeMeta: RouteMeta = {
 })
 export default class VersionSupportPage {
 	version = Number(VERSION.major);
+
+	getSupportEndDate(angularVersion: number): string {
+		// Support ends when Angular version + 2 is released (we support 2 latest versions)
+		// So Angular 19 support ends when Angular 21 is released
+		const targetVersion = angularVersion + 2;
+
+		// Calculate when that version will be released
+		// Angular versions follow the pattern: odd versions in November, even in May
+		const versionsSince18 = targetVersion - 18;
+
+		// Each version is 6 months apart, starting from Angular 18 in May 2024
+		const monthsFromMay2024 = versionsSince18 * 6;
+		const releaseDate = new Date(2024, 4, 1); // May 1, 2024
+		releaseDate.setMonth(releaseDate.getMonth() + monthsFromMay2024);
+
+		const monthNames = [
+			'January',
+			'February',
+			'March',
+			'April',
+			'May',
+			'June',
+			'July',
+			'August',
+			'September',
+			'October',
+			'November',
+			'December',
+		];
+
+		return `${monthNames[releaseDate.getMonth()]} ${releaseDate.getFullYear()}`;
+	}
 }

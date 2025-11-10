@@ -159,9 +159,9 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class VersionSupportPage {
-	version = Number(VERSION.major);
+	protected readonly version = Number(VERSION.major);
 
-	getSupportEndDate(angularVersion: number): string {
+	protected getSupportEndDate(angularVersion: number): string {
 		// Support ends when Angular version + 2 is released (we support 2 latest versions)
 		// So Angular 19 support ends when Angular 21 is released
 		const targetVersion = angularVersion + 2;

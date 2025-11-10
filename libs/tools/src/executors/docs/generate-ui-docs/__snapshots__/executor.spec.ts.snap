@@ -1630,6 +1630,16 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "boolean",
           },
+          {
+            "name": "showDelay",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "hideDelay",
+            "required": false,
+            "type": "number",
+          },
         ],
         "models": [
           {

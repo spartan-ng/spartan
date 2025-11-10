@@ -1,4 +1,4 @@
-import { type ExistingProvider, inject, InjectionToken, type Type, ValueProvider } from '@angular/core';
+import { type ExistingProvider, inject, InjectionToken, type Type, type ValueProvider } from '@angular/core';
 import type { BrnCollapsible } from './brn-collapsible';
 
 export const BrnCollapsibleToken = new InjectionToken<BrnCollapsible>('BrnCollapsibleToken');

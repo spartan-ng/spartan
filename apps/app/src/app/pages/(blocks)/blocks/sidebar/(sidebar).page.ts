@@ -18,12 +18,10 @@ export const routeMeta: RouteMeta = {
 		<div id="sidebar-1" class="flex flex-col gap-4">
 			<div class="flex items-center justify-between">
 				<spartan-block-link fragment="sidebar-1">A sidebar with a sticky header</spartan-block-link>
-				<spartan-open-in-button
-					url="https://github.com/spartan-ng/spartan/blob/main/apps/app/src/app/pages/(sidebar-preview)/sidebar-preview/sidebar-sticky-header.page.ts"
-				/>
+				<spartan-open-in-button block="sidebar-sticky-header" />
 			</div>
 
-			<p class="text-muted-foreground text-sm max-w-3xl text-pretty">
+			<p class="text-muted-foreground max-w-3xl text-sm text-pretty">
 				Setup a CSS variable for the header height by adding
 				<code class="${hlmCode}">[--header-height:--spacing(14)]</code>
 				to the body or page container and use
@@ -32,7 +30,7 @@ export const routeMeta: RouteMeta = {
 				header height.
 			</p>
 
-			<spartan-block-preview path="sidebar-preview" name="sidebar-sticky-header" />
+			<spartan-block-preview name="sidebar-sticky-header" />
 		</div>
 	`,
 	changeDetection: ChangeDetectionStrategy.OnPush,

@@ -5,7 +5,6 @@ import { SiteHeader } from './sticky-header/site-header';
 
 @Component({
 	selector: 'spartan-sidebar-sticky-header',
-
 	imports: [HlmSidebarImports, SiteHeader, AppSidebar],
 	template: `
 		<div hlmSidebarWrapper class="flex-col">
@@ -29,7 +28,7 @@ import { SiteHeader } from './sticky-header/site-header';
 	host: {
 		class: 'block [--header-height:--spacing(14)]',
 	},
-	styleUrl: 'sidebar-default.css',
+	styleUrl: '../../blocks-preview-default.css',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	encapsulation: ViewEncapsulation.None,
 })

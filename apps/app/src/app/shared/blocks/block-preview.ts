@@ -21,8 +21,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class BlockPreview {
 	private readonly _sanitizer = inject(DomSanitizer);
 	public readonly name = input.required<string>();
-	public readonly path = input.required<string>();
 	protected readonly _iframeSrc = computed(() =>
-		this._sanitizer.bypassSecurityTrustResourceUrl(`/${this.path()}/${this.name()}`),
+		this._sanitizer.bypassSecurityTrustResourceUrl(`/blocks-preview/${this.name()}`),
 	);
 }

@@ -24,7 +24,7 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 						<ng-icon name="lucideMap" />
 						Travel
 					</a>
-					<button hlmSidebarMenuButton href="#">
+					<button hlmSidebarMenuButton>
 						<ng-icon name="lucideEllipsis" />
 						More
 					</button>

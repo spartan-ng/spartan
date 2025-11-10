@@ -1,11 +1,9 @@
 import type { RouteMeta } from '@analogjs/router';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideGithub } from '@ng-icons/lucide';
+import { BlockLink } from '@spartan-ng/app/app/shared/blocks/block-link';
 import { BlockPreview } from '@spartan-ng/app/app/shared/blocks/block-preview';
+import { OpenInButton } from '@spartan-ng/app/app/shared/blocks/open-in-button';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
-import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { hlmCode } from '@spartan-ng/helm/typography';
 
 export const routeMeta: RouteMeta = {
@@ -15,30 +13,17 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-sidebar',
-	imports: [BlockPreview, RouterLink, HlmButtonImports, NgIcon],
-	providers: [provideIcons({ lucideGithub })],
+	imports: [BlockPreview, OpenInButton, BlockLink],
 	template: `
 		<div id="sidebar-1" class="flex flex-col gap-4">
 			<div class="flex items-center justify-between">
-				<a
-					routerLink="."
-					fragment="sidebar-1"
-					class="flex-1 text-center text-sm font-medium underline-offset-2 hover:underline md:flex-auto md:text-left"
-				>
-					A sidebar with a sticky header
-				</a>
-				<a
-					hlmBtn
-					size="sm"
-					href="https://github.com/spartan-ng/spartan/blob/main/apps/app/src/app/pages/(sidebar-preview)/sidebar-preview/sidebar-sticky-header.page.ts"
-					target="_blank"
-				>
-					Open in
-					<ng-icon name="lucideGithub" />
-				</a>
+				<spartan-block-link fragment="sidebar-1">A sidebar with a sticky header</spartan-block-link>
+				<spartan-open-in-button
+					url="https://github.com/spartan-ng/spartan/blob/main/apps/app/src/app/pages/(sidebar-preview)/sidebar-preview/sidebar-sticky-header.page.ts"
+				/>
 			</div>
 
-			<p class="text-muted-foreground text-sm">
+			<p class="text-muted-foreground text-sm max-w-3xl text-pretty">
 				Setup a CSS variable for the header height by adding
 				<code class="${hlmCode}">[--header-height:--spacing(14)]</code>
 				to the body or page container and use

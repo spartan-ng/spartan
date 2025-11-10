@@ -1,10 +1,9 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { Component, computed, inject, signal } from '@angular/core';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
-import { NavLink } from '@spartan-ng/app/app/shared/spartan-nav-link';
 import { HlmButton } from '@spartan-ng/helm/button';
-import { hlmLead } from '@spartan-ng/helm/typography';
+import { HlmTabsImports } from '@spartan-ng/helm/tabs';
 
 export const routeMeta: RouteMeta = {
 	meta: metaWith('Blocks - spartan', 'Blocks built with the spartan/ui'),
@@ -12,39 +11,48 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-blocks',
-	imports: [RouterOutlet, HlmButton, RouterLink, NavLink],
+	imports: [RouterOutlet, HlmButton, RouterLink, HlmTabsImports],
 	host: {
-		class: 'block p-4 pt-6 sm:pb-16 sm:pt-12 container',
+		class: 'block container',
 	},
-	styles: `
-		.scrollbar-w-0 {
-			scrollbar-width: none;
-		}
-
-		.scrollbar-w-0::-webkit-scrollbar {
-			width: 0;
-		}
-	`,
 	template: `
-		<h1
-			class="text-primary leading-tighter max-w-2xl text-4xl font-semibold tracking-tight text-balance lg:leading-[1.1] lg:font-semibold xl:text-5xl xl:tracking-tighter"
-		>
-			Building Blocks with spartan/ui
-		</h1>
-		<p class="${hlmLead} mt-4 max-w-xl">Clean, modern building blocks.</p>
-		<div class="mt-6 space-x-2">
-			<a hlmBtn size="sm" routerLink="/documentation">Get Started</a>
-			<a hlmBtn size="sm" variant="outline" routerLink="/components">Components</a>
+		<div class="flex flex-col items-center gap-2 py-8 md:py-16 lg:py-20 xl:gap-4">
+			<h1
+				class="text-primary leading-tighter max-w-2xl text-4xl font-semibold tracking-tight text-balance lg:leading-[1.1] lg:font-semibold xl:text-5xl xl:tracking-tighter"
+			>
+				Building Blocks with spartan/ui
+			</h1>
+			<p class="text-foreground max-w-3xl text-base text-balance sm:text-lg">
+				Clean, modern building blocks for your Angular applications.
+			</p>
+			<div class="flex gap-2 pt-2">
+				<a hlmBtn size="sm" routerLink="/documentation">Get Started</a>
+				<a hlmBtn size="sm" variant="outline" routerLink="/components">Components</a>
+			</div>
 		</div>
 
-		<nav class="scrollbar-w-0 mt-12 mb-2 h-11 overflow-x-auto sm:h-auto">
-			<ul class="flex space-x-2">
-				<li><a class="text-muted-foreground !font-medium" spartanNavLink="/blocks/sidebar">Sidebar</a></li>
-			</ul>
-		</nav>
-		<div class="">
+		<section class="container-wrapper px-6">
+			<hlm-tabs [tab]="_activeTab()" class="w-full">
+				<hlm-tabs-list
+					aria-label="Blocks Tabs"
+					class="bg-background dark:[&>a]:bg-background [&>a]:text-muted-foreground [&>a]:data-[state=active]:text-primary [&>a]:hover:text-primary dark:[&>a]:data-[state=active]:bg-background [&>a]:cursor-pointer [&>a]:data-[state=active]:shadow-none dark:[&>a]:data-[state=active]:border-none"
+				>
+					<a hlmTabsTrigger="sidebar" routerLink="/blocks/sidebar">Sidebar</a>
+				</hlm-tabs-list>
+			</hlm-tabs>
+
 			<router-outlet />
-		</div>
+		</section>
 	`,
 })
-export default class BlocksPage {}
+export default class BlocksPage {
+	private readonly _router = inject(Router);
+
+	private readonly _lastUrlSegment = computed(() => {
+		const segments = this._router.url.split('/');
+		const last = segments[segments.length - 1];
+		return last;
+	});
+
+	protected readonly _activeTab = signal<string>(this._lastUrlSegment() || 'sidebar');
+}

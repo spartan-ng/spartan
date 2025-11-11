@@ -16,6 +16,7 @@ export const pageNavs: Link[] = [
 	{ label: 'Stack', url: '/stack' },
 	{ label: 'Components', url: '/components' },
 	{ label: 'Examples', url: '/examples' },
+	{ label: 'Blocks', url: '/blocks', new: true },
 	{ label: 'Colors', url: '/colors' },
 ];
 

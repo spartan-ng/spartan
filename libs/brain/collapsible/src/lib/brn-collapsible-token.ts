@@ -1,4 +1,6 @@
-import { type ExistingProvider, inject, InjectionToken, type Type, type ValueProvider } from '@angular/core';
+import type { ValueProvider } from '@angular/core';
+import { type ExistingProvider, inject, InjectionToken, type Type } from '@angular/core';
+import type { MeasurementDisplay } from '@spartan-ng/brain/core';
 import type { BrnCollapsible } from './brn-collapsible';
 
 export const BrnCollapsibleToken = new InjectionToken<BrnCollapsible>('BrnCollapsibleToken');
@@ -12,15 +14,15 @@ export function provideBrnCollapsible(collapsible: Type<BrnCollapsible>): Existi
 }
 
 export interface BrCollapsibleConfig {
-	/** Default delay when the collapsible is shown. */
-	showDelay: number;
-	/** Default delay when the collapsible is hidden. */
-	hideDelay: number;
+	/**
+	 * The display style to use when measuring element dimensions.
+	 * @default 'block'
+	 */
+	measurementDisplay: MeasurementDisplay;
 }
 
 const defaultConfig: BrCollapsibleConfig = {
-	showDelay: 0,
-	hideDelay: 0,
+	measurementDisplay: 'block',
 };
 
 const BrnCollapsibleConfigToken = new InjectionToken<BrCollapsibleConfig>('BrnCollapsibleConfig');

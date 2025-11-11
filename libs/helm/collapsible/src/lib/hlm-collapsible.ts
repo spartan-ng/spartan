@@ -6,7 +6,7 @@ import { BrnCollapsible } from '@spartan-ng/brain/collapsible';
 	hostDirectives: [
 		{
 			directive: BrnCollapsible,
-			inputs: ['expanded', 'disabled', 'showDelay', 'hideDelay'],
+			inputs: ['expanded', 'disabled'],
 			outputs: ['expandedChange'],
 		},
 	],

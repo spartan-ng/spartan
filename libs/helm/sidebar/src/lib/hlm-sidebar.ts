@@ -52,7 +52,7 @@ import { injectHlmSidebarConfig } from './hlm-sidebar.token';
 	`,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
-		'[data-slot]': '_dataSlot()',
+		'[attr.data-slot]': '_dataSlot()',
 		'[class]': '_computedClass()',
 		'[attr.data-state]': '_dataState()',
 		'[attr.data-collapsible]': '_dataCollapsible()',

@@ -4,8 +4,8 @@ import { hlm } from '<%- importAlias %>/utils';
 
 @Directive({
 	selector: 'input[hlmSidebarInput]',
-
 	host: {
+		'data-slot': 'sidebar-input',
 		'data-sidebar': 'input',
 		'[class]': '_computedClass()',
 	},

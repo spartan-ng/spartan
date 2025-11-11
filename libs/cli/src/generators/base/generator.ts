@@ -20,7 +20,7 @@ import { initializeAngularLibrary } from './lib/initialize-angular-library';
 import { librarySecondaryEntryPointGenerator } from '@nx/angular/generators';
 import { singleLibName } from './lib/single-lib-name';
 import type { HlmBaseGeneratorSchema } from './schema';
-import { FALLBACK_ANGULAR_VERSION } from './versions';
+import { FALLBACK_ANGULAR_CDK_VERSION } from './versions';
 
 function isAlreadyInstalled(tree: Tree, alias: string): boolean {
 	const existingPaths = readTsConfigPathsFromTree(tree);
@@ -85,9 +85,8 @@ function generateLibraryFiles(tree: Tree, targetLibDir: string, options: HlmBase
 }
 
 function registerDependencies(tree: Tree, options: HlmBaseGeneratorSchema): GeneratorCallback {
-	const angularVersion = getInstalledPackageVersion(tree, '@angular/core', FALLBACK_ANGULAR_VERSION, true);
-	const cdkVersion = getInstalledPackageVersion(tree, '@angular/cdk', FALLBACK_ANGULAR_VERSION, true);
-	const dependencies = buildDependencyArray(tree, options, angularVersion, cdkVersion);
+	const cdkVersion = getInstalledPackageVersion(tree, '@angular/cdk', FALLBACK_ANGULAR_CDK_VERSION, true);
+	const dependencies = buildDependencyArray(tree, options, cdkVersion);
 	const devDependencies = buildDevDependencyArray(tree);
 	return addDependenciesToPackageJson(tree, dependencies, devDependencies);
 }

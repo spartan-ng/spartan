@@ -85,8 +85,8 @@ export const routeMeta: RouteMeta = {
 			</p>
 
 			<spartan-page-bottom-nav>
-				<spartan-page-bottom-nav-link href="update-guide" label="Update Guide" />
-				<spartan-page-bottom-nav-link direction="previous" href="figma" label="Figma" />
+				<spartan-page-bottom-nav-link direction="next" href="update-guide" label="Update Guide" />
+				<spartan-page-bottom-nav-link direction="previous" href="version-support" label="Version Support" />
 			</spartan-page-bottom-nav>
 		</section>
 

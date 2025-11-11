@@ -13,10 +13,10 @@ export const routeMeta: RouteMeta = {
 	selector: 'spartan-blocks',
 	imports: [RouterOutlet, HlmButton, RouterLink, HlmTabsImports],
 	host: {
-		class: 'block container',
+		class: 'block',
 	},
 	template: `
-		<div class="flex flex-col items-center gap-2 py-8 md:py-16 lg:py-20 xl:gap-4">
+		<div class="container flex flex-col items-center gap-2 py-8 md:py-16 lg:py-20 xl:gap-4">
 			<h1
 				class="text-primary leading-tighter max-w-2xl text-4xl font-semibold tracking-tight text-balance lg:leading-[1.1] lg:font-semibold xl:text-5xl xl:tracking-tighter"
 			>

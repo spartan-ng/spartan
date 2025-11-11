@@ -54,7 +54,12 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 					<div class="flex flex-col gap-4">
 						<div class="text-muted-foreground text-sm font-medium">Menu</div>
 						@for (pageNav of _pageNavs; track pageNav.url) {
-							<a [routerLink]="pageNav.url" (click)="_closePopover()">{{ pageNav.label }}</a>
+							<a [routerLink]="pageNav.url" class="inline-flex items-center gap-2" (click)="_closePopover()">
+								{{ pageNav.label }}
+								@if (pageNav.new) {
+									<span spartanNewMarker></span>
+								}
+							</a>
 						}
 					</div>
 

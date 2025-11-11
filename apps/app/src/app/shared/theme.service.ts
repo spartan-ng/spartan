@@ -1,12 +1,9 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { inject, Injectable, PLATFORM_ID, RendererFactory2, signal } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ReplaySubject } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { DestroyRef, effect, inject, Injectable, PLATFORM_ID, RendererFactory2, signal } from '@angular/core';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const DarkModes = ['light', 'dark'] as const;
+const DarkModes = ['light', 'dark', 'system'] as const;
 export type DarkMode = (typeof DarkModes)[number];
 
 export const AppThemes = ['default', 'gray', 'red', 'green'] as const;
@@ -20,32 +17,39 @@ export type Layout = (typeof Layouts)[number];
 })
 export class ThemeService {
 	private readonly _platformId = inject(PLATFORM_ID);
-	private readonly _renderer = inject(RendererFactory2).createRenderer(null, null);
 	private readonly _document = inject(DOCUMENT);
+	private readonly _renderer = inject(RendererFactory2).createRenderer(null, null);
+	private readonly _destroyRef = inject(DestroyRef);
 	private readonly _query = inject(MediaMatcher).matchMedia('(prefers-color-scheme: dark)');
-	private readonly _darkMode$ = new ReplaySubject<'light' | 'dark'>(1);
-	public darkMode$ = this._darkMode$.asObservable();
 
-	private readonly _theme = signal<Theme | undefined>(undefined);
+	private readonly _darkMode = signal<DarkMode>('system');
+	private readonly _systemPrefersDark = signal<boolean>(false);
+	private readonly _theme = signal<Theme>('default');
+	private readonly _layout = signal<Layout>('fixed');
+
+	public readonly darkMode = this._darkMode.asReadonly();
 	public readonly theme = this._theme.asReadonly();
-	private readonly _layout = signal<Layout | undefined>(undefined);
 	public readonly layout = this._layout.asReadonly();
 
 	constructor() {
-		this.syncInitialStateFromLocalStorage();
-		this.toggleClassOnDarkModeChanges();
-	}
+		if (!isPlatformBrowser(this._platformId)) return;
 
-	private syncInitialStateFromLocalStorage(): void {
-		if (isPlatformBrowser(this._platformId)) {
-			this._darkMode$.next((localStorage.getItem('darkMode') as DarkMode) ?? 'light');
-			this.setTheme((localStorage.getItem('theme') as Theme) ?? 'default');
-			this.setLayout((localStorage.getItem('layout') as Layout) ?? 'fixed');
-		}
-	}
-	private toggleClassOnDarkModeChanges(): void {
-		this.darkMode$.pipe(takeUntilDestroyed()).subscribe((darkMode) => {
-			if (darkMode === 'dark') {
+		this._systemPrefersDark.set(this._query.matches);
+
+		const handleChange = (e: MediaQueryListEvent) => this._systemPrefersDark.set(e.matches);
+		this._query.addEventListener('change', handleChange);
+		this._destroyRef.onDestroy(() => this._query.removeEventListener('change', handleChange));
+
+		this._darkMode.set((localStorage.getItem('darkMode') as DarkMode) ?? 'system');
+		this._theme.set((localStorage.getItem('theme') as Theme) ?? 'default');
+		this._layout.set((localStorage.getItem('layout') as Layout) ?? 'fixed');
+
+		effect(() => {
+			const mode = this._darkMode();
+			const systemDark = this._systemPrefersDark();
+			const shouldBeDark = mode === 'dark' || (mode === 'system' && systemDark);
+
+			if (shouldBeDark) {
 				this._renderer.addClass(this._document.documentElement, 'dark');
 			} else {
 				if (this._document.documentElement.className.includes('dark')) {
@@ -53,37 +57,53 @@ export class ThemeService {
 				}
 			}
 		});
-	}
-	public setDarkMode(newMode: DarkMode): void {
-		localStorage.setItem('darkMode', newMode);
-		this._darkMode$.next(newMode);
-	}
 
-	public toggleMode(): void {
-		this.darkMode$.pipe(take(1)).subscribe((currentMode) => {
-			this.setDarkMode(currentMode === 'dark' ? 'light' : 'dark');
+		effect(() => {
+			const newTheme = this._theme();
+			const oldTheme = this._document.body.className.match(/theme-(\w+)/)?.[1];
+
+			if (oldTheme) {
+				this._document.body.classList.remove(`theme-${oldTheme}`);
+			}
+
+			if (newTheme !== 'default') {
+				this._document.body.classList.add(`theme-${newTheme}`);
+			}
+		});
+
+		effect(() => {
+			const newLayout = this._layout();
+			const oldLayout = this._document.documentElement.className.match(/layout-(\w+)/)?.[1];
+
+			if (oldLayout) {
+				this._document.documentElement.classList.remove(`layout-${oldLayout}`);
+			}
+
+			this._document.documentElement.classList.add(`layout-${newLayout}`);
 		});
 	}
 
-	public setTheme(newTheme: Theme): void {
-		const oldTheme = this._theme();
-		this._renderer.removeClass(this._document.body, `theme-${oldTheme}`);
-		this._theme.set(newTheme);
+	public toggleMode(): void {
+		const mode = this._darkMode();
+		this.setDarkMode(mode === 'light' ? 'dark' : 'light');
+	}
 
-		if (newTheme === 'default') {
+	public setDarkMode(mode: DarkMode): void {
+		localStorage.setItem('darkMode', mode);
+		this._darkMode.set(mode);
+	}
+
+	public setTheme(theme: Theme): void {
+		if (theme === 'default') {
 			localStorage.removeItem('theme');
-			return;
+		} else {
+			localStorage.setItem('theme', theme);
 		}
-
-		this._renderer.addClass(this._document.body, `theme-${newTheme}`);
-		localStorage.setItem('theme', newTheme);
+		this._theme.set(theme);
 	}
 
 	public setLayout(layout: Layout): void {
-		const oldLayout = this._layout();
-		this._renderer.removeClass(this._document.documentElement, `layout-${oldLayout}`);
-		this._layout.set(layout);
-		this._renderer.addClass(this._document.documentElement, `layout-${layout}`);
 		localStorage.setItem('layout', layout);
+		this._layout.set(layout);
 	}
 }

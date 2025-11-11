@@ -91,11 +91,11 @@ const lead = 'text-foreground max-w-3xl text-base text-balance sm:text-lg';
 					aria-label="tabs example"
 					class="bg-background dark:[&>a]:bg-background [&>a]:text-muted-foreground [&>a]:data-[state=active]:text-primary [&>a]:hover:text-primary dark:[&>a]:data-[state=active]:bg-background [&>a]:cursor-pointer [&>a]:data-[state=active]:shadow-none dark:[&>a]:data-[state=active]:border-none"
 				>
-					<a hlmTabsTrigger="examples">Examples</a>
-					<a hlmTabsTrigger="dashboard" href="#dashboard">Dashboard</a>
-					<a hlmTabsTrigger="tasks" href="#tasks">Tasks</a>
-					<a hlmTabsTrigger="playground" href="#playground">Playground</a>
-					<a hlmTabsTrigger="authentication" href="#authentication">Authentication</a>
+					<a hlmTabsTrigger="examples" routerLink=".">Examples</a>
+					<a hlmTabsTrigger="dashboard" routerLink="." fragment="dashboard">Dashboard</a>
+					<a hlmTabsTrigger="tasks" routerLink="." fragment="tasks">Tasks</a>
+					<a hlmTabsTrigger="playground" routerLink="." fragment="playground">Playground</a>
+					<a hlmTabsTrigger="authentication" routerLink="." fragment="authentication">Authentication</a>
 				</hlm-tabs-list>
 				<div hlmTabsContent="examples" class="mt-0">
 					<spartan-overview-example />
@@ -136,6 +136,6 @@ const lead = 'text-foreground max-w-3xl text-base text-balance sm:text-lg';
 	`,
 })
 export default class HomePage {
-	private readonly _route = inject(ActivatedRoute);
+	protected readonly _route = inject(ActivatedRoute);
 	protected readonly _activeTab = signal<string>(this._route.snapshot.fragment || 'examples');
 }

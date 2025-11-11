@@ -20,10 +20,10 @@ const brnPackageInstallationCommands = {
 } as const;
 
 const brnUpdatePackageInstallationCommands = {
-	pnpm: 'pnpm update @spartan-ng/brain',
-	npm: 'npm update @spartan-ng/brain',
-	yarn: 'yarn update @spartan-ng/brain',
-	bun: 'bun update @spartan-ng/brain',
+	pnpm: 'pnpm update @spartan-ng/brain @spartan-ng/cli',
+	npm: 'npm update @spartan-ng/brain @spartan-ng/cli',
+	yarn: 'yarn update @spartan-ng/brain @spartan-ng/cli',
+	bun: 'bun update @spartan-ng/brain @spartan-ng/cli',
 } as const;
 
 const angularCdkPackageInstallationCommands = {

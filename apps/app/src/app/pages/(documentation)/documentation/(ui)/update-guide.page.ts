@@ -45,9 +45,13 @@ export const routeMeta: RouteMeta = {
 				own). Here's how to update each part safely.
 			</p>
 
-			<spartan-section-sub-heading id="updating-brain">Updating Brain (npm packages)</spartan-section-sub-heading>
+			<spartan-section-sub-heading id="updating-brain-and-cli">
+				Updating Brain and CLI (npm packages)
+			</spartan-section-sub-heading>
 
-			<p class="${hlmP}">Brain packages are installed from npm and can be updated like any dependency:</p>
+			<p class="${hlmP}">
+				Brain and CLI packages are installed from npm. Keep them on the same verson and update with:
+			</p>
 
 			<spartan-package-installer-tab class="mt-4" package="brn-update" />
 
@@ -72,7 +76,7 @@ export const routeMeta: RouteMeta = {
 
 			<p class="${hlmP}">Helm code lives in your repository. You own it, which means updates work differently.</p>
 
-			<h3 class="mt-6 text-lg font-semibold">Option 1: Manual Updates (Recommended)</h3>
+			<h3 class="mt-6 text-lg font-semibold" id="manuel-updates">Option 1: Manual Updates (Recommended)</h3>
 
 			<p class="${hlmP}">If you've customized your helm components, update them manually:</p>
 
@@ -85,7 +89,7 @@ export const routeMeta: RouteMeta = {
 
 			<p class="${hlmP}">This approach preserves your customizations while incorporating new features or fixes.</p>
 
-			<h3 class="mt-6 text-lg font-semibold">Option 2: Automated Migration</h3>
+			<h3 class="mt-6 text-lg font-semibold" id="automated-migration">Option 2: Automated Migration</h3>
 
 			<p class="${hlmP}">The CLI can replace helm components with the latest versions:</p>
 
@@ -116,9 +120,9 @@ export const routeMeta: RouteMeta = {
 					to see what's changed
 				</li>
 				<li>
-					<strong>Update brain:</strong>
+					<strong>Update brain and cli:</strong>
 					Run
-					<code class="${hlmCode}">pnpm/npm/yarn/bun update &#64;spartan-ng/brain</code>
+					<code class="${hlmCode}">pnpm/npm/yarn/bun update &#64;spartan-ng/brain &#64;spartan-ng/cli</code>
 				</li>
 				<li>
 					<strong>Run health checks:</strong>

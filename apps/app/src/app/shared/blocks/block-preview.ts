@@ -7,7 +7,12 @@ import { DomSanitizer } from '@angular/platform-browser';
 		<img
 			[src]="'/assets/blocks/' + name() + '.png'"
 			[alt]="name()"
-			class="border-border flex rounded-xl border md:hidden"
+			class="border-border flex rounded-xl border md:hidden dark:hidden"
+		/>
+		<img
+			[src]="'/assets/blocks/' + name() + '-dark.png'"
+			[alt]="name()"
+			class="border-border flex rounded-xl border not-dark:hidden md:hidden"
 		/>
 
 		<div

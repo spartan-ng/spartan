@@ -66,7 +66,7 @@ export const routeMeta: RouteMeta = {
 			</p>
 
 			<spartan-page-bottom-nav>
-				<spartan-page-bottom-nav-link href="health-checks" label="Health Checks" />
+				<spartan-page-bottom-nav-link direction="next" href="version-support" label="Version Support" />
 				<spartan-page-bottom-nav-link direction="previous" href="typography" label="Typography" />
 			</spartan-page-bottom-nav>
 		</section>

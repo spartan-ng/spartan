@@ -18,6 +18,6 @@ export class NavLink {
 	private readonly _rlActive = inject(RouterLinkActive);
 
 	constructor() {
-		this._rlActive.routerLinkActive = 'text-primary';
+		this._rlActive.routerLinkActive = 'text-primary!';
 	}
 }

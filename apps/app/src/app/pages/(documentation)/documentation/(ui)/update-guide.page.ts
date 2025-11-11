@@ -76,7 +76,7 @@ export const routeMeta: RouteMeta = {
 
 			<p class="${hlmP}">Helm code lives in your repository. You own it, which means updates work differently.</p>
 
-			<h3 class="mt-6 text-lg font-semibold" id="manuel-updates">Option 1: Manual Updates (Recommended)</h3>
+			<h3 class="mt-6 text-lg font-semibold" id="manual-updates">Option 1: Manual Updates (Recommended)</h3>
 
 			<p class="${hlmP}">If you've customized your helm components, update them manually:</p>
 

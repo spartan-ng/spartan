@@ -32,7 +32,30 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-block-preview name="sidebar-sticky-header" />
 		</div>
+		<div id="sidebar-2" class="flex flex-col gap-4">
+			<div class="flex items-center justify-between">
+				<spartan-block-link fragment="sidebar-2">An inset sidebar with secondary navigation</spartan-block-link>
+				<spartan-open-in-button block="sidebar-inset" />
+			</div>
+
+			<p class="text-muted-foreground max-w-3xl text-sm text-pretty">
+				Use the
+				<code class="${hlmCode}">inset</code>
+				variant on
+				<code class="${hlmCode}">hlm-sidebar</code>
+				and the
+				<code class="${hlmCode}">hlmSidebarInset</code>
+				directive on your
+				<code class="${hlmCode}">main</code>
+				element to create an inset sidebar layout. Both elements must be siblings for the styles to apply correctly.
+			</p>
+
+			<spartan-block-preview name="sidebar-inset" />
+		</div>
 	`,
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		class: 'flex flex-col gap-12 md:gap-24',
+	},
 })
 export default class SidebarPage {}

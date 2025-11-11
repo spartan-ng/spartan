@@ -4,14 +4,9 @@ import { getInstalledPackageVersion } from '../../../utils/version-utils';
 import type { HlmBaseGeneratorSchema } from '../schema';
 import { NG_ICONS_VERSION, TAILWIND_MERGE_VERSION, TW_ANIMATE_CSS } from '../versions';
 
-export function buildDependencyArray(
-	tree: Tree,
-	options: HlmBaseGeneratorSchema,
-	angularVersion: string,
-	existingCdkVersion: string,
-) {
+export function buildDependencyArray(tree: Tree, options: HlmBaseGeneratorSchema, cdkVersion: string) {
 	let dependencies: Record<string, string> = {
-		'@angular/cdk': existingCdkVersion ?? angularVersion,
+		'@angular/cdk': cdkVersion,
 		'@spartan-ng/brain': getInstalledPackageVersion(tree, '@spartan-ng/cli', undefined, true),
 		'tailwind-merge': TAILWIND_MERGE_VERSION,
 	};

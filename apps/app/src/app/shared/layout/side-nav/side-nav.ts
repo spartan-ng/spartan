@@ -17,7 +17,8 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 			class="flex-1 [--sidebar-width:220px]! [--top-spacing:0] lg:[--sidebar-width:240px]! lg:[--top-spacing:calc(var(--spacing)*4)]"
 		>
 			<hlm-sidebar
-				sidebarContainerClass="text-sidebar-foreground sticky top-[calc(var(--header-height)+1px)] z-30 hidden h-[calc(100svh-var(--footer-height)+2rem-var(--stable-height))] w-(--sidebar-width) flex-col border-r-transparent bg-transparent lg:flex"
+				class="sticky top-[calc(var(--header-height)+1px)] hidden lg:flex"
+				sidebarContainerClass="text-sidebar-foreground sticky top-[calc(var(--header-height)+1px)] z-30  h-[calc(100svh-var(--footer-height)+2rem-var(--stable-height))] w-(--sidebar-width) flex-col border-r-transparent bg-transparent "
 			>
 				<div hlmSidebarContent class="no-scrollbar bg-background overflow-x-hidden px-2 pb-12">
 					<div class="h-(--top-spacing) shrink-0"></div>

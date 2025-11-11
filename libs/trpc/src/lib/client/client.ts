@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { InjectionToken, type Provider, TransferState, signal } from '@angular/core';
-import { type CreateTRPCClientOptions, type HTTPHeaders, type HttpBatchLinkOptions, httpBatchLink } from '@trpc/client';
-import type { FetchEsque } from '@trpc/client/dist/internals/types';
+import { InjectionToken, type Provider, signal, TransferState } from '@angular/core';
+import { type CreateTRPCClientOptions, httpBatchLink, type HttpBatchLinkOptions, type HTTPHeaders } from '@trpc/client';
+
 import type { AnyRouter } from '@trpc/server';
 import 'isomorphic-fetch';
 import { provideTrpcCacheState, provideTrpcCacheStateStatusManager, tRPC_CACHE_STATE } from './cache-state';
@@ -71,7 +71,7 @@ export const createTrpcClient = <AppRouter extends AnyRouter>({
 							headers() {
 								return TrpcHeaders();
 							},
-							fetch: customFetch as FetchEsque,
+							fetch: customFetch as any,
 							url: url ?? '',
 						}),
 					],

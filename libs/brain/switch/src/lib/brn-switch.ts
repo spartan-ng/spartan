@@ -1,6 +1,6 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
 import type { BooleanInput } from '@angular/cdk/coercion';
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import {
 	type AfterContentInit,
 	booleanAttribute,
@@ -9,6 +9,7 @@ import {
 	Component,
 	computed,
 	DestroyRef,
+	DOCUMENT,
 	effect,
 	ElementRef,
 	forwardRef,

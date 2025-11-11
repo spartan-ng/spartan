@@ -1,6 +1,6 @@
 import { MediaMatcher } from '@angular/cdk/layout';
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { inject, Injectable, PLATFORM_ID, RendererFactory2, signal } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { DOCUMENT, inject, Injectable, PLATFORM_ID, RendererFactory2, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ReplaySubject } from 'rxjs';
 import { take } from 'rxjs/operators';

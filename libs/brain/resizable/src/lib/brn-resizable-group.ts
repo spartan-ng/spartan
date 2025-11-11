@@ -1,8 +1,8 @@
-import { DOCUMENT } from '@angular/common';
 import {
 	afterNextRender,
 	contentChildren,
 	Directive,
+	DOCUMENT,
 	ElementRef,
 	inject,
 	input,

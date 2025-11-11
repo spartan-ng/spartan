@@ -1,9 +1,10 @@
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import {
 	booleanAttribute,
 	ChangeDetectionStrategy,
 	Component,
 	computed,
+	DOCUMENT,
 	effect,
 	ElementRef,
 	inject,

@@ -1,6 +1,5 @@
 import type { RouteMeta } from '@analogjs/router';
 
-import { CommonModule } from '@angular/common';
 import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
@@ -33,7 +32,6 @@ export const routeMeta: RouteMeta = {
 @Component({
 	selector: 'spartan-accordion',
 	imports: [
-		CommonModule,
 		MainSection,
 		Code,
 		SectionIntro,

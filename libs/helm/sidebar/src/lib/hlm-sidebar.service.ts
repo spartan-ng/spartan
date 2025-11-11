@@ -1,5 +1,13 @@
-import { DOCUMENT } from '@angular/common';
-import { afterNextRender, computed, DestroyRef, inject, Injectable, type Signal, signal } from '@angular/core';
+import {
+	afterNextRender,
+	computed,
+	DestroyRef,
+	DOCUMENT,
+	inject,
+	Injectable,
+	type Signal,
+	signal,
+} from '@angular/core';
 import { injectHlmSidebarConfig } from './hlm-sidebar.token';
 
 export type SidebarVariant = 'sidebar' | 'floating' | 'inset';

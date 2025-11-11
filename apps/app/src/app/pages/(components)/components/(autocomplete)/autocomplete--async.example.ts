@@ -16,9 +16,9 @@ export class AutocompleteAsync {
 
 	public options = resource({
 		defaultValue: [],
-		request: () => ({ search: this.search() }),
-		loader: async (params) => {
-			const search = params.request.search;
+		params: () => ({ search: this.search() }),
+		loader: async ({ params }) => {
+			const search = params.search;
 
 			if (search.length === 0) {
 				return [];

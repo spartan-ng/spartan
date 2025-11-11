@@ -27,28 +27,8 @@ function isAlreadyInstalled(tree: Tree, alias: string): boolean {
 	return alias in existingPaths;
 }
 
-function setupAngularCliProject(
-	tree: Tree,
-	alias: string,
-	targetLibDir: string,
-	{ directory }: HlmBaseGeneratorSchema,
-) {
+function setupAngularCliProject(tree: Tree, alias: string, targetLibDir: string) {
 	addTsConfigPath(tree, alias, [`./${joinPathFragments(targetLibDir, 'src', 'index.ts').replace(/\\/g, '/')}`]);
-
-	const rootBaseConfigPath = tree.exists('tsconfig.app.json') ? 'tsconfig.app.json' : 'tsconfig.json';
-
-	if (tree.exists(rootBaseConfigPath)) {
-		updateJson(tree, rootBaseConfigPath, (json) => {
-			json.include ||= [];
-			const includePath = `${directory}/**/*.ts`;
-			if (!json.include.includes(includePath)) {
-				json.include.push(includePath);
-			}
-			return json;
-		});
-	} else {
-		throw new Error(`Could not find ${rootBaseConfigPath} to update include paths.`);
-	}
 }
 
 async function generateEntrypointFiles(tree: Tree, alias: string, options: HlmBaseGeneratorSchema) {
@@ -102,7 +82,7 @@ export async function hlmBaseGenerator(tree: Tree, options: HlmBaseGeneratorSche
 	}
 
 	if (options.angularCli) {
-		setupAngularCliProject(tree, tsConfigAlias, targetLibDir, options);
+		setupAngularCliProject(tree, tsConfigAlias, targetLibDir);
 	} else if (options.generateAs === 'library') {
 		tasks.push(await initializeAngularLibrary(tree, options));
 	}

@@ -12,10 +12,10 @@ import type { ClassValue } from 'clsx';
 	host: {
 		'[class]': '_computedClass()',
 	},
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ng-icon hlm size="sm" class="ml-2" name="lucideChevronUp" />
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmSelectScrollUp {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

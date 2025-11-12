@@ -8,10 +8,10 @@ import type { ClassValue } from 'clsx';
 		'data-slot': 'radio-group-indicator',
 		'[class]': '_computedClass()',
 	},
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div class="group-data-[checked=true]:bg-primary size-2 rounded-full bg-transparent"></div>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmRadioIndicator {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

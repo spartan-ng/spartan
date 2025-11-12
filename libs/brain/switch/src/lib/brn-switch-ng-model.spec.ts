@@ -8,6 +8,8 @@ import { BrnSwitchThumb } from './brn-switch-thumb';
 
 @Component({
 	selector: 'brn-switch-ng-model',
+	imports: [BrnSwitch, BrnSwitchThumb, FormsModule],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<label>
 			Airplane mode is: {{ airplaneMode() ? 'on' : 'off' }}
@@ -16,8 +18,6 @@ import { BrnSwitchThumb } from './brn-switch-thumb';
 			</brn-switch>
 		</label>
 	`,
-	imports: [BrnSwitch, BrnSwitchThumb, FormsModule],
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BrnSwitchNgModelSpec {
 	public readonly disabled = input(false);

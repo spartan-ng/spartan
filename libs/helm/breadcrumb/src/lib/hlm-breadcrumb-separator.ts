@@ -14,12 +14,12 @@ import type { ClassValue } from 'clsx';
 		'aria-hidden': 'true',
 		'[class]': '_computedClass()',
 	},
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ng-content>
 			<ng-icon name="lucideChevronRight" />
 		</ng-content>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmBreadcrumbSeparator {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

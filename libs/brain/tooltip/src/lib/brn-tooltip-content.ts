@@ -27,6 +27,16 @@ import { Subject } from 'rxjs';
  */
 @Component({
 	selector: 'brn-tooltip-content',
+	encapsulation: ViewEncapsulation.None,
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		// Forces the element to have a layout in IE and Edge. This fixes issues where the element
+		// won't be rendered if the animations are disabled or there is no web animations polyfill.
+		'[style.zoom]': 'isVisible() ? 1 : null',
+		'(mouseleave)': '_handleMouseLeave($event)',
+		'aria-hidden': 'true',
+	},
+	imports: [NgTemplateOutlet],
 	template: `
 		<div
 			(mouseenter)="_contentHovered.set(true)"
@@ -42,16 +52,6 @@ import { Subject } from 'rxjs';
 			}
 		</div>
 	`,
-	encapsulation: ViewEncapsulation.None,
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	host: {
-		// Forces the element to have a layout in IE and Edge. This fixes issues where the element
-		// won't be rendered if the animations are disabled or there is no web animations polyfill.
-		'[style.zoom]': 'isVisible() ? 1 : null',
-		'(mouseleave)': '_handleMouseLeave($event)',
-		'aria-hidden': 'true',
-	},
-	imports: [NgTemplateOutlet],
 })
 export class BrnTooltipContent implements OnDestroy {
 	private readonly _cdr = inject(ChangeDetectorRef);

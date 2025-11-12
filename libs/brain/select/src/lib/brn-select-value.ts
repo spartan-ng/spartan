@@ -7,19 +7,6 @@ import { injectBrnSelect } from './brn-select.token';
 @Component({
 	selector: 'brn-select-value, hlm-select-value',
 	imports: [NgTemplateOutlet],
-	template: `
-		@if (_showPlaceholder()) {
-			<ng-container [ngTemplateOutlet]="_customPlaceholderTemplate()?.templateRef ?? defaultPlaceholderTemplate" />
-		} @else {
-			<ng-container
-				[ngTemplateOutlet]="_customValueTemplate()?.templateRef ?? defaultValueTemplate"
-				[ngTemplateOutletContext]="{ $implicit: _select.value() }"
-			/>
-		}
-
-		<ng-template #defaultValueTemplate>{{ _value() }}</ng-template>
-		<ng-template #defaultPlaceholderTemplate>{{ placeholder() }}</ng-template>
-	`,
 	host: {
 		'[id]': 'id()',
 		'[attr.data-placeholder]': '_showPlaceholder() ? "" : null',
@@ -36,6 +23,19 @@ import { injectBrnSelect } from './brn-select.token';
 		`,
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		@if (_showPlaceholder()) {
+			<ng-container [ngTemplateOutlet]="_customPlaceholderTemplate()?.templateRef ?? defaultPlaceholderTemplate" />
+		} @else {
+			<ng-container
+				[ngTemplateOutlet]="_customValueTemplate()?.templateRef ?? defaultValueTemplate"
+				[ngTemplateOutletContext]="{ $implicit: _select.value() }"
+			/>
+		}
+
+		<ng-template #defaultValueTemplate>{{ _value() }}</ng-template>
+		<ng-template #defaultPlaceholderTemplate>{{ placeholder() }}</ng-template>
+	`,
 })
 export class BrnSelectValue<T> {
 	protected readonly _select = injectBrnSelect<T>();

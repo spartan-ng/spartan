@@ -14,6 +14,10 @@ export const routeMeta: RouteMeta = {
 @Component({
 	selector: 'spartan-sidebar',
 	imports: [BlockPreview, OpenInButton, BlockLink],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		class: 'flex flex-col gap-12 md:gap-24',
+	},
 	template: `
 		<div id="sidebar-1" class="flex flex-col gap-4">
 			<div class="flex items-center justify-between">
@@ -53,9 +57,5 @@ export const routeMeta: RouteMeta = {
 			<spartan-block-preview name="sidebar-inset" />
 		</div>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	host: {
-		class: 'flex flex-col gap-12 md:gap-24',
-	},
 })
 export default class SidebarPage {}

@@ -12,9 +12,6 @@ import { BrnDialog } from '@spartan-ng/brain/dialog';
 
 @Component({
 	selector: 'brn-sheet',
-	template: `
-		<ng-content />
-	`,
 	providers: [
 		{
 			provide: BrnDialog,
@@ -24,6 +21,9 @@ import { BrnDialog } from '@spartan-ng/brain/dialog';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	encapsulation: ViewEncapsulation.None,
 	exportAs: 'brnSheet',
+	template: `
+		<ng-content />
+	`,
 })
 export class BrnSheet extends BrnDialog {
 	/** Specifies the side of the screen where the sheet will appear. */

@@ -7,6 +7,7 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 	selector: 'spartan-nav-secondary',
 	imports: [HlmSidebarImports, NgIcon],
 	providers: [provideIcons({ lucideLifeBuoy, lucideSend })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-sidebar-group>
 			<div hlmSidebarGroupContent>
@@ -27,6 +28,5 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 			</div>
 		</hlm-sidebar-group>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavSecondary {}

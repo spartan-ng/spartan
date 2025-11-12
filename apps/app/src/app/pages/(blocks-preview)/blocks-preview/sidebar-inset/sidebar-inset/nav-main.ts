@@ -8,6 +8,7 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 	selector: 'spartan-nav-main',
 	imports: [HlmSidebarImports, NgIcon, BrnCollapsibleImports],
 	providers: [provideIcons({ lucideSquareTerminal, lucideBot, lucideBookOpen, lucideSettings2, lucideChevronRight })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-sidebar-group>
 			<div hlmSidebarGroupLabel>Platform</div>
@@ -39,7 +40,6 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 			</ul>
 		</hlm-sidebar-group>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavMain {
 	public readonly items = input.required<

@@ -14,6 +14,10 @@ import { hlm } from '@spartan-ng/helm/utils';
 	hostDirectives: [{ directive: BrnResizableHandle, inputs: ['withHandle', 'disabled'] }],
 	providers: [provideIcons({ lucideGripVertical })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		'[class]': '_computedClass()',
+	},
+	imports: [NgIcon, HlmIcon],
 	template: `
 		@if (_brnResizableHandle.withHandle()) {
 			<div class="bg-border z-10 flex h-4 w-3 items-center justify-center rounded-sm border">
@@ -21,10 +25,6 @@ import { hlm } from '@spartan-ng/helm/utils';
 			</div>
 		}
 	`,
-	host: {
-		'[class]': '_computedClass()',
-	},
-	imports: [NgIcon, HlmIcon],
 })
 export class HlmResizableHandle {
 	protected readonly _brnResizableHandle = inject(BrnResizableHandle);

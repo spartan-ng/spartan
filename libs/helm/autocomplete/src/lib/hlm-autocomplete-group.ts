@@ -4,7 +4,6 @@ import { hlm } from '@spartan-ng/helm/utils';
 
 @Component({
 	selector: 'hlm-autocomplete-group',
-	template: '<ng-content />',
 	hostDirectives: [
 		{
 			directive: BrnAutocompleteGroup,
@@ -15,6 +14,7 @@ import { hlm } from '@spartan-ng/helm/utils';
 		'[class]': '_computedClass()',
 	},
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: '<ng-content />',
 })
 export class HlmAutocompleteGroup {
 	/** The user defined class  */

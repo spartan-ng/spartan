@@ -10,6 +10,12 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 	selector: 'spartan-sidebar-header',
 	encapsulation: ViewEncapsulation.None,
 	imports: [HlmSidebarImports, HlmMenuImports, BrnMenuImports, NgIcon, HlmIcon],
+	providers: [
+		provideIcons({
+			lucideChevronDown,
+		}),
+	],
+	styleUrl: 'sidebar-default.css',
 	template: `
 		<div hlmSidebarWrapper>
 			<hlm-sidebar>
@@ -37,11 +43,5 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 			</main>
 		</div>
 	`,
-	providers: [
-		provideIcons({
-			lucideChevronDown,
-		}),
-	],
-	styleUrl: 'sidebar-default.css',
 })
 export default class SidebarHeaderPage {}

@@ -4,13 +4,13 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-sheet-header',
-	template: `
-		<ng-content />
-	`,
 	host: {
 		'[class]': '_computedClass()',
 	},
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<ng-content />
+	`,
 })
 export class HlmSheetHeader {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

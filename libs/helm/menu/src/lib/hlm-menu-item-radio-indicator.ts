@@ -9,14 +9,14 @@ import type { ClassValue } from 'clsx';
 	selector: 'hlm-menu-item-radio',
 	providers: [provideIcons({ lucideCircle })],
 	imports: [NgIcon, HlmIcon],
-	template: `
-		<!-- Using 0.5rem for size to mimick h-2 w-2 -->
-		<ng-icon hlm size="0.5rem" class="*:*:fill-current" name="lucideCircle" />
-	`,
 	host: {
 		'[class]': '_computedClass()',
 	},
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<!-- Using 0.5rem for size to mimick h-2 w-2 -->
+		<ng-icon hlm size="0.5rem" class="*:*:fill-current" name="lucideCircle" />
+	`,
 })
 export class HlmMenuItemRadioIndicator {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

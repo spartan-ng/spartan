@@ -7,6 +7,15 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 @Component({
 	selector: 'spartan-sidebar',
 	imports: [HlmSidebarImports, NgIcon, HlmIcon],
+	providers: [
+		provideIcons({
+			lucideHouse,
+			lucideInbox,
+			lucideCalendar,
+			lucideSearch,
+			lucideSettings,
+		}),
+	],
 	template: `
 		<div hlmSidebarWrapper>
 			<hlm-sidebar>
@@ -31,15 +40,6 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 			<ng-content />
 		</div>
 	`,
-	providers: [
-		provideIcons({
-			lucideHouse,
-			lucideInbox,
-			lucideCalendar,
-			lucideSearch,
-			lucideSettings,
-		}),
-	],
 })
 export class SidebarComponent {
 	protected readonly _items = [

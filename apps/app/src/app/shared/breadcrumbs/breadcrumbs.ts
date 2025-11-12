@@ -12,6 +12,7 @@ import { BreadcrumbSharedService } from './breadcrumb-shared.service';
 	selector: 'spartan-breadcrumbs',
 	imports: [RouterLink, NgIcon, HlmIcon],
 	providers: [provideIcons({ lucideChevronRight })],
+	encapsulation: ViewEncapsulation.Emulated,
 	template: `
 		@if (breadcrumbs(); as breadcrumbs) {
 			@if (breadcrumbs && breadcrumbs.length > 0) {
@@ -38,7 +39,6 @@ import { BreadcrumbSharedService } from './breadcrumb-shared.service';
 			}
 		}
 	`,
-	encapsulation: ViewEncapsulation.Emulated,
 })
 export class Breadcrumbs {
 	public readonly breadcrumbs = toSignal(inject(BreadcrumbSharedService).breadcrumbs$);

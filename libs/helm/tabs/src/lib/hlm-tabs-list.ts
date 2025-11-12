@@ -23,11 +23,11 @@ type ListVariants = VariantProps<typeof listVariants>;
 @Component({
 	selector: 'hlm-tabs-list',
 	hostDirectives: [BrnTabsList],
-	template: '<ng-content/>',
 	host: {
 		'[class]': '_computedClass()',
 	},
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: '<ng-content/>',
 })
 export class HlmTabsList {
 	public readonly orientation = input<ListVariants['orientation']>('horizontal');

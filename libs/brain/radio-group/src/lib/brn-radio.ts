@@ -47,6 +47,17 @@ const CONTAINER_POST_FIX = '-radio';
 	exportAs: 'brnRadio',
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	styles: `
+		[data-slot='indicator'] {
+			display: flex;
+			height: fit-content;
+			width: fit-content;
+		}
+
+		[data-slot='indicator']:empty {
+			display: none;
+		}
+	`,
 	template: `
 		<div data-slot="indicator" (click)="onTouchTargetClick($event)">
 			<ng-content select="[target],[indicator]" />
@@ -71,17 +82,6 @@ const CONTAINER_POST_FIX = '-radio';
 			(click)="onInputClick($event)"
 		/>
 		<ng-content />
-	`,
-	styles: `
-		[data-slot='indicator'] {
-			display: flex;
-			height: fit-content;
-			width: fit-content;
-		}
-
-		[data-slot='indicator']:empty {
-			display: none;
-		}
 	`,
 })
 export class BrnRadio<T = unknown> implements OnDestroy {

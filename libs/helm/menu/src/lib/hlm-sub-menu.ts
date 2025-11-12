@@ -9,10 +9,10 @@ import type { ClassValue } from 'clsx';
 		'[class]': '_computedClass()',
 	},
 	hostDirectives: [BrnMenu],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ng-content />
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmSubMenu {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

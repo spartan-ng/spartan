@@ -46,6 +46,7 @@ export const sheetVariants = cva(
 		'[class]': '_computedClass()',
 		'[attr.data-state]': 'state()',
 	},
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ng-content />
 		<button brnSheetClose hlm>
@@ -53,7 +54,6 @@ export const sheetVariants = cva(
 			<ng-icon hlm size="sm" name="lucideX" />
 		</button>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmSheetContent {
 	private readonly _stateProvider = injectExposesStateProvider({ host: true });

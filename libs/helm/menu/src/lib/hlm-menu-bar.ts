@@ -9,8 +9,8 @@ import type { ClassValue } from 'clsx';
 		'[class]': '_computedClass()',
 	},
 	hostDirectives: [BrnMenuBar],
-	template: '<ng-content/>',
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: '<ng-content/>',
 })
 export class HlmMenuBar {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

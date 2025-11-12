@@ -35,6 +35,10 @@ let nextId = 0;
 	selector: 'hlm-date-picker',
 	imports: [NgIcon, HlmIcon, BrnPopover, BrnPopoverTrigger, BrnPopoverContent, HlmPopoverContent, HlmCalendar],
 	providers: [HLM_DATE_PICKER_VALUE_ACCESSOR, provideIcons({ lucideChevronDown })],
+	host: {
+		class: 'block',
+	},
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<brn-popover sideOffset="5" [state]="_popoverState()" (stateChanged)="_popoverState.set($event)">
 			<button
@@ -68,10 +72,6 @@ let nextId = 0;
 			</div>
 		</brn-popover>
 	`,
-	host: {
-		class: 'block',
-	},
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmDatePicker<T> implements ControlValueAccessor {
 	private readonly _config = injectHlmDatePickerConfig<T>();

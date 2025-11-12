@@ -11,9 +11,6 @@ import { HlmSidebarService } from './hlm-sidebar.service';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [HlmIcon, NgIcon],
 	providers: [provideIcons({ lucidePanelLeft }), provideBrnButtonConfig({ variant: 'ghost', size: 'icon' })],
-	template: `
-		<ng-icon hlm name="lucidePanelLeft" size="sm"></ng-icon>
-	`,
 	hostDirectives: [
 		{
 			directive: HlmButton,
@@ -24,6 +21,9 @@ import { HlmSidebarService } from './hlm-sidebar.service';
 		'data-sidebar': 'trigger',
 		'(click)': '_onClick()',
 	},
+	template: `
+		<ng-icon hlm name="lucidePanelLeft" size="sm"></ng-icon>
+	`,
 })
 export class HlmSidebarTrigger {
 	private readonly _hlmBtn = inject(HlmButton);

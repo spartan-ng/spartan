@@ -11,10 +11,10 @@ export type BrnCollapsibleState = 'open' | 'closed';
 		'[attr.data-state]': 'expanded() ? "open" : "closed"',
 		'[attr.disabled]': 'disabled() ? true : undefined',
 	},
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ng-content />
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BrnCollapsible {
 	public readonly contentId = signal(`brn-collapsible-content-${++collapsibleContentIdSequence}`);

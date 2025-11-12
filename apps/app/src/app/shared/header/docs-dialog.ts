@@ -100,6 +100,9 @@ type AlgoliaHits = {
 		BrnCommandImports,
 		FormsModule,
 	],
+	host: {
+		'(window:keydown)': '_onKeyDown($event)',
+	},
 	template: `
 		<hlm-dialog>
 			<button
@@ -208,9 +211,6 @@ type AlgoliaHits = {
 			</hlm-dialog-content>
 		</hlm-dialog>
 	`,
-	host: {
-		'(window:keydown)': '_onKeyDown($event)',
-	},
 })
 export class DocsDialog {
 	private readonly _client = searchClient('JJRQPPSU45', '0fe1bcb9dbe76b2a149f00bc0709c5fd');

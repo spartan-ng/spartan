@@ -26,10 +26,10 @@ type MenuVariants = VariantProps<typeof menuVariants>;
 		'[class]': '_computedClass()',
 	},
 	hostDirectives: [BrnMenu],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ng-content />
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmMenu {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

@@ -20,9 +20,6 @@ export type BrnPopoverAlign = 'start' | 'center' | 'end';
 
 @Component({
 	selector: 'brn-popover',
-	template: `
-		<ng-content />
-	`,
 	providers: [
 		{
 			provide: BrnDialog,
@@ -33,6 +30,9 @@ export type BrnPopoverAlign = 'start' | 'center' | 'end';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	encapsulation: ViewEncapsulation.None,
 	exportAs: 'brnPopover',
+	template: `
+		<ng-content />
+	`,
 })
 export class BrnPopover extends BrnDialog {
 	public readonly align = input<BrnPopoverAlign>('center');

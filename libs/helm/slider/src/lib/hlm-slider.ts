@@ -20,6 +20,10 @@ import type { ClassValue } from 'clsx';
 			outputs: ['valueChange'],
 		},
 	],
+	host: {
+		'[class]': '_computedClass()',
+	},
+	imports: [BrnSliderThumb, BrnSliderTrack, BrnSliderRange, BrnSliderTick],
 	template: `
 		<div brnSliderTrack class="bg-muted relative h-1.5 w-full grow overflow-hidden rounded-full">
 			<div class="bg-primary absolute h-full" brnSliderRange></div>
@@ -42,10 +46,6 @@ import type { ClassValue } from 'clsx';
 			brnSliderThumb
 		></span>
 	`,
-	host: {
-		'[class]': '_computedClass()',
-	},
-	imports: [BrnSliderThumb, BrnSliderTrack, BrnSliderRange, BrnSliderTick],
 })
 export class HlmSlider {
 	protected readonly _slider = injectBrnSlider();

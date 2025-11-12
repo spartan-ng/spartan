@@ -4,7 +4,6 @@ import { hlm } from '@spartan-ng/helm/utils';
 
 @Component({
 	selector: 'hlm-command-group',
-	template: '<ng-content />',
 	hostDirectives: [
 		{
 			directive: BrnCommandGroup,
@@ -15,6 +14,7 @@ import { hlm } from '@spartan-ng/helm/utils';
 		'[class]': '_computedClass()',
 	},
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: '<ng-content />',
 })
 export class HlmCommandGroup {
 	/** The user defined class  */

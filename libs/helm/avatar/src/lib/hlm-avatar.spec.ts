@@ -6,12 +6,12 @@ import { HlmAvatar } from './hlm-avatar';
 @Component({
 	selector: 'hlm-mock',
 	imports: [BrnAvatarFallback, HlmAvatar],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-avatar [class]="class()" id="fallbackOnly">
 			<span brnAvatarFallback>fallback</span>
 		</hlm-avatar>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class Mock {
 	public readonly class = input<string>();

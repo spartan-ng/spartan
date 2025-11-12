@@ -19,12 +19,12 @@ import { HlmSheetOverlay } from './hlm-sheet-overlay';
 			// add custom options here
 		}),
 	],
+	encapsulation: ViewEncapsulation.None,
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	exportAs: 'hlmSheet',
 	template: `
 		<brn-sheet-overlay hlm />
 		<ng-content />
 	`,
-	encapsulation: ViewEncapsulation.None,
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	exportAs: 'hlmSheet',
 })
 export class HlmSheet extends BrnSheet {}

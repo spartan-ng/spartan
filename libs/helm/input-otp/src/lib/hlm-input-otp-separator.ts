@@ -9,15 +9,15 @@ import type { ClassValue } from 'clsx';
 	selector: 'hlm-input-otp-separator',
 	imports: [HlmIcon, NgIcon],
 	providers: [provideIcons({ lucideMinus })],
-	template: `
-		<ng-icon hlm name="lucideMinus" />
-	`,
 	host: {
 		role: 'separator',
 		'data-slot': 'input-otp-separator',
 		'[class]': '_computedClass()',
 	},
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<ng-icon hlm name="lucideMinus" />
+	`,
 })
 export class HlmInputOtpSeparator {
 	public readonly userClass = input<ClassValue>('inline-flex', { alias: 'class' });

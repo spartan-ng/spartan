@@ -7,9 +7,9 @@ import { BrnMenuGroup } from '@spartan-ng/brain/menu';
 		class: 'block',
 	},
 	hostDirectives: [BrnMenuGroup],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ng-content />
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmMenuGroup {}

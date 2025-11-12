@@ -5,14 +5,14 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-command-search',
-	template: `
-		<ng-content />
-	`,
 	host: {
 		'[class]': '_computedClass()',
 	},
 	providers: [provideHlmIconConfig({ size: 'sm' })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<ng-content />
+	`,
 })
 export class HlmCommandSearch {
 	/** The user defined class  */

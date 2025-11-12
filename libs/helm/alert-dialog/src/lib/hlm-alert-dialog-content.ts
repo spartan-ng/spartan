@@ -9,11 +9,11 @@ import type { ClassValue } from 'clsx';
 		'[class]': '_computedClass()',
 		'[attr.data-state]': 'state()',
 	},
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	encapsulation: ViewEncapsulation.None,
 	template: `
 		<ng-content />
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	encapsulation: ViewEncapsulation.None,
 })
 export class HlmAlertDialogContent {
 	private readonly _stateProvider = injectExposesStateProvider({ optional: true, host: true });

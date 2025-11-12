@@ -9,6 +9,9 @@ import { toast } from 'ngx-sonner';
 @Component({
 	selector: 'spartan-input-otp-form',
 	imports: [ReactiveFormsModule, HlmButton, HlmToaster, BrnInputOtp, HlmInputOtp, HlmInputOtpGroup, HlmInputOtpSlot],
+	host: {
+		class: 'preview flex min-h-[350px] w-full justify-center p-10 items-center',
+	},
 	template: `
 		<hlm-toaster />
 
@@ -39,9 +42,6 @@ import { toast } from 'ngx-sonner';
 			</div>
 		</form>
 	`,
-	host: {
-		class: 'preview flex min-h-[350px] w-full justify-center p-10 items-center',
-	},
 })
 export class InputOtpFormExample implements OnDestroy {
 	private readonly _formBuilder = inject(FormBuilder);

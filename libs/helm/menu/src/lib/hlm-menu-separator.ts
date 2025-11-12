@@ -4,11 +4,11 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-menu-separator',
-	template: '',
 	host: {
 		'[class]': '_computedClass()',
 	},
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: '',
 })
 export class HlmMenuSeparator {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

@@ -14,6 +14,7 @@ import type { ClassValue } from 'clsx';
 	host: {
 		'[class]': '_computedClass()',
 	},
+	imports: [NgIcon, HlmIcon],
 	template: `
 		<span class="absolute right-2 flex size-3.5 items-center justify-center">
 			@if (this._brnSelectOption.selected()) {
@@ -23,7 +24,6 @@ import type { ClassValue } from 'clsx';
 
 		<ng-content />
 	`,
-	imports: [NgIcon, HlmIcon],
 })
 export class HlmSelectOption {
 	protected readonly _brnSelectOption = inject(BrnSelectOption, { host: true });

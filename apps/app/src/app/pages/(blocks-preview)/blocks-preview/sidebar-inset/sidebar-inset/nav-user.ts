@@ -8,6 +8,7 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 	selector: 'spartan-nav-user',
 	imports: [HlmSidebarImports, HlmAvatarImports, NgIcon],
 	providers: [provideIcons({ lucideChevronsUpDown })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ul hlmSidebarMenu>
 			<li hlmSidebarMenuItem>
@@ -25,6 +26,5 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 			</li>
 		</ul>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavUser {}

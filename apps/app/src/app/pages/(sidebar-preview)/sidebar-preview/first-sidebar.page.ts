@@ -8,6 +8,16 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 	selector: 'spartan-first-sidebar',
 	encapsulation: ViewEncapsulation.None,
 	imports: [HlmSidebarImports, NgIcon, HlmIcon],
+	providers: [
+		provideIcons({
+			lucideHouse,
+			lucideInbox,
+			lucideCalendar,
+			lucideSearch,
+			lucideSettings,
+		}),
+	],
+	styleUrl: 'sidebar-default.css',
 	template: `
 		<div hlmSidebarWrapper>
 			<hlm-sidebar>
@@ -36,16 +46,6 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 			</main>
 		</div>
 	`,
-	providers: [
-		provideIcons({
-			lucideHouse,
-			lucideInbox,
-			lucideCalendar,
-			lucideSearch,
-			lucideSettings,
-		}),
-	],
-	styleUrl: 'sidebar-default.css',
 })
 export default class FirstSidebarPage {
 	protected readonly _items = [

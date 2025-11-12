@@ -16,8 +16,8 @@ import type { ClassValue } from 'clsx';
 		'data-slot': 'radio-group',
 		'[class]': '_computedClass()',
 	},
-	template: '<ng-content />',
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: '<ng-content />',
 })
 export class HlmRadioGroup {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

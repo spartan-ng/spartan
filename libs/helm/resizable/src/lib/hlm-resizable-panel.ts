@@ -11,13 +11,13 @@ import type { ClassValue } from 'clsx';
 			inputs: ['defaultSize', 'id', 'collapsible', 'maxSize', 'minSize'],
 		},
 	],
-	template: `
-		<ng-content />
-	`,
 	host: {
 		'[class]': '_computedClass()',
 	},
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<ng-content />
+	`,
 })
 export class HlmResizablePanel {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

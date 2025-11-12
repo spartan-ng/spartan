@@ -4,11 +4,11 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-command-shortcut',
-	template: '<ng-content />',
 	host: {
 		'[class]': '_computedClass()',
 	},
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: '<ng-content />',
 })
 export class HlmCommandShortcut {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

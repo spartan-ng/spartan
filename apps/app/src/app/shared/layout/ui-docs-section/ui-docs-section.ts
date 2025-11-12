@@ -11,6 +11,9 @@ import { UIApiDocsTable } from '../ui-api-docs-table/ui-api-docs-table';
 @Component({
 	selector: 'spartan-ui-api-docs',
 	imports: [UIApiDocsTable, SectionSubSubHeading],
+	host: {
+		class: 'block ',
+	},
 	template: `
 		@if (_componentDocs() && _componentEntries() && _componentEntries().length > 0) {
 			@for (entry of _componentEntries(); track entry) {
@@ -58,9 +61,6 @@ import { UIApiDocsTable } from '../ui-api-docs-table/ui-api-docs-table';
 			}
 		}
 	`,
-	host: {
-		class: 'block ',
-	},
 })
 export class UIApiDocs {
 	private readonly _apiDocsService = inject(ApiDocsService);

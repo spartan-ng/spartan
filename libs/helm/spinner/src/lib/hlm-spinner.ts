@@ -13,10 +13,10 @@ import type { ClassValue } from 'clsx';
 		'[attr.aria-label]': 'ariaLabel()',
 		class: 'inline-flex',
 	},
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ng-icon [name]="icon()" [class]="_computedClass()" />
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmSpinner {
 	/**

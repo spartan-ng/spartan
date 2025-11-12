@@ -14,12 +14,12 @@ import { HlmDialogOverlay } from './hlm-dialog-overlay';
 			// add custom options here
 		}),
 	],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	encapsulation: ViewEncapsulation.None,
+	exportAs: 'hlmDialog',
 	template: `
 		<brn-dialog-overlay hlm />
 		<ng-content />
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	encapsulation: ViewEncapsulation.None,
-	exportAs: 'hlmDialog',
 })
 export class HlmDialog extends BrnDialog {}

@@ -5,9 +5,6 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-command',
-	template: `
-		<ng-content />
-	`,
 	hostDirectives: [
 		{
 			directive: BrnCommand,
@@ -19,6 +16,9 @@ import type { ClassValue } from 'clsx';
 		'[class]': '_computedClass()',
 	},
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<ng-content />
+	`,
 })
 export class HlmCommand {
 	/** The user defined class */

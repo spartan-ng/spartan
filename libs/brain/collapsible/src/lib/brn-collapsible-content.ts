@@ -22,10 +22,10 @@ import { BrnCollapsible } from './brn-collapsible';
 		'[style.--brn-collapsible-content-width.px]': '_width()',
 		'[style.--brn-collapsible-content-height.px]': '_height()',
 	},
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ng-content />
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BrnCollapsibleContent implements OnInit {
 	protected readonly _collapsible = inject(BrnCollapsible, { optional: true });

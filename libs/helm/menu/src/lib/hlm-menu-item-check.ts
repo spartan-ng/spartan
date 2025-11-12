@@ -9,14 +9,14 @@ import type { ClassValue } from 'clsx';
 	selector: 'hlm-menu-item-check',
 	providers: [provideIcons({ lucideCheck })],
 	imports: [NgIcon, HlmIcon],
-	template: `
-		<!-- Using 1rem for size to mimick h-4 w-4 -->
-		<ng-icon hlm size="1rem" name="lucideCheck" />
-	`,
 	host: {
 		'[class]': '_computedClass()',
 	},
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<!-- Using 1rem for size to mimick h-4 w-4 -->
+		<ng-icon hlm size="1rem" name="lucideCheck" />
+	`,
 })
 export class HlmMenuItemCheck {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

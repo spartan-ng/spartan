@@ -5,14 +5,14 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-menu-label',
-	template: `
-		<ng-content />
-	`,
 	host: {
 		'[class]': '_computedClass()',
 		'[attr.data-inset]': 'inset() ? "" : null',
 	},
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<ng-content />
+	`,
 })
 export class HlmMenuLabel {
 	public readonly inset = input<boolean, BooleanInput>(false, {

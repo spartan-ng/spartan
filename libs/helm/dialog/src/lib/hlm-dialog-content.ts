@@ -16,6 +16,8 @@ import { HlmDialogClose } from './hlm-dialog-close';
 		'[class]': '_computedClass()',
 		'[attr.data-state]': 'state()',
 	},
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	encapsulation: ViewEncapsulation.None,
 	template: `
 		@if (component) {
 			<ng-container [ngComponentOutlet]="component" />
@@ -28,8 +30,6 @@ import { HlmDialogClose } from './hlm-dialog-close';
 			<ng-icon hlm size="sm" name="lucideX" />
 		</button>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	encapsulation: ViewEncapsulation.None,
 })
 export class HlmDialogContent {
 	private readonly _dialogRef = inject(BrnDialogRef);

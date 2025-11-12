@@ -5,6 +5,7 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 	selector: 'spartan-sidebar-menu-sub',
 	encapsulation: ViewEncapsulation.None,
 	imports: [HlmSidebarImports],
+	styleUrl: 'sidebar-default.css',
 	template: `
 		<div hlmSidebarWrapper>
 			<hlm-sidebar>
@@ -40,7 +41,6 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 			</main>
 		</div>
 	`,
-	styleUrl: 'sidebar-default.css',
 })
 export default class SidebarMenuSubPage {
 	protected readonly _items = [

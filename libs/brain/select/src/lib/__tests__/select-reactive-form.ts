@@ -5,6 +5,7 @@ import { BrnSelect, BrnSelectImports } from '../../';
 @Component({
 	imports: [FormsModule, ReactiveFormsModule, BrnSelectImports],
 	selector: 'select-reactive-field-fixture',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<form [formGroup]="fruitGroup">
 			<brn-select class="w-56" formControlName="fruit" placeholder="Select a Fruit">
@@ -26,7 +27,6 @@ import { BrnSelect, BrnSelectImports } from '../../';
 			}
 		</form>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectReactiveField {
 	public fruitGroup = new FormGroup({ fruit: new FormControl() });
@@ -35,6 +35,7 @@ export class SelectReactiveField {
 @Component({
 	imports: [FormsModule, ReactiveFormsModule, BrnSelectImports],
 	selector: 'select-reactive-field-fixture',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<form [formGroup]="form">
 			<brn-select class="w-56" formControlName="fruit" placeholder="Select a Fruit">
@@ -56,7 +57,6 @@ export class SelectReactiveField {
 			}
 		</form>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectSingleValueTest {
 	public readonly form = new FormGroup({ fruit: new FormControl(null) });
@@ -67,6 +67,7 @@ export class SelectSingleValueTest {
 @Component({
 	imports: [FormsModule, ReactiveFormsModule, BrnSelectImports],
 	selector: 'select-reactive-field-fixture',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<form [formGroup]="form">
 			<brn-select class="w-56" formControlName="fruit" placeholder="Select a Fruit">
@@ -88,7 +89,6 @@ export class SelectSingleValueTest {
 			}
 		</form>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectSingleValueWithInitialValueTest {
 	public form = new FormGroup({ fruit: new FormControl('apple') });
@@ -97,6 +97,7 @@ export class SelectSingleValueWithInitialValueTest {
 @Component({
 	imports: [FormsModule, ReactiveFormsModule, BrnSelectImports],
 	selector: 'select-reactive-field-fixture',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<form [formGroup]="form">
 			<brn-select class="w-56" formControlName="fruit" placeholder="Select a Fruit">
@@ -118,7 +119,6 @@ export class SelectSingleValueWithInitialValueTest {
 			}
 		</form>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectSingleValueWithInitialValueWithAsyncUpdateTest {
 	public form = new FormGroup({ fruit: new FormControl('apple') });
@@ -136,6 +136,7 @@ export class SelectSingleValueWithInitialValueWithAsyncUpdateTest {
 @Component({
 	imports: [FormsModule, ReactiveFormsModule, BrnSelectImports],
 	selector: 'select-reactive-field-fixture',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<form [formGroup]="form">
 			<brn-select class="w-56" formControlName="fruit" placeholder="Select a Fruit" [multiple]="true">
@@ -157,7 +158,6 @@ export class SelectSingleValueWithInitialValueWithAsyncUpdateTest {
 			}
 		</form>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectMultiValueTest {
 	public form = new FormGroup({ fruit: new FormControl<string[]>([]) });
@@ -166,6 +166,7 @@ export class SelectMultiValueTest {
 @Component({
 	imports: [FormsModule, ReactiveFormsModule, BrnSelectImports],
 	selector: 'select-reactive-field-fixture',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<form [formGroup]="form">
 			<brn-select class="w-56" formControlName="fruit" placeholder="Select a Fruit" [multiple]="true">
@@ -187,7 +188,6 @@ export class SelectMultiValueTest {
 			}
 		</form>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectMultiValueWithInitialValueTest {
 	public form = new FormGroup({ fruit: new FormControl(['apple', 'blueberry']) });

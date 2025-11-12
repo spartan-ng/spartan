@@ -18,6 +18,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 		BrnSelectImports,
 		HlmButtonImports,
 	],
+	providers: [{ provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher }],
 	template: `
 		<form [formGroup]="form" class="space-y-6">
 			<hlm-form-field>
@@ -49,7 +50,6 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 			<button type="submit" hlmBtn>Submit</button>
 		</form>
 	`,
-	providers: [{ provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher }],
 })
 export class FormFieldFormWithDirtyPreview {
 	private readonly _formBuilder = inject(FormBuilder);

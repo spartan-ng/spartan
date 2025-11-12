@@ -8,16 +8,16 @@ import { HlmInputOtpFakeCaret } from './hlm-input-otp-fake-caret';
 @Component({
 	selector: 'hlm-input-otp-slot',
 	imports: [BrnInputOtpSlot, HlmInputOtpFakeCaret],
-	template: `
-		<brn-input-otp-slot [index]="index()">
-			<hlm-input-otp-fake-caret />
-		</brn-input-otp-slot>
-	`,
 	host: {
 		'data-slot': 'input-otp-slot',
 		'[class]': '_computedClass()',
 	},
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<brn-input-otp-slot [index]="index()">
+			<hlm-input-otp-fake-caret />
+		</brn-input-otp-slot>
+	`,
 })
 export class HlmInputOtpSlot {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

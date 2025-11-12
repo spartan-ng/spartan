@@ -4,14 +4,14 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-alert-dialog-header',
-	template: `
-		<ng-content />
-	`,
 	host: {
 		'[class]': '_computedClass()',
 	},
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	encapsulation: ViewEncapsulation.None,
+	template: `
+		<ng-content />
+	`,
 })
 export class HlmAlertDialogHeader {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

@@ -33,6 +33,8 @@ export const HLM_SWITCH_VALUE_ACCESSOR = {
 		'[attr.aria-labelledby]': 'null',
 		'[attr.aria-describedby]': 'null',
 	},
+	providers: [HLM_SWITCH_VALUE_ACCESSOR],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<brn-switch
 			[class]="_computedClass()"
@@ -48,8 +50,6 @@ export const HLM_SWITCH_VALUE_ACCESSOR = {
 			<brn-switch-thumb hlm />
 		</brn-switch>
 	`,
-	providers: [HLM_SWITCH_VALUE_ACCESSOR],
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmSwitch implements ControlValueAccessor {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

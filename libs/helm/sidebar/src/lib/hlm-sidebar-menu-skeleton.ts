@@ -7,6 +7,13 @@ import type { ClassValue } from 'clsx';
 	// eslint-disable-next-line @angular-eslint/component-selector
 	selector: 'div[hlmSidebarMenuSkeleton]',
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		'data-slot': 'sidebar-menu-skeleton',
+		'data-sidebar': 'menu-skeleton',
+		'[class]': '_computedClass()',
+		'[style.--skeleton-width]': '_width',
+	},
+	imports: [HlmSkeletonImports],
 	template: `
 		@if (showIcon()) {
 			<hlm-skeleton data-sidebar="menu-skeleton-icon" class="size-4 rounded-md" />
@@ -14,14 +21,6 @@ import type { ClassValue } from 'clsx';
 			<hlm-skeleton data-sidebar="menu-skeleton-text" class="h-4 max-w-[var(--skeleton-width)] flex-1" />
 		}
 	`,
-	host: {
-		'data-slot': 'sidebar-menu-skeleton',
-		'data-sidebar': 'menu-skeleton',
-		'[class]': '_computedClass()',
-		'[style.--skeleton-width]': '_width',
-	},
-
-	imports: [HlmSkeletonImports],
 })
 export class HlmSidebarMenuSkeleton {
 	public readonly showIcon = input<boolean, boolean>(false, { transform: booleanAttribute });

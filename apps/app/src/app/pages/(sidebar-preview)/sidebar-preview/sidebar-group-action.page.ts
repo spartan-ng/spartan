@@ -10,6 +10,15 @@ import { toast } from 'ngx-sonner';
 	selector: 'spartan-sidebar-group-action',
 	encapsulation: ViewEncapsulation.None,
 	imports: [HlmSidebarImports, NgIcon, HlmIcon, HlmToasterImports],
+	providers: [
+		provideIcons({
+			lucideFrame,
+			lucideChartPie,
+			lucideMap,
+			lucidePlus,
+		}),
+	],
+	styleUrl: 'sidebar-default.css',
 	template: `
 		<hlm-toaster />
 		<div hlmSidebarWrapper>
@@ -53,15 +62,6 @@ import { toast } from 'ngx-sonner';
 			</main>
 		</div>
 	`,
-	providers: [
-		provideIcons({
-			lucideFrame,
-			lucideChartPie,
-			lucideMap,
-			lucidePlus,
-		}),
-	],
-	styleUrl: 'sidebar-default.css',
 })
 export default class SidebarGroupActionPage {
 	protected _onAddProject(): void {

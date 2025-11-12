@@ -12,10 +12,10 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 	template: `
 		<ul hlmSidebarMenu>
 			<li hlmSidebarMenuItem>
-				<button hlmSidebarMenuButton>
-					<hlm-avatar variant="large">
+				<button hlmSidebarMenuButton size="lg">
+					<hlm-avatar class="rounded-lg">
 						<img src="/assets/avatar.png" alt="spartan logo. Resembling a spartanic shield" hlmAvatarImage />
-						<span class="bg-[#FD005B] text-white" hlmAvatarFallback>RG</span>
+						<span class="rounded-lg bg-[#FD005B] text-white" hlmAvatarFallback>RG</span>
 					</hlm-avatar>
 					<div class="grid flex-1 text-left text-sm leading-tight">
 						<span class="truncate font-medium">spartan</span>

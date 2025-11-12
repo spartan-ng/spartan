@@ -1,14 +1,12 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { computed, Directive, input } from '@angular/core';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 
-@Component({
-	selector: 'hlm-menu-separator',
-	changeDetection: ChangeDetectionStrategy.OnPush,
+@Directive({
+	selector: '[hlmMenuSeparator],hlm-menu-separator',
 	host: {
 		'[class]': '_computedClass()',
 	},
-	template: '',
 })
 export class HlmMenuSeparator {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

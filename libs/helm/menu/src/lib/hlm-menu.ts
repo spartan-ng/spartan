@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { computed, Directive, input } from '@angular/core';
 import { BrnMenu } from '@spartan-ng/brain/menu';
 import { hlm } from '@spartan-ng/helm/utils';
 import { type VariantProps, cva } from 'class-variance-authority';
@@ -20,16 +20,12 @@ export const menuVariants = cva(
 );
 type MenuVariants = VariantProps<typeof menuVariants>;
 
-@Component({
-	selector: 'hlm-menu',
-	changeDetection: ChangeDetectionStrategy.OnPush,
+@Directive({
+	selector: '[hlmMenu],hlm-menu',
 	hostDirectives: [BrnMenu],
 	host: {
 		'[class]': '_computedClass()',
 	},
-	template: `
-		<ng-content />
-	`,
 })
 export class HlmMenu {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

@@ -9,39 +9,45 @@ import { NavSecondary } from './nav-secondary';
 import { NavUser } from './nav-user';
 
 @Component({
-	selector: 'spartan-app-sidebar',
+	selector: 'spartan-app-sidebar-sticky',
 	imports: [HlmSidebarImports, NgIcon, NavMain, NavProjects, NavUser, NavSecondary],
 	providers: [provideIcons({ lucideCommand })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<hlm-sidebar sidebarContainerClass="top-(--header-height) h-[calc(100svh-var(--header-height))]">
-			<hlm-sidebar-header>
-				<ul hlmSidebarMenu>
-					<li hlmSidebarMenuItem>
-						<a hlmSidebarMenuButton size="lg" href="#">
-							<div
-								class="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg"
-							>
-								<ng-icon name="lucideCommand" class="text-base" />
-							</div>
-							<div class="grid flex-1 text-left text-sm leading-tight">
-								<span class="truncate font-medium">Acme Inc</span>
-								<span class="truncate text-xs">Enterprise</span>
-							</div>
-						</a>
-					</li>
-				</ul>
-			</hlm-sidebar-header>
+		<div hlmSidebarWrapper class="flex-col">
+			<ng-content select="[header]" />
+			<div class="flex flex-1">
+				<hlm-sidebar sidebarContainerClass="top-(--header-height) h-[calc(100svh-var(--header-height))]">
+					<hlm-sidebar-header>
+						<ul hlmSidebarMenu>
+							<li hlmSidebarMenuItem>
+								<a hlmSidebarMenuButton size="lg" href="#">
+									<div
+										class="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg"
+									>
+										<ng-icon name="lucideCommand" class="text-base" />
+									</div>
+									<div class="grid flex-1 text-left text-sm leading-tight">
+										<span class="truncate font-medium">Acme Inc</span>
+										<span class="truncate text-xs">Enterprise</span>
+									</div>
+								</a>
+							</li>
+						</ul>
+					</hlm-sidebar-header>
 
-			<hlm-sidebar-content>
-				<spartan-nav-main [items]="data.navMain" />
-				<spartan-nav-projects />
-				<spartan-nav-secondary class="mt-auto" />
-			</hlm-sidebar-content>
-			<hlm-sidebar-footer>
-				<spartan-nav-user />
-			</hlm-sidebar-footer>
-		</hlm-sidebar>
+					<hlm-sidebar-content>
+						<spartan-nav-main [items]="data.navMain" />
+						<spartan-nav-projects />
+						<spartan-nav-secondary class="mt-auto" />
+					</hlm-sidebar-content>
+					<hlm-sidebar-footer>
+						<spartan-nav-user />
+					</hlm-sidebar-footer>
+				</hlm-sidebar>
+				<ng-content />
+			</div>
+		</div>
 	`,
 })
 export class AppSidebar {

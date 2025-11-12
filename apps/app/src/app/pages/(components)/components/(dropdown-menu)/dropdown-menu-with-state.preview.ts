@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideUndo2 } from '@ng-icons/lucide';
 import { BrnMenuImports } from '@spartan-ng/brain/menu';
@@ -19,19 +19,19 @@ import { HlmMenuImports } from '@spartan-ng/helm/menu';
 				<hlm-menu-group>
 					<hlm-menu-label>Appearance</hlm-menu-label>
 
-					<button hlmMenuItemCheckbox [checked]="isPanel" (triggered)="isPanel = !isPanel">
+					<button hlmMenuItemCheckbox [checked]="statusBar()" (triggered)="statusBar.set(!statusBar())">
 						<hlm-menu-item-check />
-						<span>Panel</span>
+						<span>Status Bar</span>
 					</button>
 
-					<button hlmMenuItemCheckbox disabled [checked]="isActivityBar" (triggered)="isActivityBar = !isActivityBar">
+					<button hlmMenuItemCheckbox disabled [checked]="activityBar()" (triggered)="activityBar.set(!activityBar())">
 						<hlm-menu-item-check />
 						<span>Activity Bar</span>
 					</button>
 
-					<button hlmMenuItemCheckbox [checked]="isStatusBar" (triggered)="isStatusBar = !isStatusBar">
+					<button hlmMenuItemCheckbox [checked]="panel()" (triggered)="panel.set(!panel())">
 						<hlm-menu-item-check />
-						<span>Status Bar</span>
+						<span>Panel</span>
 					</button>
 				</hlm-menu-group>
 
@@ -59,17 +59,17 @@ import { HlmMenuImports } from '@spartan-ng/helm/menu';
 	`,
 })
 export class DropdownWithStatePreview {
-	public isStatusBar = false;
-	public isPanel = false;
-	public isActivityBar = false;
+	public readonly statusBar = signal(true);
+	public readonly activityBar = signal(false);
+	public readonly panel = signal(false);
 
 	public panelPositions = ['Top', 'Bottom', 'Right', 'Left'] as const;
 	public selectedPosition: (typeof this.panelPositions)[number] | undefined = 'Bottom';
 
 	reset() {
-		this.isStatusBar = false;
-		this.isPanel = false;
-		this.isActivityBar = false;
+		this.statusBar.set(false);
+		this.panel.set(false);
+		this.activityBar.set(false);
 		this.selectedPosition = 'Bottom';
 	}
 }

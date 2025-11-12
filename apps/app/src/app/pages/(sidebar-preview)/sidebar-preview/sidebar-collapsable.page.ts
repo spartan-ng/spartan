@@ -5,18 +5,19 @@ import { HlmCollapsibleImports } from '@spartan-ng/helm/collapsible';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 
-@Component({selector: 'spartan-sidebar-collapsable',
-encapsulation: ViewEncapsulation.None,
-imports: [HlmIcon, NgIcon, HlmCollapsibleImports, HlmSidebarImports],
-providers: [
+@Component({
+	selector: 'spartan-sidebar-collapsable',
+	encapsulation: ViewEncapsulation.None,
+	imports: [HlmIcon, NgIcon, HlmCollapsibleImports, HlmSidebarImports],
+	providers: [
 		provideIcons({
 			lucideLifeBuoy,
 			lucideSend,
 			lucideChevronDown,
 		}),
 	],
-styleUrl: 'sidebar-default.css',
-template: `
+	styleUrl: 'sidebar-default.css',
+	template: `
 		<div hlmSidebarWrapper>
 			<hlm-sidebar>
 				<div hlmSidebarContent>
@@ -62,5 +63,6 @@ template: `
 				</header>
 			</main>
 		</div>
-	`})
+	`,
+})
 export default class SidebarCollapsablePage {}

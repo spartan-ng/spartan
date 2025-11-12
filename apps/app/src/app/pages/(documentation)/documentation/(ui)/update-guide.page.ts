@@ -50,7 +50,7 @@ export const routeMeta: RouteMeta = {
 			</spartan-section-sub-heading>
 
 			<p class="${hlmP}">
-				Brain and CLI packages are installed from npm. Keep them on the same verson and update with:
+				Brain and CLI packages are installed from npm. Keep them on the same version and update with:
 			</p>
 
 			<spartan-package-installer-tab class="mt-4" package="brn-update" />

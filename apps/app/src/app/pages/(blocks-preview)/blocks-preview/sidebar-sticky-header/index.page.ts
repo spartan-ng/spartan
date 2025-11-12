@@ -14,7 +14,7 @@ import { SiteHeader } from './sticky-header/site-header';
 	styleUrl: '../../blocks-preview-default.css',
 	template: `
 		<spartan-app-sidebar-sticky>
-			<spartan-site-header header />
+			<spartan-site-header-sticky header />
 			<main hlmSidebarInset>
 				<div class="flex flex-1 flex-col gap-4 p-4">
 					<div class="grid auto-rows-min gap-4 md:grid-cols-3">

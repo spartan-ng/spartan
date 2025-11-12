@@ -5,7 +5,7 @@ import { HlmSeparatorImports } from '@spartan-ng/helm/separator';
 import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 
 @Component({
-	selector: 'spartan-site-header',
+	selector: 'spartan-site-header-inset',
 	imports: [HlmSidebarImports, HlmSeparatorImports, HlmBreadCrumbImports, HlmInputGroupImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `

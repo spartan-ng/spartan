@@ -5,7 +5,6 @@ import {
 	Component,
 	ElementRef,
 	type OnDestroy,
-	ViewEncapsulation,
 	booleanAttribute,
 	computed,
 	inject,
@@ -45,7 +44,6 @@ const CONTAINER_POST_FIX = '-radio';
 		'(focus)': '_inputElement().nativeElement.focus()',
 	},
 	exportAs: 'brnRadio',
-	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div data-slot="indicator" (click)="onTouchTargetClick($event)">
@@ -72,6 +70,7 @@ const CONTAINER_POST_FIX = '-radio';
 		/>
 		<ng-content />
 	`,
+	// eslint-disable-next-line @nx/workspace-avoid-component-styles
 	styles: `
 		[data-slot='indicator'] {
 			display: flex;

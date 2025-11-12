@@ -3,7 +3,6 @@ import {
 	Component,
 	type InputSignal,
 	type Signal,
-	ViewEncapsulation,
 	computed,
 	input,
 	signal,
@@ -21,7 +20,6 @@ import {
 @Component({
 	selector: 'hlm-carousel',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	encapsulation: ViewEncapsulation.None,
 	host: {
 		'[class]': '_computedClass()',
 		role: 'region',

@@ -24,6 +24,7 @@ import { injectBrnSelect } from './brn-select.token';
 		'[id]': 'id()',
 		'[attr.data-placeholder]': '_showPlaceholder() ? "" : null',
 	},
+	// eslint-disable-next-line @nx/workspace-avoid-component-styles
 	styles: [
 		`
 			:host {

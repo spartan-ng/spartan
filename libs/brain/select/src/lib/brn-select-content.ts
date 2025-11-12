@@ -98,6 +98,7 @@ export class BrnSelectScrollDown {
 		'(keydown.enter)': 'selectActiveItem($event)',
 		'(keydown.space)': 'selectActiveItem($event)',
 	},
+	// eslint-disable-next-line @nx/workspace-avoid-component-styles
 	styles: [
 		`
 			:host {

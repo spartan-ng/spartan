@@ -1,4 +1,9 @@
 export const data = {
+	user: {
+		name: 'spartan',
+		email: 'hello@spartan.com',
+		avatar: '/assets/avatar.png',
+	},
 	navMain: [
 		{
 			title: 'Playground',

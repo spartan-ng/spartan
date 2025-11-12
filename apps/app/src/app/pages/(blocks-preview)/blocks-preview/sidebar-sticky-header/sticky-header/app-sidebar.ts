@@ -42,7 +42,7 @@ import { NavUser } from '../../shared/sidebar/nav-user';
 						<spartan-nav-secondary class="mt-auto" />
 					</hlm-sidebar-content>
 					<hlm-sidebar-footer>
-						<spartan-nav-user />
+						<spartan-nav-user [user]="data.user" />
 					</hlm-sidebar-footer>
 				</hlm-sidebar>
 				<ng-content />

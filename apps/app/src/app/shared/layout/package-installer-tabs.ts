@@ -5,32 +5,32 @@ import { Code } from '../code/code';
 
 const cliPackageInstallationCommands = {
 	pnpm: 'pnpm add -D @spartan-ng/cli',
-	npm: 'npm i -D @spartan-ng/cli',
+	npm: 'npm install -D @spartan-ng/cli',
 	yarn: 'yarn add -D @spartan-ng/cli',
-	bun: 'bun install -D @spartan-ng/cli',
+	bun: 'bun add --dev @spartan-ng/cli',
 } as const;
 
 type PackageKey = keyof typeof cliPackageInstallationCommands;
 
 const brnPackageInstallationCommands = {
 	pnpm: 'pnpm add @spartan-ng/brain',
-	npm: 'npm i @spartan-ng/brain',
+	npm: 'npm install @spartan-ng/brain',
 	yarn: 'yarn add @spartan-ng/brain',
-	bun: 'bun install @spartan-ng/brain',
+	bun: 'bun add @spartan-ng/brain',
 } as const;
 
 const brnUpdatePackageInstallationCommands = {
-	pnpm: 'pnpm update @spartan-ng/brain @spartan-ng/cli',
-	npm: 'npm update @spartan-ng/brain @spartan-ng/cli',
-	yarn: 'yarn update @spartan-ng/brain @spartan-ng/cli',
-	bun: 'bun update @spartan-ng/brain @spartan-ng/cli',
+	pnpm: 'pnpm add @spartan-ng/brain@latest @spartan-ng/cli@latest',
+	npm: 'npm install @spartan-ng/brain@latest @spartan-ng/cli@latest',
+	yarn: 'yarn add @spartan-ng/brain@latest @spartan-ng/cli@latest',
+	bun: 'bun add @spartan-ng/brain@latest @spartan-ng/cli@latest',
 } as const;
 
 const angularCdkPackageInstallationCommands = {
 	pnpm: 'pnpm add @angular/cdk',
-	npm: 'npm i @angular/cdk',
+	npm: 'npm install @angular/cdk',
 	yarn: 'yarn add @angular/cdk',
-	bun: 'bun install @angular/cdk',
+	bun: 'bun add @angular/cdk',
 } as const;
 
 const tabBtn =

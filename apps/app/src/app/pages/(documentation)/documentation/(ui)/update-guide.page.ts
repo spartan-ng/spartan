@@ -56,7 +56,8 @@ export const routeMeta: RouteMeta = {
 			<spartan-package-installer-tab class="mt-4" package="brn-update" />
 
 			<p class="${hlmP}">
-				After updating brain packages, run the health check tool to automatically apply any necessary migrations:
+				After updating brain and cli packages, run the health check tool to automatically apply any necessary
+				migrations:
 			</p>
 
 			<spartan-cli-tabs

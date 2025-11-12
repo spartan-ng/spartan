@@ -23,19 +23,8 @@ import { injectBrnSelect } from './brn-select.token';
 	host: {
 		'[id]': 'id()',
 		'[attr.data-placeholder]': '_showPlaceholder() ? "" : null',
+		class: 'line-clamp-1 whitespace-nowrap pointer-events-none',
 	},
-	// eslint-disable-next-line @nx/workspace-avoid-component-styles
-	styles: [
-		`
-			:host {
-				display: -webkit-box;
-				-webkit-box-orient: vertical;
-				-webkit-line-clamp: 1;
-				white-space: nowrap;
-				pointer-events: none;
-			}
-		`,
-	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BrnSelectValue<T> {

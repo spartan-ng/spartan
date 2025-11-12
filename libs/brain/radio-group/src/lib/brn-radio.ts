@@ -46,7 +46,7 @@ const CONTAINER_POST_FIX = '-radio';
 	exportAs: 'brnRadio',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<div data-slot="indicator" (click)="onTouchTargetClick($event)">
+		<div data-slot="indicator" class="flex h-fit w-fit empty:hidden" (click)="onTouchTargetClick($event)">
 			<ng-content select="[target],[indicator]" />
 		</div>
 		<input
@@ -69,18 +69,6 @@ const CONTAINER_POST_FIX = '-radio';
 			(click)="onInputClick($event)"
 		/>
 		<ng-content />
-	`,
-	// eslint-disable-next-line @nx/workspace-avoid-component-styles
-	styles: `
-		[data-slot='indicator'] {
-			display: flex;
-			height: fit-content;
-			width: fit-content;
-		}
-
-		[data-slot='indicator']:empty {
-			display: none;
-		}
 	`,
 })
 export class BrnRadio<T = unknown> implements OnDestroy {

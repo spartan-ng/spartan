@@ -22,11 +22,11 @@ type ListVariants = VariantProps<typeof listVariants>;
 
 @Component({
 	selector: 'hlm-tabs-list',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [BrnTabsList],
 	host: {
 		'[class]': '_computedClass()',
 	},
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: '<ng-content/>',
 })
 export class HlmTabsList {

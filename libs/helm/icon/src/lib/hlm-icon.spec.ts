@@ -7,9 +7,9 @@ import { HlmIcon } from './hlm-icon';
 
 @Component({
 	selector: 'hlm-mock',
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [HlmIcon, NgIcon],
 	providers: [provideIcons({ lucideCheck })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ng-icon hlm class="test" name="lucideCheck" [size]="size()" color="red" strokeWidth="2" />
 	`,

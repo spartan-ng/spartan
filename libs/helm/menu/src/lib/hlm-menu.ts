@@ -22,11 +22,11 @@ type MenuVariants = VariantProps<typeof menuVariants>;
 
 @Component({
 	selector: 'hlm-menu',
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	hostDirectives: [BrnMenu],
 	host: {
 		'[class]': '_computedClass()',
 	},
-	hostDirectives: [BrnMenu],
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ng-content />
 	`,

@@ -5,11 +5,11 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'input[hlm-command-search-input]',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [{ directive: BrnCommandSearchInput, inputs: ['value'] }],
 	host: {
 		'[class]': '_computedClass()',
 	},
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: '',
 })
 export class HlmCommandSearchInput {

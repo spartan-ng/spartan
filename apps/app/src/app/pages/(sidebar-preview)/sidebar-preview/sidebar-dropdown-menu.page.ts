@@ -8,7 +8,6 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 
 @Component({
 	selector: 'spartan-sidebar-dropdown-menu',
-	encapsulation: ViewEncapsulation.None,
 	imports: [HlmSidebarImports, BrnMenuImports, NgIcon, HlmIcon, HlmMenuImports],
 	providers: [
 		provideIcons({
@@ -20,6 +19,7 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 			lucideEllipsis,
 		}),
 	],
+	encapsulation: ViewEncapsulation.None,
 	styleUrl: 'sidebar-default.css',
 	template: `
 		<div hlmSidebarWrapper>

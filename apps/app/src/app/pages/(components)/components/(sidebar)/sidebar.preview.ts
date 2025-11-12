@@ -72,8 +72,8 @@ export class SidebarComponent {
 }
 
 @Component({
-	imports: [SidebarComponent, HlmSidebarImports],
 	selector: 'spartan-sidebar-preview',
+	imports: [SidebarComponent, HlmSidebarImports],
 	template: `
 		<spartan-sidebar>
 			<main hlmSidebarInset>

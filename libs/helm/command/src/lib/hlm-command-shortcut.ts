@@ -4,10 +4,10 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-command-shortcut',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[class]': '_computedClass()',
 	},
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: '<ng-content />',
 })
 export class HlmCommandShortcut {

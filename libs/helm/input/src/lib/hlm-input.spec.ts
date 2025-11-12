@@ -6,9 +6,8 @@ import { HlmInput } from './hlm-input';
 
 @Component({
 	selector: 'hlm-input-mock',
-	standalone: true,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [HlmInput, ReactiveFormsModule],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<form [formGroup]="form">
 			<input hlmInput formControlName="testField" [class]="userClass()" [error]="error()" />

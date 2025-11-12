@@ -3,11 +3,11 @@ import { hlm } from '@spartan-ng/helm/utils';
 
 @Component({
 	selector: 'hlm-command-group-label',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		role: 'presentation',
 		'[class]': '_computedClass()',
 	},
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: '<ng-content />',
 })
 export class HlmCommandGroupLabel {

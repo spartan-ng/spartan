@@ -4,10 +4,10 @@ import { injectBrnInputOtp } from './brn-input-otp.token';
 
 @Component({
 	selector: 'brn-input-otp-slot',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[attr.data-active]': '_slot().isActive',
 	},
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		{{ _slot().char }}
 

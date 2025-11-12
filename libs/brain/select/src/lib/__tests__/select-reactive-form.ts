@@ -3,8 +3,8 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angul
 import { BrnSelect, BrnSelectImports } from '../../';
 
 @Component({
-	imports: [FormsModule, ReactiveFormsModule, BrnSelectImports],
 	selector: 'select-reactive-field-fixture',
+	imports: [FormsModule, ReactiveFormsModule, BrnSelectImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<form [formGroup]="fruitGroup">
@@ -33,8 +33,8 @@ export class SelectReactiveField {
 }
 
 @Component({
-	imports: [FormsModule, ReactiveFormsModule, BrnSelectImports],
 	selector: 'select-reactive-field-fixture',
+	imports: [FormsModule, ReactiveFormsModule, BrnSelectImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<form [formGroup]="form">
@@ -65,8 +65,8 @@ export class SelectSingleValueTest {
 }
 
 @Component({
-	imports: [FormsModule, ReactiveFormsModule, BrnSelectImports],
 	selector: 'select-reactive-field-fixture',
+	imports: [FormsModule, ReactiveFormsModule, BrnSelectImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<form [formGroup]="form">
@@ -95,8 +95,8 @@ export class SelectSingleValueWithInitialValueTest {
 }
 
 @Component({
-	imports: [FormsModule, ReactiveFormsModule, BrnSelectImports],
 	selector: 'select-reactive-field-fixture',
+	imports: [FormsModule, ReactiveFormsModule, BrnSelectImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<form [formGroup]="form">
@@ -134,8 +134,8 @@ export class SelectSingleValueWithInitialValueWithAsyncUpdateTest {
 }
 
 @Component({
-	imports: [FormsModule, ReactiveFormsModule, BrnSelectImports],
 	selector: 'select-reactive-field-fixture',
+	imports: [FormsModule, ReactiveFormsModule, BrnSelectImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<form [formGroup]="form">
@@ -164,8 +164,8 @@ export class SelectMultiValueTest {
 }
 
 @Component({
-	imports: [FormsModule, ReactiveFormsModule, BrnSelectImports],
 	selector: 'select-reactive-field-fixture',
+	imports: [FormsModule, ReactiveFormsModule, BrnSelectImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<form [formGroup]="form">
@@ -194,8 +194,8 @@ export class SelectMultiValueWithInitialValueTest {
 }
 
 @Component({
-	imports: [FormsModule, ReactiveFormsModule, BrnSelectImports],
 	selector: 'select-reactive-field-fixture',
+	imports: [FormsModule, ReactiveFormsModule, BrnSelectImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<form [formGroup]="form">

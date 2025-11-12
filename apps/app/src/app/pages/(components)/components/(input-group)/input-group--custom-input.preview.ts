@@ -6,12 +6,12 @@ import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 
 @Component({
 	selector: 'spartan-input-group-custom-input-preview',
+	imports: [HlmInputGroupImports, CdkTextareaAutosize],
 	providers: [
 		provideIcons({
 			lucideLink2,
 		}),
 	],
-	imports: [HlmInputGroupImports, CdkTextareaAutosize],
 	host: {
 		class: 'grid w-full max-w-sm gap-6',
 	},

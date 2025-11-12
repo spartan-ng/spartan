@@ -6,12 +6,12 @@ import { SiteHeader } from './sidebar-inset/site-header';
 @Component({
 	selector: 'spartan-sidebar-inset',
 	imports: [HlmSidebarImports, SiteHeader, AppSidebarInset],
+	encapsulation: ViewEncapsulation.None,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'block',
 	},
 	styleUrl: '../../blocks-preview-default.css',
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	encapsulation: ViewEncapsulation.None,
 	template: `
 		<spartan-app-sidebar-inset>
 			<main hlmSidebarInset>

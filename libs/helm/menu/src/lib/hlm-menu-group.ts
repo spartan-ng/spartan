@@ -3,11 +3,11 @@ import { BrnMenuGroup } from '@spartan-ng/brain/menu';
 
 @Component({
 	selector: 'hlm-menu-group',
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	hostDirectives: [BrnMenuGroup],
 	host: {
 		class: 'block',
 	},
-	hostDirectives: [BrnMenuGroup],
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ng-content />
 	`,

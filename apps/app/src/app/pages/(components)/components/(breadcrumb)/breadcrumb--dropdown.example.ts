@@ -8,8 +8,8 @@ import { HlmMenuImports } from '@spartan-ng/helm/menu';
 
 @Component({
 	selector: 'spartan-breadcrumb-dropdown',
-	providers: [provideIcons({ lucideChevronDown, lucideSlash })],
 	imports: [HlmBreadCrumbImports, NgIcon, HlmIconImports, BrnMenuImports, HlmMenuImports],
+	providers: [provideIcons({ lucideChevronDown, lucideSlash })],
 	template: `
 		<nav hlmBreadcrumb>
 			<ol hlmBreadcrumbList>

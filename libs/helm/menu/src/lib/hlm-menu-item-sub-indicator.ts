@@ -7,12 +7,12 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-menu-item-sub-indicator',
-	providers: [provideIcons({ lucideChevronRight })],
 	imports: [NgIcon, HlmIcon],
+	providers: [provideIcons({ lucideChevronRight })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[class]': '_computedClass()',
 	},
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ng-icon hlm size="sm" name="lucideChevronRight" class="text-popover-foreground" />
 	`,

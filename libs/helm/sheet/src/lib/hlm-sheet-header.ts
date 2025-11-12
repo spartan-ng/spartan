@@ -4,10 +4,10 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-sheet-header',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[class]': '_computedClass()',
 	},
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ng-content />
 	`,

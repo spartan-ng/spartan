@@ -5,11 +5,11 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-menu-label',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[class]': '_computedClass()',
 		'[attr.data-inset]': 'inset() ? "" : null',
 	},
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ng-content />
 	`,

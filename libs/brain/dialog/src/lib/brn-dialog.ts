@@ -28,9 +28,9 @@ import { BrnDialogService } from './brn-dialog.service';
 
 @Component({
 	selector: 'brn-dialog',
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	encapsulation: ViewEncapsulation.None,
 	exportAs: 'brnDialog',
+	encapsulation: ViewEncapsulation.None,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ng-content />
 	`,

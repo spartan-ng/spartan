@@ -42,11 +42,11 @@ export const sheetVariants = cva(
 	selector: 'hlm-sheet-content',
 	imports: [HlmSheetClose, BrnSheetClose, NgIcon, HlmIcon],
 	providers: [provideIcons({ lucideX })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[class]': '_computedClass()',
 		'[attr.data-state]': 'state()',
 	},
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ng-content />
 		<button brnSheetClose hlm>

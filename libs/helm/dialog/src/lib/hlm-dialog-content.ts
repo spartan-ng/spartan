@@ -12,12 +12,12 @@ import { HlmDialogClose } from './hlm-dialog-close';
 	selector: 'hlm-dialog-content',
 	imports: [NgComponentOutlet, BrnDialogClose, HlmDialogClose, NgIcon, HlmIcon],
 	providers: [provideIcons({ lucideX })],
+	encapsulation: ViewEncapsulation.None,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[class]': '_computedClass()',
 		'[attr.data-state]': 'state()',
 	},
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	encapsulation: ViewEncapsulation.None,
 	template: `
 		@if (component) {
 			<ng-container [ngComponentOutlet]="component" />

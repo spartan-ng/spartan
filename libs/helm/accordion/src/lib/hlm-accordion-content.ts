@@ -5,12 +5,12 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-accordion-content',
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	encapsulation: ViewEncapsulation.None,
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	hostDirectives: [{ directive: BrnAccordionContent, inputs: ['style'] }],
 	host: {
 		'[class]': '_computedClass()',
 	},
-	hostDirectives: [{ directive: BrnAccordionContent, inputs: ['style'] }],
 	template: `
 		<div class="flex flex-col gap-4 pt-0 pb-4 text-balance">
 			<ng-content />

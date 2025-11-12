@@ -4,11 +4,11 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Directive({
 	selector: '[brnMenu],[brnSubMenu]',
+	hostDirectives: [CdkMenu],
 	host: {
 		'[attr.data-state]': '_state()',
 		'[attr.data-side]': '_side()',
 	},
-	hostDirectives: [CdkMenu],
 })
 export class BrnMenu {
 	private readonly _host = inject(CdkMenu);

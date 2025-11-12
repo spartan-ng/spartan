@@ -5,6 +5,7 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-command',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [
 		{
 			directive: BrnCommand,
@@ -15,7 +16,6 @@ import type { ClassValue } from 'clsx';
 	host: {
 		'[class]': '_computedClass()',
 	},
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ng-content />
 	`,

@@ -5,11 +5,11 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-sub-menu',
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	hostDirectives: [BrnMenu],
 	host: {
 		'[class]': '_computedClass()',
 	},
-	hostDirectives: [BrnMenu],
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ng-content />
 	`,

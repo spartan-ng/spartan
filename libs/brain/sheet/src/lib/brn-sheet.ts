@@ -12,15 +12,15 @@ import { BrnDialog } from '@spartan-ng/brain/dialog';
 
 @Component({
 	selector: 'brn-sheet',
+	exportAs: 'brnSheet',
 	providers: [
 		{
 			provide: BrnDialog,
 			useExisting: forwardRef(() => BrnSheet),
 		},
 	],
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	encapsulation: ViewEncapsulation.None,
-	exportAs: 'brnSheet',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ng-content />
 	`,

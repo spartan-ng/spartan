@@ -5,10 +5,10 @@ import { BrnTooltip } from '@spartan-ng/brain/tooltip';
 	selector: 'hlm-tooltip',
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	hostDirectives: [BrnTooltip],
 	host: {
 		'[style]': '{display: "contents"}',
 	},
-	hostDirectives: [BrnTooltip],
 	template: `
 		<ng-content />
 	`,

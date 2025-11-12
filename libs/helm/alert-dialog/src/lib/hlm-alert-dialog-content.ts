@@ -5,12 +5,12 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-alert-dialog-content',
+	encapsulation: ViewEncapsulation.None,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[class]': '_computedClass()',
 		'[attr.data-state]': 'state()',
 	},
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	encapsulation: ViewEncapsulation.None,
 	template: `
 		<ng-content />
 	`,

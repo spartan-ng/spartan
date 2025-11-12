@@ -7,6 +7,7 @@ import { injectBrnSelect } from './brn-select.token';
 @Component({
 	selector: 'brn-select-value, hlm-select-value',
 	imports: [NgTemplateOutlet],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[id]': 'id()',
 		'[attr.data-placeholder]': '_showPlaceholder() ? "" : null',
@@ -22,7 +23,6 @@ import { injectBrnSelect } from './brn-select.token';
 			}
 		`,
 	],
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		@if (_showPlaceholder()) {
 			<ng-container [ngTemplateOutlet]="_customPlaceholderTemplate()?.templateRef ?? defaultPlaceholderTemplate" />

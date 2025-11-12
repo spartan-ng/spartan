@@ -26,6 +26,9 @@ const CONTAINER_POST_FIX = '-radio';
 
 @Component({
 	selector: 'brn-radio',
+	exportAs: 'brnRadio',
+	encapsulation: ViewEncapsulation.None,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'brn-radio',
 		'[attr.id]': '_hostId()',
@@ -44,9 +47,6 @@ const CONTAINER_POST_FIX = '-radio';
 		// the focus to the native element.
 		'(focus)': '_inputElement().nativeElement.focus()',
 	},
-	exportAs: 'brnRadio',
-	encapsulation: ViewEncapsulation.None,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	styles: `
 		[data-slot='indicator'] {
 			display: flex;

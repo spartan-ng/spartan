@@ -12,6 +12,7 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-slider, brn-slider [hlm]',
+	imports: [BrnSliderThumb, BrnSliderTrack, BrnSliderRange, BrnSliderTick],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [
 		{
@@ -23,7 +24,6 @@ import type { ClassValue } from 'clsx';
 	host: {
 		'[class]': '_computedClass()',
 	},
-	imports: [BrnSliderThumb, BrnSliderTrack, BrnSliderRange, BrnSliderTick],
 	template: `
 		<div brnSliderTrack class="bg-muted relative h-1.5 w-full grow overflow-hidden rounded-full">
 			<div class="bg-primary absolute h-full" brnSliderRange></div>

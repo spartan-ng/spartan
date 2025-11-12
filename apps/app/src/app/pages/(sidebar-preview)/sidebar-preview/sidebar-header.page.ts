@@ -8,13 +8,13 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 
 @Component({
 	selector: 'spartan-sidebar-header',
-	encapsulation: ViewEncapsulation.None,
 	imports: [HlmSidebarImports, HlmMenuImports, BrnMenuImports, NgIcon, HlmIcon],
 	providers: [
 		provideIcons({
 			lucideChevronDown,
 		}),
 	],
+	encapsulation: ViewEncapsulation.None,
 	styleUrl: 'sidebar-default.css',
 	template: `
 		<div hlmSidebarWrapper>

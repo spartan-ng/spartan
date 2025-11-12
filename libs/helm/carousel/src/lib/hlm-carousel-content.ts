@@ -5,8 +5,8 @@ import { HlmCarousel } from './hlm-carousel';
 
 @Component({
 	selector: 'hlm-carousel-content',
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	encapsulation: ViewEncapsulation.None,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[class]': '_computedClass()',
 	},

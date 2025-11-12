@@ -8,12 +8,12 @@ import type { ClassValue } from 'clsx';
 	selector: 'hlm-spinner',
 	imports: [NgIcon],
 	providers: [provideIcons({ lucideLoader })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		role: 'status',
 		'[attr.aria-label]': 'ariaLabel()',
 		class: 'inline-flex',
 	},
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ng-icon [name]="icon()" [class]="_computedClass()" />
 	`,

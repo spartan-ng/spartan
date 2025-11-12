@@ -23,11 +23,7 @@ interface ListItem {
 }
 
 @Component({
-	// eslint-disable-next-line @angular-eslint/component-selector
-	selector: 'music-side-menu',
-	host: {
-		class: 'block',
-	},
+	selector: 'spartan-music-side-menu',
 	imports: [SideMenuButton, NgIcon, HlmIcon, HlmScrollArea, NgScrollbarModule, NgClass],
 	providers: [
 		provideIcons({
@@ -41,6 +37,9 @@ interface ListItem {
 			lucideLibrary,
 		}),
 	],
+	host: {
+		class: 'block',
+	},
 	template: `
 		<div class="side-menu border-border hidden h-full border-r lg:block">
 			<div class="space-y-4 py-4">

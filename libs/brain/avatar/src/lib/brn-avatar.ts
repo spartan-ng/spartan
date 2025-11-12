@@ -3,8 +3,8 @@ import { BrnAvatarImage } from './image';
 
 @Component({
 	selector: 'brn-avatar',
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	encapsulation: ViewEncapsulation.None,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		@if (_image()?.canShow()) {
 			<ng-content select="[brnAvatarImage]" />

@@ -4,6 +4,7 @@ import { hlm } from '@spartan-ng/helm/utils';
 
 @Component({
 	selector: 'button[hlm-autocomplete-item]',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [
 		{
 			directive: BrnAutocompleteItem,
@@ -14,7 +15,6 @@ import { hlm } from '@spartan-ng/helm/utils';
 	host: {
 		'[class]': '_computedClass()',
 	},
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ng-content />
 	`,

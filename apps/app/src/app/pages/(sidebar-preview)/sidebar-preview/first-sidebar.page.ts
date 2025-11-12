@@ -6,7 +6,6 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 
 @Component({
 	selector: 'spartan-first-sidebar',
-	encapsulation: ViewEncapsulation.None,
 	imports: [HlmSidebarImports, NgIcon, HlmIcon],
 	providers: [
 		provideIcons({
@@ -17,6 +16,7 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 			lucideSettings,
 		}),
 	],
+	encapsulation: ViewEncapsulation.None,
 	styleUrl: 'sidebar-default.css',
 	template: `
 		<div hlmSidebarWrapper>

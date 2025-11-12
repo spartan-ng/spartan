@@ -37,12 +37,12 @@ const VERTICAL_KEYS_TO_PREVENT_DEFAULT = [
 
 @Directive({
 	selector: '[brnAccordion]',
+	exportAs: 'brnAccordion',
+	providers: [provideBrnAccordion(BrnAccordion)],
 	host: {
 		'[attr.data-state]': 'state()',
 		'[attr.data-orientation]': 'orientation()',
 	},
-	providers: [provideBrnAccordion(BrnAccordion)],
-	exportAs: 'brnAccordion',
 })
 export class BrnAccordion implements AfterContentInit, OnDestroy {
 	private readonly _el = inject(ElementRef<HTMLElement>);

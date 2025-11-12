@@ -4,11 +4,11 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-radio-indicator',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'data-slot': 'radio-group-indicator',
 		'[class]': '_computedClass()',
 	},
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div class="group-data-[checked=true]:bg-primary size-2 rounded-full bg-transparent"></div>
 	`,

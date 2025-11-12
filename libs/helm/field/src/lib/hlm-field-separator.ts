@@ -6,11 +6,11 @@ import { ClassValue } from 'clsx';
 @Component({
 	selector: 'hlm-field-separator',
 	imports: [HlmSeparator],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'data-slot': 'field-separator',
 		'[class]': '_computedClass()',
 	},
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-separator class="absolute inset-0 top-1/2" />
 		<span

@@ -5,6 +5,7 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-tabs',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [
 		{
 			directive: BrnTabs,
@@ -12,7 +13,6 @@ import type { ClassValue } from 'clsx';
 			outputs: ['tabActivated'],
 		},
 	],
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[class]': '_computedClass()',
 	},

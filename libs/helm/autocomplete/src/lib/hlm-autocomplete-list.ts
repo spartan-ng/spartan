@@ -4,16 +4,16 @@ import { hlm } from '@spartan-ng/helm/utils';
 
 @Component({
 	selector: 'hlm-autocomplete-list',
-	host: {
-		'[class]': '_computedClass()',
-	},
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [
 		{
 			directive: BrnAutocompleteList,
 			inputs: ['id'],
 		},
 	],
-	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		'[class]': '_computedClass()',
+	},
 	template: '<ng-content />',
 })
 export class HlmAutocompleteList {

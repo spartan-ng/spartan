@@ -5,11 +5,11 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-command-search',
+	providers: [provideHlmIconConfig({ size: 'sm' })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[class]': '_computedClass()',
 	},
-	providers: [provideHlmIconConfig({ size: 'sm' })],
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ng-content />
 	`,

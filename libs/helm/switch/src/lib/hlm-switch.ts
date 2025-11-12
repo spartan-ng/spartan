@@ -26,6 +26,8 @@ export const HLM_SWITCH_VALUE_ACCESSOR = {
 @Component({
 	selector: 'hlm-switch',
 	imports: [BrnSwitchThumb, BrnSwitch, HlmSwitchThumb],
+	providers: [HLM_SWITCH_VALUE_ACCESSOR],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'contents',
 		'[attr.id]': 'null',
@@ -33,8 +35,6 @@ export const HLM_SWITCH_VALUE_ACCESSOR = {
 		'[attr.aria-labelledby]': 'null',
 		'[attr.aria-describedby]': 'null',
 	},
-	providers: [HLM_SWITCH_VALUE_ACCESSOR],
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<brn-switch
 			[class]="_computedClass()"

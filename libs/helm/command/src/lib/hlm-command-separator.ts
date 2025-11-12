@@ -3,11 +3,11 @@ import { hlm } from '@spartan-ng/helm/utils';
 
 @Component({
 	selector: 'hlm-command-separator',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		role: 'separator',
 		'[class]': '_computedClass()',
 	},
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: '',
 })
 export class HlmCommandSeparator {

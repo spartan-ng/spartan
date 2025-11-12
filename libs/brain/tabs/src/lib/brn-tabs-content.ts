@@ -3,6 +3,7 @@ import { BrnTabs } from './brn-tabs';
 
 @Directive({
 	selector: '[brnTabsContent]',
+	exportAs: 'brnTabsContent',
 	host: {
 		role: 'tabpanel',
 		tabindex: '0',
@@ -10,7 +11,6 @@ import { BrnTabs } from './brn-tabs';
 		'[attr.aria-labelledby]': '_labelId()',
 		'[hidden]': '_isSelected() === false',
 	},
-	exportAs: 'brnTabsContent',
 })
 export class BrnTabsContent implements OnDestroy {
 	private readonly _root = inject(BrnTabs);

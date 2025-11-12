@@ -9,12 +9,12 @@ import type { ClassValue } from 'clsx';
 	selector: 'hlm-input-otp-separator',
 	imports: [HlmIcon, NgIcon],
 	providers: [provideIcons({ lucideMinus })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		role: 'separator',
 		'data-slot': 'input-otp-separator',
 		'[class]': '_computedClass()',
 	},
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ng-icon hlm name="lucideMinus" />
 	`,

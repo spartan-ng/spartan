@@ -8,13 +8,13 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-option',
+	imports: [NgIcon, HlmIcon],
+	providers: [provideIcons({ lucideCheck })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [{ directive: BrnSelectOption, inputs: ['disabled', 'value'] }],
-	providers: [provideIcons({ lucideCheck })],
 	host: {
 		'[class]': '_computedClass()',
 	},
-	imports: [NgIcon, HlmIcon],
 	template: `
 		<span class="absolute right-2 flex size-3.5 items-center justify-center">
 			@if (this._brnSelectOption.selected()) {

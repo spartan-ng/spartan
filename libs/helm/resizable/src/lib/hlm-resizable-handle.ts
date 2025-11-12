@@ -11,13 +11,13 @@ import { hlm } from '@spartan-ng/helm/utils';
 @Component({
 	selector: 'hlm-resizable-handle',
 	exportAs: 'hlmResizableHandle',
-	hostDirectives: [{ directive: BrnResizableHandle, inputs: ['withHandle', 'disabled'] }],
+	imports: [NgIcon, HlmIcon],
 	providers: [provideIcons({ lucideGripVertical })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	hostDirectives: [{ directive: BrnResizableHandle, inputs: ['withHandle', 'disabled'] }],
 	host: {
 		'[class]': '_computedClass()',
 	},
-	imports: [NgIcon, HlmIcon],
 	template: `
 		@if (_brnResizableHandle.withHandle()) {
 			<div class="bg-border z-10 flex h-4 w-3 items-center justify-center rounded-sm border">

@@ -5,6 +5,7 @@ import { HlmSheetOverlay } from './hlm-sheet-overlay';
 
 @Component({
 	selector: 'hlm-sheet',
+	exportAs: 'hlmSheet',
 	imports: [BrnSheetOverlay, HlmSheetOverlay],
 	providers: [
 		{
@@ -21,7 +22,6 @@ import { HlmSheetOverlay } from './hlm-sheet-overlay';
 	],
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	exportAs: 'hlmSheet',
 	template: `
 		<brn-sheet-overlay hlm />
 		<ng-content />

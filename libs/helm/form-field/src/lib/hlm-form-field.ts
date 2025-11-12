@@ -14,10 +14,10 @@ import { HlmError } from './hlm-error';
 
 @Component({
 	selector: 'hlm-form-field',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[class]': '_computedClass()',
 	},
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ng-content />
 

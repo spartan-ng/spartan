@@ -18,15 +18,15 @@ import { HlmCarousel } from './hlm-carousel';
 
 @Component({
 	selector: 'button[hlm-carousel-next], button[hlmCarouselNext]',
-	changeDetection: ChangeDetectionStrategy.OnPush,
+	imports: [NgIcon, HlmIcon],
+	providers: [provideIcons({ lucideArrowRight }), provideBrnButtonConfig({ variant: 'outline', size: 'icon' })],
 	encapsulation: ViewEncapsulation.None,
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	hostDirectives: [{ directive: HlmButton, inputs: ['variant', 'size'] }],
 	host: {
 		'[disabled]': 'isDisabled()',
 		'(click)': '_carousel.scrollNext()',
 	},
-	hostDirectives: [{ directive: HlmButton, inputs: ['variant', 'size'] }],
-	providers: [provideIcons({ lucideArrowRight }), provideBrnButtonConfig({ variant: 'outline', size: 'icon' })],
-	imports: [NgIcon, HlmIcon],
 	template: `
 		<ng-icon hlm size="sm" name="lucideArrowRight" />
 		<span class="sr-only">Next slide</span>

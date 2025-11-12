@@ -5,8 +5,8 @@ import { BrnDialog } from './brn-dialog';
 @Component({
 	selector: 'brn-dialog-overlay',
 	providers: [provideCustomClassSettableExisting(() => BrnDialogOverlay)],
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	encapsulation: ViewEncapsulation.None,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: '',
 })
 export class BrnDialogOverlay {

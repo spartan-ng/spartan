@@ -5,7 +5,6 @@ import { BrnTabsContent } from './brn-tabs-content';
 import { BrnTabsTrigger } from './brn-tabs-trigger';
 
 @Component({
-	standalone: true,
 	imports: [BrnTabs, BrnTabsTrigger, BrnTabsContent],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `

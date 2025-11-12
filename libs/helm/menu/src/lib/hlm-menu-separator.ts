@@ -4,10 +4,10 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-menu-separator',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[class]': '_computedClass()',
 	},
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: '',
 })
 export class HlmMenuSeparator {

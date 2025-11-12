@@ -9,12 +9,12 @@ import type { ClassValue } from 'clsx';
 	selector: '[hlmBreadcrumbSeparator]',
 	imports: [NgIcon],
 	providers: [provideIcons({ lucideChevronRight })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		role: 'presentation',
 		'aria-hidden': 'true',
 		'[class]': '_computedClass()',
 	},
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ng-content>
 			<ng-icon name="lucideChevronRight" />

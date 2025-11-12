@@ -21,11 +21,7 @@ import {
 } from '@spartan-ng/helm/menu';
 
 @Component({
-	// eslint-disable-next-line @angular-eslint/component-selector
-	selector: 'music-top-menu',
-	host: {
-		class: 'block',
-	},
+	selector: 'spartan-music-top-menu',
 	imports: [
 		BrnMenuTrigger,
 		HlmMenu,
@@ -46,6 +42,9 @@ import {
 		HlmIcon,
 	],
 	providers: [provideIcons({ lucideMicVocal, lucideGlobe })],
+	host: {
+		class: 'block',
+	},
 	template: `
 		<hlm-menu-bar class="w-fill border-0">
 			<button hlmMenuBarItem [brnMenuTriggerFor]="music" class="px-3 font-bold">Music</button>

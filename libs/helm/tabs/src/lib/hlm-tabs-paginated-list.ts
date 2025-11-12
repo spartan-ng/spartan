@@ -23,10 +23,10 @@ import { listVariants } from './hlm-tabs-list';
 	selector: 'hlm-paginated-tabs-list',
 	imports: [CdkObserveContent, NgIcon, HlmIcon],
 	providers: [provideIcons({ lucideChevronRight, lucideChevronLeft })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[class]': '_computedClass()',
 	},
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<button
 			#previousPaginator

@@ -3,8 +3,8 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 
 @Component({
 	selector: 'spartan-sidebar-menu-sub',
-	encapsulation: ViewEncapsulation.None,
 	imports: [HlmSidebarImports],
+	encapsulation: ViewEncapsulation.None,
 	styleUrl: 'sidebar-default.css',
 	template: `
 		<div hlmSidebarWrapper>

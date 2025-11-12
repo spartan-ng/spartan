@@ -7,6 +7,7 @@ let idSequence = 0;
 
 @Directive({
 	selector: 'button[brnDialogTrigger],button[brnDialogTriggerFor]',
+	exportAs: 'brnDialogTrigger',
 	host: {
 		'[id]': 'id()',
 		'(click)': 'open()',
@@ -15,7 +16,6 @@ let idSequence = 0;
 		'[attr.data-state]': 'state()',
 		'[attr.aria-controls]': 'dialogId',
 	},
-	exportAs: 'brnDialogTrigger',
 })
 export class BrnDialogTrigger {
 	protected _brnDialog = inject(BrnDialog, { optional: true });

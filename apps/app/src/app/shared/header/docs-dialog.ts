@@ -82,13 +82,6 @@ type AlgoliaHits = {
 
 @Component({
 	selector: 'spartan-docs-dialog',
-	providers: [
-		provideIcons({
-			lucideSearch,
-			lucideCornerDownLeft,
-			lucideArrowRight,
-		}),
-	],
 	imports: [
 		HlmButtonImports,
 		HlmKbdImports,
@@ -99,6 +92,13 @@ type AlgoliaHits = {
 		NgIcon,
 		BrnCommandImports,
 		FormsModule,
+	],
+	providers: [
+		provideIcons({
+			lucideSearch,
+			lucideCornerDownLeft,
+			lucideArrowRight,
+		}),
 	],
 	host: {
 		'(window:keydown)': '_onKeyDown($event)',

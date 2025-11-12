@@ -5,11 +5,11 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-menu-bar',
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	hostDirectives: [BrnMenuBar],
 	host: {
 		'[class]': '_computedClass()',
 	},
-	hostDirectives: [BrnMenuBar],
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: '<ng-content/>',
 })
 export class HlmMenuBar {

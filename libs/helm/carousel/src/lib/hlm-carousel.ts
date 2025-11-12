@@ -20,15 +20,15 @@ import {
 
 @Component({
 	selector: 'hlm-carousel',
-	changeDetection: ChangeDetectionStrategy.OnPush,
+	imports: [EmblaCarouselDirective],
 	encapsulation: ViewEncapsulation.None,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[class]': '_computedClass()',
 		role: 'region',
 		'aria-roledescription': 'carousel',
 		'(keydown)': 'onKeydown($event)',
 	},
-	imports: [EmblaCarouselDirective],
 	template: `
 		<div
 			emblaCarousel

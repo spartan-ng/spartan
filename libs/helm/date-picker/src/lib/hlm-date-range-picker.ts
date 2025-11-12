@@ -36,10 +36,10 @@ let nextId = 0;
 	selector: 'hlm-date-range-picker',
 	imports: [NgIcon, HlmIcon, BrnPopover, BrnPopoverTrigger, BrnPopoverContent, HlmPopoverContent, HlmCalendarRange],
 	providers: [HLM_DATE_RANGE_PICKER_VALUE_ACCESSOR, provideIcons({ lucideChevronDown })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'block',
 	},
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<brn-popover
 			sideOffset="5"

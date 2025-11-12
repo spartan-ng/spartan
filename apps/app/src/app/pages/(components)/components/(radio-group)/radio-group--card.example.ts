@@ -9,8 +9,8 @@ import { hlm } from '@spartan-ng/helm/utils';
 
 @Component({
 	selector: 'spartan-radio-card-preview',
-	providers: [provideIcons({ lucideCreditCard, remixPaypalFill, remixAppleFill })],
 	imports: [FormsModule, HlmRadioGroupImports, NgIcon, HlmIconImports],
+	providers: [provideIcons({ lucideCreditCard, remixPaypalFill, remixAppleFill })],
 	template: `
 		<hlm-radio-group class="grid grid-cols-3 gap-4" [(ngModel)]="payment">
 			<label class="flex items-center" hlmLabel [class]="cardClass">

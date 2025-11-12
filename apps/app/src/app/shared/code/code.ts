@@ -23,6 +23,7 @@ declare const Prism: typeof import('prismjs');
 	selector: 'spartan-code',
 	imports: [HlmButton, NgIcon, HlmIcon],
 	providers: [provideIcons({ lucideClipboard, lucideCheck })],
+	encapsulation: ViewEncapsulation.None,
 	host: {
 		class:
 			'spartan-scroll relative block font-mono rounded-md text-sm text-black dark:text-white bg-[#f8f8f8] dark:bg-zinc-900',
@@ -65,7 +66,6 @@ declare const Prism: typeof import('prismjs');
 			}
 		`,
 	],
-	encapsulation: ViewEncapsulation.None,
 	template: `
 		@if (fileName()) {
 			<div class="border-border flex flex-row gap-2 border-b px-4 py-2">

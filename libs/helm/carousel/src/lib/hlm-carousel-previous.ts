@@ -18,15 +18,15 @@ import { HlmCarousel } from './hlm-carousel';
 
 @Component({
 	selector: 'button[hlm-carousel-previous], button[hlmCarouselPrevious]',
-	changeDetection: ChangeDetectionStrategy.OnPush,
+	imports: [NgIcon, HlmIcon],
+	providers: [provideIcons({ lucideArrowLeft }), provideBrnButtonConfig({ variant: 'outline', size: 'icon' })],
 	encapsulation: ViewEncapsulation.None,
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	hostDirectives: [{ directive: HlmButton, inputs: ['variant', 'size'] }],
 	host: {
 		'[disabled]': 'isDisabled()',
 		'(click)': '_carousel.scrollPrev()',
 	},
-	hostDirectives: [{ directive: HlmButton, inputs: ['variant', 'size'] }],
-	providers: [provideIcons({ lucideArrowLeft }), provideBrnButtonConfig({ variant: 'outline', size: 'icon' })],
-	imports: [NgIcon, HlmIcon],
 	template: `
 		<ng-icon hlm size="sm" name="lucideArrowLeft" />
 		<span class="sr-only">Previous slide</span>

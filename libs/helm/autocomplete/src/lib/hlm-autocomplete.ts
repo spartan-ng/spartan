@@ -44,7 +44,6 @@ export const HLM_AUTOCOMPLETE_VALUE_ACCESSOR = {
 
 @Component({
 	selector: 'hlm-autocomplete',
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
 		NgTemplateOutlet,
 		BrnAutocomplete,
@@ -61,6 +60,7 @@ export const HLM_AUTOCOMPLETE_VALUE_ACCESSOR = {
 		BrnAutocompleteImports,
 	],
 	providers: [HLM_AUTOCOMPLETE_VALUE_ACCESSOR, provideIcons({ lucideSearch, lucideChevronDown, lucideCircleX })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[class]': '_computedClass()',
 	},

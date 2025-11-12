@@ -20,6 +20,16 @@ import { HlmCode } from '@spartan-ng/helm/typography';
 
 @Component({
 	selector: 'spartan-command-dialog',
+	imports: [
+		BrnCommandImports,
+		HlmCommandImports,
+		NgIcon,
+		HlmIconImports,
+		HlmButtonImports,
+		BrnDialogImports,
+		HlmDialogImports,
+		HlmCode,
+	],
 	providers: [
 		provideIcons({
 			lucideX,
@@ -31,16 +41,6 @@ import { HlmCode } from '@spartan-ng/helm/typography';
 			lucideCog,
 			lucideSearch,
 		}),
-	],
-	imports: [
-		BrnCommandImports,
-		HlmCommandImports,
-		NgIcon,
-		HlmIconImports,
-		HlmButtonImports,
-		BrnDialogImports,
-		HlmDialogImports,
-		HlmCode,
 	],
 	host: {
 		'(window:keydown)': 'onKeyDown($event)',

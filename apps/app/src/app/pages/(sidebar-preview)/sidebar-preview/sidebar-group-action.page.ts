@@ -8,7 +8,6 @@ import { toast } from 'ngx-sonner';
 
 @Component({
 	selector: 'spartan-sidebar-group-action',
-	encapsulation: ViewEncapsulation.None,
 	imports: [HlmSidebarImports, NgIcon, HlmIcon, HlmToasterImports],
 	providers: [
 		provideIcons({
@@ -18,6 +17,7 @@ import { toast } from 'ngx-sonner';
 			lucidePlus,
 		}),
 	],
+	encapsulation: ViewEncapsulation.None,
 	styleUrl: 'sidebar-default.css',
 	template: `
 		<hlm-toaster />

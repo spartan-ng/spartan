@@ -5,8 +5,8 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-avatar',
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	encapsulation: ViewEncapsulation.None,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[class]': '_computedClass()',
 	},

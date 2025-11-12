@@ -36,16 +36,16 @@ type TextareaVariants = VariantProps<typeof textareaVariants>;
 
 @Directive({
 	selector: '[hlmTextarea]',
-	host: {
-		'data-slot': 'textarea',
-		'[class]': '_computedClass()',
-	},
 	providers: [
 		{
 			provide: BrnFormFieldControl,
 			useExisting: forwardRef(() => HlmTextarea),
 		},
 	],
+	host: {
+		'data-slot': 'textarea',
+		'[class]': '_computedClass()',
+	},
 })
 export class HlmTextarea implements BrnFormFieldControl, DoCheck {
 	private readonly _injector = inject(Injector);

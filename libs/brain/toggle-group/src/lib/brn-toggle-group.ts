@@ -19,6 +19,7 @@ export class BrnButtonToggleChange<T = unknown> {
 
 @Directive({
 	selector: '[brnToggleGroup],brn-toggle-group',
+	exportAs: 'brnToggleGroup',
 	providers: [provideBrnToggleGroup(BrnToggleGroup), BRN_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR],
 	host: {
 		role: 'group',
@@ -26,7 +27,6 @@ export class BrnButtonToggleChange<T = unknown> {
 		'[attr.data-disabled]': 'disabledState()',
 		'(focusout)': 'onTouched()',
 	},
-	exportAs: 'brnToggleGroup',
 })
 export class BrnToggleGroup<T = unknown> implements ControlValueAccessor {
 	/** The type of the toggle group. */

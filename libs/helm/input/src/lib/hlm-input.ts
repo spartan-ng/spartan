@@ -36,15 +36,15 @@ type InputVariants = VariantProps<typeof inputVariants>;
 
 @Directive({
 	selector: '[hlmInput]',
-	host: {
-		'[class]': '_computedClass()',
-	},
 	providers: [
 		{
 			provide: BrnFormFieldControl,
 			useExisting: forwardRef(() => HlmInput),
 		},
 	],
+	host: {
+		'[class]': '_computedClass()',
+	},
 })
 export class HlmInput implements BrnFormFieldControl, DoCheck {
 	private readonly _injector = inject(Injector);

@@ -20,6 +20,7 @@ export type BrnPopoverAlign = 'start' | 'center' | 'end';
 
 @Component({
 	selector: 'brn-popover',
+	exportAs: 'brnPopover',
 	providers: [
 		{
 			provide: BrnDialog,
@@ -27,9 +28,8 @@ export type BrnPopoverAlign = 'start' | 'center' | 'end';
 		},
 		provideBrnDialogDefaultOptions(BRN_POPOVER_DIALOG_DEFAULT_OPTIONS),
 	],
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	encapsulation: ViewEncapsulation.None,
-	exportAs: 'brnPopover',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ng-content />
 	`,

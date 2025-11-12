@@ -28,6 +28,9 @@ export const HLM_CHECKBOX_VALUE_ACCESSOR = {
 @Component({
 	selector: 'hlm-checkbox',
 	imports: [BrnCheckbox, NgIcon, HlmIcon],
+	providers: [HLM_CHECKBOX_VALUE_ACCESSOR],
+	viewProviders: [provideIcons({ lucideCheck })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'contents peer',
 		'[attr.id]': 'null',
@@ -36,9 +39,6 @@ export const HLM_CHECKBOX_VALUE_ACCESSOR = {
 		'[attr.aria-describedby]': 'null',
 		'[attr.data-disabled]': '_disabled() ? "" : null',
 	},
-	providers: [HLM_CHECKBOX_VALUE_ACCESSOR],
-	viewProviders: [provideIcons({ lucideCheck })],
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<brn-checkbox
 			[id]="id()"

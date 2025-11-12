@@ -4,11 +4,11 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-alert-dialog-header',
+	encapsulation: ViewEncapsulation.None,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[class]': '_computedClass()',
 	},
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	encapsulation: ViewEncapsulation.None,
 	template: `
 		<ng-content />
 	`,

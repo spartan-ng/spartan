@@ -8,12 +8,12 @@ import { injectBrnNavigationMenu } from './brn-navigation-menu.token';
 
 @Directive({
 	selector: 'li[brnNavigationMenuItem]',
+	providers: [provideBrnNavigationMenuItem(BrnNavigationMenuItem), BrnNavigationMenuContentService],
 	host: {
 		'[id]': 'id()',
 		'[attr.data-disabled]': 'disabled() || null',
 		'data-slot': 'navigation-menu-item',
 	},
-	providers: [provideBrnNavigationMenuItem(BrnNavigationMenuItem), BrnNavigationMenuContentService],
 })
 export class BrnNavigationMenuItem {
 	private static _id = 0;

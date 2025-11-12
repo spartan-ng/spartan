@@ -8,9 +8,9 @@ import { HlmSidebarService } from './hlm-sidebar.service';
 @Component({
 	// eslint-disable-next-line @angular-eslint/component-selector
 	selector: 'button[hlmSidebarTrigger]',
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [HlmIcon, NgIcon],
 	providers: [provideIcons({ lucidePanelLeft }), provideBrnButtonConfig({ variant: 'ghost', size: 'icon' })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [
 		{
 			directive: HlmButton,

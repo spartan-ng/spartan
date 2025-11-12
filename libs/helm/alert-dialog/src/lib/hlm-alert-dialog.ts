@@ -9,6 +9,8 @@ import { HlmAlertDialogOverlay } from './hlm-alert-dialog-overlay';
 
 @Component({
 	selector: 'hlm-alert-dialog',
+	exportAs: 'hlmAlertDialog',
+	imports: [BrnAlertDialogOverlay, HlmAlertDialogOverlay],
 	providers: [
 		{
 			provide: BrnDialog,
@@ -18,10 +20,8 @@ import { HlmAlertDialogOverlay } from './hlm-alert-dialog-overlay';
 			...BRN_ALERT_DIALOG_DEFAULT_OPTIONS,
 		}),
 	],
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	encapsulation: ViewEncapsulation.None,
-	exportAs: 'hlmAlertDialog',
-	imports: [BrnAlertDialogOverlay, HlmAlertDialogOverlay],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<brn-alert-dialog-overlay hlm />
 		<ng-content />

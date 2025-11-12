@@ -27,6 +27,7 @@ import { Subject } from 'rxjs';
  */
 @Component({
 	selector: 'brn-tooltip-content',
+	imports: [NgTemplateOutlet],
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
@@ -36,7 +37,6 @@ import { Subject } from 'rxjs';
 		'(mouseleave)': '_handleMouseLeave($event)',
 		'aria-hidden': 'true',
 	},
-	imports: [NgTemplateOutlet],
 	template: `
 		<div
 			(mouseenter)="_contentHovered.set(true)"

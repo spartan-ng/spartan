@@ -33,9 +33,6 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-music-example',
-	host: {
-		class: 'block',
-	},
 	imports: [
 		TopMusicMenu,
 		SideMusicMenu,
@@ -60,6 +57,9 @@ export const routeMeta: RouteMeta = {
 		FallbackImage,
 	],
 	providers: [provideIcons({ lucideCirclePlus, lucideListMusic, lucidePodcast })],
+	host: {
+		class: 'block',
+	},
 	styles: `
 		.fallback-img {
 			filter: opacity(0.3);

@@ -39,6 +39,8 @@ let uniqueIdCounter = 0;
 
 @Component({
 	selector: 'brn-switch',
+	providers: [BRN_SWITCH_VALUE_ACCESSOR],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[style]': '{display: "contents"}',
 		'[attr.id]': '_state().id',
@@ -51,8 +53,6 @@ let uniqueIdCounter = 0;
 		'[attr.data-focus]': '_focused()',
 		'[attr.data-disabled]': '_state().disabled()',
 	},
-	providers: [BRN_SWITCH_VALUE_ACCESSOR],
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<button
 			#switch

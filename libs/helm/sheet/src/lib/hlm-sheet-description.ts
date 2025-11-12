@@ -5,10 +5,10 @@ import type { ClassValue } from 'clsx';
 
 @Directive({
 	selector: '[hlmSheetDescription]',
+	hostDirectives: [BrnSheetDescription],
 	host: {
 		'[class]': '_computedClass()',
 	},
-	hostDirectives: [BrnSheetDescription],
 })
 export class HlmSheetDescription {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

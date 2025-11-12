@@ -8,11 +8,11 @@ export type BrnCollapsibleState = 'open' | 'closed';
 
 @Directive({
 	selector: '[brnCollapsible],brn-collapsible',
+	providers: [provideBrnCollapsible(BrnCollapsible)],
 	host: {
 		'[attr.data-state]': 'state()',
 		'[attr.disabled]': 'disabled() ? true : undefined',
 	},
-	providers: [provideBrnCollapsible(BrnCollapsible)],
 })
 export class BrnCollapsible {
 	public readonly contentId = signal(`brn-collapsible-content-${++collapsibleContentIdSequence}`);

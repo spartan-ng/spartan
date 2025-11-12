@@ -8,6 +8,7 @@ import { outputFromObservable } from '@angular/core/rxjs-interop';
 	hostDirectives: [CdkMenuItemCheckbox],
 	host: {
 		'[class.checked]': 'checked()',
+		'[attr.data-checked]': 'checked() ? "" : null',
 		'[disabled]': 'disabled()',
 	},
 })

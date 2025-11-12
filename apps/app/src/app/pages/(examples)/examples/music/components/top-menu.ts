@@ -55,7 +55,7 @@ import {
 		</hlm-menu-bar>
 
 		<ng-template #music>
-			<hlm-menu variant="menubar" class="w-48">
+			<hlm-menu sideOffset="1.5" class="w-48">
 				<hlm-menu-group>
 					<button hlmMenuItem>
 						About Music
@@ -86,7 +86,7 @@ import {
 		</ng-template>
 
 		<ng-template #file>
-			<hlm-menu variant="menubar" class="w-48">
+			<hlm-menu sideOffset="1.5" class="w-48">
 				<hlm-menu-group>
 					<button hlmMenuItem [brnMenuTriggerFor]="new">
 						New
@@ -173,7 +173,7 @@ import {
 		</ng-template>
 
 		<ng-template #edit>
-			<hlm-menu variant="menubar" class="w-48">
+			<hlm-menu sideOffset="1.5" class="w-48">
 				<hlm-menu-group>
 					<button hlmMenuItem disabled>
 						Undo
@@ -221,7 +221,7 @@ import {
 			</hlm-menu>
 		</ng-template>
 		<ng-template #view>
-			<hlm-menu variant="menubar" class="w-48">
+			<hlm-menu sideOffset="1.5" class="w-48">
 				<hlm-menu-group>
 					<button inset hlmMenuItem>Show Playing Next</button>
 					<button hlmMenuItemCheckbox checked>
@@ -240,7 +240,7 @@ import {
 		</ng-template>
 
 		<ng-template #account>
-			<hlm-menu variant="menubar" class="w-48">
+			<hlm-menu sideOffset="1.5" class="w-48">
 				<hlm-menu-group>
 					<button inset hlmMenuItem class="font-semibold">Switch Account</button>
 					<button inset hlmMenuItem>Andy</button>

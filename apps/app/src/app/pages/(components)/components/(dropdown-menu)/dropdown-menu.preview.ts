@@ -42,9 +42,8 @@ import { HlmMenuImports } from '@spartan-ng/helm/menu';
 		}),
 	],
 	template: `
-		<div class="flex w-full items-center justify-center pt-[20%]">
-			<button hlmBtn variant="outline" align="end" [brnMenuTriggerFor]="menu">Open</button>
-		</div>
+		<button hlmBtn variant="outline" align="start" [brnMenuTriggerFor]="menu">Open</button>
+
 		<ng-template #menu>
 			<hlm-menu class="w-56">
 				<hlm-menu-label>My Account</hlm-menu-label>

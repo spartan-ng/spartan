@@ -10,9 +10,11 @@ import { HlmMenuImports } from '@spartan-ng/helm/menu';
 		<button hlmBtn variant="outline" [brnMenuTriggerFor]="menu">Open</button>
 
 		<ng-template #menu>
-			<hlm-menu>
+			<hlm-menu class="w-56">
 				<hlm-menu-group>
 					<hlm-menu-label>Appearance</hlm-menu-label>
+
+					<hlm-menu-separator />
 
 					<button hlmMenuItemCheckbox [checked]="statusBar()" (triggered)="statusBar.set(!statusBar())">
 						<hlm-menu-item-check />

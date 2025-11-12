@@ -6,6 +6,7 @@ import type { ClassValue } from 'clsx';
 @Directive({
 	selector: '[hlmMenuLabel],hlm-menu-label',
 	host: {
+		'data-slot': 'dropdown-menu-label',
 		'[class]': '_computedClass()',
 		'[attr.data-inset]': 'inset() ? "" : null',
 	},

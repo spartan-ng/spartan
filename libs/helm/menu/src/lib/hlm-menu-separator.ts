@@ -5,6 +5,7 @@ import type { ClassValue } from 'clsx';
 @Directive({
 	selector: '[hlmMenuSeparator],hlm-menu-separator',
 	host: {
+		'data-slot': 'dropdown-menu-separator',
 		'[class]': '_computedClass()',
 	},
 })

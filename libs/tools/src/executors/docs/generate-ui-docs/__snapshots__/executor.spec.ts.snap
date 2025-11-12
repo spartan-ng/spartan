@@ -5027,7 +5027,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "div[hlmSidebarMenuSkeleton]",
+        "selector": "hlm-sidebar-menu-skeleton,div[hlmSidebarMenuSkeleton]",
       },
       "HlmSidebarMenuSub": {
         "inputs": [

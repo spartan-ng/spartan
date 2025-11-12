@@ -10,11 +10,11 @@ const meta: Meta<HlmMenu> = {
 	component: HlmMenu,
 	tags: ['autodocs'],
 	args: {
-		variant: 'default',
+		sideOffset: '1.5',
 	},
 	argTypes: {
-		variant: {
-			options: ['default', 'menubar'],
+		sideOffset: {
+			options: ['1', '1.5', '2'],
 			control: {
 				type: 'select',
 			},
@@ -42,7 +42,7 @@ export const Default: Story = {
     </hlm-menu-bar>
 
     <ng-template #file>
-      <hlm-menu ${argsToTemplate(args)} variant='menubar' class='w-48'>
+      <hlm-menu ${argsToTemplate(args)} class='w-48'>
         <hlm-menu-group>
           <button hlmMenuItem>
             New Tab
@@ -87,7 +87,7 @@ export const Default: Story = {
     </ng-template>
 
     <ng-template #edit>
-      <hlm-menu variant='menubar' class='w-48'>
+      <hlm-menu ${argsToTemplate(args)} class='w-48'>
         <hlm-menu-group>
           <button hlmMenuItem>
             Undo
@@ -133,7 +133,7 @@ export const Default: Story = {
     </ng-template>
 
     <ng-template #view>
-      <hlm-menu variant='menubar'>
+      <hlm-menu ${argsToTemplate(args)}>
         <button hlmMenuItemCheckbox>
           <hlm-menu-item-check />
           Always Show Bookmarks Bar
@@ -163,7 +163,7 @@ export const Default: Story = {
     </ng-template>
 
     <ng-template #profiles>
-      <hlm-menu variant='menubar' class='w-48'>
+      <hlm-menu ${argsToTemplate(args)} class='w-48'>
         <button hlmMenuItemRadio>
           <hlm-menu-item-radio />
           Andy

@@ -45,6 +45,7 @@ module.exports = [
 			'@angular-eslint/prefer-output-readonly': 'error',
 			'@angular-eslint/prefer-on-push-component-change-detection': ['error'],
 			'@angular-eslint/prefer-signals': ['error'],
+			'@nx/workspace-avoid-component-styles': 'error',
 		},
 	},
 	{

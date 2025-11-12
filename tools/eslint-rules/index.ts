@@ -1,3 +1,4 @@
+import { rule as avoidComponentStyles, RULE_NAME as avoidComponentStylesName } from './rules/avoid-component-styles';
 import {
 	rule as preferRxjsOperatorCompat,
 	RULE_NAME as preferRxjsOperatorCompatName,
@@ -27,5 +28,5 @@ module.exports = {
 	 *  [myCustomRuleName]: myCustomRule
 	 * }
 	 */
-	rules: { [preferRxjsOperatorCompatName]: preferRxjsOperatorCompat },
+	rules: { [preferRxjsOperatorCompatName]: preferRxjsOperatorCompat, [avoidComponentStylesName]: avoidComponentStyles },
 };

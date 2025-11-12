@@ -9,6 +9,7 @@ import { BrnMenuTrigger } from './lib/brn-menu-trigger';
 
 export * from './lib/brn-context-menu-trigger';
 export * from './lib/brn-menu';
+export * from './lib/brn-menu-align';
 export * from './lib/brn-menu-bar';
 export * from './lib/brn-menu-group';
 export * from './lib/brn-menu-item';

@@ -1,41 +1,10 @@
 import { Component } from '@angular/core';
-import { BrnMenuTrigger } from '@spartan-ng/brain/menu';
-
-import {
-	HlmMenu,
-	HlmMenuBar,
-	HlmMenuBarItem,
-	HlmMenuGroup,
-	HlmMenuItem,
-	HlmMenuItemCheck,
-	HlmMenuItemCheckbox,
-	HlmMenuItemRadio,
-	HlmMenuItemRadioIndicator,
-	HlmMenuItemSubIndicator,
-	HlmMenuSeparator,
-	HlmMenuShortcut,
-	HlmSubMenu,
-} from '@spartan-ng/helm/menu';
+import { BrnMenuImports } from '@spartan-ng/brain/menu';
+import { HlmMenuImports } from '@spartan-ng/helm/menu';
 
 @Component({
 	selector: 'spartan-menubar-preview',
-	imports: [
-		BrnMenuTrigger,
-		HlmMenu,
-		HlmMenuBar,
-		HlmSubMenu,
-		HlmMenuItem,
-		HlmMenuItemSubIndicator,
-		HlmMenuShortcut,
-		HlmMenuSeparator,
-		HlmMenuBarItem,
-		HlmMenuItemCheck,
-		HlmMenuItemRadio,
-		HlmMenuGroup,
-		HlmMenuItemCheckbox,
-		HlmMenuItemRadio,
-		HlmMenuItemRadioIndicator,
-	],
+	imports: [BrnMenuImports, HlmMenuImports],
 	template: `
 		<hlm-menu-bar class="w-fit">
 			<button hlmMenuBarItem [brnMenuTriggerFor]="file">File</button>
@@ -45,7 +14,7 @@ import {
 		</hlm-menu-bar>
 
 		<ng-template #file>
-			<hlm-menu variant="menubar" class="w-48">
+			<hlm-menu sideOffset="1.5" class="w-48">
 				<hlm-menu-group>
 					<button hlmMenuItem>
 						New Tab
@@ -82,7 +51,7 @@ import {
 		</ng-template>
 
 		<ng-template #edit>
-			<hlm-menu variant="menubar" class="w-48">
+			<hlm-menu sideOffset="1.5" class="w-48">
 				<hlm-menu-group>
 					<button hlmMenuItem>
 						Undo
@@ -119,7 +88,7 @@ import {
 		</ng-template>
 
 		<ng-template #view>
-			<hlm-menu variant="menubar">
+			<hlm-menu sideOffset="1.5">
 				<button hlmMenuItemCheckbox>
 					<hlm-menu-item-check />
 					Always Show Bookmarks Bar
@@ -145,7 +114,7 @@ import {
 		</ng-template>
 
 		<ng-template #profiles>
-			<hlm-menu variant="menubar" class="w-48">
+			<hlm-menu sideOffset="1.5" class="w-48">
 				<button hlmMenuItemRadio>
 					<hlm-menu-item-radio />
 					Andy
@@ -169,32 +138,16 @@ import {
 export class MenubarPreview {}
 
 export const defaultImports = `
-import { BrnMenuTrigger } from '@spartan-ng/brain/menu';
-import {
-  HlmMenuBar
-  HlmMenuBarItem
-  HlmMenu
-  HlmMenuGroup
-  HlmMenuItemCheckbox
-  HlmMenuItemCheck
-  HlmMenuItem
-  HlmMenuItemIcon
-  HlmMenuItemRadio
-  HlmMenuItemRadio
-  HlmMenuItemSubIndicator
-  HlmMenuLabel
-  HlmMenuSeparator
-  HlmMenuShortcut
-  HlmSubMenu
-} from '@spartan-ng/helm/menu';
+import { BrnMenuImports } from '@spartan-ng/brain/menu';
+import { HlmMenuImports } from '@spartan-ng/helm/menu';
 `;
 export const defaultSkeleton = `
-<hlm-menu-bar class='w-fit'>
-    <button hlmMenuBarItem brnMenuItem [brnMenuTriggerFor]='file'>File</button>
+<hlm-menu-bar class="w-fit">
+    <button hlmMenuBarItem brnMenuItem [brnMenuTriggerFor]="file">File</button>
 </div>
 
 <ng-template #file>
-  <hlm-menu variant='menubar' class='w-48'>
+  <hlm-menu sideOffset="1.5" class="w-48">
     <div brnMenuGroup>
       <button hlmMenuItem>
         New Tab
@@ -204,7 +157,7 @@ export const defaultSkeleton = `
 
     <hlm-menu-separator />
 
-    <button hlmMenuItem [brnMenuTriggerFor]='share'>
+    <button hlmMenuItem [brnMenuTriggerFor]="share">
       Share
       <hlm-menu-item-sub-indicator />
     </button>

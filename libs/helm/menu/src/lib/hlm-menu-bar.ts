@@ -7,6 +7,7 @@ import type { ClassValue } from 'clsx';
 	selector: '[hlmMenuBar],hlm-menu-bar',
 	hostDirectives: [BrnMenuBar],
 	host: {
+		'data-slot': 'menubar',
 		'[class]': '_computedClass()',
 	},
 })

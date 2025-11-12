@@ -8,8 +8,8 @@ import type { ClassValue } from 'clsx';
 	hostDirectives: [
 		{
 			directive: BrnMenuItemCheckbox,
-			inputs: ['disabled: disabled', 'checked: checked'],
-			outputs: ['triggered: triggered'],
+			inputs: ['disabled', 'checked'],
+			outputs: ['triggered'],
 		},
 	],
 	host: {

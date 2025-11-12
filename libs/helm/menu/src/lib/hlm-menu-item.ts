@@ -9,8 +9,8 @@ import type { ClassValue } from 'clsx';
 	hostDirectives: [
 		{
 			directive: BrnMenuItem,
-			inputs: ['disabled: disabled'],
-			outputs: ['triggered: triggered'],
+			inputs: ['disabled'],
+			outputs: ['triggered'],
 		},
 	],
 	host: {

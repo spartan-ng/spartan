@@ -3254,7 +3254,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "disabled",
             "required": false,
-            "type": "unknown",
+            "type": "boolean",
           },
         ],
         "models": [],
@@ -3266,12 +3266,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "checked",
             "required": false,
-            "type": "unknown",
+            "type": "boolean",
           },
           {
             "name": "disabled",
             "required": false,
-            "type": "unknown",
+            "type": "boolean",
           },
         ],
         "models": [],
@@ -3283,12 +3283,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "checked",
             "required": false,
-            "type": "unknown",
+            "type": "boolean",
           },
           {
             "name": "disabled",
             "required": false,
-            "type": "unknown",
+            "type": "boolean",
           },
         ],
         "models": [],
@@ -3322,14 +3322,14 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "ClassValue",
           },
           {
-            "name": "variant",
+            "name": "sideOffset",
             "required": false,
-            "type": "MenuVariants['variant']",
+            "type": "number",
           },
         ],
         "models": [],
         "outputs": [],
-        "selector": "hlm-menu",
+        "selector": "[hlmMenu],hlm-menu",
       },
       "HlmMenuBar": {
         "inputs": [
@@ -3341,9 +3341,31 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "hlm-menu-bar",
+        "selector": "[hlmMenuBar],hlm-menu-bar",
       },
       "HlmMenuBarItem": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "inset",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "variant",
+            "required": false,
+            "type": "'default' | 'destructive'",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmMenuBarItem]",
+      },
+      "HlmMenuGroup": {
         "inputs": [
           {
             "name": "class",
@@ -3353,13 +3375,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "[hlmMenuBarItem]",
-      },
-      "HlmMenuGroup": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "hlm-menu-group",
+        "selector": "[hlmMenuGroup],hlm-menu-group",
       },
       "HlmMenuItem": {
         "inputs": [
@@ -3470,7 +3486,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "hlm-menu-label",
+        "selector": "[hlmMenuLabel],hlm-menu-label",
       },
       "HlmMenuSeparator": {
         "inputs": [
@@ -3482,7 +3498,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "hlm-menu-separator",
+        "selector": "[hlmMenuSeparator],hlm-menu-separator",
       },
       "HlmMenuShortcut": {
         "inputs": [
@@ -3494,7 +3510,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "hlm-menu-shortcut",
+        "selector": "[hlmMenuShortcut],hlm-menu-shortcut",
       },
       "HlmSubMenu": {
         "inputs": [
@@ -3506,7 +3522,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "hlm-sub-menu",
+        "selector": "[hlmSubMenu],hlm-sub-menu",
       },
     },
   },

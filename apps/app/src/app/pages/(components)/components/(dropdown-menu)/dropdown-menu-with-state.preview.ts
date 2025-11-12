@@ -1,41 +1,14 @@
 import { Component } from '@angular/core';
-import { NgIcon, provideIcons } from '@ng-icons/core';
+import { provideIcons } from '@ng-icons/core';
 import { lucideUndo2 } from '@ng-icons/lucide';
-import { BrnMenuTrigger } from '@spartan-ng/brain/menu';
-import { HlmButton } from '@spartan-ng/helm/button';
-import { HlmIcon } from '@spartan-ng/helm/icon';
-import {
-	HlmMenu,
-	HlmMenuGroup,
-	HlmMenuItem,
-	HlmMenuItemCheck,
-	HlmMenuItemCheckbox,
-	HlmMenuItemIcon,
-	HlmMenuItemRadio,
-	HlmMenuItemRadioIndicator,
-	HlmMenuLabel,
-	HlmMenuSeparator,
-} from '@spartan-ng/helm/menu';
+import { BrnMenuImports } from '@spartan-ng/brain/menu';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmIconImports } from '@spartan-ng/helm/icon';
+import { HlmMenuImports } from '@spartan-ng/helm/menu';
 
 @Component({
 	selector: 'spartan-dropdown-with-state',
-	imports: [
-		BrnMenuTrigger,
-		HlmMenu,
-		HlmMenuItem,
-		HlmMenuLabel,
-		HlmMenuSeparator,
-		HlmMenuItemIcon,
-		HlmMenuItemCheck,
-		HlmMenuItemRadio,
-		HlmMenuGroup,
-		HlmMenuItemRadio,
-		HlmMenuItemCheckbox,
-		HlmButton,
-		NgIcon,
-		HlmIcon,
-		HlmMenuItemRadioIndicator,
-	],
+	imports: [BrnMenuImports, HlmMenuImports, HlmButtonImports, HlmIconImports],
 	providers: [provideIcons({ lucideUndo2 })],
 	template: `
 		<div class="flex w-full items-center justify-center pt-[20%]">

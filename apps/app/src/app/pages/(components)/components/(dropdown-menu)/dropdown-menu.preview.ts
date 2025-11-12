@@ -16,33 +16,13 @@ import {
 	lucideSmile,
 	lucideUser,
 } from '@ng-icons/lucide';
-import { BrnMenuTrigger } from '@spartan-ng/brain/menu';
-import { HlmButton } from '@spartan-ng/helm/button';
-import {
-	HlmMenu,
-	HlmMenuGroup,
-	HlmMenuItem,
-	HlmMenuItemSubIndicator,
-	HlmMenuLabel,
-	HlmMenuSeparator,
-	HlmMenuShortcut,
-	HlmSubMenu,
-} from '@spartan-ng/helm/menu';
+import { BrnMenuImports } from '@spartan-ng/brain/menu';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmMenuImports } from '@spartan-ng/helm/menu';
 
 @Component({
 	selector: 'spartan-dropdown-preview',
-	imports: [
-		BrnMenuTrigger,
-		HlmMenu,
-		HlmSubMenu,
-		HlmMenuItem,
-		HlmMenuItemSubIndicator,
-		HlmMenuLabel,
-		HlmMenuShortcut,
-		HlmMenuSeparator,
-		HlmMenuGroup,
-		HlmButton,
-	],
+	imports: [BrnMenuImports, HlmMenuImports, HlmButtonImports],
 	providers: [
 		provideIcons({
 			lucideUser,
@@ -149,18 +129,8 @@ import {
 export class DropdownPreview {}
 
 export const defaultImports = `
-import { BrnMenuTrigger } from '@spartan-ng/brain/menu';
-import {
-  HlmMenu
-  HlmMenuGroup
-  HlmMenuItem
-  HlmMenuItemIcon
-  HlmMenuItemSubIndicator
-  HlmMenuLabel
-  HlmMenuSeparator
-  HlmMenuShortcut
-  HlmSubMenu
-} from '@spartan-ng/helm/menu';
+import { BrnMenuImports } from '@spartan-ng/brain/menu';
+import { HlmMenuImports } from '@spartan-ng/helm/menu';
 `;
 
 export const defaultSkeleton = `

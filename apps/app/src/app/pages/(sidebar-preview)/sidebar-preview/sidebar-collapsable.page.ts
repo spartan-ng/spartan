@@ -1,30 +1,29 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown, lucideLifeBuoy, lucideSend } from '@ng-icons/lucide';
-import { BrnCollapsibleImports } from '@spartan-ng/brain/collapsible';
+import { HlmCollapsibleImports } from '@spartan-ng/helm/collapsible';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 
-@Component({
-	selector: 'spartan-sidebar-collapsable',
-	encapsulation: ViewEncapsulation.None,
-	imports: [HlmIcon, NgIcon, BrnCollapsibleImports, HlmSidebarImports],
-	providers: [
+@Component({selector: 'spartan-sidebar-collapsable',
+encapsulation: ViewEncapsulation.None,
+imports: [HlmIcon, NgIcon, HlmCollapsibleImports, HlmSidebarImports],
+providers: [
 		provideIcons({
 			lucideLifeBuoy,
 			lucideSend,
 			lucideChevronDown,
 		}),
 	],
-	styleUrl: 'sidebar-default.css',
-	template: `
+styleUrl: 'sidebar-default.css',
+template: `
 		<div hlmSidebarWrapper>
 			<hlm-sidebar>
 				<div hlmSidebarContent>
-					<brn-collapsible [expanded]="true" class="group/collapsible">
+					<hlm-collapsible [expanded]="true" class="group/collapsible">
 						<div hlmSidebarGroup>
 							<button
-								brnCollapsibleTrigger
+								hlmCollapsibleTrigger
 								hlmSidebarGroupLabel
 								class="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground text-sm"
 							>
@@ -35,7 +34,7 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 									class="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180"
 								/>
 							</button>
-							<brn-collapsible-content>
+							<hlm-collapsible-content>
 								<div hlmSidebarGroupContent>
 									<ul hlmSidebarMenu>
 										<li hlmSidebarMenuItem>
@@ -52,9 +51,9 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 										</li>
 									</ul>
 								</div>
-							</brn-collapsible-content>
+							</hlm-collapsible-content>
 						</div>
-					</brn-collapsible>
+					</hlm-collapsible>
 				</div>
 			</hlm-sidebar>
 			<main hlmSidebarInset>
@@ -63,6 +62,5 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 				</header>
 			</main>
 		</div>
-	`,
-})
+	`})
 export default class SidebarCollapsablePage {}

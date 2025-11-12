@@ -5,7 +5,7 @@ import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmCollapsibleImports } from '@spartan-ng/helm/collapsible';
 
 @Component({
-	selector: 'spartan-collapsible-preview',
+	selector: 'spartan-collapsible-animated-example',
 	imports: [HlmCollapsibleImports, HlmButtonImports, NgIcon],
 	providers: [provideIcons({ lucideChevronsUpDown })],
 	template: `
@@ -18,22 +18,13 @@ import { HlmCollapsibleImports } from '@spartan-ng/helm/collapsible';
 				</button>
 			</div>
 			<div class="rounded-md border px-4 py-2 font-mono text-sm">&#64;radix-ui/primitives</div>
-			<hlm-collapsible-content class="flex flex-col gap-2">
+			<hlm-collapsible-content
+				class="flex origin-top flex-col gap-2 transition-all ease-out data-[state=closed]:flex data-[state=closed]:-translate-y-1 data-[state=closed]:scale-80 data-[state=closed]:opacity-0"
+			>
 				<div class="rounded-md border px-4 py-2 font-mono text-sm">&#64;radix-ui/colors</div>
 				<div class="rounded-md border px-4 py-2 font-mono text-sm">&#64;stitches/react</div>
 			</hlm-collapsible-content>
 		</hlm-collapsible>
 	`,
 })
-export class CollapsiblePreview {}
-
-export const defaultImports = `
-import { HlmCollapsibleImports } from '@spartan-ng/helm/collapsible';
-`;
-
-export const defaultSkeleton = `
-<hlm-collapsible>
-  <button hlmCollapsibleTrigger>Can I use this in my project?</button>
-  <hlm-collapsible-content> Yes. Free to use for personal and commercial projects. No attribution required. </hlm-collapsible-content>
-</hlm-collapsible>
-`;
+export class CollapsibleAnimatedExample {}

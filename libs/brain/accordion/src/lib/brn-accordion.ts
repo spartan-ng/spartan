@@ -1,157 +1,17 @@
-import { type FocusableOption, FocusKeyManager, FocusMonitor } from '@angular/cdk/a11y';
-import { type BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
+import { FocusKeyManager, FocusMonitor } from '@angular/cdk/a11y';
 import {
 	type AfterContentInit,
 	computed,
 	contentChildren,
 	Directive,
-	effect,
 	ElementRef,
 	inject,
 	input,
-	isDevMode,
 	type OnDestroy,
-	output,
 	signal,
-	untracked,
 } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { fromEvent } from 'rxjs';
-
-@Directive({
-	selector: '[brnAccordionItem]',
-	host: {
-		'[attr.data-state]': 'state()',
-	},
-	exportAs: 'brnAccordionItem',
-})
-export class BrnAccordionItem {
-	private static _itemIdGenerator = 0;
-	public readonly id = ++BrnAccordionItem._itemIdGenerator;
-	private readonly _accordion = inject(BrnAccordion);
-	/**
-	 * Whether the item is opened or closed.
-	 * @default false
-	 */
-	public readonly isOpened = input<boolean, BooleanInput>(false, { transform: coerceBooleanProperty });
-	/**
-	 * Computed state of the item, either 'open' or 'closed'
-	 * @default closed
-	 */
-	public readonly state = computed(() => (this._accordion.openItemIds().includes(this.id) ? 'open' : 'closed'));
-	/**
-	 * Emits boolean when the item is opened or closed.
-	 */
-	public readonly stateChange = output<'open' | 'closed'>();
-	/**
-	 * Emits state change when item is opened or closed
-	 */
-	public readonly openedChange = output<boolean>();
-
-	constructor() {
-		if (!this._accordion) {
-			throw Error('Accordion item can only be used inside an Accordion. Add brnAccordion to ancestor.');
-		}
-		effect(() => {
-			const state = this.state();
-			untracked(() => {
-				this.stateChange.emit(state);
-				this.openedChange.emit(state === 'open');
-			});
-		});
-		effect(() => {
-			const isOpened = this.isOpened();
-			untracked(() => {
-				if (isOpened) {
-					this._accordion.openItem(this.id);
-				} else {
-					this._accordion.closeItem(this.id);
-				}
-			});
-		});
-	}
-}
-
-@Directive({
-	selector: '[brnAccordionTrigger]',
-	host: {
-		'[attr.data-state]': 'state()',
-		'[attr.aria-expanded]': 'state() === "open"',
-		'[attr.aria-controls]': 'ariaControls',
-		'[id]': 'id',
-		'[attr.role]': '"button"',
-		'(click)': 'toggle($event)',
-		'(keyup.space)': 'toggle($event)',
-		'(keyup.enter)': 'toggle($event)',
-	},
-})
-export class BrnAccordionTrigger implements FocusableOption {
-	private readonly _accordion = inject(BrnAccordion);
-	private readonly _item = inject(BrnAccordionItem);
-	private readonly _el = inject(ElementRef<HTMLElement>);
-
-	public readonly state = this._item.state;
-	public readonly id = `brn-accordion-trigger-${this._item.id}`;
-	public readonly ariaControls = `brn-accordion-content-${this._item.id}`;
-	constructor() {
-		if (!this._accordion) throw Error('Accordion trigger requires a parent Accordion.');
-		if (!this._item) throw Error('Accordion trigger requires a parent AccordionItem.');
-		this.validateAriaStructure();
-
-		fromEvent(this._el.nativeElement, 'focus')
-			.pipe(takeUntilDestroyed())
-			.subscribe(() => {
-				this._accordion.setActiveItem(this);
-			});
-	}
-
-	protected toggle(event: Event): void {
-		event.preventDefault();
-		this._accordion.toggleItem(this._item.id);
-	}
-
-	public focus() {
-		this._el.nativeElement.focus();
-	}
-
-	private validateAriaStructure(): void {
-		const element = this._el.nativeElement;
-
-		const isButton = element.tagName === 'BUTTON';
-		const hasButtonRole = element.getAttribute('role') === 'button';
-
-		if (!isButton && !hasButtonRole) {
-			throw Error(
-				`BrnAccordionTrigger: The trigger element must be a <button> or have role="button". ` +
-					`Found: <${element.tagName.toLowerCase()}>`,
-			);
-		}
-
-		const parent = element.parentElement;
-		if (!parent) {
-			const message = 'BrnAccordionTrigger: The trigger button must be wrapped in a heading element.';
-			if (isDevMode()) {
-				throw Error(message);
-			} else {
-				console.warn(message);
-			}
-		}
-
-		const isNativeHeading = /^H[1-6]$/.test(parent.tagName);
-		const hasHeadingRole = parent.getAttribute('role') === 'heading';
-
-		if (!isNativeHeading && !hasHeadingRole) {
-			throw Error(
-				`BrnAccordionTrigger: The trigger button must be wrapped in a heading element ` +
-					`(h1-h6) or an element with role="heading". Found parent: <${parent.tagName.toLowerCase()}>`,
-			);
-		}
-
-		if (hasHeadingRole && !parent.hasAttribute('aria-level')) {
-			throw Error('BrnAccordionTrigger: Elements with role="heading" must have an aria-level attribute.');
-		}
-	}
-}
+import { provideBrnAccordion } from './brn-accordion-token';
+import { BrnAccordionTrigger } from './brn-accordion-trigger';
 
 const HORIZONTAL_KEYS_TO_PREVENT_DEFAULT = [
 	'ArrowLeft',
@@ -181,6 +41,7 @@ const VERTICAL_KEYS_TO_PREVENT_DEFAULT = [
 		'[attr.data-state]': 'state()',
 		'[attr.data-orientation]': 'orientation()',
 	},
+	providers: [provideBrnAccordion(BrnAccordion)],
 	exportAs: 'brnAccordion',
 })
 export class BrnAccordion implements AfterContentInit, OnDestroy {

@@ -11,7 +11,7 @@
 import type { TSESTree } from '@typescript-eslint/utils';
 import { ESLintUtils } from '@typescript-eslint/utils';
 
-export const RULE_NAME = 'component-template-last';
+export const RULE_NAME = 'component-directive-key-order';
 
 // Custom enforced order (applies to both @Component and @Directive)
 const ORDER = [
@@ -58,11 +58,11 @@ export const rule = ESLintUtils.RuleCreator(() => __filename)({
 				if (properties.length <= 1) return;
 
 				const sourceCode = context.getSourceCode();
-				const propNames = properties.map((p) => p.key.name);
+				const propNames = properties.map((p) => p.key['name']);
 
 				// === 1️⃣ Enforce template/templateUrl last ===
 				const last = properties[properties.length - 1];
-				const templateProp = properties.find((p) => p.key.name === 'template' || p.key.name === 'templateUrl');
+				const templateProp = properties.find((p) => p.key['name'] === 'template' || p.key['name'] === 'templateUrl');
 
 				if (templateProp && last !== templateProp) {
 					context.report({
@@ -91,8 +91,8 @@ export const rule = ESLintUtils.RuleCreator(() => __filename)({
 						data: { name: incorrect ?? 'Unknown' },
 						fix(fixer) {
 							const sortedProps = [...properties].sort((a, b) => {
-								const aIndex = ORDER.indexOf(a.key.name);
-								const bIndex = ORDER.indexOf(b.key.name);
+								const aIndex = ORDER.indexOf(a.key['name']);
+								const bIndex = ORDER.indexOf(b.key['name']);
 								// Unlisted props stay after known ones
 								if (aIndex === -1 && bIndex === -1) return 0;
 								if (aIndex === -1) return 1;

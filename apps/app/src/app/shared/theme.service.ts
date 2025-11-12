@@ -1,6 +1,16 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { DestroyRef, effect, inject, Injectable, PLATFORM_ID, RendererFactory2, signal } from '@angular/core';
+import {
+	DestroyRef,
+	effect,
+	inject,
+	Injectable,
+	PLATFORM_ID,
+	RendererFactory2,
+	signal,
+	WritableSignal,
+} from '@angular/core';
+import { injectLocalStorage } from 'ngxtension/inject-local-storage';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const DarkModes = ['light', 'dark', 'system'] as const;
@@ -22,25 +32,26 @@ export class ThemeService {
 	private readonly _destroyRef = inject(DestroyRef);
 	private readonly _query = inject(MediaMatcher).matchMedia('(prefers-color-scheme: dark)');
 
-	private readonly _darkMode = signal<DarkMode>('system');
+	private readonly _darkMode!: WritableSignal<DarkMode>;
 	private readonly _systemPrefersDark = signal<boolean>(false);
 	private readonly _theme = signal<Theme>('default');
 	private readonly _layout = signal<Layout>('fixed');
 
-	public readonly darkMode = this._darkMode.asReadonly();
 	public readonly theme = this._theme.asReadonly();
 	public readonly layout = this._layout.asReadonly();
 
 	constructor() {
 		if (!isPlatformBrowser(this._platformId)) return;
 
+		this._darkMode = injectLocalStorage('darkMode', {
+			defaultValue: (localStorage.getItem('darkMode') as DarkMode) ?? 'system',
+			storageSync: true,
+		});
 		this._systemPrefersDark.set(this._query.matches);
 
 		const handleChange = (e: MediaQueryListEvent) => this._systemPrefersDark.set(e.matches);
 		this._query.addEventListener('change', handleChange);
 		this._destroyRef.onDestroy(() => this._query.removeEventListener('change', handleChange));
-
-		this._darkMode.set((localStorage.getItem('darkMode') as DarkMode) ?? 'system');
 		this._theme.set((localStorage.getItem('theme') as Theme) ?? 'default');
 		this._layout.set((localStorage.getItem('layout') as Layout) ?? 'fixed');
 
@@ -89,7 +100,6 @@ export class ThemeService {
 	}
 
 	public setDarkMode(mode: DarkMode): void {
-		localStorage.setItem('darkMode', mode);
 		this._darkMode.set(mode);
 	}
 

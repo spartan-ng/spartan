@@ -17,7 +17,6 @@ import {
 	type TemplateRef,
 	untracked,
 	ViewContainerRef,
-	ViewEncapsulation,
 } from '@angular/core';
 import { take } from 'rxjs/operators';
 import type { BrnDialogOptions } from './brn-dialog-options';
@@ -29,7 +28,6 @@ import { BrnDialogService } from './brn-dialog.service';
 @Component({
 	selector: 'brn-dialog',
 	exportAs: 'brnDialog',
-	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ng-content />

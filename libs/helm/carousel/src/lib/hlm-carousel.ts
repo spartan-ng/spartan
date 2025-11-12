@@ -3,7 +3,6 @@ import {
 	Component,
 	type InputSignal,
 	type Signal,
-	ViewEncapsulation,
 	computed,
 	input,
 	signal,
@@ -21,7 +20,6 @@ import {
 @Component({
 	selector: 'hlm-carousel',
 	imports: [EmblaCarouselDirective],
-	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[class]': '_computedClass()',

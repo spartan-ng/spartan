@@ -17,7 +17,6 @@ import {
 	signal,
 	type TemplateRef,
 	viewChild,
-	ViewEncapsulation,
 } from '@angular/core';
 import { Subject } from 'rxjs';
 
@@ -28,7 +27,6 @@ import { Subject } from 'rxjs';
 @Component({
 	selector: 'brn-tooltip-content',
 	imports: [NgTemplateOutlet],
-	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		// Forces the element to have a layout in IE and Edge. This fixes issues where the element

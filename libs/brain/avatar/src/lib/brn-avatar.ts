@@ -1,9 +1,8 @@
-import { ChangeDetectionStrategy, Component, ViewEncapsulation, contentChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, contentChild } from '@angular/core';
 import { BrnAvatarImage } from './image';
 
 @Component({
 	selector: 'brn-avatar',
-	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		@if (_image()?.canShow()) {

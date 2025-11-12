@@ -1,13 +1,4 @@
-import {
-	ChangeDetectionStrategy,
-	Component,
-	effect,
-	forwardRef,
-	input,
-	linkedSignal,
-	untracked,
-	ViewEncapsulation,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, forwardRef, input, linkedSignal, untracked } from '@angular/core';
 import { BrnDialog } from '@spartan-ng/brain/dialog';
 
 @Component({
@@ -19,7 +10,6 @@ import { BrnDialog } from '@spartan-ng/brain/dialog';
 			useExisting: forwardRef(() => BrnSheet),
 		},
 	],
-	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ng-content />

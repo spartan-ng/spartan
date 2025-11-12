@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, forwardRef, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, forwardRef } from '@angular/core';
 import { BrnDialog, BrnDialogOverlay, provideBrnDialogDefaultOptions } from '@spartan-ng/brain/dialog';
 import { HlmDialogOverlay } from './hlm-dialog-overlay';
 
@@ -15,7 +15,6 @@ import { HlmDialogOverlay } from './hlm-dialog-overlay';
 			// add custom options here
 		}),
 	],
-	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<brn-dialog-overlay hlm />

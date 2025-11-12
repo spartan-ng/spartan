@@ -1,10 +1,9 @@
-import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-alert-dialog-footer',
-	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[class]': '_computedClass()',

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, forwardRef, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, forwardRef } from '@angular/core';
 import {
 	BRN_ALERT_DIALOG_DEFAULT_OPTIONS,
 	BrnAlertDialog,
@@ -20,7 +20,6 @@ import { HlmAlertDialogOverlay } from './hlm-alert-dialog-overlay';
 			...BRN_ALERT_DIALOG_DEFAULT_OPTIONS,
 		}),
 	],
-	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<brn-alert-dialog-overlay hlm />

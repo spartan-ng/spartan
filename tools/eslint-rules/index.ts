@@ -1,3 +1,4 @@
+import { rule as avoidComponentStyles, RULE_NAME as avoidComponentStylesName } from './rules/avoid-component-styles';
 import {
 	rule as preferRxjsOperatorCompat,
 	RULE_NAME as preferRxjsOperatorCompatName,
@@ -36,5 +37,6 @@ module.exports = {
 	rules: {
 		[preferRxjsOperatorCompatName]: preferRxjsOperatorCompat,
 		[componentTemplateLastName]: componentTemplateLast,
+		[avoidComponentStylesName]: avoidComponentStyles,
 	},
 };

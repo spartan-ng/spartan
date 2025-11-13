@@ -29,12 +29,8 @@ function updateImports(tree: Tree) {
 
 		if (content.includes("'@spartan-ng/brain/toggle-group';")) {
 			const updatedContent = content
-				// Handle `import { BrnToggleGroup, BrnToggleGroupItem } from '@spartan-ng/brain/toggle-group';`
-				.replace("import { BrnToggleGroup, BrnToggleGroupItem } from '@spartan-ng/brain/toggle-group';", '')
-				// Handle `import { BrnToggleGroup } from '@spartan-ng/brain/toggle-group';`
-				.replace("import { BrnToggleGroup } from '@spartan-ng/brain/toggle-group';", '')
-				// Handle `import { BrnToggleGroupItem } from '@spartan-ng/brain/toggle-group';`
-				.replace("import { BrnToggleGroupItem } from '@spartan-ng/brain/toggle-group';", '')
+				// Handle `import { * } from '@spartan-ng/brain/toggle-group';` including multi-line imports
+				.replace(/import\s*\{[^}]*\}\s*from\s*['"]@spartan-ng\/brain\/toggle-group['"];/g, '')
 				// Remove `BrnToggleGroupItem` with optional comma and whitespace
 				.replace(/BrnToggleGroupItem,?\s?/, '')
 				// Remove `BrnToggleGroup` with optional comma and whitespace

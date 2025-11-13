@@ -22,7 +22,7 @@ export const brainToggleGroup2Healthcheck: Healthcheck = {
 				return;
 			}
 
-			if (contents.includes("'@spartan-ng/brain/toggle-group';") || contents.includes('brn-toggle-group')) {
+			if (contents.includes("'@spartan-ng/brain/toggle-group'") || contents.includes('brn-toggle-group')) {
 				failure(
 					`The <brn-toggle-group> component is deprecated. Please use the <hlm-toggle-group> instead.`,
 					HealthcheckSeverity.Error,

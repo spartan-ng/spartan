@@ -1,3 +1,4 @@
+import { type BooleanInput } from '@angular/cdk/coercion';
 import { booleanAttribute, ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { HlmSkeletonImports } from '@spartan-ng/helm/skeleton';
 import { hlm } from '@spartan-ng/helm/utils';
@@ -22,7 +23,7 @@ import type { ClassValue } from 'clsx';
 	`,
 })
 export class HlmSidebarMenuSkeleton {
-	public readonly showIcon = input<boolean, boolean>(false, { transform: booleanAttribute });
+	public readonly showIcon = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>
 		hlm('flex h-8 items-center gap-2 rounded-md px-2', this.userClass()),

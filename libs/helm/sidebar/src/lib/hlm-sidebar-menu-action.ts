@@ -1,3 +1,4 @@
+import { type BooleanInput } from '@angular/cdk/coercion';
 import { booleanAttribute, computed, Directive, input } from '@angular/core';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
@@ -12,7 +13,7 @@ import type { ClassValue } from 'clsx';
 })
 export class HlmSidebarMenuAction {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	public readonly showOnHover = input<boolean, boolean>(false, { transform: booleanAttribute });
+	public readonly showOnHover = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 	protected readonly _computedClass = computed(() =>
 		hlm(
 			'text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground peer-hover/menu-button:text-sidebar-accent-foreground absolute top-1.5 right-1 flex aspect-square w-5 items-center justify-center rounded-md p-0 transition-transform outline-none hover:cursor-pointer focus-visible:ring-2 disabled:hover:cursor-default [&>_ng-icon]:size-4 [&>_ng-icon]:shrink-0',

@@ -80,19 +80,19 @@ export const routeMeta: RouteMeta = {
 		<div class="flex flex-col space-y-4 pt-4 pb-12">
 			@if (showNotesArray()) {
 				@for (note of state().notes; track noteTrackBy($index, note)) {
-					<analog-trpc-note
+					<spartan-analog-trpc-note
 						[note]="note"
 						[deletionInProgress]="deleteIdInProgress() === note.id"
 						(deleteClicked)="deleteNote(note.id)"
 					/>
 				}
 				@if (noNotes()) {
-					<analog-trpc-notes-empty class="border-transparent shadow-none"></analog-trpc-notes-empty>
+					<spartan-analog-trpc-notes-empty class="border-transparent shadow-none"></spartan-analog-trpc-notes-empty>
 				}
 			}
 
 			@if (initialLoad() || createLoad()) {
-				<analog-trpc-note-skeleton />
+				<spartan-analog-trpc-note-skeleton />
 			}
 		</div>
 	`,

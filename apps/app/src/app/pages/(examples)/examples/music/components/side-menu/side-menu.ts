@@ -47,10 +47,10 @@ interface ListItem {
 					<h2 class="mb-2 px-4 text-lg font-semibold tracking-tight">Discover</h2>
 					<div class="space-y-1">
 						@for (item of discover; track item) {
-							<music-side-button class="font-medium" [ngClass]="{ 'bg-secondary': !!item.selected }">
+							<spartan-music-side-button class="font-medium" [ngClass]="{ 'bg-secondary': !!item.selected }">
 								<ng-icon hlm size="sm" [name]="item.icon" class="mr-2 h-4 w-4" />
 								{{ item.text }}
-							</music-side-button>
+							</spartan-music-side-button>
 						}
 					</div>
 				</div>
@@ -59,10 +59,10 @@ interface ListItem {
 					<h2 class="mb-2 px-4 text-lg font-semibold tracking-tight">Library</h2>
 					<div class="space-y-1">
 						@for (item of library; track item) {
-							<music-side-button class="font-medium">
+							<spartan-music-side-button class="font-medium">
 								<ng-icon hlm size="sm" [name]="item.icon" class="mr-2 h-4 w-4" />
 								{{ item.text }}
-							</music-side-button>
+							</spartan-music-side-button>
 						}
 					</div>
 				</div>
@@ -72,10 +72,10 @@ interface ListItem {
 					<div class="space-y-1">
 						<ng-scrollbar hlm class="h-[300px]" visibility="hover">
 							@for (item of playlists; track item) {
-								<music-side-button class="px-4">
+								<spartan-music-side-button class="px-4">
 									<ng-icon hlm size="sm" [name]="item.icon" class="mr-2 h-4 w-4" />
 									{{ item.text }}
-								</music-side-button>
+								</spartan-music-side-button>
 							}
 						</ng-scrollbar>
 					</div>

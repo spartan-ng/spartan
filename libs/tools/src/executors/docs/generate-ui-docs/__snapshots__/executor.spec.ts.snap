@@ -3237,12 +3237,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "outputs": [],
         "selector": "[brnMenu],[brnSubMenu]",
       },
-      "BrnMenuBar": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "[brnMenuBar]",
-      },
       "BrnMenuGroup": {
         "inputs": [],
         "models": [],
@@ -3330,18 +3324,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [],
         "outputs": [],
         "selector": "[hlmMenu],hlm-menu",
-      },
-      "HlmMenuBar": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
-        "models": [],
-        "outputs": [],
-        "selector": "[hlmMenuBar],hlm-menu-bar",
       },
       "HlmMenuBarItem": {
         "inputs": [
@@ -3523,6 +3505,49 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [],
         "outputs": [],
         "selector": "[hlmSubMenu],hlm-sub-menu",
+      },
+    },
+  },
+  "menubar": {
+    "helm": {
+      "HlmMenubar": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmMenubar],hlm-menubar",
+      },
+      "HlmMenubarItem": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "inset",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "variant",
+            "required": false,
+            "type": "'default' | 'destructive'",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmMenubarItem]",
       },
     },
   },

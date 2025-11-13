@@ -8,6 +8,7 @@ import {
 	PLATFORM_ID,
 	RendererFactory2,
 	signal,
+	untracked,
 	WritableSignal,
 } from '@angular/core';
 import { injectLocalStorage } from 'ngxtension/inject-local-storage';
@@ -42,12 +43,18 @@ export class ThemeService {
 
 	constructor() {
 		if (!isPlatformBrowser(this._platformId)) return;
+		const mode = (localStorage.getItem('darkMode') as DarkMode) ?? 'system';
 
 		this._darkMode = injectLocalStorage('darkMode', {
-			defaultValue: (localStorage.getItem('darkMode') as DarkMode) ?? 'system',
+			defaultValue: mode,
 			storageSync: true,
+			parse: (val) => String(val) as DarkMode,
+			stringify: (val) => val,
 		});
 		this._systemPrefersDark.set(this._query.matches);
+		if (mode === 'system') {
+			untracked(() => this._darkMode.set('system'));
+		}
 
 		const handleChange = (e: MediaQueryListEvent) => this._systemPrefersDark.set(e.matches);
 		this._query.addEventListener('change', handleChange);

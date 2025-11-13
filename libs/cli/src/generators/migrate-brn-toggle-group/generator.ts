@@ -27,7 +27,7 @@ function updateImports(tree: Tree) {
 			return;
 		}
 
-		if (content.includes("'@spartan-ng/brain/toggle-group';") || content.includes("'@spartan-ng/helm/toggle-group';")) {
+		if (content.includes("'@spartan-ng/brain/toggle-group';")) {
 			const updatedContent = content
 				// Handle `import { BrnToggleGroup, BrnToggleGroupItem } from '@spartan-ng/brain/toggle-group';`
 				.replace("import { BrnToggleGroup, BrnToggleGroupItem } from '@spartan-ng/brain/toggle-group';", '')
@@ -59,7 +59,7 @@ function replaceSelector(tree: Tree) {
 			return;
 		}
 
-		if (content.includes('brn-toggle-group') || content.includes('@spartan-ng/helm/toggle-group')) {
+		if (content.includes('brn-toggle-group')) {
 			// <brn-toggle-group hlm but between
 			content = replaceBrnToggleGroup(content);
 			// replace closing tag

@@ -1,17 +1,18 @@
 import { Component } from '@angular/core';
 import { BrnMenuImports } from '@spartan-ng/brain/menu';
 import { HlmMenuImports } from '@spartan-ng/helm/menu';
+import { HlmMenubarImports } from '@spartan-ng/helm/menubar';
 
 @Component({
 	selector: 'spartan-menubar-preview',
-	imports: [BrnMenuImports, HlmMenuImports],
+	imports: [BrnMenuImports, HlmMenuImports, HlmMenubarImports],
 	template: `
-		<hlm-menu-bar class="w-fit">
-			<button hlmMenuBarItem [brnMenuTriggerFor]="file">File</button>
-			<button hlmMenuBarItem [brnMenuTriggerFor]="edit">Edit</button>
-			<button hlmMenuBarItem [brnMenuTriggerFor]="view">View</button>
-			<button hlmMenuBarItem [brnMenuTriggerFor]="profiles">Profiles</button>
-		</hlm-menu-bar>
+		<hlm-menubar class="w-fit">
+			<button hlmMenubarItem [brnMenuTriggerFor]="file">File</button>
+			<button hlmMenubarItem [brnMenuTriggerFor]="edit">Edit</button>
+			<button hlmMenubarItem [brnMenuTriggerFor]="view">View</button>
+			<button hlmMenubarItem [brnMenuTriggerFor]="profiles">Profiles</button>
+		</hlm-menubar>
 
 		<ng-template #file>
 			<hlm-menu sideOffset="1.5" class="w-48">
@@ -139,11 +140,12 @@ export class MenubarPreview {}
 
 export const defaultImports = `
 import { BrnMenuImports } from '@spartan-ng/brain/menu';
+import { HlmMenubarImports } from '@spartan-ng/helm/menubar';
 import { HlmMenuImports } from '@spartan-ng/helm/menu';
 `;
 export const defaultSkeleton = `
-<hlm-menu-bar class="w-fit">
-    <button hlmMenuBarItem brnMenuItem [brnMenuTriggerFor]="file">File</button>
+<hlm-menubar class="w-fit">
+    <button hlmMenubarItem [brnMenuTriggerFor]="file">File</button>
 </div>
 
 <ng-template #file>

@@ -1,5 +1,4 @@
 import { HlmMenu } from './lib/hlm-menu';
-import { HlmMenuBar } from './lib/hlm-menu-bar';
 import { HlmMenuBarItem } from './lib/hlm-menu-bar-item';
 import { HlmMenuGroup } from './lib/hlm-menu-group';
 import { HlmMenuItem } from './lib/hlm-menu-item';
@@ -15,7 +14,6 @@ import { HlmMenuShortcut } from './lib/hlm-menu-shortcut';
 import { HlmSubMenu } from './lib/hlm-sub-menu';
 
 export * from './lib/hlm-menu';
-export * from './lib/hlm-menu-bar';
 export * from './lib/hlm-menu-bar-item';
 export * from './lib/hlm-menu-group';
 export * from './lib/hlm-menu-item';
@@ -44,6 +42,5 @@ export const HlmMenuImports = [
 	HlmMenuSeparator,
 	HlmMenu,
 	HlmSubMenu,
-	HlmMenuBar,
 	HlmMenuBarItem,
 ] as const;

@@ -3,26 +3,16 @@ import { BrnMenuTrigger } from '@spartan-ng/brain/menu';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmMenu, HlmMenuImports } from '@spartan-ng/helm/menu';
+import { HlmMenubar, HlmMenubarImports } from '@spartan-ng/helm/menubar';
 import { argsToTemplate, type Meta, moduleMetadata, type StoryObj } from '@storybook/angular';
 
-const meta: Meta<HlmMenu> = {
-	title: ' Menubar',
-	component: HlmMenu,
+const meta: Meta<HlmMenubar> = {
+	title: 'Menubar',
+	component: HlmMenubar,
 	tags: ['autodocs'],
-	args: {
-		sideOffset: '1.5',
-	},
-	argTypes: {
-		sideOffset: {
-			options: ['1', '1.5', '2'],
-			control: {
-				type: 'select',
-			},
-		},
-	},
 	decorators: [
 		moduleMetadata({
-			imports: [BrnMenuTrigger, HlmMenuImports, HlmButton, NgIcon, HlmIcon],
+			imports: [BrnMenuTrigger, HlmMenubarImports, HlmMenuImports, HlmButton, NgIcon, HlmIcon],
 		}),
 	],
 };
@@ -34,12 +24,12 @@ export const Default: Story = {
 	render: ({ ...args }) => ({
 		props: args,
 		template: `
-        <hlm-menu-bar class='w-fit'>
-      <button hlmMenuBarItem [brnMenuTriggerFor]='file'>File</button>
-      <button hlmMenuBarItem [brnMenuTriggerFor]='edit'>Edit</button>
-      <button hlmMenuBarItem [brnMenuTriggerFor]='view'>View</button>
-      <button hlmMenuBarItem [brnMenuTriggerFor]='profiles'>Profiles</button>
-    </hlm-menu-bar>
+        <hlm-menubar class='w-fit'>
+      <button hlmMenubarItem [brnMenuTriggerFor]='file'>File</button>
+      <button hlmMenubarItem [brnMenuTriggerFor]='edit'>Edit</button>
+      <button hlmMenubarItem [brnMenuTriggerFor]='view'>View</button>
+      <button hlmMenubarItem [brnMenuTriggerFor]='profiles'>Profiles</button>
+    </hlm-menubar>
 
     <ng-template #file>
       <hlm-menu ${argsToTemplate(args)} class='w-48'>

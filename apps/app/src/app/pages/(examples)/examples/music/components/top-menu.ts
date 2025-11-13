@@ -1,58 +1,27 @@
 import { Component } from '@angular/core';
-import { NgIcon, provideIcons } from '@ng-icons/core';
+import { provideIcons } from '@ng-icons/core';
 import { lucideGlobe, lucideMicVocal } from '@ng-icons/lucide';
 import { BrnMenuTrigger } from '@spartan-ng/brain/menu';
 
-import { HlmIcon } from '@spartan-ng/helm/icon';
-import {
-	HlmMenu,
-	HlmMenuBar,
-	HlmMenuBarItem,
-	HlmMenuGroup,
-	HlmMenuItem,
-	HlmMenuItemCheck,
-	HlmMenuItemCheckbox,
-	HlmMenuItemRadio,
-	HlmMenuItemRadioIndicator,
-	HlmMenuItemSubIndicator,
-	HlmMenuSeparator,
-	HlmMenuShortcut,
-	HlmSubMenu,
-} from '@spartan-ng/helm/menu';
+import { HlmIconImports } from '@spartan-ng/helm/icon';
+import { HlmMenuImports } from '@spartan-ng/helm/menu';
+import { HlmMenubarImports } from '@spartan-ng/helm/menubar';
 
 @Component({
 	selector: 'spartan-music-top-menu',
-	imports: [
-		BrnMenuTrigger,
-		HlmMenu,
-		HlmMenuBar,
-		HlmSubMenu,
-		HlmMenuItem,
-		HlmMenuItemSubIndicator,
-		HlmMenuShortcut,
-		HlmMenuSeparator,
-		HlmMenuBarItem,
-		HlmMenuItemCheck,
-		HlmMenuItemRadio,
-		HlmMenuGroup,
-		HlmMenuItemCheckbox,
-		HlmMenuItemRadio,
-		HlmMenuItemRadioIndicator,
-		NgIcon,
-		HlmIcon,
-	],
+	imports: [BrnMenuTrigger, HlmMenubarImports, HlmMenuImports, HlmIconImports],
 	providers: [provideIcons({ lucideMicVocal, lucideGlobe })],
 	host: {
 		class: 'block',
 	},
 	template: `
-		<hlm-menu-bar class="w-fill border-0">
-			<button hlmMenuBarItem [brnMenuTriggerFor]="music" class="px-3 font-bold">Music</button>
-			<button hlmMenuBarItem [brnMenuTriggerFor]="file" class="px-3 font-medium">File</button>
-			<button hlmMenuBarItem [brnMenuTriggerFor]="edit" class="px-3 font-medium">Edit</button>
-			<button hlmMenuBarItem [brnMenuTriggerFor]="view" class="px-3 font-medium">View</button>
-			<button hlmMenuBarItem [brnMenuTriggerFor]="account" class="px-3 font-medium">Account</button>
-		</hlm-menu-bar>
+		<hlm-menubar class="w-fill border-0">
+			<button hlmMenubarItem [brnMenuTriggerFor]="music" class="px-3 font-bold">Music</button>
+			<button hlmMenubarItem [brnMenuTriggerFor]="file" class="px-3 font-medium">File</button>
+			<button hlmMenubarItem [brnMenuTriggerFor]="edit" class="px-3 font-medium">Edit</button>
+			<button hlmMenubarItem [brnMenuTriggerFor]="view" class="px-3 font-medium">View</button>
+			<button hlmMenubarItem [brnMenuTriggerFor]="account" class="px-3 font-medium">Account</button>
+		</hlm-menubar>
 
 		<ng-template #music>
 			<hlm-menu sideOffset="1.5" class="w-48">

@@ -7,7 +7,7 @@ import { HlmSeparatorImports } from '@spartan-ng/helm/separator';
 import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 
 @Component({
-	selector: 'spartan-site-header',
+	selector: 'spartan-site-header-sticky',
 	imports: [HlmSidebarImports, HlmSeparatorImports, HlmBreadCrumbImports, HlmInputGroupImports, NgIcon],
 	providers: [provideIcons({ lucideSearch })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -15,7 +15,7 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 		<header class="bg-background sticky top-0 z-50 flex w-full items-center border-b">
 			<div class="flex h-(--header-height) w-full items-center gap-2 px-4">
 				<button hlmSidebarTrigger></button>
-				<hlm-separator orientation="vertical" class="mr-2 h-4" />
+				<hlm-separator orientation="vertical" class="mr-2" />
 				<nav hlmBreadcrumb class="hidden sm:block">
 					<ol hlmBreadcrumbList>
 						<li hlmBreadcrumbItem>

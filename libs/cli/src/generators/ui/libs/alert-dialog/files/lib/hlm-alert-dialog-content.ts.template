@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, signal } from '@angular/core';
 import { injectExposesStateProvider } from '@spartan-ng/brain/core';
 import { hlm } from '<%- importAlias %>/utils';
 import type { ClassValue } from 'clsx';
@@ -13,7 +13,6 @@ import type { ClassValue } from 'clsx';
 		<ng-content />
 	`,
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	encapsulation: ViewEncapsulation.None,
 })
 export class HlmAlertDialogContent {
 	private readonly _stateProvider = injectExposesStateProvider({ optional: true, host: true });

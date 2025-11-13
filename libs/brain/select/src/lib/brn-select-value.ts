@@ -7,6 +7,12 @@ import { injectBrnSelect } from './brn-select.token';
 @Component({
 	selector: 'brn-select-value, hlm-select-value',
 	imports: [NgTemplateOutlet],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		'[id]': 'id()',
+		'[attr.data-placeholder]': '_showPlaceholder() ? "" : null',
+		class: 'line-clamp-1 whitespace-nowrap pointer-events-none',
+	},
 	template: `
 		@if (_showPlaceholder()) {
 			<ng-container [ngTemplateOutlet]="_customPlaceholderTemplate()?.templateRef ?? defaultPlaceholderTemplate" />
@@ -20,12 +26,6 @@ import { injectBrnSelect } from './brn-select.token';
 		<ng-template #defaultValueTemplate>{{ _value() }}</ng-template>
 		<ng-template #defaultPlaceholderTemplate>{{ placeholder() }}</ng-template>
 	`,
-	host: {
-		'[id]': 'id()',
-		'[attr.data-placeholder]': '_showPlaceholder() ? "" : null',
-		class: 'line-clamp-1 whitespace-nowrap pointer-events-none',
-	},
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BrnSelectValue<T> {
 	protected readonly _select = injectBrnSelect<T>();

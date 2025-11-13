@@ -4,6 +4,7 @@ import { RouterLink } from '@angular/router';
 @Component({
 	selector: 'spartan-block-link',
 	imports: [RouterLink],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<a
 			routerLink="."
@@ -13,7 +14,6 @@ import { RouterLink } from '@angular/router';
 			<ng-content />
 		</a>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BlockLink {
 	public readonly fragment = input.required<string>();

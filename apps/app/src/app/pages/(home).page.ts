@@ -66,10 +66,10 @@ const lead = 'text-foreground max-w-3xl text-base text-balance sm:text-lg';
 		PaginationPreview,
 		AlertPreview,
 	],
+	providers: [provideIcons({ lucideStar, lucideArrowRight })],
 	host: {
 		class: 'block px-2',
 	},
-	providers: [provideIcons({ lucideStar, lucideArrowRight })],
 	template: `
 		<section class="flex flex-col items-center gap-2 py-8 text-center md:py-16 lg:py-20 xl:gap-4">
 			<div class="${container} max-w-[64rem]">

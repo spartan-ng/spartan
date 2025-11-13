@@ -28,6 +28,12 @@ export type InputMode = 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal'
 @Component({
 	selector: 'brn-input-otp',
 	imports: [FormsModule],
+	providers: [BRN_INPUT_OTP_VALUE_ACCESSOR, provideBrnInputOtp(BrnInputOtp)],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		'[style]': 'hostStyles()',
+		'data-input-otp-container': 'true',
+	},
 	template: `
 		<ng-content />
 		<div [style]="containerStyles()">
@@ -46,12 +52,6 @@ export type InputMode = 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal'
 			/>
 		</div>
 	`,
-	host: {
-		'[style]': 'hostStyles()',
-		'data-input-otp-container': 'true',
-	},
-	providers: [BRN_INPUT_OTP_VALUE_ACCESSOR, provideBrnInputOtp(BrnInputOtp)],
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BrnInputOtp implements ControlValueAccessor {
 	/** Whether the input has focus. */

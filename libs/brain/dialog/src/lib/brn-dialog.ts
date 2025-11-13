@@ -27,11 +27,11 @@ import { BrnDialogService } from './brn-dialog.service';
 
 @Component({
 	selector: 'brn-dialog',
+	exportAs: 'brnDialog',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ng-content />
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	exportAs: 'brnDialog',
 })
 export class BrnDialog {
 	private readonly _dialogService = inject(BrnDialogService);

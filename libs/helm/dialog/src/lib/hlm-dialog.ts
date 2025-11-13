@@ -4,6 +4,7 @@ import { HlmDialogOverlay } from './hlm-dialog-overlay';
 
 @Component({
 	selector: 'hlm-dialog',
+	exportAs: 'hlmDialog',
 	imports: [BrnDialogOverlay, HlmDialogOverlay],
 	providers: [
 		{
@@ -14,11 +15,10 @@ import { HlmDialogOverlay } from './hlm-dialog-overlay';
 			// add custom options here
 		}),
 	],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<brn-dialog-overlay hlm />
 		<ng-content />
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	exportAs: 'hlmDialog',
 })
 export class HlmDialog extends BrnDialog {}

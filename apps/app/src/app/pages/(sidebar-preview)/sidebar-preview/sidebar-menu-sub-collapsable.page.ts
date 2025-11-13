@@ -7,8 +7,10 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 
 @Component({
 	selector: 'spartan-sidebar-menu-sub-collapsable',
-	encapsulation: ViewEncapsulation.None,
 	imports: [HlmSidebarImports, HlmCollapsibleImports, NgIcon, HlmIcon],
+	providers: [provideIcons({ lucideChevronRight })],
+	encapsulation: ViewEncapsulation.None,
+	styleUrl: 'sidebar-default.css',
 	template: `
 		<div hlmSidebarWrapper>
 			<hlm-sidebar>
@@ -57,8 +59,6 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 			</main>
 		</div>
 	`,
-	providers: [provideIcons({ lucideChevronRight })],
-	styleUrl: 'sidebar-default.css',
 })
 export default class SidebarMenuSubPageCollapsable {
 	protected readonly _items = [

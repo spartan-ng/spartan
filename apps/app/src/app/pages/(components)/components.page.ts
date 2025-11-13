@@ -25,12 +25,12 @@ export const routeMeta: RouteMeta = {
 	selector: 'spartan-components',
 	imports: [Page],
 	providers: [provideIcons({ lucideRocket }), ApiDocsService],
-	template: `
-		<spartan-page />
-	`,
 	host: {
 		class: '[--stable-height:78.75px]',
 	},
+	template: `
+		<spartan-page />
+	`,
 })
 export default class ComponentsPage {
 	private readonly _apiData = toSignal(injectLoad<typeof load>(), { requireSync: true });

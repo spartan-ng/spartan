@@ -4,11 +4,11 @@ import { injectBrnAccordion, provideBrnAccordionItem } from './brn-accordion-tok
 
 @Directive({
 	selector: '[brnAccordionItem]',
+	exportAs: 'brnAccordionItem',
+	providers: [provideBrnAccordionItem(BrnAccordionItem)],
 	host: {
 		'[attr.data-state]': 'state()',
 	},
-	providers: [provideBrnAccordionItem(BrnAccordionItem)],
-	exportAs: 'brnAccordionItem',
 })
 export class BrnAccordionItem {
 	private static _itemIdGenerator = 0;

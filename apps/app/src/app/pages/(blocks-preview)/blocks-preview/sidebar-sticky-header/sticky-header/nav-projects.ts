@@ -7,6 +7,7 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 	selector: 'spartan-nav-projects',
 	imports: [HlmSidebarImports, NgIcon],
 	providers: [provideIcons({ lucideFrame, lucideChartPie, lucideMap, lucideEllipsis })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-sidebar-group>
 			<div hlmSidebarGroupLabel>Projects</div>
@@ -32,6 +33,5 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 			</ul>
 		</hlm-sidebar-group>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavProjects {}

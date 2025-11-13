@@ -7,14 +7,14 @@ import { BrnCheckbox } from './brn-checkbox';
 
 @Component({
 	selector: 'brn-checkbox-ng-model',
+	imports: [BrnCheckbox, FormsModule],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<label>
 			Airplane mode is: {{ airplaneMode() ? 'on' : 'off' }}
 			<brn-checkbox [disabled]="disabled()" [(ngModel)]="airplaneMode"></brn-checkbox>
 		</label>
 	`,
-	imports: [BrnCheckbox, FormsModule],
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BrnCheckboxNgModelSpec {
 	public readonly disabled = input(false);

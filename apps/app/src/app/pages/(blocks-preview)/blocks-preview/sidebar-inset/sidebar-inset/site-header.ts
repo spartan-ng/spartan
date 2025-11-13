@@ -7,6 +7,7 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 @Component({
 	selector: 'spartan-site-header',
 	imports: [HlmSidebarImports, HlmSeparatorImports, HlmBreadCrumbImports, HlmInputGroupImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<header class="flex h-16 shrink-0 items-center gap-2">
 			<div class="flex items-center gap-2 px-4">
@@ -26,6 +27,5 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 			</div>
 		</header>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SiteHeader {}

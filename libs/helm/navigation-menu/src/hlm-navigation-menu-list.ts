@@ -5,14 +5,14 @@ import { ClassValue } from 'clsx';
 
 @Directive({
 	selector: 'ul[hlmNavigationMenuList]',
-	host: {
-		'[class]': '_computedClass()',
-	},
 	hostDirectives: [
 		{
 			directive: BrnNavigationMenuList,
 		},
 	],
+	host: {
+		'[class]': '_computedClass()',
+	},
 })
 export class HlmNavigationMenuList {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

@@ -5,7 +5,7 @@ import { BrnDialogOverlay } from '@spartan-ng/brain/dialog';
 @Component({
 	selector: 'brn-alert-dialog-overlay',
 	providers: [provideCustomClassSettableExisting(() => BrnAlertDialogOverlay)],
-	template: '',
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: '',
 })
 export class BrnAlertDialogOverlay extends BrnDialogOverlay {}

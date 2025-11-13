@@ -8,13 +8,12 @@ import { HlmInput } from '@spartan-ng/helm/input';
 import { HlmLabel } from '@spartan-ng/helm/label';
 
 @Component({
-	// eslint-disable-next-line @angular-eslint/component-selector
-	selector: 'auth-example-form',
+	selector: 'spartan-auth-example-form',
 	imports: [HlmButton, NgIcon, HlmIcon, HlmInput, FormsModule, HlmLabel],
+	providers: [provideIcons({ lucideGithub, lucideLoaderCircle })],
 	host: {
 		class: 'block',
 	},
-	providers: [provideIcons({ lucideGithub, lucideLoaderCircle })],
 	template: `
 		<div class="mx-auto w-full justify-center space-y-6 sm:w-[350px]">
 			<div class="space-y-2 text-center">

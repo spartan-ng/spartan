@@ -2,6 +2,8 @@ import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 
 @Component({
 	selector: 'select-ngmodel-form',
+
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<form ngForm>
 			<div class="mb-3">
@@ -23,9 +25,6 @@ import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 			</hlm-select>
 		</form>
 	`,
-	// eslint-disable-next-line @angular-eslint/prefer-standalone
-	standalone: false,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectNgModel {
 	public readonly fruit = signal('');

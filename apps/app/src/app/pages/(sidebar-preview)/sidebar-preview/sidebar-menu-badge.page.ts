@@ -6,8 +6,18 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 
 @Component({
 	selector: 'spartan-sidebar-menu',
-	encapsulation: ViewEncapsulation.None,
 	imports: [HlmSidebarImports, NgIcon, HlmIcon],
+	providers: [
+		provideIcons({
+			lucideFrame,
+			lucideChartPie,
+			lucideMap,
+			lucideLifeBuoy,
+			lucideSend,
+		}),
+	],
+	encapsulation: ViewEncapsulation.None,
+	styleUrl: 'sidebar-default.css',
 	template: `
 		<div hlmSidebarWrapper>
 			<hlm-sidebar>
@@ -37,16 +47,6 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 			</main>
 		</div>
 	`,
-	providers: [
-		provideIcons({
-			lucideFrame,
-			lucideChartPie,
-			lucideMap,
-			lucideLifeBuoy,
-			lucideSend,
-		}),
-	],
-	styleUrl: 'sidebar-default.css',
 })
 export default class SidebarMenuPage {
 	protected readonly _projects = [

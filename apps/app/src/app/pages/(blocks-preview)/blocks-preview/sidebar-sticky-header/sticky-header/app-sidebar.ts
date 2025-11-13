@@ -12,6 +12,7 @@ import { NavUser } from './nav-user';
 	selector: 'spartan-app-sidebar',
 	imports: [HlmSidebarImports, NgIcon, NavMain, NavProjects, NavUser, NavSecondary],
 	providers: [provideIcons({ lucideCommand })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-sidebar sidebarContainerClass="top-(--header-height) h-[calc(100svh-var(--header-height))]">
 			<hlm-sidebar-header>
@@ -42,7 +43,6 @@ import { NavUser } from './nav-user';
 			</hlm-sidebar-footer>
 		</hlm-sidebar>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppSidebar {
 	public readonly data = data;

@@ -9,13 +9,13 @@ import type { ClassValue } from 'clsx';
 	selector: 'hlm-pagination-ellipsis',
 	imports: [NgIcon, HlmIcon],
 	providers: [provideIcons({ lucideEllipsis })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<span [class]="_computedClass()">
 			<ng-icon hlm size="sm" name="lucideEllipsis" />
 			<span class="sr-only">{{ srOnlyText() }}</span>
 		</span>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmPaginationEllipsis {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

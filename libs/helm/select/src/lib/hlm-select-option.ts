@@ -8,9 +8,10 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-option',
+	imports: [NgIcon, HlmIcon],
+	providers: [provideIcons({ lucideCheck })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [{ directive: BrnSelectOption, inputs: ['disabled', 'value'] }],
-	providers: [provideIcons({ lucideCheck })],
 	host: {
 		'[class]': '_computedClass()',
 	},
@@ -23,7 +24,6 @@ import type { ClassValue } from 'clsx';
 
 		<ng-content />
 	`,
-	imports: [NgIcon, HlmIcon],
 })
 export class HlmSelectOption {
 	protected readonly _brnSelectOption = inject(BrnSelectOption, { host: true });

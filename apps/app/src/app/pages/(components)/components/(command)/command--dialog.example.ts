@@ -20,6 +20,16 @@ import { HlmCode } from '@spartan-ng/helm/typography';
 
 @Component({
 	selector: 'spartan-command-dialog',
+	imports: [
+		BrnCommandImports,
+		HlmCommandImports,
+		NgIcon,
+		HlmIconImports,
+		HlmButtonImports,
+		BrnDialogImports,
+		HlmDialogImports,
+		HlmCode,
+	],
 	providers: [
 		provideIcons({
 			lucideX,
@@ -32,16 +42,9 @@ import { HlmCode } from '@spartan-ng/helm/typography';
 			lucideSearch,
 		}),
 	],
-	imports: [
-		BrnCommandImports,
-		HlmCommandImports,
-		NgIcon,
-		HlmIconImports,
-		HlmButtonImports,
-		BrnDialogImports,
-		HlmDialogImports,
-		HlmCode,
-	],
+	host: {
+		'(window:keydown)': 'onKeyDown($event)',
+	},
 	template: `
 		<div class="mx-auto flex max-w-screen-sm items-center justify-center space-x-4 py-20 text-sm">
 			<p>
@@ -101,9 +104,6 @@ import { HlmCode } from '@spartan-ng/helm/typography';
 			</hlm-command>
 		</brn-dialog>
 	`,
-	host: {
-		'(window:keydown)': 'onKeyDown($event)',
-	},
 })
 export class CommandDialog {
 	public readonly command = signal('');

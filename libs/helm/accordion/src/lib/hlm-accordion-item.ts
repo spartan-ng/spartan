@@ -5,9 +5,6 @@ import type { ClassValue } from 'clsx';
 
 @Directive({
 	selector: '[hlmAccordionItem],brn-accordion-item[hlm],hlm-accordion-item',
-	host: {
-		'[class]': '_computedClass()',
-	},
 	hostDirectives: [
 		{
 			directive: BrnAccordionItem,
@@ -15,6 +12,9 @@ import type { ClassValue } from 'clsx';
 			outputs: ['openedChange'],
 		},
 	],
+	host: {
+		'[class]': '_computedClass()',
+	},
 })
 export class HlmAccordionItem {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

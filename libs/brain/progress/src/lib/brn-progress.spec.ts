@@ -6,12 +6,12 @@ import { BrnProgressIndicator } from './brn-progress-indicator';
 
 @Component({
 	imports: [BrnProgressImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<brn-progress [value]="value" [max]="max" [getValueLabel]="getValueLabel">
 			<brn-progress-indicator />
 		</brn-progress>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class TestHost {
 	public value: number | null | undefined = 0;

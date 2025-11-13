@@ -8,13 +8,13 @@ import { ColorFormat } from './format-color';
 @Component({
 	// eslint-disable-next-line @angular-eslint/component-selector
 	selector: 'button[spartanColor]',
+	imports: [NgIcon, HlmIconImports],
 	providers: [
 		provideIcons({
 			lucideCheck,
 			lucideClipboard,
 		}),
 	],
-	imports: [NgIcon, HlmIconImports],
 	host: {
 		class:
 			'group relative flex aspect-[3/1] w-full flex-1 cursor-pointer flex-col gap-2 text-(--text) sm:aspect-[2/3] sm:h-auto sm:w-auto [&>ng-icon]:absolute [&>ng-icon]:top-4 [&>ng-icon]:right-4 [&>ng-icon]:z-10 [&>ng-icon]:opacity-0 [&>ng-icon]:transition-opacity',

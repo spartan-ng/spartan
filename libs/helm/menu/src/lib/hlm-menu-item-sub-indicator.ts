@@ -7,15 +7,15 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-menu-item-sub-indicator',
-	providers: [provideIcons({ lucideChevronRight })],
 	imports: [NgIcon, HlmIcon],
-	template: `
-		<ng-icon hlm size="sm" name="lucideChevronRight" class="text-popover-foreground" />
-	`,
+	providers: [provideIcons({ lucideChevronRight })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[class]': '_computedClass()',
 	},
-	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<ng-icon hlm size="sm" name="lucideChevronRight" class="text-popover-foreground" />
+	`,
 })
 export class HlmMenuItemSubIndicator {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

@@ -9,9 +9,7 @@ export const BRN_ALERT_DIALOG_DEFAULT_OPTIONS: Partial<BrnDialogDefaultOptions> 
 
 @Component({
 	selector: 'brn-alert-dialog',
-	template: `
-		<ng-content />
-	`,
+	exportAs: 'brnAlertDialog',
 	providers: [
 		{
 			provide: BrnDialog,
@@ -20,6 +18,8 @@ export const BRN_ALERT_DIALOG_DEFAULT_OPTIONS: Partial<BrnDialogDefaultOptions> 
 		provideBrnDialogDefaultOptions(BRN_ALERT_DIALOG_DEFAULT_OPTIONS),
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	exportAs: 'brnAlertDialog',
+	template: `
+		<ng-content />
+	`,
 })
 export class BrnAlertDialog extends BrnDialog {}

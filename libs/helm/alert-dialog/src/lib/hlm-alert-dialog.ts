@@ -9,10 +9,8 @@ import { HlmAlertDialogOverlay } from './hlm-alert-dialog-overlay';
 
 @Component({
 	selector: 'hlm-alert-dialog',
-	template: `
-		<brn-alert-dialog-overlay hlm />
-		<ng-content />
-	`,
+	exportAs: 'hlmAlertDialog',
+	imports: [BrnAlertDialogOverlay, HlmAlertDialogOverlay],
 	providers: [
 		{
 			provide: BrnDialog,
@@ -23,7 +21,9 @@ import { HlmAlertDialogOverlay } from './hlm-alert-dialog-overlay';
 		}),
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	exportAs: 'hlmAlertDialog',
-	imports: [BrnAlertDialogOverlay, HlmAlertDialogOverlay],
+	template: `
+		<brn-alert-dialog-overlay hlm />
+		<ng-content />
+	`,
 })
 export class HlmAlertDialog extends BrnAlertDialog {}

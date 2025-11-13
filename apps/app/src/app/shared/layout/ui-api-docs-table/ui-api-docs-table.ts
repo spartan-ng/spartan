@@ -5,7 +5,6 @@ type Column = { label: string; key: string; class?: string };
 
 @Component({
 	selector: 'spartan-ui-api-docs-table',
-	standalone: true,
 	imports: [...HlmTableImports],
 	template: `
 		<h4 class="mt-6 mb-2">{{ title() }}</h4>

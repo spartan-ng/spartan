@@ -9,13 +9,13 @@ import type { ClassValue } from 'clsx';
 	selector: 'hlm-breadcrumb-ellipsis',
 	imports: [NgIcon, HlmIcon],
 	providers: [provideIcons({ lucideEllipsis })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<span role="presentation" aria-hidden="true" [class]="_computedClass()">
 			<ng-icon hlm size="sm" name="lucideEllipsis" />
 			<span class="sr-only">{{ srOnlyText() }}</span>
 		</span>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmBreadcrumbEllipsis {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

@@ -6,8 +6,15 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 
 @Component({
 	selector: 'spartan-sidebar-group',
-	encapsulation: ViewEncapsulation.None,
 	imports: [HlmSidebarImports, NgIcon, HlmIcon],
+	providers: [
+		provideIcons({
+			lucideLifeBuoy,
+			lucideSend,
+		}),
+	],
+	encapsulation: ViewEncapsulation.None,
+	styleUrl: 'sidebar-default.css',
 	template: `
 		<div hlmSidebarWrapper>
 			<hlm-sidebar>
@@ -40,12 +47,5 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 			</main>
 		</div>
 	`,
-	providers: [
-		provideIcons({
-			lucideLifeBuoy,
-			lucideSend,
-		}),
-	],
-	styleUrl: 'sidebar-default.css',
 })
 export default class SidebarGroupPage {}

@@ -4,6 +4,10 @@ import { injectBrnInputOtp } from './brn-input-otp.token';
 
 @Component({
 	selector: 'brn-input-otp-slot',
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		'[attr.data-active]': '_slot().isActive',
+	},
 	template: `
 		{{ _slot().char }}
 
@@ -11,10 +15,6 @@ import { injectBrnInputOtp } from './brn-input-otp.token';
 			<ng-content />
 		}
 	`,
-	host: {
-		'[attr.data-active]': '_slot().isActive',
-	},
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BrnInputOtpSlot {
 	/** Access the input-otp component */

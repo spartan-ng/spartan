@@ -12,6 +12,7 @@ import { NavUser } from './nav-user';
 	selector: 'spartan-app-sidebar-inset',
 	imports: [HlmSidebarImports, NgIcon, NavMain, NavProjects, NavUser, NavSecondary],
 	providers: [provideIcons({ lucideCommand })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div hlmSidebarWrapper>
 			<hlm-sidebar variant="inset">
@@ -45,7 +46,6 @@ import { NavUser } from './nav-user';
 			<ng-content />
 		</div>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppSidebarInset {
 	public readonly data = data;

@@ -10,6 +10,15 @@ import { injectHlmSidebarConfig } from './hlm-sidebar.token';
 @Component({
 	selector: 'hlm-sidebar',
 	imports: [HlmSheet, HlmSheetContent, NgTemplateOutlet, BrnSheetContent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		'[attr.data-slot]': '_dataSlot()',
+		'[class]': '_computedClass()',
+		'[attr.data-state]': '_dataState()',
+		'[attr.data-collapsible]': '_dataCollapsible()',
+		'[attr.data-variant]': '_dataVariant()',
+		'[attr.data-side]': '_dataSide()',
+	},
 	template: `
 		<ng-template #contentContainer>
 			<ng-content></ng-content>
@@ -50,15 +59,6 @@ import { injectHlmSidebarConfig } from './hlm-sidebar.token';
 			</div>
 		}
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	host: {
-		'[attr.data-slot]': '_dataSlot()',
-		'[class]': '_computedClass()',
-		'[attr.data-state]': '_dataState()',
-		'[attr.data-collapsible]': '_dataCollapsible()',
-		'[attr.data-variant]': '_dataVariant()',
-		'[attr.data-side]': '_dataSide()',
-	},
 })
 export class HlmSidebar {
 	protected readonly _sidebarService = inject(HlmSidebarService);

@@ -73,7 +73,6 @@ export const rule = ESLintUtils.RuleCreator(() => __filename)({
 						fix(fixer) {
 							const sourceCode = context.sourceCode;
 							const properties = configArg.properties;
-							const propIndex = properties.indexOf(prop);
 
 							// If it's the only property, remove just the property
 							if (properties.length === 1) {

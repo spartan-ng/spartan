@@ -8,6 +8,7 @@ import { provideHlmToggleGroup } from './hlm-toggle-group.token';
 
 @Directive({
 	selector: '[hlmToggleGroup],hlm-toggle-group',
+	providers: [provideHlmToggleGroup(HlmToggleGroup)],
 	hostDirectives: [
 		{
 			directive: BrnToggleGroup,
@@ -23,7 +24,6 @@ import { provideHlmToggleGroup } from './hlm-toggle-group.token';
 		'[attr.data-spacing]': 'spacing()',
 		'[style.--gap]': 'spacing()',
 	},
-	providers: [provideHlmToggleGroup(HlmToggleGroup)],
 })
 export class HlmToggleGroup {
 	public readonly variant = input<ToggleVariants['variant']>('default');

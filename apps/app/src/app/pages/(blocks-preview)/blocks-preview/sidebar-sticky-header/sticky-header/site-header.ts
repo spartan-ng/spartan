@@ -10,6 +10,7 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 	selector: 'spartan-site-header',
 	imports: [HlmSidebarImports, HlmSeparatorImports, HlmBreadCrumbImports, HlmInputGroupImports, NgIcon],
 	providers: [provideIcons({ lucideSearch })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<header class="bg-background sticky top-0 z-50 flex w-full items-center border-b">
 			<div class="flex h-(--header-height) w-full items-center gap-2 px-4">
@@ -36,6 +37,5 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 			</div>
 		</header>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SiteHeader {}

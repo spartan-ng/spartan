@@ -14,6 +14,10 @@ import { HlmError } from './hlm-error';
 
 @Component({
 	selector: 'hlm-form-field',
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		'[class]': '_computedClass()',
+	},
 	template: `
 		<ng-content />
 
@@ -26,10 +30,6 @@ import { HlmError } from './hlm-error';
 			}
 		}
 	`,
-	host: {
-		'[class]': '_computedClass()',
-	},
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmFormField {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

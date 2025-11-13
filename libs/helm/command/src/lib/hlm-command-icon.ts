@@ -5,10 +5,10 @@ import type { ClassValue } from 'clsx';
 
 @Directive({
 	selector: '[hlmCommandIcon]',
+	providers: [provideHlmIconConfig({ size: 'sm' })],
 	host: {
 		'[class]': '_computedClass()',
 	},
-	providers: [provideHlmIconConfig({ size: 'sm' })],
 })
 export class HlmCommandIcon {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

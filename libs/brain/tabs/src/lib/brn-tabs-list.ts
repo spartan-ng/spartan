@@ -7,12 +7,12 @@ import { BrnTabsTrigger } from './brn-tabs-trigger';
 
 @Directive({
 	selector: '[brnTabsList]',
+	exportAs: 'brnTabsList',
 	host: {
 		role: 'tablist',
 		'[attr.aria-orientation]': '_orientation()',
 		'[attr.data-orientation]': '_orientation()',
 	},
-	exportAs: 'brnTabsList',
 })
 export class BrnTabsList implements AfterContentInit {
 	private readonly _root = inject(BrnTabs);

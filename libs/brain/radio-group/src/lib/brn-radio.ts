@@ -25,6 +25,8 @@ const CONTAINER_POST_FIX = '-radio';
 
 @Component({
 	selector: 'brn-radio',
+	exportAs: 'brnRadio',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'brn-radio',
 		'[attr.id]': '_hostId()',
@@ -43,8 +45,6 @@ const CONTAINER_POST_FIX = '-radio';
 		// the focus to the native element.
 		'(focus)': '_inputElement().nativeElement.focus()',
 	},
-	exportAs: 'brnRadio',
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div data-slot="indicator" class="flex h-fit w-fit empty:hidden" (click)="onTouchTargetClick($event)">
 			<ng-content select="[target],[indicator]" />

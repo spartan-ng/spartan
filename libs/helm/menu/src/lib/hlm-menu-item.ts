@@ -6,11 +6,6 @@ import type { ClassValue } from 'clsx';
 
 @Directive({
 	selector: '[hlmMenuItem]',
-	host: {
-		'[class]': '_computedClass()',
-		'[attr.data-variant]': 'variant()',
-		'[attr.data-inset]': 'inset() ? "" : null',
-	},
 	hostDirectives: [
 		{
 			directive: BrnMenuItem,
@@ -18,6 +13,11 @@ import type { ClassValue } from 'clsx';
 			outputs: ['triggered: triggered'],
 		},
 	],
+	host: {
+		'[class]': '_computedClass()',
+		'[attr.data-variant]': 'variant()',
+		'[attr.data-inset]': 'inset() ? "" : null',
+	},
 })
 export class HlmMenuItem {
 	public readonly variant = input<'default' | 'destructive'>('default');

@@ -4,9 +4,7 @@ import { hlm } from '@spartan-ng/helm/utils';
 
 @Component({
 	selector: 'button[hlm-command-item]',
-	template: `
-		<ng-content />
-	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [
 		{
 			directive: BrnCommandItem,
@@ -17,7 +15,9 @@ import { hlm } from '@spartan-ng/helm/utils';
 	host: {
 		'[class]': '_computedClass()',
 	},
-	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<ng-content />
+	`,
 })
 export class HlmCommandItem {
 	/** The user defined class  */

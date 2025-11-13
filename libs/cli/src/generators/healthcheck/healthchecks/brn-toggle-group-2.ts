@@ -6,8 +6,13 @@ export const brainToggleGroup2Healthcheck: Healthcheck = {
 	name: 'Brain Toggle Group',
 	async detect(tree, failure) {
 		visitNotIgnoredFiles(tree, '/', (file) => {
-			// if the file is a .ts or .htlm file, check for helm icons
+			// if the file is a .ts or .htlm file
 			if (!file.endsWith('.ts') && !file.endsWith('.html')) {
+				return;
+			}
+
+			// skip HlmToggleGroup itself
+			if (file.endsWith('hlm-toggle-group.ts') || file.endsWith('hlm-toggle-group-item.ts')) {
 				return;
 			}
 

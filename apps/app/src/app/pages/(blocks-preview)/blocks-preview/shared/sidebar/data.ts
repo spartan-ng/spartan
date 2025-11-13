@@ -7,88 +7,117 @@ export const data = {
 	navMain: [
 		{
 			title: 'Playground',
-			url: '#',
+			url: '.',
 			icon: 'lucideSquareTerminal',
 			isActive: true,
 			items: [
 				{
 					title: 'History',
-					url: '#',
+					url: '.',
 				},
 				{
 					title: 'Starred',
-					url: '#',
+					url: '.',
 				},
 				{
 					title: 'Settings',
-					url: '#',
+					url: '.',
 				},
 			],
 		},
 		{
 			title: 'Models',
-			url: '#',
+			url: '.',
 			icon: 'lucideBot',
 			items: [
 				{
 					title: 'Genesis',
-					url: '#',
+					url: '.',
 				},
 				{
 					title: 'Explorer',
-					url: '#',
+					url: '.',
 				},
 				{
 					title: 'Quantum',
-					url: '#',
+					url: '.',
 				},
 			],
 		},
 		{
 			title: 'Documentation',
-			url: '#',
+			url: '.',
 			icon: 'lucideBookOpen',
 			items: [
 				{
 					title: 'Introduction',
-					url: '#',
+					url: '.',
 				},
 				{
 					title: 'Get Started',
-					url: '#',
+					url: '.',
 				},
 				{
 					title: 'Tutorials',
-					url: '#',
+					url: '.',
 				},
 				{
 					title: 'Changelog',
-					url: '#',
+					url: '.',
 				},
 			],
 		},
 		{
 			title: 'Settings',
-			url: '#',
+			url: '.',
 			icon: 'lucideSettings2',
 			items: [
 				{
 					title: 'General',
-					url: '#',
+					url: '.',
 				},
 				{
 					title: 'Team',
-					url: '#',
+					url: '.',
 				},
 				{
 					title: 'Billing',
-					url: '#',
+					url: '.',
 				},
 				{
 					title: 'Limits',
-					url: '#',
+					url: '.',
 				},
 			],
+		},
+	],
+	navSecondary: [
+		{
+			title: 'Support',
+			url: '.',
+			icon: 'lucideLifeBuoy',
+		},
+		{
+			title: 'Feedback',
+			url: '.',
+			icon: 'lucideSend',
+		},
+	],
+	projects: [
+		{
+			name: 'Design Engineering',
+			url: '.',
+			icon: 'lucideFrame',
+		},
+		{
+			name: 'Sales & Marketing',
+			url: '.',
+			icon: 'lucideChartPie',
+		},
+		{
+			name: 'Travel',
+			url: '.',
+			icon: 'lucideMap',
 		},
 	],
 };

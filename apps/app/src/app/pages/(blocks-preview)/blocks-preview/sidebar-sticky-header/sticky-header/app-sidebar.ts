@@ -38,8 +38,8 @@ import { NavUser } from '../../shared/sidebar/nav-user';
 
 					<hlm-sidebar-content>
 						<spartan-nav-main [items]="data.navMain" />
-						<spartan-nav-projects />
-						<spartan-nav-secondary class="mt-auto" />
+						<spartan-nav-projects [projects]="data.projects" />
+						<spartan-nav-secondary class="mt-auto" [items]="data.navSecondary" />
 					</hlm-sidebar-content>
 					<hlm-sidebar-footer>
 						<spartan-nav-user [user]="data.user" />

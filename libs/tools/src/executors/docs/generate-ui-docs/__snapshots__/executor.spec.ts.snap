@@ -1952,12 +1952,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "align",
             "required": false,
-            "type": "BrnMenuAlign",
+            "type": "MenuAlign",
           },
           {
             "name": "side",
             "required": false,
-            "type": "BrnMenuSide",
+            "type": "MenuSide",
           },
         ],
         "models": [],
@@ -2632,12 +2632,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "align",
             "required": false,
-            "type": "BrnMenuAlign",
+            "type": "MenuAlign",
           },
           {
             "name": "side",
             "required": false,
-            "type": "BrnMenuSide",
+            "type": "MenuSide",
           },
         ],
         "models": [],
@@ -3773,12 +3773,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "align",
             "required": false,
-            "type": "BrnMenuAlign",
+            "type": "MenuAlign",
           },
           {
             "name": "side",
             "required": false,
-            "type": "BrnMenuSide",
+            "type": "MenuSide",
           },
         ],
         "models": [],

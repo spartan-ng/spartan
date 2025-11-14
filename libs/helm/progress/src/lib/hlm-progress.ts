@@ -5,10 +5,10 @@ import type { ClassValue } from 'clsx';
 
 @Directive({
 	selector: 'hlm-progress,[hlmProgress]',
+	hostDirectives: [{ directive: BrnProgress, inputs: ['value', 'max', 'getValueLabel'] }],
 	host: {
 		'[class]': '_computedClass()',
 	},
-	hostDirectives: [{ directive: BrnProgress, inputs: ['value', 'max', 'getValueLabel'] }],
 })
 export class HlmProgress {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

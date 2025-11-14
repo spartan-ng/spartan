@@ -5,10 +5,10 @@ import type { ClassValue } from 'clsx';
 
 @Directive({
 	selector: '[hlmAccordion], hlm-accordion',
+	hostDirectives: [{ directive: BrnAccordion, inputs: ['type', 'dir', 'orientation'] }],
 	host: {
 		'[class]': '_computedClass()',
 	},
-	hostDirectives: [{ directive: BrnAccordion, inputs: ['type', 'dir', 'orientation'] }],
 })
 export class HlmAccordion {
 	private readonly _brn = inject(BrnAccordion);

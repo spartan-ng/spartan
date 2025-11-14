@@ -5,9 +5,6 @@ import type { ClassValue } from 'clsx';
 
 @Directive({
 	selector: '[hlmMenuItemCheckbox]',
-	host: {
-		'[class]': '_computedClass()',
-	},
 	hostDirectives: [
 		{
 			directive: BrnMenuItemCheckbox,
@@ -15,6 +12,9 @@ import type { ClassValue } from 'clsx';
 			outputs: ['triggered: triggered'],
 		},
 	],
+	host: {
+		'[class]': '_computedClass()',
+	},
 })
 export class HlmMenuItemCheckbox {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

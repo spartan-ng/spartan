@@ -7,12 +7,12 @@ import { HlmTooltipImports } from '@spartan-ng/helm/tooltip';
 
 @Component({
 	selector: 'spartan-input-group-tooltip-preview',
+	imports: [HlmInputGroupImports, HlmTooltipImports, HlmIconImports],
 	providers: [
 		provideIcons({
 			lucideInfo,
 		}),
 	],
-	imports: [HlmInputGroupImports, HlmTooltipImports, HlmIconImports],
 	host: {
 		class: 'grid w-full max-w-sm gap-6',
 	},

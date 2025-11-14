@@ -5,10 +5,10 @@ import { HlmAvatarFallback } from './hlm-avatar-fallback';
 @Component({
 	selector: 'hlm-mock',
 	imports: [HlmAvatarFallback],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<span hlmAvatarFallback [class]="userCls">fallback2</span>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class HlmMock {
 	public userCls = '';

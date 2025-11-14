@@ -7,13 +7,13 @@ import { HlmItemImports } from '@spartan-ng/helm/item';
 
 @Component({
 	selector: 'spartan-item-preview',
+	imports: [HlmItemImports, HlmButtonImports, NgIcon, HlmIconImports],
 	providers: [
 		provideIcons({
 			lucideBadgeCheck,
 			lucideChevronRight,
 		}),
 	],
-	imports: [HlmItemImports, HlmButtonImports, NgIcon, HlmIconImports],
 	host: {
 		class: 'flex w-full max-w-md flex-col gap-6',
 	},

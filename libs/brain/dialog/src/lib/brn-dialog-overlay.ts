@@ -1,13 +1,12 @@
-import { ChangeDetectionStrategy, Component, effect, inject, input, untracked, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject, input, untracked } from '@angular/core';
 import { provideCustomClassSettableExisting } from '@spartan-ng/brain/core';
 import { BrnDialog } from './brn-dialog';
 
 @Component({
 	selector: 'brn-dialog-overlay',
-	template: '',
 	providers: [provideCustomClassSettableExisting(() => BrnDialogOverlay)],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	encapsulation: ViewEncapsulation.None,
+	template: '',
 })
 export class BrnDialogOverlay {
 	private readonly _brnDialog = inject(BrnDialog);

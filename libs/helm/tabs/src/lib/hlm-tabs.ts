@@ -5,6 +5,7 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-tabs',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [
 		{
 			directive: BrnTabs,
@@ -12,11 +13,10 @@ import type { ClassValue } from 'clsx';
 			outputs: ['tabActivated'],
 		},
 	],
-	template: '<ng-content/>',
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[class]': '_computedClass()',
 	},
+	template: '<ng-content/>',
 })
 export class HlmTabs {
 	public readonly tab = input.required<string>();

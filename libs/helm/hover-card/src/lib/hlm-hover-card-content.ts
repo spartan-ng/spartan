@@ -15,13 +15,13 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-hover-card-content',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[class]': '_computedClass()',
 	},
 	template: `
 		<ng-content />
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmHoverCardContent {
 	private readonly _renderer = inject(Renderer2);

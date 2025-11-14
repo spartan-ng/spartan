@@ -97,28 +97,8 @@ export class BrnSelectScrollDown {
 		'(keydown)': 'keyManager?.onKeydown($event)',
 		'(keydown.enter)': 'selectActiveItem($event)',
 		'(keydown.space)': 'selectActiveItem($event)',
+		class: 'flex flex-col outline-none pointer-events-auto',
 	},
-	styles: [
-		`
-			:host {
-				display: flex;
-				box-sizing: border-box;
-				flex-direction: column;
-				outline: none;
-				pointer-events: auto;
-			}
-
-			[data-brn-select-viewport] {
-				scrollbar-width: none;
-				-ms-overflow-style: none;
-				-webkit-overflow-scrolling: touch;
-			}
-
-			[data-brn-select-viewport]::-webkit-scrollbar {
-				display: none;
-			}
-		`,
-	],
 	template: `
 		<ng-template #scrollUp>
 			<ng-content select="hlm-select-scroll-up" />
@@ -129,13 +109,7 @@ export class BrnSelectScrollDown {
 			data-brn-select-viewport
 			#viewport
 			(scroll)="handleScroll()"
-			style="flex: 1 1 0%;
-			position: relative;
-			width:100%;
-			overflow:auto;
-			min-height: 36px;
-      padding-bottom: 2px;
-      margin-bottom: -2px;"
+			class="relative -mb-0.5 min-h-9 w-full flex-1 overflow-auto pb-0.5 [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
 		>
 			<ng-content />
 		</div>

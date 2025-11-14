@@ -14,6 +14,7 @@ import { BrnTabs } from './brn-tabs';
 
 @Directive({
 	selector: 'button[brnTabsTrigger]',
+	exportAs: 'brnTabsTrigger',
 	host: {
 		'[id]': '_labelId()',
 		type: 'button',
@@ -28,7 +29,6 @@ import { BrnTabs } from './brn-tabs';
 		'[attr.disabled]': "_disabled() ? '' : undefined",
 		'(click)': 'activate()',
 	},
-	exportAs: 'brnTabsTrigger',
 })
 export class BrnTabsTrigger implements OnDestroy {
 	public readonly elementRef = inject(ElementRef);

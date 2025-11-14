@@ -5,11 +5,11 @@ import { BrnAvatarFallback } from './brn-avatar-fallback';
 @Component({
 	selector: 'brn-mock',
 	imports: [BrnAvatarFallback],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<span *brnAvatarFallback>fallback</span>
 		<span brnAvatarFallback>fallback2</span>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class BrnMock {}
 

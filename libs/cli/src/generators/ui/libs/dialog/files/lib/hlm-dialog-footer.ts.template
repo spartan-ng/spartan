@@ -4,13 +4,13 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-dialog-footer',
-	template: `
-		<ng-content />
-	`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[class]': '_computedClass()',
 	},
-	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<ng-content />
+	`,
 })
 export class HlmDialogFooter {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

@@ -1,5 +1,8 @@
+import { VERSION } from '@angular/core';
+
 // angular dependency
-export const FALLBACK_ANGULAR_VERSION = '^19.0.0';
+export const FALLBACK_ANGULAR_VERSION = `^${VERSION.major}.0.0`;
+export const FALLBACK_ANGULAR_CDK_VERSION = `^${VERSION.major}.0.0`;
 
 // ng-icon dependency
 export const NG_ICONS_VERSION = '^31.4.0';

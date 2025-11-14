@@ -26,6 +26,8 @@ export const HLM_SWITCH_VALUE_ACCESSOR = {
 @Component({
 	selector: 'hlm-switch',
 	imports: [BrnSwitchThumb, BrnSwitch, HlmSwitchThumb],
+	providers: [HLM_SWITCH_VALUE_ACCESSOR],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'contents',
 		'[attr.id]': 'null',
@@ -48,8 +50,6 @@ export const HLM_SWITCH_VALUE_ACCESSOR = {
 			<brn-switch-thumb hlm />
 		</brn-switch>
 	`,
-	providers: [HLM_SWITCH_VALUE_ACCESSOR],
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmSwitch implements ControlValueAccessor {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

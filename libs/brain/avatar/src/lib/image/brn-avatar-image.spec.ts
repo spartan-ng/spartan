@@ -6,6 +6,7 @@ import { BrnAvatarImage } from './brn-avatar-image';
 @Component({
 	selector: 'brn-mock',
 	imports: [BrnAvatarImage],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div id="bad">
 			<img brnAvatarImage #bad="avatarImage" alt="Avatar image" />
@@ -30,7 +31,6 @@ import { BrnAvatarImage } from './brn-avatar-image';
 			<span>{{ good.canShow() }}</span>
 		</div>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class BrnMock {}
 

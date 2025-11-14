@@ -128,7 +128,17 @@ export const routeMeta: RouteMeta = {
 				</li>
 			</ul>
 
-			<img src="/assets/sidebar-structure.png" alt="Sidebar structure" class="border-border rounded border" />
+			<img
+				src="/assets/sidebar-page/sidebar-structure.png"
+				alt="Sidebar structure"
+				class="border-border rounded border dark:hidden"
+			/>
+
+			<img
+				src="/assets/sidebar-page/sidebar-structure-dark.png"
+				alt="Sidebar structure"
+				class="border-border rounded border not-dark:hidden"
+			/>
 
 			<div class="mt-6 space-y-4">
 				<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
@@ -465,7 +475,7 @@ export const routeMeta: RouteMeta = {
 				To make a
 				<span hlmCode>HlmSidebarGroup</span>
 				collapsible, wrap it in a
-				<span hlmCode>BrnCollapsible</span>
+				<span hlmCode>HlmCollapsible</span>
 			</p>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
@@ -521,7 +531,17 @@ export const routeMeta: RouteMeta = {
 				</li>
 			</ul>
 
-			<img src="/assets/sidebar-menu.png" alt="Sidebar menu" class="border-border rounded border" />
+			<img
+				src="/assets/sidebar-page/sidebar-menu-structure.png"
+				alt="Sidebar menu"
+				class="border-border rounded border dark:hidden"
+			/>
+
+			<img
+				src="/assets/sidebar-page/sidebar-menu-structure-dark.png"
+				alt="Sidebar menu"
+				class="border-border rounded border not-dark:hidden"
+			/>
 
 			<p hlmP>
 				Here's an example of a
@@ -636,7 +656,7 @@ export const routeMeta: RouteMeta = {
 				component collapsible, wrap it and the
 				<span>HlmSidebarMenuSub</span>
 				components in a
-				<span hlmCode>BrnCollapsible</span>
+				<span hlmCode>HlmCollapsible</span>
 				.
 			</p>
 

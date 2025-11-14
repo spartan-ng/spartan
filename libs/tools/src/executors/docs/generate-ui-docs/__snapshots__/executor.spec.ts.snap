@@ -34,11 +34,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "string",
           },
-          {
-            "name": "styleWhileDimensionsAreInitiating",
-            "required": false,
-            "type": "string",
-          },
         ],
         "models": [],
         "outputs": [],
@@ -1638,7 +1633,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           },
         ],
         "outputs": [],
-        "selector": "brn-collapsible",
+        "selector": "[brnCollapsible],brn-collapsible",
       },
       "BrnCollapsibleContent": {
         "inputs": [
@@ -1650,13 +1645,45 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "brn-collapsible-content",
+        "selector": "[brnCollapsibleContent],brn-collapsible-content",
       },
       "BrnCollapsibleTrigger": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "type",
+            "required": false,
+            "type": "'button' | 'submit' | 'reset'",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "button[brnCollapsibleTrigger]",
+      },
+    },
+    "helm": {
+      "HlmCollapsible": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmCollapsible],hlm-collapsible",
+      },
+      "HlmCollapsibleContent": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmCollapsibleContent],hlm-collapsible-content",
+      },
+      "HlmCollapsibleTrigger": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "button[hlmCollapsibleTrigger]",
       },
     },
   },
@@ -4769,6 +4796,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       "HlmSidebar": {
         "inputs": [
           {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
             "name": "sidebarWidthMobile",
             "required": false,
             "type": "unknown",
@@ -4787,11 +4819,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "name": "collapsible",
             "required": false,
             "type": "'offcanvas' | 'icon' | 'none'",
-          },
-          {
-            "name": "nonCollapsibleClass",
-            "required": false,
-            "type": "ClassValue",
           },
           {
             "name": "sidebarContainerClass",
@@ -5000,7 +5027,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "div[hlmSidebarMenuSkeleton]",
+        "selector": "hlm-sidebar-menu-skeleton,div[hlmSidebarMenuSkeleton]",
       },
       "HlmSidebarMenuSub": {
         "inputs": [

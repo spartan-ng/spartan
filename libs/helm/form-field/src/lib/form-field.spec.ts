@@ -16,6 +16,7 @@ const DIRECTIVES = [HlmFormField, HlmError, HlmHint, HlmInput];
 @Component({
 	selector: 'single-form-field-example',
 	imports: [ReactiveFormsModule, ...DIRECTIVES],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-form-field>
 			<input
@@ -31,7 +32,6 @@ const DIRECTIVES = [HlmFormField, HlmError, HlmHint, HlmInput];
 			<hlm-hint data-testid="hlm-hint">This is your public display name.</hlm-hint>
 		</hlm-form-field>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class SingleFormFieldMock {
 	public name = new FormControl('', Validators.required);
@@ -40,6 +40,8 @@ class SingleFormFieldMock {
 @Component({
 	selector: 'single-form-field-dirty-example',
 	imports: [ReactiveFormsModule, ...DIRECTIVES],
+	providers: [{ provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher }],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-form-field>
 			<input
@@ -55,8 +57,6 @@ class SingleFormFieldMock {
 			<hlm-hint data-testid="hlm-hint">This is your public display name.</hlm-hint>
 		</hlm-form-field>
 	`,
-	providers: [{ provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher }],
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class SingleFormFieldDirtyMock {
 	public name = new FormControl('', Validators.required);

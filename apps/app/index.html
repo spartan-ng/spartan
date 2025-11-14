@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="dark h-full scroll-smooth" lang="en">
+<html class="h-full scroll-smooth" lang="en">
 	<head>
 		<meta charset="utf-8" />
 		<title>spartan - Cutting-edge tools powering Angular full-stack development</title>
@@ -8,29 +8,23 @@
 		<link rel="icon" type="image/svg+xml" href="/assets/spartan.svg" />
 		<link rel="stylesheet" href="/src/styles.css" />
 		<script>
-			if (localStorage.theme !== 'default') {
-				if (document && document.body) {
-					document.body.classList.add('theme-' + localStorage.theme);
-				}
+			let hasBody = !!document && !!document.body;
+			if (localStorage.theme !== 'default' && hasBody) {
+				document.body.classList.add('theme-' + localStorage.theme);
 			}
-			if (localStorage.darkMode === 'dark') {
-				if (document && document.documentElement) {
-					document.documentElement.classList.add('dark');
-				}
-			} else if (localStorage.darkMode === 'light') {
-				if (document && document.documentElement) {
-					document.documentElement.classList.remove('dark');
-					localStorage.setItem('darkMode', 'light');
-				}
-			} else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+
+			let hasDocument = !!document && !!document.documentElement;
+			let systemDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+			if (localStorage.darkMode === 'dark' && hasDocument) {
+				document.documentElement.classList.add('dark');
+			} else if (localStorage.darkMode === 'light' && hasDocument) {
+				document.documentElement.classList.remove('dark');
+				localStorage.setItem('darkMode', 'light');
+			} else if (systemDarkMode && hasDocument) {
 				localStorage.setItem('darkMode', 'system');
-				if (document && document.documentElement) {
-					document.documentElement.classList.add('dark');
-				}
-			} else {
-				if (document && document.documentElement) {
-					document.documentElement.classList.remove('dark');
-				}
+				document.documentElement.classList.add('dark');
+			} else if (hasDocument) {
+				document.documentElement.classList.remove('dark');
 			}
 
 			if (localStorage.layout) {

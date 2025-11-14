@@ -48,7 +48,7 @@ import { AuthenticationForm } from './components/form';
 					</div>
 				</div>
 				<div class="lg:p-8">
-					<auth-example-form />
+					<spartan-auth-example-form />
 				</div>
 			</div>
 		</div>

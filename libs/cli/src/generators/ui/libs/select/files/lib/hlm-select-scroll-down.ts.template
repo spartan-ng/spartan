@@ -9,13 +9,13 @@ import type { ClassValue } from 'clsx';
 	selector: 'hlm-select-scroll-down',
 	imports: [NgIcon, HlmIcon],
 	providers: [provideIcons({ lucideChevronDown })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[class]': '_computedClass()',
 	},
 	template: `
 		<ng-icon hlm size="sm" class="ml-2" name="lucideChevronDown" />
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmSelectScrollDown {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

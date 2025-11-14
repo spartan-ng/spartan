@@ -7,6 +7,7 @@ import { BrnCheckbox } from './brn-checkbox';
 @Component({
 	selector: 'brn-checkbox-form',
 	imports: [BrnCheckbox, FormsModule, ReactiveFormsModule],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<form [formGroup]="form">
 			<label>
@@ -16,7 +17,6 @@ import { BrnCheckbox } from './brn-checkbox';
 		</form>
 		{{ form.value }}
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BrnCheckboxFormSpec {
 	public checkedChangedCalled = false;

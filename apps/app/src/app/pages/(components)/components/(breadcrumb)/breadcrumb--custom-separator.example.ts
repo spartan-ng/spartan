@@ -5,8 +5,8 @@ import { HlmBreadCrumbImports } from '@spartan-ng/helm/breadcrumb';
 
 @Component({
 	selector: 'spartan-breadcrumb-custom-separator',
-	providers: [provideIcons({ lucideSlash })],
 	imports: [HlmBreadCrumbImports, NgIcon],
+	providers: [provideIcons({ lucideSlash })],
 	template: `
 		<nav hlmBreadcrumb>
 			<ol hlmBreadcrumbList>

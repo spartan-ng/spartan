@@ -50,7 +50,6 @@ let nextId = 0;
 @Component({
 	selector: 'brn-select, hlm-select',
 	imports: [OverlayModule, CdkListboxModule],
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
 		provideExposedSideProviderExisting(() => BrnSelect),
 		provideExposesStateProviderExisting(() => BrnSelect),
@@ -60,6 +59,7 @@ let nextId = 0;
 			useExisting: forwardRef(() => BrnSelect),
 		},
 	],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		@if (!_selectLabel() && placeholder()) {
 			<label style="display: none;" [attr.id]="labelId()">{{ placeholder() }}</label>

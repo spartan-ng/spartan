@@ -203,7 +203,6 @@ export class HlmTh {
  */
 @Directive({
 	selector: 'td[hlmTd]',
-	standalone: true,
 	host: {
 		'[class]': '_computedClass()',
 		'data-slot': 'table-cell',

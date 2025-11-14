@@ -13,6 +13,7 @@ import { HlmPaginationLink } from './hlm-pagination-link';
 	selector: 'hlm-pagination-previous',
 	imports: [HlmPaginationLink, NgIcon, HlmIcon],
 	providers: [provideIcons({ lucideChevronLeft })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<a
 			[class]="_computedClass()"
@@ -27,7 +28,6 @@ import { HlmPaginationLink } from './hlm-pagination-link';
 			<span [class]="_labelClass()">{{ text() }}</span>
 		</a>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmPaginationPrevious {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

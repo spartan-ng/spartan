@@ -4,10 +4,10 @@ import { BrnHoverCardContent, BrnHoverCardContentService, BrnHoverCardTrigger } 
 @Component({
 	selector: 'brn-hover-card',
 	providers: [BrnHoverCardContentService],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ng-content />
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BrnHoverCard implements AfterContentInit {
 	private readonly _trigger = contentChild(BrnHoverCardTrigger);

@@ -4,6 +4,10 @@ import { type CellContext, type HeaderContext, injectFlexRenderContext } from '@
 
 @Component({
 	imports: [HlmCheckboxImports],
+	host: {
+		class: 'flex',
+		'aria-label': 'Select all',
+	},
 	template: `
 		<hlm-checkbox
 			[checked]="_context.table.getIsAllRowsSelected()"
@@ -11,10 +15,6 @@ import { type CellContext, type HeaderContext, injectFlexRenderContext } from '@
 			(checkedChange)="_context.table.toggleAllRowsSelected()"
 		/>
 	`,
-	host: {
-		class: 'flex',
-		'aria-label': 'Select all',
-	},
 })
 export class TableHeadSelection<T> {
 	protected readonly _context = injectFlexRenderContext<HeaderContext<T, unknown>>();
@@ -22,16 +22,16 @@ export class TableHeadSelection<T> {
 
 @Component({
 	imports: [HlmCheckboxImports],
+	host: {
+		class: 'flex',
+		'aria-label': 'Select Row',
+	},
 	template: `
 		<hlm-checkbox
 			[checked]="_context.row.getIsSelected()"
 			(checkedChange)="_context.row.getToggleSelectedHandler()($event)"
 		/>
 	`,
-	host: {
-		class: 'flex',
-		'aria-label': 'Select Row',
-	},
 })
 export class TableRowSelection<T> {
 	protected readonly _context = injectFlexRenderContext<CellContext<T, unknown>>();

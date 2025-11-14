@@ -22,14 +22,14 @@ type MenuVariants = VariantProps<typeof menuVariants>;
 
 @Component({
 	selector: 'hlm-menu',
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	hostDirectives: [BrnMenu],
 	host: {
 		'[class]': '_computedClass()',
 	},
-	hostDirectives: [BrnMenu],
 	template: `
 		<ng-content />
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmMenu {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

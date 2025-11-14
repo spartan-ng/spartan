@@ -13,6 +13,7 @@ import { HlmPaginationLink } from './hlm-pagination-link';
 	selector: 'hlm-pagination-next',
 	imports: [HlmPaginationLink, NgIcon, HlmIcon],
 	providers: [provideIcons({ lucideChevronRight })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<a
 			[class]="_computedClass()"
@@ -27,7 +28,6 @@ import { HlmPaginationLink } from './hlm-pagination-link';
 			<ng-icon hlm size="sm" name="lucideChevronRight" />
 		</a>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmPaginationNext {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

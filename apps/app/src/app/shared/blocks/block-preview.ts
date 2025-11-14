@@ -7,13 +7,18 @@ import { DomSanitizer } from '@angular/platform-browser';
 		<img
 			[src]="'/assets/blocks/' + name() + '.png'"
 			[alt]="name()"
-			class="border-border flex rounded-xl border md:hidden"
+			class="border-border flex rounded-xl border md:hidden dark:hidden"
+		/>
+		<img
+			[src]="'/assets/blocks/' + name() + '-dark.png'"
+			[alt]="name()"
+			class="border-border flex rounded-xl border not-dark:hidden md:hidden"
 		/>
 
 		<div
 			class="bg-background relative hidden aspect-[4/2.5] h-[930px] overflow-hidden rounded-lg border md:block md:aspect-auto md:rounded-xl"
 		>
-			<iframe [src]="_iframeSrc()" class="bg-background no-scrollbar relative z-20 h-full w-full"></iframe>
+			<iframe [src]="_iframeSrc()" class="bg-background no-scrollbar relative z-20 h-full w-full" #iframe></iframe>
 		</div>
 	`,
 })

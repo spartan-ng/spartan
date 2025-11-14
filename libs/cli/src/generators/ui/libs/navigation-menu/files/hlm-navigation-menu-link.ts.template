@@ -5,10 +5,10 @@ import { ClassValue } from 'clsx';
 
 @Directive({
 	selector: 'a[hlmNavigationMenuLink]',
+	hostDirectives: [{ directive: BrnNavigationMenuLink, inputs: ['active'] }],
 	host: {
 		'[class]': '_computedClass()',
 	},
-	hostDirectives: [{ directive: BrnNavigationMenuLink, inputs: ['active'] }],
 })
 export class HlmNavigationMenuLink {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

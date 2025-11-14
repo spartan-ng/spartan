@@ -7,6 +7,9 @@ import { SideNav } from '@spartan-ng/app/app/shared/layout/side-nav/side-nav';
 @Component({
 	selector: 'spartan-page',
 	imports: [RouterOutlet, SideNav, PageNavOutlet],
+	host: {
+		class: 'container-wrapper flex flex-1 flex-col px-2',
+	},
 	template: `
 		<spartan-side-nav>
 			<div class="h-full w-full">
@@ -24,8 +27,5 @@ import { SideNav } from '@spartan-ng/app/app/shared/layout/side-nav/side-nav';
 			</div>
 		</spartan-side-nav>
 	`,
-	host: {
-		class: 'container-wrapper flex flex-1 flex-col px-2',
-	},
 })
 export class Page {}

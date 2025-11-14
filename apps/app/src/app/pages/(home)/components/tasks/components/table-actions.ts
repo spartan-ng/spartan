@@ -36,11 +36,7 @@ import type { TaskPriority, TaskStatus } from '../services/tasks.models';
 import { TasksExample } from '../tasks';
 
 @Component({
-	// eslint-disable-next-line @angular-eslint/component-selector
-	selector: 'table-actions',
-	host: {
-		class: 'block',
-	},
+	selector: 'spartan-table-actions',
 	imports: [
 		HlmButton,
 		FormsModule,
@@ -78,6 +74,9 @@ import { TasksExample } from '../tasks';
 			lucideX,
 		}),
 	],
+	host: {
+		class: 'block',
+	},
 	template: `
 		<div class="wip-table-search flex flex-col justify-between gap-4 sm:flex-row">
 			<div class="flex flex-col justify-between gap-4 sm:flex-row">

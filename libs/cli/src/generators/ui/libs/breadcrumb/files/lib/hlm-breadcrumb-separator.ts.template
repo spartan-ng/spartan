@@ -9,6 +9,7 @@ import type { ClassValue } from 'clsx';
 	selector: '[hlmBreadcrumbSeparator]',
 	imports: [NgIcon],
 	providers: [provideIcons({ lucideChevronRight })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		role: 'presentation',
 		'aria-hidden': 'true',
@@ -19,7 +20,6 @@ import type { ClassValue } from 'clsx';
 			<ng-icon name="lucideChevronRight" />
 		</ng-content>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmBreadcrumbSeparator {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

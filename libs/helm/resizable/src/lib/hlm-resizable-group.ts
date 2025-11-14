@@ -5,6 +5,7 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-resizable-group',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [
 		{
 			directive: BrnResizableGroup,
@@ -12,13 +13,12 @@ import type { ClassValue } from 'clsx';
 			outputs: ['dragEnd', 'dragStart', 'layoutChange'],
 		},
 	],
-	template: `
-		<ng-content />
-	`,
 	host: {
 		'[class]': '_computedClass()',
 	},
-	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<ng-content />
+	`,
 })
 export class HlmResizableGroup {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

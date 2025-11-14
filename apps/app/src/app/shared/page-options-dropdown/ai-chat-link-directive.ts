@@ -5,7 +5,6 @@ export type AiType = 'chatgpt' | 'claude';
 
 @Directive({
 	selector: '[spartanAiChatLink]',
-	standalone: true,
 	host: {
 		'[href]': '_computedHref()',
 		target: '_blank',

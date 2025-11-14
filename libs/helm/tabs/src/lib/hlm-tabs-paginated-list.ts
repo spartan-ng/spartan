@@ -23,6 +23,10 @@ import { listVariants } from './hlm-tabs-list';
 	selector: 'hlm-paginated-tabs-list',
 	imports: [CdkObserveContent, NgIcon, HlmIcon],
 	providers: [provideIcons({ lucideChevronRight, lucideChevronLeft })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		'[class]': '_computedClass()',
+	},
 	template: `
 		<button
 			#previousPaginator
@@ -66,10 +70,6 @@ import { listVariants } from './hlm-tabs-list';
 			<ng-icon hlm size="base" name="lucideChevronRight" />
 		</button>
 	`,
-	host: {
-		'[class]': '_computedClass()',
-	},
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmTabsPaginatedList extends BrnTabsPaginatedList {
 	public readonly items = contentChildren(BrnTabsTrigger, { descendants: false });

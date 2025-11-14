@@ -5,10 +5,10 @@ import type { ClassValue } from 'clsx';
 
 @Directive({
 	selector: '[hlmAlertDialogDescription]',
+	hostDirectives: [BrnAlertDialogDescription],
 	host: {
 		'[class]': '_computedClass()',
 	},
-	hostDirectives: [BrnAlertDialogDescription],
 })
 export class HlmAlertDialogDescription {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

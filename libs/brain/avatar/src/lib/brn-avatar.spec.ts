@@ -8,6 +8,7 @@ import { BrnAvatarImage } from './image/brn-avatar-image';
 @Component({
 	selector: 'brn-mock',
 	imports: [BrnAvatarImage, BrnAvatarFallback, BrnAvatar],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<brn-avatar id="empty">
 			<p>empty</p>
@@ -28,7 +29,6 @@ import { BrnAvatarImage } from './image/brn-avatar-image';
 			<span brnAvatarFallback>fallback</span>
 		</brn-avatar>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class Mock {}
 

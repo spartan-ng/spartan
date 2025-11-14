@@ -5,11 +5,11 @@ import type { ClassValue } from 'clsx';
 
 @Directive({
 	selector: '[hlmAccordionTrigger]',
+	hostDirectives: [BrnAccordionTrigger],
 	host: {
 		'[style.--tw-ring-offset-shadow]': '"0 0 #000"',
 		'[class]': '_computedClass()',
 	},
-	hostDirectives: [BrnAccordionTrigger],
 })
 export class HlmAccordionTrigger {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

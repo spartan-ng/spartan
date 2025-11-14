@@ -5,8 +5,8 @@ import type { ClassValue } from 'clsx';
 
 @Directive({
 	selector: '[hlmButtonGroupSeparator],hlm-button-group-separator',
-	hostDirectives: [{ directive: BrnSeparator, inputs: ['orientation', 'decorative'] }],
 	providers: [provideBrnSeparatorConfig({ orientation: 'vertical' })],
+	hostDirectives: [{ directive: BrnSeparator, inputs: ['orientation', 'decorative'] }],
 	host: {
 		'data-slot': 'button-group-separator',
 		'[class]': '_computedClass()',

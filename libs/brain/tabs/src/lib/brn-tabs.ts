@@ -9,11 +9,11 @@ export type TabEntry = { trigger: BrnTabsTrigger; content: BrnTabsContent };
 
 @Directive({
 	selector: '[brnTabs]',
+	exportAs: 'brnTabs',
 	host: {
 		'[attr.data-orientation]': 'orientation()',
 		'[attr.dir]': 'direction()',
 	},
-	exportAs: 'brnTabs',
 })
 export class BrnTabs {
 	public readonly orientation = input<BrnTabsOrientation>('horizontal');

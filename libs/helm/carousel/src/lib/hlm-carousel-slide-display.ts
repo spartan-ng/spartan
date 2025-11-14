@@ -5,14 +5,14 @@ import { HlmCarousel } from './hlm-carousel';
 
 @Component({
 	selector: 'hlm-carousel-slide-display',
-	template: `
-		<span class="sr-only">{{ _labelContent() }}</span>
-		<div aria-hidden="true" [class]="slideClass()">{{ _currentSlide() }} / {{ _carousel.slideCount() }}</div>
-	`,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[class]': '_computedClass()',
 	},
+	template: `
+		<span class="sr-only">{{ _labelContent() }}</span>
+		<div aria-hidden="true" [class]="slideClass()">{{ _currentSlide() }} / {{ _carousel.slideCount() }}</div>
+	`,
 })
 export class HlmCarouselSlideDisplay {
 	protected readonly _carousel = inject(HlmCarousel);

@@ -28,6 +28,18 @@ export const HLM_CHECKBOX_VALUE_ACCESSOR = {
 @Component({
 	selector: 'hlm-checkbox',
 	imports: [BrnCheckbox, NgIcon, HlmIcon],
+	providers: [HLM_CHECKBOX_VALUE_ACCESSOR],
+	viewProviders: [provideIcons({ lucideCheck })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		class: 'contents peer',
+		'data-slot': 'checkbox',
+		'[attr.id]': 'null',
+		'[attr.aria-label]': 'null',
+		'[attr.aria-labelledby]': 'null',
+		'[attr.aria-describedby]': 'null',
+		'[attr.data-disabled]': '_disabled() ? "" : null',
+	},
 	template: `
 		<brn-checkbox
 			[id]="id()"
@@ -50,18 +62,6 @@ export const HLM_CHECKBOX_VALUE_ACCESSOR = {
 			}
 		</brn-checkbox>
 	`,
-	host: {
-		class: 'contents peer',
-		'data-slot': 'checkbox',
-		'[attr.id]': 'null',
-		'[attr.aria-label]': 'null',
-		'[attr.aria-labelledby]': 'null',
-		'[attr.aria-describedby]': 'null',
-		'[attr.data-disabled]': '_disabled() ? "" : null',
-	},
-	providers: [HLM_CHECKBOX_VALUE_ACCESSOR],
-	viewProviders: [provideIcons({ lucideCheck })],
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmCheckbox implements ControlValueAccessor {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

@@ -10,6 +10,11 @@ import { ColorFormat } from './format-color';
 
 @Component({
 	selector: 'spartan-color-palette',
+	imports: [Color, BrnSelectImports, HlmSelectImports, KeyValuePipe, FormatColorPipe, FormsModule],
+	host: {
+		'[id]': 'colorPalette().name',
+		class: 'block scroll-mt-20 rounded-lg',
+	},
 	template: `
 		@let palette = colorPalette();
 		<div class="flex items-center px-4">
@@ -39,11 +44,6 @@ import { ColorFormat } from './format-color';
 			}
 		</div>
 	`,
-	imports: [Color, BrnSelectImports, HlmSelectImports, KeyValuePipe, FormatColorPipe, FormsModule],
-	host: {
-		'[id]': 'colorPalette().name',
-		class: 'block scroll-mt-20 rounded-lg',
-	},
 })
 export class ColorPalette {
 	public readonly colorPalette = input.required<ColorPaletteType>();

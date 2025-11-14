@@ -160,7 +160,7 @@ import { type Task, TASK_DATA } from './services/tasks.models';
 				</ng-template>
 			</div>
 
-			<table-actions table="table" />
+			<spartan-table-actions table="table" />
 
 			<div class="max-h-[700px] w-full overflow-auto rounded-md border">
 				@defer {

@@ -6,6 +6,10 @@ import { DateTime } from 'luxon';
 @Component({
 	selector: 'spartan-date-picker-format',
 	imports: [HlmDatePickerImports, HlmLabelImports],
+	providers: [
+		// Global formatDate config
+		provideHlmDatePickerConfig({ formatDate: (date: Date) => DateTime.fromJSDate(date).toFormat('dd.MM.yyyy') }),
+	],
 	template: `
 		<div class="flex flex-col gap-3">
 			<label for="datePickerFormat" hlmLabel class="px-1">Date Picker with Custom Format</label>
@@ -14,10 +18,6 @@ import { DateTime } from 'luxon';
 			</hlm-date-picker>
 		</div>
 	`,
-	providers: [
-		// Global formatDate config
-		provideHlmDatePickerConfig({ formatDate: (date: Date) => DateTime.fromJSDate(date).toFormat('dd.MM.yyyy') }),
-	],
 })
 export class DatePickerFormatExample {
 	/** The minimum date */

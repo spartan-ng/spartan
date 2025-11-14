@@ -22,6 +22,19 @@ import { HlmPaginationPrevious } from './hlm-pagination-previous';
 
 @Component({
 	selector: 'hlm-numbered-pagination',
+	imports: [
+		FormsModule,
+		HlmPagination,
+		HlmPaginationContent,
+		HlmPaginationItem,
+		HlmPaginationPrevious,
+		HlmPaginationNext,
+		HlmPaginationLink,
+		HlmPaginationEllipsis,
+		BrnSelectImports,
+		HlmSelectImports,
+	],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div class="flex items-center justify-between gap-2 px-4 py-2">
 			<div class="flex items-center gap-1 text-sm text-nowrap text-gray-600">
@@ -72,19 +85,6 @@ import { HlmPaginationPrevious } from './hlm-pagination-previous';
 			</brn-select>
 		</div>
 	`,
-	imports: [
-		FormsModule,
-		HlmPagination,
-		HlmPaginationContent,
-		HlmPaginationItem,
-		HlmPaginationPrevious,
-		HlmPaginationNext,
-		HlmPaginationLink,
-		HlmPaginationEllipsis,
-		BrnSelectImports,
-		HlmSelectImports,
-	],
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmNumberedPagination {
 	/**

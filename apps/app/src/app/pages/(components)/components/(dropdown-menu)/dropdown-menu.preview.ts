@@ -18,11 +18,12 @@ import {
 } from '@ng-icons/lucide';
 import { BrnMenuImports } from '@spartan-ng/brain/menu';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 import { HlmMenuImports } from '@spartan-ng/helm/menu';
 
 @Component({
 	selector: 'spartan-dropdown-preview',
-	imports: [BrnMenuImports, HlmMenuImports, HlmButtonImports],
+	imports: [BrnMenuImports, HlmDropdownMenuImports, HlmMenuImports, HlmButtonImports],
 	providers: [
 		provideIcons({
 			lucideUser,
@@ -42,7 +43,7 @@ import { HlmMenuImports } from '@spartan-ng/helm/menu';
 		}),
 	],
 	template: `
-		<button hlmBtn variant="outline" align="start" [brnMenuTriggerFor]="menu">Open</button>
+		<button hlmBtn variant="outline" [hlmDropdownMenuTrigger]="menu">Open</button>
 
 		<ng-template #menu>
 			<hlm-menu class="w-56">

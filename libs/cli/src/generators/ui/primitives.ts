@@ -18,6 +18,7 @@ export type Primitive =
 	| 'context-menu'
 	| 'date-picker'
 	| 'dialog'
+	| 'dropdown-menu'
 	| 'empty'
 	| 'field'
 	| 'form-field'

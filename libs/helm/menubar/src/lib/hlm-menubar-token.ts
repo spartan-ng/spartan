@@ -1,9 +1,9 @@
 import { InjectionToken, type ValueProvider, inject } from '@angular/core';
-import { BrnMenuAlign, BrnMenuSide } from '@spartan-ng/brain/menu';
+import { type MenuAlign, type MenuSide } from '@spartan-ng/brain/core';
 
 export interface HlmMenubarConfig {
-	align: BrnMenuAlign;
-	side: BrnMenuSide;
+	align: MenuAlign;
+	side: MenuSide;
 }
 
 const defaultConfig: HlmMenubarConfig = {

@@ -1,4 +1,4 @@
-import type { BooleanInput } from '@angular/cdk/coercion';
+import { type BooleanInput } from '@angular/cdk/coercion';
 import { booleanAttribute, computed, Directive, input } from '@angular/core';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';

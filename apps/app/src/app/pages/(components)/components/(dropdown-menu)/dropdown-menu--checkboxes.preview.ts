@@ -6,6 +6,7 @@ import { HlmMenuImports } from '@spartan-ng/helm/menu';
 @Component({
 	selector: 'spartan-dropdown-menu-checkboxes',
 	imports: [HlmMenuImports, HlmButtonImports, BrnMenuImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<button hlmBtn variant="outline" [brnMenuTriggerFor]="menu">Open</button>
 
@@ -34,7 +35,6 @@ import { HlmMenuImports } from '@spartan-ng/helm/menu';
 			</hlm-menu>
 		</ng-template>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DropdownMenuCheckboxes {
 	public readonly statusBar = signal(true);

@@ -24,7 +24,7 @@ export class HlmDropdownMenuTrigger {
 	public readonly align = input<MenuAlign>(this._config.align);
 	public readonly side = input<MenuSide>(this._config.side);
 
-	private readonly menuPosition = computed(() => createMenuPosition(this.align(), this.side()));
+	private readonly _menuPosition = computed(() => createMenuPosition(this.align(), this.side()));
 
 	constructor() {
 		// once the trigger opens we wait until the next tick and then grab the last position
@@ -40,7 +40,7 @@ export class HlmDropdownMenuTrigger {
 		);
 
 		effect(() => {
-			this._cdkTrigger.menuPosition = this.menuPosition();
+			this._cdkTrigger.menuPosition = this._menuPosition();
 		});
 	}
 }

@@ -1,8 +1,8 @@
-import { BooleanInput } from '@angular/cdk/coercion';
+import { type BooleanInput } from '@angular/cdk/coercion';
 import { CdkContextMenuTrigger } from '@angular/cdk/menu';
 import { booleanAttribute, computed, Directive, effect, inject, input } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { BrnMenuAlign, BrnMenuSide, getBrnMenuPosition } from '@spartan-ng/brain/menu';
+import { createMenuPosition, type MenuAlign, type MenuSide } from '@spartan-ng/brain/core';
 import { injectHlmContextMenuConfig } from './hlm-context-menu-token';
 
 @Directive({
@@ -29,10 +29,10 @@ export class HlmContextMenuTrigger {
 
 	public readonly disabled = input<boolean, BooleanInput>(this._cdkTrigger.disabled, { transform: booleanAttribute });
 
-	public readonly align = input<BrnMenuAlign>(this._config.align);
-	public readonly side = input<BrnMenuSide>(this._config.side);
+	public readonly align = input<MenuAlign>(this._config.align);
+	public readonly side = input<MenuSide>(this._config.side);
 
-	private readonly menuPosition = computed(() => getBrnMenuPosition(this.align(), this.side()));
+	private readonly menuPosition = computed(() => createMenuPosition(this.align(), this.side()));
 
 	constructor() {
 		// once the trigger opens we wait until the next tick and then grab the last position

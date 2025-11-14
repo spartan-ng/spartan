@@ -1,4 +1,4 @@
-import { BooleanInput } from '@angular/cdk/coercion';
+import { type BooleanInput } from '@angular/cdk/coercion';
 import { CdkMenuItemCheckbox } from '@angular/cdk/menu';
 import { Directive, booleanAttribute, computed, inject, input } from '@angular/core';
 import { hlm } from '@spartan-ng/helm/utils';

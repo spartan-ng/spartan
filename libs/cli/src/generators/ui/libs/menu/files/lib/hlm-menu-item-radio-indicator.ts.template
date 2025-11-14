@@ -7,16 +7,16 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-menu-item-radio',
-	providers: [provideIcons({ lucideCircle })],
 	imports: [NgIcon, HlmIcon],
+	providers: [provideIcons({ lucideCircle })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		'[class]': '_computedClass()',
+	},
 	template: `
 		<!-- Using 0.5rem for size to mimick h-2 w-2 -->
 		<ng-icon hlm size="0.5rem" class="*:*:fill-current" name="lucideCircle" />
 	`,
-	host: {
-		'[class]': '_computedClass()',
-	},
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmMenuItemRadioIndicator {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

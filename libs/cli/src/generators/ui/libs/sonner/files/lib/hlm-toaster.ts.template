@@ -6,6 +6,7 @@ import { NgxSonnerToaster, type ToasterProps } from 'ngx-sonner';
 @Component({
 	selector: 'hlm-toaster',
 	imports: [NgxSonnerToaster],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ngx-sonner-toaster
 			[class]="_computedClass()"
@@ -24,7 +25,6 @@ import { NgxSonnerToaster, type ToasterProps } from 'ngx-sonner';
 			[style]="userStyle()"
 		/>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmToaster {
 	public readonly invert = input<ToasterProps['invert'], boolean | string>(false, {

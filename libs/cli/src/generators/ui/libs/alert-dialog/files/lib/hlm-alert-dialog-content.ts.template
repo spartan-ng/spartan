@@ -5,6 +5,7 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-alert-dialog-content',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[class]': '_computedClass()',
 		'[attr.data-state]': 'state()',
@@ -12,7 +13,6 @@ import type { ClassValue } from 'clsx';
 	template: `
 		<ng-content />
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmAlertDialogContent {
 	private readonly _stateProvider = injectExposesStateProvider({ optional: true, host: true });

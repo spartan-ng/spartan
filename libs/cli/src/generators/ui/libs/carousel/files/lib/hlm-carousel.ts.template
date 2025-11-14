@@ -19,6 +19,7 @@ import {
 
 @Component({
 	selector: 'hlm-carousel',
+	imports: [EmblaCarouselDirective],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[class]': '_computedClass()',
@@ -26,7 +27,6 @@ import {
 		'aria-roledescription': 'carousel',
 		'(keydown)': 'onKeydown($event)',
 	},
-	imports: [EmblaCarouselDirective],
 	template: `
 		<div
 			emblaCarousel

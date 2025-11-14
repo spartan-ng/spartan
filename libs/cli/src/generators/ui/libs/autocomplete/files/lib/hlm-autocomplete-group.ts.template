@@ -4,7 +4,7 @@ import { hlm } from '<%- importAlias %>/utils';
 
 @Component({
 	selector: 'hlm-autocomplete-group',
-	template: '<ng-content />',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [
 		{
 			directive: BrnAutocompleteGroup,
@@ -14,7 +14,7 @@ import { hlm } from '<%- importAlias %>/utils';
 	host: {
 		'[class]': '_computedClass()',
 	},
-	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: '<ng-content />',
 })
 export class HlmAutocompleteGroup {
 	/** The user defined class  */

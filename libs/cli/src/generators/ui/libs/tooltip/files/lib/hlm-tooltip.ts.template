@@ -4,10 +4,10 @@ import { BrnTooltip } from '@spartan-ng/brain/tooltip';
 @Component({
 	selector: 'hlm-tooltip',
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	hostDirectives: [BrnTooltip],
 	host: {
 		'[style]': '{display: "contents"}',
 	},
-	hostDirectives: [BrnTooltip],
 	template: `
 		<ng-content />
 	`,

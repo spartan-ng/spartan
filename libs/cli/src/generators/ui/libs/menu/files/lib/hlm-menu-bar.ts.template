@@ -5,12 +5,12 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-menu-bar',
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	hostDirectives: [BrnMenuBar],
 	host: {
 		'[class]': '_computedClass()',
 	},
-	hostDirectives: [BrnMenuBar],
 	template: '<ng-content/>',
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmMenuBar {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

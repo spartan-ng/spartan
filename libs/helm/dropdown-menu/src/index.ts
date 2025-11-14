@@ -4,6 +4,7 @@ import { HlmDropdownMenuCheckboxItem } from './lib/hlm-dropdown-menu-checkbox-it
 import { HlmDropdownMenuGroup } from './lib/hlm-dropdown-menu-group';
 import { HlmDropdownMenuItem } from './lib/hlm-dropdown-menu-item';
 import { HlmDropdownMenuItemSubIndicator } from './lib/hlm-dropdown-menu-item-sub-indicator';
+import { HlmDropdownMenuLabel } from './lib/hlm-dropdown-menu-label';
 import { HlmDropdownMenuRadioIndicator } from './lib/hlm-dropdown-menu-radio-indicator';
 import { HlmDropdownMenuRadioItem } from './lib/hlm-dropdown-menu-radio-item';
 import { HlmDropdownMenuSeparator } from './lib/hlm-dropdown-menu-separator';
@@ -18,6 +19,7 @@ export * from './lib/hlm-dropdown-menu-checkbox-item';
 export * from './lib/hlm-dropdown-menu-group';
 export * from './lib/hlm-dropdown-menu-item';
 export * from './lib/hlm-dropdown-menu-item-sub-indicator';
+export * from './lib/hlm-dropdown-menu-label';
 export * from './lib/hlm-dropdown-menu-radio-indicator';
 export * from './lib/hlm-dropdown-menu-radio-item';
 export * from './lib/hlm-dropdown-menu-separator';
@@ -33,6 +35,7 @@ export const HlmDropdownMenuImports = [
 	HlmDropdownMenuGroup,
 	HlmDropdownMenuItem,
 	HlmDropdownMenuItemSubIndicator,
+	HlmDropdownMenuLabel,
 	HlmDropdownMenuRadioIndicator,
 	HlmDropdownMenuRadioItem,
 	HlmDropdownMenuSeparator,

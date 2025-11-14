@@ -17,7 +17,7 @@ export const primitiveDependencies: Record<Primitive, Primitive[]> = {
 	checkbox: ['utils', 'icon'],
 	collapsible: [],
 	command: ['utils', 'button', 'icon'],
-	'context-menu': ['utils'],
+	'context-menu': ['utils', 'dropdown-menu'],
 	'date-picker': ['utils', 'calendar', 'icon', 'popover'],
 	dialog: ['utils'],
 	'dropdown-menu': ['utils', 'icon'],

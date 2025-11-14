@@ -88,6 +88,7 @@
 			"@spartan-ng/helm/checkbox": ["libs/helm/checkbox/src/index.ts"],
 			"@spartan-ng/helm/collapsible": ["libs/helm/collapsible/src/index.ts"],
 			"@spartan-ng/helm/command": ["libs/helm/command/src/index.ts"],
+			"@spartan-ng/helm/context-menu": ["libs/helm/context-menu/src/index.ts"],
 			"@spartan-ng/helm/date-picker": ["libs/helm/date-picker/src/index.ts"],
 			"@spartan-ng/helm/dialog": ["libs/helm/dialog/src/index.ts"],
 			"@spartan-ng/helm/dropdown-menu": ["libs/helm/dropdown-menu/src/index.ts"],

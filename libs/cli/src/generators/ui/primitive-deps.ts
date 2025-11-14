@@ -20,6 +20,7 @@ export const primitiveDependencies: Record<Primitive, Primitive[]> = {
 	'context-menu': ['utils'],
 	'date-picker': ['utils', 'calendar', 'icon', 'popover'],
 	dialog: ['utils'],
+	'dropdown-menu': ['utils', 'icon'],
 	empty: ['utils'],
 	field: ['utils', 'label', 'separator'],
 	'form-field': ['utils'],
@@ -31,8 +32,8 @@ export const primitiveDependencies: Record<Primitive, Primitive[]> = {
 	item: ['utils', 'separator'],
 	kbd: ['utils'],
 	label: ['utils'],
-	menu: ['utils', 'icon'],
-	menubar: ['utils', 'menu'], // rename menu to dropdown-menu
+	menu: ['utils', 'icon'], // TODO remove menu, replaced with dropdown-menu
+	menubar: ['utils', 'dropdown-menu'],
 	pagination: ['utils', 'button', 'icon'],
 	popover: ['utils'],
 	progress: ['utils'],

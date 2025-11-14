@@ -24,11 +24,11 @@ export const Default: Story = {
 	render: ({ ...args }) => ({
 		props: args,
 		template: `
-        <hlm-menubar class='w-fit'>
-      <button hlmMenubarItem [brnMenuTriggerFor]='file'>File</button>
-      <button hlmMenubarItem [brnMenuTriggerFor]='edit'>Edit</button>
-      <button hlmMenubarItem [brnMenuTriggerFor]='view'>View</button>
-      <button hlmMenubarItem [brnMenuTriggerFor]='profiles'>Profiles</button>
+    <hlm-menubar >
+      <button [hlmMenubarTrigger]='file'>File</button>
+      <button [hlmMenubarTrigger]='edit'>Edit</button>
+      <button [hlmMenubarTrigger]='view'>View</button>
+      <button [hlmMenubarTrigger]='profiles'>Profiles</button>
     </hlm-menubar>
 
     <ng-template #file>

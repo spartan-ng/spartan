@@ -2410,6 +2410,199 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       },
     },
   },
+  "dropdown-menu": {
+    "helm": {
+      "HlmDropdownMenu": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "sideOffset",
+            "required": false,
+            "type": "number",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDropdownMenu],hlm-dropdown-menu",
+      },
+      "HlmDropdownMenuCheckboxIndicator": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-dropdown-menu-checkbox-indicator",
+      },
+      "HlmDropdownMenuCheckboxItem": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "checked",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDropdownMenuCheckboxItem]",
+      },
+      "HlmDropdownMenuGroup": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDropdownMenuGroup],hlm-dropdown-menu-group",
+      },
+      "HlmDropdownMenuItem": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "variant",
+            "required": false,
+            "type": "'default' | 'destructive'",
+          },
+          {
+            "name": "inset",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDropdownMenuItem]",
+      },
+      "HlmDropdownMenuItemSubIndicator": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-dropdown-menu-item-sub-indicator",
+      },
+      "HlmDropdownMenuRadioIndicator": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-dropdown-menu-radio-indicator",
+      },
+      "HlmDropdownMenuRadioItem": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "checked",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDropdownMenuRadioItem]",
+      },
+      "HlmDropdownMenuSeparator": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDropdownMenuSeparator],hlm-dropdown-menu-separator",
+      },
+      "HlmDropdownMenuShortcut": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDropdownMenuShortcut],hlm-dropdown-menu-shortcut",
+      },
+      "HlmDropdownMenuSub": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDropdownMenuSub],hlm-dropdown-menu-sub",
+      },
+      "HlmDropdownMenuTrigger": {
+        "inputs": [
+          {
+            "name": "align",
+            "required": false,
+            "type": "BrnMenuAlign",
+          },
+          {
+            "name": "side",
+            "required": false,
+            "type": "BrnMenuSide",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[hlmDropdownMenuTrigger]",
+      },
+    },
+  },
   "empty": {
     "helm": {
       "HlmEmpty": {
@@ -3522,7 +3715,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "outputs": [],
         "selector": "[hlmMenubar],hlm-menubar",
       },
-      "HlmMenubarItem": {
+      "HlmMenubarTrigger": {
         "inputs": [
           {
             "name": "class",
@@ -3535,19 +3728,19 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "boolean",
           },
           {
-            "name": "inset",
+            "name": "align",
             "required": false,
-            "type": "boolean",
+            "type": "BrnMenuAlign",
           },
           {
-            "name": "variant",
+            "name": "side",
             "required": false,
-            "type": "'default' | 'destructive'",
+            "type": "BrnMenuSide",
           },
         ],
         "models": [],
         "outputs": [],
-        "selector": "[hlmMenubarItem]",
+        "selector": "button[hlmMenubarTrigger]",
       },
     },
   },

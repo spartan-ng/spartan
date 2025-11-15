@@ -63,6 +63,7 @@ import { TypeCell } from './type-cell';
 		provideIcons({ tablerChevronLeft, tablerChevronsLeft, tablerChevronRight, tablerChevronsRight }),
 		DashboardLocalStorageService,
 	],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'px-6',
 	},
@@ -209,7 +210,6 @@ import { TypeCell } from './type-cell';
 			</div>
 		</hlm-tabs>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DashboardTableSection {
 	private readonly _localStorageService = inject(DashboardLocalStorageService);

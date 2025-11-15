@@ -5,6 +5,7 @@ import { HlmSliderImports } from '@spartan-ng/helm/slider';
 @Component({
 	selector: 'spartan-max-length-selector',
 	imports: [HlmSliderImports, HlmLabel],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'grid gap-3',
 	},
@@ -19,7 +20,6 @@ import { HlmSliderImports } from '@spartan-ng/helm/slider';
 		</div>
 		<hlm-slider [step]="1" [min]="0" [max]="4000" [(value)]="value" class="w-full" />
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MaxLengthSelector {
 	public readonly value = signal<number>(150);

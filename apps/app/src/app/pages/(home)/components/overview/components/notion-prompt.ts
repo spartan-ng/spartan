@@ -74,6 +74,7 @@ type GroupedItems = {
 			tablerCircleDashedPlus,
 		}),
 	],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: { class: 'w-full' },
 	template: `
 		<div hlmInputGroup class="[--radius:1.2rem]">
@@ -105,7 +106,7 @@ type GroupedItems = {
 									<hlm-command-group [id]="groupType">
 										<hlm-command-group-label>{{ groupType === 'page' ? 'Pages' : 'Users' }}</hlm-command-group-label>
 										@for (item of _grouped()[groupType]; track item.title) {
-											<button hlm-command-item [value]="item.title" (click)="addMention(item, ctx)">
+											<button hlm-command-item [value]="item.title" (click)="addMention(item); ctx.close()">
 												<spartan-mentionable-item [item]="item" />
 												{{ item.title }}
 											</button>
@@ -225,7 +226,6 @@ type GroupedItems = {
 			</div>
 		</div>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NotionPrompt {
 	protected _models = SAMPLE_DATA.models;
@@ -255,9 +255,8 @@ export class NotionPrompt {
 	});
 	protected _groupTypes = computed(() => Object.keys(this._grouped()));
 
-	addMention(item: MentionItem, ctx: any) {
+	addMention(item: MentionItem) {
 		this._mentions.update((mentions) => [...mentions, item]);
-		ctx.close();
 	}
 
 	removeMention(item: MentionItem) {

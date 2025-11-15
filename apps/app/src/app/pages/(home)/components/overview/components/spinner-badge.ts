@@ -5,6 +5,7 @@ import { HlmSpinner } from '@spartan-ng/helm/spinner';
 @Component({
 	selector: 'spartan-spinner-badge',
 	imports: [HlmSpinner, HlmBadge],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'flex items-center gap-2',
 	},
@@ -22,6 +23,5 @@ import { HlmSpinner } from '@spartan-ng/helm/spinner';
 			Updating
 		</span>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SpinnerBadge {}

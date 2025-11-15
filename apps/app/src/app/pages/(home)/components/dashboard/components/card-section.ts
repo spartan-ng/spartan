@@ -14,6 +14,7 @@ import { HlmIcon } from '@spartan-ng/helm/icon';
 			tablerTrendingDown,
 		}),
 	],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div
 			class="grid grid-cols-1 gap-4 px-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs lg:px-6 @xl/main:grid-cols-2 @5xl/main:grid-cols-4"
@@ -101,6 +102,5 @@ import { HlmIcon } from '@spartan-ng/helm/icon';
 			</div>
 		</div>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DashboardCardSection {}

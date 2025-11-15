@@ -22,6 +22,7 @@ import { HlmSwitch } from '@spartan-ng/helm/switch';
 		HlmButton,
 	],
 	providers: [provideIcons({ lucidePlus, lucideMinus })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<fieldset hlmFieldSet>
 			<div hlmFieldGroup>
@@ -80,7 +81,6 @@ import { HlmSwitch } from '@spartan-ng/helm/switch';
 			</div>
 		</fieldset>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppearanceSettings {
 	protected readonly _gpuCount = signal(8);

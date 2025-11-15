@@ -6,6 +6,7 @@ import { HlmDialogImports } from '@spartan-ng/helm/dialog';
 @Component({
 	selector: 'spartan-code-viewer',
 	imports: [BrnDialogImports, HlmDialogImports, HlmButton],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-dialog>
 			<button id="save-presets" brnDialogTrigger hlmBtn variant="secondary">View code</button>
@@ -83,6 +84,5 @@ import { HlmDialogImports } from '@spartan-ng/helm/dialog';
 			</hlm-dialog-content>
 		</hlm-dialog>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CodeViewer {}

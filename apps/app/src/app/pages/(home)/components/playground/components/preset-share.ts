@@ -13,6 +13,7 @@ import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 	selector: 'spartan-preset-share',
 	imports: [BrnPopoverImports, HlmPopoverImports, HlmCommandImports, NgIcon, HlmIcon, HlmButton, HlmLabel, HlmInput],
 	providers: [provideIcons({ lucideCopy })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<brn-popover sideOffset="5">
 			<button id="save-presets" brnPopoverTrigger hlmBtn variant="secondary">Share</button>
@@ -41,6 +42,5 @@ import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 			</div>
 		</brn-popover>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PresetShare {}

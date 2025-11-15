@@ -5,6 +5,7 @@ import { HlmSlider } from '@spartan-ng/helm/slider';
 @Component({
 	selector: 'spartan-field-slider',
 	imports: [HlmSlider, HlmFieldImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<fieldset hlmFieldSet>
 			<div hlmFieldGroup>
@@ -16,7 +17,6 @@ import { HlmSlider } from '@spartan-ng/helm/slider';
 			</div>
 		</fieldset>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FieldSlider {
 	public readonly sliderValue = signal(500);

@@ -12,6 +12,7 @@ import { HlmTextarea } from '@spartan-ng/helm/textarea';
 	selector: 'spartan-button-group-popover',
 	imports: [HlmButtonGroupImports, BrnPopoverImports, HlmPopoverImports, HlmTextarea, HlmButton, NgIcon, HlmIcon],
 	providers: [provideIcons({ lucideBot, lucideChevronDown })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<brn-popover sideOffset="5">
 			<div hlmButtonGroup>
@@ -42,6 +43,5 @@ import { HlmTextarea } from '@spartan-ng/helm/textarea';
 			</div>
 		</brn-popover>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ButtonGroupPopover {}

@@ -13,6 +13,7 @@ import { Preset } from '../data/presets';
 	selector: 'spartan-preset-selector',
 	imports: [BrnPopoverImports, HlmPopoverImports, HlmCommandImports, NgIcon, HlmIcon, HlmButton, BrnCommandEmpty],
 	providers: [provideIcons({ lucideSearch, lucideCheck, lucideChevronsUpDown })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<brn-popover sideOffset="5">
 			<button
@@ -62,7 +63,6 @@ import { Preset } from '../data/presets';
 			</div>
 		</brn-popover>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PresetSelector {
 	public readonly presets = input.required<Preset[]>();

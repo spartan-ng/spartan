@@ -10,6 +10,7 @@ import { HlmTextarea } from '@spartan-ng/helm/textarea';
 @Component({
 	selector: 'spartan-field-demo',
 	imports: [HlmFieldImports, BrnSelectImports, HlmSelectImports, HlmInput, HlmTextarea, HlmButton, HlmCheckbox],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'w-full max-w-md rounded-lg border p-6 h-full',
 	},
@@ -104,6 +105,5 @@ import { HlmTextarea } from '@spartan-ng/helm/textarea';
 			</div>
 		</form>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FieldDemo {}

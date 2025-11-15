@@ -5,6 +5,7 @@ import { MentionItem } from './notion-prompt';
 @Component({
 	selector: 'spartan-mentionable-item',
 	imports: [HlmAvatarImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		@if (item().type === 'user') {
 			<hlm-avatar class="size-4">
@@ -17,7 +18,6 @@ import { MentionItem } from './notion-prompt';
 			</span>
 		}
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MentionableItem {
 	public item = input.required<MentionItem>();

@@ -6,6 +6,7 @@ import { HlmSpinner } from '@spartan-ng/helm/spinner';
 @Component({
 	selector: 'spartan-spinner-empty',
 	imports: [HlmEmptyImports, HlmButton, HlmSpinner],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div hlmEmpty class="w-full border md:p-6">
 			<div hlmEmptyHeader>
@@ -20,6 +21,5 @@ import { HlmSpinner } from '@spartan-ng/helm/spinner';
 			</div>
 		</div>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SpinnerEmpty {}

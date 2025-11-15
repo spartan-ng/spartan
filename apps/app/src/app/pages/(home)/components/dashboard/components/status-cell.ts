@@ -10,6 +10,7 @@ import type { DashboardData } from './dashboard-data.model';
 	selector: 'spartan-status-cell',
 	imports: [HlmBadge, NgIcon, HlmIcon],
 	providers: [provideIcons({ tablerCircleCheck, tablerLoader })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<span
 			id="{{ _element.id }}-status"
@@ -25,7 +26,6 @@ import type { DashboardData } from './dashboard-data.model';
 			{{ _element.status }}
 		</span>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StatusCell {
 	private readonly _context = injectFlexRenderContext<CellContext<DashboardData, unknown>>();

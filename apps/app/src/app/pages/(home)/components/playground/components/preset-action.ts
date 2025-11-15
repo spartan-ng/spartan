@@ -24,6 +24,7 @@ import { HlmSwitch } from '@spartan-ng/helm/switch';
 		HlmLabel,
 	],
 	providers: [provideIcons({ lucideEllipsis })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<button hlmBtn variant="secondary" align="end" [brnMenuTriggerFor]="menu" size="icon">
 			<ng-icon hlm name="lucideEllipsis" size="sm" />
@@ -86,6 +87,5 @@ import { HlmSwitch } from '@spartan-ng/helm/switch';
 			</hlm-dialog-content>
 		</hlm-dialog>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PresetActions {}

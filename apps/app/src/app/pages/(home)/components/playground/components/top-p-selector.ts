@@ -5,6 +5,7 @@ import { HlmSliderImports } from '@spartan-ng/helm/slider';
 @Component({
 	selector: 'spartan-top-p-selector',
 	imports: [HlmSliderImports, HlmLabel],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'grid gap-3',
 	},
@@ -19,7 +20,6 @@ import { HlmSliderImports } from '@spartan-ng/helm/slider';
 		</div>
 		<hlm-slider [step]="0.1" [min]="0" [max]="1" [(value)]="value" class="w-full" />
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TopPSelector {
 	public readonly value = signal<number>(0.9);

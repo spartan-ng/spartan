@@ -38,6 +38,7 @@ import { SpinnerEmpty } from './components/spinner-empty';
 		FieldHear,
 		SpinnerEmpty,
 	],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div class="md:hidden">
 			<img src="/assets/examples-light.png" alt="Examples" class="block dark:hidden" />
@@ -75,6 +76,5 @@ import { SpinnerEmpty } from './components/spinner-empty';
 			</div>
 		</div>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OverviewExample {}

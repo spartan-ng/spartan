@@ -5,6 +5,7 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 @Component({
 	selector: 'spartan-field-checkbox',
 	imports: [HlmFieldImports, HlmCheckbox],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<fieldset hlmFieldSet>
 			<label hlmFieldLabel for="exp-checkbox">
@@ -15,6 +16,5 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 			</label>
 		</fieldset>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FieldCheckbox {}

@@ -9,6 +9,7 @@ import { HlmEmptyImports } from '@spartan-ng/helm/empty';
 	selector: 'spartan-empty-avatar-group',
 	imports: [HlmEmptyImports, HlmAvatarImports, HlmButton, NgIcon],
 	providers: [provideIcons({ lucidePlus })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div hlmEmpty class="border border-dashed">
 			<div hlmEmptyHeader>
@@ -41,6 +42,5 @@ import { HlmEmptyImports } from '@spartan-ng/helm/empty';
 			</div>
 		</div>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EmptyAvatarGroup {}

@@ -6,6 +6,7 @@ import type { DashboardData } from './dashboard-data.model';
 @Component({
 	selector: 'spartan-type-cell',
 	imports: [HlmBadge],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<span
 			id="{{ _element.id }}-type"
@@ -16,7 +17,6 @@ import type { DashboardData } from './dashboard-data.model';
 			{{ _element.type }}
 		</span>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TypeCell {
 	private readonly _context = injectFlexRenderContext<CellContext<DashboardData, unknown>>();

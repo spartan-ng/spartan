@@ -23,6 +23,7 @@ import { Model, ModelType } from '../data/models';
 		BrnCommandEmpty,
 	],
 	providers: [provideIcons({ lucideChevronsUpDown, lucideSearch, lucideCheck })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'grid gap-3',
 	},
@@ -68,7 +69,6 @@ import { Model, ModelType } from '../data/models';
 			</div>
 		</brn-popover>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ModelSelector {
 	public readonly models = input.required<Model[]>();

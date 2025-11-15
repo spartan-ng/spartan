@@ -6,6 +6,7 @@ import type { DashboardData } from './dashboard-data.model';
 @Component({
 	selector: 'spartan-limit-cell',
 	imports: [HlmInput],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<input
 			class="hover:bg-input/30 focus-visible:bg-background dark:hover:bg-input/30 dark:focus-visible:bg-input/30 h-8 w-16 border-transparent bg-transparent text-right shadow-none focus-visible:border dark:bg-transparent"
@@ -14,7 +15,6 @@ import type { DashboardData } from './dashboard-data.model';
 			[value]="_element.limit"
 		/>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LimitCell {
 	private readonly _context = injectFlexRenderContext<CellContext<DashboardData, unknown>>();

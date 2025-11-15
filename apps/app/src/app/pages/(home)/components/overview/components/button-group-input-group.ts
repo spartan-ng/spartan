@@ -10,6 +10,7 @@ import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 	selector: 'spartan-button-group-input-group',
 	imports: [HlmButtonGroupImports, HlmInputGroupImports, HlmButton, HlmIcon, NgIcon],
 	providers: [provideIcons({ lucidePlus, lucideAudioLines })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div hlmButtonGroup class="w-full [--radius:9999rem]">
 			<div hlmButtonGroup>
@@ -35,7 +36,6 @@ import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 			</div>
 		</div>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ButtonGroupInputGroup {
 	protected readonly _enableVoiceMode = signal(false);

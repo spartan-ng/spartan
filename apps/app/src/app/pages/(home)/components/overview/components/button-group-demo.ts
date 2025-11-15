@@ -35,6 +35,7 @@ import { HlmMenuImports } from '@spartan-ng/helm/menu';
 			lucideListFilterPlus,
 		}),
 	],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div hlmButtonGroup>
 			<div hlmButtonGroup>
@@ -114,7 +115,6 @@ import { HlmMenuImports } from '@spartan-ng/helm/menu';
 			</hlm-sub-menu>
 		</ng-template>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ButtonGroupDemo {
 	public readonly label = signal('personal');

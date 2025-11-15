@@ -5,6 +5,7 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 @Component({
 	selector: 'spartan-dashboard-example',
 	imports: [HlmSidebarImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div class="md:hidden">
 			<img src="/assets/dashboard-light.png" alt="Dashboard" class="block dark:hidden" />
@@ -16,7 +17,6 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 			</div>
 		</div>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DashboardExample {
 	private readonly _sanitizer = inject(DomSanitizer);

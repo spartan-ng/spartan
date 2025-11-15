@@ -7,6 +7,7 @@ import type { DashboardData } from './dashboard-data.model';
 @Component({
 	selector: 'spartan-reviewer-cell',
 	imports: [BrnSelectImports, HlmSelectImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		@if (_element.reviewer !== 'Assign reviewer') {
 			{{ _element.reviewer }}
@@ -25,7 +26,6 @@ import type { DashboardData } from './dashboard-data.model';
 			</brn-select>
 		}
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReviewerCell {
 	private readonly _context = injectFlexRenderContext<CellContext<DashboardData, unknown>>();

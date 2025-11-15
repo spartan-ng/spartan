@@ -14,6 +14,7 @@ import { HlmItemImports } from '@spartan-ng/helm/item';
 			lucideChevronRight,
 		}),
 	],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: { class: 'flex w-full max-w-md flex-col gap-6' },
 	template: `
 		<div hlmItem variant="outline">
@@ -37,6 +38,5 @@ import { HlmItemImports } from '@spartan-ng/helm/item';
 			</div>
 		</a>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ItemDemo {}

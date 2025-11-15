@@ -18,6 +18,7 @@ import { HlmTooltipImports } from '@spartan-ng/helm/tooltip';
 			lucidePlus,
 		}),
 	],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'flex flex-col gap-6',
 	},
@@ -70,6 +71,5 @@ import { HlmTooltipImports } from '@spartan-ng/helm/tooltip';
 			</div>
 		</div>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InputGroupDemo {}

@@ -38,7 +38,6 @@ import { DashboardTableSection } from '../../(home)/components/dashboard/compone
 
 @Component({
 	selector: 'spartan-dashboard-layout',
-	encapsulation: ViewEncapsulation.None,
 	imports: [
 		HlmSidebarImports,
 		NgIcon,
@@ -50,6 +49,36 @@ import { DashboardTableSection } from '../../(home)/components/dashboard/compone
 		DashboardCardSection,
 		DashboardTableSection,
 	],
+	providers: [
+		provideIcons({
+			tablerInnerShadowTop,
+			tablerDashboard,
+			tablerListDetails,
+			tablerChartBar,
+			tablerFolder,
+			tablerUsers,
+			tablerCamera,
+			tablerFileDescription,
+			tablerFileAi,
+			tablerSettings,
+			tablerHelp,
+			tablerSearch,
+			tablerDatabase,
+			tablerReport,
+			tablerFileWord,
+			tablerDots,
+			tablerFolders,
+			tablerShare3,
+			tablerTrash,
+			tablerDotsVertical,
+			tablerUserCircle,
+			tablerCreditCard,
+			tablerNotification,
+			tablerLogout,
+			tablerCirclePlus,
+		}),
+	],
+	encapsulation: ViewEncapsulation.None,
 	styles: [
 		`
 			[hlmSidebarWrapper] {
@@ -58,7 +87,7 @@ import { DashboardTableSection } from '../../(home)/components/dashboard/compone
 			}
 		`,
 	],
-
+	styleUrl: 'sidebar-default.css',
 	template: `
 		<div hlmSidebarWrapper>
 			<hlm-sidebar>
@@ -232,36 +261,6 @@ import { DashboardTableSection } from '../../(home)/components/dashboard/compone
 			</main>
 		</div>
 	`,
-	providers: [
-		provideIcons({
-			tablerInnerShadowTop,
-			tablerDashboard,
-			tablerListDetails,
-			tablerChartBar,
-			tablerFolder,
-			tablerUsers,
-			tablerCamera,
-			tablerFileDescription,
-			tablerFileAi,
-			tablerSettings,
-			tablerHelp,
-			tablerSearch,
-			tablerDatabase,
-			tablerReport,
-			tablerFileWord,
-			tablerDots,
-			tablerFolders,
-			tablerShare3,
-			tablerTrash,
-			tablerDotsVertical,
-			tablerUserCircle,
-			tablerCreditCard,
-			tablerNotification,
-			tablerLogout,
-			tablerCirclePlus,
-		}),
-	],
-	styleUrl: 'sidebar-default.css',
 })
 export default class DashboardLayoutPage {
 	protected readonly _items = {

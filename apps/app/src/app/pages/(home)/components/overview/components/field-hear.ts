@@ -6,6 +6,7 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 @Component({
 	selector: 'spartan-field-hear',
 	imports: [HlmCardImports, HlmFieldImports, HlmCheckbox],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div hlmCard class="py-4 shadow-none">
 			<div hlmCardContent>
@@ -40,7 +41,6 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 			</div>
 		</div>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FieldHear {
 	protected _options = [

@@ -13,6 +13,7 @@ import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 			tablerStar,
 		}),
 	],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div hlmInputGroup class="[--radius:9999px]">
 			<div hlmInputGroupAddon>
@@ -30,7 +31,6 @@ import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 			</div>
 		</div>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InputGroupButtonExample {
 	protected readonly _isFavorite = signal(false);

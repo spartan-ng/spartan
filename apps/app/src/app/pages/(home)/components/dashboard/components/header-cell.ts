@@ -6,14 +6,13 @@ import type { DashboardData } from './dashboard-data.model';
 
 @Component({
 	selector: 'spartan-header-cell',
-	imports: [],
 	providers: [provideIcons({ lucideEllipsis })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<span id="{{ _element.id }}-header">
 			{{ _element.header }}
 		</span>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderCell {
 	private readonly _context = injectFlexRenderContext<CellContext<DashboardData, unknown>>();

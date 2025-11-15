@@ -9,6 +9,7 @@ import { HlmIcon } from '@spartan-ng/helm/icon';
 	selector: 'spartan-button-group-nested',
 	imports: [HlmButtonGroupImports, HlmButton, NgIcon, HlmIcon],
 	providers: [provideIcons({ lucideArrowLeft, lucideArrowRight })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div hlmButtonGroup>
 			<div hlmButtonGroup>
@@ -26,6 +27,5 @@ import { HlmIcon } from '@spartan-ng/helm/icon';
 			</div>
 		</div>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ButtonGroupNested {}

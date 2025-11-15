@@ -9,6 +9,7 @@ import { HlmTextarea } from '@spartan-ng/helm/textarea';
 @Component({
 	selector: 'spartan-preset-save',
 	imports: [BrnDialogImports, HlmDialogImports, HlmInput, HlmTextarea, HlmButton, HlmLabel],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-dialog>
 			<button id="save-presets" brnDialogTrigger hlmBtn variant="secondary">Save</button>
@@ -35,6 +36,5 @@ import { HlmTextarea } from '@spartan-ng/helm/textarea';
 			</hlm-dialog-content>
 		</hlm-dialog>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PresetSave {}

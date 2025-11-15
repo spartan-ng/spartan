@@ -9,9 +9,7 @@ import { DashboardTableSection } from './table-section';
 
 @Component({
 	selector: 'spartan-dashboard-table-actions',
-	host: {
-		class: 'block',
-	},
+
 	imports: [HlmButton, BrnMenuTrigger, NgIcon, HlmIcon, HlmMenuImports],
 	providers: [
 		provideIcons({
@@ -20,6 +18,10 @@ import { DashboardTableSection } from './table-section';
 			tablerPlus,
 		}),
 	],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		class: 'block',
+	},
 	template: `
 		<div class="wip-table-search flex flex-col justify-between gap-2 sm:flex-row">
 			<button hlmBtn variant="outline" align="end" size="sm" [brnMenuTriggerFor]="columns">
@@ -48,7 +50,6 @@ import { DashboardTableSection } from './table-section';
 			</ng-template>
 		</div>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DashboardTableActions {
 	private readonly _tableComponent = inject(DashboardTableSection);

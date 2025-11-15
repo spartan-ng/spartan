@@ -1,62 +1,31 @@
 import { Component } from '@angular/core';
-import { NgIcon, provideIcons } from '@ng-icons/core';
+import { provideIcons } from '@ng-icons/core';
 import { lucideGlobe, lucideMicVocal } from '@ng-icons/lucide';
-import { BrnMenuTrigger } from '@spartan-ng/brain/menu';
+import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 
-import { HlmIcon } from '@spartan-ng/helm/icon';
-import {
-	HlmMenu,
-	HlmMenuBar,
-	HlmMenuBarItem,
-	HlmMenuGroup,
-	HlmMenuItem,
-	HlmMenuItemCheck,
-	HlmMenuItemCheckbox,
-	HlmMenuItemRadio,
-	HlmMenuItemRadioIndicator,
-	HlmMenuItemSubIndicator,
-	HlmMenuSeparator,
-	HlmMenuShortcut,
-	HlmSubMenu,
-} from '@spartan-ng/helm/menu';
+import { HlmIconImports } from '@spartan-ng/helm/icon';
+import { HlmMenuImports } from '@spartan-ng/helm/menu';
+import { HlmMenubarImports } from '@spartan-ng/helm/menubar';
 
 @Component({
 	selector: 'spartan-music-top-menu',
-	imports: [
-		BrnMenuTrigger,
-		HlmMenu,
-		HlmMenuBar,
-		HlmSubMenu,
-		HlmMenuItem,
-		HlmMenuItemSubIndicator,
-		HlmMenuShortcut,
-		HlmMenuSeparator,
-		HlmMenuBarItem,
-		HlmMenuItemCheck,
-		HlmMenuItemRadio,
-		HlmMenuGroup,
-		HlmMenuItemCheckbox,
-		HlmMenuItemRadio,
-		HlmMenuItemRadioIndicator,
-		NgIcon,
-		HlmIcon,
-	],
+	imports: [HlmMenubarImports, HlmDropdownMenuImports, HlmMenuImports, HlmIconImports],
 	providers: [provideIcons({ lucideMicVocal, lucideGlobe })],
 	host: {
 		class: 'block',
 	},
 	template: `
-		<hlm-menu-bar class="w-fill border-0">
-			<button hlmMenuBarItem [brnMenuTriggerFor]="music" class="px-3 font-bold">Music</button>
-			<button hlmMenuBarItem [brnMenuTriggerFor]="file" class="px-3 font-medium">File</button>
-			<button hlmMenuBarItem [brnMenuTriggerFor]="edit" class="px-3 font-medium">Edit</button>
-			<button hlmMenuBarItem [brnMenuTriggerFor]="view" class="px-3 font-medium">View</button>
-			<button hlmMenuBarItem [brnMenuTriggerFor]="account" class="px-3 font-medium">Account</button>
-		</hlm-menu-bar>
+		<hlm-menubar class="w-fill border-0">
+			<button [hlmMenubarTrigger]="music" class="px-3 font-bold">Music</button>
+			<button [hlmMenubarTrigger]="file" class="px-3 font-medium">File</button>
+			<button [hlmMenubarTrigger]="edit" class="px-3 font-medium">Edit</button>
+			<button [hlmMenubarTrigger]="view" class="px-3 font-medium">View</button>
+			<button [hlmMenubarTrigger]="account" class="px-3 font-medium">Account</button>
+		</hlm-menubar>
 
 		<ng-template #music>
-			<hlm-menu variant="menubar" class="w-48">
-				<hlm-menu-group>
+			<hlm-dropdown-menu sideOffset="1.5" class="w-48">
+				<hlm-dropdown-menu-group>
 					<button hlmMenuItem>
 						About Music
 						<hlm-menu-shortcut>⌘W</hlm-menu-shortcut>
@@ -81,14 +50,14 @@ import {
 						Quit Music
 						<hlm-menu-shortcut>⌘Q</hlm-menu-shortcut>
 					</button>
-				</hlm-menu-group>
-			</hlm-menu>
+				</hlm-dropdown-menu-group>
+			</hlm-dropdown-menu>
 		</ng-template>
 
 		<ng-template #file>
-			<hlm-menu variant="menubar" class="w-48">
+			<hlm-menu sideOffset="1.5" class="w-48">
 				<hlm-menu-group>
-					<button hlmMenuItem [brnMenuTriggerFor]="new">
+					<button hlmMenuItem [hlmDropdownMenuTrigger]="new">
 						New
 						<hlm-menu-item-sub-indicator />
 						<ng-template #new>
@@ -121,7 +90,7 @@ import {
 
 					<hlm-menu-separator />
 
-					<button hlmMenuItem [brnMenuTriggerFor]="library">
+					<button hlmMenuItem [hlmDropdownMenuTrigger]="library">
 						Library
 						<hlm-menu-item-sub-indicator />
 						<ng-template #library>
@@ -173,7 +142,7 @@ import {
 		</ng-template>
 
 		<ng-template #edit>
-			<hlm-menu variant="menubar" class="w-48">
+			<hlm-menu sideOffset="1.5" class="w-48">
 				<hlm-menu-group>
 					<button hlmMenuItem disabled>
 						Undo
@@ -221,7 +190,7 @@ import {
 			</hlm-menu>
 		</ng-template>
 		<ng-template #view>
-			<hlm-menu variant="menubar" class="w-48">
+			<hlm-menu sideOffset="1.5" class="w-48">
 				<hlm-menu-group>
 					<button inset hlmMenuItem>Show Playing Next</button>
 					<button hlmMenuItemCheckbox checked>
@@ -240,7 +209,7 @@ import {
 		</ng-template>
 
 		<ng-template #account>
-			<hlm-menu variant="menubar" class="w-48">
+			<hlm-menu sideOffset="1.5" class="w-48">
 				<hlm-menu-group>
 					<button inset hlmMenuItem class="font-semibold">Switch Account</button>
 					<button inset hlmMenuItem>Andy</button>

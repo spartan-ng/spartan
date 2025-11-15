@@ -1,7 +1,10 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
+import { link } from '@spartan-ng/app/app/shared/typography/link';
+import { hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
@@ -18,7 +21,7 @@ import { ContextMenuPreviewWithState } from './context-menu-with-state.preview';
 import { ContextMenuPreview, defaultImports, defaultSkeleton } from './context-menu.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'Context Menu', api: 'menu' },
+	data: { breadcrumb: 'Context Menu', api: 'context-menu' },
 	meta: metaWith(
 		'spartan/ui - Context Menu',
 		'Displays a menu to the user — such as a set of actions or functions — triggered by a right-click.',
@@ -27,7 +30,7 @@ export const routeMeta: RouteMeta = {
 };
 
 @Component({
-	selector: 'spartan-command',
+	selector: 'spartan-context-menu',
 	imports: [
 		UIApiDocs,
 		MainSection,
@@ -43,6 +46,7 @@ export const routeMeta: RouteMeta = {
 		ContextMenuPreview,
 		ContextMenuPreviewWithState,
 		SectionSubSubHeading,
+		RouterLink,
 	],
 	template: `
 		<section spartanMainSection>
@@ -58,8 +62,19 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
+			<spartan-section-sub-heading id="about">About</spartan-section-sub-heading>
+			<p class="${hlmP}">
+				Context Menu is built with the help of
+				<a href="https://material.angular.dev/cdk/menu/overview" target="_blank" rel="noreferrer" class="${link}">
+					Menu
+				</a>
+				from Material CDK and
+				<a routerLink="/components/dropdown-menu" hlmBtn variant="link" class="${link}">Dropdown Menu</a>
+				.
+			</p>
+
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
-			<spartan-cli-tabs nxCode="npx nx g @spartan-ng/cli:ui contextmenu" ngCode="ng @spartan-ng/cli:ui contextmenu" />
+			<spartan-cli-tabs nxCode="npx nx g @spartan-ng/cli:ui context-menu" ngCode="ng @spartan-ng/cli:ui context-menu" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">
@@ -74,9 +89,6 @@ export const routeMeta: RouteMeta = {
 				</div>
 				<spartan-code secondTab [code]="_withStateCode()" />
 			</spartan-tabs>
-
-			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
-			<spartan-ui-api-docs docType="brain" />
 
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="helm" />

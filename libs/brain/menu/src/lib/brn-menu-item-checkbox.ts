@@ -1,3 +1,4 @@
+import { type BooleanInput } from '@angular/cdk/coercion';
 import { CdkMenuItemCheckbox } from '@angular/cdk/menu';
 import { booleanAttribute, Directive, effect, inject, input } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
@@ -7,13 +8,14 @@ import { outputFromObservable } from '@angular/core/rxjs-interop';
 	hostDirectives: [CdkMenuItemCheckbox],
 	host: {
 		'[class.checked]': 'checked()',
+		'[attr.data-checked]': 'checked() ? "" : null',
 		'[disabled]': 'disabled()',
 	},
 })
 export class BrnMenuItemCheckbox {
 	private readonly _cdkMenuItem = inject(CdkMenuItemCheckbox);
-	public readonly checked = input(this._cdkMenuItem.checked, { transform: booleanAttribute });
-	public readonly disabled = input(this._cdkMenuItem.disabled, { transform: booleanAttribute });
+	public readonly checked = input<boolean, BooleanInput>(this._cdkMenuItem.checked, { transform: booleanAttribute });
+	public readonly disabled = input<boolean, BooleanInput>(this._cdkMenuItem.disabled, { transform: booleanAttribute });
 	public readonly triggered = outputFromObservable(this._cdkMenuItem.triggered);
 
 	constructor() {

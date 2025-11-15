@@ -10,11 +10,11 @@ const meta: Meta<HlmMenu> = {
 	component: HlmMenu,
 	tags: ['autodocs'],
 	args: {
-		variant: 'default',
+		sideOffset: '1',
 	},
 	argTypes: {
-		variant: {
-			options: ['default', 'menubar'],
+		sideOffset: {
+			options: ['1', '1.5', '2'],
 			control: {
 				type: 'select',
 			},

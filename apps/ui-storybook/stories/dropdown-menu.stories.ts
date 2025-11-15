@@ -12,11 +12,11 @@ const meta: Meta<HlmMenu> = {
 	component: HlmMenu,
 	tags: ['autodocs'],
 	args: {
-		variant: 'default',
+		sideOffset: '1',
 	},
 	argTypes: {
-		variant: {
-			options: ['default', 'menubar'],
+		sideOffset: {
+			options: ['1', '1.5', '2'],
 			control: {
 				type: 'select',
 			},
@@ -37,7 +37,7 @@ export const Default: Story = {
 	render: ({ ...args }) => ({
 		props: args,
 		template: `
-    <div class='w-full flex justify-center items-center pt-[20%]'>
+    <div class='w-full flex justify-center items-center'>
       <button hlmBtn variant='outline' align='end' [brnMenuTriggerFor]='menu'>Open</button>
     </div>
     <ng-template #menu>

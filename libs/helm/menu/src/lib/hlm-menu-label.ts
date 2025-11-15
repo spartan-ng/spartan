@@ -1,18 +1,15 @@
 import type { BooleanInput } from '@angular/cdk/coercion';
-import { booleanAttribute, ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { booleanAttribute, computed, Directive, input } from '@angular/core';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 
-@Component({
-	selector: 'hlm-menu-label',
-	changeDetection: ChangeDetectionStrategy.OnPush,
+@Directive({
+	selector: '[hlmMenuLabel],hlm-menu-label',
 	host: {
+		'data-slot': 'dropdown-menu-label',
 		'[class]': '_computedClass()',
 		'[attr.data-inset]': 'inset() ? "" : null',
 	},
-	template: `
-		<ng-content />
-	`,
 })
 export class HlmMenuLabel {
 	public readonly inset = input<boolean, BooleanInput>(false, {

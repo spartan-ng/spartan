@@ -152,7 +152,6 @@ describe('migrate-toggle-group generator', () => {
 		await migrateBrnToggleGroupGenerator(tree, { skipFormat: true });
 
 		const content = tree.read('app/src/app/app.module.ts', 'utf-8');
-		console.log(content);
 		expect(content).not.toContain(`'@spartan-ng/brain/toggle-group';`);
 		expect(content).toContain(`imports: [BrowserModule, HlmToggleGroup, HlmToggleGroupItem],`);
 	});

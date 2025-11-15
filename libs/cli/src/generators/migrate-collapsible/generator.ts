@@ -33,7 +33,7 @@ function updateImports(tree: Tree) {
 
 		if (content.includes("'@spartan-ng/brain/collapsible';")) {
 			const updatedContent = content
-				// Handle `import { * } from '@spartan-ng/brain/collapsible';`
+				// Handle `import { * } from '@spartan-ng/brain/collapsible';` including multi-line imports
 				.replace(
 					/import\s*\{[^}]*\}\s*from\s*['"]@spartan-ng\/brain\/collapsible['"];/g,
 					"import { HlmCollapsibleImports } from '@spartan-ng/helm/collapsible';",

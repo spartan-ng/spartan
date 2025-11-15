@@ -26,6 +26,7 @@ export type BadgeVariants = VariantProps<typeof badgeVariants>;
 @Directive({
 	selector: '[hlmBadge]',
 	host: {
+		'data-slot': 'badge',
 		'[class]': '_computedClass()',
 	},
 })

@@ -46,7 +46,6 @@ import { HeaderMobileNav } from './header-mobile-nav';
 				<div class="hidden sm:space-x-2 lg:flex">
 					<a spartanNavLink="/documentation">Docs</a>
 					<a spartanNavLink="/components">Components</a>
-					<a spartanNavLink="/examples">Examples</a>
 					<a spartanNavLink="/blocks">Blocks</a>
 					<a spartanNavLink="/colors">Colors</a>
 					<a spartanNavLink="/stack">Stack</a>

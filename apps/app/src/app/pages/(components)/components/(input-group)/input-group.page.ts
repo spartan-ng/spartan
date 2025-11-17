@@ -24,6 +24,7 @@ import { Tabs } from '../../../../shared/layout/tabs';
 import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { InputGroupButtonPreview } from './input-group--button.preview';
+import { InputGroupFormPreview } from './input-group--form.preview';
 import { InputGroupIconPreview } from './input-group--icon.preview';
 import { InputGroupTextPreview } from './input-group--text.preview';
 import { defaultImports, defaultSkeleton, InputGroupPreview } from './input-group.preview';
@@ -67,6 +68,7 @@ export const routeMeta: RouteMeta = {
 		InputGroupDropdownPreview,
 		InputGroupButtonGroupPreview,
 		InputGroupCustomInputPreview,
+		InputGroupFormPreview,
 		HlmCode,
 		HlmP,
 		InputGroupSpinnerPreview,
@@ -208,6 +210,14 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_customInputCode()" />
 			</spartan-tabs>
 
+			<h3 id="examples_form" spartanH4>Form</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-input-group-form-preview />
+				</div>
+				<spartan-code secondTab [code]="_formCode()" />
+			</spartan-tabs>
+
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="helm" />
 
@@ -232,6 +242,7 @@ export default class InputGroupPage {
 	protected readonly _dropdownCode = computed(() => this._snippets()['dropdown']);
 	protected readonly _buttonGroupCode = computed(() => this._snippets()['buttonGroup']);
 	protected readonly _customInputCode = computed(() => this._snippets()['customInput']);
+	protected readonly _formCode = computed(() => this._snippets()['form']);
 	protected readonly _imports = defaultImports;
 	protected readonly _codeSkeleton = defaultSkeleton;
 }

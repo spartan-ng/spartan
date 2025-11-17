@@ -879,7 +879,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "[hlmButtonGroup]",
+        "selector": "[hlmButtonGroup],hlm-button-group",
       },
       "HlmButtonGroupSeparator": {
         "inputs": [
@@ -903,7 +903,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "[hlmButtonGroupText]",
+        "selector": "[hlmButtonGroupText],hlm-button-group-text",
       },
     },
   },

@@ -113,7 +113,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-input-group-text-preview />
 				</div>
-				<spartan-code secondTab [code]="_iconCode()" />
+				<spartan-code secondTab [code]="_textCode()" />
 			</spartan-tabs>
 			<h3 id="examples_button" spartanH4>Buttons</h3>
 			<p hlmP>Add buttons to perform actions within the input group.</p>
@@ -223,6 +223,7 @@ export default class InputGroupPage {
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('input-group');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _iconCode = computed(() => this._snippets()['icon']);
+	protected readonly _textCode = computed(() => this._snippets()['text']);
 	protected readonly _buttonCode = computed(() => this._snippets()['button']);
 	protected readonly _tooltipCode = computed(() => this._snippets()['tooltip']);
 	protected readonly _textareaCode = computed(() => this._snippets()['textarea']);

@@ -1,19 +1,14 @@
 import { Component } from '@angular/core';
-import { NgIcon, provideIcons } from '@ng-icons/core';
+import { provideIcons } from '@ng-icons/core';
 import { lucideArrowLeft, lucideArrowRight } from '@ng-icons/lucide';
-import { HlmButton } from '@spartan-ng/helm/button';
-import { HlmButtonGroup } from '@spartan-ng/helm/button-group';
-import { HlmIcon } from '@spartan-ng/helm/icon';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmButtonGroupImports } from '@spartan-ng/helm/button-group';
+import { HlmIconImports } from '@spartan-ng/helm/icon';
 
 @Component({
 	selector: 'spartan-button-group-nested',
-	imports: [NgIcon, HlmIcon, HlmButton, HlmButtonGroup],
-	providers: [
-		provideIcons({
-			lucideArrowRight,
-			lucideArrowLeft,
-		}),
-	],
+	imports: [HlmIconImports, HlmButtonImports, HlmButtonGroupImports],
+	providers: [provideIcons({ lucideArrowRight, lucideArrowLeft })],
 	template: `
 		<div hlmButtonGroup>
 			<div hlmButtonGroup>
@@ -24,10 +19,10 @@ import { HlmIcon } from '@spartan-ng/helm/icon';
 				<button hlmBtn variant="outline" size="sm">5</button>
 			</div>
 			<div hlmButtonGroup>
-				<button hlmBtn variant="outline" size="icon-sm">
+				<button hlmBtn variant="outline" size="icon-sm" aria-label="Previous">
 					<ng-icon hlm name="lucideArrowLeft" size="sm" />
 				</button>
-				<button hlmBtn variant="outline" size="icon-sm">
+				<button hlmBtn variant="outline" size="icon-sm" aria-label="Next">
 					<ng-icon hlm name="lucideArrowRight" size="sm" />
 				</button>
 			</div>

@@ -1,21 +1,24 @@
 import { Component } from '@angular/core';
-import { NgIcon, provideIcons } from '@ng-icons/core';
+import { provideIcons } from '@ng-icons/core';
 import { lucideArrowRight } from '@ng-icons/lucide';
 import { BrnSelectImports } from '@spartan-ng/brain/select';
-import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmButtonGroupImports } from '@spartan-ng/helm/button-group';
-import { HlmIcon } from '@spartan-ng/helm/icon';
-import { HlmInput } from '@spartan-ng/helm/input';
+import { HlmIconImports } from '@spartan-ng/helm/icon';
+import { HlmInputImports } from '@spartan-ng/helm/input';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
 
 @Component({
 	selector: 'spartan-button-group-select',
-	imports: [HlmIcon, NgIcon, HlmInput, HlmButton, BrnSelectImports, HlmSelectImports, HlmButtonGroupImports],
-	providers: [
-		provideIcons({
-			lucideArrowRight,
-		}),
+	imports: [
+		HlmIconImports,
+		HlmInputImports,
+		HlmButtonImports,
+		BrnSelectImports,
+		HlmSelectImports,
+		HlmButtonGroupImports,
 	],
+	providers: [provideIcons({ lucideArrowRight })],
 	template: `
 		<div hlmButtonGroup>
 			<div hlmButtonGroup class="[&>brn-select>div>hlm-select-trigger>button]:rounded-r-none">
@@ -38,7 +41,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 						}
 					</hlm-select-content>
 				</brn-select>
-				<input hlmInput placeholder="10.00" class="z-10" />
+				<input hlmInput placeholder="10.00" />
 			</div>
 			<div hlmButtonGroup>
 				<button hlmBtn variant="outline" size="icon">

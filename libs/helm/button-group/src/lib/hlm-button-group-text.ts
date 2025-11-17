@@ -3,7 +3,7 @@ import { hlm } from '@spartan-ng/helm/utils';
 import { ClassValue } from 'clsx';
 
 @Directive({
-	selector: '[hlmButtonGroupText]',
+	selector: '[hlmButtonGroupText],hlm-button-group-text',
 	host: {
 		'[class]': '_computedClass()',
 	},

@@ -35,12 +35,14 @@ type InputGroupAddonVariants = VariantProps<typeof inputGroupAddonVariants>;
 	],
 	host: {
 		'[attr.data-size]': 'size()',
+		'[type]': 'type()',
 	},
 })
 export class HlmInputGroupButton {
 	private readonly _hlmButton = inject(HlmButton);
 	public readonly size = input<InputGroupAddonVariants['size']>('xs');
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
+	public readonly type = input<'button' | 'submit' | 'reset'>('button');
 
 	protected readonly _computedClass = computed(() =>
 		hlm(inputGroupAddonVariants({ size: this.size() }), this.userClass()),

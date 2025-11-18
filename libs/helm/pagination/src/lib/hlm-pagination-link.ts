@@ -3,14 +3,7 @@ import { Directive, booleanAttribute, computed, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { type ButtonVariants, buttonVariants } from '@spartan-ng/helm/button';
 import { hlm } from '@spartan-ng/helm/utils';
-import { type VariantProps, cva } from 'class-variance-authority';
 import type { ClassValue } from 'clsx';
-
-export const paginationLinkVariants = cva('', {
-	variants: {},
-	defaultVariants: {},
-});
-export type PaginationLinkVariants = VariantProps<typeof paginationLinkVariants>;
 
 @Directive({
 	selector: '[hlmPaginationLink]',
@@ -33,7 +26,9 @@ export type PaginationLinkVariants = VariantProps<typeof paginationLinkVariants>
 		},
 	],
 	host: {
+		'data-slot': 'pagination-link',
 		'[class]': '_computedClass()',
+		'[attr.data-active]': 'isActive() ? "true" : null',
 		'[attr.aria-current]': 'isActive() ? "page" : null',
 	},
 })
@@ -48,7 +43,7 @@ export class HlmPaginationLink {
 
 	protected readonly _computedClass = computed(() =>
 		hlm(
-			paginationLinkVariants(),
+			'',
 			this.link() === undefined ? 'cursor-pointer' : '',
 			buttonVariants({
 				variant: this.isActive() ? 'outline' : 'ghost',

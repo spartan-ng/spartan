@@ -90,7 +90,7 @@ export const routeMeta: RouteMeta = {
 				</div>
 				<spartan-code secondTab [code]="_advancedCode()" />
 			</spartan-tabs>
-			<h3 id="examples__advanced" spartanH4>Advanced Pagination - Query Params</h3>
+			<h3 id="examples__advanced_query_params" spartanH4>Advanced Pagination - Query Params</h3>
 			<p class="py-2">
 				Use
 				<code class="${hlmCode}">hlm-numbered-pagination-query-params</code>

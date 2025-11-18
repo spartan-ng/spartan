@@ -1,26 +1,12 @@
 import { Component, computed, inject, numberAttribute } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
-import {
-	HlmPagination,
-	HlmPaginationContent,
-	HlmPaginationItem,
-	HlmPaginationLink,
-	HlmPaginationNext,
-	HlmPaginationPrevious,
-} from '@spartan-ng/helm/pagination';
+import { HlmPaginationImports } from '@spartan-ng/helm/pagination';
 import { map } from 'rxjs/operators';
 
 @Component({
 	selector: 'spartan-pagination-query-params',
-	imports: [
-		HlmPagination,
-		HlmPaginationContent,
-		HlmPaginationItem,
-		HlmPaginationPrevious,
-		HlmPaginationNext,
-		HlmPaginationLink,
-	],
+	imports: [HlmPaginationImports],
 	template: `
 		<nav hlmPagination>
 			<ul hlmPaginationContent>

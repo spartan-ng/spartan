@@ -12,29 +12,12 @@ import {
 import { FormsModule } from '@angular/forms';
 import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
+import { HlmPaginationImports } from '..';
 import { createPageArray, outOfBoundCorrection } from './hlm-numbered-pagination';
-import { HlmPagination } from './hlm-pagination';
-import { HlmPaginationContent } from './hlm-pagination-content';
-import { HlmPaginationEllipsis } from './hlm-pagination-ellipsis';
-import { HlmPaginationItem } from './hlm-pagination-item';
-import { HlmPaginationLink } from './hlm-pagination-link';
-import { HlmPaginationNext } from './hlm-pagination-next';
-import { HlmPaginationPrevious } from './hlm-pagination-previous';
 
 @Component({
 	selector: 'hlm-numbered-pagination-query-params',
-	imports: [
-		FormsModule,
-		HlmPagination,
-		HlmPaginationContent,
-		HlmPaginationItem,
-		HlmPaginationPrevious,
-		HlmPaginationNext,
-		HlmPaginationLink,
-		HlmPaginationEllipsis,
-		BrnSelectImports,
-		HlmSelectImports,
-	],
+	imports: [FormsModule, HlmPaginationImports, BrnSelectImports, HlmSelectImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div class="flex items-center justify-between gap-2 px-4 py-2">

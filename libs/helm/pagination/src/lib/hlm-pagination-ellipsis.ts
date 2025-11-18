@@ -22,8 +22,8 @@ import type { ClassValue } from 'clsx';
 })
 export class HlmPaginationEllipsis {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
+	protected readonly _computedClass = computed(() => hlm('flex size-9 items-center justify-center', this.userClass()));
+
 	/** Screen reader only text for the ellipsis */
 	public readonly srOnlyText = input<string>('More pages');
-
-	protected readonly _computedClass = computed(() => hlm('flex size-9 items-center justify-center', this.userClass()));
 }

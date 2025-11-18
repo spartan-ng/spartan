@@ -32,6 +32,7 @@ import { HlmPaginationPrevious } from './hlm-pagination-previous';
 		HlmPaginationNext,
 		HlmPaginationLink,
 		HlmPaginationEllipsis,
+
 		BrnSelectImports,
 		HlmSelectImports,
 	],

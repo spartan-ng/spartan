@@ -16,6 +16,7 @@ import { Tabs } from '../../../../shared/layout/tabs';
 import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { ButtonGroupDropdownMenu } from './button-group--dropdown-menu.example';
+import { ButtonGroupInputGroup } from './button-group--input-group.example';
 import { ButtonGroupInput } from './button-group--input.example';
 import { ButtonGroupNested } from './button-group--nested.example';
 import { ButtonGroupOrientation } from './button-group--orientation.example';
@@ -59,6 +60,7 @@ export const routeMeta: RouteMeta = {
 		ButtonGroupSelect,
 		ButtonGroupPopover,
 		ButtonGroupWithText,
+		ButtonGroupInputGroup,
 		SectionSubSubHeading,
 	],
 	template: `
@@ -219,7 +221,7 @@ export const routeMeta: RouteMeta = {
 			<h3 id="examples__input" spartanH4>Input</h3>
 			<p class="${hlmP} mb-2">
 				Wrap an
-				<code class="${hlmCode} mr-0.5">Input</code>
+				<code class="${hlmCode} mr-0.5">HlmInput</code>
 				component with buttons.
 			</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
@@ -227,6 +229,19 @@ export const routeMeta: RouteMeta = {
 					<spartan-button-group-input />
 				</div>
 				<spartan-code secondTab [code]="_inputCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__input_group" spartanH4>Input Group</h3>
+			<p class="${hlmP} mb-2">
+				Wrap an
+				<code class="${hlmCode} mr-0.5">HlmInputGroup</code>
+				component to create complex input layouts
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-button-group-input-group />
+				</div>
+				<spartan-code secondTab [code]="_inputGroupCode()" />
 			</spartan-tabs>
 
 			<h3 id="examples__dropdown-menu" spartanH4>Dropdown Menu</h3>
@@ -292,6 +307,7 @@ export default class ButtonGroupPage {
 	protected readonly _textCode = computed(() => this._snippets()['withText']);
 	protected readonly _splitCode = computed(() => this._snippets()['split']);
 	protected readonly _inputCode = computed(() => this._snippets()['input']);
+	protected readonly _inputGroupCode = computed(() => this._snippets()['inputGroup']);
 	protected readonly _dropdownMenuCode = computed(() => this._snippets()['dropdownMenu']);
 	protected readonly _selectCode = computed(() => this._snippets()['select']);
 	protected readonly _popoverCode = computed(() => this._snippets()['popover']);

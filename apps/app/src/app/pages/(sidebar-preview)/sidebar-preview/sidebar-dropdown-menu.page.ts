@@ -8,8 +8,19 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 
 @Component({
 	selector: 'spartan-sidebar-dropdown-menu',
-	encapsulation: ViewEncapsulation.None,
 	imports: [HlmSidebarImports, BrnMenuImports, NgIcon, HlmIcon, HlmMenuImports],
+	providers: [
+		provideIcons({
+			lucideFrame,
+			lucideChartPie,
+			lucideMap,
+			lucideLifeBuoy,
+			lucideSend,
+			lucideEllipsis,
+		}),
+	],
+	encapsulation: ViewEncapsulation.None,
+	styleUrl: 'sidebar-default.css',
 	template: `
 		<div hlmSidebarWrapper>
 			<hlm-sidebar>
@@ -49,17 +60,6 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 			</main>
 		</div>
 	`,
-	providers: [
-		provideIcons({
-			lucideFrame,
-			lucideChartPie,
-			lucideMap,
-			lucideLifeBuoy,
-			lucideSend,
-			lucideEllipsis,
-		}),
-	],
-	styleUrl: 'sidebar-default.css',
 })
 export default class SidebarDropdownMenuPage {
 	protected readonly _projects = [

@@ -43,6 +43,13 @@ interface TriggerEvent {
 
 @Directive({
 	selector: 'button[brnNavigationMenuTrigger]',
+	providers: [provideBrnNavigationMenuFocusable(BrnNavigationMenuTrigger)],
+	hostDirectives: [
+		{
+			directive: BrnButton,
+			inputs: ['disabled'],
+		},
+	],
 	host: {
 		'(keydown.escape)': 'onEscape($event)',
 		'(keydown.tab)': 'onTab($event)',
@@ -53,13 +60,6 @@ interface TriggerEvent {
 		'[attr.aria-controls]': '_contentId',
 		'data-slot': 'navigation-menu-trigger',
 	},
-	hostDirectives: [
-		{
-			directive: BrnButton,
-			inputs: ['disabled'],
-		},
-	],
-	providers: [provideBrnNavigationMenuFocusable(BrnNavigationMenuTrigger)],
 })
 export class BrnNavigationMenuTrigger implements OnInit, OnDestroy, FocusableOption {
 	private static _id = 0;

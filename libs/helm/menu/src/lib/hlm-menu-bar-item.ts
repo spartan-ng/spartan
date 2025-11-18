@@ -5,10 +5,10 @@ import type { ClassValue } from 'clsx';
 
 @Directive({
 	selector: '[hlmMenuBarItem]',
+	hostDirectives: [BrnMenuItem],
 	host: {
 		'[class]': '_computedClass()',
 	},
-	hostDirectives: [BrnMenuItem],
 })
 export class HlmMenuBarItem {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

@@ -11,17 +11,17 @@ type Country = {
 @Component({
 	selector: 'spartan-autocomplete-countries',
 	imports: [HlmAutocompleteImports],
+	providers: [
+		provideHlmAutocompleteConfig({
+			transformValueToSearch: (option: Country) => `${option.flag} ${option.name}`,
+		}),
+	],
 	template: `
 		<hlm-autocomplete [filteredOptions]="filteredCountries()" [optionTemplate]="option" [(search)]="search" />
 
 		<!-- custom option template with access to the option item -->
 		<ng-template #option let-option>{{ option.flag }} {{ option.name }}</ng-template>
 	`,
-	providers: [
-		provideHlmAutocompleteConfig({
-			transformValueToSearch: (option: Country) => `${option.flag} ${option.name}`,
-		}),
-	],
 })
 export class AutocompleteCountries {
 	private readonly _countries: Country[] = [

@@ -5,8 +5,8 @@ import { BrnTabsContent } from './brn-tabs-content';
 import { BrnTabsTrigger } from './brn-tabs-trigger';
 
 @Component({
-	standalone: true,
 	imports: [BrnTabs, BrnTabsTrigger, BrnTabsContent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div brnTabs="tab1" #tabs="brnTabs">
 			@if (showTrigger()) {
@@ -19,7 +19,6 @@ import { BrnTabsTrigger } from './brn-tabs-trigger';
 			}
 		</div>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class BrnTabsDirectiveSpec {
 	public readonly tabsDir = viewChild.required<BrnTabs>('tabs');

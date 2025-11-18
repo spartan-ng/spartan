@@ -40,6 +40,20 @@ let uniqueIdCounter = 0;
 
 @Component({
 	selector: 'brn-switch',
+	providers: [BRN_SWITCH_VALUE_ACCESSOR],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		'[style]': '{display: "contents"}',
+		'[attr.id]': '_state().id',
+		'[attr.name]': '_state().name',
+		'[attr.aria-labelledby]': 'null',
+		'[attr.aria-label]': 'null',
+		'[attr.aria-describedby]': 'null',
+		'[attr.data-state]': 'checked() ? "checked" : "unchecked"',
+		'[attr.data-focus-visible]': '_focusVisible()',
+		'[attr.data-focus]': '_focused()',
+		'[attr.data-disabled]': '_state().disabled()',
+	},
 	template: `
 		<button
 			#switch
@@ -64,20 +78,6 @@ let uniqueIdCounter = 0;
 			<ng-content select="brn-switch-thumb" />
 		</button>
 	`,
-	host: {
-		'[style]': '{display: "contents"}',
-		'[attr.id]': '_state().id',
-		'[attr.name]': '_state().name',
-		'[attr.aria-labelledby]': 'null',
-		'[attr.aria-label]': 'null',
-		'[attr.aria-describedby]': 'null',
-		'[attr.data-state]': 'checked() ? "checked" : "unchecked"',
-		'[attr.data-focus-visible]': '_focusVisible()',
-		'[attr.data-focus]': '_focused()',
-		'[attr.data-disabled]': '_state().disabled()',
-	},
-	providers: [BRN_SWITCH_VALUE_ACCESSOR],
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BrnSwitch implements AfterContentInit, OnDestroy, ControlValueAccessor {
 	private readonly _destroyRef = inject(DestroyRef);

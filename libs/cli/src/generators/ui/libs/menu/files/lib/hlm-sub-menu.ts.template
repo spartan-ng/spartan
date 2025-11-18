@@ -5,14 +5,14 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-sub-menu',
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	hostDirectives: [BrnMenu],
 	host: {
 		'[class]': '_computedClass()',
 	},
-	hostDirectives: [BrnMenu],
 	template: `
 		<ng-content />
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmSubMenu {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

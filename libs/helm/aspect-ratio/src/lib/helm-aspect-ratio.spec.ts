@@ -5,6 +5,7 @@ import { HlmAspectRatio } from './helm-aspect-ratio';
 @Component({
 	selector: 'hlm-mock',
 	imports: [HlmAspectRatio],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div [hlmAspectRatio]="ratio">
 			<img
@@ -13,7 +14,6 @@ import { HlmAspectRatio } from './helm-aspect-ratio';
 			/>
 		</div>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class Mock {
 	public ratio: number | undefined = 16 / 9;

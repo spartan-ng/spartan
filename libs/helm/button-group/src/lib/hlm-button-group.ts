@@ -21,7 +21,7 @@ export const buttonGroupVariants = cva(
 );
 
 @Directive({
-	selector: '[hlmButtonGroup]',
+	selector: '[hlmButtonGroup],hlm-button-group',
 	host: {
 		'data-slot': 'button-group',
 		role: 'group',

@@ -18,7 +18,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 		<div
 			class="bg-background relative hidden aspect-[4/2.5] h-[930px] overflow-hidden rounded-lg border md:block md:aspect-auto md:rounded-xl"
 		>
-			<iframe [src]="_iframeSrc()" class="bg-background no-scrollbar relative z-20 h-full w-full"></iframe>
+			<iframe [src]="_iframeSrc()" class="bg-background no-scrollbar relative z-20 h-full w-full" #iframe></iframe>
 		</div>
 	`,
 })

@@ -5,6 +5,7 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-radio-group',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [
 		{
 			directive: BrnRadioGroup,
@@ -17,7 +18,6 @@ import type { ClassValue } from 'clsx';
 		'[class]': '_computedClass()',
 	},
 	template: '<ng-content />',
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmRadioGroup {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

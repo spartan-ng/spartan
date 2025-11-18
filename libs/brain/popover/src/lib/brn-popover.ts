@@ -7,7 +7,6 @@ import {
 	input,
 	numberAttribute,
 	untracked,
-	ViewEncapsulation,
 } from '@angular/core';
 import { BrnDialog, type BrnDialogDefaultOptions, provideBrnDialogDefaultOptions } from '@spartan-ng/brain/dialog';
 
@@ -20,9 +19,7 @@ export type BrnPopoverAlign = 'start' | 'center' | 'end';
 
 @Component({
 	selector: 'brn-popover',
-	template: `
-		<ng-content />
-	`,
+	exportAs: 'brnPopover',
 	providers: [
 		{
 			provide: BrnDialog,
@@ -31,8 +28,9 @@ export type BrnPopoverAlign = 'start' | 'center' | 'end';
 		provideBrnDialogDefaultOptions(BRN_POPOVER_DIALOG_DEFAULT_OPTIONS),
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	encapsulation: ViewEncapsulation.None,
-	exportAs: 'brnPopover',
+	template: `
+		<ng-content />
+	`,
 })
 export class BrnPopover extends BrnDialog {
 	public readonly align = input<BrnPopoverAlign>('center');

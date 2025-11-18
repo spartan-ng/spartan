@@ -8,8 +8,14 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 
 @Component({
 	selector: 'spartan-sidebar-footer',
-	encapsulation: ViewEncapsulation.None,
 	imports: [HlmSidebarImports, HlmMenuImports, BrnMenuImports, NgIcon, HlmIcon],
+	providers: [
+		provideIcons({
+			lucideChevronUp,
+		}),
+	],
+	encapsulation: ViewEncapsulation.None,
+	styleUrl: 'sidebar-default.css',
 	template: `
 		<div hlmSidebarWrapper>
 			<hlm-sidebar>
@@ -40,11 +46,5 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 			</main>
 		</div>
 	`,
-	providers: [
-		provideIcons({
-			lucideChevronUp,
-		}),
-	],
-	styleUrl: 'sidebar-default.css',
 })
 export default class SidebarFooterPage {}

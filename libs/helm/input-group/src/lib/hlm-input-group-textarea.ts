@@ -7,8 +7,8 @@ import type { ClassValue } from 'clsx';
 	selector: 'textarea[hlmInputGroupTextarea]',
 	hostDirectives: [HlmTextarea],
 	host: {
-		'[class]': '_computedClass()',
 		'data-slot': 'input-group-control',
+		'[class]': '_computedClass()',
 	},
 })
 export class HlmInputGroupTextarea {

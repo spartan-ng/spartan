@@ -8,6 +8,7 @@ import type { ClassValue } from 'clsx';
 	selector: 'hlm-spinner',
 	imports: [NgIcon],
 	providers: [provideIcons({ lucideLoader })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		role: 'status',
 		'[attr.aria-label]': 'ariaLabel()',
@@ -16,7 +17,6 @@ import type { ClassValue } from 'clsx';
 	template: `
 		<ng-icon [name]="icon()" [class]="_computedClass()" />
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmSpinner {
 	/**

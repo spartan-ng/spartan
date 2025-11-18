@@ -5,12 +5,12 @@ import type { ClassValue } from 'clsx';
 
 @Directive({
 	selector: '[hlmProgressIndicator],hlm-progress-indicator',
+	hostDirectives: [BrnProgressIndicator],
 	host: {
 		'[class]': '_computedClass()',
 		'[class.animate-indeterminate]': '_indeterminate()',
 		'[style.transform]': '_transform()',
 	},
-	hostDirectives: [BrnProgressIndicator],
 })
 export class HlmProgressIndicator {
 	private readonly _progress = injectBrnProgress();

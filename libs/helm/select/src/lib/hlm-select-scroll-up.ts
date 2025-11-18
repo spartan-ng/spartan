@@ -9,13 +9,13 @@ import type { ClassValue } from 'clsx';
 	selector: 'hlm-select-scroll-up',
 	imports: [NgIcon, HlmIcon],
 	providers: [provideIcons({ lucideChevronUp })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[class]': '_computedClass()',
 	},
 	template: `
 		<ng-icon hlm size="sm" class="ml-2" name="lucideChevronUp" />
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmSelectScrollUp {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

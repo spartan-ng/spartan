@@ -42,6 +42,7 @@ export const sheetVariants = cva(
 	selector: 'hlm-sheet-content',
 	imports: [HlmSheetClose, BrnSheetClose, NgIcon, HlmIcon],
 	providers: [provideIcons({ lucideX })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[class]': '_computedClass()',
 		'[attr.data-state]': 'state()',
@@ -53,7 +54,6 @@ export const sheetVariants = cva(
 			<ng-icon hlm size="sm" name="lucideX" />
 		</button>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmSheetContent {
 	private readonly _stateProvider = injectExposesStateProvider({ host: true });

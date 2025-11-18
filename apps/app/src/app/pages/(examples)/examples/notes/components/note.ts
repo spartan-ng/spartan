@@ -15,12 +15,7 @@ import {
 import { HlmSpinner } from '@spartan-ng/helm/spinner';
 
 @Component({
-	// eslint-disable-next-line @angular-eslint/component-selector
-	selector: 'analog-trpc-note',
-	hostDirectives: [HlmCard],
-	host: {
-		class: 'block',
-	},
+	selector: 'spartan-analog-trpc-note',
 	imports: [
 		DatePipe,
 		HlmButton,
@@ -33,6 +28,10 @@ import { HlmSpinner } from '@spartan-ng/helm/spinner';
 		RouterLink,
 		HlmBadge,
 	],
+	hostDirectives: [HlmCard],
+	host: {
+		class: 'block',
+	},
 	template: `
 		<div hlmCardHeader class="relative">
 			<h3 hlmCardTitle>{{ note.title }}</h3>

@@ -6,6 +6,7 @@ import { BrnToggleGroupItem } from './brn-toggle-item';
 
 @Component({
 	imports: [BrnToggleGroupItem, BrnToggleGroup],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<brn-toggle-group [(value)]="value" [disabled]="disabled()" [type]="type()">
 			<button brnToggleGroupItem value="option-1">Option 1</button>
@@ -13,7 +14,6 @@ import { BrnToggleGroupItem } from './brn-toggle-item';
 			<button brnToggleGroupItem value="option-3">Option 3</button>
 		</brn-toggle-group>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class BrnToggleGroupDirectiveSpec {
 	public readonly value? = model<string | string[]>();
@@ -23,6 +23,7 @@ class BrnToggleGroupDirectiveSpec {
 
 @Component({
 	imports: [BrnToggleGroupItem, BrnToggleGroup, FormsModule],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<brn-toggle-group [(ngModel)]="value" [type]="type()">
 			<button brnToggleGroupItem value="option-1">Option 1</button>
@@ -30,7 +31,6 @@ class BrnToggleGroupDirectiveSpec {
 			<button brnToggleGroupItem value="option-3">Option 3</button>
 		</brn-toggle-group>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class BrnToggleGroupDirectiveFormSpec {
 	public readonly value = model<string | string[]>();

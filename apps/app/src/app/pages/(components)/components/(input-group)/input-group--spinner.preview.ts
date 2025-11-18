@@ -3,10 +3,11 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideLoader } from '@ng-icons/lucide';
 import { HlmIconImports } from '@spartan-ng/helm/icon';
 import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
+import { HlmSpinnerImports } from '@spartan-ng/helm/spinner';
 
 @Component({
 	selector: 'spartan-input-group-spinner-preview',
-	imports: [HlmInputGroupImports, NgIcon, HlmIconImports],
+	imports: [HlmInputGroupImports, NgIcon, HlmIconImports, HlmSpinnerImports],
 	providers: [provideIcons({ lucideLoader })],
 	host: {
 		class: 'grid w-full max-w-sm gap-6',
@@ -15,14 +16,14 @@ import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 		<div hlmInputGroup data-disabled="true">
 			<input hlmInputGroupInput placeholder="Searching..." disabled />
 			<div hlmInputGroupAddon align="inline-end">
-				<ng-icon name="lucideLoader" class="animate-spin" />
+				<hlm-spinner />
 			</div>
 		</div>
 
 		<div hlmInputGroup data-disabled="true">
 			<input hlmInputGroupInput placeholder="Processing..." disabled />
 			<div hlmInputGroupAddon>
-				<ng-icon name="lucideLoader" class="animate-spin" />
+				<hlm-spinner />
 			</div>
 		</div>
 
@@ -30,7 +31,7 @@ import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 			<input hlmInputGroupInput placeholder="Saving changes..." disabled />
 			<div hlmInputGroupAddon align="inline-end">
 				<span hlmInputGroupText>Saving...</span>
-				<ng-icon name="lucideLoader" class="animate-spin" />
+				<hlm-spinner />
 			</div>
 		</div>
 
@@ -38,7 +39,7 @@ import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 			<input hlmInputGroupInput placeholder="Refreshing data..." disabled />
 
 			<div hlmInputGroupAddon>
-				<ng-icon name="lucideLoader" class="animate-spin" />
+				<ng-icon name="lucideLoader" class="motion-safe:animate-spin" />
 			</div>
 
 			<div hlmInputGroupAddon align="inline-end">

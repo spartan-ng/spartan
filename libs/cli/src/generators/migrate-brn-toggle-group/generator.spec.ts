@@ -105,6 +105,57 @@ describe('migrate-toggle-group generator', () => {
 		expect(content).toContain(`imports: [BrowserModule, HlmToggleGroup, HlmToggleGroupItem],`);
 	});
 
+	it('should remove BrnToggleGroup imports in any order (NgModule)', async () => {
+		tree.write(
+			'app/src/app/app.module.ts',
+			`
+				import { NgModule } from '@angular/core';
+				import { BrowserModule } from '@angular/platform-browser';
+				import { BrnToggleGroupItem, BrnToggleGroup } from '@spartan-ng/brain/toggle-group';
+				import { HlmToggleGroup, HlmToggleGroupItem } from '@spartan-ng/helm/toggle-group';
+	
+				@NgModule({
+					imports: [BrowserModule, BrnToggleGroup, BrnToggleGroupItem, HlmToggleGroup, HlmToggleGroupItem],
+				})
+				export class AppModule {}
+				`,
+		);
+
+		await migrateBrnToggleGroupGenerator(tree, { skipFormat: true });
+
+		const content = tree.read('app/src/app/app.module.ts', 'utf-8');
+		expect(content).not.toContain(
+			`import { BrnToggleGroup, BrnToggleGroupItem } from '@spartan-ng/brain/toggle-group';`,
+		);
+		expect(content).toContain(`imports: [BrowserModule, HlmToggleGroup, HlmToggleGroupItem],`);
+	});
+
+	it('should remove multi line BrnToggleGroup imports (NgModule)', async () => {
+		tree.write(
+			'app/src/app/app.module.ts',
+			`
+				import { NgModule } from '@angular/core';
+				import { BrowserModule } from '@angular/platform-browser';
+				import {
+					BrnToggleGroup,
+					BrnToggleGroupItem,
+				} from '@spartan-ng/brain/toggle-group';
+				import { HlmToggleGroup, HlmToggleGroupItem } from '@spartan-ng/helm/toggle-group';
+	
+				@NgModule({
+					imports: [BrowserModule, BrnToggleGroup, BrnToggleGroupItem, HlmToggleGroup, HlmToggleGroupItem],
+				})
+				export class AppModule {}
+				`,
+		);
+
+		await migrateBrnToggleGroupGenerator(tree, { skipFormat: true });
+
+		const content = tree.read('app/src/app/app.module.ts', 'utf-8');
+		expect(content).not.toContain(`'@spartan-ng/brain/toggle-group';`);
+		expect(content).toContain(`imports: [BrowserModule, HlmToggleGroup, HlmToggleGroupItem],`);
+	});
+
 	it('should replace BrnToggleGroup template (Standalone)', async () => {
 		tree.write(
 			'app/src/app/app.component.ts',

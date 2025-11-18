@@ -6,6 +6,7 @@ import { ClassValue } from 'clsx';
 @Component({
 	selector: 'hlm-field-separator',
 	imports: [HlmSeparator],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'data-slot': 'field-separator',
 		'[class]': '_computedClass()',
@@ -19,7 +20,6 @@ import { ClassValue } from 'clsx';
 			<ng-content />
 		</span>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmFieldSeparator {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

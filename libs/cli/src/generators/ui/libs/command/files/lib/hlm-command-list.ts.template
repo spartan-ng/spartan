@@ -4,17 +4,17 @@ import { hlm } from '<%- importAlias %>/utils';
 
 @Component({
 	selector: 'hlm-command-list',
-	template: '<ng-content />',
-	host: {
-		'[class]': '_computedClass()',
-	},
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [
 		{
 			directive: BrnCommandList,
 			inputs: ['id'],
 		},
 	],
-	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		'[class]': '_computedClass()',
+	},
+	template: '<ng-content />',
 })
 export class HlmCommandList {
 	/** The user defined class  */

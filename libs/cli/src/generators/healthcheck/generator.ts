@@ -3,6 +3,7 @@ import { type Healthcheck, type HealthcheckReport, HealthcheckStatus, isHealthch
 import { brainImportsHealthcheck } from './healthchecks/brain-imports';
 import { brainAccordionTriggerHealthcheck } from './healthchecks/brn-accordion-trigger';
 import { brnCheckboxChangedEventRename } from './healthchecks/brn-checkbox-changed-event-rename';
+import { brainCollapsibleHealthcheck } from './healthchecks/brn-collapsible';
 import { brainRadioHealthcheck } from './healthchecks/brn-radio';
 import { brainSeparatorHealthcheck } from './healthchecks/brn-separator';
 import { brnSwitchChangedEventRename } from './healthchecks/brn-switch-changed-event-rename';
@@ -49,6 +50,7 @@ export async function healthcheckGenerator(tree: Tree, options: HealthcheckGener
 		moduleImportsHealthcheck,
 		brainToggleHealthcheck,
 		brainToggleGroup2Healthcheck,
+		brainCollapsibleHealthcheck,
 	];
 
 	const failedReports: HealthcheckReport[] = [];

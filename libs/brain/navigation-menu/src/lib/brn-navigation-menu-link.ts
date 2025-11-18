@@ -8,6 +8,13 @@ import { injectBrnNavigationMenu } from './brn-navigation-menu.token';
 
 @Directive({
 	selector: 'a[brnNavigationMenuLink]',
+	providers: [provideBrnNavigationMenuFocusable(BrnNavigationMenuLink)],
+	hostDirectives: [
+		{
+			directive: BrnButton,
+			inputs: ['disabled'],
+		},
+	],
 	host: {
 		'(click)': 'onClick()',
 		'(mouseenter)': 'activate()',
@@ -16,13 +23,6 @@ import { injectBrnNavigationMenu } from './brn-navigation-menu.token';
 		'[attr.aria-current]': '_isActive() ? "page" : undefined',
 		'data-slot': 'navigation-menu-link',
 	},
-	hostDirectives: [
-		{
-			directive: BrnButton,
-			inputs: ['disabled'],
-		},
-	],
-	providers: [provideBrnNavigationMenuFocusable(BrnNavigationMenuLink)],
 })
 export class BrnNavigationMenuLink implements FocusableOption {
 	private readonly _navigationMenu = injectBrnNavigationMenu();

@@ -5,10 +5,10 @@ import { HlmAvatarImage } from './hlm-avatar-image';
 @Component({
 	selector: 'hlm-mock',
 	imports: [HlmAvatarImage],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<img hlmAvatarImage alt="Avatar image" [class]="userCls" />
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class HlmMock {
 	public userCls = '';

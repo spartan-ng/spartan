@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { BrnAvatar } from '@spartan-ng/brain/avatar';
 import { hlm } from '<%- importAlias %>/utils';
 import type { ClassValue } from 'clsx';
@@ -6,7 +6,6 @@ import type { ClassValue } from 'clsx';
 @Component({
 	selector: 'hlm-avatar',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	encapsulation: ViewEncapsulation.None,
 	host: {
 		'[class]': '_computedClass()',
 	},

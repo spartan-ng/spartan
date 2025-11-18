@@ -3,6 +3,8 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angul
 import { BrnSlider, BrnSliderRange, BrnSliderThumb, BrnSliderTrack } from '../../index';
 
 @Component({
+	imports: [FormsModule, BrnSlider, BrnSliderThumb, BrnSliderTrack, BrnSliderRange],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<pre data-testid="value-indicator-pre">Temperature: {{ temperature() }}</pre>
@@ -18,8 +20,6 @@ import { BrnSlider, BrnSliderRange, BrnSliderThumb, BrnSliderTrack } from '../..
 		</form>
 		<button data-testid="change-value-btn" (click)="changeValue(24)">Change temperature value</button>
 	`,
-	imports: [FormsModule, BrnSlider, BrnSliderThumb, BrnSliderTrack, BrnSliderRange],
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TemplateDrivenFormSlider {
 	public readonly temperature = model<number>(0);
@@ -30,6 +30,8 @@ export class TemplateDrivenFormSlider {
 }
 
 @Component({
+	imports: [ReactiveFormsModule, BrnSlider, BrnSliderThumb, BrnSliderTrack, BrnSliderRange],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<pre data-testid="value-indicator-pre">
@@ -48,8 +50,6 @@ export class TemplateDrivenFormSlider {
 		</form>
 		<button data-testid="change-value-btn" (click)="changeValue(24)">Change temperature value</button>
 	`,
-	imports: [ReactiveFormsModule, BrnSlider, BrnSliderThumb, BrnSliderTrack, BrnSliderRange],
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReactiveFormSlider {
 	public readonly temperature = model<number>(46);

@@ -33,9 +33,6 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-music-example',
-	host: {
-		class: 'block',
-	},
 	imports: [
 		TopMusicMenu,
 		SideMusicMenu,
@@ -60,6 +57,9 @@ export const routeMeta: RouteMeta = {
 		FallbackImage,
 	],
 	providers: [provideIcons({ lucideCirclePlus, lucideListMusic, lucidePodcast })],
+	host: {
+		class: 'block',
+	},
 	styles: `
 		.fallback-img {
 			filter: opacity(0.3);
@@ -105,10 +105,10 @@ export const routeMeta: RouteMeta = {
 			</hlm-menu>
 		</ng-template>
 
-		<music-top-menu class="px-2 lg:px-4" />
+		<spartan-music-top-menu class="px-2 lg:px-4" />
 		<div class="border-border bg-background border-t">
 			<div class="grid lg:grid-cols-5">
-				<music-side-menu />
+				<spartan-music-side-menu />
 				<div class="music_content col-span-3 lg:col-span-4">
 					<div class="h-full px-4 py-6 lg:px-8">
 						<hlm-tabs tab="music_tab" class="w-full">

@@ -14,7 +14,7 @@ type ExampleUser = {
 
 @Component({
 	selector: 'spartan-dialog-dynamic-component-preview',
-	imports: [HlmButton, ...HlmTableImports],
+	imports: [HlmButton],
 	template: `
 		<button hlmBtn (click)="openDynamicComponent()">Select User</button>
 	`,
@@ -62,10 +62,12 @@ export class DialogDynamicPreview {
 }
 
 @Component({
-	// eslint-disable-next-line @angular-eslint/component-selector
-	selector: 'dynamic-content',
+	selector: 'spartan-dynamic-content',
 	imports: [HlmDialogHeader, HlmDialogTitle, HlmDialogDescription, ...HlmTableImports],
 	providers: [provideIcons({ lucideCheck })],
+	host: {
+		class: 'flex flex-col gap-4',
+	},
 	template: `
 		<hlm-dialog-header>
 			<h3 hlmDialogTitle>Select user</h3>
@@ -87,9 +89,6 @@ export class DialogDynamicPreview {
 			}
 		</table>
 	`,
-	host: {
-		class: 'flex flex-col gap-4',
-	},
 })
 class SelectUser {
 	private readonly _dialogRef = inject<BrnDialogRef<ExampleUser>>(BrnDialogRef);

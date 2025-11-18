@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, forwardRef, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, forwardRef } from '@angular/core';
 import { BrnDialog, type BrnDialogDefaultOptions, provideBrnDialogDefaultOptions } from '@spartan-ng/brain/dialog';
 
 export const BRN_ALERT_DIALOG_DEFAULT_OPTIONS: Partial<BrnDialogDefaultOptions> = {
@@ -9,9 +9,7 @@ export const BRN_ALERT_DIALOG_DEFAULT_OPTIONS: Partial<BrnDialogDefaultOptions> 
 
 @Component({
 	selector: 'brn-alert-dialog',
-	template: `
-		<ng-content />
-	`,
+	exportAs: 'brnAlertDialog',
 	providers: [
 		{
 			provide: BrnDialog,
@@ -20,7 +18,8 @@ export const BRN_ALERT_DIALOG_DEFAULT_OPTIONS: Partial<BrnDialogDefaultOptions> 
 		provideBrnDialogDefaultOptions(BRN_ALERT_DIALOG_DEFAULT_OPTIONS),
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	encapsulation: ViewEncapsulation.None,
-	exportAs: 'brnAlertDialog',
+	template: `
+		<ng-content />
+	`,
 })
 export class BrnAlertDialog extends BrnDialog {}

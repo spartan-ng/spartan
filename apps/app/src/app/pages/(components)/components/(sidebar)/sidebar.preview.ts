@@ -7,6 +7,15 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 @Component({
 	selector: 'spartan-sidebar',
 	imports: [HlmSidebarImports, NgIcon, HlmIcon],
+	providers: [
+		provideIcons({
+			lucideHouse,
+			lucideInbox,
+			lucideCalendar,
+			lucideSearch,
+			lucideSettings,
+		}),
+	],
 	template: `
 		<div hlmSidebarWrapper>
 			<hlm-sidebar>
@@ -31,15 +40,6 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 			<ng-content />
 		</div>
 	`,
-	providers: [
-		provideIcons({
-			lucideHouse,
-			lucideInbox,
-			lucideCalendar,
-			lucideSearch,
-			lucideSettings,
-		}),
-	],
 })
 export class SidebarComponent {
 	protected readonly _items = [
@@ -72,8 +72,8 @@ export class SidebarComponent {
 }
 
 @Component({
-	imports: [SidebarComponent, HlmSidebarImports],
 	selector: 'spartan-sidebar-preview',
+	imports: [SidebarComponent, HlmSidebarImports],
 	template: `
 		<spartan-sidebar>
 			<main hlmSidebarInset>
@@ -473,19 +473,19 @@ import {
   lucideLifeBuoy,
   lucideSend,
 } from '@ng-icons/lucide';
-import { BrnCollapsibleImports } from '@spartan-ng/brain/collapsible';
+import { HlmCollapsibleImports } from '@spartan-ng/helm/collapsible';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [HlmIcon, NgIcon, BrnCollapsibleImports, HlmSidebarImports],
+  imports: [HlmIcon, NgIcon, HlmCollapsibleImports, HlmSidebarImports],
   template: \`
     <div hlmSidebarWrapper>
       <hlm-sidebar>
         <div hlmSidebarContent>
-          <brn-collapsible [expanded]="true" class="group/collapsible">
+          <hlm-collapsible [expanded]="true" class="group/collapsible">
             <div hlmSidebarGroup>
               <button
-                brnCollapsibleTrigger
+                hlmCollapsibleTrigger
                 hlmSidebarGroupLabel
                 class="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground text-sm"
               >
@@ -496,7 +496,7 @@ import { BrnCollapsibleImports } from '@spartan-ng/brain/collapsible';
                   class="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180"
                 />
               </button>
-              <brn-collapsible-content>
+              <hlm-collapsible-content>
                 <div hlmSidebarGroupContent>
                   <ul hlmSidebarMenu>
                     <li hlmSidebarMenuItem>
@@ -513,9 +513,9 @@ import { BrnCollapsibleImports } from '@spartan-ng/brain/collapsible';
                     </li>
                   </ul>
                 </div>
-              </brn-collapsible-content>
+              </hlm-collapsible-content>
             </div>
-          </brn-collapsible>
+          </hlm-collapsible>
         </div>
       </hlm-sidebar>
       <ng-content />
@@ -884,13 +884,13 @@ export const menuSubCollapsableExample = `
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronRight } from '@ng-icons/lucide';
-import { BrnCollapsibleImports } from '@spartan-ng/brain/collapsible';
+import { HlmCollapsibleImports } from '@spartan-ng/helm/collapsible';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 
 @Component({
   selector: 'app-sidebar',
-    imports: [HlmSidebarImports, BrnCollapsibleImports, NgIcon, HlmIcon],
+    imports: [HlmSidebarImports, HlmCollapsibleImports, NgIcon, HlmIcon],
   template: \`
     <div hlmSidebarWrapper>
             <hlm-sidebar>
@@ -899,10 +899,10 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
                         <div hlmSidebarGroupContent>
                             <ul hlmSidebarMenu>
                                 @for (item of _items; track item.title) {
-                                    <brn-collapsible [expanded]="item.defaultOpen" class="group/collapsible">
+                                    <hlm-collapsible [expanded]="item.defaultOpen" class="group/collapsible">
                                         <li hlmSidebarMenuItem>
                                             <button
-                                                brnCollapsibleTrigger
+                                                hlmCollapsibleTrigger
                                                 hlmSidebarMenuButton
                                                 class="flex w-full items-center justify-between"
                                             >
@@ -913,7 +913,7 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
                                                     hlm
                                                 />
                                             </button>
-                                            <brn-collapsible-content>
+                                            <hlm-collapsible-content>
                                                 <ul hlmSidebarMenuSub>
                                                     @for (subItem of item.items; track subItem.title) {
                                                         <li hlmSidebarMenuSubItem>
@@ -923,9 +923,9 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
                                                         </li>
                                                     }
                                                 </ul>
-                                            </brn-collapsible-content>
+                                            </hlm-collapsible-content>
                                         </li>
-                                    </brn-collapsible>
+                                    </hlm-collapsible>
                                 }
                             </ul>
                         </div>

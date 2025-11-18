@@ -134,6 +134,8 @@ export class ThreeHundred {
 		'liam-langstaff',
 		'dw-0',
 		'Khumozin',
+		'abiramcodes',
+		'garygrossgarten',
 	];
 	protected readonly _contributorCountRoundedToNextMultipleOf10 = Math.ceil(this._contributors.length / 10) * 10;
 	protected readonly _countNeededToGetToNextMultipleOf10 =

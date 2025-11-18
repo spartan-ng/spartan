@@ -7,8 +7,8 @@ import type { ClassValue } from 'clsx';
 
 @Directive({
 	selector: '[hlmCommandDialogCloseBtn]',
-	hostDirectives: [HlmButton, BrnDialogClose],
 	providers: [provideBrnButtonConfig({ variant: 'ghost' }), provideHlmIconConfig({ size: 'xs' })],
+	hostDirectives: [HlmButton, BrnDialogClose],
 	host: {
 		'[class]': '_computedClass()',
 	},

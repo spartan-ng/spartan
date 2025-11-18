@@ -3,7 +3,6 @@ import {
 	Component,
 	type InputSignal,
 	type Signal,
-	ViewEncapsulation,
 	computed,
 	input,
 	signal,
@@ -20,15 +19,14 @@ import {
 
 @Component({
 	selector: 'hlm-carousel',
+	imports: [EmblaCarouselDirective],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	encapsulation: ViewEncapsulation.None,
 	host: {
 		'[class]': '_computedClass()',
 		role: 'region',
 		'aria-roledescription': 'carousel',
 		'(keydown)': 'onKeydown($event)',
 	},
-	imports: [EmblaCarouselDirective],
 	template: `
 		<div
 			emblaCarousel

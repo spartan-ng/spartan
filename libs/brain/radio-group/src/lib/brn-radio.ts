@@ -5,7 +5,6 @@ import {
 	Component,
 	ElementRef,
 	type OnDestroy,
-	ViewEncapsulation,
 	booleanAttribute,
 	computed,
 	inject,
@@ -26,6 +25,8 @@ const CONTAINER_POST_FIX = '-radio';
 
 @Component({
 	selector: 'brn-radio',
+	exportAs: 'brnRadio',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'brn-radio',
 		'[attr.id]': '_hostId()',
@@ -44,11 +45,8 @@ const CONTAINER_POST_FIX = '-radio';
 		// the focus to the native element.
 		'(focus)': '_inputElement().nativeElement.focus()',
 	},
-	exportAs: 'brnRadio',
-	encapsulation: ViewEncapsulation.None,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<div data-slot="indicator" (click)="onTouchTargetClick($event)">
+		<div data-slot="indicator" class="flex h-fit w-fit empty:hidden" (click)="onTouchTargetClick($event)">
 			<ng-content select="[target],[indicator]" />
 		</div>
 		<input
@@ -71,17 +69,6 @@ const CONTAINER_POST_FIX = '-radio';
 			(click)="onInputClick($event)"
 		/>
 		<ng-content />
-	`,
-	styles: `
-		[data-slot='indicator'] {
-			display: flex;
-			height: fit-content;
-			width: fit-content;
-		}
-
-		[data-slot='indicator']:empty {
-			display: none;
-		}
 	`,
 })
 export class BrnRadio<T = unknown> implements OnDestroy {

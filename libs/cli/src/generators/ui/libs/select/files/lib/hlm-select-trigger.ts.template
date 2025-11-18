@@ -26,6 +26,7 @@ export const selectTriggerVariants = cva(
 	selector: 'hlm-select-trigger',
 	imports: [BrnSelectTrigger, NgIcon, HlmIcon],
 	providers: [provideIcons({ lucideChevronDown })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<button [class]="_computedClass()" #button hlmInput brnSelectTrigger type="button" [attr.data-size]="size()">
 			<ng-content />
@@ -36,7 +37,6 @@ export const selectTriggerVariants = cva(
 			}
 		</button>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmSelectTrigger {
 	protected readonly _icon = contentChild(HlmIcon);

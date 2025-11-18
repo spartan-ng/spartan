@@ -3,13 +3,12 @@ import { HlmCard, HlmCardContent, HlmCardDescription, HlmCardFooter, HlmCardHead
 import { HlmSkeleton } from '@spartan-ng/helm/skeleton';
 
 @Component({
-	// eslint-disable-next-line @angular-eslint/component-selector
-	selector: 'analog-trpc-note-skeleton',
+	selector: 'spartan-analog-trpc-note-skeleton',
+	imports: [HlmCardContent, HlmCardDescription, HlmCardFooter, HlmCardHeader, HlmSkeleton],
+	hostDirectives: [HlmCard],
 	host: {
 		class: 'block',
 	},
-	hostDirectives: [HlmCard],
-	imports: [HlmCardContent, HlmCardDescription, HlmCardFooter, HlmCardHeader, HlmSkeleton],
 	template: `
 		<div hlmCardHeader>
 			<hlm-skeleton class="h-[25px] w-[150px]" />

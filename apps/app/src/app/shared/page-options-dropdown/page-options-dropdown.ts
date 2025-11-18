@@ -10,6 +10,8 @@ import { AiChatLinkDirective } from './ai-chat-link-directive';
 
 @Component({
 	selector: 'spartan-page-options-dropdown',
+	imports: [HlmMenuImports, BrnMenuTrigger, HlmButton, NgIconComponent, AiChatLinkDirective],
+	providers: [provideIcons({ remixOpenaiFill, remixClaudeFill, lucideChevronDown })],
 	template: `
 		<button hlmBtn size="sm" variant="secondary" side="bottom" align="end" [brnMenuTriggerFor]="menu">
 			AI Assist
@@ -28,7 +30,5 @@ import { AiChatLinkDirective } from './ai-chat-link-directive';
 			</hlm-menu>
 		</ng-template>
 	`,
-	imports: [HlmMenuImports, BrnMenuTrigger, HlmButton, NgIconComponent, AiChatLinkDirective],
-	providers: [provideIcons({ remixOpenaiFill, remixClaudeFill, lucideChevronDown })],
 })
 export class PageOptionsDropdown {}

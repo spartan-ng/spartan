@@ -2,20 +2,19 @@ import { NgClass } from '@angular/common';
 import {
 	type AfterViewInit,
 	Component,
-	ElementRef,
-	type OnDestroy,
-	type TemplateRef,
 	computed,
+	ElementRef,
 	inject,
 	isDevMode,
+	type OnDestroy,
 	signal,
+	type TemplateRef,
 	viewChild,
 } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { ApiDocsService } from '@spartan-ng/app/app/core/services/api-docs.service';
 import { PageNavZeropsAd } from '@spartan-ng/app/app/shared/layout/page-nav/page-nav-zerops-ad';
-import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmScrollArea } from '@spartan-ng/helm/scroll-area';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { PageNavLink } from './page-nav-link';
@@ -30,7 +29,7 @@ type SamePageAnchorLink = {
 @Component({
 	selector: 'spartan-page-nav',
 
-	imports: [HlmScrollArea, NgScrollbarModule, NgClass, PageNavLink, HlmButton, PageNavZeropsAd],
+	imports: [HlmScrollArea, NgScrollbarModule, NgClass, PageNavLink, PageNavZeropsAd],
 	host: {
 		class: 'hidden max-w-sm xl:block text-sm',
 	},

@@ -1,7 +1,14 @@
+import { rule as avoidComponentStyles, RULE_NAME as avoidComponentStylesName } from './rules/avoid-component-styles';
 import {
 	rule as preferRxjsOperatorCompat,
 	RULE_NAME as preferRxjsOperatorCompatName,
 } from './rules/prefer-rxjs-operator-compat';
+
+import {
+	rule as componentTemplateLast,
+	RULE_NAME as componentTemplateLastName,
+} from './rules/component-directive-key-order';
+
 /**
  * Import your custom workspace rules at the top of this file.
  *
@@ -27,5 +34,9 @@ module.exports = {
 	 *  [myCustomRuleName]: myCustomRule
 	 * }
 	 */
-	rules: { [preferRxjsOperatorCompatName]: preferRxjsOperatorCompat },
+	rules: {
+		[preferRxjsOperatorCompatName]: preferRxjsOperatorCompat,
+		[componentTemplateLastName]: componentTemplateLast,
+		[avoidComponentStylesName]: avoidComponentStyles,
+	},
 };

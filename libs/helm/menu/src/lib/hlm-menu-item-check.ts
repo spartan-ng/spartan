@@ -7,16 +7,16 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-menu-item-check',
-	providers: [provideIcons({ lucideCheck })],
 	imports: [NgIcon, HlmIcon],
+	providers: [provideIcons({ lucideCheck })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		'[class]': '_computedClass()',
+	},
 	template: `
 		<!-- Using 1rem for size to mimick h-4 w-4 -->
 		<ng-icon hlm size="1rem" name="lucideCheck" />
 	`,
-	host: {
-		'[class]': '_computedClass()',
-	},
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmMenuItemCheck {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

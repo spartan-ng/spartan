@@ -3,9 +3,10 @@ import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrnSelectImports } from '../../index';
 
-@Component({
-	selector: 'select-ngmodel-form',
-	template: `
+@Component({selector: 'select-ngmodel-form',
+imports: [ReactiveFormsModule, FormsModule, JsonPipe, BrnSelectImports],
+changeDetection: ChangeDetectionStrategy.OnPush,
+template: `
 		<form ngForm>
 			<div class="mb-3">
 				<pre>Form Control Value: {{ fruit() | json }}</pre>
@@ -25,10 +26,7 @@ import { BrnSelectImports } from '../../index';
 				</brn-select-content>
 			</brn-select>
 		</form>
-	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [ReactiveFormsModule, FormsModule, JsonPipe, BrnSelectImports],
-})
+	`})
 export class SelectNgModel {
 	public readonly fruit = signal('');
 }

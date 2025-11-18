@@ -1,8 +1,9 @@
 {
 	"name": "@spartan-ng/cli",
-	"version": "0.0.1-alpha.555",
+	"version": "0.0.1-alpha.561",
 	"type": "commonjs",
 	"dependencies": {
+		"@angular/core": ">=19.0.0",
 		"@nx/angular": ">=20.0.0",
 		"@nx/devkit": ">=20.0.0",
 		"@nx/js": ">=20.0.0",

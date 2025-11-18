@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { NgIcon, provideIcons } from '@ng-icons/core';
+import { provideIcons } from '@ng-icons/core';
 import {
 	lucideArchive,
 	lucideArrowLeft,
@@ -12,14 +12,15 @@ import {
 	lucideTag,
 	lucideTrash,
 } from '@ng-icons/lucide';
-import { BrnMenuTrigger } from '@spartan-ng/brain/menu';
-import { HlmButton } from '@spartan-ng/helm/button';
-import { HlmButtonGroup } from '@spartan-ng/helm/button-group';
-import { HlmIcon } from '@spartan-ng/helm/icon';
+import { BrnMenuImports } from '@spartan-ng/brain/menu';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmButtonGroupImports } from '@spartan-ng/helm/button-group';
+import { HlmIconImports } from '@spartan-ng/helm/icon';
 import { HlmMenuImports } from '@spartan-ng/helm/menu';
+
 @Component({
 	selector: 'spartan-button-group-preview',
-	imports: [NgIcon, HlmIcon, HlmButton, HlmButtonGroup, BrnMenuTrigger, HlmMenuImports],
+	imports: [HlmIconImports, HlmButtonImports, HlmButtonGroupImports, BrnMenuImports, HlmMenuImports],
 	providers: [
 		provideIcons({
 			lucideArrowLeft,
@@ -37,7 +38,7 @@ import { HlmMenuImports } from '@spartan-ng/helm/menu';
 	template: `
 		<div>
 			<div hlmButtonGroup>
-				<div hlmButtonGroup>
+				<div hlmButtonGroup class="hidden sm:flex">
 					<button hlmBtn variant="outline" size="icon" aria-label="Go Back">
 						<ng-icon name="lucideArrowLeft" />
 					</button>
@@ -48,13 +49,13 @@ import { HlmMenuImports } from '@spartan-ng/helm/menu';
 				</div>
 				<div hlmButtonGroup>
 					<button hlmBtn variant="outline">Snooze</button>
-					<button hlmBtn variant="outline" align="end" [brnMenuTriggerFor]="menu">
+					<button hlmBtn variant="outline" aria-label="More Options" [brnMenuTriggerFor]="menu" align="end">
 						<ng-icon name="lucideEllipsis" />
 					</button>
 				</div>
 			</div>
 			<ng-template #menu>
-				<hlm-menu class="w-56">
+				<hlm-menu class="w-52">
 					<hlm-menu-group>
 						<button hlmMenuItem>
 							<ng-icon hlm name="lucideMailCheck" size="sm" />
@@ -90,7 +91,7 @@ import { HlmMenuImports } from '@spartan-ng/helm/menu';
 					<hlm-menu-separator />
 					<hlm-menu-group>
 						<button hlmMenuItem variant="destructive" class="hover:bg-destructive/10 dark:hover:bg-destructive/40">
-							<ng-icon hlm name="lucideTrash" size="sm" class="!text-destructive" />
+							<ng-icon hlm name="lucideTrash" size="sm" />
 							<span>Delete</span>
 						</button>
 					</hlm-menu-group>
@@ -120,23 +121,13 @@ export class ButtonGroupPreview {
 }
 
 export const defaultImports = `
-import {
-	HlmButtonGroup,
-	HlmButtonGroupSeparator,
-	HlmButtonGroupText
-} from '@spartan-ng/helm/button-group';
+import { HlmButtonGroupImports } from '@spartan-ng/helm/button-group';
 `;
 
 export const defaultSkeleton = `
 <div hlmButtonGroup>
-	<div hlmButtonGroup>
-		<button hlmBtn variant="outline">Button 1</button>
-		<button hlmBtn variant="outline">Button 2</button>
-	</div>
-	<hlm-button-group-separator />
-	<div hlmButtonGroup>
-		<span hlmButtonGroupText>Text</span>
-	</div>
+  <button hlmBtn variant="outline">Button 1</button>
+  <button hlmBtn variant="outline">Button 2</button>
 </div>
 `;
 

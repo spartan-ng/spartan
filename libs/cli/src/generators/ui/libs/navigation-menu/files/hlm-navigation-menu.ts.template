@@ -5,9 +5,6 @@ import { ClassValue } from 'clsx';
 
 @Directive({
 	selector: 'nav[hlmNavigationMenu]',
-	host: {
-		'[class]': '_computedClass()',
-	},
 	hostDirectives: [
 		{
 			directive: BrnNavigationMenu,
@@ -15,6 +12,9 @@ import { ClassValue } from 'clsx';
 			outputs: ['valueChange'],
 		},
 	],
+	host: {
+		'[class]': '_computedClass()',
+	},
 })
 export class HlmNavigationMenu {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

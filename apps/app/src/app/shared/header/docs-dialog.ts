@@ -82,13 +82,6 @@ type AlgoliaHits = {
 
 @Component({
 	selector: 'spartan-docs-dialog',
-	providers: [
-		provideIcons({
-			lucideSearch,
-			lucideCornerDownLeft,
-			lucideArrowRight,
-		}),
-	],
 	imports: [
 		HlmButtonImports,
 		HlmKbdImports,
@@ -100,6 +93,16 @@ type AlgoliaHits = {
 		BrnCommandImports,
 		FormsModule,
 	],
+	providers: [
+		provideIcons({
+			lucideSearch,
+			lucideCornerDownLeft,
+			lucideArrowRight,
+		}),
+	],
+	host: {
+		'(window:keydown)': '_onKeyDown($event)',
+	},
 	template: `
 		<hlm-dialog>
 			<button
@@ -208,9 +211,6 @@ type AlgoliaHits = {
 			</hlm-dialog-content>
 		</hlm-dialog>
 	`,
-	host: {
-		'(window:keydown)': '_onKeyDown($event)',
-	},
 })
 export class DocsDialog {
 	private readonly _client = searchClient('JJRQPPSU45', '0fe1bcb9dbe76b2a149f00bc0709c5fd');

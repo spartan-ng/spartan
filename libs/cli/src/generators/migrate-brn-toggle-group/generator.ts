@@ -27,14 +27,10 @@ function updateImports(tree: Tree) {
 			return;
 		}
 
-		if (content.includes("'@spartan-ng/brain/toggle-group';") || content.includes("'@spartan-ng/helm/toggle-group';")) {
+		if (content.includes("'@spartan-ng/brain/toggle-group';")) {
 			const updatedContent = content
-				// Handle `import { BrnToggleGroup, BrnToggleGroupItem } from '@spartan-ng/brain/toggle-group';`
-				.replace("import { BrnToggleGroup, BrnToggleGroupItem } from '@spartan-ng/brain/toggle-group';", '')
-				// Handle `import { BrnToggleGroup } from '@spartan-ng/brain/toggle-group';`
-				.replace("import { BrnToggleGroup } from '@spartan-ng/brain/toggle-group';", '')
-				// Handle `import { BrnToggleGroupItem } from '@spartan-ng/brain/toggle-group';`
-				.replace("import { BrnToggleGroupItem } from '@spartan-ng/brain/toggle-group';", '')
+				// Handle `import { * } from '@spartan-ng/brain/toggle-group';` including multi-line imports
+				.replace(/import\s*\{[^}]*\}\s*from\s*['"]@spartan-ng\/brain\/toggle-group['"];/g, '')
 				// Remove `BrnToggleGroupItem` with optional comma and whitespace
 				.replace(/BrnToggleGroupItem,?\s?/, '')
 				// Remove `BrnToggleGroup` with optional comma and whitespace
@@ -59,7 +55,7 @@ function replaceSelector(tree: Tree) {
 			return;
 		}
 
-		if (content.includes('brn-toggle-group') || content.includes('@spartan-ng/helm/toggle-group')) {
+		if (content.includes('brn-toggle-group')) {
 			// <brn-toggle-group hlm but between
 			content = replaceBrnToggleGroup(content);
 			// replace closing tag
@@ -75,7 +71,7 @@ function replaceBrnToggleGroup(input) {
 	return input
 		.split(/(?=<)/)
 		.map((tag) => {
-			// Skip if not a brn-separator tag
+			// Skip if not a brn-toggle-group tag
 			if (!tag.startsWith('<brn-toggle-group')) {
 				return tag;
 			}

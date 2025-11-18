@@ -36,6 +36,13 @@ jest.mock('@nx/angular/generators', () => {
 	};
 });
 
+// required because @angular/core is esm and jest doesn't handle esm well
+jest.mock('@angular/core', () => ({
+	VERSION: {
+		major: 19,
+	},
+}));
+
 describe('hlmBaseGenerator', () => {
 	let tree: Tree;
 

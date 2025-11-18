@@ -29,6 +29,7 @@ function areArraysSameByElRef(arr1: unknown[], arr2: unknown[]) {
 
 @Directive({
 	selector: 'nav[brnNavigationMenu]',
+	providers: [provideBrnNavigationMenu(BrnNavigationMenu)],
 	host: {
 		'(keydown)': 'handleKeydown($event)',
 		'[attr.data-orientation]': 'orientation()',
@@ -36,7 +37,6 @@ function areArraysSameByElRef(arr1: unknown[], arr2: unknown[]) {
 		'aria-label': 'Main',
 		'data-slot': 'navigation-menu',
 	},
-	providers: [provideBrnNavigationMenu(BrnNavigationMenu)],
 })
 export class BrnNavigationMenu implements OnDestroy {
 	private readonly _directionality = inject(Directionality);

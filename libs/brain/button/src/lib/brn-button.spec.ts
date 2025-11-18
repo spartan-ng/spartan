@@ -4,10 +4,10 @@ import { BrnButton } from './brn-button';
 
 @Component({
 	imports: [BrnButton],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<a brnButton [disabled]="disabled" (click)="onClick()">Click me</a>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class TestHost {
 	public disabled = false;

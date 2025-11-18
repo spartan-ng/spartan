@@ -6,7 +6,7 @@ export default {
 	BrnButtonModule: 'BrnButtonImports',
 	BrnCalendarModule: 'BrnCalendarImports',
 	BrnCheckboxModule: 'BrnCheckboxImports',
-	BrnCollapsibleModule: 'BrnCollapsibleImports',
+	BrnCollapsibleModule: 'HlmCollapsibleImports',
 	BrnCommandModule: 'BrnCommandImports',
 	BrnDialogModule: 'BrnDialogImports',
 	BrnHoverCardModule: 'BrnHoverCardImports',

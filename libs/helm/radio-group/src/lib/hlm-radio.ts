@@ -20,6 +20,15 @@ import type { ClassValue } from 'clsx';
 @Component({
 	selector: 'hlm-radio',
 	imports: [BrnRadio],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		'[attr.id]': 'null',
+		'[attr.aria-label]': 'null',
+		'[attr.aria-labelledby]': 'null',
+		'[attr.aria-describedby]': 'null',
+		'[attr.data-disabled]': 'disabled() ? "" : null',
+		'data-slot': 'radio-group-item',
+	},
 	template: `
 		<brn-radio
 			[id]="id()"
@@ -36,15 +45,6 @@ import type { ClassValue } from 'clsx';
 			<ng-content />
 		</brn-radio>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	host: {
-		'[attr.id]': 'null',
-		'[attr.aria-label]': 'null',
-		'[attr.aria-labelledby]': 'null',
-		'[attr.aria-describedby]': 'null',
-		'[attr.data-disabled]': 'disabled() ? "" : null',
-		'data-slot': 'radio-group-item',
-	},
 })
 export class HlmRadio<T = unknown> {
 	private readonly _document = inject(DOCUMENT);

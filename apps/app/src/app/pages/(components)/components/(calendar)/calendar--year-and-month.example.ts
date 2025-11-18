@@ -7,6 +7,9 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 @Component({
 	selector: 'spartan-calendar-year-and-month',
 	imports: [HlmCalendar, BrnSelectImports, HlmSelectImports, FormsModule],
+	host: {
+		class: 'flex flex-col gap-4',
+	},
 	template: `
 		<hlm-calendar [captionLayout]="_captionLayout()" />
 
@@ -21,9 +24,6 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 			</hlm-select-content>
 		</brn-select>
 	`,
-	host: {
-		class: 'flex flex-col gap-4',
-	},
 })
 export class CalendarYearAndMonthExample {
 	protected readonly _captionLayout = model<'dropdown' | 'label' | 'dropdown-months' | 'dropdown-years'>('dropdown');

@@ -7,13 +7,13 @@ import { HlmButtonImports } from '@spartan-ng/helm/button';
 	selector: 'spartan-open-in-button',
 	imports: [HlmButtonImports, NgIcon],
 	providers: [provideIcons({ lucideGithub })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<a hlmBtn size="sm" [href]="_url()" target="_blank">
 			Open in
 			<ng-icon name="lucideGithub" />
 		</a>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OpenInButton {
 	public readonly block = input.required<string>();

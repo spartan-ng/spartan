@@ -3,10 +3,10 @@ import { PageOptionsDropdown } from '../page-options-dropdown/page-options-dropd
 
 @Component({
 	selector: 'spartan-section-intro',
+	imports: [PageOptionsDropdown],
 	host: {
 		class: 'flex flex-col gap-4',
 	},
-	imports: [PageOptionsDropdown],
 	template: `
 		<div class="flex items-center justify-between">
 			<h1 class="scroll-m-20 text-4xl font-semibold tracking-tight sm:text-3xl xl:text-4xl">{{ name() }}</h1>

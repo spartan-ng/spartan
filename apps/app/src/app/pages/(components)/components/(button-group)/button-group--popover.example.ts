@@ -1,24 +1,26 @@
 import { Component } from '@angular/core';
-import { NgIcon, provideIcons } from '@ng-icons/core';
+import { provideIcons } from '@ng-icons/core';
 import { lucideBot, lucideChevronDown } from '@ng-icons/lucide';
 import { BrnPopoverImports } from '@spartan-ng/brain/popover';
-import { HlmButton } from '@spartan-ng/helm/button';
-import { HlmButtonGroup } from '@spartan-ng/helm/button-group';
-import { HlmIcon } from '@spartan-ng/helm/icon';
-import { HlmInput } from '@spartan-ng/helm/input';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmButtonGroupImports } from '@spartan-ng/helm/button-group';
+import { HlmIconImports } from '@spartan-ng/helm/icon';
+import { HlmInputImports } from '@spartan-ng/helm/input';
 import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 
 @Component({
 	selector: 'spartan-button-group-popover',
-	imports: [HlmIcon, NgIcon, HlmInput, HlmButton, HlmButtonGroup, BrnPopoverImports, HlmPopoverImports],
-	providers: [
-		provideIcons({
-			lucideChevronDown,
-			lucideBot,
-		}),
+	imports: [
+		HlmIconImports,
+		HlmInputImports,
+		HlmButtonImports,
+		HlmButtonGroupImports,
+		BrnPopoverImports,
+		HlmPopoverImports,
 	],
+	providers: [provideIcons({ lucideChevronDown, lucideBot })],
 	template: `
-		<brn-popover sideOffset="5">
+		<brn-popover sideOffset="5" align="end">
 			<div hlmButtonGroup>
 				<button hlmBtn variant="outline">
 					<ng-icon hlm name="lucideBot" size="sm" />

@@ -25,6 +25,7 @@ import type { ClassValue } from 'clsx';
 	selector: 'hlm-calendar-range',
 	imports: [BrnCalendarImports, NgIcon, HlmIcon, HlmSelectImports, BrnSelectImports, NgTemplateOutlet],
 	viewProviders: [provideIcons({ lucideChevronLeft, lucideChevronRight })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div
 			brnCalendarRange
@@ -137,7 +138,6 @@ import type { ClassValue } from 'clsx';
 			</div>
 		</div>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmCalendarRange<T> {
 	public readonly calendarClass = input<ClassValue>('');

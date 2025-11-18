@@ -8,12 +8,12 @@ import { HlmLabelImports } from '@spartan-ng/helm/label';
 
 @Component({
 	selector: 'spartan-input-group-button-group-preview',
+	imports: [HlmInputGroupImports, HlmButtonGroupImports, HlmLabelImports, HlmIconImports],
 	providers: [
 		provideIcons({
 			lucideLink2,
 		}),
 	],
-	imports: [HlmInputGroupImports, HlmButtonGroupImports, HlmLabelImports, HlmIconImports],
 	host: {
 		class: 'grid w-full max-w-sm gap-6',
 	},

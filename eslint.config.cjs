@@ -84,6 +84,7 @@ module.exports = [
 			],
 			// this should be enabled when we move to signals
 			'@nx/workspace-prefer-rxjs-operator-compat': 'error',
+			'@nx/workspace-component-directive-key-order': 'error',
 		},
 	},
 	{

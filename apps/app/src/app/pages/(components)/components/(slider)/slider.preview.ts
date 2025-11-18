@@ -4,14 +4,14 @@ import { HlmSliderImports } from '@spartan-ng/helm/slider';
 @Component({
 	selector: 'spartan-slider-preview',
 	imports: [HlmSliderImports],
-	template: `
-		<hlm-slider [(value)]="value" />
-	`,
 	styles: `
 		:host {
 			display: block;
 			width: 60%;
 		}
+	`,
+	template: `
+		<hlm-slider [(value)]="value" />
 	`,
 })
 export class SliderPreview {

@@ -324,7 +324,7 @@ export default class FieldPage {
 	protected readonly _textareaCode = computed(() => this._snippets()['textarea']);
 	protected readonly _selectCode = computed(() => this._snippets()['select']);
 	protected readonly _sliderCode = computed(() => this._snippets()['slider']);
-	protected readonly _fieldsetCode = computed(() => this._snippets()['fieldset']);
+	protected readonly _fieldsetCode = computed(() => this._snippets()['set']);
 	protected readonly _checkboxCode = computed(() => this._snippets()['checkbox']);
 	protected readonly _radioCode = computed(() => this._snippets()['radio']);
 	protected readonly _switchCode = computed(() => this._snippets()['switch']);

@@ -7,24 +7,13 @@ import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 	imports: [HlmDropdownMenuImports, HlmContextMenuImports],
 	template: `
 		<div
-			[hlmContextMenuTrigger]="menu2"
+			[hlmContextMenuTrigger]="menu"
 			align="start"
 			side="right"
 			class="flex h-[150px] w-[300px] items-center justify-center rounded-md border border-dashed text-sm"
 		>
 			Right click here
 		</div>
-
-		<ng-template #menu2>
-			<hlm-dropdown-menu>
-				<hlm-dropdown-menu-group>
-					<button hlmDropdownMenuItem>Profile</button>
-					<button hlmDropdownMenuItem>Billing</button>
-					<button hlmDropdownMenuItem>Team</button>
-					<button hlmDropdownMenuItem>Subscription</button>
-				</hlm-dropdown-menu-group>
-			</hlm-dropdown-menu>
-		</ng-template>
 
 		<ng-template #menu>
 			<hlm-dropdown-menu class="w-64">

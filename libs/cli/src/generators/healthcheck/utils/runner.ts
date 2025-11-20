@@ -8,7 +8,11 @@ import {
 	isHealthcheckFixable,
 } from '../healthchecks';
 
-export async function runHealthcheck(tree: Tree, healthcheck: Healthcheck): Promise<HealthcheckReport> {
+export async function runHealthcheck(
+	tree: Tree,
+	healthcheck: Healthcheck,
+	importAlias: string,
+): Promise<HealthcheckReport> {
 	const report: HealthcheckReport = {
 		name: healthcheck.name,
 		status: HealthcheckStatus.Success,
@@ -33,7 +37,7 @@ export async function runHealthcheck(tree: Tree, healthcheck: Healthcheck): Prom
 		report.reason = reason;
 	};
 
-	await coercePromise(healthcheck.detect(tree, failure, skip));
+	await coercePromise(healthcheck.detect(tree, failure, skip, { importAlias }));
 
 	return report;
 }

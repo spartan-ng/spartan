@@ -10,6 +10,13 @@ describe('healthcheck generator', () => {
 	beforeEach(async () => {
 		tree = createTreeWithEmptyWorkspace();
 
+		writeJson(tree, 'components.json', {
+			componentsPath: 'libs/ui',
+			buildable: true,
+			generateAs: 'entrypoint',
+			importAlias: '@spartan-ng/helm',
+		});
+
 		writeJson(tree, 'package.json', {
 			dependencies: {
 				'@spartan-ng/brain': '0.0.1-alpha.300',

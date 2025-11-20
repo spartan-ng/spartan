@@ -56,16 +56,16 @@ export async function healthcheckGenerator(tree: Tree, options: HealthcheckGener
 
 	const failedReports: HealthcheckReport[] = [];
 
+	const importAlias = await getImportAlias(tree, options.angularCli);
+
 	for (const healthcheck of healthchecks) {
-		const report = await runHealthcheck(tree, healthcheck);
+		const report = await runHealthcheck(tree, healthcheck, importAlias);
 		printReport(report);
 
 		if (report.status === HealthcheckStatus.Failure) {
 			failedReports.push(report);
 		}
 	}
-
-	const importAlias = await getImportAlias(tree, options.angularCli);
 
 	for (const report of failedReports) {
 		if (report.fixable && isHealthcheckFixable(report.healthcheck)) {

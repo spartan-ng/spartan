@@ -62,8 +62,13 @@ const getConfig = async (tree: Tree, isAngularCli: boolean): Promise<Config> => 
 };
 
 export async function getImportAlias(tree: Tree, isAngularCli: boolean): Promise<string> {
-	const config = await getConfig(tree, isAngularCli);
-	return config.importAlias;
+	try {
+		const config = await getConfig(tree, isAngularCli);
+		return config.importAlias;
+	} catch (error) {
+		// components.json does not exist or is invalid
+		return '@spartan-ng/helm';
+	}
 }
 
 export async function getOrCreateConfig(

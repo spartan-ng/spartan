@@ -93,4 +93,5 @@ export interface HealthcheckIssue {
 
 export interface HealthcheckContext {
 	angularCli?: boolean;
+	importAlias: string;
 }

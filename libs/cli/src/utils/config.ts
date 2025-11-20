@@ -61,6 +61,11 @@ const getConfig = async (tree: Tree, isAngularCli: boolean): Promise<Config> => 
 	}
 };
 
+export async function getImportAlias(tree: Tree, isAngularCli: boolean): Promise<string> {
+	const config = await getConfig(tree, isAngularCli);
+	return config.importAlias;
+}
+
 export async function getOrCreateConfig(
 	tree: Tree,
 	defaults?: Partial<Config> & { angularCli: boolean },

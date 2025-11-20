@@ -1,4 +1,5 @@
 import { formatFiles, logger, type Tree } from '@nx/devkit';
+import { getImportAlias } from '../../utils/config';
 import { type Healthcheck, type HealthcheckReport, HealthcheckStatus, isHealthcheckFixable } from './healthchecks';
 import { brainImportsHealthcheck } from './healthchecks/brain-imports';
 import { brainAccordionTriggerHealthcheck } from './healthchecks/brn-accordion-trigger';
@@ -64,12 +65,14 @@ export async function healthcheckGenerator(tree: Tree, options: HealthcheckGener
 		}
 	}
 
+	const importAlias = await getImportAlias(tree, options.angularCli);
+
 	for (const report of failedReports) {
 		if (report.fixable && isHealthcheckFixable(report.healthcheck)) {
 			const fix = options.autoFix || (await promptUser(report.healthcheck.prompt));
 
 			if (fix) {
-				await report.healthcheck.fix(tree, { angularCli: options.angularCli });
+				await report.healthcheck.fix(tree, { angularCli: options.angularCli, importAlias });
 			}
 		}
 	}

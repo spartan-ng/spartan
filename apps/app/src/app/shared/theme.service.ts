@@ -12,7 +12,6 @@ import {
 	WritableSignal,
 } from '@angular/core';
 import { injectLocalStorage } from 'ngxtension/inject-local-storage';
-
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const DarkModes = ['light', 'dark', 'system'] as const;
 export type DarkMode = (typeof DarkModes)[number];

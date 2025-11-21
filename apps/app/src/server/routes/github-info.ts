@@ -1,5 +1,27 @@
 import { defineEventHandler } from 'h3';
 
+const githubCache = new Map<string, { data: any; timestamp: number }>();
+const ONE_DAY = 1000 * 60 * 60 * 24;
+
+async function fetchGithubRepo(owner: string, repo: string) {
+	const cacheKey = `${owner}/${repo}`;
+	const cached = githubCache.get(cacheKey);
+
+	if (cached && Date.now() - cached.timestamp < ONE_DAY) {
+		return cached.data;
+	}
+
+	const response = await fetch(`https://api.github.com/repos/${owner}/${repo}`);
+	if (!response.ok) {
+		throw new Error(`GitHub API error: ${response.statusText}`);
+	}
+	const data = await response.json();
+
+	githubCache.set(cacheKey, { data, timestamp: Date.now() });
+
+	return data;
+}
+
 export default defineEventHandler(async () => {
 	if (process.env['NODE_ENV'] === 'development') {
 		return {
@@ -11,13 +33,7 @@ export default defineEventHandler(async () => {
 			lastFetched: new Date().toISOString(),
 		};
 	}
-
-	const response = await fetch(`https://api.github.com/repos/spartan-ng/spartan`);
-	if (!response.ok) {
-		throw new Error(`GitHub API error: ${response.statusText}`);
-	}
-	const data = await response.json();
-
+	const data = await fetchGithubRepo('spartan-ng', 'spartan');
 	return {
 		name: data.name,
 		full_name: data.full_name,

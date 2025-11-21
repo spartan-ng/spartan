@@ -5,7 +5,7 @@ import type { MigrateMenuGeneratorSchema } from './schema';
 
 export async function migrateMenuGenerator(tree: Tree, { skipFormat, importAlias }: MigrateMenuGeneratorSchema) {
 	updateImports(tree, importAlias);
-	// TODO update template
+	replaceSelector(tree);
 
 	if (!skipFormat) {
 		await formatFiles(tree);
@@ -17,7 +17,12 @@ export async function migrateMenuGenerator(tree: Tree, { skipFormat, importAlias
  */
 function updateImports(tree: Tree, importAlias: string) {
 	visitFiles(tree, '/', (path) => {
-		const content = tree.read(path, 'utf-8');
+		// if this is not a typescript file then skip
+		if (!path.endsWith('.ts')) {
+			return;
+		}
+
+		let content = tree.read(path, 'utf-8');
 
 		if (!content) {
 			return;
@@ -25,15 +30,13 @@ function updateImports(tree: Tree, importAlias: string) {
 
 		const dropdownMenuImport = helmImport(importAlias, 'dropdown-menu');
 
-		let updatedContent = content;
-
 		if (
 			(content.includes("'@spartan-ng/brain/menu';") && content.includes("'@spartan-ng/helm/menu';")) ||
 			(content.includes("'@spartan-ng/brain/menu';") && content.includes(`'${importAlias}/menu';`))
 		) {
 			const regex = new RegExp(`import\\s*\\{[^}]*\\}\\s*from\\s*['"]${importAlias}\\/menu['"];`, 'g');
 
-			updatedContent = updatedContent
+			content = content
 				// Handle `import { * } from '@spartan-ng/brain/menu';` including multi-line imports
 				.replace(/import\s*\{[^}]*\}\s*from\s*['"]@spartan-ng\/brain\/menu['"];/g, '')
 				// Handle `import { * } from '${importAlias}/menu';` including multi-line imports
@@ -43,7 +46,7 @@ function updateImports(tree: Tree, importAlias: string) {
 				// Replace `HlmMenuImports` with optional comma and whitespace
 				.replace(/HlmMenuImports?\s?/, 'HlmDropdownMenuImports');
 		} else if (content.includes("'@spartan-ng/brain/menu';")) {
-			updatedContent = updatedContent
+			content = content
 				// Handle `import { * } from '@spartan-ng/brain/menu';` including multi-line imports
 				.replace(
 					/import\s*\{[^}]*\}\s*from\s*['"]@spartan-ng\/brain\/menu['"];/g,
@@ -53,10 +56,10 @@ function updateImports(tree: Tree, importAlias: string) {
 				.replace(/BrnMenuImports?\s?/, 'HlmDropdownMenuImports');
 		}
 
-		if (updatedContent.includes('brnCtxMenuTriggerFor')) {
+		if (content.includes('brnCtxMenuTriggerFor')) {
 			const contextMenuImport = `import { HlmContextMenuImports } from '${helmImport(importAlias, 'context-menu')}';`;
 
-			updatedContent = updatedContent
+			content = content
 				.replace(
 					/import\s*\{\s*HlmDropdownMenuImports\s*\}\s*from\s*['"][^'"]+dropdown-menu['"];\s*/,
 					(match) => match + contextMenuImport + '\n',
@@ -67,10 +70,10 @@ function updateImports(tree: Tree, importAlias: string) {
 				);
 		}
 
-		if (updatedContent.includes('<hlm-menu-bar')) {
+		if (content.includes('<hlm-menu-bar')) {
 			const menubarImport = `import { HlmMenubarImports } from '${helmImport(importAlias, 'menubar')}';`;
 
-			updatedContent = updatedContent
+			content = content
 				.replace(
 					/import\s*\{\s*HlmDropdownMenuImports\s*\}\s*from\s*['"][^'"]+dropdown-menu['"];\s*/,
 					(match) => match + menubarImport + '\n',
@@ -81,7 +84,57 @@ function updateImports(tree: Tree, importAlias: string) {
 				);
 		}
 
-		tree.write(path, updatedContent);
+		tree.write(path, content);
+	});
+}
+
+function replaceSelector(tree: Tree) {
+	visitFiles(tree, '.', (path) => {
+		// if this is not an html file or typescript file (inline templates) then skip
+		if (!path.endsWith('.html') && !path.endsWith('.ts')) {
+			return;
+		}
+
+		let content = tree.read(path, 'utf-8');
+
+		if (!content) {
+			return;
+		}
+
+		// context-menu trigger
+		if (content.includes('brnCtxMenuTrigger')) {
+			content = content
+				.replace(/brnCtxMenuTriggerFor/g, 'hlmContextMenuTrigger')
+				.replace(/brnCtxMenuTriggerData/g, 'hlmContextMenuTriggerData');
+		}
+
+		// menubar
+		if (content.includes('hlm-menu-bar')) {
+			content = content.replaceAll('hlm-menu-bar', 'hlm-menubar');
+		}
+		if (content.includes('hlmMenuBarItem')) {
+			content = content
+				.replace(/hlmMenuBarItem(\s+[^>]*?)\[brnMenuTriggerFor\]/g, '$1[hlmMenubarTrigger]')
+				.replace(/\[brnMenuTriggerFor\]=(["'][^"']*["'])(\s+[^>]*?)hlmMenuBarItem/g, '[hlmMenubarTrigger]=$1$2')
+				.replace(/hlmMenuBarItem/g, '');
+		}
+
+		// dropdown-menu
+		// TODO replace everything else
+		if (content.includes('hlm-menu')) {
+			content = content
+				.replace(/hlm-menu-item-check/g, 'hlm-dropdown-menu-checkbox-indicator')
+				.replace(/hlm-menu-item-radio/g, 'hlm-dropdown-menu-radio-indicator')
+				// replaces hlm-menu including hlm-menu-* (hlm-menu-label, hlm-menu-group, hlm-menu-separator, hlm-menu-shortcut, etc.)
+				.replace(/hlm-menu\b/g, 'hlm-dropdown-menu')
+				.replace(/hlmMenuItemCheckbox/g, 'hlmDropdownMenuCheckbox')
+				.replace(/hlmMenuItemRadio/g, 'hlmDropdownMenuRadio')
+				.replace(/hlmMenuItem/g, 'hlmDropdownMenuItem')
+				.replace(/brnMenuTriggerFor/g, 'hlmDropdownMenuTrigger')
+				.replace(/hlm-sub-menu/g, 'hlm-dropdown-menu-sub');
+		}
+
+		tree.write(path, content);
 	});
 }
 

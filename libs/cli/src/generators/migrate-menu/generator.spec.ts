@@ -199,4 +199,170 @@ describe('migrate-menu generator', () => {
 		expect(content).toContain(`import { HlmMenubarImports } from '@spartan-ng/helm/menubar';`);
 		expect(content).toContain(`imports: [HlmDropdownMenuImports, HlmMenubarImports],`);
 	});
+
+	it('should replace brnCtxMenuTrigger selector (Standalone)', async () => {
+		tree.write(
+			'app/src/app/app.component.ts',
+			`
+						import { Component, signal } from '@angular/core';
+						import { BrnMenuImports } from '@spartan-ng/brain/menu';
+						import { HlmMenuImports } from '@spartan-ng/helm/menu';
+	
+						@Component({
+							imports: [BrnMenuImports, HlmMenuImports],
+							template: \`
+								<div [brnCtxMenuTriggerFor]="menu" [brnCtxMenuTriggerData]="{ $implicit: { data: 'Changes Saved' } }">Right click here</div>
+
+								<ng-template #menu>
+  									<hlm-menu class="w-64">
+    									<hlm-menu-group>
+      										<button hlmMenuItem>Profile</button>
+										</hlm-menu-group>
+									</hlm-menu>
+								</ng-template>
+							\`
+						})
+						export class AppModule {}
+						`,
+		);
+
+		await migrateMenuGenerator(tree, { skipFormat: true, importAlias: '@spartan-ng/helm' });
+
+		const content = tree.read('app/src/app/app.component.ts', 'utf-8');
+		expect(content).not.toContain(
+			`[brnCtxMenuTriggerFor]="menu" [brnCtxMenuTriggerData]="{ $implicit: { data: 'Changes Saved' } }"`,
+		);
+		expect(content).toContain(`[hlmContextMenuTrigger]="menu"`);
+		expect(content).toContain(`[hlmContextMenuTriggerData]="{ $implicit: { data: 'Changes Saved' } }"`);
+	});
+
+	it('should replace hlm-menu-bar and hlmMenuBarItem selectors (Standalone)', async () => {
+		tree.write(
+			'app/src/app/app.component.ts',
+			`
+						import { Component, signal } from '@angular/core';
+						import { BrnMenuImports } from '@spartan-ng/brain/menu';
+						import { HlmMenuImports } from '@spartan-ng/helm/menu';
+	
+						@Component({
+							imports: [BrnMenuImports, HlmMenuImports],
+							template: \`
+								<hlm-menu-bar class="w-fit">
+									<button hlmMenuBarItem [brnMenuTriggerFor]="file">File</button>
+									<button [brnMenuTriggerFor]="edit" hlmMenuBarItem>Edit</button>
+								</hlm-menu-bar>
+
+								<ng-template #menu>
+  									<hlm-menu class="w-64">
+    									<hlm-menu-group>
+      										<button hlmMenuItem>Profile</button>
+											<button hlmMenuItem align="start" side="right" [brnMenuTriggerFor]="share">
+												Share
+												<hlm-menu-item-sub-indicator />
+											</button>
+										</hlm-menu-group>
+									</hlm-menu>
+								</ng-template>
+							\`
+						})
+						export class AppModule {}
+						`,
+		);
+
+		await migrateMenuGenerator(tree, { skipFormat: true, importAlias: '@spartan-ng/helm' });
+
+		const content = tree.read('app/src/app/app.component.ts', 'utf-8');
+		expect(content).not.toContain(`<hlm-menu-bar class="w-fit">`);
+		expect(content).not.toContain(`</hlm-menu-bar>`);
+		expect(content).toContain(`<hlm-menubar class="w-fit">`);
+		expect(content).toContain(`</hlm-menubar>`);
+		expect(content).toContain(`<button  [hlmMenubarTrigger]="file">File</button>`);
+		expect(content).toContain(`<button [hlmMenubarTrigger]="edit" >Edit</button>`);
+		expect(content).toContain(
+			`<button hlmDropdownMenuItem align="start" side="right" [hlmDropdownMenuTrigger]="share">`,
+		);
+	});
+
+	it('should replace hlm-menu selectors (Standalone)', async () => {
+		tree.write(
+			'app/src/app/app.component.ts',
+			`
+						import { Component, signal } from '@angular/core';
+						import { BrnMenuImports } from '@spartan-ng/brain/menu';
+						import { HlmMenuImports } from '@spartan-ng/helm/menu';
+	
+						@Component({
+							imports: [BrnMenuImports, HlmMenuImports],
+							template: \`
+								<button hlmBtn variant="outline" align="end" [brnMenuTriggerFor]="menu">Open</button>
+
+								<ng-template #menu>
+  									<hlm-menu class="w-64">
+										<hlm-menu-label>My Account</hlm-menu-label>
+    									<hlm-menu-group>
+      										<button hlmMenuItem>
+												<span>Profile</span>
+												<hlm-menu-shortcut>⇧⌘P</hlm-menu-shortcut>
+											</button>
+											<button hlmMenuItem align="start" side="right" [brnMenuTriggerFor]="share">
+												Share
+												<hlm-menu-item-sub-indicator />
+											</button>
+										</hlm-menu-group>
+										<hlm-menu-separator />
+										<hlm-menu-group>
+											<button hlmMenuItemCheckbox [checked]="statusBar()" (triggered)="statusBar.set(!statusBar())">
+												<hlm-menu-item-check />
+												<span>Status Bar</span>
+											</button>
+										</hlm-menu-group>
+										<hlm-menu-separator />
+										<hlm-menu-group>
+											<button hlmMenuItemRadio [checked]="p === 'top'" (triggered)="position.set('top')">
+												<hlm-menu-item-radio />
+												<span>Top</span>
+											</button>
+										</hlm-menu-group>
+									</hlm-menu>
+								</ng-template>
+
+								<ng-template #share>
+									<hlm-sub-menu>
+										<button hlmMenuItem>Email</button>
+									</hlm-sub-menu>
+								</ng-template>
+							\`
+						})
+						export class AppModule {}
+						`,
+		);
+
+		await migrateMenuGenerator(tree, { skipFormat: true, importAlias: '@spartan-ng/helm' });
+
+		const content = tree.read('app/src/app/app.component.ts', 'utf-8');
+		expect(content).not.toContain(`[brnMenuTriggerFor]="menu"`);
+		expect(content).toContain(
+			`<button hlmBtn variant="outline" align="end" [hlmDropdownMenuTrigger]="menu">Open</button>`,
+		);
+		expect(content).toContain(`<hlm-dropdown-menu`);
+		expect(content).toContain(`</hlm-dropdown-menu>`);
+		expect(content).toContain(`<hlm-dropdown-menu-label>My Account</hlm-dropdown-menu-label>`);
+		expect(content).toContain(`<hlm-dropdown-menu-group>`);
+		expect(content).not.toContain(`hlmMenuItem`);
+		expect(content).toContain(`<button hlmDropdownMenuItem>`);
+		expect(content).toContain(`<hlm-dropdown-menu-separator />`);
+		expect(content).toContain(`<hlm-dropdown-menu-shortcut>⇧⌘P</hlm-dropdown-menu-shortcut>`);
+		expect(content).toContain(`<hlm-dropdown-menu-sub>`);
+		expect(content).toContain(
+			`<button hlmDropdownMenuCheckbox [checked]="statusBar()" (triggered)="statusBar.set(!statusBar())">`,
+		);
+		expect(content).toContain(`<hlm-dropdown-menu-checkbox-indicator />`);
+		expect(content).toContain(
+			`<button hlmDropdownMenuRadio [checked]="p === 'top'" (triggered)="position.set('top')">`,
+		);
+		expect(content).toContain(`<hlm-dropdown-menu-radio-indicator />`);
+		expect(content).toContain(
+			`<button hlmDropdownMenuItem align="start" side="right" [hlmDropdownMenuTrigger]="share">`,
+		);
+	});
 });

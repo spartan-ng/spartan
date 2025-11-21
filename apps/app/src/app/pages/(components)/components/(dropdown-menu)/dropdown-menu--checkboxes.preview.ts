@@ -1,38 +1,42 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
-import { BrnMenuImports } from '@spartan-ng/brain/menu';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
-import { HlmMenuImports } from '@spartan-ng/helm/menu';
+import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 
 @Component({
 	selector: 'spartan-dropdown-menu-checkboxes',
-	imports: [HlmMenuImports, HlmButtonImports, BrnMenuImports],
+	imports: [HlmDropdownMenuImports, HlmButtonImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<button hlmBtn variant="outline" [brnMenuTriggerFor]="menu">Open</button>
+		<button hlmBtn variant="outline" [hlmDropdownMenuTrigger]="menu">Open</button>
 
 		<ng-template #menu>
-			<hlm-menu class="w-56">
-				<hlm-menu-group>
-					<hlm-menu-label>Appearance</hlm-menu-label>
+			<hlm-dropdown-menu class="w-56">
+				<hlm-dropdown-menu-group>
+					<hlm-dropdown-menu-label>Appearance</hlm-dropdown-menu-label>
 
-					<hlm-menu-separator />
+					<hlm-dropdown-menu-separator />
 
-					<button hlmMenuItemCheckbox [checked]="statusBar()" (triggered)="statusBar.set(!statusBar())">
-						<hlm-menu-item-check />
+					<button hlmDropdownMenuCheckbox [checked]="statusBar()" (triggered)="statusBar.set(!statusBar())">
+						<hlm-dropdown-menu-checkbox-indicator />
 						<span>Status Bar</span>
 					</button>
 
-					<button hlmMenuItemCheckbox disabled [checked]="activityBar()" (triggered)="activityBar.set(!activityBar())">
-						<hlm-menu-item-check />
+					<button
+						hlmDropdownMenuCheckbox
+						disabled
+						[checked]="activityBar()"
+						(triggered)="activityBar.set(!activityBar())"
+					>
+						<hlm-dropdown-menu-checkbox-indicator />
 						<span>Activity Bar</span>
 					</button>
 
-					<button hlmMenuItemCheckbox [checked]="panel()" (triggered)="panel.set(!panel())">
-						<hlm-menu-item-check />
+					<button hlmDropdownMenuCheckbox [checked]="panel()" (triggered)="panel.set(!panel())">
+						<hlm-dropdown-menu-checkbox-indicator />
 						<span>Panel</span>
 					</button>
-				</hlm-menu-group>
-			</hlm-menu>
+				</hlm-dropdown-menu-group>
+			</hlm-dropdown-menu>
 		</ng-template>
 	`,
 })

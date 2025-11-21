@@ -1,13 +1,14 @@
 import { NgIcon } from '@ng-icons/core';
-import { BrnContextMenuTrigger, BrnMenuTrigger } from '@spartan-ng/brain/menu';
+
 import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmContextMenuImports } from '@spartan-ng/helm/context-menu';
+import { HlmDropdownMenu, HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 import { HlmIcon } from '@spartan-ng/helm/icon';
-import { HlmMenu, HlmMenuImports } from '@spartan-ng/helm/menu';
 import { type Meta, type StoryObj, argsToTemplate, moduleMetadata } from '@storybook/angular';
 
-const meta: Meta<HlmMenu> = {
+const meta: Meta<HlmDropdownMenu> = {
 	title: 'Context Menu',
-	component: HlmMenu,
+	component: HlmDropdownMenu,
 	tags: ['autodocs'],
 	args: {
 		sideOffset: '1',
@@ -22,92 +23,92 @@ const meta: Meta<HlmMenu> = {
 	},
 	decorators: [
 		moduleMetadata({
-			imports: [BrnContextMenuTrigger, BrnMenuTrigger, HlmMenuImports, HlmButton, NgIcon, HlmIcon],
+			imports: [HlmDropdownMenuImports, HlmContextMenuImports, HlmButton, NgIcon, HlmIcon],
 		}),
 	],
 };
 
 export default meta;
-type Story = StoryObj<HlmMenu>;
+type Story = StoryObj<HlmDropdownMenu>;
 
 export const Default: Story = {
 	render: ({ ...args }) => ({
 		props: args,
 		template: `
-        <div [brnCtxMenuTriggerFor]='menu'
+        <div [hlmContextMenuTrigger]='menu'
          class='border-border flex h-[150px] w-[300px] items-center justify-center rounded-md border border-dashed text-sm'>
       Right click here
     </div>
 
     <ng-template #menu>
-      <hlm-menu ${argsToTemplate(args)} class='w-64'>
-        <hlm-menu-group>
-          <button inset hlmMenuItem>
+      <hlm-dropdown-menu ${argsToTemplate(args)} class='w-64'>
+        <hlm-dropdown-menu-group>
+          <button inset hlmDropdownMenuItem>
             Back
-            <hlm-menu-shortcut>⌘[</hlm-menu-shortcut>
+            <hlm-dropdown-menu-shortcut>⌘[</hlm-dropdown-menu-shortcut>
           </button>
 
-          <button disabled inset hlmMenuItem>
+          <button disabled inset hlmDropdownMenuItem>
             Forward
-            <hlm-menu-shortcut>⌘]</hlm-menu-shortcut>
+            <hlm-dropdown-menu-shortcut>⌘]</hlm-dropdown-menu-shortcut>
           </button>
 
-          <button disabled inset hlmMenuItem>
+          <button disabled inset hlmDropdownMenuItem>
             Reload
-            <hlm-menu-shortcut>⌘R</hlm-menu-shortcut>
+            <hlm-dropdown-menu-shortcut>⌘R</hlm-dropdown-menu-shortcut>
           </button>
 
-          <button inset hlmMenuItem [brnMenuTriggerFor]='moreTools'>
+          <button inset hlmDropdownMenuItem [hlmDropdownMenuTrigger]='moreTools'>
             More Tools
-            <hlm-menu-item-sub-indicator />
+            <hlm-dropdown-menu-item-sub-indicator />
           </button>
-        </hlm-menu-group>
+        </hlm-dropdown-menu-group>
 
-        <hlm-menu-separator />
+        <hlm-dropdown-menu-separator />
 
-        <hlm-menu-group>
-          <button hlmMenuItemCheckbox checked>
-            <hlm-menu-item-check />
+        <hlm-dropdown-menu-group>
+          <button hlmDropdownMenuCheckbox checked>
+            <hlm-dropdown-menu-checkbox-indicator />
             Show Booksmarks Bar
-            <hlm-menu-shortcut>⌘⇧B</hlm-menu-shortcut>
+            <hlm-dropdown-menu-shortcut>⌘⇧B</hlm-dropdown-menu-shortcut>
           </button>
-          <button hlmMenuItemCheckbox>
-            <hlm-menu-item-check />
+          <button hlmDropdownMenuCheckbox>
+            <hlm-dropdown-menu-checkbox-indicator />
             Show full URLs
           </button>
-        </hlm-menu-group>
+        </hlm-dropdown-menu-group>
 
-        <hlm-menu-separator />
-        <hlm-menu-label inset>People</hlm-menu-label>
-        <hlm-menu-separator />
-        <hlm-menu-group>
-          <button hlmMenuItemRadio checked>
-            <hlm-menu-item-radio />
+        <hlm-dropdown-menu-separator />
+        <hlm-dropdown-menu-label inset>People</hlm-dropdown-menu-label>
+        <hlm-dropdown-menu-separator />
+        <hlm-dropdown-menu-group>
+          <button hlmDropdownMenuRadio checked>
+            <hlm-dropdown-menu-radio-indicator />
             Pedro Duarte
           </button>
-          <button hlmMenuItemRadio>
-            <hlm-menu-item-radio />
+          <button hlmDropdownMenuRadio>
+            <hlm-dropdown-menu-radio-indicator />
             Colm Tuite
           </button>
-        </hlm-menu-group>
-      </hlm-menu>
+        </hlm-dropdown-menu-group>
+      </hlm-dropdown-menu>
     </ng-template>
 
     <ng-template #moreTools>
-      <hlm-sub-menu class='w-48'>
-        <button hlmMenuItem>
+      <hlm-dropdown-menu-sub class='w-48'>
+        <button hlmDropdownMenuItem>
           Save Page as...
-          <hlm-menu-shortcut>⇧⌘S</hlm-menu-shortcut>
+          <hlm-dropdown-menu-shortcut>⇧⌘S</hlm-dropdown-menu-shortcut>
         </button>
-        <button hlmMenuItem>
+        <button hlmDropdownMenuItem>
           Create Shortcut...
         </button>
-        <button hlmMenuItem>
+        <button hlmDropdownMenuItem>
           Name Window...
         </button>
-        <hlm-menu-separator />
-        <button hlmMenuItem>Developer Tools</button>
-      </hlm-sub-menu>
+        <hlm-dropdown-menu-separator />
+        <button hlmDropdownMenuItem>Developer Tools</button>
+      </hlm-dropdown-menu-sub>
     </ng-template>
     `,
 	}),

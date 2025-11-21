@@ -1,38 +1,38 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
-import { BrnMenuImports, BrnMenuSide } from '@spartan-ng/brain/menu';
+import { MenuSide } from '@spartan-ng/brain/core';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
-import { HlmMenuImports } from '@spartan-ng/helm/menu';
+import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 
 @Component({
 	selector: 'spartan-dropdown-menu-radio-group',
-	imports: [HlmMenuImports, HlmButtonImports, BrnMenuImports],
+	imports: [HlmDropdownMenuImports, HlmButtonImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<button hlmBtn variant="outline" [brnMenuTriggerFor]="menu">Open</button>
+		<button hlmBtn variant="outline" [hlmDropdownMenuTrigger]="menu">Open</button>
 
 		<ng-template #menu>
-			<hlm-menu class="w-56">
-				<hlm-menu-group>
-					<hlm-menu-label>Panel Position</hlm-menu-label>
-					<hlm-menu-separator />
+			<hlm-dropdown-menu class="w-56">
+				<hlm-dropdown-menu-group>
+					<hlm-dropdown-menu-label>Panel Position</hlm-dropdown-menu-label>
+					<hlm-dropdown-menu-separator />
 					@let p = position();
-					<button hlmMenuItemRadio [checked]="p === 'top'" (triggered)="position.set('top')">
-						<hlm-menu-item-radio />
+					<button hlmDropdownMenuRadio [checked]="p === 'top'" (triggered)="position.set('top')">
+						<hlm-dropdown-menu-radio-indicator />
 						<span>Top</span>
 					</button>
-					<button hlmMenuItemRadio [checked]="p === 'bottom'" (triggered)="position.set('bottom')">
-						<hlm-menu-item-radio />
+					<button hlmDropdownMenuRadio [checked]="p === 'bottom'" (triggered)="position.set('bottom')">
+						<hlm-dropdown-menu-radio-indicator />
 						<span>Bottom</span>
 					</button>
-					<button hlmMenuItemRadio [checked]="p === 'right'" (triggered)="position.set('right')">
-						<hlm-menu-item-radio />
+					<button hlmDropdownMenuRadio [checked]="p === 'right'" (triggered)="position.set('right')">
+						<hlm-dropdown-menu-radio-indicator />
 						<span>Right</span>
 					</button>
-				</hlm-menu-group>
-			</hlm-menu>
+				</hlm-dropdown-menu-group>
+			</hlm-dropdown-menu>
 		</ng-template>
 	`,
 })
 export class DropdownMenuRadioGroup {
-	public readonly position = signal<BrnMenuSide>('bottom');
+	public readonly position = signal<MenuSide>('bottom');
 }

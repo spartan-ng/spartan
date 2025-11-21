@@ -1,60 +1,64 @@
 import { Component, signal } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideUndo2 } from '@ng-icons/lucide';
-import { BrnMenuImports } from '@spartan-ng/brain/menu';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 import { HlmIconImports } from '@spartan-ng/helm/icon';
-import { HlmMenuImports } from '@spartan-ng/helm/menu';
 
 @Component({
 	selector: 'spartan-dropdown-with-state',
-	imports: [BrnMenuImports, HlmMenuImports, HlmButtonImports, HlmIconImports],
+	imports: [HlmDropdownMenuImports, HlmButtonImports, HlmIconImports],
 	providers: [provideIcons({ lucideUndo2 })],
 	template: `
 		<div class="flex w-full items-center justify-center pt-[20%]">
-			<button hlmBtn variant="outline" align="center" [brnMenuTriggerFor]="menu">Open</button>
+			<button hlmBtn variant="outline" align="center" [hlmDropdownMenuTrigger]="menu">Open</button>
 		</div>
 		<ng-template #menu>
-			<hlm-menu class="w-56">
-				<hlm-menu-group>
-					<hlm-menu-label>Appearance</hlm-menu-label>
+			<hlm-dropdown-menu class="w-56">
+				<hlm-dropdown-menu-group>
+					<hlm-dropdown-menu-label>Appearance</hlm-dropdown-menu-label>
 
-					<button hlmMenuItemCheckbox [checked]="statusBar()" (triggered)="statusBar.set(!statusBar())">
-						<hlm-menu-item-check />
+					<button hlmDropdownMenuCheckbox [checked]="statusBar()" (triggered)="statusBar.set(!statusBar())">
+						<hlm-dropdown-menu-checkbox-indicator />
 						<span>Status Bar</span>
 					</button>
 
-					<button hlmMenuItemCheckbox disabled [checked]="activityBar()" (triggered)="activityBar.set(!activityBar())">
-						<hlm-menu-item-check />
+					<button
+						hlmDropdownMenuCheckbox
+						disabled
+						[checked]="activityBar()"
+						(triggered)="activityBar.set(!activityBar())"
+					>
+						<hlm-dropdown-menu-checkbox-indicator />
 						<span>Activity Bar</span>
 					</button>
 
-					<button hlmMenuItemCheckbox [checked]="panel()" (triggered)="panel.set(!panel())">
-						<hlm-menu-item-check />
+					<button hlmDropdownMenuCheckbox [checked]="panel()" (triggered)="panel.set(!panel())">
+						<hlm-dropdown-menu-checkbox-indicator />
 						<span>Panel</span>
 					</button>
-				</hlm-menu-group>
+				</hlm-dropdown-menu-group>
 
-				<hlm-menu-separator />
+				<hlm-dropdown-menu-separator />
 
-				<hlm-menu-label>Panel Position</hlm-menu-label>
+				<hlm-dropdown-menu-label>Panel Position</hlm-dropdown-menu-label>
 
-				<hlm-menu-group>
+				<hlm-dropdown-menu-group>
 					@for (size of panelPositions; track size) {
-						<button hlmMenuItemRadio [checked]="size === selectedPosition" (triggered)="selectedPosition = size">
-							<hlm-menu-item-radio />
+						<button hlmDropdownMenuRadio [checked]="size === selectedPosition" (triggered)="selectedPosition = size">
+							<hlm-dropdown-menu-radio-indicator />
 							<span>{{ size }}</span>
 						</button>
 					}
-				</hlm-menu-group>
+				</hlm-dropdown-menu-group>
 
-				<hlm-menu-separator />
+				<hlm-dropdown-menu-separator />
 
-				<button hlmMenuItem (triggered)="reset()">
+				<button hlmDropdownMenuItem (triggered)="reset()">
 					<ng-icon hlm name="lucideUndo2" hlmMenuIcon />
 					Reset
 				</button>
-			</hlm-menu>
+			</hlm-dropdown-menu>
 		</ng-template>
 	`,
 })

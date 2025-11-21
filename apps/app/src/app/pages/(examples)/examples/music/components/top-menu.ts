@@ -26,206 +26,206 @@ import { HlmMenubarImports } from '@spartan-ng/helm/menubar';
 		<ng-template #music>
 			<hlm-dropdown-menu sideOffset="1.5" class="w-48">
 				<hlm-dropdown-menu-group>
-					<button hlmMenuItem>
+					<button hlmDropdownMenuItem>
 						About Music
-						<hlm-menu-shortcut>⌘W</hlm-menu-shortcut>
+						<hlm-dropdown-menu-shortcut>⌘W</hlm-dropdown-menu-shortcut>
 					</button>
-					<hlm-menu-separator />
+					<hlm-dropdown-menu-separator />
 
-					<button hlmMenuItem>
+					<button hlmDropdownMenuItem>
 						Preferences...
-						<hlm-menu-shortcut>⌘,</hlm-menu-shortcut>
+						<hlm-dropdown-menu-shortcut>⌘,</hlm-dropdown-menu-shortcut>
 					</button>
-					<hlm-menu-separator />
+					<hlm-dropdown-menu-separator />
 
-					<button hlmMenuItem>
+					<button hlmDropdownMenuItem>
 						Hide Music...
-						<hlm-menu-shortcut>⌘H</hlm-menu-shortcut>
+						<hlm-dropdown-menu-shortcut>⌘H</hlm-dropdown-menu-shortcut>
 					</button>
-					<button hlmMenuItem>
+					<button hlmDropdownMenuItem>
 						Hide Others...
-						<hlm-menu-shortcut>⇧⌘H</hlm-menu-shortcut>
+						<hlm-dropdown-menu-shortcut>⇧⌘H</hlm-dropdown-menu-shortcut>
 					</button>
-					<button hlmMenuItem>
+					<button hlmDropdownMenuItem>
 						Quit Music
-						<hlm-menu-shortcut>⌘Q</hlm-menu-shortcut>
+						<hlm-dropdown-menu-shortcut>⌘Q</hlm-dropdown-menu-shortcut>
 					</button>
 				</hlm-dropdown-menu-group>
 			</hlm-dropdown-menu>
 		</ng-template>
 
 		<ng-template #file>
-			<hlm-menu sideOffset="1.5" class="w-48">
-				<hlm-menu-group>
-					<button hlmMenuItem [hlmDropdownMenuTrigger]="new">
+			<hlm-dropdown-menu sideOffset="1.5" class="w-48">
+				<hlm-dropdown-menu-group>
+					<button hlmDropdownMenuItem [hlmDropdownMenuTrigger]="new">
 						New
-						<hlm-menu-item-sub-indicator />
+						<hlm-dropdown-menu-item-sub-indicator />
 						<ng-template #new>
-							<hlm-sub-menu>
-								<button hlmMenuItem>
+							<hlm-dropdown-menu-sub>
+								<button hlmDropdownMenuItem>
 									Playlist
-									<hlm-menu-shortcut>⌘N</hlm-menu-shortcut>
+									<hlm-dropdown-menu-shortcut>⌘N</hlm-dropdown-menu-shortcut>
 								</button>
-								<button hlmMenuItem disabled>
+								<button hlmDropdownMenuItem disabled>
 									Playlist from Selection
-									<hlm-menu-shortcut>⇧⌘N</hlm-menu-shortcut>
+									<hlm-dropdown-menu-shortcut>⇧⌘N</hlm-dropdown-menu-shortcut>
 								</button>
-								<button hlmMenuItem>
+								<button hlmDropdownMenuItem>
 									Smart Playlist...
-									<hlm-menu-shortcut>⌥⌘N</hlm-menu-shortcut>
+									<hlm-dropdown-menu-shortcut>⌥⌘N</hlm-dropdown-menu-shortcut>
 								</button>
-								<button hlmMenuItem>Playlist Folder</button>
-								<button hlmMenuItem disabled>Genius Playlist</button>
-							</hlm-sub-menu>
+								<button hlmDropdownMenuItem>Playlist Folder</button>
+								<button hlmDropdownMenuItem disabled>Genius Playlist</button>
+							</hlm-dropdown-menu-sub>
 						</ng-template>
 					</button>
-					<button hlmMenuItem>
+					<button hlmDropdownMenuItem>
 						Open Stream URL...
-						<hlm-menu-shortcut>⌘U</hlm-menu-shortcut>
+						<hlm-dropdown-menu-shortcut>⌘U</hlm-dropdown-menu-shortcut>
 					</button>
-					<button hlmMenuItem>
+					<button hlmDropdownMenuItem>
 						Close Window
-						<hlm-menu-shortcut>⌘W</hlm-menu-shortcut>
+						<hlm-dropdown-menu-shortcut>⌘W</hlm-dropdown-menu-shortcut>
 					</button>
 
-					<hlm-menu-separator />
+					<hlm-dropdown-menu-separator />
 
-					<button hlmMenuItem [hlmDropdownMenuTrigger]="library">
+					<button hlmDropdownMenuItem [hlmDropdownMenuTrigger]="library">
 						Library
-						<hlm-menu-item-sub-indicator />
+						<hlm-dropdown-menu-item-sub-indicator />
 						<ng-template #library>
-							<hlm-sub-menu>
-								<button hlmMenuItem>Update Cloud Library</button>
-								<button hlmMenuItem>Update Genius</button>
+							<hlm-dropdown-menu-sub>
+								<button hlmDropdownMenuItem>Update Cloud Library</button>
+								<button hlmDropdownMenuItem>Update Genius</button>
 
-								<hlm-menu-separator />
+								<hlm-dropdown-menu-separator />
 
-								<button hlmMenuItem>Organize Library...</button>
-								<button hlmMenuItem>Export Library...</button>
+								<button hlmDropdownMenuItem>Organize Library...</button>
+								<button hlmDropdownMenuItem>Export Library...</button>
 
-								<hlm-menu-separator />
+								<hlm-dropdown-menu-separator />
 
-								<button hlmMenuItem>Import Playlist...</button>
-								<button hlmMenuItem disabled>Export Playlist...</button>
-								<button hlmMenuItem>Show Duplicated Items</button>
+								<button hlmDropdownMenuItem>Import Playlist...</button>
+								<button hlmDropdownMenuItem disabled>Export Playlist...</button>
+								<button hlmDropdownMenuItem>Show Duplicated Items</button>
 
-								<hlm-menu-separator />
+								<hlm-dropdown-menu-separator />
 
-								<button hlmMenuItem>Get Album Artwork</button>
-								<button hlmMenuItem disabled>Get Track Names</button>
-							</hlm-sub-menu>
+								<button hlmDropdownMenuItem>Get Album Artwork</button>
+								<button hlmDropdownMenuItem disabled>Get Track Names</button>
+							</hlm-dropdown-menu-sub>
 						</ng-template>
 					</button>
-					<button hlmMenuItem>
+					<button hlmDropdownMenuItem>
 						Import...
-						<hlm-menu-shortcut>⌘O</hlm-menu-shortcut>
+						<hlm-dropdown-menu-shortcut>⌘O</hlm-dropdown-menu-shortcut>
 					</button>
-					<button hlmMenuItem disabled>Burn Playlist to Disc...</button>
+					<button hlmDropdownMenuItem disabled>Burn Playlist to Disc...</button>
 
-					<hlm-menu-separator />
+					<hlm-dropdown-menu-separator />
 
-					<button hlmMenuItem>
+					<button hlmDropdownMenuItem>
 						Show in Finder
-						<hlm-menu-shortcut>⇧⌘R</hlm-menu-shortcut>
+						<hlm-dropdown-menu-shortcut>⇧⌘R</hlm-dropdown-menu-shortcut>
 					</button>
-					<button hlmMenuItem>Convert</button>
+					<button hlmDropdownMenuItem>Convert</button>
 
-					<hlm-menu-separator />
+					<hlm-dropdown-menu-separator />
 
-					<button hlmMenuItem>Page Setup...</button>
-					<button hlmMenuItem disabled>
+					<button hlmDropdownMenuItem>Page Setup...</button>
+					<button hlmDropdownMenuItem disabled>
 						Print...
-						<hlm-menu-shortcut>⌘P</hlm-menu-shortcut>
+						<hlm-dropdown-menu-shortcut>⌘P</hlm-dropdown-menu-shortcut>
 					</button>
-				</hlm-menu-group>
-			</hlm-menu>
+				</hlm-dropdown-menu-group>
+			</hlm-dropdown-menu>
 		</ng-template>
 
 		<ng-template #edit>
-			<hlm-menu sideOffset="1.5" class="w-48">
-				<hlm-menu-group>
-					<button hlmMenuItem disabled>
+			<hlm-dropdown-menu sideOffset="1.5" class="w-48">
+				<hlm-dropdown-menu-group>
+					<button hlmDropdownMenuItem disabled>
 						Undo
-						<hlm-menu-shortcut>⌘Z</hlm-menu-shortcut>
+						<hlm-dropdown-menu-shortcut>⌘Z</hlm-dropdown-menu-shortcut>
 					</button>
-					<button hlmMenuItem disabled>
+					<button hlmDropdownMenuItem disabled>
 						Redo
-						<hlm-menu-shortcut>⇧⌘Z</hlm-menu-shortcut>
+						<hlm-dropdown-menu-shortcut>⇧⌘Z</hlm-dropdown-menu-shortcut>
 					</button>
-					<hlm-menu-separator />
+					<hlm-dropdown-menu-separator />
 
-					<button hlmMenuItem disabled>
+					<button hlmDropdownMenuItem disabled>
 						Cut
-						<hlm-menu-shortcut>⌘X</hlm-menu-shortcut>
+						<hlm-dropdown-menu-shortcut>⌘X</hlm-dropdown-menu-shortcut>
 					</button>
-					<button hlmMenuItem disabled>
+					<button hlmDropdownMenuItem disabled>
 						Copy
-						<hlm-menu-shortcut>⌘C</hlm-menu-shortcut>
+						<hlm-dropdown-menu-shortcut>⌘C</hlm-dropdown-menu-shortcut>
 					</button>
-					<button hlmMenuItem disabled>
+					<button hlmDropdownMenuItem disabled>
 						Paste
-						<hlm-menu-shortcut>⌘V</hlm-menu-shortcut>
+						<hlm-dropdown-menu-shortcut>⌘V</hlm-dropdown-menu-shortcut>
 					</button>
-					<hlm-menu-separator />
+					<hlm-dropdown-menu-separator />
 
-					<button hlmMenuItem>
+					<button hlmDropdownMenuItem>
 						Select All
-						<hlm-menu-shortcut>⌘A</hlm-menu-shortcut>
+						<hlm-dropdown-menu-shortcut>⌘A</hlm-dropdown-menu-shortcut>
 					</button>
-					<button hlmMenuItem disabled>
+					<button hlmDropdownMenuItem disabled>
 						Deselect All
-						<hlm-menu-shortcut>⇧⌘A</hlm-menu-shortcut>
+						<hlm-dropdown-menu-shortcut>⇧⌘A</hlm-dropdown-menu-shortcut>
 					</button>
-					<hlm-menu-separator />
+					<hlm-dropdown-menu-separator />
 
-					<button hlmMenuItem>
+					<button hlmDropdownMenuItem>
 						Smart Dictation...
-						<hlm-menu-shortcut><ng-icon hlm size="sm" name="lucideMicVocal" /></hlm-menu-shortcut>
+						<hlm-dropdown-menu-shortcut><ng-icon hlm size="sm" name="lucideMicVocal" /></hlm-dropdown-menu-shortcut>
 					</button>
-					<button hlmMenuItem>
+					<button hlmDropdownMenuItem>
 						Emoji & Symbols
-						<hlm-menu-shortcut><ng-icon hlm size="sm" name="lucideGlobe" /></hlm-menu-shortcut>
+						<hlm-dropdown-menu-shortcut><ng-icon hlm size="sm" name="lucideGlobe" /></hlm-dropdown-menu-shortcut>
 					</button>
-				</hlm-menu-group>
-			</hlm-menu>
+				</hlm-dropdown-menu-group>
+			</hlm-dropdown-menu>
 		</ng-template>
 		<ng-template #view>
-			<hlm-menu sideOffset="1.5" class="w-48">
-				<hlm-menu-group>
-					<button inset hlmMenuItem>Show Playing Next</button>
-					<button hlmMenuItemCheckbox checked>
-						<hlm-menu-item-check />
+			<hlm-dropdown-menu sideOffset="1.5" class="w-48">
+				<hlm-dropdown-menu-group>
+					<button inset hlmDropdownMenuItem>Show Playing Next</button>
+					<button hlmDropdownMenuCheckbox checked>
+						<hlm-dropdown-menu-checkbox-indicator />
 						Show Lyrics
 					</button>
-					<hlm-menu-separator />
+					<hlm-dropdown-menu-separator />
 
-					<button inset hlmMenuItem disabled>Show Status Bar</button>
-					<hlm-menu-separator />
+					<button inset hlmDropdownMenuItem disabled>Show Status Bar</button>
+					<hlm-dropdown-menu-separator />
 
-					<button inset hlmMenuItem>Hide Sidebar</button>
-					<button inset hlmMenuItem disabled>Enter Full Screen</button>
-				</hlm-menu-group>
-			</hlm-menu>
+					<button inset hlmDropdownMenuItem>Hide Sidebar</button>
+					<button inset hlmDropdownMenuItem disabled>Enter Full Screen</button>
+				</hlm-dropdown-menu-group>
+			</hlm-dropdown-menu>
 		</ng-template>
 
 		<ng-template #account>
-			<hlm-menu sideOffset="1.5" class="w-48">
-				<hlm-menu-group>
-					<button inset hlmMenuItem class="font-semibold">Switch Account</button>
-					<button inset hlmMenuItem>Andy</button>
-					<button hlmMenuItemRadio checked>
-						<hlm-menu-item-radio />
+			<hlm-dropdown-menu sideOffset="1.5" class="w-48">
+				<hlm-dropdown-menu-group>
+					<button inset hlmDropdownMenuItem class="font-semibold">Switch Account</button>
+					<button inset hlmDropdownMenuItem>Andy</button>
+					<button hlmDropdownMenuRadio checked>
+						<hlm-dropdown-menu-radio-indicator />
 						Benoit
 					</button>
-					<button inset hlmMenuItem>Luis</button>
-					<hlm-menu-separator />
+					<button inset hlmDropdownMenuItem>Luis</button>
+					<hlm-dropdown-menu-separator />
 
-					<button inset hlmMenuItem>Manage Family...</button>
-					<hlm-menu-separator />
+					<button inset hlmDropdownMenuItem>Manage Family...</button>
+					<hlm-dropdown-menu-separator />
 
-					<button inset hlmMenuItem>Add Account...</button>
-				</hlm-menu-group>
-			</hlm-menu>
+					<button inset hlmDropdownMenuItem>Add Account...</button>
+				</hlm-dropdown-menu-group>
+			</hlm-dropdown-menu>
 		</ng-template>
 	`,
 })

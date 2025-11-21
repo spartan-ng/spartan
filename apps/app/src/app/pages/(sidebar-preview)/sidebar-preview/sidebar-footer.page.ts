@@ -1,14 +1,13 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronUp } from '@ng-icons/lucide';
-import { BrnMenuImports } from '@spartan-ng/brain/menu';
+import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 import { HlmIcon } from '@spartan-ng/helm/icon';
-import { HlmMenuImports } from '@spartan-ng/helm/menu';
 import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 
 @Component({
 	selector: 'spartan-sidebar-footer',
-	imports: [HlmSidebarImports, HlmMenuImports, BrnMenuImports, NgIcon, HlmIcon],
+	imports: [HlmSidebarImports, HlmDropdownMenuImports, NgIcon, HlmIcon],
 	providers: [
 		provideIcons({
 			lucideChevronUp,
@@ -24,16 +23,16 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 				<div hlmSidebarFooter>
 					<ul hlmSidebarMenu>
 						<li hlmSidebarMenuItem>
-							<button hlmSidebarMenuButton [brnMenuTriggerFor]="menu">
+							<button hlmSidebarMenuButton [hlmDropdownMenuTrigger]="menu">
 								Select Workspace
 								<ng-icon hlm name="lucideChevronUp" class="ml-auto" />
 							</button>
 							<ng-template #menu>
-								<hlm-menu class="w-60">
-									<button hlmMenuItem>Account</button>
-									<button hlmMenuItem>Billing</button>
-									<button hlmMenuItem>Sign out</button>
-								</hlm-menu>
+								<hlm-dropdown-menu class="w-60">
+									<button hlmDropdownMenuItem>Account</button>
+									<button hlmDropdownMenuItem>Billing</button>
+									<button hlmDropdownMenuItem>Sign out</button>
+								</hlm-dropdown-menu>
 							</ng-template>
 						</li>
 					</ul>

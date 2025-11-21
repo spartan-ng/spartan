@@ -8,14 +8,13 @@ import {
 	lucideLogOut,
 	lucideSparkles,
 } from '@ng-icons/lucide';
-import { BrnMenuImports } from '@spartan-ng/brain/menu';
 import { HlmAvatarImports } from '@spartan-ng/helm/avatar';
-import { HlmMenuImports } from '@spartan-ng/helm/menu';
+import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 import { HlmSidebarImports, HlmSidebarService } from '@spartan-ng/helm/sidebar';
 
 @Component({
 	selector: 'spartan-nav-user',
-	imports: [HlmSidebarImports, HlmAvatarImports, NgIcon, HlmMenuImports, BrnMenuImports],
+	imports: [HlmSidebarImports, HlmAvatarImports, NgIcon, HlmDropdownMenuImports],
 	providers: [
 		provideIcons({
 			lucideChevronsUpDown,
@@ -31,7 +30,7 @@ import { HlmSidebarImports, HlmSidebarService } from '@spartan-ng/helm/sidebar';
 		@let u = user();
 		<ul hlmSidebarMenu>
 			<li hlmSidebarMenuItem>
-				<button hlmSidebarMenuButton size="lg" [brnMenuTriggerFor]="menu" [side]="_menuSide()" align="end">
+				<button hlmSidebarMenuButton size="lg" [hlmDropdownMenuTrigger]="menu" [side]="_menuSide()" align="end">
 					<hlm-avatar class="rounded-lg">
 						<img [src]="u.avatar" [alt]="u.name" hlmAvatarImage />
 						<span class="rounded-lg bg-[#FD005B] text-white" hlmAvatarFallback>RG</span>
@@ -46,8 +45,8 @@ import { HlmSidebarImports, HlmSidebarService } from '@spartan-ng/helm/sidebar';
 		</ul>
 
 		<ng-template #menu>
-			<hlm-menu class="min-w-56 rounded-lg">
-				<hlm-menu-label>
+			<hlm-dropdown-menu class="min-w-56 rounded-lg">
+				<hlm-dropdown-menu-label>
 					<div class="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
 						<hlm-avatar class="rounded-lg">
 							<img [src]="u.avatar" [alt]="u.name" hlmAvatarImage />
@@ -58,35 +57,35 @@ import { HlmSidebarImports, HlmSidebarService } from '@spartan-ng/helm/sidebar';
 							<span class="truncate text-xs">{{ u.email }}</span>
 						</div>
 					</div>
-				</hlm-menu-label>
-				<hlm-menu-separator />
-				<hlm-menu-group>
-					<button hlmMenuItem>
+				</hlm-dropdown-menu-label>
+				<hlm-dropdown-menu-separator />
+				<hlm-dropdown-menu-group>
+					<button hlmDropdownMenuItem>
 						<ng-icon name="lucideSparkles" />
 						Upgrade to Pro
 					</button>
-				</hlm-menu-group>
-				<hlm-menu-separator />
-				<hlm-menu-group>
-					<button hlmMenuItem>
+				</hlm-dropdown-menu-group>
+				<hlm-dropdown-menu-separator />
+				<hlm-dropdown-menu-group>
+					<button hlmDropdownMenuItem>
 						<ng-icon name="lucideBadgeCheck" />
 						Account
 					</button>
-					<button hlmMenuItem>
+					<button hlmDropdownMenuItem>
 						<ng-icon name="lucideCreditCard" />
 						Billing
 					</button>
-					<button hlmMenuItem>
+					<button hlmDropdownMenuItem>
 						<ng-icon name="lucideBell" />
 						Notifications
 					</button>
-				</hlm-menu-group>
-				<hlm-menu-separator />
-				<button hlmMenuItem>
+				</hlm-dropdown-menu-group>
+				<hlm-dropdown-menu-separator />
+				<button hlmDropdownMenuItem>
 					<ng-icon name="lucideLogOut" />
 					Log out
 				</button>
-			</hlm-menu>
+			</hlm-dropdown-menu>
 		</ng-template>
 	`,
 })

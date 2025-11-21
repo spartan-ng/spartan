@@ -10,13 +10,12 @@ import {
 	lucideShare,
 	lucideTrash2,
 } from '@ng-icons/lucide';
-import { BrnMenuImports } from '@spartan-ng/brain/menu';
-import { HlmMenuImports } from '@spartan-ng/helm/menu';
+import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 import { HlmSidebarImports, HlmSidebarService } from '@spartan-ng/helm/sidebar';
 
 @Component({
 	selector: 'spartan-nav-projects',
-	imports: [HlmSidebarImports, NgIcon, RouterLink, BrnMenuImports, HlmMenuImports],
+	imports: [HlmSidebarImports, NgIcon, RouterLink, HlmDropdownMenuImports],
 	providers: [
 		provideIcons({ lucideFrame, lucideChartPie, lucideMap, lucideEllipsis, lucideFolder, lucideShare, lucideTrash2 }),
 	],
@@ -34,8 +33,8 @@ import { HlmSidebarImports, HlmSidebarService } from '@spartan-ng/helm/sidebar';
 						<button
 							hlmSidebarMenuAction
 							showOnHover
-							[brnMenuTriggerFor]="menu"
-							[brnMenuTriggerData]="{ $implicit: { project } }"
+							[hlmDropdownMenuTrigger]="menu"
+							[hlmDropdownMenuTriggerData]="{ $implicit: { project } }"
 							[side]="_menuSide()"
 							[align]="_menuAlign()"
 						>
@@ -54,25 +53,25 @@ import { HlmSidebarImports, HlmSidebarService } from '@spartan-ng/helm/sidebar';
 		</hlm-sidebar-group>
 
 		<ng-template #menu let-ctx>
-			<hlm-menu class="w-48">
-				<hlm-menu-group>
-					<hlm-menu-label>{{ ctx.project.name }}</hlm-menu-label>
-				</hlm-menu-group>
-				<hlm-menu-separator />
-				<button hlmMenuItem>
+			<hlm-dropdown-menu class="w-48">
+				<hlm-dropdown-menu-group>
+					<hlm-dropdown-menu-label>{{ ctx.project.name }}</hlm-dropdown-menu-label>
+				</hlm-dropdown-menu-group>
+				<hlm-dropdown-menu-separator />
+				<button hlmDropdownMenuItem>
 					<ng-icon name="lucideFolder" />
 					View Project
 				</button>
-				<button hlmMenuItem>
+				<button hlmDropdownMenuItem>
 					<ng-icon name="lucideShare" />
 					Share Project
 				</button>
-				<hlm-menu-separator />
-				<button hlmMenuItem>
+				<hlm-dropdown-menu-separator />
+				<button hlmDropdownMenuItem>
 					<ng-icon name="lucideTrash2" />
 					Delete Project
 				</button>
-			</hlm-menu>
+			</hlm-dropdown-menu>
 		</ng-template>
 	`,
 })

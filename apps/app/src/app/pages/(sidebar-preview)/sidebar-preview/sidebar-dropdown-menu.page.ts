@@ -1,14 +1,13 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChartPie, lucideEllipsis, lucideFrame, lucideLifeBuoy, lucideMap, lucideSend } from '@ng-icons/lucide';
-import { BrnMenuImports } from '@spartan-ng/brain/menu';
+import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 import { HlmIcon } from '@spartan-ng/helm/icon';
-import { HlmMenuImports } from '@spartan-ng/helm/menu';
 import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 
 @Component({
 	selector: 'spartan-sidebar-dropdown-menu',
-	imports: [HlmSidebarImports, BrnMenuImports, NgIcon, HlmIcon, HlmMenuImports],
+	imports: [HlmSidebarImports, NgIcon, HlmIcon, HlmDropdownMenuImports],
 	providers: [
 		provideIcons({
 			lucideFrame,
@@ -35,16 +34,16 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 											<ng-icon hlm [name]="project.icon" />
 											<span>{{ project.name }}</span>
 										</button>
-										<button hlmSidebarMenuAction [brnMenuTriggerFor]="menu">
+										<button hlmSidebarMenuAction [hlmDropdownMenuTrigger]="menu">
 											<ng-icon hlm name="lucideEllipsis" />
 											<span class="sr-only">More</span>
 										</button>
 
 										<ng-template #menu>
-											<hlm-menu>
-												<button hlmMenuItem>Edit Project</button>
-												<button hlmMenuItem>Delete Project</button>
-											</hlm-menu>
+											<hlm-dropdown-menu>
+												<button hlmDropdownMenuItem>Edit Project</button>
+												<button hlmDropdownMenuItem>Delete Project</button>
+											</hlm-dropdown-menu>
 										</ng-template>
 									</li>
 								}

@@ -5,19 +5,11 @@ import { lucideCirclePlus, lucideListMusic, lucidePodcast } from '@ng-icons/luci
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
 import { TopMusicMenu } from './components/top-menu';
 
-import { BrnContextMenuTrigger, BrnMenuTrigger } from '@spartan-ng/brain/menu';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmCard } from '@spartan-ng/helm/card';
+import { HlmContextMenuImports } from '@spartan-ng/helm/context-menu';
+import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 import { HlmIcon } from '@spartan-ng/helm/icon';
-import {
-	HlmMenu,
-	HlmMenuGroup,
-	HlmMenuItem,
-	HlmMenuItemSubIndicator,
-	HlmMenuSeparator,
-	HlmSubMenu,
-} from '@spartan-ng/helm/menu';
-
 import { HlmSeparator } from '@spartan-ng/helm/separator';
 import { HlmTabs, HlmTabsContent, HlmTabsList, HlmTabsTrigger } from '@spartan-ng/helm/tabs';
 import { NgScrollbarModule } from 'ngx-scrollbar';
@@ -45,14 +37,9 @@ export const routeMeta: RouteMeta = {
 		HlmIcon,
 		HlmSeparator,
 		NgScrollbarModule,
-		BrnMenuTrigger,
-		BrnContextMenuTrigger,
-		HlmMenu,
-		HlmMenuGroup,
-		HlmMenuItem,
+		HlmDropdownMenuImports,
+		HlmContextMenuImports,
 		HlmSubMenu,
-		HlmMenuItemSubIndicator,
-		HlmMenuSeparator,
 		HlmCard,
 		FallbackImage,
 	],
@@ -67,42 +54,42 @@ export const routeMeta: RouteMeta = {
 	`,
 	template: `
 		<ng-template #contextMenu>
-			<hlm-menu class="w-40">
-				<hlm-menu-group>
-					<button hlmMenuItem>Add to Library</button>
-					<button hlmMenuItem [brnMenuTriggerFor]="playlist_submenu">
+			<hlm-dropdown-menu class="w-40">
+				<hlm-dropdown-menu-group>
+					<button hlmDropdownMenuItem>Add to Library</button>
+					<button hlmDropdownMenuItem [hlmDropdownMenuTrigger]="playlist_submenu">
 						Add to Playlist
-						<hlm-menu-item-sub-indicator />
+						<hlm-dropdown-menu-item-sub-indicator />
 
 						<ng-template #playlist_submenu>
-							<hlm-sub-menu>
-								<button hlmMenuItem class="h-9">
+							<hlm-dropdown-menu-sub>
+								<button hlmDropdownMenuItem class="h-9">
 									<ng-icon hlm size="sm" name="lucideCirclePlus" class="mr-2 h-4 w-4" />
 									Add to Library
 								</button>
 
-								<hlm-menu-separator />
+								<hlm-dropdown-menu-separator />
 
 								@for (item of contextMenuPlaylist; track item) {
-									<button hlmMenuItem class="text-left">
+									<button hlmDropdownMenuItem class="text-left">
 										<ng-icon hlm size="sm" name="lucideListMusic" class="mr-2 h-4 w-4" />
 										{{ item }}
 									</button>
 								}
-							</hlm-sub-menu>
+							</hlm-dropdown-menu-sub>
 						</ng-template>
 					</button>
-					<hlm-menu-separator />
+					<hlm-dropdown-menu-separator />
 
-					<button hlmMenuItem>Play Next</button>
-					<button hlmMenuItem>Play Later</button>
-					<button hlmMenuItem>Create Station</button>
-					<hlm-menu-separator />
+					<button hlmDropdownMenuItem>Play Next</button>
+					<button hlmDropdownMenuItem>Play Later</button>
+					<button hlmDropdownMenuItem>Create Station</button>
+					<hlm-dropdown-menu-separator />
 
-					<button hlmMenuItem>Like</button>
-					<button hlmMenuItem>Share</button>
-				</hlm-menu-group>
-			</hlm-menu>
+					<button hlmDropdownMenuItem>Like</button>
+					<button hlmDropdownMenuItem>Share</button>
+				</hlm-dropdown-menu-group>
+			</hlm-dropdown-menu>
 		</ng-template>
 
 		<spartan-music-top-menu class="px-2 lg:px-4" />
@@ -139,7 +126,7 @@ export const routeMeta: RouteMeta = {
 								<div class="mt-2">
 									<div class="mt-2 grid grid-cols-2 gap-4 pb-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4">
 										@for (item of sectionData.listenNow; track item) {
-											<figure class="space-y-4" [brnCtxMenuTriggerFor]="contextMenu">
+											<figure class="space-y-4" [hlmContextMenuTrigger]="contextMenu">
 												<picture class="group relative block w-full overflow-hidden rounded-md">
 													<img
 														[src]="item.img"

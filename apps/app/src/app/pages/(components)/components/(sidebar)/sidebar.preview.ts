@@ -298,8 +298,7 @@ export const appConfig: ApplicationConfig = {
 export const header = `
 import { Component } from '@angular/core';
 import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
-import { HlmMenuImports } from '@spartan-ng/helm/menu';
-import { BrnMenuImports } from '@spartan-ng/brain/menu';
+import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import { lucideChevronDown } from '@ng-icons/lucide';
@@ -308,8 +307,7 @@ import { lucideChevronDown } from '@ng-icons/lucide';
   selector: 'app-sidebar',
   imports: [
     HlmSidebarImports,
-    HlmMenuImports,
-    BrnMenuImports,
+    HlmDropdownMenuImports,
     NgIcon,
     HlmIcon,
   ],
@@ -319,15 +317,15 @@ import { lucideChevronDown } from '@ng-icons/lucide';
         <div hlmSidebarHeader>
           <ul hlmSidebarMenu>
             <li hlmSidebarMenuItem>
-              <button hlmSidebarMenuButton [brnMenuTriggerFor]="menu">
+              <button hlmSidebarMenuButton [hlmDropdownMenuTrigger]="menu">
                 Select Workspace
                 <ng-icon hlm name="lucideChevronDown" class="ml-auto" />
               </button>
               <ng-template #menu>
-                <hlm-menu class="w-60">
-                  <hlm-menu-label>Acme Inc</hlm-menu-label>
-                  <hlm-menu-label>Acme Corp.</hlm-menu-label>
-                </hlm-menu>
+                <hlm-dropdown-menu class="w-60">
+                  <hlm-dropdown-menu-label>Acme Inc</hlm-dropdown-menu-label>
+                  <hlm-dropdown-menu-label>Acme Corp.</hlm-dropdown-menu-label>
+                </hlm-dropdown-menu>
               </ng-template>
             </li>
           </ul>
@@ -349,14 +347,14 @@ export const footer = `
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronUp } from '@ng-icons/lucide';
-import { BrnMenuImports } from '@spartan-ng/brain/menu';
+
 import { HlmIcon } from '@spartan-ng/helm/icon';
-import { HlmMenuImports } from '@spartan-ng/helm/menu';
+import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 
 @Component({
     selector: 'app-sidebar',
-    imports: [HlmSidebarImports, HlmMenuImports, BrnMenuImports, NgIcon, HlmIcon],
+    imports: [HlmSidebarImports, BrnMenuImports, NgIcon, HlmIcon],
     template: \`
         <div hlmSidebarWrapper>
             <hlm-sidebar>
@@ -365,16 +363,16 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
                 <div hlmSidebarFooter>
                     <ul hlmSidebarMenu>
                         <li hlmSidebarMenuItem>
-                            <button hlmSidebarMenuButton [brnMenuTriggerFor]="menu">
+                            <button hlmSidebarMenuButton [hlmDropdownMenuTrigger]="menu">
                                 Select Workspace
                                 <ng-icon hlm name="lucideChevronUp" class="ml-auto" />
                             </button>
                             <ng-template #menu>
-                                <hlm-menu class="w-60">
-                                    <button hlmMenuItem>Account</button>
-                                    <button hlmMenuItem>Billing</button>
-                                    <button hlmMenuItem>Sign out</button>
-                                </hlm-menu>
+                                <hlm-dropdown-menu class="w-60">
+                                    <button hlmDropdownMenuItem>Account</button>
+                                    <button hlmDropdownMenuItem>Billing</button>
+                                    <button hlmDropdownMenuItem>Sign out</button>
+                                </hlm-dropdown-menu>
                             </ng-template>
                         </li>
                     </ul>
@@ -716,7 +714,7 @@ export const menuAction = `
 export const menuActionExample = `
 import { Component } from '@angular/core';
 import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
-import { BrnMenuImports } from '@spartan-ng/brain/menu';
+
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import {
@@ -727,11 +725,11 @@ import {
   lucideMap,
   lucideSend,
 } from '@ng-icons/lucide';
-import { HlmMenuImports } from '@spartan-ng/helm/menu';
+import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [HlmSidebarImports, BrnMenuImports, NgIcon, HlmIcon, HlmMenuImports],
+  imports: [HlmSidebarImports, NgIcon, HlmIcon, HlmDropdownMenuImports],
   template: \`
     <div hlmSidebarWrapper>
       <hlm-sidebar>
@@ -746,16 +744,16 @@ import { HlmMenuImports } from '@spartan-ng/helm/menu';
                     <ng-icon hlm [name]="project.icon" />
                     <span>{{ project.name }}</span>
                   </a>
-                  <button hlmSidebarMenuAction [brnMenuTriggerFor]="menu">
+                  <button hlmSidebarMenuAction [hlmDropdownMenuTrigger]="menu">
                     <ng-icon hlm name="lucideEllipsis" />
                     <span class="sr-only">More</span>
                   </button>
 
                   <ng-template #menu>
-                    <hlm-menu>
-                      <button hlmMenuItem>Edit Project</button>
-                      <button hlmMenuItem>Delete Project</button>
-                    </hlm-menu>
+                    <hlm-dropdown-menu>
+                      <button hlmDropdownMenuItem>Edit Project</button>
+                      <button hlmDropdownMenuItem>Delete Project</button>
+                    </hlm-dropdown-menu>
                   </ng-template>
                 </li>
                 }

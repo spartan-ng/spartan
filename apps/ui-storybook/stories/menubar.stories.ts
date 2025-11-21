@@ -1,8 +1,8 @@
 import { NgIcon } from '@ng-icons/core';
-import { BrnMenuTrigger } from '@spartan-ng/brain/menu';
+
 import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 import { HlmIcon } from '@spartan-ng/helm/icon';
-import { HlmMenu, HlmMenuImports } from '@spartan-ng/helm/menu';
 import { HlmMenubar, HlmMenubarImports } from '@spartan-ng/helm/menubar';
 import { argsToTemplate, type Meta, moduleMetadata, type StoryObj } from '@storybook/angular';
 
@@ -12,13 +12,13 @@ const meta: Meta<HlmMenubar> = {
 	tags: ['autodocs'],
 	decorators: [
 		moduleMetadata({
-			imports: [BrnMenuTrigger, HlmMenubarImports, HlmMenuImports, HlmButton, NgIcon, HlmIcon],
+			imports: [HlmMenubarImports, HlmDropdownMenuImports, HlmButton, NgIcon, HlmIcon],
 		}),
 	],
 };
 
 export default meta;
-type Story = StoryObj<HlmMenu>;
+type Story = StoryObj<HlmMenubar>;
 
 export const Default: Story = {
 	render: ({ ...args }) => ({
@@ -32,149 +32,149 @@ export const Default: Story = {
     </hlm-menubar>
 
     <ng-template #file>
-      <hlm-menu ${argsToTemplate(args)} class='w-48'>
-        <hlm-menu-group>
-          <button hlmMenuItem>
+      <hlm-dropdown-menu ${argsToTemplate(args)} class='w-48'>
+        <hlm-dropdown-menu-group>
+          <button hlmDropdownMenuItem>
             New Tab
-            <hlm-menu-shortcut>⌘T</hlm-menu-shortcut>
+            <hlm-dropdown-menu-shortcut>⌘T</hlm-dropdown-menu-shortcut>
           </button>
-          <button hlmMenuItem>
+          <button hlmDropdownMenuItem>
             New Window
-            <hlm-menu-shortcut>⌘N</hlm-menu-shortcut>
+            <hlm-dropdown-menu-shortcut>⌘N</hlm-dropdown-menu-shortcut>
           </button>
-          <button hlmMenuItem disabled>New Incognito Window</button>
+          <button hlmDropdownMenuItem disabled>New Incognito Window</button>
 
-        </hlm-menu-group>
+        </hlm-dropdown-menu-group>
 
-        <hlm-menu-separator />
+        <hlm-dropdown-menu-separator />
 
-        <button hlmMenuItem [brnMenuTriggerFor]='share'>
+        <button hlmDropdownMenuItem [hlmDropdownMenuTrigger]='share'>
           Share
-          <hlm-menu-item-sub-indicator />
+          <hlm-dropdown-menu-item-sub-indicator />
         </button>
 
-        <hlm-menu-separator />
+        <hlm-dropdown-menu-separator />
 
-        <button hlmMenuItem>
+        <button hlmDropdownMenuItem>
           Print...
-          <hlm-menu-shortcut>⌘P</hlm-menu-shortcut>
+          <hlm-dropdown-menu-shortcut>⌘P</hlm-dropdown-menu-shortcut>
         </button>
 
-      </hlm-menu>
+      </hlm-dropdown-menu>
     </ng-template>
     <ng-template #share>
-      <hlm-sub-menu>
-        <button hlmMenuItem>
+      <hlm-dropdown-menu-sub>
+        <button hlmDropdownMenuItem>
           Email link
         </button>
-        <button hlmMenuItem>
+        <button hlmDropdownMenuItem>
           Messages
         </button>
-        <button hlmMenuItem>
+        <button hlmDropdownMenuItem>
           Notes
         </button>
-      </hlm-sub-menu>
+      </hlm-dropdown-menu-sub>
     </ng-template>
 
     <ng-template #edit>
-      <hlm-menu ${argsToTemplate(args)} class='w-48'>
-        <hlm-menu-group>
-          <button hlmMenuItem>
+      <hlm-dropdown-menu ${argsToTemplate(args)} class='w-48'>
+        <hlm-dropdown-menu-group>
+          <button hlmDropdownMenuItem>
             Undo
-            <hlm-menu-shortcut>⌘Z</hlm-menu-shortcut>
+            <hlm-dropdown-menu-shortcut>⌘Z</hlm-dropdown-menu-shortcut>
           </button>
-          <button hlmMenuItem>
+          <button hlmDropdownMenuItem>
             Redo
-            <hlm-menu-shortcut>⇧⌘Z</hlm-menu-shortcut>
+            <hlm-dropdown-menu-shortcut>⇧⌘Z</hlm-dropdown-menu-shortcut>
           </button>
-        </hlm-menu-group>
+        </hlm-dropdown-menu-group>
 
-        <hlm-menu-separator />
+        <hlm-dropdown-menu-separator />
 
-        <button hlmMenuItem [brnMenuTriggerFor]='find'>
+        <button hlmDropdownMenuItem [hlmDropdownMenuTrigger]='find'>
           Share
-          <hlm-menu-item-sub-indicator />
+          <hlm-dropdown-menu-item-sub-indicator />
         </button>
 
-        <hlm-menu-separator />
+        <hlm-dropdown-menu-separator />
 
-        <button hlmMenuItem>Cut</button>
-        <button hlmMenuItem>Copy</button>
-        <button hlmMenuItem>Paste</button>
+        <button hlmDropdownMenuItem>Cut</button>
+        <button hlmDropdownMenuItem>Copy</button>
+        <button hlmDropdownMenuItem>Paste</button>
 
-      </hlm-menu>
+      </hlm-dropdown-menu>
     </ng-template>
     <ng-template #find>
-      <hlm-sub-menu>
-        <button hlmMenuItem>
+      <hlm-dropdown-menu-sub>
+        <button hlmDropdownMenuItem>
           Search the web
         </button>
-        <hlm-menu-separator />
-        <button hlmMenuItem>
+        <hlm-dropdown-menu-separator />
+        <button hlmDropdownMenuItem>
           Find...
         </button>
-        <button hlmMenuItem>
+        <button hlmDropdownMenuItem>
           Find Next
         </button>
-        <button hlmMenuItem>
+        <button hlmDropdownMenuItem>
           Find Previous
         </button>
-      </hlm-sub-menu>
+      </hlm-dropdown-menu-sub>
     </ng-template>
 
     <ng-template #view>
-      <hlm-menu ${argsToTemplate(args)}>
-        <button hlmMenuItemCheckbox>
-          <hlm-menu-item-check />
+      <hlm-dropdown-menu ${argsToTemplate(args)}>
+        <button hlmDropdownMenuCheckbox>
+          <hlm-dropdown-menu-checkbox-indicator />
           Always Show Bookmarks Bar
         </button>
-        <button hlmMenuItemCheckbox checked>
-          <hlm-menu-item-check />
+        <button hlmDropdownMenuCheckbox checked>
+          <hlm-dropdown-menu-checkbox-indicator />
           Always Show Full URLs
         </button>
-        <hlm-menu-separator />
-        <button inset hlmMenuItem>
+        <hlm-dropdown-menu-separator />
+        <button inset hlmDropdownMenuItem>
           Reload
-          <hlm-menu-shortcut>⌘R</hlm-menu-shortcut>
+          <hlm-dropdown-menu-shortcut>⌘R</hlm-dropdown-menu-shortcut>
         </button>
-        <button inset disabled hlmMenuItem>
+        <button inset disabled hlmDropdownMenuItem>
           Force Reload
-          <hlm-menu-shortcut>⇧⌘R</hlm-menu-shortcut>
+          <hlm-dropdown-menu-shortcut>⇧⌘R</hlm-dropdown-menu-shortcut>
         </button>
-        <hlm-menu-separator />
-        <button inset hlmMenuItem>
+        <hlm-dropdown-menu-separator />
+        <button inset hlmDropdownMenuItem>
           Toggle Fullscreen
         </button>
-        <hlm-menu-separator />
-        <button inset hlmMenuItem>
+        <hlm-dropdown-menu-separator />
+        <button inset hlmDropdownMenuItem>
           Hide Sidebar
         </button>
-      </hlm-menu>
+      </hlm-dropdown-menu>
     </ng-template>
 
     <ng-template #profiles>
-      <hlm-menu ${argsToTemplate(args)} class='w-48'>
-        <button hlmMenuItemRadio>
-          <hlm-menu-item-radio />
+      <hlm-dropdown-menu ${argsToTemplate(args)} class='w-48'>
+        <button hlmDropdownMenuRadio>
+          <hlm-dropdown-menu-radio-indicator />
           Andy
         </button>
-        <button hlmMenuItemRadio checked>
-          <hlm-menu-item-radio />
+        <button hlmDropdownMenuRadio checked>
+          <hlm-dropdown-menu-radio-indicator />
           Benoit
         </button>
-        <button hlmMenuItemRadio>
-          <hlm-menu-item-radio />
+        <button hlmDropdownMenuRadio>
+          <hlm-dropdown-menu-radio-indicator />
           Lewis
         </button>
-        <hlm-menu-separator />
-        <button inset hlmMenuItem>
+        <hlm-dropdown-menu-separator />
+        <button inset hlmDropdownMenuItem>
           Edit...
         </button>
-        <hlm-menu-separator />
-        <button inset hlmMenuItem>
+        <hlm-dropdown-menu-separator />
+        <button inset hlmDropdownMenuItem>
           Add Profile...
         </button>
-      </hlm-menu>
+      </hlm-dropdown-menu>
     </ng-template>
     `,
 	}),

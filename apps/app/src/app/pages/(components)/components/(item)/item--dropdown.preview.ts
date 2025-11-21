@@ -1,16 +1,15 @@
 import { Component } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideChevronDown } from '@ng-icons/lucide';
-import { BrnMenuImports } from '@spartan-ng/brain/menu';
 import { HlmAvatarImports } from '@spartan-ng/helm/avatar';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 import { HlmIconImports } from '@spartan-ng/helm/icon';
 import { HlmItemImports } from '@spartan-ng/helm/item';
-import { HlmMenuImports } from '@spartan-ng/helm/menu';
 
 @Component({
 	selector: 'spartan-item-dropdown-preview',
-	imports: [HlmItemImports, HlmButtonImports, HlmAvatarImports, HlmIconImports, BrnMenuImports, HlmMenuImports],
+	imports: [HlmItemImports, HlmButtonImports, HlmAvatarImports, HlmIconImports, HlmDropdownMenuImports],
 	providers: [
 		provideIcons({
 			lucideChevronDown,
@@ -20,15 +19,15 @@ import { HlmMenuImports } from '@spartan-ng/helm/menu';
 		class: 'flex min-h-64 w-full max-w-md flex-col items-center gap-6',
 	},
 	template: `
-		<button hlmBtn variant="outline" size="sm" [brnMenuTriggerFor]="people" class="w-fit" align="end">
+		<button hlmBtn variant="outline" size="sm" [hlmDropdownMenuTrigger]="people" class="w-fit" align="end">
 			Select
 			<ng-icon hlm name="lucideChevronDown" />
 		</button>
 
 		<ng-template #people>
-			<hlm-menu class="w-72 [--radius:0.65rem]">
+			<hlm-dropdown-menu class="w-72 [--radius:0.65rem]">
 				@for (person of _people; track person.email) {
-					<div hlmMenuItem class="p-0">
+					<div hlmDropdownMenuItem class="p-0">
 						<div hlmItem size="sm" class="w-full p-2">
 							<div hlmItemMedia>
 								<hlm-avatar class="size-8">
@@ -45,7 +44,7 @@ import { HlmMenuImports } from '@spartan-ng/helm/menu';
 						</div>
 					</div>
 				}
-			</hlm-menu>
+			</hlm-dropdown-menu>
 		</ng-template>
 	`,
 })

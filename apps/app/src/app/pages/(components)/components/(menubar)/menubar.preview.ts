@@ -73,11 +73,11 @@ import { HlmMenubarImports } from '@spartan-ng/helm/menubar';
 
 		<ng-template #view>
 			<hlm-dropdown-menu sideOffset="1.5">
-				<button hlmDropdownMenuCheckboxItem>
+				<button hlmDropdownMenuCheckbox>
 					<hlm-dropdown-menu-checkbox-indicator />
 					Always Show Bookmarks Bar
 				</button>
-				<button hlmDropdownMenuCheckboxItem checked>
+				<button hlmDropdownMenuCheckbox checked>
 					<hlm-dropdown-menu-checkbox-indicator />
 					Always Show Full URLs
 				</button>
@@ -99,15 +99,15 @@ import { HlmMenubarImports } from '@spartan-ng/helm/menubar';
 
 		<ng-template #profiles>
 			<hlm-dropdown-menu sideOffset="1.5" class="w-48">
-				<button hlmDropdownMenuRadioItem>
+				<button hlmDropdownMenuRadio>
 					<hlm-dropdown-menu-radio-indicator />
 					Andy
 				</button>
-				<button hlmDropdownMenuRadioItem checked>
+				<button hlmDropdownMenuRadio checked>
 					<hlm-dropdown-menu-radio-indicator />
 					Benoit
 				</button>
-				<button hlmDropdownMenuRadioItem>
+				<button hlmDropdownMenuRadio>
 					<hlm-dropdown-menu-radio-indicator />
 					Lewis
 				</button>

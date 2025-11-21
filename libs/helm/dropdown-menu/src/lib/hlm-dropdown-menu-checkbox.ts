@@ -1,27 +1,27 @@
 import { type BooleanInput } from '@angular/cdk/coercion';
-import { CdkMenuItemRadio } from '@angular/cdk/menu';
+import { CdkMenuItemCheckbox } from '@angular/cdk/menu';
 import { Directive, booleanAttribute, computed, inject, input } from '@angular/core';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 
 @Directive({
-	selector: '[hlmDropdownMenuRadioItem]',
+	selector: '[hlmDropdownMenuCheckbox]',
 	hostDirectives: [
 		{
-			directive: CdkMenuItemRadio,
+			directive: CdkMenuItemCheckbox,
 			inputs: ['cdkMenuItemDisabled: disabled', 'cdkMenuItemChecked: checked'],
 			outputs: ['cdkMenuItemTriggered: triggered'],
 		},
 	],
 	host: {
-		'data-slot': 'dropdown-menu-radio-item',
+		'data-slot': 'dropdown-menu-checkbox-item',
 		'[attr.data-disabled]': 'disabled() ? "" : null',
 		'[attr.data-checked]': 'checked() ? "" : null',
 		'[class]': '_computedClass()',
 	},
 })
-export class HlmDropdownMenuRadioItem {
-	private readonly _cdkMenuItem = inject(CdkMenuItemRadio);
+export class HlmDropdownMenuCheckbox {
+	private readonly _cdkMenuItem = inject(CdkMenuItemCheckbox);
 
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>

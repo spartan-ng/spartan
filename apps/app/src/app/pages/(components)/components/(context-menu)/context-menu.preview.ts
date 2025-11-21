@@ -42,12 +42,12 @@ import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 				<hlm-dropdown-menu-separator />
 
 				<hlm-dropdown-menu-group>
-					<button hlmDropdownMenuCheckboxItem checked>
+					<button hlmDropdownMenuCheckbox checked>
 						<hlm-dropdown-menu-checkbox-indicator />
 						Show Booksmarks Bar
 						<hlm-dropdown-menu-shortcut>⌘⇧B</hlm-dropdown-menu-shortcut>
 					</button>
-					<button hlmDropdownMenuCheckboxItem>
+					<button hlmDropdownMenuCheckbox>
 						<hlm-dropdown-menu-checkbox-indicator />
 						Show full URLs
 					</button>
@@ -57,11 +57,11 @@ import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 				<hlm-dropdown-menu-label inset>People</hlm-dropdown-menu-label>
 				<hlm-dropdown-menu-separator />
 				<hlm-dropdown-menu-group>
-					<button hlmDropdownMenuRadioItem checked>
+					<button hlmDropdownMenuRadio checked>
 						<hlm-dropdown-menu-radio-indicator />
 						Pedro Duarte
 					</button>
-					<button hlmDropdownMenuRadioItem>
+					<button hlmDropdownMenuRadio>
 						<hlm-dropdown-menu-radio-indicator />
 						Colm Tuite
 					</button>

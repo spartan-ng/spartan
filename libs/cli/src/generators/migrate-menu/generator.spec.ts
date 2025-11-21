@@ -365,4 +365,38 @@ describe('migrate-menu generator', () => {
 			`<button hlmDropdownMenuItem align="start" side="right" [hlmDropdownMenuTrigger]="share">`,
 		);
 	});
+
+	it('should replace trigger data selector (Standalone)', async () => {
+		tree.write(
+			'app/src/app/app.component.ts',
+			`
+						import { Component, signal } from '@angular/core';
+						import { BrnMenuImports } from '@spartan-ng/brain/menu';
+						import { HlmMenuImports } from '@spartan-ng/helm/menu';
+						import { HlmButtonImports } from '@spartan-ng/helm/button';
+	
+						@Component({
+							imports: [BrnMenuImports, HlmMenuImports, HlmButtonImports],
+							template: \`
+								<div [brnCtxMenuTriggerFor]="menu" [brnCtxMenuTriggerData]="{ $implicit: { data: 'Changes Saved' } }">Right click here</div>
+
+								<button hlmBtn [brnMenuTriggerFor]="menu" [brnMenuTriggerData]="{ $implicit: { project } }">Open Menu</button>
+							\`
+						})
+						export class AppModule {}
+						`,
+		);
+
+		await migrateMenuGenerator(tree, { skipFormat: true, importAlias: '@spartan-ng/helm' });
+
+		const content = tree.read('app/src/app/app.component.ts', 'utf-8');
+		expect(content).not.toContain(
+			`[brnCtxMenuTriggerFor]="menu" [brnCtxMenuTriggerData]="{ $implicit: { data: 'Changes Saved' } }"`,
+		);
+		expect(content).toContain(`[hlmContextMenuTrigger]="menu"`);
+		expect(content).toContain(`[hlmContextMenuTriggerData]="{ $implicit: { data: 'Changes Saved' } }"`);
+		expect(content).toContain(
+			`[hlmDropdownMenuTrigger]="menu" [hlmDropdownMenuTriggerData]="{ $implicit: { project } }"`,
+		);
+	});
 });

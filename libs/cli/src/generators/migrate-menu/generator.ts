@@ -3,6 +3,24 @@ import { helmImport } from '../../utils/import-alias';
 import { visitFiles } from '../../utils/visit-files';
 import type { MigrateMenuGeneratorSchema } from './schema';
 
+export const ignoreMenuFiles = [
+	'hlm-menu-bar-item.ts',
+	'hlm-menu-group.ts',
+	'hlm-menu-item-check.ts',
+	'hlm-menu-item-checkbox.ts',
+	'hlm-menu-item-icon.ts',
+	'hlm-menu-item-radio-indicator.ts',
+	'hlm-menu-item-radio.ts',
+	'hlm-menu-item-sub-indicator.ts',
+	'hlm-menu-item.ts',
+	'hlm-menu-label.ts',
+	'hlm-menu-separator.ts',
+	'hlm-menu-shortcut.ts',
+	'hlm-menu.ts',
+	'hlm-sub-menu.ts',
+	'menu/src/index.ts',
+];
+
 export async function migrateMenuGenerator(tree: Tree, { skipFormat, importAlias }: MigrateMenuGeneratorSchema) {
 	updateImports(tree, importAlias);
 	replaceSelector(tree);
@@ -19,6 +37,11 @@ function updateImports(tree: Tree, importAlias: string) {
 	visitFiles(tree, '/', (path) => {
 		// if this is not a typescript file then skip
 		if (!path.endsWith('.ts')) {
+			return;
+		}
+
+		// skip HlmMenu itself
+		if (ignoreMenuFiles.some((menuFile) => path.endsWith(menuFile))) {
 			return;
 		}
 
@@ -95,6 +118,11 @@ function replaceSelector(tree: Tree) {
 			return;
 		}
 
+		// skip HlmMenu itself
+		if (ignoreMenuFiles.some((menuFile) => path.endsWith(menuFile))) {
+			return;
+		}
+
 		let content = tree.read(path, 'utf-8');
 
 		if (!content) {
@@ -120,8 +148,7 @@ function replaceSelector(tree: Tree) {
 		}
 
 		// dropdown-menu
-		// TODO replace everything else
-		if (content.includes('hlm-menu')) {
+		if (content.includes('hlm-menu') || content.includes('brnMenu') || content.includes('hlmMenu')) {
 			content = content
 				.replace(/hlm-menu-item-check/g, 'hlm-dropdown-menu-checkbox-indicator')
 				.replace(/hlm-menu-item-radio/g, 'hlm-dropdown-menu-radio-indicator')
@@ -131,6 +158,7 @@ function replaceSelector(tree: Tree) {
 				.replace(/hlmMenuItemRadio/g, 'hlmDropdownMenuRadio')
 				.replace(/hlmMenuItem/g, 'hlmDropdownMenuItem')
 				.replace(/brnMenuTriggerFor/g, 'hlmDropdownMenuTrigger')
+				.replace(/brnMenuTriggerData/g, 'hlmDropdownMenuTriggerData')
 				.replace(/hlm-sub-menu/g, 'hlm-dropdown-menu-sub');
 		}
 

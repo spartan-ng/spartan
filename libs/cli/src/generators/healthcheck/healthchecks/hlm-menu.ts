@@ -1,5 +1,5 @@
 import { visitNotIgnoredFiles } from '@nx/devkit';
-import migrateMenuGenerator from '../../migrate-menu/generator';
+import migrateMenuGenerator, { ignoreMenuFiles } from '../../migrate-menu/generator';
 import { HealthcheckSeverity, type Healthcheck } from '../healthchecks';
 
 export const helmMenuHealthcheck: Healthcheck = {
@@ -11,16 +11,24 @@ export const helmMenuHealthcheck: Healthcheck = {
 				return;
 			}
 
+			// skip HlmMenu itself
+			if (ignoreMenuFiles.some((menuFile) => file.endsWith(menuFile))) {
+				return;
+			}
+
 			const contents = tree.read(file, 'utf-8');
 
 			if (!contents) {
 				return;
 			}
 
-			// TODO also check importAlis for helm?
-			if (contents.includes("'@spartan-ng/brain/menu'") || contents.includes("'@spartan-ng/helm/menu'")) {
+			if (
+				contents.includes("'@spartan-ng/brain/menu'") ||
+				contents.includes("'@spartan-ng/helm/menu'") ||
+				contents.includes(`"${importAlias}/menu"`)
+			) {
 				failure(
-					`The <hlm-icon> component is deprecated. Please use the <ng-icon hlm> instead.`,
+					`The menu package (${importAlias}/menu and @spartan-ng/brain/menu) is deprecated. Please use the new helm packages dropdown-menu, context-menu or menubar instead.`,
 					HealthcheckSeverity.Error,
 					true,
 				);
@@ -32,5 +40,5 @@ export const helmMenuHealthcheck: Healthcheck = {
 		return true;
 	},
 	prompt:
-		"Would you like to migrate '@spartan-ng/helm/menu'? Generate the new helm components for dropdown-menu, context-menu or menubar.  ",
+		'Would you like to migrate menu imports and selectors? You need to generate the new helm components for dropdown-menu, context-menu or menubar.',
 };

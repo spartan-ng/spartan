@@ -152,7 +152,7 @@
 		"name": "context-menu",
 		"peerDependencies": {
 			"@angular/core": ">=20.0.0 <22.0.0",
-			"@spartan-ng/brain": "0.0.1-alpha.564",
+			"@spartan-ng/brain": "0.0.1-alpha.565",
 			"@angular/cdk": ">=20.0.0 <22.0.0",
 			"rxjs": "^7.8.0"
 		}
@@ -190,7 +190,7 @@
 			"clsx": "^2.1.1",
 			"@angular/cdk": ">=20.0.0 <22.0.0",
 			"rxjs": "^7.8.0",
-			"@spartan-ng/brain": "0.0.1-alpha.564"
+			"@spartan-ng/brain": "0.0.1-alpha.565"
 		}
 	},
 	"empty": {
@@ -287,22 +287,11 @@
 			"clsx": "^2.1.1"
 		}
 	},
-	"menu": {
-		"name": "menu",
-		"peerDependencies": {
-			"@angular/cdk": ">=20.0.0 <22.0.0",
-			"@angular/core": ">=20.0.0 <22.0.0",
-			"@spartan-ng/brain": "0.0.1-alpha.565",
-			"clsx": "^2.1.1",
-			"@ng-icons/core": ">=32.0.0 <34.0.0",
-			"@ng-icons/lucide": ">=32.0.0 <34.0.0"
-		}
-	},
 	"menubar": {
 		"name": "menubar",
 		"peerDependencies": {
 			"@angular/core": ">=20.0.0 <22.0.0",
-			"@spartan-ng/brain": "0.0.1-alpha.564",
+			"@spartan-ng/brain": "0.0.1-alpha.565",
 			"@angular/cdk": ">=20.0.0 <22.0.0",
 			"clsx": "^2.1.1",
 			"rxjs": "^7.8.0"

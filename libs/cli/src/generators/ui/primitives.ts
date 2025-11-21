@@ -30,7 +30,6 @@ export type Primitive =
 	| 'item'
 	| 'kbd'
 	| 'label'
-	| 'menu'
 	| 'menubar'
 	| 'pagination'
 	| 'popover'

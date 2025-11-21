@@ -32,7 +32,6 @@ export const primitiveDependencies: Record<Primitive, Primitive[]> = {
 	item: ['utils', 'separator'],
 	kbd: ['utils'],
 	label: ['utils'],
-	menu: ['utils', 'icon'], // TODO remove menu, replaced with dropdown-menu
 	menubar: ['utils', 'dropdown-menu'],
 	pagination: ['utils', 'button', 'icon'],
 	popover: ['utils'],

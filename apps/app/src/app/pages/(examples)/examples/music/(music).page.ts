@@ -3,8 +3,6 @@ import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCirclePlus, lucideListMusic, lucidePodcast } from '@ng-icons/lucide';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
-import { TopMusicMenu } from './components/top-menu';
-
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmCard } from '@spartan-ng/helm/card';
 import { HlmContextMenuImports } from '@spartan-ng/helm/context-menu';
@@ -14,6 +12,7 @@ import { HlmSeparator } from '@spartan-ng/helm/separator';
 import { HlmTabs, HlmTabsContent, HlmTabsList, HlmTabsTrigger } from '@spartan-ng/helm/tabs';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { SideMusicMenu } from './components/side-menu/side-menu';
+import { TopMusicMenu } from './components/top-menu';
 import { FallbackImage } from './directives/fallback-img';
 
 import img from '/assets/music_img_fallback.svg';
@@ -39,7 +38,6 @@ export const routeMeta: RouteMeta = {
 		NgScrollbarModule,
 		HlmDropdownMenuImports,
 		HlmContextMenuImports,
-		HlmSubMenu,
 		HlmCard,
 		FallbackImage,
 	],
@@ -57,7 +55,7 @@ export const routeMeta: RouteMeta = {
 			<hlm-dropdown-menu class="w-40">
 				<hlm-dropdown-menu-group>
 					<button hlmDropdownMenuItem>Add to Library</button>
-					<button hlmDropdownMenuItem [hlmDropdownMenuTrigger]="playlist_submenu">
+					<button hlmDropdownMenuItem [hlmDropdownMenuTrigger]="playlist_submenu" side="right" align="start">
 						Add to Playlist
 						<hlm-dropdown-menu-item-sub-indicator />
 

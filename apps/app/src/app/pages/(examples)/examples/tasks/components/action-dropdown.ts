@@ -26,7 +26,7 @@ import type { Task } from '../services/tasks.models';
 				</hlm-dropdown-menu-group>
 				<hlm-dropdown-menu-separator />
 				<hlm-dropdown-menu-group>
-					<button hlmDropdownMenuItem [hlmDropdownMenuTrigger]="labels">
+					<button hlmDropdownMenuItem [hlmDropdownMenuTrigger]="labels" side="left" align="end">
 						Labels
 						<ng-icon hlm name="lucideChevronRight" class="ml-auto" size="sm" />
 					</button>

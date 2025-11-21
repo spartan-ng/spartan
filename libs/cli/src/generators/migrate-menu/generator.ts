@@ -70,7 +70,8 @@ function updateImports(tree: Tree, importAlias: string) {
 				// Replace `HlmMenuImports` with optional comma and whitespace
 				.replace(/HlmMenuImports?\s?/, 'HlmDropdownMenuImports')
 				.replace(/HlmMenu\b/, 'HlmDropdownMenuImports')
-				.replace(/\s*\bHlmMenu(?!bar)\w*\b\s*,?/g, '');
+				.replace(/\s*\bHlmMenu(?!bar)\w*\b\s*,?/g, '')
+				.replace(/HlmSubMenu,?\s?/g, '');
 		} else if (content.includes("'@spartan-ng/brain/menu';")) {
 			content = content
 				// Handle `import { * } from '@spartan-ng/brain/menu';` including multi-line imports

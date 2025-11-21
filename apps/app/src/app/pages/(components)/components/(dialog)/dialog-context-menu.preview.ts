@@ -34,10 +34,11 @@ import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 							Print
 							<hlm-dropdown-menu-shortcut>⌘P</hlm-dropdown-menu-shortcut>
 						</button>
-						<hlm-dialog-content *brnDialogContent="let ctx">
+						<!-- TODO dialog content not visible, effects main branch too -->
+						<hlm-dialog-content class="sm:max-w-[425px]" *brnDialogContent="let ctx">
 							<hlm-dialog-header>
-								<h3 brnDialogTitle hlm>Print this page</h3>
-								<p brnDialogDescription hlm>
+								<h3 hlmDialogTitle>Print this page</h3>
+								<p hlmDialogDescription>
 									Are you sure you want to print this page? Only print if absolutely necessary! The less we print, the
 									less paper we need, the better it is for our environment!
 								</p>

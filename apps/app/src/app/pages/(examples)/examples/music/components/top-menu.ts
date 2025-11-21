@@ -57,7 +57,7 @@ import { HlmMenubarImports } from '@spartan-ng/helm/menubar';
 		<ng-template #file>
 			<hlm-dropdown-menu sideOffset="1.5" class="w-48">
 				<hlm-dropdown-menu-group>
-					<button hlmDropdownMenuItem [hlmDropdownMenuTrigger]="new">
+					<button hlmDropdownMenuItem [hlmDropdownMenuTrigger]="new" align="start" side="right">
 						New
 						<hlm-dropdown-menu-item-sub-indicator />
 						<ng-template #new>
@@ -90,7 +90,7 @@ import { HlmMenubarImports } from '@spartan-ng/helm/menubar';
 
 					<hlm-dropdown-menu-separator />
 
-					<button hlmDropdownMenuItem [hlmDropdownMenuTrigger]="library">
+					<button hlmDropdownMenuItem [hlmDropdownMenuTrigger]="library" align="start" side="right">
 						Library
 						<hlm-dropdown-menu-item-sub-indicator />
 						<ng-template #library>

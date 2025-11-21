@@ -108,13 +108,13 @@ export const routeMeta: RouteMeta = {
 					<h2 class="text-2xl font-bold tracking-tight">Welcome back!</h2>
 					<p class="text-muted-foreground">Here's a list of your tasks for this month!</p>
 				</div>
-				<hlm-avatar [hlmDropdownMenuTrigger]="profile" align="center">
+				<hlm-avatar [hlmDropdownMenuTrigger]="profile" align="end">
 					<img src="/assets/avatar.png" alt="spartan logo. Resembling a spartanic shield" hlmAvatarImage />
 					<span class="bg-destructive text-white" hlmAvatarFallback>KL</span>
 				</hlm-avatar>
 
 				<ng-template #profile>
-					<hlm-dropdown-menu>
+					<hlm-dropdown-menu class="min-w-56">
 						<div class="flex flex-col space-y-1" hlmDropdownMenuItem>
 							<p class="text-sm leading-none font-medium">spartan</p>
 							<p class="text-muted-foreground text-xs leading-none">m&#64;example.com</p>

@@ -317,7 +317,7 @@ import { lucideChevronDown } from '@ng-icons/lucide';
         <div hlmSidebarHeader>
           <ul hlmSidebarMenu>
             <li hlmSidebarMenuItem>
-              <button hlmSidebarMenuButton [hlmDropdownMenuTrigger]="menu">
+              <button hlmSidebarMenuButton [hlmDropdownMenuTrigger]="menu" side="right" align="start">
                 Select Workspace
                 <ng-icon hlm name="lucideChevronDown" class="ml-auto" />
               </button>

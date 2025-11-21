@@ -2,14 +2,12 @@ import { Component } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideGlobe, lucideMicVocal } from '@ng-icons/lucide';
 import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
-
 import { HlmIconImports } from '@spartan-ng/helm/icon';
-import { HlmMenuImports } from '@spartan-ng/helm/menu';
 import { HlmMenubarImports } from '@spartan-ng/helm/menubar';
 
 @Component({
 	selector: 'spartan-music-top-menu',
-	imports: [HlmMenubarImports, HlmDropdownMenuImports, HlmMenuImports, HlmIconImports],
+	imports: [HlmMenubarImports, HlmDropdownMenuImports, HlmIconImports],
 	providers: [provideIcons({ lucideMicVocal, lucideGlobe })],
 	host: {
 		class: 'block',

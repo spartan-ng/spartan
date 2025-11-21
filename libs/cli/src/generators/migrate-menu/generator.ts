@@ -66,8 +66,11 @@ function updateImports(tree: Tree, importAlias: string) {
 				.replace(regex, `import { HlmDropdownMenuImports } from '${dropdownMenuImport}';`)
 				// Replace `BrnMenuImports` with optional comma and whitespace
 				.replace(/BrnMenuImports,?\s?/, '')
+				.replace(/BrnMenuTrigger,?\s?/g, '')
 				// Replace `HlmMenuImports` with optional comma and whitespace
-				.replace(/HlmMenuImports?\s?/, 'HlmDropdownMenuImports');
+				.replace(/HlmMenuImports?\s?/, 'HlmDropdownMenuImports')
+				.replace(/HlmMenu\b/, 'HlmDropdownMenuImports')
+				.replace(/\s*\bHlmMenu(?!bar)\w*\b\s*,?/g, '');
 		} else if (content.includes("'@spartan-ng/brain/menu';")) {
 			content = content
 				// Handle `import { * } from '@spartan-ng/brain/menu';` including multi-line imports
@@ -79,16 +82,17 @@ function updateImports(tree: Tree, importAlias: string) {
 				.replace(/BrnMenuImports?\s?/, 'HlmDropdownMenuImports');
 		}
 
-		if (content.includes('brnCtxMenuTriggerFor')) {
+		if (content.includes('brnCtxMenuTriggerFor') || content.includes('BrnContextMenuTrigger')) {
 			const contextMenuImport = `import { HlmContextMenuImports } from '${helmImport(importAlias, 'context-menu')}';`;
 
 			content = content
+				.replace(/BrnContextMenuTrigger,?\s?/, '')
 				.replace(
 					/import\s*\{\s*HlmDropdownMenuImports\s*\}\s*from\s*['"][^'"]+dropdown-menu['"];\s*/,
 					(match) => match + contextMenuImport + '\n',
 				)
 				.replace(
-					/(imports\s*:\s*\[[^\]]*?)HlmDropdownMenuImports(.*?\])/,
+					/(imports\s*:\s*\[[\s\S]*?)\bHlmDropdownMenuImports\b([\s\S]*?\])/,
 					(match, prefix, suffix) => `${prefix}HlmDropdownMenuImports, HlmContextMenuImports${suffix}`,
 				);
 		}

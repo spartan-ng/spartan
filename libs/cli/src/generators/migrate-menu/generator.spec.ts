@@ -58,7 +58,7 @@ describe('migrate-menu generator', () => {
 		expect(content).toContain(`imports: [BrowserModule, HlmDropdownMenuImports],`);
 	});
 
-	it('should replace brain menu import (NgModule)', async () => {
+	it('should replace BrnMenuImports (NgModule)', async () => {
 		tree.write(
 			'app/src/app/app.module.ts',
 			`
@@ -79,6 +79,56 @@ describe('migrate-menu generator', () => {
 		expect(content).not.toContain(`import { BrnMenuImports } from '@spartan-ng/brain/menu';`);
 		expect(content).toContain(`import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';`);
 		expect(content).toContain(`imports: [BrowserModule, HlmDropdownMenuImports],`);
+	});
+
+	it('should replace standalone brain/helm menu imports (NgModule)', async () => {
+		tree.write(
+			'app/src/app/app.module.ts',
+			`
+					import { NgModule } from '@angular/core';
+					import { NgIcon } from '@ng-icons/core';
+					import { BrnContextMenuTrigger, BrnMenuTrigger } from '@spartan-ng/brain/menu';
+					import { HlmButton } from '@spartan-ng/helm/button';
+					import { HlmIcon } from '@spartan-ng/helm/icon';
+					import {
+						HlmMenu,
+						HlmMenuGroup,
+						HlmMenuItem,
+						HlmMenuItemCheckbox,
+						HlmMenuItemRadioIndicator,
+						HlmMenuLabel,
+						HlmMenuSeparator,
+					} from '@spartan-ng/helm/menu';
+							
+					@NgModule({
+						imports: [
+							HlmButton,
+							NgIcon,
+							HlmIcon,
+							BrnMenuTrigger,
+							BrnContextMenuTrigger,
+							HlmMenu,
+							HlmMenuLabel,
+							HlmMenuItem,
+							HlmMenuSeparator,
+							HlmMenuGroup,
+							HlmMenuItemRadioIndicator,
+							HlmMenuItemCheckbox,
+						],
+					})
+					export class AppModule {}
+					`,
+		);
+
+		await migrateMenuGenerator(tree, { skipFormat: true, importAlias: '@spartan-ng/helm' });
+
+		const content = tree.read('app/src/app/app.module.ts', 'utf-8');
+		expect(content).not.toContain(`import { BrnMenuTrigger } from '@spartan-ng/brain/menu';`);
+		expect(content).not.toContain(`'@spartan-ng/helm/menu'`);
+		expect(content).toContain(`import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';`);
+		expect(content).toContain(`import { HlmContextMenuImports } from '@spartan-ng/helm/context-menu';`);
+		expect(content).toContain(`HlmDropdownMenuImports`);
+		expect(content).toContain(`HlmContextMenuImports`);
 	});
 
 	it('should replace menu imports with custom importAlias (NgModule)', async () => {

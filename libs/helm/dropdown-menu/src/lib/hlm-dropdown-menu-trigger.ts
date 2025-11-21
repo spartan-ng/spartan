@@ -5,7 +5,7 @@ import { createMenuPosition, type MenuAlign, type MenuSide } from '@spartan-ng/b
 import { injectHlmDropdownMenuConfig } from './hlm-dropdown-menu-token';
 
 @Directive({
-	selector: 'button[hlmDropdownMenuTrigger]',
+	selector: '[hlmDropdownMenuTrigger]',
 	hostDirectives: [
 		{
 			directive: CdkMenuTrigger,

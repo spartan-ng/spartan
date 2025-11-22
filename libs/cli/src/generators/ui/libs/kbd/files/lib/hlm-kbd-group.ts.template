@@ -5,8 +5,8 @@ import type { ClassValue } from 'clsx';
 @Directive({
 	selector: 'kbd[hlmKbdGroup]',
 	host: {
-		'[class]': '_computedClass()',
 		'data-slot': 'kbd-group',
+		'[class]': '_computedClass()',
 	},
 })
 export class HlmKbdGroup {

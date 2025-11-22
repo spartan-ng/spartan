@@ -1,25 +1,9 @@
 import { Component } from '@angular/core';
-import {
-	HlmPagination,
-	HlmPaginationContent,
-	HlmPaginationEllipsis,
-	HlmPaginationItem,
-	HlmPaginationLink,
-	HlmPaginationNext,
-	HlmPaginationPrevious,
-} from '@spartan-ng/helm/pagination';
+import { HlmPaginationImports } from '@spartan-ng/helm/pagination';
 
 @Component({
 	selector: 'spartan-pagination-icon-only',
-	imports: [
-		HlmPagination,
-		HlmPaginationContent,
-		HlmPaginationItem,
-		HlmPaginationPrevious,
-		HlmPaginationNext,
-		HlmPaginationLink,
-		HlmPaginationEllipsis,
-	],
+	imports: [HlmPaginationImports],
 	template: `
 		<nav hlmPagination>
 			<ul hlmPaginationContent>

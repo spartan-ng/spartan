@@ -1,28 +1,31 @@
+import { JsonPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrnSelectImports } from '../../index';
 
 @Component({
 	selector: 'select-ngmodel-form',
-
+	imports: [ReactiveFormsModule, FormsModule, JsonPipe, BrnSelectImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<form ngForm>
 			<div class="mb-3">
 				<pre>Form Control Value: {{ fruit() | json }}</pre>
 			</div>
-			<hlm-select class="w-56" ${argsToTemplate(args, { exclude: ['initialValue'] })} [(ngModel)]="fruit" name="fruit">
-				<label hlmLabel>Select a Fruit</label>
-				<hlm-select-trigger>
-					<brn-select-value hlm />
-				</hlm-select-trigger>
-				<hlm-select-content>
-					<hlm-select-label>Fruits</hlm-select-label>
-					<hlm-option value="apple">Apple</hlm-option>
-					<hlm-option value="banana">Banana</hlm-option>
-					<hlm-option value="blueberry">Blueberry</hlm-option>
-					<hlm-option value="grapes">Grapes</hlm-option>
-					<hlm-option value="pineapple">Pineapple</hlm-option>
-				</hlm-select-content>
-			</hlm-select>
+			<brn-select class="w-56" [(ngModel)]="fruit" name="fruit">
+				<label>Select a Fruit</label>
+				<div brnSelectTrigger>
+					<brn-select-value />
+				</div>
+				<brn-select-content>
+					<div brnSelectLabel>Fruits</div>
+					<div brnOption value="apple">Apple</div>
+					<div brnOption value="banana">Banana</div>
+					<div brnOption value="blueberry">Blueberry</div>
+					<div brnOption value="grapes">Grapes</div>
+					<div brnOption value="pineapple">Pineapple</div>
+				</brn-select-content>
+			</brn-select>
 		</form>
 	`,
 })

@@ -1,8 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
-import { KbdButtonPreview } from '@spartan-ng/app/app/pages/(components)/components/(kbd)/kbd--button.preview';
-import { KbdGroupPreview } from '@spartan-ng/app/app/pages/(components)/components/(kbd)/kbd--group.preview';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { UIApiDocs } from '@spartan-ng/app/app/shared/layout/ui-docs-section/ui-docs-section';
 import { HlmTypographyImports } from '@spartan-ng/helm/typography';
@@ -17,6 +15,9 @@ import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading
 import { Tabs } from '../../../../shared/layout/tabs';
 import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { metaWith } from '../../../../shared/meta/meta.util';
+import { KbdButtonPreview } from './kbd--button.preview';
+import { KbdGroupPreview } from './kbd--group.preview';
+import { KbdInputGroupPreview } from './kbd--input-group.preview';
 import { defaultImports, defaultSkeleton, KbdPreview } from './kbd.preview';
 
 export const routeMeta: RouteMeta = {
@@ -45,6 +46,7 @@ export const routeMeta: RouteMeta = {
 		HlmTypographyImports,
 		KbdButtonPreview,
 		SectionSubSubHeading,
+		KbdInputGroupPreview,
 	],
 	template: `
 		<section spartanMainSection>
@@ -100,6 +102,23 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_buttonCode()" />
 			</spartan-tabs>
 
+			<h3 id="examples_input_group" spartanH4>Input Group</h3>
+
+			<p hlmP>
+				Use the
+				<span hlmCode>HlmKbd</span>
+				component inside a
+				<span hlmCode>HlmInputGroupAddon</span>
+				to display a keyboard key inside an input group.
+			</p>
+
+			<spartan-tabs firstTab="Preview" secondTab="Code" class="mt-6">
+				<div spartanCodePreview firstTab>
+					<spartan-kbd-input-group-preview />
+				</div>
+				<spartan-code secondTab [code]="_inputGroupCode()" />
+			</spartan-tabs>
+
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="helm" />
 
@@ -116,6 +135,7 @@ export default class KbdPage {
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _groupCode = computed(() => this._snippets()['group']);
 	protected readonly _buttonCode = computed(() => this._snippets()['button']);
+	protected readonly _inputGroupCode = computed(() => this._snippets()['inputGroup']);
 	protected readonly _imports = defaultImports;
 	protected readonly _codeSkeleton = defaultSkeleton;
 }

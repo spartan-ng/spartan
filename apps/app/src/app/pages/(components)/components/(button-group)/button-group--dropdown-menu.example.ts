@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NgIcon, provideIcons } from '@ng-icons/core';
+import { provideIcons } from '@ng-icons/core';
 import {
 	lucideCheck,
 	lucideChevronDown,
@@ -10,15 +10,15 @@ import {
 	lucideUserRoundX,
 	lucideVolumeOff,
 } from '@ng-icons/lucide';
-import { BrnMenuTrigger } from '@spartan-ng/brain/menu';
-import { HlmButton } from '@spartan-ng/helm/button';
-import { HlmButtonGroup } from '@spartan-ng/helm/button-group';
-import { HlmIcon } from '@spartan-ng/helm/icon';
+import { BrnMenuImports } from '@spartan-ng/brain/menu';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmButtonGroupImports } from '@spartan-ng/helm/button-group';
+import { HlmIconImports } from '@spartan-ng/helm/icon';
 import { HlmMenuImports } from '@spartan-ng/helm/menu';
 
 @Component({
 	selector: 'spartan-button-group-dropdown-menu',
-	imports: [HlmIcon, NgIcon, HlmButton, HlmButtonGroup, BrnMenuTrigger, HlmMenuImports],
+	imports: [HlmIconImports, HlmButtonImports, HlmButtonGroupImports, BrnMenuImports, HlmMenuImports],
 	providers: [
 		provideIcons({
 			lucideChevronDown,
@@ -34,7 +34,7 @@ import { HlmMenuImports } from '@spartan-ng/helm/menu';
 	template: `
 		<div hlmButtonGroup>
 			<button hlmBtn variant="outline">Follow</button>
-			<button hlmBtn variant="outline" size="icon" [brnMenuTriggerFor]="menu">
+			<button hlmBtn variant="outline" size="icon" [brnMenuTriggerFor]="menu" align="end">
 				<ng-icon hlm name="lucideChevronDown" size="sm" />
 			</button>
 		</div>

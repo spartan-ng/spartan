@@ -23,7 +23,6 @@ export default async function hlmUIGenerator(tree: Tree, options: HlmUIGenerator
 	);
 	const availablePrimitiveNames: Primitive[] = [
 		...(Object.keys(availablePrimitives) as Primitive[]),
-		'collapsible',
 		'menubar',
 		'context-menu',
 	];
@@ -77,10 +76,6 @@ export async function createPrimitiveLibraries(
 	}
 	await replaceContextAndMenuBar(primitivesToCreate, allPrimitivesSelected);
 
-	if (primitivesToCreate.length === 1 && primitivesToCreate[0] === 'collapsible') {
-		return tasks;
-	}
-
 	const projects = getProjects(tree);
 
 	if (
@@ -101,8 +96,6 @@ export async function createPrimitiveLibraries(
 	// Use Promise.all() to handle parallel execution of primitive library creation tasks
 	const installTasks = await Promise.all(
 		primitivesToCreate.map(async (primitiveName) => {
-			if (primitiveName === 'collapsible') return;
-
 			const name = availablePrimitives[primitiveName].name;
 			const peerDependencies = removeHelmKeys(availablePrimitives[primitiveName].peerDependencies);
 			const { generator } = await import(`./libs/${name}/generator`);

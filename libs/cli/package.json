@@ -1,6 +1,6 @@
 {
 	"name": "@spartan-ng/cli",
-	"version": "0.0.1-alpha.558",
+	"version": "0.0.1-alpha.566",
 	"type": "commonjs",
 	"dependencies": {
 		"@angular/core": ">=19.0.0",
@@ -9,7 +9,7 @@
 		"@nx/js": ">=20.0.0",
 		"@nx/workspace": ">=20.0.0",
 		"@phenomnomnominal/tsquery": "^6.1.3",
-		"@schematics/angular": "^19.0.0",
+		"@schematics/angular": "20.0.6",
 		"enquirer": "2.3.6",
 		"jsonc-eslint-parser": "^2.1.0",
 		"node-html-parser": "^7.0.1",

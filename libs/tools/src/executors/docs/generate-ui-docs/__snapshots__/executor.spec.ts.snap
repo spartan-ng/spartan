@@ -879,7 +879,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "[hlmButtonGroup]",
+        "selector": "[hlmButtonGroup],hlm-button-group",
       },
       "HlmButtonGroupSeparator": {
         "inputs": [
@@ -903,7 +903,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "[hlmButtonGroupText]",
+        "selector": "[hlmButtonGroupText],hlm-button-group-text",
       },
     },
   },
@@ -2819,6 +2819,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "ClassValue",
           },
+          {
+            "name": "type",
+            "required": false,
+            "type": "'button' | 'submit' | 'reset'",
+          },
         ],
         "models": [],
         "outputs": [],
@@ -3733,7 +3738,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "[hlmPagination]",
+        "selector": "[hlmPagination],hlm-pagination",
       },
       "HlmPaginationContent": {
         "inputs": [
@@ -3745,7 +3750,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "[hlmPaginationContent]",
+        "selector": "ul[hlmPaginationContent]",
       },
       "HlmPaginationEllipsis": {
         "inputs": [
@@ -3774,7 +3779,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "[hlmPaginationItem]",
+        "selector": "li[hlmPaginationItem]",
       },
       "HlmPaginationLink": {
         "inputs": [

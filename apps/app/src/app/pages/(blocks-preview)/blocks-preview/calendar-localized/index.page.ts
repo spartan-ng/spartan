@@ -7,11 +7,11 @@ import {
 	signal,
 	ViewEncapsulation,
 } from '@angular/core';
+import { BrnCalendarI18nService, injectBrnCalendarI18n, provideBrnCalendarI18n } from '@spartan-ng/brain/calendar';
 import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { HlmCalendar } from '@spartan-ng/helm/calendar';
 import { HlmCardImports } from '@spartan-ng/helm/card';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
-import { BrnCalendarI18nService, injectBrnCalendarI18n, provideBrnCalendarI18n } from '@spartan-ng/brain/calendar';
 
 const localizedStrings = {
 	vi: {
@@ -193,6 +193,5 @@ export default class CalendarLocalizedPage implements OnInit {
 }
 
 function isLang(value: any): value is 'vi' | 'en' | 'de' {
-  return value === 'vi' || value === 'en' || value === 'de';
+	return value === 'vi' || value === 'en' || value === 'de';
 }
-

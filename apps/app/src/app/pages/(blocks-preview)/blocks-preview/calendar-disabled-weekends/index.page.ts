@@ -12,11 +12,11 @@ import { HlmCalendar } from '@spartan-ng/helm/calendar';
 	},
 	styleUrl: '../../blocks-preview-default.css',
 	template: `
-		<hlm-calendar [min]="minDate" [max]="maxDate" [dateDisabled]="_dateDisabled" [calendarClass]="_calendarClass" />
+		<hlm-calendar [min]="minDate" [max]="maxDate" [dateDisabled]="_dateDisabled" [calendarClass]="calendarClass" />
 	`,
 })
 export default class CalendarDisabledWeekendsPage {
-	public readonly _calendarClass = `
+	public readonly calendarClass = `
         [&_[data-outside]]:opacity-80 
         [&_[data-outside]:hover]:opacity-100
         [&_[data-outside]:hover]:text-neutral-900

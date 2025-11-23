@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HlmButton } from '@spartan-ng/helm/button';
-import { HlmDatePickerImports, HlmDateRangePicker } from '@spartan-ng/helm/date-picker';
+import { HlmDateRangePicker } from '@spartan-ng/helm/date-picker';
 import { HlmLabel } from '@spartan-ng/helm/label';
 
 @Component({

@@ -1,9 +1,9 @@
 import {
 	ChangeDetectionStrategy,
 	Component,
-	effect,
 	inject,
 	Injectable,
+	OnInit,
 	signal,
 	ViewEncapsulation,
 } from '@angular/core';
@@ -57,7 +57,7 @@ const CALENDAR_I18N = {
 
 		years: (startYear = 1925, endYear = new Date().getFullYear()) =>
 			Array.from({ length: endYear - startYear + 1 }, (_, i) => startYear + i),
-		firstDayOfWeek: () => 1 as 1,
+		firstDayOfWeek: () => 1 as const,
 	},
 
 	en: {
@@ -87,8 +87,8 @@ const CALENDAR_I18N = {
 		labelPrevious: () => 'Previous month',
 		labelNext: () => 'Next month',
 		labelWeekday: (i: number) => ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][i],
-		firstDayOfWeek: () => 0 as 0,
-	},
+		firstDayOfWeek: () => 0 as const,
+	} as const,
 
 	de: {
 		formatWeekdayName: (i: number) => ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'][i],
@@ -116,13 +116,13 @@ const CALENDAR_I18N = {
 		labelPrevious: () => 'Vorheriger Monat',
 		labelNext: () => 'Nächster Monat',
 		labelWeekday: (i: number) => ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'][i],
-		firstDayOfWeek: () => 1 as 1,
+		firstDayOfWeek: () => 1 as const,
 	},
 } as const;
 
 @Injectable({ providedIn: 'root' })
 export class LanguageService {
-	language = signal<'en' | 'vi' | 'de'>('vi');
+	public language = signal<'en' | 'vi' | 'de'>('vi');
 
 	setLanguage(lang: 'en' | 'vi' | 'de') {
 		this.language.set(lang);
@@ -132,9 +132,9 @@ export class LanguageService {
 @Component({
 	selector: 'spartan-calendar-localized',
 	imports: [HlmCalendar, BrnSelectImports, HlmSelectImports, HlmCardImports],
+	providers: [provideBrnCalendarI18n(CALENDAR_I18N.vi)],
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [provideBrnCalendarI18n(CALENDAR_I18N.vi)],
 	host: {
 		class: 'flex pt-20 justify-center',
 	},
@@ -142,8 +142,8 @@ export class LanguageService {
 	template: `
 		<section class="w-full max-w-sm" hlmCard>
 			<div hlmCardHeader>
-				<h3 hlmCardTitle>{{ strings[lang].title }}</h3>
-				<p hlmCardDescription>{{ strings[lang].description }}</p>
+				<h3 hlmCardTitle>{{ _strings[lang].title }}</h3>
+				<p hlmCardDescription>{{ _strings[lang].description }}</p>
 
 				<div hlmCardAction>
 					<brn-select class="inline-block" [value]="lang" (valueChange)="setLang($event)">
@@ -166,32 +166,31 @@ export class LanguageService {
 		</section>
 	`,
 })
-export default class CalendarLocalizedPage {
-	protected readonly languageService = inject(LanguageService);
-	protected readonly strings = localizedStrings;
-	readonly _supportedLanguages = ['vi', 'de', 'en'] as const;
-	protected readonly i18nService =
+export default class CalendarLocalizedPage implements OnInit {
+	protected readonly _languageService = inject(LanguageService);
+	protected readonly _strings = localizedStrings;
+	protected readonly _supportedLanguages = ['vi', 'de', 'en'] as const;
+	protected readonly _i18nService =
 		inject(BrnCalendarI18nService, { optional: true, self: true }) ?? injectBrnCalendarI18n();
 
 	ngOnInit() {
-		const lang = this.languageService.language();
-		this.i18nService.use(CALENDAR_I18N[lang]);
+		const lang = this._languageService.language();
+		this._i18nService.use(CALENDAR_I18N[lang]);
 	}
 
-	get lang() {
-		return this.languageService.language();
+	public get lang() {
+		return this._languageService.language();
 	}
 
 	setLang(lang: unknown) {
 		const val = Array.isArray(lang) ? lang[0] : lang;
 
 		if (isLang(val)) {
-			this.languageService.setLanguage(val);
-			this.i18nService.use(CALENDAR_I18N[val]);
+			this._languageService.setLanguage(val);
+			this._i18nService.use(CALENDAR_I18N[val]);
 		}
 	}
 }
-
 
 function isLang(value: any): value is 'vi' | 'en' | 'de' {
   return value === 'vi' || value === 'en' || value === 'de';

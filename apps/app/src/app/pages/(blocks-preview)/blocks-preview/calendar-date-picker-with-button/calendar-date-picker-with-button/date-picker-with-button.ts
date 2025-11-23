@@ -16,7 +16,7 @@ import { lucideChevronDown } from '@ng-icons/lucide';
 import type { BrnDialogState } from '@spartan-ng/brain/dialog';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import { BrnPopover, BrnPopoverContent, BrnPopoverTrigger } from '@spartan-ng/brain/popover';
-import { HlmButton, HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmCalendar } from '@spartan-ng/helm/calendar';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmPopoverContent } from '@spartan-ng/helm/popover';
@@ -45,6 +45,7 @@ let nextId = 0;
 		HlmButton,
 	],
 	providers: [provideIcons({ lucideChevronDown })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<brn-popover [state]="_popoverState()" (stateChanged)="_popoverState.set($event)">
 			<button
@@ -83,13 +84,11 @@ let nextId = 0;
 			</div>
 		</brn-popover>
 	`,
-	host: {},
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DatePickerWithButton<T> {
 	private readonly _config = injectDatePickerWithButtonConfig<T>();
 
-	public readonly userClass = input<ClassValue>('', { alias: 'class' });
+	public readonly userClass = input<ClassValue>('');
 	protected readonly _computedClass = computed(() =>
 		hlm(
 			'ring-offset-background border-input bg-background hover:bg-accent dark:bg-input/30 dark:hover:bg-input/50 hover:text-accent-foreground inline-flex h-9 w-[280px] cursor-default items-center justify-between gap-2 rounded-md border px-3 py-2 text-left text-sm font-normal whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50',

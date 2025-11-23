@@ -69,7 +69,7 @@ export const CALENDAR_REGISTRY = [
 		class: 'flex flex-col gap-12 md:gap-24 [&_spartan-block-preview>div]:!h-[600px]',
 	},
 	template: `
-		@for (item of registry; track item.id) {
+		@for (item of _registry; track item.id) {
 			<div [id]="item.id" class="flex flex-col gap-4">
 				<div class="flex items-center justify-between px-2">
 					<spartan-block-link [fragment]="item.id">
@@ -85,5 +85,5 @@ export const CALENDAR_REGISTRY = [
 	`,
 })
 export default class CalendarPage {
-	registry = CALENDAR_REGISTRY;
+	protected readonly _registry = CALENDAR_REGISTRY;
 }

@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
-import { HlmCalendarImports } from '@spartan-ng/helm/calendar';
-import { HlmLabel, HlmLabelImports } from '@spartan-ng/helm/label';
+import { HlmLabel } from '@spartan-ng/helm/label';
 import { DateTime } from 'luxon';
 import { DatePickerWithButton } from './calendar-date-picker-with-button/date-picker-with-button';
 import { provideDatePickerWithButtonConfig } from './calendar-date-picker-with-button/date-picker-with-button.token';
@@ -8,10 +7,13 @@ import { provideDatePickerWithButtonConfig } from './calendar-date-picker-with-b
 @Component({
 	selector: 'spartan-calendar-date-picker-with-button',
 	imports: [HlmLabel, DatePickerWithButton],
+	providers: [
+		provideDatePickerWithButtonConfig({ formatDate: (date: Date) => DateTime.fromJSDate(date).toFormat('dd.MM.yyyy') }),
+	],
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
-		class: 'flex pt-20 justify-center'
+		class: 'flex pt-20 justify-center',
 	},
 	styleUrl: '../../blocks-preview-default.css',
 	template: `
@@ -27,10 +29,6 @@ import { provideDatePickerWithButtonConfig } from './calendar-date-picker-with-b
 			</spartan-date-picker-with-button>
 		</div>
 	`,
-	providers: [
-		// Global formatDate config
-		provideDatePickerWithButtonConfig({ formatDate: (date: Date) => DateTime.fromJSDate(date).toFormat('dd.MM.yyyy') }),
-	],
 })
 export default class CalendarDatePickerWithButtonPage {
 	/** The minimum date */

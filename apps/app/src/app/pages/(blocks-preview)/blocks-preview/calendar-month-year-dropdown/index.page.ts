@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, model, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { BrnSelect, BrnSelectImports } from '@spartan-ng/brain/select';
+import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { HlmCalendar } from '@spartan-ng/helm/calendar';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
 

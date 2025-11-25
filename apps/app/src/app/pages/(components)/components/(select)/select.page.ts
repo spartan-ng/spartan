@@ -58,7 +58,7 @@ export const routeMeta: RouteMeta = {
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="about">About</spartan-section-sub-heading>
-			<p class="${hlmP} mb-6">
+			<p class="${hlmP}">
 				Select is built with the help of
 				<a href="https://material.angular.dev/cdk/a11y/overview#listkeymanager" target="_blank" rel="noreferrer">
 					ListKeyManager

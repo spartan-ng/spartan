@@ -70,7 +70,7 @@ export const routeMeta: RouteMeta = {
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="about">About</spartan-section-sub-heading>
-			<p class="${hlmP} mb-6">
+			<p class="${hlmP}">
 				Icon is built on top of
 				<a href="https://ng-icons.github.io/ng-icons" target="_blank" rel="noreferrer" class="${link}">ng-icons</a>
 				by

@@ -7,8 +7,8 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 	selector: 'spartan-scroll-area-preview',
 	imports: [HlmSeparatorImports, HlmScrollAreaImports, NgScrollbarModule],
 	template: `
-		<ng-scrollbar hlm class="border-border h-72 w-48 rounded-md border" visibility="hover">
-			<div class="p-4">
+		<ng-scrollbar hlm class="h-72 w-48 rounded-md border" appearance="compact">
+			<div class="p-4" scrollViewport>
 				<h4 class="mb-4 text-sm leading-none font-medium">Tags</h4>
 				@for (tag of tags; track tag) {
 					<div class="text-sm">

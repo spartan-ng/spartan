@@ -14,6 +14,8 @@ import { HlmCalendar } from '@spartan-ng/helm/calendar';
 import { HlmCardImports } from '@spartan-ng/helm/card';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
 
+type MonthLabels = [string, string, string, string, string, string, string, string, string, string, string, string];
+
 const localizedStrings = {
 	vi: {
 		title: 'Đặt lịch hẹn',
@@ -41,20 +43,7 @@ const CALENDAR_I18N = {
 		labelNext: () => 'Tháng sau',
 		labelWeekday: (i: number) => ['Chủ nhật', 'Thứ hai', 'Thứ ba', 'Thứ tư', 'Thứ năm', 'Thứ sáu', 'Thứ bảy'][i],
 		months: () =>
-			['Th1', 'Th2', 'Th3', 'Th4', 'Th5', 'Th6', 'Th7', 'Th8', 'Th9', 'Th10', 'Th11', 'Th12'] as [
-				string,
-				string,
-				string,
-				string,
-				string,
-				string,
-				string,
-				string,
-				string,
-				string,
-				string,
-				string,
-			],
+			['Th1', 'Th2', 'Th3', 'Th4', 'Th5', 'Th6', 'Th7', 'Th8', 'Th9', 'Th10', 'Th11', 'Th12'] as MonthLabels,
 
 		years: (startYear = 1925, endYear = new Date().getFullYear()) =>
 			Array.from({ length: endYear - startYear + 1 }, (_, i) => startYear + i),
@@ -63,21 +52,7 @@ const CALENDAR_I18N = {
 
 	en: {
 		formatWeekdayName: (i: number) => ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'][i],
-		months: () =>
-			['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'] as [
-				string,
-				string,
-				string,
-				string,
-				string,
-				string,
-				string,
-				string,
-				string,
-				string,
-				string,
-				string,
-			],
+		months: () => ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'] as MonthLabels,
 
 		years: (startYear = 1925, endYear = new Date().getFullYear()) =>
 			Array.from({ length: endYear - startYear + 1 }, (_, i) => startYear + i),
@@ -93,21 +68,7 @@ const CALENDAR_I18N = {
 
 	de: {
 		formatWeekdayName: (i: number) => ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'][i],
-		months: () =>
-			['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'] as [
-				string,
-				string,
-				string,
-				string,
-				string,
-				string,
-				string,
-				string,
-				string,
-				string,
-				string,
-				string,
-			],
+		months: () => ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'] as MonthLabels,
 		years: (startYear = 1925, endYear = new Date().getFullYear()) =>
 			Array.from({ length: endYear - startYear + 1 }, (_, i) => startYear + i),
 		formatHeader: (month: number, year: number) =>

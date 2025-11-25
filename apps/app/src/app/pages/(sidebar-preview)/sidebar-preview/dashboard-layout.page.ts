@@ -27,11 +27,10 @@ import {
 	tablerUserCircle,
 	tablerUsers,
 } from '@ng-icons/tabler-icons';
-import { BrnMenuTrigger } from '@spartan-ng/brain/menu';
 import { HlmAvatarImports } from '@spartan-ng/helm/avatar';
 import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 import { HlmIcon } from '@spartan-ng/helm/icon';
-import { HlmMenuImports } from '@spartan-ng/helm/menu';
 import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 import { DashboardCardSection } from '../../(home)/components/dashboard/components/card-section';
 import { DashboardTableSection } from '../../(home)/components/dashboard/components/table-section';
@@ -42,8 +41,7 @@ import { DashboardTableSection } from '../../(home)/components/dashboard/compone
 		HlmSidebarImports,
 		NgIcon,
 		HlmIcon,
-		BrnMenuTrigger,
-		HlmMenuImports,
+		HlmDropdownMenuImports,
 		HlmAvatarImports,
 		HlmButton,
 		DashboardCardSection,
@@ -125,7 +123,7 @@ import { DashboardTableSection } from '../../(home)/components/dashboard/compone
 											<ng-icon hlm [name]="item.icon" />
 											<span>{{ item.name }}</span>
 										</a>
-										<button hlmSidebarMenuAction [showOnHover]="true" [brnMenuTriggerFor]="menu">
+										<button hlmSidebarMenuAction [showOnHover]="true" [hlmDropdownMenuTrigger]="menu">
 											<ng-icon hlm name="tablerDots" />
 											<span class="sr-only">More</span>
 										</button>
@@ -138,22 +136,22 @@ import { DashboardTableSection } from '../../(home)/components/dashboard/compone
 									</a>
 								</li>
 								<ng-template #menu>
-									<hlm-menu class="w-24 rounded-lg">
-										<button hlmMenuItem>
+									<hlm-dropdown-menu class="w-24 rounded-lg">
+										<button hlmDropdownMenuItem>
 											<ng-icon hlm name="tablerFolder" size="sm" />
 											<span>Open</span>
 										</button>
 
-										<button hlmMenuItem>
+										<button hlmDropdownMenuItem>
 											<ng-icon hlm name="tablerShare3" size="sm" />
 											<span>Share</span>
 										</button>
-										<hlm-menu-separator />
-										<button hlmMenuItem variant="destructive">
+										<hlm-dropdown-menu-separator />
+										<button hlmDropdownMenuItem variant="destructive">
 											<ng-icon hlm name="tablerTrash" size="sm" />
 											<span>Delete</span>
 										</button>
-									</hlm-menu>
+									</hlm-dropdown-menu>
 								</ng-template>
 							</ul>
 						</div>
@@ -180,7 +178,7 @@ import { DashboardTableSection } from '../../(home)/components/dashboard/compone
 								hlmSidebarMenuButton
 								size="lg"
 								class="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-								[brnMenuTriggerFor]="userMenu"
+								[hlmDropdownMenuTrigger]="userMenu"
 							>
 								<hlm-avatar class="size-8 rounded-lg grayscale">
 									<img [src]="_items.user.avatar" alt="spartan logo. Resembling a spartanic shield" hlmAvatarImage />
@@ -197,8 +195,8 @@ import { DashboardTableSection } from '../../(home)/components/dashboard/compone
 						</li>
 					</ul>
 					<ng-template #userMenu>
-						<hlm-menu class="min-w-56 rounded-lg">
-							<hlm-menu-label class="p-0 font-normal">
+						<hlm-dropdown-menu class="min-w-56 rounded-lg">
+							<hlm-dropdown-menu-label class="p-0 font-normal">
 								<div class="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
 									<hlm-avatar class="size-8 rounded-lg">
 										<img [src]="_items.user.avatar" alt="spartan logo. Resembling a spartanic shield" hlmAvatarImage />
@@ -211,28 +209,28 @@ import { DashboardTableSection } from '../../(home)/components/dashboard/compone
 										</span>
 									</div>
 								</div>
-							</hlm-menu-label>
-							<hlm-menu-separator />
-							<hlm-menu-group>
-								<button hlmMenuItem>
+							</hlm-dropdown-menu-label>
+							<hlm-dropdown-menu-separator />
+							<hlm-dropdown-menu-group>
+								<button hlmDropdownMenuItem>
 									<ng-icon hlm name="tablerUserCircle" size="sm" />
 									<span>Account</span>
 								</button>
-								<button hlmMenuItem>
+								<button hlmDropdownMenuItem>
 									<ng-icon hlm name="tablerCreditCard" size="sm" />
 									<span>Billing</span>
 								</button>
-								<button hlmMenuItem>
+								<button hlmDropdownMenuItem>
 									<ng-icon hlm name="tablerNotification" size="sm" />
 									<span>Notifications</span>
 								</button>
-							</hlm-menu-group>
-							<hlm-menu-separator />
-							<button hlmMenuItem>
+							</hlm-dropdown-menu-group>
+							<hlm-dropdown-menu-separator />
+							<button hlmDropdownMenuItem>
 								<ng-icon hlm name="tablerLogout" size="sm" />
 								<span>Logout</span>
 							</button>
-						</hlm-menu>
+						</hlm-dropdown-menu>
 					</ng-template>
 				</div>
 			</hlm-sidebar>

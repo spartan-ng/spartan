@@ -5,7 +5,9 @@ import {
 	OverlayPositionBuilder,
 	ScrollStrategyOptions,
 } from '@angular/cdk/overlay';
+import { BasePortalOutlet } from '@angular/cdk/portal';
 import {
+	ChangeDetectorRef,
 	type EffectRef,
 	type InjectOptions,
 	Injectable,
@@ -173,6 +175,16 @@ export class BrnDialogService {
 			effectRef?.destroy();
 			destroyed$.next();
 		});
+
+		// this is not ideal, but we need to force change detection to run in the dialog,
+		// otherwise in some conditions (like menu launching a dialog) the dialog content
+		// does not render.
+		if ('_changeDetectorRef' in cdkDialogRef.containerInstance) {
+			const containerInstance = cdkDialogRef.containerInstance as BasePortalOutlet & {
+				_changeDetectorRef: ChangeDetectorRef;
+			};
+			containerInstance._changeDetectorRef.detectChanges();
+		}
 
 		return brnDialogRef;
 	}

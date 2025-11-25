@@ -14,14 +14,13 @@ import {
 } from '@ng-icons/lucide';
 import { tablerCircleDashedPlus } from '@ng-icons/tabler-icons';
 import { BrnCommandEmpty } from '@spartan-ng/brain/command';
-import { BrnMenuImports } from '@spartan-ng/brain/menu';
 import { BrnPopoverImports } from '@spartan-ng/brain/popover';
 import { HlmAvatarImports } from '@spartan-ng/helm/avatar';
 import { HlmBadge } from '@spartan-ng/helm/badge';
 import { HlmCommandImports } from '@spartan-ng/helm/command';
+import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
-import { HlmMenuImports } from '@spartan-ng/helm/menu';
 import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 import { HlmSwitch } from '@spartan-ng/helm/switch';
 import { MentionableItem } from './mentionable-item';
@@ -50,8 +49,7 @@ type GroupedItems = {
 		HlmPopoverImports,
 		HlmCommandImports,
 		HlmAvatarImports,
-		HlmMenuImports,
-		BrnMenuImports,
+		HlmDropdownMenuImports,
 		BrnCommandEmpty,
 		HlmIcon,
 		NgIcon,
@@ -142,15 +140,15 @@ type GroupedItems = {
 					<ng-icon hlm name="lucidePaperclip" size="sm" />
 					<span class="sr-only">Attachment</span>
 				</button>
-				<button hlmInputGroupButton class="rounded-full" size="sm" [brnMenuTriggerFor]="model" #menuTrigger>
+				<button hlmInputGroupButton class="rounded-full" size="sm" [hlmDropdownMenuTrigger]="model" #menuTrigger>
 					{{ _selectedModel() ? _selectedModel()?.name : 'Agent Mode' }}
 				</button>
 				<ng-template #model>
-					<hlm-menu class="w-50 [--radius:1rem]">
-						<hlm-menu-group>
-							<hlm-menu-label class="text-muted-foreground text-xs">Select Agent Mode</hlm-menu-label>
+					<hlm-dropdown-menu class="w-50 [--radius:1rem]">
+						<hlm-dropdown-menu-group>
+							<hlm-dropdown-menu-label class="text-muted-foreground text-xs">Select Agent Mode</hlm-dropdown-menu-label>
 							@for (model of _models; track model.name) {
-								<button hlmMenuItemCheckbox [checked]="isChecked(model)" (click)="selectModel(model)">
+								<button hlmDropdownMenuCheckbox [checked]="isChecked(model)" (click)="selectModel(model)">
 									<span>{{ model.name }}</span>
 									@if (model.badge) {
 										<span
@@ -161,31 +159,31 @@ type GroupedItems = {
 											{{ model.badge }}
 										</span>
 									}
-									<hlm-menu-item-check />
+									<hlm-dropdown-menu-checkbox-indicator />
 								</button>
 							}
-						</hlm-menu-group>
-					</hlm-menu>
+						</hlm-dropdown-menu-group>
+					</hlm-dropdown-menu>
 				</ng-template>
 
-				<button hlmInputGroupButton class="rounded-full" size="sm" [brnMenuTriggerFor]="sources">
+				<button hlmInputGroupButton class="rounded-full" size="sm" [hlmDropdownMenuTrigger]="sources">
 					<ng-icon hlm name="lucideGlobe" size="sm" />
 					All Sources
 				</button>
 				<ng-template #sources>
-					<hlm-menu class="w-75 [--radius:1rem]">
-						<hlm-menu-group>
-							<button hlmMenuItem (click)="$event.stopPropagation()">
+					<hlm-dropdown-menu class="w-75 [--radius:1rem]">
+						<hlm-dropdown-menu-group>
+							<button hlmDropdownMenuItem (click)="$event.stopPropagation()">
 								<label for="web-search" (click)="$event.stopPropagation()" class="flex flex-1 items-center">
 									<ng-icon hlm name="lucideGlobe" class="mr-2" size="sm" />
 									Web Search
 									<hlm-switch id="web-search" class="ml-auto" [checked]="true" (click)="$event.stopPropagation()" />
 								</label>
 							</button>
-						</hlm-menu-group>
-						<hlm-menu-separator />
-						<hlm-menu-group>
-							<button hlmMenuItem (click)="$event.stopPropagation()">
+						</hlm-dropdown-menu-group>
+						<hlm-dropdown-menu-separator />
+						<hlm-dropdown-menu-group>
+							<button hlmDropdownMenuItem (click)="$event.stopPropagation()">
 								<label for="app-integrations" class="flex flex-1" (click)="$event.stopPropagation()">
 									<ng-icon hlm name="lucideBlocks" class="mr-2" size="sm" />
 									Apps and Integrations
@@ -197,26 +195,26 @@ type GroupedItems = {
 									/>
 								</label>
 							</button>
-							<button hlmMenuItem>
+							<button hlmDropdownMenuItem>
 								<ng-icon hlm name="tablerCircleDashedPlus" size="sm" />
 								All Sources I can access
 							</button>
-							<button hlmMenuItem>
+							<button hlmDropdownMenuItem>
 								<ng-icon hlm name="lucideBookOpen" size="sm" />
 								Help Center
 							</button>
-						</hlm-menu-group>
-						<hlm-menu-separator />
-						<hlm-menu-group>
-							<button hlmMenuItem>
+						</hlm-dropdown-menu-group>
+						<hlm-dropdown-menu-separator />
+						<hlm-dropdown-menu-group>
+							<button hlmDropdownMenuItem>
 								<ng-icon hlm name="lucidePlus" size="sm" />
 								Connect Apps
 							</button>
-							<hlm-menu-label class="text-muted-foreground text-xs">
+							<hlm-dropdown-menu-label class="text-muted-foreground text-xs">
 								We&apos;ll only search in the sources selected here.
-							</hlm-menu-label>
-						</hlm-menu-group>
-					</hlm-menu>
+							</hlm-dropdown-menu-label>
+						</hlm-dropdown-menu-group>
+					</hlm-dropdown-menu>
 				</ng-template>
 
 				<button hlmInputGroupButton variant="default" class="ml-auto rounded-full" size="icon-sm">

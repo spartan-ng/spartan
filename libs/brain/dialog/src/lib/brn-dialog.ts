@@ -4,6 +4,7 @@ import {
 	ChangeDetectionStrategy,
 	Component,
 	computed,
+	DestroyRef,
 	effect,
 	type EffectRef,
 	inject,
@@ -18,6 +19,7 @@ import {
 	untracked,
 	ViewContainerRef,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { take } from 'rxjs/operators';
 import type { BrnDialogOptions } from './brn-dialog-options';
 import type { BrnDialogRef } from './brn-dialog-ref';
@@ -33,8 +35,9 @@ import { BrnDialogService } from './brn-dialog.service';
 		<ng-content />
 	`,
 })
-export class BrnDialog {
+export class BrnDialog<TResult = unknown, TContext extends Record<string, unknown> = Record<string, unknown>> {
 	private readonly _dialogService = inject(BrnDialogService);
+	private readonly _destroyRef = inject(DestroyRef);
 	private readonly _vcr = inject(ViewContainerRef);
 	public readonly positionBuilder = inject(OverlayPositionBuilder);
 	public readonly ssos = inject(ScrollStrategyOptions);
@@ -42,7 +45,7 @@ export class BrnDialog {
 
 	protected readonly _defaultOptions = injectBrnDialogDefaultOptions();
 
-	private _context = {};
+	private _context: TContext = {} as TContext;
 	public readonly stateComputed = computed(() => this._dialogRef()?.state() ?? 'closed');
 
 	private _contentTemplate: TemplateRef<unknown> | undefined;
@@ -51,8 +54,7 @@ export class BrnDialog {
 	private readonly _backdropClass = signal<string | null | undefined>(null);
 	private readonly _panelClass = signal<string | null | undefined>(null);
 
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	public readonly closed = output<any>();
+	public readonly closed = output<TResult>();
 
 	public readonly stateChanged = output<BrnDialogState>();
 
@@ -154,15 +156,15 @@ export class BrnDialog {
 	public readonly ariaModal = input(true, { alias: 'aria-modal', transform: booleanAttribute });
 	private readonly _mutableAriaModal = linkedSignal(() => this.ariaModal());
 
-	public open<DialogContext>() {
+	public open() {
 		if (!this._contentTemplate || this._dialogRef()) return;
 
 		this._dialogStateEffectRef?.destroy();
 
-		const dialogRef = this._dialogService.open<DialogContext>(
+		const dialogRef = this._dialogService.open<TContext>(
 			this._contentTemplate,
 			this._vcr,
-			this._context as DialogContext,
+			this._context,
 			this._options(),
 		);
 
@@ -175,14 +177,13 @@ export class BrnDialog {
 			});
 		});
 
-		dialogRef.closed$.pipe(take(1)).subscribe((result) => {
+		dialogRef.closed$.pipe(take(1), takeUntilDestroyed(this._destroyRef)).subscribe((result) => {
 			this._dialogRef.set(undefined);
 			this.closed.emit(result);
 		});
 	}
 
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	public close(result?: any, delay?: number) {
+	public close(result?: TResult, delay?: number) {
 		this._dialogRef()?.close(result, delay ?? this._options().closeDelay);
 	}
 
@@ -200,9 +201,7 @@ export class BrnDialog {
 		this._dialogRef()?.setPanelClass(panelClass);
 	}
 
-	public setContext(context: unknown) {
-		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-		// @ts-expect-error
+	public setContext(context: TContext) {
 		this._context = { ...this._context, ...context };
 	}
 

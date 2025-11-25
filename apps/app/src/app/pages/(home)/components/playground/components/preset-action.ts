@@ -2,21 +2,19 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideEllipsis } from '@ng-icons/lucide';
 import { BrnDialogImports } from '@spartan-ng/brain/dialog';
-import { BrnMenuTrigger } from '@spartan-ng/brain/menu';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmDialogImports } from '@spartan-ng/helm/dialog';
+import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmLabel } from '@spartan-ng/helm/label';
-import { HlmMenuImports } from '@spartan-ng/helm/menu';
 import { HlmSwitch } from '@spartan-ng/helm/switch';
 
 @Component({
 	selector: 'spartan-preset-actions',
 	imports: [
-		HlmMenuImports,
+		HlmDropdownMenuImports,
 		HlmDialogImports,
 		BrnDialogImports,
-		BrnMenuTrigger,
 		HlmButton,
 		HlmIcon,
 		NgIcon,
@@ -26,21 +24,21 @@ import { HlmSwitch } from '@spartan-ng/helm/switch';
 	providers: [provideIcons({ lucideEllipsis })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<button hlmBtn variant="secondary" align="end" [brnMenuTriggerFor]="menu" size="icon">
+		<button hlmBtn variant="secondary" align="end" [hlmDropdownMenuTrigger]="menu" size="icon">
 			<ng-icon hlm name="lucideEllipsis" size="sm" />
 		</button>
 		<ng-template #menu>
-			<hlm-menu class="w-56">
-				<hlm-menu-group>
-					<button hlmMenuItem (click)="contentFilter.click()">
+			<hlm-dropdown-menu class="w-56">
+				<hlm-dropdown-menu-group>
+					<button hlmDropdownMenuItem (click)="contentFilter.click()">
 						<span>Content filter preferences</span>
 					</button>
-					<hlm-menu-separator />
-					<button hlmMenuItem variant="destructive" (click)="delete.click()">
+					<hlm-dropdown-menu-separator />
+					<button hlmDropdownMenuItem variant="destructive" (click)="delete.click()">
 						<span>Delete preset</span>
 					</button>
-				</hlm-menu-group>
-			</hlm-menu>
+				</hlm-dropdown-menu-group>
+			</hlm-dropdown-menu>
 		</ng-template>
 		<hlm-dialog>
 			<button id="filter" brnDialogTrigger class="hidden" #contentFilter>Save</button>

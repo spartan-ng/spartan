@@ -1,4 +1,5 @@
 import { formatFiles, logger, type Tree } from '@nx/devkit';
+import { getImportAlias } from '../../utils/config';
 import { type Healthcheck, type HealthcheckReport, HealthcheckStatus, isHealthcheckFixable } from './healthchecks';
 import { brainImportsHealthcheck } from './healthchecks/brain-imports';
 import { brainAccordionTriggerHealthcheck } from './healthchecks/brn-accordion-trigger';
@@ -15,6 +16,7 @@ import { helmImportsHealthcheck } from './healthchecks/helm-imports';
 import { hlmImportHealthcheck } from './healthchecks/hlm';
 import { datePickerHealthcheck } from './healthchecks/hlm-date-picker';
 import { helmIconHealthcheck } from './healthchecks/hlm-icon';
+import { helmMenuHealthcheck } from './healthchecks/hlm-menu';
 import { progressHealthcheck } from './healthchecks/hlm-progress';
 import { scrollAreaHealthcheck } from './healthchecks/hlm-scroll-area';
 import { selectHealthcheck } from './healthchecks/hlm-select';
@@ -51,12 +53,15 @@ export async function healthcheckGenerator(tree: Tree, options: HealthcheckGener
 		brainToggleHealthcheck,
 		brainToggleGroup2Healthcheck,
 		brainCollapsibleHealthcheck,
+		helmMenuHealthcheck,
 	];
 
 	const failedReports: HealthcheckReport[] = [];
 
+	const importAlias = await getImportAlias(tree, options.angularCli);
+
 	for (const healthcheck of healthchecks) {
-		const report = await runHealthcheck(tree, healthcheck);
+		const report = await runHealthcheck(tree, healthcheck, importAlias);
 		printReport(report);
 
 		if (report.status === HealthcheckStatus.Failure) {
@@ -69,7 +74,7 @@ export async function healthcheckGenerator(tree: Tree, options: HealthcheckGener
 			const fix = options.autoFix || (await promptUser(report.healthcheck.prompt));
 
 			if (fix) {
-				await report.healthcheck.fix(tree, { angularCli: options.angularCli });
+				await report.healthcheck.fix(tree, { angularCli: options.angularCli, importAlias });
 			}
 		}
 	}

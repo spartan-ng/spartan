@@ -148,6 +148,15 @@
 			"clsx": "^2.1.1"
 		}
 	},
+	"context-menu": {
+		"name": "context-menu",
+		"peerDependencies": {
+			"@angular/core": ">=20.0.0 <22.0.0",
+			"@spartan-ng/brain": "0.0.1-alpha.566",
+			"@angular/cdk": ">=20.0.0 <22.0.0",
+			"rxjs": "^7.8.0"
+		}
+	},
 	"date-picker": {
 		"name": "date-picker",
 		"peerDependencies": {
@@ -170,6 +179,18 @@
 			"@ng-icons/lucide": ">=32.0.0 <34.0.0",
 			"@spartan-ng/brain": "0.0.1-alpha.566",
 			"@angular/cdk": ">=20.0.0 <22.0.0"
+		}
+	},
+	"dropdown-menu": {
+		"name": "dropdown-menu",
+		"peerDependencies": {
+			"@angular/core": ">=20.0.0 <22.0.0",
+			"@ng-icons/core": ">=32.0.0 <34.0.0",
+			"@ng-icons/lucide": ">=32.0.0 <34.0.0",
+			"clsx": "^2.1.1",
+			"@angular/cdk": ">=20.0.0 <22.0.0",
+			"rxjs": "^7.8.0",
+			"@spartan-ng/brain": "0.0.1-alpha.566"
 		}
 	},
 	"empty": {
@@ -266,16 +287,14 @@
 			"clsx": "^2.1.1"
 		}
 	},
-	"menu": {
-		"name": "menu",
+	"menubar": {
+		"name": "menubar",
 		"peerDependencies": {
 			"@angular/core": ">=20.0.0 <22.0.0",
 			"@spartan-ng/brain": "0.0.1-alpha.566",
-			"clsx": "^2.1.1",
-			"@ng-icons/core": ">=32.0.0 <34.0.0",
-			"@ng-icons/lucide": ">=32.0.0 <34.0.0",
 			"@angular/cdk": ">=20.0.0 <22.0.0",
-			"class-variance-authority": "^0.7.0"
+			"clsx": "^2.1.1",
+			"rxjs": "^7.8.0"
 		}
 	},
 	"navigation-menu": {

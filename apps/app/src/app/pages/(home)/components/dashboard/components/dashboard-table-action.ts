@@ -1,16 +1,15 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { tablerChevronDown, tablerColumns2, tablerPlus } from '@ng-icons/tabler-icons';
-import { BrnMenuTrigger } from '@spartan-ng/brain/menu';
 import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 import { HlmIcon } from '@spartan-ng/helm/icon';
-import { HlmMenuImports } from '@spartan-ng/helm/menu';
 import { DashboardTableSection } from './table-section';
 
 @Component({
 	selector: 'spartan-dashboard-table-actions',
 
-	imports: [HlmButton, BrnMenuTrigger, NgIcon, HlmIcon, HlmMenuImports],
+	imports: [HlmButton, NgIcon, HlmIcon, HlmDropdownMenuImports],
 	providers: [
 		provideIcons({
 			tablerChevronDown,
@@ -24,7 +23,7 @@ import { DashboardTableSection } from './table-section';
 	},
 	template: `
 		<div class="wip-table-search flex flex-col justify-between gap-2 sm:flex-row">
-			<button hlmBtn variant="outline" align="end" size="sm" [brnMenuTriggerFor]="columns">
+			<button hlmBtn variant="outline" align="end" size="sm" [hlmDropdownMenuTrigger]="columns">
 				<ng-icon hlm name="tablerColumns2" size="sm" />
 				Customize Columns
 				<ng-icon hlm name="tablerChevronDown" size="sm" />
@@ -34,19 +33,19 @@ import { DashboardTableSection } from './table-section';
 				Add section
 			</button>
 			<ng-template #columns>
-				<hlm-menu class="w-32">
+				<hlm-dropdown-menu class="w-32">
 					@for (column of _hidableColumns; track column.id) {
 						<button
-							hlmMenuItemCheckbox
+							hlmDropdownMenuCheckbox
 							class="capitalize"
 							[checked]="column.getIsVisible()"
 							(triggered)="column.toggleVisibility()"
 						>
-							<hlm-menu-item-check />
+							<hlm-dropdown-menu-checkbox-indicator />
 							{{ column.columnDef.id }}
 						</button>
 					}
-				</hlm-menu>
+				</hlm-dropdown-menu>
 			</ng-template>
 		</div>
 	`,

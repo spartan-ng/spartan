@@ -17,7 +17,7 @@ export type MonthLabels = [
 	string,
 ];
 
-interface BrnCalendarI18n {
+export interface BrnCalendarI18n {
 	formatWeekdayName: (index: number) => string;
 	formatHeader: (month: number, year: number) => string;
 	formatYear: (year: number) => string;

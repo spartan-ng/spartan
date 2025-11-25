@@ -2,12 +2,11 @@ import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown } from '@ng-icons/lucide';
-import { BrnMenuImports } from '@spartan-ng/brain/menu';
 import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 import { HlmIconImports } from '@spartan-ng/helm/icon';
 import { HlmInputImports } from '@spartan-ng/helm/input';
-import { HlmMenuImports } from '@spartan-ng/helm/menu';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
 import { HlmTableImports } from '@spartan-ng/helm/table';
 import { hlmMuted } from '@spartan-ng/helm/typography';
@@ -41,8 +40,7 @@ export type Payment = {
 	imports: [
 		FlexRenderDirective,
 		FormsModule,
-		BrnMenuImports,
-		HlmMenuImports,
+		HlmDropdownMenuImports,
 		HlmButtonImports,
 		NgIcon,
 		HlmIconImports,
@@ -59,24 +57,24 @@ export type Payment = {
 		<div class="flex flex-col justify-between gap-4 py-4 sm:flex-row sm:items-center">
 			<input hlmInput class="w-full md:w-80" placeholder="Filter emails..." (input)="_filterChanged($event)" />
 
-			<button hlmBtn variant="outline" align="end" [brnMenuTriggerFor]="menu">
+			<button hlmBtn variant="outline" align="end" [hlmDropdownMenuTrigger]="menu">
 				Columns
 				<ng-icon hlm name="lucideChevronDown" class="ml-2" size="sm" />
 			</button>
 			<ng-template #menu>
-				<hlm-menu class="w-32">
+				<hlm-dropdown-menu class="w-32">
 					@for (column of _hidableColumns; track column.id) {
 						<button
-							hlmMenuItemCheckbox
+							hlmDropdownMenuCheckbox
 							class="capitalize"
 							[checked]="column.getIsVisible()"
 							(triggered)="column.toggleVisibility()"
 						>
-							<hlm-menu-item-check />
+							<hlm-dropdown-menu-checkbox-indicator />
 							{{ column.columnDef.id }}
 						</button>
 					}
-				</hlm-menu>
+				</hlm-dropdown-menu>
 			</ng-template>
 		</div>
 		<div class="overflow-hidden rounded-md border">

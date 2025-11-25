@@ -16,33 +16,12 @@ import {
 	lucideSmile,
 	lucideUser,
 } from '@ng-icons/lucide';
-import { BrnMenuTrigger } from '@spartan-ng/brain/menu';
-import { HlmButton } from '@spartan-ng/helm/button';
-import {
-	HlmMenu,
-	HlmMenuGroup,
-	HlmMenuItem,
-	HlmMenuItemSubIndicator,
-	HlmMenuLabel,
-	HlmMenuSeparator,
-	HlmMenuShortcut,
-	HlmSubMenu,
-} from '@spartan-ng/helm/menu';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 
 @Component({
 	selector: 'spartan-dropdown-preview',
-	imports: [
-		BrnMenuTrigger,
-		HlmMenu,
-		HlmSubMenu,
-		HlmMenuItem,
-		HlmMenuItemSubIndicator,
-		HlmMenuLabel,
-		HlmMenuShortcut,
-		HlmMenuSeparator,
-		HlmMenuGroup,
-		HlmButton,
-	],
+	imports: [HlmDropdownMenuImports, HlmButtonImports],
 	providers: [
 		provideIcons({
 			lucideUser,
@@ -62,127 +41,115 @@ import {
 		}),
 	],
 	template: `
-		<div class="flex w-full items-center justify-center pt-[20%]">
-			<button hlmBtn variant="outline" align="end" [brnMenuTriggerFor]="menu">Open</button>
-		</div>
+		<button hlmBtn variant="outline" [hlmDropdownMenuTrigger]="menu">Open</button>
+
 		<ng-template #menu>
-			<hlm-menu class="w-56">
-				<hlm-menu-label>My Account</hlm-menu-label>
+			<hlm-dropdown-menu class="w-56">
+				<hlm-dropdown-menu-label>My Account</hlm-dropdown-menu-label>
 
-				<hlm-menu-group>
-					<button hlmMenuItem>
+				<hlm-dropdown-menu-group>
+					<button hlmDropdownMenuItem>
 						<span>Profile</span>
-						<hlm-menu-shortcut>⇧⌘P</hlm-menu-shortcut>
+						<hlm-dropdown-menu-shortcut>⇧⌘P</hlm-dropdown-menu-shortcut>
 					</button>
 
-					<button hlmMenuItem>
+					<button hlmDropdownMenuItem>
 						<span>Billing</span>
-						<hlm-menu-shortcut>⌘B</hlm-menu-shortcut>
+						<hlm-dropdown-menu-shortcut>⌘B</hlm-dropdown-menu-shortcut>
 					</button>
 
-					<button hlmMenuItem>
+					<button hlmDropdownMenuItem>
 						<span>Settings</span>
-						<hlm-menu-shortcut>⌘S</hlm-menu-shortcut>
+						<hlm-dropdown-menu-shortcut>⌘S</hlm-dropdown-menu-shortcut>
 					</button>
 
-					<button hlmMenuItem>
+					<button hlmDropdownMenuItem>
 						<span>Keyboard shortcuts</span>
-						<hlm-menu-shortcut>⌘K</hlm-menu-shortcut>
+						<hlm-dropdown-menu-shortcut>⌘K</hlm-dropdown-menu-shortcut>
 					</button>
-				</hlm-menu-group>
+				</hlm-dropdown-menu-group>
 
-				<hlm-menu-separator />
+				<hlm-dropdown-menu-separator />
 
-				<hlm-menu-group>
-					<button hlmMenuItem>
+				<hlm-dropdown-menu-group>
+					<button hlmDropdownMenuItem>
 						<span>Team</span>
-						<hlm-menu-shortcut>⌘B</hlm-menu-shortcut>
+						<hlm-dropdown-menu-shortcut>⌘B</hlm-dropdown-menu-shortcut>
 					</button>
 
-					<button hlmMenuItem side="right" align="start" [brnMenuTriggerFor]="invite">
+					<button hlmDropdownMenuItem side="right" align="start" [hlmDropdownMenuTrigger]="invite">
 						<span>Invite Users</span>
-						<hlm-menu-item-sub-indicator />
+						<hlm-dropdown-menu-item-sub-indicator />
 					</button>
 
-					<button hlmMenuItem>
+					<button hlmDropdownMenuItem>
 						<span>New Team</span>
-						<hlm-menu-shortcut>⌘+T</hlm-menu-shortcut>
+						<hlm-dropdown-menu-shortcut>⌘+T</hlm-dropdown-menu-shortcut>
 					</button>
-				</hlm-menu-group>
+				</hlm-dropdown-menu-group>
 
-				<hlm-menu-separator />
+				<hlm-dropdown-menu-separator />
 
-				<hlm-menu-group>
-					<button hlmMenuItem>
+				<hlm-dropdown-menu-group>
+					<button hlmDropdownMenuItem>
 						<span>GitHub</span>
 					</button>
 
-					<button hlmMenuItem>
+					<button hlmDropdownMenuItem>
 						<span>Support</span>
 					</button>
 
-					<button hlmMenuItem disabled>
+					<button hlmDropdownMenuItem disabled>
 						<span>API</span>
 					</button>
-				</hlm-menu-group>
+				</hlm-dropdown-menu-group>
 
-				<hlm-menu-separator />
+				<hlm-dropdown-menu-separator />
 
-				<button hlmMenuItem>
+				<button hlmDropdownMenuItem>
 					Log out
-					<hlm-menu-shortcut>⇧⌘Q</hlm-menu-shortcut>
+					<hlm-dropdown-menu-shortcut>⇧⌘Q</hlm-dropdown-menu-shortcut>
 				</button>
-			</hlm-menu>
+			</hlm-dropdown-menu>
 		</ng-template>
 
 		<ng-template #invite>
-			<hlm-sub-menu>
-				<button hlmMenuItem>Email</button>
+			<hlm-dropdown-menu-sub>
+				<button hlmDropdownMenuItem>Email</button>
 
-				<button hlmMenuItem>Message</button>
-				<hlm-menu-separator />
-				<button hlmMenuItem>More...</button>
-			</hlm-sub-menu>
+				<button hlmDropdownMenuItem>Message</button>
+				<hlm-dropdown-menu-separator />
+				<button hlmDropdownMenuItem>More...</button>
+			</hlm-dropdown-menu-sub>
 		</ng-template>
 	`,
 })
 export class DropdownPreview {}
 
 export const defaultImports = `
-import { BrnMenuTrigger } from '@spartan-ng/brain/menu';
-import {
-  HlmMenu
-  HlmMenuGroup
-  HlmMenuItem
-  HlmMenuItemIcon
-  HlmMenuItemSubIndicator
-  HlmMenuLabel
-  HlmMenuSeparator
-  HlmMenuShortcut
-  HlmSubMenu
-} from '@spartan-ng/helm/menu';
+import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 `;
 
 export const defaultSkeleton = `
-<button [brnMenuTriggerFor]="menu">Open</button>
+<button [hlmDropdownMenuTrigger]="menu">Open</button>
 
 <ng-template #menu>
-  <hlm-menu>
-    <hlm-menu-label>My Account</hlm-menu-label>
-    <hlm-menu-separator />
-    <hlm-menu-group>
-      <button hlmMenuItem>
+  <hlm-dropdown-menu>
+    <hlm-dropdown-menu-label>My Account</hlm-dropdown-menu-label>
+    <hlm-dropdown-menu-separator />
+    <hlm-dropdown-menu-group>
+      <button hlmDropdownMenuItem>
         Profile
-        <hlm-menu-shortcut>⇧⌘P</hlm-menu-shortcut>
+        <hlm-dropdown-menu-shortcut>⇧⌘P</hlm-dropdown-menu-shortcut>
       </button>
 
-      <hlm-menu-separator />
+      <hlm-dropdown-menu-separator />
 
-      <button hlmMenuItem [brnMenuTriggerFor]="invite">
+      <button hlmDropdownMenuItem [hlmDropdownMenuTrigger]="invite">
         Invite Users
-        <hlm-menu-item-sub-indicator />
+        <hlm-dropdown-menu-item-sub-indicator />
       </button>
-    </hlm-menu-group>
-  </hlm-menu>
+    </hlm-dropdown-menu-group>
+  </hlm-dropdown-menu>
 </ng-template>
 `;

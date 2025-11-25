@@ -11,7 +11,12 @@ interface StandardHealthcheck {
 	/**
 	 * Determine whether or not anything in the project needs to be fixed.
 	 */
-	detect(tree: Tree, failure: HealthcheckFailureFn, skip: HealthcheckSkippedFn): void | Promise<void>;
+	detect(
+		tree: Tree,
+		failure: HealthcheckFailureFn,
+		skip: HealthcheckSkippedFn,
+		context: HealthcheckContext,
+	): void | Promise<void>;
 }
 
 interface FixableHealthcheck extends StandardHealthcheck {
@@ -93,4 +98,5 @@ export interface HealthcheckIssue {
 
 export interface HealthcheckContext {
 	angularCli?: boolean;
+	importAlias: string;
 }

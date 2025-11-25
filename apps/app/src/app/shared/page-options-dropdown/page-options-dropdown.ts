@@ -3,31 +3,30 @@ import { NgIconComponent, provideIcons } from '@ng-icons/core';
 
 import { lucideChevronDown } from '@ng-icons/lucide';
 import { remixClaudeFill, remixOpenaiFill } from '@ng-icons/remixicon';
-import { BrnMenuTrigger } from '@spartan-ng/brain/menu';
 import { HlmButton } from '@spartan-ng/helm/button';
-import { HlmMenuImports } from '@spartan-ng/helm/menu';
+import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 import { AiChatLinkDirective } from './ai-chat-link-directive';
 
 @Component({
 	selector: 'spartan-page-options-dropdown',
-	imports: [HlmMenuImports, BrnMenuTrigger, HlmButton, NgIconComponent, AiChatLinkDirective],
+	imports: [HlmDropdownMenuImports, HlmButton, NgIconComponent, AiChatLinkDirective],
 	providers: [provideIcons({ remixOpenaiFill, remixClaudeFill, lucideChevronDown })],
 	template: `
-		<button hlmBtn size="sm" variant="secondary" side="bottom" align="end" [brnMenuTriggerFor]="menu">
+		<button hlmBtn size="sm" variant="secondary" side="bottom" align="end" [hlmDropdownMenuTrigger]="menu">
 			AI Assist
 			<ng-icon hlm name="lucideChevronDown" />
 		</button>
 		<ng-template #menu>
-			<hlm-menu>
-				<a hlmMenuItem spartanAiChatLink aiType="chatgpt">
+			<hlm-dropdown-menu>
+				<a hlmDropdownMenuItem spartanAiChatLink aiType="chatgpt">
 					<ng-icon hlm name="remixOpenaiFill" />
 					Open in ChatGPT
 				</a>
-				<a hlmMenuItem spartanAiChatLink aiType="claude">
+				<a hlmDropdownMenuItem spartanAiChatLink aiType="claude">
 					<ng-icon hlm name="remixClaudeFill" />
 					Open in Claude
 				</a>
-			</hlm-menu>
+			</hlm-dropdown-menu>
 		</ng-template>
 	`,
 })

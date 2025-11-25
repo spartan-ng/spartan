@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { BrnMenuImports } from '@spartan-ng/brain/menu';
 import { HlmBreadCrumbImports } from '@spartan-ng/helm/breadcrumb';
-import { HlmMenuImports } from '@spartan-ng/helm/menu';
+import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 
 @Component({
 	selector: 'spartan-breadcrumb-preview',
-	imports: [HlmBreadCrumbImports, BrnMenuImports, HlmMenuImports],
+	imports: [HlmBreadCrumbImports, HlmDropdownMenuImports],
 	template: `
 		<nav hlmBreadcrumb>
 			<ol hlmBreadcrumbList>
@@ -14,22 +13,22 @@ import { HlmMenuImports } from '@spartan-ng/helm/menu';
 				</li>
 				<li hlmBreadcrumbSeparator></li>
 				<li hlmBreadcrumbItem>
-					<button [brnMenuTriggerFor]="breadcrumbDropdown">
+					<button [hlmDropdownMenuTrigger]="breadcrumbDropdown">
 						<hlm-breadcrumb-ellipsis class="size-4" />
 						<span class="sr-only">Toggle menu</span>
 					</button>
 					<ng-template #breadcrumbDropdown>
-						<hlm-menu>
-							<button hlmMenuItem id="document">
+						<hlm-dropdown-menu>
+							<button hlmDropdownMenuItem id="document">
 								<span>Documentation</span>
 							</button>
-							<button hlmMenuItem id="themes">
+							<button hlmDropdownMenuItem id="themes">
 								<span>Themes</span>
 							</button>
-							<button hlmMenuItem id="github">
+							<button hlmDropdownMenuItem id="github">
 								<span>Github</span>
 							</button>
-						</hlm-menu>
+						</hlm-dropdown-menu>
 					</ng-template>
 				</li>
 				<li hlmBreadcrumbSeparator></li>

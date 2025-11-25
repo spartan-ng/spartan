@@ -1,43 +1,43 @@
 import { Component } from '@angular/core';
 import { BrnDialogImports } from '@spartan-ng/brain/dialog';
-import { BrnMenuImports } from '@spartan-ng/brain/menu';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmContextMenuImports } from '@spartan-ng/helm/context-menu';
 import { HlmDialogImports } from '@spartan-ng/helm/dialog';
-import { HlmMenuImports } from '@spartan-ng/helm/menu';
+import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 
 @Component({
 	selector: 'spartan-dialog-context-menu',
-	imports: [BrnDialogImports, HlmDialogImports, HlmButtonImports, BrnMenuImports, HlmMenuImports],
+	imports: [BrnDialogImports, HlmDialogImports, HlmButtonImports, HlmDropdownMenuImports, HlmContextMenuImports],
 	template: `
 		<div
-			[brnCtxMenuTriggerFor]="menu"
+			[hlmContextMenuTrigger]="menu"
 			class="border-border flex h-[150px] w-[300px] items-center justify-center rounded-md border border-dashed text-sm"
 		>
 			Right click here
 		</div>
 
 		<ng-template #menu>
-			<hlm-menu class="w-64">
-				<hlm-menu-group>
-					<button inset hlmMenuItem>
+			<hlm-dropdown-menu class="w-64">
+				<hlm-dropdown-menu-group>
+					<button inset hlmDropdownMenuItem>
 						Save
-						<hlm-menu-shortcut>⌘S</hlm-menu-shortcut>
+						<hlm-dropdown-menu-shortcut>⌘S</hlm-dropdown-menu-shortcut>
 					</button>
 
-					<button disabled inset hlmMenuItem>
+					<button disabled inset hlmDropdownMenuItem>
 						Archive
-						<hlm-menu-shortcut>⌘A</hlm-menu-shortcut>
+						<hlm-dropdown-menu-shortcut>⌘A</hlm-dropdown-menu-shortcut>
 					</button>
 
 					<hlm-dialog>
-						<button hlmMenuItem inset="true" brnDialogTrigger>
+						<button hlmDropdownMenuItem inset="true" brnDialogTrigger>
 							Print
-							<hlm-menu-shortcut>⌘P</hlm-menu-shortcut>
+							<hlm-dropdown-menu-shortcut>⌘P</hlm-dropdown-menu-shortcut>
 						</button>
-						<hlm-dialog-content *brnDialogContent="let ctx">
+						<hlm-dialog-content class="sm:max-w-[425px]" *brnDialogContent="let ctx">
 							<hlm-dialog-header>
-								<h3 brnDialogTitle hlm>Print this page</h3>
-								<p brnDialogDescription hlm>
+								<h3 hlmDialogTitle>Print this page</h3>
+								<p hlmDialogDescription>
 									Are you sure you want to print this page? Only print if absolutely necessary! The less we print, the
 									less paper we need, the better it is for our environment!
 								</p>
@@ -48,8 +48,8 @@ import { HlmMenuImports } from '@spartan-ng/helm/menu';
 							</hlm-dialog-footer>
 						</hlm-dialog-content>
 					</hlm-dialog>
-				</hlm-menu-group>
-			</hlm-menu>
+				</hlm-dropdown-menu-group>
+			</hlm-dropdown-menu>
 		</ng-template>
 	`,
 })

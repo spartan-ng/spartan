@@ -1,0 +1,19 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"$id": "MigrateMenu",
+	"title": "",
+	"type": "object",
+	"properties": {
+		"skipFormat": {
+			"type": "boolean",
+			"default": false,
+			"description": "Skip formatting files"
+		},
+		"importAlias": {
+			"type": "string",
+			"default": "@spartan-ui/helm",
+			"description": "The prefix to use for helm imports"
+		}
+	},
+	"required": []
+}

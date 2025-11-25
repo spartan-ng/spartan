@@ -21,11 +21,8 @@ export default async function hlmUIGenerator(tree: Tree, options: HlmUIGenerator
 	const availablePrimitives: PrimitiveDefinitions = await import('./supported-ui-libraries.json').then(
 		(m) => m.default,
 	);
-	const availablePrimitiveNames: Primitive[] = [
-		...(Object.keys(availablePrimitives) as Primitive[]),
-		'menubar',
-		'context-menu',
-	];
+	const availablePrimitiveNames: Primitive[] = Object.keys(availablePrimitives) as Primitive[];
+
 	let response: { primitives: PrimitiveResponse[] } = { primitives: [] };
 	if (options.name && availablePrimitiveNames.includes(options.name)) {
 		response.primitives.push(options.name);
@@ -74,7 +71,6 @@ export async function createPrimitiveLibraries(
 	if (!response.primitives.includes('all') && installPeerDependencies) {
 		await addDependentPrimitives(primitivesToCreate, false);
 	}
-	await replaceContextAndMenuBar(primitivesToCreate, allPrimitivesSelected);
 
 	const projects = getProjects(tree);
 
@@ -118,31 +114,6 @@ export async function createPrimitiveLibraries(
 
 	return tasks;
 }
-
-const replaceContextAndMenuBar = async (primtivesToCreate: PrimitiveResponse[], silent = false) => {
-	const contextIndex = primtivesToCreate.indexOf('context-menu');
-	if (contextIndex >= 0) {
-		if (!silent) {
-			await prompt({
-				type: 'confirm',
-				name: 'contextMenu',
-				message: 'The context menu is implemented as part of the menu-helm primitive. Adding menu primitive.',
-			});
-		}
-		primtivesToCreate.splice(contextIndex, 1);
-	}
-	const menubarIndex = primtivesToCreate.indexOf('menubar');
-	if (menubarIndex >= 0) {
-		if (!silent) {
-			await prompt({
-				type: 'confirm',
-				name: 'menubar',
-				message: 'The menubar is implemented as part of the menu-helm primitive. Adding menu primitive.',
-			});
-		}
-		primtivesToCreate.splice(menubarIndex, 1);
-	}
-};
 
 const removeHelmKeys = (obj: Record<string, string>) =>
 	Object.fromEntries(Object.entries(obj).filter(([key]) => !key.toLowerCase().includes('helm')));

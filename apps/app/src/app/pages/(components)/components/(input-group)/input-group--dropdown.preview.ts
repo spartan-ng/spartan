@@ -1,14 +1,13 @@
 import { Component } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideChevronDown, lucideEllipsis } from '@ng-icons/lucide';
-import { BrnMenuImports } from '@spartan-ng/brain/menu';
+import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 import { HlmIconImports } from '@spartan-ng/helm/icon';
 import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
-import { HlmMenuImports } from '@spartan-ng/helm/menu';
 
 @Component({
 	selector: 'spartan-input-group-dropdown-preview',
-	imports: [HlmInputGroupImports, HlmIconImports, BrnMenuImports, HlmMenuImports],
+	imports: [HlmInputGroupImports, HlmIconImports, HlmDropdownMenuImports],
 	providers: [
 		provideIcons({
 			lucideEllipsis,
@@ -28,7 +27,7 @@ import { HlmMenuImports } from '@spartan-ng/helm/menu';
 					variant="ghost"
 					aria-label="More"
 					size="icon-xs"
-					[brnMenuTriggerFor]="fileMenu"
+					[hlmDropdownMenuTrigger]="fileMenu"
 					align="end"
 				>
 					<ng-icon name="lucideEllipsis" />
@@ -43,7 +42,7 @@ import { HlmMenuImports } from '@spartan-ng/helm/menu';
 					hlmInputGroupButton
 					variant="ghost"
 					class="!pr-1.5 text-xs"
-					[brnMenuTriggerFor]="searchMenu"
+					[hlmDropdownMenuTrigger]="searchMenu"
 					align="end"
 				>
 					Search In...
@@ -53,19 +52,19 @@ import { HlmMenuImports } from '@spartan-ng/helm/menu';
 		</div>
 
 		<ng-template #fileMenu>
-			<hlm-menu class="w-48">
-				<button hlmMenuItem>Settings</button>
-				<button hlmMenuItem>Copy path</button>
-				<button hlmMenuItem>Open location</button>
-			</hlm-menu>
+			<hlm-dropdown-menu class="w-48">
+				<button hlmDropdownMenuItem>Settings</button>
+				<button hlmDropdownMenuItem>Copy path</button>
+				<button hlmDropdownMenuItem>Open location</button>
+			</hlm-dropdown-menu>
 		</ng-template>
 
 		<ng-template #searchMenu>
-			<hlm-menu class="w-56 [--radius:0.95rem]">
-				<button hlmMenuItem>Documentation</button>
-				<button hlmMenuItem>Blog Posts</button>
-				<button hlmMenuItem>Changelog</button>
-			</hlm-menu>
+			<hlm-dropdown-menu class="w-56 [--radius:0.95rem]">
+				<button hlmDropdownMenuItem>Documentation</button>
+				<button hlmDropdownMenuItem>Blog Posts</button>
+				<button hlmDropdownMenuItem>Changelog</button>
+			</hlm-dropdown-menu>
 		</ng-template>
 	`,
 })

@@ -10,13 +10,13 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
-		class: 'flex flex-col gap-4 pt-20 items-center',
+		class: 'flex flex-col gap-4 pt-20 w-max self-center',
 	},
 	styleUrl: '../../blocks-preview-default.css',
 	template: `
 		<hlm-calendar [captionLayout]="_captionLayout()" />
 
-		<brn-select class="inline-block" placeholder="Select an option" [(ngModel)]="_captionLayout">
+		<brn-select [(ngModel)]="_captionLayout">
 			<hlm-select-trigger class="w-full">
 				<hlm-select-value />
 			</hlm-select-trigger>

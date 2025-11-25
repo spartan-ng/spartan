@@ -35,7 +35,7 @@ export const routeMeta: RouteMeta = {
 			<hlm-tabs [tab]="_activeTab()" class="w-full pb-5">
 				<hlm-tabs-list
 					aria-label="Blocks Tabs"
-					class="bg-background dark:[&>a]:bg-background [&>a]:text-muted-foreground [&>a]:data-[state=active]:text-primary [&>a]:hover:text-primary dark:[&>a]:data-[state=active]:bg-background border-2 [&>a]:cursor-pointer [&>a]:data-[state=active]:shadow-none dark:[&>a]:data-[state=active]:border-none"
+					class="bg-background dark:[&>a]:bg-background [&>a]:text-muted-foreground [&>a]:data-[state=active]:text-primary [&>a]:hover:text-primary dark:[&>a]:data-[state=active]:bg-background [&>a]:cursor-pointer [&>a]:data-[state=active]:shadow-none dark:[&>a]:data-[state=active]:border-none"
 				>
 					<a hlmTabsTrigger="sidebar" routerLink="/blocks/sidebar">Sidebar</a>
 					<a hlmTabsTrigger="calendar" routerLink="/blocks/calendar">Calendar</a>

@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { BrnCalendarI18nService, injectBrnCalendarI18n, provideBrnCalendarI18n } from '@spartan-ng/brain/calendar';
 import { BrnSelectImports } from '@spartan-ng/brain/select';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmCalendar } from '@spartan-ng/helm/calendar';
 import { HlmCardImports } from '@spartan-ng/helm/card';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
@@ -16,7 +17,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 const localizedStrings = {
 	vi: {
 		title: 'Đặt lịch hẹn',
-		description: 'Vui lòng chọn ngày cho lịch hẹn',
+		description: 'Vui lòng chọn ngày và giờ cho lịch hẹn',
 	},
 
 	de: {
@@ -120,6 +121,14 @@ const CALENDAR_I18N = {
 	},
 } as const;
 
+const timeSlots: string[] = Array.from({ length: 37 }, (_, i) => {
+	const totalMinutes = i * 15;
+	const hour = Math.floor(totalMinutes / 60) + 9;
+	const minute = totalMinutes % 60;
+
+	return `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
+});
+
 @Injectable({ providedIn: 'root' })
 export class LanguageService {
 	public language = signal<'en' | 'vi' | 'de'>('vi');
@@ -131,7 +140,7 @@ export class LanguageService {
 
 @Component({
 	selector: 'spartan-calendar-localized',
-	imports: [HlmCalendar, BrnSelectImports, HlmSelectImports, HlmCardImports],
+	imports: [HlmCalendar, BrnSelectImports, HlmSelectImports, HlmCardImports, HlmButtonImports],
 	providers: [provideBrnCalendarI18n(CALENDAR_I18N.vi)],
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -146,7 +155,7 @@ export class LanguageService {
 				<p hlmCardDescription>{{ _strings[lang].description }}</p>
 
 				<div hlmCardAction>
-					<brn-select class="inline-block" [value]="lang" (valueChange)="setLang($event)">
+					<brn-select [value]="lang" (valueChange)="setLang($event)">
 						<hlm-select-trigger>
 							<hlm-select-value />
 						</hlm-select-trigger>
@@ -160,13 +169,24 @@ export class LanguageService {
 				</div>
 			</div>
 
-			<div hlmCardContent>
-				<hlm-calendar />
+			<div hlmCardContent class="flex flex-row gap-3 px-6">
+				<div class="h-80">
+					<hlm-calendar class="h-full" />
+				</div>
+
+				<div class="no-scrollbar flex h-80 scroll-pb-6 flex-col gap-2 overflow-y-auto">
+					@for (time of _timeSlots; track time) {
+						<button hlmBtn class="w-full shadow-none">
+							{{ time }}
+						</button>
+					}
+				</div>
 			</div>
 		</section>
 	`,
 })
 export default class CalendarLocalizedPage implements OnInit {
+	protected readonly _timeSlots = timeSlots;
 	protected readonly _languageService = inject(LanguageService);
 	protected readonly _strings = localizedStrings;
 	protected readonly _supportedLanguages = ['vi', 'de', 'en'] as const;
@@ -192,6 +212,6 @@ export default class CalendarLocalizedPage implements OnInit {
 	}
 }
 
-function isLang(value: any): value is 'vi' | 'en' | 'de' {
+function isLang(value: unknown): value is 'vi' | 'en' | 'de' {
 	return value === 'vi' || value === 'en' || value === 'de';
 }

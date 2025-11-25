@@ -2,7 +2,7 @@ import { inject, Injectable, InjectionToken, type Provider, signal } from '@angu
 
 export type Weekday = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 
-interface BrnCalendarI18n {
+export interface BrnCalendarI18n {
 	formatWeekdayName: (index: number) => string;
 	formatHeader: (month: number, year: number) => string;
 	formatYear: (year: number) => string;

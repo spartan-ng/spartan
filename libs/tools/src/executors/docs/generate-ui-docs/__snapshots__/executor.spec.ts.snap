@@ -2261,7 +2261,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "outputs": [
           {
             "name": "closed",
-            "type": "any",
+            "type": "TResult",
           },
           {
             "name": "stateChanged",

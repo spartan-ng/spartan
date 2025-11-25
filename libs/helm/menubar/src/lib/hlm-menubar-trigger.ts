@@ -22,12 +22,12 @@ import { injectHlmMenubarConfig } from './hlm-menubar-token';
 	],
 	host: {
 		'data-slot': 'menubar-trigger',
+		'[disabled]': 'disabled() ',
 		'[attr.data-disabled]': 'disabled() ? "" : null',
 		'[class]': '_computedClass()',
 	},
 })
 export class HlmMenubarTrigger {
-	private readonly _cdkMenuItem = inject(CdkMenuItem);
 	private readonly _cdkTrigger = inject(CdkMenuTrigger, { host: true });
 	private readonly _config = injectHlmMenubarConfig();
 
@@ -39,7 +39,7 @@ export class HlmMenubarTrigger {
 		),
 	);
 
-	public readonly disabled = input<boolean, BooleanInput>(this._cdkMenuItem.disabled, { transform: booleanAttribute });
+	public readonly disabled = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
 	public readonly align = input<MenuAlign>(this._config.align);
 	public readonly side = input<MenuSide>(this._config.side);

@@ -1,11 +1,11 @@
 import { type BooleanInput } from '@angular/cdk/coercion';
 import { CdkMenuItem } from '@angular/cdk/menu';
-import { booleanAttribute, computed, Directive, inject, input } from '@angular/core';
+import { booleanAttribute, computed, Directive, input } from '@angular/core';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 
 @Directive({
-	selector: '[hlmDropdownMenuItem]',
+	selector: 'button[hlmDropdownMenuItem]',
 	hostDirectives: [
 		{
 			directive: CdkMenuItem,
@@ -16,14 +16,13 @@ import type { ClassValue } from 'clsx';
 	host: {
 		'data-slot': 'dropdown-menu-item',
 		'[class]': '_computedClass()',
+		'[disabled]': 'disabled() || null',
 		'[attr.data-disabled]': 'disabled() ? "" : null',
 		'[attr.data-variant]': 'variant()',
 		'[attr.data-inset]': 'inset() ? "" : null',
 	},
 })
 export class HlmDropdownMenuItem {
-	private readonly _cdkMenuItem = inject(CdkMenuItem);
-
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>
 		hlm(
@@ -32,7 +31,7 @@ export class HlmDropdownMenuItem {
 		),
 	);
 
-	public readonly disabled = input<boolean, BooleanInput>(this._cdkMenuItem.disabled, { transform: booleanAttribute });
+	public readonly disabled = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
 	public readonly variant = input<'default' | 'destructive'>('default');
 

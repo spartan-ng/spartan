@@ -1940,6 +1940,32 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       },
     },
   },
+  "context-menu": {
+    "helm": {
+      "HlmContextMenuTrigger": {
+        "inputs": [
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "align",
+            "required": false,
+            "type": "MenuAlign",
+          },
+          {
+            "name": "side",
+            "required": false,
+            "type": "MenuSide",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmContextMenuTrigger]",
+      },
+    },
+  },
   "date-picker": {
     "helm": {
       "HlmDatePicker": {
@@ -2235,7 +2261,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "outputs": [
           {
             "name": "closed",
-            "type": "any",
+            "type": "TResult",
           },
           {
             "name": "stateChanged",
@@ -2407,6 +2433,216 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [],
         "outputs": [],
         "selector": "[hlmDialogTitle]",
+      },
+    },
+  },
+  "dropdown-menu": {
+    "helm": {
+      "HlmDropdownMenu": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "sideOffset",
+            "required": false,
+            "type": "number",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDropdownMenu],hlm-dropdown-menu",
+      },
+      "HlmDropdownMenuCheckbox": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "checked",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDropdownMenuCheckbox]",
+      },
+      "HlmDropdownMenuCheckboxIndicator": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-dropdown-menu-checkbox-indicator",
+      },
+      "HlmDropdownMenuGroup": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDropdownMenuGroup],hlm-dropdown-menu-group",
+      },
+      "HlmDropdownMenuItem": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "variant",
+            "required": false,
+            "type": "'default' | 'destructive'",
+          },
+          {
+            "name": "inset",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[hlmDropdownMenuItem]",
+      },
+      "HlmDropdownMenuItemSubIndicator": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-dropdown-menu-item-sub-indicator",
+      },
+      "HlmDropdownMenuLabel": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "inset",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDropdownMenuLabel],hlm-dropdown-menu-label",
+      },
+      "HlmDropdownMenuRadio": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "checked",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDropdownMenuRadio]",
+      },
+      "HlmDropdownMenuRadioIndicator": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-dropdown-menu-radio-indicator",
+      },
+      "HlmDropdownMenuSeparator": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDropdownMenuSeparator],hlm-dropdown-menu-separator",
+      },
+      "HlmDropdownMenuShortcut": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDropdownMenuShortcut],hlm-dropdown-menu-shortcut",
+      },
+      "HlmDropdownMenuSub": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDropdownMenuSub],hlm-dropdown-menu-sub",
+      },
+      "HlmDropdownMenuTrigger": {
+        "inputs": [
+          {
+            "name": "align",
+            "required": false,
+            "type": "MenuAlign",
+          },
+          {
+            "name": "side",
+            "required": false,
+            "type": "MenuSide",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDropdownMenuTrigger]",
       },
     },
   },
@@ -3202,136 +3438,9 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       },
     },
   },
-  "menu": {
-    "brain": {
-      "BrnContextMenuTrigger": {
-        "inputs": [
-          {
-            "name": "brnCtxMenuTriggerFor",
-            "required": false,
-            "type": "TemplateRef<unknown> | null",
-          },
-          {
-            "name": "brnCtxMenuTriggerData",
-            "required": false,
-            "type": "unknown",
-          },
-          {
-            "name": "align",
-            "required": false,
-            "type": "BrnMenuAlign",
-          },
-          {
-            "name": "side",
-            "required": false,
-            "type": "BrnMenuSide",
-          },
-        ],
-        "models": [],
-        "outputs": [],
-        "selector": "[brnCtxMenuTriggerFor]",
-      },
-      "BrnMenu": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "[brnMenu],[brnSubMenu]",
-      },
-      "BrnMenuBar": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "[brnMenuBar]",
-      },
-      "BrnMenuGroup": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "[brnMenuGroup]",
-      },
-      "BrnMenuItem": {
-        "inputs": [
-          {
-            "name": "disabled",
-            "required": false,
-            "type": "unknown",
-          },
-        ],
-        "models": [],
-        "outputs": [],
-        "selector": "[brnMenuItem]",
-      },
-      "BrnMenuItemCheckbox": {
-        "inputs": [
-          {
-            "name": "checked",
-            "required": false,
-            "type": "unknown",
-          },
-          {
-            "name": "disabled",
-            "required": false,
-            "type": "unknown",
-          },
-        ],
-        "models": [],
-        "outputs": [],
-        "selector": "[brnMenuItemCheckbox]",
-      },
-      "BrnMenuItemRadio": {
-        "inputs": [
-          {
-            "name": "checked",
-            "required": false,
-            "type": "unknown",
-          },
-          {
-            "name": "disabled",
-            "required": false,
-            "type": "unknown",
-          },
-        ],
-        "models": [],
-        "outputs": [],
-        "selector": "[brnMenuItemRadio]",
-      },
-      "BrnMenuTrigger": {
-        "inputs": [
-          {
-            "name": "align",
-            "required": false,
-            "type": "BrnMenuAlign",
-          },
-          {
-            "name": "side",
-            "required": false,
-            "type": "BrnMenuSide",
-          },
-        ],
-        "models": [],
-        "outputs": [],
-        "selector": "[brnMenuTriggerFor]",
-      },
-    },
+  "menubar": {
     "helm": {
-      "HlmMenu": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-          {
-            "name": "variant",
-            "required": false,
-            "type": "MenuVariants['variant']",
-          },
-        ],
-        "models": [],
-        "outputs": [],
-        "selector": "hlm-menu",
-      },
-      "HlmMenuBar": {
+      "HlmMenubar": {
         "inputs": [
           {
             "name": "class",
@@ -3341,172 +3450,34 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "hlm-menu-bar",
+        "selector": "[hlmMenubar],hlm-menubar",
       },
-      "HlmMenuBarItem": {
+      "HlmMenubarTrigger": {
         "inputs": [
           {
             "name": "class",
             "required": false,
             "type": "ClassValue",
           },
-        ],
-        "models": [],
-        "outputs": [],
-        "selector": "[hlmMenuBarItem]",
-      },
-      "HlmMenuGroup": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "hlm-menu-group",
-      },
-      "HlmMenuItem": {
-        "inputs": [
           {
-            "name": "variant",
-            "required": false,
-            "type": "'default' | 'destructive'",
-          },
-          {
-            "name": "inset",
+            "name": "disabled",
             "required": false,
             "type": "boolean",
           },
           {
-            "name": "class",
+            "name": "align",
             "required": false,
-            "type": "ClassValue",
+            "type": "MenuAlign",
+          },
+          {
+            "name": "side",
+            "required": false,
+            "type": "MenuSide",
           },
         ],
         "models": [],
         "outputs": [],
-        "selector": "[hlmMenuItem]",
-      },
-      "HlmMenuItemCheck": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
-        "models": [],
-        "outputs": [],
-        "selector": "hlm-menu-item-check",
-      },
-      "HlmMenuItemCheckbox": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
-        "models": [],
-        "outputs": [],
-        "selector": "[hlmMenuItemCheckbox]",
-      },
-      "HlmMenuItemIcon": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
-        "models": [],
-        "outputs": [],
-        "selector": "[hlmMenuIcon]",
-      },
-      "HlmMenuItemRadio": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
-        "models": [],
-        "outputs": [],
-        "selector": "[hlmMenuItemRadio]",
-      },
-      "HlmMenuItemRadioIndicator": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
-        "models": [],
-        "outputs": [],
-        "selector": "hlm-menu-item-radio",
-      },
-      "HlmMenuItemSubIndicator": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
-        "models": [],
-        "outputs": [],
-        "selector": "hlm-menu-item-sub-indicator",
-      },
-      "HlmMenuLabel": {
-        "inputs": [
-          {
-            "name": "inset",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
-        "models": [],
-        "outputs": [],
-        "selector": "hlm-menu-label",
-      },
-      "HlmMenuSeparator": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
-        "models": [],
-        "outputs": [],
-        "selector": "hlm-menu-separator",
-      },
-      "HlmMenuShortcut": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
-        "models": [],
-        "outputs": [],
-        "selector": "hlm-menu-shortcut",
-      },
-      "HlmSubMenu": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
-        "models": [],
-        "outputs": [],
-        "selector": "hlm-sub-menu",
+        "selector": "button[hlmMenubarTrigger]",
       },
     },
   },

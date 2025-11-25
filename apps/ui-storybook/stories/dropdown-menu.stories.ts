@@ -1,22 +1,22 @@
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import * as lucide from '@ng-icons/lucide';
-import { BrnMenuTrigger } from '@spartan-ng/brain/menu';
+
 import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmDropdownMenu, HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 import { HlmIcon } from '@spartan-ng/helm/icon';
-import { HlmMenu, HlmMenuImports, HlmMenuItemCheck, HlmMenuItemRadio } from '@spartan-ng/helm/menu';
 import { type Meta, type StoryObj, argsToTemplate, moduleMetadata } from '@storybook/angular';
 
-const meta: Meta<HlmMenu> = {
+const meta: Meta<HlmDropdownMenu> = {
 	title: 'Dropdown Menu',
-	component: HlmMenu,
+	component: HlmDropdownMenu,
 	tags: ['autodocs'],
 	args: {
-		variant: 'default',
+		sideOffset: '1',
 	},
 	argTypes: {
-		variant: {
-			options: ['default', 'menubar'],
+		sideOffset: {
+			options: ['1', '1.5', '2'],
 			control: {
 				type: 'select',
 			},
@@ -25,120 +25,120 @@ const meta: Meta<HlmMenu> = {
 	decorators: [
 		moduleMetadata({
 			providers: [provideIcons(lucide)],
-			imports: [BrnMenuTrigger, HlmMenuImports, HlmButton, NgIcon, HlmIcon],
+			imports: [HlmDropdownMenuImports, HlmButton, NgIcon, HlmIcon],
 		}),
 	],
 };
 
 export default meta;
-type Story = StoryObj<HlmMenu>;
+type Story = StoryObj<HlmDropdownMenu>;
 
 export const Default: Story = {
 	render: ({ ...args }) => ({
 		props: args,
 		template: `
-    <div class='w-full flex justify-center items-center pt-[20%]'>
-      <button hlmBtn variant='outline' align='end' [brnMenuTriggerFor]='menu'>Open</button>
+    <div class='w-full flex justify-center items-center'>
+      <button hlmBtn variant='outline' align='end' [hlmDropdownMenuTrigger]='menu'>Open</button>
     </div>
     <ng-template #menu>
-      <hlm-menu ${argsToTemplate(args)} class='w-56'>
-        <hlm-menu-label>My Account</hlm-menu-label>
-        <hlm-menu-separator />
-        <hlm-menu-group>
-          <button hlmMenuItem>
+      <hlm-dropdown-menu ${argsToTemplate(args)} class='w-56'>
+        <hlm-dropdown-menu-label>My Account</hlm-dropdown-menu-label>
+        <hlm-dropdown-menu-separator />
+        <hlm-dropdown-menu-group>
+          <button hlmDropdownMenuItem>
             <ng-icon hlm name='lucideUser' hlmMenuIcon />
             <span>Profile</span>
-            <hlm-menu-shortcut>⇧⌘P</hlm-menu-shortcut>
+            <hlm-dropdown-menu-shortcut>⇧⌘P</hlm-dropdown-menu-shortcut>
           </button>
 
-          <button hlmMenuItem>
+          <button hlmDropdownMenuItem>
             <ng-icon hlm name='lucideCreditCard' hlmMenuIcon />
             <span>Billing</span>
-            <hlm-menu-shortcut>⌘B</hlm-menu-shortcut>
+            <hlm-dropdown-menu-shortcut>⌘B</hlm-dropdown-menu-shortcut>
           </button>
 
-          <button hlmMenuItem>
+          <button hlmDropdownMenuItem>
             <ng-icon hlm name='lucideSettings' hlmMenuIcon />
             <span>Settings</span>
-            <hlm-menu-shortcut>⌘S</hlm-menu-shortcut>
+            <hlm-dropdown-menu-shortcut>⌘S</hlm-dropdown-menu-shortcut>
           </button>
 
-          <button hlmMenuItem>
+          <button hlmDropdownMenuItem>
             <ng-icon hlm name='lucideKeyboard' hlmMenuIcon />
             <span>Keyboard Shortcuts</span>
-            <hlm-menu-shortcut>⌘K</hlm-menu-shortcut>
+            <hlm-dropdown-menu-shortcut>⌘K</hlm-dropdown-menu-shortcut>
           </button>
-        </hlm-menu-group>
+        </hlm-dropdown-menu-group>
 
-        <hlm-menu-separator />
+        <hlm-dropdown-menu-separator />
 
-        <hlm-menu-group>
-          <button hlmMenuItem>
+        <hlm-dropdown-menu-group>
+          <button hlmDropdownMenuItem>
             <ng-icon hlm name='lucideUsers' hlmMenuIcon />
             <span>Team</span>
-            <hlm-menu-shortcut>⌘B</hlm-menu-shortcut>
+            <hlm-dropdown-menu-shortcut>⌘B</hlm-dropdown-menu-shortcut>
           </button>
 
-          <button hlmMenuItem [brnMenuTriggerFor]='invite'>
+          <button hlmDropdownMenuItem [hlmDropdownMenuTrigger]='invite'>
             <ng-icon hlm name='lucideUserPlus' hlmMenuIcon />
             <span>Invite Users</span>
-            <hlm-menu-item-sub-indicator />
+            <hlm-dropdown-menu-item-sub-indicator />
           </button>
 
-          <button hlmMenuItem>
+          <button hlmDropdownMenuItem>
             <ng-icon hlm name='lucidePlus' hlmMenuIcon />
             <span>New Team</span>
-            <hlm-menu-shortcut>⌘+T</hlm-menu-shortcut>
+            <hlm-dropdown-menu-shortcut>⌘+T</hlm-dropdown-menu-shortcut>
           </button>
-        </hlm-menu-group>
+        </hlm-dropdown-menu-group>
 
-        <hlm-menu-separator />
+        <hlm-dropdown-menu-separator />
 
-        <hlm-menu-group>
-          <button hlmMenuItem [disabled]='false'>
+        <hlm-dropdown-menu-group>
+          <button hlmDropdownMenuItem [disabled]='false'>
             <ng-icon hlm name='lucideGithub' hlmMenuIcon />
             <span>Github</span>
           </button>
 
-          <button hlmMenuItem [disabled]='true'>
+          <button hlmDropdownMenuItem [disabled]='true'>
             <ng-icon hlm name='lucideLifeBuoy' hlmMenuIcon />
             <span>Support</span>
           </button>
 
-          <button hlmMenuItem disabled>
+          <button hlmDropdownMenuItem disabled>
             <ng-icon hlm name='lucideCloud' hlmMenuIcon />
             <span>API</span>
           </button>
-        </hlm-menu-group>
+        </hlm-dropdown-menu-group>
 
-        <hlm-menu-separator />
+        <hlm-dropdown-menu-separator />
 
-        <button hlmMenuItem>
+        <button hlmDropdownMenuItem>
           <ng-icon hlm name='lucideLogOut' hlmMenuIcon />
           <span>Logout</span>
-          <hlm-menu-shortcut>⇧⌘Q</hlm-menu-shortcut>
+          <hlm-dropdown-menu-shortcut>⇧⌘Q</hlm-dropdown-menu-shortcut>
         </button>
 
-      </hlm-menu>
+      </hlm-dropdown-menu>
     </ng-template>
 
     <ng-template #invite>
-      <hlm-sub-menu>
-        <button hlmMenuItem>
+      <hlm-dropdown-menu-sub>
+        <button hlmDropdownMenuItem>
           <ng-icon hlm name='lucideMail' hlmMenuIcon />
           Email
         </button>
 
-        <button hlmMenuItem>
+        <button hlmDropdownMenuItem>
           <ng-icon hlm name='lucideMessageSquare' hlmMenuIcon />
           Message
         </button>
-        <hlm-menu-separator />
-        <button hlmMenuItem>
+        <hlm-dropdown-menu-separator />
+        <button hlmDropdownMenuItem>
           <ng-icon hlm name='lucideCirclePlus' hlmMenuIcon />
           <span>More</span>
         </button>
-      </hlm-sub-menu>
+      </hlm-dropdown-menu-sub>
     </ng-template>
     `,
 	}),
@@ -146,52 +146,57 @@ export const Default: Story = {
 
 @Component({
 	selector: 'stateful-dropdown-story',
-	imports: [BrnMenuTrigger, HlmMenuImports, HlmButton, NgIcon, HlmIcon, HlmMenuItemCheck, HlmMenuItemRadio],
+	imports: [HlmButton, NgIcon, HlmIcon],
 	template: `
 		<div class="flex w-full items-center justify-center pt-[20%]">
-			<button hlmBtn variant="outline" align="center" [brnMenuTriggerFor]="menu">Open</button>
+			<button hlmBtn variant="outline" align="center" [hlmDropdownMenuTrigger]="menu">Open</button>
 		</div>
 		<ng-template #menu>
-			<hlm-menu class="w-56">
-				<hlm-menu-group>
-					<hlm-menu-label>Appearance</hlm-menu-label>
+			<hlm-dropdown-menu class="w-56">
+				<hlm-dropdown-menu-group>
+					<hlm-dropdown-menu-label>Appearance</hlm-dropdown-menu-label>
 
-					<button hlmMenuItemCheckbox [checked]="isPanel" (triggered)="isPanel = !isPanel">
-						<hlm-menu-item-check />
+					<button hlmDropdownMenuCheckbox [checked]="isPanel" (triggered)="isPanel = !isPanel">
+						<hlm-dropdown-menu-checkbox-indicator />
 						<span>Panel</span>
 					</button>
 
-					<button hlmMenuItemCheckbox disabled [checked]="isActivityBar" (triggered)="isActivityBar = !isActivityBar">
-						<hlm-menu-item-check />
+					<button
+						hlmDropdownMenuCheckbox
+						disabled
+						[checked]="isActivityBar"
+						(triggered)="isActivityBar = !isActivityBar"
+					>
+						<hlm-dropdown-menu-checkbox-indicator />
 						<span>Activity Bar</span>
 					</button>
 
-					<button hlmMenuItemCheckbox [checked]="isStatusBar" (triggered)="isStatusBar = !isStatusBar">
-						<hlm-menu-item-check />
+					<button hlmDropdownMenuCheckbox [checked]="isStatusBar" (triggered)="isStatusBar = !isStatusBar">
+						<hlm-dropdown-menu-checkbox-indicator />
 						<span>Status Bar</span>
 					</button>
-				</hlm-menu-group>
+				</hlm-dropdown-menu-group>
 
-				<hlm-menu-separator />
+				<hlm-dropdown-menu-separator />
 
-				<hlm-menu-label>Panel Position</hlm-menu-label>
+				<hlm-dropdown-menu-label>Panel Position</hlm-dropdown-menu-label>
 
-				<hlm-menu-group>
+				<hlm-dropdown-menu-group>
 					@for (size of panelPositions; track size) {
-						<button hlmMenuItemRadio [checked]="size === selectedPosition" (triggered)="selectedPosition = size">
-							<hlm-menu-item-radio />
+						<button hlmDropdownMenuRadio [checked]="size === selectedPosition" (triggered)="selectedPosition = size">
+							<hlm-dropdown-menu-radio-indicator />
 							<span>{{ size }}</span>
 						</button>
 					}
-				</hlm-menu-group>
+				</hlm-dropdown-menu-group>
 
-				<hlm-menu-separator />
+				<hlm-dropdown-menu-separator />
 
-				<button hlmMenuItem (triggered)="reset()">
+				<button hlmDropdownMenuItem (triggered)="reset()">
 					<ng-icon hlm name="lucideUndo2" hlmMenuIcon />
 					Reset
 				</button>
-			</hlm-menu>
+			</hlm-dropdown-menu>
 		</ng-template>
 	`,
 })

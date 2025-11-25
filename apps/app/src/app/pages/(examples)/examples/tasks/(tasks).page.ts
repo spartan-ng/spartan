@@ -24,12 +24,11 @@ import {
 	lucideUser,
 } from '@ng-icons/lucide';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
-import { BrnMenuTrigger } from '@spartan-ng/brain/menu';
 import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { HlmAvatarImports } from '@spartan-ng/helm/avatar';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 import { HlmIcon } from '@spartan-ng/helm/icon';
-import { HlmMenuImports } from '@spartan-ng/helm/menu';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
 import { HlmTableImports } from '@spartan-ng/helm/table';
 import {
@@ -65,8 +64,7 @@ export const routeMeta: RouteMeta = {
 	selector: 'spartan-data-table-preview',
 	imports: [
 		FormsModule,
-		BrnMenuTrigger,
-		HlmMenuImports,
+		HlmDropdownMenuImports,
 		HlmTableImports,
 		HlmButtonImports,
 		HlmIcon,
@@ -110,50 +108,50 @@ export const routeMeta: RouteMeta = {
 					<h2 class="text-2xl font-bold tracking-tight">Welcome back!</h2>
 					<p class="text-muted-foreground">Here's a list of your tasks for this month!</p>
 				</div>
-				<hlm-avatar [brnMenuTriggerFor]="profile" align="center">
+				<hlm-avatar [hlmDropdownMenuTrigger]="profile" align="end">
 					<img src="/assets/avatar.png" alt="spartan logo. Resembling a spartanic shield" hlmAvatarImage />
 					<span class="bg-destructive text-white" hlmAvatarFallback>KL</span>
 				</hlm-avatar>
 
 				<ng-template #profile>
-					<hlm-menu>
-						<div class="flex flex-col space-y-1" hlmMenuItem>
+					<hlm-dropdown-menu class="min-w-56">
+						<div class="flex flex-col space-y-1" hlmDropdownMenuItem>
 							<p class="text-sm leading-none font-medium">spartan</p>
 							<p class="text-muted-foreground text-xs leading-none">m&#64;example.com</p>
 						</div>
 
-						<hlm-menu-separator />
+						<hlm-dropdown-menu-separator />
 
-						<hlm-menu-group>
-							<hlm-menu-group>
-								<button hlmMenuItem>
+						<hlm-dropdown-menu-group>
+							<hlm-dropdown-menu-group>
+								<button hlmDropdownMenuItem>
 									<ng-icon hlm name="lucideUser" hlmMenuIcon />
 									<span>Profile</span>
-									<hlm-menu-shortcut>⇧⌘P</hlm-menu-shortcut>
+									<hlm-dropdown-menu-shortcut>⇧⌘P</hlm-dropdown-menu-shortcut>
 								</button>
 
-								<button hlmMenuItem>
+								<button hlmDropdownMenuItem>
 									<ng-icon hlm name="lucideLayers" hlmMenuIcon />
 									<span>Billing</span>
-									<hlm-menu-shortcut>⌘B</hlm-menu-shortcut>
+									<hlm-dropdown-menu-shortcut>⌘B</hlm-dropdown-menu-shortcut>
 								</button>
 
-								<button hlmMenuItem>
+								<button hlmDropdownMenuItem>
 									<ng-icon hlm name="lucideCog" hlmMenuIcon />
 									<span>Settings</span>
-									<hlm-menu-shortcut>⌘S</hlm-menu-shortcut>
+									<hlm-dropdown-menu-shortcut>⌘S</hlm-dropdown-menu-shortcut>
 								</button>
-							</hlm-menu-group>
+							</hlm-dropdown-menu-group>
 
-							<hlm-menu-separator />
+							<hlm-dropdown-menu-separator />
 
-							<button hlmMenuItem>
+							<button hlmDropdownMenuItem>
 								<ng-icon hlm name="lucideLogOut" hlmMenuIcon />
 								<span>Logout</span>
-								<hlm-menu-shortcut>⇧⌘Q</hlm-menu-shortcut>
+								<hlm-dropdown-menu-shortcut>⇧⌘Q</hlm-dropdown-menu-shortcut>
 							</button>
-						</hlm-menu-group>
-					</hlm-menu>
+						</hlm-dropdown-menu-group>
+					</hlm-dropdown-menu>
 				</ng-template>
 			</div>
 

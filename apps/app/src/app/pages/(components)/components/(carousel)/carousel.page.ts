@@ -22,6 +22,7 @@ import { CarouselSizes } from './carousel--sizes.example';
 import { CarouselSlideCount } from './carousel--slide-count.example';
 import { CarouselSpacing } from './carousel--spacing.example';
 import { CarouselPreview, defaultImports, defaultSkeleton } from './carousel.preview';
+
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Carousel', api: 'carousel' },
 	meta: metaWith('spartan/ui - Carousel', 'A carousel with motion and swipe built using Embla.'),
@@ -62,7 +63,7 @@ export const routeMeta: RouteMeta = {
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="about">About</spartan-section-sub-heading>
-			<p class="${hlmP} mb-6">
+			<p class="${hlmP}">
 				Carousel is built on top of
 				<a href="https://www.embla-carousel.com/" target="_blank" rel="noreferrer" class="${link}">Embla Carousel</a>
 				library and the
@@ -74,7 +75,7 @@ export const routeMeta: RouteMeta = {
 				>
 					embla-carousel-angular
 				</a>
-				wrapper .
+				wrapper.
 			</p>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>

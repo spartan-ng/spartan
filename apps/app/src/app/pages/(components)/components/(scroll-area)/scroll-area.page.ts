@@ -3,6 +3,10 @@ import { Component, computed, inject } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideTriangleAlert } from '@ng-icons/lucide';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { ScrollAreaHorizontalPreview } from '@spartan-ng/app/app/pages/(components)/components/(scroll-area)/scroll-area--horizontal.preview';
+import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
+import { link } from '@spartan-ng/app/app/shared/typography/link';
+import { hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
@@ -37,6 +41,8 @@ export const routeMeta: RouteMeta = {
 		PageBottomNav,
 		PageBottomNavLink,
 		ScrollAreaPreview,
+		ScrollAreaHorizontalPreview,
+		SectionSubSubHeading,
 	],
 	providers: [provideIcons({ lucideTriangleAlert })],
 	template: `
@@ -53,6 +59,17 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
+			<spartan-section-sub-heading id="about">About</spartan-section-sub-heading>
+			<p class="${hlmP}">
+				Scroll area is built on top of
+				<a href="https://ngx-scrollbar.netlify.app/#/" target="_blank" rel="noreferrer" class="${link}">
+					ngx-scrollbar directive
+				</a>
+				by
+				<a href="https://github.com/murhafsousli" target="_blank" rel="noreferrer" class="${link}">&#64;murhafsousli</a>
+				.
+			</p>
+
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
 			<spartan-cli-tabs nxCode="npx nx g @spartan-ng/cli:ui scrollarea" ngCode="ng g @spartan-ng/cli:ui scrollarea" />
 
@@ -61,6 +78,17 @@ export const routeMeta: RouteMeta = {
 				<spartan-code [code]="_defaultImports" />
 				<spartan-code [code]="_defaultSkeleton" />
 			</div>
+
+			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
+
+			<h3 id="examples__horizontal" spartanH4>Horizontal</h3>
+
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-scroll-area-horizontal-preview />
+				</div>
+				<spartan-code secondTab [code]="_horizontalCode()" />
+			</spartan-tabs>
 
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="helm" />
@@ -76,6 +104,7 @@ export const routeMeta: RouteMeta = {
 export default class LabelPage {
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('scroll-area');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
+	protected readonly _horizontalCode = computed(() => this._snippets()['horizontal']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

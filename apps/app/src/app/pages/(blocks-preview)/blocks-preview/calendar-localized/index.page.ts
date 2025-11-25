@@ -170,7 +170,7 @@ export class LanguageService {
 			</div>
 
 			<div hlmCardContent class="flex flex-row gap-3 px-6">
-				<hlm-calendar class='h-80' />
+				<hlm-calendar class="h-80" />
 
 				<div class="no-scrollbar flex h-80 scroll-pb-6 flex-col gap-2 overflow-y-auto">
 					@for (time of _timeSlots; track time) {

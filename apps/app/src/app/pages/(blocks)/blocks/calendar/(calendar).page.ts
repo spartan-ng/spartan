@@ -5,57 +5,57 @@ import { OpenInButton } from '@spartan-ng/app/app/shared/blocks/open-in-button';
 
 export const CALENDAR_REGISTRY = [
 	{
-		id: 'calendar-simple',
+		id: 'calendar-1',
 		name: 'calendar-simple',
 		description: 'A clean, minimal single-month calendar view',
 	},
 	{
-		id: 'calendar-multi',
+		id: 'calendar-2',
 		name: 'calendar-multi',
 		description: 'Select multiple individual dates',
 	},
 	{
-		id: 'calendar-date-picker',
+		id: 'calendar-3',
 		name: 'calendar-date-picker',
 		description: 'A date picker with a clickable input field',
 	},
 	{
-		id: 'calendar-date-picker-with-button',
+		id: 'calendar-4',
 		name: 'calendar-date-picker-with-button',
 		description: 'Date picker that opens via a trigger button',
 	},
 	{
-		id: 'calendar-date-picker-multi',
+		id: 'calendar-5',
 		name: 'calendar-date-picker-multi',
 		description: 'A date picker supporting multi-date selection',
 	},
 	{
-		id: 'calendar-date-picker-range',
+		id: 'calendar-6',
 		name: 'calendar-date-picker-range',
 		description: 'Select a start and end date as a continuous range',
 	},
 	{
-		id: 'calendar-disabled-days',
+		id: 'calendar-7',
 		name: 'calendar-disabled-days',
 		description: 'Calendar with certain days blocked from selection',
 	},
 	{
-		id: 'calendar-disabled-weekends',
+		id: 'calendar-8',
 		name: 'calendar-disabled-weekends',
 		description: 'Calendar where Saturdays and Sundays are not selectable',
 	},
 	{
-		id: 'calendar-date-time-picker',
+		id: 'calendar-9',
 		name: 'calendar-date-time-picker',
 		description: 'Pick both a date and a specific time',
 	},
 	{
-		id: 'calendar-month-year-dropdown',
+		id: 'calendar-10',
 		name: 'calendar-month-year-dropdown',
 		description: 'Calendar with dropdowns for month and year navigation',
 	},
 	{
-		id: 'calendar-localized',
+		id: 'calendar-11',
 		name: 'calendar-localized',
 		description: 'Calendar with dynamic language and locale support',
 	},

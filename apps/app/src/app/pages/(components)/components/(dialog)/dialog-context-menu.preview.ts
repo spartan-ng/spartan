@@ -34,7 +34,6 @@ import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 							Print
 							<hlm-dropdown-menu-shortcut>⌘P</hlm-dropdown-menu-shortcut>
 						</button>
-						<!-- TODO dialog content not visible, effects main branch too -->
 						<hlm-dialog-content class="sm:max-w-[425px]" *brnDialogContent="let ctx">
 							<hlm-dialog-header>
 								<h3 hlmDialogTitle>Print this page</h3>

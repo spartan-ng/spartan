@@ -7,14 +7,17 @@ import {
 	signal,
 	ViewEncapsulation,
 } from '@angular/core';
-import { BrnCalendarI18nService, injectBrnCalendarI18n, provideBrnCalendarI18n } from '@spartan-ng/brain/calendar';
+import {
+	BrnCalendarI18nService,
+	injectBrnCalendarI18n,
+	MonthLabels,
+	provideBrnCalendarI18n,
+} from '@spartan-ng/brain/calendar';
 import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmCalendar } from '@spartan-ng/helm/calendar';
 import { HlmCardImports } from '@spartan-ng/helm/card';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
-
-type MonthLabels = [string, string, string, string, string, string, string, string, string, string, string, string];
 
 const localizedStrings = {
 	vi: {

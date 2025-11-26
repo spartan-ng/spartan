@@ -7,8 +7,8 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 	selector: 'spartan-scroll-area-preview',
 	imports: [HlmSeparatorImports, HlmScrollAreaImports, NgScrollbarModule],
 	template: `
-		<ng-scrollbar hlm class="border-border h-72 w-48 rounded-md border" visibility="hover">
-			<div class="p-4">
+		<ng-scrollbar hlm class="h-72 w-48 rounded-md border" appearance="compact">
+			<div class="p-4" scrollViewport>
 				<h4 class="mb-4 text-sm leading-none font-medium">Tags</h4>
 				@for (tag of tags; track tag) {
 					<div class="text-sm">
@@ -28,8 +28,8 @@ export const defaultImports = `
 import { HlmScrollAreaImports } from '@spartan-ng/helm/scroll-area';
 `;
 export const defaultSkeleton = `
-<ng-scrollbar hlm class="border w-72 rounded-md border-border">
-  <div class='p-6 whitespace-nowrap'>
+<ng-scrollbar hlm class="h-72 w-48 rounded-md border" appearance="compact">
+  <div class="p-6 whitespace-nowrap">
     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium architecto,<br>
     asperiores beatae consequuntur dolor ducimus et exercitationem facilis fugiat magni<br>
     nisi officiis quibusdam rem repellat reprehenderit totam veritatis voluptatibus! Nobis.

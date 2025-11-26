@@ -1,15 +1,16 @@
-import { Directive, computed, input } from '@angular/core';
+import { computed, Directive, input } from '@angular/core';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 
 @Directive({
-	selector: 'ng-scrollbar[hlm]',
+	selector: 'ng-scrollbar[hlm],ng-scrollbar[hlmScrollbar]',
 	host: {
+		'data-slot': 'scroll-area',
 		'[class]': '_computedClass()',
-		'[style.--scrollbar-border-radius.px]': '100',
+		'[style.--scrollbar-border-radius]': '100 + "px"',
 		'[style.--scrollbar-offset]': '3',
-		'[style.--scrollbar-thumb-color]': '"hsl(var(--border))"',
-		'[style.--scrollbar-thumb-hover-color]': '"hsl(var(--border))"',
+		'[style.--scrollbar-thumb-color]': '"var(--border)"',
+		'[style.--scrollbar-thumb-hover-color]': '"var(--border)"',
 		'[style.--scrollbar-thickness]': '7',
 	},
 })

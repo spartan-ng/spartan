@@ -4343,7 +4343,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "ng-scrollbar[hlm]",
+        "selector": "ng-scrollbar[hlm],ng-scrollbar[hlmScrollbar]",
       },
     },
   },

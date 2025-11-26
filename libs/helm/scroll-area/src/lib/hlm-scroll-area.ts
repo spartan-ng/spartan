@@ -3,7 +3,7 @@ import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 
 @Directive({
-	selector: 'ng-scrollbar[hlm]',
+	selector: 'ng-scrollbar[hlm],ng-scrollbar[hlmScrollbar]',
 	host: {
 		'data-slot': 'scroll-area',
 		'[class]': '_computedClass()',

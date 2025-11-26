@@ -78,8 +78,8 @@ export class Header {
 	protected readonly _stars = computed(() => {
 		const count = this._githubInfo.value()?.stars ?? 0;
 		if (count < 1000) return count.toString();
-		// Divide by 1000, round up to the nearest tenth, and format as "k"
-		const rounded = Math.ceil((count / 1000) * 10) / 10;
+		// Divide by 1000, round down to the nearest tenth, and format as "k"
+		const rounded = Math.floor((count / 1000) * 10) / 10;
 		return `${rounded}k`;
 	});
 }

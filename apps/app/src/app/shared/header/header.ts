@@ -31,7 +31,7 @@ import { HeaderMobileNav } from './header-mobile-nav';
 	],
 	providers: [provideIcons({ lucideTwitter, lucideGithub })],
 	host: {
-		class: 'backdrop-blur-sm sticky top-0 z-50 w-full',
+		class: 'backdrop-blur-sm sticky top-0 z-[1001] w-full',
 	},
 	template: `
 		<div class="container-wrapper 3xl:fixed:px-0 px-6">

@@ -65,11 +65,14 @@ export class BrnDialogService {
 		if (options?.id && this._cdkDialog.getDialogById(options.id)) {
 			throw new Error(`Dialog with ID: ${options.id} already exists`);
 		}
-
 		const positionStrategy =
 			options?.positionStrategy ??
 			(options?.attachTo && options?.attachPositions && options?.attachPositions?.length > 0
-				? this._positionBuilder?.flexibleConnectedTo(options.attachTo).withPositions(options.attachPositions ?? [])
+				? this._positionBuilder
+						?.flexibleConnectedTo(options.attachTo!)
+						.withPositions(options.attachPositions ?? [])
+						.withTransformOriginOn('.cdk-overlay-pane')
+						.withPush(options?.withPositionPush)
 				: this._positionBuilder.global().centerHorizontally().centerVertically());
 
 		let brnDialogRef!: BrnDialogRef;
@@ -201,6 +204,14 @@ export class BrnDialogService {
 			};
 			containerInstance._changeDetectorRef.detectChanges();
 		}
+		// wait until next tick to set the transform origin css variable based on the position strategys transform origin
+		setTimeout(() =>
+			this._renderer.setAttribute(
+				overlay,
+				'style',
+				`${overlay.style.cssText} --brn-dialog-transform-origin: ${overlay.style.transformOrigin};`,
+			),
+		);
 
 		return brnDialogRef;
 	}

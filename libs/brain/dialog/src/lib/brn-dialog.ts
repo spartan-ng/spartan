@@ -102,6 +102,7 @@ export class BrnDialog<TResult = unknown, TContext extends Record<string, unknow
 			ariaLabelledBy: this._mutableAriaLabelledBy(),
 			ariaLabel: this._mutableAriaLabel(),
 			ariaModal: this._mutableAriaModal(),
+			withPositionPush: this.withPositionPush(),
 		};
 	});
 
@@ -138,6 +139,10 @@ export class BrnDialog<TResult = unknown, TContext extends Record<string, unknow
 
 	public readonly closeDelay = input(this._defaultOptions.closeDelay, {
 		transform: numberAttribute,
+	});
+
+	public readonly withPositionPush = input(this._defaultOptions.withPositionPush, {
+		transform: booleanAttribute,
 	});
 
 	public readonly disableClose = input(this._defaultOptions.disableClose, { transform: booleanAttribute });

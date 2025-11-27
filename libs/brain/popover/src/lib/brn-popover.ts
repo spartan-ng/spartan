@@ -1,4 +1,3 @@
-import { type FlexibleConnectedPositionStrategy } from '@angular/cdk/overlay';
 import {
 	ChangeDetectionStrategy,
 	Component,
@@ -13,6 +12,7 @@ import { BrnDialog, type BrnDialogDefaultOptions, provideBrnDialogDefaultOptions
 export const BRN_POPOVER_DIALOG_DEFAULT_OPTIONS: Partial<BrnDialogDefaultOptions> = {
 	hasBackdrop: false,
 	scrollStrategy: 'reposition',
+	positionStrategy: null,
 };
 
 export type BrnPopoverAlign = 'start' | 'center' | 'end';
@@ -36,7 +36,6 @@ export class BrnPopover extends BrnDialog {
 	public readonly align = input<BrnPopoverAlign>('center');
 	public readonly sideOffset = input(0, { transform: numberAttribute });
 	public readonly offsetX = input(0, { transform: numberAttribute });
-	private _positionStrategy?: FlexibleConnectedPositionStrategy;
 
 	constructor() {
 		super();
@@ -75,20 +74,6 @@ export class BrnPopover extends BrnDialog {
 			const offsetX = this.offsetX();
 			untracked(() => {
 				this.applyOffsetX(offsetX);
-			});
-		});
-		effect(() => {
-			const attachTo = this.mutableAttachTo();
-			const positions = this.mutableAttachPositions();
-			if (!attachTo || !positions || positions.length === 0) return;
-			untracked(() => {
-				if (!this._positionStrategy) {
-					this._positionStrategy = this.positionBuilder.flexibleConnectedTo(attachTo).withPush(false);
-				} else {
-					this._positionStrategy.setOrigin(attachTo);
-				}
-				this._positionStrategy.withPositions(positions);
-				this.mutablePositionStrategy.set(this._positionStrategy);
 			});
 		});
 	}

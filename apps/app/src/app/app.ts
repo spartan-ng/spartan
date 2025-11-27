@@ -7,7 +7,7 @@ import { Header } from './shared/header/header';
 	selector: 'spartan-root',
 	imports: [RouterOutlet, Header, Footer],
 	host: {
-		class: 'bg-background relative z-10 flex min-h-svh flex-col',
+		class: 'bg-background relative flex min-h-svh flex-col',
 	},
 	template: `
 		<div

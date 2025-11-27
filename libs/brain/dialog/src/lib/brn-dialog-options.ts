@@ -28,6 +28,7 @@ export type BrnDialogOptions = {
 	ariaLabel: string | null | undefined;
 	ariaModal: boolean;
 	providers?: StaticProvider[] | (() => StaticProvider[]);
+	withPositionPush?: boolean;
 };
 
 export const DEFAULT_BRN_DIALOG_OPTIONS: Readonly<Partial<BrnDialogOptions>> = {
@@ -47,4 +48,5 @@ export const DEFAULT_BRN_DIALOG_OPTIONS: Readonly<Partial<BrnDialogOptions>> = {
 	disableClose: false,
 	ariaLabel: undefined,
 	ariaModal: true,
+	withPositionPush: false,
 };

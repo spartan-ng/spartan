@@ -34,6 +34,9 @@ export interface BrnDialogDefaultOptions {
 
 	/** Scroll strategy to be used for the dialog. */
 	scrollStrategy: BrnDialogOptions['scrollStrategy'] | 'close' | 'reposition';
+
+	/** Sets whether the dialog can be pushed on-screen if none of the provided positions fit. */
+	withPositionPush: boolean;
 }
 
 export const defaultOptions: BrnDialogDefaultOptions = {
@@ -48,6 +51,7 @@ export const defaultOptions: BrnDialogDefaultOptions = {
 	restoreFocus: true,
 	role: 'dialog',
 	scrollStrategy: null,
+	withPositionPush: false,
 };
 
 const BRN_DIALOG_DEFAULT_OPTIONS = new InjectionToken<BrnDialogDefaultOptions>('brn-dialog-default-options', {

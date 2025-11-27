@@ -1,6 +1,7 @@
 import { DIALOG_DATA, Dialog } from '@angular/cdk/dialog';
 import {
 	type ComponentType,
+	ConnectionPositionPair,
 	OverlayOutsideClickDispatcher,
 	OverlayPositionBuilder,
 	ScrollStrategyOptions,
@@ -22,6 +23,7 @@ import {
 	runInInjectionContext,
 	signal,
 } from '@angular/core';
+import { getTransformOrigin } from '@spartan-ng/brain/core';
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import type { BrnDialogOptions } from './brn-dialog-options';
@@ -112,12 +114,26 @@ export class BrnDialogService {
 
 				runInInjectionContext(this._injector, () => {
 					effectRef = effect(() => {
-						if (overlay) {
-							this._renderer.setAttribute(overlay, 'data-state', state());
-						}
-						if (backdrop) {
-							this._renderer.setAttribute(backdrop, 'data-state', state());
-						}
+						// wait for next microtask to ensure position strategy has applied the last position
+						new Promise<void>((resolve) => resolve()).then(() => {
+							// eslint-disable-next-line @typescript-eslint/no-explicit-any
+							const lastPosition = (cdkDialogRef.overlayRef as any)['_positionStrategy'][
+								'_lastPosition'
+							] as ConnectionPositionPair;
+							// set transform origin based on last position as css var to be exposed to cdk projected content
+							this._renderer.setAttribute(
+								overlay,
+								'style',
+								`${overlay.style.cssText}
+							--brn-dialog-transform-origin: ${getTransformOrigin(lastPosition)};`,
+							);
+							if (overlay) {
+								this._renderer.setAttribute(overlay, 'data-state', state());
+							}
+							if (backdrop) {
+								this._renderer.setAttribute(backdrop, 'data-state', state());
+							}
+						});
 					});
 				});
 

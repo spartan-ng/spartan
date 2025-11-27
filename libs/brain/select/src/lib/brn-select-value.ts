@@ -72,5 +72,6 @@ export class BrnSelectValue<T> {
 		Array.isArray(this._select.value()) ? (this._select.value() as T[]) : ([this._select.value()] as T[]),
 	);
 
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	public readonly transformFn = input<(values: (string | undefined)[]) => any>((values) => (values ?? []).join(', '));
 }

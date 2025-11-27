@@ -8,5 +8,6 @@ export * from './helpers/exposes-state';
 export * from './helpers/measure-dimensions';
 export * from './helpers/menu-align';
 export * from './helpers/table-classes-settable';
+export * from './helpers/transform-origin';
 export * from './helpers/wait-for-element-animations';
 export * from './helpers/zone-free';

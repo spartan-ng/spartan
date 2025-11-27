@@ -5,7 +5,7 @@ import { HlmButtonImports } from '@spartan-ng/helm/button';
 	selector: 'spartan-button-anchor',
 	imports: [HlmButtonImports],
 	template: `
-		<a hlmBtn target="_blank" variant="link" href="https://github.com/goetzrobin/spartan">Star on GitHub</a>
+		<a hlmBtn target="_blank" variant="link" href="https://github.com/spartan-ng/spartan">Star on GitHub</a>
 	`,
 })
 export class ButtonAnchor {}

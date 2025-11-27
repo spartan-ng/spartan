@@ -117,7 +117,7 @@ export const routeMeta: RouteMeta = {
 				<li>
 					<strong>Check for updates:</strong>
 					Review the
-					<a href="https://github.com/goetzrobin/spartan/releases" target="_blank" class="underline">changelog</a>
+					<a href="https://github.com/spartan-ng/spartan/releases" target="_blank" class="underline">changelog</a>
 					to see what's changed
 				</li>
 				<li>

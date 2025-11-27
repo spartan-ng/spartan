@@ -76,7 +76,7 @@ const lead = 'text-foreground max-w-3xl text-base text-balance sm:text-lg';
 						variant="ghost"
 						target="_blank"
 						rel="noreferrer"
-						href="https://github.com/goetzrobin/spartan"
+						href="https://github.com/spartan-ng/spartan"
 					>
 						<ng-icon hlm size="sm" class="mr-0.5" name="lucideStar" />
 						Star on GitHub
@@ -128,7 +128,7 @@ const lead = 'text-foreground max-w-3xl text-base text-balance sm:text-lg';
 				<p class="${lead} mx-auto max-w-[42rem]">
 					Contribute code, share insights, or sponsor on GitHub. Let's build something extraordinary together!
 				</p>
-				<a hlmBtn size="lg" target="_blank" rel="noreferrer" href="https://github.com/goetzrobin/spartan">
+				<a hlmBtn size="lg" target="_blank" rel="noreferrer" href="https://github.com/spartan-ng/spartan">
 					Claim your spot in the 300 today!
 				</a>
 			</div>

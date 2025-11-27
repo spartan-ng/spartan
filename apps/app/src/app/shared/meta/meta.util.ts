@@ -21,7 +21,7 @@ export const metaWith = (title: string, description: string) => [
 	},
 	{
 		property: 'og:url',
-		content: 'https://spartan-goetzrobin.vercel.app/',
+		content: 'https://spartan.ng/',
 	},
 	{
 		property: 'og:description',
@@ -29,7 +29,7 @@ export const metaWith = (title: string, description: string) => [
 	},
 	{
 		property: 'og:image',
-		content: 'https://spartan-goetzrobin.vercel.app/assets/og-image.png',
+		content: 'https://spartan.ng/assets/og-image.png',
 	},
 
 	{
@@ -46,6 +46,6 @@ export const metaWith = (title: string, description: string) => [
 	},
 	{
 		property: 'twitter:image',
-		content: 'https://spartan-goetzrobin.vercel.app/assets/og-image.png',
+		content: 'https://spartan.ng/assets/og-image.png',
 	},
 ];

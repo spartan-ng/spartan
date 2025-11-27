@@ -10,11 +10,11 @@
 	],
 	"homepage": "https://spartan.ng",
 	"bugs": {
-		"url": "https://github.com/goetzrobin/spartan/issues"
+		"url": "https://github.com/spartan-ng/spartan/issues"
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/goetzrobin/spartan.git"
+		"url": "https://github.com/spartan-ng/spartan.git"
 	},
 	"license": "MIT",
 	"author": "Robin Goetz",

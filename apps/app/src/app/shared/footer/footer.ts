@@ -13,7 +13,7 @@ import { hlmMuted } from '@spartan-ng/helm/typography';
 			Development powered by
 			<a class="h-6 px-0.5 text-sm" hlmBtn href="https://zerops.io" target="_blank" variant="link">Zerops.</a>
 			Open source and available on
-			<a class="h-6 px-0.5 text-sm" hlmBtn href="https://github.com/goetzrobin/spartan" target="_blank" variant="link">
+			<a class="h-6 px-0.5 text-sm" hlmBtn href="https://github.com/spartan-ng/spartan" target="_blank" variant="link">
 				GitHub.
 			</a>
 		</footer>

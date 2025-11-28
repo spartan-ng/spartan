@@ -1,4 +1,4 @@
-import { computed, Directive, Host, inject, input } from '@angular/core';
+import { computed, Directive, inject, input } from '@angular/core';
 import { HlmFieldA11yService } from './hlm-field-aria.service';
 
 @Directive({
@@ -9,7 +9,7 @@ import { HlmFieldA11yService } from './hlm-field-aria.service';
 })
 export class HlmFieldControlDescribedBy {
 	public readonly describedBy = input<string | null>(null, { alias: 'aria-describedby' });
-	private readonly _a11y = inject(HlmFieldA11yService, { optional: true, host: true });
+	private readonly _a11y = inject(HlmFieldA11yService, { optional: true });
 
 	protected readonly _computedDescribedBy = computed(() => {
 		const manual = this.describedBy();

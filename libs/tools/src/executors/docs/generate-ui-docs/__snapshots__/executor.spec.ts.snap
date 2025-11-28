@@ -2817,8 +2817,31 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "outputs": [],
         "selector": "[hlmFieldContent],hlm-field-content",
       },
+      "HlmFieldControlDescribedBy": {
+        "inputs": [
+          {
+            "name": "aria-describedby",
+            "required": false,
+            "type": "string | null",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmFieldControlDescribedBy]",
+      },
       "HlmFieldDescription": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "providedId",
+            "required": false,
+            "type": "string | undefined",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "[hlmFieldDescription],hlm-field-description",
@@ -2834,6 +2857,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "name": "error",
             "required": false,
             "type": "Array<{ message: string } | undefined>",
+          },
+          {
+            "name": "providedId",
+            "required": false,
+            "type": "string | undefined",
           },
         ],
         "models": [],
@@ -3935,7 +3963,13 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "hlm-radio",
       },
       "HlmRadioGroup": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "[hlmRadioGroup],hlm-radio-group",
@@ -4750,7 +4784,13 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
     },
     "helm": {
       "HlmSlider": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "hlm-slider, brn-slider [hlm]",

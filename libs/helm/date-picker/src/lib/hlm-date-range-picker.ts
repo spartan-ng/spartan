@@ -4,19 +4,26 @@ import {
 	ChangeDetectionStrategy,
 	Component,
 	computed,
+	type DoCheck,
+	effect,
 	forwardRef,
+	inject,
 	input,
 	linkedSignal,
 	output,
 	signal,
 	untracked,
 } from '@angular/core';
-import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { type ControlValueAccessor, FormGroupDirective, NG_VALUE_ACCESSOR, NgControl, NgForm } from '@angular/forms';
 import { provideIcons } from '@ng-icons/core';
 import { lucideChevronDown } from '@ng-icons/lucide';
 import type { BrnDialogState } from '@spartan-ng/brain/dialog';
+import { BrnFormFieldControl } from '@spartan-ng/brain/form-field';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
+import { ErrorStateMatcher, ErrorStateTracker } from '@spartan-ng/brain/forms';
+import { BrnPopoverImports } from '@spartan-ng/brain/popover';
 import { HlmCalendarRange } from '@spartan-ng/helm/calendar';
+import { HlmFieldControlDescribedBy } from '@spartan-ng/helm/field';
 import { HlmIconImports } from '@spartan-ng/helm/icon';
 import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 import { hlm } from '@spartan-ng/helm/utils';
@@ -33,8 +40,15 @@ let nextId = 0;
 
 @Component({
 	selector: 'hlm-date-range-picker',
-	imports: [HlmIconImports, HlmPopoverImports, HlmCalendarRange],
-	providers: [HLM_DATE_RANGE_PICKER_VALUE_ACCESSOR, provideIcons({ lucideChevronDown })],
+	imports: [HlmIconImports, BrnPopoverImports, HlmPopoverImports, HlmCalendarRange, HlmFieldControlDescribedBy],
+	providers: [
+		// HLM_DATE_RANGE_PICKER_VALUE_ACCESSOR,
+		provideIcons({ lucideChevronDown }),
+		{
+			provide: BrnFormFieldControl,
+			useExisting: forwardRef(() => HlmDateRangePicker),
+		},
+	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'block',
@@ -51,7 +65,9 @@ let nextId = 0;
 				type="button"
 				[class]="_computedClass()"
 				[disabled]="_mutableDisabled()"
+				[attr.aria-invalid]="_ariaInvalid()"
 				hlmPopoverTrigger
+				hlmFieldControlDescribedBy
 			>
 				<span class="truncate">
 					@if (_formattedDate(); as formattedDate) {
@@ -80,8 +96,27 @@ let nextId = 0;
 		</hlm-popover>
 	`,
 })
-export class HlmDateRangePicker<T> implements ControlValueAccessor {
+export class HlmDateRangePicker<T> implements ControlValueAccessor, DoCheck {
 	private readonly _config = injectHlmDateRangePickerConfig<T>();
+	private readonly _defaultErrorStateMatcher = inject(ErrorStateMatcher);
+	private readonly _parentForm = inject(NgForm, { optional: true });
+	private readonly _parentFormGroup = inject(FormGroupDirective, { optional: true });
+
+	protected readonly _ngControl = inject(NgControl, { optional: true, self: true });
+	private readonly _errorStateTracker = new ErrorStateTracker(
+		this._defaultErrorStateMatcher,
+		null,
+		this._parentFormGroup,
+		this._parentForm,
+	);
+
+	public readonly errorState = computed(() => this._errorStateTracker.errorState());
+	protected readonly _errorStateClass = computed(() =>
+		this.errorState()
+			? 'border-destructive focus-visible:border-destructive focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40'
+			: '',
+	);
+	protected readonly _ariaInvalid = computed(() => (this.errorState() ? 'true' : null));
 
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>
@@ -90,6 +125,7 @@ export class HlmDateRangePicker<T> implements ControlValueAccessor {
 			'focus-visible:ring-ring focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
 			'disabled:pointer-events-none disabled:opacity-50',
 			'[&_ng-icon]:pointer-events-none [&_ng-icon]:shrink-0',
+			this._errorStateClass(),
 			this.userClass(),
 		),
 	);
@@ -203,5 +239,28 @@ export class HlmDateRangePicker<T> implements ControlValueAccessor {
 			this._start.set(dates[0]);
 			this._end.set(dates[1]);
 		}
+	}
+
+	constructor() {
+		if (this._ngControl) {
+			this._ngControl.valueAccessor = this;
+		}
+
+		effect(() => {
+			const error = this._errorStateTracker.errorState();
+			untracked(() => {
+				if (this._ngControl) {
+					const shouldShowError =
+						error && this._ngControl.invalid && (this._ngControl.touched || this._ngControl.dirty);
+					this._errorStateTracker.errorState.set(shouldShowError ? true : false);
+				}
+			});
+		});
+
+		this._errorStateTracker.ngControl = this._ngControl;
+	}
+
+	ngDoCheck() {
+		this._errorStateTracker.updateErrorState();
 	}
 }

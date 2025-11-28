@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import {
 	BrnSlider,
 	BrnSliderRange,
@@ -8,6 +8,7 @@ import {
 	injectBrnSlider,
 } from '@spartan-ng/brain/slider';
 import { classes } from '@spartan-ng/helm/utils';
+import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-slider, brn-slider [hlm]',
@@ -20,6 +21,10 @@ import { classes } from '@spartan-ng/helm/utils';
 			outputs: ['valueChange'],
 		},
 	],
+	host: {
+		'[attr.aria-invalid]': '_slider.errorState() ? "true" : null',
+		'[attr.data-invalid]': '_slider.errorState() ? "true" : null',
+	},
 	template: `
 		<div brnSliderTrack class="bg-muted relative h-1.5 w-full grow overflow-hidden rounded-full">
 			<div class="bg-primary absolute h-full" brnSliderRange></div>
@@ -45,7 +50,19 @@ import { classes } from '@spartan-ng/helm/utils';
 })
 export class HlmSlider {
 	protected readonly _slider = injectBrnSlider();
+	public readonly userClass = input<ClassValue>('', { alias: 'class' });
+	protected readonly _errorStateClass = computed(() =>
+		this._slider.errorState()
+			? 'ring-ring data-[invalid=true]:ring-destructive focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40'
+			: '',
+	);
+
 	constructor() {
-		classes(() => 'relative flex w-full touch-none items-center select-none');
+		classes(() => [
+			'relative flex w-full touch-none items-center select-none',
+			this._slider.mutableDisabled() ? 'opacity-40' : '',
+			this._errorStateClass(),
+			this.userClass(),
+		]);
 	}
 }

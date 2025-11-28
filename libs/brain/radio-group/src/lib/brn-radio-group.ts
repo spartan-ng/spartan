@@ -2,16 +2,20 @@
 import type { BooleanInput } from '@angular/cdk/coercion';
 import {
 	booleanAttribute,
+	computed,
 	contentChildren,
 	Directive,
+	DoCheck,
 	forwardRef,
+	inject,
 	input,
 	linkedSignal,
 	model,
 	output,
 } from '@angular/core';
-import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
+import { type ControlValueAccessor, FormGroupDirective, NgControl, NgForm, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ErrorStateMatcher, ErrorStateTracker, type ChangeFn, type TouchFn } from '@spartan-ng/brain/forms';
+import { BrnFormFieldControl } from '@spartan-ng/brain/form-field';
 import { BrnRadio, BrnRadioChange } from './brn-radio';
 import { provideBrnRadioGroupToken } from './brn-radio-group.token';
 
@@ -23,11 +27,19 @@ export const BRN_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = {
 
 @Directive({
 	selector: '[brnRadioGroup]',
-	providers: [BRN_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, provideBrnRadioGroupToken(BrnRadioGroup)],
+	providers: [
+		BRN_RADIO_GROUP_CONTROL_VALUE_ACCESSOR,
+		provideBrnRadioGroupToken(BrnRadioGroup),
+		{
+			provide: BrnFormFieldControl,
+			useExisting: forwardRef(() => BrnRadioGroup),
+		},
+	],
 	host: {
 		role: 'radiogroup',
 		'[dir]': 'direction()',
 		'(focusout)': 'onTouched()',
+		'[attr.aria-invalid]': 'errorState() ? "true" : null',
 	},
 })
 export class BrnRadioGroup<T = unknown> implements ControlValueAccessor {
@@ -77,11 +89,27 @@ export class BrnRadioGroup<T = unknown> implements ControlValueAccessor {
 	 */
 	public readonly disabledState = linkedSignal(() => this.disabled());
 
+	private readonly _defaultErrorStateMatcher = inject(ErrorStateMatcher);
+	private readonly _parentForm = inject(NgForm, { optional: true });
+	private readonly _parentFormGroup = inject(FormGroupDirective, { optional: true });
+	public readonly ngControl: NgControl | null = inject(NgControl, { optional: true, self: true });
+	private readonly _errorStateTracker: ErrorStateTracker;
+	public readonly errorState = computed(() => this._errorStateTracker.errorState());
+
 	/**
 	 * Access the radio buttons within the group.
 	 * @internal
 	 */
 	public readonly radioButtons = contentChildren(BrnRadio, { descendants: true });
+
+	constructor() {
+		this._errorStateTracker = new ErrorStateTracker(
+			this._defaultErrorStateMatcher,
+			this.ngControl,
+			this._parentFormGroup,
+			this._parentForm,
+		);
+	}
 
 	writeValue(value: T): void {
 		this.value.set(value);
@@ -97,6 +125,10 @@ export class BrnRadioGroup<T = unknown> implements ControlValueAccessor {
 
 	setDisabledState(isDisabled: boolean): void {
 		this.disabledState.set(isDisabled);
+	}
+
+	ngDoCheck(): void {
+		this._errorStateTracker.updateErrorState();
 	}
 
 	/**

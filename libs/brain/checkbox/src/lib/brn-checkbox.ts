@@ -10,6 +10,7 @@ import {
 	computed,
 	DestroyRef,
 	DOCUMENT,
+	DoCheck,
 	effect,
 	ElementRef,
 	forwardRef,
@@ -25,8 +26,9 @@ import {
 	viewChild,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
+import { type ControlValueAccessor, FormGroupDirective, NgControl, NgForm, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ErrorStateMatcher, ErrorStateTracker, type ChangeFn, type TouchFn } from '@spartan-ng/brain/forms';
+import { BrnFormFieldControl } from '@spartan-ng/brain/form-field';
 
 export const BRN_CHECKBOX_VALUE_ACCESSOR = {
 	provide: NG_VALUE_ACCESSOR,
@@ -40,7 +42,13 @@ const CONTAINER_POST_FIX = '-checkbox';
 
 @Component({
 	selector: 'brn-checkbox',
-	providers: [BRN_CHECKBOX_VALUE_ACCESSOR],
+	providers: [
+		BRN_CHECKBOX_VALUE_ACCESSOR,
+		{
+			provide: BrnFormFieldControl,
+			useExisting: forwardRef(() => BrnCheckbox),
+		},
+	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[style]': '{display: "contents"}',
@@ -49,6 +57,7 @@ const CONTAINER_POST_FIX = '-checkbox';
 		'[attr.aria-labelledby]': 'null',
 		'[attr.aria-label]': 'null',
 		'[attr.aria-describedby]': 'null',
+		'[attr.aria-invalid]': 'errorState() ? "true" : null',
 		'[attr.data-state]': '_dataState()',
 		'[attr.data-focus-visible]': '_focusVisible()',
 		'[attr.data-focus]': '_focused()',
@@ -78,7 +87,7 @@ const CONTAINER_POST_FIX = '-checkbox';
 		</button>
 	`,
 })
-export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDestroy {
+export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDestroy, DoCheck, BrnFormFieldControl {
 	private readonly _destroyRef = inject(DestroyRef);
 	private readonly _renderer = inject(Renderer2);
 	private readonly _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
@@ -190,6 +199,13 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 		};
 	});
 
+	private readonly _defaultErrorStateMatcher = inject(ErrorStateMatcher);
+	private readonly _parentForm = inject(NgForm, { optional: true });
+	private readonly _parentFormGroup = inject(FormGroupDirective, { optional: true });
+	public readonly ngControl: NgControl | null = inject(NgControl, { optional: true, self: true });
+	private readonly _errorStateTracker: ErrorStateTracker;
+	public readonly errorState = computed(() => this._errorStateTracker.errorState());
+
 	// eslint-disable-next-line @typescript-eslint/no-empty-function
 	protected _onChange: ChangeFn<boolean> = () => {};
 	// eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -207,6 +223,13 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 	public readonly touched = output<void>();
 
 	constructor() {
+		this._errorStateTracker = new ErrorStateTracker(
+			this._defaultErrorStateMatcher,
+			this.ngControl,
+			this._parentFormGroup,
+			this._parentForm,
+		);
+
 		effect(() => {
 			const state = this._state();
 			const isDisabled = state.disabled();
@@ -247,6 +270,10 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 		this.checkedChange.emit(newChecked);
 		this.checked.set(newChecked);
 		this._onChange(newChecked);
+	}
+
+	ngDoCheck() {
+		this._errorStateTracker.updateErrorState();
 	}
 
 	ngAfterContentInit() {

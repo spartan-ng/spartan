@@ -4,9 +4,11 @@ import {
 	ChangeDetectorRef,
 	computed,
 	Directive,
+	DoCheck,
 	ElementRef,
 	forwardRef,
 	inject,
+	Injector,
 	input,
 	linkedSignal,
 	model,
@@ -15,8 +17,9 @@ import {
 	output,
 	signal,
 } from '@angular/core';
-import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
+import { type ControlValueAccessor, FormGroupDirective, NG_VALUE_ACCESSOR, NgControl, NgForm } from '@angular/forms';
+import { BrnFormFieldControl } from '@spartan-ng/brain/form-field';
+import { type ChangeFn, ErrorStateMatcher, ErrorStateTracker, type TouchFn } from '@spartan-ng/brain/forms';
 import type { BrnSliderTrack } from './brn-slider-track';
 import { provideBrnSlider } from './brn-slider.token';
 
@@ -30,15 +33,27 @@ import { provideBrnSlider } from './brn-slider.token';
 			useExisting: forwardRef(() => BrnSlider),
 			multi: true,
 		},
+		{
+			provide: BrnFormFieldControl,
+			useExisting: forwardRef(() => BrnSlider),
+		},
 	],
 	host: {
 		'aria-orientation': 'horizontal',
 		'(focusout)': '_onTouched?.()',
+		'[attr.aria-invalid]': 'errorState() ? "true" : null',
 	},
 })
-export class BrnSlider implements ControlValueAccessor, OnInit {
+export class BrnSlider implements ControlValueAccessor, OnInit, DoCheck, BrnFormFieldControl {
 	private readonly _changeDetectorRef = inject(ChangeDetectorRef);
 	private readonly _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+	private readonly _defaultErrorStateMatcher = inject(ErrorStateMatcher);
+	private readonly _parentForm = inject(NgForm, { optional: true });
+	private readonly _parentFormGroup = inject(FormGroupDirective, { optional: true });
+	private readonly _injector = inject(Injector);
+	public ngControl: NgControl | null = null;
+	private readonly _errorStateTracker: ErrorStateTracker;
+	public readonly errorState = computed(() => this._errorStateTracker.errorState());
 
 	public readonly value = model<number>(0);
 
@@ -99,7 +114,22 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 	/** @internal Store the track */
 	public readonly track = signal<BrnSliderTrack | null>(null);
 
+	constructor() {
+		this._errorStateTracker = new ErrorStateTracker(
+			this._defaultErrorStateMatcher,
+			null,
+			this._parentFormGroup,
+			this._parentForm,
+		);
+	}
+
 	ngOnInit(): void {
+		this.ngControl = this._injector.get(NgControl, null);
+		if (this.ngControl) {
+			this.ngControl.valueAccessor = this;
+		}
+		this._errorStateTracker.ngControl = this.ngControl;
+
 		// ensure the value is within the min and max range
 		if (this.value() < this.min()) {
 			this.value.set(this.min());
@@ -109,6 +139,10 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 			this.value.set(this.max());
 			this.valueChange.emit(this.max());
 		}
+	}
+
+	ngDoCheck(): void {
+		this._errorStateTracker.updateErrorState();
 	}
 
 	registerOnChange(fn: (value: number) => void): void {

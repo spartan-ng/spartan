@@ -1,7 +1,8 @@
 import { computed, Directive, input } from '@angular/core';
 import { hlm } from '@spartan-ng/helm/utils';
-import { cva, type VariantProps } from 'class-variance-authority';
-import type { ClassValue } from 'clsx';
+import { cva, VariantProps } from 'class-variance-authority';
+import { ClassValue } from 'clsx';
+import { HlmFieldA11yService } from './hlm-field-aria.service';
 
 const fieldVariants = cva('group/field data-[invalid=true]:text-destructive flex w-full gap-3', {
 	variants: {
@@ -28,6 +29,7 @@ export type FieldVariants = VariantProps<typeof fieldVariants>;
 
 @Directive({
 	selector: '[hlmField],hlm-field',
+	providers: [HlmFieldA11yService],
 	host: {
 		role: 'group',
 		'data-slot': 'field',

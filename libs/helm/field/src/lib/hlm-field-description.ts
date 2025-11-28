@@ -1,16 +1,22 @@
-import { computed, Directive, input } from '@angular/core';
+import { computed, Directive, effect, EffectRef, inject, input, OnDestroy } from '@angular/core';
 import { hlm } from '@spartan-ng/helm/utils';
-import type { ClassValue } from 'clsx';
+import { ClassValue } from 'clsx';
+import { HlmFieldA11yService } from './hlm-field-aria.service';
 
 @Directive({
 	selector: '[hlmFieldDescription],hlm-field-description',
 	host: {
 		'data-slot': 'field-description',
 		'[class]': '_computedClass()',
+		'[attr.id]': '_computedId()',
 	},
 })
-export class HlmFieldDescription {
+export class HlmFieldDescription implements OnDestroy {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
+	private static _nextId = 0;
+	public readonly providedId = input<string | undefined>(undefined);
+	private readonly _autoId = `hlm-field-description-${++HlmFieldDescription._nextId}`;
+	protected readonly _computedId = computed(() => this.providedId() ?? this._autoId);
 
 	protected readonly _computedClass = computed(() =>
 		hlm(
@@ -20,4 +26,31 @@ export class HlmFieldDescription {
 			this.userClass(),
 		),
 	);
+
+	private _registeredId?: string;
+	private readonly _a11y = inject(HlmFieldA11yService, { optional: true, host: true });
+	private readonly _cleanup: EffectRef | null = this._a11y
+		? effect(() => {
+				const a11y = this._a11y;
+				if (!a11y) return;
+
+				const id = this._computedId();
+				if (this._registeredId && this._registeredId !== id) {
+					a11y.unregisterDescription(this._registeredId);
+				}
+
+				if (this._registeredId !== id) {
+					a11y.registerDescription(id);
+					this._registeredId = id;
+				}
+			})
+		: null;
+
+	ngOnDestroy() {
+		this._cleanup?.destroy();
+
+		if (this._registeredId) {
+			this._a11y?.unregisterDescription(this._registeredId);
+		}
+	}
 }

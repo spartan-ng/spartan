@@ -14,6 +14,7 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown } from '@ng-icons/lucide';
 import { BrnSelectImports, BrnSelectTrigger } from '@spartan-ng/brain/select';
 import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmFieldImports } from '@spartan-ng/helm/field';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmLabel } from '@spartan-ng/helm/label';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
@@ -45,7 +46,16 @@ const meta: Meta<BrnSelectStoryArgs> = {
 	},
 	decorators: [
 		moduleMetadata({
-			imports: [CommonModule, FormsModule, ReactiveFormsModule, BrnSelectImports, HlmSelectImports, HlmLabel],
+			imports: [
+				CommonModule,
+				FormsModule,
+				ReactiveFormsModule,
+				BrnSelectImports,
+				HlmSelectImports,
+				HlmLabel,
+				HlmFieldImports,
+				HlmButton,
+			],
 		}),
 	],
 };
@@ -375,6 +385,53 @@ export const ReactiveFormControlWithValidationWithLabel: Story = {
 				@if (fruitGroup.controls.fruit.invalid && fruitGroup.controls.fruit.touched){
 				<span class="text-destructive">Required</span>
 				}
+			</form>
+		`,
+	}),
+};
+
+export const WithHintAndError: Story = {
+	render: (args) => ({
+		props: {
+			...args,
+			form: new FormGroup({
+				fruit: new FormControl('', { validators: [Validators.required] }),
+			}),
+		},
+		template: /* HTML */ `
+			@let control = form.get('fruit'); @let showError = control?.invalid && (control?.touched || control?.dirty);
+
+			<form [formGroup]="form" class="w-full max-w-sm space-y-3">
+				<div hlmField [attr.data-invalid]="showError ? 'true' : null">
+					<label hlmFieldLabel for="select-hint">Fruit *</label>
+					<brn-select
+						id="select-hint"
+						class="w-56"
+						formControlName="fruit"
+						${argsToTemplate(args, { exclude: ['initialValue', 'selectValueTransformFn'] })}
+					>
+						<hlm-select-trigger>
+							<brn-select-value hlm />
+						</hlm-select-trigger>
+						<hlm-select-content>
+							<hlm-select-label>Fruits</hlm-select-label>
+							<hlm-option value="apple">Apple</hlm-option>
+							<hlm-option value="banana">Banana</hlm-option>
+							<hlm-option value="blueberry">Blueberry</hlm-option>
+							<hlm-option value="grapes">Grapes</hlm-option>
+							<hlm-option value="pineapple">Pineapple</hlm-option>
+						</hlm-select-content>
+					</brn-select>
+
+					<p hlmFieldDescription>Pick a fruit so we can tailor the recommendations.</p>
+
+					<hlm-field-error *ngIf="showError">Select your favorite fruit to continue.</hlm-field-error>
+				</div>
+
+				<div class="flex flex-wrap items-center gap-2">
+					<button hlmBtn type="button" (click)="form.markAllAsTouched()">Validate</button>
+					<button hlmBtn variant="outline" type="button" (click)="form.reset()">Reset</button>
+				</div>
 			</form>
 		`,
 	}),

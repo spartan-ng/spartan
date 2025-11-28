@@ -14,6 +14,7 @@ import {
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { BrnFormFieldControl } from '@spartan-ng/brain/form-field';
 import { ErrorStateMatcher, ErrorStateTracker } from '@spartan-ng/brain/forms';
+import { HlmFieldControlDescribedBy } from '@spartan-ng/helm/field';
 import { classes } from '@spartan-ng/helm/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { ClassValue } from 'clsx';
@@ -42,6 +43,7 @@ type TextareaVariants = VariantProps<typeof textareaVariants>;
 			useExisting: forwardRef(() => HlmTextarea),
 		},
 	],
+	hostDirectives: [HlmFieldControlDescribedBy],
 	host: {
 		'data-slot': 'textarea',
 	},

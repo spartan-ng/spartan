@@ -36,6 +36,7 @@ import { HlmAutocompleteGroup } from './hlm-autocomplete-group';
 import { HlmAutocompleteItem } from './hlm-autocomplete-item';
 import { HlmAutocompleteList } from './hlm-autocomplete-list';
 
+import { HlmFieldControlDescribedBy } from '@spartan-ng/helm/field';
 import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 import { HlmAutocompleteTrigger } from './hlm-autocomplete-trigger';
 import { injectHlmAutocompleteConfig } from './hlm-autocomplete.token';
@@ -60,6 +61,8 @@ export const HLM_AUTOCOMPLETE_VALUE_ACCESSOR = {
 		HlmPopoverImports,
 		HlmIconImports,
 		HlmInputGroupImports,
+		HlmFieldControlDescribedBy,
+		BrnAutocompleteImports,
 	],
 	providers: [
 			// HLM_AUTOCOMPLETE_VALUE_ACCESSOR,

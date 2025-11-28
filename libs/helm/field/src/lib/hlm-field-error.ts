@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, EffectRef, Host, input, OnDestroy, Optional } from '@angular/core';
 import { hlm } from '@spartan-ng/helm/utils';
 import { ClassValue } from 'clsx';
+import { HlmFieldA11yService } from './hlm-field-aria.service';
 
 @Component({
 	selector: 'hlm-field-error',
@@ -22,10 +23,17 @@ import { ClassValue } from 'clsx';
 			</ng-content>
 		</div>
 	`,
+	host: {
+		'[attr.id]': '_computedId()',
+	},
 })
-export class HlmFieldError {
+export class HlmFieldError implements OnDestroy {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	public readonly error = input<Array<{ message: string } | undefined>>();
+	private static _nextId = 0;
+	private readonly _autoId = `hlm-field-error-${++HlmFieldError._nextId}`;
+	public readonly _providedId = input<string | undefined>(undefined);
+	protected readonly _computedId = computed(() => this._providedId() ?? this._autoId);
 
 	protected readonly _uniqueErrors = computed(() => {
 		const errors = this.error();
@@ -37,4 +45,37 @@ export class HlmFieldError {
 	});
 
 	protected readonly _computedClass = computed(() => hlm('text-destructive text-sm font-normal', this.userClass()));
+
+	private _registeredId?: string;
+	private readonly _cleanup: EffectRef | null;
+
+	constructor(@Optional() @Host() private readonly _a11y: HlmFieldA11yService | null) {
+		if (!this._a11y) {
+			this._cleanup = null;
+			return;
+		}
+
+		this._cleanup = effect(() => {
+			const a11y = this._a11y;
+			if (!a11y) return;
+
+			const id = this._computedId();
+			if (this._registeredId && this._registeredId !== id) {
+				a11y.unregisterError(this._registeredId);
+			}
+
+			if (this._registeredId !== id) {
+				a11y.registerError(id);
+				this._registeredId = id;
+			}
+		});
+	}
+
+	ngOnDestroy() {
+		this._cleanup?.destroy();
+
+		if (this._registeredId) {
+			this._a11y?.unregisterError(this._registeredId);
+		}
+	}
 }

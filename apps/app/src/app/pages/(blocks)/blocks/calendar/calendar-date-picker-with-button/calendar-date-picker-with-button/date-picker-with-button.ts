@@ -47,7 +47,7 @@ let nextId = 0;
 	providers: [provideIcons({ lucideChevronDown })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<brn-popover sideOffset='5' [state]="_popoverState()" (stateChanged)="_popoverState.set($event)">
+		<brn-popover sideOffset="5" [state]="_popoverState()" (stateChanged)="_popoverState.set($event)">
 			<button
 				[id]="buttonId()"
 				type="button"

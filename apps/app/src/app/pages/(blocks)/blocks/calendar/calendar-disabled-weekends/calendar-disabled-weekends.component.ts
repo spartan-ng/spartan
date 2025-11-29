@@ -10,12 +10,7 @@ import { HlmCalendar } from '@spartan-ng/helm/calendar';
 		class: 'flex justify-center items-start p-3 md:p-20 w-full h-auto md:h-[600px] bg-surface rounded-lg overflow-auto',
 	},
 	template: `
-		<hlm-calendar
-			[min]="minDate"
-			[max]="maxDate"
-			[dateDisabled]="_dateDisabled"
-			[calendarClass]="calendarClass"
-		/>
+		<hlm-calendar [min]="minDate" [max]="maxDate" [dateDisabled]="_dateDisabled" [calendarClass]="calendarClass" />
 	`,
 })
 export class CalendarDisabledWeekendsComponent {

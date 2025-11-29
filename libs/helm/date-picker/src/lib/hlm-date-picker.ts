@@ -4,24 +4,29 @@ import {
 	ChangeDetectionStrategy,
 	Component,
 	computed,
+	effect,
 	forwardRef,
+	inject,
 	input,
 	linkedSignal,
 	output,
 	signal,
+	untracked,
 } from '@angular/core';
-import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { provideIcons } from '@ng-icons/core';
+import { FormGroupDirective, NgControl, NgForm, type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown } from '@ng-icons/lucide';
 import type { BrnDialogState } from '@spartan-ng/brain/dialog';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
-import { BrnPopoverImports } from '@spartan-ng/brain/popover';
 import { HlmCalendar } from '@spartan-ng/helm/calendar';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
-import { HlmPopoverImports } from '@spartan-ng/helm/popover';
+import { HlmFieldControlDescribedBy } from '@spartan-ng/helm/field';
+import { HlmIcon } from '@spartan-ng/helm/icon';
+import { HlmPopoverContent, HlmPopoverImports } from '@spartan-ng/helm/popover';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 import { injectHlmDatePickerConfig } from './hlm-date-picker.token';
+import { BrnFormFieldControl } from '@spartan-ng/brain/form-field';
+import { ErrorStateMatcher, ErrorStateTracker } from '@spartan-ng/brain/forms';
 
 export const HLM_DATE_PICKER_VALUE_ACCESSOR = {
 	provide: NG_VALUE_ACCESSOR,
@@ -33,8 +38,21 @@ let nextId = 0;
 
 @Component({
 	selector: 'hlm-date-picker',
-	imports: [HlmIconImports, BrnPopoverImports, HlmPopoverImports, HlmCalendar],
-	providers: [HLM_DATE_PICKER_VALUE_ACCESSOR, provideIcons({ lucideChevronDown })],
+	imports: [
+		NgIcon,
+		HlmIcon,
+		HlmFieldControlDescribedBy,
+		HlmPopoverImports,
+		HlmCalendar,
+	],
+	providers: [
+		// HLM_DATE_PICKER_VALUE_ACCESSOR,
+		provideIcons({ lucideChevronDown }),
+		{
+			provide: BrnFormFieldControl,
+			useExisting: forwardRef(() => HlmDatePicker),
+		},
+	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'block',
@@ -46,7 +64,9 @@ let nextId = 0;
 				type="button"
 				[class]="_computedClass()"
 				[disabled]="_mutableDisabled()"
+				[attr.aria-invalid]="_ariaInvalid()"
 				hlmPopoverTrigger
+				hlmFieldControlDescribedBy
 			>
 				<span class="truncate">
 					@if (_formattedDate(); as formattedDate) {
@@ -75,6 +95,25 @@ let nextId = 0;
 })
 export class HlmDatePicker<T> implements ControlValueAccessor {
 	private readonly _config = injectHlmDatePickerConfig<T>();
+	private readonly _defaultErrorStateMatcher = inject(ErrorStateMatcher);
+	private readonly _parentForm = inject(NgForm, { optional: true });
+	private readonly _parentFormGroup = inject(FormGroupDirective, { optional: true });
+
+	protected readonly ngControl = inject(NgControl, { optional: true, self: true });
+	private _errorStateTracker = new ErrorStateTracker(
+		this._defaultErrorStateMatcher,
+		null,
+		this._parentFormGroup,
+		this._parentForm,
+	);
+
+	public readonly errorState = computed(() => this._errorStateTracker.errorState());
+	protected readonly _errorStateClass = computed(() =>
+		this.errorState()
+			? 'border-destructive focus-visible:border-destructive focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40'
+			: '',
+	);
+	protected readonly _ariaInvalid = computed(() => (this.errorState() ? 'true' : null));
 
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>
@@ -83,6 +122,7 @@ export class HlmDatePicker<T> implements ControlValueAccessor {
 			'focus-visible:ring-ring focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
 			'disabled:pointer-events-none disabled:opacity-50',
 			'[&_ng-icon]:pointer-events-none [&_ng-icon]:shrink-0',
+			this._errorStateClass(),
 			this.userClass(),
 		),
 	);
@@ -162,6 +202,31 @@ export class HlmDatePicker<T> implements ControlValueAccessor {
 
 	public setDisabledState(isDisabled: boolean): void {
 		this._mutableDisabled.set(isDisabled);
+	}
+
+	constructor() {
+		if (this.ngControl) {
+			this.ngControl.valueAccessor = this;
+		}
+
+		this._errorStateTracker = new ErrorStateTracker(
+			this._defaultErrorStateMatcher,
+			this.ngControl,
+			this._parentFormGroup,
+			this._parentForm,
+		);
+
+		effect(() => {
+			const error = this._errorStateTracker.errorState();
+			untracked(() => {
+				if (this.ngControl) {
+					const shouldShowError = error && this.ngControl.invalid && (this.ngControl.touched || this.ngControl.dirty);
+					this._errorStateTracker.errorState.set(shouldShowError ? true : false);
+				}
+			});
+		});
+
+		this._errorStateTracker.ngControl = this.ngControl;
 	}
 
 	public open() {

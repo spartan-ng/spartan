@@ -13,7 +13,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 	},
 	template: `
 		<div class="flex w-max flex-col gap-2">
-			<hlm-calendar class="bg-background" [captionLayout]="_captionLayout()" />
+			<hlm-calendar calendarClass="bg-background" [captionLayout]="_captionLayout()" />
 
 			<brn-select class="bg-background" [(ngModel)]="_captionLayout">
 				<hlm-select-trigger class="w-full">

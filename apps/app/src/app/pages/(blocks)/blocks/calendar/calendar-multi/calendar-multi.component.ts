@@ -15,7 +15,7 @@ import { HlmCalendarMulti } from '@spartan-ng/helm/calendar';
 			[max]="maxDate"
 			[minSelection]="2"
 			[maxSelection]="6"
-			class="bg-background"
+			calendarClass="bg-background"
 		/>
 	`,
 })

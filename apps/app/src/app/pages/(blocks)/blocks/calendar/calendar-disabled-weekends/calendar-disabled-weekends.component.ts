@@ -11,7 +11,6 @@ import { HlmCalendar } from '@spartan-ng/helm/calendar';
 	},
 	template: `
 		<hlm-calendar
-			class="bg-background"
 			[min]="minDate"
 			[max]="maxDate"
 			[dateDisabled]="_dateDisabled"
@@ -25,6 +24,7 @@ export class CalendarDisabledWeekendsComponent {
         [&_[data-outside]:hover]:opacity-100
         [&_[data-outside]:hover]:text-neutral-900
         [&_[data-disabled][data-outside]]:opacity-50
+		bg-background
     `;
 	/** Access the date adapter */
 	protected readonly _dateAdapter = injectDateAdapter();

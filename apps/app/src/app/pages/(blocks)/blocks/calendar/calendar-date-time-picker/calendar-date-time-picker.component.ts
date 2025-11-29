@@ -27,7 +27,7 @@ import { HlmLabel } from '@spartan-ng/helm/label';
 					type="time"
 					step="1"
 					[defaultValue]="'10:30:00'"
-					class="appearance-none [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-calendar-picker-indicator]:appearance-none"
+					class="appearance-none [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-calendar-picker-indicator]:appearance-none bg-background"
 				/>
 			</div>
 		</div>

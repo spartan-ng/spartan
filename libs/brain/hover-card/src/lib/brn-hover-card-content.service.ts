@@ -264,5 +264,6 @@ export class BrnHoverCardTrigger implements OnInit, OnDestroy {
 	public ngOnDestroy() {
 		this._destroy$.next();
 		this._destroy$.complete();
+		this._focusMonitor.stopMonitoring(this._el);
 	}
 }

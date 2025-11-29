@@ -100,10 +100,10 @@ export class LanguageService {
 	providers: [provideBrnCalendarI18n(CALENDAR_I18N.vi)],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
-		class: 'flex justify-center items-start p-3 md:p-20 w-full h-auto md:h-[600px] bg-surface rounded-lg overflow-auto',
+		class: 'flex justify-center items-start p-3 md:p-20 w-full h-auto md:h-[600px] bg-surface rounded-lg',
 	},
 	template: `
-		<section class="w-full max-w-sm" hlmCard>
+		<section class="w-full max-w-sm overflow-auto" hlmCard>
 			<div hlmCardHeader>
 				<h3 hlmCardTitle>{{ _strings[lang].title }}</h3>
 				<p hlmCardDescription>{{ _strings[lang].description }}</p>

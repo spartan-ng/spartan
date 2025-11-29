@@ -12,7 +12,9 @@ import { HlmLabel } from '@spartan-ng/helm/label';
 	template: `
 		<div class="flex flex-col gap-3">
 			<label for="datePicker" hlmLabel class="px-1">Date Picker</label>
-			<hlm-date-picker buttonId="datePicker" [(date)]="selectedDates" [min]="minDate" [max]="maxDate" />
+			<hlm-date-picker buttonId="datePicker" [(date)]="selectedDates" [min]="minDate" [max]="maxDate">
+				<span>Pick dates</span>
+			</hlm-date-picker>
 		</div>
 	`,
 })

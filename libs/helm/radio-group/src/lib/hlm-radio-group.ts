@@ -1,5 +1,6 @@
 import { computed, Directive, inject, input } from '@angular/core';
 import { BrnRadioGroup } from '@spartan-ng/brain/radio-group';
+import { HlmFieldControlDescribedBy } from '@spartan-ng/helm/field';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 
@@ -11,6 +12,7 @@ import type { ClassValue } from 'clsx';
 			inputs: ['name', 'value', 'disabled', 'required', 'direction'],
 			outputs: ['valueChange'],
 		},
+		HlmFieldControlDescribedBy,
 	],
 	host: {
 		'data-slot': 'radio-group',

@@ -6,6 +6,7 @@ import {
 	Component,
 	computed,
 	DoCheck,
+	effect,
 	ElementRef,
 	forwardRef,
 	inject,
@@ -14,18 +15,17 @@ import {
 	model,
 	output,
 	type TemplateRef,
-	viewChild,
-	effect,
 	untracked,
+	viewChild,
 } from '@angular/core';
-import { type ControlValueAccessor, FormGroupDirective, NgControl, NgForm, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { type ControlValueAccessor, FormGroupDirective, NG_VALUE_ACCESSOR, NgControl, NgForm } from '@angular/forms';
 import { provideIcons } from '@ng-icons/core';
 import { lucideChevronDown, lucideCircleX, lucideSearch } from '@ng-icons/lucide';
 import { BrnAutocomplete, BrnAutocompleteEmpty, BrnAutocompleteImports } from '@spartan-ng/brain/autocomplete';
-import { BrnFormFieldControl } from '@spartan-ng/brain/form-field';
-import { ErrorStateMatcher, ErrorStateTracker } from '@spartan-ng/brain/forms';
 import { debouncedSignal } from '@spartan-ng/brain/core';
+import { BrnFormFieldControl } from '@spartan-ng/brain/form-field';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
+import { ErrorStateMatcher, ErrorStateTracker } from '@spartan-ng/brain/forms';
 import { BrnPopoverImports } from '@spartan-ng/brain/popover';
 import { HlmIconImports } from '@spartan-ng/helm/icon';
 import { HlmPopoverImports } from '@spartan-ng/helm/popover';
@@ -65,13 +65,13 @@ export const HLM_AUTOCOMPLETE_VALUE_ACCESSOR = {
 		BrnAutocompleteImports,
 	],
 	providers: [
-			// HLM_AUTOCOMPLETE_VALUE_ACCESSOR,
-			provideIcons({ lucideSearch, lucideChevronDown, lucideCircleX }),
-			{
-				provide: BrnFormFieldControl,
-				useExisting: forwardRef(() => HlmAutocomplete),
-			},
-		],
+		// HLM_AUTOCOMPLETE_VALUE_ACCESSOR,
+		provideIcons({ lucideSearch, lucideChevronDown, lucideCircleX }),
+		{
+			provide: BrnFormFieldControl,
+			useExisting: forwardRef(() => HlmAutocomplete),
+		},
+	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[class]': '_computedClass()',
@@ -321,9 +321,9 @@ export class HlmAutocomplete<T, V = T> implements ControlValueAccessor, DoCheck 
 	protected _onTouched?: TouchFn;
 
 	constructor() {
-			if (this.ngControl) {
-				this.ngControl.valueAccessor = this; // register without NG_VALUE_ACCESSOR provider
-			}
+		if (this.ngControl) {
+			this.ngControl.valueAccessor = this; // register without NG_VALUE_ACCESSOR provider
+		}
 
 		this._errorStateTracker = new ErrorStateTracker(
 			this._defaultErrorStateMatcher,

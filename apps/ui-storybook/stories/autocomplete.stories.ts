@@ -1,6 +1,5 @@
-import { Component, inject, input } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { HlmAutocomplete, HlmAutocompleteImports } from '@spartan-ng/helm/autocomplete';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { HlmAutocomplete } from '@spartan-ng/helm/autocomplete';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
 import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
@@ -58,33 +57,33 @@ export const WithReactiveForm: Story = {
 	render: (args) => ({
 		props: { ...args, form: new FormGroup({ framework: new FormControl('', [Validators.required]) }) },
 		template: /* HTML */ `
-		<form [formGroup]="form" class="space-y-3">
-			<div hlmField >
-				<label hlmFieldLabel for="framework">Framework *</label>
-				<hlm-autocomplete
-					id="framework-input"
-					formControlName="framework"
-					[filteredOptions]="filteredOptions"
-					[searchPlaceholderText]="searchPlaceholderText" />
+			<form [formGroup]="form" class="space-y-3">
+				<div hlmField>
+					<label hlmFieldLabel for="framework">Framework *</label>
+					<hlm-autocomplete
+						id="framework-input"
+						formControlName="framework"
+						[filteredOptions]="filteredOptions"
+						[searchPlaceholderText]="searchPlaceholderText"
+					/>
+				</div>
 
-			</div>
+				<div class="flex flex-wrap items-center gap-2">
+					<button hlmBtn type="button" (click)="form.markAllAsTouched()">Validate</button>
+					<button hlmBtn variant="outline" type="button" (click)="form.reset()">Reset</button>
+				</div>
+			</form>
 
-			<div class="flex flex-wrap items-center gap-2">
-				<button hlmBtn type="button" (click)="form.markAllAsTouched()">Validate</button>
-				<button hlmBtn variant="outline" type="button" (click)="form.reset()">Reset</button>
-			</div>
-		</form>
-		
-		<p>Error state: {{ form.get('framework')?.errors | json }}</p>
+			<p>Error state: {{ form.get('framework')?.errors | json }}</p>
 
-		<pre>Value Changes: {{ form.get('framework')?.valueChanges | async | json }}</pre>
-		<pre>Errors: {{ form.get('framework')?.errors | json }}</pre>
-		<pre>Touched: {{ form.get('framework')?.touched | json }}</pre>
-		<pre>Dirty: {{ form.get('framework')?.dirty | json }}</pre>
-		<pre>Valid: {{ form.get('framework')?.valid | json }}</pre>
-		<pre>Invalid: {{ form.get('framework')?.invalid | json }}</pre>
-		<pre>Pristine: {{ form.get('framework')?.pristine | json }}</pre>
-		<pre>Value: {{ form.get('framework')?.value | json }}</pre>
+			<pre>Value Changes: {{ form.get('framework')?.valueChanges | async | json }}</pre>
+			<pre>Errors: {{ form.get('framework')?.errors | json }}</pre>
+			<pre>Touched: {{ form.get('framework')?.touched | json }}</pre>
+			<pre>Dirty: {{ form.get('framework')?.dirty | json }}</pre>
+			<pre>Valid: {{ form.get('framework')?.valid | json }}</pre>
+			<pre>Invalid: {{ form.get('framework')?.invalid | json }}</pre>
+			<pre>Pristine: {{ form.get('framework')?.pristine | json }}</pre>
+			<pre>Value: {{ form.get('framework')?.value | json }}</pre>
 		`,
 	}),
 };
@@ -133,4 +132,3 @@ export const WithHintAndError: Story = {
 // 						[searchPlaceholderText]="searchPlaceholderText" [touchedOnInit]="true"/>`,
 // 	}),
 // };
-

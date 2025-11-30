@@ -21,4 +21,3 @@ export class HlmFieldControlDescribedBy {
 		return combined.length ? combined.join(' ') : null;
 	});
 }
-

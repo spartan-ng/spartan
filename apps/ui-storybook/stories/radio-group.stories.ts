@@ -58,7 +58,7 @@ class RadioGroupExample {
 	standalone: true,
 	imports: [HlmRadioGroupImports, ReactiveFormsModule, HlmFieldImports, HlmButton, HlmLabel],
 	template: `
-		<form [formGroup]="form" class="space-y-3 max-w-lg">
+		<form [formGroup]="form" class="max-w-lg space-y-3">
 			<div hlmField [attr.data-invalid]="isInvalid() ? 'true' : null">
 				<label hlmFieldLabel>Billing Frequency *</label>
 				<hlm-radio-group formControlName="plan" class="text-sm font-medium">
@@ -102,6 +102,58 @@ class RadioGroupReactiveFormTester {
 	}
 }
 
+@Component({
+	selector: 'radio-group-hint-error-story',
+	standalone: true,
+	imports: [HlmRadioGroupImports, ReactiveFormsModule, HlmFieldImports, HlmButton, HlmLabel],
+	template: `
+		<form [formGroup]="form" class="max-w-lg space-y-3">
+			<div hlmField [attr.data-invalid]="showError ? 'true' : null">
+				<label hlmFieldLabel>Billing Frequency *</label>
+				<hlm-radio-group formControlName="plan" class="text-sm font-medium">
+					<div hlmField orientation="horizontal" class="items-center gap-3">
+						<hlm-radio value="monthly">
+							<hlm-radio-indicator indicator />
+						</hlm-radio>
+						<label hlmLabel class="font-normal">Monthly - $9.99</label>
+					</div>
+					<div hlmField orientation="horizontal" class="items-center gap-3">
+						<hlm-radio value="annual">
+							<hlm-radio-indicator indicator />
+						</hlm-radio>
+						<label hlmLabel class="font-normal">Annual - $99.99</label>
+					</div>
+					<div hlmField orientation="horizontal" class="items-center gap-3">
+						<hlm-radio value="lifetime">
+							<hlm-radio-indicator indicator />
+						</hlm-radio>
+						<label hlmLabel class="font-normal">Lifetime - $299.99</label>
+					</div>
+				</hlm-radio-group>
+				<p hlmFieldDescription>Pick a plan to see the billing schedule.</p>
+				<hlm-field-error *ngIf="showError">Choose a plan to continue.</hlm-field-error>
+			</div>
+
+			<div class="flex flex-wrap gap-2">
+				<button hlmBtn type="button" (click)="form.markAllAsTouched()">Validate</button>
+				<button hlmBtn variant="outline" type="button" (click)="form.reset()">Reset</button>
+			</div>
+		</form>
+	`,
+})
+class RadioGroupHintErrorStory {
+	private readonly _fb = inject(FormBuilder);
+
+	public readonly form = this._fb.group({
+		plan: ['', Validators.required],
+	});
+
+	public get showError() {
+		const control = this.form.get('plan');
+		return !!control && control.invalid && (control.touched || control.dirty);
+	}
+}
+
 const meta: Meta<BrnRadioGroup> = {
 	title: 'Radio Group',
 	component: BrnRadioGroup,
@@ -111,6 +163,7 @@ const meta: Meta<BrnRadioGroup> = {
 			imports: [
 				RadioGroupExample,
 				RadioGroupReactiveFormTester,
+				RadioGroupHintErrorStory,
 				HlmRadioGroupImports,
 				HlmFieldImports,
 				FormsModule,
@@ -179,5 +232,11 @@ export const Validation: Story = {
 	name: 'Reactive Validation',
 	render: () => ({
 		template: `<radio-group-reactive-form-tester></radio-group-reactive-form-tester>`,
+	}),
+};
+
+export const WithHintAndError: Story = {
+	render: () => ({
+		template: `<radio-group-hint-error-story></radio-group-hint-error-story>`,
 	}),
 };

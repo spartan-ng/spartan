@@ -9,9 +9,9 @@ import { HlmFieldLegend } from './lib/hlm-field-legend';
 import { HlmFieldSeparator } from './lib/hlm-field-separator';
 import { HlmFieldSet } from './lib/hlm-field-set';
 import { HlmFieldTitle } from './lib/hlm-field-title';
-import { HlmFieldA11yService } from './lib/hlm-field-aria.service';
 
 export * from './lib/hlm-field';
+export * from './lib/hlm-field-aria.service';
 export * from './lib/hlm-field-content';
 export * from './lib/hlm-field-control-described-by';
 export * from './lib/hlm-field-description';
@@ -22,7 +22,6 @@ export * from './lib/hlm-field-legend';
 export * from './lib/hlm-field-separator';
 export * from './lib/hlm-field-set';
 export * from './lib/hlm-field-title';
-export * from './lib/hlm-field-aria.service';
 
 export const HlmFieldImports = [
 	HlmField,

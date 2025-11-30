@@ -20,15 +20,10 @@ interface BrnSliderStoryArgs {
 	standalone: true,
 	imports: [HlmSliderImports, HlmFieldImports, ReactiveFormsModule, HlmButtonImports],
 	template: `
-		<form [formGroup]="form" class="space-y-3 max-w-lg">
+		<form [formGroup]="form" class="max-w-lg space-y-3">
 			<div hlmField [attr.data-invalid]="isInvalid() ? 'true' : null">
 				<label hlmFieldLabel for="temperature-slider">Temperature</label>
-				<hlm-slider
-					id="temperature-slider"
-					formControlName="temperature"
-					[min]="0"
-					[max]="100"
-				></hlm-slider>
+				<hlm-slider id="temperature-slider" formControlName="temperature" [min]="0" [max]="100"></hlm-slider>
 				<hlm-field-error *ngIf="isInvalid()">Set the temperature before continuing.</hlm-field-error>
 			</div>
 

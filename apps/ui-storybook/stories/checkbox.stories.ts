@@ -49,9 +49,7 @@ class HlmCheckboxTester {
 			<div hlmField [attr.data-invalid]="isInvalid() ? 'true' : null">
 				<div hlmField orientation="horizontal" class="items-start gap-2">
 					<hlm-checkbox id="field-terms" formControlName="agreement" />
-					<label hlmFieldLabel for="field-terms" class="font-normal">
-						I agree to the terms and conditions.
-					</label>
+					<label hlmFieldLabel for="field-terms" class="font-normal">I agree to the terms and conditions.</label>
 				</div>
 				<hlm-field-error *ngIf="isInvalid()">You must accept the terms to continue.</hlm-field-error>
 			</div>

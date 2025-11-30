@@ -13,11 +13,13 @@ import {
 	signal,
 	untracked,
 } from '@angular/core';
-import { FormGroupDirective, NgControl, NgForm, type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { FormGroupDirective, NG_VALUE_ACCESSOR, NgControl, NgForm, type ControlValueAccessor } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown } from '@ng-icons/lucide';
 import type { BrnDialogState } from '@spartan-ng/brain/dialog';
+import { BrnFormFieldControl } from '@spartan-ng/brain/form-field';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
+import { ErrorStateMatcher, ErrorStateTracker } from '@spartan-ng/brain/forms';
 import { BrnPopover, BrnPopoverContent, BrnPopoverTrigger } from '@spartan-ng/brain/popover';
 import { HlmCalendar } from '@spartan-ng/helm/calendar';
 import { HlmFieldControlDescribedBy } from '@spartan-ng/helm/field';
@@ -26,8 +28,6 @@ import { HlmPopoverContent } from '@spartan-ng/helm/popover';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 import { injectHlmDatePickerConfig } from './hlm-date-picker.token';
-import { BrnFormFieldControl } from '@spartan-ng/brain/form-field';
-import { ErrorStateMatcher, ErrorStateTracker } from '@spartan-ng/brain/forms';
 
 export const HLM_DATE_PICKER_VALUE_ACCESSOR = {
 	provide: NG_VALUE_ACCESSOR,
@@ -224,8 +224,7 @@ export class HlmDatePicker<T> implements ControlValueAccessor {
 			const error = this._errorStateTracker.errorState();
 			untracked(() => {
 				if (this.ngControl) {
-					const shouldShowError =
-						error && this.ngControl.invalid && (this.ngControl.touched || this.ngControl.dirty);
+					const shouldShowError = error && this.ngControl.invalid && (this.ngControl.touched || this.ngControl.dirty);
 					this._errorStateTracker.errorState.set(shouldShowError ? true : false);
 				}
 			});

@@ -5,6 +5,7 @@ import {
 	ChangeDetectionStrategy,
 	Component,
 	computed,
+	DoCheck,
 	effect,
 	ElementRef,
 	forwardRef,
@@ -14,14 +15,17 @@ import {
 	model,
 	output,
 	type TemplateRef,
+	untracked,
 	viewChild,
 } from '@angular/core';
-import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { type ControlValueAccessor, FormGroupDirective, NG_VALUE_ACCESSOR, NgControl, NgForm } from '@angular/forms';
 import { provideIcons } from '@ng-icons/core';
 import { lucideChevronDown, lucideCircleX, lucideSearch } from '@ng-icons/lucide';
 import { BrnAutocomplete, BrnAutocompleteEmpty, BrnAutocompleteImports } from '@spartan-ng/brain/autocomplete';
 import { debouncedSignal } from '@spartan-ng/brain/core';
+import { BrnFormFieldControl } from '@spartan-ng/brain/form-field';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
+import { ErrorStateMatcher, ErrorStateTracker } from '@spartan-ng/brain/forms';
 import { BrnPopoverImports } from '@spartan-ng/brain/popover';
 import { HlmIconImports } from '@spartan-ng/helm/icon';
 import { HlmPopoverImports } from '@spartan-ng/helm/popover';
@@ -32,6 +36,7 @@ import { HlmAutocompleteGroup } from './hlm-autocomplete-group';
 import { HlmAutocompleteItem } from './hlm-autocomplete-item';
 import { HlmAutocompleteList } from './hlm-autocomplete-list';
 
+import { HlmFieldControlDescribedBy } from '@spartan-ng/helm/field';
 import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 import { HlmAutocompleteTrigger } from './hlm-autocomplete-trigger';
 import { injectHlmAutocompleteConfig } from './hlm-autocomplete.token';
@@ -57,12 +62,21 @@ export const HLM_AUTOCOMPLETE_VALUE_ACCESSOR = {
 		HlmPopoverImports,
 		HlmIconImports,
 		HlmInputGroupImports,
+		HlmFieldControlDescribedBy,
 		BrnAutocompleteImports,
 	],
-	providers: [HLM_AUTOCOMPLETE_VALUE_ACCESSOR, provideIcons({ lucideSearch, lucideChevronDown, lucideCircleX })],
+	providers: [
+		// HLM_AUTOCOMPLETE_VALUE_ACCESSOR,
+		provideIcons({ lucideSearch, lucideChevronDown, lucideCircleX }),
+		{
+			provide: BrnFormFieldControl,
+			useExisting: forwardRef(() => HlmAutocomplete),
+		},
+	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[class]': '_computedClass()',
+		'[attr.aria-invalid]': '_ariaInvalid()',
 	},
 	template: `
 		@let transformer = transformOptionToValue();
@@ -90,6 +104,7 @@ export const HLM_AUTOCOMPLETE_VALUE_ACCESSOR = {
 						autocomplete="off"
 						[id]="inputId()"
 						[class]="_computedAutocompleteInputClass()"
+						[attr.aria-invalid]="_ariaInvalid()"
 						[placeholder]="searchPlaceholderText()"
 						[disabled]="_disabled()"
 						[value]="search()"
@@ -167,7 +182,7 @@ export const HLM_AUTOCOMPLETE_VALUE_ACCESSOR = {
 		</brn-popover>
 	`,
 })
-export class HlmAutocomplete<T, V = T> implements ControlValueAccessor {
+export class HlmAutocomplete<T, V = T> implements ControlValueAccessor, DoCheck {
 	private static _id = 0;
 	private readonly _config = injectHlmAutocompleteConfig<T, V>();
 
@@ -177,17 +192,40 @@ export class HlmAutocomplete<T, V = T> implements ControlValueAccessor {
 
 	protected readonly _elementRef = inject(ElementRef<HTMLElement>);
 
+	private readonly _defaultErrorStateMatcher = inject(ErrorStateMatcher);
+	private readonly _parentForm = inject(NgForm, { optional: true });
+	private readonly _parentFormGroup = inject(FormGroupDirective, { optional: true });
+
+	protected readonly _ngControl = inject(NgControl, { optional: true, self: true });
+	private readonly _errorStateTracker = new ErrorStateTracker(
+		this._defaultErrorStateMatcher,
+		null,
+		this._parentFormGroup,
+		this._parentForm,
+	);
+	public readonly errorState = computed(() => this._errorStateTracker.errorState());
+	protected readonly _errorStateClass = computed(() =>
+		this.errorState()
+			? 'border-destructive focus-visible:border-destructive focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40'
+			: '',
+	);
+	protected readonly _ariaInvalid = computed(() => (this.errorState() ? 'true' : null));
+
 	/** The user defined class  */
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected readonly _computedClass = computed(() => hlm('block w-full', this.userClass()));
+	protected readonly _computedClass = computed(() => hlm('block w-full', this.userClass(), this._errorStateClass()));
 
 	/** Custom class for the autocomplete search container. */
 	public readonly autocompleteSearchClass = input<ClassValue>('');
-	protected readonly _computedAutocompleteSearchClass = computed(() => hlm('', this.autocompleteSearchClass()));
+	protected readonly _computedAutocompleteSearchClass = computed(() =>
+		hlm('', this.autocompleteSearchClass(), this._errorStateClass()),
+	);
 
 	/** Custom class for the autocomplete input. */
 	public readonly autocompleteInputClass = input<ClassValue>('');
-	protected readonly _computedAutocompleteInputClass = computed(() => hlm('', this.autocompleteInputClass()));
+	protected readonly _computedAutocompleteInputClass = computed(() =>
+		hlm('', this.autocompleteInputClass(), this._errorStateClass()),
+	);
 
 	/** Custom class for the autocomplete list. */
 	public readonly autocompleteListClass = input<ClassValue>('');
@@ -284,6 +322,30 @@ export class HlmAutocomplete<T, V = T> implements ControlValueAccessor {
 	protected _onTouched?: TouchFn;
 
 	constructor() {
+		if (this._ngControl) {
+			this._ngControl.valueAccessor = this;
+		}
+
+		this._errorStateTracker = new ErrorStateTracker(
+			this._defaultErrorStateMatcher,
+			this._ngControl,
+			this._parentFormGroup,
+			this._parentForm,
+		);
+
+		effect(() => {
+			const error = this._errorStateTracker.errorState();
+			untracked(() => {
+				if (this._ngControl) {
+					const shouldShowError = error && this._ngControl.invalid && (this._ngControl.touched || this._ngControl.dirty);
+					this._errorStateTracker.errorState.set(shouldShowError ? true : false);
+					//FIXME: Do we need this
+					// this.setError(shouldShowError ? true : 'auto');
+				}
+			});
+		});
+		this._errorStateTracker.ngControl = this._ngControl;
+
 		effect(() => {
 			const search = this._search();
 			this.searchChange.emit(search);
@@ -329,6 +391,10 @@ export class HlmAutocomplete<T, V = T> implements ControlValueAccessor {
 		const searchValue = this._displaySearchValue()(value as any);
 		this.search.set(searchValue ?? '');
 		this._brnAutocomplete().close();
+	}
+
+	ngDoCheck() {
+		this._errorStateTracker.updateErrorState();
 	}
 
 	/** CONTROL VALUE ACCESSOR */

@@ -103,8 +103,8 @@ export class HlmDatePicker<T> implements ControlValueAccessor {
 	private readonly _parentForm = inject(NgForm, { optional: true });
 	private readonly _parentFormGroup = inject(FormGroupDirective, { optional: true });
 
-	protected readonly ngControl = inject(NgControl, { optional: true, self: true });
-	private _errorStateTracker = new ErrorStateTracker(
+	protected readonly _ngControl = inject(NgControl, { optional: true, self: true });
+	private readonly _errorStateTracker = new ErrorStateTracker(
 		this._defaultErrorStateMatcher,
 		null,
 		this._parentFormGroup,
@@ -209,28 +209,21 @@ export class HlmDatePicker<T> implements ControlValueAccessor {
 	}
 
 	constructor() {
-		if (this.ngControl) {
-			this.ngControl.valueAccessor = this;
+		if (this._ngControl) {
+			this._ngControl.valueAccessor = this;
 		}
-
-		this._errorStateTracker = new ErrorStateTracker(
-			this._defaultErrorStateMatcher,
-			this.ngControl,
-			this._parentFormGroup,
-			this._parentForm,
-		);
 
 		effect(() => {
 			const error = this._errorStateTracker.errorState();
 			untracked(() => {
-				if (this.ngControl) {
-					const shouldShowError = error && this.ngControl.invalid && (this.ngControl.touched || this.ngControl.dirty);
+				if (this._ngControl) {
+					const shouldShowError = error && this._ngControl.invalid && (this._ngControl.touched || this._ngControl.dirty);
 					this._errorStateTracker.errorState.set(shouldShowError ? true : false);
 				}
 			});
 		});
 
-		this._errorStateTracker.ngControl = this.ngControl;
+		this._errorStateTracker.ngControl = this._ngControl;
 	}
 
 	public open() {

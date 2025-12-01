@@ -14,7 +14,7 @@ export type BrnDialogOptions = {
 	panelClass: string | string[];
 	backdropClass: string | string[];
 	positionStrategy: PositionStrategy | null | undefined;
-	scrollStrategy: ScrollStrategy | null | undefined;
+	scrollStrategy: ScrollStrategy | 'close' | 'reposition' | null | undefined;
 	restoreFocus: boolean | string | ElementRef;
 	closeDelay: number;
 	closeOnOutsidePointerEvents: boolean;

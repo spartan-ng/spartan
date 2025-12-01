@@ -27,6 +27,7 @@ import { filter, takeUntil } from 'rxjs/operators';
 import type { BrnDialogOptions } from './brn-dialog-options';
 import { BrnDialogRef } from './brn-dialog-ref';
 import type { BrnDialogState } from './brn-dialog-state';
+import { injectBrnDialogDefaultOptions } from './brn-dialog-token';
 import { cssClassesToArray } from './brn-dialog-utils';
 
 let dialogSequence = 0;
@@ -53,6 +54,7 @@ export class BrnDialogService {
 	private readonly _positionBuilder = inject(OverlayPositionBuilder);
 	private readonly _sso = inject(ScrollStrategyOptions);
 	private readonly _injector = inject(Injector);
+	private readonly _defaultOptions = injectBrnDialogDefaultOptions();
 
 	public open<DialogContext>(
 		content: ComponentType<unknown> | TemplateRef<unknown>,
@@ -88,6 +90,7 @@ export class BrnDialogService {
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 		// @ts-ignore
 		const cdkDialogRef = this._cdkDialog.open(content, {
+			...this._defaultOptions,
 			id: options?.id ?? `brn-dialog-${dialogId}`,
 			role: options?.role,
 			viewContainerRef: vcr,

@@ -6,6 +6,7 @@ import {
 	Directive,
 	DoCheck,
 	ElementRef,
+	Injector,
 	forwardRef,
 	inject,
 	input,
@@ -49,7 +50,8 @@ export class BrnSlider implements ControlValueAccessor, OnInit, DoCheck, BrnForm
 	private readonly _defaultErrorStateMatcher = inject(ErrorStateMatcher);
 	private readonly _parentForm = inject(NgForm, { optional: true });
 	private readonly _parentFormGroup = inject(FormGroupDirective, { optional: true });
-	public readonly ngControl: NgControl | null = inject(NgControl, { optional: true, self: true });
+	private readonly _injector = inject(Injector);
+	public ngControl: NgControl | null = null;
 	private readonly _errorStateTracker: ErrorStateTracker;
 	public readonly errorState = computed(() => this._errorStateTracker.errorState());
 
@@ -115,13 +117,19 @@ export class BrnSlider implements ControlValueAccessor, OnInit, DoCheck, BrnForm
 	constructor() {
 		this._errorStateTracker = new ErrorStateTracker(
 			this._defaultErrorStateMatcher,
-			this.ngControl,
+			null,
 			this._parentFormGroup,
 			this._parentForm,
 		);
 	}
 
 	ngOnInit(): void {
+		this.ngControl = this._injector.get(NgControl, null);
+		if (this.ngControl) {
+			this.ngControl.valueAccessor = this;
+		}
+		this._errorStateTracker.ngControl = this.ngControl;
+
 		// ensure the value is within the min and max range
 		if (this.value() < this.min()) {
 			this.value.set(this.min());

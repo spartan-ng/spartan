@@ -4,10 +4,9 @@ import {
 	computed,
 	effect,
 	EffectRef,
-	Host,
+	inject,
 	input,
 	OnDestroy,
-	Optional,
 } from '@angular/core';
 import { hlm } from '@spartan-ng/helm/utils';
 import { ClassValue } from 'clsx';
@@ -16,6 +15,9 @@ import { HlmFieldA11yService } from './hlm-field-aria.service';
 @Component({
 	selector: 'hlm-field-error',
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		'[attr.id]': '_computedId()',
+	},
 	template: `
 		<div role="alert" data-slot="field-error" [class]="_computedClass()">
 			<ng-content>
@@ -33,17 +35,14 @@ import { HlmFieldA11yService } from './hlm-field-aria.service';
 			</ng-content>
 		</div>
 	`,
-	host: {
-		'[attr.id]': '_computedId()',
-	},
 })
 export class HlmFieldError implements OnDestroy {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	public readonly error = input<Array<{ message: string } | undefined>>();
 	private static _nextId = 0;
 	private readonly _autoId = `hlm-field-error-${++HlmFieldError._nextId}`;
-	public readonly _providedId = input<string | undefined>(undefined);
-	protected readonly _computedId = computed(() => this._providedId() ?? this._autoId);
+	public readonly providedId = input<string | undefined>(undefined);
+	protected readonly _computedId = computed(() => this.providedId() ?? this._autoId);
 
 	protected readonly _uniqueErrors = computed(() => {
 		const errors = this.error();
@@ -57,29 +56,23 @@ export class HlmFieldError implements OnDestroy {
 	protected readonly _computedClass = computed(() => hlm('text-destructive text-sm font-normal', this.userClass()));
 
 	private _registeredId?: string;
-	private readonly _cleanup: EffectRef | null;
+	private readonly _a11y = inject(HlmFieldA11yService, { optional: true, host: true });
+	private readonly _cleanup: EffectRef | null = this._a11y
+		? effect(() => {
+				const a11y = this._a11y;
+				if (!a11y) return;
 
-	constructor(@Optional() @Host() private readonly _a11y: HlmFieldA11yService | null) {
-		if (!this._a11y) {
-			this._cleanup = null;
-			return;
-		}
+				const id = this._computedId();
+				if (this._registeredId && this._registeredId !== id) {
+					a11y.unregisterError(this._registeredId);
+				}
 
-		this._cleanup = effect(() => {
-			const a11y = this._a11y;
-			if (!a11y) return;
-
-			const id = this._computedId();
-			if (this._registeredId && this._registeredId !== id) {
-				a11y.unregisterError(this._registeredId);
-			}
-
-			if (this._registeredId !== id) {
-				a11y.registerError(id);
-				this._registeredId = id;
-			}
-		});
-	}
+				if (this._registeredId !== id) {
+					a11y.registerError(id);
+					this._registeredId = id;
+				}
+			})
+		: null;
 
 	ngOnDestroy() {
 		this._cleanup?.destroy();

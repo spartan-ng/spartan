@@ -1,14 +1,18 @@
 import { Component, inject } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideCheck } from '@ng-icons/lucide';
-import { BrnDialogImports, BrnDialogRef, injectBrnDialogContext } from '@spartan-ng/brain/dialog';
+import {
+	BrnDialogImports,
+	BrnDialogRef,
+	injectBrnDialogContext,
+	provideBrnDialogDefaultOptions,
+} from '@spartan-ng/brain/dialog';
 import { HlmButton, HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmDialog, HlmDialogImports, HlmDialogService } from '@spartan-ng/helm/dialog';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
 import { HlmInput } from '@spartan-ng/helm/input';
 import { HlmLabel } from '@spartan-ng/helm/label';
 import { HlmTableImports } from '@spartan-ng/helm/table';
-import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
+import { applicationConfig, type Meta, moduleMetadata, type StoryObj } from '@storybook/angular';
 
 const meta: Meta<HlmDialog> = {
 	title: 'Dialog',
@@ -157,7 +161,7 @@ class DialogDynamicStory {
 
 @Component({
 	selector: 'dynamic-content',
-	imports: [HlmDialogImports, HlmButtonImports, HlmIconImports, HlmTableImports],
+	imports: [HlmDialogImports, HlmTableImports],
 	providers: [provideIcons({ lucideCheck })],
 	template: `
 		<hlm-dialog-header>
@@ -198,6 +202,21 @@ class SelectUser {
 export const DynamicComponent: Story = {
 	name: 'Dynamic Component',
 	decorators: [
+		moduleMetadata({
+			imports: [DialogDynamicStory],
+		}),
+	],
+	render: () => ({
+		template: '<dialog-dynamic-component-story />',
+	}),
+};
+
+export const DynamicComponentWithDefaultOptions: Story = {
+	name: 'Dynamic Component with default options',
+	decorators: [
+		applicationConfig({
+			providers: [provideBrnDialogDefaultOptions({ hasBackdrop: false })],
+		}),
 		moduleMetadata({
 			imports: [DialogDynamicStory],
 		}),

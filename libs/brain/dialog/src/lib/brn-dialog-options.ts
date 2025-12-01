@@ -8,43 +8,24 @@ import type {
 import type { ElementRef, StaticProvider } from '@angular/core';
 
 export type BrnDialogOptions = {
-	id: string;
-	role: 'dialog' | 'alertdialog';
-	hasBackdrop: boolean;
-	panelClass: string | string[];
-	backdropClass: string | string[];
-	positionStrategy: PositionStrategy | null | undefined;
-	scrollStrategy: ScrollStrategy | null | undefined;
-	restoreFocus: boolean | string | ElementRef;
-	closeDelay: number;
-	closeOnOutsidePointerEvents: boolean;
-	closeOnBackdropClick: boolean;
-	attachTo: FlexibleConnectedPositionStrategyOrigin | null | undefined;
-	attachPositions: ConnectedPosition[];
-	autoFocus: AutoFocusTarget | (Record<never, never> & string);
-	disableClose: boolean;
 	ariaDescribedBy: string | null | undefined;
-	ariaLabelledBy: string | null | undefined;
 	ariaLabel: string | null | undefined;
+	ariaLabelledBy: string | null | undefined;
 	ariaModal: boolean;
+	attachPositions: ConnectedPosition[];
+	attachTo: FlexibleConnectedPositionStrategyOrigin | null | undefined;
+	autoFocus: AutoFocusTarget | (Record<never, never> & string);
+	backdropClass: string | string[];
+	closeDelay: number;
+	closeOnBackdropClick: boolean;
+	closeOnOutsidePointerEvents: boolean;
+	disableClose: boolean;
+	hasBackdrop: boolean;
+	id: string;
+	panelClass: string | string[];
+	positionStrategy: PositionStrategy | null | undefined;
 	providers?: StaticProvider[] | (() => StaticProvider[]);
-};
-
-export const DEFAULT_BRN_DIALOG_OPTIONS: Readonly<Partial<BrnDialogOptions>> = {
-	role: 'dialog',
-	attachPositions: [],
-	attachTo: null,
-	autoFocus: 'first-tabbable',
-	backdropClass: '',
-	closeDelay: 100,
-	closeOnBackdropClick: true,
-	closeOnOutsidePointerEvents: false,
-	hasBackdrop: true,
-	panelClass: '',
-	positionStrategy: null,
-	restoreFocus: true,
-	scrollStrategy: null,
-	disableClose: false,
-	ariaLabel: undefined,
-	ariaModal: true,
+	restoreFocus: boolean | string | ElementRef;
+	role: 'dialog' | 'alertdialog';
+	scrollStrategy: ScrollStrategy | 'close' | 'reposition' | null | undefined;
 };

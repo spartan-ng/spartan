@@ -1,7 +1,7 @@
 import { computed, Directive, input } from '@angular/core';
 import { HlmLabel } from '@spartan-ng/helm/label';
 import { hlm } from '@spartan-ng/helm/utils';
-import { ClassValue } from 'clsx';
+import type { ClassValue } from 'clsx';
 
 @Directive({
 	selector: '[hlmFieldLabel]',

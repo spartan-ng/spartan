@@ -323,7 +323,7 @@ export class HlmAutocomplete<T, V = T> implements ControlValueAccessor, DoCheck 
 
 	constructor() {
 		if (this._ngControl) {
-			this._ngControl.valueAccessor = this; // register without NG_VALUE_ACCESSOR provider
+			this._ngControl.valueAccessor = this;
 		}
 
 		this._errorStateTracker = new ErrorStateTracker(

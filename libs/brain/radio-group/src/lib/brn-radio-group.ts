@@ -5,12 +5,16 @@ import {
 	computed,
 	contentChildren,
 	Directive,
+	effect,
 	forwardRef,
+	Injector,
 	inject,
 	input,
 	linkedSignal,
 	model,
+	OnInit,
 	output,
+	untracked,
 } from '@angular/core';
 import { FormGroupDirective, NG_VALUE_ACCESSOR, NgControl, NgForm, type ControlValueAccessor } from '@angular/forms';
 import { BrnFormFieldControl } from '@spartan-ng/brain/form-field';
@@ -41,7 +45,7 @@ export const BRN_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = {
 		'[attr.aria-invalid]': 'errorState() ? "true" : null',
 	},
 })
-export class BrnRadioGroup<T = unknown> implements ControlValueAccessor {
+export class BrnRadioGroup<T = unknown> implements ControlValueAccessor, OnInit {
 	private static _nextUniqueId = 0;
 
 	protected onChange: ChangeFn<T> = () => {};
@@ -91,8 +95,15 @@ export class BrnRadioGroup<T = unknown> implements ControlValueAccessor {
 	private readonly _defaultErrorStateMatcher = inject(ErrorStateMatcher);
 	private readonly _parentForm = inject(NgForm, { optional: true });
 	private readonly _parentFormGroup = inject(FormGroupDirective, { optional: true });
-	public readonly ngControl: NgControl | null = inject(NgControl, { optional: true, self: true });
-	private readonly _errorStateTracker: ErrorStateTracker;
+	public ngControl: NgControl | null = null;
+	private readonly _injector = inject(Injector);
+	private readonly _errorStateTracker = new ErrorStateTracker(
+		this._defaultErrorStateMatcher,
+		null,
+		this._parentFormGroup,
+		this._parentForm,
+	);
+	
 	public readonly errorState = computed(() => this._errorStateTracker.errorState());
 
 	/**
@@ -102,12 +113,24 @@ export class BrnRadioGroup<T = unknown> implements ControlValueAccessor {
 	public readonly radioButtons = contentChildren(BrnRadio, { descendants: true });
 
 	constructor() {
-		this._errorStateTracker = new ErrorStateTracker(
-			this._defaultErrorStateMatcher,
-			this.ngControl,
-			this._parentFormGroup,
-			this._parentForm,
-		);
+		effect(() => {
+			const error = this._errorStateTracker.errorState();
+			untracked(() => {
+				if (this.ngControl) {
+					const shouldShowError =
+						error && this.ngControl.invalid && (this.ngControl.touched || this.ngControl.dirty);
+					this._errorStateTracker.errorState.set(shouldShowError ? true : false);
+				}
+			});
+		});
+	}
+
+	ngOnInit(): void {
+		this.ngControl = this._injector.get(NgControl, null);
+		if (this.ngControl) {
+			this.ngControl.valueAccessor = this;
+		}
+		this._errorStateTracker.ngControl = this.ngControl;
 	}
 
 	writeValue(value: T): void {

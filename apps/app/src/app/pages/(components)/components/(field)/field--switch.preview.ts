@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
-import { HlmSwitch } from '@spartan-ng/helm/switch';
+import { HlmSwitchImports } from '@spartan-ng/helm/switch';
 
 @Component({
 	selector: 'spartan-field-switch-preview',
-	imports: [HlmFieldImports, HlmSwitch],
+	imports: [HlmFieldImports, HlmSwitchImports],
 	host: {
 		class: 'w-full max-w-md',
 	},

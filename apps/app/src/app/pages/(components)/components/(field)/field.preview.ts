@@ -1,19 +1,19 @@
 import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BrnSelectImports } from '@spartan-ng/brain/select';
-import { HlmButton } from '@spartan-ng/helm/button';
-import { HlmCheckbox } from '@spartan-ng/helm/checkbox';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmCheckboxImports } from '@spartan-ng/helm/checkbox';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
 import { HlmInputImports } from '@spartan-ng/helm/input';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
-import { HlmTextarea } from '@spartan-ng/helm/textarea';
+import { HlmTextareaImports } from '@spartan-ng/helm/textarea';
 
 @Component({
 	selector: 'spartan-field-preview',
 	imports: [
-		HlmCheckbox,
-		HlmTextarea,
-		HlmButton,
+		HlmCheckboxImports,
+		HlmTextareaImports,
+		HlmButtonImports,
 		HlmInputImports,
 		HlmFieldImports,
 		BrnSelectImports,
@@ -38,7 +38,7 @@ import { HlmTextarea } from '@spartan-ng/helm/textarea';
 						<div hlmField class="col-span-2">
 							<label hlmFieldLabel for="field-preview-card-number">Card number</label>
 							<input hlmInput placeholder="1234 1234 1234 1234" id="field-preview-card-number" />
-							<p hlmFieldDescription>Enter your 16-digit card number without spaces or dashes.</p>
+							<p hlmFieldDescription>Enter your 16-digit card number</p>
 						</div>
 						<div class="grid grid-cols-3 gap-4">
 							<div hlmField>

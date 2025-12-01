@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { HlmField, HlmFieldDescription, HlmFieldGroup, HlmFieldLabel, HlmFieldSet } from '@spartan-ng/helm/field';
-import { HlmTextarea } from '@spartan-ng/helm/textarea';
+import { HlmFieldImports } from '@spartan-ng/helm/field';
+import { HlmTextareaImports } from '@spartan-ng/helm/textarea';
 
 @Component({
 	selector: 'spartan-field-textarea-preview',
-	imports: [HlmFieldSet, HlmFieldGroup, HlmField, HlmFieldLabel, HlmFieldDescription, HlmTextarea],
+	imports: [HlmFieldImports, HlmTextareaImports],
 	host: {
 		class: 'w-full max-w-md',
 	},

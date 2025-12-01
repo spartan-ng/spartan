@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { HlmCheckbox } from '@spartan-ng/helm/checkbox';
+import { HlmCheckboxImports } from '@spartan-ng/helm/checkbox';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
 
 @Component({
 	selector: 'spartan-field-checkbox-preview',
-	imports: [HlmFieldImports, HlmCheckbox],
+	imports: [HlmFieldImports, HlmCheckboxImports],
 	host: {
 		class: 'w-full max-w-md',
 	},

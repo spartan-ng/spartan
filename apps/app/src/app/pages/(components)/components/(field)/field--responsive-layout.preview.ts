@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
-import { HlmInput } from '@spartan-ng/helm/input';
-import { HlmTextarea } from '@spartan-ng/helm/textarea';
+import { HlmInputImports } from '@spartan-ng/helm/input';
+import { HlmTextareaImports } from '@spartan-ng/helm/textarea';
 
 @Component({
 	selector: 'spartan-field-responsive-layout-preview',
-	imports: [HlmFieldImports, HlmInput, HlmTextarea, HlmButton],
+	imports: [HlmFieldImports, HlmInputImports, HlmTextareaImports, HlmButtonImports],
 	host: {
 		class: 'w-full max-w-4xl',
 	},

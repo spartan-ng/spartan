@@ -1,19 +1,11 @@
 import { Component } from '@angular/core';
 import { BrnSelectImports } from '@spartan-ng/brain/select';
-import { HlmField, HlmFieldDescription, HlmFieldGroup, HlmFieldLabel, HlmFieldSet } from '@spartan-ng/helm/field';
+import { HlmFieldImports } from '@spartan-ng/helm/field';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
 
 @Component({
 	selector: 'spartan-field-select-preview',
-	imports: [
-		HlmFieldSet,
-		HlmFieldGroup,
-		HlmField,
-		HlmFieldLabel,
-		HlmFieldDescription,
-		BrnSelectImports,
-		HlmSelectImports,
-	],
+	imports: [HlmFieldImports, BrnSelectImports, HlmSelectImports],
 	host: {
 		class: 'w-full max-w-md',
 	},

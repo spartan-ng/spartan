@@ -4,7 +4,7 @@ import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 
 @Directive({
-	selector: '[hlmFieldLabel]',
+	selector: '[hlmFieldLabel],hlm-field-label',
 	hostDirectives: [HlmLabel],
 	host: {
 		'data-slot': 'field-label',

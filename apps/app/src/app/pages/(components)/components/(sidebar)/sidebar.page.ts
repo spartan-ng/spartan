@@ -71,6 +71,8 @@ export const routeMeta: RouteMeta = {
 		<section spartanMainSection class="space-y-4">
 			<spartan-section-intro name="Sidebar" lead="A composable, themeable and customizable sidebar component." />
 
+			<spartan-sidebar-preview name="sidebar-collapsable-icons" caption="A sidebar that collapses to icons." />
+
 			<div>
 				<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
 				<spartan-cli-tabs nxCode="npx nx g @spartan-ng/cli:ui sidebar" ngCode="ng g @spartan-ng/cli:ui sidebar" />
@@ -180,7 +182,7 @@ export const routeMeta: RouteMeta = {
 				<h3 spartanH4>You've created your first sidebar.</h3>
 				<p>You should see something like this:</p>
 
-				<spartan-sidebar-preview name="first-sidebar" />
+				<spartan-sidebar-preview name="first-sidebar" caption="Your first sidebar." />
 			</div>
 
 			<spartan-section-sub-heading id="sidebar-service">SidebarService</spartan-section-sub-heading>

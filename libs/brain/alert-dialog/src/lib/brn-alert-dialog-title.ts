@@ -3,8 +3,6 @@ import { BrnDialogTitle } from '@spartan-ng/brain/dialog';
 
 @Directive({
 	selector: '[brnAlertDialogTitle]',
-	host: {
-		'[id]': '_id()',
-	},
+	hostDirectives: [BrnDialogTitle],
 })
-export class BrnAlertDialogTitle extends BrnDialogTitle {}
+export class BrnAlertDialogTitle {}

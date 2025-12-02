@@ -1,10 +1,13 @@
 import { Directive, computed, input } from '@angular/core';
+import { BrnDialogClose } from '@spartan-ng/brain/dialog';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 
 @Directive({
-	selector: '[hlmDialogClose],[brnDialogClose][hlm]',
+	selector: 'button[hlmDialogClose]',
+	hostDirectives: [{ directive: BrnDialogClose, inputs: ['delay'] }],
 	host: {
+		'data-slot': 'dialog-close',
 		'[class]': '_computedClass()',
 	},
 })

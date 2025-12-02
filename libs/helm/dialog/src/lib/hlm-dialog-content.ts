@@ -1,19 +1,20 @@
 import { NgComponentOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
-import { NgIcon, provideIcons } from '@ng-icons/core';
+import { provideIcons } from '@ng-icons/core';
 import { lucideX } from '@ng-icons/lucide';
-import { BrnDialogClose, BrnDialogRef, injectBrnDialogContext } from '@spartan-ng/brain/dialog';
-import { HlmIcon } from '@spartan-ng/helm/icon';
+import { BrnDialogRef, injectBrnDialogContext } from '@spartan-ng/brain/dialog';
+import { HlmIconImports } from '@spartan-ng/helm/icon';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 import { HlmDialogClose } from './hlm-dialog-close';
 
 @Component({
 	selector: 'hlm-dialog-content',
-	imports: [NgComponentOutlet, BrnDialogClose, HlmDialogClose, NgIcon, HlmIcon],
+	imports: [NgComponentOutlet, HlmDialogClose, HlmIconImports],
 	providers: [provideIcons({ lucideX })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
+		'data-slot': 'dialog-content',
 		'[class]': '_computedClass()',
 		'[attr.data-state]': 'state()',
 	},
@@ -24,7 +25,7 @@ import { HlmDialogClose } from './hlm-dialog-close';
 			<ng-content />
 		}
 
-		<button brnDialogClose hlm>
+		<button hlmDialogClose>
 			<span class="sr-only">Close</span>
 			<ng-icon hlm size="sm" name="lucideX" />
 		</button>

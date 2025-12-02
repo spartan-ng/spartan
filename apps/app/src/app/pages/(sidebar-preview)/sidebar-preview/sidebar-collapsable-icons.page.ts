@@ -65,7 +65,7 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 					<hlm-sidebar-group>
 						<div hlmSidebarGroupLabel>Platform</div>
 						<ul hlmSidebarMenu>
-							@for (item of platforms; track $index) {
+							@for (item of _platforms; track $index) {
 								<hlm-collapsible [expanded]="item.isActive ?? false">
 									<li hlmSidebarMenuItem>
 										<a hlmSidebarMenuButton [routerLink]="item.url">
@@ -110,7 +110,7 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 	`,
 })
 export default class SidebarCollapsableIconsPage {
-	protected readonly platforms = [
+	protected readonly _platforms = [
 		{
 			title: 'Playground',
 			url: '.',

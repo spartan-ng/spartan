@@ -57,7 +57,7 @@ import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 			</div>
 		</div>
 
-		<brn-popover sideOffset="5" #brnPopover>
+		<brn-popover sideOffset="5" #brnPopover="brnPopover">
 			<div hlmPopoverContent class="flex flex-col gap-1 rounded-xl text-sm" *brnPopoverContent="let ctx">
 				<p class="font-medium">Your connection is not secure.</p>
 				<p>You should not enter any sensitive information on this site.</p>

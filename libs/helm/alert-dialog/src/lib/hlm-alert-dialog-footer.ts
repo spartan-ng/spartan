@@ -1,16 +1,13 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { computed, Directive, input } from '@angular/core';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 
-@Component({
-	selector: 'hlm-alert-dialog-footer',
-	changeDetection: ChangeDetectionStrategy.OnPush,
+@Directive({
+	selector: '[hlmAlertDialogFooter],hlm-alert-dialog-footer',
 	host: {
+		'data-slot': 'alert-dialog-footer',
 		'[class]': '_computedClass()',
 	},
-	template: `
-		<ng-content />
-	`,
 })
 export class HlmAlertDialogFooter {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

@@ -1,18 +1,15 @@
-import { ChangeDetectionStrategy, Component, computed, input, signal } from '@angular/core';
+import { computed, Directive, input, signal } from '@angular/core';
 import { injectExposesStateProvider } from '@spartan-ng/brain/core';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 
-@Component({
+@Directive({
 	selector: 'hlm-alert-dialog-content',
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
+		'data-slot': 'alert-dialog-content',
 		'[class]': '_computedClass()',
 		'[attr.data-state]': 'state()',
 	},
-	template: `
-		<ng-content />
-	`,
 })
 export class HlmAlertDialogContent {
 	private readonly _stateProvider = injectExposesStateProvider({ optional: true, host: true });

@@ -12,7 +12,7 @@ import { HlmSliderImports } from '@spartan-ng/helm/slider';
 		<fieldset hlmFieldSet>
 			<div hlmFieldGroup>
 				<div hlmField>
-					<label hlmFieldLabel for="field-input-preview-firstname">Username</label>
+					<label hlmFieldLabel for="field-input-preview-firstname">Price Range</label>
 					<p hlmFieldDescription>Set your budget range ($0 - {{ value() }}).</p>
 					<hlm-slider [max]="1000" [step]="10" [(value)]="value" />
 				</div>

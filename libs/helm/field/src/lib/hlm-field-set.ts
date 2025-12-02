@@ -1,6 +1,6 @@
 import { computed, Directive, input } from '@angular/core';
 import { hlm } from '@spartan-ng/helm/utils';
-import { ClassValue } from 'clsx';
+import type { ClassValue } from 'clsx';
 
 @Directive({
 	selector: 'fieldset[hlmFieldSet]',
@@ -14,7 +14,8 @@ export class HlmFieldSet {
 
 	protected readonly _computedClass = computed(() =>
 		hlm(
-			'flex flex-col gap-6 has-[>[data-slot=checkbox-group]]:gap-3 has-[>[data-slot=radio-group]]:gap-3',
+			'flex flex-col gap-6',
+			'has-[>[data-slot=checkbox-group]]:gap-3 has-[>[data-slot=radio-group]]:gap-3',
 			this.userClass(),
 		),
 	);

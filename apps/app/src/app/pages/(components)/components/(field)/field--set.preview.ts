@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { HlmField, HlmFieldDescription, HlmFieldGroup, HlmFieldLabel, HlmFieldSet } from '@spartan-ng/helm/field';
-import { HlmInput } from '@spartan-ng/helm/input';
+import { HlmFieldImports } from '@spartan-ng/helm/field';
+import { HlmInputImports } from '@spartan-ng/helm/input';
 
 @Component({
 	selector: 'spartan-field-set-preview',
-	imports: [HlmFieldSet, HlmFieldGroup, HlmField, HlmFieldLabel, HlmFieldDescription, HlmInput],
+	imports: [HlmFieldImports, HlmInputImports],
 	host: {
 		class: 'w-full max-w-md space-y-6',
 	},

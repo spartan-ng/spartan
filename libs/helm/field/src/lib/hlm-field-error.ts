@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { hlm } from '@spartan-ng/helm/utils';
-import { ClassValue } from 'clsx';
+import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-field-error',

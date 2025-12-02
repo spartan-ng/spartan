@@ -1,7 +1,7 @@
 import { NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, effect, inject, input } from '@angular/core';
-import { BrnSheetContent } from '@spartan-ng/brain/sheet';
-import { HlmSheet, HlmSheetContent } from '@spartan-ng/helm/sheet';
+import { BrnSheetImports } from '@spartan-ng/brain/sheet';
+import { HlmSheetImports } from '@spartan-ng/helm/sheet';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 import { HlmSidebarService, type SidebarVariant } from './hlm-sidebar.service';
@@ -9,7 +9,7 @@ import { injectHlmSidebarConfig } from './hlm-sidebar.token';
 
 @Component({
 	selector: 'hlm-sidebar',
-	imports: [HlmSheet, HlmSheetContent, NgTemplateOutlet, BrnSheetContent],
+	imports: [NgTemplateOutlet, HlmSheetImports, BrnSheetImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[attr.data-slot]': '_dataSlot()',

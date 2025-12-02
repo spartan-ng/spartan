@@ -1,10 +1,9 @@
 import { OverlayPositionBuilder, type ScrollStrategy, ScrollStrategyOptions } from '@angular/cdk/overlay';
 import {
 	booleanAttribute,
-	ChangeDetectionStrategy,
-	Component,
 	computed,
 	DestroyRef,
+	Directive,
 	effect,
 	type EffectRef,
 	inject,
@@ -27,13 +26,9 @@ import type { BrnDialogState } from './brn-dialog-state';
 import { injectBrnDialogDefaultOptions } from './brn-dialog-token';
 import { BrnDialogService } from './brn-dialog.service';
 
-@Component({
-	selector: 'brn-dialog',
+@Directive({
+	selector: '[brnDialog],brn-dialog',
 	exportAs: 'brnDialog',
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	template: `
-		<ng-content />
-	`,
 })
 export class BrnDialog<TResult = unknown, TContext extends Record<string, unknown> = Record<string, unknown>> {
 	private readonly _dialogService = inject(BrnDialogService);

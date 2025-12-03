@@ -4,7 +4,7 @@ import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 
 @Directive({
-	selector: 'hlm-alert-dialog-content',
+	selector: '[hlmAlertDialogContent],hlm-alert-dialog-content',
 	host: {
 		'data-slot': 'alert-dialog-content',
 		'[class]': '_computedClass()',

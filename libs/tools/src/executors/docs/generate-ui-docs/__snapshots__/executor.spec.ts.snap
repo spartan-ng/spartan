@@ -207,7 +207,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "brn-alert-dialog-overlay",
+        "selector": "[brnAlertDialogOverlay],brn-alert-dialog-overlay",
       },
       "BrnAlertDialogTitle": {
         "inputs": [],
@@ -221,11 +221,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "name": "brnAlertDialogTriggerFor",
             "required": false,
             "type": "BrnAlertDialog | undefined",
-          },
-          {
-            "name": "type",
-            "required": false,
-            "type": "'button' | 'submit' | 'reset'",
           },
         ],
         "models": [],
@@ -241,14 +236,26 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "outputs": [],
         "selector": "hlm-alert-dialog",
       },
-      "HlmAlertDialogActionButton": {
-        "inputs": [],
+      "HlmAlertDialogAction": {
+        "inputs": [
+          {
+            "name": "type",
+            "required": false,
+            "type": "'button' | 'submit' | 'reset'",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "button[hlmAlertDialogAction]",
       },
-      "HlmAlertDialogCancelButton": {
-        "inputs": [],
+      "HlmAlertDialogCancel": {
+        "inputs": [
+          {
+            "name": "type",
+            "required": false,
+            "type": "'button' | 'submit' | 'reset'",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "button[hlmAlertDialogCancel]",
@@ -263,7 +270,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "hlm-alert-dialog-content",
+        "selector": "[hlmAlertDialogContent],hlm-alert-dialog-content",
       },
       "HlmAlertDialogDescription": {
         "inputs": [
@@ -287,7 +294,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "hlm-alert-dialog-footer",
+        "selector": "[hlmAlertDialogFooter],hlm-alert-dialog-footer",
       },
       "HlmAlertDialogHeader": {
         "inputs": [
@@ -299,7 +306,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "hlm-alert-dialog-header",
+        "selector": "[hlmAlertDialogHeader],hlm-alert-dialog-header",
       },
       "HlmAlertDialogOverlay": {
         "inputs": [
@@ -311,7 +318,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "[hlmAlertDialogOverlay],brn-alert-dialog-overlay[hlm]",
+        "selector": "[hlmAlertDialogOverlay],hlm-alert-dialog-overlay",
       },
       "HlmAlertDialogTitle": {
         "inputs": [
@@ -324,6 +331,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [],
         "outputs": [],
         "selector": "[hlmAlertDialogTitle]",
+      },
+      "HlmAlertDialogTrigger": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "button[hlmAlertDialogTrigger],button[hlmAlertDialogTriggerFor]",
       },
     },
   },
@@ -2315,7 +2328,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "brn-dialog-overlay",
+        "selector": "[brnDialogOverlay],brn-dialog-overlay",
       },
       "BrnDialogTitle": {
         "inputs": [],
@@ -2330,6 +2343,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "name": "id",
             "required": false,
             "type": "unknown",
+          },
+          {
+            "name": "type",
+            "required": false,
+            "type": "'button' | 'submit' | 'reset'",
           },
           {
             "name": "brnDialogTriggerFor",
@@ -2360,7 +2378,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "[hlmDialogClose],[brnDialogClose][hlm]",
+        "selector": "button[hlmDialogClose]",
       },
       "HlmDialogContent": {
         "inputs": [
@@ -2396,7 +2414,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "hlm-dialog-footer",
+        "selector": "[hlmDialogFooter],hlm-dialog-footer",
       },
       "HlmDialogHeader": {
         "inputs": [
@@ -2408,7 +2426,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "hlm-dialog-header",
+        "selector": "[hlmDialogHeader],hlm-dialog-header",
       },
       "HlmDialogOverlay": {
         "inputs": [
@@ -2420,7 +2438,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "[hlmDialogOverlay],brn-dialog-overlay[hlm]",
+        "selector": "[hlmDialogOverlay],hlm-dialog-overlay",
       },
       "HlmDialogTitle": {
         "inputs": [
@@ -2433,6 +2451,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [],
         "outputs": [],
         "selector": "[hlmDialogTitle]",
+      },
+      "HlmDialogTrigger": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "button[hlmDialogTrigger],button[hlmDialogTriggerFor]",
       },
     },
   },
@@ -3890,12 +3914,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "outputs": [],
         "selector": "[brnPopover],brn-popover",
       },
-      "BrnPopoverClose": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "button[brnPopoverClose]",
-      },
       "BrnPopoverContent": {
         "inputs": [],
         "models": [],
@@ -3916,17 +3934,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       },
     },
     "helm": {
-      "HlmPopoverClose": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+      "HlmPopover": {
+        "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "[hlmPopoverClose],[brnPopoverClose][hlm]",
+        "selector": "[hlmPopover],hlm-popover",
       },
       "HlmPopoverContent": {
         "inputs": [
@@ -3939,6 +3951,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [],
         "outputs": [],
         "selector": "[hlmPopoverContent],[brnPopoverContent][hlm]",
+      },
+      "HlmPopoverTrigger": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "button[hlmPopoverTrigger],button[hlmPopoverTriggerFor]",
       },
     },
   },
@@ -4652,7 +4670,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "brn-sheet-overlay",
+        "selector": "[brnSheetOverlay],brn-sheet-overlay",
       },
       "BrnSheetTitle": {
         "inputs": [],
@@ -4691,7 +4709,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "[hlmSheetClose],[brnSheetClose][hlm]",
+        "selector": "button[hlmSheetClose]",
       },
       "HlmSheetContent": {
         "inputs": [
@@ -4727,7 +4745,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "hlm-sheet-footer",
+        "selector": "[hlmSheetFooter],hlm-sheet-footer",
       },
       "HlmSheetHeader": {
         "inputs": [
@@ -4739,7 +4757,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "hlm-sheet-header",
+        "selector": "[hlmSheetHeader],hlm-sheet-header",
       },
       "HlmSheetOverlay": {
         "inputs": [
@@ -4751,7 +4769,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "[hlmSheetOverlay],brn-sheet-overlay[hlm]",
+        "selector": "[hlmSheetOverlay],hlm-sheet-overlay",
       },
       "HlmSheetTitle": {
         "inputs": [
@@ -4764,6 +4782,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [],
         "outputs": [],
         "selector": "[hlmSheetTitle]",
+      },
+      "HlmSheetTrigger": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "button[hlmSheetTrigger]",
       },
     },
   },

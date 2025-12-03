@@ -15,6 +15,7 @@ import { coreImportsHealthcheck } from './healthchecks/core-imports';
 import { helmImportsHealthcheck } from './healthchecks/helm-imports';
 import { hlmImportHealthcheck } from './healthchecks/hlm';
 import { datePickerHealthcheck } from './healthchecks/hlm-date-picker';
+import { helmDialogHealthcheck } from './healthchecks/hlm-dialog';
 import { helmIconHealthcheck } from './healthchecks/hlm-icon';
 import { helmMenuHealthcheck } from './healthchecks/hlm-menu';
 import { progressHealthcheck } from './healthchecks/hlm-progress';
@@ -54,6 +55,7 @@ export async function healthcheckGenerator(tree: Tree, options: HealthcheckGener
 		brainToggleGroup2Healthcheck,
 		brainCollapsibleHealthcheck,
 		helmMenuHealthcheck,
+		helmDialogHealthcheck,
 	];
 
 	const failedReports: HealthcheckReport[] = [];

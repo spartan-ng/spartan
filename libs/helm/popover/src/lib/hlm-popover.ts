@@ -3,6 +3,12 @@ import { BrnPopover } from '@spartan-ng/brain/popover';
 
 @Directive({
 	selector: '[hlmPopover],hlm-popover',
-	hostDirectives: [{ directive: BrnPopover, inputs: ['align', 'sideOffset', 'offsetX'] }],
+	hostDirectives: [
+		{
+			directive: BrnPopover,
+			inputs: ['align', 'sideOffset', 'offsetX', 'state', 'closeOnOutsidePointerEvents'],
+			outputs: ['stateChanged', 'closed'],
+		},
+	],
 })
 export class HlmPopover {}

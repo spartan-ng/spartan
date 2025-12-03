@@ -4,7 +4,7 @@ import { HealthcheckSeverity, type Healthcheck } from '../healthchecks';
 
 export const helmDialogHealthcheck: Healthcheck = {
 	name: 'Helm Menu',
-	async detect(tree, failure, _, { importAlias }) {
+	async detect(tree, failure, _) {
 		visitNotIgnoredFiles(tree, '/', (file) => {
 			// if the file is a .ts or .htlm file, check for helm menu
 			if (!file.endsWith('.ts') && !file.endsWith('.html')) {

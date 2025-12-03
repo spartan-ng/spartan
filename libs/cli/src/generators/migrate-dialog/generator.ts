@@ -4,7 +4,7 @@ import type { MigrateDialogGeneratorSchema } from './schema';
 
 export const ignoreFiles = ['hlm-alert-dialog-trigger.ts', 'hlm-dialog-trigger.ts', 'hlm-popover-trigger.ts'];
 
-export async function migrateDialogGenerator(tree: Tree, { skipFormat, importAlias }: MigrateDialogGeneratorSchema) {
+export async function migrateDialogGenerator(tree: Tree, { skipFormat }: MigrateDialogGeneratorSchema) {
 	replaceSelector(tree);
 
 	if (!skipFormat) {

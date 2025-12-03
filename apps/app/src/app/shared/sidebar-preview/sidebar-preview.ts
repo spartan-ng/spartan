@@ -5,18 +5,10 @@ import { DomSanitizer } from '@angular/platform-browser';
 	selector: 'spartan-sidebar-preview',
 	template: `
 		<figure class="flex flex-col gap-4">
-			<img
-				[src]="'/assets/sidebar-page/' + name() + '.png'"
-				[alt]="name()"
-				class="border-border flex rounded border md:hidden dark:hidden"
-			/>
-			<img
-				[src]="'/assets/sidebar-page/' + name() + '-dark.png'"
-				[alt]="name()"
-				class="border-border flex rounded border not-dark:hidden md:hidden"
-			/>
+			<div class="relative aspect-[4/2.5] w-full overflow-hidden rounded-md border md:-mx-1">
+				<img [src]="'/assets/sidebar-page/' + name() + '.png'" [alt]="name()" class="md:hidden dark:hidden" />
+				<img [src]="'/assets/sidebar-page/' + name() + '-dark.png'" [alt]="name()" class="not-dark:hidden md:hidden" />
 
-			<div class="relative hidden aspect-[4/2.5] w-full overflow-hidden rounded-md border md:block">
 				<div class="bg-background absolute inset-0 hidden w-[1600px] md:block">
 					<iframe [src]="_iframeSrc()" class="size-full" #iframe></iframe>
 				</div>

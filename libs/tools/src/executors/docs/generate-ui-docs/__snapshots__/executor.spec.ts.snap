@@ -2342,7 +2342,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "id",
             "required": false,
-            "type": "unknown",
+            "type": "string",
           },
           {
             "name": "type",
@@ -3902,12 +3902,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "sideOffset",
             "required": false,
-            "type": "unknown",
+            "type": "number",
           },
           {
             "name": "offsetX",
             "required": false,
-            "type": "unknown",
+            "type": "number",
           },
         ],
         "models": [],

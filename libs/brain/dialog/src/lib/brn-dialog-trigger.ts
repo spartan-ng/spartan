@@ -22,7 +22,7 @@ export class BrnDialogTrigger {
 	protected _brnDialog = inject(BrnDialog, { optional: true });
 	protected readonly _brnDialogRef = inject(BrnDialogRef, { optional: true });
 
-	public readonly id = input(`brn-dialog-trigger-${++idSequence}`);
+	public readonly id = input<string>(`brn-dialog-trigger-${++idSequence}`);
 	public readonly type = input<'button' | 'submit' | 'reset'>('button');
 
 	public readonly state = computed<BrnDialogState>(() => {

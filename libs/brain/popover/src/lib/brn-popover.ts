@@ -1,3 +1,4 @@
+import { type NumberInput } from '@angular/cdk/coercion';
 import { type FlexibleConnectedPositionStrategy } from '@angular/cdk/overlay';
 import { Directive, effect, forwardRef, input, numberAttribute, untracked } from '@angular/core';
 import { BrnDialog, type BrnDialogDefaultOptions, provideBrnDialogDefaultOptions } from '@spartan-ng/brain/dialog';
@@ -22,8 +23,8 @@ export type BrnPopoverAlign = 'start' | 'center' | 'end';
 })
 export class BrnPopover extends BrnDialog {
 	public readonly align = input<BrnPopoverAlign>('center');
-	public readonly sideOffset = input(0, { transform: numberAttribute });
-	public readonly offsetX = input(0, { transform: numberAttribute });
+	public readonly sideOffset = input<number, NumberInput>(0, { transform: numberAttribute });
+	public readonly offsetX = input<number, NumberInput>(0, { transform: numberAttribute });
 	private _positionStrategy?: FlexibleConnectedPositionStrategy;
 
 	constructor() {

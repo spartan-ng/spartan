@@ -1,7 +1,7 @@
 import { computed, Directive, input } from '@angular/core';
 import { hlm } from '<%- importAlias %>/utils';
-import { cva, VariantProps } from 'class-variance-authority';
-import { ClassValue } from 'clsx';
+import { cva, type VariantProps } from 'class-variance-authority';
+import type { ClassValue } from 'clsx';
 
 const fieldVariants = cva('group/field data-[invalid=true]:text-destructive flex w-full gap-3', {
 	variants: {

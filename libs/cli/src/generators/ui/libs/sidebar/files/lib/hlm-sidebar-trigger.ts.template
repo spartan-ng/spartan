@@ -1,14 +1,14 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { NgIcon, provideIcons } from '@ng-icons/core';
+import { provideIcons } from '@ng-icons/core';
 import { lucidePanelLeft } from '@ng-icons/lucide';
 import { HlmButton, provideBrnButtonConfig } from '<%- importAlias %>/button';
-import { HlmIcon } from '<%- importAlias %>/icon';
+import { HlmIconImports } from '<%- importAlias %>/icon';
 import { HlmSidebarService } from './hlm-sidebar.service';
 
 @Component({
 	// eslint-disable-next-line @angular-eslint/component-selector
 	selector: 'button[hlmSidebarTrigger]',
-	imports: [HlmIcon, NgIcon],
+	imports: [HlmIconImports],
 	providers: [provideIcons({ lucidePanelLeft }), provideBrnButtonConfig({ variant: 'ghost', size: 'icon' })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [

@@ -23,14 +23,14 @@ type Framework = { label: string; value: string };
 	],
 	providers: [provideIcons({ lucideChevronsUpDown, lucideSearch, lucideCheck })],
 	template: `
-		<brn-popover [state]="state()" (stateChanged)="stateChanged($event)" sideOffset="5">
+		<hlm-popover [state]="state()" (stateChanged)="stateChanged($event)" sideOffset="5">
 			<button
 				class="w-[200px] justify-between"
 				id="edit-profile"
-				variant="outline"
-				brnPopoverTrigger
+				hlmPopoverTrigger
 				(click)="state.set('open')"
 				hlmBtn
+				variant="outline"
 			>
 				{{ currentFramework() ? currentFramework()?.label : 'Select framework...' }}
 				<ng-icon hlm size="sm" name="lucideChevronsUpDown" class="opacity-50" />
@@ -58,7 +58,7 @@ type Framework = { label: string; value: string };
 					</hlm-command-group>
 				</hlm-command-list>
 			</hlm-command>
-		</brn-popover>
+		</hlm-popover>
 	`,
 })
 export class ComboboxPreview {

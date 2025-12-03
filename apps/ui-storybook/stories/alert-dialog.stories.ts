@@ -23,7 +23,7 @@ export const Default: Story = {
 	render: () => ({
 		template: `
     <hlm-alert-dialog>
-      <button id="delete-account" variant="outline" brnAlertDialogTrigger hlmBtn>Delete Account</button>
+      <button id="delete-account" variant="outline" hlmAlertDialogTrigger hlmBtn>Delete Account</button>
       <hlm-alert-dialog-content *brnAlertDialogContent="let ctx">
            <hlm-alert-dialog-header>
             <h2 hlmAlertDialogTitle>Are you absolutely sure?</h2>

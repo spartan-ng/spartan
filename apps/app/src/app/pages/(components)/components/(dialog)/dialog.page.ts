@@ -108,12 +108,12 @@ export const routeMeta: RouteMeta = {
 			<h3 id="examples__inside-menu" spartanH4>Inside Menu</h3>
 			<p class="${hlmP} mb-6">
 				You can nest dialogs inside context or dropdown menus. Make sure to wrap the menu-item inside the
-				<code class="${hlmCode}">brn-dialog</code>
+				<code class="${hlmCode}">hlm-dialog</code>
 				component and apply the
-				<code class="${hlmCode}">BrnDialogTrigger</code>
+				<code class="${hlmCode}">HlmDialogTrigger</code>
 				directive. Another option is to use the
-				<code class="${hlmCode}">brnDialogTriggerFor</code>
-				alternative, which takes in a reference to the brn-dialog. That way you can avoid nesting the template.
+				<code class="${hlmCode}">hlmDialogTriggerFor</code>
+				alternative, which takes in a reference to the hlm-dialog. That way you can avoid nesting the template.
 			</p>
 			<div hlmAlert class="mb-6" variant="destructive">
 				<ng-icon hlm name="lucideTriangleAlert" hlmAlertIcon />
@@ -125,10 +125,10 @@ export const routeMeta: RouteMeta = {
 						or
 						<code class="${hlmCode}">BrnMenuItem</code>
 						directives as they conflict with
-						<code class="${hlmCode}">BrnDialogTrigger</code>
+						<code class="${hlmCode}">HlmDialogTrigger</code>
 						&
-						<code class="${hlmCode}">brnDialogTriggerFor!</code>
-						We expose the hlm variants so you can directly use them to style your elements. Check out the code of the
+						<code class="${hlmCode}">hlmDialogTriggerFor</code>
+						! We expose the hlm variants so you can directly use them to style your elements. Check out the code of the
 						example below!
 					</p>
 				</div>

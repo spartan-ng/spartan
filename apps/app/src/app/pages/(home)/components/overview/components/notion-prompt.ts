@@ -77,10 +77,10 @@ type GroupedItems = {
 	template: `
 		<div hlmInputGroup class="[--radius:1.2rem]">
 			<div hlmInputGroupAddon align="block-start">
-				<brn-popover sideOffset="5">
+				<hlm-popover sideOffset="5">
 					<button
 						hlmInputGroupButton
-						brnPopoverTrigger
+						hlmPopoverTrigger
 						variant="outline"
 						class="rounded-full"
 						[size]="_mentionButtonSize()"
@@ -117,7 +117,7 @@ type GroupedItems = {
 							<div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
 						</hlm-command>
 					</div>
-				</brn-popover>
+				</hlm-popover>
 				<div class="no-scrollbar -m-1.5 flex gap-1 overflow-y-auto p-1.5">
 					@for (mention of _mentions(); track mention) {
 						<button

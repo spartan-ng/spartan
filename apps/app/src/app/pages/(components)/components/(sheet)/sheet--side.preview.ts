@@ -1,43 +1,24 @@
 import { Component } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideCross } from '@ng-icons/lucide';
-import { BrnSheetContent, BrnSheetTrigger } from '@spartan-ng/brain/sheet';
-import { HlmButton } from '@spartan-ng/helm/button';
+import { BrnSheetImports } from '@spartan-ng/brain/sheet';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
 
-import { HlmInput } from '@spartan-ng/helm/input';
-import { HlmLabel } from '@spartan-ng/helm/label';
-import {
-	HlmSheet,
-	HlmSheetContent,
-	HlmSheetDescription,
-	HlmSheetFooter,
-	HlmSheetHeader,
-	HlmSheetTitle,
-} from '@spartan-ng/helm/sheet';
+import { HlmInputImports } from '@spartan-ng/helm/input';
+import { HlmLabelImports } from '@spartan-ng/helm/label';
+import { HlmSheetImports } from '@spartan-ng/helm/sheet';
 
 @Component({
 	selector: 'spartan-sheet-side-preview',
-	imports: [
-		BrnSheetTrigger,
-		BrnSheetContent,
-		HlmSheet,
-		HlmSheetContent,
-		HlmSheetHeader,
-		HlmSheetFooter,
-		HlmSheetTitle,
-		HlmSheetDescription,
-		HlmButton,
-		HlmInput,
-		HlmLabel,
-	],
+	imports: [BrnSheetImports, HlmSheetImports, HlmButtonImports, HlmInputImports, HlmLabelImports],
 	providers: [provideIcons({ lucideCross })],
 	template: `
 		<hlm-sheet>
 			<div class="grid grid-cols-2 gap-2">
-				<button id="left" variant="outline" brnSheetTrigger side="left" hlmBtn>left</button>
-				<button id="right" variant="outline" brnSheetTrigger side="right" hlmBtn>right</button>
-				<button id="top" variant="outline" brnSheetTrigger side="top" hlmBtn>top</button>
-				<button id="bottom" variant="outline" brnSheetTrigger side="bottom" hlmBtn>bottom</button>
+				<button id="left" hlmSheetTrigger side="left" hlmBtn variant="outline">left</button>
+				<button id="right" hlmSheetTrigger side="right" hlmBtn variant="outline">right</button>
+				<button id="top" hlmSheetTrigger side="top" hlmBtn variant="outline">top</button>
+				<button id="bottom" hlmSheetTrigger side="bottom" hlmBtn variant="outline">bottom</button>
 			</div>
 			<hlm-sheet-content *brnSheetContent="let ctx">
 				<hlm-sheet-header>

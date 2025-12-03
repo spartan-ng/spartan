@@ -15,8 +15,8 @@ import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 	providers: [provideIcons({ lucideCopy })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<brn-popover sideOffset="5" align="end">
-			<button id="save-presets" brnPopoverTrigger hlmBtn variant="secondary">Share</button>
+		<hlm-popover sideOffset="5" align="end">
+			<button id="save-presets" hlmPopoverTrigger hlmBtn variant="secondary">Share</button>
 
 			<div hlmPopoverContent class="flex w-[520px] flex-col gap-4" *brnPopoverContent="let ctx">
 				<div class="flex flex-col gap-1 text-center sm:text-left">
@@ -40,7 +40,7 @@ import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 					</button>
 				</div>
 			</div>
-		</brn-popover>
+		</hlm-popover>
 	`,
 })
 export class PresetShare {}

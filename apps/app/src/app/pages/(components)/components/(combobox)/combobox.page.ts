@@ -1,6 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
-import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
+import { hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
@@ -12,6 +12,7 @@ import { SectionIntro } from '../../../../shared/layout/section-intro';
 import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading';
 
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { link } from '@spartan-ng/app/app/shared/typography/link';
 import { Tabs } from '../../../../shared/layout/tabs';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { ComboboxPreview } from './combobox.preview';
@@ -53,12 +54,11 @@ export const routeMeta: RouteMeta = {
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
 			<p class="${hlmP}">
 				The Combobox is built using a composition of the
-				<code class="${hlmCode}">brn-popover</code>
+				<a routerLink="/components/command" hlmBtn variant="link" class="${link}">Command</a>
 				and the
-				<code class="${hlmCode}">brn-command</code>
+				<a routerLink="/components/popover" hlmBtn variant="link" class="${link}">Popover</a>
 				components.
 			</p>
-			<p class="${hlmP}">See installation instructions for the Popover and the Command components.</p>
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">

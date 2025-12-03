@@ -23,7 +23,7 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 	],
 	providers: [provideIcons({ lucideMenu, lucideX })],
 	template: `
-		<brn-popover align="start" (closed)="_closePopover()" offsetX="-24" sideOffset="12">
+		<hlm-popover align="start" (closed)="_closePopover()" offsetX="-24" sideOffset="12">
 			<button
 				(click)="_toggleOpen()"
 				hlmPopoverTrigger
@@ -87,7 +87,7 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 					}
 				</div>
 			</div>
-		</brn-popover>
+		</hlm-popover>
 	`,
 })
 export class HeaderMobileNav {

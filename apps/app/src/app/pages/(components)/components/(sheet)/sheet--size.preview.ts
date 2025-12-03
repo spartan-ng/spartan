@@ -1,39 +1,20 @@
 import { Component } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideCross } from '@ng-icons/lucide';
-import { BrnSheetContent, BrnSheetTrigger } from '@spartan-ng/brain/sheet';
-import { HlmButton } from '@spartan-ng/helm/button';
+import { BrnSheetImports } from '@spartan-ng/brain/sheet';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
 
-import { HlmInput } from '@spartan-ng/helm/input';
-import { HlmLabel } from '@spartan-ng/helm/label';
-import {
-	HlmSheet,
-	HlmSheetContent,
-	HlmSheetDescription,
-	HlmSheetFooter,
-	HlmSheetHeader,
-	HlmSheetTitle,
-} from '@spartan-ng/helm/sheet';
+import { HlmInputImports } from '@spartan-ng/helm/input';
+import { HlmLabelImports } from '@spartan-ng/helm/label';
+import { HlmSheetImports } from '@spartan-ng/helm/sheet';
 
 @Component({
 	selector: 'spartan-sheet-size-preview',
-	imports: [
-		BrnSheetTrigger,
-		BrnSheetContent,
-		HlmSheet,
-		HlmSheetContent,
-		HlmSheetHeader,
-		HlmSheetFooter,
-		HlmSheetTitle,
-		HlmSheetDescription,
-		HlmButton,
-		HlmInput,
-		HlmLabel,
-	],
+	imports: [BrnSheetImports, HlmSheetImports, HlmButtonImports, HlmInputImports, HlmLabelImports],
 	providers: [provideIcons({ lucideCross })],
 	template: `
 		<hlm-sheet side="right">
-			<button id="edit-profile" variant="outline" brnSheetTrigger hlmBtn>Open</button>
+			<button id="edit-profile" variant="outline" hlmSheetTrigger hlmBtn>Open</button>
 			<hlm-sheet-content *brnSheetContent="let ctx" class="w-[400px] sm:w-[540px] sm:max-w-none">
 				<hlm-sheet-header>
 					<h3 hlmSheetTitle>Edit Profile</h3>

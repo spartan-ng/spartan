@@ -12,7 +12,7 @@ import { HlmTextarea } from '@spartan-ng/helm/textarea';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-dialog>
-			<button id="save-presets" brnDialogTrigger hlmBtn variant="secondary">Save</button>
+			<button id="save-presets" hlmDialogTrigger hlmBtn variant="secondary">Save</button>
 			<hlm-dialog-content class="sm:max-w-[425px]" *brnDialogContent="let ctx">
 				<hlm-dialog-header>
 					<h3 hlmDialogTitle>Save preset</h3>

@@ -1,24 +1,10 @@
 import { Component, inject } from '@angular/core';
-import { NgIcon, provideIcons } from '@ng-icons/core';
+import { provideIcons } from '@ng-icons/core';
 import { lucideCheck } from '@ng-icons/lucide';
-import {
-	BrnDialogContent,
-	BrnDialogImports,
-	BrnDialogRef,
-	BrnDialogTrigger,
-	injectBrnDialogContext,
-} from '@spartan-ng/brain/dialog';
-import { HlmButton } from '@spartan-ng/helm/button';
-import {
-	HlmDialog,
-	HlmDialogContent,
-	HlmDialogDescription,
-	HlmDialogHeader,
-	HlmDialogImports,
-	HlmDialogService,
-	HlmDialogTitle,
-} from '@spartan-ng/helm/dialog';
-import { HlmIcon } from '@spartan-ng/helm/icon';
+import { BrnDialogImports, BrnDialogRef, injectBrnDialogContext } from '@spartan-ng/brain/dialog';
+import { HlmButton, HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmDialog, HlmDialogImports, HlmDialogService } from '@spartan-ng/helm/dialog';
+import { HlmIconImports } from '@spartan-ng/helm/icon';
 import { HlmInput } from '@spartan-ng/helm/input';
 import { HlmLabel } from '@spartan-ng/helm/label';
 import { HlmTableImports } from '@spartan-ng/helm/table';
@@ -42,7 +28,7 @@ export const Default: Story = {
 	render: () => ({
 		template: `
     <hlm-dialog>
-    <button id='edit-profile' brnDialogTrigger hlmBtn>Edit Profile</button>
+    <button id='edit-profile' hlmDialogTrigger hlmBtn>Edit Profile</button>
     <hlm-dialog-content class='sm:max-w-[425px]' *brnDialogContent='let ctx'>
          <hlm-dialog-header>
           <h3 hlmDialogTitle>Edit profile</h3>
@@ -75,19 +61,10 @@ export const Default: Story = {
 
 @Component({
 	selector: 'nested-dialog-story',
-	imports: [
-		HlmDialog,
-		HlmButton,
-		BrnDialogTrigger,
-		BrnDialogContent,
-		HlmDialogContent,
-		HlmDialogHeader,
-		HlmDialogDescription,
-		HlmDialogTitle,
-	],
+	imports: [BrnDialogImports, HlmDialogImports, HlmButtonImports],
 	template: `
 		<hlm-dialog>
-			<button brnDialogTrigger hlmBtn>Open Dialog</button>
+			<button hlmDialogTrigger hlmBtn>Open Dialog</button>
 			<hlm-dialog-content *brnDialogContent>
 				<hlm-dialog-header>
 					<h3 hlmDialogTitle>First dialog</h3>
@@ -95,7 +72,7 @@ export const Default: Story = {
 				</hlm-dialog-header>
 
 				<hlm-dialog>
-					<button brnDialogTrigger hlmBtn class="w-full">Open Nested Dialog</button>
+					<button hlmDialogTrigger hlmBtn class="w-full">Open Nested Dialog</button>
 					<hlm-dialog-content *brnDialogContent="let ctx">
 						<hlm-dialog-header>
 							<h3 hlmDialogTitle>Nested dialog</h3>
@@ -180,7 +157,7 @@ class DialogDynamicStory {
 
 @Component({
 	selector: 'dynamic-content',
-	imports: [HlmDialogHeader, HlmDialogTitle, HlmDialogDescription, HlmButton, NgIcon, HlmIcon, ...HlmTableImports],
+	imports: [HlmDialogImports, HlmButtonImports, HlmIconImports, HlmTableImports],
 	providers: [provideIcons({ lucideCheck })],
 	template: `
 		<hlm-dialog-header>
@@ -232,7 +209,7 @@ export const DynamicComponent: Story = {
 
 @Component({
 	selector: 'nested-dialog-dynamic-first',
-	imports: [HlmButton, HlmDialogContent, HlmDialogHeader, HlmDialogTitle, HlmDialogDescription],
+	imports: [HlmButtonImports, HlmDialogImports],
 	template: `
 		<hlm-dialog-header>
 			<h3 hlmDialogTitle>First dialog</h3>
@@ -255,7 +232,7 @@ class NestedDialogDynamicFirst {
 
 @Component({
 	selector: 'nested-dialog-dynamic-nested',
-	imports: [HlmButton, HlmDialogHeader, HlmDialogTitle, HlmDialogDescription],
+	imports: [HlmButtonImports, HlmDialogImports],
 	template: `
 		<hlm-dialog-header>
 			<h3 hlmDialogTitle>Nested dialog</h3>

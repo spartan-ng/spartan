@@ -41,7 +41,7 @@ import { HlmSwitch } from '@spartan-ng/helm/switch';
 			</hlm-dropdown-menu>
 		</ng-template>
 		<hlm-dialog>
-			<button id="filter" brnDialogTrigger class="hidden" #contentFilter>Save</button>
+			<button id="filter" hlmDialogTrigger class="hidden" #contentFilter>Save</button>
 			<hlm-dialog-content class="sm:max-w-[512px]" *brnDialogContent="let ctx">
 				<hlm-dialog-header>
 					<h3 hlmDialogTitle>Content filter preferences</h3>
@@ -68,7 +68,7 @@ import { HlmSwitch } from '@spartan-ng/helm/switch';
 			</hlm-dialog-content>
 		</hlm-dialog>
 		<hlm-dialog>
-			<button id="delete" brnDialogTrigger class="hidden" #delete>Save</button>
+			<button id="delete" hlmDialogTrigger class="hidden" #delete>Save</button>
 			<hlm-dialog-content class="sm:max-w-[512px]" *brnDialogContent="let ctx">
 				<hlm-dialog-header>
 					<h3 hlmDialogTitle>Are you absolutely sure?</h3>

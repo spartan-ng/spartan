@@ -82,14 +82,14 @@ import { TasksExample } from '../tasks';
 				<input hlmInput class="h-8 w-full md:w-80" placeholder="Filter tasks..." (input)="taskFilterChange($event)" />
 
 				<!-- STATUS FILTER -->
-				<brn-popover
+				<hlm-popover
 					[state]="_statusState()"
 					(stateChanged)="statusStateChanged($event)"
 					sideOffset="5"
 					closeDelay="100"
 					align="start"
 				>
-					<button hlmBtn brnPopoverTrigger variant="outline" size="sm" class="border-dashed">
+					<button hlmBtn hlmPopoverTrigger variant="outline" size="sm" class="border-dashed">
 						<ng-icon hlm name="lucideCirclePlus" class="mr-2" size="sm" />
 						Status
 						@if (_statusFilter().length) {
@@ -123,17 +123,17 @@ import { TasksExample } from '../tasks';
 							</hlm-command-group>
 						</hlm-command-list>
 					</hlm-command>
-				</brn-popover>
+				</hlm-popover>
 
 				<!-- PRIORITY FILTER -->
-				<brn-popover
+				<hlm-popover
 					[state]="_priorityState()"
 					(stateChanged)="priorityStateChanged($event)"
 					sideOffset="5"
 					closeDelay="100"
 					align="start"
 				>
-					<button hlmBtn brnPopoverTrigger variant="outline" size="sm" class="border-dashed">
+					<button hlmBtn hlmPopoverTrigger variant="outline" size="sm" class="border-dashed">
 						<ng-icon hlm name="lucideCirclePlus" class="mr-2" size="sm" />
 						Priority
 						@if (_priorityFilter().length) {
@@ -167,7 +167,7 @@ import { TasksExample } from '../tasks';
 							</hlm-command-group>
 						</hlm-command-list>
 					</hlm-command>
-				</brn-popover>
+				</hlm-popover>
 
 				@if (_statusFilter().length || _priorityFilter().length) {
 					<button hlmBtn variant="ghost" size="sm" align="end" (click)="resetFilters()">

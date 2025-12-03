@@ -10,7 +10,7 @@ import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 	imports: [BrnPopoverImports, HlmPopoverImports, HlmButtonImports, HlmLabelImports, HlmInputImports],
 	template: `
 		<brn-popover sideOffset="5">
-			<button id="edit-profile" variant="outline" brnPopoverTrigger hlmBtn>Open Popover</button>
+			<button id="edit-profile" hlmPopoverTrigger hlmBtn variant="outline">Open Popover</button>
 			<div hlmPopoverContent class="grid w-80 gap-4" *brnPopoverContent="let ctx">
 				<div class="space-y-2">
 					<h4 class="leading-none font-medium">Dimensions</h4>
@@ -46,7 +46,7 @@ import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 `;
 export const defaultSkeleton = `
  <brn-popover>
-   <button brnPopoverTrigger >Open Popover</button>
+   <button hlmPopoverTrigger>Open Popover</button>
    <div hlmPopoverContent *brnPopoverContent="let ctx"></div>
 </brn-popover>
 `;

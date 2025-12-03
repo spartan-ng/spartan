@@ -7,6 +7,7 @@ import { HlmAlertDialogFooter } from './lib/hlm-alert-dialog-footer';
 import { HlmAlertDialogHeader } from './lib/hlm-alert-dialog-header';
 import { HlmAlertDialogOverlay } from './lib/hlm-alert-dialog-overlay';
 import { HlmAlertDialogTitle } from './lib/hlm-alert-dialog-title';
+import { HlmAlertDialogTrigger } from './lib/hlm-alert-dialog-trigger';
 
 export * from './lib/hlm-alert-dialog';
 export * from './lib/hlm-alert-dialog-action';
@@ -17,8 +18,10 @@ export * from './lib/hlm-alert-dialog-footer';
 export * from './lib/hlm-alert-dialog-header';
 export * from './lib/hlm-alert-dialog-overlay';
 export * from './lib/hlm-alert-dialog-title';
+export * from './lib/hlm-alert-dialog-trigger';
 
 export const HlmAlertDialogImports = [
+	HlmAlertDialog,
 	HlmAlertDialogContent,
 	HlmAlertDialogDescription,
 	HlmAlertDialogFooter,
@@ -27,5 +30,5 @@ export const HlmAlertDialogImports = [
 	HlmAlertDialogTitle,
 	HlmAlertDialogAction,
 	HlmAlertDialogCancel,
-	HlmAlertDialog,
+	HlmAlertDialogTrigger,
 ] as const;

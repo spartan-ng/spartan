@@ -25,9 +25,9 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 	template: `
 		<brn-popover align="start" (closed)="_closePopover()" offsetX="-24" sideOffset="12">
 			<button
-				hlmBtn
-				brnPopoverTrigger
 				(click)="_toggleOpen()"
+				hlmPopoverTrigger
+				hlmBtn
 				variant="ghost"
 				class="extend-touch-target h-8 touch-manipulation items-center justify-start gap-2.5 !p-0 hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 active:bg-transparent dark:hover:bg-transparent"
 			>

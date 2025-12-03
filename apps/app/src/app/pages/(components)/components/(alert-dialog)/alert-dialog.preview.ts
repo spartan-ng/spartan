@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { BrnAlertDialogImports } from '@spartan-ng/brain/alert-dialog';
 import { HlmAlertDialogImports } from '@spartan-ng/helm/alert-dialog';
-import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
 
 @Component({
 	selector: 'spartan-alert-dialog-preview',
-	imports: [BrnAlertDialogImports, HlmAlertDialogImports, HlmButton],
+	imports: [BrnAlertDialogImports, HlmAlertDialogImports, HlmButtonImports],
 	template: `
 		<hlm-alert-dialog>
-			<button id="edit-profile" variant="outline" brnAlertDialogTrigger hlmBtn>Show Dialog</button>
+			<button id="edit-profile" hlmAlertDialogTrigger hlmBtn variant="outline">Show Dialog</button>
 			<hlm-alert-dialog-content *brnAlertDialogContent="let ctx">
 				<hlm-alert-dialog-header>
 					<h2 hlmAlertDialogTitle>Are you absolutely sure?</h2>
@@ -34,7 +34,7 @@ import { HlmAlertDialogImports } from '@spartan-ng/helm/alert-dialog';
 
 export const defaultSkeleton = `
 <hlm-alert-dialog>
-  <button id="edit-profile" variant="outline" brnAlertDialogTrigger hlmBtn>Show Dialog</button>
+  <button id="edit-profile" hlmAlertDialogTrigger>Show Dialog</button>
   <hlm-alert-dialog-content *brnAlertDialogContent="let ctx">
     <hlm-alert-dialog-header>
       <h2 hlmAlertDialogTitle>Are you absolutely sure?</h2>

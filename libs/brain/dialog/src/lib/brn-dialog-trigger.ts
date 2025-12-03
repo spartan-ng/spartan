@@ -15,6 +15,7 @@ let idSequence = 0;
 		'[attr.aria-expanded]': "state() === 'open' ? 'true': 'false'",
 		'[attr.data-state]': 'state()',
 		'[attr.aria-controls]': 'dialogId',
+		'[type]': 'type()',
 	},
 })
 export class BrnDialogTrigger {
@@ -22,6 +23,7 @@ export class BrnDialogTrigger {
 	protected readonly _brnDialogRef = inject(BrnDialogRef, { optional: true });
 
 	public readonly id = input(`brn-dialog-trigger-${++idSequence}`);
+	public readonly type = input<'button' | 'submit' | 'reset'>('button');
 
 	public readonly state = computed<BrnDialogState>(() => {
 		// If we have a dialog component from the input, use its state (the highest priority)

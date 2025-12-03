@@ -10,6 +10,7 @@ import type { BrnPopover } from './brn-popover';
 		'[attr.aria-expanded]': "state() === 'open' ? 'true': 'false'",
 		'[attr.data-state]': 'state()',
 		'[attr.aria-controls]': 'dialogId',
+		'[type]': 'type()',
 	},
 })
 export class BrnPopoverTrigger extends BrnDialogTrigger {

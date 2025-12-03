@@ -13,7 +13,7 @@ import { HlmSheetImports } from '@spartan-ng/helm/sheet';
 	providers: [provideIcons({ lucideCross })],
 	template: `
 		<hlm-sheet side="right">
-			<button id="edit-profile" variant="outline" brnSheetTrigger hlmBtn>Open</button>
+			<button id="edit-profile" hlmSheetTrigger hlmBtn variant="outline">Open</button>
 			<hlm-sheet-content *brnSheetContent="let ctx">
 				<hlm-sheet-header>
 					<h3 hlmSheetTitle>Edit Profile</h3>
@@ -40,19 +40,12 @@ import { HlmSheetImports } from '@spartan-ng/helm/sheet';
 export class SheetPreview {}
 
 export const defaultImports = `
-import { BrnSheetContent, BrnSheetTrigger } from '@spartan-ng/brain/sheet';
-import {
-  HlmSheet
-  HlmSheetContent
-  HlmSheetDescription
-  HlmSheetFooter
-  HlmSheetHeader
-  HlmSheetTitle
-} from '@spartan-ng/helm/sheet';
+import { BrnSheetImports } from '@spartan-ng/brain/sheet';
+import { HlmSheetImports } from '@spartan-ng/helm/sheet';
 `;
 export const defaultSkeleton = `
 <hlm-sheet>
-  <button brnSheetTrigger>Open</button>
+  <button hlmSheetTrigger hlmBtn variant="outline">Open</button>
   <hlm-sheet-content *brnSheetContent="let ctx">
     <hlm-sheet-header>
       <h3 hlmSheetTitle>Are you absolutely sure?</h3>

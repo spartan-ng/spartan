@@ -2197,7 +2197,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "hasBackdrop",
             "required": false,
-            "type": "unknown",
+            "type": "boolean",
           },
           {
             "name": "positionStrategy",
@@ -2217,12 +2217,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "closeOnOutsidePointerEvents",
             "required": false,
-            "type": "unknown",
+            "type": "boolean",
           },
           {
             "name": "closeOnBackdropClick",
             "required": false,
-            "type": "unknown",
+            "type": "boolean",
           },
           {
             "name": "attachTo",
@@ -2242,12 +2242,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "closeDelay",
             "required": false,
-            "type": "unknown",
+            "type": "number",
           },
           {
             "name": "disableClose",
             "required": false,
-            "type": "unknown",
+            "type": "boolean",
           },
           {
             "name": "aria-describedby",
@@ -2267,7 +2267,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "aria-modal",
             "required": false,
-            "type": "unknown",
+            "type": "boolean",
           },
         ],
         "models": [],

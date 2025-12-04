@@ -1,9 +1,9 @@
 import { Component, input } from '@angular/core';
-import { HlmTabs, HlmTabsContent, HlmTabsPaginatedList, HlmTabsTrigger } from '@spartan-ng/helm/tabs';
+import { HlmTabsImports } from '@spartan-ng/helm/tabs';
 
 @Component({
 	selector: 'spartan-tabs-paginated',
-	imports: [HlmTabs, HlmTabsPaginatedList, HlmTabsTrigger, HlmTabsContent],
+	imports: [HlmTabsImports],
 	host: {
 		class: 'block w-full max-w-lg min-h-[150px]',
 	},

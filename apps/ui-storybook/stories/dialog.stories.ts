@@ -7,6 +7,7 @@ import {
 	BrnDialogRef,
 	BrnDialogTrigger,
 	injectBrnDialogContext,
+	provideBrnDialogDefaultOptions,
 } from '@spartan-ng/brain/dialog';
 import { HlmButton } from '@spartan-ng/helm/button';
 import {
@@ -22,7 +23,7 @@ import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmInput } from '@spartan-ng/helm/input';
 import { HlmLabel } from '@spartan-ng/helm/label';
 import { HlmTableImports } from '@spartan-ng/helm/table';
-import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
+import { type Meta, type StoryObj, applicationConfig, moduleMetadata } from '@storybook/angular';
 
 const meta: Meta<HlmDialog> = {
 	title: 'Dialog',
@@ -221,6 +222,21 @@ class SelectUser {
 export const DynamicComponent: Story = {
 	name: 'Dynamic Component',
 	decorators: [
+		moduleMetadata({
+			imports: [DialogDynamicStory],
+		}),
+	],
+	render: () => ({
+		template: '<dialog-dynamic-component-story />',
+	}),
+};
+
+export const DynamicComponentWithDefaultOptions: Story = {
+	name: 'Dynamic Component with default options',
+	decorators: [
+		applicationConfig({
+			providers: [provideBrnDialogDefaultOptions({ hasBackdrop: false })],
+		}),
 		moduleMetadata({
 			imports: [DialogDynamicStory],
 		}),

@@ -7,6 +7,7 @@ import type { ClassValue } from 'clsx';
 	selector: '[hlmCommandIcon]',
 	providers: [provideHlmIconConfig({ size: 'sm' })],
 	host: {
+		'data-slot': 'command-icon',
 		'[class]': '_computedClass()',
 	},
 })

@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { computed, Directive, input } from '@angular/core';
 import { BrnCommandList } from '@spartan-ng/brain/command';
 import { hlm } from '@spartan-ng/helm/utils';
+import type { ClassValue } from 'clsx';
 
-@Component({
-	selector: 'hlm-command-list',
-	changeDetection: ChangeDetectionStrategy.OnPush,
+@Directive({
+	selector: '[hlmCommandList],hlm-command-list',
 	hostDirectives: [
 		{
 			directive: BrnCommandList,
@@ -12,13 +12,13 @@ import { hlm } from '@spartan-ng/helm/utils';
 		},
 	],
 	host: {
+		'data-slot': 'command-list',
 		'[class]': '_computedClass()',
 	},
-	template: '<ng-content />',
 })
 export class HlmCommandList {
 	/** The user defined class  */
-	public readonly userClass = input<string>('', { alias: 'class' });
+	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 
 	/** The styles to apply  */
 	protected readonly _computedClass = computed(() =>

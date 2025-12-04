@@ -1,11 +1,10 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { computed, Directive, input } from '@angular/core';
 import { BrnRadioGroup } from '@spartan-ng/brain/radio-group';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 
-@Component({
-	selector: 'hlm-radio-group',
-	changeDetection: ChangeDetectionStrategy.OnPush,
+@Directive({
+	selector: '[hlmRadioGroup],hlm-radio-group',
 	hostDirectives: [
 		{
 			directive: BrnRadioGroup,
@@ -17,7 +16,6 @@ import type { ClassValue } from 'clsx';
 		'data-slot': 'radio-group',
 		'[class]': '_computedClass()',
 	},
-	template: '<ng-content />',
 })
 export class HlmRadioGroup {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

@@ -14,6 +14,7 @@ import { HlmCarousel } from './hlm-carousel';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [{ directive: HlmButton, inputs: ['variant', 'size'] }],
 	host: {
+		'data-slot': 'carousel-previous',
 		'[disabled]': 'isDisabled()',
 		'(click)': '_carousel.scrollPrev()',
 	},

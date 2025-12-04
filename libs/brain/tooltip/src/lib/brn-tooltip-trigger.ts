@@ -13,6 +13,7 @@
  */
 import { AriaDescriber, FocusMonitor } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
+import type { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import { hasModifierKey } from '@angular/cdk/keycodes';
 import {
 	type ConnectedPosition,
@@ -29,7 +30,6 @@ import {
 } from '@angular/cdk/overlay';
 import { normalizePassiveListenerOptions, Platform } from '@angular/cdk/platform';
 import { ComponentPortal } from '@angular/cdk/portal';
-
 import {
 	type AfterViewInit,
 	booleanAttribute,
@@ -142,25 +142,29 @@ export class BrnTooltipTrigger implements OnDestroy, AfterViewInit {
 	 * instead of outside the element bounding box.
 	 */
 
-	public readonly positionAtOrigin = input(this._defaultOptions?.positionAtOrigin ?? false, {
+	public readonly positionAtOrigin = input<boolean, BooleanInput>(this._defaultOptions?.positionAtOrigin ?? false, {
 		transform: booleanAttribute,
 	});
 
 	/** Disables the display of the tooltip. */
 
-	public readonly brnTooltipDisabled = input(false, { transform: booleanAttribute });
+	public readonly brnTooltipDisabled = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
 	/** The default delay in ms before showing the tooltip after show is called */
 
-	public readonly showDelay = input(this._defaultOptions?.showDelay ?? 0, { transform: numberAttribute });
+	public readonly showDelay = input<number, NumberInput>(this._defaultOptions?.showDelay ?? 0, {
+		transform: numberAttribute,
+	});
 
 	/** The default delay in ms before hiding the tooltip after hide is called */
 
-	public readonly hideDelay = input(this._defaultOptions?.hideDelay ?? 0, { transform: numberAttribute });
+	public readonly hideDelay = input<number, NumberInput>(this._defaultOptions?.hideDelay ?? 0, {
+		transform: numberAttribute,
+	});
 
 	/** The default duration in ms that exit animation takes before hiding */
 
-	public readonly exitAnimationDuration = input(this._defaultOptions?.exitAnimationDuration ?? 0, {
+	public readonly exitAnimationDuration = input<number, NumberInput>(this._defaultOptions?.exitAnimationDuration ?? 0, {
 		transform: numberAttribute,
 	});
 
@@ -190,7 +194,7 @@ export class BrnTooltipTrigger implements OnDestroy, AfterViewInit {
 
 	/** The message to be used to describe the aria in the tooltip */
 
-	public readonly ariaDescribedBy = input('', { alias: 'aria-describedby' });
+	public readonly ariaDescribedBy = input<string>('', { alias: 'aria-describedby' });
 	public readonly computedAriaDescribedBy = computed(() => signal(this.ariaDescribedBy()));
 	public readonly ariaDescribedByPrevious = computedPrevious(this.computedAriaDescribedBy);
 

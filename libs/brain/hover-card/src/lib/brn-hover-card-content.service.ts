@@ -1,4 +1,5 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
+import { NumberInput } from '@angular/cdk/coercion';
 import {
 	type ConnectedOverlayPositionChange,
 	type ConnectedPosition,
@@ -18,6 +19,7 @@ import {
 	Injectable,
 	input,
 	NgZone,
+	numberAttribute,
 	type OnDestroy,
 	type OnInit,
 	type Signal,
@@ -229,10 +231,10 @@ export class BrnHoverCardTrigger implements OnInit, OnDestroy {
 		takeUntil(this._destroy$),
 	);
 
-	public readonly showDelay = input(300);
-	public readonly hideDelay = input(500);
-	public readonly animationDelay = input(100);
-	public readonly sideOffset = input(5);
+	public readonly showDelay = input<number, NumberInput>(300, { transform: numberAttribute });
+	public readonly hideDelay = input<number, NumberInput>(500, { transform: numberAttribute });
+	public readonly animationDelay = input<number, NumberInput>(100, { transform: numberAttribute });
+	public readonly sideOffset = input<number, NumberInput>(5, { transform: numberAttribute });
 	public readonly align = input<'top' | 'bottom'>('bottom');
 
 	public readonly brnHoverCardTriggerFor = input<TemplateRef<unknown> | BrnHoverCardContent | undefined>(undefined);

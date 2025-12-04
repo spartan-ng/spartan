@@ -1,3 +1,4 @@
+import { type BooleanInput } from '@angular/cdk/coercion';
 import { isPlatformBrowser } from '@angular/common';
 import {
 	booleanAttribute,
@@ -79,10 +80,10 @@ export class HlmRadio<T = unknown> {
 	public readonly value = input.required<T>();
 
 	/** Whether the checkbox is required. */
-	public readonly required = input(false, { transform: booleanAttribute });
+	public readonly required = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
 	/** Whether the checkbox is disabled. */
-	public readonly disabled = input(false, { transform: booleanAttribute });
+	public readonly disabled = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
 	/**
 	 * Event emitted when the checked state of this radio button changes.

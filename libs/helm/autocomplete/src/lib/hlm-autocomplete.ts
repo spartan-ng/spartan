@@ -253,19 +253,19 @@ export class HlmAutocomplete<T, V = T> implements ControlValueAccessor {
 	});
 
 	/** Placeholder text for the input field. */
-	public readonly searchPlaceholderText = input('Select an option');
+	public readonly searchPlaceholderText = input<string>('Select an option');
 
 	/** Text to display when loading options. */
-	public readonly loadingText = input('Loading options...');
+	public readonly loadingText = input<string>('Loading options...');
 
 	/** Text to display when no options are found. */
-	public readonly emptyText = input('No options found');
+	public readonly emptyText = input<string>('No options found');
 
 	/** Aria label for the toggle button. */
-	public readonly ariaLabelToggleButton = input('Toggle options');
+	public readonly ariaLabelToggleButton = input<string>('Toggle options');
 
 	/** The id of the input field. */
-	public readonly inputId = input(`hlm-autocomplete-input-${++HlmAutocomplete._id}`);
+	public readonly inputId = input<string>(`hlm-autocomplete-input-${++HlmAutocomplete._id}`);
 
 	/** Whether the autocomplete is disabled. */
 	public readonly disabled = input<boolean, BooleanInput>(false, { transform: booleanAttribute });

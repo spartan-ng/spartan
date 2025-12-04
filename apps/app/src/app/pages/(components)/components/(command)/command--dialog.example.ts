@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { NgIcon, provideIcons } from '@ng-icons/core';
+import { provideIcons } from '@ng-icons/core';
 import {
 	lucideCalendar,
 	lucideCog,
@@ -23,7 +23,6 @@ import { HlmCode } from '@spartan-ng/helm/typography';
 	imports: [
 		BrnCommandImports,
 		HlmCommandImports,
-		NgIcon,
 		HlmIconImports,
 		HlmButtonImports,
 		BrnDialogImports,
@@ -56,8 +55,7 @@ import { HlmCode } from '@spartan-ng/helm/typography';
 				<code data-testid="lastCommand" hlmCode>{{ command() || 'none' }}</code>
 			</p>
 		</div>
-		<brn-dialog [state]="state()" (stateChanged)="stateChanged($event)">
-			<brn-dialog-overlay hlm />
+		<hlm-dialog [state]="state()" (stateChanged)="stateChanged($event)">
 			<hlm-command *brnDialogContent="let ctx" hlmCommandDialog class="mx-auto sm:w-[400px]">
 				<hlm-command-search>
 					<ng-icon hlm name="lucideSearch" />
@@ -102,7 +100,7 @@ import { HlmCode } from '@spartan-ng/helm/typography';
 					</hlm-command-group>
 				</hlm-command-list>
 			</hlm-command>
-		</brn-dialog>
+		</hlm-dialog>
 	`,
 })
 export class CommandDialog {

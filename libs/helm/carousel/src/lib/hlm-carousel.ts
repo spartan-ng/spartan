@@ -22,6 +22,7 @@ import {
 	imports: [EmblaCarouselDirective],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
+		'data-slot': 'carousel',
 		'[class]': '_computedClass()',
 		role: 'region',
 		'aria-roledescription': 'carousel',
@@ -36,7 +37,7 @@ import {
 			[subscribeToEvents]="['init', 'select', 'reInit']"
 			(emblaChange)="onEmblaEvent($event)"
 		>
-			<ng-content select="hlm-carousel-content" />
+			<ng-content select="[hlmCarouselContent],hlm-carousel-content" />
 		</div>
 		<ng-content />
 	`,

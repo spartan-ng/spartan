@@ -1,11 +1,10 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { computed, Directive, input } from '@angular/core';
 import { BrnTabs } from '@spartan-ng/brain/tabs';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 
-@Component({
-	selector: 'hlm-tabs',
-	changeDetection: ChangeDetectionStrategy.OnPush,
+@Directive({
+	selector: '[hlmTabs],hlm-tabs',
 	hostDirectives: [
 		{
 			directive: BrnTabs,
@@ -14,9 +13,9 @@ import type { ClassValue } from 'clsx';
 		},
 	],
 	host: {
+		'data-slot': 'tabs',
 		'[class]': '_computedClass()',
 	},
-	template: '<ng-content/>',
 })
 export class HlmTabs {
 	public readonly tab = input.required<string>();

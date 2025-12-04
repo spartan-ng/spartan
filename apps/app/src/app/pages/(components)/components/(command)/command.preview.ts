@@ -91,15 +91,11 @@ import { HlmCommandImports } from '@spartan-ng/helm/command';
 `;
 
 export const defaultSkeleton = `
-	<hlm-command>
+<hlm-command>
   <hlm-command-search>
     <ng-icon hlm name="lucideSearch" />
 
-    <input
-      type="text"
-      hlm-command-search-input
-      placeholder="Type a command or search..."
-    />
+    <input type="text" hlm-command-search-input placeholder="Type a command or search..." />
   </hlm-command-search>
 
   <hlm-command-list>

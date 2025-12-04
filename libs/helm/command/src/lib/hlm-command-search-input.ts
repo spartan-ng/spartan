@@ -1,16 +1,15 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { computed, Directive, input } from '@angular/core';
 import { BrnCommandSearchInput } from '@spartan-ng/brain/command';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 
-@Component({
-	selector: 'input[hlm-command-search-input]',
-	changeDetection: ChangeDetectionStrategy.OnPush,
+@Directive({
+	selector: 'input[hlmCommandSearchInput],input[hlm-command-search-input]',
 	hostDirectives: [{ directive: BrnCommandSearchInput, inputs: ['value'] }],
 	host: {
+		'data-slot': 'command-search-input',
 		'[class]': '_computedClass()',
 	},
-	template: '',
 })
 export class HlmCommandSearchInput {
 	/** The user defined class  */

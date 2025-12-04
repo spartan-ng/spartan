@@ -1,27 +1,14 @@
-import {
-	ChangeDetectionStrategy,
-	Component,
-	ElementRef,
-	Renderer2,
-	computed,
-	effect,
-	inject,
-	input,
-	signal,
-} from '@angular/core';
+import { Directive, ElementRef, Renderer2, computed, effect, inject, input, signal } from '@angular/core';
 import { injectExposedSideProvider, injectExposesStateProvider } from '@spartan-ng/brain/core';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 
-@Component({
-	selector: 'hlm-hover-card-content',
-	changeDetection: ChangeDetectionStrategy.OnPush,
+@Directive({
+	selector: '[hlmHoverCardContent],hlm-hover-card-content',
 	host: {
+		'data-slot': 'hover-card-content',
 		'[class]': '_computedClass()',
 	},
-	template: `
-		<ng-content />
-	`,
 })
 export class HlmHoverCardContent {
 	private readonly _renderer = inject(Renderer2);

@@ -4,10 +4,10 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import * as lucide from '@ng-icons/lucide';
 import { BrnCommand, BrnCommandImports } from '@spartan-ng/brain/command';
 import { BrnDialogImports } from '@spartan-ng/brain/dialog';
-import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmButton, HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmCommandImports } from '@spartan-ng/helm/command';
-import { HlmDialogOverlay } from '@spartan-ng/helm/dialog';
-import { HlmIcon } from '@spartan-ng/helm/icon';
+import { HlmDialogImports } from '@spartan-ng/helm/dialog';
+import { HlmIcon, HlmIconImports } from '@spartan-ng/helm/icon';
 import { HlmCode } from '@spartan-ng/helm/typography';
 import type { Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
@@ -96,10 +96,9 @@ export const Default: Story = {
 		BrnCommandImports,
 		HlmCommandImports,
 		BrnDialogImports,
-		HlmDialogOverlay,
-		NgIcon,
-		HlmIcon,
-		HlmButton,
+		HlmDialogImports,
+		HlmIconImports,
+		HlmButtonImports,
 		HlmCode,
 	],
 	template: `
@@ -113,9 +112,7 @@ export const Default: Story = {
 				<code data-testid="lastCommand" hlmCode>{{ command() || 'none' }}</code>
 			</p>
 		</div>
-		<brn-dialog [state]="state()" (stateChanged)="stateChanged($event)">
-			<brn-dialog-overlay hlm />
-
+		<hlm-dialog [state]="state()" (stateChanged)="stateChanged($event)">
 			<hlm-command *brnDialogContent="let ctx" hlmCommandDialog class="relative mx-auto sm:w-[400px]">
 				<button hlmCommandDialogCloseBtn>
 					<ng-icon hlm name="lucideX" />
@@ -171,7 +168,7 @@ export const Default: Story = {
 				<!-- Empty state -->
 				<div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
 			</hlm-command>
-		</brn-dialog>
+		</hlm-dialog>
 	`,
 })
 class CommandDialog {

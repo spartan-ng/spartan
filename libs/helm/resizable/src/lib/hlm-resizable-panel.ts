@@ -1,11 +1,10 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { computed, Directive, input } from '@angular/core';
 import { BrnResizablePanel } from '@spartan-ng/brain/resizable';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 
-@Component({
-	selector: 'hlm-resizable-panel',
-	changeDetection: ChangeDetectionStrategy.OnPush,
+@Directive({
+	selector: '[hlmResizablePanel],hlm-resizable-panel',
 	hostDirectives: [
 		{
 			directive: BrnResizablePanel,
@@ -13,11 +12,9 @@ import type { ClassValue } from 'clsx';
 		},
 	],
 	host: {
+		'data-slot': 'resizable-panel',
 		'[class]': '_computedClass()',
 	},
-	template: `
-		<ng-content />
-	`,
 })
 export class HlmResizablePanel {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

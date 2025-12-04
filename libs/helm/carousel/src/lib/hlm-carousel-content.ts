@@ -1,17 +1,14 @@
-import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
+import { computed, Directive, inject, input } from '@angular/core';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 import { HlmCarousel } from './hlm-carousel';
 
-@Component({
-	selector: 'hlm-carousel-content',
-	changeDetection: ChangeDetectionStrategy.OnPush,
+@Directive({
+	selector: '[hlmCarouselContent],hlm-carousel-content',
 	host: {
+		'data-slot': 'carousel-content',
 		'[class]': '_computedClass()',
 	},
-	template: `
-		<ng-content />
-	`,
 })
 export class HlmCarouselContent {
 	private readonly _orientation = inject(HlmCarousel).orientation;

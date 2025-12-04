@@ -5,6 +5,7 @@ import type { ClassValue } from 'clsx';
 @Directive({
 	selector: '[hlmCommandEmpty]',
 	host: {
+		'data-slot': 'command-empty',
 		'[class]': '_computedClass()',
 	},
 })

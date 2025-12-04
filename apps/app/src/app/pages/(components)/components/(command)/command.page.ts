@@ -3,6 +3,7 @@ import { Component, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
+import { link } from '@spartan-ng/app/app/shared/typography/link';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
@@ -78,9 +79,9 @@ export const routeMeta: RouteMeta = {
 			<h3 id="examples__combobox" spartanH4>Combobox</h3>
 			<p class="${hlmP}">
 				You can use the
-				<code class="${hlmCode}">brn-command</code>
+				<code class="${hlmCode}">Command</code>
 				component as a combobox. See the
-				<a hlmBtn class="!px-1 text-base" variant="link" routerLink="../combobox">Combobox</a>
+				<a hlmBtn class="${link}" variant="link" routerLink="../combobox">Combobox</a>
 				page for more information.
 			</p>
 

@@ -1,24 +1,10 @@
 import { Component } from '@angular/core';
-import { HlmCard, HlmCardContent } from '@spartan-ng/helm/card';
-import {
-	HlmCarousel,
-	HlmCarouselContent,
-	HlmCarouselItem,
-	HlmCarouselNext,
-	HlmCarouselPrevious,
-} from '@spartan-ng/helm/carousel';
+import { HlmCardImports } from '@spartan-ng/helm/card';
+import { HlmCarouselImports } from '@spartan-ng/helm/carousel';
 
 @Component({
 	selector: 'spartan-carousel-preview',
-	imports: [
-		HlmCarousel,
-		HlmCarouselContent,
-		HlmCarouselItem,
-		HlmCarouselNext,
-		HlmCarouselPrevious,
-		HlmCard,
-		HlmCardContent,
-	],
+	imports: [HlmCarouselImports, HlmCardImports],
 	template: `
 		<div class="flex w-full items-center justify-center p-4">
 			<hlm-carousel class="w-full max-w-xs">
@@ -46,13 +32,7 @@ export class CarouselPreview {
 }
 
 export const defaultImports = `
-import {
-	HlmCarousel
-	HlmCarouselContent
-	HlmCarouselItem
-	HlmCarouselNext
-	HlmCarouselPrevious
-} from '@spartan-ng/helm/carousel';
+import { HlmCarouselImports } from '@spartan-ng/helm/carousel';
 `;
 
 export const defaultSkeleton = `

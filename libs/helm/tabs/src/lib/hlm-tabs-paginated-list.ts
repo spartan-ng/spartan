@@ -25,6 +25,7 @@ import { listVariants } from './hlm-tabs-list';
 	providers: [provideIcons({ lucideChevronRight, lucideChevronLeft })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
+		'data-slot': 'tabs-paginated-list',
 		'[class]': '_computedClass()',
 	},
 	template: `
@@ -48,7 +49,7 @@ import { listVariants } from './hlm-tabs-list';
 		<div #tabListContainer class="z-[1] flex grow overflow-hidden" (keydown)="_handleKeydown($event)">
 			<div class="relative grow transition-transform" #tabList role="tablist" (cdkObserveContent)="_onContentChanges()">
 				<div #tabListInner [class]="_tabListClass()">
-					<ng-content></ng-content>
+					<ng-content />
 				</div>
 			</div>
 		</div>

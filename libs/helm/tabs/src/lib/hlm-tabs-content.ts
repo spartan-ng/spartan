@@ -7,6 +7,7 @@ import type { ClassValue } from 'clsx';
 	selector: '[hlmTabsContent]',
 	hostDirectives: [{ directive: BrnTabsContent, inputs: ['brnTabsContent: hlmTabsContent'] }],
 	host: {
+		'data-slot': 'tabs-content',
 		'[class]': '_computedClass()',
 	},
 })

@@ -21,7 +21,7 @@ import { injectHlmSidebarConfig } from './hlm-sidebar.token';
 	},
 	template: `
 		<ng-template #contentContainer>
-			<ng-content></ng-content>
+			<ng-content />
 		</ng-template>
 
 		@if (collapsible() === 'none') {
@@ -41,7 +41,7 @@ import { injectHlmSidebarConfig } from './hlm-sidebar.token';
 					[style.--sidebar-width]="sidebarWidthMobile()"
 				>
 					<div class="flex h-full w-full flex-col">
-						<ng-container *ngTemplateOutlet="contentContainer"></ng-container>
+						<ng-container *ngTemplateOutlet="contentContainer" />
 					</div>
 				</hlm-sheet-content>
 			</hlm-sheet>
@@ -54,7 +54,7 @@ import { injectHlmSidebarConfig } from './hlm-sidebar.token';
 					data-slot="sidebar-inner"
 					class="bg-sidebar group-data-[variant=floating]:border-sidebar-border flex h-full w-full flex-col group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:shadow"
 				>
-					<ng-container *ngTemplateOutlet="contentContainer"></ng-container>
+					<ng-container *ngTemplateOutlet="contentContainer" />
 				</div>
 			</div>
 		}

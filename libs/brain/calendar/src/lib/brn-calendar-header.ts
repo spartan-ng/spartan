@@ -12,5 +12,5 @@ let uniqueId = 0;
 })
 export class BrnCalendarHeader {
 	/** The unique id for the header */
-	public readonly id = input(`brn-calendar-header-${++uniqueId}`);
+	public readonly id = input<string>(`brn-calendar-header-${++uniqueId}`);
 }

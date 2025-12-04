@@ -65,7 +65,7 @@ export class HlmSidebar {
 	private readonly _config = injectHlmSidebarConfig();
 
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	public readonly sidebarWidthMobile = input(this._config.sidebarWidthMobile);
+	public readonly sidebarWidthMobile = input<string>(this._config.sidebarWidthMobile);
 
 	public readonly side = input<'left' | 'right'>('left');
 	public readonly variant = input<SidebarVariant>(this._sidebarService.variant());

@@ -1,3 +1,4 @@
+import { BooleanInput, type NumberInput } from '@angular/cdk/coercion';
 import {
 	booleanAttribute,
 	computed,
@@ -41,17 +42,17 @@ export class BrnResizablePanel {
 	 * - `undefined` → group decides initial size.
 	 * - Number → interpreted as percentage (0–100).
 	 */
-	public readonly defaultSize = input(undefined, { transform: numberAttribute });
+	public readonly defaultSize = input<number, NumberInput>(undefined, { transform: numberAttribute });
 
 	/** The minimum size this panel can shrink to (percentage). */
 
-	public readonly minSize = input(0, { transform: numberAttribute });
+	public readonly minSize = input<number, NumberInput>(0, { transform: numberAttribute });
 
 	/**	 The maximum size this panel can grow to (percentage).   */
-	public readonly maxSize = input(100, { transform: numberAttribute });
+	public readonly maxSize = input<number, NumberInput>(100, { transform: numberAttribute });
 
 	/** Whether this panel can be collapsed entirely. */
-	public readonly collapsible = input(true, { transform: booleanAttribute });
+	public readonly collapsible = input<boolean, BooleanInput>(true, { transform: booleanAttribute });
 
 	/** Reactive signal holding the current size of the panel. */
 	protected readonly _panelSize = signal<number>(100);

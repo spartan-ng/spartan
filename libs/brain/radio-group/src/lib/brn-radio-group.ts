@@ -37,7 +37,7 @@ export class BrnRadioGroup<T = unknown> implements ControlValueAccessor {
 
 	protected onTouched: TouchFn = () => {};
 
-	public readonly name = input(`brn-radio-group-${++BrnRadioGroup._nextUniqueId}`);
+	public readonly name = input<string>(`brn-radio-group-${++BrnRadioGroup._nextUniqueId}`);
 
 	/**
 	 * The value of the selected radio button.

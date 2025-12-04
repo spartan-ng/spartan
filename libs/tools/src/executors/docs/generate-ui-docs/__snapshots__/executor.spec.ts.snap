@@ -407,7 +407,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "id",
             "required": false,
-            "type": "unknown",
+            "type": "string",
           },
           {
             "name": "value",
@@ -534,27 +534,27 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "searchPlaceholderText",
             "required": false,
-            "type": "unknown",
+            "type": "string",
           },
           {
             "name": "loadingText",
             "required": false,
-            "type": "unknown",
+            "type": "string",
           },
           {
             "name": "emptyText",
             "required": false,
-            "type": "unknown",
+            "type": "string",
           },
           {
             "name": "ariaLabelToggleButton",
             "required": false,
-            "type": "unknown",
+            "type": "string",
           },
           {
             "name": "inputId",
             "required": false,
-            "type": "unknown",
+            "type": "string",
           },
           {
             "name": "disabled",
@@ -993,7 +993,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "id",
             "required": false,
-            "type": "unknown",
+            "type": "string",
           },
         ],
         "models": [],
@@ -1747,7 +1747,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "id",
             "required": false,
-            "type": "unknown",
+            "type": "string",
           },
           {
             "name": "value",
@@ -2951,22 +2951,22 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "showDelay",
             "required": false,
-            "type": "unknown",
+            "type": "number",
           },
           {
             "name": "hideDelay",
             "required": false,
-            "type": "unknown",
+            "type": "number",
           },
           {
             "name": "animationDelay",
             "required": false,
-            "type": "unknown",
+            "type": "number",
           },
           {
             "name": "sideOffset",
             "required": false,
-            "type": "unknown",
+            "type": "number",
           },
           {
             "name": "align",
@@ -4074,7 +4074,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "name",
             "required": false,
-            "type": "unknown",
+            "type": "string",
           },
           {
             "name": "disabled",
@@ -4147,12 +4147,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "required",
             "required": false,
-            "type": "unknown",
+            "type": "boolean",
           },
           {
             "name": "disabled",
             "required": false,
-            "type": "unknown",
+            "type": "boolean",
           },
         ],
         "models": [],
@@ -4234,12 +4234,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "withHandle",
             "required": false,
-            "type": "unknown",
+            "type": "boolean",
           },
           {
             "name": "disabled",
             "required": false,
-            "type": "unknown",
+            "type": "boolean",
           },
         ],
         "models": [],
@@ -4257,22 +4257,22 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "defaultSize",
             "required": false,
-            "type": "unknown",
+            "type": "number",
           },
           {
             "name": "minSize",
             "required": false,
-            "type": "unknown",
+            "type": "number",
           },
           {
             "name": "maxSize",
             "required": false,
-            "type": "unknown",
+            "type": "number",
           },
           {
             "name": "collapsible",
             "required": false,
-            "type": "unknown",
+            "type": "boolean",
           },
         ],
         "models": [],
@@ -4417,7 +4417,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "id",
             "required": false,
-            "type": "unknown",
+            "type": "string",
           },
           {
             "name": "value",
@@ -4803,7 +4803,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "sidebarWidthMobile",
             "required": false,
-            "type": "unknown",
+            "type": "string",
           },
           {
             "name": "side",
@@ -5120,12 +5120,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "sidebarWidth",
             "required": false,
-            "type": "unknown",
+            "type": "string",
           },
           {
             "name": "sidebarWidthIcon",
             "required": false,
-            "type": "unknown",
+            "type": "string",
           },
         ],
         "models": [],
@@ -5389,7 +5389,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "tabIndex",
             "required": false,
-            "type": "unknown",
+            "type": "number",
           },
         ],
         "models": [
@@ -5657,7 +5657,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "disablePagination",
             "required": false,
-            "type": "unknown",
+            "type": "boolean",
           },
         ],
         "models": [],
@@ -5813,7 +5813,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "id",
             "required": false,
-            "type": "unknown",
+            "type": "string",
           },
           {
             "name": "value",
@@ -5915,7 +5915,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "id",
             "required": false,
-            "type": "unknown",
+            "type": "string",
           },
           {
             "name": "value",
@@ -6031,27 +6031,27 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "positionAtOrigin",
             "required": false,
-            "type": "unknown",
+            "type": "boolean",
           },
           {
             "name": "brnTooltipDisabled",
             "required": false,
-            "type": "unknown",
+            "type": "boolean",
           },
           {
             "name": "showDelay",
             "required": false,
-            "type": "unknown",
+            "type": "number",
           },
           {
             "name": "hideDelay",
             "required": false,
-            "type": "unknown",
+            "type": "number",
           },
           {
             "name": "exitAnimationDuration",
             "required": false,
-            "type": "unknown",
+            "type": "number",
           },
           {
             "name": "tooltipContentClasses",
@@ -6066,7 +6066,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "aria-describedby",
             "required": false,
-            "type": "unknown",
+            "type": "string",
           },
           {
             "name": "brnTooltipTrigger",

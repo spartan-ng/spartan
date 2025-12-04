@@ -1,5 +1,5 @@
+import { type BooleanInput } from '@angular/cdk/coercion';
 import { afterNextRender, booleanAttribute, computed, Directive, ElementRef, inject, input } from '@angular/core';
-
 import { BrnResizableGroup } from './brn-resizable-group';
 
 @Directive({
@@ -24,10 +24,10 @@ export class BrnResizableHandle {
 	private readonly _el = inject(ElementRef<HTMLElement>);
 
 	/** Whether a visual handle is rendered inside the separator. */
-	public readonly withHandle = input(false, { transform: booleanAttribute });
+	public readonly withHandle = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
 	/** Whether the handle is disabled (not interactive). */
-	public readonly disabled = input(false, { transform: booleanAttribute });
+	public readonly disabled = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
 	/** The direction of the resizable group (`horizontal` or `vertical`). */
 	protected readonly _direction = this._resizable.direction;

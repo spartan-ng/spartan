@@ -33,7 +33,7 @@ export class BrnAutocompleteItem<T> implements Highlightable {
 	private readonly _autocomplete = injectBrnAutocomplete<T>();
 
 	/** A unique id for the item */
-	public readonly id = input(`brn-autocomplete-item-${++BrnAutocompleteItem._id}`);
+	public readonly id = input<string>(`brn-autocomplete-item-${++BrnAutocompleteItem._id}`);
 
 	/** The value this item represents. */
 	public readonly value = input.required<T>();

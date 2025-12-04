@@ -14,6 +14,7 @@
 
 import { FocusKeyManager, type FocusableOption } from '@angular/cdk/a11y';
 import { type Direction, Directionality } from '@angular/cdk/bidi';
+import { type BooleanInput } from '@angular/cdk/coercion';
 import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
 import { SharedResizeObserver } from '@angular/cdk/observers/private';
 import { Platform, normalizePassiveListenerOptions } from '@angular/cdk/platform';
@@ -128,7 +129,7 @@ export abstract class BrnTabsPaginatedList implements AfterContentChecked, After
 	 * Whether pagination should be disabled. This can be used to avoid unnecessary
 	 * layout recalculations if it's known that pagination won't be required.
 	 */
-	public readonly disablePagination = input(false, { transform: booleanAttribute });
+	public readonly disablePagination = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
 	/** The index of the active tab. */
 	private readonly _selectedIndex = computed(() => {

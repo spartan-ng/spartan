@@ -18,7 +18,7 @@ export class BrnToggle<T> {
 	private static _uniqueId = 0;
 
 	/** The id of the toggle. */
-	public readonly id = input(`brn-toggle-${++BrnToggle._uniqueId}`);
+	public readonly id = input<string>(`brn-toggle-${++BrnToggle._uniqueId}`);
 
 	/** The value this toggle represents. */
 	public readonly value = input<T>();

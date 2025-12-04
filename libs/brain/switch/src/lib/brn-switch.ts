@@ -1,5 +1,5 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
-import type { BooleanInput } from '@angular/cdk/coercion';
+import type { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import { isPlatformBrowser } from '@angular/common';
 import {
 	type AfterContentInit,
@@ -17,6 +17,7 @@ import {
 	input,
 	linkedSignal,
 	model,
+	numberAttribute,
 	type OnDestroy,
 	output,
 	PLATFORM_ID,
@@ -153,7 +154,7 @@ export class BrnSwitch implements AfterContentInit, OnDestroy, ControlValueAcces
 	 * Keyboard tab order for switch.
 	 * @default 0
 	 */
-	public readonly tabIndex = input(0);
+	public readonly tabIndex = input<number, NumberInput>(0, { transform: numberAttribute });
 
 	/**
 	 * Event emitted when switch is blurred (loses focus).

@@ -106,7 +106,7 @@ type AlgoliaHits = {
 	template: `
 		<hlm-dialog>
 			<button
-				brnDialogTrigger
+				hlmDialogTrigger
 				hlmBtn
 				variant="secondary"
 				class="bg-surface text-foreground dark:bg-card relative h-8 w-full justify-start pl-3 font-medium shadow-none sm:pr-12 md:w-48 lg:w-60 xl:w-64"

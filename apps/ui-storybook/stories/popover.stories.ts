@@ -33,9 +33,9 @@ export const Default: Story = {
 	render: ({ ...args }) => ({
 		props: args,
 		template: `
-    <brn-popover ${argsToTemplate(args)}>
+    <hlm-popover ${argsToTemplate(args)}>
     <div class='flex flex-col items-center justify-center py-80'>
-        <button id='edit-profile' variant='outline' brnPopoverTrigger hlmBtn>Open Popover</button>
+        <button id='edit-profile' variant='outline' hlmPopoverTrigger hlmBtn>Open Popover</button>
     </div>
     <div hlmPopoverContent class='w-80 grid gap-4' *brnPopoverContent='let ctx'>
           <div class='space-y-2'>
@@ -79,7 +79,7 @@ export const Default: Story = {
             </div>
           </div>
     </div>
-    </brn-popover>
+    </hlm-popover>
     `,
 	}),
 };

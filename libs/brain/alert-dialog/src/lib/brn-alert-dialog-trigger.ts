@@ -15,7 +15,6 @@ import type { BrnAlertDialog } from './brn-alert-dialog';
 })
 export class BrnAlertDialogTrigger extends BrnDialogTrigger {
 	public readonly brnAlertDialogTriggerFor = input<BrnAlertDialog | undefined>();
-	public readonly type = input<'button' | 'submit' | 'reset'>('button');
 
 	constructor() {
 		super();

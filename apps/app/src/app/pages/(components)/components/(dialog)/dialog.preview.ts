@@ -10,7 +10,7 @@ import { HlmLabelImports } from '@spartan-ng/helm/label';
 	imports: [BrnDialogImports, HlmDialogImports, HlmLabelImports, HlmInputImports, HlmButtonImports],
 	template: `
 		<hlm-dialog>
-			<button id="edit-profile" brnDialogTrigger hlmBtn variant="outline">Open Dialog</button>
+			<button id="edit-profile" hlmDialogTrigger hlmBtn variant="outline">Open Dialog</button>
 			<hlm-dialog-content class="sm:max-w-[425px]" *brnDialogContent="let ctx">
 				<hlm-dialog-header>
 					<h3 hlmDialogTitle>Edit profile</h3>
@@ -43,7 +43,7 @@ import { HlmDialogImports } from '@spartan-ng/helm/dialog';
 
 export const defaultSkeleton = `
 <hlm-dialog>
-  <button brnDialogTrigger hlmBtn variant="outline">Open Dialog</button>
+  <button hlmDialogTrigger hlmBtn variant="outline">Open Dialog</button>
   <hlm-dialog-content *brnDialogContent="let ctx">
     <hlm-dialog-header>
       <h3 brnDialogTitle hlm>Edit profile</h3>

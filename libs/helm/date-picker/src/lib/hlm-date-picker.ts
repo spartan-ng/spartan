@@ -11,14 +11,14 @@ import {
 	signal,
 } from '@angular/core';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { NgIcon, provideIcons } from '@ng-icons/core';
+import { provideIcons } from '@ng-icons/core';
 import { lucideChevronDown } from '@ng-icons/lucide';
 import type { BrnDialogState } from '@spartan-ng/brain/dialog';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
-import { BrnPopover, BrnPopoverContent, BrnPopoverTrigger } from '@spartan-ng/brain/popover';
+import { BrnPopoverImports } from '@spartan-ng/brain/popover';
 import { HlmCalendar } from '@spartan-ng/helm/calendar';
-import { HlmIcon } from '@spartan-ng/helm/icon';
-import { HlmPopoverContent } from '@spartan-ng/helm/popover';
+import { HlmIconImports } from '@spartan-ng/helm/icon';
+import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 import { injectHlmDatePickerConfig } from './hlm-date-picker.token';
@@ -33,20 +33,20 @@ let nextId = 0;
 
 @Component({
 	selector: 'hlm-date-picker',
-	imports: [NgIcon, HlmIcon, BrnPopover, BrnPopoverTrigger, BrnPopoverContent, HlmPopoverContent, HlmCalendar],
+	imports: [HlmIconImports, BrnPopoverImports, HlmPopoverImports, HlmCalendar],
 	providers: [HLM_DATE_PICKER_VALUE_ACCESSOR, provideIcons({ lucideChevronDown })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'block',
 	},
 	template: `
-		<brn-popover sideOffset="5" [state]="_popoverState()" (stateChanged)="_popoverState.set($event)">
+		<hlm-popover sideOffset="5" [state]="_popoverState()" (stateChanged)="_popoverState.set($event)">
 			<button
 				[id]="buttonId()"
 				type="button"
 				[class]="_computedClass()"
 				[disabled]="_mutableDisabled()"
-				brnPopoverTrigger
+				hlmPopoverTrigger
 			>
 				<span class="truncate">
 					@if (_formattedDate(); as formattedDate) {
@@ -70,7 +70,7 @@ let nextId = 0;
 					(dateChange)="_handleChange($event)"
 				/>
 			</div>
-		</brn-popover>
+		</hlm-popover>
 	`,
 })
 export class HlmDatePicker<T> implements ControlValueAccessor {

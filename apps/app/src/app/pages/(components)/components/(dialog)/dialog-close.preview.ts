@@ -9,7 +9,7 @@ import { HlmLabelImports } from '@spartan-ng/helm/label';
 	imports: [BrnDialogImports, HlmDialogImports, HlmLabelImports, HlmButtonImports],
 	template: `
 		<hlm-dialog #dialogRef>
-			<button id="edit-profile" brnDialogTrigger hlmBtn>Open</button>
+			<button id="edit-profile" hlmDialogTrigger hlmBtn>Open</button>
 			<hlm-dialog-content class="sm:max-w-[425px]" *brnDialogContent="let ctx">
 				<hlm-dialog-header>
 					<h3 hlmDialogTitle>Dialog</h3>

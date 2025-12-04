@@ -15,12 +15,12 @@ import { Preset } from '../data/presets';
 	providers: [provideIcons({ lucideSearch, lucideCheck, lucideChevronsUpDown })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<brn-popover sideOffset="5">
+		<hlm-popover sideOffset="5">
 			<button
 				id="select-preset"
-				variant="outline"
-				brnPopoverTrigger
+				hlmPopoverTrigger
 				hlmBtn
+				variant="outline"
 				class="w-[300px] flex-1 justify-between md:max-w-[200px] lg:max-w-[300px]"
 			>
 				{{ selectedPreset() ? selectedPreset()?.name : 'Load a preset...' }}
@@ -61,7 +61,7 @@ import { Preset } from '../data/presets';
 					<div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
 				</hlm-command>
 			</div>
-		</brn-popover>
+		</hlm-popover>
 	`,
 })
 export class PresetSelector {

@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component, effect, forwardRef, input, linkedSignal, untracked } from '@angular/core';
+import { Directive, effect, forwardRef, input, linkedSignal, untracked } from '@angular/core';
 import { BrnDialog } from '@spartan-ng/brain/dialog';
 
-@Component({
-	selector: 'brn-sheet',
+@Directive({
+	selector: '[brnSheet],brn-sheet',
 	exportAs: 'brnSheet',
 	providers: [
 		{
@@ -10,10 +10,6 @@ import { BrnDialog } from '@spartan-ng/brain/dialog';
 			useExisting: forwardRef(() => BrnSheet),
 		},
 	],
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	template: `
-		<ng-content />
-	`,
 })
 export class BrnSheet extends BrnDialog {
 	/** Specifies the side of the screen where the sheet will appear. */

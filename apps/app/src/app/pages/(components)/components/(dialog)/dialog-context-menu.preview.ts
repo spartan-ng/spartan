@@ -30,7 +30,7 @@ import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 					</button>
 
 					<hlm-dialog>
-						<button hlmDropdownMenuItem inset="true" brnDialogTrigger>
+						<button hlmDropdownMenuItem inset="true" hlmDialogTrigger>
 							Print
 							<hlm-dropdown-menu-shortcut>⌘P</hlm-dropdown-menu-shortcut>
 						</button>

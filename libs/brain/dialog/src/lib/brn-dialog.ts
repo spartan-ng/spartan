@@ -1,10 +1,10 @@
+import { type BooleanInput, type NumberInput } from '@angular/cdk/coercion';
 import { OverlayPositionBuilder, type ScrollStrategy, ScrollStrategyOptions } from '@angular/cdk/overlay';
 import {
 	booleanAttribute,
-	ChangeDetectionStrategy,
-	Component,
 	computed,
 	DestroyRef,
+	Directive,
 	effect,
 	type EffectRef,
 	inject,
@@ -27,13 +27,9 @@ import type { BrnDialogState } from './brn-dialog-state';
 import { injectBrnDialogDefaultOptions } from './brn-dialog-token';
 import { BrnDialogService } from './brn-dialog.service';
 
-@Component({
-	selector: 'brn-dialog',
+@Directive({
+	selector: '[brnDialog],brn-dialog',
 	exportAs: 'brnDialog',
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	template: `
-		<ng-content />
-	`,
 })
 export class BrnDialog<TResult = unknown, TContext extends Record<string, unknown> = Record<string, unknown>> {
 	private readonly _dialogService = inject(BrnDialogService);
@@ -62,7 +58,9 @@ export class BrnDialog<TResult = unknown, TContext extends Record<string, unknow
 
 	public readonly role = input<BrnDialogOptions['role']>(this._defaultOptions.role);
 
-	public readonly hasBackdrop = input(this._defaultOptions.hasBackdrop, { transform: booleanAttribute });
+	public readonly hasBackdrop = input<boolean, BooleanInput>(this._defaultOptions.hasBackdrop, {
+		transform: booleanAttribute,
+	});
 
 	public readonly positionStrategy = input<BrnDialogOptions['positionStrategy']>(this._defaultOptions.positionStrategy);
 	public readonly mutablePositionStrategy = linkedSignal(() => this.positionStrategy());
@@ -119,12 +117,15 @@ export class BrnDialog<TResult = unknown, TContext extends Record<string, unknow
 
 	public readonly restoreFocus = input<BrnDialogOptions['restoreFocus']>(this._defaultOptions.restoreFocus);
 
-	public readonly closeOnOutsidePointerEvents = input(this._defaultOptions.closeOnOutsidePointerEvents, {
-		transform: booleanAttribute,
-	});
+	public readonly closeOnOutsidePointerEvents = input<boolean, BooleanInput>(
+		this._defaultOptions.closeOnOutsidePointerEvents,
+		{
+			transform: booleanAttribute,
+		},
+	);
 	public readonly mutableCloseOnOutsidePointerEvents = linkedSignal(() => this.closeOnOutsidePointerEvents());
 
-	public readonly closeOnBackdropClick = input(this._defaultOptions.closeOnBackdropClick, {
+	public readonly closeOnBackdropClick = input<boolean, BooleanInput>(this._defaultOptions.closeOnBackdropClick, {
 		transform: booleanAttribute,
 	});
 
@@ -136,11 +137,13 @@ export class BrnDialog<TResult = unknown, TContext extends Record<string, unknow
 
 	public readonly autoFocus = input<BrnDialogOptions['autoFocus']>(this._defaultOptions.autoFocus);
 
-	public readonly closeDelay = input(this._defaultOptions.closeDelay, {
+	public readonly closeDelay = input<number, NumberInput>(this._defaultOptions.closeDelay, {
 		transform: numberAttribute,
 	});
 
-	public readonly disableClose = input(this._defaultOptions.disableClose, { transform: booleanAttribute });
+	public readonly disableClose = input<boolean, BooleanInput>(this._defaultOptions.disableClose, {
+		transform: booleanAttribute,
+	});
 
 	public readonly ariaDescribedBy = input<BrnDialogOptions['ariaDescribedBy']>(null, {
 		alias: 'aria-describedby',
@@ -153,7 +156,7 @@ export class BrnDialog<TResult = unknown, TContext extends Record<string, unknow
 	public readonly ariaLabel = input<BrnDialogOptions['ariaLabel']>(null, { alias: 'aria-label' });
 	private readonly _mutableAriaLabel = linkedSignal(() => this.ariaLabel());
 
-	public readonly ariaModal = input(true, { alias: 'aria-modal', transform: booleanAttribute });
+	public readonly ariaModal = input<boolean, BooleanInput>(true, { alias: 'aria-modal', transform: booleanAttribute });
 	private readonly _mutableAriaModal = linkedSignal(() => this.ariaModal());
 
 	public open() {

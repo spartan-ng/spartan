@@ -17,7 +17,7 @@ import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 	template: `
 		<div hlmInputGroup class="[--radius:9999px]">
 			<div hlmInputGroupAddon>
-				<button hlmInputGroupButton variant="secondary" size="icon-xs" brnPopoverTrigger>
+				<button hlmInputGroupButton variant="secondary" size="icon-xs">
 					<ng-icon hlm name="tablerInfoCircle" size="sm" />
 				</button>
 			</div>

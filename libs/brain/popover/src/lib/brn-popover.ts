@@ -1,13 +1,6 @@
+import { type NumberInput } from '@angular/cdk/coercion';
 import { type FlexibleConnectedPositionStrategy } from '@angular/cdk/overlay';
-import {
-	ChangeDetectionStrategy,
-	Component,
-	effect,
-	forwardRef,
-	input,
-	numberAttribute,
-	untracked,
-} from '@angular/core';
+import { Directive, effect, forwardRef, input, numberAttribute, untracked } from '@angular/core';
 import { BrnDialog, type BrnDialogDefaultOptions, provideBrnDialogDefaultOptions } from '@spartan-ng/brain/dialog';
 
 export const BRN_POPOVER_DIALOG_DEFAULT_OPTIONS: Partial<BrnDialogDefaultOptions> = {
@@ -17,8 +10,8 @@ export const BRN_POPOVER_DIALOG_DEFAULT_OPTIONS: Partial<BrnDialogDefaultOptions
 
 export type BrnPopoverAlign = 'start' | 'center' | 'end';
 
-@Component({
-	selector: 'brn-popover',
+@Directive({
+	selector: '[brnPopover],brn-popover',
 	exportAs: 'brnPopover',
 	providers: [
 		{
@@ -27,15 +20,11 @@ export type BrnPopoverAlign = 'start' | 'center' | 'end';
 		},
 		provideBrnDialogDefaultOptions(BRN_POPOVER_DIALOG_DEFAULT_OPTIONS),
 	],
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	template: `
-		<ng-content />
-	`,
 })
 export class BrnPopover extends BrnDialog {
 	public readonly align = input<BrnPopoverAlign>('center');
-	public readonly sideOffset = input(0, { transform: numberAttribute });
-	public readonly offsetX = input(0, { transform: numberAttribute });
+	public readonly sideOffset = input<number, NumberInput>(0, { transform: numberAttribute });
+	public readonly offsetX = input<number, NumberInput>(0, { transform: numberAttribute });
 	private _positionStrategy?: FlexibleConnectedPositionStrategy;
 
 	constructor() {

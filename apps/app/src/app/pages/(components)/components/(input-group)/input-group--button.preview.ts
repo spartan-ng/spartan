@@ -35,8 +35,8 @@ import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 					hlmInputGroupButton
 					variant="secondary"
 					size="icon-xs"
-					brnPopoverTrigger
-					[brnPopoverTriggerFor]="brnPopover"
+					hlmPopoverTrigger
+					[hlmPopoverTriggerFor]="brnPopover"
 				>
 					<ng-icon name="tablerInfoCircle" />
 				</button>
@@ -57,12 +57,12 @@ import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 			</div>
 		</div>
 
-		<brn-popover sideOffset="5" #brnPopover>
+		<hlm-popover sideOffset="10" align="start" #brnPopover="brnPopover">
 			<div hlmPopoverContent class="flex flex-col gap-1 rounded-xl text-sm" *brnPopoverContent="let ctx">
 				<p class="font-medium">Your connection is not secure.</p>
 				<p>You should not enter any sensitive information on this site.</p>
 			</div>
-		</brn-popover>
+		</hlm-popover>
 	`,
 })
 export class InputGroupButtonPreview {

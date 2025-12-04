@@ -19,7 +19,7 @@ import {
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { provideIcons } from '@ng-icons/core';
 import { lucideChevronDown, lucideCircleX, lucideSearch } from '@ng-icons/lucide';
-import { BrnAutocomplete, BrnAutocompleteEmpty, BrnAutocompleteImports } from '@spartan-ng/brain/autocomplete';
+import { BrnAutocomplete, BrnAutocompleteImports } from '@spartan-ng/brain/autocomplete';
 import { debouncedSignal } from '@spartan-ng/brain/core';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import { BrnPopoverImports } from '@spartan-ng/brain/popover';
@@ -46,8 +46,7 @@ export const HLM_AUTOCOMPLETE_VALUE_ACCESSOR = {
 	selector: 'hlm-autocomplete',
 	imports: [
 		NgTemplateOutlet,
-		BrnAutocomplete,
-		BrnAutocompleteEmpty,
+		BrnAutocompleteImports,
 		HlmAutocompleteEmpty,
 		HlmAutocompleteGroup,
 		HlmAutocompleteItem,
@@ -57,7 +56,6 @@ export const HLM_AUTOCOMPLETE_VALUE_ACCESSOR = {
 		HlmPopoverImports,
 		HlmIconImports,
 		HlmInputGroupImports,
-		BrnAutocompleteImports,
 	],
 	providers: [HLM_AUTOCOMPLETE_VALUE_ACCESSOR, provideIcons({ lucideSearch, lucideChevronDown, lucideCircleX })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -66,14 +64,14 @@ export const HLM_AUTOCOMPLETE_VALUE_ACCESSOR = {
 	},
 	template: `
 		@let transformer = transformOptionToValue();
-		<brn-popover
+		<hlm-popover
 			#popover
 			align="start"
 			autoFocus="first-heading"
 			sideOffset="5"
 			closeDelay="100"
+			closeOnOutsidePointerEvents="true"
 			(closed)="_closed()"
-			[closeOnOutsidePointerEvents]="true"
 		>
 			<div brnAutocomplete (selectionCleared)="_selectionCleared()">
 				<div
@@ -164,7 +162,7 @@ export const HLM_AUTOCOMPLETE_VALUE_ACCESSOR = {
 					</div>
 				</div>
 			</div>
-		</brn-popover>
+		</hlm-popover>
 	`,
 })
 export class HlmAutocomplete<T, V = T> implements ControlValueAccessor {

@@ -14,13 +14,13 @@ import { HlmTextarea } from '@spartan-ng/helm/textarea';
 	providers: [provideIcons({ lucideBot, lucideChevronDown })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<brn-popover sideOffset="5">
+		<hlm-popover sideOffset="5" align="end">
 			<div hlmButtonGroup>
 				<button hlmBtn variant="outline" size="sm">
 					<ng-icon hlm name="lucideBot" size="sm" />
 					Copilot
 				</button>
-				<button id="edit-profile" variant="outline" brnPopoverTrigger hlmBtn variant="outline" size="icon-sm">
+				<button id="edit-profile" variant="outline" hlmPopoverTrigger hlmBtn variant="outline" size="icon-sm">
 					<ng-icon hlm name="lucideChevronDown" size="sm" />
 				</button>
 				<div hlmPopoverContent class="rounded-xl p-0 text-sm" *brnPopoverContent="let ctx">
@@ -41,7 +41,7 @@ import { HlmTextarea } from '@spartan-ng/helm/textarea';
 					</div>
 				</div>
 			</div>
-		</brn-popover>
+		</hlm-popover>
 	`,
 })
 export class ButtonGroupPopover {}

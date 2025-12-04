@@ -29,8 +29,8 @@ import { Model, ModelType } from '../data/models';
 	},
 	template: `
 		<span hlmLabel>Model</span>
-		<brn-popover sideOffset="5">
-			<button id="select-preset" variant="outline" brnPopoverTrigger hlmBtn class="w-full flex-1 justify-between">
+		<hlm-popover sideOffset="5">
+			<button id="select-preset" variant="outline" hlmPopoverTrigger hlmBtn class="w-full flex-1 justify-between">
 				{{ selectedModel() ? selectedModel()?.name : 'Load a model...' }}
 				<ng-icon hlm name="lucideChevronsUpDown" size="sm" />
 			</button>
@@ -67,7 +67,7 @@ import { Model, ModelType } from '../data/models';
 					<div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
 				</hlm-command>
 			</div>
-		</brn-popover>
+		</hlm-popover>
 	`,
 })
 export class ModelSelector {

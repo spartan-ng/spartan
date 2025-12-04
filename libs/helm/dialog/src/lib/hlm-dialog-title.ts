@@ -7,6 +7,7 @@ import type { ClassValue } from 'clsx';
 	selector: '[hlmDialogTitle]',
 	hostDirectives: [BrnDialogTitle],
 	host: {
+		'data-slot': 'dialog-title',
 		'[class]': '_computedClass()',
 	},
 })

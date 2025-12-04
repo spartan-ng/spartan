@@ -1,10 +1,13 @@
 import { Directive, computed, input } from '@angular/core';
+import { BrnSheetClose } from '@spartan-ng/brain/sheet';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 
 @Directive({
-	selector: '[hlmSheetClose],[brnSheetClose][hlm]',
+	selector: 'button[hlmSheetClose]',
+	hostDirectives: [{ directive: BrnSheetClose, inputs: ['delay'] }],
 	host: {
+		'data-slot': 'sheet-close',
 		'[class]': '_computedClass()',
 	},
 })

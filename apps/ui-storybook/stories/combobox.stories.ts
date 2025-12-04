@@ -1,12 +1,12 @@
 import { Component, signal } from '@angular/core';
-import { NgIcon, provideIcons } from '@ng-icons/core';
+import { provideIcons } from '@ng-icons/core';
 import * as lucide from '@ng-icons/lucide';
 import { BrnCommandImports } from '@spartan-ng/brain/command';
 import { BrnPopoverImports } from '@spartan-ng/brain/popover';
-import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmCommandImports } from '@spartan-ng/helm/command';
-import { HlmIcon } from '@spartan-ng/helm/icon';
-import { HlmPopoverContent } from '@spartan-ng/helm/popover';
+import { HlmIconImports } from '@spartan-ng/helm/icon';
+import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 import type { Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
 
@@ -15,7 +15,7 @@ const meta: Meta<{}> = {
 	decorators: [
 		moduleMetadata({
 			providers: [provideIcons(lucide)],
-			imports: [BrnCommandImports, HlmCommandImports, NgIcon, HlmIcon, HlmButton],
+			imports: [BrnCommandImports, HlmCommandImports, HlmIconImports, HlmButtonImports],
 		}),
 	],
 };
@@ -26,14 +26,21 @@ type Framework = { label: string; value: string };
 
 @Component({
 	selector: 'combobox-component',
-	imports: [BrnCommandImports, HlmCommandImports, BrnPopoverImports, HlmPopoverContent, NgIcon, HlmIcon, HlmButton],
+	imports: [
+		BrnCommandImports,
+		HlmCommandImports,
+		BrnPopoverImports,
+		HlmPopoverImports,
+		HlmIconImports,
+		HlmButtonImports,
+	],
 	template: `
-		<brn-popover [state]="state()" (stateChanged)="stateChanged($event)" sideOffset="5">
+		<hlm-popover [state]="state()" (stateChanged)="stateChanged($event)" sideOffset="5">
 			<button
 				class="w-[200px] justify-between"
 				id="edit-profile"
 				variant="outline"
-				brnPopoverTrigger
+				hlmPopoverTrigger
 				(click)="state.set('open')"
 				hlmBtn
 			>
@@ -62,7 +69,7 @@ type Framework = { label: string; value: string };
 					</hlm-command-group>
 				</hlm-command-list>
 			</hlm-command>
-		</brn-popover>
+		</hlm-popover>
 	`,
 })
 class Combobox {

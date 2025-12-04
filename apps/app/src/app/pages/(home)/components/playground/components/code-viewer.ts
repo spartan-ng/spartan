@@ -9,7 +9,7 @@ import { HlmDialogImports } from '@spartan-ng/helm/dialog';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-dialog>
-			<button id="save-presets" brnDialogTrigger hlmBtn variant="secondary">View code</button>
+			<button id="save-presets" hlmDialogTrigger hlmBtn variant="secondary">View code</button>
 			<hlm-dialog-content class="" *brnDialogContent="let ctx">
 				<hlm-dialog-header>
 					<h3 hlmDialogTitle>Save preset</h3>

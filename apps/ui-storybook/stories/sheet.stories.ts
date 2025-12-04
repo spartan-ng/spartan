@@ -1,6 +1,6 @@
-import { BrnSheet, BrnSheetContent, BrnSheetTrigger } from '@spartan-ng/brain/sheet';
-import { HlmButton } from '@spartan-ng/helm/button';
-import { HlmInput } from '@spartan-ng/helm/input';
+import { BrnSheet, BrnSheetImports } from '@spartan-ng/brain/sheet';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmInputImports } from '@spartan-ng/helm/input';
 import { HlmSheetImports } from '@spartan-ng/helm/sheet';
 import { type Meta, type StoryObj, argsToTemplate, moduleMetadata } from '@storybook/angular';
 
@@ -15,7 +15,7 @@ const meta: Meta<SheetProps> = {
 	},
 	decorators: [
 		moduleMetadata({
-			imports: [BrnSheetTrigger, BrnSheetContent, HlmSheetImports, HlmButton, HlmInput],
+			imports: [BrnSheetImports, HlmSheetImports, HlmButtonImports, HlmInputImports],
 		}),
 	],
 };
@@ -28,7 +28,7 @@ export const Default: Story = {
 		props: args,
 		template: `
     <hlm-sheet ${argsToTemplate(args)}>
-    <button id='edit-profile' variant='outline' brnSheetTrigger hlmBtn>Edit Profile</button>
+    <button id='edit-profile' variant='outline' hlmSheetTrigger hlmBtn>Edit Profile</button>
     <hlm-sheet-content *brnSheetContent='let ctx'>
          <hlm-sheet-header>
           <h3 hlmSheetTitle>Edit Profile</h3>

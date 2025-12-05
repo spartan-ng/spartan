@@ -9,11 +9,10 @@ import {
 	input,
 	signal,
 } from '@angular/core';
-import { NgIcon, provideIcons } from '@ng-icons/core';
+import { provideIcons } from '@ng-icons/core';
 import { lucideX } from '@ng-icons/lucide';
 import { injectExposedSideProvider, injectExposesStateProvider } from '@spartan-ng/brain/core';
-import { BrnSheetClose } from '@spartan-ng/brain/sheet';
-import { HlmIcon } from '<%- importAlias %>/icon';
+import { HlmIconImports } from '<%- importAlias %>/icon';
 import { hlm } from '<%- importAlias %>/utils';
 import { cva } from 'class-variance-authority';
 import type { ClassValue } from 'clsx';
@@ -40,16 +39,17 @@ export const sheetVariants = cva(
 
 @Component({
 	selector: 'hlm-sheet-content',
-	imports: [HlmSheetClose, BrnSheetClose, NgIcon, HlmIcon],
+	imports: [HlmSheetClose, HlmIconImports],
 	providers: [provideIcons({ lucideX })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
+		'data-slot': 'sheet-content',
 		'[class]': '_computedClass()',
 		'[attr.data-state]': 'state()',
 	},
 	template: `
 		<ng-content />
-		<button brnSheetClose hlm>
+		<button hlmSheetClose>
 			<span class="sr-only">Close</span>
 			<ng-icon hlm size="sm" name="lucideX" />
 		</button>

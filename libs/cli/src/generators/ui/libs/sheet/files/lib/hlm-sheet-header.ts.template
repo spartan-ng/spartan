@@ -1,16 +1,13 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { computed, Directive, input } from '@angular/core';
 import { hlm } from '<%- importAlias %>/utils';
 import type { ClassValue } from 'clsx';
 
-@Component({
-	selector: 'hlm-sheet-header',
-	changeDetection: ChangeDetectionStrategy.OnPush,
+@Directive({
+	selector: '[hlmSheetHeader],hlm-sheet-header',
 	host: {
+		'data-slot': 'sheet-header',
 		'[class]': '_computedClass()',
 	},
-	template: `
-		<ng-content />
-	`,
 })
 export class HlmSheetHeader {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

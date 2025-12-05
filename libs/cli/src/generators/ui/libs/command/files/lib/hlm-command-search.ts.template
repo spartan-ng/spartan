@@ -1,18 +1,15 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { computed, Directive, input } from '@angular/core';
 import { provideHlmIconConfig } from '<%- importAlias %>/icon';
 import { hlm } from '<%- importAlias %>/utils';
 import type { ClassValue } from 'clsx';
 
-@Component({
-	selector: 'hlm-command-search',
+@Directive({
+	selector: '[hlmCommandSearch],hlm-command-search',
 	providers: [provideHlmIconConfig({ size: 'sm' })],
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
+		'data-slot': 'command-search',
 		'[class]': '_computedClass()',
 	},
-	template: `
-		<ng-content />
-	`,
 })
 export class HlmCommandSearch {
 	/** The user defined class  */

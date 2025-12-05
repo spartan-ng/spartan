@@ -7,6 +7,7 @@ import type { ClassValue } from 'clsx';
 	selector: '[hlmTabsTrigger]',
 	hostDirectives: [{ directive: BrnTabsTrigger, inputs: ['brnTabsTrigger: hlmTabsTrigger', 'disabled'] }],
 	host: {
+		'data-slot': 'tabs-trigger',
 		'[class]': '_computedClass()',
 	},
 })

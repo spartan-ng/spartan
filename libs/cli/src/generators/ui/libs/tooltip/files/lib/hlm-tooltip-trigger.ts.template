@@ -34,5 +34,8 @@ export const DEFAULT_TOOLTIP_CONTENT_CLASSES =
 			],
 		},
 	],
+	host: {
+		'data-slot': 'tooltip-trigger',
+	},
 })
 export class HlmTooltipTrigger {}

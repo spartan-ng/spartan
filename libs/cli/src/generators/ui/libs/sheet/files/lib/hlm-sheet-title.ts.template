@@ -7,6 +7,7 @@ import type { ClassValue } from 'clsx';
 	selector: '[hlmSheetTitle]',
 	hostDirectives: [BrnSheetTitle],
 	host: {
+		'data-slot': 'sheet-title',
 		'[class]': '_computedClass()',
 	},
 })

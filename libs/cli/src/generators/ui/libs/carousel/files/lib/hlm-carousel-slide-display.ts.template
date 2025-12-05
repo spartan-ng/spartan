@@ -7,6 +7,7 @@ import { HlmCarousel } from './hlm-carousel';
 	selector: 'hlm-carousel-slide-display',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
+		'data-slot': 'carousel-slide-display',
 		'[class]': '_computedClass()',
 	},
 	template: `

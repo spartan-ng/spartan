@@ -1,19 +1,16 @@
-import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
+import { computed, Directive, inject, input } from '@angular/core';
 import { hlm } from '<%- importAlias %>/utils';
 import type { ClassValue } from 'clsx';
 import { HlmCarousel } from './hlm-carousel';
 
-@Component({
-	selector: 'hlm-carousel-item',
-	changeDetection: ChangeDetectionStrategy.OnPush,
+@Directive({
+	selector: '[hlmCarouselItem],hlm-carousel-item',
 	host: {
+		'data-slot': 'carousel-item',
 		'[class]': '_computedClass()',
 		role: 'group',
 		'aria-roledescription': 'slide',
 	},
-	template: `
-		<ng-content />
-	`,
 })
 export class HlmCarouselItem {
 	private readonly _orientation = inject(HlmCarousel).orientation;

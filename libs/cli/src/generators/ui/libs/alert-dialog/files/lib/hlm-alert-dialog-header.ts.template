@@ -1,16 +1,13 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { computed, Directive, input } from '@angular/core';
 import { hlm } from '<%- importAlias %>/utils';
 import type { ClassValue } from 'clsx';
 
-@Component({
-	selector: 'hlm-alert-dialog-header',
-	changeDetection: ChangeDetectionStrategy.OnPush,
+@Directive({
+	selector: '[hlmAlertDialogHeader],hlm-alert-dialog-header',
 	host: {
+		'data-slot': 'alert-dialog-header',
 		'[class]': '_computedClass()',
 	},
-	template: `
-		<ng-content />
-	`,
 })
 export class HlmAlertDialogHeader {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });

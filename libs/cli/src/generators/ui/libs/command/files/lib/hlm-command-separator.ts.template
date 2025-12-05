@@ -1,18 +1,18 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { computed, Directive, input } from '@angular/core';
 import { hlm } from '<%- importAlias %>/utils';
+import type { ClassValue } from 'clsx';
 
-@Component({
-	selector: 'hlm-command-separator',
-	changeDetection: ChangeDetectionStrategy.OnPush,
+@Directive({
+	selector: '[hlmCommandSeparator],hlm-command-separator',
 	host: {
+		'data-slot': 'command-separator',
 		role: 'separator',
 		'[class]': '_computedClass()',
 	},
-	template: '',
 })
 export class HlmCommandSeparator {
 	/** The user defined class  */
-	public readonly userClass = input<string>('', { alias: 'class' });
+	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 
 	/** The styles to apply  */
 	protected readonly _computedClass = computed(() => hlm('bg-border -mx-1 block h-px', this.userClass()));

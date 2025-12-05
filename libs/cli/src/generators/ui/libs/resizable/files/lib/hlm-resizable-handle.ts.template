@@ -1,12 +1,10 @@
-import type { ClassValue } from 'clsx';
-
 import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
-
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideGripVertical } from '@ng-icons/lucide';
 import { BrnResizableHandle } from '@spartan-ng/brain/resizable';
 import { HlmIcon } from '<%- importAlias %>/icon';
 import { hlm } from '<%- importAlias %>/utils';
+import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-resizable-handle',
@@ -16,6 +14,7 @@ import { hlm } from '<%- importAlias %>/utils';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [{ directive: BrnResizableHandle, inputs: ['withHandle', 'disabled'] }],
 	host: {
+		'data-slot': 'resizable-handle',
 		'[class]': '_computedClass()',
 	},
 	template: `

@@ -7,6 +7,7 @@ import type { ClassValue } from 'clsx';
 	selector: '[hlmAlertDialogDescription]',
 	hostDirectives: [BrnAlertDialogDescription],
 	host: {
+		'data-slot': 'alert-dialog-description',
 		'[class]': '_computedClass()',
 	},
 })

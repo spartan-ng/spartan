@@ -1,8 +1,8 @@
 import { DIALOG_DATA, Dialog } from '@angular/cdk/dialog';
 import {
-	type ComponentType,
+	type ComponentType, FlexibleConnectedPositionStrategy,
 	OverlayOutsideClickDispatcher,
-	OverlayPositionBuilder,
+	OverlayPositionBuilder, OverlayRef,
 	ScrollStrategyOptions,
 } from '@angular/cdk/overlay';
 import { BasePortalOutlet } from '@angular/cdk/portal';
@@ -20,7 +20,7 @@ import {
 	effect,
 	inject,
 	runInInjectionContext,
-	signal,
+	signal, ElementRef,
 } from '@angular/core';
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
@@ -147,8 +147,11 @@ export class BrnDialogService {
 
 		if (options?.closeOnOutsidePointerEvents) {
 			cdkDialogRef.outsidePointerEvents.pipe(takeUntil(destroyed$)).subscribe(() => {
-				// only close if this is the topmost overlay
-				if (this._overlayCloseDispatcher._attachedOverlays.at(-1) === cdkDialogRef.overlayRef) {
+				const overlays = this._overlayCloseDispatcher._attachedOverlays;
+				const index = overlays.indexOf(cdkDialogRef.overlayRef);
+				// close if this is the topmost overlay
+				// but prevent closing if this overlay contains the top overlay (which will be closed)
+				if (index === overlays.length - 1 || overlays.length > 1 && !this.isNested(cdkDialogRef.overlayRef, overlays.at(-1)!)) {
 					brnDialogRef.close(undefined, options?.closeDelay);
 				}
 			});
@@ -187,5 +190,18 @@ export class BrnDialogService {
 		}
 
 		return brnDialogRef;
+	}
+
+	private isNested(parent: OverlayRef, child: OverlayRef): boolean {
+		const childOrigin = (child.getConfig().positionStrategy as FlexibleConnectedPositionStrategy)._origin;
+		if (!childOrigin) {
+			return false;
+		} else if ('width' in childOrigin && 'height' in childOrigin) {
+			const rect = parent.hostElement.getBoundingClientRect();
+			return childOrigin.x >= rect.left && childOrigin.x <= rect.right && childOrigin.y >= rect.top && childOrigin.y <= rect.bottom;
+		} else {
+			const element: Element = (childOrigin as ElementRef).nativeElement || childOrigin;
+			return parent.hostElement.contains(element);
+		}
 	}
 }

@@ -32,12 +32,13 @@ export const routeMeta: RouteMeta = {
 		</div>
 
 		<section class="container-wrapper px-6">
-			<hlm-tabs [tab]="_activeTab()" class="w-full">
+			<hlm-tabs [tab]="_activeTab()" class="w-full pb-5">
 				<hlm-tabs-list
 					aria-label="Blocks Tabs"
 					class="bg-background dark:[&>a]:bg-background [&>a]:text-muted-foreground [&>a]:data-[state=active]:text-primary [&>a]:hover:text-primary dark:[&>a]:data-[state=active]:bg-background [&>a]:cursor-pointer [&>a]:data-[state=active]:shadow-none dark:[&>a]:data-[state=active]:border-none"
 				>
 					<a hlmTabsTrigger="sidebar" routerLink="/blocks/sidebar">Sidebar</a>
+					<a hlmTabsTrigger="calendar" routerLink="/blocks/calendar">Calendar</a>
 				</hlm-tabs-list>
 			</hlm-tabs>
 

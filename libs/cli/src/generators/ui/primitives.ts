@@ -31,6 +31,7 @@ export type Primitive =
 	| 'kbd'
 	| 'label'
 	| 'menubar'
+	| 'navigation-menu'
 	| 'pagination'
 	| 'popover'
 	| 'progress'
@@ -52,4 +53,5 @@ export type Primitive =
 	| 'toggle'
 	| 'toggle-group'
 	| 'tooltip'
+	| 'typography'
 	| 'utils';

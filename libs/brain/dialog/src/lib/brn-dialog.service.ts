@@ -30,6 +30,7 @@ import { filter, takeUntil } from 'rxjs/operators';
 import type { BrnDialogOptions } from './brn-dialog-options';
 import { BrnDialogRef } from './brn-dialog-ref';
 import type { BrnDialogState } from './brn-dialog-state';
+import { injectBrnDialogDefaultOptions } from './brn-dialog-token';
 import { cssClassesToArray } from './brn-dialog-utils';
 
 let dialogSequence = 0;
@@ -56,6 +57,7 @@ export class BrnDialogService {
 	private readonly _positionBuilder = inject(OverlayPositionBuilder);
 	private readonly _sso = inject(ScrollStrategyOptions);
 	private readonly _injector = inject(Injector);
+	private readonly _defaultOptions = injectBrnDialogDefaultOptions();
 
 	public open<DialogContext>(
 		content: ComponentType<unknown> | TemplateRef<unknown>,
@@ -69,6 +71,7 @@ export class BrnDialogService {
 
 		const positionStrategy =
 			options?.positionStrategy ??
+			this._defaultOptions.positionStrategy ??
 			(options?.attachTo && options?.attachPositions && options?.attachPositions?.length > 0
 				? this._positionBuilder?.flexibleConnectedTo(options.attachTo).withPositions(options.attachPositions ?? [])
 				: this._positionBuilder.global().centerHorizontally().centerVertically());
@@ -92,24 +95,24 @@ export class BrnDialogService {
 		// @ts-ignore
 		const cdkDialogRef = this._cdkDialog.open(content, {
 			id: options?.id ?? `brn-dialog-${dialogId}`,
-			role: options?.role,
+			role: options?.role ?? this._defaultOptions.role,
 			viewContainerRef: vcr,
 			templateContext: () => ({
 				$implicit: contextOrData,
 			}),
 			data: contextOrData,
-			hasBackdrop: options?.hasBackdrop,
-			panelClass: cssClassesToArray(options?.panelClass),
-			backdropClass: cssClassesToArray(options?.backdropClass, 'bg-transparent'),
+			hasBackdrop: options?.hasBackdrop ?? this._defaultOptions.hasBackdrop,
+			panelClass: cssClassesToArray(options?.panelClass) ?? cssClassesToArray(this._defaultOptions.panelClass),
+			backdropClass: cssClassesToArray(options?.backdropClass) ?? cssClassesToArray(this._defaultOptions.backdropClass),
 			positionStrategy,
-			scrollStrategy: options?.scrollStrategy ?? this._sso?.block(),
-			restoreFocus: options?.restoreFocus,
-			disableClose: true,
-			autoFocus: options?.autoFocus ?? 'first-tabbable',
+			scrollStrategy: options?.scrollStrategy ?? this._defaultOptions.scrollStrategy ?? this._sso?.block(),
+			restoreFocus: options?.restoreFocus ?? this._defaultOptions.restoreFocus,
+			disableClose: options?.disableClose ?? this._defaultOptions.disableClose,
+			autoFocus: options?.autoFocus ?? this._defaultOptions.autoFocus,
 			ariaDescribedBy: options?.ariaDescribedBy ?? `brn-dialog-description-${dialogId}`,
 			ariaLabelledBy: options?.ariaLabelledBy ?? `brn-dialog-title-${dialogId}`,
-			ariaLabel: options?.ariaLabel,
-			ariaModal: options?.ariaModal,
+			ariaLabel: options?.ariaLabel ?? this._defaultOptions.ariaLabel,
+			ariaModal: options?.ariaModal ?? this._defaultOptions.ariaModal,
 			providers: (cdkDialogRef) => {
 				brnDialogRef = new BrnDialogRef(cdkDialogRef, open, state, dialogId, options as BrnDialogOptions);
 

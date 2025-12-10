@@ -13,7 +13,7 @@
 		"@spartan-ng/brain": "0.0.1-alpha.578",
 		"class-variance-authority": "^0.7.0",
 		"clsx": "^2.1.1",
-		"embla-carousel-angular": "^19.0.0",
+		"embla-carousel-angular": "^20.0.0",
 		"ngx-sonner": ">=3.0.0",
 		"rxjs": "^7.8.0",
 		"tailwind-merge": "^3.3.1"

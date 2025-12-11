@@ -117,7 +117,7 @@
 			"clsx": "^2.1.1",
 			"@ng-icons/core": ">=32.0.0 <34.0.0",
 			"@ng-icons/lucide": ">=32.0.0 <34.0.0",
-			"embla-carousel-angular": "^19.0.0"
+			"embla-carousel-angular": "^20.0.0"
 		}
 	},
 	"checkbox": {

@@ -99,10 +99,10 @@ importers:
         specifier: ^0.33.0
         version: 0.33.0(@types/react@18.3.23)(postgres@3.4.7)(react@19.1.0)
       embla-carousel-angular:
-        specifier: 19.0.0
-        version: 19.0.0(@angular/common@20.0.7(@angular/core@20.0.7(@angular/compiler@20.0.7)(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2))(@angular/core@20.0.7(@angular/compiler@20.0.7)(rxjs@7.8.2)(zone.js@0.15.0))
+        specifier: 20.0.0
+        version: 20.0.0(@angular/common@20.0.7(@angular/core@20.0.7(@angular/compiler@20.0.7)(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2))(@angular/core@20.0.7(@angular/compiler@20.0.7)(rxjs@7.8.2)(zone.js@0.15.0))
       embla-carousel-autoplay:
-        specifier: ^8.5.2
+        specifier: ^8.6.0
         version: 8.6.0(embla-carousel@8.6.0)
       enquirer:
         specifier: 2.4.1
@@ -7772,11 +7772,11 @@ packages:
   electron-to-chromium@1.5.178:
     resolution: {integrity: sha512-wObbz/ar3Bc6e4X5vf0iO8xTN8YAjN/tgiAOJLr7yjYFtP9wAjq8Mb5h0yn6kResir+VYx2DXBj9NNobs0ETSA==}
 
-  embla-carousel-angular@19.0.0:
-    resolution: {integrity: sha512-++x4YcJMDdlOrFYmf3ZGzOIP2kMObY03fWprCyEbc3N+b2r8dRO6CSxfDg9d1oIlEj1A1ScDUJ/TWStRt6ShoQ==}
+  embla-carousel-angular@20.0.0:
+    resolution: {integrity: sha512-PHHKBdyKyfnY0JVyWoZEpiOmYOhMscE2Hop8FGQv9giZSdUu0eI2Y6QbCj0Px1jOA6CDxbRRtAmcmLHMedAY1g==}
     peerDependencies:
-      '@angular/common': '>=19.0.0'
-      '@angular/core': '>=19.0.0'
+      '@angular/common': '>=20.0.0'
+      '@angular/core': '>=20.0.0'
 
   embla-carousel-autoplay@8.6.0:
     resolution: {integrity: sha512-OBu5G3nwaSXkZCo1A6LTaFMZ8EpkYbwIaH+bPqdBnDGQ2fh4+NbzjXjs2SktoPNKCtflfVMc75njaDHOYXcrsA==}
@@ -22683,7 +22683,7 @@ snapshots:
 
   electron-to-chromium@1.5.178: {}
 
-  embla-carousel-angular@19.0.0(@angular/common@20.0.7(@angular/core@20.0.7(@angular/compiler@20.0.7)(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2))(@angular/core@20.0.7(@angular/compiler@20.0.7)(rxjs@7.8.2)(zone.js@0.15.0)):
+  embla-carousel-angular@20.0.0(@angular/common@20.0.7(@angular/core@20.0.7(@angular/compiler@20.0.7)(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2))(@angular/core@20.0.7(@angular/compiler@20.0.7)(rxjs@7.8.2)(zone.js@0.15.0)):
     dependencies:
       '@angular/common': 20.0.7(@angular/core@20.0.7(@angular/compiler@20.0.7)(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2)
       '@angular/core': 20.0.7(@angular/compiler@20.0.7)(rxjs@7.8.2)(zone.js@0.15.0)

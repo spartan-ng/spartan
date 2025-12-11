@@ -15,10 +15,12 @@ import {
 	ElementRef,
 	forwardRef,
 	inject,
+	Injector,
 	input,
 	linkedSignal,
 	model,
 	type OnDestroy,
+	type OnInit,
 	output,
 	PLATFORM_ID,
 	Renderer2,
@@ -87,7 +89,9 @@ const CONTAINER_POST_FIX = '-checkbox';
 		</button>
 	`,
 })
-export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDestroy, DoCheck, BrnFormFieldControl {
+export class BrnCheckbox
+	implements ControlValueAccessor, AfterContentInit, OnDestroy, DoCheck, OnInit, BrnFormFieldControl
+{
 	private readonly _destroyRef = inject(DestroyRef);
 	private readonly _renderer = inject(Renderer2);
 	private readonly _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
@@ -202,7 +206,8 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 	private readonly _defaultErrorStateMatcher = inject(ErrorStateMatcher);
 	private readonly _parentForm = inject(NgForm, { optional: true });
 	private readonly _parentFormGroup = inject(FormGroupDirective, { optional: true });
-	public readonly ngControl: NgControl | null = inject(NgControl, { optional: true, self: true });
+	private readonly _injector = inject(Injector);
+	public ngControl: NgControl | null = null;
 	private readonly _errorStateTracker: ErrorStateTracker;
 	public readonly errorState = computed(() => this._errorStateTracker.errorState());
 
@@ -225,7 +230,7 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 	constructor() {
 		this._errorStateTracker = new ErrorStateTracker(
 			this._defaultErrorStateMatcher,
-			this.ngControl,
+			null,
 			this._parentFormGroup,
 			this._parentForm,
 		);
@@ -252,6 +257,14 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 				this._renderer.setAttribute(labelElement, 'id', newLabelId);
 			}
 		});
+	}
+
+	ngOnInit(): void {
+		this.ngControl = this._injector.get(NgControl, null);
+		if (this.ngControl) {
+			this.ngControl.valueAccessor = this;
+		}
+		this._errorStateTracker.ngControl = this.ngControl;
 	}
 
 	/**

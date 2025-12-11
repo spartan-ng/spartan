@@ -43,7 +43,7 @@ export class HlmFieldDescription implements OnDestroy {
 					a11y.registerDescription(id);
 					this._registeredId = id;
 				}
-		  })
+			})
 		: null;
 
 	ngOnDestroy() {

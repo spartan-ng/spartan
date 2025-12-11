@@ -21,7 +21,7 @@ import {
 import { type ControlValueAccessor, FormGroupDirective, NG_VALUE_ACCESSOR, NgControl, NgForm } from '@angular/forms';
 import { provideIcons } from '@ng-icons/core';
 import { lucideChevronDown, lucideCircleX, lucideSearch } from '@ng-icons/lucide';
-import { BrnAutocomplete, BrnAutocompleteEmpty, BrnAutocompleteImports } from '@spartan-ng/brain/autocomplete';
+import { BrnAutocomplete, BrnAutocompleteImports } from '@spartan-ng/brain/autocomplete';
 import { debouncedSignal } from '@spartan-ng/brain/core';
 import { BrnFormFieldControl } from '@spartan-ng/brain/form-field';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
@@ -336,7 +336,8 @@ export class HlmAutocomplete<T, V = T> implements ControlValueAccessor, DoCheck 
 			const error = this._errorStateTracker.errorState();
 			untracked(() => {
 				if (this._ngControl) {
-					const shouldShowError = error && this._ngControl.invalid && (this._ngControl.touched || this._ngControl.dirty);
+					const shouldShowError =
+						error && this._ngControl.invalid && (this._ngControl.touched || this._ngControl.dirty);
 					this._errorStateTracker.errorState.set(shouldShowError ? true : false);
 					//FIXME: Do we need this
 					// this.setError(shouldShowError ? true : 'auto');

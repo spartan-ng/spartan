@@ -131,7 +131,9 @@ class RadioGroupReactiveFormTester {
 					</div>
 				</hlm-radio-group>
 				<p hlmFieldDescription>Pick a plan to see the billing schedule.</p>
-				<hlm-field-error *ngIf="showError">Choose a plan to continue.</hlm-field-error>
+				@if (showError) {
+					<hlm-field-error>Choose a plan to continue.</hlm-field-error>
+				}
 			</div>
 
 			<div class="flex flex-wrap gap-2">
@@ -150,6 +152,7 @@ class RadioGroupHintErrorStory {
 
 	public get showError() {
 		const control = this.form.get('plan');
+		console.log(control);
 		return !!control && control.invalid && (control.touched || control.dirty);
 	}
 }

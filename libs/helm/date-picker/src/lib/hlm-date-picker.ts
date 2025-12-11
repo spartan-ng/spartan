@@ -38,13 +38,7 @@ let nextId = 0;
 
 @Component({
 	selector: 'hlm-date-picker',
-	imports: [
-		NgIcon,
-		HlmIcon,
-		HlmFieldControlDescribedBy,
-		HlmPopoverImports,
-		HlmCalendar,
-	],
+	imports: [NgIcon, HlmIcon, HlmFieldControlDescribedBy, HlmPopoverImports, HlmCalendar],
 	providers: [
 		// HLM_DATE_PICKER_VALUE_ACCESSOR,
 		provideIcons({ lucideChevronDown }),
@@ -213,7 +207,8 @@ export class HlmDatePicker<T> implements ControlValueAccessor {
 			const error = this._errorStateTracker.errorState();
 			untracked(() => {
 				if (this._ngControl) {
-					const shouldShowError = error && this._ngControl.invalid && (this._ngControl.touched || this._ngControl.dirty);
+					const shouldShowError =
+						error && this._ngControl.invalid && (this._ngControl.touched || this._ngControl.dirty);
 					this._errorStateTracker.errorState.set(shouldShowError ? true : false);
 				}
 			});

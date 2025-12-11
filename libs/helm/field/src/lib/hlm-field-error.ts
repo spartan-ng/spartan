@@ -15,11 +15,8 @@ import { HlmFieldA11yService } from './hlm-field-aria.service';
 @Component({
 	selector: 'hlm-field-error',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	host: {
-		'[attr.id]': '_computedId()',
-	},
 	template: `
-		<div role="alert" data-slot="field-error" [class]="_computedClass()">
+		<div role="alert" data-slot="field-error" [attr.id]="_computedId()" [class]="_computedClass()">
 			<ng-content>
 				@if (_uniqueErrors().length === 1) {
 					{{ _uniqueErrors()[0]?.message }}

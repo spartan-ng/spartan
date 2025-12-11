@@ -7,8 +7,8 @@ import {
 	Directive,
 	effect,
 	forwardRef,
-	Injector,
 	inject,
+	Injector,
 	input,
 	linkedSignal,
 	model,
@@ -103,7 +103,7 @@ export class BrnRadioGroup<T = unknown> implements ControlValueAccessor, OnInit 
 		this._parentFormGroup,
 		this._parentForm,
 	);
-	
+
 	public readonly errorState = computed(() => this._errorStateTracker.errorState());
 
 	/**
@@ -117,8 +117,7 @@ export class BrnRadioGroup<T = unknown> implements ControlValueAccessor, OnInit 
 			const error = this._errorStateTracker.errorState();
 			untracked(() => {
 				if (this.ngControl) {
-					const shouldShowError =
-						error && this.ngControl.invalid && (this.ngControl.touched || this.ngControl.dirty);
+					const shouldShowError = error && this.ngControl.invalid && (this.ngControl.touched || this.ngControl.dirty);
 					this._errorStateTracker.errorState.set(shouldShowError ? true : false);
 				}
 			});

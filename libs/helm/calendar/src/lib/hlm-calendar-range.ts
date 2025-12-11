@@ -206,6 +206,7 @@ export class HlmCalendarRange<T> {
 		'data-[range-start]:rounded-l-md',
 		'data-[range-end]:rounded-r-md',
 		'data-[range-between]:bg-accent data-[range-between]:text-accent-foreground data-[range-between]:rounded-none',
+		'dark:hover:text-accent-foreground',
 	);
 
 	protected readonly _selectClass = 'gap-0 px-1.5 py-2 [&>ng-icon]:ml-1';

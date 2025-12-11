@@ -241,9 +241,6 @@ export const routeMeta: RouteMeta = {
 				.
 			</p>
 
-			<p class="${hlmP}">Also make sure to import the Angular CDK overlay styles:</p>
-			<spartan-code class="mt-4 mb-6" code="@import '@angular/cdk/overlay-prebuilt.css';" />
-
 			<h3 spartanH4 id="adding-components">3. Add Components</h3>
 
 			<p class="${hlmP}">
@@ -383,6 +380,9 @@ module.exports = {
 };
 "
 			/>
+
+			<p class="${hlmP}">Also make sure to import the Angular CDK overlay styles:</p>
+			<spartan-code class="mt-4 mb-6" code="@import '@angular/cdk/overlay-prebuilt.css';" />
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="theming" label="Theming" />

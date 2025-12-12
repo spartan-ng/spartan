@@ -55,7 +55,7 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 				<hlm-dropdown-menu-separator />
 
 				<button hlmDropdownMenuItem (triggered)="reset()">
-					<ng-icon hlm name="lucideUndo2" hlmMenuIcon />
+					<ng-icon hlm name="lucideUndo2" size="sm" />
 					Reset
 				</button>
 			</hlm-dropdown-menu>

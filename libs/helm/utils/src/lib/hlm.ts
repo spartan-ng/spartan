@@ -120,6 +120,7 @@ export function classes(computed: () => ClassValue[] | string, options: ClassesO
 	effect(() => untracked(() => updateClasses()));
 }
 
+// eslint-disable-next-line @typescript-eslint/no-wrapper-object-types
 function setupElementManagement(manager: ElementClassManager, platformId: Object): void {
 	if (isPlatformBrowser(platformId)) {
 		// Setup single observer for this element

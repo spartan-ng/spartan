@@ -121,9 +121,7 @@ export const routeMeta: RouteMeta = {
 				<div hlmAlertDescription class="leading-loose">
 					<p>
 						Do not use the
-						<code class="${hlmCode}">HlmMenuItem</code>
-						or
-						<code class="${hlmCode}">BrnMenuItem</code>
+						<code class="${hlmCode}">HlmDropdownMenuItem</code>
 						directives as they conflict with
 						<code class="${hlmCode}">HlmDialogTrigger</code>
 						&

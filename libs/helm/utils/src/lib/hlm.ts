@@ -1,6 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
 import {
-	afterRenderEffect,
 	DestroyRef,
 	effect,
 	ElementRef,
@@ -8,7 +7,7 @@ import {
 	inject,
 	Injector,
 	PLATFORM_ID,
-	untracked,
+	runInInjectionContext,
 } from '@angular/core';
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
@@ -22,13 +21,15 @@ const elementClassManagers = new WeakMap<HTMLElement, ElementClassManager>();
 
 interface ElementClassManager {
 	element: HTMLElement;
-	sources: Map<symbol, { classes: Set<string>; order: number }>;
+	sources: Map<number, { classes: Set<string>; order: number }>;
 	baseClasses: Set<string>;
 	isUpdating: boolean;
 	observer: MutationObserver | null;
 	nextOrder: number;
 	hasInitialized: boolean;
 }
+
+let sourceCounter = 0;
 
 /**
  * This function dynamically adds and removes classes for a given element without requiring
@@ -39,85 +40,81 @@ interface ElementClassManager {
  * 3. Multiple calls to this function on the same element will be merged efficiently.
  */
 export function classes(computed: () => ClassValue[] | string, options: ClassesOptions = {}) {
-	// get the ElementRef from the options or injector - this is a bit of a dance to avoid
-	// needing the injector if the ElementRef is provided directly
-	const injector = options.injector ?? inject(Injector);
-	const elementRef = options.elementRef ?? injector.get<ElementRef<HTMLElement>>(ElementRef);
-	const platformId = injector.get(PLATFORM_ID);
-	const destroyRef = injector.get(DestroyRef);
-	const baseClasses = inject(new HostAttributeToken('class'), { optional: true });
+	runInInjectionContext(options.injector ?? inject(Injector), () => {
+		const elementRef = options.elementRef ?? inject(ElementRef);
+		const platformId = inject(PLATFORM_ID);
+		const destroyRef = inject(DestroyRef);
+		const baseClasses = inject(new HostAttributeToken('class'), { optional: true });
 
-	const element = elementRef.nativeElement;
+		const element = elementRef.nativeElement;
 
-	// Create unique identifier for this source
-	const sourceId = Symbol('classes-source');
+		// Create unique identifier for this source
+		const sourceId = sourceCounter++;
 
-	// Get or create the class manager for this element
-	let manager = elementClassManagers.get(element);
-	if (!manager) {
-		// Initialize base classes from variation (host attribute 'class')
-		const initialBaseClasses = new Set<string>();
+		// Get or create the class manager for this element
+		let manager = elementClassManagers.get(element);
 
-		if (baseClasses) {
-			toClassList(baseClasses).forEach((cls) => initialBaseClasses.add(cls));
+		if (!manager) {
+			// Initialize base classes from variation (host attribute 'class')
+			const initialBaseClasses = new Set<string>();
+
+			if (baseClasses) {
+				toClassList(baseClasses).forEach((cls) => initialBaseClasses.add(cls));
+			}
+
+			manager = {
+				element,
+				sources: new Map(),
+				baseClasses: initialBaseClasses,
+				isUpdating: false,
+				observer: null,
+				nextOrder: 0,
+				hasInitialized: false,
+			};
+			elementClassManagers.set(element, manager);
+
+			// Setup shared observer and effect for this element
+			setupElementManagement(manager, platformId);
 		}
 
-		manager = {
-			element,
-			sources: new Map(),
-			baseClasses: initialBaseClasses,
-			isUpdating: false,
-			observer: null,
-			nextOrder: 0,
-			hasInitialized: false,
-		};
-		elementClassManagers.set(element, manager);
+		// Assign order once at registration time
+		const sourceOrder = manager.nextOrder++;
 
-		// Setup shared observer and effect for this element
-		setupElementManagement(manager, platformId);
-	}
+		function updateClasses(): void {
+			// Get the new classes from the computed function
+			const newClasses = toClassList(computed());
 
-	// Assign order once at registration time
-	const sourceOrder = manager.nextOrder++;
+			// Update this source's classes, keeping the original order
+			manager!.sources.set(sourceId, {
+				classes: new Set(newClasses),
+				order: sourceOrder,
+			});
 
-	function updateClasses(): void {
-		// Get the new classes from the computed function
-		const newClasses = toClassList(computed());
-
-		// Update this source's classes, keeping the original order
-		manager!.sources.set(sourceId, {
-			classes: new Set(newClasses),
-			order: sourceOrder,
-		});
-
-		// Update the element
-		updateElement(manager!);
-	}
-
-	// Register cleanup with DestroyRef
-	destroyRef.onDestroy(() => {
-		// Remove this source from the manager
-		manager!.sources.delete(sourceId);
-
-		// If no more sources, clean up the manager
-		if (manager!.sources.size === 0) {
-			cleanupManager(element, manager!);
-		} else {
-			// Update element without this source's classes
+			// Update the element
 			updateElement(manager!);
 		}
+
+		// Register cleanup with DestroyRef
+		destroyRef.onDestroy(() => {
+			// Remove this source from the manager
+			manager!.sources.delete(sourceId);
+
+			// If no more sources, clean up the manager
+			if (manager!.sources.size === 0) {
+				cleanupManager(element, manager!);
+			} else {
+				// Update element without this source's classes
+				updateElement(manager!);
+			}
+		});
+
+		/**
+		 * We need this effect to track changes to the computed classes. Ideally, we would use
+		 * afterRenderEffect here, but that doesn't run in SSR contexts, so we use a standard
+		 * effect which works in both browser and SSR.
+		 */
+		effect(updateClasses);
 	});
-
-	// Each source needs its own effect to track its computed function
-	afterRenderEffect({ write: () => updateClasses() });
-
-	/**
-	 * This runs in an effect so that inputs are set before setting the initial classes.
-	 * This is untracked to avoid double execution since the afterRenderEffect already tracks changes.
-	 * We need this as well because afterRenderEffect is more appropriate for DOM writes, but it doesn't
-	 * run in SSR environments.
-	 */
-	effect(() => untracked(() => updateClasses()));
 }
 
 // eslint-disable-next-line @typescript-eslint/no-wrapper-object-types
@@ -133,16 +130,19 @@ function setupElementManagement(manager: ElementClassManager, platformId: Object
 
 			// Collect all classes from all sources
 			for (const source of manager.sources.values()) {
-				source.classes.forEach((className) => allSourceClasses.add(className));
+				for (const className of source.classes) {
+					allSourceClasses.add(className);
+				}
 			}
 
 			// Any classes not from sources become new base classes
 			manager.baseClasses.clear();
-			currentClasses.forEach((className) => {
+
+			for (const className of currentClasses) {
 				if (!allSourceClasses.has(className)) {
 					manager.baseClasses.add(className);
 				}
-			});
+			}
 
 			updateElement(manager);
 		});
@@ -196,7 +196,10 @@ function updateElement(manager: ElementClassManager): void {
 	}
 
 	// Combine base classes with all source classes, ensuring base classes take precedence
-	const classesToApply = twMerge(clsx([...allSourceClasses, ...manager.baseClasses]));
+	const classesToApply =
+		allSourceClasses.length > 0 || manager.baseClasses.size > 0
+			? twMerge(clsx([...allSourceClasses, ...manager.baseClasses]))
+			: '';
 
 	// Apply the classes to the element
 	if (manager.element.className !== classesToApply) {

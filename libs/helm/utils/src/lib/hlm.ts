@@ -1,5 +1,15 @@
 import { isPlatformBrowser } from '@angular/common';
-import { afterRenderEffect, DestroyRef, effect, ElementRef, inject, Injector, PLATFORM_ID } from '@angular/core';
+import {
+	afterRenderEffect,
+	DestroyRef,
+	effect,
+	ElementRef,
+	HostAttributeToken,
+	inject,
+	Injector,
+	PLATFORM_ID,
+	untracked,
+} from '@angular/core';
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
@@ -35,6 +45,7 @@ export function classes(computed: () => ClassValue[] | string, options: ClassesO
 	const elementRef = options.elementRef ?? injector.get<ElementRef<HTMLElement>>(ElementRef);
 	const platformId = injector.get(PLATFORM_ID);
 	const destroyRef = injector.get(DestroyRef);
+	const baseClasses = inject(new HostAttributeToken('class'), { optional: true });
 
 	const element = elementRef.nativeElement;
 
@@ -44,10 +55,17 @@ export function classes(computed: () => ClassValue[] | string, options: ClassesO
 	// Get or create the class manager for this element
 	let manager = elementClassManagers.get(element);
 	if (!manager) {
+		// Initialize base classes from variation (host attribute 'class')
+		const initialBaseClasses = new Set<string>();
+
+		if (baseClasses) {
+			toClassList(baseClasses).forEach((cls) => initialBaseClasses.add(cls));
+		}
+
 		manager = {
 			element,
 			sources: new Map(),
-			baseClasses: new Set(),
+			baseClasses: initialBaseClasses,
 			isUpdating: false,
 			observer: null,
 			nextOrder: 0,
@@ -91,10 +109,15 @@ export function classes(computed: () => ClassValue[] | string, options: ClassesO
 	});
 
 	// Each source needs its own effect to track its computed function
-	isomorphicEffect(() => updateClasses());
+	afterRenderEffect({ write: () => updateClasses() });
 
-	// Initial update
-	updateClasses();
+	/**
+	 * This runs in an effect so that inputs are set before setting the initial classes.
+	 * This is untracked to avoid double execution since the afterRenderEffect already tracks changes.
+	 * We need this as well because afterRenderEffect is more appropriate for DOM writes, but it doesn't
+	 * run in SSR environments.
+	 */
+	effect(() => untracked(() => updateClasses()));
 }
 
 function setupElementManagement(manager: ElementClassManager, platformId: Object): void {
@@ -209,21 +232,4 @@ function toClassList(className: string | ClassValue[]): string[] {
 	return clsx(className)
 		.split(' ')
 		.filter((c) => c.length > 0);
-}
-
-/**
- * AfterRenderEffect is the most appropriate for DOM updates that should happen
- * however if we are running on the server afterRenderEffect will not run, so classes
- * set by initial input values will not be applied. In that case we fall back to using effect
- * in the server context.
- * @param fn
- */
-function isomorphicEffect(fn: () => void): void {
-	const platformId = inject(PLATFORM_ID);
-	if (isPlatformBrowser(platformId)) {
-		afterRenderEffect({ write: fn });
-	} else {
-		// On server use effect
-		effect(fn);
-	}
 }

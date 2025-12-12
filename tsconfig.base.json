@@ -64,7 +64,6 @@
 			"@spartan-ng/brain/sheet": ["libs/brain/sheet/src/index.ts"],
 			"@spartan-ng/brain/slider": ["libs/brain/slider/src/index.ts"],
 			"@spartan-ng/brain/switch": ["libs/brain/switch/src/index.ts"],
-			"@spartan-ng/brain/table": ["libs/brain/table/src/index.ts"],
 			"@spartan-ng/brain/tabs": ["libs/brain/tabs/src/index.ts"],
 			"@spartan-ng/brain/toggle": ["libs/brain/toggle/src/index.ts"],
 			"@spartan-ng/brain/toggle-group": ["libs/brain/toggle-group/src/index.ts"],

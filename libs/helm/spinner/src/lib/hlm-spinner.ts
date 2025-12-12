@@ -11,7 +11,6 @@ import { classes } from '@spartan-ng/helm/utils';
 	host: {
 		role: 'status',
 		'[attr.aria-label]': 'ariaLabel()',
-		class: 'inline-flex',
 	},
 	template: `
 		<ng-icon [name]="icon()" />
@@ -28,6 +27,6 @@ export class HlmSpinner {
 	public readonly ariaLabel = input<string>('Loading', { alias: 'aria-label' });
 
 	constructor() {
-		classes(() => 'text-base motion-safe:animate-spin');
+		classes(() => 'inline-flex size-fit text-base motion-safe:animate-spin');
 	}
 }

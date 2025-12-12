@@ -20,7 +20,6 @@ export default {
 	'@spartan-ng/ui-separator-brain': '@spartan-ng/brain/separator',
 	'@spartan-ng/ui-sheet-brain': '@spartan-ng/brain/sheet',
 	'@spartan-ng/ui-switch-brain': '@spartan-ng/brain/switch',
-	'@spartan-ng/ui-table-brain': '@spartan-ng/brain/table',
 	'@spartan-ng/ui-tabs-brain': '@spartan-ng/brain/tabs',
 	'@spartan-ng/ui-toggle-brain': '@spartan-ng/brain/toggle',
 	'@spartan-ng/ui-toggle-group-brain': '@spartan-ng/brain/toggle-group',

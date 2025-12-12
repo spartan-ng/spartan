@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { afterRenderEffect, ElementRef, inject, Injector, PLATFORM_ID } from '@angular/core';
+import { afterRenderEffect, DestroyRef, effect, ElementRef, inject, Injector, PLATFORM_ID } from '@angular/core';
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
@@ -7,8 +7,18 @@ export function hlm(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
 }
 
-// Global map to track all observers per element
-const elementObservers = new WeakMap<HTMLElement, Set<MutationObserver>>();
+// Global map to track class managers per element
+const elementClassManagers = new WeakMap<HTMLElement, ElementClassManager>();
+
+interface ElementClassManager {
+	element: HTMLElement;
+	sources: Map<symbol, { classes: Set<string>; order: number }>;
+	baseClasses: Set<string>;
+	isUpdating: boolean;
+	observer: MutationObserver | null;
+	nextOrder: number;
+	hasInitialized: boolean;
+}
 
 /**
  * This function dynamically adds and removes classes for a given element without requiring
@@ -16,116 +26,178 @@ const elementObservers = new WeakMap<HTMLElement, Set<MutationObserver>>();
  *
  * 1. This will merge the existing classes on the element with the new classes.
  * 2. It will also remove any classes that were previously added by this function but are no longer present in the new classes.
- * 3. It will order classes so that any transition-related classes are at the end to ensure proper application of transitions.
+ * 3. Multiple calls to this function on the same element will be merged efficiently.
  */
 export function classes(computed: () => ClassValue[] | string, options: ClassesOptions = {}) {
 	// get the ElementRef from the options or injector - this is a bit of a dance to avoid
 	// needing the injector if the ElementRef is provided directly
-	const elementRef =
-		options.elementRef ?? (options.injector ?? inject(Injector)).get<ElementRef<HTMLElement>>(ElementRef);
-	const platformId = (options.injector ?? inject(Injector)).get(PLATFORM_ID);
+	const injector = options.injector ?? inject(Injector);
+	const elementRef = options.elementRef ?? injector.get<ElementRef<HTMLElement>>(ElementRef);
+	const platformId = injector.get(PLATFORM_ID);
+	const destroyRef = injector.get(DestroyRef);
 
-	// store the previously added classes so we can remove them later
-	const previousClasses = new Set<string>();
+	const element = elementRef.nativeElement;
 
-	// MutationObserver reference and debounce timer
-	let observer: MutationObserver | null = null;
-	let debounceTimeout: ReturnType<typeof setTimeout> | null = null;
+	// Create unique identifier for this source
+	const sourceId = Symbol('classes-source');
 
-	function updateClasses(): void {
-		// temporarily disconnect ALL observers for this element to prevent infinite loops
-		const element = elementRef.nativeElement;
-		const observers = elementObservers.get(element);
-		if (observers) {
-			observers.forEach((obs) => obs.disconnect());
-		}
+	// Get or create the class manager for this element
+	let manager = elementClassManagers.get(element);
+	if (!manager) {
+		manager = {
+			element,
+			sources: new Map(),
+			baseClasses: new Set(),
+			isUpdating: false,
+			observer: null,
+			nextOrder: 0,
+			hasInitialized: false,
+		};
+		elementClassManagers.set(element, manager);
 
-		// get the current classes on the element
-		let classList = toClassList(elementRef.nativeElement.className);
-
-		// remove previously added classes from this list so we get just the list of classes that
-		// were not added by this function (i.e. user classes or classes added by other means - like routerLinkActive)
-		classList = classList.filter((c) => !previousClasses.has(c));
-		previousClasses.clear();
-
-		// get the new classes from the computed function - this will be tracked because it's called
-		// from a reactive effect
-		const newClasses = toClassList(computed());
-
-		// add the new classes to the previousClasses set for the next update
-		newClasses.forEach((className) => previousClasses.add(className));
-
-		// determine the complete set of classes to apply, ensuring the users classes take precedence
-		const classesToApply = twMerge(clsx([...newClasses, ...classList]));
-
-		// sort the classes so that transition related classes are at the end
-		const sortedClasses = classesToApply
-			.split(' ')
-			.sort((a, b) => {
-				const aIsTransition = a.startsWith('transition');
-				const bIsTransition = b.startsWith('transition');
-				if (aIsTransition && !bIsTransition) {
-					return 1;
-				} else if (!aIsTransition && bIsTransition) {
-					return -1;
-				} else {
-					return 0;
-				}
-			})
-			.join(' ');
-
-		// apply the classes to the element
-		if (elementRef.nativeElement.className !== sortedClasses) {
-			elementRef.nativeElement.className = sortedClasses;
-		}
-
-		// reconnect ALL observers for this element
-		if (observers) {
-			observers.forEach((obs) => {
-				obs.observe(element, {
-					attributes: true,
-					attributeFilter: ['class'],
-				});
-			});
-		}
+		// Setup shared observer and effect for this element
+		setupElementManagement(manager, platformId);
 	}
 
-	if (isPlatformBrowser(platformId)) {
-		const element = elementRef.nativeElement;
+	// Assign order once at registration time
+	const sourceOrder = manager.nextOrder++;
 
-		// listen for external changes to the class attribute
-		observer = new MutationObserver(() => {
-			// clear any pending debounce
-			if (debounceTimeout) {
-				clearTimeout(debounceTimeout);
-			}
+	function updateClasses(): void {
+		// Get the new classes from the computed function
+		const newClasses = toClassList(computed());
 
-			// debounce the update to avoid rapid-fire changes
-			console.debug('Detected external class change, updating classes...');
-			updateClasses();
+		// Update this source's classes, keeping the original order
+		manager!.sources.set(sourceId, {
+			classes: new Set(newClasses),
+			order: sourceOrder,
 		});
 
-		// register this observer in the global map
-		if (!elementObservers.has(element)) {
-			elementObservers.set(element, new Set());
-		}
-		elementObservers.get(element)!.add(observer);
+		// Update the element
+		updateElement(manager!);
+	}
 
-		// start observing the element for class attribute changes
-		observer.observe(element, {
+	// Register cleanup with DestroyRef
+	destroyRef.onDestroy(() => {
+		// Remove this source from the manager
+		manager!.sources.delete(sourceId);
+
+		// If no more sources, clean up the manager
+		if (manager!.sources.size === 0) {
+			cleanupManager(element, manager!);
+		} else {
+			// Update element without this source's classes
+			updateElement(manager!);
+		}
+	});
+
+	// Each source needs its own effect to track its computed function
+	isomorphicEffect(() => updateClasses());
+
+	// Initial update
+	updateClasses();
+}
+
+function setupElementManagement(manager: ElementClassManager, platformId: Object): void {
+	if (isPlatformBrowser(platformId)) {
+		// Setup single observer for this element
+		manager.observer = new MutationObserver(() => {
+			if (manager.isUpdating) return; // Ignore changes we're making
+
+			// Update base classes to include any externally added classes
+			const currentClasses = toClassList(manager.element.className);
+			const allSourceClasses = new Set<string>();
+
+			// Collect all classes from all sources
+			for (const source of manager.sources.values()) {
+				source.classes.forEach((className) => allSourceClasses.add(className));
+			}
+
+			// Any classes not from sources become new base classes
+			manager.baseClasses.clear();
+			currentClasses.forEach((className) => {
+				if (!allSourceClasses.has(className)) {
+					manager.baseClasses.add(className);
+				}
+			});
+
+			updateElement(manager);
+		});
+
+		// Start observing the element for class attribute changes
+		manager.observer.observe(manager.element, {
+			attributes: true,
+			attributeFilter: ['class'],
+		});
+	}
+}
+
+function updateElement(manager: ElementClassManager): void {
+	if (manager.isUpdating) return; // Prevent recursive updates
+
+	manager.isUpdating = true;
+
+	// Temporarily disconnect observer to prevent infinite loops
+	if (manager.observer) {
+		manager.observer.disconnect();
+	}
+
+	// Handle initialization: capture base classes after first source registration
+	if (!manager.hasInitialized && manager.sources.size > 0) {
+		// Get current classes on element (may include SSR classes)
+		const currentClasses = toClassList(manager.element.className);
+
+		// Get all classes that will be applied by sources
+		const allSourceClasses = new Set<string>();
+		for (const source of manager.sources.values()) {
+			source.classes.forEach((className) => allSourceClasses.add(className));
+		}
+
+		// Only consider classes as "base" if they're not produced by any source
+		// This prevents SSR-rendered classes from being preserved as base classes
+		currentClasses.forEach((className) => {
+			if (!allSourceClasses.has(className)) {
+				manager.baseClasses.add(className);
+			}
+		});
+
+		manager.hasInitialized = true;
+	}
+
+	// Get classes from all sources, sorted by registration order (later takes precedence)
+	const sortedSources = Array.from(manager.sources.entries()).sort(([, a], [, b]) => a.order - b.order);
+
+	const allSourceClasses: string[] = [];
+	for (const [, source] of sortedSources) {
+		allSourceClasses.push(...source.classes);
+	}
+
+	// Combine base classes with all source classes, ensuring base classes take precedence
+	const classesToApply = twMerge(clsx([...allSourceClasses, ...manager.baseClasses]));
+
+	// Apply the classes to the element
+	if (manager.element.className !== classesToApply) {
+		manager.element.className = classesToApply;
+	}
+
+	// Reconnect observer
+	if (manager.observer) {
+		manager.observer.observe(manager.element, {
 			attributes: true,
 			attributeFilter: ['class'],
 		});
 	}
 
-	// any time the computed classes change, run the update during the write phase
-	// this function does read the classes from the element, but that does not incur
-	// any layout thrashing, but we are going to update the classes, so write seems
-	// the most appropriate place
-	afterRenderEffect({ write: updateClasses });
+	manager.isUpdating = false;
+}
 
-	// initial update
-	updateClasses();
+function cleanupManager(element: HTMLElement, manager: ElementClassManager): void {
+	// Clean up observer
+	if (manager.observer) {
+		manager.observer.disconnect();
+	}
+
+	// Remove from global map
+	elementClassManagers.delete(element);
 }
 
 interface ClassesOptions {
@@ -137,4 +209,21 @@ function toClassList(className: string | ClassValue[]): string[] {
 	return clsx(className)
 		.split(' ')
 		.filter((c) => c.length > 0);
+}
+
+/**
+ * AfterRenderEffect is the most appropriate for DOM updates that should happen
+ * however if we are running on the server afterRenderEffect will not run, so classes
+ * set by initial input values will not be applied. In that case we fall back to using effect
+ * in the server context.
+ * @param fn
+ */
+function isomorphicEffect(fn: () => void): void {
+	const platformId = inject(PLATFORM_ID);
+	if (isPlatformBrowser(platformId)) {
+		afterRenderEffect({ write: fn });
+	} else {
+		// On server use effect
+		effect(fn);
+	}
 }

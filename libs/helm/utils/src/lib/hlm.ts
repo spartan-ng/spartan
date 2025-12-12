@@ -19,12 +19,15 @@ export function hlm(...inputs: ClassValue[]) {
 // Global map to track class managers per element
 const elementClassManagers = new WeakMap<HTMLElement, ElementClassManager>();
 
+// Global mutation observer for all elements
+let globalObserver: MutationObserver | null = null;
+let observedElements = new Set<HTMLElement>();
+
 interface ElementClassManager {
 	element: HTMLElement;
 	sources: Map<number, { classes: Set<string>; order: number }>;
 	baseClasses: Set<string>;
 	isUpdating: boolean;
-	observer: MutationObserver | null;
 	nextOrder: number;
 	hasInitialized: boolean;
 }
@@ -67,14 +70,14 @@ export function classes(computed: () => ClassValue[] | string, options: ClassesO
 				sources: new Map(),
 				baseClasses: initialBaseClasses,
 				isUpdating: false,
-				observer: null,
 				nextOrder: 0,
 				hasInitialized: false,
 			};
 			elementClassManagers.set(element, manager);
 
-			// Setup shared observer and effect for this element
-			setupElementManagement(manager, platformId);
+			// Setup global observer if needed and register this element
+			setupGlobalObserver(platformId);
+			observedElements.add(element);
 		}
 
 		// Assign order once at registration time
@@ -101,7 +104,7 @@ export function classes(computed: () => ClassValue[] | string, options: ClassesO
 
 			// If no more sources, clean up the manager
 			if (manager!.sources.size === 0) {
-				cleanupManager(element, manager!);
+				cleanupManager(element);
 			} else {
 				// Update element without this source's classes
 				updateElement(manager!);
@@ -118,39 +121,50 @@ export function classes(computed: () => ClassValue[] | string, options: ClassesO
 }
 
 // eslint-disable-next-line @typescript-eslint/no-wrapper-object-types
-function setupElementManagement(manager: ElementClassManager, platformId: Object): void {
-	if (isPlatformBrowser(platformId)) {
-		// Setup single observer for this element
-		manager.observer = new MutationObserver(() => {
-			if (manager.isUpdating) return; // Ignore changes we're making
+function setupGlobalObserver(platformId: Object): void {
+	if (isPlatformBrowser(platformId) && !globalObserver) {
+		// Create single global observer that watches the entire document
+		globalObserver = new MutationObserver((mutations) => {
+			for (const mutation of mutations) {
+				if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+					const element = mutation.target as HTMLElement;
+					const manager = elementClassManagers.get(element);
 
-			// Update base classes to include any externally added classes
-			const currentClasses = toClassList(manager.element.className);
-			const allSourceClasses = new Set<string>();
+					// Only process elements we're managing
+					if (manager && observedElements.has(element)) {
+						if (manager.isUpdating) continue; // Ignore changes we're making
 
-			// Collect all classes from all sources
-			for (const source of manager.sources.values()) {
-				for (const className of source.classes) {
-					allSourceClasses.add(className);
+						// Update base classes to include any externally added classes
+						const currentClasses = toClassList(element.className);
+						const allSourceClasses = new Set<string>();
+
+						// Collect all classes from all sources
+						for (const source of manager.sources.values()) {
+							for (const className of source.classes) {
+								allSourceClasses.add(className);
+							}
+						}
+
+						// Any classes not from sources become new base classes
+						manager.baseClasses.clear();
+
+						for (const className of currentClasses) {
+							if (!allSourceClasses.has(className)) {
+								manager.baseClasses.add(className);
+							}
+						}
+
+						updateElement(manager);
+					}
 				}
 			}
-
-			// Any classes not from sources become new base classes
-			manager.baseClasses.clear();
-
-			for (const className of currentClasses) {
-				if (!allSourceClasses.has(className)) {
-					manager.baseClasses.add(className);
-				}
-			}
-
-			updateElement(manager);
 		});
 
-		// Start observing the element for class attribute changes
-		manager.observer.observe(manager.element, {
+		// Start observing the entire document for class attribute changes
+		globalObserver.observe(document, {
 			attributes: true,
 			attributeFilter: ['class'],
+			subtree: true, // Watch all descendants
 		});
 	}
 }
@@ -159,11 +173,6 @@ function updateElement(manager: ElementClassManager): void {
 	if (manager.isUpdating) return; // Prevent recursive updates
 
 	manager.isUpdating = true;
-
-	// Temporarily disconnect observer to prevent infinite loops
-	if (manager.observer) {
-		manager.observer.disconnect();
-	}
 
 	// Handle initialization: capture base classes after first source registration
 	if (!manager.hasInitialized && manager.sources.size > 0) {
@@ -206,25 +215,19 @@ function updateElement(manager: ElementClassManager): void {
 		manager.element.className = classesToApply;
 	}
 
-	// Reconnect observer
-	if (manager.observer) {
-		manager.observer.observe(manager.element, {
-			attributes: true,
-			attributeFilter: ['class'],
-		});
-	}
-
 	manager.isUpdating = false;
 }
 
-function cleanupManager(element: HTMLElement, manager: ElementClassManager): void {
-	// Clean up observer
-	if (manager.observer) {
-		manager.observer.disconnect();
-	}
-
-	// Remove from global map
+function cleanupManager(element: HTMLElement): void {
+	// Remove from global tracking
+	observedElements.delete(element);
 	elementClassManagers.delete(element);
+
+	// If no more elements being tracked, cleanup global observer
+	if (observedElements.size === 0 && globalObserver) {
+		globalObserver.disconnect();
+		globalObserver = null;
+	}
 }
 
 interface ClassesOptions {
@@ -232,8 +235,23 @@ interface ClassesOptions {
 	injector?: Injector;
 }
 
+// Cache for parsed class lists to avoid repeated string operations
+const classListCache = new Map<string, string[]>();
+
 function toClassList(className: string | ClassValue[]): string[] {
-	return clsx(className)
+	// For simple string inputs, use cache to avoid repeated parsing
+	if (typeof className === 'string' && classListCache.has(className)) {
+		return classListCache.get(className)!;
+	}
+
+	const result = clsx(className)
 		.split(' ')
 		.filter((c) => c.length > 0);
+
+	// Cache string results, but limit cache size to prevent memory growth
+	if (typeof className === 'string' && classListCache.size < 1000) {
+		classListCache.set(className, result);
+	}
+
+	return result;
 }

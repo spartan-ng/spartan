@@ -1,15 +1,14 @@
-import { computed, Directive, input } from '@angular/core';
-import { hlm } from '@spartan-ng/helm/utils';
-import type { ClassValue } from 'clsx';
+import { Directive } from '@angular/core';
+import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: 'kbd[hlmKbdGroup]',
 	host: {
 		'data-slot': 'kbd-group',
-		'[class]': '_computedClass()',
 	},
 })
 export class HlmKbdGroup {
-	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected readonly _computedClass = computed(() => hlm('inline-flex items-center gap-1', this.userClass()));
+	constructor() {
+		classes(() => 'inline-flex items-center gap-1');
+	}
 }

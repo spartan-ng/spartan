@@ -25,7 +25,7 @@ import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import { BrnPopoverImports } from '@spartan-ng/brain/popover';
 import { HlmIconImports } from '@spartan-ng/helm/icon';
 import { HlmPopoverImports } from '@spartan-ng/helm/popover';
-import { hlm } from '@spartan-ng/helm/utils';
+import { classes, hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 import { HlmAutocompleteEmpty } from './hlm-autocomplete-empty';
 import { HlmAutocompleteGroup } from './hlm-autocomplete-group';
@@ -59,9 +59,6 @@ export const HLM_AUTOCOMPLETE_VALUE_ACCESSOR = {
 	],
 	providers: [HLM_AUTOCOMPLETE_VALUE_ACCESSOR, provideIcons({ lucideSearch, lucideChevronDown, lucideCircleX })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	host: {
-		'[class]': '_computedClass()',
-	},
 	template: `
 		@let transformer = transformOptionToValue();
 		<hlm-popover
@@ -175,29 +172,25 @@ export class HlmAutocomplete<T, V = T> implements ControlValueAccessor {
 
 	protected readonly _elementRef = inject(ElementRef<HTMLElement>);
 
-	/** The user defined class  */
-	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected readonly _computedClass = computed(() => hlm('block w-full', this.userClass()));
-
 	/** Custom class for the autocomplete search container. */
 	public readonly autocompleteSearchClass = input<ClassValue>('');
-	protected readonly _computedAutocompleteSearchClass = computed(() => hlm('', this.autocompleteSearchClass()));
+	protected readonly _computedAutocompleteSearchClass = computed(() => hlm(this.autocompleteSearchClass()));
 
 	/** Custom class for the autocomplete input. */
 	public readonly autocompleteInputClass = input<ClassValue>('');
-	protected readonly _computedAutocompleteInputClass = computed(() => hlm('', this.autocompleteInputClass()));
+	protected readonly _computedAutocompleteInputClass = computed(() => hlm(this.autocompleteInputClass()));
 
 	/** Custom class for the autocomplete list. */
 	public readonly autocompleteListClass = input<ClassValue>('');
-	protected readonly _computedAutocompleteListClass = computed(() => hlm('', this.autocompleteListClass()));
+	protected readonly _computedAutocompleteListClass = computed(() => hlm(this.autocompleteListClass()));
 
 	/** Custom class for each autocomplete item. */
 	public readonly autocompleteItemClass = input<ClassValue>('');
-	protected readonly _computedAutocompleteItemClass = computed(() => hlm('', this.autocompleteItemClass()));
+	protected readonly _computedAutocompleteItemClass = computed(() => hlm(this.autocompleteItemClass()));
 
 	/** Custom class for the empty and loading state container. */
 	public readonly autocompleteEmptyClass = input<ClassValue>('');
-	protected readonly _computedAutocompleteEmptyClass = computed(() => hlm('', this.autocompleteEmptyClass()));
+	protected readonly _computedAutocompleteEmptyClass = computed(() => hlm(this.autocompleteEmptyClass()));
 
 	/** The list of filtered options to display in the autocomplete. */
 	public readonly filteredOptions = input<T[]>([]);
@@ -282,6 +275,7 @@ export class HlmAutocomplete<T, V = T> implements ControlValueAccessor {
 	protected _onTouched?: TouchFn;
 
 	constructor() {
+		classes(() => 'block w-full');
 		effect(() => {
 			const search = this._search();
 			this.searchChange.emit(search);

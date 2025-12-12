@@ -1,7 +1,6 @@
-import { computed, Directive, input } from '@angular/core';
-import { hlm } from '@spartan-ng/helm/utils';
+import { Directive, input } from '@angular/core';
+import { classes } from '@spartan-ng/helm/utils';
 import { cva, VariantProps } from 'class-variance-authority';
-import type { ClassValue } from 'clsx';
 
 const emptyMediaVariants = cva(
 	'mb-2 flex shrink-0 items-center justify-center [&_ng-icon]:pointer-events-none [&_ng-icon]:shrink-0',
@@ -24,14 +23,12 @@ export type EmptyMediaVariants = VariantProps<typeof emptyMediaVariants>;
 	selector: '[hlmEmptyMedia],hlm-empty-media',
 	host: {
 		'data-slot': 'empty-media',
-		'[class]': '_computedClass()',
 	},
 })
 export class HlmEmptyMedia {
-	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	public readonly variant = input<EmptyMediaVariants['variant']>();
+	constructor() {
+		classes(() => emptyMediaVariants({ variant: this.variant() }));
+	}
 
-	protected readonly _computedClass = computed(() =>
-		hlm(emptyMediaVariants({ variant: this.variant() }), this.userClass()),
-	);
+	public readonly variant = input<EmptyMediaVariants['variant']>();
 }

@@ -1,5 +1,4 @@
-import { Directive, ElementRef, inject, input } from '@angular/core';
-import type { ClassValue } from 'clsx';
+import { Directive, ElementRef, inject } from '@angular/core';
 
 @Directive({
 	selector: '[brnAvatarFallback]',
@@ -7,8 +6,6 @@ import type { ClassValue } from 'clsx';
 })
 export class BrnAvatarFallback {
 	private readonly _element = inject(ElementRef).nativeElement;
-	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-
 	getTextContent(): string {
 		return this._element.textContent;
 	}

@@ -1,20 +1,16 @@
-import { computed, Directive, input } from '@angular/core';
-import { hlm } from '@spartan-ng/helm/utils';
-import type { ClassValue } from 'clsx';
+import { Directive } from '@angular/core';
+import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmInputGroup],hlm-input-group',
 	host: {
 		'data-slot': 'input-group',
 		role: 'group',
-		'[class]': '_computedClass()',
 	},
 })
 export class HlmInputGroup {
-	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-
-	protected readonly _computedClass = computed(() =>
-		hlm(
+	constructor() {
+		classes(() => [
 			'group/input-group border-input dark:bg-input/30 relative flex w-full items-center rounded-md border shadow-xs transition-[color,box-shadow] outline-none',
 			'h-9 min-w-0 has-[>textarea]:h-auto',
 			// Variants based on alignment.
@@ -26,8 +22,6 @@ export class HlmInputGroup {
 			'has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-ring/50 has-[[data-slot=input-group-control]:focus-visible]:ring-[3px]',
 			// Error state.
 			'has-[>.ng-invalid.ng-touched]:ring-destructive/20 has-[>.ng-invalid.ng-touched]:border-destructive dark:has-[>.ng-invalid.ng-touched]:ring-destructive/40',
-
-			this.userClass(),
-		),
-	);
+		]);
+	}
 }

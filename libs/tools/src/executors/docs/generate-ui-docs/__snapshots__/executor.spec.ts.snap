@@ -70,61 +70,31 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
     },
     "helm": {
       "HlmAccordion": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmAccordion], hlm-accordion",
       },
       "HlmAccordionContent": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "hlm-accordion-content",
       },
       "HlmAccordionIcon": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "ng-icon[hlmAccordionIcon], ng-icon[hlmAccIcon]",
       },
       "HlmAccordionItem": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmAccordionItem],brn-accordion-item[hlm],hlm-accordion-item",
       },
       "HlmAccordionTrigger": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmAccordionTrigger]",
@@ -136,11 +106,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       "HlmAlert": {
         "inputs": [
           {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-          {
             "name": "variant",
             "required": false,
             "type": "AlertVariants['variant']",
@@ -151,13 +116,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "[hlmAlert]",
       },
       "HlmAlertDescription": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmAlertDesc],[hlmAlertDescription]",
@@ -169,13 +128,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "[hlmAlertIcon]",
       },
       "HlmAlertTitle": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmAlertTitle]",
@@ -261,49 +214,25 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "button[hlmAlertDialogCancel]",
       },
       "HlmAlertDialogContent": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmAlertDialogContent],hlm-alert-dialog-content",
       },
       "HlmAlertDialogDescription": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmAlertDialogDescription]",
       },
       "HlmAlertDialogFooter": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmAlertDialogFooter],hlm-alert-dialog-footer",
       },
       "HlmAlertDialogHeader": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmAlertDialogHeader],hlm-alert-dialog-header",
@@ -321,13 +250,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "[hlmAlertDialogOverlay],hlm-alert-dialog-overlay",
       },
       "HlmAlertDialogTitle": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmAlertDialogTitle]",
@@ -348,11 +271,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "name": "hlmAspectRatio",
             "required": false,
             "type": "number",
-          },
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
           },
         ],
         "models": [],
@@ -451,11 +369,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
     "helm": {
       "HlmAutocomplete": {
         "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
           {
             "name": "autocompleteSearchClass",
             "required": false,
@@ -585,49 +498,25 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "hlm-autocomplete",
       },
       "HlmAutocompleteEmpty": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmAutocompleteEmpty]",
       },
       "HlmAutocompleteGroup": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmAutocompleteGroup],hlm-autocomplete-group",
       },
       "HlmAutocompleteItem": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "button[hlmAutocompleteItem],button[hlm-autocomplete-item]",
       },
       "HlmAutocompleteList": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmAutocompleteList],hlm-autocomplete-list",
@@ -656,13 +545,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       },
       "BrnAvatarFallback": {
         "exportAs": "avatarFallback",
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[brnAvatarFallback]",
@@ -677,13 +560,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
     },
     "helm": {
       "HlmAvatar": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "hlm-avatar",
@@ -697,13 +574,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       },
       "HlmAvatarImage": {
         "exportAs": "avatarImage",
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "img[hlmAvatarImage]",
@@ -714,11 +585,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
     "helm": {
       "HlmBadge": {
         "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
           {
             "name": "variant",
             "required": false,
@@ -735,11 +601,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
     "helm": {
       "HlmBreadcrumb": {
         "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
           {
             "name": "aria-label",
             "required": false,
@@ -768,24 +629,13 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "hlm-breadcrumb-ellipsis",
       },
       "HlmBreadcrumbItem": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmBreadcrumbItem]",
       },
       "HlmBreadcrumbLink": {
         "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
           {
             "name": "link",
             "required": false,
@@ -797,37 +647,19 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "[hlmBreadcrumbLink]",
       },
       "HlmBreadcrumbList": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmBreadcrumbList]",
       },
       "HlmBreadcrumbPage": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmBreadcrumbPage]",
       },
       "HlmBreadcrumbSeparator": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmBreadcrumbSeparator]",
@@ -854,11 +686,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "exportAs": "hlmBtn",
         "inputs": [
           {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-          {
             "name": "variant",
             "required": false,
             "type": "ButtonVariants['variant']",
@@ -880,11 +707,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       "HlmButtonGroup": {
         "inputs": [
           {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-          {
             "name": "orientation",
             "required": false,
             "type": "'horizontal' | 'vertical'",
@@ -895,25 +717,13 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "[hlmButtonGroup],hlm-button-group",
       },
       "HlmButtonGroupSeparator": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmButtonGroupSeparator],hlm-button-group-separator",
       },
       "HlmButtonGroupText": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmButtonGroupText],hlm-button-group-text",
@@ -1311,85 +1121,43 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
   "card": {
     "helm": {
       "HlmCard": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmCard]",
       },
       "HlmCardAction": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmCardAction]",
       },
       "HlmCardContent": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmCardContent]",
       },
       "HlmCardDescription": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmCardDescription]",
       },
       "HlmCardFooter": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmCardFooter]",
       },
       "HlmCardHeader": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmCardHeader]",
       },
       "HlmCardTitle": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmCardTitle]",
@@ -1400,11 +1168,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
     "helm": {
       "HlmCarousel": {
         "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
           {
             "name": "orientation",
             "required": false,
@@ -1426,60 +1189,31 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "hlm-carousel",
       },
       "HlmCarouselContent": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmCarouselContent],hlm-carousel-content",
       },
       "HlmCarouselItem": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmCarouselItem],hlm-carousel-item",
       },
       "HlmCarouselNext": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "button[hlm-carousel-next], button[hlmCarouselNext]",
       },
       "HlmCarouselPrevious": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "button[hlm-carousel-previous], button[hlmCarouselPrevious]",
       },
       "HlmCarouselSlideDisplay": {
         "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
           {
             "name": "slideClass",
             "required": false,
@@ -1681,13 +1415,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "[hlmCollapsible],hlm-collapsible",
       },
       "HlmCollapsibleContent": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmCollapsibleContent],hlm-collapsible-content",
@@ -1796,157 +1524,79 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
     },
     "helm": {
       "HlmCommand": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmCommand],hlm-command",
       },
       "HlmCommandDialog": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmCommandDialog]",
       },
       "HlmCommandDialogCloseButton": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmCommandDialogCloseBtn]",
       },
       "HlmCommandEmpty": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmCommandEmpty]",
       },
       "HlmCommandGroup": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmCommandGroup],hlm-command-group",
       },
       "HlmCommandGroupLabel": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmCommandGroupLabel],hlm-command-group-label",
       },
       "HlmCommandIcon": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmCommandIcon]",
       },
       "HlmCommandItem": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "button[hlmCommandItem],button[hlm-command-item]",
       },
       "HlmCommandList": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmCommandList],hlm-command-list",
       },
       "HlmCommandSearch": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmCommandSearch],hlm-command-search",
       },
       "HlmCommandSearchInput": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "input[hlmCommandSearchInput],input[hlm-command-search-input]",
       },
       "HlmCommandSeparator": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmCommandSeparator],hlm-command-separator",
       },
       "HlmCommandShortcut": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmCommandShortcut],hlm-command-shortcut",
@@ -2369,85 +2019,43 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "hlm-dialog",
       },
       "HlmDialogClose": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "button[hlmDialogClose]",
       },
       "HlmDialogContent": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "hlm-dialog-content",
       },
       "HlmDialogDescription": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmDialogDescription]",
       },
       "HlmDialogFooter": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmDialogFooter],hlm-dialog-footer",
       },
       "HlmDialogHeader": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmDialogHeader],hlm-dialog-header",
       },
       "HlmDialogOverlay": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmDialogOverlay],hlm-dialog-overlay",
       },
       "HlmDialogTitle": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmDialogTitle]",
@@ -2465,11 +2073,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       "HlmDropdownMenu": {
         "inputs": [
           {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-          {
             "name": "sideOffset",
             "required": false,
             "type": "number",
@@ -2481,11 +2084,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       },
       "HlmDropdownMenuCheckbox": {
         "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
           {
             "name": "checked",
             "required": false,
@@ -2502,36 +2100,19 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "[hlmDropdownMenuCheckbox]",
       },
       "HlmDropdownMenuCheckboxIndicator": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "hlm-dropdown-menu-checkbox-indicator",
       },
       "HlmDropdownMenuGroup": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmDropdownMenuGroup],hlm-dropdown-menu-group",
       },
       "HlmDropdownMenuItem": {
         "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
           {
             "name": "disabled",
             "required": false,
@@ -2553,24 +2134,13 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "button[hlmDropdownMenuItem]",
       },
       "HlmDropdownMenuItemSubIndicator": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "hlm-dropdown-menu-item-sub-indicator",
       },
       "HlmDropdownMenuLabel": {
         "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
           {
             "name": "inset",
             "required": false,
@@ -2583,11 +2153,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       },
       "HlmDropdownMenuRadio": {
         "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
           {
             "name": "checked",
             "required": false,
@@ -2604,49 +2169,25 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "[hlmDropdownMenuRadio]",
       },
       "HlmDropdownMenuRadioIndicator": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "hlm-dropdown-menu-radio-indicator",
       },
       "HlmDropdownMenuSeparator": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmDropdownMenuSeparator],hlm-dropdown-menu-separator",
       },
       "HlmDropdownMenuShortcut": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmDropdownMenuShortcut],hlm-dropdown-menu-shortcut",
       },
       "HlmDropdownMenuSub": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmDropdownMenuSub],hlm-dropdown-menu-sub",
@@ -2673,60 +2214,31 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
   "empty": {
     "helm": {
       "HlmEmpty": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmEmpty],hlm-empty",
       },
       "HlmEmptyContent": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmEmptyContent],hlm-empty-content",
       },
       "HlmEmptyDescription": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmEmptyDescription]",
       },
       "HlmEmptyHeader": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmEmptyHeader],hlm-empty-header",
       },
       "HlmEmptyMedia": {
         "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
           {
             "name": "variant",
             "required": false,
@@ -2738,13 +2250,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "[hlmEmptyMedia],hlm-empty-media",
       },
       "HlmEmptyTitle": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmEmptyTitle]",
@@ -2760,36 +2266,19 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "FieldVariants['orientation']",
           },
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
         ],
         "models": [],
         "outputs": [],
         "selector": "[hlmField],hlm-field",
       },
       "HlmFieldContent": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmFieldContent],hlm-field-content",
       },
       "HlmFieldDescription": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmFieldDescription],hlm-field-description",
@@ -2812,36 +2301,19 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "hlm-field-error",
       },
       "HlmFieldGroup": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmFieldGroup],hlm-field-group",
       },
       "HlmFieldLabel": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmFieldLabel],hlm-field-label",
       },
       "HlmFieldLegend": {
         "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
           {
             "name": "variant",
             "required": false,
@@ -2853,37 +2325,19 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "legend[hlmFieldLegend]",
       },
       "HlmFieldSeparator": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "hlm-field-separator",
       },
       "HlmFieldSet": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "fieldset[hlmFieldSet]",
       },
       "HlmFieldTitle": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmFieldTitle],hlm-field-title",
@@ -2893,37 +2347,19 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
   "form-field": {
     "helm": {
       "HlmError": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "hlm-error",
       },
       "HlmFormField": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "hlm-form-field",
       },
       "HlmHint": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "hlm-hint",
@@ -2986,13 +2422,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
     },
     "helm": {
       "HlmHoverCardContent": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmHoverCardContent],hlm-hover-card-content",
@@ -3020,11 +2450,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       "HlmInput": {
         "inputs": [
           {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-          {
             "name": "error",
             "required": false,
             "type": "InputVariants['error']",
@@ -3039,13 +2464,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
   "input-group": {
     "helm": {
       "HlmInputGroup": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmInputGroup],hlm-input-group",
@@ -3056,11 +2475,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "name": "align",
             "required": false,
             "type": "InputGroupAddonVariants['align']",
-          },
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
           },
         ],
         "models": [],
@@ -3090,37 +2504,19 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "button[hlmInputGroupButton]",
       },
       "HlmInputGroupInput": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "input[hlmInputGroupInput]",
       },
       "HlmInputGroupText": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "span[hlmInputGroupText]",
       },
       "HlmInputGroupTextarea": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "textarea[hlmInputGroupTextarea]",
@@ -3205,13 +2601,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
     },
     "helm": {
       "HlmInputOtp": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "brn-input-otp[hlmInputOtp], brn-input-otp[hlm]",
@@ -3223,36 +2613,19 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "hlm-input-otp-fake-caret",
       },
       "HlmInputOtpGroup": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmInputOtpGroup]",
       },
       "HlmInputOtpSeparator": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "hlm-input-otp-separator",
       },
       "HlmInputOtpSlot": {
         "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
           {
             "name": "index",
             "required": true,
@@ -3270,11 +2643,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       "HlmItem": {
         "inputs": [
           {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-          {
             "name": "variant",
             "required": false,
             "type": "ItemVariants['variant']",
@@ -3290,84 +2658,43 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "div[hlmItem], a[hlmItem]",
       },
       "HlmItemActions": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmItemActions],hlm-item-actions",
       },
       "HlmItemContent": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmItemContent],hlm-item-content",
       },
       "HlmItemDescription": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "p[hlmItemDescription]",
       },
       "HlmItemFooter": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmItemFooter],hlm-item-footer",
       },
       "HlmItemGroup": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmItemGroup],hlm-item-group",
       },
       "HlmItemHeader": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmItemHeader],hlm-item-header",
       },
       "HlmItemMedia": {
         "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
           {
             "name": "variant",
             "required": false,
@@ -3379,25 +2706,13 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "[hlmItemMedia],hlm-item-media",
       },
       "HlmItemSeparator": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "div[hlmItemSeparator]",
       },
       "HlmItemTitle": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmItemTitle],hlm-item-title",
@@ -3407,25 +2722,13 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
   "kbd": {
     "helm": {
       "HlmKbd": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "kbd[hlmKbd]",
       },
       "HlmKbdGroup": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "kbd[hlmKbdGroup]",
@@ -3449,13 +2752,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
     },
     "helm": {
       "HlmLabel": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmLabel]",
@@ -3465,24 +2762,13 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
   "menubar": {
     "helm": {
       "HlmMenubar": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmMenubar],hlm-menubar",
       },
       "HlmMenubarTrigger": {
         "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
           {
             "name": "disabled",
             "required": false,
@@ -3584,73 +2870,37 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
     },
     "helm": {
       "HlmNavigationMenu": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "nav[hlmNavigationMenu]",
       },
       "HlmNavigationMenuContent": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmNavigationMenuContent]",
       },
       "HlmNavigationMenuItem": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "li[hlmNavigationMenuItem]",
       },
       "HlmNavigationMenuLink": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "a[hlmNavigationMenuLink]",
       },
       "HlmNavigationMenuList": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "ul[hlmNavigationMenuList]",
       },
       "HlmNavigationMenuTrigger": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "button[hlmNavigationMenuTrigger]",
@@ -3721,11 +2971,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       "HlmPagination": {
         "inputs": [
           {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-          {
             "name": "aria-label",
             "required": false,
             "type": "string",
@@ -3736,24 +2981,13 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "[hlmPagination],hlm-pagination",
       },
       "HlmPaginationContent": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "ul[hlmPaginationContent]",
       },
       "HlmPaginationEllipsis": {
         "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
           {
             "name": "srOnlyText",
             "required": false,
@@ -3765,24 +2999,13 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "hlm-pagination-ellipsis",
       },
       "HlmPaginationItem": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "li[hlmPaginationItem]",
       },
       "HlmPaginationLink": {
         "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
           {
             "name": "isActive",
             "required": false,
@@ -3805,11 +3028,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       },
       "HlmPaginationNext": {
         "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
           {
             "name": "link",
             "required": false,
@@ -3847,11 +3065,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       },
       "HlmPaginationPrevious": {
         "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
           {
             "name": "link",
             "required": false,
@@ -3941,13 +3154,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "[hlmPopover],hlm-popover",
       },
       "HlmPopoverContent": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmPopoverContent],[brnPopoverContent][hlm]",
@@ -3994,25 +3201,13 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
     },
     "helm": {
       "HlmProgress": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "hlm-progress,[hlmProgress]",
       },
       "HlmProgressIndicator": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmProgressIndicator],hlm-progress-indicator",
@@ -4165,25 +3360,13 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "hlm-radio",
       },
       "HlmRadioGroup": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmRadioGroup],hlm-radio-group",
       },
       "HlmRadioIndicator": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "hlm-radio-indicator",
@@ -4282,38 +3465,20 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
     },
     "helm": {
       "HlmResizableGroup": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmResizableGroup],hlm-resizable-group",
       },
       "HlmResizableHandle": {
         "exportAs": "hlmResizableHandle",
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "hlm-resizable-handle",
       },
       "HlmResizablePanel": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmResizablePanel],hlm-resizable-panel",
@@ -4323,13 +3488,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
   "scroll-area": {
     "helm": {
       "HlmScrollArea": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "ng-scrollbar[hlm],ng-scrollbar[hlmScrollbar]",
@@ -4479,24 +3638,13 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
     },
     "helm": {
       "HlmSelect": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "hlm-select, brn-select [hlm]",
       },
       "HlmSelectContent": {
         "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
           {
             "name": "stickyLabels",
             "required": false,
@@ -4508,61 +3656,31 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "[hlmSelectContent], hlm-select-content",
       },
       "HlmSelectGroup": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmSelectGroup], hlm-select-group",
       },
       "HlmSelectLabel": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmSelectLabel], hlm-select-label",
       },
       "HlmSelectOption": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "hlm-option",
       },
       "HlmSelectScrollDown": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "hlm-select-scroll-down",
       },
       "HlmSelectScrollUp": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "hlm-select-scroll-up",
@@ -4585,13 +3703,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "hlm-select-trigger",
       },
       "HlmSelectValue": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "hlm-select-value,[hlmSelectValue], brn-select-value[hlm]",
@@ -4620,13 +3732,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
     },
     "helm": {
       "HlmSeparator": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmSeparator],hlm-separator",
@@ -4700,61 +3806,31 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "hlm-sheet",
       },
       "HlmSheetClose": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "button[hlmSheetClose]",
       },
       "HlmSheetContent": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "hlm-sheet-content",
       },
       "HlmSheetDescription": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmSheetDescription]",
       },
       "HlmSheetFooter": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmSheetFooter],hlm-sheet-footer",
       },
       "HlmSheetHeader": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmSheetHeader],hlm-sheet-header",
@@ -4772,13 +3848,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "[hlmSheetOverlay],hlm-sheet-overlay",
       },
       "HlmSheetTitle": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmSheetTitle]",
@@ -4795,11 +3865,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
     "helm": {
       "HlmSidebar": {
         "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
           {
             "name": "sidebarWidthMobile",
             "required": false,
@@ -4831,85 +3896,43 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "hlm-sidebar",
       },
       "HlmSidebarContent": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmSidebarContent],hlm-sidebar-content",
       },
       "HlmSidebarFooter": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmSidebarFooter],hlm-sidebar-footer",
       },
       "HlmSidebarGroup": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmSidebarGroup],hlm-sidebar-group",
       },
       "HlmSidebarGroupAction": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "button[hlmSidebarGroupAction]",
       },
       "HlmSidebarGroupContent": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "div[hlmSidebarGroupContent]",
       },
       "HlmSidebarGroupLabel": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "div[hlmSidebarGroupLabel], button[hlmSidebarGroupLabel]",
       },
       "HlmSidebarHeader": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmSidebarHeader],hlm-sidebar-header",
@@ -4921,36 +3944,19 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "input[hlmSidebarInput]",
       },
       "HlmSidebarInset": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "main[hlmSidebarInset]",
       },
       "HlmSidebarMenu": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "ul[hlmSidebarMenu]",
       },
       "HlmSidebarMenuAction": {
         "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
           {
             "name": "showOnHover",
             "required": false,
@@ -4962,13 +3968,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "button[hlmSidebarMenuAction]",
       },
       "HlmSidebarMenuBadge": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmSidebarMenuBadge],hlm-sidebar-menu-badge",
@@ -4990,24 +3990,13 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "boolean",
           },
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
         ],
         "models": [],
         "outputs": [],
         "selector": "button[hlmSidebarMenuButton], a[hlmSidebarMenuButton]",
       },
       "HlmSidebarMenuItem": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "li[hlmSidebarMenuItem]",
@@ -5019,24 +4008,13 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "boolean",
           },
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
         ],
         "models": [],
         "outputs": [],
         "selector": "hlm-sidebar-menu-skeleton,div[hlmSidebarMenuSkeleton]",
       },
       "HlmSidebarMenuSub": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "ul[hlmSidebarMenuSub]",
@@ -5053,24 +4031,13 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "boolean",
           },
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
         ],
         "models": [],
         "outputs": [],
         "selector": "a[hlmSidebarMenuSubButton], button[hlmSidebarMenuSubButton]",
       },
       "HlmSidebarMenuSubItem": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "li[hlmSidebarMenuSubItem]",
@@ -5082,24 +4049,13 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "string",
           },
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
         ],
         "models": [],
         "outputs": [],
         "selector": "button[hlmSidebarRail]",
       },
       "HlmSidebarSeparator": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmSidebarSeparator],hlm-sidebar-separator",
@@ -5112,11 +4068,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       },
       "HlmSidebarWrapper": {
         "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
           {
             "name": "sidebarWidth",
             "required": false,
@@ -5137,13 +4088,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
   "skeleton": {
     "helm": {
       "HlmSkeleton": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmSkeleton],hlm-skeleton",
@@ -5222,13 +4167,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
     },
     "helm": {
       "HlmSlider": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "hlm-slider, brn-slider [hlm]",
@@ -5329,11 +4268,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "name": "aria-label",
             "required": false,
             "type": "string",
-          },
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
           },
         ],
         "models": [],
@@ -5466,13 +4400,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "hlm-switch",
       },
       "HlmSwitchThumb": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "brn-switch-thumb[hlm],[hlmSwitchThumb]",
@@ -5482,49 +4410,25 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
   "table": {
     "helm": {
       "HlmCaption": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "caption[hlmCaption]",
       },
       "HlmTBody": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "tbody[hlmTBody]",
       },
       "HlmTFoot": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "tfoot[hlmTFoot]",
       },
       "HlmTHead": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "thead[hlmTHead]",
@@ -5536,60 +4440,31 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "Partial<HlmTableVariant> | string",
           },
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
         ],
         "models": [],
         "outputs": [],
         "selector": "table[hlmTable]",
       },
       "HlmTableContainer": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "div[hlmTableContainer]",
       },
       "HlmTd": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "td[hlmTd]",
       },
       "HlmTh": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "th[hlmTh]",
       },
       "HlmTr": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "tr[hlmTr]",
@@ -5700,11 +4575,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": true,
             "type": "string",
           },
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
         ],
         "models": [],
         "outputs": [],
@@ -5716,11 +4586,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "name": "contentFor",
             "required": true,
             "type": "string",
-          },
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
           },
         ],
         "models": [],
@@ -5734,11 +4599,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "ListVariants['orientation']",
           },
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
         ],
         "models": [],
         "outputs": [],
@@ -5746,11 +4606,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       },
       "HlmTabsPaginatedList": {
         "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
           {
             "name": "tabListClass",
             "required": false,
@@ -5773,11 +4628,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": true,
             "type": "string",
           },
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
         ],
         "models": [],
         "outputs": [],
@@ -5789,11 +4639,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
     "helm": {
       "HlmTextarea": {
         "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
           {
             "name": "error",
             "required": false,
@@ -5858,11 +4703,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "name": "size",
             "required": false,
             "type": "ToggleVariants['size']",
-          },
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
           },
         ],
         "models": [],
@@ -5966,11 +4806,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "number",
           },
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
         ],
         "models": [],
         "outputs": [],
@@ -5987,11 +4822,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "name": "size",
             "required": false,
             "type": "ToggleVariants['size']",
-          },
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
           },
         ],
         "models": [],
@@ -6097,145 +4927,73 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
   "typography": {
     "helm": {
       "HlmBlockquote": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmBlockquote]",
       },
       "HlmCode": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmCode]",
       },
       "HlmH1": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmH1]",
       },
       "HlmH2": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmH2]",
       },
       "HlmH3": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmH3]",
       },
       "HlmH4": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmH4]",
       },
       "HlmLarge": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmLarge]",
       },
       "HlmLead": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmLead]",
       },
       "HlmMuted": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmMuted]",
       },
       "HlmP": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmP]",
       },
       "HlmSmall": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmSmall]",
       },
       "HlmUl": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmUl]",

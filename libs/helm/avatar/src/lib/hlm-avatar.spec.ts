@@ -32,7 +32,7 @@ describe('HlmAvatarComponent', () => {
 
 	it('should add the default classes if no inputs are provided', () => {
 		fixture.detectChanges();
-		expect(fixture.nativeElement.className).toBe('flex overflow-hidden relative rounded-full shrink-0 size-8');
+		expect(fixture.nativeElement.className).toBe('relative flex size-8 shrink-0 overflow-hidden rounded-full');
 	});
 
 	it('should add any user defined classes', () => {

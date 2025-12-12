@@ -1,7 +1,6 @@
-import { computed, Directive, input } from '@angular/core';
+import { Directive } from '@angular/core';
 import { BrnNavigationMenuList } from '@spartan-ng/brain/navigation-menu';
-import { hlm } from '@spartan-ng/helm/utils';
-import { ClassValue } from 'clsx';
+import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: 'ul[hlmNavigationMenuList]',
@@ -10,17 +9,12 @@ import { ClassValue } from 'clsx';
 			directive: BrnNavigationMenuList,
 		},
 	],
-	host: {
-		'[class]': '_computedClass()',
-	},
 })
 export class HlmNavigationMenuList {
-	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected readonly _computedClass = computed(() =>
-		hlm(
+	constructor() {
+		classes(() => [
 			'group flex flex-1 list-none items-center justify-center gap-1',
 			'data-[orientation=vertical]:flex-col',
-			this.userClass(),
-		),
-	);
+		]);
+	}
 }

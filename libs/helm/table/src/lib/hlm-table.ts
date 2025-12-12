@@ -1,7 +1,6 @@
 // src/app/directives/hlm-table-directives.ts
 import { computed, Directive, inject, InjectionToken, input, type ValueProvider } from '@angular/core';
-import { hlm } from '@spartan-ng/helm/utils';
-import type { ClassValue } from 'clsx';
+import { classes } from '@spartan-ng/helm/utils';
 
 // Configuration Interface and InjectionToken
 export const HlmTableConfigToken = new InjectionToken<HlmTableVariant>('HlmTableConfig');
@@ -42,18 +41,14 @@ export function injectHlmTableConfig(): HlmTableVariant {
 
 @Directive({
 	selector: 'div[hlmTableContainer]',
-	host: {
-		'[class]': '_computedClass()',
-		'data-slot': 'table-container',
-	},
+	host: { 'data-slot': 'table-container' },
 })
 export class HlmTableContainer {
 	private readonly _globalOrDefaultConfig = injectHlmTableConfig();
-	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 
-	protected readonly _computedClass = computed(() =>
-		hlm(this._globalOrDefaultConfig ? this._globalOrDefaultConfig.tableContainer.trim() : '', this.userClass()),
-	);
+	constructor() {
+		classes(() => (this._globalOrDefaultConfig ? this._globalOrDefaultConfig.tableContainer.trim() : ''));
+	}
 }
 
 /**
@@ -64,15 +59,11 @@ export class HlmTableContainer {
  */
 @Directive({
 	selector: 'table[hlmTable]',
-	host: {
-		'[class]': '_computedClass()',
-		'data-slot': 'table',
-	},
+	host: { 'data-slot': 'table' },
 })
 export class HlmTable {
 	/** Input to configure the variant of the table, this input has the highest priority. */
 	public readonly userVariant = input<Partial<HlmTableVariant> | string>({}, { alias: 'hlmTable' });
-	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 
 	/** Global or default configuration provided by injectHlmTableConfig() */
 	private readonly _globalOrDefaultConfig = injectHlmTableConfig();
@@ -93,9 +84,12 @@ export class HlmTable {
 		return globalOrDefaultConfig;
 	});
 
-	// Computed class for the host <table> element
-	protected readonly _computedClass = computed(() => hlm(this._variant().table, this.userClass()));
+	constructor() {
+		classes(() => this._variant().table);
+	}
 }
+
+// Computed class for the host <table> element}
 
 /**
  * Directive to apply Shadcn-like styling to a <thead> element
@@ -103,18 +97,14 @@ export class HlmTable {
  */
 @Directive({
 	selector: 'thead[hlmTHead]',
-	host: {
-		'[class]': '_computedClass()',
-		'data-slot': 'table-header',
-	},
+	host: { 'data-slot': 'table-header' },
 })
 export class HlmTHead {
 	private readonly _globalOrDefaultConfig = injectHlmTableConfig();
-	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 
-	protected readonly _computedClass = computed(() =>
-		hlm(this._globalOrDefaultConfig ? this._globalOrDefaultConfig.thead.trim() : '', this.userClass()),
-	);
+	constructor() {
+		classes(() => (this._globalOrDefaultConfig ? this._globalOrDefaultConfig.thead.trim() : ''));
+	}
 }
 
 /**
@@ -123,18 +113,13 @@ export class HlmTHead {
  */
 @Directive({
 	selector: 'tbody[hlmTBody]',
-	host: {
-		'[class]': '_computedClass()',
-		'data-slot': 'table-body',
-	},
+	host: { 'data-slot': 'table-body' },
 })
 export class HlmTBody {
 	private readonly _globalOrDefaultConfig = injectHlmTableConfig();
-	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-
-	protected readonly _computedClass = computed(() =>
-		hlm(this._globalOrDefaultConfig ? this._globalOrDefaultConfig.tbody.trim() : '', this.userClass()),
-	);
+	constructor() {
+		classes(() => (this._globalOrDefaultConfig ? this._globalOrDefaultConfig.tbody.trim() : ''));
+	}
 }
 
 /**
@@ -143,18 +128,13 @@ export class HlmTBody {
  */
 @Directive({
 	selector: 'tfoot[hlmTFoot]',
-	host: {
-		'[class]': '_computedClass()',
-		'data-slot': 'table-footer',
-	},
+	host: { 'data-slot': 'table-footer' },
 })
 export class HlmTFoot {
 	private readonly _globalOrDefaultConfig = injectHlmTableConfig();
-	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-
-	protected readonly _computedClass = computed(() =>
-		hlm(this._globalOrDefaultConfig ? this._globalOrDefaultConfig.tfoot.trim() : '', this.userClass()),
-	);
+	constructor() {
+		classes(() => (this._globalOrDefaultConfig ? this._globalOrDefaultConfig.tfoot.trim() : ''));
+	}
 }
 
 /**
@@ -163,18 +143,13 @@ export class HlmTFoot {
  */
 @Directive({
 	selector: 'tr[hlmTr]',
-	host: {
-		'[class]': '_computedClass()',
-		'data-slot': 'table-row',
-	},
+	host: { 'data-slot': 'table-row' },
 })
 export class HlmTr {
 	private readonly _globalOrDefaultConfig = injectHlmTableConfig();
-	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-
-	protected readonly _computedClass = computed(() =>
-		hlm(this._globalOrDefaultConfig ? this._globalOrDefaultConfig.tr.trim() : '', this.userClass()),
-	);
+	constructor() {
+		classes(() => (this._globalOrDefaultConfig ? this._globalOrDefaultConfig.tr.trim() : ''));
+	}
 }
 
 /**
@@ -183,18 +158,13 @@ export class HlmTr {
  */
 @Directive({
 	selector: 'th[hlmTh]',
-	host: {
-		'[class]': '_computedClass()',
-		'data-slot': 'table-head',
-	},
+	host: { 'data-slot': 'table-head' },
 })
 export class HlmTh {
 	private readonly _globalOrDefaultConfig = injectHlmTableConfig();
-	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-
-	protected readonly _computedClass = computed(() =>
-		hlm(this._globalOrDefaultConfig ? this._globalOrDefaultConfig.th.trim() : '', this.userClass()),
-	);
+	constructor() {
+		classes(() => (this._globalOrDefaultConfig ? this._globalOrDefaultConfig.th.trim() : ''));
+	}
 }
 
 /**
@@ -203,18 +173,13 @@ export class HlmTh {
  */
 @Directive({
 	selector: 'td[hlmTd]',
-	host: {
-		'[class]': '_computedClass()',
-		'data-slot': 'table-cell',
-	},
+	host: { 'data-slot': 'table-cell' },
 })
 export class HlmTd {
 	private readonly _globalOrDefaultConfig = injectHlmTableConfig();
-	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-
-	protected readonly _computedClass = computed(() =>
-		hlm(this._globalOrDefaultConfig ? this._globalOrDefaultConfig.td.trim() : '', this.userClass()),
-	);
+	constructor() {
+		classes(() => (this._globalOrDefaultConfig ? this._globalOrDefaultConfig.td.trim() : ''));
+	}
 }
 
 /**
@@ -223,16 +188,11 @@ export class HlmTd {
  */
 @Directive({
 	selector: 'caption[hlmCaption]',
-	host: {
-		'[class]': '_computedClass()',
-		'data-slot': 'table-caption',
-	},
+	host: { 'data-slot': 'table-caption' },
 })
 export class HlmCaption {
 	private readonly _globalOrDefaultConfig = injectHlmTableConfig();
-	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-
-	protected readonly _computedClass = computed(() =>
-		hlm(this._globalOrDefaultConfig ? this._globalOrDefaultConfig.caption.trim() : '', this.userClass()),
-	);
+	constructor() {
+		classes(() => (this._globalOrDefaultConfig ? this._globalOrDefaultConfig.caption.trim() : ''));
+	}
 }

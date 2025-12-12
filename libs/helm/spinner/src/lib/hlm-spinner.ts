@@ -1,8 +1,7 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideLoader } from '@ng-icons/lucide';
-import { hlm } from '@spartan-ng/helm/utils';
-import type { ClassValue } from 'clsx';
+import { classes } from '@spartan-ng/helm/utils';
 
 @Component({
 	selector: 'hlm-spinner',
@@ -15,7 +14,7 @@ import type { ClassValue } from 'clsx';
 		class: 'inline-flex',
 	},
 	template: `
-		<ng-icon [name]="icon()" [class]="_computedClass()" />
+		<ng-icon [name]="icon()" />
 	`,
 })
 export class HlmSpinner {
@@ -28,6 +27,7 @@ export class HlmSpinner {
 	/** Aria label for the spinner for accessibility. */
 	public readonly ariaLabel = input<string>('Loading', { alias: 'aria-label' });
 
-	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected readonly _computedClass = computed(() => hlm('text-base motion-safe:animate-spin', this.userClass()));
+	constructor() {
+		classes(() => 'text-base motion-safe:animate-spin');
+	}
 }

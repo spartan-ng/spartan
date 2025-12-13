@@ -2782,12 +2782,29 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "outputs": [],
         "selector": "[hlmFieldContent],hlm-field-content",
       },
+      "HlmFieldControlDescribedBy": {
+        "inputs": [
+          {
+            "name": "aria-describedby",
+            "required": false,
+            "type": "string | null",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmFieldControlDescribedBy]",
+      },
       "HlmFieldDescription": {
         "inputs": [
           {
             "name": "class",
             "required": false,
             "type": "ClassValue",
+          },
+          {
+            "name": "providedId",
+            "required": false,
+            "type": "string | undefined",
           },
         ],
         "models": [],
@@ -2805,6 +2822,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "name": "error",
             "required": false,
             "type": "Array<{ message: string } | undefined>",
+          },
+          {
+            "name": "providedId",
+            "required": false,
+            "type": "string | undefined",
           },
         ],
         "models": [],

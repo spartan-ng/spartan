@@ -1,5 +1,6 @@
-import { computed, Directive, input } from '@angular/core';
+import { computed, Directive, inject, input } from '@angular/core';
 import { BrnRadioGroup } from '@spartan-ng/brain/radio-group';
+import { HlmFieldControlDescribedBy } from '@spartan-ng/helm/field';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 
@@ -11,13 +12,20 @@ import type { ClassValue } from 'clsx';
 			inputs: ['name', 'value', 'disabled', 'required', 'direction'],
 			outputs: ['valueChange'],
 		},
+		HlmFieldControlDescribedBy,
 	],
 	host: {
 		'data-slot': 'radio-group',
 		'[class]': '_computedClass()',
+		'[attr.data-invalid]': '_errorState() ? "true" : null',
+		'[attr.aria-invalid]': '_errorState() ? "true" : null',
 	},
 })
 export class HlmRadioGroup {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected readonly _computedClass = computed(() => hlm('grid gap-3', this.userClass()));
+	private readonly _brnRadioGroup = inject(BrnRadioGroup);
+	protected readonly _errorState = computed(() => this._brnRadioGroup.errorState());
+	protected readonly _computedClass = computed(() =>
+		hlm('grid gap-3', this.userClass(), this._errorState() ? 'data-[invalid=true]:text-destructive' : ''),
+	);
 }

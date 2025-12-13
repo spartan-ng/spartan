@@ -23,6 +23,8 @@ import type { ClassValue } from 'clsx';
 	],
 	host: {
 		'[class]': '_computedClass()',
+		'[attr.aria-invalid]': '_slider.errorState() ? "true" : null',
+		'[attr.data-invalid]': '_slider.errorState() ? "true" : null',
 	},
 	template: `
 		<div brnSliderTrack class="bg-muted relative h-1.5 w-full grow overflow-hidden rounded-full">
@@ -50,10 +52,16 @@ import type { ClassValue } from 'clsx';
 export class HlmSlider {
 	protected readonly _slider = injectBrnSlider();
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
+	protected readonly _errorStateClass = computed(() =>
+		this._slider.errorState()
+			? 'ring-ring data-[invalid=true]:ring-destructive focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40'
+			: '',
+	);
 	protected readonly _computedClass = computed(() =>
 		hlm(
 			'relative flex w-full touch-none items-center select-none',
 			this._slider.mutableDisabled() ? 'opacity-40' : '',
+			this._errorStateClass(),
 			this.userClass(),
 		),
 	);

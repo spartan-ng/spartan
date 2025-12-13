@@ -199,6 +199,7 @@ export class HlmCalendar<T> {
 		'data-[today]:bg-accent data-[today]:text-accent-foreground',
 		'data-[selected]:bg-primary data-[selected]:text-primary-foreground data-[selected]:hover:bg-primary dark:hover:text-accent-foreground data-[selected]:focus:bg-primary data-[selected]:focus:text-primary-foreground',
 		'data-[disabled]:text-muted-foreground data-[disabled]:opacity-50',
+		'dark:hover:text-accent-foreground',
 	);
 
 	protected readonly _selectClass = 'gap-0 px-1.5 py-2 [&>ng-icon]:ml-1';

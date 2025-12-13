@@ -1,4 +1,4 @@
-import { Directive, ElementRef, computed, inject, input } from '@angular/core';
+import { computed, Directive, ElementRef, inject, input } from '@angular/core';
 import { injectDateAdapter } from '@spartan-ng/brain/date-time';
 import { injectBrnCalendar } from './brn-calendar.token';
 
@@ -8,7 +8,7 @@ import { injectBrnCalendar } from './brn-calendar.token';
 		role: 'gridcell',
 		'[tabindex]': 'focusable() ? 0 : -1',
 		type: 'button',
-		'[attr.data-outside]': "outside() && (!end() && !start())? '' : null",
+		'[attr.data-outside]': "!selected() && outside() && (!end() && !start())? '' : null",
 		'[attr.data-today]': "today() && !selected() ? '' : null",
 		'[attr.data-selected]': "selected() ? '' : null",
 		'[attr.data-disabled]': "disabled() ? '' : null",

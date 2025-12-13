@@ -1,6 +1,5 @@
 import { Directive, effect, input, untracked } from '@angular/core';
 import { BrnDialogTrigger } from '@spartan-ng/brain/dialog';
-import type { BrnAlertDialog } from './brn-alert-dialog';
 
 @Directive({
 	selector: 'button[brnAlertDialogTrigger],button[brnAlertDialogTriggerFor]',
@@ -14,7 +13,7 @@ import type { BrnAlertDialog } from './brn-alert-dialog';
 	},
 })
 export class BrnAlertDialogTrigger extends BrnDialogTrigger {
-	public readonly brnAlertDialogTriggerFor = input<BrnAlertDialog | undefined>();
+	public readonly brnAlertDialogTriggerFor = input<unknown | undefined>();
 
 	constructor() {
 		super();
@@ -22,7 +21,7 @@ export class BrnAlertDialogTrigger extends BrnDialogTrigger {
 			const brnDialog = this.brnAlertDialogTriggerFor();
 			untracked(() => {
 				if (brnDialog) {
-					this.mutableBrnDialogTriggerFor().set(brnDialog);
+					this.mutableBrnDialogTriggerFor().set(brnDialog as any);
 				}
 			});
 		});

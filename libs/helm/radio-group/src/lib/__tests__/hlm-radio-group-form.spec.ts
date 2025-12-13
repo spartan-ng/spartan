@@ -53,9 +53,6 @@ describe('HlmRadioGroup form integration', () => {
 		const error = fixture.nativeElement.querySelector('[data-slot="field-error"]');
 		const radioGroup = fixture.nativeElement.querySelector('hlm-radio-group');
 
-		console.log(description.id);
-		console.log(error.id);
-
 		expect(host.form.invalid).toBe(true);
 		expect(description).toBeTruthy();
 		expect(error).toBeTruthy();

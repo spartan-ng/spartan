@@ -152,7 +152,6 @@ class RadioGroupHintErrorStory {
 
 	public get showError() {
 		const control = this.form.get('plan');
-		console.log(control);
 		return !!control && control.invalid && (control.touched || control.dirty);
 	}
 }

@@ -1,7 +1,10 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
-import { BrnAvatar } from '@spartan-ng/brain/avatar';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
+
+// avoid static ESM import of BrnAvatar to break circular initialization (IIC)
+declare const require: any;
+const BrnAvatar = (require('@spartan-ng/brain/avatar') as any).BrnAvatar;
 
 @Component({
 	selector: 'hlm-avatar',
@@ -10,11 +13,13 @@ import type { ClassValue } from 'clsx';
 		'[class]': '_computedClass()',
 	},
 	template: `
-		@if (_image()?.canShow()) {
-			<ng-content select="[hlmAvatarImage],[brnAvatarImage]" />
-		} @else {
-			<ng-content select="[hlmAvatarFallback],[brnAvatarFallback]" />
-		}
+		<ng-container *ngIf="_image()?.canShow(); else fallback">
+			<ng-content select="[hlmAvatarImage],[brnAvatarImage]"></ng-content>
+		</ng-container>
+
+		<ng-template #fallback>
+			<ng-content select="[hlmAvatarFallback],[brnAvatarFallback]"></ng-content>
+		</ng-template>
 	`,
 })
 export class HlmAvatar extends BrnAvatar {

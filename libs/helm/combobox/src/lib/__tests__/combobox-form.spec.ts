@@ -75,7 +75,7 @@ const frameworks: Framework[] = [
 					</hlm-command>
 				</hlm-popover>
 				<p hlmFieldDescription>Pick the framework you rely on most.</p>
-				@if(showError) {
+				@if (showError) {
 					<hlm-field-error>Choose a framework to continue.</hlm-field-error>
 				}
 			</div>

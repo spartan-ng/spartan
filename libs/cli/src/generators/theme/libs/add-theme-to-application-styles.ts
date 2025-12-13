@@ -53,7 +53,7 @@ export async function addThemeToApplicationStyles(
 	const stylesEntryPointContent = tree.read(stylesEntryPoint, 'utf-8');
 
 	const CDK_IMPORT = `@import "@angular/cdk/overlay-prebuilt.css";`;
-	const ckdOverlayImport = stylesEntryPointContent.includes(CDK_IMPORT) ? '' : CDK_IMPORT;
+	const ckdOverlayImport = tailwindVersion === 4 ? '' : CDK_IMPORT;
 
 	const twSetup = options.setupTailwindCss
 		? `@layer theme, base, components, utilities;

@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { provideIcons } from '@ng-icons/core';
@@ -23,8 +23,8 @@ const frameworks: Framework[] = [
 ];
 
 @Component({
+	// eslint-disable-next-line @angular-eslint/component-selector
 	selector: 'combobox-field-test',
-	standalone: true,
 	imports: [
 		ReactiveFormsModule,
 		HlmFieldImports,
@@ -35,9 +35,11 @@ const frameworks: Framework[] = [
 		BrnCommandImports,
 		BrnPopoverImports,
 	],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<form [formGroup]="form">
 			<div hlmField [attr.data-invalid]="showError ? 'true' : null">
+				<!-- eslint-disable-next-line @angular-eslint/template/label-has-associated-control -->
 				<label hlmFieldLabel>Framework *</label>
 				<hlm-popover [state]="state()" (stateChanged)="stateChanged($event)" sideOffset="5">
 					<button
@@ -88,8 +90,8 @@ class ComboboxFieldTest {
 	});
 
 	public readonly frameworks = frameworks;
-	public currentFramework = signal<Framework | undefined>(undefined);
-	public state = signal<'closed' | 'open'>('closed');
+	public readonly readonlycurrentFramework = signal<Framework | undefined>(undefined);
+	public readonly state = signal<'closed' | 'open'>('closed');
 
 	public get showError() {
 		const control = this.form.get('framework');

@@ -1,15 +1,17 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
-import { HlmRadioGroupImports } from '@spartan-ng/helm/radio-group';
+import { HlmRadioGroupImports } from '../../index';
 
 @Component({
 	selector: 'hlm-radio-group-host',
 	imports: [ReactiveFormsModule, HlmFieldImports, HlmRadioGroupImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<form [formGroup]="form">
 			<div hlmField>
+				<!-- eslint-disable-next-line @angular-eslint/template/label-has-associated-control -->
 				<label hlmFieldLabel>Plan *</label>
 				<hlm-radio-group formControlName="plan" class="text-sm font-medium">
 					<hlm-radio value="monthly">

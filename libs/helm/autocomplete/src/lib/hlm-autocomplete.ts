@@ -388,7 +388,7 @@ export class HlmAutocomplete<T, V = T> implements ControlValueAccessor, DoCheck 
 		this._onChange?.(value);
 		this.valueChange.emit(value);
 
-		const searchValue = this._displaySearchValue()(value as any);
+		const searchValue = this._displaySearchValue()(value as V & T);
 		this.search.set(searchValue ?? '');
 		this._brnAutocomplete().close();
 	}
@@ -401,7 +401,7 @@ export class HlmAutocomplete<T, V = T> implements ControlValueAccessor, DoCheck 
 	public writeValue(value: T | V | null): void {
 		this.value.set(value ? value : undefined);
 
-		const searchValue = value ? this._displaySearchValue()(value as any) : '';
+		const searchValue = value ? this._displaySearchValue()(value as V & T) : '';
 		this.search.set(searchValue);
 	}
 
@@ -420,7 +420,7 @@ export class HlmAutocomplete<T, V = T> implements ControlValueAccessor, DoCheck 
 	protected _closed() {
 		if (this.requireSelection()) {
 			const value = this.value();
-			const searchValue = value ? this._displaySearchValue()(value as any) : '';
+			const searchValue = value ? this._displaySearchValue()(value as V & T) : '';
 			this.search.set(searchValue ?? '');
 		}
 	}

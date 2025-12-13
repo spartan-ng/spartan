@@ -32,8 +32,8 @@ export const HLM_CHECKBOX_VALUE_ACCESSOR = {
 	imports: [BrnCheckbox, NgIcon, HlmIcon],
 	providers: [HLM_CHECKBOX_VALUE_ACCESSOR],
 	viewProviders: [provideIcons({ lucideCheck })],
-	hostDirectives: [HlmFieldControlDescribedBy],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	hostDirectives: [HlmFieldControlDescribedBy],
 	host: {
 		class: 'contents peer',
 		'data-slot': 'checkbox',

@@ -1,15 +1,17 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { HlmAutocompleteImports } from '@spartan-ng/helm/autocomplete';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
+import { HlmAutocompleteImports } from '../../index';
 
 @Component({
 	selector: 'hlm-autocomplete-host',
 	imports: [ReactiveFormsModule, HlmFieldImports, HlmAutocompleteImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<form [formGroup]="form">
 			<div hlmField>
+				<!-- eslint-disable-next-line @angular-eslint/template/label-has-associated-control -->
 				<label hlmFieldLabel>Framework *</label>
 				<hlm-autocomplete formControlName="framework" [filteredOptions]="options"></hlm-autocomplete>
 				<p hlmFieldDescription>Pick the framework you use most.</p>

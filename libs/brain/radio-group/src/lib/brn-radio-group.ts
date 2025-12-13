@@ -5,6 +5,7 @@ import {
 	computed,
 	contentChildren,
 	Directive,
+	DoCheck,
 	effect,
 	forwardRef,
 	inject,
@@ -45,7 +46,7 @@ export const BRN_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = {
 		'[attr.aria-invalid]': 'errorState() ? "true" : null',
 	},
 })
-export class BrnRadioGroup<T = unknown> implements ControlValueAccessor, OnInit {
+export class BrnRadioGroup<T = unknown> implements ControlValueAccessor, OnInit, DoCheck {
 	private static _nextUniqueId = 0;
 
 	protected onChange: ChangeFn<T> = () => {};

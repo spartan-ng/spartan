@@ -1,15 +1,17 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
-import { HlmSlider } from '@spartan-ng/helm/slider';
+import { HlmSlider } from '../../index';
 
 @Component({
 	selector: 'hlm-slider-host',
 	imports: [HlmSlider, ReactiveFormsModule, HlmFieldImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<form [formGroup]="form">
 			<div hlmField>
+				<!-- eslint-disable-next-line @angular-eslint/template/label-has-associated-control -->
 				<label hlmFieldLabel>Volume *</label>
 				<hlm-slider formControlName="value"></hlm-slider>
 				<p hlmFieldDescription>Set the volume level.</p>

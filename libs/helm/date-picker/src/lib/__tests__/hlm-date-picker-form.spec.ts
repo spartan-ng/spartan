@@ -1,15 +1,17 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { HlmDatePicker } from '@spartan-ng/helm/date-picker';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
+import { HlmDatePicker } from '../../index';
 
 @Component({
 	selector: 'hlm-date-picker-host',
 	imports: [ReactiveFormsModule, HlmFieldImports, HlmDatePicker],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<form [formGroup]="form">
 			<div hlmField>
+				<!-- eslint-disable-next-line @angular-eslint/template/label-has-associated-control -->
 				<label hlmFieldLabel>Date *</label>
 				<hlm-date-picker formControlName="date"></hlm-date-picker>
 				<p hlmFieldDescription>Pick a date for the event.</p>

@@ -1,16 +1,18 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
-import { HlmSelectImports } from '@spartan-ng/helm/select';
+import { HlmSelectImports } from '../../index';
 
 @Component({
 	selector: 'hlm-select-host',
 	imports: [ReactiveFormsModule, BrnSelectImports, HlmSelectImports, HlmFieldImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<form [formGroup]="form">
 			<div hlmField>
+				<!-- eslint-disable-next-line @angular-eslint/template/label-has-associated-control -->
 				<label hlmFieldLabel>Fruit *</label>
 				<brn-select formControlName="fruit" class="w-56">
 					<hlm-select-trigger>

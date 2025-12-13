@@ -1,15 +1,17 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { HlmCheckbox } from '@spartan-ng/helm/checkbox';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
+import { HlmCheckbox } from '../../index';
 
 @Component({
 	selector: 'hlm-checkbox-host',
 	imports: [ReactiveFormsModule, HlmFieldImports, HlmCheckbox],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<form [formGroup]="form">
 			<div hlmField>
+				<!-- eslint-disable-next-line @angular-eslint/template/label-has-associated-control -->
 				<label hlmFieldLabel>Accept terms *</label>
 				<hlm-checkbox formControlName="agreement"></hlm-checkbox>
 				<p hlmFieldDescription>You must agree to proceed.</p>

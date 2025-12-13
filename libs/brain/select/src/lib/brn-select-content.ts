@@ -1,16 +1,17 @@
 import { NgTemplateOutlet } from '@angular/common';
 import {
 	type AfterContentInit,
+	afterNextRender,
 	ChangeDetectionStrategy,
 	Component,
-	DestroyRef,
-	ElementRef,
-	Injector,
-	afterNextRender,
 	contentChild,
 	contentChildren,
+	DestroyRef,
+	Directive,
 	effect,
+	ElementRef,
 	inject,
+	Injector,
 	signal,
 	viewChild,
 } from '@angular/core';
@@ -18,8 +19,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { BrnSelectOption } from './brn-select-option';
 
 import { FocusKeyManager } from '@angular/cdk/a11y';
-import { Directive } from '@angular/core';
-import { Subject, fromEvent, interval } from 'rxjs';
+import { fromEvent, interval, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { provideBrnSelectContent } from './brn-select-content.token';
 import { injectBrnSelect } from './brn-select.token';
@@ -225,11 +225,15 @@ export class BrnSelectContent<T> implements AfterContentInit {
 
 	protected selectActiveItem(event: KeyboardEvent): void {
 		event.preventDefault();
-
 		const activeOption = this.keyManager?.activeItem;
-
 		if (activeOption) {
-			this._select.toggleSelect(activeOption.value()!);
+			const currentValue = this._select.value();
+			const selectedValue = activeOption.value();
+			if (currentValue && currentValue === selectedValue && !this._select.multiple()) {
+				this._select.hide();
+			} else {
+				this._select.toggleSelect(activeOption.value()!);
+			}
 		}
 	}
 }

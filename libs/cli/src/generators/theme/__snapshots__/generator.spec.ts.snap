@@ -1,9 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Theme generator should add the gray theme styles to the global stylesheet 1`] = `
-"@import "@angular/cdk/overlay-prebuilt.css";
-
-@import "tailwindcss";
+"@import "tailwindcss";
 @import "@spartan-ng/brain/hlm-tailwind-preset.css";
 
 :root {
@@ -82,9 +80,7 @@ body {
 `;
 
 exports[`Theme generator should add the neutral theme styles to the global stylesheet 1`] = `
-"@import "@angular/cdk/overlay-prebuilt.css";
-
-@import "tailwindcss";
+"@import "tailwindcss";
 @import "@spartan-ng/brain/hlm-tailwind-preset.css";
 
 :root {
@@ -163,9 +159,7 @@ body {
 `;
 
 exports[`Theme generator should add the slate theme styles to the global stylesheet 1`] = `
-"@import "@angular/cdk/overlay-prebuilt.css";
-
-@import "tailwindcss";
+"@import "tailwindcss";
 @import "@spartan-ng/brain/hlm-tailwind-preset.css";
 
 :root {
@@ -244,9 +238,7 @@ body {
 `;
 
 exports[`Theme generator should add the stone theme styles to the global stylesheet 1`] = `
-"@import "@angular/cdk/overlay-prebuilt.css";
-
-@import "tailwindcss";
+"@import "tailwindcss";
 @import "@spartan-ng/brain/hlm-tailwind-preset.css";
 
 :root {
@@ -325,9 +317,7 @@ body {
 `;
 
 exports[`Theme generator should add the zinc theme styles to the global stylesheet 1`] = `
-"@import "@angular/cdk/overlay-prebuilt.css";
-
-@import "tailwindcss";
+"@import "tailwindcss";
 @import "@spartan-ng/brain/hlm-tailwind-preset.css";
 
 :root {

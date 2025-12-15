@@ -145,6 +145,13 @@ export const routeMeta: RouteMeta = {
 				fileName="src/styles.css"
 			/>
 
+			<div hlmAlert class="mt-6">
+				<h4 hlmAlertTitle>Spartan preset</h4>
+				<div hlmAlertDescription>
+					<p class="${hlmP}">Our preset already includes tw-animate-css and &#64;angular/cdk/overlay-prebuilt.css</p>
+				</div>
+			</div>
+
 			<h4 spartanH4 id="add-theme-variables" class="mt-8">2.3 Add Theme Variables</h4>
 			<p class="${hlmP}">You have two options for adding spartan's CSS variables:</p>
 

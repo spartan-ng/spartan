@@ -1,5 +1,5 @@
 import { Validators } from '@angular/forms';
-import { render, screen } from '@testing-library/angular';
+import { render, screen, waitFor } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import {
 	SelectSingleValueTest,
@@ -316,6 +316,36 @@ describe('Brn Select Component in single-mode', () => {
 
 			expect(value.textContent?.trim()).toBe(INITIAL_VALUE_TEXT);
 			expect(cmpInstance.form?.get('fruit')?.value).toEqual(INITIAL_VALUE);
+		});
+	});
+
+	describe('keyboard navigation', () => {
+		it('should open the select and navigate to options using keyboard', async () => {
+			const { user, trigger, fixture, value } = await setupWithFormValidation();
+			const cmpInstance = fixture.componentInstance as SelectSingleValueTest;
+
+			expect(value.textContent?.trim()).toBe(DEFAULT_LABEL);
+			expect(cmpInstance.form?.get('fruit')?.value).toEqual(null);
+			// Focus the trigger
+			await user.tab();
+			expect(trigger).toHaveFocus();
+			// Open Select
+			await user.keyboard(' ');
+			const options = screen.getAllByRole('option');
+			expect(options[0]).toHaveFocus();
+			// Navigate to second option
+
+			await user.keyboard(' ');
+
+			expect(value.textContent?.trim()).toBe('Apple');
+			expect(cmpInstance.form?.get('fruit')?.value).toEqual('apple');
+
+			await waitFor(() => expect(screen.queryByTestId('brn-select-content')).toBeNull());
+			await user.keyboard(' ');
+			await waitFor(() => expect(screen.getByTestId('brn-select-content')).toBeVisible());
+
+			expect(value.textContent?.trim()).toBe('Apple');
+			expect(cmpInstance.form?.get('fruit')?.value).toEqual('apple');
 		});
 	});
 });

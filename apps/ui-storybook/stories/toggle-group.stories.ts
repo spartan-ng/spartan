@@ -28,10 +28,6 @@ const meta: Meta<HlmToggleGroup> = {
 			description: 'The size of the toggle group',
 			defaultValue: 'default',
 		},
-		userClass: {
-			control: 'text',
-			description: 'Additional CSS classes to apply to the toggle group',
-		},
 	},
 	decorators: [
 		moduleMetadata({

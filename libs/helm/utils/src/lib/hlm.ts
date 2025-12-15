@@ -21,7 +21,7 @@ const elementClassManagers = new WeakMap<HTMLElement, ElementClassManager>();
 
 // Global mutation observer for all elements
 let globalObserver: MutationObserver | null = null;
-let observedElements = new Set<HTMLElement>();
+const observedElements = new Set<HTMLElement>();
 
 interface ElementClassManager {
 	element: HTMLElement;

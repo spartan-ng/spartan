@@ -2049,7 +2049,13 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "[hlmDialogHeader],hlm-dialog-header",
       },
       "HlmDialogOverlay": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "[hlmDialogOverlay],hlm-dialog-overlay",

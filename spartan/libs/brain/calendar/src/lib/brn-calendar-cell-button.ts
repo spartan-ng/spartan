@@ -1,4 +1,5 @@
-import { Directive, ElementRef, computed, inject, input } from '@angular/core';
+import { Directive, ElementRef, computed, inject, input, afterNextRender, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { injectDateAdapter } from '@spartan-ng/brain/date-time';
 import { injectBrnCalendar } from './brn-calendar.token';
 
@@ -38,6 +39,9 @@ export class BrnCalendarCellButton<T> {
 
 	/** Access the element ref */
 	private readonly _elementRef = inject<ElementRef<HTMLButtonElement>>(ElementRef);
+
+	/** Platform id for SSR guards */
+	private readonly _platformId = inject(PLATFORM_ID);
 
 	/** The date this cell represents */
 	public readonly date = input.required<T>();
@@ -175,10 +179,27 @@ export class BrnCalendarCellButton<T> {
 	 * Get the direction of the element.
 	 */
 	private getDirection(): 'ltr' | 'rtl' {
-		return getComputedStyle(this._elementRef.nativeElement).direction === 'rtl' ? 'rtl' : 'ltr';
+		// avoid calling getComputedStyle on the server or before element is present
+		if (!isPlatformBrowser(this._platformId)) return 'ltr';
+		try {
+			const el = this._elementRef.nativeElement;
+			return getComputedStyle(el).direction === 'rtl' ? 'rtl' : 'ltr';
+		} catch {
+			// fallback to ltr if anything goes wrong
+			return 'ltr';
+		}
 	}
 
 	focus(): void {
-		this._elementRef.nativeElement.focus();
+		// guard for SSR and malformed element references
+		if (!isPlatformBrowser(this._platformId)) return;
+		afterNextRender(() => {
+			try {
+				const el = this._elementRef.nativeElement;
+				if (el && typeof el.focus === 'function') el.focus();
+			} catch {
+				// swallow runtime DOM errors to avoid breaking consumers
+			}
+		});
 	}
 }

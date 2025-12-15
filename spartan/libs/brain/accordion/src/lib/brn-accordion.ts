@@ -1,15 +1,19 @@
 import { FocusKeyManager, FocusMonitor } from '@angular/cdk/a11y';
 import {
-	type AfterContentInit,
-	computed,
-	contentChildren,
-	Directive,
-	ElementRef,
-	inject,
-	input,
-	type OnDestroy,
-	signal,
+    type AfterContentInit,
+    computed,
+    contentChildren,
+    Directive,
+    ElementRef,
+    inject,
+    input,
+    type OnDestroy,
+    signal,
+    PLATFORM_ID,
 } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { fromEvent } from 'rxjs';
 import { provideBrnAccordion } from './brn-accordion-token';
 import { BrnAccordionTrigger } from './brn-accordion-trigger';
 
@@ -45,8 +49,10 @@ const VERTICAL_KEYS_TO_PREVENT_DEFAULT = [
 	},
 })
 export class BrnAccordion implements AfterContentInit, OnDestroy {
-	private readonly _el = inject(ElementRef<HTMLElement>);
-	private readonly _focusMonitor = inject(FocusMonitor);
+    private readonly _el = inject(ElementRef<HTMLElement>);
+    private readonly _focusMonitor = inject(FocusMonitor);
+    private readonly _platformId = inject(PLATFORM_ID);
+
 	private readonly _keyManager = computed(() =>
 		new FocusKeyManager<BrnAccordionTrigger>(this.triggers())
 			.withHomeAndEnd()
@@ -80,13 +86,23 @@ export class BrnAccordion implements AfterContentInit, OnDestroy {
 	public readonly orientation = input<'horizontal' | 'vertical'>('vertical');
 
 	public ngAfterContentInit() {
-		this._el.nativeElement.addEventListener('keydown', (event: KeyboardEvent) => {
-			if (this.shouldIgnoreEvent(event)) return;
-			this._keyManager()?.onKeydown(event);
-			this.preventDefaultEvents(event);
-		});
-		this._focusMonitor.monitor(this._el, true).subscribe((origin) => this._focused.set(origin !== null));
-	}
+        // avoid direct addEventListener and guard for SSR; use rxjs + takeUntilDestroyed for cleanup
+        if (isPlatformBrowser(this._platformId)) {
+            const host = this._el.nativeElement;
+            fromEvent<KeyboardEvent>(host, 'keydown')
+                .pipe(takeUntilDestroyed())
+                .subscribe((event) => {
+                    if (this.shouldIgnoreEvent(event)) return;
+                    this._keyManager()?.onKeydown(event);
+                    this.preventDefaultEvents(event);
+                });
+
+            // monitor focus only in the browser and teardown automatically
+            this._focusMonitor.monitor(this._el, true).pipe(takeUntilDestroyed()).subscribe((origin) => {
+                this._focused.set(origin !== null);
+            });
+        }
+    }
 
 	ngOnDestroy(): void {
 		this._focusMonitor.stopMonitoring(this._el);

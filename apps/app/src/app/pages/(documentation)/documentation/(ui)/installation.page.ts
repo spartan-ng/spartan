@@ -145,6 +145,13 @@ export const routeMeta: RouteMeta = {
 				fileName="src/styles.css"
 			/>
 
+			<div hlmAlert class="mt-6">
+				<h4 hlmAlertTitle>Spartan preset</h4>
+				<div hlmAlertDescription>
+					<p class="${hlmP}">Our preset already includes tw-animate-css and &#64;angular/cdk/overlay-prebuilt.css</p>
+				</div>
+			</div>
+
 			<h4 spartanH4 id="add-theme-variables" class="mt-8">2.3 Add Theme Variables</h4>
 			<p class="${hlmP}">You have two options for adding spartan's CSS variables:</p>
 
@@ -240,9 +247,6 @@ export const routeMeta: RouteMeta = {
 				<a routerLink="/documentation/theming" class="${hlmCode} underline">theming documentation</a>
 				.
 			</p>
-
-			<p class="${hlmP}">Also make sure to import the Angular CDK overlay styles:</p>
-			<spartan-code class="mt-4 mb-6" code="@import '@angular/cdk/overlay-prebuilt.css';" />
 
 			<h3 spartanH4 id="adding-components">3. Add Components</h3>
 
@@ -383,6 +387,9 @@ module.exports = {
 };
 "
 			/>
+
+			<p class="${hlmP}">Also make sure to import the Angular CDK overlay styles:</p>
+			<spartan-code class="mt-4 mb-6" code="@import '@angular/cdk/overlay-prebuilt.css';" />
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="theming" label="Theming" />

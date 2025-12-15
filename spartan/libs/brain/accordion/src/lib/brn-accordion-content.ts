@@ -1,4 +1,5 @@
-import { Directive, ElementRef, afterNextRender, computed, inject, input, signal } from '@angular/core';
+import { Directive, ElementRef, afterNextRender, computed, inject, input, signal, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { measureDimensions } from '@spartan-ng/brain/core';
 import { injectBrnAccordionConfig, injectBrnAccordionItem } from './brn-accordion-token';
 
@@ -19,6 +20,7 @@ export class BrnAccordionContent {
 	private readonly _config = injectBrnAccordionConfig();
 	private readonly _item = injectBrnAccordionItem();
 	private readonly _elementRef = inject(ElementRef);
+	private readonly _platformId = inject(PLATFORM_ID);
 
 	protected readonly _width = signal<number | null>(null);
 	protected readonly _height = signal<number | null>(null);
@@ -37,9 +39,17 @@ export class BrnAccordionContent {
 		if (!this._item) {
 			throw Error('Accordion Content can only be used inside an AccordionItem. Add brnAccordionItem to parent.');
 		}
+
 		afterNextRender(() => {
-			const content = this._elementRef.nativeElement.firstChild as HTMLElement | null;
-			if (!content) return;
+			// avoid DOM access on server and ensure we read an element node (not text/comment)
+			if (!isPlatformBrowser(this._platformId)) return;
+
+			const hostEl = this._elementRef.nativeElement as HTMLElement | null;
+			if (!hostEl) return;
+
+			// use firstElementChild to avoid text/comment nodes and ensure an HTMLElement
+			const content = hostEl.firstElementChild as HTMLElement | null;
+			if (!content || !(content instanceof HTMLElement)) return;
 
 			const { width, height } = measureDimensions(content, this._config.measurementDisplay);
 			this._width.set(width);

@@ -69,11 +69,13 @@ export class BrnDialogService {
 			throw new Error(`Dialog with ID: ${options.id} already exists`);
 		}
 
+		const attachTo = options?.attachTo ?? this._defaultOptions.attachTo;
+
 		const positionStrategy =
 			options?.positionStrategy ??
 			this._defaultOptions.positionStrategy ??
-			(options?.attachTo && options?.attachPositions && options?.attachPositions?.length > 0
-				? this._positionBuilder?.flexibleConnectedTo(options.attachTo).withPositions(options.attachPositions ?? [])
+			(attachTo && options?.attachPositions && options?.attachPositions?.length > 0
+				? this._positionBuilder?.flexibleConnectedTo(attachTo).withPositions(options.attachPositions ?? [])
 				: this._positionBuilder.global().centerHorizontally().centerVertically());
 
 		let brnDialogRef!: BrnDialogRef;
@@ -107,7 +109,7 @@ export class BrnDialogService {
 			positionStrategy,
 			scrollStrategy: options?.scrollStrategy ?? this._defaultOptions.scrollStrategy ?? this._sso?.block(),
 			restoreFocus: options?.restoreFocus ?? this._defaultOptions.restoreFocus,
-			disableClose: options?.disableClose ?? this._defaultOptions.disableClose,
+			disableClose: true,
 			autoFocus: options?.autoFocus ?? this._defaultOptions.autoFocus,
 			ariaDescribedBy: options?.ariaDescribedBy ?? `brn-dialog-description-${dialogId}`,
 			ariaLabelledBy: options?.ariaLabelledBy ?? `brn-dialog-title-${dialogId}`,
@@ -151,7 +153,9 @@ export class BrnDialogService {
 		const overlay = cdkDialogRef.overlayRef.overlayElement;
 		const backdrop = cdkDialogRef.overlayRef.backdropElement;
 
-		if (options?.closeOnOutsidePointerEvents) {
+		const closeOnOutsidePointerEvents =
+			options?.closeOnOutsidePointerEvents ?? this._defaultOptions.closeOnOutsidePointerEvents;
+		if (closeOnOutsidePointerEvents) {
 			cdkDialogRef.outsidePointerEvents.pipe(takeUntil(destroyed$)).subscribe(() => {
 				const overlays = this._overlayCloseDispatcher._attachedOverlays;
 				const index = overlays.indexOf(cdkDialogRef.overlayRef);
@@ -166,13 +170,15 @@ export class BrnDialogService {
 			});
 		}
 
-		if (options?.closeOnBackdropClick) {
+		const closeOnBackdropClick = options?.closeOnBackdropClick ?? this._defaultOptions.closeOnBackdropClick;
+		if (closeOnBackdropClick) {
 			cdkDialogRef.backdropClick.pipe(takeUntil(destroyed$)).subscribe(() => {
 				brnDialogRef.close(undefined, options?.closeDelay);
 			});
 		}
 
-		if (!options?.disableClose) {
+		const disableClose = options?.disableClose ?? this._defaultOptions.disableClose;
+		if (!disableClose) {
 			cdkDialogRef.keydownEvents
 				.pipe(
 					filter((e) => e.key === 'Escape'),

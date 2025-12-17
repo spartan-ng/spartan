@@ -24,7 +24,7 @@ const localizedStrings = {
 
 	en: {
 		title: 'Book an appointment',
-		description: 'Select the dates for your appointment',
+		description: 'Select a date for your appointment',
 	},
 } as const;
 

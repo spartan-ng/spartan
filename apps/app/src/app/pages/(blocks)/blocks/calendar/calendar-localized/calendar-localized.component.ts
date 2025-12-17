@@ -19,7 +19,7 @@ const localizedStrings = {
 
 	de: {
 		title: 'Termin buchen',
-		description: 'Bitte wählen Sie die Termine für Ihren Termin aus',
+		description: 'Bitte wählen Sie ein Datum für Ihren Termin aus',
 	},
 
 	en: {

@@ -20,7 +20,7 @@ export const routeMeta: RouteMeta = {
 	},
 	template: `
 		<div id="sidebar-1" class="flex flex-col gap-4">
-			<div class="flex items-center justify-between">
+			<div class="flex items-center justify-between px-2">
 				<spartan-block-link fragment="sidebar-1">A sidebar with a sticky header</spartan-block-link>
 				<spartan-open-in-button block="sidebar-sticky-header" />
 			</div>

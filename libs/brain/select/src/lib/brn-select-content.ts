@@ -97,7 +97,7 @@ export class BrnSelectScrollDown {
 		'(keydown)': 'keyManager?.onKeydown($event)',
 		'(keydown.enter)': 'selectActiveItem($event)',
 		'(keydown.space)': 'selectActiveItem($event)',
-		class: 'flex flex-col outline-none pointer-events-auto',
+		'[style]': "{ display: 'flex', flexDirection: 'column', outline: 'none', pointerEvents: 'auto' }",
 	},
 	template: `
 		<ng-template #scrollUp>

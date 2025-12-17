@@ -11,7 +11,7 @@ import { injectBrnSelect } from './brn-select.token';
 	host: {
 		'[id]': 'id()',
 		'[attr.data-placeholder]': '_showPlaceholder() ? "" : null',
-		class: 'line-clamp-1 whitespace-nowrap pointer-events-none',
+		'[style]': `{ overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: '1', WebkitBoxOrient: 'vertical', whiteSpace: 'nowrap', pointerEvents: 'none'	}`,
 	},
 	template: `
 		@if (_showPlaceholder()) {

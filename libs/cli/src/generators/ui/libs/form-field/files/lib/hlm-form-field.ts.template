@@ -33,10 +33,24 @@ import { HlmError } from './hlm-error';
 })
 export class HlmFormField {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected readonly _computedClass = computed(() => hlm('block space-y-2', this.userClass()));
-	public readonly control = contentChild(BrnFormFieldControl);
+	protected readonly _computedClass = computed(() => hlm('block flex flex-col gap-2', this.userClass()));
+	public readonly brnControl = contentChild(BrnFormFieldControl);
+	public readonly ngControl = contentChild(NgControl);
 
 	public readonly errorChildren = contentChildren(HlmError);
+
+	protected readonly control = computed(() => {
+		const directControl = this.brnControl();
+		if (directControl) return directControl;
+
+		const ctrl = this.ngControl();
+		if (ctrl) {
+			return {
+				errorState: () => ctrl.invalid && (ctrl.touched || ctrl.dirty),
+			};
+		}
+		return null;
+  	});
 
 	protected readonly _hasDisplayedMessage = computed<'error' | 'hint'>(() =>
 		this.errorChildren() && this.errorChildren().length > 0 && this.control()?.errorState() ? 'error' : 'hint',
@@ -44,8 +58,10 @@ export class HlmFormField {
 
 	constructor() {
 		effect(() => {
-			if (!this.control()) {
-				throw new Error('hlm-form-field must contain a BrnFormFieldControl.');
+			if (!this.brnControl() && !this.ngControl()) {
+				throw new Error(
+					'hlm-form-field must contain a BrnFormFieldControl or a form control (formControl/formControlName).',
+				);
 			}
 		});
 	}

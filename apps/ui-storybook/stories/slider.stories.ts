@@ -1,6 +1,8 @@
-import { signal } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Component, inject, signal } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BrnSliderImports } from '@spartan-ng/brain/slider';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmFieldImports } from '@spartan-ng/helm/field';
 import { HlmSliderImports } from '@spartan-ng/helm/slider';
 import { type Meta, type StoryObj, argsToTemplate, moduleMetadata } from '@storybook/angular';
 
@@ -13,6 +15,36 @@ interface BrnSliderStoryArgs {
 	showTicks: boolean;
 }
 
+@Component({
+	selector: 'slider-validation-tester',
+	standalone: true,
+	imports: [HlmSliderImports, HlmFieldImports, ReactiveFormsModule, HlmButtonImports],
+	template: `
+		<form [formGroup]="form" class="max-w-lg space-y-3">
+			<div hlmField [attr.data-invalid]="isInvalid() ? 'true' : null">
+				<label hlmFieldLabel for="temperature-slider">Temperature</label>
+				<hlm-slider id="temperature-slider" formControlName="temperature" [min]="0" [max]="100"></hlm-slider>
+				<hlm-field-error *ngIf="isInvalid()">Set the temperature before continuing.</hlm-field-error>
+			</div>
+
+			<div class="flex gap-2">
+				<button hlmBtn type="button" (click)="form.markAllAsTouched()">Validate</button>
+				<button hlmBtn variant="outline" type="button" (click)="form.reset()">Reset</button>
+			</div>
+		</form>
+	`,
+})
+class SliderValidationTester {
+	public readonly form = inject(FormBuilder).group({
+		temperature: [null, Validators.required],
+	});
+
+	isInvalid() {
+		const control = this.form.get('temperature');
+		return !!control && control.invalid && control.touched;
+	}
+}
+
 const meta: Meta<BrnSliderStoryArgs> = {
 	title: 'Slider',
 	tags: ['autodocs'],
@@ -21,7 +53,15 @@ const meta: Meta<BrnSliderStoryArgs> = {
 	},
 	decorators: [
 		moduleMetadata({
-			imports: [FormsModule, ReactiveFormsModule, HlmSliderImports, BrnSliderImports],
+			imports: [
+				FormsModule,
+				ReactiveFormsModule,
+				HlmSliderImports,
+				BrnSliderImports,
+				HlmFieldImports,
+				HlmButtonImports,
+				SliderValidationTester,
+			],
 		}),
 	],
 };
@@ -183,5 +223,12 @@ export const ReactiveFormControlWithInitialValue: Story = {
 				<hlm-slider ${argsToTemplate(args)} formControlName="temperature" />
 			</form>
 		`,
+	}),
+};
+
+export const Validation: Story = {
+	name: 'Reactive Validation',
+	render: () => ({
+		template: `<slider-validation-tester></slider-validation-tester>`,
 	}),
 };

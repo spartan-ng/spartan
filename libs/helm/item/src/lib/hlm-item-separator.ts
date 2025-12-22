@@ -1,15 +1,14 @@
-import { computed, Directive, input } from '@angular/core';
+import { Directive } from '@angular/core';
 import { BrnSeparator } from '@spartan-ng/brain/separator';
 import { hlmSeparatorClass } from '@spartan-ng/helm/separator';
-import { hlm } from '@spartan-ng/helm/utils';
-import type { ClassValue } from 'clsx';
-
+import { classes } from '@spartan-ng/helm/utils';
 @Directive({
 	selector: 'div[hlmItemSeparator]',
 	hostDirectives: [{ directive: BrnSeparator, inputs: ['orientation'] }],
-	host: { 'data-slot': 'item-separator', '[class]': '_computedClass()' },
+	host: { 'data-slot': 'item-separator' },
 })
 export class HlmItemSeparator {
-	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected readonly _computedClass = computed(() => hlm(hlmSeparatorClass, 'my-0', this.userClass()));
+	constructor() {
+		classes(() => [hlmSeparatorClass, 'my-0']);
+	}
 }

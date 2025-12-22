@@ -1,14 +1,11 @@
-import { Directive, computed, input } from '@angular/core';
-import { hlm } from '@spartan-ng/helm/utils';
-import type { ClassValue } from 'clsx';
+import { Directive } from '@angular/core';
+import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: 'hlm-select, brn-select [hlm]',
-	host: {
-		'[class]': '_computedClass()',
-	},
 })
 export class HlmSelect {
-	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected readonly _computedClass = computed(() => hlm('space-y-2', this.userClass()));
+	constructor() {
+		classes(() => 'space-y-2');
+	}
 }

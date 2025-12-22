@@ -1,7 +1,6 @@
-import { computed, Directive, input } from '@angular/core';
-import { hlm } from '@spartan-ng/helm/utils';
+import { Directive, input } from '@angular/core';
+import { classes } from '@spartan-ng/helm/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
-import type { ClassValue } from 'clsx';
 import { injectHlmItemMediaConfig } from './hlm-item-token';
 
 const itemMediaVariants = cva(
@@ -26,16 +25,13 @@ export type ItemMediaVariants = VariantProps<typeof itemMediaVariants>;
 	host: {
 		'data-slot': 'item-media',
 		'[attr.data-variant]': 'variant()',
-		'[class]': '_computedClass()',
 	},
 })
 export class HlmItemMedia {
 	private readonly _config = injectHlmItemMediaConfig();
-
-	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-
-	protected readonly _computedClass = computed(() =>
-		hlm(itemMediaVariants({ variant: this.variant() }), this.userClass()),
-	);
 	public readonly variant = input<ItemMediaVariants['variant']>(this._config.variant);
+
+	constructor() {
+		classes(() => itemMediaVariants({ variant: this.variant() }));
+	}
 }

@@ -1,7 +1,6 @@
 import {
 	computed,
 	Directive,
-	type DoCheck,
 	effect,
 	forwardRef,
 	inject,
@@ -10,11 +9,12 @@ import {
 	linkedSignal,
 	signal,
 	untracked,
+	type DoCheck,
 } from '@angular/core';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { BrnFormFieldControl } from '@spartan-ng/brain/form-field';
 import { ErrorStateMatcher, ErrorStateTracker } from '@spartan-ng/brain/forms';
-import { hlm } from '@spartan-ng/helm/utils';
+import { classes } from '@spartan-ng/helm/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 import type { ClassValue } from 'clsx';
 
@@ -42,9 +42,6 @@ type InputVariants = VariantProps<typeof inputVariants>;
 			useExisting: forwardRef(() => HlmInput),
 		},
 	],
-	host: {
-		'[class]': '_computedClass()',
-	},
 })
 export class HlmInput implements BrnFormFieldControl, DoCheck {
 	private readonly _injector = inject(Injector);
@@ -55,11 +52,6 @@ export class HlmInput implements BrnFormFieldControl, DoCheck {
 	private readonly _defaultErrorStateMatcher = inject(ErrorStateMatcher);
 	private readonly _parentForm = inject(NgForm, { optional: true });
 	private readonly _parentFormGroup = inject(FormGroupDirective, { optional: true });
-
-	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected readonly _computedClass = computed(() =>
-		hlm(inputVariants({ error: this._state().error }), this.userClass(), this._additionalClasses()),
-	);
 
 	public readonly error = input<InputVariants['error']>('auto');
 
@@ -76,6 +68,8 @@ export class HlmInput implements BrnFormFieldControl, DoCheck {
 			this._parentFormGroup,
 			this._parentForm,
 		);
+
+		classes(() => [inputVariants({ error: this._state().error }), this._additionalClasses()]);
 
 		effect(() => {
 			const error = this._errorStateTracker.errorState();

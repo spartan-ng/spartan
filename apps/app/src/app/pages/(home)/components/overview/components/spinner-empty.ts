@@ -11,7 +11,7 @@ import { HlmSpinner } from '@spartan-ng/helm/spinner';
 		<div hlmEmpty class="w-full border md:p-6">
 			<div hlmEmptyHeader>
 				<div hlmEmptyMedia variant="icon">
-					<hlm-spinner class="size-4" />
+					<hlm-spinner />
 				</div>
 				<div hlmEmptyTitle>Processing your request</div>
 				<div hlmEmptyDescription>Please wait while we process your request. Do not refresh the page.</div>

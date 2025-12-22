@@ -14,7 +14,7 @@ import { lucideChevronLeft, lucideChevronRight } from '@ng-icons/lucide';
 import { type BrnPaginatedTabHeaderItem, BrnTabsPaginatedList, BrnTabsTrigger } from '@spartan-ng/brain/tabs';
 import { buttonVariants } from '@spartan-ng/helm/button';
 import { HlmIcon } from '@spartan-ng/helm/icon';
-import { hlm } from '@spartan-ng/helm/utils';
+import { classes, hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 import type { Observable } from 'rxjs';
 import { listVariants } from './hlm-tabs-list';
@@ -26,7 +26,6 @@ import { listVariants } from './hlm-tabs-list';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'data-slot': 'tabs-paginated-list',
-		'[class]': '_computedClass()',
 	},
 	template: `
 		<button
@@ -73,6 +72,11 @@ import { listVariants } from './hlm-tabs-list';
 	`,
 })
 export class HlmTabsPaginatedList extends BrnTabsPaginatedList {
+	constructor() {
+		super();
+		classes(() => 'relative flex flex-shrink-0 gap-1 overflow-hidden');
+	}
+
 	public readonly items = contentChildren(BrnTabsTrigger, { descendants: false });
 	/** Explicitly annotating type to avoid non-portable inferred type */
 	public readonly itemsChanges: Observable<ReadonlyArray<BrnPaginatedTabHeaderItem>> = toObservable(this.items);
@@ -82,11 +86,6 @@ export class HlmTabsPaginatedList extends BrnTabsPaginatedList {
 	public readonly tabListInner = viewChild.required<ElementRef<HTMLElement>>('tabListInner');
 	public readonly nextPaginator = viewChild.required<ElementRef<HTMLElement>>('nextPaginator');
 	public readonly previousPaginator = viewChild.required<ElementRef<HTMLElement>>('previousPaginator');
-
-	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected readonly _computedClass = computed(() =>
-		hlm('relative flex flex-shrink-0 gap-1 overflow-hidden', this.userClass()),
-	);
 
 	public readonly tabListClass = input<ClassValue>('', { alias: 'tabListClass' });
 	protected readonly _tabListClass = computed(() => hlm(listVariants(), this.tabListClass()));

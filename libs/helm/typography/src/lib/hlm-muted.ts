@@ -1,16 +1,13 @@
-import { Directive, computed, input } from '@angular/core';
-import { hlm } from '@spartan-ng/helm/utils';
-import type { ClassValue } from 'clsx';
+import { Directive } from '@angular/core';
+import { classes } from '@spartan-ng/helm/utils';
 
 export const hlmMuted = 'text-sm text-muted-foreground';
 
 @Directive({
 	selector: '[hlmMuted]',
-	host: {
-		'[class]': '_computedClass()',
-	},
 })
 export class HlmMuted {
-	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected readonly _computedClass = computed(() => hlm(hlmMuted, this.userClass()));
+	constructor() {
+		classes(() => hlmMuted);
+	}
 }

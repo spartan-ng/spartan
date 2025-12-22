@@ -1,7 +1,6 @@
-import { computed, Directive, input } from '@angular/core';
-import { hlm } from '@spartan-ng/helm/utils';
+import { Directive, input } from '@angular/core';
+import { classes } from '@spartan-ng/helm/utils';
 import { cva } from 'class-variance-authority';
-import { ClassValue } from 'clsx';
 
 export const buttonGroupVariants = cva(
 	"flex w-fit items-stretch has-[>[data-slot=button-group]]:gap-2 [&>*]:focus-visible:relative [&>*]:focus-visible:z-10 has-[select[aria-hidden=true]:last-child]:[&>[data-slot=select-trigger]:last-of-type]:rounded-r-md [&>[data-slot=select-trigger]:not([class*='w-'])]:w-fit [&>input]:flex-1",
@@ -25,15 +24,13 @@ export const buttonGroupVariants = cva(
 	host: {
 		'data-slot': 'button-group',
 		role: 'group',
-		'[class]': '_computedClass()',
 		'[attr.data-orientation]': 'orientation()',
 	},
 })
 export class HlmButtonGroup {
-	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	public readonly orientation = input<'horizontal' | 'vertical'>('horizontal');
+	constructor() {
+		classes(() => buttonGroupVariants({ orientation: this.orientation() }));
+	}
 
-	protected readonly _computedClass = computed(() =>
-		hlm(buttonGroupVariants({ orientation: this.orientation() }), this.userClass()),
-	);
+	public readonly orientation = input<'horizontal' | 'vertical'>('horizontal');
 }

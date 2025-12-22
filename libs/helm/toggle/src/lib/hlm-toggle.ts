@@ -1,8 +1,7 @@
-import { Directive, computed, input } from '@angular/core';
+import { Directive, input } from '@angular/core';
 import { BrnToggle } from '@spartan-ng/brain/toggle';
-import { hlm } from '@spartan-ng/helm/utils';
+import { classes } from '@spartan-ng/helm/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
-import type { ClassValue } from 'clsx';
 
 // TODO invalid styles uses aria-invalid
 // aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive
@@ -39,21 +38,17 @@ export type ToggleVariants = VariantProps<typeof toggleVariants>;
 	],
 	host: {
 		'data-slot': 'toggle',
-		'[class]': '_computedClass()',
 	},
 })
 export class HlmToggle {
 	public readonly variant = input<ToggleVariants['variant']>('default');
 	public readonly size = input<ToggleVariants['size']>('default');
-	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-
-	protected readonly _computedClass = computed(() =>
-		hlm(
+	constructor() {
+		classes(() =>
 			toggleVariants({
 				variant: this.variant(),
 				size: this.size(),
 			}),
-			this.userClass(),
-		),
-	);
+		);
+	}
 }

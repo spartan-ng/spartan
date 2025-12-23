@@ -1,8 +1,7 @@
-import { computed, Directive, input } from '@angular/core';
+import { Directive, input } from '@angular/core';
 import { BrnTabsList } from '@spartan-ng/brain/tabs';
-import { hlm } from '<%- importAlias %>/utils';
+import { classes } from '<%- importAlias %>/utils';
 import { type VariantProps, cva } from 'class-variance-authority';
-import type { ClassValue } from 'clsx';
 
 export const listVariants = cva(
 	'bg-muted text-muted-foreground inline-flex h-9 w-fit items-center justify-center rounded-lg p-[3px]',
@@ -25,14 +24,12 @@ type ListVariants = VariantProps<typeof listVariants>;
 	hostDirectives: [BrnTabsList],
 	host: {
 		'data-slot': 'tabs-list',
-		'[class]': '_computedClass()',
 	},
 })
 export class HlmTabsList {
 	public readonly orientation = input<ListVariants['orientation']>('horizontal');
 
-	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected readonly _computedClass = computed(() =>
-		hlm(listVariants({ orientation: this.orientation() }), this.userClass()),
-	);
+	constructor() {
+		classes(() => listVariants({ orientation: this.orientation() }));
+	}
 }

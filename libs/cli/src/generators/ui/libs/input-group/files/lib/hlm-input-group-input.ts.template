@@ -1,31 +1,16 @@
-import { computed, Directive, effect, inject, input } from '@angular/core';
+import { Directive } from '@angular/core';
 import { HlmInput } from '<%- importAlias %>/input';
-import { hlm } from '<%- importAlias %>/utils';
-import type { ClassValue } from 'clsx';
+import { classes } from '<%- importAlias %>/utils';
 
 @Directive({
 	selector: 'input[hlmInputGroupInput]',
 	hostDirectives: [HlmInput],
 	host: {
 		'data-slot': 'input-group-control',
-		'[class]': '_computedClass()',
 	},
 })
 export class HlmInputGroupInput {
-	private readonly _hlmInput = inject(HlmInput);
-
-	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-
-	protected readonly _computedClass = computed(() =>
-		hlm(
-			'flex-1 rounded-none border-0 bg-transparent shadow-none focus-visible:ring-0 dark:bg-transparent',
-			this.userClass(),
-		),
-	);
-
 	constructor() {
-		effect(() => {
-			this._hlmInput.setClass(this._computedClass());
-		});
+		classes(() => `flex-1 rounded-none border-0 bg-transparent shadow-none focus-visible:ring-0 dark:bg-transparent`);
 	}
 }

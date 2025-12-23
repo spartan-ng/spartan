@@ -1,7 +1,6 @@
-import { computed, Directive, input } from '@angular/core';
+import { Directive, input } from '@angular/core';
 import { BrnTabs } from '@spartan-ng/brain/tabs';
-import { hlm } from '<%- importAlias %>/utils';
-import type { ClassValue } from 'clsx';
+import { classes } from '<%- importAlias %>/utils';
 
 @Directive({
 	selector: '[hlmTabs],hlm-tabs',
@@ -14,12 +13,12 @@ import type { ClassValue } from 'clsx';
 	],
 	host: {
 		'data-slot': 'tabs',
-		'[class]': '_computedClass()',
 	},
 })
 export class HlmTabs {
 	public readonly tab = input.required<string>();
 
-	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected readonly _computedClass = computed(() => hlm('flex flex-col gap-2', this.userClass()));
+	constructor() {
+		classes(() => 'flex flex-col gap-2');
+	}
 }

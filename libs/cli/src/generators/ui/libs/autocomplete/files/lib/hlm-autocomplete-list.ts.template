@@ -1,7 +1,6 @@
-import { computed, Directive, input } from '@angular/core';
+import { Directive } from '@angular/core';
 import { BrnAutocompleteList } from '@spartan-ng/brain/autocomplete';
-import { hlm } from '<%- importAlias %>/utils';
-import type { ClassValue } from 'clsx';
+import { classes } from '<%- importAlias %>/utils';
 
 @Directive({
 	selector: '[hlmAutocompleteList],hlm-autocomplete-list',
@@ -11,16 +10,9 @@ import type { ClassValue } from 'clsx';
 			inputs: ['id'],
 		},
 	],
-	host: {
-		'[class]': '_computedClass()',
-	},
 })
 export class HlmAutocompleteList {
-	/** The user defined class  */
-	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-
-	/** The styles to apply  */
-	protected readonly _computedClass = computed(() =>
-		hlm('block max-h-60 overflow-x-hidden overflow-y-auto', this.userClass()),
-	);
+	constructor() {
+		classes(() => 'block max-h-60 overflow-x-hidden overflow-y-auto');
+	}
 }

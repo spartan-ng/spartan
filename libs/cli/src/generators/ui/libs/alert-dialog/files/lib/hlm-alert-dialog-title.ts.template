@@ -1,17 +1,16 @@
-import { Directive, computed, input } from '@angular/core';
+import { Directive } from '@angular/core';
 import { BrnAlertDialogTitle } from '@spartan-ng/brain/alert-dialog';
-import { hlm } from '<%- importAlias %>/utils';
-import type { ClassValue } from 'clsx';
+import { classes } from '<%- importAlias %>/utils';
 
 @Directive({
 	selector: '[hlmAlertDialogTitle]',
 	hostDirectives: [BrnAlertDialogTitle],
 	host: {
 		'data-slot': 'alert-dialog-title',
-		'[class]': '_computedClass()',
 	},
 })
 export class HlmAlertDialogTitle {
-	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected readonly _computedClass = computed(() => hlm('text-lg font-semibold', this.userClass()));
+	constructor() {
+		classes(() => 'text-lg font-semibold');
+	}
 }

@@ -1,7 +1,6 @@
-import { computed, Directive, input } from '@angular/core';
+import { Directive } from '@angular/core';
 import { BrnResizableGroup } from '@spartan-ng/brain/resizable';
-import { hlm } from '<%- importAlias %>/utils';
-import type { ClassValue } from 'clsx';
+import { classes } from '<%- importAlias %>/utils';
 
 @Directive({
 	selector: '[hlmResizableGroup],hlm-resizable-group',
@@ -14,13 +13,10 @@ import type { ClassValue } from 'clsx';
 	],
 	host: {
 		'data-slot': 'resizable-group',
-		'[class]': '_computedClass()',
 	},
 })
 export class HlmResizableGroup {
-	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-
-	protected readonly _computedClass = computed(() =>
-		hlm('group flex h-full w-full data-[panel-group-direction=vertical]:flex-col', this.userClass()),
-	);
+	constructor() {
+		classes(() => 'group flex h-full w-full data-[panel-group-direction=vertical]:flex-col');
+	}
 }

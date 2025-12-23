@@ -1,14 +1,11 @@
-import { Directive, computed, input } from '@angular/core';
-import { hlm } from '<%- importAlias %>/utils';
-import type { ClassValue } from 'clsx';
+import { Directive } from '@angular/core';
+import { classes } from '<%- importAlias %>/utils';
 
 @Directive({
 	selector: '[hlmCardDescription]',
-	host: {
-		'[class]': '_computedClass()',
-	},
 })
 export class HlmCardDescription {
-	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected readonly _computedClass = computed(() => hlm('text-muted-foreground text-sm', this.userClass()));
+	constructor() {
+		classes(() => 'text-muted-foreground text-sm');
+	}
 }

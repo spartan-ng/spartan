@@ -1,7 +1,6 @@
-import { computed, Directive, input } from '@angular/core';
+import { Directive } from '@angular/core';
 import { HlmSeparator } from '<%- importAlias %>/separator';
-import { hlm } from '<%- importAlias %>/utils';
-import type { ClassValue } from 'clsx';
+import { classes } from '<%- importAlias %>/utils';
 
 @Directive({
 	selector: '[hlmSidebarSeparator],hlm-sidebar-separator',
@@ -9,10 +8,10 @@ import type { ClassValue } from 'clsx';
 	host: {
 		'data-slot': 'sidebar-separator',
 		'data-sidebar': 'separator',
-		'[class]': '_computedClass()',
 	},
 })
 export class HlmSidebarSeparator {
-	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected readonly _computedClass = computed(() => hlm('bg-sidebar-border mx-2 w-auto', this.userClass()));
+	constructor() {
+		classes(() => 'bg-sidebar-border mx-2 w-auto');
+	}
 }

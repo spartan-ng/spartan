@@ -1,16 +1,15 @@
-import { computed, Directive, input } from '@angular/core';
-import { hlm } from '<%- importAlias %>/utils';
-import type { ClassValue } from 'clsx';
+import { Directive } from '@angular/core';
+import { classes } from '<%- importAlias %>/utils';
 
 @Directive({
 	selector: 'li[hlmSidebarMenuSubItem]',
 	host: {
 		'data-slot': 'sidebar-menu-sub-item',
 		'data-sidebar': 'menu-sub-item',
-		'[class]': '_computedClass()',
 	},
 })
 export class HlmSidebarMenuSubItem {
-	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected readonly _computedClass = computed(() => hlm('group/menu-sub-item relative', this.userClass()));
+	constructor() {
+		classes(() => 'group/menu-sub-item relative');
+	}
 }

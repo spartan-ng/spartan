@@ -1,22 +1,16 @@
-import { computed, Directive, input } from '@angular/core';
+import { Directive } from '@angular/core';
 import { provideHlmIconConfig } from '<%- importAlias %>/icon';
-import { hlm } from '<%- importAlias %>/utils';
-import type { ClassValue } from 'clsx';
+import { classes } from '<%- importAlias %>/utils';
 
 @Directive({
 	selector: '[hlmCommandSearch],hlm-command-search',
 	providers: [provideHlmIconConfig({ size: 'sm' })],
 	host: {
 		'data-slot': 'command-search',
-		'[class]': '_computedClass()',
 	},
 })
 export class HlmCommandSearch {
-	/** The user defined class  */
-	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-
-	/** The styles to apply  */
-	protected readonly _computedClass = computed(() =>
-		hlm('flex h-9 items-center gap-2 border-b px-3 [&>_ng-icon]:flex-none [&>_ng-icon]:opacity-50', this.userClass()),
-	);
+	constructor() {
+		classes(() => 'flex h-9 items-center gap-2 border-b px-3 [&>_ng-icon]:flex-none [&>_ng-icon]:opacity-50');
+	}
 }

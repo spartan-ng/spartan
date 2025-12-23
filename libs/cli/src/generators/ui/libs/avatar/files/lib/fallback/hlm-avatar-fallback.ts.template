@@ -1,6 +1,6 @@
-import { Directive, computed, inject } from '@angular/core';
+import { Directive } from '@angular/core';
 import { BrnAvatarFallback } from '@spartan-ng/brain/avatar';
-import { hlm } from '<%- importAlias %>/utils';
+import { classes } from '<%- importAlias %>/utils';
 
 @Directive({
 	selector: '[hlmAvatarFallback]',
@@ -8,17 +8,11 @@ import { hlm } from '<%- importAlias %>/utils';
 	hostDirectives: [
 		{
 			directive: BrnAvatarFallback,
-			inputs: ['class'],
 		},
 	],
-	host: {
-		'[class]': '_computedClass()',
-	},
 })
 export class HlmAvatarFallback {
-	private readonly _brn = inject(BrnAvatarFallback);
-
-	protected readonly _computedClass = computed(() => {
-		return hlm('bg-muted flex size-full items-center justify-center rounded-full', this._brn?.userClass());
-	});
+	constructor() {
+		classes(() => 'bg-muted flex size-full items-center justify-center rounded-full');
+	}
 }

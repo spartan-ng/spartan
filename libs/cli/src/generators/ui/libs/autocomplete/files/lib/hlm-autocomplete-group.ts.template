@@ -1,7 +1,6 @@
-import { computed, Directive, input } from '@angular/core';
+import { Directive } from '@angular/core';
 import { BrnAutocompleteGroup } from '@spartan-ng/brain/autocomplete';
-import { hlm } from '<%- importAlias %>/utils';
-import type { ClassValue } from 'clsx';
+import { classes } from '<%- importAlias %>/utils';
 
 @Directive({
 	selector: '[hlmAutocompleteGroup],hlm-autocomplete-group',
@@ -11,16 +10,9 @@ import type { ClassValue } from 'clsx';
 			inputs: ['id'],
 		},
 	],
-	host: {
-		'[class]': '_computedClass()',
-	},
 })
 export class HlmAutocompleteGroup {
-	/** The user defined class  */
-	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-
-	/** The styles to apply  */
-	protected readonly _computedClass = computed(() =>
-		hlm('text-foreground block overflow-hidden p-1', this.userClass()),
-	);
+	constructor() {
+		classes(() => 'text-foreground block overflow-hidden p-1');
+	}
 }

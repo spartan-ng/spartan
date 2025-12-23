@@ -1,7 +1,6 @@
-import { computed, Directive, input } from '@angular/core';
+import { Directive } from '@angular/core';
 import { BrnCommandList } from '@spartan-ng/brain/command';
-import { hlm } from '<%- importAlias %>/utils';
-import type { ClassValue } from 'clsx';
+import { classes } from '<%- importAlias %>/utils';
 
 @Directive({
 	selector: '[hlmCommandList],hlm-command-list',
@@ -13,15 +12,10 @@ import type { ClassValue } from 'clsx';
 	],
 	host: {
 		'data-slot': 'command-list',
-		'[class]': '_computedClass()',
 	},
 })
 export class HlmCommandList {
-	/** The user defined class  */
-	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-
-	/** The styles to apply  */
-	protected readonly _computedClass = computed(() =>
-		hlm('max-h-[300px] overflow-x-hidden overflow-y-auto', this.userClass()),
-	);
+	constructor() {
+		classes(() => 'max-h-[300px] overflow-x-hidden overflow-y-auto');
+	}
 }

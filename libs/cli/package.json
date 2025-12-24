@@ -1,6 +1,6 @@
 {
 	"name": "@spartan-ng/cli",
-	"version": "0.0.1-alpha.585",
+	"version": "0.0.1-alpha.586",
 	"type": "commonjs",
 	"dependencies": {
 		"@angular/core": ">=19.0.0",

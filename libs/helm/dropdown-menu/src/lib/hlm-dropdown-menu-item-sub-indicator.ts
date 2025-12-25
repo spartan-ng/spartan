@@ -14,6 +14,6 @@ import { classes } from '@spartan-ng/helm/utils';
 })
 export class HlmDropdownMenuItemSubIndicator {
 	constructor() {
-		classes(() => 'ml-auto size-4');
+		classes(() => 'ms-auto size-4');
 	}
 }

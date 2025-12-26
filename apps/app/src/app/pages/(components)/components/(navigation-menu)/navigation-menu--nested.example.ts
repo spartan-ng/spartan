@@ -110,15 +110,15 @@ import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 									<div hlmNavigationMenuContent *brnNavigationMenuContent>
 										<ul class="grid w-[300px] gap-4">
 											<li>
-												<a hlmNavigationMenuLink class="cursor-pointer">
+												<a hlmNavigationMenuLink href="/components" class="cursor-pointer">
 													<div class="font-medium">Components</div>
 													<div class="text-muted-foreground">Browse all components in the library.</div>
 												</a>
-												<a hlmNavigationMenuLink class="cursor-pointer">
+												<a hlmNavigationMenuLink href="/documentation" class="cursor-pointer">
 													<div class="font-medium">Documentation</div>
 													<div class="text-muted-foreground">Learn how to use the library.</div>
 												</a>
-												<a hlmNavigationMenuLink class="cursor-pointer">
+												<a hlmNavigationMenuLink href="#" class="cursor-pointer">
 													<div class="font-medium">Blog</div>
 													<div class="text-muted-foreground">Read our latest blog posts.</div>
 												</a>
@@ -138,9 +138,9 @@ import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 									<div hlmNavigationMenuContent *brnNavigationMenuContent>
 										<ul class="grid w-[200px] gap-4">
 											<li>
-												<a hlmNavigationMenuLink class="cursor-pointer">Components</a>
-												<a hlmNavigationMenuLink class="cursor-pointer">Documentation</a>
-												<a hlmNavigationMenuLink class="cursor-pointer">Blocks</a>
+												<a hlmNavigationMenuLink href="/components" class="cursor-pointer">Components</a>
+												<a hlmNavigationMenuLink href="/documentation" class="cursor-pointer">Documentation</a>
+												<a hlmNavigationMenuLink href="/blocks" class="cursor-pointer">Blocks</a>
 											</li>
 										</ul>
 									</div>
@@ -157,15 +157,15 @@ import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 									<div hlmNavigationMenuContent *brnNavigationMenuContent>
 										<ul class="grid w-[200px] gap-4">
 											<li>
-												<a hlmNavigationMenuLink class="cursor-pointer flex-row items-center gap-2">
+												<a hlmNavigationMenuLink href="#" class="cursor-pointer flex-row items-center gap-2">
 													<ng-icon name="lucideInfo" />
 													Backlog
 												</a>
-												<a hlmNavigationMenuLink class="cursor-pointer flex-row items-center gap-2">
+												<a hlmNavigationMenuLink href="#" class="cursor-pointer flex-row items-center gap-2">
 													<ng-icon name="lucideCircle" />
 													To Do
 												</a>
-												<a hlmNavigationMenuLink class="cursor-pointer flex-row items-center gap-2">
+												<a hlmNavigationMenuLink href="#" class="cursor-pointer flex-row items-center gap-2">
 													<ng-icon name="lucideCheck" />
 													Done
 												</a>

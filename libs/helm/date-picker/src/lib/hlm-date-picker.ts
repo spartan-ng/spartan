@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { provideIcons } from '@ng-icons/core';
-import { lucideChevronDown } from '@ng-icons/lucide';
+import { lucideChevronDown, lucideCircleX } from '@ng-icons/lucide';
 import type { BrnDialogState } from '@spartan-ng/brain/dialog';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import { BrnPopoverImports } from '@spartan-ng/brain/popover';
@@ -34,7 +34,7 @@ let nextId = 0;
 @Component({
 	selector: 'hlm-date-picker',
 	imports: [HlmIconImports, BrnPopoverImports, HlmPopoverImports, HlmCalendar],
-	providers: [HLM_DATE_PICKER_VALUE_ACCESSOR, provideIcons({ lucideChevronDown })],
+	providers: [HLM_DATE_PICKER_VALUE_ACCESSOR, provideIcons({ lucideChevronDown, lucideCircleX })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'block',
@@ -56,7 +56,21 @@ let nextId = 0;
 					}
 				</span>
 
-				<ng-icon hlm size="sm" name="lucideChevronDown" />
+				<div class="flex items-center gap-1">
+					@if (showClearBtn() && _formattedDate()) {
+						<button
+							type="button"
+							class="ring-offset-background focus:ring-ring pointer-events-auto shrink-0 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:pointer-events-none"
+							[disabled]="_mutableDisabled()"
+							aria-label="Clear date"
+							(click)="_clearDate($event)"
+						>
+							<ng-icon hlm size="sm" name="lucideCircleX" />
+						</button>
+					}
+
+					<ng-icon hlm size="sm" name="lucideChevronDown" />
+				</div>
 			</button>
 
 			<div hlmPopoverContent class="w-auto p-0" *brnPopoverContent="let ctx">
@@ -120,6 +134,11 @@ export class HlmDatePicker<T> implements ControlValueAccessor {
 	/** Defines how the date should be transformed before saving to model/form. */
 	public readonly transformDate = input<(date: T) => T>(this._config.transformDate);
 
+	/** If true, shows a clear button when a date is selected. */
+	public readonly showClearBtn = input<boolean, BooleanInput>(true, {
+		transform: booleanAttribute,
+	});
+
 	protected readonly _popoverState = signal<BrnDialogState | null>(null);
 
 	protected readonly _mutableDisabled = linkedSignal(this.disabled);
@@ -170,5 +189,15 @@ export class HlmDatePicker<T> implements ControlValueAccessor {
 
 	public close() {
 		this._popoverState.set('closed');
+	}
+
+	protected _clearDate(event: Event) {
+		event.stopPropagation();
+		if (this._mutableDisabled()) return;
+
+		this._mutableDate.set(undefined);
+		this._onChange?.(null as unknown as T);
+		this.dateChange.emit(null as unknown as T);
+		this._onTouched?.();
 	}
 }

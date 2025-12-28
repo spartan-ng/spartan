@@ -9,6 +9,6 @@ import { classes } from '<%- importAlias %>/utils';
 })
 export class HlmDialogHeader {
 	constructor() {
-		classes(() => 'flex flex-col gap-2 text-center sm:text-left');
+		classes(() => 'flex flex-col gap-2 text-center sm:text-start');
 	}
 }

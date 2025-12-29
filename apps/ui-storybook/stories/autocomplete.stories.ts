@@ -179,12 +179,7 @@ export default {
 	tags: ['autodocs'],
 	decorators: [
 		moduleMetadata({
-			imports: [
-				AutocompleteAsync,
-				AutocompleteForm,
-				AutocompleteTransformOptionValue,
-				HlmAutocompleteImports,
-			],
+			imports: [AutocompleteAsync, AutocompleteForm, AutocompleteTransformOptionValue, HlmAutocompleteImports],
 		}),
 	],
 } as Meta<HlmAutocomplete<unknown>>;

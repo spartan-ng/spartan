@@ -56,8 +56,6 @@ describe('autocomplete', () => {
 
 		it('should show loading state', () => {
 			cy.get('input[hlmInputGroupInput]').type('test');
-			// It might be too fast to catch the spinner, but we can check if options appear eventually
-			cy.wait(600); // Wait for the simulated delay
 			cy.get('button[hlm-autocomplete-item]').should('have.length.gt', 0);
 		});
 	});

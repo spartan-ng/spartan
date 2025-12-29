@@ -74,7 +74,6 @@ export const HLM_AUTOCOMPLETE_VALUE_ACCESSOR = {
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
-		'[class]': '_computedClass()',
 		'[attr.aria-invalid]': '_ariaInvalid()',
 	},
 	template: `
@@ -212,7 +211,6 @@ export class HlmAutocomplete<T, V = T> implements ControlValueAccessor, DoCheck 
 
 	/** The user defined class  */
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected readonly _computedClass = computed(() => hlm('block w-full', this.userClass(), this._errorStateClass()));
 
 	/** Custom class for the autocomplete search container. */
 	public readonly autocompleteSearchClass = input<ClassValue>('');
@@ -321,7 +319,8 @@ export class HlmAutocomplete<T, V = T> implements ControlValueAccessor, DoCheck 
 	protected _onTouched?: TouchFn;
 
 	constructor() {
-		classes(() => 'block w-full');
+		classes(() => ['block w-full', this.userClass(), this._errorStateClass()]);
+
 		if (this._ngControl) {
 			this._ngControl.valueAccessor = this;
 		}

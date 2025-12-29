@@ -1,13 +1,12 @@
 import { computed, Directive, effect, EffectRef, inject, input, OnDestroy } from '@angular/core';
-import { classes, hlm } from '@spartan-ng/helm/utils';
-import { ClassValue } from 'clsx';
+import { classes } from '@spartan-ng/helm/utils';
+import type { ClassValue } from 'clsx';
 import { HlmFieldA11yService } from './hlm-field-aria.service';
 
 @Directive({
 	selector: '[hlmFieldDescription],hlm-field-description',
 	host: {
 		'data-slot': 'field-description',
-		'[class]': '_computedClass()',
 		'[attr.id]': '_computedId()',
 	},
 })
@@ -18,23 +17,15 @@ export class HlmFieldDescription implements OnDestroy {
 	private readonly _autoId = `hlm-field-description-${++HlmFieldDescription._nextId}`;
 	protected readonly _computedId = computed(() => this.providedId() ?? this._autoId);
 
-	protected readonly _computedClass = computed(() =>
-		hlm(
-			'text-muted-foreground text-sm leading-normal font-normal group-has-[[data-orientation=horizontal]]/field:text-balance',
-			'last:mt-0 nth-last-2:-mt-1 [[data-variant=legend]+&]:-mt-1.5',
-			'[&>a:hover]:text-primary [&>a]:underline [&>a]:underline-offset-4',
-			this.userClass(),
-		),
-	);
-
 	constructor() {
 		classes(() => [
 			'text-muted-foreground text-sm leading-normal font-normal group-has-[[data-orientation=horizontal]]/field:text-balance',
 			'last:mt-0 nth-last-2:-mt-1 [[data-variant=legend]+&]:-mt-1.5',
 			'[&>a:hover]:text-primary [&>a]:underline [&>a]:underline-offset-4',
+			this.userClass(),
 		]);
 	}
-	
+
 	private _registeredId?: string;
 	private readonly _a11y = inject(HlmFieldA11yService, { optional: true, host: true });
 	private readonly _cleanup: EffectRef | null = this._a11y

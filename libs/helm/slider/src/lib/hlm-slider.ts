@@ -8,6 +8,7 @@ import {
 	injectBrnSlider,
 } from '@spartan-ng/brain/slider';
 import { classes } from '@spartan-ng/helm/utils';
+import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-slider, brn-slider [hlm]',
@@ -21,7 +22,6 @@ import { classes } from '@spartan-ng/helm/utils';
 		},
 	],
 	host: {
-		'[class]': '_computedClass()',
 		'[attr.aria-invalid]': '_slider.errorState() ? "true" : null',
 		'[attr.data-invalid]': '_slider.errorState() ? "true" : null',
 	},
@@ -50,21 +50,19 @@ import { classes } from '@spartan-ng/helm/utils';
 })
 export class HlmSlider {
 	protected readonly _slider = injectBrnSlider();
-	constructor() {
-		classes(() => 'relative flex w-full touch-none items-center select-none');
-	}
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _errorStateClass = computed(() =>
 		this._slider.errorState()
 			? 'ring-ring data-[invalid=true]:ring-destructive focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40'
 			: '',
 	);
-	protected readonly _computedClass = computed(() =>
-		hlm(
+
+	constructor() {
+		classes(() => [
 			'relative flex w-full touch-none items-center select-none',
 			this._slider.mutableDisabled() ? 'opacity-40' : '',
 			this._errorStateClass(),
 			this.userClass(),
-		),
-	);
+		]);
+	}
 }

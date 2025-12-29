@@ -26,10 +26,6 @@ export class HlmRadioGroup {
 	protected readonly _errorState = computed(() => this._brnRadioGroup.errorState());
 
 	constructor() {
-		classes(() => [
-			'grid gap-3',
-			this.userClass(),
-			this._errorState() ? 'data-[invalid=true]:text-destructive' : '',
-		]);
+		classes(() => ['grid gap-3', this.userClass(), this._errorState() ? 'data-[invalid=true]:text-destructive' : '']);
 	}
 }

@@ -151,7 +151,7 @@ export class HlmDatePickerMulti<T> implements ControlValueAccessor {
 		if (value === undefined) return;
 
 		if (this._mutableDisabled()) return;
-		const transformedDate = this.transformDates()(value);
+		const transformedDate = value !== undefined ? this.transformDates()(value) : value;
 
 		this._mutableDate.set(transformedDate);
 		this._onChange?.(transformedDate);

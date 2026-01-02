@@ -136,7 +136,7 @@ export class HlmDatePicker<T> implements ControlValueAccessor {
 
 	protected _handleChange(value: T) {
 		if (this._mutableDisabled()) return;
-		const transformedDate = this.transformDate()(value);
+		const transformedDate = value !== undefined ? this.transformDate()(value) : value;
 
 		this._mutableDate.set(transformedDate);
 		this._onChange?.(transformedDate);

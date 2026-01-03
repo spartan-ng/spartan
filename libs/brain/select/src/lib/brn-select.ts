@@ -1,3 +1,4 @@
+import { Directionality } from '@angular/cdk/bidi';
 import type { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import { CdkListboxModule } from '@angular/cdk/listbox';
 import {
@@ -93,6 +94,7 @@ export class BrnSelect<T = unknown>
 {
 	private readonly _defaultErrorStateMatcher = inject(ErrorStateMatcher);
 	private readonly _parentForm = inject(NgForm, { optional: true });
+	private readonly _dir = inject(Directionality);
 	private readonly _injector = inject(Injector);
 	private readonly _parentFormGroup = inject(FormGroupDirective, { optional: true });
 	public readonly ngControl = inject(NgControl, { optional: true, self: true });
@@ -105,7 +107,13 @@ export class BrnSelect<T = unknown>
 	public readonly disabled = input<boolean, BooleanInput>(false, {
 		transform: booleanAttribute,
 	});
-	public readonly dir = input<BrnReadDirection>('ltr');
+
+	public readonly dirInput = input<BrnReadDirection | undefined>(undefined, {
+		alias: 'dir',
+	});
+
+	public readonly dir = computed(() => this.dirInput() ?? this._dir.valueSignal());
+
 	public readonly closeDelay = input<number, NumberInput>(100, {
 		transform: numberAttribute,
 	});

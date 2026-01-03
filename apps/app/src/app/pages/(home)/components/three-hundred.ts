@@ -136,6 +136,15 @@ export class ThreeHundred {
 		'Khumozin',
 		'abiramcodes',
 		'garygrossgarten',
+		'MatznRisto',
+		'Oussemasahbeni',
+		'benpsnyder',
+		'dhwani1806',
+		'elite-lucas',
+		'esteecodes',
+		'felhag',
+		'notsufferbutbutter',
+		'vlrjuan',
 	];
 	protected readonly _contributorCountRoundedToNextMultipleOf10 = Math.ceil(this._contributors.length / 10) * 10;
 	protected readonly _countNeededToGetToNextMultipleOf10 =

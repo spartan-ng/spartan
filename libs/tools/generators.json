@@ -54,6 +54,11 @@
 			"factory": "./src/generators/generate-primitive-snippets/generator",
 			"schema": "./src/generators/generate-primitive-snippets/schema.json",
 			"description": "Extracts code parts from primitive example and preview components."
+		},
+		"update-contributors": {
+			"factory": "./src/generators/update-contributors/generator",
+			"schema": "./src/generators/update-contributors/schema.json",
+			"description": "Updates the README and three-hundred.ts with all Git contributors who are not already listed"
 		}
 	}
 }

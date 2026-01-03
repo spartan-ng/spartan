@@ -3523,7 +3523,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "dir",
             "required": false,
-            "type": "BrnReadDirection",
+            "type": "BrnReadDirection | undefined",
           },
           {
             "name": "closeDelay",

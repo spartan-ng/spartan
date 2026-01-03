@@ -85,7 +85,7 @@ export default async function updateContributorsGenerator(tree: Tree): Promise<v
 
 		// Extract existing contributors from both files
 		const existingContributors = new Set<string>();
-		
+
 		// From README
 		const contributorPattern = /\[([\w-]+)\]\(https:\/\/(?:www\.)?github\.com\/([\w-]+)\)/g;
 		let match;
@@ -148,10 +148,7 @@ export default async function updateContributorsGenerator(tree: Tree): Promise<v
 		// Insert the new contributors after the last existing contributor
 		const insertionIndex = insertionMatch.index + insertionMatch[0].length;
 		readmeContent =
-			readmeContent.slice(0, insertionIndex) +
-			'\n' +
-			newContributorsText +
-			readmeContent.slice(insertionIndex);
+			readmeContent.slice(0, insertionIndex) + '\n' + newContributorsText + readmeContent.slice(insertionIndex);
 
 		// Update the README
 		tree.write(readmePath, readmeContent);
@@ -176,10 +173,7 @@ export default async function updateContributorsGenerator(tree: Tree): Promise<v
 				const formattedContributors = updatedContributors.map((c) => `\t\t'${c}'`).join(',\n');
 
 				// Replace the array content
-				threeHundredContent = threeHundredContent.replace(
-					arrayPattern,
-					`$1\n${formattedContributors},\n\t$3`,
-				);
+				threeHundredContent = threeHundredContent.replace(arrayPattern, `$1\n${formattedContributors},\n\t$3`);
 
 				tree.write(threeHundredPath, threeHundredContent);
 				console.log(`Updated three-hundred.ts with ${newContributors.length} new contributor(s)`);

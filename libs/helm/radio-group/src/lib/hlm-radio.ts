@@ -14,7 +14,7 @@ import {
 	PLATFORM_ID,
 	Renderer2,
 } from '@angular/core';
-import { BrnRadio, type BrnRadioChange } from '@spartan-ng/brain/radio-group';
+import { BrnRadio, BrnRadioGroup, type BrnRadioChange } from '@spartan-ng/brain/radio-group';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 
@@ -37,6 +37,8 @@ import type { ClassValue } from 'clsx';
 			[value]="value()"
 			[required]="required()"
 			[disabled]="disabled()"
+			[attr.aria-invalid]="_groupInvalid() ? 'true' : null"
+			[attr.data-invalid]="_groupInvalid() ? 'true' : null"
 			[aria-label]="ariaLabel()"
 			[aria-labelledby]="ariaLabelledby()"
 			[aria-describedby]="ariaDescribedby()"
@@ -52,6 +54,9 @@ export class HlmRadio<T = unknown> {
 	private readonly _renderer = inject(Renderer2);
 	private readonly _elementRef = inject(ElementRef);
 	private readonly _isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
+	private readonly _radioGroup = inject(BrnRadioGroup, { optional: true });
+	protected readonly _groupInvalid = computed(() => this._radioGroup?.errorState() ?? false);
+	protected readonly _errorStateClass = computed(() => (this._groupInvalid() ? 'text-destructive' : ''));
 
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>
@@ -59,6 +64,7 @@ export class HlmRadio<T = unknown> {
 			'group flex items-center gap-x-3',
 			'data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-50',
 			this.userClass(),
+			this._errorStateClass(),
 		),
 	);
 

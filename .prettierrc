@@ -4,6 +4,6 @@
 	"useTabs": true,
 	"bracketSpacing": true,
 	"htmlWhitespaceSensitivity": "ignore",
-	"tailwindFunctions": ["hlm", "cva"],
+	"tailwindFunctions": ["hlm", "cva", "classes"],
 	"plugins": ["prettier-plugin-organize-imports", "prettier-plugin-packagejson", "prettier-plugin-tailwindcss"]
 }

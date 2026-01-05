@@ -184,7 +184,7 @@ describe('classes', () => {
 			classes(() => 'bg-blue-500 text-white', { elementRef });
 
 			// Second source adds different classes
-			classes(() => 'p-4 rounded-lg', { elementRef });
+			classes(() => 'rounded-lg p-4', { elementRef });
 		});
 
 		// Wait for afterRenderEffect to run
@@ -209,7 +209,7 @@ describe('classes', () => {
 		TestBed.runInInjectionContext(() => {
 			// Both sources provide conflicting background colors
 			classes(() => 'bg-blue-500 p-2', { elementRef });
-			classes(() => 'bg-red-500 m-4', { elementRef });
+			classes(() => 'm-4 bg-red-500', { elementRef });
 		});
 
 		await new Promise((resolve) => setTimeout(resolve, 0));
@@ -278,7 +278,7 @@ describe('classes', () => {
 					classes(
 						() => {
 							const state = this.secondState();
-							return state === 'white' ? 'text-white p-2' : 'text-black p-4';
+							return state === 'white' ? 'p-2 text-white' : 'p-4 text-black';
 						},
 						{ elementRef: this.elementRef() },
 					);
@@ -394,7 +394,7 @@ describe('classes', () => {
 
 		TestBed.runInInjectionContext(() => {
 			// Component hydrates and applies classes that should replace the SSR classes
-			classes(() => 'bg-red-500 text-black m-2', { elementRef });
+			classes(() => 'm-2 bg-red-500 text-black', { elementRef });
 		});
 
 		await new Promise((resolve) => setTimeout(resolve, 0));

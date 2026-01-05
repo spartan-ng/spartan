@@ -10,25 +10,16 @@ import {
 	lucideUser,
 	lucideX,
 } from '@ng-icons/lucide';
-import { BrnCommandImports } from '@spartan-ng/brain/command';
 import { BrnDialogImports } from '@spartan-ng/brain/dialog';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmCommandImports } from '@spartan-ng/helm/command';
 import { HlmDialogImports } from '@spartan-ng/helm/dialog';
 import { HlmIconImports } from '@spartan-ng/helm/icon';
-import { HlmCode } from '@spartan-ng/helm/typography';
+import { HlmKbdImports } from '@spartan-ng/helm/kbd';
 
 @Component({
 	selector: 'spartan-command-dialog',
-	imports: [
-		BrnCommandImports,
-		HlmCommandImports,
-		HlmIconImports,
-		HlmButtonImports,
-		BrnDialogImports,
-		HlmDialogImports,
-		HlmCode,
-	],
+	imports: [HlmCommandImports, HlmIconImports, HlmButtonImports, BrnDialogImports, HlmDialogImports, HlmKbdImports],
 	providers: [
 		provideIcons({
 			lucideX,
@@ -48,7 +39,7 @@ import { HlmCode } from '@spartan-ng/helm/typography';
 		<div class="mx-auto flex max-w-screen-sm items-center justify-center space-x-4 py-20 text-sm">
 			<p>
 				Press
-				<code hlmCode>⌘ + Shift + P</code>
+				<kbd hlmKbd>⌘ + Shift + P</kbd>
 			</p>
 			<p>
 				Last command:
@@ -64,36 +55,36 @@ import { HlmCode } from '@spartan-ng/helm/typography';
 						<ng-icon hlm name="lucideX" />
 					</button>
 				</hlm-command-search>
-				<div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
-				<hlm-command-list hlm>
+				<div *hlmCommandEmptyState hlmCommandEmpty>No results found.</div>
+				<hlm-command-list>
 					<hlm-command-group label="Suggestions">
 						<button hlm-command-item value="calendar" (selected)="commandSelected('calendar')">
-							<ng-icon hlm name="lucideCalendar" hlmCommandIcon />
+							<ng-icon name="lucideCalendar" />
 							Calendar
 						</button>
 						<button hlm-command-item value="emojy" (selected)="commandSelected('emojy')">
-							<ng-icon hlm name="lucideSmile" hlmCommandIcon />
+							<ng-icon name="lucideSmile" />
 							Search Emoji
 						</button>
 						<button hlm-command-item value="calculator" (selected)="commandSelected('calculator')">
-							<ng-icon hlm name="lucidePlus" hlmCommandIcon />
+							<ng-icon name="lucidePlus" />
 							Calculator
 						</button>
 					</hlm-command-group>
-					<hlm-command-separator hlm />
-					<hlm-command-group hlm label="Settings">
+					<hlm-command-separator />
+					<hlm-command-group label="Settings">
 						<button hlm-command-item value="profile" (selected)="commandSelected('profile')">
-							<ng-icon hlm name="lucideUser" hlmCommandIcon />
+							<ng-icon name="lucideUser" />
 							Profile
 							<hlm-command-shortcut>⌘P</hlm-command-shortcut>
 						</button>
 						<button hlm-command-item value="billing" (selected)="commandSelected('billing')">
-							<ng-icon hlm name="lucideLayers" hlmCommandIcon />
+							<ng-icon name="lucideLayers" />
 							Billing
 							<hlm-command-shortcut>⌘B</hlm-command-shortcut>
 						</button>
 						<button hlm-command-item value="settings" (selected)="commandSelected('settings')">
-							<ng-icon hlm name="lucideCog" hlmCommandIcon />
+							<ng-icon name="lucideCog" />
 							Settings
 							<hlm-command-shortcut>⌘S</hlm-command-shortcut>
 						</button>

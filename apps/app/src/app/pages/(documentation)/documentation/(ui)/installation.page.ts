@@ -276,8 +276,10 @@ export const routeMeta: RouteMeta = {
 			<p class="${hlmP}">
 				Enable Tailwind autocompletion in
 				<code class="${hlmCode}">hlm</code>
-				and
+				,
 				<code class="${hlmCode}">cva</code>
+				and
+				<code class="${hlmCode}">classes</code>
 				functions:
 			</p>
 
@@ -304,7 +306,7 @@ export const routeMeta: RouteMeta = {
 			<spartan-code
 				class="mt-4"
 				code='{
-  "tailwindCSS.classFunctions": ["hlm", "cva"]
+  "tailwindCSS.classFunctions": ["hlm", "cva", "classes"]
 }'
 			/>
 
@@ -333,7 +335,7 @@ export const routeMeta: RouteMeta = {
 			<spartan-code
 				class="mt-4"
 				code='{
-  "tailwindFunctions": ["hlm", "cva"]
+  "tailwindFunctions": ["hlm", "cva", "classes"]
 }'
 			/>
 

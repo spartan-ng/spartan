@@ -18,11 +18,11 @@ export * from './lib/brn-command-separator';
 export * from './lib/brn-command.token';
 
 export const BrnCommandImports = [
+	BrnCommand,
 	BrnCommandEmpty,
 	BrnCommandGroup,
 	BrnCommandItem,
 	BrnCommandList,
 	BrnCommandSearchInput,
-	BrnCommand,
 	BrnCommandSeparator,
 ] as const;

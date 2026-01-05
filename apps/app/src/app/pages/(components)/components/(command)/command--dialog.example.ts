@@ -19,7 +19,7 @@ import { HlmKbdImports } from '@spartan-ng/helm/kbd';
 
 @Component({
 	selector: 'spartan-command-dialog',
-	imports: [HlmCommandImports, HlmIconImports, HlmButtonImports, BrnDialogImports, HlmDialogImports, HlmKbdImports],
+	imports: [HlmDialogImports, BrnDialogImports, HlmCommandImports, HlmIconImports, HlmButtonImports, HlmKbdImports],
 	providers: [
 		provideIcons({
 			lucideX,
@@ -39,7 +39,7 @@ import { HlmKbdImports } from '@spartan-ng/helm/kbd';
 		<div class="mx-auto flex max-w-screen-sm items-center justify-center space-x-4 py-20 text-sm">
 			<p>
 				Press
-				<kbd hlmKbd>⌘ + Shift + P</kbd>
+				<kbd hlmKbd>⌘ + J</kbd>
 			</p>
 			<p>
 				Last command:
@@ -47,50 +47,51 @@ import { HlmKbdImports } from '@spartan-ng/helm/kbd';
 			</p>
 		</div>
 		<hlm-dialog [state]="state()" (stateChanged)="stateChanged($event)">
-			<hlm-command *brnDialogContent="let ctx" hlmCommandDialog class="mx-auto sm:w-[400px]">
-				<hlm-command-search>
-					<ng-icon hlm name="lucideSearch" />
-					<input placeholder="Type a command or search..." hlm-command-search-input />
-					<button hlmCommandDialogCloseBtn>
-						<ng-icon hlm name="lucideX" />
-					</button>
-				</hlm-command-search>
-				<div *hlmCommandEmptyState hlmCommandEmpty>No results found.</div>
-				<hlm-command-list>
-					<hlm-command-group label="Suggestions">
-						<button hlm-command-item value="calendar" (selected)="commandSelected('calendar')">
-							<ng-icon name="lucideCalendar" />
-							Calendar
-						</button>
-						<button hlm-command-item value="emojy" (selected)="commandSelected('emojy')">
-							<ng-icon name="lucideSmile" />
-							Search Emoji
-						</button>
-						<button hlm-command-item value="calculator" (selected)="commandSelected('calculator')">
-							<ng-icon name="lucidePlus" />
-							Calculator
-						</button>
-					</hlm-command-group>
-					<hlm-command-separator />
-					<hlm-command-group label="Settings">
-						<button hlm-command-item value="profile" (selected)="commandSelected('profile')">
-							<ng-icon name="lucideUser" />
-							Profile
-							<hlm-command-shortcut>⌘P</hlm-command-shortcut>
-						</button>
-						<button hlm-command-item value="billing" (selected)="commandSelected('billing')">
-							<ng-icon name="lucideLayers" />
-							Billing
-							<hlm-command-shortcut>⌘B</hlm-command-shortcut>
-						</button>
-						<button hlm-command-item value="settings" (selected)="commandSelected('settings')">
-							<ng-icon name="lucideCog" />
-							Settings
-							<hlm-command-shortcut>⌘S</hlm-command-shortcut>
-						</button>
-					</hlm-command-group>
-				</hlm-command-list>
-			</hlm-command>
+			<hlm-dialog-content *brnDialogContent="let ctx" class="w-[400px] p-0">
+				<hlm-command hlmCommandDialog>
+					<hlm-command-search>
+						<ng-icon hlm name="lucideSearch" />
+						<input placeholder="Type a command or search..." hlm-command-search-input />
+					</hlm-command-search>
+					<div *hlmCommandEmptyState hlmCommandEmpty>No results found.</div>
+					<hlm-command-list>
+						<hlm-command-group>
+							<hlm-command-group-label>Suggestions</hlm-command-group-label>
+							<button hlm-command-item value="calendar" (selected)="commandSelected('calendar')">
+								<ng-icon name="lucideCalendar" />
+								Calendar
+							</button>
+							<button hlm-command-item value="emojy" (selected)="commandSelected('emojy')">
+								<ng-icon name="lucideSmile" />
+								Search Emoji
+							</button>
+							<button hlm-command-item value="calculator" (selected)="commandSelected('calculator')">
+								<ng-icon name="lucidePlus" />
+								Calculator
+							</button>
+						</hlm-command-group>
+						<hlm-command-separator />
+						<hlm-command-group>
+							<hlm-command-group-label>Settings</hlm-command-group-label>
+							<button hlm-command-item value="profile" (selected)="commandSelected('profile')">
+								<ng-icon name="lucideUser" />
+								Profile
+								<hlm-command-shortcut>⌘P</hlm-command-shortcut>
+							</button>
+							<button hlm-command-item value="billing" (selected)="commandSelected('billing')">
+								<ng-icon name="lucideLayers" />
+								Billing
+								<hlm-command-shortcut>⌘B</hlm-command-shortcut>
+							</button>
+							<button hlm-command-item value="settings" (selected)="commandSelected('settings')">
+								<ng-icon name="lucideCog" />
+								Settings
+								<hlm-command-shortcut>⌘S</hlm-command-shortcut>
+							</button>
+						</hlm-command-group>
+					</hlm-command-list>
+				</hlm-command>
+			</hlm-dialog-content>
 		</hlm-dialog>
 	`,
 })
@@ -99,7 +100,7 @@ export class CommandDialog {
 	public readonly state = signal<'closed' | 'open'>('closed');
 
 	onKeyDown(event: KeyboardEvent) {
-		if ((event.metaKey || event.ctrlKey) && event.shiftKey && (event.key === 'p' || event.key === 'P')) {
+		if ((event.metaKey || event.ctrlKey) && (event.key === 'j' || event.key === 'J')) {
 			this.state.set('open');
 		}
 	}

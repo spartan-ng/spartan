@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { NgIcon, provideIcons } from '@ng-icons/core';
+import { provideIcons } from '@ng-icons/core';
 import { lucideCheck, lucideChevronsUpDown, lucideSearch } from '@ng-icons/lucide';
 import { BrnPopoverImports } from '@spartan-ng/brain/popover';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
@@ -11,7 +11,7 @@ type Framework = { label: string; value: string };
 
 @Component({
 	selector: 'spartan-combobox-preview',
-	imports: [HlmCommandImports, NgIcon, HlmIconImports, HlmButtonImports, BrnPopoverImports, HlmPopoverImports],
+	imports: [HlmCommandImports, HlmIconImports, HlmButtonImports, BrnPopoverImports, HlmPopoverImports],
 	providers: [provideIcons({ lucideChevronsUpDown, lucideSearch, lucideCheck })],
 	template: `
 		<hlm-popover [state]="state()" (stateChanged)="stateChanged($event)" sideOffset="5">

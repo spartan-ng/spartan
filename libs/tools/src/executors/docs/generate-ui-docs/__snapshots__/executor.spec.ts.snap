@@ -1521,6 +1521,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "outputs": [],
         "selector": "input[brnCommandSearchInput]",
       },
+      "BrnCommandSeparator": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnCommandSeparator]",
+      },
     },
     "helm": {
       "HlmCommand": {
@@ -1535,17 +1541,17 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "outputs": [],
         "selector": "[hlmCommandDialog]",
       },
-      "HlmCommandDialogCloseButton": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "[hlmCommandDialogCloseBtn]",
-      },
       "HlmCommandEmpty": {
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmCommandEmpty]",
+      },
+      "HlmCommandEmptyState": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmCommandEmptyState]",
       },
       "HlmCommandGroup": {
         "inputs": [],
@@ -1558,12 +1564,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [],
         "outputs": [],
         "selector": "[hlmCommandGroupLabel],hlm-command-group-label",
-      },
-      "HlmCommandIcon": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "[hlmCommandIcon]",
       },
       "HlmCommandItem": {
         "inputs": [],
@@ -2025,7 +2025,13 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "button[hlmDialogClose]",
       },
       "HlmDialogContent": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "showCloseButton",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "hlm-dialog-content",

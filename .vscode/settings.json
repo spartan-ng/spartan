@@ -18,5 +18,5 @@
 	"editor.formatOnPaste": true,
 	"editor.formatOnSave": false,
 	"nxConsole.generateAiAgentRules": true,
-	"tailwindCSS.classFunctions": ["hlm", "cva"]
+	"tailwindCSS.classFunctions": ["hlm", "cva", "classes"]
 }

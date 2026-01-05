@@ -5,7 +5,7 @@ import { injectBrnCommand } from './brn-command.token';
 	selector: '[brnCommandSeparator]',
 	host: {
 		role: 'separator',
-		'[attr.data-empty]': '_visible() ? null : ""',
+		'[attr.data-hidden]': '!_visible() ? "" : null',
 	},
 })
 export class BrnCommandSeparator {

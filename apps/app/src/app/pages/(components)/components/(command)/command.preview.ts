@@ -10,13 +10,12 @@ import {
 	lucideUser,
 	lucideWallet,
 } from '@ng-icons/lucide';
-import { BrnCommandImports } from '@spartan-ng/brain/command';
 import { HlmCommandImports } from '@spartan-ng/helm/command';
 import { HlmIconImports } from '@spartan-ng/helm/icon';
 
 @Component({
 	selector: 'spartan-command-preview',
-	imports: [BrnCommandImports, HlmCommandImports, HlmIconImports],
+	imports: [HlmCommandImports, HlmIconImports],
 	providers: [
 		provideIcons({
 			lucideSearch,
@@ -89,7 +88,6 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 export class CommandPreview {}
 
 export const defaultImports = `
-import { BrnCommandImports } from '@spartan-ng/brain/command';
 import { HlmCommandImports } from '@spartan-ng/helm/command';
 `;
 

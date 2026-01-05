@@ -133,6 +133,15 @@ Our initial 300 contributors and sponsors are featured here and on the front pag
 114. [Khumozin](https://github.com/Khumozin)
 115. [abiramcodes](https://github.com/abiramcodes)
 116. [garygrossgarten](https://github.com/garygrossgarten)
+117. [MatznRisto](https://github.com/MatznRisto)
+118. [Oussemasahbeni](https://github.com/Oussemasahbeni)
+119. [benpsnyder](https://github.com/benpsnyder)
+120. [dhwani1806](https://github.com/dhwani1806)
+121. [elite-lucas](https://github.com/elite-lucas)
+122. [esteecodes](https://github.com/esteecodes)
+123. [felhag](https://github.com/felhag)
+124. [notsufferbutbutter](https://github.com/notsufferbutbutter)
+125. [vlrjuan](https://github.com/vlrjuan)
 
 [Become a spartan today!](https://github.com/sponsors/goetzrobin)
 

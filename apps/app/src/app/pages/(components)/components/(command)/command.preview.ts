@@ -79,7 +79,7 @@ import { HlmIcon } from '@spartan-ng/helm/icon';
 			</hlm-command-list>
 
 			<!-- Empty state -->
-			<div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
+			<div *hlmCommandEmptyState hlmCommandEmpty>No results found.</div>
 		</hlm-command>
 	`,
 })

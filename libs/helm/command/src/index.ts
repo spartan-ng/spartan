@@ -2,6 +2,7 @@ import { HlmCommand } from './lib/hlm-command';
 import { HlmCommandDialog } from './lib/hlm-command-dialog';
 import { HlmCommandDialogCloseButton } from './lib/hlm-command-dialog-close-button';
 import { HlmCommandEmpty } from './lib/hlm-command-empty';
+import { HlmCommandEmptyState } from './lib/hlm-command-empty-state';
 import { HlmCommandGroup } from './lib/hlm-command-group';
 import { HlmCommandGroupLabel } from './lib/hlm-command-group-label';
 import { HlmCommandIcon } from './lib/hlm-command-icon';
@@ -16,6 +17,7 @@ export * from './lib/hlm-command';
 export * from './lib/hlm-command-dialog';
 export * from './lib/hlm-command-dialog-close-button';
 export * from './lib/hlm-command-empty';
+export * from './lib/hlm-command-empty-state';
 export * from './lib/hlm-command-group';
 export * from './lib/hlm-command-group-label';
 export * from './lib/hlm-command-icon';
@@ -40,4 +42,5 @@ export const HlmCommandImports = [
 	HlmCommandSearch,
 	HlmCommandGroupLabel,
 	HlmCommandEmpty,
+	HlmCommandEmptyState,
 ] as const;

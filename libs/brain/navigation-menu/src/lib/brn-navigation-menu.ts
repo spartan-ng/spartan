@@ -13,9 +13,9 @@ import {
 	OnDestroy,
 	signal,
 } from '@angular/core';
-import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { toObservable } from '@angular/core/rxjs-interop';
 import { computedPrevious, createHoverObservable } from '@spartan-ng/brain/core';
-import { combineLatest, merge, of, Subject } from 'rxjs';
+import { combineLatest, merge, Subject } from 'rxjs';
 import { debounceTime, filter, map, pairwise, startWith, switchMap, takeUntil } from 'rxjs/operators';
 import { BrnNavigationMenuItem } from './brn-navigation-menu-item';
 import { BrnNavigationMenuLink } from './brn-navigation-menu-link';
@@ -33,13 +33,13 @@ function areArraysSameByElRef(arr1: unknown[], arr2: unknown[]) {
 	host: {
 		'(keydown)': 'handleKeydown($event)',
 		'[attr.data-orientation]': 'orientation()',
-		'[attr.dir]': '_dir()',
+		'[attr.dir]': 'direction()',
 		'aria-label': 'Main',
 		'data-slot': 'navigation-menu',
 	},
 })
 export class BrnNavigationMenu implements OnDestroy {
-	private readonly _directionality = inject(Directionality);
+	private readonly _dir = inject(Directionality);
 	private readonly _zone = inject(NgZone);
 	private readonly _destroy$ = new Subject<void>();
 
@@ -61,10 +61,8 @@ export class BrnNavigationMenu implements OnDestroy {
 	 */
 	public readonly skipDelayDuration = input<number>(300);
 
-	/**
-	 * The reading direction of the menu when applicable.
-	 */
-	public readonly dir = input<'ltr' | 'rtl'>();
+	/** internal **/
+	public readonly direction = this._dir.valueSignal;
 
 	/**
 	 * The orientation of the menu.
@@ -95,7 +93,7 @@ export class BrnNavigationMenu implements OnDestroy {
 
 	private readonly _keyManager = computed(() => {
 		return new FocusKeyManager<FocusableOption>(this._triggersAndLinks())
-			.withHorizontalOrientation(this._dir())
+			.withHorizontalOrientation(this.direction())
 			.withHomeAndEnd()
 			.withPageUpDown()
 			.withWrap()
@@ -122,22 +120,7 @@ export class BrnNavigationMenu implements OnDestroy {
 
 	public readonly previousValue = computedPrevious(this.value);
 
-	private readonly _dir$ = toObservable(this.dir);
-
-	/**
-	 * The reading direction of the menu when applicable.
-	 * If input is not passed, inherits globally from Directionality or assumes LTR (left-to-right) reading mode.
-	 */
-	protected readonly _dir = toSignal(
-		combineLatest([
-			this._dir$.pipe(startWith(undefined)),
-			this._directionality.change.pipe(startWith(undefined)),
-			of('ltr' as const),
-		]).pipe(map(([dir, dirChange, fallback]) => dir ?? dirChange ?? fallback)),
-		{ requireSync: true },
-	);
-
-	public readonly context = computed(() => ({ orientation: this.orientation(), dir: this._dir() }));
+	public readonly context = computed(() => ({ orientation: this.orientation(), dir: this.direction() }));
 
 	constructor() {
 		effect(() => {

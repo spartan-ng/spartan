@@ -25,7 +25,7 @@ import { injectBrnSelect } from './brn-select.token';
 		'[attr.aria-controls]': '_contentId()',
 		'[attr.aria-labelledBy]': '_labelledBy()',
 		'aria-autocomplete': 'none',
-		'[attr.dir]': '_select.dir()',
+		'[attr.dir]': '_select.direction()',
 		'[class.ng-invalid]': '_ngControl?.invalid || null',
 		'[class.ng-dirty]': '_ngControl?.dirty || null',
 		'[class.ng-valid]': '_ngControl?.valid || null',

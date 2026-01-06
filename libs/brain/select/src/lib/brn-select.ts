@@ -108,11 +108,8 @@ export class BrnSelect<T = unknown>
 		transform: booleanAttribute,
 	});
 
-	public readonly dirInput = input<BrnReadDirection | undefined>(undefined, {
-		alias: 'dir',
-	});
-
-	public readonly dir = computed(() => this.dirInput() ?? this._dir.valueSignal());
+	/** internal **/
+	public readonly direction = this._dir.valueSignal;
 
 	public readonly closeDelay = input<number, NumberInput>(100, {
 		transform: numberAttribute,

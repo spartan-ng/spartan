@@ -61,7 +61,7 @@ export class BrnSelectValue<T> {
 
 		const selectedLabels = selectedOption.map((option) => option?.getLabel());
 
-		if (this._select.dir() === 'rtl') {
+		if (this._select.direction() === 'rtl') {
 			selectedLabels.reverse();
 		}
 		return this.transformFn()(selectedLabels);

@@ -1,4 +1,5 @@
-import { Directive, input, model, output, signal } from '@angular/core';
+import { Directionality } from '@angular/cdk/bidi';
+import { Directive, inject, input, model, output, signal } from '@angular/core';
 import type { BrnTabsContent } from './brn-tabs-content';
 import type { BrnTabsTrigger } from './brn-tabs-trigger';
 
@@ -16,13 +17,14 @@ export type TabEntry = { trigger: BrnTabsTrigger; content: BrnTabsContent };
 	},
 })
 export class BrnTabs {
+	private readonly _dir = inject(Directionality);
+
 	public readonly orientation = input<BrnTabsOrientation>('horizontal');
 	/** internal **/
 	public $orientation = this.orientation;
 
-	public readonly direction = input<BrnTabsDirection>('ltr');
 	/** internal **/
-	public $direction = this.direction;
+	public readonly direction = this._dir.valueSignal;
 
 	public readonly activeTab = model<string | undefined>(undefined, { alias: 'brnTabs' });
 	/** internal **/

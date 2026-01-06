@@ -7,7 +7,7 @@ import { classes } from '@spartan-ng/helm/utils';
 	hostDirectives: [
 		{
 			directive: BrnTabs,
-			inputs: ['orientation', 'direction', 'activationMode', 'brnTabs: tab'],
+			inputs: ['orientation', 'activationMode', 'brnTabs: tab'],
 			outputs: ['tabActivated'],
 		},
 	],

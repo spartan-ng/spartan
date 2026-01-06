@@ -7,7 +7,7 @@ import { classes } from '@spartan-ng/helm/utils';
 	hostDirectives: [
 		{
 			directive: BrnNavigationMenu,
-			inputs: ['value', 'delayDuration', 'skipDelayDuration', 'dir', 'orientation'],
+			inputs: ['value', 'delayDuration', 'skipDelayDuration', 'orientation'],
 			outputs: ['valueChange'],
 		},
 	],

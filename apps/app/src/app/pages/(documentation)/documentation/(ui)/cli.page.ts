@@ -3,15 +3,15 @@ import { Component } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideTriangleAlert } from '@ng-icons/lucide';
 import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
-import { MainSection } from '../../../shared/layout/main-section';
-import { PackageInstallerTabs } from '../../../shared/layout/package-installer-tabs';
-import { PageBottomNav } from '../../../shared/layout/page-bottom-nav/page-bottom-nav';
-import { PageBottomNavLink } from '../../../shared/layout/page-bottom-nav/page-bottom-nav-link';
-import { PageNav } from '../../../shared/layout/page-nav/page-nav';
-import { SectionIntro } from '../../../shared/layout/section-intro';
-import { SectionSubHeading } from '../../../shared/layout/section-sub-heading';
-import { TabsCli } from '../../../shared/layout/tabs-cli';
-import { metaWith } from '../../../shared/meta/meta.util';
+import { MainSection } from '../../../../shared/layout/main-section';
+import { PackageInstallerTabs } from '../../../../shared/layout/package-installer-tabs';
+import { PageBottomNav } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav';
+import { PageBottomNavLink } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav-link';
+import { PageNav } from '../../../../shared/layout/page-nav/page-nav';
+import { SectionIntro } from '../../../../shared/layout/section-intro';
+import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading';
+import { TabsCli } from '../../../../shared/layout/tabs-cli';
+import { metaWith } from '../../../../shared/meta/meta.util';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'CLI' },
@@ -132,8 +132,8 @@ export const routeMeta: RouteMeta = {
 			</ol>
 
 			<spartan-page-bottom-nav>
-				<spartan-page-bottom-nav-link href="components-json" label="components.json" />
-				<spartan-page-bottom-nav-link direction="previous" href="introduction" label="Introduction" />
+				<spartan-page-bottom-nav-link href="typography" label="Typography" />
+				<spartan-page-bottom-nav-link direction="previous" href="dark-mode" label="Dark Mode" />
 			</spartan-page-bottom-nav>
 		</section>
 

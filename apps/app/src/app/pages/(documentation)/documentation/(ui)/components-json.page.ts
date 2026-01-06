@@ -4,14 +4,14 @@ import { provideIcons } from '@ng-icons/core';
 import { lucideTriangleAlert } from '@ng-icons/lucide';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
-import { Code } from '../../../shared/code/code';
-import { MainSection } from '../../../shared/layout/main-section';
-import { PageBottomNav } from '../../../shared/layout/page-bottom-nav/page-bottom-nav';
-import { PageBottomNavLink } from '../../../shared/layout/page-bottom-nav/page-bottom-nav-link';
-import { PageNav } from '../../../shared/layout/page-nav/page-nav';
-import { SectionIntro } from '../../../shared/layout/section-intro';
-import { SectionSubHeading } from '../../../shared/layout/section-sub-heading';
-import { metaWith } from '../../../shared/meta/meta.util';
+import { Code } from '../../../../shared/code/code';
+import { MainSection } from '../../../../shared/layout/main-section';
+import { PageBottomNav } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav';
+import { PageBottomNavLink } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav-link';
+import { PageNav } from '../../../../shared/layout/page-nav/page-nav';
+import { SectionIntro } from '../../../../shared/layout/section-intro';
+import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading';
+import { metaWith } from '../../../../shared/meta/meta.util';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'components.json' },
@@ -101,12 +101,12 @@ export const routeMeta: RouteMeta = {
 			<p class="${hlmP}">Generate the components as a library or entrypoint.</p>
 
 			<spartan-page-bottom-nav>
-				<spartan-page-bottom-nav-link href="changelog" label="Changelog" />
-				<spartan-page-bottom-nav-link direction="previous" href="cli" label="CLI" />
+				<spartan-page-bottom-nav-link href="theming" label="Theming" />
+				<spartan-page-bottom-nav-link direction="previous" href="installation" label="Installation" />
 			</spartan-page-bottom-nav>
 		</section>
 
 		<spartan-page-nav />
 	`,
 })
-export default class sJsonPage {}
+export default class ComponentsJsonPage {}

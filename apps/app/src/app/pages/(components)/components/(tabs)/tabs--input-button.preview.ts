@@ -6,6 +6,7 @@ import { HlmTabsImports } from '@spartan-ng/helm/tabs';
 @Component({
 	selector: 'spartan-tabs-input-button',
 	imports: [HlmTabsImports, HlmInputImports, HlmButtonImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-tabs tab="overview">
 			<div class="flex items-center gap-4">
@@ -28,6 +29,5 @@ import { HlmTabsImports } from '@spartan-ng/helm/tabs';
 			</div>
 		</hlm-tabs>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TabsInputButtonPreview {}

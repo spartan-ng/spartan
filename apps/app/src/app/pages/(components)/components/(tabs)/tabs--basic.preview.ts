@@ -4,6 +4,7 @@ import { HlmTabsImports } from '@spartan-ng/helm/tabs';
 @Component({
 	selector: 'spartan-tabs-basic',
 	imports: [HlmTabsImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-tabs tab="home">
 			<hlm-tabs-list>
@@ -12,6 +13,5 @@ import { HlmTabsImports } from '@spartan-ng/helm/tabs';
 			</hlm-tabs-list>
 		</hlm-tabs>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TabsBasicPreview {}

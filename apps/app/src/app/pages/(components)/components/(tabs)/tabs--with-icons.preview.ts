@@ -7,6 +7,7 @@ import { HlmTabsImports } from '@spartan-ng/helm/tabs';
 	selector: 'spartan-tabs-with-icons',
 	imports: [HlmTabsImports, NgIcon],
 	providers: [provideIcons({ lucideAppWindow, lucideCode })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-tabs tab="preview">
 			<hlm-tabs-list>
@@ -21,6 +22,5 @@ import { HlmTabsImports } from '@spartan-ng/helm/tabs';
 			</hlm-tabs-list>
 		</hlm-tabs>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TabsWithIconsPreview {}

@@ -10,6 +10,6 @@ import { classes } from '@spartan-ng/helm/utils';
 })
 export class HlmCommandGroupLabel {
 	constructor() {
-		classes(() => 'block text-muted-foreground px-2 py-1.5 text-xs font-medium');
+		classes(() => 'text-muted-foreground block px-2 py-1.5 text-xs font-medium');
 	}
 }

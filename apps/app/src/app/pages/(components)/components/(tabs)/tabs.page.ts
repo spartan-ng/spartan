@@ -20,9 +20,12 @@ import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { TabsBasicPreview } from './tabs--basic.preview';
+import { TabsIconsOnlyPreview } from './tabs--icon-only.preview';
+import { TabsInputButtonPreview } from './tabs--input-button.preview';
 import { TabsLinePreview } from './tabs--line.preview';
 import { TabsPaginatedPreview } from './tabs--paginated.preview';
 import { TabsVerticalPreview } from './tabs--vertical.preview';
+import { TabsWithIconsPreview } from './tabs--with-icons.preview';
 import { TabsPreview, defaultImports, defaultSkeleton } from './tabs.preview';
 
 export const routeMeta: RouteMeta = {
@@ -52,6 +55,9 @@ export const routeMeta: RouteMeta = {
 		TabsPaginatedPreview,
 		TabsBasicPreview,
 		TabsLinePreview,
+		TabsWithIconsPreview,
+		TabsIconsOnlyPreview,
+		TabsInputButtonPreview,
 		HlmAlertDescription,
 		HlmAlert,
 		NgIcon,
@@ -106,7 +112,34 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-tabs-line />
 				</div>
-				<spartan-code secondTab [code]="_basicCode()" />
+				<spartan-code secondTab [code]="_lineCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__with_icons" spartanH4>With Icons</h3>
+
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-tabs-with-icons />
+				</div>
+				<spartan-code secondTab [code]="_withIconsCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__icons_only" spartanH4>Icons Only</h3>
+
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-tabs-icons-only />
+				</div>
+				<spartan-code secondTab [code]="_iconOnlyCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__input_button" spartanH4>With Input and Button</h3>
+
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-tabs-input-button />
+				</div>
+				<spartan-code secondTab [code]="_inputButtonCode()" />
 			</spartan-tabs>
 
 			<h3 id="examples__paginated_tabs" spartanH4>Paginated Tabs</h3>
@@ -167,6 +200,10 @@ export default class TabsPage {
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _verticalCode = computed(() => this._snippets()['vertical']);
 	protected readonly _basicCode = computed(() => this._snippets()['basic']);
+	protected readonly _lineCode = computed(() => this._snippets()['line']);
+	protected readonly _withIconsCode = computed(() => this._snippets()['withIcons']);
+	protected readonly _iconOnlyCode = computed(() => this._snippets()['iconOnly']);
+	protected readonly _inputButtonCode = computed(() => this._snippets()['inputButton']);
 	protected readonly _paginatedCode = computed(() => this._snippets()['paginated']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;

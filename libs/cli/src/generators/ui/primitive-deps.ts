@@ -68,6 +68,9 @@ export const getDependentPrimitives = (primitives: Primitive[]): Primitive[] => 
 			if (!primitives.includes(dep)) {
 				// only add the dependent primitive if it's not already in the list of primitives to create
 				dependentPrimitives.add(dep);
+				getDependentPrimitives([dep])
+					.filter((primitive) => !dependentPrimitives.has(primitive) && !primitives.includes(primitive))
+					.forEach((d) => dependentPrimitives.add(d));
 			}
 		}
 	}

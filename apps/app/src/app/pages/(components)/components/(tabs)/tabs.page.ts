@@ -19,6 +19,8 @@ import { Tabs } from '../../../../shared/layout/tabs';
 import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
+import { TabsBasicPreview } from './tabs--basic.preview';
+import { TabsLinePreview } from './tabs--line.preview';
 import { TabsPaginatedPreview } from './tabs--paginated.preview';
 import { TabsVerticalPreview } from './tabs--vertical.preview';
 import { TabsPreview, defaultImports, defaultSkeleton } from './tabs.preview';
@@ -48,6 +50,8 @@ export const routeMeta: RouteMeta = {
 		TabsPreview,
 		TabsVerticalPreview,
 		TabsPaginatedPreview,
+		TabsBasicPreview,
+		TabsLinePreview,
 		HlmAlertDescription,
 		HlmAlert,
 		NgIcon,
@@ -85,6 +89,24 @@ export const routeMeta: RouteMeta = {
 					<spartan-tabs-vertical />
 				</div>
 				<spartan-code secondTab [code]="_verticalCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__basic" spartanH4>Basic</h3>
+
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-tabs-basic />
+				</div>
+				<spartan-code secondTab [code]="_basicCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__line" spartanH4>Line</h3>
+
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-tabs-line />
+				</div>
+				<spartan-code secondTab [code]="_basicCode()" />
 			</spartan-tabs>
 
 			<h3 id="examples__paginated_tabs" spartanH4>Paginated Tabs</h3>
@@ -144,6 +166,7 @@ export default class TabsPage {
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('tabs');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _verticalCode = computed(() => this._snippets()['vertical']);
+	protected readonly _basicCode = computed(() => this._snippets()['basic']);
 	protected readonly _paginatedCode = computed(() => this._snippets()['paginated']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;

@@ -13,9 +13,6 @@ export class HlmTabsContent {
 	public readonly contentFor = input.required<string>({ alias: 'hlmTabsContent' });
 
 	constructor() {
-		classes(
-			() =>
-				'ring-offset-background focus-visible:ring-ring mt-2 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
-		);
+		classes(() => 'flex-1 text-sm outline-none');
 	}
 }

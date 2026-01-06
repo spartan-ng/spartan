@@ -13,7 +13,7 @@ import { HlmTabsImports } from '@spartan-ng/helm/tabs';
 	},
 	template: `
 		<hlm-tabs tab="account" class="mx-auto flex max-w-3xl flex-row space-x-2" orientation="vertical">
-			<hlm-tabs-list orientation="vertical" aria-label="tabs example">
+			<hlm-tabs-list aria-label="tabs example">
 				<button class="w-full" hlmTabsTrigger="account">Account</button>
 				<button class="w-full" hlmTabsTrigger="password">Password</button>
 				<button class="w-full" hlmTabsTrigger="danger">Danger Zone</button>

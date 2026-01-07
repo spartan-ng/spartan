@@ -4,7 +4,7 @@ import { booleanAttribute, Directive, input } from '@angular/core';
 import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
-	selector: 'button[hlmDropdownMenuItem]',
+	selector: '[hlmDropdownMenuItem]',
 	hostDirectives: [
 		{
 			directive: CdkMenuItem,
@@ -14,7 +14,7 @@ import { classes } from '@spartan-ng/helm/utils';
 	],
 	host: {
 		'data-slot': 'dropdown-menu-item',
-		'[disabled]': 'disabled() || null',
+		'[attr.disabled]': 'disabled() || null',
 		'[attr.data-disabled]': 'disabled() ? "" : null',
 		'[attr.data-variant]': 'variant()',
 		'[attr.data-inset]': 'inset() ? "" : null',

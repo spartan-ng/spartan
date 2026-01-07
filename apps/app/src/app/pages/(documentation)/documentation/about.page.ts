@@ -111,7 +111,7 @@ const aboutLink = 'h-6 underline text-sm px-0.5';
 			</p>
 
 			<spartan-page-bottom-nav>
-				<spartan-page-bottom-nav-link href="/stack/overview" label="Stack" />
+				<spartan-page-bottom-nav-link href="installation" label="Installation" />
 				<spartan-page-bottom-nav-link direction="previous" href="changelog" label="Changelog" />
 			</spartan-page-bottom-nav>
 		</section>

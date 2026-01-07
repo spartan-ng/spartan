@@ -174,7 +174,7 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="figma" label="Figma" />
-				<spartan-page-bottom-nav-link direction="previous" href="dark-mode" label="Dark Mode" />
+				<spartan-page-bottom-nav-link direction="previous" href="cli" label="CLI" />
 			</spartan-page-bottom-nav>
 		</section>
 

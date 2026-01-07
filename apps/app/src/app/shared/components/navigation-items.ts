@@ -85,8 +85,6 @@ export const sidenavItems: NavItem[] = [
 		url: '/documentation',
 		links: [
 			{ label: 'Introduction', url: '/introduction' },
-			{ label: 'CLI', url: '/cli' },
-			{ label: 'components.json', url: '/components-json' },
 			{ label: 'Changelog', url: '/changelog' },
 			{ label: 'About & Credits', url: '/about' },
 		],
@@ -96,8 +94,10 @@ export const sidenavItems: NavItem[] = [
 		url: '/documentation',
 		links: [
 			{ label: 'Installation', url: '/installation' },
+			{ label: 'components.json', url: '/components-json' },
 			{ label: 'Theming', url: '/theming' },
 			{ label: 'Dark Mode', url: '/dark-mode' },
+			{ label: 'CLI', url: '/cli' },
 			{ label: 'Typography', url: '/typography' },
 			{ label: 'Figma', url: '/figma' },
 			{ label: 'Version Support', url: '/version-support' },

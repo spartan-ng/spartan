@@ -231,7 +231,7 @@ export const routeMeta: RouteMeta = {
 			</div>
 
 			<spartan-page-bottom-nav>
-				<spartan-page-bottom-nav-link href="cli" label="CLI" />
+				<spartan-page-bottom-nav-link href="changelog" label="Changelog" />
 				<spartan-page-bottom-nav-placeholder />
 			</spartan-page-bottom-nav>
 		</section>

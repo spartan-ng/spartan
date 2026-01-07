@@ -394,8 +394,8 @@ module.exports = {
 			<spartan-code class="mt-4 mb-6" code="@import '@angular/cdk/overlay-prebuilt.css';" />
 
 			<spartan-page-bottom-nav>
-				<spartan-page-bottom-nav-link href="theming" label="Theming" />
-				<spartan-page-bottom-nav-link direction="previous" href="/stack" label="Stack" />
+				<spartan-page-bottom-nav-link href="components-json" label="components.json" />
+				<spartan-page-bottom-nav-link direction="previous" href="about" label="About" />
 			</spartan-page-bottom-nav>
 		</section>
 

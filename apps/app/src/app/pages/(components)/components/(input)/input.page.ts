@@ -120,8 +120,8 @@ export const routeMeta: RouteMeta = {
 			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-page-bottom-nav>
-				<spartan-page-bottom-nav-link href="input-group" label="Input Group" />
-				<spartan-page-bottom-nav-link direction="previous" href="icon" label="Icon" />
+				<spartan-page-bottom-nav-link href="item" label="Item" />
+				<spartan-page-bottom-nav-link direction="previous" href="input-otp" label="Input OTP" />
 			</spartan-page-bottom-nav>
 		</section>
 		<spartan-page-nav />

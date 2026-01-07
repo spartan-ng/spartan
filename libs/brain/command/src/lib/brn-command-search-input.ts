@@ -8,6 +8,7 @@ import {
 	inject,
 	Injector,
 	input,
+	linkedSignal,
 	OnInit,
 	signal,
 } from '@angular/core';
@@ -45,10 +46,10 @@ export class BrnCommandSearchInput extends DefaultValueAccessor implements OnIni
 	public readonly value = input<string>('');
 
 	/** @internal The mutable value of the search input */
-	public readonly mutableValue = computed(() => signal(this.value()));
+	public readonly mutableValue = linkedSignal(this.value);
 
 	/** @internal The "real" value of the search input */
-	public readonly valueState = computed(() => this.mutableValue()());
+	public readonly valueState = computed(() => this.mutableValue());
 
 	/** The id of the active option */
 	protected readonly _activeDescendant = signal<string | undefined>(undefined);
@@ -66,7 +67,7 @@ export class BrnCommandSearchInput extends DefaultValueAccessor implements OnIni
 	}
 	/** Listen for changes to the input value */
 	protected onInput(): void {
-		this.mutableValue().set(this._el.nativeElement.value);
+		this.mutableValue.set(this._el.nativeElement.value);
 	}
 
 	/** Listen for keydown events */
@@ -78,7 +79,7 @@ export class BrnCommandSearchInput extends DefaultValueAccessor implements OnIni
 	override writeValue(value: string | null): void {
 		super.writeValue(value);
 		if (value) {
-			this.mutableValue().set(value);
+			this.mutableValue.set(value);
 		}
 	}
 }

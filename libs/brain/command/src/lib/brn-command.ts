@@ -1,7 +1,6 @@
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
-import { isPlatformBrowser } from '@angular/common';
 import {
-	type AfterViewInit,
+	afterNextRender,
 	computed,
 	contentChild,
 	contentChildren,
@@ -11,7 +10,6 @@ import {
 	Injector,
 	input,
 	output,
-	PLATFORM_ID,
 	untracked,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -27,10 +25,8 @@ import { type CommandFilter, injectBrnCommandConfig, provideBrnCommand } from '.
 		'(keydown.enter)': 'selectActiveItem()',
 	},
 })
-export class BrnCommand implements AfterViewInit {
+export class BrnCommand {
 	private static _id = 0;
-
-	private readonly _platform = inject(PLATFORM_ID);
 
 	private readonly _injector = inject(Injector);
 
@@ -85,12 +81,12 @@ export class BrnCommand implements AfterViewInit {
 				this.valueChange.emit(value);
 			}
 		});
-	}
 
-	ngAfterViewInit(): void {
-		if (isPlatformBrowser(this._platform) && this.items().length) {
-			this.keyManager.setActiveItem(0);
-		}
+		afterNextRender(() => {
+			if (this.items().length) {
+				this.keyManager.setActiveItem(0);
+			}
+		});
 	}
 
 	protected selectActiveItem(): void {

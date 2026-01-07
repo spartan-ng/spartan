@@ -1,4 +1,4 @@
-import { Component, HostListener, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import * as lucide from '@ng-icons/lucide';
@@ -46,15 +46,15 @@ export const Default: Story = {
       <hlm-command-group-label>Suggestions</hlm-command-group-label>
 
       <button hlm-command-item value="Calendar">
-        <ng-icon hlm name="lucideCalendar" hlmCommandIcon />
+        <ng-icon name="lucideCalendar" />
         Calendar
       </button>
       <button disabled hlm-command-item value="Search Emoji">
-        <ng-icon hlm name="lucideSmile" hlmCommandIcon />
+        <ng-icon name="lucideSmile" />
         Search Emoji
       </button>
       <button hlm-command-item value="Calculator">
-        <ng-icon hlm name="lucidePlus" hlmCommandIcon />
+        <ng-icon name="lucidePlus" />
         Calculator
       </button>
     </hlm-command-group>
@@ -65,17 +65,17 @@ export const Default: Story = {
       <hlm-command-group-label>Settings</hlm-command-group-label>
 
       <button hlm-command-item value="Profile">
-        <ng-icon hlm name="lucideUser" hlmCommandIcon />
+        <ng-icon name="lucideUser" />
         Profile
         <hlm-command-shortcut>⌘P</hlm-command-shortcut>
       </button>
       <button hlm-command-item value="Billing">
-        <ng-icon hlm name="lucideWallet" hlmCommandIcon />
+        <ng-icon name="lucideWallet" />
         Billing
         <hlm-command-shortcut>⌘B</hlm-command-shortcut>
       </button>
       <button hlm-command-item value="Settings">
-        <ng-icon hlm name="lucideCog" hlmCommandIcon />
+        <ng-icon name="lucideCog" />
         Settings
         <hlm-command-shortcut>⌘S</hlm-command-shortcut>
       </button>
@@ -101,6 +101,9 @@ export const Default: Story = {
 		HlmButtonImports,
 		HlmCode,
 	],
+	host: {
+		'(window:keydown)': 'onKeyDown($event)',
+	},
 	template: `
 		<div class="mx-auto flex max-w-screen-sm items-center justify-center space-x-4 py-20 text-sm">
 			<p>
@@ -113,61 +116,59 @@ export const Default: Story = {
 			</p>
 		</div>
 		<hlm-dialog [state]="state()" (stateChanged)="stateChanged($event)">
-			<hlm-command *brnDialogContent="let ctx" hlmCommandDialog class="relative mx-auto sm:w-[400px]">
-				<button hlmCommandDialogCloseBtn>
-					<ng-icon hlm name="lucideX" />
-				</button>
+			<hlm-dialog-content *brnDialogContent="let ctx" class="w-[400px] p-0">
+				<hlm-command hlmCommandDialog>
+					<hlm-command-search>
+						<ng-icon hlm name="lucideSearch" class="inline-flex" />
 
-				<hlm-command-search>
-					<ng-icon hlm name="lucideSearch" class="inline-flex" />
+						<input type="text" hlm-command-search-input placeholder="Type a command or search..." />
+					</hlm-command-search>
 
-					<input type="text" hlm-command-search-input placeholder="Type a command or search..." />
-				</hlm-command-search>
+					<hlm-command-list>
+						<hlm-command-group>
+							<hlm-command-group-label>Suggestions</hlm-command-group-label>
 
-				<hlm-command-list>
-					<hlm-command-group>
-						<hlm-command-group-label>Suggestions</hlm-command-group-label>
+							<button hlm-command-item value="Calendar">
+								<ng-icon name="lucideCalendar" />
+								Calendar
+							</button>
+							<button hlm-command-item disabled value="Search Emoji">
+								<ng-icon name="lucideSmile" />
+								Search Emoji
+							</button>
+							<button hlm-command-item value="Calculator">
+								<ng-icon name="lucidePlus" />
+								Calculator
+							</button>
+						</hlm-command-group>
 
-						<button hlm-command-item value="Calendar">
-							<ng-icon hlm name="lucideCalendar" hlmCommandIcon />
-							Calendar
-						</button>
-						<button hlm-command-item disabled value="Search Emoji">
-							<ng-icon hlm name="lucideSmile" hlmCommandIcon />
-							Search Emoji
-						</button>
-						<button hlm-command-item value="Calculator">
-							<ng-icon hlm name="lucidePlus" hlmCommandIcon />
-							Calculator
-						</button>
-					</hlm-command-group>
+						<hlm-command-separator />
 
-					<hlm-command-separator />
+						<hlm-command-group>
+							<hlm-command-group-label>Settings</hlm-command-group-label>
 
-					<hlm-command-group>
-						<hlm-command-group-label>Settings</hlm-command-group-label>
+							<button hlm-command-item value="Profile">
+								<ng-icon name="lucideUser" />
+								Profile
+								<hlm-command-shortcut>⌘P</hlm-command-shortcut>
+							</button>
+							<button hlm-command-item value="Billing">
+								<ng-icon name="lucideWallet" />
+								Billing
+								<hlm-command-shortcut>⌘B</hlm-command-shortcut>
+							</button>
+							<button hlm-command-item value="Settings">
+								<ng-icon name="lucideCog" />
+								Settings
+								<hlm-command-shortcut>⌘S</hlm-command-shortcut>
+							</button>
+						</hlm-command-group>
+					</hlm-command-list>
 
-						<button hlm-command-item value="Profile">
-							<ng-icon hlm name="lucideUser" hlmCommandIcon />
-							Profile
-							<hlm-command-shortcut>⌘P</hlm-command-shortcut>
-						</button>
-						<button hlm-command-item value="Billing">
-							<ng-icon hlm name="lucideWallet" hlmCommandIcon />
-							Billing
-							<hlm-command-shortcut>⌘B</hlm-command-shortcut>
-						</button>
-						<button hlm-command-item value="Settings">
-							<ng-icon hlm name="lucideCog" hlmCommandIcon />
-							Settings
-							<hlm-command-shortcut>⌘S</hlm-command-shortcut>
-						</button>
-					</hlm-command-group>
-				</hlm-command-list>
-
-				<!-- Empty state -->
-				<div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
-			</hlm-command>
+					<!-- Empty state -->
+					<div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
+				</hlm-command>
+			</hlm-dialog-content>
 		</hlm-dialog>
 	`,
 })
@@ -175,7 +176,6 @@ class CommandDialog {
 	public command = signal('');
 	public state = signal<'closed' | 'open'>('closed');
 
-	@HostListener('window:keydown', ['$event'])
 	onKeyDown(event: KeyboardEvent) {
 		if ((event.metaKey || event.ctrlKey) && (event.key === 'k' || event.key === 'K')) {
 			this.state.set('open');
@@ -219,7 +219,7 @@ export const Dialog: Story = {
 					<hlm-command-group-label>Suggestions</hlm-command-group-label>
 					@for (item of items(); track item.value) {
 						<button hlm-command-item [value]="item.value" data-testid="command-item">
-							<ng-icon hlm [name]="item.icon" hlmCommandIcon />
+							<ng-icon [name]="item.icon" />
 							{{ item.label }}
 						</button>
 					}
@@ -273,7 +273,7 @@ export const DynamicOptions: Story = {
 					<hlm-command-group-label>Suggestions</hlm-command-group-label>
 					@for (item of items(); track item.value) {
 						<button hlm-command-item [value]="item.value" data-testid="command-item">
-							<ng-icon hlm [name]="item.icon" hlmCommandIcon />
+							<ng-icon [name]="item.icon" />
 							{{ item.label }}
 						</button>
 					}
@@ -324,7 +324,7 @@ export const ReactiveForm: Story = {
 					<hlm-command-group-label>Suggestions</hlm-command-group-label>
 					@for (item of items(); track item.value) {
 						<button hlm-command-item [value]="item.value" data-testid="command-item">
-							<ng-icon hlm [name]="item.icon" hlmCommandIcon />
+							<ng-icon [name]="item.icon" />
 							{{ item.label }}
 						</button>
 					}

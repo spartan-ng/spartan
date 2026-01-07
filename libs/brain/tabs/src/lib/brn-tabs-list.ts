@@ -18,7 +18,7 @@ export class BrnTabsList implements AfterContentInit {
 	private readonly _root = inject(BrnTabs);
 
 	protected readonly _orientation = this._root.$orientation;
-	private readonly _direction = this._root.$direction;
+	private readonly _direction = this._root.direction;
 	private readonly _activeTab = this._root.$activeTab;
 	private readonly _tabs = this._root.$tabs;
 	private readonly _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);

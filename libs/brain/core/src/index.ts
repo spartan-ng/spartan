@@ -7,6 +7,7 @@ export * from './helpers/exposes-side';
 export * from './helpers/exposes-state';
 export * from './helpers/measure-dimensions';
 export * from './helpers/menu-align';
+export * from './helpers/resolve-value-label';
 export * from './helpers/table-classes-settable';
 export * from './helpers/wait-for-element-animations';
 export * from './helpers/zone-free';

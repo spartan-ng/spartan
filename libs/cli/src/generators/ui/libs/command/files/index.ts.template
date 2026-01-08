@@ -1,10 +1,9 @@
 import { HlmCommand } from './lib/hlm-command';
 import { HlmCommandDialog } from './lib/hlm-command-dialog';
-import { HlmCommandDialogCloseButton } from './lib/hlm-command-dialog-close-button';
 import { HlmCommandEmpty } from './lib/hlm-command-empty';
+import { HlmCommandEmptyState } from './lib/hlm-command-empty-state';
 import { HlmCommandGroup } from './lib/hlm-command-group';
 import { HlmCommandGroupLabel } from './lib/hlm-command-group-label';
-import { HlmCommandIcon } from './lib/hlm-command-icon';
 import { HlmCommandItem } from './lib/hlm-command-item';
 import { HlmCommandList } from './lib/hlm-command-list';
 import { HlmCommandSearch } from './lib/hlm-command-search';
@@ -14,11 +13,10 @@ import { HlmCommandShortcut } from './lib/hlm-command-shortcut';
 
 export * from './lib/hlm-command';
 export * from './lib/hlm-command-dialog';
-export * from './lib/hlm-command-dialog-close-button';
 export * from './lib/hlm-command-empty';
+export * from './lib/hlm-command-empty-state';
 export * from './lib/hlm-command-group';
 export * from './lib/hlm-command-group-label';
-export * from './lib/hlm-command-icon';
 export * from './lib/hlm-command-item';
 export * from './lib/hlm-command-list';
 export * from './lib/hlm-command-search';
@@ -28,16 +26,15 @@ export * from './lib/hlm-command-shortcut';
 
 export const HlmCommandImports = [
 	HlmCommand,
-	HlmCommandItem,
-	HlmCommandSeparator,
-	HlmCommandGroup,
-	HlmCommandList,
-	HlmCommandShortcut,
-	HlmCommandIcon,
-	HlmCommandDialogCloseButton,
 	HlmCommandDialog,
+	HlmCommandEmpty,
+	HlmCommandEmptyState,
+	HlmCommandGroup,
+	HlmCommandGroupLabel,
+	HlmCommandItem,
+	HlmCommandList,
 	HlmCommandSearchInput,
 	HlmCommandSearch,
-	HlmCommandGroupLabel,
-	HlmCommandEmpty,
+	HlmCommandSeparator,
+	HlmCommandShortcut,
 ] as const;

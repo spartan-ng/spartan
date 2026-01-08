@@ -16,6 +16,6 @@ import { classes } from '<%- importAlias %>/utils';
 })
 export class HlmCommandList {
 	constructor() {
-		classes(() => 'max-h-[300px] overflow-x-hidden overflow-y-auto');
+		classes(() => 'max-h-[300px] scroll-py-1 overflow-x-hidden overflow-y-auto');
 	}
 }

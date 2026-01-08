@@ -1,6 +1,7 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { TabsCli } from '@spartan-ng/app/app/shared/layout/tabs-cli';
 import { UIApiDocs } from '@spartan-ng/app/app/shared/layout/ui-docs-section/ui-docs-section';
 import { Code } from '../../../../shared/code/code';
@@ -13,6 +14,13 @@ import { SectionIntro } from '../../../../shared/layout/section-intro';
 import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading';
 import { Tabs } from '../../../../shared/layout/tabs';
 import { metaWith } from '../../../../shared/meta/meta.util';
+import { ComboboxClearPreview } from './combobox--clear.preview';
+import { ComboboxDisabledPreview } from './combobox--disabled.preview';
+import { ComboboxFormPreview } from './combobox--form.preview';
+import { ComboboxGroupSeparatorPreview } from './combobox--group-separator.preview';
+import { ComboboxGroupPreview } from './combobox--group.preview';
+import { ComboboxIconAddonPreview } from './combobox--icon-addon.preview';
+import { ComboboxPopupPreview } from './combobox--popup.preview';
 import { ComboboxPreview, defaultImports, defaultSkeleton } from './combobox.preview';
 
 export const routeMeta: RouteMeta = {
@@ -33,9 +41,17 @@ export const routeMeta: RouteMeta = {
 		PageNav,
 		PageBottomNav,
 		PageBottomNavLink,
+		SectionSubSubHeading,
 		ComboboxPreview,
 		TabsCli,
 		UIApiDocs,
+		ComboboxDisabledPreview,
+		ComboboxClearPreview,
+		ComboboxGroupPreview,
+		ComboboxGroupSeparatorPreview,
+		ComboboxIconAddonPreview,
+		ComboboxFormPreview,
+		ComboboxPopupPreview,
 	],
 	template: `
 		<section spartanMainSection>
@@ -61,6 +77,64 @@ export const routeMeta: RouteMeta = {
 				<spartan-code [code]="_defaultSkeleton" />
 			</div>
 
+			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
+
+			<h3 id="examples__clear" spartanH4>With Clear Button</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-combobox-clear-preview />
+				</div>
+				<spartan-code secondTab [code]="_clearCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__disabled" spartanH4>Disabled</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-combobox-disabled-preview />
+				</div>
+				<spartan-code secondTab [code]="_disabledCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__group" spartanH4>With Groups</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-combobox-group-preview />
+				</div>
+				<spartan-code secondTab [code]="_groupCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__group_separator" spartanH4>With Groups and Separators</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-combobox-group-separator-preview />
+				</div>
+				<spartan-code secondTab [code]="_groupSeparatorCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__icon_addon" spartanH4>With Icon Addon</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-combobox-icon-addon-preview />
+				</div>
+				<spartan-code secondTab [code]="_iconAddonCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__form" spartanH4>Form</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-combobox-form-preview />
+				</div>
+				<spartan-code secondTab [code]="_formCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__popup" spartanH4>Popup</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-combobox-popup-preview />
+				</div>
+				<spartan-code secondTab [code]="_popupCode()" />
+			</spartan-tabs>
+
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="brain" />
 
@@ -78,6 +152,13 @@ export const routeMeta: RouteMeta = {
 export default class ComboboxPage {
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('combobox');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
+	protected readonly _clearCode = computed(() => this._snippets()['clear']);
+	protected readonly _disabledCode = computed(() => this._snippets()['disabled']);
+	protected readonly _groupCode = computed(() => this._snippets()['group']);
+	protected readonly _groupSeparatorCode = computed(() => this._snippets()['groupSeparator']);
+	protected readonly _iconAddonCode = computed(() => this._snippets()['iconAddon']);
+	protected readonly _formCode = computed(() => this._snippets()['form']);
+	protected readonly _popupCode = computed(() => this._snippets()['popup']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

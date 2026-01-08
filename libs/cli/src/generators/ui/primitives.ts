@@ -14,6 +14,7 @@ export type Primitive =
 	| 'carousel'
 	| 'checkbox'
 	| 'collapsible'
+	| 'combobox'
 	| 'command'
 	| 'context-menu'
 	| 'date-picker'

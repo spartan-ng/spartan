@@ -5,6 +5,7 @@ import { HlmComboboxImports } from '@spartan-ng/helm/combobox';
 @Component({
 	selector: 'spartan-combobox-popup-preview',
 	imports: [HlmComboboxImports, BrnPopoverContent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-combobox [value]="countries[0]" autoFocus="first-tabbable">
 			<hlm-combobox-trigger class="w-64 justify-between font-normal">
@@ -21,10 +22,9 @@ import { HlmComboboxImports } from '@spartan-ng/helm/combobox';
 			</div>
 		</hlm-combobox>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ComboboxPopupPreview {
-	countries = [
+	public countries = [
 		{ code: '', value: '', continent: '', label: 'Select country' },
 		{ code: 'af', value: 'afghanistan', label: 'Afghanistan', continent: 'Asia' },
 		{ code: 'al', value: 'albania', label: 'Albania', continent: 'Europe' },

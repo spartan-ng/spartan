@@ -49,6 +49,7 @@ export class BrnCombobox<T> implements ControlValueAccessor {
 
 	public readonly disabled = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	public readonly _disabled = linkedSignal(this.disabled);
 
 	public readonly filterOptions = input<ComboboxFilterOptions>({});

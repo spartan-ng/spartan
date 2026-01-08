@@ -10,9 +10,9 @@ import { HlmComboboxPopoverTrigger } from './hlm-combobox-popover-trigger';
 @Component({
 	selector: 'hlm-combobox-input',
 	imports: [HlmInputGroupImports, NgIcon, BrnComboboxImports, HlmComboboxPopoverTrigger],
-	hostDirectives: [BrnComboboxInputWrapper],
 	providers: [provideIcons({ lucideChevronDown, lucideX })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	hostDirectives: [BrnComboboxInputWrapper],
 	template: `
 		<hlm-input-group brnComboboxAnchor class="w-auto">
 			<input

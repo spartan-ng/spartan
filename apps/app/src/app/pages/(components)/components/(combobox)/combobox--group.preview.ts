@@ -5,6 +5,7 @@ import { HlmComboboxImports } from '@spartan-ng/helm/combobox';
 @Component({
 	selector: 'spartan-combobox-group-preview',
 	imports: [HlmComboboxImports, BrnPopoverContent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-combobox>
 			<hlm-combobox-input placeholder="Select a timezone"></hlm-combobox-input>
@@ -23,10 +24,9 @@ import { HlmComboboxImports } from '@spartan-ng/helm/combobox';
 			</div>
 		</hlm-combobox>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ComboboxGroupPreview {
-	timezones = [
+	public timezones = [
 		{
 			value: 'Americas',
 			items: [

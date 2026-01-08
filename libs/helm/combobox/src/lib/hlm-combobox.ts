@@ -6,14 +6,6 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmCombobox],hlm-combobox',
-	hostDirectives: [
-		{ directive: BrnCombobox, inputs: ['disabled', 'filter', 'value'], outputs: ['valueChange'] },
-		{
-			directive: BrnPopover,
-			inputs: ['align', 'autoFocus', 'closeDelay', 'closeOnOutsidePointerEvents', 'sideOffset', 'state', 'offsetX'],
-			outputs: ['stateChanged', 'closed'],
-		},
-	],
 	providers: [
 		provideBrnPopoverConfig({
 			align: 'start',
@@ -22,6 +14,14 @@ import { classes } from '@spartan-ng/helm/utils';
 		provideBrnDialogDefaultOptions({
 			autoFocus: 'first-heading',
 		}),
+	],
+	hostDirectives: [
+		{ directive: BrnCombobox, inputs: ['disabled', 'filter', 'value'], outputs: ['valueChange'] },
+		{
+			directive: BrnPopover,
+			inputs: ['align', 'autoFocus', 'closeDelay', 'closeOnOutsidePointerEvents', 'sideOffset', 'state', 'offsetX'],
+			outputs: ['stateChanged', 'closed'],
+		},
 	],
 	host: {
 		'data-slot': 'combobox',

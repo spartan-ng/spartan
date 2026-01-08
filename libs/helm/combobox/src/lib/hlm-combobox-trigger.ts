@@ -11,9 +11,9 @@ import { HlmComboboxPopoverTrigger } from './hlm-combobox-popover-trigger';
 @Component({
 	selector: 'hlm-combobox-trigger',
 	imports: [NgIcon, HlmButton, BrnComboboxAnchor, HlmComboboxPopoverTrigger],
-	hostDirectives: [BrnComboboxInputWrapper],
 	providers: [provideIcons({ lucideChevronDown })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	hostDirectives: [BrnComboboxInputWrapper],
 	template: `
 		<button
 			brnComboboxAnchor

@@ -8,14 +8,14 @@ import { classes } from '@spartan-ng/helm/utils';
 	selector: 'hlm-combobox-item',
 	imports: [NgIcon],
 	providers: [provideIcons({ lucideCheck })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [{ directive: BrnComboboxItem, inputs: ['disabled', 'value'] }],
 	host: {
 		'data-slot': 'combobox-item',
 	},
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ng-content />
-		@if (active()) {
+		@if (_active()) {
 			<ng-icon
 				name="lucideCheck"
 				class="pointer-events-none absolute right-2 flex size-4 items-center justify-center"
@@ -25,9 +25,9 @@ import { classes } from '@spartan-ng/helm/utils';
 	`,
 })
 export class HlmComboboxItem {
-	private readonly brnComboboxItem = inject(BrnComboboxItem);
+	private readonly _brnComboboxItem = inject(BrnComboboxItem);
 
-	active = this.brnComboboxItem.active;
+	protected readonly _active = this._brnComboboxItem.active;
 
 	constructor() {
 		classes(

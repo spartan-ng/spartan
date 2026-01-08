@@ -7,6 +7,7 @@ import { HlmComboboxImports } from '@spartan-ng/helm/combobox';
 @Component({
 	selector: 'spartan-combobox-form-preview',
 	imports: [HlmComboboxImports, BrnPopoverContent, ReactiveFormsModule, HlmButton],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<form [formGroup]="form" [formGroup]="form" (ngSubmit)="submit()" class="space-y-8">
 			<hlm-combobox formControlName="framework">
@@ -24,7 +25,6 @@ import { HlmComboboxImports } from '@spartan-ng/helm/combobox';
 			<button type="submit" hlmBtn [disabled]="form.invalid">Submit</button>
 		</form>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ComboboxFormPreview {
 	private readonly _formBuilder = inject(FormBuilder);
@@ -33,7 +33,7 @@ export class ComboboxFormPreview {
 		framework: new FormControl<string | null>(null),
 	});
 
-	frameworks = ['Analog', 'Next.js', 'SvelteKit', 'Nuxt.js', 'Remix', 'Astro'];
+	public frameworks = ['Analog', 'Next.js', 'SvelteKit', 'Nuxt.js', 'Remix', 'Astro'];
 
 	submit() {
 		console.log(this.form.value);

@@ -1,4 +1,4 @@
-import { computed, Directive, effect, ElementRef, inject, input, linkedSignal } from '@angular/core';
+import { computed, Directive, effect, ElementRef, inject, input } from '@angular/core';
 import { stringifyAsLabel } from '@spartan-ng/brain/core';
 import { BrnComboboxContent } from './brn-combobox-content';
 import { injectBrnCombobox } from './brn-combobox.token';
@@ -39,18 +39,14 @@ export class BrnComboboxInput<T> {
 	/** Whether the autocomplete panel is expanded */
 	protected readonly _isExpanded = this._combobox.isExpanded;
 
-	protected readonly _value = linkedSignal(this._combobox.value);
-
 	constructor() {
 		effect(() => {
 			const mode = this._mode();
-
+			const value = this._combobox.value();
 			const search = this._combobox.search();
 
 			switch (mode) {
 				case 'combobox':
-					const value = this._value();
-
 					if (value && search === '') {
 						this._el.nativeElement.value = stringifyAsLabel(value, this._combobox.itemToString());
 					} else if (search === '') {

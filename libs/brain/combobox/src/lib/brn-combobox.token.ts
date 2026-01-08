@@ -1,4 +1,4 @@
-import { ExistingProvider, inject, InjectionToken, Type, ValueProvider } from '@angular/core';
+import { type ExistingProvider, inject, InjectionToken, type Type, type ValueProvider } from '@angular/core';
 import type { BrnCombobox } from './brn-combobox';
 import { comboboxContainsFilter } from './brn-combobox-filter';
 

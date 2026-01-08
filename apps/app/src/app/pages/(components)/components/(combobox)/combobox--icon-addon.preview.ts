@@ -9,6 +9,7 @@ import { HlmInputGroupAddon } from '@spartan-ng/helm/input-group';
 	selector: 'spartan-combobox-icon-addon-preview',
 	imports: [HlmComboboxImports, BrnPopoverContent, HlmInputGroupAddon, NgIcon],
 	providers: [provideIcons({ lucideGlobe })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-combobox>
 			<hlm-combobox-input placeholder="Select a timezone">
@@ -32,10 +33,9 @@ import { HlmInputGroupAddon } from '@spartan-ng/helm/input-group';
 			</div>
 		</hlm-combobox>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ComboboxIconAddonPreview {
-	timezones = [
+	public timezones = [
 		{
 			value: 'Americas',
 			items: [

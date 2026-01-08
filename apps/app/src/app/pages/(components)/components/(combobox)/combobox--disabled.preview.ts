@@ -5,6 +5,7 @@ import { HlmComboboxImports } from '@spartan-ng/helm/combobox';
 @Component({
 	selector: 'spartan-combobox-disabled-preview',
 	imports: [HlmComboboxImports, BrnPopoverContent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-combobox disabled>
 			<hlm-combobox-input placeholder="Select a framework" showClear></hlm-combobox-input>
@@ -18,8 +19,7 @@ import { HlmComboboxImports } from '@spartan-ng/helm/combobox';
 			</div>
 		</hlm-combobox>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ComboboxDisabledPreview {
-	frameworks = ['Analog', 'Next.js', 'SvelteKit', 'Nuxt.js', 'Remix', 'Astro'];
+	public frameworks = ['Analog', 'Next.js', 'SvelteKit', 'Nuxt.js', 'Remix', 'Astro'];
 }

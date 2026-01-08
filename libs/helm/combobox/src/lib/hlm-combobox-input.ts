@@ -12,6 +12,7 @@ import { HlmComboboxPopoverTrigger } from './hlm-combobox-popover-trigger';
 	imports: [HlmInputGroupImports, NgIcon, BrnComboboxImports, HlmComboboxPopoverTrigger],
 	hostDirectives: [BrnComboboxInputWrapper],
 	providers: [provideIcons({ lucideChevronDown, lucideX })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-input-group brnComboboxAnchor class="w-auto">
 			<input
@@ -55,7 +56,6 @@ import { HlmComboboxPopoverTrigger } from './hlm-combobox-popover-trigger';
 			<ng-content />
 		</hlm-input-group>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmComboboxInput {
 	public readonly placeholder = input<string>('');

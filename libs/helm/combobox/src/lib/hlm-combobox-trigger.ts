@@ -13,12 +13,13 @@ import { HlmComboboxPopoverTrigger } from './hlm-combobox-popover-trigger';
 	imports: [NgIcon, HlmButton, BrnComboboxAnchor, HlmComboboxPopoverTrigger],
 	hostDirectives: [BrnComboboxInputWrapper],
 	providers: [provideIcons({ lucideChevronDown })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<button
 			brnComboboxAnchor
 			hlmComboboxPopoverTrigger
 			hlmBtn
-			data-slot="combobox-trigger-button"
+			data-slot="combobox-trigger"
 			[class]="_computedClass()"
 			[variant]="variant()"
 			[disabled]="disabled()"
@@ -27,7 +28,6 @@ import { HlmComboboxPopoverTrigger } from './hlm-combobox-popover-trigger';
 			<ng-icon name="lucideChevronDown" />
 		</button>
 	`,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HlmComboboxTrigger {
 	public readonly _userClass = input<ClassValue>('', {

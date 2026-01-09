@@ -14,8 +14,8 @@ import { injectBrnComboboxBase } from './brn-combobox.token';
 		'aria-autocomplete': 'list',
 		'aria-haspopup': 'listbox',
 		'[attr.aria-expanded]': '_isExpanded()',
-		'[attr.disabled]': 'disabled() ? "" : null',
-		'[attr.data-disabled]': 'disabled() ? "" : null',
+		'[attr.disabled]': '_disabled() ? "" : null',
+		'[attr.data-disabled]': '_disabled() ? "" : null',
 		'(keydown)': 'onKeyDown($event)',
 		'(input)': 'onInput($event)',
 	},
@@ -27,7 +27,7 @@ export class BrnComboboxChipInput<T> {
 	/** The id of the combobox input */
 	public readonly id = input<string>(`brn-combobox-input-${++BrnComboboxChipInput._id}`);
 
-	protected readonly disabled = this._combobox.disabledState;
+	protected readonly _disabled = this._combobox.disabledState;
 
 	/** Whether the combobox panel is expanded */
 	protected readonly _isExpanded = this._combobox.isExpanded;

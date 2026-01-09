@@ -1,17 +1,17 @@
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import {
-	ExistingProvider,
+	type ExistingProvider,
 	inject,
 	InjectionToken,
-	InputSignal,
-	ModelSignal,
-	Signal,
-	Type,
-	WritableSignal,
+	type InputSignal,
+	type ModelSignal,
+	type Signal,
+	type Type,
 	type ValueProvider,
+	type WritableSignal,
 } from '@angular/core';
 import { comboboxContainsFilter } from './brn-combobox-filter';
-import { BrnComboboxItem } from './brn-combobox-item';
+import { type BrnComboboxItem } from './brn-combobox-item';
 
 export interface BrnComboboxBase<T> {
 	filter: InputSignal<ComboboxFilter<T>>;

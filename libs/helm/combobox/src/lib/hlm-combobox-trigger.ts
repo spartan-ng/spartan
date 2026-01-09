@@ -30,10 +30,10 @@ import { HlmComboboxPopoverTrigger } from './hlm-combobox-popover-trigger';
 	`,
 })
 export class HlmComboboxTrigger {
-	public readonly _userClass = input<ClassValue>('', {
+	public readonly userClass = input<ClassValue>('', {
 		alias: 'class',
 	});
-	protected readonly _computedClass = computed(() => hlm(this._userClass()));
+	protected readonly _computedClass = computed(() => hlm(this.userClass()));
 
 	public readonly disabled = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 	public readonly variant = input<ButtonVariants['variant']>('outline');

@@ -1637,6 +1637,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "outputs": [],
         "selector": "[brnComboboxSeparator]",
       },
+      "BrnComboboxTrigger": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnComboboxTrigger]",
+      },
       "BrnComboboxValue": {
         "inputs": [],
         "models": [],
@@ -1768,11 +1774,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "name": "class",
             "required": false,
             "type": "ClassValue",
-          },
-          {
-            "name": "disabled",
-            "required": false,
-            "type": "boolean",
           },
           {
             "name": "variant",

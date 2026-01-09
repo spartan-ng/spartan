@@ -1,6 +1,6 @@
 import { computed, Directive } from '@angular/core';
 import { stringifyAsLabel } from '@spartan-ng/brain/core';
-import { injectBrnCombobox } from './brn-combobox.token';
+import { injectBrnComboboxBase } from './brn-combobox.token';
 
 @Directive({
 	selector: '[brnComboboxValue]',
@@ -9,7 +9,7 @@ import { injectBrnCombobox } from './brn-combobox.token';
 	},
 })
 export class BrnComboboxValue<T> {
-	private readonly _combobox = injectBrnCombobox<T>();
+	private readonly _combobox = injectBrnComboboxBase<T>();
 
 	protected readonly _value = computed(() => stringifyAsLabel(this._combobox.value(), this._combobox.itemToString()));
 }

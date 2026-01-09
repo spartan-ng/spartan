@@ -1,11 +1,11 @@
 import { computed, Directive, effect, inject, Renderer2, TemplateRef, ViewContainerRef } from '@angular/core';
-import { injectBrnCombobox } from './brn-combobox.token';
+import { injectBrnComboboxBase } from './brn-combobox.token';
 
 @Directive({
 	selector: '[brnComboboxClear]',
 })
 export class BrnComboboxClear {
-	private readonly _combobox = injectBrnCombobox();
+	private readonly _combobox = injectBrnComboboxBase();
 	private readonly _renderer = inject(Renderer2);
 	private readonly _templateRef = inject<TemplateRef<void>>(TemplateRef);
 	private readonly _viewContainerRef = inject(ViewContainerRef);

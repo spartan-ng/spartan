@@ -4,7 +4,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { booleanAttribute, computed, Directive, ElementRef, inject, input, PLATFORM_ID, signal } from '@angular/core';
 import { stringifyAsLabel } from '@spartan-ng/brain/core';
 import { provideBrnComboboxItem } from './brn-combobox-item.token';
-import { injectBrnCombobox } from './brn-combobox.token';
+import { injectBrnComboboxBase } from './brn-combobox.token';
 
 @Directive({
 	selector: '[brnComboboxItem]',
@@ -29,7 +29,7 @@ export class BrnComboboxItem<T> implements Highlightable {
 	private readonly _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 
 	/** Access the command component */
-	private readonly _combobox = injectBrnCombobox<T>();
+	private readonly _combobox = injectBrnComboboxBase<T>();
 
 	/** A unique id for the item */
 	public readonly id = input<string>(`brn-combobox-item-${++BrnComboboxItem._id}`);
@@ -49,7 +49,7 @@ export class BrnComboboxItem<T> implements Highlightable {
 	}
 
 	/** Whether the item is selected. */
-	public readonly active = computed(() => this._combobox.value() === this.value());
+	public readonly active = computed(() => this._combobox.isSelected(this.value()));
 
 	protected readonly _highlighted = signal(false);
 

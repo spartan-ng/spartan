@@ -21,5 +21,5 @@ import { HlmComboboxImports } from '@spartan-ng/helm/combobox';
 	`,
 })
 export class ComboboxClearPreview {
-	public frameworks = ['Analog', 'Next.js', 'SvelteKit', 'Nuxt.js', 'Remix', 'Astro'];
+	public frameworks = ['Analog', 'Angular', 'Next.js', 'SvelteKit', 'Nuxt.js', 'Remix', 'Astro'];
 }

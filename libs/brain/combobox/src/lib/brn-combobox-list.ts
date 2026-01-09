@@ -1,5 +1,5 @@
 import { Directive, input } from '@angular/core';
-import { injectBrnCombobox } from './brn-combobox.token';
+import { injectBrnComboboxBase } from './brn-combobox.token';
 
 @Directive({
 	selector: '[brnComboboxList]',
@@ -14,7 +14,7 @@ import { injectBrnCombobox } from './brn-combobox.token';
 export class BrnComboboxList {
 	private static _id = 0;
 
-	private readonly _combobox = injectBrnCombobox();
+	private readonly _combobox = injectBrnComboboxBase();
 
 	/** Determine if the command has any visible items */
 	protected readonly _visibleItems = this._combobox.visibleItems;

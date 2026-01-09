@@ -30,17 +30,17 @@ import {
 	provideBrnComboboxBase,
 } from './brn-combobox.token';
 
-export const BRN_COMBOBOX_VALUE_ACCESSOR = {
+export const BRN_COMBOBOX_MULTIPLE_VALUE_ACCESSOR = {
 	provide: NG_VALUE_ACCESSOR,
-	useExisting: forwardRef(() => BrnCombobox),
+	useExisting: forwardRef(() => BrnComboboxMultiple),
 	multi: true,
 };
 
 @Directive({
 	selector: '[brnCombobox]',
-	providers: [provideBrnComboboxBase(BrnCombobox), BRN_COMBOBOX_VALUE_ACCESSOR],
+	providers: [provideBrnComboboxBase(BrnComboboxMultiple), BRN_COMBOBOX_MULTIPLE_VALUE_ACCESSOR],
 })
-export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor {
+export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueAccessor {
 	private readonly _injector = inject(Injector);
 
 	private readonly _config = injectBrnComboboxConfig<T>();
@@ -67,7 +67,7 @@ export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor 
 	/** A custom filter function to use when searching. */
 	public readonly filter = input<ComboboxFilter<T>>(this._config.filter);
 
-	public readonly value = model<T | null>(null);
+	public readonly value = model<T[] | null>(null);
 
 	public readonly search = signal<string>('');
 
@@ -94,7 +94,7 @@ export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor 
 	/** @internal Whether the autocomplete is expanded */
 	public readonly isExpanded = computed(() => this._brnPopover?.stateComputed() === 'open');
 
-	protected _onChange?: ChangeFn<T>;
+	protected _onChange?: ChangeFn<T[]>;
 	protected _onTouched?: TouchFn;
 
 	constructor() {
@@ -111,13 +111,18 @@ export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor 
 	}
 
 	isSelected(value: T): boolean {
-		return this.value() === value;
+		return this.value()?.some((v) => v === value) ?? false;
 	}
 
 	select(value: T): void {
-		this.value.set(value);
-		this._onChange?.(value);
-		this.close();
+		const selected = this.value() ?? [];
+		if (this.isSelected(value)) {
+			this.value.set(selected.filter((d) => d !== value) ?? []);
+		} else {
+			this.value.set([...selected, value]);
+		}
+
+		this._onChange?.(this.value() ?? []);
 	}
 
 	selectActiveItem() {
@@ -151,20 +156,25 @@ export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor 
 		this.isExpanded() ? this.close() : this.open();
 	}
 
-	removeValue(_: T) {
-		console.warn('BrnComboboxChipRemove only works with multiple selection comboboxes.');
+	removeValue(value: T) {
+		const selected = this.value() ?? [];
+		this.value.set(selected.filter((d) => d !== value) ?? []);
 	}
 
 	removeLastSelectedItem() {
-		console.warn('BrnComboboxChipInput only works with multiple selection comboboxes.');
+		const selected = this.value() ?? [];
+		if (selected.length === 0) return;
+
+		selected.pop();
+		this.value.set([...selected]);
 	}
 
 	/** CONTROL VALUE ACCESSOR */
-	writeValue(value: T | null): void {
+	writeValue(value: T[] | null): void {
 		this.value.set(value);
 	}
 
-	registerOnChange(fn: ChangeFn<T>): void {
+	registerOnChange(fn: ChangeFn<T[]>): void {
 		this._onChange = fn;
 	}
 

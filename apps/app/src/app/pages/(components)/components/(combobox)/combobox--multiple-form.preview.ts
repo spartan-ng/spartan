@@ -5,13 +5,21 @@ import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmComboboxImports } from '@spartan-ng/helm/combobox';
 
 @Component({
-	selector: 'spartan-combobox-form-preview',
+	selector: 'spartan-combobox-multiple-form-preview',
 	imports: [HlmComboboxImports, BrnPopoverContent, ReactiveFormsModule, HlmButton],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<form [formGroup]="form" [formGroup]="form" (ngSubmit)="submit()" class="space-y-8">
-			<hlm-combobox formControlName="framework">
-				<hlm-combobox-input placeholder="Select a framework"></hlm-combobox-input>
+			<hlm-combobox-multiple formControlName="framework">
+				<hlm-combobox-chips class="max-w-xs">
+					<ng-template hlmComboboxValues let-values>
+						@for (value of values; track $index) {
+							<hlm-combobox-chip [value]="value">{{ value }}</hlm-combobox-chip>
+						}
+					</ng-template>
+
+					<input hlmComboboxChipInput />
+				</hlm-combobox-chips>
 				<div *brnPopoverContent hlmComboboxContent>
 					<hlm-combobox-empty>No items found.</hlm-combobox-empty>
 					<div hlmComboboxList>
@@ -20,17 +28,17 @@ import { HlmComboboxImports } from '@spartan-ng/helm/combobox';
 						}
 					</div>
 				</div>
-			</hlm-combobox>
+			</hlm-combobox-multiple>
 
 			<button type="submit" hlmBtn [disabled]="form.invalid">Submit</button>
 		</form>
 	`,
 })
-export class ComboboxFormPreview {
+export class ComboboxMultipleFormPreview {
 	private readonly _formBuilder = inject(FormBuilder);
 
 	public form = this._formBuilder.group({
-		framework: new FormControl<string | null>(null),
+		framework: new FormControl<string[] | null>(['Analog']),
 	});
 
 	public frameworks = ['Analog', 'Angular', 'Next.js', 'SvelteKit', 'Nuxt.js', 'Remix', 'Astro'];

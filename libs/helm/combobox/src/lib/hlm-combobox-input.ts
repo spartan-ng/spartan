@@ -2,14 +2,12 @@ import { BooleanInput } from '@angular/cdk/coercion';
 import { booleanAttribute, ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown, lucideX } from '@ng-icons/lucide';
-import { BrnComboboxImports, BrnComboboxInputWrapper } from '@spartan-ng/brain/combobox';
+import { BrnComboboxImports, BrnComboboxInputWrapper, BrnComboboxPopoverTrigger } from '@spartan-ng/brain/combobox';
 import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
-
-import { HlmComboboxPopoverTrigger } from './hlm-combobox-popover-trigger';
 
 @Component({
 	selector: 'hlm-combobox-input',
-	imports: [HlmInputGroupImports, NgIcon, BrnComboboxImports, HlmComboboxPopoverTrigger],
+	imports: [HlmInputGroupImports, NgIcon, BrnComboboxImports, BrnComboboxPopoverTrigger],
 	providers: [provideIcons({ lucideChevronDown, lucideX })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [BrnComboboxInputWrapper],
@@ -18,7 +16,7 @@ import { HlmComboboxPopoverTrigger } from './hlm-combobox-popover-trigger';
 			<input
 				brnComboboxInput
 				#comboboxInput="brnComboboxInput"
-				hlmComboboxPopoverTrigger
+				brnComboboxPopoverTrigger
 				hlmInputGroupInput
 				[placeholder]="placeholder()"
 				[attr.aria-invalid]="ariaInvalid() ? 'true' : null"

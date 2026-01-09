@@ -1,15 +1,51 @@
-import { type ExistingProvider, inject, InjectionToken, type Type, type ValueProvider } from '@angular/core';
-import type { BrnCombobox } from './brn-combobox';
+import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
+import {
+	ExistingProvider,
+	inject,
+	InjectionToken,
+	InputSignal,
+	ModelSignal,
+	Signal,
+	Type,
+	WritableSignal,
+	type ValueProvider,
+} from '@angular/core';
 import { comboboxContainsFilter } from './brn-combobox-filter';
+import { BrnComboboxItem } from './brn-combobox-item';
 
-export const BrnComboboxToken = new InjectionToken<BrnCombobox<unknown>>('BrnComboboxToken');
+export interface BrnComboboxBase<T> {
+	filter: InputSignal<ComboboxFilter<T>>;
+	itemToString: InputSignal<ComboboxItemToString<T> | undefined>;
+	collator: Signal<Intl.Collator>;
+	search: WritableSignal<string>;
+	disabled: Signal<boolean>;
+	disabledState: Signal<boolean>;
+	keyManager: ActiveDescendantKeyManager<BrnComboboxItem<T>>;
+	value: ModelSignal<T | null> | ModelSignal<T[] | null>;
+	visibleItems: Signal<boolean>;
+	isExpanded: Signal<boolean>;
+	searchInputWrapperWidth: Signal<number | null>;
 
-export function provideBrnCombobox<T>(combobox: Type<BrnCombobox<T>>): ExistingProvider {
-	return { provide: BrnComboboxToken, useExisting: combobox };
+	isSelected: (date: T) => boolean;
+	select: (date: T) => void;
+	open: () => void;
+	resetValue: () => void;
+	selectActiveItem: () => void;
+	removeLastSelectedItem: () => void;
+	removeValue: (value: T) => void;
 }
 
-export function injectBrnCombobox<T>(): BrnCombobox<T> {
-	return inject(BrnComboboxToken) as BrnCombobox<T>;
+export const BrnComboboxBaseToken = new InjectionToken<BrnComboboxBase<unknown>>('BrnComboboxBaseToken');
+
+export function provideBrnComboboxBase<T>(instance: Type<BrnComboboxBase<T>>): ExistingProvider {
+	return { provide: BrnComboboxBaseToken, useExisting: instance };
+}
+
+/**
+ * Inject the combobox component.
+ */
+export function injectBrnComboboxBase<T>(): BrnComboboxBase<T> {
+	return inject(BrnComboboxBaseToken) as BrnComboboxBase<T>;
 }
 
 // config

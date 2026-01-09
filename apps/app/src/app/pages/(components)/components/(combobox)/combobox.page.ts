@@ -20,6 +20,9 @@ import { ComboboxFormPreview } from './combobox--form.preview';
 import { ComboboxGroupSeparatorPreview } from './combobox--group-separator.preview';
 import { ComboboxGroupPreview } from './combobox--group.preview';
 import { ComboboxIconAddonPreview } from './combobox--icon-addon.preview';
+import { ComboboxMultipleDisabledPreview } from './combobox--multiple-disabled.preview';
+import { ComboboxMultipleFormPreview } from './combobox--multiple-form.preview';
+import { ComboboxMultiplePreview } from './combobox--multiple.preview';
 import { ComboboxPopupPreview } from './combobox--popup.preview';
 import { ComboboxPreview, defaultImports, defaultSkeleton } from './combobox.preview';
 
@@ -52,6 +55,9 @@ export const routeMeta: RouteMeta = {
 		ComboboxIconAddonPreview,
 		ComboboxFormPreview,
 		ComboboxPopupPreview,
+		ComboboxMultiplePreview,
+		ComboboxMultipleDisabledPreview,
+		ComboboxMultipleFormPreview,
 	],
 	template: `
 		<section spartanMainSection>
@@ -119,6 +125,14 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_iconAddonCode()" />
 			</spartan-tabs>
 
+			<h3 id="examples__popup" spartanH4>Popup</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-combobox-popup-preview />
+				</div>
+				<spartan-code secondTab [code]="_popupCode()" />
+			</spartan-tabs>
+
 			<h3 id="examples__form" spartanH4>Form</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -127,12 +141,28 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_formCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__popup" spartanH4>Popup</h3>
+			<h3 id="examples__multiple" spartanH4>Multiple</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
-					<spartan-combobox-popup-preview />
+					<spartan-combobox-multiple-preview />
 				</div>
-				<spartan-code secondTab [code]="_popupCode()" />
+				<spartan-code secondTab [code]="_multipleCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__multiple_disabled" spartanH4>Multiple Disabled</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-combobox-multiple-disabled-preview />
+				</div>
+				<spartan-code secondTab [code]="_multipleDisabledCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__multiple_form" spartanH4>Multiple Form</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-combobox-multiple-form-preview />
+				</div>
+				<spartan-code secondTab [code]="_multipleFormCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
@@ -157,8 +187,11 @@ export default class ComboboxPage {
 	protected readonly _groupCode = computed(() => this._snippets()['group']);
 	protected readonly _groupSeparatorCode = computed(() => this._snippets()['groupSeparator']);
 	protected readonly _iconAddonCode = computed(() => this._snippets()['iconAddon']);
-	protected readonly _formCode = computed(() => this._snippets()['form']);
 	protected readonly _popupCode = computed(() => this._snippets()['popup']);
+	protected readonly _formCode = computed(() => this._snippets()['form']);
+	protected readonly _multipleCode = computed(() => this._snippets()['multiple']);
+	protected readonly _multipleDisabledCode = computed(() => this._snippets()['multipleDisabled']);
+	protected readonly _multipleFormCode = computed(() => this._snippets()['multipleForm']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

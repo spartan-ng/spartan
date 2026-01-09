@@ -2143,7 +2143,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "button[hlmDropdownMenuItem]",
+        "selector": "[hlmDropdownMenuItem]",
       },
       "HlmDropdownMenuItemSubIndicator": {
         "inputs": [],

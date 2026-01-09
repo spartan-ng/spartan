@@ -1,4 +1,4 @@
-import { Directive, input } from '@angular/core';
+import { Directive, effect, ElementRef, inject, input } from '@angular/core';
 import { injectBrnComboboxBase } from './brn-combobox.token';
 
 @Directive({
@@ -22,6 +22,7 @@ import { injectBrnComboboxBase } from './brn-combobox.token';
 })
 export class BrnComboboxChipInput<T> {
 	private static _id = 0;
+	private readonly _el = inject(ElementRef);
 	private readonly _combobox = injectBrnComboboxBase<T>();
 
 	/** The id of the combobox input */
@@ -31,6 +32,17 @@ export class BrnComboboxChipInput<T> {
 
 	/** Whether the combobox panel is expanded */
 	protected readonly _isExpanded = this._combobox.isExpanded;
+
+	constructor() {
+		effect(() => {
+			const search = this._combobox.search();
+
+			if (search === '') {
+				// reset input on popover close
+				this._el.nativeElement.value = '';
+			}
+		});
+	}
 
 	protected onInput(event: Event) {
 		const value = (event.target as HTMLInputElement).value;

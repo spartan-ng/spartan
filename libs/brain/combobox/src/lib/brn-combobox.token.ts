@@ -30,7 +30,9 @@ export interface BrnComboboxBase<T> {
 	select: (date: T) => void;
 	open: () => void;
 	resetValue: () => void;
+	/** Select the active item with Enter key. */
 	selectActiveItem: () => void;
+	/** Remove last selected item with Backspace key. Only works with multiple selection comboboxes. */
 	removeLastSelectedItem: () => void;
 	removeValue: (value: T) => void;
 }

@@ -122,9 +122,16 @@ export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueA
 			this.value.set([...selected, value]);
 		}
 
+		if (this.search() !== '') {
+			// reset search after selection and close popover
+			this.search.set('');
+			this.close();
+		}
+
 		this._onChange?.(this.value() ?? []);
 	}
 
+	/** Select the active item with Enter key. */
 	selectActiveItem() {
 		if (this.isExpanded()) {
 			const value = this.keyManager.activeItem?.value();

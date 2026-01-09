@@ -120,6 +120,7 @@ export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor 
 		this.close();
 	}
 
+	/** Select the active item with Enter key. */
 	selectActiveItem() {
 		if (this.isExpanded()) {
 			const value = this.keyManager.activeItem?.value();

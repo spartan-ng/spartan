@@ -1,12 +1,6 @@
-import { Component, signal } from '@angular/core';
-import { provideIcons } from '@ng-icons/core';
-import * as lucide from '@ng-icons/lucide';
-import { BrnCommandImports } from '@spartan-ng/brain/command';
-import { BrnPopoverImports } from '@spartan-ng/brain/popover';
-import { HlmButtonImports } from '@spartan-ng/helm/button';
-import { HlmCommandImports } from '@spartan-ng/helm/command';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
-import { HlmPopoverImports } from '@spartan-ng/helm/popover';
+import { Component } from '@angular/core';
+import { BrnPopoverContent } from '@spartan-ng/brain/popover';
+import { HlmComboboxImports } from '@spartan-ng/helm/combobox';
 import type { Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
 
@@ -14,8 +8,7 @@ const meta: Meta<{}> = {
 	title: 'Combobox',
 	decorators: [
 		moduleMetadata({
-			providers: [provideIcons(lucide)],
-			imports: [BrnCommandImports, HlmCommandImports, HlmIconImports, HlmButtonImports],
+			imports: [BrnPopoverContent, HlmComboboxImports],
 		}),
 	],
 };
@@ -26,54 +19,23 @@ type Framework = { label: string; value: string };
 
 @Component({
 	selector: 'combobox-component',
-	imports: [
-		BrnCommandImports,
-		HlmCommandImports,
-		BrnPopoverImports,
-		HlmPopoverImports,
-		HlmIconImports,
-		HlmButtonImports,
-	],
+	imports: [HlmComboboxImports, BrnPopoverContent],
 	template: `
-		<hlm-popover [state]="state()" (stateChanged)="stateChanged($event)" sideOffset="5">
-			<button
-				class="w-[200px] justify-between"
-				id="edit-profile"
-				variant="outline"
-				hlmPopoverTrigger
-				(click)="state.set('open')"
-				hlmBtn
-			>
-				{{ currentFramework() ? currentFramework().label : 'Select framework...' }}
-				<ng-icon hlm size="sm" name="lucideChevronsUpDown" />
-			</button>
-			<hlm-command *brnPopoverContent="let ctx" hlmPopoverContent class="w-[200px] p-0">
-				<hlm-command-search>
-					<ng-icon hlm name="lucideSearch" />
-					<input placeholder="Search framework..." hlm-command-search-input />
-				</hlm-command-search>
-				<div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
-				<hlm-command-list>
-					<hlm-command-group>
-						@for (framework of frameworks; track framework) {
-							<button hlm-command-item [value]="framework.value" (selected)="commandSelected(framework)">
-								<ng-icon
-									hlm
-									[class.opacity-0]="currentFramework()?.value !== framework.value"
-									name="lucideCheck"
-									hlmCommandIcon
-								/>
-								{{ framework.label }}
-							</button>
-						}
-					</hlm-command-group>
-				</hlm-command-list>
-			</hlm-command>
-		</hlm-popover>
+		<hlm-combobox>
+			<hlm-combobox-input placeholder="Select framework..."></hlm-combobox-input>
+			<div *brnPopoverContent hlmComboboxContent>
+				<hlm-combobox-empty>No items found.</hlm-combobox-empty>
+				<div hlmComboboxList>
+					@for (framework of frameworks; track $index) {
+						<hlm-combobox-item [value]="framework">{{ framework.label }}</hlm-combobox-item>
+					}
+				</div>
+			</div>
+		</hlm-combobox>
 	`,
 })
-class Combobox {
-	public frameworks = [
+export class Combobox {
+	public frameworks: Framework[] = [
 		{
 			label: 'AnalogJs',
 			value: 'analogjs',
@@ -151,21 +113,6 @@ class Combobox {
 			value: 'ionic-angular',
 		},
 	];
-	public currentFramework = signal<Framework | undefined>(undefined);
-	public state = signal<'closed' | 'open'>('closed');
-
-	stateChanged(state: 'open' | 'closed') {
-		this.state.set(state);
-	}
-
-	commandSelected(framework: Framework) {
-		this.state.set('closed');
-		if (this.currentFramework()?.value === framework.value) {
-			this.currentFramework.set(undefined);
-		} else {
-			this.currentFramework.set(framework);
-		}
-	}
 }
 
 export const Default: Story = {

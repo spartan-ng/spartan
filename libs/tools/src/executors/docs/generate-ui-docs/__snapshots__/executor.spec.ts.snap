@@ -1443,6 +1443,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "ComboboxFilterOptions",
           },
           {
+            "name": "isItemEqualToValue",
+            "required": false,
+            "type": "ComboboxItemEqualToValue<T>",
+          },
+          {
             "name": "itemToString",
             "required": false,
             "type": "ComboboxItemToString<T> | undefined",
@@ -1598,6 +1603,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "name": "filterOptions",
             "required": false,
             "type": "ComboboxFilterOptions",
+          },
+          {
+            "name": "isItemEqualToValue",
+            "required": false,
+            "type": "ComboboxItemEqualToValue<T>",
           },
           {
             "name": "itemToString",

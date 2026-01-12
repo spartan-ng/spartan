@@ -93,7 +93,7 @@ export class BrnSelectScrollDown {
 		'[attr.aria-labelledBy]': '_select.labelId()',
 		'[attr.aria-controlledBy]': "_select.id() +'--trigger'",
 		'[id]': "_select.id() + '--content'",
-		'[attr.dir]': '_select.dir()',
+		'[attr.dir]': '_select.direction()',
 		'(keydown)': 'keyManager?.onKeydown($event)',
 		'(keydown.enter)': 'selectActiveItem($event)',
 		'(keydown.space)': 'selectActiveItem($event)',

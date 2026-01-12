@@ -14,7 +14,7 @@ let nextId = 0;
 		'[attr.aria-selected]': 'selected()',
 		'[attr.aria-disabled]': '_disabled()',
 		'(click)': 'select()',
-		'[attr.dir]': '_select.dir()',
+		'[attr.dir]': '_select.direction()',
 		'[attr.data-active]': "_active() ? '' : undefined",
 		'[attr.data-disabled]': "_disabled() ? '' : undefined",
 		'(mouseenter)': 'activate()',
@@ -43,7 +43,7 @@ export class BrnSelectOption<T> implements FocusableOption {
 	public readonly selected = computed(() => this.value() !== undefined && this._select.isSelected(this.value()));
 	protected readonly _active = signal(false);
 	public readonly checkedState = computed(() => (this.selected() ? 'checked' : 'unchecked'));
-	public readonly dir = this._select.dir;
+	public readonly dir = this._select.direction;
 
 	public select(): void {
 		if (this._disabled()) {

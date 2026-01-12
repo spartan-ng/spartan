@@ -26,8 +26,8 @@ export interface BrnComboboxBase<T> {
 	isExpanded: Signal<boolean>;
 	searchInputWrapperWidth: Signal<number | null>;
 
-	isSelected: (date: T) => boolean;
-	select: (date: T) => void;
+	isSelected: (itemValue: T) => boolean;
+	select: (itemValue: T) => void;
 	open: () => void;
 	resetValue: () => void;
 	/** Select the active item with Enter key. */
@@ -60,17 +60,20 @@ export interface ComboboxFilterOptions extends Intl.CollatorOptions {
 }
 
 export type ComboboxFilter<T> = (
-	value: T,
+	itemValue: T,
 	search: string,
 	collator: Intl.Collator,
 	itemToString?: ComboboxItemToString<T>,
 ) => boolean;
 
-export type ComboboxItemToString<T> = (value: T) => string;
+export type ComboboxItemEqualToValue<T> = (itemValue: T, selectedValue: T | null) => boolean;
+
+export type ComboboxItemToString<T> = (itemValue: T) => string;
 
 export interface BrnComboboxConfig<T> {
 	filterOptions: ComboboxFilterOptions;
 	filter: ComboboxFilter<T>;
+	isItemEqualToValue: ComboboxItemEqualToValue<T>;
 	itemToStringLabel?: ComboboxItemToString<T>;
 }
 
@@ -81,8 +84,9 @@ function getDefaultConfig<T>(): BrnComboboxConfig<T> {
 			sensitivity: 'base',
 			ignorePunctuation: true,
 		},
-		filter: (value: T, search: string, collator: Intl.Collator, itemToString?: ComboboxItemToString<T>) =>
-			comboboxContainsFilter(value, search, collator, itemToString),
+		filter: (itemValue: T, search: string, collator: Intl.Collator, itemToString?: ComboboxItemToString<T>) =>
+			comboboxContainsFilter(itemValue, search, collator, itemToString),
+		isItemEqualToValue: (itemValue: T, selectedValue: T | null) => itemValue === selectedValue,
 		itemToStringLabel: undefined,
 	};
 }

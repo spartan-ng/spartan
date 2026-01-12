@@ -35,7 +35,7 @@ export const components: Link[] = [
 	{ label: 'Carousel', url: '/carousel' },
 	{ label: 'Checkbox', url: '/checkbox' },
 	{ label: 'Collapsible', url: '/collapsible' },
-	{ label: 'Combobox', url: '/combobox' },
+	{ label: 'Combobox', url: '/combobox', new: true },
 	{ label: 'Command', url: '/command' },
 	{ label: 'Context Menu', url: '/context-menu', new: true },
 	{ label: 'Data Table', url: '/data-table' },

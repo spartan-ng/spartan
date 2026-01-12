@@ -1,13 +1,10 @@
 import { Component } from '@angular/core';
-import { provideIcons } from '@ng-icons/core';
-import { lucideCheck, lucideChevronsUpDown, lucideSearch } from '@ng-icons/lucide';
 import { BrnPopoverContent } from '@spartan-ng/brain/popover';
 import { HlmComboboxImports } from '@spartan-ng/helm/combobox';
 
 @Component({
 	selector: 'spartan-combobox-preview',
 	imports: [HlmComboboxImports, BrnPopoverContent],
-	providers: [provideIcons({ lucideChevronsUpDown, lucideSearch, lucideCheck })],
 	template: `
 		<hlm-combobox>
 			<hlm-combobox-input placeholder="Select a framework"></hlm-combobox-input>

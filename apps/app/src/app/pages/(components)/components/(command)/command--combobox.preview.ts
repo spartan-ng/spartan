@@ -10,7 +10,7 @@ import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 type Framework = { label: string; value: string };
 
 @Component({
-	selector: 'spartan-combobox-preview',
+	selector: 'spartan-command-combobox-preview',
 	imports: [HlmCommandImports, HlmIconImports, HlmButtonImports, BrnPopoverImports, HlmPopoverImports],
 	providers: [provideIcons({ lucideChevronsUpDown, lucideSearch, lucideCheck })],
 	template: `
@@ -52,7 +52,7 @@ type Framework = { label: string; value: string };
 		</hlm-popover>
 	`,
 })
-export class ComboboxPreview {
+export class CommandComboboxPreview {
 	public frameworks = [
 		{
 			label: 'AnalogJs',

@@ -65,5 +65,20 @@ export const defaultSkeleton = `
     </div>
   </div>
 </hlm-combobox>
+`;
 
+export const comboboxDefaultConfig = `
+import { comboboxContainsFilter, provideBrnComboboxConfig } from '@spartan-ng/brain/combobox';
+
+provideBrnComboboxConfig({
+	filterOptions: {
+		usage: 'search',
+		sensitivity: 'base',
+		ignorePunctuation: true,
+	},
+	filter: (itemValue: T, search: string, collator: Intl.Collator, itemToString?: ComboboxItemToString<T>) =>
+		comboboxContainsFilter(itemValue, search, collator, itemToString),
+	isItemEqualToValue: (itemValue: T, selectedValue: T | null) => Object.is(itemValue, selectedValue),
+	itemToStringLabel: undefined,
+});
 `;

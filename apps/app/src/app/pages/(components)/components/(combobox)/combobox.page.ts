@@ -4,6 +4,7 @@ import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/prim
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { TabsCli } from '@spartan-ng/app/app/shared/layout/tabs-cli';
 import { UIApiDocs } from '@spartan-ng/app/app/shared/layout/ui-docs-section/ui-docs-section';
+import { hlmCode, hlmP, hlmUl } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
@@ -24,7 +25,7 @@ import { ComboboxMultipleDisabledPreview } from './combobox--multiple-disabled.p
 import { ComboboxMultipleFormPreview } from './combobox--multiple-form.preview';
 import { ComboboxMultiplePreview } from './combobox--multiple.preview';
 import { ComboboxPopupPreview } from './combobox--popup.preview';
-import { ComboboxPreview, defaultImports, defaultSkeleton } from './combobox.preview';
+import { comboboxDefaultConfig, ComboboxPreview, defaultImports, defaultSkeleton } from './combobox.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Combobox', api: 'combobox' },
@@ -82,6 +83,76 @@ export const routeMeta: RouteMeta = {
 				<spartan-code [code]="_defaultImports" />
 				<spartan-code [code]="_defaultSkeleton" />
 			</div>
+
+			<spartan-section-sub-heading id="configuration">Configuration</spartan-section-sub-heading>
+
+			<p class="${hlmP} mb-6">
+				The combobox can be configured via
+				<code class="${hlmCode}">provideBrnComboboxConfig</code>
+				or by passing the individual config as input. This is the default combobox config:
+			</p>
+
+			<spartan-code [code]="_comboboxDefaultConfig" />
+
+			<h3 id="config_filter" spartanH4>Filter</h3>
+
+			<p class="${hlmP}">
+				The combobox matches items using
+				<code class="${hlmCode}">Intl.Collator</code>
+				for robust string comparison. The
+				<code class="${hlmCode}">filterOptions</code>
+				accepts all
+				<code class="${hlmCode}">Intl.CollatorOptions</code>
+				, plus a
+				<code class="${hlmCode}">locale</code>
+				.
+			</p>
+
+			<p class="${hlmP}">
+				The default
+				<code class="${hlmCode}">filter</code>
+				implementation uses a
+				<code class="${hlmCode}">comboboxContainsFilter</code>
+				to check if the item value contains the search string. Provide a custom filter function for other filtering
+				behavior.
+			</p>
+
+			<p class="${hlmP}">Built-in combobox filters are:</p>
+
+			<ul class="${hlmUl} mb-0">
+				<li>
+					<code class="${hlmCode}">comboboxContainsFilter</code>
+					- Returns true if the item value contains the search string.
+				</li>
+				<li>
+					<code class="${hlmCode}">comboboxStartsWithFilter</code>
+					- Returns true if the item value starts with the search string.
+				</li>
+				<li>
+					<code class="${hlmCode}">comboboxEndsWithFilter</code>
+					- Returns true if the item value ends with the search string.
+				</li>
+			</ul>
+
+			<h3 id="config_objects" spartanH4>Objects</h3>
+
+			<p class="${hlmP}">
+				The combobox works out of the box with
+				<code class="${hlmCode}">string</code>
+				values and objects in the shape of
+				<code class="${hlmCode}">&lcub; label: string; value: string; &rcub;</code>
+				, the label (1) or the value (2) will be used automatically. For other object shapes provide a custom
+				<code class="${hlmCode}">itemToStringLabel</code>
+				function to extract the label from the object.
+			</p>
+
+			<p class="${hlmP}">
+				Provide a custom
+				<code class="${hlmCode}">isItemEqualToValue</code>
+				function to determine if a combobox item value matches the current selected value. Defaults to
+				<code class="${hlmCode}">Object.is</code>
+				comparison.
+			</p>
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
 
@@ -194,4 +265,5 @@ export default class ComboboxPage {
 	protected readonly _multipleFormCode = computed(() => this._snippets()['multipleForm']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
+	protected readonly _comboboxDefaultConfig = comboboxDefaultConfig;
 }

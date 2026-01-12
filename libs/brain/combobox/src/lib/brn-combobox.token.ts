@@ -86,7 +86,7 @@ function getDefaultConfig<T>(): BrnComboboxConfig<T> {
 		},
 		filter: (itemValue: T, search: string, collator: Intl.Collator, itemToString?: ComboboxItemToString<T>) =>
 			comboboxContainsFilter(itemValue, search, collator, itemToString),
-		isItemEqualToValue: (itemValue: T, selectedValue: T | null) => itemValue === selectedValue,
+		isItemEqualToValue: (itemValue: T, selectedValue: T | null) => Object.is(itemValue, selectedValue),
 		itemToStringLabel: undefined,
 	};
 }

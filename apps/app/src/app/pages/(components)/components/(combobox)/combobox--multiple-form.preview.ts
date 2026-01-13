@@ -9,7 +9,7 @@ import { HlmComboboxImports } from '@spartan-ng/helm/combobox';
 	imports: [HlmComboboxImports, BrnPopoverContent, ReactiveFormsModule, HlmButton],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<form [formGroup]="form" [formGroup]="form" (ngSubmit)="submit()" class="space-y-8">
+		<form [formGroup]="form" (ngSubmit)="submit()" class="space-y-8">
 			<hlm-combobox-multiple formControlName="framework">
 				<hlm-combobox-chips class="max-w-xs">
 					<ng-template hlmComboboxValues let-values>

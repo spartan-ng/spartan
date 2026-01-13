@@ -4,9 +4,10 @@ import { moduleMetadata } from '@storybook/angular';
 
 import { JsonPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HlmButton, HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmCheckbox, HlmCheckboxImports } from '@spartan-ng/helm/checkbox';
+import { HlmFieldImports } from '@spartan-ng/helm/field';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmLabel } from '@spartan-ng/helm/label';
 
@@ -39,6 +40,38 @@ class HlmCheckboxTester {
 	}
 }
 
+@Component({
+	selector: 'hlm-checkbox-validation-tester',
+	standalone: true,
+	imports: [HlmCheckboxImports, HlmButtonImports, HlmFieldImports, ReactiveFormsModule],
+	template: `
+		<form [formGroup]="form" class="space-y-3">
+			<div hlmField [attr.data-invalid]="isInvalid() ? 'true' : null">
+				<div hlmField orientation="horizontal" class="items-start gap-2">
+					<hlm-checkbox id="field-terms" formControlName="agreement" />
+					<label hlmFieldLabel for="field-terms" class="font-normal">I agree to the terms and conditions.</label>
+				</div>
+				<hlm-field-error *ngIf="isInvalid()">You must accept the terms to continue.</hlm-field-error>
+			</div>
+
+			<div class="flex flex-wrap gap-2">
+				<button hlmBtn type="button" (click)="form.markAllAsTouched()">Validate</button>
+				<button hlmBtn variant="outline" type="button" (click)="form.reset()">Reset</button>
+			</div>
+		</form>
+	`,
+})
+class HlmCheckboxValidationTester {
+	public readonly form = inject(FormBuilder).group({
+		agreement: [false, Validators.requiredTrue],
+	});
+
+	isInvalid() {
+		const control = this.form.get('agreement');
+		return !!control && control.invalid && control.touched;
+	}
+}
+
 const meta: Meta<HlmCheckbox> = {
 	title: 'Checkbox',
 	component: HlmCheckbox,
@@ -47,12 +80,14 @@ const meta: Meta<HlmCheckbox> = {
 		moduleMetadata({
 			imports: [
 				HlmCheckboxImports,
+				HlmFieldImports,
 				HlmLabel,
 				NgIcon,
 				HlmIcon,
 				ReactiveFormsModule,
 				HlmButtonImports,
 				HlmCheckboxTester,
+				HlmCheckboxValidationTester,
 			],
 		}),
 	],
@@ -117,6 +152,13 @@ export const disabledWithForms: Story = {
 		template: /* HTML */ `
 			<hlm-checkbox-component-tester />
 		`,
+	}),
+};
+
+export const Validation: Story = {
+	name: 'Reactive Validation',
+	render: () => ({
+		template: `<hlm-checkbox-validation-tester />`,
 	}),
 };
 

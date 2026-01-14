@@ -18,6 +18,7 @@ import { Tabs } from '../../../../shared/layout/tabs';
 import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
+import { CommandComboboxPreview } from './command--combobox.preview';
 import { CommandDialog } from './command--dialog.example';
 import { CommandPreview, defaultImports, defaultSkeleton } from './command.preview';
 
@@ -46,6 +47,7 @@ export const routeMeta: RouteMeta = {
 		CommandDialog,
 		RouterLink,
 		SectionSubSubHeading,
+		CommandComboboxPreview,
 	],
 	template: `
 		<section spartanMainSection>
@@ -80,10 +82,17 @@ export const routeMeta: RouteMeta = {
 			<p class="${hlmP}">
 				You can use the
 				<code class="${hlmCode}">Command</code>
-				component as a combobox. See the
-				<a hlmBtn class="${link}" variant="link" routerLink="../combobox">Combobox</a>
-				page for more information.
+				component as a combobox. Otherwise use the
+				<a class="${link}" routerLink="../combobox">Combobox</a>
+				component for more advanced use cases.
 			</p>
+
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-command-combobox-preview />
+				</div>
+				<spartan-code secondTab [code]="_comboboxCode()" />
+			</spartan-tabs>
 
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="brain" />
@@ -102,7 +111,8 @@ export const routeMeta: RouteMeta = {
 export default class CommandPage {
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('command');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
+	protected readonly _commandDialogCode = computed(() => this._snippets()['dialog']);
+	protected readonly _comboboxCode = computed(() => this._snippets()['combobox']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
-	protected readonly _commandDialogCode = computed(() => this._snippets()['dialog']);
 }

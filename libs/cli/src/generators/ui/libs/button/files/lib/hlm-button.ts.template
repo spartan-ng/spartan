@@ -24,6 +24,7 @@ export const buttonVariants = cva(
 				sm: 'h-8 gap-1.5 rounded-md px-3 has-[>ng-icon]:px-2.5',
 				lg: 'h-10 rounded-md px-6 has-[>ng-icon]:px-4',
 				icon: 'size-9',
+				'icon-xs': `size-6 [&_ng-icon:not([class*='text-'])]:text-xs`,
 				'icon-sm': 'size-8',
 				'icon-lg': 'size-10',
 			},

@@ -1428,6 +1428,387 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       },
     },
   },
+  "combobox": {
+    "brain": {
+      "BrnCombobox": {
+        "inputs": [
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "filterOptions",
+            "required": false,
+            "type": "ComboboxFilterOptions",
+          },
+          {
+            "name": "isItemEqualToValue",
+            "required": false,
+            "type": "ComboboxItemEqualToValue<T>",
+          },
+          {
+            "name": "itemToString",
+            "required": false,
+            "type": "ComboboxItemToString<T> | undefined",
+          },
+          {
+            "name": "filter",
+            "required": false,
+            "type": "ComboboxFilter<T>",
+          },
+        ],
+        "models": [
+          {
+            "name": "value",
+            "type": "T | null",
+          },
+        ],
+        "outputs": [],
+        "selector": "[brnCombobox]",
+      },
+      "BrnComboboxAnchor": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnComboboxAnchor]",
+      },
+      "BrnComboboxChip": {
+        "inputs": [
+          {
+            "name": "value",
+            "required": true,
+            "type": "T",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnComboboxChip]",
+      },
+      "BrnComboboxChipInput": {
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "input[brnComboboxChipInput]",
+      },
+      "BrnComboboxChipRemove": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "button[brnComboboxChipRemove]",
+      },
+      "BrnComboboxClear": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnComboboxClear]",
+      },
+      "BrnComboboxContent": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnComboboxContent]",
+      },
+      "BrnComboboxEmpty": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnComboboxEmpty]",
+      },
+      "BrnComboboxGroup": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnComboboxGroup]",
+      },
+      "BrnComboboxInput": {
+        "exportAs": "brnComboboxInput",
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "input[brnComboboxInput]",
+      },
+      "BrnComboboxInputWrapper": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnComboboxInputWrapper]",
+      },
+      "BrnComboboxItem": {
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "value",
+            "required": true,
+            "type": "T",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnComboboxItem]",
+      },
+      "BrnComboboxLabel": {
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnComboboxLabel]",
+      },
+      "BrnComboboxList": {
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnComboboxList]",
+      },
+      "BrnComboboxMultiple": {
+        "inputs": [
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "filterOptions",
+            "required": false,
+            "type": "ComboboxFilterOptions",
+          },
+          {
+            "name": "isItemEqualToValue",
+            "required": false,
+            "type": "ComboboxItemEqualToValue<T>",
+          },
+          {
+            "name": "itemToString",
+            "required": false,
+            "type": "ComboboxItemToString<T> | undefined",
+          },
+          {
+            "name": "filter",
+            "required": false,
+            "type": "ComboboxFilter<T>",
+          },
+        ],
+        "models": [
+          {
+            "name": "value",
+            "type": "T[] | null",
+          },
+        ],
+        "outputs": [],
+        "selector": "[brnCombobox]",
+      },
+      "BrnComboboxPopoverTrigger": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnComboboxPopoverTrigger]",
+      },
+      "BrnComboboxSeparator": {
+        "inputs": [
+          {
+            "name": "orientation",
+            "required": false,
+            "type": "'horizontal' | 'vertical'",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnComboboxSeparator]",
+      },
+      "BrnComboboxTrigger": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnComboboxTrigger]",
+      },
+      "BrnComboboxValue": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnComboboxValue]",
+      },
+      "BrnComboboxValues": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnComboboxValues]",
+      },
+    },
+    "helm": {
+      "HlmCombobox": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmCombobox],hlm-combobox",
+      },
+      "HlmComboboxChip": {
+        "inputs": [
+          {
+            "name": "showRemove",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-combobox-chip",
+      },
+      "HlmComboboxChipInput": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "input[hlmComboboxChipInput]",
+      },
+      "HlmComboboxChipRemove": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "button[hlmComboboxChipRemove]",
+      },
+      "HlmComboboxChips": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmComboboxChips],hlm-combobox-chips",
+      },
+      "HlmComboboxContent": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmComboboxContent]",
+      },
+      "HlmComboboxEmpty": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmComboboxEmpty],hlm-combobox-empty",
+      },
+      "HlmComboboxGroup": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmComboboxGroup]",
+      },
+      "HlmComboboxInput": {
+        "inputs": [
+          {
+            "name": "placeholder",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "showTrigger",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "showClear",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "aria-invalid",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-combobox-input",
+      },
+      "HlmComboboxItem": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-combobox-item",
+      },
+      "HlmComboboxLabel": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmComboboxLabel]",
+      },
+      "HlmComboboxList": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmComboboxList]",
+      },
+      "HlmComboboxMultiple": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmComboboxMultiple],hlm-combobox-multiple",
+      },
+      "HlmComboboxSeparator": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmComboboxSeparator]",
+      },
+      "HlmComboboxTrigger": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "variant",
+            "required": false,
+            "type": "ButtonVariants['variant']",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-combobox-trigger",
+      },
+      "HlmComboboxValue": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmComboboxValue]",
+      },
+      "HlmComboboxValues": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmComboboxValues]",
+      },
+    },
+  },
   "command": {
     "brain": {
       "BrnCommand": {

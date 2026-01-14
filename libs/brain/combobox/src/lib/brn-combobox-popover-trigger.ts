@@ -13,7 +13,7 @@ export class BrnComboboxPopoverTrigger<T> {
 
 	private readonly _brnDialog = inject(BrnDialog, { optional: true });
 
-	open() {
+	protected open() {
 		if (this._combobox.disabledState()) return;
 
 		this._brnDialog?.open();

@@ -63,7 +63,7 @@ export class BrnComboboxItem<T> implements Highlightable {
 		);
 	});
 
-	setActiveStyles(): void {
+	public setActiveStyles(): void {
 		this._highlighted.set(true);
 
 		// ensure the item is in view
@@ -72,11 +72,11 @@ export class BrnComboboxItem<T> implements Highlightable {
 		}
 	}
 
-	setInactiveStyles(): void {
+	public setInactiveStyles(): void {
 		this._highlighted.set(false);
 	}
 
-	getLabel(): string {
+	public getLabel(): string {
 		return stringifyAsLabel(this.value(), this._combobox.itemToString());
 	}
 

@@ -28,7 +28,7 @@ export class BrnComboboxClear {
 		});
 	}
 
-	clear() {
+	private clear() {
 		this._combobox.resetValue();
 	}
 }

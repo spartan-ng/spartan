@@ -121,11 +121,11 @@ export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueA
 		});
 	}
 
-	isSelected(itemValue: T): boolean {
+	public isSelected(itemValue: T): boolean {
 		return this.value()?.some((v) => this.isItemEqualToValue()(itemValue, v)) ?? false;
 	}
 
-	select(itemValue: T): void {
+	public select(itemValue: T): void {
 		const selected = this.value() ?? [];
 		if (this.isSelected(itemValue)) {
 			this.value.set(selected.filter((d) => !this.isItemEqualToValue()(d, itemValue)) ?? []);
@@ -143,7 +143,7 @@ export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueA
 	}
 
 	/** Select the active item with Enter key. */
-	selectActiveItem() {
+	public selectActiveItem(): void {
 		if (!this.isExpanded()) return;
 
 		const value = this.keyManager.activeItem?.value();
@@ -153,19 +153,19 @@ export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueA
 		this.select(value);
 	}
 
-	resetValue() {
+	public resetValue(): void {
 		this.value.set(null);
 		this._onChange?.(null);
 	}
 
-	removeValue(itemValue: T) {
+	public removeValue(itemValue: T): void {
 		const selected = this.value() ?? [];
 
 		this.value.set(selected.filter((value) => !this.isItemEqualToValue()(itemValue, value)) ?? []);
 		this._onChange?.(this.value());
 	}
 
-	removeLastSelectedItem() {
+	public removeLastSelectedItem(): void {
 		const selected = this.value() ?? [];
 		if (selected.length === 0) return;
 
@@ -174,38 +174,32 @@ export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueA
 		this._onChange?.(this.value());
 	}
 
-	open() {
+	public open(): void {
 		if (this._disabled() || this.isExpanded()) return;
 
 		this._brnPopover?.open();
 	}
 
-	close() {
+	private close(): void {
 		if (this._disabled() || !this.isExpanded()) return;
 
 		this._brnPopover?.close();
 	}
 
-	toggle() {
-		if (this._disabled()) return;
-
-		this.isExpanded() ? this.close() : this.open();
-	}
-
 	/** CONTROL VALUE ACCESSOR */
-	writeValue(value: T[] | null): void {
+	public writeValue(value: T[] | null): void {
 		this.value.set(value);
 	}
 
-	registerOnChange(fn: ChangeFn<T[] | null>): void {
+	public registerOnChange(fn: ChangeFn<T[] | null>): void {
 		this._onChange = fn;
 	}
 
-	registerOnTouched(fn: TouchFn): void {
+	public registerOnTouched(fn: TouchFn): void {
 		this._onTouched = fn;
 	}
 
-	setDisabledState(isDisabled: boolean) {
+	public setDisabledState(isDisabled: boolean) {
 		this._disabled.set(isDisabled);
 	}
 }

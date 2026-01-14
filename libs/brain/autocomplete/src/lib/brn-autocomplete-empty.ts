@@ -1,24 +1,11 @@
-import { computed, Directive, effect, inject, TemplateRef, ViewContainerRef } from '@angular/core';
-import { injectBrnAutocomplete } from './brn-autocomplete.token';
+import { Directive } from '@angular/core';
 
 @Directive({
 	selector: '[brnAutocompleteEmpty]',
+	host: {
+		role: 'status',
+		'aria-live': 'polite',
+		'aria-atomic': 'true',
+	},
 })
-export class BrnAutocompleteEmpty {
-	private readonly _templateRef = inject<TemplateRef<void>>(TemplateRef);
-	private readonly _viewContainerRef = inject(ViewContainerRef);
-	private readonly _autocomplete = injectBrnAutocomplete();
-
-	/** Determine if the autocomplete has any items */
-	private readonly _visible = computed(() => this._autocomplete.items().length > 0);
-
-	constructor() {
-		effect(() => {
-			if (this._visible()) {
-				this._viewContainerRef.clear();
-			} else {
-				this._viewContainerRef.createEmbeddedView(this._templateRef);
-			}
-		});
-	}
-}
+export class BrnAutocompleteEmpty {}

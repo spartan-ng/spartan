@@ -1,24 +1,22 @@
 import type { Highlightable } from '@angular/cdk/a11y';
 import type { BooleanInput } from '@angular/cdk/coercion';
 import { isPlatformBrowser } from '@angular/common';
-import { booleanAttribute, Directive, ElementRef, inject, input, output, PLATFORM_ID, signal } from '@angular/core';
+import { booleanAttribute, computed, Directive, ElementRef, inject, input, PLATFORM_ID, signal } from '@angular/core';
+import { stringifyAsLabel } from '@spartan-ng/brain/core';
 import { provideBrnAutocompleteItem } from './brn-autocomplete-item.token';
 import { injectBrnAutocomplete } from './brn-autocomplete.token';
 
 @Directive({
-	selector: 'button[brnAutocompleteItem]',
+	selector: '[brnAutocompleteItem]',
 	providers: [provideBrnAutocompleteItem(BrnAutocompleteItem)],
 	host: {
-		type: 'button',
 		role: 'option',
-		tabIndex: '-1',
 		'[id]': 'id()',
-		'[attr.disabled]': '_disabled() ? true : null',
-		'[attr.data-disabled]': '_disabled() ? "" : null',
+		'[attr.data-highlighted]': '_highlighted() ? "" : null',
 		'[attr.data-value]': 'value()',
-		'[attr.aria-selected]': '_active()',
-		'[attr.data-selected]': "_active() ? '' : null",
-		'(click)': 'onClick()',
+		'[attr.aria-selected]': 'active()',
+		'[attr.aria-disabled]': '_disabled()',
+		'(click)': 'select()',
 		'(mouseenter)': 'activate()',
 	},
 })
@@ -38,7 +36,6 @@ export class BrnAutocompleteItem<T> implements Highlightable {
 	/** The value this item represents. */
 	public readonly value = input.required<T>();
 
-	/** Whether the item is disabled. */
 	// eslint-disable-next-line @typescript-eslint/naming-convention
 	public readonly _disabled = input<boolean, BooleanInput>(false, {
 		alias: 'disabled',
@@ -51,19 +48,12 @@ export class BrnAutocompleteItem<T> implements Highlightable {
 	}
 
 	/** Whether the item is selected. */
-	protected readonly _active = signal(false);
+	public readonly active = computed(() => this._autocomplete.isSelected(this.value()));
 
-	/** Emits when the item is selected. */
-	public readonly selected = output<void>();
+	protected readonly _highlighted = signal(false);
 
-	/** @internal Get the display value */
-	public getLabel(): string {
-		return this._elementRef.nativeElement.textContent?.trim() ?? '';
-	}
-
-	/** @internal */
 	setActiveStyles(): void {
-		this._active.set(true);
+		this._highlighted.set(true);
 
 		// ensure the item is in view
 		if (isPlatformBrowser(this._platform)) {
@@ -71,14 +61,21 @@ export class BrnAutocompleteItem<T> implements Highlightable {
 		}
 	}
 
-	/** @internal */
 	setInactiveStyles(): void {
-		this._active.set(false);
+		this._highlighted.set(false);
 	}
 
-	protected onClick(): void {
+	getLabel(): string {
+		return stringifyAsLabel(this.value(), this._autocomplete.itemToString());
+	}
+
+	protected select(): void {
+		if (this._disabled()) {
+			return;
+		}
+
 		this._autocomplete.keyManager.setActiveItem(this);
-		this.selected.emit();
+		this._autocomplete.select(this.value());
 	}
 
 	protected activate(): void {

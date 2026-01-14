@@ -3,10 +3,10 @@ import { BrnPopoverContent } from '@spartan-ng/brain/popover';
 import { HlmAutocompleteImports } from '@spartan-ng/helm/autocomplete';
 
 @Component({
-	selector: 'spartan-autocomplete-preview',
+	selector: 'spartan-autocomplete-disabled-preview',
 	imports: [HlmAutocompleteImports, BrnPopoverContent],
 	template: `
-		<hlm-autocomplete [(search)]="search">
+		<hlm-autocomplete [(search)]="search" disabled>
 			<hlm-autocomplete-input placeholder="Search characters" />
 			<div *brnPopoverContent hlmAutocompleteContent>
 				<div hlmAutocompleteList>
@@ -21,7 +21,7 @@ import { HlmAutocompleteImports } from '@spartan-ng/helm/autocomplete';
 		</hlm-autocomplete>
 	`,
 })
-export class AutocompletePreview {
+export class AutocompleteDisabledPreview {
 	private readonly _options: string[] = [
 		'Marty McFly',
 		'Doc Brown',
@@ -44,31 +44,3 @@ export class AutocompletePreview {
 		this._options.filter((option) => option.toLowerCase().includes(this.search().toLowerCase())),
 	);
 }
-
-export const defaultImports = `
-import { BrnPopoverContent } from '@spartan-ng/brain/popover';
-import { HlmAutocompleteImports } from '@spartan-ng/helm/autocomplete';
-`;
-
-export const defaultSkeleton = `
-<hlm-autocomplete [(search)]="search">
-  <hlm-autocomplete-input placeholder="Search characters" />
-  <div *brnPopoverContent hlmAutocompleteContent>
-    <div hlmAutocompleteList>
-      <hlm-autocomplete-empty>No characters found.</hlm-autocomplete-empty>
-      @for (option of filteredOptions(); track $index) {
-      <hlm-autocomplete-item [value]="option"> {{ option }} </hlm-autocomplete-item>
-      }
-    </div>
-  </div>
-</hlm-autocomplete>
-`;
-
-export const autocompleteDefaultConfig = `
-import { provideBrnAutocompleteConfig } from '@spartan-ng/brain/autocomplete';
-
-provideBrnAutocompleteConfig({
-	isItemEqualToValue: (itemValue: T, selectedValue: T | null) => Object.is(itemValue, selectedValue),
-	itemToString: undefined,
-});
-`;

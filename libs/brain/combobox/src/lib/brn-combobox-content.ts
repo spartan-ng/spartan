@@ -11,7 +11,7 @@ import { injectBrnComboboxBase } from './brn-combobox.token';
 export class BrnComboboxContent {
 	private readonly _combobox = injectBrnComboboxBase();
 
-	/** Determine if the command has any visible items */
+	/** Determine if the combobox has any visible items */
 	protected readonly _visibleItems = this._combobox.visibleItems;
 
 	protected readonly _comboboxWidth = this._combobox.searchInputWrapperWidth;

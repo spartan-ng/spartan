@@ -16,9 +16,9 @@ export class BrnComboboxList {
 
 	private readonly _combobox = injectBrnComboboxBase();
 
-	/** Determine if the command has any visible items */
+	/** Determine if the combobox has any visible items */
 	protected readonly _visibleItems = this._combobox.visibleItems;
 
-	/** The id of the command list */
+	/** The id of the combobox list */
 	public readonly id = input<string>(`brn-combobox-list-${++BrnComboboxList._id}`);
 }

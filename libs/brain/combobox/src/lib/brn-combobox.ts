@@ -71,7 +71,7 @@ export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor 
 	public readonly isItemEqualToValue = input<ComboboxItemEqualToValue<T>>(this._config.isItemEqualToValue);
 
 	/** A function to convert an item to a string for display. */
-	public readonly itemToString = input<ComboboxItemToString<T> | undefined>(this._config.itemToStringLabel);
+	public readonly itemToString = input<ComboboxItemToString<T> | undefined>(this._config.itemToString);
 
 	/** A custom filter function to use when searching. */
 	public readonly filter = input<ComboboxFilter<T>>(this._config.filter);
@@ -103,10 +103,10 @@ export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor 
 	/** @internal The key manager for managing active descendant */
 	public readonly keyManager = new ActiveDescendantKeyManager(this.items, this._injector);
 
-	/** @internal Whether the autocomplete is expanded */
+	/** @internal Whether the combobox is expanded */
 	public readonly isExpanded = computed(() => this._brnPopover?.stateComputed() === 'open');
 
-	protected _onChange?: ChangeFn<T>;
+	protected _onChange?: ChangeFn<T | null>;
 	protected _onTouched?: TouchFn;
 
 	constructor() {
@@ -122,18 +122,18 @@ export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor 
 		});
 	}
 
-	isSelected(itemValue: T): boolean {
+	public isSelected(itemValue: T): boolean {
 		return this.isItemEqualToValue()(itemValue, this.value());
 	}
 
-	select(itemValue: T): void {
+	public select(itemValue: T): void {
 		this.value.set(itemValue);
 		this._onChange?.(itemValue);
 		this.close();
 	}
 
 	/** Select the active item with Enter key. */
-	selectActiveItem() {
+	public selectActiveItem(): void {
 		if (!this.isExpanded()) return;
 
 		const value = this.keyManager.activeItem?.value();
@@ -143,50 +143,45 @@ export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor 
 		this.select(value);
 	}
 
-	resetValue() {
+	public resetValue(): void {
 		this.value.set(null);
+		this._onChange?.(null);
 	}
 
-	open() {
+	public removeValue(_: T): void {
+		console.warn('BrnComboboxChipRemove only works with multiple selection comboboxes.');
+	}
+
+	public removeLastSelectedItem(): void {
+		console.warn('BrnComboboxChipInput only works with multiple selection comboboxes.');
+	}
+
+	public open(): void {
 		if (this._disabled() || this.isExpanded()) return;
 
 		this._brnPopover?.open();
 	}
 
-	close() {
+	private close(): void {
 		if (this._disabled() || !this.isExpanded()) return;
 
 		this._brnPopover?.close();
 	}
 
-	toggle() {
-		if (this._disabled()) return;
-
-		this.isExpanded() ? this.close() : this.open();
-	}
-
-	removeValue(_: T) {
-		console.warn('BrnComboboxChipRemove only works with multiple selection comboboxes.');
-	}
-
-	removeLastSelectedItem() {
-		console.warn('BrnComboboxChipInput only works with multiple selection comboboxes.');
-	}
-
 	/** CONTROL VALUE ACCESSOR */
-	writeValue(value: T | null): void {
+	public writeValue(value: T | null): void {
 		this.value.set(value);
 	}
 
-	registerOnChange(fn: ChangeFn<T>): void {
+	public registerOnChange(fn: ChangeFn<T | null>): void {
 		this._onChange = fn;
 	}
 
-	registerOnTouched(fn: TouchFn): void {
+	public registerOnTouched(fn: TouchFn): void {
 		this._onTouched = fn;
 	}
 
-	setDisabledState(isDisabled: boolean) {
+	public setDisabledState(isDisabled: boolean) {
 		this._disabled.set(isDisabled);
 	}
 }

@@ -21,7 +21,7 @@ export class BrnComboboxChipRemove<T> {
 
 	protected readonly _disabled = this._combobox.disabledState;
 
-	removeChip(event: Event) {
+	protected removeChip(event: Event) {
 		event.stopPropagation();
 
 		if (this._combobox.disabledState()) {

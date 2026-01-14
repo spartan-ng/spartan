@@ -142,7 +142,7 @@ export const routeMeta: RouteMeta = {
 				values and objects in the shape of
 				<code class="${hlmCode}">&lcub; label: string; value: string; &rcub;</code>
 				, the label (1) or the value (2) will be used automatically. For other object shapes provide a custom
-				<code class="${hlmCode}">itemToStringLabel</code>
+				<code class="${hlmCode}">itemToString</code>
 				function to extract the label from the object.
 			</p>
 

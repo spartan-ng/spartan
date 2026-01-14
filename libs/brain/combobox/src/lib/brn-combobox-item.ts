@@ -28,7 +28,7 @@ export class BrnComboboxItem<T> implements Highlightable {
 
 	private readonly _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 
-	/** Access the command component */
+	/** Access the combobox component */
 	private readonly _combobox = injectBrnComboboxBase<T>();
 
 	/** A unique id for the item */
@@ -63,7 +63,7 @@ export class BrnComboboxItem<T> implements Highlightable {
 		);
 	});
 
-	setActiveStyles(): void {
+	public setActiveStyles(): void {
 		this._highlighted.set(true);
 
 		// ensure the item is in view
@@ -72,15 +72,19 @@ export class BrnComboboxItem<T> implements Highlightable {
 		}
 	}
 
-	setInactiveStyles(): void {
+	public setInactiveStyles(): void {
 		this._highlighted.set(false);
 	}
 
-	getLabel(): string {
+	public getLabel(): string {
 		return stringifyAsLabel(this.value(), this._combobox.itemToString());
 	}
 
 	protected select(): void {
+		if (this._disabled()) {
+			return;
+		}
+
 		this._combobox.keyManager.setActiveItem(this);
 		this._combobox.select(this.value());
 	}

@@ -3,13 +3,12 @@ import { booleanAttribute, ChangeDetectionStrategy, Component, input } from '@an
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideX } from '@ng-icons/lucide';
 import { BrnComboboxChip } from '@spartan-ng/brain/combobox';
-import { HlmButton } from '@spartan-ng/helm/button';
 import { classes } from '@spartan-ng/helm/utils';
 import { HlmComboboxChipRemove } from './hlm-combobox-chip-remove';
 
 @Component({
 	selector: 'hlm-combobox-chip',
-	imports: [NgIcon, HlmButton, HlmComboboxChipRemove],
+	imports: [NgIcon, HlmComboboxChipRemove],
 	providers: [provideIcons({ lucideX })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [{ directive: BrnComboboxChip, inputs: ['value'] }],

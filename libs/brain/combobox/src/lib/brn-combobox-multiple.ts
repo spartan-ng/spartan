@@ -71,7 +71,7 @@ export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueA
 	public readonly isItemEqualToValue = input<ComboboxItemEqualToValue<T>>(this._config.isItemEqualToValue);
 
 	/** A function to convert an item to a string for display. */
-	public readonly itemToString = input<ComboboxItemToString<T> | undefined>(this._config.itemToStringLabel);
+	public readonly itemToString = input<ComboboxItemToString<T> | undefined>(this._config.itemToString);
 
 	/** A custom filter function to use when searching. */
 	public readonly filter = input<ComboboxFilter<T>>(this._config.filter);
@@ -105,7 +105,7 @@ export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueA
 	/** @internal Whether the autocomplete is expanded */
 	public readonly isExpanded = computed(() => this._brnPopover?.stateComputed() === 'open');
 
-	protected _onChange?: ChangeFn<T[]>;
+	protected _onChange?: ChangeFn<T[] | null>;
 	protected _onTouched?: TouchFn;
 
 	constructor() {
@@ -155,6 +155,23 @@ export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueA
 
 	resetValue() {
 		this.value.set(null);
+		this._onChange?.(null);
+	}
+
+	removeValue(itemValue: T) {
+		const selected = this.value() ?? [];
+
+		this.value.set(selected.filter((value) => !this.isItemEqualToValue()(itemValue, value)) ?? []);
+		this._onChange?.(this.value());
+	}
+
+	removeLastSelectedItem() {
+		const selected = this.value() ?? [];
+		if (selected.length === 0) return;
+
+		selected.pop();
+		this.value.set([...selected]);
+		this._onChange?.(this.value());
 	}
 
 	open() {
@@ -175,25 +192,12 @@ export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueA
 		this.isExpanded() ? this.close() : this.open();
 	}
 
-	removeValue(value: T) {
-		const selected = this.value() ?? [];
-		this.value.set(selected.filter((d) => d !== value) ?? []);
-	}
-
-	removeLastSelectedItem() {
-		const selected = this.value() ?? [];
-		if (selected.length === 0) return;
-
-		selected.pop();
-		this.value.set([...selected]);
-	}
-
 	/** CONTROL VALUE ACCESSOR */
 	writeValue(value: T[] | null): void {
 		this.value.set(value);
 	}
 
-	registerOnChange(fn: ChangeFn<T[]>): void {
+	registerOnChange(fn: ChangeFn<T[] | null>): void {
 		this._onChange = fn;
 	}
 

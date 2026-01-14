@@ -28,7 +28,7 @@ export class BrnComboboxItem<T> implements Highlightable {
 
 	private readonly _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 
-	/** Access the command component */
+	/** Access the combobox component */
 	private readonly _combobox = injectBrnComboboxBase<T>();
 
 	/** A unique id for the item */
@@ -81,6 +81,10 @@ export class BrnComboboxItem<T> implements Highlightable {
 	}
 
 	protected select(): void {
+		if (this._disabled()) {
+			return;
+		}
+
 		this._combobox.keyManager.setActiveItem(this);
 		this._combobox.select(this.value());
 	}

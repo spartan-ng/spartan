@@ -71,7 +71,7 @@ export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor 
 	public readonly isItemEqualToValue = input<ComboboxItemEqualToValue<T>>(this._config.isItemEqualToValue);
 
 	/** A function to convert an item to a string for display. */
-	public readonly itemToString = input<ComboboxItemToString<T> | undefined>(this._config.itemToStringLabel);
+	public readonly itemToString = input<ComboboxItemToString<T> | undefined>(this._config.itemToString);
 
 	/** A custom filter function to use when searching. */
 	public readonly filter = input<ComboboxFilter<T>>(this._config.filter);
@@ -103,10 +103,10 @@ export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor 
 	/** @internal The key manager for managing active descendant */
 	public readonly keyManager = new ActiveDescendantKeyManager(this.items, this._injector);
 
-	/** @internal Whether the autocomplete is expanded */
+	/** @internal Whether the combobox is expanded */
 	public readonly isExpanded = computed(() => this._brnPopover?.stateComputed() === 'open');
 
-	protected _onChange?: ChangeFn<T>;
+	protected _onChange?: ChangeFn<T | null>;
 	protected _onTouched?: TouchFn;
 
 	constructor() {
@@ -145,6 +145,15 @@ export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor 
 
 	resetValue() {
 		this.value.set(null);
+		this._onChange?.(null);
+	}
+
+	removeValue(_: T) {
+		console.warn('BrnComboboxChipRemove only works with multiple selection comboboxes.');
+	}
+
+	removeLastSelectedItem() {
+		console.warn('BrnComboboxChipInput only works with multiple selection comboboxes.');
 	}
 
 	open() {
@@ -165,20 +174,12 @@ export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor 
 		this.isExpanded() ? this.close() : this.open();
 	}
 
-	removeValue(_: T) {
-		console.warn('BrnComboboxChipRemove only works with multiple selection comboboxes.');
-	}
-
-	removeLastSelectedItem() {
-		console.warn('BrnComboboxChipInput only works with multiple selection comboboxes.');
-	}
-
 	/** CONTROL VALUE ACCESSOR */
 	writeValue(value: T | null): void {
 		this.value.set(value);
 	}
 
-	registerOnChange(fn: ChangeFn<T>): void {
+	registerOnChange(fn: ChangeFn<T | null>): void {
 		this._onChange = fn;
 	}
 

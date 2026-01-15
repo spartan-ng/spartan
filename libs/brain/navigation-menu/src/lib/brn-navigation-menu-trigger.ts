@@ -110,8 +110,24 @@ export class BrnNavigationMenuTrigger implements OnInit, OnDestroy, FocusableOpt
 		createHoverObservable(this._el.nativeElement, this._zone, this._destroy$),
 		this._contentService.hovered$.pipe(map((v) => ({ hover: v, relatedTarget: null }))),
 	).pipe(
+		// Report hover state to parent for coordination
+		tap((e) => this._navigationMenu.setTriggerHovered(e.hover)),
 		// Hover event is NOT allowed when a sub-navigation is currently visible, AND the current hover event is false.
 		filter((e) => !(this._isSubNavVisible() && !e.hover)),
+		// Block hover-open when openOn='click' and no menu is currently open
+		filter((e) => {
+			const openOn = this._navigationMenu.openOn();
+			const isMenuOpen = this._navigationMenu.value() !== undefined;
+			// Allow if: openOn is 'hover', OR menu is already open, OR this is hover-out
+			return openOn === 'hover' || isMenuOpen || !e.hover;
+		}),
+		// Add stabilization delay for hover-out in click mode to prevent race conditions
+		switchMap((e) => {
+			if (!e.hover && this._navigationMenu.openOn() === 'click') {
+				return of(e).pipe(delay(50));
+			}
+			return of(e);
+		}),
 		map((e) => ({ type: 'hover' as const, visible: e.hover, relatedTarget: e.relatedTarget })),
 	);
 

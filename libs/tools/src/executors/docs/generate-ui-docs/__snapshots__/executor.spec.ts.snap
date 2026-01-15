@@ -2813,6 +2813,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "number",
           },
           {
+            "name": "openOn",
+            "required": false,
+            "type": "'hover' | 'click'",
+          },
+          {
             "name": "orientation",
             "required": false,
             "type": "'horizontal' | 'vertical'",

@@ -1,5 +1,5 @@
-import { FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
-import { BooleanInput } from '@angular/cdk/coercion';
+import type { FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
+import type { BooleanInput } from '@angular/cdk/coercion';
 import { booleanAttribute, computed, Directive, ElementRef, inject, input } from '@angular/core';
 import { BrnButton } from '@spartan-ng/brain/button';
 import { provideBrnNavigationMenuFocusable } from './brn-navigation-menu-item-focusable.token';
@@ -36,7 +36,9 @@ export class BrnNavigationMenuLink implements FocusableOption {
 	/**
 	 * Used to identify the link as the currently active page.
 	 */
-	public readonly active = input<boolean | undefined, BooleanInput>(undefined, { transform: booleanAttribute });
+	public readonly active = input<boolean | undefined, BooleanInput>(undefined, {
+		transform: booleanAttribute,
+	});
 
 	protected readonly _isActive = computed(() => {
 		const active = this.active();
@@ -69,6 +71,12 @@ export class BrnNavigationMenuLink implements FocusableOption {
 
 	protected activate() {
 		if (!this._hasParentNavMenuItem) return;
+
+		// Only activate on hover if openOn is 'hover' or menu is already open
+		const openOn = this._navigationMenu.openOn();
+		const isMenuOpen = this._navigationMenu.value() !== undefined;
+		if (openOn === 'click' && !isMenuOpen) return;
+
 		this._navigationMenu.value.set(this._navigationMenuItem.id());
 	}
 }

@@ -9,7 +9,7 @@ import { classes } from '<%- importAlias %>/utils';
 	imports: [NgIcon],
 	providers: [provideIcons({ lucideCheck })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	hostDirectives: [{ directive: BrnComboboxItem, inputs: ['disabled', 'value'] }],
+	hostDirectives: [{ directive: BrnComboboxItem, inputs: ['id', 'disabled', 'value'] }],
 	host: {
 		'data-slot': 'combobox-item',
 	},

@@ -1,8 +1,9 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BrnPopoverContent } from '@spartan-ng/brain/popover';
 import { HlmAutocompleteImports } from '@spartan-ng/helm/autocomplete';
 import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmFieldImports } from '@spartan-ng/helm/field';
 
 interface SpartanComponent {
 	id: string;
@@ -11,24 +12,33 @@ interface SpartanComponent {
 
 @Component({
 	selector: 'spartan-autocomplete-form-preview',
-	imports: [HlmAutocompleteImports, BrnPopoverContent, ReactiveFormsModule, HlmButton],
+	imports: [HlmAutocompleteImports, BrnPopoverContent, ReactiveFormsModule, HlmButton, HlmFieldImports],
+	host: {
+		class: 'w-full max-w-xs',
+	},
 	template: `
 		<form [formGroup]="form" (ngSubmit)="submit()" class="space-y-8">
-			<hlm-autocomplete formControlName="component" [(search)]="search">
-				<hlm-autocomplete-input placeholder="Search components" />
-				<div *brnPopoverContent hlmAutocompleteContent>
-					<div hlmAutocompleteList>
-						<hlm-autocomplete-empty>No components found.</hlm-autocomplete-empty>
-						@for (component of filteredOptions(); track $index) {
-							<hlm-autocomplete-item [value]="component">
-								{{ component.value }}
-							</hlm-autocomplete-item>
-						}
-					</div>
+			<div hlmFieldGroup>
+				<div hlmField>
+					<label hlmFieldLabel>Select a component</label>
+					<hlm-autocomplete formControlName="component" [(search)]="search">
+						<hlm-autocomplete-input placeholder="e.g. Accordion" />
+						<div *brnPopoverContent hlmAutocompleteContent>
+							<div hlmAutocompleteList>
+								<hlm-autocomplete-empty>No components found.</hlm-autocomplete-empty>
+								@for (component of filteredOptions(); track $index) {
+									<hlm-autocomplete-item [value]="component">
+										{{ component.value }}
+									</hlm-autocomplete-item>
+								}
+							</div>
+						</div>
+					</hlm-autocomplete>
 				</div>
-			</hlm-autocomplete>
-
-			<button type="submit" hlmBtn [disabled]="form.invalid">Submit</button>
+				<div hlmField orientation="horizontal">
+					<button type="submit" hlmBtn [disabled]="form.invalid">Submit</button>
+				</div>
+			</div>
 		</form>
 	`,
 })
@@ -36,7 +46,7 @@ export class AutocompleteFormPreview {
 	private readonly _formBuilder = inject(FormBuilder);
 
 	public form = this._formBuilder.group({
-		component: new FormControl<SpartanComponent | null>(null),
+		component: new FormControl<SpartanComponent | null>(null, Validators.required),
 	});
 
 	private readonly _components: SpartanComponent[] = [

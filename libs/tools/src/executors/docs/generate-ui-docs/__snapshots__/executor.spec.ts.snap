@@ -284,23 +284,51 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       "BrnAutocomplete": {
         "inputs": [
           {
-            "name": "id",
+            "name": "disabled",
             "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "isItemEqualToValue",
+            "required": false,
+            "type": "AutocompleteItemEqualToValue<T>",
+          },
+          {
+            "name": "itemToString",
+            "required": false,
+            "type": "AutocompleteItemToString<T> | undefined",
+          },
+        ],
+        "models": [
+          {
+            "name": "value",
+            "type": "T | null",
+          },
+          {
+            "name": "search",
             "type": "string",
           },
         ],
-        "models": [],
-        "outputs": [
-          {
-            "name": "valueChange",
-            "type": "T",
-          },
-          {
-            "name": "selectionCleared",
-            "type": "void",
-          },
-        ],
+        "outputs": [],
         "selector": "[brnAutocomplete]",
+      },
+      "BrnAutocompleteAnchor": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnAutocompleteAnchor]",
+      },
+      "BrnAutocompleteClear": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnAutocompleteClear]",
+      },
+      "BrnAutocompleteContent": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnAutocompleteContent]",
       },
       "BrnAutocompleteEmpty": {
         "inputs": [],
@@ -309,6 +337,13 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "[brnAutocompleteEmpty]",
       },
       "BrnAutocompleteGroup": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnAutocompleteGroup]",
+      },
+      "BrnAutocompleteInput": {
+        "exportAs": "brnAutocompleteInput",
         "inputs": [
           {
             "name": "id",
@@ -318,7 +353,13 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "[brnAutocompleteGroup]",
+        "selector": "input[brnAutocompleteInput]",
+      },
+      "BrnAutocompleteInputWrapper": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnAutocompleteInputWrapper]",
       },
       "BrnAutocompleteItem": {
         "inputs": [
@@ -339,13 +380,20 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           },
         ],
         "models": [],
-        "outputs": [
+        "outputs": [],
+        "selector": "[brnAutocompleteItem]",
+      },
+      "BrnAutocompleteLabel": {
+        "inputs": [
           {
-            "name": "selected",
-            "type": "void",
+            "name": "id",
+            "required": false,
+            "type": "string",
           },
         ],
-        "selector": "button[brnAutocompleteItem]",
+        "models": [],
+        "outputs": [],
+        "selector": "[brnAutocompleteLabel]",
       },
       "BrnAutocompleteList": {
         "inputs": [
@@ -359,179 +407,126 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "outputs": [],
         "selector": "[brnAutocompleteList]",
       },
-      "BrnAutocompleteSearchInput": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "input[brnAutocompleteSearchInput]",
-      },
-    },
-    "helm": {
-      "HlmAutocomplete": {
+      "BrnAutocompleteSearch": {
         "inputs": [
-          {
-            "name": "autocompleteSearchClass",
-            "required": false,
-            "type": "ClassValue",
-          },
-          {
-            "name": "autocompleteInputClass",
-            "required": false,
-            "type": "ClassValue",
-          },
-          {
-            "name": "autocompleteListClass",
-            "required": false,
-            "type": "ClassValue",
-          },
-          {
-            "name": "autocompleteItemClass",
-            "required": false,
-            "type": "ClassValue",
-          },
-          {
-            "name": "autocompleteEmptyClass",
-            "required": false,
-            "type": "ClassValue",
-          },
-          {
-            "name": "filteredOptions",
-            "required": false,
-            "type": "T[]",
-          },
-          {
-            "name": "debounceTime",
-            "required": false,
-            "type": "number",
-          },
-          {
-            "name": "transformValueToSearch",
-            "required": false,
-            "type": "(option: T) => string",
-          },
-          {
-            "name": "requireSelection",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "transformOptionToString",
-            "required": false,
-            "type": "(option: T) => string",
-          },
-          {
-            "name": "transformOptionToValue",
-            "required": false,
-            "type": "((option: T) => V) | undefined",
-          },
-          {
-            "name": "displayWith",
-            "required": false,
-            "type": "((value: V) => string) | undefined",
-          },
-          {
-            "name": "optionTemplate",
-            "required": false,
-            "type": "TemplateRef<HlmAutocompleteOption<T>>",
-          },
-          {
-            "name": "loading",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "showClearBtn",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "searchPlaceholderText",
-            "required": false,
-            "type": "string",
-          },
-          {
-            "name": "loadingText",
-            "required": false,
-            "type": "string",
-          },
-          {
-            "name": "emptyText",
-            "required": false,
-            "type": "string",
-          },
-          {
-            "name": "ariaLabelToggleButton",
-            "required": false,
-            "type": "string",
-          },
-          {
-            "name": "inputId",
-            "required": false,
-            "type": "string",
-          },
           {
             "name": "disabled",
             "required": false,
             "type": "boolean",
           },
+          {
+            "name": "itemToString",
+            "required": false,
+            "type": "AutocompleteItemToString<T> | undefined",
+          },
         ],
         "models": [
           {
             "name": "value",
-            "type": "T | V",
+            "type": "string | null",
           },
           {
             "name": "search",
             "type": "string",
           },
         ],
-        "outputs": [
+        "outputs": [],
+        "selector": "[brnAutocomplete]",
+      },
+      "BrnAutocompleteSeparator": {
+        "inputs": [
           {
-            "name": "valueChange",
-            "type": "T | V | null",
-          },
-          {
-            "name": "searchChange",
-            "type": "string",
+            "name": "orientation",
+            "required": false,
+            "type": "'horizontal' | 'vertical'",
           },
         ],
-        "selector": "hlm-autocomplete",
+        "models": [],
+        "outputs": [],
+        "selector": "[brnAutocompleteSeparator]",
+      },
+    },
+    "helm": {
+      "HlmAutocomplete": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmAutocomplete],hlm-autocomplete",
+      },
+      "HlmAutocompleteContent": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmAutocompleteContent]",
       },
       "HlmAutocompleteEmpty": {
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "[hlmAutocompleteEmpty]",
+        "selector": "[hlmAutocompleteEmpty],hlm-autocomplete-empty",
       },
       "HlmAutocompleteGroup": {
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "[hlmAutocompleteGroup],hlm-autocomplete-group",
+        "selector": "[hlmAutocompleteGroup]",
       },
-      "HlmAutocompleteItem": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "button[hlmAutocompleteItem],button[hlm-autocomplete-item]",
-      },
-      "HlmAutocompleteList": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "[hlmAutocompleteList],hlm-autocomplete-list",
-      },
-      "HlmAutocompleteTrigger": {
+      "HlmAutocompleteInput": {
         "inputs": [
           {
-            "name": "disabledTrigger",
+            "name": "placeholder",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "showSearch",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "showClear",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "aria-invalid",
             "required": false,
             "type": "boolean",
           },
         ],
         "models": [],
         "outputs": [],
-        "selector": "[hlmAutocompleteTrigger]",
+        "selector": "hlm-autocomplete-input",
+      },
+      "HlmAutocompleteItem": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-autocomplete-item",
+      },
+      "HlmAutocompleteLabel": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmAutocompleteLabel]",
+      },
+      "HlmAutocompleteList": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmAutocompleteList]",
+      },
+      "HlmAutocompleteSearch": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmAutocompleteSearch],hlm-autocomplete-search",
+      },
+      "HlmAutocompleteSeparator": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmAutocompleteSeparator]",
       },
     },
   },

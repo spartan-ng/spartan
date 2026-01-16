@@ -1,5 +1,11 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
+import { TabsCli } from '@spartan-ng/app/app/shared/layout/tabs-cli';
+import { UIApiDocs } from '@spartan-ng/app/app/shared/layout/ui-docs-section/ui-docs-section';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
@@ -9,16 +15,9 @@ import { PageBottomNavLink } from '../../../../shared/layout/page-bottom-nav/pag
 import { PageNav } from '../../../../shared/layout/page-nav/page-nav';
 import { SectionIntro } from '../../../../shared/layout/section-intro';
 import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading';
-import { link } from '../../../../shared/typography/link';
-
-import { RouterLink } from '@angular/router';
-import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
-import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
-import { TabsCli } from '@spartan-ng/app/app/shared/layout/tabs-cli';
-import { UIApiDocs } from '@spartan-ng/app/app/shared/layout/ui-docs-section/ui-docs-section';
-import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { Tabs } from '../../../../shared/layout/tabs';
 import { metaWith } from '../../../../shared/meta/meta.util';
+import { link } from '../../../../shared/typography/link';
 import { AutocompleteAsyncPreview } from './autocomplete--async.preview';
 import { AutocompleteClearPreview } from './autocomplete--clear.preview';
 import { AutocompleteCountries } from './autocomplete--countries.example';
@@ -26,6 +25,8 @@ import { AutocompleteDisabledPreview } from './autocomplete--disabled.preview';
 import { AutocompleteFormPreview } from './autocomplete--form.preview';
 import { AutocompleteGroupSeparatorPreview } from './autocomplete--group-separator.preview';
 import { AutocompleteGroupPreview } from './autocomplete--group.preview';
+import { AutocompleteSearchFormPreview } from './autocomplete--search-form.preview';
+import { AutocompleteSearchPreview } from './autocomplete--search.preview';
 import {
 	autocompleteDefaultConfig,
 	AutocompletePreview,
@@ -41,7 +42,6 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-autocomplete',
-
 	imports: [
 		MainSection,
 		Code,
@@ -65,6 +65,8 @@ export const routeMeta: RouteMeta = {
 		AutocompleteGroupSeparatorPreview,
 		AutocompleteClearPreview,
 		AutocompleteDisabledPreview,
+		AutocompleteSearchPreview,
+		AutocompleteSearchFormPreview,
 	],
 	template: `
 		<section spartanMainSection>
@@ -163,7 +165,6 @@ export const routeMeta: RouteMeta = {
 			</spartan-tabs>
 
 			<h3 id="examples__object_values" spartanH4>Object values</h3>
-
 			<p class="${hlmP} mb-6">
 				Customize the selected value for object values by providing a custom
 				<code class="${hlmCode}">itemToString</code>
@@ -175,6 +176,22 @@ export const routeMeta: RouteMeta = {
 					<spartan-autocomplete-countries />
 				</div>
 				<spartan-code secondTab [code]="_countriesCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__search" spartanH4>Free-form text</h3>
+			<p class="${hlmP}">
+				Use
+				<code class="${hlmCode}">hlm-autocomplete-search</code>
+				to allow free-form text input along with option selection. The selected option is transformed to string via
+				<code class="${hlmCode}">itemToString</code>
+				.
+			</p>
+
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-autocomplete-search-preview />
+				</div>
+				<spartan-code secondTab [code]="_searchCode()" />
 			</spartan-tabs>
 
 			<h3 id="examples__async_search" spartanH4>Async search</h3>
@@ -191,6 +208,14 @@ export const routeMeta: RouteMeta = {
 					<spartan-autocomplete-form-preview />
 				</div>
 				<spartan-code secondTab [code]="_formCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__search_form" spartanH4>Free-form text Form</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-autocomplete-search-form-preview />
+				</div>
+				<spartan-code secondTab [code]="_searchFormCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
@@ -210,6 +235,7 @@ export const routeMeta: RouteMeta = {
 export default class AutocompletePage {
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('autocomplete');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
+	protected readonly _searchCode = computed(() => this._snippets()['search']);
 	protected readonly _clearCode = computed(() => this._snippets()['clear']);
 	protected readonly _disabledCode = computed(() => this._snippets()['disabled']);
 	protected readonly _groupCode = computed(() => this._snippets()['group']);
@@ -218,6 +244,7 @@ export default class AutocompletePage {
 	protected readonly _configCode = computed(() => this._snippets()['config']);
 	protected readonly _asyncCode = computed(() => this._snippets()['async']);
 	protected readonly _formCode = computed(() => this._snippets()['form']);
+	protected readonly _searchFormCode = computed(() => this._snippets()['searchForm']);
 	protected readonly _transformOptionValueCode = computed(() => this._snippets()['transformOptionValue']);
 	protected readonly _defaultImports = defaultImports;
 	protected readonly _codeSkeleton = defaultSkeleton;

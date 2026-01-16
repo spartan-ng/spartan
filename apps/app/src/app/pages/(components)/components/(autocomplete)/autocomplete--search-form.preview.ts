@@ -4,42 +4,48 @@ import { BrnPopoverContent } from '@spartan-ng/brain/popover';
 import { HlmAutocompleteImports } from '@spartan-ng/helm/autocomplete';
 import { HlmButton } from '@spartan-ng/helm/button';
 
-interface SpartanComponent {
+interface Tag {
 	id: string;
 	value: string;
 }
 
 @Component({
-	selector: 'spartan-autocomplete-form-preview',
+	selector: 'spartan-autocomplete-search-form-preview',
 	imports: [HlmAutocompleteImports, BrnPopoverContent, ReactiveFormsModule, HlmButton],
 	template: `
 		<form [formGroup]="form" (ngSubmit)="submit()" class="space-y-8">
-			<hlm-autocomplete formControlName="component" [(search)]="search">
-				<hlm-autocomplete-input placeholder="Search components" />
+			<hlm-autocomplete-search formControlName="character" [(search)]="search">
+				<hlm-autocomplete-input placeholder="Search tags" />
 				<div *brnPopoverContent hlmAutocompleteContent>
 					<div hlmAutocompleteList>
-						<hlm-autocomplete-empty>No components found.</hlm-autocomplete-empty>
-						@for (component of filteredOptions(); track $index) {
-							<hlm-autocomplete-item [value]="component">
-								{{ component.value }}
+						<hlm-autocomplete-empty>No tags found.</hlm-autocomplete-empty>
+						@for (tag of filteredOptions(); track $index) {
+							<hlm-autocomplete-item [value]="tag">
+								{{ tag.value }}
 							</hlm-autocomplete-item>
 						}
 					</div>
 				</div>
-			</hlm-autocomplete>
+			</hlm-autocomplete-search>
 
 			<button type="submit" hlmBtn [disabled]="form.invalid">Submit</button>
 		</form>
 	`,
 })
-export class AutocompleteFormPreview {
+export class AutocompleteSearchFormPreview {
 	private readonly _formBuilder = inject(FormBuilder);
 
 	public form = this._formBuilder.group({
-		component: new FormControl<SpartanComponent | null>(null),
+		character: new FormControl<string | null>(null),
 	});
 
-	private readonly _components: SpartanComponent[] = [
+	private readonly _tags: Tag[] = [
+		{ id: 't1', value: 'feature' },
+		{ id: 't2', value: 'fix' },
+		{ id: 't3', value: 'bug' },
+		{ id: 't4', value: 'docs' },
+		{ id: 't5', value: 'internal' },
+		{ id: 't6', value: 'mobile' },
 		{ id: 'accordion', value: 'Accordion' },
 		{ id: 'alert-dialog', value: 'Alert dialog' },
 		{ id: 'autocomplete', value: 'Autocomplete' },
@@ -78,7 +84,7 @@ export class AutocompleteFormPreview {
 	public readonly search = signal('');
 
 	public readonly filteredOptions = computed(() =>
-		this._components.filter((component) => component.value.toLowerCase().includes(this.search().toLowerCase())),
+		this._tags.filter((tag) => tag.value.toLowerCase().includes(this.search().toLowerCase())),
 	);
 
 	submit() {

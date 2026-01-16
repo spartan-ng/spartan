@@ -4,7 +4,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { booleanAttribute, computed, Directive, ElementRef, inject, input, PLATFORM_ID, signal } from '@angular/core';
 import { stringifyAsLabel } from '@spartan-ng/brain/core';
 import { provideBrnAutocompleteItem } from './brn-autocomplete-item.token';
-import { injectBrnAutocomplete } from './brn-autocomplete.token';
+import { injectBrnAutocompleteBase } from './brn-autocomplete.token';
 
 @Directive({
 	selector: '[brnAutocompleteItem]',
@@ -28,7 +28,7 @@ export class BrnAutocompleteItem<T> implements Highlightable {
 	private readonly _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 
 	/** Access the autocomplete component */
-	private readonly _autocomplete = injectBrnAutocomplete<T>();
+	private readonly _autocomplete = injectBrnAutocompleteBase<T>();
 
 	/** A unique id for the item */
 	public readonly id = input<string>(`brn-autocomplete-item-${++BrnAutocompleteItem._id}`);

@@ -22,24 +22,23 @@ import { BrnAutocompleteInputWrapper } from './brn-autocomplete-input-wrapper';
 import { BrnAutocompleteItem } from './brn-autocomplete-item';
 import { BrnAutocompleteItemToken } from './brn-autocomplete-item.token';
 import {
-	AutocompleteItemEqualToValue,
 	AutocompleteItemToString,
 	BrnAutocompleteBase,
 	injectBrnAutocompleteConfig,
 	provideBrnAutocompleteBase,
 } from './brn-autocomplete.token';
 
-export const BRN_AUTOCOMPLETE_VALUE_ACCESSOR = {
+export const BRN_AUTOCOMPLETE_SEARCH_VALUE_ACCESSOR = {
 	provide: NG_VALUE_ACCESSOR,
-	useExisting: forwardRef(() => BrnAutocomplete),
+	useExisting: forwardRef(() => BrnAutocompleteSearch),
 	multi: true,
 };
 
 @Directive({
 	selector: '[brnAutocomplete]',
-	providers: [provideBrnAutocompleteBase(BrnAutocomplete), BRN_AUTOCOMPLETE_VALUE_ACCESSOR],
+	providers: [provideBrnAutocompleteBase(BrnAutocompleteSearch), BRN_AUTOCOMPLETE_SEARCH_VALUE_ACCESSOR],
 })
-export class BrnAutocomplete<T> implements BrnAutocompleteBase<T>, ControlValueAccessor {
+export class BrnAutocompleteSearch<T> implements BrnAutocompleteBase<T>, ControlValueAccessor {
 	private readonly _injector = inject(Injector);
 
 	private readonly _config = injectBrnAutocompleteConfig<T>();
@@ -55,14 +54,11 @@ export class BrnAutocomplete<T> implements BrnAutocompleteBase<T>, ControlValueA
 	/** @internal The disabled state as a readonly signal */
 	public readonly disabledState = this._disabled.asReadonly();
 
-	/** A function to compare an item with the selected value. */
-	public readonly isItemEqualToValue = input<AutocompleteItemEqualToValue<T>>(this._config.isItemEqualToValue);
-
 	/** A function to convert an item to a string for display. */
 	public readonly itemToString = input<AutocompleteItemToString<T> | undefined>(this._config.itemToString);
 
 	/** The selected value of the autocomplete. */
-	public readonly value = model<T | null>(null);
+	public readonly value = model<string | null>(null);
 
 	/** The current search query. */
 	public readonly search = model<string>('');
@@ -91,7 +87,7 @@ export class BrnAutocomplete<T> implements BrnAutocompleteBase<T>, ControlValueA
 	/** @internal Whether the autocomplete is expanded */
 	public readonly isExpanded = computed(() => this._brnPopover?.stateComputed() === 'open');
 
-	protected _onChange?: ChangeFn<T | null>;
+	protected _onChange?: ChangeFn<string | null>;
 	protected _onTouched?: TouchFn;
 
 	constructor() {
@@ -107,7 +103,9 @@ export class BrnAutocomplete<T> implements BrnAutocompleteBase<T>, ControlValueA
 	}
 
 	updateSearch(value: string) {
+		this.value.set(value);
 		this.search.set(value);
+		this._onChange?.(value);
 		this.open();
 
 		if (value === '') {
@@ -116,13 +114,15 @@ export class BrnAutocomplete<T> implements BrnAutocompleteBase<T>, ControlValueA
 	}
 
 	isSelected(itemValue: T): boolean {
-		return this.isItemEqualToValue()(itemValue, this.value());
+		return stringifyAsLabel(itemValue, this.itemToString()) === this.value();
 	}
 
 	select(itemValue: T) {
-		this.value.set(itemValue);
-		this._onChange?.(itemValue);
-		this.search.set(stringifyAsLabel(itemValue, this.itemToString()));
+		const label = stringifyAsLabel(itemValue, this.itemToString());
+
+		this.value.set(label);
+		this._onChange?.(label);
+		this.search.set(label);
 		this.close();
 	}
 
@@ -162,11 +162,11 @@ export class BrnAutocomplete<T> implements BrnAutocompleteBase<T>, ControlValueA
 	}
 
 	/** CONTROL VALUE ACCESSOR */
-	writeValue(value: T | null): void {
+	writeValue(value: string | null): void {
 		this.value.set(value);
 	}
 
-	registerOnChange(fn: ChangeFn<T | null>): void {
+	registerOnChange(fn: ChangeFn<string | null>): void {
 		this._onChange = fn;
 	}
 

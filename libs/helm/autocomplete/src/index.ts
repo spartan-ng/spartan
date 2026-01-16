@@ -6,6 +6,7 @@ import { HlmAutocompleteInput } from './lib/hlm-autocomplete-input';
 import { HlmAutocompleteItem } from './lib/hlm-autocomplete-item';
 import { HlmAutocompleteLabel } from './lib/hlm-autocomplete-label';
 import { HlmAutocompleteList } from './lib/hlm-autocomplete-list';
+import { HlmAutocompleteSearch } from './lib/hlm-autocomplete-search';
 import { HlmAutocompleteSeparator } from './lib/hlm-autocomplete-separator';
 
 export * from './lib/hlm-autocomplete';
@@ -16,6 +17,7 @@ export * from './lib/hlm-autocomplete-input';
 export * from './lib/hlm-autocomplete-item';
 export * from './lib/hlm-autocomplete-label';
 export * from './lib/hlm-autocomplete-list';
+export * from './lib/hlm-autocomplete-search';
 export * from './lib/hlm-autocomplete-separator';
 
 export const HlmAutocompleteImports = [
@@ -27,5 +29,6 @@ export const HlmAutocompleteImports = [
 	HlmAutocompleteItem,
 	HlmAutocompleteLabel,
 	HlmAutocompleteList,
+	HlmAutocompleteSearch,
 	HlmAutocompleteSeparator,
 ] as const;

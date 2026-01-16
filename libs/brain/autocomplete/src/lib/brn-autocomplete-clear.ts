@@ -1,11 +1,11 @@
 import { computed, Directive, effect, inject, Renderer2, TemplateRef, ViewContainerRef } from '@angular/core';
-import { injectBrnAutocomplete } from './brn-autocomplete.token';
+import { injectBrnAutocompleteBase } from './brn-autocomplete.token';
 
 @Directive({
 	selector: '[brnAutocompleteClear]',
 })
 export class BrnAutocompleteClear {
-	private readonly _autocomplete = injectBrnAutocomplete();
+	private readonly _autocomplete = injectBrnAutocompleteBase();
 	private readonly _renderer = inject(Renderer2);
 	private readonly _templateRef = inject<TemplateRef<void>>(TemplateRef);
 	private readonly _viewContainerRef = inject(ViewContainerRef);

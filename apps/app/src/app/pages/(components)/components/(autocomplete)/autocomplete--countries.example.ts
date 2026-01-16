@@ -13,7 +13,7 @@ type Country = {
 	imports: [HlmAutocompleteImports, BrnPopoverContent],
 	template: `
 		<hlm-autocomplete [(search)]="search" [itemToString]="itemToString">
-			<hlm-autocomplete-input placeholder="Search characters..." />
+			<hlm-autocomplete-input placeholder="Search countries" />
 			<div *brnPopoverContent hlmAutocompleteContent>
 				<div hlmAutocompleteList>
 					<hlm-autocomplete-empty>No countries found.</hlm-autocomplete-empty>

@@ -1,5 +1,5 @@
 import { Directive, input } from '@angular/core';
-import { injectBrnAutocomplete } from './brn-autocomplete.token';
+import { injectBrnAutocompleteBase } from './brn-autocomplete.token';
 
 @Directive({
 	selector: '[brnAutocompleteList]',
@@ -14,7 +14,7 @@ import { injectBrnAutocomplete } from './brn-autocomplete.token';
 export class BrnAutocompleteList {
 	private static _id = 0;
 
-	private readonly _autocomplete = injectBrnAutocomplete();
+	private readonly _autocomplete = injectBrnAutocompleteBase();
 
 	/** Determine if the autocomplete has any visible items */
 	protected readonly _visibleItems = this._autocomplete.visibleItems;

@@ -1,6 +1,6 @@
 import { Directive, effect, ElementRef, inject, input } from '@angular/core';
 import { stringifyAsLabel } from '@spartan-ng/brain/core';
-import { injectBrnAutocomplete } from './brn-autocomplete.token';
+import { injectBrnAutocompleteBase } from './brn-autocomplete.token';
 
 @Directive({
 	selector: 'input[brnAutocompleteInput]',
@@ -24,7 +24,7 @@ import { injectBrnAutocomplete } from './brn-autocomplete.token';
 export class BrnAutocompleteInput<T> {
 	private static _id = 0;
 	private readonly _el = inject(ElementRef);
-	private readonly _autocomplete = injectBrnAutocomplete<T>();
+	private readonly _autocomplete = injectBrnAutocompleteBase<T>();
 
 	/** The id of the autocomplete input */
 	public readonly id = input<string>(`brn-autocomplete-input-${++BrnAutocompleteInput._id}`);
@@ -52,12 +52,7 @@ export class BrnAutocompleteInput<T> {
 	protected onInput(event: Event) {
 		const value = (event.target as HTMLInputElement).value;
 
-		this._autocomplete.search.set(value);
-		this._autocomplete.open();
-
-		if (value === '') {
-			this._autocomplete.resetValue();
-		}
+		this._autocomplete.updateSearch(value);
 	}
 
 	protected onKeyDown(event: KeyboardEvent) {

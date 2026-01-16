@@ -7,10 +7,10 @@ import { HlmAutocompleteImports } from '@spartan-ng/helm/autocomplete';
 	imports: [HlmAutocompleteImports, BrnPopoverContent],
 	template: `
 		<hlm-autocomplete [(search)]="search" disabled>
-			<hlm-autocomplete-input placeholder="Search characters" />
+			<hlm-autocomplete-input placeholder="Search components" />
 			<div *brnPopoverContent hlmAutocompleteContent>
 				<div hlmAutocompleteList>
-					<hlm-autocomplete-empty>No characters found.</hlm-autocomplete-empty>
+					<hlm-autocomplete-empty>No components found.</hlm-autocomplete-empty>
 					@for (option of filteredOptions(); track $index) {
 						<hlm-autocomplete-item [value]="option">
 							{{ option }}
@@ -23,19 +23,39 @@ import { HlmAutocompleteImports } from '@spartan-ng/helm/autocomplete';
 })
 export class AutocompleteDisabledPreview {
 	private readonly _options: string[] = [
-		'Marty McFly',
-		'Doc Brown',
-		'Biff Tannen',
-		'George McFly',
-		'Jennifer Parker',
-		'Emmett Brown',
-		'Einstein',
-		'Clara Clayton',
-		'Needles',
-		'Goldie Wilson',
-		'Marvin Berry',
-		'Lorraine Baines',
-		'Strickland',
+		'Accordion',
+		'Alert dialog',
+		'Autocomplete',
+		'Avatar',
+		'Checkbox',
+		'Collapsible',
+		'Combobox',
+		'Command',
+		'Context menu',
+		'Data table',
+		'Date picker',
+		'Dialog',
+		'Field',
+		'Input',
+		'Menubar',
+		'Navigation menu',
+		'Popover',
+		'Progress',
+		'Radio',
+		'Scroll area',
+		'Select',
+		'Separator',
+		'Skeleton',
+		'Slider',
+		'Sonner',
+		'Spinner',
+		'Switch',
+		'Table',
+		'Tabs',
+		'Textarea',
+		'Toast',
+		'Toggle',
+		'Tooltip',
 	];
 
 	public readonly search = signal('');

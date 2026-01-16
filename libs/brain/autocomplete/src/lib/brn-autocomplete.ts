@@ -28,7 +28,7 @@ import {
 	provideBrnAutocomplete,
 } from './brn-autocomplete.token';
 
-export const BRN_COMBOBOX_VALUE_ACCESSOR = {
+export const BRN_AUTOCOMPLETE_VALUE_ACCESSOR = {
 	provide: NG_VALUE_ACCESSOR,
 	useExisting: forwardRef(() => BrnAutocomplete),
 	multi: true,
@@ -36,7 +36,7 @@ export const BRN_COMBOBOX_VALUE_ACCESSOR = {
 
 @Directive({
 	selector: '[brnAutocomplete]',
-	providers: [provideBrnAutocomplete(BrnAutocomplete), BRN_COMBOBOX_VALUE_ACCESSOR],
+	providers: [provideBrnAutocomplete(BrnAutocomplete), BRN_AUTOCOMPLETE_VALUE_ACCESSOR],
 })
 export class BrnAutocomplete<T> implements ControlValueAccessor {
 	private readonly _injector = inject(Injector);

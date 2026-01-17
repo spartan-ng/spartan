@@ -17,6 +17,7 @@ import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { NavigationMenuControlled } from './navigation-menu--controlled.example';
 import { NavigationMenuNested } from './navigation-menu--nested.example';
+import { NavigationMenuOpenOnClick } from './navigation-menu--open-on-click.example';
 import { NavigationMenuVertical } from './navigation-menu--vertical.example';
 import { defaultImports, defaultSkeleton, NavigationMenuPreview } from './navigation-menu.preview';
 
@@ -37,6 +38,7 @@ export const routeMeta: RouteMeta = {
 		TabsCli,
 		NavigationMenuControlled,
 		NavigationMenuNested,
+		NavigationMenuOpenOnClick,
 		NavigationMenuPreview,
 		NavigationMenuVertical,
 		CodePreview,
@@ -102,6 +104,19 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_nestedCode()" />
 			</spartan-tabs>
 
+			<h3 id="examples__open-on-click" spartanH4>Open on Click</h3>
+			<p class="py-2">
+				Set
+				<code class="${hlmCode}">openOn="click"</code>
+				to require a click to open the menu initially. Once a menu is open, hovering still switches between menu items.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab class="justify-start">
+					<spartan-navigation-menu-open-on-click />
+				</div>
+				<spartan-code secondTab [code]="_openOnClickCode()" />
+			</spartan-tabs>
+
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="brain" />
 
@@ -122,6 +137,7 @@ export default class NavigationMenuPage {
 	protected readonly _verticalCode = computed(() => this._snippets()['vertical']);
 	protected readonly _controlledCode = computed(() => this._snippets()['controlled']);
 	protected readonly _nestedCode = computed(() => this._snippets()['nested']);
+	protected readonly _openOnClickCode = computed(() => this._snippets()['openOnClick']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

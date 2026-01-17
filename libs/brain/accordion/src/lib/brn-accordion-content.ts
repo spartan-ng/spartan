@@ -1,4 +1,16 @@
-import { Directive, ElementRef, afterNextRender, computed, inject, input, signal } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import {
+	DestroyRef,
+	Directive,
+	ElementRef,
+	NgZone,
+	PLATFORM_ID,
+	afterNextRender,
+	computed,
+	inject,
+	input,
+	signal,
+} from '@angular/core';
 import { measureDimensions } from '@spartan-ng/brain/core';
 import { injectBrnAccordionConfig, injectBrnAccordionItem } from './brn-accordion-token';
 
@@ -19,6 +31,9 @@ export class BrnAccordionContent {
 	private readonly _config = injectBrnAccordionConfig();
 	private readonly _item = injectBrnAccordionItem();
 	private readonly _elementRef = inject(ElementRef);
+	private readonly _destroyRef = inject(DestroyRef);
+	private readonly _ngZone = inject(NgZone);
+	private readonly _platformId = inject(PLATFORM_ID);
 
 	protected readonly _width = signal<number | null>(null);
 	protected readonly _height = signal<number | null>(null);
@@ -38,12 +53,44 @@ export class BrnAccordionContent {
 			throw Error('Accordion Content can only be used inside an AccordionItem. Add brnAccordionItem to parent.');
 		}
 		afterNextRender(() => {
-			const content = this._elementRef.nativeElement.firstChild as HTMLElement | null;
-			if (!content) return;
+			const hasValidDimensions = this._measureAndSetDimensions();
+			if (!hasValidDimensions) {
+				this._setupVisibilityObserver();
+			}
+		});
+	}
 
-			const { width, height } = measureDimensions(content, this._config.measurementDisplay);
-			this._width.set(width);
-			this._height.set(height);
+	private _measureAndSetDimensions(): boolean {
+		const content = this._elementRef.nativeElement.firstChild as HTMLElement | null;
+		if (!content) return false;
+
+		const { width, height } = measureDimensions(content, this._config.measurementDisplay);
+		this._width.set(width);
+		this._height.set(height);
+
+		return width > 0 && height > 0;
+	}
+
+	private _setupVisibilityObserver(): void {
+		if (!isPlatformBrowser(this._platformId)) return;
+		if (typeof IntersectionObserver === 'undefined') return;
+
+		this._ngZone.runOutsideAngular(() => {
+			const observer = new IntersectionObserver(
+				(entries) => {
+					if (entries[0].isIntersecting) {
+						this._ngZone.run(() => {
+							if (this._measureAndSetDimensions()) {
+								observer.disconnect();
+							}
+						});
+					}
+				},
+				{ root: null, threshold: 0 },
+			);
+
+			observer.observe(this._elementRef.nativeElement);
+			this._destroyRef.onDestroy(() => observer.disconnect());
 		});
 	}
 }

@@ -38,8 +38,9 @@ export type InputMode = 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal'
 		<ng-content />
 		<div [style]="containerStyles()">
 			<input
+				[id]="inputId()"
 				[class]="inputClass()"
-				autocomplete="one-time-code"
+				[autocomplete]="inputAutocomplete()"
 				data-slot="input-otp"
 				[style]="inputStyles()"
 				[disabled]="_disabled()"
@@ -54,6 +55,8 @@ export type InputMode = 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal'
 	`,
 })
 export class BrnInputOtp implements ControlValueAccessor {
+	private static _id = 0;
+
 	/** Whether the input has focus. */
 	protected readonly _focused = signal<boolean>(false);
 
@@ -61,6 +64,12 @@ export class BrnInputOtp implements ControlValueAccessor {
 	public readonly hostStyles = input<string>(
 		'position: relative; cursor: text; user-select: none; pointer-events: none;',
 	);
+
+	/** Custom id applied to the input element */
+	public readonly inputId = input<string>(`brn-input-otp-${++BrnInputOtp._id}`);
+
+	/** Custom autocomplete attribute applied to the input element */
+	public readonly inputAutocomplete = input<'one-time-code' | 'off'>('one-time-code');
 
 	/** Styles applied to the input element to make it invisible and clickable. */
 	public readonly inputStyles = input<string>(

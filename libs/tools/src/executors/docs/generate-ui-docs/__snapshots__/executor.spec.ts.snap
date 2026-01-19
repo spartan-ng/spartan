@@ -2921,6 +2921,16 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "string",
           },
           {
+            "name": "inputId",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "inputAutocomplete",
+            "required": false,
+            "type": "'one-time-code' | 'off'",
+          },
+          {
             "name": "inputStyles",
             "required": false,
             "type": "string",

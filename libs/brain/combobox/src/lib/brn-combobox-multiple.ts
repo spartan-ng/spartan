@@ -13,7 +13,6 @@ import {
 	input,
 	linkedSignal,
 	model,
-	signal,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, type ControlValueAccessor } from '@angular/forms';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
@@ -80,7 +79,7 @@ export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueA
 	public readonly value = model<T[] | null>(null);
 
 	/** The current search query. */
-	public readonly search = signal<string>('');
+	public readonly search = model<string>('');
 
 	private readonly _searchInputWrapper = contentChild(BrnComboboxInputWrapper, {
 		read: ElementRef,

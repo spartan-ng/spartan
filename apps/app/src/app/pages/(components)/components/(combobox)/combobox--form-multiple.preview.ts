@@ -6,7 +6,7 @@ import { HlmComboboxImports } from '@spartan-ng/helm/combobox';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
 
 @Component({
-	selector: 'spartan-combobox-form-preview',
+	selector: 'spartan-combobox-form-multiple-preview',
 	imports: [HlmComboboxImports, BrnPopoverContent, ReactiveFormsModule, HlmButton, HlmFieldImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
@@ -16,9 +16,17 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 		<form [formGroup]="form" (ngSubmit)="submit()">
 			<div hlmFieldGroup>
 				<div hlmField>
-					<label hlmFieldLabel>Select a framework</label>
-					<hlm-combobox formControlName="framework">
-						<hlm-combobox-input placeholder="e.g. Analog"></hlm-combobox-input>
+					<label hlmFieldLabel>Select frameworks</label>
+					<hlm-combobox-multiple formControlName="framework">
+						<hlm-combobox-chips class="max-w-xs">
+							<ng-template hlmComboboxValues let-values>
+								@for (value of values; track $index) {
+									<hlm-combobox-chip [value]="value">{{ value }}</hlm-combobox-chip>
+								}
+							</ng-template>
+
+							<input hlmComboboxChipInput />
+						</hlm-combobox-chips>
 						<div *brnPopoverContent hlmComboboxContent>
 							<hlm-combobox-empty>No items found.</hlm-combobox-empty>
 							<div hlmComboboxList>
@@ -27,7 +35,7 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 								}
 							</div>
 						</div>
-					</hlm-combobox>
+					</hlm-combobox-multiple>
 				</div>
 				<div hlmField orientation="horizontal">
 					<button type="submit" hlmBtn [disabled]="form.invalid">Submit</button>
@@ -36,11 +44,11 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 		</form>
 	`,
 })
-export class ComboboxFormPreview {
+export class ComboboxFormMultiplePreview {
 	private readonly _formBuilder = inject(FormBuilder);
 
 	public form = this._formBuilder.group({
-		framework: new FormControl<string | null>(null),
+		framework: new FormControl<string[] | null>(['Analog']),
 	});
 
 	public frameworks = ['Analog', 'Angular', 'Next.js', 'SvelteKit', 'Nuxt.js', 'Remix', 'Astro'];

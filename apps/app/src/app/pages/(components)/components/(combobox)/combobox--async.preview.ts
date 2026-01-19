@@ -95,7 +95,7 @@ export class ComboboxAsyncPreview {
 		});
 	}
 
-	private _allUsers: DirectoryUser[] = [
+	private readonly _allUsers: DirectoryUser[] = [
 		{
 			id: 'leslie-alexander',
 			name: 'Leslie Alexander',

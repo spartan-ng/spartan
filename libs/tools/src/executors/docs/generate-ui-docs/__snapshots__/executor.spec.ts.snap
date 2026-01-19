@@ -1463,6 +1463,10 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "name": "value",
             "type": "T | null",
           },
+          {
+            "name": "search",
+            "type": "string",
+          },
         ],
         "outputs": [],
         "selector": "[brnCombobox]",
@@ -1625,6 +1629,10 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "name": "value",
             "type": "T[] | null",
           },
+          {
+            "name": "search",
+            "type": "string",
+          },
         ],
         "outputs": [],
         "selector": "[brnCombobox]",
@@ -1646,6 +1654,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [],
         "outputs": [],
         "selector": "[brnComboboxSeparator]",
+      },
+      "BrnComboboxStatus": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnComboboxStatus]",
       },
       "BrnComboboxTrigger": {
         "inputs": [],
@@ -1777,6 +1791,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [],
         "outputs": [],
         "selector": "[hlmComboboxSeparator]",
+      },
+      "HlmComboboxStatus": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmComboboxStatus],hlm-combobox-status",
       },
       "HlmComboboxTrigger": {
         "inputs": [

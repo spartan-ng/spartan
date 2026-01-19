@@ -11,6 +11,6 @@ import { classes } from '@spartan-ng/helm/utils';
 })
 export class HlmComboboxChipInput {
 	constructor() {
-		classes(() => 'min-w-16 flex-1 outline-none');
+		classes(() => 'placeholder:text-muted-foreground min-w-16 flex-1 outline-none');
 	}
 }

@@ -8,7 +8,6 @@ import {
 	type Signal,
 	type Type,
 	type ValueProvider,
-	type WritableSignal,
 } from '@angular/core';
 import { comboboxContainsFilter } from './brn-combobox-filter';
 import type { BrnComboboxItem } from './brn-combobox-item';
@@ -17,7 +16,7 @@ export interface BrnComboboxBase<T> {
 	filter: InputSignal<ComboboxFilter<T>>;
 	itemToString: InputSignal<ComboboxItemToString<T> | undefined>;
 	collator: Signal<Intl.Collator>;
-	search: WritableSignal<string>;
+	search: ModelSignal<string>;
 	disabled: Signal<boolean>;
 	disabledState: Signal<boolean>;
 	keyManager: ActiveDescendantKeyManager<BrnComboboxItem<T>>;

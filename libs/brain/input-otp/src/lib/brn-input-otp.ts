@@ -1,9 +1,11 @@
 import type { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import {
+	afterNextRender,
 	booleanAttribute,
 	ChangeDetectionStrategy,
 	Component,
 	computed,
+	ElementRef,
 	forwardRef,
 	input,
 	linkedSignal,
@@ -11,6 +13,7 @@ import {
 	numberAttribute,
 	output,
 	signal,
+	viewChild,
 } from '@angular/core';
 import { type ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
@@ -38,6 +41,7 @@ export type InputMode = 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal'
 		<ng-content />
 		<div [style]="containerStyles()">
 			<input
+				#otpInput
 				[id]="inputId()"
 				[class]="inputClass()"
 				[autocomplete]="inputAutocomplete()"
@@ -94,6 +98,9 @@ export class BrnInputOtp implements ControlValueAccessor {
 
 	public readonly inputClass = input<ClassValue>('');
 
+	/** If true, the element is focused automatically on init **/
+	public readonly autofocus = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
+
 	/**
 	 * Defines how the pasted text should be transformed before saving to model/form.
 	 * Allows pasting text which contains extra characters like spaces, dashes, etc. and are longer than the maxLength.
@@ -134,6 +141,16 @@ export class BrnInputOtp implements ControlValueAccessor {
 
 	protected _onChange?: ChangeFn<string>;
 	protected _onTouched?: TouchFn;
+
+	protected readonly _inputComponentRef = viewChild.required<ElementRef>('otpInput');
+
+	constructor() {
+		afterNextRender(() => {
+			if (this.autofocus()) {
+				this._inputComponentRef().nativeElement.focus();
+			}
+		});
+	}
 
 	protected onInputChange(event: Event) {
 		let newValue = (event.target as HTMLInputElement).value;

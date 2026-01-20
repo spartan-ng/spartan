@@ -1,5 +1,6 @@
 import type { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import {
+	afterNextRender,
 	booleanAttribute,
 	ChangeDetectionStrategy,
 	Component,
@@ -10,7 +11,6 @@ import {
 	linkedSignal,
 	model,
 	numberAttribute,
-	OnInit,
 	output,
 	signal,
 	viewChild,
@@ -58,7 +58,7 @@ export type InputMode = 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal'
 		</div>
 	`,
 })
-export class BrnInputOtp implements ControlValueAccessor, OnInit {
+export class BrnInputOtp implements ControlValueAccessor {
 	private static _id = 0;
 
 	/** Whether the input has focus. */
@@ -99,7 +99,7 @@ export class BrnInputOtp implements ControlValueAccessor, OnInit {
 	public readonly inputClass = input<ClassValue>('');
 
 	/** If true, the element is focused automatically on init **/
-	public readonly autofocus = input<boolean>(false);
+	public readonly autofocus = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
 	/**
 	 * Defines how the pasted text should be transformed before saving to model/form.
@@ -144,10 +144,12 @@ export class BrnInputOtp implements ControlValueAccessor, OnInit {
 
 	protected readonly _inputComponentRef = viewChild.required<ElementRef>('otpInput');
 
-	ngOnInit(): void {
-		if (this.autofocus()) {
-			this._inputComponentRef()?.nativeElement.focus();
-		}
+	constructor() {
+		afterNextRender(() => {
+			if (this.autofocus()) {
+				this._inputComponentRef().nativeElement.focus();
+			}
+		});
 	}
 
 	protected onInputChange(event: Event) {

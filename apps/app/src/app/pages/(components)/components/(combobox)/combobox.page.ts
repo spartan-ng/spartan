@@ -174,10 +174,9 @@ export const routeMeta: RouteMeta = {
 			<p class="${hlmP}">
 				The
 				<code class="${hlmCode}">itemToString</code>
-				function transforms an item object into a display string.
-				For example, it can resolve an
-				<code class="${hlmCode}">id</code> 
-				value to its corresponding 
+				function transforms an item object into a display string. For example, it can resolve an
+				<code class="${hlmCode}">id</code>
+				value to its corresponding
 				<code class="${hlmCode}">name</code>
 				for display.
 			</p>

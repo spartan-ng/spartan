@@ -172,14 +172,14 @@ export const routeMeta: RouteMeta = {
 
 			<h3 id="examples__objects" spartanH4>Objects (itemToString)</h3>
 			<p class="${hlmP}">
-				Use
+				The
 				<code class="${hlmCode}">itemToString</code>
-				to display resolve the item as a string label or transform the item object to a string for display. In this
-				example, the value
-				<code class="${hlmCode}">id</code>
-				is resolved to the display value
+				function transforms an item object into a display string.
+				For example, it can resolve an
+				<code class="${hlmCode}">id</code> 
+				value to its corresponding 
 				<code class="${hlmCode}">name</code>
-				.
+				for display.
 			</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>

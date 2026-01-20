@@ -445,6 +445,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "outputs": [],
         "selector": "[brnAutocompleteSeparator]",
       },
+      "BrnAutocompleteStatus": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnAutocompleteStatus]",
+      },
     },
     "helm": {
       "HlmAutocomplete": {
@@ -527,6 +533,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [],
         "outputs": [],
         "selector": "[hlmAutocompleteSeparator]",
+      },
+      "HlmAutocompleteStatus": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmAutocompleteStatus],hlm-autocomplete-status",
       },
     },
   },

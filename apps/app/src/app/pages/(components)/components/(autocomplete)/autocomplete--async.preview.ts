@@ -51,7 +51,7 @@ interface Movie {
 export class AutocompleteAsyncPreview {
 	public readonly search = signal('');
 
-	itemToString = (item: Movie) => item.title;
+	public itemToString = (item: Movie) => item.title;
 
 	public options = resource({
 		defaultValue: [],
@@ -81,7 +81,7 @@ export class AutocompleteAsyncPreview {
 		return this._top100Movies.filter((movie) => movie.title.includes(query) || movie.year.toString().includes(query));
 	}
 
-	private _top100Movies: Movie[] = [
+	private readonly _top100Movies: Movie[] = [
 		{ id: '1', title: 'The Shawshank Redemption', year: 1994 },
 		{ id: '2', title: 'The Godfather', year: 1972 },
 		{ id: '3', title: 'The Dark Knight', year: 2008 },

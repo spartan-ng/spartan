@@ -230,6 +230,12 @@ describe('BrnInputOtp', () => {
 			expect(input).toHaveFocus();
 		});
 
+		it('input should not be autofocused if not explicitly requested', async () => {
+			const { input } = await setup({ maxLength: 6 });
+
+			expect(input).not.toHaveFocus();
+		});
+
 		it('applies focus state when focused', async () => {
 			const { user, input } = await setup({ maxLength: 6 });
 

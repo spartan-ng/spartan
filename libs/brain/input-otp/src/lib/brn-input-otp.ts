@@ -4,13 +4,16 @@ import {
 	ChangeDetectionStrategy,
 	Component,
 	computed,
+	ElementRef,
 	forwardRef,
 	input,
 	linkedSignal,
 	model,
 	numberAttribute,
+	OnInit,
 	output,
 	signal,
+	viewChild,
 } from '@angular/core';
 import { type ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
@@ -38,6 +41,7 @@ export type InputMode = 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal'
 		<ng-content />
 		<div [style]="containerStyles()">
 			<input
+				#otpInput
 				[id]="inputId()"
 				[class]="inputClass()"
 				[autocomplete]="inputAutocomplete()"
@@ -54,7 +58,7 @@ export type InputMode = 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal'
 		</div>
 	`,
 })
-export class BrnInputOtp implements ControlValueAccessor {
+export class BrnInputOtp implements ControlValueAccessor, OnInit {
 	private static _id = 0;
 
 	/** Whether the input has focus. */
@@ -93,6 +97,7 @@ export class BrnInputOtp implements ControlValueAccessor {
 	public readonly inputMode = input<InputMode>('numeric');
 
 	public readonly inputClass = input<ClassValue>('');
+	public readonly autofocus = input<boolean>(false);
 
 	/**
 	 * Defines how the pasted text should be transformed before saving to model/form.
@@ -134,6 +139,14 @@ export class BrnInputOtp implements ControlValueAccessor {
 
 	protected _onChange?: ChangeFn<string>;
 	protected _onTouched?: TouchFn;
+
+	protected readonly _inputComponentRef = viewChild.required<ElementRef>('otpInput')
+
+	ngOnInit(): void {
+		if (this.autofocus()) {
+			this._inputComponentRef()?.nativeElement.focus();
+		}
+	}
 
 	protected onInputChange(event: Event) {
 		let newValue = (event.target as HTMLInputElement).value;

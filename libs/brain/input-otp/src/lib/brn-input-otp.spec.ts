@@ -12,6 +12,7 @@ describe('BrnInputOtp', () => {
 			inputMode?: InputMode;
 			inputId?: string;
 			inputAutocomplete?: string;
+			autofocus?: boolean;
 		} = {},
 	) => {
 		const {
@@ -20,6 +21,7 @@ describe('BrnInputOtp', () => {
 			inputMode = 'numeric',
 			inputId,
 			inputAutocomplete = 'one-time-code',
+			autofocus = false,
 		} = options;
 
 		let template = `
@@ -28,6 +30,7 @@ describe('BrnInputOtp', () => {
         data-testid="brnInputOtp"
         ${disabled ? 'disabled' : ''}
         [inputMode]="'${inputMode}'"
+        [autofocus]="${autofocus}"
         [inputAutocomplete]="'${inputAutocomplete}'"
         ${inputId ? `inputId="${inputId}"` : ''}
       >
@@ -221,6 +224,12 @@ describe('BrnInputOtp', () => {
 	});
 
 	describe('focus behavior', () => {
+		it('autofocus input', async () => {
+			const { input } = await setup({ maxLength: 6, autofocus: true });
+
+			expect(input).toHaveFocus();
+		});
+
 		it('applies focus state when focused', async () => {
 			const { user, input } = await setup({ maxLength: 6 });
 

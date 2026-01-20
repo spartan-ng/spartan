@@ -17,23 +17,31 @@ interface Movie {
 		<hlm-autocomplete [(search)]="search" [itemToString]="itemToString">
 			<hlm-autocomplete-input placeholder="Search movies" />
 			<div *brnPopoverContent hlmAutocompleteContent>
+				<hlm-autocomplete-status class="justify-start">
+					@if (options.error(); as error) {
+						{{ error }}
+					} @else if (options.isLoading()) {
+						<hlm-spinner />
+						Loading...
+					} @else if (search().length === 0) {
+						Type to search movies.
+					} @else if (options.hasValue() && options.value().length === 0) {
+						Movie or year "{{ search() }}" does not exist in the Top 100 IMDb movies
+					} @else if (options.hasValue()) {
+						{{ options.value().length }} results found
+					}
+				</hlm-autocomplete-status>
+
 				<div hlmAutocompleteList>
-					<!-- TODO show loading and error state -->
-					<hlm-autocomplete-empty>
-						@if (options.isLoading()) {
-							<hlm-spinner />
-							Loading...
-						} @else {
-							No movies found.
+					@if (options.hasValue()) {
+						@for (option of options.value(); track $index) {
+							<hlm-autocomplete-item [value]="option">
+								<div class="flex flex-col gap-1">
+									<p>{{ option.title }}</p>
+									<p class="text-muted-foreground text-xs">{{ option.year }}</p>
+								</div>
+							</hlm-autocomplete-item>
 						}
-					</hlm-autocomplete-empty>
-					@for (option of options.value(); track $index) {
-						<hlm-autocomplete-item [value]="option">
-							<div class="flex flex-col gap-1">
-								<p>{{ option.title }}</p>
-								<p class="text-foreground text-sm">{{ option.year }}</p>
-							</div>
-						</hlm-autocomplete-item>
 					}
 				</div>
 			</div>
@@ -67,7 +75,7 @@ export class AutocompleteAsyncPreview {
 
 		// Simulate occasional network errors (1% chance)
 		if (Math.random() < 0.01 || query === 'will_error') {
-			throw new Error('Network error');
+			throw new Error('Failed to fetch movies. Please try again.');
 		}
 
 		return this._top100Movies.filter((movie) => movie.title.includes(query) || movie.year.toString().includes(query));

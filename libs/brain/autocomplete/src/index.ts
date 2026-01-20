@@ -11,6 +11,7 @@ import { BrnAutocompleteLabel } from './lib/brn-autocomplete-label';
 import { BrnAutocompleteList } from './lib/brn-autocomplete-list';
 import { BrnAutocompleteSearch } from './lib/brn-autocomplete-search';
 import { BrnAutocompleteSeparator } from './lib/brn-autocomplete-separator';
+import { BrnAutocompleteStatus } from './lib/brn-autocomplete-status';
 
 export * from './lib/brn-autocomplete';
 export * from './lib/brn-autocomplete-anchor';
@@ -26,6 +27,7 @@ export * from './lib/brn-autocomplete-label';
 export * from './lib/brn-autocomplete-list';
 export * from './lib/brn-autocomplete-search';
 export * from './lib/brn-autocomplete-separator';
+export * from './lib/brn-autocomplete-status';
 export * from './lib/brn-autocomplete.token';
 
 export const BrnAutocompleteImports = [
@@ -42,4 +44,5 @@ export const BrnAutocompleteImports = [
 	BrnAutocompleteList,
 	BrnAutocompleteSearch,
 	BrnAutocompleteSeparator,
+	BrnAutocompleteStatus,
 ] as const;

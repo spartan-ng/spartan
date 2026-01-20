@@ -20,11 +20,12 @@ import { metaWith } from '../../../../shared/meta/meta.util';
 import { link } from '../../../../shared/typography/link';
 import { AutocompleteAsyncPreview } from './autocomplete--async.preview';
 import { AutocompleteClearPreview } from './autocomplete--clear.preview';
-import { AutocompleteCountries } from './autocomplete--countries.example';
+import { AutocompleteCountriesPreview } from './autocomplete--countries.example';
 import { AutocompleteDisabledPreview } from './autocomplete--disabled.preview';
 import { AutocompleteFormPreview } from './autocomplete--form.preview';
 import { AutocompleteGroupSeparatorPreview } from './autocomplete--group-separator.preview';
 import { AutocompleteGroupPreview } from './autocomplete--group.preview';
+import { AutocompleteResolveValueIdPreview } from './autocomplete--resolve-id.example';
 import { AutocompleteSearchFormPreview } from './autocomplete--search-form.preview';
 import { AutocompleteSearchPreview } from './autocomplete--search.preview';
 import {
@@ -60,13 +61,14 @@ export const routeMeta: RouteMeta = {
 		SectionSubSubHeading,
 		AutocompleteAsyncPreview,
 		AutocompleteFormPreview,
-		AutocompleteCountries,
+		AutocompleteCountriesPreview,
 		AutocompleteGroupPreview,
 		AutocompleteGroupSeparatorPreview,
 		AutocompleteClearPreview,
 		AutocompleteDisabledPreview,
 		AutocompleteSearchPreview,
 		AutocompleteSearchFormPreview,
+		AutocompleteResolveValueIdPreview,
 	],
 	template: `
 		<section spartanMainSection>
@@ -83,7 +85,7 @@ export const routeMeta: RouteMeta = {
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
-			<p class="${hlmP} mb-6">
+			<p class="${hlmP}">
 				The Autocomplete component is built with the
 				<a routerLink="/components/popover" hlmBtn variant="link" class="${link}">Popover</a>
 				component.
@@ -102,7 +104,7 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-section-sub-heading id="configuration">Configuration</spartan-section-sub-heading>
 
-			<p class="${hlmP} mb-6">
+			<p class="${hlmP}">
 				The autocomplete can be configured via
 				<code class="${hlmCode}">provideBrnAutocompleteConfig</code>
 				or by passing the individual config as input. This is the default autocomplete config:
@@ -164,8 +166,8 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_groupSeparatorCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__object_values" spartanH4>Object values</h3>
-			<p class="${hlmP} mb-6">
+			<h3 id="examples__object_values" spartanH4>Object (custom label)</h3>
+			<p class="${hlmP}">
 				Customize the selected value for object values by providing a custom
 				<code class="${hlmCode}">itemToString</code>
 				function.
@@ -176,6 +178,24 @@ export const routeMeta: RouteMeta = {
 					<spartan-autocomplete-countries />
 				</div>
 				<spartan-code secondTab [code]="_countriesCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__object_id_value" spartanH4>Object (id value)</h3>
+			<p class="${hlmP}">
+				Use
+				<code class="${hlmCode}">itemToString</code>
+				to resolve the
+				<code class="${hlmCode}">id</code>
+				value as the display string
+				<code class="${hlmCode}">name</code>
+				.
+			</p>
+
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-autocomplete-resolve-value-id />
+				</div>
+				<spartan-code secondTab [code]="_resolveValueIdCode()" />
 			</spartan-tabs>
 
 			<h3 id="examples__search" spartanH4>Free-form text</h3>
@@ -241,6 +261,7 @@ export default class AutocompletePage {
 	protected readonly _groupCode = computed(() => this._snippets()['group']);
 	protected readonly _groupSeparatorCode = computed(() => this._snippets()['groupSeparator']);
 	protected readonly _countriesCode = computed(() => this._snippets()['countries']);
+	protected readonly _resolveValueIdCode = computed(() => this._snippets()['resolveValueId']);
 	protected readonly _configCode = computed(() => this._snippets()['config']);
 	protected readonly _asyncCode = computed(() => this._snippets()['async']);
 	protected readonly _formCode = computed(() => this._snippets()['form']);

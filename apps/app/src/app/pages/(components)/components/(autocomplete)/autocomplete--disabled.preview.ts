@@ -10,8 +10,8 @@ import { HlmAutocompleteImports } from '@spartan-ng/helm/autocomplete';
 		<hlm-autocomplete [(search)]="search" disabled>
 			<hlm-autocomplete-input placeholder="Search components" />
 			<div *brnPopoverContent hlmAutocompleteContent>
+				<hlm-autocomplete-empty>No components found.</hlm-autocomplete-empty>
 				<div hlmAutocompleteList>
-					<hlm-autocomplete-empty>No components found.</hlm-autocomplete-empty>
 					@for (option of filteredOptions(); track $index) {
 						<hlm-autocomplete-item [value]="option">
 							{{ option }}

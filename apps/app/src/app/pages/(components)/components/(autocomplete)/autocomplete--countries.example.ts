@@ -16,8 +16,8 @@ type Country = {
 		<hlm-autocomplete [(search)]="search" [itemToString]="itemToString">
 			<hlm-autocomplete-input placeholder="Search countries" />
 			<div *brnPopoverContent hlmAutocompleteContent>
+				<hlm-autocomplete-empty>No countries found.</hlm-autocomplete-empty>
 				<div hlmAutocompleteList>
-					<hlm-autocomplete-empty>No countries found.</hlm-autocomplete-empty>
 					@for (option of filteredCountries(); track $index) {
 						<hlm-autocomplete-item [value]="option">{{ option.flag }} {{ option.name }}</hlm-autocomplete-item>
 					}
@@ -26,7 +26,7 @@ type Country = {
 		</hlm-autocomplete>
 	`,
 })
-export class AutocompleteCountries {
+export class AutocompleteCountriesPreview {
 	private readonly _countries: Country[] = [
 		{ name: 'Argentina', code: 'AR', flag: '🇦🇷' },
 		{ name: 'Australia', code: 'AU', flag: '🇦🇺' },

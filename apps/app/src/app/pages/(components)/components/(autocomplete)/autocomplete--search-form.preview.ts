@@ -25,8 +25,8 @@ interface Tag {
 					<hlm-autocomplete-search formControlName="tag" [(search)]="search">
 						<hlm-autocomplete-input placeholder="e.g. feature" />
 						<div *brnPopoverContent hlmAutocompleteContent>
+							<hlm-autocomplete-empty>No tags found.</hlm-autocomplete-empty>
 							<div hlmAutocompleteList>
-								<hlm-autocomplete-empty>No tags found.</hlm-autocomplete-empty>
 								@for (tag of filteredOptions(); track $index) {
 									<hlm-autocomplete-item [value]="tag">
 										{{ tag.value }}

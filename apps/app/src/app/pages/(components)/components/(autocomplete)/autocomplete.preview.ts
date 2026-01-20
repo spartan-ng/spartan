@@ -15,8 +15,8 @@ interface SpartanComponent {
 		<hlm-autocomplete [(search)]="search">
 			<hlm-autocomplete-input placeholder="Search components" />
 			<div *brnPopoverContent hlmAutocompleteContent>
+				<hlm-autocomplete-empty>No components found.</hlm-autocomplete-empty>
 				<div hlmAutocompleteList>
-					<hlm-autocomplete-empty>No components found.</hlm-autocomplete-empty>
 					@for (component of filteredOptions(); track $index) {
 						<hlm-autocomplete-item [value]="component.value">
 							{{ component.value }}
@@ -80,8 +80,8 @@ export const defaultSkeleton = `
 <hlm-autocomplete [(search)]="search">
   <hlm-autocomplete-input placeholder="Search tags" />
   <div *brnPopoverContent hlmAutocompleteContent>
+  	<hlm-autocomplete-empty>No tags found.</hlm-autocomplete-empty>
     <div hlmAutocompleteList>
-      <hlm-autocomplete-empty>No tags found.</hlm-autocomplete-empty>
       @for (option of filteredOptions(); track $index) {
       	<hlm-autocomplete-item [value]="option"> {{ option }} </hlm-autocomplete-item>
       }

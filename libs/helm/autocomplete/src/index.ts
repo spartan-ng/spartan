@@ -8,6 +8,7 @@ import { HlmAutocompleteLabel } from './lib/hlm-autocomplete-label';
 import { HlmAutocompleteList } from './lib/hlm-autocomplete-list';
 import { HlmAutocompleteSearch } from './lib/hlm-autocomplete-search';
 import { HlmAutocompleteSeparator } from './lib/hlm-autocomplete-separator';
+import { HlmAutocompleteStatus } from './lib/hlm-autocomplete-status';
 
 export * from './lib/hlm-autocomplete';
 export * from './lib/hlm-autocomplete-content';
@@ -19,6 +20,7 @@ export * from './lib/hlm-autocomplete-label';
 export * from './lib/hlm-autocomplete-list';
 export * from './lib/hlm-autocomplete-search';
 export * from './lib/hlm-autocomplete-separator';
+export * from './lib/hlm-autocomplete-status';
 
 export const HlmAutocompleteImports = [
 	HlmAutocomplete,
@@ -31,4 +33,5 @@ export const HlmAutocompleteImports = [
 	HlmAutocompleteList,
 	HlmAutocompleteSearch,
 	HlmAutocompleteSeparator,
+	HlmAutocompleteStatus,
 ] as const;

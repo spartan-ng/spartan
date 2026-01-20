@@ -25,8 +25,8 @@ interface SpartanComponent {
 					<hlm-autocomplete formControlName="component" [(search)]="search">
 						<hlm-autocomplete-input placeholder="e.g. Accordion" />
 						<div *brnPopoverContent hlmAutocompleteContent>
+							<hlm-autocomplete-empty>No components found.</hlm-autocomplete-empty>
 							<div hlmAutocompleteList>
-								<hlm-autocomplete-empty>No components found.</hlm-autocomplete-empty>
 								@for (component of filteredOptions(); track $index) {
 									<hlm-autocomplete-item [value]="component">
 										{{ component.value }}

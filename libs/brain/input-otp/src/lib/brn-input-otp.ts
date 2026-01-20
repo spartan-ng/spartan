@@ -97,6 +97,8 @@ export class BrnInputOtp implements ControlValueAccessor, OnInit {
 	public readonly inputMode = input<InputMode>('numeric');
 
 	public readonly inputClass = input<ClassValue>('');
+
+	/** If true, the element is focused automatically on init **/
 	public readonly autofocus = input<boolean>(false);
 
 	/**
@@ -140,7 +142,7 @@ export class BrnInputOtp implements ControlValueAccessor, OnInit {
 	protected _onChange?: ChangeFn<string>;
 	protected _onTouched?: TouchFn;
 
-	protected readonly _inputComponentRef = viewChild.required<ElementRef>('otpInput')
+	protected readonly _inputComponentRef = viewChild.required<ElementRef>('otpInput');
 
 	ngOnInit(): void {
 		if (this.autofocus()) {

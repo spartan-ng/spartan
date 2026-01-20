@@ -24,6 +24,7 @@ import { ComboboxFormPreview } from './combobox--form.preview';
 import { ComboboxGroupSeparatorPreview } from './combobox--group-separator.preview';
 import { ComboboxGroupPreview } from './combobox--group.preview';
 import { ComboboxIconAddonPreview } from './combobox--icon-addon.preview';
+import { ComboboxItemToStringPreview } from './combobox--item-to-string.preview';
 import { ComboboxMultipleDisabledPreview } from './combobox--multiple-disabled.preview';
 import { ComboboxMultiplePreview } from './combobox--multiple.preview';
 import { ComboboxPopupPreview } from './combobox--popup.preview';
@@ -63,6 +64,7 @@ export const routeMeta: RouteMeta = {
 		ComboboxFormMultiplePreview,
 		ComboboxAsyncPreview,
 		ComboboxAsyncMultiplePreview,
+		ComboboxItemToStringPreview,
 	],
 	template: `
 		<section spartanMainSection>
@@ -166,6 +168,24 @@ export const routeMeta: RouteMeta = {
 					<spartan-combobox-multiple-preview />
 				</div>
 				<spartan-code secondTab [code]="_multipleCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__objects" spartanH4>Objects (itemToString)</h3>
+			<p class="${hlmP}">
+				Use
+				<code class="${hlmCode}">itemToString</code>
+				to display resolve the item as a string label or transform the item object to a string for display. In this
+				example, the value
+				<code class="${hlmCode}">id</code>
+				is resolved to the display value
+				<code class="${hlmCode}">name</code>
+				.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-combobox-item-to-string-preview />
+				</div>
+				<spartan-code secondTab [code]="_itemToStringCode()" />
 			</spartan-tabs>
 
 			<h3 id="examples__clear" spartanH4>With Clear Button</h3>
@@ -274,6 +294,7 @@ export default class ComboboxPage {
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('combobox');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _multipleCode = computed(() => this._snippets()['multiple']);
+	protected readonly _itemToStringCode = computed(() => this._snippets()['itemToString']);
 	protected readonly _clearCode = computed(() => this._snippets()['clear']);
 	protected readonly _disabledCode = computed(() => this._snippets()['disabled']);
 	protected readonly _multipleDisabledCode = computed(() => this._snippets()['multipleDisabled']);

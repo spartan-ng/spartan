@@ -210,7 +210,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_formCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__search_form" spartanH4>Free-form text Form</h3>
+			<h3 id="examples__search_form" spartanH4>Form (Free-form text)</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-autocomplete-search-form-preview />

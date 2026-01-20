@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { BrnPopoverContent } from '@spartan-ng/brain/popover';
 import { HlmAutocompleteImports } from '@spartan-ng/helm/autocomplete';
 
@@ -10,6 +10,7 @@ interface Tag {
 @Component({
 	selector: 'spartan-autocomplete-search-preview',
 	imports: [HlmAutocompleteImports, BrnPopoverContent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<p class="mb-4">
 			<span class="font-semibold">Tag:</span>

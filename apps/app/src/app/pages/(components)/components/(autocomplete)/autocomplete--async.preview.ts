@@ -1,4 +1,4 @@
-import { Component, resource, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, resource, signal } from '@angular/core';
 import { BrnPopoverContent } from '@spartan-ng/brain/popover';
 import { HlmAutocompleteImports } from '@spartan-ng/helm/autocomplete';
 import { HlmSpinnerImports } from '@spartan-ng/helm/spinner';
@@ -12,6 +12,7 @@ interface Movie {
 @Component({
 	selector: 'spartan-autocomplete-async-preview',
 	imports: [HlmAutocompleteImports, BrnPopoverContent, HlmSpinnerImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-autocomplete [(search)]="search" [itemToString]="itemToString">
 			<hlm-autocomplete-input placeholder="Search movies" />

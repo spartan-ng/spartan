@@ -13,7 +13,7 @@ export class HlmComboboxEmpty {
 	constructor() {
 		classes(
 			() =>
-				'text-muted-foreground hidden w-full justify-center py-2 text-center text-sm group-data-empty/combobox-content:flex',
+				'text-muted-foreground hidden w-full items-center justify-center gap-2 py-2 text-center text-sm group-data-empty/combobox-content:flex',
 		);
 	}
 }

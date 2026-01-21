@@ -27,6 +27,9 @@ export default async function hlmUIGenerator(tree: Tree, options: HlmUIGenerator
 	if (options.name && availablePrimitiveNames.includes(options.name)) {
 		response.primitives.push(options.name);
 	} else {
+		if (options.name) {
+			console.log('Cannot resolve primitive with name:', options.name);
+		}
 		response = await prompt({
 			type: 'multiselect',
 			required: true,

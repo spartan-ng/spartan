@@ -17,9 +17,7 @@ import { AuthenticationForm } from './components/form';
 			<div
 				class="relative container flex h-[600px] flex-col items-center justify-center md:grid md:h-[800px] lg:max-w-none lg:grid-cols-2 lg:px-0"
 			>
-				<a hlmBtn variant="ghost" class="absolute top-4 right-4 md:top-8 md:right-8" href="/examples/authentication">
-					Login
-				</a>
+				<a hlmBtn variant="ghost" class="absolute top-4 right-4 md:top-8 md:right-8" href="/#authentication">Login</a>
 				<div class="bg-muted text-primary relative hidden h-full flex-col border-r p-10 lg:flex dark:border-r-zinc-800">
 					<div class="bg-primary/5 absolute inset-0"></div>
 					<div class="relative z-20 flex items-center text-lg font-medium">

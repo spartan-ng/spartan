@@ -107,11 +107,6 @@ export default defineConfig(({ mode }) => {
 							'/stack/overview',
 							'/stack/technologies',
 							'/stack/installation',
-
-							'/examples/notes',
-							'/examples/typography',
-							'/examples/authentication',
-							'/examples/music',
 						];
 
 						return await getPrerenderedRoutes(staticRoutes);

@@ -142,6 +142,9 @@ Our initial 300 contributors and sponsors are featured here and on the front pag
 123. [felhag](https://github.com/felhag)
 124. [notsufferbutbutter](https://github.com/notsufferbutbutter)
 125. [vlrjuan](https://github.com/vlrjuan)
+126. [Dafnik](https://github.com/Dafnik)
+127. [hassantayyab](https://github.com/hassantayyab)
+128. [mathwizard](https://github.com/mathwizard)
 
 [Become a spartan today!](https://github.com/sponsors/goetzrobin)
 

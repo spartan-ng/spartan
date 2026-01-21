@@ -95,8 +95,8 @@ Remember: tribal knowledge is fireplace story from elder grug. Short, specific, 
 
 8. **The patience to wait for emerging patterns** - "Good system need time to show true shape. Rush abstraction lead to complexity demon."
 
-
 ## Project Structure & Module Organization
+
 - `apps/` contains runnable applications (e.g., `apps/app` for the Analog-powered docs/example app, `apps/ui-storybook` for UI development).
 - `libs/brain/` holds unstyled UI primitives (behavior and logic).
 - `libs/helm/` holds styled UI primitives (presentation layer).
@@ -105,6 +105,7 @@ Remember: tribal knowledge is fireplace story from elder grug. Short, specific, 
 - Build outputs and temp data land in `dist/` and `tmp/`.
 
 ## Build, Test, and Development Commands
+
 - `pnpm install`: install dependencies (PNPM is required).
 - `pnpm run storybook`: run UI Storybook at `http://localhost:4400`.
 - `pnpm run dev` or `pnpm nx serve app`: serve the main app at `http://localhost:4200`.
@@ -114,6 +115,7 @@ Remember: tribal knowledge is fireplace story from elder grug. Short, specific, 
 - `pnpm run lint` / `pnpm run format`: lint and format the workspace.
 
 ## Coding Style & Naming Conventions
+
 - TypeScript-first workspace with Nx and Angular; follow existing module boundaries and tags.
 - ESLint is enforced; keep unused params prefixed with `_` (allowed by config).
 - Consistent type imports are required (`@typescript-eslint/consistent-type-imports`).
@@ -121,17 +123,20 @@ Remember: tribal knowledge is fireplace story from elder grug. Short, specific, 
 - Keep source under `apps/` or `libs/` and prefer secondary entrypoints for new primitives.
 
 ## Testing Guidelines
+
 - Unit tests use Jest with Nx project configs; name tests `*.spec.ts`.
 - E2E tests use Cypress under `apps/ui-storybook-e2e`.
 - Ensure new features include tests and keep Storybook stories updated (e.g., `libs/helm/button/button.stories.ts`).
 
 ## Commit & Pull Request Guidelines
+
 - Commit messages follow Conventional Commits with scope: `type(scope): subject`.
 - Max line length is 100 chars; include a blank line before body/footer.
 - Scope must match supported packages (see `commitlint.config.cjs`), e.g. `feat(button): add icon slot`.
 - PRs should: rebase on `main`, run tests, link issues, and include a short description of changes.
 
 ## Configuration & Environment
+
 - The example app uses Supabase/Drizzle; set `DATABASE_URL` in a root `.env`.
 - Use `pnpm nx graph` to explore project dependencies.
 
@@ -156,6 +161,7 @@ Remember: tribal knowledge is fireplace story from elder grug. Short, specific, 
 7. **Hand off** - Provide context for next session
 
 **CRITICAL RULES:**
+
 - Work is NOT complete until `git push` succeeds
 - NEVER stop before pushing - that leaves work stranded locally
 - NEVER say "ready to push when you are" - YOU must push

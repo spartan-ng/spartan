@@ -64,7 +64,7 @@ import { OpenInButton } from './open-in-button';
 
 		<!-- resizable preview -->
 		<hlm-resizable-group>
-			<hlm-resizable-panel #viewerPanel="hlmResizablePanel">
+			<hlm-resizable-panel #viewerPanel="hlmResizablePanel" defaultSize="100">
 				<spartan-block-preview [name]="block()" />
 			</hlm-resizable-panel>
 			<hlm-resizable-handle

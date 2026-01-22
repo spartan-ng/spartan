@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostListener, inject } from '@angular/core';
+import { Directive, ElementRef, inject } from '@angular/core';
 import { provideBrnSliderTrack } from './brn-slider-track.token';
 import { injectBrnSlider } from './brn-slider.token';
 
@@ -18,19 +18,5 @@ export class BrnSliderTrack {
 
 	constructor() {
 		this._slider.track.set(this);
-	}
-
-	@HostListener('mousedown', ['$event'])
-	protected moveThumbToPoint(event: MouseEvent): void {
-		if (this._slider.mutableDisabled()) {
-			return;
-		}
-
-		const position = event.clientX;
-		const rect = this.elementRef.nativeElement.getBoundingClientRect();
-		const percentage = (position - rect.left) / rect.width;
-
-		// update the value based on the position
-		this._slider.setValue(this._slider.min() + (this._slider.max() - this._slider.min()) * percentage);
 	}
 }

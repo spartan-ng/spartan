@@ -1,27 +1,34 @@
 import { isPlatformServer } from '@angular/common';
 import { computed, Directive, DOCUMENT, ElementRef, HostListener, inject, PLATFORM_ID } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { fromEvent } from 'rxjs';
-import { switchMap, takeUntil } from 'rxjs/operators';
 import { injectBrnSlider } from './brn-slider.token';
+import { linearScale } from './utils/linear-scale';
 
 @Directive({
 	selector: '[brnSliderThumb]',
 	host: {
 		role: 'slider',
-		'[attr.aria-valuenow]': '_slider.value()',
+		'[attr.aria-valuenow]': '_slider.value()[_index()]',
 		'[attr.aria-valuemin]': '_slider.min()',
 		'[attr.aria-valuemax]': '_slider.max()',
 		'[attr.tabindex]': '_slider.mutableDisabled() ? -1 : 0',
 		'[attr.data-disabled]': '_slider.mutableDisabled()',
 		'[style.inset-inline-start]': '_thumbOffset()',
+		'(focus)': 'focus()',
 	},
 })
 export class BrnSliderThumb {
 	protected readonly _slider = injectBrnSlider();
 	private readonly _document = inject<Document>(DOCUMENT);
-	private readonly _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+	public readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 	private readonly _platform = inject(PLATFORM_ID);
+
+	protected readonly _index = computed(() => this._slider.thumbs().findIndex((thumb) => thumb === this));
+
+	public readonly percentage = computed(
+		() =>
+			((this._slider.value()[this._index()] - this._slider.min()) / (this._slider.max() - this._slider.min())) * 100,
+	);
 
 	/**
 	 * Offsets the thumb centre point while sliding to ensure it remains
@@ -31,29 +38,44 @@ export class BrnSliderThumb {
 	protected readonly _thumbOffset = computed(() => {
 		// we can't compute the offset on the server
 		if (isPlatformServer(this._platform)) {
-			return this._slider.percentage() + '%';
+			return this.percentage() + '%';
 		}
 
-		const halfWidth = this._elementRef.nativeElement.offsetWidth / 2;
-		const offset = this.linearScale([0, 50], [0, halfWidth]);
-		const thumbInBoundsOffset = halfWidth - offset(this._slider.percentage());
-		const percent = this._slider.percentage();
+		const halfWidth = this.elementRef.nativeElement.offsetWidth / 2;
+		const offset = linearScale([0, 50], [0, halfWidth]);
+		const thumbInBoundsOffset = halfWidth - offset(this.percentage());
+		const percent = this.percentage();
 
 		return `calc(${percent}% + ${thumbInBoundsOffset}px)`;
 	});
 
 	constructor() {
-		const mousedown = fromEvent<MouseEvent>(this._elementRef.nativeElement, 'pointerdown');
+		const mousedown = fromEvent<MouseEvent>(this.elementRef.nativeElement, 'pointerdown');
 		const mouseup = fromEvent<MouseEvent>(this._document, 'pointerup');
 		const mousemove = fromEvent<MouseEvent>(this._document, 'pointermove');
 
 		// Listen for mousedown events on the slider thumb
-		mousedown
-			.pipe(
-				switchMap(() => mousemove.pipe(takeUntil(mouseup))),
-				takeUntilDestroyed(),
-			)
-			.subscribe(this.dragThumb.bind(this));
+		// mousedown
+		// 	.pipe(
+		// 		switchMap((e) => {
+		// 			e.preventDefault();
+		// 			return mousemove.pipe(
+		// 				takeUntil(mouseup),
+		// 				takeUntil(this._focusMonitor.monitor(this.elementRef, true).pipe(filter((val) => val === null))),
+		// 			);
+		// 		}),
+		// 		takeUntilDestroyed(),
+		// 	)
+		// 	.subscribe(this.dragThumb.bind(this));
+	}
+
+	public focus() {
+		this.elementRef.nativeElement.focus();
+		this._slider.valueIndexToChange.set(this._index());
+	}
+
+	public blur() {
+		this.elementRef.nativeElement.blur();
 	}
 
 	/** @internal */
@@ -72,6 +94,7 @@ export class BrnSliderThumb {
 
 		this._slider.setValue(
 			this._slider.min() + (this._slider.max() - this._slider.min()) * Math.max(0, Math.min(1, percentage)),
+			this._index(),
 		);
 	}
 
@@ -81,9 +104,10 @@ export class BrnSliderThumb {
 	 */
 	@HostListener('keydown', ['$event'])
 	protected handleKeydown(event: KeyboardEvent): void {
-		const dir = getComputedStyle(this._elementRef.nativeElement).direction;
+		const dir = getComputedStyle(this.elementRef.nativeElement).direction;
 		let multiplier = event.shiftKey ? 10 : 1;
-		const value = this._slider.value();
+		const index = this._index();
+		const value = this._slider.value()[index];
 
 		// if the slider is RTL, flip the multiplier
 		if (dir === 'rtl') {
@@ -92,29 +116,21 @@ export class BrnSliderThumb {
 
 		switch (event.key) {
 			case 'ArrowLeft':
-				this._slider.setValue(Math.max(value - this._slider.step() * multiplier, this._slider.min()));
+				this._slider.setValue(Math.max(value - this._slider.step() * multiplier, this._slider.min()), index);
 				event.preventDefault();
 				break;
 			case 'ArrowRight':
-				this._slider.setValue(Math.min(value + this._slider.step() * multiplier, this._slider.max()));
+				this._slider.setValue(Math.min(value + this._slider.step() * multiplier, this._slider.max()), index);
 				event.preventDefault();
 				break;
 			case 'Home':
-				this._slider.setValue(this._slider.min());
+				this._slider.setValue(this._slider.min(), index);
 				event.preventDefault();
 				break;
 			case 'End':
-				this._slider.setValue(this._slider.max());
+				this._slider.setValue(this._slider.max(), index);
 				event.preventDefault();
 				break;
 		}
-	}
-
-	private linearScale(input: readonly [number, number], output: readonly [number, number]): (value: number) => number {
-		return (value: number) => {
-			if (input[0] === input[1] || output[0] === output[1]) return output[0];
-			const ratio = (output[1] - output[0]) / (input[1] - input[0]);
-			return output[0] + ratio * (value - input[0]);
-		};
 	}
 }

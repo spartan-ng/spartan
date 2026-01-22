@@ -1,6 +1,9 @@
-import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BrnPopoverContent } from '@spartan-ng/brain/popover';
 import { HlmAutocompleteImports } from '@spartan-ng/helm/autocomplete';
+import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmFieldImports } from '@spartan-ng/helm/field';
 
 interface SpartanComponent {
 	id: string;
@@ -8,26 +11,45 @@ interface SpartanComponent {
 }
 
 @Component({
-	selector: 'spartan-autocomplete-preview',
-	imports: [HlmAutocompleteImports, BrnPopoverContent],
+	selector: 'spartan-autocomplete-form-preview',
+	imports: [HlmAutocompleteImports, BrnPopoverContent, ReactiveFormsModule, HlmButton, HlmFieldImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		class: 'w-full max-w-xs',
+	},
 	template: `
-		<hlm-autocomplete [(search)]="search">
-			<hlm-autocomplete-input placeholder="Search components" />
-			<div *brnPopoverContent hlmAutocompleteContent>
-				<hlm-autocomplete-empty>No components found.</hlm-autocomplete-empty>
-				<div hlmAutocompleteList>
-					@for (component of filteredOptions(); track $index) {
-						<hlm-autocomplete-item [value]="component.value">
-							{{ component.value }}
-						</hlm-autocomplete-item>
-					}
+		<form [formGroup]="form" (ngSubmit)="submit()" class="space-y-8">
+			<div hlmFieldGroup>
+				<div hlmField>
+					<label hlmFieldLabel>Select a component</label>
+					<hlm-autocomplete formControlName="component" [(search)]="search">
+						<hlm-autocomplete-input placeholder="e.g. Accordion" />
+						<div *brnPopoverContent hlmAutocompleteContent>
+							<hlm-autocomplete-empty>No components found.</hlm-autocomplete-empty>
+							<div hlmAutocompleteList>
+								@for (component of filteredOptions(); track $index) {
+									<hlm-autocomplete-item [value]="component">
+										{{ component.value }}
+									</hlm-autocomplete-item>
+								}
+							</div>
+						</div>
+					</hlm-autocomplete>
+				</div>
+				<div hlmField orientation="horizontal">
+					<button type="submit" hlmBtn [disabled]="form.invalid">Submit</button>
 				</div>
 			</div>
-		</hlm-autocomplete>
+		</form>
 	`,
 })
-export class AutocompletePreview {
+export class AutocompleteFormPreview {
+	private readonly _formBuilder = inject(FormBuilder);
+
+	public form = this._formBuilder.group({
+		component: new FormControl<SpartanComponent | null>(null, Validators.required),
+	});
+
 	private readonly _components: SpartanComponent[] = [
 		{ id: 'accordion', value: 'Accordion' },
 		{ id: 'alert-dialog', value: 'Alert dialog' },
@@ -69,32 +91,8 @@ export class AutocompletePreview {
 	public readonly filteredOptions = computed(() =>
 		this._components.filter((component) => component.value.toLowerCase().includes(this.search().toLowerCase())),
 	);
+
+	submit() {
+		console.log(this.form.value);
+	}
 }
-
-export const defaultImports = `
-import { BrnPopoverContent } from '@spartan-ng/brain/popover';
-import { HlmAutocompleteImports } from '@spartan-ng/helm/autocomplete';
-`;
-
-export const defaultSkeleton = `
-<hlm-autocomplete [(search)]="search">
-  <hlm-autocomplete-input placeholder="Search tags" />
-  <div *brnPopoverContent hlmAutocompleteContent>
-  	<hlm-autocomplete-empty>No tags found.</hlm-autocomplete-empty>
-    <div hlmAutocompleteList>
-      @for (option of filteredOptions(); track $index) {
-      	<hlm-autocomplete-item [value]="option"> {{ option }} </hlm-autocomplete-item>
-      }
-    </div>
-  </div>
-</hlm-autocomplete>
-`;
-
-export const autocompleteDefaultConfig = `
-import { provideBrnAutocompleteConfig } from '@spartan-ng/brain/autocomplete';
-
-provideBrnAutocompleteConfig({
-	isItemEqualToValue: (itemValue: T, selectedValue: T | null) => Object.is(itemValue, selectedValue),
-	itemToString: undefined,
-});
-`;

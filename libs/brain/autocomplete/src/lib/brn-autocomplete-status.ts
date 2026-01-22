@@ -1,11 +1,11 @@
 import { Directive } from '@angular/core';
 
 @Directive({
-	selector: '[brnAutocompleteEmpty]',
+	selector: '[brnAutocompleteStatus]',
 	host: {
 		role: 'status',
 		'aria-live': 'polite',
 		'aria-atomic': 'true',
 	},
 })
-export class BrnAutocompleteEmpty {}
+export class BrnAutocompleteStatus {}

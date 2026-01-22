@@ -2,33 +2,44 @@ import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/c
 import { BrnPopoverContent } from '@spartan-ng/brain/popover';
 import { HlmAutocompleteImports } from '@spartan-ng/helm/autocomplete';
 
-interface SpartanComponent {
+interface Tag {
 	id: string;
 	value: string;
 }
 
 @Component({
-	selector: 'spartan-autocomplete-preview',
+	selector: 'spartan-autocomplete-search-preview',
 	imports: [HlmAutocompleteImports, BrnPopoverContent],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<hlm-autocomplete [(search)]="search">
-			<hlm-autocomplete-input placeholder="Search components" />
+		<p class="mb-4">
+			<span class="font-semibold">Tag:</span>
+			{{ value() }}
+		</p>
+
+		<hlm-autocomplete-search [(value)]="value" [(search)]="search">
+			<hlm-autocomplete-input placeholder="Search tags" />
 			<div *brnPopoverContent hlmAutocompleteContent>
-				<hlm-autocomplete-empty>No components found.</hlm-autocomplete-empty>
+				<hlm-autocomplete-empty>No tags found.</hlm-autocomplete-empty>
 				<div hlmAutocompleteList>
-					@for (component of filteredOptions(); track $index) {
-						<hlm-autocomplete-item [value]="component.value">
-							{{ component.value }}
+					@for (tag of filteredOptions(); track $index) {
+						<hlm-autocomplete-item [value]="tag">
+							{{ tag.value }}
 						</hlm-autocomplete-item>
 					}
 				</div>
 			</div>
-		</hlm-autocomplete>
+		</hlm-autocomplete-search>
 	`,
 })
-export class AutocompletePreview {
-	private readonly _components: SpartanComponent[] = [
+export class AutocompleteSearchPreview {
+	private readonly _tags: Tag[] = [
+		{ id: 't1', value: 'feature' },
+		{ id: 't2', value: 'fix' },
+		{ id: 't3', value: 'bug' },
+		{ id: 't4', value: 'docs' },
+		{ id: 't5', value: 'internal' },
+		{ id: 't6', value: 'mobile' },
 		{ id: 'accordion', value: 'Accordion' },
 		{ id: 'alert-dialog', value: 'Alert dialog' },
 		{ id: 'autocomplete', value: 'Autocomplete' },
@@ -64,37 +75,11 @@ export class AutocompletePreview {
 		{ id: 'tooltip', value: 'Tooltip' },
 	];
 
+	public readonly value = signal<string | null>(null);
+
 	public readonly search = signal('');
 
 	public readonly filteredOptions = computed(() =>
-		this._components.filter((component) => component.value.toLowerCase().includes(this.search().toLowerCase())),
+		this._tags.filter((option) => option.value.toLowerCase().includes(this.search().toLowerCase())),
 	);
 }
-
-export const defaultImports = `
-import { BrnPopoverContent } from '@spartan-ng/brain/popover';
-import { HlmAutocompleteImports } from '@spartan-ng/helm/autocomplete';
-`;
-
-export const defaultSkeleton = `
-<hlm-autocomplete [(search)]="search">
-  <hlm-autocomplete-input placeholder="Search tags" />
-  <div *brnPopoverContent hlmAutocompleteContent>
-  	<hlm-autocomplete-empty>No tags found.</hlm-autocomplete-empty>
-    <div hlmAutocompleteList>
-      @for (option of filteredOptions(); track $index) {
-      	<hlm-autocomplete-item [value]="option"> {{ option }} </hlm-autocomplete-item>
-      }
-    </div>
-  </div>
-</hlm-autocomplete>
-`;
-
-export const autocompleteDefaultConfig = `
-import { provideBrnAutocompleteConfig } from '@spartan-ng/brain/autocomplete';
-
-provideBrnAutocompleteConfig({
-	isItemEqualToValue: (itemValue: T, selectedValue: T | null) => Object.is(itemValue, selectedValue),
-	itemToString: undefined,
-});
-`;

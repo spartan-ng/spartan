@@ -1,6 +1,6 @@
-import { Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
+import { BrnPopoverContent } from '@spartan-ng/brain/popover';
 import { HlmAutocompleteImports } from '@spartan-ng/helm/autocomplete';
-import { provideHlmAutocompleteConfig } from 'libs/helm/autocomplete/src/lib/hlm-autocomplete.token';
 
 type Country = {
 	name: string;
@@ -10,20 +10,23 @@ type Country = {
 
 @Component({
 	selector: 'spartan-autocomplete-countries',
-	imports: [HlmAutocompleteImports],
-	providers: [
-		provideHlmAutocompleteConfig({
-			transformValueToSearch: (option: Country) => `${option.flag} ${option.name}`,
-		}),
-	],
+	imports: [HlmAutocompleteImports, BrnPopoverContent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<hlm-autocomplete [filteredOptions]="filteredCountries()" [optionTemplate]="option" [(search)]="search" />
-
-		<!-- custom option template with access to the option item -->
-		<ng-template #option let-option>{{ option.flag }} {{ option.name }}</ng-template>
+		<hlm-autocomplete [(search)]="search" [itemToString]="itemToString">
+			<hlm-autocomplete-input placeholder="Search countries" />
+			<div *brnPopoverContent hlmAutocompleteContent>
+				<hlm-autocomplete-empty>No countries found.</hlm-autocomplete-empty>
+				<div hlmAutocompleteList>
+					@for (option of filteredCountries(); track $index) {
+						<hlm-autocomplete-item [value]="option">{{ option.flag }} {{ option.name }}</hlm-autocomplete-item>
+					}
+				</div>
+			</div>
+		</hlm-autocomplete>
 	`,
 })
-export class AutocompleteCountries {
+export class AutocompleteCountriesPreview {
 	private readonly _countries: Country[] = [
 		{ name: 'Argentina', code: 'AR', flag: '🇦🇷' },
 		{ name: 'Australia', code: 'AU', flag: '🇦🇺' },
@@ -50,6 +53,10 @@ export class AutocompleteCountries {
 	];
 
 	public readonly search = signal<string>('');
+
+	public readonly itemToString = (item: Country): string => {
+		return `${item.flag} ${item.name}`;
+	};
 
 	public readonly filteredCountries = computed(() =>
 		this._countries.filter(

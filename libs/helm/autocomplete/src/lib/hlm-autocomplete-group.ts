@@ -3,16 +3,14 @@ import { BrnAutocompleteGroup } from '@spartan-ng/brain/autocomplete';
 import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
-	selector: '[hlmAutocompleteGroup],hlm-autocomplete-group',
-	hostDirectives: [
-		{
-			directive: BrnAutocompleteGroup,
-			inputs: ['id'],
-		},
-	],
+	selector: '[hlmAutocompleteGroup]',
+	hostDirectives: [BrnAutocompleteGroup],
+	host: {
+		'data-slot': 'autocomplete-group',
+	},
 })
 export class HlmAutocompleteGroup {
 	constructor() {
-		classes(() => 'text-foreground block overflow-hidden p-1');
+		classes(() => 'data-hidden:hidden');
 	}
 }

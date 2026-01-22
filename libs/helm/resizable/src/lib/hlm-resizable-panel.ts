@@ -15,7 +15,7 @@ import { BrnResizablePanel } from '@spartan-ng/brain/resizable';
 	},
 })
 export class HlmResizablePanel {
-	private _resizablePanel = inject(BrnResizablePanel);
+	private readonly _resizablePanel = inject(BrnResizablePanel);
 
 	setSize(size: number) {
 		this._resizablePanel.setSize(size);

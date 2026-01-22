@@ -35,7 +35,7 @@ import { OpenInButton } from './open-in-button';
 			<div class="ml-auto hidden h-8 items-center gap-1.5 rounded-md border p-1 shadow-none md:flex">
 				<hlm-toggle-group
 					type="single"
-					[(value)]="size"
+					[(value)]="_size"
 					(valueChange)="changeSize($event)"
 					class="gap-1 *:data-[slot=toggle-group-item]:size-6! *:data-[slot=toggle-group-item]:rounded-sm!"
 				>
@@ -50,7 +50,7 @@ import { OpenInButton } from './open-in-button';
 					</button>
 				</hlm-toggle-group>
 				<hlm-separator orientation="vertical" />
-				<a hlmBtn size="icon" variant="ghost" title="Open in New Tab" [href]="previewUrl()" target="_blank">
+				<a hlmBtn size="icon" variant="ghost" title="Open in New Tab" [href]="_previewUrl()" target="_blank">
 					<span class="sr-only">Open in New Tab</span>
 					<ng-icon name="lucideFullscreen" />
 				</a>
@@ -75,21 +75,21 @@ import { OpenInButton } from './open-in-button';
 	`,
 })
 export class BlockViewer {
-	protected viewerPanel = viewChild.required<HlmResizablePanel>('viewerPanel');
-	protected invisiblePanel = viewChild.required<HlmResizablePanel>('invisiblePanel');
+	protected readonly _viewerPanel = viewChild.required<HlmResizablePanel>('viewerPanel');
+	protected readonly _invisiblePanel = viewChild.required<HlmResizablePanel>('invisiblePanel');
 
 	public readonly block = input.required<string>();
-	protected previewUrl = computed(() => `/blocks-preview/${this.block()}`);
+	protected readonly _previewUrl = computed(() => `/blocks-preview/${this.block()}`);
 
 	public readonly title = input.required<string>();
 	public readonly id = input.required<string>();
 
-	size = signal(100);
+	protected readonly _size = signal(100);
 
 	changeSize(size: ToggleValue<number>) {
 		if (typeof size === 'number') {
-			this.viewerPanel().setSize(size);
-			this.invisiblePanel().setSize(100 - size);
+			this._viewerPanel().setSize(size);
+			this._invisiblePanel().setSize(100 - size);
 		}
 	}
 }

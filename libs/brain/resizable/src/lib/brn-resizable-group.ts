@@ -87,7 +87,7 @@ export class BrnResizableGroup {
 	public startResize(handleIndex: number, event: MouseEvent | TouchEvent): void {
 		event.preventDefault();
 
-		const cursor = this.direction() === 'vertical' ? 'row-resize' : 'col-resize';
+		const cursor = this.direction() === 'vertical' ? 'ns-resize' : 'ew-resize';
 		this._document.body.style.cursor = `${cursor}`;
 		const sizes = [...this.layout()];
 		this.dragStart.emit();

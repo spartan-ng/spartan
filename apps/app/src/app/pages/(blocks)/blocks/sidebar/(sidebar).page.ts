@@ -1,8 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { BlockLink } from '@spartan-ng/app/app/shared/blocks/block-link';
-import { BlockPreview } from '@spartan-ng/app/app/shared/blocks/block-preview';
-import { OpenInButton } from '@spartan-ng/app/app/shared/blocks/open-in-button';
+import { BlockViewer } from '@spartan-ng/app/app/shared/blocks/block-viewer';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
 import { hlmCode } from '@spartan-ng/helm/typography';
 
@@ -13,18 +11,13 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-sidebar',
-	imports: [BlockPreview, OpenInButton, BlockLink],
+	imports: [BlockViewer],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
-		class: 'flex flex-col gap-12 md:gap-24',
+		class: 'flex flex-col',
 	},
 	template: `
-		<div id="sidebar-1" class="flex flex-col gap-4">
-			<div class="flex items-center justify-between px-2">
-				<spartan-block-link fragment="sidebar-1">A sidebar with a sticky header</spartan-block-link>
-				<spartan-open-in-button block="sidebar-sticky-header" />
-			</div>
-
+		<spartan-block-viewer block="sidebar-sticky-header" title="A sidebar with a sticky header" id="sidebar-1">
 			<p class="text-muted-foreground max-w-3xl text-sm text-pretty">
 				Setup a CSS variable for the header height by adding
 				<code class="${hlmCode}">[--header-height:--spacing(14)]</code>
@@ -33,15 +26,9 @@ export const routeMeta: RouteMeta = {
 				to set the height of your header. This variable is then used to offset the sidebar to account for the sticky
 				header height.
 			</p>
+		</spartan-block-viewer>
 
-			<spartan-block-preview name="sidebar-sticky-header" />
-		</div>
-		<div id="sidebar-2" class="flex flex-col gap-4">
-			<div class="flex items-center justify-between">
-				<spartan-block-link fragment="sidebar-2">An inset sidebar with secondary navigation</spartan-block-link>
-				<spartan-open-in-button block="sidebar-inset" />
-			</div>
-
+		<spartan-block-viewer block="sidebar-inset" title="An inset sidebar with secondary navigation" id="sidebar-2">
 			<p class="text-muted-foreground max-w-3xl text-sm text-pretty">
 				Use the
 				<code class="${hlmCode}">inset</code>
@@ -53,9 +40,7 @@ export const routeMeta: RouteMeta = {
 				<code class="${hlmCode}">main</code>
 				element to create an inset sidebar layout. Both elements must be siblings for the styles to apply correctly.
 			</p>
-
-			<spartan-block-preview name="sidebar-inset" />
-		</div>
+		</spartan-block-viewer>
 	`,
 })
 export default class SidebarPage {}

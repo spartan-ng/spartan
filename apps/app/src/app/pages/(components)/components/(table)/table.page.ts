@@ -78,7 +78,7 @@ export const routeMeta: RouteMeta = {
 			</p>
 			<p class="${hlmP}">
 				You can also see an example of a data table in the
-				<a class="${link}" routerLink="/examples/tasks">Tasks</a>
+				<a class="${link}" routerLink="/" fragment="tasks">Tasks</a>
 				demo.
 			</p>
 

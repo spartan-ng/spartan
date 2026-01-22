@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
 import { HlmButton } from '@spartan-ng/helm/button';
-import { HlmSeparator } from '@spartan-ng/helm/separator';
 import { hlmH3, hlmMuted } from '@spartan-ng/helm/typography';
 
 export const routeMeta: RouteMeta = {
@@ -14,14 +13,13 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-not-found',
-	imports: [HlmSeparator, HlmButton, RouterLink],
+	imports: [HlmButton, RouterLink],
 	host: {
-		class: 'h-full flex flex-col items-center justify-center',
+		class: 'min-h-[80vh] flex flex-col gap-4 items-center justify-center',
 	},
 	template: `
-		<div class="-mt-[25%] mb-8 flex items-center">
+		<div class="flex flex-col items-center gap-4">
 			<h1 class="${hlmH3}">404</h1>
-			<hr hlmSeparator class="mx-4 h-8" orientation="vertical" />
 			<p class="${hlmMuted}">This page could not be found</p>
 		</div>
 		<a routerLink="/" size="sm" class="text-xs" hlmBtn variant="link">Back home</a>

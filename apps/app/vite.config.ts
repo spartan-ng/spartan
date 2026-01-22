@@ -91,27 +91,27 @@ export default defineConfig(({ mode }) => {
 						const staticRoutes = [
 							'/',
 
-							'/documentation/dark-mode',
-							'/documentation/figma',
-							'/documentation/health-checks',
-							'/documentation/installation',
-							'/documentation/theming',
-							'/documentation/typography',
-
-							'/documentation/about',
-							'/documentation/changelog',
-							'/documentation/cli',
-							'/documentation/components-json',
 							'/documentation/introduction',
+							'/documentation/changelog',
+							'/documentation/about',
+
+							'/documentation/installation',
+							'/documentation/components-json',
+							'/documentation/theming',
+							'/documentation/dark-mode',
+							'/documentation/cli',
+							'/documentation/typography',
+							'/documentation/figma',
+							'/documentation/version-support',
+							'/documentation/health-checks',
+							'/documentation/update-guide',
+
+							'/blocks/sidebar',
+							'/blocks/calendar',
 
 							'/stack/overview',
 							'/stack/technologies',
 							'/stack/installation',
-
-							'/examples/notes',
-							'/examples/typography',
-							'/examples/authentication',
-							'/examples/music',
 						];
 
 						return await getPrerenderedRoutes(staticRoutes);

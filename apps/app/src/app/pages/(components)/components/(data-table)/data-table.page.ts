@@ -97,7 +97,7 @@ export const routeMeta: RouteMeta = {
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
 			<p class="${hlmP}">
 				For more information you can check out our
-				<a class="${link}" routerLink="/examples/tasks">Tasks</a>
+				<a class="${link}" routerLink="/" fragment="tasks">Tasks</a>
 				example and have a look at the documentation of
 				<a
 					href="https://tanstack.com/table/v8/docs/framework/angular/angular-table"

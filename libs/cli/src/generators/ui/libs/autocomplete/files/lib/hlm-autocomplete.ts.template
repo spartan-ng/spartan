@@ -87,7 +87,7 @@ export const HLM_AUTOCOMPLETE_VALUE_ACCESSOR = {
 						[class]="_computedAutocompleteInputClass()"
 						[placeholder]="searchPlaceholderText()"
 						[disabled]="_disabled()"
-						[value]="search()"
+						[value]="search() ?? ''"
 						(input)="_searchChanged($event)"
 					/>
 					<div hlmInputGroupAddon>
@@ -202,10 +202,10 @@ export class HlmAutocomplete<T, V = T> implements ControlValueAccessor {
 	public readonly debounceTime = input<number>(this._config.debounceTime);
 
 	/** The search query. */
-	public readonly search = model<string>('');
+	public readonly search = model<string | undefined>();
 
 	/** Debounced search query. */
-	protected readonly _search = debouncedSignal(this.search, this.debounceTime());
+	protected readonly _search = debouncedSignal(this.search, this.debounceTime);
 
 	/** Function to transform an option value to a search string. Defaults to identity function for strings. */
 	public readonly transformValueToSearch = input<(option: T) => string>(this._config.transformValueToSearch);

@@ -36,7 +36,7 @@ import { injectHlmSidebarConfig } from './hlm-sidebar.token';
 					data-slot="sidebar"
 					data-sidebar="sidebar"
 					data-mobile="true"
-					class="bg-sidebar text-sidebar-foreground h-screen w-[var(--sidebar-width)] p-0 [&>button]:hidden"
+					class="bg-sidebar text-sidebar-foreground h-svh w-[var(--sidebar-width)] p-0 [&>button]:hidden"
 					[style.--sidebar-width]="sidebarWidthMobile()"
 				>
 					<div class="flex h-full w-full flex-col">

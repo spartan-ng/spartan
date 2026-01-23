@@ -87,16 +87,20 @@ const lead = 'text-foreground max-w-3xl text-base text-balance sm:text-lg';
 
 		<section class="container px-6">
 			<hlm-tabs [tab]="_activeTab()" class="w-full">
-				<hlm-tabs-list
-					aria-label="tabs example"
-					class="bg-background dark:[&>a]:bg-background [&>a]:text-muted-foreground [&>a]:data-[state=active]:text-primary [&>a]:hover:text-primary dark:[&>a]:data-[state=active]:bg-background [&>a]:cursor-pointer [&>a]:data-[state=active]:shadow-none dark:[&>a]:data-[state=active]:border-none"
+				<div
+					class="w-full overflow-x-auto [mask-image:linear-gradient(to_right,transparent,#000_16px,#000_calc(100%_-_16px),transparent)] [-ms-overflow-style:none] [-webkit-mask-image:linear-gradient(to_right,transparent,#000_16px,#000_calc(100%_-_16px),transparent)] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
 				>
-					<a hlmTabsTrigger="examples" routerLink=".">Examples</a>
-					<a hlmTabsTrigger="dashboard" routerLink="." fragment="dashboard">Dashboard</a>
-					<a hlmTabsTrigger="tasks" routerLink="." fragment="tasks">Tasks</a>
-					<a hlmTabsTrigger="playground" routerLink="." fragment="playground">Playground</a>
-					<a hlmTabsTrigger="authentication" routerLink="." fragment="authentication">Authentication</a>
-				</hlm-tabs-list>
+					<hlm-tabs-list
+						aria-label="tabs example"
+						class="bg-background dark:[&>a]:bg-background [&>a]:text-muted-foreground [&>a]:data-[state=active]:text-primary [&>a]:hover:text-primary dark:[&>a]:data-[state=active]:bg-background w-max [&>a]:shrink-0 [&>a]:cursor-pointer [&>a]:data-[state=active]:shadow-none dark:[&>a]:data-[state=active]:border-none"
+					>
+						<a hlmTabsTrigger="examples" routerLink=".">Examples</a>
+						<a hlmTabsTrigger="dashboard" routerLink="." fragment="dashboard">Dashboard</a>
+						<a hlmTabsTrigger="tasks" routerLink="." fragment="tasks">Tasks</a>
+						<a hlmTabsTrigger="playground" routerLink="." fragment="playground">Playground</a>
+						<a hlmTabsTrigger="authentication" routerLink="." fragment="authentication">Authentication</a>
+					</hlm-tabs-list>
+				</div>
 				<div hlmTabsContent="examples" class="mt-0">
 					<spartan-overview-example />
 				</div>

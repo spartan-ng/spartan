@@ -3,16 +3,17 @@ import { BrnAutocompleteList } from '@spartan-ng/brain/autocomplete';
 import { classes } from '<%- importAlias %>/utils';
 
 @Directive({
-	selector: '[hlmAutocompleteList],hlm-autocomplete-list',
-	hostDirectives: [
-		{
-			directive: BrnAutocompleteList,
-			inputs: ['id'],
-		},
-	],
+	selector: '[hlmAutocompleteList]',
+	hostDirectives: [{ directive: BrnAutocompleteList, inputs: ['id'] }],
+	host: {
+		'data-slot': 'autocomplete-list',
+	},
 })
 export class HlmAutocompleteList {
 	constructor() {
-		classes(() => 'block max-h-60 overflow-x-hidden overflow-y-auto');
+		classes(
+			() =>
+				'no-scrollbar max-h-[calc(--spacing(72)---spacing(9))] scroll-py-1 overflow-y-auto overscroll-contain p-1 data-empty:p-0',
+		);
 	}
 }

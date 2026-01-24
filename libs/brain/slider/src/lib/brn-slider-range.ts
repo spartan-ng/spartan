@@ -1,15 +1,23 @@
-import { Directive } from '@angular/core';
+import { computed, Directive } from '@angular/core';
 import { injectBrnSlider } from './brn-slider.token';
-
-// '[style.width.%]': '_slider.percentage()',
 
 @Directive({
 	selector: '[brnSliderRange]',
 	host: {
 		'[attr.data-disabled]': '_slider.mutableDisabled()',
+		'[style.inset-inline]': '_rangeInsetInline()',
 	},
 })
 export class BrnSliderRange {
 	/** Access the slider */
 	protected readonly _slider = injectBrnSlider();
+
+	protected readonly _rangeInsetInline = computed(() => {
+		const thumbs = this._slider.thumbs();
+
+		const startThumb = thumbs[0];
+		const endThumb = thumbs[thumbs.length - 1];
+
+		return `${startThumb._thumbOffset()} ${endThumb._thumbOffsetInverted()}`;
+	});
 }

@@ -170,7 +170,7 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 		// Prevent browser focus behaviour because we focus a thumb manually when values change.
 		event.preventDefault();
 
-		if (this.thumbs().find((thumb) => thumb.elementRef.nativeElement === target)) {
+		if (this._isThumbNativeEl(target)) {
 			target.focus();
 		} else {
 			const value = this._getValueFromPointer(event.clientX);
@@ -204,6 +204,10 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 		const value = linearScale(input, output);
 
 		return value(pointerPosition - rect.left);
+	}
+
+	private _isThumbNativeEl(el: HTMLElement) {
+		return this.thumbs().find((thumb) => thumb.elementRef.nativeElement === el);
 	}
 }
 

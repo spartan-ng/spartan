@@ -1,6 +1,5 @@
 import { isPlatformServer } from '@angular/common';
-import { computed, Directive, DOCUMENT, ElementRef, HostListener, inject, PLATFORM_ID } from '@angular/core';
-import { fromEvent } from 'rxjs';
+import { computed, Directive, ElementRef, inject, PLATFORM_ID } from '@angular/core';
 import { injectBrnSlider } from './brn-slider.token';
 import { linearScale } from './utils/linear-scale';
 
@@ -15,13 +14,13 @@ import { linearScale } from './utils/linear-scale';
 		'[attr.data-disabled]': '_slider.mutableDisabled()',
 		'[style.inset-inline-start]': '_thumbOffset()',
 		'(focus)': 'focus()',
+		'(keydown)': 'handleKeydown($event)',
 	},
 })
 export class BrnSliderThumb {
-	protected readonly _slider = injectBrnSlider();
-	private readonly _document = inject<Document>(DOCUMENT);
-	public readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 	private readonly _platform = inject(PLATFORM_ID);
+	protected readonly _slider = injectBrnSlider();
+	public readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 
 	protected readonly _index = computed(() => this._slider.thumbs().findIndex((thumb) => thumb === this));
 
@@ -30,80 +29,52 @@ export class BrnSliderThumb {
 			((this._slider.value()[this._index()] - this._slider.min()) / (this._slider.max() - this._slider.min())) * 100,
 	);
 
-	/**
-	 * Offsets the thumb centre point while sliding to ensure it remains
-	 * within the bounds of the slider when reaching the edges.
-	 * Based on https://github.com/radix-ui/primitives/blob/main/packages/react/slider/src/slider.tsx
-	 */
-	protected readonly _thumbOffset = computed(() => {
+	public readonly thumbInBoundsOffset = computed(() => {
 		// we can't compute the offset on the server
 		if (isPlatformServer(this._platform)) {
-			return this.percentage() + '%';
+			return 0;
 		}
 
 		const halfWidth = this.elementRef.nativeElement.offsetWidth / 2;
 		const offset = linearScale([0, 50], [0, halfWidth]);
 		const thumbInBoundsOffset = halfWidth - offset(this.percentage());
-		const percent = this.percentage();
 
-		return `calc(${percent}% + ${thumbInBoundsOffset}px)`;
+		return thumbInBoundsOffset;
 	});
 
-	constructor() {
-		const mousedown = fromEvent<MouseEvent>(this.elementRef.nativeElement, 'pointerdown');
-		const mouseup = fromEvent<MouseEvent>(this._document, 'pointerup');
-		const mousemove = fromEvent<MouseEvent>(this._document, 'pointermove');
+	/**
+	 * Offsets the thumb centre point while sliding to ensure it remains
+	 * within the bounds of the slider when reaching the edges.
+	 * Based on https://github.com/radix-ui/primitives/blob/main/packages/react/slider/src/slider.tsx
+	 */
+	public readonly _thumbOffset = computed(() => {
+		// we can't compute the offset on the server
+		if (isPlatformServer(this._platform)) {
+			return this.percentage() + '%';
+		}
 
-		// Listen for mousedown events on the slider thumb
-		// mousedown
-		// 	.pipe(
-		// 		switchMap((e) => {
-		// 			e.preventDefault();
-		// 			return mousemove.pipe(
-		// 				takeUntil(mouseup),
-		// 				takeUntil(this._focusMonitor.monitor(this.elementRef, true).pipe(filter((val) => val === null))),
-		// 			);
-		// 		}),
-		// 		takeUntilDestroyed(),
-		// 	)
-		// 	.subscribe(this.dragThumb.bind(this));
-	}
+		return `calc(${this.percentage()}% + ${this.thumbInBoundsOffset()}px)`;
+	});
+
+	public readonly _thumbOffsetInverted = computed(() => {
+		// we can't compute the offset on the server
+		if (isPlatformServer(this._platform)) {
+			return this.percentage() + '%';
+		}
+
+		return `calc(${100 - this.percentage()}% - ${this.thumbInBoundsOffset()}px)`;
+	});
 
 	public focus() {
 		this.elementRef.nativeElement.focus();
 		this._slider.valueIndexToChange.set(this._index());
 	}
 
-	public blur() {
-		this.elementRef.nativeElement.blur();
-	}
-
-	/** @internal */
-	private dragThumb(event: MouseEvent): void {
-		if (this._slider.mutableDisabled()) {
-			return;
-		}
-
-		const rect = this._slider.track()?.elementRef.nativeElement.getBoundingClientRect();
-
-		if (!rect) {
-			return;
-		}
-
-		const percentage = (event.clientX - rect.left) / rect.width;
-
-		this._slider.setValue(
-			this._slider.min() + (this._slider.max() - this._slider.min()) * Math.max(0, Math.min(1, percentage)),
-			this._index(),
-		);
-	}
-
 	/**
 	 * Handle keyboard events.
 	 * @param event
 	 */
-	@HostListener('keydown', ['$event'])
-	protected handleKeydown(event: KeyboardEvent): void {
+	protected handleKeydown(event: KeyboardEvent) {
 		const dir = getComputedStyle(this.elementRef.nativeElement).direction;
 		let multiplier = event.shiftKey ? 10 : 1;
 		const index = this._index();

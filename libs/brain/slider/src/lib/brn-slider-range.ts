@@ -9,7 +9,6 @@ import { injectBrnSlider } from './brn-slider.token';
 	},
 })
 export class BrnSliderRange {
-	/** Access the slider */
 	protected readonly _slider = injectBrnSlider();
 
 	protected readonly _rangeInsetInline = computed(() => {

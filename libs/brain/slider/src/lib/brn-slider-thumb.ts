@@ -1,5 +1,5 @@
 import { isPlatformServer } from '@angular/common';
-import { computed, Directive, ElementRef, inject, PLATFORM_ID } from '@angular/core';
+import { computed, Directive, ElementRef, inject, OnDestroy, PLATFORM_ID } from '@angular/core';
 import { injectBrnSlider } from './brn-slider.token';
 import { linearScale } from './utils/linear-scale';
 
@@ -13,11 +13,14 @@ import { linearScale } from './utils/linear-scale';
 		'[attr.tabindex]': '_slider.mutableDisabled() ? -1 : 0',
 		'[attr.data-disabled]': '_slider.mutableDisabled()',
 		'[style.inset-inline-start]': '_thumbOffset()',
+		'(pointerdown)': '_onPointerDown($event)',
+		'(pointermove)': '_onPointerMove($event)',
+		'(pointerup)': '_onPointerUp($event)',
 		'(focus)': 'focus()',
 		'(keydown)': 'handleKeydown($event)',
 	},
 })
-export class BrnSliderThumb {
+export class BrnSliderThumb implements OnDestroy {
 	private readonly _platform = inject(PLATFORM_ID);
 	protected readonly _slider = injectBrnSlider();
 	public readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
@@ -64,6 +67,26 @@ export class BrnSliderThumb {
 
 		return `calc(${100 - this.percentage()}% - ${this.thumbInBoundsOffset()}px)`;
 	});
+
+	constructor() {
+		this._slider.addThumb(this);
+	}
+
+	ngOnDestroy() {
+		this._slider.removeThumb(this);
+	}
+
+	_onPointerDown(event: PointerEvent) {
+		this._slider.track()?._onPointerDown(event);
+	}
+
+	_onPointerMove(event: PointerEvent) {
+		this._slider.track()?._onPointerMove(event);
+	}
+
+	_onPointerUp(event: PointerEvent) {
+		this._slider.track()?._onPointerUp(event);
+	}
 
 	public focus() {
 		this.elementRef.nativeElement.focus();

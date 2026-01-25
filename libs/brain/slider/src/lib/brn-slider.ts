@@ -3,7 +3,6 @@ import {
 	booleanAttribute,
 	ChangeDetectorRef,
 	computed,
-	contentChildren,
 	Directive,
 	ElementRef,
 	forwardRef,
@@ -21,7 +20,6 @@ import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import { BrnSliderThumb } from './brn-slider-thumb';
 import type { BrnSliderTrack } from './brn-slider-track';
 import { provideBrnSlider } from './brn-slider.token';
-import { linearScale } from './utils/linear-scale';
 
 @Directive({
 	selector: '[brnSlider]',
@@ -36,9 +34,6 @@ import { linearScale } from './utils/linear-scale';
 	],
 	host: {
 		'aria-orientation': 'horizontal',
-		'(pointerdown)': '_onPointerDown($event)',
-		'(pointermove)': '_onPointerMove($event)',
-		'(pointerup)': '_onPointerUp($event)',
 		'(focusout)': '_onTouched?.()',
 	},
 })
@@ -72,8 +67,14 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 		transform: booleanAttribute,
 	});
 
-	public readonly thumbs = contentChildren(BrnSliderThumb);
+	public readonly thumbIndexes = computed(() => Array.from({ length: this.value().length }, (_, i) => i), {
+		equal: (a, b) => a.length === b.length,
+	});
 
+	/** @internal */
+	public readonly thumbs = signal<BrnSliderThumb[]>([]);
+
+	/** @internal */
 	public readonly valueIndexToChange = signal(0);
 
 	/** @internal */
@@ -164,58 +165,18 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 		this._onChange?.(newValue);
 	}
 
-	protected _onPointerDown(event: PointerEvent) {
-		const target = event.target as HTMLElement;
-		target.setPointerCapture(event.pointerId);
-		// Prevent browser focus behaviour because we focus a thumb manually when values change.
-		event.preventDefault();
-
-		if (this._isThumbNativeEl(target)) {
-			target.focus();
-		} else {
-			const value = this._getValueFromPointer(event.clientX);
-			const closestIndex = getClosestValueIndex(this.value(), value);
-
-			this.setValue(value, closestIndex);
-		}
+	/** @internal */
+	addThumb(thumb: BrnSliderThumb) {
+		this.thumbs.update((thumbs) => {
+			thumbs.push(thumb);
+			return [...thumbs];
+		});
 	}
 
-	protected _onPointerMove(event: PointerEvent) {
-		const target = event.target as HTMLElement;
-
-		if (target.hasPointerCapture(event.pointerId)) {
-			const value = this._getValueFromPointer(event.clientX);
-			this.setValue(value, this.valueIndexToChange());
-		}
+	/** @internal */
+	removeThumb(thumb: BrnSliderThumb) {
+		this.thumbs.update((thumbs) => thumbs.filter((t) => t !== thumb));
 	}
-
-	protected _onPointerUp(event: PointerEvent) {
-		const target = event.target as HTMLElement;
-
-		if (target.hasPointerCapture(event.pointerId)) {
-			target.releasePointerCapture(event.pointerId);
-		}
-	}
-
-	private _getValueFromPointer(pointerPosition: number) {
-		const rect = this._elementRef.nativeElement.getBoundingClientRect();
-		const input: [number, number] = [0, rect.width];
-		const output: [number, number] = [this.min(), this.max()];
-		const value = linearScale(input, output);
-
-		return value(pointerPosition - rect.left);
-	}
-
-	private _isThumbNativeEl(el: HTMLElement) {
-		return this.thumbs().find((thumb) => thumb.elementRef.nativeElement === el);
-	}
-}
-
-function getClosestValueIndex(values: number[], nextValue: number) {
-	if (values.length === 1) return 0;
-	const distances = values.map((value) => Math.abs(value - nextValue));
-	const closestDistance = Math.min(...distances);
-	return distances.indexOf(closestDistance);
 }
 
 function roundValue(value: number, decimalCount: number): number {

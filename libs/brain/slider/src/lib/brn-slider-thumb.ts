@@ -59,7 +59,7 @@ export class BrnSliderThumb {
 	public readonly _thumbOffsetInverted = computed(() => {
 		// we can't compute the offset on the server
 		if (isPlatformServer(this._platform)) {
-			return this.percentage() + '%';
+			return 100 - this.percentage() + '%';
 		}
 
 		return `calc(${100 - this.percentage()}% - ${this.thumbInBoundsOffset()}px)`;

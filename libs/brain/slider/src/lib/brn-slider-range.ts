@@ -15,9 +15,15 @@ export class BrnSliderRange {
 	protected readonly _rangeInsetInline = computed(() => {
 		const thumbs = this._slider.thumbs();
 
-		const startThumb = thumbs[0];
-		const endThumb = thumbs[thumbs.length - 1];
+		if (thumbs.length > 1) {
+			const startThumb = thumbs[0];
+			const endThumb = thumbs[thumbs.length - 1];
 
-		return `${startThumb._thumbOffset()} ${endThumb._thumbOffsetInverted()}`;
+			return `${startThumb._thumbOffset()} ${endThumb._thumbOffsetInverted()}`;
+		} else {
+			const startThumb = thumbs[0];
+
+			return `0px ${startThumb._thumbOffsetInverted()}`;
+		}
 	});
 }

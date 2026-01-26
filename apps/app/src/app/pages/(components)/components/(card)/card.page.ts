@@ -1,6 +1,7 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
@@ -13,6 +14,8 @@ import { Tabs } from '../../../../shared/layout/tabs';
 import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
+import { CardImagePreview } from './card--image.preview';
+import { CardSizePreview } from './card--size.preview';
 import { CardPreview, defaultImports, defaultSkeleton } from './card.preview';
 
 export const routeMeta: RouteMeta = {
@@ -35,7 +38,10 @@ export const routeMeta: RouteMeta = {
 		PageNav,
 		PageBottomNav,
 		PageBottomNavLink,
+		SectionSubSubHeading,
 		CardPreview,
+		CardSizePreview,
+		CardImagePreview,
 	],
 	template: `
 		<section spartanMainSection>
@@ -57,6 +63,23 @@ export const routeMeta: RouteMeta = {
 				<spartan-code [code]="_defaultSkeleton" />
 			</div>
 
+			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
+			<h3 id="examples__size" spartanH4>Size</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-card-size-preview />
+				</div>
+				<spartan-code secondTab [code]="_sizeCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__image" spartanH4>Image</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-card-image-preview />
+				</div>
+				<spartan-code secondTab [code]="_imageCode()" />
+			</spartan-tabs>
+
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="helm" />
 
@@ -71,6 +94,8 @@ export const routeMeta: RouteMeta = {
 export default class CardPage {
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('card');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
+	protected readonly _sizeCode = computed(() => this._snippets()['size']);
+	protected readonly _imageCode = computed(() => this._snippets()['image']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

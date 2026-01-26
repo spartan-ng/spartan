@@ -1,6 +1,8 @@
+import { RouteMeta } from '@analogjs/router';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { BlockLink } from '@spartan-ng/app/app/shared/blocks/block-link';
 import { OpenInComponentButton } from '@spartan-ng/app/app/shared/blocks/open-in-component-button';
+import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
 import { CalendarDatePickerMultiComponent } from './calendar-date-picker-multi/calendar-date-picker-multi.component';
 import { CalendarDatePickerRangeComponent } from './calendar-date-picker-range/calendar-date-picker-range.component';
 import { CalendarDatePickerWithButtonComponent } from './calendar-date-picker-with-button/calendar-date-picker-with-button.component';
@@ -12,6 +14,11 @@ import { CalendarLocalizedComponent } from './calendar-localized/calendar-locali
 import { CalendarMonthAndYearComponent } from './calendar-month-year-dropdown/calendar-month-year-dropdown.component';
 import { CalendarMultiComponent } from './calendar-multi/calendar-multi.component';
 import { CalendarSimpleComponent } from './calendar-simple/calendar-simple.component';
+
+export const routeMeta: RouteMeta = {
+	meta: metaWith('spartan/blocks - Calendar', 'Calendar blocks using spartan/ui primitives'),
+	title: 'spartan/blocks - Calendar',
+};
 
 @Component({
 	selector: 'spartan-calendar',

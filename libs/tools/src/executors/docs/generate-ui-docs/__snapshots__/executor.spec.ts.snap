@@ -1128,10 +1128,16 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
   "card": {
     "helm": {
       "HlmCard": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "size",
+            "required": false,
+            "type": "'sm' | 'default'",
+          },
+        ],
         "models": [],
         "outputs": [],
-        "selector": "[hlmCard]",
+        "selector": "[hlmCard],hlm-card",
       },
       "HlmCardAction": {
         "inputs": [],
@@ -1155,13 +1161,13 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "[hlmCardFooter]",
+        "selector": "[hlmCardFooter],hlm-card-footer",
       },
       "HlmCardHeader": {
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "[hlmCardHeader]",
+        "selector": "[hlmCardHeader],hlm-card-header",
       },
       "HlmCardTitle": {
         "inputs": [],

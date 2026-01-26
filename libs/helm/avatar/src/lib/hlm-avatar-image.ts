@@ -14,6 +14,6 @@ export class HlmAvatarImage {
 	public readonly canShow = inject(BrnAvatarImage).canShow;
 
 	constructor() {
-		classes(() => 'object-coverrounded-full aspect-square size-full rounded-full');
+		classes(() => 'aspect-square size-full rounded-full object-cover');
 	}
 }

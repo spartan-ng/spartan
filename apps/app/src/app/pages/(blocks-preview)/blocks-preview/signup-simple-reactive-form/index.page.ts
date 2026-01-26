@@ -122,9 +122,9 @@ import { HlmInputImports } from '@spartan-ng/helm/input';
 	`,
 })
 export default class SignupSimpleReactiveFormPage {
-	private fb = inject(FormBuilder);
+	private readonly _fb = inject(FormBuilder);
 
-	form = this.fb.group(
+	public form = this._fb.group(
 		{
 			name: ['', [Validators.required]],
 			email: ['', [Validators.required, Validators.email]],
@@ -134,7 +134,7 @@ export default class SignupSimpleReactiveFormPage {
 		{ validators: passwordMatch() },
 	);
 
-	signup() {
+	public signup() {
 		if (this.form.valid) {
 			// signup logic here
 			console.log(this.form.value);

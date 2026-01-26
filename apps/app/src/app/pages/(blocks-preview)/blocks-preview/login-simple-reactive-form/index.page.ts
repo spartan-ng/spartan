@@ -80,14 +80,14 @@ import { HlmInputImports } from '@spartan-ng/helm/input';
 	`,
 })
 export default class LoginSimpleReactiveFormPage {
-	private fb = inject(FormBuilder);
+	private readonly _fb = inject(FormBuilder);
 
-	form = this.fb.group({
+	public form = this._fb.group({
 		email: ['', [Validators.required, Validators.email]],
 		password: ['', [Validators.required, Validators.minLength(8)]],
 	});
 
-	login() {
+	public login() {
 		if (this.form.valid) {
 			// login logic here
 			console.log(this.form.value);

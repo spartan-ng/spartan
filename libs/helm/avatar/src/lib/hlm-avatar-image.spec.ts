@@ -29,7 +29,9 @@ describe('HlmAvatarImageDirective', () => {
 
 	it('should add the default classes if no inputs are provided', () => {
 		fixture.detectChanges();
-		expect(fixture.nativeElement.querySelector('img').className).toBe('aspect-square size-full');
+		expect(fixture.nativeElement.querySelector('img').className).toBe(
+			'aspect-square size-full rounded-full object-cover',
+		);
 	});
 
 	it('should add any user defined classes', async () => {

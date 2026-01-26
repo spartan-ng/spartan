@@ -86,7 +86,7 @@ export class BlockViewer {
 
 	protected readonly _size = signal(100);
 
-	changeSize(size: ToggleValue<number>) {
+	public changeSize(size: ToggleValue<number>) {
 		if (typeof size === 'number') {
 			this._viewerPanel().setSize(size);
 			this._invisiblePanel().setSize(100 - size);

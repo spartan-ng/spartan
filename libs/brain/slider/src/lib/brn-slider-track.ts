@@ -27,14 +27,10 @@ export class BrnSliderTrack {
 		// Prevent browser focus behaviour because we focus a thumb manually when values change.
 		event.preventDefault();
 
-		if (this._isThumbNativeEl(target)) {
-			target.focus();
-		} else {
-			const value = this._getValueFromPointer(event.clientX);
-			const closestIndex = getClosestValueIndex(this._slider.value(), value);
+		const value = this._getValueFromPointer(event.clientX);
+		const closestIndex = getClosestValueIndex(this._slider.value(), value);
 
-			this._slider.setValue(value, closestIndex);
-		}
+		this._slider.setValue(value, closestIndex);
 	}
 
 	public _onPointerMove(event: PointerEvent) {
@@ -61,10 +57,6 @@ export class BrnSliderTrack {
 		const value = linearScale(input, output);
 
 		return value(pointerPosition - rect.left);
-	}
-
-	private _isThumbNativeEl(el: HTMLElement) {
-		return this._slider.thumbs().find((thumb) => thumb.elementRef.nativeElement === el);
 	}
 }
 

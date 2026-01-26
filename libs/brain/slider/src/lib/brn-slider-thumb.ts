@@ -7,16 +7,17 @@ import { linearScale } from './utils/linear-scale';
 	selector: '[brnSliderThumb]',
 	host: {
 		role: 'slider',
+		'[attr.aria-label]': `_ariaLabel`,
 		'[attr.aria-valuenow]': '_slider.value()[_index()]',
 		'[attr.aria-valuemin]': '_slider.min()',
 		'[attr.aria-valuemax]': '_slider.max()',
 		'[attr.tabindex]': '_slider.mutableDisabled() ? -1 : 0',
 		'[attr.data-disabled]': '_slider.mutableDisabled()',
 		'[style.inset-inline-start]': '_thumbOffset()',
+		'data-slot': 'slider-thumb',
 		'(pointerdown)': '_onPointerDown($event)',
 		'(pointermove)': '_onPointerMove($event)',
 		'(pointerup)': '_onPointerUp($event)',
-		'(focus)': 'focus()',
 		'(keydown)': 'handleKeydown($event)',
 	},
 })
@@ -68,6 +69,8 @@ export class BrnSliderThumb implements OnDestroy {
 		return `calc(${100 - this.percentage()}% - ${this.thumbInBoundsOffset()}px)`;
 	});
 
+	protected readonly _ariaLabel = computed(() => `Value ${this._index() + 1} of ${this._slider.value().length}`);
+
 	constructor() {
 		this._slider.addThumb(this);
 	}
@@ -86,11 +89,6 @@ export class BrnSliderThumb implements OnDestroy {
 
 	_onPointerUp(event: PointerEvent) {
 		this._slider.track()?._onPointerUp(event);
-	}
-
-	public focus() {
-		this.elementRef.nativeElement.focus();
-		this._slider.valueIndexToChange.set(this._index());
 	}
 
 	/**

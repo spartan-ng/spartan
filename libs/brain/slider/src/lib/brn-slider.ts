@@ -4,6 +4,7 @@ import {
 	ChangeDetectorRef,
 	computed,
 	Directive,
+	effect,
 	ElementRef,
 	forwardRef,
 	inject,
@@ -14,6 +15,7 @@ import {
 	type OnInit,
 	output,
 	signal,
+	untracked,
 } from '@angular/core';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
@@ -34,7 +36,7 @@ import { provideBrnSlider } from './brn-slider.token';
 	],
 	host: {
 		'aria-orientation': 'horizontal',
-		'(focusout)': '_onTouched?.()',
+		'(focusout)': '_onFocusOut($event)',
 	},
 })
 export class BrnSlider implements ControlValueAccessor, OnInit {
@@ -99,13 +101,25 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 	public readonly mutableDisabled = linkedSignal(() => this.disabled());
 
 	/** @internal Store the on change callback */
-	protected _onChange?: ChangeFn<number[]>;
+	private _onChange?: ChangeFn<number[]>;
 
 	/** @internal Store the on touched callback */
-	protected _onTouched?: TouchFn;
+	private _onTouched?: TouchFn;
 
 	/** @internal Store the track */
 	public readonly track = signal<BrnSliderTrack | null>(null);
+
+	constructor() {
+		effect(() => {
+			this.value();
+			const index = untracked(this.valueIndexToChange);
+			const thumbs = untracked(this.thumbs);
+
+			if (thumbs[index]) {
+				thumbs[index].elementRef.nativeElement.focus();
+			}
+		});
+	}
 
 	ngOnInit(): void {
 		const sortedValue = [...this.value()].sort((a, b) => a - b);
@@ -116,8 +130,11 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 		if (sortedValue[sortedValue.length - 1] > this.max()) {
 			sortedValue[sortedValue.length - 1] = this.max();
 		}
-		this.value.set(sortedValue);
-		this.valueChange.emit(sortedValue);
+
+		if (!areArrsEqual(sortedValue, this.value())) {
+			this.value.set(sortedValue);
+			this.valueChange.emit(sortedValue);
+		}
 	}
 
 	registerOnChange(fn: (value: number[]) => void): void {
@@ -134,6 +151,8 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 
 	writeValue(value: number[]): void {
 		const newValue = value.map((v) => clamp(v, [this.min(), this.max()]));
+		if (areArrsEqual(newValue, value)) return;
+
 		this.value.set(newValue);
 
 		if (value !== newValue) {
@@ -156,9 +175,11 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 		const newValue = [...this.value()];
 		newValue[atIndex] = value;
 		newValue.sort((a, b) => a - b);
-		const newValIndex = newValue.findIndex((val) => val === value);
 
-		this.thumbs()[newValIndex].focus();
+		const newValIndex = newValue.findIndex((val) => val === value);
+		this.valueIndexToChange.set(newValIndex);
+
+		if (areArrsEqual(newValue, this.value())) return;
 
 		this.value.set(newValue);
 		this.valueChange.emit(newValue);
@@ -177,6 +198,19 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 	removeThumb(thumb: BrnSliderThumb) {
 		this.thumbs.update((thumbs) => thumbs.filter((t) => t !== thumb));
 	}
+
+	protected _onFocusOut(event: FocusEvent) {
+		const currentTarget = event.currentTarget as HTMLElement;
+		const focusedEl = event.relatedTarget as HTMLElement | null;
+
+		if (!currentTarget.contains(focusedEl)) {
+			this._onTouched?.();
+		}
+	}
+}
+
+function areArrsEqual(arr1: unknown[], arr2: unknown[]) {
+	return String(arr1) === String(arr2);
 }
 
 function roundValue(value: number, decimalCount: number): number {

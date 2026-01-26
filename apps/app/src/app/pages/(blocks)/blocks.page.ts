@@ -52,7 +52,7 @@ export default class BlocksPage {
 	private readonly _lastUrlSegment = computed(() => {
 		const segments = this._router.url.split('/');
 		const last = segments[segments.length - 1];
-		return last;
+		return last.includes('#') ? last.split('#')[0] : last;
 	});
 
 	protected readonly _activeTab = signal<string>(this._lastUrlSegment() || 'sidebar');

@@ -1,8 +1,9 @@
-import { Directive } from '@angular/core';
+import { Directive, inject } from '@angular/core';
 import { BrnResizablePanel } from '@spartan-ng/brain/resizable';
 
 @Directive({
 	selector: '[hlmResizablePanel],hlm-resizable-panel',
+	exportAs: 'hlmResizablePanel',
 	hostDirectives: [
 		{
 			directive: BrnResizablePanel,
@@ -13,4 +14,10 @@ import { BrnResizablePanel } from '@spartan-ng/brain/resizable';
 		'data-slot': 'resizable-panel',
 	},
 })
-export class HlmResizablePanel {}
+export class HlmResizablePanel {
+	private readonly _resizablePanel = inject(BrnResizablePanel);
+
+	public setSize(size: number) {
+		this._resizablePanel.setSize(size);
+	}
+}

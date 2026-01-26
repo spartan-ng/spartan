@@ -624,7 +624,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "[hlmBadge]",
+        "selector": "[hlmBadge],hlm-badge",
       },
     },
   },

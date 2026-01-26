@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { HlmBadgeImports } from '@spartan-ng/helm/badge';
 
 @Component({
-	selector: 'spartan-badge-preview',
+	selector: 'spartan-badge-variants-preview',
 	imports: [HlmBadgeImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
@@ -11,15 +11,8 @@ import { HlmBadgeImports } from '@spartan-ng/helm/badge';
 			<span hlmBadge variant="secondary">Secondary</span>
 			<span hlmBadge variant="destructive">Destructive</span>
 			<span hlmBadge variant="outline">Outline</span>
+			<span hlmBadge variant="ghost">Ghost</span>
 		</div>
 	`,
 })
-export class BadgePreview {}
-
-export const defaultImports = `
-import { HlmBadgeImports } from '@spartan-ng/helm/badge';
-`;
-
-export const defaultSkeleton = `
-<span hlmBadge variant="default | outline | secondary | destructive">Badge</span>
-`;
+export class BadgeVariantsPreview {}

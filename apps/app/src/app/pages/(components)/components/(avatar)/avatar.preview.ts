@@ -1,14 +1,47 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { HlmAvatarImports } from '@spartan-ng/helm/avatar';
 
 @Component({
 	selector: 'spartan-avatar-preview',
 	imports: [HlmAvatarImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<hlm-avatar variant="large">
-			<img src="/assets/avatar.png" alt="spartan logo. Resembling a spartanic shield" hlmAvatarImage />
-			<span class="bg-[#FD005B] text-white" hlmAvatarFallback>RG</span>
-		</hlm-avatar>
+		<div class="flex flex-row flex-wrap items-center gap-6 md:gap-12">
+			<hlm-avatar>
+				<img
+					hlmAvatarImage
+					src="/assets/avatar.png"
+					alt="spartan logo. Resembling a spartanic shield"
+					class="grayscale"
+				/>
+				<span hlmAvatarFallback>RG</span>
+			</hlm-avatar>
+			<hlm-avatar>
+				<img
+					hlmAvatarImage
+					src="/assets/avatar.png"
+					alt="spartan logo. Resembling a spartanic shield"
+					class="grayscale"
+				/>
+				<span hlmAvatarFallback>RG</span>
+				<hlm-avatar-badge class="bg-red-600 dark:bg-red-800" />
+			</hlm-avatar>
+			<hlm-avatar-group class="grayscale">
+				<hlm-avatar>
+					<img hlmAvatarImage src="/assets/avatar.png" alt="spartan logo. Resembling a spartanic shield" />
+					<span hlmAvatarFallback>RG</span>
+				</hlm-avatar>
+				<hlm-avatar>
+					<img hlmAvatarImage src="/assets/avatar.png" alt="spartan logo. Resembling a spartanic shield" />
+					<span hlmAvatarFallback>RG</span>
+				</hlm-avatar>
+				<hlm-avatar>
+					<img hlmAvatarImage src="/assets/avatar.png" alt="spartan logo. Resembling a spartanic shield" />
+					<span hlmAvatarFallback>RG</span>
+				</hlm-avatar>
+				<hlm-avatar-group-count>+3</hlm-avatar-group-count>
+			</hlm-avatar-group>
+		</div>
 	`,
 })
 export class AvatarPreview {}
@@ -19,7 +52,7 @@ import { HlmAvatarImports } from '@spartan-ng/helm/avatar';
 
 export const defaultSkeleton = `
 <hlm-avatar>
-   <img src='/assets/avatar.png' alt='spartan logo. Resembling a spartanic shield' hlmAvatarImage />
-   <span class='text-white bg-destructive' hlmAvatarFallback>RG</span>
+   <img hlmAvatarImage src='/assets/avatar.png' alt='spartan logo. Resembling a spartanic shield' />
+   <span hlmAvatarFallback>RG</span>
 </hlm-avatar>
 `;

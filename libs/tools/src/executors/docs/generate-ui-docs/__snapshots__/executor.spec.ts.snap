@@ -567,10 +567,22 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
     },
     "helm": {
       "HlmAvatar": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "size",
+            "required": false,
+            "type": "'default' | 'sm' | 'lg'",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "hlm-avatar",
+      },
+      "HlmAvatarBadge": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmAvatarBadge],hlm-avatar-badge",
       },
       "HlmAvatarFallback": {
         "exportAs": "avatarFallback",
@@ -578,6 +590,18 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [],
         "outputs": [],
         "selector": "[hlmAvatarFallback]",
+      },
+      "HlmAvatarGroup": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmAvatarGroup],hlm-avatar-group",
+      },
+      "HlmAvatarGroupCount": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmAvatarGroupCount],hlm-avatar-group-count",
       },
       "HlmAvatarImage": {
         "exportAs": "avatarImage",

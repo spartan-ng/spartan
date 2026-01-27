@@ -47,8 +47,8 @@ import { HlmKbdImports } from '@spartan-ng/helm/kbd';
 		<hlm-command-dialog [state]="state()" (stateChange)="stateChanged($event)">
 			<hlm-command>
 				<hlm-command-input placeholder="Type a command or search..." />
-				<div *hlmCommandEmptyState hlmCommandEmpty>No results found.</div>
 				<hlm-command-list>
+					<div *hlmCommandEmptyState hlmCommandEmpty>No results found.</div>
 					<hlm-command-group>
 						<hlm-command-group-label>Suggestions</hlm-command-group-label>
 						<button hlm-command-item value="calendar" (selected)="commandSelected('calendar')">

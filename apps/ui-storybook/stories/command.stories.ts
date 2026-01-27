@@ -191,7 +191,7 @@ export const Dialog: Story = {
 	selector: 'command-dynamic-component',
 	imports: [BrnCommandImports, HlmCommandImports, BrnDialogImports, NgIcon, HlmIcon, HlmButton, FormsModule],
 	template: `
-		<hlm-command>
+		<hlm-command [search]="search()">
 			<hlm-command-input placeholder="Type a command or search..." />
 			<hlm-command-list>
 				<hlm-command-group>
@@ -235,8 +235,8 @@ export const DynamicOptions: Story = {
 	selector: 'command-reactive-form-component',
 	imports: [BrnCommandImports, HlmCommandImports, NgIcon, HlmIcon, HlmButton, FormsModule, ReactiveFormsModule],
 	template: `
-		<hlm-command>
-			<hlm-command-input placeholder="Type a command or search..." [formControl]="searchControl" />
+		<hlm-command [formControl]="searchControl">
+			<hlm-command-input placeholder="Type a command or search..." />
 			<hlm-command-list>
 				<hlm-command-group>
 					<hlm-command-group-label>Suggestions</hlm-command-group-label>
@@ -256,7 +256,6 @@ export const DynamicOptions: Story = {
 })
 class CommandReactiveForm {
 	searchControl = new FormControl('R');
-	protected readonly search = signal('P');
 	protected readonly items = signal<{ label: string; value: string; icon: string; shortcut: string }[]>([
 		{ label: 'Profile', value: 'Profile', icon: 'lucideUser', shortcut: '⌘P' },
 		{ label: 'Billing', value: 'Billing', icon: 'lucideWallet', shortcut: '⌘B' },

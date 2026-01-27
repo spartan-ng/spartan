@@ -106,8 +106,8 @@ import { TasksExample } from '../tasks';
 					</button>
 					<hlm-command *brnPopoverContent="let ctx" hlmPopoverContent class="w-[200px] p-0">
 						<hlm-command-input placeholder="Search Status" />
-						<div *hlmCommandEmptyState hlmCommandEmpty>No results found.</div>
 						<hlm-command-list>
+							<div *hlmCommandEmptyState hlmCommandEmpty>No results found.</div>
 							<hlm-command-group>
 								@for (status of _statuses(); track status) {
 									<button hlm-command-item [value]="status" (selected)="statusSelected(status)">
@@ -147,8 +147,8 @@ import { TasksExample } from '../tasks';
 					</button>
 					<hlm-command *brnPopoverContent="let ctx" hlmPopoverContent class="w-[200px] p-0">
 						<hlm-command-input placeholder="Search Priority" />
-						<div *hlmCommandEmptyState hlmCommandEmpty>No results found.</div>
 						<hlm-command-list>
+							<div *hlmCommandEmptyState hlmCommandEmpty>No results found.</div>
 							<hlm-command-group>
 								@for (priority of _priorities(); track priority) {
 									<button hlm-command-item [value]="priority" (selected)="prioritySelected(priority)">

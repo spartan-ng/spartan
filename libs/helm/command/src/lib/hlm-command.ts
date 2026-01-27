@@ -7,7 +7,7 @@ import { classes } from '@spartan-ng/helm/utils';
 	hostDirectives: [
 		{
 			directive: BrnCommand,
-			inputs: ['id', 'filter', 'search'],
+			inputs: ['id', 'filter', 'search', 'disabled'],
 			outputs: ['valueChange', 'searchChange'],
 		},
 	],

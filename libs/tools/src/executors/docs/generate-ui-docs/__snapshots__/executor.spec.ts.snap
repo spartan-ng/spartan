@@ -1856,6 +1856,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "CommandFilter",
           },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
         ],
         "models": [
           {
@@ -1890,7 +1895,13 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "[brnCommandGroup]",
       },
       "BrnCommandInput": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "input[brnCommandInput]",
@@ -2011,6 +2022,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       },
       "HlmCommandInput": {
         "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string | undefined",
+          },
           {
             "name": "placeholder",
             "required": false,

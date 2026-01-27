@@ -2,16 +2,16 @@ import { DestroyRef, Directive, effect, ElementRef, forwardRef, inject, Injector
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DefaultValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { startWith } from 'rxjs/operators';
-import { provideBrnCommandSearchInput } from './brn-command-search-input.token';
+import { provideBrnCommandInput } from './brn-command-input.token';
 import { injectBrnCommand } from './brn-command.token';
 
 @Directive({
-	selector: 'input[brnCommandSearchInput]',
+	selector: 'input[brnCommandInput]',
 	providers: [
-		provideBrnCommandSearchInput(BrnCommandSearchInput),
+		provideBrnCommandInput(BrnCommandInput),
 		{
 			provide: NG_VALUE_ACCESSOR,
-			useExisting: forwardRef(() => BrnCommandSearchInput),
+			useExisting: forwardRef(() => BrnCommandInput),
 			multi: true,
 		},
 	],
@@ -27,7 +27,7 @@ import { injectBrnCommand } from './brn-command.token';
 		spellcheck: 'false',
 	},
 })
-export class BrnCommandSearchInput extends DefaultValueAccessor implements OnInit {
+export class BrnCommandInput extends DefaultValueAccessor implements OnInit {
 	private readonly _destroyRef = inject(DestroyRef);
 	private readonly _el = inject(ElementRef);
 	private readonly _injector = inject(Injector);
@@ -53,7 +53,6 @@ export class BrnCommandSearchInput extends DefaultValueAccessor implements OnIni
 	}
 	/** Listen for changes to the input value */
 	protected onInput(): void {
-		console.log('input event');
 		this._command.search.set(this._el.nativeElement.value);
 	}
 

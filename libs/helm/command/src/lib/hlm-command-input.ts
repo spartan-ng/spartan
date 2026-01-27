@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideSearch } from '@ng-icons/lucide';
-import { BrnCommandSearchInput } from '@spartan-ng/brain/command';
+import { BrnCommandInput } from '@spartan-ng/brain/command';
 import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 import { classes } from '@spartan-ng/helm/utils';
 
 @Component({
 	selector: 'hlm-command-input',
-	imports: [HlmInputGroupImports, NgIcon, BrnCommandSearchInput],
+	imports: [HlmInputGroupImports, NgIcon, BrnCommandInput],
 	providers: [provideIcons({ lucideSearch })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
@@ -15,7 +15,7 @@ import { classes } from '@spartan-ng/helm/utils';
 			class="bg-input/30 border-input/30 h-8 rounded-lg shadow-none *:data-[slot=input-group-addon]:pl-2"
 		>
 			<input
-				brnCommandSearchInput
+				brnCommandInput
 				data-slot="command-input"
 				class="w-full text-sm outline-hidden disabled:cursor-not-allowed disabled:opacity-50"
 				[placeholder]="placeholder()"

@@ -3,6 +3,9 @@ import { classes } from '<%- importAlias %>/utils';
 
 @Directive({
 	selector: '[hlmCardAction]',
+	host: {
+		'data-slot': 'card-action',
+	},
 })
 export class HlmCardAction {
 	constructor() {

@@ -30,7 +30,7 @@ describe('HlmAvatarFallbackDirective', () => {
 	it('should contain the default classes if no inputs are provided', () => {
 		fixture.detectChanges();
 		expect(fixture.nativeElement.querySelector('span').className).toBe(
-			'bg-muted flex size-full items-center justify-center rounded-full',
+			'bg-muted text-muted-foreground flex size-full items-center justify-center rounded-full text-sm group-data-[size=sm]/avatar:text-xs',
 		);
 	});
 

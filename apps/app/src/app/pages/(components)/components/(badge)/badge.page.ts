@@ -2,6 +2,7 @@ import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
+import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
@@ -14,7 +15,11 @@ import { Tabs } from '../../../../shared/layout/tabs';
 import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
+import { BadgeColorsPreview } from './badge--colors.preview';
+import { BadgeIconsPreview } from './badge--icons.preview';
 import { BadgeLink } from './badge--link.example';
+import { BadgeSpinnerPreview } from './badge--spinner.preview';
+import { BadgeVariantsPreview } from './badge--variants.preview';
 import { BadgePreview, defaultImports, defaultSkeleton } from './badge.preview';
 
 export const routeMeta: RouteMeta = {
@@ -37,9 +42,13 @@ export const routeMeta: RouteMeta = {
 		PageNav,
 		PageBottomNav,
 		PageBottomNavLink,
-		BadgePreview,
-		BadgeLink,
 		SectionSubSubHeading,
+		BadgePreview,
+		BadgeVariantsPreview,
+		BadgeIconsPreview,
+		BadgeSpinnerPreview,
+		BadgeLink,
+		BadgeColorsPreview,
 	],
 	template: `
 		<section spartanMainSection>
@@ -63,12 +72,60 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
 
+			<h3 id="examples__variants" spartanH4>Variants</h3>
+			<p class="${hlmP}">
+				Use the
+				<code class="${hlmCode}">variant</code>
+				prop to change the variant of the badge.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-badge-variants-preview />
+				</div>
+				<spartan-code secondTab [code]="_variantsCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__icons" spartanH4>With Icon</h3>
+			<p class="${hlmP}">You can render an icon inside the badge.</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-badge-icons-preview />
+				</div>
+				<spartan-code secondTab [code]="_iconsCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__spinner" spartanH4>With Spinner</h3>
+			<p class="${hlmP}">You can render a spinner inside the badge.</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-badge-spinner-preview />
+				</div>
+				<spartan-code secondTab [code]="_spinnerCode()" />
+			</spartan-tabs>
+
 			<h3 id="examples__link" spartanH4>Link</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-badge-link />
 				</div>
-				<spartan-code secondTab [code]="_badgeLinkCode()" />
+				<spartan-code secondTab [code]="_linkCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__colors" spartanH4>Custom Colors</h3>
+			<p class="${hlmP}">
+				You can customize the colors of a badge by adding custom classes such as
+				<code class="${hlmCode}">bg-blue-50</code>
+				and
+				<code class="${hlmCode}">text-blue-700</code>
+				to the
+				<code class="${hlmCode}">hlmBadge</code>
+				component.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-badge-colors-preview />
+				</div>
+				<spartan-code secondTab [code]="_colorsCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
@@ -85,7 +142,11 @@ export const routeMeta: RouteMeta = {
 export default class BadgePage {
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('badge');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
+	protected readonly _variantsCode = computed(() => this._snippets()['variants']);
+	protected readonly _iconsCode = computed(() => this._snippets()['icons']);
+	protected readonly _spinnerCode = computed(() => this._snippets()['spinner']);
+	protected readonly _linkCode = computed(() => this._snippets()['link']);
+	protected readonly _colorsCode = computed(() => this._snippets()['colors']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
-	protected readonly _badgeLinkCode = computed(() => this._snippets()['link']);
 }

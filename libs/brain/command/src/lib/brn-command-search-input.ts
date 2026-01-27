@@ -1,17 +1,4 @@
-import {
-	computed,
-	DestroyRef,
-	Directive,
-	effect,
-	ElementRef,
-	forwardRef,
-	inject,
-	Injector,
-	input,
-	linkedSignal,
-	OnInit,
-	signal,
-} from '@angular/core';
+import { DestroyRef, Directive, effect, ElementRef, forwardRef, inject, Injector, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DefaultValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { startWith } from 'rxjs/operators';
@@ -34,6 +21,10 @@ import { injectBrnCommand } from './brn-command.token';
 		'[attr.aria-activedescendant]': '_activeDescendant()',
 		'(keydown)': 'onKeyDown($event)',
 		'(input)': 'onInput()',
+		type: 'text',
+		autocomplete: 'off',
+		autocorrect: 'off',
+		spellcheck: 'false',
 	},
 })
 export class BrnCommandSearchInput extends DefaultValueAccessor implements OnInit {
@@ -41,15 +32,6 @@ export class BrnCommandSearchInput extends DefaultValueAccessor implements OnIni
 	private readonly _el = inject(ElementRef);
 	private readonly _injector = inject(Injector);
 	private readonly _command = injectBrnCommand();
-
-	/** The initial value of the search input */
-	public readonly value = input<string>('');
-
-	/** @internal The mutable value of the search input */
-	public readonly mutableValue = linkedSignal(this.value);
-
-	/** @internal The "real" value of the search input */
-	public readonly valueState = computed(() => this.mutableValue());
 
 	/** The id of the active option */
 	protected readonly _activeDescendant = signal<string | undefined>(undefined);
@@ -60,14 +42,19 @@ export class BrnCommandSearchInput extends DefaultValueAccessor implements OnIni
 			.subscribe(() => this._activeDescendant.set(this._command.keyManager.activeItem?.id()));
 		effect(
 			() => {
-				this._el.nativeElement.value = this.valueState();
+				const search = this._command.search();
+
+				if (this._el.nativeElement.value !== search) {
+					this._el.nativeElement.value = search;
+				}
 			},
 			{ injector: this._injector },
 		);
 	}
 	/** Listen for changes to the input value */
 	protected onInput(): void {
-		this.mutableValue.set(this._el.nativeElement.value);
+		console.log('input event');
+		this._command.search.set(this._el.nativeElement.value);
 	}
 
 	/** Listen for keydown events */
@@ -75,11 +62,11 @@ export class BrnCommandSearchInput extends DefaultValueAccessor implements OnIni
 		this._command.keyManager.onKeydown(event);
 	}
 
-	/** CONROL VALUE ACCESSOR */
+	/** CONTROL VALUE ACCESSOR */
 	override writeValue(value: string | null): void {
 		super.writeValue(value);
 		if (value) {
-			this.mutableValue.set(value);
+			this._command.search.set(value);
 		}
 	}
 }

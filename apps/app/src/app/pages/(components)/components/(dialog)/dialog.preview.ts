@@ -27,7 +27,7 @@ import { HlmLabelImports } from '@spartan-ng/helm/label';
 					</div>
 				</div>
 				<hlm-dialog-footer>
-					<button hlmBtn variant="outline" brnDialogClose>Cancel</button>
+					<button hlmBtn variant="outline" hlmDialogClose>Cancel</button>
 					<button hlmBtn type="submit">Save changes</button>
 				</hlm-dialog-footer>
 			</hlm-dialog-content>
@@ -46,11 +46,11 @@ export const defaultSkeleton = `
   <button hlmDialogTrigger hlmBtn variant="outline">Open Dialog</button>
   <hlm-dialog-content *brnDialogContent="let ctx">
     <hlm-dialog-header>
-      <h3 brnDialogTitle hlm>Edit profile</h3>
-      <p brnDialogDescription hlm>Make changes to your profile here. Click save when you're done.</p>
+      <h3 hlmDialogTitle>Edit profile</h3>
+      <p hlmDialogDescription>Make changes to your profile here. Click save when you're done.</p>
     </hlm-dialog-header>
     <hlm-dialog-footer>
-      <button hlmBtn variant="outline" brnDialogClose>Cancel</button>
+      <button hlmBtn variant="outline" hlmDialogClose>Cancel</button>
       <button hlmBtn type="submit">Save changes</button>
     </hlm-dialog-footer>
   </hlm-dialog-content>

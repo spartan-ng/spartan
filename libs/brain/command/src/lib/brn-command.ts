@@ -1,20 +1,18 @@
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import {
 	afterNextRender,
-	computed,
-	contentChild,
 	contentChildren,
 	Directive,
 	effect,
 	inject,
 	Injector,
 	input,
+	model,
 	output,
 	untracked,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { BrnCommandItemToken } from './brn-command-item.token';
-import { BrnCommandSearchInput } from './brn-command-search-input';
 import { type CommandFilter, injectBrnCommandConfig, provideBrnCommand } from './brn-command.token';
 
 @Directive({
@@ -41,13 +39,8 @@ export class BrnCommand {
 	/** when the selection has changed */
 	public readonly valueChange = output<string>();
 
-	/** @internal The search query */
-	public readonly search = computed(() => this._searchInput()?.valueState() ?? '');
-
-	/** Access the search input if present */
-	private readonly _searchInput = contentChild(BrnCommandSearchInput, {
-		descendants: true,
-	});
+	/** The current search query. */
+	public readonly search = model<string>('');
 
 	/** @internal Access all the items within the command */
 	public readonly items = contentChildren(BrnCommandItemToken, {

@@ -122,19 +122,10 @@ type AlgoliaHits = {
 				</div>
 			</button>
 
-			<hlm-dialog-content class="border-ring/50 rounded-xl! border-4 p-2 [&>button]:hidden" *brnDialogContent="let ctx">
-				<hlm-command class="min-h-[400px] md:min-w-[450px]">
-					<hlm-command-search>
-						<ng-icon hlm name="lucideSearch" class="shrink-0 opacity-50" />
-						<input
-							type="text"
-							hlm-command-search-input
-							placeholder="Type a command or search..."
-							[(ngModel)]="_searchVal"
-						/>
-					</hlm-command-search>
-
-					<hlm-command-list>
+			<hlm-dialog-content class="border-ring/50 rounded-xl! border-4 p-1 [&>button]:hidden" *brnDialogContent="let ctx">
+				<hlm-command class="min-h-[400px] md:min-w-[450px]" [(search)]="_searchVal">
+					<hlm-command-input placeholder="Type a command or search..." />
+					<hlm-command-list class="max-h-[400px] pt-1">
 						@for (item of _values(); track item.objectID) {
 							<hlm-command-group>
 								@if (item.url) {

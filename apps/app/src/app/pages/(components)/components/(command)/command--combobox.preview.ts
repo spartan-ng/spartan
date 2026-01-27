@@ -27,10 +27,7 @@ type Framework = { label: string; value: string };
 				<ng-icon hlm size="sm" name="lucideChevronsUpDown" class="opacity-50" />
 			</button>
 			<hlm-command *brnPopoverContent="let ctx" hlmPopoverContent class="w-[200px] p-0">
-				<hlm-command-search>
-					<ng-icon hlm name="lucideSearch" />
-					<input placeholder="Search framework..." hlm-command-search-input />
-				</hlm-command-search>
+				<hlm-command-input placeholder="Search framework..." />
 				<div *hlmCommandEmptyState hlmCommandEmpty>No results found.</div>
 				<hlm-command-list>
 					<hlm-command-group>

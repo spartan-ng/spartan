@@ -138,7 +138,6 @@ export function generateLibraryMetadata(tree: Tree, libraryPath: string, version
 		}
 	}
 
-	// Compute overall hash from all file hashes
 	const overallHash = computeHash(JSON.stringify(files));
 
 	return {
@@ -150,7 +149,7 @@ export function generateLibraryMetadata(tree: Tree, libraryPath: string, version
 }
 
 /**
- * Check if a library has been customized by comparing current files with metadata
+ * Check if a library has been customized by comparing the current library hash with the metadata hash
  */
 export function isLibraryCustomized(tree: Tree, libraryPath: string, primitive: string): boolean {
 	const metadata = getMetadata(tree);
@@ -165,9 +164,6 @@ export function isLibraryCustomized(tree: Tree, libraryPath: string, primitive: 
 	return currentMetadata.hash !== libraryMetadata.hash;
 }
 
-/**
- * Get detailed customization info for a library
- */
 export function getCustomizationDetails(
 	tree: Tree,
 	libraryPath: string,
@@ -241,7 +237,7 @@ export function updateLibraryMetadata(tree: Tree, primitive: string, libraryPath
 /**
  * Extracts information about the state of all libraries.
  * Unchanged: libraries that have not been modified.
- * Customized: libraries that have been modified -- added, modified, or deleted files.
+ * Customized: libraries that have been -- added, modified, or deleted files.
  * @param tree
  * @param libraries
  * @param getLibraryPath

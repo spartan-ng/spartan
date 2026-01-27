@@ -32,7 +32,7 @@ export async function migrateHelmLibrariesGenerator(tree: Tree, options: Migrate
 	logger.info(`   ✓ ${unchanged.length} unchanged libraries (can be safely migrated)`);
 	logger.info(`   ⚠ ${customized.length} customized libraries (contains modifications)\n`);
 
-	// Show detailed information about customized libraries
+	// Show information about customized libraries
 	if (customized.length > 0) {
 		logger.warn('⚠️  Customized libraries detected:\n');
 		for (const { primitive, details } of customized) {
@@ -50,10 +50,9 @@ export async function migrateHelmLibrariesGenerator(tree: Tree, options: Migrate
 		logger.warn('');
 	}
 
-	// Build choices array with visual indicators
 	const choices: Array<{ name: string; message: string }> = [];
 
-	// Always add "all" option first for convenience
+	// Add "all" as first option
 	choices.push({ name: 'all', message: 'all' });
 
 	// Add category options if there are both types
@@ -62,7 +61,6 @@ export async function migrateHelmLibrariesGenerator(tree: Tree, options: Migrate
 		choices.push({ name: 'all-customized', message: 'all-customized ⚠️' });
 	}
 
-	// Add individual libraries with visual indicators for customized ones
 	if (unchanged.length > 0) {
 		for (const lib of unchanged) {
 			choices.push({ name: lib, message: lib });
@@ -80,7 +78,6 @@ export async function migrateHelmLibrariesGenerator(tree: Tree, options: Migrate
 		return;
 	}
 
-	// allow the user to select which libraries to migrate
 	const selectedLibraries = await prompt<{ libraries: (Primitive | 'all' | 'all-unchanged' | 'all-customized')[] }>({
 		type: 'multiselect',
 		name: 'libraries',
@@ -98,7 +95,6 @@ export async function migrateHelmLibrariesGenerator(tree: Tree, options: Migrate
 	const librariesToMigrate: Primitive[] = [];
 
 	if (libraries.includes('all')) {
-		// When "all" is selected, add all libraries (both unchanged and customized)
 		librariesToMigrate.push(...unchanged);
 		librariesToMigrate.push(...customized.map((c) => c.primitive));
 	} else {

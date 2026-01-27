@@ -349,10 +349,3 @@ function updateMetadataForLibraries(tree: Tree, libraries: Primitive[], importAl
 		logger.warn(`Failed to update metadata for libraries: ${error}`);
 	}
 }
-
-type SupportedLibraries = Record<string, SupportedLibrary>;
-
-interface SupportedLibrary {
-	internalName: string;
-	peerDependencies: Record<string, string>;
-}

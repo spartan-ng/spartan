@@ -186,7 +186,7 @@ type AlgoliaHits = {
 						}
 					</hlm-command-list>
 					<!-- Empty state -->
-					<div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
+					<div *hlmCommandEmptyState hlmCommandEmpty>No results found.</div>
 				</hlm-command>
 
 				<div

@@ -74,7 +74,7 @@ export const Default: Story = {
   </hlm-command-list>
 
   <!-- Empty state -->
-  <div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
+  <div *hlmCommandEmptyState hlmCommandEmpty>No results found.</div>
 </hlm-command>
 
     `,
@@ -113,15 +113,15 @@ export const Default: Story = {
 					<hlm-command-group>
 						<hlm-command-group-label>Suggestions</hlm-command-group-label>
 
-						<button hlm-command-item value="Calendar">
+						<button hlm-command-item value="Calendar" (selected)="commandSelected('Calendar')">
 							<ng-icon name="lucideCalendar" />
 							Calendar
 						</button>
-						<button hlm-command-item disabled value="Search Emoji">
+						<button hlm-command-item disabled value="Search Emoji" (selected)="commandSelected('Search Emoji')">
 							<ng-icon name="lucideSmile" />
 							Search Emoji
 						</button>
-						<button hlm-command-item value="Calculator">
+						<button hlm-command-item value="Calculator" (selected)="commandSelected('Calculator')">
 							<ng-icon name="lucidePlus" />
 							Calculator
 						</button>
@@ -132,17 +132,17 @@ export const Default: Story = {
 					<hlm-command-group>
 						<hlm-command-group-label>Settings</hlm-command-group-label>
 
-						<button hlm-command-item value="Profile">
+						<button hlm-command-item value="Profile" (selected)="commandSelected('Profile')">
 							<ng-icon name="lucideUser" />
 							Profile
 							<hlm-command-shortcut>⌘P</hlm-command-shortcut>
 						</button>
-						<button hlm-command-item value="Billing">
+						<button hlm-command-item value="Billing" (selected)="commandSelected('Billing')">
 							<ng-icon name="lucideWallet" />
 							Billing
 							<hlm-command-shortcut>⌘B</hlm-command-shortcut>
 						</button>
-						<button hlm-command-item value="Settings">
+						<button hlm-command-item value="Settings" (selected)="commandSelected('Settings')">
 							<ng-icon name="lucideCog" />
 							Settings
 							<hlm-command-shortcut>⌘S</hlm-command-shortcut>
@@ -151,7 +151,7 @@ export const Default: Story = {
 				</hlm-command-list>
 
 				<!-- Empty state -->
-				<div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
+				<div *hlmCommandEmptyState hlmCommandEmpty>No results found.</div>
 			</hlm-command>
 		</hlm-command-dialog>
 	`,
@@ -206,7 +206,7 @@ export const Dialog: Story = {
 			</hlm-command-list>
 
 			<!-- Empty state -->
-			<div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
+			<div *hlmCommandEmptyState hlmCommandEmpty>No results found.</div>
 		</hlm-command>
 	`,
 })
@@ -250,7 +250,7 @@ export const DynamicOptions: Story = {
 			</hlm-command-list>
 
 			<!-- Empty state -->
-			<div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
+			<div *hlmCommandEmptyState hlmCommandEmpty>No results found.</div>
 		</hlm-command>
 	`,
 })
@@ -296,7 +296,7 @@ export const ReactiveForm: Story = {
 			</hlm-command-list>
 
 			<!-- Empty state -->
-			<div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
+			<div *hlmCommandEmptyState hlmCommandEmpty>No results found.</div>
 		</hlm-command>
 	`,
 })

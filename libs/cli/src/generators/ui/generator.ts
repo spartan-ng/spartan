@@ -196,31 +196,6 @@ function getLibraryPathFromPrimitive(tree: Tree, primitive: Primitive, importAli
 	}
 }
 
-const replaceContextAndMenuBar = async (primtivesToCreate: PrimitiveResponse[], silent = false) => {
-	const contextIndex = primtivesToCreate.indexOf('context-menu');
-	if (contextIndex >= 0) {
-		if (!silent) {
-			await prompt({
-				type: 'confirm',
-				name: 'contextMenu',
-				message: 'The context menu is implemented as part of the menu-helm primitive. Adding menu primitive.',
-			});
-		}
-		primtivesToCreate.splice(contextIndex, 1);
-	}
-	const menubarIndex = primtivesToCreate.indexOf('menubar');
-	if (menubarIndex >= 0) {
-		if (!silent) {
-			await prompt({
-				type: 'confirm',
-				name: 'menubar',
-				message: 'The menubar is implemented as part of the menu-helm primitive. Adding menu primitive.',
-			});
-		}
-		primtivesToCreate.splice(menubarIndex, 1);
-	}
-};
-
 const removeHelmKeys = (obj: Record<string, string>) =>
 	Object.fromEntries(Object.entries(obj).filter(([key]) => !key.toLowerCase().includes('helm')));
 

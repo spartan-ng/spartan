@@ -5,14 +5,16 @@ import { classes } from '<%- importAlias %>/utils';
 @Directive({
 	selector: '[hlmAvatarFallback]',
 	exportAs: 'avatarFallback',
-	hostDirectives: [
-		{
-			directive: BrnAvatarFallback,
-		},
-	],
+	hostDirectives: [BrnAvatarFallback],
+	host: {
+		'data-slot': 'avatar-fallback',
+	},
 })
 export class HlmAvatarFallback {
 	constructor() {
-		classes(() => 'bg-muted flex size-full items-center justify-center rounded-full');
+		classes(
+			() =>
+				'bg-muted text-muted-foreground flex size-full items-center justify-center rounded-full text-sm group-data-[size=sm]/avatar:text-xs',
+		);
 	}
 }

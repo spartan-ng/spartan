@@ -21,10 +21,11 @@ export const buttonVariants = cva(
 			},
 			size: {
 				default: 'h-9 px-4 py-2 has-[>ng-icon]:px-3',
+				xs: `h-6 gap-1 rounded-md px-2 text-xs has-[>ng-icon]:px-1.5 [&_ng-icon:not([class*='text-'])]:text-xs`,
 				sm: 'h-8 gap-1.5 rounded-md px-3 has-[>ng-icon]:px-2.5',
 				lg: 'h-10 rounded-md px-6 has-[>ng-icon]:px-4',
 				icon: 'size-9',
-				'icon-xs': `size-6 [&_ng-icon:not([class*='text-'])]:text-xs`,
+				'icon-xs': `size-6 rounded-md [&_ng-icon:not([class*='text-'])]:text-xs`,
 				'icon-sm': 'size-8',
 				'icon-lg': 'size-10',
 			},

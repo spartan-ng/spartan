@@ -64,7 +64,7 @@ export type BrnHoverCardOptions = Partial<
 	{
 		attachTo: ElementRef;
 		attachPositions: ConnectedPosition[];
-		align: 'top' | 'bottom';
+		align: 'top' | 'bottom' | 'left' | 'right';
 		sideOffset: number;
 	} & OverlayConfig
 >;
@@ -97,6 +97,43 @@ const bottomFirstPositions: ConnectedPosition[] = [
 		overlayY: 'bottom',
 	},
 ];
+
+const leftFirstPositions: ConnectedPosition[] = [
+	{
+		originX: 'start',
+		originY: 'center',
+		overlayX: 'end',
+		overlayY: 'center',
+	},
+	{
+		originX: 'end',
+		originY: 'center',
+		overlayX: 'start',
+		overlayY: 'center',
+	},
+];
+
+const rightFirstPositions: ConnectedPosition[] = [
+	{
+		originX: 'end',
+		originY: 'center',
+		overlayX: 'start',
+		overlayY: 'center',
+	},
+	{
+		originX: 'start',
+		originY: 'center',
+		overlayX: 'end',
+		overlayY: 'center',
+	},
+];
+
+const POSITION_MAP: Record<'top' | 'bottom' | 'left' | 'right', ConnectedPosition[]> = {
+	top: topFirstPositions,
+	bottom: bottomFirstPositions,
+	left: leftFirstPositions,
+	right: rightFirstPositions,
+};
 
 @Injectable()
 export class BrnHoverCardContentService {
@@ -143,10 +180,18 @@ export class BrnHoverCardContentService {
 	public setConfig(config: BrnHoverCardOptions) {
 		this._config = config;
 		if (config.attachTo) {
-			this._positionStrategy = this._psBuilder
-				.flexibleConnectedTo(config.attachTo)
-				.withPositions(config.attachPositions ?? (config.align === 'top' ? topFirstPositions : bottomFirstPositions))
-				.withDefaultOffsetY(config.sideOffset ?? 0);
+			const align = config.align ?? 'bottom';
+			const positions = config.attachPositions ?? POSITION_MAP[align];
+
+			this._positionStrategy = this._psBuilder.flexibleConnectedTo(config.attachTo).withPositions(positions);
+
+			const offset = config.sideOffset ?? 0;
+			if (align === 'left' || align === 'right') {
+				this._positionStrategy.withDefaultOffsetX(align === 'left' ? -offset : offset);
+			} else {
+				this._positionStrategy.withDefaultOffsetY(align === 'top' ? -offset : offset);
+			}
+
 			this._config = {
 				...this._config,
 				positionStrategy: this._positionStrategy,
@@ -235,7 +280,7 @@ export class BrnHoverCardTrigger implements OnInit, OnDestroy {
 	public readonly hideDelay = input<number, NumberInput>(500, { transform: numberAttribute });
 	public readonly animationDelay = input<number, NumberInput>(100, { transform: numberAttribute });
 	public readonly sideOffset = input<number, NumberInput>(5, { transform: numberAttribute });
-	public readonly align = input<'top' | 'bottom'>('bottom');
+	public readonly align = input<'top' | 'bottom' | 'left' | 'right'>('bottom');
 
 	public readonly brnHoverCardTriggerFor = input<TemplateRef<unknown> | BrnHoverCardContent | undefined>(undefined);
 	public readonly mutableBrnHoverCardTriggerFor = computed(() => signal(this.brnHoverCardTriggerFor()));

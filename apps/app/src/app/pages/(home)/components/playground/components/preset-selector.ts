@@ -28,11 +28,7 @@ import { Preset } from '../data/presets';
 			</button>
 			<div hlmPopoverContent class="w-[300px] p-0" *brnPopoverContent="let ctx">
 				<hlm-command>
-					<hlm-command-search>
-						<ng-icon hlm name="lucideSearch" size="sm" />
-						<input type="text" hlm-command-search-input placeholder="Search Presets" />
-					</hlm-command-search>
-
+					<hlm-command-input placeholder="Search Presets" />
 					<hlm-command-list>
 						<hlm-command-group>
 							<hlm-command-group-label>Examples</hlm-command-group-label>
@@ -58,7 +54,7 @@ import { Preset } from '../data/presets';
 					</hlm-command-list>
 
 					<!-- Empty state -->
-					<div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
+					<div *hlmCommandEmptyState hlmCommandEmpty>No results found.</div>
 				</hlm-command>
 			</div>
 		</hlm-popover>

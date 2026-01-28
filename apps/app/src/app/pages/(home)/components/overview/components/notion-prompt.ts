@@ -93,11 +93,7 @@ type GroupedItems = {
 
 					<div hlmPopoverContent class="p-0 [--radius:1.2rem]" *brnPopoverContent="let ctx">
 						<hlm-command>
-							<hlm-command-search>
-								<ng-icon hlm name="lucideSearch" size="sm" class="shrink-0 opacity-50" />
-
-								<input type="text" hlm-command-search-input placeholder="Type a command or search..." />
-							</hlm-command-search>
+							<hlm-command-input placeholder="Type a command or search..." />
 
 							<hlm-command-list>
 								@for (groupType of _groupTypes(); track groupType) {
@@ -114,7 +110,7 @@ type GroupedItems = {
 							</hlm-command-list>
 
 							<!-- Empty state -->
-							<div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
+							<div *hlmCommandEmptyState hlmCommandEmpty>No results found.</div>
 						</hlm-command>
 					</div>
 				</hlm-popover>

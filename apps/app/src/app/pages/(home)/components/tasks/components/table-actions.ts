@@ -105,12 +105,9 @@ import { TasksExample } from '../tasks';
 						}
 					</button>
 					<hlm-command *brnPopoverContent="let ctx" hlmPopoverContent class="w-[200px] p-0">
-						<hlm-command-search>
-							<ng-icon hlm name="lucideSearch" class="text-muted-foreground" />
-							<input placeholder="Status" hlm-command-search-input />
-						</hlm-command-search>
-						<div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
+						<hlm-command-input placeholder="Search Status" />
 						<hlm-command-list>
+							<div *hlmCommandEmptyState hlmCommandEmpty>No results found.</div>
 							<hlm-command-group>
 								@for (status of _statuses(); track status) {
 									<button hlm-command-item [value]="status" (selected)="statusSelected(status)">
@@ -149,12 +146,9 @@ import { TasksExample } from '../tasks';
 						}
 					</button>
 					<hlm-command *brnPopoverContent="let ctx" hlmPopoverContent class="w-[200px] p-0">
-						<hlm-command-search>
-							<ng-icon hlm name="lucideSearch" class="text-muted-foreground" />
-							<input placeholder="Priority" hlm-command-search-input />
-						</hlm-command-search>
-						<div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
+						<hlm-command-input placeholder="Search Priority" />
 						<hlm-command-list>
+							<div *hlmCommandEmptyState hlmCommandEmpty>No results found.</div>
 							<hlm-command-group>
 								@for (priority of _priorities(); track priority) {
 									<button hlm-command-item [value]="priority" (selected)="prioritySelected(priority)">

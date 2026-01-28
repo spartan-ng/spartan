@@ -33,16 +33,11 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 	},
 	template: `
 		<hlm-command class="rounded-lg border shadow-md md:min-w-[450px]">
-			<hlm-command-search>
-				<ng-icon hlm name="lucideSearch" class="shrink-0 opacity-50" />
-
-				<input type="text" hlm-command-search-input placeholder="Type a command or search..." />
-			</hlm-command-search>
-
+			<hlm-command-input placeholder="Type a command or search..." />
 			<hlm-command-list>
+				<div *hlmCommandEmptyState hlmCommandEmpty>No results found.</div>
 				<hlm-command-group>
 					<hlm-command-group-label>Suggestions</hlm-command-group-label>
-
 					<button hlm-command-item value="Calendar">
 						<ng-icon name="lucideCalendar" />
 						Calendar
@@ -79,9 +74,6 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 					</button>
 				</hlm-command-group>
 			</hlm-command-list>
-
-			<!-- Empty state -->
-			<div *hlmCommandEmptyState hlmCommandEmpty>No results found.</div>
 		</hlm-command>
 	`,
 })
@@ -93,27 +85,19 @@ import { HlmCommandImports } from '@spartan-ng/helm/command';
 
 export const defaultSkeleton = `
 <hlm-command>
-  <hlm-command-search>
-    <ng-icon hlm name="lucideSearch" />
-
-    <input type="text" hlm-command-search-input placeholder="Type a command or search..." />
-  </hlm-command-search>
-
+  <hlm-command-input placeholder="Type a command or search..." />
   <hlm-command-list>
+  	<div *hlmCommandEmptyState hlmCommandEmpty>No results found.</div>
     <hlm-command-group>
       <hlm-command-group-label>Suggestions</hlm-command-group-label>
-
       <button hlm-command-item value="Calendar">
         <ng-icon name="lucideCalendar" />
         Calendar
       </button>
     </hlm-command-group>
-
     <hlm-command-separator />
-
     <hlm-command-group>
       <hlm-command-group-label>Settings</hlm-command-group-label>
-
       <button hlm-command-item value="Profile">
         <ng-icon name="lucideUser" />
         Profile
@@ -121,8 +105,5 @@ export const defaultSkeleton = `
       </button>
     </hlm-command-group>
   </hlm-command-list>
-
-  <!-- Empty state -->
-  <div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
 </hlm-command>
 `;

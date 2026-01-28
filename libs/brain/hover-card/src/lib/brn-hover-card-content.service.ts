@@ -38,6 +38,7 @@ import {
 } from '@spartan-ng/brain/core';
 import { BehaviorSubject, fromEvent, merge, type Observable, of, Subject } from 'rxjs';
 import { delay, distinctUntilChanged, filter, map, share, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { injectBrnHoverCardDefaultOptions } from './brn-hover-card.token';
 
 @Directive({
 	selector: '[brnHoverCardContent]',
@@ -231,11 +232,20 @@ export class BrnHoverCardTrigger implements OnInit, OnDestroy {
 		takeUntil(this._destroy$),
 	);
 
-	public readonly showDelay = input<number, NumberInput>(300, { transform: numberAttribute });
-	public readonly hideDelay = input<number, NumberInput>(500, { transform: numberAttribute });
-	public readonly animationDelay = input<number, NumberInput>(100, { transform: numberAttribute });
-	public readonly sideOffset = input<number, NumberInput>(5, { transform: numberAttribute });
-	public readonly align = input<'top' | 'bottom'>('bottom');
+	private readonly _defaultOptions = injectBrnHoverCardDefaultOptions();
+	public readonly showDelay = input<number, NumberInput>(this._defaultOptions.showDelay, {
+		transform: numberAttribute,
+	});
+	public readonly hideDelay = input<number, NumberInput>(this._defaultOptions.hideDelay, {
+		transform: numberAttribute,
+	});
+	public readonly animationDelay = input<number, NumberInput>(this._defaultOptions.animationDelay, {
+		transform: numberAttribute,
+	});
+	public readonly sideOffset = input<number, NumberInput>(this._defaultOptions.sideOffset, {
+		transform: numberAttribute,
+	});
+	public readonly align = input<'top' | 'bottom'>(this._defaultOptions.align);
 
 	public readonly brnHoverCardTriggerFor = input<TemplateRef<unknown> | BrnHoverCardContent | undefined>(undefined);
 	public readonly mutableBrnHoverCardTriggerFor = computed(() => signal(this.brnHoverCardTriggerFor()));

@@ -298,6 +298,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "AutocompleteItemToString<T> | undefined",
           },
+          {
+            "name": "autoHighlight",
+            "required": false,
+            "type": "boolean",
+          },
         ],
         "models": [
           {
@@ -418,6 +423,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "name": "itemToString",
             "required": false,
             "type": "AutocompleteItemToString<T> | undefined",
+          },
+          {
+            "name": "autoHighlight",
+            "required": false,
+            "type": "boolean",
           },
         ],
         "models": [

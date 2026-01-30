@@ -18,7 +18,7 @@ import { classes } from '@spartan-ng/helm/utils';
 	hostDirectives: [
 		{
 			directive: BrnAutocompleteSearch,
-			inputs: ['disabled', 'value', 'search', 'itemToString'],
+			inputs: ['autoHighlight', 'disabled', 'value', 'search', 'itemToString'],
 			outputs: ['valueChange', 'searchChange'],
 		},
 		{

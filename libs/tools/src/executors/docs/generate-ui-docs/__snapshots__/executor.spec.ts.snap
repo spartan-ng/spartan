@@ -1900,8 +1900,18 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "CommandFilter",
           },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
         ],
-        "models": [],
+        "models": [
+          {
+            "name": "search",
+            "type": "string",
+          },
+        ],
         "outputs": [
           {
             "name": "valueChange",
@@ -1927,6 +1937,18 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [],
         "outputs": [],
         "selector": "[brnCommandGroup]",
+      },
+      "BrnCommandInput": {
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "input[brnCommandInput]",
       },
       "BrnCommandItem": {
         "inputs": [
@@ -1967,18 +1989,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "outputs": [],
         "selector": "[brnCommandList]",
       },
-      "BrnCommandSearchInput": {
-        "inputs": [
-          {
-            "name": "value",
-            "required": false,
-            "type": "string",
-          },
-        ],
-        "models": [],
-        "outputs": [],
-        "selector": "input[brnCommandSearchInput]",
-      },
       "BrnCommandSeparator": {
         "inputs": [],
         "models": [],
@@ -1994,10 +2004,41 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "[hlmCommand],hlm-command",
       },
       "HlmCommandDialog": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "title",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "description",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "state",
+            "required": false,
+            "type": "BrnDialogState",
+          },
+          {
+            "name": "showCloseButton",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "dialogContentClass",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
         "models": [],
-        "outputs": [],
-        "selector": "[hlmCommandDialog]",
+        "outputs": [
+          {
+            "name": "stateChange",
+            "type": "BrnDialogState",
+          },
+        ],
+        "selector": "hlm-command-dialog",
       },
       "HlmCommandEmpty": {
         "inputs": [],
@@ -2023,6 +2064,23 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "outputs": [],
         "selector": "[hlmCommandGroupLabel],hlm-command-group-label",
       },
+      "HlmCommandInput": {
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string | undefined",
+          },
+          {
+            "name": "placeholder",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-command-input",
+      },
       "HlmCommandItem": {
         "inputs": [],
         "models": [],
@@ -2034,18 +2092,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [],
         "outputs": [],
         "selector": "[hlmCommandList],hlm-command-list",
-      },
-      "HlmCommandSearch": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "[hlmCommandSearch],hlm-command-search",
-      },
-      "HlmCommandSearchInput": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "input[hlmCommandSearchInput],input[hlm-command-search-input]",
       },
       "HlmCommandSeparator": {
         "inputs": [],

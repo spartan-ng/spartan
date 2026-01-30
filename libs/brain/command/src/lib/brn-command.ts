@@ -1,31 +1,41 @@
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
+import { BooleanInput } from '@angular/cdk/coercion';
 import {
 	afterNextRender,
-	computed,
-	contentChild,
+	booleanAttribute,
 	contentChildren,
 	Directive,
 	effect,
+	forwardRef,
 	inject,
 	Injector,
 	input,
+	linkedSignal,
+	model,
 	output,
 	untracked,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import { BrnCommandItemToken } from './brn-command-item.token';
-import { BrnCommandSearchInput } from './brn-command-search-input';
 import { type CommandFilter, injectBrnCommandConfig, provideBrnCommand } from './brn-command.token';
+
+export const BRN_COMMAND_VALUE_ACCESSOR = {
+	provide: NG_VALUE_ACCESSOR,
+	useExisting: forwardRef(() => BrnCommand),
+	multi: true,
+};
 
 @Directive({
 	selector: '[brnCommand]',
-	providers: [provideBrnCommand(BrnCommand)],
+	providers: [provideBrnCommand(BrnCommand), BRN_COMMAND_VALUE_ACCESSOR],
 	host: {
 		'[id]': 'id()',
 		'(keydown.enter)': 'selectActiveItem()',
 	},
 })
-export class BrnCommand {
+export class BrnCommand implements ControlValueAccessor {
 	private static _id = 0;
 
 	private readonly _injector = inject(Injector);
@@ -38,16 +48,19 @@ export class BrnCommand {
 	/** A custom filter function to use when searching. */
 	public readonly filter = input<CommandFilter>(this._config.filter);
 
+	/** Whether the command is disabled */
+	public readonly disabled = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
+
+	private readonly _disabled = linkedSignal(this.disabled);
+
+	/** @internal The disabled state as a readonly signal */
+	public readonly disabledState = this._disabled.asReadonly();
+
 	/** when the selection has changed */
 	public readonly valueChange = output<string>();
 
-	/** @internal The search query */
-	public readonly search = computed(() => this._searchInput()?.valueState() ?? '');
-
-	/** Access the search input if present */
-	private readonly _searchInput = contentChild(BrnCommandSearchInput, {
-		descendants: true,
-	});
+	/** The current search query. */
+	public readonly search = model<string>('');
 
 	/** @internal Access all the items within the command */
 	public readonly items = contentChildren(BrnCommandItemToken, {
@@ -56,6 +69,9 @@ export class BrnCommand {
 
 	/** @internal The key manager for managing active descendant */
 	public readonly keyManager = new ActiveDescendantKeyManager(this.items, this._injector);
+
+	protected _onChange?: ChangeFn<string | null>;
+	protected _onTouched?: TouchFn;
 
 	constructor() {
 		this.keyManager
@@ -91,5 +107,24 @@ export class BrnCommand {
 
 	protected selectActiveItem(): void {
 		this.keyManager.activeItem?.selected.emit();
+	}
+
+	/** CONTROL VALUE ACCESSOR */
+	writeValue(value: string | null): void {
+		if (value) {
+			this.search.set(value);
+		}
+	}
+
+	registerOnChange(fn: ChangeFn<string | null>): void {
+		this._onChange = fn;
+	}
+
+	registerOnTouched(fn: TouchFn): void {
+		this._onTouched = fn;
+	}
+
+	setDisabledState(isDisabled: boolean): void {
+		this._disabled.set(isDisabled);
 	}
 }

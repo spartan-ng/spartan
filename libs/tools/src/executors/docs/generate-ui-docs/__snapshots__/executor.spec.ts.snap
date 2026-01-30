@@ -1494,6 +1494,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "ComboboxFilter<T>",
           },
+          {
+            "name": "autoHighlight",
+            "required": false,
+            "type": "boolean",
+          },
         ],
         "models": [
           {
@@ -1659,6 +1664,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "name": "filter",
             "required": false,
             "type": "ComboboxFilter<T>",
+          },
+          {
+            "name": "autoHighlight",
+            "required": false,
+            "type": "boolean",
           },
         ],
         "models": [

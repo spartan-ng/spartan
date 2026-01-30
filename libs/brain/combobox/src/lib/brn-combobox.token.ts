@@ -74,6 +74,7 @@ export interface BrnComboboxConfig<T> {
 	filter: ComboboxFilter<T>;
 	isItemEqualToValue: ComboboxItemEqualToValue<T>;
 	itemToString?: ComboboxItemToString<T>;
+	autoHighlight: boolean;
 }
 
 function getDefaultConfig<T>(): BrnComboboxConfig<T> {
@@ -87,6 +88,7 @@ function getDefaultConfig<T>(): BrnComboboxConfig<T> {
 			comboboxContainsFilter(itemValue, search, collator, itemToString),
 		isItemEqualToValue: (itemValue: T, selectedValue: T | null) => Object.is(itemValue, selectedValue),
 		itemToString: undefined,
+		autoHighlight: false,
 	};
 }
 

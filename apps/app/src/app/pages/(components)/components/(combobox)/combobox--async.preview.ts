@@ -17,7 +17,7 @@ interface DirectoryUser {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-combobox [(search)]="search" [itemToString]="itemToString">
-			<hlm-combobox-input placeholder="Assign reviewer" showClear></hlm-combobox-input>
+			<hlm-combobox-input placeholder="Assign reviewer" showClear />
 			<div *brnPopoverContent hlmComboboxContent>
 				@if (showStatus()) {
 					<hlm-combobox-status>

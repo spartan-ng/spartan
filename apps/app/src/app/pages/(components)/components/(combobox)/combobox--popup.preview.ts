@@ -12,7 +12,7 @@ import { HlmComboboxImports } from '@spartan-ng/helm/combobox';
 				<span hlmComboboxValue></span>
 			</hlm-combobox-trigger>
 			<div *brnPopoverContent hlmComboboxContent>
-				<hlm-combobox-input showTrigger="false" mode="popup" placeholder="Search"></hlm-combobox-input>
+				<hlm-combobox-input showTrigger="false" mode="popup" placeholder="Search" />
 				<hlm-combobox-empty>No items found.</hlm-combobox-empty>
 				<div hlmComboboxList>
 					@for (country of countries; track country.code) {

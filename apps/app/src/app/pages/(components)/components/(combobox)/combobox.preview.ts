@@ -7,7 +7,7 @@ import { HlmComboboxImports } from '@spartan-ng/helm/combobox';
 	imports: [HlmComboboxImports, BrnPopoverContent],
 	template: `
 		<hlm-combobox>
-			<hlm-combobox-input placeholder="Select a framework"></hlm-combobox-input>
+			<hlm-combobox-input placeholder="Select a framework" />
 			<div *brnPopoverContent hlmComboboxContent>
 				<hlm-combobox-empty>No items found.</hlm-combobox-empty>
 				<div hlmComboboxList>
@@ -55,7 +55,7 @@ import { HlmComboboxImports } from '@spartan-ng/helm/combobox';
 
 export const defaultSkeleton = `
 <hlm-combobox>
-  <hlm-combobox-input placeholder="Select a framework"></hlm-combobox-input>
+  <hlm-combobox-input placeholder="Select a framework" />
   <div *brnPopoverContent hlmComboboxContent>
     <hlm-combobox-empty>No items found.</hlm-combobox-empty>
     <div hlmComboboxList>

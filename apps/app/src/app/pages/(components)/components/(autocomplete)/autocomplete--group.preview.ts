@@ -8,7 +8,7 @@ import { HlmAutocompleteImports } from '@spartan-ng/helm/autocomplete';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-autocomplete [(search)]="search">
-			<hlm-autocomplete-input placeholder="Select a timezone"></hlm-autocomplete-input>
+			<hlm-autocomplete-input placeholder="Select a timezone" />
 			<div *brnPopoverContent hlmAutocompleteContent>
 				<hlm-autocomplete-empty>No items found.</hlm-autocomplete-empty>
 				<div hlmAutocompleteList>

@@ -8,7 +8,7 @@ import { HlmComboboxImports } from '@spartan-ng/helm/combobox';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-combobox>
-			<hlm-combobox-input placeholder="Select a timezone"></hlm-combobox-input>
+			<hlm-combobox-input placeholder="Select a timezone" />
 			<div *brnPopoverContent hlmComboboxContent>
 				<hlm-combobox-empty>No items found.</hlm-combobox-empty>
 				<div hlmComboboxList>

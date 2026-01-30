@@ -24,7 +24,7 @@ type Assignee = {
 				<div hlmField>
 					<label hlmFieldLabel>Assign reviewer</label>
 					<hlm-combobox [(search)]="search" formControlName="assignee" [itemToString]="itemToString">
-						<hlm-combobox-input placeholder="e.g. Einstein"></hlm-combobox-input>
+						<hlm-combobox-input placeholder="e.g. Einstein" />
 						<div *brnPopoverContent hlmComboboxContent>
 							<hlm-combobox-empty>No items found.</hlm-combobox-empty>
 							<div hlmComboboxList>

@@ -1,11 +1,13 @@
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import type { BooleanInput } from '@angular/cdk/coercion';
 import {
+	afterNextRender,
 	booleanAttribute,
 	computed,
 	contentChild,
 	contentChildren,
 	Directive,
+	effect,
 	ElementRef,
 	forwardRef,
 	inject,
@@ -13,6 +15,7 @@ import {
 	input,
 	linkedSignal,
 	model,
+	untracked,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { stringifyAsLabel } from '@spartan-ng/brain/core';
@@ -61,6 +64,11 @@ export class BrnAutocomplete<T> implements BrnAutocompleteBase<T>, ControlValueA
 	/** A function to convert an item to a string for display. */
 	public readonly itemToString = input<AutocompleteItemToString<T> | undefined>(this._config.itemToString);
 
+	/** Whether to auto-highlight the first matching item. */
+	public readonly autoHighlight = input<boolean, BooleanInput>(this._config.autoHighlight, {
+		transform: booleanAttribute,
+	});
+
 	/** The selected value of the autocomplete. */
 	public readonly value = model<T | null>(null);
 
@@ -104,6 +112,25 @@ export class BrnAutocomplete<T> implements BrnAutocompleteBase<T>, ControlValueA
 		this._brnPopover?.closed.subscribe(() => {
 			this.keyManager.setActiveItem(-1);
 		});
+
+		afterNextRender(() => {
+			effect(
+				() => {
+					if (!this.autoHighlight() || !this.isExpanded() || !this.search()) return;
+
+					const hasVisibleItems = this.visibleItems();
+
+					untracked(() => {
+						if (hasVisibleItems) {
+							this.keyManager.setFirstItemActive();
+						} else {
+							this.keyManager.setActiveItem(-1);
+						}
+					});
+				},
+				{ injector: this._injector },
+			);
+		});
 	}
 
 	updateSearch(value: string) {
@@ -132,9 +159,11 @@ export class BrnAutocomplete<T> implements BrnAutocompleteBase<T>, ControlValueA
 
 		const value = this.keyManager.activeItem?.value();
 
-		if (value === undefined) return;
-
-		this.select(value);
+		if (value) {
+			this.select(value);
+		} else {
+			this.close();
+		}
 	}
 
 	resetValue() {

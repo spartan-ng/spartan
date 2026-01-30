@@ -25,7 +25,7 @@ import { AutocompleteDisabledPreview } from './autocomplete--disabled.preview';
 import { AutocompleteFormPreview } from './autocomplete--form.preview';
 import { AutocompleteGroupSeparatorPreview } from './autocomplete--group-separator.preview';
 import { AutocompleteGroupPreview } from './autocomplete--group.preview';
-import { AutocompleteResolveValueIdPreview } from './autocomplete--resolve-id.example';
+import { AutocompleteResolveValueIdPreview } from './autocomplete--resolve-value-id.example';
 import { AutocompleteSearchFormPreview } from './autocomplete--search-form.preview';
 import { AutocompleteSearchPreview } from './autocomplete--search.preview';
 import {

@@ -23,7 +23,16 @@ import { classes } from '@spartan-ng/helm/utils';
 		},
 		{
 			directive: BrnPopover,
-			inputs: ['align', 'autoFocus', 'closeDelay', 'closeOnOutsidePointerEvents', 'sideOffset', 'state', 'offsetX'],
+			inputs: [
+				'align',
+				'autoFocus',
+				'closeDelay',
+				'closeOnOutsidePointerEvents',
+				'sideOffset',
+				'state',
+				'offsetX',
+				'restoreFocus',
+			],
 			outputs: ['stateChanged', 'closed'],
 		},
 	],

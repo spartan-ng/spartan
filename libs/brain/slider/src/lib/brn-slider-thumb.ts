@@ -31,6 +31,14 @@ export class BrnSliderThumb implements OnDestroy {
 	private readonly _size = injectElementSize();
 	public readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 
+	/**
+	 * Indicates whether the thumb is ready to be displayed and interactable.
+	 *
+	 * This signal returns `true` when the element's size has been measured
+	 * and the width is greater than 0. It ensures that the thumb is not
+	 * rendered or interacted with prematurely, which prevents layout
+	 * issues or first-frame “jerks” when using SSR.
+	 */
 	protected readonly _thumbReady = computed(() => {
 		const size = this._size();
 		return !!size && size.width > 0;

@@ -1,18 +1,6 @@
 import { isPlatformServer } from '@angular/common';
-import {
-	afterNextRender,
-	computed,
-	DestroyRef,
-	Directive,
-	ElementRef,
-	inject,
-	Injector,
-	OnDestroy,
-	PLATFORM_ID,
-	runInInjectionContext,
-	signal,
-	Signal,
-} from '@angular/core';
+import { computed, Directive, ElementRef, inject, OnDestroy, PLATFORM_ID } from '@angular/core';
+import { injectElementSize } from '@spartan-ng/brain/core';
 import { injectBrnSlider } from './brn-slider.token';
 import { linearScale } from './utils/linear-scale';
 
@@ -156,64 +144,4 @@ export class BrnSliderThumb implements OnDestroy {
 				break;
 		}
 	}
-}
-
-export function injectElementSize(
-	options: ElementSizeOptions = {},
-): Signal<{ width: number; height: number } | undefined> {
-	return runInInjectionContext(options.injector ?? inject(Injector), () => {
-		const elementRef = options.elementRef ?? inject(ElementRef);
-		const platformId = inject(PLATFORM_ID);
-		const destroyRef = inject(DestroyRef);
-
-		const element = elementRef.nativeElement;
-
-		const size = signal<{ width: number; height: number } | undefined>(undefined);
-
-		if (isPlatformServer(platformId)) {
-			return size;
-		}
-
-		afterNextRender({
-			read: () => {
-				size.set({
-					width: element.offsetWidth,
-					height: element.offsetHeight,
-				});
-
-				const ro = new ResizeObserver((entries) => {
-					if (!entries.length) return;
-
-					const entry = entries[0];
-
-					if ('borderBoxSize' in entry) {
-						const borderSize = Array.isArray(entry.borderBoxSize) ? entry.borderBoxSize[0] : entry.borderBoxSize;
-
-						size.set({
-							width: borderSize.inlineSize,
-							height: borderSize.blockSize,
-						});
-					} else {
-						size.set({
-							width: element.offsetWidth,
-							height: element.offsetHeight,
-						});
-					}
-				});
-
-				ro.observe(element, { box: 'border-box' });
-
-				destroyRef.onDestroy(() => {
-					ro.disconnect();
-				});
-			},
-		});
-
-		return size;
-	});
-}
-
-interface ElementSizeOptions {
-	elementRef?: ElementRef<HTMLElement>;
-	injector?: Injector;
 }

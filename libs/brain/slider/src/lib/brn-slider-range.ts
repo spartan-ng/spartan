@@ -20,7 +20,7 @@ export class BrnSliderRange {
 
 			return `${startThumb.percentage()}% ${100 - endThumb.percentage()}%`;
 		} else {
-			return `0px ${thumbs[0].percentage}%`;
+			return `0px ${100 - thumbs[0].percentage()}%`;
 		}
 	});
 }

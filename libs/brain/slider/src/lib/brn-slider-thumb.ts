@@ -26,6 +26,8 @@ export class BrnSliderThumb implements OnDestroy {
 	protected readonly _slider = injectBrnSlider();
 	public readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 
+	private readonly _dir = this._slider.direction;
+
 	protected readonly _index = computed(() => this._slider.thumbs().findIndex((thumb) => thumb === this));
 
 	public readonly percentage = computed(
@@ -41,9 +43,10 @@ export class BrnSliderThumb implements OnDestroy {
 
 		const halfWidth = this.elementRef.nativeElement.offsetWidth / 2;
 		const offset = linearScale([0, 50], [0, halfWidth]);
-		const thumbInBoundsOffset = halfWidth - offset(this.percentage());
 
-		return thumbInBoundsOffset;
+		const direction = this._dir() === 'ltr' ? 1 : -1;
+
+		return (halfWidth - offset(this.percentage()) * direction) * direction;
 	});
 
 	/**

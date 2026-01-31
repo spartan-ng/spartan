@@ -1,3 +1,4 @@
+import { Directionality } from '@angular/cdk/bidi';
 import type { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import {
 	booleanAttribute,
@@ -42,6 +43,7 @@ import { provideBrnSlider } from './brn-slider.token';
 export class BrnSlider implements ControlValueAccessor, OnInit {
 	private readonly _changeDetectorRef = inject(ChangeDetectorRef);
 	private readonly _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+	private readonly _dir = inject(Directionality);
 
 	public readonly value = model<number[]>([]);
 
@@ -72,6 +74,9 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 	public readonly thumbIndexes = computed(() => Array.from({ length: this.value().length }, (_, i) => i), {
 		equal: (a, b) => a.length === b.length,
 	});
+
+	/** internal **/
+	public readonly direction = this._dir.valueSignal;
 
 	/** @internal */
 	public readonly thumbs = signal<BrnSliderThumb[]>([]);

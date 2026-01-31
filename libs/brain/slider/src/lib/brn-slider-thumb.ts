@@ -1,5 +1,18 @@
 import { isPlatformServer } from '@angular/common';
-import { computed, Directive, ElementRef, inject, OnDestroy, PLATFORM_ID } from '@angular/core';
+import {
+	afterNextRender,
+	computed,
+	DestroyRef,
+	Directive,
+	ElementRef,
+	inject,
+	Injector,
+	OnDestroy,
+	PLATFORM_ID,
+	runInInjectionContext,
+	signal,
+	Signal,
+} from '@angular/core';
 import { injectBrnSlider } from './brn-slider.token';
 import { linearScale } from './utils/linear-scale';
 
@@ -14,6 +27,9 @@ import { linearScale } from './utils/linear-scale';
 		'[attr.tabindex]': '_slider.mutableDisabled() ? -1 : 0',
 		'[attr.data-disabled]': '_slider.mutableDisabled()',
 		'[style.inset-inline-start]': '_thumbOffset()',
+		'[style.visibility]': '_thumbReady() ? undefined : "hidden"',
+		'[style.pointer-events]': '_thumbReady() ? undefined : "none"',
+		'[style.transform]': "'translateX(-50%)'",
 		'data-slot': 'slider-thumb',
 		'(pointerdown)': '_onPointerDown($event)',
 		'(pointermove)': '_onPointerMove($event)',
@@ -24,7 +40,13 @@ import { linearScale } from './utils/linear-scale';
 export class BrnSliderThumb implements OnDestroy {
 	private readonly _platform = inject(PLATFORM_ID);
 	protected readonly _slider = injectBrnSlider();
+	private readonly _size = injectElementSize();
 	public readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+
+	protected readonly _thumbReady = computed(() => {
+		const size = this._size();
+		return !!size && size.width > 0;
+	});
 
 	private readonly _dir = this._slider.direction;
 
@@ -41,7 +63,13 @@ export class BrnSliderThumb implements OnDestroy {
 			return 0;
 		}
 
-		const halfWidth = this.elementRef.nativeElement.offsetWidth / 2;
+		const width = this._size()?.width;
+		if (!width) {
+			return 0;
+		}
+
+		const halfWidth = width / 2;
+
 		const offset = linearScale([0, 50], [0, halfWidth]);
 
 		const direction = this._dir() === 'ltr' ? 1 : -1;
@@ -99,7 +127,7 @@ export class BrnSliderThumb implements OnDestroy {
 	 * @param event
 	 */
 	protected handleKeydown(event: KeyboardEvent) {
-		const dir = getComputedStyle(this.elementRef.nativeElement).direction;
+		const dir = this._slider.direction();
 		let multiplier = event.shiftKey ? 10 : 1;
 		const index = this._index();
 		const value = this._slider.value()[index];
@@ -128,4 +156,64 @@ export class BrnSliderThumb implements OnDestroy {
 				break;
 		}
 	}
+}
+
+export function injectElementSize(
+	options: ElementSizeOptions = {},
+): Signal<{ width: number; height: number } | undefined> {
+	return runInInjectionContext(options.injector ?? inject(Injector), () => {
+		const elementRef = options.elementRef ?? inject(ElementRef);
+		const platformId = inject(PLATFORM_ID);
+		const destroyRef = inject(DestroyRef);
+
+		const element = elementRef.nativeElement;
+
+		const size = signal<{ width: number; height: number } | undefined>(undefined);
+
+		if (isPlatformServer(platformId)) {
+			return size;
+		}
+
+		afterNextRender({
+			read: () => {
+				size.set({
+					width: element.offsetWidth,
+					height: element.offsetHeight,
+				});
+
+				const ro = new ResizeObserver((entries) => {
+					if (!entries.length) return;
+
+					const entry = entries[0];
+
+					if ('borderBoxSize' in entry) {
+						const borderSize = Array.isArray(entry.borderBoxSize) ? entry.borderBoxSize[0] : entry.borderBoxSize;
+
+						size.set({
+							width: borderSize.inlineSize,
+							height: borderSize.blockSize,
+						});
+					} else {
+						size.set({
+							width: element.offsetWidth,
+							height: element.offsetHeight,
+						});
+					}
+				});
+
+				ro.observe(element, { box: 'border-box' });
+
+				destroyRef.onDestroy(() => {
+					ro.disconnect();
+				});
+			},
+		});
+
+		return size;
+	});
+}
+
+interface ElementSizeOptions {
+	elementRef?: ElementRef<HTMLElement>;
+	injector?: Injector;
 }

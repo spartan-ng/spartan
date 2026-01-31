@@ -18,11 +18,9 @@ export class BrnSliderRange {
 			const startThumb = thumbs[0];
 			const endThumb = thumbs[thumbs.length - 1];
 
-			return `${startThumb._thumbOffset()} ${endThumb._thumbOffsetInverted()}`;
+			return `${startThumb.percentage()}% ${100 - endThumb.percentage()}%`;
 		} else {
-			const startThumb = thumbs[0];
-
-			return `0px ${startThumb._thumbOffsetInverted()}`;
+			return `0px ${thumbs[0].percentage}%`;
 		}
 	});
 }

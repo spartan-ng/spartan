@@ -9,10 +9,13 @@ import { classes } from '@spartan-ng/helm/utils';
 	hostDirectives: [
 		{
 			directive: BrnSlider,
-			inputs: ['value', 'disabled', 'min', 'max', 'step', 'showTicks'],
+			inputs: ['value', 'disabled', 'min', 'max', 'step', 'showTicks', 'dirInput'],
 			outputs: ['valueChange'],
 		},
 	],
+	host: {
+		'[dir]': '_slider.direction()',
+	},
 	template: `
 		<div brnSliderTrack class="bg-muted relative h-1.5 w-full grow overflow-hidden rounded-full">
 			<div class="bg-primary absolute h-full" brnSliderRange></div>
@@ -32,7 +35,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 		@for (i of _slider.thumbIndexes(); track i) {
 			<span
-				class="border-primary bg-background ring-ring/50 absolute block size-4 shrink-0 -translate-x-1/2 rounded-full border shadow-sm transition-[color,box-shadow] hover:ring-4 focus-visible:ring-4 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50"
+				class="border-primary bg-background ring-ring/50 absolute block size-4 shrink-0 rounded-full border shadow-sm transition-[color,box-shadow] hover:ring-4 focus-visible:ring-4 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50"
 				brnSliderThumb
 			></span>
 		}

@@ -47,6 +47,9 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 
 	public readonly value = model<number[]>([]);
 
+	// TODO: remove, only for dev
+	public readonly dirInput = input<'ltr' | 'rtl'>();
+
 	/** Emits when the value changes. */
 	public readonly valueChange = output<number[]>();
 
@@ -76,7 +79,11 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 	});
 
 	/** internal **/
-	public readonly direction = this._dir.valueSignal;
+	public readonly direction = computed(() => {
+		if (this.dirInput()) return this.dirInput();
+
+		return this._dir.valueSignal();
+	});
 
 	/** @internal */
 	public readonly thumbs = signal<BrnSliderThumb[]>([]);

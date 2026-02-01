@@ -188,15 +188,12 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 	}
 
 	writeValue(value: number[]): void {
-		const newValue = value.map((v) => clamp(v, [this.min(), this.max()]));
+		const newValue = value.sort((a, b) => a - b).map((v) => clamp(v, [this.min(), this.max()]));
 		if (areArrsEqual(newValue, value)) return;
 
 		this.value.set(newValue);
-
-		if (value !== newValue) {
-			this._onChange?.(newValue);
-			this.valueChange.emit(newValue);
-		}
+		this._onChange?.(newValue);
+		this.valueChange.emit(newValue);
 
 		this._changeDetectorRef.detectChanges();
 	}

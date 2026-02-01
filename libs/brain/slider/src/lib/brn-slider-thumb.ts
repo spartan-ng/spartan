@@ -14,7 +14,8 @@ import { linearScale } from './utils/linear-scale';
 		'[attr.aria-valuemax]': '_slider.max()',
 		'[attr.tabindex]': '_slider.mutableDisabled() ? -1 : 0',
 		'[attr.data-disabled]': '_slider.mutableDisabled()',
-		'[style.inset-inline-start]': '_thumbOffset()',
+		'[style.inset-inline-start]': '_slider.inverted() ? undefined :_thumbOffset()',
+		'[style.inset-inline-end]': '_slider.inverted() ? _thumbOffset() : undefined',
 		'[style.visibility]': '_thumbReady() ? undefined : "hidden"',
 		'[style.pointer-events]': '_thumbReady() ? undefined : "none"',
 		'[style.transform]': "'translateX(-50%)'",
@@ -44,8 +45,6 @@ export class BrnSliderThumb implements OnDestroy {
 		return !!size && size.width > 0;
 	});
 
-	private readonly _dir = this._slider.direction;
-
 	protected readonly _index = computed(() => this._slider.thumbs().findIndex((thumb) => thumb === this));
 
 	public readonly percentage = computed(
@@ -65,10 +64,8 @@ export class BrnSliderThumb implements OnDestroy {
 		}
 
 		const halfWidth = width / 2;
-
 		const offset = linearScale([0, 50], [0, halfWidth]);
-
-		const direction = this._dir() === 'ltr' ? 1 : -1;
+		const direction = this._slider.isSlidingFromLeft() ? 1 : -1;
 
 		return (halfWidth - offset(this.percentage()) * direction) * direction;
 	});
@@ -123,13 +120,13 @@ export class BrnSliderThumb implements OnDestroy {
 	 * @param event
 	 */
 	protected handleKeydown(event: KeyboardEvent) {
-		const dir = this._slider.direction();
+		const isSlidingFromLeft = this._slider.isSlidingFromLeft();
 		let multiplier = event.shiftKey ? 10 : 1;
 		const index = this._index();
 		const value = this._slider.value()[index];
 
 		// if the slider is RTL, flip the multiplier
-		if (dir === 'rtl') {
+		if (!isSlidingFromLeft) {
 			multiplier = event.shiftKey ? -10 : -1;
 		}
 

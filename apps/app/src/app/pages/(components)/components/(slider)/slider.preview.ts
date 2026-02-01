@@ -12,7 +12,7 @@ import { HlmSliderImports } from '@spartan-ng/helm/slider';
 	`,
 	template: `
 		<div class="flex flex-col gap-5">
-			<hlm-slider [(value)]="value" />
+			<hlm-slider [(value)]="value" [inverted]="true"/>
 			<hlm-slider [(value)]="value2" dirInput="rtl" />
 		</div>
 	`,

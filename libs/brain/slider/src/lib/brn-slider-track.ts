@@ -56,8 +56,8 @@ export class BrnSliderTrack {
 		const output: [number, number] = [this._slider.min(), this._slider.max()];
 		const value = linearScale(input, output);
 
-		const isLtr = this._slider.direction() === 'ltr';
-		const relativePosition = isLtr ? pointerPosition - rect.left : rect.right - pointerPosition;
+		const isSlidingFromLeft = this._slider.isSlidingFromLeft();
+		const relativePosition = isSlidingFromLeft ? pointerPosition - rect.left : rect.right - pointerPosition;
 
 		return value(relativePosition);
 	}

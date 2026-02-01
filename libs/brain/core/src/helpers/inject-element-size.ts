@@ -41,27 +41,29 @@ export function injectElementSize(
 			return size;
 		}
 
-		afterNextRender(() => {
-			// Initial read
-			size.set({
-				width: element.offsetWidth,
-				height: element.offsetHeight,
-			});
+		afterNextRender({
+			read: () => {
+				// Initial read
+				size.set({
+					width: element.offsetWidth,
+					height: element.offsetHeight,
+				});
 
-			// Register element in shared observer
-			observerMap.set(element, { element, size });
-			getSharedObserver().observe(element, { box: 'border-box' });
+				// Register element in shared observer
+				observerMap.set(element, { element, size });
+				getSharedObserver().observe(element, { box: 'border-box' });
 
-			destroyRef.onDestroy(() => {
-				getSharedObserver().unobserve(element);
-				observerMap.delete(element);
+				destroyRef.onDestroy(() => {
+					getSharedObserver().unobserve(element);
+					observerMap.delete(element);
 
-				// Disconnect global observer if no elements left
-				if (observerMap.size === 0 && sharedObserver) {
-					sharedObserver.disconnect();
-					sharedObserver = undefined;
-				}
-			});
+					// Disconnect global observer if no elements left
+					if (observerMap.size === 0 && sharedObserver) {
+						sharedObserver.disconnect();
+						sharedObserver = undefined;
+					}
+				});
+			},
 		});
 
 		return size.asReadonly();

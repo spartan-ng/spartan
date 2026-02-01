@@ -13,14 +13,15 @@ export class BrnSliderRange {
 
 	protected readonly _rangeInsetInline = computed(() => {
 		const thumbs = this._slider.thumbs();
+		const inverted = this._slider.inverted();
 
-		if (thumbs.length > 1) {
-			const startThumb = thumbs[0];
-			const endThumb = thumbs[thumbs.length - 1];
+		const start = thumbs[0].percentage();
+		const end = thumbs[thumbs.length - 1].percentage();
 
-			return `${startThumb.percentage()}% ${100 - endThumb.percentage()}%`;
-		} else {
-			return `0px ${100 - thumbs[0].percentage()}%`;
-		}
+		const inset = thumbs.length > 1 ? [`${start}%`, `${100 - end}%`] : ['0px', `${100 - start}%`];
+
+		if (inverted) inset.reverse();
+
+		return inset.join(' ');
 	});
 }

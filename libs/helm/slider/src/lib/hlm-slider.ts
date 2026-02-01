@@ -9,7 +9,7 @@ import { classes } from '@spartan-ng/helm/utils';
 	hostDirectives: [
 		{
 			directive: BrnSlider,
-			inputs: ['value', 'disabled', 'min', 'max', 'step', 'showTicks', 'dirInput'],
+			inputs: ['value', 'disabled', 'min', 'max', 'step', 'inverted', 'showTicks', 'dirInput'],
 			outputs: ['valueChange'],
 		},
 	],

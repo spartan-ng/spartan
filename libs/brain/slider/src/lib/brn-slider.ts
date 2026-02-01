@@ -69,6 +69,10 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 		transform: booleanAttribute,
 	});
 
+	public readonly inverted = input<boolean, BooleanInput>(false, {
+		transform: booleanAttribute,
+	});
+
 	/** Whether we should show tick marks */
 	public readonly showTicks = input<boolean, BooleanInput>(false, {
 		transform: booleanAttribute,
@@ -83,6 +87,13 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 		if (this.dirInput()) return this.dirInput();
 
 		return this._dir.valueSignal();
+	});
+
+	public readonly isSlidingFromLeft = computed(() => {
+		const isDirectionLtr = this.direction() === 'ltr';
+		const inverted = this.inverted();
+
+		return (isDirectionLtr && !inverted) || (!isDirectionLtr && inverted);
 	});
 
 	/** @internal */

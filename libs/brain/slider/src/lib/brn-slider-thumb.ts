@@ -16,8 +16,12 @@ import { linearScale } from './utils/linear-scale';
 		'[attr.tabindex]': '_slider.mutableDisabled() ? -1 : 0',
 		'[attr.data-orientation]': '_slider.orientation()',
 		'[attr.data-disabled]': '_slider.mutableDisabled()',
-		'[style.inset-inline-start]': '_slider.inverted() ? undefined :_thumbOffset()',
-		'[style.inset-inline-end]': '_slider.inverted() ? _thumbOffset() : undefined',
+		'[style.inset-inline-start]':
+			'_slider.isHorizontal() ?  _slider.inverted() ? undefined : _thumbOffset() : undefined',
+		'[style.inset-inline-end]': '_slider.isHorizontal() ? _slider.inverted() ? _thumbOffset() : undefined : undefined',
+		'[style.inset-block-end]': '!_slider.isHorizontal() ? _slider.inverted() ? undefined : _thumbOffset() : undefined',
+		'[style.inset-block-start]':
+			'!_slider.isHorizontal() ? _slider.inverted() ? _thumbOffset() : undefined : undefined',
 		'[style.visibility]': '_thumbReady() ? undefined : "hidden"',
 		'[style.pointer-events]': '_thumbReady() ? undefined : "none"',
 		'[style.transform]': '_transformValue()',
@@ -67,7 +71,7 @@ export class BrnSliderThumb implements OnDestroy {
 
 		const halfWidth = width / 2;
 		const offset = linearScale([0, 50], [0, halfWidth]);
-		const direction = this._slider.isSlidingFromLeft() ? 1 : -1;
+		const direction = this._slider.slidingSource() === 'left' || this._slider.slidingSource() === 'top' ? 1 : -1;
 
 		return (halfWidth - offset(this.percentage()) * direction) * direction;
 	});
@@ -86,19 +90,10 @@ export class BrnSliderThumb implements OnDestroy {
 		return `calc(${this.percentage()}% + ${this.thumbInBoundsOffset()}px)`;
 	});
 
-	public readonly _thumbOffsetInverted = computed(() => {
-		// we can't compute the offset on the server
-		if (isPlatformServer(this._platform)) {
-			return 100 - this.percentage() + '%';
-		}
-
-		return `calc(${100 - this.percentage()}% - ${this.thumbInBoundsOffset()}px)`;
-	});
-
 	protected readonly _ariaLabel = computed(() => `Value ${this._index() + 1} of ${this._slider.value().length}`);
 
 	protected readonly _transformValue = computed(() =>
-		this._slider.orientation() === 'horizontal' ? 'translateX(-50%)' : 'translateY(50%)',
+		this._slider.orientation() === 'horizontal' ? 'translateX(-50%)' : 'translateY(-50%)',
 	);
 
 	constructor() {
@@ -126,13 +121,11 @@ export class BrnSliderThumb implements OnDestroy {
 	 * @param event
 	 */
 	protected handleKeydown(event: KeyboardEvent) {
-		const isSlidingFromLeft = this._slider.isSlidingFromLeft();
 		let multiplier = event.shiftKey ? 10 : 1;
 		const index = this._index();
 		const value = this._slider.value()[index];
 
-		// if the slider is RTL, flip the multiplier
-		if (!isSlidingFromLeft) {
+		if (this._slider.slidingSource() === 'right') {
 			multiplier = event.shiftKey ? -10 : -1;
 		}
 

@@ -36,6 +36,7 @@ import { provideBrnSlider } from './brn-slider.token';
 		},
 	],
 	host: {
+		'[attr.dir]': 'direction()',
 		'[attr.data-orientation]': 'orientation()',
 		'data-slot': 'slider',
 		'(focusout)': '_onFocusOut($event)',
@@ -92,12 +93,26 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 		return this._dir.valueSignal();
 	});
 
-	public readonly isSlidingFromLeft = computed(() => {
-		const isDirectionLtr = this.direction() === 'ltr';
+	/** @internal */
+	public readonly slidingSource = computed<'top' | 'bottom' | 'left' | 'right'>(() => {
+		const orientation = this.orientation();
 		const inverted = this.inverted();
 
-		return (isDirectionLtr && !inverted) || (!isDirectionLtr && inverted);
+		if (orientation === 'vertical') {
+			return inverted ? 'top' : 'bottom';
+		}
+
+		const isLtr = this.direction() === 'ltr';
+		const fromLeft = (isLtr && !inverted) || (!isLtr && inverted);
+
+		return fromLeft ? 'left' : 'right';
 	});
+
+	/** @internal */
+	public readonly isHorizontal = computed(() => this.orientation() === 'horizontal');
+
+	/** @internal Store the track */
+	public readonly track = signal<BrnSliderTrack | null>(null);
 
 	/** @internal */
 	public readonly thumbs = signal<BrnSliderThumb[]>([]);
@@ -131,9 +146,6 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 
 	/** @internal Store the on touched callback */
 	private _onTouched?: TouchFn;
-
-	/** @internal Store the track */
-	public readonly track = signal<BrnSliderTrack | null>(null);
 
 	constructor() {
 		effect(() => {

@@ -29,7 +29,8 @@ export class BrnSliderTrack {
 		// Prevent browser focus behaviour because we focus a thumb manually when values change.
 		event.preventDefault();
 
-		const value = this._getValueFromPointer(event.clientX);
+		const pointerPosition = this._slider.orientation() === 'horizontal' ? event.clientX : event.clientY;
+		const value = this._getValueFromPointer(pointerPosition);
 		const closestIndex = getClosestValueIndex(this._slider.value(), value);
 
 		this._slider.setValue(value, closestIndex);
@@ -39,7 +40,8 @@ export class BrnSliderTrack {
 		const target = event.target as HTMLElement;
 
 		if (target.hasPointerCapture(event.pointerId)) {
-			const value = this._getValueFromPointer(event.clientX);
+			const pointerPosition = this._slider.orientation() === 'horizontal' ? event.clientX : event.clientY;
+			const value = this._getValueFromPointer(pointerPosition);
 			this._slider.setValue(value, this._slider.valueIndexToChange());
 		}
 	}
@@ -54,12 +56,31 @@ export class BrnSliderTrack {
 
 	private _getValueFromPointer(pointerPosition: number) {
 		const rect = this._elementRef.nativeElement.getBoundingClientRect();
-		const input: [number, number] = [0, rect.width];
+		const source = this._slider.slidingSource();
+
+		const isVertical = source === 'top' || source === 'bottom';
+		const size = isVertical ? rect.height : rect.width;
+
+		const input: [number, number] = [0, size];
 		const output: [number, number] = [this._slider.min(), this._slider.max()];
 		const value = linearScale(input, output);
 
-		const isSlidingFromLeft = this._slider.isSlidingFromLeft();
-		const relativePosition = isSlidingFromLeft ? pointerPosition - rect.left : rect.right - pointerPosition;
+		let relativePosition: number;
+
+		switch (source) {
+			case 'left':
+				relativePosition = pointerPosition - rect.left;
+				break;
+			case 'right':
+				relativePosition = rect.right - pointerPosition;
+				break;
+			case 'top':
+				relativePosition = pointerPosition - rect.top;
+				break;
+			case 'bottom':
+				relativePosition = rect.bottom - pointerPosition;
+				break;
+		}
 
 		return value(relativePosition);
 	}

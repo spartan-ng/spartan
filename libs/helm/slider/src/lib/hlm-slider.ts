@@ -17,8 +17,11 @@ import { classes } from '@spartan-ng/helm/utils';
 		'[dir]': '_slider.direction()',
 	},
 	template: `
-		<div brnSliderTrack class="bg-muted relative h-1.5 w-full grow overflow-hidden rounded-full">
-			<div class="bg-primary absolute h-full" brnSliderRange></div>
+		<div
+			brnSliderTrack
+			class="bg-muted relative grow overflow-hidden rounded-full data-horizontal:h-1 data-horizontal:w-full data-vertical:h-full data-vertical:w-1"
+		>
+			<div class="bg-primary absolute select-none data-horizontal:h-full data-vertical:w-full" brnSliderRange></div>
 		</div>
 
 		@if (_slider.showTicks()) {
@@ -35,7 +38,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 		@for (i of _slider.thumbIndexes(); track i) {
 			<span
-				class="border-primary bg-background ring-ring/50 absolute block size-4 shrink-0 rounded-full border shadow-sm transition-[color,box-shadow] hover:ring-4 focus-visible:ring-4 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50"
+				class="border-ring ring-ring/50 bg-primary absolute block size-3 shrink-0 rounded-full border transition-[color,box-shadow] select-none after:absolute after:-inset-2 hover:ring-[3px] focus-visible:ring-[3px] focus-visible:outline-hidden active:ring-[3px] disabled:pointer-events-none disabled:opacity-50"
 				brnSliderThumb
 			></span>
 		}
@@ -45,6 +48,9 @@ export class HlmSlider {
 	protected readonly _slider = injectBrnSlider();
 
 	constructor() {
-		classes(() => 'relative flex w-full touch-none items-center select-none');
+		classes(
+			() =>
+				'relative flex w-full touch-none items-center select-none data-disabled:opacity-50 data-vertical:h-full data-vertical:min-h-40 data-vertical:w-auto data-vertical:flex-col',
+		);
 	}
 }

@@ -36,7 +36,8 @@ import { provideBrnSlider } from './brn-slider.token';
 		},
 	],
 	host: {
-		'aria-orientation': 'horizontal',
+		'[attr.data-orientation]': 'orientation()',
+		'data-slot': 'slider',
 		'(focusout)': '_onFocusOut($event)',
 	},
 })
@@ -72,6 +73,8 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 	public readonly inverted = input<boolean, BooleanInput>(false, {
 		transform: booleanAttribute,
 	});
+
+	public readonly orientation = input<'horizontal' | 'vertical'>('horizontal');
 
 	/** Whether we should show tick marks */
 	public readonly showTicks = input<boolean, BooleanInput>(false, {

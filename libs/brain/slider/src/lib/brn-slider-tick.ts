@@ -11,6 +11,9 @@ import { injectBrnSlider } from './brn-slider.token';
 
 @Directive({
 	selector: '[brnSliderTick]',
+	host: {
+		'data-slot': 'slider-tick',
+	},
 })
 export class BrnSliderTick implements OnDestroy {
 	private readonly _slider = injectBrnSlider();

@@ -9,16 +9,18 @@ import { linearScale } from './utils/linear-scale';
 	host: {
 		role: 'slider',
 		'[attr.aria-label]': `_ariaLabel`,
+		'[attr.aria-orientation]': '_slider.orientation()',
 		'[attr.aria-valuenow]': '_slider.value()[_index()]',
 		'[attr.aria-valuemin]': '_slider.min()',
 		'[attr.aria-valuemax]': '_slider.max()',
 		'[attr.tabindex]': '_slider.mutableDisabled() ? -1 : 0',
+		'[attr.data-orientation]': '_slider.orientation()',
 		'[attr.data-disabled]': '_slider.mutableDisabled()',
 		'[style.inset-inline-start]': '_slider.inverted() ? undefined :_thumbOffset()',
 		'[style.inset-inline-end]': '_slider.inverted() ? _thumbOffset() : undefined',
 		'[style.visibility]': '_thumbReady() ? undefined : "hidden"',
 		'[style.pointer-events]': '_thumbReady() ? undefined : "none"',
-		'[style.transform]': "'translateX(-50%)'",
+		'[style.transform]': '_transformValue()',
 		'data-slot': 'slider-thumb',
 		'(pointerdown)': '_onPointerDown($event)',
 		'(pointermove)': '_onPointerMove($event)',
@@ -94,6 +96,10 @@ export class BrnSliderThumb implements OnDestroy {
 	});
 
 	protected readonly _ariaLabel = computed(() => `Value ${this._index() + 1} of ${this._slider.value().length}`);
+
+	protected readonly _transformValue = computed(() =>
+		this._slider.orientation() === 'horizontal' ? 'translateX(-50%)' : 'translateY(50%)',
+	);
 
 	constructor() {
 		this._slider.addThumb(this);

@@ -4,7 +4,9 @@ import { injectBrnSlider } from './brn-slider.token';
 @Directive({
 	selector: '[brnSliderRange]',
 	host: {
+		'[attr.data-orientation]': '_slider.orientation()',
 		'[attr.data-disabled]': '_slider.mutableDisabled()',
+		'data-slot': 'slider-range',
 		'[style.inset-inline]': '_rangeInsetInline()',
 	},
 })

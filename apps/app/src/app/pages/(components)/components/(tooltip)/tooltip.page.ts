@@ -19,6 +19,7 @@ import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-sec
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { TooltipSimple } from './tooltip--simple.example';
 import { defaultImports, defaultSkeleton, TooltipPreview } from './tooltip.preview';
+import { TooltipDisabledButtonWithTooltip } from '@spartan-ng/app/app/pages/(components)/components/(tooltip)/tooltip--disabled-button-with-tooltip.example';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Tooltip', api: 'tooltip' },
@@ -50,6 +51,7 @@ export const routeMeta: RouteMeta = {
 		TooltipSimple,
 		TooltipDisabled,
 		TooltipTemplate,
+		TooltipDisabledButtonWithTooltip,
 	],
 	template: `
 		<section spartanMainSection>
@@ -100,6 +102,14 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_disabledCode()" />
 			</spartan-tabs>
 
+			<h3 id="examples__disabled-button-with-tooltip" spartanH4>Disabled Button with Tooltip</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-tooltip-disabled-button-with-tooltip />
+				</div>
+				<spartan-code secondTab [code]="_disabledBtnCode()" />
+			</spartan-tabs>
+
 			<h3 id="examples__template" spartanH4>Template</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -129,6 +139,7 @@ export default class TooltipPage {
 	protected readonly _positionCode = computed(() => this._snippets()['position']);
 	protected readonly _templateCode = computed(() => this._snippets()['template']);
 	protected readonly _disabledCode = computed(() => this._snippets()['disabled']);
+	protected readonly _disabledBtnCode = computed(() => this._snippets()['disabledButtonWithTooltip']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

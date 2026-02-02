@@ -6,8 +6,8 @@ import { HlmTooltipImports } from '@spartan-ng/helm/tooltip';
 
 @Component({
 	selector: 'spartan-tooltip-template',
-	providers: [provideIcons({ lucidePlus })],
 	imports: [HlmButtonImports, HlmTooltipImports, NgIcon],
+	providers: [provideIcons({ lucidePlus })],
 	template: `
 		<button [hlmTooltip]="tooltip" hlmBtn variant="outline">Simple</button>
 

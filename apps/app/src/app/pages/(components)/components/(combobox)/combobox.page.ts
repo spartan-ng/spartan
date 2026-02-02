@@ -17,6 +17,7 @@ import { Tabs } from '../../../../shared/layout/tabs';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { ComboboxAsyncMultiplePreview } from './combobox--async-multiple.preview';
 import { ComboboxAsyncPreview } from './combobox--async.preview';
+import { ComboboxAutoHighlightPreview } from './combobox--autohighlight.preview';
 import { ComboboxClearPreview } from './combobox--clear.preview';
 import { ComboboxDisabledPreview } from './combobox--disabled.preview';
 import { ComboboxFormMultiplePreview } from './combobox--form-multiple.preview';
@@ -25,6 +26,7 @@ import { ComboboxGroupSeparatorPreview } from './combobox--group-separator.previ
 import { ComboboxGroupPreview } from './combobox--group.preview';
 import { ComboboxIconAddonPreview } from './combobox--icon-addon.preview';
 import { ComboboxItemToStringPreview } from './combobox--item-to-string.preview';
+import { ComboboxMultipleAutoHighlightPreview } from './combobox--multiple-autohighlight.preview';
 import { ComboboxMultipleDisabledPreview } from './combobox--multiple-disabled.preview';
 import { ComboboxMultiplePreview } from './combobox--multiple.preview';
 import { ComboboxPopupPreview } from './combobox--popup.preview';
@@ -65,6 +67,8 @@ export const routeMeta: RouteMeta = {
 		ComboboxAsyncPreview,
 		ComboboxAsyncMultiplePreview,
 		ComboboxItemToStringPreview,
+		ComboboxAutoHighlightPreview,
+		ComboboxMultipleAutoHighlightPreview,
 	],
 	template: `
 		<section spartanMainSection>
@@ -211,6 +215,22 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_multipleDisabledCode()" />
 			</spartan-tabs>
 
+			<h3 id="examples__autohighlight" spartanH4>Auto highlight (single)</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-combobox-autohighlight-preview />
+				</div>
+				<spartan-code secondTab [code]="_autohighlightCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__autohighlight_multiple" spartanH4>Auto highlight (multiple)</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-combobox-multiple-autohighlight-preview />
+				</div>
+				<spartan-code secondTab [code]="_multipleAutohighlightCode()" />
+			</spartan-tabs>
+
 			<h3 id="examples__group" spartanH4>With Groups</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -297,6 +317,8 @@ export default class ComboboxPage {
 	protected readonly _clearCode = computed(() => this._snippets()['clear']);
 	protected readonly _disabledCode = computed(() => this._snippets()['disabled']);
 	protected readonly _multipleDisabledCode = computed(() => this._snippets()['multipleDisabled']);
+	protected readonly _autohighlightCode = computed(() => this._snippets()['autohighlight']);
+	protected readonly _multipleAutohighlightCode = computed(() => this._snippets()['multipleAutohighlight']);
 	protected readonly _groupCode = computed(() => this._snippets()['group']);
 	protected readonly _groupSeparatorCode = computed(() => this._snippets()['groupSeparator']);
 	protected readonly _iconAddonCode = computed(() => this._snippets()['iconAddon']);

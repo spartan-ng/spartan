@@ -18,7 +18,16 @@ import { classes } from '<%- importAlias %>/utils';
 	hostDirectives: [
 		{
 			directive: BrnComboboxMultiple,
-			inputs: ['disabled', 'filter', 'search', 'value', 'itemToString', 'filterOptions', 'isItemEqualToValue'],
+			inputs: [
+				'autoHighlight',
+				'disabled',
+				'filter',
+				'search',
+				'value',
+				'itemToString',
+				'filterOptions',
+				'isItemEqualToValue',
+			],
 			outputs: ['searchChange', 'valueChange'],
 		},
 		{

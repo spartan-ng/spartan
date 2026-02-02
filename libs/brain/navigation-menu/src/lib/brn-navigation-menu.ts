@@ -15,8 +15,8 @@ import {
 } from '@angular/core';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { computedPrevious, createHoverObservable } from '@spartan-ng/brain/core';
-import { combineLatest, merge, Subject } from 'rxjs';
-import { debounceTime, filter, map, pairwise, startWith, switchMap, takeUntil } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, merge, of, Subject } from 'rxjs';
+import { debounceTime, delay, filter, map, pairwise, startWith, switchMap, takeUntil } from 'rxjs/operators';
 import { BrnNavigationMenuItem } from './brn-navigation-menu-item';
 import { BrnNavigationMenuLink } from './brn-navigation-menu-link';
 import { provideBrnNavigationMenu } from './brn-navigation-menu.token';
@@ -42,6 +42,7 @@ export class BrnNavigationMenu implements OnDestroy {
 	private readonly _dir = inject(Directionality);
 	private readonly _zone = inject(NgZone);
 	private readonly _destroy$ = new Subject<void>();
+	private readonly _anyTriggerHovered$ = new BehaviorSubject<boolean>(false);
 
 	public readonly el = inject<ElementRef<HTMLElement>>(ElementRef);
 	public readonly parentNavMenu = injectBrnParentNavMenu();
@@ -60,6 +61,12 @@ export class BrnNavigationMenu implements OnDestroy {
 	 * How much time a user has to enter another trigger without incurring a delay again.
 	 */
 	public readonly skipDelayDuration = input<number>(300);
+
+	/**
+	 * Controls whether the menu opens on hover or click.
+	 * When 'click', initial open requires a click, but hover still switches between items once open.
+	 */
+	public readonly openOn = input<'hover' | 'click'>('hover');
 
 	/** internal **/
 	public readonly direction = this._dir.valueSignal;
@@ -138,17 +145,33 @@ export class BrnNavigationMenu implements OnDestroy {
 			}
 		});
 
-		combineLatest([this._hovered$, this._contentHovered$])
+		combineLatest([this._hovered$, this._contentHovered$, this._anyTriggerHovered$])
 			.pipe(
 				debounceTime(0),
 				filter(([hovered, contentHovered]) => !(hovered === undefined && contentHovered === undefined)),
+				switchMap(([hovered, contentHovered, triggerHovered]) => {
+					const shouldClose = !hovered && !contentHovered && !triggerHovered;
+					// Add delay before closing in click mode to allow for sibling hover transitions
+					if (shouldClose && this.openOn() === 'click') {
+						return of([hovered, contentHovered, triggerHovered] as const).pipe(delay(150));
+					}
+					return of([hovered, contentHovered, triggerHovered] as const);
+				}),
 				takeUntil(this._destroy$),
 			)
-			.subscribe(([hovered, contentHovered]) => {
-				if (!hovered && !contentHovered) {
+			.subscribe(([hovered, contentHovered, triggerHovered]) => {
+				if (!hovered && !contentHovered && !triggerHovered) {
 					this.value.set(undefined);
 				}
 			});
+	}
+
+	/**
+	 * Called by triggers to report their hover state for coordination.
+	 * @internal
+	 */
+	public setTriggerHovered(hovered: boolean) {
+		this._anyTriggerHovered$.next(hovered);
 	}
 
 	public isLink(id?: string): boolean {

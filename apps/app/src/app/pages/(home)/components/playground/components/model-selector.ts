@@ -36,11 +36,7 @@ import { Model, ModelType } from '../data/models';
 			</button>
 			<div hlmPopoverContent class="w-full p-0" *brnPopoverContent="let ctx">
 				<hlm-command>
-					<hlm-command-search>
-						<ng-icon hlm name="lucideSearch" size="sm" />
-						<input type="text" hlm-command-search-input placeholder="Search Models" />
-					</hlm-command-search>
-
+					<hlm-command-input placeholder="Search Models" />
 					<hlm-command-list>
 						@for (type of types(); track type) {
 							<hlm-command-group>
@@ -64,7 +60,7 @@ import { Model, ModelType } from '../data/models';
 						}
 					</hlm-command-list>
 					<!-- Empty state -->
-					<div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
+					<div *hlmCommandEmptyState hlmCommandEmpty>No results found.</div>
 				</hlm-command>
 			</div>
 		</hlm-popover>

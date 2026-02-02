@@ -48,12 +48,14 @@ export type AutocompleteItemToString<T> = (itemValue: T) => string;
 export interface BrnAutocompleteConfig<T> {
 	isItemEqualToValue: AutocompleteItemEqualToValue<T>;
 	itemToString?: AutocompleteItemToString<T>;
+	autoHighlight: boolean;
 }
 
 function getDefaultConfig<T>(): BrnAutocompleteConfig<T> {
 	return {
 		isItemEqualToValue: (itemValue: T, selectedValue: T | null) => Object.is(itemValue, selectedValue),
 		itemToString: undefined,
+		autoHighlight: false,
 	};
 }
 

@@ -1,11 +1,13 @@
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import type { BooleanInput } from '@angular/cdk/coercion';
 import {
+	afterNextRender,
 	booleanAttribute,
 	computed,
 	contentChild,
 	contentChildren,
 	Directive,
+	effect,
 	ElementRef,
 	forwardRef,
 	inject,
@@ -13,6 +15,7 @@ import {
 	input,
 	linkedSignal,
 	model,
+	untracked,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, type ControlValueAccessor } from '@angular/forms';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
@@ -75,6 +78,11 @@ export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor 
 	/** A custom filter function to use when searching. */
 	public readonly filter = input<ComboboxFilter<T>>(this._config.filter);
 
+	/** Whether to auto-highlight the first matching item. */
+	public readonly autoHighlight = input<boolean, BooleanInput>(this._config.autoHighlight, {
+		transform: booleanAttribute,
+	});
+
 	/** The selected value of the combobox. */
 	public readonly value = model<T | null>(null);
 
@@ -119,6 +127,25 @@ export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor 
 			this.search.set('');
 			this.keyManager.setActiveItem(-1);
 		});
+
+		afterNextRender(() => {
+			effect(
+				() => {
+					if (!this.autoHighlight() || !this.isExpanded() || !this.search()) return;
+
+					const hasVisibleItems = this.visibleItems();
+
+					untracked(() => {
+						if (hasVisibleItems) {
+							this.keyManager.setFirstItemActive();
+						} else {
+							this.keyManager.setActiveItem(-1);
+						}
+					});
+				},
+				{ injector: this._injector },
+			);
+		});
 	}
 
 	public isSelected(itemValue: T): boolean {
@@ -137,9 +164,11 @@ export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor 
 
 		const value = this.keyManager.activeItem?.value();
 
-		if (value === undefined) return;
-
-		this.select(value);
+		if (value) {
+			this.select(value);
+		} else {
+			this.close();
+		}
 	}
 
 	public resetValue(): void {

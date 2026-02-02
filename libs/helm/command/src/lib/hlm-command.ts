@@ -7,8 +7,8 @@ import { classes } from '@spartan-ng/helm/utils';
 	hostDirectives: [
 		{
 			directive: BrnCommand,
-			inputs: ['id', 'filter'],
-			outputs: ['valueChange'],
+			inputs: ['id', 'filter', 'search', 'disabled'],
+			outputs: ['valueChange', 'searchChange'],
 		},
 	],
 	host: {
@@ -17,6 +17,6 @@ import { classes } from '@spartan-ng/helm/utils';
 })
 export class HlmCommand {
 	constructor() {
-		classes(() => 'bg-popover text-popover-foreground flex h-full w-full flex-col overflow-hidden rounded-md');
+		classes(() => 'bg-popover text-popover-foreground flex size-full flex-col overflow-hidden rounded-xl p-1');
 	}
 }

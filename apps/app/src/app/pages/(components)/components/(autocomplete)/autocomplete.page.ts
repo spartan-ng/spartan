@@ -19,6 +19,7 @@ import { Tabs } from '../../../../shared/layout/tabs';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { link } from '../../../../shared/typography/link';
 import { AutocompleteAsyncPreview } from './autocomplete--async.preview';
+import { AutocompleteAutohighlightPreview } from './autocomplete--autohighlight.preview';
 import { AutocompleteClearPreview } from './autocomplete--clear.preview';
 import { AutocompleteCountriesPreview } from './autocomplete--countries.example';
 import { AutocompleteDisabledPreview } from './autocomplete--disabled.preview';
@@ -26,6 +27,7 @@ import { AutocompleteFormPreview } from './autocomplete--form.preview';
 import { AutocompleteGroupSeparatorPreview } from './autocomplete--group-separator.preview';
 import { AutocompleteGroupPreview } from './autocomplete--group.preview';
 import { AutocompleteResolveValueIdPreview } from './autocomplete--resolve-value-id.example';
+import { AutocompleteSearchAutohighlightPreview } from './autocomplete--search-autohighlight.preview';
 import { AutocompleteSearchFormPreview } from './autocomplete--search-form.preview';
 import { AutocompleteSearchPreview } from './autocomplete--search.preview';
 import {
@@ -69,6 +71,8 @@ export const routeMeta: RouteMeta = {
 		AutocompleteSearchPreview,
 		AutocompleteSearchFormPreview,
 		AutocompleteResolveValueIdPreview,
+		AutocompleteAutohighlightPreview,
+		AutocompleteSearchAutohighlightPreview,
 	],
 	template: `
 		<section spartanMainSection>
@@ -148,6 +152,22 @@ export const routeMeta: RouteMeta = {
 					<spartan-autocomplete-disabled-preview />
 				</div>
 				<spartan-code secondTab [code]="_disabledCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__autohighlight" spartanH4>Auto highlight</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-autocomplete-autohighlight-preview />
+				</div>
+				<spartan-code secondTab [code]="_autohighlightCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__autohighlight_search" spartanH4>Auto highlight (search)</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-autocomplete-search-autohighlight-preview />
+				</div>
+				<spartan-code secondTab [code]="_searchAutohighlightCode()" />
 			</spartan-tabs>
 
 			<h3 id="examples__group" spartanH4>With Groups</h3>
@@ -258,6 +278,8 @@ export default class AutocompletePage {
 	protected readonly _searchCode = computed(() => this._snippets()['search']);
 	protected readonly _clearCode = computed(() => this._snippets()['clear']);
 	protected readonly _disabledCode = computed(() => this._snippets()['disabled']);
+	protected readonly _autohighlightCode = computed(() => this._snippets()['autohighlight']);
+	protected readonly _searchAutohighlightCode = computed(() => this._snippets()['searchAutohighlight']);
 	protected readonly _groupCode = computed(() => this._snippets()['group']);
 	protected readonly _groupSeparatorCode = computed(() => this._snippets()['groupSeparator']);
 	protected readonly _countriesCode = computed(() => this._snippets()['countries']);

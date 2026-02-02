@@ -22,7 +22,7 @@ type Framework = { label: string; value: string };
 	imports: [HlmComboboxImports, BrnPopoverContent],
 	template: `
 		<hlm-combobox>
-			<hlm-combobox-input placeholder="Select framework..."></hlm-combobox-input>
+			<hlm-combobox-input placeholder="Select framework..." />
 			<div *brnPopoverContent hlmComboboxContent>
 				<hlm-combobox-empty>No items found.</hlm-combobox-empty>
 				<div hlmComboboxList>

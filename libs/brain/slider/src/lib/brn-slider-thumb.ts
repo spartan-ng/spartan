@@ -10,7 +10,7 @@ import { linearScale } from './utils/linear-scale';
 		role: 'slider',
 		'[attr.aria-label]': `_ariaLabel`,
 		'[attr.aria-orientation]': '_slider.orientation()',
-		'[attr.aria-valuenow]': '_slider.value()[_index()]',
+		'[attr.aria-valuenow]': '_slider.normalizedValue()[_index()]',
 		'[attr.aria-valuemin]': '_slider.min()',
 		'[attr.aria-valuemax]': '_slider.max()',
 		'[attr.tabindex]': '_slider.mutableDisabled() ? -1 : 0',
@@ -55,7 +55,9 @@ export class BrnSliderThumb implements OnDestroy {
 
 	public readonly percentage = computed(
 		() =>
-			((this._slider.value()[this._index()] - this._slider.min()) / (this._slider.max() - this._slider.min())) * 100,
+			((this._slider.normalizedValue()[this._index()] - this._slider.min()) /
+				(this._slider.max() - this._slider.min())) *
+			100,
 	);
 
 	public readonly thumbInBoundsOffset = computed(() => {
@@ -90,7 +92,9 @@ export class BrnSliderThumb implements OnDestroy {
 		return `calc(${this.percentage()}% + ${this.thumbInBoundsOffset()}px)`;
 	});
 
-	protected readonly _ariaLabel = computed(() => `Value ${this._index() + 1} of ${this._slider.value().length}`);
+	protected readonly _ariaLabel = computed(
+		() => `Value ${this._index() + 1} of ${this._slider.normalizedValue().length}`,
+	);
 
 	protected readonly _transformValue = computed(() =>
 		this._slider.orientation() === 'horizontal' ? 'translateX(-50%)' : 'translateY(-50%)',
@@ -123,7 +127,7 @@ export class BrnSliderThumb implements OnDestroy {
 	protected handleKeydown(event: KeyboardEvent) {
 		let multiplier = event.shiftKey ? 10 : 1;
 		const index = this._index();
-		const value = this._slider.value()[index];
+		const value = this._slider.normalizedValue()[index];
 
 		if (this._slider.slidingSource() === 'right') {
 			multiplier = event.shiftKey ? -10 : -1;

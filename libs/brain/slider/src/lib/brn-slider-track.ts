@@ -31,7 +31,7 @@ export class BrnSliderTrack {
 
 		const pointerPosition = this._slider.orientation() === 'horizontal' ? event.clientX : event.clientY;
 		const value = this._getValueFromPointer(pointerPosition);
-		const closestIndex = getClosestValueIndex(this._slider.value(), value);
+		const closestIndex = getClosestValueIndex(this._slider.normalizedValue(), value);
 
 		this._slider.setValue(value, closestIndex);
 	}

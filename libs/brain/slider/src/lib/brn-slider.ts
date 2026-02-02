@@ -14,7 +14,6 @@ import {
 	model,
 	numberAttribute,
 	type OnInit,
-	output,
 	signal,
 	untracked,
 } from '@angular/core';
@@ -52,9 +51,6 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 	// TODO: remove, only for dev
 	public readonly dirInput = input<'ltr' | 'rtl'>();
 
-	/** Emits when the value changes. */
-	public readonly valueChange = output<number[]>();
-
 	public readonly min = input<number, NumberInput>(0, {
 		transform: numberAttribute,
 	});
@@ -82,11 +78,20 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 		transform: booleanAttribute,
 	});
 
-	public readonly thumbIndexes = computed(() => Array.from({ length: this.value().length }, (_, i) => i), {
+	/** @internal */
+	public readonly normalizedValue = computed(
+		() =>
+			this.value()
+				.sort((a, b) => a - b)
+				.map((v) => clamp(v, [this.min(), this.max()])),
+		{ equal: areArrsEqual },
+	);
+
+	public readonly thumbIndexes = computed(() => Array.from({ length: this.normalizedValue().length }, (_, i) => i), {
 		equal: (a, b) => a.length === b.length,
 	});
 
-	/** internal **/
+	/** @internal */
 	public readonly direction = computed(() => {
 		if (this.dirInput()) return this.dirInput();
 
@@ -122,7 +127,7 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 
 	/** @internal */
 	public readonly ticks = computed(() => {
-		const value = this.value();
+		const value = this.normalizedValue();
 
 		if (!this.showTicks()) {
 			return [];
@@ -149,7 +154,7 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 
 	constructor() {
 		effect(() => {
-			this.value();
+			this.normalizedValue();
 			const index = untracked(this.valueIndexToChange);
 			const thumbs = untracked(this.thumbs);
 
@@ -160,18 +165,12 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 	}
 
 	ngOnInit(): void {
-		const sortedValue = [...this.value()].sort((a, b) => a - b);
-		// ensure the values are within the min and max range
-		if (sortedValue[0] < this.min()) {
-			sortedValue[0] = this.min();
-		}
-		if (sortedValue[sortedValue.length - 1] > this.max()) {
-			sortedValue[sortedValue.length - 1] = this.max();
-		}
+		const normalizedValue = this.value()
+			.map((v) => clamp(v, [this.min(), this.max()]))
+			.sort((a, b) => a - b);
 
-		if (!areArrsEqual(sortedValue, this.value())) {
-			this.value.set(sortedValue);
-			this.valueChange.emit(sortedValue);
+		if (!areArrsEqual(normalizedValue, this.value())) {
+			this.value.set(normalizedValue);
 		}
 	}
 
@@ -189,11 +188,9 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 
 	writeValue(value: number[]): void {
 		const newValue = value.sort((a, b) => a - b).map((v) => clamp(v, [this.min(), this.max()]));
-		if (areArrsEqual(newValue, value)) return;
 
 		this.value.set(newValue);
 		this._onChange?.(newValue);
-		this.valueChange.emit(newValue);
 
 		this._changeDetectorRef.detectChanges();
 	}
@@ -207,7 +204,7 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 
 		value = clamp(snapToStep, [this.min(), this.max()]);
 
-		const newValue = [...this.value()];
+		const newValue = [...this.normalizedValue()];
 		newValue[atIndex] = value;
 		newValue.sort((a, b) => a - b);
 
@@ -217,7 +214,6 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 		if (areArrsEqual(newValue, this.value())) return;
 
 		this.value.set(newValue);
-		this.valueChange.emit(newValue);
 		this._onChange?.(newValue);
 	}
 

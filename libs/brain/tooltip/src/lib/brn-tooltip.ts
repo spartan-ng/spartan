@@ -23,7 +23,7 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import { of, Subject, timer } from 'rxjs';
-import { filter, map, switchMap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { BrnTooltipContent } from './brn-tooltip-content';
 import { BRN_TOOLTIP_POSITIONS_MAP, BrnTooltipPosition } from './brn-tooltip-position';
 import { BrnTooltipType } from './brn-tooltip-type';
@@ -33,16 +33,6 @@ interface DelayConfig {
 	isShow: boolean;
 	delay: number;
 }
-
-const throttle = (callback: () => void, wait: number) => {
-	let time = Date.now();
-	return function () {
-		if (time + wait - Date.now() < 0) {
-			callback();
-			time = Date.now();
-		}
-	};
-};
 
 @Directive({ selector: '[brnTooltip]', exportAs: 'brnTooltip' })
 export class BrnTooltip implements OnInit, OnDestroy {
@@ -57,6 +47,7 @@ export class BrnTooltip implements OnInit, OnDestroy {
 	private readonly _platformId = inject(PLATFORM_ID);
 	private readonly _renderer = inject(Renderer2);
 
+	private _tooltipHovered = false;
 	private _listenersRefs: (() => void)[] = [];
 	private _delaySubject: Subject<DelayConfig> | undefined = undefined;
 	private _componentRef: ComponentRef<BrnTooltipContent> | undefined = undefined;
@@ -95,13 +86,14 @@ export class BrnTooltip implements OnInit, OnDestroy {
 				this._cleanupTriggerEvents();
 				this._initTriggers();
 
-				(this._overlayRef as OverlayRef)
-					.outsidePointerEvents()
-					.pipe(
-						filter((event) => !this._elementRef.nativeElement.contains(event.target as Node)),
-						takeUntilDestroyed(this._destroyRef),
-					)
-					.subscribe(() => this.delay(false, 0));
+				this._listenersRefs = [
+					...this._listenersRefs,
+					this._renderer.listen(this._overlayRef.hostElement, 'mouseenter', () => (this._tooltipHovered = true)),
+					this._renderer.listen(this._overlayRef.hostElement, 'mouseleave', () => {
+						this._tooltipHovered = false;
+						this.delay(false, this.hideDelay());
+					}),
+				];
 			});
 		}
 	}
@@ -132,11 +124,7 @@ export class BrnTooltip implements OnInit, OnDestroy {
 	private _initScrollListener(): void {
 		this._listenersRefs = [
 			...this._listenersRefs,
-			this._renderer.listen(
-				this._document.defaultView,
-				'scroll',
-				throttle(() => this.delay(false, 0), 100),
-			),
+			this._renderer.listen(this._document.defaultView, 'scroll', () => this._hide()),
 		];
 	}
 
@@ -201,8 +189,7 @@ export class BrnTooltip implements OnInit, OnDestroy {
 	}
 
 	private _hide(): void {
-		if (!this._componentRef) return;
-
+		if (!this._componentRef || this._tooltipHovered) return;
 		this._clearAriaDescribedBy();
 
 		this._renderer.removeAttribute(this._elementRef.nativeElement, 'aria-describedby');

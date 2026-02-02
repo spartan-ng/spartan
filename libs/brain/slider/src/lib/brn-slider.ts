@@ -6,7 +6,6 @@ import {
 	computed,
 	Directive,
 	effect,
-	ElementRef,
 	forwardRef,
 	inject,
 	input,
@@ -45,7 +44,6 @@ import { provideBrnSlider } from './brn-slider.token';
 })
 export class BrnSlider implements ControlValueAccessor, OnInit {
 	private readonly _changeDetectorRef = inject(ChangeDetectorRef);
-	private readonly _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 	private readonly _dir = inject(Directionality);
 
 	public readonly value = model<number[]>([]);

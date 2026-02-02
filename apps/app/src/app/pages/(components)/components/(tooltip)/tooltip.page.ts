@@ -1,6 +1,7 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { TooltipDisabledButtonWithTooltip } from '@spartan-ng/app/app/pages/(components)/components/(tooltip)/tooltip--disabled-button-with-tooltip.example';
 import { TooltipDisabled } from '@spartan-ng/app/app/pages/(components)/components/(tooltip)/tooltip--disabled.example';
 import { TooltipPosition } from '@spartan-ng/app/app/pages/(components)/components/(tooltip)/tooltip--position.example';
 import { TooltipTemplate } from '@spartan-ng/app/app/pages/(components)/components/(tooltip)/tooltip--template.example';
@@ -19,7 +20,6 @@ import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-sec
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { TooltipSimple } from './tooltip--simple.example';
 import { defaultImports, defaultSkeleton, TooltipPreview } from './tooltip.preview';
-import { TooltipDisabledButtonWithTooltip } from '@spartan-ng/app/app/pages/(components)/components/(tooltip)/tooltip--disabled-button-with-tooltip.example';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Tooltip', api: 'tooltip' },

@@ -37,6 +37,7 @@ import { provideBrnSlider } from './brn-slider.token';
 	host: {
 		'[attr.dir]': 'direction()',
 		'[attr.data-disabled]': 'mutableDisabled() ? "" : null',
+		'[attr.data-inverted]': 'inverted() ? "" : null',
 		'[attr.data-orientation]': 'orientation()',
 		'data-slot': 'slider',
 		'(focusout)': '_onFocusOut($event)',
@@ -81,6 +82,14 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 	/** Whether we should show tick marks */
 	public readonly showTicks = input<boolean, BooleanInput>(false, {
 		transform: booleanAttribute,
+	});
+
+	public readonly maxTicks = input<number, NumberInput>(25, {
+		transform: numberAttribute,
+	});
+
+	public readonly tickLabelInterval = input<number, NumberInput>(2, {
+		transform: numberAttribute,
 	});
 
 	/** @internal */
@@ -132,20 +141,29 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 
 	/** @internal */
 	public readonly ticks = computed(() => {
-		const value = this.normalizedValue();
-
 		if (!this.showTicks()) {
 			return [];
 		}
 
-		let numActive = Math.max(Math.floor((value[0] - this.min()) / this.step()), 0);
-		let numInactive = Math.max(Math.floor((this.max() - value[value.length - 1]) / this.step()), 0);
+		const min = this.min();
+		const max = this.max();
+		const step = this.step();
+		const maxTicks = this.maxTicks();
 
-		const direction = getComputedStyle(this._elementRef.nativeElement).direction;
+		if (step <= 0 || min > max) {
+			return [];
+		}
 
-		direction === 'rtl' ? numInactive++ : numActive++;
+		const totalCount = Math.floor((max - min) / step) + 1;
 
-		return Array(numActive).fill(true).concat(Array(numInactive).fill(false));
+		// No need to reduce
+		if (totalCount <= maxTicks) {
+			return Array.from({ length: totalCount }, (_, i) => min + i * step);
+		}
+
+		const stride = Math.ceil(totalCount / maxTicks);
+
+		return Array.from({ length: totalCount }, (_, i) => min + i * step).filter((_, index) => index % stride === 0);
 	});
 
 	/** @internal */

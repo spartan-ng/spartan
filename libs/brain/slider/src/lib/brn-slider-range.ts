@@ -16,6 +16,8 @@ export class BrnSliderRange {
 
 	protected readonly _rangeInsetInline = computed(() => {
 		const thumbs = this._slider.thumbs();
+		if (!thumbs.length) return;
+
 		const inverted = this._slider.inverted();
 		const isHorizontal = this._slider.isHorizontal();
 

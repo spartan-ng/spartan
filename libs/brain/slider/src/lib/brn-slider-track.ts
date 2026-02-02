@@ -8,7 +8,7 @@ import { linearScale } from './utils/linear-scale';
 	providers: [provideBrnSliderTrack(BrnSliderTrack)],
 	host: {
 		'[attr.data-orientation]': '_slider.orientation()',
-		'[attr.data-disabled]': '_slider.mutableDisabled()',
+		'[attr.data-disabled]': '_slider.mutableDisabled() ? "" : null',
 		'data-slot': 'slider-track',
 		'(pointerdown)': '_onPointerDown($event)',
 		'(pointermove)': '_onPointerMove($event)',
@@ -24,6 +24,8 @@ export class BrnSliderTrack {
 	}
 
 	public _onPointerDown(event: PointerEvent) {
+		if (this._slider.mutableDisabled()) return;
+
 		const target = event.target as HTMLElement;
 		target.setPointerCapture(event.pointerId);
 		// Prevent browser focus behaviour because we focus a thumb manually when values change.
@@ -37,6 +39,8 @@ export class BrnSliderTrack {
 	}
 
 	public _onPointerMove(event: PointerEvent) {
+		if (this._slider.mutableDisabled()) return;
+
 		const target = event.target as HTMLElement;
 
 		if (target.hasPointerCapture(event.pointerId)) {
@@ -47,6 +51,8 @@ export class BrnSliderTrack {
 	}
 
 	public _onPointerUp(event: PointerEvent) {
+		if (this._slider.mutableDisabled()) return;
+
 		const target = event.target as HTMLElement;
 
 		if (target.hasPointerCapture(event.pointerId)) {

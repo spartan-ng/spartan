@@ -15,7 +15,7 @@ import { linearScale } from './utils/linear-scale';
 		'[attr.aria-valuemax]': '_slider.max()',
 		'[attr.tabindex]': '_slider.mutableDisabled() ? -1 : 0',
 		'[attr.data-orientation]': '_slider.orientation()',
-		'[attr.data-disabled]': '_slider.mutableDisabled()',
+		'[attr.data-disabled]': '_slider.mutableDisabled() ? "" : null',
 		'[style.inset-inline-start]':
 			'_slider.isHorizontal() ?  _slider.inverted() ? undefined : _thumbOffset() : undefined',
 		'[style.inset-inline-end]': '_slider.isHorizontal() ? _slider.inverted() ? _thumbOffset() : undefined : undefined',
@@ -125,6 +125,8 @@ export class BrnSliderThumb implements OnDestroy {
 	 * @param event
 	 */
 	protected handleKeydown(event: KeyboardEvent) {
+		if (this._slider.mutableDisabled()) return;
+
 		let multiplier = event.shiftKey ? 10 : 1;
 		const index = this._index();
 		const value = this._slider.normalizedValue()[index];

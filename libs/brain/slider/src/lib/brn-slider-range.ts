@@ -5,7 +5,7 @@ import { injectBrnSlider } from './brn-slider.token';
 	selector: '[brnSliderRange]',
 	host: {
 		'[attr.data-orientation]': '_slider.orientation()',
-		'[attr.data-disabled]': '_slider.mutableDisabled()',
+		'[attr.data-disabled]': '_slider.mutableDisabled() ? "" : null',
 		'data-slot': 'slider-range',
 		'[style.inset-inline]': '_slider.isHorizontal() ? _rangeInsetInline() : undefined',
 		'[style.inset-block]': '!_slider.isHorizontal() ? _rangeInsetInline() : undefined',

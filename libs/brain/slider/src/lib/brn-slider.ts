@@ -36,6 +36,7 @@ import { provideBrnSlider } from './brn-slider.token';
 	],
 	host: {
 		'[attr.dir]': 'direction()',
+		'[attr.data-disabled]': 'mutableDisabled() ? "" : null',
 		'[attr.data-orientation]': 'orientation()',
 		'data-slot': 'slider',
 		'(focusout)': '_onFocusOut($event)',

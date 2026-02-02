@@ -49,7 +49,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 		@for (i of _slider.thumbIndexes(); track i) {
 			<span
-				class="border-ring ring-ring/50 bg-primary absolute block size-3 shrink-0 rounded-full border transition-[color,box-shadow] select-none after:absolute after:-inset-2 hover:ring-[3px] focus-visible:ring-[3px] focus-visible:outline-hidden active:ring-[3px] disabled:pointer-events-none disabled:opacity-50"
+				class="border-ring ring-ring/50 bg-primary absolute block size-3 shrink-0 rounded-full border transition-[color,box-shadow] select-none after:absolute after:-inset-2 hover:ring-[3px] focus-visible:ring-[3px] focus-visible:outline-hidden active:ring-[3px]"
 				brnSliderThumb
 			></span>
 		}
@@ -61,7 +61,7 @@ export class HlmSlider {
 	constructor() {
 		classes(
 			() =>
-				'relative flex w-full touch-none items-center select-none data-disabled:opacity-50 data-vertical:h-full data-vertical:min-h-40 data-vertical:w-auto data-vertical:flex-col',
+				'relative flex w-full touch-none items-center select-none data-vertical:h-full data-vertical:min-h-40 data-vertical:w-auto data-vertical:flex-col data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
 		);
 	}
 }

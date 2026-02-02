@@ -1,12 +1,39 @@
 import { Directive } from '@angular/core';
-import { BrnTooltip } from '@spartan-ng/brain/tooltip';
+import { BrnTooltip, BrnTooltipPosition, provideBrnTooltipDefaultOptions } from '@spartan-ng/brain/tooltip';
+import { hlm } from '@spartan-ng/helm/utils';
+import { cva } from 'class-variance-authority';
+
+export const DEFAULT_TOOLTIP_SVG_CLASS =
+	'bg-foreground fill-foreground z-50 block size-2.5 translate-y-[calc(-50%-2px)] rotate-45 rounded-[2px]';
+
+export const DEFAULT_TOOLTIP_CONTENT_CLASSES =
+	'bg-foreground text-background animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 w-fit origin-(--radix-tooltip-content-transform-origin) rounded-md px-3 py-1.5 text-xs text-balance';
+
+export const tooltipPositionVariants = cva('absolute', {
+	variants: {
+		position: {
+			top: 'bottom-0 left-[calc(50%-5px)] translate-y-full',
+			bottom: '-top-2.5 left-[calc(50%-5px)] translate-y-0 rotate-180',
+			left: 'top-[calc(50%-5px)] -right-2.5 translate-y-0 rotate-270',
+			right: 'top-[calc(50%-5px)] -left-2.5 translate-y-0 rotate-90',
+		},
+	},
+});
 
 @Directive({
-	selector: '[hlmTooltip],hlm-tooltip',
-	hostDirectives: [BrnTooltip],
-	host: {
-		'data-slot': 'tooltip',
-		'[style]': '{display: "contents"}',
-	},
+	selector: '[hlmTooltip]',
+	providers: [
+		provideBrnTooltipDefaultOptions({
+			svgClasses: DEFAULT_TOOLTIP_SVG_CLASS,
+			tooltipContentClasses: DEFAULT_TOOLTIP_CONTENT_CLASSES,
+			arrowClasses: (position: BrnTooltipPosition) => hlm(tooltipPositionVariants({ position })),
+		}),
+	],
+	hostDirectives: [
+		{
+			directive: BrnTooltip,
+			inputs: ['brnTooltip: hlmTooltip', 'position', 'hideDelay', 'showDelay'],
+		},
+	],
 })
 export class HlmTooltip {}

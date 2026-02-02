@@ -27,12 +27,7 @@ import { HlmTooltipImports } from '@spartan-ng/helm/tooltip';
 				<span hlmInputGroupText>https://</span>
 			</div>
 			<div hlmInputGroupAddon align="inline-end">
-				<button
-					hlmInputGroupButton
-					class="rounded-full"
-					size="icon-xs"
-					[hlmTooltipTrigger]="'This is content in a tooltip.'"
-				>
+				<button hlmInputGroupButton class="rounded-full" size="icon-xs" [hlmTooltip]="'This is content in a tooltip.'">
 					<ng-icon name="lucideInfo" />
 				</button>
 			</div>

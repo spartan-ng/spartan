@@ -22,7 +22,7 @@ import { HlmTooltipImports } from '@spartan-ng/helm/tooltip';
 			<div hlmInputGroupAddon align="inline-end">
 				<button
 					hlmInputGroupButton
-					hlmTooltipTrigger="Password must be at least 8 characters"
+					[hlmTooltip]="'Password must be at least 8 characters'"
 					variant="ghost"
 					aria-label="Info"
 					size="icon-xs"
@@ -34,15 +34,10 @@ import { HlmTooltipImports } from '@spartan-ng/helm/tooltip';
 		<div hlmInputGroup>
 			<input hlmInputGroupInput placeholder="Your email address" />
 			<div hlmInputGroupAddon align="inline-end">
-				<button
-					hlmInputGroupButton
-					hlmTooltipTrigger="We'll use this to send you notifications"
-					variant="ghost"
-					aria-label="Info"
-					size="icon-xs"
-				>
+				<button hlmInputGroupButton [hlmTooltip]="tooltip" variant="ghost" aria-label="Info" size="icon-xs">
 					<ng-icon name="lucideInfo" />
 				</button>
+				<ng-template #tooltip>We'll use this to send you notifications</ng-template>
 			</div>
 		</div>
 		<div hlmInputGroup>
@@ -50,7 +45,7 @@ import { HlmTooltipImports } from '@spartan-ng/helm/tooltip';
 			<div hlmInputGroupAddon>
 				<button
 					hlmInputGroupButton
-					hlmTooltipTrigger="Click for help with API keys"
+					[hlmTooltip]="'Click for help with API keys'"
 					position="left"
 					variant="ghost"
 					aria-label="Info"

@@ -1,7 +1,9 @@
 import { Overlay, OverlayPositionBuilder, type OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { DOCUMENT } from '@angular/common';
 import {
+	afterNextRender,
+	booleanAttribute,
 	type ComponentRef,
 	computed,
 	DestroyRef,
@@ -12,10 +14,7 @@ import {
 	Injector,
 	input,
 	numberAttribute,
-	type OnDestroy,
-	type OnInit,
 	output,
-	PLATFORM_ID,
 	Renderer2,
 	runInInjectionContext,
 	type TemplateRef,
@@ -35,7 +34,7 @@ interface DelayConfig {
 }
 
 @Directive({ selector: '[brnTooltip]', exportAs: 'brnTooltip' })
-export class BrnTooltip implements OnInit, OnDestroy {
+export class BrnTooltip {
 	private readonly _config = injectBrnTooltipDefaultOptions();
 
 	private readonly _destroyRef = inject(DestroyRef);
@@ -44,7 +43,6 @@ export class BrnTooltip implements OnInit, OnDestroy {
 	private readonly _injector = inject(Injector);
 	private readonly _overlay = inject(Overlay);
 	private readonly _overlayPositionBuilder = inject(OverlayPositionBuilder);
-	private readonly _platformId = inject(PLATFORM_ID);
 	private readonly _renderer = inject(Renderer2);
 
 	private _tooltipHovered = false;
@@ -54,7 +52,8 @@ export class BrnTooltip implements OnInit, OnDestroy {
 	private _overlayRef: OverlayRef | undefined = undefined;
 	private _ariaEffectRef: ReturnType<typeof effect> | undefined = undefined;
 
-	public readonly position = input<BrnTooltipPosition>('top');
+	public readonly tooltipDisabled = input<boolean, boolean>(false, { transform: booleanAttribute });
+	public readonly position = input<BrnTooltipPosition>(this._config.position ?? 'top');
 	public readonly brnTooltip = input<BrnTooltipType>(null);
 	public readonly showDelay = input<number, number>(this._config.showDelay, { transform: numberAttribute });
 	public readonly hideDelay = input<number, number>(this._config.hideDelay, { transform: numberAttribute });
@@ -72,8 +71,8 @@ export class BrnTooltip implements OnInit, OnDestroy {
 		return tooltipText;
 	});
 
-	ngOnInit() {
-		if (isPlatformBrowser(this._platformId)) {
+	constructor() {
+		afterNextRender(() => {
 			const positionStrategy = this._overlayPositionBuilder
 				.flexibleConnectedTo(this._elementRef)
 				.withPositions([BRN_TOOLTIP_POSITIONS_MAP[this.position()]]);
@@ -81,11 +80,9 @@ export class BrnTooltip implements OnInit, OnDestroy {
 
 			runInInjectionContext(this._injector, () => {
 				if (!this._overlayRef) return;
-
 				this._setupDelayMechanism();
 				this._cleanupTriggerEvents();
 				this._initTriggers();
-
 				this._listenersRefs = [
 					...this._listenersRefs,
 					this._renderer.listen(this._overlayRef.hostElement, 'mouseenter', () => (this._tooltipHovered = true)),
@@ -95,15 +92,14 @@ export class BrnTooltip implements OnInit, OnDestroy {
 					}),
 				];
 			});
-		}
-	}
+		});
 
-	ngOnDestroy(): void {
-		this._clearAriaDescribedBy();
-
-		this._delaySubject?.complete();
-		this._cleanupTriggerEvents();
-		this._overlayRef?.dispose();
+		this._destroyRef.onDestroy(() => {
+			this._clearAriaDescribedBy();
+			this._delaySubject?.complete();
+			this._cleanupTriggerEvents();
+			this._overlayRef?.dispose();
+		});
 	}
 
 	private _initTriggers() {
@@ -158,7 +154,7 @@ export class BrnTooltip implements OnInit, OnDestroy {
 	}
 
 	private _show(): void {
-		if (this._componentRef || !this._tooltipText()) {
+		if (this._componentRef || !this._tooltipText() || this.tooltipDisabled()) {
 			return;
 		}
 

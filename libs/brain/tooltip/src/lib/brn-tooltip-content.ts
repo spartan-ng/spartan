@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
+import { ClassValue } from 'clsx';
 import { BrnTooltipPosition } from './brn-tooltip-position';
 import { BrnTooltipStringTemplateOutlet } from './brn-tooltip-string-template-outlet';
 import { BrnTooltipType } from './brn-tooltip-type';
@@ -29,9 +30,9 @@ export class BrnTooltipContent {
 	public readonly id = input<string>(`brn-tooltip-${++uniqueId}`);
 	public readonly state = signal<'closed' | 'opened'>('closed');
 
-	protected readonly _tooltipClass = signal('');
-	protected readonly _arrowClass = signal('');
-	protected readonly _svgClass = signal('');
+	protected readonly _tooltipClass = signal<ClassValue>('');
+	protected readonly _arrowClass = signal<ClassValue>('');
+	protected readonly _svgClass = signal<ClassValue>('');
 
 	protected readonly _position = signal<BrnTooltipPosition>('top');
 	protected readonly _tooltipText = signal<BrnTooltipType>(null);
@@ -39,9 +40,9 @@ export class BrnTooltipContent {
 	public setProps(
 		tooltipText: BrnTooltipType,
 		position: BrnTooltipPosition,
-		tooltipClasses: string,
-		arrowClasses: string,
-		svgClasses: string,
+		tooltipClasses: ClassValue,
+		arrowClasses: ClassValue,
+		svgClasses: ClassValue,
 	): void {
 		if (tooltipText) {
 			this._tooltipText.set(tooltipText);

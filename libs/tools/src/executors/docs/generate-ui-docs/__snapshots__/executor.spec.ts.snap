@@ -5282,6 +5282,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "exportAs": "brnTooltip",
         "inputs": [
           {
+            "name": "tooltipDisabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
             "name": "position",
             "required": false,
             "type": "BrnTooltipPosition",

@@ -145,6 +145,9 @@ Our initial 300 contributors and sponsors are featured here and on the front pag
 126. [Dafnik](https://github.com/Dafnik)
 127. [hassantayyab](https://github.com/hassantayyab)
 128. [mathwizard](https://github.com/mathwizard)
+129. [RaminGe](https://github.com/RaminGe)
+130. [abos-gergo](https://github.com/abos-gergo)
+131. [jpsullivan](https://github.com/jpsullivan)
 
 [Become a spartan today!](https://github.com/sponsors/goetzrobin)
 

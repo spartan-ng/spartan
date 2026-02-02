@@ -63,6 +63,10 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 		transform: numberAttribute,
 	});
 
+	public readonly minStepsBetweenThumbs = input<number, NumberInput>(0, {
+		transform: numberAttribute,
+	});
+
 	public readonly disabled = input<boolean, BooleanInput>(false, {
 		transform: booleanAttribute,
 	});
@@ -208,6 +212,8 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 		newValue[atIndex] = value;
 		newValue.sort((a, b) => a - b);
 
+		if (!hasMinStepsBetweenValues(newValue, this.minStepsBetweenThumbs() * this.step())) return;
+
 		const newValIndex = newValue.findIndex((val) => val === value);
 		this.valueIndexToChange.set(newValIndex);
 
@@ -255,4 +261,17 @@ function getDecimalCount(value: number): number {
 
 function clamp(value: number, [min, max]: [number, number]): number {
 	return Math.min(max, Math.max(min, value));
+}
+
+function getStepsBetweenValues(values: number[]) {
+	return values.slice(0, -1).map((value, index) => values[index + 1]! - value);
+}
+
+function hasMinStepsBetweenValues(values: number[], minStepsBetweenValues: number) {
+	if (minStepsBetweenValues > 0) {
+		const stepsBetweenValues = getStepsBetweenValues(values);
+		const actualMinStepsBetweenValues = Math.min(...stepsBetweenValues);
+		return actualMinStepsBetweenValues >= minStepsBetweenValues;
+	}
+	return true;
 }

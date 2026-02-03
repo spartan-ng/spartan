@@ -1,4 +1,4 @@
-import { computed, Directive } from '@angular/core';
+import { computed, Directive, ElementRef, inject } from '@angular/core';
 import { injectBrnSlider } from './brn-slider.token';
 
 @Directive({
@@ -7,14 +7,19 @@ import { injectBrnSlider } from './brn-slider.token';
 		'[attr.data-orientation]': '_slider.orientation()',
 		'[attr.data-disabled]': '_slider.mutableDisabled() ? "" : null',
 		'data-slot': 'slider-range',
-		'[style.inset-inline]': '_slider.isHorizontal() ? _rangeInsetInline() : undefined',
-		'[style.inset-block]': '!_slider.isHorizontal() ? _rangeInsetInline() : undefined',
+		'[style.inset-inline]': '_slider.isHorizontal() ? _rangeInset() : undefined',
+		'[style.inset-block]': '!_slider.isHorizontal() ? _rangeInset() : undefined',
 	},
 })
 export class BrnSliderRange {
 	protected readonly _slider = injectBrnSlider();
+	public readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 
-	protected readonly _rangeInsetInline = computed(() => {
+	constructor() {
+		this._slider.range.set(this);
+	}
+
+	protected readonly _rangeInset = computed(() => {
 		const thumbs = this._slider.thumbs();
 		if (!thumbs.length) return;
 

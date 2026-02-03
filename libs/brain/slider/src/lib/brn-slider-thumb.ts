@@ -66,16 +66,16 @@ export class BrnSliderThumb implements OnDestroy {
 			return 0;
 		}
 
-		const width = this._size()?.width;
-		if (!width) {
+		const size = this._slider.isHorizontal() ? this._size()?.width : this._size()?.height;
+		if (!size) {
 			return 0;
 		}
 
-		const halfWidth = width / 2;
-		const offset = linearScale([0, 50], [0, halfWidth]);
+		const halfSize = size / 2;
+		const offset = linearScale([0, 50], [0, halfSize]);
 		const direction = this._slider.slidingSource() === 'left' || this._slider.slidingSource() === 'top' ? 1 : -1;
 
-		return (halfWidth - offset(this.percentage()) * direction) * direction;
+		return (halfSize - offset(this.percentage()) * direction) * direction;
 	});
 
 	/**

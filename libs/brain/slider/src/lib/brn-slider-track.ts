@@ -35,7 +35,13 @@ export class BrnSliderTrack {
 		const value = this._getValueFromPointer(pointerPosition);
 		const closestIndex = getClosestValueIndex(this._slider.normalizedValue(), value);
 
-		this._slider.setValue(value, closestIndex);
+		// Track press → jump value to pointer position.
+		// Thumb press → select thumb to drag without forcing a value update.
+		if (this._isTrackOrRange(target)) {
+			this._slider.setValue(value, closestIndex);
+		} else {
+			this._slider.valueIndexToChange.set(closestIndex);
+		}
 	}
 
 	public _onPointerMove(event: PointerEvent) {
@@ -89,6 +95,10 @@ export class BrnSliderTrack {
 		}
 
 		return value(relativePosition);
+	}
+
+	private _isTrackOrRange(el: HTMLElement) {
+		return this._elementRef.nativeElement === el || this._slider.range()?.elementRef.nativeElement === el;
 	}
 }
 

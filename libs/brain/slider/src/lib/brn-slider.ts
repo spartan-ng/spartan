@@ -18,6 +18,7 @@ import {
 } from '@angular/core';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
+import { BrnSliderRange } from './brn-slider-range';
 import { BrnSliderThumb } from './brn-slider-thumb';
 import type { BrnSliderTrack } from './brn-slider-track';
 import { provideBrnSlider } from './brn-slider.token';
@@ -130,6 +131,9 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 
 	/** @internal Store the track */
 	public readonly track = signal<BrnSliderTrack | null>(null);
+
+	/** @internal Store the range */
+	public readonly range = signal<BrnSliderRange | null>(null);
 
 	/** @internal */
 	public readonly thumbs = signal<BrnSliderThumb[]>([]);

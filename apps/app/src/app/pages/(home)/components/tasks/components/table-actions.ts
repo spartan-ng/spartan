@@ -21,7 +21,6 @@ import {
 	lucideX,
 } from '@ng-icons/lucide';
 import { BrnCommandImports } from '@spartan-ng/brain/command';
-import { BrnPopoverImports } from '@spartan-ng/brain/popover';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmCheckboxImports } from '@spartan-ng/helm/checkbox';
 import { HlmCommandImports } from '@spartan-ng/helm/command';
@@ -43,7 +42,6 @@ import { TasksExample } from '../tasks';
 		NgIcon,
 		HlmIcon,
 		HlmDropdownMenuImports,
-		BrnPopoverImports,
 		HlmCommandImports,
 		BrnCommandImports,
 		HlmPopoverImports,
@@ -104,7 +102,7 @@ import { TasksExample } from '../tasks';
 							</div>
 						}
 					</button>
-					<hlm-command *brnPopoverContent="let ctx" hlmPopoverContent class="w-[200px] p-0">
+					<hlm-command *hlmPopoverPortal="let ctx" hlmPopoverContent class="w-[200px] p-0">
 						<hlm-command-input placeholder="Search Status" />
 						<hlm-command-list>
 							<div *hlmCommandEmptyState hlmCommandEmpty>No results found.</div>
@@ -145,7 +143,7 @@ import { TasksExample } from '../tasks';
 							</div>
 						}
 					</button>
-					<hlm-command *brnPopoverContent="let ctx" hlmPopoverContent class="w-[200px] p-0">
+					<hlm-command *hlmPopoverPortal="let ctx" hlmPopoverContent class="w-[200px] p-0">
 						<hlm-command-input placeholder="Search Priority" />
 						<hlm-command-list>
 							<div *hlmCommandEmptyState hlmCommandEmpty>No results found.</div>

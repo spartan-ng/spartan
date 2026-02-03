@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { BrnPopoverContent } from '@spartan-ng/brain/popover';
 import { HlmComboboxImports } from '@spartan-ng/helm/combobox';
+import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 
 @Component({
 	selector: 'spartan-combobox-autohighlight-preview',
-	imports: [HlmComboboxImports, BrnPopoverContent],
+	imports: [HlmComboboxImports, HlmPopoverImports],
 	template: `
 		<hlm-combobox autoHighlight>
 			<hlm-combobox-input placeholder="Select a framework" />
-			<div *brnPopoverContent hlmComboboxContent>
+			<div *hlmPopoverPortal hlmComboboxContent>
 				<hlm-combobox-empty>No items found.</hlm-combobox-empty>
 				<div hlmComboboxList>
 					@for (framework of frameworks; track $index) {

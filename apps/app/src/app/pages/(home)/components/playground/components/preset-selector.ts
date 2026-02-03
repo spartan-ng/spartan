@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCheck, lucideChevronsUpDown, lucideSearch } from '@ng-icons/lucide';
 import { BrnCommandEmpty } from '@spartan-ng/brain/command';
-import { BrnPopoverImports } from '@spartan-ng/brain/popover';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmCommandImports } from '@spartan-ng/helm/command';
 import { HlmIcon } from '@spartan-ng/helm/icon';
@@ -11,7 +10,7 @@ import { Preset } from '../data/presets';
 
 @Component({
 	selector: 'spartan-preset-selector',
-	imports: [BrnPopoverImports, HlmPopoverImports, HlmCommandImports, NgIcon, HlmIcon, HlmButton, BrnCommandEmpty],
+	imports: [HlmPopoverImports, HlmCommandImports, NgIcon, HlmIcon, HlmButton, BrnCommandEmpty],
 	providers: [provideIcons({ lucideSearch, lucideCheck, lucideChevronsUpDown })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
@@ -26,7 +25,7 @@ import { Preset } from '../data/presets';
 				{{ selectedPreset() ? selectedPreset()?.name : 'Load a preset...' }}
 				<ng-icon hlm name="lucideChevronsUpDown" size="sm" />
 			</button>
-			<div hlmPopoverContent class="w-[300px] p-0" *brnPopoverContent="let ctx">
+			<div hlmPopoverContent class="w-[300px] p-0" *hlmPopoverPortal="let ctx">
 				<hlm-command>
 					<hlm-command-input placeholder="Search Presets" />
 					<hlm-command-list>

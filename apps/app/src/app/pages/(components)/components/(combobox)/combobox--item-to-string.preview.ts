@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
-import { BrnPopoverContent } from '@spartan-ng/brain/popover';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmComboboxImports } from '@spartan-ng/helm/combobox';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
+import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 import { Validators } from 'ng-signal-forms';
 
 type Assignee = {
@@ -13,7 +13,7 @@ type Assignee = {
 
 @Component({
 	selector: 'spartan-combobox-item-to-string-preview',
-	imports: [HlmComboboxImports, BrnPopoverContent, ReactiveFormsModule, HlmButton, HlmFieldImports],
+	imports: [HlmComboboxImports, HlmPopoverImports, ReactiveFormsModule, HlmButton, HlmFieldImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'w-full max-w-xs',
@@ -25,7 +25,7 @@ type Assignee = {
 					<label hlmFieldLabel>Assign reviewer</label>
 					<hlm-combobox [(search)]="search" formControlName="assignee" [itemToString]="itemToString">
 						<hlm-combobox-input placeholder="e.g. Einstein" />
-						<div *brnPopoverContent hlmComboboxContent>
+						<div *hlmPopoverPortal hlmComboboxContent>
 							<hlm-combobox-empty>No items found.</hlm-combobox-empty>
 							<div hlmComboboxList>
 								@for (assignee of filteredOptions(); track $index) {

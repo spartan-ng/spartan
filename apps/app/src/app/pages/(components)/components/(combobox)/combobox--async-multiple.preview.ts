@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, resource, signal } from '@angular/core';
-import { BrnPopoverContent } from '@spartan-ng/brain/popover';
 import { HlmComboboxImports } from '@spartan-ng/helm/combobox';
+import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 import { HlmSpinnerImports } from '@spartan-ng/helm/spinner';
 
 interface DirectoryUser {
@@ -13,7 +13,7 @@ interface DirectoryUser {
 
 @Component({
 	selector: 'spartan-combobox-async-multiple-preview',
-	imports: [HlmComboboxImports, BrnPopoverContent, HlmSpinnerImports],
+	imports: [HlmComboboxImports, HlmPopoverImports, HlmSpinnerImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-combobox-multiple [(search)]="search" [itemToString]="itemToString">
@@ -26,7 +26,7 @@ interface DirectoryUser {
 
 				<input hlmComboboxChipInput />
 			</hlm-combobox-chips>
-			<div *brnPopoverContent hlmComboboxContent>
+			<div *hlmPopoverPortal hlmComboboxContent>
 				@if (showStatus()) {
 					<hlm-combobox-status>
 						@if (users.error(); as error) {

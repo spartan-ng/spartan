@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideArrowRight, lucideCornerDownLeft, lucideSearch } from '@ng-icons/lucide';
 import { BrnCommandImports } from '@spartan-ng/brain/command';
-import { BrnDialogImports, BrnDialogTrigger } from '@spartan-ng/brain/dialog';
+import { BrnDialogTrigger } from '@spartan-ng/brain/dialog';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmCommandImports } from '@spartan-ng/helm/command';
 import { HlmDialogImports } from '@spartan-ng/helm/dialog';
@@ -122,7 +122,7 @@ type AlgoliaHits = {
 				</div>
 			</button>
 
-			<hlm-dialog-content class="border-ring/50 rounded-xl! border-4 p-1 [&>button]:hidden" *brnDialogContent="let ctx">
+			<hlm-dialog-content class="border-ring/50 rounded-xl! border-4 p-1 [&>button]:hidden" *hlmDialogPortal="let ctx">
 				<hlm-command class="min-h-[400px] md:min-w-[450px]" [(search)]="_searchVal">
 					<hlm-command-input placeholder="Type a command or search..." />
 					<hlm-command-list class="max-h-[400px] pt-1">

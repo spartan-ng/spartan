@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
-import { BrnPopoverContent } from '@spartan-ng/brain/popover';
 import { HlmComboboxImports } from '@spartan-ng/helm/combobox';
+import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 
 @Component({
 	selector: 'spartan-combobox-multiple-disabled-preview',
-	imports: [HlmComboboxImports, BrnPopoverContent],
+	imports: [HlmComboboxImports, HlmPopoverImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-combobox-multiple [(value)]="values" disabled>
@@ -17,7 +17,7 @@ import { HlmComboboxImports } from '@spartan-ng/helm/combobox';
 
 				<input hlmComboboxChipInput />
 			</hlm-combobox-chips>
-			<div *brnPopoverContent hlmComboboxContent>
+			<div *hlmPopoverPortal hlmComboboxContent>
 				<hlm-combobox-empty>No items found.</hlm-combobox-empty>
 				<div hlmComboboxList>
 					@for (framework of frameworks; track $index) {

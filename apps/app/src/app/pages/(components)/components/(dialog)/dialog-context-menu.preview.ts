@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { BrnDialogImports } from '@spartan-ng/brain/dialog';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmContextMenuImports } from '@spartan-ng/helm/context-menu';
 import { HlmDialogImports } from '@spartan-ng/helm/dialog';
@@ -7,7 +6,7 @@ import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 
 @Component({
 	selector: 'spartan-dialog-context-menu',
-	imports: [BrnDialogImports, HlmDialogImports, HlmButtonImports, HlmDropdownMenuImports, HlmContextMenuImports],
+	imports: [HlmDialogImports, HlmButtonImports, HlmDropdownMenuImports, HlmContextMenuImports],
 	template: `
 		<div
 			[hlmContextMenuTrigger]="menu"
@@ -34,7 +33,7 @@ import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 							Print
 							<hlm-dropdown-menu-shortcut>⌘P</hlm-dropdown-menu-shortcut>
 						</button>
-						<hlm-dialog-content class="sm:max-w-[425px]" *brnDialogContent="let ctx">
+						<hlm-dialog-content class="sm:max-w-[425px]" *hlmDialogPortal="let ctx">
 							<hlm-dialog-header>
 								<h3 hlmDialogTitle>Print this page</h3>
 								<p hlmDialogDescription>

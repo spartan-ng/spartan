@@ -15,11 +15,11 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown } from '@ng-icons/lucide';
 import type { BrnDialogState } from '@spartan-ng/brain/dialog';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
-import { BrnPopover, BrnPopoverContent, BrnPopoverTrigger } from '@spartan-ng/brain/popover';
+import { BrnPopover, BrnPopoverTrigger } from '@spartan-ng/brain/popover';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmCalendar } from '@spartan-ng/helm/calendar';
 import { HlmIcon } from '@spartan-ng/helm/icon';
-import { HlmPopoverContent } from '@spartan-ng/helm/popover';
+import { HlmPopoverContent, HlmPopoverImports } from '@spartan-ng/helm/popover';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 import { injectDatePickerWithButtonConfig } from './date-picker-with-button.token';
@@ -37,9 +37,9 @@ let nextId = 0;
 	imports: [
 		NgIcon,
 		HlmIcon,
+		HlmPopoverImports,
 		BrnPopover,
 		BrnPopoverTrigger,
-		BrnPopoverContent,
 		HlmPopoverContent,
 		HlmCalendar,
 		HlmButton,
@@ -66,7 +66,7 @@ let nextId = 0;
 				<ng-icon hlm size="sm" name="lucideChevronDown" />
 			</button>
 
-			<div hlmPopoverContent class="w-auto p-0" *brnPopoverContent="let ctx">
+			<div hlmPopoverContent class="w-auto p-0" *hlmPopoverPortal="let ctx">
 				<hlm-calendar
 					calendarClass="border-0 rounded-none"
 					[captionLayout]="captionLayout()"

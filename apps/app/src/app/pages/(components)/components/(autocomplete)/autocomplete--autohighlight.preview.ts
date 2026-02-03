@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
-import { BrnPopoverContent } from '@spartan-ng/brain/popover';
 import { HlmAutocompleteImports } from '@spartan-ng/helm/autocomplete';
+import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 
 interface SpartanComponent {
 	id: string;
@@ -9,12 +9,12 @@ interface SpartanComponent {
 
 @Component({
 	selector: 'spartan-autocomplete-autohighlight-preview',
-	imports: [HlmAutocompleteImports, BrnPopoverContent],
+	imports: [HlmAutocompleteImports, HlmPopoverImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-autocomplete [(search)]="search" autoHighlight>
 			<hlm-autocomplete-input placeholder="Search components" />
-			<div *brnPopoverContent hlmAutocompleteContent>
+			<div *hlmPopoverPortal hlmAutocompleteContent>
 				<hlm-autocomplete-empty>No components found.</hlm-autocomplete-empty>
 				<div hlmAutocompleteList>
 					@for (component of filteredOptions(); track $index) {

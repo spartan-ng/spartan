@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { BrnPopoverContent } from '@spartan-ng/brain/popover';
 import { HlmComboboxImports } from '@spartan-ng/helm/combobox';
+import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 
 @Component({
 	selector: 'spartan-combobox-preview',
-	imports: [HlmComboboxImports, BrnPopoverContent],
+	imports: [HlmComboboxImports, HlmPopoverImports],
 	template: `
 		<hlm-combobox>
 			<hlm-combobox-input placeholder="Select a framework" />
-			<div *brnPopoverContent hlmComboboxContent>
+			<div *hlmPopoverPortal hlmComboboxContent>
 				<hlm-combobox-empty>No items found.</hlm-combobox-empty>
 				<div hlmComboboxList>
 					@for (framework of frameworks; track $index) {
@@ -56,7 +56,7 @@ import { HlmComboboxImports } from '@spartan-ng/helm/combobox';
 export const defaultSkeleton = `
 <hlm-combobox>
   <hlm-combobox-input placeholder="Select a framework" />
-  <div *brnPopoverContent hlmComboboxContent>
+  <div *hlmPopoverPortal hlmComboboxContent>
     <hlm-combobox-empty>No items found.</hlm-combobox-empty>
     <div hlmComboboxList>
       @for (framework of frameworks; track $index) {

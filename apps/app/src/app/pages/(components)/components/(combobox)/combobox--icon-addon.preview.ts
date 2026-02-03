@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideGlobe } from '@ng-icons/lucide';
-import { BrnPopoverContent } from '@spartan-ng/brain/popover';
 import { HlmComboboxImports } from '@spartan-ng/helm/combobox';
 import { HlmInputGroupAddon } from '@spartan-ng/helm/input-group';
+import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 
 @Component({
 	selector: 'spartan-combobox-icon-addon-preview',
-	imports: [HlmComboboxImports, BrnPopoverContent, HlmInputGroupAddon, NgIcon],
+	imports: [HlmComboboxImports, HlmPopoverImports, HlmInputGroupAddon, NgIcon],
 	providers: [provideIcons({ lucideGlobe })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
@@ -17,7 +17,7 @@ import { HlmInputGroupAddon } from '@spartan-ng/helm/input-group';
 					<ng-icon name="lucideGlobe" />
 				</hlm-input-group-addon>
 			</hlm-combobox-input>
-			<div *brnPopoverContent hlmComboboxContent>
+			<div *hlmPopoverPortal hlmComboboxContent>
 				<hlm-combobox-empty>No items found.</hlm-combobox-empty>
 				<div hlmComboboxList>
 					@for (timezoneGroup of timezones; track $index) {

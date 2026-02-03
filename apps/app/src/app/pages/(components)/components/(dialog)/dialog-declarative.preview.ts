@@ -1,7 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
-import { BrnDialogImports } from '@spartan-ng/brain/dialog';
 
 import { HlmDialogImports } from '@spartan-ng/helm/dialog';
 import { HlmInputImports } from '@spartan-ng/helm/input';
@@ -11,7 +10,7 @@ import { debounceTime, map } from 'rxjs/operators';
 
 @Component({
 	selector: 'spartan-dialog-declarative-preview',
-	imports: [FormsModule, BrnDialogImports, HlmDialogImports, HlmLabelImports, HlmInputImports, HlmTypographyImports],
+	imports: [FormsModule, HlmDialogImports, HlmLabelImports, HlmInputImports, HlmTypographyImports],
 	template: `
 		<div class="mt-6 space-y-4">
 			<p hlmH4>Enter passphrase to open dialog</p>
@@ -29,7 +28,7 @@ import { debounceTime, map } from 'rxjs/operators';
 			</div>
 		</div>
 		<hlm-dialog [state]="_state()" (closed)="_passphrase.set('')">
-			<hlm-dialog-content *brnDialogContent="let ctx">
+			<hlm-dialog-content *hlmDialogPortal="let ctx">
 				<hlm-dialog-header class="w-[250px]">
 					<h3 hlmDialogTitle>Welcome to Sparta</h3>
 					<p hlmDialogDescription>Enjoy declarative dialogs.</p>

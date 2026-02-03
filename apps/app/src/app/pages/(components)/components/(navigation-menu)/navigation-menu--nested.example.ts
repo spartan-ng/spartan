@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideCheck, lucideChevronDown, lucideCircle, lucideInfo, lucideLink } from '@ng-icons/lucide';
-import { BrnNavigationMenuImports } from '@spartan-ng/brain/navigation-menu';
 import { HlmIconImports } from '@spartan-ng/helm/icon';
 import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 
 @Component({
 	selector: 'spartan-navigation-menu-nested',
-	imports: [HlmNavigationMenuImports, BrnNavigationMenuImports, HlmIconImports],
+	imports: [HlmNavigationMenuImports, HlmIconImports],
 	providers: [provideIcons({ lucideChevronDown, lucideLink, lucideCircle, lucideInfo, lucideCheck })],
 	template: `
 		<nav hlmNavigationMenu>
@@ -20,7 +19,7 @@ import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 							class="relative top-[1px] ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
 						/>
 					</button>
-					<div hlmNavigationMenuContent *brnNavigationMenuContent>
+					<div hlmNavigationMenuContent *hlmNavigationMenuPortal>
 						<nav hlmNavigationMenu orientation="vertical">
 							<ul hlmNavigationMenuList class="w-35 flex-wrap">
 								<li hlmNavigationMenuItem class="w-full">
@@ -31,7 +30,7 @@ import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 											class="relative top-[1px] ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
 										/>
 									</button>
-									<div hlmNavigationMenuContent *brnNavigationMenuContent>
+									<div hlmNavigationMenuContent *hlmNavigationMenuPortal>
 										<ul class="grid gap-2 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
 											<li class="row-span-3">
 												<a
@@ -83,7 +82,7 @@ import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 											class="relative top-[1px] ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
 										/>
 									</button>
-									<div hlmNavigationMenuContent *brnNavigationMenuContent>
+									<div hlmNavigationMenuContent *hlmNavigationMenuPortal>
 										<ul class="grid gap-2 sm:w-[400px] md:w-[500px] md:grid-cols-2 lg:w-[600px]">
 											@for (component of _components; track $index) {
 												<li>
@@ -107,7 +106,7 @@ import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 											class="relative top-[1px] ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
 										/>
 									</button>
-									<div hlmNavigationMenuContent *brnNavigationMenuContent>
+									<div hlmNavigationMenuContent *hlmNavigationMenuPortal>
 										<ul class="grid w-[300px] gap-4">
 											<li>
 												<a hlmNavigationMenuLink href="/components" class="cursor-pointer">
@@ -135,7 +134,7 @@ import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 											class="relative top-[1px] ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
 										/>
 									</button>
-									<div hlmNavigationMenuContent *brnNavigationMenuContent>
+									<div hlmNavigationMenuContent *hlmNavigationMenuPortal>
 										<ul class="grid w-[200px] gap-4">
 											<li>
 												<a hlmNavigationMenuLink href="/components" class="cursor-pointer">Components</a>
@@ -154,7 +153,7 @@ import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 											class="relative top-[1px] ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
 										/>
 									</button>
-									<div hlmNavigationMenuContent *brnNavigationMenuContent>
+									<div hlmNavigationMenuContent *hlmNavigationMenuPortal>
 										<ul class="grid w-[200px] gap-4">
 											<li>
 												<a hlmNavigationMenuLink href="#" class="cursor-pointer flex-row items-center gap-2">
@@ -230,7 +229,7 @@ export const defaultSkeleton = `
 	<ul hlmNavigationMenuList>
 		<li hlmNavigationMenuItem>
 			<button hlmNavigationMenuTrigger>Home</button>
-			<div hlmNavigationMenuContent *brnNavigationMenuContent>
+			<div hlmNavigationMenuContent *hlmNavigationMenuPortal>
 				<div>Content</div>
 			</div>
 		<li>

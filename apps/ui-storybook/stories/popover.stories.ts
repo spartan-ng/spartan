@@ -1,5 +1,5 @@
 import { NgIcon } from '@ng-icons/core';
-import { BrnPopover, BrnPopoverImports } from '@spartan-ng/brain/popover';
+import { BrnPopover } from '@spartan-ng/brain/popover';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmInput } from '@spartan-ng/helm/input';
@@ -37,7 +37,7 @@ export const Default: Story = {
     <div class='flex flex-col items-center justify-center py-80'>
         <button id='edit-profile' variant='outline' hlmPopoverTrigger hlmBtn>Open Popover</button>
     </div>
-    <div hlmPopoverContent class='w-80 grid gap-4' *brnPopoverContent='let ctx'>
+    <div hlmPopoverContent class='w-80 grid gap-4' *hlmPopoverPortal='let ctx'>
           <div class='space-y-2'>
             <h4 class='font-medium leading-none'>Dimensions</h4>
             <p class='text-sm text-muted-foreground'>

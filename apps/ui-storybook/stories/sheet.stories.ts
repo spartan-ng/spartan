@@ -1,4 +1,4 @@
-import { BrnSheet, BrnSheetImports } from '@spartan-ng/brain/sheet';
+import { BrnSheet } from '@spartan-ng/brain/sheet';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmInputImports } from '@spartan-ng/helm/input';
 import { HlmSheetImports } from '@spartan-ng/helm/sheet';
@@ -29,7 +29,7 @@ export const Default: Story = {
 		template: `
     <hlm-sheet ${argsToTemplate(args)}>
     <button id='edit-profile' variant='outline' hlmSheetTrigger hlmBtn>Edit Profile</button>
-    <hlm-sheet-content *brnSheetContent='let ctx'>
+    <hlm-sheet-content *hlmSheetPortal='let ctx'>
          <hlm-sheet-header>
           <h3 hlmSheetTitle>Edit Profile</h3>
           <p hlmSheetDescription>

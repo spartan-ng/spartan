@@ -14,7 +14,6 @@ import {
 } from '@ng-icons/lucide';
 import { tablerCircleDashedPlus } from '@ng-icons/tabler-icons';
 import { BrnCommandEmpty } from '@spartan-ng/brain/command';
-import { BrnPopoverImports } from '@spartan-ng/brain/popover';
 import { HlmAvatarImports } from '@spartan-ng/helm/avatar';
 import { HlmBadge } from '@spartan-ng/helm/badge';
 import { HlmCommandImports } from '@spartan-ng/helm/command';
@@ -45,7 +44,6 @@ type GroupedItems = {
 	selector: 'spartan-notion-prompt',
 	imports: [
 		HlmInputGroupImports,
-		BrnPopoverImports,
 		HlmPopoverImports,
 		HlmCommandImports,
 		HlmAvatarImports,
@@ -91,7 +89,7 @@ type GroupedItems = {
 						}
 					</button>
 
-					<div hlmPopoverContent class="p-0 [--radius:1.2rem]" *brnPopoverContent="let ctx">
+					<div hlmPopoverContent class="p-0 [--radius:1.2rem]" *hlmPopoverPortal="let ctx">
 						<hlm-command>
 							<hlm-command-input placeholder="Type a command or search..." />
 

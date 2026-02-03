@@ -19,7 +19,7 @@ import { type Meta, moduleMetadata, type StoryObj } from '@storybook/angular';
 	template: `
 		<hlm-hover-card>
 			<button hlmBtn variant="link" hlmHoverCardTrigger>&#64;analogjs</button>
-			<hlm-hover-card-content hlmHoverCardContent class="w-80">
+			<hlm-hover-card-content *hlmHoverCardPortal class="w-80">
 				<div class="flex justify-between space-x-4">
 					<hlm-avatar id="avatar-small">
 						<img src="https://analogjs.org/img/logos/analog-logo.svg" alt="AnalogLogo" hlmAvatarImage />

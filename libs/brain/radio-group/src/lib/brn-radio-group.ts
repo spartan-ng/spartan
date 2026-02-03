@@ -5,6 +5,7 @@ import {
 	contentChildren,
 	Directive,
 	forwardRef,
+	inject,
 	input,
 	linkedSignal,
 	model,
@@ -14,6 +15,7 @@ import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import { BrnRadio, BrnRadioChange } from './brn-radio';
 import { provideBrnRadioGroupToken } from './brn-radio-group.token';
+import { Directionality } from '@angular/cdk/bidi';
 
 export const BRN_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = {
 	provide: NG_VALUE_ACCESSOR,
@@ -31,6 +33,8 @@ export const BRN_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = {
 	},
 })
 export class BrnRadioGroup<T = unknown> implements ControlValueAccessor {
+	private readonly _dir = inject(Directionality);
+
 	private static _nextUniqueId = 0;
 
 	protected onChange: ChangeFn<T> = () => {};
@@ -64,7 +68,7 @@ export class BrnRadioGroup<T = unknown> implements ControlValueAccessor {
 	/**
 	 * The direction of the radio group.
 	 */
-	public readonly direction = input<'ltr' | 'rtl' | null>('ltr');
+	public readonly direction = this._dir.valueSignal;
 
 	/**
 	 * Event emitted when the group value changes.

@@ -86,7 +86,6 @@ type AlgoliaHits = {
 		HlmButtonImports,
 		HlmKbdImports,
 		HlmDialogImports,
-		BrnDialogImports,
 		HlmIconImports,
 		HlmCommandImports,
 		NgIcon,

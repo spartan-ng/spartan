@@ -8,7 +8,7 @@ import { HlmSheetImports } from '@spartan-ng/helm/sheet';
 
 @Component({
 	selector: 'spartan-sheet-close-preview',
-	imports: [BrnSheetImports, HlmSheetImports, HlmButtonImports, HlmLabelImports],
+	imports: [HlmSheetImports, HlmButtonImports, HlmLabelImports],
 	providers: [provideIcons({ lucideCross })],
 	template: `
 		<hlm-sheet #sheetRef side="right">

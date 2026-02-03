@@ -72,7 +72,6 @@ export class AutocompletePreview {
 }
 
 export const defaultImports = `
-import { BrnPopoverContent } from '@spartan-ng/brain/popover';
 import { HlmAutocompleteImports } from '@spartan-ng/helm/autocomplete';
 `;
 

@@ -49,7 +49,6 @@ export class ComboboxPreview {
 }
 
 export const defaultImports = `
-import { BrnPopoverContent } from '@spartan-ng/brain/popover';
 import { HlmComboboxImports } from '@spartan-ng/helm/combobox';
 `;
 

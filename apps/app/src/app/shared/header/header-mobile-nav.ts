@@ -12,15 +12,7 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 
 @Component({
 	selector: 'spartan-mobile-nav',
-	imports: [
-		HlmButton,
-		NgScrollbarModule,
-		RouterLink,
-		BrnPopoverImports,
-		HlmPopoverImports,
-		HlmBadgeImports,
-		SpartanNewMarker,
-	],
+	imports: [HlmButton, NgScrollbarModule, RouterLink, HlmPopoverImports, HlmBadgeImports, SpartanNewMarker],
 	providers: [provideIcons({ lucideMenu, lucideX })],
 	template: `
 		<hlm-popover align="start" (closed)="_closePopover()" offsetX="-24" sideOffset="12">

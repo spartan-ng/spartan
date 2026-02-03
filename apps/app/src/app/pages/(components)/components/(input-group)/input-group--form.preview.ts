@@ -22,7 +22,7 @@ import { HlmTooltipImports } from '@spartan-ng/helm/tooltip';
 					<label for="email-form" class="text-foreground" hlmLabel>Email</label>
 					<button
 						hlmInputGroupButton
-						hlmTooltipTrigger="We'll use this to send you notifications"
+						[hlmTooltip]="tooltip"
 						variant="ghost"
 						aria-label="Help"
 						class="ml-auto rounded-full"
@@ -30,6 +30,7 @@ import { HlmTooltipImports } from '@spartan-ng/helm/tooltip';
 					>
 						<ng-icon name="lucideInfo" />
 					</button>
+					<ng-template #tooltip>We'll use this to send you notifications</ng-template>
 				</div>
 				<div hlmInputGroupAddon align="block-end">
 					<button

@@ -1,35 +1,28 @@
 import { inject, InjectionToken, type ValueProvider } from '@angular/core';
-import type { TooltipPosition, TooltipTouchGestures } from './brn-tooltip-trigger';
+import { type ClassValue } from 'clsx';
+import { type BrnTooltipPosition } from './brn-tooltip-position';
 
 export interface BrnTooltipOptions {
 	/** Default delay when the tooltip is shown. */
 	showDelay: number;
 	/** Default delay when the tooltip is hidden. */
 	hideDelay: number;
-	/** Default delay when hiding the tooltip on a touch device. */
-	touchendHideDelay: number;
-	/** Default exit animation duration for the tooltip. */
-	exitAnimationDuration: number;
-	/** Default touch gesture handling for tooltips. */
-	touchGestures?: TooltipTouchGestures;
 	/** Default position for tooltips. */
-	position?: TooltipPosition;
-	/**
-	 * Default value for whether tooltips should be positioned near the click or touch origin
-	 * instead of outside the element bounding box.
-	 */
-	positionAtOrigin?: boolean;
-	/** Disables the ability for the user to interact with the tooltip element. */
-	disableTooltipInteractivity?: boolean;
-	/** Default classes for the tooltip content. */
-	tooltipContentClasses?: string;
+	position?: BrnTooltipPosition;
+	/** Additional classes for the SVG element in the tooltip arrow. */
+	svgClasses: ClassValue;
+	/** Additional classes for the tooltip arrow element based on position. */
+	arrowClasses: (position: BrnTooltipPosition) => ClassValue;
+	/** Additional classes for the tooltip content element. */
+	tooltipContentClasses: ClassValue;
 }
 
 export const defaultOptions: BrnTooltipOptions = {
-	showDelay: 0,
-	hideDelay: 0,
-	exitAnimationDuration: 0,
-	touchendHideDelay: 1500,
+	showDelay: 150,
+	hideDelay: 100,
+	svgClasses: '',
+	arrowClasses: () => '',
+	tooltipContentClasses: '',
 };
 
 const BRN_TOOLTIP_DEFAULT_OPTIONS = new InjectionToken<BrnTooltipOptions>('brn-tooltip-default-options', {

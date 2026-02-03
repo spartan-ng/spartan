@@ -1,11 +1,14 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { TooltipDisabledButtonWithTooltip } from '@spartan-ng/app/app/pages/(components)/components/(tooltip)/tooltip--disabled-button-with-tooltip.example';
+import { TooltipDisabled } from '@spartan-ng/app/app/pages/(components)/components/(tooltip)/tooltip--disabled.example';
+import { TooltipPosition } from '@spartan-ng/app/app/pages/(components)/components/(tooltip)/tooltip--position.example';
+import { TooltipTemplate } from '@spartan-ng/app/app/pages/(components)/components/(tooltip)/tooltip--template.example';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
-import { PageBottomNavPlaceholder } from '../../../../shared/layout/page-bottom-nav-placeholder';
 import { PageBottomNav } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav';
 import { PageBottomNavLink } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav-link';
 import { PageNav } from '../../../../shared/layout/page-nav/page-nav';
@@ -16,7 +19,7 @@ import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { TooltipSimple } from './tooltip--simple.example';
-import { TooltipPreview, defaultImports, defaultSkeleton } from './tooltip.preview';
+import { defaultImports, defaultSkeleton, TooltipPreview } from './tooltip.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Tooltip', api: 'tooltip' },
@@ -41,9 +44,14 @@ export const routeMeta: RouteMeta = {
 		PageBottomNav,
 		PageBottomNavLink,
 		TooltipPreview,
-		PageBottomNavPlaceholder,
 		TooltipSimple,
 		SectionSubSubHeading,
+		TooltipSimple,
+		TooltipPosition,
+		TooltipSimple,
+		TooltipDisabled,
+		TooltipTemplate,
+		TooltipDisabledButtonWithTooltip,
 	],
 	template: `
 		<section spartanMainSection>
@@ -78,6 +86,38 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_simpleCode()" />
 			</spartan-tabs>
 
+			<h3 id="examples__position" spartanH4>Positions</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-tooltip-position />
+				</div>
+				<spartan-code secondTab [code]="_positionCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__disabled" spartanH4>Disabled</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-tooltip-disabled />
+				</div>
+				<spartan-code secondTab [code]="_disabledCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__disabled-button-with-tooltip" spartanH4>Disabled Button with Tooltip</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-tooltip-disabled-button-with-tooltip />
+				</div>
+				<spartan-code secondTab [code]="_disabledBtnCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__template" spartanH4>Template</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-tooltip-template />
+				</div>
+				<spartan-code secondTab [code]="_templateCode()" />
+			</spartan-tabs>
+
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="brain" />
 
@@ -96,6 +136,10 @@ export default class TooltipPage {
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('tooltip');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _simpleCode = computed(() => this._snippets()['simple']);
+	protected readonly _positionCode = computed(() => this._snippets()['position']);
+	protected readonly _templateCode = computed(() => this._snippets()['template']);
+	protected readonly _disabledCode = computed(() => this._snippets()['disabled']);
+	protected readonly _disabledBtnCode = computed(() => this._snippets()['disabledButtonWithTooltip']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

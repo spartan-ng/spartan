@@ -476,7 +476,8 @@
 		"name": "tooltip",
 		"peerDependencies": {
 			"@angular/core": ">=20.0.0 <22.0.0",
-			"@spartan-ng/brain": "0.0.1-alpha.614"
+			"@spartan-ng/brain": "0.0.1-alpha.614",
+			"class-variance-authority": "^0.7.0"
 		}
 	},
 	"typography": {

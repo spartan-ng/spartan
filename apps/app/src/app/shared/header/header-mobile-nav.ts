@@ -37,8 +37,7 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 				<span class="flex h-8 items-center text-lg leading-none font-medium">Menu</span>
 			</button>
 
-			<div
-				hlmPopoverContent
+			<hlm-popover-content
 				class="no-scrollbar bg-background/90 h-screen w-screen overflow-y-auto rounded-none border-none p-0 shadow-none backdrop-blur duration-100"
 				*hlmPopoverPortal="let ctx"
 			>
@@ -78,7 +77,7 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 						</div>
 					}
 				</div>
-			</div>
+			</hlm-popover-content>
 		</hlm-popover>
 	`,
 })

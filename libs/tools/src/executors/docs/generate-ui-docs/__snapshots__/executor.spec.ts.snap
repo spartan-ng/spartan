@@ -249,6 +249,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "outputs": [],
         "selector": "[hlmAlertDialogOverlay],hlm-alert-dialog-overlay",
       },
+      "HlmAlertDialogPortal": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmAlertDialogPortal]",
+      },
       "HlmAlertDialogTitle": {
         "inputs": [],
         "models": [],
@@ -1843,6 +1849,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "outputs": [],
         "selector": "[hlmComboboxMultiple],hlm-combobox-multiple",
       },
+      "HlmComboboxPortal": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmComboboxPortal]",
+      },
       "HlmComboboxSeparator": {
         "inputs": [],
         "models": [],
@@ -2569,6 +2581,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [],
         "outputs": [],
         "selector": "[hlmDialogOverlay],hlm-dialog-overlay",
+      },
+      "HlmDialogPortal": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDialogPortal]",
       },
       "HlmDialogTitle": {
         "inputs": [],
@@ -3425,6 +3443,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "outputs": [],
         "selector": "ul[hlmNavigationMenuList]",
       },
+      "HlmNavigationMenuPortal": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmNavigationMenuPortal]",
+      },
       "HlmNavigationMenuTrigger": {
         "inputs": [],
         "models": [],
@@ -3683,7 +3707,13 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "[hlmPopoverContent],[brnPopoverContent][hlm]",
+        "selector": "[hlmPopoverContent],hlm-popover-content",
+      },
+      "HlmPopoverPortal": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmPopoverPortal]",
       },
       "HlmPopoverTrigger": {
         "inputs": [],
@@ -4368,6 +4398,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [],
         "outputs": [],
         "selector": "[hlmSheetOverlay],hlm-sheet-overlay",
+      },
+      "HlmSheetPortal": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmSheetPortal]",
       },
       "HlmSheetTitle": {
         "inputs": [],

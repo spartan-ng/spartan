@@ -37,7 +37,7 @@ export const Default: Story = {
     <div class='flex flex-col items-center justify-center py-80'>
         <button id='edit-profile' variant='outline' hlmPopoverTrigger hlmBtn>Open Popover</button>
     </div>
-    <div hlmPopoverContent class='w-80 grid gap-4' *hlmPopoverPortal='let ctx'>
+    <hlm-popover-content class='w-80 grid gap-4' *hlmPopoverPortal='let ctx'>
           <div class='space-y-2'>
             <h4 class='font-medium leading-none'>Dimensions</h4>
             <p class='text-sm text-muted-foreground'>
@@ -78,7 +78,7 @@ export const Default: Story = {
               />
             </div>
           </div>
-    </div>
+    </hlm-pop>
     </hlm-popover>
     `,
 	}),

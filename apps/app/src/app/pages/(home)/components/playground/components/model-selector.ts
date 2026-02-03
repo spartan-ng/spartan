@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCheck, lucideChevronsUpDown, lucideSearch } from '@ng-icons/lucide';
-import { BrnCommandEmpty } from '@spartan-ng/brain/command';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmCommandImports } from '@spartan-ng/helm/command';
 import { HlmIcon } from '@spartan-ng/helm/icon';
@@ -11,7 +10,7 @@ import { Model, ModelType } from '../data/models';
 
 @Component({
 	selector: 'spartan-model-selector',
-	imports: [HlmPopoverImports, HlmCommandImports, NgIcon, HlmIcon, HlmButton, HlmLabel, BrnCommandEmpty],
+	imports: [HlmPopoverImports, HlmCommandImports, NgIcon, HlmIcon, HlmButton, HlmLabel],
 	providers: [provideIcons({ lucideChevronsUpDown, lucideSearch, lucideCheck })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
@@ -24,7 +23,7 @@ import { Model, ModelType } from '../data/models';
 				{{ selectedModel() ? selectedModel()?.name : 'Load a model...' }}
 				<ng-icon hlm name="lucideChevronsUpDown" size="sm" />
 			</button>
-			<div hlmPopoverContent class="w-full p-0" *hlmPopoverPortal="let ctx">
+			<hlm-popover-content class="w-full p-0" *hlmPopoverPortal="let ctx">
 				<hlm-command>
 					<hlm-command-input placeholder="Search Models" />
 					<hlm-command-list>
@@ -52,7 +51,7 @@ import { Model, ModelType } from '../data/models';
 					<!-- Empty state -->
 					<div *hlmCommandEmptyState hlmCommandEmpty>No results found.</div>
 				</hlm-command>
-			</div>
+			</hlm-popover-content>
 		</hlm-popover>
 	`,
 })

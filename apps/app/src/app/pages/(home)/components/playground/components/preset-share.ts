@@ -17,7 +17,7 @@ import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 		<hlm-popover sideOffset="5" align="end">
 			<button id="save-presets" hlmPopoverTrigger hlmBtn variant="secondary">Share</button>
 
-			<div hlmPopoverContent class="flex w-[520px] flex-col gap-4" *hlmPopoverPortal="let ctx">
+			<hlm-popover-content class="flex w-[520px] flex-col gap-4" *hlmPopoverPortal="let ctx">
 				<div class="flex flex-col gap-1 text-center sm:text-left">
 					<h3 class="text-lg font-semibold">Share preset</h3>
 					<p class="text-muted-foreground text-sm">
@@ -38,7 +38,7 @@ import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 						<ng-icon hlm name="lucideCopy" class="!size-3.5" />
 					</button>
 				</div>
-			</div>
+			</hlm-popover-content>
 		</hlm-popover>
 	`,
 })

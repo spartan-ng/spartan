@@ -15,11 +15,10 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown } from '@ng-icons/lucide';
 import type { BrnDialogState } from '@spartan-ng/brain/dialog';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
-import { BrnPopover, BrnPopoverTrigger } from '@spartan-ng/brain/popover';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmCalendar } from '@spartan-ng/helm/calendar';
 import { HlmIcon } from '@spartan-ng/helm/icon';
-import { HlmPopoverContent, HlmPopoverImports } from '@spartan-ng/helm/popover';
+import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 import { injectDatePickerWithButtonConfig } from './date-picker-with-button.token';
@@ -34,26 +33,17 @@ let nextId = 0;
 
 @Component({
 	selector: 'spartan-date-picker-with-button',
-	imports: [
-		NgIcon,
-		HlmIcon,
-		HlmPopoverImports,
-		BrnPopover,
-		BrnPopoverTrigger,
-		HlmPopoverContent,
-		HlmCalendar,
-		HlmButton,
-	],
+	imports: [NgIcon, HlmIcon, HlmPopoverImports, HlmCalendar, HlmButton],
 	providers: [provideIcons({ lucideChevronDown })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<brn-popover sideOffset="5" [state]="_popoverState()" (stateChanged)="_popoverState.set($event)">
+		<hlm-popover sideOffset="5" [state]="_popoverState()" (stateChanged)="_popoverState.set($event)">
 			<button
 				[id]="buttonId()"
 				type="button"
 				[class]="_computedClass()"
 				[disabled]="_mutableDisabled()"
-				brnPopoverTrigger
+				hlmPopoverTrigger
 			>
 				<span class="truncate">
 					@if (_formattedDate(); as formattedDate) {
@@ -66,7 +56,7 @@ let nextId = 0;
 				<ng-icon hlm size="sm" name="lucideChevronDown" />
 			</button>
 
-			<div hlmPopoverContent class="w-auto p-0" *hlmPopoverPortal="let ctx">
+			<hlm-popover-content class="w-auto p-0" *hlmPopoverPortal="let ctx">
 				<hlm-calendar
 					calendarClass="border-0 rounded-none"
 					[captionLayout]="captionLayout()"
@@ -81,8 +71,8 @@ let nextId = 0;
 					<button hlmBtn (click)="close()" class="hover:cursor-pointer">Submit</button>
 					<button hlmBtn (click)="onReset()" class="hover:cursor-pointer">Clear</button>
 				</div>
-			</div>
-		</brn-popover>
+			</hlm-popover-content>
+		</hlm-popover>
 	`,
 })
 export class DatePickerWithButton<T> {

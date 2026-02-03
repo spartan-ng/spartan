@@ -21,7 +21,7 @@ import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 				<button id="edit-profile" variant="outline" hlmPopoverTrigger hlmBtn variant="outline" size="icon">
 					<ng-icon hlm name="lucideChevronDown" size="sm" />
 				</button>
-				<div hlmPopoverContent class="rounded-xl p-0 text-sm" *hlmPopoverPortal="let ctx">
+				<hlm-popover-content class="rounded-xl p-0 text-sm" *hlmPopoverPortal="let ctx">
 					<div class="border-input border-b px-4 py-3">
 						<div class="text-sm font-medium">Agent Tasks</div>
 					</div>
@@ -37,7 +37,7 @@ import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 							your review.
 						</p>
 					</div>
-				</div>
+				</hlm-popover-content>
 			</div>
 		</hlm-popover>
 	`,

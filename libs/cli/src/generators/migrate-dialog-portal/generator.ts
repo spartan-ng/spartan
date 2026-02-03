@@ -1,4 +1,5 @@
 import { formatFiles, type Tree } from '@nx/devkit';
+import { helmImport } from '../../utils/import-alias';
 import { visitFiles } from '../../utils/visit-files';
 import type { MigrateDialogPortalGeneratorSchema } from './schema';
 
@@ -43,13 +44,14 @@ function updateImports(tree: Tree, importAlias: string) {
 		}
 
 		if (content.includes('*brnPopoverContent')) {
+			const popoverImport = helmImport(importAlias, 'popover');
 			content = content
 				.replace("import { BrnPopoverImports } from '@spartan-ng/brain/popover';", '')
 				.replace(/BrnPopoverImports,?\s?/, '')
 				// handle BrnPopoverContent import
 				.replace(
 					"import { BrnPopoverContent } from '@spartan-ng/brain/popover';",
-					"import { HlmPopoverImports } from '@spartan-ng/helm/popover';",
+					`import { HlmPopoverImports } from '${popoverImport}';`,
 				)
 				.replace(/BrnPopoverContent?\s?/, 'HlmPopoverImports');
 		}

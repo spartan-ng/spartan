@@ -7,7 +7,7 @@ import { classes } from '@spartan-ng/helm/utils';
 	hostDirectives: [
 		{
 			directive: BrnRadioGroup,
-			inputs: ['name', 'value', 'disabled', 'required', 'direction'],
+			inputs: ['name', 'value', 'disabled', 'required'],
 			outputs: ['valueChange'],
 		},
 	],

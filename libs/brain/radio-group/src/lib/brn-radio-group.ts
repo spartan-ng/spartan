@@ -1,10 +1,12 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
+import { Directionality } from '@angular/cdk/bidi';
 import type { BooleanInput } from '@angular/cdk/coercion';
 import {
 	booleanAttribute,
 	contentChildren,
 	Directive,
 	forwardRef,
+	inject,
 	input,
 	linkedSignal,
 	model,
@@ -31,6 +33,8 @@ export const BRN_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = {
 	},
 })
 export class BrnRadioGroup<T = unknown> implements ControlValueAccessor {
+	private readonly _dir = inject(Directionality);
+
 	private static _nextUniqueId = 0;
 
 	protected onChange: ChangeFn<T> = () => {};
@@ -64,7 +68,7 @@ export class BrnRadioGroup<T = unknown> implements ControlValueAccessor {
 	/**
 	 * The direction of the radio group.
 	 */
-	public readonly direction = input<'ltr' | 'rtl' | null>('ltr');
+	public readonly direction = this._dir.valueSignal;
 
 	/**
 	 * Event emitted when the group value changes.

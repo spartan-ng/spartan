@@ -5,9 +5,6 @@ import { classes } from '@spartan-ng/helm/utils';
 @Directive({
 	selector: 'button[hlmSheetClose]',
 	hostDirectives: [{ directive: BrnSheetClose, inputs: ['delay'] }],
-	host: {
-		'data-slot': 'sheet-close',
-	},
 })
 export class HlmSheetClose {
 	constructor() {

@@ -51,7 +51,7 @@ export const sheetVariants = cva(
 		<ng-content />
 
 		@if (showCloseButton()) {
-			<button hlmBtn variant="ghost" size="icon-sm" hlmSheetClose>
+			<button hlmSheetClose hlmBtn variant="ghost" size="icon-sm" data-slot="sheet-close">
 				<span class="sr-only">Close</span>
 				<ng-icon hlm size="sm" name="lucideX" />
 			</button>

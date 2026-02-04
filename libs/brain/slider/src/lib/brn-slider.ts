@@ -33,7 +33,7 @@ import { provideBrnSlider } from './brn-slider.token';
 		},
 	],
 	host: {
-		'[attr.dir]': 'direction()',
+		'[attr.dir]': '_direction()',
 		'[attr.aria-disabled]': 'mutableDisabled() ? "true" : null',
 		'[attr.data-disabled]': 'mutableDisabled() ? "" : null',
 		'[attr.data-inverted]': 'inverted() ? "" : null',
@@ -47,51 +47,63 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 	private readonly _injector = inject(Injector);
 	private _ngControl: NgControl | null = null;
 
+	/**
+	 * The current slider value(s).
+	 *
+	 * For single-thumb sliders, this contains one value.
+	 * For range sliders, values are kept sorted in ascending order.
+	 */
 	public readonly value = model<number[]>([]);
 
-	// TODO: remove, only for dev
-	public readonly dirInput = input<'ltr' | 'rtl'>();
-
+	/** Minimum allowed slider value. */
 	public readonly min = input<number, NumberInput>(0, {
 		transform: numberAttribute,
 	});
 
+	/** Maximum allowed slider value. */
 	public readonly max = input<number, NumberInput>(100, {
 		transform: numberAttribute,
 	});
 
+	/** Step increment used when changing values. */
 	public readonly step = input<number, NumberInput>(1, {
 		transform: numberAttribute,
 	});
 
+	/** Minimum number of steps required between thumbs in a range slider. */
 	public readonly minStepsBetweenThumbs = input<number, NumberInput>(0, {
 		transform: numberAttribute,
 	});
 
+	/** Whether the slider is disabled. */
 	public readonly disabled = input<boolean, BooleanInput>(false, {
 		transform: booleanAttribute,
 	});
 
+	/** Whether the slider direction is inverted. */
 	public readonly inverted = input<boolean, BooleanInput>(false, {
 		transform: booleanAttribute,
 	});
 
+	/** Slider orientation. */
 	public readonly orientation = input<'horizontal' | 'vertical'>('horizontal');
 
-	/** Whether we should show tick marks */
+	/** Whether tick marks should be displayed. */
 	public readonly showTicks = input<boolean, BooleanInput>(false, {
 		transform: booleanAttribute,
 	});
 
+	/** Maximum number of ticks to render. Excess ticks are evenly distributed. */
 	public readonly maxTicks = input<number, NumberInput>(25, {
 		transform: numberAttribute,
 	});
 
+	/** Interval at which tick labels are shown. A value of `2` shows a label every second tick. */
 	public readonly tickLabelInterval = input<number, NumberInput>(2, {
 		transform: numberAttribute,
 	});
 
-	/** @internal */
+	/** @internal Normalized slider values. Values are clamped to `[min, max]` and sorted in ascending order. */
 	public readonly normalizedValue = computed(
 		() =>
 			this.value()
@@ -100,18 +112,14 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 		{ equal: areArrsEqual },
 	);
 
+	/** Indexes for all active thumbs. */
 	public readonly thumbIndexes = computed(() => Array.from({ length: this.normalizedValue().length }, (_, i) => i), {
 		equal: (a, b) => a.length === b.length,
 	});
 
-	/** @internal */
-	public readonly direction = computed(() => {
-		if (this.dirInput()) return this.dirInput();
+	protected readonly _direction = this._dir.valueSignal;
 
-		return this._dir.valueSignal();
-	});
-
-	/** @internal */
+	/** @internal Logical edge from which the slider value increases. */
 	public readonly slidingSource = computed<'top' | 'bottom' | 'left' | 'right'>(() => {
 		const orientation = this.orientation();
 		const inverted = this.inverted();
@@ -120,7 +128,7 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 			return inverted ? 'top' : 'bottom';
 		}
 
-		const isLtr = this.direction() === 'ltr';
+		const isLtr = this._direction() === 'ltr';
 		const fromLeft = (isLtr && !inverted) || (!isLtr && inverted);
 
 		return fromLeft ? 'left' : 'right';
@@ -129,19 +137,19 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 	/** @internal */
 	public readonly isHorizontal = computed(() => this.orientation() === 'horizontal');
 
-	/** @internal Store the track */
+	/** @internal Reference to the slider track instance. */
 	public readonly track = signal<BrnSliderTrack | null>(null);
 
-	/** @internal Store the range */
+	/** @internal Reference to the slider range instance. */
 	public readonly range = signal<BrnSliderRange | null>(null);
 
-	/** @internal */
+	/** @internal All registered slider thumbs. */
 	public readonly thumbs = signal<BrnSliderThumb[]>([]);
 
-	/** @internal */
+	/** @internal Index of the thumb currently being updated. */
 	public readonly valueIndexToChange = signal(0);
 
-	/** @internal */
+	/** @internal Visible tick values after applying density reduction. */
 	public readonly ticks = computed(() => {
 		if (!this.showTicks()) {
 			return [];
@@ -168,7 +176,7 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 		return Array.from({ length: totalCount }, (_, i) => min + i * step).filter((_, index) => index % stride === 0);
 	});
 
-	/** @internal */
+	/** @internal Disabled state that can be controlled internally or externally. */
 	public readonly mutableDisabled = linkedSignal(() => this.disabled());
 
 	/** @internal Store the on change callback */
@@ -212,6 +220,7 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 		this.value.set(newValue);
 	}
 
+	/** Sets a new value for the slider at the given thumb index. */
 	setValue(value: number, atIndex: number): void {
 		const decimalCount = getDecimalCount(this.step());
 		const snapToStep = roundValue(

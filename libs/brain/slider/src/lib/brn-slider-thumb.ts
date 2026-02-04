@@ -8,7 +8,7 @@ import { linearScale } from './utils/linear-scale';
 	selector: '[brnSliderThumb]',
 	host: {
 		role: 'slider',
-		'[attr.aria-label]': `_ariaLabel`,
+		'[attr.aria-label]': `_ariaLabel()`,
 		'[attr.aria-orientation]': '_slider.orientation()',
 		'[attr.aria-valuenow]': '_slider.normalizedValue()[_index()]',
 		'[attr.aria-valuemin]': '_slider.min()',

@@ -34,6 +34,7 @@ import { provideBrnSlider } from './brn-slider.token';
 	],
 	host: {
 		'[attr.dir]': 'direction()',
+		'[attr.aria-disabled]': 'mutableDisabled() ? "true" : null',
 		'[attr.data-disabled]': 'mutableDisabled() ? "" : null',
 		'[attr.data-inverted]': 'inverted() ? "" : null',
 		'[attr.data-orientation]': 'orientation()',

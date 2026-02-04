@@ -41,6 +41,14 @@ export class BrnResizableHandle {
 	constructor() {
 		afterNextRender(() => {
 			this._handleIndex = this._getHandleIndex();
+
+			this._el.nativeElement.onpointerdown = (e: PointerEvent) => {
+				this._el.nativeElement.setPointerCapture(e.pointerId);
+			};
+
+			this._el.nativeElement.onpointerup = (e: PointerEvent) => {
+				this._el.nativeElement.releasePointerCapture(e.pointerId);
+			};
 		});
 	}
 
@@ -62,6 +70,7 @@ export class BrnResizableHandle {
 
 	protected _handleMouseDown(event: MouseEvent): void {
 		if (this.disabled() || !this._resizable) return;
+
 		this._resizable.startResize(this._handleIndex, event);
 	}
 

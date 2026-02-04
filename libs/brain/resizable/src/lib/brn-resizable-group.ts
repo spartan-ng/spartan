@@ -87,7 +87,6 @@ export class BrnResizableGroup {
 	public startResize(handleIndex: number, event: MouseEvent | TouchEvent): void {
 		event.preventDefault();
 
-		this._el.nativeElement.style.pointerEvents = 'none';
 		const cursor = this.direction() === 'vertical' ? 'ns-resize' : 'ew-resize';
 		this._document.body.style.cursor = `${cursor}`;
 		const sizes = [...this.layout()];
@@ -178,8 +177,6 @@ export class BrnResizableGroup {
 	}
 
 	private _endResize(): void {
-		this._el.nativeElement.style.pointerEvents = '';
-
 		if (this._resizeRaf !== null) {
 			cancelAnimationFrame(this._resizeRaf);
 			this._resizeRaf = null;

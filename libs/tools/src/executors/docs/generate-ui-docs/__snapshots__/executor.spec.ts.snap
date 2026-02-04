@@ -3423,7 +3423,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "[hlmNavigationMenuContent]",
+        "selector": "[hlmNavigationMenuContent],hlm-navigation-menu-content",
       },
       "HlmNavigationMenuItem": {
         "inputs": [],

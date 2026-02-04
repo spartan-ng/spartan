@@ -19,10 +19,10 @@ import { moduleMetadata } from '@storybook/angular';
 						Home
 						<ng-icon
 							name="lucideChevronDown"
-							class="relative top-[1px] ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
+							class="relative top-px ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
 						/>
 					</button>
-					<div hlmNavigationMenuContent *hlmNavigationMenuPortal>
+					<hlm-navigation-menu-content *hlmNavigationMenuPortal>
 						<ul class="grid gap-2 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
 							<li class="row-span-3">
 								<a
@@ -62,7 +62,7 @@ import { moduleMetadata } from '@storybook/angular';
 								</a>
 							</li>
 						</ul>
-					</div>
+					</hlm-navigation-menu-content>
 				</li>
 
 				<!-- Components Menu -->
@@ -71,10 +71,10 @@ import { moduleMetadata } from '@storybook/angular';
 						Components
 						<ng-icon
 							name="lucideChevronDown"
-							class="relative top-[1px] ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
+							class="relative top-px ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
 						/>
 					</button>
-					<div hlmNavigationMenuContent *hlmNavigationMenuPortal>
+					<hlm-navigation-menu-content *hlmNavigationMenuPortal>
 						<ul class="grid gap-2 sm:w-[400px] md:w-[500px] md:grid-cols-2 lg:w-[600px]">
 							@for (component of components; track $index) {
 								<li>
@@ -87,7 +87,7 @@ import { moduleMetadata } from '@storybook/angular';
 								</li>
 							}
 						</ul>
-					</div>
+					</hlm-navigation-menu-content>
 				</li>
 
 				<li hlmNavigationMenuItem>
@@ -99,10 +99,10 @@ import { moduleMetadata } from '@storybook/angular';
 						List
 						<ng-icon
 							name="lucideChevronDown"
-							class="relative top-[1px] ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
+							class="relative top-px ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
 						/>
 					</button>
-					<div hlmNavigationMenuContent *hlmNavigationMenuPortal>
+					<hlm-navigation-menu-content *hlmNavigationMenuPortal>
 						<ul class="grid w-[300px] gap-4">
 							<li>
 								<a hlmNavigationMenuLink href="/components" class="cursor-pointer">
@@ -119,7 +119,7 @@ import { moduleMetadata } from '@storybook/angular';
 								</a>
 							</li>
 						</ul>
-					</div>
+					</hlm-navigation-menu-content>
 				</li>
 
 				<li hlmNavigationMenuItem class="hidden md:block">
@@ -127,10 +127,10 @@ import { moduleMetadata } from '@storybook/angular';
 						Simple
 						<ng-icon
 							name="lucideChevronDown"
-							class="relative top-[1px] ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
+							class="relative top-px ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
 						/>
 					</button>
-					<div hlmNavigationMenuContent *hlmNavigationMenuPortal>
+					<hlm-navigation-menu-content *hlmNavigationMenuPortal>
 						<ul class="grid w-[200px] gap-4">
 							<li>
 								<a hlmNavigationMenuLink href="/components" class="cursor-pointer">Components</a>
@@ -138,7 +138,7 @@ import { moduleMetadata } from '@storybook/angular';
 								<a hlmNavigationMenuLink href="/blocks" class="cursor-pointer">Blocks</a>
 							</li>
 						</ul>
-					</div>
+					</hlm-navigation-menu-content>
 				</li>
 
 				<li hlmNavigationMenuItem class="hidden md:block">
@@ -146,10 +146,10 @@ import { moduleMetadata } from '@storybook/angular';
 						With Icon
 						<ng-icon
 							name="lucideChevronDown"
-							class="relative top-[1px] ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
+							class="relative top-px ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
 						/>
 					</button>
-					<div hlmNavigationMenuContent *hlmNavigationMenuPortal>
+					<hlm-navigation-menu-content *hlmNavigationMenuPortal>
 						<ul class="grid w-[200px] gap-4">
 							<li>
 								<a hlmNavigationMenuLink href="#" class="cursor-pointer flex-row items-center gap-2">
@@ -166,7 +166,7 @@ import { moduleMetadata } from '@storybook/angular';
 								</a>
 							</li>
 						</ul>
-					</div>
+					</hlm-navigation-menu-content>
 				</li>
 			</ul>
 		</nav>
@@ -209,7 +209,7 @@ class NavigationMenuExample {
 
 @Component({
 	selector: 'navigation-menu-click-to-open-example',
-	imports: [HlmNavigationMenuImports, BrnNavigationMenuImports, HlmIconImports],
+	imports: [HlmNavigationMenuImports, HlmIconImports],
 	providers: [provideIcons({ lucideChevronDown, lucideLink, lucideCircle, lucideCircleHelp, lucideCircleCheck })],
 	template: `
 		<nav hlmNavigationMenu openOn="click">
@@ -219,10 +219,10 @@ class NavigationMenuExample {
 						Home
 						<ng-icon
 							name="lucideChevronDown"
-							class="relative top-[1px] ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
+							class="relative top-px ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
 						/>
 					</button>
-					<div hlmNavigationMenuContent *hlmNavigationMenuPortal>
+					<hlm-navigation-menu-content *hlmNavigationMenuPortal>
 						<ul class="grid gap-2 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
 							<li class="row-span-3">
 								<a
@@ -262,7 +262,7 @@ class NavigationMenuExample {
 								</a>
 							</li>
 						</ul>
-					</div>
+					</hlm-navigation-menu-content>
 				</li>
 
 				<!-- Components Menu -->
@@ -271,10 +271,10 @@ class NavigationMenuExample {
 						Components
 						<ng-icon
 							name="lucideChevronDown"
-							class="relative top-[1px] ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
+							class="relative top-px ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
 						/>
 					</button>
-					<div hlmNavigationMenuContent *hlmNavigationMenuPortal>
+					<hlm-navigation-menu-content *hlmNavigationMenuPortal>
 						<ul class="grid gap-2 sm:w-[400px] md:w-[500px] md:grid-cols-2 lg:w-[600px]">
 							@for (component of components; track $index) {
 								<li>
@@ -287,7 +287,7 @@ class NavigationMenuExample {
 								</li>
 							}
 						</ul>
-					</div>
+					</hlm-navigation-menu-content>
 				</li>
 
 				<li hlmNavigationMenuItem>
@@ -299,10 +299,10 @@ class NavigationMenuExample {
 						List
 						<ng-icon
 							name="lucideChevronDown"
-							class="relative top-[1px] ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
+							class="relative top-px ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
 						/>
 					</button>
-					<div hlmNavigationMenuContent *hlmNavigationMenuPortal>
+					<hlm-navigation-menu-content *hlmNavigationMenuPortal>
 						<ul class="grid w-[300px] gap-4">
 							<li>
 								<a hlmNavigationMenuLink href="/components" class="cursor-pointer">
@@ -319,7 +319,7 @@ class NavigationMenuExample {
 								</a>
 							</li>
 						</ul>
-					</div>
+					</hlm-navigation-menu-content>
 				</li>
 
 				<li hlmNavigationMenuItem class="hidden md:block">
@@ -327,10 +327,10 @@ class NavigationMenuExample {
 						Simple
 						<ng-icon
 							name="lucideChevronDown"
-							class="relative top-[1px] ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
+							class="relative top-px ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
 						/>
 					</button>
-					<div hlmNavigationMenuContent *hlmNavigationMenuPortal>
+					<hlm-navigation-menu-content *hlmNavigationMenuPortal>
 						<ul class="grid w-[200px] gap-4">
 							<li>
 								<a hlmNavigationMenuLink href="/components" class="cursor-pointer">Components</a>
@@ -338,7 +338,7 @@ class NavigationMenuExample {
 								<a hlmNavigationMenuLink href="/blocks" class="cursor-pointer">Blocks</a>
 							</li>
 						</ul>
-					</div>
+					</hlm-navigation-menu-content>
 				</li>
 
 				<li hlmNavigationMenuItem class="hidden md:block">
@@ -346,10 +346,10 @@ class NavigationMenuExample {
 						With Icon
 						<ng-icon
 							name="lucideChevronDown"
-							class="relative top-[1px] ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
+							class="relative top-px ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
 						/>
 					</button>
-					<div hlmNavigationMenuContent *hlmNavigationMenuPortal>
+					<hlm-navigation-menu-content *hlmNavigationMenuPortal>
 						<ul class="grid w-[200px] gap-4">
 							<li>
 								<a hlmNavigationMenuLink href="#" class="cursor-pointer flex-row items-center gap-2">
@@ -366,7 +366,7 @@ class NavigationMenuExample {
 								</a>
 							</li>
 						</ul>
-					</div>
+					</hlm-navigation-menu-content>
 				</li>
 			</ul>
 		</nav>
@@ -413,7 +413,7 @@ export default {
 	tags: ['autodocs'],
 	decorators: [
 		moduleMetadata({
-			imports: [BrnNavigationMenuImports, HlmNavigationMenuImports, NavigationMenuClickToOpenExample],
+			imports: [HlmNavigationMenuImports, NavigationMenuClickToOpenExample],
 		}),
 	],
 } as Meta<NavigationMenuExample>;

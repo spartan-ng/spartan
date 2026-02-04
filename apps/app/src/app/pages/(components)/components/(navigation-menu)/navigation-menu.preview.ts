@@ -19,7 +19,7 @@ import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 							class="relative top-px ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
 						/>
 					</button>
-					<div hlmNavigationMenuContent *hlmNavigationMenuPortal>
+					<hlm-navigation-menu-content *hlmNavigationMenuPortal>
 						<ul class="grid gap-2 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
 							<li class="row-span-3">
 								<a
@@ -59,7 +59,7 @@ import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 								</a>
 							</li>
 						</ul>
-					</div>
+					</hlm-navigation-menu-content>
 				</li>
 
 				<!-- Components Menu -->
@@ -71,7 +71,7 @@ import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 							class="relative top-px ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
 						/>
 					</button>
-					<div hlmNavigationMenuContent *hlmNavigationMenuPortal>
+					<hlm-navigation-menu-content *hlmNavigationMenuPortal>
 						<ul class="grid gap-2 sm:w-[400px] md:w-[500px] md:grid-cols-2 lg:w-[600px]">
 							@for (component of _components; track $index) {
 								<li>
@@ -84,7 +84,7 @@ import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 								</li>
 							}
 						</ul>
-					</div>
+					</hlm-navigation-menu-content>
 				</li>
 
 				<li hlmNavigationMenuItem>
@@ -99,7 +99,7 @@ import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 							class="relative top-px ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
 						/>
 					</button>
-					<div hlmNavigationMenuContent *hlmNavigationMenuPortal>
+					<hlm-navigation-menu-content *hlmNavigationMenuPortal>
 						<ul class="grid w-[300px] gap-4">
 							<li>
 								<a hlmNavigationMenuLink href="/components" class="cursor-pointer">
@@ -116,7 +116,7 @@ import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 								</a>
 							</li>
 						</ul>
-					</div>
+					</hlm-navigation-menu-content>
 				</li>
 
 				<li hlmNavigationMenuItem class="hidden md:block">
@@ -127,7 +127,7 @@ import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 							class="relative top-px ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
 						/>
 					</button>
-					<div hlmNavigationMenuContent *hlmNavigationMenuPortal>
+					<hlm-navigation-menu-content *hlmNavigationMenuPortal>
 						<ul class="grid w-[200px] gap-4">
 							<li>
 								<a hlmNavigationMenuLink href="/components" class="cursor-pointer">Components</a>
@@ -135,7 +135,7 @@ import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 								<a hlmNavigationMenuLink href="/blocks" class="cursor-pointer">Blocks</a>
 							</li>
 						</ul>
-					</div>
+					</hlm-navigation-menu-content>
 				</li>
 
 				<li hlmNavigationMenuItem class="hidden md:block">
@@ -146,7 +146,7 @@ import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 							class="relative top-px ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
 						/>
 					</button>
-					<div hlmNavigationMenuContent *hlmNavigationMenuPortal>
+					<hlm-navigation-menu-content *hlmNavigationMenuPortal>
 						<ul class="grid w-[200px] gap-4">
 							<li>
 								<a hlmNavigationMenuLink href="#" class="cursor-pointer flex-row items-center gap-2">
@@ -163,7 +163,7 @@ import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 								</a>
 							</li>
 						</ul>
-					</div>
+					</hlm-navigation-menu-content>
 				</li>
 			</ul>
 		</nav>
@@ -213,9 +213,9 @@ export const defaultSkeleton = `
 	<ul hlmNavigationMenuList>
 		<li hlmNavigationMenuItem>
 			<button hlmNavigationMenuTrigger>Home</button>
-			<div hlmNavigationMenuContent *hlmNavigationMenuPortal>
+			<hlm-navigation-menu-content *hlmNavigationMenuPortal>
 				<div>Content</div>
-			</div>
+			</hlm-navigation-menu-content>
 		<li>
 	</ul>
 </nav>

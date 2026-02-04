@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
+import { Directionality } from '@angular/cdk/bidi';
 import type { BooleanInput } from '@angular/cdk/coercion';
 import {
 	booleanAttribute,
@@ -15,7 +16,6 @@ import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import { BrnRadio, BrnRadioChange } from './brn-radio';
 import { provideBrnRadioGroupToken } from './brn-radio-group.token';
-import { Directionality } from '@angular/cdk/bidi';
 
 export const BRN_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = {
 	provide: NG_VALUE_ACCESSOR,

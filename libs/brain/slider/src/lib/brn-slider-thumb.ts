@@ -4,6 +4,8 @@ import { injectElementSize } from '@spartan-ng/brain/core';
 import { injectBrnSlider } from './brn-slider.token';
 import { linearScale } from './utils/linear-scale';
 
+const PAGE_KEYS = ['PageUp', 'PageDown'];
+
 @Directive({
 	selector: '[brnSliderThumb]',
 	host: {
@@ -108,15 +110,15 @@ export class BrnSliderThumb implements OnDestroy {
 		this._slider.removeThumb(this);
 	}
 
-	_onPointerDown(event: PointerEvent) {
+	protected _onPointerDown(event: PointerEvent) {
 		this._slider.track()?._onPointerDown(event);
 	}
 
-	_onPointerMove(event: PointerEvent) {
+	protected _onPointerMove(event: PointerEvent) {
 		this._slider.track()?._onPointerMove(event);
 	}
 
-	_onPointerUp(event: PointerEvent) {
+	protected _onPointerUp(event: PointerEvent) {
 		this._slider.track()?._onPointerUp(event);
 	}
 
@@ -127,31 +129,43 @@ export class BrnSliderThumb implements OnDestroy {
 	protected handleKeydown(event: KeyboardEvent) {
 		if (this._slider.mutableDisabled()) return;
 
-		let multiplier = event.shiftKey ? 10 : 1;
 		const index = this._index();
 		const value = this._slider.normalizedValue()[index];
+		const step = this._slider.step();
+		const min = this._slider.min();
+		const max = this._slider.max();
 
-		if (this._slider.slidingSource() === 'right') {
-			multiplier = event.shiftKey ? -10 : -1;
+		const multiplier = event.shiftKey || PAGE_KEYS.includes(event.key) ? 10 : 1;
+
+		const dirLR = this._slider.slidingSource() === 'right' ? -1 : 1;
+		const dirUD = this._slider.slidingSource() === 'top' ? -1 : 1;
+
+		const deltas: Partial<Record<string, number>> = {
+			ArrowLeft: -step * multiplier * dirLR,
+			ArrowRight: step * multiplier * dirLR,
+			ArrowUp: step * multiplier * dirUD,
+			ArrowDown: -step * multiplier * dirUD,
+			PageUp: step * multiplier,
+			PageDown: -step * multiplier,
+		};
+
+		if (event.key === 'Home') {
+			this._slider.setValue(min, index);
+			event.preventDefault();
+			return;
 		}
 
-		switch (event.key) {
-			case 'ArrowLeft':
-				this._slider.setValue(Math.max(value - this._slider.step() * multiplier, this._slider.min()), index);
-				event.preventDefault();
-				break;
-			case 'ArrowRight':
-				this._slider.setValue(Math.min(value + this._slider.step() * multiplier, this._slider.max()), index);
-				event.preventDefault();
-				break;
-			case 'Home':
-				this._slider.setValue(this._slider.min(), index);
-				event.preventDefault();
-				break;
-			case 'End':
-				this._slider.setValue(this._slider.max(), index);
-				event.preventDefault();
-				break;
+		if (event.key === 'End') {
+			this._slider.setValue(max, index);
+			event.preventDefault();
+			return;
 		}
+
+		const delta = deltas[event.key];
+		if (delta === undefined) return;
+
+		this._slider.setValue(Math.min(max, Math.max(min, value + delta)), index);
+
+		event.preventDefault();
 	}
 }

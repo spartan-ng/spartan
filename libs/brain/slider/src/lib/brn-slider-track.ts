@@ -28,8 +28,12 @@ export class BrnSliderTrack {
 
 		const target = event.target as HTMLElement;
 		target.setPointerCapture(event.pointerId);
-		// Prevent browser focus behaviour because we focus a thumb manually when values change.
-		event.preventDefault();
+
+		const isTrackOrRange = this._isTrackOrRange(target);
+		// Prevent browser focus behaviour because we instead focus a thumb manually when values change.
+		if (isTrackOrRange) {
+			event.preventDefault();
+		}
 
 		const pointerPosition = this._slider.orientation() === 'horizontal' ? event.clientX : event.clientY;
 		const value = this._getValueFromPointer(pointerPosition);
@@ -37,7 +41,7 @@ export class BrnSliderTrack {
 
 		// Track press → jump value to pointer position.
 		// Thumb press → select thumb to drag without forcing a value update.
-		if (this._isTrackOrRange(target)) {
+		if (isTrackOrRange) {
 			this._slider.setValue(value, closestIndex);
 		} else {
 			this._slider.valueIndexToChange.set(closestIndex);

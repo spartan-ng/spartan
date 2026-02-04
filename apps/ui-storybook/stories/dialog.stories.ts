@@ -15,7 +15,7 @@ const meta: Meta<HlmDialog> = {
 	tags: ['autodocs'],
 	decorators: [
 		moduleMetadata({
-			imports: [BrnDialogImports, HlmDialogImports, HlmLabel, HlmButton, HlmInput],
+			imports: [HlmDialogImports, HlmLabel, HlmButton, HlmInput],
 		}),
 	],
 };
@@ -60,7 +60,7 @@ export const Default: Story = {
 
 @Component({
 	selector: 'nested-dialog-story',
-	imports: [BrnDialogImports, HlmDialogImports, HlmButtonImports],
+	imports: [HlmDialogImports, HlmButtonImports],
 	template: `
 		<hlm-dialog>
 			<button hlmDialogTrigger hlmBtn>Open Dialog</button>

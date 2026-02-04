@@ -21,7 +21,7 @@ const meta: Meta<BrnPopover> = {
 	},
 	decorators: [
 		moduleMetadata({
-			imports: [BrnPopoverImports, HlmPopoverImports, HlmButton, HlmLabel, HlmInput, NgIcon, HlmIcon],
+			imports: [HlmPopoverImports, HlmButton, HlmLabel, HlmInput, NgIcon, HlmIcon],
 		}),
 	],
 };

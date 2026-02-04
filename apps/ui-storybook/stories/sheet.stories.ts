@@ -15,7 +15,7 @@ const meta: Meta<SheetProps> = {
 	},
 	decorators: [
 		moduleMetadata({
-			imports: [BrnSheetImports, HlmSheetImports, HlmButtonImports, HlmInputImports],
+			imports: [HlmSheetImports, HlmButtonImports, HlmInputImports],
 		}),
 	],
 };

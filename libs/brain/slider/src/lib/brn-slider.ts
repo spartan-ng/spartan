@@ -2,24 +2,22 @@ import { Directionality } from '@angular/cdk/bidi';
 import type { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import {
 	booleanAttribute,
-	ChangeDetectorRef,
 	computed,
 	Directive,
-	effect,
 	forwardRef,
 	inject,
+	Injector,
 	input,
 	linkedSignal,
 	model,
 	numberAttribute,
 	type OnInit,
 	signal,
-	untracked,
 } from '@angular/core';
-import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { type ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl, NgModel } from '@angular/forms';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
-import { BrnSliderRange } from './brn-slider-range';
-import { BrnSliderThumb } from './brn-slider-thumb';
+import type { BrnSliderRange } from './brn-slider-range';
+import type { BrnSliderThumb } from './brn-slider-thumb';
 import type { BrnSliderTrack } from './brn-slider-track';
 import { provideBrnSlider } from './brn-slider.token';
 
@@ -44,8 +42,9 @@ import { provideBrnSlider } from './brn-slider.token';
 	},
 })
 export class BrnSlider implements ControlValueAccessor, OnInit {
-	private readonly _changeDetectorRef = inject(ChangeDetectorRef);
 	private readonly _dir = inject(Directionality);
+	private readonly _injector = inject(Injector);
+	private _ngControl: NgControl | null = null;
 
 	public readonly value = model<number[]>([]);
 
@@ -177,19 +176,9 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 	/** @internal Store the on touched callback */
 	private _onTouched?: TouchFn;
 
-	constructor() {
-		effect(() => {
-			this.normalizedValue();
-			const index = untracked(this.valueIndexToChange);
-			const thumbs = untracked(this.thumbs);
-
-			if (thumbs[index]) {
-				thumbs[index].elementRef.nativeElement.focus();
-			}
-		});
-	}
-
 	ngOnInit(): void {
+		this._ngControl = this._injector.get(NgControl, null);
+
 		const normalizedValue = this.value()
 			.map((v) => clamp(v, [this.min(), this.max()]))
 			.sort((a, b) => a - b);
@@ -212,12 +201,14 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 	}
 
 	writeValue(value: number[]): void {
+		if (this._ngControl instanceof NgModel && !this._onChange) {
+			// avoid phantom call for ngModel
+			// https://github.com/angular/angular/issues/14988#issuecomment-2946355465
+			return;
+		}
+
 		const newValue = value.sort((a, b) => a - b).map((v) => clamp(v, [this.min(), this.max()]));
-
 		this.value.set(newValue);
-		this._onChange?.(newValue);
-
-		this._changeDetectorRef.detectChanges();
 	}
 
 	setValue(value: number, atIndex: number): void {
@@ -242,6 +233,10 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 
 		this.value.set(newValue);
 		this._onChange?.(newValue);
+
+		if (this.thumbs()[newValIndex]) {
+			this.thumbs()[newValIndex].elementRef.nativeElement.focus();
+		}
 	}
 
 	/** @internal */

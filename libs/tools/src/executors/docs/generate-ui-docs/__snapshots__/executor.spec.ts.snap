@@ -1790,7 +1790,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "[hlmComboboxContent]",
+        "selector": "[hlmComboboxContent],hlm-combobox-content",
       },
       "HlmComboboxEmpty": {
         "inputs": [],

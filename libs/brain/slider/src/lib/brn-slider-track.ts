@@ -7,8 +7,8 @@ import { linearScale } from './utils/linear-scale';
 	selector: '[brnSliderTrack]',
 	providers: [provideBrnSliderTrack(BrnSliderTrack)],
 	host: {
-		'[attr.data-orientation]': '_slider.orientation()',
 		'[attr.data-disabled]': '_slider.mutableDisabled() ? "" : null',
+		'[attr.data-orientation]': '_slider.orientation()',
 		'data-slot': 'slider-track',
 		'(pointerdown)': '_onPointerDown($event)',
 		'(pointermove)': '_onPointerMove($event)',

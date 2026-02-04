@@ -202,7 +202,7 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 
 	writeValue(value: number[]): void {
 		if (this._ngControl instanceof NgModel && !this._onChange) {
-			// avoid phantom call for ngModel
+			// Avoid phantom call for ngModel
 			// https://github.com/angular/angular/issues/14988#issuecomment-2946355465
 			return;
 		}

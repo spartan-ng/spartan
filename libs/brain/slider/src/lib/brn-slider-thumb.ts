@@ -14,8 +14,8 @@ import { linearScale } from './utils/linear-scale';
 		'[attr.aria-valuemin]': '_slider.min()',
 		'[attr.aria-valuemax]': '_slider.max()',
 		'[attr.tabindex]': '_slider.mutableDisabled() ? -1 : 0',
-		'[attr.data-orientation]': '_slider.orientation()',
 		'[attr.data-disabled]': '_slider.mutableDisabled() ? "" : null',
+		'[attr.data-orientation]': '_slider.orientation()',
 		'[style.inset-inline-start]':
 			'_slider.isHorizontal() ?  _slider.inverted() ? undefined : _thumbOffset() : undefined',
 		'[style.inset-inline-end]': '_slider.isHorizontal() ? _slider.inverted() ? _thumbOffset() : undefined : undefined',

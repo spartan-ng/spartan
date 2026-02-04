@@ -65,7 +65,7 @@ export type BrnHoverCardOptions = Partial<
 	{
 		attachTo: ElementRef;
 		attachPositions: ConnectedPosition[];
-		align: 'top' | 'bottom';
+		align: 'top' | 'bottom' | 'left' | 'right';
 		sideOffset: number;
 	} & OverlayConfig
 >;
@@ -98,6 +98,75 @@ const bottomFirstPositions: ConnectedPosition[] = [
 		overlayY: 'bottom',
 	},
 ];
+
+const leftFirstPositions: ConnectedPosition[] = [
+	// left side
+	{
+		originX: 'start',
+		originY: 'center',
+		overlayX: 'end',
+		overlayY: 'center',
+	},
+	// Fallback 1: right (opposite horizontal)
+	{
+		originX: 'end',
+		originY: 'center',
+		overlayX: 'start',
+		overlayY: 'center',
+	},
+	// Fallback 2: bottom (vertical fallback)
+	{
+		originX: 'center',
+		originY: 'bottom',
+		overlayX: 'center',
+		overlayY: 'top',
+	},
+	// Fallback 3: top (vertical fallback)
+	{
+		originX: 'center',
+		originY: 'top',
+		overlayX: 'center',
+		overlayY: 'bottom',
+	},
+];
+
+const rightFirstPositions: ConnectedPosition[] = [
+	// right side
+	{
+		originX: 'end',
+		originY: 'center',
+		overlayX: 'start',
+		overlayY: 'center',
+	},
+	// Fallback 1: left (opposite horizontal)
+	{
+		originX: 'start',
+		originY: 'center',
+		overlayX: 'end',
+		overlayY: 'center',
+	},
+	// Fallback 2: bottom (vertical fallback)
+	{
+		originX: 'center',
+		originY: 'bottom',
+		overlayX: 'center',
+		overlayY: 'top',
+	},
+	// Fallback 3: top (vertical fallback)
+	{
+		originX: 'center',
+		originY: 'top',
+		overlayX: 'center',
+		overlayY: 'bottom',
+	},
+];
+
+const POSITION_MAP: Record<'top' | 'bottom' | 'left' | 'right', ConnectedPosition[]> = {
+	top: topFirstPositions,
+	bottom: bottomFirstPositions,
+	left: leftFirstPositions,
+	right: rightFirstPositions,
+};
 
 @Injectable()
 export class BrnHoverCardContentService {
@@ -144,10 +213,18 @@ export class BrnHoverCardContentService {
 	public setConfig(config: BrnHoverCardOptions) {
 		this._config = config;
 		if (config.attachTo) {
-			this._positionStrategy = this._psBuilder
-				.flexibleConnectedTo(config.attachTo)
-				.withPositions(config.attachPositions ?? (config.align === 'top' ? topFirstPositions : bottomFirstPositions))
-				.withDefaultOffsetY(config.sideOffset ?? 0);
+			const align = config.align ?? 'bottom';
+			const positions = config.attachPositions ?? POSITION_MAP[align];
+
+			this._positionStrategy = this._psBuilder.flexibleConnectedTo(config.attachTo).withPositions(positions);
+
+			const offset = config.sideOffset ?? 0;
+			if (align === 'left' || align === 'right') {
+				this._positionStrategy.withDefaultOffsetX(align === 'left' ? -offset : offset);
+			} else {
+				this._positionStrategy.withDefaultOffsetY(align === 'top' ? -offset : offset);
+			}
+
 			this._config = {
 				...this._config,
 				positionStrategy: this._positionStrategy,
@@ -245,7 +322,7 @@ export class BrnHoverCardTrigger implements OnInit, OnDestroy {
 	public readonly sideOffset = input<number, NumberInput>(this._defaultOptions.sideOffset, {
 		transform: numberAttribute,
 	});
-	public readonly align = input<'top' | 'bottom'>(this._defaultOptions.align);
+	public readonly align = input<'top' | 'bottom' | 'left' | 'right'>(this._defaultOptions.align);
 
 	public readonly brnHoverCardTriggerFor = input<TemplateRef<unknown> | BrnHoverCardContent | undefined>(undefined);
 	public readonly mutableBrnHoverCardTriggerFor = computed(() => signal(this.brnHoverCardTriggerFor()));

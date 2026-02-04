@@ -2947,7 +2947,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "align",
             "required": false,
-            "type": "'top' | 'bottom'",
+            "type": "'top' | 'bottom' | 'left' | 'right'",
           },
           {
             "name": "brnHoverCardTriggerFor",

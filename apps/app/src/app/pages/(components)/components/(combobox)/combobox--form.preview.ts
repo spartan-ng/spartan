@@ -1,13 +1,12 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
-import { BrnPopoverContent } from '@spartan-ng/brain/popover';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmComboboxImports } from '@spartan-ng/helm/combobox';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
 
 @Component({
 	selector: 'spartan-combobox-form-preview',
-	imports: [HlmComboboxImports, BrnPopoverContent, ReactiveFormsModule, HlmButton, HlmFieldImports],
+	imports: [HlmComboboxImports, ReactiveFormsModule, HlmButton, HlmFieldImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'w-full max-w-xs',
@@ -19,14 +18,14 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 					<label hlmFieldLabel>Select a framework</label>
 					<hlm-combobox formControlName="framework">
 						<hlm-combobox-input placeholder="e.g. Analog" />
-						<div *brnPopoverContent hlmComboboxContent>
+						<hlm-combobox-content *hlmComboboxPortal>
 							<hlm-combobox-empty>No items found.</hlm-combobox-empty>
 							<div hlmComboboxList>
 								@for (framework of frameworks; track $index) {
 									<hlm-combobox-item [value]="framework">{{ framework }}</hlm-combobox-item>
 								}
 							</div>
-						</div>
+						</hlm-combobox-content>
 					</hlm-combobox>
 				</div>
 				<div hlmField orientation="horizontal">

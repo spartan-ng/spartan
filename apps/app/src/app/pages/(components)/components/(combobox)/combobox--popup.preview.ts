@@ -1,17 +1,16 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { BrnPopoverContent } from '@spartan-ng/brain/popover';
 import { HlmComboboxImports } from '@spartan-ng/helm/combobox';
 
 @Component({
 	selector: 'spartan-combobox-popup-preview',
-	imports: [HlmComboboxImports, BrnPopoverContent],
+	imports: [HlmComboboxImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-combobox [value]="countries[0]" autoFocus="first-tabbable">
 			<hlm-combobox-trigger class="w-64 justify-between font-normal">
 				<span hlmComboboxValue></span>
 			</hlm-combobox-trigger>
-			<div *brnPopoverContent hlmComboboxContent>
+			<hlm-combobox-content *hlmComboboxPortal>
 				<hlm-combobox-input showTrigger="false" mode="popup" placeholder="Search" />
 				<hlm-combobox-empty>No items found.</hlm-combobox-empty>
 				<div hlmComboboxList>
@@ -19,7 +18,7 @@ import { HlmComboboxImports } from '@spartan-ng/helm/combobox';
 						<hlm-combobox-item [value]="country">{{ country.label }}</hlm-combobox-item>
 					}
 				</div>
-			</div>
+			</hlm-combobox-content>
 		</hlm-combobox>
 	`,
 })

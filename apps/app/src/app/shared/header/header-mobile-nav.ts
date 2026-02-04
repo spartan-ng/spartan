@@ -4,7 +4,7 @@ import { provideIcons } from '@ng-icons/core';
 import { lucideMenu, lucideX } from '@ng-icons/lucide';
 import { pageNavs, sidenavItems } from '@spartan-ng/app/app/shared/components/navigation-items';
 import { SpartanNewMarker } from '@spartan-ng/app/app/shared/spartan-new-marker';
-import { BrnPopover, BrnPopoverImports } from '@spartan-ng/brain/popover';
+import { BrnPopover } from '@spartan-ng/brain/popover';
 import { HlmBadgeImports } from '@spartan-ng/helm/badge';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmPopoverImports } from '@spartan-ng/helm/popover';
@@ -12,15 +12,7 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 
 @Component({
 	selector: 'spartan-mobile-nav',
-	imports: [
-		HlmButton,
-		NgScrollbarModule,
-		RouterLink,
-		BrnPopoverImports,
-		HlmPopoverImports,
-		HlmBadgeImports,
-		SpartanNewMarker,
-	],
+	imports: [HlmButton, NgScrollbarModule, RouterLink, HlmPopoverImports, HlmBadgeImports, SpartanNewMarker],
 	providers: [provideIcons({ lucideMenu, lucideX })],
 	template: `
 		<hlm-popover align="start" (closed)="_closePopover()" offsetX="-24" sideOffset="12">
@@ -45,10 +37,9 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 				<span class="flex h-8 items-center text-lg leading-none font-medium">Menu</span>
 			</button>
 
-			<div
-				hlmPopoverContent
+			<hlm-popover-content
 				class="no-scrollbar bg-background/90 h-screen w-screen overflow-y-auto rounded-none border-none p-0 shadow-none backdrop-blur duration-100"
-				*brnPopoverContent="let ctx"
+				*hlmPopoverPortal="let ctx"
 			>
 				<div class="flex flex-col gap-12 overflow-auto px-6 py-6 [&_a]:text-2xl [&_a]:font-medium">
 					<div class="flex flex-col gap-4">
@@ -86,7 +77,7 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 						</div>
 					}
 				</div>
-			</div>
+			</hlm-popover-content>
 		</hlm-popover>
 	`,
 })

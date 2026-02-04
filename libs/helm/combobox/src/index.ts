@@ -10,6 +10,7 @@ import { HlmComboboxItem } from './lib/hlm-combobox-item';
 import { HlmComboboxLabel } from './lib/hlm-combobox-label';
 import { HlmComboboxList } from './lib/hlm-combobox-list';
 import { HlmComboboxMultiple } from './lib/hlm-combobox-multiple';
+import { HlmComboboxPortal } from './lib/hlm-combobox-portal';
 import { HlmComboboxSeparator } from './lib/hlm-combobox-separator';
 import { HlmComboboxStatus } from './lib/hlm-combobox-status';
 import { HlmComboboxTrigger } from './lib/hlm-combobox-trigger';
@@ -28,6 +29,7 @@ export * from './lib/hlm-combobox-item';
 export * from './lib/hlm-combobox-label';
 export * from './lib/hlm-combobox-list';
 export * from './lib/hlm-combobox-multiple';
+export * from './lib/hlm-combobox-portal';
 export * from './lib/hlm-combobox-separator';
 export * from './lib/hlm-combobox-status';
 export * from './lib/hlm-combobox-trigger';
@@ -47,6 +49,7 @@ export const HlmComboboxImports = [
 	HlmComboboxLabel,
 	HlmComboboxList,
 	HlmComboboxMultiple,
+	HlmComboboxPortal,
 	HlmComboboxSeparator,
 	HlmComboboxStatus,
 	HlmComboboxTrigger,

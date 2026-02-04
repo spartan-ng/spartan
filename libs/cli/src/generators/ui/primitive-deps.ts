@@ -43,7 +43,7 @@ export const primitiveDependencies: Record<Primitive, Primitive[]> = {
 	'scroll-area': ['utils'],
 	select: ['utils', 'icon'],
 	separator: ['utils'],
-	sheet: ['utils', 'icon'],
+	sheet: ['utils', 'icon', 'button'],
 	sidebar: ['utils', 'button', 'icon', 'input', 'separator', 'sheet', 'skeleton', 'tooltip'],
 	skeleton: ['utils'],
 	slider: ['utils'],

@@ -1,15 +1,14 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
-import { BrnPopoverContent } from '@spartan-ng/brain/popover';
 import { HlmAutocompleteImports } from '@spartan-ng/helm/autocomplete';
 
 @Component({
 	selector: 'spartan-autocomplete-clear-preview',
-	imports: [HlmAutocompleteImports, BrnPopoverContent],
+	imports: [HlmAutocompleteImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-autocomplete [(search)]="search">
 			<hlm-autocomplete-input placeholder="Search components" showClear />
-			<div *brnPopoverContent hlmAutocompleteContent>
+			<hlm-autocomplete-content *hlmAutocompletePortal>
 				<hlm-autocomplete-empty>No components found.</hlm-autocomplete-empty>
 				<div hlmAutocompleteList>
 					@for (option of filteredOptions(); track $index) {
@@ -18,7 +17,7 @@ import { HlmAutocompleteImports } from '@spartan-ng/helm/autocomplete';
 						</hlm-autocomplete-item>
 					}
 				</div>
-			</div>
+			</hlm-autocomplete-content>
 		</hlm-autocomplete>
 	`,
 })

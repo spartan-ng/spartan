@@ -1,6 +1,5 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { TabsCli } from '@spartan-ng/app/app/shared/layout/tabs-cli';
@@ -17,7 +16,6 @@ import { SectionIntro } from '../../../../shared/layout/section-intro';
 import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading';
 import { Tabs } from '../../../../shared/layout/tabs';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { link } from '../../../../shared/typography/link';
 import { AutocompleteAsyncPreview } from './autocomplete--async.preview';
 import { AutocompleteAutohighlightPreview } from './autocomplete--autohighlight.preview';
 import { AutocompleteClearPreview } from './autocomplete--clear.preview';
@@ -58,7 +56,6 @@ export const routeMeta: RouteMeta = {
 		PageBottomNavLink,
 		UIApiDocs,
 		AutocompletePreview,
-		RouterLink,
 		HlmButtonImports,
 		SectionSubSubHeading,
 		AutocompleteAsyncPreview,
@@ -89,12 +86,6 @@ export const routeMeta: RouteMeta = {
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
-			<p class="${hlmP}">
-				The Autocomplete component is built with the
-				<a routerLink="/components/popover" hlmBtn variant="link" class="${link}">Popover</a>
-				component.
-			</p>
-
 			<spartan-cli-tabs
 				nxCode="npx nx g @spartan-ng/cli:ui autocomplete"
 				ngCode="ng g @spartan-ng/cli:ui autocomplete"

@@ -1,19 +1,19 @@
 import { Component, viewChild } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideCross } from '@ng-icons/lucide';
-import { BrnSheet, BrnSheetImports } from '@spartan-ng/brain/sheet';
+import { BrnSheet } from '@spartan-ng/brain/sheet';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmLabelImports } from '@spartan-ng/helm/label';
 import { HlmSheetImports } from '@spartan-ng/helm/sheet';
 
 @Component({
 	selector: 'spartan-sheet-close-preview',
-	imports: [BrnSheetImports, HlmSheetImports, HlmButtonImports, HlmLabelImports],
+	imports: [HlmSheetImports, HlmButtonImports, HlmLabelImports],
 	providers: [provideIcons({ lucideCross })],
 	template: `
 		<hlm-sheet #sheetRef side="right">
 			<button id="edit-profile" variant="outline" hlmSheetTrigger hlmBtn>Open</button>
-			<hlm-sheet-content *brnSheetContent="let ctx">
+			<hlm-sheet-content *hlmSheetPortal="let ctx">
 				<hlm-sheet-header>
 					<h3 hlmSheetTitle>Sheet</h3>
 				</hlm-sheet-header>

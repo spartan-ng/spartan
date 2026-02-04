@@ -1,15 +1,14 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
-import { BrnPopoverContent } from '@spartan-ng/brain/popover';
 import { HlmAutocompleteImports } from '@spartan-ng/helm/autocomplete';
 
 @Component({
 	selector: 'spartan-autocomplete-group-separator-preview',
-	imports: [HlmAutocompleteImports, BrnPopoverContent],
+	imports: [HlmAutocompleteImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-autocomplete [(search)]="search">
 			<hlm-autocomplete-input placeholder="Select a timezone" />
-			<div *brnPopoverContent hlmAutocompleteContent>
+			<hlm-autocomplete-content *hlmAutocompletePortal>
 				<hlm-autocomplete-empty>No items found.</hlm-autocomplete-empty>
 				<div hlmAutocompleteList>
 					@for (timezoneGroup of filteredTimezones(); track $index) {
@@ -22,7 +21,7 @@ import { HlmAutocompleteImports } from '@spartan-ng/helm/autocomplete';
 						</div>
 					}
 				</div>
-			</div>
+			</hlm-autocomplete-content>
 		</hlm-autocomplete>
 	`,
 })

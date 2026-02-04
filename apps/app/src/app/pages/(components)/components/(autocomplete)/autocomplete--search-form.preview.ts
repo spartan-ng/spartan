@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { BrnPopoverContent } from '@spartan-ng/brain/popover';
 import { HlmAutocompleteImports } from '@spartan-ng/helm/autocomplete';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
@@ -12,7 +11,7 @@ interface Tag {
 
 @Component({
 	selector: 'spartan-autocomplete-search-form-preview',
-	imports: [HlmAutocompleteImports, BrnPopoverContent, ReactiveFormsModule, HlmButton, HlmFieldImports],
+	imports: [HlmAutocompleteImports, ReactiveFormsModule, HlmButton, HlmFieldImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'w-full max-w-xs',
@@ -24,7 +23,7 @@ interface Tag {
 					<label hlmFieldLabel>Create or select a tag</label>
 					<hlm-autocomplete-search formControlName="tag" [(search)]="search">
 						<hlm-autocomplete-input placeholder="e.g. feature" />
-						<div *brnPopoverContent hlmAutocompleteContent>
+						<hlm-autocomplete-content *hlmAutocompletePortal>
 							<hlm-autocomplete-empty>No tags found.</hlm-autocomplete-empty>
 							<div hlmAutocompleteList>
 								@for (tag of filteredOptions(); track $index) {
@@ -33,7 +32,7 @@ interface Tag {
 									</hlm-autocomplete-item>
 								}
 							</div>
-						</div>
+						</hlm-autocomplete-content>
 					</hlm-autocomplete-search>
 					<div hlmFieldDescription>Create a new tag if it doesn't exist.</div>
 				</div>

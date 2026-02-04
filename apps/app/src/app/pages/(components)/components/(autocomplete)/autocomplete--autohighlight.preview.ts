@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { HlmAutocompleteImports } from '@spartan-ng/helm/autocomplete';
-import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 
 interface SpartanComponent {
 	id: string;
@@ -9,12 +8,12 @@ interface SpartanComponent {
 
 @Component({
 	selector: 'spartan-autocomplete-autohighlight-preview',
-	imports: [HlmAutocompleteImports, HlmPopoverImports],
+	imports: [HlmAutocompleteImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-autocomplete [(search)]="search" autoHighlight>
 			<hlm-autocomplete-input placeholder="Search components" />
-			<div *hlmPopoverPortal hlmAutocompleteContent>
+			<hlm-autocomplete-content *hlmAutocompletePortal>
 				<hlm-autocomplete-empty>No components found.</hlm-autocomplete-empty>
 				<div hlmAutocompleteList>
 					@for (component of filteredOptions(); track $index) {
@@ -23,7 +22,7 @@ interface SpartanComponent {
 						</hlm-autocomplete-item>
 					}
 				</div>
-			</div>
+			</hlm-autocomplete-content>
 		</hlm-autocomplete>
 	`,
 })

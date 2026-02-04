@@ -3,7 +3,6 @@ import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angu
 import { HlmAutocompleteImports } from '@spartan-ng/helm/autocomplete';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
-import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 
 interface SpartanComponent {
 	id: string;
@@ -12,7 +11,7 @@ interface SpartanComponent {
 
 @Component({
 	selector: 'spartan-autocomplete-form-preview',
-	imports: [HlmAutocompleteImports, HlmPopoverImports, ReactiveFormsModule, HlmButton, HlmFieldImports],
+	imports: [HlmAutocompleteImports, ReactiveFormsModule, HlmButton, HlmFieldImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'w-full max-w-xs',
@@ -24,7 +23,7 @@ interface SpartanComponent {
 					<label hlmFieldLabel>Select a component</label>
 					<hlm-autocomplete formControlName="component" [(search)]="search">
 						<hlm-autocomplete-input placeholder="e.g. Accordion" />
-						<div *hlmPopoverPortal hlmAutocompleteContent>
+						<hlm-autocomplete-content *hlmAutocompletePortal>
 							<hlm-autocomplete-empty>No components found.</hlm-autocomplete-empty>
 							<div hlmAutocompleteList>
 								@for (component of filteredOptions(); track $index) {
@@ -33,7 +32,7 @@ interface SpartanComponent {
 									</hlm-autocomplete-item>
 								}
 							</div>
-						</div>
+						</hlm-autocomplete-content>
 					</hlm-autocomplete>
 				</div>
 				<div hlmField orientation="horizontal">

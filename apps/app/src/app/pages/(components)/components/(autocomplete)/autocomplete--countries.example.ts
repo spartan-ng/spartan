@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { HlmAutocompleteImports } from '@spartan-ng/helm/autocomplete';
-import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 
 type Country = {
 	name: string;
@@ -10,19 +9,19 @@ type Country = {
 
 @Component({
 	selector: 'spartan-autocomplete-countries',
-	imports: [HlmAutocompleteImports, HlmPopoverImports],
+	imports: [HlmAutocompleteImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-autocomplete [(search)]="search" [itemToString]="itemToString">
 			<hlm-autocomplete-input placeholder="Search countries" />
-			<div *hlmPopoverPortal hlmAutocompleteContent>
+			<hlm-autocomplete-content *hlmAutocompletePortal>
 				<hlm-autocomplete-empty>No countries found.</hlm-autocomplete-empty>
 				<div hlmAutocompleteList>
 					@for (option of filteredCountries(); track $index) {
 						<hlm-autocomplete-item [value]="option">{{ option.flag }} {{ option.name }}</hlm-autocomplete-item>
 					}
 				</div>
-			</div>
+			</hlm-autocomplete-content>
 		</hlm-autocomplete>
 	`,
 })

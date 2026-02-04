@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { HlmAutocompleteImports } from '@spartan-ng/helm/autocomplete';
-import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 
 type Assignee = {
 	id: string;
@@ -10,7 +9,7 @@ type Assignee = {
 
 @Component({
 	selector: 'spartan-autocomplete-resolve-value-id',
-	imports: [HlmAutocompleteImports, HlmPopoverImports],
+	imports: [HlmAutocompleteImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'w-full max-w-xs',
@@ -18,14 +17,14 @@ type Assignee = {
 	template: `
 		<hlm-autocomplete [(search)]="search" [itemToString]="itemToString">
 			<hlm-autocomplete-input placeholder="Search reviewers" />
-			<div *hlmPopoverPortal hlmAutocompleteContent>
+			<hlm-autocomplete-content *hlmAutocompletePortal>
 				<hlm-autocomplete-empty>No reviewer found.</hlm-autocomplete-empty>
 				<div hlmAutocompleteList>
 					@for (option of filteredOptions(); track $index) {
 						<hlm-autocomplete-item [value]="option.id">{{ option.name }}</hlm-autocomplete-item>
 					}
 				</div>
-			</div>
+			</hlm-autocomplete-content>
 		</hlm-autocomplete>
 	`,
 })

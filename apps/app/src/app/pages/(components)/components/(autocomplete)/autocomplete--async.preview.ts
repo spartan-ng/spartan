@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, resource, signal } from '@angular/core';
 import { HlmAutocompleteImports } from '@spartan-ng/helm/autocomplete';
-import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 import { HlmSpinnerImports } from '@spartan-ng/helm/spinner';
 
 interface Movie {
@@ -11,12 +10,12 @@ interface Movie {
 
 @Component({
 	selector: 'spartan-autocomplete-async-preview',
-	imports: [HlmAutocompleteImports, HlmPopoverImports, HlmSpinnerImports],
+	imports: [HlmAutocompleteImports, HlmSpinnerImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-autocomplete [(search)]="search" [itemToString]="itemToString">
 			<hlm-autocomplete-input placeholder="Search movies" />
-			<div *hlmPopoverPortal hlmAutocompleteContent>
+			<hlm-autocomplete-content *hlmAutocompletePortal>
 				<hlm-autocomplete-status class="justify-start">
 					@if (options.error(); as error) {
 						{{ error }}
@@ -44,7 +43,7 @@ interface Movie {
 						}
 					}
 				</div>
-			</div>
+			</hlm-autocomplete-content>
 		</hlm-autocomplete>
 	`,
 })

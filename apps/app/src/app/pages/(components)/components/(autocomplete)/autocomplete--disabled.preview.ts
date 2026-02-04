@@ -1,15 +1,14 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { HlmAutocompleteImports } from '@spartan-ng/helm/autocomplete';
-import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 
 @Component({
 	selector: 'spartan-autocomplete-disabled-preview',
-	imports: [HlmAutocompleteImports, HlmPopoverImports],
+	imports: [HlmAutocompleteImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-autocomplete [(search)]="search" disabled>
 			<hlm-autocomplete-input placeholder="Search components" />
-			<div *hlmPopoverPortal hlmAutocompleteContent>
+			<hlm-autocomplete-content *hlmAutocompletePortal>
 				<hlm-autocomplete-empty>No components found.</hlm-autocomplete-empty>
 				<div hlmAutocompleteList>
 					@for (option of filteredOptions(); track $index) {
@@ -18,7 +17,7 @@ import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 						</hlm-autocomplete-item>
 					}
 				</div>
-			</div>
+			</hlm-autocomplete-content>
 		</hlm-autocomplete>
 	`,
 })

@@ -78,7 +78,7 @@ export const Default: Story = {
               />
             </div>
           </div>
-    </hlm-pop>
+      </hlm-popover-content>
     </hlm-popover>
     `,
 	}),

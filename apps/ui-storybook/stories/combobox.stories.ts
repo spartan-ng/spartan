@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { HlmComboboxImports } from '@spartan-ng/helm/combobox';
-import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 import type { Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
 
@@ -8,7 +7,7 @@ const meta: Meta<{}> = {
 	title: 'Combobox',
 	decorators: [
 		moduleMetadata({
-			imports: [HlmPopoverImports, HlmComboboxImports],
+			imports: [HlmComboboxImports],
 		}),
 	],
 };
@@ -19,18 +18,18 @@ type Framework = { label: string; value: string };
 
 @Component({
 	selector: 'combobox-component',
-	imports: [HlmComboboxImports, BrnPopoverContent],
+	imports: [HlmComboboxImports],
 	template: `
 		<hlm-combobox>
 			<hlm-combobox-input placeholder="Select framework..." />
-			<div *hlmPopoverPortal hlmComboboxContent>
+			<hlm-combobox-content *hlmComboboxPortal>
 				<hlm-combobox-empty>No items found.</hlm-combobox-empty>
 				<div hlmComboboxList>
 					@for (framework of frameworks; track $index) {
 						<hlm-combobox-item [value]="framework">{{ framework.label }}</hlm-combobox-item>
 					}
 				</div>
-			</div>
+			</hlm-combobox-content>
 		</hlm-combobox>
 	`,
 })

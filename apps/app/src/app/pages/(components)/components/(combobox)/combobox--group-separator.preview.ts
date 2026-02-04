@@ -1,15 +1,14 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { HlmComboboxImports } from '@spartan-ng/helm/combobox';
-import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 
 @Component({
 	selector: 'spartan-combobox-group-separator-preview',
-	imports: [HlmComboboxImports, HlmPopoverImports],
+	imports: [HlmComboboxImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-combobox>
 			<hlm-combobox-input placeholder="Select a timezone" />
-			<div *hlmPopoverPortal hlmComboboxContent>
+			<hlm-combobox-content *hlmComboboxPortal>
 				<hlm-combobox-empty>No items found.</hlm-combobox-empty>
 				<div hlmComboboxList>
 					@for (timezoneGroup of timezones; track $index) {
@@ -22,7 +21,7 @@ import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 						</div>
 					}
 				</div>
-			</div>
+			</hlm-combobox-content>
 		</hlm-combobox>
 	`,
 })

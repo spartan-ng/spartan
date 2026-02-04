@@ -3,11 +3,10 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideGlobe } from '@ng-icons/lucide';
 import { HlmComboboxImports } from '@spartan-ng/helm/combobox';
 import { HlmInputGroupAddon } from '@spartan-ng/helm/input-group';
-import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 
 @Component({
 	selector: 'spartan-combobox-icon-addon-preview',
-	imports: [HlmComboboxImports, HlmPopoverImports, HlmInputGroupAddon, NgIcon],
+	imports: [HlmComboboxImports, HlmInputGroupAddon, NgIcon],
 	providers: [provideIcons({ lucideGlobe })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
@@ -17,7 +16,7 @@ import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 					<ng-icon name="lucideGlobe" />
 				</hlm-input-group-addon>
 			</hlm-combobox-input>
-			<div *hlmPopoverPortal hlmComboboxContent>
+			<hlm-combobox-content *hlmComboboxPortal>
 				<hlm-combobox-empty>No items found.</hlm-combobox-empty>
 				<div hlmComboboxList>
 					@for (timezoneGroup of timezones; track $index) {
@@ -30,7 +29,7 @@ import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 						</div>
 					}
 				</div>
-			</div>
+			</hlm-combobox-content>
 		</hlm-combobox>
 	`,
 })

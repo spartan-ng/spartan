@@ -4364,7 +4364,13 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "button[hlmSheetClose]",
       },
       "HlmSheetContent": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "showCloseButton",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "hlm-sheet-content",

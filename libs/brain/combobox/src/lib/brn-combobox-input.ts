@@ -47,19 +47,15 @@ export class BrnComboboxInput<T> {
 			const value = this._combobox.value();
 			const search = this._combobox.search();
 
-			switch (mode) {
-				case 'combobox':
-					if (value && search === '') {
-						this._el.nativeElement.value = stringifyAsLabel(value, this._combobox.itemToString());
-					} else if (search === '') {
-						this._el.nativeElement.value = '';
-					}
-					break;
-				case 'popup':
-					if (search === '') {
-						this._el.nativeElement.value = '';
-					}
-					break;
+			// In combobox mode we want to display the label of the selected value if no search is active
+			if (mode === 'combobox' && value && search === '') {
+				this._el.nativeElement.value = stringifyAsLabel(value, this._combobox.itemToString());
+				return;
+			}
+
+			// Otherwise we want to update the input value to the search value
+			if (this._el.nativeElement.value !== search) {
+				this._el.nativeElement.value = search;
 			}
 		});
 	}

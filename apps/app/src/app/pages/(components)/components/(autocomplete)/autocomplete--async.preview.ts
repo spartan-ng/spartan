@@ -62,7 +62,7 @@ export class AutocompleteAsyncPreview {
 				return [];
 			}
 
-			return await this.searchMovies(search);
+			return await this.searchMovies(search.toLowerCase());
 		},
 	});
 
@@ -77,7 +77,9 @@ export class AutocompleteAsyncPreview {
 			throw new Error('Failed to fetch movies. Please try again.');
 		}
 
-		return this._top100Movies.filter((movie) => movie.title.includes(query) || movie.year.toString().includes(query));
+		return this._top100Movies.filter(
+			(movie) => movie.title.toLowerCase().includes(query) || movie.year.toString().includes(query),
+		);
 	}
 
 	private readonly _top100Movies: Movie[] = [

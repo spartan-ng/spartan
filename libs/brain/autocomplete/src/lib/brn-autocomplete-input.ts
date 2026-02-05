@@ -37,14 +37,14 @@ export class BrnAutocompleteInput<T> {
 	constructor() {
 		effect(() => {
 			const value = this._autocomplete.value();
-			const search = this._autocomplete.search();
-
 			const valueLabel = stringifyAsLabel(value, this._autocomplete.itemToString());
+			this._el.nativeElement.value = valueLabel ?? '';
+		});
 
-			if (valueLabel === search) {
-				this._el.nativeElement.value = valueLabel;
-			} else if (search === '') {
-				this._el.nativeElement.value = '';
+		effect(() => {
+			const search = this._autocomplete.search();
+			if (this._el.nativeElement.value !== search) {
+				this._el.nativeElement.value = search;
 			}
 		});
 	}

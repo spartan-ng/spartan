@@ -18,7 +18,6 @@ import {
 	untracked,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { stringifyAsLabel } from '@spartan-ng/brain/core';
 import { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import { BrnPopover } from '@spartan-ng/brain/popover';
 import { BrnAutocompleteInputWrapper } from './brn-autocomplete-input-wrapper';
@@ -149,7 +148,6 @@ export class BrnAutocomplete<T> implements BrnAutocompleteBase<T>, ControlValueA
 	select(itemValue: T) {
 		this.value.set(itemValue);
 		this._onChange?.(itemValue);
-		this.search.set(stringifyAsLabel(itemValue, this.itemToString()));
 		this.close();
 	}
 

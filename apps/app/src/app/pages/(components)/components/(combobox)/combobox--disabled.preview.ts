@@ -7,7 +7,7 @@ import { HlmComboboxImports } from '@spartan-ng/helm/combobox';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-combobox disabled>
-			<hlm-combobox-input placeholder="Select a framework" showClear />
+			<hlm-combobox-input placeholder="Select a framework" />
 			<hlm-combobox-content *hlmComboboxPortal>
 				<hlm-combobox-empty>No items found.</hlm-combobox-empty>
 				<div hlmComboboxList>

@@ -15,6 +15,7 @@ import {
 	input,
 	linkedSignal,
 	model,
+	signal,
 	untracked,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, type ControlValueAccessor } from '@angular/forms';
@@ -24,6 +25,7 @@ import { BrnComboboxInputWrapper } from './brn-combobox-input-wrapper';
 import { type BrnComboboxItem } from './brn-combobox-item';
 import { BrnComboboxItemToken } from './brn-combobox-item.token';
 import {
+	ComboboxInputMode,
 	injectBrnComboboxConfig,
 	provideBrnComboboxBase,
 	type BrnComboboxBase,
@@ -112,6 +114,8 @@ export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueA
 	/** @internal Whether the autocomplete is expanded */
 	public readonly isExpanded = computed(() => this._brnPopover?.stateComputed() === 'open');
 
+	public readonly mode = signal<ComboboxInputMode>('combobox').asReadonly();
+
 	protected _onChange?: ChangeFn<T[] | null>;
 	protected _onTouched?: TouchFn;
 
@@ -184,6 +188,10 @@ export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueA
 	public resetValue(): void {
 		this.value.set(null);
 		this._onChange?.(null);
+	}
+
+	public resetSearch(): void {
+		this.search.set('');
 	}
 
 	public removeValue(itemValue: T): void {

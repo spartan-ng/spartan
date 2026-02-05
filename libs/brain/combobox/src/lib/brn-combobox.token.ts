@@ -10,7 +10,10 @@ import {
 	type ValueProvider,
 } from '@angular/core';
 import { comboboxContainsFilter } from './brn-combobox-filter';
+import type { BrnComboboxInput } from './brn-combobox-input';
 import type { BrnComboboxItem } from './brn-combobox-item';
+
+export type ComboboxInputMode = 'combobox' | 'popup';
 
 export interface BrnComboboxBase<T> {
 	filter: InputSignal<ComboboxFilter<T>>;
@@ -24,16 +27,20 @@ export interface BrnComboboxBase<T> {
 	visibleItems: Signal<boolean>;
 	isExpanded: Signal<boolean>;
 	searchInputWrapperWidth: Signal<number | null>;
+	mode: Signal<ComboboxInputMode>;
 
 	isSelected: (itemValue: T) => boolean;
 	select: (itemValue: T) => void;
 	open: () => void;
 	resetValue: () => void;
+	resetSearch: () => void;
 	/** Select the active item with Enter key. */
 	selectActiveItem: () => void;
 	/** Remove last selected item with Backspace key. Only works with multiple selection comboboxes. */
 	removeLastSelectedItem: () => void;
 	removeValue: (value: T) => void;
+	/** Register the combobox input component for single selection mode */
+	registerComboboxInput?: (input: BrnComboboxInput<T>) => void;
 }
 
 export const BrnComboboxBaseToken = new InjectionToken<BrnComboboxBase<unknown>>('BrnComboboxBaseToken');

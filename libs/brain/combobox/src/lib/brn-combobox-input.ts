@@ -1,7 +1,7 @@
 import { computed, Directive, effect, ElementRef, inject, input } from '@angular/core';
 import { stringifyAsLabel } from '@spartan-ng/brain/core';
 import { BrnComboboxContent } from './brn-combobox-content';
-import { injectBrnComboboxBase } from './brn-combobox.token';
+import { ComboboxInputMode, injectBrnComboboxBase } from './brn-combobox.token';
 
 @Directive({
 	selector: 'input[brnComboboxInput]',
@@ -29,7 +29,7 @@ export class BrnComboboxInput<T> {
 
 	private readonly _content = inject(BrnComboboxContent, { optional: true });
 
-	private readonly _mode = computed(() => (this._content ? 'popup' : 'combobox'));
+	public readonly mode = computed<ComboboxInputMode>(() => (this._content ? 'popup' : 'combobox'));
 
 	/** The id of the combobox input */
 	public readonly id = input<string>(`brn-combobox-input-${++BrnComboboxInput._id}`);
@@ -40,8 +40,10 @@ export class BrnComboboxInput<T> {
 	protected readonly _isExpanded = this._combobox.isExpanded;
 
 	constructor() {
+		this._combobox.registerComboboxInput?.(this);
+
 		effect(() => {
-			const mode = this._mode();
+			const mode = this.mode();
 			const value = this._combobox.value();
 			const search = this._combobox.search();
 
@@ -68,7 +70,7 @@ export class BrnComboboxInput<T> {
 		this._combobox.search.set(value);
 		this._combobox.open();
 
-		if (value === '' && this._mode() === 'combobox') {
+		if (value === '' && this.mode() === 'combobox') {
 			this._combobox.resetValue();
 		}
 	}

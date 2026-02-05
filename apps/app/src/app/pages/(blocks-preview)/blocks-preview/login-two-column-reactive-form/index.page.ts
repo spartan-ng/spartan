@@ -7,9 +7,9 @@ import { LoginForm } from './login-form';
 @Component({
 	selector: 'spartan-login-two-column-reactive-form',
 	imports: [RouterLink, LoginForm, NgIcon],
+	providers: [provideIcons({ lucideGalleryVerticalEnd })],
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [provideIcons({ lucideGalleryVerticalEnd })],
 	host: {
 		class: 'block',
 	},

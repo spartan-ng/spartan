@@ -7,9 +7,9 @@ import { SignupForm } from './signup-form';
 @Component({
 	selector: 'spartan-signup-simple-reactive-form',
 	imports: [SignupForm, NgIcon, RouterLink],
+	providers: [provideIcons({ lucideGalleryVerticalEnd })],
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [provideIcons({ lucideGalleryVerticalEnd })],
 	host: {
 		class: 'block',
 	},

@@ -10,8 +10,8 @@ import { HlmInputImports } from '@spartan-ng/helm/input';
 @Component({
 	selector: 'spartan-two-column-login-form',
 	imports: [ReactiveFormsModule, RouterLink, HlmFieldImports, HlmInputImports, HlmButtonImports, NgIcon],
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [provideIcons({ remixGithubFill })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<form [formGroup]="form" (ngSubmit)="login()">
 			<hlm-field-group>

@@ -2,7 +2,7 @@ import { Directive } from '@angular/core';
 import { classes } from '<%- importAlias %>/utils';
 
 @Directive({
-	selector: '[hlmNavigationMenuContent]',
+	selector: '[hlmNavigationMenuContent],hlm-navigation-menu-content',
 	host: { 'data-slot': 'navigation-menu-content' },
 })
 export class HlmNavigationMenuContent {

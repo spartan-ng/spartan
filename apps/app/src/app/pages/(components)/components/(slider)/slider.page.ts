@@ -16,6 +16,7 @@ import { metaWith } from '../../../../shared/meta/meta.util';
 import { SliderDisabled } from './slider--disabled.example';
 import { SliderForm } from './slider--form.example';
 import { SliderMultipleThumbs } from './slider--multiple-thumbs.example';
+import { SliderPreventThumbOverlap } from './slider--prevent-thumb-overlap.example';
 import { SliderRange } from './slider--range.example';
 import { SliderTicks } from './slider--ticks.example';
 import { SliderVertical } from './slider--vertical.example';
@@ -46,6 +47,7 @@ export const routeMeta: RouteMeta = {
 		SliderDisabled,
 		SliderForm,
 		SliderMultipleThumbs,
+		SliderPreventThumbOverlap,
 		SliderPreview,
 		SliderRange,
 		SliderTicks,
@@ -126,6 +128,19 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_ticksCode()" />
 			</spartan-tabs>
 
+			<h3 id="examples__prevent-thumb-overlap" spartanH4>Prevent thumb overlap</h3>
+			<p class="py-2">
+				Use
+				<code class="${hlmCode}">minStepsBetweenThumbs</code>
+				to avoid thumbs with equal values.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-slider-prevent-thumb-overlap />
+				</div>
+				<spartan-code secondTab [code]="_preventThumbOverlapCode()" />
+			</spartan-tabs>
+
 			<h3 id="examples__form" spartanH4>Form</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -157,6 +172,7 @@ export default class SliderPage {
 	protected readonly _verticalCode = computed(() => this._snippets()['vertical']);
 	protected readonly _disabledCode = computed(() => this._snippets()['disabled']);
 	protected readonly _ticksCode = computed(() => this._snippets()['ticks']);
+	protected readonly _preventThumbOverlapCode = computed(() => this._snippets()['preventThumbOverlap']);
 	protected readonly _formCode = computed(() => this._snippets()['form']);
 
 	protected readonly _defaultSlider = defaultSkeleton;

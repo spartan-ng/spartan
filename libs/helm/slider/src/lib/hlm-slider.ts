@@ -21,14 +21,10 @@ import { classes } from '@spartan-ng/helm/utils';
 				'showTicks',
 				'maxTicks',
 				'tickLabelInterval',
-				'dirInput',
 			],
 			outputs: ['valueChange'],
 		},
 	],
-	host: {
-		'[dir]': '_slider.direction()',
-	},
 	template: `
 		<div class="relative flex w-full items-center group-data-vertical:w-auto group-data-vertical:flex-col">
 			<div

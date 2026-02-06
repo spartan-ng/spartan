@@ -188,6 +188,10 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 	ngOnInit(): void {
 		this._ngControl = this._injector.get(NgControl, null);
 
+		if (!this.value().length) {
+			this.value.set([this.min()]);
+		}
+
 		const normalizedValue = this.value()
 			.map((v) => clamp(v, [this.min(), this.max()]))
 			.sort((a, b) => a - b);
@@ -210,6 +214,8 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 	}
 
 	writeValue(value: number[]): void {
+		if (!Array.isArray(value)) return;
+
 		if (this._ngControl instanceof NgModel && !this._onChange) {
 			// Avoid phantom call for ngModel
 			// https://github.com/angular/angular/issues/14988#issuecomment-2946355465

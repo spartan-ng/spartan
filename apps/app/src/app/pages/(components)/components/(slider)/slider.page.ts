@@ -17,6 +17,7 @@ import { SliderDisabled } from './slider--disabled.example';
 import { SliderForm } from './slider--form.example';
 import { SliderMultipleThumbs } from './slider--multiple-thumbs.example';
 import { SliderRange } from './slider--range.example';
+import { SliderTicks } from './slider--ticks.example';
 import { SliderVertical } from './slider--vertical.example';
 
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
@@ -47,6 +48,7 @@ export const routeMeta: RouteMeta = {
 		SliderMultipleThumbs,
 		SliderPreview,
 		SliderRange,
+		SliderTicks,
 		SliderVertical,
 		UIApiDocs,
 	],
@@ -107,13 +109,21 @@ export const routeMeta: RouteMeta = {
 			<p class="py-2">
 				Use the
 				<code class="${hlmCode}">disabled</code>
-				prop to disable the slider.
+				input to disable the slider.
 			</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-slider-disabled />
 				</div>
 				<spartan-code secondTab [code]="_verticalCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__ticks" spartanH4>Ticks</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-slider-ticks />
+				</div>
+				<spartan-code secondTab [code]="_ticksCode()" />
 			</spartan-tabs>
 
 			<h3 id="examples__form" spartanH4>Form</h3>
@@ -146,6 +156,7 @@ export default class SliderPage {
 	protected readonly _multipleThumbsCode = computed(() => this._snippets()['multipleThumbs']);
 	protected readonly _verticalCode = computed(() => this._snippets()['vertical']);
 	protected readonly _disabledCode = computed(() => this._snippets()['disabled']);
+	protected readonly _ticksCode = computed(() => this._snippets()['ticks']);
 	protected readonly _formCode = computed(() => this._snippets()['form']);
 
 	protected readonly _defaultSlider = defaultSkeleton;

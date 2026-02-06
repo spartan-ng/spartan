@@ -1,9 +1,22 @@
 import { formatFiles, type Tree } from '@nx/devkit';
 import { execSync } from 'node:child_process';
 
-export default async function updateContributorsGenerator(tree: Tree): Promise<void> {
+interface UpdateContributorsSchema {
+	usernames?: string;
+}
+
+export default async function updateContributorsGenerator(
+	tree: Tree,
+	options: UpdateContributorsSchema,
+): Promise<void> {
 	try {
 		const contributorsWithUsernames = new Set<string>();
+		const manualUsernames = (options.usernames ?? '')
+			.split(',')
+			.map((username) => username.trim())
+			.filter((username) => /^[a-zA-Z0-9][\w-]*$/.test(username));
+
+		manualUsernames.forEach((username) => contributorsWithUsernames.add(username));
 
 		// Extract GitHub usernames from git commit history
 		// Method 1: Extract from GitHub noreply email addresses (username@users.noreply.github.com)
@@ -56,7 +69,7 @@ export default async function updateContributorsGenerator(tree: Tree): Promise<v
 			return;
 		}
 
-		console.log(`Found ${contributorsWithUsernames.size} total unique contributor(s) in git history`);
+		console.log(`Found ${contributorsWithUsernames.size} total unique username(s) from contributors + manual input`);
 
 		// Read the README
 		const readmePath = 'README.md';

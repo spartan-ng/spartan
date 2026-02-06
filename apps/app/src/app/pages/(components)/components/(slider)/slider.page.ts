@@ -117,7 +117,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-slider-disabled />
 				</div>
-				<spartan-code secondTab [code]="_verticalCode()" />
+				<spartan-code secondTab [code]="_disabledCode()" />
 			</spartan-tabs>
 
 			<h3 id="examples__ticks" spartanH4>Ticks</h3>

@@ -55,12 +55,12 @@ export class BrnSliderThumb implements OnDestroy {
 
 	protected readonly _index = computed(() => this._slider.thumbs().findIndex((thumb) => thumb === this));
 
-	public readonly percentage = computed(
-		() =>
-			((this._slider.normalizedValue()[this._index()] - this._slider.min()) /
-				(this._slider.max() - this._slider.min())) *
-			100,
-	);
+	public readonly percentage = computed(() => {
+		const range = this._slider.max() - this._slider.min();
+		if (range === 0) return 0;
+
+		return ((this._slider.normalizedValue()[this._index()] - this._slider.min()) / range) * 100;
+	});
 
 	public readonly thumbInBoundsOffset = computed(() => {
 		// we can't compute the offset on the server

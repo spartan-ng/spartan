@@ -105,10 +105,7 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 
 	/** @internal Normalized slider values. Values are clamped to `[min, max]` and sorted in ascending order. */
 	public readonly normalizedValue = computed(
-		() =>
-			this.value()
-				.sort((a, b) => a - b)
-				.map((v) => clamp(v, [this.min(), this.max()])),
+		() => [...this.value()].sort((a, b) => a - b).map((v) => clamp(v, [this.min(), this.max()])),
 		{ equal: areArrsEqual },
 	);
 
@@ -222,7 +219,7 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 			return;
 		}
 
-		const newValue = value.sort((a, b) => a - b).map((v) => clamp(v, [this.min(), this.max()]));
+		const newValue = [...value].sort((a, b) => a - b).map((v) => clamp(v, [this.min(), this.max()]));
 		this.value.set(newValue);
 	}
 

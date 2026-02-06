@@ -2,7 +2,7 @@ name: nightly-release
 
 on:
   schedule:
-    - cron: '*/5 * * * *'
+    - cron: '0 0 * * *'
 
 jobs:
   check_date:

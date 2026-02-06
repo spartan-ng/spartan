@@ -4,5 +4,10 @@
 	"title": "Update Contributors",
 	"type": "object",
 	"description": "Updates the README and three-hundred.ts with all Git contributors who are not already listed",
-	"properties": {}
+	"properties": {
+		"usernames": {
+			"type": "string",
+			"description": "Comma-separated GitHub usernames to include in addition to detected git contributors (for sponsors without commits)"
+		}
+	}
 }

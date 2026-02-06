@@ -89,4 +89,34 @@ describe('Slider', () => {
 				expect(Number(value)).to.be.at.most(100);
 			});
 	});
+
+	it('should render and update the range slider', () => {
+		cy.visit('/iframe.html?id=slider--range');
+
+		// there should be two thumbs
+		cy.get('[role="slider"]').should('have.length', 2);
+
+		// assert initial values
+		cy.get('[role="slider"]').eq(0).should('have.attr', 'aria-valuenow', '20');
+
+		cy.get('[role="slider"]').eq(1).should('have.attr', 'aria-valuenow', '50');
+
+		// move first thumb using keyboard
+		cy.get('[role="slider"]').eq(0).focus().type('{rightarrow}{rightarrow}');
+		cy.get('[role="slider"]')
+			.eq(0)
+			.invoke('attr', 'aria-valuenow')
+			.then((value) => {
+				expect(Number(value)).to.not.equal(20);
+			});
+
+		// move second thumb using keyboard
+		cy.get('[role="slider"]').eq(1).focus().type('{leftarrow}{leftarrow}');
+		cy.get('[role="slider"]')
+			.eq(1)
+			.invoke('attr', 'aria-valuenow')
+			.then((value) => {
+				expect(Number(value)).to.not.equal(50);
+			});
+	});
 });

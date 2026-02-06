@@ -47,7 +47,7 @@ type Story = StoryObj<BrnSliderStoryArgs>;
 
 export const Default: Story = {
 	args: {
-		value: [20],
+		value: [0],
 	},
 	render: (args) => ({
 		props: { ...args },

@@ -126,6 +126,10 @@ jobs:
         with:
           node-version-file: .node-version
           registry-url: 'https://registry.npmjs.org'
+      - name: Upgrade npm for trusted publishing
+        run: npm i -g npm@^11.5.1
+      - name: Print npm version
+        run: npm -v
       - name: Install PNPM globally
         run: npm install -g pnpm
       - name: Install Dependencies
@@ -142,6 +146,9 @@ jobs:
           author_email: leonidas@spartan.ng
           message: 'chore: nightly release ${{steps.datetime.outputs.release_date}} ⚡'
       - name: Release
-        run: pnpm run release
+        run: |
+          unset NODE_AUTH_TOKEN
+          unset NPM_TOKEN
+          pnpm run release
         env:
           TAG: ${{ secrets.TAG }}

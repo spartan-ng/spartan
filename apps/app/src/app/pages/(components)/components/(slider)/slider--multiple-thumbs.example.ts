@@ -2,7 +2,7 @@ import { Component, signal } from '@angular/core';
 import { HlmSliderImports } from '@spartan-ng/helm/slider';
 
 @Component({
-	selector: 'spartan-slider-preview',
+	selector: 'spartan-slider-multiple-thumbs',
 	imports: [HlmSliderImports],
 	styles: `
 		:host {
@@ -14,8 +14,8 @@ import { HlmSliderImports } from '@spartan-ng/helm/slider';
 		<hlm-slider [(value)]="value" />
 	`,
 })
-export class SliderPreview {
-	public readonly value = signal([75]);
+export class SliderMultipleThumbs {
+	public readonly value = signal([10, 20, 70]);
 }
 
 export const defaultImports = `

@@ -21,6 +21,7 @@ import { classes } from '@spartan-ng/helm/utils';
 				'showTicks',
 				'maxTicks',
 				'tickLabelInterval',
+				'draggableRange',
 			],
 			outputs: ['valueChange'],
 		},

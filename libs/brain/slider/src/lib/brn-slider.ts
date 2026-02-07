@@ -103,6 +103,10 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 		transform: numberAttribute,
 	});
 
+	public readonly draggableRange = input<boolean, BooleanInput>(false, {
+		transform: booleanAttribute,
+	});
+
 	/** @internal Normalized slider values. Values are clamped to `[min, max]` and sorted in ascending order. */
 	public readonly normalizedValue = computed(
 		() => [...this.value()].sort((a, b) => a - b).map((v) => clamp(v, [this.min(), this.max()])),
@@ -113,6 +117,9 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 	public readonly thumbIndexes = computed(() => Array.from({ length: this.normalizedValue().length }, (_, i) => i), {
 		equal: (a, b) => a.length === b.length,
 	});
+
+	/** @internal Whether the slider is in range mode and draggable range is enabled */
+	public readonly isDraggableRange = computed(() => this.draggableRange() && this.normalizedValue().length > 1);
 
 	protected readonly _direction = this._dir.valueSignal;
 
@@ -250,6 +257,35 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 		if (this.thumbs()[newValIndex]) {
 			this.thumbs()[newValIndex].elementRef.nativeElement.focus();
 		}
+	}
+
+	/** Moves the entire range by a delta value, preserving spacing. */
+	setAllValuesByDelta(delta: number): void {
+		const current = this.normalizedValue();
+		if (!current.length || delta === 0) return;
+
+		const min = this.min();
+		const max = this.max();
+
+		const next = current.map((v) => v + delta);
+
+		const rangeMin = Math.min(...next);
+		const rangeMax = Math.max(...next);
+
+		let adjusted = next;
+
+		if (rangeMin < min) {
+			const offset = min - rangeMin;
+			adjusted = next.map((v) => v + offset);
+		} else if (rangeMax > max) {
+			const offset = max - rangeMax;
+			adjusted = next.map((v) => v + offset);
+		}
+
+		if (areArrsEqual(adjusted, this.value())) return;
+
+		this.value.set(adjusted);
+		this._onChange?.(adjusted);
 	}
 
 	/** @internal */

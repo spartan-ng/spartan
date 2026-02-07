@@ -8,9 +8,9 @@ expect.extend(toHaveNoViolations);
 
 // ---- ResizeObserver mock for Angular tests ----
 class ResizeObserverMock {
-	observe() {}
-	unobserve() {}
-	disconnect() {}
+	public observe = jest.fn();
+	public unobserve = jest.fn();
+	public disconnect = jest.fn();
 }
 
 globalThis.ResizeObserver = ResizeObserverMock;

@@ -122,21 +122,15 @@ export class BrnSliderThumb implements OnDestroy {
 		this._slider.track()?._onPointerUp(event);
 	}
 
-	/**
-	 * Handle keyboard events.
-	 * @param event
-	 */
 	protected handleKeydown(event: KeyboardEvent) {
 		if (this._slider.mutableDisabled()) return;
 
-		const index = this._index();
-		const value = this._slider.normalizedValue()[index];
 		const step = this._slider.step();
 		const min = this._slider.min();
 		const max = this._slider.max();
-
 		const multiplier = event.shiftKey || PAGE_KEYS.includes(event.key) ? 10 : 1;
 
+		// Determine delta based on slider orientation
 		const dirLR = this._slider.slidingSource() === 'right' ? -1 : 1;
 		const dirUD = this._slider.slidingSource() === 'top' ? -1 : 1;
 
@@ -149,14 +143,27 @@ export class BrnSliderThumb implements OnDestroy {
 			PageDown: -step * multiplier,
 		};
 
+		// Home/End keys
 		if (event.key === 'Home') {
-			this._slider.setValue(min, index);
+			if (this._slider.isDraggableRangeOnly()) {
+				const range = this._slider.normalizedValue();
+				const delta = min - range[0];
+				this._slider.setAllValuesByDelta(delta);
+			} else {
+				this._slider.setValue(min, this._index());
+			}
 			event.preventDefault();
 			return;
 		}
 
 		if (event.key === 'End') {
-			this._slider.setValue(max, index);
+			if (this._slider.isDraggableRangeOnly()) {
+				const range = this._slider.normalizedValue();
+				const delta = max - range[range.length - 1];
+				this._slider.setAllValuesByDelta(delta);
+			} else {
+				this._slider.setValue(max, this._index());
+			}
 			event.preventDefault();
 			return;
 		}
@@ -164,7 +171,13 @@ export class BrnSliderThumb implements OnDestroy {
 		const delta = deltas[event.key];
 		if (delta === undefined) return;
 
-		this._slider.setValue(Math.min(max, Math.max(min, value + delta)), index);
+		if (this._slider.isDraggableRangeOnly()) {
+			this._slider.setAllValuesByDelta(delta);
+		} else {
+			const index = this._index();
+			const value = this._slider.normalizedValue()[index];
+			this._slider.setValue(Math.min(max, Math.max(min, value + delta)), index);
+		}
 
 		event.preventDefault();
 	}

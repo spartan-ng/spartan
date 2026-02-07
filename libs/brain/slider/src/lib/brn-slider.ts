@@ -107,6 +107,11 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 		transform: booleanAttribute,
 	});
 
+	/** Whether only dragging the range should work (overrides normal track clicks). */
+	public readonly draggableRangeOnly = input<boolean, BooleanInput>(false, {
+		transform: booleanAttribute,
+	});
+
 	/** @internal Normalized slider values. Values are clamped to `[min, max]` and sorted in ascending order. */
 	public readonly normalizedValue = computed(
 		() => [...this.value()].sort((a, b) => a - b).map((v) => clamp(v, [this.min(), this.max()])),
@@ -120,6 +125,9 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 
 	/** @internal Whether the slider is in range mode and draggable range is enabled */
 	public readonly isDraggableRange = computed(() => this.draggableRange() && this.normalizedValue().length > 1);
+
+	/** @internal Whether dragging should only move the range. */
+	public readonly isDraggableRangeOnly = computed(() => this.draggableRangeOnly() && this.isDraggableRange());
 
 	protected readonly _direction = this._dir.valueSignal;
 

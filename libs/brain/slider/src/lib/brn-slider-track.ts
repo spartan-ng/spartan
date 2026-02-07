@@ -29,18 +29,18 @@ export class BrnSliderTrack {
 		if (this._slider.mutableDisabled()) return;
 
 		const target = event.target as HTMLElement;
-		target.setPointerCapture(event.pointerId);
+		const isTrack = this._isTrack(target);
 
-		const isTrackOrRange = this._isTrackOrRange(target);
-		const isRange = this._slider.range()?.elementRef.nativeElement === target;
+		// Draggable range only: ignore empty track clicks
+		if (isTrack && this._slider.isDraggableRangeOnly()) return;
+
+		target.setPointerCapture(event.pointerId);
+		const isRange = this._isRange(target);
 
 		// Prevent browser focus behaviour because we instead focus a thumb manually when values change.
-		if (isTrackOrRange) {
-			event.preventDefault();
-		}
+		if (isTrack || isRange) event.preventDefault();
 
-		// Start range drag if enabled
-		if (isRange && this._slider.isDraggableRange()) {
+		if ((isRange && this._slider.isDraggableRange()) || this._slider.isDraggableRangeOnly()) {
 			this._rangeDragStartPointer = this._getPointerPosition(event);
 			return;
 		}
@@ -49,9 +49,7 @@ export class BrnSliderTrack {
 		const value = this._getValueFromPointer(pointerPosition);
 		const closestIndex = getClosestValueIndex(this._slider.normalizedValue(), value);
 
-		// Track press → jump value to pointer position.
-		// Thumb press → select thumb to drag without forcing a value update.
-		if (isTrackOrRange) {
+		if (isTrack || isRange) {
 			this._slider.setValue(value, closestIndex);
 		} else {
 			this._slider.valueIndexToChange.set(closestIndex);
@@ -67,12 +65,11 @@ export class BrnSliderTrack {
 		if (this._rangeDragStartPointer !== null && this._slider.isDraggableRange()) {
 			const currentPointer = this._getPointerPosition(event);
 			const pixelDelta = currentPointer - this._rangeDragStartPointer;
-
 			const valueDelta = this._pixelDeltaToValueDelta(pixelDelta);
 
 			this._slider.setAllValuesByDelta(valueDelta);
 
-			// Important: reset start pointer so delta stays incremental
+			// Reset start pointer so delta stays incremental
 			this._rangeDragStartPointer = currentPointer;
 			return;
 		}
@@ -145,8 +142,12 @@ export class BrnSliderTrack {
 		return scale(pixelDelta * direction) - scale(0);
 	}
 
-	private _isTrackOrRange(el: HTMLElement) {
-		return this._elementRef.nativeElement === el || this._slider.range()?.elementRef.nativeElement === el;
+	private _isTrack(el: HTMLElement) {
+		return this._elementRef.nativeElement === el;
+	}
+
+	private _isRange(el: HTMLElement) {
+		return this._slider.range()?.elementRef.nativeElement === el;
 	}
 
 	private _getPointerPosition(event: PointerEvent): number {

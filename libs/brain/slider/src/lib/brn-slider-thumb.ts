@@ -85,7 +85,7 @@ export class BrnSliderThumb implements OnDestroy {
 	 * within the bounds of the slider when reaching the edges.
 	 * Based on https://github.com/radix-ui/primitives/blob/main/packages/react/slider/src/slider.tsx
 	 */
-	public readonly _thumbOffset = computed(() => {
+	protected readonly _thumbOffset = computed(() => {
 		// we can't compute the offset on the server
 		if (isPlatformServer(this._platform)) {
 			return this.percentage() + '%';

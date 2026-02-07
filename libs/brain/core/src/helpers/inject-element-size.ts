@@ -7,9 +7,9 @@ import {
 	Injector,
 	PLATFORM_ID,
 	runInInjectionContext,
-	Signal,
+	type Signal,
 	signal,
-	WritableSignal,
+	type WritableSignal,
 } from '@angular/core';
 
 /**

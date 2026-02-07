@@ -102,7 +102,9 @@ describe('Slider', () => {
 		cy.get('[role="slider"]').eq(1).should('have.attr', 'aria-valuenow', '50');
 
 		// move first thumb using keyboard
-		cy.get('[role="slider"]').eq(0).focus().type('{rightarrow}{rightarrow}');
+		cy.get('[role="slider"]').eq(0).focus();
+		cy.get('[role="slider"]').eq(0).type('{rightarrow}{rightarrow}');
+
 		cy.get('[role="slider"]')
 			.eq(0)
 			.invoke('attr', 'aria-valuenow')
@@ -111,7 +113,9 @@ describe('Slider', () => {
 			});
 
 		// move second thumb using keyboard
-		cy.get('[role="slider"]').eq(1).focus().type('{leftarrow}{leftarrow}');
+		cy.get('[role="slider"]').eq(1).focus();
+		cy.get('[role="slider"]').eq(1).type('{leftarrow}{leftarrow}');
+
 		cy.get('[role="slider"]')
 			.eq(1)
 			.invoke('attr', 'aria-valuenow')

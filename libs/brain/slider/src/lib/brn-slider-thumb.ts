@@ -62,7 +62,7 @@ export class BrnSliderThumb implements OnDestroy {
 		return ((this._slider.normalizedValue()[this._index()] - this._slider.min()) / range) * 100;
 	});
 
-	public readonly thumbInBoundsOffset = computed(() => {
+	private readonly _thumbInBoundsOffset = computed(() => {
 		// we can't compute the offset on the server
 		if (isPlatformServer(this._platform)) {
 			return 0;
@@ -91,7 +91,7 @@ export class BrnSliderThumb implements OnDestroy {
 			return this.percentage() + '%';
 		}
 
-		return `calc(${this.percentage()}% + ${this.thumbInBoundsOffset()}px)`;
+		return `calc(${this.percentage()}% + ${this._thumbInBoundsOffset()}px)`;
 	});
 
 	protected readonly _ariaLabel = computed(

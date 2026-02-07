@@ -259,33 +259,34 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 		}
 	}
 
-	/** Moves the entire range by a delta value, preserving spacing. */
+	/** Moves the entire range by a delta value, snapping to step and preserving spacing. */
 	setAllValuesByDelta(delta: number): void {
 		const current = this.normalizedValue();
 		if (!current.length || delta === 0) return;
 
 		const min = this.min();
 		const max = this.max();
+		const decimalCount = getDecimalCount(this.step());
 
-		const next = current.map((v) => v + delta);
+		// Apply delta, snap each value
+		let next = current.map((v) => roundValue(v + delta, decimalCount));
 
 		const rangeMin = Math.min(...next);
 		const rangeMax = Math.max(...next);
 
-		let adjusted = next;
-
+		// Adjust if out of bounds
 		if (rangeMin < min) {
 			const offset = min - rangeMin;
-			adjusted = next.map((v) => v + offset);
+			next = next.map((v) => roundValue(v + offset, decimalCount), [min, max]);
 		} else if (rangeMax > max) {
 			const offset = max - rangeMax;
-			adjusted = next.map((v) => v + offset);
+			next = next.map((v) => roundValue(v + offset, decimalCount), [min, max]);
 		}
 
-		if (areArrsEqual(adjusted, this.value())) return;
+		if (areArrsEqual(next, this.value())) return;
 
-		this.value.set(adjusted);
-		this._onChange?.(adjusted);
+		this.value.set(next);
+		this._onChange?.(next);
 	}
 
 	/** @internal */

@@ -17,6 +17,7 @@ interface BrnSliderStoryArgs {
 	showTicks: boolean;
 	maxTicks: number;
 	tickLabelInterval: number;
+	draggableRange: boolean;
 }
 
 const meta: Meta<BrnSliderStoryArgs> = {
@@ -34,6 +35,7 @@ const meta: Meta<BrnSliderStoryArgs> = {
 		showTicks: false,
 		maxTicks: 25,
 		tickLabelInterval: 2,
+		draggableRange: false,
 	},
 	decorators: [
 		moduleMetadata({

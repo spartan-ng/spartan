@@ -128,9 +128,21 @@ export class BrnSliderTrack {
 		const size = this._slider.isHorizontal() ? rect.width : rect.height;
 
 		const scale = linearScale([0, size], [this._slider.min(), this._slider.max()]);
-		console.log(scale(0));
 
-		return scale(pixelDelta) - scale(0);
+		// Determine direction multiplier based on sliding source
+		let direction = 1;
+		switch (this._slider.slidingSource()) {
+			case 'right':
+			case 'bottom':
+				direction = -1;
+				break;
+			case 'left':
+			case 'top':
+				direction = 1;
+				break;
+		}
+
+		return scale(pixelDelta * direction) - scale(0);
 	}
 
 	private _isTrackOrRange(el: HTMLElement) {

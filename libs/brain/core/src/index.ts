@@ -5,6 +5,7 @@ export * from './helpers/debounced-signal';
 export * from './helpers/dev-mode';
 export * from './helpers/exposes-side';
 export * from './helpers/exposes-state';
+export * from './helpers/inject-element-size';
 export * from './helpers/measure-dimensions';
 export * from './helpers/menu-align';
 export * from './helpers/resolve-value-label';

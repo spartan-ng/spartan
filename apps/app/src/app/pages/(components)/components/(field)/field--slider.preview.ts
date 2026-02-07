@@ -21,5 +21,5 @@ import { HlmSliderImports } from '@spartan-ng/helm/slider';
 	`,
 })
 export class FieldSliderPreview {
-	public readonly value = signal(500);
+	public readonly value = signal([500]);
 }

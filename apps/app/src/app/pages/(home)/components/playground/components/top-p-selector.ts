@@ -22,5 +22,5 @@ import { HlmSliderImports } from '@spartan-ng/helm/slider';
 	`,
 })
 export class TopPSelector {
-	public readonly value = signal<number>(0.9);
+	public readonly value = signal<number[]>([0.9]);
 }

@@ -18,6 +18,7 @@ interface BrnSliderStoryArgs {
 	maxTicks: number;
 	tickLabelInterval: number;
 	draggableRange: boolean;
+	draggableRangeOnly: boolean;
 }
 
 const meta: Meta<BrnSliderStoryArgs> = {
@@ -36,6 +37,7 @@ const meta: Meta<BrnSliderStoryArgs> = {
 		maxTicks: 25,
 		tickLabelInterval: 2,
 		draggableRange: false,
+		draggableRangeOnly: false,
 	},
 	decorators: [
 		moduleMetadata({
@@ -211,6 +213,43 @@ export const TickLabelInterval: Story = {
 		step: 5,
 		showTicks: true,
 		tickLabelInterval: 10,
+	},
+	render: ({ ...args }) => ({
+		props: args,
+		template: /* HTML */ `
+			<hlm-slider ${argsToTemplate(args)} (valueChange)="value = $event" />
+
+			<div>{{value}}</div>
+		`,
+	}),
+};
+
+export const DraggableRange: Story = {
+	args: {
+		value: [25, 50],
+		step: 5,
+		showTicks: true,
+		tickLabelInterval: 10,
+		draggableRange: true,
+	},
+	render: ({ ...args }) => ({
+		props: args,
+		template: /* HTML */ `
+			<hlm-slider ${argsToTemplate(args)} (valueChange)="value = $event" />
+
+			<div>{{value}}</div>
+		`,
+	}),
+};
+
+export const DraggableRangeOnly: Story = {
+	args: {
+		value: [25, 50, 75],
+		step: 5,
+		showTicks: true,
+		tickLabelInterval: 10,
+		draggableRange: true,
+		draggableRangeOnly: true,
 	},
 	render: ({ ...args }) => ({
 		props: args,

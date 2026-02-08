@@ -274,22 +274,26 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 
 		const min = this.min();
 		const max = this.max();
-		const decimalCount = getDecimalCount(this.step());
+		const step = this.step();
+		const decimalCount = getDecimalCount(step);
 
-		// Apply delta, snap each value
-		let next = current.map((v) => roundValue(v + delta, decimalCount));
+		const snappedDelta = roundValue(Math.round(delta / step) * step, decimalCount);
+		if (snappedDelta === 0) return;
+
+		let next = current.map((v) => v + snappedDelta);
 
 		const rangeMin = Math.min(...next);
 		const rangeMax = Math.max(...next);
 
-		// Adjust if out of bounds
 		if (rangeMin < min) {
 			const offset = min - rangeMin;
-			next = next.map((v) => roundValue(v + offset, decimalCount), [min, max]);
+			next = next.map((v) => v + offset);
 		} else if (rangeMax > max) {
 			const offset = max - rangeMax;
-			next = next.map((v) => roundValue(v + offset, decimalCount), [min, max]);
+			next = next.map((v) => v + offset);
 		}
+
+		next = next.map((v) => roundValue(v, decimalCount));
 
 		if (areArrsEqual(next, this.value())) return;
 

@@ -20,6 +20,7 @@ export class BrnSliderTrack {
 	protected readonly _slider = injectBrnSlider();
 
 	private _rangeDragStartPointer: number | null = null;
+	private _rangeDragAccumulatedDelta = 0;
 
 	constructor() {
 		this._slider.track.set(this);
@@ -67,7 +68,18 @@ export class BrnSliderTrack {
 			const pixelDelta = currentPointer - this._rangeDragStartPointer;
 			const valueDelta = this._pixelDeltaToValueDelta(pixelDelta);
 
-			this._slider.setAllValuesByDelta(valueDelta);
+			// Accumulate sub-step deltas
+			this._rangeDragAccumulatedDelta += valueDelta;
+
+			const step = this._slider.step();
+			const snappedDelta = Math.trunc(this._rangeDragAccumulatedDelta / step) * step;
+
+			if (snappedDelta !== 0) {
+				this._slider.setAllValuesByDelta(snappedDelta);
+
+				// Remove the applied delta, keep remainder
+				this._rangeDragAccumulatedDelta -= snappedDelta;
+			}
 
 			// Reset start pointer so delta stays incremental
 			this._rangeDragStartPointer = currentPointer;
@@ -87,6 +99,7 @@ export class BrnSliderTrack {
 		}
 
 		this._rangeDragStartPointer = null;
+		this._rangeDragAccumulatedDelta = 0;
 	}
 
 	private _getValueFromPointer(pointerPosition: number) {

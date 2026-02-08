@@ -79,6 +79,9 @@ export class UIApiDocs {
 
 		const transformed: any = {};
 		for (const [key, value] of Object.entries(items)) {
+			// Transform outputs to include models with "Changed" suffix
+			const existingOutputNames = new Set((value.outputs ?? []).map((o: any) => o?.name));
+
 			// Transform inputs to include models
 			const transformedInputs = [
 				...(value.inputs?.map((input: any) => ({
@@ -97,12 +100,14 @@ export class UIApiDocs {
 					...output,
 					name: output.required ? `${output.name}<span class="text-destructive">*</span> (required)` : output.name,
 				})) || []),
-				...(value.models?.map((model: any) => ({
-					...model,
-					name: model.required
-						? `${model.name}Changed<span class="text-destructive">*</span> (required)`
-						: `${model.name}Changed`,
-				})) || []),
+				...(value.models
+					?.filter((model: any) => !existingOutputNames.has(`${model.name}Change`))
+					.map((model: any) => ({
+						...model,
+						name: model.required
+							? `${model.name}Change<span class="text-destructive">*</span> (required)`
+							: `${model.name}Change`,
+					})) || []),
 			];
 
 			transformed[key] = {

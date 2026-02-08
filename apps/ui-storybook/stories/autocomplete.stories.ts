@@ -44,7 +44,7 @@ class AutocompleteDefaultStory {
 	imports: [JsonPipe, HlmAutocompleteImports, HlmFieldImports, HlmButton, ReactiveFormsModule],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<form [formGroup]="form" class="space-y-3 w-full max-w-sm">
+		<form [formGroup]="form" class="w-full max-w-sm space-y-3">
 			<div hlmField>
 				<label hlmFieldLabel>Framework *</label>
 				<hlm-autocomplete formControlName="framework" [(search)]="search">
@@ -67,7 +67,11 @@ class AutocompleteDefaultStory {
 			</div>
 		</form>
 
-		<pre class="mt-4 text-xs">Touched: {{ form.get('framework')?.touched }}  |  Invalid: {{ form.get('framework')?.invalid }}  |  Value: {{ form.get('framework')?.value | json }}</pre>
+		<pre class="mt-4 text-xs">
+Touched: {{ form.get('framework')?.touched }}  |  Invalid: {{ form.get('framework')?.invalid }}  |  Value: {{
+				form.get('framework')?.value | json
+			}}</pre
+		>
 	`,
 })
 class AutocompleteReactiveFormStory {
@@ -90,7 +94,7 @@ class AutocompleteReactiveFormStory {
 		@let ctrl = form.get('framework');
 		@let showError = ctrl?.invalid && (ctrl?.touched || ctrl?.dirty);
 
-		<form [formGroup]="form" class="space-y-3 w-full max-w-sm">
+		<form [formGroup]="form" class="w-full max-w-sm space-y-3">
 			<div hlmField [attr.data-invalid]="showError ? 'true' : null">
 				<label hlmFieldLabel>Framework *</label>
 				<hlm-autocomplete formControlName="framework" [(search)]="search">

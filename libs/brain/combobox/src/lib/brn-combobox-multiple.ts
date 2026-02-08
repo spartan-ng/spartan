@@ -7,7 +7,6 @@ import {
 	contentChild,
 	contentChildren,
 	Directive,
-	type DoCheck,
 	effect,
 	ElementRef,
 	forwardRef,
@@ -18,6 +17,7 @@ import {
 	model,
 	signal,
 	untracked,
+	type DoCheck,
 } from '@angular/core';
 import { FormGroupDirective, NgControl, NgForm, type ControlValueAccessor } from '@angular/forms';
 import { BrnFormFieldControl } from '@spartan-ng/brain/form-field';

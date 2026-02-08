@@ -4,7 +4,6 @@ import {
 	ChangeDetectionStrategy,
 	Component,
 	computed,
-	type DoCheck,
 	effect,
 	forwardRef,
 	inject,
@@ -13,6 +12,7 @@ import {
 	output,
 	signal,
 	untracked,
+	type DoCheck,
 } from '@angular/core';
 import { FormGroupDirective, NG_VALUE_ACCESSOR, NgControl, NgForm, type ControlValueAccessor } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';

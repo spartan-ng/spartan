@@ -106,6 +106,7 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 	/** Defines how the tick should be displayed in the UI. */
 	public readonly formatTick = input<(tick: number) => string>((tick) => tick.toString());
 
+	/** Whether dragging the selected range should move all thumbs together. */
 	public readonly draggableRange = input<boolean, BooleanInput>(false, {
 		transform: booleanAttribute,
 	});

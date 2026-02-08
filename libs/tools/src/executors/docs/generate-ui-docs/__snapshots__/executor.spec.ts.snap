@@ -4733,6 +4733,21 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "number",
           },
+          {
+            "name": "formatTick",
+            "required": false,
+            "type": "(tick: number) => string",
+          },
+          {
+            "name": "draggableRange",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "draggableRangeOnly",
+            "required": false,
+            "type": "boolean",
+          },
         ],
         "models": [
           {

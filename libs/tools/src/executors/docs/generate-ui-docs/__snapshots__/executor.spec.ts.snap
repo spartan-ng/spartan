@@ -513,7 +513,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "aria-invalid",
             "required": false,
-            "type": "boolean",
+            "type": "boolean | undefined",
           },
         ],
         "models": [],
@@ -1824,7 +1824,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "aria-invalid",
             "required": false,
-            "type": "boolean",
+            "type": "boolean | undefined",
           },
         ],
         "models": [],

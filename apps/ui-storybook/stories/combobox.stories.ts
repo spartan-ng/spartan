@@ -1,19 +1,12 @@
-import { Component } from '@angular/core';
+import { JsonPipe } from '@angular/common';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmComboboxImports } from '@spartan-ng/helm/combobox';
+import { HlmFieldImports } from '@spartan-ng/helm/field';
 import type { Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
 
-const meta: Meta<{}> = {
-	title: 'Combobox',
-	decorators: [
-		moduleMetadata({
-			imports: [HlmComboboxImports],
-		}),
-	],
-};
-
-export default meta;
-type Story = StoryObj<{}>;
 type Framework = { label: string; value: string };
 
 const frameworks: Framework[] = [
@@ -26,231 +19,149 @@ const frameworks: Framework[] = [
 	{ label: 'Svelte', value: 'svelte' },
 	{ label: 'Astro', value: 'astro' },
 	{ label: 'Ember', value: 'ember' },
-	{ label: 'Backbone', value: 'backbone' },
-	{ label: 'Lit', value: 'lit' },
-	{ label: 'Preact', value: 'preact' },
-	{ label: 'SolidJS', value: 'solidjs' },
 	{ label: 'Remix', value: 'remix' },
-	{ label: 'Gatsby', value: 'gatsby' },
-	{ label: 'Qwik', value: 'qwik' },
-	{ label: 'Blazor', value: 'blazor' },
-	{ label: 'Flutter Web', value: 'flutter-web' },
-	{ label: 'Ionic Angular', value: 'ionic-angular' },
 ];
 
+// ── Default ──────────────────────────────────────────────────────────────────
+
 @Component({
-	selector: 'combobox-component',
+	selector: 'combobox-default-story',
+	standalone: true,
 	imports: [HlmComboboxImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<hlm-combobox>
+		<hlm-combobox class="w-full max-w-sm">
 			<hlm-combobox-input placeholder="Select framework..." />
 			<hlm-combobox-content *hlmComboboxPortal>
 				<hlm-combobox-empty>No items found.</hlm-combobox-empty>
 				<div hlmComboboxList>
-					@for (framework of frameworks; track $index) {
-						<hlm-combobox-item [value]="framework">{{ framework.label }}</hlm-combobox-item>
+					@for (fw of frameworks; track fw.value) {
+						<hlm-combobox-item [value]="fw">{{ fw.label }}</hlm-combobox-item>
 					}
 				</div>
 			</hlm-combobox-content>
 		</hlm-combobox>
 	`,
 })
-export class Combobox {
-	public frameworks: Framework[] = [
-		{
-			label: 'AnalogJs',
-			value: 'analogjs',
-		},
-		{
-			label: 'Angular',
-			value: 'angular',
-		},
-		{
-			label: 'Vue',
-			value: 'vue',
-		},
-		{
-			label: 'Nuxt',
-			value: 'nuxt',
-		},
-		{
-			label: 'React',
-			value: 'react',
-		},
-		{
-			label: 'NextJs',
-			value: 'nextjs',
-		},
-		{
-			label: 'Svelte',
-			value: 'svelte',
-		},
-		{
-			label: 'Astro',
-			value: 'astro',
-		},
-		{
-			label: 'Ember',
-			value: 'ember',
-		},
-		{
-			label: 'Backbone',
-			value: 'backbone',
-		},
-		{
-			label: 'Lit',
-			value: 'lit',
-		},
-		{
-			label: 'Preact',
-			value: 'preact',
-		},
-		{
-			label: 'SolidJS',
-			value: 'solidjs',
-		},
-		{
-			label: 'Remix',
-			value: 'remix',
-		},
-		{
-			label: 'Gatsby',
-			value: 'gatsby',
-		},
-		{
-			label: 'Qwik',
-			value: 'qwik',
-		},
-		{
-			label: 'Blazor',
-			value: 'blazor',
-		},
-		{
-			label: 'Flutter Web',
-			value: 'flutter-web',
-		},
-		{
-			label: 'Ionic Angular',
-			value: 'ionic-angular',
-		},
-	];
+class ComboboxDefaultStory {
+	public readonly frameworks = frameworks;
 }
 
+// ── With Reactive Form ───────────────────────────────────────────────────────
+
 @Component({
-	selector: 'combobox-field-story',
+	selector: 'combobox-reactive-form-story',
 	standalone: true,
-	imports: [
-		ReactiveFormsModule,
-		HlmFieldImports,
-		BrnCommandImports,
-		HlmCommandImports,
-		BrnPopoverImports,
-		HlmPopoverImports,
-		HlmIconImports,
-		HlmButtonImports,
-	],
+	imports: [JsonPipe, HlmComboboxImports, HlmFieldImports, HlmButton, ReactiveFormsModule],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<form [formGroup]="form">
+		<form [formGroup]="form" class="space-y-3 w-full max-w-sm">
+			<div hlmField>
+				<label hlmFieldLabel>Framework *</label>
+				<hlm-combobox formControlName="framework">
+					<hlm-combobox-input placeholder="Select framework..." />
+					<hlm-combobox-content *hlmComboboxPortal>
+						<hlm-combobox-empty>No items found.</hlm-combobox-empty>
+						<div hlmComboboxList>
+							@for (fw of frameworks; track fw.value) {
+								<hlm-combobox-item [value]="fw">{{ fw.label }}</hlm-combobox-item>
+							}
+						</div>
+					</hlm-combobox-content>
+				</hlm-combobox>
+				<p hlmFieldDescription>Choose a framework from the list.</p>
+			</div>
+
+			<div class="flex flex-wrap items-center gap-2">
+				<button hlmBtn type="button" (click)="form.markAllAsTouched()">Validate</button>
+				<button hlmBtn variant="outline" type="button" (click)="form.reset()">Reset</button>
+			</div>
+		</form>
+
+		<pre class="mt-4 text-xs">Touched: {{ form.get('framework')?.touched }}  |  Invalid: {{ form.get('framework')?.invalid }}  |  Value: {{ form.get('framework')?.value | json }}</pre>
+	`,
+})
+class ComboboxReactiveFormStory {
+	private readonly _fb = inject(FormBuilder);
+	public readonly form = this._fb.group({ framework: [null as Framework | null, Validators.required] });
+	public readonly frameworks = frameworks;
+}
+
+// ── With Hint and Error ──────────────────────────────────────────────────────
+
+@Component({
+	selector: 'combobox-hint-error-story',
+	standalone: true,
+	imports: [HlmComboboxImports, HlmFieldImports, HlmButton, ReactiveFormsModule],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		@let ctrl = form.get('framework');
+		@let showError = ctrl?.invalid && (ctrl?.touched || ctrl?.dirty);
+
+		<form [formGroup]="form" class="space-y-3 w-full max-w-sm">
 			<div hlmField [attr.data-invalid]="showError ? 'true' : null">
 				<label hlmFieldLabel>Framework *</label>
-				<hlm-popover [state]="state()" (stateChanged)="stateChanged($event)" sideOffset="5">
-					<button
-						class="w-[200px] justify-between"
-						id="edit-profile"
-						variant="outline"
-						hlmPopoverTrigger
-						(click)="state.set('open')"
-						hlmBtn
-						hlmFieldControlDescribedBy
-						[attr.aria-invalid]="showError ? 'true' : null"
-					>
-						{{ currentFramework()?.label ?? 'Select framework...' }}
-						<ng-icon hlm size="sm" name="lucideChevronsUpDown" />
-					</button>
-					<hlm-command *brnPopoverContent="let ctx" hlmPopoverContent class="w-[200px] p-0">
-						<hlm-command-search>
-							<ng-icon hlm name="lucideSearch" />
-							<input placeholder="Search framework..." hlm-command-search-input />
-						</hlm-command-search>
-						<div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
-						<hlm-command-list>
-							<hlm-command-group>
-								@for (framework of frameworks; track framework) {
-									<button hlm-command-item [value]="framework.value" (selected)="commandSelected(framework)">
-										<ng-icon
-											hlm
-											[class.opacity-0]="currentFramework()?.value !== framework.value"
-											name="lucideCheck"
-											hlmCommandIcon
-										/>
-										{{ framework.label }}
-									</button>
-								}
-							</hlm-command-group>
-						</hlm-command-list>
-					</hlm-command>
-				</hlm-popover>
-				<p hlmFieldDescription>Pick the framework you rely on most.</p>
-				@if (showError) {
-					<hlm-field-error>Choose a framework to continue.</hlm-field-error>
-				}
+				<hlm-combobox formControlName="framework">
+					<hlm-combobox-input placeholder="Select framework..." />
+					<hlm-combobox-content *hlmComboboxPortal>
+						<hlm-combobox-empty>No items found.</hlm-combobox-empty>
+						<div hlmComboboxList>
+							@for (fw of frameworks; track fw.value) {
+								<hlm-combobox-item [value]="fw">{{ fw.label }}</hlm-combobox-item>
+							}
+						</div>
+					</hlm-combobox-content>
+				</hlm-combobox>
 
-				<div class="mt-3 flex flex-wrap items-center gap-2">
-					<button hlmBtn type="button" (click)="form.markAllAsTouched()">Validate</button>
-					<button hlmBtn variant="outline" type="button" (click)="form.reset()">Reset</button>
-				</div>
+				<p hlmFieldDescription>Pick a framework to get started.</p>
+
+				@if (showError) {
+					<hlm-field-error>Select a framework to continue.</hlm-field-error>
+				}
+			</div>
+
+			<div class="flex flex-wrap items-center gap-2">
+				<button hlmBtn type="button" (click)="form.markAllAsTouched()">Validate</button>
+				<button hlmBtn variant="outline" type="button" (click)="form.reset()">Reset</button>
 			</div>
 		</form>
 	`,
 })
-export class ComboboxFieldStory {
-	public readonly form = new FormGroup({
-		framework: new FormControl('', { validators: [Validators.required] }),
-	});
-
+class ComboboxHintErrorStory {
+	private readonly _fb = inject(FormBuilder);
+	public readonly form = this._fb.group({ framework: [null as Framework | null, Validators.required] });
 	public readonly frameworks = frameworks;
-	public currentFramework = signal<Framework | undefined>(undefined);
-	public state = signal<'closed' | 'open'>('closed');
-
-	public get showError() {
-		const control = this.form.get('framework');
-		return !!control && control.invalid && (control.touched || control.dirty);
-	}
-
-	stateChanged(state: 'open' | 'closed') {
-		this.state.set(state);
-	}
-
-	commandSelected(framework: Framework) {
-		this.state.set('closed');
-		if (this.currentFramework()?.value === framework.value) {
-			this.currentFramework.set(undefined);
-		} else {
-			this.currentFramework.set(framework);
-		}
-		this.form.get('framework')?.setValue(framework.value);
-	}
 }
 
-export const Default: Story = {
+// ── Meta ─────────────────────────────────────────────────────────────────────
+
+const meta: Meta = {
+	title: 'Combobox',
+	tags: ['autodocs'],
 	decorators: [
 		moduleMetadata({
-			imports: [Combobox],
+			imports: [ComboboxDefaultStory, ComboboxReactiveFormStory, ComboboxHintErrorStory],
 		}),
 	],
+};
+
+export default meta;
+type Story = StoryObj;
+
+export const Default: Story = {
 	render: () => ({
-		template: '<combobox-component/>',
+		template: '<combobox-default-story />',
+	}),
+};
+
+export const WithReactiveForm: Story = {
+	render: () => ({
+		template: '<combobox-reactive-form-story />',
 	}),
 };
 
 export const WithHintAndError: Story = {
-	decorators: [
-		moduleMetadata({
-			providers: [provideIcons(lucide)],
-			imports: [ComboboxFieldStory],
-		}),
-	],
 	render: () => ({
-		template: '<combobox-field-story/>',
+		template: '<combobox-hint-error-story />',
 	}),
 };

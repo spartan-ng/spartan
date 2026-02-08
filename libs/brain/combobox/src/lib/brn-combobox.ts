@@ -7,6 +7,7 @@ import {
 	contentChild,
 	contentChildren,
 	Directive,
+	type DoCheck,
 	effect,
 	ElementRef,
 	forwardRef,
@@ -18,8 +19,9 @@ import {
 	signal,
 	untracked,
 } from '@angular/core';
-import { NG_VALUE_ACCESSOR, type ControlValueAccessor } from '@angular/forms';
-import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
+import { FormGroupDirective, NgControl, NgForm, type ControlValueAccessor } from '@angular/forms';
+import { BrnFormFieldControl } from '@spartan-ng/brain/form-field';
+import { ErrorStateMatcher, ErrorStateTracker, type ChangeFn, type TouchFn } from '@spartan-ng/brain/forms';
 import { BrnPopover } from '@spartan-ng/brain/popover';
 import type { BrnComboboxInput } from './brn-combobox-input';
 import { BrnComboboxInputWrapper } from './brn-combobox-input-wrapper';
@@ -36,23 +38,30 @@ import {
 	type ComboboxItemToString,
 } from './brn-combobox.token';
 
-export const BRN_COMBOBOX_VALUE_ACCESSOR = {
-	provide: NG_VALUE_ACCESSOR,
-	useExisting: forwardRef(() => BrnCombobox),
-	multi: true,
-};
-
 @Directive({
 	selector: '[brnCombobox]',
-	providers: [provideBrnComboboxBase(BrnCombobox), BRN_COMBOBOX_VALUE_ACCESSOR],
+	providers: [
+		provideBrnComboboxBase(BrnCombobox),
+		{
+			provide: BrnFormFieldControl,
+			useExisting: forwardRef(() => BrnCombobox),
+		},
+	],
 })
-export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor {
+export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor, DoCheck {
 	private readonly _injector = inject(Injector);
 
 	private readonly _config = injectBrnComboboxConfig<T>();
 
 	/** Access the popover if present */
 	private readonly _brnPopover = inject(BrnPopover, { optional: true });
+
+	private readonly _defaultErrorStateMatcher = inject(ErrorStateMatcher);
+	private readonly _parentForm = inject(NgForm, { optional: true });
+	private readonly _parentFormGroup = inject(FormGroupDirective, { optional: true });
+	public readonly ngControl = inject(NgControl, { optional: true, self: true });
+	private readonly _errorStateTracker: ErrorStateTracker;
+	public readonly errorState = computed(() => this._errorStateTracker.errorState());
 
 	/** Whether the combobox is disabled */
 	public readonly disabled = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
@@ -124,6 +133,17 @@ export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor 
 	protected _onTouched?: TouchFn;
 
 	constructor() {
+		if (this.ngControl !== null) {
+			this.ngControl.valueAccessor = this;
+		}
+
+		this._errorStateTracker = new ErrorStateTracker(
+			this._defaultErrorStateMatcher,
+			this.ngControl,
+			this._parentFormGroup,
+			this._parentForm,
+		);
+
 		this.keyManager
 			.withVerticalOrientation()
 			.withHomeAndEnd()
@@ -209,6 +229,10 @@ export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor 
 		if (this._disabled() || !this.isExpanded()) return;
 
 		this._brnPopover?.close();
+	}
+
+	ngDoCheck() {
+		this._errorStateTracker.updateErrorState();
 	}
 
 	/** CONTROL VALUE ACCESSOR */

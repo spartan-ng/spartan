@@ -28,6 +28,7 @@ export interface BrnComboboxBase<T> {
 	isExpanded: Signal<boolean>;
 	searchInputWrapperWidth: Signal<number | null>;
 	mode: Signal<ComboboxInputMode>;
+	errorState: Signal<boolean>;
 
 	isSelected: (itemValue: T) => boolean;
 	select: (itemValue: T) => void;

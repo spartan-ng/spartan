@@ -38,6 +38,7 @@ export class BrnSliderTick implements OnDestroy {
 				const view = this._viewContainer.createEmbeddedView(this._templateRef, {
 					$implicit: tick,
 					index,
+					formattedTick: this._slider.formatTick()(tick),
 				});
 
 				const tickEl = view.rootNodes[0] as HTMLElement;
@@ -58,4 +59,5 @@ export class BrnSliderTick implements OnDestroy {
 interface BrnSliderTickContext {
 	$implicit: number;
 	index: number;
+	formattedTick: string;
 }

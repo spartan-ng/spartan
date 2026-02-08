@@ -21,6 +21,7 @@ import { classes } from '@spartan-ng/helm/utils';
 				'showTicks',
 				'maxTicks',
 				'tickLabelInterval',
+				'formatTick',
 				'draggableRange',
 				'draggableRangeOnly',
 			],
@@ -49,13 +50,13 @@ import { classes } from '@spartan-ng/helm/utils';
 				class="text-muted-foreground mt-3 flex w-full items-start justify-between gap-1 px-1.5 text-xs font-medium group-data-horizontal:group-data-inverted:flex-row-reverse group-data-vertical:ms-3 group-data-vertical:mt-0 group-data-vertical:w-auto group-data-vertical:flex-col-reverse group-data-vertical:px-0 group-data-vertical:py-1.5 group-data-vertical:group-data-inverted:flex-col"
 			>
 				<div
-					*brnSliderTick="let tick"
+					*brnSliderTick="let tick; let formattedTick = formattedTick"
 					class="group flex w-0 flex-col items-center justify-center gap-2 group-data-vertical:h-0 group-data-vertical:w-auto group-data-vertical:flex-row"
 				>
 					<div
 						class="bg-muted-foreground/70 h-1 w-px group-data-vertical:h-px group-data-vertical:w-1 group-data-horizontal:group-data-[skip]:h-0.5 group-data-vertical:group-data-[skip]:w-0.5"
 					></div>
-					<div class="text-center group-data-[skip]:opacity-0">{{ tick }}</div>
+					<div class="text-center group-data-[skip]:opacity-0">{{ formattedTick }}</div>
 				</div>
 			</div>
 		}

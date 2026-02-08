@@ -19,10 +19,3 @@ export class SliderVertical {
 	public readonly value = signal([50]);
 	public readonly value2 = signal([25]);
 }
-
-export const defaultImports = `
-import { HlmSliderImports } from '@spartan-ng/helm/slider';
-`;
-export const defaultSkeleton = `
-<hlm-slider />
-`;

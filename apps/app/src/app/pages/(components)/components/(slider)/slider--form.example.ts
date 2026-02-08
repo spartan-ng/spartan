@@ -34,10 +34,3 @@ export class SliderForm {
 		console.log(this.form.value);
 	}
 }
-
-export const defaultImports = `
-import { HlmSliderImports } from '@spartan-ng/helm/slider';
-`;
-export const defaultSkeleton = `
-<hlm-slider />
-`;

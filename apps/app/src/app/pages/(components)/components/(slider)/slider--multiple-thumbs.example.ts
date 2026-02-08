@@ -17,10 +17,3 @@ import { HlmSliderImports } from '@spartan-ng/helm/slider';
 export class SliderMultipleThumbs {
 	public readonly value = signal([10, 20, 70]);
 }
-
-export const defaultImports = `
-import { HlmSliderImports } from '@spartan-ng/helm/slider';
-`;
-export const defaultSkeleton = `
-<hlm-slider />
-`;

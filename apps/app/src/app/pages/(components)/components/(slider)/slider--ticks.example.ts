@@ -17,10 +17,3 @@ import { HlmSliderImports } from '@spartan-ng/helm/slider';
 export class SliderTicks {
 	public readonly value = signal([50]);
 }
-
-export const defaultImports = `
-import { HlmSliderImports } from '@spartan-ng/helm/slider';
-`;
-export const defaultSkeleton = `
-<hlm-slider />
-`;

@@ -14,6 +14,8 @@ import { Tabs } from '../../../../shared/layout/tabs';
 import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { SliderDisabled } from './slider--disabled.example';
+import { SliderDraggableRangeOnly } from './slider--draggable-range-only.example';
+import { SliderDraggableRange } from './slider--draggable-range.example';
 import { SliderForm } from './slider--form.example';
 import { SliderMultipleThumbs } from './slider--multiple-thumbs.example';
 import { SliderPreventThumbOverlap } from './slider--prevent-thumb-overlap.example';
@@ -45,6 +47,8 @@ export const routeMeta: RouteMeta = {
 		PageBottomNavLink,
 		SectionSubSubHeading,
 		SliderDisabled,
+		SliderDraggableRange,
+		SliderDraggableRangeOnly,
 		SliderForm,
 		SliderMultipleThumbs,
 		SliderPreventThumbOverlap,
@@ -141,6 +145,34 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_preventThumbOverlapCode()" />
 			</spartan-tabs>
 
+			<h3 id="examples__draggable-range" spartanH4>Draggable Range</h3>
+			<p class="py-2">
+				Use
+				<code class="${hlmCode}">draggableRange</code>
+				to enable moving all thumbs together when dragging by the selected range.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-slider-draggable-range />
+				</div>
+				<spartan-code secondTab [code]="_draggableRangeCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__draggable-range-only" spartanH4>Draggable Range Only</h3>
+			<p class="py-2">
+				Use
+				<code class="${hlmCode}">draggableRangeOnly</code>
+				in pair with
+				<code class="${hlmCode}">draggableRange</code>
+				to allow only dragging the range.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-slider-draggable-range-only />
+				</div>
+				<spartan-code secondTab [code]="_draggableRangeOnlyCode()" />
+			</spartan-tabs>
+
 			<h3 id="examples__form" spartanH4>Form</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -173,6 +205,8 @@ export default class SliderPage {
 	protected readonly _disabledCode = computed(() => this._snippets()['disabled']);
 	protected readonly _ticksCode = computed(() => this._snippets()['ticks']);
 	protected readonly _preventThumbOverlapCode = computed(() => this._snippets()['preventThumbOverlap']);
+	protected readonly _draggableRangeCode = computed(() => this._snippets()['draggableRange']);
+	protected readonly _draggableRangeOnlyCode = computed(() => this._snippets()['draggableRangeOnly']);
 	protected readonly _formCode = computed(() => this._snippets()['form']);
 
 	protected readonly _defaultSlider = defaultSkeleton;

@@ -17,10 +17,3 @@ import { HlmSliderImports } from '@spartan-ng/helm/slider';
 export class SliderPreventThumbOverlap {
 	public readonly value = signal([20, 50]);
 }
-
-export const defaultImports = `
-import { HlmSliderImports } from '@spartan-ng/helm/slider';
-`;
-export const defaultSkeleton = `
-<hlm-slider />
-`;

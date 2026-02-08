@@ -108,6 +108,10 @@ export class BrnAutocompleteSearch<T> implements BrnAutocompleteBase<T>, Control
 	protected _onTouched?: TouchFn;
 
 	constructor() {
+		if (this.ngControl !== null) {
+			this.ngControl.valueAccessor = this;
+		}
+
 		this._errorStateTracker = new ErrorStateTracker(
 			this._defaultErrorStateMatcher,
 			this.ngControl,

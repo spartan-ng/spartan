@@ -20,8 +20,10 @@ export class HlmInputGroup {
 			'has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3',
 			// Focus state.
 			'has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-ring/50 has-[[data-slot=input-group-control]:focus-visible]:ring-[3px]',
-			// Error state.
+			// Error state (Angular form classes).
 			'has-[>.ng-invalid.ng-touched]:ring-destructive/20 has-[>.ng-invalid.ng-touched]:border-destructive dark:has-[>.ng-invalid.ng-touched]:ring-destructive/40',
+			// Error state (aria-invalid attribute).
+			'has-[>[aria-invalid=true]]:ring-destructive/20 has-[>[aria-invalid=true]]:border-destructive dark:has-[>[aria-invalid=true]]:ring-destructive/40',
 		]);
 	}
 }

@@ -79,7 +79,6 @@ export class UIApiDocs {
 
 		const transformed: any = {};
 		for (const [key, value] of Object.entries(items)) {
-			// Transform outputs to include models with "Changed" suffix
 			const existingOutputNames = new Set((value.outputs ?? []).map((o: any) => o?.name));
 
 			// Transform inputs to include models
@@ -94,7 +93,7 @@ export class UIApiDocs {
 				})) || []),
 			];
 
-			// Transform outputs to include models with "Changed" suffix
+			// Transform outputs to include models with "Change" suffix
 			const transformedOutputs = [
 				...(value.outputs?.map((output: any) => ({
 					...output,

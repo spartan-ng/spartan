@@ -53,7 +53,7 @@ describe('migrate-dialog-portal generator', () => {
       										<p hlmDialogDescription>Make changes to your profile here. Click save when you're done.</p>
     									</hlm-dialog-header>
     									<hlm-dialog-footer>
-      										<button hlmBtn variant="outline" hlmDialogCloseBtn>Cancel</button>
+      										<button hlmBtn variant="outline" hlmDialogClose>Cancel</button>
       										<button hlmBtn type="submit">Save changes</button>
     									</hlm-dialog-footer>
   									</hlm-dialog-content>

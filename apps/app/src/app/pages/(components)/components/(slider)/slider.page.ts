@@ -20,6 +20,7 @@ import { SliderForm } from './slider--form.example';
 import { SliderMultipleThumbs } from './slider--multiple-thumbs.example';
 import { SliderPreventThumbOverlap } from './slider--prevent-thumb-overlap.example';
 import { SliderRange } from './slider--range.example';
+import { SliderTicksWithLabel } from './slider--ticks-with-label.example';
 import { SliderTicks } from './slider--ticks.example';
 import { SliderVertical } from './slider--vertical.example';
 
@@ -54,6 +55,7 @@ export const routeMeta: RouteMeta = {
 		SliderPreventThumbOverlap,
 		SliderPreview,
 		SliderRange,
+		SliderTicksWithLabel,
 		SliderTicks,
 		SliderVertical,
 		UIApiDocs,
@@ -132,6 +134,14 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_ticksCode()" />
 			</spartan-tabs>
 
+			<h3 id="examples__ticks-with-label" spartanH4>Ticks with label</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-slider-ticks-with-label />
+				</div>
+				<spartan-code secondTab [code]="_ticksWithLabelCode()" />
+			</spartan-tabs>
+
 			<h3 id="examples__prevent-thumb-overlap" spartanH4>Prevent thumb overlap</h3>
 			<p class="py-2">
 				Use
@@ -204,6 +214,7 @@ export default class SliderPage {
 	protected readonly _verticalCode = computed(() => this._snippets()['vertical']);
 	protected readonly _disabledCode = computed(() => this._snippets()['disabled']);
 	protected readonly _ticksCode = computed(() => this._snippets()['ticks']);
+	protected readonly _ticksWithLabelCode = computed(() => this._snippets()['ticksWithLabel']);
 	protected readonly _preventThumbOverlapCode = computed(() => this._snippets()['preventThumbOverlap']);
 	protected readonly _draggableRangeCode = computed(() => this._snippets()['draggableRange']);
 	protected readonly _draggableRangeOnlyCode = computed(() => this._snippets()['draggableRangeOnly']);

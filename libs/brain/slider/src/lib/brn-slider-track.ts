@@ -10,9 +10,9 @@ import { linearScale } from './utils/linear-scale';
 		'[attr.data-disabled]': '_slider.mutableDisabled() ? "" : null',
 		'[attr.data-orientation]': '_slider.orientation()',
 		'data-slot': 'slider-track',
-		'(pointerdown)': '_onPointerDown($event)',
-		'(pointermove)': '_onPointerMove($event)',
-		'(pointerup)': '_onPointerUp($event)',
+		'(pointerdown)': 'onPointerDown($event)',
+		'(pointermove)': 'onPointerMove($event)',
+		'(pointerup)': 'onPointerUp($event)',
 	},
 })
 export class BrnSliderTrack {
@@ -26,7 +26,7 @@ export class BrnSliderTrack {
 		this._slider.track.set(this);
 	}
 
-	public _onPointerDown(event: PointerEvent) {
+	public onPointerDown(event: PointerEvent): void {
 		if (this._slider.mutableDisabled()) return;
 
 		const target = event.target as HTMLElement;
@@ -57,7 +57,7 @@ export class BrnSliderTrack {
 		}
 	}
 
-	public _onPointerMove(event: PointerEvent) {
+	public onPointerMove(event: PointerEvent): void {
 		if (this._slider.mutableDisabled()) return;
 
 		const target = event.target as HTMLElement;
@@ -91,7 +91,7 @@ export class BrnSliderTrack {
 		this._slider.setValue(value, this._slider.valueIndexToChange());
 	}
 
-	public _onPointerUp(event: PointerEvent) {
+	public onPointerUp(event: PointerEvent): void {
 		const target = event.target as HTMLElement;
 
 		if (target.hasPointerCapture(event.pointerId)) {
@@ -102,7 +102,7 @@ export class BrnSliderTrack {
 		this._rangeDragAccumulatedDelta = 0;
 	}
 
-	private _getValueFromPointer(pointerPosition: number) {
+	private _getValueFromPointer(pointerPosition: number): number {
 		const rect = this._elementRef.nativeElement.getBoundingClientRect();
 		const source = this._slider.slidingSource();
 
@@ -155,11 +155,11 @@ export class BrnSliderTrack {
 		return scale(pixelDelta * direction) - scale(0);
 	}
 
-	private _isTrack(el: HTMLElement) {
+	private _isTrack(el: HTMLElement): boolean {
 		return this._elementRef.nativeElement === el;
 	}
 
-	private _isRange(el: HTMLElement) {
+	private _isRange(el: HTMLElement): boolean {
 		return this._slider.range()?.elementRef.nativeElement === el;
 	}
 
@@ -168,7 +168,7 @@ export class BrnSliderTrack {
 	}
 }
 
-function getClosestValueIndex(values: number[], nextValue: number) {
+function getClosestValueIndex(values: number[], nextValue: number): number {
 	if (values.length === 1) return 0;
 	const distances = values.map((value) => Math.abs(value - nextValue));
 	const closestDistance = Math.min(...distances);

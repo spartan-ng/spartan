@@ -4755,7 +4755,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "number[]",
           },
         ],
-        "outputs": [],
+        "outputs": [
+          {
+            "name": "valueChange",
+            "type": "number[]",
+          },
+        ],
         "selector": "[brnSlider]",
       },
       "BrnSliderRange": {

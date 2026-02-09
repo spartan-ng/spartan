@@ -12,6 +12,7 @@ import {
 	model,
 	numberAttribute,
 	type OnInit,
+	output,
 	signal,
 } from '@angular/core';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl, NgModel } from '@angular/forms';
@@ -116,6 +117,9 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 		transform: booleanAttribute,
 	});
 
+	/** Emits when the value changes. */
+	public readonly valueChange = output<number[]>();
+
 	/** @internal Normalized slider values. Values are clamped to `[min, max]` and sorted in ascending order. */
 	public readonly normalizedValue = computed(
 		() => [...this.value()].sort((a, b) => a - b).map((v) => clamp(v, [this.min(), this.max()])),
@@ -204,16 +208,23 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 	ngOnInit(): void {
 		this._ngControl = this._injector.get(NgControl, null);
 
-		if (!this.value().length) {
-			this.value.set([this.min()]);
-		}
+		// If bound to an Angular form control, writeValue() will run after ngOnInit,
+		// so avoid initializing defaults here to prevent a transient min-value override.
+		if (!this._ngControl) {
+			if (!this.value().length) {
+				const defaultValue = [this.min()];
+				this.value.set(defaultValue);
+				this.valueChange.emit(defaultValue);
+			}
 
-		const normalizedValue = this.value()
-			.map((v) => clamp(v, [this.min(), this.max()]))
-			.sort((a, b) => a - b);
+			const normalizedValue = this.value()
+				.map((v) => clamp(v, [this.min(), this.max()]))
+				.sort((a, b) => a - b);
 
-		if (!areArrsEqual(normalizedValue, this.value())) {
-			this.value.set(normalizedValue);
+			if (!areArrsEqual(normalizedValue, this.value())) {
+				this.value.set(normalizedValue);
+				this.valueChange.emit(normalizedValue);
+			}
 		}
 	}
 
@@ -265,6 +276,7 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 
 		this.value.set(newValue);
 		this._onChange?.(newValue);
+		this.valueChange.emit(newValue);
 
 		if (this.thumbs()[newValIndex]) {
 			this.thumbs()[newValIndex].elementRef.nativeElement.focus();
@@ -303,10 +315,11 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 
 		this.value.set(next);
 		this._onChange?.(next);
+		this.valueChange.emit(next);
 	}
 
 	/** @internal */
-	addThumb(thumb: BrnSliderThumb) {
+	addThumb(thumb: BrnSliderThumb): void {
 		this.thumbs.update((thumbs) => {
 			thumbs.push(thumb);
 			return [...thumbs];
@@ -314,11 +327,11 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 	}
 
 	/** @internal */
-	removeThumb(thumb: BrnSliderThumb) {
+	removeThumb(thumb: BrnSliderThumb): void {
 		this.thumbs.update((thumbs) => thumbs.filter((t) => t !== thumb));
 	}
 
-	protected _onFocusOut(event: FocusEvent) {
+	protected _onFocusOut(event: FocusEvent): void {
 		const currentTarget = event.currentTarget as HTMLElement;
 		const focusedEl = event.relatedTarget as HTMLElement | null;
 
@@ -328,7 +341,7 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 	}
 }
 
-function areArrsEqual(arr1: unknown[], arr2: unknown[]) {
+function areArrsEqual(arr1: unknown[], arr2: unknown[]): boolean {
 	return String(arr1) === String(arr2);
 }
 
@@ -345,11 +358,11 @@ function clamp(value: number, [min, max]: [number, number]): number {
 	return Math.min(max, Math.max(min, value));
 }
 
-function getStepsBetweenValues(values: number[]) {
+function getStepsBetweenValues(values: number[]): number[] {
 	return values.slice(0, -1).map((value, index) => values[index + 1]! - value);
 }
 
-function hasMinStepsBetweenValues(values: number[], minStepsBetweenValues: number) {
+function hasMinStepsBetweenValues(values: number[], minStepsBetweenValues: number): boolean {
 	if (minStepsBetweenValues > 0) {
 		const stepsBetweenValues = getStepsBetweenValues(values);
 		const actualMinStepsBetweenValues = Math.min(...stepsBetweenValues);

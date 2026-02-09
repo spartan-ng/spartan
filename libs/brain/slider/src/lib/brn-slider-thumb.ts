@@ -1,5 +1,5 @@
 import { isPlatformServer } from '@angular/common';
-import { computed, Directive, ElementRef, inject, OnDestroy, PLATFORM_ID } from '@angular/core';
+import { computed, DestroyRef, Directive, ElementRef, inject, PLATFORM_ID } from '@angular/core';
 import { injectElementSize } from '@spartan-ng/brain/core';
 import { injectBrnSlider } from './brn-slider.token';
 import { linearScale } from './utils/linear-scale';
@@ -34,10 +34,11 @@ const PAGE_KEYS = ['PageUp', 'PageDown'];
 		'(keydown)': 'handleKeydown($event)',
 	},
 })
-export class BrnSliderThumb implements OnDestroy {
+export class BrnSliderThumb {
 	private readonly _platform = inject(PLATFORM_ID);
-	protected readonly _slider = injectBrnSlider();
+	private readonly _destroyRef = inject(DestroyRef);
 	private readonly _size = injectElementSize();
+	protected readonly _slider = injectBrnSlider();
 	public readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 
 	/**
@@ -104,25 +105,25 @@ export class BrnSliderThumb implements OnDestroy {
 
 	constructor() {
 		this._slider.addThumb(this);
+
+		this._destroyRef.onDestroy(() => {
+			this._slider.removeThumb(this);
+		});
 	}
 
-	ngOnDestroy() {
-		this._slider.removeThumb(this);
+	protected _onPointerDown(event: PointerEvent): void {
+		this._slider.track()?.onPointerDown(event);
 	}
 
-	protected _onPointerDown(event: PointerEvent) {
-		this._slider.track()?._onPointerDown(event);
+	protected _onPointerMove(event: PointerEvent): void {
+		this._slider.track()?.onPointerMove(event);
 	}
 
-	protected _onPointerMove(event: PointerEvent) {
-		this._slider.track()?._onPointerMove(event);
+	protected _onPointerUp(event: PointerEvent): void {
+		this._slider.track()?.onPointerUp(event);
 	}
 
-	protected _onPointerUp(event: PointerEvent) {
-		this._slider.track()?._onPointerUp(event);
-	}
-
-	protected handleKeydown(event: KeyboardEvent) {
+	protected handleKeydown(event: KeyboardEvent): void {
 		if (this._slider.mutableDisabled()) return;
 
 		const step = this._slider.step();

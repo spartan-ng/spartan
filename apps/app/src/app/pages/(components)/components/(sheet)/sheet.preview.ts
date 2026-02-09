@@ -30,7 +30,7 @@ import { HlmSheetImports } from '@spartan-ng/helm/sheet';
 				</div>
 				<hlm-sheet-footer>
 					<button hlmBtn type="submit">Save Changes</button>
-					<button brnSheetClose hlmBtn variant="outline">Close</button>
+					<button hlmSheetClose hlmBtn variant="outline">Close</button>
 				</hlm-sheet-footer>
 			</hlm-sheet-content>
 		</hlm-sheet>

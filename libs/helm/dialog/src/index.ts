@@ -23,7 +23,6 @@ export * from './lib/hlm-dialog.service';
 
 export const HlmDialogImports = [
 	HlmDialog,
-	HlmDialogClose,
 	HlmDialogContent,
 	HlmDialogDescription,
 	HlmDialogFooter,
@@ -32,4 +31,5 @@ export const HlmDialogImports = [
 	HlmDialogPortal,
 	HlmDialogTitle,
 	HlmDialogTrigger,
+	HlmDialogClose,
 ] as const;

@@ -150,6 +150,7 @@ Our initial 300 contributors and sponsors are featured here and on the front pag
 131. [jpsullivan](https://github.com/jpsullivan)
 132. [ayangabryl](https://github.com/ayangabryl)
 133. [s-froghyar](https://github.com/s-froghyar)
+134. [aziz-zina](https://github.com/aziz-zina)
 
 [Become a spartan today!](https://github.com/sponsors/goetzrobin)
 

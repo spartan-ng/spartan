@@ -8,6 +8,6 @@ import { classes } from '<%- importAlias %>/utils';
 })
 export class HlmSheetClose {
 	constructor() {
-		classes(() => 'absolute top-4 right-4');
+		classes(() => 'absolute top-4 end-4');
 	}
 }

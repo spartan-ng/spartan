@@ -11,6 +11,7 @@ import { HlmDialogTrigger } from './lib/hlm-dialog-trigger';
 
 export * from './lib/hlm-dialog';
 export * from './lib/hlm-dialog-close';
+export * from './lib/hlm-dialog-close-button';
 export * from './lib/hlm-dialog-content';
 export * from './lib/hlm-dialog-description';
 export * from './lib/hlm-dialog-footer';
@@ -23,7 +24,6 @@ export * from './lib/hlm-dialog.service';
 
 export const HlmDialogImports = [
 	HlmDialog,
-	HlmDialogClose,
 	HlmDialogContent,
 	HlmDialogDescription,
 	HlmDialogFooter,
@@ -32,4 +32,5 @@ export const HlmDialogImports = [
 	HlmDialogPortal,
 	HlmDialogTitle,
 	HlmDialogTrigger,
+	HlmDialogClose,
 ] as const;

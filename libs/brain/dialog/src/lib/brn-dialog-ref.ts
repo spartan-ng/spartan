@@ -1,5 +1,6 @@
 import type { DialogRef } from '@angular/cdk/dialog';
 import type { Signal, WritableSignal } from '@angular/core';
+import { signal } from '@angular/core';
 import { type Observable, Subject } from 'rxjs';
 import { take } from 'rxjs/operators';
 import type { BrnDialogOptions } from './brn-dialog-options';
@@ -19,18 +20,28 @@ export class BrnDialogRef<DialogResult = any> {
 		return this.state() === 'open';
 	}
 
+	private readonly _options = signal<undefined | BrnDialogOptions>(undefined);
+	public readonly options = this._options.asReadonly();
+
+	public setOptions(options: Partial<BrnDialogOptions>) {
+		this._options.update((prev) => ({ ...(prev ?? {}), ...options }) as BrnDialogOptions);
+	}
+
 	constructor(
 		private readonly _cdkDialogRef: DialogRef<DialogResult>,
 		private readonly _open: WritableSignal<boolean>,
 		public readonly state: Signal<BrnDialogState>,
 		public readonly dialogId: number,
-		private readonly _options?: BrnDialogOptions,
+		_options?: BrnDialogOptions,
 	) {
+		if (_options) {
+			this._options.set(_options);
+		}
 		this.closed$ = this._cdkDialogRef.closed.pipe(take(1));
 	}
 
-	public close(result?: DialogResult, delay: number = this._options?.closeDelay ?? 0) {
-		if (!this.open || this._options?.disableClose) return;
+	public close(result?: DialogResult, delay: number = this._options()?.closeDelay ?? 0) {
+		if (!this.open || this._options()?.disableClose) return;
 
 		this._closing$.next();
 		this._open.set(false);

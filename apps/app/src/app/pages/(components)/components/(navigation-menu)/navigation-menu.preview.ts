@@ -68,7 +68,7 @@ import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 									<a hlmNavigationMenuLink [href]="component.href">
 										<div class="flex flex-col gap-1 text-sm">
 											<div class="leading-none font-medium">{{ component.title }}</div>
-											<div class="text-muted-foreground line-clamp-2">{{ component.description }}c</div>
+											<div class="text-muted-foreground line-clamp-2">{{ component.description }}</div>
 										</div>
 									</a>
 								</li>

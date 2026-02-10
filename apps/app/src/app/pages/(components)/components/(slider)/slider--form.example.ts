@@ -2,11 +2,12 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmHint } from '@spartan-ng/helm/form-field';
+import { HlmLabel } from '@spartan-ng/helm/label';
 import { HlmSliderImports } from '@spartan-ng/helm/slider';
 
 @Component({
 	selector: 'spartan-slider-form',
-	imports: [HlmSliderImports, ReactiveFormsModule, HlmButton, HlmHint],
+	imports: [HlmSliderImports, ReactiveFormsModule, HlmButton, HlmHint, HlmLabel],
 	styles: `
 		:host {
 			display: block;

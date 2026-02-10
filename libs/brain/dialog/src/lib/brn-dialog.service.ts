@@ -89,7 +89,7 @@ export class BrnDialogService {
 		};
 
 		const destroyed$ = new Subject<void>();
-		const optionChanged$ = new Subject<void>();
+		const optionsChanged$ = new Subject<void>();
 		const open = signal<boolean>(true);
 		const state = computed<BrnDialogState>(() => (open() ? 'open' : 'closed'));
 		const dialogId = ++dialogSequence;
@@ -170,10 +170,11 @@ export class BrnDialogService {
 		runInInjectionContext(this._injector, () => {
 			const optionChangeEffect = effect(() => {
 				const options = brnDialogRef.options();
+				optionsChanged$.next();
 				const closeOnOutsidePointerEvents =
 					options?.closeOnOutsidePointerEvents ?? this._defaultOptions.closeOnOutsidePointerEvents;
 				if (closeOnOutsidePointerEvents) {
-					cdkDialogRef.outsidePointerEvents.pipe(takeUntil(merge(destroyed$, optionChanged$))).subscribe(() => {
+					cdkDialogRef.outsidePointerEvents.pipe(takeUntil(merge(destroyed$, optionsChanged$))).subscribe(() => {
 						const overlays = this._overlayCloseDispatcher._attachedOverlays;
 						const index = overlays.indexOf(cdkDialogRef.overlayRef);
 						// close if this is the topmost overlay
@@ -189,7 +190,7 @@ export class BrnDialogService {
 
 				const closeOnBackdropClick = options?.closeOnBackdropClick ?? this._defaultOptions.closeOnBackdropClick;
 				if (closeOnBackdropClick) {
-					cdkDialogRef.backdropClick.pipe(takeUntil(merge(destroyed$, optionChanged$))).subscribe(() => {
+					cdkDialogRef.backdropClick.pipe(takeUntil(merge(destroyed$, optionsChanged$))).subscribe(() => {
 						brnDialogRef.close(undefined, options?.closeDelay);
 					});
 				}
@@ -199,7 +200,7 @@ export class BrnDialogService {
 					cdkDialogRef.keydownEvents
 						.pipe(
 							filter((e) => e.key === 'Escape'),
-							takeUntil(merge(destroyed$, optionChanged$)),
+							takeUntil(merge(destroyed$, optionsChanged$)),
 						)
 						.subscribe(() => {
 							brnDialogRef.close(undefined, options?.closeDelay);
@@ -210,7 +211,7 @@ export class BrnDialogService {
 			effectRef.push(optionChangeEffect);
 		});
 		cdkDialogRef.closed.pipe(takeUntil(destroyed$)).subscribe(() => {
-			effectRef.forEach((a) => a?.destroy());
+			effectRef.forEach((a) => a.destroy());
 			destroyed$.next();
 		});
 

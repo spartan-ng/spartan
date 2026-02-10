@@ -13,7 +13,7 @@ import { classes } from '@spartan-ng/helm/utils';
 export class HlmNavigationMenuList {
 	constructor() {
 		classes(() => [
-			'group flex flex-1 list-none items-center justify-center gap-1',
+			'group flex flex-1 list-none items-center justify-center gap-0',
 			'data-[orientation=vertical]:flex-col',
 		]);
 	}

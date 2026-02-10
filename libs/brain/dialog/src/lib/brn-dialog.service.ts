@@ -131,18 +131,6 @@ export class BrnDialogService {
 					effectRef.push(ref);
 				});
 
-				runInInjectionContext(this._injector, () => {
-					const ref = effect(() => {
-						if (overlay) {
-							this._renderer.setAttribute(overlay, 'data-state', state());
-						}
-						if (backdrop) {
-							this._renderer.setAttribute(backdrop, 'data-state', state());
-						}
-					});
-					effectRef.push(ref);
-				});
-
 				const providers: StaticProvider[] = [
 					{
 						provide: BrnDialogRef,

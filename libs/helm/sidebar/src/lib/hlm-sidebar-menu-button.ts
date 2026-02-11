@@ -74,7 +74,7 @@ export class HlmSidebarMenuButton {
 	}
 
 	protected onClick(): void {
-		if (this._config.closeMobileSidebarOnMenuButtonClick) {
+		if (this.closeMobileMenuOnClick()) {
 			this._sidebarService.setOpenMobile(false);
 		}
 	}

@@ -23,7 +23,7 @@ export class BrnDialogRef<DialogResult = any> {
 	private readonly _options = signal<undefined | BrnDialogOptions>(undefined);
 	public readonly options = this._options.asReadonly();
 
-	public setOptions(options: Partial<BrnDialogOptions>) {
+	public updateOptions(options: Partial<BrnDialogOptions>) {
 		this._options.update((prev) => ({ ...(prev ?? {}), ...options }) as BrnDialogOptions);
 	}
 

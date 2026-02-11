@@ -179,16 +179,7 @@ export class BrnDialog<TResult = unknown, TContext extends Record<string, unknow
 					const state = dialogRef.state();
 					untracked(() => this.stateChanged.emit(state));
 				}),
-			);
-		});
-
-		runInInjectionContext(this._injector, () => {
-			this._dialogStateEffectRefs.push(
-				effect(() => {
-					const ref = this._dialogRef();
-					if (!ref) return;
-					ref.setOptions(this._options());
-				}),
+				effect(() => dialogRef.updateOptions(this._options())),
 			);
 		});
 

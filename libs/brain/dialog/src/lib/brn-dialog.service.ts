@@ -79,7 +79,7 @@ export class BrnDialogService {
 				: this._positionBuilder.global().centerHorizontally().centerVertically());
 
 		let brnDialogRef!: BrnDialogRef;
-		const effectRef: EffectRef[] = [];
+		const effectRefs: EffectRef[] = [];
 
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const contextOrData: BrnDialogContext<any> = {
@@ -128,7 +128,7 @@ export class BrnDialogService {
 							this._renderer.setAttribute(backdrop, 'data-state', state());
 						}
 					});
-					effectRef.push(ref);
+					effectRefs.push(ref);
 				});
 
 				const providers: StaticProvider[] = [
@@ -196,10 +196,10 @@ export class BrnDialogService {
 				}
 			});
 
-			effectRef.push(optionChangeEffect);
+			effectRefs.push(optionChangeEffect);
 		});
 		cdkDialogRef.closed.pipe(takeUntil(destroyed$)).subscribe(() => {
-			effectRef.forEach((a) => a.destroy());
+			effectRefs.forEach((a) => a.destroy());
 			destroyed$.next();
 		});
 

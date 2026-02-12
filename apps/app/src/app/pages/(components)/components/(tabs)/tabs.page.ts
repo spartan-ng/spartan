@@ -26,6 +26,7 @@ import { TabsLinePreview } from './tabs--line.preview';
 import { TabsPaginatedPreview } from './tabs--paginated.preview';
 import { TabsVerticalPreview } from './tabs--vertical.preview';
 import { TabsWithIconsPreview } from './tabs--with-icons.preview';
+import { TabsLazyPreview } from './tabs--lazy.preview';
 import { TabsPreview, defaultImports, defaultSkeleton } from './tabs.preview';
 
 export const routeMeta: RouteMeta = {
@@ -58,6 +59,7 @@ export const routeMeta: RouteMeta = {
 		TabsWithIconsPreview,
 		TabsIconsOnlyPreview,
 		TabsInputButtonPreview,
+		TabsLazyPreview,
 		HlmAlertDescription,
 		HlmAlert,
 		NgIcon,
@@ -142,6 +144,25 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_inputButtonCode()" />
 			</spartan-tabs>
 
+			<h3 id="examples__lazy_loading" spartanH4>Lazy Loading</h3>
+
+			<p class="py-2">
+				Use
+				<code class="${hlmCode}">hlmTabsContentLazy</code>
+				on an
+				<code class="${hlmCode}">ng-template</code>
+				inside a tab panel to keep its content out of the DOM until the user navigates to that tab. This is
+				particularly useful when panels trigger network requests or render expensive component trees. The content
+				is created once on first visit and remains alive for subsequent visits.
+			</p>
+
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-tabs-lazy />
+				</div>
+				<spartan-code secondTab [code]="_lazyCode()" />
+			</spartan-tabs>
+
 			<h3 id="examples__paginated_tabs" spartanH4>Paginated Tabs</h3>
 
 			<p class="pt-2">
@@ -204,6 +225,7 @@ export default class TabsPage {
 	protected readonly _withIconsCode = computed(() => this._snippets()['withIcons']);
 	protected readonly _iconOnlyCode = computed(() => this._snippets()['iconOnly']);
 	protected readonly _inputButtonCode = computed(() => this._snippets()['inputButton']);
+	protected readonly _lazyCode = computed(() => this._snippets()['lazy']);
 	protected readonly _paginatedCode = computed(() => this._snippets()['paginated']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;

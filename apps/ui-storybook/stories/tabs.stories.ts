@@ -192,6 +192,69 @@ export const Paginated: Story = {
 	}),
 };
 
+export const LazyLoading: Story = {
+	render: () => ({
+		props: {
+			accountLoadedAt: null as string | null,
+			passwordLoadedAt: null as string | null,
+		},
+		template: /* HTML */ `
+			<hlm-tabs tab="account" class="mx-auto block max-w-3xl">
+				<hlm-tabs-list class="grid w-full grid-cols-2" aria-label="lazy loading tabs example">
+					<button hlmTabsTrigger="account">Account</button>
+					<button hlmTabsTrigger="password">Password</button>
+				</hlm-tabs-list>
+				<div hlmTabsContent="account">
+					<ng-template hlmTabsContentLazy>
+						<section hlmCard>
+							<div hlmCardHeader>
+								<h3 hlmCardTitle>Account (Lazy)</h3>
+								<p hlmCardDescription>
+									This content was lazily loaded when the tab was first activated.
+								</p>
+							</div>
+							<p hlmCardContent>
+								<label class="my-4 block" hlmLabel>
+									Name
+									<input class="mt-1.5 w-full" value="Pedro Duarte" hlmInput />
+								</label>
+								<label class="my-4 block" hlmLabel>
+									Username
+									<input class="mt-1.5 w-full" placeholder="@peduarte" hlmInput />
+								</label>
+							</p>
+							<div hlmCardFooter><button hlmBtn>Save Changes</button></div>
+						</section>
+					</ng-template>
+				</div>
+				<div hlmTabsContent="password">
+					<ng-template hlmTabsContentLazy>
+						<section hlmCard>
+							<div hlmCardHeader>
+								<h3 hlmCardTitle>Password (Lazy)</h3>
+								<p hlmCardDescription>
+									This content was lazily loaded when the tab was first activated. Switch tabs and inspect the DOM to verify.
+								</p>
+							</div>
+							<p hlmCardContent>
+								<label class="my-4 block" hlmLabel>
+									Old Password
+									<input class="mt-1.5 w-full" type="password" hlmInput />
+								</label>
+								<label class="my-4 block" hlmLabel>
+									New Password
+									<input class="mt-1.5 w-full" type="password" hlmInput />
+								</label>
+							</p>
+							<div hlmCardFooter><button hlmBtn>Save Password</button></div>
+						</section>
+					</ng-template>
+				</div>
+			</hlm-tabs>
+		`,
+	}),
+};
+
 export const BrnOnly: Story = {
 	render: () => ({
 		props: { activationMode: 'automatic' },

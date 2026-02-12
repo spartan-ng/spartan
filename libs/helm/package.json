@@ -10,7 +10,7 @@
 		"@angular/router": ">=20.0.0 <22.0.0",
 		"@ng-icons/core": ">=32.0.0 <34.0.0",
 		"@ng-icons/lucide": ">=32.0.0 <34.0.0",
-		"@spartan-ng/brain": "0.0.1-alpha.632",
+		"@spartan-ng/brain": "0.0.1-alpha.633",
 		"class-variance-authority": "^0.7.0",
 		"clsx": "^2.1.1",
 		"embla-carousel-angular": "^20.0.0",

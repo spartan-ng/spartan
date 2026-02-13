@@ -5097,6 +5097,13 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "outputs": [],
         "selector": "[brnTabsContent]",
       },
+      "BrnTabsContentLazy": {
+        "exportAs": "brnTabsContentLazy",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "ng-template[brnTabsContentLazy]",
+      },
       "BrnTabsList": {
         "exportAs": "brnTabsList",
         "inputs": [],
@@ -5169,6 +5176,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [],
         "outputs": [],
         "selector": "[hlmTabsContent]",
+      },
+      "HlmTabsContentLazy": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "ng-template[hlmTabsContentLazy]",
       },
       "HlmTabsList": {
         "inputs": [

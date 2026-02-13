@@ -209,9 +209,7 @@ export const LazyLoading: Story = {
 						<section hlmCard>
 							<div hlmCardHeader>
 								<h3 hlmCardTitle>Account (Lazy)</h3>
-								<p hlmCardDescription>
-									This content was lazily loaded when the tab was first activated.
-								</p>
+								<p hlmCardDescription>This content was lazily loaded when the tab was first activated.</p>
 							</div>
 							<p hlmCardContent>
 								<label class="my-4 block" hlmLabel>
@@ -233,7 +231,8 @@ export const LazyLoading: Story = {
 							<div hlmCardHeader>
 								<h3 hlmCardTitle>Password (Lazy)</h3>
 								<p hlmCardDescription>
-									This content was lazily loaded when the tab was first activated. Switch tabs and inspect the DOM to verify.
+									This content was lazily loaded when the tab was first activated. Switch tabs and inspect the DOM to
+									verify.
 								</p>
 							</div>
 							<p hlmCardContent>

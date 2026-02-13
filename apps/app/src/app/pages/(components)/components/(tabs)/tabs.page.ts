@@ -22,11 +22,11 @@ import { metaWith } from '../../../../shared/meta/meta.util';
 import { TabsBasicPreview } from './tabs--basic.preview';
 import { TabsIconsOnlyPreview } from './tabs--icon-only.preview';
 import { TabsInputButtonPreview } from './tabs--input-button.preview';
+import { TabsLazyPreview } from './tabs--lazy.preview';
 import { TabsLinePreview } from './tabs--line.preview';
 import { TabsPaginatedPreview } from './tabs--paginated.preview';
 import { TabsVerticalPreview } from './tabs--vertical.preview';
 import { TabsWithIconsPreview } from './tabs--with-icons.preview';
-import { TabsLazyPreview } from './tabs--lazy.preview';
 import { TabsPreview, defaultImports, defaultSkeleton } from './tabs.preview';
 
 export const routeMeta: RouteMeta = {
@@ -151,9 +151,9 @@ export const routeMeta: RouteMeta = {
 				<code class="${hlmCode}">hlmTabsContentLazy</code>
 				on an
 				<code class="${hlmCode}">ng-template</code>
-				inside a tab panel to keep its content out of the DOM until the user navigates to that tab. This is
-				particularly useful when panels trigger network requests or render expensive component trees. The content
-				is created once on first visit and remains alive for subsequent visits.
+				inside a tab panel to keep its content out of the DOM until the user navigates to that tab. This is particularly
+				useful when panels trigger network requests or render expensive component trees. The content is created once on
+				first visit and remains alive for subsequent visits.
 			</p>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">

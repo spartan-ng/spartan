@@ -10,5 +10,6 @@ export * from './lib/brn-slider-thumb';
 export * from './lib/brn-slider-tick';
 export * from './lib/brn-slider-track';
 export * from './lib/brn-slider.token';
+export * from './lib/brn-slider-track.token';
 
 export const BrnSliderImports = [BrnSlider, BrnSliderTrack, BrnSliderThumb, BrnSliderRange, BrnSliderTick] as const;

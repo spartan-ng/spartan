@@ -46,7 +46,7 @@ export class BrnDialog<TResult = unknown, TContext extends Record<string, unknow
 
 	private _contentTemplate: TemplateRef<unknown> | undefined;
 	private readonly _dialogRef = signal<BrnDialogRef | undefined>(undefined);
-	private _dialogStateEffectRef?: EffectRef;
+	private readonly _dialogStateEffectRefs: EffectRef[] = [];
 	private readonly _backdropClass = signal<string | null | undefined>(null);
 	private readonly _panelClass = signal<string | null | undefined>(null);
 
@@ -159,10 +159,10 @@ export class BrnDialog<TResult = unknown, TContext extends Record<string, unknow
 	public readonly ariaModal = input<boolean, BooleanInput>(true, { alias: 'aria-modal', transform: booleanAttribute });
 	private readonly _mutableAriaModal = linkedSignal(() => this.ariaModal());
 
-	public open() {
+	public open(): void {
 		if (!this._contentTemplate || this._dialogRef()) return;
 
-		this._dialogStateEffectRef?.destroy();
+		this._dialogStateEffectRefs.forEach((ref) => ref.destroy());
 
 		const dialogRef = this._dialogService.open<TContext>(
 			this._contentTemplate,
@@ -174,10 +174,13 @@ export class BrnDialog<TResult = unknown, TContext extends Record<string, unknow
 		this._dialogRef.set(dialogRef);
 
 		runInInjectionContext(this._injector, () => {
-			this._dialogStateEffectRef = effect(() => {
-				const state = dialogRef.state();
-				untracked(() => this.stateChanged.emit(state));
-			});
+			this._dialogStateEffectRefs.push(
+				effect(() => {
+					const state = dialogRef.state();
+					untracked(() => this.stateChanged.emit(state));
+				}),
+				effect(() => dialogRef.updateOptions(this._options())),
+			);
 		});
 
 		dialogRef.closed$.pipe(take(1), takeUntilDestroyed(this._destroyRef)).subscribe((result) => {
@@ -186,44 +189,44 @@ export class BrnDialog<TResult = unknown, TContext extends Record<string, unknow
 		});
 	}
 
-	public close(result?: TResult, delay?: number) {
+	public close(result?: TResult, delay?: number): void {
 		this._dialogRef()?.close(result, delay ?? this._options().closeDelay);
 	}
 
-	public registerTemplate(template: TemplateRef<unknown>) {
+	public registerTemplate(template: TemplateRef<unknown>): void {
 		this._contentTemplate = template;
 	}
 
-	public setOverlayClass(overlayClass: string | null | undefined) {
+	public setOverlayClass(overlayClass: string | null | undefined): void {
 		this._backdropClass.set(overlayClass);
 		this._dialogRef()?.setOverlayClass(overlayClass);
 	}
 
-	public setPanelClass(panelClass: string | null | undefined) {
+	public setPanelClass(panelClass: string | null | undefined): void {
 		this._panelClass.set(panelClass ?? '');
 		this._dialogRef()?.setPanelClass(panelClass);
 	}
 
-	public setContext(context: TContext) {
+	public setContext(context: TContext): void {
 		this._context = { ...this._context, ...context };
 	}
 
-	public setAriaDescribedBy(ariaDescribedBy: string | null | undefined) {
+	public setAriaDescribedBy(ariaDescribedBy: string | null | undefined): void {
 		this._mutableAriaDescribedBy.set(ariaDescribedBy);
 		this._dialogRef()?.setAriaDescribedBy(ariaDescribedBy);
 	}
 
-	public setAriaLabelledBy(ariaLabelledBy: string | null | undefined) {
+	public setAriaLabelledBy(ariaLabelledBy: string | null | undefined): void {
 		this._mutableAriaLabelledBy.set(ariaLabelledBy);
 		this._dialogRef()?.setAriaLabelledBy(ariaLabelledBy);
 	}
 
-	public setAriaLabel(ariaLabel: string | null | undefined) {
+	public setAriaLabel(ariaLabel: string | null | undefined): void {
 		this._mutableAriaLabel.set(ariaLabel);
 		this._dialogRef()?.setAriaLabel(ariaLabel);
 	}
 
-	public setAriaModal(ariaModal: boolean) {
+	public setAriaModal(ariaModal: boolean): void {
 		this._mutableAriaModal.set(ariaModal);
 	}
 }

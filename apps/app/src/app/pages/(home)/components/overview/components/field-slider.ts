@@ -19,5 +19,5 @@ import { HlmSlider } from '@spartan-ng/helm/slider';
 	`,
 })
 export class FieldSlider {
-	public readonly sliderValue = signal(500);
+	public readonly sliderValue = signal([500]);
 }

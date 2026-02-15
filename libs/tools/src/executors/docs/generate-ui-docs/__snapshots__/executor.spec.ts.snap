@@ -4709,12 +4709,52 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "number",
           },
           {
+            "name": "minStepsBetweenThumbs",
+            "required": false,
+            "type": "number",
+          },
+          {
             "name": "disabled",
             "required": false,
             "type": "boolean",
           },
           {
+            "name": "inverted",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "orientation",
+            "required": false,
+            "type": "'horizontal' | 'vertical'",
+          },
+          {
             "name": "showTicks",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "maxTicks",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "tickLabelInterval",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "formatTick",
+            "required": false,
+            "type": "(tick: number) => string",
+          },
+          {
+            "name": "draggableRange",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "draggableRangeOnly",
             "required": false,
             "type": "boolean",
           },
@@ -4722,13 +4762,13 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [
           {
             "name": "value",
-            "type": "number",
+            "type": "number[]",
           },
         ],
         "outputs": [
           {
             "name": "valueChange",
-            "type": "number",
+            "type": "number[]",
           },
         ],
         "selector": "[brnSlider]",
@@ -5107,6 +5147,13 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "outputs": [],
         "selector": "[brnTabsContent]",
       },
+      "BrnTabsContentLazy": {
+        "exportAs": "brnTabsContentLazy",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "ng-template[brnTabsContentLazy]",
+      },
       "BrnTabsList": {
         "exportAs": "brnTabsList",
         "inputs": [],
@@ -5179,6 +5226,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [],
         "outputs": [],
         "selector": "[hlmTabsContent]",
+      },
+      "HlmTabsContentLazy": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "ng-template[hlmTabsContentLazy]",
       },
       "HlmTabsList": {
         "inputs": [

@@ -1,27 +1,47 @@
 import { signal } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrnSliderImports } from '@spartan-ng/brain/slider';
+import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmSliderImports } from '@spartan-ng/helm/slider';
 import { type Meta, type StoryObj, argsToTemplate, moduleMetadata } from '@storybook/angular';
 
 interface BrnSliderStoryArgs {
-	value: number;
+	value: number[];
 	disabled: boolean;
 	min: number;
 	max: number;
 	step: number;
+	minStepsBetweenThumbs: number;
+	inverted: boolean;
+	orientation: 'horizontal' | 'vertical';
 	showTicks: boolean;
+	maxTicks: number;
+	tickLabelInterval: number;
+	draggableRange: boolean;
+	draggableRangeOnly: boolean;
 }
 
 const meta: Meta<BrnSliderStoryArgs> = {
 	title: 'Slider',
 	tags: ['autodocs'],
 	args: {
+		value: [0],
 		disabled: false,
+		min: 0,
+		max: 100,
+		step: 1,
+		minStepsBetweenThumbs: 0,
+		inverted: false,
+		orientation: 'horizontal',
+		showTicks: false,
+		maxTicks: 25,
+		tickLabelInterval: 2,
+		draggableRange: false,
+		draggableRangeOnly: false,
 	},
 	decorators: [
 		moduleMetadata({
-			imports: [FormsModule, ReactiveFormsModule, HlmSliderImports, BrnSliderImports],
+			imports: [FormsModule, ReactiveFormsModule, HlmSliderImports, BrnSliderImports, HlmButton],
 		}),
 	],
 };
@@ -30,10 +50,27 @@ export default meta;
 type Story = StoryObj<BrnSliderStoryArgs>;
 
 export const Default: Story = {
+	args: {
+		value: [0],
+	},
 	render: (args) => ({
 		props: { ...args },
 		template: /* HTML */ `
-			<hlm-slider ${argsToTemplate(args)} />
+			<hlm-slider ${argsToTemplate(args)} (valueChange)="value = $event" />
+
+			<div>{{value}}</div>
+		`,
+	}),
+};
+
+export const Range: Story = {
+	args: {
+		value: [20, 50],
+	},
+	render: ({ ...args }) => ({
+		props: args,
+		template: /* HTML */ `
+			<hlm-slider ${argsToTemplate(args)} (valueChange)="value = $event" />
 
 			<div>{{value}}</div>
 		`,
@@ -42,7 +79,7 @@ export const Default: Story = {
 
 export const Disabled: Story = {
 	args: {
-		value: 50,
+		value: [50],
 		disabled: true,
 	},
 	render: ({ ...args }) => ({
@@ -69,7 +106,7 @@ export const Min: Story = {
 
 export const Max: Story = {
 	args: {
-		value: 0,
+		value: [0],
 		max: 75,
 	},
 	render: ({ ...args }) => ({
@@ -111,6 +148,51 @@ export const Step: Story = {
 	}),
 };
 
+export const MinStepsBetweenThumbs: Story = {
+	args: {
+		step: 5,
+		value: [30, 70],
+		minStepsBetweenThumbs: 2,
+		showTicks: true,
+	},
+	render: ({ ...args }) => ({
+		props: args,
+		template: /* HTML */ `
+			<hlm-slider ${argsToTemplate(args)} (valueChange)="value = $event" />
+
+			<div>{{value}}</div>
+		`,
+	}),
+};
+
+export const Inverted: Story = {
+	args: {
+		inverted: true,
+	},
+	render: ({ ...args }) => ({
+		props: args,
+		template: /* HTML */ `
+			<hlm-slider ${argsToTemplate(args)} (valueChange)="value = $event" />
+
+			<div>{{value}}</div>
+		`,
+	}),
+};
+
+export const Vertical: Story = {
+	args: {
+		orientation: 'vertical',
+	},
+	render: ({ ...args }) => ({
+		props: args,
+		template: /* HTML */ `
+			<hlm-slider ${argsToTemplate(args)} (valueChange)="value = $event" />
+
+			<div>{{value}}</div>
+		`,
+	}),
+};
+
 export const Ticks: Story = {
 	args: {
 		step: 5,
@@ -126,25 +208,62 @@ export const Ticks: Story = {
 	}),
 };
 
-export const TemplateDrivenForm: Story = {
-	render: (args) => ({
-		props: { ...args, temperature: signal('0') },
+export const TickLabelInterval: Story = {
+	args: {
+		step: 5,
+		showTicks: true,
+		tickLabelInterval: 10,
+	},
+	render: ({ ...args }) => ({
+		props: args,
 		template: /* HTML */ `
-			<form ngForm>
-				<div>
-					<pre>{{temperature()}}</pre>
-				</div>
-				<hlm-slider ${argsToTemplate(args)} [(ngModel)]="temperature" name="temperature" />
+			<hlm-slider ${argsToTemplate(args)} (valueChange)="value = $event" />
 
-				<button (click)="temperature.set(25)">Change temperature value</button>
-			</form>
+			<div>{{value}}</div>
 		`,
 	}),
 };
 
-export const TemplateDrivenFormWithInitialValue: Story = {
+export const DraggableRange: Story = {
+	args: {
+		value: [25, 50],
+		step: 5,
+		showTicks: true,
+		tickLabelInterval: 10,
+		draggableRange: true,
+	},
+	render: ({ ...args }) => ({
+		props: args,
+		template: /* HTML */ `
+			<hlm-slider ${argsToTemplate(args)} (valueChange)="value = $event" />
+
+			<div>{{value}}</div>
+		`,
+	}),
+};
+
+export const DraggableRangeOnly: Story = {
+	args: {
+		value: [25, 50, 75],
+		step: 5,
+		showTicks: true,
+		tickLabelInterval: 10,
+		draggableRange: true,
+		draggableRangeOnly: true,
+	},
+	render: ({ ...args }) => ({
+		props: args,
+		template: /* HTML */ `
+			<hlm-slider ${argsToTemplate(args)} (valueChange)="value = $event" />
+
+			<div>{{value}}</div>
+		`,
+	}),
+};
+
+export const TemplateDrivenForm: Story = {
 	render: (args) => ({
-		props: { ...args, temperature: signal(12) },
+		props: { ...args, temperature: signal([10]) },
 		template: /* HTML */ `
 			<form ngForm>
 				<div>
@@ -152,7 +271,7 @@ export const TemplateDrivenFormWithInitialValue: Story = {
 				</div>
 				<hlm-slider ${argsToTemplate(args)} [(ngModel)]="temperature" name="temperature" />
 
-				<button (click)="temperature.set(25)">Change temperature value</button>
+				<button hlmBtn class="mt-3" (click)="temperature.set([25])">Change temperature value</button>
 			</form>
 		`,
 	}),
@@ -174,7 +293,7 @@ export const ReactiveFormControl: Story = {
 
 export const ReactiveFormControlWithInitialValue: Story = {
 	render: (args) => ({
-		props: { ...args, temperatureGroup: new FormGroup({ temperature: new FormControl(26) }) },
+		props: { ...args, temperatureGroup: new FormGroup({ temperature: new FormControl([26]) }) },
 		template: /* HTML */ `
 			<div class="mb-3">
 				<pre>Form Control Value: {{ temperatureGroup.controls.temperature.valueChanges | async | json }}</pre>

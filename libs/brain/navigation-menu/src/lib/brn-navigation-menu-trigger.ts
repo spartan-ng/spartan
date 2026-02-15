@@ -223,16 +223,16 @@ export class BrnNavigationMenuTrigger implements OnInit, OnDestroy, FocusableOpt
 		this._navigationMenu.setActiveItem(this);
 	}
 
-	protected onTab(e: KeyboardEvent) {
+	protected onTab(e: Event) {
 		const contentEl = this._contentService.contentEl();
 
-		if (contentEl && !hasModifierKey(e)) {
+		if (contentEl && !hasModifierKey(e as KeyboardEvent)) {
 			e.preventDefault();
 			contentEl.focus();
 		}
 	}
 
-	protected onEscape(e: KeyboardEvent) {
+	protected onEscape(e: Event) {
 		e.preventDefault();
 		this._deactivate();
 	}

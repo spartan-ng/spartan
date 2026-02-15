@@ -1,6 +1,7 @@
 import { Component, computed, inject, resource, signal } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { HlmAutocomplete, HlmAutocompleteImports, provideHlmAutocompleteConfig } from '@spartan-ng/helm/autocomplete';
+import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { provideBrnAutocompleteConfig } from '@spartan-ng/brain/autocomplete';
+import { HlmAutocomplete, HlmAutocompleteImports } from '@spartan-ng/helm/autocomplete';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmLabelImports } from '@spartan-ng/helm/label';
 import { HlmSpinnerImports } from '@spartan-ng/helm/spinner';
@@ -11,8 +12,22 @@ import { moduleMetadata } from '@storybook/angular';
 	selector: 'spartan-autocomplete-async',
 	imports: [HlmAutocompleteImports, HlmSpinnerImports],
 	template: `
-		<hlm-autocomplete [filteredOptions]="options.value()" [loading]="options.isLoading()" [(search)]="search">
-			<hlm-spinner loading class="size-6" />
+		<hlm-autocomplete [(search)]="search">
+			<hlm-autocomplete-input placeholder="Search" />
+			<hlm-autocomplete-content *hlmAutocompletePortal>
+				<hlm-autocomplete-status class="justify-start">
+					@if (options.isLoading()) {
+						<hlm-spinner />
+					}
+				</hlm-autocomplete-status>
+				<div hlmAutocompleteList>
+					@if (options.hasValue()) {
+						@for (option of options.value(); track $index) {
+							<hlm-autocomplete-item [value]="option">{{ option }}</hlm-autocomplete-item>
+						}
+					}
+				</div>
+			</hlm-autocomplete-content>
 		</hlm-autocomplete>
 	`,
 })
@@ -59,12 +74,17 @@ type Country = {
 		<form [formGroup]="form" (ngSubmit)="submit()" class="space-y-8">
 			<div class="flex flex-col gap-2">
 				<label for="autocomplete" hlmLabel class="px-1">Choose your favorite character</label>
-				<hlm-autocomplete
-					inputId="autocomplete"
-					[filteredOptions]="filteredOptions()"
-					[(search)]="search"
-					formControlName="option"
-				/>
+				<hlm-autocomplete formControlName="option" [(search)]="search">
+					<hlm-autocomplete-input placeholder="Search characters" />
+					<hlm-autocomplete-content *hlmAutocompletePortal>
+						<hlm-autocomplete-empty>No characters found.</hlm-autocomplete-empty>
+						<div hlmAutocompleteList>
+							@for (option of filteredOptions(); track $index) {
+								<hlm-autocomplete-item [value]="option">{{ option }}</hlm-autocomplete-item>
+							}
+						</div>
+					</hlm-autocomplete-content>
+				</hlm-autocomplete>
 			</div>
 
 			<button type="submit" hlmBtn>Submit</button>
@@ -92,7 +112,7 @@ class AutocompleteForm {
 	public readonly search = signal('');
 
 	public form = this._formBuilder.group({
-		option: [null, Validators.required],
+		option: new FormControl<string | null>(null, Validators.required),
 	});
 
 	public readonly filteredOptions = computed(() =>
@@ -112,24 +132,21 @@ type Item = {
 @Component({
 	selector: 'spartan-autocomplete-transform-option-value',
 	imports: [HlmAutocompleteImports, ReactiveFormsModule, HlmButtonImports, HlmLabelImports],
-	providers: [
-		provideHlmAutocompleteConfig({
-			transformOptionToString: (option: Item) => option.label,
-		}),
-	],
 	template: `
 		<form [formGroup]="form" (ngSubmit)="submit()" class="space-y-8">
 			<div class="flex flex-col gap-2">
 				<label for="autocomplete" hlmLabel class="px-1">Choose your favorite character</label>
-				<hlm-autocomplete
-					inputId="autocomplete"
-					formControlName="option"
-					[transformOptionToValue]="_transformOptionValue"
-					[displayWith]="_displayWith"
-					[filteredOptions]="filteredOptions()"
-					[(search)]="search"
-					showClearBtn
-				/>
+				<hlm-autocomplete formControlName="option" [(search)]="search" [itemToString]="itemToString">
+					<hlm-autocomplete-input placeholder="Search characters" showClear />
+					<hlm-autocomplete-content *hlmAutocompletePortal>
+						<hlm-autocomplete-empty>No characters found.</hlm-autocomplete-empty>
+						<div hlmAutocompleteList>
+							@for (option of filteredOptions(); track $index) {
+								<hlm-autocomplete-item [value]="option.id">{{ option.label }}</hlm-autocomplete-item>
+							}
+						</div>
+					</hlm-autocomplete-content>
+				</hlm-autocomplete>
 			</div>
 
 			<button type="submit" hlmBtn>Submit</button>
@@ -154,14 +171,12 @@ class AutocompleteTransformOptionValue {
 		{ id: '13', label: 'Strickland' },
 	];
 
-	protected _transformOptionValue = (option: Item) => option.id;
-
-	protected _displayWith = (id: string) => this._options.find((option) => option.id === id)?.label ?? '';
+	public itemToString = (id: string) => this._options.find((option) => option.id === id)?.label ?? '';
 
 	public readonly search = signal('');
 
 	public form = this._formBuilder.group({
-		option: ['10', Validators.required],
+		option: new FormControl<string>('10', Validators.required),
 	});
 
 	public readonly filteredOptions = computed(() => {
@@ -182,9 +197,9 @@ export default {
 			imports: [AutocompleteAsync, AutocompleteForm, AutocompleteTransformOptionValue, HlmAutocompleteImports],
 		}),
 	],
-} as Meta<HlmAutocomplete<unknown>>;
+} as Meta<HlmAutocomplete>;
 
-type Story = StoryObj<HlmAutocomplete<unknown>>;
+type Story = StoryObj<HlmAutocomplete>;
 
 export const Default: Story = {
 	render: () => {
@@ -213,7 +228,17 @@ export const Default: Story = {
 				filteredOptions,
 			},
 			template: `
-		<hlm-autocomplete [filteredOptions]="filteredOptions()" [(search)]="search" />
+		<hlm-autocomplete [(search)]="search">
+			<hlm-autocomplete-input placeholder="Search characters" />
+			<hlm-autocomplete-content *hlmAutocompletePortal>
+				<hlm-autocomplete-empty>No characters found.</hlm-autocomplete-empty>
+				<div hlmAutocompleteList>
+					@for (option of filteredOptions(); track $index) {
+						<hlm-autocomplete-item [value]="option">{{ option }}</hlm-autocomplete-item>
+					}
+				</div>
+			</hlm-autocomplete-content>
+		</hlm-autocomplete>
 	`,
 		};
 	},
@@ -229,9 +254,8 @@ export const Config: Story = {
 	decorators: [
 		moduleMetadata({
 			providers: [
-				provideHlmAutocompleteConfig({
-					transformOptionToString: (option: Country) => `${option.flag} ${option.name}`,
-					transformValueToSearch: (option: Country) => `${option.flag} ${option.name}`,
+				provideBrnAutocompleteConfig({
+					itemToString: (option: Country) => `${option.flag} ${option.name}`,
 				}),
 			],
 		}),
@@ -275,22 +299,23 @@ export const Config: Story = {
 				filteredCountries,
 			},
 			template: `
-		<hlm-autocomplete [filteredOptions]="filteredCountries()" [(search)]="search" />
+		<hlm-autocomplete [(search)]="search">
+			<hlm-autocomplete-input placeholder="Search countries" />
+			<hlm-autocomplete-content *hlmAutocompletePortal>
+				<hlm-autocomplete-empty>No countries found.</hlm-autocomplete-empty>
+				<div hlmAutocompleteList>
+					@for (country of filteredCountries(); track $index) {
+						<hlm-autocomplete-item [value]="country">{{ country.flag }} {{ country.name }}</hlm-autocomplete-item>
+					}
+				</div>
+			</hlm-autocomplete-content>
+		</hlm-autocomplete>
 	`,
 		};
 	},
 };
 
 export const Countries: Story = {
-	decorators: [
-		moduleMetadata({
-			providers: [
-				provideHlmAutocompleteConfig({
-					transformValueToSearch: (option: Country) => `${option.flag} ${option.name}`,
-				}),
-			],
-		}),
-	],
 	render: () => {
 		const search = signal('');
 		const countries: Country[] = [
@@ -317,6 +342,7 @@ export const Countries: Story = {
 			{ name: 'United Kingdom', code: 'GB', flag: '🇬🇧' },
 			{ name: 'United States', code: 'US', flag: '🇺🇸' },
 		];
+		const itemToString = (country: Country) => `${country.flag} ${country.name}`;
 		const filteredCountries = computed(() =>
 			countries.filter(
 				(country) =>
@@ -328,12 +354,20 @@ export const Countries: Story = {
 			props: {
 				search,
 				filteredCountries,
+				itemToString,
 			},
 			template: `
-		<hlm-autocomplete [filteredOptions]="filteredCountries()" [optionTemplate]="option" [(search)]="search" />
-
-		<!-- custom option template with access to the option item -->
-		<ng-template #option let-option>{{ option.flag }} {{ option.name }}</ng-template>
+		<hlm-autocomplete [(search)]="search" [itemToString]="itemToString">
+			<hlm-autocomplete-input placeholder="Search countries" />
+			<hlm-autocomplete-content *hlmAutocompletePortal>
+				<hlm-autocomplete-empty>No countries found.</hlm-autocomplete-empty>
+				<div hlmAutocompleteList>
+					@for (country of filteredCountries(); track $index) {
+						<hlm-autocomplete-item [value]="country">{{ country.flag }} {{ country.name }}</hlm-autocomplete-item>
+					}
+				</div>
+			</hlm-autocomplete-content>
+		</hlm-autocomplete>
 	`,
 		};
 	},

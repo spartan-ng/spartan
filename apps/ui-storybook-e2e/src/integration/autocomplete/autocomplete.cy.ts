@@ -12,14 +12,30 @@ describe('autocomplete', () => {
 
 		it('should show options when typing', () => {
 			cy.get('input[hlmInputGroupInput]').type('Mar');
-			cy.get('hlm-autocomplete-list').should('exist');
-			cy.get('button[hlm-autocomplete-item]').should('have.length.gt', 0);
-			cy.get('button[hlm-autocomplete-item]').first().should('contain.text', 'Marty McFly');
+			cy.get('[hlmAutocompleteList]').should('exist');
+			cy.get('hlm-autocomplete-item').should('have.length.gt', 0);
+			cy.get('hlm-autocomplete-item').first().should('contain.text', 'Marty McFly');
 		});
 
 		it('should select an option', () => {
 			cy.get('input[hlmInputGroupInput]').type('Mar');
-			cy.get('button[hlm-autocomplete-item]').first().click();
+			cy.get('hlm-autocomplete-item').first().click();
+			cy.get('input[hlmInputGroupInput]').should('have.value', 'Marty McFly');
+		});
+
+		it('should close popup when tabbing out', () => {
+			cy.get('input[hlmInputGroupInput]').type('Mar');
+			cy.get('hlm-autocomplete-content').should('exist');
+			cy.get('input[hlmInputGroupInput]').realPress('Tab');
+			cy.get('hlm-autocomplete-content').should('not.exist');
+		});
+
+		it('should select highlighted option on tab out', () => {
+			cy.get('input[hlmInputGroupInput]').type('Mar');
+			cy.get('hlm-autocomplete-item').should('have.length.gt', 1);
+			cy.get('input[hlmInputGroupInput]').realPress('ArrowDown');
+			cy.get('input[hlmInputGroupInput]').realPress('Tab');
+			cy.get('hlm-autocomplete-content').should('not.exist');
 			cy.get('input[hlmInputGroupInput]').should('have.value', 'Marty McFly');
 		});
 
@@ -43,7 +59,7 @@ describe('autocomplete', () => {
 			cy.get('form').should('exist');
 			cy.get('input[hlmInputGroupInput]').clear();
 			cy.get('input[hlmInputGroupInput]').type('Doc');
-			cy.get('button[hlm-autocomplete-item]').contains('Doc Brown').click();
+			cy.get('hlm-autocomplete-item').contains('Doc Brown').click();
 			cy.get('input[hlmInputGroupInput]').should('have.value', 'Doc Brown');
 		});
 	});
@@ -56,7 +72,7 @@ describe('autocomplete', () => {
 
 		it('should show loading state', () => {
 			cy.get('input[hlmInputGroupInput]').type('test');
-			cy.get('button[hlm-autocomplete-item]').should('have.length.gt', 0);
+			cy.get('hlm-autocomplete-item').should('have.length.gt', 0);
 		});
 	});
 });

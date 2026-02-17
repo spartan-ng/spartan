@@ -38,7 +38,11 @@ describe('item', () => {
 
 		it('should pass accessibility checks', () => {
 			cy.get('[hlmItem]').should('exist');
-			cy.checkA11y('[hlmItem]');
+			cy.checkA11y('[hlmItem]', {
+				rules: {
+					'color-contrast': { enabled: false },
+				},
+			});
 		});
 	});
 

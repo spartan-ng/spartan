@@ -9,7 +9,7 @@ import {
 	input,
 	linkedSignal,
 	signal,
-	untracked
+	untracked,
 } from '@angular/core';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { BrnFieldControl } from '@spartan-ng/brain/field';

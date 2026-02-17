@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
@@ -13,7 +13,17 @@ import { HlmAutocompleteImports } from '../../index';
 			<div hlmField>
 				<!-- eslint-disable-next-line @angular-eslint/template/label-has-associated-control -->
 				<label hlmFieldLabel>Framework *</label>
-				<hlm-autocomplete formControlName="framework" [filteredOptions]="options"></hlm-autocomplete>
+				<hlm-autocomplete [(search)]="_search">
+					<hlm-autocomplete-input placeholder="Search characters" />
+					<hlm-autocomplete-content *hlmAutocompletePortal>
+						<hlm-autocomplete-empty>No characters found.</hlm-autocomplete-empty>
+						<div hlmAutocompleteList>
+							@for (option of _filteredOptions(); track $index) {
+								<hlm-autocomplete-item [value]="option">{{ option }}</hlm-autocomplete-item>
+							}
+						</div>
+					</hlm-autocomplete-content>
+				</hlm-autocomplete>
 				<p hlmFieldDescription>Pick the framework you use most.</p>
 				<hlm-field-error>Select a framework.</hlm-field-error>
 			</div>
@@ -25,7 +35,25 @@ class HlmAutocompleteHost {
 		framework: new FormControl('', { validators: [Validators.required] }),
 	});
 
-	public readonly options = ['Angular', 'React'];
+	protected readonly _search = signal('');
+	protected readonly _options = [
+		'Marty McFly',
+		'Doc Brown',
+		'Biff Tannen',
+		'George McFly',
+		'Jennifer Parker',
+		'Emmett Brown',
+		'Einstein',
+		'Clara Clayton',
+		'Needles',
+		'Goldie Wilson',
+		'Marvin Berry',
+		'Lorraine Baines',
+		'Strickland',
+	];
+	protected readonly _filteredOptions = computed(() =>
+		this._options.filter((option) => option.toLowerCase().includes(this._search().toLowerCase())),
+	);
 }
 
 describe('HlmAutocomplete form integration', () => {

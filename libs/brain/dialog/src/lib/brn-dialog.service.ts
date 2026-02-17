@@ -201,6 +201,7 @@ export class BrnDialogService {
 		cdkDialogRef.closed.pipe(takeUntil(destroyed$)).subscribe(() => {
 			effectRefs.forEach((a) => a.destroy());
 			destroyed$.next();
+			optionsChanged$.next();
 		});
 
 		// this is not ideal, but we need to force change detection to run in the dialog,

@@ -19,6 +19,7 @@ import { type ControlValueAccessor, FormGroupDirective, NG_VALUE_ACCESSOR, NgCon
 import { provideIcons } from '@ng-icons/core';
 import { lucideChevronDown } from '@ng-icons/lucide';
 import type { BrnDialogState } from '@spartan-ng/brain/dialog';
+import { BrnFieldControl } from '@spartan-ng/brain/field';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import { ErrorStateMatcher, ErrorStateTracker } from '@spartan-ng/brain/forms';
 import { HlmCalendarMulti } from '@spartan-ng/helm/calendar';
@@ -28,7 +29,6 @@ import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 import { injectHlmDatePickerMultiConfig } from './hlm-date-picker-multi.token';
-import { BrnFieldControl } from '@spartan-ng/brain/field';
 
 export const HLM_DATE_PICKER_MUTLI_VALUE_ACCESSOR = {
 	provide: NG_VALUE_ACCESSOR,

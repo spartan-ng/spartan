@@ -24,12 +24,12 @@ import {
 	NgForm,
 	NgModel,
 } from '@angular/forms';
+import { BrnFieldControl } from '@spartan-ng/brain/field';
 import { ChangeFn, ErrorStateMatcher, ErrorStateTracker, TouchFn } from '@spartan-ng/brain/forms';
 import type { BrnSliderRange } from './brn-slider-range';
 import type { BrnSliderThumb } from './brn-slider-thumb';
 import type { BrnSliderTrack } from './brn-slider-track';
 import { provideBrnSlider } from './brn-slider.token';
-import { BrnFieldControl } from '@spartan-ng/brain/field';
 
 @Directive({
 	selector: '[brnSlider]',

@@ -1,13 +1,13 @@
 import { JsonPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, resource, signal } from '@angular/core';
 import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { provideBrnAutocompleteConfig } from '@spartan-ng/brain/autocomplete';
 import { HlmAutocomplete, HlmAutocompleteImports } from '@spartan-ng/helm/autocomplete';
 import { HlmButton, HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
-import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
-import { provideBrnAutocompleteConfig } from '@spartan-ng/brain/autocomplete';
 import { HlmLabelImports } from '@spartan-ng/helm/label';
 import { HlmSpinnerImports } from '@spartan-ng/helm/spinner';
+import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 
 @Component({
 	selector: 'spartan-autocomplete-async',

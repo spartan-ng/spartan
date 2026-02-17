@@ -1,8 +1,8 @@
 import { Directive, input } from '@angular/core';
+import { BrnField } from '@spartan-ng/brain/field';
 import { classes } from '@spartan-ng/helm/utils';
 import { cva, VariantProps } from 'class-variance-authority';
 import { HlmFieldA11yService } from './hlm-field-aria.service';
-import { BrnField } from '@spartan-ng/brain/field';
 
 const fieldVariants = cva('group/field data-[invalid=true]:text-destructive flex w-full gap-3', {
 	variants: {

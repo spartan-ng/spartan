@@ -2,9 +2,9 @@ import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BrnSliderImports } from '@spartan-ng/brain/slider';
 import { HlmButton, HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmFieldImports } from '@spartan-ng/helm/field';
 import { HlmSliderImports } from '@spartan-ng/helm/slider';
 import { argsToTemplate, type Meta, moduleMetadata, type StoryObj } from '@storybook/angular';
-import { HlmFieldImports } from '@spartan-ng/helm/field';
 
 interface BrnSliderStoryArgs {
 	value: number[];

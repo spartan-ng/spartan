@@ -20,6 +20,7 @@ import {
 	untracked,
 } from '@angular/core';
 import { type ControlValueAccessor, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
+import { BrnFieldControl } from '@spartan-ng/brain/field';
 import { type ChangeFn, ErrorStateMatcher, ErrorStateTracker, type TouchFn } from '@spartan-ng/brain/forms';
 import { BrnPopover } from '@spartan-ng/brain/popover';
 import type { BrnComboboxInput } from './brn-combobox-input';
@@ -36,7 +37,6 @@ import {
 	injectBrnComboboxConfig,
 	provideBrnComboboxBase,
 } from './brn-combobox.token';
-import { BrnFieldControl } from '@spartan-ng/brain/field';
 
 @Directive({
 	selector: '[brnCombobox]',

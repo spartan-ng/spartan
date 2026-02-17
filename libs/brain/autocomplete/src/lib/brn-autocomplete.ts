@@ -19,6 +19,7 @@ import {
 	untracked,
 } from '@angular/core';
 import { ControlValueAccessor, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
+import { BrnFieldControl } from '@spartan-ng/brain/field';
 import { ChangeFn, ErrorStateMatcher, ErrorStateTracker, TouchFn } from '@spartan-ng/brain/forms';
 import { BrnPopover } from '@spartan-ng/brain/popover';
 import { BrnAutocompleteInputWrapper } from './brn-autocomplete-input-wrapper';
@@ -31,7 +32,6 @@ import {
 	injectBrnAutocompleteConfig,
 	provideBrnAutocompleteBase,
 } from './brn-autocomplete.token';
-import { BrnFieldControl } from '@spartan-ng/brain/field';
 
 @Directive({
 	selector: '[brnAutocomplete]',

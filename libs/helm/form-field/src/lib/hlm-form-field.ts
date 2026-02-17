@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, contentChild, contentChildren, effect } from '@angular/core';
+import { BrnFieldControl } from '@spartan-ng/brain/field';
 import { classes } from '@spartan-ng/helm/utils';
 import { HlmError } from './hlm-error';
-import { BrnFieldControl } from '@spartan-ng/brain/field';
 
 @Component({
 	selector: 'hlm-form-field',

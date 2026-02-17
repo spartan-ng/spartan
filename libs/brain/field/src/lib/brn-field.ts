@@ -1,6 +1,6 @@
+import { BooleanInput } from '@angular/cdk/coercion';
 import { booleanAttribute, computed, contentChild, Directive, input } from '@angular/core';
 import { BrnFieldControl } from './brn-field-control';
-import { BooleanInput } from '@angular/cdk/coercion';
 
 @Directive({
 	selector: '[brnField],brn-field',

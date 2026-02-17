@@ -18,7 +18,7 @@ export class HlmSidebarMenuSubButton {
 	private readonly _sidebarService = inject(HlmSidebarService);
 	private readonly _config = injectHlmSidebarConfig();
 
-	public readonly closeMobileMenuOnClick = input<boolean, BooleanInput>(
+	public readonly closeMobileSidebarOnClick = input<boolean, BooleanInput>(
 		this._config.closeMobileSidebarOnMenuButtonClick,
 		{ transform: booleanAttribute },
 	);
@@ -35,7 +35,7 @@ export class HlmSidebarMenuSubButton {
 	}
 
 	protected onClick(): void {
-		if (this.closeMobileMenuOnClick()) {
+		if (this.closeMobileSidebarOnClick()) {
 			this._sidebarService.setOpenMobile(false);
 		}
 	}

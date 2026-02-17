@@ -60,7 +60,7 @@ export class HlmSidebarMenuButton {
 	public readonly variant = input<'default' | 'outline'>('default');
 	public readonly size = input<'default' | 'sm' | 'lg'>('default');
 	public readonly isActive = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
-	public readonly closeMobileMenuOnClick = input<boolean, BooleanInput>(
+	public readonly closeMobileSidebarOnClick = input<boolean, BooleanInput>(
 		this._config.closeMobileSidebarOnMenuButtonClick,
 		{ transform: booleanAttribute },
 	);
@@ -74,7 +74,7 @@ export class HlmSidebarMenuButton {
 	}
 
 	protected onClick(): void {
-		if (this.closeMobileMenuOnClick()) {
+		if (this.closeMobileSidebarOnClick()) {
 			this._sidebarService.setOpenMobile(false);
 		}
 	}

@@ -22,5 +22,5 @@ import { HlmSliderImports } from '@spartan-ng/helm/slider';
 	`,
 })
 export class MaxLengthSelector {
-	public readonly value = signal<number>(150);
+	public readonly value = signal<number[]>([150]);
 }

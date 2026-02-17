@@ -67,7 +67,7 @@ export const components: Link[] = [
 	{ label: 'Sheet', url: '/sheet' },
 	{ label: 'Sidebar', url: '/sidebar' },
 	{ label: 'Skeleton', url: '/skeleton' },
-	{ label: 'Slider', url: '/slider' },
+	{ label: 'Slider', url: '/slider', new: true },
 	{ label: 'Sonner (Toast)', url: '/sonner' },
 	{ label: 'Spinner', url: '/spinner' },
 	{ label: 'Switch', url: '/switch' },

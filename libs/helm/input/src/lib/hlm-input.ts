@@ -1,6 +1,7 @@
 import {
 	computed,
 	Directive,
+	type DoCheck,
 	effect,
 	forwardRef,
 	inject,
@@ -9,18 +10,18 @@ import {
 	linkedSignal,
 	signal,
 	untracked,
-	type DoCheck,
 } from '@angular/core';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
-import { BrnFormFieldControl } from '@spartan-ng/brain/form-field';
 import { ErrorStateMatcher, ErrorStateTracker } from '@spartan-ng/brain/forms';
 import { HlmFieldControlDescribedBy } from '@spartan-ng/helm/field';
 import { classes } from '@spartan-ng/helm/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 import type { ClassValue } from 'clsx';
+import { BrnFieldControl } from '@spartan-ng/brain/field';
 
 export const inputVariants = cva(
 	'file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input focus-visible:border-ring focus-visible:ring-ring/50 flex h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
+
 	{
 		variants: {
 			error: {
@@ -39,13 +40,13 @@ type InputVariants = VariantProps<typeof inputVariants>;
 	selector: '[hlmInput]',
 	providers: [
 		{
-			provide: BrnFormFieldControl,
+			provide: BrnFieldControl,
 			useExisting: forwardRef(() => HlmInput),
 		},
 	],
 	hostDirectives: [HlmFieldControlDescribedBy],
 })
-export class HlmInput implements BrnFormFieldControl, DoCheck {
+export class HlmInput implements BrnFieldControl, DoCheck {
 	private readonly _injector = inject(Injector);
 	private readonly _additionalClasses = signal<ClassValue>('');
 

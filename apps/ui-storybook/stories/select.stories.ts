@@ -2,12 +2,12 @@ import { CommonModule, JsonPipe } from '@angular/common';
 import {
 	ChangeDetectionStrategy,
 	Component,
-	type OnInit,
-	ViewEncapsulation,
 	computed,
 	contentChild,
 	input,
+	type OnInit,
 	signal,
+	ViewEncapsulation,
 } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
@@ -19,7 +19,7 @@ import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmLabel } from '@spartan-ng/helm/label';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
 import { hlm } from '@spartan-ng/helm/utils';
-import { type Meta, type StoryObj, argsToTemplate, moduleMetadata } from '@storybook/angular';
+import { argsToTemplate, type Meta, moduleMetadata, type StoryObj } from '@storybook/angular';
 import type { ClassValue } from 'clsx';
 
 interface BrnSelectStoryArgs {
@@ -425,7 +425,9 @@ export const WithHintAndError: Story = {
 
 					<p hlmFieldDescription>Pick a fruit so we can tailor the recommendations.</p>
 
-					<hlm-field-error *ngIf="showError">Select your favorite fruit to continue.</hlm-field-error>
+					@if(showError){
+					<hlm-field-error>Select your favorite fruit to continue.</hlm-field-error>
+					}
 				</div>
 
 				<div class="flex flex-wrap items-center gap-2">

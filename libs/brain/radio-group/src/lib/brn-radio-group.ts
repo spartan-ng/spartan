@@ -16,13 +16,13 @@ import {
 	model,
 	OnInit,
 	output,
-	untracked,
+	untracked
 } from '@angular/core';
-import { FormGroupDirective, NG_VALUE_ACCESSOR, NgControl, NgForm, type ControlValueAccessor } from '@angular/forms';
-import { BrnFormFieldControl } from '@spartan-ng/brain/form-field';
-import { ErrorStateMatcher, ErrorStateTracker, type ChangeFn, type TouchFn } from '@spartan-ng/brain/forms';
+import { type ControlValueAccessor, FormGroupDirective, NG_VALUE_ACCESSOR, NgControl, NgForm } from '@angular/forms';
+import { type ChangeFn, ErrorStateMatcher, ErrorStateTracker, type TouchFn } from '@spartan-ng/brain/forms';
 import { BrnRadio, BrnRadioChange } from './brn-radio';
 import { provideBrnRadioGroupToken } from './brn-radio-group.token';
+import { BrnFieldControl } from '@spartan-ng/brain/field';
 
 export const BRN_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = {
 	provide: NG_VALUE_ACCESSOR,
@@ -36,7 +36,7 @@ export const BRN_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = {
 		BRN_RADIO_GROUP_CONTROL_VALUE_ACCESSOR,
 		provideBrnRadioGroupToken(BrnRadioGroup),
 		{
-			provide: BrnFormFieldControl,
+			provide: BrnFieldControl,
 			useExisting: forwardRef(() => BrnRadioGroup),
 		},
 	],

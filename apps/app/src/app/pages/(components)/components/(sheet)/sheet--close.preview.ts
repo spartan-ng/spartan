@@ -20,14 +20,14 @@ import { HlmSheetImports } from '@spartan-ng/helm/sheet';
 				<div class="grid flex-1 auto-rows-min gap-6 px-4">
 					<div class="grid gap-3">
 						<label hlmLabel>Close sheet by directive</label>
-						<button hlmBtn brnSheetClose>Close</button>
+						<button hlmBtn hlmSheetClose>Close</button>
 					</div>
 					<div class="grid gap-3">
 						<label hlmLabel>Close sheet by reference</label>
 						<button hlmBtn (click)="sheetRef.close({})">Close</button>
 					</div>
 					<div class="grid gap-3">
-						<label hlmLabel>Close sheet by viewchild reference</label>
+						<label hlmLabel>Close sheet by viewChild reference</label>
 						<button hlmBtn (click)="closeSheet()">Close</button>
 					</div>
 				</div>
@@ -36,9 +36,9 @@ import { HlmSheetImports } from '@spartan-ng/helm/sheet';
 	`,
 })
 export class SheetClosePreview {
-	public readonly viewchildSheetRef = viewChild(BrnSheet);
+	public readonly viewChildSheetRef = viewChild(BrnSheet);
 
 	closeSheet() {
-		this.viewchildSheetRef()?.close({});
+		this.viewChildSheetRef()?.close({});
 	}
 }

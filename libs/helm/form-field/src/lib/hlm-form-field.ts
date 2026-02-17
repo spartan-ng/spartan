@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, contentChild, contentChildren, effect } from '@angular/core';
-import { BrnFormFieldControl } from '@spartan-ng/brain/form-field';
 import { classes } from '@spartan-ng/helm/utils';
 import { HlmError } from './hlm-error';
+import { BrnFieldControl } from '@spartan-ng/brain/field';
 
 @Component({
 	selector: 'hlm-form-field',
@@ -20,7 +20,7 @@ import { HlmError } from './hlm-error';
 	`,
 })
 export class HlmFormField {
-	public readonly control = contentChild(BrnFormFieldControl);
+	public readonly control = contentChild(BrnFieldControl);
 
 	public readonly errorChildren = contentChildren(HlmError);
 
@@ -32,7 +32,7 @@ export class HlmFormField {
 		classes(() => 'block space-y-2');
 		effect(() => {
 			if (!this.control()) {
-				throw new Error('hlm-form-field must contain a BrnFormFieldControl.');
+				throw new Error('hlm-form-field must contain a BrnFieldControl.');
 			}
 		});
 	}

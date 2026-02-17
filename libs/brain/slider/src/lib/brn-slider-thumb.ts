@@ -1,27 +1,85 @@
 import { isPlatformServer } from '@angular/common';
-import { computed, Directive, DOCUMENT, ElementRef, HostListener, inject, PLATFORM_ID } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { fromEvent } from 'rxjs';
-import { switchMap, takeUntil } from 'rxjs/operators';
+import { computed, DestroyRef, Directive, ElementRef, inject, PLATFORM_ID } from '@angular/core';
+import { injectElementSize } from '@spartan-ng/brain/core';
 import { injectBrnSlider } from './brn-slider.token';
+import { linearScale } from './utils/linear-scale';
+
+const PAGE_KEYS = ['PageUp', 'PageDown'];
 
 @Directive({
 	selector: '[brnSliderThumb]',
 	host: {
 		role: 'slider',
-		'[attr.aria-valuenow]': '_slider.value()',
+		'[attr.aria-label]': `_ariaLabel()`,
+		'[attr.aria-orientation]': '_slider.orientation()',
+		'[attr.aria-valuenow]': '_slider.normalizedValue()[_index()]',
 		'[attr.aria-valuemin]': '_slider.min()',
 		'[attr.aria-valuemax]': '_slider.max()',
 		'[attr.tabindex]': '_slider.mutableDisabled() ? -1 : 0',
-		'[attr.data-disabled]': '_slider.mutableDisabled()',
-		'[style.inset-inline-start]': '_thumbOffset()',
+		'[attr.data-disabled]': '_slider.mutableDisabled() ? "" : null',
+		'[attr.data-orientation]': '_slider.orientation()',
+		'[style.inset-inline-start]':
+			'_slider.isHorizontal() ?  _slider.inverted() ? undefined : _thumbOffset() : undefined',
+		'[style.inset-inline-end]': '_slider.isHorizontal() ? _slider.inverted() ? _thumbOffset() : undefined : undefined',
+		'[style.inset-block-end]': '!_slider.isHorizontal() ? _slider.inverted() ? undefined : _thumbOffset() : undefined',
+		'[style.inset-block-start]':
+			'!_slider.isHorizontal() ? _slider.inverted() ? _thumbOffset() : undefined : undefined',
+		'[style.visibility]': '_thumbReady() ? undefined : "hidden"',
+		'[style.pointer-events]': '_thumbReady() ? undefined : "none"',
+		'[style.transform]': '_transformValue()',
+		'data-slot': 'slider-thumb',
+		'(pointerdown)': '_onPointerDown($event)',
+		'(pointermove)': '_onPointerMove($event)',
+		'(pointerup)': '_onPointerUp($event)',
+		'(keydown)': 'handleKeydown($event)',
 	},
 })
 export class BrnSliderThumb {
-	protected readonly _slider = injectBrnSlider();
-	private readonly _document = inject<Document>(DOCUMENT);
-	private readonly _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 	private readonly _platform = inject(PLATFORM_ID);
+	private readonly _destroyRef = inject(DestroyRef);
+	private readonly _size = injectElementSize();
+	protected readonly _slider = injectBrnSlider();
+	public readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+
+	/**
+	 * Indicates whether the thumb is ready to be displayed and interactable.
+	 *
+	 * This signal returns `true` when the element's size has been measured
+	 * and the width is greater than 0. It ensures that the thumb is not
+	 * rendered or interacted with prematurely, which prevents layout
+	 * issues or first-frame “jerks” when using SSR.
+	 */
+	protected readonly _thumbReady = computed(() => {
+		const size = this._size();
+		return !!size && size.width > 0;
+	});
+
+	protected readonly _index = computed(() => this._slider.thumbs().findIndex((thumb) => thumb === this));
+
+	public readonly percentage = computed(() => {
+		const range = this._slider.max() - this._slider.min();
+		if (range === 0) return 0;
+
+		return ((this._slider.normalizedValue()[this._index()] - this._slider.min()) / range) * 100;
+	});
+
+	private readonly _thumbInBoundsOffset = computed(() => {
+		// we can't compute the offset on the server
+		if (isPlatformServer(this._platform)) {
+			return 0;
+		}
+
+		const size = this._slider.isHorizontal() ? this._size()?.width : this._size()?.height;
+		if (!size) {
+			return 0;
+		}
+
+		const halfSize = size / 2;
+		const offset = linearScale([0, 50], [0, halfSize]);
+		const direction = this._slider.slidingSource() === 'left' || this._slider.slidingSource() === 'top' ? 1 : -1;
+
+		return (halfSize - offset(this.percentage()) * direction) * direction;
+	});
 
 	/**
 	 * Offsets the thumb centre point while sliding to ensure it remains
@@ -31,90 +89,97 @@ export class BrnSliderThumb {
 	protected readonly _thumbOffset = computed(() => {
 		// we can't compute the offset on the server
 		if (isPlatformServer(this._platform)) {
-			return this._slider.percentage() + '%';
+			return this.percentage() + '%';
 		}
 
-		const halfWidth = this._elementRef.nativeElement.offsetWidth / 2;
-		const offset = this.linearScale([0, 50], [0, halfWidth]);
-		const thumbInBoundsOffset = halfWidth - offset(this._slider.percentage());
-		const percent = this._slider.percentage();
-
-		return `calc(${percent}% + ${thumbInBoundsOffset}px)`;
+		return `calc(${this.percentage()}% + ${this._thumbInBoundsOffset()}px)`;
 	});
 
+	protected readonly _ariaLabel = computed(
+		() => `Value ${this._index() + 1} of ${this._slider.normalizedValue().length}`,
+	);
+
+	protected readonly _transformValue = computed(() =>
+		this._slider.orientation() === 'horizontal' ? 'translateX(-50%)' : 'translateY(-50%)',
+	);
+
 	constructor() {
-		const mousedown = fromEvent<MouseEvent>(this._elementRef.nativeElement, 'pointerdown');
-		const mouseup = fromEvent<MouseEvent>(this._document, 'pointerup');
-		const mousemove = fromEvent<MouseEvent>(this._document, 'pointermove');
+		this._slider.addThumb(this);
 
-		// Listen for mousedown events on the slider thumb
-		mousedown
-			.pipe(
-				switchMap(() => mousemove.pipe(takeUntil(mouseup))),
-				takeUntilDestroyed(),
-			)
-			.subscribe(this.dragThumb.bind(this));
+		this._destroyRef.onDestroy(() => {
+			this._slider.removeThumb(this);
+		});
 	}
 
-	/** @internal */
-	private dragThumb(event: MouseEvent): void {
-		if (this._slider.mutableDisabled()) {
-			return;
-		}
-
-		const rect = this._slider.track()?.elementRef.nativeElement.getBoundingClientRect();
-
-		if (!rect) {
-			return;
-		}
-
-		const percentage = (event.clientX - rect.left) / rect.width;
-
-		this._slider.setValue(
-			this._slider.min() + (this._slider.max() - this._slider.min()) * Math.max(0, Math.min(1, percentage)),
-		);
+	protected _onPointerDown(event: PointerEvent): void {
+		this._slider.track()?.onPointerDown(event);
 	}
 
-	/**
-	 * Handle keyboard events.
-	 * @param event
-	 */
-	@HostListener('keydown', ['$event'])
+	protected _onPointerMove(event: PointerEvent): void {
+		this._slider.track()?.onPointerMove(event);
+	}
+
+	protected _onPointerUp(event: PointerEvent): void {
+		this._slider.track()?.onPointerUp(event);
+	}
+
 	protected handleKeydown(event: KeyboardEvent): void {
-		const dir = getComputedStyle(this._elementRef.nativeElement).direction;
-		let multiplier = event.shiftKey ? 10 : 1;
-		const value = this._slider.value();
+		if (this._slider.mutableDisabled()) return;
 
-		// if the slider is RTL, flip the multiplier
-		if (dir === 'rtl') {
-			multiplier = event.shiftKey ? -10 : -1;
-		}
+		const step = this._slider.step();
+		const min = this._slider.min();
+		const max = this._slider.max();
+		const multiplier = event.shiftKey || PAGE_KEYS.includes(event.key) ? 10 : 1;
 
-		switch (event.key) {
-			case 'ArrowLeft':
-				this._slider.setValue(Math.max(value - this._slider.step() * multiplier, this._slider.min()));
-				event.preventDefault();
-				break;
-			case 'ArrowRight':
-				this._slider.setValue(Math.min(value + this._slider.step() * multiplier, this._slider.max()));
-				event.preventDefault();
-				break;
-			case 'Home':
-				this._slider.setValue(this._slider.min());
-				event.preventDefault();
-				break;
-			case 'End':
-				this._slider.setValue(this._slider.max());
-				event.preventDefault();
-				break;
-		}
-	}
+		// Determine delta based on slider orientation
+		const dirLR = this._slider.slidingSource() === 'right' ? -1 : 1;
+		const dirUD = this._slider.slidingSource() === 'top' ? -1 : 1;
 
-	private linearScale(input: readonly [number, number], output: readonly [number, number]): (value: number) => number {
-		return (value: number) => {
-			if (input[0] === input[1] || output[0] === output[1]) return output[0];
-			const ratio = (output[1] - output[0]) / (input[1] - input[0]);
-			return output[0] + ratio * (value - input[0]);
+		const deltas: Partial<Record<string, number>> = {
+			ArrowLeft: -step * multiplier * dirLR,
+			ArrowRight: step * multiplier * dirLR,
+			ArrowUp: step * multiplier * dirUD,
+			ArrowDown: -step * multiplier * dirUD,
+			PageUp: step * multiplier,
+			PageDown: -step * multiplier,
 		};
+
+		// Home/End keys
+		if (event.key === 'Home') {
+			if (this._slider.isDraggableRangeOnly()) {
+				const range = this._slider.normalizedValue();
+				const delta = min - range[0];
+				this._slider.setAllValuesByDelta(delta);
+			} else {
+				this._slider.setValue(min, this._index());
+			}
+			event.preventDefault();
+			return;
+		}
+
+		if (event.key === 'End') {
+			if (this._slider.isDraggableRangeOnly()) {
+				const range = this._slider.normalizedValue();
+				const delta = max - range[range.length - 1];
+				this._slider.setAllValuesByDelta(delta);
+			} else {
+				this._slider.setValue(max, this._index());
+			}
+			event.preventDefault();
+			return;
+		}
+
+		const delta = deltas[event.key];
+		if (delta === undefined) return;
+
+		if (this._slider.isDraggableRangeOnly()) {
+			this._slider.setAllValuesByDelta(delta);
+		} else {
+			const index = this._index();
+			const value = this._slider.normalizedValue()[index];
+			this._slider.setValue(Math.min(max, Math.max(min, value + delta)), index);
+		}
+
+		event.preventDefault();
 	}
 }

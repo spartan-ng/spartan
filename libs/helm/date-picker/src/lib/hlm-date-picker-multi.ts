@@ -19,10 +19,8 @@ import { type ControlValueAccessor, FormGroupDirective, NG_VALUE_ACCESSOR, NgCon
 import { provideIcons } from '@ng-icons/core';
 import { lucideChevronDown } from '@ng-icons/lucide';
 import type { BrnDialogState } from '@spartan-ng/brain/dialog';
-import { BrnFormFieldControl } from '@spartan-ng/brain/form-field';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import { ErrorStateMatcher, ErrorStateTracker } from '@spartan-ng/brain/forms';
-import { BrnPopoverImports } from '@spartan-ng/brain/popover';
 import { HlmCalendarMulti } from '@spartan-ng/helm/calendar';
 import { HlmFieldControlDescribedBy } from '@spartan-ng/helm/field';
 import { HlmIconImports } from '@spartan-ng/helm/icon';
@@ -30,6 +28,7 @@ import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 import { injectHlmDatePickerMultiConfig } from './hlm-date-picker-multi.token';
+import { BrnFieldControl } from '@spartan-ng/brain/field';
 
 export const HLM_DATE_PICKER_MUTLI_VALUE_ACCESSOR = {
 	provide: NG_VALUE_ACCESSOR,
@@ -41,12 +40,12 @@ let nextId = 0;
 
 @Component({
 	selector: 'hlm-date-picker-multi',
-	imports: [HlmIconImports, BrnPopoverImports, HlmPopoverImports, HlmCalendarMulti, HlmFieldControlDescribedBy],
+	imports: [HlmIconImports, HlmPopoverImports, HlmCalendarMulti, HlmFieldControlDescribedBy],
 	providers: [
 		// HLM_DATE_PICKER_MUTLI_VALUE_ACCESSOR,
 		provideIcons({ lucideChevronDown }),
 		{
-			provide: BrnFormFieldControl,
+			provide: BrnFieldControl,
 			useExisting: forwardRef(() => HlmDatePickerMulti),
 		},
 	],
@@ -55,7 +54,12 @@ let nextId = 0;
 		class: 'block',
 	},
 	template: `
-		<hlm-popover sideOffset="5" [state]="_popoverState()" (stateChanged)="_popoverState.set($event)">
+		<hlm-popover
+			sideOffset="5"
+			[state]="_popoverState()"
+			(stateChanged)="_popoverState.set($event)"
+			(closed)="_onTouched?.()"
+		>
 			<button
 				[id]="buttonId()"
 				type="button"
@@ -117,7 +121,7 @@ export class HlmDatePickerMulti<T> implements ControlValueAccessor, DoCheck {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>
 		hlm(
-			'ring-offset-background border-input bg-background hover:bg-accent dark:bg-input/30 dark:hover:bg-input/50 hover:text-accent-foreground inline-flex h-9 w-[280px] cursor-default items-center justify-between gap-2 rounded-md border px-3 py-2 text-left text-sm font-normal whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50',
+			'ring-offset-background border-input bg-background hover:bg-accent dark:bg-input/30 dark:hover:bg-input/50 inline-flex h-9 w-[280px] cursor-default items-center justify-between gap-2 rounded-md border px-3 py-2 text-left text-sm font-normal whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50',
 			'focus-visible:ring-ring focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
 			'disabled:pointer-events-none disabled:opacity-50',
 			'[&_ng-icon]:pointer-events-none [&_ng-icon]:shrink-0',

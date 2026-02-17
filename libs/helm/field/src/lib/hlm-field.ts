@@ -2,6 +2,7 @@ import { Directive, input } from '@angular/core';
 import { classes } from '@spartan-ng/helm/utils';
 import { cva, VariantProps } from 'class-variance-authority';
 import { HlmFieldA11yService } from './hlm-field-aria.service';
+import { BrnField } from '@spartan-ng/brain/field';
 
 const fieldVariants = cva('group/field data-[invalid=true]:text-destructive flex w-full gap-3', {
 	variants: {
@@ -29,6 +30,7 @@ export type FieldVariants = VariantProps<typeof fieldVariants>;
 @Directive({
 	selector: '[hlmField],hlm-field',
 	providers: [HlmFieldA11yService],
+	hostDirectives: [{ directive: BrnField, inputs: ['data-invalid'] }],
 	host: {
 		role: 'group',
 		'data-slot': 'field',
@@ -37,6 +39,7 @@ export type FieldVariants = VariantProps<typeof fieldVariants>;
 })
 export class HlmField {
 	public readonly orientation = input<FieldVariants['orientation']>('vertical');
+
 	constructor() {
 		classes(() => fieldVariants({ orientation: this.orientation() }));
 	}

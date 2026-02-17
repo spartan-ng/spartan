@@ -34,7 +34,6 @@ import {
 	provideExposedSideProviderExisting,
 	provideExposesStateProviderExisting,
 } from '@spartan-ng/brain/core';
-import { BrnFormFieldControl } from '@spartan-ng/brain/form-field';
 import { type ChangeFn, ErrorStateMatcher, ErrorStateTracker, type TouchFn } from '@spartan-ng/brain/forms';
 import { BrnLabel } from '@spartan-ng/brain/label';
 import { of, Subject } from 'rxjs';
@@ -43,6 +42,7 @@ import { BrnSelectContent } from './brn-select-content';
 import { BrnSelectOption } from './brn-select-option';
 import type { BrnSelectTrigger } from './brn-select-trigger';
 import { provideBrnSelect } from './brn-select.token';
+import { BrnFieldControl } from '@spartan-ng/brain/field';
 
 export type BrnReadDirection = 'ltr' | 'rtl';
 
@@ -56,7 +56,7 @@ let nextId = 0;
 		provideExposesStateProviderExisting(() => BrnSelect),
 		provideBrnSelect(BrnSelect),
 		{
-			provide: BrnFormFieldControl,
+			provide: BrnFieldControl,
 			useExisting: forwardRef(() => BrnSelect),
 		},
 	],
@@ -90,7 +90,7 @@ let nextId = 0;
 	`,
 })
 export class BrnSelect<T = unknown>
-	implements ControlValueAccessor, DoCheck, ExposesSide, ExposesState, BrnFormFieldControl
+	implements ControlValueAccessor, DoCheck, ExposesSide, ExposesState, BrnFieldControl
 {
 	private readonly _defaultErrorStateMatcher = inject(ErrorStateMatcher);
 	private readonly _parentForm = inject(NgForm, { optional: true });

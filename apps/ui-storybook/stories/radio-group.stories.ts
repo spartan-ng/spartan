@@ -6,7 +6,7 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 import { HlmLabel } from '@spartan-ng/helm/label';
 import { HlmRadioGroupImports } from '@spartan-ng/helm/radio-group';
 import { HlmCode, HlmSmall } from '@spartan-ng/helm/typography';
-import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
+import { type Meta, moduleMetadata, type StoryObj } from '@storybook/angular';
 
 @Component({
 	selector: 'radio-group-example',
@@ -81,7 +81,9 @@ class RadioGroupExample {
 						<label hlmLabel class="font-normal">Lifetime - $299.99</label>
 					</div>
 				</hlm-radio-group>
-				<hlm-field-error *ngIf="isInvalid()">Choose a plan to continue.</hlm-field-error>
+				@if (isInvalid()) {
+					<hlm-field-error>Choose a plan to continue.</hlm-field-error>
+				}
 			</div>
 
 			<div class="flex flex-wrap gap-2">

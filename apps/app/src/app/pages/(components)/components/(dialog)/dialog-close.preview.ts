@@ -17,7 +17,7 @@ import { HlmLabelImports } from '@spartan-ng/helm/label';
 				<div class="grid gap-4 py-4">
 					<div class="flex items-center justify-between gap-4">
 						<label hlmLabel>Close dialog by directive</label>
-						<button hlmBtn brnDialogClose>Close</button>
+						<button hlmBtn hlmDialogClose>Close</button>
 					</div>
 					<div class="flex items-center justify-between gap-4">
 						<label hlmLabel>Close dialog by reference</label>

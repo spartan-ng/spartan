@@ -12,7 +12,7 @@ import {
 	untracked,
 } from '@angular/core';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
-import { BrnFormFieldControl } from '@spartan-ng/brain/form-field';
+import { BrnFieldControl } from '@spartan-ng/brain/field';
 import { ErrorStateMatcher, ErrorStateTracker } from '@spartan-ng/brain/forms';
 import { HlmFieldControlDescribedBy } from '@spartan-ng/helm/field';
 import { classes } from '@spartan-ng/helm/utils';
@@ -39,7 +39,7 @@ type TextareaVariants = VariantProps<typeof textareaVariants>;
 	selector: '[hlmTextarea]',
 	providers: [
 		{
-			provide: BrnFormFieldControl,
+			provide: BrnFieldControl,
 			useExisting: forwardRef(() => HlmTextarea),
 		},
 	],
@@ -48,7 +48,7 @@ type TextareaVariants = VariantProps<typeof textareaVariants>;
 		'data-slot': 'textarea',
 	},
 })
-export class HlmTextarea implements BrnFormFieldControl, DoCheck {
+export class HlmTextarea implements BrnFieldControl, DoCheck {
 	private readonly _injector = inject(Injector);
 	private readonly _additionalClasses = signal<ClassValue>('');
 

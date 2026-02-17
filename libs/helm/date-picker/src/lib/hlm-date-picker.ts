@@ -4,6 +4,7 @@ import {
 	ChangeDetectionStrategy,
 	Component,
 	computed,
+	type DoCheck,
 	effect,
 	forwardRef,
 	inject,
@@ -12,13 +13,11 @@ import {
 	output,
 	signal,
 	untracked,
-	type DoCheck,
 } from '@angular/core';
-import { FormGroupDirective, NG_VALUE_ACCESSOR, NgControl, NgForm, type ControlValueAccessor } from '@angular/forms';
+import { type ControlValueAccessor, FormGroupDirective, NG_VALUE_ACCESSOR, NgControl, NgForm } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown } from '@ng-icons/lucide';
 import type { BrnDialogState } from '@spartan-ng/brain/dialog';
-import { BrnFormFieldControl } from '@spartan-ng/brain/form-field';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import { ErrorStateMatcher, ErrorStateTracker } from '@spartan-ng/brain/forms';
 import { HlmCalendar } from '@spartan-ng/helm/calendar';
@@ -28,6 +27,7 @@ import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 import { injectHlmDatePickerConfig } from './hlm-date-picker.token';
+import { BrnFieldControl } from '@spartan-ng/brain/field';
 
 export const HLM_DATE_PICKER_VALUE_ACCESSOR = {
 	provide: NG_VALUE_ACCESSOR,
@@ -44,7 +44,7 @@ let nextId = 0;
 		// HLM_DATE_PICKER_VALUE_ACCESSOR,
 		provideIcons({ lucideChevronDown }),
 		{
-			provide: BrnFormFieldControl,
+			provide: BrnFieldControl,
 			useExisting: forwardRef(() => HlmDatePicker),
 		},
 	],
@@ -53,7 +53,12 @@ let nextId = 0;
 		class: 'block',
 	},
 	template: `
-		<hlm-popover sideOffset="5" [state]="_popoverState()" (stateChanged)="_popoverState.set($event)">
+		<hlm-popover
+			sideOffset="5"
+			[state]="_popoverState()"
+			(stateChanged)="_popoverState.set($event)"
+			(closed)="_onTouched?.()"
+		>
 			<button
 				[id]="buttonId()"
 				type="button"
@@ -113,7 +118,7 @@ export class HlmDatePicker<T> implements ControlValueAccessor, DoCheck {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>
 		hlm(
-			'ring-offset-background border-input bg-background hover:bg-accent dark:bg-input/30 dark:hover:bg-input/50 hover:text-accent-foreground inline-flex h-9 w-[280px] cursor-default items-center justify-between gap-2 rounded-md border px-3 py-2 text-left text-sm font-normal whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50',
+			'ring-offset-background border-input bg-background hover:bg-accent dark:bg-input/30 dark:hover:bg-input/50 inline-flex h-9 w-[280px] cursor-default items-center justify-between gap-2 rounded-md border px-3 py-2 text-left text-sm font-normal whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50',
 			'focus-visible:ring-ring focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
 			'disabled:pointer-events-none disabled:opacity-50',
 			'[&_ng-icon]:pointer-events-none [&_ng-icon]:shrink-0',

@@ -104,7 +104,9 @@ export const WithHintAndError: Story = {
 
 				<p hlmFieldDescription>Tell us what you’re working on so we can help.</p>
 
-				<hlm-field-error *ngIf="showError">Please enter a message before continuing.</hlm-field-error>
+@if(showError){
+				<hlm-field-error >Please enter a message before continuing.</hlm-field-error>
+}
 			</div>
 
 			<div class="flex flex-wrap items-center gap-2">

@@ -29,8 +29,8 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { type ControlValueAccessor, FormGroupDirective, NG_VALUE_ACCESSOR, NgControl, NgForm } from '@angular/forms';
-import { BrnFormFieldControl } from '@spartan-ng/brain/form-field';
 import { type ChangeFn, ErrorStateMatcher, ErrorStateTracker, type TouchFn } from '@spartan-ng/brain/forms';
+import { BrnFieldControl } from '@spartan-ng/brain/field';
 
 export const BRN_CHECKBOX_VALUE_ACCESSOR = {
 	provide: NG_VALUE_ACCESSOR,
@@ -47,7 +47,7 @@ const CONTAINER_POST_FIX = '-checkbox';
 	providers: [
 		BRN_CHECKBOX_VALUE_ACCESSOR,
 		{
-			provide: BrnFormFieldControl,
+			provide: BrnFieldControl,
 			useExisting: forwardRef(() => BrnCheckbox),
 		},
 	],
@@ -90,7 +90,7 @@ const CONTAINER_POST_FIX = '-checkbox';
 	`,
 })
 export class BrnCheckbox
-	implements ControlValueAccessor, AfterContentInit, OnDestroy, DoCheck, OnInit, BrnFormFieldControl
+	implements ControlValueAccessor, AfterContentInit, OnDestroy, DoCheck, OnInit, BrnFieldControl
 {
 	private readonly _destroyRef = inject(DestroyRef);
 	private readonly _renderer = inject(Renderer2);

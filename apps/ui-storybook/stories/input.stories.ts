@@ -3,7 +3,7 @@ import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
 import { HlmInput } from '@spartan-ng/helm/input';
 import { HlmLabel } from '@spartan-ng/helm/label';
-import { type Meta, type StoryObj, argsToTemplate, moduleMetadata } from '@storybook/angular';
+import { argsToTemplate, type Meta, moduleMetadata, type StoryObj } from '@storybook/angular';
 
 const meta: Meta<HlmInput> = {
 	title: 'Input',
@@ -99,10 +99,10 @@ export const WithHintAndError: Story = {
 		},
 		template: `
 		@let emailControl = form.get('email');
-		@let showError = emailControl?.invalid && (emailControl?.touched || emailControl?.dirty);
+		@let showError = emailControl?.invalid && (emailControl?.touched );
 
 		<form [formGroup]="form" class="space-y-3 w-full max-w-sm">
-			<div hlmField [attr.data-invalid]="showError ? 'true' : null">
+			<div hlmField >
 				<label hlmFieldLabel for="input-hint">Email *</label>
 				<input
 					hlmInput
@@ -115,7 +115,9 @@ export const WithHintAndError: Story = {
 
 				<p hlmFieldDescription>We’ll use this email for notifications.</p>
 
-				<hlm-field-error *ngIf="showError">Enter a valid email address to continue.</hlm-field-error>
+@if(showError){
+				<hlm-field-error>Enter a valid email address to continue.</hlm-field-error>
+}
 			</div>
 
 			<div class="flex flex-wrap items-center gap-2">

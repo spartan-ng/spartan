@@ -1,13 +1,13 @@
 import type { BooleanInput } from '@angular/cdk/coercion';
 import {
+	booleanAttribute,
 	ChangeDetectionStrategy,
 	Component,
-	ElementRef,
-	Renderer2,
-	booleanAttribute,
 	effect,
+	ElementRef,
 	inject,
 	input,
+	Renderer2,
 	signal,
 } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
@@ -40,7 +40,7 @@ export const sheetVariants = cva(
 
 @Component({
 	selector: 'hlm-sheet-content',
-	imports: [HlmSheetClose, HlmIconImports, HlmButton],
+	imports: [HlmIconImports, HlmButton, HlmSheetClose],
 	providers: [provideIcons({ lucideX })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
@@ -51,7 +51,7 @@ export const sheetVariants = cva(
 		<ng-content />
 
 		@if (showCloseButton()) {
-			<button hlmSheetClose hlmBtn variant="ghost" size="icon-sm" data-slot="sheet-close">
+			<button hlmBtn variant="ghost" size="icon-sm" class="absolute end-4 top-4" hlmSheetClose>
 				<span class="sr-only">Close</span>
 				<ng-icon hlm size="sm" name="lucideX" />
 			</button>

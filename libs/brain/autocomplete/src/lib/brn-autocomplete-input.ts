@@ -63,6 +63,11 @@ export class BrnAutocompleteInput<T> {
 			this._autocomplete.selectActiveItem();
 		}
 
+		if (event.key === 'Tab' && this._isExpanded()) {
+			this._autocomplete.selectActiveItem();
+			return;
+		}
+
 		if (!this._isExpanded()) {
 			if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
 				this._autocomplete.open();

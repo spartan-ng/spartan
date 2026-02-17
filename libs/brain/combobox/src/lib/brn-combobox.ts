@@ -7,6 +7,7 @@ import {
 	contentChild,
 	contentChildren,
 	Directive,
+	type DoCheck,
 	effect,
 	ElementRef,
 	forwardRef,
@@ -17,33 +18,32 @@ import {
 	model,
 	signal,
 	untracked,
-	type DoCheck,
 } from '@angular/core';
-import { FormGroupDirective, NgControl, NgForm, type ControlValueAccessor } from '@angular/forms';
-import { BrnFormFieldControl } from '@spartan-ng/brain/form-field';
-import { ErrorStateMatcher, ErrorStateTracker, type ChangeFn, type TouchFn } from '@spartan-ng/brain/forms';
+import { type ControlValueAccessor, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
+import { type ChangeFn, ErrorStateMatcher, ErrorStateTracker, type TouchFn } from '@spartan-ng/brain/forms';
 import { BrnPopover } from '@spartan-ng/brain/popover';
 import type { BrnComboboxInput } from './brn-combobox-input';
 import { BrnComboboxInputWrapper } from './brn-combobox-input-wrapper';
 import { type BrnComboboxItem } from './brn-combobox-item';
 import { BrnComboboxItemToken } from './brn-combobox-item.token';
 import {
-	ComboboxInputMode,
-	injectBrnComboboxConfig,
-	provideBrnComboboxBase,
 	type BrnComboboxBase,
 	type ComboboxFilter,
 	type ComboboxFilterOptions,
+	ComboboxInputMode,
 	type ComboboxItemEqualToValue,
 	type ComboboxItemToString,
+	injectBrnComboboxConfig,
+	provideBrnComboboxBase,
 } from './brn-combobox.token';
+import { BrnFieldControl } from '@spartan-ng/brain/field';
 
 @Directive({
 	selector: '[brnCombobox]',
 	providers: [
 		provideBrnComboboxBase(BrnCombobox),
 		{
-			provide: BrnFormFieldControl,
+			provide: BrnFieldControl,
 			useExisting: forwardRef(() => BrnCombobox),
 		},
 	],

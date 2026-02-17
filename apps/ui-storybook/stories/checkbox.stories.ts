@@ -51,7 +51,9 @@ class HlmCheckboxTester {
 					<hlm-checkbox id="field-terms" formControlName="agreement" />
 					<label hlmFieldLabel for="field-terms" class="font-normal">I agree to the terms and conditions.</label>
 				</div>
-				<hlm-field-error *ngIf="isInvalid()">You must accept the terms to continue.</hlm-field-error>
+				@if (isInvalid()) {
+					<hlm-field-error>You must accept the terms to continue.</hlm-field-error>
+				}
 			</div>
 
 			<div class="flex flex-wrap gap-2">

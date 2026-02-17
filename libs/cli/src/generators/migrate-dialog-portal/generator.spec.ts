@@ -41,7 +41,7 @@ describe('migrate-dialog-portal generator', () => {
 						import { Component, signal } from '@angular/core';
 						import { BrnDialogImports } from '@spartan-ng/brain/dialog';
 						import { HlmDialogImports } from '@spartan-ng/helm/dialog';
-	
+
 						@Component({
 							imports: [BrnDialogImports, HlmDialogImports],
 							template: \`
@@ -80,7 +80,7 @@ describe('migrate-dialog-portal generator', () => {
 						import { Component, signal } from '@angular/core';
 						import { BrnAlertDialogImports } from '@spartan-ng/brain/alert-dialog';
 						import { HlmAlertDialogImports } from '@spartan-ng/helm/alert-dialog';
-	
+
 						@Component({
 							imports: [BrnAlertDialogImports, HlmAlertDialogImports],
 							template: \`
@@ -119,7 +119,7 @@ describe('migrate-dialog-portal generator', () => {
 						import { Component, signal } from '@angular/core';
 						import { BrnPopoverImports } from '@spartan-ng/brain/popover';
 						import { HlmPopoverImports } from '@spartan-ng/helm/popover';
-	
+
 						@Component({
 							imports: [BrnPopoverImports, HlmPopoverImports],
 							template: \`
@@ -149,7 +149,7 @@ describe('migrate-dialog-portal generator', () => {
 						import { Component, signal } from '@angular/core';
 						import { BrnSheetImports } from '@spartan-ng/brain/sheet';
 						import { HlmSheetImports } from '@spartan-ng/helm/sheet';
-	
+
 						@Component({
 							imports: [BrnSheetImports, HlmSheetImports],
 							template: \`
@@ -186,7 +186,7 @@ describe('migrate-dialog-portal generator', () => {
 						import { Component, signal } from '@angular/core';
 						import { BrnNavigationMenuImports } from '@spartan-ng/brain/navigation-menu';
 						import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
-	
+
 						@Component({
 							imports: [BrnNavigationMenuImports, HlmNavigationMenuImports],
 							template: \`
@@ -222,10 +222,10 @@ describe('migrate-dialog-portal generator', () => {
 						import { Component, signal } from '@angular/core';
 						import { BrnPopoverContent } from '@spartan-ng/brain/popover';
 						import { HlmComboboxImports } from '@spartan-ng/helm/combobox';
-	
+
 						@Component({
 							imports: [HlmComboboxImports, BrnPopoverContent],
-							template: \`					
+							template: \`
 								<hlm-combobox>
   									<hlm-combobox-input placeholder="Select a framework" />
   									<div *brnPopoverContent hlmComboboxContent>
@@ -261,10 +261,10 @@ describe('migrate-dialog-portal generator', () => {
 						import { BrnPopoverContent } from '@spartan-ng/brain/popover';
 						import { HlmAutocompleteImports } from '@spartan-ng/helm/autocomplete';
 
-	
+
 						@Component({
 							imports: [BrnPopoverContent, HlmAutocompleteImports],
-							template: \`					
+							template: \`
 								<hlm-autocomplete [(search)]="search">
   									<hlm-autocomplete-input placeholder="Search tags" />
   									<div *brnPopoverContent hlmAutocompleteContent>

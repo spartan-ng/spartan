@@ -16,11 +16,10 @@ import {
 	input,
 	linkedSignal,
 	model,
-	untracked,
+	untracked
 } from '@angular/core';
 import { ControlValueAccessor, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { stringifyAsLabel } from '@spartan-ng/brain/core';
-import { BrnFormFieldControl } from '@spartan-ng/brain/form-field';
 import { ChangeFn, ErrorStateMatcher, ErrorStateTracker, TouchFn } from '@spartan-ng/brain/forms';
 import { BrnPopover } from '@spartan-ng/brain/popover';
 import { BrnAutocompleteInputWrapper } from './brn-autocomplete-input-wrapper';
@@ -30,15 +29,16 @@ import {
 	AutocompleteItemToString,
 	BrnAutocompleteBase,
 	injectBrnAutocompleteConfig,
-	provideBrnAutocompleteBase,
+	provideBrnAutocompleteBase
 } from './brn-autocomplete.token';
+import { BrnFieldControl } from '@spartan-ng/brain/field';
 
 @Directive({
 	selector: '[brnAutocomplete]',
 	providers: [
 		provideBrnAutocompleteBase(BrnAutocompleteSearch),
 		{
-			provide: BrnFormFieldControl,
+			provide: BrnFieldControl,
 			useExisting: forwardRef(() => BrnAutocompleteSearch),
 		},
 	],

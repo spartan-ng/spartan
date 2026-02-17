@@ -9,7 +9,7 @@ import {
 	input,
 	linkedSignal,
 	signal,
-	untracked,
+	untracked
 } from '@angular/core';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { BrnFieldControl } from '@spartan-ng/brain/field';
@@ -92,9 +92,5 @@ export class HlmInput implements BrnFieldControl, DoCheck {
 
 	setError(error: InputVariants['error']) {
 		this._state.set({ error });
-	}
-
-	setClass(classes: string): void {
-		this._additionalClasses.set(classes);
 	}
 }

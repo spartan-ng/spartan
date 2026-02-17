@@ -1,8 +1,9 @@
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmFieldImports } from '@spartan-ng/helm/field';
 import { HlmInput } from '@spartan-ng/helm/input';
 import { HlmLabel } from '@spartan-ng/helm/label';
-import { type Meta, type StoryObj, argsToTemplate, moduleMetadata } from '@storybook/angular';
+import { argsToTemplate, type Meta, moduleMetadata, type StoryObj } from '@storybook/angular';
 
 const meta: Meta<HlmInput> = {
 	title: 'Input',
@@ -21,7 +22,7 @@ const meta: Meta<HlmInput> = {
 	},
 	decorators: [
 		moduleMetadata({
-			imports: [HlmInput, HlmLabel, HlmButton, FormsModule],
+			imports: [HlmInput, HlmLabel, HlmButton, FormsModule, ReactiveFormsModule, HlmFieldImports],
 		}),
 	],
 };
@@ -86,5 +87,44 @@ export const WithButton: Story = {
     <button hlmBtn>Subscribe</button>
     </div>
     `,
+	}),
+};
+
+export const WithHintAndError: Story = {
+	render: () => ({
+		props: {
+			form: new FormGroup({
+				email: new FormControl('', { validators: [Validators.required, Validators.email] }),
+			}),
+		},
+		template: `
+		@let emailControl = form.get('email');
+		@let showError = emailControl?.invalid && (emailControl?.touched );
+
+		<form [formGroup]="form" class="space-y-3 w-full max-w-sm">
+			<div hlmField >
+				<label hlmFieldLabel for="input-hint">Email *</label>
+				<input
+					hlmInput
+					id="input-hint"
+					type="email"
+					formControlName="email"
+					placeholder="you@example.com"
+					class="w-full"
+				/>
+
+				<p hlmFieldDescription>We’ll use this email for notifications.</p>
+
+@if(showError){
+				<hlm-field-error>Enter a valid email address to continue.</hlm-field-error>
+}
+			</div>
+
+			<div class="flex flex-wrap items-center gap-2">
+				<button hlmBtn type="button" (click)="form.markAllAsTouched()">Validate</button>
+				<button hlmBtn variant="outline" type="button" (click)="form.reset()">Reset</button>
+			</div>
+		</form>
+		`,
 	}),
 };

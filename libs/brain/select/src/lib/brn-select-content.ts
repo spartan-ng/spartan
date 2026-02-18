@@ -90,8 +90,7 @@ export class BrnSelectScrollDown {
 		'[attr.aria-multiselectable]': '_select.multiple()',
 		'[attr.aria-disabled]': '_select.disabled() || _select.formDisabled()',
 		'aria-orientation': 'vertical',
-		'[attr.aria-labelledBy]': '_select.labelId()',
-		'[attr.aria-controlledBy]': "_select.id() +'--trigger'",
+		'[attr.aria-labelledby]': '_select.labelId()',
 		'[id]': "_select.id() + '--content'",
 		'[attr.dir]': '_select.direction()',
 		'(keydown)': 'keyManager?.onKeydown($event)',
@@ -109,7 +108,8 @@ export class BrnSelectScrollDown {
 			data-brn-select-viewport
 			#viewport
 			(scroll)="handleScroll()"
-			class="relative -mb-0.5 min-h-9 w-full flex-1 overflow-auto pb-0.5 [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+			[class]="_viewportClass()"
+			[style]="{ overflow: 'auto', scrollbarWidth: 'none', msOverflowStyle: 'none' }"
 		>
 			<ng-content />
 		</div>
@@ -130,6 +130,13 @@ export class BrnSelectContent<T> implements AfterContentInit {
 	protected readonly _scrollUpBtn = contentChild(BrnSelectScrollUp);
 	protected readonly _scrollDownBtn = contentChild(BrnSelectScrollDown);
 	private readonly _options = contentChildren(BrnSelectOption, { descendants: true });
+
+	/** Layout classes applied by the HLM layer. Not set in BRN directly (BRN = headless). */
+	protected readonly _viewportClass = signal('');
+
+	public setViewportClass(cls: string): void {
+		this._viewportClass.set(cls);
+	}
 
 	/** @internal */
 	public keyManager: FocusKeyManager<BrnSelectOption<T>> | null = null;

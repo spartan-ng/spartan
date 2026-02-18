@@ -12,7 +12,7 @@ import {
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown } from '@ng-icons/lucide';
-import { BrnSelectImports, BrnSelectTrigger } from '@spartan-ng/brain/select';
+import { BrnSelectTrigger } from '@spartan-ng/brain/select';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmLabel } from '@spartan-ng/helm/label';
@@ -45,7 +45,7 @@ const meta: Meta<BrnSelectStoryArgs> = {
 	},
 	decorators: [
 		moduleMetadata({
-			imports: [CommonModule, FormsModule, ReactiveFormsModule, BrnSelectImports, HlmSelectImports, HlmLabel],
+			imports: [CommonModule, FormsModule, ReactiveFormsModule, HlmSelectImports, HlmLabel],
 		}),
 	],
 };
@@ -82,13 +82,13 @@ export const ReactiveFormControl: Story = {
 				<pre>Form Control Value: {{ fruitGroup.controls.fruit.value | json }}</pre>
 			</div>
 			<form [formGroup]="fruitGroup">
-				<brn-select
+				<hlm-select
 					class="w-56"
 					${argsToTemplate(args, { exclude: ['initialValue', 'selectValueTransformFn'] })}
 					formControlName="fruit"
 				>
 					<hlm-select-trigger>
-						<brn-select-value hlm />
+						<hlm-select-value />
 					</hlm-select-trigger>
 					<hlm-select-content>
 						<hlm-select-label>Fruits</hlm-select-label>
@@ -99,7 +99,7 @@ export const ReactiveFormControl: Story = {
 						<hlm-option value="pineapple">Pineapple</hlm-option>
 						<hlm-option>Clear</hlm-option>
 					</hlm-select-content>
-				</brn-select>
+				</hlm-select>
 			</form>
 		`,
 	}),
@@ -113,13 +113,13 @@ export const DisabledOption: Story = {
 				<pre>Form Control Value: {{ fruitGroup.controls.fruit.value | json }}</pre>
 			</div>
 			<form [formGroup]="fruitGroup">
-				<brn-select
+				<hlm-select
 					class="w-56"
 					${argsToTemplate(args, { exclude: ['initialValue', 'selectValueTransformFn'] })}
 					formControlName="fruit"
 				>
 					<hlm-select-trigger>
-						<brn-select-value hlm />
+						<hlm-select-value />
 					</hlm-select-trigger>
 					<hlm-select-content>
 						<hlm-select-label>Fruits</hlm-select-label>
@@ -130,7 +130,7 @@ export const DisabledOption: Story = {
 						<hlm-option value="pineapple">Pineapple</hlm-option>
 						<hlm-option>Clear</hlm-option>
 					</hlm-select-content>
-				</brn-select>
+				</hlm-select>
 			</form>
 		`,
 	}),
@@ -151,13 +151,13 @@ export const SelectValueTransformFn: Story = {
 				<pre>Form Control Value: {{ fruitGroup.controls.fruit.value | json }}</pre>
 			</div>
 			<form [formGroup]="fruitGroup">
-				<brn-select
+				<hlm-select
 					class="w-56"
 					${argsToTemplate(args, { exclude: ['initialValue', 'selectValueTransformFn'] })}
 					formControlName="fruit"
 				>
 					<hlm-select-trigger>
-						<brn-select-value hlm [transformFn]="selectValueTransformFn" />
+						<hlm-select-value [transformFn]="selectValueTransformFn" />
 					</hlm-select-trigger>
 					<hlm-select-content>
 						<hlm-select-label>Fruits</hlm-select-label>
@@ -168,7 +168,7 @@ export const SelectValueTransformFn: Story = {
 						<hlm-option value="pineapple">Pineapple</hlm-option>
 						<hlm-option>Clear</hlm-option>
 					</hlm-select-content>
-				</brn-select>
+				</hlm-select>
 			</form>
 		`,
 	}),
@@ -197,13 +197,13 @@ export const ReactiveFormControlWithForAndInitialValue: Story = {
 				<pre>Form Control Value: {{ fruitGroup.controls.fruit.value | json }}</pre>
 			</div>
 			<form [formGroup]="fruitGroup">
-				<brn-select
+				<hlm-select
 					class="w-56"
 					${argsToTemplate(args, { exclude: ['initialValue', 'selectValueTransformFn'] })}
 					formControlName="fruit"
 				>
 					<hlm-select-trigger>
-						<brn-select-value hlm />
+						<hlm-select-value />
 					</hlm-select-trigger>
 					<hlm-select-content>
 						<hlm-select-label>Fruits</hlm-select-label>
@@ -211,7 +211,7 @@ export const ReactiveFormControlWithForAndInitialValue: Story = {
 						<hlm-option [value]="option.value">{{option.label}}</hlm-option>
 						}
 					</hlm-select-content>
-				</brn-select>
+				</hlm-select>
 				@if (fruitGroup.controls.fruit.invalid && fruitGroup.controls.fruit.touched){
 				<span class="text-destructive">Required</span>
 				}
@@ -278,13 +278,13 @@ export const ReactiveFormControlWithForAndInitialValueAndMultiple: StoryObj<
 				<pre>Form Control Value: {{ initialFormValue?.controls.fruit.value | json }}</pre>
 			</div>
 			<form [formGroup]="initialFormValue">
-				<brn-select
+				<hlm-select
 					class="w-56"
 					${argsToTemplate(args, { exclude: ['initialValue', 'options'] })}
 					formControlName="fruit"
 				>
 					<hlm-select-trigger>
-						<brn-select-value hlm />
+						<hlm-select-value />
 					</hlm-select-trigger>
 					<hlm-select-content>
 						<hlm-select-label>Fruits</hlm-select-label>
@@ -292,7 +292,7 @@ export const ReactiveFormControlWithForAndInitialValueAndMultiple: StoryObj<
 						<hlm-option [value]="option.value">{{option.label}}</hlm-option>
 						}
 					</hlm-select-content>
-				</brn-select>
+				</hlm-select>
 				@if (fruitGroup?.controls.fruit.invalid && fruitGroup.controls.fruit.touched){
 				<span class="text-destructive">Required</span>
 				}
@@ -314,13 +314,13 @@ export const ReactiveFormControlWithValidation: Story = {
 				<pre>Form Control Value: {{ fruitGroup.controls.fruit.valueChanges | async | json }}</pre>
 			</div>
 			<form [formGroup]="fruitGroup">
-				<brn-select
+				<hlm-select
 					class="w-56"
 					formControlName="fruit"
 					${argsToTemplate(args, { exclude: ['initialValue', 'selectValueTransformFn'] })}
 				>
 					<hlm-select-trigger>
-						<brn-select-value hlm />
+						<hlm-select-value />
 					</hlm-select-trigger>
 					<hlm-select-content>
 						<hlm-select-label>Fruits</hlm-select-label>
@@ -331,7 +331,7 @@ export const ReactiveFormControlWithValidation: Story = {
 						<hlm-option value="pineapple">Pineapple</hlm-option>
 						<hlm-option>Clear</hlm-option>
 					</hlm-select-content>
-				</brn-select>
+				</hlm-select>
 				@if (fruitGroup.controls.fruit.invalid && fruitGroup.controls.fruit.touched){
 				<span class="text-destructive">Required</span>
 				}
@@ -360,7 +360,7 @@ export const ReactiveFormControlWithValidationWithLabel: Story = {
 				>
 					<label hlmLabel>Select a Fruit</label>
 					<hlm-select-trigger>
-						<brn-select-value hlm />
+						<hlm-select-value />
 					</hlm-select-trigger>
 					<hlm-select-content>
 						<hlm-select-label>Fruits</hlm-select-label>
@@ -399,7 +399,7 @@ export const NgModelFormControl: Story = {
 				>
 					<label hlmLabel>Select a Fruit</label>
 					<hlm-select-trigger>
-						<brn-select-value hlm />
+						<hlm-select-value />
 					</hlm-select-trigger>
 					<hlm-select-content>
 						<hlm-select-label>Fruits</hlm-select-label>
@@ -445,7 +445,7 @@ export const NgModelFormControlInitialValue: Story = {
                 >
                     <label hlmLabel>Select a Fruit</label>
                     <hlm-select-trigger>
-                        <brn-select-value hlm />
+                        <hlm-select-value />
                     </hlm-select-trigger>
                     <hlm-select-content>
                         <hlm-select-label>Fruits</hlm-select-label>
@@ -472,7 +472,7 @@ export const SelectWithLabel: Story = {
 				>
 					<label hlmLabel>Select a Fruit</label>
 					<hlm-select-trigger class="w-56">
-						<brn-select-value />
+						<hlm-select-value />
 					</hlm-select-trigger>
 					<hlm-select-content class="w-56">
 						<hlm-select-label>Fruits</hlm-select-label>
@@ -653,6 +653,8 @@ export const CustomTrigger: Story = {
 };
 
 @Component({
+	// CustomSelectTrigger demonstrates advanced headless usage of BrnSelectTrigger.
+	// Normal usage only requires HlmSelectImports.
 	selector: 'custom-select-trigger',
 	imports: [BrnSelectTrigger, NgIcon, HlmIcon],
 	providers: [provideIcons({ lucideChevronDown })],
@@ -691,7 +693,7 @@ export const WithLabelAndForm: Story = {
 	selector: 'label-and-form-component',
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [FormsModule, ReactiveFormsModule, BrnSelectImports, HlmSelectImports, HlmLabel, HlmButton],
+	imports: [FormsModule, ReactiveFormsModule, HlmSelectImports, HlmLabel, HlmButton],
 	providers: [],
 	host: {
 		class: '',
@@ -702,7 +704,7 @@ export const WithLabelAndForm: Story = {
 				Select a Fruit*
 				<hlm-select class="w-56" [(ngModel)]="fruit" name="fruit" required>
 					<hlm-select-trigger>
-						<brn-select-value hlm />
+						<hlm-select-value />
 					</hlm-select-trigger>
 					<hlm-select-content>
 						<hlm-select-label>Fruits</hlm-select-label>
@@ -739,7 +741,7 @@ export const DynamicOptionsMultiSelect: Story = {
 	selector: 'dynamic-options-multi-select-component',
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [FormsModule, ReactiveFormsModule, BrnSelectImports, HlmSelectImports, HlmLabel, HlmButton, JsonPipe],
+	imports: [FormsModule, ReactiveFormsModule, HlmSelectImports, HlmLabel, HlmButton, JsonPipe],
 	providers: [],
 	host: {
 		class: '',

@@ -2,7 +2,7 @@ import { Directive } from '@angular/core';
 import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
-	selector: 'hlm-select-value,[hlmSelectValue], brn-select-value[hlm]',
+	selector: 'hlm-select-value, [hlmSelectValue]',
 })
 export class HlmSelectValue {
 	constructor() {

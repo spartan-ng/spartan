@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronUp } from '@ng-icons/lucide';
+import { BrnSelectScrollUp } from '@spartan-ng/brain/select';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import { classes } from '@spartan-ng/helm/utils';
 
@@ -8,6 +9,7 @@ import { classes } from '@spartan-ng/helm/utils';
 	selector: 'hlm-select-scroll-up',
 	imports: [NgIcon, HlmIcon],
 	providers: [provideIcons({ lucideChevronUp })],
+	hostDirectives: [BrnSelectScrollUp],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ng-icon hlm size="sm" class="ml-2" name="lucideChevronUp" />

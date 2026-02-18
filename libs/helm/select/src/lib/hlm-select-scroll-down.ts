@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown } from '@ng-icons/lucide';
+import { BrnSelectScrollDown } from '@spartan-ng/brain/select';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import { classes } from '@spartan-ng/helm/utils';
 
@@ -8,6 +9,7 @@ import { classes } from '@spartan-ng/helm/utils';
 	selector: 'hlm-select-scroll-down',
 	imports: [NgIcon, HlmIcon],
 	providers: [provideIcons({ lucideChevronDown })],
+	hostDirectives: [BrnSelectScrollDown],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ng-icon hlm size="sm" class="ml-2" name="lucideChevronDown" />

@@ -5,19 +5,14 @@ import {
 	lucideAlignJustify,
 	lucideAlignLeft,
 	lucideAlignRight,
-	lucideChevronDown,
-	lucideChevronUp,
 } from '@ng-icons/lucide';
-import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
 
 @Component({
 	selector: 'spartan-select-value-template-preview',
-	imports: [BrnSelectImports, HlmSelectImports, NgIcon],
+	imports: [HlmSelectImports, NgIcon],
 	providers: [
 		provideIcons({
-			lucideChevronUp,
-			lucideChevronDown,
 			lucideAlignLeft,
 			lucideAlignCenter,
 			lucideAlignJustify,
@@ -25,7 +20,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 		}),
 	],
 	template: `
-		<brn-select class="inline-block" placeholder="Select an alignment">
+		<hlm-select class="inline-block" placeholder="Select an alignment">
 			<hlm-select-trigger class="w-56">
 				<hlm-select-value>
 					<div class="flex items-center gap-x-2" *brnSelectValue="let value">
@@ -42,7 +37,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 					</hlm-option>
 				}
 			</hlm-select-content>
-		</brn-select>
+		</hlm-select>
 	`,
 })
 export class SelectValueTemplatePreview {

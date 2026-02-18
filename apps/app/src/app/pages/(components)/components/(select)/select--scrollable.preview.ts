@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
-import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
 
 @Component({
 	selector: 'spartan-select-scrollable-preview',
-	imports: [BrnSelectImports, HlmSelectImports],
+	imports: [HlmSelectImports],
 	template: `
-		<hlm-select scrollable="true" placeholder="Select a timezone">
+		<hlm-select placeholder="Select a timezone">
 			<hlm-select-trigger class="w-[280px]">
 				<hlm-select-value />
 			</hlm-select-trigger>
@@ -24,7 +23,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 				</hlm-select-group>
 
 				<hlm-select-group>
-					<hlm-select-label>Europe & Africa</hlm-select-label>
+					<hlm-select-label>Europe &amp; Africa</hlm-select-label>
 					<hlm-option value="gmt">Greenwich Mean Time (GMT)</hlm-option>
 					<hlm-option value="cet">Central European Time (CET)</hlm-option>
 					<hlm-option value="eet">Eastern European Time (EET)</hlm-option>
@@ -44,7 +43,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 				</hlm-select-group>
 
 				<hlm-select-group>
-					<hlm-select-label>Australia & Pacific</hlm-select-label>
+					<hlm-select-label>Australia &amp; Pacific</hlm-select-label>
 					<hlm-option value="awst">Australian Western Standard Time (AWST)</hlm-option>
 					<hlm-option value="acst">Australian Central Standard Time (ACST)</hlm-option>
 					<hlm-option value="aest">Australian Eastern Standard Time (AEST)</hlm-option>

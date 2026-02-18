@@ -22,7 +22,7 @@ import { defaultImports, defaultSkeleton, defaultStyles, SelectPreview } from '.
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Select', api: 'select' },
-	meta: metaWith('spartan/ui - Select', 'A control that allows the user to toggle between checked and not checked.'),
+	meta: metaWith('spartan/ui - Select', 'Displays a list of options for the user to pick from—triggered by a button.'),
 	title: 'spartan/ui - Select',
 };
 @Component({
@@ -65,7 +65,8 @@ export const routeMeta: RouteMeta = {
 				</a>
 				and
 				<a href="https://material.angular.dev/cdk/overlay/overview" target="_blank" rel="noreferrer">Overlay</a>
-				from Material CDK .
+				from Material CDK, and follows the
+				<a href="https://www.w3.org/WAI/ARIA/apg/patterns/combobox/" target="_blank" rel="noreferrer">ARIA Combobox Pattern</a>.
 			</p>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>

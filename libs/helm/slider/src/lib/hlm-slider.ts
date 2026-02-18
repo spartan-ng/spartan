@@ -10,6 +10,7 @@ import { classes } from '@spartan-ng/helm/utils';
 		{
 			directive: BrnSlider,
 			inputs: [
+				'id',
 				'value',
 				'disabled',
 				'min',
@@ -24,6 +25,8 @@ import { classes } from '@spartan-ng/helm/utils';
 				'formatTick',
 				'draggableRange',
 				'draggableRangeOnly',
+				'aria-label',
+				'aria-labelledby',
 			],
 			outputs: ['valueChange'],
 		},

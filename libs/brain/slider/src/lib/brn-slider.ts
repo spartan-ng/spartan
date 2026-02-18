@@ -22,6 +22,8 @@ import type { BrnSliderThumb } from './brn-slider-thumb';
 import type { BrnSliderTrack } from './brn-slider-track';
 import { provideBrnSlider } from './brn-slider.token';
 
+let nextId = 0;
+
 @Directive({
 	selector: '[brnSlider]',
 	exportAs: 'brnSlider',
@@ -34,6 +36,7 @@ import { provideBrnSlider } from './brn-slider.token';
 		},
 	],
 	host: {
+		'[attr.id]': 'id()',
 		'[attr.dir]': '_direction()',
 		'[attr.aria-disabled]': 'mutableDisabled() ? "true" : null',
 		'[attr.data-disabled]': 'mutableDisabled() ? "" : null',
@@ -47,6 +50,15 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 	private readonly _dir = inject(Directionality);
 	private readonly _injector = inject(Injector);
 	private _ngControl: NgControl | null = null;
+
+	/** Unique identifier for the slider element. Auto-generated if not provided. */
+	public readonly id = input<string>(`brn-slider-${++nextId}`);
+
+	/** Accessibility label for the slider. Forwarded to all thumbs. */
+	public readonly ariaLabel = input<string | null>(null, { alias: 'aria-label' });
+
+	/** ID of the element that labels this slider for accessibility. Forwarded to all thumbs. */
+	public readonly ariaLabelledby = input<string | null>(null, { alias: 'aria-labelledby' });
 
 	/**
 	 * The current slider value(s).
@@ -214,7 +226,6 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 			if (!this.value().length) {
 				const defaultValue = [this.min()];
 				this.value.set(defaultValue);
-				this.valueChange.emit(defaultValue);
 			}
 
 			const normalizedValue = this.value()
@@ -223,7 +234,6 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 
 			if (!areArrsEqual(normalizedValue, this.value())) {
 				this.value.set(normalizedValue);
-				this.valueChange.emit(normalizedValue);
 			}
 		}
 	}

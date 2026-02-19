@@ -42,6 +42,7 @@ module.exports = {
 				'kbd',
 				'label',
 				'menubar',
+				'native-select',
 				'navigation-menu',
 				'pagination',
 				'popover',

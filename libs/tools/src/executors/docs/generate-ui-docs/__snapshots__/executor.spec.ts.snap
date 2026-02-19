@@ -3359,6 +3359,69 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       },
     },
   },
+  "native-select": {
+    "helm": {
+      "HlmNativeSelect": {
+        "inputs": [
+          {
+            "name": "selectId",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "selectClass",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "selectIconClass",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "size",
+            "required": false,
+            "type": "'sm' | 'default'",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "aria-invalid",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [
+          {
+            "name": "value",
+            "type": "string | null",
+          },
+        ],
+        "outputs": [
+          {
+            "name": "valueChange",
+            "type": "string | null",
+          },
+        ],
+        "selector": "hlm-native-select",
+      },
+      "HlmNativeSelectOptGroup": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmNativeSelectOptGroup]",
+      },
+      "HlmNativeSelectOption": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmNativeSelectOption]",
+      },
+    },
+  },
   "navigation-menu": {
     "brain": {
       "BrnNavigationMenu": {

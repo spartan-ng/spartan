@@ -23,10 +23,6 @@ export class BrnDialogRef<DialogResult = any> {
 	private readonly _options = signal<undefined | BrnDialogOptions>(undefined);
 	public readonly options = this._options.asReadonly();
 
-	public updateOptions(options: Partial<BrnDialogOptions>) {
-		this._options.update((prev) => ({ ...(prev ?? {}), ...options }) as BrnDialogOptions);
-	}
-
 	constructor(
 		private readonly _cdkDialogRef: DialogRef<DialogResult>,
 		private readonly _open: WritableSignal<boolean>,
@@ -40,7 +36,11 @@ export class BrnDialogRef<DialogResult = any> {
 		this.closed$ = this._cdkDialogRef.closed.pipe(take(1));
 	}
 
-	public close(result?: DialogResult, delay: number = this._options()?.closeDelay ?? 0) {
+	public updateOptions(options: Partial<BrnDialogOptions>): void {
+		this._options.update((prev) => ({ ...(prev ?? {}), ...options }) as BrnDialogOptions);
+	}
+
+	public close(result?: DialogResult, delay: number = this._options()?.closeDelay ?? 0): void {
 		if (!this.open || this._options()?.disableClose) return;
 
 		this._closing$.next();
@@ -55,23 +55,23 @@ export class BrnDialogRef<DialogResult = any> {
 		}, delay);
 	}
 
-	public setPanelClass(paneClass: string | null | undefined) {
+	public setPanelClass(paneClass: string | null | undefined): void {
 		this._cdkDialogRef.config.panelClass = cssClassesToArray(paneClass);
 	}
 
-	public setOverlayClass(overlayClass: string | null | undefined) {
+	public setOverlayClass(overlayClass: string | null | undefined): void {
 		this._cdkDialogRef.config.backdropClass = cssClassesToArray(overlayClass);
 	}
 
-	public setAriaDescribedBy(ariaDescribedBy: string | null | undefined) {
+	public setAriaDescribedBy(ariaDescribedBy: string | null | undefined): void {
 		this._cdkDialogRef.config.ariaDescribedBy = ariaDescribedBy;
 	}
 
-	public setAriaLabelledBy(ariaLabelledBy: string | null | undefined) {
+	public setAriaLabelledBy(ariaLabelledBy: string | null | undefined): void {
 		this._cdkDialogRef.config.ariaLabelledBy = ariaLabelledBy;
 	}
 
-	public setAriaLabel(ariaLabel: string | null | undefined) {
+	public setAriaLabel(ariaLabel: string | null | undefined): void {
 		this._cdkDialogRef.config.ariaLabel = ariaLabel;
 	}
 }

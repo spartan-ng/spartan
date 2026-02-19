@@ -3393,14 +3393,19 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "boolean",
           },
-        ],
-        "models": [
           {
             "name": "value",
+            "required": false,
             "type": "string | null",
           },
         ],
-        "outputs": [],
+        "models": [],
+        "outputs": [
+          {
+            "name": "valueChange",
+            "type": "string | null",
+          },
+        ],
         "selector": "hlm-native-select",
       },
       "HlmNativeSelectOptGroup": {

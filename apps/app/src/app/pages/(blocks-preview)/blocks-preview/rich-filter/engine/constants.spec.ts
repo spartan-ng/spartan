@@ -1,15 +1,15 @@
-import { FieldTypes } from './types';
+import { QueryToken } from './constants';
 import {
-	IdentityOperators,
 	EqualityOperators,
-	TextOperators,
+	IdentityOperators,
+	Operators,
+	RangeOperators,
 	SelectOperators,
 	SetOperators,
-	RangeOperators,
+	TextOperators,
 	TimeOperators,
-	Operators,
 } from './operators';
-import { QueryToken } from './constants';
+import { FieldTypes } from './types';
 
 // ─── types.ts snapshot ──────────────────────────────────────────────
 

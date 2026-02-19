@@ -32,7 +32,9 @@ export const Default: Story = {
 		props: { ...args },
 		template: /* HTML */ `
 			<hlm-time-input [value]="value" (valueChange)="value = $event" />
-			<p class="text-muted-foreground mt-2 text-sm">{{ value.hours }}:{{ value.minutes | number: '2.0-0' }} {{ value.period }}</p>
+			<p class="text-muted-foreground mt-2 text-sm">
+				{{ value.hours }}:{{ value.minutes | number: '2.0-0' }} {{ value.period }}
+			</p>
 		`,
 	}),
 };

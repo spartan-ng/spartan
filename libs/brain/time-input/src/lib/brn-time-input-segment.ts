@@ -1,11 +1,4 @@
-import {
-	ChangeDetectionStrategy,
-	Component,
-	computed,
-	ElementRef,
-	input,
-	viewChild,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, ElementRef, input, viewChild } from '@angular/core';
 import type { BrnTimeSegment } from './brn-time-input';
 import { injectBrnTimeInput } from './brn-time-input.token';
 
@@ -31,7 +24,9 @@ import { injectBrnTimeInput } from './brn-time-input.token';
 			(keydown)="_onKeydown($event)"
 			(focus)="_onFocus()"
 			(blur)="_onBlur()"
-		>{{ _displayValue() }}</span>
+		>
+			{{ _displayValue() }}
+		</span>
 	`,
 })
 export class BrnTimeInputSegment {
@@ -157,7 +152,9 @@ export class BrnTimeInputSegment {
 		if (!el) return;
 		const container = el.closest('brn-time-input')?.parentElement;
 		if (!container) return;
-		const focusable = Array.from(container.querySelectorAll<HTMLElement>('span[role="spinbutton"], button:not([disabled])'));
+		const focusable = Array.from(
+			container.querySelectorAll<HTMLElement>('span[role="spinbutton"], button:not([disabled])'),
+		);
 		const idx = focusable.indexOf(el);
 		if (idx >= 0 && idx < focusable.length - 1) {
 			focusable[idx + 1].focus();
@@ -169,7 +166,9 @@ export class BrnTimeInputSegment {
 		if (!el) return;
 		const container = el.closest('brn-time-input')?.parentElement;
 		if (!container) return;
-		const focusable = Array.from(container.querySelectorAll<HTMLElement>('span[role="spinbutton"], button:not([disabled])'));
+		const focusable = Array.from(
+			container.querySelectorAll<HTMLElement>('span[role="spinbutton"], button:not([disabled])'),
+		);
 		const idx = focusable.indexOf(el);
 		if (idx > 0) {
 			focusable[idx - 1].focus();

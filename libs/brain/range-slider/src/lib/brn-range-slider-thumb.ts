@@ -1,5 +1,15 @@
 import { isPlatformServer } from '@angular/common';
-import { computed, Directive, DOCUMENT, effect, ElementRef, HostListener, inject, input, PLATFORM_ID } from '@angular/core';
+import {
+	computed,
+	Directive,
+	DOCUMENT,
+	effect,
+	ElementRef,
+	HostListener,
+	inject,
+	input,
+	PLATFORM_ID,
+} from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { fromEvent } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
@@ -33,9 +43,7 @@ export class BrnRangeSliderThumb {
 	);
 
 	/** @internal */
-	protected readonly _ariaMin = computed(() =>
-		this.thumb() === 'low' ? this._slider.min() : this._slider.value()[0],
-	);
+	protected readonly _ariaMin = computed(() => (this.thumb() === 'low' ? this._slider.min() : this._slider.value()[0]));
 
 	/** @internal */
 	protected readonly _ariaMax = computed(() =>
@@ -134,10 +142,7 @@ export class BrnRangeSliderThumb {
 				event.preventDefault();
 				break;
 			case 'Home':
-				this._slider.setThumbValue(
-					this.thumb(),
-					this.thumb() === 'low' ? this._slider.min() : this._slider.value()[0],
-				);
+				this._slider.setThumbValue(this.thumb(), this.thumb() === 'low' ? this._slider.min() : this._slider.value()[0]);
 				event.preventDefault();
 				break;
 			case 'End':
@@ -150,10 +155,7 @@ export class BrnRangeSliderThumb {
 		}
 	}
 
-	private _linearScale(
-		input: readonly [number, number],
-		output: readonly [number, number],
-	): (value: number) => number {
+	private _linearScale(input: readonly [number, number], output: readonly [number, number]): (value: number) => number {
 		return (value: number) => {
 			if (input[0] === input[1] || output[0] === output[1]) return output[0];
 			const ratio = (output[1] - output[0]) / (input[1] - input[0]);

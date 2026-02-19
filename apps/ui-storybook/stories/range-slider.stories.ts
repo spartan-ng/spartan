@@ -1,6 +1,6 @@
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HlmRangeSliderImports, type RangeValue } from '@spartan-ng/helm/range-slider';
-import { type Meta, type StoryObj, argsToTemplate, moduleMetadata } from '@storybook/angular';
+import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
 
 interface HlmRangeSliderStoryArgs {
 	value: RangeValue;
@@ -51,7 +51,9 @@ export const CustomRange: Story = {
 		props: { ...args },
 		template: /* HTML */ `
 			<hlm-range-slider [value]="value" [min]="min" [max]="max" [step]="step" (valueChange)="value = $event" />
-			<p class="text-muted-foreground mt-2 text-sm">Value: {{ value }} (min: {{ min }}, max: {{ max }}, step: {{ step }})</p>
+			<p class="text-muted-foreground mt-2 text-sm">
+				Value: {{ value }} (min: {{ min }}, max: {{ max }}, step: {{ step }})
+			</p>
 		`,
 	}),
 };

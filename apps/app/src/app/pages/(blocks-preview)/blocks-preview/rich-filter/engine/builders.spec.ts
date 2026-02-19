@@ -1,23 +1,17 @@
 import {
-	buildTextField,
-	buildNumberField,
-	buildDateField,
-	buildTimeField,
-	buildSelectField,
+	buildBooleanField,
 	buildComboField,
 	buildComboFieldAsync,
-	buildBooleanField,
-	buildRangeField,
+	buildDateField,
 	buildDateRangeField,
+	buildNumberField,
+	buildRangeField,
+	buildSelectField,
+	buildTextField,
+	buildTimeField,
 	fieldBuilder,
 } from './builders';
-import {
-	TextOperators,
-	EqualityOperators,
-	IdentityOperators,
-	TimeOperators,
-	Operators,
-} from './operators';
+import { EqualityOperators, IdentityOperators, Operators, TextOperators, TimeOperators } from './operators';
 import { FieldTypes } from './types';
 
 // ─── fieldBuilder map ───────────────────────────────────────────────

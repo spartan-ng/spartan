@@ -67,14 +67,10 @@ export class BrnRangeSlider implements ControlValueAccessor, OnInit {
 	public readonly mutableDisabled = linkedSignal(() => this.disabled());
 
 	/** @internal Percentage of the low thumb (0–100). */
-	public readonly lowPercentage = computed(
-		() => ((this.value()[0] - this.min()) / (this.max() - this.min())) * 100,
-	);
+	public readonly lowPercentage = computed(() => ((this.value()[0] - this.min()) / (this.max() - this.min())) * 100);
 
 	/** @internal Percentage of the high thumb (0–100). */
-	public readonly highPercentage = computed(
-		() => ((this.value()[1] - this.min()) / (this.max() - this.min())) * 100,
-	);
+	public readonly highPercentage = computed(() => ((this.value()[1] - this.min()) / (this.max() - this.min())) * 100);
 
 	/** @internal Store the on change callback */
 	protected _onChange?: ChangeFn<RangeValue>;
@@ -162,7 +158,6 @@ export class BrnRangeSlider implements ControlValueAccessor, OnInit {
 		const [low, high] = this.value();
 		return Math.abs(rawValue - low) <= Math.abs(rawValue - high) ? 'low' : 'high';
 	}
-
 }
 
 function roundValue(value: number, decimalCount: number): number {

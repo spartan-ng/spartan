@@ -2,17 +2,23 @@ import { CUSTOM_ELEMENTS_SCHEMA, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { vitest } from 'vitest';
+import {
+	EqualityOperators,
+	IdentityOperators,
+	RangeOperators,
+	TextOperators,
+	TimeOperators,
+} from '../engine/operators';
 import { FILTER_HANDLER } from '../engine/token';
-import { TextOperators, EqualityOperators, TimeOperators, RangeOperators, IdentityOperators } from '../engine/operators';
 
-import { TextField } from './text';
-import { NumberField } from './number';
 import { BooleanField } from './boolean';
-import { RangeField } from './range';
+import { ComboField } from './combo';
 import { DateField } from './date';
 import { DateRangeField } from './daterange';
+import { NumberField } from './number';
+import { RangeField } from './range';
 import { SelectField } from './select';
-import { ComboField } from './combo';
+import { TextField } from './text';
 import { TimeField } from './time';
 
 // ─── helpers ────────────────────────────────────────────────────────

@@ -2,7 +2,14 @@ import { ChangeDetectionStrategy, Component, computed, forwardRef, input, model,
 import { NG_VALUE_ACCESSOR, type ControlValueAccessor } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideClock } from '@ng-icons/lucide';
-import { BrnTimeInput, BrnTimeInputSegment, BrnTimePicker, BrnTimePickerColumn, type BrnTimePeriod, type BrnTimeValue } from '@spartan-ng/brain/time-input';
+import {
+	BrnTimeInput,
+	BrnTimeInputSegment,
+	BrnTimePicker,
+	BrnTimePickerColumn,
+	type BrnTimePeriod,
+	type BrnTimeValue,
+} from '@spartan-ng/brain/time-input';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmIconImports } from '@spartan-ng/helm/icon';
 import { HlmPopoverImports } from '@spartan-ng/helm/popover';
@@ -16,8 +23,9 @@ const HLM_TIME_INPUT_VALUE_ACCESSOR = {
 	multi: true,
 };
 
-@Component({selector: 'hlm-time-input',
-imports: [
+@Component({
+	selector: 'hlm-time-input',
+	imports: [
 		BrnTimeInput,
 		BrnTimeInputSegment,
 		BrnTimePicker,
@@ -28,12 +36,12 @@ imports: [
 		HlmIconImports,
 		HlmButtonImports,
 	],
-providers: [HLM_TIME_INPUT_VALUE_ACCESSOR, provideIcons({ lucideClock })],
-changeDetection: ChangeDetectionStrategy.OnPush,
-host: {
+	providers: [HLM_TIME_INPUT_VALUE_ACCESSOR, provideIcons({ lucideClock })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
 		'data-slot': 'time-input',
 	},
-template: `
+	template: `
 		<hlm-popover align="end">
 			<div [class]="_computedClass()">
 				<brn-time-input
@@ -52,7 +60,15 @@ template: `
 					<brn-time-input-segment hlm segment="period" />
 				</brn-time-input>
 
-				<button hlmPopoverTrigger hlmBtn size="icon" variant="ghost" type="button" [disabled]="disabled()" (keydown)="_onTriggerKeydown($event)">
+				<button
+					hlmPopoverTrigger
+					hlmBtn
+					size="icon"
+					variant="ghost"
+					type="button"
+					[disabled]="disabled()"
+					(keydown)="_onTriggerKeydown($event)"
+				>
 					<ng-icon hlm name="lucideClock" size="sm" />
 				</button>
 			</div>
@@ -64,7 +80,7 @@ template: `
 						@for (h of _hours; track h) {
 							<button
 								type="button"
-								class="hover:bg-accent focus-visible:bg-accent min-w-9 rounded-sm px-3 py-1.5 text-center text-sm outline-none transition-colors"
+								class="hover:bg-accent focus-visible:bg-accent min-w-9 rounded-sm px-3 py-1.5 text-center text-sm transition-colors outline-none"
 								[class.bg-accent]="h === value().hours"
 								[class.font-semibold]="h === value().hours"
 								[attr.data-selected]="h === value().hours || null"
@@ -81,7 +97,7 @@ template: `
 						@for (m of _minuteSeconds; track m) {
 							<button
 								type="button"
-								class="hover:bg-accent focus-visible:bg-accent min-w-9 rounded-sm px-3 py-1.5 text-center text-sm outline-none transition-colors"
+								class="hover:bg-accent focus-visible:bg-accent min-w-9 rounded-sm px-3 py-1.5 text-center text-sm transition-colors outline-none"
 								[class.bg-accent]="m === value().minutes"
 								[class.font-semibold]="m === value().minutes"
 								[attr.data-selected]="m === value().minutes || null"
@@ -99,7 +115,7 @@ template: `
 							@for (s of _minuteSeconds; track s) {
 								<button
 									type="button"
-									class="hover:bg-accent focus-visible:bg-accent min-w-9 rounded-sm px-3 py-1.5 text-center text-sm outline-none transition-colors"
+									class="hover:bg-accent focus-visible:bg-accent min-w-9 rounded-sm px-3 py-1.5 text-center text-sm transition-colors outline-none"
 									[class.bg-accent]="s === value().seconds"
 									[class.font-semibold]="s === value().seconds"
 									[attr.data-selected]="s === value().seconds || null"
@@ -117,7 +133,7 @@ template: `
 						@for (p of _periods; track p) {
 							<button
 								type="button"
-								class="hover:bg-accent focus-visible:bg-accent min-w-9 rounded-sm px-3 py-1.5 text-center text-sm font-medium outline-none transition-colors"
+								class="hover:bg-accent focus-visible:bg-accent min-w-9 rounded-sm px-3 py-1.5 text-center text-sm font-medium transition-colors outline-none"
 								[class.bg-accent]="p === value().period"
 								[class.font-semibold]="p === value().period"
 								[attr.data-selected]="p === value().period || null"
@@ -130,7 +146,8 @@ template: `
 				</div>
 			</hlm-popover-content>
 		</hlm-popover>
-	`})
+	`,
+})
 export class HlmTimeInput implements ControlValueAccessor {
 	private readonly _segments = viewChildren(BrnTimeInputSegment);
 
@@ -139,7 +156,6 @@ export class HlmTimeInput implements ControlValueAccessor {
 
 	public readonly value = model<BrnTimeValue>({ hours: 12, minutes: 0, seconds: 0, period: 'AM' });
 	public readonly disabled = model(false);
-
 
 	protected readonly _computedClass = computed(() =>
 		hlm(
@@ -193,7 +209,9 @@ export class HlmTimeInput implements ControlValueAccessor {
 			const btn = event.target as HTMLElement;
 			const container = btn.parentElement;
 			if (!container) return;
-			const focusable = Array.from(container.querySelectorAll<HTMLElement>('span[role="spinbutton"], button:not([disabled])'));
+			const focusable = Array.from(
+				container.querySelectorAll<HTMLElement>('span[role="spinbutton"], button:not([disabled])'),
+			);
 			const idx = focusable.indexOf(btn);
 			if (idx > 0) {
 				focusable[idx - 1].focus();

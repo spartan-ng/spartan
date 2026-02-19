@@ -52,11 +52,12 @@ const FIELD_COMPONENT_MAP: Record<IFieldType, Type<unknown>> = {
 	[FieldTypes.asyncCombobox]: ComboAsyncField,
 };
 
-@Component({selector: 'spartan-rich-filter',
-imports: [HlmButtonImports, NgIcon, HlmIconImports, HlmDropdownMenuImports, NgComponentOutlet],
-providers: [provideIcons({ lucideFunnel, lucideFunnelX, lucideFunnelPlus })],
-changeDetection: ChangeDetectionStrategy.OnPush,
-template: `
+@Component({
+	selector: 'spartan-rich-filter',
+	imports: [HlmButtonImports, NgIcon, HlmIconImports, HlmDropdownMenuImports, NgComponentOutlet],
+	providers: [provideIcons({ lucideFunnel, lucideFunnelX, lucideFunnelPlus })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
 		@let engine = state();
 		<div class="flex w-full gap-2">
 			<div class="flex flex-1 flex-wrap gap-2">
@@ -93,7 +94,8 @@ template: `
 				</button>
 			}
 		</div>
-	`})
+	`,
+})
 export class SpartanRichFilter {
 	public readonly state = model.required<FilterModelRef>();
 

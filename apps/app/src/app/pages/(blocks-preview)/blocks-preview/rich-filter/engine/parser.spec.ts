@@ -1,19 +1,18 @@
-import { filterParser } from './parser';
-import type {
-	RFilterField} from './builders';
+import type { RFilterField } from './builders';
 import {
-	buildFilterModel,
-	buildTextField,
-	buildNumberField,
 	buildBooleanField,
+	buildComboField,
 	buildDateField,
 	buildDateRangeField,
+	buildFilterModel,
+	buildNumberField,
 	buildRangeField,
 	buildSelectField,
+	buildTextField,
 	buildTimeField,
-	buildComboField
 } from './builders';
 import { EqualityOperators, IdentityOperators, Operators, TextOperators, TimeOperators } from './operators';
+import { filterParser } from './parser';
 
 /** Helper to patch a field in the model value signal */
 function patchField(model: ReturnType<typeof buildFilterModel>, id: string, patch: Partial<RFilterField>) {
@@ -24,9 +23,7 @@ describe('filterParser', () => {
 	// ── output shape ──
 
 	it('should return only id, value, operator for each visible non-null field', () => {
-		const model = buildFilterModel(
-			buildTextField('q', 'hello', TextOperators.includes, { initialVisible: true }),
-		);
+		const model = buildFilterModel(buildTextField('q', 'hello', TextOperators.includes, { initialVisible: true }));
 		const parsed = filterParser(model.value());
 		expect(Object.keys(parsed['q']).sort()).toEqual(['id', 'operator', 'value']);
 	});
@@ -44,33 +41,25 @@ describe('filterParser', () => {
 	// ── visibility filtering ──
 
 	it('should include visible fields', () => {
-		const model = buildFilterModel(
-			buildTextField('a', 'v', TextOperators.includes, { initialVisible: true }),
-		);
+		const model = buildFilterModel(buildTextField('a', 'v', TextOperators.includes, { initialVisible: true }));
 		expect(filterParser(model.value())['a']).toBeDefined();
 	});
 
 	it('should exclude hidden fields', () => {
-		const model = buildFilterModel(
-			buildTextField('a', 'v', TextOperators.includes, { initialVisible: false }),
-		);
+		const model = buildFilterModel(buildTextField('a', 'v', TextOperators.includes, { initialVisible: false }));
 		expect(filterParser(model.value())['a']).toBeUndefined();
 	});
 
 	// ── null/undefined filtering ──
 
 	it('should exclude fields with null value', () => {
-		const model = buildFilterModel(
-			buildTextField('a', 'v', TextOperators.includes, { initialVisible: true }),
-		);
+		const model = buildFilterModel(buildTextField('a', 'v', TextOperators.includes, { initialVisible: true }));
 		patchField(model, 'a', { value: null as unknown as string });
 		expect(filterParser(model.value())['a']).toBeUndefined();
 	});
 
 	it('should exclude fields with undefined value', () => {
-		const model = buildFilterModel(
-			buildTextField('a', 'v', TextOperators.includes, { initialVisible: true }),
-		);
+		const model = buildFilterModel(buildTextField('a', 'v', TextOperators.includes, { initialVisible: true }));
 		patchField(model, 'a', { value: undefined as unknown as string });
 		expect(filterParser(model.value())['a']).toBeUndefined();
 	});
@@ -78,25 +67,19 @@ describe('filterParser', () => {
 	// ── falsy but valid values ──
 
 	it('should include empty string', () => {
-		const model = buildFilterModel(
-			buildTextField('a', '', TextOperators.includes, { initialVisible: true }),
-		);
+		const model = buildFilterModel(buildTextField('a', '', TextOperators.includes, { initialVisible: true }));
 		expect(filterParser(model.value())['a']).toBeDefined();
 		expect(filterParser(model.value())['a'].value).toBe('');
 	});
 
 	it('should include zero', () => {
-		const model = buildFilterModel(
-			buildNumberField('n', 0, EqualityOperators.equals, { initialVisible: true }),
-		);
+		const model = buildFilterModel(buildNumberField('n', 0, EqualityOperators.equals, { initialVisible: true }));
 		expect(filterParser(model.value())['n']).toBeDefined();
 		expect(filterParser(model.value())['n'].value).toBe(0);
 	});
 
 	it('should include false', () => {
-		const model = buildFilterModel(
-			buildBooleanField('b', false, { initialVisible: true }),
-		);
+		const model = buildFilterModel(buildBooleanField('b', false, { initialVisible: true }));
 		expect(filterParser(model.value())['b']).toBeDefined();
 		expect(filterParser(model.value())['b'].value).toBe(false);
 	});

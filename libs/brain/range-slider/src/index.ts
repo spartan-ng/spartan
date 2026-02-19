@@ -7,8 +7,8 @@ export * from './lib/brn-range-slider';
 export * from './lib/brn-range-slider-range';
 export * from './lib/brn-range-slider-thumb';
 export * from './lib/brn-range-slider-track';
-export * from './lib/brn-range-slider.token';
 export * from './lib/brn-range-slider-track.token';
+export * from './lib/brn-range-slider.token';
 
 export const BrnRangeSliderImports = [
 	BrnRangeSlider,

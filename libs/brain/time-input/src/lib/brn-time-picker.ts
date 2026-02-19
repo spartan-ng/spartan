@@ -17,14 +17,16 @@ export const BRN_TIME_PICKER = 'BrnTimePicker';
  * </div>
  * ```
  */
-@Directive({selector: '[brnTimePicker]',
-exportAs: 'brnTimePicker',
-providers: [{ provide: BRN_TIME_PICKER, useExisting: BrnTimePicker }],
-host: {
+@Directive({
+	selector: '[brnTimePicker]',
+	exportAs: 'brnTimePicker',
+	providers: [{ provide: BRN_TIME_PICKER, useExisting: BrnTimePicker }],
+	host: {
 		role: 'listbox',
 		'(keydown.arrowRight)': 'focusAdjacentColumn($event, "next")',
 		'(keydown.arrowLeft)': 'focusAdjacentColumn($event, "previous")',
-	}})
+	},
+})
 export class BrnTimePicker {
 	/**
 	 * Moves focus from the current column to the next or previous column.
@@ -39,10 +41,7 @@ export class BrnTimePicker {
 
 		event.preventDefault();
 
-		const sibling =
-			direction === 'next'
-				? column.nextElementSibling
-				: column.previousElementSibling;
+		const sibling = direction === 'next' ? column.nextElementSibling : column.previousElementSibling;
 
 		if (!sibling?.hasAttribute('brnTimePickerColumn')) return;
 

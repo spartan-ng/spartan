@@ -1,23 +1,17 @@
-import { filterParser } from './parser';
 import {
-	buildFilterModel,
 	buildBooleanField,
+	buildComboField,
 	buildDateField,
 	buildDateRangeField,
+	buildFilterModel,
 	buildNumberField,
 	buildRangeField,
 	buildSelectField,
 	buildTextField,
 	buildTimeField,
-	buildComboField,
 } from './builders';
-import {
-	EqualityOperators,
-	IdentityOperators,
-	Operators,
-	TextOperators,
-	TimeOperators,
-} from './operators';
+import { EqualityOperators, IdentityOperators, Operators, TextOperators, TimeOperators } from './operators';
+import { filterParser } from './parser';
 
 import type { RFilterField } from './builders';
 
@@ -30,9 +24,7 @@ function patchField(model: ReturnType<typeof buildFilterModel>, id: string, patc
 
 describe('filterParser', () => {
 	it('should strip private fields (those starting with __)', () => {
-		const filter = buildFilterModel(
-			buildTextField('name', 'Alice', TextOperators.includes, { initialVisible: true }),
-		);
+		const filter = buildFilterModel(buildTextField('name', 'Alice', TextOperators.includes, { initialVisible: true }));
 
 		const parsed = filterParser(filter.value());
 		const entry = parsed['name'];
@@ -69,16 +61,12 @@ describe('filterParser', () => {
 	});
 
 	it('should return empty object when all fields are hidden', () => {
-		const filter = buildFilterModel(
-			buildTextField('name', 'Alice', TextOperators.includes, { initialVisible: false }),
-		);
+		const filter = buildFilterModel(buildTextField('name', 'Alice', TextOperators.includes, { initialVisible: false }));
 		expect(Object.keys(filterParser(filter.value()))).toHaveLength(0);
 	});
 
 	it('should return empty object when all values are null', () => {
-		const filter = buildFilterModel(
-			buildTextField('name', '', TextOperators.includes, { initialVisible: true }),
-		);
+		const filter = buildFilterModel(buildTextField('name', '', TextOperators.includes, { initialVisible: true }));
 		patchField(filter, 'name', { value: null as unknown as string });
 
 		expect(Object.keys(filterParser(filter.value()))).toHaveLength(0);
@@ -299,9 +287,7 @@ describe('buildFilterModel', () => {
 		it('should build date fields with min/max', () => {
 			const min = new Date('2024-01-01');
 			const max = new Date('2024-12-31');
-			const model = buildFilterModel(
-				buildDateField('start', new Date('2024-06-15'), TimeOperators.past, { min, max }),
-			);
+			const model = buildFilterModel(buildDateField('start', new Date('2024-06-15'), TimeOperators.past, { min, max }));
 			const field = model.value()['start'];
 			expect(field.__type).toBe('date');
 			expect(field.__min).toEqual(min);
@@ -310,9 +296,7 @@ describe('buildFilterModel', () => {
 
 		it('should build time fields', () => {
 			const now = new Date();
-			const model = buildFilterModel(
-				buildTimeField('alarm', now, TimeOperators.at, { label: 'Alarm' }),
-			);
+			const model = buildFilterModel(buildTimeField('alarm', now, TimeOperators.at, { label: 'Alarm' }));
 			const field = model.value()['alarm'];
 			expect(field.__type).toBe('time');
 			expect(field.operator).toBe(TimeOperators.at);
@@ -322,9 +306,7 @@ describe('buildFilterModel', () => {
 		it('should build date range fields', () => {
 			const s = new Date('2024-01-01');
 			const e = new Date('2024-06-30');
-			const model = buildFilterModel(
-				buildDateRangeField('period', { start: s, end: e }, Operators.between),
-			);
+			const model = buildFilterModel(buildDateRangeField('period', { start: s, end: e }, Operators.between));
 			const field = model.value()['period'];
 			expect(field.__type).toBe('daterange');
 			expect(field.value).toEqual({ start: s, end: e });
@@ -335,9 +317,7 @@ describe('buildFilterModel', () => {
 				{ label: 'Red', value: 'red' },
 				{ label: 'Blue', value: 'blue' },
 			];
-			const model = buildFilterModel(
-				buildSelectField('color', null, IdentityOperators.is, { options: opts }),
-			);
+			const model = buildFilterModel(buildSelectField('color', null, IdentityOperators.is, { options: opts }));
 			const field = model.value()['color'];
 			expect(field.__type).toBe('select');
 			expect(field.__options).toEqual(opts);

@@ -1,11 +1,4 @@
-import {
-	ChangeDetectionStrategy,
-	Component,
-	computed,
-	forwardRef,
-	model,
-	signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, forwardRef, model, signal } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { provideBrnTimeInput } from './brn-time-input.token';
 
@@ -23,8 +16,9 @@ export type BrnTimeSegment = 'hours' | 'minutes' | 'seconds' | 'period';
 
 let nextId = 0;
 
-@Component({selector: 'brn-time-input',
-providers: [
+@Component({
+	selector: 'brn-time-input',
+	providers: [
 		provideBrnTimeInput(BrnTimeInput),
 		{
 			provide: NG_VALUE_ACCESSOR,
@@ -32,14 +26,17 @@ providers: [
 			multi: true,
 		},
 	],
-changeDetection: ChangeDetectionStrategy.OnPush,
-host: {
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
 		role: 'group',
 		'[attr.aria-label]': '"Time input"',
 		'[attr.data-disabled]': 'disabled() || null',
 		'[id]': 'id()',
 	},
-template: `<ng-content />`})
+	template: `
+		<ng-content />
+	`,
+})
 export class BrnTimeInput implements ControlValueAccessor {
 	private readonly _id = signal(`brn-time-input-${nextId++}`);
 	public readonly id = this._id.asReadonly();

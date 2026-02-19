@@ -1,32 +1,31 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { signal } from '@angular/core';
-import type {
-	RFilterField} from './builders';
+import type { RFilterField } from './builders';
 import {
-	buildNumberField,
 	buildBooleanField,
-	buildRangeField,
-	buildSelectField,
+	buildComboField,
+	buildComboFieldAsync,
 	buildDateField,
 	buildDateRangeField,
-	buildTimeField,
+	buildNumberField,
+	buildRangeField,
+	buildSelectField,
 	buildTextField,
-	buildComboField,
-	buildComboFieldAsync
+	buildTimeField,
 } from './builders';
 import {
-	booleanFieldHandlers,
-	textFieldHandlers,
-	numberFieldHandlers,
-	dateFieldHandlers,
-	timeFieldHandlers,
-	selectFieldHandlers,
-	rangeFieldHandlers,
-	dateRangeFieldHandlers,
-	comboboxFieldHandlers,
 	asyncComboFieldHandlers,
-	throwHandlerException,
+	booleanFieldHandlers,
+	comboboxFieldHandlers,
+	dateFieldHandlers,
+	dateRangeFieldHandlers,
 	FIELD_HANDLERS_MAP,
+	numberFieldHandlers,
+	rangeFieldHandlers,
+	selectFieldHandlers,
+	textFieldHandlers,
+	throwHandlerException,
+	timeFieldHandlers,
 	type HandlerGlobalState,
 } from './handlers';
 import { EqualityOperators, IdentityOperators, Operators, TextOperators, TimeOperators } from './operators';
@@ -63,10 +62,7 @@ describe('FIELD_HANDLERS_MAP', () => {
 // ─── textFieldHandlers ──────────────────────────────────────────────
 
 describe('textFieldHandlers', () => {
-	const setup = (
-		value = 'Alice',
-		opts?: { required?: boolean; placeholder?: string; label?: string },
-	) => {
+	const setup = (value = 'Alice', opts?: { required?: boolean; placeholder?: string; label?: string }) => {
 		const field = buildTextField('name', value, TextOperators.includes, {
 			initialVisible: true,
 			...opts,

@@ -146,7 +146,9 @@ describe('BrnTimeInput', () => {
 		});
 
 		it('should increment seconds with ArrowUp', async () => {
-			const { seconds, container, user } = await setup({ value: { hours: 10, minutes: 30, seconds: 45, period: 'AM' } });
+			const { seconds, container, user } = await setup({
+				value: { hours: 10, minutes: 30, seconds: 45, period: 'AM' },
+			});
 			seconds.focus();
 			await user.keyboard('[ArrowUp]');
 			container.detectChanges();
@@ -155,7 +157,9 @@ describe('BrnTimeInput', () => {
 		});
 
 		it('should wrap seconds from 59 to 0', async () => {
-			const { seconds, container, user } = await setup({ value: { hours: 10, minutes: 30, seconds: 59, period: 'AM' } });
+			const { seconds, container, user } = await setup({
+				value: { hours: 10, minutes: 30, seconds: 59, period: 'AM' },
+			});
 			seconds.focus();
 			await user.keyboard('[ArrowUp]');
 			container.detectChanges();

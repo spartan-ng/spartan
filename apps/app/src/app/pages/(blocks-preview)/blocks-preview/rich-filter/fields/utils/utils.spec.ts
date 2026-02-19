@@ -2,8 +2,8 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { vitest } from 'vitest';
-import { FieldLabel } from './field-label';
 import { FieldClose } from './field-close';
+import { FieldLabel } from './field-label';
 import { FieldOperator } from './field-operator';
 
 function setupMatchMedia() {
@@ -32,10 +32,14 @@ function setupMatchMedia() {
 
 describe('FieldLabel', () => {
 	// eslint-disable-next-line @nx/workspace-component-directive-key-order
-	@Component({selector: 'spartan-test-label-host',
-imports: [FieldLabel],
-schemas: [CUSTOM_ELEMENTS_SCHEMA],
-template: `<spartan-rich-filter-field-label [label]="label" [for]="forId" />`})
+	@Component({
+		selector: 'spartan-test-label-host',
+		imports: [FieldLabel],
+		schemas: [CUSTOM_ELEMENTS_SCHEMA],
+		template: `
+			<spartan-rich-filter-field-label [label]="label" [for]="forId" />
+		`,
+	})
 	class TestHost {
 		public label = 'Name';
 		public forId = 'field-name';
@@ -87,10 +91,14 @@ template: `<spartan-rich-filter-field-label [label]="label" [for]="forId" />`})
 
 describe('FieldClose', () => {
 	// eslint-disable-next-line @nx/workspace-component-directive-key-order
-	@Component({selector: 'spartan-test-close-host',
-imports: [FieldClose],
-schemas: [CUSTOM_ELEMENTS_SCHEMA],
-template: `<spartan-rich-filter-field-close (fieldclosed)="closed = true" />`})
+	@Component({
+		selector: 'spartan-test-close-host',
+		imports: [FieldClose],
+		schemas: [CUSTOM_ELEMENTS_SCHEMA],
+		template: `
+			<spartan-rich-filter-field-close (fieldclosed)="closed = true" />
+		`,
+	})
 	class TestHost {
 		public closed = false;
 	}
@@ -129,10 +137,18 @@ describe('FieldOperator', () => {
 		setupMatchMedia();
 
 		// eslint-disable-next-line @nx/workspace-component-directive-key-order
-		@Component({selector: 'spartan-test-operator-host',
-imports: [FieldOperator],
-schemas: [CUSTOM_ELEMENTS_SCHEMA],
-template: `<spartan-rich-filter-field-operator [operators]="ops" [operatorValue]="val" (operatorValueChange)="changed = $event" />`})
+		@Component({
+			selector: 'spartan-test-operator-host',
+			imports: [FieldOperator],
+			schemas: [CUSTOM_ELEMENTS_SCHEMA],
+			template: `
+				<spartan-rich-filter-field-operator
+					[operators]="ops"
+					[operatorValue]="val"
+					(operatorValueChange)="changed = $event"
+				/>
+			`,
+		})
 		class TestHost {
 			public ops = { equals: 'eq', notEquals: 'neq' };
 			public val: string | undefined = 'eq';

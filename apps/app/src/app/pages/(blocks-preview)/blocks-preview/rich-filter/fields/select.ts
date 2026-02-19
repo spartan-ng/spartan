@@ -19,8 +19,9 @@ import { FieldClose } from './utils/field-close';
 import { FieldLabel } from './utils/field-label';
 import { FieldOperator } from './utils/field-operator';
 
-@Component({selector: 'spartan-rich-filter-select-field',
-imports: [
+@Component({
+	selector: 'spartan-rich-filter-select-field',
+	imports: [
 		HlmInputGroupImports,
 		HlmButtonGroupImports,
 		HlmIconImports,
@@ -34,10 +35,10 @@ imports: [
 		FieldLabel,
 		FieldOperator,
 	],
-providers: [provideIcons({ lucideLink2, lucideX })],
-changeDetection: ChangeDetectionStrategy.OnPush,
-host: {},
-template: `
+	providers: [provideIcons({ lucideLink2, lucideX })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {},
+	template: `
 		<div
 			hlmButtonGroup
 			class="[&>brn-select>div>hlm-select-trigger>button]:rounded-l-none [&>brn-select>div>hlm-select-trigger>button]:rounded-r-none"
@@ -58,7 +59,7 @@ template: `
 				[value]="service.controlValue()"
 				(valueChange)="service.updateControl($event)"
 			>
-			<!-- extra styles on this selector are needed to apply focus styles -->
+				<!-- extra styles on this selector are needed to apply focus styles -->
 				<hlm-select-trigger
 					class="[&>button:focus]:border-ring [&>button:focus]:ring-ring/50 [&>button:focus]:ring-[3px]"
 				>
@@ -78,14 +79,15 @@ template: `
 			<!-- close button -->
 			<spartan-rich-filter-field-close (fieldclosed)="service.closeField()" />
 		</div>
-	`})
+	`,
+})
 export class SelectField {
 	protected readonly service = inject(FILTER_HANDLER) as FHandler<typeof FieldTypes.select>;
 
 	public readonly operators = IdentityOperators;
-	private readonly selectComponent = viewChild.required(BrnSelect)
+	private readonly selectComponent = viewChild.required(BrnSelect);
 
 	public readonly onFocusElement = effect(() => {
-		this.service.isFocused() &&	this.selectComponent().trigger()?.focus()
+		this.service.isFocused() && this.selectComponent().trigger()?.focus();
 	});
 }

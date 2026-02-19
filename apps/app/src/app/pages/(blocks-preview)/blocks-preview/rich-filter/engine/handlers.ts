@@ -3,14 +3,14 @@ import type { WritableSignal } from '@angular/core';
 import { computed } from '@angular/core';
 import type { BrnTimeValue } from '@spartan-ng/brain/time-input';
 import type { CastRFilterField, RFilterField } from './builders';
+import { FOCUS_FALLBACK } from './constants';
 import type { IOperator } from './operators';
 import type { IFieldType } from './types';
 import { FieldTypes } from './types';
-import { FOCUS_FALLBACK } from './constants';
 
 export type HandlerGlobalState = {
 	focusedField: WritableSignal<string | null>;
-}
+};
 
 /**
  * helper function to create typed handlers
@@ -82,7 +82,11 @@ function baseHandlers<T, K extends IFieldType>(
 	};
 }
 
-export function booleanFieldHandlers(fieldId: string, state: WritableSignal<Record<string, RFilterField>>, globalState: HandlerGlobalState) {
+export function booleanFieldHandlers(
+	fieldId: string,
+	state: WritableSignal<Record<string, RFilterField>>,
+	globalState: HandlerGlobalState,
+) {
 	const {
 		operatorValue: _,
 		setOperator: __,
@@ -95,7 +99,11 @@ export function booleanFieldHandlers(fieldId: string, state: WritableSignal<Reco
 	};
 }
 
-export function textFieldHandlers(fieldId: string, state: WritableSignal<Record<string, RFilterField>>, globalState: HandlerGlobalState) {
+export function textFieldHandlers(
+	fieldId: string,
+	state: WritableSignal<Record<string, RFilterField>>,
+	globalState: HandlerGlobalState,
+) {
 	const { readonlyModel, ...base } = baseHandlers(fieldId, state, globalState, FieldTypes.text, vGuard<string>);
 
 	const fieldRequired = computed(() => {
@@ -109,7 +117,11 @@ export function textFieldHandlers(fieldId: string, state: WritableSignal<Record<
 	};
 }
 
-export function numberFieldHandlers(fieldId: string, state: WritableSignal<Record<string, RFilterField>>, globalState: HandlerGlobalState) {
+export function numberFieldHandlers(
+	fieldId: string,
+	state: WritableSignal<Record<string, RFilterField>>,
+	globalState: HandlerGlobalState,
+) {
 	const { readonlyModel, ...base } = baseHandlers(fieldId, state, globalState, FieldTypes.number, vGuard<number>);
 
 	const min = computed(() => {
@@ -135,7 +147,11 @@ export function numberFieldHandlers(fieldId: string, state: WritableSignal<Recor
 	};
 }
 
-export function dateFieldHandlers(fieldId: string, state: WritableSignal<Record<string, RFilterField>>, globalState: HandlerGlobalState) {
+export function dateFieldHandlers(
+	fieldId: string,
+	state: WritableSignal<Record<string, RFilterField>>,
+	globalState: HandlerGlobalState,
+) {
 	const { readonlyModel, ...base } = baseHandlers(fieldId, state, globalState, FieldTypes.date, vGuard<Date>);
 
 	const min = computed(() => {
@@ -155,7 +171,11 @@ export function dateFieldHandlers(fieldId: string, state: WritableSignal<Record<
 	};
 }
 
-export function timeFieldHandlers(fieldId: string, state: WritableSignal<Record<string, RFilterField>>, globalState: HandlerGlobalState) {
+export function timeFieldHandlers(
+	fieldId: string,
+	state: WritableSignal<Record<string, RFilterField>>,
+	globalState: HandlerGlobalState,
+) {
 	const { readonlyModel, ...base } = baseHandlers(fieldId, state, globalState, FieldTypes.time, vGuard<Date>);
 	const seed = readonlyModel();
 
@@ -180,7 +200,7 @@ export function timeFieldHandlers(fieldId: string, state: WritableSignal<Record<
 
 	// state understands Date, filter talks in { hours: number; minutes: number; seconds: number; period: 'AM' | 'PM' }
 	const timeControlValue = computed(() => {
-		const v = (readonlyModel().value ?? seed.value);
+		const v = readonlyModel().value ?? seed.value;
 		const hours = v.getHours();
 		const minutes = v.getMinutes();
 		const seconds = v.getSeconds();
@@ -197,8 +217,18 @@ export function timeFieldHandlers(fieldId: string, state: WritableSignal<Record<
 	};
 }
 
-export function selectFieldHandlers(fieldId: string, state: WritableSignal<Record<string, RFilterField>>, globalState: HandlerGlobalState) {
-	const {readonlyModel, ...base} = baseHandlers(fieldId, state, globalState, FieldTypes.select, vGuard<unknown | unknown[]>);
+export function selectFieldHandlers(
+	fieldId: string,
+	state: WritableSignal<Record<string, RFilterField>>,
+	globalState: HandlerGlobalState,
+) {
+	const { readonlyModel, ...base } = baseHandlers(
+		fieldId,
+		state,
+		globalState,
+		FieldTypes.select,
+		vGuard<unknown | unknown[]>,
+	);
 
 	const updateSelectControl = (value: unknown | unknown[]) => {
 		const update = Array.isArray(value) ? value.at(0) : value;
@@ -206,7 +236,7 @@ export function selectFieldHandlers(fieldId: string, state: WritableSignal<Recor
 	};
 
 	const options = computed(() => {
-		const v = readonlyModel()
+		const v = readonlyModel();
 		return v.__options;
 	});
 
@@ -223,16 +253,26 @@ export function selectFieldHandlers(fieldId: string, state: WritableSignal<Recor
 	};
 }
 
-export function rangeFieldHandlers(fieldId: string, state: WritableSignal<Record<string, RFilterField>>, globalState: HandlerGlobalState) {
-	const { readonlyModel, ...base } = baseHandlers(fieldId, state, globalState, FieldTypes.range, vGuard<[number, number]>);
+export function rangeFieldHandlers(
+	fieldId: string,
+	state: WritableSignal<Record<string, RFilterField>>,
+	globalState: HandlerGlobalState,
+) {
+	const { readonlyModel, ...base } = baseHandlers(
+		fieldId,
+		state,
+		globalState,
+		FieldTypes.range,
+		vGuard<[number, number]>,
+	);
 
 	const min = computed(() => {
-		const v = readonlyModel()
+		const v = readonlyModel();
 		return v.__min ?? null;
 	});
 
 	const max = computed(() => {
-		const v = readonlyModel()
+		const v = readonlyModel();
 		return v.__max ?? null;
 	});
 
@@ -243,16 +283,26 @@ export function rangeFieldHandlers(fieldId: string, state: WritableSignal<Record
 	};
 }
 
-export function dateRangeFieldHandlers(fieldId: string, state: WritableSignal<Record<string, RFilterField>>, globalState: HandlerGlobalState) {
-	const { readonlyModel, ...base } = baseHandlers(fieldId, state, globalState, FieldTypes.daterange, vGuard<[Date, Date]>);
+export function dateRangeFieldHandlers(
+	fieldId: string,
+	state: WritableSignal<Record<string, RFilterField>>,
+	globalState: HandlerGlobalState,
+) {
+	const { readonlyModel, ...base } = baseHandlers(
+		fieldId,
+		state,
+		globalState,
+		FieldTypes.daterange,
+		vGuard<[Date, Date]>,
+	);
 
 	const min = computed(() => {
-		const v = readonlyModel()
+		const v = readonlyModel();
 		return v.__min ?? null;
 	});
 
 	const max = computed(() => {
-		const v = readonlyModel()
+		const v = readonlyModel();
 		return v.__max ?? null;
 	});
 
@@ -263,7 +313,11 @@ export function dateRangeFieldHandlers(fieldId: string, state: WritableSignal<Re
 	};
 }
 
-export function comboboxFieldHandlers(fieldId: string, state: WritableSignal<Record<string, RFilterField>>, globalState: HandlerGlobalState) {
+export function comboboxFieldHandlers(
+	fieldId: string,
+	state: WritableSignal<Record<string, RFilterField>>,
+	globalState: HandlerGlobalState,
+) {
 	const { readonlyModel, ...base } = baseHandlers(fieldId, state, globalState, FieldTypes.combobox, vGuard<unknown>);
 
 	const options = computed(() => {
@@ -272,7 +326,7 @@ export function comboboxFieldHandlers(fieldId: string, state: WritableSignal<Rec
 	});
 
 	const placeholder = computed(() => {
-		const v = readonlyModel()
+		const v = readonlyModel();
 		return v.__placeholder ?? '';
 	});
 
@@ -283,30 +337,36 @@ export function comboboxFieldHandlers(fieldId: string, state: WritableSignal<Rec
 	};
 }
 
-export function asyncComboFieldHandlers(fieldId: string, state: WritableSignal<Record<string, RFilterField>>, globalState: HandlerGlobalState) {
-
-	const { readonlyModel, ...base } = baseHandlers(fieldId, state, globalState, FieldTypes.asyncCombobox, vGuard<unknown>);
+export function asyncComboFieldHandlers(
+	fieldId: string,
+	state: WritableSignal<Record<string, RFilterField>>,
+	globalState: HandlerGlobalState,
+) {
+	const { readonlyModel, ...base } = baseHandlers(
+		fieldId,
+		state,
+		globalState,
+		FieldTypes.asyncCombobox,
+		vGuard<unknown>,
+	);
 
 	const placeholder = computed(() => {
-		const v = readonlyModel()
+		const v = readonlyModel();
 		return v.__placeholder ?? '';
 	});
 
 	const itemToString = computed(() => {
-		const v = readonlyModel()
-		return  v.__itemToString ?? ((item: unknown) => String(item));
+		const v = readonlyModel();
+		return v.__itemToString ?? ((item: unknown) => String(item));
 	});
 
 	const fieldResourceRequest = computed(() => {
-		const v = readonlyModel()
-		return (
-			(v.__resourceRequest) ||
-			throwHandlerException('Resource request is required for async combobox field')
-		);
+		const v = readonlyModel();
+		return v.__resourceRequest || throwHandlerException('Resource request is required for async combobox field');
 	});
 
 	const fieldResourceOptions =
-		(readonlyModel().__resourceOptions) ||
+		readonlyModel().__resourceOptions ||
 		throwHandlerException('Resource options are required for async combobox field');
 
 	return {

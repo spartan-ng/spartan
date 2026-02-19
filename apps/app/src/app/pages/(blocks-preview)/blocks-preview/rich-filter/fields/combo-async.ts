@@ -1,6 +1,17 @@
 /* eslint-disable @typescript-eslint/naming-convention */
+import { FocusMonitor } from '@angular/cdk/a11y';
 import { httpResource } from '@angular/common/http';
-import { ChangeDetectionStrategy, Component, computed, effect, ElementRef, inject, isSignal, signal, viewChild } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	computed,
+	effect,
+	ElementRef,
+	inject,
+	isSignal,
+	signal,
+	viewChild,
+} from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { provideIcons } from '@ng-icons/core';
@@ -20,10 +31,10 @@ import { FieldClose } from './utils/field-close';
 import { FieldLabel } from './utils/field-label';
 import { FieldOperator } from './utils/field-operator';
 import { FocusElementOptions } from './utils/focus-element';
-import { FocusMonitor } from '@angular/cdk/a11y';
 
-@Component({selector: 'spartan-rich-filter-combo-async-field',
-imports: [
+@Component({
+	selector: 'spartan-rich-filter-combo-async-field',
+	imports: [
 		HlmButtonGroupImports,
 		HlmIconImports,
 		HlmButtonImports,
@@ -34,10 +45,10 @@ imports: [
 		FieldOperator,
 		FormsModule,
 	],
-providers: [provideIcons({ lucideLink2, lucideX })],
-changeDetection: ChangeDetectionStrategy.OnPush,
-host: {},
-template: `
+	providers: [provideIcons({ lucideLink2, lucideX })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {},
+	template: `
 		@let rs = _resource;
 		<div
 			hlmButtonGroup
@@ -59,7 +70,12 @@ template: `
 				(ngModelChange)="service.updateControl($event)"
 				[itemToString]="service.itemToString()"
 			>
-				<hlm-combobox-input #monitoredInput [id]="service.formId()" [placeholder]="service.placeholder()" class="rounded-none border-l-0" />
+				<hlm-combobox-input
+					#monitoredInput
+					[id]="service.formId()"
+					[placeholder]="service.placeholder()"
+					class="rounded-none border-l-0"
+				/>
 				<hlm-combobox-content *hlmComboboxPortal>
 					@if (showStatus()) {
 						<hlm-combobox-status>
@@ -91,7 +107,8 @@ template: `
 			<!-- close button -->
 			<spartan-rich-filter-field-close (fieldclosed)="service.closeField()" />
 		</div>
-	`})
+	`,
+})
 export class ComboAsyncField implements FocusElementOptions {
 	protected readonly service = inject(FILTER_HANDLER) as FHandler<typeof FieldTypes.asyncCombobox>;
 

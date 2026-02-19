@@ -2,6 +2,7 @@
 import { ChangeDetectionStrategy, Component, computed, effect, ElementRef, inject, viewChild } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 
+import { FocusMonitor } from '@angular/cdk/a11y';
 import { lucideLink2, lucideX } from '@ng-icons/lucide';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmButtonGroupImports } from '@spartan-ng/helm/button-group';
@@ -9,19 +10,19 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 import { HlmRangeSliderImports } from '@spartan-ng/helm/range-slider';
+import { FAKE_FOCUS_ORIGIN } from '../engine/constants';
+import { FHandler } from '../engine/handlers';
 import { RangeOperators } from '../engine/operators';
+import { FILTER_HANDLER } from '../engine/token';
+import { FieldTypes } from '../engine/types';
 import { FieldClose } from './utils/field-close';
 import { FieldLabel } from './utils/field-label';
 import { FieldOperator } from './utils/field-operator';
-import { FieldTypes } from '../engine/types';
-import { FHandler } from '../engine/handlers';
-import { FILTER_HANDLER } from '../engine/token';
-import { FocusMonitor } from '@angular/cdk/a11y';
 import { FocusElementOptions } from './utils/focus-element';
-import { FAKE_FOCUS_ORIGIN } from '../engine/constants';
 
-@Component({selector: 'spartan-rich-filter-range-field',
-imports: [
+@Component({
+	selector: 'spartan-rich-filter-range-field',
+	imports: [
 		HlmInputGroupImports,
 		HlmButtonGroupImports,
 		HlmIconImports,
@@ -33,10 +34,10 @@ imports: [
 		FieldLabel,
 		FieldOperator,
 	],
-providers: [provideIcons({ lucideLink2, lucideX })],
-changeDetection: ChangeDetectionStrategy.OnPush,
-host: {},
-template: `
+	providers: [provideIcons({ lucideLink2, lucideX })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {},
+	template: `
 		<hlm-popover sideOffset="5" align="end">
 			<div
 				hlmButtonGroup
@@ -77,7 +78,8 @@ template: `
 				<spartan-rich-filter-field-close (fieldclosed)="service.closeField()" />
 			</div>
 		</hlm-popover>
-	`})
+	`,
+})
 export class RangeField implements FocusElementOptions {
 	protected readonly service = inject(FILTER_HANDLER) as FHandler<typeof FieldTypes.range>;
 

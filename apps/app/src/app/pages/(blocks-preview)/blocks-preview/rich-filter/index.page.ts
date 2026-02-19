@@ -114,7 +114,7 @@ interface User {
 				<spartan-rich-filter [state]="filterState" />
 				<div class="mt-10">
 					<div>Who's focused at start</div>
-					<pre>{{ filterState.focusedField()  }}</pre>
+					<pre>{{ filterState.focusedField() }}</pre>
 				</div>
 				<div class="mt-10">
 					<div>Parsed Value</div>
@@ -139,7 +139,7 @@ export default class RichFilterPage {
 			max: new Date(),
 			label: 'Date Range',
 		}),
-		f.range('priceRange', [1,2], Operators.between, { min: -100, max: 100, label: 'Price Range' }),
+		f.range('priceRange', [1, 2], Operators.between, { min: -100, max: 100, label: 'Price Range' }),
 		f.time('time', new Date(), Operators.notPast, { label: 'Time' }),
 		f.combobox('country', '', Operators.is, {
 			options: comboboxOptions,

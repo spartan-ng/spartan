@@ -4,7 +4,9 @@ import { axe } from 'jest-axe';
 import { BrnRangeSliderImports } from '../index';
 
 describe('BrnRangeSlider', () => {
-	const setup = async (opts: { value?: [number, number]; min?: number; max?: number; step?: number; disabled?: boolean } = {}) => {
+	const setup = async (
+		opts: { value?: [number, number]; min?: number; max?: number; step?: number; disabled?: boolean } = {},
+	) => {
 		const { value = [20, 80], min = 0, max = 100, step = 1, disabled = false } = opts;
 		const onValueChange = jest.fn();
 		const container = await render(

@@ -47,4 +47,4 @@ export const FieldTypes = {
 	asyncCombobox: 'asyncCombobox',
 } as const;
 
-export type IFieldType = typeof FieldTypes[keyof typeof FieldTypes];
+export type IFieldType = (typeof FieldTypes)[keyof typeof FieldTypes];

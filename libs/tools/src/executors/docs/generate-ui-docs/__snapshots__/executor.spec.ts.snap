@@ -3393,13 +3393,13 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "boolean",
           },
+        ],
+        "models": [
           {
             "name": "value",
-            "required": false,
             "type": "string | null",
           },
         ],
-        "models": [],
         "outputs": [
           {
             "name": "valueChange",

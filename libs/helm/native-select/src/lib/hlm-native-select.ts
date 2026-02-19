@@ -7,6 +7,7 @@ import {
 	forwardRef,
 	input,
 	linkedSignal,
+	model,
 	output,
 } from '@angular/core';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -39,7 +40,7 @@ export const HLM_NATIVE_SELECT_VALUE_ACCESSOR = {
 			[class]="_computedSelectClass()"
 			[attr.data-size]="size()"
 			[attr.aria-invalid]="ariaInvalid() ? 'true' : null"
-			[value]="_value()"
+			[value]="value()"
 			[disabled]="_disabled()"
 			(change)="_valueChanged($event)"
 			(blur)="_blur()"
@@ -93,9 +94,7 @@ export class HlmNativeSelect implements ControlValueAccessor {
 		alias: 'aria-invalid',
 	});
 
-	public readonly value = input<string | null>('');
-
-	protected readonly _value = linkedSignal(this.value);
+	public readonly value = model<string | null>('');
 
 	public readonly valueChange = output<string | null>();
 
@@ -108,7 +107,7 @@ export class HlmNativeSelect implements ControlValueAccessor {
 
 	protected _valueChanged(event: Event): void {
 		const value = (event.target as HTMLSelectElement).value;
-		this._value.set(value);
+		this.value.set(value);
 		this.valueChange.emit(value);
 		this._onChange?.(value);
 		this._onTouched?.();
@@ -120,7 +119,7 @@ export class HlmNativeSelect implements ControlValueAccessor {
 
 	/** CONTROL VALUE ACCESSOR */
 	public writeValue(value: string | null): void {
-		this._value.set(value);
+		this.value.set(value);
 	}
 
 	public registerOnChange(fn: ChangeFn<string | null>): void {

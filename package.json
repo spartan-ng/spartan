@@ -44,6 +44,8 @@
 		"@angular/platform-server": "20.0.7",
 		"@angular/router": "20.0.7",
 		"@angular/ssr": "~20.0.0",
+		"@fontsource-variable/noto-sans-arabic": "^5.2.10",
+		"@fontsource-variable/noto-sans-hebrew": "^5.2.8",
 		"@fontsource/geist": "^5.2.5",
 		"@fontsource/geist-mono": "^5.2.5",
 		"@ng-icons/core": "^32.2.0",

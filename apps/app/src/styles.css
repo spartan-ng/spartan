@@ -8,10 +8,14 @@
 
 @import '@fontsource/geist-mono/latin';
 @import '@fontsource/geist/latin';
+@import '@fontsource-variable/noto-sans-hebrew';
+@import '@fontsource-variable/noto-sans-arabic';
 
 @custom-variant fixed (&:is(.layout-fixed *));
 
 @theme inline {
+	--font-ar: var(--font-ar);
+	--font-he: var(--font-he);
 	--breakpoint-3xl: 1600px;
 	--breakpoint-4xl: 2000px;
 
@@ -24,6 +28,8 @@
 	color-scheme: light;
 	--font-sans: 'Geist', sans-serif;
 	--font-mono: 'Geist Mono', monospace;
+	--font-ar: 'Noto Sans Arabic", "Noto Sans Arabic Fallback';
+	--font-he: 'Noto Sans Hebrew","Noto Sans Hebrew Fallback';
 	--radius: 0.625rem;
 	--background: oklch(1 0 0);
 	--foreground: oklch(0.145 0 0);
@@ -107,4 +113,12 @@
 
 @utility container {
 	@apply 3xl:max-w-screen-2xl mx-auto max-w-[1400px] px-4 lg:px-8;
+}
+
+[data-lang='ar'] {
+	font-family: var(--font-ar);
+}
+
+[data-lang='he'] {
+	font-family: var(--font-he);
 }

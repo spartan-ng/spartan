@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { provideIcons } from '@ng-icons/core';
 import { lucideCheck, lucideChevronDown, lucideCircle, lucideInfo, lucideLink } from '@ng-icons/lucide';
 import { HlmIconImports } from '@spartan-ng/helm/icon';
@@ -6,7 +7,7 @@ import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 
 @Component({
 	selector: 'spartan-navigation-menu-preview',
-	imports: [HlmNavigationMenuImports, HlmIconImports],
+	imports: [HlmNavigationMenuImports, HlmIconImports, RouterLink],
 	providers: [provideIcons({ lucideChevronDown, lucideLink, lucideCircle, lucideCheck, lucideInfo })],
 	template: `
 		<nav hlmNavigationMenu>
@@ -22,7 +23,7 @@ import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 					<hlm-navigation-menu-content *hlmNavigationMenuPortal>
 						<ul class="w-96">
 							<li>
-								<a hlmNavigationMenuLink href="/">
+								<a hlmNavigationMenuLink routerLink="/documentation/introduction">
 									<div class="flex flex-col gap-1 text-sm">
 										<div class="leading-none font-medium">Introduction</div>
 										<div class="text-muted-foreground line-clamp-2">Re-usable components built with Tailwind CSS.</div>
@@ -31,7 +32,7 @@ import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 							</li>
 
 							<li>
-								<a hlmNavigationMenuLink href="/">
+								<a hlmNavigationMenuLink routerLink="/documentation/installation">
 									<div class="flex flex-col gap-1 text-sm">
 										<div class="leading-none font-medium">Installation</div>
 										<div class="text-muted-foreground line-clamp-2">
@@ -41,7 +42,7 @@ import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 								</a>
 							</li>
 							<li>
-								<a hlmNavigationMenuLink href="/">
+								<a hlmNavigationMenuLink routerLink="/documentation/typography">
 									<div class="flex flex-col gap-1 text-sm">
 										<div class="leading-none font-medium">Typography</div>
 										<div class="text-muted-foreground line-clamp-2">Styles for headings, paragraphs, lists...etc</div>

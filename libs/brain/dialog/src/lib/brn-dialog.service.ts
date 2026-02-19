@@ -1,4 +1,4 @@
-import { DIALOG_DATA, Dialog } from '@angular/cdk/dialog';
+import { Dialog, DIALOG_DATA } from '@angular/cdk/dialog';
 import {
 	type ComponentType,
 	FlexibleConnectedPositionStrategy,
@@ -10,22 +10,22 @@ import {
 import { BasePortalOutlet } from '@angular/cdk/portal';
 import {
 	ChangeDetectorRef,
+	computed,
+	effect,
 	type EffectRef,
 	ElementRef,
-	type InjectOptions,
+	inject,
 	Injectable,
+	type InjectOptions,
 	Injector,
 	RendererFactory2,
+	runInInjectionContext,
+	signal,
 	type StaticProvider,
 	type TemplateRef,
 	type ViewContainerRef,
-	computed,
-	effect,
-	inject,
-	runInInjectionContext,
-	signal,
 } from '@angular/core';
-import { Subject } from 'rxjs';
+import { merge, Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import type { BrnDialogOptions } from './brn-dialog-options';
 import { BrnDialogRef } from './brn-dialog-ref';
@@ -79,7 +79,7 @@ export class BrnDialogService {
 				: this._positionBuilder.global().centerHorizontally().centerVertically());
 
 		let brnDialogRef!: BrnDialogRef;
-		let effectRef!: EffectRef;
+		const effectRefs: EffectRef[] = [];
 
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const contextOrData: BrnDialogContext<any> = {
@@ -89,6 +89,7 @@ export class BrnDialogService {
 		};
 
 		const destroyed$ = new Subject<void>();
+		const optionsChanged$ = new Subject<void>();
 		const open = signal<boolean>(true);
 		const state = computed<BrnDialogState>(() => (open() ? 'open' : 'closed'));
 		const dialogId = ++dialogSequence;
@@ -119,7 +120,7 @@ export class BrnDialogService {
 				brnDialogRef = new BrnDialogRef(cdkDialogRef, open, state, dialogId, options as BrnDialogOptions);
 
 				runInInjectionContext(this._injector, () => {
-					effectRef = effect(() => {
+					const ref = effect(() => {
 						if (overlay) {
 							this._renderer.setAttribute(overlay, 'data-state', state());
 						}
@@ -127,6 +128,7 @@ export class BrnDialogService {
 							this._renderer.setAttribute(backdrop, 'data-state', state());
 						}
 					});
+					effectRefs.push(ref);
 				});
 
 				const providers: StaticProvider[] = [
@@ -153,45 +155,53 @@ export class BrnDialogService {
 		const overlay = cdkDialogRef.overlayRef.overlayElement;
 		const backdrop = cdkDialogRef.overlayRef.backdropElement;
 
-		const closeOnOutsidePointerEvents =
-			options?.closeOnOutsidePointerEvents ?? this._defaultOptions.closeOnOutsidePointerEvents;
-		if (closeOnOutsidePointerEvents) {
-			cdkDialogRef.outsidePointerEvents.pipe(takeUntil(destroyed$)).subscribe(() => {
-				const overlays = this._overlayCloseDispatcher._attachedOverlays;
-				const index = overlays.indexOf(cdkDialogRef.overlayRef);
-				// close if this is the topmost overlay
-				// but prevent closing if this overlay contains the top overlay (which will be closed)
-				if (
-					index === overlays.length - 1 ||
-					(overlays.length > 1 && !this.isNested(cdkDialogRef.overlayRef, overlays.at(-1)!))
-				) {
-					brnDialogRef.close(undefined, options?.closeDelay);
+		runInInjectionContext(this._injector, () => {
+			const optionChangeEffect = effect(() => {
+				const options = brnDialogRef.options();
+				optionsChanged$.next();
+				const closeOnOutsidePointerEvents =
+					options?.closeOnOutsidePointerEvents ?? this._defaultOptions.closeOnOutsidePointerEvents;
+				if (closeOnOutsidePointerEvents) {
+					cdkDialogRef.outsidePointerEvents.pipe(takeUntil(merge(destroyed$, optionsChanged$))).subscribe(() => {
+						const overlays = this._overlayCloseDispatcher._attachedOverlays;
+						const index = overlays.indexOf(cdkDialogRef.overlayRef);
+						// close if this is the topmost overlay
+						// but prevent closing if this overlay contains the top overlay (which will be closed)
+						if (
+							index === overlays.length - 1 ||
+							(overlays.length > 1 && !this.isNested(cdkDialogRef.overlayRef, overlays.at(-1)!))
+						) {
+							brnDialogRef.close(undefined, options?.closeDelay);
+						}
+					});
+				}
+
+				const closeOnBackdropClick = options?.closeOnBackdropClick ?? this._defaultOptions.closeOnBackdropClick;
+				if (closeOnBackdropClick) {
+					cdkDialogRef.backdropClick.pipe(takeUntil(merge(destroyed$, optionsChanged$))).subscribe(() => {
+						brnDialogRef.close(undefined, options?.closeDelay);
+					});
+				}
+
+				const disableClose = options?.disableClose ?? this._defaultOptions.disableClose;
+				if (!disableClose) {
+					cdkDialogRef.keydownEvents
+						.pipe(
+							filter((e) => e.key === 'Escape'),
+							takeUntil(merge(destroyed$, optionsChanged$)),
+						)
+						.subscribe(() => {
+							brnDialogRef.close(undefined, options?.closeDelay);
+						});
 				}
 			});
-		}
 
-		const closeOnBackdropClick = options?.closeOnBackdropClick ?? this._defaultOptions.closeOnBackdropClick;
-		if (closeOnBackdropClick) {
-			cdkDialogRef.backdropClick.pipe(takeUntil(destroyed$)).subscribe(() => {
-				brnDialogRef.close(undefined, options?.closeDelay);
-			});
-		}
-
-		const disableClose = options?.disableClose ?? this._defaultOptions.disableClose;
-		if (!disableClose) {
-			cdkDialogRef.keydownEvents
-				.pipe(
-					filter((e) => e.key === 'Escape'),
-					takeUntil(destroyed$),
-				)
-				.subscribe(() => {
-					brnDialogRef.close(undefined, options?.closeDelay);
-				});
-		}
-
+			effectRefs.push(optionChangeEffect);
+		});
 		cdkDialogRef.closed.pipe(takeUntil(destroyed$)).subscribe(() => {
-			effectRef?.destroy();
+			effectRefs.forEach((a) => a.destroy());
 			destroyed$.next();
+			optionsChanged$.next();
 		});
 
 		// this is not ideal, but we need to force change detection to run in the dialog,

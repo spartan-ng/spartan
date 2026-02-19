@@ -14,9 +14,9 @@ import { HlmIcon } from '@spartan-ng/helm/icon';
 		<a
 			hlmBtn
 			variant="secondary"
-			[routerLink]="routerLink()"
+			[routerLink]="_routerLink()"
 			size="sm"
-			[relativeTo]="isAbsolute() ? undefined : _activatedRoute"
+			[relativeTo]="_isAbsolute() ? undefined : _activatedRoute"
 		>
 			@if (direction() === 'previous') {
 				<ng-icon hlm size="sm" name="lucideArrowLeft" />
@@ -35,7 +35,7 @@ export class PageBottomNavLink {
 	public href = input.required<string>();
 	public label = input.required<string>();
 
-	protected readonly isAbsolute = computed(() => this.href().startsWith('/'));
+	protected readonly _isAbsolute = computed(() => this.href().startsWith('/'));
 
-	protected readonly routerLink = computed(() => (this.isAbsolute() ? this.href() : ['..', this.href()]));
+	protected readonly _routerLink = computed(() => (this._isAbsolute() ? this.href() : ['..', this.href()]));
 }

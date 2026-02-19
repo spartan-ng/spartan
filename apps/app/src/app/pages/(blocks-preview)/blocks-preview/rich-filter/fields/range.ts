@@ -9,7 +9,7 @@ import { HlmButtonGroupImports } from '@spartan-ng/helm/button-group';
 import { HlmIconImports } from '@spartan-ng/helm/icon';
 import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 import { HlmPopoverImports } from '@spartan-ng/helm/popover';
-import { HlmRangeSliderImports } from '@spartan-ng/helm/range-slider';
+import { HlmSliderImports } from '@spartan-ng/helm/slider';
 import { FAKE_FOCUS_ORIGIN } from '../engine/constants';
 import { FHandler } from '../engine/handlers';
 import { RangeOperators } from '../engine/operators';
@@ -29,7 +29,7 @@ import { FocusElementOptions } from './utils/focus-element';
 		HlmButtonImports,
 		// HlmInputImports,
 		HlmPopoverImports,
-		HlmRangeSliderImports,
+		HlmSliderImports,
 		FieldClose,
 		FieldLabel,
 		FieldOperator,
@@ -65,7 +65,7 @@ import { FocusElementOptions } from './utils/focus-element';
 				</button>
 				<hlm-popover-content class="rounded-xl p-0 text-sm" *hlmPopoverPortal="let ctx">
 					<div class="p-4 text-sm">
-						<hlm-range-slider
+						<hlm-slider
 							[min]="service.min()"
 							[max]="service.max()"
 							[value]="service.controlValue()"

@@ -2,7 +2,6 @@
 import type { HttpResourceOptions, HttpResourceRequest } from '@angular/common/http';
 import type { Signal } from '@angular/core';
 import { computed, signal } from '@angular/core';
-import type { RangeValue } from '@spartan-ng/brain/range-slider';
 import { FOCUS_FALLBACK } from './constants';
 import type { IEqualityOperator, IIdentityOperator, IOperator, ITextOperator, ITimeOperator } from './operators';
 import { Operators } from './operators';
@@ -203,6 +202,8 @@ export const buildBooleanField = (
 	__label: options?.label,
 	__reset: value,
 });
+
+export type RangeValue = [number, number];
 
 export const buildRangeField = <K extends RangeValue>(
 	id: string,

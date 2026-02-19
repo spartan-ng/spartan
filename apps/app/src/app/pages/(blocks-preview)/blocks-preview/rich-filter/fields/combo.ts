@@ -11,7 +11,6 @@ import { HlmComboboxImports } from '@spartan-ng/helm/combobox';
 import { HlmIconImports } from '@spartan-ng/helm/icon';
 import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 import { HlmPopoverImports } from '@spartan-ng/helm/popover';
-import { HlmRangeSliderImports } from '@spartan-ng/helm/range-slider';
 import { FAKE_FOCUS_ORIGIN } from '../engine/constants';
 import { FHandler } from '../engine/handlers';
 import { IdentityOperators } from '../engine/operators';
@@ -31,7 +30,6 @@ import { FocusElementOptions } from './utils/focus-element';
 		HlmButtonImports,
 		// HlmInputImports,
 		HlmPopoverImports,
-		HlmRangeSliderImports,
 		HlmComboboxImports,
 		FieldClose,
 		FieldLabel,

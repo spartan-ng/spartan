@@ -332,13 +332,6 @@
 			"clsx": "^2.1.1"
 		}
 	},
-	"range-slider": {
-		"name": "range-slider",
-		"peerDependencies": {
-			"@angular/core": ">=20.0.0 <22.0.0",
-			"@spartan-ng/brain": "0.0.1-alpha.637"
-		}
-	},
 	"resizable": {
 		"name": "resizable",
 		"peerDependencies": {

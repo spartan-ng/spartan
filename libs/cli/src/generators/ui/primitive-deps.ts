@@ -40,7 +40,6 @@ export const primitiveDependencies: Record<Primitive, Primitive[]> = {
 	popover: ['utils'],
 	progress: ['utils'],
 	'radio-group': ['utils'],
-	'range-slider': ['utils'],
 	resizable: ['utils'],
 	'scroll-area': ['utils'],
 	select: ['utils', 'icon'],

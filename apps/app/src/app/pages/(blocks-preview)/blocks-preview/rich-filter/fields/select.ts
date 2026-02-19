@@ -9,7 +9,6 @@ import { HlmButtonGroupImports } from '@spartan-ng/helm/button-group';
 import { HlmIconImports } from '@spartan-ng/helm/icon';
 import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 import { HlmPopoverImports } from '@spartan-ng/helm/popover';
-import { HlmRangeSliderImports } from '@spartan-ng/helm/range-slider';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
 import { FHandler } from '../engine/handlers';
 import { IdentityOperators } from '../engine/operators';
@@ -30,7 +29,6 @@ import { FieldOperator } from './utils/field-operator';
 		BrnSelectImports,
 		HlmSelectImports,
 		HlmPopoverImports,
-		HlmRangeSliderImports,
 		FieldClose,
 		FieldLabel,
 		FieldOperator,

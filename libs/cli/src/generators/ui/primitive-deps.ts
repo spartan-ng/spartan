@@ -34,7 +34,7 @@ export const primitiveDependencies: Record<Primitive, Primitive[]> = {
 	kbd: ['utils'],
 	label: ['utils'],
 	menubar: ['utils', 'dropdown-menu'],
-	'native-select': [],
+	'native-select': ['utils', 'icon'],
 	'navigation-menu': ['utils'],
 	pagination: ['utils', 'button', 'icon', 'select'],
 	popover: ['utils'],

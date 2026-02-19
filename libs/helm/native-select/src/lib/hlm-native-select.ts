@@ -49,7 +49,7 @@ export const HLM_NATIVE_SELECT_VALUE_ACCESSOR = {
 
 		<ng-icon
 			name="lucideChevronDown"
-			class="text-muted-foreground pointer-events-none absolute top-1/2 right-2.5 size-4 -translate-y-1/2 select-none"
+			[class]="_computedSelectIconClass()"
 			aria-hidden="true"
 			data-slot="native-select-icon"
 		/>
@@ -70,6 +70,15 @@ export class HlmNativeSelect implements ControlValueAccessor {
 			// TODO support BrnFormFieldControl
 			'aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 aria-invalid:ring-3',
 			this.selectClass(),
+		),
+	);
+
+	public readonly selectIconClass = input<ClassValue>('');
+
+	protected readonly _computedSelectIconClass = computed(() =>
+		hlm(
+			'text-muted-foreground pointer-events-none absolute top-1/2 right-2.5 -translate-y-1/2 text-base select-none',
+			this.selectIconClass(),
 		),
 	);
 

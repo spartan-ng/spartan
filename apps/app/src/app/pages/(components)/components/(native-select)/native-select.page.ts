@@ -16,7 +16,9 @@ import { Tabs } from '../../../../shared/layout/tabs';
 import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { NativeSelectDisabledExample } from './native-select--disabled.example';
+import { NativeSelectFormExample } from './native-select--form.example';
 import { NativeSelectGroupsExample } from './native-select--groups.example';
+import { NativeSelectInvalidExample } from './native-select--invalid.example';
 import { NativeSelectPreview, defaultImports, defaultSkeleton } from './native-select.preview';
 
 export const routeMeta: RouteMeta = {
@@ -46,6 +48,8 @@ export const routeMeta: RouteMeta = {
 		UIApiDocs,
 		NativeSelectGroupsExample,
 		NativeSelectDisabledExample,
+		NativeSelectFormExample,
+		NativeSelectInvalidExample,
 	],
 	template: `
 		<section spartanMainSection>
@@ -92,6 +96,22 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_disabledCode()" />
 			</spartan-tabs>
 
+			<h3 id="examples__invalid" spartanH4>Invalid</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-native-select-invalid-example />
+				</div>
+				<spartan-code secondTab [code]="_invalidCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__form" spartanH4>Form</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-native-select-form-example />
+				</div>
+				<spartan-code secondTab [code]="_formCode()" />
+			</spartan-tabs>
+
 			<spartan-section-sub-heading id="native-select-vs-select">Native Select vs Select</spartan-section-sub-heading>
 
 			<ul class="${hlmUl}">
@@ -123,6 +143,8 @@ export default class NativeSelectPage {
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _groupsCode = computed(() => this._snippets()['groups']);
 	protected readonly _disabledCode = computed(() => this._snippets()['disabled']);
+	protected readonly _invalidCode = computed(() => this._snippets()['invalid']);
+	protected readonly _formCode = computed(() => this._snippets()['form']);
 	protected readonly _imports = defaultImports;
 	protected readonly _codeSkeleton = defaultSkeleton;
 }

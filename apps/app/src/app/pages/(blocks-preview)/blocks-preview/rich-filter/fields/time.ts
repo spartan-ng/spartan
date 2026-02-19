@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { ChangeDetectionStrategy, Component, effect, inject, viewChild } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideLink2, lucideX } from '@ng-icons/lucide';
@@ -14,10 +15,8 @@ import { FieldClose } from './utils/field-close';
 import { FieldLabel } from './utils/field-label';
 import { FieldOperator } from './utils/field-operator';
 
-@Component({
-	selector: 'spartan-rich-filter-time-field',
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [
+@Component({selector: 'spartan-rich-filter-time-field',
+imports: [
 		HlmInputGroupImports,
 		HlmButtonGroupImports,
 		HlmIconImports,
@@ -27,9 +26,10 @@ import { FieldOperator } from './utils/field-operator';
 		FieldLabel,
 		FieldOperator,
 	],
-	providers: [provideIcons({ lucideLink2, lucideX })],
-	host: {},
-	template: `
+providers: [provideIcons({ lucideLink2, lucideX })],
+changeDetection: ChangeDetectionStrategy.OnPush,
+host: {},
+template: `
 		<div
 			hlmButtonGroup
 			class="[&>brn-select>div>hlm-select-trigger>button]:rounded-l-none [&>brn-select>div>hlm-select-trigger>button]:rounded-r-none"
@@ -52,18 +52,17 @@ import { FieldOperator } from './utils/field-operator';
 			/>
 
 			<!-- close button -->
-			<spartan-rich-filter-field-close (onCloseField)="service.closeField()" />
+			<spartan-rich-filter-field-close (fieldclosed)="service.closeField()" />
 		</div>
-	`,
-})
+	`})
 export class TimeField {
 	protected readonly service = inject(FILTER_HANDLER) as FHandler<typeof FieldTypes.time>;
 
 	private readonly timeInput = viewChild.required(HlmTimeInput);
 
-	readonly operators = TimeOperators;
+	public readonly operators = TimeOperators;
 
-	readonly onFocusElement = effect(() => {
+	public readonly onFocusElement = effect(() => {
 		this.service.isFocused() && this.timeInput().focus();
 	});
 }

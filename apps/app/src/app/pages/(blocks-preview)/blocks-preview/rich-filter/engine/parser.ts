@@ -1,4 +1,4 @@
-import { FilterModelRef, RFilterField } from './builders';
+import type { FilterModelRef, RFilterField } from './builders';
 
 /**
  * Describes the shape of the object that will be returned from the parser function.

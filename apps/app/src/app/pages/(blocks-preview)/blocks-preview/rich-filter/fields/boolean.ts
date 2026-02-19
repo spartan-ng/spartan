@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { ChangeDetectionStrategy, Component, effect, ElementRef, inject, viewChild } from '@angular/core';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
@@ -14,10 +15,8 @@ import { FieldLabel } from './utils/field-label';
 import { FocusElementOptions } from './utils/focus-element';
 import { FAKE_FOCUS_ORIGIN } from '../engine/constants';
 
-@Component({
-	selector: 'spartan-rich-filter-boolean-field',
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [
+@Component({selector: 'spartan-rich-filter-boolean-field',
+imports: [
 		HlmInputGroupImports,
 		HlmButtonGroupImports,
 		HlmIconImports,
@@ -27,8 +26,9 @@ import { FAKE_FOCUS_ORIGIN } from '../engine/constants';
 		FieldClose,
 		FieldLabel,
 	],
-	host: {},
-	template: `
+changeDetection: ChangeDetectionStrategy.OnPush,
+host: {},
+template: `
 		<div
 			hlmButtonGroup
 			class="[&>brn-select>div>hlm-select-trigger>button]:rounded-l-none [&>brn-select>div>hlm-select-trigger>button]:rounded-r-none"
@@ -49,17 +49,16 @@ import { FAKE_FOCUS_ORIGIN } from '../engine/constants';
 				/>
 			</div>
 			<!-- close button -->
-			<spartan-rich-filter-field-close (onCloseField)="service.closeField()"></spartan-rich-filter-field-close>
+			<spartan-rich-filter-field-close (fieldclosed)="service.closeField()"></spartan-rich-filter-field-close>
 		</div>
-	`,
-})
+	`})
 export class BooleanField implements FocusElementOptions {
 	protected readonly service = inject(FILTER_HANDLER) as FHandler<typeof FieldTypes.boolean>;
 
-	readonly focusMonitor = inject(FocusMonitor);
-	readonly monitoredInput = viewChild.required('monitoredInput', { read: ElementRef<HTMLElement> });
+	public readonly focusMonitor = inject(FocusMonitor);
+	public readonly monitoredInput = viewChild.required('monitoredInput', { read: ElementRef<HTMLElement> });
 
-	readonly onFocusElement = effect(() => {
+	public readonly onFocusElement = effect(() => {
 		// Helm checkbox doesn't expose the input element, so we need to query it manually here
 		// TODO refactor the checkbox to expose the input element and avoid this query
 		const el = this.monitoredInput().nativeElement.querySelector('button[role="checkbox"]') ;

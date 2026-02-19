@@ -1,4 +1,7 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { signal } from '@angular/core';
+import type {
+	RFilterField} from './builders';
 import {
 	buildNumberField,
 	buildBooleanField,
@@ -9,8 +12,7 @@ import {
 	buildTimeField,
 	buildTextField,
 	buildComboField,
-	buildComboFieldAsync,
-	RFilterField,
+	buildComboFieldAsync
 } from './builders';
 import {
 	booleanFieldHandlers,

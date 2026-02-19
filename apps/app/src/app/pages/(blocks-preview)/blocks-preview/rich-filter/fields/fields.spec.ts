@@ -1,4 +1,4 @@
-import { computed, CUSTOM_ELEMENTS_SCHEMA, signal } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { vitest } from 'vitest';
@@ -55,11 +55,13 @@ function setupMatchMedia() {
 
 	// jsdom does not provide ResizeObserver
 	if (typeof globalThis.ResizeObserver === 'undefined') {
+		/* eslint-disable @typescript-eslint/no-empty-function */
 		globalThis.ResizeObserver = class ResizeObserver {
 			observe() {}
 			unobserve() {}
 			disconnect() {}
 		} as any;
+		/* eslint-enable @typescript-eslint/no-empty-function */
 	}
 }
 

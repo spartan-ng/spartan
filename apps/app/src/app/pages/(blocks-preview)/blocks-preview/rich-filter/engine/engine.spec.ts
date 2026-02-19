@@ -19,7 +19,7 @@ import {
 	TimeOperators,
 } from './operators';
 
-import { RFilterField } from './builders';
+import type { RFilterField } from './builders';
 
 /** Helper to patch a single field inside a FilterModelRef.value signal (avoids discriminated-union spread issues) */
 function patchField(model: ReturnType<typeof buildFilterModel>, id: string, patch: Partial<RFilterField>) {

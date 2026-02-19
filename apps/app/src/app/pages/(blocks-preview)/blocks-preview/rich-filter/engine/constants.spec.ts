@@ -124,7 +124,7 @@ describe('Operators', () => {
 	});
 
 	it('every operator value should be a non-empty string', () => {
-		for (const [key, value] of Object.entries(Operators)) {
+		for (const [, value] of Object.entries(Operators)) {
 			expect(typeof value).toBe('string');
 			expect(value.length).toBeGreaterThan(0);
 		}

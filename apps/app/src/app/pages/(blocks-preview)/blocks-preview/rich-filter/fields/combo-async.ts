@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { httpResource } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, computed, effect, ElementRef, inject, isSignal, signal, viewChild } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
@@ -9,7 +10,7 @@ import { HlmButtonGroupImports } from '@spartan-ng/helm/button-group';
 import { HlmComboboxImports } from '@spartan-ng/helm/combobox';
 import { HlmIconImports } from '@spartan-ng/helm/icon';
 import { HlmSpinnerImports } from '@spartan-ng/helm/spinner';
-import { debounceTime } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 import { FAKE_FOCUS_ORIGIN, QueryToken } from '../engine/constants';
 import { FHandler } from '../engine/handlers';
 import { IdentityOperators } from '../engine/operators';
@@ -21,10 +22,8 @@ import { FieldOperator } from './utils/field-operator';
 import { FocusElementOptions } from './utils/focus-element';
 import { FocusMonitor } from '@angular/cdk/a11y';
 
-@Component({
-	selector: 'spartan-rich-filter-combo-async-field',
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [
+@Component({selector: 'spartan-rich-filter-combo-async-field',
+imports: [
 		HlmButtonGroupImports,
 		HlmIconImports,
 		HlmButtonImports,
@@ -35,9 +34,10 @@ import { FocusMonitor } from '@angular/cdk/a11y';
 		FieldOperator,
 		FormsModule,
 	],
-	providers: [provideIcons({ lucideLink2, lucideX })],
-	host: {},
-	template: `
+providers: [provideIcons({ lucideLink2, lucideX })],
+changeDetection: ChangeDetectionStrategy.OnPush,
+host: {},
+template: `
 		@let rs = _resource;
 		<div
 			hlmButtonGroup
@@ -89,10 +89,9 @@ import { FocusMonitor } from '@angular/cdk/a11y';
 			</hlm-combobox>
 
 			<!-- close button -->
-			<spartan-rich-filter-field-close (onCloseField)="service.closeField()" />
+			<spartan-rich-filter-field-close (fieldclosed)="service.closeField()" />
 		</div>
-	`,
-})
+	`})
 export class ComboAsyncField implements FocusElementOptions {
 	protected readonly service = inject(FILTER_HANDLER) as FHandler<typeof FieldTypes.asyncCombobox>;
 
@@ -124,10 +123,10 @@ export class ComboAsyncField implements FocusElementOptions {
 		return this.safeValue().map((v) => ({ raw: v, label: fn(v) }));
 	});
 
-	readonly focusMonitor = inject(FocusMonitor);
-	readonly monitoredInput = viewChild.required('monitoredInput', { read: ElementRef<HTMLElement> });
+	public readonly focusMonitor = inject(FocusMonitor);
+	public readonly monitoredInput = viewChild.required('monitoredInput', { read: ElementRef<HTMLElement> });
 
-	readonly onFocusElement = effect(() => {
+	public readonly onFocusElement = effect(() => {
 		// TODO fix combobox api to expose a reference to the input element
 		// to make it possible to focus without querying the DOM
 		const el = this.monitoredInput().nativeElement.querySelector('input[brnComboboxInput]');

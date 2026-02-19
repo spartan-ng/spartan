@@ -23,10 +23,8 @@ export type BrnTimeSegment = 'hours' | 'minutes' | 'seconds' | 'period';
 
 let nextId = 0;
 
-@Component({
-	selector: 'brn-time-input',
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [
+@Component({selector: 'brn-time-input',
+providers: [
 		provideBrnTimeInput(BrnTimeInput),
 		{
 			provide: NG_VALUE_ACCESSOR,
@@ -34,45 +32,47 @@ let nextId = 0;
 			multi: true,
 		},
 	],
-	host: {
+changeDetection: ChangeDetectionStrategy.OnPush,
+host: {
 		role: 'group',
 		'[attr.aria-label]': '"Time input"',
 		'[attr.data-disabled]': 'disabled() || null',
 		'[id]': 'id()',
 	},
-	template: `<ng-content />`,
-})
+template: `<ng-content />`})
 export class BrnTimeInput implements ControlValueAccessor {
 	private readonly _id = signal(`brn-time-input-${nextId++}`);
-	readonly id = this._id.asReadonly();
+	public readonly id = this._id.asReadonly();
 
 	/** The current time value. */
-	readonly value = model<BrnTimeValue>({ hours: 12, minutes: 0, seconds: 0, period: 'AM' });
+	public readonly value = model<BrnTimeValue>({ hours: 12, minutes: 0, seconds: 0, period: 'AM' });
 
 	/** Whether the input is disabled. */
-	readonly disabled = model(false);
+	public readonly disabled = model(false);
 
 	/** The currently focused segment. */
-	readonly activeSegment = signal<BrnTimeSegment | null>(null);
+	public readonly activeSegment = signal<BrnTimeSegment | null>(null);
 
 	/** Formatted display string for each segment. */
-	readonly displayHours = computed(() => {
+	public readonly displayHours = computed(() => {
 		const h = this.value().hours;
 		return h.toString().padStart(2, '0');
 	});
 
-	readonly displayMinutes = computed(() => {
+	public readonly displayMinutes = computed(() => {
 		return this.value().minutes.toString().padStart(2, '0');
 	});
 
-	readonly displaySeconds = computed(() => {
+	public readonly displaySeconds = computed(() => {
 		return this.value().seconds.toString().padStart(2, '0');
 	});
 
-	readonly displayPeriod = computed(() => this.value().period);
+	public readonly displayPeriod = computed(() => this.value().period);
 
 	// -- CVA --
+	/* eslint-disable-next-line @typescript-eslint/no-empty-function */
 	private _onChange: (value: BrnTimeValue) => void = () => {};
+	/* eslint-disable-next-line @typescript-eslint/no-empty-function */
 	private _onTouched: () => void = () => {};
 
 	writeValue(value: BrnTimeValue | null): void {

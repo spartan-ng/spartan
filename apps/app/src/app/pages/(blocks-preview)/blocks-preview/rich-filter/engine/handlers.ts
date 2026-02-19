@@ -1,8 +1,11 @@
-import { computed, WritableSignal } from '@angular/core';
-import { BrnTimeValue } from '@spartan-ng/brain/time-input';
-import { CastRFilterField, RFilterField } from './builders';
-import { IOperator } from './operators';
-import { FieldTypes, IFieldType } from './types';
+/* eslint-disable @typescript-eslint/naming-convention */
+import type { WritableSignal } from '@angular/core';
+import { computed } from '@angular/core';
+import type { BrnTimeValue } from '@spartan-ng/brain/time-input';
+import type { CastRFilterField, RFilterField } from './builders';
+import type { IOperator } from './operators';
+import type { IFieldType } from './types';
+import { FieldTypes } from './types';
 import { FOCUS_FALLBACK } from './constants';
 
 export type HandlerGlobalState = {

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { NgComponentOutlet } from '@angular/common';
 import {
@@ -51,12 +52,11 @@ const FIELD_COMPONENT_MAP: Record<IFieldType, Type<unknown>> = {
 	[FieldTypes.asyncCombobox]: ComboAsyncField,
 };
 
-@Component({
-	selector: 'spartan-rich-filter',
-	imports: [HlmButtonImports, NgIcon, HlmIconImports, HlmDropdownMenuImports, NgComponentOutlet],
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [provideIcons({ lucideFunnel, lucideFunnelX, lucideFunnelPlus })],
-	template: `
+@Component({selector: 'spartan-rich-filter',
+imports: [HlmButtonImports, NgIcon, HlmIconImports, HlmDropdownMenuImports, NgComponentOutlet],
+providers: [provideIcons({ lucideFunnel, lucideFunnelX, lucideFunnelPlus })],
+changeDetection: ChangeDetectionStrategy.OnPush,
+template: `
 		@let engine = state();
 		<div class="flex w-full gap-2">
 			<div class="flex flex-1 flex-wrap gap-2">
@@ -93,10 +93,9 @@ const FIELD_COMPONENT_MAP: Record<IFieldType, Type<unknown>> = {
 				</button>
 			}
 		</div>
-	`,
-})
+	`})
 export class SpartanRichFilter {
-	readonly state = model.required<FilterModelRef>();
+	public readonly state = model.required<FilterModelRef>();
 
 	private readonly injectorCache = new Map<string, DestroyableInjector>();
 
@@ -108,7 +107,7 @@ export class SpartanRichFilter {
 	/**
 	 * removes all the injectors when the component is destroyed
 	 */
-	destroyCb = inject(DestroyRef).onDestroy(this.injectorCleanup.bind(this));
+	public destroyCb = inject(DestroyRef).onDestroy(this.injectorCleanup.bind(this));
 
 	private getCachedInjector(fId: string, fType: IFieldType, state: Signal<FilterModelRef>) {
 		const k = `${fId}-${fType}`;
@@ -131,7 +130,7 @@ export class SpartanRichFilter {
 	}
 
 	/** Computed array of { component, inputs } entries for NgComponentOutlet. */
-	readonly fields = linkedSignal(() => {
+	public readonly fields = linkedSignal(() => {
 		return this.state()
 			.fieldsArray()
 			.map((e) => {
@@ -144,8 +143,8 @@ export class SpartanRichFilter {
 			});
 	});
 
-	readonly focusMonitor = inject(FocusMonitor);
-	readonly monitoredInput = viewChild('focusFallback', { read: ElementRef<HTMLElement> });
+	public readonly focusMonitor = inject(FocusMonitor);
+	public readonly monitoredInput = viewChild('focusFallback', { read: ElementRef<HTMLElement> });
 
 	/**
 	 * In some advanced use cases, the user might want to change the model (the reference) from outside of this component, (e.g. populating the model with asynchronous options, or router data).
@@ -155,12 +154,12 @@ export class SpartanRichFilter {
 	 * The user must account for this fact in their implementation
 	 *
 	 */
-	readonly onStateChange = effect(() => {
+	public readonly onStateChange = effect(() => {
 		this.state() && this.fields.set([]);
 		this.injectorCleanup();
 	});
 
-	readonly onFallbackFocusRequested = afterRenderEffect(() => {
+	public readonly onFallbackFocusRequested = afterRenderEffect(() => {
 		const trigger = this.state().focusedField()?.startsWith(FOCUS_FALLBACK);
 		const el = this.monitoredInput();
 

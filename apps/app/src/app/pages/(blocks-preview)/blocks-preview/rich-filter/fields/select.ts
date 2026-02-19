@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { ChangeDetectionStrategy, Component, effect, inject, viewChild } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 
@@ -18,10 +19,8 @@ import { FieldClose } from './utils/field-close';
 import { FieldLabel } from './utils/field-label';
 import { FieldOperator } from './utils/field-operator';
 
-@Component({
-	selector: 'spartan-rich-filter-select-field',
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [
+@Component({selector: 'spartan-rich-filter-select-field',
+imports: [
 		HlmInputGroupImports,
 		HlmButtonGroupImports,
 		HlmIconImports,
@@ -35,9 +34,10 @@ import { FieldOperator } from './utils/field-operator';
 		FieldLabel,
 		FieldOperator,
 	],
-	providers: [provideIcons({ lucideLink2, lucideX })],
-	host: {},
-	template: `
+providers: [provideIcons({ lucideLink2, lucideX })],
+changeDetection: ChangeDetectionStrategy.OnPush,
+host: {},
+template: `
 		<div
 			hlmButtonGroup
 			class="[&>brn-select>div>hlm-select-trigger>button]:rounded-l-none [&>brn-select>div>hlm-select-trigger>button]:rounded-r-none"
@@ -76,17 +76,16 @@ import { FieldOperator } from './utils/field-operator';
 			</brn-select>
 
 			<!-- close button -->
-			<spartan-rich-filter-field-close (onCloseField)="service.closeField()" />
+			<spartan-rich-filter-field-close (fieldclosed)="service.closeField()" />
 		</div>
-	`,
-})
+	`})
 export class SelectField {
 	protected readonly service = inject(FILTER_HANDLER) as FHandler<typeof FieldTypes.select>;
 
-	readonly operators = IdentityOperators;
+	public readonly operators = IdentityOperators;
 	private readonly selectComponent = viewChild.required(BrnSelect)
 
-	readonly onFocusElement = effect(() => {
+	public readonly onFocusElement = effect(() => {
 		this.service.isFocused() &&	this.selectComponent().trigger()?.focus()
 	});
 }

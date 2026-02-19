@@ -129,7 +129,7 @@ interface User {
 	`,
 })
 export default class RichFilterPage {
-	readonly filterState = buildFilterModel(
+	public readonly filterState = buildFilterModel(
 		f.text('name', '', Operators.includes, { required: true, label: 'Name' }),
 		f.number('age', 0, Operators.greaterThan, { min: 0, max: 120, step: 1, label: 'Age' }),
 		f.boolean('isActive', true, { label: 'Is Active' }),
@@ -160,7 +160,7 @@ export default class RichFilterPage {
 		}),
 	);
 
-	readonly parserFn = filterParser;
+	public readonly parserFn = filterParser;
 
-	readonly payload = computed(() => this.parserFn(this.filterState.value()));
+	public readonly payload = computed(() => this.parserFn(this.filterState.value()));
 }

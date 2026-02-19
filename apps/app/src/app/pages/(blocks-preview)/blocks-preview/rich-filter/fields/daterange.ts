@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { ChangeDetectionStrategy, Component, computed, effect, ElementRef, inject, signal, viewChild } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 
@@ -20,10 +21,8 @@ import { FocusMonitor } from '@angular/cdk/a11y';
 import { FocusElementOptions } from './utils/focus-element';
 import { FAKE_FOCUS_ORIGIN } from '../engine/constants';
 
-@Component({
-	selector: 'spartan-rich-filter-daterange-field',
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [
+@Component({selector: 'spartan-rich-filter-daterange-field',
+imports: [
 		NgIcon,
 		HlmInputGroupImports,
 		HlmButtonGroupImports,
@@ -36,9 +35,10 @@ import { FAKE_FOCUS_ORIGIN } from '../engine/constants';
 		FieldOperator,
 		DatePipe,
 	],
-	providers: [provideIcons({ lucideCalendar, lucideX })],
-	host: {},
-	template: `
+providers: [provideIcons({ lucideCalendar, lucideX })],
+changeDetection: ChangeDetectionStrategy.OnPush,
+host: {},
+template: `
 		<hlm-popover sideOffset="5" align="end">
 			<div
 				hlmButtonGroup
@@ -77,11 +77,10 @@ import { FAKE_FOCUS_ORIGIN } from '../engine/constants';
 				</hlm-popover-content>
 
 				<!-- close button -->
-				<spartan-rich-filter-field-close (onCloseField)="service.closeField()" />
+				<spartan-rich-filter-field-close (fieldclosed)="service.closeField()" />
 			</div>
 		</hlm-popover>
-	`,
-})
+	`})
 export class DateRangeField implements FocusElementOptions {
 	private readonly popoverBtn = viewChild<ElementRef<HTMLButtonElement>>('dateRangeTrigger');
 	private readonly tempStart = signal<Date | null>(null);
@@ -89,8 +88,8 @@ export class DateRangeField implements FocusElementOptions {
 	protected readonly service = inject(FILTER_HANDLER) as FHandler<typeof FieldTypes.daterange>;
 	protected readonly operators = RangeOperators;
 
-	readonly startDate = computed(() => this.service.controlValue()[0]);
-	readonly endDate = computed(() => this.service.controlValue()[1]);
+	public readonly startDate = computed(() => this.service.controlValue()[0]);
+	public readonly endDate = computed(() => this.service.controlValue()[1]);
 
 	// update start date should not trigger a change in the model
 	// until both start and end date are selected,
@@ -115,11 +114,11 @@ export class DateRangeField implements FocusElementOptions {
 		// TODO: Does BrainPopoverTrigger expose a method to close the popover programmatically?
 	}
 
-	readonly focusMonitor = inject(FocusMonitor);
+	public readonly focusMonitor = inject(FocusMonitor);
 
-	readonly monitoredInput = viewChild.required('monitoredInput', { read: ElementRef<HTMLElement> });
+	public readonly monitoredInput = viewChild.required('monitoredInput', { read: ElementRef<HTMLElement> });
 
-	readonly onFocusElement = effect(() => {
+	public readonly onFocusElement = effect(() => {
 		this.service.isFocused() && this.focusMonitor.focusVia(this.monitoredInput(), FAKE_FOCUS_ORIGIN);
 	});
 }

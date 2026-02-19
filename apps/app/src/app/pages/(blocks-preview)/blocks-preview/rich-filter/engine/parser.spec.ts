@@ -1,4 +1,6 @@
 import { filterParser } from './parser';
+import type {
+	RFilterField} from './builders';
 import {
 	buildFilterModel,
 	buildTextField,
@@ -9,8 +11,7 @@ import {
 	buildRangeField,
 	buildSelectField,
 	buildTimeField,
-	buildComboField,
-	RFilterField,
+	buildComboField
 } from './builders';
 import { EqualityOperators, IdentityOperators, Operators, TextOperators, TimeOperators } from './operators';
 

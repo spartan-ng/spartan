@@ -38,7 +38,7 @@ export class BrnTimeInputSegment {
 	protected readonly _timeInput = injectBrnTimeInput();
 
 	/** Which segment this represents: 'hours', 'minutes', or 'period'. */
-	readonly segment = input.required<BrnTimeSegment>();
+	public readonly segment = input.required<BrnTimeSegment>();
 
 	private readonly _segmentEl = viewChild<ElementRef<HTMLSpanElement>>('segmentEl');
 

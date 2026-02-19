@@ -1,5 +1,5 @@
-import { FocusMonitor } from '@angular/cdk/a11y';
-import { ElementRef, viewChild } from '@angular/core';
+import type { FocusMonitor } from '@angular/cdk/a11y';
+import type { ElementRef, viewChild } from '@angular/core';
 
 
 export interface FocusElementOptions {

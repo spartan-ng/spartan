@@ -1,4 +1,4 @@
-import { FocusOrigin } from "@angular/cdk/a11y";
+import type { FocusOrigin } from "@angular/cdk/a11y";
 
 /**
  * This constant is used to replace with the query signal

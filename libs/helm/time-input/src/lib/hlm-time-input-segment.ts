@@ -9,7 +9,7 @@ import type { BrnTimeSegment } from '@spartan-ng/brain/time-input';
 	},
 })
 export class HlmTimeInputSegment {
-	readonly segment = input<BrnTimeSegment>();
+	public readonly segment = input<BrnTimeSegment>();
 
 	constructor() {
 		classes(

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { ChangeDetectionStrategy, Component, effect, ElementRef, inject, viewChild } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 
@@ -21,10 +22,8 @@ import { FocusMonitor } from '@angular/cdk/a11y';
 import { FocusElementOptions } from './utils/focus-element';
 import { FAKE_FOCUS_ORIGIN } from '../engine/constants';
 
-@Component({
-	selector: 'spartan-rich-filter-combo-field',
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [
+@Component({selector: 'spartan-rich-filter-combo-field',
+imports: [
 		HlmInputGroupImports,
 		HlmButtonGroupImports,
 		HlmIconImports,
@@ -39,9 +38,10 @@ import { FAKE_FOCUS_ORIGIN } from '../engine/constants';
 		// TODO replace with signals form as soon as spartan supports them
 		FormsModule,
 	],
-	providers: [provideIcons({ lucideLink2, lucideX })],
-	host: {},
-	template: `
+providers: [provideIcons({ lucideLink2, lucideX })],
+changeDetection: ChangeDetectionStrategy.OnPush,
+host: {},
+template: `
 		<div
 			hlmButtonGroup
 			class="[&_hlm-input-group]:!rounded-none [&_hlm-input-group]:!border-l-0 [&>brn-select>div>hlm-select-trigger>button]:rounded-l-none [&>brn-select>div>hlm-select-trigger>button]:rounded-r-none"
@@ -69,19 +69,18 @@ import { FAKE_FOCUS_ORIGIN } from '../engine/constants';
 			</hlm-combobox>
 
 			<!-- close button -->
-			<spartan-rich-filter-field-close (onCloseField)="service.closeField()" />
+			<spartan-rich-filter-field-close (fieldclosed)="service.closeField()" />
 		</div>
-	`,
-})
+	`})
 export class ComboField implements FocusElementOptions {
 	protected readonly service = inject(FILTER_HANDLER) as FHandler<typeof FieldTypes.combobox>;
 
-	readonly operators = IdentityOperators;
+	public readonly operators = IdentityOperators;
 
-	readonly focusMonitor = inject(FocusMonitor);
+	public readonly focusMonitor = inject(FocusMonitor);
 
-	readonly monitoredInput = viewChild.required('monitoredInput', { read: ElementRef<HTMLElement> });
-	readonly onFocusElement = effect(() => {
+	public readonly monitoredInput = viewChild.required('monitoredInput', { read: ElementRef<HTMLElement> });
+	public readonly onFocusElement = effect(() => {
 		// TODO fix combobox api to expose a reference to the input element
 		// to make it possible to focus without querying the DOM
 		const el = this.monitoredInput().nativeElement.querySelector('input[brnComboboxInput]');

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { vitest } from 'vitest';
@@ -30,16 +31,14 @@ function setupMatchMedia() {
 // ─── FieldLabel ────────────────────────────────────────────────────
 
 describe('FieldLabel', () => {
-	@Component({
-		selector: 'test-label-host',
-		standalone: true,
-		imports: [FieldLabel],
-		schemas: [CUSTOM_ELEMENTS_SCHEMA],
-		template: `<spartan-rich-filter-field-label [label]="label" [for]="forId" />`,
-	})
+	// eslint-disable-next-line @nx/workspace-component-directive-key-order
+	@Component({selector: 'spartan-test-label-host',
+imports: [FieldLabel],
+schemas: [CUSTOM_ELEMENTS_SCHEMA],
+template: `<spartan-rich-filter-field-label [label]="label" [for]="forId" />`})
 	class TestHost {
-		label = 'Name';
-		forId = 'field-name';
+		public label = 'Name';
+		public forId = 'field-name';
 	}
 
 	beforeEach(async () => {
@@ -87,15 +86,13 @@ describe('FieldLabel', () => {
 // ─── FieldClose ────────────────────────────────────────────────────
 
 describe('FieldClose', () => {
-	@Component({
-		selector: 'test-close-host',
-		standalone: true,
-		imports: [FieldClose],
-		schemas: [CUSTOM_ELEMENTS_SCHEMA],
-		template: `<spartan-rich-filter-field-close (onCloseField)="closed = true" />`,
-	})
+	// eslint-disable-next-line @nx/workspace-component-directive-key-order
+	@Component({selector: 'spartan-test-close-host',
+imports: [FieldClose],
+schemas: [CUSTOM_ELEMENTS_SCHEMA],
+template: `<spartan-rich-filter-field-close (fieldclosed)="closed = true" />`})
 	class TestHost {
-		closed = false;
+		public closed = false;
 	}
 
 	beforeEach(async () => {
@@ -113,7 +110,7 @@ describe('FieldClose', () => {
 		expect(el).toBeTruthy();
 	});
 
-	it('should emit onCloseField when button is clicked', () => {
+	it('should emit fieldclosed when button is clicked', () => {
 		const fixture = TestBed.createComponent(TestHost);
 		fixture.detectChanges();
 
@@ -131,17 +128,15 @@ describe('FieldOperator', () => {
 	it('should create the component', async () => {
 		setupMatchMedia();
 
-		@Component({
-			selector: 'test-operator-host',
-			standalone: true,
-			imports: [FieldOperator],
-			schemas: [CUSTOM_ELEMENTS_SCHEMA],
-			template: `<spartan-rich-filter-field-operator [operators]="ops" [operatorValue]="val" (operatorValueChange)="changed = $event" />`,
-		})
+		// eslint-disable-next-line @nx/workspace-component-directive-key-order
+		@Component({selector: 'spartan-test-operator-host',
+imports: [FieldOperator],
+schemas: [CUSTOM_ELEMENTS_SCHEMA],
+template: `<spartan-rich-filter-field-operator [operators]="ops" [operatorValue]="val" (operatorValueChange)="changed = $event" />`})
 		class TestHost {
-			ops = { equals: 'eq', notEquals: 'neq' };
-			val: string | undefined = 'eq';
-			changed: unknown = null;
+			public ops = { equals: 'eq', notEquals: 'neq' };
+			public val: string | undefined = 'eq';
+			public changed: unknown = null;
 		}
 
 		await TestBed.configureTestingModule({

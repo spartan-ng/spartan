@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { ChangeDetectionStrategy, Component, effect, ElementRef, inject, viewChild } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 
@@ -19,10 +20,8 @@ import { FocusElementOptions } from './utils/focus-element';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { FAKE_FOCUS_ORIGIN } from '../engine/constants';
 
-@Component({
-	selector: 'spartan-rich-filter-text-field',
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [
+@Component({selector: 'spartan-rich-filter-text-field',
+imports: [
 		HlmInputGroupImports,
 		HlmButtonGroupImports,
 		HlmIconImports,
@@ -34,9 +33,10 @@ import { FAKE_FOCUS_ORIGIN } from '../engine/constants';
 		// todo replace with signals form as soon as spartan supports them
 		FormsModule,
 	],
-	providers: [provideIcons({ lucideLink2, lucideX })],
-	host: {},
-	template: `
+providers: [provideIcons({ lucideLink2, lucideX })],
+changeDetection: ChangeDetectionStrategy.OnPush,
+host: {},
+template: `
 		<div
 			hlmButtonGroup
 			class="[&>brn-select>div>hlm-select-trigger>button]:rounded-l-none [&>brn-select>div>hlm-select-trigger>button]:rounded-r-none"
@@ -61,20 +61,19 @@ import { FAKE_FOCUS_ORIGIN } from '../engine/constants';
 				[required]="service.fieldRequired()"
 			/>
 			<!-- close button -->
-			<spartan-rich-filter-field-close (onCloseField)="service.closeField()" />
+			<spartan-rich-filter-field-close (fieldclosed)="service.closeField()" />
 		</div>
-	`,
-})
+	`})
 export class TextField implements FocusElementOptions {
 	protected readonly service = inject(FILTER_HANDLER) as FHandler<typeof FieldTypes.text>;
 
-	readonly focusMonitor = inject(FocusMonitor);
+	public readonly focusMonitor = inject(FocusMonitor);
 
-	readonly monitoredInput = viewChild.required('monitoredInput', { read: ElementRef<HTMLElement> });
+	public readonly monitoredInput = viewChild.required('monitoredInput', { read: ElementRef<HTMLElement> });
 
-	readonly operators = TextOperators;
+	public readonly operators = TextOperators;
 
-	readonly onFocusElement = effect(() => {
+	public readonly onFocusElement = effect(() => {
 		this.service.isFocused() && this.focusMonitor.focusVia(this.monitoredInput(), FAKE_FOCUS_ORIGIN);
 	});
 }

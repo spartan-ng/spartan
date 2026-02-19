@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, effect, ElementRef, inject, viewChild } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
@@ -19,10 +20,8 @@ import { FocusMonitor } from '@angular/cdk/a11y';
 import { FocusElementOptions } from './utils/focus-element';
 import { FAKE_FOCUS_ORIGIN } from '../engine/constants';
 
-@Component({
-	selector: 'spartan-rich-filter-date-field',
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [
+@Component({selector: 'spartan-rich-filter-date-field',
+imports: [
 		NgIcon,
 		HlmInputGroupImports,
 		HlmButtonGroupImports,
@@ -35,9 +34,10 @@ import { FAKE_FOCUS_ORIGIN } from '../engine/constants';
 		FieldOperator,
 		DatePipe,
 	],
-	providers: [provideIcons({ lucideCalendar, lucideX })],
-	host: {},
-	template: `
+providers: [provideIcons({ lucideCalendar, lucideX })],
+changeDetection: ChangeDetectionStrategy.OnPush,
+host: {},
+template: `
 		@let value = service.controlValue();
 		<hlm-popover sideOffset="5" align="end">
 			<div
@@ -75,21 +75,20 @@ import { FAKE_FOCUS_ORIGIN } from '../engine/constants';
 				</hlm-popover-content>
 
 				<!-- close button -->
-				<spartan-rich-filter-field-close (onCloseField)="service.closeField()" />
+				<spartan-rich-filter-field-close (fieldclosed)="service.closeField()" />
 			</div>
 		</hlm-popover>
-	`,
-})
+	`})
 export class DateField implements FocusElementOptions {
 	private readonly popoverBtn = viewChild<ElementRef<HTMLButtonElement>>('dateTrigger');
 
 	protected readonly service = inject(FILTER_HANDLER) as FHandler<typeof FieldTypes.date>;
 
-	readonly focusMonitor = inject(FocusMonitor);
+	public readonly focusMonitor = inject(FocusMonitor);
 
-	readonly monitoredInput = viewChild.required('monitoredInput', { read: ElementRef<HTMLElement> });
+	public readonly monitoredInput = viewChild.required('monitoredInput', { read: ElementRef<HTMLElement> });
 
-	readonly operators = TimeOperators;
+	public readonly operators = TimeOperators;
 
 	updateControlValue(value: Date | null) {
 		if (!value) return; // datepicker can return null, but null makes no sense in the context of the filter
@@ -99,7 +98,7 @@ export class DateField implements FocusElementOptions {
 			this.popoverBtn()?.nativeElement.click();
 		});
 	}
-	readonly onFocusElement = effect(() => {
+	public readonly onFocusElement = effect(() => {
 		this.service.isFocused() && this.focusMonitor.focusVia(this.monitoredInput(), FAKE_FOCUS_ORIGIN);
 	});
 }

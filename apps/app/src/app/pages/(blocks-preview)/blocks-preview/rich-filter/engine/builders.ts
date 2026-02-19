@@ -1,9 +1,13 @@
-import { computed, ResourceRef, Signal, signal, WritableSignal } from '@angular/core';
-import { IEqualityOperator, IIdentityOperator, IOperator, ITextOperator, ITimeOperator, Operators } from './operators';
-import { FieldTypes, IFieldType } from './types';
-import { HttpResourceOptions, HttpResourceRequest } from '@angular/common/http';
-import { RangeValue } from '@spartan-ng/brain/range-slider';
+/* eslint-disable @typescript-eslint/naming-convention */
+import type { HttpResourceOptions, HttpResourceRequest } from '@angular/common/http';
+import type { Signal } from '@angular/core';
+import { computed, signal } from '@angular/core';
+import type { RangeValue } from '@spartan-ng/brain/range-slider';
 import { FOCUS_FALLBACK } from './constants';
+import type { IEqualityOperator, IIdentityOperator, IOperator, ITextOperator, ITimeOperator } from './operators';
+import { Operators } from './operators';
+import type { IFieldType } from './types';
+import { FieldTypes } from './types';
 
 export const buildTextField = (
 	id: string,
@@ -266,10 +270,8 @@ export type RFilterField = ReturnType<(typeof fieldBuilder)[IFieldType]>;
  */
 export type CastRFilterField<T extends IFieldType> = ReturnType<(typeof fieldBuilder)[T]>;
 
-export function buildFilterModel<T extends RFilterField[]>(...fields: [...T]){
-
+export function buildFilterModel<T extends RFilterField[]>(...fields: [...T]) {
 	const focusedField = signal<string | null>(null);
-
 
 	const _base = fields.reduce(
 		(acc, field, i) => {
@@ -307,7 +309,6 @@ export function buildFilterModel<T extends RFilterField[]>(...fields: [...T]){
 
 	// ===== single field update =====
 
-
 	const addField = (fieldId: T[number]['id']) => {
 		const fieldToAdd = _base[fieldId as T[number]['id']];
 		if (!fieldToAdd) return;
@@ -343,7 +344,7 @@ export function buildFilterModel<T extends RFilterField[]>(...fields: [...T]){
 		addField,
 		clear,
 		focusedField,
-	}
+	};
 }
 
 export type FilterModelRef = ReturnType<typeof buildFilterModel>;

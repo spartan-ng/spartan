@@ -1,4 +1,4 @@
-import { Directive, inject } from '@angular/core';
+import { Directive } from '@angular/core';
 
 /**
  * Token used by BrnTimePickerColumn to access the parent picker.
@@ -17,16 +17,14 @@ export const BRN_TIME_PICKER = 'BrnTimePicker';
  * </div>
  * ```
  */
-@Directive({
-	selector: '[brnTimePicker]',
-	exportAs: 'brnTimePicker',
-	host: {
+@Directive({selector: '[brnTimePicker]',
+exportAs: 'brnTimePicker',
+providers: [{ provide: BRN_TIME_PICKER, useExisting: BrnTimePicker }],
+host: {
 		role: 'listbox',
 		'(keydown.arrowRight)': 'focusAdjacentColumn($event, "next")',
 		'(keydown.arrowLeft)': 'focusAdjacentColumn($event, "previous")',
-	},
-	providers: [{ provide: BRN_TIME_PICKER, useExisting: BrnTimePicker }],
-})
+	}})
 export class BrnTimePicker {
 	/**
 	 * Moves focus from the current column to the next or previous column.

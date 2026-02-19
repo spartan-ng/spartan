@@ -16,9 +16,8 @@ const HLM_TIME_INPUT_VALUE_ACCESSOR = {
 	multi: true,
 };
 
-@Component({
-	selector: 'hlm-time-input',
-	imports: [
+@Component({selector: 'hlm-time-input',
+imports: [
 		BrnTimeInput,
 		BrnTimeInputSegment,
 		BrnTimePicker,
@@ -29,12 +28,12 @@ const HLM_TIME_INPUT_VALUE_ACCESSOR = {
 		HlmIconImports,
 		HlmButtonImports,
 	],
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [HLM_TIME_INPUT_VALUE_ACCESSOR, provideIcons({ lucideClock })],
-	host: {
+providers: [HLM_TIME_INPUT_VALUE_ACCESSOR, provideIcons({ lucideClock })],
+changeDetection: ChangeDetectionStrategy.OnPush,
+host: {
 		'data-slot': 'time-input',
 	},
-	template: `
+template: `
 		<hlm-popover align="end">
 			<div [class]="_computedClass()">
 				<brn-time-input
@@ -131,16 +130,15 @@ const HLM_TIME_INPUT_VALUE_ACCESSOR = {
 				</div>
 			</hlm-popover-content>
 		</hlm-popover>
-	`,
-})
+	`})
 export class HlmTimeInput implements ControlValueAccessor {
 	private readonly _segments = viewChildren(BrnTimeInputSegment);
 
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	readonly displaySeconds = input(false);
+	public readonly displaySeconds = input(false);
 
-	readonly value = model<BrnTimeValue>({ hours: 12, minutes: 0, seconds: 0, period: 'AM' });
-	readonly disabled = model(false);
+	public readonly value = model<BrnTimeValue>({ hours: 12, minutes: 0, seconds: 0, period: 'AM' });
+	public readonly disabled = model(false);
 
 
 	protected readonly _computedClass = computed(() =>
@@ -158,7 +156,9 @@ export class HlmTimeInput implements ControlValueAccessor {
 	protected readonly _periods: BrnTimePeriod[] = ['AM', 'PM'];
 
 	// -- CVA --
+	/* eslint-disable-next-line @typescript-eslint/no-empty-function */
 	private _onChange: (value: BrnTimeValue) => void = () => {};
+	/* eslint-disable-next-line @typescript-eslint/no-empty-function */
 	private _onTouched: () => void = () => {};
 
 	writeValue(value: BrnTimeValue | null): void {

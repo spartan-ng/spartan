@@ -104,6 +104,7 @@
 			"@spartan-ng/helm/kbd": ["libs/helm/kbd/src/index.ts"],
 			"@spartan-ng/helm/label": ["libs/helm/label/src/index.ts"],
 			"@spartan-ng/helm/menubar": ["libs/helm/menubar/src/index.ts"],
+			"@spartan-ng/helm/native-select": ["libs/helm/native-select/src/index.ts"],
 			"@spartan-ng/helm/navigation-menu": ["libs/helm/navigation-menu/src/index.ts"],
 			"@spartan-ng/helm/pagination": ["libs/helm/pagination/src/index.ts"],
 			"@spartan-ng/helm/popover": ["libs/helm/popover/src/index.ts"],

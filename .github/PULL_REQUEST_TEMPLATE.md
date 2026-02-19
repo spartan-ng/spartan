@@ -60,6 +60,7 @@ What kind of change does this PR introduce?
 - [ ] kbd
 - [ ] label
 - [ ] menubar
+- [ ] native-select
 - [ ] navigation-menu
 - [ ] pagination
 - [ ] popover

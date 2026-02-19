@@ -332,6 +332,13 @@
 			"clsx": "^2.1.1"
 		}
 	},
+	"range-slider": {
+		"name": "range-slider",
+		"peerDependencies": {
+			"@angular/core": ">=20.0.0 <22.0.0",
+			"@spartan-ng/brain": "0.0.1-alpha.637"
+		}
+	},
 	"resizable": {
 		"name": "resizable",
 		"peerDependencies": {
@@ -454,6 +461,17 @@
 			"@angular/forms": ">=20.0.0 <22.0.0",
 			"@spartan-ng/brain": "0.0.1-alpha.638",
 			"class-variance-authority": "^0.7.0",
+			"clsx": "^2.1.1"
+		}
+	},
+	"time-input": {
+		"name": "time-input",
+		"peerDependencies": {
+			"@angular/core": ">=20.0.0 <22.0.0",
+			"@angular/forms": ">=20.0.0 <22.0.0",
+			"@spartan-ng/brain": "0.0.1-alpha.637",
+			"@ng-icons/core": ">=32.0.0 <34.0.0",
+			"@ng-icons/lucide": ">=32.0.0 <34.0.0",
 			"clsx": "^2.1.1"
 		}
 	},

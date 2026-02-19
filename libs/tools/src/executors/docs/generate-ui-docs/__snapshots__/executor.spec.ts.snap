@@ -5458,12 +5458,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "unknown",
           },
         ],
-        "outputs": [
-          {
-            "name": "timeChange",
-            "type": "BrnTimeValue",
-          },
-        ],
+        "outputs": [],
         "selector": "brn-time-input",
       },
       "BrnTimeInputSegment": {
@@ -5477,6 +5472,20 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [],
         "outputs": [],
         "selector": "brn-time-input-segment",
+      },
+      "BrnTimePicker": {
+        "exportAs": "brnTimePicker",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnTimePicker]",
+      },
+      "BrnTimePickerColumn": {
+        "exportAs": "brnTimePickerColumn",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnTimePickerColumn]",
       },
     },
     "helm": {
@@ -5503,12 +5512,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "unknown",
           },
         ],
-        "outputs": [
-          {
-            "name": "timeChange",
-            "type": "BrnTimeValue",
-          },
-        ],
+        "outputs": [],
         "selector": "hlm-time-input",
       },
       "HlmTimeInputSegment": {

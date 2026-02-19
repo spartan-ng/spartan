@@ -119,19 +119,19 @@ export class HlmNativeSelect implements ControlValueAccessor {
 	}
 
 	/** CONTROL VALUE ACCESSOR */
-	writeValue(value: string | null): void {
+	public writeValue(value: string | null): void {
 		this._value.set(value);
 	}
 
-	registerOnChange(fn: ChangeFn<string | null>): void {
+	public registerOnChange(fn: ChangeFn<string | null>): void {
 		this._onChange = fn;
 	}
 
-	registerOnTouched(fn: TouchFn): void {
+	public registerOnTouched(fn: TouchFn): void {
 		this._onTouched = fn;
 	}
 
-	setDisabledState(isDisabled: boolean): void {
+	public setDisabledState(isDisabled: boolean): void {
 		this._disabled.set(isDisabled);
 	}
 }

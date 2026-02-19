@@ -22,12 +22,12 @@ import { NativeSelectInvalidExample } from './native-select--invalid.example';
 import { NativeSelectPreview, defaultImports, defaultSkeleton } from './native-select.preview';
 
 export const routeMeta: RouteMeta = {
-	data: { breadcrumb: 'native-select', api: 'native-select' },
+	data: { breadcrumb: 'Native Select', api: 'native-select' },
 	meta: metaWith(
-		'spartan/ui - native-select',
+		'spartan/ui - Native Select',
 		'A styled native HTML select element with consistent design system integration.',
 	),
-	title: 'spartan/ui - native-select',
+	title: 'spartan/ui - Native Select',
 };
 
 @Component({
@@ -54,7 +54,7 @@ export const routeMeta: RouteMeta = {
 	template: `
 		<section spartanMainSection>
 			<spartan-section-intro
-				name="native-select"
+				name="Native Select"
 				lead="A styled native HTML select element with consistent design system integration."
 			/>
 

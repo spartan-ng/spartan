@@ -350,7 +350,7 @@ describe('classes', () => {
 		// Initial state should have default variant classes
 		expect(button.className).toContain('bg-primary');
 		expect(button.className).toContain('text-primary-foreground');
-		expect(button.className).toContain('hover:bg-primary/90');
+		expect(button.className).toContain('hover:bg-primary/80');
 		expect(button.className).not.toContain('hover:bg-accent');
 		expect(button.className).not.toContain('hover:text-accent-foreground');
 
@@ -358,8 +358,8 @@ describe('classes', () => {
 		await user.click(button);
 
 		// Should now have ghost variant classes
-		expect(button.className).toContain('hover:bg-accent');
-		expect(button.className).toContain('hover:text-accent-foreground');
+		expect(button.className).toContain('hover:bg-muted');
+		expect(button.className).toContain('hover:text-foreground');
 		expect(button.className).not.toContain('bg-primary');
 		expect(button.className).not.toContain('text-primary-foreground');
 		expect(button.className).not.toContain('hover:bg-primary/90');
@@ -368,7 +368,7 @@ describe('classes', () => {
 		expect(button.className).toContain('inline-flex');
 		expect(button.className).toContain('items-center');
 		expect(button.className).toContain('justify-center');
-		expect(button.className).toContain('rounded-md');
+		expect(button.className).toContain('rounded-lg');
 		expect(button.className).toContain('text-sm');
 		expect(button.className).toContain('font-medium');
 
@@ -378,9 +378,9 @@ describe('classes', () => {
 		// Should be back to default variant classes
 		expect(button.className).toContain('bg-primary');
 		expect(button.className).toContain('text-primary-foreground');
-		expect(button.className).toContain('hover:bg-primary/90');
-		expect(button.className).not.toContain('hover:bg-accent');
-		expect(button.className).not.toContain('hover:text-accent-foreground');
+		expect(button.className).toContain('hover:bg-primary/80');
+		expect(button.className).not.toContain('hover:bg-muted');
+		expect(button.className).not.toContain('hover:text-foreground');
 	});
 
 	it('should handle SSR scenario with pre-rendered classes correctly', async () => {

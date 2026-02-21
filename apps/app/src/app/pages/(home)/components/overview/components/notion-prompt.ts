@@ -13,8 +13,6 @@ import {
 	lucideX,
 } from '@ng-icons/lucide';
 import { tablerCircleDashedPlus } from '@ng-icons/tabler-icons';
-import { BrnCommandEmpty } from '@spartan-ng/brain/command';
-import { BrnPopoverImports } from '@spartan-ng/brain/popover';
 import { HlmAvatarImports } from '@spartan-ng/helm/avatar';
 import { HlmBadge } from '@spartan-ng/helm/badge';
 import { HlmCommandImports } from '@spartan-ng/helm/command';
@@ -45,12 +43,10 @@ type GroupedItems = {
 	selector: 'spartan-notion-prompt',
 	imports: [
 		HlmInputGroupImports,
-		BrnPopoverImports,
 		HlmPopoverImports,
 		HlmCommandImports,
 		HlmAvatarImports,
 		HlmDropdownMenuImports,
-		BrnCommandEmpty,
 		HlmIcon,
 		NgIcon,
 		MentionableItem,
@@ -91,7 +87,7 @@ type GroupedItems = {
 						}
 					</button>
 
-					<div hlmPopoverContent class="p-0 [--radius:1.2rem]" *brnPopoverContent="let ctx">
+					<hlm-popover-content class="p-0 [--radius:1.2rem]" *hlmPopoverPortal="let ctx">
 						<hlm-command>
 							<hlm-command-input placeholder="Type a command or search..." />
 
@@ -112,7 +108,7 @@ type GroupedItems = {
 							<!-- Empty state -->
 							<div *hlmCommandEmptyState hlmCommandEmpty>No results found.</div>
 						</hlm-command>
-					</div>
+					</hlm-popover-content>
 				</hlm-popover>
 				<div class="no-scrollbar -m-1.5 flex gap-1 overflow-y-auto p-1.5">
 					@for (mention of _mentions(); track mention) {

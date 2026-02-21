@@ -1,10 +1,9 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
-import { BrnPopoverContent } from '@spartan-ng/brain/popover';
 import { HlmComboboxImports } from '@spartan-ng/helm/combobox';
 
 @Component({
 	selector: 'spartan-combobox-multiple-autohighlight-preview',
-	imports: [HlmComboboxImports, BrnPopoverContent],
+	imports: [HlmComboboxImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-combobox-multiple [(value)]="values" autoHighlight>
@@ -17,14 +16,14 @@ import { HlmComboboxImports } from '@spartan-ng/helm/combobox';
 
 				<input hlmComboboxChipInput />
 			</hlm-combobox-chips>
-			<div *brnPopoverContent hlmComboboxContent>
+			<hlm-combobox-content *hlmComboboxPortal>
 				<hlm-combobox-empty>No items found.</hlm-combobox-empty>
 				<div hlmComboboxList>
 					@for (framework of frameworks; track $index) {
 						<hlm-combobox-item [value]="framework">{{ framework }}</hlm-combobox-item>
 					}
 				</div>
-			</div>
+			</hlm-combobox-content>
 		</hlm-combobox-multiple>
 	`,
 })

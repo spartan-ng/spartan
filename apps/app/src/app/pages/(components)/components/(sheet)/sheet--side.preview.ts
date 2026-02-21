@@ -1,16 +1,14 @@
 import { Component } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideCross } from '@ng-icons/lucide';
-import { BrnSheetImports } from '@spartan-ng/brain/sheet';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
-
 import { HlmInputImports } from '@spartan-ng/helm/input';
 import { HlmLabelImports } from '@spartan-ng/helm/label';
 import { HlmSheetImports } from '@spartan-ng/helm/sheet';
 
 @Component({
 	selector: 'spartan-sheet-side-preview',
-	imports: [BrnSheetImports, HlmSheetImports, HlmButtonImports, HlmInputImports, HlmLabelImports],
+	imports: [HlmSheetImports, HlmButtonImports, HlmInputImports, HlmLabelImports],
 	providers: [provideIcons({ lucideCross })],
 	template: `
 		<hlm-sheet>
@@ -20,7 +18,7 @@ import { HlmSheetImports } from '@spartan-ng/helm/sheet';
 				<button id="top" hlmSheetTrigger side="top" hlmBtn variant="outline">top</button>
 				<button id="bottom" hlmSheetTrigger side="bottom" hlmBtn variant="outline">bottom</button>
 			</div>
-			<hlm-sheet-content *brnSheetContent="let ctx">
+			<hlm-sheet-content *hlmSheetPortal="let ctx">
 				<hlm-sheet-header>
 					<h3 hlmSheetTitle>Edit Profile</h3>
 					<p hlmSheetDescription>Make changes to your profile here. Click save when you're done.</p>

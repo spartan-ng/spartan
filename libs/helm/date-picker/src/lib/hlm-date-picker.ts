@@ -15,7 +15,6 @@ import { provideIcons } from '@ng-icons/core';
 import { lucideChevronDown } from '@ng-icons/lucide';
 import type { BrnDialogState } from '@spartan-ng/brain/dialog';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
-import { BrnPopoverImports } from '@spartan-ng/brain/popover';
 import { HlmCalendar } from '@spartan-ng/helm/calendar';
 import { HlmIconImports } from '@spartan-ng/helm/icon';
 import { HlmPopoverImports } from '@spartan-ng/helm/popover';
@@ -33,7 +32,7 @@ let nextId = 0;
 
 @Component({
 	selector: 'hlm-date-picker',
-	imports: [HlmIconImports, BrnPopoverImports, HlmPopoverImports, HlmCalendar],
+	imports: [HlmIconImports, HlmPopoverImports, HlmCalendar],
 	providers: [HLM_DATE_PICKER_VALUE_ACCESSOR, provideIcons({ lucideChevronDown })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
@@ -59,7 +58,7 @@ let nextId = 0;
 				<ng-icon hlm size="sm" name="lucideChevronDown" />
 			</button>
 
-			<div hlmPopoverContent class="w-auto p-0" *brnPopoverContent="let ctx">
+			<hlm-popover-content class="w-fit p-0" *hlmPopoverPortal="let ctx">
 				<hlm-calendar
 					calendarClass="border-0 rounded-none"
 					[captionLayout]="captionLayout()"
@@ -69,7 +68,7 @@ let nextId = 0;
 					[disabled]="_mutableDisabled()"
 					(dateChange)="_handleChange($event)"
 				/>
-			</div>
+			</hlm-popover-content>
 		</hlm-popover>
 	`,
 })

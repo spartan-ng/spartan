@@ -22,5 +22,5 @@ import { HlmSliderImports } from '@spartan-ng/helm/slider';
 	`,
 })
 export class TemperatureSelector {
-	public readonly value = signal<number>(0.64);
+	public readonly value = signal<number[]>([0.64]);
 }

@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideEllipsis } from '@ng-icons/lucide';
-import { BrnDialogImports } from '@spartan-ng/brain/dialog';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmDialogImports } from '@spartan-ng/helm/dialog';
 import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
@@ -11,16 +10,7 @@ import { HlmSwitch } from '@spartan-ng/helm/switch';
 
 @Component({
 	selector: 'spartan-preset-actions',
-	imports: [
-		HlmDropdownMenuImports,
-		HlmDialogImports,
-		BrnDialogImports,
-		HlmButton,
-		HlmIcon,
-		NgIcon,
-		HlmSwitch,
-		HlmLabel,
-	],
+	imports: [HlmDropdownMenuImports, HlmDialogImports, HlmButton, HlmIcon, NgIcon, HlmSwitch, HlmLabel],
 	providers: [provideIcons({ lucideEllipsis })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
@@ -42,7 +32,7 @@ import { HlmSwitch } from '@spartan-ng/helm/switch';
 		</ng-template>
 		<hlm-dialog>
 			<button id="filter" hlmDialogTrigger class="hidden" #contentFilter>Save</button>
-			<hlm-dialog-content class="sm:max-w-[512px]" *brnDialogContent="let ctx">
+			<hlm-dialog-content class="sm:max-w-[512px]" *hlmDialogPortal="let ctx">
 				<hlm-dialog-header>
 					<h3 hlmDialogTitle>Content filter preferences</h3>
 					<p hlmDialogDescription>
@@ -69,7 +59,7 @@ import { HlmSwitch } from '@spartan-ng/helm/switch';
 		</hlm-dialog>
 		<hlm-dialog>
 			<button id="delete" hlmDialogTrigger class="hidden" #delete>Save</button>
-			<hlm-dialog-content class="sm:max-w-[512px]" *brnDialogContent="let ctx">
+			<hlm-dialog-content class="sm:max-w-[512px]" *hlmDialogPortal="let ctx">
 				<hlm-dialog-header>
 					<h3 hlmDialogTitle>Are you absolutely sure?</h3>
 					<p hlmDialogDescription>

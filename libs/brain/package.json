@@ -1,6 +1,10 @@
 {
 	"name": "@spartan-ng/brain",
-	"version": "0.0.1-alpha.613",
+	"version": "0.0.1-alpha.640",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/spartan-ng/spartan"
+	},
 	"sideEffects": false,
 	"exports": {
 		"./hlm-tailwind-preset": {

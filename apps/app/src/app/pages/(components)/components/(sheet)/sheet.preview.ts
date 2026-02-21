@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideCross } from '@ng-icons/lucide';
-import { BrnSheetImports } from '@spartan-ng/brain/sheet';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmInputImports } from '@spartan-ng/helm/input';
 import { HlmLabelImports } from '@spartan-ng/helm/label';
@@ -9,12 +8,12 @@ import { HlmSheetImports } from '@spartan-ng/helm/sheet';
 
 @Component({
 	selector: 'spartan-sheet-preview',
-	imports: [BrnSheetImports, HlmSheetImports, HlmButtonImports, HlmInputImports, HlmLabelImports],
+	imports: [HlmSheetImports, HlmButtonImports, HlmInputImports, HlmLabelImports],
 	providers: [provideIcons({ lucideCross })],
 	template: `
 		<hlm-sheet side="right">
 			<button id="edit-profile" hlmSheetTrigger hlmBtn variant="outline">Open</button>
-			<hlm-sheet-content *brnSheetContent="let ctx">
+			<hlm-sheet-content *hlmSheetPortal="let ctx">
 				<hlm-sheet-header>
 					<h3 hlmSheetTitle>Edit Profile</h3>
 					<p hlmSheetDescription>Make changes to your profile here. Click save when you're done.</p>
@@ -31,7 +30,7 @@ import { HlmSheetImports } from '@spartan-ng/helm/sheet';
 				</div>
 				<hlm-sheet-footer>
 					<button hlmBtn type="submit">Save Changes</button>
-					<button brnSheetClose hlmBtn variant="outline">Close</button>
+					<button hlmSheetClose hlmBtn variant="outline">Close</button>
 				</hlm-sheet-footer>
 			</hlm-sheet-content>
 		</hlm-sheet>
@@ -40,13 +39,13 @@ import { HlmSheetImports } from '@spartan-ng/helm/sheet';
 export class SheetPreview {}
 
 export const defaultImports = `
-import { BrnSheetImports } from '@spartan-ng/brain/sheet';
 import { HlmSheetImports } from '@spartan-ng/helm/sheet';
 `;
+
 export const defaultSkeleton = `
 <hlm-sheet>
   <button hlmSheetTrigger hlmBtn variant="outline">Open</button>
-  <hlm-sheet-content *brnSheetContent="let ctx">
+  <hlm-sheet-content *hlmSheetPortal="let ctx">
     <hlm-sheet-header>
       <h3 hlmSheetTitle>Are you absolutely sure?</h3>
       <p hlmSheetDescription>

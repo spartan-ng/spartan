@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCalendarDays } from '@ng-icons/lucide';
-import { type BrnHoverCard, BrnHoverCardImports } from '@spartan-ng/brain/hover-card';
+import { type BrnHoverCard } from '@spartan-ng/brain/hover-card';
 import { HlmAvatarImports } from '@spartan-ng/helm/avatar';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmCard } from '@spartan-ng/helm/card';
@@ -11,17 +11,17 @@ import { type Meta, moduleMetadata, type StoryObj } from '@storybook/angular';
 
 @Component({
 	selector: 'hover-card-example',
-	imports: [BrnHoverCardImports, HlmHoverCardImports, HlmButton, NgIcon, HlmIcon, HlmAvatarImports],
+	imports: [HlmHoverCardImports, HlmButton, NgIcon, HlmIcon, HlmAvatarImports],
 	providers: [provideIcons({ lucideCalendarDays })],
 	host: {
 		class: 'flex w-full h-full justify-center py-80',
 	},
 	template: `
-		<brn-hover-card>
-			<button hlmBtn variant="link" brnHoverCardTrigger>&#64;analogjs</button>
-			<hlm-hover-card-content *brnHoverCardContent class="w-80">
+		<hlm-hover-card>
+			<button hlmBtn variant="link" hlmHoverCardTrigger>&#64;analogjs</button>
+			<hlm-hover-card-content *hlmHoverCardPortal class="w-80">
 				<div class="flex justify-between space-x-4">
-					<hlm-avatar variant="small" id="avatar-small">
+					<hlm-avatar id="avatar-small">
 						<img src="https://analogjs.org/img/logos/analog-logo.svg" alt="AnalogLogo" hlmAvatarImage />
 						<span class="bg-sky-600 text-sky-50" hlmAvatarFallback>AN</span>
 					</hlm-avatar>
@@ -35,7 +35,7 @@ import { type Meta, moduleMetadata, type StoryObj } from '@storybook/angular';
 					</div>
 				</div>
 			</hlm-hover-card-content>
-		</brn-hover-card>
+		</hlm-hover-card>
 	`,
 })
 class HoverCardExample {}

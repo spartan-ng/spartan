@@ -1,16 +1,15 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { BrnDialogImports } from '@spartan-ng/brain/dialog';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmDialogImports } from '@spartan-ng/helm/dialog';
 
 @Component({
 	selector: 'spartan-code-viewer',
-	imports: [BrnDialogImports, HlmDialogImports, HlmButton],
+	imports: [HlmDialogImports, HlmButton],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-dialog>
 			<button id="save-presets" hlmDialogTrigger hlmBtn variant="secondary">View code</button>
-			<hlm-dialog-content class="" *brnDialogContent="let ctx">
+			<hlm-dialog-content class="" *hlmDialogPortal="let ctx">
 				<hlm-dialog-header>
 					<h3 hlmDialogTitle>Save preset</h3>
 					<p hlmDialogDescription>

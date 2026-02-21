@@ -3,6 +3,6 @@ import type { BrnComboboxItem } from './brn-combobox-item';
 
 export const BrnComboboxItemToken = new InjectionToken<BrnComboboxItem<unknown>>('BrnComboboxItemToken');
 
-export function provideBrnComboboxItem<T>(Combobox: Type<BrnComboboxItem<T>>): ExistingProvider {
-	return { provide: BrnComboboxItemToken, useExisting: Combobox };
+export function provideBrnComboboxItem<T>(comboboxItem: Type<BrnComboboxItem<T>>): ExistingProvider {
+	return { provide: BrnComboboxItemToken, useExisting: comboboxItem };
 }

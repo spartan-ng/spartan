@@ -20,7 +20,7 @@ import { ClassValue } from 'clsx';
 	template: `
 		<hlm-dialog [state]="_state()" (stateChanged)="stateChanged($event)">
 			<hlm-dialog-content
-				*brnDialogContent="let ctx"
+				*hlmDialogPortal="let ctx"
 				[class]="_computedDialogContentClass()"
 				[showCloseButton]="showCloseButton()"
 			>

@@ -7,7 +7,7 @@ import { BrnSlider, BrnSliderRange, BrnSliderThumb, BrnSliderTrack } from '../..
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
-			<pre data-testid="value-indicator-pre">Temperature: {{ temperature() }}</pre>
+			<pre data-testid="value-indicator-pre">Temperature: {{ temperature()[0] }}</pre>
 		</div>
 		<form ngForm>
 			<div brnSlider aria-label="fallback-label" [min]="0" [(ngModel)]="temperature" name="temperature">
@@ -22,10 +22,10 @@ import { BrnSlider, BrnSliderRange, BrnSliderThumb, BrnSliderTrack } from '../..
 	`,
 })
 export class TemplateDrivenFormSlider {
-	public readonly temperature = model<number>(0);
+	public readonly temperature = model<number[]>([0]);
 
 	changeValue(value: number) {
-		this.temperature.set(value);
+		this.temperature.set([value]);
 	}
 }
 
@@ -35,7 +35,7 @@ export class TemplateDrivenFormSlider {
 	template: `
 		<div>
 			<pre data-testid="value-indicator-pre">
-				Temperature: {{ _temperatureGroup.controls.temperature.getRawValue() }}
+				Temperature: {{ _temperatureGroup.controls.temperature.getRawValue()?.[0] }}
 			</pre
 			>
 		</div>
@@ -52,13 +52,13 @@ export class TemplateDrivenFormSlider {
 	`,
 })
 export class ReactiveFormSlider {
-	public readonly temperature = model<number>(46);
+	public readonly temperature = model<number[]>([46]);
 
 	protected readonly _temperatureGroup = new FormGroup({
-		temperature: new FormControl<number>(this.temperature()),
+		temperature: new FormControl<number[]>(this.temperature()),
 	});
 
 	changeValue(value: number) {
-		this._temperatureGroup.controls.temperature.patchValue(value);
+		this._temperatureGroup.controls.temperature.patchValue([value]);
 	}
 }

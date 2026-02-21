@@ -15,15 +15,18 @@ import {
 	input,
 	linkedSignal,
 	model,
+	signal,
 	untracked,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, type ControlValueAccessor } from '@angular/forms';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import { BrnPopover } from '@spartan-ng/brain/popover';
+import type { BrnComboboxInput } from './brn-combobox-input';
 import { BrnComboboxInputWrapper } from './brn-combobox-input-wrapper';
 import { type BrnComboboxItem } from './brn-combobox-item';
 import { BrnComboboxItemToken } from './brn-combobox-item.token';
 import {
+	ComboboxInputMode,
 	injectBrnComboboxConfig,
 	provideBrnComboboxBase,
 	type BrnComboboxBase,
@@ -113,6 +116,10 @@ export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor 
 	/** @internal Whether the combobox is expanded */
 	public readonly isExpanded = computed(() => this._brnPopover?.stateComputed() === 'open');
 
+	private readonly _comboboxInput = signal<BrnComboboxInput<T> | undefined>(undefined);
+
+	public readonly mode = computed<ComboboxInputMode>(() => this._comboboxInput()?.mode() || 'combobox');
+
 	protected _onChange?: ChangeFn<T | null>;
 	protected _onTouched?: TouchFn;
 
@@ -148,6 +155,10 @@ export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor 
 		});
 	}
 
+	public registerComboboxInput(input: BrnComboboxInput<T>): void {
+		this._comboboxInput.set(input);
+	}
+
 	public isSelected(itemValue: T): boolean {
 		return this.isItemEqualToValue()(itemValue, this.value());
 	}
@@ -174,6 +185,10 @@ export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor 
 	public resetValue(): void {
 		this.value.set(null);
 		this._onChange?.(null);
+	}
+
+	public resetSearch(): void {
+		this.search.set('');
 	}
 
 	public removeValue(_: T): void {
@@ -209,7 +224,7 @@ export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor 
 		this._onTouched = fn;
 	}
 
-	public setDisabledState(isDisabled: boolean) {
+	public setDisabledState(isDisabled: boolean): void {
 		this._disabled.set(isDisabled);
 	}
 }

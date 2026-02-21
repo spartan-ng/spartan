@@ -1,12 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideCheck } from '@ng-icons/lucide';
-import {
-	BrnDialogImports,
-	BrnDialogRef,
-	injectBrnDialogContext,
-	provideBrnDialogDefaultOptions,
-} from '@spartan-ng/brain/dialog';
+import { BrnDialogRef, injectBrnDialogContext, provideBrnDialogDefaultOptions } from '@spartan-ng/brain/dialog';
 import { HlmButton, HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmDialog, HlmDialogImports, HlmDialogService } from '@spartan-ng/helm/dialog';
 import { HlmInput } from '@spartan-ng/helm/input';
@@ -20,7 +15,7 @@ const meta: Meta<HlmDialog> = {
 	tags: ['autodocs'],
 	decorators: [
 		moduleMetadata({
-			imports: [BrnDialogImports, HlmDialogImports, HlmLabel, HlmButton, HlmInput],
+			imports: [HlmDialogImports, HlmLabel, HlmButton, HlmInput],
 		}),
 	],
 };
@@ -33,7 +28,7 @@ export const Default: Story = {
 		template: `
     <hlm-dialog>
     <button id='edit-profile' hlmDialogTrigger hlmBtn>Edit Profile</button>
-    <hlm-dialog-content class='sm:max-w-[425px]' *brnDialogContent='let ctx'>
+    <hlm-dialog-content class='sm:max-w-[425px]' *hlmDialogPortal='let ctx'>
          <hlm-dialog-header>
           <h3 hlmDialogTitle>Edit profile</h3>
           <p hlmDialogDescription>
@@ -65,11 +60,11 @@ export const Default: Story = {
 
 @Component({
 	selector: 'nested-dialog-story',
-	imports: [BrnDialogImports, HlmDialogImports, HlmButtonImports],
+	imports: [HlmDialogImports, HlmButtonImports],
 	template: `
 		<hlm-dialog>
 			<button hlmDialogTrigger hlmBtn>Open Dialog</button>
-			<hlm-dialog-content *brnDialogContent>
+			<hlm-dialog-content *hlmDialogPortal>
 				<hlm-dialog-header>
 					<h3 hlmDialogTitle>First dialog</h3>
 					<p hlmDialogDescription>Click the button below to open a nested dialog.</p>
@@ -77,7 +72,7 @@ export const Default: Story = {
 
 				<hlm-dialog>
 					<button hlmDialogTrigger hlmBtn class="w-full">Open Nested Dialog</button>
-					<hlm-dialog-content *brnDialogContent="let ctx">
+					<hlm-dialog-content *hlmDialogPortal="let ctx">
 						<hlm-dialog-header>
 							<h3 hlmDialogTitle>Nested dialog</h3>
 							<p hlmDialogDescription>I am a nested dialog!</p>

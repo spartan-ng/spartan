@@ -1,21 +1,20 @@
 import { Component } from '@angular/core';
-import { BrnPopoverContent } from '@spartan-ng/brain/popover';
 import { HlmComboboxImports } from '@spartan-ng/helm/combobox';
 
 @Component({
 	selector: 'spartan-combobox-preview',
-	imports: [HlmComboboxImports, BrnPopoverContent],
+	imports: [HlmComboboxImports],
 	template: `
 		<hlm-combobox>
 			<hlm-combobox-input placeholder="Select a framework" />
-			<div *brnPopoverContent hlmComboboxContent>
+			<hlm-combobox-content *hlmComboboxPortal>
 				<hlm-combobox-empty>No items found.</hlm-combobox-empty>
 				<div hlmComboboxList>
 					@for (framework of frameworks; track $index) {
 						<hlm-combobox-item [value]="framework">{{ framework.label }}</hlm-combobox-item>
 					}
 				</div>
-			</div>
+			</hlm-combobox-content>
 		</hlm-combobox>
 	`,
 })
@@ -49,21 +48,20 @@ export class ComboboxPreview {
 }
 
 export const defaultImports = `
-import { BrnPopoverContent } from '@spartan-ng/brain/popover';
 import { HlmComboboxImports } from '@spartan-ng/helm/combobox';
 `;
 
 export const defaultSkeleton = `
 <hlm-combobox>
   <hlm-combobox-input placeholder="Select a framework" />
-  <div *brnPopoverContent hlmComboboxContent>
+  <hlm-combobox-content *hlmComboboxPortal>
     <hlm-combobox-empty>No items found.</hlm-combobox-empty>
     <div hlmComboboxList>
       @for (framework of frameworks; track $index) {
       	<hlm-combobox-item [value]="framework">{{ framework.label }}</hlm-combobox-item>
       }
     </div>
-  </div>
+  </hlm-combobox-content>
 </hlm-combobox>
 `;
 

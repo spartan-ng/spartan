@@ -1,7 +1,19 @@
-import { ChangeDetectionStrategy, Component, ElementRef, Renderer2, effect, inject, signal } from '@angular/core';
+import type { BooleanInput } from '@angular/cdk/coercion';
+import {
+	booleanAttribute,
+	ChangeDetectionStrategy,
+	Component,
+	effect,
+	ElementRef,
+	inject,
+	input,
+	Renderer2,
+	signal,
+} from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideX } from '@ng-icons/lucide';
 import { injectExposedSideProvider, injectExposesStateProvider } from '@spartan-ng/brain/core';
+import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmIconImports } from '@spartan-ng/helm/icon';
 import { classes } from '@spartan-ng/helm/utils';
 import { cva } from 'class-variance-authority';
@@ -28,7 +40,7 @@ export const sheetVariants = cva(
 
 @Component({
 	selector: 'hlm-sheet-content',
-	imports: [HlmSheetClose, HlmIconImports],
+	imports: [HlmIconImports, HlmButton, HlmSheetClose],
 	providers: [provideIcons({ lucideX })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
@@ -37,10 +49,13 @@ export const sheetVariants = cva(
 	},
 	template: `
 		<ng-content />
-		<button hlmSheetClose>
-			<span class="sr-only">Close</span>
-			<ng-icon hlm size="sm" name="lucideX" />
-		</button>
+
+		@if (showCloseButton()) {
+			<button hlmBtn variant="ghost" size="icon-sm" class="absolute end-4 top-4" hlmSheetClose>
+				<span class="sr-only">Close</span>
+				<ng-icon hlm size="sm" name="lucideX" />
+			</button>
+		}
 	`,
 })
 export class HlmSheetContent {
@@ -49,6 +64,8 @@ export class HlmSheetContent {
 	public readonly state = this._stateProvider.state ?? signal('closed');
 	private readonly _renderer = inject(Renderer2);
 	private readonly _element = inject(ElementRef);
+
+	public readonly showCloseButton = input<boolean, BooleanInput>(true, { transform: booleanAttribute });
 
 	constructor() {
 		classes(() => sheetVariants({ side: this._sideProvider.side() }));

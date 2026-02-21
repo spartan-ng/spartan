@@ -28,7 +28,7 @@ import { HlmTooltipImports } from '@spartan-ng/helm/tooltip';
 					<div hlmInputGroupAddon align="inline-end">
 						<button
 							hlmInputGroupButton
-							hlmTooltipTrigger="Voice Mode"
+							[hlmTooltip]="'Voice Mode'"
 							size="icon-xs"
 							[attr.data-active]="voiceEnabled()"
 							[attr.aria-pressed]="voiceEnabled()"

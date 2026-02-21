@@ -1,51 +1,80 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import {
-	BrnSlider,
-	BrnSliderRange,
-	BrnSliderThumb,
-	BrnSliderTick,
-	BrnSliderTrack,
-	injectBrnSlider,
-} from '@spartan-ng/brain/slider';
+import { BrnSlider, BrnSliderImports, injectBrnSlider } from '@spartan-ng/brain/slider';
 import { classes } from '@spartan-ng/helm/utils';
 
 @Component({
 	selector: 'hlm-slider, brn-slider [hlm]',
-	imports: [BrnSliderThumb, BrnSliderTrack, BrnSliderRange, BrnSliderTick],
+	imports: [BrnSliderImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [
 		{
 			directive: BrnSlider,
-			inputs: ['value', 'disabled', 'min', 'max', 'step', 'showTicks'],
+			inputs: [
+				'id',
+				'value',
+				'disabled',
+				'min',
+				'max',
+				'step',
+				'minStepsBetweenThumbs',
+				'inverted',
+				'orientation',
+				'showTicks',
+				'maxTicks',
+				'tickLabelInterval',
+				'formatTick',
+				'draggableRange',
+				'draggableRangeOnly',
+				'aria-label',
+				'aria-labelledby',
+			],
 			outputs: ['valueChange'],
 		},
 	],
 	template: `
-		<div brnSliderTrack class="bg-muted relative h-1.5 w-full grow overflow-hidden rounded-full">
-			<div class="bg-primary absolute h-full" brnSliderRange></div>
+		<div class="relative flex w-full items-center group-data-vertical:w-auto group-data-vertical:flex-col">
+			<div
+				brnSliderTrack
+				class="bg-muted relative grow overflow-hidden rounded-full data-horizontal:h-1 data-horizontal:w-full data-vertical:h-full data-vertical:w-1"
+			>
+				<div
+					class="bg-primary absolute select-none data-draggable-range:cursor-move data-horizontal:h-full data-vertical:w-full"
+					brnSliderRange
+				></div>
+			</div>
+
+			@for (i of _slider.thumbIndexes(); track i) {
+				<span
+					class="border-ring ring-ring/50 bg-primary absolute block size-3 shrink-0 rounded-full border transition-[color,box-shadow] select-none after:absolute after:-inset-2 hover:ring-[3px] focus-visible:ring-[3px] focus-visible:outline-hidden active:ring-[3px]"
+					brnSliderThumb
+				></span>
+			}
 		</div>
 
 		@if (_slider.showTicks()) {
-			<div class="pointer-events-none absolute -inset-x-px top-2 h-1 w-full cursor-pointer transition-all">
+			<div
+				class="text-muted-foreground mt-3 flex w-full items-start justify-between gap-1 px-1.5 text-xs font-medium group-data-horizontal:group-data-inverted:flex-row-reverse group-data-vertical:ms-3 group-data-vertical:mt-0 group-data-vertical:w-auto group-data-vertical:flex-col-reverse group-data-vertical:px-0 group-data-vertical:py-1.5 group-data-vertical:group-data-inverted:flex-col"
+			>
 				<div
-					*brnSliderTick="let tick; let position = position"
-					class="absolute size-1 rounded-full"
-					[class.bg-secondary]="tick"
-					[class.bg-primary]="!tick"
-					[style.inset-inline-start.%]="position"
-				></div>
+					*brnSliderTick="let tick; let formattedTick = formattedTick"
+					class="group flex w-0 flex-col items-center justify-center gap-2 group-data-vertical:h-0 group-data-vertical:w-auto group-data-vertical:flex-row"
+				>
+					<div
+						class="bg-muted-foreground/70 h-1 w-px group-data-vertical:h-px group-data-vertical:w-1 group-data-horizontal:group-data-[skip]:h-0.5 group-data-vertical:group-data-[skip]:w-0.5"
+					></div>
+					<div class="text-center group-data-[skip]:opacity-0">{{ formattedTick }}</div>
+				</div>
 			</div>
 		}
-
-		<span
-			class="border-primary bg-background ring-ring/50 absolute block size-4 shrink-0 -translate-x-1/2 rounded-full border shadow-sm transition-[color,box-shadow] hover:ring-4 focus-visible:ring-4 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50"
-			brnSliderThumb
-		></span>
 	`,
 })
 export class HlmSlider {
 	protected readonly _slider = injectBrnSlider();
+
 	constructor() {
-		classes(() => 'relative flex w-full touch-none items-center select-none');
+		classes(
+			() =>
+				'group flex w-full touch-none flex-col select-none data-vertical:h-full data-vertical:min-h-40 data-vertical:w-auto data-vertical:flex-row data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+		);
 	}
 }

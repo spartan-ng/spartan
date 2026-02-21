@@ -10,16 +10,16 @@ import { HlmSpinner } from '@spartan-ng/helm/spinner';
 		class: 'flex items-center gap-2',
 	},
 	template: `
-		<span hlmBadge class="rounded-full">
-			<hlm-spinner class="size-3" />
+		<span hlmBadge>
+			<hlm-spinner class="text-xs" />
 			Loading
 		</span>
-		<span hlmBadge variant="secondary" class="rounded-full">
-			<hlm-spinner class="size-3" />
+		<span hlmBadge variant="secondary">
+			<hlm-spinner class="text-xs" />
 			Syncing
 		</span>
-		<span hlmBadge variant="outline" class="rounded-full">
-			<hlm-spinner class="size-3" />
+		<span hlmBadge variant="outline">
+			<hlm-spinner class="text-xs" />
 			Updating
 		</span>
 	`,

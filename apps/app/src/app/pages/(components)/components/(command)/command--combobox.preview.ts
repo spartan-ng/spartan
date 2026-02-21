@@ -1,7 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideCheck, lucideChevronsUpDown, lucideSearch } from '@ng-icons/lucide';
-import { BrnPopoverImports } from '@spartan-ng/brain/popover';
+
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmCommandImports } from '@spartan-ng/helm/command';
 import { HlmIconImports } from '@spartan-ng/helm/icon';
@@ -11,7 +11,7 @@ type Framework = { label: string; value: string };
 
 @Component({
 	selector: 'spartan-command-combobox-preview',
-	imports: [HlmCommandImports, HlmIconImports, HlmButtonImports, BrnPopoverImports, HlmPopoverImports],
+	imports: [HlmCommandImports, HlmIconImports, HlmButtonImports, HlmPopoverImports],
 	providers: [provideIcons({ lucideChevronsUpDown, lucideSearch, lucideCheck })],
 	template: `
 		<hlm-popover [state]="state()" (stateChanged)="stateChanged($event)" sideOffset="5">
@@ -26,7 +26,7 @@ type Framework = { label: string; value: string };
 				{{ currentFramework() ? currentFramework()?.label : 'Select framework...' }}
 				<ng-icon hlm size="sm" name="lucideChevronsUpDown" class="opacity-50" />
 			</button>
-			<hlm-command *brnPopoverContent="let ctx" hlmPopoverContent class="w-[200px] p-0">
+			<hlm-command *hlmPopoverPortal="let ctx" hlmPopoverContent class="w-[200px] p-0">
 				<hlm-command-input placeholder="Search framework..." />
 				<div *hlmCommandEmptyState hlmCommandEmpty>No results found.</div>
 				<hlm-command-list>

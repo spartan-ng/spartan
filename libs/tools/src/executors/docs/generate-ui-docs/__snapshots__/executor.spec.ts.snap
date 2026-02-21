@@ -249,6 +249,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "outputs": [],
         "selector": "[hlmAlertDialogOverlay],hlm-alert-dialog-overlay",
       },
+      "HlmAlertDialogPortal": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmAlertDialogPortal]",
+      },
       "HlmAlertDialogTitle": {
         "inputs": [],
         "models": [],
@@ -473,7 +479,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "[hlmAutocompleteContent]",
+        "selector": "[hlmAutocompleteContent],hlm-autocomplete-content",
       },
       "HlmAutocompleteEmpty": {
         "inputs": [],
@@ -531,6 +537,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [],
         "outputs": [],
         "selector": "[hlmAutocompleteList]",
+      },
+      "HlmAutocompletePortal": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmAutocompletePortal]",
       },
       "HlmAutocompleteSearch": {
         "inputs": [],
@@ -1778,7 +1790,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "[hlmComboboxContent]",
+        "selector": "[hlmComboboxContent],hlm-combobox-content",
       },
       "HlmComboboxEmpty": {
         "inputs": [],
@@ -1842,6 +1854,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [],
         "outputs": [],
         "selector": "[hlmComboboxMultiple],hlm-combobox-multiple",
+      },
+      "HlmComboboxPortal": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmComboboxPortal]",
       },
       "HlmComboboxSeparator": {
         "inputs": [],
@@ -2570,6 +2588,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "outputs": [],
         "selector": "[hlmDialogOverlay],hlm-dialog-overlay",
       },
+      "HlmDialogPortal": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDialogPortal]",
+      },
       "HlmDialogTitle": {
         "inputs": [],
         "models": [],
@@ -2923,7 +2947,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "align",
             "required": false,
-            "type": "'top' | 'bottom'",
+            "type": "'top' | 'bottom' | 'left' | 'right'",
           },
           {
             "name": "brnHoverCardTriggerFor",
@@ -2937,11 +2961,29 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       },
     },
     "helm": {
+      "HlmHoverCard": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmHoverCard],hlm-hover-card",
+      },
       "HlmHoverCardContent": {
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmHoverCardContent],hlm-hover-card-content",
+      },
+      "HlmHoverCardPortal": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmHoverCardPortal],hlm-hover-card-portal",
+      },
+      "HlmHoverCardTrigger": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmHoverCardTrigger]",
       },
     },
   },
@@ -3317,6 +3359,69 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       },
     },
   },
+  "native-select": {
+    "helm": {
+      "HlmNativeSelect": {
+        "inputs": [
+          {
+            "name": "selectId",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "selectClass",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "selectIconClass",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "size",
+            "required": false,
+            "type": "'sm' | 'default'",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "aria-invalid",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [
+          {
+            "name": "value",
+            "type": "string | null",
+          },
+        ],
+        "outputs": [
+          {
+            "name": "valueChange",
+            "type": "string | null",
+          },
+        ],
+        "selector": "hlm-native-select",
+      },
+      "HlmNativeSelectOptGroup": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmNativeSelectOptGroup]",
+      },
+      "HlmNativeSelectOption": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmNativeSelectOption]",
+      },
+    },
+  },
   "navigation-menu": {
     "brain": {
       "BrnNavigationMenu": {
@@ -3330,6 +3435,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "name": "skipDelayDuration",
             "required": false,
             "type": "number",
+          },
+          {
+            "name": "openOn",
+            "required": false,
+            "type": "'hover' | 'click'",
           },
           {
             "name": "orientation",
@@ -3400,7 +3510,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "[hlmNavigationMenuContent]",
+        "selector": "[hlmNavigationMenuContent],hlm-navigation-menu-content",
       },
       "HlmNavigationMenuItem": {
         "inputs": [],
@@ -3419,6 +3529,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [],
         "outputs": [],
         "selector": "ul[hlmNavigationMenuList]",
+      },
+      "HlmNavigationMenuPortal": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmNavigationMenuPortal]",
       },
       "HlmNavigationMenuTrigger": {
         "inputs": [],
@@ -3678,7 +3794,13 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "[hlmPopoverContent],[brnPopoverContent][hlm]",
+        "selector": "[hlmPopoverContent],hlm-popover-content",
+      },
+      "HlmPopoverPortal": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmPopoverPortal]",
       },
       "HlmPopoverTrigger": {
         "inputs": [],
@@ -3801,11 +3923,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "name": "required",
             "required": false,
             "type": "boolean",
-          },
-          {
-            "name": "direction",
-            "required": false,
-            "type": "'ltr' | 'rtl' | null",
           },
         ],
         "models": [
@@ -4329,7 +4446,13 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "button[hlmSheetClose]",
       },
       "HlmSheetContent": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "showCloseButton",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "hlm-sheet-content",
@@ -4363,6 +4486,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [],
         "outputs": [],
         "selector": "[hlmSheetOverlay],hlm-sheet-overlay",
+      },
+      "HlmSheetPortal": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmSheetPortal]",
       },
       "HlmSheetTitle": {
         "inputs": [],
@@ -4507,6 +4636,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "boolean",
           },
+          {
+            "name": "closeMobileSidebarOnClick",
+            "required": false,
+            "type": "boolean",
+          },
         ],
         "models": [],
         "outputs": [],
@@ -4538,6 +4672,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       },
       "HlmSidebarMenuSubButton": {
         "inputs": [
+          {
+            "name": "closeMobileSidebarOnClick",
+            "required": false,
+            "type": "boolean",
+          },
           {
             "name": "size",
             "required": false,
@@ -4618,6 +4757,21 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "exportAs": "brnSlider",
         "inputs": [
           {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "aria-label",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "aria-labelledby",
+            "required": false,
+            "type": "string | null",
+          },
+          {
             "name": "min",
             "required": false,
             "type": "number",
@@ -4633,12 +4787,52 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "number",
           },
           {
+            "name": "minStepsBetweenThumbs",
+            "required": false,
+            "type": "number",
+          },
+          {
             "name": "disabled",
             "required": false,
             "type": "boolean",
           },
           {
+            "name": "inverted",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "orientation",
+            "required": false,
+            "type": "'horizontal' | 'vertical'",
+          },
+          {
             "name": "showTicks",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "maxTicks",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "tickLabelInterval",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "formatTick",
+            "required": false,
+            "type": "(tick: number) => string",
+          },
+          {
+            "name": "draggableRange",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "draggableRangeOnly",
             "required": false,
             "type": "boolean",
           },
@@ -4646,13 +4840,13 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [
           {
             "name": "value",
-            "type": "number",
+            "type": "number[]",
           },
         ],
         "outputs": [
           {
             "name": "valueChange",
-            "type": "number",
+            "type": "number[]",
           },
         ],
         "selector": "[brnSlider]",
@@ -5031,6 +5225,13 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "outputs": [],
         "selector": "[brnTabsContent]",
       },
+      "BrnTabsContentLazy": {
+        "exportAs": "brnTabsContentLazy",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "ng-template[brnTabsContentLazy]",
+      },
       "BrnTabsList": {
         "exportAs": "brnTabsList",
         "inputs": [],
@@ -5103,6 +5304,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [],
         "outputs": [],
         "selector": "[hlmTabsContent]",
+      },
+      "HlmTabsContentLazy": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "ng-template[hlmTabsContentLazy]",
       },
       "HlmTabsList": {
         "inputs": [
@@ -5345,40 +5552,22 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
   "tooltip": {
     "brain": {
       "BrnTooltip": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "[brnTooltip]",
-      },
-      "BrnTooltipContent": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "brn-tooltip-content",
-      },
-      "BrnTooltipContentTemplate": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "[brnTooltipContent]",
-      },
-      "BrnTooltipTrigger": {
-        "exportAs": "brnTooltipTrigger",
+        "exportAs": "brnTooltip",
         "inputs": [
+          {
+            "name": "tooltipDisabled",
+            "required": false,
+            "type": "boolean",
+          },
           {
             "name": "position",
             "required": false,
-            "type": "TooltipPosition",
+            "type": "BrnTooltipPosition",
           },
           {
-            "name": "positionAtOrigin",
+            "name": "brnTooltip",
             "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "brnTooltipDisabled",
-            "required": false,
-            "type": "boolean",
+            "type": "BrnTooltipType",
           },
           {
             "name": "showDelay",
@@ -5390,35 +5579,48 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "number",
           },
+        ],
+        "models": [],
+        "outputs": [
           {
-            "name": "exitAnimationDuration",
-            "required": false,
-            "type": "number",
+            "name": "show",
+            "type": "void",
           },
           {
-            "name": "tooltipContentClasses",
+            "name": "hide",
+            "type": "void",
+          },
+        ],
+        "selector": "[brnTooltip]",
+      },
+      "BrnTooltipContent": {
+        "inputs": [
+          {
+            "name": "id",
             "required": false,
             "type": "string",
-          },
-          {
-            "name": "touchGestures",
-            "required": false,
-            "type": "TooltipTouchGestures",
-          },
-          {
-            "name": "aria-describedby",
-            "required": false,
-            "type": "string",
-          },
-          {
-            "name": "brnTooltipTrigger",
-            "required": false,
-            "type": "string | TemplateRef<unknown> | null",
           },
         ],
         "models": [],
         "outputs": [],
-        "selector": "[brnTooltipTrigger]",
+      },
+      "BrnTooltipStringTemplateOutlet": {
+        "exportAs": "brnTooltipStringTemplateOutlet",
+        "inputs": [
+          {
+            "name": "brnTooltipStringTemplateOutletContext",
+            "required": false,
+            "type": "BrnTemplateOutletContext | undefined",
+          },
+          {
+            "name": "brnTooltipStringTemplateOutlet",
+            "required": true,
+            "type": "T | TemplateRef<void>",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnTooltipStringTemplateOutlet]",
       },
     },
     "helm": {
@@ -5426,13 +5628,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "[hlmTooltip],hlm-tooltip",
-      },
-      "HlmTooltipTrigger": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "[hlmTooltipTrigger]",
+        "selector": "[hlmTooltip]",
       },
     },
   },

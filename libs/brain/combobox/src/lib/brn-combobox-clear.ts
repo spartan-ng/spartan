@@ -11,7 +11,14 @@ export class BrnComboboxClear {
 	private readonly _viewContainerRef = inject(ViewContainerRef);
 
 	/** Determine if the combobox has a value */
-	private readonly _hasValue = computed(() => this._combobox.value() !== null);
+	private readonly _hasValue = computed(() => {
+		const mode = this._combobox.mode();
+		if (mode === 'combobox') {
+			return this._combobox.value() !== null;
+		} else {
+			return this._combobox.search() !== '';
+		}
+	});
 
 	constructor() {
 		effect(() => {
@@ -29,6 +36,10 @@ export class BrnComboboxClear {
 	}
 
 	private clear() {
-		this._combobox.resetValue();
+		if (this._combobox.mode() === 'combobox') {
+			this._combobox.resetValue();
+		} else {
+			this._combobox.resetSearch();
+		}
 	}
 }

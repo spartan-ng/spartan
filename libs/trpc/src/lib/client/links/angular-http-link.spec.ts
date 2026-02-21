@@ -31,11 +31,7 @@ describe('angularHttpLink', () => {
 				}),
 			],
 		});
-	const createErrorResponse = (
-		code: keyof typeof TRPC_ERROR_CODES_BY_KEY,
-		status: number,
-		message: string,
-	) => ({
+	const createErrorResponse = (code: keyof typeof TRPC_ERROR_CODES_BY_KEY, status: number, message: string) => ({
 		error: {
 			code: TRPC_ERROR_CODES_BY_KEY[code],
 			message,
@@ -61,7 +57,9 @@ describe('angularHttpLink', () => {
 			},
 		},
 	});
-	const subscribeForResult = (source$: { subscribe: (observer: { next: (value: unknown) => void; error: (error: unknown) => void }) => unknown }) =>
+	const subscribeForResult = (source$: {
+		subscribe: (observer: { next: (value: unknown) => void; error: (error: unknown) => void }) => unknown;
+	}) =>
 		new Promise((resolve, reject) => {
 			source$.subscribe({
 				next: resolve,

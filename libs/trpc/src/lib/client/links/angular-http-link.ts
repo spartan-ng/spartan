@@ -1,5 +1,5 @@
-import { HttpErrorResponse, HttpHeaders as AngularHttpHeaders } from '@angular/common/http';
 import type { HttpClient } from '@angular/common/http';
+import { HttpHeaders as AngularHttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { TRPCClientError, type HTTPHeaders, type Operation, type TRPCClientRuntime, type TRPCLink } from '@trpc/client';
 import { transformResult } from '@trpc/client/shared';
 import type { AnyRouter, ProcedureType } from '@trpc/server';
@@ -91,12 +91,7 @@ function getUrl(opts: {
 	return url;
 }
 
-function getBody(opts: {
-	type: ProcedureType;
-	input?: unknown;
-	runtime: TRPCClientRuntime;
-	methodOverride?: 'POST';
-}) {
+function getBody(opts: { type: ProcedureType; input?: unknown; runtime: TRPCClientRuntime; methodOverride?: 'POST' }) {
 	if (opts.type === 'query' && opts.methodOverride !== 'POST') {
 		return undefined;
 	}
@@ -160,7 +155,9 @@ async function angularHttpRequester(opts: {
 		methodOverride: opts.methodOverride,
 	});
 	const request$ =
-		method === 'GET' ? opts.httpClient.get(urlWithParams, requestOptions) : opts.httpClient.post(urlWithParams, body, requestOptions);
+		method === 'GET'
+			? opts.httpClient.get(urlWithParams, requestOptions)
+			: opts.httpClient.post(urlWithParams, body, requestOptions);
 
 	return new Promise((resolve, reject) => {
 		let aborted = false;
@@ -259,9 +256,7 @@ export function angularHttpLink<TRouter extends AnyRouter = AnyRouter>(
 		({ op }) =>
 			observable((observer) => {
 				const { path, input, type } = op;
-				Promise.resolve(
-					typeof opts.headers === 'function' ? opts.headers({ op }) : opts.headers ?? {},
-				)
+				Promise.resolve(typeof opts.headers === 'function' ? opts.headers({ op }) : (opts.headers ?? {}))
 					.then((headers) =>
 						angularHttpRequester({
 							httpClient: opts.httpClient,

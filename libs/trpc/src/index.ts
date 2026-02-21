@@ -1,5 +1,5 @@
-export * from './lib/client/client';
 export * from './lib/client/angular-client';
+export * from './lib/client/client';
 export { angularHttpLink } from './lib/client/links/angular-http-link';
 export type { AngularHttpLinkOptions } from './lib/client/links/angular-http-link';
 export * from './lib/server/server';

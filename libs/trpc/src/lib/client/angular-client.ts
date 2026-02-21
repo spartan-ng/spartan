@@ -2,10 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { InjectionToken, type Provider, inject, signal } from '@angular/core';
 import { type CreateTRPCClientOptions, type HTTPHeaders, type Operation, type TRPCLink } from '@trpc/client';
 import type { AnyRouter } from '@trpc/server';
-import { angularHttpLink } from './links/angular-http-link';
-import { createTRPCRxJSProxyClient } from './trpc-rxjs-proxy';
-import { transferStateLink } from './links/transfer-state-link';
 import { provideTrpcCacheState, provideTrpcCacheStateStatusManager } from './cache-state';
+import { angularHttpLink } from './links/angular-http-link';
+import { transferStateLink } from './links/transfer-state-link';
+import { createTRPCRxJSProxyClient } from './trpc-rxjs-proxy';
 
 // Angular-first wrapper around angularHttpLink to keep the fetch/batch client untouched.
 export type AngularTrpcClientOptions<T extends AnyRouter> = {
@@ -35,9 +35,7 @@ export const createAngularTrpcClient = <AppRouter extends AnyRouter>({
 	const TrpcHeaders = signal<HTTPHeaders>({});
 	const shouldUseTransferStateLink = useTransferStateLink ?? false;
 	const provideAngularTrpcClient = (): Provider[] => [
-		...(shouldUseTransferStateLink
-			? [provideTrpcCacheState(), provideTrpcCacheStateStatusManager()]
-			: []),
+		...(shouldUseTransferStateLink ? [provideTrpcCacheState(), provideTrpcCacheStateStatusManager()] : []),
 		{
 			provide: TRPC_ANGULAR_INJECTION_TOKEN,
 			useFactory: () => {

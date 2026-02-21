@@ -1,7 +1,12 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { InjectionToken, type Provider, signal, TransferState } from '@angular/core';
-import { type CreateTRPCClientOptions, httpBatchLink, type HttpBatchLinkOptions, type HTTPHeaders } from '@trpc/client';
+import {
+	type CreateTRPCClientOptions,
+	httpBatchLink,
+	type HttpBatchLinkOptions,
+	type HTTPHeaders,
+} from '@trpc/client';
 
 import type { AnyRouter } from '@trpc/server';
 import 'isomorphic-fetch';

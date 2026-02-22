@@ -289,6 +289,18 @@
 			"rxjs": "^7.8.0"
 		}
 	},
+	"native-select": {
+		"name": "native-select",
+		"peerDependencies": {
+			"@angular/core": ">=20.0.0 <22.0.0",
+			"@angular/cdk": ">=20.0.0 <22.0.0",
+			"@angular/forms": ">=20.0.0 <22.0.0",
+			"@ng-icons/core": ">=32.0.0 <34.0.0",
+			"@ng-icons/lucide": ">=32.0.0 <34.0.0",
+			"@spartan-ng/brain": "0.0.1-alpha.638",
+			"clsx": "^2.1.1"
+		}
+	},
 	"navigation-menu": {
 		"name": "navigation-menu",
 		"peerDependencies": {

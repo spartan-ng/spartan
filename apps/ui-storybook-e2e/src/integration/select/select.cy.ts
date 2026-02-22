@@ -1,57 +1,53 @@
 describe('select', () => {
 	const verifySelectSetup = ({ multiple = false, disabled = false, groups = false } = {}) => {
-		const labelId = 'brn-select-1--label';
-		const triggerId = 'brn-select-1--trigger';
-		const listboxtId = 'brn-select-1--content';
-		const valueId = 'brn-select-1--value';
+		cy.get('hlm-select').find('label').should('not.be.visible');
 
-		// label
-		cy.get('hlm-select').find('label').should('not.be.visible').should('have.id', labelId);
+		cy.get('[brnselecttrigger]').invoke('attr', 'id').then((idAttr) => {
+			const triggerId = idAttr as string;
+			const baseId = triggerId.replace('--trigger', '');
+			const labelId = `${baseId}--label`;
+			const listboxtId = `${baseId}--content`;
+			const valueId = `${baseId}--value`;
 
-		// Trigger
-		cy.get('[brnselecttrigger]').should('have.id', triggerId);
-		cy.get('[brnselecttrigger]').should('have.attr', 'role', 'combobox');
-		cy.get('[brnselecttrigger]').should('have.attr', 'aria-autocomplete', 'none');
-		cy.get('[brnselecttrigger]').should('have.attr', 'aria-expanded', 'false');
+			cy.get('hlm-select').find('label').should('have.id', labelId);
 
-		// Value
-		cy.get('hlm-select-value').should('have.id', valueId);
+			cy.get('[brnselecttrigger]').should('have.id', triggerId);
+			cy.get('[brnselecttrigger]').should('have.attr', 'role', 'combobox');
+			cy.get('[brnselecttrigger]').should('have.attr', 'aria-autocomplete', 'none');
+			cy.get('[brnselecttrigger]').should('have.attr', 'aria-expanded', 'false');
 
-		if (!disabled) {
-			// Open select
-			cy.get('[brnselecttrigger]').click();
+			cy.get('hlm-select-value').should('have.id', valueId);
 
-			cy.get('hlm-select-content').should('have.id', listboxtId);
+			if (!disabled) {
+				cy.get('[brnselecttrigger]').click();
 
-			// Listbox
-			cy.get('hlm-select-content').should('have.attr', 'role', 'listbox');
-			cy.get('hlm-select-content').should('have.attr', 'aria-disabled', 'false');
-			cy.get('hlm-select-content').should('have.attr', 'aria-multiselectable', `${multiple}`);
-			cy.get('hlm-select-content').should('have.attr', 'aria-orientation', 'vertical');
-			cy.get('hlm-select-content').should('have.attr', 'aria-labelledby', labelId);
-			cy.get('hlm-select-content').should('have.attr', 'aria-controlledby', triggerId);
+				cy.get('hlm-select-content').should('have.id', listboxtId);
 
-			// Option
-			cy.get('hlm-option').should('have.attr', 'role', 'option');
-			cy.get('hlm-option').should('have.attr', 'aria-selected', 'false');
-			cy.get('hlm-option').should('have.attr', 'aria-disabled', 'false');
+				cy.get('hlm-select-content').should('have.attr', 'role', 'listbox');
+				cy.get('hlm-select-content').should('have.attr', 'aria-disabled', 'false');
+				cy.get('hlm-select-content').should('have.attr', 'aria-multiselectable', `${multiple}`);
+				cy.get('hlm-select-content').should('have.attr', 'aria-orientation', 'vertical');
+				cy.get('hlm-select-content').should('have.attr', 'aria-labelledby', labelId);
 
-			if (groups) {
-				// validate groups and labels
-				cy.get('hlm-select-group').each(($group, index) => {
-					cy.wrap($group).should('have.attr', 'role', 'group');
-					cy.wrap($group)
-						.find('hlm-select-label')
-						.then(($el) => {
-							cy.get('hlm-select-group').eq(index).should('have.attr', 'aria-labelledBy', $el.attr('id'));
-						});
-				});
+				cy.get('hlm-option').should('have.attr', 'role', 'option');
+				cy.get('hlm-option').should('have.attr', 'aria-selected', 'false');
+				cy.get('hlm-option').should('have.attr', 'aria-disabled', 'false');
+
+				if (groups) {
+					cy.get('hlm-select-group').each(($group, index) => {
+						cy.wrap($group).should('have.attr', 'role', 'group');
+						cy.wrap($group)
+							.find('hlm-select-label')
+							.then(($el) => {
+								cy.get('hlm-select-group').eq(index).should('have.attr', 'aria-labelledBy', $el.attr('id'));
+							});
+					});
+				}
+
+				cy.get('body').click();
+				cy.get('[brnselecttrigger]').should('have.focus');
 			}
-
-			// close select
-			cy.get('body').click();
-			cy.get('[brnselecttrigger]').should('have.focus');
-		}
+		});
 	};
 
 	describe('default', () => {

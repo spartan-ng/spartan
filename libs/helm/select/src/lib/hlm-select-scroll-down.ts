@@ -5,16 +5,14 @@ import { BrnSelectScrollDown } from '@spartan-ng/brain/select';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import { classes } from '@spartan-ng/helm/utils';
 
-@Component({
-	selector: 'hlm-select-scroll-down',
-	imports: [NgIcon, HlmIcon],
-	providers: [provideIcons({ lucideChevronDown })],
-	hostDirectives: [BrnSelectScrollDown],
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	template: `
+@Component({selector: 'hlm-select-scroll-down',
+imports: [NgIcon, HlmIcon],
+providers: [provideIcons({ lucideChevronDown })],
+changeDetection: ChangeDetectionStrategy.OnPush,
+hostDirectives: [BrnSelectScrollDown],
+template: `
 		<ng-icon hlm size="sm" class="ml-2" name="lucideChevronDown" />
-	`,
-})
+	`})
 export class HlmSelectScrollDown {
 	constructor() {
 		classes(() => 'flex cursor-default items-center justify-center py-1');

@@ -3,6 +3,7 @@ import {
 	type AfterViewInit,
 	ChangeDetectorRef,
 	computed,
+	DestroyRef,
 	Directive,
 	ElementRef,
 	inject,
@@ -10,8 +11,10 @@ import {
 	type OnInit,
 	PLATFORM_ID,
 } from '@angular/core';
-import { NgControl } from '@angular/forms';
-import type { Subscription } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { NgControl, TouchedChangeEvent } from '@angular/forms';
+import { EMPTY, merge } from 'rxjs';
+import { filter } from 'rxjs/operators';
 import { injectBrnSelect } from './brn-select.token';
 
 @Directive({
@@ -40,6 +43,7 @@ export class BrnSelectTrigger<T> implements AfterViewInit, OnDestroy, OnInit {
 	/** Access the change detector */
 	private readonly _changeDetector = inject(ChangeDetectorRef);
 	protected readonly _select = injectBrnSelect<T>();
+	protected readonly _destroyRef = inject(DestroyRef);
 	protected readonly _ngControl = inject(NgControl, { optional: true });
 	private readonly _platform = inject(PLATFORM_ID);
 	protected readonly _triggerId = computed(() => `${this._select.id()}--trigger`);
@@ -55,7 +59,6 @@ export class BrnSelectTrigger<T> implements AfterViewInit, OnDestroy, OnInit {
 	});
 
 	private _resizeObserver?: ResizeObserver;
-	private _statusChangedSubscription?: Subscription;
 
 	constructor() {
 		this._select.trigger.set(this);
@@ -63,9 +66,15 @@ export class BrnSelectTrigger<T> implements AfterViewInit, OnDestroy, OnInit {
 
 	ngOnInit() {
 		if (this._ngControl) {
-			this._statusChangedSubscription = this._ngControl.statusChanges?.subscribe(() => {
-				this._changeDetector.markForCheck();
-			});
+			const control = this._ngControl.control;
+			merge(
+				this._ngControl.statusChanges ?? EMPTY,
+				control?.events.pipe(filter((e) => e instanceof TouchedChangeEvent)) ?? EMPTY,
+			)
+				.pipe(takeUntilDestroyed(this._destroyRef))
+				.subscribe(() => {
+					this._changeDetector.markForCheck();
+				});
 		}
 	}
 
@@ -84,7 +93,6 @@ export class BrnSelectTrigger<T> implements AfterViewInit, OnDestroy, OnInit {
 
 	ngOnDestroy(): void {
 		this._resizeObserver?.disconnect();
-		this._statusChangedSubscription?.unsubscribe();
 	}
 
 	focus(): void {

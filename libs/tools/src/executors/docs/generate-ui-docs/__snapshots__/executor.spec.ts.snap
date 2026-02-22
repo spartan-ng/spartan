@@ -4340,7 +4340,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "hlm-select-value,[hlmSelectValue], brn-select-value[hlm]",
+        "selector": "hlm-select-value, [hlmSelectValue]",
       },
     },
   },

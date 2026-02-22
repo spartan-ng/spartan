@@ -1,15 +1,29 @@
 @layer theme, base, components, utilities;
 
+@import "../../../libs/registry/src/styles/style-vega.css" layer(base);
+@import "../../../libs/registry/src/styles/style-nova.css" layer(base);
+@import "../../../libs/registry/src/styles/style-lyra.css" layer(base);
+@import "../../../libs/registry/src/styles/style-maia.css" layer(base);
+@import "../../../libs/registry/src/styles/style-mira.css" layer(base);
+
 @import 'tailwindcss/theme.css' layer(theme);
 @import 'tailwindcss/preflight.css' layer(base);
 @import 'tailwindcss/utilities.css';
-
-@import '../../../libs/brain/hlm-tailwind-preset.css';
 
 @import '@fontsource/geist-mono/latin';
 @import '@fontsource/geist/latin';
 @import '@fontsource-variable/noto-sans-hebrew';
 @import '@fontsource-variable/noto-sans-arabic';
+
+@import '../../../libs/brain/hlm-tailwind-preset.css';
+
+
+@custom-variant style-vega (&:where(.style-vega *));
+@custom-variant style-nova (&:where(.style-nova *));
+@custom-variant style-lyra (&:where(.style-lyra *));
+@custom-variant style-maia (&:where(.style-maia *));
+@custom-variant style-mira (&:where(.style-mira *));
+
 
 @custom-variant fixed (&:is(.layout-fixed *));
 

@@ -13,6 +13,11 @@
 				"main": "libs/cli/src/index.ts",
 				"tsConfig": "libs/cli/tsconfig.lib.json",
 				"assets": [
+					{
+						"input": "libs/registry/src/styles",
+						"glob": "**/!(*.ts)",
+						"output": "./src/generators/ui"
+					},
 					"libs/cli/*.md",
 					{
 						"input": "./libs/cli/src",

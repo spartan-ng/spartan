@@ -57,6 +57,11 @@
 			"cache": true,
 			"dependsOn": ["^build"],
 			"inputs": ["production", "^production"]
+		},
+		"@nx/js:tsc": {
+			"cache": true,
+			"dependsOn": ["^build"],
+			"inputs": ["production", "^production"]
 		}
 	},
 	"namedInputs": {
@@ -94,5 +99,13 @@
 		"version": {
 			"preVersionCommand": "pnpm dlx nx run-many -t build"
 		}
-	}
+	},
+	"plugins": [
+		{
+			"plugin": "@nx/eslint/plugin",
+			"options": {
+				"targetName": "eslint:lint"
+			}
+		}
+	]
 }

@@ -79,6 +79,7 @@
 		"node-html-parser": "^7.0.1",
 		"ofetch": "^1.4.0",
 		"ohash": "^1.1.4",
+		"postcss-selector-parser": "^7.1.1",
 		"postgres": "^3.4.4",
 		"prismjs": "^1.29.0",
 		"rxjs": "~7.8.1",

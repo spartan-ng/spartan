@@ -4,35 +4,43 @@ Spartan tRPC integration (client + server) for Analog/Nitro and Angular.
 
 Learn more at [spartan.ng](https://spartan.ng)
 
-## Client (fetch + batch)
+## Client (Angular HttpClient - default)
 
 ```ts
+import { provideHttpClient } from '@angular/common/http';
 import { createTrpcClient } from '@spartan-ng/trpc';
 import superjson from 'superjson';
 import type { AppRouter } from './server/trpc/routers';
 
-export const { provideTrpcClient, tRPCClient, TrpcHeaders } = createTrpcClient<AppRouter>({
+export const { provideTrpcClient, tRPCClient } = createTrpcClient<AppRouter>({
 	url: '/api/trpc',
 	options: {
 		transformer: superjson,
 	},
 });
+
+export const appConfig = {
+	providers: [provideHttpClient(), provideTrpcClient()],
+};
 ```
 
-## Client (Angular HttpClient link)
+`createTrpcClient` uses Angular `HttpClient` transport via `angularHttpLink`.
+It supports Angular interceptors and custom backends out of the box.
 
-Use this when you want Angular HttpClient features (interceptors, custom backends).
-`transportLink` can be a factory so you can call `inject()` inside the provider
-context.
+Use Angular `HttpClient` interceptors to add auth and contextual headers.
+
+## Legacy alias (`createAngularTrpcClient`)
+
+`createAngularTrpcClient` is still exported for compatibility. It uses the same
+HttpClient-based transport model.
 
 ```ts
-import { inject } from '@angular/core';
 import { provideHttpClient } from '@angular/common/http';
 import { createAngularTrpcClient } from '@spartan-ng/trpc';
 import type { AppRouter } from './server/trpc/routers';
 import superjson from 'superjson';
 
-export const { TrpcClient, provideAngularTrpcClient, TrpcHeaders } = createAngularTrpcClient<AppRouter>({
+export const { TrpcClient, provideAngularTrpcClient } = createAngularTrpcClient<AppRouter>({
 	url: '/api/trpc',
 	options: {
 		transformer: superjson,
@@ -44,12 +52,7 @@ export const appConfig = {
 };
 ```
 
-`createAngularTrpcClient` defaults to `useTransferStateLink: false` to avoid
-double caching when using Angular's HttpClient transfer cache. Set it to `true`
-only if you're not using the HttpClient transfer cache.
-
-Use `TrpcHeaders.update(...)` to set auth headers; they are merged with any
-static or dynamic `headers` passed to `createAngularTrpcClient`.
+See [MIGRATION.md](./MIGRATION.md) for upgrading from the previous fetch/batch client behavior.
 
 ## Server (Nitro route)
 

@@ -1,6 +1,6 @@
 import type { HttpClient } from '@angular/common/http';
 import { HttpHeaders as AngularHttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { TRPCClientError, type HTTPHeaders, type Operation, type TRPCClientRuntime, type TRPCLink } from '@trpc/client';
+import { TRPCClientError, type TRPCClientRuntime, type TRPCLink } from '@trpc/client';
 import { transformResult } from '@trpc/client/shared';
 import type { AnyRouter, ProcedureType } from '@trpc/server';
 import { observable } from '@trpc/server/observable';
@@ -11,7 +11,6 @@ import { TRPC_ERROR_CODES_BY_KEY, type TRPCResponse } from '@trpc/server/rpc';
 export type AngularHttpLinkOptions = {
 	url: string | URL;
 	httpClient: HttpClient;
-	headers?: HTTPHeaders | ((opts: { op: Operation }) => HTTPHeaders | Promise<HTTPHeaders>);
 	methodOverride?: 'POST';
 };
 
@@ -106,7 +105,6 @@ async function angularHttpRequester(opts: {
 	path: string;
 	input?: unknown;
 	signal?: AbortSignal;
-	headers: HTTPHeaders;
 	runtime: TRPCClientRuntime;
 	methodOverride?: 'POST';
 }): Promise<HTTPResult> {
@@ -128,16 +126,6 @@ async function angularHttpRequester(opts: {
 	});
 
 	let angularHeaders = new AngularHttpHeaders();
-	for (const [key, value] of Object.entries(opts.headers)) {
-		if (value === undefined) {
-			continue;
-		}
-		if (Array.isArray(value)) {
-			angularHeaders = angularHeaders.set(key, value.join(', '));
-		} else {
-			angularHeaders = angularHeaders.set(key, value);
-		}
-	}
 	if (method === 'POST') {
 		angularHeaders = angularHeaders.set('Content-Type', 'application/json');
 	}
@@ -256,20 +244,18 @@ export function angularHttpLink<TRouter extends AnyRouter = AnyRouter>(
 		({ op }) =>
 			observable((observer) => {
 				const { path, input, type } = op;
-				Promise.resolve(typeof opts.headers === 'function' ? opts.headers({ op }) : (opts.headers ?? {}))
-					.then((headers) =>
-						angularHttpRequester({
-							httpClient: opts.httpClient,
-							url,
-							type,
-							path,
-							input,
-							runtime,
-							headers,
-							methodOverride: opts.methodOverride,
-							signal: (op as { signal?: AbortSignal }).signal,
-						}),
-					)
+				Promise.resolve(
+					angularHttpRequester({
+						httpClient: opts.httpClient,
+						url,
+						type,
+						path,
+						input,
+						runtime,
+						methodOverride: opts.methodOverride,
+						signal: (op as { signal?: AbortSignal }).signal,
+					}),
+				)
 					.then((res) => {
 						const transformed = transformResult(res.json, runtime);
 

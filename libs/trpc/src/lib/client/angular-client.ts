@@ -1,25 +1,15 @@
 import { HttpClient } from '@angular/common/http';
-import { InjectionToken, type Provider, inject, signal } from '@angular/core';
-import { type CreateTRPCClientOptions, type HTTPHeaders, type Operation, type TRPCLink } from '@trpc/client';
+import { InjectionToken, type Provider, inject } from '@angular/core';
+import { type CreateTRPCClientOptions, type TRPCLink } from '@trpc/client';
 import type { AnyRouter } from '@trpc/server';
-import { provideTrpcCacheState, provideTrpcCacheStateStatusManager } from './cache-state';
 import { angularHttpLink } from './links/angular-http-link';
-import { transferStateLink } from './links/transfer-state-link';
 import { createTRPCRxJSProxyClient } from './trpc-rxjs-proxy';
 
-// Angular-first wrapper around angularHttpLink to keep the fetch/batch client untouched.
+// Angular HttpClient-based client factory.
 export type AngularTrpcClientOptions<T extends AnyRouter> = {
 	url: string | URL;
 	options?: Partial<CreateTRPCClientOptions<T>>;
-	/**
-	 * Additional headers merged on top of TrpcHeaders (explicit values win).
-	 */
-	headers?: HTTPHeaders | ((opts: { op: Operation }) => HTTPHeaders | Promise<HTTPHeaders>);
 	methodOverride?: 'POST';
-	/**
-	 * Defaults to false to avoid double caching with HttpClient transfer cache.
-	 */
-	useTransferStateLink?: boolean;
 };
 
 export type AngularTrpcClient<AppRouter extends AnyRouter> = ReturnType<typeof createTRPCRxJSProxyClient<AppRouter>>;
@@ -28,39 +18,19 @@ const TRPC_ANGULAR_INJECTION_TOKEN = new InjectionToken<unknown>('@spartan-ng/tr
 export const createAngularTrpcClient = <AppRouter extends AnyRouter>({
 	url,
 	options,
-	headers,
 	methodOverride,
-	useTransferStateLink,
 }: AngularTrpcClientOptions<AppRouter>) => {
-	const TrpcHeaders = signal<HTTPHeaders>({});
-	const shouldUseTransferStateLink = useTransferStateLink ?? false;
 	const provideAngularTrpcClient = (): Provider[] => [
-		...(shouldUseTransferStateLink ? [provideTrpcCacheState(), provideTrpcCacheStateStatusManager()] : []),
 		{
 			provide: TRPC_ANGULAR_INJECTION_TOKEN,
 			useFactory: () => {
 				const httpClient = inject(HttpClient);
-				const resolveHeaders = async ({ op }: { op: Operation }) => {
-					const baseHeaders = TrpcHeaders();
-					if (!headers) {
-						return baseHeaders;
-					}
-					const extraHeaders = typeof headers === 'function' ? await headers({ op }) : headers;
-					return {
-						...baseHeaders,
-						...extraHeaders,
-					};
-				};
 
 				const links: TRPCLink<AppRouter>[] = [...(options?.links ?? [])];
-				if (shouldUseTransferStateLink) {
-					links.push(transferStateLink());
-				}
 				links.push(
 					angularHttpLink({
 						url,
 						httpClient,
-						headers: resolveHeaders,
 						methodOverride,
 					}),
 				);
@@ -79,13 +49,10 @@ export const createAngularTrpcClient = <AppRouter extends AnyRouter>({
 	return {
 		TrpcClient,
 		provideAngularTrpcClient,
-		TrpcHeaders,
 		/** @deprecated use TrpcClient instead */
 		tRPCClient: TrpcClient,
 		/** @deprecated use provideAngularTrpcClient instead */
 		provideTRPCClient: provideAngularTrpcClient,
-		/** @deprecated use TrpcHeaders instead */
-		tRPCHeaders: TrpcHeaders,
 	};
 };
 

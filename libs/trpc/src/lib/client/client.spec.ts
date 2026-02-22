@@ -4,7 +4,7 @@ import { TestBed } from '@angular/core/testing';
 import { initTRPC } from '@trpc/server';
 import { firstValueFrom } from 'rxjs';
 import { afterEach, describe, expect, it } from 'vitest';
-import { createAngularTrpcClient } from './angular-client';
+import { createTrpcClient } from './client';
 
 const t = initTRPC.create();
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -13,7 +13,7 @@ const appRouter = t.router({
 });
 type AppRouter = typeof appRouter;
 
-describe('createAngularTrpcClient', () => {
+describe('createTrpcClient', () => {
 	let httpTesting: HttpTestingController;
 	const waitForRequestScheduling = () => new Promise<void>((resolve) => queueMicrotask(resolve));
 
@@ -21,13 +21,13 @@ describe('createAngularTrpcClient', () => {
 		httpTesting?.verify();
 	});
 
-	it('creates a client using HttpClient transport', async () => {
-		const { TrpcClient, provideAngularTrpcClient } = createAngularTrpcClient<AppRouter>({
+	it('uses HttpClient transport for queries', async () => {
+		const { TrpcClient, provideTrpcClient } = createTrpcClient<AppRouter>({
 			url: 'http://localhost:3000/trpc',
 		});
 
 		TestBed.configureTestingModule({
-			providers: [provideHttpClient(), provideHttpClientTesting(), ...provideAngularTrpcClient()],
+			providers: [provideHttpClient(), provideHttpClientTesting(), ...provideTrpcClient()],
 		});
 		httpTesting = TestBed.inject(HttpTestingController);
 		const client = TestBed.inject(TrpcClient);
@@ -42,13 +42,16 @@ describe('createAngularTrpcClient', () => {
 		await expect(response).resolves.toBe('Hello');
 	});
 
-	it('resolves requests with HttpClient transport', async () => {
-		const { TrpcClient, provideAngularTrpcClient } = createAngularTrpcClient<AppRouter>({
+	it('ignores deprecated batchLinkOptions and still uses HttpClient transport', async () => {
+		const { TrpcClient, provideTrpcClient } = createTrpcClient<AppRouter>({
 			url: 'http://localhost:3000/trpc',
+			batchLinkOptions: {
+				maxURLLength: 20,
+			},
 		});
 
 		TestBed.configureTestingModule({
-			providers: [provideHttpClient(), provideHttpClientTesting(), ...provideAngularTrpcClient()],
+			providers: [provideHttpClient(), provideHttpClientTesting(), ...provideTrpcClient()],
 		});
 		httpTesting = TestBed.inject(HttpTestingController);
 		const client = TestBed.inject(TrpcClient);

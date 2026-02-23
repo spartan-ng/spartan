@@ -30,7 +30,6 @@ describe('Brn Select Component in single-mode', () => {
 			user: userEvent.setup(),
 			fixture,
 			trigger: screen.getByTestId('brn-select-trigger'),
-			value: screen.getByTestId('brn-select-value'),
 		};
 	};
 
@@ -40,7 +39,6 @@ describe('Brn Select Component in single-mode', () => {
 			user: userEvent.setup(),
 			fixture,
 			trigger: screen.getByTestId('brn-select-trigger'),
-			value: screen.getByTestId('brn-select-value'),
 		};
 	};
 
@@ -50,13 +48,12 @@ describe('Brn Select Component in single-mode', () => {
 			user: userEvent.setup(),
 			fixture,
 			trigger: screen.getByTestId('brn-select-trigger'),
-			value: screen.getByTestId('brn-select-value'),
 		};
 	};
 
 	describe('form validation - single mode', () => {
 		it('should reflect correct formcontrol status and value with no initial value', async () => {
-			const { fixture, trigger, value } = await setupWithFormValidation();
+			const { fixture, trigger } = await setupWithFormValidation();
 			const cmpInstance = fixture.componentInstance as SelectSingleValueTest;
 
 			const expected = {
@@ -71,12 +68,13 @@ describe('Brn Select Component in single-mode', () => {
 			expect(getFormControlStatus(cmpInstance.form?.get('fruit'))).toStrictEqual(expected);
 			expect(getFormValidationClasses(trigger)).toStrictEqual(expected);
 
-			expect(value.textContent?.trim()).toBe(DEFAULT_LABEL);
+			expect((trigger as HTMLInputElement).value).toBe('');
+			expect(trigger.getAttribute('placeholder')).toBe(DEFAULT_LABEL);
 			expect(cmpInstance.form?.get('fruit')?.value).toEqual(null);
 		});
 
 		it('should reflect correct formcontrol status and value with initial value', async () => {
-			const { fixture, trigger, value } = await setupWithFormValidationAndInitialValue();
+			const { fixture, trigger } = await setupWithFormValidationAndInitialValue();
 			const cmpInstance = fixture.componentInstance;
 
 			const expected = {
@@ -91,15 +89,16 @@ describe('Brn Select Component in single-mode', () => {
 			expect(getFormControlStatus(cmpInstance.form?.get('fruit'))).toStrictEqual(expected);
 			expect(getFormValidationClasses(trigger)).toStrictEqual(expected);
 
-			expect(value.textContent?.trim()).toBe(INITIAL_VALUE_TEXT);
+			expect((trigger as HTMLInputElement).value).toBe(INITIAL_VALUE);
 			expect(cmpInstance.form?.get('fruit')?.value).toEqual(INITIAL_VALUE);
 		});
 
 		it('should reflect correct formcontrol status after first user selection with no initial value', async () => {
-			const { user, trigger, fixture, value } = await setupWithFormValidation();
+			const { user, trigger, fixture } = await setupWithFormValidation();
 			const cmpInstance = fixture.componentInstance as SelectSingleValueTest;
 
-			expect(value.textContent?.trim()).toBe(DEFAULT_LABEL);
+			expect((trigger as HTMLInputElement).value).toBe('');
+			expect(trigger.getAttribute('placeholder')).toBe(DEFAULT_LABEL);
 			expect(cmpInstance.form?.get('fruit')?.value).toEqual(null);
 
 			const expected = {
@@ -149,10 +148,10 @@ describe('Brn Select Component in single-mode', () => {
 		});
 
 		it('should reflect correct formcontrol status after first user selection with initial value', async () => {
-			const { user, trigger, fixture, value } = await setupWithFormValidationAndInitialValue();
+			const { user, trigger, fixture } = await setupWithFormValidationAndInitialValue();
 			const cmpInstance = fixture.componentInstance as SelectSingleValueWithInitialValueTest;
 
-			expect(value.textContent?.trim()).toBe(INITIAL_VALUE);
+			expect((trigger as HTMLInputElement).value).toBe(INITIAL_VALUE);
 			expect(cmpInstance.form?.get('fruit')?.value).toEqual(INITIAL_VALUE);
 
 			const expected = {
@@ -199,14 +198,14 @@ describe('Brn Select Component in single-mode', () => {
 			expect(getFormValidationClasses(trigger)).toStrictEqual(afterSelectionExpected);
 
 			expect(cmpInstance.form?.get('fruit')?.value).toEqual('banana');
-			expect(screen.getByTestId('brn-select-value').textContent?.trim()).toBe('Banana');
+			expect((screen.getByTestId('brn-select-trigger') as HTMLInputElement).value).toBe('Banana');
 		});
 
 		it('should reflect correct formcontrol status after first user selection with initial value and async update', async () => {
-			const { user, trigger, fixture, value } = await setupWithFormValidationAndInitialValueAndAsyncUpdate();
+			const { user, trigger, fixture } = await setupWithFormValidationAndInitialValueAndAsyncUpdate();
 			const cmpInstance = fixture.componentInstance as SelectSingleValueWithInitialValueTest;
 
-			expect(value.textContent?.trim()).toBe(INITIAL_VALUE);
+			expect((trigger as HTMLInputElement).value).toBe(INITIAL_VALUE);
 			expect(cmpInstance.form?.get('fruit')?.value).toEqual(INITIAL_VALUE);
 
 			const expected = {
@@ -253,13 +252,13 @@ describe('Brn Select Component in single-mode', () => {
 			expect(getFormValidationClasses(trigger)).toStrictEqual(afterSelectionExpected);
 
 			expect(cmpInstance.form?.get('fruit')?.value).toEqual('banana');
-			expect(value.textContent?.trim()).toBe('Banana');
+			expect((trigger as HTMLInputElement).value).toBe('Banana');
 		});
 	});
 
 	describe('form validation - single mode and required', () => {
 		it('should reflect correct formcontrol status with no initial value', async () => {
-			const { fixture, trigger, value } = await setupWithFormValidation();
+			const { fixture, trigger } = await setupWithFormValidation();
 			const cmpInstance = fixture.componentInstance as SelectSingleValueTest;
 
 			cmpInstance.form?.get('fruit')?.addValidators(Validators.required);
@@ -278,7 +277,8 @@ describe('Brn Select Component in single-mode', () => {
 			expect(getFormControlStatus(cmpInstance.form?.get('fruit'))).toStrictEqual(expected);
 			expect(getFormValidationClasses(trigger)).toStrictEqual(expected);
 
-			expect(value.textContent?.trim()).toBe(DEFAULT_LABEL);
+			expect((trigger as HTMLInputElement).value).toBe('');
+			expect(trigger.getAttribute('placeholder')).toBe(DEFAULT_LABEL);
 			expect(cmpInstance.form?.get('fruit')?.value).toEqual(null);
 		});
 
@@ -300,7 +300,7 @@ describe('Brn Select Component in single-mode', () => {
 		});
 
 		it('should reflect initial single value set on formcontrol', async () => {
-			const { fixture, trigger, value } = await setupWithFormValidationAndInitialValue();
+			const { fixture, trigger } = await setupWithFormValidationAndInitialValue();
 			const cmpInstance = fixture.componentInstance as unknown as SelectSingleValueTest;
 
 			const expected = {
@@ -315,7 +315,7 @@ describe('Brn Select Component in single-mode', () => {
 			expect(getFormControlStatus(cmpInstance.form?.get('fruit'))).toStrictEqual(expected);
 			expect(getFormValidationClasses(trigger)).toStrictEqual(expected);
 
-			expect(value.textContent?.trim()).toBe(INITIAL_VALUE);
+			expect((trigger as HTMLInputElement).value).toBe(INITIAL_VALUE);
 			expect(cmpInstance.form?.get('fruit')?.value).toEqual(INITIAL_VALUE);
 		});
 	});
@@ -340,10 +340,11 @@ describe('Brn Select Component in single-mode', () => {
 
 	describe('keyboard navigation', () => {
 		it('should open the select and navigate to options using keyboard', async () => {
-			const { user, trigger, fixture, value } = await setupWithFormValidation();
+			const { user, trigger, fixture } = await setupWithFormValidation();
 			const cmpInstance = fixture.componentInstance as SelectSingleValueTest;
 
-			expect(value.textContent?.trim()).toBe(DEFAULT_LABEL);
+			expect((trigger as HTMLInputElement).value).toBe('');
+			expect(trigger.getAttribute('placeholder')).toBe(DEFAULT_LABEL);
 			expect(cmpInstance.form?.get('fruit')?.value).toEqual(null);
 			// Focus the trigger
 			await user.tab();
@@ -356,14 +357,14 @@ describe('Brn Select Component in single-mode', () => {
 
 			await user.keyboard(' ');
 
-			expect(value.textContent?.trim()).toBe('Apple');
+			expect((trigger as HTMLInputElement).value).toBe('Apple');
 			expect(cmpInstance.form?.get('fruit')?.value).toEqual('apple');
 
 			await waitFor(() => expect(screen.queryByTestId('brn-select-content')).toBeNull());
 			await user.keyboard(' ');
 			await waitFor(() => expect(screen.getByTestId('brn-select-content')).toBeVisible());
 
-			expect(value.textContent?.trim()).toBe('Apple');
+			expect((trigger as HTMLInputElement).value).toBe('Apple');
 			expect(cmpInstance.form?.get('fruit')?.value).toEqual('apple');
 		});
 	});

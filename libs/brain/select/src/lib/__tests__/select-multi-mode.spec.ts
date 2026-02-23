@@ -26,7 +26,6 @@ describe('Brn Select Component in multi-mode', () => {
 			user: userEvent.setup(),
 			fixture,
 			trigger: screen.getByTestId('brn-select-trigger'),
-			value: screen.getByTestId('brn-select-value'),
 		};
 	};
 
@@ -36,7 +35,6 @@ describe('Brn Select Component in multi-mode', () => {
 			user: userEvent.setup(),
 			fixture,
 			trigger: screen.getByTestId('brn-select-trigger'),
-			value: screen.getByTestId('brn-select-value'),
 		};
 	};
 
@@ -46,7 +44,6 @@ describe('Brn Select Component in multi-mode', () => {
 			user: userEvent.setup(),
 			fixture,
 			trigger: screen.getByTestId('brn-select-trigger'),
-			value: screen.getByTestId('brn-select-value'),
 			updateOptionsBtn: screen.getByTestId('update-options-btn'),
 			updatePartialOptionsBtn: screen.getByTestId('partial-options-btn'),
 			updateDiffOptionsBtn: screen.getByTestId('diff-options-btn'),
@@ -99,7 +96,7 @@ describe('Brn Select Component in multi-mode', () => {
 
 		// should have correct status when initialized with no value and as optional
 		it('should reflect correct form control status with no initial value', async () => {
-			const { fixture, trigger, value } = await setupWithFormValidationMulti();
+			const { fixture, trigger } = await setupWithFormValidationMulti();
 			const cmpInstance = fixture.componentInstance as SelectMultiValueTest;
 
 			const expected = {
@@ -114,12 +111,13 @@ describe('Brn Select Component in multi-mode', () => {
 			expect(getFormControlStatus(cmpInstance.form?.get('fruit'))).toStrictEqual(expected);
 			expect(getFormValidationClasses(trigger)).toStrictEqual(expected);
 
-			expect(value.textContent?.trim()).toBe(DEFAULT_LABEL);
+			expect((trigger as HTMLInputElement).value).toBe('');
+			expect(trigger.getAttribute('placeholder')).toBe(DEFAULT_LABEL);
 			expect(cmpInstance.form?.get('fruit')?.value).toEqual([]);
 		});
 
 		it('should reflect correct form control status with initial value', async () => {
-			const { fixture, trigger, value } = await setupWithFormValidationMultiWithInitialValue();
+			const { fixture, trigger } = await setupWithFormValidationMultiWithInitialValue();
 			const cmpInstance = fixture.componentInstance;
 
 			const expected = {
@@ -134,7 +132,7 @@ describe('Brn Select Component in multi-mode', () => {
 			expect(getFormControlStatus(cmpInstance.form?.get('fruit'))).toStrictEqual(expected);
 			expect(getFormValidationClasses(trigger)).toStrictEqual(expected);
 
-			expect(value.textContent?.trim()).toBe('apple, blueberry');
+			expect((trigger as HTMLInputElement).value).toBe('apple, blueberry');
 			expect(cmpInstance.form?.get('fruit')?.value).toEqual(['apple', 'blueberry']);
 		});
 
@@ -338,7 +336,7 @@ describe('Brn Select Component in multi-mode', () => {
 			await user.click(updateDiffOptionsBtn);
 
 			//display should be updated
-			expect(trigger).toHaveTextContent('apple, pineapple');
+			expect((trigger as HTMLInputElement).value).toBe('apple, pineapple');
 
 			// value should remain same
 			expect(cmpInstance.form?.get('fruit')?.value).toEqual(['apple', 'pineapple']);
@@ -355,7 +353,7 @@ describe('Brn Select Component in multi-mode', () => {
 			await user.click(updatePartialOptionsBtn);
 
 			//display should be updated
-			expect(trigger).toHaveTextContent('apple, pineapple');
+			expect((trigger as HTMLInputElement).value).toBe('apple, pineapple');
 
 			// expect value to remain same
 			expect(cmpInstance.form?.get('fruit')?.value).toEqual(['apple', 'pineapple']);
@@ -375,7 +373,7 @@ describe('Brn Select Component in multi-mode', () => {
 			await user.click(trigger);
 
 			// display should be same
-			expect(trigger).toHaveTextContent('Apple, Pineapple');
+			expect((trigger as HTMLInputElement).value).toBe('Apple, Pineapple');
 
 			// value should be same
 			expect(cmpInstance.form?.get('fruit')?.value).toEqual(['apple', 'pineapple']);
@@ -387,7 +385,7 @@ describe('Brn Select Component in multi-mode', () => {
 		 * No Initial Value
 		 */
 		it('should reflect correct form control status with no initial value', async () => {
-			const { fixture, trigger, value } = await setupWithFormValidationMulti();
+			const { fixture, trigger } = await setupWithFormValidationMulti();
 			const cmpInstance = fixture.componentInstance;
 
 			cmpInstance.form?.get('fruit')?.addValidators(Validators.required);
@@ -406,7 +404,8 @@ describe('Brn Select Component in multi-mode', () => {
 			expect(getFormControlStatus(cmpInstance.form?.get('fruit'))).toStrictEqual(expected);
 			expect(getFormValidationClasses(trigger)).toStrictEqual(expected);
 
-			expect(value.textContent?.trim()).toBe(DEFAULT_LABEL);
+			expect((trigger as HTMLInputElement).value).toBe('');
+			expect(trigger.getAttribute('placeholder')).toBe(DEFAULT_LABEL);
 			expect(cmpInstance.form?.get('fruit')?.value).toEqual([]);
 		});
 
@@ -415,7 +414,7 @@ describe('Brn Select Component in multi-mode', () => {
 		 */
 		// should initialize with correct status and initial value when required
 		it('should reflect correct form control status with initial value', async () => {
-			const { fixture, trigger, value } = await setupWithFormValidationMultiWithInitialValue();
+			const { fixture, trigger } = await setupWithFormValidationMultiWithInitialValue();
 			const cmpInstance = fixture.componentInstance;
 
 			cmpInstance.form?.get('fruit')?.addValidators(Validators.required);
@@ -434,7 +433,7 @@ describe('Brn Select Component in multi-mode', () => {
 			expect(getFormControlStatus(cmpInstance.form?.get('fruit'))).toStrictEqual(expected);
 			expect(getFormValidationClasses(trigger)).toStrictEqual(expected);
 
-			expect(value.textContent?.trim()).toBe('apple, blueberry');
+			expect((trigger as HTMLInputElement).value).toBe('apple, blueberry');
 			expect(cmpInstance.form?.get('fruit')?.value).toEqual(['apple', 'blueberry']);
 		});
 
@@ -569,7 +568,7 @@ describe('Brn Select Component in multi-mode', () => {
 		 * User Selection with initial value when options are dynamically added with a for-loop
 		 */
 		it('should reflect correct form control status and value after first user selection with initial value with dynamic options', async () => {
-			const { fixture, trigger, value, user } = await setupWithFormValidationMultiWithInitialValueWithForLoop();
+			const { fixture, trigger, user } = await setupWithFormValidationMultiWithInitialValueWithForLoop();
 			const cmpInstance = fixture.componentInstance as SelectMultiValueWithInitialValueWithForLoopTest;
 
 			cmpInstance.form?.get('fruit')?.addValidators(Validators.required);
@@ -592,7 +591,7 @@ describe('Brn Select Component in multi-mode', () => {
 
 			expect(cmpInstance.form?.get('fruit')?.value).toEqual(['apple', 'pineapple']);
 
-			expect(value.textContent?.trim()).toBe('apple, pineapple');
+			expect((trigger as HTMLInputElement).value).toBe('apple, pineapple');
 
 			// open select
 			await user.click(trigger);
@@ -737,11 +736,12 @@ describe('Brn Select Component in multi-mode', () => {
 			await user.click(options[1]);
 
 			expect(cmpInstance.form?.get('fruit')?.value).toEqual(['banana']);
-			expect(screen.getByTestId('brn-select-value').textContent?.trim()).toBe('Banana');
+			expect((trigger as HTMLInputElement).value).toBe('Banana');
 
 			await user.click(options[1]);
 
-			expect(trigger).toHaveTextContent('Select a Fruit');
+			expect((trigger as HTMLInputElement).value).toBe('');
+			expect(trigger.getAttribute('placeholder')).toBe('Select a Fruit');
 			expect(cmpInstance.form?.get('fruit')?.value).toEqual([]);
 		});
 	});

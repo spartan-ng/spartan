@@ -19,9 +19,7 @@ describe('BrnSelectComponent NumberValues', () => {
 		const container = await render(
 			`
 			 <brn-select class="inline-block" [(ngModel)]="selectedValue" [multiple]="multiple">
-			   <button brnSelectTrigger class='w-56' data-testid="brn-select-trigger">
-			     <brn-select-value data-testid="brn-select-value" />
-			   </button>
+			   <input brnSelectTrigger class='w-56' data-testid="brn-select-trigger" />
 			   <brn-select-content class="w-56" data-testid="brn-select-content">
 			     <label brnSelectLabel>Numbers</label>
 			     <div brnOption [value]="0">0</div>
@@ -45,34 +43,33 @@ describe('BrnSelectComponent NumberValues', () => {
 			container,
 			trigger: screen.getByTestId('brn-select-trigger'),
 			selectedValue,
-			value: screen.getByTestId('brn-select-value'),
 		};
 	};
 
 	it('should display the correct value after render', async () => {
-		const { container, user, trigger, value, selectedValue } = await setup();
+		const { container, user, trigger, selectedValue } = await setup();
 		// without rerenderung
 		container.detectChanges();
-		expect(value.textContent?.trim()).toBe('15');
+		expect((trigger as HTMLInputElement).value).toBe('15');
 
 		await user.click(trigger);
 		const options = await screen.getAllByRole('option');
 
 		await user.click(options[0]);
-		expect(trigger.textContent?.trim()).toBe('0');
+		expect((trigger as HTMLInputElement).value).toBe('0');
 		expect(selectedValue()).toBe(0);
 
 		await user.click(options[1]);
 		expect(selectedValue()).toBe(5);
-		expect(trigger.textContent?.trim()).toBe('5');
+		expect((trigger as HTMLInputElement).value).toBe('5');
 
 		await user.click(options[2]);
-		expect(trigger.textContent?.trim()).toBe('10');
+		expect((trigger as HTMLInputElement).value).toBe('10');
 		expect(selectedValue()).toBe(10);
 	});
 
 	it('should display the correct value after render when multiple is true', async () => {
-		const { container, user, trigger, value } = await setup();
+		const { container, user, trigger } = await setup();
 		const selectedValue = signal([15]);
 		await container.rerender({
 			componentProperties: {
@@ -81,7 +78,7 @@ describe('BrnSelectComponent NumberValues', () => {
 			},
 		});
 		container.detectChanges();
-		expect(value.textContent?.trim()).toBe('15');
+		expect((trigger as HTMLInputElement).value).toBe('15');
 		expect(selectedValue()).toEqual([15]);
 
 		await user.click(trigger);
@@ -89,10 +86,10 @@ describe('BrnSelectComponent NumberValues', () => {
 
 		await user.click(options[1]);
 		expect(selectedValue()).toEqual([15, 5]);
-		expect(trigger.textContent?.trim()).toBe('15, 5');
+		expect((trigger as HTMLInputElement).value).toBe('5, 15');
 
 		await user.click(options[2]);
-		expect(trigger.textContent?.trim()).toBe('15, 5, 10');
+		expect((trigger as HTMLInputElement).value).toBe('5, 10, 15');
 		expect(selectedValue()).toEqual([15, 5, 10]);
 	});
 });

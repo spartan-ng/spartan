@@ -20,14 +20,16 @@ import { injectBrnSelect } from './brn-select.token';
 @Directive({
 	selector: '[brnSelectTrigger]',
 	host: {
-		type: 'button',
 		role: 'combobox',
 		'[attr.id]': '_triggerId()',
-		'[disabled]': '_disabled()',
+		'[attr.disabled]': '_disabled() || null',
 		'[attr.aria-expanded]': '_select.open()',
 		'[attr.aria-controls]': '_contentId()',
 		'[attr.aria-labelledby]': '_labelledBy()',
-		'aria-autocomplete': 'none',
+		'[attr.aria-autocomplete]': '"none"',
+		'[attr.readonly]': '_select.readonly()',
+		'[attr.value]': '_select.displayValue()',
+		'[attr.placeholder]': '_select.placeholder() || null',
 		'[attr.dir]': '_select.direction()',
 		'[class.ng-invalid]': '_ngControl?.invalid || null',
 		'[class.ng-dirty]': '_ngControl?.dirty || null',
@@ -36,6 +38,9 @@ import { injectBrnSelect } from './brn-select.token';
 		'[class.ng-untouched]': '_ngControl?.untouched || null',
 		'[class.ng-pristine]': '_ngControl?.pristine || null',
 		'(keydown.ArrowDown)': '_select.show()',
+		'(keydown.ArrowUp)': '_select.show(); $event.preventDefault()',
+		'(keydown.Space)': '_select.show()',
+		'(keydown.Enter)': '_select.show()',
 	},
 })
 export class BrnSelectTrigger<T> implements AfterViewInit, OnDestroy, OnInit {

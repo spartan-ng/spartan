@@ -9,10 +9,8 @@ import { BrnSelect, BrnSelectImports } from '../../';
 	template: `
 		<form [formGroup]="fruitGroup">
 			<brn-select class="w-56" formControlName="fruit" placeholder="Select a Fruit" #select="brnSelect">
-				<button brnSelectTrigger data-testid="brn-select-trigger" cdk-overlay-origin #trigger="cdkOverlayOrigin" (click)="select.toggle()">
-					<brn-select-value />
-				</button>
-				
+				<input brnSelectTrigger data-testid="brn-select-trigger" cdk-overlay-origin #trigger="cdkOverlayOrigin" (click)="select.toggle()" />
+
 				<ng-template
 					cdk-connected-overlay
 					cdkConnectedOverlayLockPosition
@@ -55,10 +53,8 @@ export class SelectReactiveField {
 	template: `
 		<form [formGroup]="form">
 			<brn-select class="w-56" formControlName="fruit" placeholder="Select a Fruit" #select="brnSelect">
-				<button brnSelectTrigger data-testid="brn-select-trigger" cdk-overlay-origin #trigger="cdkOverlayOrigin" (click)="select.toggle()">
-					<brn-select-value data-testid="brn-select-value" />
-				</button>
-				
+				<input brnSelectTrigger data-testid="brn-select-trigger" cdk-overlay-origin #trigger="cdkOverlayOrigin" (click)="select.toggle()" />
+
 				<ng-template
 					cdk-connected-overlay
 					cdkConnectedOverlayLockPosition
@@ -103,9 +99,7 @@ export class SelectSingleValueTest {
 	template: `
 		<form [formGroup]="form">
 			<brn-select class="w-56" formControlName="fruit" placeholder="Select a Fruit" #select="brnSelect">
-				<button brnSelectTrigger data-testid="brn-select-trigger" cdk-overlay-origin #trigger="cdkOverlayOrigin" (click)="select.toggle()">
-					<brn-select-value data-testid="brn-select-value" />
-				</button>
+				<input brnSelectTrigger data-testid="brn-select-trigger" cdk-overlay-origin #trigger="cdkOverlayOrigin" (click)="select.toggle()" />
 
 				<ng-template
 					cdk-connected-overlay
@@ -151,9 +145,7 @@ export class SelectSingleValueWithInitialValueTest {
       <brn-select class="w-56" formControlName="fruit" placeholder="Select a Fruit"
         [displayWith]="displayWith()"
         #select="brnSelect">
-        <button brnSelectTrigger data-testid="brn-select-trigger" cdk-overlay-origin #trigger="cdkOverlayOrigin" (click)="select.toggle()">
-          <brn-select-value data-testid="brn-select-value" />
-        </button>
+        <input brnSelectTrigger data-testid="brn-select-trigger" cdk-overlay-origin #trigger="cdkOverlayOrigin" (click)="select.toggle()" />
         <ng-template
           cdk-connected-overlay
           cdkConnectedOverlayLockPosition
@@ -192,10 +184,8 @@ export class SelectSingleValueWithDisplayWithTest {
 	template: `
 		<form [formGroup]="form">
 			<brn-select class="w-56" formControlName="fruit" placeholder="Select a Fruit" #select="brnSelect">
-				<button brnSelectTrigger data-testid="brn-select-trigger" cdk-overlay-origin #trigger="cdkOverlayOrigin" (click)="select.toggle()">
-					<brn-select-value data-testid="brn-select-value" />
-				</button>
-				
+				<input brnSelectTrigger data-testid="brn-select-trigger" cdk-overlay-origin #trigger="cdkOverlayOrigin" (click)="select.toggle()" />
+
 				<ng-template
 					cdk-connected-overlay
 					cdkConnectedOverlayLockPosition
@@ -247,10 +237,8 @@ export class SelectSingleValueWithInitialValueWithAsyncUpdateTest {
 	template: `
 		<form [formGroup]="form">
 			<brn-select class="w-56" formControlName="fruit" placeholder="Select a Fruit" [multiple]="true" #select="brnSelect">
-				<button brnSelectTrigger data-testid="brn-select-trigger" cdk-overlay-origin #trigger="cdkOverlayOrigin" (click)="select.toggle()">
-					<brn-select-value data-testid="brn-select-value" />
-				</button>
-				
+				<input brnSelectTrigger data-testid="brn-select-trigger" cdk-overlay-origin #trigger="cdkOverlayOrigin" (click)="select.toggle()" />
+
 				<ng-template
 					cdk-connected-overlay
 					cdkConnectedOverlayLockPosition
@@ -293,10 +281,8 @@ export class SelectMultiValueTest {
 	template: `
 		<form [formGroup]="form">
 			<brn-select class="w-56" formControlName="fruit" placeholder="Select a Fruit" [multiple]="true" #select="brnSelect">
-				<button brnSelectTrigger data-testid="brn-select-trigger" cdk-overlay-origin #trigger="cdkOverlayOrigin" (click)="select.toggle()">
-					<brn-select-value data-testid="brn-select-value" />
-				</button>
-				
+				<input brnSelectTrigger data-testid="brn-select-trigger" cdk-overlay-origin #trigger="cdkOverlayOrigin" (click)="select.toggle()" />
+
 				<ng-template
 					cdk-connected-overlay
 					cdkConnectedOverlayLockPosition
@@ -339,10 +325,8 @@ export class SelectMultiValueWithInitialValueTest {
 	template: `
 		<form [formGroup]="form">
 			<brn-select class="w-56" formControlName="fruit" placeholder="Select a Fruit" [multiple]="true" #select="brnSelect">
-				<button brnSelectTrigger data-testid="brn-select-trigger" cdk-overlay-origin #trigger="cdkOverlayOrigin" (click)="select.toggle()">
-					<brn-select-value data-testid="brn-select-value" />
-				</button>
-				
+				<input brnSelectTrigger data-testid="brn-select-trigger" cdk-overlay-origin #trigger="cdkOverlayOrigin" (click)="select.toggle()" />
+
 				<ng-template
 					cdk-connected-overlay
 					cdkConnectedOverlayLockPosition

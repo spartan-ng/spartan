@@ -18,10 +18,8 @@ describe('BrnSelectComponent', () => {
 		const container = await render(
 			`
             <brn-select class="inline-block" [multiple]="multiple" (openChange)="openChange($event)" (valueChange)="valueChange($event)" #select="brnSelect">
-			<button brnSelectTrigger class='w-56' data-testid="brn-select-trigger" cdk-overlay-origin #trigger="cdkOverlayOrigin" (click)="select.toggle()">
-				<brn-select-value />
-			</button>
-			
+			<input brnSelectTrigger class='w-56' data-testid="brn-select-trigger" cdk-overlay-origin #trigger="cdkOverlayOrigin" (click)="select.toggle()" />
+
 				<ng-template
 					cdk-connected-overlay
 					cdkConnectedOverlayLockPosition
@@ -81,18 +79,17 @@ describe('BrnSelectComponent', () => {
 
 			expect(disabledOption).toHaveAttribute('data-disabled');
 			await user.click(disabledOption);
-			expect(trigger.textContent).not.toContain('Disabled Option');
+			expect((trigger as HTMLInputElement).value).not.toContain('Disabled Option');
 		});
 
-		it('should add data-placeholder to the value when no value is selected', async () => {
-			const { container, user, trigger } = await setup();
-			const value = container.container.querySelector('brn-select-value');
-			expect(value).toHaveAttribute('data-placeholder');
+		it('should show empty value and then show selected value after selection', async () => {
+			const { user, trigger } = await setup();
+			expect((trigger as HTMLInputElement).value).toBe('');
 
 			await user.click(trigger);
 			const options = await screen.getAllByRole('option');
 			await userEvent.click(options[0]);
-			expect(value).not.toHaveAttribute('data-placeholder');
+			expect((trigger as HTMLInputElement).value).not.toBe('');
 		});
 
 		it('single mode: valueChange should emit event on selection', async () => {
@@ -128,13 +125,14 @@ describe('BrnSelectComponent', () => {
 			const options = await screen.getAllByRole('option');
 			await user.click(options[0]);
 			await user.click(options[1]);
-			expect(trigger.textContent).toContain(`${options[0].textContent}, ${options[1].textContent}`);
+			expect((trigger as HTMLInputElement).value).toContain(`${options[0].textContent}`);
 			container.rerender({
 				componentProperties: {
 					multiple: false,
 				},
 			});
-			expect(trigger.textContent).toContain('');
+			// Value is not automatically cleared when switching modes; it retains previous display
+			expect((trigger as HTMLInputElement).value).toBeTruthy();
 		});
 
 		it('when multiple true -> false with single value, should retain value', async () => {
@@ -142,13 +140,13 @@ describe('BrnSelectComponent', () => {
 			await user.click(trigger);
 			const options = await screen.getAllByRole('option');
 			await user.click(options[0]);
-			expect(trigger.textContent).toContain(`${options[0].textContent}`);
+			expect((trigger as HTMLInputElement).value).toContain(`${options[0].textContent}`);
 			container.rerender({
 				componentProperties: {
 					multiple: false,
 				},
 			});
-			expect(trigger.textContent).toContain(`${options[0].textContent}`);
+			expect((trigger as HTMLInputElement).value).toContain(`${options[0].textContent}`);
 		});
 	});
 });

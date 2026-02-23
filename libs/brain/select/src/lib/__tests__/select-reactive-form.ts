@@ -102,7 +102,7 @@ export class SelectSingleValueTest {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<form [formGroup]="form">
-			<brn-select class="w-56" formControlName="fruit" placeholder="Select a Fruit" [displayWith]="displayWith()" #select="brnSelect">
+			<brn-select class="w-56" formControlName="fruit" placeholder="Select a Fruit" #select="brnSelect">
 				<button brnSelectTrigger data-testid="brn-select-trigger" cdk-overlay-origin #trigger="cdkOverlayOrigin" (click)="select.toggle()">
 					<brn-select-value data-testid="brn-select-value" />
 				</button>
@@ -139,6 +139,48 @@ export class SelectSingleValueTest {
 	`,
 })
 export class SelectSingleValueWithInitialValueTest {
+	public form = new FormGroup({ fruit: new FormControl('apple') });
+}
+
+@Component({
+	selector: 'select-display-with-fixture',
+	imports: [FormsModule, ReactiveFormsModule, BrnSelectImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+    <form [formGroup]="form">
+      <brn-select class="w-56" formControlName="fruit" placeholder="Select a Fruit"
+        [displayWith]="displayWith()"
+        #select="brnSelect">
+        <button brnSelectTrigger data-testid="brn-select-trigger" cdk-overlay-origin #trigger="cdkOverlayOrigin" (click)="select.toggle()">
+          <brn-select-value data-testid="brn-select-value" />
+        </button>
+        <ng-template
+          cdk-connected-overlay
+          cdkConnectedOverlayLockPosition
+          cdkConnectedOverlayHasBackdrop
+          cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
+          [cdkConnectedOverlayOrigin]="trigger"
+          [cdkConnectedOverlayOpen]="select._delayedExpanded()"
+          [cdkConnectedOverlayPositions]="select._positions"
+          [cdkConnectedOverlayWidth]="select.triggerWidth() > 0 ? select.triggerWidth() : 'auto'"
+          (backdropClick)="select.hide()"
+          (detach)="select.hide()"
+          (positionChange)="select._positionChanges$.next($event)"
+        >
+          <brn-select-content class="w-56" data-testid="brn-select-content">
+            <label brnSelectLabel>Fruits</label>
+            <div brnOption value="apple">Apple</div>
+            <div brnOption value="banana">Banana</div>
+            <div brnOption value="blueberry">Blueberry</div>
+            <div brnOption value="grapes">Grapes</div>
+            <div brnOption value="pineapple">Pineapple</div>
+          </brn-select-content>
+        </ng-template>
+      </brn-select>
+    </form>
+  `,
+})
+export class SelectSingleValueWithDisplayWithTest {
 	public form = new FormGroup({ fruit: new FormControl('apple') });
 	public readonly displayWith = input<((v: string) => string) | null>(null);
 }

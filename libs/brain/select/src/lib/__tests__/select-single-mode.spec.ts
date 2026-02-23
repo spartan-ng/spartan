@@ -3,6 +3,7 @@ import { render, screen, waitFor } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import {
 	SelectSingleValueTest,
+	SelectSingleValueWithDisplayWithTest,
 	SelectSingleValueWithInitialValueTest,
 	SelectSingleValueWithInitialValueWithAsyncUpdateTest,
 } from './select-reactive-form';
@@ -321,7 +322,7 @@ describe('Brn Select Component in single-mode', () => {
 
 	describe('displayValue with displayWith', () => {
 		it('should show label from displayWith before first open', async () => {
-			const { fixture } = await render(SelectSingleValueWithInitialValueTest, {
+			await render(SelectSingleValueWithDisplayWithTest, {
 				componentInputs: {
 					displayWith: (v: string) => (v === 'apple' ? 'Apple' : v),
 				},
@@ -331,9 +332,8 @@ describe('Brn Select Component in single-mode', () => {
 		});
 
 		it('should show raw value when no displayWith provided and overlay not yet opened', async () => {
-			await render(SelectSingleValueWithInitialValueTest);
+			await render(SelectSingleValueWithDisplayWithTest);
 			const trigger = screen.getByTestId('brn-select-trigger') as HTMLInputElement;
-			// No displayWith + no options registered yet = raw value fallback
 			expect(trigger.value).toBe('apple');
 		});
 	});

@@ -1,5 +1,5 @@
 import { type BooleanInput } from '@angular/cdk/coercion';
-import { booleanAttribute, computed, Directive, inject, input } from '@angular/core';
+import { booleanAttribute, computed, Directive, effect, inject, input } from '@angular/core';
 import { BrnTooltip, provideBrnTooltipDefaultOptions } from '@spartan-ng/brain/tooltip';
 import { DEFAULT_TOOLTIP_CONTENT_CLASSES } from '@spartan-ng/helm/tooltip';
 import { classes } from '@spartan-ng/helm/utils';
@@ -36,7 +36,7 @@ const sidebarMenuButtonVariants = cva(
 			showDelay: 150,
 			hideDelay: 0,
 			tooltipContentClasses: DEFAULT_TOOLTIP_CONTENT_CLASSES,
-			position: 'left',
+			position: 'right',
 		}),
 	],
 	hostDirectives: [
@@ -50,12 +50,14 @@ const sidebarMenuButtonVariants = cva(
 		'data-sidebar': 'menu-button',
 		'[attr.data-size]': 'size()',
 		'[attr.data-active]': 'isActive()',
+		'[tooltipDisabled]': '_isTooltipHidden()',
 		'(click)': 'onClick()',
 	},
 })
 export class HlmSidebarMenuButton {
 	private readonly _config = injectHlmSidebarConfig();
 	private readonly _sidebarService = inject(HlmSidebarService);
+	private readonly _brnTooltip = inject(BrnTooltip);
 
 	public readonly variant = input<'default' | 'outline'>('default');
 	public readonly size = input<'default' | 'sm' | 'lg'>('default');
@@ -71,6 +73,7 @@ export class HlmSidebarMenuButton {
 
 	constructor() {
 		classes(() => sidebarMenuButtonVariants({ variant: this.variant(), size: this.size() }));
+		effect(() => this._brnTooltip.disableTooltip.set(this._isTooltipHidden()));
 	}
 
 	protected onClick(): void {

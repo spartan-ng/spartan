@@ -20,7 +20,10 @@ export * from './lib/brn-select-value';
 export * from './lib/brn-select-value-template';
 export * from './lib/brn-select.token';
 
+import { OverlayModule } from '@angular/cdk/overlay';
+
 export const BrnSelectImports = [
+	OverlayModule,
 	BrnSelect,
 	BrnSelectContent,
 	BrnSelectTrigger,

@@ -1,19 +1,11 @@
 import { Directionality } from '@angular/cdk/bidi';
 import type { BooleanInput, NumberInput } from '@angular/cdk/coercion';
-import { CdkListboxModule } from '@angular/cdk/listbox';
-import {
-	CdkConnectedOverlay,
-	type ConnectedOverlayPositionChange,
-	type ConnectedPosition,
-	OverlayModule,
-} from '@angular/cdk/overlay';
+import { type ConnectedOverlayPositionChange, type ConnectedPosition } from '@angular/cdk/overlay';
 import {
 	booleanAttribute,
-	ChangeDetectionStrategy,
-	Component,
 	computed,
 	contentChild,
-	contentChildren,
+	Directive,
 	type DoCheck,
 	forwardRef,
 	inject,
@@ -24,7 +16,6 @@ import {
 	output,
 	type Signal,
 	signal,
-	viewChild,
 } from '@angular/core';
 import { takeUntilDestroyed, toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { type ControlValueAccessor, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
@@ -39,8 +30,8 @@ import { type ChangeFn, ErrorStateMatcher, ErrorStateTracker, type TouchFn } fro
 import { BrnLabel } from '@spartan-ng/brain/label';
 import { of, Subject } from 'rxjs';
 import { delay, map, switchMap } from 'rxjs/operators';
-import { BrnSelectContent } from './brn-select-content';
-import { BrnSelectOption } from './brn-select-option';
+import type { BrnSelectContent } from './brn-select-content';
+import type { BrnSelectOption } from './brn-select-option';
 import type { BrnSelectTrigger } from './brn-select-trigger';
 import { provideBrnSelect } from './brn-select.token';
 
@@ -48,11 +39,12 @@ export type BrnReadDirection = 'ltr' | 'rtl';
 
 let nextId = 0;
 
-@Component({
-	selector: 'brn-select, hlm-select',
-	imports: [OverlayModule, CdkListboxModule],
+@Directive({
+	selector: 'brn-select, [brnSelect]',
+	exportAs: 'brnSelect',
+	standalone: true,
 	providers: [
-		provideExposedSideProviderExisting(() => BrnSelect),
+provideExposedSideProviderExisting(() => BrnSelect),
 		provideExposesStateProviderExisting(() => BrnSelect),
 		provideBrnSelect(BrnSelect),
 		{
@@ -60,34 +52,6 @@ let nextId = 0;
 			useExisting: forwardRef(() => BrnSelect),
 		},
 	],
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	template: `
-		@if (!_selectLabel() && placeholder()) {
-			<label style="display: none;" [attr.id]="labelId()">{{ placeholder() }}</label>
-		} @else {
-			<ng-content select="label[hlmLabel],label[brnLabel]" />
-		}
-
-		<div cdk-overlay-origin (click)="toggle()" #trigger="cdkOverlayOrigin">
-			<ng-content select="hlm-select-trigger,[brnSelectTrigger]" />
-		</div>
-
-		<ng-template
-			cdk-connected-overlay
-			cdkConnectedOverlayLockPosition
-			cdkConnectedOverlayHasBackdrop
-			cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
-			[cdkConnectedOverlayOrigin]="trigger"
-			[cdkConnectedOverlayOpen]="_delayedExpanded()"
-			[cdkConnectedOverlayPositions]="_positions"
-			[cdkConnectedOverlayWidth]="triggerWidth() > 0 ? triggerWidth() : 'auto'"
-			(backdropClick)="hide()"
-			(detach)="hide()"
-			(positionChange)="_positionChanges$.next($event)"
-		>
-			<ng-content />
-		</ng-template>
-	`,
 })
 export class BrnSelect<T = unknown>
 	implements ControlValueAccessor, DoCheck, ExposesSide, ExposesState, BrnFormFieldControl
@@ -122,25 +86,31 @@ export class BrnSelect<T = unknown>
 	public readonly formDisabled = signal(false);
 
 	/** Label provided by the consumer. */
-	protected readonly _selectLabel = contentChild(BrnLabel, { descendants: false });
+	public readonly _selectLabel = contentChild(BrnLabel, { descendants: false });
 
-	/** Overlay pane containing the options. */
-	protected readonly _selectContent = contentChild.required(BrnSelectContent);
+	/**
+	 * @internal
+	 * Options are registered by BrnSelectContent after it initializes its own contentChildren.
+	 * We use a writable signal here because as a directive, contentChildren cannot traverse
+	 * CDK overlay portals where the options are actually rendered.
+	 */
+	private readonly _options = signal<readonly BrnSelectOption<T>[]>([]);
+	public readonly options: Signal<readonly BrnSelectOption<T>[]> = this._options.asReadonly();
 
-	/** @internal */
-	public readonly options = contentChildren(BrnSelectOption, { descendants: true });
+	/** Register options from BrnSelectContent. Called by BrnSelectContent via effect. */
+	public registerOptions(options: readonly BrnSelectOption<T>[]): void {
+		this._options.set(options);
+	}
 
 	/** @internal Derive the selected options to filter out the unselected options */
 	public readonly selectedOptions = computed(() => this.options().filter((option) => option.selected()));
 
-	/** Overlay pane containing the options. */
-	protected readonly _overlayDir = viewChild.required(CdkConnectedOverlay);
 	public readonly trigger = signal<BrnSelectTrigger<T> | null>(null);
 	public readonly triggerWidth = signal<number>(0);
 
-	protected readonly _delayedExpanded = toSignal(
-		toObservable(this.open).pipe(
-			switchMap((expanded) => (!expanded ? of(expanded).pipe(delay(this.closeDelay())) : of(expanded))),
+	public readonly _delayedExpanded = toSignal(
+toObservable(this.open).pipe(
+switchMap((expanded) => (!expanded ? of(expanded).pipe(delay(this.closeDelay())) : of(expanded))),
 			takeUntilDestroyed(),
 		),
 		{ initialValue: false },
@@ -148,11 +118,11 @@ export class BrnSelect<T = unknown>
 
 	public readonly state = computed(() => (this.open() ? 'open' : 'closed'));
 
-	protected readonly _positionChanges$ = new Subject<ConnectedOverlayPositionChange>();
+	public readonly _positionChanges$ = new Subject<ConnectedOverlayPositionChange>();
 
 	public readonly side: Signal<'top' | 'bottom' | 'left' | 'right'> = toSignal(
-		this._positionChanges$.pipe(
-			map<ConnectedOverlayPositionChange, 'top' | 'bottom' | 'left' | 'right'>((change) =>
+this._positionChanges$.pipe(
+map<ConnectedOverlayPositionChange, 'top' | 'bottom' | 'left' | 'right'>((change) =>
 				// todo: better translation or adjusting hlm to take that into account
 				change.connectionPair.originY === 'center'
 					? change.connectionPair.originX === 'start'
@@ -174,10 +144,10 @@ export class BrnSelect<T = unknown>
 	/*
 	 * This position config ensures that the top "start" corner of the overlay
 	 * is aligned with with the top "start" of the origin by default (overlapping
-	 * the trigger completely). If the panel cannot fit below the trigger, it
+ * the trigger completely). If the panel cannot fit below the trigger, it
 	 * will fall back to a position above the trigger.
 	 */
-	protected _positions: ConnectedPosition[] = [
+	public _positions: ConnectedPosition[] = [
 		{
 			originX: 'start',
 			originY: 'bottom',
@@ -214,11 +184,11 @@ export class BrnSelect<T = unknown>
 		}
 
 		this.errorStateTracker = new ErrorStateTracker(
-			this._defaultErrorStateMatcher,
-			this.ngControl,
-			this._parentFormGroup,
-			this._parentForm,
-		);
+this._defaultErrorStateMatcher,
+this.ngControl,
+this._parentFormGroup,
+this._parentForm,
+);
 	}
 
 	ngDoCheck() {
@@ -234,7 +204,7 @@ export class BrnSelect<T = unknown>
 	}
 
 	public show(): void {
-		if (this.open() || this.disabled() || this.formDisabled() || this.options()?.length == 0) {
+		if (this.open() || this.disabled() || this.formDisabled()) {
 			return;
 		}
 
@@ -314,7 +284,7 @@ export class BrnSelect<T = unknown>
 
 		if (Array.isArray(selection)) {
 			return selection.some((val) => this.compareWith()(val, value));
-		} else if (value !== undefined) {
+		} else if (value !== undefined && value !== null) {
 			return this.compareWith()(selection as T, value);
 		}
 

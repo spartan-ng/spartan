@@ -17,11 +17,25 @@ describe('BrnSelectComponent', () => {
 		const valueChangeSpy = jest.fn();
 		const container = await render(
 			`
-            <brn-select class="inline-block" [multiple]="multiple" (openChange)="openChange($event)" (valueChange)="valueChange($event)">
-			<button brnSelectTrigger class='w-56' data-testid="brn-select-trigger">
+            <brn-select class="inline-block" [multiple]="multiple" (openChange)="openChange($event)" (valueChange)="valueChange($event)" #select="brnSelect">
+			<button brnSelectTrigger class='w-56' data-testid="brn-select-trigger" cdk-overlay-origin #trigger="cdkOverlayOrigin" (click)="select.toggle()">
 				<brn-select-value />
 			</button>
-			<brn-select-content class="w-56" data-testid="brn-select-content">
+			
+				<ng-template
+					cdk-connected-overlay
+					cdkConnectedOverlayLockPosition
+					cdkConnectedOverlayHasBackdrop
+					cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
+					[cdkConnectedOverlayOrigin]="trigger"
+					[cdkConnectedOverlayOpen]="select._delayedExpanded()"
+					[cdkConnectedOverlayPositions]="select._positions"
+					[cdkConnectedOverlayWidth]="select.triggerWidth() > 0 ? select.triggerWidth() : 'auto'"
+					(backdropClick)="select.hide()"
+					(detach)="select.hide()"
+					(positionChange)="select._positionChanges$.next($event)"
+				>
+				<brn-select-content class="w-56" data-testid="brn-select-content">
 				<label brnSelectLabel>Fruits</label>
 				<div brnOption value="apple">Apple</div>
 				<div brnOption value="banana">Banana</div>
@@ -30,6 +44,8 @@ describe('BrnSelectComponent', () => {
 				<div brnOption value="pineapple">Pineapple</div>
 				<div brnOption value="disabled" [disabled]="true">Disabled Option</div>
 		  </brn-select-content>
+				</ng-template>
+
 		</brn-select>
     `,
 			{

@@ -145,6 +145,13 @@ export class BrnSelectContent<T> implements AfterContentInit {
 		effect(() => {
 			this._select.open() && afterNextRender(() => this.updateArrowDisplay(), { injector: this._injector });
 		});
+
+		// Register options with BrnSelect whenever they change.
+		// BrnSelect is a directive and cannot use contentChildren to traverse CDK overlay portals,
+		// so BrnSelectContent (which IS inside the portal and CAN find options) registers them upward.
+		effect(() => {
+			this._select.registerOptions(this._options());
+		});
 	}
 
 	ngAfterContentInit(): void {

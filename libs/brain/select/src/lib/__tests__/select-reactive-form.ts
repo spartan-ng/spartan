@@ -8,10 +8,24 @@ import { BrnSelect, BrnSelectImports } from '../../';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<form [formGroup]="fruitGroup">
-			<brn-select class="w-56" formControlName="fruit" placeholder="Select a Fruit">
-				<button brnSelectTrigger data-testid="brn-select-trigger">
+			<brn-select class="w-56" formControlName="fruit" placeholder="Select a Fruit" #select="brnSelect">
+				<button brnSelectTrigger data-testid="brn-select-trigger" cdk-overlay-origin #trigger="cdkOverlayOrigin" (click)="select.toggle()">
 					<brn-select-value />
 				</button>
+				
+				<ng-template
+					cdk-connected-overlay
+					cdkConnectedOverlayLockPosition
+					cdkConnectedOverlayHasBackdrop
+					cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
+					[cdkConnectedOverlayOrigin]="trigger"
+					[cdkConnectedOverlayOpen]="select._delayedExpanded()"
+					[cdkConnectedOverlayPositions]="select._positions"
+					[cdkConnectedOverlayWidth]="select.triggerWidth() > 0 ? select.triggerWidth() : 'auto'"
+					(backdropClick)="select.hide()"
+					(detach)="select.hide()"
+					(positionChange)="select._positionChanges$.next($event)"
+				>
 				<brn-select-content class="w-56" data-testid="brn-select-content">
 					<label brnSelectLabel>Fruits</label>
 					<div brnOption value="apple">Apple</div>
@@ -21,6 +35,8 @@ import { BrnSelect, BrnSelectImports } from '../../';
 					<div brnOption value="pineapple">Pineapple</div>
 					<div>Clear</div>
 				</brn-select-content>
+				</ng-template>
+
 			</brn-select>
 			@if (fruitGroup.controls.fruit.invalid && fruitGroup.controls.fruit.touched) {
 				<span class="text-destructive">Required</span>
@@ -38,10 +54,24 @@ export class SelectReactiveField {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<form [formGroup]="form">
-			<brn-select class="w-56" formControlName="fruit" placeholder="Select a Fruit">
-				<button brnSelectTrigger data-testid="brn-select-trigger">
+			<brn-select class="w-56" formControlName="fruit" placeholder="Select a Fruit" #select="brnSelect">
+				<button brnSelectTrigger data-testid="brn-select-trigger" cdk-overlay-origin #trigger="cdkOverlayOrigin" (click)="select.toggle()">
 					<brn-select-value data-testid="brn-select-value" />
 				</button>
+				
+				<ng-template
+					cdk-connected-overlay
+					cdkConnectedOverlayLockPosition
+					cdkConnectedOverlayHasBackdrop
+					cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
+					[cdkConnectedOverlayOrigin]="trigger"
+					[cdkConnectedOverlayOpen]="select._delayedExpanded()"
+					[cdkConnectedOverlayPositions]="select._positions"
+					[cdkConnectedOverlayWidth]="select.triggerWidth() > 0 ? select.triggerWidth() : 'auto'"
+					(backdropClick)="select.hide()"
+					(detach)="select.hide()"
+					(positionChange)="select._positionChanges$.next($event)"
+				>
 				<brn-select-content class="w-56" data-testid="brn-select-content">
 					<label brnSelectLabel>Fruits</label>
 					<div brnOption value="apple">Apple</div>
@@ -51,6 +81,8 @@ export class SelectReactiveField {
 					<div brnOption value="pineapple">Pineapple</div>
 					<div>Clear</div>
 				</brn-select-content>
+				</ng-template>
+
 			</brn-select>
 			@if (form.controls.fruit.invalid && form.controls.fruit.touched) {
 				<span class="text-destructive">Required</span>
@@ -70,10 +102,24 @@ export class SelectSingleValueTest {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<form [formGroup]="form">
-			<brn-select class="w-56" formControlName="fruit" placeholder="Select a Fruit">
-				<button brnSelectTrigger data-testid="brn-select-trigger">
+			<brn-select class="w-56" formControlName="fruit" placeholder="Select a Fruit" #select="brnSelect">
+				<button brnSelectTrigger data-testid="brn-select-trigger" cdk-overlay-origin #trigger="cdkOverlayOrigin" (click)="select.toggle()">
 					<brn-select-value data-testid="brn-select-value" />
 				</button>
+				
+				<ng-template
+					cdk-connected-overlay
+					cdkConnectedOverlayLockPosition
+					cdkConnectedOverlayHasBackdrop
+					cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
+					[cdkConnectedOverlayOrigin]="trigger"
+					[cdkConnectedOverlayOpen]="select._delayedExpanded()"
+					[cdkConnectedOverlayPositions]="select._positions"
+					[cdkConnectedOverlayWidth]="select.triggerWidth() > 0 ? select.triggerWidth() : 'auto'"
+					(backdropClick)="select.hide()"
+					(detach)="select.hide()"
+					(positionChange)="select._positionChanges$.next($event)"
+				>
 				<brn-select-content class="w-56" data-testid="brn-select-content">
 					<label brnSelectLabel>Fruits</label>
 					<div brnOption value="apple">Apple</div>
@@ -83,6 +129,8 @@ export class SelectSingleValueTest {
 					<div brnOption value="pineapple">Pineapple</div>
 					<div>Clear</div>
 				</brn-select-content>
+				</ng-template>
+
 			</brn-select>
 			@if (form.controls.fruit.invalid && form.controls.fruit.touched) {
 				<span class="text-destructive">Required</span>
@@ -100,10 +148,24 @@ export class SelectSingleValueWithInitialValueTest {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<form [formGroup]="form">
-			<brn-select class="w-56" formControlName="fruit" placeholder="Select a Fruit">
-				<button brnSelectTrigger data-testid="brn-select-trigger">
+			<brn-select class="w-56" formControlName="fruit" placeholder="Select a Fruit" #select="brnSelect">
+				<button brnSelectTrigger data-testid="brn-select-trigger" cdk-overlay-origin #trigger="cdkOverlayOrigin" (click)="select.toggle()">
 					<brn-select-value data-testid="brn-select-value" />
 				</button>
+				
+				<ng-template
+					cdk-connected-overlay
+					cdkConnectedOverlayLockPosition
+					cdkConnectedOverlayHasBackdrop
+					cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
+					[cdkConnectedOverlayOrigin]="trigger"
+					[cdkConnectedOverlayOpen]="select._delayedExpanded()"
+					[cdkConnectedOverlayPositions]="select._positions"
+					[cdkConnectedOverlayWidth]="select.triggerWidth() > 0 ? select.triggerWidth() : 'auto'"
+					(backdropClick)="select.hide()"
+					(detach)="select.hide()"
+					(positionChange)="select._positionChanges$.next($event)"
+				>
 				<brn-select-content class="w-56" data-testid="brn-select-content">
 					<label brnSelectLabel>Fruits</label>
 					<div brnOption value="apple">Apple</div>
@@ -113,6 +175,8 @@ export class SelectSingleValueWithInitialValueTest {
 					<div brnOption value="pineapple">Pineapple</div>
 					<div>Clear</div>
 				</brn-select-content>
+				</ng-template>
+
 			</brn-select>
 			@if (form.controls.fruit.invalid && form.controls.fruit.touched) {
 				<span class="text-destructive">Required</span>
@@ -139,10 +203,24 @@ export class SelectSingleValueWithInitialValueWithAsyncUpdateTest {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<form [formGroup]="form">
-			<brn-select class="w-56" formControlName="fruit" placeholder="Select a Fruit" [multiple]="true">
-				<button brnSelectTrigger data-testid="brn-select-trigger">
+			<brn-select class="w-56" formControlName="fruit" placeholder="Select a Fruit" [multiple]="true" #select="brnSelect">
+				<button brnSelectTrigger data-testid="brn-select-trigger" cdk-overlay-origin #trigger="cdkOverlayOrigin" (click)="select.toggle()">
 					<brn-select-value data-testid="brn-select-value" />
 				</button>
+				
+				<ng-template
+					cdk-connected-overlay
+					cdkConnectedOverlayLockPosition
+					cdkConnectedOverlayHasBackdrop
+					cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
+					[cdkConnectedOverlayOrigin]="trigger"
+					[cdkConnectedOverlayOpen]="select._delayedExpanded()"
+					[cdkConnectedOverlayPositions]="select._positions"
+					[cdkConnectedOverlayWidth]="select.triggerWidth() > 0 ? select.triggerWidth() : 'auto'"
+					(backdropClick)="select.hide()"
+					(detach)="select.hide()"
+					(positionChange)="select._positionChanges$.next($event)"
+				>
 				<brn-select-content class="w-56" data-testid="brn-select-content">
 					<label brnSelectLabel>Fruits</label>
 					<div brnOption value="apple">Apple</div>
@@ -152,6 +230,8 @@ export class SelectSingleValueWithInitialValueWithAsyncUpdateTest {
 					<div brnOption value="pineapple">Pineapple</div>
 					<div>Clear</div>
 				</brn-select-content>
+				</ng-template>
+
 			</brn-select>
 			@if (form.controls.fruit.invalid && form.controls.fruit.touched) {
 				<span class="text-destructive">Required</span>
@@ -169,10 +249,24 @@ export class SelectMultiValueTest {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<form [formGroup]="form">
-			<brn-select class="w-56" formControlName="fruit" placeholder="Select a Fruit" [multiple]="true">
-				<button brnSelectTrigger data-testid="brn-select-trigger">
+			<brn-select class="w-56" formControlName="fruit" placeholder="Select a Fruit" [multiple]="true" #select="brnSelect">
+				<button brnSelectTrigger data-testid="brn-select-trigger" cdk-overlay-origin #trigger="cdkOverlayOrigin" (click)="select.toggle()">
 					<brn-select-value data-testid="brn-select-value" />
 				</button>
+				
+				<ng-template
+					cdk-connected-overlay
+					cdkConnectedOverlayLockPosition
+					cdkConnectedOverlayHasBackdrop
+					cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
+					[cdkConnectedOverlayOrigin]="trigger"
+					[cdkConnectedOverlayOpen]="select._delayedExpanded()"
+					[cdkConnectedOverlayPositions]="select._positions"
+					[cdkConnectedOverlayWidth]="select.triggerWidth() > 0 ? select.triggerWidth() : 'auto'"
+					(backdropClick)="select.hide()"
+					(detach)="select.hide()"
+					(positionChange)="select._positionChanges$.next($event)"
+				>
 				<brn-select-content class="w-56" data-testid="brn-select-content">
 					<label brnSelectLabel>Fruits</label>
 					<div brnOption value="apple">Apple</div>
@@ -182,6 +276,8 @@ export class SelectMultiValueTest {
 					<div brnOption value="pineapple">Pineapple</div>
 					<div>Clear</div>
 				</brn-select-content>
+				</ng-template>
+
 			</brn-select>
 			@if (form.controls.fruit.invalid && form.controls.fruit.touched) {
 				<span class="text-destructive">Required</span>
@@ -199,16 +295,32 @@ export class SelectMultiValueWithInitialValueTest {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<form [formGroup]="form">
-			<brn-select class="w-56" formControlName="fruit" placeholder="Select a Fruit" [multiple]="true">
-				<button brnSelectTrigger data-testid="brn-select-trigger">
+			<brn-select class="w-56" formControlName="fruit" placeholder="Select a Fruit" [multiple]="true" #select="brnSelect">
+				<button brnSelectTrigger data-testid="brn-select-trigger" cdk-overlay-origin #trigger="cdkOverlayOrigin" (click)="select.toggle()">
 					<brn-select-value data-testid="brn-select-value" />
 				</button>
+				
+				<ng-template
+					cdk-connected-overlay
+					cdkConnectedOverlayLockPosition
+					cdkConnectedOverlayHasBackdrop
+					cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
+					[cdkConnectedOverlayOrigin]="trigger"
+					[cdkConnectedOverlayOpen]="select._delayedExpanded()"
+					[cdkConnectedOverlayPositions]="select._positions"
+					[cdkConnectedOverlayWidth]="select.triggerWidth() > 0 ? select.triggerWidth() : 'auto'"
+					(backdropClick)="select.hide()"
+					(detach)="select.hide()"
+					(positionChange)="select._positionChanges$.next($event)"
+				>
 				<brn-select-content class="w-56" data-testid="brn-select-content">
 					<label brnSelectLabel>Fruits</label>
 					@for (selectOption of options(); track selectOption.value) {
 						<div brnOption [value]="selectOption.value">{{ selectOption.label }}</div>
 					}
 				</brn-select-content>
+				</ng-template>
+
 			</brn-select>
 			@if (form.controls.fruit.invalid && form.controls.fruit.touched) {
 				<span class="text-destructive">Required</span>

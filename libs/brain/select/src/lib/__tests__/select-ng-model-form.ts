@@ -12,11 +12,25 @@ import { BrnSelectImports } from '../../index';
 			<div class="mb-3">
 				<pre>Form Control Value: {{ fruit() | json }}</pre>
 			</div>
-			<brn-select class="w-56" [(ngModel)]="fruit" name="fruit">
+			<brn-select class="w-56" [(ngModel)]="fruit" name="fruit" #select="brnSelect">
 				<label>Select a Fruit</label>
 				<div brnSelectTrigger>
 					<brn-select-value />
 				</div>
+				
+				<ng-template
+					cdk-connected-overlay
+					cdkConnectedOverlayLockPosition
+					cdkConnectedOverlayHasBackdrop
+					cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
+					[cdkConnectedOverlayOrigin]="trigger"
+					[cdkConnectedOverlayOpen]="select._delayedExpanded()"
+					[cdkConnectedOverlayPositions]="select._positions"
+					[cdkConnectedOverlayWidth]="select.triggerWidth() > 0 ? select.triggerWidth() : 'auto'"
+					(backdropClick)="select.hide()"
+					(detach)="select.hide()"
+					(positionChange)="select._positionChanges$.next($event)"
+				>
 				<brn-select-content>
 					<div brnSelectLabel>Fruits</div>
 					<div brnOption value="apple">Apple</div>
@@ -25,6 +39,8 @@ import { BrnSelectImports } from '../../index';
 					<div brnOption value="grapes">Grapes</div>
 					<div brnOption value="pineapple">Pineapple</div>
 				</brn-select-content>
+				</ng-template>
+
 			</brn-select>
 		</form>
 	`,

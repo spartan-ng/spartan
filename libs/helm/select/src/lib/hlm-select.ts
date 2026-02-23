@@ -1,11 +1,63 @@
-import { Directive } from '@angular/core';
-import { classes } from '@spartan-ng/helm/utils';
+import { CdkListboxModule } from '@angular/cdk/listbox';
+import { OverlayModule } from '@angular/cdk/overlay';
+import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
+import { BrnSelect } from '@spartan-ng/brain/select';
+import { hlm } from '@spartan-ng/helm/utils';
+import type { ClassValue } from 'clsx';
 
-@Directive({
-	selector: 'hlm-select, brn-select [hlm]',
+@Component({
+	selector: 'hlm-select',
+	imports: [OverlayModule, CdkListboxModule],
+	hostDirectives: [
+		{
+			directive: BrnSelect,
+			inputs: [
+				'id',
+				'multiple',
+				'placeholder',
+				'disabled',
+				'closeDelay',
+				'compareWith',
+				'open',
+				'value',
+			],
+			outputs: ['openChange', 'valueChange'],
+		},
+	],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		'[class]': '_computedClass()',
+	},
+	template: `
+		@if (!_brnSelect._selectLabel() && _brnSelect.placeholder()) {
+			<label style="display: none;" [attr.id]="_brnSelect.labelId()">{{ _brnSelect.placeholder() }}</label>
+		} @else {
+			<ng-content select="label[hlmLabel],label[brnLabel]" />
+		}
+
+		<div cdk-overlay-origin (click)="_brnSelect.toggle()" #trigger="cdkOverlayOrigin">
+			<ng-content select="hlm-select-trigger,[brnSelectTrigger]" />
+		</div>
+
+		<ng-template
+			cdk-connected-overlay
+			cdkConnectedOverlayLockPosition
+			cdkConnectedOverlayHasBackdrop
+			cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
+			[cdkConnectedOverlayOrigin]="trigger"
+			[cdkConnectedOverlayOpen]="_brnSelect._delayedExpanded()"
+			[cdkConnectedOverlayPositions]="_brnSelect._positions"
+			[cdkConnectedOverlayWidth]="_brnSelect.triggerWidth() > 0 ? _brnSelect.triggerWidth() : 'auto'"
+			(backdropClick)="_brnSelect.hide()"
+			(detach)="_brnSelect.hide()"
+			(positionChange)="_brnSelect._positionChanges$.next($event)"
+		>
+			<ng-content />
+		</ng-template>
+	`,
 })
 export class HlmSelect {
-	constructor() {
-		classes(() => 'space-y-2');
-	}
+	public readonly userClass = input<ClassValue>('', { alias: 'class' });
+	protected readonly _computedClass = computed(() => hlm('space-y-2 contents', this.userClass()));
+	public readonly _brnSelect = inject(BrnSelect, { host: true });
 }

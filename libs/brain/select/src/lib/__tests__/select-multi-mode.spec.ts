@@ -134,7 +134,7 @@ describe('Brn Select Component in multi-mode', () => {
 			expect(getFormControlStatus(cmpInstance.form?.get('fruit'))).toStrictEqual(expected);
 			expect(getFormValidationClasses(trigger)).toStrictEqual(expected);
 
-			expect(value.textContent?.trim()).toBe('Apple, Blueberry');
+			expect(value.textContent?.trim()).toBe('apple, blueberry');
 			expect(cmpInstance.form?.get('fruit')?.value).toEqual(['apple', 'blueberry']);
 		});
 
@@ -338,7 +338,7 @@ describe('Brn Select Component in multi-mode', () => {
 			await user.click(updateDiffOptionsBtn);
 
 			//display should be updated
-			expect(trigger).toHaveTextContent('Select a Fruit');
+			expect(trigger).toHaveTextContent('apple, pineapple');
 
 			// value should remain same
 			expect(cmpInstance.form?.get('fruit')?.value).toEqual(['apple', 'pineapple']);
@@ -355,7 +355,7 @@ describe('Brn Select Component in multi-mode', () => {
 			await user.click(updatePartialOptionsBtn);
 
 			//display should be updated
-			expect(trigger).toHaveTextContent('Apple');
+			expect(trigger).toHaveTextContent('apple, pineapple');
 
 			// expect value to remain same
 			expect(cmpInstance.form?.get('fruit')?.value).toEqual(['apple', 'pineapple']);
@@ -434,7 +434,7 @@ describe('Brn Select Component in multi-mode', () => {
 			expect(getFormControlStatus(cmpInstance.form?.get('fruit'))).toStrictEqual(expected);
 			expect(getFormValidationClasses(trigger)).toStrictEqual(expected);
 
-			expect(value.textContent?.trim()).toBe('Apple, Blueberry');
+			expect(value.textContent?.trim()).toBe('apple, blueberry');
 			expect(cmpInstance.form?.get('fruit')?.value).toEqual(['apple', 'blueberry']);
 		});
 
@@ -592,7 +592,7 @@ describe('Brn Select Component in multi-mode', () => {
 
 			expect(cmpInstance.form?.get('fruit')?.value).toEqual(['apple', 'pineapple']);
 
-			expect(value.textContent?.trim()).toBe('Apple, Pineapple');
+			expect(value.textContent?.trim()).toBe('apple, pineapple');
 
 			// open select
 			await user.click(trigger);

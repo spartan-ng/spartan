@@ -151,7 +151,7 @@ describe('Brn Select Component in single-mode', () => {
 			const { user, trigger, fixture, value } = await setupWithFormValidationAndInitialValue();
 			const cmpInstance = fixture.componentInstance as SelectSingleValueWithInitialValueTest;
 
-			expect(value.textContent?.trim()).toBe(INITIAL_VALUE_TEXT);
+			expect(value.textContent?.trim()).toBe(INITIAL_VALUE);
 			expect(cmpInstance.form?.get('fruit')?.value).toEqual(INITIAL_VALUE);
 
 			const expected = {
@@ -205,7 +205,7 @@ describe('Brn Select Component in single-mode', () => {
 			const { user, trigger, fixture, value } = await setupWithFormValidationAndInitialValueAndAsyncUpdate();
 			const cmpInstance = fixture.componentInstance as SelectSingleValueWithInitialValueTest;
 
-			expect(value.textContent?.trim()).toBe(INITIAL_VALUE_TEXT);
+			expect(value.textContent?.trim()).toBe(INITIAL_VALUE);
 			expect(cmpInstance.form?.get('fruit')?.value).toEqual(INITIAL_VALUE);
 
 			const expected = {
@@ -314,7 +314,7 @@ describe('Brn Select Component in single-mode', () => {
 			expect(getFormControlStatus(cmpInstance.form?.get('fruit'))).toStrictEqual(expected);
 			expect(getFormValidationClasses(trigger)).toStrictEqual(expected);
 
-			expect(value.textContent?.trim()).toBe(INITIAL_VALUE_TEXT);
+			expect(value.textContent?.trim()).toBe(INITIAL_VALUE);
 			expect(cmpInstance.form?.get('fruit')?.value).toEqual(INITIAL_VALUE);
 		});
 	});

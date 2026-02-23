@@ -47,12 +47,21 @@ export class BrnSelectValue<T> {
 			return null;
 		}
 
+		const options = this._select.options();
+
+		// When options are not yet registered (e.g., overlay hasn't been opened yet in the portal pattern),
+		// fall back to displaying the raw value so the placeholder isn't shown for pre-set values.
+		if (options.length === 0) {
+			const rawValues = value.filter((v) => v !== null && v !== undefined && v !== '');
+			return rawValues.length > 0 ? this.transformFn()(rawValues as string[]) : null;
+		}
+
 		// remove any selected values that are not in the options list
 		const existingOptions = value.filter((val) =>
-			this._select.options().some((option) => this._select.compareWith()(option.value(), val)),
+			options.some((option) => this._select.compareWith()(option.value()!, val)),
 		);
 		const selectedOption = existingOptions.map((val) =>
-			this._select.options().find((option) => this._select.compareWith()(option.value(), val)),
+			options.find((option) => this._select.compareWith()(option.value()!, val)),
 		);
 
 		if (selectedOption.length === 0) {

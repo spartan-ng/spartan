@@ -83,6 +83,46 @@ export class BrnSelect<T = unknown>
 	public readonly value = model<T | T[]>();
 	public readonly valueChange = output<T | T[]>();
 	public readonly compareWith = input<(o1: T, o2: T) => boolean>((o1, o2) => o1 === o2);
+
+	/** Whether the trigger input is read-only. Defaults to true (select pattern). */
+	public readonly readonly = input(true, { transform: booleanAttribute });
+
+	/**
+	 * Optional function to convert a value to its display string.
+	 * Use this when your values are objects (e.g. { id, label }) so the trigger
+	 * input shows the human-readable label from page load without requiring the
+	 * dropdown to have been opened first.
+	 *
+	 * @example
+	 * [displayWith]="(fruit) => fruit.label"
+	 */
+	public readonly displayWith = input<((value: T) => string) | null>(null);
+
+	/**
+	 * The string displayed in the trigger input.
+	 * Resolution order:
+	 *   1. displayWith function applied to value (works before first open)
+	 *   2. Labels from registered selectedOptions (available after first open)
+	 *   3. Raw value toString() fallback
+	 */
+	public readonly displayValue = computed<string>(() => {
+		const value = this.value();
+		if (value === null || value === undefined) return '';
+		if (Array.isArray(value) && value.length === 0) return '';
+
+		const fn = this.displayWith();
+		if (fn) {
+			return Array.isArray(value) ? value.map((v) => fn(v)).join(', ') : fn(value as T);
+		}
+
+		const labels = this.selectedOptions()
+			.map((o) => o.getLabel())
+			.filter(Boolean);
+		if (labels.length) return labels.join(', ');
+
+		return Array.isArray(value) ? (value as T[]).join(', ') : String(value ?? '');
+	});
+
 	public readonly formDisabled = signal(false);
 
 	/** Label provided by the consumer. */

@@ -300,7 +300,7 @@ describe('Brn Select Component in single-mode', () => {
 
 		it('should reflect initial single value set on formcontrol', async () => {
 			const { fixture, trigger, value } = await setupWithFormValidationAndInitialValue();
-			const cmpInstance = fixture.componentInstance as SelectSingleValueTest;
+			const cmpInstance = fixture.componentInstance as unknown as SelectSingleValueTest;
 
 			const expected = {
 				untouched: true,
@@ -316,6 +316,25 @@ describe('Brn Select Component in single-mode', () => {
 
 			expect(value.textContent?.trim()).toBe(INITIAL_VALUE);
 			expect(cmpInstance.form?.get('fruit')?.value).toEqual(INITIAL_VALUE);
+		});
+	});
+
+	describe('displayValue with displayWith', () => {
+		it('should show label from displayWith before first open', async () => {
+			const { fixture } = await render(SelectSingleValueWithInitialValueTest, {
+				componentInputs: {
+					displayWith: (v: string) => (v === 'apple' ? 'Apple' : v),
+				},
+			});
+			const trigger = screen.getByTestId('brn-select-trigger') as HTMLInputElement;
+			expect(trigger.value).toBe('Apple');
+		});
+
+		it('should show raw value when no displayWith provided and overlay not yet opened', async () => {
+			await render(SelectSingleValueWithInitialValueTest);
+			const trigger = screen.getByTestId('brn-select-trigger') as HTMLInputElement;
+			// No displayWith + no options registered yet = raw value fallback
+			expect(trigger.value).toBe('apple');
 		});
 	});
 

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, type OnInit, signal, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, type OnInit, signal, viewChild } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrnSelect, BrnSelectImports } from '../../';
 
@@ -102,11 +102,11 @@ export class SelectSingleValueTest {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<form [formGroup]="form">
-			<brn-select class="w-56" formControlName="fruit" placeholder="Select a Fruit" #select="brnSelect">
+			<brn-select class="w-56" formControlName="fruit" placeholder="Select a Fruit" [displayWith]="displayWith()" #select="brnSelect">
 				<button brnSelectTrigger data-testid="brn-select-trigger" cdk-overlay-origin #trigger="cdkOverlayOrigin" (click)="select.toggle()">
 					<brn-select-value data-testid="brn-select-value" />
 				</button>
-				
+
 				<ng-template
 					cdk-connected-overlay
 					cdkConnectedOverlayLockPosition
@@ -140,6 +140,7 @@ export class SelectSingleValueTest {
 })
 export class SelectSingleValueWithInitialValueTest {
 	public form = new FormGroup({ fruit: new FormControl('apple') });
+	public readonly displayWith = input<((v: string) => string) | null>(null);
 }
 
 @Component({

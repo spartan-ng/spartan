@@ -20,7 +20,7 @@ export class HlmSelectContent {
 
 	constructor() {
 		// Pass layout classes to the BRN viewport div (BRN = headless, HLM owns all styling)
-		inject(BrnSelectContent, { optional: true })?.setViewportClass('relative -mb-0.5 min-h-9 w-full flex-1 pb-0.5');
+		inject(BrnSelectContent, { optional: true })?.setViewportClass('relative -mb-0.5 min-h-9 w-full flex-1 pb-0.5 [&::-webkit-scrollbar]:hidden');
 
 		classes(
 			() =>

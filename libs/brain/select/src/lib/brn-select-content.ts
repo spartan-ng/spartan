@@ -27,7 +27,7 @@ import { injectBrnSelect } from './brn-select.token';
 const SCROLLBY_PIXELS = 100;
 
 @Directive({
-	selector: '[brnSelectScrollUp], brn-select-scroll-up, hlm-select-scroll-up:not(noHlm)',
+	selector: '[brnSelectScrollUp], brn-select-scroll-up',
 	host: {
 		'aria-hidden': 'true',
 		'(mouseenter)': 'startEmittingEvents()',
@@ -54,7 +54,7 @@ export class BrnSelectScrollUp {
 }
 
 @Directive({
-	selector: '[brnSelectScrollDown], brn-select-scroll-down, hlm-select-scroll-down:not(noHlm)',
+	selector: '[brnSelectScrollDown], brn-select-scroll-down',
 	host: {
 		'aria-hidden': 'true',
 		'(mouseenter)': 'startEmittingEvents()',

@@ -23,6 +23,7 @@ import { type ControlValueAccessor, FormGroupDirective, NgControl, NgForm } from
 import { BrnFieldControl } from '@spartan-ng/brain/field';
 import { type ChangeFn, ErrorStateMatcher, ErrorStateTracker, type TouchFn } from '@spartan-ng/brain/forms';
 import { BrnPopover } from '@spartan-ng/brain/popover';
+import { BrnComboboxContent } from './brn-combobox-content';
 import type { BrnComboboxInput } from './brn-combobox-input';
 import { BrnComboboxInputWrapper } from './brn-combobox-input-wrapper';
 import { type BrnComboboxItem } from './brn-combobox-item';
@@ -47,6 +48,9 @@ import {
 			useExisting: forwardRef(() => BrnCombobox),
 		},
 	],
+	host: {
+		'(focusout)': '_onFocusOut($event)',
+	},
 })
 export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor, DoCheck, BrnFieldControl {
 	private readonly _injector = inject(Injector);
@@ -116,6 +120,10 @@ export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor,
 		descendants: true,
 	});
 
+	private readonly _content = contentChild<BrnComboboxContent>(BrnComboboxContent, {
+		descendants: true,
+	});
+
 	/** Determine if the combobox has any visible items */
 	public readonly visibleItems = computed(() => this.items().some((item) => item.visible()));
 
@@ -175,6 +183,10 @@ export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor,
 		});
 	}
 
+	public ngDoCheck(): void {
+		this._errorStateTracker.updateErrorState();
+	}
+
 	public registerComboboxInput(input: BrnComboboxInput<T>): void {
 		this._comboboxInput.set(input);
 	}
@@ -225,16 +237,6 @@ export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor,
 		this._brnPopover?.open();
 	}
 
-	private close(): void {
-		if (this._disabled() || !this.isExpanded()) return;
-
-		this._brnPopover?.close();
-	}
-
-	ngDoCheck() {
-		this._errorStateTracker.updateErrorState();
-	}
-
 	/** CONTROL VALUE ACCESSOR */
 	public writeValue(value: T | null): void {
 		this.value.set(value);
@@ -250,5 +252,24 @@ export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor,
 
 	public setDisabledState(isDisabled: boolean): void {
 		this._disabled.set(isDisabled);
+	}
+
+	protected _onFocusOut(event: FocusEvent): void {
+		const currentTarget = event.currentTarget as HTMLElement;
+		const focusedEl = event.relatedTarget as HTMLElement | null;
+		const contentEl = this._content()?.el.nativeElement;
+
+		if (!currentTarget.contains(focusedEl) && !contentEl?.contains(focusedEl)) {
+			if (this.isExpanded()) {
+				this._brnPopover?.close();
+			}
+			this._onTouched?.();
+		}
+	}
+
+	private close(): void {
+		if (this._disabled() || !this.isExpanded()) return;
+
+		this._brnPopover?.close();
 	}
 }

@@ -9,7 +9,13 @@ import { BrnSelect, BrnSelectImports } from '../../';
 	template: `
 		<form [formGroup]="fruitGroup">
 			<brn-select class="w-56" formControlName="fruit" placeholder="Select a Fruit" #select="brnSelect">
-				<input brnSelectTrigger data-testid="brn-select-trigger" cdk-overlay-origin #trigger="cdkOverlayOrigin" (click)="select.toggle()" />
+				<input
+					brnSelectTrigger
+					data-testid="brn-select-trigger"
+					cdk-overlay-origin
+					#trigger="cdkOverlayOrigin"
+					(click)="select.toggle()"
+				/>
 
 				<ng-template
 					cdk-connected-overlay
@@ -24,17 +30,16 @@ import { BrnSelect, BrnSelectImports } from '../../';
 					(detach)="select.hide()"
 					(positionChange)="select._positionChanges$.next($event)"
 				>
-				<brn-select-content class="w-56" data-testid="brn-select-content">
-					<label brnSelectLabel>Fruits</label>
-					<div brnOption value="apple">Apple</div>
-					<div brnOption value="banana">Banana</div>
-					<div brnOption value="blueberry">Blueberry</div>
-					<div brnOption value="grapes">Grapes</div>
-					<div brnOption value="pineapple">Pineapple</div>
-					<div>Clear</div>
-				</brn-select-content>
+					<brn-select-content class="w-56" data-testid="brn-select-content">
+						<label brnSelectLabel>Fruits</label>
+						<div brnOption value="apple">Apple</div>
+						<div brnOption value="banana">Banana</div>
+						<div brnOption value="blueberry">Blueberry</div>
+						<div brnOption value="grapes">Grapes</div>
+						<div brnOption value="pineapple">Pineapple</div>
+						<div>Clear</div>
+					</brn-select-content>
 				</ng-template>
-
 			</brn-select>
 			@if (fruitGroup.controls.fruit.invalid && fruitGroup.controls.fruit.touched) {
 				<span class="text-destructive">Required</span>
@@ -53,7 +58,13 @@ export class SelectReactiveField {
 	template: `
 		<form [formGroup]="form">
 			<brn-select class="w-56" formControlName="fruit" placeholder="Select a Fruit" #select="brnSelect">
-				<input brnSelectTrigger data-testid="brn-select-trigger" cdk-overlay-origin #trigger="cdkOverlayOrigin" (click)="select.toggle()" />
+				<input
+					brnSelectTrigger
+					data-testid="brn-select-trigger"
+					cdk-overlay-origin
+					#trigger="cdkOverlayOrigin"
+					(click)="select.toggle()"
+				/>
 
 				<ng-template
 					cdk-connected-overlay
@@ -68,17 +79,16 @@ export class SelectReactiveField {
 					(detach)="select.hide()"
 					(positionChange)="select._positionChanges$.next($event)"
 				>
-				<brn-select-content class="w-56" data-testid="brn-select-content">
-					<label brnSelectLabel>Fruits</label>
-					<div brnOption value="apple">Apple</div>
-					<div brnOption value="banana">Banana</div>
-					<div brnOption value="blueberry">Blueberry</div>
-					<div brnOption value="grapes">Grapes</div>
-					<div brnOption value="pineapple">Pineapple</div>
-					<div>Clear</div>
-				</brn-select-content>
+					<brn-select-content class="w-56" data-testid="brn-select-content">
+						<label brnSelectLabel>Fruits</label>
+						<div brnOption value="apple">Apple</div>
+						<div brnOption value="banana">Banana</div>
+						<div brnOption value="blueberry">Blueberry</div>
+						<div brnOption value="grapes">Grapes</div>
+						<div brnOption value="pineapple">Pineapple</div>
+						<div>Clear</div>
+					</brn-select-content>
 				</ng-template>
-
 			</brn-select>
 			@if (form.controls.fruit.invalid && form.controls.fruit.touched) {
 				<span class="text-destructive">Required</span>
@@ -99,7 +109,13 @@ export class SelectSingleValueTest {
 	template: `
 		<form [formGroup]="form">
 			<brn-select class="w-56" formControlName="fruit" placeholder="Select a Fruit" #select="brnSelect">
-				<input brnSelectTrigger data-testid="brn-select-trigger" cdk-overlay-origin #trigger="cdkOverlayOrigin" (click)="select.toggle()" />
+				<input
+					brnSelectTrigger
+					data-testid="brn-select-trigger"
+					cdk-overlay-origin
+					#trigger="cdkOverlayOrigin"
+					(click)="select.toggle()"
+				/>
 
 				<ng-template
 					cdk-connected-overlay
@@ -114,17 +130,16 @@ export class SelectSingleValueTest {
 					(detach)="select.hide()"
 					(positionChange)="select._positionChanges$.next($event)"
 				>
-				<brn-select-content class="w-56" data-testid="brn-select-content">
-					<label brnSelectLabel>Fruits</label>
-					<div brnOption value="apple">Apple</div>
-					<div brnOption value="banana">Banana</div>
-					<div brnOption value="blueberry">Blueberry</div>
-					<div brnOption value="grapes">Grapes</div>
-					<div brnOption value="pineapple">Pineapple</div>
-					<div>Clear</div>
-				</brn-select-content>
+					<brn-select-content class="w-56" data-testid="brn-select-content">
+						<label brnSelectLabel>Fruits</label>
+						<div brnOption value="apple">Apple</div>
+						<div brnOption value="banana">Banana</div>
+						<div brnOption value="blueberry">Blueberry</div>
+						<div brnOption value="grapes">Grapes</div>
+						<div brnOption value="pineapple">Pineapple</div>
+						<div>Clear</div>
+					</brn-select-content>
 				</ng-template>
-
 			</brn-select>
 			@if (form.controls.fruit.invalid && form.controls.fruit.touched) {
 				<span class="text-destructive">Required</span>
@@ -141,36 +156,46 @@ export class SelectSingleValueWithInitialValueTest {
 	imports: [FormsModule, ReactiveFormsModule, BrnSelectImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-    <form [formGroup]="form">
-      <brn-select class="w-56" formControlName="fruit" placeholder="Select a Fruit"
-        [displayWith]="displayWith()"
-        #select="brnSelect">
-        <input brnSelectTrigger data-testid="brn-select-trigger" cdk-overlay-origin #trigger="cdkOverlayOrigin" (click)="select.toggle()" />
-        <ng-template
-          cdk-connected-overlay
-          cdkConnectedOverlayLockPosition
-          cdkConnectedOverlayHasBackdrop
-          cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
-          [cdkConnectedOverlayOrigin]="trigger"
-          [cdkConnectedOverlayOpen]="select._delayedExpanded()"
-          [cdkConnectedOverlayPositions]="select._positions"
-          [cdkConnectedOverlayWidth]="select.triggerWidth() > 0 ? select.triggerWidth() : 'auto'"
-          (backdropClick)="select.hide()"
-          (detach)="select.hide()"
-          (positionChange)="select._positionChanges$.next($event)"
-        >
-          <brn-select-content class="w-56" data-testid="brn-select-content">
-            <label brnSelectLabel>Fruits</label>
-            <div brnOption value="apple">Apple</div>
-            <div brnOption value="banana">Banana</div>
-            <div brnOption value="blueberry">Blueberry</div>
-            <div brnOption value="grapes">Grapes</div>
-            <div brnOption value="pineapple">Pineapple</div>
-          </brn-select-content>
-        </ng-template>
-      </brn-select>
-    </form>
-  `,
+		<form [formGroup]="form">
+			<brn-select
+				class="w-56"
+				formControlName="fruit"
+				placeholder="Select a Fruit"
+				[displayWith]="displayWith()"
+				#select="brnSelect"
+			>
+				<input
+					brnSelectTrigger
+					data-testid="brn-select-trigger"
+					cdk-overlay-origin
+					#trigger="cdkOverlayOrigin"
+					(click)="select.toggle()"
+				/>
+				<ng-template
+					cdk-connected-overlay
+					cdkConnectedOverlayLockPosition
+					cdkConnectedOverlayHasBackdrop
+					cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
+					[cdkConnectedOverlayOrigin]="trigger"
+					[cdkConnectedOverlayOpen]="select._delayedExpanded()"
+					[cdkConnectedOverlayPositions]="select._positions"
+					[cdkConnectedOverlayWidth]="select.triggerWidth() > 0 ? select.triggerWidth() : 'auto'"
+					(backdropClick)="select.hide()"
+					(detach)="select.hide()"
+					(positionChange)="select._positionChanges$.next($event)"
+				>
+					<brn-select-content class="w-56" data-testid="brn-select-content">
+						<label brnSelectLabel>Fruits</label>
+						<div brnOption value="apple">Apple</div>
+						<div brnOption value="banana">Banana</div>
+						<div brnOption value="blueberry">Blueberry</div>
+						<div brnOption value="grapes">Grapes</div>
+						<div brnOption value="pineapple">Pineapple</div>
+					</brn-select-content>
+				</ng-template>
+			</brn-select>
+		</form>
+	`,
 })
 export class SelectSingleValueWithDisplayWithTest {
 	public form = new FormGroup({ fruit: new FormControl('apple') });
@@ -184,7 +209,13 @@ export class SelectSingleValueWithDisplayWithTest {
 	template: `
 		<form [formGroup]="form">
 			<brn-select class="w-56" formControlName="fruit" placeholder="Select a Fruit" #select="brnSelect">
-				<input brnSelectTrigger data-testid="brn-select-trigger" cdk-overlay-origin #trigger="cdkOverlayOrigin" (click)="select.toggle()" />
+				<input
+					brnSelectTrigger
+					data-testid="brn-select-trigger"
+					cdk-overlay-origin
+					#trigger="cdkOverlayOrigin"
+					(click)="select.toggle()"
+				/>
 
 				<ng-template
 					cdk-connected-overlay
@@ -199,17 +230,16 @@ export class SelectSingleValueWithDisplayWithTest {
 					(detach)="select.hide()"
 					(positionChange)="select._positionChanges$.next($event)"
 				>
-				<brn-select-content class="w-56" data-testid="brn-select-content">
-					<label brnSelectLabel>Fruits</label>
-					<div brnOption value="apple">Apple</div>
-					<div brnOption value="banana">Banana</div>
-					<div brnOption value="blueberry">Blueberry</div>
-					<div brnOption value="grapes">Grapes</div>
-					<div brnOption value="pineapple">Pineapple</div>
-					<div>Clear</div>
-				</brn-select-content>
+					<brn-select-content class="w-56" data-testid="brn-select-content">
+						<label brnSelectLabel>Fruits</label>
+						<div brnOption value="apple">Apple</div>
+						<div brnOption value="banana">Banana</div>
+						<div brnOption value="blueberry">Blueberry</div>
+						<div brnOption value="grapes">Grapes</div>
+						<div brnOption value="pineapple">Pineapple</div>
+						<div>Clear</div>
+					</brn-select-content>
 				</ng-template>
-
 			</brn-select>
 			@if (form.controls.fruit.invalid && form.controls.fruit.touched) {
 				<span class="text-destructive">Required</span>
@@ -236,8 +266,20 @@ export class SelectSingleValueWithInitialValueWithAsyncUpdateTest {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<form [formGroup]="form">
-			<brn-select class="w-56" formControlName="fruit" placeholder="Select a Fruit" [multiple]="true" #select="brnSelect">
-				<input brnSelectTrigger data-testid="brn-select-trigger" cdk-overlay-origin #trigger="cdkOverlayOrigin" (click)="select.toggle()" />
+			<brn-select
+				class="w-56"
+				formControlName="fruit"
+				placeholder="Select a Fruit"
+				[multiple]="true"
+				#select="brnSelect"
+			>
+				<input
+					brnSelectTrigger
+					data-testid="brn-select-trigger"
+					cdk-overlay-origin
+					#trigger="cdkOverlayOrigin"
+					(click)="select.toggle()"
+				/>
 
 				<ng-template
 					cdk-connected-overlay
@@ -252,17 +294,16 @@ export class SelectSingleValueWithInitialValueWithAsyncUpdateTest {
 					(detach)="select.hide()"
 					(positionChange)="select._positionChanges$.next($event)"
 				>
-				<brn-select-content class="w-56" data-testid="brn-select-content">
-					<label brnSelectLabel>Fruits</label>
-					<div brnOption value="apple">Apple</div>
-					<div brnOption value="banana">Banana</div>
-					<div brnOption value="blueberry">Blueberry</div>
-					<div brnOption value="grapes">Grapes</div>
-					<div brnOption value="pineapple">Pineapple</div>
-					<div>Clear</div>
-				</brn-select-content>
+					<brn-select-content class="w-56" data-testid="brn-select-content">
+						<label brnSelectLabel>Fruits</label>
+						<div brnOption value="apple">Apple</div>
+						<div brnOption value="banana">Banana</div>
+						<div brnOption value="blueberry">Blueberry</div>
+						<div brnOption value="grapes">Grapes</div>
+						<div brnOption value="pineapple">Pineapple</div>
+						<div>Clear</div>
+					</brn-select-content>
 				</ng-template>
-
 			</brn-select>
 			@if (form.controls.fruit.invalid && form.controls.fruit.touched) {
 				<span class="text-destructive">Required</span>
@@ -280,8 +321,20 @@ export class SelectMultiValueTest {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<form [formGroup]="form">
-			<brn-select class="w-56" formControlName="fruit" placeholder="Select a Fruit" [multiple]="true" #select="brnSelect">
-				<input brnSelectTrigger data-testid="brn-select-trigger" cdk-overlay-origin #trigger="cdkOverlayOrigin" (click)="select.toggle()" />
+			<brn-select
+				class="w-56"
+				formControlName="fruit"
+				placeholder="Select a Fruit"
+				[multiple]="true"
+				#select="brnSelect"
+			>
+				<input
+					brnSelectTrigger
+					data-testid="brn-select-trigger"
+					cdk-overlay-origin
+					#trigger="cdkOverlayOrigin"
+					(click)="select.toggle()"
+				/>
 
 				<ng-template
 					cdk-connected-overlay
@@ -296,17 +349,16 @@ export class SelectMultiValueTest {
 					(detach)="select.hide()"
 					(positionChange)="select._positionChanges$.next($event)"
 				>
-				<brn-select-content class="w-56" data-testid="brn-select-content">
-					<label brnSelectLabel>Fruits</label>
-					<div brnOption value="apple">Apple</div>
-					<div brnOption value="banana">Banana</div>
-					<div brnOption value="blueberry">Blueberry</div>
-					<div brnOption value="grapes">Grapes</div>
-					<div brnOption value="pineapple">Pineapple</div>
-					<div>Clear</div>
-				</brn-select-content>
+					<brn-select-content class="w-56" data-testid="brn-select-content">
+						<label brnSelectLabel>Fruits</label>
+						<div brnOption value="apple">Apple</div>
+						<div brnOption value="banana">Banana</div>
+						<div brnOption value="blueberry">Blueberry</div>
+						<div brnOption value="grapes">Grapes</div>
+						<div brnOption value="pineapple">Pineapple</div>
+						<div>Clear</div>
+					</brn-select-content>
 				</ng-template>
-
 			</brn-select>
 			@if (form.controls.fruit.invalid && form.controls.fruit.touched) {
 				<span class="text-destructive">Required</span>
@@ -324,8 +376,20 @@ export class SelectMultiValueWithInitialValueTest {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<form [formGroup]="form">
-			<brn-select class="w-56" formControlName="fruit" placeholder="Select a Fruit" [multiple]="true" #select="brnSelect">
-				<input brnSelectTrigger data-testid="brn-select-trigger" cdk-overlay-origin #trigger="cdkOverlayOrigin" (click)="select.toggle()" />
+			<brn-select
+				class="w-56"
+				formControlName="fruit"
+				placeholder="Select a Fruit"
+				[multiple]="true"
+				#select="brnSelect"
+			>
+				<input
+					brnSelectTrigger
+					data-testid="brn-select-trigger"
+					cdk-overlay-origin
+					#trigger="cdkOverlayOrigin"
+					(click)="select.toggle()"
+				/>
 
 				<ng-template
 					cdk-connected-overlay
@@ -340,14 +404,13 @@ export class SelectMultiValueWithInitialValueTest {
 					(detach)="select.hide()"
 					(positionChange)="select._positionChanges$.next($event)"
 				>
-				<brn-select-content class="w-56" data-testid="brn-select-content">
-					<label brnSelectLabel>Fruits</label>
-					@for (selectOption of options(); track selectOption.value) {
-						<div brnOption [value]="selectOption.value">{{ selectOption.label }}</div>
-					}
-				</brn-select-content>
+					<brn-select-content class="w-56" data-testid="brn-select-content">
+						<label brnSelectLabel>Fruits</label>
+						@for (selectOption of options(); track selectOption.value) {
+							<div brnOption [value]="selectOption.value">{{ selectOption.label }}</div>
+						}
+					</brn-select-content>
 				</ng-template>
-
 			</brn-select>
 			@if (form.controls.fruit.invalid && form.controls.fruit.touched) {
 				<span class="text-destructive">Required</span>

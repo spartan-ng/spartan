@@ -1,4 +1,10 @@
-import { BrnSelect, BrnSelectContent, BrnSelectPlaceholder, BrnSelectValue, BrnSelectValueTemplate } from '@spartan-ng/brain/select';
+import {
+	BrnSelect,
+	BrnSelectContent,
+	BrnSelectPlaceholder,
+	BrnSelectValue,
+	BrnSelectValueTemplate,
+} from '@spartan-ng/brain/select';
 import { HlmSelect } from './lib/hlm-select';
 import { HlmSelectContent } from './lib/hlm-select-content';
 import { HlmSelectGroup } from './lib/hlm-select-group';

@@ -30,7 +30,6 @@ import { type ChangeFn, ErrorStateMatcher, ErrorStateTracker, type TouchFn } fro
 import { BrnLabel } from '@spartan-ng/brain/label';
 import { of, Subject } from 'rxjs';
 import { delay, map, switchMap } from 'rxjs/operators';
-import type { BrnSelectContent } from './brn-select-content';
 import type { BrnSelectOption } from './brn-select-option';
 import type { BrnSelectTrigger } from './brn-select-trigger';
 import { provideBrnSelect } from './brn-select.token';
@@ -44,7 +43,7 @@ let nextId = 0;
 	exportAs: 'brnSelect',
 	standalone: true,
 	providers: [
-provideExposedSideProviderExisting(() => BrnSelect),
+		provideExposedSideProviderExisting(() => BrnSelect),
 		provideExposesStateProviderExisting(() => BrnSelect),
 		provideBrnSelect(BrnSelect),
 		{
@@ -99,27 +98,60 @@ export class BrnSelect<T = unknown>
 	public readonly displayWith = input<((value: T) => string) | null>(null);
 
 	/**
+	 * Tracks whether the user (or an external form reset) has made an explicit selection.
+	 * Required to distinguish "value is undefined because nothing was selected yet" from
+	 * "value is undefined because the user explicitly selected an option whose value is undefined".
+	 * @internal
+	 */
+	private readonly _selectionMade = signal(false);
+
+	/**
 	 * The string displayed in the trigger input.
 	 * Resolution order:
 	 *   1. displayWith function applied to value (works before first open)
-	 *   2. Labels from registered selectedOptions (available after first open)
+	 *   2. Option labels found by searching registered options with compareWith
+	 *      (mirrors the old BrnSelectValue approach; supports null/undefined option values)
 	 *   3. Raw value toString() fallback
 	 */
 	public readonly displayValue = computed<string>(() => {
-		const value = this.value();
-		if (value === null || value === undefined) return '';
-		if (Array.isArray(value) && value.length === 0) return '';
-
 		const fn = this.displayWith();
+		const value = this.value();
+
 		if (fn) {
+			if (value === null || value === undefined) return '';
+			if (Array.isArray(value) && value.length === 0) return '';
 			return Array.isArray(value) ? value.map((v) => fn(v)).join(', ') : fn(value as T);
 		}
 
+		const allOptions = this.options();
+		const compareWith = this.compareWith();
+
+		if (allOptions.length) {
+			if (Array.isArray(value)) {
+				if (value.length === 0) return '';
+				const labels = (value as T[])
+					.map((v) => allOptions.find((o) => compareWith(o.value() as T, v))?.getLabel() ?? '')
+					.filter(Boolean);
+				return labels.length ? labels.join(', ') : '';
+			} else if (value !== null && value !== undefined) {
+				const match = allOptions.find((o) => compareWith(o.value() as T, value as T));
+				return match ? match.getLabel() : String(value);
+			} else if (this._selectionMade()) {
+				// null/undefined value: only show option label when explicitly selected
+				const match = allOptions.find((o) => compareWith(o.value() as T, value as T));
+				return match ? match.getLabel() : '';
+			}
+			return '';
+		}
+
+		// Before first open (options not yet registered): fall back to selectedOptions labels
 		const labels = this.selectedOptions()
 			.map((o) => o.getLabel())
 			.filter(Boolean);
 		if (labels.length) return labels.join(', ');
 
+		if (value === null || value === undefined) return '';
+		if (Array.isArray(value) && value.length === 0) return '';
 		return Array.isArray(value) ? (value as T[]).join(', ') : String(value ?? '');
 	});
 
@@ -149,8 +181,8 @@ export class BrnSelect<T = unknown>
 	public readonly triggerWidth = signal<number>(0);
 
 	public readonly _delayedExpanded = toSignal(
-toObservable(this.open).pipe(
-switchMap((expanded) => (!expanded ? of(expanded).pipe(delay(this.closeDelay())) : of(expanded))),
+		toObservable(this.open).pipe(
+			switchMap((expanded) => (!expanded ? of(expanded).pipe(delay(this.closeDelay())) : of(expanded))),
 			takeUntilDestroyed(),
 		),
 		{ initialValue: false },
@@ -161,8 +193,8 @@ switchMap((expanded) => (!expanded ? of(expanded).pipe(delay(this.closeDelay()))
 	public readonly _positionChanges$ = new Subject<ConnectedOverlayPositionChange>();
 
 	public readonly side: Signal<'top' | 'bottom' | 'left' | 'right'> = toSignal(
-this._positionChanges$.pipe(
-map<ConnectedOverlayPositionChange, 'top' | 'bottom' | 'left' | 'right'>((change) =>
+		this._positionChanges$.pipe(
+			map<ConnectedOverlayPositionChange, 'top' | 'bottom' | 'left' | 'right'>((change) =>
 				// todo: better translation or adjusting hlm to take that into account
 				change.connectionPair.originY === 'center'
 					? change.connectionPair.originX === 'start'
@@ -184,7 +216,7 @@ map<ConnectedOverlayPositionChange, 'top' | 'bottom' | 'left' | 'right'>((change
 	/*
 	 * This position config ensures that the top "start" corner of the overlay
 	 * is aligned with with the top "start" of the origin by default (overlapping
- * the trigger completely). If the panel cannot fit below the trigger, it
+	 * the trigger completely). If the panel cannot fit below the trigger, it
 	 * will fall back to a position above the trigger.
 	 */
 	public _positions: ConnectedPosition[] = [
@@ -224,11 +256,11 @@ map<ConnectedOverlayPositionChange, 'top' | 'bottom' | 'left' | 'right'>((change
 		}
 
 		this.errorStateTracker = new ErrorStateTracker(
-this._defaultErrorStateMatcher,
-this.ngControl,
-this._parentFormGroup,
-this._parentForm,
-);
+			this._defaultErrorStateMatcher,
+			this.ngControl,
+			this._parentFormGroup,
+			this._parentForm,
+		);
 	}
 
 	ngDoCheck() {
@@ -263,6 +295,10 @@ this._parentForm,
 
 	public writeValue(value: T): void {
 		this.value.set(value);
+		// An external form reset (null/undefined/empty array) clears the selection state so
+		// the trigger shows the placeholder instead of a stale label.
+		const isEmpty = value === null || value === undefined || (Array.isArray(value) && (value as T[]).length === 0);
+		this._selectionMade.set(!isEmpty);
 	}
 
 	public registerOnChange(fn: ChangeFn<T | T[]>): void {
@@ -289,6 +325,7 @@ this._parentForm,
 			this.valueChange.emit(value);
 		}
 
+		this._selectionMade.set(true);
 		this._onChange?.(this.value() as T | T[]);
 
 		// if this is single select close the dropdown
@@ -303,9 +340,11 @@ this._parentForm,
 			const newValue = currentValue.filter((val) => !this.compareWith()(val, value));
 			this.value.set(newValue);
 			this.valueChange.emit(newValue);
+			this._selectionMade.set(newValue.length > 0);
 		} else {
 			this.value.set(null as T);
 			this.valueChange.emit(null as T);
+			this._selectionMade.set(false);
 		}
 
 		this._onChange?.(this.value() as T | T[]);

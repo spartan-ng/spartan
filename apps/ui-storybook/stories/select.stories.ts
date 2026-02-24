@@ -58,9 +58,7 @@ export const Default: Story = {
 		props: { ...args },
 		template: /* HTML */ `
 			<hlm-select class="inline-block" ${argsToTemplate(args, { exclude: ['initialValue', 'selectValueTransformFn'] })}>
-				<hlm-select-trigger class="w-56">
-					<hlm-select-value />
-				</hlm-select-trigger>
+				<hlm-select-trigger class="w-56" />
 				<hlm-select-content>
 					<hlm-select-label>Fruits</hlm-select-label>
 					<hlm-option value="apple">Apple</hlm-option>
@@ -87,9 +85,7 @@ export const ReactiveFormControl: Story = {
 					${argsToTemplate(args, { exclude: ['initialValue', 'selectValueTransformFn'] })}
 					formControlName="fruit"
 				>
-					<hlm-select-trigger>
-						<hlm-select-value />
-					</hlm-select-trigger>
+					<hlm-select-trigger />
 					<hlm-select-content>
 						<hlm-select-label>Fruits</hlm-select-label>
 						<hlm-option value="apple">Apple</hlm-option>
@@ -118,9 +114,7 @@ export const DisabledOption: Story = {
 					${argsToTemplate(args, { exclude: ['initialValue', 'selectValueTransformFn'] })}
 					formControlName="fruit"
 				>
-					<hlm-select-trigger>
-						<hlm-select-value />
-					</hlm-select-trigger>
+					<hlm-select-trigger />
 					<hlm-select-content>
 						<hlm-select-label>Fruits</hlm-select-label>
 						<hlm-option value="apple">Apple</hlm-option>
@@ -156,9 +150,7 @@ export const SelectValueTransformFn: Story = {
 					${argsToTemplate(args, { exclude: ['initialValue', 'selectValueTransformFn'] })}
 					formControlName="fruit"
 				>
-					<hlm-select-trigger>
-						<hlm-select-value [transformFn]="selectValueTransformFn" />
-					</hlm-select-trigger>
+					<hlm-select-trigger />
 					<hlm-select-content>
 						<hlm-select-label>Fruits</hlm-select-label>
 						<hlm-option value="apple">Apple</hlm-option>
@@ -202,9 +194,7 @@ export const ReactiveFormControlWithForAndInitialValue: Story = {
 					${argsToTemplate(args, { exclude: ['initialValue', 'selectValueTransformFn'] })}
 					formControlName="fruit"
 				>
-					<hlm-select-trigger>
-						<hlm-select-value />
-					</hlm-select-trigger>
+					<hlm-select-trigger />
 					<hlm-select-content>
 						<hlm-select-label>Fruits</hlm-select-label>
 						@for(option of options; track option.value){
@@ -283,9 +273,7 @@ export const ReactiveFormControlWithForAndInitialValueAndMultiple: StoryObj<
 					${argsToTemplate(args, { exclude: ['initialValue', 'options'] })}
 					formControlName="fruit"
 				>
-					<hlm-select-trigger>
-						<hlm-select-value />
-					</hlm-select-trigger>
+					<hlm-select-trigger />
 					<hlm-select-content>
 						<hlm-select-label>Fruits</hlm-select-label>
 						@for(option of options; track option.value){
@@ -319,9 +307,7 @@ export const ReactiveFormControlWithValidation: Story = {
 					formControlName="fruit"
 					${argsToTemplate(args, { exclude: ['initialValue', 'selectValueTransformFn'] })}
 				>
-					<hlm-select-trigger>
-						<hlm-select-value />
-					</hlm-select-trigger>
+					<hlm-select-trigger />
 					<hlm-select-content>
 						<hlm-select-label>Fruits</hlm-select-label>
 						<hlm-option value="apple">Apple</hlm-option>
@@ -359,9 +345,7 @@ export const ReactiveFormControlWithValidationWithLabel: Story = {
 					${argsToTemplate(args, { exclude: ['initialValue', 'selectValueTransformFn'] })}
 				>
 					<label hlmLabel>Select a Fruit</label>
-					<hlm-select-trigger>
-						<hlm-select-value />
-					</hlm-select-trigger>
+					<hlm-select-trigger />
 					<hlm-select-content>
 						<hlm-select-label>Fruits</hlm-select-label>
 						<hlm-option value="apple">Apple</hlm-option>
@@ -398,9 +382,7 @@ export const NgModelFormControl: Story = {
 					name="fruit"
 				>
 					<label hlmLabel>Select a Fruit</label>
-					<hlm-select-trigger>
-						<hlm-select-value />
-					</hlm-select-trigger>
+					<hlm-select-trigger />
 					<hlm-select-content>
 						<hlm-select-label>Fruits</hlm-select-label>
 						<hlm-option value="apple">Apple</hlm-option>
@@ -444,9 +426,7 @@ export const NgModelFormControlInitialValue: Story = {
                     name="fruit"
                 >
                     <label hlmLabel>Select a Fruit</label>
-                    <hlm-select-trigger>
-                        <hlm-select-value />
-                    </hlm-select-trigger>
+                    <hlm-select-trigger />
                     <hlm-select-content>
                         <hlm-select-label>Fruits</hlm-select-label>
                         <hlm-option value="apple">Apple</hlm-option>
@@ -471,9 +451,7 @@ export const SelectWithLabel: Story = {
 					${argsToTemplate(args, { exclude: ['initialValue', 'selectValueTransformFn'] })}
 				>
 					<label hlmLabel>Select a Fruit</label>
-					<hlm-select-trigger class="w-56">
-						<hlm-select-value />
-					</hlm-select-trigger>
+					<hlm-select-trigger class="w-56" />
 					<hlm-select-content class="w-56">
 						<hlm-select-label>Fruits</hlm-select-label>
 						<hlm-option value="apple">Apple</hlm-option>
@@ -497,9 +475,7 @@ export const Scrollable: Story = {
 					formControlName="timezone"
 					${argsToTemplate(args, { exclude: ['initialValue', 'selectValueTransformFn'] })}
 				>
-					<hlm-select-trigger class="w-[280px]">
-						<hlm-select-value />
-					</hlm-select-trigger>
+					<hlm-select-trigger class="w-[280px]" />
 					<hlm-select-content class="min-w-content max-h-96">
 						<hlm-select-scroll-up />
 
@@ -567,9 +543,7 @@ export const ScrollableWithStickyLabels: Story = {
 					formControlName="timezone"
 					${argsToTemplate(args, { exclude: ['initialValue', 'selectValueTransformFn'] })}
 				>
-					<hlm-select-trigger class="w-[280px]">
-						<hlm-select-value />
-					</hlm-select-trigger>
+					<hlm-select-trigger class="w-[280px]" />
 					<hlm-select-content class="max-h-96" [stickyLabels]="true">
 						<hlm-select-scroll-up />
 
@@ -636,9 +610,7 @@ export const CustomTrigger: Story = {
 		},
 		template: /* HTML */ `
 			<hlm-select class="inline-block" ${argsToTemplate(args, { exclude: ['initialValue', 'selectValueTransformFn'] })}>
-				<custom-select-trigger ngProjectAs="[brnSelectTrigger]" class="w-56">
-					<hlm-select-value />
-				</custom-select-trigger>
+				<custom-select-trigger ngProjectAs="[brnSelectTrigger]" class="w-56" />
 				<hlm-select-content>
 					<hlm-select-label>Fruits</hlm-select-label>
 					<hlm-option value="apple">Apple</hlm-option>
@@ -703,9 +675,7 @@ export const WithLabelAndForm: Story = {
 			<label hlmLabel>
 				Select a Fruit*
 				<hlm-select class="w-56" [(ngModel)]="fruit" name="fruit" required>
-					<hlm-select-trigger>
-						<hlm-select-value />
-					</hlm-select-trigger>
+					<hlm-select-trigger />
 					<hlm-select-content>
 						<hlm-select-label>Fruits</hlm-select-label>
 						<hlm-option [value]="undefined">No fruit</hlm-option>
@@ -754,9 +724,7 @@ export const DynamicOptionsMultiSelect: Story = {
 			<label hlmLabel>
 				Select a Fruit*
 				<hlm-select class="w-56" [formControl]="fruit" required [multiple]="true" placeholder="Select an option">
-					<hlm-select-trigger>
-						<hlm-select-value />
-					</hlm-select-trigger>
+					<hlm-select-trigger />
 					<hlm-select-content>
 						<hlm-select-label>Fruits</hlm-select-label>
 						@for (option of options(); track option.value) {

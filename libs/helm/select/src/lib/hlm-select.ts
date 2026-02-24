@@ -60,6 +60,6 @@ import type { ClassValue } from 'clsx';
 })
 export class HlmSelect {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected readonly _computedClass = computed(() => hlm('space-y-2 contents', this.userClass()));
+	protected readonly _computedClass = computed(() => hlm('contents space-y-2', this.userClass()));
 	public readonly _brnSelect = inject(BrnSelect, { host: true });
 }

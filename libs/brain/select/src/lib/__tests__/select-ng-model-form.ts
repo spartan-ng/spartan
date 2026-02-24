@@ -29,16 +29,15 @@ import { BrnSelectImports } from '../../index';
 					(detach)="select.hide()"
 					(positionChange)="select._positionChanges$.next($event)"
 				>
-				<brn-select-content>
-					<div brnSelectLabel>Fruits</div>
-					<div brnOption value="apple">Apple</div>
-					<div brnOption value="banana">Banana</div>
-					<div brnOption value="blueberry">Blueberry</div>
-					<div brnOption value="grapes">Grapes</div>
-					<div brnOption value="pineapple">Pineapple</div>
-				</brn-select-content>
+					<brn-select-content>
+						<div brnSelectLabel>Fruits</div>
+						<div brnOption value="apple">Apple</div>
+						<div brnOption value="banana">Banana</div>
+						<div brnOption value="blueberry">Blueberry</div>
+						<div brnOption value="grapes">Grapes</div>
+						<div brnOption value="pineapple">Pineapple</div>
+					</brn-select-content>
 				</ng-template>
-
 			</brn-select>
 		</form>
 	`,

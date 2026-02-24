@@ -66,7 +66,10 @@ export const routeMeta: RouteMeta = {
 				and
 				<a href="https://material.angular.dev/cdk/overlay/overview" target="_blank" rel="noreferrer">Overlay</a>
 				from Material CDK, and follows the
-				<a href="https://www.w3.org/WAI/ARIA/apg/patterns/combobox/" target="_blank" rel="noreferrer">ARIA Combobox Pattern</a>.
+				<a href="https://www.w3.org/WAI/ARIA/apg/patterns/combobox/" target="_blank" rel="noreferrer">
+					ARIA Combobox Pattern
+				</a>
+				.
 			</p>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>

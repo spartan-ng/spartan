@@ -7,7 +7,6 @@ describe('select', () => {
 			const baseId = triggerId.replace('--trigger', '');
 			const labelId = `${baseId}--label`;
 			const listboxtId = `${baseId}--content`;
-			const valueId = `${baseId}--value`;
 
 			cy.get('hlm-select').find('label').should('have.id', labelId);
 
@@ -15,8 +14,6 @@ describe('select', () => {
 			cy.get('[brnselecttrigger]').should('have.attr', 'role', 'combobox');
 			cy.get('[brnselecttrigger]').should('have.attr', 'aria-autocomplete', 'none');
 			cy.get('[brnselecttrigger]').should('have.attr', 'aria-expanded', 'false');
-
-			cy.get('hlm-select-value').should('have.id', valueId);
 
 			if (!disabled) {
 				cy.get('[brnselecttrigger]').click();
@@ -71,11 +68,11 @@ describe('select', () => {
 			cy.get('hlm-option')
 				.eq(0)
 				.then(($el) => {
-					const optionValue = $el.attr('value');
+					const optionLabel = ($el.text() as string).trim();
 					cy.get('hlm-option').eq(0).click();
 					cy.get('hlm-select-content').should('not.exist');
 					cy.get('[brnselecttrigger]').should('have.attr', 'aria-expanded', 'false');
-					cy.get('hlm-select-value').contains(optionValue, { matchCase: false });
+					cy.get('[brnselecttrigger]').invoke('val').should('include', optionLabel);
 				});
 		});
 	});
@@ -95,14 +92,14 @@ describe('select', () => {
 			cy.get('hlm-option')
 				.eq(0)
 				.then(($el) => {
-					const optionValue = $el.attr('value');
+					const optionLabel = ($el.text() as string).trim();
 					cy.get('hlm-option').eq(1).click();
 					cy.get('hlm-option')
 						.eq(1)
 						.then(($el2) => {
-							const optionValue2 = $el2.attr('value');
-							cy.get('hlm-select-value').contains(optionValue, { matchCase: false });
-							cy.get('hlm-select-value').contains(optionValue2, { matchCase: false });
+							const optionLabel2 = ($el2.text() as string).trim();
+							cy.get('[brnselecttrigger]').invoke('val').should('include', optionLabel);
+							cy.get('[brnselecttrigger]').invoke('val').should('include', optionLabel2);
 
 							cy.get('body').click();
 							cy.get('hlm-select-content').should('not.exist');
@@ -121,14 +118,14 @@ describe('select', () => {
 			cy.get('hlm-option')
 				.eq(0)
 				.then(($el) => {
-					const optionValue = $el.attr('value');
+					const optionLabel = ($el.text() as string).trim();
 					cy.get('hlm-option').eq(1).click();
 					cy.get('hlm-option')
 						.eq(1)
 						.then(($el2) => {
-							const optionValue2 = $el2.attr('value');
-							cy.get('hlm-select-value').contains(optionValue, { matchCase: false });
-							cy.get('hlm-select-value').contains(optionValue2, { matchCase: false });
+							const optionLabel2 = ($el2.text() as string).trim();
+							cy.get('[brnselecttrigger]').invoke('val').should('include', optionLabel);
+							cy.get('[brnselecttrigger]').invoke('val').should('include', optionLabel2);
 
 							cy.get('body').click();
 							cy.get('hlm-select-content').should('not.exist');
@@ -146,7 +143,7 @@ describe('select', () => {
 			cy.get('hlm-option').eq(0).realType('{enter}');
 			cy.get('hlm-option').eq(0).should('have.attr', 'aria-selected', 'true');
 
-			cy.get('hlm-select-value').contains('Apple', { matchCase: false });
+			cy.get('[brnselecttrigger]').invoke('val').should('match', /apple/i);
 
 			// deselect the first item
 			cy.get('hlm-option').eq(0).realType('{enter}');
@@ -154,7 +151,7 @@ describe('select', () => {
 			// check if the first item is deselected
 			cy.get('hlm-option').eq(0).should('have.attr', 'aria-selected', 'false');
 
-			cy.get('hlm-select-value').should('not.contain.text', 'Apple');
+			cy.get('[brnselecttrigger]').invoke('val').should('not.match', /apple/i);
 		});
 	});
 
@@ -185,6 +182,7 @@ describe('select', () => {
 			cy.get('pre').should('have.text', 'Form Control Value: "apple"');
 		});
 	});
+
 	describe('Custom Value Transform function', () => {
 		it('should be able to use a custom value transform function', () => {
 			cy.visit('/iframe.html?id=select--select-value-transform-fn');
@@ -192,7 +190,7 @@ describe('select', () => {
 			cy.get('hlm-option').eq(0).click();
 			cy.get('hlm-option').eq(2).click();
 			cy.get('body').click();
-			cy.get('#brn-select-1--value').should('contain.text', 'Apple | Blueberry');
+			cy.get('[brnselecttrigger]').should('have.value', 'Apple, Blueberry');
 		});
 	});
 
@@ -370,18 +368,18 @@ describe('select', () => {
 		it('should allow to set an undefined value and show the associated option', () => {
 			cy.visit('/iframe.html?id=select--with-label-and-form');
 
-			// initial
+			// initial — no option explicitly selected yet, input is empty
 			cy.get('[brnselecttrigger]').should('have.class', 'ng-untouched');
 			cy.get('[brnselecttrigger]').should('have.class', 'ng-pristine');
 			cy.get('[brnselecttrigger]').should('have.class', 'ng-invalid');
-			cy.get('[brnselecttrigger]').should('contain.text', 'No fruit');
+			cy.get('[brnselecttrigger]').should('have.value', '');
 
 			// on open
 			cy.get('[brnselecttrigger]').click();
 			cy.get('[brnselecttrigger]').should('have.class', 'ng-untouched');
 			cy.get('[brnselecttrigger]').should('have.class', 'ng-pristine');
 			cy.get('[brnselecttrigger]').should('have.class', 'ng-invalid');
-			cy.get('[brnselecttrigger]').should('contain.text', 'No fruit');
+			cy.get('[brnselecttrigger]').should('have.value', '');
 			cy.get('body').click();
 
 			// no selection
@@ -396,13 +394,13 @@ describe('select', () => {
 			cy.get('[brnselecttrigger]').should('have.class', 'ng-dirty');
 			cy.get('[brnselecttrigger]').should('have.class', 'ng-valid');
 
-			// on reset selection
+			// on reset selection — selecting "No fruit" (value=undefined) shows the option label
 			cy.get('[brnselecttrigger]').click();
 			cy.get('hlm-option').eq(0).click();
 			cy.get('[brnselecttrigger]').should('have.class', 'ng-touched');
 			cy.get('[brnselecttrigger]').should('have.class', 'ng-dirty');
 			cy.get('[brnselecttrigger]').should('have.class', 'ng-invalid');
-			cy.get('[brnselecttrigger]').should('contain.text', 'No fruit');
+			cy.get('[brnselecttrigger]').should('have.value', 'No fruit');
 		});
 	});
 

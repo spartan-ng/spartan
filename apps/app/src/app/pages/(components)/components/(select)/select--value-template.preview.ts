@@ -1,11 +1,6 @@
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import {
-	lucideAlignCenter,
-	lucideAlignJustify,
-	lucideAlignLeft,
-	lucideAlignRight,
-} from '@ng-icons/lucide';
+import { lucideAlignCenter, lucideAlignJustify, lucideAlignLeft, lucideAlignRight } from '@ng-icons/lucide';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
 
 @Component({

@@ -51,3 +51,20 @@ If you are building your own UI components directly on top of `@spartan-ng/brain
 
 ## Migration Steps Summary
 Search your project for `<brn-select` and `<brn-select-value hlm` and replace them with `<hlm-select` and `<hlm-select-value` respectively. Finally, remove any leftover `BrnSelectImports` arrays from your component architectures when `HlmSelectImports` is already present.
+
+## ARIA Alignment (input trigger)
+
+### Trigger element changed from `<button>` to `<input>`
+- Any CSS targeting `hlm-select-trigger button` must be updated
+- The trigger is now `<input readonly role="combobox">` inside `<hlm-select-trigger>`
+
+### `<hlm-select-value>` inside `<hlm-select-trigger>` no longer renders
+- Remove `<hlm-select-value>` from your trigger template
+- For object values, use `[displayWith]="(v) => v.label"` on `<hlm-select>`
+
+### Focus target on open/close changed
+- Focus is restored to the `<input>` (not the button) after the dropdown closes
+
+### New inputs on `<hlm-select>`
+- `[readonly]` — defaults to `true`; reserved for future searchable combobox
+- `[displayWith]` — optional `(value: T) => string` for object values

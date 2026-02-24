@@ -14,10 +14,8 @@ import { BrnSelectImports } from '../../index';
 			</div>
 			<brn-select class="w-56" [(ngModel)]="fruit" name="fruit" #select="brnSelect">
 				<label>Select a Fruit</label>
-				<div brnSelectTrigger>
-					<brn-select-value />
-				</div>
-				
+				<input brnSelectTrigger cdk-overlay-origin #trigger="cdkOverlayOrigin" (click)="select.toggle()" />
+
 				<ng-template
 					cdk-connected-overlay
 					cdkConnectedOverlayLockPosition

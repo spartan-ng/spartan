@@ -31,7 +31,7 @@ import type { ClassValue } from 'clsx';
 		'[class]': '_computedClass()',
 	},
 	template: `
-		@if (!_brnSelect._selectLabel() && _brnSelect.placeholder()) {
+		@if (!_brnSelect.selectLabel() && _brnSelect.placeholder()) {
 			<label style="display: none;" [attr.id]="_brnSelect.labelId()">{{ _brnSelect.placeholder() }}</label>
 		} @else {
 			<ng-content select="label[hlmLabel],label[brnLabel]" />
@@ -47,12 +47,12 @@ import type { ClassValue } from 'clsx';
 			cdkConnectedOverlayHasBackdrop
 			cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
 			[cdkConnectedOverlayOrigin]="trigger"
-			[cdkConnectedOverlayOpen]="_brnSelect._delayedExpanded()"
-			[cdkConnectedOverlayPositions]="_brnSelect._positions"
+			[cdkConnectedOverlayOpen]="_brnSelect.delayedExpanded()"
+			[cdkConnectedOverlayPositions]="_brnSelect.positions"
 			[cdkConnectedOverlayWidth]="_brnSelect.triggerWidth() > 0 ? _brnSelect.triggerWidth() : 'auto'"
 			(backdropClick)="_brnSelect.hide()"
 			(detach)="_brnSelect.hide()"
-			(positionChange)="_brnSelect._positionChanges$.next($event)"
+			(positionChange)="_brnSelect.positionChanges$.next($event)"
 		>
 			<ng-content />
 		</ng-template>

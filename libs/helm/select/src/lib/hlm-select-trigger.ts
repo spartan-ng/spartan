@@ -2,7 +2,9 @@ import {
 	AfterViewInit,
 	ChangeDetectionStrategy,
 	Component,
+	DestroyRef,
 	ElementRef,
+	OnInit,
 	computed,
 	contentChild,
 	inject,
@@ -49,10 +51,11 @@ export const selectTriggerVariants = cva(
 		}
 	`,
 })
-export class HlmSelectTrigger implements AfterViewInit {
+export class HlmSelectTrigger implements AfterViewInit, OnInit {
 	protected readonly _icon = contentChild(HlmIcon);
 	protected readonly _brnSelect = inject(BrnSelect, { optional: true });
 	private readonly _elementRef = inject(ElementRef);
+	private readonly _destroyRef = inject(DestroyRef);
 
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	public readonly size = input<'default' | 'sm'>('default');
@@ -61,12 +64,24 @@ export class HlmSelectTrigger implements AfterViewInit {
 		hlm(selectTriggerVariants({ error: this._brnSelect?.errorState() }), this.userClass()),
 	);
 
+	ngOnInit(): void {
+		// Nothing here — ResizeObserver requires the element to be in the DOM (AfterViewInit).
+	}
+
 	ngAfterViewInit(): void {
+		if (!this._brnSelect) return;
+
 		// The host element (hlm-select-trigger) is the full styled container.
-		// BrnSelectTrigger measured the inner <input> width, which excludes padding
-		// and the icon — so we override triggerWidth with the container's width here.
-		if (this._brnSelect) {
-			this._brnSelect.triggerWidth.set(this._elementRef.nativeElement.offsetWidth);
-		}
+		// BrnSelectTrigger's ResizeObserver watches only the inner <input>, which
+		// excludes padding and the icon. We replace it with a container-level observer
+		// so triggerWidth always reflects the full trigger width.
+		const el = this._elementRef.nativeElement;
+		const updateWidth = () => this._brnSelect!.triggerWidth.set(el.offsetWidth);
+
+		updateWidth();
+
+		const observer = new ResizeObserver(updateWidth);
+		observer.observe(el);
+		this._destroyRef.onDestroy(() => observer.disconnect());
 	}
 }

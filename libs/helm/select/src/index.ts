@@ -27,8 +27,8 @@ export * from './lib/hlm-select-trigger';
 export * from './lib/hlm-select-value';
 
 export const HlmSelectImports = [
-	// BRN pieces — dual-selector auto-applies these when consumer uses hlm-select elements
-	BrnSelect, // matches <hlm-select> (selector: 'brn-select, hlm-select')
+	// BRN pieces — included so consumers using HlmSelectImports can also use <brn-select> directly
+	BrnSelect, // applied to <hlm-select> via hostDirectives inside HlmSelect, not by selector
 	BrnSelectContent, // matches <hlm-select-content> (selector: '..., hlm-select-content:not(noHlm)')
 	BrnSelectValue, // matches <hlm-select-value> (selector: 'brn-select-value, hlm-select-value')
 	BrnSelectValueTemplate, // structural directive: *brnSelectValue="let value"

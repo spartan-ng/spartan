@@ -158,7 +158,7 @@ export class BrnSelect<T = unknown>
 	public readonly formDisabled = signal(false);
 
 	/** Label provided by the consumer. */
-	public readonly _selectLabel = contentChild(BrnLabel, { descendants: false });
+	public readonly selectLabel = contentChild(BrnLabel, { descendants: false });
 
 	/**
 	 * @internal
@@ -180,7 +180,7 @@ export class BrnSelect<T = unknown>
 	public readonly trigger = signal<BrnSelectTrigger<T> | null>(null);
 	public readonly triggerWidth = signal<number>(0);
 
-	public readonly _delayedExpanded = toSignal(
+	public readonly delayedExpanded = toSignal(
 		toObservable(this.open).pipe(
 			switchMap((expanded) => (!expanded ? of(expanded).pipe(delay(this.closeDelay())) : of(expanded))),
 			takeUntilDestroyed(),
@@ -190,10 +190,10 @@ export class BrnSelect<T = unknown>
 
 	public readonly state = computed(() => (this.open() ? 'open' : 'closed'));
 
-	public readonly _positionChanges$ = new Subject<ConnectedOverlayPositionChange>();
+	public readonly positionChanges$ = new Subject<ConnectedOverlayPositionChange>();
 
 	public readonly side: Signal<'top' | 'bottom' | 'left' | 'right'> = toSignal(
-		this._positionChanges$.pipe(
+		this.positionChanges$.pipe(
 			map<ConnectedOverlayPositionChange, 'top' | 'bottom' | 'left' | 'right'>((change) =>
 				// todo: better translation or adjusting hlm to take that into account
 				change.connectionPair.originY === 'center'
@@ -206,7 +206,7 @@ export class BrnSelect<T = unknown>
 		{ initialValue: 'bottom' },
 	);
 
-	public readonly labelId = computed(() => this._selectLabel()?.id ?? `${this.id()}--label`);
+	public readonly labelId = computed(() => this.selectLabel()?.id ?? `${this.id()}--label`);
 
 	// eslint-disable-next-line @typescript-eslint/no-empty-function
 	private _onChange: ChangeFn<T | T[]> = () => {};
@@ -219,7 +219,7 @@ export class BrnSelect<T = unknown>
 	 * the trigger completely). If the panel cannot fit below the trigger, it
 	 * will fall back to a position above the trigger.
 	 */
-	public _positions: ConnectedPosition[] = [
+	public positions: ConnectedPosition[] = [
 		{
 			originX: 'start',
 			originY: 'bottom',

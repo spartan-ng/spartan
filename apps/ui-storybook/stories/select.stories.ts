@@ -135,9 +135,8 @@ export const SelectValueTransformFn: Story = {
 		props: {
 			...args,
 			fruitGroup: new FormGroup({ fruit: new FormControl(args.initialValue) }),
-			selectValueTransformFn: (values: (string | undefined)[]) => {
-				return values.join(' | ');
-			},
+			// displayWith transforms each selected value; multiple selections are joined with ', '
+			displayWith: (value: string) => (value ? value.charAt(0).toUpperCase() + value.slice(1) : value),
 			multiple: true,
 		},
 		template: /* HTML */ `
@@ -147,7 +146,8 @@ export const SelectValueTransformFn: Story = {
 			<form [formGroup]="fruitGroup">
 				<hlm-select
 					class="w-56"
-					${argsToTemplate(args, { exclude: ['initialValue', 'selectValueTransformFn'] })}
+					[displayWith]="displayWith"
+					${argsToTemplate(args, { exclude: ['initialValue'] })}
 					formControlName="fruit"
 				>
 					<hlm-select-trigger />

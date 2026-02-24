@@ -23,12 +23,12 @@ import { BrnSelect, BrnSelectImports } from '../../';
 					cdkConnectedOverlayHasBackdrop
 					cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
 					[cdkConnectedOverlayOrigin]="trigger"
-					[cdkConnectedOverlayOpen]="select._delayedExpanded()"
-					[cdkConnectedOverlayPositions]="select._positions"
+					[cdkConnectedOverlayOpen]="select.delayedExpanded()"
+					[cdkConnectedOverlayPositions]="select.positions"
 					[cdkConnectedOverlayWidth]="select.triggerWidth() > 0 ? select.triggerWidth() : 'auto'"
 					(backdropClick)="select.hide()"
 					(detach)="select.hide()"
-					(positionChange)="select._positionChanges$.next($event)"
+					(positionChange)="select.positionChanges$.next($event)"
 				>
 					<brn-select-content class="w-56" data-testid="brn-select-content">
 						<label brnSelectLabel>Fruits</label>
@@ -72,12 +72,12 @@ export class SelectReactiveField {
 					cdkConnectedOverlayHasBackdrop
 					cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
 					[cdkConnectedOverlayOrigin]="trigger"
-					[cdkConnectedOverlayOpen]="select._delayedExpanded()"
-					[cdkConnectedOverlayPositions]="select._positions"
+					[cdkConnectedOverlayOpen]="select.delayedExpanded()"
+					[cdkConnectedOverlayPositions]="select.positions"
 					[cdkConnectedOverlayWidth]="select.triggerWidth() > 0 ? select.triggerWidth() : 'auto'"
 					(backdropClick)="select.hide()"
 					(detach)="select.hide()"
-					(positionChange)="select._positionChanges$.next($event)"
+					(positionChange)="select.positionChanges$.next($event)"
 				>
 					<brn-select-content class="w-56" data-testid="brn-select-content">
 						<label brnSelectLabel>Fruits</label>
@@ -123,12 +123,12 @@ export class SelectSingleValueTest {
 					cdkConnectedOverlayHasBackdrop
 					cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
 					[cdkConnectedOverlayOrigin]="trigger"
-					[cdkConnectedOverlayOpen]="select._delayedExpanded()"
-					[cdkConnectedOverlayPositions]="select._positions"
+					[cdkConnectedOverlayOpen]="select.delayedExpanded()"
+					[cdkConnectedOverlayPositions]="select.positions"
 					[cdkConnectedOverlayWidth]="select.triggerWidth() > 0 ? select.triggerWidth() : 'auto'"
 					(backdropClick)="select.hide()"
 					(detach)="select.hide()"
-					(positionChange)="select._positionChanges$.next($event)"
+					(positionChange)="select.positionChanges$.next($event)"
 				>
 					<brn-select-content class="w-56" data-testid="brn-select-content">
 						<label brnSelectLabel>Fruits</label>
@@ -177,12 +177,12 @@ export class SelectSingleValueWithInitialValueTest {
 					cdkConnectedOverlayHasBackdrop
 					cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
 					[cdkConnectedOverlayOrigin]="trigger"
-					[cdkConnectedOverlayOpen]="select._delayedExpanded()"
-					[cdkConnectedOverlayPositions]="select._positions"
+					[cdkConnectedOverlayOpen]="select.delayedExpanded()"
+					[cdkConnectedOverlayPositions]="select.positions"
 					[cdkConnectedOverlayWidth]="select.triggerWidth() > 0 ? select.triggerWidth() : 'auto'"
 					(backdropClick)="select.hide()"
 					(detach)="select.hide()"
-					(positionChange)="select._positionChanges$.next($event)"
+					(positionChange)="select.positionChanges$.next($event)"
 				>
 					<brn-select-content class="w-56" data-testid="brn-select-content">
 						<label brnSelectLabel>Fruits</label>
@@ -223,12 +223,12 @@ export class SelectSingleValueWithDisplayWithTest {
 					cdkConnectedOverlayHasBackdrop
 					cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
 					[cdkConnectedOverlayOrigin]="trigger"
-					[cdkConnectedOverlayOpen]="select._delayedExpanded()"
-					[cdkConnectedOverlayPositions]="select._positions"
+					[cdkConnectedOverlayOpen]="select.delayedExpanded()"
+					[cdkConnectedOverlayPositions]="select.positions"
 					[cdkConnectedOverlayWidth]="select.triggerWidth() > 0 ? select.triggerWidth() : 'auto'"
 					(backdropClick)="select.hide()"
 					(detach)="select.hide()"
-					(positionChange)="select._positionChanges$.next($event)"
+					(positionChange)="select.positionChanges$.next($event)"
 				>
 					<brn-select-content class="w-56" data-testid="brn-select-content">
 						<label brnSelectLabel>Fruits</label>
@@ -287,12 +287,12 @@ export class SelectSingleValueWithInitialValueWithAsyncUpdateTest {
 					cdkConnectedOverlayHasBackdrop
 					cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
 					[cdkConnectedOverlayOrigin]="trigger"
-					[cdkConnectedOverlayOpen]="select._delayedExpanded()"
-					[cdkConnectedOverlayPositions]="select._positions"
+					[cdkConnectedOverlayOpen]="select.delayedExpanded()"
+					[cdkConnectedOverlayPositions]="select.positions"
 					[cdkConnectedOverlayWidth]="select.triggerWidth() > 0 ? select.triggerWidth() : 'auto'"
 					(backdropClick)="select.hide()"
 					(detach)="select.hide()"
-					(positionChange)="select._positionChanges$.next($event)"
+					(positionChange)="select.positionChanges$.next($event)"
 				>
 					<brn-select-content class="w-56" data-testid="brn-select-content">
 						<label brnSelectLabel>Fruits</label>
@@ -342,12 +342,12 @@ export class SelectMultiValueTest {
 					cdkConnectedOverlayHasBackdrop
 					cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
 					[cdkConnectedOverlayOrigin]="trigger"
-					[cdkConnectedOverlayOpen]="select._delayedExpanded()"
-					[cdkConnectedOverlayPositions]="select._positions"
+					[cdkConnectedOverlayOpen]="select.delayedExpanded()"
+					[cdkConnectedOverlayPositions]="select.positions"
 					[cdkConnectedOverlayWidth]="select.triggerWidth() > 0 ? select.triggerWidth() : 'auto'"
 					(backdropClick)="select.hide()"
 					(detach)="select.hide()"
-					(positionChange)="select._positionChanges$.next($event)"
+					(positionChange)="select.positionChanges$.next($event)"
 				>
 					<brn-select-content class="w-56" data-testid="brn-select-content">
 						<label brnSelectLabel>Fruits</label>
@@ -397,12 +397,12 @@ export class SelectMultiValueWithInitialValueTest {
 					cdkConnectedOverlayHasBackdrop
 					cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
 					[cdkConnectedOverlayOrigin]="trigger"
-					[cdkConnectedOverlayOpen]="select._delayedExpanded()"
-					[cdkConnectedOverlayPositions]="select._positions"
+					[cdkConnectedOverlayOpen]="select.delayedExpanded()"
+					[cdkConnectedOverlayPositions]="select.positions"
 					[cdkConnectedOverlayWidth]="select.triggerWidth() > 0 ? select.triggerWidth() : 'auto'"
 					(backdropClick)="select.hide()"
 					(detach)="select.hide()"
-					(positionChange)="select._positionChanges$.next($event)"
+					(positionChange)="select.positionChanges$.next($event)"
 				>
 					<brn-select-content class="w-56" data-testid="brn-select-content">
 						<label brnSelectLabel>Fruits</label>

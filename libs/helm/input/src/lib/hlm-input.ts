@@ -2,11 +2,14 @@ import {
 	computed,
 	Directive,
 	type DoCheck,
+	effect,
+	ElementRef,
 	forwardRef,
 	inject,
 	Injector,
 	input,
 	linkedSignal,
+	Renderer2,
 	signal,
 } from '@angular/core';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
@@ -23,7 +26,7 @@ export const inputVariants = cva(
 	{
 		variants: {
 			error: {
-				auto: '[&.ng-invalid.ng-touched]:border-destructive [&.ng-invalid.ng-touched]:ring-destructive/20 dark:[&.ng-invalid.ng-touched]:ring-destructive/40',
+				auto: 'aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40',
 				true: 'border-destructive focus-visible:border-destructive focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40',
 			},
 		},
@@ -46,6 +49,8 @@ type InputVariants = VariantProps<typeof inputVariants>;
 })
 export class HlmInput implements BrnFieldControl, DoCheck {
 	private readonly _injector = inject(Injector);
+	private readonly _el = inject<ElementRef<HTMLElement>>(ElementRef);
+	private readonly _renderer = inject(Renderer2);
 	private readonly _additionalClasses = signal<ClassValue>('');
 
 	private readonly _errorStateTracker: ErrorStateTracker;
@@ -71,6 +76,15 @@ export class HlmInput implements BrnFieldControl, DoCheck {
 		);
 
 		classes(() => [inputVariants({ error: this._state().error }), this._additionalClasses()]);
+
+		effect(() => {
+			const el = this._el.nativeElement;
+			if (this.errorState()) {
+				this._renderer.setAttribute(el, 'aria-invalid', 'true');
+			} else {
+				this._renderer.removeAttribute(el, 'aria-invalid');
+			}
+		});
 	}
 
 	ngDoCheck() {

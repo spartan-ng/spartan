@@ -5,7 +5,6 @@ import {
 	Component,
 	computed,
 	type DoCheck,
-	effect,
 	forwardRef,
 	inject,
 	input,
@@ -244,17 +243,6 @@ export class HlmDateRangePicker<T> implements ControlValueAccessor, DoCheck {
 		if (this._ngControl) {
 			this._ngControl.valueAccessor = this;
 		}
-
-		effect(() => {
-			const error = this._errorStateTracker.errorState();
-			untracked(() => {
-				if (this._ngControl) {
-					const shouldShowError =
-						error && this._ngControl.invalid && (this._ngControl.touched || this._ngControl.dirty);
-					this._errorStateTracker.errorState.set(shouldShowError ? true : false);
-				}
-			});
-		});
 
 		this._errorStateTracker.ngControl = this._ngControl;
 	}

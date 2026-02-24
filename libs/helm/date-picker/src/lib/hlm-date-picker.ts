@@ -5,14 +5,12 @@ import {
 	Component,
 	computed,
 	type DoCheck,
-	effect,
 	forwardRef,
 	inject,
 	input,
 	linkedSignal,
 	output,
 	signal,
-	untracked,
 } from '@angular/core';
 import { type ControlValueAccessor, FormGroupDirective, NG_VALUE_ACCESSOR, NgControl, NgForm } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
@@ -208,17 +206,6 @@ export class HlmDatePicker<T> implements ControlValueAccessor, DoCheck {
 		if (this._ngControl) {
 			this._ngControl.valueAccessor = this;
 		}
-
-		effect(() => {
-			const error = this._errorStateTracker.errorState();
-			untracked(() => {
-				if (this._ngControl) {
-					const shouldShowError =
-						error && this._ngControl.invalid && (this._ngControl.touched || this._ngControl.dirty);
-					this._errorStateTracker.errorState.set(shouldShowError ? true : false);
-				}
-			});
-		});
 
 		this._errorStateTracker.ngControl = this._ngControl;
 	}

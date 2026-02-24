@@ -7,7 +7,6 @@ import {
 	contentChildren,
 	Directive,
 	DoCheck,
-	effect,
 	forwardRef,
 	inject,
 	Injector,
@@ -16,7 +15,6 @@ import {
 	model,
 	OnInit,
 	output,
-	untracked,
 } from '@angular/core';
 import { type ControlValueAccessor, FormGroupDirective, NG_VALUE_ACCESSOR, NgControl, NgForm } from '@angular/forms';
 import { BrnFieldControl } from '@spartan-ng/brain/field';
@@ -114,18 +112,6 @@ export class BrnRadioGroup<T = unknown> implements ControlValueAccessor, OnInit,
 	 * @internal
 	 */
 	public readonly radioButtons = contentChildren(BrnRadio, { descendants: true });
-
-	constructor() {
-		effect(() => {
-			const error = this._errorStateTracker.errorState();
-			untracked(() => {
-				if (this.ngControl) {
-					const shouldShowError = error && this.ngControl.invalid && (this.ngControl.touched || this.ngControl.dirty);
-					this._errorStateTracker.errorState.set(shouldShowError ? true : false);
-				}
-			});
-		});
-	}
 
 	ngOnInit(): void {
 		this.ngControl = this._injector.get(NgControl, null);

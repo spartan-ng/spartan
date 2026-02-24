@@ -2,14 +2,12 @@ import {
 	computed,
 	Directive,
 	type DoCheck,
-	effect,
 	forwardRef,
 	inject,
 	Injector,
 	input,
 	linkedSignal,
 	signal,
-	untracked,
 } from '@angular/core';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { BrnFieldControl } from '@spartan-ng/brain/field';
@@ -73,17 +71,6 @@ export class HlmInput implements BrnFieldControl, DoCheck {
 		);
 
 		classes(() => [inputVariants({ error: this._state().error }), this._additionalClasses()]);
-
-		effect(() => {
-			const error = this._errorStateTracker.errorState();
-			untracked(() => {
-				if (this.ngControl) {
-					const shouldShowError = error && this.ngControl.invalid && (this.ngControl.touched || this.ngControl.dirty);
-					this._errorStateTracker.errorState.set(shouldShowError ? true : false);
-					this.setError(shouldShowError ? true : 'auto');
-				}
-			});
-		});
 	}
 
 	ngDoCheck() {

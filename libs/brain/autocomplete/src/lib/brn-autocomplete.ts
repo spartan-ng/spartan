@@ -42,6 +42,9 @@ import {
 			useExisting: forwardRef(() => BrnAutocomplete),
 		},
 	],
+	host: {
+		'(focusout)': '_onFocusOut($event)',
+	},
 })
 export class BrnAutocomplete<T> implements BrnAutocompleteBase<T>, ControlValueAccessor, DoCheck {
 	private readonly _injector = inject(Injector);
@@ -227,5 +230,14 @@ export class BrnAutocomplete<T> implements BrnAutocompleteBase<T>, ControlValueA
 
 	setDisabledState(isDisabled: boolean) {
 		this._disabled.set(isDisabled);
+	}
+
+	protected _onFocusOut(event: FocusEvent): void {
+		const currentTarget = event.currentTarget as HTMLElement;
+		const focusedEl = event.relatedTarget as HTMLElement | null;
+
+		if (!currentTarget.contains(focusedEl)) {
+			this._onTouched?.();
+		}
 	}
 }

@@ -1,6 +1,5 @@
 import { JsonPipe } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmCheckbox } from '@spartan-ng/helm/checkbox';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
@@ -23,7 +22,6 @@ const meta: Meta = {
 				HlmSwitch,
 				HlmTextarea,
 				HlmButton,
-				BrnSelectImports,
 				HlmSelectImports,
 				HlmRadioGroupImports,
 				ReactiveFormsModule,
@@ -190,10 +188,8 @@ export const WithSelect: Story = {
 					<div hlmFieldGroup>
 						<div hlmField>
 							<label hlmFieldLabel for="field-select-country">Country</label>
-							<brn-select class="inline-block" placeholder="Select a country">
-								<hlm-select-trigger class="w-full" id="field-select-country">
-									<hlm-select-value />
-								</hlm-select-trigger>
+							<hlm-select class="inline-block" placeholder="Select a country">
+								<hlm-select-trigger />
 								<hlm-select-content>
 									<hlm-option value="us">United States</hlm-option>
 									<hlm-option value="uk">United Kingdom</hlm-option>
@@ -201,7 +197,7 @@ export const WithSelect: Story = {
 									<hlm-option value="au">Australia</hlm-option>
 									<hlm-option value="de">Germany</hlm-option>
 								</hlm-select-content>
-							</brn-select>
+							</hlm-select>
 							<p hlmFieldDescription>Select your country of residence.</p>
 						</div>
 					</div>
@@ -320,10 +316,8 @@ export const ComplexForm: Story = {
 								<div class="grid grid-cols-3 gap-4">
 									<div hlmField>
 										<label hlmFieldLabel for="field-complex-expiration-month">Month</label>
-										<brn-select class="inline-block" placeholder="MM">
-											<hlm-select-trigger class="w-full" id="field-complex-expiration-month">
-												<hlm-select-value />
-											</hlm-select-trigger>
+										<hlm-select class="inline-block" placeholder="MM">
+											<hlm-select-trigger />
 											<hlm-select-content>
 												<hlm-option value="01">01</hlm-option>
 												<hlm-option value="02">02</hlm-option>
@@ -338,14 +332,12 @@ export const ComplexForm: Story = {
 												<hlm-option value="11">11</hlm-option>
 												<hlm-option value="12">12</hlm-option>
 											</hlm-select-content>
-										</brn-select>
+										</hlm-select>
 									</div>
 									<div hlmField>
 										<label hlmFieldLabel for="field-complex-expiration-year">Year</label>
-										<brn-select class="inline-block" placeholder="YYYY">
-											<hlm-select-trigger class="w-full" id="field-complex-expiration-year">
-												<hlm-select-value />
-											</hlm-select-trigger>
+										<hlm-select class="inline-block" placeholder="YYYY">
+											<hlm-select-trigger />
 											<hlm-select-content>
 												<hlm-option value="2024">2024</hlm-option>
 												<hlm-option value="2025">2025</hlm-option>
@@ -354,7 +346,7 @@ export const ComplexForm: Story = {
 												<hlm-option value="2028">2028</hlm-option>
 												<hlm-option value="2029">2029</hlm-option>
 											</hlm-select-content>
-										</brn-select>
+										</hlm-select>
 									</div>
 									<div hlmField>
 										<label hlmFieldLabel for="field-complex-cvv">CVV</label>

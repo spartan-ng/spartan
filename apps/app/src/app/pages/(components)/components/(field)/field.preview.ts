@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmCheckboxImports } from '@spartan-ng/helm/checkbox';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
@@ -16,7 +15,6 @@ import { HlmTextareaImports } from '@spartan-ng/helm/textarea';
 		HlmButtonImports,
 		HlmInputImports,
 		HlmFieldImports,
-		BrnSelectImports,
 		HlmSelectImports,
 		ReactiveFormsModule,
 	],
@@ -43,10 +41,8 @@ import { HlmTextareaImports } from '@spartan-ng/helm/textarea';
 						<div class="grid grid-cols-3 gap-4">
 							<div hlmField>
 								<label hlmFieldLabel for="field-exp-month--trigger">Month</label>
-								<brn-select id="field-exp-month" class="inline-block" placeholder="MM">
-									<hlm-select-trigger class="w-full">
-										<hlm-select-value />
-									</hlm-select-trigger>
+								<hlm-select id="field-exp-month" class="inline-block" placeholder="MM">
+									<hlm-select-trigger />
 									<hlm-select-content>
 										<hlm-option value="01">01</hlm-option>
 										<hlm-option value="02">02</hlm-option>
@@ -61,14 +57,12 @@ import { HlmTextareaImports } from '@spartan-ng/helm/textarea';
 										<hlm-option value="11">11</hlm-option>
 										<hlm-option value="12">12</hlm-option>
 									</hlm-select-content>
-								</brn-select>
+								</hlm-select>
 							</div>
 							<div hlmField>
 								<label hlmFieldLabel for="field-exp-year--trigger">Year</label>
-								<brn-select id="field-exp-year" class="inline-block" placeholder="YYYY">
-									<hlm-select-trigger class="w-full">
-										<hlm-select-value />
-									</hlm-select-trigger>
+								<hlm-select id="field-exp-year" class="inline-block" placeholder="YYYY">
+									<hlm-select-trigger />
 									<hlm-select-content>
 										<hlm-option value="2024">2024</hlm-option>
 										<hlm-option value="2025">2025</hlm-option>
@@ -77,7 +71,7 @@ import { HlmTextareaImports } from '@spartan-ng/helm/textarea';
 										<hlm-option value="2028">2028</hlm-option>
 										<hlm-option value="2029">2029</hlm-option>
 									</hlm-select-content>
-								</brn-select>
+								</hlm-select>
 							</div>
 							<div hlmField>
 								<label hlmFieldLabel for="field-preview-cvv">CVV</label>

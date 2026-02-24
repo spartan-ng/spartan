@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideArrowRight } from '@ng-icons/lucide';
-import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmButtonGroupImports } from '@spartan-ng/helm/button-group';
 import { HlmIconImports } from '@spartan-ng/helm/icon';
@@ -10,19 +9,12 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 
 @Component({
 	selector: 'spartan-button-group-select',
-	imports: [
-		HlmIconImports,
-		HlmInputImports,
-		HlmButtonImports,
-		BrnSelectImports,
-		HlmSelectImports,
-		HlmButtonGroupImports,
-	],
+	imports: [HlmIconImports, HlmInputImports, HlmButtonImports, HlmSelectImports, HlmButtonGroupImports],
 	providers: [provideIcons({ lucideArrowRight })],
 	template: `
 		<div hlmButtonGroup>
 			<div hlmButtonGroup class="[&>brn-select>div>hlm-select-trigger>button]:rounded-r-none">
-				<brn-select class="inline-block" placeholder="Select an option" [value]="_currencies[0].value">
+				<hlm-select class="inline-block" placeholder="Select an option" [value]="_currencies[0].value">
 					<hlm-select-trigger>
 						<hlm-select-value>
 							<div *brnSelectValue="let value">
@@ -40,7 +32,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 							</hlm-option>
 						}
 					</hlm-select-content>
-				</brn-select>
+				</hlm-select>
 				<input hlmInput placeholder="10.00" />
 			</div>
 			<div hlmButtonGroup>

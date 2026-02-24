@@ -5,7 +5,6 @@ import {
 	MonthLabels,
 	provideBrnCalendarI18n,
 } from '@spartan-ng/brain/calendar';
-import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmCalendar } from '@spartan-ng/helm/calendar';
 import { HlmCardImports } from '@spartan-ng/helm/card';
@@ -96,7 +95,7 @@ export class LanguageService {
 
 @Component({
 	selector: 'spartan-calendar-localized',
-	imports: [HlmCalendar, BrnSelectImports, HlmSelectImports, HlmCardImports, HlmButtonImports],
+	imports: [HlmCalendar, HlmSelectImports, HlmCardImports, HlmButtonImports],
 	providers: [provideBrnCalendarI18n(CALENDAR_I18N.vi)],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
@@ -109,17 +108,15 @@ export class LanguageService {
 				<p hlmCardDescription>{{ _strings[lang].description }}</p>
 
 				<div hlmCardAction>
-					<brn-select [value]="lang" (valueChange)="setLang($event)">
-						<hlm-select-trigger>
-							<hlm-select-value />
-						</hlm-select-trigger>
+					<hlm-select [value]="lang" (valueChange)="setLang($event)">
+						<hlm-select-trigger />
 
 						<hlm-select-content>
 							@for (l of _supportedLanguages; track l) {
 								<hlm-option [value]="l">{{ l }}</hlm-option>
 							}
 						</hlm-select-content>
-					</brn-select>
+					</hlm-select>
 				</div>
 			</div>
 

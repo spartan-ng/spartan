@@ -2,49 +2,51 @@ describe('select', () => {
 	const verifySelectSetup = ({ multiple = false, disabled = false, groups = false } = {}) => {
 		cy.get('hlm-select').find('label').should('not.be.visible');
 
-		cy.get('[brnselecttrigger]').invoke('attr', 'id').then((idAttr) => {
-			const triggerId = idAttr as string;
-			const baseId = triggerId.replace('--trigger', '');
-			const labelId = `${baseId}--label`;
-			const listboxtId = `${baseId}--content`;
+		cy.get('[brnselecttrigger]')
+			.invoke('attr', 'id')
+			.then((idAttr) => {
+				const triggerId = idAttr as string;
+				const baseId = triggerId.replace('--trigger', '');
+				const labelId = `${baseId}--label`;
+				const listboxtId = `${baseId}--content`;
 
-			cy.get('hlm-select').find('label').should('have.id', labelId);
+				cy.get('hlm-select').find('label').should('have.id', labelId);
 
-			cy.get('[brnselecttrigger]').should('have.id', triggerId);
-			cy.get('[brnselecttrigger]').should('have.attr', 'role', 'combobox');
-			cy.get('[brnselecttrigger]').should('have.attr', 'aria-autocomplete', 'none');
-			cy.get('[brnselecttrigger]').should('have.attr', 'aria-expanded', 'false');
+				cy.get('[brnselecttrigger]').should('have.id', triggerId);
+				cy.get('[brnselecttrigger]').should('have.attr', 'role', 'combobox');
+				cy.get('[brnselecttrigger]').should('have.attr', 'aria-autocomplete', 'none');
+				cy.get('[brnselecttrigger]').should('have.attr', 'aria-expanded', 'false');
 
-			if (!disabled) {
-				cy.get('[brnselecttrigger]').click();
+				if (!disabled) {
+					cy.get('[brnselecttrigger]').click();
 
-				cy.get('hlm-select-content').should('have.id', listboxtId);
+					cy.get('hlm-select-content').should('have.id', listboxtId);
 
-				cy.get('hlm-select-content').should('have.attr', 'role', 'listbox');
-				cy.get('hlm-select-content').should('have.attr', 'aria-disabled', 'false');
-				cy.get('hlm-select-content').should('have.attr', 'aria-multiselectable', `${multiple}`);
-				cy.get('hlm-select-content').should('have.attr', 'aria-orientation', 'vertical');
-				cy.get('hlm-select-content').should('have.attr', 'aria-labelledby', labelId);
+					cy.get('hlm-select-content').should('have.attr', 'role', 'listbox');
+					cy.get('hlm-select-content').should('have.attr', 'aria-disabled', 'false');
+					cy.get('hlm-select-content').should('have.attr', 'aria-multiselectable', `${multiple}`);
+					cy.get('hlm-select-content').should('have.attr', 'aria-orientation', 'vertical');
+					cy.get('hlm-select-content').should('have.attr', 'aria-labelledby', labelId);
 
-				cy.get('hlm-option').should('have.attr', 'role', 'option');
-				cy.get('hlm-option').should('have.attr', 'aria-selected', 'false');
-				cy.get('hlm-option').should('have.attr', 'aria-disabled', 'false');
+					cy.get('hlm-option').should('have.attr', 'role', 'option');
+					cy.get('hlm-option').should('have.attr', 'aria-selected', 'false');
+					cy.get('hlm-option').should('have.attr', 'aria-disabled', 'false');
 
-				if (groups) {
-					cy.get('hlm-select-group').each(($group, index) => {
-						cy.wrap($group).should('have.attr', 'role', 'group');
-						cy.wrap($group)
-							.find('hlm-select-label')
-							.then(($el) => {
-								cy.get('hlm-select-group').eq(index).should('have.attr', 'aria-labelledBy', $el.attr('id'));
-							});
-					});
+					if (groups) {
+						cy.get('hlm-select-group').each(($group, index) => {
+							cy.wrap($group).should('have.attr', 'role', 'group');
+							cy.wrap($group)
+								.find('hlm-select-label')
+								.then(($el) => {
+									cy.get('hlm-select-group').eq(index).should('have.attr', 'aria-labelledBy', $el.attr('id'));
+								});
+						});
+					}
+
+					cy.get('body').click();
+					cy.get('[brnselecttrigger]').should('have.focus');
 				}
-
-				cy.get('body').click();
-				cy.get('[brnselecttrigger]').should('have.focus');
-			}
-		});
+			});
 	};
 
 	describe('default', () => {

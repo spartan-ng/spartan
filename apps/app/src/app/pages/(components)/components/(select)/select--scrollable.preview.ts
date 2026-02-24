@@ -6,9 +6,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 	imports: [HlmSelectImports],
 	template: `
 		<hlm-select placeholder="Select a timezone">
-			<hlm-select-trigger class="w-[280px]">
-				<hlm-select-value />
-			</hlm-select-trigger>
+			<hlm-select-trigger />
 			<hlm-select-content class="max-h-96 min-w-[325px]">
 				<hlm-select-scroll-up />
 

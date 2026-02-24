@@ -1,4 +1,3 @@
-import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { HlmBadge } from '@spartan-ng/helm/badge';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmCard, HlmCardImports } from '@spartan-ng/helm/card';
@@ -14,7 +13,7 @@ const meta: Meta<HlmCard> = {
 	tags: ['autodocs'],
 	decorators: [
 		moduleMetadata({
-			imports: [HlmCardImports, HlmLabel, HlmInput, HlmButton, HlmBadge, HlmSelectImports, BrnSelectImports],
+			imports: [HlmCardImports, HlmLabel, HlmInput, HlmButton, HlmBadge, HlmSelectImports],
 		}),
 	],
 };
@@ -37,16 +36,14 @@ export const Default: Story = {
        <input class='w-full mt-1.5' placeholder='Name of your project' hlmInput>
        </label>
        <label class='block my-4' hlmLabel>Framework
-       <brn-select class="inline-block w-full mt-1.5"  placeholder="Select an option">
-            <hlm-select-trigger class="w-full">
-                <hlm-select-value />
-            </hlm-select-trigger>
+       <hlm-select class="inline-block w-full mt-1.5"  placeholder="Select an option">
+            <hlm-select-trigger />
             <hlm-select-content>
                 <hlm-option value="Angular">Angular</hlm-option>
                 <hlm-option value="React">React</hlm-option>
                 <hlm-option value="Vie">Vue</hlm-option>
             </hlm-select-content>
-        </brn-select>
+        </hlm-select>
        </label>
       </p>
       <div hlmCardFooter class='justify-between'>

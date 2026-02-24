@@ -40,7 +40,7 @@ import { injectBrnSelect } from './brn-select.token';
 		'(keydown.ArrowDown)': '_select.show()',
 		'(keydown.ArrowUp)': '_select.show(); $event.preventDefault()',
 		'(keydown.Space)': '_select.show()',
-		'(keydown.Enter)': '_select.show()',
+		'(keydown.Enter)': '_select.show(); $event.preventDefault()',
 	},
 })
 export class BrnSelectTrigger<T> implements AfterViewInit, OnDestroy, OnInit {

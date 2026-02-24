@@ -86,10 +86,10 @@ describe('BrnSelectComponent NumberValues', () => {
 
 		await user.click(options[1]);
 		expect(selectedValue()).toEqual([15, 5]);
-		expect((trigger as HTMLInputElement).value).toBe('5, 15');
+		expect((trigger as HTMLInputElement).value).toBe('15, 5');
 
 		await user.click(options[2]);
-		expect((trigger as HTMLInputElement).value).toBe('5, 10, 15');
+		expect((trigger as HTMLInputElement).value).toBe('15, 5, 10');
 		expect(selectedValue()).toEqual([15, 5, 10]);
 	});
 });

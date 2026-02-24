@@ -4,7 +4,6 @@ import {
 	Component,
 	DestroyRef,
 	ElementRef,
-	OnInit,
 	computed,
 	contentChild,
 	inject,
@@ -51,7 +50,7 @@ export const selectTriggerVariants = cva(
 		}
 	`,
 })
-export class HlmSelectTrigger implements AfterViewInit, OnInit {
+export class HlmSelectTrigger implements AfterViewInit {
 	protected readonly _icon = contentChild(HlmIcon);
 	protected readonly _brnSelect = inject(BrnSelect, { optional: true });
 	private readonly _elementRef = inject(ElementRef);
@@ -63,10 +62,6 @@ export class HlmSelectTrigger implements AfterViewInit, OnInit {
 	protected readonly _computedClass = computed(() =>
 		hlm(selectTriggerVariants({ error: this._brnSelect?.errorState() }), this.userClass()),
 	);
-
-	ngOnInit(): void {
-		// Nothing here — ResizeObserver requires the element to be in the DOM (AfterViewInit).
-	}
 
 	ngAfterViewInit(): void {
 		if (!this._brnSelect) return;

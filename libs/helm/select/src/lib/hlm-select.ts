@@ -8,6 +8,7 @@ import type { ClassValue } from 'clsx';
 @Component({
 	selector: 'hlm-select',
 	imports: [OverlayModule, CdkListboxModule],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [
 		{
 			directive: BrnSelect,
@@ -26,18 +27,17 @@ import type { ClassValue } from 'clsx';
 			outputs: ['openChange', 'valueChange'],
 		},
 	],
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[class]': '_computedClass()',
 	},
 	template: `
-		@if (!_brnSelect.selectLabel() && _brnSelect.placeholder()) {
-			<label style="display: none;" [attr.id]="_brnSelect.labelId()">{{ _brnSelect.placeholder() }}</label>
+		@if (!brnSelect.selectLabel() && brnSelect.placeholder()) {
+			<span style="display: none;" [attr.id]="brnSelect.labelId()">{{ brnSelect.placeholder() }}</span>
 		} @else {
 			<ng-content select="label[hlmLabel],label[brnLabel]" />
 		}
 
-		<div cdk-overlay-origin (click)="_brnSelect.toggle()" #trigger="cdkOverlayOrigin">
+		<div cdk-overlay-origin (click)="brnSelect.toggle()" #trigger="cdkOverlayOrigin">
 			<ng-content select="hlm-select-trigger,[brnSelectTrigger]" />
 		</div>
 
@@ -47,12 +47,12 @@ import type { ClassValue } from 'clsx';
 			cdkConnectedOverlayHasBackdrop
 			cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
 			[cdkConnectedOverlayOrigin]="trigger"
-			[cdkConnectedOverlayOpen]="_brnSelect.delayedExpanded()"
-			[cdkConnectedOverlayPositions]="_brnSelect.positions"
-			[cdkConnectedOverlayWidth]="_brnSelect.triggerWidth() > 0 ? _brnSelect.triggerWidth() : 'auto'"
-			(backdropClick)="_brnSelect.hide()"
-			(detach)="_brnSelect.hide()"
-			(positionChange)="_brnSelect.positionChanges$.next($event)"
+			[cdkConnectedOverlayOpen]="brnSelect.delayedExpanded()"
+			[cdkConnectedOverlayPositions]="brnSelect.positions"
+			[cdkConnectedOverlayWidth]="brnSelect.triggerWidth() > 0 ? brnSelect.triggerWidth() : 'auto'"
+			(backdropClick)="brnSelect.hide()"
+			(detach)="brnSelect.hide()"
+			(positionChange)="brnSelect.positionChanges$.next($event)"
 		>
 			<ng-content />
 		</ng-template>
@@ -61,5 +61,5 @@ import type { ClassValue } from 'clsx';
 export class HlmSelect {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() => hlm('contents space-y-2', this.userClass()));
-	public readonly _brnSelect = inject(BrnSelect, { host: true });
+	public readonly brnSelect = inject(BrnSelect, { host: true });
 }

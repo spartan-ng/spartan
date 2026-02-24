@@ -11,7 +11,6 @@ import { getFormControlStatus, getFormValidationClasses } from './utils';
 
 describe('Brn Select Component in single-mode', () => {
 	const DEFAULT_LABEL = 'Select a Fruit';
-	const INITIAL_VALUE_TEXT = 'Apple';
 	const INITIAL_VALUE = 'apple';
 
 	beforeAll(() => {

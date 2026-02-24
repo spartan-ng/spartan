@@ -61,7 +61,7 @@ let nextId = 0;
 		'[attr.data-invalid]': 'errorState() ? "true" : null',
 	},
 })
-export class BrnSlider implements ControlValueAccessor, OnInit, DoCheck {
+export class BrnSlider implements ControlValueAccessor, OnInit, DoCheck, BrnFieldControl {
 	private readonly _dir = inject(Directionality);
 	private readonly _injector = inject(Injector);
 	public ngControl: NgControl | null = null;

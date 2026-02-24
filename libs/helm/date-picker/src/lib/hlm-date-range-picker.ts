@@ -94,13 +94,13 @@ let nextId = 0;
 		</hlm-popover>
 	`,
 })
-export class HlmDateRangePicker<T> implements ControlValueAccessor, DoCheck {
+export class HlmDateRangePicker<T> implements ControlValueAccessor, DoCheck, BrnFieldControl {
 	private readonly _config = injectHlmDateRangePickerConfig<T>();
 	private readonly _defaultErrorStateMatcher = inject(ErrorStateMatcher);
 	private readonly _parentForm = inject(NgForm, { optional: true });
 	private readonly _parentFormGroup = inject(FormGroupDirective, { optional: true });
 
-	protected readonly _ngControl = inject(NgControl, { optional: true, self: true });
+	public readonly ngControl = inject(NgControl, { optional: true, self: true });
 	private readonly _errorStateTracker = new ErrorStateTracker(
 		this._defaultErrorStateMatcher,
 		null,
@@ -240,11 +240,11 @@ export class HlmDateRangePicker<T> implements ControlValueAccessor, DoCheck {
 	}
 
 	constructor() {
-		if (this._ngControl) {
-			this._ngControl.valueAccessor = this;
+		if (this.ngControl) {
+			this.ngControl.valueAccessor = this;
 		}
 
-		this._errorStateTracker.ngControl = this._ngControl;
+		this._errorStateTracker.ngControl = this.ngControl;
 	}
 
 	ngDoCheck() {

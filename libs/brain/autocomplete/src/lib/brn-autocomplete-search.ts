@@ -43,7 +43,9 @@ import {
 		},
 	],
 })
-export class BrnAutocompleteSearch<T> implements BrnAutocompleteBase<T>, ControlValueAccessor, DoCheck {
+export class BrnAutocompleteSearch<T>
+	implements BrnAutocompleteBase<T>, ControlValueAccessor, DoCheck, BrnFieldControl
+{
 	private readonly _injector = inject(Injector);
 
 	private readonly _config = injectBrnAutocompleteConfig<T>();

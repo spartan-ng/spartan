@@ -45,7 +45,7 @@ export const BRN_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = {
 		'[attr.aria-invalid]': 'errorState() ? "true" : null',
 	},
 })
-export class BrnRadioGroup<T = unknown> implements ControlValueAccessor, OnInit, DoCheck {
+export class BrnRadioGroup<T = unknown> implements ControlValueAccessor, OnInit, DoCheck, BrnFieldControl {
 	private readonly _dir = inject(Directionality);
 	private static _nextUniqueId = 0;
 

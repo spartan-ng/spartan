@@ -48,7 +48,7 @@ import {
 		},
 	],
 })
-export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor, DoCheck {
+export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor, DoCheck, BrnFieldControl {
 	private readonly _injector = inject(Injector);
 
 	private readonly _config = injectBrnComboboxConfig<T>();

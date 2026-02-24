@@ -46,7 +46,7 @@ import {
 		'(focusout)': '_onFocusOut($event)',
 	},
 })
-export class BrnAutocomplete<T> implements BrnAutocompleteBase<T>, ControlValueAccessor, DoCheck {
+export class BrnAutocomplete<T> implements BrnAutocompleteBase<T>, ControlValueAccessor, DoCheck, BrnFieldControl {
 	private readonly _injector = inject(Injector);
 
 	private readonly _config = injectBrnAutocompleteConfig<T>();

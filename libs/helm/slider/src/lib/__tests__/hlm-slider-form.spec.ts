@@ -22,7 +22,7 @@ import { HlmSlider } from '../../index';
 })
 class HlmSliderHost {
 	public readonly form = new FormGroup({
-		value: new FormControl(0, { validators: [Validators.min(5), Validators.required] }),
+		value: new FormControl([0], { validators: [Validators.min(5), Validators.required] }),
 	});
 }
 

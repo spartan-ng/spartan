@@ -23,6 +23,7 @@ import { type ControlValueAccessor, FormGroupDirective, NgControl, NgForm } from
 import { BrnFieldControl } from '@spartan-ng/brain/field';
 import { type ChangeFn, ErrorStateMatcher, ErrorStateTracker, type TouchFn } from '@spartan-ng/brain/forms';
 import { BrnPopover } from '@spartan-ng/brain/popover';
+import { BrnComboboxContent } from './brn-combobox-content';
 import { BrnComboboxInputWrapper } from './brn-combobox-input-wrapper';
 import { type BrnComboboxItem } from './brn-combobox-item';
 import { BrnComboboxItemToken } from './brn-combobox-item.token';
@@ -46,6 +47,9 @@ import {
 			useExisting: forwardRef(() => BrnComboboxMultiple),
 		},
 	],
+	host: {
+		'(focusout)': '_onFocusOut($event)',
+	},
 })
 export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueAccessor, DoCheck, BrnFieldControl {
 	private readonly _injector = inject(Injector);
@@ -111,6 +115,10 @@ export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueA
 
 	/** @internal Access all the items within the combobox */
 	public readonly items = contentChildren<BrnComboboxItem<T>>(BrnComboboxItemToken, {
+		descendants: true,
+	});
+
+	private readonly _content = contentChild<BrnComboboxContent>(BrnComboboxContent, {
 		descendants: true,
 	});
 
@@ -234,6 +242,19 @@ export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueA
 		if (this._disabled() || this.isExpanded()) return;
 
 		this._brnPopover?.open();
+	}
+
+	protected _onFocusOut(event: FocusEvent): void {
+		const currentTarget = event.currentTarget as HTMLElement;
+		const focusedEl = event.relatedTarget as HTMLElement | null;
+		const contentEl = this._content()?.el.nativeElement;
+
+		if (!currentTarget.contains(focusedEl) && !contentEl?.contains(focusedEl)) {
+			if (this.isExpanded()) {
+				this._brnPopover?.close();
+			}
+			this._onTouched?.();
+		}
 	}
 
 	private close(): void {

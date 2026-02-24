@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { BrnSlider, BrnSliderImports, injectBrnSlider } from '@spartan-ng/brain/slider';
 import { classes } from '@spartan-ng/helm/utils';
 
@@ -71,17 +71,9 @@ import { classes } from '@spartan-ng/helm/utils';
 export class HlmSlider {
 	protected readonly _slider = injectBrnSlider();
 
-	protected readonly _errorStateClass = computed(() =>
-		this._slider.errorState()
-			? 'ring-ring data-[invalid=true]:ring-destructive focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40'
-			: '',
-	);
-
 	constructor() {
 		classes(() => [
 			'group flex w-full touch-none flex-col select-none data-vertical:h-full data-vertical:min-h-40 data-vertical:w-auto data-vertical:flex-row data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
-			this._slider.mutableDisabled() ? 'opacity-40' : '',
-			this._errorStateClass(),
 		]);
 	}
 }

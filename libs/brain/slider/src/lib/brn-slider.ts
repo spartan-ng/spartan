@@ -64,7 +64,7 @@ let nextId = 0;
 export class BrnSlider implements ControlValueAccessor, OnInit, DoCheck {
 	private readonly _dir = inject(Directionality);
 	private readonly _injector = inject(Injector);
-	private _ngControl: NgControl | null = null;
+	public ngControl: NgControl | null = null;
 
 	private readonly _defaultErrorStateMatcher = inject(ErrorStateMatcher);
 	private readonly _parentForm = inject(NgForm, { optional: true });
@@ -248,15 +248,15 @@ export class BrnSlider implements ControlValueAccessor, OnInit, DoCheck {
 	}
 
 	ngOnInit(): void {
-		this._ngControl = this._injector.get(NgControl, null);
-		if (this._ngControl) {
-			this._ngControl.valueAccessor = this;
+		this.ngControl = this._injector.get(NgControl, null);
+		if (this.ngControl) {
+			this.ngControl.valueAccessor = this;
 		}
-		this._errorStateTracker.ngControl = this._ngControl;
+		this._errorStateTracker.ngControl = this.ngControl;
 
 		// If bound to an Angular form control, writeValue() will run after ngOnInit,
 		// so avoid initializing defaults here to prevent a transient min-value override.
-		if (!this._ngControl) {
+		if (!this.ngControl) {
 			if (!this.value().length) {
 				const defaultValue = [this.min()];
 				this.value.set(defaultValue);
@@ -291,7 +291,7 @@ export class BrnSlider implements ControlValueAccessor, OnInit, DoCheck {
 	writeValue(value: number[]): void {
 		if (!Array.isArray(value)) return;
 
-		if (this._ngControl instanceof NgModel && !this._onChange) {
+		if (this.ngControl instanceof NgModel && !this._onChange) {
 			// Avoid phantom call for ngModel
 			// https://github.com/angular/angular/issues/14988#issuecomment-2946355465
 			return;

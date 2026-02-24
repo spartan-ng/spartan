@@ -16,6 +16,8 @@ import type { ClassValue } from 'clsx';
 				'multiple',
 				'placeholder',
 				'disabled',
+				'readonly',
+				'displayWith',
 				'closeDelay',
 				'compareWith',
 				'open',

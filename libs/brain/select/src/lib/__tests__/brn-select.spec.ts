@@ -131,8 +131,8 @@ describe('BrnSelectComponent', () => {
 					multiple: false,
 				},
 			});
-			// Value is not automatically cleared when switching modes; it retains previous display
-			expect((trigger as HTMLInputElement).value).toBeTruthy();
+			// Switching to single mode does not automatically clear the value; display is retained
+			expect((trigger as HTMLInputElement).value).toContain(`${options[0].textContent}`);
 		});
 
 		it('when multiple true -> false with single value, should retain value', async () => {

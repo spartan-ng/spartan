@@ -27,6 +27,7 @@ import { injectBrnSelect } from './brn-select.token';
 		'[attr.aria-controls]': '_contentId()',
 		'[attr.aria-labelledby]': '_labelledBy()',
 		'[attr.aria-autocomplete]': '"none"',
+		'aria-haspopup': 'listbox',
 		'[attr.readonly]': '_select.readonly()',
 		'[value]': '_select.displayValue()',
 		'[attr.placeholder]': '_select.placeholder() || null',
@@ -39,7 +40,7 @@ import { injectBrnSelect } from './brn-select.token';
 		'[class.ng-pristine]': '_ngControl?.pristine || null',
 		'(keydown.ArrowDown)': '_select.show()',
 		'(keydown.ArrowUp)': '_select.show(); $event.preventDefault()',
-		'(keydown.Space)': '_select.show()',
+		'(keydown.Space)': '_select.show(); $event.preventDefault()',
 		'(keydown.Enter)': '_select.show(); $event.preventDefault()',
 	},
 })

@@ -41,7 +41,6 @@ let nextId = 0;
 @Directive({
 	selector: 'brn-select, [brnSelect]',
 	exportAs: 'brnSelect',
-	standalone: true,
 	providers: [
 		provideExposedSideProviderExisting(() => BrnSelect),
 		provideExposesStateProviderExisting(() => BrnSelect),

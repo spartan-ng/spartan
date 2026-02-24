@@ -3,6 +3,8 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideAlignCenter, lucideAlignJustify, lucideAlignLeft, lucideAlignRight } from '@ng-icons/lucide';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
 
+type AlignOption = { label: string; icon: string };
+
 @Component({
 	selector: 'spartan-select-value-template-preview',
 	imports: [HlmSelectImports, NgIcon],
@@ -15,15 +17,8 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 		}),
 	],
 	template: `
-		<hlm-select class="inline-block" placeholder="Select an alignment">
-			<hlm-select-trigger class="w-56">
-				<hlm-select-value>
-					<div class="flex items-center gap-x-2" *brnSelectValue="let value">
-						<ng-icon [name]="value.icon" />
-						{{ value.label }}
-					</div>
-				</hlm-select-value>
-			</hlm-select-trigger>
+		<hlm-select class="inline-block" placeholder="Select an alignment" [displayWith]="getLabel">
+			<hlm-select-trigger class="w-56" />
 			<hlm-select-content>
 				@for (option of options; track option.label) {
 					<hlm-option [value]="option">
@@ -36,10 +31,12 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 	`,
 })
 export class SelectValueTemplatePreview {
-	public readonly options = [
+	public readonly options: AlignOption[] = [
 		{ label: 'Align Left', icon: 'lucideAlignLeft' },
 		{ label: 'Align Center', icon: 'lucideAlignCenter' },
 		{ label: 'Align Justify', icon: 'lucideAlignJustify' },
 		{ label: 'Align Right', icon: 'lucideAlignRight' },
 	];
+
+	public readonly getLabel = (option: AlignOption) => option.label;
 }

@@ -79,6 +79,12 @@ export const components: Link[] = [
 	{ label: 'Tooltip', url: '/tooltip', new: true },
 ];
 
+export const forms: Link[] = [
+	{ label: 'Forms', url: '/' },
+	{ label: 'Reactive Forms', url: '/reactive-forms' },
+	{ label: 'Signal Forms', url: '/signal-forms', wip: true },
+];
+
 export const sidenavItems: NavItem[] = [
 	{
 		label: 'Getting Started',
@@ -109,6 +115,11 @@ export const sidenavItems: NavItem[] = [
 		label: 'Components',
 		url: '/components',
 		links: components,
+	},
+	{
+		label: 'Forms',
+		url: '/forms',
+		links: forms,
 	},
 	{
 		label: 'Stack',

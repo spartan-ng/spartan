@@ -58,7 +58,7 @@ let nextId = 0;
 				<ng-icon hlm size="sm" name="lucideChevronDown" />
 			</button>
 
-			<hlm-popover-content class="w-auto p-0" *hlmPopoverPortal="let ctx">
+			<hlm-popover-content class="w-fit p-0" *hlmPopoverPortal="let ctx">
 				<hlm-calendar
 					calendarClass="border-0 rounded-none"
 					[captionLayout]="captionLayout()"

@@ -3401,6 +3401,69 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       },
     },
   },
+  "native-select": {
+    "helm": {
+      "HlmNativeSelect": {
+        "inputs": [
+          {
+            "name": "selectId",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "selectClass",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "selectIconClass",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "size",
+            "required": false,
+            "type": "'sm' | 'default'",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "aria-invalid",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [
+          {
+            "name": "value",
+            "type": "string | null",
+          },
+        ],
+        "outputs": [
+          {
+            "name": "valueChange",
+            "type": "string | null",
+          },
+        ],
+        "selector": "hlm-native-select",
+      },
+      "HlmNativeSelectOptGroup": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmNativeSelectOptGroup]",
+      },
+      "HlmNativeSelectOption": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmNativeSelectOption]",
+      },
+    },
+  },
   "navigation-menu": {
     "brain": {
       "BrnNavigationMenu": {
@@ -4621,6 +4684,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "boolean",
           },
+          {
+            "name": "closeMobileSidebarOnClick",
+            "required": false,
+            "type": "boolean",
+          },
         ],
         "models": [],
         "outputs": [],
@@ -4652,6 +4720,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       },
       "HlmSidebarMenuSubButton": {
         "inputs": [
+          {
+            "name": "closeMobileSidebarOnClick",
+            "required": false,
+            "type": "boolean",
+          },
           {
             "name": "size",
             "required": false,
@@ -4731,6 +4804,21 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       "BrnSlider": {
         "exportAs": "brnSlider",
         "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "aria-label",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "aria-labelledby",
+            "required": false,
+            "type": "string | null",
+          },
           {
             "name": "min",
             "required": false,

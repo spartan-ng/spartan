@@ -10,7 +10,8 @@ const PAGE_KEYS = ['PageUp', 'PageDown'];
 	selector: '[brnSliderThumb]',
 	host: {
 		role: 'slider',
-		'[attr.aria-label]': `_ariaLabel()`,
+		'[attr.aria-label]': `_computedAriaLabel()`,
+		'[attr.aria-labelledby]': '_slider.ariaLabelledby() || null',
 		'[attr.aria-orientation]': '_slider.orientation()',
 		'[attr.aria-valuenow]': '_slider.normalizedValue()[_index()]',
 		'[attr.aria-valuemin]': '_slider.min()',
@@ -95,8 +96,8 @@ export class BrnSliderThumb {
 		return `calc(${this.percentage()}% + ${this._thumbInBoundsOffset()}px)`;
 	});
 
-	protected readonly _ariaLabel = computed(
-		() => `Value ${this._index() + 1} of ${this._slider.normalizedValue().length}`,
+	protected readonly _computedAriaLabel = computed(
+		() => this._slider.ariaLabel() || `Value ${this._index() + 1} of ${this._slider.normalizedValue().length}`,
 	);
 
 	protected readonly _transformValue = computed(() =>

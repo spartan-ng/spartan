@@ -1,9 +1,9 @@
 import {
+	DestroyRef,
 	Directive,
 	effect,
 	type EmbeddedViewRef,
 	inject,
-	type OnDestroy,
 	Renderer2,
 	TemplateRef,
 	ViewContainerRef,
@@ -16,11 +16,12 @@ import { injectBrnSlider } from './brn-slider.token';
 		'data-slot': 'slider-tick',
 	},
 })
-export class BrnSliderTick implements OnDestroy {
+export class BrnSliderTick {
 	private readonly _slider = injectBrnSlider();
 	private readonly _templateRef = inject<TemplateRef<BrnSliderTickContext>>(TemplateRef);
 	private readonly _renderer = inject(Renderer2);
 	private readonly _viewContainer = inject(ViewContainerRef);
+	private readonly _destroyRef = inject(DestroyRef);
 	private _ticks: EmbeddedViewRef<BrnSliderTickContext>[] = [];
 
 	constructor() {
@@ -49,14 +50,14 @@ export class BrnSliderTick implements OnDestroy {
 				this._ticks.push(view);
 			});
 		});
-	}
 
-	ngOnDestroy(): void {
-		this._ticks.forEach((tick) => this._viewContainer.remove(this._viewContainer.indexOf(tick)));
+		this._destroyRef.onDestroy(() => {
+			this._ticks.forEach((tick) => this._viewContainer.remove(this._viewContainer.indexOf(tick)));
+		});
 	}
 }
 
-interface BrnSliderTickContext {
+export interface BrnSliderTickContext {
 	$implicit: number;
 	index: number;
 	formattedTick: string;

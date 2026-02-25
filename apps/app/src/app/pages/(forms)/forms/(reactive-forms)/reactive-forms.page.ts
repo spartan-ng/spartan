@@ -13,6 +13,12 @@ import { SectionIntro } from '../../../../shared/layout/section-intro';
 import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading';
 import { Tabs } from '../../../../shared/layout/tabs';
 import { metaWith } from '../../../../shared/meta/meta.util';
+import { ReactiveFormCheckboxDemo, reactiveFormsCheckboxDemoCode } from './reactive-forms--checkbox.demo';
+import { ReactiveFormInputDemo, reactiveFormsInputDemoCode } from './reactive-forms--input.demo';
+import { ReactiveFormRadioGroupDemo, reactiveFormsRadioGroupDemoCode } from './reactive-forms--radio-group.demo';
+import { ReactiveFormSelectDemo, reactiveFormsSelectDemoCode } from './reactive-forms--select.demo';
+import { reactiveFormsSwitchDemoCode, ReactiveFormSwitchDemo } from './reactive-forms--switch.demo';
+import { reactiveFormsTextareaDemoCode, ReactiveFormTextareaDemo } from './reactive-forms--textarea.demo';
 import {
 	BugReportForm,
 	demoAnatomyCode,
@@ -41,6 +47,12 @@ export const routeMeta: RouteMeta = {
 		PageBottomNavLink,
 		SectionSubSubHeading,
 		BugReportForm,
+		ReactiveFormInputDemo,
+		ReactiveFormTextareaDemo,
+		ReactiveFormSelectDemo,
+		ReactiveFormCheckboxDemo,
+		ReactiveFormRadioGroupDemo,
+		ReactiveFormSwitchDemo,
 	],
 	template: `
 		<section spartanMainSection>
@@ -181,6 +193,58 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-code class="mt-6" [code]="_demoAnatomyCode" />
 
+			<spartan-section-sub-heading id="working-with-different-field-types">
+				Working with Different Field Types
+			</spartan-section-sub-heading>
+
+			<h3 id="input" spartanH4>Input</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-reactive-form-input-demo />
+				</div>
+				<spartan-code secondTab [code]="_reactiveFormsInputDemoCode" />
+			</spartan-tabs>
+
+			<h3 id="textarea" spartanH4>Textarea</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-reactive-form-textarea-demo />
+				</div>
+				<spartan-code secondTab [code]="_reactiveFormsTextareaDemoCode" />
+			</spartan-tabs>
+
+			<h3 id="select" spartanH4>Select</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-reactive-form-select-demo />
+				</div>
+				<spartan-code secondTab [code]="_reactiveFormsSelectDemoCode" />
+			</spartan-tabs>
+
+			<h3 id="checkbox" spartanH4>Checkbox</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-reactive-form-checkbox-demo />
+				</div>
+				<spartan-code secondTab [code]="_reactiveFormsCheckboxDemoCode" />
+			</spartan-tabs>
+
+			<h3 id="radio-group" spartanH4>Radio Group</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-reactive-form-radio-group-demo />
+				</div>
+				<spartan-code secondTab [code]="_reactiveFormsRadioGroupDemoCode" />
+			</spartan-tabs>
+
+			<h3 id="switch" spartanH4>Switch</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-reactive-form-switch-demo />
+				</div>
+				<spartan-code secondTab [code]="_reactiveFormsSwitchDemoCode" />
+			</spartan-tabs>
+
 			<spartan-section-sub-heading id="resetting-the-form">Resetting the form</spartan-section-sub-heading>
 			<p class="${hlmP}">
 				Use
@@ -203,4 +267,11 @@ export default class ReactiveFormsPage {
 	protected readonly _demoFormSchemaCode = demoFormSchemaCode;
 	protected readonly _demoSetupForm = demoSetupForm;
 	protected readonly _demoResetForm = demoResetForm;
+
+	protected readonly _reactiveFormsInputDemoCode = reactiveFormsInputDemoCode;
+	protected readonly _reactiveFormsTextareaDemoCode = reactiveFormsTextareaDemoCode;
+	protected readonly _reactiveFormsCheckboxDemoCode = reactiveFormsCheckboxDemoCode;
+	protected readonly _reactiveFormsRadioGroupDemoCode = reactiveFormsRadioGroupDemoCode;
+	protected readonly _reactiveFormsSelectDemoCode = reactiveFormsSelectDemoCode;
+	protected readonly _reactiveFormsSwitchDemoCode = reactiveFormsSwitchDemoCode;
 }

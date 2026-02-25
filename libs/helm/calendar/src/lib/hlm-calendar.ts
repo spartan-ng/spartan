@@ -45,9 +45,7 @@ import type { ClassValue } from 'clsx';
 						<div class="flex w-full items-center justify-center gap-1.5">
 							<ng-template #month>
 								<brn-select brnCalendarMonthSelect>
-									<hlm-select-trigger size="sm" [class]="_selectClass">
-										<brn-select-value />
-									</hlm-select-trigger>
+									<hlm-select-trigger size="sm" [class]="_selectClass" />
 									<hlm-select-content class="max-h-80">
 										@for (month of _i18n.config().months(); track month) {
 											<hlm-option [value]="month">{{ month }}</hlm-option>
@@ -57,9 +55,7 @@ import type { ClassValue } from 'clsx';
 							</ng-template>
 							<ng-template #year>
 								<brn-select brnCalendarYearSelect>
-									<hlm-select-trigger size="sm" [class]="_selectClass">
-										<brn-select-value />
-									</hlm-select-trigger>
+									<hlm-select-trigger size="sm" [class]="_selectClass" />
 									<hlm-select-content class="max-h-80">
 										@for (year of _i18n.config().years(); track year) {
 											<hlm-option [value]="year">{{ year }}</hlm-option>

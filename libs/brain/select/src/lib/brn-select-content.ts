@@ -100,8 +100,7 @@ export class BrnSelectScrollDown {
 	},
 	template: `
 		<ng-template #scrollUp>
-			<ng-content select="hlm-select-scroll-up" />
-			<ng-content select="brnSelectScrollUp" />
+			<ng-content select="hlm-select-scroll-up, brn-select-scroll-up, [brnSelectScrollUp]" />
 		</ng-template>
 		<ng-container *ngTemplateOutlet="_canScrollUp() && _scrollUpBtn() ? scrollUp : null" />
 		<div
@@ -114,8 +113,7 @@ export class BrnSelectScrollDown {
 			<ng-content />
 		</div>
 		<ng-template #scrollDown>
-			<ng-content select="brnSelectScrollDown" />
-			<ng-content select="hlm-select-scroll-down" />
+			<ng-content select="hlm-select-scroll-down, brn-select-scroll-down, [brnSelectScrollDown]" />
 		</ng-template>
 		<ng-container *ngTemplateOutlet="_canScrollDown() && _scrollDownBtn() ? scrollDown : null" />
 	`,

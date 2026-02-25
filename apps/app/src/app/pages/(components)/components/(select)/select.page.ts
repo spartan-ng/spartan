@@ -15,9 +15,9 @@ import { Tabs } from '../../../../shared/layout/tabs';
 import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
+import { SelectDisplayWithPreview } from './select--display-with.preview';
 import { SelectMultiplePreview } from './select--multiple.preview';
 import { SelectScrollablePreview } from './select--scrollable.preview';
-import { SelectValueTemplatePreview } from './select--value-template.preview';
 import { defaultImports, defaultSkeleton, defaultStyles, SelectPreview } from './select.preview';
 
 export const routeMeta: RouteMeta = {
@@ -43,7 +43,7 @@ export const routeMeta: RouteMeta = {
 		SelectPreview,
 		SelectMultiplePreview,
 		SelectScrollablePreview,
-		SelectValueTemplatePreview,
+		SelectDisplayWithPreview,
 		SectionSubSubHeading,
 	],
 	template: `
@@ -102,12 +102,12 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_scrollableCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__value-template" spartanH4>Value Template</h3>
+			<h3 id="examples__display-with" spartanH4>Custom Display (displayWith)</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
-					<spartan-select-value-template-preview />
+					<spartan-select-display-with-preview />
 				</div>
-				<spartan-code secondTab [code]="_valueTemplateCode()" />
+				<spartan-code secondTab [code]="_displayWithCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
@@ -129,7 +129,7 @@ export default class SkeletonPage {
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _multipleCode = computed(() => this._snippets()['multiple']);
 	protected readonly _scrollableCode = computed(() => this._snippets()['scrollable']);
-	protected readonly _valueTemplateCode = computed(() => this._snippets()['valueTemplate']);
+	protected readonly _displayWithCode = computed(() => this._snippets()['displayWith']);
 	protected readonly _defaultStyles = defaultStyles;
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;

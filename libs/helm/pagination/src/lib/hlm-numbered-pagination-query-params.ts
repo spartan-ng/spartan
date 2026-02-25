@@ -90,9 +90,7 @@ import { HlmPaginationPrevious } from './hlm-pagination-previous';
 
 			<!-- Show Page Size selector -->
 			<brn-select [(ngModel)]="itemsPerPage" class="ml-auto" placeholder="Page size">
-				<hlm-select-trigger class="w-fit">
-					<hlm-select-value />
-				</hlm-select-trigger>
+				<hlm-select-trigger class="w-fit" />
 				<hlm-select-content>
 					@for (pageSize of _pageSizesWithCurrent(); track pageSize) {
 						<hlm-option [value]="pageSize">{{ pageSize }} / page</hlm-option>

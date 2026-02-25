@@ -6,7 +6,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 type AlignOption = { label: string; icon: string };
 
 @Component({
-	selector: 'spartan-select-value-template-preview',
+	selector: 'spartan-select-display-with-preview',
 	imports: [HlmSelectImports, NgIcon],
 	providers: [
 		provideIcons({
@@ -30,7 +30,7 @@ type AlignOption = { label: string; icon: string };
 		</hlm-select>
 	`,
 })
-export class SelectValueTemplatePreview {
+export class SelectDisplayWithPreview {
 	public readonly options: AlignOption[] = [
 		{ label: 'Align Left', icon: 'lucideAlignLeft' },
 		{ label: 'Align Center', icon: 'lucideAlignCenter' },

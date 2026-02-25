@@ -15,13 +15,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 		<div hlmButtonGroup>
 			<div hlmButtonGroup class="[&>brn-select>div>hlm-select-trigger>button]:rounded-r-none">
 				<hlm-select class="inline-block" placeholder="Select an option" [value]="_currencies[0].value">
-					<hlm-select-trigger>
-						<hlm-select-value>
-							<div *brnSelectValue="let value">
-								<span>{{ value }}</span>
-							</div>
-						</hlm-select-value>
-					</hlm-select-trigger>
+					<hlm-select-trigger />
 					<hlm-select-content class="!min-w-40">
 						@for (currency of _currencies; track currency.label) {
 							<hlm-option [value]="currency.value">

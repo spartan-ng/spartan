@@ -1,9 +1,12 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronUp } from '@ng-icons/lucide';
-import { HlmIcon } from '<%- importAlias %>/icon';
-import { classes } from '<%- importAlias %>/utils';
+import { HlmIcon } from '@spartan-ng/helm/icon';
+import { classes } from '@spartan-ng/helm/utils';
 
+// TODO: scroll affordances for hlm-select are not yet implemented.
+// BrnComboboxScrollUp requires BrnComboboxList (a listbox ancestor), which the select
+// content does not yet include. For now this is a visual-only button with no behaviour.
 @Component({
 	selector: 'hlm-select-scroll-up',
 	imports: [NgIcon, HlmIcon],

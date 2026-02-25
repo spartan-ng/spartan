@@ -1,11 +1,12 @@
 import { computed, Directive, inject } from '@angular/core';
-import { BrnSelectLabel } from '@spartan-ng/brain/select';
+import { BrnComboboxLabel } from '@spartan-ng/brain/combobox';
 import { classes } from '@spartan-ng/helm/utils';
+// Note: HlmSelectContent needs `stickyLabels()` still, so I will ensure my HlmSelectContent still has it.
 import { HlmSelectContent } from './hlm-select-content';
 
 @Directive({
 	selector: '[hlmSelectLabel], hlm-select-label',
-	hostDirectives: [BrnSelectLabel],
+	hostDirectives: [BrnComboboxLabel],
 })
 export class HlmSelectLabel {
 	private readonly _selectContent = inject(HlmSelectContent);

@@ -6,12 +6,14 @@ export interface BrnPopoverConfig {
 	align: BrnPopoverAlign;
 	sideOffset: number;
 	offsetX: number;
+	viewportMargin: number;
 }
 
 const defaultConfig: BrnPopoverConfig = {
 	align: 'center',
 	sideOffset: 0,
 	offsetX: 0,
+	viewportMargin: 16,
 };
 
 const BrnPopoverConfigToken = new InjectionToken<BrnPopoverConfig>('BrnPopoverConfig');

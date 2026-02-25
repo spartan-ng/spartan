@@ -7,9 +7,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 	template: `
 		<hlm-select placeholder="Select a timezone">
 			<hlm-select-trigger />
-			<hlm-select-content class="max-h-96 min-w-[325px]">
-				<hlm-select-scroll-up />
-
+			<hlm-select-content class="min-w-[325px]">
 				<hlm-select-group>
 					<hlm-select-label>North America</hlm-select-label>
 					<hlm-option value="est">Eastern Standard Time (EST)</hlm-option>
@@ -56,8 +54,6 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 					<hlm-option value="brt">Brasilia Time (BRT)</hlm-option>
 					<hlm-option value="clt">Chile Standard Time (CLT)</hlm-option>
 				</hlm-select-group>
-
-				<hlm-select-scroll-down />
 			</hlm-select-content>
 		</hlm-select>
 	`,

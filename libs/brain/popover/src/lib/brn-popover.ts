@@ -26,6 +26,9 @@ export class BrnPopover extends BrnDialog {
 	public readonly align = input<BrnPopoverAlign>(this._config.align);
 	public readonly sideOffset = input<number, NumberInput>(this._config.sideOffset, { transform: numberAttribute });
 	public readonly offsetX = input<number, NumberInput>(this._config.offsetX, { transform: numberAttribute });
+	public readonly viewportMargin = input<number, NumberInput>(this._config.viewportMargin, {
+		transform: numberAttribute,
+	});
 	private _positionStrategy?: FlexibleConnectedPositionStrategy;
 
 	constructor() {
@@ -70,12 +73,16 @@ export class BrnPopover extends BrnDialog {
 		effect(() => {
 			const attachTo = this.mutableAttachTo();
 			const positions = this.mutableAttachPositions();
+			const viewportMargin = this.viewportMargin();
 			if (!attachTo || !positions || positions.length === 0) return;
 			untracked(() => {
 				if (!this._positionStrategy) {
-					this._positionStrategy = this.positionBuilder.flexibleConnectedTo(attachTo).withPush(false);
+					this._positionStrategy = this.positionBuilder
+						.flexibleConnectedTo(attachTo)
+						.withPush(false)
+						.withViewportMargin(viewportMargin);
 				} else {
-					this._positionStrategy.setOrigin(attachTo);
+					this._positionStrategy.setOrigin(attachTo).withViewportMargin(viewportMargin);
 				}
 				this._positionStrategy.withPositions(positions);
 				this.mutablePositionStrategy.set(this._positionStrategy);

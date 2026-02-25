@@ -1,0 +1,31 @@
+import { ChangeDetectionStrategy, Component, Directive } from '@angular/core';
+import { BrnComboboxContent, BrnComboboxScrollDown, BrnComboboxScrollUp } from '@spartan-ng/brain/combobox';
+import { BrnPopoverContent } from '@spartan-ng/brain/popover';
+
+@Component({
+	selector: 'brn-select-content',
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	imports: [BrnPopoverContent, BrnComboboxContent],
+	// *brnPopoverContent registers this template with BrnDialog, portaling it into
+	// the CDK overlay when the popover/select opens.
+	template: `
+		<ng-template brnPopoverContent>
+			<div brnComboboxContent style="display:flex;flex-direction:column;outline:none;">
+				<ng-content />
+			</div>
+		</ng-template>
+	`,
+})
+export class BrnSelectContent {}
+
+@Directive({
+	selector: '[brnSelectScrollUp], brn-select-scroll-up',
+	hostDirectives: [BrnComboboxScrollUp],
+})
+export class BrnSelectScrollUp {}
+
+@Directive({
+	selector: '[brnSelectScrollDown], brn-select-scroll-down',
+	hostDirectives: [BrnComboboxScrollDown],
+})
+export class BrnSelectScrollDown {}

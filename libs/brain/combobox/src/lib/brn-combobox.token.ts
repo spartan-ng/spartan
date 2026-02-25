@@ -1,9 +1,11 @@
+import type { BooleanInput } from '@angular/cdk/coercion';
 import type { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import {
 	type ExistingProvider,
 	inject,
 	InjectionToken,
 	type InputSignal,
+	type InputSignalWithTransform,
 	type ModelSignal,
 	type Signal,
 	type Type,
@@ -22,8 +24,10 @@ export interface BrnComboboxBase<T> {
 	search: ModelSignal<string>;
 	disabled: Signal<boolean>;
 	disabledState: Signal<boolean>;
+	placeholder: InputSignal<string>;
+	multiple: InputSignalWithTransform<boolean, BooleanInput>;
 	keyManager: ActiveDescendantKeyManager<BrnComboboxItem<T>>;
-	value: ModelSignal<T | null> | ModelSignal<T[] | null>;
+	value: ModelSignal<T | null> | ModelSignal<T[]>;
 	visibleItems: Signal<boolean>;
 	isExpanded: Signal<boolean>;
 	searchInputWrapperWidth: Signal<number | null>;
@@ -32,6 +36,7 @@ export interface BrnComboboxBase<T> {
 	isSelected: (itemValue: T) => boolean;
 	select: (itemValue: T) => void;
 	open: () => void;
+	close: () => void;
 	resetValue: () => void;
 	resetSearch: () => void;
 	/** Select the active item with Enter key. */

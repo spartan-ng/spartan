@@ -56,6 +56,12 @@ export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueA
 	/** Whether the combobox is disabled */
 	public readonly disabled = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
+	/** Placeholder text shown when no value is selected */
+	public readonly placeholder = input<string>('');
+
+	/** This combobox is always in multiple mode. Exposed for compatibility with BrnComboboxBase. */
+	public readonly multiple = input<boolean, BooleanInput>(true, { transform: booleanAttribute });
+
 	protected readonly _disabled = linkedSignal(this.disabled);
 
 	/** @internal The disabled state as a readonly signal */
@@ -86,7 +92,7 @@ export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueA
 	});
 
 	/** The selected values of the combobox. */
-	public readonly value = model<T[] | null>(null);
+	public readonly value = model<T[]>([]);
 
 	/** The current search query. */
 	public readonly search = model<string>('');
@@ -152,13 +158,13 @@ export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueA
 	}
 
 	public isSelected(itemValue: T): boolean {
-		return this.value()?.some((v) => this.isItemEqualToValue()(itemValue, v)) ?? false;
+		return this.value().some((v) => this.isItemEqualToValue()(itemValue, v));
 	}
 
 	public select(itemValue: T): void {
-		const selected = this.value() ?? [];
+		const selected = this.value();
 		if (this.isSelected(itemValue)) {
-			this.value.set(selected.filter((d) => !this.isItemEqualToValue()(d, itemValue)) ?? []);
+			this.value.set(selected.filter((d) => !this.isItemEqualToValue()(d, itemValue)));
 		} else {
 			this.value.set([...selected, itemValue]);
 		}
@@ -169,7 +175,7 @@ export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueA
 			this.close();
 		}
 
-		this._onChange?.(this.value() ?? []);
+		this._onChange?.(this.value());
 	}
 
 	/** Select the active item with Enter key. */
@@ -186,8 +192,8 @@ export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueA
 	}
 
 	public resetValue(): void {
-		this.value.set(null);
-		this._onChange?.(null);
+		this.value.set([]);
+		this._onChange?.([]);
 	}
 
 	public resetSearch(): void {
@@ -195,14 +201,14 @@ export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueA
 	}
 
 	public removeValue(itemValue: T): void {
-		const selected = this.value() ?? [];
+		const selected = this.value();
 
-		this.value.set(selected.filter((value) => !this.isItemEqualToValue()(itemValue, value)) ?? []);
+		this.value.set(selected.filter((value) => !this.isItemEqualToValue()(itemValue, value)));
 		this._onChange?.(this.value());
 	}
 
 	public removeLastSelectedItem(): void {
-		const selected = this.value() ?? [];
+		const selected = this.value();
 		if (selected.length === 0) return;
 
 		selected.pop();
@@ -216,7 +222,7 @@ export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueA
 		this._brnPopover?.open();
 	}
 
-	private close(): void {
+	public close(): void {
 		if (this._disabled() || !this.isExpanded()) return;
 
 		this._brnPopover?.close();
@@ -224,7 +230,7 @@ export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueA
 
 	/** CONTROL VALUE ACCESSOR */
 	public writeValue(value: T[] | null): void {
-		this.value.set(value);
+		this.value.set(value ?? []);
 	}
 
 	public registerOnChange(fn: ChangeFn<T[] | null>): void {

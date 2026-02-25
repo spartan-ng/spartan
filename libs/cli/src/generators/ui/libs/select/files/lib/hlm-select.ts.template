@@ -1,11 +1,61 @@
-import { Directive } from '@angular/core';
-import { classes } from '<%- importAlias %>/utils';
+import { Directive, forwardRef, inject, type Signal } from '@angular/core';
+import { BrnCombobox, injectBrnComboboxBase } from '@spartan-ng/brain/combobox';
+import { BrnPopover, provideBrnPopoverConfig } from '@spartan-ng/brain/popover';
+import { BrnFormFieldControl } from '@spartan-ng/brain/form-field';
+import { provideBrnDialogDefaultOptions } from '@spartan-ng/brain/dialog';
 
 @Directive({
-	selector: 'hlm-select, brn-select [hlm]',
+	selector: '[hlmSelect],hlm-select',
+	exportAs: 'brnSelect',
+	providers: [
+		{
+			provide: BrnFormFieldControl,
+			useExisting: forwardRef(() => HlmSelect),
+		},
+		provideBrnPopoverConfig({
+			align: 'start',
+			sideOffset: 6,
+		}),
+		provideBrnDialogDefaultOptions({
+			autoFocus: 'first-heading',
+		}),
+	],
+	hostDirectives: [
+		{
+			directive: BrnCombobox,
+			inputs: [
+				'disabled',
+				'value',
+				'multiple',
+				'placeholder',
+				'autoHighlight',
+				'filter',
+				'search',
+				'itemToString: displayWith',
+				'filterOptions',
+				'isItemEqualToValue',
+			],
+			outputs: ['valueChange'],
+		},
+		{
+			directive: BrnPopover,
+			inputs: [
+				'state: open',
+				'closeDelay',
+				'align',
+				'autoFocus',
+				'closeOnOutsidePointerEvents',
+				'sideOffset',
+				'offsetX',
+				'restoreFocus',
+			],
+			outputs: ['stateChanged: openChange', 'closed'],
+		},
+	],
 })
 export class HlmSelect {
-	constructor() {
-		classes(() => 'space-y-2');
-	}
+	private readonly _combobox = injectBrnComboboxBase();
+
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	public value: Signal<any> = this._combobox.value;
 }

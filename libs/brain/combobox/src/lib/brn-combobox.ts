@@ -57,6 +57,16 @@ export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor 
 	/** Whether the combobox is disabled */
 	public readonly disabled = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
+	/** Placeholder text shown when no value is selected */
+	public readonly placeholder = input<string>('');
+
+	/**
+	 * Enable multiple selection.
+	 * Note: for full multiple-selection combobox behaviour, use BrnComboboxMultiple instead.
+	 * In the select context this delegates to BrnComboboxMultiple via DI provider swap.
+	 */
+	public readonly multiple = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
+
 	protected readonly _disabled = linkedSignal(this.disabled);
 
 	/** @internal The disabled state as a readonly signal */
@@ -205,7 +215,7 @@ export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor 
 		this._brnPopover?.open();
 	}
 
-	private close(): void {
+	public close(): void {
 		if (this._disabled() || !this.isExpanded()) return;
 
 		this._brnPopover?.close();

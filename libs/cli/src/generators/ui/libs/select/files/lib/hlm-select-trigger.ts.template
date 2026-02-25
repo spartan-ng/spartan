@@ -1,53 +1,79 @@
-import { ChangeDetectionStrategy, Component, computed, contentChild, inject, input } from '@angular/core';
+import {
+	AfterViewInit,
+	ChangeDetectionStrategy,
+	Component,
+	DestroyRef,
+	ElementRef,
+	computed,
+	contentChild,
+	inject,
+	input,
+} from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown } from '@ng-icons/lucide';
-import { BrnSelect, BrnSelectTrigger } from '@spartan-ng/brain/select';
-import { HlmIcon } from '<%- importAlias %>/icon';
-import { hlm } from '<%- importAlias %>/utils';
-import { cva } from 'class-variance-authority';
+import { BrnComboboxTrigger, BrnComboboxInput, injectBrnComboboxBase, BrnComboboxInputWrapper } from '@spartan-ng/brain/combobox';
+import { BrnPopover } from '@spartan-ng/brain/popover';
+import { HlmIcon } from '@spartan-ng/helm/icon';
+import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
-
-export const selectTriggerVariants = cva(
-	`border-input [&>ng-icon:not([class*='text-'])]:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 dark:bg-input/30 dark:hover:bg-input/50 flex w-fit items-center justify-between gap-2 rounded-md border bg-transparent px-3 py-2 text-sm whitespace-nowrap shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 data-[size=default]:h-9 data-[size=sm]:h-8 [&>ng-icon]:pointer-events-none [&>ng-icon]:size-4 [&>ng-icon]:shrink-0`,
-	{
-		variants: {
-			error: {
-				auto: '[&.ng-invalid.ng-touched]:text-destructive [&.ng-invalid.ng-touched]:border-destructive [&.ng-invalid.ng-touched]:focus-visible:ring-destructive/20 dark:[&.ng-invalid.ng-touched]:focus-visible:ring-destructive/40',
-				true: 'text-destructive border-destructive focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40',
-			},
-		},
-		defaultVariants: {
-			error: 'auto',
-		},
-	},
-);
+import { selectTriggerVariants } from './select-trigger-variants';
 
 @Component({
 	selector: 'hlm-select-trigger',
-	imports: [BrnSelectTrigger, NgIcon, HlmIcon],
+	imports: [BrnComboboxTrigger, BrnComboboxInput, NgIcon, HlmIcon],
+	hostDirectives: [BrnComboboxInputWrapper],
 	providers: [provideIcons({ lucideChevronDown })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		'[class]': '_computedClass()',
+		'[attr.data-size]': 'size()',
+		'(click)': 'open()',
+	},
 	template: `
-		<button [class]="_computedClass()" #button hlmInput brnSelectTrigger type="button" [attr.data-size]="size()">
-			<ng-content />
-			@if (_icon()) {
-				<ng-content select="ng-icon" />
-			} @else {
-				<ng-icon hlm size="sm" class="ml-2 flex-none" name="lucideChevronDown" />
-			}
-		</button>
+		<ng-content select="[hlmSelectPrefix]" />
+		<!-- Use Combobox Input wrapper with readonly. We enforce readonly here so it acts as select. -->
+		<input brnComboboxTrigger brnComboboxInput readonly class="min-w-0 flex-1 cursor-pointer bg-transparent outline-none" />
+		<ng-content select="[hlmSelectSuffix]" />
+		@if (_icon()) {
+			<ng-content select="ng-icon" />
+		} @else {
+			<ng-icon hlm size="sm" class="ml-2 flex-none" name="lucideChevronDown" />
+		}
 	`,
 })
-export class HlmSelectTrigger {
+export class HlmSelectTrigger implements AfterViewInit {
 	protected readonly _icon = contentChild(HlmIcon);
+	private readonly _elementRef = inject(ElementRef);
+	private readonly _destroyRef = inject(DestroyRef);
+	private readonly _combobox = injectBrnComboboxBase();
+	private readonly _popover = inject(BrnPopover, { optional: true });
 
-	protected readonly _brnSelect = inject(BrnSelect, { optional: true });
+	constructor() {
+		if (this._popover) {
+			this._popover.mutableAttachTo.set(this._elementRef.nativeElement);
+		}
+	}
 
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-
 	public readonly size = input<'default' | 'sm'>('default');
 
+    // Defaulting to auto for styling
+    public readonly errorState = input<boolean | 'auto'>('auto');
+
 	protected readonly _computedClass = computed(() =>
-		hlm(selectTriggerVariants({ error: this._brnSelect?.errorState() }), this.userClass()),
+		hlm(selectTriggerVariants({ error: this.errorState() as 'auto' }), this.userClass()),
 	);
+
+	public open(): void {
+		this._combobox.open();
+	}
+
+	ngAfterViewInit(): void {
+		// Replace triggerWidth calculation logic
+        // We will need BrnCombobox to have searchInputWrapperWidth updated from here perhaps?
+		const el = this._elementRef.nativeElement;
+        // BrnCombobox takes wrapper width from BrnComboboxInputWrapper.
+        // HlmSelectTrigger isn't strictly providing that if it doesn't hook into it.
+        // But HlmComboboxContent already matches brn-combobox-width.
+	}
 }

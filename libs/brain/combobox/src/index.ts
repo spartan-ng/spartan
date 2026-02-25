@@ -19,6 +19,8 @@ import { BrnComboboxStatus } from './lib/brn-combobox-status';
 import { BrnComboboxTrigger } from './lib/brn-combobox-trigger';
 import { BrnComboboxValue } from './lib/brn-combobox-value';
 import { BrnComboboxValues } from './lib/brn-combobox-values';
+import { BrnComboboxScrollUp } from './lib/brn-combobox-scroll-up';
+import { BrnComboboxScrollDown } from './lib/brn-combobox-scroll-down';
 
 export * from './lib/brn-combobox';
 export * from './lib/brn-combobox-anchor';
@@ -44,6 +46,8 @@ export * from './lib/brn-combobox-trigger';
 export * from './lib/brn-combobox-value';
 export * from './lib/brn-combobox-values';
 export * from './lib/brn-combobox.token';
+export * from './lib/brn-combobox-scroll-up';
+export * from './lib/brn-combobox-scroll-down';
 
 export const BrnComboboxImports = [
 	BrnCombobox,
@@ -67,4 +71,6 @@ export const BrnComboboxImports = [
 	BrnComboboxTrigger,
 	BrnComboboxValue,
 	BrnComboboxValues,
+	BrnComboboxScrollUp,
+	BrnComboboxScrollDown,
 ] as const;

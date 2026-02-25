@@ -42,7 +42,9 @@ export const selectTriggerVariants = cva(
 		'[attr.data-size]': 'size()',
 	},
 	template: `
+		<ng-content select="[hlmSelectPrefix]" />
 		<input brnSelectTrigger class="min-w-0 flex-1 cursor-pointer bg-transparent outline-none" />
+		<ng-content select="[hlmSelectSuffix]" />
 		@if (_icon()) {
 			<ng-content select="ng-icon" />
 		} @else {

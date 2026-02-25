@@ -1,13 +1,22 @@
-import { booleanAttribute, Component, effect, inject, Input, input, ViewEncapsulation } from '@angular/core';
-import { NgIcon, provideIcons } from '@ng-icons/core';
-import { marked } from 'marked';
-import { gfmHeadingId } from 'marked-gfm-heading-id';
-import { markedHighlight } from 'marked-highlight';
-
 import { Clipboard } from '@angular/cdk/clipboard';
+import type { BooleanInput } from '@angular/cdk/coercion';
+import {
+	booleanAttribute,
+	Component,
+	computed,
+	inject,
+	input,
+	resource,
+	signal,
+	ViewEncapsulation,
+} from '@angular/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCheck, lucideClipboard } from '@ng-icons/lucide';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmIcon } from '@spartan-ng/helm/icon';
+import { marked } from 'marked';
+import { gfmHeadingId } from 'marked-gfm-heading-id';
+import { markedHighlight } from 'marked-highlight';
 import 'prismjs';
 import 'prismjs/components/prism-bash';
 import 'prismjs/components/prism-css';
@@ -69,9 +78,9 @@ declare const Prism: typeof import('prismjs');
 	template: `
 		@if (fileName()) {
 			<div class="border-border flex flex-row gap-2 border-b px-4 py-2">
-				@if (language === 'ts' || language === 'css') {
+				@if (_language() === 'ts' || _language() === 'css') {
 					<div class="size-[20px]">
-						@switch (language) {
+						@switch (_language()) {
 							@case ('ts') {
 								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="fill-foreground">
 									<path
@@ -92,52 +101,49 @@ declare const Prism: typeof import('prismjs');
 				<span>{{ fileName() }}</span>
 			</div>
 		}
-		@if (!_disableCopy) {
+		@if (!disableCopy()) {
 			<button (click)="copyToClipBoard()" hlmBtn variant="ghost" class="absolute top-1.5 right-2 h-6 w-6">
-				<ng-icon hlm size="xs" [name]="_copied ? 'lucideCheck' : 'lucideClipboard'" />
+				<ng-icon hlm size="xs" [name]="_copied() ? 'lucideCheck' : 'lucideClipboard'" />
 			</button>
 		}
 		<div class="max-h-[650px] w-full overflow-auto p-4 whitespace-nowrap">
-			<div class="max-w-full max-w-screen" [innerHTML]="_content"></div>
+			<div class="max-w-screen" [innerHTML]="_content.value() ?? ''"></div>
 		</div>
 	`,
 })
 export class Code {
 	private readonly _clipboard = inject(Clipboard);
 	private readonly _marked: typeof marked;
-	protected _content = '';
-	protected _copied = false;
+	protected readonly _copied = signal(false);
 
 	public readonly fileName = input('');
 
-	protected _disableCopy = false;
-	@Input({ transform: booleanAttribute })
-	public set disableCopy(value: boolean) {
-		this._disableCopy = value;
-	}
+	public readonly disableCopy = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
-	private _language: 'ts' | 'sh' | 'js' | 'css' = 'ts';
-	@Input()
-	public set language(value: 'ts' | 'sh' | 'js' | 'css') {
-		this._language = value;
-	}
+	public readonly language = input<'ts' | 'sh' | 'js' | 'css'>('ts');
+	protected readonly _language = computed(() => {
+		const fileName = this.fileName();
+		if (fileName) {
+			const ext = fileName.split('.').pop();
+			if (ext && ['ts', 'sh', 'js', 'css'].includes(ext)) {
+				return ext as 'ts' | 'sh' | 'js' | 'css';
+			}
+		}
+		return this.language();
+	});
 
-	public get language() {
-		return this._language;
-	}
+	public readonly code = input.required<string>();
 
-	private _code: string | null | undefined;
-	@Input()
-	public set code(value: string | null | undefined) {
-		this._code = value;
-		(this._language === 'sh'
-			? this._marked.parse(value?.trim() ?? '')
-			: // eslint-disable-next-line @typescript-eslint/no-explicit-any
-				(this._marked.parse(`\`\`\`typescript\n${value?.trim() ?? ''}\n\`\`\``) as any)
-		).then((content: string) => {
-			this._content = content;
-		});
-	}
+	protected readonly _content = resource({
+		params: () => ({ code: this.code(), language: this._language() }),
+		loader: async ({ params }) => {
+			const { code, language } = params;
+			return language === 'sh'
+				? this._marked.parse(code.trim())
+				: // eslint-disable-next-line @typescript-eslint/no-explicit-any
+					(this._marked.parse(`\`\`\`typescript\n${code.trim()}\n\`\`\``) as any);
+		},
+	});
 
 	constructor() {
 		const renderer = new marked.Renderer();
@@ -148,16 +154,6 @@ export class Code {
 			const langClass = `language-${lang}`;
 			return `<pre class="${langClass}"><code class="${langClass}">${text}</code></pre>`;
 		};
-
-		effect(() => {
-			const fileName = this.fileName();
-			if (fileName) {
-				const ext = fileName.split('.').pop();
-				if (ext && ['ts', 'sh', 'js', 'css'].includes(ext)) {
-					this._language = ext as 'ts' | 'sh' | 'js' | 'css';
-				}
-			}
-		});
 
 		marked.use(
 			gfmHeadingId(),
@@ -190,9 +186,9 @@ export class Code {
 	}
 
 	copyToClipBoard() {
-		if (!this._code) return;
-		this._clipboard.copy(this._code);
-		this._copied = true;
-		setTimeout(() => (this._copied = false), 3000);
+		const code = this.code();
+		this._clipboard.copy(code);
+		this._copied.set(true);
+		setTimeout(() => this._copied.set(false), 3000);
 	}
 }

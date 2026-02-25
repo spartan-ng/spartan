@@ -41,6 +41,7 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 													hlmSidebarMenuButton
 													[routerLink]="item.url + link.url"
 													[routerLinkActive]="['bg-accent', 'border-accent']"
+													[routerLinkActiveOptions]="{ exact: link.exact || false }"
 													class="text-[0.8rem] font-medium"
 												>
 													<span class="inline-flex items-center gap-2">

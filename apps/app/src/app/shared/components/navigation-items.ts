@@ -3,6 +3,7 @@ export type Link = {
 	url: string;
 	wip?: boolean;
 	new?: boolean;
+	exact?: boolean;
 };
 type NavItem = {
 	label: string;
@@ -80,8 +81,8 @@ export const components: Link[] = [
 ];
 
 export const forms: Link[] = [
-	{ label: 'Forms', url: '/' },
-	{ label: 'Reactive Forms', url: '/reactive-forms' },
+	{ label: 'Forms', url: '/', new: true, exact: true },
+	{ label: 'Reactive Forms', url: '/reactive-forms', new: true },
 	{ label: 'Signal Forms', url: '/signal-forms', wip: true },
 ];
 

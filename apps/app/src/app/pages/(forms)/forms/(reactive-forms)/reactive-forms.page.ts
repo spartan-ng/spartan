@@ -140,6 +140,47 @@ export const routeMeta: RouteMeta = {
 				to mark all controls as touched. This will trigger the display of validation errors next to each field.
 			</p>
 
+			<spartan-section-sub-heading id="validation">Validation</spartan-section-sub-heading>
+
+			<p class="${hlmP}">
+				Reactive Forms provides a powerful validation system. Validator functions support either synchronous or
+				asynchronous validation. You can use built-in validators or create custom ones. Built-in validators are
+				available in the
+				<code class="${hlmCode}">Validators</code>
+				class such as
+				<code class="${hlmCode}">Validators.required</code>
+				or
+				<code class="${hlmCode}">Validators.email</code>
+				.
+			</p>
+
+			<p class="${hlmP}">
+				Add one or more validator functions to your form schema using the form builder. If the form data is invalid, you
+				can check the form's validity using
+				<code class="${hlmCode}">form.valid</code>
+				and
+				<code class="${hlmCode}">form.invalid</code>
+				.
+			</p>
+
+			<spartan-code class="mt-6" fileName="bug-report-form.ts" [code]="_demoFormSchemaCode" />
+
+			<spartan-section-sub-heading id="displaying-errors">Displaying Errors</spartan-section-sub-heading>
+
+			<p class="${hlmP}">
+				Display errors next to the field using
+				<code class="${hlmCode}">HlmFieldError</code>
+				. Check the form control's
+				<code class="${hlmCode}">touched</code>
+				and
+				<code class="${hlmCode}">invalid</code>
+				state to conditionally show error messages. Use the form control's
+				<code class="${hlmCode}">errors</code>
+				object to access specific validation errors and display appropriate messages.
+			</p>
+
+			<spartan-code class="mt-6" [code]="_demoAnatomyCode" />
+
 			<spartan-section-sub-heading id="resetting-the-form">Resetting the form</spartan-section-sub-heading>
 			<p class="${hlmP}">
 				Use

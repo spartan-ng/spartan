@@ -20,7 +20,7 @@ export const routeMeta: RouteMeta = {
 	title: 'spartan/ui - Components',
 };
 @Component({
-	selector: 'spartan-input',
+	selector: 'spartan-components-page',
 	imports: [
 		MainSection,
 		SectionIntro,
@@ -67,6 +67,6 @@ export const routeMeta: RouteMeta = {
 		<spartan-page-nav />
 	`,
 })
-export default class TogglePage {
+export default class ComponentsPage {
 	protected readonly _components = components;
 }

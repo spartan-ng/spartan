@@ -134,9 +134,6 @@ importers:
       mermaid:
         specifier: ^11.2.1
         version: 11.7.0
-      ng-signal-forms:
-        specifier: ^1.14.0
-        version: 1.14.1(@angular/core@20.0.7(@angular/compiler@20.0.7)(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2)
       ngx-scrollbar:
         specifier: 18.0.0
         version: 18.0.0(@angular/cdk@20.0.6(@angular/common@20.0.7(@angular/core@20.0.7(@angular/compiler@20.0.7)(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2))(@angular/core@20.0.7(@angular/compiler@20.0.7)(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2))(@angular/common@20.0.7(@angular/core@20.0.7(@angular/compiler@20.0.7)(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2))(@angular/core@20.0.7(@angular/compiler@20.0.7)(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2)
@@ -10306,12 +10303,6 @@ packages:
     peerDependenciesMeta:
       tailwindcss:
         optional: true
-
-  ng-signal-forms@1.14.1:
-    resolution: {integrity: sha512-5I5Nl6yOCQIZHfsxxKsoU/mAL8eq9YPUJvdZVKVKOl+F7D8nonOYH8LuLQPjTg87fuzoGfL44lddgDVj1WUv3w==}
-    peerDependencies:
-      '@angular/core': ^17.0.0
-      rxjs: ^7.8.0
 
   ngx-scrollbar@18.0.0:
     resolution: {integrity: sha512-+ykmY491x+nzXvnecJvZHvDz0YWuX1r7SYMxNG4RVHXm5Z68P/8kd/3ryLD6DXdNWmJawd4NGvqq2ZkUKb/g3A==}
@@ -25783,12 +25774,6 @@ snapshots:
     optionalDependencies:
       rollup: 4.44.1
       tailwindcss: 4.1.13
-
-  ng-signal-forms@1.14.1(@angular/core@20.0.7(@angular/compiler@20.0.7)(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2):
-    dependencies:
-      '@angular/core': 20.0.7(@angular/compiler@20.0.7)(rxjs@7.8.2)(zone.js@0.15.0)
-      rxjs: 7.8.2
-      tslib: 2.7.0
 
   ngx-scrollbar@18.0.0(@angular/cdk@20.0.6(@angular/common@20.0.7(@angular/core@20.0.7(@angular/compiler@20.0.7)(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2))(@angular/core@20.0.7(@angular/compiler@20.0.7)(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2))(@angular/common@20.0.7(@angular/core@20.0.7(@angular/compiler@20.0.7)(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2))(@angular/core@20.0.7(@angular/compiler@20.0.7)(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2):
     dependencies:

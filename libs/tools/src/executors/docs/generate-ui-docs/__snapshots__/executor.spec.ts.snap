@@ -4319,6 +4319,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "outputs": [],
         "selector": "hlm-select-scroll-up",
       },
+      "HlmSelectSeparator": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmSelectSeparator]",
+      },
       "HlmSelectTrigger": {
         "inputs": [
           {

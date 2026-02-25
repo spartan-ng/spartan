@@ -34,7 +34,6 @@ export default defineConfig(({ mode }) => {
 				'@angular/cdk/collections',
 				'embla-carousel-autoplay',
 				'embla-carousel-angular',
-				'ng-signal-forms',
 			],
 		},
 		ssr: {
@@ -43,7 +42,6 @@ export default defineConfig(({ mode }) => {
 				'@angular/cdk/**',
 				'@ng-icons/**',
 				'ngx-scrollbar/**',
-				'ng-signal-forms/**',
 				'@analogjs/trpc',
 				'@trpc/server',
 			],

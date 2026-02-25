@@ -17,8 +17,12 @@ type AlignOption = { label: string; icon: string };
 		}),
 	],
 	template: `
-		<hlm-select class="inline-block" placeholder="Select an alignment" [displayWith]="getLabel">
-			<hlm-select-trigger class="w-56" />
+		<hlm-select #select="brnSelect" class="inline-block" placeholder="Select an alignment" [displayWith]="getLabel">
+			<hlm-select-trigger class="w-56">
+				@if (_icon(select.value()); as icon) {
+					<ng-icon hlmSelectPrefix [name]="icon" />
+				}
+			</hlm-select-trigger>
 			<hlm-select-content>
 				@for (option of options; track option.label) {
 					<hlm-option [value]="option">
@@ -39,4 +43,11 @@ export class SelectDisplayWithPreview {
 	];
 
 	public readonly getLabel = (option: AlignOption) => option.label;
+
+	protected _icon(value: AlignOption | AlignOption[] | null | undefined): string | null {
+		if (value && !Array.isArray(value)) {
+			return value.icon;
+		}
+		return null;
+	}
 }

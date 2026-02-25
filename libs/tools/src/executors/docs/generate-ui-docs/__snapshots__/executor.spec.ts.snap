@@ -4137,6 +4137,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
   "select": {
     "brain": {
       "BrnSelect": {
+        "exportAs": "brnSelect",
         "inputs": [
           {
             "name": "id",
@@ -4168,6 +4169,16 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "(o1: T, o2: T) => boolean",
           },
+          {
+            "name": "readonly",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "displayWith",
+            "required": false,
+            "type": "((value: T) => string) | null",
+          },
         ],
         "models": [
           {
@@ -4185,7 +4196,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "T | T[]",
           },
         ],
-        "selector": "brn-select, hlm-select",
+        "selector": "brn-select, [brnSelect]",
       },
       "BrnSelectContent": {
         "inputs": [],
@@ -4227,23 +4238,17 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "outputs": [],
         "selector": "[brnOption]",
       },
-      "BrnSelectPlaceholder": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "[brnSelectPlaceholder], [hlmSelectPlaceholder]",
-      },
       "BrnSelectScrollDown": {
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "[brnSelectScrollDown], brn-select-scroll-down, hlm-select-scroll-down:not(noHlm)",
+        "selector": "[brnSelectScrollDown], brn-select-scroll-down",
       },
       "BrnSelectScrollUp": {
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "[brnSelectScrollUp], brn-select-scroll-up, hlm-select-scroll-up:not(noHlm)",
+        "selector": "[brnSelectScrollUp], brn-select-scroll-up",
       },
       "BrnSelectTrigger": {
         "inputs": [],
@@ -4251,31 +4256,19 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "outputs": [],
         "selector": "[brnSelectTrigger]",
       },
-      "BrnSelectValue": {
+    },
+    "helm": {
+      "HlmSelect": {
         "inputs": [
           {
-            "name": "transformFn",
+            "name": "class",
             "required": false,
-            "type": "(values: (string | undefined)[]) => any",
+            "type": "ClassValue",
           },
         ],
         "models": [],
         "outputs": [],
-        "selector": "brn-select-value, hlm-select-value",
-      },
-      "BrnSelectValueTemplate": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "[brnSelectValue], [hlmSelectValue]",
-      },
-    },
-    "helm": {
-      "HlmSelect": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "hlm-select, brn-select [hlm]",
+        "selector": "hlm-select",
       },
       "HlmSelectContent": {
         "inputs": [
@@ -4335,12 +4328,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [],
         "outputs": [],
         "selector": "hlm-select-trigger",
-      },
-      "HlmSelectValue": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "hlm-select-value, [hlmSelectValue]",
       },
     },
   },

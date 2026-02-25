@@ -2,12 +2,11 @@ import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { sidenavItems } from '@spartan-ng/app/app/shared/components/navigation-items';
 import { SpartanNewMarker } from '@spartan-ng/app/app/shared/spartan-new-marker';
-import { HlmBadgeImports } from '@spartan-ng/helm/badge';
 import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 
 @Component({
 	selector: 'spartan-side-nav',
-	imports: [HlmSidebarImports, RouterLink, RouterLinkActive, SpartanNewMarker, HlmBadgeImports],
+	imports: [HlmSidebarImports, RouterLink, RouterLinkActive, SpartanNewMarker],
 	host: {
 		class: 'contents',
 	},
@@ -34,7 +33,7 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 													<span>
 														{{ link.label }}
 													</span>
-													<span hlmBadge>soon</span>
+													<span class="text-muted-foreground text-xs">(soon)</span>
 												</button>
 											} @else {
 												<a

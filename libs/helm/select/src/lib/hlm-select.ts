@@ -32,7 +32,7 @@ import type { ClassValue } from 'clsx';
 	},
 	template: `
 		@if (!brnSelect.selectLabel() && brnSelect.placeholder()) {
-			<span style="display: none;" [attr.id]="brnSelect.labelId()">{{ brnSelect.placeholder() }}</span>
+			<label style="display: none;" [attr.id]="brnSelect.labelId()">{{ brnSelect.placeholder() }}</label>
 		} @else {
 			<ng-content select="label[hlmLabel],label[brnLabel]" />
 		}

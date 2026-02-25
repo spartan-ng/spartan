@@ -12,9 +12,15 @@ import { PageNav } from '../../../../shared/layout/page-nav/page-nav';
 import { SectionIntro } from '../../../../shared/layout/section-intro';
 import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading';
 import { Tabs } from '../../../../shared/layout/tabs';
-import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { demoAnatomyCode, demoCode, ReactiveFormsDemo } from './reactive-forms.demo';
+import {
+	BugReportForm,
+	demoAnatomyCode,
+	demoCode,
+	demoFormSchemaCode,
+	demoResetForm,
+	demoSetupForm,
+} from './reactive-forms.demo';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Reactive Forms' },
@@ -29,13 +35,12 @@ export const routeMeta: RouteMeta = {
 		SectionIntro,
 		SectionSubHeading,
 		Tabs,
-		TabsCli,
 		CodePreview,
 		PageNav,
 		PageBottomNav,
 		PageBottomNavLink,
 		SectionSubSubHeading,
-		ReactiveFormsDemo,
+		BugReportForm,
 	],
 	template: `
 		<section spartanMainSection>
@@ -55,9 +60,9 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
-					<spartan-reactive-forms-demo />
+					<spartan-bug-report-form />
 				</div>
-				<spartan-code secondTab [code]="_demoCode" />
+				<spartan-code secondTab fileName="bug-report-form.ts" [code]="_demoCode" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="approach">Approach</spartan-section-sub-heading>
@@ -93,6 +98,56 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-code class="mt-6" [code]="_demoAnatomyCode" />
 
+			<spartan-section-sub-heading id="form">Form</spartan-section-sub-heading>
+
+			<h3 id="create-a-form-schema" spartanH4>Create a form schema</h3>
+			<p class="${hlmP}">We'll start by defining the shape of our form using the form builder.</p>
+
+			<spartan-code class="mt-6" fileName="bug-report-form.ts" [code]="_demoFormSchemaCode" />
+
+			<h3 id="setup-the-form" spartanH4>Setup the form</h3>
+
+			<p class="${hlmP}">
+				Next, we'll import
+				<code class="${hlmCode}">ReactiveFormsModule</code>
+				and bind the form schema to the form element.
+			</p>
+			<spartan-code class="mt-6" fileName="bug-report-form.ts" [code]="_demoSetupForm" />
+
+			<h3 id="build-the-form" spartanH4>Build the form</h3>
+
+			<p class="${hlmP}">
+				We can now build the form using
+				<code class="${hlmCode}">HlmField</code>
+				component and bind the form controls using
+				<code class="${hlmCode}">formControlName</code>
+				.
+			</p>
+
+			<spartan-code class="mt-6" fileName="bug-report-form.ts" [code]="_demoCode" />
+
+			<h3 id="done" spartanH4>Done</h3>
+
+			<p class="${hlmP}">That's it. You now have a fully accessible form with client-side validation.</p>
+
+			<p class="${hlmP}">
+				When you submit the form, the
+				<code class="${hlmCode}">ngSubmit</code>
+				emits an event. Check if the form data is
+				<code class="${hlmCode}">form.invalid</code>
+				and use
+				<code class="${hlmCode}">form.markAllAsTouched()</code>
+				to mark all controls as touched. This will trigger the display of validation errors next to each field.
+			</p>
+
+			<spartan-section-sub-heading id="resetting-the-form">Resetting the form</spartan-section-sub-heading>
+			<p class="${hlmP}">
+				Use
+				<code class="${hlmCode}">form.reset()</code>
+				to reset the form to its default values and mark all controls as pristine and untouched.
+			</p>
+			<spartan-code class="mt-6" [code]="_demoResetForm" />
+
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="/stack/overview" label="Stack" />
 				<spartan-page-bottom-nav-link direction="previous" href="/forms" label="Forms" />
@@ -104,4 +159,7 @@ export const routeMeta: RouteMeta = {
 export default class ReactiveFormsPage {
 	protected readonly _demoCode = demoCode;
 	protected readonly _demoAnatomyCode = demoAnatomyCode;
+	protected readonly _demoFormSchemaCode = demoFormSchemaCode;
+	protected readonly _demoSetupForm = demoSetupForm;
+	protected readonly _demoResetForm = demoResetForm;
 }

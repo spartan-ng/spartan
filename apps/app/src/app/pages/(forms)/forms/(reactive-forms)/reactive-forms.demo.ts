@@ -7,7 +7,7 @@ import { HlmInputImports } from '@spartan-ng/helm/input';
 import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 
 @Component({
-	selector: 'spartan-reactive-forms-demo',
+	selector: 'spartan-bug-report-form',
 	imports: [
 		ReactiveFormsModule,
 		HlmCardImports,
@@ -82,14 +82,14 @@ import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 			</div>
 			<hlm-card-footer>
 				<hlm-field orientation="horizontal">
-					<button hlmBtn variant="outline" type="button" (click)="reset()">Reset</button>
+					<button hlmBtn variant="outline" type="button" (click)="form.reset()">Reset</button>
 					<button hlmBtn type="submit" form="form-bug-report">Submit</button>
 				</hlm-field>
 			</hlm-card-footer>
 		</hlm-card>
 	`,
 })
-export class ReactiveFormsDemo {
+export class BugReportForm {
 	private readonly _fb = inject(FormBuilder);
 
 	public form = this._fb.group({
@@ -104,10 +104,6 @@ export class ReactiveFormsDemo {
 		}
 
 		console.log('You submitted the following values:', JSON.stringify(this.form.value, null, 2));
-	}
-
-	reset() {
-		this.form.reset();
 	}
 }
 
@@ -196,7 +192,7 @@ import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 			</div>
 			<hlm-card-footer>
 				<hlm-field orientation="horizontal">
-					<button hlmBtn variant="outline" type="button" (click)="reset()">Reset</button>
+					<button hlmBtn variant="outline" type="button" (click)="form.reset()">Reset</button>
 					<button hlmBtn type="submit" form="form-bug-report">Submit</button>
 				</hlm-field>
 			</hlm-card-footer>
@@ -218,10 +214,6 @@ export class ReactiveFormsDemo {
 		}
 
 		console.log('You submitted the following values:', JSON.stringify(this.form.value, null, 2));
-	}
-
-	reset() {
-		this.form.reset();
 	}
 }
 `;
@@ -247,3 +239,58 @@ export const demoAnatomyCode = `
 		</hlm-field-error>
 	}
 </hlm-field>`;
+
+export const demoFormSchemaCode = `
+import { Component, inject } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
+
+@Component({
+	selector: 'bug-report-form',
+	imports: [],
+	host: { class: 'w-full sm:max-w-md' },
+	template: \`...\`,
+})
+export class BugReportForm {
+	private readonly _fb = inject(FormBuilder);
+
+	public form = this._fb.group({
+		title: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(32)]],
+		description: ['', [Validators.required, Validators.minLength(20), Validators.maxLength(100)]],
+	});
+}
+`;
+
+export const demoSetupForm = `
+import { Component, inject } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+
+@Component({
+	selector: 'bug-report-form',
+	imports: [ReactiveFormsModule],
+	host: { class: 'w-full sm:max-w-md' },
+	template: \`
+		<form [formGroup]="form" (ngSubmit)="submit()">
+			<!-- Build the form here -->
+		</form>
+	\`,
+})
+export class BugReportForm {
+	private readonly _fb = inject(FormBuilder);
+
+	public form = this._fb.group({
+		title: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(32)]],
+		description: ['', [Validators.required, Validators.minLength(20), Validators.maxLength(100)]],
+	});
+
+	submit() {
+		// Do something with the form values.
+		console.log(this.form.value);
+	}
+}
+`;
+
+export const demoResetForm = `
+<button hlmBtn variant="outline" type="button" (click)="form.reset()">
+	Reset
+</button>
+`;

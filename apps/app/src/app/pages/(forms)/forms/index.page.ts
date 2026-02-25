@@ -27,7 +27,7 @@ export const routeMeta: RouteMeta = {
 			<div class="mt-8 grid gap-4 sm:grid-cols-2 sm:gap-6">
 				@for (form of _forms; track form.url) {
 					<a
-						class="bg-surface text-surface-foreground hover:bg-surface/80 flex w-full flex-col items-center rounded-xl p-6 transition-colors data-wip:pointer-events-none data-wip:border data-wip:border-dashed data-wip:bg-transparent sm:p-10"
+						class="bg-surface text-surface-foreground hover:bg-surface/80 flex w-full flex-col items-center justify-center rounded-xl p-6 transition-colors data-wip:pointer-events-none data-wip:border data-wip:border-dashed data-wip:bg-transparent sm:p-10"
 						[attr.data-wip]="form.wip ? 'true' : null"
 						[routerLink]="'/forms' + form.url"
 					>

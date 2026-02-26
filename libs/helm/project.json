@@ -18,15 +18,14 @@
 			"executor": "@nx/angular:package",
 			"outputs": ["{workspaceRoot}/dist/{projectRoot}"],
 			"options": {
-				"project": "libs/helm/ng-package.json"
+				"project": "libs/helm/ng-package.json",
+				"tsConfig": "libs/helm/tsconfig.lib.json"
 			},
 			"configurations": {
 				"production": {
 					"tsConfig": "libs/helm/tsconfig.lib.prod.json"
 				},
-				"development": {
-					"tsConfig": "libs/helm/tsconfig.lib.json"
-				}
+				"development": {}
 			},
 			"defaultConfiguration": "production"
 		},
@@ -34,7 +33,8 @@
 			"executor": "@nx/jest:jest",
 			"outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
 			"options": {
-				"jestConfig": "libs/helm/jest.config.ts"
+				"jestConfig": "libs/helm/jest.config.ts",
+				"tsConfig": "libs/helm/tsconfig.spec.json"
 			}
 		},
 		"lint": {

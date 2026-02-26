@@ -12,6 +12,12 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 				<hlm-date-picker-trigger buttonId="date">Pick a date</hlm-date-picker-trigger>
 			</hlm-date-picker>
 		</hlm-field>
+		<hlm-field>
+			<label hlmFieldLabel for="date-input">Date of birth</label>
+			<hlm-date-picker [min]="minDate" [max]="maxDate">
+				<hlm-date-picker-input inputId="date-input" placeholder="Pick a date" />
+			</hlm-date-picker>
+		</hlm-field>
 	`,
 })
 export class DatePickerPreview {

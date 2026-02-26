@@ -4,7 +4,7 @@
 	"private": true,
 	"type": "commonjs",
 	"dependencies": {
-		"@angular/core": "19.2.1",
+		"@angular/core": "21.2.0",
 		"@nx/angular": "20.5.0",
 		"@nx/devkit": "20.5.0",
 		"@phenomnomnominal/tsquery": "^6.1.3",

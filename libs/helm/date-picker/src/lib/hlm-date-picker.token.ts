@@ -1,4 +1,31 @@
-import { inject, InjectionToken, type ValueProvider } from '@angular/core';
+import {
+	type ExistingProvider,
+	inject,
+	InjectionToken,
+	type Signal,
+	type Type,
+	type ValueProvider,
+} from '@angular/core';
+import type { BrnPopover } from '@spartan-ng/brain/popover';
+
+export interface HlmDatePickerBase<T> {
+	popover: Signal<BrnPopover>;
+	disabledState: Signal<boolean>;
+	formattedDate: Signal<string | undefined>;
+}
+
+export const HlmDatePickerToken = new InjectionToken<HlmDatePickerBase<unknown>>('HlmDatePickerToken');
+
+export function provideHlmDatePicker<T>(instance: Type<HlmDatePickerBase<T>>): ExistingProvider {
+	return { provide: HlmDatePickerToken, useExisting: instance };
+}
+
+/**
+ * Inject the date picker component.
+ */
+export function injectHlmDatePicker<T>(): HlmDatePickerBase<T> {
+	return inject(HlmDatePickerToken) as HlmDatePickerBase<T>;
+}
 
 export interface HlmDatePickerConfig<T> {
 	/**

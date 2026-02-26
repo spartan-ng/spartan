@@ -10,17 +10,15 @@ import {
 	output,
 	signal,
 	untracked,
+	viewChild,
 } from '@angular/core';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { provideIcons } from '@ng-icons/core';
-import { lucideChevronDown } from '@ng-icons/lucide';
 import type { BrnDialogState } from '@spartan-ng/brain/dialog';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
+import { BrnPopover } from '@spartan-ng/brain/popover';
 import { HlmCalendarRange } from '@spartan-ng/helm/calendar';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
 import { HlmPopoverImports } from '@spartan-ng/helm/popover';
-import { hlm } from '@spartan-ng/helm/utils';
-import type { ClassValue } from 'clsx';
+import { type HlmDatePickerBase, provideHlmDatePicker } from './hlm-date-picker.token';
 import { injectHlmDateRangePickerConfig } from './hlm-date-range-picker.token';
 
 export const HLM_DATE_RANGE_PICKER_VALUE_ACCESSOR = {
@@ -29,12 +27,10 @@ export const HLM_DATE_RANGE_PICKER_VALUE_ACCESSOR = {
 	multi: true,
 };
 
-let nextId = 0;
-
 @Component({
 	selector: 'hlm-date-range-picker',
-	imports: [HlmIconImports, HlmPopoverImports, HlmCalendarRange],
-	providers: [HLM_DATE_RANGE_PICKER_VALUE_ACCESSOR, provideIcons({ lucideChevronDown })],
+	imports: [HlmPopoverImports, HlmCalendarRange],
+	providers: [HLM_DATE_RANGE_PICKER_VALUE_ACCESSOR, provideHlmDatePicker(HlmDateRangePicker)],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'block',
@@ -46,23 +42,7 @@ let nextId = 0;
 			(stateChanged)="_popoverState.set($event)"
 			(closed)="_onClose()"
 		>
-			<button
-				[id]="buttonId()"
-				type="button"
-				[class]="_computedClass()"
-				[disabled]="_mutableDisabled()"
-				hlmPopoverTrigger
-			>
-				<span class="truncate">
-					@if (_formattedDate(); as formattedDate) {
-						{{ formattedDate }}
-					} @else {
-						<ng-content />
-					}
-				</span>
-
-				<ng-icon hlm size="sm" name="lucideChevronDown" />
-			</button>
+			<ng-content />
 
 			<hlm-popover-content class="w-fit p-0" *hlmPopoverPortal="let ctx">
 				<hlm-calendar-range
@@ -72,7 +52,7 @@ let nextId = 0;
 					[endDate]="_end()"
 					[min]="min()"
 					[max]="max()"
-					[disabled]="_mutableDisabled()"
+					[disabled]="_disabled()"
 					(startDateChange)="_handleStartDayChange($event)"
 					(endDateChange)="_handleEndDateChange($event)"
 				/>
@@ -80,22 +60,10 @@ let nextId = 0;
 		</hlm-popover>
 	`,
 })
-export class HlmDateRangePicker<T> implements ControlValueAccessor {
+export class HlmDateRangePicker<T> implements HlmDatePickerBase<T>, ControlValueAccessor {
 	private readonly _config = injectHlmDateRangePickerConfig<T>();
 
-	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected readonly _computedClass = computed(() =>
-		hlm(
-			'ring-offset-background border-input bg-background hover:bg-accent dark:bg-input/30 dark:hover:bg-input/50 hover:text-accent-foreground inline-flex h-9 w-[280px] cursor-default items-center justify-between gap-2 rounded-md border px-3 py-2 text-left text-sm font-normal whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50',
-			'focus-visible:ring-ring focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
-			'disabled:pointer-events-none disabled:opacity-50',
-			'[&_ng-icon]:pointer-events-none [&_ng-icon]:shrink-0',
-			this.userClass(),
-		),
-	);
-
-	/** The id of the button that opens the date picker. */
-	public readonly buttonId = input<string>(`hlm-date-picker-range-${++nextId}`);
+	public readonly popover = viewChild.required(BrnPopover);
 
 	/** Show dropdowns to navigate between months or years. */
 	public readonly captionLayout = input<'dropdown' | 'label' | 'dropdown-months' | 'dropdown-years'>('label');
@@ -132,9 +100,12 @@ export class HlmDateRangePicker<T> implements ControlValueAccessor {
 
 	protected readonly _popoverState = signal<BrnDialogState | null>(null);
 
-	protected readonly _mutableDisabled = linkedSignal(this.disabled);
+	protected readonly _disabled = linkedSignal(this.disabled);
 
-	protected readonly _formattedDate = computed(() => {
+	/** @internal The disabled state as a readonly signal */
+	public readonly disabledState = this._disabled.asReadonly();
+
+	public readonly formattedDate = computed(() => {
 		const start = this._start();
 		const end = this._end();
 		return start || end ? this.formatDates()([start, end]) : undefined;
@@ -151,7 +122,7 @@ export class HlmDateRangePicker<T> implements ControlValueAccessor {
 
 	protected _handleEndDateChange(value: T): void {
 		this._end.set(value);
-		if (this._mutableDisabled()) return;
+		if (this._disabled()) return;
 
 		const start = this._start();
 		if (start && value) {
@@ -186,7 +157,7 @@ export class HlmDateRangePicker<T> implements ControlValueAccessor {
 	}
 
 	public setDisabledState(isDisabled: boolean): void {
-		this._mutableDisabled.set(isDisabled);
+		this._disabled.set(isDisabled);
 	}
 
 	public open() {

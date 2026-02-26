@@ -50,7 +50,6 @@ const sidebarMenuButtonVariants = cva(
 		'data-sidebar': 'menu-button',
 		'[attr.data-size]': 'size()',
 		'[attr.data-active]': 'isActive()',
-		'[tooltipDisabled]': '_isTooltipHidden()',
 		'(click)': 'onClick()',
 	},
 })

@@ -31,7 +31,7 @@ describe('classes', () => {
 		// Wait for afterRenderEffect to run
 		await new Promise((resolve) => setTimeout(resolve, 0));
 
-		expect(element.className).toBe('bg-red-500 text-white existing-class');
+		expect(element.className).toBe('existing-class bg-red-500 text-white');
 	});
 
 	it('should handle class merging and deduplication', async () => {
@@ -50,8 +50,8 @@ describe('classes', () => {
 		// Wait for afterRenderEffect to run
 		await new Promise((resolve) => setTimeout(resolve, 0));
 
-		// twMerge should resolve bg conflict, keeping the last one (bg-red-500)
-		expect(element.className).toBe('text-white bg-blue-500 p-2');
+		// twMerge should resolve bg conflict, keeping the source class (bg-red-500)
+		expect(element.className).toBe('p-2 bg-red-500 text-white');
 	});
 
 	it('should handle computed classes updates with change detection', async () => {
@@ -92,19 +92,19 @@ describe('classes', () => {
 		const user = userEvent.setup();
 
 		// Initial state should have red classes
-		expect(testElement.className).toBe('bg-red-500 text-white static-class');
+		expect(testElement.className).toBe('static-class bg-red-500 text-white');
 
 		// Click to toggle state
 		await user.click(toggleButton);
 
 		// Should now have blue classes after change detection
-		expect(testElement.className).toBe('bg-blue-500 text-black static-class');
+		expect(testElement.className).toBe('static-class bg-blue-500 text-black');
 
 		// Click again to toggle back
 		await user.click(toggleButton);
 
 		// Should be back to red classes
-		expect(testElement.className).toBe('bg-red-500 text-white static-class');
+		expect(testElement.className).toBe('static-class bg-red-500 text-white');
 	});
 
 	it('should handle empty computed classes', async () => {
@@ -402,16 +402,102 @@ describe('classes', () => {
 		const classNames = element.className.split(' ').filter((c) => c.length > 0);
 
 		// Should have new classes from the source, not old SSR classes
-		expect(classNames).toContain('bg-blue-500');
-		expect(classNames).toContain('text-white');
+		expect(classNames).toContain('bg-red-500');
+		expect(classNames).toContain('text-black');
 		expect(classNames).toContain('m-2');
 
-		// Should not have conflicting SSR classes (twMerge should handle these)
-		expect(classNames).not.toContain('bg-red-500'); // Blue takes precedence
-		expect(classNames).not.toContain('text-black'); // Replaced by text-white
+		// Should not have conflicting SSR classes (source takes precedence)
+		expect(classNames).not.toContain('bg-blue-500');
+		expect(classNames).not.toContain('text-white');
 
 		// Should preserve truly external classes that don't conflict
 		expect(classNames).toContain('some-external-class');
+	});
+
+	it('should resolve Tailwind conflicts with source classes winning over base classes', async () => {
+		await TestBed.configureTestingModule({}).compileComponents();
+
+		// Element has existing bg-blue-500 class
+		const element = document.createElement('div');
+		element.className = 'bg-blue-500 p-2';
+
+		const elementRef = new ElementRef(element);
+
+		TestBed.runInInjectionContext(() => {
+			// Source applies bg-red-500 which conflicts with base bg-blue-500
+			classes(() => ['bg-red-500', 'text-white'], { elementRef });
+		});
+
+		await new Promise((resolve) => setTimeout(resolve, 0));
+
+		const classNames = element.className.split(' ').filter((c) => c.length > 0);
+
+		// Source classes should win Tailwind conflicts over base classes
+		expect(classNames).toContain('bg-red-500');
+		expect(classNames).not.toContain('bg-blue-500');
+
+		// Non-conflicting base classes should be preserved
+		expect(classNames).toContain('p-2');
+
+		// Source classes should be present
+		expect(classNames).toContain('text-white');
+	});
+
+	it('should resolve Tailwind conflicts with source classes winning over SSR pre-rendered classes', async () => {
+		await TestBed.configureTestingModule({}).compileComponents();
+
+		// Simulate SSR: element already has classes from server rendering
+		const element = document.createElement('div');
+		element.className = 'bg-blue-500 text-white some-external-class';
+
+		const elementRef = new ElementRef(element);
+
+		TestBed.runInInjectionContext(() => {
+			// Component hydrates and applies classes that conflict with SSR classes
+			classes(() => 'm-2 bg-red-500 text-black', { elementRef });
+		});
+
+		await new Promise((resolve) => setTimeout(resolve, 0));
+
+		const classNames = element.className.split(' ').filter((c) => c.length > 0);
+
+		// Source classes should win over SSR pre-rendered classes
+		expect(classNames).toContain('bg-red-500');
+		expect(classNames).not.toContain('bg-blue-500');
+		expect(classNames).toContain('text-black');
+		expect(classNames).not.toContain('text-white');
+
+		// Non-conflicting source classes preserved
+		expect(classNames).toContain('m-2');
+
+		// Non-conflicting external classes preserved
+		expect(classNames).toContain('some-external-class');
+	});
+
+	it('should resolve Tailwind conflicts with source padding overriding base padding', async () => {
+		await TestBed.configureTestingModule({}).compileComponents();
+
+		const element = document.createElement('div');
+		element.className = 'p-2 m-4 font-bold';
+
+		const elementRef = new ElementRef(element);
+
+		TestBed.runInInjectionContext(() => {
+			classes(() => ['p-8', 'text-sm'], { elementRef });
+		});
+
+		await new Promise((resolve) => setTimeout(resolve, 0));
+
+		const classNames = element.className.split(' ').filter((c) => c.length > 0);
+
+		// Source p-8 should override base p-2
+		expect(classNames).toContain('p-8');
+		expect(classNames).not.toContain('p-2');
+
+		// Non-conflicting classes preserved from both
+		expect(classNames).toContain('m-4');
+		expect(classNames).toContain('font-bold');
+		expect(classNames).toContain('text-sm');
 	});
 
 	it('should preserve external classes added by mutation observer', async () => {

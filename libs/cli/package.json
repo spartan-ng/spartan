@@ -7,7 +7,7 @@
 	},
 	"type": "commonjs",
 	"dependencies": {
-		"@angular/core": ">=19.0.0",
+		"@angular/core": ">=20.3.17",
 		"@nx/angular": ">=20.0.0",
 		"@nx/devkit": ">=20.0.0",
 		"@nx/js": ">=20.0.0",

@@ -2,7 +2,7 @@ import { HlmDropdownMenu } from './lib/hlm-dropdown-menu';
 import { HlmDropdownMenuCheckbox } from './lib/hlm-dropdown-menu-checkbox';
 import { HlmDropdownMenuCheckboxIndicator } from './lib/hlm-dropdown-menu-checkbox-indicator';
 import { HlmDropdownMenuGroup } from './lib/hlm-dropdown-menu-group';
-import { HlmDropdownMenuItem } from './lib/hlm-dropdown-menu-item';
+import { HlmDropdownMenuItem, HlmDropdownMenuTriggerFriendlyItem } from './lib/hlm-dropdown-menu-item';
 import { HlmDropdownMenuItemSubIndicator } from './lib/hlm-dropdown-menu-item-sub-indicator';
 import { HlmDropdownMenuLabel } from './lib/hlm-dropdown-menu-label';
 import { HlmDropdownMenuRadio } from './lib/hlm-dropdown-menu-radio';
@@ -34,6 +34,7 @@ export const HlmDropdownMenuImports = [
 	HlmDropdownMenuCheckboxIndicator,
 	HlmDropdownMenuGroup,
 	HlmDropdownMenuItem,
+	HlmDropdownMenuTriggerFriendlyItem,
 	HlmDropdownMenuItemSubIndicator,
 	HlmDropdownMenuLabel,
 	HlmDropdownMenuRadio,

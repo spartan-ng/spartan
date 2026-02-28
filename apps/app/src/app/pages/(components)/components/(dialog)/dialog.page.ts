@@ -126,8 +126,11 @@ export const routeMeta: RouteMeta = {
 						<code class="${hlmCode}">HlmDialogTrigger</code>
 						&
 						<code class="${hlmCode}">hlmDialogTriggerFor</code>
-						! We expose the hlm variants so you can directly use them to style your elements. Check out the code of the
-						example below!
+						! Use the
+						<code class="${hlmCode}">hlmDropdownMenuTriggerFriendlyItem</code>
+						directive to get dropdown-menu item styling without the conflicting
+						<code class="${hlmCode}">CdkMenuItem</code>
+						behavior. Check out the code of the example below!
 					</p>
 				</div>
 			</div>

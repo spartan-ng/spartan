@@ -72,9 +72,8 @@ export class HlmSlider {
 	protected readonly _slider = injectBrnSlider();
 
 	constructor() {
-		classes(
-			() =>
-				'group flex w-full touch-none flex-col select-none data-vertical:h-full data-vertical:min-h-40 data-vertical:w-auto data-vertical:flex-row data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
-		);
+		classes(() => [
+			'group flex w-full touch-none flex-col select-none data-vertical:h-full data-vertical:min-h-40 data-vertical:w-auto data-vertical:flex-row data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+		]);
 	}
 }

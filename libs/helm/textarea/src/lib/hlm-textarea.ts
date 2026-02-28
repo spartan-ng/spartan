@@ -2,18 +2,17 @@ import {
 	computed,
 	Directive,
 	type DoCheck,
-	effect,
 	forwardRef,
 	inject,
 	Injector,
 	input,
 	linkedSignal,
 	signal,
-	untracked,
 } from '@angular/core';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
-import { BrnFormFieldControl } from '@spartan-ng/brain/form-field';
+import { BrnFieldControl } from '@spartan-ng/brain/field';
 import { ErrorStateMatcher, ErrorStateTracker } from '@spartan-ng/brain/forms';
+import { HlmFieldControlDescribedBy } from '@spartan-ng/helm/field';
 import { classes } from '@spartan-ng/helm/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { ClassValue } from 'clsx';
@@ -38,15 +37,16 @@ type TextareaVariants = VariantProps<typeof textareaVariants>;
 	selector: '[hlmTextarea]',
 	providers: [
 		{
-			provide: BrnFormFieldControl,
+			provide: BrnFieldControl,
 			useExisting: forwardRef(() => HlmTextarea),
 		},
 	],
+	hostDirectives: [HlmFieldControlDescribedBy],
 	host: {
 		'data-slot': 'textarea',
 	},
 })
-export class HlmTextarea implements BrnFormFieldControl, DoCheck {
+export class HlmTextarea implements BrnFieldControl, DoCheck {
 	private readonly _injector = inject(Injector);
 	private readonly _additionalClasses = signal<ClassValue>('');
 
@@ -73,17 +73,6 @@ export class HlmTextarea implements BrnFormFieldControl, DoCheck {
 			this._parentFormGroup,
 			this._parentForm,
 		);
-
-		effect(() => {
-			const error = this._errorStateTracker.errorState();
-			untracked(() => {
-				if (this.ngControl) {
-					const shouldShowError = error && this.ngControl.invalid && (this.ngControl.touched || this.ngControl.dirty);
-					this._errorStateTracker.errorState.set(shouldShowError ? true : false);
-					this.setError(shouldShowError ? true : 'auto');
-				}
-			});
-		});
 	}
 
 	ngDoCheck() {

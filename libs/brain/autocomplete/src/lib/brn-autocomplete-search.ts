@@ -7,6 +7,7 @@ import {
 	contentChild,
 	contentChildren,
 	Directive,
+	type DoCheck,
 	effect,
 	ElementRef,
 	forwardRef,
@@ -17,9 +18,10 @@ import {
 	model,
 	untracked,
 } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { stringifyAsLabel } from '@spartan-ng/brain/core';
-import { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
+import { BrnFieldControl } from '@spartan-ng/brain/field';
+import { ChangeFn, ErrorStateMatcher, ErrorStateTracker, TouchFn } from '@spartan-ng/brain/forms';
 import { BrnPopover } from '@spartan-ng/brain/popover';
 import { BrnAutocompleteInputWrapper } from './brn-autocomplete-input-wrapper';
 import { BrnAutocompleteItem } from './brn-autocomplete-item';
@@ -31,23 +33,35 @@ import {
 	provideBrnAutocompleteBase,
 } from './brn-autocomplete.token';
 
-export const BRN_AUTOCOMPLETE_SEARCH_VALUE_ACCESSOR = {
-	provide: NG_VALUE_ACCESSOR,
-	useExisting: forwardRef(() => BrnAutocompleteSearch),
-	multi: true,
-};
-
 @Directive({
 	selector: '[brnAutocomplete]',
-	providers: [provideBrnAutocompleteBase(BrnAutocompleteSearch), BRN_AUTOCOMPLETE_SEARCH_VALUE_ACCESSOR],
+	providers: [
+		provideBrnAutocompleteBase(BrnAutocompleteSearch),
+		{
+			provide: BrnFieldControl,
+			useExisting: forwardRef(() => BrnAutocompleteSearch),
+		},
+	],
+	host: {
+		'(focusout)': '_onFocusOut($event)',
+	},
 })
-export class BrnAutocompleteSearch<T> implements BrnAutocompleteBase<T>, ControlValueAccessor {
+export class BrnAutocompleteSearch<T>
+	implements BrnAutocompleteBase<T>, ControlValueAccessor, DoCheck, BrnFieldControl
+{
 	private readonly _injector = inject(Injector);
 
 	private readonly _config = injectBrnAutocompleteConfig<T>();
 
 	/** Access the popover if present */
 	private readonly _brnPopover = inject(BrnPopover, { optional: true });
+
+	private readonly _defaultErrorStateMatcher = inject(ErrorStateMatcher);
+	private readonly _parentForm = inject(NgForm, { optional: true });
+	private readonly _parentFormGroup = inject(FormGroupDirective, { optional: true });
+	public readonly ngControl = inject(NgControl, { optional: true, self: true });
+	private readonly _errorStateTracker: ErrorStateTracker;
+	public readonly errorState = computed(() => this._errorStateTracker.errorState());
 
 	/** Whether the autocomplete is disabled */
 	public readonly disabled = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
@@ -99,6 +113,17 @@ export class BrnAutocompleteSearch<T> implements BrnAutocompleteBase<T>, Control
 	protected _onTouched?: TouchFn;
 
 	constructor() {
+		if (this.ngControl !== null) {
+			this.ngControl.valueAccessor = this;
+		}
+
+		this._errorStateTracker = new ErrorStateTracker(
+			this._defaultErrorStateMatcher,
+			this.ngControl,
+			this._parentFormGroup,
+			this._parentForm,
+		);
+
 		this.keyManager
 			.withVerticalOrientation()
 			.withHomeAndEnd()
@@ -190,6 +215,10 @@ export class BrnAutocompleteSearch<T> implements BrnAutocompleteBase<T>, Control
 		this.isExpanded() ? this.close() : this.open();
 	}
 
+	ngDoCheck() {
+		this._errorStateTracker.updateErrorState();
+	}
+
 	/** CONTROL VALUE ACCESSOR */
 	writeValue(value: string | null): void {
 		this.value.set(value);
@@ -205,5 +234,14 @@ export class BrnAutocompleteSearch<T> implements BrnAutocompleteBase<T>, Control
 
 	setDisabledState(isDisabled: boolean) {
 		this._disabled.set(isDisabled);
+	}
+
+	protected _onFocusOut(event: FocusEvent): void {
+		const currentTarget = event.currentTarget as HTMLElement;
+		const focusedEl = event.relatedTarget as HTMLElement | null;
+
+		if (!currentTarget.contains(focusedEl)) {
+			this._onTouched?.();
+		}
 	}
 }

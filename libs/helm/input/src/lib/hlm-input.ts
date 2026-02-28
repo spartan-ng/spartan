@@ -1,29 +1,32 @@
 import {
 	computed,
 	Directive,
+	type DoCheck,
 	effect,
+	ElementRef,
 	forwardRef,
 	inject,
 	Injector,
 	input,
 	linkedSignal,
+	Renderer2,
 	signal,
-	untracked,
-	type DoCheck,
 } from '@angular/core';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
-import { BrnFormFieldControl } from '@spartan-ng/brain/form-field';
+import { BrnFieldControl } from '@spartan-ng/brain/field';
 import { ErrorStateMatcher, ErrorStateTracker } from '@spartan-ng/brain/forms';
+import { HlmFieldControlDescribedBy } from '@spartan-ng/helm/field';
 import { classes } from '@spartan-ng/helm/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 import type { ClassValue } from 'clsx';
 
 export const inputVariants = cva(
 	'file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input focus-visible:border-ring focus-visible:ring-ring/50 flex h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
+
 	{
 		variants: {
 			error: {
-				auto: '[&.ng-invalid.ng-touched]:border-destructive [&.ng-invalid.ng-touched]:ring-destructive/20 dark:[&.ng-invalid.ng-touched]:ring-destructive/40',
+				auto: 'aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40',
 				true: 'border-destructive focus-visible:border-destructive focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40',
 			},
 		},
@@ -38,13 +41,16 @@ type InputVariants = VariantProps<typeof inputVariants>;
 	selector: '[hlmInput]',
 	providers: [
 		{
-			provide: BrnFormFieldControl,
+			provide: BrnFieldControl,
 			useExisting: forwardRef(() => HlmInput),
 		},
 	],
+	hostDirectives: [HlmFieldControlDescribedBy],
 })
-export class HlmInput implements BrnFormFieldControl, DoCheck {
+export class HlmInput implements BrnFieldControl, DoCheck {
 	private readonly _injector = inject(Injector);
+	private readonly _el = inject<ElementRef<HTMLElement>>(ElementRef);
+	private readonly _renderer = inject(Renderer2);
 	private readonly _additionalClasses = signal<ClassValue>('');
 
 	private readonly _errorStateTracker: ErrorStateTracker;
@@ -72,14 +78,12 @@ export class HlmInput implements BrnFormFieldControl, DoCheck {
 		classes(() => [inputVariants({ error: this._state().error }), this._additionalClasses()]);
 
 		effect(() => {
-			const error = this._errorStateTracker.errorState();
-			untracked(() => {
-				if (this.ngControl) {
-					const shouldShowError = error && this.ngControl.invalid && (this.ngControl.touched || this.ngControl.dirty);
-					this._errorStateTracker.errorState.set(shouldShowError ? true : false);
-					this.setError(shouldShowError ? true : 'auto');
-				}
-			});
+			const el = this._el.nativeElement;
+			if (this.errorState()) {
+				this._renderer.setAttribute(el, 'aria-invalid', 'true');
+			} else {
+				this._renderer.removeAttribute(el, 'aria-invalid');
+			}
 		});
 	}
 
@@ -89,9 +93,5 @@ export class HlmInput implements BrnFormFieldControl, DoCheck {
 
 	setError(error: InputVariants['error']) {
 		this._state.set({ error });
-	}
-
-	setClass(classes: string): void {
-		this._additionalClasses.set(classes);
 	}
 }

@@ -1,5 +1,6 @@
 import { HlmField } from './lib/hlm-field';
 import { HlmFieldContent } from './lib/hlm-field-content';
+import { HlmFieldControlDescribedBy } from './lib/hlm-field-control-described-by';
 import { HlmFieldDescription } from './lib/hlm-field-description';
 import { HlmFieldError } from './lib/hlm-field-error';
 import { HlmFieldGroup } from './lib/hlm-field-group';
@@ -10,7 +11,9 @@ import { HlmFieldSet } from './lib/hlm-field-set';
 import { HlmFieldTitle } from './lib/hlm-field-title';
 
 export * from './lib/hlm-field';
+export * from './lib/hlm-field-aria.service';
 export * from './lib/hlm-field-content';
+export * from './lib/hlm-field-control-described-by';
 export * from './lib/hlm-field-description';
 export * from './lib/hlm-field-error';
 export * from './lib/hlm-field-group';
@@ -31,4 +34,5 @@ export const HlmFieldImports = [
 	HlmFieldGroup,
 	HlmFieldLegend,
 	HlmFieldSet,
+	HlmFieldControlDescribedBy,
 ] as const;

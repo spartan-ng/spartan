@@ -1,11 +1,14 @@
 import { ChangeDetectionStrategy, Component, booleanAttribute, computed, input, numberAttribute } from '@angular/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { lucideCircleCheck, lucideInfo, lucideLoader2, lucideOctagonX, lucideTriangleAlert } from '@ng-icons/lucide';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 import { NgxSonnerToaster, type ToasterProps } from 'ngx-sonner';
 
 @Component({
 	selector: 'hlm-toaster',
-	imports: [NgxSonnerToaster],
+	imports: [NgxSonnerToaster, NgIcon],
+	providers: [provideIcons({ lucideCircleCheck, lucideInfo, lucideTriangleAlert, lucideOctagonX, lucideLoader2 })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ngx-sonner-toaster
@@ -23,7 +26,14 @@ import { NgxSonnerToaster, type ToasterProps } from 'ngx-sonner';
 			[offset]="offset()"
 			[dir]="dir()"
 			[style]="userStyle()"
-		/>
+		>
+			<!-- FIXME - custom icons vanish when two toasts are visible -->
+			<ng-icon name="lucideLoader2" class="overflow-visible! text-base [&>svg]:motion-safe:animate-spin" loading-icon />
+			<ng-icon name="lucideCircleCheck" class="overflow-visible! text-base" success-icon />
+			<ng-icon name="lucideOctagonX" class="overflow-visible! text-base" error-icon />
+			<ng-icon name="lucideInfo" class="overflow-visible! text-base" info-icon />
+			<ng-icon name="lucideTriangleAlert" class="overflow-visible! text-base" warning-icon />
+		</ngx-sonner-toaster>
 	`,
 })
 export class HlmToaster {

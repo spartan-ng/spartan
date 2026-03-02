@@ -8,7 +8,7 @@ import { toast } from 'ngx-sonner';
 	imports: [HlmToasterImports, HlmButtonImports],
 	template: `
 		<hlm-toaster />
-		<button hlmBtn (click)="showToast()">Show Toast</button>
+		<button hlmBtn variant="outline" (click)="showToast()">Show Toast</button>
 	`,
 })
 export class SonnerPreview {

@@ -1,6 +1,7 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
@@ -15,6 +16,7 @@ import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { link } from '../../../../shared/typography/link';
+import { SonnerTypesExample } from './sonner--types.example';
 import { SonnerPreview, defaultImports, defaultSkeleton } from './sonner.preview';
 
 export const routeMeta: RouteMeta = {
@@ -36,7 +38,9 @@ export const routeMeta: RouteMeta = {
 		PageNav,
 		PageBottomNav,
 		PageBottomNavLink,
+		SectionSubSubHeading,
 		SonnerPreview,
+		SonnerTypesExample,
 	],
 	template: `
 		<section spartanMainSection>
@@ -67,6 +71,15 @@ export const routeMeta: RouteMeta = {
 				<spartan-code [code]="_defaultSkeleton" />
 			</div>
 
+			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
+			<h3 id="types" spartanH4>Types</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-sonner-types-example />
+				</div>
+				<spartan-code secondTab [code]="_typesCode()" />
+			</spartan-tabs>
+
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="helm" />
 
@@ -81,6 +94,7 @@ export const routeMeta: RouteMeta = {
 export default class SonnerPage {
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('sonner');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
+	protected readonly _typesCode = computed(() => this._snippets()['types']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

@@ -30,8 +30,8 @@ import { injectHlmDatePicker } from './hlm-date-picker.token';
 		</hlm-input-group>
 	`,
 })
-export class HlmDatePickerInput<T> {
-	private readonly _datePicker = injectHlmDatePicker<T>();
+export class HlmDatePickerInput {
+	private readonly _datePicker = injectHlmDatePicker();
 	private static _nextId = 0;
 
 	protected readonly _popover = this._datePicker.popover;

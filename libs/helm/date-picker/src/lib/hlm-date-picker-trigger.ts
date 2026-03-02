@@ -39,9 +39,9 @@ import { injectHlmDatePicker } from './hlm-date-picker.token';
 		</button>
 	`,
 })
-export class HlmDatePickerTrigger<T> {
+export class HlmDatePickerTrigger {
 	private static _nextId = 0;
-	private readonly _datePicker = injectHlmDatePicker<T>();
+	private readonly _datePicker = injectHlmDatePicker();
 
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>

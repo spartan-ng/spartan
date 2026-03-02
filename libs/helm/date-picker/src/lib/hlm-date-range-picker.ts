@@ -60,7 +60,7 @@ export const HLM_DATE_RANGE_PICKER_VALUE_ACCESSOR = {
 		</hlm-popover>
 	`,
 })
-export class HlmDateRangePicker<T> implements HlmDatePickerBase<T>, ControlValueAccessor {
+export class HlmDateRangePicker<T> implements HlmDatePickerBase, ControlValueAccessor {
 	private readonly _config = injectHlmDateRangePickerConfig<T>();
 
 	public readonly popover = viewChild.required(BrnPopover);

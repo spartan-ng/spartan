@@ -51,7 +51,7 @@ export const HLM_DATE_PICKER_VALUE_ACCESSOR = {
 		</hlm-popover>
 	`,
 })
-export class HlmDatePicker<T> implements HlmDatePickerBase<T>, ControlValueAccessor {
+export class HlmDatePicker<T> implements HlmDatePickerBase, ControlValueAccessor {
 	private readonly _config = injectHlmDatePickerConfig<T>();
 
 	public readonly popover = viewChild.required(BrnPopover);

@@ -2,7 +2,7 @@ import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
-import { hlmP } from '@spartan-ng/helm/typography';
+import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
@@ -19,7 +19,7 @@ import { link } from '../../../../shared/typography/link';
 import { SonnerDescriptionExample } from './sonner--description.example';
 import { SonnerPositionExample } from './sonner--position.example';
 import { SonnerTypesExample } from './sonner--types.example';
-import { SonnerPreview, defaultImports, defaultSkeleton } from './sonner.preview';
+import { SonnerPreview, defaultImports, defaultSkeleton, defaultTemplate } from './sonner.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Sonner', api: 'sonner' },
@@ -69,7 +69,13 @@ export const routeMeta: RouteMeta = {
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
 			<spartan-cli-tabs nxCode="npx nx g @spartan-ng/cli:ui sonner" ngCode="ng g @spartan-ng/cli:ui sonner" />
 
-			<!-- TODO explain how to add toaster component -->
+			<p class="${hlmP}">
+				Add the
+				<code class="${hlmCode}">HlmToaster</code>
+				component to your root component.
+			</p>
+
+			<spartan-code class="mt-6" fileName="src/app/app.ts" [code]="_defaultTemplate" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">
@@ -120,4 +126,5 @@ export default class SonnerPage {
 	protected readonly _positionCode = computed(() => this._snippets()['position']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
+	protected readonly _defaultTemplate = defaultTemplate;
 }

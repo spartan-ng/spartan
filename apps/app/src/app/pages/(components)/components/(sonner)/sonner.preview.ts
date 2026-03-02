@@ -41,7 +41,7 @@ import { HlmToasterImports } from '@spartan-ng/helm/sonner';
   template: \`
     <router-outlet />
 
-	<hlm-toaster />
+    <hlm-toaster />
   \`,
 })
 export class App {}

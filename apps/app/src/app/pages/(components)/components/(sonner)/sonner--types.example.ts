@@ -42,7 +42,7 @@ export class SonnerTypesExample {
 		toast.promise<{ name: string }>(
 			() => new Promise((resolve) => setTimeout(() => resolve({ name: 'Angular Connect' }), 2000)),
 			{
-				loading: 'Loading..',
+				loading: 'Loading...',
 				success: (data) => `${data.name} has been created`,
 				error: 'Error',
 			},

@@ -16,6 +16,8 @@ import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { link } from '../../../../shared/typography/link';
+import { SonnerDescriptionExample } from './sonner--description.example';
+import { SonnerPositionExample } from './sonner--position.example';
 import { SonnerTypesExample } from './sonner--types.example';
 import { SonnerPreview, defaultImports, defaultSkeleton } from './sonner.preview';
 
@@ -41,6 +43,8 @@ export const routeMeta: RouteMeta = {
 		SectionSubSubHeading,
 		SonnerPreview,
 		SonnerTypesExample,
+		SonnerDescriptionExample,
+		SonnerPositionExample,
 	],
 	template: `
 		<section spartanMainSection>
@@ -65,6 +69,8 @@ export const routeMeta: RouteMeta = {
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
 			<spartan-cli-tabs nxCode="npx nx g @spartan-ng/cli:ui sonner" ngCode="ng g @spartan-ng/cli:ui sonner" />
 
+			<!-- TODO explain how to add toaster component -->
+
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">
 				<spartan-code [code]="_defaultImports" />
@@ -78,6 +84,21 @@ export const routeMeta: RouteMeta = {
 					<spartan-sonner-types-example />
 				</div>
 				<spartan-code secondTab [code]="_typesCode()" />
+			</spartan-tabs>
+
+			<h3 id="description" spartanH4>Description</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-sonner-description-example />
+				</div>
+				<spartan-code secondTab [code]="_descriptionCode()" />
+			</spartan-tabs>
+			<h3 id="position" spartanH4>Position</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-sonner-position-example />
+				</div>
+				<spartan-code secondTab [code]="_positionCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
@@ -95,6 +116,8 @@ export default class SonnerPage {
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('sonner');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _typesCode = computed(() => this._snippets()['types']);
+	protected readonly _descriptionCode = computed(() => this._snippets()['description']);
+	protected readonly _positionCode = computed(() => this._snippets()['position']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

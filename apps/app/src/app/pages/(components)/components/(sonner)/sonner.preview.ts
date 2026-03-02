@@ -25,9 +25,7 @@ export class SonnerPreview {
 
 export const defaultImports = `
 import { toast } from 'ngx-sonner';
-import { HlmToasterImports } from '@spartan-ng/helm/sonner';
 `;
 export const defaultSkeleton = `
-<hlm-toaster />
-<button hlmBtn (click)="showToast()">Show Toast</button>
+toast('Event has been created.');
 `;

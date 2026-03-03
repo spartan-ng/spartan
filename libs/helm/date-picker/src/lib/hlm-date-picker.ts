@@ -116,6 +116,10 @@ export class HlmDatePicker<T> implements HlmDatePickerBase, ControlValueAccessor
 		}
 	}
 
+	public touched() {
+		this._onTouched?.();
+	}
+
 	/** CONTROL VALUE ACCESSOR */
 	public writeValue(value: T | null): void {
 		this._mutableDate.set(value ? this.transformDate()(value) : undefined);

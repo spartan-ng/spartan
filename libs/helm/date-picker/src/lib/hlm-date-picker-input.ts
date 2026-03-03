@@ -21,6 +21,7 @@ import { injectHlmDatePicker } from './hlm-date-picker.token';
 				[disabled]="_disabled()"
 				(keydown.arrowDown)="_open()"
 				(input)="_handleInputChange($event)"
+				(blur)="_touched()"
 			/>
 			<hlm-input-group-addon align="inline-end">
 				<button hlmInputGroupButton size="icon-xs" (click)="_popover().open()" [disabled]="_disabled()">
@@ -63,5 +64,9 @@ export class HlmDatePickerInput {
 
 	protected _open() {
 		this._popover().open();
+	}
+
+	protected _touched() {
+		this._datePicker.touched?.();
 	}
 }

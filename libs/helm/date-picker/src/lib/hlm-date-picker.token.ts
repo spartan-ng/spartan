@@ -12,6 +12,7 @@ export interface HlmDatePickerBase {
 	popover: Signal<BrnPopover>;
 	disabledState: Signal<boolean>;
 	formattedDate: Signal<string | undefined>;
+	touched?(): void;
 }
 
 export const HlmDatePickerToken = new InjectionToken<HlmDatePickerBase>('HlmDatePickerToken');

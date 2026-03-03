@@ -88,6 +88,8 @@ export class BrnInputOtp implements ControlValueAccessor {
 		transform: booleanAttribute,
 	});
 
+	public readonly mask = input<boolean>(false);
+
 	protected readonly _disabled = linkedSignal(this.disabled);
 
 	/** The number of slots. */

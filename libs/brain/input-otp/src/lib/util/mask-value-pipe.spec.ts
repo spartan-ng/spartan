@@ -1,16 +1,13 @@
+import { ChangeDetectorRef } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { MaskValuePipe } from './mask-value-pipe';
-import { ChangeDetectorRef } from '@angular/core';
 
 describe('MaskValuePipe', () => {
 	let pipe: MaskValuePipe;
 
 	beforeEach(() => {
 		TestBed.configureTestingModule({
-			providers: [
-				MaskValuePipe,
-				{ provide: ChangeDetectorRef, useValue: { markForCheck: jest.fn() } },
-			],
+			providers: [MaskValuePipe, { provide: ChangeDetectorRef, useValue: { markForCheck: jest.fn() } }],
 		});
 		pipe = TestBed.inject(MaskValuePipe);
 		jest.useFakeTimers();

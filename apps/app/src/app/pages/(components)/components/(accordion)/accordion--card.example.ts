@@ -13,7 +13,7 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 	template: `
 		<hlm-card class="w-full max-w-sm">
 			<hlm-card-header>
-				<h3 hlmCardTitle>Subscrption & Billing</h3>
+				<h3 hlmCardTitle>Subscription & Billing</h3>
 				<p hlmCardDescription>Common questions about your account, plans, payments and cancellations.</p>
 			</hlm-card-header>
 			<div hlmCardContent>

@@ -12,7 +12,7 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 	template: `
 		<hlm-accordion class="rounded-lg border">
 			@for (item of items; track $index) {
-				<hlm-accordion-item class="border-b px-4 last:border-0">
+				<hlm-accordion-item class="border-b px-4 last:border-b-0">
 					<h3 class="contents">
 						<button hlmAccordionTrigger>
 							{{ item.trigger }}

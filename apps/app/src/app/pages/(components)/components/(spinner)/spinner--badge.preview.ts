@@ -8,15 +8,15 @@ import { HlmSpinnerImports } from '@spartan-ng/helm/spinner';
 	template: `
 		<div class="flex items-center gap-4 [--radius:1.2rem]">
 			<span hlmBadge>
-				<hlm-spinner />
+				<hlm-spinner class="text-xs" />
 				Syncing
 			</span>
 			<span hlmBadge variant="secondary">
-				<hlm-spinner />
+				<hlm-spinner class="text-xs" />
 				Updating
 			</span>
 			<span hlmBadge variant="outline">
-				<hlm-spinner />
+				<hlm-spinner class="text-xs" />
 				Processing
 			</span>
 		</div>

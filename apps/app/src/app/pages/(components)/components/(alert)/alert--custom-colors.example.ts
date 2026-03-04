@@ -2,11 +2,10 @@ import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideAlertTriangle } from '@ng-icons/lucide';
 import { HlmAlertImports } from '@spartan-ng/helm/alert';
-import { HlmButtonImports } from '@spartan-ng/helm/button';
 
 @Component({
 	selector: 'spartan-alert-custom-colors',
-	imports: [HlmAlertImports, NgIcon, HlmButtonImports],
+	imports: [HlmAlertImports, NgIcon],
 	providers: [provideIcons({ lucideAlertTriangle })],
 	template: `
 		<hlm-alert

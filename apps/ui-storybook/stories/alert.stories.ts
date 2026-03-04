@@ -1,7 +1,6 @@
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCircleAlert, lucideInfo } from '@ng-icons/lucide';
 import { HlmAlert, HlmAlertImports } from '@spartan-ng/helm/alert';
-import { HlmIcon } from '@spartan-ng/helm/icon';
 import type { Meta, StoryObj } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
 
@@ -19,7 +18,7 @@ const meta: Meta<HlmAlert> = {
 	},
 	decorators: [
 		moduleMetadata({
-			imports: [HlmAlertImports, NgIcon, HlmIcon],
+			imports: [HlmAlertImports, NgIcon],
 			providers: [provideIcons({ lucideInfo, lucideCircleAlert })],
 		}),
 	],

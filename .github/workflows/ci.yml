@@ -15,16 +15,17 @@ jobs:
       # Required by wagoid/commitlint-github-action
       pull-requests: read
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           # Required by wagoid/commitlint-github-action
           fetch-depth: 0
-      - name: Install Node v22
-        uses: actions/setup-node@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+      - name: Install Node
+        uses: actions/setup-node@v6
         with:
           node-version-file: .node-version
-      - name: Install pnpm globally
-        run: npm install -g pnpm
+          cache: 'pnpm'
       - name: Lint commit messages
         uses: wagoid/commitlint-github-action@v5
         with:
@@ -34,15 +35,17 @@ jobs:
   format-and-lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           # Required by wagoid/commitlint-github-action
           fetch-depth: 0
-      - uses: actions/setup-node@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+      - name: Install Node
+        uses: actions/setup-node@v6
         with:
           node-version-file: .node-version
-      - name: Install PNPM globally
-        run: npm install -g pnpm
+          cache: 'pnpm'
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
       - name: lint
@@ -53,15 +56,17 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           # Required by wagoid/commitlint-github-action
           fetch-depth: 0
-      - uses: actions/setup-node@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+      - name: Install Node
+        uses: actions/setup-node@v6
         with:
           node-version-file: .node-version
-      - name: Install PNPM globally
-        run: npm install -g pnpm
+          cache: 'pnpm'
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
       - name: Build
@@ -72,15 +77,17 @@ jobs:
     needs:
       - build
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           # Required by wagoid/commitlint-github-action
           fetch-depth: 0
-      - uses: actions/setup-node@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+      - name: Install Node
+        uses: actions/setup-node@v6
         with:
           node-version-file: .node-version
-      - name: Install PNPM globally
-        run: npm install -g pnpm
+          cache: 'pnpm'
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
       - name: Test
@@ -91,17 +98,17 @@ jobs:
     needs:
       - build
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           # Required by wagoid/commitlint-github-action
           fetch-depth: 0
-      - uses: actions/setup-node@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+      - name: Install Node
+        uses: actions/setup-node@v6
         with:
           node-version-file: .node-version
-      - name: Install PNPM globally
-        run: npm install -g pnpm
-      - name: Install Dependencies
-        run: pnpm install --frozen-lockfile
+          cache: 'pnpm'
       - name: Install Cypress
         run: npx cypress install
       - name: End-to-end test

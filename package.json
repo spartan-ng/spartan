@@ -202,11 +202,11 @@
 		"vite-tsconfig-paths": "5.0.1",
 		"vitest": "2.1.1"
 	},
-	"packageManager": "pnpm@9.11.0",
+	"packageManager": "pnpm@10.30.3",
 	"engines": {
 		"node": ">=22.15",
 		"npm": "please-use-pnpm",
-		"pnpm": ">=9",
+		"pnpm": ">=10",
 		"yarn": "please-use-pnpm"
 	},
 	"engineStrict": true,

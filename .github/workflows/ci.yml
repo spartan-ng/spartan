@@ -19,13 +19,10 @@ jobs:
         with:
           # Required by wagoid/commitlint-github-action
           fetch-depth: 0
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
       - name: Install Node
         uses: actions/setup-node@v6
         with:
           node-version-file: .node-version
-          cache: 'pnpm'
       - name: Lint commit messages
         uses: wagoid/commitlint-github-action@v5
         with:
@@ -109,6 +106,8 @@ jobs:
         with:
           node-version-file: .node-version
           cache: 'pnpm'
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
       - name: Install Cypress
         run: npx cypress install
       - name: End-to-end test

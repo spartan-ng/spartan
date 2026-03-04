@@ -113,19 +113,19 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "[hlmAlert]",
+        "selector": "hlm-alert,[hlmAlert]",
+      },
+      "HlmAlertAction": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmAlertAction]",
       },
       "HlmAlertDescription": {
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "[hlmAlertDesc],[hlmAlertDescription]",
-      },
-      "HlmAlertIcon": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "[hlmAlertIcon]",
+        "selector": "[hlmAlertDescription]",
       },
       "HlmAlertTitle": {
         "inputs": [],

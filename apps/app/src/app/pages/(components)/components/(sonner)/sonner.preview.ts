@@ -8,7 +8,7 @@ import { toast } from 'ngx-sonner';
 	imports: [HlmToasterImports, HlmButtonImports],
 	template: `
 		<hlm-toaster />
-		<button hlmBtn (click)="showToast()">Show Toast</button>
+		<button hlmBtn variant="outline" (click)="showToast()">Show Toast</button>
 	`,
 })
 export class SonnerPreview {
@@ -25,9 +25,24 @@ export class SonnerPreview {
 
 export const defaultImports = `
 import { toast } from 'ngx-sonner';
-import { HlmToasterImports } from '@spartan-ng/helm/sonner';
 `;
 export const defaultSkeleton = `
-<hlm-toaster />
-<button hlmBtn (click)="showToast()">Show Toast</button>
+toast('Event has been created.');
+`;
+export const defaultTemplate = `
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+
+import { HlmToasterImports } from '@spartan-ng/helm/sonner';
+
+@Component({
+  selector: 'app-root',
+  imports: [RouterOutlet, HlmToasterImports],
+  template: \`
+    <router-outlet />
+
+    <hlm-toaster />
+  \`,
+})
+export class App {}
 `;

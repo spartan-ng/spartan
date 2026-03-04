@@ -3,7 +3,7 @@ import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
-import { hlmCode } from '@spartan-ng/helm/typography';
+import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
@@ -16,7 +16,9 @@ import { Tabs } from '../../../../shared/layout/tabs';
 import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { AccordionMultipleOpened } from './accordion--multiple-opened.example';
+import { AccordionBorders } from './accordion--borders.example';
+import { AccordionCard } from './accordion--card.example';
+import { AccordionMultiple } from './accordion--multiple.example';
 import { AccordionPreview, defaultImports, defaultSkeleton } from './accordion.preview';
 
 export const routeMeta: RouteMeta = {
@@ -38,13 +40,15 @@ export const routeMeta: RouteMeta = {
 		Tabs,
 		TabsCli,
 		AccordionPreview,
-		AccordionMultipleOpened,
 		CodePreview,
 		PageNav,
 		PageBottomNav,
 		PageBottomNavLink,
 		UIApiDocs,
 		SectionSubSubHeading,
+		AccordionMultiple,
+		AccordionBorders,
+		AccordionCard,
 	],
 	template: `
 		<section spartanMainSection>
@@ -70,22 +74,56 @@ export const routeMeta: RouteMeta = {
 			</div>
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__multiple_opened" spartanH4>Multiple and Opened</h3>
-			<p class="pt-2">
+			<h3 id="examples__multiple" spartanH4>Multiple</h3>
+			<p class="${hlmP}">
 				The
 				<code class="${hlmCode}">type</code>
 				input can be set to 'multiple' to allow multiple items to be opened at the same time.
 			</p>
-			<p class="pb-2">
+			<p class="${hlmP}">
 				The
 				<code class="${hlmCode}">isOpened</code>
 				input can be used to set the initial state of an accordion item.
 			</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
-					<spartan-accordion-multiple-opened />
+					<spartan-accordion-multiple />
 				</div>
-				<spartan-code secondTab [code]="_multipleOpenedCode()" />
+				<spartan-code secondTab [code]="_multipleCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__borders" spartanH4>Borders</h3>
+			<p class="${hlmP}">
+				Add
+				<code class="${hlmCode}">border</code>
+				to the
+				<code class="${hlmCode}">hlm-accordion</code>
+				and
+				<code class="${hlmCode}">border-b last:border-b-0</code>
+				to the
+				<code class="${hlmCode}">hlm-accordion-item</code>
+				to add borders to the items.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-accordion-borders />
+				</div>
+				<spartan-code secondTab [code]="_bordersCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__card" spartanH4>Card</h3>
+			<p class="${hlmP}">
+				Wrap the
+				<code class="${hlmCode}">hlm-accordion</code>
+				inside a
+				<code class="${hlmCode}">hlm-card</code>
+				component.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-accordion-card />
+				</div>
+				<spartan-code secondTab [code]="_cardCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
@@ -105,7 +143,9 @@ export const routeMeta: RouteMeta = {
 export default class AccordionPage {
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('accordion');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
-	protected readonly _multipleOpenedCode = computed(() => this._snippets()['multipleOpened']);
+	protected readonly _multipleCode = computed(() => this._snippets()['multiple']);
+	protected readonly _bordersCode = computed(() => this._snippets()['borders']);
+	protected readonly _cardCode = computed(() => this._snippets()['card']);
 	protected readonly _imports = defaultImports;
 	protected readonly _skeleton = defaultSkeleton;
 }

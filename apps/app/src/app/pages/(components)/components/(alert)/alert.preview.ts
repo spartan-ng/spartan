@@ -35,9 +35,9 @@ export const defaultSkeleton = `
 <hlm-alert variant="default | destructive">
   <ng-icon name="lucideCircleCheck" />
   <h4 hlmAlertTitle>Heads up!</h4>
-  <div hlmAlertDescription> You can add components and dependencies to your app using the cli.</div>
+  <div hlmAlertDescription>You can add components and dependencies to your app using the cli.</div>
   <div hlmAlertAction>
-	<button hlmBtn variant="outline" size="xs">Enable</button>
+    <button hlmBtn variant="outline" size="xs">Enable</button>
   </div>
 </hlm-alert>
 `;

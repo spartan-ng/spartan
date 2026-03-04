@@ -2,6 +2,7 @@ import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
+import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
@@ -15,14 +16,18 @@ import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { ButtonAnchor } from './button--anchor.example';
+import { ButtonDefault } from './button--default-variant.example';
 import { ButtonDestructive } from './button--destructive.example';
 import { ButtonGhost } from './button--ghost.example';
 import { ButtonIcon } from './button--icon.example';
 import { ButtonLink } from './button--link.example';
 import { ButtonOutline } from './button--outline.example';
+import { ButtonRounded } from './button--rounded.example';
 import { ButtonSecondary } from './button--secondary.example';
+import { ButtonSize } from './button--size.example';
 import { ButtonSpinner } from './button--spinner.example';
 import { ButtonWithIcon } from './button--with-icon.example';
+import { cursorCode } from './button-cursor';
 import { ButtonPreview, defaultImports, defaultSkeleton } from './button.preview';
 
 export const routeMeta: RouteMeta = {
@@ -48,6 +53,7 @@ export const routeMeta: RouteMeta = {
 		PageBottomNavLink,
 		ButtonPreview,
 		ButtonDestructive,
+		ButtonDefault,
 		ButtonOutline,
 		ButtonSecondary,
 		ButtonGhost,
@@ -56,6 +62,8 @@ export const routeMeta: RouteMeta = {
 		ButtonWithIcon,
 		ButtonSpinner,
 		ButtonAnchor,
+		ButtonSize,
+		ButtonRounded,
 		SectionSubSubHeading,
 	],
 	template: `
@@ -78,21 +86,48 @@ export const routeMeta: RouteMeta = {
 				<spartan-code [code]="_defaultSkeleton" />
 			</div>
 
+			<spartan-section-sub-heading id="cursor">Cursor</spartan-section-sub-heading>
+			<p class="${hlmP}">
+				Tailwind v4
+				<a
+					href="https://tailwindcss.com/docs/upgrade-guide#buttons-use-the-default-cursor"
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					switched
+				</a>
+				from
+				<code class="${hlmCode}">cursor: pointer</code>
+				to
+				<code class="${hlmCode}">cursor: default</code>
+				for button component.
+			</p>
+
+			<p class="${hlmP}">
+				If you want to keep the
+				<code class="${hlmCode}">cursor: pointer</code>
+				behavior, add the following code to your CSS file:
+			</p>
+
+			<spartan-code class="mt-6" fileName="src/styles.css" [code]="_cursorCode" />
+
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__secondary" spartanH4>Secondary</h3>
+			<h3 id="examples__size" spartanH4>Size</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
-					<spartan-button-secondary />
+					<spartan-button-size />
 				</div>
-				<spartan-code secondTab [code]="_secondaryCode()" />
+				<spartan-code secondTab [code]="_sizeCode()" />
 			</spartan-tabs>
-			<h3 id="examples__destructive" spartanH4>Destructive</h3>
+
+			<h3 id="examples__default" spartanH4>Default</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
-					<spartan-button-destructive />
+					<spartan-button-default />
 				</div>
-				<spartan-code secondTab [code]="_destructiveCode()" />
+				<spartan-code secondTab [code]="_defaultVariantCode()" />
 			</spartan-tabs>
+
 			<h3 id="examples__outline" spartanH4>Outline</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -100,6 +135,15 @@ export const routeMeta: RouteMeta = {
 				</div>
 				<spartan-code secondTab [code]="_outlineCode()" />
 			</spartan-tabs>
+
+			<h3 id="examples__secondary" spartanH4>Secondary</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-button-secondary />
+				</div>
+				<spartan-code secondTab [code]="_secondaryCode()" />
+			</spartan-tabs>
+
 			<h3 id="examples__ghost" spartanH4>Ghost</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -107,6 +151,15 @@ export const routeMeta: RouteMeta = {
 				</div>
 				<spartan-code secondTab [code]="_ghostCode()" />
 			</spartan-tabs>
+
+			<h3 id="examples__destructive" spartanH4>Destructive</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-button-destructive />
+				</div>
+				<spartan-code secondTab [code]="_destructiveCode()" />
+			</spartan-tabs>
+
 			<h3 id="examples__link" spartanH4>Link</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -114,6 +167,7 @@ export const routeMeta: RouteMeta = {
 				</div>
 				<spartan-code secondTab [code]="_linkCode()" />
 			</spartan-tabs>
+
 			<h3 id="examples__icon" spartanH4>Icon</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -121,6 +175,7 @@ export const routeMeta: RouteMeta = {
 				</div>
 				<spartan-code secondTab [code]="_iconCode()" />
 			</spartan-tabs>
+
 			<h3 id="examples__with_icon" spartanH4>With Icon</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -128,6 +183,15 @@ export const routeMeta: RouteMeta = {
 				</div>
 				<spartan-code secondTab [code]="_withIconCode()" />
 			</spartan-tabs>
+
+			<h3 id="examples__rounded" spartanH4>Rounded</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-button-rounded />
+				</div>
+				<spartan-code secondTab [code]="_roundedCode()" />
+			</spartan-tabs>
+
 			<h3 id="examples__spinner" spartanH4>Spinner</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -160,6 +224,8 @@ export const routeMeta: RouteMeta = {
 export default class ButtonPage {
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('button');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
+	protected readonly _sizeCode = computed(() => this._snippets()['size']);
+	protected readonly _defaultVariantCode = computed(() => this._snippets()['defaultVariant']);
 	protected readonly _secondaryCode = computed(() => this._snippets()['secondary']);
 	protected readonly _outlineCode = computed(() => this._snippets()['outline']);
 	protected readonly _destructiveCode = computed(() => this._snippets()['destructive']);
@@ -167,8 +233,11 @@ export default class ButtonPage {
 	protected readonly _linkCode = computed(() => this._snippets()['link']);
 	protected readonly _iconCode = computed(() => this._snippets()['icon']);
 	protected readonly _withIconCode = computed(() => this._snippets()['withIcon']);
+	protected readonly _roundedCode = computed(() => this._snippets()['rounded']);
 	protected readonly _spinnerCode = computed(() => this._snippets()['spinner']);
 	protected readonly _anchorCode = computed(() => this._snippets()['anchor']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
+
+	protected readonly _cursorCode = cursorCode;
 }

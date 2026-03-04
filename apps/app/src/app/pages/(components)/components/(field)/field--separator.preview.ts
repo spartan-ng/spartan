@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { remixGithubFill } from '@ng-icons/remixicon';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
@@ -7,7 +8,7 @@ import { HlmInputImports } from '@spartan-ng/helm/input';
 
 @Component({
 	selector: 'spartan-field-separator-preview',
-	imports: [HlmFieldImports, HlmButtonImports, HlmInputImports, NgIcon],
+	imports: [HlmFieldImports, HlmButtonImports, HlmInputImports, NgIcon, RouterLink],
 	providers: [provideIcons({ remixGithubFill })],
 	host: {
 		class: 'w-full max-w-xs',

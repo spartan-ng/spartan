@@ -11,7 +11,7 @@ jobs:
     outputs:
       should_run: ${{ steps.should_run.outputs.should_run }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: print latest_commit
         run: echo ${{ github.sha }}
 
@@ -48,16 +48,17 @@ jobs:
       # Required by wagoid/commitlint-github-action
       pull-requests: read
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           # Required by wagoid/commitlint-github-action
           fetch-depth: 0
-      - name: Install Node v22
-        uses: actions/setup-node@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+      - name: Install Node
+        uses: actions/setup-node@v6
         with:
           node-version-file: .node-version
-      - name: Install pnpm globally
-        run: npm install -g pnpm
+          cache: 'pnpm'
       - name: Lint commit messages
         uses: wagoid/commitlint-github-action@v5
         with:
@@ -70,15 +71,17 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           # Required by wagoid/commitlint-github-action
           fetch-depth: 0
-      - uses: actions/setup-node@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+      - name: Install Node
+        uses: actions/setup-node@v6
         with:
           node-version-file: .node-version
-      - name: Install PNPM globally
-        run: npm install -g pnpm
+          cache: 'pnpm'
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
       - name: lint
@@ -92,15 +95,17 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           # Required by wagoid/commitlint-github-action
           fetch-depth: 0
-      - uses: actions/setup-node@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+      - name: Install Node
+        uses: actions/setup-node@v6
         with:
           node-version-file: .node-version
-      - name: Install PNPM globally
-        run: npm install -g pnpm
+          cache: 'pnpm'
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
       - name: Build
@@ -118,20 +123,22 @@ jobs:
       contents: write
       id-token: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           # Required by wagoid/commitlint-github-action
           fetch-depth: 0
-      - uses: actions/setup-node@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+      - name: Install Node
+        uses: actions/setup-node@v6
         with:
           node-version-file: .node-version
+          cache: 'pnpm'
           registry-url: 'https://registry.npmjs.org'
       - name: Upgrade npm for trusted publishing
         run: npm i -g npm@^11.5.1
       - name: Print npm version
         run: npm -v
-      - name: Install PNPM globally
-        run: npm install -g pnpm
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
       - name: Pre Release

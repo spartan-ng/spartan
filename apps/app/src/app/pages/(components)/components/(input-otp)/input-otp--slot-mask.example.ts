@@ -43,7 +43,6 @@ export class InputOtpMaskSlotExample {
 	public readonly mobileDigits = Array.from({ length: 11 }, (_, i) => i);
 	public maxLength = 11;
 
-	/** Overrides global formatDate  */
 	public transformPaste = (pastedText: string) => pastedText.replaceAll('-', '');
 
 	public form = this._formBuilder.group({

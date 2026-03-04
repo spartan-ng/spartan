@@ -21,7 +21,9 @@ export class HlmInputOtpSlot {
 	/** The index of the slot to render the char or a fake caret */
 	public readonly index = input.required<number, NumberInput>({ transform: numberAttribute });
 
+	/* Determine if the individual slot should be masked */
 	public readonly mask = input<boolean | undefined>(undefined);
+
 	constructor() {
 		classes(() => [
 			'dark:bg-input/30 border-input relative flex h-9 w-9 items-center justify-center border-y border-r text-sm shadow-xs transition-all outline-none first:rounded-l-md first:border-l last:rounded-r-md',

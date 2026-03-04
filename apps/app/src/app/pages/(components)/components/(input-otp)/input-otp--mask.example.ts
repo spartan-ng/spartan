@@ -58,7 +58,6 @@ export class InputOtpMaskExample {
 
 	public maxLength = 6;
 
-	/** Overrides global formatDate  */
 	public transformPaste = (pastedText: string) => pastedText.replaceAll('-', '');
 
 	public form = this._formBuilder.group({

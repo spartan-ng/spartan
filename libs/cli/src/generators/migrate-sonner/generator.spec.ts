@@ -34,7 +34,7 @@ describe('migrate-sonner generator', () => {
 		});
 	});
 
-	it('should add HlmContextMenuImports import (Standalone)', async () => {
+	it('should replace ngx-sonner imports with @spartan-ng/brain/sonner (Standalone)', async () => {
 		tree.write(
 			'app/src/app/app.component.ts',
 			`

@@ -117,6 +117,7 @@ export type Position = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'
 export type HeightT = {
 	height: number;
 	toastId: number | string;
+	position: Position;
 };
 
 export type Theme = 'light' | 'dark' | 'system';

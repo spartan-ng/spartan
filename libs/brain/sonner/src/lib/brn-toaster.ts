@@ -1,10 +1,11 @@
 import type { BooleanInput } from '@angular/cdk/coercion';
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, NgTemplateOutlet } from '@angular/common';
 import {
 	booleanAttribute,
 	ChangeDetectionStrategy,
 	Component,
 	computed,
+	contentChild,
 	ElementRef,
 	inject,
 	input,
@@ -13,6 +14,7 @@ import {
 	type OnDestroy,
 	PLATFORM_ID,
 	signal,
+	TemplateRef,
 	viewChild,
 	ViewEncapsulation,
 } from '@angular/core';
@@ -26,7 +28,7 @@ import type { Position, Theme, ToasterProps } from './types';
 
 @Component({
 	selector: 'brn-sonner-toaster',
-	imports: [BrnSonnerToast, ToastFilterPipe, BrnSonnerIcon, BrnSonnerLoader],
+	imports: [BrnSonnerToast, ToastFilterPipe, BrnSonnerIcon, BrnSonnerLoader, NgTemplateOutlet],
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	styleUrl: 'brn-toaster.css',
@@ -72,21 +74,35 @@ import type { Position, Theme, ToasterProps } from './types';
 								[duration]="toastOptions().duration ?? duration()"
 								[unstyled]="toastOptions().unstyled ?? false"
 							>
-								<ng-content select="[loading-icon]" loading-icon>
-									<brn-sonner-loader [isVisible]="toast.type === 'loading'" />
-								</ng-content>
-								<ng-content select="[success-icon]" success-icon>
-									<brn-sonner-icon type="success" />
-								</ng-content>
-								<ng-content select="[error-icon]" error-icon>
-									<brn-sonner-icon type="error" />
-								</ng-content>
-								<ng-content select="[warning-icon]" warning-icon>
-									<brn-sonner-icon type="warning" />
-								</ng-content>
-								<ng-content select="[info-icon]" info-icon>
-									<brn-sonner-icon type="info" />
-								</ng-content>
+								@if (loadingIcon(); as loadingIcon) {
+									<ng-container *ngTemplateOutlet="loadingIcon" loading-icon />
+								} @else {
+									<brn-sonner-loader [isVisible]="toast.type === 'loading'" loading-icon />
+								}
+
+								@if (successIcon(); as successIcon) {
+									<ng-container *ngTemplateOutlet="successIcon" success-icon />
+								} @else {
+									<brn-sonner-icon type="success" success-icon />
+								}
+
+								@if (errorIcon(); as errorIcon) {
+									<ng-container *ngTemplateOutlet="errorIcon" error-icon />
+								} @else {
+									<brn-sonner-icon type="error" error-icon />
+								}
+
+								@if (warningIcon(); as warningIcon) {
+									<ng-container *ngTemplateOutlet="warningIcon" warning-icon />
+								} @else {
+									<brn-sonner-icon type="warning" warning-icon />
+								}
+
+								@if (infoIcon(); as infoIcon) {
+									<ng-container *ngTemplateOutlet="infoIcon" info-icon />
+								} @else {
+									<brn-sonner-icon type="info" info-icon />
+								}
 							</brn-sonner-toast>
 						}
 					</ol>
@@ -166,6 +182,12 @@ export class BrnSonnerToaster implements OnDestroy {
 		'--gap': `${GAP}px`,
 		...this._style(),
 	}));
+
+	loadingIcon = contentChild('loadingIcon', { read: TemplateRef });
+	successIcon = contentChild('successIcon', { read: TemplateRef });
+	errorIcon = contentChild('errorIcon', { read: TemplateRef });
+	warningIcon = contentChild('warningIcon', { read: TemplateRef });
+	infoIcon = contentChild('infoIcon', { read: TemplateRef });
 
 	constructor() {
 		this.reset();

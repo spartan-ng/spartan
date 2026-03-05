@@ -32,7 +32,7 @@ function updateImports(tree: Tree) {
 		}
 
 		if (content.includes('ngx-sonner')) {
-			content = content.replace('ngx-sonner', '@spartan-ng/brain/sonner');
+			content = content.replaceAll('ngx-sonner', '@spartan-ng/brain/sonner');
 		}
 
 		tree.write(path, content);

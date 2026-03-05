@@ -1,15 +1,15 @@
 import type { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import { ChangeDetectionStrategy, Component, booleanAttribute, computed, input, numberAttribute } from '@angular/core';
+import { BrnSonnerImports, type ToasterProps } from '@spartan-ng/brain/sonner';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
-import { NgxSonnerToaster, type ToasterProps } from 'ngx-sonner';
 
 @Component({
 	selector: 'hlm-toaster',
-	imports: [NgxSonnerToaster],
+	imports: [BrnSonnerImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<ngx-sonner-toaster
+		<brn-sonner-toaster
 			[class]="_computedClass()"
 			[invert]="invert()"
 			[theme]="theme()"

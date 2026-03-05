@@ -1,3 +1,4 @@
+import type { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import { ChangeDetectionStrategy, Component, booleanAttribute, computed, input, numberAttribute } from '@angular/core';
 import { hlm } from '<%- importAlias %>/utils';
 import type { ClassValue } from 'clsx';
@@ -27,25 +28,25 @@ import { NgxSonnerToaster, type ToasterProps } from 'ngx-sonner';
 	`,
 })
 export class HlmToaster {
-	public readonly invert = input<ToasterProps['invert'], boolean | string>(false, {
+	public readonly invert = input<ToasterProps['invert'], BooleanInput>(false, {
 		transform: booleanAttribute,
 	});
 	public readonly theme = input<ToasterProps['theme']>('light');
 	public readonly position = input<ToasterProps['position']>('bottom-right');
 	public readonly hotKey = input<ToasterProps['hotkey']>(['altKey', 'KeyT']);
-	public readonly richColors = input<ToasterProps['richColors'], boolean | string>(false, {
+	public readonly richColors = input<ToasterProps['richColors'], BooleanInput>(false, {
 		transform: booleanAttribute,
 	});
-	public readonly expand = input<ToasterProps['expand'], boolean | string>(false, {
+	public readonly expand = input<ToasterProps['expand'], BooleanInput>(false, {
 		transform: booleanAttribute,
 	});
-	public readonly duration = input<ToasterProps['duration'], number | string>(4000, {
+	public readonly duration = input<ToasterProps['duration'], NumberInput>(4000, {
 		transform: numberAttribute,
 	});
-	public readonly visibleToasts = input<ToasterProps['visibleToasts'], number | string>(3, {
+	public readonly visibleToasts = input<ToasterProps['visibleToasts'], NumberInput>(3, {
 		transform: numberAttribute,
 	});
-	public readonly closeButton = input<ToasterProps['closeButton'], boolean | string>(false, {
+	public readonly closeButton = input<ToasterProps['closeButton'], BooleanInput>(false, {
 		transform: booleanAttribute,
 	});
 	public readonly toastOptions = input<ToasterProps['toastOptions']>({});

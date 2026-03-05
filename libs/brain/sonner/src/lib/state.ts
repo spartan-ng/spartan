@@ -1,5 +1,5 @@
-import { signal, Type } from '@angular/core';
-import { ExternalToast, HeightT, PromiseData, PromiseT, ToastT, ToastTypes } from './types';
+import { signal, type Type } from '@angular/core';
+import type { ExternalToast, HeightT, PromiseData, PromiseT, ToastT, ToastTypes } from './types';
 
 let toastsCounter = 0;
 

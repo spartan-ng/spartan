@@ -1,3 +1,4 @@
+import type { BooleanInput } from '@angular/cdk/coercion';
 import { booleanAttribute, ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 @Component({
@@ -6,7 +7,7 @@ import { booleanAttribute, ChangeDetectionStrategy, Component, input } from '@an
 	template: `
 		<div class="sonner-loading-wrapper" [attr.data-visible]="isVisible()">
 			<div class="sonner-spinner">
-				@for (_ of bars; track $index) {
+				@for (_ of _bars; track $index) {
 					<div class="sonner-loading-bar"></div>
 				}
 			</div>
@@ -14,6 +15,6 @@ import { booleanAttribute, ChangeDetectionStrategy, Component, input } from '@an
 	`,
 })
 export class BrnSonnerLoader {
-	isVisible = input.required({ transform: booleanAttribute });
-	bars = Array(12).fill(0);
+	public readonly isVisible = input.required<boolean, BooleanInput>({ transform: booleanAttribute });
+	protected readonly _bars = Array(12).fill(0);
 }

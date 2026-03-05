@@ -1,5 +1,5 @@
 import { Directionality } from '@angular/cdk/bidi';
-import type { BooleanInput } from '@angular/cdk/coercion';
+import type { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import { isPlatformBrowser, NgTemplateOutlet } from '@angular/common';
 import {
 	afterNextRender,
@@ -32,43 +32,44 @@ import type { Position, Theme, ToasterProps } from './types';
 @Component({
 	selector: 'brn-sonner-toaster',
 	imports: [BrnSonnerToast, ToastFilterPipe, BrnSonnerIcon, BrnSonnerLoader, NgTemplateOutlet],
+	// eslint-disable-next-line @nx/workspace-avoid-component-styles
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	styleUrl: 'brn-toaster.css',
 	template: `
-		@if (toasts().length > 0) {
-			<section [attr.aria-label]="'Notifications ' + hotKeyLabel()" [tabIndex]="-1">
-				@for (pos of possiblePositions(); track pos) {
+		@if (_toasts().length > 0) {
+			<section [attr.aria-label]="'Notifications ' + _hotKeyLabel()" [tabIndex]="-1">
+				@for (pos of _possiblePositions(); track pos) {
 					<ol
 						#listRef
 						[tabIndex]="-1"
-						[class]="_class()"
+						[class]="userClass()"
 						data-sonner-toaster
-						[attr.data-theme]="actualTheme()"
+						[attr.data-theme]="_actualTheme()"
 						[attr.data-rich-colors]="richColors()"
 						[attr.dir]="direction()"
 						[attr.data-y-position]="pos.split('-')[0]"
 						[attr.data-x-position]="pos.split('-')[1]"
+						[style]="_toasterStyles()"
 						(blur)="handleBlur($event)"
 						(focus)="handleFocus($event)"
-						(mouseenter)="expanded.set(true)"
-						(mousemove)="expanded.set(true)"
+						(mouseenter)="_expanded.set(true)"
+						(mousemove)="_expanded.set(true)"
 						(mouseleave)="handleMouseLeave()"
 						(pointerdown)="handlePointerDown($event)"
-						(pointerup)="interacting.set(false)"
-						[style]="toasterStyles()"
+						(pointerup)="_interacting.set(false)"
 					>
-						@for (toast of toasts() | toastFilter: $index : pos; track toast.id) {
+						@for (toast of _toasts() | toastFilter: $index : pos; track toast.id) {
 							<brn-sonner-toast
 								[index]="$index"
 								[toast]="toast"
 								[invert]="invert()"
 								[visibleToasts]="visibleToasts()"
 								[closeButton]="closeButton()"
-								[interacting]="interacting()"
+								[interacting]="_interacting()"
 								[position]="pos"
 								[expandByDefault]="expand()"
-								[expanded]="expanded()"
+								[expanded]="_expanded()"
 								[actionButtonStyle]="toastOptions().actionButtonStyle"
 								[cancelButtonStyle]="toastOptions().cancelButtonStyle"
 								[class]="toastOptions().class ?? ''"
@@ -77,31 +78,31 @@ import type { Position, Theme, ToasterProps } from './types';
 								[duration]="toastOptions().duration ?? duration()"
 								[unstyled]="toastOptions().unstyled ?? false"
 							>
-								@if (loadingIcon(); as loadingIcon) {
+								@if (_loadingIcon(); as loadingIcon) {
 									<ng-container *ngTemplateOutlet="loadingIcon" loading-icon />
 								} @else {
 									<brn-sonner-loader [isVisible]="toast.type === 'loading'" loading-icon />
 								}
 
-								@if (successIcon(); as successIcon) {
+								@if (_successIcon(); as successIcon) {
 									<ng-container *ngTemplateOutlet="successIcon" success-icon />
 								} @else {
 									<brn-sonner-icon type="success" success-icon />
 								}
 
-								@if (errorIcon(); as errorIcon) {
+								@if (_errorIcon(); as errorIcon) {
 									<ng-container *ngTemplateOutlet="errorIcon" error-icon />
 								} @else {
 									<brn-sonner-icon type="error" error-icon />
 								}
 
-								@if (warningIcon(); as warningIcon) {
+								@if (_warningIcon(); as warningIcon) {
 									<ng-container *ngTemplateOutlet="warningIcon" warning-icon />
 								} @else {
 									<brn-sonner-icon type="warning" warning-icon />
 								}
 
-								@if (infoIcon(); as infoIcon) {
+								@if (_infoIcon(); as infoIcon) {
 									<ng-container *ngTemplateOutlet="infoIcon" info-icon />
 								} @else {
 									<brn-sonner-icon type="info" info-icon />
@@ -115,49 +116,49 @@ import type { Position, Theme, ToasterProps } from './types';
 	`,
 })
 export class BrnSonnerToaster {
-	private readonly platformId = inject(PLATFORM_ID);
+	private readonly _platformId = inject(PLATFORM_ID);
 	private readonly _config = injectBrnSonnerToasterConfig();
 	private readonly _document = inject(DOCUMENT);
 	private readonly _window = this._document.defaultView;
 	private readonly _dir = inject(Directionality);
 
-	toasts = toastState.toasts;
-	heights = toastState.heights;
-	reset = toastState.reset;
+	protected readonly _toasts = toastState.toasts;
+	private readonly _heights = toastState.heights;
+	private readonly _reset = toastState.reset;
 
-	invert = input<ToasterProps['invert'], BooleanInput>(false, {
+	public readonly invert = input<ToasterProps['invert'], BooleanInput>(false, {
 		transform: booleanAttribute,
 	});
-	theme = input<ToasterProps['theme']>('light');
-	position = input<ToasterProps['position']>('bottom-right');
-	hotKey = input<ToasterProps['hotkey']>(['altKey', 'KeyT']);
-	richColors = input<ToasterProps['richColors'], BooleanInput>(false, {
+	public readonly theme = input<ToasterProps['theme']>('light');
+	public readonly position = input<ToasterProps['position']>('bottom-right');
+	public readonly hotKey = input<ToasterProps['hotkey']>(['altKey', 'KeyT']);
+	public readonly richColors = input<ToasterProps['richColors'], BooleanInput>(false, {
 		transform: booleanAttribute,
 	});
-	expand = input<ToasterProps['expand'], BooleanInput>(false, {
+	public readonly expand = input<ToasterProps['expand'], BooleanInput>(false, {
 		transform: booleanAttribute,
 	});
-	duration = input<ToasterProps['duration'], number | string>(this._config.toastLifetime, {
+	public readonly duration = input<ToasterProps['duration'], NumberInput>(this._config.toastLifetime, {
 		transform: numberAttribute,
 	});
-	visibleToasts = input<ToasterProps['visibleToasts'], number | string>(this._config.visibleToastsAmount, {
+	public readonly visibleToasts = input<ToasterProps['visibleToasts'], NumberInput>(this._config.visibleToastsAmount, {
 		transform: numberAttribute,
 	});
-	closeButton = input<ToasterProps['closeButton'], BooleanInput>(false, {
+	public readonly closeButton = input<ToasterProps['closeButton'], BooleanInput>(false, {
 		transform: booleanAttribute,
 	});
-	toastOptions = input<ToasterProps['toastOptions']>({});
-	offset = input<ToasterProps['offset']>(null);
-	_class = input('', { alias: 'class' });
-	_style = input<Record<string, string>>({}, { alias: 'style' });
+	public readonly toastOptions = input<ToasterProps['toastOptions']>({});
+	public readonly offset = input<ToasterProps['offset']>(null);
+	public readonly userClass = input('', { alias: 'class' });
+	public readonly style = input<Record<string, string>>({});
 
-	possiblePositions = computed(
+	protected readonly _possiblePositions = computed(
 		() =>
 			Array.from(
 				new Set(
 					[
 						this.position(),
-						...this.toasts()
+						...this._toasts()
 							.filter((toast) => toast.position)
 							.map((toast) => toast.position),
 					].filter(Boolean),
@@ -165,42 +166,42 @@ export class BrnSonnerToaster {
 			) as Position[],
 	);
 
-	expanded = linkedSignal({
-		source: this.toasts,
+	protected readonly _expanded = linkedSignal({
+		source: this._toasts,
 		computation: (toasts) => toasts.length < 1,
 	});
-	actualTheme = linkedSignal({
+	protected readonly _actualTheme = linkedSignal({
 		source: this.theme,
 		computation: (newTheme) => this.getActualTheme(newTheme),
 	});
-	interacting = signal(false);
+	protected readonly _interacting = signal(false);
 
 	/** internal **/
 	public readonly direction = this._dir.valueSignal;
 
-	listRef = viewChild<ElementRef<HTMLOListElement>>('listRef');
-	lastFocusedElementRef = signal<HTMLElement | null>(null);
-	isFocusWithinRef = signal(false);
+	private readonly _listRef = viewChild<ElementRef<HTMLOListElement>>('listRef');
+	private readonly _lastFocusedElementRef = signal<HTMLElement | null>(null);
+	private readonly _isFocusWithinRef = signal(false);
 
-	hotKeyLabel = computed(() => this.hotKey().join('+').replace(/Key/g, '').replace(/Digit/g, ''));
+	protected readonly _hotKeyLabel = computed(() => this.hotKey().join('+').replace(/Key/g, '').replace(/Digit/g, ''));
 
-	toasterStyles = computed(() => ({
-		'--front-toast-height': `${this.heights()[0]?.height}px`,
+	protected readonly _toasterStyles = computed(() => ({
+		'--front-toast-height': `${this._heights()[0]?.height}px`,
 		'--offset':
 			typeof this.offset() === 'number' ? `${this.offset()}px` : (this.offset() ?? `${this._config.viewPortOffset}`),
 		'--width': `${this._config.toastWidth}px`,
 		'--gap': `${this._config.gap}px`,
-		...this._style(),
+		...this.style(),
 	}));
 
-	loadingIcon = contentChild('loadingIcon', { read: TemplateRef });
-	successIcon = contentChild('successIcon', { read: TemplateRef });
-	errorIcon = contentChild('errorIcon', { read: TemplateRef });
-	warningIcon = contentChild('warningIcon', { read: TemplateRef });
-	infoIcon = contentChild('infoIcon', { read: TemplateRef });
+	protected readonly _loadingIcon = contentChild('loadingIcon', { read: TemplateRef });
+	protected readonly _successIcon = contentChild('successIcon', { read: TemplateRef });
+	protected readonly _errorIcon = contentChild('errorIcon', { read: TemplateRef });
+	protected readonly _warningIcon = contentChild('warningIcon', { read: TemplateRef });
+	protected readonly _infoIcon = contentChild('infoIcon', { read: TemplateRef });
 
 	constructor() {
-		this.reset();
+		this._reset();
 
 		const destroyRef = inject(DestroyRef);
 
@@ -226,11 +227,11 @@ export class BrnSonnerToaster {
 	}
 
 	handleBlur(event: FocusEvent) {
-		if (this.isFocusWithinRef() && !(event.target as HTMLOListElement).contains(event.relatedTarget as HTMLElement)) {
-			this.isFocusWithinRef.set(false);
-			if (this.lastFocusedElementRef()) {
-				this.lastFocusedElementRef()?.focus({ preventScroll: true });
-				this.lastFocusedElementRef.set(null);
+		if (this._isFocusWithinRef() && !(event.target as HTMLOListElement).contains(event.relatedTarget as HTMLElement)) {
+			this._isFocusWithinRef.set(false);
+			if (this._lastFocusedElementRef()) {
+				this._lastFocusedElementRef()?.focus({ preventScroll: true });
+				this._lastFocusedElementRef.set(null);
 			}
 		}
 	}
@@ -240,9 +241,9 @@ export class BrnSonnerToaster {
 
 		if (isNotDismissible) return;
 
-		if (!this.isFocusWithinRef()) {
-			this.isFocusWithinRef.set(true);
-			this.lastFocusedElementRef.set(event.relatedTarget as HTMLElement);
+		if (!this._isFocusWithinRef()) {
+			this._isFocusWithinRef.set(true);
+			this._lastFocusedElementRef.set(event.relatedTarget as HTMLElement);
 		}
 	}
 
@@ -250,34 +251,34 @@ export class BrnSonnerToaster {
 		const isNotDismissible = event.target instanceof HTMLElement && event.target.dataset['dismissible'] === 'false';
 
 		if (isNotDismissible) return;
-		this.interacting.set(true);
+		this._interacting.set(true);
 	}
 
 	handleMouseLeave() {
-		if (!this.interacting()) {
-			this.expanded.set(false);
+		if (!this._interacting()) {
+			this._expanded.set(false);
 		}
 	}
 
-	private handleKeydown = (event: KeyboardEvent) => {
-		const listRef = this.listRef()?.nativeElement;
+	private readonly handleKeydown = (event: KeyboardEvent) => {
+		const listRef = this._listRef()?.nativeElement;
 		if (!listRef) return;
 
 		const isHotkeyPressed = this.hotKey().every((key) => (event as never)[key] || event.code === key);
 
 		if (isHotkeyPressed) {
-			this.expanded.set(true);
+			this._expanded.set(true);
 			listRef.focus();
 		}
 
 		if (event.code === 'Escape' && (document.activeElement === listRef || listRef.contains(document.activeElement))) {
-			this.expanded.set(false);
+			this._expanded.set(false);
 		}
 	};
 
-	private handleThemePreferenceChange = ({ matches }: MediaQueryListEvent) => {
+	private readonly handleThemePreferenceChange = ({ matches }: MediaQueryListEvent) => {
 		if (this.theme() === 'system') {
-			this.actualTheme.set(matches ? 'dark' : 'light');
+			this._actualTheme.set(matches ? 'dark' : 'light');
 		}
 	};
 
@@ -286,7 +287,7 @@ export class BrnSonnerToaster {
 			return theme;
 		}
 
-		if (isPlatformBrowser(this.platformId) && this._window) {
+		if (isPlatformBrowser(this._platformId) && this._window) {
 			const prefersDark = this._window.matchMedia?.('(prefers-color-scheme: dark)').matches;
 			return prefersDark ? 'dark' : 'light';
 		}

@@ -1,4 +1,4 @@
-import { ToastClassnames } from '../types';
+import type { ToastClassnames } from '../types';
 
 export const defaultClasses: ToastClassnames = {
 	toast: '',

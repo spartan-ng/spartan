@@ -1,7 +1,7 @@
 import { NgComponentOutlet } from '@angular/common';
 import {
 	afterRenderEffect,
-	AfterViewInit,
+	type AfterViewInit,
 	ChangeDetectionStrategy,
 	Component,
 	computed,
@@ -9,7 +9,7 @@ import {
 	ElementRef,
 	input,
 	linkedSignal,
-	OnDestroy,
+	type OnDestroy,
 	signal,
 	viewChild,
 } from '@angular/core';
@@ -19,7 +19,7 @@ import { defaultClasses } from './internal/constants';
 import { AsComponentPipe } from './pipes/as-component.pipe';
 import { IsStringPipe } from './pipes/is-string.pipe';
 import { toastState } from './state';
-import { ToastProps } from './types';
+import type { ToastProps } from './types';
 
 @Component({
 	selector: 'brn-sonner-toast',
@@ -33,34 +33,34 @@ import { ToastProps } from './types';
 			aria-atomic="true"
 			role="status"
 			tabindex="0"
-			[class]="toastClasses()"
+			[class]="_toastClasses()"
 			[attr.data-styled]="!(toast().component || toast().unstyled || unstyled())"
-			[attr.data-mounted]="mounted()"
+			[attr.data-mounted]="_mounted()"
 			[attr.data-promise]="!!toast().promise"
-			[attr.data-removed]="removed()"
-			[attr.data-visible]="isVisible()"
-			[attr.data-y-position]="coords()[0]"
-			[attr.data-x-position]="coords()[1]"
+			[attr.data-removed]="_removed()"
+			[attr.data-visible]="_isVisible()"
+			[attr.data-y-position]="_coords()[0]"
+			[attr.data-x-position]="_coords()[1]"
 			[attr.data-index]="index()"
-			[attr.data-front]="isFront()"
-			[attr.data-swiping]="swiping()"
+			[attr.data-front]="_isFront()"
+			[attr.data-swiping]="_swiping()"
 			[attr.data-dismissible]="toast().dismissible"
-			[attr.data-type]="toastType()"
-			[attr.data-invert]="invert()"
-			[attr.data-swipe-out]="swipeOut()"
-			[attr.data-expanded]="expanded() || (expandByDefault() && mounted())"
-			[style]="toastStyle()"
+			[attr.data-type]="_toastType()"
+			[attr.data-invert]="_invert()"
+			[attr.data-swipe-out]="_swipeOut()"
+			[attr.data-expanded]="expanded() || (expandByDefault() && _mounted())"
+			[style]="_toastStyle()"
 			(pointerdown)="onPointerDown($event)"
 			(pointerup)="onPointerUp()"
 			(pointermove)="onPointerMove($event)"
 		>
-			@if (closeButton() && !toast().component) {
+			@if (_closeButton() && !toast().component) {
 				<button
 					aria-label="Close toast"
-					[attr.data-disabled]="disabled()"
+					[attr.data-disabled]="_disabled()"
 					data-close-button
 					(click)="onCloseButtonClick()"
-					[class]="cn(classes().closeButton, toast().classes?.closeButton)"
+					[class]="_cn(_classes().closeButton, toast().classes?.closeButton)"
 				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -82,15 +82,15 @@ import { ToastProps } from './types';
 			@if (toast().component) {
 				<ng-container *ngComponentOutlet="toast().component | asComponent; inputs: toast().componentProps" />
 			} @else {
-				@if (toastType() !== 'default' || toast().icon || toast().promise) {
+				@if (_toastType() !== 'default' || toast().icon || toast().promise) {
 					<div data-icon>
-						@if (toastType() === 'loading' && !toast().icon) {
+						@if (_toastType() === 'loading' && !toast().icon) {
 							<ng-content select="[loading-icon]" />
 						}
 						@if (toast().icon) {
 							<ng-container *ngComponentOutlet="toast().icon | asComponent; inputs: toast().componentProps" />
 						} @else {
-							@switch (toastType()) {
+							@switch (_toastType()) {
 								@case ('success') {
 									<ng-content select="[success-icon]" />
 								}
@@ -109,7 +109,7 @@ import { ToastProps } from './types';
 				}
 				<div data-content>
 					@if (toast().title; as title) {
-						<div data-title [class]="cn(classes().title, toast().classes?.title)">
+						<div data-title [class]="_cn(_classes().title, toast().classes?.title)">
 							@if (title | isString) {
 								{{ toast().title }}
 							} @else {
@@ -121,7 +121,7 @@ import { ToastProps } from './types';
 						<div
 							data-description
 							[class]="
-								cn(descriptionClass(), toastDescriptionClass(), classes().description, toast().classes?.description)
+								_cn(descriptionClass(), _toastDescriptionClass(), _classes().description, toast().classes?.description)
 							"
 						>
 							@if (description | isString) {
@@ -137,7 +137,7 @@ import { ToastProps } from './types';
 						data-button
 						data-cancel
 						[style]="cancelButtonStyle() ?? toast().cancelButtonStyle"
-						[class]="cn(classes().cancelButton, toast().classes?.cancelButton)"
+						[class]="_cn(_classes().cancelButton, toast().classes?.cancelButton)"
 						(click)="onCancelClick()"
 					>
 						{{ cancel.label }}
@@ -147,7 +147,7 @@ import { ToastProps } from './types';
 					<button
 						data-button
 						[style]="actionButtonStyle() ?? toast().actionButtonStyle"
-						[class]="cn(classes().actionButton, toast().classes?.actionButton)"
+						[class]="_cn(_classes().actionButton, toast().classes?.actionButton)"
 						(click)="onActionClick($event)"
 					>
 						{{ action.label }}
@@ -160,106 +160,106 @@ import { ToastProps } from './types';
 export class BrnSonnerToast implements AfterViewInit, OnDestroy {
 	private readonly _config = injectBrnSonnerToasterConfig();
 
-	protected readonly cn = cn;
+	protected readonly _cn = cn;
 
-	toasts = computed(() => toastState.toasts().filter((t) => t.position === this.position()));
-	heights = computed(() => toastState.heights().filter((h) => h.position === this.position()));
-	removeHeight = toastState.removeHeight;
-	addHeight = toastState.addHeight;
-	dismiss = toastState.dismiss;
+	protected readonly _toasts = computed(() => toastState.toasts().filter((t) => t.position === this.position()));
+	protected readonly _heights = computed(() => toastState.heights().filter((h) => h.position === this.position()));
+	protected readonly _removeHeight = toastState.removeHeight;
+	protected readonly _addHeight = toastState.addHeight;
+	protected readonly _dismiss = toastState.dismiss;
 
-	toast = input.required<ToastProps['toast']>();
-	index = input.required<ToastProps['index']>();
-	expanded = input.required<ToastProps['expanded']>();
-	_invert = input.required<ToastProps['invert']>({ alias: 'invert' });
-	position = input.required<ToastProps['position']>();
-	visibleToasts = input.required<ToastProps['visibleToasts']>();
-	expandByDefault = input.required<ToastProps['expandByDefault']>();
-	_closeButton = input.required<ToastProps['closeButton']>({
-		alias: 'closeButton',
-	});
-	interacting = input.required<ToastProps['interacting']>();
-	cancelButtonStyle = input<ToastProps['cancelButtonStyle']>();
-	actionButtonStyle = input<ToastProps['actionButtonStyle']>();
-	duration = input<ToastProps['duration']>(this._config.toastLifetime);
-	descriptionClass = input<ToastProps['descriptionClass']>('');
-	_classes = input<ToastProps['classes']>({}, { alias: 'classes' });
-	unstyled = input<ToastProps['unstyled']>(false);
-	_class = input('', { alias: 'class' });
-	_style = input<Record<string, string>>({}, { alias: 'style' });
+	public readonly toast = input.required<ToastProps['toast']>();
+	public readonly index = input.required<ToastProps['index']>();
+	public readonly expanded = input.required<ToastProps['expanded']>();
+	public readonly invert = input.required<ToastProps['invert']>();
+	public readonly position = input.required<ToastProps['position']>();
+	public readonly visibleToasts = input.required<ToastProps['visibleToasts']>();
+	public readonly expandByDefault = input.required<ToastProps['expandByDefault']>();
+	public readonly closeButton = input.required<ToastProps['closeButton']>();
+	public readonly interacting = input.required<ToastProps['interacting']>();
+	public readonly cancelButtonStyle = input<ToastProps['cancelButtonStyle']>();
+	public readonly actionButtonStyle = input<ToastProps['actionButtonStyle']>();
+	public readonly duration = input<ToastProps['duration']>(this._config.toastLifetime);
+	public readonly descriptionClass = input<ToastProps['descriptionClass']>('');
+	public readonly classes = input<ToastProps['classes']>({});
+	public readonly unstyled = input<ToastProps['unstyled']>(false);
+	public readonly userClass = input('', { alias: 'class' });
+	public readonly style = input<Record<string, string>>({});
 
-	mounted = signal(false);
-	removed = signal(false);
-	swiping = signal(false);
-	swipeOut = signal(false);
-	offsetBeforeRemove = signal(0);
-	initialHeight = signal(0);
+	protected readonly _mounted = signal(false);
+	protected readonly _removed = signal(false);
+	protected readonly _swiping = signal(false);
+	protected readonly _swipeOut = signal(false);
+	private readonly _offsetBeforeRemove = signal(0);
+	private readonly _initialHeight = signal(0);
 
-	toastRef = viewChild.required<ElementRef<HTMLLIElement>>('toastRef');
+	private readonly _toastRef = viewChild.required<ElementRef<HTMLLIElement>>('toastRef');
 
-	classes: any = computed(() => ({
+	protected readonly _classes = computed(() => ({
 		...defaultClasses,
-		...this._classes(),
+		...this.classes(),
 	}));
 
-	isFront = computed(() => this.index() === 0);
-	isVisible = computed(() => this.index() + 1 <= this.visibleToasts());
-	toastType = computed(() => this.toast().type ?? 'default');
-	toastClass = computed(() => this.toast().class ?? '');
-	toastPosition = computed(() => this.toast().position ?? this.position());
-	toastDescriptionClass = computed(() => this.toast().descriptionClass ?? '');
+	protected readonly _isFront = computed(() => this.index() === 0);
+	protected readonly _isVisible = computed(() => this.index() + 1 <= this.visibleToasts());
+	protected readonly _toastType = computed(() => this.toast().type ?? 'default');
+	private readonly _toastClass = computed(() => this.toast().class ?? '');
+	private readonly _toastPosition = computed(() => this.toast().position ?? this.position());
+	protected readonly _toastDescriptionClass = computed(() => this.toast().descriptionClass ?? '');
 
-	heightIndex = computed(() => this.heights().findIndex((height) => height.toastId === this.toast().id));
+	private readonly _heightIndex = computed(() =>
+		this._heights().findIndex((height) => height.toastId === this.toast().id),
+	);
 
-	offset = linkedSignal({
+	private readonly _offset = linkedSignal({
 		source: () => ({
-			heightIndex: this.heightIndex(),
-			toastsHeightBefore: this.toastsHeightBefore(),
+			heightIndex: this._heightIndex(),
+			toastsHeightBefore: this._toastsHeightBefore(),
 		}),
 		computation: ({ heightIndex, toastsHeightBefore }) =>
 			Math.round(heightIndex * this._config.gap + toastsHeightBefore),
 	});
 
-	closeTimerStartTimeRef = 0;
-	lastCloseTimerStartTimeRef = 0;
-	pointerStartRef: { x: number; y: number } | null = null;
+	private _closeTimerStartTimeRef = 0;
+	private _lastCloseTimerStartTimeRef = 0;
+	private _pointerStartRef: { x: number; y: number } | null = null;
 
-	coords = computed(() => this.toastPosition().split('-'));
-	toastsHeightBefore = computed(() =>
-		this.heights().reduce((prev, curr, reducerIndex) => {
-			if (reducerIndex >= this.heightIndex()) return prev;
+	protected readonly _coords = computed(() => this._toastPosition().split('-'));
+	private readonly _toastsHeightBefore = computed(() =>
+		this._heights().reduce((prev, curr, reducerIndex) => {
+			if (reducerIndex >= this._heightIndex()) return prev;
 			return prev + curr.height;
 		}, 0),
 	);
-	invert = computed(() => this.toast().invert ?? this._invert());
-	closeButton = computed(() => this.toast().closeButton ?? this._closeButton());
-	disabled = computed(() => this.toastType() === 'loading');
+	protected readonly _invert = computed(() => this.toast().invert ?? this.invert());
+	protected readonly _closeButton = computed(() => this.toast().closeButton ?? this.closeButton());
+	protected readonly _disabled = computed(() => this._toastType() === 'loading');
 
-	timeoutId: ReturnType<typeof setTimeout> | undefined;
-	remainingTime = 0;
+	private _timeoutId: ReturnType<typeof setTimeout> | undefined;
+	private _remainingTime = 0;
 
-	isPromiseLoadingOrInfiniteDuration = computed(
+	private readonly _isPromiseLoadingOrInfiniteDuration = computed(
 		() =>
-			(this.toast().promise && this.toastType() === 'loading') || this.toast().duration === Number.POSITIVE_INFINITY,
+			(this.toast().promise && this._toastType() === 'loading') || this.toast().duration === Number.POSITIVE_INFINITY,
 	);
 
-	toastClasses = computed(() =>
-		cn(
-			this._class(),
-			this.toastClass(),
-			this.classes().toast,
+	protected readonly _toastClasses = computed(() =>
+		this._cn(
+			this.userClass(),
+			this._toastClass(),
+			this._classes().toast,
 			this.toast().classes?.toast,
-			this.classes()[this.toastType()],
-			this.toast().classes?.[this.toastType()],
+			this._classes()[this._toastType()],
+			this.toast().classes?.[this._toastType()],
 		),
 	);
-	toastStyle = computed(() => ({
+	protected readonly _toastStyle = computed(() => ({
 		'--index': `${this.index()}`,
 		'--toasts-before': `${this.index()}`,
-		'--z-index': `${this.toasts().length - this.index()}`,
-		'--offset': `${this.removed() ? this.offsetBeforeRemove() : this.offset()}px`,
-		'--initial-height': this.expandByDefault() ? 'auto' : `${this.initialHeight()}px`,
-		...this._style(),
+		'--z-index': `${this._toasts().length - this.index()}`,
+		'--offset': `${this._removed() ? this._offsetBeforeRemove() : this._offset()}px`,
+		'--initial-height': this.expandByDefault() ? 'auto' : `${this._initialHeight()}px`,
+		...this.style(),
 	}));
 
 	constructor() {
@@ -268,14 +268,14 @@ export class BrnSonnerToast implements AfterViewInit, OnDestroy {
 				// if the toast has been updated after the initial render,
 				// we want to reset the timer and set the remaining time to the
 				// new duration
-				clearTimeout(this.timeoutId);
-				this.remainingTime = this.toast().duration ?? this.duration() ?? this._config.toastLifetime;
+				clearTimeout(this._timeoutId);
+				this._remainingTime = this.toast().duration ?? this.duration() ?? this._config.toastLifetime;
 				this.startTimer();
 			}
 		});
 
 		afterRenderEffect((onCleanup) => {
-			if (!this.isPromiseLoadingOrInfiniteDuration()) {
+			if (!this._isPromiseLoadingOrInfiniteDuration()) {
 				if (this.expanded() || this.interacting()) {
 					this.pauseTimer();
 				} else {
@@ -283,7 +283,7 @@ export class BrnSonnerToast implements AfterViewInit, OnDestroy {
 				}
 			}
 
-			onCleanup(() => clearTimeout(this.timeoutId));
+			onCleanup(() => clearTimeout(this._timeoutId));
 		});
 
 		effect(() => {
@@ -294,26 +294,26 @@ export class BrnSonnerToast implements AfterViewInit, OnDestroy {
 	}
 
 	ngAfterViewInit() {
-		this.remainingTime = this.toast().duration ?? this.duration() ?? this._config.toastLifetime;
-		this.mounted.set(true);
-		const height = this.toastRef().nativeElement.getBoundingClientRect().height;
-		this.initialHeight.set(height);
-		this.addHeight({ toastId: this.toast().id, height, position: this.toastPosition() });
+		this._remainingTime = this.toast().duration ?? this.duration() ?? this._config.toastLifetime;
+		this._mounted.set(true);
+		const height = this._toastRef().nativeElement.getBoundingClientRect().height;
+		this._initialHeight.set(height);
+		this._addHeight({ toastId: this.toast().id, height, position: this._toastPosition() });
 	}
 
 	ngOnDestroy() {
-		clearTimeout(this.timeoutId);
-		this.removeHeight(this.toast().id);
+		clearTimeout(this._timeoutId);
+		this._removeHeight(this.toast().id);
 	}
 
 	deleteToast() {
-		this.removed.set(true);
-		this.offsetBeforeRemove.set(this.offset());
+		this._removed.set(true);
+		this._offsetBeforeRemove.set(this._offset());
 
-		this.removeHeight(this.toast().id);
+		this._removeHeight(this.toast().id);
 
 		setTimeout(() => {
-			this.dismiss(this.toast().id);
+			this._dismiss(this.toast().id);
 		}, this._config.timeBeforeUnmount);
 	}
 
@@ -323,81 +323,81 @@ export class BrnSonnerToast implements AfterViewInit, OnDestroy {
 
 	// Pause the timer on each hover
 	pauseTimer() {
-		if (this.lastCloseTimerStartTimeRef < this.closeTimerStartTimeRef) {
+		if (this._lastCloseTimerStartTimeRef < this._closeTimerStartTimeRef) {
 			// Get the elapsed time since the timer started
-			const elapsedTime = new Date().getTime() - this.closeTimerStartTimeRef;
-			this.remainingTime = this.remainingTime - elapsedTime;
+			const elapsedTime = new Date().getTime() - this._closeTimerStartTimeRef;
+			this._remainingTime = this._remainingTime - elapsedTime;
 		}
 
-		this.lastCloseTimerStartTimeRef = new Date().getTime();
+		this._lastCloseTimerStartTimeRef = new Date().getTime();
 	}
 
 	startTimer() {
-		this.closeTimerStartTimeRef = new Date().getTime();
+		this._closeTimerStartTimeRef = new Date().getTime();
 		// Let the toast know it has started
-		this.timeoutId = setTimeout(() => {
+		this._timeoutId = setTimeout(() => {
 			this.toast().onAutoClose?.(this.toast());
 			this.deleteToast();
-		}, this.remainingTime);
+		}, this._remainingTime);
 	}
 
 	onPointerDown(event: PointerEvent) {
-		if (this.disabled() || !this.toast().dismissible) return;
+		if (this._disabled() || !this.toast().dismissible) return;
 
-		this.offsetBeforeRemove.set(this.offset());
+		this._offsetBeforeRemove.set(this._offset());
 		const target = event.target as HTMLElement;
 		// Ensure we maintain correct pointer capture even when going outside the toast (e.g. when swiping)
 		target.setPointerCapture(event.pointerId);
 		if (target.tagName === 'BUTTON') {
 			return;
 		}
-		this.swiping.set(true);
-		this.pointerStartRef = { x: event.clientX, y: event.clientY };
+		this._swiping.set(true);
+		this._pointerStartRef = { x: event.clientX, y: event.clientY };
 	}
 
 	onPointerUp() {
-		if (this.swipeOut() || !this.toast().dismissible) return;
+		if (this._swipeOut() || !this.toast().dismissible) return;
 
-		this.pointerStartRef = null;
+		this._pointerStartRef = null;
 		const swipeAmount = Number(
-			this.toastRef().nativeElement.style.getPropertyValue('--swipe-amount').replace('px', '') || 0,
+			this._toastRef().nativeElement.style.getPropertyValue('--swipe-amount').replace('px', '') || 0,
 		);
 
 		// Remove only if threshold is met
 		if (Math.abs(swipeAmount) >= this._config.swipeThreshold) {
-			this.offsetBeforeRemove.set(this.offset());
+			this._offsetBeforeRemove.set(this._offset());
 			this.toast().onDismiss?.(this.toast());
 			this.deleteToast();
-			this.swipeOut.set(true);
+			this._swipeOut.set(true);
 			return;
 		}
 
-		this.toastRef().nativeElement.style.setProperty('--swipe-amount', '0px');
-		this.swiping.set(false);
+		this._toastRef().nativeElement.style.setProperty('--swipe-amount', '0px');
+		this._swiping.set(false);
 	}
 
 	onPointerMove(event: PointerEvent) {
-		if (!this.pointerStartRef || !this.toast().dismissible) return;
+		if (!this._pointerStartRef || !this.toast().dismissible) return;
 
-		const yPosition = event.clientY - this.pointerStartRef.y;
-		const xPosition = event.clientX - this.pointerStartRef.x;
+		const yPosition = event.clientY - this._pointerStartRef.y;
+		const xPosition = event.clientX - this._pointerStartRef.x;
 
-		const clamp = this.coords()[0] === 'top' ? Math.min : Math.max;
+		const clamp = this._coords()[0] === 'top' ? Math.min : Math.max;
 		const clampedY = clamp(0, yPosition);
 		const swipeStartThreshold = event.pointerType === 'touch' ? 10 : 2;
 		const isAllowedToSwipe = Math.abs(clampedY) > swipeStartThreshold;
 
 		if (isAllowedToSwipe) {
-			this.toastRef().nativeElement.style.setProperty('--swipe-amount', `${yPosition}px`);
+			this._toastRef().nativeElement.style.setProperty('--swipe-amount', `${yPosition}px`);
 		} else if (Math.abs(xPosition) > swipeStartThreshold) {
 			// User is swiping in wrong direction, so we disable swipe gesture
 			// for the current pointer down interaction
-			this.pointerStartRef = null;
+			this._pointerStartRef = null;
 		}
 	}
 
 	onCloseButtonClick() {
-		if (this.disabled() || !this.toast().dismissible) return;
+		if (this._disabled() || !this.toast().dismissible) return;
 		this.deleteToast();
 		this.toast().onDismiss?.(this.toast());
 	}

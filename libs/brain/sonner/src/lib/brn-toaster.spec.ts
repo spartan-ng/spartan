@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { noop } from 'rxjs';
 import { BrnSonnerToaster } from './brn-toaster';
 import { toast, toastState } from './state';
-import { ToasterProps } from './types';
+import type { ToasterProps } from './types';
 
 type ToastFn = (t: typeof toast) => void;
 
@@ -44,9 +44,9 @@ export type ToastTestInputs = {
 	`,
 })
 export class ToasterTestComponent {
-	callback = input.required<ToastTestInputs['callback']>();
-	theme = input<ToasterProps['theme']>('light');
-	closeButton = input<ToasterProps['closeButton']>(false);
+	public readonly callback = input.required<ToastTestInputs['callback']>();
+	public readonly theme = input<ToasterProps['theme']>('light');
+	public readonly closeButton = input<ToasterProps['closeButton']>(false);
 
 	onClick() {
 		this.callback()(toast);

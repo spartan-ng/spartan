@@ -1,4 +1,4 @@
-import { TemplateRef, Type } from '@angular/core';
+import type { TemplateRef, Type } from '@angular/core';
 
 export type Expand<T> = T extends object ? (T extends infer O ? { [K in keyof O]: O[K] } : never) : T;
 

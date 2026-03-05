@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { ToastTypes } from './types';
+import type { ToastTypes } from './types';
 
 @Component({
 	selector: 'brn-sonner-icon',
@@ -47,5 +47,5 @@ import { ToastTypes } from './types';
 	`,
 })
 export class BrnSonnerIcon {
-	type = input<ToastTypes>('default');
+	public readonly type = input<ToastTypes>('default');
 }

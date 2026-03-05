@@ -206,7 +206,7 @@ export class BrnSonnerToaster {
 		const destroyRef = inject(DestroyRef);
 
 		afterNextRender(() => {
-			document.addEventListener('keydown', this.handleKeydown);
+			this._document.addEventListener('keydown', this.handleKeydown);
 
 			const window = this._window;
 			if (window) {
@@ -216,7 +216,7 @@ export class BrnSonnerToaster {
 			}
 
 			destroyRef.onDestroy(() => {
-				document.removeEventListener('keydown', this.handleKeydown);
+				this._document.removeEventListener('keydown', this.handleKeydown);
 				if (window) {
 					window
 						.matchMedia('(prefers-color-scheme: dark)')
@@ -271,7 +271,10 @@ export class BrnSonnerToaster {
 			listRef.focus();
 		}
 
-		if (event.code === 'Escape' && (document.activeElement === listRef || listRef.contains(document.activeElement))) {
+		if (
+			event.code === 'Escape' &&
+			(this._document.activeElement === listRef || listRef.contains(this._document.activeElement))
+		) {
 			this._expanded.set(false);
 		}
 	};

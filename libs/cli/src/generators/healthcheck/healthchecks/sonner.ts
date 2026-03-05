@@ -6,8 +6,8 @@ export const sonnerHealthcheck: Healthcheck = {
 	name: 'Sonner',
 	async detect(tree, failure, _) {
 		visitNotIgnoredFiles(tree, '/', (file) => {
-			// if the file is a .ts or .htlm file
-			if (!file.endsWith('.ts') && !file.endsWith('.html')) {
+			// if the file is a .ts
+			if (!file.endsWith('.ts')) {
 				return;
 			}
 

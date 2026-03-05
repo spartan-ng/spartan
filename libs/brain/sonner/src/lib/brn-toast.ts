@@ -13,8 +13,9 @@ import {
 	signal,
 	viewChild,
 } from '@angular/core';
+import { injectBrnSonnerToasterConfig } from './brn-toaster.token';
 import { cn } from './internal/cn';
-import { defaultClasses, GAP, SWIPE_THRESHOLD, TIME_BEFORE_UNMOUNT, TOAST_LIFETIME } from './internal/constants';
+import { defaultClasses } from './internal/constants';
 import { AsComponentPipe } from './pipes/as-component.pipe';
 import { IsStringPipe } from './pipes/is-string.pipe';
 import { toastState } from './state';
@@ -157,6 +158,8 @@ import { ToastProps } from './types';
 	`,
 })
 export class BrnSonnerToast implements AfterViewInit, OnDestroy {
+	private readonly _config = injectBrnSonnerToasterConfig();
+
 	protected readonly cn = cn;
 
 	toasts = computed(() => toastState.toasts().filter((t) => t.position === this.position()));
@@ -178,7 +181,7 @@ export class BrnSonnerToast implements AfterViewInit, OnDestroy {
 	interacting = input.required<ToastProps['interacting']>();
 	cancelButtonStyle = input<ToastProps['cancelButtonStyle']>();
 	actionButtonStyle = input<ToastProps['actionButtonStyle']>();
-	duration = input<ToastProps['duration']>(TOAST_LIFETIME);
+	duration = input<ToastProps['duration']>(this._config.toastLifetime);
 	descriptionClass = input<ToastProps['descriptionClass']>('');
 	_classes = input<ToastProps['classes']>({}, { alias: 'classes' });
 	unstyled = input<ToastProps['unstyled']>(false);
@@ -213,7 +216,8 @@ export class BrnSonnerToast implements AfterViewInit, OnDestroy {
 			heightIndex: this.heightIndex(),
 			toastsHeightBefore: this.toastsHeightBefore(),
 		}),
-		computation: ({ heightIndex, toastsHeightBefore }) => Math.round(heightIndex * GAP + toastsHeightBefore),
+		computation: ({ heightIndex, toastsHeightBefore }) =>
+			Math.round(heightIndex * this._config.gap + toastsHeightBefore),
 	});
 
 	closeTimerStartTimeRef = 0;
@@ -265,7 +269,7 @@ export class BrnSonnerToast implements AfterViewInit, OnDestroy {
 				// we want to reset the timer and set the remaining time to the
 				// new duration
 				clearTimeout(this.timeoutId);
-				this.remainingTime = this.toast().duration ?? this.duration() ?? TOAST_LIFETIME;
+				this.remainingTime = this.toast().duration ?? this.duration() ?? this._config.toastLifetime;
 				this.startTimer();
 			}
 		});
@@ -290,7 +294,7 @@ export class BrnSonnerToast implements AfterViewInit, OnDestroy {
 	}
 
 	ngAfterViewInit() {
-		this.remainingTime = this.toast().duration ?? this.duration() ?? TOAST_LIFETIME;
+		this.remainingTime = this.toast().duration ?? this.duration() ?? this._config.toastLifetime;
 		this.mounted.set(true);
 		const height = this.toastRef().nativeElement.getBoundingClientRect().height;
 		this.initialHeight.set(height);
@@ -310,7 +314,7 @@ export class BrnSonnerToast implements AfterViewInit, OnDestroy {
 
 		setTimeout(() => {
 			this.dismiss(this.toast().id);
-		}, TIME_BEFORE_UNMOUNT);
+		}, this._config.timeBeforeUnmount);
 	}
 
 	// If toast's duration changes, it will be out of sync with the
@@ -360,7 +364,7 @@ export class BrnSonnerToast implements AfterViewInit, OnDestroy {
 		);
 
 		// Remove only if threshold is met
-		if (Math.abs(swipeAmount) >= SWIPE_THRESHOLD) {
+		if (Math.abs(swipeAmount) >= this._config.swipeThreshold) {
 			this.offsetBeforeRemove.set(this.offset());
 			this.toast().onDismiss?.(this.toast());
 			this.deleteToast();

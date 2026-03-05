@@ -21,7 +21,7 @@ import {
 import { BrnSonnerIcon } from './brn-icon';
 import { BrnSonnerLoader } from './brn-loader';
 import { BrnSonnerToast } from './brn-toast';
-import { GAP, TOAST_LIFETIME, TOAST_WIDTH, VIEWPORT_OFFSET, VISIBLE_TOASTS_AMOUNT } from './internal/constants';
+import { injectBrnSonnerToasterConfig } from './brn-toaster.token';
 import { ToastFilterPipe } from './pipes/toast-filter.pipe';
 import { toastState } from './state';
 import type { Position, Theme, ToasterProps } from './types';
@@ -113,6 +113,7 @@ import type { Position, Theme, ToasterProps } from './types';
 })
 export class BrnSonnerToaster implements OnDestroy {
 	private readonly platformId = inject(PLATFORM_ID);
+	private readonly _config = injectBrnSonnerToasterConfig();
 
 	toasts = toastState.toasts;
 	heights = toastState.heights;
@@ -130,10 +131,10 @@ export class BrnSonnerToaster implements OnDestroy {
 	expand = input<ToasterProps['expand'], BooleanInput>(false, {
 		transform: booleanAttribute,
 	});
-	duration = input<ToasterProps['duration'], number | string>(TOAST_LIFETIME, {
+	duration = input<ToasterProps['duration'], number | string>(this._config.toastLifetime, {
 		transform: numberAttribute,
 	});
-	visibleToasts = input<ToasterProps['visibleToasts'], number | string>(VISIBLE_TOASTS_AMOUNT, {
+	visibleToasts = input<ToasterProps['visibleToasts'], number | string>(this._config.visibleToastsAmount, {
 		transform: numberAttribute,
 	});
 	closeButton = input<ToasterProps['closeButton'], BooleanInput>(false, {
@@ -177,9 +178,10 @@ export class BrnSonnerToaster implements OnDestroy {
 
 	toasterStyles = computed(() => ({
 		'--front-toast-height': `${this.heights()[0]?.height}px`,
-		'--offset': typeof this.offset() === 'number' ? `${this.offset()}px` : (this.offset() ?? `${VIEWPORT_OFFSET}`),
-		'--width': `${TOAST_WIDTH}px`,
-		'--gap': `${GAP}px`,
+		'--offset':
+			typeof this.offset() === 'number' ? `${this.offset()}px` : (this.offset() ?? `${this._config.viewPortOffset}`),
+		'--width': `${this._config.toastWidth}px`,
+		'--gap': `${this._config.gap}px`,
 		...this._style(),
 	}));
 

@@ -11,8 +11,8 @@ export const sonnerHealthcheck: Healthcheck = {
 				return;
 			}
 
-			// skip hlm-toaser itself
-			if (file.endsWith('hlm-toaser.ts')) {
+			// skip hlm-toaster itself
+			if (file.endsWith('hlm-toaster.ts')) {
 				return;
 			}
 

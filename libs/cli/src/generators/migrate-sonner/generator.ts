@@ -11,7 +11,7 @@ export async function migrateSonnerGenerator(tree: Tree, { skipFormat }: Migrate
 }
 
 /**
- * Update imports, removes '@spartan-ng/brain/menu' and '@spartan-ng/helm/menu'
+ * Update imports, replace 'ngx-sonner' with '@spartan-ng/brain/sonner'
  */
 function updateImports(tree: Tree) {
 	visitFiles(tree, '/', (path) => {

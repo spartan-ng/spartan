@@ -4910,7 +4910,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "isVisible",
             "required": true,
-            "type": "unknown",
+            "type": "boolean",
           },
         ],
         "models": [],
@@ -4935,7 +4935,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "ToastProps['expanded']",
           },
           {
-            "name": "_invert",
+            "name": "invert",
             "required": true,
             "type": "ToastProps['invert']",
           },
@@ -4955,7 +4955,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "ToastProps['expandByDefault']",
           },
           {
-            "name": "_closeButton",
+            "name": "closeButton",
             "required": true,
             "type": "ToastProps['closeButton']",
           },
@@ -5067,11 +5067,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "ToasterProps['offset']",
           },
           {
-            "name": "dir",
-            "required": false,
-            "type": "ToasterProps['dir']",
-          },
-          {
             "name": "class",
             "required": false,
             "type": "unknown",
@@ -5144,11 +5139,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "name": "offset",
             "required": false,
             "type": "ToasterProps['offset']",
-          },
-          {
-            "name": "dir",
-            "required": false,
-            "type": "ToasterProps['dir']",
           },
           {
             "name": "class",

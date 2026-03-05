@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
+import { toast } from '@spartan-ng/brain/sonner';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmToasterImports } from '@spartan-ng/helm/sonner';
-import { toast } from 'ngx-sonner';
 
 @Component({
 	selector: 'spartan-sonner-preview',
@@ -24,7 +24,7 @@ export class SonnerPreview {
 }
 
 export const defaultImports = `
-import { toast } from 'ngx-sonner';
+import { toast } from '@spartan-ng/brain/sonner';
 `;
 export const defaultSkeleton = `
 toast('Event has been created.');

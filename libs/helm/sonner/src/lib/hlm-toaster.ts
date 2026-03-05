@@ -25,7 +25,6 @@ import type { ClassValue } from 'clsx';
 			[closeButton]="closeButton()"
 			[toastOptions]="toastOptions()"
 			[offset]="offset()"
-			[dir]="dir()"
 			[style]="userStyle()"
 		>
 			<ng-template #loadingIcon>
@@ -70,7 +69,6 @@ export class HlmToaster {
 	});
 	public readonly toastOptions = input<ToasterProps['toastOptions']>({});
 	public readonly offset = input<ToasterProps['offset']>(null);
-	public readonly dir = input<ToasterProps['dir']>('auto');
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	public readonly userStyle = input<Record<string, string>>(
 		{

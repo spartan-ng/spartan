@@ -210,13 +210,6 @@ export type ToasterProps = {
 	offset: string | number | null;
 
 	/**
-	 * Directionality of toast's text
-	 *
-	 * @default 'ltr'
-	 */
-	dir: 'ltr' | 'rtl' | 'auto';
-
-	/**
 	 * Gap between toasts when expanded, in pixels.
 	 *
 	 * @default '14px'

@@ -1,17 +1,20 @@
+import { Directionality } from '@angular/cdk/bidi';
 import type { BooleanInput } from '@angular/cdk/coercion';
 import { isPlatformBrowser, NgTemplateOutlet } from '@angular/common';
 import {
+	afterNextRender,
 	booleanAttribute,
 	ChangeDetectionStrategy,
 	Component,
 	computed,
 	contentChild,
+	DestroyRef,
+	DOCUMENT,
 	ElementRef,
 	inject,
 	input,
 	linkedSignal,
 	numberAttribute,
-	type OnDestroy,
 	PLATFORM_ID,
 	signal,
 	TemplateRef,
@@ -43,7 +46,7 @@ import type { Position, Theme, ToasterProps } from './types';
 						data-sonner-toaster
 						[attr.data-theme]="actualTheme()"
 						[attr.data-rich-colors]="richColors()"
-						[attr.dir]="dir() === 'auto' ? getDocumentDirection() : dir()"
+						[attr.dir]="direction()"
 						[attr.data-y-position]="pos.split('-')[0]"
 						[attr.data-x-position]="pos.split('-')[1]"
 						(blur)="handleBlur($event)"
@@ -111,9 +114,12 @@ import type { Position, Theme, ToasterProps } from './types';
 		}
 	`,
 })
-export class BrnSonnerToaster implements OnDestroy {
+export class BrnSonnerToaster {
 	private readonly platformId = inject(PLATFORM_ID);
 	private readonly _config = injectBrnSonnerToasterConfig();
+	private readonly _document = inject(DOCUMENT);
+	private readonly _window = this._document.defaultView;
+	private readonly _dir = inject(Directionality);
 
 	toasts = toastState.toasts;
 	heights = toastState.heights;
@@ -142,7 +148,6 @@ export class BrnSonnerToaster implements OnDestroy {
 	});
 	toastOptions = input<ToasterProps['toastOptions']>({});
 	offset = input<ToasterProps['offset']>(null);
-	dir = input<ToasterProps['dir']>(this.getDocumentDirection());
 	_class = input('', { alias: 'class' });
 	_style = input<Record<string, string>>({}, { alias: 'style' });
 
@@ -170,6 +175,9 @@ export class BrnSonnerToaster implements OnDestroy {
 	});
 	interacting = signal(false);
 
+	/** internal **/
+	public readonly direction = this._dir.valueSignal;
+
 	listRef = viewChild<ElementRef<HTMLOListElement>>('listRef');
 	lastFocusedElementRef = signal<HTMLElement | null>(null);
 	isFocusWithinRef = signal(false);
@@ -194,17 +202,27 @@ export class BrnSonnerToaster implements OnDestroy {
 	constructor() {
 		this.reset();
 
-		if (isPlatformBrowser(this.platformId)) {
-			document.addEventListener('keydown', this.handleKeydown);
-			window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', this.handleThemePreferenceChange);
-		}
-	}
+		const destroyRef = inject(DestroyRef);
 
-	ngOnDestroy() {
-		if (isPlatformBrowser(this.platformId)) {
-			document.removeEventListener('keydown', this.handleKeydown);
-			window.matchMedia('(prefers-color-scheme: dark)').removeEventListener('change', this.handleThemePreferenceChange);
-		}
+		afterNextRender(() => {
+			document.addEventListener('keydown', this.handleKeydown);
+
+			const window = this._window;
+			if (window) {
+				this._window
+					.matchMedia('(prefers-color-scheme: dark)')
+					.addEventListener('change', this.handleThemePreferenceChange);
+			}
+
+			destroyRef.onDestroy(() => {
+				document.removeEventListener('keydown', this.handleKeydown);
+				if (window) {
+					window
+						.matchMedia('(prefers-color-scheme: dark)')
+						.removeEventListener('change', this.handleThemePreferenceChange);
+				}
+			});
+		});
 	}
 
 	handleBlur(event: FocusEvent) {
@@ -268,25 +286,11 @@ export class BrnSonnerToaster implements OnDestroy {
 			return theme;
 		}
 
-		if (isPlatformBrowser(this.platformId)) {
-			const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches;
+		if (isPlatformBrowser(this.platformId) && this._window) {
+			const prefersDark = this._window.matchMedia?.('(prefers-color-scheme: dark)').matches;
 			return prefersDark ? 'dark' : 'light';
 		}
 
 		return 'light';
-	}
-
-	getDocumentDirection(): ToasterProps['dir'] {
-		if (typeof window === 'undefined' || typeof document === 'undefined') {
-			return 'ltr';
-		}
-
-		const dirAttribute = document.documentElement.getAttribute('dir');
-
-		if (!dirAttribute || dirAttribute === 'auto') {
-			return window.getComputedStyle(document.documentElement).direction as ToasterProps['dir'];
-		}
-
-		return dirAttribute as ToasterProps['dir'];
 	}
 }

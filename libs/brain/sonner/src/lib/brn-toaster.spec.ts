@@ -10,7 +10,6 @@ type ToastFn = (t: typeof toast) => void;
 
 export type ToastTestInputs = {
 	callback: ToastFn;
-	dir?: ToasterProps['dir'];
 	theme?: ToasterProps['theme'];
 	closeButton?: ToasterProps['closeButton'];
 };
@@ -20,7 +19,7 @@ export type ToastTestInputs = {
 	imports: [BrnSonnerToaster],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<brn-sonner-toaster [dir]="dir()" [theme]="theme()" [closeButton]="closeButton()">
+		<brn-sonner-toaster [theme]="theme()" [closeButton]="closeButton()">
 			<ng-template #successIcon>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
@@ -46,7 +45,6 @@ export type ToastTestInputs = {
 })
 export class ToasterTestComponent {
 	callback = input.required<ToastTestInputs['callback']>();
-	dir = input<ToasterProps['dir']>('auto');
 	theme = input<ToasterProps['theme']>('light');
 	closeButton = input<ToasterProps['closeButton']>(false);
 
@@ -257,18 +255,6 @@ describe('Toaster', () => {
 		const actionButton = container.querySelector('[data-button]');
 		expect(actionButton).not.toBeNull();
 		expect(actionButton as Element).toHaveStyle('background-color: rgb(219, 239, 255)');
-	});
-
-	it('should reflect toaster dir correctly', async () => {
-		const { user, trigger, container } = await setup({
-			callback: (toast) => toast('Hello world'),
-			dir: 'rtl',
-		});
-
-		await user.click(trigger);
-		const toaster = container.querySelector('[data-sonner-toaster]');
-		expect(toaster).not.toBeNull();
-		expect(toaster as Element).toHaveAttribute('dir', 'rtl');
 	});
 
 	it('should reflect toaster dark theme correctly', async () => {

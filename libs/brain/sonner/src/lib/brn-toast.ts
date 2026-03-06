@@ -13,9 +13,8 @@ import {
 	signal,
 	viewChild,
 } from '@angular/core';
-import { injectBrnSonnerToasterConfig } from './brn-toaster.token';
-import { cn } from './internal/cn';
-import { defaultClasses } from './internal/constants';
+import clsx from 'clsx';
+import { defaultClasses, injectBrnSonnerToasterConfig } from './brn-toaster.token';
 import { AsComponentPipe } from './pipes/as-component.pipe';
 import { IsStringPipe } from './pipes/is-string.pipe';
 import { toastState } from './state';
@@ -60,7 +59,7 @@ import type { ToastProps } from './types';
 					[attr.data-disabled]="_disabled()"
 					data-close-button
 					(click)="onCloseButtonClick()"
-					[class]="_cn(_classes().closeButton, toast().classes?.closeButton)"
+					[class]="_clsx(_classes().closeButton, toast().classes?.closeButton)"
 				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -109,7 +108,7 @@ import type { ToastProps } from './types';
 				}
 				<div data-content>
 					@if (toast().title; as title) {
-						<div data-title [class]="_cn(_classes().title, toast().classes?.title)">
+						<div data-title [class]="_clsx(_classes().title, toast().classes?.title)">
 							@if (title | isString) {
 								{{ toast().title }}
 							} @else {
@@ -121,7 +120,12 @@ import type { ToastProps } from './types';
 						<div
 							data-description
 							[class]="
-								_cn(descriptionClass(), _toastDescriptionClass(), _classes().description, toast().classes?.description)
+								_clsx(
+									descriptionClass(),
+									_toastDescriptionClass(),
+									_classes().description,
+									toast().classes?.description
+								)
 							"
 						>
 							@if (description | isString) {
@@ -137,7 +141,7 @@ import type { ToastProps } from './types';
 						data-button
 						data-cancel
 						[style]="cancelButtonStyle() ?? toast().cancelButtonStyle"
-						[class]="_cn(_classes().cancelButton, toast().classes?.cancelButton)"
+						[class]="_clsx(_classes().cancelButton, toast().classes?.cancelButton)"
 						(click)="onCancelClick()"
 					>
 						{{ cancel.label }}
@@ -147,7 +151,7 @@ import type { ToastProps } from './types';
 					<button
 						data-button
 						[style]="actionButtonStyle() ?? toast().actionButtonStyle"
-						[class]="_cn(_classes().actionButton, toast().classes?.actionButton)"
+						[class]="_clsx(_classes().actionButton, toast().classes?.actionButton)"
 						(click)="onActionClick($event)"
 					>
 						{{ action.label }}
@@ -160,7 +164,7 @@ import type { ToastProps } from './types';
 export class BrnSonnerToast implements AfterViewInit, OnDestroy {
 	private readonly _config = injectBrnSonnerToasterConfig();
 
-	protected readonly _cn = cn;
+	protected readonly _clsx = clsx;
 
 	protected readonly _toasts = computed(() => toastState.toasts().filter((t) => t.position === this.position()));
 	protected readonly _heights = computed(() => toastState.heights().filter((h) => h.position === this.position()));
@@ -244,7 +248,7 @@ export class BrnSonnerToast implements AfterViewInit, OnDestroy {
 	);
 
 	protected readonly _toastClasses = computed(() =>
-		this._cn(
+		this._clsx(
 			this.userClass(),
 			this._toastClass(),
 			this._classes().toast,

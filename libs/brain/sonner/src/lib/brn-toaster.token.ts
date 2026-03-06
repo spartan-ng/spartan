@@ -1,4 +1,5 @@
 import { inject, InjectionToken, type ValueProvider } from '@angular/core';
+import type { ToastClassnames } from './types';
 
 export interface BrnSonnerToasterConfig {
 	/** The maximum number of toasts visible at once */
@@ -36,3 +37,20 @@ export function provideBrnSonnerToasterConfig(config: Partial<BrnSonnerToasterCo
 export function injectBrnSonnerToasterConfig(): BrnSonnerToasterConfig {
 	return inject(BrnSonnerToasterConfigToken, { optional: true }) ?? defaultConfig;
 }
+
+export const defaultClasses: ToastClassnames = {
+	toast: '',
+	title: '',
+	description: '',
+	loader: '',
+	closeButton: '',
+	cancelButton: '',
+	actionButton: '',
+	action: '',
+	warning: '',
+	error: '',
+	success: '',
+	default: '',
+	info: '',
+	loading: '',
+};

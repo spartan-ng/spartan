@@ -52,6 +52,7 @@ export type Primitive =
 	| 'table'
 	| 'tabs'
 	| 'textarea'
+	| 'time-input'
 	| 'toggle'
 	| 'toggle-group'
 	| 'tooltip'

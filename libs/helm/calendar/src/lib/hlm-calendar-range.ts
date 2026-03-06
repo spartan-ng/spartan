@@ -18,12 +18,21 @@ import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { buttonVariants } from '@spartan-ng/helm/button';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
+import { HlmTooltipImports } from '@spartan-ng/helm/tooltip';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-calendar-range',
-	imports: [BrnCalendarImports, NgIcon, HlmIcon, HlmSelectImports, BrnSelectImports, NgTemplateOutlet],
+	imports: [
+		BrnCalendarImports,
+		NgIcon,
+		HlmIcon,
+		HlmSelectImports,
+		BrnSelectImports,
+		HlmTooltipImports,
+		NgTemplateOutlet,
+	],
 	viewProviders: [provideIcons({ lucideChevronLeft, lucideChevronRight })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
@@ -91,16 +100,18 @@ import type { ClassValue } from 'clsx';
 						<div class="flex items-center space-x-1">
 							<button
 								brnCalendarPreviousButton
-								class="ring-offset-background focus-visible:ring-ring border-input hover:bg-accent hover:text-accent-foreground absolute left-1 inline-flex h-7 w-7 items-center justify-center rounded-md border bg-transparent p-0 text-sm font-medium whitespace-nowrap opacity-50 transition-colors hover:opacity-100 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
+								class="ring-offset-background focus-visible:ring-ring border-input hover:bg-accent hover:text-accent-foreground absolute start-1 inline-flex h-7 w-7 items-center justify-center rounded-md border bg-transparent p-0 text-sm font-medium whitespace-nowrap opacity-50 transition-colors hover:opacity-100 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
+								[hlmTooltip]="_i18n.config().labelPrevious()"
 							>
-								<ng-icon hlm name="lucideChevronLeft" size="sm" />
+								<ng-icon hlm name="lucideChevronLeft" class="rtl:rotate-180" size="sm" />
 							</button>
 
 							<button
 								brnCalendarNextButton
-								class="ring-offset-background focus-visible:ring-ring border-input hover:bg-accent hover:text-accent-foreground absolute right-1 inline-flex h-7 w-7 items-center justify-center rounded-md border bg-transparent p-0 text-sm font-medium whitespace-nowrap opacity-50 transition-colors hover:opacity-100 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
+								class="ring-offset-background focus-visible:ring-ring border-input hover:bg-accent hover:text-accent-foreground absolute end-1 inline-flex h-7 w-7 items-center justify-center rounded-md border bg-transparent p-0 text-sm font-medium whitespace-nowrap opacity-50 transition-colors hover:opacity-100 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
+								[hlmTooltip]="_i18n.config().labelNext()"
 							>
-								<ng-icon hlm name="lucideChevronRight" size="sm" />
+								<ng-icon hlm name="lucideChevronRight" class="rtl:rotate-180" size="sm" />
 							</button>
 						</div>
 					</div>

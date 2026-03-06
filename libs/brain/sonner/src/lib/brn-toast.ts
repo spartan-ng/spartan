@@ -59,7 +59,7 @@ import type { ToastProps } from './types';
 					[attr.data-disabled]="_disabled()"
 					data-close-button
 					(click)="onCloseButtonClick()"
-					[class]="_clsx(_classes().closeButton, toast().classes?.closeButton)"
+					[class]="_closeButtonClasses()"
 				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -108,7 +108,7 @@ import type { ToastProps } from './types';
 				}
 				<div data-content>
 					@if (toast().title; as title) {
-						<div data-title [class]="_clsx(_classes().title, toast().classes?.title)">
+						<div data-title [class]="_titleClasses()">
 							@if (title | isString) {
 								{{ toast().title }}
 							} @else {
@@ -117,17 +117,7 @@ import type { ToastProps } from './types';
 						</div>
 					}
 					@if (toast().description; as description) {
-						<div
-							data-description
-							[class]="
-								_clsx(
-									descriptionClass(),
-									_toastDescriptionClass(),
-									_classes().description,
-									toast().classes?.description
-								)
-							"
-						>
+						<div data-description [class]="_toastDescriptionClasses()">
 							@if (description | isString) {
 								{{ toast().description }}
 							} @else {
@@ -141,7 +131,7 @@ import type { ToastProps } from './types';
 						data-button
 						data-cancel
 						[style]="cancelButtonStyle() ?? toast().cancelButtonStyle"
-						[class]="_clsx(_classes().cancelButton, toast().classes?.cancelButton)"
+						[class]="_cancelButtonClasses()"
 						(click)="onCancelClick()"
 					>
 						{{ cancel.label }}
@@ -151,7 +141,7 @@ import type { ToastProps } from './types';
 					<button
 						data-button
 						[style]="actionButtonStyle() ?? toast().actionButtonStyle"
-						[class]="_clsx(_classes().actionButton, toast().classes?.actionButton)"
+						[class]="_actionButtonClasses()"
 						(click)="onActionClick($event)"
 					>
 						{{ action.label }}
@@ -163,8 +153,6 @@ import type { ToastProps } from './types';
 })
 export class BrnSonnerToast implements AfterViewInit, OnDestroy {
 	private readonly _config = injectBrnSonnerToasterConfig();
-
-	protected readonly _clsx = clsx;
 
 	protected readonly _toasts = computed(() => toastState.toasts().filter((t) => t.position === this.position()));
 	protected readonly _heights = computed(() => toastState.heights().filter((h) => h.position === this.position()));
@@ -248,7 +236,7 @@ export class BrnSonnerToast implements AfterViewInit, OnDestroy {
 	);
 
 	protected readonly _toastClasses = computed(() =>
-		this._clsx(
+		clsx(
 			this.userClass(),
 			this._toastClass(),
 			this._classes().toast,
@@ -265,6 +253,24 @@ export class BrnSonnerToast implements AfterViewInit, OnDestroy {
 		'--initial-height': this.expandByDefault() ? 'auto' : `${this._initialHeight()}px`,
 		...this.style(),
 	}));
+	protected readonly _actionButtonClasses = computed(() =>
+		clsx(this._classes().actionButton, this.toast().classes?.actionButton),
+	);
+	protected readonly _cancelButtonClasses = computed(() =>
+		clsx(this._classes().cancelButton, this.toast().classes?.cancelButton),
+	);
+	protected readonly _toastDescriptionClasses = computed(() =>
+		clsx(
+			this.descriptionClass(),
+			this._toastDescriptionClass(),
+			this._classes().description,
+			this.toast().classes?.description,
+		),
+	);
+	protected readonly _titleClasses = computed(() => clsx(this._classes().title, this.toast().classes?.title));
+	protected readonly _closeButtonClasses = computed(() =>
+		clsx(this._classes().closeButton, this.toast().classes?.closeButton),
+	);
 
 	constructor() {
 		effect(() => {

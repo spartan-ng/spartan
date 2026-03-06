@@ -7,8 +7,8 @@ export const measureDimensions = (elementToMeasure: HTMLElement, measurementDisp
 
 	elementToMeasure.hidden = false;
 	elementToMeasure.style.height = 'auto';
-    elementToMeasure.style.display =
-			!previousDisplay || previousDisplay === 'none' ? measurementDisplay : previousDisplay;
+	elementToMeasure.style.display =
+		!previousDisplay || previousDisplay === 'none' ? measurementDisplay : previousDisplay;
 
 	const { width, height } = elementToMeasure.getBoundingClientRect();
 

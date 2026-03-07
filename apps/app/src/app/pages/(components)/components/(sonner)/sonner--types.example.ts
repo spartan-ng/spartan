@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { toast } from '@spartan-ng/brain/sonner';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
-import { toast } from 'ngx-sonner';
 
 @Component({
 	selector: 'spartan-sonner-types-example',

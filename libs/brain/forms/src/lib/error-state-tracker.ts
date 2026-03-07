@@ -3,8 +3,10 @@ import type { AbstractControl, FormGroupDirective, NgControl, NgForm } from '@an
 import type { ErrorStateMatcher } from './error-options';
 
 export class ErrorStateTracker {
+	private readonly _errorState = signal(false);
+
 	/** Whether the tracker is currently in an error state. */
-	public readonly errorState = signal(false);
+	public readonly errorState = this._errorState.asReadonly();
 
 	/** User-defined matcher for the error state. */
 	public matcher: ErrorStateMatcher | null = null;
@@ -17,15 +19,15 @@ export class ErrorStateTracker {
 	) {}
 
 	/** Updates the error state based on the provided error state matcher. */
-	updateErrorState() {
-		const oldState = this.errorState();
+	public updateErrorState() {
+		const oldState = this._errorState();
 		const parent = this._parentFormGroup || this._parentForm;
 		const matcher = this.matcher || this._defaultMatcher;
 		const control = this.ngControl ? (this.ngControl.control as AbstractControl) : null;
 		const newState = matcher?.isInvalid(control, parent) ?? false;
 
 		if (newState !== oldState) {
-			this.errorState.set(newState);
+			this._errorState.set(newState);
 		}
 	}
 }

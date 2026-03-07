@@ -513,7 +513,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "aria-invalid",
             "required": false,
-            "type": "boolean",
+            "type": "boolean | undefined",
           },
         ],
         "models": [],
@@ -1824,7 +1824,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "aria-invalid",
             "required": false,
-            "type": "boolean",
+            "type": "boolean | undefined",
           },
         ],
         "models": [],
@@ -2798,6 +2798,20 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
     },
   },
   "field": {
+    "brain": {
+      "BrnField": {
+        "inputs": [
+          {
+            "name": "data-invalid",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnField],brn-field",
+      },
+    },
     "helm": {
       "HlmField": {
         "inputs": [
@@ -2817,8 +2831,31 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "outputs": [],
         "selector": "[hlmFieldContent],hlm-field-content",
       },
+      "HlmFieldControlDescribedBy": {
+        "inputs": [
+          {
+            "name": "aria-describedby",
+            "required": false,
+            "type": "string | null",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmFieldControlDescribedBy]",
+      },
       "HlmFieldDescription": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "providedId",
+            "required": false,
+            "type": "string | undefined",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "[hlmFieldDescription],hlm-field-description",
@@ -2834,6 +2871,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "name": "error",
             "required": false,
             "type": "Array<{ message: string } | undefined>",
+          },
+          {
+            "name": "providedId",
+            "required": false,
+            "type": "string | undefined",
           },
         ],
         "models": [],
@@ -3998,7 +4040,13 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "hlm-radio",
       },
       "HlmRadioGroup": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "[hlmRadioGroup],hlm-radio-group",

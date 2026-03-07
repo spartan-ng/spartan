@@ -7,6 +7,7 @@ import {
 	contentChild,
 	contentChildren,
 	Directive,
+	type DoCheck,
 	effect,
 	ElementRef,
 	forwardRef,
@@ -18,40 +19,52 @@ import {
 	signal,
 	untracked,
 } from '@angular/core';
-import { NG_VALUE_ACCESSOR, type ControlValueAccessor } from '@angular/forms';
-import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
+import { type ControlValueAccessor, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
+import { BrnFieldControl } from '@spartan-ng/brain/field';
+import { type ChangeFn, ErrorStateMatcher, ErrorStateTracker, type TouchFn } from '@spartan-ng/brain/forms';
 import { BrnPopover } from '@spartan-ng/brain/popover';
+import { BrnComboboxContent } from './brn-combobox-content';
 import { BrnComboboxInputWrapper } from './brn-combobox-input-wrapper';
 import { type BrnComboboxItem } from './brn-combobox-item';
 import { BrnComboboxItemToken } from './brn-combobox-item.token';
 import {
-	ComboboxInputMode,
-	injectBrnComboboxConfig,
-	provideBrnComboboxBase,
 	type BrnComboboxBase,
 	type ComboboxFilter,
 	type ComboboxFilterOptions,
+	ComboboxInputMode,
 	type ComboboxItemEqualToValue,
 	type ComboboxItemToString,
+	injectBrnComboboxConfig,
+	provideBrnComboboxBase,
 } from './brn-combobox.token';
-
-export const BRN_COMBOBOX_MULTIPLE_VALUE_ACCESSOR = {
-	provide: NG_VALUE_ACCESSOR,
-	useExisting: forwardRef(() => BrnComboboxMultiple),
-	multi: true,
-};
 
 @Directive({
 	selector: '[brnCombobox]',
-	providers: [provideBrnComboboxBase(BrnComboboxMultiple), BRN_COMBOBOX_MULTIPLE_VALUE_ACCESSOR],
+	providers: [
+		provideBrnComboboxBase(BrnComboboxMultiple),
+		{
+			provide: BrnFieldControl,
+			useExisting: forwardRef(() => BrnComboboxMultiple),
+		},
+	],
+	host: {
+		'(focusout)': '_onFocusOut($event)',
+	},
 })
-export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueAccessor {
+export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueAccessor, DoCheck, BrnFieldControl {
 	private readonly _injector = inject(Injector);
 
 	private readonly _config = injectBrnComboboxConfig<T>();
 
 	/** Access the popover if present */
 	private readonly _brnPopover = inject(BrnPopover, { optional: true });
+
+	private readonly _defaultErrorStateMatcher = inject(ErrorStateMatcher);
+	private readonly _parentForm = inject(NgForm, { optional: true });
+	private readonly _parentFormGroup = inject(FormGroupDirective, { optional: true });
+	public readonly ngControl = inject(NgControl, { optional: true, self: true });
+	private readonly _errorStateTracker: ErrorStateTracker;
+	public readonly errorState = computed(() => this._errorStateTracker.errorState());
 
 	/** Whether the combobox is disabled */
 	public readonly disabled = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
@@ -105,6 +118,10 @@ export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueA
 		descendants: true,
 	});
 
+	private readonly _content = contentChild<BrnComboboxContent>(BrnComboboxContent, {
+		descendants: true,
+	});
+
 	/** Determine if the combobox has any visible items */
 	public readonly visibleItems = computed(() => this.items().some((item) => item.visible()));
 
@@ -120,6 +137,17 @@ export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueA
 	protected _onTouched?: TouchFn;
 
 	constructor() {
+		if (this.ngControl !== null) {
+			this.ngControl.valueAccessor = this;
+		}
+
+		this._errorStateTracker = new ErrorStateTracker(
+			this._defaultErrorStateMatcher,
+			this.ngControl,
+			this._parentFormGroup,
+			this._parentForm,
+		);
+
 		this.keyManager
 			.withVerticalOrientation()
 			.withHomeAndEnd()
@@ -216,10 +244,27 @@ export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueA
 		this._brnPopover?.open();
 	}
 
+	protected _onFocusOut(event: FocusEvent): void {
+		const currentTarget = event.currentTarget as HTMLElement;
+		const focusedEl = event.relatedTarget as HTMLElement | null;
+		const contentEl = this._content()?.el.nativeElement;
+
+		if (!currentTarget.contains(focusedEl) && !contentEl?.contains(focusedEl)) {
+			if (this.isExpanded()) {
+				this._brnPopover?.close();
+			}
+			this._onTouched?.();
+		}
+	}
+
 	private close(): void {
 		if (this._disabled() || !this.isExpanded()) return;
 
 		this._brnPopover?.close();
+	}
+
+	ngDoCheck() {
+		this._errorStateTracker.updateErrorState();
 	}
 
 	/** CONTROL VALUE ACCESSOR */

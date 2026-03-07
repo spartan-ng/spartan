@@ -50,7 +50,7 @@
 			"@spartan-ng/brain/date-time": ["libs/brain/date-time/src/index.ts"],
 			"@spartan-ng/brain/date-time-luxon": ["libs/brain/date-time-luxon/src/index.ts"],
 			"@spartan-ng/brain/dialog": ["libs/brain/dialog/src/index.ts"],
-			"@spartan-ng/brain/form-field": ["libs/brain/form-field/src/index.ts"],
+			"@spartan-ng/brain/field": ["libs/brain/field/src/index.ts"],
 			"@spartan-ng/brain/forms": ["libs/brain/forms/src/index.ts"],
 			"@spartan-ng/brain/hover-card": ["libs/brain/hover-card/src/index.ts"],
 			"@spartan-ng/brain/input-otp": ["libs/brain/input-otp/src/index.ts"],

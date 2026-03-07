@@ -1,5 +1,5 @@
 import { BooleanInput } from '@angular/cdk/coercion';
-import { booleanAttribute, ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideSearch, lucideX } from '@ng-icons/lucide';
 import {
@@ -7,6 +7,7 @@ import {
 	BrnAutocompleteClear,
 	BrnAutocompleteInput,
 	BrnAutocompleteInputWrapper,
+	injectBrnAutocompleteBase,
 } from '@spartan-ng/brain/autocomplete';
 import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 
@@ -51,14 +52,19 @@ import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 	`,
 })
 export class HlmAutocompleteInput {
+	private readonly _autocomplete = injectBrnAutocompleteBase();
+
 	public readonly placeholder = input<string>('');
 
 	public readonly showSearch = input<boolean, BooleanInput>(true, { transform: booleanAttribute });
 	public readonly showClear = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
-	// TODO input and input-group styles need to support aria-invalid directly
-	public readonly ariaInvalid = input<boolean, BooleanInput>(false, {
-		transform: booleanAttribute,
+	/** Manual override for aria-invalid. When not set, auto-detects from the parent autocomplete error state. */
+	public readonly ariaInvalidOverride = input<boolean | undefined, BooleanInput>(undefined, {
+		transform: (v: BooleanInput) => (v === '' || v === undefined ? undefined : booleanAttribute(v)),
 		alias: 'aria-invalid',
 	});
+
+	/** Computed aria-invalid: uses manual override if provided, otherwise reads from parent error state. */
+	public readonly ariaInvalid = computed(() => this.ariaInvalidOverride() ?? this._autocomplete.errorState());
 }

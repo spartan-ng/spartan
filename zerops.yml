@@ -7,7 +7,7 @@ zerops:
       buildCommands:
         # install dev dependencies & build app
         - corepack enable
-        - corepack prepare pnpm@9.11.0 --activate
+        - corepack prepare pnpm@10.30.3 --activate
         - pnpm i
         - npx nx build app --prod
         # clean up dev dependencies

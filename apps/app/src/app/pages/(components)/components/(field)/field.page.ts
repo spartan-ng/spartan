@@ -22,6 +22,7 @@ import { FieldInputPreview } from './field--input.preview';
 import { FieldRadioPreview } from './field--radio.preview';
 import { FieldResponsiveLayoutPreview } from './field--responsive-layout.preview';
 import { FieldSelectPreview } from './field--select.preview';
+import { FieldSeparatorPreview } from './field--separator.preview';
 import { FieldSetPreview } from './field--set.preview';
 import { FieldSliderPreview } from './field--slider.preview';
 import { FieldSwitchPreview } from './field--switch.preview';
@@ -62,6 +63,7 @@ export const routeMeta: RouteMeta = {
 		FieldSwitchPreview,
 		FieldChoiceCardPreview,
 		FieldGroupPreview,
+		FieldSeparatorPreview,
 		FieldResponsiveLayoutPreview,
 	],
 	template: `
@@ -223,6 +225,19 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_groupCode()" />
 			</spartan-tabs>
 
+			<h3 id="examples__field-separator" spartanH4>Field Separator</h3>
+			<p class="${hlmP} mb-2">
+				Visual divider to separate sections inside a
+				<code class="${hlmCode}">HlmFieldGroup</code>
+				. Accepts optional inline content.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-field-separator-preview />
+				</div>
+				<spartan-code secondTab [code]="_separatorCode()" />
+			</spartan-tabs>
+
 			<h3 id="examples__responsive-layout" spartanH4>Responsive Layout</h3>
 			<ul class="my-6 ml-6 list-disc">
 				<li class="mt-2">
@@ -330,6 +345,7 @@ export default class FieldPage {
 	protected readonly _switchCode = computed(() => this._snippets()['switch']);
 	protected readonly _choiceCardCode = computed(() => this._snippets()['choiceCard']);
 	protected readonly _groupCode = computed(() => this._snippets()['group']);
+	protected readonly _separatorCode = computed(() => this._snippets()['separator']);
 	protected readonly _responsiveLayoutCode = computed(() => this._snippets()['responsiveLayout']);
 
 	protected readonly _defaultSkeleton = defaultSkeleton;

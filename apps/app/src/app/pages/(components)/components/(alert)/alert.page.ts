@@ -6,6 +6,7 @@ import { MainSection } from '../../../../shared/layout/main-section';
 
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
+import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { PageBottomNav } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav';
 import { PageBottomNavLink } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav-link';
 import { PageNav } from '../../../../shared/layout/page-nav/page-nav';
@@ -15,6 +16,8 @@ import { Tabs } from '../../../../shared/layout/tabs';
 import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
+import { AlertAction } from './alert--action.example';
+import { AlertCustomColors } from './alert--custom-colors.example';
 import { AlertDestructive } from './alert--destructive.example';
 import { AlertPreview, defaultImports, defaultSkeleton } from './alert.preview';
 
@@ -39,8 +42,10 @@ export const routeMeta: RouteMeta = {
 		PageNav,
 		PageBottomNav,
 		PageBottomNavLink,
-		AlertDestructive,
 		SectionSubSubHeading,
+		AlertDestructive,
+		AlertAction,
+		AlertCustomColors,
 	],
 	template: `
 		<section spartanMainSection>
@@ -65,11 +70,44 @@ export const routeMeta: RouteMeta = {
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
 
 			<h3 id="examples__destructive" spartanH4>Destructive</h3>
+			<p class="${hlmP}">
+				Use
+				<code class="${hlmCode}">variant="destructive"</code>
+				to create a destructive alert.
+			</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-alert-destructive />
 				</div>
 				<spartan-code secondTab [code]="_destructiveCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__action" spartanH4>Action</h3>
+			<p class="${hlmP}">
+				Use
+				<code class="${hlmCode}">hlmAlertAction</code>
+				to add a button or other action element to the alert.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-alert-action />
+				</div>
+				<spartan-code secondTab [code]="_actionCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__custom-colors" spartanH4>Custom Colors</h3>
+			<p class="${hlmP}">
+				You can customize the alert colors by adding custom classes such as
+				<code class="${hlmCode}">bg-amber-50 dark:bg-amber-950</code>
+				to the
+				<code class="${hlmCode}">hlm-alert</code>
+				component.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-alert-custom-colors />
+				</div>
+				<spartan-code secondTab [code]="_customColorsCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
@@ -87,6 +125,8 @@ export default class AlertPage {
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('alert');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _destructiveCode = computed(() => this._snippets()['destructive']);
+	protected readonly _actionCode = computed(() => this._snippets()['action']);
+	protected readonly _customColorsCode = computed(() => this._snippets()['customColors']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

@@ -84,7 +84,7 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 export const defaultSkeleton = `
 <hlm-accordion>
 	<hlm-accordion-item>
-		<h3 class='contents'>
+		<h3 class="contents">
 			<button hlmAccordionTrigger>
 				Is it accessible?
 				<ng-icon name="lucideChevronDown" hlm hlmAccIcon />

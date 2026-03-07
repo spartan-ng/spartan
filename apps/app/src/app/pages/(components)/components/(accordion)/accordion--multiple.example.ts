@@ -5,13 +5,13 @@ import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmIconImports } from '@spartan-ng/helm/icon';
 
 @Component({
-	selector: 'spartan-accordion-multiple-opened',
+	selector: 'spartan-accordion-multiple',
 	imports: [HlmButtonImports, HlmAccordionImports, HlmIconImports, NgIcon],
 	host: {
 		class: 'max-w-lg h-[320px] flex flex-col justify-between',
 	},
 	template: `
-		<hlm-accordion type="multiple" class="pb-4">
+		<hlm-accordion type="multiple">
 			<hlm-accordion-item [isOpened]="true">
 				<h3 class="contents">
 					<button hlmAccordionTrigger>
@@ -49,7 +49,7 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 		<button hlmBtn class="w-fit" (click)="toggleThird()">Toggle Third Item</button>
 	`,
 })
-export class AccordionMultipleOpened {
+export class AccordionMultiple {
 	protected readonly _thirdOpened = signal(false);
 	toggleThird() {
 		this._thirdOpened.set(!this._thirdOpened());

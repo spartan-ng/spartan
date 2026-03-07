@@ -2156,16 +2156,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       "HlmDatePicker": {
         "inputs": [
           {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-          {
-            "name": "buttonId",
-            "required": false,
-            "type": "string",
-          },
-          {
             "name": "captionLayout",
             "required": false,
             "type": "'dropdown' | 'label' | 'dropdown-months' | 'dropdown-years'",
@@ -2215,18 +2205,37 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "selector": "hlm-date-picker",
       },
-      "HlmDatePickerMulti": {
+      "HlmDatePickerAnchor": {
         "inputs": [
           {
-            "name": "class",
+            "name": "hlmDatePickerAnchorFor",
             "required": false,
-            "type": "ClassValue",
+            "type": "BrnPopover | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDatePickerAnchor]",
+      },
+      "HlmDatePickerInput": {
+        "inputs": [
+          {
+            "name": "inputId",
+            "required": false,
+            "type": "unknown",
           },
           {
-            "name": "buttonId",
+            "name": "placeholder",
             "required": false,
-            "type": "string",
+            "type": "unknown",
           },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-date-picker-input",
+      },
+      "HlmDatePickerMulti": {
+        "inputs": [
           {
             "name": "captionLayout",
             "required": false,
@@ -2287,7 +2296,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "selector": "hlm-date-picker-multi",
       },
-      "HlmDateRangePicker": {
+      "HlmDatePickerTrigger": {
         "inputs": [
           {
             "name": "class",
@@ -2299,6 +2308,13 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "string",
           },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-date-picker-trigger",
+      },
+      "HlmDateRangePicker": {
+        "inputs": [
           {
             "name": "captionLayout",
             "required": false,

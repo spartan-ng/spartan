@@ -1,4 +1,4 @@
-import { Overlay, OverlayPositionBuilder, type OverlayRef } from '@angular/cdk/overlay';
+import { ConnectedPosition, FlexibleConnectedPositionStrategy, Overlay, OverlayPositionBuilder, type OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { DOCUMENT } from '@angular/common';
 import {
@@ -22,6 +22,7 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
+import { Directionality } from '@angular/cdk/bidi';
 import { of, Subject, timer } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { BrnTooltipContent } from './brn-tooltip-content';
@@ -45,6 +46,7 @@ export class BrnTooltip {
 	private readonly _overlay = inject(Overlay);
 	private readonly _overlayPositionBuilder = inject(OverlayPositionBuilder);
 	private readonly _renderer = inject(Renderer2);
+	private readonly _dir = inject(Directionality);
 
 	private _tooltipHovered = false;
 	private _listenersRefs: (() => void)[] = [];
@@ -76,10 +78,16 @@ export class BrnTooltip {
 
 	constructor() {
 		afterNextRender(() => {
-			const positionStrategy = this._overlayPositionBuilder
-				.flexibleConnectedTo(this._elementRef)
-				.withPositions([BRN_TOOLTIP_POSITIONS_MAP[this.position()]]);
-			this._overlayRef = this._overlay.create({ positionStrategy });
+			this._overlayRef = this._overlay.create({
+				positionStrategy: this._buildPositionStrategy(),
+			});
+
+			this._dir.change.pipe(takeUntilDestroyed(this._destroyRef)).subscribe(() => {
+				if (this._overlayRef) {
+					this._updatePosition();
+					this._overlayRef.updatePosition();
+				}
+			});
 
 			runInInjectionContext(this._injector, () => {
 				if (!this._overlayRef) return;
@@ -103,6 +111,30 @@ export class BrnTooltip {
 			this._cleanupTriggerEvents();
 			this._overlayRef?.dispose();
 		});
+	}
+
+	private _updatePosition(): void {
+		const strategy = this._overlayRef?.getConfig().positionStrategy as FlexibleConnectedPositionStrategy;
+
+		if (strategy) {
+			strategy.withPositions([this._getAdjustedPosition()]);
+		}
+	}
+
+	private _buildPositionStrategy() {
+		return this._overlayPositionBuilder
+			.flexibleConnectedTo(this._elementRef)
+			.withPositions([this._getAdjustedPosition()]);
+	}
+
+	private _getAdjustedPosition(): ConnectedPosition {
+		const position = BRN_TOOLTIP_POSITIONS_MAP[this.position()];
+		const isLtr = this._dir.value !== 'rtl';
+
+		return {
+			...position,
+			offsetX: position.offsetX != null ? (isLtr ? position.offsetX : -position.offsetX) : undefined,
+		};
 	}
 
 	private _initTriggers() {

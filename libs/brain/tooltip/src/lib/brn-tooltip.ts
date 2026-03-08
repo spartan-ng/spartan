@@ -1,4 +1,10 @@
-import { ConnectedPosition, FlexibleConnectedPositionStrategy, Overlay, OverlayPositionBuilder, type OverlayRef } from '@angular/cdk/overlay';
+import {
+	ConnectedPosition,
+	FlexibleConnectedPositionStrategy,
+	Overlay,
+	OverlayPositionBuilder,
+	type OverlayRef,
+} from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { DOCUMENT } from '@angular/common';
 import {

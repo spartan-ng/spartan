@@ -14,8 +14,8 @@ export const tooltipPositionVariants = cva('absolute', {
 		position: {
 			top: 'bottom-0 left-[calc(50%-5px)] translate-y-full',
 			bottom: '-top-2.5 left-[calc(50%-5px)] translate-y-0 rotate-180',
-			left: 'top-[calc(50%-5px)] -right-2.5 translate-y-0 rotate-270',
-			right: 'top-[calc(50%-5px)] -left-2.5 translate-y-0 rotate-90',
+			left: '-end-2.5 top-[calc(50%-5px)] translate-y-0 rotate-270 rtl:-rotate-270',
+			right: '-start-2.5 top-[calc(50%-5px)] translate-y-0 rotate-90 rtl:-rotate-90',
 		},
 	},
 });

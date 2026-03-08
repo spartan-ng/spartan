@@ -9,7 +9,6 @@ import {
 	Component,
 	computed,
 	DestroyRef,
-	DoCheck,
 	DOCUMENT,
 	effect,
 	ElementRef,
@@ -59,7 +58,11 @@ const CONTAINER_POST_FIX = '-checkbox';
 		'[attr.aria-labelledby]': 'null',
 		'[attr.aria-label]': 'null',
 		'[attr.aria-describedby]': 'null',
-		'[attr.aria-invalid]': 'errorState() ? "true" : null',
+		'[attr.aria-invalid]': '_invalid() ? "true" : null',
+		'[attr.data-invalid]': '_invalid() ? "true" : null',
+		'[attr.data-matches-spartan-invalid]': '_spartanInvalid() ? "true" : null',
+		'[attr.data-touched]': '_controlTouched() ? "true" : null',
+		'[attr.data-dirty]': '_dirty() ? "true" : null',
 		'[attr.data-state]': '_dataState()',
 		'[attr.data-focus-visible]': '_focusVisible()',
 		'[attr.data-focus]': '_focused()',
@@ -89,9 +92,7 @@ const CONTAINER_POST_FIX = '-checkbox';
 		</button>
 	`,
 })
-export class BrnCheckbox
-	implements ControlValueAccessor, AfterContentInit, OnDestroy, DoCheck, OnInit, BrnFieldControl
-{
+export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDestroy, OnInit, BrnFieldControl {
 	private readonly _destroyRef = inject(DestroyRef);
 	private readonly _renderer = inject(Renderer2);
 	private readonly _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
@@ -209,7 +210,13 @@ export class BrnCheckbox
 	private readonly _injector = inject(Injector);
 	public ngControl: NgControl | null = null;
 	private readonly _errorStateTracker: ErrorStateTracker;
-	public readonly errorState = computed(() => this._errorStateTracker.errorState());
+	public readonly controlState = computed(() => this._errorStateTracker.controlState());
+
+	protected readonly _dirty = computed(() => this._errorStateTracker.dirty());
+	protected readonly _invalid = computed(() => this._errorStateTracker.invalid());
+	protected readonly _spartanInvalid = computed(() => this._errorStateTracker.spartanInvalid());
+	protected readonly _controlTouched = computed(() => this._errorStateTracker.touched());
+	public readonly errors = computed(() => this._errorStateTracker.errors());
 
 	// eslint-disable-next-line @typescript-eslint/no-empty-function
 	protected _onChange: ChangeFn<boolean> = () => {};
@@ -230,7 +237,6 @@ export class BrnCheckbox
 	constructor() {
 		this._errorStateTracker = new ErrorStateTracker(
 			this._defaultErrorStateMatcher,
-			null,
 			this._parentFormGroup,
 			this._parentForm,
 		);
@@ -263,8 +269,8 @@ export class BrnCheckbox
 		this.ngControl = this._injector.get(NgControl, null);
 		if (this.ngControl) {
 			this.ngControl.valueAccessor = this;
+			this._errorStateTracker.setControl(this.ngControl);
 		}
-		this._errorStateTracker.ngControl = this.ngControl;
 	}
 
 	/**
@@ -283,10 +289,6 @@ export class BrnCheckbox
 		this.checkedChange.emit(newChecked);
 		this.checked.set(newChecked);
 		this._onChange(newChecked);
-	}
-
-	ngDoCheck() {
-		this._errorStateTracker.updateErrorState();
 	}
 
 	ngAfterContentInit() {

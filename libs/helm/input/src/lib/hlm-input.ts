@@ -1,17 +1,4 @@
-import {
-	computed,
-	Directive,
-	type DoCheck,
-	effect,
-	ElementRef,
-	forwardRef,
-	inject,
-	Injector,
-	input,
-	linkedSignal,
-	Renderer2,
-	signal,
-} from '@angular/core';
+import { computed, Directive, forwardRef, inject, Injector, input, linkedSignal, OnInit, signal } from '@angular/core';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { BrnFieldControl } from '@spartan-ng/brain/field';
 import { ErrorStateMatcher, ErrorStateTracker } from '@spartan-ng/brain/forms';
@@ -26,7 +13,7 @@ export const inputVariants = cva(
 	{
 		variants: {
 			error: {
-				auto: 'aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40',
+				auto: 'data-[matches-spartan-invalid=true]:border-destructive data-[matches-spartan-invalid=true]:ring-destructive/20 dark:data-[matches-spartan-invalid=true]:ring-destructive/40',
 				true: 'border-destructive focus-visible:border-destructive focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40',
 			},
 		},
@@ -46,11 +33,16 @@ type InputVariants = VariantProps<typeof inputVariants>;
 		},
 	],
 	hostDirectives: [HlmFieldControlDescribedBy],
+	host: {
+		'[attr.aria-invalid]': '_ariaInvalid() ? "true" : null',
+		'[attr.data-invalid]': '_ariaInvalid() ? "true" : null',
+		'[attr.data-touched]': '_touched() ? "true" : null',
+		'[attr.data-dirty]': '_dirty() ? "true" : null',
+		'[attr.data-matches-spartan-invalid]': '_spartanInvalid() ? "true" : null',
+	},
 })
-export class HlmInput implements BrnFieldControl, DoCheck {
+export class HlmInput implements BrnFieldControl, OnInit {
 	private readonly _injector = inject(Injector);
-	private readonly _el = inject<ElementRef<HTMLElement>>(ElementRef);
-	private readonly _renderer = inject(Renderer2);
 	private readonly _additionalClasses = signal<ClassValue>('');
 
 	private readonly _errorStateTracker: ErrorStateTracker;
@@ -61,34 +53,33 @@ export class HlmInput implements BrnFieldControl, DoCheck {
 
 	public readonly error = input<InputVariants['error']>('auto');
 
+	public readonly controlState = computed(() => this._errorStateTracker.controlState());
+	public readonly errors = computed(() => this._errorStateTracker.errors());
+
 	protected readonly _state = linkedSignal(() => ({ error: this.error() }));
 
-	public readonly ngControl: NgControl | null = this._injector.get(NgControl, null);
+	public ngControl: NgControl | null = null;
 
-	public readonly errorState = computed(() => this._errorStateTracker.errorState());
+	protected readonly _ariaInvalid = computed(() => this._errorStateTracker.invalid());
+	protected readonly _touched = computed(() => this._errorStateTracker.touched());
+	protected readonly _dirty = computed(() => this._errorStateTracker.dirty());
+	protected readonly _spartanInvalid = computed(() => this._errorStateTracker.spartanInvalid());
 
 	constructor() {
 		this._errorStateTracker = new ErrorStateTracker(
 			this._defaultErrorStateMatcher,
-			this.ngControl,
 			this._parentFormGroup,
 			this._parentForm,
 		);
 
 		classes(() => [inputVariants({ error: this._state().error }), this._additionalClasses()]);
-
-		effect(() => {
-			const el = this._el.nativeElement;
-			if (this.errorState()) {
-				this._renderer.setAttribute(el, 'aria-invalid', 'true');
-			} else {
-				this._renderer.removeAttribute(el, 'aria-invalid');
-			}
-		});
 	}
 
-	ngDoCheck() {
-		this._errorStateTracker.updateErrorState();
+	ngOnInit() {
+		this.ngControl = this._injector.get(NgControl, null);
+		if (this.ngControl) {
+			this._errorStateTracker.setControl(this.ngControl);
+		}
 	}
 
 	setError(error: InputVariants['error']) {

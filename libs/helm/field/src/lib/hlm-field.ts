@@ -4,7 +4,7 @@ import { classes } from '@spartan-ng/helm/utils';
 import { cva, VariantProps } from 'class-variance-authority';
 import { HlmFieldA11yService } from './hlm-field-aria.service';
 
-const fieldVariants = cva('group/field data-[invalid=true]:text-destructive flex w-full gap-3', {
+const fieldVariants = cva('group/field data-[matches-spartan-invalid=true]:text-destructive flex w-full gap-3', {
 	variants: {
 		orientation: {
 			vertical: ['flex-col [&>*]:w-full [&>.sr-only]:w-auto'],

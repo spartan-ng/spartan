@@ -24,7 +24,11 @@ import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 				#autocompleteInput="brnAutocompleteInput"
 				hlmInputGroupInput
 				[placeholder]="placeholder()"
-				[attr.aria-invalid]="ariaInvalid() ? 'true' : null"
+				[attr.aria-invalid]="_ariaInvalid() ? 'true' : null"
+				[attr.data-invalid]="_ariaInvalid() ? 'true' : null"
+				[attr.data-matches-spartan-invalid]="_spartanInvalid() ? 'true' : null"
+				[attr.data-touched]="_touched() ? 'true' : null"
+				[attr.data-dirty]="_dirty() ? 'true' : null"
 			/>
 
 			@if (showSearch()) {
@@ -66,5 +70,9 @@ export class HlmAutocompleteInput {
 	});
 
 	/** Computed aria-invalid: uses manual override if provided, otherwise reads from parent error state. */
-	public readonly ariaInvalid = computed(() => this.ariaInvalidOverride() ?? this._autocomplete.errorState());
+	protected readonly _ariaInvalid = computed(() => this.ariaInvalidOverride() ?? this._autocomplete.invalid());
+
+	protected readonly _spartanInvalid = this._autocomplete.spartanInvalid;
+	protected readonly _touched = this._autocomplete.touched;
+	protected readonly _dirty = this._autocomplete.dirty;
 }

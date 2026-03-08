@@ -8,7 +8,8 @@ import {
 	input,
 	OnDestroy,
 } from '@angular/core';
-import { hlm } from '@spartan-ng/helm/utils';
+import { BrnField } from '@spartan-ng/brain/field';
+import { classes } from '@spartan-ng/helm/utils';
 import { ClassValue } from 'clsx';
 import { HlmFieldA11yService } from './hlm-field-aria.service';
 
@@ -16,44 +17,46 @@ import { HlmFieldA11yService } from './hlm-field-aria.service';
 	selector: 'hlm-field-error',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<div role="alert" data-slot="field-error" [attr.id]="_computedId()" [class]="_computedClass()">
-			<ng-content>
-				@if (_uniqueErrors().length === 1) {
-					{{ _uniqueErrors()[0]?.message }}
-				} @else if (_uniqueErrors().length > 1) {
-					<ul class="ml-4 flex list-disc flex-col gap-1">
-						@for (error of _uniqueErrors(); track $index) {
-							@if (error?.message) {
-								<li>{{ error?.message }}</li>
-							}
-						}
-					</ul>
-				}
-			</ng-content>
-		</div>
+		@if (_hasError()) {
+			<ng-content></ng-content>
+		}
 	`,
+	host: {
+		role: 'alert',
+		'data-slot': 'field-error',
+		'[attr.id]': '_computedId()',
+	},
 })
 export class HlmFieldError implements OnDestroy {
-	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	public readonly error = input<Array<{ message: string } | undefined>>();
 	private static _nextId = 0;
-	private readonly _autoId = `hlm-field-error-${++HlmFieldError._nextId}`;
-	public readonly providedId = input<string | undefined>(undefined);
-	protected readonly _computedId = computed(() => this.providedId() ?? this._autoId);
 
-	protected readonly _uniqueErrors = computed(() => {
-		const errors = this.error();
-		if (!errors?.length) {
-			return [];
-		}
-
-		return [...new Map(errors.map((err) => [err?.message, err])).values()];
-	});
-
-	protected readonly _computedClass = computed(() => hlm('text-destructive text-sm font-normal', this.userClass()));
+	private readonly _field = inject(BrnField, { optional: true });
+	private readonly _a11y = inject(HlmFieldA11yService, { optional: true, host: true });
 
 	private _registeredId?: string;
-	private readonly _a11y = inject(HlmFieldA11yService, { optional: true, host: true });
+
+	private readonly _autoId = `hlm-field-error-${++HlmFieldError._nextId}`;
+
+	public readonly id = input<string | undefined>(undefined);
+	public readonly userClass = input<ClassValue>('', { alias: 'class' });
+	public readonly validator = input<string>();
+
+	protected readonly _computedId = computed(() => this.id() ?? this._autoId);
+
+	protected readonly _hasError = computed(() => {
+		const errors = this._field?.errors() ?? {};
+		const validator = this.validator();
+		const spartanInvalid = this._field?.controlState()?.spartanInvalid;
+
+		if (!spartanInvalid) return false;
+
+		return validator ? validator in errors : Object.keys(errors).length > 0;
+	});
+
+	constructor() {
+		classes(() => ['text-destructive text-sm font-normal', this.userClass()]);
+	}
+
 	private readonly _cleanup: EffectRef | null = this._a11y
 		? effect(() => {
 				const a11y = this._a11y;

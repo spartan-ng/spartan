@@ -37,8 +37,11 @@ import type { ClassValue } from 'clsx';
 			[value]="value()"
 			[required]="required()"
 			[disabled]="disabled()"
-			[attr.aria-invalid]="_groupInvalid() ? 'true' : null"
-			[attr.data-invalid]="_groupInvalid() ? 'true' : null"
+			[attr.aria-invalid]="_ariaInvalid() ? 'true' : null"
+			[attr.data-invalid]="_ariaInvalid() ? 'true' : null"
+			[attr.data-dirty]="_dirty() ? 'true' : null"
+			[attr.data-touched]="_touched() ? 'true' : null"
+			[attr.data-matches-spartan-invalid]="_groupSpartanInvalid() ? 'true' : null"
 			[aria-label]="ariaLabel()"
 			[aria-labelledby]="ariaLabelledby()"
 			[aria-describedby]="ariaDescribedby()"
@@ -55,8 +58,14 @@ export class HlmRadio<T = unknown> {
 	private readonly _elementRef = inject(ElementRef);
 	private readonly _isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 	private readonly _radioGroup = inject(BrnRadioGroup, { optional: true });
-	protected readonly _groupInvalid = computed(() => this._radioGroup?.errorState() ?? false);
-	protected readonly _errorStateClass = computed(() => (this._groupInvalid() ? 'text-destructive' : ''));
+
+	protected readonly _ariaInvalid = computed(() => this._radioGroup?.controlState()?.invalid);
+
+	protected readonly _touched = computed(() => this._radioGroup?.controlState()?.touched);
+	protected readonly _dirty = computed(() => this._radioGroup?.controlState()?.dirty);
+	protected readonly _groupSpartanInvalid = computed(() => this._radioGroup?.controlState()?.spartanInvalid);
+
+	protected readonly _errorStateClass = computed(() => (this._groupSpartanInvalid() ? 'text-destructive' : ''));
 
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>

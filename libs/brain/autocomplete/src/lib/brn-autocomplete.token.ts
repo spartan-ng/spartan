@@ -21,7 +21,10 @@ export interface BrnAutocompleteBase<T> {
 	visibleItems: Signal<boolean>;
 	isExpanded: Signal<boolean>;
 	searchInputWrapperWidth: Signal<number | null>;
-	errorState: Signal<boolean>;
+	dirty: Signal<boolean | null>;
+	invalid: Signal<boolean | null>;
+	spartanInvalid: Signal<boolean | null>;
+	touched: Signal<boolean | null>;
 
 	updateSearch: (value: string) => void;
 	isSelected: (itemValue: T) => boolean;

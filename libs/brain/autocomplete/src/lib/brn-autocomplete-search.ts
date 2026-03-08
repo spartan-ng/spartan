@@ -7,7 +7,6 @@ import {
 	contentChild,
 	contentChildren,
 	Directive,
-	type DoCheck,
 	effect,
 	ElementRef,
 	forwardRef,
@@ -46,9 +45,7 @@ import {
 		'(focusout)': '_onFocusOut($event)',
 	},
 })
-export class BrnAutocompleteSearch<T>
-	implements BrnAutocompleteBase<T>, ControlValueAccessor, DoCheck, BrnFieldControl
-{
+export class BrnAutocompleteSearch<T> implements BrnAutocompleteBase<T>, ControlValueAccessor, BrnFieldControl {
 	private readonly _injector = inject(Injector);
 
 	private readonly _config = injectBrnAutocompleteConfig<T>();
@@ -61,7 +58,13 @@ export class BrnAutocompleteSearch<T>
 	private readonly _parentFormGroup = inject(FormGroupDirective, { optional: true });
 	public readonly ngControl = inject(NgControl, { optional: true, self: true });
 	private readonly _errorStateTracker: ErrorStateTracker;
-	public readonly errorState = computed(() => this._errorStateTracker.errorState());
+
+	public readonly controlState = computed(() => this._errorStateTracker.controlState());
+	public readonly errors = computed(() => this._errorStateTracker.errors());
+	public readonly dirty = computed(() => this._errorStateTracker.dirty());
+	public readonly invalid = computed(() => this._errorStateTracker.invalid());
+	public readonly spartanInvalid = computed(() => this._errorStateTracker.spartanInvalid());
+	public readonly touched = computed(() => this._errorStateTracker.touched());
 
 	/** Whether the autocomplete is disabled */
 	public readonly disabled = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
@@ -119,9 +122,9 @@ export class BrnAutocompleteSearch<T>
 
 		this._errorStateTracker = new ErrorStateTracker(
 			this._defaultErrorStateMatcher,
-			this.ngControl,
 			this._parentFormGroup,
 			this._parentForm,
+			this.ngControl,
 		);
 
 		this.keyManager
@@ -213,10 +216,6 @@ export class BrnAutocompleteSearch<T>
 		if (this._disabled()) return;
 
 		this.isExpanded() ? this.close() : this.open();
-	}
-
-	ngDoCheck() {
-		this._errorStateTracker.updateErrorState();
 	}
 
 	/** CONTROL VALUE ACCESSOR */

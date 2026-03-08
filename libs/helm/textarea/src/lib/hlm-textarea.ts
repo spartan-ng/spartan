@@ -1,14 +1,4 @@
-import {
-	computed,
-	Directive,
-	type DoCheck,
-	forwardRef,
-	inject,
-	Injector,
-	input,
-	linkedSignal,
-	signal,
-} from '@angular/core';
+import { computed, Directive, forwardRef, inject, Injector, input, linkedSignal, signal } from '@angular/core';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { BrnFieldControl } from '@spartan-ng/brain/field';
 import { ErrorStateMatcher, ErrorStateTracker } from '@spartan-ng/brain/forms';
@@ -46,7 +36,7 @@ type TextareaVariants = VariantProps<typeof textareaVariants>;
 		'data-slot': 'textarea',
 	},
 })
-export class HlmTextarea implements BrnFieldControl, DoCheck {
+export class HlmTextarea implements BrnFieldControl {
 	private readonly _injector = inject(Injector);
 	private readonly _additionalClasses = signal<ClassValue>('');
 
@@ -62,21 +52,18 @@ export class HlmTextarea implements BrnFieldControl, DoCheck {
 
 	public readonly ngControl: NgControl | null = this._injector.get(NgControl, null);
 
-	public readonly errorState = computed(() => this._errorStateTracker.errorState());
+	public readonly controlState = computed(() => this._errorStateTracker.controlState());
+	public readonly errors = computed(() => this._errorStateTracker.errors());
 
 	constructor() {
 		classes(() => [textareaVariants({ error: this._state().error }), this._additionalClasses()]);
 
 		this._errorStateTracker = new ErrorStateTracker(
 			this._defaultErrorStateMatcher,
-			this.ngControl,
 			this._parentFormGroup,
 			this._parentForm,
+			this.ngControl,
 		);
-	}
-
-	ngDoCheck() {
-		this._errorStateTracker.updateErrorState();
 	}
 
 	public setError(error: TextareaVariants['error']): void {

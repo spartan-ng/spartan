@@ -6,7 +6,6 @@ import {
 	computed,
 	contentChildren,
 	Directive,
-	DoCheck,
 	forwardRef,
 	inject,
 	Injector,
@@ -42,10 +41,14 @@ export const BRN_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = {
 		role: 'radiogroup',
 		'[dir]': 'direction()',
 		'(focusout)': 'onTouched()',
-		'[attr.aria-invalid]': 'errorState() ? "true" : null',
+		'[attr.aria-invalid]': '_ariaInvalid() ? "true" : null',
+		'[attr.data-invalid]': '_ariaInvalid() ? "true" : null',
+		'[attr.data-dirty]': '_dirty() ? "true" : null',
+		'[attr.data-touched]': '_touched() ? "true" : null',
+		'[attr.data-matches-spartan-invalid]': '_spartanInvalid() ? "true" : null',
 	},
 })
-export class BrnRadioGroup<T = unknown> implements ControlValueAccessor, OnInit, DoCheck, BrnFieldControl {
+export class BrnRadioGroup<T = unknown> implements ControlValueAccessor, OnInit, BrnFieldControl {
 	private readonly _dir = inject(Directionality);
 	private static _nextUniqueId = 0;
 
@@ -100,12 +103,16 @@ export class BrnRadioGroup<T = unknown> implements ControlValueAccessor, OnInit,
 	private readonly _injector = inject(Injector);
 	private readonly _errorStateTracker = new ErrorStateTracker(
 		this._defaultErrorStateMatcher,
-		null,
 		this._parentFormGroup,
 		this._parentForm,
 	);
 
-	public readonly errorState = computed(() => this._errorStateTracker.errorState());
+	public readonly controlState = computed(() => this._errorStateTracker.controlState());
+	public readonly errors = computed(() => this._errorStateTracker.errors());
+	protected readonly _ariaInvalid = computed(() => this._errorStateTracker.invalid());
+	protected readonly _spartanInvalid = computed(() => this._errorStateTracker.spartanInvalid());
+	protected readonly _dirty = computed(() => this._errorStateTracker.dirty());
+	protected readonly _touched = computed(() => this._errorStateTracker.touched());
 
 	/**
 	 * Access the radio buttons within the group.
@@ -117,8 +124,8 @@ export class BrnRadioGroup<T = unknown> implements ControlValueAccessor, OnInit,
 		this.ngControl = this._injector.get(NgControl, null);
 		if (this.ngControl) {
 			this.ngControl.valueAccessor = this;
+			this._errorStateTracker.setControl(this.ngControl);
 		}
-		this._errorStateTracker.ngControl = this.ngControl;
 	}
 
 	writeValue(value: T): void {
@@ -135,10 +142,6 @@ export class BrnRadioGroup<T = unknown> implements ControlValueAccessor, OnInit,
 
 	setDisabledState(isDisabled: boolean): void {
 		this.disabledState.set(isDisabled);
-	}
-
-	ngDoCheck(): void {
-		this._errorStateTracker.updateErrorState();
 	}
 
 	/**

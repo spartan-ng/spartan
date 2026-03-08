@@ -7,7 +7,6 @@ import {
 	contentChild,
 	contentChildren,
 	Directive,
-	type DoCheck,
 	effect,
 	ElementRef,
 	forwardRef,
@@ -51,7 +50,7 @@ import {
 		'(focusout)': '_onFocusOut($event)',
 	},
 })
-export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueAccessor, DoCheck, BrnFieldControl {
+export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueAccessor, BrnFieldControl {
 	private readonly _injector = inject(Injector);
 
 	private readonly _config = injectBrnComboboxConfig<T>();
@@ -64,7 +63,8 @@ export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueA
 	private readonly _parentFormGroup = inject(FormGroupDirective, { optional: true });
 	public readonly ngControl = inject(NgControl, { optional: true, self: true });
 	private readonly _errorStateTracker: ErrorStateTracker;
-	public readonly errorState = computed(() => this._errorStateTracker.errorState());
+	public readonly controlState = computed(() => this._errorStateTracker.controlState());
+	public readonly errors = computed(() => this._errorStateTracker.errors());
 
 	/** Whether the combobox is disabled */
 	public readonly disabled = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
@@ -143,9 +143,9 @@ export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueA
 
 		this._errorStateTracker = new ErrorStateTracker(
 			this._defaultErrorStateMatcher,
-			this.ngControl,
 			this._parentFormGroup,
 			this._parentForm,
+			this.ngControl,
 		);
 
 		this.keyManager
@@ -261,10 +261,6 @@ export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueA
 		if (this._disabled() || !this.isExpanded()) return;
 
 		this._brnPopover?.close();
-	}
-
-	ngDoCheck() {
-		this._errorStateTracker.updateErrorState();
 	}
 
 	/** CONTROL VALUE ACCESSOR */

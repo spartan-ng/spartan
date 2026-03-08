@@ -98,9 +98,6 @@ export const WithHintAndError: Story = {
 			}),
 		},
 		template: `
-		@let emailControl = form.get('email');
-		@let showError = emailControl?.invalid && (emailControl?.touched );
-
 		<form [formGroup]="form" class="space-y-3 w-full max-w-sm">
 			<div hlmField >
 				<label hlmFieldLabel for="input-hint">Email *</label>
@@ -115,9 +112,7 @@ export const WithHintAndError: Story = {
 
 				<p hlmFieldDescription>We’ll use this email for notifications.</p>
 
-@if(showError){
 				<hlm-field-error>Enter a valid email address to continue.</hlm-field-error>
-}
 			</div>
 
 			<div class="flex flex-wrap items-center gap-2">

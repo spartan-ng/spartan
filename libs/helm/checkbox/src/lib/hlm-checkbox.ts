@@ -54,7 +54,6 @@ export const HLM_CHECKBOX_VALUE_ACCESSOR = {
 			[aria-label]="ariaLabel()"
 			[aria-labelledby]="ariaLabelledby()"
 			[aria-describedby]="ariaDescribedby()"
-			[attr.data-invalid]="_errorState() ? 'true' : null"
 			(checkedChange)="_handleChange($event)"
 			(touched)="_onTouched?.()"
 		>
@@ -114,7 +113,7 @@ export class HlmCheckbox implements ControlValueAccessor {
 	protected readonly _disabled = linkedSignal(this.disabled);
 
 	private readonly _brnCheckbox = viewChild.required(BrnCheckbox);
-	protected readonly _errorState = computed(() => this._brnCheckbox().errorState());
+	protected readonly _errorState = computed(() => this._brnCheckbox().controlState()?.spartanInvalid);
 	protected readonly _errorStateClass = computed(() =>
 		this._errorState()
 			? 'border-destructive focus-visible:border-destructive focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40'

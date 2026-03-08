@@ -4,7 +4,6 @@ import {
 	ChangeDetectionStrategy,
 	Component,
 	computed,
-	DoCheck,
 	forwardRef,
 	inject,
 	Injector,
@@ -51,6 +50,8 @@ export const HLM_NATIVE_SELECT_VALUE_ACCESSOR = {
 			[class]="_computedSelectClass()"
 			[attr.data-size]="size()"
 			[attr.aria-invalid]="_ariaInvalid() ? 'true' : null"
+			[attr.aria-dirty]="_dirty() ? 'true' : null"
+			[attr.aria-touched]="_touched() ? 'true' : null"
 			[value]="value()"
 			[disabled]="_disabled()"
 			(change)="_valueChanged($event)"
@@ -67,7 +68,7 @@ export const HLM_NATIVE_SELECT_VALUE_ACCESSOR = {
 		/>
 	`,
 })
-export class HlmNativeSelect implements ControlValueAccessor, OnInit, DoCheck, BrnFieldControl {
+export class HlmNativeSelect implements ControlValueAccessor, OnInit, BrnFieldControl {
 	private readonly _injector = inject(Injector);
 	private readonly _defaultErrorStateMatcher = inject(ErrorStateMatcher);
 	private readonly _parentForm = inject(NgForm, { optional: true });
@@ -76,12 +77,16 @@ export class HlmNativeSelect implements ControlValueAccessor, OnInit, DoCheck, B
 
 	private readonly _errorStateTracker = new ErrorStateTracker(
 		this._defaultErrorStateMatcher,
-		null,
 		this._parentFormGroup,
 		this._parentForm,
 	);
 
-	public readonly errorState = computed(() => this._errorStateTracker.errorState());
+	protected readonly _invalid = this._errorStateTracker.invalid;
+	protected readonly _touched = this._errorStateTracker.touched;
+	protected readonly _dirty = this._errorStateTracker.dirty;
+
+	public readonly errors = computed(() => this._errorStateTracker.errors());
+	public readonly controlState = computed(() => this._errorStateTracker.controlState());
 
 	private static _id = 0;
 
@@ -120,7 +125,7 @@ export class HlmNativeSelect implements ControlValueAccessor, OnInit, DoCheck, B
 		alias: 'aria-invalid',
 	});
 
-	protected readonly _ariaInvalid = computed(() => this.ariaInvalidOverride() ?? this.errorState());
+	protected readonly _ariaInvalid = computed(() => this.ariaInvalidOverride() ?? this._invalid());
 
 	public readonly value = model<string | null>('');
 
@@ -137,12 +142,8 @@ export class HlmNativeSelect implements ControlValueAccessor, OnInit, DoCheck, B
 		this.ngControl = this._injector.get(NgControl, null);
 		if (this.ngControl) {
 			this.ngControl.valueAccessor = this;
+			this._errorStateTracker.setControl(this.ngControl);
 		}
-		this._errorStateTracker.ngControl = this.ngControl;
-	}
-
-	public ngDoCheck(): void {
-		this._errorStateTracker.updateErrorState();
 	}
 
 	protected _valueChanged(event: Event): void {

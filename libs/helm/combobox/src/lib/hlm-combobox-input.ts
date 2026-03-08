@@ -24,7 +24,11 @@ import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 				brnComboboxPopoverTrigger
 				hlmInputGroupInput
 				[placeholder]="placeholder()"
-				[attr.aria-invalid]="ariaInvalid() ? 'true' : null"
+				[attr.aria-invalid]="_ariaInvalid() ? 'true' : null"
+				[attr.data-invalid]="_ariaInvalid() ? 'true' : null"
+				[attr.data-dirty]="_dirty() ? 'true' : null"
+				[attr.data-touched]="_touched() ? 'true' : null"
+				[attr.data-matches-spartan-invalid]="_spartanInvalid() ? 'true' : null"
 			/>
 
 			<hlm-input-group-addon align="inline-end">
@@ -75,5 +79,11 @@ export class HlmComboboxInput {
 	});
 
 	/** Computed aria-invalid: uses manual override if provided, otherwise reads from parent error state. */
-	public readonly ariaInvalid = computed(() => this.ariaInvalidOverride() ?? this._combobox.errorState());
+	protected readonly _ariaInvalid = computed(
+		() => this.ariaInvalidOverride() ?? this._combobox.controlState()?.invalid,
+	);
+
+	protected readonly _dirty = computed(() => this._combobox.controlState()?.dirty);
+	protected readonly _touched = computed(() => this._combobox.controlState()?.touched);
+	protected readonly _spartanInvalid = computed(() => this._combobox.controlState()?.spartanInvalid);
 }

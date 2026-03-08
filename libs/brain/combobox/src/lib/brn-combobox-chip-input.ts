@@ -16,6 +16,10 @@ import { injectBrnComboboxBase } from './brn-combobox.token';
 		'aria-haspopup': 'listbox',
 		'[attr.aria-expanded]': '_isExpanded()',
 		'[attr.aria-invalid]': '_ariaInvalid() ? "true" : null',
+		'[attr.data-invalid]': '_ariaInvalid() ? "true" : null',
+		'[attr.data-matches-spartan-invalid]': '_spartanInvalid() ? "true" : null',
+		'[attr.data-dirty]': '_touched() ? "true" : null',
+		'[attr.data-touched]': '_touched() ? "true" : null',
 		'[attr.disabled]': '_disabled() ? "" : null',
 		'[attr.data-disabled]': '_disabled() ? "" : null',
 		'(keydown)': 'onKeyDown($event)',
@@ -37,7 +41,13 @@ export class BrnComboboxChipInput<T> {
 	});
 
 	/** Computed aria-invalid: uses manual override if provided, otherwise reads from parent error state. */
-	protected readonly _ariaInvalid = computed(() => this.ariaInvalidOverride() ?? this._combobox.errorState());
+	protected readonly _ariaInvalid = computed(
+		() => this.ariaInvalidOverride() ?? this._combobox.controlState()?.invalid,
+	);
+
+	protected readonly _dirty = computed(() => this._combobox.controlState()?.dirty);
+	protected readonly _touched = computed(() => this._combobox.controlState()?.touched);
+	protected readonly _spartanInvalid = computed(() => this._combobox.controlState()?.spartanInvalid);
 
 	protected readonly _disabled = this._combobox.disabledState;
 

@@ -4,7 +4,6 @@ import {
 	booleanAttribute,
 	computed,
 	Directive,
-	DoCheck,
 	forwardRef,
 	inject,
 	Injector,
@@ -57,11 +56,13 @@ let nextId = 0;
 		'[attr.data-orientation]': 'orientation()',
 		'data-slot': 'slider',
 		'(focusout)': '_onFocusOut($event)',
-		'[attr.aria-invalid]': 'errorState() ? "true" : null',
-		'[attr.data-invalid]': 'errorState() ? "true" : null',
+		'[attr.aria-invalid]': '_ariaInvalid() ? "true" : null',
+		'[attr.data-invalid]': '_ariaInvalid() ? "true" : null',
+		'[attr.data-dirty]': '_dirty() ? "true" : null',
+		'[attr.data-touched]': '_touched() ? "true" : null',
 	},
 })
-export class BrnSlider implements ControlValueAccessor, OnInit, DoCheck, BrnFieldControl {
+export class BrnSlider implements ControlValueAccessor, OnInit, BrnFieldControl {
 	private readonly _dir = inject(Directionality);
 	private readonly _injector = inject(Injector);
 	public ngControl: NgControl | null = null;
@@ -70,7 +71,13 @@ export class BrnSlider implements ControlValueAccessor, OnInit, DoCheck, BrnFiel
 	private readonly _parentForm = inject(NgForm, { optional: true });
 	private readonly _parentFormGroup = inject(FormGroupDirective, { optional: true });
 	private readonly _errorStateTracker: ErrorStateTracker;
-	public readonly errorState = computed(() => this._errorStateTracker.errorState());
+
+	public readonly controlState = computed(() => this._errorStateTracker.controlState());
+	public readonly errors = computed(() => this._errorStateTracker.errors());
+
+	protected readonly _ariaInvalid = computed(() => this._errorStateTracker.invalid());
+	protected readonly _dirty = computed(() => this._errorStateTracker.touched());
+	protected readonly _touched = computed(() => this._errorStateTracker.touched());
 
 	/** Unique identifier for the slider element. Auto-generated if not provided. */
 	public readonly id = input<string>(`brn-slider-${++nextId}`);
@@ -241,7 +248,6 @@ export class BrnSlider implements ControlValueAccessor, OnInit, DoCheck, BrnFiel
 	constructor() {
 		this._errorStateTracker = new ErrorStateTracker(
 			this._defaultErrorStateMatcher,
-			null,
 			this._parentFormGroup,
 			this._parentForm,
 		);
@@ -251,8 +257,8 @@ export class BrnSlider implements ControlValueAccessor, OnInit, DoCheck, BrnFiel
 		this.ngControl = this._injector.get(NgControl, null);
 		if (this.ngControl) {
 			this.ngControl.valueAccessor = this;
+			this._errorStateTracker.setControl(this.ngControl);
 		}
-		this._errorStateTracker.ngControl = this.ngControl;
 
 		// If bound to an Angular form control, writeValue() will run after ngOnInit,
 		// so avoid initializing defaults here to prevent a transient min-value override.
@@ -270,10 +276,6 @@ export class BrnSlider implements ControlValueAccessor, OnInit, DoCheck, BrnFiel
 				this.value.set(normalizedValue);
 			}
 		}
-	}
-
-	ngDoCheck(): void {
-		this._errorStateTracker.updateErrorState();
 	}
 
 	registerOnChange(fn: (value: number[]) => void): void {

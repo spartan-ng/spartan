@@ -7,7 +7,6 @@ import {
 	contentChild,
 	contentChildren,
 	Directive,
-	type DoCheck,
 	effect,
 	ElementRef,
 	forwardRef,
@@ -46,7 +45,7 @@ import {
 		'(focusout)': '_onFocusOut($event)',
 	},
 })
-export class BrnAutocomplete<T> implements BrnAutocompleteBase<T>, ControlValueAccessor, DoCheck, BrnFieldControl {
+export class BrnAutocomplete<T> implements BrnAutocompleteBase<T>, ControlValueAccessor, BrnFieldControl {
 	private readonly _injector = inject(Injector);
 
 	private readonly _config = injectBrnAutocompleteConfig<T>();
@@ -59,7 +58,13 @@ export class BrnAutocomplete<T> implements BrnAutocompleteBase<T>, ControlValueA
 	private readonly _parentFormGroup = inject(FormGroupDirective, { optional: true });
 	public readonly ngControl = inject(NgControl, { optional: true, self: true });
 	private readonly _errorStateTracker: ErrorStateTracker;
-	public readonly errorState = computed(() => this._errorStateTracker.errorState());
+
+	public readonly controlState = computed(() => this._errorStateTracker.controlState());
+	public readonly invalid = computed(() => this._errorStateTracker.invalid());
+	public readonly spartanInvalid = computed(() => this._errorStateTracker.spartanInvalid());
+	public readonly touched = computed(() => this._errorStateTracker.touched());
+	public readonly dirty = computed(() => this._errorStateTracker.dirty());
+	public readonly errors = computed(() => this._errorStateTracker.errors());
 
 	/** Whether the autocomplete is disabled */
 	public readonly disabled = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
@@ -120,9 +125,9 @@ export class BrnAutocomplete<T> implements BrnAutocompleteBase<T>, ControlValueA
 
 		this._errorStateTracker = new ErrorStateTracker(
 			this._defaultErrorStateMatcher,
-			this.ngControl,
 			this._parentFormGroup,
 			this._parentForm,
+			this.ngControl,
 		);
 
 		this.keyManager
@@ -209,10 +214,6 @@ export class BrnAutocomplete<T> implements BrnAutocompleteBase<T>, ControlValueA
 		if (this._disabled()) return;
 
 		this.isExpanded() ? this.close() : this.open();
-	}
-
-	ngDoCheck() {
-		this._errorStateTracker.updateErrorState();
 	}
 
 	/** CONTROL VALUE ACCESSOR */

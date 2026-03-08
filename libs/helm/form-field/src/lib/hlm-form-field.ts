@@ -25,7 +25,9 @@ export class HlmFormField {
 	public readonly errorChildren = contentChildren(HlmError);
 
 	protected readonly _hasDisplayedMessage = computed<'error' | 'hint'>(() =>
-		this.errorChildren() && this.errorChildren().length > 0 && this.control()?.errorState() ? 'error' : 'hint',
+		this.errorChildren() && this.errorChildren().length > 0 && this.control()?.controlState()?.spartanInvalid
+			? 'error'
+			: 'hint',
 	);
 
 	constructor() {

@@ -7,7 +7,6 @@ import {
 	contentChild,
 	contentChildren,
 	Directive,
-	type DoCheck,
 	effect,
 	ElementRef,
 	forwardRef,
@@ -52,7 +51,7 @@ import {
 		'(focusout)': '_onFocusOut($event)',
 	},
 })
-export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor, DoCheck, BrnFieldControl {
+export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor, BrnFieldControl {
 	private readonly _injector = inject(Injector);
 
 	private readonly _config = injectBrnComboboxConfig<T>();
@@ -65,7 +64,8 @@ export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor,
 	private readonly _parentFormGroup = inject(FormGroupDirective, { optional: true });
 	public readonly ngControl = inject(NgControl, { optional: true, self: true });
 	private readonly _errorStateTracker: ErrorStateTracker;
-	public readonly errorState = computed(() => this._errorStateTracker.errorState());
+	public readonly controlState = computed(() => this._errorStateTracker.controlState());
+	public readonly errors = computed(() => this._errorStateTracker.errors());
 
 	/** Whether the combobox is disabled */
 	public readonly disabled = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
@@ -147,9 +147,9 @@ export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor,
 
 		this._errorStateTracker = new ErrorStateTracker(
 			this._defaultErrorStateMatcher,
-			this.ngControl,
 			this._parentFormGroup,
 			this._parentForm,
+			this.ngControl,
 		);
 
 		this.keyManager
@@ -181,10 +181,6 @@ export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor,
 				{ injector: this._injector },
 			);
 		});
-	}
-
-	public ngDoCheck(): void {
-		this._errorStateTracker.updateErrorState();
 	}
 
 	public registerComboboxInput(input: BrnComboboxInput<T>): void {

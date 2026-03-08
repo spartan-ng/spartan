@@ -14,7 +14,6 @@ import {
 	computed,
 	contentChild,
 	contentChildren,
-	type DoCheck,
 	forwardRef,
 	inject,
 	Injector,
@@ -89,9 +88,7 @@ let nextId = 0;
 		</ng-template>
 	`,
 })
-export class BrnSelect<T = unknown>
-	implements ControlValueAccessor, DoCheck, ExposesSide, ExposesState, BrnFieldControl
-{
+export class BrnSelect<T = unknown> implements ControlValueAccessor, ExposesSide, ExposesState, BrnFieldControl {
 	private readonly _defaultErrorStateMatcher = inject(ErrorStateMatcher);
 	private readonly _parentForm = inject(NgForm, { optional: true });
 	private readonly _dir = inject(Directionality);
@@ -206,7 +203,8 @@ export class BrnSelect<T = unknown>
 
 	public errorStateTracker: ErrorStateTracker;
 
-	public readonly errorState = computed(() => this.errorStateTracker.errorState());
+	public readonly controlState = computed(() => this.errorStateTracker.controlState());
+	public readonly errors = computed(() => this.errorStateTracker.errors());
 
 	constructor() {
 		if (this.ngControl !== null) {
@@ -215,14 +213,10 @@ export class BrnSelect<T = unknown>
 
 		this.errorStateTracker = new ErrorStateTracker(
 			this._defaultErrorStateMatcher,
-			this.ngControl,
 			this._parentFormGroup,
 			this._parentForm,
+			this.ngControl,
 		);
-	}
-
-	ngDoCheck() {
-		this.errorStateTracker.updateErrorState();
 	}
 
 	public toggle(): void {

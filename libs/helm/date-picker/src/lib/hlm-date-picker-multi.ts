@@ -4,7 +4,6 @@ import {
 	ChangeDetectionStrategy,
 	Component,
 	computed,
-	type DoCheck,
 	forwardRef,
 	inject,
 	input,
@@ -64,6 +63,10 @@ let nextId = 0;
 				[class]="_computedClass()"
 				[disabled]="_mutableDisabled()"
 				[attr.aria-invalid]="_ariaInvalid()"
+				[attr.data-invalid]="_ariaInvalid()"
+				[attr.data-dirty]="_dirty() ? 'true' : null"
+				[attr.data-touched]="_touched() ? 'true' : null"
+				[attr.data-matches-spartan-invalid]="_spartanInvalid() ? 'true' : null"
 				hlmPopoverTrigger
 				hlmFieldControlDescribedBy
 			>
@@ -94,7 +97,7 @@ let nextId = 0;
 		</hlm-popover>
 	`,
 })
-export class HlmDatePickerMulti<T> implements ControlValueAccessor, DoCheck, BrnFieldControl {
+export class HlmDatePickerMulti<T> implements ControlValueAccessor, BrnFieldControl {
 	private readonly _config = injectHlmDatePickerMultiConfig<T>();
 	private readonly _defaultErrorStateMatcher = inject(ErrorStateMatcher);
 	private readonly _parentForm = inject(NgForm, { optional: true });
@@ -103,18 +106,23 @@ export class HlmDatePickerMulti<T> implements ControlValueAccessor, DoCheck, Brn
 	public readonly ngControl = inject(NgControl, { optional: true, self: true });
 	private readonly _errorStateTracker = new ErrorStateTracker(
 		this._defaultErrorStateMatcher,
-		null,
 		this._parentFormGroup,
 		this._parentForm,
 	);
 
-	public readonly errorState = computed(() => this._errorStateTracker.errorState());
+	public readonly controlState = computed(() => this._errorStateTracker.controlState());
+	public readonly errors = computed(() => this._errorStateTracker.errors());
+
+	protected readonly _spartanInvalid = computed(() => this._errorStateTracker.spartanInvalid());
+	protected readonly _dirty = computed(() => this._errorStateTracker.dirty());
+	protected readonly _touched = computed(() => this._errorStateTracker.touched());
+
 	protected readonly _errorStateClass = computed(() =>
-		this.errorState()
+		this._spartanInvalid()
 			? 'border-destructive focus-visible:border-destructive focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40'
 			: '',
 	);
-	protected readonly _ariaInvalid = computed(() => (this.errorState() ? 'true' : null));
+	protected readonly _ariaInvalid = computed(() => (this._errorStateTracker.invalid() ? 'true' : null));
 
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>
@@ -228,12 +236,7 @@ export class HlmDatePickerMulti<T> implements ControlValueAccessor, DoCheck, Brn
 	constructor() {
 		if (this.ngControl) {
 			this.ngControl.valueAccessor = this;
+			this._errorStateTracker.setControl(this.ngControl);
 		}
-
-		this._errorStateTracker.ngControl = this.ngControl;
-	}
-
-	ngDoCheck() {
-		this._errorStateTracker.updateErrorState();
 	}
 }

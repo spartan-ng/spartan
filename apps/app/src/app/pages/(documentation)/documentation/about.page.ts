@@ -76,13 +76,6 @@ const aboutLink = 'h-6 underline text-sm px-0.5';
 					- The full-stack Angular meta-framework powering spartan/stack.
 				</li>
 				<li>
-					<a class="${aboutLink}" hlmBtn href="https://tutkli.github.io/ngx-sonner" target="_blank" variant="link">
-						ngx-sonner
-					</a>
-					- Elegant toast notifications by
-					<a hlmBtn variant="link" class="${aboutLink}" href="https://github.com/tutkli">Tutkli.</a>
-				</li>
-				<li>
 					<a
 						class="${aboutLink}"
 						hlmBtn

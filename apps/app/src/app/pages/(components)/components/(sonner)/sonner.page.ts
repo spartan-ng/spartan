@@ -15,7 +15,6 @@ import { Tabs } from '../../../../shared/layout/tabs';
 import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { link } from '../../../../shared/typography/link';
 import { SonnerDescriptionExample } from './sonner--description.example';
 import { SonnerPositionExample } from './sonner--position.example';
 import { SonnerTypesExample } from './sonner--types.example';
@@ -56,15 +55,6 @@ export const routeMeta: RouteMeta = {
 				</div>
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
-
-			<spartan-section-sub-heading id="about">About</spartan-section-sub-heading>
-			<p class="${hlmP}">
-				Sonner is built on top of
-				<a href="https://tutkli.github.io/ngx-sonner/" target="_blank" rel="noreferrer" class="${link}">ngx-sonner</a>
-				by
-				<a href="https://github.com/tutkli" target="_blank" rel="noreferrer" class="${link}">&#64;tutkli</a>
-				.
-			</p>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
 			<spartan-cli-tabs nxCode="npx nx g @spartan-ng/cli:ui sonner" ngCode="ng g @spartan-ng/cli:ui sonner" />

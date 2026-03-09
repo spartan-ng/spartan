@@ -22,7 +22,6 @@ export type Primitive =
 	| 'dropdown-menu'
 	| 'empty'
 	| 'field'
-	| 'form-field'
 	| 'hover-card'
 	| 'icon'
 	| 'input'

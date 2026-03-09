@@ -94,7 +94,6 @@
 			"@spartan-ng/helm/dropdown-menu": ["libs/helm/dropdown-menu/src/index.ts"],
 			"@spartan-ng/helm/empty": ["libs/helm/empty/src/index.ts"],
 			"@spartan-ng/helm/field": ["libs/helm/field/src/index.ts"],
-			"@spartan-ng/helm/form-field": ["libs/helm/form-field/src/index.ts"],
 			"@spartan-ng/helm/hover-card": ["libs/helm/hover-card/src/index.ts"],
 			"@spartan-ng/helm/icon": ["libs/helm/icon/src/index.ts"],
 			"@spartan-ng/helm/input": ["libs/helm/input/src/index.ts"],

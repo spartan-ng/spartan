@@ -310,7 +310,7 @@ export const routeMeta: RouteMeta = {
 			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-page-bottom-nav>
-				<spartan-page-bottom-nav-link href="form-field" label="Form Field" />
+				<spartan-page-bottom-nav-link href="hover-card" label="Hover Card" />
 				<spartan-page-bottom-nav-link direction="previous" href="empty" label="Empty" />
 			</spartan-page-bottom-nav>
 		</section>

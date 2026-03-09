@@ -9,6 +9,7 @@ import {
 	type Type,
 	type ValueProvider,
 } from '@angular/core';
+import { ControlState } from '@spartan-ng/brain/forms';
 import type { BrnAutocompleteItem } from './brn-autocomplete-item';
 
 export interface BrnAutocompleteBase<T> {
@@ -21,10 +22,7 @@ export interface BrnAutocompleteBase<T> {
 	visibleItems: Signal<boolean>;
 	isExpanded: Signal<boolean>;
 	searchInputWrapperWidth: Signal<number | null>;
-	dirty: Signal<boolean | null>;
-	invalid: Signal<boolean | null>;
-	spartanInvalid: Signal<boolean | null>;
-	touched: Signal<boolean | null>;
+	controlState: Signal<ControlState | null> | undefined;
 
 	updateSearch: (value: string) => void;
 	isSelected: (itemValue: T) => boolean;

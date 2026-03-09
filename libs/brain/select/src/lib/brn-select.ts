@@ -14,9 +14,7 @@ import {
 	computed,
 	contentChild,
 	contentChildren,
-	forwardRef,
 	inject,
-	Injector,
 	input,
 	model,
 	numberAttribute,
@@ -26,7 +24,7 @@ import {
 	viewChild,
 } from '@angular/core';
 import { takeUntilDestroyed, toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { type ControlValueAccessor, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
+import { type ControlValueAccessor } from '@angular/forms';
 import {
 	type ExposesSide,
 	type ExposesState,
@@ -34,7 +32,7 @@ import {
 	provideExposesStateProviderExisting,
 } from '@spartan-ng/brain/core';
 import { BrnFieldControl } from '@spartan-ng/brain/field';
-import { type ChangeFn, ErrorStateMatcher, ErrorStateTracker, type TouchFn } from '@spartan-ng/brain/forms';
+import { type ChangeFn, type TouchFn } from '@spartan-ng/brain/forms';
 import { BrnLabel } from '@spartan-ng/brain/label';
 import { of, Subject } from 'rxjs';
 import { delay, map, switchMap } from 'rxjs/operators';
@@ -54,11 +52,8 @@ let nextId = 0;
 		provideExposedSideProviderExisting(() => BrnSelect),
 		provideExposesStateProviderExisting(() => BrnSelect),
 		provideBrnSelect(BrnSelect),
-		{
-			provide: BrnFieldControl,
-			useExisting: forwardRef(() => BrnSelect),
-		},
 	],
+	hostDirectives: [BrnFieldControl],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		@if (!_selectLabel() && placeholder()) {
@@ -88,13 +83,9 @@ let nextId = 0;
 		</ng-template>
 	`,
 })
-export class BrnSelect<T = unknown> implements ControlValueAccessor, ExposesSide, ExposesState, BrnFieldControl {
-	private readonly _defaultErrorStateMatcher = inject(ErrorStateMatcher);
-	private readonly _parentForm = inject(NgForm, { optional: true });
+export class BrnSelect<T = unknown> implements ControlValueAccessor, ExposesSide, ExposesState {
 	private readonly _dir = inject(Directionality);
-	private readonly _injector = inject(Injector);
-	private readonly _parentFormGroup = inject(FormGroupDirective, { optional: true });
-	public readonly ngControl = inject(NgControl, { optional: true, self: true });
+	private readonly _fieldControl = inject(BrnFieldControl, { optional: true });
 
 	public readonly id = input<string>(`brn-select-${++nextId}`);
 	public readonly multiple = input<boolean, BooleanInput>(false, {
@@ -201,23 +192,7 @@ export class BrnSelect<T = unknown> implements ControlValueAccessor, ExposesSide
 		},
 	];
 
-	public errorStateTracker: ErrorStateTracker;
-
-	public readonly controlState = computed(() => this.errorStateTracker.controlState());
-	public readonly errors = computed(() => this.errorStateTracker.errors());
-
-	constructor() {
-		if (this.ngControl !== null) {
-			this.ngControl.valueAccessor = this;
-		}
-
-		this.errorStateTracker = new ErrorStateTracker(
-			this._defaultErrorStateMatcher,
-			this._parentFormGroup,
-			this._parentForm,
-			this.ngControl,
-		);
-	}
+	public readonly controlState = this._fieldControl?.controlState;
 
 	public toggle(): void {
 		if (this.open()) {

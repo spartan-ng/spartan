@@ -17,10 +17,10 @@ import {
 	model,
 	untracked,
 } from '@angular/core';
-import { ControlValueAccessor, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
+import { ControlValueAccessor } from '@angular/forms';
 import { stringifyAsLabel } from '@spartan-ng/brain/core';
 import { BrnFieldControl } from '@spartan-ng/brain/field';
-import { ChangeFn, ErrorStateMatcher, ErrorStateTracker, TouchFn } from '@spartan-ng/brain/forms';
+import { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import { BrnPopover } from '@spartan-ng/brain/popover';
 import { BrnAutocompleteInputWrapper } from './brn-autocomplete-input-wrapper';
 import { BrnAutocompleteItem } from './brn-autocomplete-item';
@@ -44,27 +44,18 @@ import {
 	host: {
 		'(focusout)': '_onFocusOut($event)',
 	},
+	hostDirectives: [BrnFieldControl],
 })
-export class BrnAutocompleteSearch<T> implements BrnAutocompleteBase<T>, ControlValueAccessor, BrnFieldControl {
+export class BrnAutocompleteSearch<T> implements BrnAutocompleteBase<T>, ControlValueAccessor {
 	private readonly _injector = inject(Injector);
+	private readonly _fieldControl = inject(BrnFieldControl, { optional: true });
 
 	private readonly _config = injectBrnAutocompleteConfig<T>();
 
 	/** Access the popover if present */
 	private readonly _brnPopover = inject(BrnPopover, { optional: true });
 
-	private readonly _defaultErrorStateMatcher = inject(ErrorStateMatcher);
-	private readonly _parentForm = inject(NgForm, { optional: true });
-	private readonly _parentFormGroup = inject(FormGroupDirective, { optional: true });
-	public readonly ngControl = inject(NgControl, { optional: true, self: true });
-	private readonly _errorStateTracker: ErrorStateTracker;
-
-	public readonly controlState = computed(() => this._errorStateTracker.controlState());
-	public readonly errors = computed(() => this._errorStateTracker.errors());
-	public readonly dirty = computed(() => this._errorStateTracker.dirty());
-	public readonly invalid = computed(() => this._errorStateTracker.invalid());
-	public readonly spartanInvalid = computed(() => this._errorStateTracker.spartanInvalid());
-	public readonly touched = computed(() => this._errorStateTracker.touched());
+	public readonly controlState = this._fieldControl?.controlState;
 
 	/** Whether the autocomplete is disabled */
 	public readonly disabled = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
@@ -116,17 +107,6 @@ export class BrnAutocompleteSearch<T> implements BrnAutocompleteBase<T>, Control
 	protected _onTouched?: TouchFn;
 
 	constructor() {
-		if (this.ngControl !== null) {
-			this.ngControl.valueAccessor = this;
-		}
-
-		this._errorStateTracker = new ErrorStateTracker(
-			this._defaultErrorStateMatcher,
-			this._parentFormGroup,
-			this._parentForm,
-			this.ngControl,
-		);
-
 		this.keyManager
 			.withVerticalOrientation()
 			.withHomeAndEnd()

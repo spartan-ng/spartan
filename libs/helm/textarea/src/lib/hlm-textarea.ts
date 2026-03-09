@@ -1,7 +1,5 @@
-import { computed, Directive, forwardRef, inject, Injector, input, linkedSignal, signal } from '@angular/core';
-import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
+import { Directive, inject, input, linkedSignal, signal } from '@angular/core';
 import { BrnFieldControl } from '@spartan-ng/brain/field';
-import { ErrorStateMatcher, ErrorStateTracker } from '@spartan-ng/brain/forms';
 import { HlmFieldControlDescribedBy } from '@spartan-ng/helm/field';
 import { classes } from '@spartan-ng/helm/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
@@ -12,7 +10,7 @@ export const textareaVariants = cva(
 	{
 		variants: {
 			error: {
-				auto: '[&.ng-invalid.ng-touched]:border-destructive [&.ng-invalid.ng-touched]:ring-destructive/20 dark:[&.ng-invalid.ng-touched]:ring-destructive/40',
+				auto: 'data-[matches-spartan-invalid=true]:border-destructive data-[matches-spartan-invalid=true]:ring-destructive/20 dark:data-[matches-spartan-invalid=true]:ring-destructive/40',
 				true: 'border-destructive focus-visible:border-destructive focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40',
 			},
 		},
@@ -25,52 +23,30 @@ type TextareaVariants = VariantProps<typeof textareaVariants>;
 
 @Directive({
 	selector: '[hlmTextarea]',
-	providers: [
-		{
-			provide: BrnFieldControl,
-			useExisting: forwardRef(() => HlmTextarea),
-		},
-	],
-	hostDirectives: [HlmFieldControlDescribedBy],
+	hostDirectives: [HlmFieldControlDescribedBy, BrnFieldControl],
 	host: {
 		'data-slot': 'textarea',
+		'[attr.aria-invalid]': '_ariaInvalid?.() ? "true" : null',
+		'[attr.data-invalid]': '_ariaInvalid?.() ? "true" : null',
+		'[attr.data-touched]': '_touched?.() ? "true" : null',
+		'[attr.data-dirty]': '_dirty?.() ? "true" : null',
+		'[attr.data-matches-spartan-invalid]': '_spartanInvalid?.() ? "true" : null',
 	},
 })
-export class HlmTextarea implements BrnFieldControl {
-	private readonly _injector = inject(Injector);
+export class HlmTextarea {
+	private readonly _fieldControl = inject(BrnFieldControl, { optional: true });
 	private readonly _additionalClasses = signal<ClassValue>('');
-
-	private readonly _errorStateTracker: ErrorStateTracker;
-
-	private readonly _defaultErrorStateMatcher = inject(ErrorStateMatcher);
-	private readonly _parentForm = inject(NgForm, { optional: true });
-	private readonly _parentFormGroup = inject(FormGroupDirective, { optional: true });
 
 	public readonly error = input<TextareaVariants['error']>('auto');
 
 	protected readonly _state = linkedSignal(() => ({ error: this.error() }));
 
-	public readonly ngControl: NgControl | null = this._injector.get(NgControl, null);
-
-	public readonly controlState = computed(() => this._errorStateTracker.controlState());
-	public readonly errors = computed(() => this._errorStateTracker.errors());
+	protected readonly _ariaInvalid = this._fieldControl?.invalid;
+	protected readonly _touched = this._fieldControl?.touched;
+	protected readonly _dirty = this._fieldControl?.dirty;
+	protected readonly _spartanInvalid = this._fieldControl?.spartanInvalid;
 
 	constructor() {
 		classes(() => [textareaVariants({ error: this._state().error }), this._additionalClasses()]);
-
-		this._errorStateTracker = new ErrorStateTracker(
-			this._defaultErrorStateMatcher,
-			this._parentFormGroup,
-			this._parentForm,
-			this.ngControl,
-		);
-	}
-
-	public setError(error: TextareaVariants['error']): void {
-		this._state.set({ error });
-	}
-
-	public setClass(classes: string): void {
-		this._additionalClasses.set(classes);
 	}
 }

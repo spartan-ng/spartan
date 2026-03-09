@@ -57,6 +57,6 @@ export class HlmSelectTrigger {
 	public readonly size = input<'default' | 'sm'>('default');
 
 	protected readonly _computedClass = computed(() =>
-		hlm(selectTriggerVariants({ error: this._brnSelect?.controlState()?.spartanInvalid }), this.userClass()),
+		hlm(selectTriggerVariants({ error: this._brnSelect?.controlState?.()?.spartanInvalid }), this.userClass()),
 	);
 }

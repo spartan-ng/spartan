@@ -6,18 +6,16 @@ import {
 	computed,
 	forwardRef,
 	inject,
-	Injector,
 	input,
 	linkedSignal,
 	model,
-	OnInit,
 	output,
 } from '@angular/core';
-import { FormGroupDirective, NG_VALUE_ACCESSOR, NgControl, NgForm, type ControlValueAccessor } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, type ControlValueAccessor } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown } from '@ng-icons/lucide';
 import { BrnFieldControl } from '@spartan-ng/brain/field';
-import { ErrorStateMatcher, ErrorStateTracker, type ChangeFn, type TouchFn } from '@spartan-ng/brain/forms';
+import { type ChangeFn, type TouchFn } from '@spartan-ng/brain/forms';
 import { classes, hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 
@@ -30,19 +28,13 @@ export const HLM_NATIVE_SELECT_VALUE_ACCESSOR = {
 @Component({
 	selector: 'hlm-native-select',
 	imports: [NgIcon],
-	providers: [
-		HLM_NATIVE_SELECT_VALUE_ACCESSOR,
-		{
-			provide: BrnFieldControl,
-			useExisting: forwardRef(() => HlmNativeSelect),
-		},
-		provideIcons({ lucideChevronDown }),
-	],
+	providers: [HLM_NATIVE_SELECT_VALUE_ACCESSOR, provideIcons({ lucideChevronDown })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'data-slot': 'native-select-wrapper',
 		'[attr.data-size]': 'size()',
 	},
+	hostDirectives: [BrnFieldControl],
 	template: `
 		<select
 			data-slot="native-select"
@@ -50,8 +42,9 @@ export const HLM_NATIVE_SELECT_VALUE_ACCESSOR = {
 			[class]="_computedSelectClass()"
 			[attr.data-size]="size()"
 			[attr.aria-invalid]="_ariaInvalid() ? 'true' : null"
-			[attr.aria-dirty]="_dirty() ? 'true' : null"
-			[attr.aria-touched]="_touched() ? 'true' : null"
+			[attr.data-dirty]="_dirty?.() ? 'true' : null"
+			[attr.data-touched]="_touched?.() ? 'true' : null"
+			[attr.data-matches-spartan-invalid]="_spartanInvalid?.() ? 'true' : null"
 			[value]="value()"
 			[disabled]="_disabled()"
 			(change)="_valueChanged($event)"
@@ -68,25 +61,8 @@ export const HLM_NATIVE_SELECT_VALUE_ACCESSOR = {
 		/>
 	`,
 })
-export class HlmNativeSelect implements ControlValueAccessor, OnInit, BrnFieldControl {
-	private readonly _injector = inject(Injector);
-	private readonly _defaultErrorStateMatcher = inject(ErrorStateMatcher);
-	private readonly _parentForm = inject(NgForm, { optional: true });
-	private readonly _parentFormGroup = inject(FormGroupDirective, { optional: true });
-	public ngControl: NgControl | null = null;
-
-	private readonly _errorStateTracker = new ErrorStateTracker(
-		this._defaultErrorStateMatcher,
-		this._parentFormGroup,
-		this._parentForm,
-	);
-
-	protected readonly _invalid = this._errorStateTracker.invalid;
-	protected readonly _touched = this._errorStateTracker.touched;
-	protected readonly _dirty = this._errorStateTracker.dirty;
-
-	public readonly errors = computed(() => this._errorStateTracker.errors());
-	public readonly controlState = computed(() => this._errorStateTracker.controlState());
+export class HlmNativeSelect implements ControlValueAccessor {
+	private readonly _fieldControl = inject(BrnFieldControl, { optional: true });
 
 	private static _id = 0;
 
@@ -99,7 +75,7 @@ export class HlmNativeSelect implements ControlValueAccessor, OnInit, BrnFieldCo
 	protected readonly _computedSelectClass = computed(() =>
 		hlm(
 			'border-input placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 dark:hover:bg-input/50 focus-visible:border-ring focus-visible:ring-ring/50 h-9 w-full min-w-0 appearance-none rounded-md border bg-transparent py-1 pr-8 pl-2.5 text-sm shadow-xs transition-[color,box-shadow] outline-none select-none focus-visible:ring-3 disabled:pointer-events-none disabled:cursor-not-allowed data-[size=sm]:h-8',
-			'aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 aria-invalid:ring-3',
+			'data-[matches-spartan-invalid=true]:ring-destructive/20 dark:data-[matches-spartan-invalid=true]:ring-destructive/40 data-[matches-spartan-invalid=true]:border-destructive dark:data-[matches-spartan-invalid=true]:border-destructive/50 data-[matches-spartan-invalid=true]:ring-3',
 			this.selectClass(),
 		),
 	);
@@ -125,7 +101,7 @@ export class HlmNativeSelect implements ControlValueAccessor, OnInit, BrnFieldCo
 		alias: 'aria-invalid',
 	});
 
-	protected readonly _ariaInvalid = computed(() => this.ariaInvalidOverride() ?? this._invalid());
+	protected readonly _ariaInvalid = computed(() => this.ariaInvalidOverride() ?? this._invalid?.());
 
 	public readonly value = model<string | null>('');
 
@@ -134,16 +110,13 @@ export class HlmNativeSelect implements ControlValueAccessor, OnInit, BrnFieldCo
 	protected _onChange?: ChangeFn<string | null>;
 	protected _onTouched?: TouchFn;
 
+	protected readonly _invalid = this._fieldControl?.invalid;
+	protected readonly _touched = this._fieldControl?.touched;
+	protected readonly _dirty = this._fieldControl?.dirty;
+	protected readonly _spartanInvalid = this._fieldControl?.spartanInvalid;
+
 	constructor() {
 		classes(() => 'group/native-select relative w-fit has-[select:disabled]:opacity-50');
-	}
-
-	public ngOnInit(): void {
-		this.ngControl = this._injector.get(NgControl, null);
-		if (this.ngControl) {
-			this.ngControl.valueAccessor = this;
-			this._errorStateTracker.setControl(this.ngControl);
-		}
 	}
 
 	protected _valueChanged(event: Event): void {

@@ -59,11 +59,11 @@ export class HlmRadio<T = unknown> {
 	private readonly _isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 	private readonly _radioGroup = inject(BrnRadioGroup, { optional: true });
 
-	protected readonly _ariaInvalid = computed(() => this._radioGroup?.controlState()?.invalid);
+	protected readonly _ariaInvalid = computed(() => this._radioGroup?.controlState?.()?.invalid);
 
-	protected readonly _touched = computed(() => this._radioGroup?.controlState()?.touched);
-	protected readonly _dirty = computed(() => this._radioGroup?.controlState()?.dirty);
-	protected readonly _groupSpartanInvalid = computed(() => this._radioGroup?.controlState()?.spartanInvalid);
+	protected readonly _touched = computed(() => this._radioGroup?.controlState?.()?.touched);
+	protected readonly _dirty = computed(() => this._radioGroup?.controlState?.()?.dirty);
+	protected readonly _groupSpartanInvalid = computed(() => this._radioGroup?.controlState?.()?.spartanInvalid);
 
 	protected readonly _errorStateClass = computed(() => (this._groupSpartanInvalid() ? 'text-destructive' : ''));
 

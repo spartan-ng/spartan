@@ -25,12 +25,12 @@ import type { ClassValue } from 'clsx';
 export class HlmRadioGroup {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	private readonly _brnRadioGroup = inject(BrnRadioGroup);
-	protected readonly _ariaInvalid = computed(() => this._brnRadioGroup.controlState()?.invalid);
+	protected readonly _ariaInvalid = computed(() => this._brnRadioGroup.controlState?.()?.invalid);
 
-	protected readonly _touched = computed(() => this._brnRadioGroup.controlState()?.touched);
-	protected readonly _dirty = computed(() => this._brnRadioGroup.controlState()?.dirty);
+	protected readonly _touched = computed(() => this._brnRadioGroup.controlState?.()?.touched);
+	protected readonly _dirty = computed(() => this._brnRadioGroup.controlState?.()?.dirty);
 
-	protected readonly _errorState = computed(() => this._brnRadioGroup.controlState()?.spartanInvalid);
+	protected readonly _errorState = computed(() => this._brnRadioGroup.controlState?.()?.spartanInvalid);
 
 	constructor() {
 		classes(() => ['grid gap-3', this.userClass(), this._errorState() ? 'data-[invalid=true]:text-destructive' : '']);

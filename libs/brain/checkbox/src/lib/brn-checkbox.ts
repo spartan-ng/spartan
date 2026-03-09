@@ -14,12 +14,10 @@ import {
 	ElementRef,
 	forwardRef,
 	inject,
-	Injector,
 	input,
 	linkedSignal,
 	model,
 	type OnDestroy,
-	type OnInit,
 	output,
 	PLATFORM_ID,
 	Renderer2,
@@ -27,9 +25,9 @@ import {
 	viewChild,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { type ControlValueAccessor, FormGroupDirective, NG_VALUE_ACCESSOR, NgControl, NgForm } from '@angular/forms';
+import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BrnFieldControl } from '@spartan-ng/brain/field';
-import { type ChangeFn, ErrorStateMatcher, ErrorStateTracker, type TouchFn } from '@spartan-ng/brain/forms';
+import { type ChangeFn, type TouchFn } from '@spartan-ng/brain/forms';
 
 export const BRN_CHECKBOX_VALUE_ACCESSOR = {
 	provide: NG_VALUE_ACCESSOR,
@@ -43,13 +41,7 @@ const CONTAINER_POST_FIX = '-checkbox';
 
 @Component({
 	selector: 'brn-checkbox',
-	providers: [
-		BRN_CHECKBOX_VALUE_ACCESSOR,
-		{
-			provide: BrnFieldControl,
-			useExisting: forwardRef(() => BrnCheckbox),
-		},
-	],
+	providers: [BRN_CHECKBOX_VALUE_ACCESSOR],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[style]': '{display: "contents"}',
@@ -58,16 +50,17 @@ const CONTAINER_POST_FIX = '-checkbox';
 		'[attr.aria-labelledby]': 'null',
 		'[attr.aria-label]': 'null',
 		'[attr.aria-describedby]': 'null',
-		'[attr.aria-invalid]': '_invalid() ? "true" : null',
-		'[attr.data-invalid]': '_invalid() ? "true" : null',
-		'[attr.data-matches-spartan-invalid]': '_spartanInvalid() ? "true" : null',
-		'[attr.data-touched]': '_controlTouched() ? "true" : null',
-		'[attr.data-dirty]': '_dirty() ? "true" : null',
+		'[attr.aria-invalid]': '_invalid?.() ? "true" : null',
+		'[attr.data-invalid]': '_invalid?.() ? "true" : null',
+		'[attr.data-matches-spartan-invalid]': 'spartanInvalid?.() ? "true" : null',
+		'[attr.data-touched]': '_controlTouched?.() ? "true" : null',
+		'[attr.data-dirty]': '_dirty?.() ? "true" : null',
 		'[attr.data-state]': '_dataState()',
 		'[attr.data-focus-visible]': '_focusVisible()',
 		'[attr.data-focus]': '_focused()',
 		'[attr.data-disabled]': '_state().disabled()',
 	},
+	hostDirectives: [BrnFieldControl],
 	template: `
 		<button
 			#checkBox
@@ -92,12 +85,13 @@ const CONTAINER_POST_FIX = '-checkbox';
 		</button>
 	`,
 })
-export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDestroy, OnInit, BrnFieldControl {
+export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDestroy {
 	private readonly _destroyRef = inject(DestroyRef);
 	private readonly _renderer = inject(Renderer2);
 	private readonly _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 	private readonly _focusMonitor = inject(FocusMonitor);
 	private readonly _cdr = inject(ChangeDetectorRef);
+	private readonly _fieldControl = inject(BrnFieldControl, { optional: true });
 	private readonly _document = inject(DOCUMENT);
 	private readonly _isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
@@ -204,19 +198,10 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 		};
 	});
 
-	private readonly _defaultErrorStateMatcher = inject(ErrorStateMatcher);
-	private readonly _parentForm = inject(NgForm, { optional: true });
-	private readonly _parentFormGroup = inject(FormGroupDirective, { optional: true });
-	private readonly _injector = inject(Injector);
-	public ngControl: NgControl | null = null;
-	private readonly _errorStateTracker: ErrorStateTracker;
-	public readonly controlState = computed(() => this._errorStateTracker.controlState());
-
-	protected readonly _dirty = computed(() => this._errorStateTracker.dirty());
-	protected readonly _invalid = computed(() => this._errorStateTracker.invalid());
-	protected readonly _spartanInvalid = computed(() => this._errorStateTracker.spartanInvalid());
-	protected readonly _controlTouched = computed(() => this._errorStateTracker.touched());
-	public readonly errors = computed(() => this._errorStateTracker.errors());
+	protected readonly _dirty = this._fieldControl?.dirty;
+	protected readonly _invalid = this._fieldControl?.invalid;
+	public readonly spartanInvalid = this._fieldControl?.spartanInvalid;
+	protected readonly _controlTouched = this._fieldControl?.touched;
 
 	// eslint-disable-next-line @typescript-eslint/no-empty-function
 	protected _onChange: ChangeFn<boolean> = () => {};
@@ -235,12 +220,6 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 	public readonly touched = output<void>();
 
 	constructor() {
-		this._errorStateTracker = new ErrorStateTracker(
-			this._defaultErrorStateMatcher,
-			this._parentFormGroup,
-			this._parentForm,
-		);
-
 		effect(() => {
 			const state = this._state();
 			const isDisabled = state.disabled();
@@ -263,14 +242,6 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 				this._renderer.setAttribute(labelElement, 'id', newLabelId);
 			}
 		});
-	}
-
-	ngOnInit(): void {
-		this.ngControl = this._injector.get(NgControl, null);
-		if (this.ngControl) {
-			this.ngControl.valueAccessor = this;
-			this._errorStateTracker.setControl(this.ngControl);
-		}
 	}
 
 	/**

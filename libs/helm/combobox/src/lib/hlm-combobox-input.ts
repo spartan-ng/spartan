@@ -80,10 +80,10 @@ export class HlmComboboxInput {
 
 	/** Computed aria-invalid: uses manual override if provided, otherwise reads from parent error state. */
 	protected readonly _ariaInvalid = computed(
-		() => this.ariaInvalidOverride() ?? this._combobox.controlState()?.invalid,
+		() => this.ariaInvalidOverride() ?? this._combobox.controlState?.()?.invalid,
 	);
 
-	protected readonly _dirty = computed(() => this._combobox.controlState()?.dirty);
-	protected readonly _touched = computed(() => this._combobox.controlState()?.touched);
-	protected readonly _spartanInvalid = computed(() => this._combobox.controlState()?.spartanInvalid);
+	protected readonly _dirty = computed(() => this._combobox.controlState?.()?.dirty);
+	protected readonly _touched = computed(() => this._combobox.controlState?.()?.touched);
+	protected readonly _spartanInvalid = computed(() => this._combobox.controlState?.()?.spartanInvalid);
 }

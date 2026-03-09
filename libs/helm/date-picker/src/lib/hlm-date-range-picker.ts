@@ -12,13 +12,12 @@ import {
 	signal,
 	untracked,
 } from '@angular/core';
-import { type ControlValueAccessor, FormGroupDirective, NG_VALUE_ACCESSOR, NgControl, NgForm } from '@angular/forms';
+import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { provideIcons } from '@ng-icons/core';
 import { lucideChevronDown } from '@ng-icons/lucide';
 import type { BrnDialogState } from '@spartan-ng/brain/dialog';
 import { BrnFieldControl } from '@spartan-ng/brain/field';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
-import { ErrorStateMatcher, ErrorStateTracker } from '@spartan-ng/brain/forms';
 import { HlmCalendarRange } from '@spartan-ng/helm/calendar';
 import { HlmFieldControlDescribedBy } from '@spartan-ng/helm/field';
 import { HlmIconImports } from '@spartan-ng/helm/icon';
@@ -38,18 +37,12 @@ let nextId = 0;
 @Component({
 	selector: 'hlm-date-range-picker',
 	imports: [HlmIconImports, HlmPopoverImports, HlmCalendarRange, HlmFieldControlDescribedBy],
-	providers: [
-		// HLM_DATE_RANGE_PICKER_VALUE_ACCESSOR,
-		provideIcons({ lucideChevronDown }),
-		{
-			provide: BrnFieldControl,
-			useExisting: forwardRef(() => HlmDateRangePicker),
-		},
-	],
+	providers: [HLM_DATE_RANGE_PICKER_VALUE_ACCESSOR, provideIcons({ lucideChevronDown })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'block',
 	},
+	hostDirectives: [BrnFieldControl],
 	template: `
 		<hlm-popover
 			sideOffset="5"
@@ -64,8 +57,9 @@ let nextId = 0;
 				[disabled]="_mutableDisabled()"
 				[attr.aria-invalid]="_ariaInvalid()"
 				[attr.data-invalid]="_ariaInvalid()"
-				[attr.data-touched]="_touched() ? 'true' : null"
-				[attr.data-dirty]="_dirty() ? 'true' : null"
+				[attr.data-touched]="_touched?.() ? 'true' : null"
+				[attr.data-dirty]="_dirty?.() ? 'true' : null"
+				[attr.data-matches-spartan-invalid]="_spartanInvalid?.() ? 'true' : null"
 				hlmPopoverTrigger
 				hlmFieldControlDescribedBy
 			>
@@ -96,33 +90,21 @@ let nextId = 0;
 		</hlm-popover>
 	`,
 })
-export class HlmDateRangePicker<T> implements ControlValueAccessor, BrnFieldControl {
+export class HlmDateRangePicker<T> implements ControlValueAccessor {
 	private readonly _config = injectHlmDateRangePickerConfig<T>();
-	private readonly _defaultErrorStateMatcher = inject(ErrorStateMatcher);
-	private readonly _parentForm = inject(NgForm, { optional: true });
-	private readonly _parentFormGroup = inject(FormGroupDirective, { optional: true });
+	private readonly _fieldControl = inject(BrnFieldControl, { optional: true });
 
-	public readonly ngControl = inject(NgControl, { optional: true, self: true });
-	private readonly _errorStateTracker = new ErrorStateTracker(
-		this._defaultErrorStateMatcher,
-		this._parentFormGroup,
-		this._parentForm,
-		this.ngControl,
-	);
-
-	public readonly controlState = computed(() => this._errorStateTracker.controlState());
-	public readonly errors = computed(() => this._errorStateTracker.errors());
-
-	protected readonly _spartanInvalid = computed(() => this._errorStateTracker.spartanInvalid());
-	protected readonly _touched = computed(() => this._errorStateTracker.touched());
-	protected readonly _dirty = computed(() => this._errorStateTracker.dirty());
+	protected readonly _spartanInvalid = this._fieldControl?.spartanInvalid;
+	protected readonly _touched = this._fieldControl?.touched;
+	protected readonly _dirty = this._fieldControl?.dirty;
+	protected readonly _invalid = this._fieldControl?.invalid;
 
 	protected readonly _errorStateClass = computed(() =>
-		this._spartanInvalid()
+		this._spartanInvalid?.()
 			? 'border-destructive focus-visible:border-destructive focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40'
 			: '',
 	);
-	protected readonly _ariaInvalid = computed(() => (this._errorStateTracker.invalid() ? 'true' : null));
+	protected readonly _ariaInvalid = computed(() => (this._invalid?.() ? 'true' : null));
 
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>
@@ -244,12 +226,6 @@ export class HlmDateRangePicker<T> implements ControlValueAccessor, BrnFieldCont
 		if (this._start() && !this._end() && dates) {
 			this._start.set(dates[0]);
 			this._end.set(dates[1]);
-		}
-	}
-
-	constructor() {
-		if (this.ngControl) {
-			this.ngControl.valueAccessor = this;
 		}
 	}
 }

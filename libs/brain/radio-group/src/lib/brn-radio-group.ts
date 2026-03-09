@@ -8,16 +8,14 @@ import {
 	Directive,
 	forwardRef,
 	inject,
-	Injector,
 	input,
 	linkedSignal,
 	model,
-	OnInit,
 	output,
 } from '@angular/core';
-import { type ControlValueAccessor, FormGroupDirective, NG_VALUE_ACCESSOR, NgControl, NgForm } from '@angular/forms';
+import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BrnFieldControl } from '@spartan-ng/brain/field';
-import { type ChangeFn, ErrorStateMatcher, ErrorStateTracker, type TouchFn } from '@spartan-ng/brain/forms';
+import { type ChangeFn, type TouchFn } from '@spartan-ng/brain/forms';
 import { BrnRadio, BrnRadioChange } from './brn-radio';
 import { provideBrnRadioGroupToken } from './brn-radio-group.token';
 
@@ -47,9 +45,11 @@ export const BRN_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = {
 		'[attr.data-touched]': '_touched() ? "true" : null',
 		'[attr.data-matches-spartan-invalid]': '_spartanInvalid() ? "true" : null',
 	},
+	hostDirectives: [BrnFieldControl],
 })
-export class BrnRadioGroup<T = unknown> implements ControlValueAccessor, OnInit, BrnFieldControl {
+export class BrnRadioGroup<T = unknown> implements ControlValueAccessor {
 	private readonly _dir = inject(Directionality);
+	private readonly _fieldControl = inject(BrnFieldControl, { optional: true });
 	private static _nextUniqueId = 0;
 
 	protected onChange: ChangeFn<T> = () => {};
@@ -96,37 +96,17 @@ export class BrnRadioGroup<T = unknown> implements ControlValueAccessor, OnInit,
 	 */
 	public readonly disabledState = linkedSignal(() => this.disabled());
 
-	private readonly _defaultErrorStateMatcher = inject(ErrorStateMatcher);
-	private readonly _parentForm = inject(NgForm, { optional: true });
-	private readonly _parentFormGroup = inject(FormGroupDirective, { optional: true });
-	public ngControl: NgControl | null = null;
-	private readonly _injector = inject(Injector);
-	private readonly _errorStateTracker = new ErrorStateTracker(
-		this._defaultErrorStateMatcher,
-		this._parentFormGroup,
-		this._parentForm,
-	);
-
-	public readonly controlState = computed(() => this._errorStateTracker.controlState());
-	public readonly errors = computed(() => this._errorStateTracker.errors());
-	protected readonly _ariaInvalid = computed(() => this._errorStateTracker.invalid());
-	protected readonly _spartanInvalid = computed(() => this._errorStateTracker.spartanInvalid());
-	protected readonly _dirty = computed(() => this._errorStateTracker.dirty());
-	protected readonly _touched = computed(() => this._errorStateTracker.touched());
+	public readonly controlState = this._fieldControl?.controlState;
+	protected readonly _ariaInvalid = computed(() => this._fieldControl?.invalid());
+	protected readonly _spartanInvalid = computed(() => this._fieldControl?.spartanInvalid());
+	protected readonly _dirty = computed(() => this._fieldControl?.dirty());
+	protected readonly _touched = computed(() => this._fieldControl?.touched());
 
 	/**
 	 * Access the radio buttons within the group.
 	 * @internal
 	 */
 	public readonly radioButtons = contentChildren(BrnRadio, { descendants: true });
-
-	ngOnInit(): void {
-		this.ngControl = this._injector.get(NgControl, null);
-		if (this.ngControl) {
-			this.ngControl.valueAccessor = this;
-			this._errorStateTracker.setControl(this.ngControl);
-		}
-	}
 
 	writeValue(value: T): void {
 		this.value.set(value);

@@ -70,9 +70,11 @@ export class HlmAutocompleteInput {
 	});
 
 	/** Computed aria-invalid: uses manual override if provided, otherwise reads from parent error state. */
-	protected readonly _ariaInvalid = computed(() => this.ariaInvalidOverride() ?? this._autocomplete.invalid());
+	protected readonly _ariaInvalid = computed(
+		() => this.ariaInvalidOverride() ?? this._autocomplete.controlState?.()?.invalid,
+	);
 
-	protected readonly _spartanInvalid = this._autocomplete.spartanInvalid;
-	protected readonly _touched = this._autocomplete.touched;
-	protected readonly _dirty = this._autocomplete.dirty;
+	protected readonly _spartanInvalid = computed(() => this._autocomplete.controlState?.()?.spartanInvalid);
+	protected readonly _touched = computed(() => this._autocomplete.controlState?.()?.touched);
+	protected readonly _dirty = computed(() => this._autocomplete.controlState?.()?.dirty);
 }

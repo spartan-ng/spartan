@@ -6,9 +6,6 @@ import { ControlState } from './control-state';
 import type { ErrorStateMatcher } from './error-options';
 
 export class ErrorStateTracker {
-	/** User-defined matcher for the error state. */
-	public matcher: ErrorStateMatcher | null = null;
-
 	private readonly _ngControl = new BehaviorSubject<NgControl | null>(null);
 
 	public readonly controlState = toSignal<ControlState | null>(
@@ -30,33 +27,20 @@ export class ErrorStateTracker {
 	);
 
 	public readonly errors = computed(() => this.controlState()?.errors ?? null);
-
 	public readonly dirty = computed(() => this.controlState()?.dirty ?? null);
-
 	public readonly invalid = computed(() => this.controlState()?.invalid ?? null);
-
 	public readonly spartanInvalid = computed(() => this.controlState()?.spartanInvalid ?? null);
-
 	public readonly touched = computed(() => this.controlState()?.touched ?? null);
 
 	private get _controlParent() {
 		return this._parentFormGroup || this._parentForm;
 	}
 
-	private get _matcher() {
-		return this.matcher || this._defaultMatcher;
-	}
-
 	constructor(
-		private readonly _defaultMatcher: ErrorStateMatcher | null,
+		private readonly _matcher: ErrorStateMatcher | null,
 		private readonly _parentFormGroup: FormGroupDirective | null,
 		private readonly _parentForm: NgForm | null,
-		ngControl: NgControl | null = null,
-	) {
-		if (ngControl) {
-			this.setControl(ngControl);
-		}
-	}
+	) {}
 
 	public setControl(ngControl: NgControl): void {
 		// Wait for next tick so the ngControl.control property gets initialized

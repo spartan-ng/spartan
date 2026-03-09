@@ -1,4 +1,4 @@
-import { Directive, inject } from '@angular/core';
+import { computed, contentChild, Directive, inject } from '@angular/core';
 import { BrnFieldControl } from '@spartan-ng/brain/field';
 import { classes } from '@spartan-ng/helm/utils';
 
@@ -11,7 +11,13 @@ import { classes } from '@spartan-ng/helm/utils';
 })
 export class HlmInputGroup {
 	private readonly _fieldControl = inject(BrnFieldControl, { optional: true });
-	private readonly _spartanInvalid = this._fieldControl?.spartanInvalid;
+	private readonly _fieldControlChild = contentChild(BrnFieldControl);
+
+	private readonly _spartanInvalid = computed(() => {
+		if (this._fieldControl) return this._fieldControl.spartanInvalid();
+
+		return this._fieldControlChild()?.spartanInvalid();
+	});
 
 	constructor() {
 		classes(() => [

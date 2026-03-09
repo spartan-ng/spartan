@@ -14,6 +14,7 @@ import {
 	computed,
 	contentChild,
 	contentChildren,
+	forwardRef,
 	inject,
 	input,
 	model,
@@ -24,7 +25,7 @@ import {
 	viewChild,
 } from '@angular/core';
 import { takeUntilDestroyed, toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { type ControlValueAccessor } from '@angular/forms';
+import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import {
 	type ExposesSide,
 	type ExposesState,
@@ -45,10 +46,17 @@ export type BrnReadDirection = 'ltr' | 'rtl';
 
 let nextId = 0;
 
+export const BRN_SELECT_CONTROL_VALUE_ACCESSOR = {
+	provide: NG_VALUE_ACCESSOR,
+	useExisting: forwardRef(() => BrnSelect),
+	multi: true,
+};
+
 @Component({
 	selector: 'brn-select, hlm-select',
 	imports: [OverlayModule, CdkListboxModule],
 	providers: [
+		BRN_SELECT_CONTROL_VALUE_ACCESSOR,
 		provideExposedSideProviderExisting(() => BrnSelect),
 		provideExposesStateProviderExisting(() => BrnSelect),
 		provideBrnSelect(BrnSelect),

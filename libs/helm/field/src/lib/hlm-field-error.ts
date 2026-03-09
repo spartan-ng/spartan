@@ -20,6 +20,7 @@ import { HlmFieldA11yService } from './hlm-field-aria.service';
 		role: 'alert',
 		'data-slot': 'field-error',
 		'[attr.id]': '_computedId()',
+		'[hidden]': '!_hasError()',
 	},
 	template: `
 		@if (_hasError()) {
@@ -63,11 +64,14 @@ export class HlmFieldError implements OnDestroy {
 				if (!a11y) return;
 
 				const id = this._computedId();
-				if (this._registeredId && this._registeredId !== id) {
+				const hasError = this._hasError();
+
+				if (this._registeredId && (this._registeredId !== id || !hasError)) {
 					a11y.unregisterError(this._registeredId);
+					this._registeredId = undefined;
 				}
 
-				if (this._registeredId !== id) {
+				if (hasError && this._registeredId !== id) {
 					a11y.registerError(id);
 					this._registeredId = id;
 				}

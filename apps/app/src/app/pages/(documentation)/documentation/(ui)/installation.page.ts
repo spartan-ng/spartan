@@ -1,6 +1,5 @@
-import { injectLoad, type RouteMeta } from '@analogjs/router';
+import { type RouteMeta } from '@analogjs/router';
 import { Component, inject } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronRight } from '@ng-icons/lucide';
@@ -29,7 +28,6 @@ import {
 	tailwindIntellisense,
 	tailwindPrettierSorting,
 } from './installation-snippets';
-import { load } from './installation.server';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Installation' },
@@ -152,11 +150,6 @@ export const routeMeta: RouteMeta = {
 					<p class="${hlmP}">Our preset already includes tw-animate-css and &#64;angular/cdk/overlay-prebuilt.css</p>
 				</div>
 			</div>
-			<p class="${hlmP}">
-				This is the content of the
-				<code class="${hlmCode}">@spartan-ng/brain/hlm-tailwind-preset.css</code>
-			</p>
-			<spartan-code class="mt-4" [code]="_data().spartanPreset" fileName="@spartan-ng/brain/hlm-tailwind-preset.css" />
 
 			<h4 spartanH4 id="add-theme-variables" class="mt-8">2.3 Add Theme Variables</h4>
 			<p class="${hlmP}">You have two options for adding spartan's CSS variables:</p>
@@ -302,7 +295,6 @@ export const routeMeta: RouteMeta = {
 })
 export default class InstallationPage {
 	protected readonly _activatedRoute = inject(ActivatedRoute);
-	protected readonly _data = toSignal(injectLoad<typeof load>(), { requireSync: true });
 
 	protected readonly _tailwindImports = tailwindImports;
 	protected readonly _spartanPresetImport = spartanPresetImport;

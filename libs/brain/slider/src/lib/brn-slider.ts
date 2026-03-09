@@ -36,6 +36,7 @@ let nextId = 0;
 			multi: true,
 		},
 	],
+	hostDirectives: [BrnFieldControl],
 	host: {
 		'[attr.id]': 'id()',
 		'[attr.dir]': '_direction()',
@@ -50,7 +51,6 @@ let nextId = 0;
 		'[attr.data-dirty]': '_dirty() ? "true" : null',
 		'[attr.data-touched]': '_touched() ? "true" : null',
 	},
-	hostDirectives: [BrnFieldControl],
 })
 export class BrnSlider implements ControlValueAccessor, OnInit {
 	private readonly _dir = inject(Directionality);

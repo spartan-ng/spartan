@@ -35,6 +35,7 @@ export const BRN_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = {
 			useExisting: forwardRef(() => BrnRadioGroup),
 		},
 	],
+	hostDirectives: [BrnFieldControl],
 	host: {
 		role: 'radiogroup',
 		'[dir]': 'direction()',
@@ -45,7 +46,6 @@ export const BRN_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = {
 		'[attr.data-touched]': '_touched() ? "true" : null',
 		'[attr.data-matches-spartan-invalid]': '_spartanInvalid() ? "true" : null',
 	},
-	hostDirectives: [BrnFieldControl],
 })
 export class BrnRadioGroup<T = unknown> implements ControlValueAccessor {
 	private readonly _dir = inject(Directionality);

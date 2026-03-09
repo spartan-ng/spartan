@@ -9,7 +9,7 @@ import {
 	type Type,
 	type ValueProvider,
 } from '@angular/core';
-import { ControlState } from '@spartan-ng/brain/forms';
+import type { ControlState } from '@spartan-ng/brain/forms';
 import { comboboxContainsFilter } from './brn-combobox-filter';
 import type { BrnComboboxInput } from './brn-combobox-input';
 import type { BrnComboboxItem } from './brn-combobox-item';

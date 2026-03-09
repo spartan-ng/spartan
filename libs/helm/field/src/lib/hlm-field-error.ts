@@ -16,16 +16,16 @@ import { HlmFieldA11yService } from './hlm-field-aria.service';
 @Component({
 	selector: 'hlm-field-error',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	template: `
-		@if (_hasError()) {
-			<ng-content></ng-content>
-		}
-	`,
 	host: {
 		role: 'alert',
 		'data-slot': 'field-error',
 		'[attr.id]': '_computedId()',
 	},
+	template: `
+		@if (_hasError()) {
+			<ng-content />
+		}
+	`,
 })
 export class HlmFieldError implements OnDestroy {
 	private static _nextId = 0;

@@ -39,10 +39,10 @@ let nextId = 0;
 	imports: [HlmIconImports, HlmPopoverImports, HlmCalendarRange, HlmFieldControlDescribedBy],
 	providers: [HLM_DATE_RANGE_PICKER_VALUE_ACCESSOR, provideIcons({ lucideChevronDown })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	hostDirectives: [BrnFieldControl],
 	host: {
 		class: 'block',
 	},
-	hostDirectives: [BrnFieldControl],
 	template: `
 		<hlm-popover
 			sideOffset="5"

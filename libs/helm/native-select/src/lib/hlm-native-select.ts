@@ -30,11 +30,11 @@ export const HLM_NATIVE_SELECT_VALUE_ACCESSOR = {
 	imports: [NgIcon],
 	providers: [HLM_NATIVE_SELECT_VALUE_ACCESSOR, provideIcons({ lucideChevronDown })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	hostDirectives: [BrnFieldControl],
 	host: {
 		'data-slot': 'native-select-wrapper',
 		'[attr.data-size]': 'size()',
 	},
-	hostDirectives: [BrnFieldControl],
 	template: `
 		<select
 			data-slot="native-select"

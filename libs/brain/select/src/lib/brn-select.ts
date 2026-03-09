@@ -53,8 +53,8 @@ let nextId = 0;
 		provideExposesStateProviderExisting(() => BrnSelect),
 		provideBrnSelect(BrnSelect),
 	],
-	hostDirectives: [BrnFieldControl],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	hostDirectives: [BrnFieldControl],
 	template: `
 		@if (!_selectLabel() && placeholder()) {
 			<label style="display: none;" [attr.id]="labelId()">{{ placeholder() }}</label>

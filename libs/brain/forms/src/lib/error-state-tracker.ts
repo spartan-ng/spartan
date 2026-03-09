@@ -1,8 +1,9 @@
 import { computed } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { AbstractControl, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
-import { BehaviorSubject, map, of, startWith, switchMap } from 'rxjs';
-import { ControlState } from './control-state';
+import type { AbstractControl, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
+import { BehaviorSubject, of } from 'rxjs';
+import { map, startWith, switchMap } from 'rxjs/operators';
+import type { ControlState } from './control-state';
 import type { ErrorStateMatcher } from './error-options';
 
 export class ErrorStateTracker {

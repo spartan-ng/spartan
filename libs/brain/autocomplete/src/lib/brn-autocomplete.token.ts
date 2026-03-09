@@ -9,7 +9,7 @@ import {
 	type Type,
 	type ValueProvider,
 } from '@angular/core';
-import { ControlState } from '@spartan-ng/brain/forms';
+import type { ControlState } from '@spartan-ng/brain/forms';
 import type { BrnAutocompleteItem } from './brn-autocomplete-item';
 
 export interface BrnAutocompleteBase<T> {

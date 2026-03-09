@@ -38,10 +38,10 @@ let nextId = 0;
 	imports: [NgIcon, HlmIcon, HlmFieldControlDescribedBy, HlmPopoverImports, HlmCalendar],
 	providers: [HLM_DATE_PICKER_VALUE_ACCESSOR, provideIcons({ lucideChevronDown })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	hostDirectives: [BrnFieldControl],
 	host: {
 		class: 'block',
 	},
-	hostDirectives: [BrnFieldControl],
 	template: `
 		<hlm-popover
 			sideOffset="5"

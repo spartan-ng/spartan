@@ -48,10 +48,10 @@ import {
 			multi: true,
 		},
 	],
+	hostDirectives: [BrnFieldControl],
 	host: {
 		'(focusout)': '_onFocusOut($event)',
 	},
-	hostDirectives: [BrnFieldControl],
 })
 export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor {
 	private readonly _injector = inject(Injector);

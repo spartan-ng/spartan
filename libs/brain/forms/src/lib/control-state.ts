@@ -1,4 +1,4 @@
-import { ValidationErrors } from '@angular/forms';
+import type { ValidationErrors } from '@angular/forms';
 
 export interface ControlState {
 	dirty: boolean;

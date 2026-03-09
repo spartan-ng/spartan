@@ -42,10 +42,10 @@ let nextId = 0;
 		provideIcons({ lucideChevronDown }),
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	hostDirectives: [BrnFieldControl],
 	host: {
 		class: 'block',
 	},
-	hostDirectives: [BrnFieldControl],
 	template: `
 		<hlm-popover
 			sideOffset="5"

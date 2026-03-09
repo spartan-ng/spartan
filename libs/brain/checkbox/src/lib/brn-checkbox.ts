@@ -43,6 +43,7 @@ const CONTAINER_POST_FIX = '-checkbox';
 	selector: 'brn-checkbox',
 	providers: [BRN_CHECKBOX_VALUE_ACCESSOR],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	hostDirectives: [BrnFieldControl],
 	host: {
 		'[style]': '{display: "contents"}',
 		'[attr.id]': '_state().id',
@@ -60,7 +61,6 @@ const CONTAINER_POST_FIX = '-checkbox';
 		'[attr.data-focus]': '_focused()',
 		'[attr.data-disabled]': '_state().disabled()',
 	},
-	hostDirectives: [BrnFieldControl],
 	template: `
 		<button
 			#checkBox

@@ -41,10 +41,10 @@ import {
 			useExisting: forwardRef(() => BrnAutocomplete),
 		},
 	],
+	hostDirectives: [BrnFieldControl],
 	host: {
 		'(focusout)': '_onFocusOut($event)',
 	},
-	hostDirectives: [BrnFieldControl],
 })
 export class BrnAutocomplete<T> implements BrnAutocompleteBase<T>, ControlValueAccessor {
 	private readonly _injector = inject(Injector);

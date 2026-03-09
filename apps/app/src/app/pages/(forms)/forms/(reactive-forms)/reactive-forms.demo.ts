@@ -35,16 +35,9 @@ import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 								autoComplete="off"
 								formControlName="title"
 							/>
-							@if (form.controls.title.touched && form.controls.title.invalid) {
-								<hlm-field-error>
-									@if (form.controls.title.errors?.['required'] || form.controls.title.errors?.['minlength']) {
-										Title must be at least 5 characters.
-									}
-									@if (form.controls.title.errors?.['maxlength']) {
-										Title cannot exceed 32 characters.
-									}
-								</hlm-field-error>
-							}
+							<hlm-field-error validator="required">Title must be entered.</hlm-field-error>
+							<hlm-field-error validator="minlength">Title must be at least 5 characters.</hlm-field-error>
+							<hlm-field-error validator="maxlength">Title cannot exceed 32 characters.</hlm-field-error>
 						</hlm-field>
 						<hlm-field>
 							<label hlmFieldLabel for="description">Description</label>
@@ -64,18 +57,9 @@ import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 							<hlm-field-description>
 								Include steps to reproduce, expected behavior, and what actually happened.
 							</hlm-field-description>
-							@if (form.controls.description.touched && form.controls.description.invalid) {
-								<hlm-field-error>
-									@if (
-										form.controls.description.errors?.['required'] || form.controls.description.errors?.['minlength']
-									) {
-										Description must be at least 20 characters.
-									}
-									@if (form.controls.description.errors?.['maxlength']) {
-										Description cannot exceed 100 characters.
-									}
-								</hlm-field-error>
-							}
+							<hlm-field-error validator="required">Description must be entered.</hlm-field-error>
+							<hlm-field-error validator="minlength">Title must be at least 20 characters.</hlm-field-error>
+							<hlm-field-error validator="maxlength">Title cannot exceed 100 characters.</hlm-field-error>
 						</hlm-field>
 					</hlm-field-group>
 				</form>

@@ -41,10 +41,8 @@ export const WithHintAndError: Story = {
 			}),
 		},
 		template: /* HTML */ `
-			@let control = form.get('fruit'); @let showError = control?.invalid && (control?.touched || control?.dirty);
-
 			<form [formGroup]="form" class="w-full max-w-sm space-y-3">
-				<div hlmField [attr.data-invalid]="showError ? 'true' : null">
+				<div hlmField>
 					<label hlmFieldLabel for="select-fruit">Fruit *</label>
 					<hlm-native-select id="select-fruit" formControlName="fruit">
 						<option hlmNativeSelectOption value="">Select a fruit</option>
@@ -56,9 +54,7 @@ export const WithHintAndError: Story = {
 
 					<p hlmFieldDescription>Pick a fruit so we can tailor the recommendations.</p>
 
-					@if(showError){
 					<hlm-field-error>Select your favorite fruit to continue.</hlm-field-error>
-					}
 				</div>
 
 				<div class="flex flex-wrap items-center gap-2">

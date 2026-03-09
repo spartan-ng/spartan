@@ -87,11 +87,8 @@ export const WithHintAndError: Story = {
 			}),
 		},
 		template: `
-		@let messageControl = form.get('message');
-		@let showError = messageControl?.invalid && (messageControl?.touched || messageControl?.dirty);
-
 		<form [formGroup]="form" class="space-y-3 w-full max-w-sm">
-			<div hlmField [attr.data-invalid]="showError ? 'true' : null">
+			<div hlmField>
 				<label hlmFieldLabel for="textarea-hint">Message *</label>
 				<textarea
 					hlmTextarea
@@ -104,9 +101,7 @@ export const WithHintAndError: Story = {
 
 				<p hlmFieldDescription>Tell us what you’re working on so we can help.</p>
 
-@if(showError){
 				<hlm-field-error >Please enter a message before continuing.</hlm-field-error>
-}
 			</div>
 
 			<div class="flex flex-wrap items-center gap-2">

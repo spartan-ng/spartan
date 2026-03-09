@@ -28,12 +28,10 @@ interface BrnSliderStoryArgs {
 
 	template: `
 		<form [formGroup]="form" class="max-w-lg space-y-3">
-			<div hlmField [attr.data-invalid]="isInvalid() ? 'true' : null">
+			<div hlmField>
 				<label hlmFieldLabel for="temperature-slider">Temperature</label>
 				<hlm-slider id="temperature-slider" formControlName="temperature" [min]="0" [max]="100"></hlm-slider>
-				@if (isInvalid()) {
-					<hlm-field-error>Set the temperature before continuing.</hlm-field-error>
-				}
+				<hlm-field-error>Set the temperature before continuing.</hlm-field-error>
 			</div>
 
 			<div class="flex gap-2">
@@ -47,11 +45,6 @@ class SliderValidationTester {
 	public readonly form = inject(FormBuilder).group({
 		temperature: [[0], Validators.min(100)],
 	});
-
-	isInvalid() {
-		const control = this.form.get('temperature');
-		return !!control && control.invalid && control.touched;
-	}
 }
 
 const meta: Meta<BrnSliderStoryArgs> = {

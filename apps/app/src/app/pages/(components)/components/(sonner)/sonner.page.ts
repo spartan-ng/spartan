@@ -19,7 +19,8 @@ import { link } from '../../../../shared/typography/link';
 import { SonnerDescriptionExample } from './sonner--description.example';
 import { SonnerPositionExample } from './sonner--position.example';
 import { SonnerTypesExample } from './sonner--types.example';
-import { SonnerPreview, defaultImports, defaultSkeleton, defaultTemplate } from './sonner.preview';
+import { defaultTemplate } from './sonner-template';
+import { SonnerPreview, defaultImports, defaultSkeleton } from './sonner.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Sonner', api: 'sonner' },

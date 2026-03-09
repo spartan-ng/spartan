@@ -27,14 +27,7 @@ export const BRN_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = {
 
 @Directive({
 	selector: '[brnRadioGroup]',
-	providers: [
-		BRN_RADIO_GROUP_CONTROL_VALUE_ACCESSOR,
-		provideBrnRadioGroupToken(BrnRadioGroup),
-		{
-			provide: BrnFieldControl,
-			useExisting: forwardRef(() => BrnRadioGroup),
-		},
-	],
+	providers: [BRN_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, provideBrnRadioGroupToken(BrnRadioGroup)],
 	hostDirectives: [BrnFieldControl],
 	host: {
 		role: 'radiogroup',

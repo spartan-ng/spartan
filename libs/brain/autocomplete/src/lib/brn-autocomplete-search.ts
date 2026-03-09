@@ -17,7 +17,7 @@ import {
 	model,
 	untracked,
 } from '@angular/core';
-import { ControlValueAccessor } from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { stringifyAsLabel } from '@spartan-ng/brain/core';
 import { BrnFieldControl } from '@spartan-ng/brain/field';
 import { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
@@ -32,15 +32,15 @@ import {
 	provideBrnAutocompleteBase,
 } from './brn-autocomplete.token';
 
+export const BRN_AUTOCOMPLETE_SEARCH_CONTROL_VALUE_ACCESSOR = {
+	provide: NG_VALUE_ACCESSOR,
+	useExisting: forwardRef(() => BrnAutocompleteSearch),
+	multi: true,
+};
+
 @Directive({
 	selector: '[brnAutocomplete]',
-	providers: [
-		provideBrnAutocompleteBase(BrnAutocompleteSearch),
-		{
-			provide: BrnFieldControl,
-			useExisting: forwardRef(() => BrnAutocompleteSearch),
-		},
-	],
+	providers: [BRN_AUTOCOMPLETE_SEARCH_CONTROL_VALUE_ACCESSOR, provideBrnAutocompleteBase(BrnAutocompleteSearch)],
 	hostDirectives: [BrnFieldControl],
 	host: {
 		'(focusout)': '_onFocusOut($event)',

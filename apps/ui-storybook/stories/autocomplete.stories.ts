@@ -62,11 +62,8 @@ class AutocompleteReactiveFormStory {
 	imports: [HlmAutocompleteImports, HlmFieldImports, HlmButton, ReactiveFormsModule],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		@let ctrl = form.get('framework');
-		@let showError = ctrl?.invalid && (ctrl?.touched || ctrl?.dirty);
-
 		<form [formGroup]="form" class="w-full max-w-sm space-y-3">
-			<div hlmField [attr.data-invalid]="showError ? 'true' : null">
+			<div hlmField>
 				<label hlmFieldLabel>Framework *</label>
 				<hlm-autocomplete formControlName="framework" [(search)]="search">
 					<hlm-autocomplete-input placeholder="Search frameworks..." />
@@ -82,9 +79,7 @@ class AutocompleteReactiveFormStory {
 
 				<p hlmFieldDescription>Pick your primary framework so we can tailor docs.</p>
 
-				@if (showError) {
-					<hlm-field-error>Select a framework to continue.</hlm-field-error>
-				}
+				<hlm-field-error>Select a framework to continue.</hlm-field-error>
 			</div>
 
 			<div class="flex flex-wrap items-center gap-2">

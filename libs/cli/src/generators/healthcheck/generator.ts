@@ -17,6 +17,7 @@ import { hlmImportHealthcheck } from './healthchecks/hlm';
 import { datePickerHealthcheck } from './healthchecks/hlm-date-picker';
 import { helmDialogHealthcheck } from './healthchecks/hlm-dialog';
 import { helmDialogPortalHealthcheck } from './healthchecks/hlm-dialog-portal';
+import { helmFormFieldHealthcheck } from './healthchecks/hlm-form-field';
 import { helmIconHealthcheck } from './healthchecks/hlm-icon';
 import { helmMenuHealthcheck } from './healthchecks/hlm-menu';
 import { progressHealthcheck } from './healthchecks/hlm-progress';
@@ -58,6 +59,7 @@ export async function healthcheckGenerator(tree: Tree, options: HealthcheckGener
 		helmMenuHealthcheck,
 		helmDialogHealthcheck,
 		helmDialogPortalHealthcheck,
+		helmFormFieldHealthcheck,
 	];
 
 	const failedReports: HealthcheckReport[] = [];

@@ -24,7 +24,6 @@ export const primitiveDependencies: Record<Primitive, Primitive[]> = {
 	'dropdown-menu': ['utils', 'icon'],
 	empty: ['utils'],
 	field: ['utils', 'label', 'separator'],
-	'form-field': ['utils'],
 	'hover-card': ['utils'],
 	icon: [],
 	input: ['utils'],

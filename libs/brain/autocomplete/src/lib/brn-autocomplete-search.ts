@@ -19,6 +19,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { stringifyAsLabel } from '@spartan-ng/brain/core';
+import { BrnFieldControl } from '@spartan-ng/brain/field';
 import { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import { BrnPopover } from '@spartan-ng/brain/popover';
 import { BrnAutocompleteInputWrapper } from './brn-autocomplete-input-wrapper';
@@ -31,7 +32,7 @@ import {
 	provideBrnAutocompleteBase,
 } from './brn-autocomplete.token';
 
-export const BRN_AUTOCOMPLETE_SEARCH_VALUE_ACCESSOR = {
+export const BRN_AUTOCOMPLETE_SEARCH_CONTROL_VALUE_ACCESSOR = {
 	provide: NG_VALUE_ACCESSOR,
 	useExisting: forwardRef(() => BrnAutocompleteSearch),
 	multi: true,
@@ -39,15 +40,22 @@ export const BRN_AUTOCOMPLETE_SEARCH_VALUE_ACCESSOR = {
 
 @Directive({
 	selector: '[brnAutocomplete]',
-	providers: [provideBrnAutocompleteBase(BrnAutocompleteSearch), BRN_AUTOCOMPLETE_SEARCH_VALUE_ACCESSOR],
+	providers: [BRN_AUTOCOMPLETE_SEARCH_CONTROL_VALUE_ACCESSOR, provideBrnAutocompleteBase(BrnAutocompleteSearch)],
+	hostDirectives: [BrnFieldControl],
+	host: {
+		'(focusout)': '_onFocusOut($event)',
+	},
 })
 export class BrnAutocompleteSearch<T> implements BrnAutocompleteBase<T>, ControlValueAccessor {
 	private readonly _injector = inject(Injector);
+	private readonly _fieldControl = inject(BrnFieldControl, { optional: true });
 
 	private readonly _config = injectBrnAutocompleteConfig<T>();
 
 	/** Access the popover if present */
 	private readonly _brnPopover = inject(BrnPopover, { optional: true });
+
+	public readonly controlState = this._fieldControl?.controlState;
 
 	/** Whether the autocomplete is disabled */
 	public readonly disabled = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
@@ -206,5 +214,14 @@ export class BrnAutocompleteSearch<T> implements BrnAutocompleteBase<T>, Control
 
 	setDisabledState(isDisabled: boolean) {
 		this._disabled.set(isDisabled);
+	}
+
+	protected _onFocusOut(event: FocusEvent): void {
+		const currentTarget = event.currentTarget as HTMLElement;
+		const focusedEl = event.relatedTarget as HTMLElement | null;
+
+		if (!currentTarget.contains(focusedEl)) {
+			this._onTouched?.();
+		}
 	}
 }

@@ -5,19 +5,20 @@ import {
 	Component,
 	computed,
 	forwardRef,
+	inject,
 	input,
 	linkedSignal,
 	model,
 	output,
 } from '@angular/core';
-import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, type ControlValueAccessor } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown } from '@ng-icons/lucide';
-import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
+import { BrnFieldControl } from '@spartan-ng/brain/field';
+import { type ChangeFn, type TouchFn } from '@spartan-ng/brain/forms';
 import { classes, hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 
-// TODO support BrnFormFieldControl
 export const HLM_NATIVE_SELECT_VALUE_ACCESSOR = {
 	provide: NG_VALUE_ACCESSOR,
 	useExisting: forwardRef(() => HlmNativeSelect),
@@ -29,6 +30,7 @@ export const HLM_NATIVE_SELECT_VALUE_ACCESSOR = {
 	imports: [NgIcon],
 	providers: [HLM_NATIVE_SELECT_VALUE_ACCESSOR, provideIcons({ lucideChevronDown })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	hostDirectives: [BrnFieldControl],
 	host: {
 		'data-slot': 'native-select-wrapper',
 		'[attr.data-size]': 'size()',
@@ -39,7 +41,10 @@ export const HLM_NATIVE_SELECT_VALUE_ACCESSOR = {
 			[id]="_selectId()"
 			[class]="_computedSelectClass()"
 			[attr.data-size]="size()"
-			[attr.aria-invalid]="ariaInvalid() ? 'true' : null"
+			[attr.aria-invalid]="_ariaInvalid() ? 'true' : null"
+			[attr.data-dirty]="_dirty?.() ? 'true' : null"
+			[attr.data-touched]="_touched?.() ? 'true' : null"
+			[attr.data-matches-spartan-invalid]="_spartanInvalid?.() ? 'true' : null"
 			[value]="value()"
 			[disabled]="_disabled()"
 			(change)="_valueChanged($event)"
@@ -57,6 +62,8 @@ export const HLM_NATIVE_SELECT_VALUE_ACCESSOR = {
 	`,
 })
 export class HlmNativeSelect implements ControlValueAccessor {
+	private readonly _fieldControl = inject(BrnFieldControl, { optional: true });
+
 	private static _id = 0;
 
 	public readonly selectId = input<string>('');
@@ -68,8 +75,7 @@ export class HlmNativeSelect implements ControlValueAccessor {
 	protected readonly _computedSelectClass = computed(() =>
 		hlm(
 			'border-input placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 dark:hover:bg-input/50 focus-visible:border-ring focus-visible:ring-ring/50 h-9 w-full min-w-0 appearance-none rounded-md border bg-transparent py-1 pr-8 pl-2.5 text-sm shadow-xs transition-[color,box-shadow] outline-none select-none focus-visible:ring-3 disabled:pointer-events-none disabled:cursor-not-allowed data-[size=sm]:h-8',
-			// TODO support BrnFormFieldControl
-			'aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 aria-invalid:ring-3',
+			'data-[matches-spartan-invalid=true]:ring-destructive/20 dark:data-[matches-spartan-invalid=true]:ring-destructive/40 data-[matches-spartan-invalid=true]:border-destructive dark:data-[matches-spartan-invalid=true]:border-destructive/50 data-[matches-spartan-invalid=true]:ring-3',
 			this.selectClass(),
 		),
 	);
@@ -89,10 +95,13 @@ export class HlmNativeSelect implements ControlValueAccessor {
 
 	protected readonly _disabled = linkedSignal(this.disabled);
 
-	public readonly ariaInvalid = input<boolean, BooleanInput>(false, {
-		transform: booleanAttribute,
+	/** Manual override for aria-invalid. When not set, auto-detects from the parent autocomplete error state. */
+	public readonly ariaInvalidOverride = input<boolean | undefined, BooleanInput>(undefined, {
+		transform: (v: BooleanInput) => (v === '' || v === undefined ? undefined : booleanAttribute(v)),
 		alias: 'aria-invalid',
 	});
+
+	protected readonly _ariaInvalid = computed(() => this.ariaInvalidOverride() ?? this._invalid?.());
 
 	public readonly value = model<string | null>('');
 
@@ -100,6 +109,11 @@ export class HlmNativeSelect implements ControlValueAccessor {
 
 	protected _onChange?: ChangeFn<string | null>;
 	protected _onTouched?: TouchFn;
+
+	protected readonly _invalid = this._fieldControl?.invalid;
+	protected readonly _touched = this._fieldControl?.touched;
+	protected readonly _dirty = this._fieldControl?.dirty;
+	protected readonly _spartanInvalid = this._fieldControl?.spartanInvalid;
 
 	constructor() {
 		classes(() => 'group/native-select relative w-fit has-[select:disabled]:opacity-50');

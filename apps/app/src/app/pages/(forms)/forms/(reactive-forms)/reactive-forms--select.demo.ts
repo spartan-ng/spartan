@@ -30,16 +30,10 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 							<hlm-field-content>
 								<label hlmFieldLabel for="language">Spoken Language</label>
 								<hlm-field-description>For best results, select the language you speak.</hlm-field-description>
-								@if (form.controls.language.touched && form.controls.language.invalid) {
-									<hlm-field-error>
-										@if (form.controls.language.errors?.['required']) {
-											Please select your spoken language.
-										}
-										@if (form.controls.language.errors?.['autoDetect']) {
-											Auto-detection is not allowed. Please select a specific language.
-										}
-									</hlm-field-error>
-								}
+								<hlm-field-error validator="required">Please select your spoken language.</hlm-field-error>
+								<hlm-field-error validator="autoDetect">
+									Auto-detection is not allowed. Please select a specific language.
+								</hlm-field-error>
 							</hlm-field-content>
 							<brn-select id="language" formControlName="language" placeholder="Select">
 								<hlm-select-trigger class="min-w-[120px]">

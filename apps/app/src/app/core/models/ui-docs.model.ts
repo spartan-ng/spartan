@@ -38,7 +38,6 @@ export type Primitives =
 	| 'dialog'
 	| 'empty'
 	| 'field'
-	| 'form-field'
 	| 'hover-card'
 	| 'icon'
 	| 'input'

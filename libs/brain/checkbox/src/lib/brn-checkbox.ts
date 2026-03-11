@@ -26,7 +26,8 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
+import { BrnFieldControl } from '@spartan-ng/brain/field';
+import { type ChangeFn, type TouchFn } from '@spartan-ng/brain/forms';
 
 export const BRN_CHECKBOX_VALUE_ACCESSOR = {
 	provide: NG_VALUE_ACCESSOR,
@@ -42,6 +43,7 @@ const CONTAINER_POST_FIX = '-checkbox';
 	selector: 'brn-checkbox',
 	providers: [BRN_CHECKBOX_VALUE_ACCESSOR],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	hostDirectives: [BrnFieldControl],
 	host: {
 		'[style]': '{display: "contents"}',
 		'[attr.id]': '_state().id',
@@ -49,6 +51,11 @@ const CONTAINER_POST_FIX = '-checkbox';
 		'[attr.aria-labelledby]': 'null',
 		'[attr.aria-label]': 'null',
 		'[attr.aria-describedby]': 'null',
+		'[attr.aria-invalid]': '_invalid?.() ? "true" : null',
+		'[attr.data-invalid]': '_invalid?.() ? "true" : null',
+		'[attr.data-matches-spartan-invalid]': 'spartanInvalid?.() ? "true" : null',
+		'[attr.data-touched]': '_controlTouched?.() ? "true" : null',
+		'[attr.data-dirty]': '_dirty?.() ? "true" : null',
 		'[attr.data-state]': '_dataState()',
 		'[attr.data-focus-visible]': '_focusVisible()',
 		'[attr.data-focus]': '_focused()',
@@ -84,6 +91,7 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 	private readonly _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 	private readonly _focusMonitor = inject(FocusMonitor);
 	private readonly _cdr = inject(ChangeDetectorRef);
+	private readonly _fieldControl = inject(BrnFieldControl, { optional: true });
 	private readonly _document = inject(DOCUMENT);
 	private readonly _isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
@@ -189,6 +197,11 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 			id: id ? id + CONTAINER_POST_FIX : null,
 		};
 	});
+
+	protected readonly _dirty = this._fieldControl?.dirty;
+	protected readonly _invalid = this._fieldControl?.invalid;
+	public readonly spartanInvalid = this._fieldControl?.spartanInvalid;
+	protected readonly _controlTouched = this._fieldControl?.touched;
 
 	// eslint-disable-next-line @typescript-eslint/no-empty-function
 	protected _onChange: ChangeFn<boolean> = () => {};

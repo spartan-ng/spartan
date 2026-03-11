@@ -9,6 +9,7 @@ import {
 	type Type,
 	type ValueProvider,
 } from '@angular/core';
+import type { ControlState } from '@spartan-ng/brain/forms';
 import { comboboxContainsFilter } from './brn-combobox-filter';
 import type { BrnComboboxInput } from './brn-combobox-input';
 import type { BrnComboboxItem } from './brn-combobox-item';
@@ -28,6 +29,7 @@ export interface BrnComboboxBase<T> {
 	isExpanded: Signal<boolean>;
 	searchInputWrapperWidth: Signal<number | null>;
 	mode: Signal<ComboboxInputMode>;
+	controlState?: Signal<ControlState | null>;
 
 	isSelected: (itemValue: T) => boolean;
 	select: (itemValue: T) => void;

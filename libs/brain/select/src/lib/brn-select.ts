@@ -14,10 +14,8 @@ import {
 	computed,
 	contentChild,
 	contentChildren,
-	type DoCheck,
 	forwardRef,
 	inject,
-	Injector,
 	input,
 	model,
 	numberAttribute,
@@ -27,15 +25,15 @@ import {
 	viewChild,
 } from '@angular/core';
 import { takeUntilDestroyed, toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { type ControlValueAccessor, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
+import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import {
 	type ExposesSide,
 	type ExposesState,
 	provideExposedSideProviderExisting,
 	provideExposesStateProviderExisting,
 } from '@spartan-ng/brain/core';
-import { BrnFormFieldControl } from '@spartan-ng/brain/form-field';
-import { type ChangeFn, ErrorStateMatcher, ErrorStateTracker, type TouchFn } from '@spartan-ng/brain/forms';
+import { BrnFieldControl } from '@spartan-ng/brain/field';
+import { type ChangeFn, type TouchFn } from '@spartan-ng/brain/forms';
 import { BrnLabel } from '@spartan-ng/brain/label';
 import { of, Subject } from 'rxjs';
 import { delay, map, switchMap } from 'rxjs/operators';
@@ -48,19 +46,23 @@ export type BrnReadDirection = 'ltr' | 'rtl';
 
 let nextId = 0;
 
+export const BRN_SELECT_CONTROL_VALUE_ACCESSOR = {
+	provide: NG_VALUE_ACCESSOR,
+	useExisting: forwardRef(() => BrnSelect),
+	multi: true,
+};
+
 @Component({
 	selector: 'brn-select, hlm-select',
 	imports: [OverlayModule, CdkListboxModule],
 	providers: [
+		BRN_SELECT_CONTROL_VALUE_ACCESSOR,
 		provideExposedSideProviderExisting(() => BrnSelect),
 		provideExposesStateProviderExisting(() => BrnSelect),
 		provideBrnSelect(BrnSelect),
-		{
-			provide: BrnFormFieldControl,
-			useExisting: forwardRef(() => BrnSelect),
-		},
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	hostDirectives: [BrnFieldControl],
 	template: `
 		@if (!_selectLabel() && placeholder()) {
 			<label style="display: none;" [attr.id]="labelId()">{{ placeholder() }}</label>
@@ -89,15 +91,9 @@ let nextId = 0;
 		</ng-template>
 	`,
 })
-export class BrnSelect<T = unknown>
-	implements ControlValueAccessor, DoCheck, ExposesSide, ExposesState, BrnFormFieldControl
-{
-	private readonly _defaultErrorStateMatcher = inject(ErrorStateMatcher);
-	private readonly _parentForm = inject(NgForm, { optional: true });
+export class BrnSelect<T = unknown> implements ControlValueAccessor, ExposesSide, ExposesState {
 	private readonly _dir = inject(Directionality);
-	private readonly _injector = inject(Injector);
-	private readonly _parentFormGroup = inject(FormGroupDirective, { optional: true });
-	public readonly ngControl = inject(NgControl, { optional: true, self: true });
+	private readonly _fieldControl = inject(BrnFieldControl, { optional: true });
 
 	public readonly id = input<string>(`brn-select-${++nextId}`);
 	public readonly multiple = input<boolean, BooleanInput>(false, {
@@ -204,26 +200,7 @@ export class BrnSelect<T = unknown>
 		},
 	];
 
-	public errorStateTracker: ErrorStateTracker;
-
-	public readonly errorState = computed(() => this.errorStateTracker.errorState());
-
-	constructor() {
-		if (this.ngControl !== null) {
-			this.ngControl.valueAccessor = this;
-		}
-
-		this.errorStateTracker = new ErrorStateTracker(
-			this._defaultErrorStateMatcher,
-			this.ngControl,
-			this._parentFormGroup,
-			this._parentForm,
-		);
-	}
-
-	ngDoCheck() {
-		this.errorStateTracker.updateErrorState();
-	}
+	public readonly controlState = this._fieldControl?.controlState;
 
 	public toggle(): void {
 		if (this.open()) {

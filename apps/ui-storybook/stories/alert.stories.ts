@@ -1,7 +1,6 @@
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCircleAlert, lucideInfo } from '@ng-icons/lucide';
 import { HlmAlert, HlmAlertImports } from '@spartan-ng/helm/alert';
-import { HlmIcon } from '@spartan-ng/helm/icon';
 import type { Meta, StoryObj } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
 
@@ -19,7 +18,7 @@ const meta: Meta<HlmAlert> = {
 	},
 	decorators: [
 		moduleMetadata({
-			imports: [HlmAlertImports, NgIcon, HlmIcon],
+			imports: [HlmAlertImports, NgIcon],
 			providers: [provideIcons({ lucideInfo, lucideCircleAlert })],
 		}),
 	],
@@ -27,7 +26,7 @@ const meta: Meta<HlmAlert> = {
 		props: args,
 		template: `
      <div class='max-w-xl' hlmAlert ${argsToTemplate(args)}>
-      <ng-icon hlm name='lucideInfo' hlmAlertIcon />
+      <ng-icon name='lucideInfo' />
       <h4 hlmAlertTitle>Introducing SPARTAN helm & brain</h4>
       <p hlmAlertDescription>
         The components used on this page are also the intial building blocks of a new UI library. It is made up of
@@ -57,7 +56,7 @@ export const Destructive: Story = {
 		props: args,
 		template: `
      <div hlmAlert class='max-w-xl' ${argsToTemplate(args)}>
-      <ng-icon hlm name='lucideCircleAlert' hlmAlertIcon />
+      <ng-icon name='lucideCircleAlert' />
       <h4 hlmAlertTitle>Something went wrong...</h4>
       <p hlmAlertDescription>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam aperiam at autem culpa debitis eius eveniet exercitationem, facilis illo magni mollitia, necessitatibus nesciunt quam quos recusandae tempore ullam velit veniam!

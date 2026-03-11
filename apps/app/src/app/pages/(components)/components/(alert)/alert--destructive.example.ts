@@ -1,19 +1,18 @@
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideTriangleAlert } from '@ng-icons/lucide';
-import { HlmAlert, HlmAlertDescription, HlmAlertIcon, HlmAlertTitle } from '@spartan-ng/helm/alert';
-import { HlmIcon } from '@spartan-ng/helm/icon';
+import { lucideAlertCircle } from '@ng-icons/lucide';
+import { HlmAlertImports } from '@spartan-ng/helm/alert';
 
 @Component({
 	selector: 'spartan-alert-destructive',
-	imports: [HlmAlertDescription, HlmAlert, HlmAlertIcon, HlmAlertTitle, NgIcon, HlmIcon],
-	providers: [provideIcons({ lucideTriangleAlert })],
+	imports: [HlmAlertImports, NgIcon],
+	providers: [provideIcons({ lucideAlertCircle })],
 	template: `
-		<div hlmAlert variant="destructive">
-			<ng-icon hlm hlmAlertIcon name="lucideTriangleAlert" />
-			<h4 hlmAlertTitle>Unexpected Error</h4>
-			<p hlmAlertDescription>Your session has expired. Please log in again.</p>
-		</div>
+		<hlm-alert variant="destructive" class="max-w-md">
+			<ng-icon name="lucideAlertCircle" />
+			<h4 hlmAlertTitle>Payment failed</h4>
+			<p hlmAlertDescription>Your payment could not be processed. Please check your payment method and try again.</p>
+		</hlm-alert>
 	`,
 })
 export class AlertDestructive {}

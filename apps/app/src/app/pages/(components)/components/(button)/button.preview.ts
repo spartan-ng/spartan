@@ -1,11 +1,19 @@
 import { Component } from '@angular/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { lucideArrowUp } from '@ng-icons/lucide';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 
 @Component({
 	selector: 'spartan-button-preview',
-	imports: [HlmButtonImports],
+	imports: [HlmButtonImports, NgIcon],
+	providers: [provideIcons({ lucideArrowUp })],
 	template: `
-		<button hlmBtn>Button</button>
+		<div class="flex flex-wrap items-center gap-2 md:flex-row">
+			<button hlmBtn variant="outline">Button</button>
+			<button hlmBtn variant="outline" size="icon" aria-label="Submit">
+				<ng-icon name="lucideArrowUp" />
+			</button>
+		</div>
 	`,
 })
 export class ButtonPreview {}

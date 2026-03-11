@@ -37,10 +37,7 @@ let nextId = 0;
 @Component({
 	selector: 'hlm-date-picker-multi',
 	imports: [HlmIconImports, HlmPopoverImports, HlmCalendarMulti, HlmFieldControlDescribedBy],
-	providers: [
-		// HLM_DATE_PICKER_MUTLI_VALUE_ACCESSOR,
-		provideIcons({ lucideChevronDown }),
-	],
+	providers: [HLM_DATE_PICKER_MUTLI_VALUE_ACCESSOR, provideIcons({ lucideChevronDown })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [BrnFieldControl],
 	host: {

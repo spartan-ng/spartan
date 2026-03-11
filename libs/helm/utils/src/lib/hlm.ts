@@ -1,4 +1,4 @@
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 import {
 	DestroyRef,
 	effect,
@@ -18,6 +18,7 @@ export function hlm(...inputs: ClassValue[]) {
 
 // Global map to track class managers per element
 const elementClassManagers = new WeakMap<HTMLElement, ElementClassManager>();
+const SSR_TRANSITION_MARKER_ATTR = 'data-hlm-ssr';
 
 // Global mutation observer for all elements
 let globalObserver: MutationObserver | null = null;
@@ -30,10 +31,13 @@ interface ElementClassManager {
 	isUpdating: boolean;
 	nextOrder: number;
 	hasInitialized: boolean;
+	restoreRafId: number | null;
 	/** Transitions are suppressed until the first effect writes correct classes */
 	transitionsSuppressed: boolean;
 	/** Original inline transition value to restore after suppression (empty string = none was set) */
 	previousTransition: string;
+	/** Original inline transition priority to preserve !important when restoring */
+	previousTransitionPriority: string;
 }
 
 let sourceCounter = 0;
@@ -76,8 +80,10 @@ export function classes(computed: () => ClassValue[] | string, options: ClassesO
 				isUpdating: false,
 				nextOrder: 0,
 				hasInitialized: false,
+				restoreRafId: null,
 				transitionsSuppressed: false,
 				previousTransition: '',
+				previousTransitionPriority: '',
 			};
 			elementClassManagers.set(element, manager);
 
@@ -88,8 +94,9 @@ export function classes(computed: () => ClassValue[] | string, options: ClassesO
 			// Suppress transitions until the first effect writes correct classes and
 			// the browser has painted them. This prevents CSS transition animations
 			// during hydration when classes change from SSR state to client state.
-			if (isPlatformBrowser(platformId)) {
+			if (shouldSuppressTransitionsDuringHydration(element, platformId)) {
 				manager.previousTransition = element.style.getPropertyValue('transition');
+				manager.previousTransitionPriority = element.style.getPropertyPriority('transition');
 				element.style.setProperty('transition', 'none', 'important');
 				manager.transitionsSuppressed = true;
 			}
@@ -101,6 +108,10 @@ export function classes(computed: () => ClassValue[] | string, options: ClassesO
 		function updateClasses(): void {
 			// Get the new classes from the computed function
 			const newClasses = toClassList(computed());
+
+			if (isPlatformServer(platformId)) {
+				element.setAttribute(SSR_TRANSITION_MARKER_ATTR, '');
+			}
 
 			// Update this source's classes, keeping the original order
 			manager!.sources.set(sourceId, {
@@ -116,19 +127,25 @@ export function classes(computed: () => ClassValue[] | string, options: ClassesO
 			// with transitions disabled first, then re-enables them.
 			if (manager!.transitionsSuppressed) {
 				manager!.transitionsSuppressed = false;
-				const prev = manager!.previousTransition;
-				requestAnimationFrame(() => {
-					if (prev) {
-						manager!.element.style.setProperty('transition', prev);
-					} else {
-						manager!.element.style.removeProperty('transition');
-					}
+				manager!.restoreRafId = requestAnimationFrame(() => {
+					manager!.restoreRafId = null;
+					restoreTransitionSuppression(manager!);
 				});
 			}
 		}
 
 		// Register cleanup with DestroyRef
 		destroyRef.onDestroy(() => {
+			if (manager!.restoreRafId !== null) {
+				cancelAnimationFrame(manager!.restoreRafId);
+				manager!.restoreRafId = null;
+			}
+
+			if (manager!.transitionsSuppressed) {
+				manager!.transitionsSuppressed = false;
+				restoreTransitionSuppression(manager!);
+			}
+
 			// Remove this source from the manager
 			manager!.sources.delete(sourceId);
 
@@ -150,6 +167,24 @@ export function classes(computed: () => ClassValue[] | string, options: ClassesO
 	});
 }
 
+function restoreTransitionSuppression(manager: ElementClassManager): void {
+	const prev = manager.previousTransition;
+	if (prev) {
+		manager.element.style.setProperty('transition', prev, manager.previousTransitionPriority || undefined);
+	} else {
+		manager.element.style.removeProperty('transition');
+	}
+	manager.element.removeAttribute(SSR_TRANSITION_MARKER_ATTR);
+}
+
+// eslint-disable-next-line @typescript-eslint/no-wrapper-object-types
+function shouldSuppressTransitionsDuringHydration(element: HTMLElement, platformId: Object): boolean {
+	if (!isPlatformBrowser(platformId)) {
+		return false;
+	}
+
+	return element.hasAttribute(SSR_TRANSITION_MARKER_ATTR);
+}
 // eslint-disable-next-line @typescript-eslint/no-wrapper-object-types
 function setupGlobalObserver(platformId: Object): void {
 	if (isPlatformBrowser(platformId) && !globalObserver) {

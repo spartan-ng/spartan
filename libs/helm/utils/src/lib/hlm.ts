@@ -30,6 +30,10 @@ interface ElementClassManager {
 	isUpdating: boolean;
 	nextOrder: number;
 	hasInitialized: boolean;
+	/** Transitions are suppressed until the first effect writes correct classes */
+	transitionsSuppressed: boolean;
+	/** Original inline transition value to restore after suppression (empty string = none was set) */
+	previousTransition: string;
 }
 
 let sourceCounter = 0;
@@ -72,12 +76,23 @@ export function classes(computed: () => ClassValue[] | string, options: ClassesO
 				isUpdating: false,
 				nextOrder: 0,
 				hasInitialized: false,
+				transitionsSuppressed: false,
+				previousTransition: '',
 			};
 			elementClassManagers.set(element, manager);
 
 			// Setup global observer if needed and register this element
 			setupGlobalObserver(platformId);
 			observedElements.add(element);
+
+			// Suppress transitions until the first effect writes correct classes and
+			// the browser has painted them. This prevents CSS transition animations
+			// during hydration when classes change from SSR state to client state.
+			if (isPlatformBrowser(platformId)) {
+				manager.previousTransition = element.style.getPropertyValue('transition');
+				element.style.setProperty('transition', 'none', 'important');
+				manager.transitionsSuppressed = true;
+			}
 		}
 
 		// Assign order once at registration time
@@ -95,6 +110,21 @@ export function classes(computed: () => ClassValue[] | string, options: ClassesO
 
 			// Update the element
 			updateElement(manager!);
+
+			// Re-enable transitions after the first effect writes correct classes.
+			// Deferred to next animation frame so the browser paints the class change
+			// with transitions disabled first, then re-enables them.
+			if (manager!.transitionsSuppressed) {
+				manager!.transitionsSuppressed = false;
+				const prev = manager!.previousTransition;
+				requestAnimationFrame(() => {
+					if (prev) {
+						manager!.element.style.setProperty('transition', prev);
+					} else {
+						manager!.element.style.removeProperty('transition');
+					}
+				});
+			}
 		}
 
 		// Register cleanup with DestroyRef

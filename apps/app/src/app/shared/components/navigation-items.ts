@@ -3,6 +3,7 @@ export type Link = {
 	url: string;
 	wip?: boolean;
 	new?: boolean;
+	exact?: boolean;
 };
 type NavItem = {
 	label: string;
@@ -44,7 +45,6 @@ export const components: Link[] = [
 	{ label: 'Dropdown Menu', url: '/dropdown-menu' },
 	{ label: 'Empty', url: '/empty' },
 	{ label: 'Field', url: '/field' },
-	{ label: 'Form', url: '/form', wip: true },
 	{ label: 'Form Field', url: '/form-field' },
 	{ label: 'Hover Card', url: '/hover-card' },
 	{ label: 'Icon', url: '/icon' },
@@ -80,6 +80,12 @@ export const components: Link[] = [
 	{ label: 'Tooltip', url: '/tooltip', new: true },
 ];
 
+export const forms: Link[] = [
+	{ label: 'Forms', url: '/', new: true, exact: true },
+	{ label: 'Reactive Forms', url: '/reactive-forms', new: true },
+	{ label: 'Signal Forms', url: '/signal-forms', wip: true },
+];
+
 export const sidenavItems: NavItem[] = [
 	{
 		label: 'Getting Started',
@@ -110,6 +116,11 @@ export const sidenavItems: NavItem[] = [
 		label: 'Components',
 		url: '/components',
 		links: components,
+	},
+	{
+		label: 'Forms',
+		url: '/forms',
+		links: forms,
 	},
 	{
 		label: 'Stack',

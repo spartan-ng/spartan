@@ -1,37 +1,26 @@
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideCircleAlert, lucideCircleCheck, lucidePopcorn } from '@ng-icons/lucide';
+import { lucideCircleCheck, lucideInfo } from '@ng-icons/lucide';
 import { HlmAlertImports } from '@spartan-ng/helm/alert';
-import { HlmIcon } from '@spartan-ng/helm/icon';
 
 @Component({
 	selector: 'spartan-alert-preview',
-	imports: [HlmAlertImports, NgIcon, HlmIcon],
-	providers: [provideIcons({ lucideCircleCheck, lucidePopcorn, lucideCircleAlert })],
-	host: {
-		class: 'grid w-full max-w-xl items-start gap-4',
-	},
+	imports: [HlmAlertImports, NgIcon],
+	providers: [provideIcons({ lucideCircleCheck, lucideInfo })],
 	template: `
-		<div hlmAlert>
-			<ng-icon hlm hlmAlertIcon name="lucideCircleCheck" />
-			<h4 hlmAlertTitle>Success! Your changes have been saved</h4>
-			<p hlmAlertDescription>This is an alert with icon, title and description.</p>
-		</div>
-		<div hlmAlert>
-			<ng-icon hlm hlmAlertIcon name="lucidePopcorn" />
-			<h4 hlmAlertTitle>This Alert has a title and an icon. No description.</h4>
-		</div>
-		<div hlmAlert variant="destructive">
-			<ng-icon hlm hlmAlertIcon name="lucideCircleAlert" />
-			<h4 hlmAlertTitle>Unable to process your payment.</h4>
-			<div hlmAlertDescription>
-				<p>Please verify your billing information and try again.</p>
-				<ul class="list-inside list-disc text-sm">
-					<li>Check your card details</li>
-					<li>Ensure sufficient funds</li>
-					<li>Verify billing address</li>
-				</ul>
-			</div>
+		<div class="grid w-full max-w-md items-start gap-4">
+			<hlm-alert>
+				<ng-icon name="lucideCircleCheck" />
+				<h4 hlmAlertTitle>Payment successful</h4>
+				<p hlmAlertDescription>
+					Your payment of $29.99 has been processed. A receipt has been sent to your email address.
+				</p>
+			</hlm-alert>
+			<hlm-alert>
+				<ng-icon name="lucideInfo" />
+				<h4 hlmAlertTitle>New feature available</h4>
+				<p hlmAlertDescription>We've added dark mode support. You can enable it in your account settings.</p>
+			</hlm-alert>
 		</div>
 	`,
 })
@@ -39,12 +28,16 @@ export class AlertPreview {}
 
 export const defaultImports = `
 import { HlmAlertImports } from '@spartan-ng/helm/alert';
+import { NgIcon } from '@ng-icons/core';
 `;
 
 export const defaultSkeleton = `
-<div hlmAlert variant="default | destructive">
-  <ng-icon hlm hlmAlertIcon name="lucideCircleCheck" />
-  <h4 hlmAlertTitle>Success! Your changes have been saved</h4>
-  <div hlmAlertDescription>This is an alert with icon, title and description.</div>
-</div>
+<hlm-alert variant="default | destructive">
+  <ng-icon name="lucideCircleCheck" />
+  <h4 hlmAlertTitle>Heads up!</h4>
+  <div hlmAlertDescription>You can add components and dependencies to your app using the cli.</div>
+  <div hlmAlertAction>
+    <button hlmBtn variant="outline" size="xs">Enable</button>
+  </div>
+</hlm-alert>
 `;

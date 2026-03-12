@@ -10,7 +10,7 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 	providers: [provideIcons({ lucideGitBranch })],
 
 	template: `
-		<div class="flex flex-wrap items-center gap-2 md:flex-row" dir="rtl">
+		<div class="flex flex-wrap items-center gap-2 md:flex-row">
 			<button hlmBtn variant="outline" size="sm">
 				<ng-icon name="lucideGitBranch" />
 				New Branch

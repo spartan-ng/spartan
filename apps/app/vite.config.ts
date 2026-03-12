@@ -25,7 +25,6 @@ export default defineConfig(({ mode }) => {
 				'marked-gfm-heading-id',
 				'marked-highlight',
 				'prismjs/**/*',
-				'ngx-sonner',
 				'@ng-icons/remixicon',
 				'luxon',
 				'@angular/cdk/portal',
@@ -34,7 +33,6 @@ export default defineConfig(({ mode }) => {
 				'@angular/cdk/collections',
 				'embla-carousel-autoplay',
 				'embla-carousel-angular',
-				'ng-signal-forms',
 			],
 		},
 		ssr: {
@@ -43,7 +41,6 @@ export default defineConfig(({ mode }) => {
 				'@angular/cdk/**',
 				'@ng-icons/**',
 				'ngx-scrollbar/**',
-				'ng-signal-forms/**',
 				'@analogjs/trpc',
 				'@trpc/server',
 			],

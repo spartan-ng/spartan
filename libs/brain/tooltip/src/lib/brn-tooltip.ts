@@ -13,6 +13,7 @@ import {
 	inject,
 	Injector,
 	input,
+	linkedSignal,
 	numberAttribute,
 	output,
 	Renderer2,
@@ -53,6 +54,8 @@ export class BrnTooltip {
 	private _ariaEffectRef: ReturnType<typeof effect> | undefined = undefined;
 
 	public readonly tooltipDisabled = input<boolean, boolean>(false, { transform: booleanAttribute });
+	public readonly mutableTooltipDisabled = linkedSignal(this.tooltipDisabled);
+
 	public readonly position = input<BrnTooltipPosition>(this._config.position ?? 'top');
 	public readonly brnTooltip = input<BrnTooltipType>(null);
 	public readonly showDelay = input<number, number>(this._config.showDelay, { transform: numberAttribute });
@@ -154,7 +157,7 @@ export class BrnTooltip {
 	}
 
 	private _show(): void {
-		if (this._componentRef || !this._tooltipText() || this.tooltipDisabled()) {
+		if (this._componentRef || !this._tooltipText() || this.mutableTooltipDisabled()) {
 			return;
 		}
 

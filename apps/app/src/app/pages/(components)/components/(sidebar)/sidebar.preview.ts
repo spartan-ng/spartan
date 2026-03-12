@@ -541,7 +541,7 @@ import {
   lucideMap,
   lucidePlus,
 } from '@ng-icons/lucide';
-import { toast } from 'ngx-sonner';
+import { toast } from '@spartan-ng/brain/sonner';
 import { HlmToasterImports } from '@spartan-ng/helm/sonner';
 
 @Component({

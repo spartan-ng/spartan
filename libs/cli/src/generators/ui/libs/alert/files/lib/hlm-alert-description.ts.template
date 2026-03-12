@@ -2,10 +2,16 @@ import { Directive } from '@angular/core';
 import { classes } from '<%- importAlias %>/utils';
 
 @Directive({
-	selector: '[hlmAlertDesc],[hlmAlertDescription]',
+	selector: '[hlmAlertDescription]',
+	host: {
+		'data-slot': 'alert-description',
+	},
 })
 export class HlmAlertDescription {
 	constructor() {
-		classes(() => 'text-muted-foreground col-start-2 grid justify-items-start gap-1 text-sm [&_p]:leading-relaxed');
+		classes(
+			() =>
+				'text-muted-foreground [&_a]:hover:text-foreground text-sm text-balance md:text-pretty [&_a]:underline [&_a]:underline-offset-3 [&_p:not(:last-child)]:mb-4',
+		);
 	}
 }

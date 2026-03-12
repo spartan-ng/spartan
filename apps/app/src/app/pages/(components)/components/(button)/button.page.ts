@@ -1,11 +1,9 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
-import { ButtonDefaultPreview } from '@spartan-ng/app/app/pages/(components)/components/(button)/button--default.example';
-import { ButtonRoundedPreview } from '@spartan-ng/app/app/pages/(components)/components/(button)/button--rounded.example';
 import { ButtonRtlPreview } from '@spartan-ng/app/app/pages/(components)/components/(button)/button--rtl.example';
-import { buttonSizePreview } from '@spartan-ng/app/app/pages/(components)/components/(button)/button--size.example';
 import { ButtonStyleExample } from '@spartan-ng/app/app/pages/(components)/components/(button)/button--style.example';
+import { cursorCode } from '@spartan-ng/app/app/pages/(components)/components/(button)/button-cursor';
 import { CodeRtlPreview } from '@spartan-ng/app/app/shared/code/code-rtl-preview';
 import { CodeStylePreview } from '@spartan-ng/app/app/shared/code/code-theme-preview';
 import { RtlHeader } from '@spartan-ng/app/app/shared/code/rtl-header';
@@ -28,12 +26,17 @@ import { metaWith } from '../../../../shared/meta/meta.util';
 import { ButtonAnchor } from './button--anchor.example';
 import { ButtonDestructive } from './button--destructive.example';
 import { ButtonGhost } from './button--ghost.example';
-import { ButtonIcon } from './button--icon.example';
+
 import { ButtonLink } from './button--link.example';
 import { ButtonOutline } from './button--outline.example';
 import { ButtonSecondary } from './button--secondary.example';
 import { ButtonSpinner } from './button--spinner.example';
 import { ButtonWithIcon } from './button--with-icon.example';
+
+import { ButtonDefault } from '@spartan-ng/app/app/pages/(components)/components/(button)/button--default-variant.example';
+import { ButtonIcon } from '@spartan-ng/app/app/pages/(components)/components/(button)/button--icon.example';
+import { ButtonRoundedPreview } from '@spartan-ng/app/app/pages/(components)/components/(button)/button--rounded.example';
+import { buttonSizePreview } from '@spartan-ng/app/app/pages/(components)/components/(button)/button--size.example';
 import { ButtonPreview, defaultImports, defaultSkeleton } from './button.preview';
 
 export const routeMeta: RouteMeta = {
@@ -63,16 +66,12 @@ export const routeMeta: RouteMeta = {
 		ButtonSecondary,
 		ButtonGhost,
 		ButtonLink,
-		ButtonIcon,
 		ButtonWithIcon,
 		ButtonSpinner,
 		ButtonAnchor,
 		SectionSubSubHeading,
 		CodePreview,
 		CodeRtlPreview,
-		buttonSizePreview,
-		ButtonDefaultPreview,
-		ButtonRoundedPreview,
 		ButtonRtlPreview,
 		HlmP,
 		RtlHeader,
@@ -80,6 +79,10 @@ export const routeMeta: RouteMeta = {
 		StyleHeader,
 		CodeStylePreview,
 		ButtonStyleExample,
+		ButtonIcon,
+		buttonSizePreview,
+		ButtonDefault,
+		ButtonRoundedPreview,
 	],
 	template: `
 		<section spartanMainSection>
@@ -124,22 +127,11 @@ export const routeMeta: RouteMeta = {
 				behavior, add the following code to your CSS file:
 			</p>
 
-			<spartan-code
-				class="mt-4"
-				code='
-@layer base {
-  button:not(:disabled),
-  [role="button"]:not(:disabled) {
-    cursor: pointer;
-  }
-}
-'
-				fileName="src/styles.css"
-			/>
+			<spartan-code class="mt-6" fileName="src/styles.css" [code]="_cursorCode" />
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
 
-			<h3 id="examples__size" spartanH4>Size</h3>
+			<h3 id="examples__sizes" spartanH4>Size</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-button-size-preview />
@@ -150,7 +142,7 @@ export const routeMeta: RouteMeta = {
 			<h3 id="examples__default" spartanH4>Default</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
-					<spartan-button-default-preview />
+					<spartan-button-default />
 				</div>
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
@@ -287,7 +279,6 @@ export const routeMeta: RouteMeta = {
 export default class ButtonPage {
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('button');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
-	protected readonly _sizeCode = computed(() => this._snippets()['size']);
 	protected readonly _secondaryCode = computed(() => this._snippets()['secondary']);
 	protected readonly _outlineCode = computed(() => this._snippets()['outline']);
 	protected readonly _destructiveCode = computed(() => this._snippets()['destructive']);
@@ -295,11 +286,14 @@ export default class ButtonPage {
 	protected readonly _linkCode = computed(() => this._snippets()['link']);
 	protected readonly _iconCode = computed(() => this._snippets()['icon']);
 	protected readonly _withIconCode = computed(() => this._snippets()['withIcon']);
-	protected readonly _roundedCode = computed(() => this._snippets()['rounded']);
+	protected readonly _sizeCode = computed(() => this._snippets()['size']);
 	protected readonly _spinnerCode = computed(() => this._snippets()['spinner']);
+	protected readonly _roundedCode = computed(() => this._snippets()['rounded']);
 	protected readonly _anchorCode = computed(() => this._snippets()['anchor']);
 	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 	protected readonly _styleCode = computed(() => this._snippets()['style']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
+
+	protected readonly _cursorCode = cursorCode;
 }

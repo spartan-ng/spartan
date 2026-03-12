@@ -1,5 +1,6 @@
 import type { DialogRef } from '@angular/cdk/dialog';
 import type { Signal, WritableSignal } from '@angular/core';
+import { signal } from '@angular/core';
 import { type Observable, Subject } from 'rxjs';
 import { take } from 'rxjs/operators';
 import type { BrnDialogOptions } from './brn-dialog-options';
@@ -19,18 +20,28 @@ export class BrnDialogRef<DialogResult = any> {
 		return this.state() === 'open';
 	}
 
+	private readonly _options = signal<undefined | BrnDialogOptions>(undefined);
+	public readonly options = this._options.asReadonly();
+
 	constructor(
 		private readonly _cdkDialogRef: DialogRef<DialogResult>,
 		private readonly _open: WritableSignal<boolean>,
 		public readonly state: Signal<BrnDialogState>,
 		public readonly dialogId: number,
-		private readonly _options?: BrnDialogOptions,
+		_options?: BrnDialogOptions,
 	) {
+		if (_options) {
+			this._options.set(_options);
+		}
 		this.closed$ = this._cdkDialogRef.closed.pipe(take(1));
 	}
 
-	public close(result?: DialogResult, delay: number = this._options?.closeDelay ?? 0) {
-		if (!this.open || this._options?.disableClose) return;
+	public updateOptions(options: Partial<BrnDialogOptions>): void {
+		this._options.update((prev) => ({ ...(prev ?? {}), ...options }) as BrnDialogOptions);
+	}
+
+	public close(result?: DialogResult, delay: number = this._options()?.closeDelay ?? 0): void {
+		if (!this.open || this._options()?.disableClose) return;
 
 		this._closing$.next();
 		this._open.set(false);
@@ -44,23 +55,23 @@ export class BrnDialogRef<DialogResult = any> {
 		}, delay);
 	}
 
-	public setPanelClass(paneClass: string | null | undefined) {
+	public setPanelClass(paneClass: string | null | undefined): void {
 		this._cdkDialogRef.config.panelClass = cssClassesToArray(paneClass);
 	}
 
-	public setOverlayClass(overlayClass: string | null | undefined) {
+	public setOverlayClass(overlayClass: string | null | undefined): void {
 		this._cdkDialogRef.config.backdropClass = cssClassesToArray(overlayClass);
 	}
 
-	public setAriaDescribedBy(ariaDescribedBy: string | null | undefined) {
+	public setAriaDescribedBy(ariaDescribedBy: string | null | undefined): void {
 		this._cdkDialogRef.config.ariaDescribedBy = ariaDescribedBy;
 	}
 
-	public setAriaLabelledBy(ariaLabelledBy: string | null | undefined) {
+	public setAriaLabelledBy(ariaLabelledBy: string | null | undefined): void {
 		this._cdkDialogRef.config.ariaLabelledBy = ariaLabelledBy;
 	}
 
-	public setAriaLabel(ariaLabel: string | null | undefined) {
+	public setAriaLabel(ariaLabel: string | null | undefined): void {
 		this._cdkDialogRef.config.ariaLabel = ariaLabel;
 	}
 }

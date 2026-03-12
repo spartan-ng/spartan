@@ -110,7 +110,7 @@ export const routeMeta: RouteMeta = {
 			<spartan-code class="mt-3" language="sh" code="npm install drizzle-orm postgres" />
 
 			<div class="mt-4 mb-6" hlmAlert>
-				<ng-icon hlm hlmAlertIcon name="lucideTriangleAlert" />
+				<ng-icon name="lucideTriangleAlert" />
 				<h4 hlmAlertTitle>Dealing with postgres & CommonJs</h4>
 				<div hlmAlertDescription>
 					<p>
@@ -255,7 +255,7 @@ export const noteRouter = router({
 					/>
 
 					<div class="mt-4" hlmAlert>
-						<ng-icon hlm name="lucideTriangleAlert" hlmAlertIcon />
+						<ng-icon name="lucideTriangleAlert" />
 						<p hlmAlertTitle>Make sure to add .env to your .gitignore file.</p>
 						<div hlmAlertDescription>
 							<p>
@@ -310,7 +310,7 @@ git init"
 					<spartan-code class="mt-3" code="supabase start" />
 
 					<div class="mt-8" hlmAlert variant="destructive">
-						<ng-icon hlm hlmAlertIcon name="lucideTriangleAlert" />
+						<ng-icon name="lucideTriangleAlert" />
 						<h4 hlmAlertTitle>Important: Make sure Docker is running</h4>
 						<p hlmAlertDescription>
 							Make sure Docker is running and configured correctly! I had Docker already installed and running. However,

@@ -11,7 +11,7 @@ import { HlmAlertImports } from '@spartan-ng/helm/alert';
 	template: `
 		<spartan-section-sub-heading id="style">Styles</spartan-section-sub-heading>
 		<div hlmAlert variant="destructive" class="mt-6">
-			<ng-icon hlmAlertIcon name="lucideCircleAlert" />
+			<ng-icon name="lucideCircleAlert" />
 			<h4 hlmAlertTitle>This is currently work in progress.</h4>
 			<div hlmAlertDescription>
 				<p>

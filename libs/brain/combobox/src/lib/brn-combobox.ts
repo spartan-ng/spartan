@@ -99,7 +99,8 @@ export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor 
 	/** @internal The width of the search input wrapper */
 	public readonly searchInputWrapperWidth = computed<number | null>(() => {
 		const inputElement = this._searchInputWrapper()?.nativeElement;
-		return inputElement ? (inputElement.offsetWidth as number) : null;
+		if (!inputElement) return null;
+		return inputElement.getBoundingClientRect().width || inputElement.offsetWidth;
 	});
 
 	/** @internal Access all the items within the combobox */

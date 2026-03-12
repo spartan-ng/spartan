@@ -151,6 +151,9 @@ Our initial 300 contributors and sponsors are featured here and on the front pag
 132. [ayangabryl](https://github.com/ayangabryl)
 133. [s-froghyar](https://github.com/s-froghyar)
 134. [aziz-zina](https://github.com/aziz-zina)
+135. [avihayAsus](https://github.com/avihayAsus)
+136. [multignite](https://github.com/multignite)
+137. [sefatanam](https://github.com/sefatanam)
 
 [Become a spartan today!](https://github.com/sponsors/goetzrobin)
 

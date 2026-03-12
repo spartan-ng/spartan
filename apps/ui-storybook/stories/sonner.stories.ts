@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
+import { toast } from '@spartan-ng/brain/sonner';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmToaster } from '@spartan-ng/helm/sonner';
 import type { Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
-import { toast } from 'ngx-sonner';
 
 const meta: Meta<HlmToaster> = {
 	title: 'Sonner',

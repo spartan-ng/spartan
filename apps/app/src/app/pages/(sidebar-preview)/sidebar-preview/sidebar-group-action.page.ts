@@ -1,10 +1,10 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChartPie, lucideFrame, lucideMap, lucidePlus } from '@ng-icons/lucide';
+import { toast } from '@spartan-ng/brain/sonner';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 import { HlmToasterImports } from '@spartan-ng/helm/sonner';
-import { toast } from 'ngx-sonner';
 
 @Component({
 	selector: 'spartan-sidebar-group-action',

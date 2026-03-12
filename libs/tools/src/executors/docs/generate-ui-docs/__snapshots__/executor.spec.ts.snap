@@ -4892,8 +4892,124 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
     },
   },
   "sonner": {
-    "helm": {
-      "HlmToaster": {
+    "brain": {
+      "BrnSonnerIcon": {
+        "inputs": [
+          {
+            "name": "type",
+            "required": false,
+            "type": "ToastTypes",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-sonner-icon",
+      },
+      "BrnSonnerLoader": {
+        "inputs": [
+          {
+            "name": "isVisible",
+            "required": true,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-sonner-loader",
+      },
+      "BrnSonnerToast": {
+        "inputs": [
+          {
+            "name": "toast",
+            "required": true,
+            "type": "ToastProps['toast']",
+          },
+          {
+            "name": "index",
+            "required": true,
+            "type": "ToastProps['index']",
+          },
+          {
+            "name": "expanded",
+            "required": true,
+            "type": "ToastProps['expanded']",
+          },
+          {
+            "name": "invert",
+            "required": true,
+            "type": "ToastProps['invert']",
+          },
+          {
+            "name": "position",
+            "required": true,
+            "type": "ToastProps['position']",
+          },
+          {
+            "name": "visibleToasts",
+            "required": true,
+            "type": "ToastProps['visibleToasts']",
+          },
+          {
+            "name": "expandByDefault",
+            "required": true,
+            "type": "ToastProps['expandByDefault']",
+          },
+          {
+            "name": "closeButton",
+            "required": true,
+            "type": "ToastProps['closeButton']",
+          },
+          {
+            "name": "interacting",
+            "required": true,
+            "type": "ToastProps['interacting']",
+          },
+          {
+            "name": "cancelButtonStyle",
+            "required": false,
+            "type": "ToastProps['cancelButtonStyle']",
+          },
+          {
+            "name": "actionButtonStyle",
+            "required": false,
+            "type": "ToastProps['actionButtonStyle']",
+          },
+          {
+            "name": "duration",
+            "required": false,
+            "type": "ToastProps['duration']",
+          },
+          {
+            "name": "descriptionClass",
+            "required": false,
+            "type": "ToastProps['descriptionClass']",
+          },
+          {
+            "name": "classes",
+            "required": false,
+            "type": "ToastProps['classes']",
+          },
+          {
+            "name": "unstyled",
+            "required": false,
+            "type": "ToastProps['unstyled']",
+          },
+          {
+            "name": "class",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "style",
+            "required": false,
+            "type": "Record<string, string>",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-sonner-toast",
+      },
+      "BrnSonnerToaster": {
         "inputs": [
           {
             "name": "invert",
@@ -4951,9 +5067,78 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "ToasterProps['offset']",
           },
           {
-            "name": "dir",
+            "name": "class",
             "required": false,
-            "type": "ToasterProps['dir']",
+            "type": "unknown",
+          },
+          {
+            "name": "style",
+            "required": false,
+            "type": "Record<string, string>",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-sonner-toaster",
+      },
+    },
+    "helm": {
+      "HlmToaster": {
+        "inputs": [
+          {
+            "name": "invert",
+            "required": false,
+            "type": "ToasterProps['invert']",
+          },
+          {
+            "name": "theme",
+            "required": false,
+            "type": "ToasterProps['theme']",
+          },
+          {
+            "name": "position",
+            "required": false,
+            "type": "ToasterProps['position']",
+          },
+          {
+            "name": "hotKey",
+            "required": false,
+            "type": "ToasterProps['hotkey']",
+          },
+          {
+            "name": "richColors",
+            "required": false,
+            "type": "ToasterProps['richColors']",
+          },
+          {
+            "name": "expand",
+            "required": false,
+            "type": "ToasterProps['expand']",
+          },
+          {
+            "name": "duration",
+            "required": false,
+            "type": "ToasterProps['duration']",
+          },
+          {
+            "name": "visibleToasts",
+            "required": false,
+            "type": "ToasterProps['visibleToasts']",
+          },
+          {
+            "name": "closeButton",
+            "required": false,
+            "type": "ToasterProps['closeButton']",
+          },
+          {
+            "name": "toastOptions",
+            "required": false,
+            "type": "ToasterProps['toastOptions']",
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "type": "ToasterProps['offset']",
           },
           {
             "name": "class",

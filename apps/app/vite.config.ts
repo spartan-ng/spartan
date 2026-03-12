@@ -25,7 +25,6 @@ export default defineConfig(({ mode }) => {
 				'marked-gfm-heading-id',
 				'marked-highlight',
 				'prismjs/**/*',
-				'ngx-sonner',
 				'@ng-icons/remixicon',
 				'luxon',
 				'@angular/cdk/portal',

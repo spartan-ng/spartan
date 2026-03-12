@@ -207,7 +207,7 @@ function updateElement(manager: ElementClassManager): void {
 	// Combine base classes with all source classes, ensuring base classes take precedence
 	const classesToApply =
 		allSourceClasses.length > 0 || manager.baseClasses.size > 0
-			? twMerge(clsx([...allSourceClasses, ...manager.baseClasses]))
+			? hlm([...allSourceClasses, ...manager.baseClasses])
 			: '';
 
 	// Apply the classes to the element

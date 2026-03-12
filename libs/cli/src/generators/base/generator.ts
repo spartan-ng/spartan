@@ -116,24 +116,19 @@ export async function hlmBaseGenerator(tree: Tree, options: HlmBaseGeneratorSche
 		generateLibraryFiles(tree, targetLibDir, options);
 	}
 
-	// todo
-
-	// 2️⃣ Prepare style transform
+	// TODO: add style to component.json
 	const styleMap = await getStyleMap('vega');
-
-	// 3️⃣ Collect all generated files
 	const generatedFiles: string[] = [];
 
 	visitNotIgnoredFiles(tree, filesPath, (filePath) => {
 		generatedFiles.push(filePath);
 	});
 
-	// 4️⃣ Transform each file
 	for (const filePath of generatedFiles) {
 		const content = tree.read(filePath, 'utf-8');
 		if (filePath.includes('/button/')) {
 			if (!content) continue;
-
+			console.warn(content);
 			const transformed = await transformStyle(content, { styleMap });
 			tree.write(filePath, transformed);
 		}

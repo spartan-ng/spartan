@@ -110,7 +110,7 @@ export const registryItemCssVarsSchema = z.object({
 });
 
 // Recursive type for CSS properties that supports empty objects at any level.
-const cssValueSchema: z.ZodType<any> = z.lazy(() =>
+const cssValueSchema: z.ZodType = z.lazy(() =>
 	z.union([
 		z.string(),
 		z.array(z.union([z.string(), z.record(z.string(), z.string())])),

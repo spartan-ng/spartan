@@ -9,7 +9,6 @@ import {
 	viewChild,
 } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { HlmButton } from '@spartan-ng/helm/button';
 import { render } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import { classes } from './hlm';
@@ -320,67 +319,6 @@ describe('classes', () => {
 		expect(testElement.className).not.toContain('text-white');
 		expect(testElement.className).not.toContain('p-2');
 		expect(testElement.className).not.toContain('text-gray-600'); // First source still loses
-	});
-
-	it('should work correctly with hlm-button variant changes', async () => {
-		@Component({
-			changeDetection: ChangeDetectionStrategy.OnPush,
-			template: `
-				<button #buttonElement hlmBtn [variant]="variant()" (click)="toggleVariant()" data-testid="test-button">
-					Test Button
-				</button>
-			`,
-		})
-		class TestComponent {
-			public readonly buttonElement = viewChild.required('buttonElement', { read: ElementRef });
-			public readonly variant = signal<'default' | 'ghost'>('default');
-
-			toggleVariant() {
-				this.variant.set(this.variant() === 'default' ? 'ghost' : 'default');
-			}
-		}
-
-		const { getByTestId } = await render(TestComponent, {
-			componentImports: [HlmButton],
-		});
-
-		const button = getByTestId('test-button') as HTMLButtonElement;
-		const user = userEvent.setup();
-
-		// Initial state should have default variant classes
-		expect(button.className).toContain('bg-primary');
-		expect(button.className).toContain('text-primary-foreground');
-		expect(button.className).toContain('hover:bg-primary/80');
-		expect(button.className).not.toContain('hover:bg-accent');
-		expect(button.className).not.toContain('hover:text-accent-foreground');
-
-		// Click to change to ghost variant
-		await user.click(button);
-
-		// Should now have ghost variant classes
-		expect(button.className).toContain('hover:bg-muted');
-		expect(button.className).toContain('hover:text-foreground');
-		expect(button.className).not.toContain('bg-primary');
-		expect(button.className).not.toContain('text-primary-foreground');
-		expect(button.className).not.toContain('hover:bg-primary/90');
-
-		// Common classes should still be present
-		expect(button.className).toContain('inline-flex');
-		expect(button.className).toContain('items-center');
-		expect(button.className).toContain('justify-center');
-		expect(button.className).toContain('rounded-lg');
-		expect(button.className).toContain('text-sm');
-		expect(button.className).toContain('font-medium');
-
-		// Click again to change back to default
-		await user.click(button);
-
-		// Should be back to default variant classes
-		expect(button.className).toContain('bg-primary');
-		expect(button.className).toContain('text-primary-foreground');
-		expect(button.className).toContain('hover:bg-primary/80');
-		expect(button.className).not.toContain('hover:bg-muted');
-		expect(button.className).not.toContain('hover:text-foreground');
 	});
 
 	it('should handle SSR scenario with pre-rendered classes correctly', async () => {

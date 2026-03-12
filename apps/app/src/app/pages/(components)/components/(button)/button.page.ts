@@ -5,8 +5,11 @@ import { ButtonDefaultPreview } from '@spartan-ng/app/app/pages/(components)/com
 import { ButtonRoundedPreview } from '@spartan-ng/app/app/pages/(components)/components/(button)/button--rounded.example';
 import { ButtonRtlPreview } from '@spartan-ng/app/app/pages/(components)/components/(button)/button--rtl.example';
 import { buttonSizePreview } from '@spartan-ng/app/app/pages/(components)/components/(button)/button--size.example';
+import { ButtonStyleExample } from '@spartan-ng/app/app/pages/(components)/components/(button)/button--style.example';
 import { CodeRtlPreview } from '@spartan-ng/app/app/shared/code/code-rtl-preview';
+import { CodeStylePreview } from '@spartan-ng/app/app/shared/code/code-theme-preview';
 import { RtlHeader } from '@spartan-ng/app/app/shared/code/rtl-header';
+import { StyleHeader } from '@spartan-ng/app/app/shared/code/style-header';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { link } from '@spartan-ng/app/app/shared/typography/link';
 import { HlmCode, HlmP } from '@spartan-ng/helm/typography';
@@ -74,6 +77,9 @@ export const routeMeta: RouteMeta = {
 		HlmP,
 		RtlHeader,
 		HlmCode,
+		StyleHeader,
+		CodeStylePreview,
+		ButtonStyleExample,
 	],
 	template: `
 		<section spartanMainSection>
@@ -256,6 +262,14 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_rtlCode()" />
 			</spartan-tabs>
 
+			<spartan-header-style />
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanStyleCodePreview firstTab>
+					<spartan-button-style />
+				</div>
+				<spartan-code secondTab [code]="_styleCode()" />
+			</spartan-tabs>
+
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="brain" />
 
@@ -285,6 +299,7 @@ export default class ButtonPage {
 	protected readonly _spinnerCode = computed(() => this._snippets()['spinner']);
 	protected readonly _anchorCode = computed(() => this._snippets()['anchor']);
 	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
+	protected readonly _styleCode = computed(() => this._snippets()['style']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

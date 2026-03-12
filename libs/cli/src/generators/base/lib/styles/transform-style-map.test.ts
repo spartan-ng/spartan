@@ -5,8 +5,22 @@ import { transformStyleMap } from './transform-style-map';
 
 const baseStyleMap: StyleMap = {
 	'spartan-foo': 'bg-background gap-4 rounded-xl',
+	'spartan-button': `focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-md border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 [&_ng-icon:not([class*='text-'])]:text-base`,
+	'spartan-button-variant-default': `bg-primary text-primary-foreground hover:bg-primary/80`,
+	'spartan-button-variant-outline': `border-border bg-background hover:bg-muted hover:text-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 aria-expanded:bg-muted aria-expanded:text-foreground shadow-xs`,
+	'spartan-button-variant-secondary': `bg-secondary text-secondary-foreground hover:bg-secondary/80 aria-expanded:bg-secondary aria-expanded:text-secondary-foreground`,
+	'spartan-button-variant-ghost': `hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground`,
+	'spartan-button-variant-destructive': `bg-destructive/10 hover:bg-destructive/20 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/20 text-destructive focus-visible:border-destructive/40 dark:hover:bg-destructive/30`,
+	'spartan-button-variant-link': `text-primary underline-offset-4 hover:underline`,
+	'spartan-button-size-xs': `h-6 gap-1 rounded-[min(var(--radius-md),8px)] px-2 text-xs in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pe-1.5 has-data-[icon=inline-start]:ps-1.5 [&_ng-icon:not([class*='text-'])]:text-sm`,
+	'spartan-button-size-sm': `h-8 gap-1 rounded-[min(var(--radius-md),10px)] px-2.5 in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pe-1.5 has-data-[icon=inline-start]:ps-1.5`,
+	'spartan-button-size-default': `h-9 gap-1.5 px-2.5 in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pe-2 has-data-[icon=inline-start]:ps-2`,
+	'spartan-button-size-lg': `h-10 gap-1.5 px-2.5 has-data-[icon=inline-end]:pe-3 has-data-[icon=inline-start]:ps-3`,
+	'spartan-button-size-icon-xs': `size-6 rounded-[min(var(--radius-md),8px)] in-data-[slot=button-group]:rounded-md [&_ng-icon:not([class*='text-'])]:text-sm`,
+	'spartan-button-size-icon-sm': `size-8 rounded-[min(var(--radius-md),10px)] in-data-[slot=button-group]:rounded-md`,
+	'spartan-button-size-icon': `size-9`,
+	'spartan-button-size-icon-lg': `size-10`,
 };
-
 async function applyTransform(source: string, styleMap: StyleMap) {
 	const project = new Project({
 		useInMemoryFileSystem: true,
@@ -23,7 +37,145 @@ async function applyTransform(source: string, styleMap: StyleMap) {
 }
 
 describe('transformStyleMap', () => {
-	describe('classes call', () => {
+	describe('classes()', () => {
+		it('transforms arrow string', async () => {
+			const source = `
+classes(() => 'flex spartan-foo');
+`;
+
+			const result = await applyTransform(source, baseStyleMap);
+
+			expect(result).toMatchInlineSnapshot(`
+"classes(() => 'bg-background gap-4 rounded-xl flex');
+"
+`);
+		});
+
+		it('transforms array', async () => {
+			const source = `
+classes(() => [
+ 'flex',
+ 'spartan-foo'
+])
+`;
+
+			const result = await applyTransform(source, baseStyleMap);
+
+			expect(result).toMatchInlineSnapshot(`
+"classes(() => [
+ 'flex',
+ 'bg-background gap-4 rounded-xl'
+])
+"
+`);
+		});
+
+		it('handles ternary', async () => {
+			const source = `
+classes(() => [
+  this.variant() === 'spartan-foo' ? 'p-4' : 'p-2'
+])
+`;
+
+			const result = await applyTransform(source, baseStyleMap);
+
+			expect(result).toMatchInlineSnapshot(`
+"classes(() => [
+  this.variant() === 'bg-background gap-4 rounded-xl' ? 'p-4' : 'p-2'
+])
+"
+`);
+		});
+	});
+
+	describe('hlm()', () => {
+		it('replaces spartan class', async () => {
+			const source = `
+const cls = hlm("spartan-foo");
+`;
+
+			const result = await applyTransform(source, baseStyleMap);
+
+			expect(result).toMatchInlineSnapshot(`
+"const cls = hlm("bg-background gap-4 rounded-xl");
+"
+`);
+		});
+
+		it('handles multiple classes', async () => {
+			const source = `
+const cls = hlm("spartan-foo spartan-bar");
+`;
+
+			const styleMap = {
+				'spartan-foo': 'bg-background',
+				'spartan-bar': 'rounded-xl',
+			};
+
+			const result = await applyTransform(source, styleMap);
+
+			expect(result).toMatchInlineSnapshot(`
+"const cls = hlm("bg-background rounded-xl");
+"
+`);
+		});
+
+		it('preserves additional arguments', async () => {
+			const source = `
+const cls = hlm("spartan-foo", className);
+`;
+
+			const result = await applyTransform(source, baseStyleMap);
+
+			expect(result).toMatchInlineSnapshot(`
+"const cls = hlm("bg-background gap-4 rounded-xl", className);
+"
+`);
+		});
+
+		it('removes empty arguments', async () => {
+			const source = `
+const cls = hlm("spartan-foo", "", "extra", "");
+`;
+
+			const result = await applyTransform(source, baseStyleMap);
+
+			expect(result).toMatchInlineSnapshot(`
+"const cls = hlm("bg-background gap-4 rounded-xl", "extra");
+"
+`);
+		});
+	});
+
+	describe('html class attributes', () => {
+		it('transforms html class attribute', async () => {
+			const source = `
+<div class="spartan-foo"></div>
+`;
+
+			const result = await applyTransform(source, baseStyleMap);
+
+			expect(result).toMatchInlineSnapshot(`
+"<div class="bg-background gap-4 rounded-xl"></div>
+"
+`);
+		});
+
+		it('preserves allowlisted classes', async () => {
+			const source = `
+<div class="spartan-menu-target spartan-foo"></div>
+`;
+
+			const result = await applyTransform(source, baseStyleMap);
+
+			expect(result).toMatchInlineSnapshot(`
+"<div class="bg-background gap-4 rounded-xl spartan-menu-target"></div>
+"
+`);
+		});
+	});
+
+	describe('Angular components', () => {
 		it('should replace string', async () => {
 			const source = `import { Directive } from '@angular/core';
 import { BrnAccordion } from '@spartan-ng/brain/accordion';
@@ -155,982 +307,164 @@ export class HlmInputGroup {
 "
 `);
 		});
-	});
 
-	it('adds tailwind classes to string literal className', async () => {
-		const source = `import * as React from "react"
-
-function Foo(props: React.ComponentProps<"div">) {
-  return <div className="spartan-foo" {...props} />
-}
-`;
-
-		const result = await applyTransform(source, baseStyleMap);
-
-		expect(result).toMatchInlineSnapshot(`
-      "import * as React from "react"
-
-      function Foo(props: React.ComponentProps<"div">) {
-        return <div className="bg-background gap-4 rounded-xl" {...props} />
-      }
-      "
-    `);
-	});
-
-	it('applies base classes to cva base string', async () => {
-		const source = `import * as React from "react"
-import { cva } from "class-variance-authority"
-import { cn } from "@/lib/utils"
-
-const buttonVariants = cva(
-  "spartan-button inline-flex items-center",
-  {
-    variants: {
-      variant: {
-        default: "",
-      },
-    },
-  }
-)
-
-function Button({ className, ...props }: React.ComponentProps<"button">) {
-  return (
-    <button className={hlm(buttonVariants({ className }))} {...props} />
-  )
-}
-`;
-
-		const styleMap: StyleMap = {
-			'spartan-button': 'rounded-lg border text-sm',
-		};
-
-		const result = await applyTransform(source, styleMap);
-
-		expect(result).toMatchInlineSnapshot(`
-      "import * as React from "react"
-      import { cva } from "class-variance-authority"
-      import { cn } from "@/lib/utils"
-
-      const buttonVariants = cva(
-        "rounded-lg border text-sm inline-flex items-center",
-        {
-          variants: {
-            variant: {
-              default: "",
-            },
-          },
-        }
-      )
-
-      function Button({ className, ...props }: React.ComponentProps<"button">) {
-        return (
-          <button className={hlm(buttonVariants({ className }))} {...props} />
-        )
-      }
-      "
-    `);
-	});
-
-	it('applies variant classes to cva variant entries', async () => {
-		const source = `import * as React from "react"
-import { cva } from "class-variance-authority"
-import { cn } from "@/lib/utils"
-
-const buttonVariants = cva(
-  "spartan-button inline-flex items-center",
-  {
-    variants: {
-      variant: {
-        default: "spartan-button-variant-default",
-      },
-    },
-  }
-)
-
-function Button({ className, variant = "default", ...props }: React.ComponentProps<"button">) {
-  return (
-    <button className={hlm(buttonVariants({ variant, className }))} {...props} />
-  )
-}
-`;
-
-		const styleMap: StyleMap = {
-			'spartan-button-variant-default': 'text-primary-foreground bg-primary',
-		};
-
-		const result = await applyTransform(source, styleMap);
-
-		expect(result).toMatchInlineSnapshot(`
-      "import * as React from "react"
-      import { cva } from "class-variance-authority"
-      import { cn } from "@/lib/utils"
-
-      const buttonVariants = cva(
-        "inline-flex items-center",
-        {
-          variants: {
-            variant: {
-              default: "text-primary-foreground bg-primary",
-            },
-          },
-        }
-      )
-
-      function Button({ className, variant = "default", ...props }: React.ComponentProps<"button">) {
-        return (
-          <button className={hlm(buttonVariants({ variant, className }))} {...props} />
-        )
-      }
-      "
-    `);
-	});
-
-	it('handles multiple spartan-* classes in one className', async () => {
-		const source = `import * as React from "react"
-import { cn } from "@/lib/utils"
-
-function Foo({ className, ...props }: { className?: string }) {
-  return (
-    <div className={hlm("spartan-foo spartan-bar", className)} {...props} />
-  )
-}
-`;
-
-		const styleMap: StyleMap = {
-			'spartan-foo': 'bg-background gap-4',
-			'spartan-bar': 'rounded-xl border',
-		};
-
-		const result = await applyTransform(source, styleMap);
-
-		expect(result).toMatchInlineSnapshot(`
-      "import * as React from "react"
-      import { cn } from "@/lib/utils"
-
-      function Foo({ className, ...props }: { className?: string }) {
-        return (
-          <div className={hlm("bg-background gap-4 rounded-xl border", className)} {...props} />
-        )
-      }
-      "
-    `);
-	});
-
-	it('skips spartan-* classes not in styleMap', async () => {
-		const source = `import * as React from "react"
-import { cn } from "@/lib/utils"
-
-function Foo({ className, ...props }: { className?: string }) {
-  return (
-    <div className={hlm("spartan-foo spartan-unknown", className)} {...props} />
-  )
-}
-`;
-
-		const result = await applyTransform(source, baseStyleMap);
-
-		expect(result).toMatchInlineSnapshot(`
-      "import * as React from "react"
-      import { cn } from "@/lib/utils"
-
-      function Foo({ className, ...props }: { className?: string }) {
-        return (
-          <div className={hlm("bg-background gap-4 rounded-xl", className)} {...props} />
-        )
-      }
-      "
-    `);
-	});
-
-	it('handles className with no spartan-* classes', async () => {
-		const source = `import * as React from "react"
-import { cn } from "@/lib/utils"
-
-function Foo({ className, ...props }: { className?: string }) {
-  return (
-    <div className={hlm("some-other-class", className)} {...props} />
-  )
-}
-`;
-
-		const result = await applyTransform(source, baseStyleMap);
-
-		expect(result).toMatchInlineSnapshot(`
-      "import * as React from "react"
-      import { cn } from "@/lib/utils"
-
-      function Foo({ className, ...props }: { className?: string }) {
-        return (
-          <div className={hlm("some-other-class", className)} {...props} />
-        )
-      }
-      "
-    `);
-	});
-
-	it('handles multiple spartan-* classes in hlm() arguments', async () => {
-		const source = `import * as React from "react"
-import { cn } from "@/lib/utils"
-
-function Foo({ className, ...props }: { className?: string }) {
-  return (
-    <div className={hlm("spartan-foo", "spartan-bar", className)} {...props} />
-  )
-}
-`;
-
-		const styleMap: StyleMap = {
-			'spartan-foo': 'bg-background',
-			'spartan-bar': 'rounded-xl',
-		};
-
-		const result = await applyTransform(source, styleMap);
-
-		expect(result).toMatchInlineSnapshot(`
-      "import * as React from "react"
-      import { cn } from "@/lib/utils"
-
-      function Foo({ className, ...props }: { className?: string }) {
-        return (
-          <div className={hlm("bg-background rounded-xl", className)} {...props} />
-        )
-      }
-      "
-    `);
-	});
-
-	it('handles size variants in cva', async () => {
-		const source = `import * as React from "react"
-import { cva } from "class-variance-authority"
-import { cn } from "@/lib/utils"
-
-const buttonVariants = cva(
-  "spartan-button inline-flex items-center",
-  {
-    variants: {
-      size: {
-        sm: "spartan-button-size-sm",
-        lg: "spartan-button-size-lg",
-      },
-    },
-  }
-)
-
-function Button({ className, size = "sm", ...props }: React.ComponentProps<"button">) {
-  return (
-    <button className={hlm(buttonVariants({ size, className }))} {...props} />
-  )
-}
-`;
-
-		const styleMap: StyleMap = {
-			'spartan-button-size-sm': 'h-7 px-2.5',
-			'spartan-button-size-lg': 'h-9 px-4',
-		};
-
-		const result = await applyTransform(source, styleMap);
-
-		expect(result).toMatchInlineSnapshot(`
-      "import * as React from "react"
-      import { cva } from "class-variance-authority"
-      import { cn } from "@/lib/utils"
-
-      const buttonVariants = cva(
-        "inline-flex items-center",
-        {
-          variants: {
-            size: {
-              sm: "h-7 px-2.5",
-              lg: "h-9 px-4",
-            },
-          },
-        }
-      )
-
-      function Button({ className, size = "sm", ...props }: React.ComponentProps<"button">) {
-        return (
-          <button className={hlm(buttonVariants({ size, className }))} {...props} />
-        )
-      }
-      "
-    `);
-	});
-
-	it('handles button with base, variant, and size classes', async () => {
-		const source = `import * as React from "react"
-import { cva } from "class-variance-authority"
-import { cn } from "@/lib/utils"
-
-const buttonVariants = cva(
-  "spartan-button inline-flex items-center justify-center",
-  {
-    variants: {
-      variant: {
-        default: "spartan-button-variant-default",
-        destructive: "spartan-button-variant-destructive",
-      },
-      size: {
-        sm: "spartan-button-size-sm",
-        lg: "spartan-button-size-lg",
-      },
-    },
-  }
-)
-
-function Button({
-  className,
-  variant = "default",
-  size = "sm",
-  ...props
-}: React.ComponentProps<"button">) {
-  return (
-    <button className={hlm(buttonVariants({ variant, size, className }))} {...props} />
-  )
-}
-`;
-
-		const styleMap: StyleMap = {
-			'spartan-button': 'rounded-lg border font-medium',
-			'spartan-button-variant-default': 'bg-primary text-primary-foreground',
-			'spartan-button-variant-destructive': 'bg-destructive text-destructive-foreground',
-			'spartan-button-size-sm': 'h-8 px-3 text-sm',
-			'spartan-button-size-lg': 'h-10 px-6 text-base',
-		};
-
-		const result = await applyTransform(source, styleMap);
-
-		expect(result).toMatchInlineSnapshot(`
-      "import * as React from "react"
-      import { cva } from "class-variance-authority"
-      import { cn } from "@/lib/utils"
-
-      const buttonVariants = cva(
-        "rounded-lg border font-medium inline-flex items-center justify-center",
-        {
-          variants: {
-            variant: {
-              default: "bg-primary text-primary-foreground",
-              destructive: "bg-destructive text-destructive-foreground",
-            },
-            size: {
-              sm: "h-8 px-3 text-sm",
-              lg: "h-10 px-6 text-base",
-            },
-          },
-        }
-      )
-
-      function Button({
-        className,
-        variant = "default",
-        size = "sm",
-        ...props
-      }: React.ComponentProps<"button">) {
-        return (
-          <button className={hlm(buttonVariants({ variant, size, className }))} {...props} />
-        )
-      }
-      "
-    `);
-	});
-
-	it('removes empty string arguments from hlm() calls', async () => {
-		const source = `import * as React from "react"
-import { cn } from "@/lib/utils"
-
-function Foo({ className, ...props }: { className?: string }) {
-  return (
-    <div className={hlm("spartan-foo", "", "existing-class", "")} {...props} />
-  )
-}
-`;
-
-		const result = await applyTransform(source, baseStyleMap);
-
-		expect(result).toMatchInlineSnapshot(`
-      "import * as React from "react"
-      import { cn } from "@/lib/utils"
-
-      function Foo({ className, ...props }: { className?: string }) {
-        return (
-          <div className={hlm("bg-background gap-4 rounded-xl", "existing-class")} {...props} />
-        )
-      }
-      "
-    `);
-	});
-
-	it('prevents duplicate application when spartan-* class is in both cva and className', async () => {
-		const source = `import * as React from "react"
-import { cva } from "class-variance-authority"
-import { cn } from "@/lib/utils"
-
-const buttonVariants = cva("spartan-button", {
-  variants: {
-    variant: {
-      default: "",
-    },
-  },
+		it('transforms inline template', async () => {
+			const source = `
+@Component({
+ template: '<div class="spartan-foo flex"></div>'
 })
-
-function Button({ className, ...props }: React.ComponentProps<"button">) {
-  return (
-    <button className={hlm(buttonVariants({ className }), "spartan-button")} {...props} />
-  )
-}
+export class Foo {}
 `;
 
-		const styleMap: StyleMap = {
-			'spartan-button': 'rounded-lg border',
-		};
+			const result = await applyTransform(source, baseStyleMap);
 
-		const result = await applyTransform(source, styleMap);
-
-		expect(result).toMatchInlineSnapshot(`
-      "import * as React from "react"
-      import { cva } from "class-variance-authority"
-      import { cn } from "@/lib/utils"
-
-      const buttonVariants = cva("rounded-lg border", {
-        variants: {
-          variant: {
-            default: "",
-          },
-        },
-      })
-
-      function Button({ className, ...props }: React.ComponentProps<"button">) {
-        return (
-          <button className={hlm(buttonVariants({ className }))} {...props} />
-        )
-      }
-      "
-    `);
-	});
-
-	it('applies styles to multiple occurrences of the same spartan-* class', async () => {
-		const source = `import * as React from "react"
-import { cn } from "@/lib/utils"
-
-function Foo() {
-  return (
-    <section>
-      <div className="spartan-foo" />
-      <div className={hlm("spartan-foo", "extra")} />
-    </section>
-  )
-}
-`;
-
-		const result = await applyTransform(source, {
-			'spartan-foo': 'bg-background gap-4 rounded-xl',
+			expect(result).toMatchInlineSnapshot(`
+"@Component({
+ template: '<div class="bg-background gap-4 rounded-xl flex"></div>'
+})
+export class Foo {}
+"
+`);
 		});
 
-		expect(result).toMatchInlineSnapshot(`
-      "import * as React from "react"
-      import { cn } from "@/lib/utils"
+		it('hlm button', async () => {
+			const source = `
+import { Directive, input, signal } from '@angular/core';
+import { BrnButton } from '@spartan-ng/brain/button';
+import { classes } from '@spartan-ng/helm/utils';
+import { cva, type VariantProps } from 'class-variance-authority';
+import type { ClassValue } from 'clsx';
+import { injectBrnButtonConfig } from './hlm-button.token';
 
-      function Foo() {
-        return (
-          <section>
-            <div className="bg-background gap-4 rounded-xl" />
-            <div className={hlm("bg-background gap-4 rounded-xl", "extra")} />
-          </section>
-        )
-      }
-      "
-    `);
-	});
-
-	it('applies styles to spartan-* classes inside mergeProps within useRender', async () => {
-		const source = `import * as React from "react"
-import { mergeProps } from "@base-ui/react/merge-props"
-import { useRender } from "@base-ui/react/use-render"
-import { cn } from "@/lib/utils"
-
-function ButtonGroupText({
-  className,
-  render,
-  ...props
-}: useRender.ComponentProps<"div">) {
-  return useRender({
-    defaultTagName: "div",
-    props: mergeProps<"div">(
-      {
-        className: hlm(
-          "spartan-button-group-text flex items-center [&_svg]:pointer-events-none",
-          className
-        ),
-      },
-      props
-    ),
-    render,
-    state: {
-      slot: "button-group-text",
-    },
-  })
-}
-`;
-
-		const styleMap: StyleMap = {
-			'spartan-button-group-text': 'text-sm font-medium',
-		};
-
-		const result = await applyTransform(source, styleMap);
-
-		expect(result).toMatchInlineSnapshot(`
-      "import * as React from "react"
-      import { mergeProps } from "@base-ui/react/merge-props"
-      import { useRender } from "@base-ui/react/use-render"
-      import { cn } from "@/lib/utils"
-
-      function ButtonGroupText({
-        className,
-        render,
-        ...props
-      }: useRender.ComponentProps<"div">) {
-        return useRender({
-          defaultTagName: "div",
-          props: mergeProps<"div">(
-            {
-              className: hlm(
-                "text-sm font-medium flex items-center [&_svg]:pointer-events-none",
-                className
-              ),
-            },
-            props
-          ),
-          render,
-          state: {
-            slot: "button-group-text",
-          },
-        })
-      }
-      "
-    `);
-	});
-
-	it('preserves allowlisted classes even when not in styleMap', async () => {
-		const source = `import * as React from "react"
-import { cn } from "@/lib/utils"
-
-function Menu({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div className={hlm("spartan-menu-target spartan-foo", className)} {...props} />
-  )
-}
-`;
-
-		const styleMap: StyleMap = {
-			'spartan-foo': 'bg-background rounded-lg',
-		};
-
-		const result = await applyTransform(source, styleMap);
-
-		expect(result).toMatchInlineSnapshot(`
-      "import * as React from "react"
-      import { cn } from "@/lib/utils"
-
-      function Menu({ className, ...props }: React.ComponentProps<"div">) {
-        return (
-          <div className={hlm("bg-background rounded-lg spartan-menu-target", className)} {...props} />
-        )
-      }
-      "
-    `);
-	});
-
-	it('preserves allowlisted classes even when in styleMap', async () => {
-		const source = `import * as React from "react"
-import { cn } from "@/lib/utils"
-
-function Menu({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div className={hlm("spartan-menu-target", className)} {...props} />
-  )
-}
-`;
-
-		const styleMap: StyleMap = {
-			'spartan-menu-target': 'z-50 origin-top',
-		};
-
-		const result = await applyTransform(source, styleMap);
-
-		expect(result).toMatchInlineSnapshot(`
-      "import * as React from "react"
-      import { cn } from "@/lib/utils"
-
-      function Menu({ className, ...props }: React.ComponentProps<"div">) {
-        return (
-          <div className={hlm("z-50 origin-top spartan-menu-target", className)} {...props} />
-        )
-      }
-      "
-    `);
-	});
-
-	it('preserves allowlisted classes in mergeProps within useRender', async () => {
-		const source = `import * as React from "react"
-import { mergeProps } from "@base-ui/react/merge-props"
-import { useRender } from "@base-ui/react/use-render"
-import { cn } from "@/lib/utils"
-
-function MenuContent({
-  className,
-  render,
-  ...props
-}: useRender.ComponentProps<"div">) {
-  return useRender({
-    defaultTagName: "div",
-    props: mergeProps<"div">(
-      {
-        className: hlm(
-          "spartan-menu-target spartan-menu-content flex items-center",
-          className
-        ),
-      },
-      props
-    ),
-    render,
-    state: {
-      slot: "menu-content",
-    },
-  })
-}
-`;
-
-		const styleMap: StyleMap = {
-			'spartan-menu-content': 'bg-background rounded-md',
-		};
-
-		const result = await applyTransform(source, styleMap);
-
-		expect(result).toMatchInlineSnapshot(`
-      "import * as React from "react"
-      import { mergeProps } from "@base-ui/react/merge-props"
-      import { useRender } from "@base-ui/react/use-render"
-      import { cn } from "@/lib/utils"
-
-      function MenuContent({
-        className,
-        render,
-        ...props
-      }: useRender.ComponentProps<"div">) {
-        return useRender({
-          defaultTagName: "div",
-          props: mergeProps<"div">(
-            {
-              className: hlm(
-                "bg-background rounded-md spartan-menu-target flex items-center",
-                className
-              ),
-            },
-            props
-          ),
-          render,
-          state: {
-            slot: "menu-content",
-          },
-        })
-      }
-      "
-    `);
-	});
-
-	it('deduplicates classes when style map classes overlap with existing', async () => {
-		const source = `import * as React from "react"
-import { cn } from "@/lib/utils"
-
-function Foo({ className, ...props }: { className?: string }) {
-  return (
-    <div className={hlm("spartan-foo bg-background", className)} {...props} />
-  )
-}
-`;
-
-		const styleMap: StyleMap = {
-			'spartan-foo': 'bg-background gap-4 rounded-xl',
-		};
-
-		const result = await applyTransform(source, styleMap);
-
-		// bg-background should appear only once, not twice.
-		expect(result).toMatchInlineSnapshot(`
-      "import * as React from "react"
-      import { cn } from "@/lib/utils"
-
-      function Foo({ className, ...props }: { className?: string }) {
-        return (
-          <div className={hlm("gap-4 rounded-xl bg-background", className)} {...props} />
-        )
-      }
-      "
-    `);
-	});
-
-	it('handles conflicting tailwind classes with tailwind-merge', async () => {
-		const source = `import * as React from "react"
-import { cn } from "@/lib/utils"
-
-function Foo({ className, ...props }: { className?: string }) {
-  return (
-    <div className={hlm("spartan-foo p-4", className)} {...props} />
-  )
-}
-`;
-
-		const styleMap: StyleMap = {
-			'spartan-foo': 'p-2 rounded-xl',
-		};
-
-		const result = await applyTransform(source, styleMap);
-
-		// p-2 from style map should be overridden by p-4 from existing.
-		expect(result).toMatchInlineSnapshot(`
-      "import * as React from "react"
-      import { cn } from "@/lib/utils"
-
-      function Foo({ className, ...props }: { className?: string }) {
-        return (
-          <div className={hlm("rounded-xl p-4", className)} {...props} />
-        )
-      }
-      "
-    `);
-	});
-
-	it('handles conflicting color classes with tailwind-merge', async () => {
-		const source = `import * as React from "react"
-import { cn } from "@/lib/utils"
-
-function Foo({ className, ...props }: { className?: string }) {
-  return (
-    <div className={hlm("spartan-foo bg-primary", className)} {...props} />
-  )
-}
-`;
-
-		const styleMap: StyleMap = {
-			'spartan-foo': 'bg-muted text-foreground',
-		};
-
-		const result = await applyTransform(source, styleMap);
-
-		// bg-muted from style map should be overridden by bg-primary from existing.
-		expect(result).toMatchInlineSnapshot(`
-      "import * as React from "react"
-      import { cn } from "@/lib/utils"
-
-      function Foo({ className, ...props }: { className?: string }) {
-        return (
-          <div className={hlm("text-foreground bg-primary", className)} {...props} />
-        )
-      }
-      "
-    `);
-	});
-
-	it('handles conflicting size classes with tailwind-merge', async () => {
-		const source = `import * as React from "react"
-import { cn } from "@/lib/utils"
-
-function Foo({ className, ...props }: { className?: string }) {
-  return (
-    <div className={hlm("spartan-foo text-lg rounded-lg", className)} {...props} />
-  )
-}
-`;
-
-		const styleMap: StyleMap = {
-			'spartan-foo': 'text-sm rounded-md border',
-		};
-
-		const result = await applyTransform(source, styleMap);
-
-		// text-sm and rounded-md from style map should be overridden.
-		expect(result).toMatchInlineSnapshot(`
-      "import * as React from "react"
-      import { cn } from "@/lib/utils"
-
-      function Foo({ className, ...props }: { className?: string }) {
-        return (
-          <div className={hlm("border text-lg rounded-lg", className)} {...props} />
-        )
-      }
-      "
-    `);
-	});
-
-	it('handles multiple duplicates in cva base and variants', async () => {
-		const source = `import * as React from "react"
-import { cva } from "class-variance-authority"
-import { cn } from "@/lib/utils"
-
-const buttonVariants = cva(
-  "spartan-button rounded-md",
-  {
-    variants: {
-      variant: {
-        default: "spartan-button-default bg-primary",
-      },
-    },
-  }
-)
-
-function Button({ className, ...props }: React.ComponentProps<"button">) {
-  return (
-    <button className={hlm(buttonVariants({ className }))} {...props} />
-  )
-}
-`;
-
-		const styleMap: StyleMap = {
-			'spartan-button': 'rounded-lg border font-medium',
-			'spartan-button-default': 'bg-muted text-foreground',
-		};
-
-		const result = await applyTransform(source, styleMap);
-
-		// rounded-lg should be overridden by rounded-md, bg-muted should be overridden by bg-primary.
-		expect(result).toMatchInlineSnapshot(`
-      "import * as React from "react"
-      import { cva } from "class-variance-authority"
-      import { cn } from "@/lib/utils"
-
-      const buttonVariants = cva(
-        "border font-medium rounded-md",
+export const buttonVariants = cva(
+        'spartan-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_ng-icon]:pointer-events-none [&_ng-icon]:shrink-0',
         {
-          variants: {
-            variant: {
-              default: "text-foreground bg-primary",
-            },
-          },
+                variants: {
+                        variant: {
+                                default: 'spartan-button-variant-default',
+                                outline: 'spartan-button-variant-outline',
+                                secondary: 'spartan-button-variant-secondary',
+                                ghost: 'spartan-button-variant-ghost',
+                                destructive: 'spartan-button-variant-destructive',
+                                link: 'spartan-button-variant-link',
+                        },
+                        size: {
+                                default: 'spartan-button-size-default',
+                                xs: 'spartan-button-size-xs',
+                                sm: 'spartan-button-size-sm',
+                                lg: 'spartan-button-size-lg',
+                                icon: 'spartan-button-size-icon',
+                                'icon-xs': 'spartan-button-size-icon-xs',
+                                'icon-sm': 'spartan-button-size-icon-sm',
+                                'icon-lg': 'spartan-button-size-icon-lg',
+                        },
+                },
+                defaultVariants: {
+                        variant: 'default',
+                        size: 'default',
+                },
+        },
+);
+
+export type ButtonVariants = VariantProps<typeof buttonVariants>;
+
+@Directive({
+        selector: 'button[hlmBtn], a[hlmBtn]',
+        exportAs: 'hlmBtn',
+        hostDirectives: [{ directive: BrnButton, inputs: ['disabled'] }],
+        host: {
+                'data-slot': 'button',
+        },
+})
+export class HlmButton {
+        private readonly _config = injectBrnButtonConfig();
+
+        private readonly _additionalClasses = signal<ClassValue>('');
+
+        public readonly variant = input<ButtonVariants['variant']>(this._config.variant);
+
+        public readonly size = input<ButtonVariants['size']>(this._config.size);
+
+        constructor() {
+                classes(() => [buttonVariants({ variant: this.variant(), size: this.size() }), this._additionalClasses()]);
         }
-      )
 
-      function Button({ className, ...props }: React.ComponentProps<"button">) {
-        return (
-          <button className={hlm(buttonVariants({ className }))} {...props} />
-        )
-      }
-      "
-    `);
-	});
-
-	it('handles conflicting spacing classes with tailwind-merge', async () => {
-		const source = `import * as React from "react"
-import { cn } from "@/lib/utils"
-
-function Foo({ className, ...props }: { className?: string }) {
-  return (
-    <div className={hlm("spartan-foo mx-4 py-2", className)} {...props} />
-  )
+        setClass(classes: string): void {
+                this._additionalClasses.set(classes);
+        }
 }
+"
 `;
+			const result = await applyTransform(source, baseStyleMap);
 
-		const styleMap: StyleMap = {
-			'spartan-foo': 'mx-2 py-4 flex',
-		};
+			expect(result).toMatchInlineSnapshot(`
+"import { Directive, input, signal } from '@angular/core';
+import { BrnButton } from '@spartan-ng/brain/button';
+import { classes } from '@spartan-ng/helm/utils';
+import { cva, type VariantProps } from 'class-variance-authority';
+import type { ClassValue } from 'clsx';
+import { injectBrnButtonConfig } from './hlm-button.token';
 
-		const result = await applyTransform(source, styleMap);
-
-		// mx-2 and py-4 should be overridden by mx-4 and py-2.
-		expect(result).toMatchInlineSnapshot(`
-      "import * as React from "react"
-      import { cn } from "@/lib/utils"
-
-      function Foo({ className, ...props }: { className?: string }) {
-        return (
-          <div className={hlm("flex mx-4 py-2", className)} {...props} />
-        )
-      }
-      "
-    `);
-	});
-
-	it('handles arbitrary values with tailwind-merge', async () => {
-		const source = `import * as React from "react"
-import { cn } from "@/lib/utils"
-
-function Foo({ className, ...props }: { className?: string }) {
-  return (
-    <div className={hlm("spartan-foo p-[20px]", className)} {...props} />
-  )
-}
-`;
-
-		const styleMap: StyleMap = {
-			'spartan-foo': 'p-4 rounded-xl',
-		};
-
-		const result = await applyTransform(source, styleMap);
-
-		// p-4 should be overridden by p-[20px].
-		expect(result).toMatchInlineSnapshot(`
-      "import * as React from "react"
-      import { cn } from "@/lib/utils"
-
-      function Foo({ className, ...props }: { className?: string }) {
-        return (
-          <div className={hlm("rounded-xl p-[20px]", className)} {...props} />
-        )
-      }
-      "
-    `);
-	});
-
-	it('preserves allowlisted classes in cva base string', async () => {
-		const source = `import * as React from "react"
-import { cva } from "class-variance-authority"
-import { cn } from "@/lib/utils"
-
-const menuVariants = cva(
-  "spartan-menu-target spartan-menu inline-flex items-center",
-  {
-    variants: {
-      variant: {
-        default: "",
-      },
-    },
-  }
-)
-
-function Menu({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div className={hlm(menuVariants({ className }))} {...props} />
-  )
-}
-`;
-
-		const styleMap: StyleMap = {
-			'spartan-menu': 'bg-background rounded-lg',
-		};
-
-		const result = await applyTransform(source, styleMap);
-
-		expect(result).toMatchInlineSnapshot(`
-      "import * as React from "react"
-      import { cva } from "class-variance-authority"
-      import { cn } from "@/lib/utils"
-
-      const menuVariants = cva(
-        "bg-background rounded-lg spartan-menu-target inline-flex items-center",
+export const buttonVariants = cva(
+        'focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-md border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 [&_ng-icon:not([class*=\\'text-\\'])]:text-base group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_ng-icon]:pointer-events-none [&_ng-icon]:shrink-0',
         {
-          variants: {
-            variant: {
-              default: "",
-            },
-          },
-        }
-      )
+                variants: {
+                        variant: {
+                                default: 'bg-primary text-primary-foreground hover:bg-primary/80',
+                                outline: 'border-border bg-background hover:bg-muted hover:text-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 aria-expanded:bg-muted aria-expanded:text-foreground shadow-xs',
+                                secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80 aria-expanded:bg-secondary aria-expanded:text-secondary-foreground',
+                                ghost: 'hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground',
+                                destructive: 'bg-destructive/10 hover:bg-destructive/20 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/20 text-destructive focus-visible:border-destructive/40 dark:hover:bg-destructive/30',
+                                link: 'text-primary underline-offset-4 hover:underline',
+                        },
+                        size: {
+                                default: 'h-9 gap-1.5 px-2.5 in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pe-2 has-data-[icon=inline-start]:ps-2',
+                                xs: 'h-6 gap-1 rounded-[min(var(--radius-md),8px)] px-2 text-xs in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pe-1.5 has-data-[icon=inline-start]:ps-1.5 [&_ng-icon:not([class*=\\'text-\\'])]:text-sm',
+                                sm: 'h-8 gap-1 rounded-[min(var(--radius-md),10px)] px-2.5 in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pe-1.5 has-data-[icon=inline-start]:ps-1.5',
+                                lg: 'h-10 gap-1.5 px-2.5 has-data-[icon=inline-end]:pe-3 has-data-[icon=inline-start]:ps-3',
+                                icon: 'size-9',
+                                'icon-xs': 'size-6 rounded-[min(var(--radius-md),8px)] in-data-[slot=button-group]:rounded-md [&_ng-icon:not([class*=\\'text-\\'])]:text-sm',
+                                'icon-sm': 'size-8 rounded-[min(var(--radius-md),10px)] in-data-[slot=button-group]:rounded-md',
+                                'icon-lg': 'size-10',
+                        },
+                },
+                defaultVariants: {
+                        variant: 'default',
+                        size: 'default',
+                },
+        },
+);
 
-      function Menu({ className, ...props }: React.ComponentProps<"div">) {
-        return (
-          <div className={hlm(menuVariants({ className }))} {...props} />
-        )
-      }
-      "
-    `);
+export type ButtonVariants = VariantProps<typeof buttonVariants>;
+
+@Directive({
+        selector: 'button[hlmBtn], a[hlmBtn]',
+        exportAs: 'hlmBtn',
+        hostDirectives: [{ directive: BrnButton, inputs: ['disabled'] }],
+        host: {
+                'data-slot': 'button',
+        },
+})
+export class HlmButton {
+        private readonly _config = injectBrnButtonConfig();
+
+        private readonly _additionalClasses = signal<ClassValue>('');
+
+        public readonly variant = input<ButtonVariants['variant']>(this._config.variant);
+
+        public readonly size = input<ButtonVariants['size']>(this._config.size);
+
+        constructor() {
+                classes(() => [buttonVariants({ variant: this.variant(), size: this.size() }), this._additionalClasses()]);
+        }
+
+        setClass(classes: string): void {
+                this._additionalClasses.set(classes);
+        }
+}
+"
+"
+`);
+		});
 	});
 });

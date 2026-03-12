@@ -1,4 +1,4 @@
-import { isPlatformBrowser, isPlatformServer } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import {
 	DestroyRef,
 	effect,
@@ -18,8 +18,6 @@ export function hlm(...inputs: ClassValue[]) {
 
 // Global map to track class managers per element
 const elementClassManagers = new WeakMap<HTMLElement, ElementClassManager>();
-const SSR_TRANSITION_MARKER_ATTR = 'data-hlm-ssr';
-
 // Global mutation observer for all elements
 let globalObserver: MutationObserver | null = null;
 const observedElements = new Set<HTMLElement>();
@@ -94,7 +92,7 @@ export function classes(computed: () => ClassValue[] | string, options: ClassesO
 			// Suppress transitions until the first effect writes correct classes and
 			// the browser has painted them. This prevents CSS transition animations
 			// during hydration when classes change from SSR state to client state.
-			if (shouldSuppressTransitionsDuringHydration(element, platformId)) {
+			if (isPlatformBrowser(platformId)) {
 				manager.previousTransition = element.style.getPropertyValue('transition');
 				manager.previousTransitionPriority = element.style.getPropertyPriority('transition');
 				element.style.setProperty('transition', 'none', 'important');
@@ -108,10 +106,6 @@ export function classes(computed: () => ClassValue[] | string, options: ClassesO
 		function updateClasses(): void {
 			// Get the new classes from the computed function
 			const newClasses = toClassList(computed());
-
-			if (isPlatformServer(platformId)) {
-				element.setAttribute(SSR_TRANSITION_MARKER_ATTR, '');
-			}
 
 			// Update this source's classes, keeping the original order
 			manager!.sources.set(sourceId, {
@@ -174,17 +168,8 @@ function restoreTransitionSuppression(manager: ElementClassManager): void {
 	} else {
 		manager.element.style.removeProperty('transition');
 	}
-	manager.element.removeAttribute(SSR_TRANSITION_MARKER_ATTR);
 }
 
-// eslint-disable-next-line @typescript-eslint/no-wrapper-object-types
-function shouldSuppressTransitionsDuringHydration(element: HTMLElement, platformId: Object): boolean {
-	if (!isPlatformBrowser(platformId)) {
-		return false;
-	}
-
-	return element.hasAttribute(SSR_TRANSITION_MARKER_ATTR);
-}
 // eslint-disable-next-line @typescript-eslint/no-wrapper-object-types
 function setupGlobalObserver(platformId: Object): void {
 	if (isPlatformBrowser(platformId) && !globalObserver) {

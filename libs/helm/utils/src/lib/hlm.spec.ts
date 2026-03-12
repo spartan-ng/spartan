@@ -6,7 +6,6 @@ import {
 	ElementRef,
 	EnvironmentInjector,
 	Injector,
-	PLATFORM_ID,
 	runInInjectionContext,
 	signal,
 	viewChild,
@@ -422,7 +421,6 @@ describe('classes', () => {
 
 		const element = document.createElement('div');
 		element.className = 'bg-blue-500';
-		element.setAttribute('data-hlm-ssr', '');
 
 		const elementRef = new ElementRef(element);
 
@@ -445,7 +443,6 @@ describe('classes', () => {
 
 		// After rAF, transition suppression should be removed
 		expect(element.style.getPropertyValue('transition')).toBe('');
-		expect(element.hasAttribute('data-hlm-ssr')).toBe(false);
 	});
 
 	it('should restore pre-existing inline transition after suppression', async () => {
@@ -453,7 +450,6 @@ describe('classes', () => {
 
 		const element = document.createElement('div');
 		element.className = 'bg-blue-500';
-		element.setAttribute('data-hlm-ssr', '');
 		element.style.setProperty('transition', 'opacity 0.3s ease', 'important');
 
 		const elementRef = new ElementRef(element);
@@ -474,7 +470,7 @@ describe('classes', () => {
 		expect(element.style.getPropertyPriority('transition')).toBe('important');
 	});
 
-	it('should not suppress transitions when not in hydration context', async () => {
+	it('should suppress transitions even on elements without existing classes', async () => {
 		await TestBed.configureTestingModule({}).compileComponents();
 
 		const element = document.createElement('div');
@@ -485,8 +481,12 @@ describe('classes', () => {
 			classes(() => 'bg-red-500 text-white', { elementRef });
 		});
 
-		// Wait for effect to run
+		// Should still suppress — we always suppress in browser to be safe
+		expect(element.style.getPropertyValue('transition')).toBe('none');
+
+		// Wait for effect + rAF to clean up
 		await new Promise((resolve) => setTimeout(resolve, 0));
+		await new Promise((resolve) => requestAnimationFrame(resolve));
 
 		expect(element.style.getPropertyValue('transition')).toBe('');
 	});
@@ -496,7 +496,6 @@ describe('classes', () => {
 
 		const element = document.createElement('div');
 		element.className = 'bg-blue-500';
-		element.setAttribute('data-hlm-ssr', '');
 		element.style.setProperty('transition', 'opacity 0.3s ease', 'important');
 
 		const elementRef = new ElementRef(element);
@@ -515,27 +514,6 @@ describe('classes', () => {
 		// Original transition should be restored immediately by cleanup
 		expect(element.style.getPropertyValue('transition')).toBe('opacity 0.3s ease');
 		expect(element.style.getPropertyPriority('transition')).toBe('important');
-	});
-
-	it('should add SSR transition marker when running on the server', async () => {
-		await TestBed.configureTestingModule({}).compileComponents();
-
-		const element = document.createElement('div');
-		const elementRef = new ElementRef(element);
-
-		TestBed.runInInjectionContext(() => {
-			classes(() => 'bg-red-500 text-white', {
-				elementRef,
-				injector: createEnvironmentInjector(
-					[{ provide: PLATFORM_ID, useValue: 'server' }],
-					TestBed.inject(EnvironmentInjector),
-				),
-			});
-		});
-
-		await new Promise((resolve) => setTimeout(resolve, 0));
-
-		expect(element.hasAttribute('data-hlm-ssr')).toBe(true);
 	});
 
 	it('should preserve external classes added by mutation observer', async () => {

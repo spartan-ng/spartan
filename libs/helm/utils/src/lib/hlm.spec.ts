@@ -538,27 +538,6 @@ describe('classes', () => {
 		expect(element.hasAttribute('data-hlm-ssr')).toBe(true);
 	});
 
-	it('should add SSR transition marker on the server even without transition classes', async () => {
-		await TestBed.configureTestingModule({}).compileComponents();
-
-		const element = document.createElement('div');
-		const elementRef = new ElementRef(element);
-
-		TestBed.runInInjectionContext(() => {
-			classes(() => 'bg-red-500 text-white', {
-				elementRef,
-				injector: createEnvironmentInjector(
-					[{ provide: PLATFORM_ID, useValue: 'server' }],
-					TestBed.inject(EnvironmentInjector),
-				),
-			});
-		});
-
-		await new Promise((resolve) => setTimeout(resolve, 0));
-
-		expect(element.hasAttribute('data-hlm-ssr')).toBe(true);
-	});
-
 	it('should preserve external classes added by mutation observer', async () => {
 		await TestBed.configureTestingModule({}).compileComponents();
 

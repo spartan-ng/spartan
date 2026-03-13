@@ -36,7 +36,7 @@ import { ButtonWithIcon } from './button--with-icon.example';
 import { ButtonDefault } from '@spartan-ng/app/app/pages/(components)/components/(button)/button--default-variant.example';
 import { ButtonIcon } from '@spartan-ng/app/app/pages/(components)/components/(button)/button--icon.example';
 import { ButtonRoundedPreview } from '@spartan-ng/app/app/pages/(components)/components/(button)/button--rounded.example';
-import { buttonSizePreview } from '@spartan-ng/app/app/pages/(components)/components/(button)/button--size.example';
+import { ButtonSizePreview } from '@spartan-ng/app/app/pages/(components)/components/(button)/button--size.example';
 import { ButtonPreview, defaultImports, defaultSkeleton } from './button.preview';
 
 export const routeMeta: RouteMeta = {
@@ -80,7 +80,7 @@ export const routeMeta: RouteMeta = {
 		CodeStylePreview,
 		ButtonStyleExample,
 		ButtonIcon,
-		buttonSizePreview,
+		ButtonSizePreview,
 		ButtonDefault,
 		ButtonRoundedPreview,
 	],

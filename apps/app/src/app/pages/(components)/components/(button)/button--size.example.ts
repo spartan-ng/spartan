@@ -42,4 +42,4 @@ import { HlmButtonImports } from '@spartan-ng/helm/button';
 		</div>
 	`,
 })
-export class buttonSizePreview {}
+export class ButtonSizePreview {}

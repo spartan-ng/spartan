@@ -2,13 +2,14 @@ import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCircleFadingArrowUp } from '@ng-icons/lucide';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmIconImports } from '@spartan-ng/helm/icon';
 
 @Component({
 	selector: 'spartan-button-icon',
-	imports: [HlmButtonImports, NgIcon],
+	imports: [HlmButtonImports, NgIcon, HlmIconImports],
 	providers: [provideIcons({ lucideCircleFadingArrowUp })],
 	template: `
-		<button hlmBtn variant="outline" size="icon">
+		<button hlmBtn size="icon" variant="outline">
 			<ng-icon name="lucideCircleFadingArrowUp" />
 		</button>
 	`,

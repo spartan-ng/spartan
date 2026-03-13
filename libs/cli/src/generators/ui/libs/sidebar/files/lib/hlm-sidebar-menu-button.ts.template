@@ -80,4 +80,10 @@ export class HlmSidebarMenuButton {
 			this._sidebarService.setOpenMobile(false);
 		}
 	}
+
+	protected onClick(): void {
+		if (this.closeMobileSidebarOnClick()) {
+			this._sidebarService.setOpenMobile(false);
+		}
+	}
 }

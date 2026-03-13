@@ -8,18 +8,18 @@ import { HlmSpinnerImports } from '@spartan-ng/helm/spinner';
 	selector: 'spartan-button-spinner',
 	imports: [HlmButtonImports, HlmSpinnerImports],
 	providers: [provideIcons({ lucideLoaderCircle })],
+	host: {
+		class: 'flex gap-2',
+	},
 	template: `
-		<div class="flex gap-2">
-			<button hlmBtn variant="outline" disabled>
-				<hlm-spinner />
-				Generating
-			</button>
-
-			<button hlmBtn variant="secondary" disabled>
-				Downloading
-				<hlm-spinner />
-			</button>
-		</div>
+		<button hlmBtn variant="outline" disabled>
+			<hlm-spinner data-icon="inline-start" />
+			Generating
+		</button>
+		<button hlmBtn variant="secondary" disabled>
+			Downloading
+			<hlm-spinner data-icon="inline-start" />
+		</button>
 	`,
 })
 export class ButtonSpinner {}

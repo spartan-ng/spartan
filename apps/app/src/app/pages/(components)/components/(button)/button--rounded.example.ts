@@ -4,13 +4,15 @@ import { lucideArrowUp } from '@ng-icons/lucide';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 
 @Component({
-	selector: 'spartan-button-rounded',
+	selector: 'spartan-button-rounded-preview',
 	imports: [HlmButtonImports, NgIcon],
-	providers: [provideIcons({ lucideArrowUp })],
+	providers: [
+		provideIcons({
+			lucideArrowUp,
+		}),
+	],
 	template: `
-		<button hlmBtn variant="outline" size="icon" class="rounded-full">
-			<ng-icon name="lucideArrowUp" />
-		</button>
+		<button hlmBtn variant="outline" size="icon" class="rounded-full"><ng-icon name="lucideArrowUp" /></button>
 	`,
 })
-export class ButtonRounded {}
+export class ButtonRoundedPreview {}

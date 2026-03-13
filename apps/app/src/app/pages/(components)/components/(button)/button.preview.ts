@@ -7,13 +7,12 @@ import { HlmButtonImports } from '@spartan-ng/helm/button';
 	selector: 'spartan-button-preview',
 	imports: [HlmButtonImports, NgIcon],
 	providers: [provideIcons({ lucideArrowUp })],
+	host: { class: 'flex flex-wrap items-center gap-2 md:flex-row' },
 	template: `
-		<div class="flex flex-wrap items-center gap-2 md:flex-row">
-			<button hlmBtn variant="outline">Button</button>
-			<button hlmBtn variant="outline" size="icon" aria-label="Submit">
-				<ng-icon name="lucideArrowUp" />
-			</button>
-		</div>
+		<button hlmBtn variant="outline">Button</button>
+		<button hlmBtn size="icon" variant="outline">
+			<ng-icon name="lucideArrowUp" />
+		</button>
 	`,
 })
 export class ButtonPreview {}

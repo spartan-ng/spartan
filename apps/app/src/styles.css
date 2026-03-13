@@ -1,17 +1,33 @@
 @layer theme, base, components, utilities;
 
+@import '../../../libs/registry/src/styles/style-vega.css' layer(base);
+@import '../../../libs/registry/src/styles/style-nova.css' layer(base);
+@import '../../../libs/registry/src/styles/style-lyra.css' layer(base);
+@import '../../../libs/registry/src/styles/style-maia.css' layer(base);
+@import '../../../libs/registry/src/styles/style-mira.css' layer(base);
+
 @import 'tailwindcss/theme.css' layer(theme);
 @import 'tailwindcss/preflight.css' layer(base);
 @import 'tailwindcss/utilities.css';
 
-@import '../../../libs/brain/hlm-tailwind-preset.css';
-
 @import '@fontsource/geist-mono/latin';
 @import '@fontsource/geist/latin';
+@import '@fontsource-variable/noto-sans-hebrew';
+@import '@fontsource-variable/noto-sans-arabic';
+
+@import '../../../libs/brain/hlm-tailwind-preset.css';
+
+@custom-variant style-vega (&:where(.style-vega *));
+@custom-variant style-nova (&:where(.style-nova *));
+@custom-variant style-lyra (&:where(.style-lyra *));
+@custom-variant style-maia (&:where(.style-maia *));
+@custom-variant style-mira (&:where(.style-mira *));
 
 @custom-variant fixed (&:is(.layout-fixed *));
 
 @theme inline {
+	--font-ar: var(--font-ar);
+	--font-he: var(--font-he);
 	--breakpoint-3xl: 1600px;
 	--breakpoint-4xl: 2000px;
 
@@ -24,6 +40,8 @@
 	color-scheme: light;
 	--font-sans: 'Geist', sans-serif;
 	--font-mono: 'Geist Mono', monospace;
+	--font-ar: 'Noto Sans Arabic", "Noto Sans Arabic Fallback';
+	--font-he: 'Noto Sans Hebrew","Noto Sans Hebrew Fallback';
 	--radius: 0.625rem;
 	--background: oklch(1 0 0);
 	--foreground: oklch(0.145 0 0);
@@ -107,4 +125,12 @@
 
 @utility container {
 	@apply 3xl:max-w-screen-2xl mx-auto max-w-[1400px] px-4 lg:px-8;
+}
+
+[data-lang='ar'] {
+	font-family: var(--font-ar);
+}
+
+[data-lang='he'] {
+	font-family: var(--font-he);
 }

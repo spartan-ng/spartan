@@ -2,7 +2,9 @@ import {
 	AfterViewInit,
 	ChangeDetectionStrategy,
 	Component,
+	createEnvironmentInjector,
 	ElementRef,
+	EnvironmentInjector,
 	Injector,
 	runInInjectionContext,
 	signal,
@@ -412,6 +414,106 @@ describe('classes', () => {
 
 		// Should preserve truly external classes that don't conflict
 		expect(classNames).toContain('some-external-class');
+	});
+
+	it('should suppress transitions during initial class application', async () => {
+		await TestBed.configureTestingModule({}).compileComponents();
+
+		const element = document.createElement('div');
+		element.className = 'bg-blue-500';
+
+		const elementRef = new ElementRef(element);
+
+		TestBed.runInInjectionContext(() => {
+			classes(() => 'bg-red-500 text-white', { elementRef });
+		});
+
+		// After registration but before effect, transition should be suppressed
+		expect(element.style.getPropertyValue('transition')).toBe('none');
+		expect(element.style.getPropertyPriority('transition')).toBe('important');
+
+		// Wait for effect to run
+		await new Promise((resolve) => setTimeout(resolve, 0));
+
+		// After effect but before rAF, transition should still be suppressed
+		expect(element.style.getPropertyValue('transition')).toBe('none');
+
+		// Wait for requestAnimationFrame to fire
+		await new Promise((resolve) => requestAnimationFrame(resolve));
+
+		// After rAF, transition suppression should be removed
+		expect(element.style.getPropertyValue('transition')).toBe('');
+	});
+
+	it('should restore pre-existing inline transition after suppression', async () => {
+		await TestBed.configureTestingModule({}).compileComponents();
+
+		const element = document.createElement('div');
+		element.className = 'bg-blue-500';
+		element.style.setProperty('transition', 'opacity 0.3s ease', 'important');
+
+		const elementRef = new ElementRef(element);
+
+		TestBed.runInInjectionContext(() => {
+			classes(() => 'bg-red-500 text-white', { elementRef });
+		});
+
+		// Should be overridden during suppression
+		expect(element.style.getPropertyValue('transition')).toBe('none');
+
+		// Wait for effect + rAF
+		await new Promise((resolve) => setTimeout(resolve, 0));
+		await new Promise((resolve) => requestAnimationFrame(resolve));
+
+		// Should restore the original transition value
+		expect(element.style.getPropertyValue('transition')).toBe('opacity 0.3s ease');
+		expect(element.style.getPropertyPriority('transition')).toBe('important');
+	});
+
+	it('should suppress transitions even on elements without existing classes', async () => {
+		await TestBed.configureTestingModule({}).compileComponents();
+
+		const element = document.createElement('div');
+
+		const elementRef = new ElementRef(element);
+
+		TestBed.runInInjectionContext(() => {
+			classes(() => 'bg-red-500 text-white', { elementRef });
+		});
+
+		// Should still suppress — we always suppress in browser to be safe
+		expect(element.style.getPropertyValue('transition')).toBe('none');
+
+		// Wait for effect + rAF to clean up
+		await new Promise((resolve) => setTimeout(resolve, 0));
+		await new Promise((resolve) => requestAnimationFrame(resolve));
+
+		expect(element.style.getPropertyValue('transition')).toBe('');
+	});
+
+	it('should restore transition immediately when destroyed before first effect runs', async () => {
+		await TestBed.configureTestingModule({}).compileComponents();
+
+		const element = document.createElement('div');
+		element.className = 'bg-blue-500';
+		element.style.setProperty('transition', 'opacity 0.3s ease', 'important');
+
+		const elementRef = new ElementRef(element);
+		const parentInjector = TestBed.inject(EnvironmentInjector);
+		const childInjector = createEnvironmentInjector([], parentInjector);
+
+		classes(() => 'bg-red-500 text-white', { elementRef, injector: childInjector });
+
+		// Suppression should be active immediately after registration
+		expect(element.style.getPropertyValue('transition')).toBe('none');
+		expect(element.style.getPropertyPriority('transition')).toBe('important');
+
+		// Destroy before the first effect flushes
+		childInjector.destroy();
+
+		// Original transition should be restored immediately by cleanup
+		expect(element.style.getPropertyValue('transition')).toBe('opacity 0.3s ease');
+		expect(element.style.getPropertyPriority('transition')).toBe('important');
 	});
 
 	it('should preserve external classes added by mutation observer', async () => {

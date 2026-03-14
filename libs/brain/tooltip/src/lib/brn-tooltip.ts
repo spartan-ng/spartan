@@ -85,13 +85,13 @@ export class BrnTooltip {
 	constructor() {
 		afterNextRender(() => {
 			this._overlayRef = this._overlay.create({
+				direction: this._dir,
 				positionStrategy: this._buildPositionStrategy(),
 			});
 
 			this._dir.change.pipe(takeUntilDestroyed(this._destroyRef)).subscribe(() => {
 				if (this._overlayRef) {
 					this._updatePosition();
-					this._overlayRef.updatePosition();
 				}
 			});
 

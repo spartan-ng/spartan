@@ -93,7 +93,7 @@ export class BrnTooltip {
 				if (this._overlayRef) {
 					this._updatePosition();
 					if (this._overlayRef.hasAttached()) {
-						this._overlayRef.updatePosition(); 
+						this._overlayRef.updatePosition();
 					}
 				}
 			});

@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/angular';
+import { render, screen, waitFor } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import type { InputMode } from './brn-input-otp';
 import { BrnInputOtp } from './brn-input-otp';
@@ -9,6 +9,7 @@ describe('BrnInputOtp', () => {
 		options: {
 			maxLength?: number;
 			disabled?: boolean;
+			mask?: boolean;
 			inputMode?: InputMode;
 			inputId?: string;
 			inputAutocomplete?: string;
@@ -18,6 +19,7 @@ describe('BrnInputOtp', () => {
 		const {
 			maxLength = 6,
 			disabled = false,
+			mask = false,
 			inputMode = 'numeric',
 			inputId,
 			inputAutocomplete = 'one-time-code',
@@ -27,6 +29,7 @@ describe('BrnInputOtp', () => {
 		let template = `
       <brn-input-otp
         [maxLength]="${maxLength}"
+        [mask]="${mask}"
         data-testid="brnInputOtp"
         ${disabled ? 'disabled' : ''}
         [inputMode]="'${inputMode}'"
@@ -361,6 +364,36 @@ describe('BrnInputOtp', () => {
 			expect(getSlot(1)).toBeInTheDocument();
 			expect(getSlot(2)).toBeInTheDocument();
 			expect(screen.queryByTestId('slot-3')).not.toBeInTheDocument();
+		});
+	});
+	describe('mask behavior', () => {
+		it('shows typed character first, then masks it when mask is enabled', async () => {
+			const { user, input, getSlot } = await setup({ maxLength: 4, mask: true });
+
+			await user.click(input);
+			await user.keyboard('1');
+
+			expect(getSlot(0)).toHaveTextContent('1');
+
+			await waitFor(
+				() => {
+					expect(getSlot(0)).toHaveTextContent('\u2217');
+				},
+				{ timeout: 1000 },
+			);
+		});
+
+		it('keeps character visible when mask is disabled', async () => {
+			const { user, input, getSlot } = await setup({ maxLength: 4, mask: false });
+
+			await user.click(input);
+			await user.keyboard('1');
+
+			expect(getSlot(0)).toHaveTextContent('1');
+
+			await new Promise((resolve) => setTimeout(resolve, 300));
+
+			expect(getSlot(0)).toHaveTextContent('1');
 		});
 	});
 });

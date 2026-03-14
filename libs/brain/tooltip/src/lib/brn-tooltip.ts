@@ -92,6 +92,9 @@ export class BrnTooltip {
 			this._dir.change.pipe(takeUntilDestroyed(this._destroyRef)).subscribe(() => {
 				if (this._overlayRef) {
 					this._updatePosition();
+					if (this._overlayRef.hasAttached()) {
+						this._overlayRef.updatePosition(); 
+					}
 				}
 			});
 

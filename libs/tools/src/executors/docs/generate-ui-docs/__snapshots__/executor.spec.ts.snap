@@ -496,6 +496,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       "HlmAutocompleteInput": {
         "inputs": [
           {
+            "name": "inputId",
+            "required": false,
+            "type": "string",
+          },
+          {
             "name": "placeholder",
             "required": false,
             "type": "string",
@@ -1812,6 +1817,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       "HlmComboboxInput": {
         "inputs": [
           {
+            "name": "inputId",
+            "required": false,
+            "type": "string",
+          },
+          {
             "name": "placeholder",
             "required": false,
             "type": "string",
@@ -1880,6 +1890,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       },
       "HlmComboboxTrigger": {
         "inputs": [
+          {
+            "name": "buttonId",
+            "required": false,
+            "type": "string",
+          },
           {
             "name": "class",
             "required": false,

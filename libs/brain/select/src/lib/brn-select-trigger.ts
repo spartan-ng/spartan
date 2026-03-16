@@ -1,7 +1,6 @@
 import { isPlatformBrowser } from '@angular/common';
 import {
 	type AfterViewInit,
-	ChangeDetectorRef,
 	computed,
 	Directive,
 	ElementRef,
@@ -9,7 +8,6 @@ import {
 	type OnDestroy,
 	PLATFORM_ID,
 } from '@angular/core';
-import type { Subscription } from 'rxjs';
 import { injectBrnSelect } from './brn-select.token';
 
 @Directive({
@@ -29,8 +27,7 @@ import { injectBrnSelect } from './brn-select.token';
 })
 export class BrnSelectTrigger<T> implements AfterViewInit, OnDestroy {
 	private readonly _elementRef = inject(ElementRef);
-	/** Access the change detector */
-	private readonly _changeDetector = inject(ChangeDetectorRef);
+
 	protected readonly _select = injectBrnSelect<T>();
 
 	private readonly _platform = inject(PLATFORM_ID);
@@ -47,7 +44,6 @@ export class BrnSelectTrigger<T> implements AfterViewInit, OnDestroy {
 	});
 
 	private _resizeObserver?: ResizeObserver;
-	private _statusChangedSubscription?: Subscription;
 
 	constructor() {
 		this._select.trigger.set(this);
@@ -68,7 +64,6 @@ export class BrnSelectTrigger<T> implements AfterViewInit, OnDestroy {
 
 	ngOnDestroy(): void {
 		this._resizeObserver?.disconnect();
-		this._statusChangedSubscription?.unsubscribe();
 	}
 
 	focus(): void {

@@ -23,6 +23,7 @@ import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 				brnAutocompleteInput
 				#autocompleteInput="brnAutocompleteInput"
 				hlmInputGroupInput
+				[id]="inputId()"
 				[placeholder]="placeholder()"
 				[attr.aria-invalid]="_ariaInvalid() ? 'true' : null"
 				[attr.data-invalid]="_ariaInvalid() ? 'true' : null"
@@ -56,7 +57,10 @@ import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 	`,
 })
 export class HlmAutocompleteInput {
+	private static _id = 0;
 	private readonly _autocomplete = injectBrnAutocompleteBase();
+
+	public readonly inputId = input<string>(`hlm-autocomplete-input-${HlmAutocompleteInput._id++}`);
 
 	public readonly placeholder = input<string>('');
 

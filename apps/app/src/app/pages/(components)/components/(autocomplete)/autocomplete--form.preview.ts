@@ -20,9 +20,9 @@ interface SpartanComponent {
 		<form [formGroup]="form" (ngSubmit)="submit()" class="space-y-8">
 			<div hlmFieldGroup>
 				<div hlmField>
-					<label hlmFieldLabel>Select a component</label>
+					<label hlmFieldLabel for="component">Select a component</label>
 					<hlm-autocomplete formControlName="component" [(search)]="search">
-						<hlm-autocomplete-input placeholder="e.g. Accordion" />
+						<hlm-autocomplete-input inputId="component" placeholder="e.g. Accordion" />
 						<hlm-autocomplete-content *hlmAutocompletePortal>
 							<hlm-autocomplete-empty>No components found.</hlm-autocomplete-empty>
 							<div hlmAutocompleteList>

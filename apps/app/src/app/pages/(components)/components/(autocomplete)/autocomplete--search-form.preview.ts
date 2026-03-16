@@ -20,9 +20,9 @@ interface Tag {
 		<form [formGroup]="form" (ngSubmit)="submit()">
 			<div hlmFieldGroup>
 				<div hlmField>
-					<label hlmFieldLabel>Create or select a tag</label>
+					<label hlmFieldLabel for="tag">Create or select a tag</label>
 					<hlm-autocomplete-search formControlName="tag" [(search)]="search">
-						<hlm-autocomplete-input placeholder="e.g. feature" />
+						<hlm-autocomplete-input inputId="tag" placeholder="e.g. feature" />
 						<hlm-autocomplete-content *hlmAutocompletePortal>
 							<hlm-autocomplete-empty>No tags found.</hlm-autocomplete-empty>
 							<div hlmAutocompleteList>

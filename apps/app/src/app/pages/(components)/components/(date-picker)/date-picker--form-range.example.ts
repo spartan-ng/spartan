@@ -1,28 +1,36 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmDatePickerImports } from '@spartan-ng/helm/date-picker';
-import { HlmLabelImports } from '@spartan-ng/helm/label';
+import { HlmFieldImports } from '@spartan-ng/helm/field';
 
 @Component({
 	selector: 'spartan-date-picker-form-range',
-	imports: [ReactiveFormsModule, HlmButtonImports, HlmLabelImports, HlmDatePickerImports],
+	imports: [ReactiveFormsModule, HlmButtonImports, HlmDatePickerImports, HlmFieldImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		class: 'w-full max-w-xs',
+	},
 	template: `
-		<form [formGroup]="form" (ngSubmit)="submit()" class="space-y-8">
-			<div class="flex flex-col gap-2">
-				<label for="dateRange" hlmLabel class="px-1">Enter a date range</label>
-				<hlm-date-range-picker
-					buttonId="dateRange"
-					[min]="minDate"
-					[max]="maxDate"
-					formControlName="range"
-					[autoCloseOnEndSelection]="true"
-				>
-					<span>Enter a date range</span>
-				</hlm-date-range-picker>
-			</div>
+		<form [formGroup]="form" (ngSubmit)="submit()">
+			<hlm-field-group>
+				<hlm-field>
+					<label hlmFieldLabel for="dateRange">Enter a date range</label>
+					<hlm-date-range-picker
+						buttonId="dateRange"
+						[min]="minDate"
+						[max]="maxDate"
+						formControlName="range"
+						[autoCloseOnEndSelection]="true"
+					>
+						<span>Enter a date range</span>
+					</hlm-date-range-picker>
+				</hlm-field>
 
-			<button type="submit" hlmBtn [disabled]="form.invalid">Submit</button>
+				<hlm-field orientation="horizontal">
+					<button type="submit" hlmBtn [disabled]="form.invalid">Submit</button>
+				</hlm-field>
+			</hlm-field-group>
 		</form>
 	`,
 })

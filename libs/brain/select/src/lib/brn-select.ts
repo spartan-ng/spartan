@@ -46,7 +46,7 @@ export type BrnReadDirection = 'ltr' | 'rtl';
 
 let nextId = 0;
 
-export const BRN_SELECT_CONTROL_VALUE_ACCESSOR = {
+export const BRN_SELECT_VALUE_ACCESSOR = {
 	provide: NG_VALUE_ACCESSOR,
 	useExisting: forwardRef(() => BrnSelect),
 	multi: true,
@@ -56,7 +56,7 @@ export const BRN_SELECT_CONTROL_VALUE_ACCESSOR = {
 	selector: 'brn-select, hlm-select',
 	imports: [OverlayModule, CdkListboxModule],
 	providers: [
-		BRN_SELECT_CONTROL_VALUE_ACCESSOR,
+		BRN_SELECT_VALUE_ACCESSOR,
 		provideExposedSideProviderExisting(() => BrnSelect),
 		provideExposesStateProviderExisting(() => BrnSelect),
 		provideBrnSelect(BrnSelect),

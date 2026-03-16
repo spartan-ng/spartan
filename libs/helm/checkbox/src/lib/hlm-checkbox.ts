@@ -114,7 +114,7 @@ export class HlmCheckbox implements ControlValueAccessor {
 
 	private readonly _brnCheckbox = viewChild.required(BrnCheckbox);
 
-	private readonly _spartanInvalid = computed(() => this._brnCheckbox().spartanInvalid);
+	private readonly _spartanInvalid = computed(() => this._brnCheckbox().spartanInvalid?.());
 	protected readonly _errorStateClass = computed(() =>
 		this._spartanInvalid()
 			? 'border-destructive focus-visible:border-destructive focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40'

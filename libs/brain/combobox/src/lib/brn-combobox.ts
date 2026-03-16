@@ -38,16 +38,15 @@ import {
 	provideBrnComboboxBase,
 } from './brn-combobox.token';
 
+export const BRN_COMBOBOX_VALUE_ACCESSOR = {
+	provide: NG_VALUE_ACCESSOR,
+	useExisting: forwardRef(() => BrnCombobox),
+	multi: true,
+};
+
 @Directive({
 	selector: '[brnCombobox]',
-	providers: [
-		provideBrnComboboxBase(BrnCombobox),
-		{
-			provide: NG_VALUE_ACCESSOR,
-			useExisting: forwardRef(() => BrnCombobox),
-			multi: true,
-		},
-	],
+	providers: [BRN_COMBOBOX_VALUE_ACCESSOR, provideBrnComboboxBase(BrnCombobox)],
 	hostDirectives: [BrnFieldControl],
 	host: {
 		'(focusout)': '_onFocusOut($event)',

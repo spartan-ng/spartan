@@ -32,7 +32,7 @@ import {
 	provideBrnAutocompleteBase,
 } from './brn-autocomplete.token';
 
-export const BRN_AUTOCOMPLETE_SEARCH_CONTROL_VALUE_ACCESSOR = {
+export const BRN_AUTOCOMPLETE_SEARCH_VALUE_ACCESSOR = {
 	provide: NG_VALUE_ACCESSOR,
 	useExisting: forwardRef(() => BrnAutocompleteSearch),
 	multi: true,
@@ -40,7 +40,7 @@ export const BRN_AUTOCOMPLETE_SEARCH_CONTROL_VALUE_ACCESSOR = {
 
 @Directive({
 	selector: '[brnAutocomplete]',
-	providers: [BRN_AUTOCOMPLETE_SEARCH_CONTROL_VALUE_ACCESSOR, provideBrnAutocompleteBase(BrnAutocompleteSearch)],
+	providers: [BRN_AUTOCOMPLETE_SEARCH_VALUE_ACCESSOR, provideBrnAutocompleteBase(BrnAutocompleteSearch)],
 	hostDirectives: [BrnFieldControl],
 	host: {
 		'(focusout)': '_onFocusOut($event)',

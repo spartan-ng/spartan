@@ -23,19 +23,18 @@ import type { BrnSliderThumb } from './brn-slider-thumb';
 import type { BrnSliderTrack } from './brn-slider-track';
 import { provideBrnSlider } from './brn-slider.token';
 
+export const BRN_SLIDER_VALUE_ACCESSOR = {
+	provide: NG_VALUE_ACCESSOR,
+	useExisting: forwardRef(() => BrnSlider),
+	multi: true,
+};
+
 let nextId = 0;
 
 @Directive({
 	selector: '[brnSlider]',
 	exportAs: 'brnSlider',
-	providers: [
-		provideBrnSlider(BrnSlider),
-		{
-			provide: NG_VALUE_ACCESSOR,
-			useExisting: forwardRef(() => BrnSlider),
-			multi: true,
-		},
-	],
+	providers: [BRN_SLIDER_VALUE_ACCESSOR, provideBrnSlider(BrnSlider)],
 	hostDirectives: [BrnFieldControl],
 	host: {
 		'[attr.id]': 'id()',
@@ -48,6 +47,7 @@ let nextId = 0;
 		'(focusout)': '_onFocusOut($event)',
 		'[attr.aria-invalid]': '_ariaInvalid() ? "true" : null',
 		'[attr.data-invalid]': '_ariaInvalid() ? "true" : null',
+		'[attr.data-matches-spartan-invalid]': '_ariaInvalid() ? "true" : null',
 		'[attr.data-dirty]': '_dirty() ? "true" : null',
 		'[attr.data-touched]': '_touched() ? "true" : null',
 	},
@@ -61,6 +61,7 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 	protected readonly _ariaInvalid = this._fieldControl.invalid;
 	protected readonly _dirty = this._fieldControl.dirty;
 	protected readonly _touched = this._fieldControl.touched;
+	protected readonly _spartanInvalid = this._fieldControl.spartanInvalid;
 
 	/** Unique identifier for the slider element. Auto-generated if not provided. */
 	public readonly id = input<string>(`brn-slider-${++nextId}`);

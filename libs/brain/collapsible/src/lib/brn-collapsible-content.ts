@@ -23,6 +23,7 @@ import { injectBrnCollapsible, injectBrnCollapsibleConfig } from './brn-collapsi
 		'[id]': '_collapsible?.contentId()',
 		'[style.--brn-collapsible-content-width.px]': '_width()',
 		'[style.--brn-collapsible-content-height.px]': '_height()',
+		'[attr.style]': 'style()',
 	},
 })
 export class BrnCollapsibleContent {
@@ -40,6 +41,12 @@ export class BrnCollapsibleContent {
 	 * The id of the collapsible content element.
 	 */
 	public readonly id = input<string | null | undefined>();
+
+	/**
+	 * The style to be applied to the host element after the dimensions are calculated.
+	 * @default 'overflow: hidden'
+	 */
+	public readonly style = input<string>('overflow: hidden');
 
 	constructor() {
 		if (!this._collapsible) {

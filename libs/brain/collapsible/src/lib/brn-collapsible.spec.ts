@@ -6,7 +6,7 @@ import { BrnCollapsibleContent } from './brn-collapsible-content';
 import { BrnCollapsibleTrigger } from './brn-collapsible-trigger';
 
 describe('BrnCollapsibleComponent', () => {
-	const setup = async (id?: string, disabled = false) => {
+	const setup = async (id?: string, disabled = false, style?: string) => {
 		const container = await render(
 			`
      <brn-collapsible ${disabled ? 'disabled' : ''} data-testid='root'>
@@ -15,7 +15,7 @@ describe('BrnCollapsibleComponent', () => {
         <button brnCollapsibleTrigger data-testid='trigger'>Toggle</button>
       </div>
       <div>&#64;radix-ui/primitives</div>
-      <brn-collapsible-content ${id ? `id=${id}` : ''} data-testid='content'>
+      <brn-collapsible-content ${id ? `id=${id}` : ''} ${style ? `style="${style}"` : ''} data-testid='content'>
         <div>&#64;radix-ui/colors</div>
         <div>&#64;stitches/react</div>
       </brn-collapsible-content>
@@ -60,6 +60,7 @@ describe('BrnCollapsibleComponent', () => {
 		expect(trigger).toHaveAttribute('data-state', 'open');
 		expect(trigger).toHaveAttribute('aria-expanded', 'true');
 		expect(content).toHaveAttribute('data-state', 'open');
+		expect(content).not.toHaveAttribute('hidden');
 
 		await validateAttributes({ root, trigger, content, id });
 	};
@@ -72,6 +73,7 @@ describe('BrnCollapsibleComponent', () => {
 		expect(trigger).toHaveAttribute('data-state', 'closed');
 		expect(trigger).toHaveAttribute('aria-expanded', 'false');
 		expect(content).toHaveAttribute('data-state', 'closed');
+		expect(content).not.toHaveAttribute('hidden');
 
 		await validateAttributes({ root, trigger, content, id });
 	};
@@ -142,5 +144,12 @@ describe('BrnCollapsibleComponent', () => {
 		await user.keyboard('[Space]');
 		container.detectChanges();
 		await validateClosed();
+	});
+
+	it('applies overflow hidden as the default host style', async () => {
+		await setup();
+		const content = await screen.findByTestId('content');
+
+		expect(content).toHaveAttribute('style', expect.stringContaining('overflow: hidden'));
 	});
 });

@@ -19,6 +19,7 @@ import { HlmCollapsibleImports } from '@spartan-ng/helm/collapsible';
 			</div>
 			<div class="rounded-md border px-4 py-2 font-mono text-sm">&#64;radix-ui/primitives</div>
 			<hlm-collapsible-content
+				[hideWhenClosed]="false"
 				class="flex origin-top flex-col gap-2 transition-all ease-out data-[state=closed]:flex data-[state=closed]:-translate-y-1 data-[state=closed]:scale-80 data-[state=closed]:opacity-0"
 			>
 				<div class="rounded-md border px-4 py-2 font-mono text-sm">&#64;radix-ui/colors</div>

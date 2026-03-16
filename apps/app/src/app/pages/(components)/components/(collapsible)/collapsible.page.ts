@@ -2,6 +2,7 @@ import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { CollapsibleAnimatedExample } from '@spartan-ng/app/app/pages/(components)/components/(collapsible)/collapsible--animated.example';
+import { CollapsibleAccordionAnimatedExample } from '@spartan-ng/app/app/pages/(components)/components/(collapsible)/collapsible-accordion-animation.example';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { hlmCode } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
@@ -41,6 +42,7 @@ export const routeMeta: RouteMeta = {
 		CollapsiblePreview,
 		SectionSubSubHeading,
 		CollapsibleAnimatedExample,
+		CollapsibleAccordionAnimatedExample,
 	],
 	template: `
 		<section spartanMainSection>
@@ -63,7 +65,7 @@ export const routeMeta: RouteMeta = {
 			</div>
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__sizes" spartanH4>Animated</h3>
+			<h3 id="examples__animated" spartanH4>Animated</h3>
 			<p class="py-2">
 				You can use the
 				<code class="${hlmCode}">data-state</code>
@@ -74,6 +76,19 @@ export const routeMeta: RouteMeta = {
 					<spartan-collapsible-animated-example />
 				</div>
 				<spartan-code secondTab [code]="_animatedCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__accordion-animation" spartanH4>Accordion-Like Animation</h3>
+			<p class="py-2">
+				Use the
+				<code class="${hlmCode}">data-state</code>
+				attribute with Tailwind classes to animate height and opacity for an accordion-like reveal.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-collapsible-accordion-animated-example />
+				</div>
+				<spartan-code secondTab [code]="_accordionAnimationCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
@@ -94,6 +109,7 @@ export default class CollapsiblePage {
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('collapsible');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _animatedCode = computed(() => this._snippets()['animated']);
+	protected readonly _accordionAnimationCode = computed(() => this._snippets()['accordionAnimation']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

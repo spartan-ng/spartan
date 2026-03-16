@@ -56,10 +56,7 @@ export const WithHintAndError: Story = {
 		},
 		template: `
 		<form [formGroup]="form" class="space-y-3 w-full max-w-sm">
-			@let dateRangeControl = form.get('dateRange');
-			@let showError = dateRangeControl?.invalid && (dateRangeControl?.touched || dateRangeControl?.dirty);
-
-			<div hlmField [attr.data-invalid]="showError ? 'true' : null">
+			<div hlmField>
 				<label hlmFieldLabel for="date-range-hint">Date Range *</label>
 				<hlm-date-range-picker
 					id="date-range-hint"
@@ -73,9 +70,7 @@ export const WithHintAndError: Story = {
 
 				<p hlmFieldDescription>Pick a start and end date for your booking.</p>
 
-				@if (showError) {
-					<hlm-field-error>Select a date range to continue.</hlm-field-error>
-				}
+				<hlm-field-error>Select a date range to continue.</hlm-field-error>
 			</div>
 
 			<div class="flex flex-wrap items-center gap-2">

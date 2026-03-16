@@ -41,19 +41,15 @@ class HlmCheckboxTester {
 }
 
 @Component({
-	selector: 'hlm-checkbox-validation-tester',
+	selector: 'hlm-checkbox-hint-error-story',
 	standalone: true,
 	imports: [HlmCheckboxImports, HlmButtonImports, HlmFieldImports, ReactiveFormsModule],
 	template: `
 		<form [formGroup]="form" class="space-y-3">
-			<div hlmField [attr.data-invalid]="isInvalid() ? 'true' : null">
-				<div hlmField orientation="horizontal" class="items-start gap-2">
-					<hlm-checkbox id="field-terms" formControlName="agreement" />
-					<label hlmFieldLabel for="field-terms" class="font-normal">I agree to the terms and conditions.</label>
-				</div>
-				@if (isInvalid()) {
-					<hlm-field-error>You must accept the terms to continue.</hlm-field-error>
-				}
+			<div hlmField orientation="horizontal" class="items-start gap-2">
+				<hlm-checkbox id="field-terms" formControlName="agreement" />
+				<label hlmFieldLabel for="field-terms" class="font-normal">I agree to the terms and conditions.</label>
+				<hlm-field-error>You must accept the terms to continue.</hlm-field-error>
 			</div>
 
 			<div class="flex flex-wrap gap-2">
@@ -63,15 +59,10 @@ class HlmCheckboxTester {
 		</form>
 	`,
 })
-class HlmCheckboxValidationTester {
+class CheckboxHintErrorStory {
 	public readonly form = inject(FormBuilder).group({
 		agreement: [false, Validators.requiredTrue],
 	});
-
-	isInvalid() {
-		const control = this.form.get('agreement');
-		return !!control && control.invalid && control.touched;
-	}
 }
 
 const meta: Meta<HlmCheckbox> = {
@@ -89,7 +80,7 @@ const meta: Meta<HlmCheckbox> = {
 				ReactiveFormsModule,
 				HlmButtonImports,
 				HlmCheckboxTester,
-				HlmCheckboxValidationTester,
+				CheckboxHintErrorStory,
 			],
 		}),
 	],
@@ -128,7 +119,7 @@ export const LabeledWithAriaLabeledBy: Story = {
 	}),
 };
 
-export const disabled: Story = {
+export const Disabled: Story = {
 	render: () => ({
 		template: /* HTML */ `
 			<div class="flex items-center">
@@ -157,14 +148,7 @@ export const disabledWithForms: Story = {
 	}),
 };
 
-export const Validation: Story = {
-	name: 'Reactive Validation',
-	render: () => ({
-		template: `<hlm-checkbox-validation-tester />`,
-	}),
-};
-
-export const indeterminate: Story = {
+export const Indeterminate: Story = {
 	render: () => ({
 		template: /* HTML */ `
 			<div id="checkbox-label" class="flex items-center">
@@ -172,5 +156,11 @@ export const indeterminate: Story = {
 				<hlm-checkbox indeterminate="true" class="ml-2" id="testCheckboxIndeterminate" aria-labelledby="testCheckbox" />
 			</div>
 		`,
+	}),
+};
+
+export const WithHintAndError: Story = {
+	render: () => ({
+		template: `<hlm-checkbox-hint-error-story />`,
 	}),
 };

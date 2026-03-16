@@ -99,6 +99,48 @@ class AutocompleteHintErrorStory {
 }
 
 @Component({
+	selector: 'autocomplete-search-hint-error-story',
+
+	imports: [HlmAutocompleteImports, HlmFieldImports, HlmButton, ReactiveFormsModule],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<form [formGroup]="form" class="w-full max-w-sm space-y-3">
+			<div hlmField>
+				<label hlmFieldLabel>Framework *</label>
+				<hlm-autocomplete-search formControlName="framework" [(search)]="search">
+					<hlm-autocomplete-input placeholder="Search frameworks..." />
+					<hlm-autocomplete-content *hlmAutocompletePortal>
+						<hlm-autocomplete-empty>No frameworks found.</hlm-autocomplete-empty>
+						<div hlmAutocompleteList>
+							@for (fw of filteredOptions(); track fw) {
+								<hlm-autocomplete-item [value]="fw">{{ fw }}</hlm-autocomplete-item>
+							}
+						</div>
+					</hlm-autocomplete-content>
+				</hlm-autocomplete-search>
+
+				<p hlmFieldDescription>Pick your primary framework so we can tailor docs.</p>
+
+				<hlm-field-error>Select a framework to continue.</hlm-field-error>
+			</div>
+
+			<div class="flex flex-wrap items-center gap-2">
+				<button hlmBtn type="button" (click)="form.markAllAsTouched()">Validate</button>
+				<button hlmBtn variant="outline" type="button" (click)="form.reset()">Reset</button>
+			</div>
+		</form>
+	`,
+})
+class AutocompleteSearchHintErrorStory {
+	private readonly _fb = inject(FormBuilder);
+	public readonly form = this._fb.group({ framework: ['', Validators.required] });
+	public readonly search = signal('');
+	public readonly filteredOptions = computed(() =>
+		frameworks.filter((fw) => fw.toLowerCase().includes(this.search().toLowerCase())),
+	);
+}
+
+@Component({
 	selector: 'spartan-autocomplete-async',
 	imports: [HlmAutocompleteImports, HlmSpinnerImports],
 	template: `
@@ -291,6 +333,7 @@ export default {
 				HlmAutocompleteImports,
 				AutocompleteReactiveFormStory,
 				AutocompleteHintErrorStory,
+				AutocompleteSearchHintErrorStory,
 			],
 		}),
 	],
@@ -495,5 +538,11 @@ export const WithReactiveForm: Story = {
 export const WithHintAndError: Story = {
 	render: () => ({
 		template: '<autocomplete-hint-error-story />',
+	}),
+};
+
+export const SearchWithHintAndError: Story = {
+	render: () => ({
+		template: '<autocomplete-search-hint-error-story />',
 	}),
 };

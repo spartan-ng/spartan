@@ -56,10 +56,7 @@ export const WithHintAndError: Story = {
 		},
 		template: `
 		<form [formGroup]="form" class="space-y-3 w-full max-w-sm">
-			@let datesControl = form.get('dates');
-			@let showError = datesControl?.invalid && (datesControl?.touched || datesControl?.dirty);
-
-			<div hlmField [attr.data-invalid]="showError ? 'true' : null">
+			<div hlmField>
 				<label hlmFieldLabel for="dates-hint">Dates *</label>
 				<hlm-date-picker-multi
 					id="dates-hint"
@@ -73,9 +70,7 @@ export const WithHintAndError: Story = {
 
 				<p hlmFieldDescription>Select multiple dates for your availability.</p>
 
-				@if (showError) {
-					<hlm-field-error>Select at least one date to continue.</hlm-field-error>
-				}
+				<hlm-field-error>Select at least one date to continue.</hlm-field-error>
 			</div>
 
 			<div class="flex flex-wrap items-center gap-2">

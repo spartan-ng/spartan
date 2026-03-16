@@ -110,7 +110,7 @@ class RadioGroupReactiveFormTester {
 	imports: [HlmRadioGroupImports, ReactiveFormsModule, HlmFieldImports, HlmButton, HlmLabel],
 	template: `
 		<form [formGroup]="form" class="max-w-lg space-y-3">
-			<div hlmField [attr.data-invalid]="showError ? 'true' : null">
+			<div hlmField>
 				<label hlmFieldLabel>Billing Frequency *</label>
 				<hlm-radio-group formControlName="plan" class="text-sm font-medium">
 					<div hlmField orientation="horizontal" class="items-center gap-3">
@@ -133,9 +133,7 @@ class RadioGroupReactiveFormTester {
 					</div>
 				</hlm-radio-group>
 				<p hlmFieldDescription>Pick a plan to see the billing schedule.</p>
-				@if (showError) {
-					<hlm-field-error>Choose a plan to continue.</hlm-field-error>
-				}
+				<hlm-field-error>Choose a plan to continue.</hlm-field-error>
 			</div>
 
 			<div class="flex flex-wrap gap-2">
@@ -151,11 +149,6 @@ class RadioGroupHintErrorStory {
 	public readonly form = this._fb.group({
 		plan: ['', Validators.required],
 	});
-
-	public get showError() {
-		const control = this.form.get('plan');
-		return !!control && control.invalid && (control.touched || control.dirty);
-	}
 }
 
 const meta: Meta<BrnRadioGroup> = {

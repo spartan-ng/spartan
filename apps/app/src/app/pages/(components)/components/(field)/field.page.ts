@@ -238,7 +238,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_separatorCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__responsive-layout" spartanH4>Responsive Layout</h3>
+			<spartan-section-sub-heading id="responsive-layout">Responsive Layout</spartan-section-sub-heading>
 			<ul class="my-6 ml-6 list-disc">
 				<li class="mt-2">
 					<strong class="font-medium">Vertical fields:</strong>
@@ -272,7 +272,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_responsiveLayoutCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__validation-and-errors" spartanH4>Validation and Errors</h3>
+			<spartan-section-sub-heading id="validation-and-errors">Validation and Errors</spartan-section-sub-heading>
 			<ul class="my-6 ml-6 list-disc">
 				<li class="mt-2">
 					Add
@@ -296,7 +296,7 @@ export const routeMeta: RouteMeta = {
 			</ul>
 			<spartan-code [code]="_validationAndErrorCode" />
 
-			<h3 id="examples__accessibility" spartanH4>Accessibility</h3>
+			<spartan-section-sub-heading id="accessibility">Accessibility</spartan-section-sub-heading>
 			<ul class="my-6 ml-6 list-disc">
 				<li class="mt-2">
 					<code class="${hlmCode} mr-0.5">HlmFieldSet</code>

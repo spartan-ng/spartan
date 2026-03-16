@@ -1448,6 +1448,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "string | null | undefined",
           },
+          {
+            "name": "style",
+            "required": false,
+            "type": "string",
+          },
         ],
         "models": [],
         "outputs": [],
@@ -1474,7 +1479,13 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "[hlmCollapsible],hlm-collapsible",
       },
       "HlmCollapsibleContent": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "hideWhenClosed",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "[hlmCollapsibleContent],hlm-collapsible-content",

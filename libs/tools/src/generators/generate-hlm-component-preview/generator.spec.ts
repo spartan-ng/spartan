@@ -1,83 +1,96 @@
-import { type Tree, readJson } from '@nx/devkit';
+import type { Tree } from '@nx/devkit';
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
+import generateHlmComponentManualInstallation from './generator';
 
-import { extractPrimitiveCodeGenerator } from './generator';
-
-describe('extractPrimitiveCodeGenerator', () => {
+describe('generateHlmComponentManualInstallation (Angular)', () => {
 	let tree: Tree;
-	const componentsBasePath = 'apps/app/src/app/pages/(components)/components';
 
 	beforeEach(() => {
 		tree = createTreeWithEmptyWorkspace();
+
+		// Fake Angular component files
+		tree.write(
+			'libs/cli/src/generators/ui/libs/button/files/lib/button.component.ts',
+			`
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { localUtil } from './utils';
+@Component({
+  selector: 'app-button',
+  template: '<button></button>',
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class ButtonComponent {}
+    `,
+		);
+
+		tree.write(
+			'libs/cli/src/generators/ui/libs/button/files/lib/button-group.component.ts',
+			`
+import { Component, type Input } from '@angular/core';
+@Component({
+  selector: 'app-button-group',
+  template: '<div></div>'
+})
+export class ButtonGroupComponent {}
+    `,
+		);
+
+		// Fake style file
+		tree.write('libs/registry/src/styles/style-vega.css', '/* fake css */');
+
+		// Create the components base directory (Nx Tree expects it)
+		tree.write('apps/app/src/app/pages/(components)/components/button/.keep', '');
 	});
 
-	it('should produce a single JSON file with all snippets', async () => {
-		// Arrange
-		tree.write(
-			`${componentsBasePath}/button/button.preview.ts`,
-			`import { Component } from '@angular/core';
-			@Component({ selector: 'spartan-button-preview', template: '<button>Button</button>' })
-			export class ButtonPreviewComponent {}`,
-		);
-		tree.write(
-			`${componentsBasePath}/accordion/accordion.preview.ts`,
-			`import { Component } from '@angular/core';
-			@Component({ selector: 'spartan-accordion-preview', template: '<div>Accordion</div>' })
-			export class AccordionPreviewComponent {}`,
-		);
+	it('generates merged imports for Angular components', async () => {
+		await generateHlmComponentManualInstallation(tree);
 
-		// Act
-		await extractPrimitiveCodeGenerator(tree);
-
-		// Assert
-		const outputPath = 'apps/app/src/public/data/primitives-snippets.json';
+		const outputPath = 'apps/app/src/public/data/manual-install-snippets.json';
 		expect(tree.exists(outputPath)).toBe(true);
 
-		const snippets = readJson(tree, outputPath);
-		expect(snippets['button']).toBeDefined();
-		expect(snippets['button']['default']).toContain('spartan-button-preview');
-		expect(snippets['accordion']).toBeDefined();
-		expect(snippets['accordion']['default']).toContain('spartan-accordion-preview');
+		const raw = tree.read(outputPath, 'utf-8');
+		const data = JSON.parse(raw);
+
+		// Check imports are merged correctly
+		expect(data.button).toContain("import { ChangeDetectionStrategy, Component, type Input } from '@angular/core'");
+
+		// Check both component classes are included
+		expect(data.button).toContain('export class ButtonComponent');
+		expect(data.button).toContain('export class ButtonGroupComponent');
 	});
 
-	it('should handle multiple examples for a single primitive', async () => {
-		// Arrange
+	it('ignores relative imports inside Angular primitives', async () => {
 		tree.write(
-			`${componentsBasePath}/toggle/toggle.preview.ts`,
-			`import { Component } from '@angular/core';
-			@Component({ selector: 'spartan-toggle-preview', template: '<button>Toggle</button>' })
-			export class TogglePreviewComponent {}`,
-		);
-		tree.write(
-			`${componentsBasePath}/toggle/toggle-disabled.example.ts`,
-			`import { Component } from '@angular/core';
-			@Component({ selector: 'spartan-toggle-disabled', template: '<button disabled>Disabled</button>' })
-			export class ToggleDisabledComponent {}`,
+			'libs/cli/src/generators/ui/libs/button/files/lib/local-util.ts',
+			`
+import { helper } from './utils';
+export function localUtil() {}
+    `,
 		);
 
-		// Act
-		await extractPrimitiveCodeGenerator(tree);
+		await generateHlmComponentManualInstallation(tree);
 
-		// Assert
-		const outputPath = 'apps/app/src/public/data/primitives-snippets.json';
-		const snippets = readJson(tree, outputPath);
+		const raw = tree.read('apps/app/src/public/data/manual-install-snippets.json', 'utf-8');
+		const data = JSON.parse(raw);
 
-		expect(snippets['toggle']).toBeDefined();
-		expect(snippets['toggle']['default']).toContain('spartan-toggle-preview');
-		expect(snippets['toggle']['disabled']).toContain('spartan-toggle-disabled');
+		// './utils' should NOT appear in the merged imports
+		expect(data.button).not.toContain('./utils');
 	});
 
-	it('should an empty json file if no primitives are found', async () => {
-		// Arrange
-		tree.write(`${componentsBasePath}/empty/some-other-file.ts`, 'const a = 1;');
+	it('replaces <%- importAlias %> in Angular imports', async () => {
+		tree.write(
+			'libs/cli/src/generators/ui/libs/button/files/lib/alias.ts',
+			`
+import { HlmButton } from '<%- importAlias %>/button';
+export class HlmButtonComp {}
+    `,
+		);
 
-		// Act
-		await extractPrimitiveCodeGenerator(tree);
+		await generateHlmComponentManualInstallation(tree);
 
-		// Assert
-		const outputPath = 'apps/app/src/public/data/primitives-snippets.json';
-		const snippets = readJson(tree, outputPath);
-		expect(tree.exists(outputPath)).toBe(true);
-		expect(Object.keys(snippets).length).toBe(0);
+		const raw = tree.read('apps/app/src/public/data/manual-install-snippets.json', 'utf-8');
+		const data = JSON.parse(raw);
+
+		expect(data.button).toContain('@spartan-ng/helm/button');
 	});
 });

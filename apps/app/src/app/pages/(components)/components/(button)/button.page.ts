@@ -37,6 +37,7 @@ import { ButtonDefault } from '@spartan-ng/app/app/pages/(components)/components
 import { ButtonIcon } from '@spartan-ng/app/app/pages/(components)/components/(button)/button--icon.example';
 import { ButtonRoundedPreview } from '@spartan-ng/app/app/pages/(components)/components/(button)/button--rounded.example';
 import { ButtonSizePreview } from '@spartan-ng/app/app/pages/(components)/components/(button)/button--size.example';
+import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import { ButtonPreview, defaultImports, defaultSkeleton } from './button.preview';
 
 export const routeMeta: RouteMeta = {
@@ -83,6 +84,7 @@ export const routeMeta: RouteMeta = {
 		ButtonSizePreview,
 		ButtonDefault,
 		ButtonRoundedPreview,
+		InstallTabs,
 	],
 	template: `
 		<section spartanMainSection>
@@ -96,7 +98,10 @@ export const routeMeta: RouteMeta = {
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
-			<spartan-cli-tabs nxCode="npx nx g @spartan-ng/cli:ui button" ngCode="ng g @spartan-ng/cli:ui button" />
+
+			<spartan-install-tabs primitive="button">
+				<spartan-cli-tabs nxCode="npx nx g @spartan-ng/cli:ui button" ngCode="ng g @spartan-ng/cli:ui button" />
+			</spartan-install-tabs>
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">

@@ -38,7 +38,7 @@ export const HLM_NATIVE_SELECT_VALUE_ACCESSOR = {
 	template: `
 		<select
 			data-slot="native-select"
-			[id]="_selectId()"
+			[id]="selectId()"
 			[class]="_computedSelectClass()"
 			[attr.data-size]="size()"
 			[attr.aria-invalid]="_ariaInvalid() ? 'true' : null"
@@ -66,9 +66,7 @@ export class HlmNativeSelect implements ControlValueAccessor {
 
 	private static _id = 0;
 
-	public readonly selectId = input<string>('');
-
-	protected readonly _selectId = computed(() => this.selectId() || `hlm-native-select-${HlmNativeSelect._id++}`);
+	public readonly selectId = input<string>(`hlm-native-select-${HlmNativeSelect._id++}`);
 
 	public readonly selectClass = input<ClassValue>('');
 

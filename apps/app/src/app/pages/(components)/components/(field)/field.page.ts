@@ -19,6 +19,7 @@ import { FieldCheckboxPreview } from './field--checkbox.preview';
 import { FieldChoiceCardPreview } from './field--choice-card.preview';
 import { FieldGroupPreview } from './field--group.preview';
 import { FieldInputPreview } from './field--input.preview';
+import { FieldNativeSelectPreview } from './field--native-select.preview';
 import { FieldRadioPreview } from './field--radio.preview';
 import { FieldResponsiveLayoutPreview } from './field--responsive-layout.preview';
 import { FieldSelectPreview } from './field--select.preview';
@@ -56,6 +57,7 @@ export const routeMeta: RouteMeta = {
 		FieldInputPreview,
 		FieldTextareaPreview,
 		FieldSelectPreview,
+		FieldNativeSelectPreview,
 		FieldSliderPreview,
 		FieldSetPreview,
 		FieldCheckboxPreview,
@@ -145,6 +147,14 @@ export const routeMeta: RouteMeta = {
 					<spartan-field-select-preview />
 				</div>
 				<spartan-code secondTab [code]="_selectCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__native-select" spartanH4>Native Select</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-field-native-select-preview />
+				</div>
+				<spartan-code secondTab [code]="_nativeSelectCode()" />
 			</spartan-tabs>
 
 			<h3 id="examples__slider" spartanH4>Slider</h3>
@@ -338,6 +348,7 @@ export default class FieldPage {
 	protected readonly _inputCode = computed(() => this._snippets()['input']);
 	protected readonly _textareaCode = computed(() => this._snippets()['textarea']);
 	protected readonly _selectCode = computed(() => this._snippets()['select']);
+	protected readonly _nativeSelectCode = computed(() => this._snippets()['nativeSelect']);
 	protected readonly _sliderCode = computed(() => this._snippets()['slider']);
 	protected readonly _fieldsetCode = computed(() => this._snippets()['set']);
 	protected readonly _checkboxCode = computed(() => this._snippets()['checkbox']);

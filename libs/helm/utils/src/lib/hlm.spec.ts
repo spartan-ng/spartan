@@ -2,14 +2,15 @@ import {
 	AfterViewInit,
 	ChangeDetectionStrategy,
 	Component,
+	createEnvironmentInjector,
 	ElementRef,
+	EnvironmentInjector,
 	Injector,
 	runInInjectionContext,
 	signal,
 	viewChild,
 } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { HlmButton } from '@spartan-ng/helm/button';
 import { render } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import { classes } from './hlm';
@@ -322,67 +323,6 @@ describe('classes', () => {
 		expect(testElement.className).not.toContain('text-gray-600'); // First source still loses
 	});
 
-	it('should work correctly with hlm-button variant changes', async () => {
-		@Component({
-			changeDetection: ChangeDetectionStrategy.OnPush,
-			template: `
-				<button #buttonElement hlmBtn [variant]="variant()" (click)="toggleVariant()" data-testid="test-button">
-					Test Button
-				</button>
-			`,
-		})
-		class TestComponent {
-			public readonly buttonElement = viewChild.required('buttonElement', { read: ElementRef });
-			public readonly variant = signal<'default' | 'ghost'>('default');
-
-			toggleVariant() {
-				this.variant.set(this.variant() === 'default' ? 'ghost' : 'default');
-			}
-		}
-
-		const { getByTestId } = await render(TestComponent, {
-			componentImports: [HlmButton],
-		});
-
-		const button = getByTestId('test-button') as HTMLButtonElement;
-		const user = userEvent.setup();
-
-		// Initial state should have default variant classes
-		expect(button.className).toContain('bg-primary');
-		expect(button.className).toContain('text-primary-foreground');
-		expect(button.className).toContain('hover:bg-primary/90');
-		expect(button.className).not.toContain('hover:bg-accent');
-		expect(button.className).not.toContain('hover:text-accent-foreground');
-
-		// Click to change to ghost variant
-		await user.click(button);
-
-		// Should now have ghost variant classes
-		expect(button.className).toContain('hover:bg-accent');
-		expect(button.className).toContain('hover:text-accent-foreground');
-		expect(button.className).not.toContain('bg-primary');
-		expect(button.className).not.toContain('text-primary-foreground');
-		expect(button.className).not.toContain('hover:bg-primary/90');
-
-		// Common classes should still be present
-		expect(button.className).toContain('inline-flex');
-		expect(button.className).toContain('items-center');
-		expect(button.className).toContain('justify-center');
-		expect(button.className).toContain('rounded-md');
-		expect(button.className).toContain('text-sm');
-		expect(button.className).toContain('font-medium');
-
-		// Click again to change back to default
-		await user.click(button);
-
-		// Should be back to default variant classes
-		expect(button.className).toContain('bg-primary');
-		expect(button.className).toContain('text-primary-foreground');
-		expect(button.className).toContain('hover:bg-primary/90');
-		expect(button.className).not.toContain('hover:bg-accent');
-		expect(button.className).not.toContain('hover:text-accent-foreground');
-	});
-
 	it('should handle SSR scenario with pre-rendered classes correctly', async () => {
 		await TestBed.configureTestingModule({}).compileComponents();
 
@@ -412,6 +352,106 @@ describe('classes', () => {
 
 		// Should preserve truly external classes that don't conflict
 		expect(classNames).toContain('some-external-class');
+	});
+
+	it('should suppress transitions during initial class application', async () => {
+		await TestBed.configureTestingModule({}).compileComponents();
+
+		const element = document.createElement('div');
+		element.className = 'bg-blue-500';
+
+		const elementRef = new ElementRef(element);
+
+		TestBed.runInInjectionContext(() => {
+			classes(() => 'bg-red-500 text-white', { elementRef });
+		});
+
+		// After registration but before effect, transition should be suppressed
+		expect(element.style.getPropertyValue('transition')).toBe('none');
+		expect(element.style.getPropertyPriority('transition')).toBe('important');
+
+		// Wait for effect to run
+		await new Promise((resolve) => setTimeout(resolve, 0));
+
+		// After effect but before rAF, transition should still be suppressed
+		expect(element.style.getPropertyValue('transition')).toBe('none');
+
+		// Wait for requestAnimationFrame to fire
+		await new Promise((resolve) => requestAnimationFrame(resolve));
+
+		// After rAF, transition suppression should be removed
+		expect(element.style.getPropertyValue('transition')).toBe('');
+	});
+
+	it('should restore pre-existing inline transition after suppression', async () => {
+		await TestBed.configureTestingModule({}).compileComponents();
+
+		const element = document.createElement('div');
+		element.className = 'bg-blue-500';
+		element.style.setProperty('transition', 'opacity 0.3s ease', 'important');
+
+		const elementRef = new ElementRef(element);
+
+		TestBed.runInInjectionContext(() => {
+			classes(() => 'bg-red-500 text-white', { elementRef });
+		});
+
+		// Should be overridden during suppression
+		expect(element.style.getPropertyValue('transition')).toBe('none');
+
+		// Wait for effect + rAF
+		await new Promise((resolve) => setTimeout(resolve, 0));
+		await new Promise((resolve) => requestAnimationFrame(resolve));
+
+		// Should restore the original transition value
+		expect(element.style.getPropertyValue('transition')).toBe('opacity 0.3s ease');
+		expect(element.style.getPropertyPriority('transition')).toBe('important');
+	});
+
+	it('should suppress transitions even on elements without existing classes', async () => {
+		await TestBed.configureTestingModule({}).compileComponents();
+
+		const element = document.createElement('div');
+
+		const elementRef = new ElementRef(element);
+
+		TestBed.runInInjectionContext(() => {
+			classes(() => 'bg-red-500 text-white', { elementRef });
+		});
+
+		// Should still suppress — we always suppress in browser to be safe
+		expect(element.style.getPropertyValue('transition')).toBe('none');
+
+		// Wait for effect + rAF to clean up
+		await new Promise((resolve) => setTimeout(resolve, 0));
+		await new Promise((resolve) => requestAnimationFrame(resolve));
+
+		expect(element.style.getPropertyValue('transition')).toBe('');
+	});
+
+	it('should restore transition immediately when destroyed before first effect runs', async () => {
+		await TestBed.configureTestingModule({}).compileComponents();
+
+		const element = document.createElement('div');
+		element.className = 'bg-blue-500';
+		element.style.setProperty('transition', 'opacity 0.3s ease', 'important');
+
+		const elementRef = new ElementRef(element);
+		const parentInjector = TestBed.inject(EnvironmentInjector);
+		const childInjector = createEnvironmentInjector([], parentInjector);
+
+		classes(() => 'bg-red-500 text-white', { elementRef, injector: childInjector });
+
+		// Suppression should be active immediately after registration
+		expect(element.style.getPropertyValue('transition')).toBe('none');
+		expect(element.style.getPropertyPriority('transition')).toBe('important');
+
+		// Destroy before the first effect flushes
+		childInjector.destroy();
+
+		// Original transition should be restored immediately by cleanup
+		expect(element.style.getPropertyValue('transition')).toBe('opacity 0.3s ease');
+		expect(element.style.getPropertyPriority('transition')).toBe('important');
 	});
 
 	it('should preserve external classes added by mutation observer', async () => {

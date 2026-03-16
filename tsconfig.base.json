@@ -64,6 +64,7 @@
 			"@spartan-ng/brain/separator": ["libs/brain/separator/src/index.ts"],
 			"@spartan-ng/brain/sheet": ["libs/brain/sheet/src/index.ts"],
 			"@spartan-ng/brain/slider": ["libs/brain/slider/src/index.ts"],
+			"@spartan-ng/brain/sonner": ["libs/brain/sonner/src/index.ts"],
 			"@spartan-ng/brain/switch": ["libs/brain/switch/src/index.ts"],
 			"@spartan-ng/brain/tabs": ["libs/brain/tabs/src/index.ts"],
 			"@spartan-ng/brain/toggle": ["libs/brain/toggle/src/index.ts"],
@@ -129,7 +130,8 @@
 			"@spartan-ng/helm/typography": ["libs/helm/typography/src/index.ts"],
 			"@spartan-ng/helm/utils": ["libs/helm/utils/src/index.ts"],
 			"@spartan-ng/tools": ["libs/tools/src/index.ts"],
-			"@spartan-ng/trpc": ["libs/trpc/src/index.ts"]
+			"@spartan-ng/trpc": ["libs/trpc/src/index.ts"],
+			"registry": ["libs/registry/src/index.ts"]
 		}
 	},
 	"exclude": ["node_modules", "tmp"]

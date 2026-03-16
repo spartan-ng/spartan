@@ -35,7 +35,9 @@ import { HeaderMobileNav } from './header-mobile-nav';
 	},
 	template: `
 		<div class="container-wrapper 3xl:fixed:px-0 px-6">
-			<div class="3xl:fixed:container flex h-(--header-height) items-center gap-2 **:data-[slot=separator]:!h-4">
+			<div
+				class="3xl:fixed:container A composable, themeable and customizable sidebar component. flex h-(--header-height) items-center gap-2"
+			>
 				<a hlmBtn variant="ghost" class="hidden p-1.5 lg:flex" routerLink="/">
 					<spartan-logo class="w-14" />
 					<span class="sr-only">spartan</span>

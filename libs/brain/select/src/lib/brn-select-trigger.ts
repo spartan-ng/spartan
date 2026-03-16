@@ -7,10 +7,8 @@ import {
 	ElementRef,
 	inject,
 	type OnDestroy,
-	type OnInit,
 	PLATFORM_ID,
 } from '@angular/core';
-import { NgControl } from '@angular/forms';
 import type { Subscription } from 'rxjs';
 import { injectBrnSelect } from './brn-select.token';
 
@@ -26,21 +24,15 @@ import { injectBrnSelect } from './brn-select.token';
 		'[attr.aria-labelledBy]': '_labelledBy()',
 		'aria-autocomplete': 'none',
 		'[attr.dir]': '_select.direction()',
-		'[class.ng-invalid]': '_ngControl?.invalid || null',
-		'[class.ng-dirty]': '_ngControl?.dirty || null',
-		'[class.ng-valid]': '_ngControl?.valid || null',
-		'[class.ng-touched]': '_ngControl?.touched || null',
-		'[class.ng-untouched]': '_ngControl?.untouched || null',
-		'[class.ng-pristine]': '_ngControl?.pristine || null',
 		'(keydown.ArrowDown)': '_select.show()',
 	},
 })
-export class BrnSelectTrigger<T> implements AfterViewInit, OnDestroy, OnInit {
+export class BrnSelectTrigger<T> implements AfterViewInit, OnDestroy {
 	private readonly _elementRef = inject(ElementRef);
 	/** Access the change detector */
 	private readonly _changeDetector = inject(ChangeDetectorRef);
 	protected readonly _select = injectBrnSelect<T>();
-	protected readonly _ngControl = inject(NgControl, { optional: true });
+
 	private readonly _platform = inject(PLATFORM_ID);
 	protected readonly _triggerId = computed(() => `${this._select.id()}--trigger`);
 	protected readonly _contentId = computed(() => `${this._select.id()}--content`);
@@ -59,14 +51,6 @@ export class BrnSelectTrigger<T> implements AfterViewInit, OnDestroy, OnInit {
 
 	constructor() {
 		this._select.trigger.set(this);
-	}
-
-	ngOnInit() {
-		if (this._ngControl) {
-			this._statusChangedSubscription = this._ngControl.statusChanges?.subscribe(() => {
-				this._changeDetector.markForCheck();
-			});
-		}
 	}
 
 	ngAfterViewInit() {

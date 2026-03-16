@@ -10,6 +10,9 @@ import { classes } from '@spartan-ng/helm/utils';
 			inputs: ['id'],
 		},
 	],
+	host: {
+		'data-slot': 'label',
+	},
 })
 export class HlmLabel {
 	constructor() {

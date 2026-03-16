@@ -15,9 +15,9 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 		<form [formGroup]="form" (ngSubmit)="submit()">
 			<div hlmFieldGroup>
 				<div hlmField>
-					<label hlmFieldLabel>Select a framework</label>
+					<label hlmFieldLabel for="framework">Select a framework</label>
 					<hlm-combobox formControlName="framework">
-						<hlm-combobox-input placeholder="e.g. Analog" />
+						<hlm-combobox-input inputId="framework" placeholder="e.g. Analog" />
 						<hlm-combobox-content *hlmComboboxPortal>
 							<hlm-combobox-empty>No items found.</hlm-combobox-empty>
 							<div hlmComboboxList>

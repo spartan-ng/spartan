@@ -23,6 +23,7 @@ import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 				#comboboxInput="brnComboboxInput"
 				brnComboboxPopoverTrigger
 				hlmInputGroupInput
+				[id]="inputId()"
 				[placeholder]="placeholder()"
 				[attr.aria-invalid]="_ariaInvalid() ? 'true' : null"
 				[attr.data-invalid]="_ariaInvalid() ? 'true' : null"
@@ -65,8 +66,10 @@ import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 	`,
 })
 export class HlmComboboxInput {
+	private static _id = 0;
 	private readonly _combobox = injectBrnComboboxBase();
 
+	public readonly inputId = input<string>(`hlm-combobox-input-${HlmComboboxInput._id++}`);
 	public readonly placeholder = input<string>('');
 
 	public readonly showTrigger = input<boolean, BooleanInput>(true, { transform: booleanAttribute });

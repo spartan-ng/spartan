@@ -1,4 +1,4 @@
-import { Directive, ElementRef, inject, input } from '@angular/core';
+import { computed, Directive, ElementRef, inject, input } from '@angular/core';
 import { BrnDialog } from '@spartan-ng/brain/dialog';
 import { injectBrnSelectBase } from './brn-select.token';
 
@@ -8,6 +8,7 @@ import { injectBrnSelectBase } from './brn-select.token';
 		role: 'combobox',
 		'[id]': 'id()',
 		'[attr.aria-expanded]': '_isExpanded()',
+		'[attr.data-placeholder]': '_isPlaceholder() ? "" : null',
 		'[disabled]': '_disabled()',
 		'(click)': 'open()',
 		'(keydown)': 'onKeyDown($event)',
@@ -27,6 +28,8 @@ export class BrnSelectTrigger {
 	protected readonly _isExpanded = this._select.isExpanded;
 
 	protected readonly _disabled = this._select.disabledState;
+
+	protected readonly _isPlaceholder = computed(() => !this._select.value());
 
 	constructor() {
 		if (!this._brnDialog) return;

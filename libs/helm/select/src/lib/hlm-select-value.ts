@@ -3,7 +3,7 @@ import { BrnSelectValue } from '@spartan-ng/brain/select';
 
 @Directive({
 	selector: '[hlmSelectValue]',
-	hostDirectives: [BrnSelectValue],
+	hostDirectives: [{ directive: BrnSelectValue, inputs: ['placeholder'] }],
 	host: {
 		'data-slot': 'select-value',
 	},

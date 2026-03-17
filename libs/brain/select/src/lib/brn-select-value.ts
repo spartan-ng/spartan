@@ -1,15 +1,23 @@
-import { computed, Directive } from '@angular/core';
+import { computed, Directive, input } from '@angular/core';
 import { stringifyAsLabel } from '@spartan-ng/brain/core';
 import { injectBrnSelectBase } from './brn-select.token';
 
 @Directive({
 	selector: '[brnSelectValue]',
 	host: {
+		'[attr.data-placeholder]': '_isPlaceholder() ? "" : null',
 		'[textContent]': '_value()',
 	},
 })
 export class BrnSelectValue<T> {
 	private readonly _select = injectBrnSelectBase<T>();
 
-	protected readonly _value = computed(() => stringifyAsLabel(this._select.value(), this._select.itemToString()));
+	public readonly placeholder = input<string>('');
+
+	protected readonly _isPlaceholder = computed(() => !this._select.value());
+
+	protected readonly _value = computed(() => {
+		const value = this._select.value();
+		return value ? stringifyAsLabel(value, this._select.itemToString()) : this.placeholder();
+	});
 }

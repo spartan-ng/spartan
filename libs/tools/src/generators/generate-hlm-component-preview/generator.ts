@@ -12,6 +12,11 @@ function shouldIgnoreImport(importLine: string) {
 	return source.startsWith('./') || source.startsWith('../');
 }
 
+function extractHlmImportsBlock(content: string): string | null {
+	const match = content.match(/export\s+const\s+Hlm\w+Imports[\s\S]*?as const;/m);
+	return match ? match[0].trim() : null;
+}
+
 function mergeImports(imports: string[]) {
 	const importMap = new Map<
 		string,
@@ -133,10 +138,11 @@ export async function generateHlmComponentManualInstallation(tree: Tree): Promis
 
 	for (const primitiveName of componentDirs) {
 		const name = primitiveName.replace('(', '').replace(')', '');
-		const templateDir = `libs/cli/src/generators/ui/libs/${name}/files/lib`;
+		const baseDir = `libs/cli/src/generators/ui/libs/${name}/files`;
 
 		const files: string[] = [];
-		visitNotIgnoredFiles(tree, templateDir, (filePath) => files.push(filePath));
+
+		visitNotIgnoredFiles(tree, baseDir, (filePath) => files.push(filePath));
 
 		if (files.length === 0) {
 			logger.warn(`Skipping empty primitive: ${name}`);
@@ -151,10 +157,16 @@ export async function generateHlmComponentManualInstallation(tree: Tree): Promis
 
 			const importSet = new Set<string>();
 			const bodies: string[] = [];
+			let hlmImportBlock: string | null = null;
 
 			for (const filePath of files) {
 				const content = tree.read(filePath, 'utf-8');
 				if (!content?.trim()) continue;
+
+				if (filePath.endsWith('index.ts.template')) {
+					hlmImportBlock = extractHlmImportsBlock(content);
+					continue;
+				}
 
 				const transformed = await transformStyle(content, { styleMap });
 
@@ -172,7 +184,16 @@ export async function generateHlmComponentManualInstallation(tree: Tree): Promis
 				continue;
 			}
 
-			result[name][theme] = mergeImports([...importSet]).join('\n') + '\n\n' + bodies.join('\n\n');
+			const mergedImports = mergeImports([...importSet]).join('\n');
+			const mergedBody = bodies.join('\n\n');
+
+			const finalParts = [mergedImports, mergedBody];
+
+			if (hlmImportBlock) {
+				finalParts.push(hlmImportBlock);
+			}
+
+			result[name][theme] = finalParts.join('\n\n');
 		}
 	}
 

@@ -2,6 +2,7 @@ import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Code } from '@spartan-ng/app/app/shared/code/code';
+import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import { MainSection } from '@spartan-ng/app/app/shared/layout/main-section';
 import { PageBottomNav } from '@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav';
 import { PageBottomNavLink } from '@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav-link';
@@ -10,7 +11,6 @@ import { SectionIntro } from '@spartan-ng/app/app/shared/layout/section-intro';
 import { SectionSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-heading';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { Tabs } from '@spartan-ng/app/app/shared/layout/tabs';
-import { TabsCli } from '@spartan-ng/app/app/shared/layout/tabs-cli';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
 import { SidebarPreview } from '@spartan-ng/app/app/shared/sidebar-preview/sidebar-preview';
 import { HlmCode, HlmP } from '@spartan-ng/helm/typography';
@@ -52,10 +52,11 @@ export const routeMeta: RouteMeta = {
 	selector: 'spartan-sidebar',
 	imports: [
 		MainSection,
+		InstallTabs,
 		Code,
 		SectionIntro,
 		SectionSubHeading,
-		TabsCli,
+
 		PageNav,
 		PageBottomNav,
 		PageBottomNavLink,
@@ -74,8 +75,7 @@ export const routeMeta: RouteMeta = {
 			<spartan-sidebar-preview name="sidebar-collapsable-icons" caption="A sidebar that collapses to icons." />
 
 			<div>
-				<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
-				<spartan-cli-tabs nxCode="npx nx g @spartan-ng/cli:ui sidebar" ngCode="ng g @spartan-ng/cli:ui sidebar" />
+				<spartan-install-tabs primitive="sidebar" />
 
 				<spartan-section-sub-heading id="add-colors">
 					Add the following colors to your CSS file

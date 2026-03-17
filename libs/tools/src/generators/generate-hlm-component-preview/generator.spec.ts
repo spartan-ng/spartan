@@ -76,7 +76,7 @@ export function localUtil() {}
 		const data = JSON.parse(raw);
 
 		// './utils' should NOT appear in the merged imports
-		expect(data.button).not.toContain('./utils');
+		expect(JSON.stringify(data.button['vega'])).not.toContain('./utils');
 	});
 
 	it('replaces <%- importAlias %> in Angular imports', async () => {

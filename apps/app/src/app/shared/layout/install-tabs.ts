@@ -5,6 +5,7 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCheck, lucideClipboard, lucideTerminal } from '@ng-icons/lucide';
 import { PrimitiveSnippet } from '@spartan-ng/app/app/core/models/primitives-snippets.model';
 import { ManualInstallService, Theme, THEMES } from '@spartan-ng/app/app/core/services/manual-install.service';
+import { CLIMode, CLIModeService } from '@spartan-ng/app/app/shared/cli-mode.service';
 import { Code } from '@spartan-ng/app/app/shared/code/code';
 import { SectionSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-heading';
 import { tabBtn, tabContent } from '@spartan-ng/app/app/shared/layout/tabs';
@@ -61,7 +62,7 @@ const cliBtn =
 						</div>
 
 						<div brnTabsList class="flex" aria-label="Tablist showing Angular CLI and Nx Plugin">
-							<button class="${cliBtn}" brnTabsTrigger="ng">Angular CLI</button>
+							<button class="${cliBtn}" brnTabsTrigger="cli">Angular CLI</button>
 							<button class="${cliBtn}" brnTabsTrigger="nx">Nx Plugin</button>
 						</div>
 
@@ -70,7 +71,7 @@ const cliBtn =
 						</button>
 					</div>
 
-					<div hlmTabsContent="ng">
+					<div hlmTabsContent="cli">
 						<spartan-code [code]="'ng g @spartan-ng/cli:ui ' + primitive()" disableCopy />
 					</div>
 					<div hlmTabsContent="nx">
@@ -82,6 +83,7 @@ const cliBtn =
 			<!-- MANUAL -->
 			<div class="${tabContent}" brnTabsContent="Manual">
 				@let code = _code();
+				@let themes = _themes();
 				@if (code) {
 					<div
 						class="border-border block rounded-md bg-[#f8f8f8] dark:bg-zinc-900"
@@ -90,7 +92,7 @@ const cliBtn =
 					>
 						<div class="border-border/50 flex items-center gap-2 border-b px-3 py-1">
 							<div brnTabsList class="flex" aria-label="Tablist showing themes">
-								@for (theme of _themes; track theme) {
+								@for (theme of themes; track theme) {
 									<button class="${cliBtn}" [brnTabsTrigger]="theme">
 										{{ theme | titlecase }}
 									</button>
@@ -102,7 +104,7 @@ const cliBtn =
 							</button>
 						</div>
 
-						@for (theme of _themes; track theme) {
+						@for (theme of themes; track theme) {
 							<div [hlmTabsContent]="theme">
 								<spartan-code [code]="code[theme]" language="ts" disableCopy />
 							</div>
@@ -114,9 +116,18 @@ const cliBtn =
 	`,
 })
 export class InstallTabs {
-	protected readonly _themes = THEMES;
+	private readonly _cliService = inject(CLIModeService);
 
-	protected readonly _activeCliTab = signal<'ng' | 'nx'>('ng');
+	public readonly showOnlyVega = input(true);
+
+	protected readonly _themes = computed(() => {
+		if (this.showOnlyVega()) {
+			return THEMES.filter((theme) => theme === 'vega');
+		}
+		return THEMES;
+	});
+
+	protected readonly _activeCliTab = computed(() => this._cliService.cliMode());
 	protected readonly _activeComponentTab = signal<Theme>('vega');
 
 	private readonly _clipboard = inject(Clipboard);
@@ -132,7 +143,8 @@ export class InstallTabs {
 
 	copyCli() {
 		const cli = this._activeCliTab();
-		this._clipboard.copy(`${cli} g @spartan-ng/cli:ui ${this.primitive()}`);
+		const command = cli === 'cli' ? 'ng' : 'nx';
+		this._clipboard.copy(`${command} g @spartan-ng/cli:ui ${this.primitive()}`);
 		this._flash('_cliCopied');
 	}
 
@@ -152,6 +164,7 @@ export class InstallTabs {
 	}
 
 	protected onCliTabChange($event: string) {
-		this._activeCliTab.set($event as 'nx' | 'ng');
+		const val = $event as CLIMode;
+		this._cliService.setCliMode(val);
 	}
 }

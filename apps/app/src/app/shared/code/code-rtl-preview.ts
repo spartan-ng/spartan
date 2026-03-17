@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideInfo } from '@ng-icons/lucide';
+import { StyleService } from '@spartan-ng/app/app/shared/style.service';
 import { TranslateService } from '@spartan-ng/app/app/shared/translate.service';
 import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
@@ -18,6 +19,10 @@ import { HlmSeparator } from '@spartan-ng/helm/separator';
 		}),
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		'[attr.data-style]': '_styleService.style()',
+		'[class]': '"style-"+_styleService.style()',
+	},
 	template: `
 		<div class="border-border flex flex-row items-center justify-between border-b p-4">
 			<brn-select class="inline-block" [(value)]="_languageService.language">
@@ -61,4 +66,5 @@ import { HlmSeparator } from '@spartan-ng/helm/separator';
 })
 export class CodeRtlPreview {
 	protected readonly _languageService = inject(TranslateService);
+	protected readonly _styleService = inject(StyleService);
 }

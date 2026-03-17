@@ -1,11 +1,11 @@
 import { Directive } from '@angular/core';
-import { classes } from '@spartan-ng/helm/utils';
+import { BrnSelectValue } from '@spartan-ng/brain/select';
 
 @Directive({
-	selector: 'hlm-select-value,[hlmSelectValue], brn-select-value[hlm]',
+	selector: '[hlmSelectValue]',
+	hostDirectives: [BrnSelectValue],
+	host: {
+		'data-slot': 'select-value',
+	},
 })
-export class HlmSelectValue {
-	constructor() {
-		classes(() => 'data-[placeholder]:text-muted-foreground line-clamp-1 flex items-center gap-2 truncate');
-	}
-}
+export class HlmSelectValue {}

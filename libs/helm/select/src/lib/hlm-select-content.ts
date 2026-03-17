@@ -1,26 +1,16 @@
-import type { BooleanInput } from '@angular/cdk/coercion';
-import { Directive, booleanAttribute, input } from '@angular/core';
-import { injectExposedSideProvider, injectExposesStateProvider } from '@spartan-ng/brain/core';
+import { Directive } from '@angular/core';
+import { BrnSelectContent } from '@spartan-ng/brain/select';
 import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
-	selector: '[hlmSelectContent], hlm-select-content',
-	host: {
-		'[attr.data-state]': '_stateProvider?.state() ?? "open"',
-		'[attr.data-side]': '_sideProvider?.side() ?? "bottom"',
-	},
+	selector: '[hlmSelectContent],hlm-select-content',
+	hostDirectives: [BrnSelectContent],
 })
 export class HlmSelectContent {
-	public readonly stickyLabels = input<boolean, BooleanInput>(false, {
-		transform: booleanAttribute,
-	});
-	protected readonly _stateProvider = injectExposesStateProvider({ optional: true });
-	protected readonly _sideProvider = injectExposedSideProvider({ optional: true });
-
 	constructor() {
 		classes(
 			() =>
-				'border-border bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 relative z-50 w-full min-w-[8rem] overflow-hidden rounded-md border p-1 shadow-md data-[side=bottom]:top-[2px] data-[side=top]:bottom-[2px]',
+				'bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 flex max-h-72 w-(--brn-select-width) min-w-36 flex-col overflow-x-hidden overflow-y-auto rounded-md shadow-md ring-1 duration-100',
 		);
 	}
 }

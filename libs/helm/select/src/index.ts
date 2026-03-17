@@ -1,10 +1,10 @@
 import { HlmSelect } from './lib/hlm-select';
 import { HlmSelectContent } from './lib/hlm-select-content';
 import { HlmSelectGroup } from './lib/hlm-select-group';
+import { HlmSelectItem } from './lib/hlm-select-item';
 import { HlmSelectLabel } from './lib/hlm-select-label';
-import { HlmSelectOption } from './lib/hlm-select-option';
-import { HlmSelectScrollDown } from './lib/hlm-select-scroll-down';
-import { HlmSelectScrollUp } from './lib/hlm-select-scroll-up';
+import { HlmSelectScrollDownButton } from './lib/hlm-select-scroll-down-button';
+import { HlmSelectScrollUpButton } from './lib/hlm-select-scroll-up-button';
 import { HlmSelectSeparator } from './lib/hlm-select-separator';
 import { HlmSelectTrigger } from './lib/hlm-select-trigger';
 import { HlmSelectValue } from './lib/hlm-select-value';
@@ -12,10 +12,10 @@ import { HlmSelectValue } from './lib/hlm-select-value';
 export * from './lib/hlm-select';
 export * from './lib/hlm-select-content';
 export * from './lib/hlm-select-group';
+export * from './lib/hlm-select-item';
 export * from './lib/hlm-select-label';
-export * from './lib/hlm-select-option';
-export * from './lib/hlm-select-scroll-down';
-export * from './lib/hlm-select-scroll-up';
+export * from './lib/hlm-select-scroll-down-button';
+export * from './lib/hlm-select-scroll-up-button';
 export * from './lib/hlm-select-separator';
 export * from './lib/hlm-select-trigger';
 export * from './lib/hlm-select-value';
@@ -24,10 +24,10 @@ export const HlmSelectImports = [
 	HlmSelect,
 	HlmSelectContent,
 	HlmSelectGroup,
+	HlmSelectItem,
 	HlmSelectLabel,
-	HlmSelectOption,
-	HlmSelectScrollDown,
-	HlmSelectScrollUp,
+	HlmSelectScrollDownButton,
+	HlmSelectScrollUpButton,
 	HlmSelectSeparator,
 	HlmSelectTrigger,
 	HlmSelectValue,

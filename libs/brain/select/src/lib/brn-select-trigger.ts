@@ -1,93 +1,49 @@
-import { isPlatformBrowser } from '@angular/common';
-import {
-	type AfterViewInit,
-	ChangeDetectorRef,
-	computed,
-	Directive,
-	ElementRef,
-	inject,
-	type OnDestroy,
-	type OnInit,
-	PLATFORM_ID,
-} from '@angular/core';
-import { NgControl } from '@angular/forms';
-import type { Subscription } from 'rxjs';
-import { injectBrnSelect } from './brn-select.token';
+import { Directive, ElementRef, inject, input } from '@angular/core';
+import { BrnDialog } from '@spartan-ng/brain/dialog';
+import { injectBrnSelectBase } from './brn-select.token';
 
 @Directive({
-	selector: '[brnSelectTrigger]',
+	selector: 'button[brnSelectTrigger]',
 	host: {
-		type: 'button',
 		role: 'combobox',
-		'[attr.id]': '_triggerId()',
-		'[disabled]': '_disabled()',
-		'[attr.aria-expanded]': '_select.open()',
-		'[attr.aria-controls]': '_contentId()',
-		'[attr.aria-labelledBy]': '_labelledBy()',
-		'aria-autocomplete': 'none',
-		'[attr.dir]': '_select.direction()',
-		'[class.ng-invalid]': '_ngControl?.invalid || null',
-		'[class.ng-dirty]': '_ngControl?.dirty || null',
-		'[class.ng-valid]': '_ngControl?.valid || null',
-		'[class.ng-touched]': '_ngControl?.touched || null',
-		'[class.ng-untouched]': '_ngControl?.untouched || null',
-		'[class.ng-pristine]': '_ngControl?.pristine || null',
-		'(keydown.ArrowDown)': '_select.show()',
+		'[id]': 'id()',
+		'[attr.aria-expanded]': '_isExpanded()',
+		'(click)': 'open()',
+		'(keydown)': 'onKeyDown($event)',
 	},
 })
-export class BrnSelectTrigger<T> implements AfterViewInit, OnDestroy, OnInit {
-	private readonly _elementRef = inject(ElementRef);
-	/** Access the change detector */
-	private readonly _changeDetector = inject(ChangeDetectorRef);
-	protected readonly _select = injectBrnSelect<T>();
-	protected readonly _ngControl = inject(NgControl, { optional: true });
-	private readonly _platform = inject(PLATFORM_ID);
-	protected readonly _triggerId = computed(() => `${this._select.id()}--trigger`);
-	protected readonly _contentId = computed(() => `${this._select.id()}--content`);
-	protected readonly _disabled = computed(() => this._select.disabled() || this._select.formDisabled());
-	protected readonly _labelledBy = computed(() => {
-		const value = this._select.value();
+export class BrnSelectTrigger {
+	private static _id = 0;
 
-		if (Array.isArray(value) && value.length > 0) {
-			return `${this._select.labelId()} ${this._select.id()}--value`;
-		}
-		return this._select.labelId();
-	});
+	private readonly _host = inject(ElementRef, { host: true });
+	private readonly _brnDialog = inject(BrnDialog, { optional: true });
 
-	private _resizeObserver?: ResizeObserver;
-	private _statusChangedSubscription?: Subscription;
+	private readonly _select = injectBrnSelectBase();
+
+	public readonly id = input<string>(`brn-select-trigger-${++BrnSelectTrigger._id}`);
+
+	/** Whether the combobox panel is expanded */
+	protected readonly _isExpanded = this._select.isExpanded;
 
 	constructor() {
-		this._select.trigger.set(this);
+		if (!this._brnDialog) return;
+
+		this._brnDialog.mutableAttachTo.set(this._host.nativeElement);
 	}
 
-	ngOnInit() {
-		if (this._ngControl) {
-			this._statusChangedSubscription = this._ngControl.statusChanges?.subscribe(() => {
-				this._changeDetector.markForCheck();
-			});
+	protected open() {
+		this._brnDialog?.open();
+	}
+
+	/** Listen for keydown events */
+	protected onKeyDown(event: KeyboardEvent): void {
+		if (event.key === 'Enter') {
+			// prevent form submission if inside a form
+			event.preventDefault();
+
+			this._select.selectActiveItem();
 		}
-	}
 
-	ngAfterViewInit() {
-		this._select.triggerWidth.set(this._elementRef.nativeElement.offsetWidth);
-
-		// if we are on the client, listen for element resize events
-		if (isPlatformBrowser(this._platform)) {
-			this._resizeObserver = new ResizeObserver(() =>
-				this._select.triggerWidth.set(this._elementRef.nativeElement.offsetWidth),
-			);
-
-			this._resizeObserver.observe(this._elementRef.nativeElement);
-		}
-	}
-
-	ngOnDestroy(): void {
-		this._resizeObserver?.disconnect();
-		this._statusChangedSubscription?.unsubscribe();
-	}
-
-	focus(): void {
-		this._elementRef.nativeElement.focus();
+		this._select.keyManager.onKeydown(event);
 	}
 }

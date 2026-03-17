@@ -1,6 +1,7 @@
 import { computed, Injectable, signal } from '@angular/core';
 import type { PrimitiveSnippet } from '../models/primitives-snippets.model';
 
+export type ManualInstallPrimitives = PrimitiveSnippet | 'typography' | 'utils';
 export const THEMES = ['vega', 'lyra', 'maia', 'mira', 'nova'] as const;
 export type Theme = (typeof THEMES)[number];
 
@@ -16,7 +17,7 @@ export class ManualInstallService {
 		this._snippets.set(data);
 	}
 
-	getSnippets(component: PrimitiveSnippet) {
+	getSnippets(component: ManualInstallPrimitives) {
 		return computed(() => this._snippets()?.[component]);
 	}
 }

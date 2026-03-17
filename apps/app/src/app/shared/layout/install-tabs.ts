@@ -3,13 +3,18 @@ import { TitleCasePipe } from '@angular/common';
 import { Component, computed, inject, input, signal } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCheck, lucideClipboard, lucideTerminal } from '@ng-icons/lucide';
-import { PrimitiveSnippet } from '@spartan-ng/app/app/core/models/primitives-snippets.model';
-import { ManualInstallService, Theme, THEMES } from '@spartan-ng/app/app/core/services/manual-install.service';
+import {
+	ManualInstallPrimitives,
+	ManualInstallService,
+	Theme,
+	THEMES,
+} from '@spartan-ng/app/app/core/services/manual-install.service';
 import { CLIMode, CLIModeService } from '@spartan-ng/app/app/shared/cli-mode.service';
 import { Code } from '@spartan-ng/app/app/shared/code/code';
 import { SectionSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-heading';
 import { tabBtn, tabContent } from '@spartan-ng/app/app/shared/layout/tabs';
 import { BrnTabs, BrnTabsContent, BrnTabsList, BrnTabsTrigger } from '@spartan-ng/brain/tabs';
+import { HlmAccordionImports } from '@spartan-ng/helm/accordion';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmTabsImports } from '@spartan-ng/helm/tabs';
@@ -31,6 +36,7 @@ const cliBtn =
 		HlmButton,
 		HlmIcon,
 		TitleCasePipe,
+		HlmAccordionImports,
 	],
 	providers: [provideIcons({ lucideTerminal, lucideClipboard, lucideCheck })],
 	host: {
@@ -81,35 +87,92 @@ const cliBtn =
 			</div>
 
 			<!-- MANUAL -->
-			<div class="${tabContent}" brnTabsContent="Manual">
+			<div brnTabsContent="Manual">
 				@let code = _code();
+				@let utils = _utils();
 				@let themes = _themes();
-				@if (code) {
-					<div
-						class="border-border block rounded-md bg-[#f8f8f8] dark:bg-zinc-900"
-						[brnTabs]="_activeComponentTab()"
-						(tabActivated)="onComponentTabChange($event)"
-					>
-						<div class="border-border/50 flex items-center gap-2 border-b px-3 py-1">
-							<div brnTabsList class="flex" aria-label="Tablist showing themes">
-								@for (theme of themes; track theme) {
-									<button class="${cliBtn}" [brnTabsTrigger]="theme">
-										{{ theme | titlecase }}
-									</button>
-								}
-							</div>
 
-							<button (click)="copyComponent()" hlmBtn variant="ghost" class="ml-auto h-6 w-6">
-								<ng-icon hlm size="xs" [name]="_componentCopied ? 'lucideCheck' : 'lucideClipboard'" />
-							</button>
+				@defer (on viewport) {
+					@if (code && utils) {
+						<div class="space-y-4">
+							<div hlmAccordion type="multiple">
+								<div hlmAccordionItem class="border-b-0">
+									<h3 class="contents">
+										<button
+											hlmAccordionTrigger
+											class="focus-visible:border-ring focus-visible:ring-ring/50 rounded-md px-0 py-0 hover:no-underline"
+										>
+											<span class="flex items-center gap-3">
+												<span
+													class="flex size-10 shrink-0 items-center justify-center rounded-full border"
+													aria-hidden="true"
+												>
+													1
+												</span>
+												<span class="text-[15px] leading-6 font-semibold">Copy utils if needed</span>
+											</span>
+											<ng-icon hlm hlmAccIcon name="lucideChevronDown" class="opacity-60" />
+										</button>
+									</h3>
+
+									<hlm-accordion-content class="text-muted-foreground ml-5 border-l ps-8">
+										<spartan-code [code]="utils" language="ts" />
+									</hlm-accordion-content>
+								</div>
+								<div class="ml-5 h-4 border-l ps-8 last:hidden"></div>
+
+								<div hlmAccordionItem class="border-b-0" isOpened>
+									<h3 class="contents">
+										<button
+											hlmAccordionTrigger
+											class="focus-visible:border-ring focus-visible:ring-ring/50 rounded-md px-0 py-0 hover:no-underline"
+										>
+											<span class="flex items-center gap-3">
+												<span
+													class="flex size-10 shrink-0 items-center justify-center rounded-full border"
+													aria-hidden="true"
+												>
+													2
+												</span>
+												<span class="text-[15px] leading-6 font-semibold">
+													Copy and paste the following code into your project.
+												</span>
+											</span>
+											<ng-icon hlm hlmAccIcon name="lucideChevronDown" class="opacity-60" />
+										</button>
+									</h3>
+
+									<hlm-accordion-content class="text-muted-foreground ml-5 border-l ps-8">
+										<div
+											class="${tabContent} border-border block rounded-md bg-[#f8f8f8] dark:bg-zinc-900"
+											[brnTabs]="_activeComponentTab()"
+											(tabActivated)="onComponentTabChange($event)"
+										>
+											<div class="border-border/50 flex items-center gap-2 border-b px-3 py-1">
+												<div brnTabsList class="flex" aria-label="Tablist showing themes">
+													@for (theme of themes; track theme) {
+														<button class="${cliBtn}" [brnTabsTrigger]="theme">
+															{{ theme | titlecase }}
+														</button>
+													}
+												</div>
+
+												<button (click)="copyComponent()" hlmBtn variant="ghost" class="ml-auto h-6 w-6">
+													<ng-icon hlm size="xs" [name]="_componentCopied ? 'lucideCheck' : 'lucideClipboard'" />
+												</button>
+											</div>
+
+											@for (theme of themes; track theme) {
+												<div [hlmTabsContent]="theme">
+													<spartan-code [code]="code[theme]" language="ts" disableCopy />
+												</div>
+											}
+										</div>
+									</hlm-accordion-content>
+								</div>
+							</div>
 						</div>
-
-						@for (theme of themes; track theme) {
-							<div [hlmTabsContent]="theme">
-								<spartan-code [code]="code[theme]" language="ts" disableCopy />
-							</div>
-						}
-					</div>
+					}
 				}
 			</div>
 		</div>
@@ -137,9 +200,10 @@ export class InstallTabs {
 
 	protected _componentCopied = false;
 
-	public readonly primitive = input.required<PrimitiveSnippet>();
+	public readonly primitive = input.required<ManualInstallPrimitives>();
 
 	protected readonly _code = computed(() => this._installService.getSnippets(this.primitive())());
+	protected readonly _utils = computed(() => this._installService.getSnippets('utils' as const)()?.vega ?? '');
 
 	copyCli() {
 		const cli = this._activeCliTab();

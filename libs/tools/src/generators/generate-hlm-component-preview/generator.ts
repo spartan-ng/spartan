@@ -117,7 +117,7 @@ export async function generateHlmComponentManualInstallation(tree: Tree): Promis
 
 	const componentsDir = 'apps/app/src/app/pages/(components)/components';
 	const componentDirs = getComponentDirectories(tree, componentsDir);
-
+	componentDirs.push(...['utils', 'typography']);
 	const styleMaps: Record<Theme, ReturnType<typeof createStyleMap>> = {} as never;
 
 	for (const theme of THEMES) {

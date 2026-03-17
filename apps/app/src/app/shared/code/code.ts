@@ -93,7 +93,7 @@ declare const Prism: typeof import('prismjs');
 			</div>
 		}
 		@if (!_disableCopy) {
-			<button (click)="copyToClipBoard()" hlmBtn variant="ghost" class="absolute top-1.5 right-2 h-6 w-6">
+			<button (click)="copyToClipBoard()" hlmBtn variant="ghost" class="absolute top-1.5 right-4 z-10 h-6 w-6">
 				<ng-icon hlm size="xs" [name]="_copied ? 'lucideCheck' : 'lucideClipboard'" />
 			</button>
 		}

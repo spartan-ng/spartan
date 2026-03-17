@@ -1,16 +1,31 @@
-import { Directive } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed } from '@angular/core';
 import { BrnSelectContent } from '@spartan-ng/brain/select';
-import { classes } from '@spartan-ng/helm/utils';
+import { classes, hlm } from '@spartan-ng/helm/utils';
+import { HlmSelectScrollDown } from './hlm-select-scroll-down';
+import { HlmSelectScrollUp } from './hlm-select-scroll-up';
 
-@Directive({
+@Component({
 	selector: '[hlmSelectContent],hlm-select-content',
+	imports: [HlmSelectScrollUp, HlmSelectScrollDown],
 	hostDirectives: [BrnSelectContent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<hlm-select-scroll-up />
+
+		<div role="listbox" [class]="_computedListboxClasses()">
+			<ng-content />
+		</div>
+
+		<hlm-select-scroll-down />
+	`,
 })
 export class HlmSelectContent {
+	protected readonly _computedListboxClasses = computed(() => hlm('flex flex-col'));
+
 	constructor() {
 		classes(
 			() =>
-				'bg-popover no-scrollbar text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 flex max-h-72 w-(--brn-select-width) min-w-36 flex-col overflow-x-hidden overflow-y-auto rounded-md shadow-md ring-1 duration-100',
+				'bg-popover no-scrollbar text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 relative isolate flex max-h-72 w-(--brn-select-width) min-w-36 flex-col overflow-x-hidden overflow-y-auto rounded-md shadow-md ring-1 duration-100',
 		);
 	}
 }

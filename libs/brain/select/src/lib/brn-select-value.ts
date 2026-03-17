@@ -6,7 +6,7 @@ import { injectBrnSelectBase } from './brn-select.token';
 	selector: '[brnSelectValue]',
 	host: {
 		'[attr.data-placeholder]': '_isPlaceholder() ? "" : null',
-		'[attr.data-hidden]': '_hidden() ? "" : null',
+		'[attr.data-hidden]': 'hidden() ? "" : null',
 		'[textContent]': '_value()',
 	},
 })

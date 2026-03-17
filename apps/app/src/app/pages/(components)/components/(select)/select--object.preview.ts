@@ -7,15 +7,24 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 	template: `
 		<hlm-select>
 			<hlm-select-trigger class="w-72">
-				<hlm-select-value placeholder="Select a shipping method" />
+				<hlm-select-placeholder>Select a shipping method</hlm-select-placeholder>
+				<ng-template hlmSelectValueTemplate let-value>
+					<div class="flex items-baseline gap-0.5">
+						<span>{{ value.name }}</span>
+						<span class="text-muted-foreground text-xs">({{ value.price }})</span>
+					</div>
+				</ng-template>
 			</hlm-select-trigger>
 			<hlm-select-content *hlmSelectPortal>
 				<hlm-select-group>
 					@for (method of shippingMethods; track method.id) {
-						<hlm-select-item [value]="method.id">
+						<hlm-select-item [value]="method">
 							<div class="flex flex-col gap-0.5">
-								<span class="text-base">{{ method.name }}</span>
-								<span class="text-muted-foreground text-xs">{{ method.duration }} ({{ method.price }})</span>
+								<div class="flex items-baseline gap-0.5">
+									<span>{{ method.name }}</span>
+									<span class="text-muted-foreground text-xs">({{ method.price }})</span>
+								</div>
+								<span class="text-muted-foreground text-xs">{{ method.duration }}</span>
 							</div>
 						</hlm-select-item>
 					}

@@ -97,8 +97,6 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
-			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
-
 			<spartan-install-tabs primitive="button">
 				<spartan-cli-tabs nxCode="npx nx g @spartan-ng/cli:ui button" ngCode="ng g @spartan-ng/cli:ui button" />
 			</spartan-install-tabs>

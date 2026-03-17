@@ -1,18 +1,15 @@
 import { joinPathFragments, logger, type Tree, visitNotIgnoredFiles } from '@nx/devkit';
 import { createStyleMap, transformStyle } from '@spartan-ng/cli';
 
+const THEMES = ['lyra', 'maia', 'mira', 'nova', 'vega'] as const;
+type Theme = (typeof THEMES)[number];
+
 function shouldIgnoreImport(importLine: string) {
 	const match = importLine.match(/from\s+['"](.*)['"]/);
 	if (!match) return false;
 
 	const source = match[1];
-
-	// relative imports innerhalb des primitives ignorieren
-	if (source.startsWith('./') || source.startsWith('../')) {
-		return true;
-	}
-
-	return false;
+	return source.startsWith('./') || source.startsWith('../');
 }
 
 function mergeImports(imports: string[]) {
@@ -88,18 +85,6 @@ function mergeImports(imports: string[]) {
 	return result.sort();
 }
 
-function getComponentDirectories(tree: Tree, basePath: string): string[] {
-	if (!tree.exists(basePath)) {
-		logger.warn(`Base components directory not found: ${basePath}`);
-		return [];
-	}
-
-	return tree.children(basePath).filter((name) => {
-		const fullPath = joinPathFragments(basePath, name);
-		return tree.isFile(fullPath) === false; // Only directories
-	});
-}
-
 function extractImports(code: string) {
 	const importRegex = /import[\s\S]*?from\s+['"][^'"]+['"];?/g;
 
@@ -110,57 +95,87 @@ function extractImports(code: string) {
 	return { imports, body };
 }
 
+function getComponentDirectories(tree: Tree, basePath: string): string[] {
+	if (!tree.exists(basePath)) {
+		logger.warn(`Base components directory not found: ${basePath}`);
+		return [];
+	}
+
+	return tree.children(basePath).filter((name) => {
+		const fullPath = joinPathFragments(basePath, name);
+		return !tree.isFile(fullPath);
+	});
+}
+
 export async function generateHlmComponentManualInstallation(tree: Tree): Promise<void> {
-	logger.info('Extract Primitive Code generator running...');
+	logger.info('Generating manual install snippets...');
 
 	const componentsDir = 'apps/app/src/app/pages/(components)/components';
 	const componentDirs = getComponentDirectories(tree, componentsDir);
 
-	const styleContent = tree.read('libs/registry/src/styles/style-vega.css', 'utf-8');
+	// 🔥 create all style maps dynamically
+	const styleMaps: Record<Theme, ReturnType<typeof createStyleMap>> = {} as never;
 
-	const styleMap = createStyleMap(styleContent);
-
-	const allPrimitivesSnippets: Record<string, string> = {};
-
-	if (componentDirs.length === 0) {
-		logger.info('No component directories found. Writing empty snippets file.');
-	} else {
-		logger.info(`Found ${componentDirs.length} component directories.`);
+	for (const theme of THEMES) {
+		const css = tree.read(`libs/registry/src/styles/style-${theme}.css`, 'utf-8');
+		if (!css) {
+			logger.warn(`Missing style file for theme: ${theme}`);
+			continue;
+		}
+		styleMaps[theme] = createStyleMap(css);
 	}
+
+	const result: Record<string, Record<Theme, string>> = {};
 
 	for (const primitiveName of componentDirs) {
 		const name = primitiveName.replace('(', '').replace(')', '');
 		const templateDir = `libs/cli/src/generators/ui/libs/${name}/files/lib`;
 
 		const files: string[] = [];
-		visitNotIgnoredFiles(tree, templateDir, (filePath) => {
-			files.push(filePath);
-		});
+		visitNotIgnoredFiles(tree, templateDir, (filePath) => files.push(filePath));
 
 		if (files.length === 0) {
 			logger.warn(`Skipping empty primitive: ${name}`);
 			continue;
 		}
 
-		const importSet = new Set<string>();
-		const bodies: string[] = [];
-		for (const filePath of files) {
-			const content = tree.read(filePath, 'utf-8');
-			if (!content) continue;
+		result[name] = {} as Record<Theme, string>;
 
-			const transformed = await transformStyle(content, { styleMap });
+		for (const theme of THEMES) {
+			const styleMap = styleMaps[theme];
+			if (!styleMap) continue;
 
-			const { imports, body } = extractImports(transformed);
+			const importSet = new Set<string>();
+			const bodies: string[] = [];
 
-			imports.forEach((i) => importSet.add(i.trim().replaceAll('<%- importAlias %>', '@spartan-ng/helm')));
+			for (const filePath of files) {
+				const content = tree.read(filePath, 'utf-8');
+				if (!content?.trim()) continue;
 
-			bodies.push(body);
+				const transformed = await transformStyle(content, { styleMap });
+
+				const { imports, body } = extractImports(transformed);
+
+				imports.forEach((i) => importSet.add(i.trim().replaceAll('<%- importAlias %>', '@spartan-ng/helm')));
+
+				if (body.trim()) {
+					bodies.push(body);
+				}
+			}
+
+			if (bodies.length === 0) {
+				logger.warn(`Skipping empty primitive (${theme}): ${name}`);
+				continue;
+			}
+
+			result[name][theme] = mergeImports([...importSet]).join('\n') + '\n\n' + bodies.join('\n\n');
 		}
-
-		allPrimitivesSnippets[name] = mergeImports([...importSet]).join('\n') + '\n\n' + bodies.join('\n\n');
-		const outputPath = 'apps/app/src/public/data/manual-install-snippets.json';
-		tree.write(outputPath, JSON.stringify(allPrimitivesSnippets, null, 2));
 	}
+
+	const outputPath = 'apps/app/src/public/data/manual-install-snippets.json';
+	tree.write(outputPath, JSON.stringify(result, null, 2));
+
+	logger.info(`Snippets generated at ${outputPath}`);
 }
 
 export default generateHlmComponentManualInstallation;

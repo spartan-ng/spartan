@@ -1,7 +1,10 @@
-import { Injectable, computed, signal } from '@angular/core';
+import { computed, Injectable, signal } from '@angular/core';
 import type { PrimitiveSnippet } from '../models/primitives-snippets.model';
 
-type ManualInstallSnippets = Record<string, string>;
+export const THEMES = ['vega', 'lyra', 'maia', 'mira', 'nova'] as const;
+export type Theme = (typeof THEMES)[number];
+
+type ManualInstallSnippets = Record<string, Record<Theme, string>>;
 
 @Injectable({
 	providedIn: 'root',

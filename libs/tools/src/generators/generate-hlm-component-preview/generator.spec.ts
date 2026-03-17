@@ -12,7 +12,7 @@ describe('generateHlmComponentManualInstallation (Angular)', () => {
 		tree.write(
 			'libs/cli/src/generators/ui/libs/button/files/lib/button.component.ts',
 			`
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import forwardRef, { Component, ChangeDetectionStrategy } from '@angular/core';
 import { localUtil } from './utils';
 @Component({
   selector: 'app-button',
@@ -53,7 +53,7 @@ export class ButtonGroupComponent {}
 
 		// Check imports are merged correctly
 		expect(data.button['vega']).toContain(
-			"import { ChangeDetectionStrategy, Component, type Input } from '@angular/core'",
+			"import forwardRef, { ChangeDetectionStrategy, Component, type Input } from '@angular/core'",
 		);
 
 		// Check both component classes are included

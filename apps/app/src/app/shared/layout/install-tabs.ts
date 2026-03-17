@@ -7,6 +7,7 @@ import { PrimitiveSnippet } from '@spartan-ng/app/app/core/models/primitives-sni
 import { ManualInstallService, Theme, THEMES } from '@spartan-ng/app/app/core/services/manual-install.service';
 import { Code } from '@spartan-ng/app/app/shared/code/code';
 import { SectionSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-heading';
+import { tabBtn, tabContent } from '@spartan-ng/app/app/shared/layout/tabs';
 import { BrnTabs, BrnTabsContent, BrnTabsList, BrnTabsTrigger } from '@spartan-ng/brain/tabs';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmIcon } from '@spartan-ng/helm/icon';
@@ -14,9 +15,6 @@ import { HlmTabsImports } from '@spartan-ng/helm/tabs';
 
 const cliBtn =
 	"relative inline-flex flex-1 items-center justify-center gap-1.5 rounded-md px-2 py-1 text-sm font-medium whitespace-nowrap text-foreground/60 transition-all group-data-[orientation=vertical]/tabs:w-full group-data-[orientation=vertical]/tabs:justify-start hover:text-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 group-data-[variant=default]/tabs-list:data-[state=active]:shadow-sm group-data-[variant=line]/tabs-list:data-[state=active]:shadow-none dark:text-muted-foreground dark:hover:text-foreground [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 group-data-[variant=line]/tabs-list:bg-transparent group-data-[variant=line]/tabs-list:data-[state=active]:bg-transparent dark:group-data-[variant=line]/tabs-list:data-[state=active]:border-transparent dark:group-data-[variant=line]/tabs-list:data-[state=active]:bg-transparent data-[state=active]:bg-background data-[state=active]:text-foreground dark:data-[state=active]:border-input dark:data-[state=active]:bg-input/30 dark:data-[state=active]:text-foreground after:absolute after:bg-foreground after:opacity-0 after:transition-opacity group-data-[orientation=horizontal]/tabs:after:inset-x-0 group-data-[orientation=horizontal]/tabs:after:bottom-[-5px] group-data-[orientation=horizontal]/tabs:after:h-0.5 group-data-[orientation=vertical]/tabs:after:inset-y-0 group-data-[orientation=vertical]/tabs:after:-right-1 group-data-[orientation=vertical]/tabs:after:w-0.5 group-data-[variant=line]/tabs-list:data-[state=active]:after:opacity-100 h-7 border border-transparent pt-0.5 shadow-none! data-[state=active]:border-input data-[state=active]:bg-background!";
-
-const tabContent =
-	'mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 relative rounded-md border border-border';
 
 @Component({
 	selector: 'spartan-install-tabs',
@@ -41,13 +39,17 @@ const tabContent =
 		<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
 
 		<div class="mt-6 block" hlmTabs tab="Command">
-			<div hlmTabsList variant="line">
-				<button hlmTabsTrigger="Command">Command</button>
-				<button hlmTabsTrigger="Manual">Manual</button>
+			<div
+				brnTabsList
+				class="border-border text-muted-foreground mb-4 inline-flex h-9 w-full items-center justify-start rounded-none border-b bg-transparent p-0"
+				aria-label="Tablist showing Command and Manual"
+			>
+				<button class="${tabBtn}" brnTabsTrigger="Command">Command</button>
+				<button class="${tabBtn}" brnTabsTrigger="Manual">Manual</button>
 			</div>
 
 			<!-- CLI -->
-			<div class="${tabContent} mt-5" brnTabsContent="Command">
+			<div class="${tabContent}" brnTabsContent="Command">
 				<div
 					class="border-border block rounded-md bg-[#f8f8f8] dark:bg-zinc-900"
 					[brnTabs]="_activeCliTab()"
@@ -58,7 +60,7 @@ const tabContent =
 							<ng-icon name="lucideTerminal" class="text-white dark:text-black" />
 						</div>
 
-						<div brnTabsList class="flex">
+						<div brnTabsList class="flex" aria-label="Tablist showing Angular CLI and Nx Plugin">
 							<button class="${cliBtn}" brnTabsTrigger="ng">Angular CLI</button>
 							<button class="${cliBtn}" brnTabsTrigger="nx">Nx Plugin</button>
 						</div>
@@ -78,7 +80,7 @@ const tabContent =
 			</div>
 
 			<!-- MANUAL -->
-			<div class="${tabContent} mt-5" brnTabsContent="Manual">
+			<div class="${tabContent}" brnTabsContent="Manual">
 				@let code = _code();
 				@if (code) {
 					<div
@@ -87,7 +89,7 @@ const tabContent =
 						(tabActivated)="onComponentTabChange($event)"
 					>
 						<div class="border-border/50 flex items-center gap-2 border-b px-3 py-1">
-							<div brnTabsList class="flex">
+							<div brnTabsList class="flex" aria-label="Tablist showing themes">
 								@for (theme of _themes; track theme) {
 									<button class="${cliBtn}" [brnTabsTrigger]="theme">
 										{{ theme | titlecase }}

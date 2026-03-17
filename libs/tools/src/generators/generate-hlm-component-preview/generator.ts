@@ -1,4 +1,4 @@
-import { joinPathFragments, logger, type Tree, visitNotIgnoredFiles } from '@nx/devkit';
+import { formatFiles, joinPathFragments, logger, type Tree, visitNotIgnoredFiles } from '@nx/devkit';
 import { createStyleMap, transformStyle } from '@spartan-ng/cli';
 
 const THEMES = ['lyra', 'maia', 'mira', 'nova', 'vega'] as const;
@@ -47,6 +47,11 @@ function mergeImports(imports: string[]) {
 
 		const namedMatch = clause.match(/\{([\s\S]*)\}/);
 		if (namedMatch) {
+			const beforeBrace = clause.slice(0, clause.indexOf('{')).replace(',', '').trim();
+			if (beforeBrace && !beforeBrace.startsWith('*')) {
+				entry.default = beforeBrace;
+			}
+
 			const names = namedMatch[1]
 				.split(',')
 				.map((s) => s.trim())
@@ -113,7 +118,6 @@ export async function generateHlmComponentManualInstallation(tree: Tree): Promis
 	const componentsDir = 'apps/app/src/app/pages/(components)/components';
 	const componentDirs = getComponentDirectories(tree, componentsDir);
 
-	// 🔥 create all style maps dynamically
 	const styleMaps: Record<Theme, ReturnType<typeof createStyleMap>> = {} as never;
 
 	for (const theme of THEMES) {
@@ -175,6 +179,7 @@ export async function generateHlmComponentManualInstallation(tree: Tree): Promis
 	const outputPath = 'apps/app/src/public/data/manual-install-snippets.json';
 	tree.write(outputPath, JSON.stringify(result, null, 2));
 
+	await formatFiles(tree);
 	logger.info(`Snippets generated at ${outputPath}`);
 }
 

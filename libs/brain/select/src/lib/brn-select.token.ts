@@ -12,6 +12,7 @@ import {
 import type { BrnSelectItem } from './brn-select-item';
 
 export interface BrnSelectBase<T> {
+	disabledState: Signal<boolean>;
 	itemToString: InputSignal<SelectItemToString<T> | undefined>;
 	keyManager: ActiveDescendantKeyManager<BrnSelectItem<T>>;
 	value: ModelSignal<T | null> | ModelSignal<T[] | null>;

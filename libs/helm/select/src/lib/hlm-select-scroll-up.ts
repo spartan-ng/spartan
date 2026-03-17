@@ -4,7 +4,7 @@ import { lucideChevronUp } from '@ng-icons/lucide';
 import { classes } from '@spartan-ng/helm/utils';
 
 @Component({
-	selector: 'hlm-select-scroll-up-button',
+	selector: 'hlm-select-scroll-up',
 	imports: [NgIcon],
 	providers: [provideIcons({ lucideChevronUp })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -12,8 +12,11 @@ import { classes } from '@spartan-ng/helm/utils';
 		<ng-icon name="lucideChevronUp" />
 	`,
 })
-export class HlmSelectScrollUpButton {
+export class HlmSelectScrollUp {
 	constructor() {
-		classes(() => 'top-0 w-full');
+		classes(
+			() =>
+				"bg-popover top-0 z-10 flex w-full cursor-default items-center justify-center py-1 [&_ng-icon:not([class*='text-'])]:text-base",
+		);
 	}
 }

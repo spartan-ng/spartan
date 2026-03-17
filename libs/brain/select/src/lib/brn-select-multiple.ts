@@ -116,7 +116,6 @@ export class BrnSelectMultiple<T> implements BrnSelectBase<T>, ControlValueAcces
 		}
 
 		this._onChange?.(this.value() ?? []);
-		this.close();
 	}
 
 	/** Select the active item with Enter key. */

@@ -15,9 +15,11 @@ import { Tabs } from '../../../../shared/layout/tabs';
 import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
+import { SelectDisabledPreview } from './select--disabled.preview';
+import { SelectGroupPreview } from './select--group.preview';
 import { SelectMultiplePreview } from './select--multiple.preview';
+import { SelectObjectPreview } from './select--object.preview';
 import { SelectScrollablePreview } from './select--scrollable.preview';
-import { SelectValueTemplatePreview } from './select--value-template.preview';
 import { defaultImports, defaultSkeleton, defaultStyles, SelectPreview } from './select.preview';
 
 export const routeMeta: RouteMeta = {
@@ -41,9 +43,11 @@ export const routeMeta: RouteMeta = {
 		PageBottomNav,
 		PageBottomNavLink,
 		SelectPreview,
+		SelectGroupPreview,
 		SelectMultiplePreview,
 		SelectScrollablePreview,
-		SelectValueTemplatePreview,
+		SelectObjectPreview,
+		SelectDisabledPreview,
 		SectionSubSubHeading,
 	],
 	template: `
@@ -83,27 +87,44 @@ export const routeMeta: RouteMeta = {
 			</div>
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
+			<h3 id="examples__groups" spartanH4>Groups</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-select-group-preview />
+				</div>
+				<spartan-code secondTab [code]="_groupCode()" />
+			</spartan-tabs>
+
 			<h3 id="examples__multiple" spartanH4>Multiple</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
-					<!-- <spartan-select-multiple-preview /> -->
+					<spartan-select-multiple-preview />
 				</div>
 				<spartan-code secondTab [code]="_multipleCode()" />
 			</spartan-tabs>
-			<h3 id="examples__scrollable" spartanH4>Scrollable with Groups</h3>
+
+			<h3 id="examples__scrollable" spartanH4>Scrollable</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
-					<!-- <spartan-select-scrollable-preview /> -->
+					<spartan-select-scrollable-preview />
 				</div>
 				<spartan-code secondTab [code]="_scrollableCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__value-template" spartanH4>Value Template</h3>
+			<h3 id="examples__disabled" spartanH4>Disabled</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
-					<!-- <spartan-select-value-template-preview /> -->
+					<spartan-select-disabled-preview />
 				</div>
-				<spartan-code secondTab [code]="_valueTemplateCode()" />
+				<spartan-code secondTab [code]="_disabledCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__object-values" spartanH4>Object values</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-select-object-preview />
+				</div>
+				<spartan-code secondTab [code]="_objectCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
@@ -123,9 +144,11 @@ export const routeMeta: RouteMeta = {
 export default class SkeletonPage {
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('select');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
+	protected readonly _groupCode = computed(() => this._snippets()['group']);
 	protected readonly _multipleCode = computed(() => this._snippets()['multiple']);
 	protected readonly _scrollableCode = computed(() => this._snippets()['scrollable']);
-	protected readonly _valueTemplateCode = computed(() => this._snippets()['valueTemplate']);
+	protected readonly _disabledCode = computed(() => this._snippets()['disabled']);
+	protected readonly _objectCode = computed(() => this._snippets()['object']);
 	protected readonly _defaultStyles = defaultStyles;
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;

@@ -8,6 +8,7 @@ import { injectBrnSelectBase } from './brn-select.token';
 		role: 'combobox',
 		'[id]': 'id()',
 		'[attr.aria-expanded]': '_isExpanded()',
+		'[disabled]': '_disabled()',
 		'(click)': 'open()',
 		'(keydown)': 'onKeyDown($event)',
 	},
@@ -24,6 +25,8 @@ export class BrnSelectTrigger {
 
 	/** Whether the combobox panel is expanded */
 	protected readonly _isExpanded = this._select.isExpanded;
+
+	protected readonly _disabled = this._select.disabledState;
 
 	constructor() {
 		if (!this._brnDialog) return;

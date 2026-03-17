@@ -4,7 +4,7 @@ import { lucideChevronDown } from '@ng-icons/lucide';
 import { classes } from '@spartan-ng/helm/utils';
 
 @Component({
-	selector: 'hlm-select-scroll-down-button',
+	selector: 'hlm-select-scroll-down',
 	imports: [NgIcon],
 	providers: [provideIcons({ lucideChevronDown })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -12,8 +12,11 @@ import { classes } from '@spartan-ng/helm/utils';
 		<ng-icon name="lucideChevronDown" />
 	`,
 })
-export class HlmSelectScrollDownButton {
+export class HlmSelectScrollDown {
 	constructor() {
-		classes(() => 'bottom-0 w-full');
+		classes(
+			() =>
+				"bg-popover bottom-0 z-10 flex w-full cursor-default items-center justify-center py-1 [&_ng-icon:not([class*='text-'])]:text-base",
+		);
 	}
 }

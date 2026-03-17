@@ -21,7 +21,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 	`,
 })
 export class SelectPreview {
-	items = [
+	public readonly items = [
 		{ label: 'Apple', value: 'apple' },
 		{ label: 'Banana', value: 'banana' },
 		{ label: 'Blueberry', value: 'blueberry' },
@@ -29,7 +29,7 @@ export class SelectPreview {
 		{ label: 'Pineapple', value: 'pineapple' },
 	];
 
-	itemToString = (value: string) => this.items.find((item) => item.value === value)?.label || '';
+	public readonly itemToString = (value: string) => this.items.find((item) => item.value === value)?.label || '';
 }
 
 export const defaultImports = `
@@ -44,10 +44,9 @@ export const defaultSkeleton = `
 	<hlm-select-content *hlmSelectPortal>
 		<hlm-select-group>
 			<hlm-select-label>Fruits</hlm-select-label>
-			<hlm-option value="Refresh">Refresh</hlm-option>
-			<hlm-option value="Settings">Settings</hlm-option>
-			<hlm-option value="Help">Help</hlm-option>
-			<hlm-option value="Signout">Sign out</hlm-option>
+			@for (item of items; track item.value) {
+				<hlm-select-item [value]="item.value">{{ item.label }}</hlm-select-item>
+			}
 		</hlm-select-group>
 	</hlm-select-content>
 </hlm-select>

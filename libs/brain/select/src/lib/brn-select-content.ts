@@ -1,6 +1,8 @@
 import { afterNextRender, Directive, ElementRef, inject, signal } from '@angular/core';
 import { injectBrnSelectBase } from './brn-select.token';
 
+const SCROLLBY_PIXEL = 50;
+
 @Directive({
 	selector: '[brnSelectContent]',
 	host: {
@@ -9,8 +11,6 @@ import { injectBrnSelectBase } from './brn-select.token';
 	},
 })
 export class BrnSelectContent {
-	private static SCROLLBY_PIXEL = 50;
-
 	private readonly _select = injectBrnSelectBase();
 
 	protected readonly _selectWidth = this._select.triggerWidth;
@@ -45,9 +45,8 @@ export class BrnSelectContent {
 	}
 
 	public scrollDown(stop: () => void) {
-		console.log('scrolling down');
 		this._elementRef.nativeElement.scrollBy({
-			top: BrnSelectContent.SCROLLBY_PIXEL,
+			top: SCROLLBY_PIXEL,
 			behavior: 'smooth',
 		});
 
@@ -61,7 +60,7 @@ export class BrnSelectContent {
 
 	public scrollUp(stop: () => void) {
 		this._elementRef.nativeElement.scrollBy({
-			top: -BrnSelectContent.SCROLLBY_PIXEL,
+			top: -SCROLLBY_PIXEL,
 			behavior: 'smooth',
 		});
 

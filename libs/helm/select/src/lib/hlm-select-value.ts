@@ -10,7 +10,7 @@ import { classes } from '@spartan-ng/helm/utils';
 export class HlmSelectValue {
 	private readonly _brnSelectValue = inject(BrnSelectValue);
 
-	protected readonly _hidden = this._brnSelectValue._hidden;
+	protected readonly _hidden = this._brnSelectValue.hidden;
 
 	constructor() {
 		classes(() => 'data-hidden:hidden');

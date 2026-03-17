@@ -5,10 +5,10 @@ import { HlmSelectScrollDown } from './hlm-select-scroll-down';
 import { HlmSelectScrollUp } from './hlm-select-scroll-up';
 
 @Component({
-	selector: '[hlmSelectContent],hlm-select-content',
+	selector: 'hlm-select-content',
 	imports: [HlmSelectScrollUp, HlmSelectScrollDown],
-	hostDirectives: [BrnSelectContent],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	hostDirectives: [BrnSelectContent],
 	template: `
 		<hlm-select-scroll-up />
 

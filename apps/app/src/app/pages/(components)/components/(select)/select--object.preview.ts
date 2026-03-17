@@ -34,7 +34,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 	`,
 })
 export class SelectObjectPreview {
-	shippingMethods = [
+	public readonly shippingMethods = [
 		{
 			id: 'standard',
 			name: 'Standard',

@@ -21,7 +21,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 	`,
 })
 export class SelectDisabledPreview {
-	items = [
+	public readonly items = [
 		{ label: 'Apple', value: 'apple' },
 		{ label: 'Banana', value: 'banana' },
 		{ label: 'Blueberry', value: 'blueberry' },

@@ -28,7 +28,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 	`,
 })
 export class SelectPlaceholderPreview {
-	fruits = [
+	public readonly fruits = [
 		{ label: 'Apple', value: 'apple' },
 		{ label: 'Banana', value: 'banana' },
 		{ label: 'Blueberry', value: 'blueberry' },

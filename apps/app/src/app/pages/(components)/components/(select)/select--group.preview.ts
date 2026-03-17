@@ -28,14 +28,14 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 	`,
 })
 export class SelectGroupPreview {
-	fruits = [
+	public readonly fruits = [
 		{ label: 'Apple', value: 'apple' },
 		{ label: 'Banana', value: 'banana' },
 		{ label: 'Blueberry', value: 'blueberry' },
 		{ label: 'Grapes', value: 'grapes' },
 		{ label: 'Pineapple', value: 'pineapple' },
 	];
-	vegetables = [
+	public readonly vegetables = [
 		{ label: 'Carrot', value: 'carrot' },
 		{ label: 'Broccoli', value: 'broccoli' },
 		{ label: 'Spinach', value: 'spinach' },

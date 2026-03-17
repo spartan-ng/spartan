@@ -23,7 +23,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 	`,
 })
 export class SelectScrollablePreview {
-	timezones = [
+	public readonly timezones = [
 		{
 			group: 'North America',
 			options: [
@@ -78,6 +78,6 @@ export class SelectScrollablePreview {
 		},
 	];
 
-	itemToString = (value: string) =>
+	public readonly itemToString = (value: string) =>
 		this.timezones.flatMap((group) => group.options).find((option) => option.value === value)?.label || '';
 }

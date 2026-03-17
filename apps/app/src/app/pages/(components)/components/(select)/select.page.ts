@@ -2,7 +2,7 @@ import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
-import { hlmP } from '@spartan-ng/helm/typography';
+import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
@@ -19,6 +19,7 @@ import { SelectDisabledPreview } from './select--disabled.preview';
 import { SelectGroupPreview } from './select--group.preview';
 import { SelectMultiplePreview } from './select--multiple.preview';
 import { SelectObjectPreview } from './select--object.preview';
+import { SelectPlaceholderPreview } from './select--placeholder.preview';
 import { SelectScrollablePreview } from './select--scrollable.preview';
 import { defaultImports, defaultSkeleton, defaultStyles, SelectPreview } from './select.preview';
 
@@ -48,6 +49,7 @@ export const routeMeta: RouteMeta = {
 		SelectScrollablePreview,
 		SelectObjectPreview,
 		SelectDisabledPreview,
+		SelectPlaceholderPreview,
 		SectionSubSubHeading,
 	],
 	template: `
@@ -127,6 +129,25 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_objectCode()" />
 			</spartan-tabs>
 
+			<h3 id="examples__placeholder" spartanH4>Placeholder</h3>
+			<p class="${hlmP}">
+				Use
+				<code class="${hlmCode}">hlm-select-placeholder</code>
+				to display a custom placeholder when no value is selected. If you only display a text as placeholder, you can
+				also use the
+				<code class="${hlmCode}">placeholder</code>
+				input on
+				<code class="${hlmCode}">hlm-select-value</code>
+				.
+			</p>
+
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-select-placeholder-preview />
+				</div>
+				<spartan-code secondTab [code]="_placeholderCode()" />
+			</spartan-tabs>
+
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="brain" />
 
@@ -149,6 +170,7 @@ export default class SkeletonPage {
 	protected readonly _scrollableCode = computed(() => this._snippets()['scrollable']);
 	protected readonly _disabledCode = computed(() => this._snippets()['disabled']);
 	protected readonly _objectCode = computed(() => this._snippets()['object']);
+	protected readonly _placeholderCode = computed(() => this._snippets()['placeholder']);
 	protected readonly _defaultStyles = defaultStyles;
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;

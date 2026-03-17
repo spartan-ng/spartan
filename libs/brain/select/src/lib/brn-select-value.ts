@@ -6,6 +6,7 @@ import { injectBrnSelectBase } from './brn-select.token';
 	selector: '[brnSelectValue]',
 	host: {
 		'[attr.data-placeholder]': '_isPlaceholder() ? "" : null',
+		'[attr.data-hidden]': '_hidden() ? "" : null',
 		'[textContent]': '_value()',
 	},
 })
@@ -15,6 +16,8 @@ export class BrnSelectValue<T> {
 	public readonly placeholder = input<string>('');
 
 	protected readonly _isPlaceholder = computed(() => !this._select.value());
+
+	public readonly _hidden = computed(() => !this._select.value() && !this.placeholder());
 
 	protected readonly _value = computed(() => {
 		const value = this._select.value();

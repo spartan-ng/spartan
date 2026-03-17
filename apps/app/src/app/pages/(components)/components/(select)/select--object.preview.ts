@@ -7,7 +7,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 	template: `
 		<hlm-select>
 			<hlm-select-trigger class="w-72">
-				<span hlmSelectValue></span>
+				<hlm-select-value placeholder="Select a shipping method" />
 			</hlm-select-trigger>
 			<hlm-select-content *hlmSelectPortal>
 				<hlm-select-group>

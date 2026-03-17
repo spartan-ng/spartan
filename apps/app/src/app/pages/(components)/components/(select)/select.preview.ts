@@ -5,9 +5,9 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 	selector: 'spartan-select-preview',
 	imports: [HlmSelectImports],
 	template: `
-		<hlm-select>
+		<hlm-select [itemToString]="itemToString">
 			<hlm-select-trigger class="w-56">
-				<span hlmSelectValue placeholder="Select a fruit"></span>
+				<hlm-select-value placeholder="Select a fruit" />
 			</hlm-select-trigger>
 			<hlm-select-content *hlmSelectPortal>
 				<hlm-select-group>
@@ -28,6 +28,8 @@ export class SelectPreview {
 		{ label: 'Grapes', value: 'grapes' },
 		{ label: 'Pineapple', value: 'pineapple' },
 	];
+
+	itemToString = (value: string) => this.items.find((item) => item.value === value)?.label || '';
 }
 
 export const defaultImports = `
@@ -37,7 +39,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 export const defaultSkeleton = `
 <hlm-select>
 	<hlm-select-trigger>
-		<span hlmSelectValue></span>
+		<hlm-select-value placeholder="Select a fruit" />
 	</hlm-select-trigger>
 	<hlm-select-content *hlmSelectPortal>
 		<hlm-select-group>

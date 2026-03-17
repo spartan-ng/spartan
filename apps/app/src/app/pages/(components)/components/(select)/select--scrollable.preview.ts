@@ -6,10 +6,10 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 	imports: [HlmSelectImports],
 	template: `
 		<hlm-select>
-			<hlm-select-trigger class="w-[280px]">
-				<span hlmSelectValue></span>
+			<hlm-select-trigger class="w-80">
+				<hlm-select-value placeholder="Select a time zone" />
 			</hlm-select-trigger>
-			<hlm-select-content *hlmSelectPortal class="max-h-96 min-w-[325px]">
+			<hlm-select-content *hlmSelectPortal class="max-h-96">
 				<hlm-select-group>
 					<hlm-select-label>North America</hlm-select-label>
 					<hlm-select-item value="est">Eastern Standard Time (EST)</hlm-select-item>

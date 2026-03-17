@@ -5,7 +5,7 @@
 	"license": "MIT",
 	"type": "module",
 	"scripts": {
-		"build": "nx run-many --target build --all --parallel",
+		"build": "NODE_OPTIONS=--max-old-space-size=8000 nx run-many --target build --all --parallel",
 		"build-storybook": "nx build-storybook ui-storybook",
 		"changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
 		"dev": "nx serve app",

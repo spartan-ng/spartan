@@ -92,87 +92,85 @@ const cliBtn =
 				@let utils = _utils();
 				@let themes = _themes();
 
-				@defer (on viewport) {
-					@if (code && utils) {
-						<div class="space-y-4">
-							<div hlmAccordion type="multiple">
-								<div hlmAccordionItem class="border-b-0">
-									<h3 class="contents">
-										<button
-											hlmAccordionTrigger
-											class="focus-visible:border-ring focus-visible:ring-ring/50 rounded-md px-0 py-0 hover:no-underline"
-										>
-											<span class="flex items-center gap-3">
-												<span
-													class="flex size-10 shrink-0 items-center justify-center rounded-full border"
-													aria-hidden="true"
-												>
-													1
-												</span>
-												<span class="text-[15px] leading-6 font-semibold">Copy utils if needed</span>
+				@if (code && utils) {
+					<div class="space-y-4">
+						<div hlmAccordion type="multiple">
+							<div hlmAccordionItem class="border-b-0">
+								<h3 class="contents">
+									<button
+										hlmAccordionTrigger
+										class="focus-visible:border-ring focus-visible:ring-ring/50 rounded-md px-0 py-0 hover:no-underline"
+									>
+										<span class="flex items-center gap-3">
+											<span
+												class="flex size-10 shrink-0 items-center justify-center rounded-full border"
+												aria-hidden="true"
+											>
+												1
 											</span>
-											<ng-icon hlm hlmAccIcon name="lucideChevronDown" class="opacity-60" />
-										</button>
-									</h3>
+											<span class="text-[15px] leading-6 font-semibold">Copy utils if needed</span>
+										</span>
+										<ng-icon hlm hlmAccIcon name="lucideChevronDown" class="opacity-60" />
+									</button>
+								</h3>
 
-									<hlm-accordion-content class="text-muted-foreground ml-5 border-l ps-8">
-										<spartan-code [code]="utils" language="ts" />
-									</hlm-accordion-content>
-								</div>
-								<div class="ml-5 h-4 border-l ps-8 last:hidden"></div>
+								<hlm-accordion-content class="text-muted-foreground ml-5 border-l ps-8">
+									<spartan-code [code]="utils" language="ts" />
+								</hlm-accordion-content>
+							</div>
+							<div class="ml-5 h-4 border-l ps-8 last:hidden"></div>
 
-								<div hlmAccordionItem class="border-b-0" isOpened>
-									<h3 class="contents">
-										<button
-											hlmAccordionTrigger
-											class="focus-visible:border-ring focus-visible:ring-ring/50 rounded-md px-0 py-0 hover:no-underline"
-										>
-											<span class="flex items-center gap-3">
-												<span
-													class="flex size-10 shrink-0 items-center justify-center rounded-full border"
-													aria-hidden="true"
-												>
-													2
-												</span>
-												<span class="text-[15px] leading-6 font-semibold">
-													Copy and paste the following code into your project.
-												</span>
+							<div hlmAccordionItem class="border-b-0" isOpened>
+								<h3 class="contents">
+									<button
+										hlmAccordionTrigger
+										class="focus-visible:border-ring focus-visible:ring-ring/50 rounded-md px-0 py-0 hover:no-underline"
+									>
+										<span class="flex items-center gap-3">
+											<span
+												class="flex size-10 shrink-0 items-center justify-center rounded-full border"
+												aria-hidden="true"
+											>
+												2
 											</span>
-											<ng-icon hlm hlmAccIcon name="lucideChevronDown" class="opacity-60" />
-										</button>
-									</h3>
+											<span class="text-[15px] leading-6 font-semibold">
+												Copy and paste the following code into your project.
+											</span>
+										</span>
+										<ng-icon hlm hlmAccIcon name="lucideChevronDown" class="opacity-60" />
+									</button>
+								</h3>
 
-									<hlm-accordion-content class="text-muted-foreground ml-5 border-l ps-8">
-										<div
-											class="${tabContent} border-border block rounded-md bg-[#f8f8f8] dark:bg-zinc-900"
-											[brnTabs]="_activeComponentTab()"
-											(tabActivated)="onComponentTabChange($event)"
-										>
-											<div class="border-border/50 flex items-center gap-2 border-b px-3 py-1">
-												<div brnTabsList class="flex" aria-label="Tablist showing themes">
-													@for (theme of themes; track theme) {
-														<button class="${cliBtn}" [brnTabsTrigger]="theme">
-															{{ theme | titlecase }}
-														</button>
-													}
-												</div>
-
-												<button (click)="copyComponent()" hlmBtn variant="ghost" class="ml-auto h-6 w-6">
-													<ng-icon hlm size="xs" [name]="_componentCopied ? 'lucideCheck' : 'lucideClipboard'" />
-												</button>
+								<hlm-accordion-content class="text-muted-foreground ml-5 border-l ps-8">
+									<div
+										class="${tabContent} border-border block rounded-md bg-[#f8f8f8] dark:bg-zinc-900"
+										[brnTabs]="_activeComponentTab()"
+										(tabActivated)="onComponentTabChange($event)"
+									>
+										<div class="border-border/50 flex items-center gap-2 border-b px-3 py-1">
+											<div brnTabsList class="flex" aria-label="Tablist showing themes">
+												@for (theme of themes; track theme) {
+													<button class="${cliBtn}" [brnTabsTrigger]="theme">
+														{{ theme | titlecase }}
+													</button>
+												}
 											</div>
 
-											@for (theme of themes; track theme) {
-												<div [hlmTabsContent]="theme">
-													<spartan-code [code]="code[theme]" language="ts" disableCopy />
-												</div>
-											}
+											<button (click)="copyComponent()" hlmBtn variant="ghost" class="ml-auto h-6 w-6">
+												<ng-icon hlm size="xs" [name]="_componentCopied ? 'lucideCheck' : 'lucideClipboard'" />
+											</button>
 										</div>
-									</hlm-accordion-content>
-								</div>
+
+										@for (theme of themes; track theme) {
+											<div [hlmTabsContent]="theme">
+												<spartan-code [code]="code[theme]" language="ts" disableCopy />
+											</div>
+										}
+									</div>
+								</hlm-accordion-content>
 							</div>
 						</div>
-					}
+					</div>
 				}
 			</div>
 		</div>

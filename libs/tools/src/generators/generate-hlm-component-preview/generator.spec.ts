@@ -52,11 +52,13 @@ export class ButtonGroupComponent {}
 		const data = JSON.parse(raw);
 
 		// Check imports are merged correctly
-		expect(data.button).toContain("import { ChangeDetectionStrategy, Component, type Input } from '@angular/core'");
+		expect(data.button['vega']).toContain(
+			"import { ChangeDetectionStrategy, Component, type Input } from '@angular/core'",
+		);
 
 		// Check both component classes are included
-		expect(data.button).toContain('export class ButtonComponent');
-		expect(data.button).toContain('export class ButtonGroupComponent');
+		expect(data.button['vega']).toContain('export class ButtonComponent');
+		expect(data.button['vega']).toContain('export class ButtonGroupComponent');
 	});
 
 	it('ignores relative imports inside Angular primitives', async () => {
@@ -91,6 +93,6 @@ export class HlmButtonComp {}
 		const raw = tree.read('apps/app/src/public/data/manual-install-snippets.json', 'utf-8');
 		const data = JSON.parse(raw);
 
-		expect(data.button).toContain('@spartan-ng/helm/button');
+		expect(data.button['vega']).toContain('@spartan-ng/helm/button');
 	});
 });

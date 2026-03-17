@@ -22,7 +22,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 	template: `
 		<div hlmButtonGroup>
 			<div hlmButtonGroup class="[&>brn-select>div>hlm-select-trigger>button]:rounded-r-none">
-				<brn-select class="inline-block" placeholder="Select an option" [value]="_currencies[0].value">
+				<!-- <brn-select class="inline-block" placeholder="Select an option" [value]="_currencies[0].value">
 					<hlm-select-trigger>
 						<hlm-select-value>
 							<div *brnSelectValue="let value">
@@ -40,7 +40,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 							</hlm-option>
 						}
 					</hlm-select-content>
-				</brn-select>
+				</brn-select> -->
 				<input hlmInput placeholder="10.00" />
 			</div>
 			<div hlmButtonGroup>

@@ -86,14 +86,14 @@ export const routeMeta: RouteMeta = {
 			<h3 id="examples__multiple" spartanH4>Multiple</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
-					<spartan-select-multiple-preview />
+					<!-- <spartan-select-multiple-preview /> -->
 				</div>
 				<spartan-code secondTab [code]="_multipleCode()" />
 			</spartan-tabs>
 			<h3 id="examples__scrollable" spartanH4>Scrollable with Groups</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
-					<spartan-select-scrollable-preview />
+					<!-- <spartan-select-scrollable-preview /> -->
 				</div>
 				<spartan-code secondTab [code]="_scrollableCode()" />
 			</spartan-tabs>
@@ -101,7 +101,7 @@ export const routeMeta: RouteMeta = {
 			<h3 id="examples__value-template" spartanH4>Value Template</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
-					<spartan-select-value-template-preview />
+					<!-- <spartan-select-value-template-preview /> -->
 				</div>
 				<spartan-code secondTab [code]="_valueTemplateCode()" />
 			</spartan-tabs>

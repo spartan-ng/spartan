@@ -31,7 +31,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 				<hlm-error>Your name is required</hlm-error>
 			</hlm-form-field>
 			<hlm-form-field>
-				<brn-select class="inline-block" placeholder="Select some fruit" formControlName="fruit">
+				<!-- <brn-select class="inline-block" placeholder="Select some fruit" formControlName="fruit">
 					<hlm-select-trigger class="w-80">
 						<hlm-select-value />
 					</hlm-select-trigger>
@@ -41,7 +41,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 							<hlm-option [value]="option.value">{{ option.label }}</hlm-option>
 						}
 					</hlm-select-content>
-				</brn-select>
+				</brn-select> -->
 				<hlm-error>The fruit is required</hlm-error>
 			</hlm-form-field>
 

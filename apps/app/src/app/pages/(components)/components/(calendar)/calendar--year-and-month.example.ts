@@ -13,7 +13,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 	template: `
 		<hlm-calendar [captionLayout]="_captionLayout()" />
 
-		<brn-select class="inline-block" placeholder="Select an option" [(ngModel)]="_captionLayout">
+		<!-- <brn-select class="inline-block" placeholder="Select an option" [(ngModel)]="_captionLayout">
 			<hlm-select-trigger class="w-full">
 				<hlm-select-value />
 			</hlm-select-trigger>
@@ -22,7 +22,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 				<hlm-option value="dropdown-months">Only Month</hlm-option>
 				<hlm-option value="dropdown-years">Only Year</hlm-option>
 			</hlm-select-content>
-		</brn-select>
+		</brn-select> -->
 	`,
 })
 export class CalendarYearAndMonthExample {

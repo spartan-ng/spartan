@@ -46,7 +46,7 @@ import type { ClassValue } from 'clsx';
 					<div class="relative flex items-center justify-center pt-1">
 						<div class="flex w-full items-center justify-center gap-1.5">
 							<ng-template #month>
-								<brn-select brnCalendarMonthSelect>
+								<!-- <brn-select brnCalendarMonthSelect>
 									<hlm-select-trigger size="sm" [class]="_selectClass">
 										<brn-select-value />
 									</hlm-select-trigger>
@@ -55,10 +55,10 @@ import type { ClassValue } from 'clsx';
 											<hlm-option [value]="month">{{ month }}</hlm-option>
 										}
 									</hlm-select-content>
-								</brn-select>
+								</brn-select> -->
 							</ng-template>
 							<ng-template #year>
-								<brn-select brnCalendarYearSelect>
+								<!-- <brn-select brnCalendarYearSelect>
 									<hlm-select-trigger size="sm" [class]="_selectClass">
 										<brn-select-value />
 									</hlm-select-trigger>
@@ -67,7 +67,7 @@ import type { ClassValue } from 'clsx';
 											<hlm-option [value]="year">{{ year }}</hlm-option>
 										}
 									</hlm-select-content>
-								</brn-select>
+								</brn-select> -->
 							</ng-template>
 							@let heading = _heading();
 							@switch (captionLayout()) {

@@ -14,7 +14,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 			<div hlmFieldGroup>
 				<div hlmField>
 					<label hlmFieldLabel for="field-select-department">Department</label>
-					<brn-select class="inline-block" placeholder="Choose a department">
+					<!-- <brn-select class="inline-block" placeholder="Choose a department">
 						<hlm-select-trigger class="w-full" id="field-select-department">
 							<hlm-select-value />
 						</hlm-select-trigger>
@@ -28,7 +28,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 							<hlm-option value="finance">Finance</hlm-option>
 							<hlm-option value="operations">Operations</hlm-option>
 						</hlm-select-content>
-					</brn-select>
+					</brn-select> -->
 					<p hlmFieldDescription>Select your department or area of work.</p>
 				</div>
 			</div>

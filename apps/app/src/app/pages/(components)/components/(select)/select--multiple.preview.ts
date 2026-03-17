@@ -9,7 +9,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 	imports: [BrnSelectImports, HlmSelectImports],
 	providers: [provideIcons({ lucideChevronUp, lucideChevronDown })],
 	template: `
-		<brn-select class="inline-block" placeholder="Select some fruit" [multiple]="true">
+		<!-- <brn-select class="inline-block" placeholder="Select some fruit" [multiple]="true">
 			<hlm-select-trigger class="w-56">
 				<hlm-select-value />
 			</hlm-select-trigger>
@@ -19,7 +19,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 				<hlm-option value="Pears">Pears</hlm-option>
 				<hlm-option value="Strawberries">Strawberries</hlm-option>
 			</hlm-select-content>
-		</brn-select>
+		</brn-select> -->
 	`,
 })
 export class SelectMultiplePreview {}

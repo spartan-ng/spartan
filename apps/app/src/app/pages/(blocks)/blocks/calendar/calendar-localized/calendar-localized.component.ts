@@ -109,7 +109,7 @@ export class LanguageService {
 				<p hlmCardDescription>{{ _strings[lang].description }}</p>
 
 				<div hlmCardAction>
-					<brn-select [value]="lang" (valueChange)="setLang($event)">
+					<!-- <brn-select [value]="lang" (valueChange)="setLang($event)">
 						<hlm-select-trigger>
 							<hlm-select-value />
 						</hlm-select-trigger>
@@ -119,7 +119,7 @@ export class LanguageService {
 								<hlm-option [value]="l">{{ l }}</hlm-option>
 							}
 						</hlm-select-content>
-					</brn-select>
+					</brn-select> -->
 				</div>
 			</div>
 

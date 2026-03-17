@@ -6,7 +6,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 	selector: 'spartan-select-scrollable-preview',
 	imports: [BrnSelectImports, HlmSelectImports],
 	template: `
-		<hlm-select scrollable="true" placeholder="Select a timezone">
+		<!-- <hlm-select scrollable="true" placeholder="Select a timezone">
 			<hlm-select-trigger class="w-[280px]">
 				<hlm-select-value />
 			</hlm-select-trigger>
@@ -62,7 +62,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 
 				<hlm-select-scroll-down />
 			</hlm-select-content>
-		</hlm-select>
+		</hlm-select> -->
 	`,
 })
 export class SelectScrollablePreview {}

@@ -12,7 +12,7 @@ import type { DashboardData } from './dashboard-data.model';
 		@if (_element.reviewer !== 'Assign reviewer') {
 			{{ _element.reviewer }}
 		} @else {
-			<brn-select id="{{ _element.id }}-reviewer" class="inline-block" placeholder="Assign reviewer">
+			<!-- <brn-select id="{{ _element.id }}-reviewer" class="inline-block" placeholder="Assign reviewer">
 				<hlm-select-trigger
 					size="sm"
 					class="w-38 **:data-[slot=select-value]:block **:data-[slot=select-value]:truncate"
@@ -23,7 +23,7 @@ import type { DashboardData } from './dashboard-data.model';
 					<hlm-option value="Eddie Lake">Eddie Lake</hlm-option>
 					<hlm-option value="Jamik Tashpulatov">Jamik Tashpulatov</hlm-option>
 				</hlm-select-content>
-			</brn-select>
+			</brn-select> -->
 		}
 	`,
 })

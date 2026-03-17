@@ -3,6 +3,7 @@ import { HlmSelectContent } from './lib/hlm-select-content';
 import { HlmSelectGroup } from './lib/hlm-select-group';
 import { HlmSelectItem } from './lib/hlm-select-item';
 import { HlmSelectLabel } from './lib/hlm-select-label';
+import { HlmSelectPortal } from './lib/hlm-select-portal';
 import { HlmSelectScrollDownButton } from './lib/hlm-select-scroll-down-button';
 import { HlmSelectScrollUpButton } from './lib/hlm-select-scroll-up-button';
 import { HlmSelectSeparator } from './lib/hlm-select-separator';
@@ -14,6 +15,7 @@ export * from './lib/hlm-select-content';
 export * from './lib/hlm-select-group';
 export * from './lib/hlm-select-item';
 export * from './lib/hlm-select-label';
+export * from './lib/hlm-select-portal';
 export * from './lib/hlm-select-scroll-down-button';
 export * from './lib/hlm-select-scroll-up-button';
 export * from './lib/hlm-select-separator';
@@ -26,6 +28,7 @@ export const HlmSelectImports = [
 	HlmSelectGroup,
 	HlmSelectItem,
 	HlmSelectLabel,
+	HlmSelectPortal,
 	HlmSelectScrollDownButton,
 	HlmSelectScrollUpButton,
 	HlmSelectSeparator,

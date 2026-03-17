@@ -15,7 +15,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 		<div class="flex w-max flex-col gap-2">
 			<hlm-calendar calendarClass="bg-background" [captionLayout]="_captionLayout()" />
 
-			<brn-select class="bg-background" [(ngModel)]="_captionLayout">
+			<!-- <brn-select class="bg-background" [(ngModel)]="_captionLayout">
 				<hlm-select-trigger class="w-full">
 					<hlm-select-value />
 				</hlm-select-trigger>
@@ -24,7 +24,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 					<hlm-option value="dropdown-months">Only Month</hlm-option>
 					<hlm-option value="dropdown-years">Only Year</hlm-option>
 				</hlm-select-content>
-			</brn-select>
+			</brn-select> -->
 		</div>
 	`,
 })

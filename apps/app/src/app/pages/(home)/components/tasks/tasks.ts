@@ -213,7 +213,7 @@ import { type Task, TASK_DATA } from './services/tasks.models';
 				<div class="mt-2 flex gap-8 sm:mt-0">
 					<div class="flex gap-2">
 						<span hlmLabel>Row per page:</span>
-						<brn-select
+						<!-- <brn-select
 							class="inline-block"
 							placeholder="{{ _availablePageSizes[0] }}"
 							[ngModel]="table.getState().pagination.pageSize"
@@ -229,7 +229,7 @@ import { type Task, TASK_DATA } from './services/tasks.models';
 									</hlm-option>
 								}
 							</hlm-select-content>
-						</brn-select>
+						</brn-select> -->
 					</div>
 
 					<span hlmLabel>Page {{ table.getState().pagination.pageIndex + 1 }} of {{ table.getPageCount() }}</span>

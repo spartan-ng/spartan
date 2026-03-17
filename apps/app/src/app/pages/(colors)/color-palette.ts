@@ -21,7 +21,7 @@ import { ColorFormat } from './format-color';
 			<div class="flex-1 pl-1 text-sm font-medium">
 				<h2 class="capitalize">{{ palette.name }}</h2>
 			</div>
-			<brn-select hlm [(ngModel)]="colorFormat">
+			<!-- <brn-select hlm [(ngModel)]="colorFormat">
 				<hlm-select-trigger size="sm" class="bg-secondary text-secondary-foreground border-secondary shadow-none">
 					<span class="font-medium">Format:</span>
 					<span class="text-muted-foreground font-mono">{{ colorFormat() }}</span>
@@ -36,7 +36,7 @@ import { ColorFormat } from './format-color';
 						</hlm-option>
 					}
 				</hlm-select-content>
-			</brn-select>
+			</brn-select> -->
 		</div>
 		<div class="flex flex-col gap-4 py-4 sm:flex-row sm:gap-2">
 			@for (color of palette.colors; track color.id) {

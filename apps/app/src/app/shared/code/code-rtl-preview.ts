@@ -20,7 +20,7 @@ import { HlmSeparator } from '@spartan-ng/helm/separator';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div class="border-border flex flex-row items-center justify-between border-b p-4">
-			<brn-select class="inline-block" [(value)]="_languageService.language">
+			<!-- <brn-select class="inline-block" [(value)]="_languageService.language">
 				<hlm-select-trigger class="w-52">
 					<hlm-select-value />
 				</hlm-select-trigger>
@@ -29,7 +29,7 @@ import { HlmSeparator } from '@spartan-ng/helm/separator';
 					<hlm-option value="ar">Arabic (العربية)</hlm-option>
 					<hlm-option value="he">Hebrew (עברית)</hlm-option>
 				</hlm-select-content>
-			</brn-select>
+			</brn-select> -->
 
 			<hlm-popover align="end">
 				<button hlmPopoverTrigger hlmBtn variant="ghost">

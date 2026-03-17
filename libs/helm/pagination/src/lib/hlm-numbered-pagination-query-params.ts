@@ -89,7 +89,7 @@ import { HlmPaginationPrevious } from './hlm-pagination-previous';
 			</nav>
 
 			<!-- Show Page Size selector -->
-			<brn-select [(ngModel)]="itemsPerPage" class="ml-auto" placeholder="Page size">
+			<!-- <brn-select [(ngModel)]="itemsPerPage" class="ml-auto" placeholder="Page size">
 				<hlm-select-trigger class="w-fit">
 					<hlm-select-value />
 				</hlm-select-trigger>
@@ -98,7 +98,7 @@ import { HlmPaginationPrevious } from './hlm-pagination-previous';
 						<hlm-option [value]="pageSize">{{ pageSize }} / page</hlm-option>
 					}
 				</hlm-select-content>
-			</brn-select>
+			</brn-select> -->
 		</div>
 	`,
 })

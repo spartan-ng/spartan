@@ -17,7 +17,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div class="border-border flex flex-row items-center justify-between border-b p-4">
-			<brn-select class="inline-block" [(value)]="_styleService.style">
+			<!-- <brn-select class="inline-block" [(value)]="_styleService.style">
 				<hlm-select-trigger class="w-52">
 					<hlm-select-value />
 				</hlm-select-trigger>
@@ -28,7 +28,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 					<hlm-option value="lyra">Lyra</hlm-option>
 					<hlm-option value="mira">Mira</hlm-option>
 				</hlm-select-content>
-			</brn-select>
+			</brn-select> -->
 		</div>
 		<div
 			class="preview style-{{

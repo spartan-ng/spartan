@@ -8,6 +8,7 @@ import { BrnSelectSeparator } from './lib/brn-select-separator';
 import { BrnSelectTrigger } from './lib/brn-select-trigger';
 import { BrnSelectTriggerWrapper } from './lib/brn-select-trigger-wrapper';
 import { BrnSelectValue } from './lib/brn-select-value';
+import { BrnSelectValues } from './lib/brn-select-values';
 
 export * from './lib/brn-select';
 export * from './lib/brn-select-content';
@@ -20,6 +21,7 @@ export * from './lib/brn-select-separator';
 export * from './lib/brn-select-trigger';
 export * from './lib/brn-select-trigger-wrapper';
 export * from './lib/brn-select-value';
+export * from './lib/brn-select-values';
 export * from './lib/brn-select.token';
 
 export const BrnSelectImports = [
@@ -33,4 +35,5 @@ export const BrnSelectImports = [
 	BrnSelectTriggerWrapper,
 	BrnSelectTrigger,
 	BrnSelectValue,
+	BrnSelectValues,
 ] as const;

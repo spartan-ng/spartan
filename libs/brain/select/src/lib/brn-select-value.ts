@@ -15,9 +15,9 @@ export class BrnSelectValue<T> {
 
 	public readonly placeholder = input<string>('');
 
-	protected readonly _isPlaceholder = computed(() => !this._select.value());
+	protected readonly _isPlaceholder = computed(() => !this._select.hasValue());
 
-	public readonly _hidden = computed(() => !this._select.value() && !this.placeholder());
+	public readonly _hidden = computed(() => !this._select.hasValue() && !this.placeholder());
 
 	protected readonly _value = computed(() => {
 		const value = this._select.value();

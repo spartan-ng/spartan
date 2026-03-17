@@ -29,7 +29,7 @@ export class BrnSelectTrigger {
 
 	protected readonly _disabled = this._select.disabledState;
 
-	protected readonly _isPlaceholder = computed(() => !this._select.value());
+	protected readonly _isPlaceholder = computed(() => !this._select.hasValue());
 
 	constructor() {
 		if (!this._brnDialog) return;

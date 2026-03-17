@@ -5,59 +5,79 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 	selector: 'spartan-select-scrollable-preview',
 	imports: [HlmSelectImports],
 	template: `
-		<hlm-select>
+		<hlm-select [itemToString]="itemToString">
 			<hlm-select-trigger class="w-80">
 				<hlm-select-value placeholder="Select a time zone" />
 			</hlm-select-trigger>
 			<hlm-select-content *hlmSelectPortal class="max-h-96">
-				<hlm-select-group>
-					<hlm-select-label>North America</hlm-select-label>
-					<hlm-select-item value="est">Eastern Standard Time (EST)</hlm-select-item>
-					<hlm-select-item value="cst">Central Standard Time (CST)</hlm-select-item>
-					<hlm-select-item value="mst">Mountain Standard Time (MST)</hlm-select-item>
-					<hlm-select-item value="pst">Pacific Standard Time (PST)</hlm-select-item>
-					<hlm-select-item value="akst">Alaska Standard Time (AKST)</hlm-select-item>
-					<hlm-select-item value="hst">Hawaii Standard Time (HST)</hlm-select-item>
-				</hlm-select-group>
-
-				<hlm-select-group>
-					<hlm-select-label>Europe & Africa</hlm-select-label>
-					<hlm-select-item value="gmt">Greenwich Mean Time (GMT)</hlm-select-item>
-					<hlm-select-item value="cet">Central European Time (CET)</hlm-select-item>
-					<hlm-select-item value="eet">Eastern European Time (EET)</hlm-select-item>
-					<hlm-select-item value="west">Western European Summer Time (WEST)</hlm-select-item>
-					<hlm-select-item value="cat">Central Africa Time (CAT)</hlm-select-item>
-					<hlm-select-item value="eat">East Africa Time (EAT)</hlm-select-item>
-				</hlm-select-group>
-
-				<hlm-select-group>
-					<hlm-select-label>Asia</hlm-select-label>
-					<hlm-select-item value="msk">Moscow Time (MSK)</hlm-select-item>
-					<hlm-select-item value="ist">India Standard Time (IST)</hlm-select-item>
-					<hlm-select-item value="cst_china">China Standard Time (CST)</hlm-select-item>
-					<hlm-select-item value="jst">Japan Standard Time (JST)</hlm-select-item>
-					<hlm-select-item value="kst">Korea Standard Time (KST)</hlm-select-item>
-					<hlm-select-item value="ist_indonesia">Indonesia Central Standard Time (WITA)</hlm-select-item>
-				</hlm-select-group>
-
-				<hlm-select-group>
-					<hlm-select-label>Australia & Pacific</hlm-select-label>
-					<hlm-select-item value="awst">Australian Western Standard Time (AWST)</hlm-select-item>
-					<hlm-select-item value="acst">Australian Central Standard Time (ACST)</hlm-select-item>
-					<hlm-select-item value="aest">Australian Eastern Standard Time (AEST)</hlm-select-item>
-					<hlm-select-item value="nzst">New Zealand Standard Time (NZST)</hlm-select-item>
-					<hlm-select-item value="fjt">Fiji Time (FJT)</hlm-select-item>
-				</hlm-select-group>
-
-				<hlm-select-group>
-					<hlm-select-label>South America</hlm-select-label>
-					<hlm-select-item value="art">Argentina Time (ART)</hlm-select-item>
-					<hlm-select-item value="bot">Bolivia Time (BOT)</hlm-select-item>
-					<hlm-select-item value="brt">Brasilia Time (BRT)</hlm-select-item>
-					<hlm-select-item value="clt">Chile Standard Time (CLT)</hlm-select-item>
-				</hlm-select-group>
+				@for (timezone of timezones; track $index) {
+					<hlm-select-group>
+						<hlm-select-label>{{ timezone.group }}</hlm-select-label>
+						@for (option of timezone.options; track $index) {
+							<hlm-select-item [value]="option.value">{{ option.label }}</hlm-select-item>
+						}
+					</hlm-select-group>
+				}
 			</hlm-select-content>
 		</hlm-select>
 	`,
 })
-export class SelectScrollablePreview {}
+export class SelectScrollablePreview {
+	timezones = [
+		{
+			group: 'North America',
+			options: [
+				{ label: 'Eastern Standard Time', value: 'est' },
+				{ label: 'Central Standard Time', value: 'cst' },
+				{ label: 'Mountain Standard Time', value: 'mst' },
+				{ label: 'Pacific Standard Time', value: 'pst' },
+				{ label: 'Alaska Standard Time', value: 'akst' },
+				{ label: 'Hawaii Standard Time', value: 'hst' },
+			],
+		},
+		{
+			group: 'Europe & Africa',
+			options: [
+				{ label: 'Greenwich Mean Time', value: 'gmt' },
+				{ label: 'Central European Time', value: 'cet' },
+				{ label: 'Eastern European Time', value: 'eet' },
+				{ label: 'Western European Summer Time', value: 'west' },
+				{ label: 'Central Africa Time', value: 'cat' },
+				{ label: 'East Africa Time', value: 'eat' },
+			],
+		},
+		{
+			group: 'Asia',
+			options: [
+				{ label: 'Moscow Time', value: 'msk' },
+				{ label: 'India Standard Time', value: 'ist' },
+				{ label: 'China Standard Time', value: 'cst_china' },
+				{ label: 'Japan Standard Time', value: 'jst' },
+				{ label: 'Korea Standard Time', value: 'kst' },
+				{ label: 'Indonesia Central Standard Time', value: 'ist_indonesia' },
+			],
+		},
+		{
+			group: 'Australia & Pacific',
+			options: [
+				{ label: 'Australian Western Standard Time', value: 'awst' },
+				{ label: 'Australian Central Standard Time', value: 'acst' },
+				{ label: 'Australian Eastern Standard Time', value: 'aest' },
+				{ label: 'New Zealand Standard Time', value: 'nzst' },
+				{ label: 'Fiji Time', value: 'fjt' },
+			],
+		},
+		{
+			group: 'South America',
+			options: [
+				{ label: 'Argentina Time', value: 'art' },
+				{ label: 'Bolivia Time', value: 'bot' },
+				{ label: 'Brasilia Time', value: 'brt' },
+				{ label: 'Chile Standard Time', value: 'clt' },
+			],
+		},
+	];
+
+	itemToString = (value: string) =>
+		this.timezones.flatMap((group) => group.options).find((option) => option.value === value)?.label || '';
+}

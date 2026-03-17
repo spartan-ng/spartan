@@ -57,6 +57,12 @@ export class BrnSelectMultiple<T> implements BrnSelectBase<T>, ControlValueAcces
 	/** The selected value of the select. */
 	public readonly value = model<T[] | null>(null);
 
+	public readonly hasValue = computed(() => {
+		const value = this.value();
+		if (value == null) return false;
+		return value.length > 0;
+	});
+
 	/** A function to compare an item with the selected value. */
 	public readonly isItemEqualToValue = input<SelectItemEqualToValue<T>>(this._config.isItemEqualToValue);
 

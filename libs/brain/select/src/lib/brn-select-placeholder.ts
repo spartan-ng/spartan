@@ -4,11 +4,11 @@ import { injectBrnSelectBase } from './brn-select.token';
 @Directive({
 	selector: '[brnSelectPlaceholder]',
 	host: {
-		'[attr.data-hidden]': '_value() ? "" : null',
+		'[attr.data-hidden]': '_hasValue() ? "" : null',
 	},
 })
 export class BrnSelectPlaceholder {
 	private readonly _select = injectBrnSelectBase();
 
-	protected readonly _value = this._select.value;
+	protected readonly _hasValue = this._select.hasValue;
 }

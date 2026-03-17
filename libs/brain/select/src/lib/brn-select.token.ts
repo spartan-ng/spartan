@@ -16,6 +16,7 @@ export interface BrnSelectBase<T> {
 	itemToString: InputSignal<SelectItemToString<T> | undefined>;
 	keyManager: ActiveDescendantKeyManager<BrnSelectItem<T>>;
 	value: ModelSignal<T | null> | ModelSignal<T[] | null>;
+	hasValue: Signal<boolean>;
 	isExpanded: Signal<boolean>;
 	triggerWidth: Signal<number | null>;
 

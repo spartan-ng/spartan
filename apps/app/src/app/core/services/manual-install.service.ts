@@ -1,11 +1,10 @@
 import { computed, Injectable, signal } from '@angular/core';
+import { Style } from '@spartan-ng/registry';
 import type { PrimitiveSnippet } from '../models/primitives-snippets.model';
 
 export type ManualInstallPrimitives = PrimitiveSnippet | 'typography' | 'utils';
-export const THEMES = ['vega', 'lyra', 'maia', 'mira', 'nova'] as const;
-export type Theme = (typeof THEMES)[number];
 
-type ManualInstallSnippets = Record<string, Record<Theme, string>>;
+type ManualInstallSnippets = Record<string, Record<Style, string>>;
 
 @Injectable({
 	providedIn: 'root',

@@ -6,8 +6,6 @@ import { lucideCheck, lucideClipboard, lucideTerminal } from '@ng-icons/lucide';
 import {
 	ManualInstallPrimitives,
 	ManualInstallService,
-	Theme,
-	THEMES,
 } from '@spartan-ng/app/app/core/services/manual-install.service';
 import { CLIMode, CLIModeService } from '@spartan-ng/app/app/shared/cli-mode.service';
 import { Code } from '@spartan-ng/app/app/shared/code/code';
@@ -18,6 +16,7 @@ import { HlmAccordionImports } from '@spartan-ng/helm/accordion';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmTabsImports } from '@spartan-ng/helm/tabs';
+import { Style, STYLES } from '@spartan-ng/registry';
 
 const cliBtn =
 	"relative inline-flex flex-1 items-center justify-center gap-1.5 rounded-md px-2 py-1 text-sm font-medium whitespace-nowrap text-foreground/60 transition-all group-data-[orientation=vertical]/tabs:w-full group-data-[orientation=vertical]/tabs:justify-start hover:text-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 group-data-[variant=default]/tabs-list:data-[state=active]:shadow-sm group-data-[variant=line]/tabs-list:data-[state=active]:shadow-none dark:text-muted-foreground dark:hover:text-foreground [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 group-data-[variant=line]/tabs-list:bg-transparent group-data-[variant=line]/tabs-list:data-[state=active]:bg-transparent dark:group-data-[variant=line]/tabs-list:data-[state=active]:border-transparent dark:group-data-[variant=line]/tabs-list:data-[state=active]:bg-transparent data-[state=active]:bg-background data-[state=active]:text-foreground dark:data-[state=active]:border-input dark:data-[state=active]:bg-input/30 dark:data-[state=active]:text-foreground after:absolute after:bg-foreground after:opacity-0 after:transition-opacity group-data-[orientation=horizontal]/tabs:after:inset-x-0 group-data-[orientation=horizontal]/tabs:after:bottom-[-5px] group-data-[orientation=horizontal]/tabs:after:h-0.5 group-data-[orientation=vertical]/tabs:after:inset-y-0 group-data-[orientation=vertical]/tabs:after:-right-1 group-data-[orientation=vertical]/tabs:after:w-0.5 group-data-[variant=line]/tabs-list:data-[state=active]:after:opacity-100 h-7 border border-transparent pt-0.5 shadow-none! data-[state=active]:border-input data-[state=active]:bg-background!";
@@ -44,6 +43,8 @@ const cliBtn =
 	},
 	template: `
 		<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
+
+		<ng-content />
 
 		<div class="mt-6 block" hlmTabs tab="Command">
 			<div
@@ -183,13 +184,13 @@ export class InstallTabs {
 
 	protected readonly _themes = computed(() => {
 		if (this.showOnlyVega()) {
-			return THEMES.filter((theme) => theme === 'vega');
+			return STYLES.filter((theme) => theme === 'vega');
 		}
-		return THEMES;
+		return STYLES;
 	});
 
 	protected readonly _activeCliTab = computed(() => this._cliService.cliMode());
-	protected readonly _activeComponentTab = signal<Theme>('vega');
+	protected readonly _activeComponentTab = signal<Style>('vega');
 
 	private readonly _clipboard = inject(Clipboard);
 	private readonly _installService = inject(ManualInstallService);
@@ -222,7 +223,7 @@ export class InstallTabs {
 	}
 
 	protected onComponentTabChange($event: string) {
-		this._activeComponentTab.set($event as Theme);
+		this._activeComponentTab.set($event as Style);
 	}
 
 	protected onCliTabChange($event: string) {

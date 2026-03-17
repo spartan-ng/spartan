@@ -24,6 +24,7 @@ export interface BrnSelectBase<T> {
 	select: (itemValue: T) => void;
 	/** Select the active item with Enter key. */
 	selectActiveItem: () => void;
+	open: () => void;
 }
 
 export const BrnSelectBaseToken = new InjectionToken<BrnSelectBase<unknown>>('BrnSelectBaseToken');

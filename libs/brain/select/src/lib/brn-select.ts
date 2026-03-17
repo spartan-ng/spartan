@@ -127,6 +127,12 @@ export class BrnSelect<T> implements BrnSelectBase<T>, ControlValueAccessor {
 		}
 	}
 
+	public open(): void {
+		if (this._disabled() || this.isExpanded()) return;
+
+		this._brnPopover?.open();
+	}
+
 	private close(): void {
 		if (this._disabled() || !this.isExpanded()) return;
 

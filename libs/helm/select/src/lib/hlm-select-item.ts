@@ -16,11 +16,7 @@ import { classes } from '@spartan-ng/helm/utils';
 	template: `
 		<ng-content />
 		@if (_active()) {
-			<ng-icon
-				name="lucideCheck"
-				class="text-4 pointer-events-none absolute right-2 flex items-center justify-center"
-				aria-hidden="true"
-			/>
+			<ng-icon name="lucideCheck" class="absolute right-2 flex items-center justify-center" aria-hidden="true" />
 		}
 	`,
 })

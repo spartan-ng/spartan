@@ -10,6 +10,8 @@ import { injectBrnSelectBase } from './brn-select.token';
 		'[attr.aria-expanded]': '_isExpanded()',
 		'[attr.data-placeholder]': '_isPlaceholder() ? "" : null',
 		'[disabled]': '_disabled()',
+		'aria-haspopup': 'listbox',
+		type: 'button',
 		'(click)': 'open()',
 		'(keydown)': 'onKeyDown($event)',
 	},
@@ -48,6 +50,10 @@ export class BrnSelectTrigger {
 			event.preventDefault();
 
 			this._select.selectActiveItem();
+		}
+
+		if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+			this._select.open();
 		}
 
 		this._select.keyManager.onKeydown(event);

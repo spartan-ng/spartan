@@ -63,17 +63,6 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
-			<spartan-section-sub-heading id="about">About</spartan-section-sub-heading>
-			<p class="${hlmP}">
-				Select is built with the help of
-				<a href="https://material.angular.dev/cdk/a11y/overview#listkeymanager" target="_blank" rel="noreferrer">
-					ListKeyManager
-				</a>
-				and
-				<a href="https://material.angular.dev/cdk/overlay/overview" target="_blank" rel="noreferrer">Overlay</a>
-				from Material CDK .
-			</p>
-
 			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
 			<spartan-cli-tabs
 				class="mt-4"

@@ -24,7 +24,6 @@ import {
 	lucideLogOut,
 	lucideUser,
 } from '@ng-icons/lucide';
-import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { HlmAvatarImports } from '@spartan-ng/helm/avatar';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
@@ -64,7 +63,6 @@ import { type Task, TASK_DATA } from './services/tasks.models';
 		HlmTableImports,
 		HlmButtonImports,
 		HlmIcon,
-		BrnSelectImports,
 		HlmSelectImports,
 		TableActions,
 		NgIcon,
@@ -213,23 +211,23 @@ import { type Task, TASK_DATA } from './services/tasks.models';
 				<div class="mt-2 flex gap-8 sm:mt-0">
 					<div class="flex gap-2">
 						<span hlmLabel>Row per page:</span>
-						<!-- <brn-select
-							class="inline-block"
-							placeholder="{{ _availablePageSizes[0] }}"
+						<hlm-select
 							[ngModel]="table.getState().pagination.pageSize"
 							(ngModelChange)="table.setPageSize($event); table.resetPageIndex()"
 						>
 							<hlm-select-trigger size="sm" class="mr-1 inline-flex h-8 w-fit">
-								<hlm-select-value />
+								<hlm-select-value placeholder="{{ _availablePageSizes[0] }}" />
 							</hlm-select-trigger>
-							<hlm-select-content>
-								@for (size of _availablePageSizes; track size) {
-									<hlm-option [value]="size">
-										{{ size === 10000 ? 'All' : size }}
-									</hlm-option>
-								}
+							<hlm-select-content *hlmSelectPortal>
+								<hlm-select-group>
+									@for (size of _availablePageSizes; track size) {
+										<hlm-select-item [value]="size">
+											{{ size === 10000 ? 'All' : size }}
+										</hlm-select-item>
+									}
+								</hlm-select-group>
 							</hlm-select-content>
-						</brn-select> -->
+						</hlm-select>
 					</div>
 
 					<span hlmLabel>Page {{ table.getState().pagination.pageIndex + 1 }} of {{ table.getPageCount() }}</span>

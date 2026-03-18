@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideInfo } from '@ng-icons/lucide';
 import { TranslateService } from '@spartan-ng/app/app/shared/translate.service';
-import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
@@ -11,7 +10,7 @@ import { HlmSeparator } from '@spartan-ng/helm/separator';
 @Component({
 	// eslint-disable-next-line @angular-eslint/component-selector
 	selector: 'div[spartanRtlCodePreview]',
-	imports: [BrnSelectImports, HlmSelectImports, NgIcon, HlmPopoverImports, HlmSeparator, HlmButtonImports],
+	imports: [HlmSelectImports, NgIcon, HlmPopoverImports, HlmSeparator, HlmButtonImports],
 	providers: [
 		provideIcons({
 			lucideInfo,
@@ -20,16 +19,20 @@ import { HlmSeparator } from '@spartan-ng/helm/separator';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div class="border-border flex flex-row items-center justify-between border-b p-4">
-			<!-- <brn-select class="inline-block" [(value)]="_languageService.language">
+			<hlm-select class="inline-block" [(value)]="_languageService.language" [itemToString]="itemToString">
 				<hlm-select-trigger class="w-52">
 					<hlm-select-value />
 				</hlm-select-trigger>
-				<hlm-select-content>
-					<hlm-option value="en">English</hlm-option>
-					<hlm-option value="ar">Arabic (العربية)</hlm-option>
-					<hlm-option value="he">Hebrew (עברית)</hlm-option>
+				<hlm-select-content *hlmSelectPortal>
+					<hlm-select-group>
+						@for (language of languages; track language.value) {
+							<hlm-select-item [value]="language.value">
+								{{ language.label }}
+							</hlm-select-item>
+						}
+					</hlm-select-group>
 				</hlm-select-content>
-			</brn-select> -->
+			</hlm-select>
 
 			<hlm-popover align="end">
 				<button hlmPopoverTrigger hlmBtn variant="ghost">
@@ -61,4 +64,12 @@ import { HlmSeparator } from '@spartan-ng/helm/separator';
 })
 export class CodeRtlPreview {
 	protected readonly _languageService = inject(TranslateService);
+
+	public languages = [
+		{ value: 'en', label: 'English' },
+		{ value: 'ar', label: 'Arabic (العربية)' },
+		{ value: 'he', label: 'Hebrew (עברית)' },
+	];
+
+	public itemToString = (value: string) => this.languages.find((lang) => lang.value === value)?.label ?? '';
 }

@@ -2,13 +2,12 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideInfo } from '@ng-icons/lucide';
 import { StyleService } from '@spartan-ng/app/app/shared/style.service';
-import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
 
 @Component({
 	// eslint-disable-next-line @angular-eslint/component-selector
 	selector: 'div[spartanStyleCodePreview]',
-	imports: [BrnSelectImports, HlmSelectImports],
+	imports: [HlmSelectImports],
 	providers: [
 		provideIcons({
 			lucideInfo,
@@ -17,18 +16,20 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div class="border-border flex flex-row items-center justify-between border-b p-4">
-			<!-- <brn-select class="inline-block" [(value)]="_styleService.style">
+			<hlm-select class="inline-block" [(value)]="_styleService.style" [itemToString]="itemToString">
 				<hlm-select-trigger class="w-52">
 					<hlm-select-value />
 				</hlm-select-trigger>
-				<hlm-select-content>
-					<hlm-option value="vega">Vega</hlm-option>
-					<hlm-option value="nova">Nova</hlm-option>
-					<hlm-option value="maia">Maia</hlm-option>
-					<hlm-option value="lyra">Lyra</hlm-option>
-					<hlm-option value="mira">Mira</hlm-option>
+				<hlm-select-content *hlmSelectPortal>
+					<hlm-select-group>
+						@for (style of styles; track style.value) {
+							<hlm-select-item [value]="style.value">
+								{{ style.label }}
+							</hlm-select-item>
+						}
+					</hlm-select-group>
 				</hlm-select-content>
-			</brn-select> -->
+			</hlm-select>
 		</div>
 		<div
 			class="preview style-{{
@@ -42,4 +43,14 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 })
 export class CodeStylePreview {
 	protected readonly _styleService = inject(StyleService);
+
+	styles = [
+		{ value: 'vega', label: 'Vega' },
+		{ value: 'nova', label: 'Nova' },
+		{ value: 'maia', label: 'Maia' },
+		{ value: 'lyra', label: 'Lyra' },
+		{ value: 'mira', label: 'Mira' },
+	];
+
+	itemToString = (value: string) => this.styles.find((style) => style.value === value)?.label ?? '';
 }

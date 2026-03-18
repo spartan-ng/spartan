@@ -6,6 +6,7 @@ import { brainAccordionTriggerHealthcheck } from './healthchecks/brn-accordion-t
 import { brnCheckboxChangedEventRename } from './healthchecks/brn-checkbox-changed-event-rename';
 import { brainCollapsibleHealthcheck } from './healthchecks/brn-collapsible';
 import { brainRadioHealthcheck } from './healthchecks/brn-radio';
+import { brnSelectHealthcheck } from './healthchecks/brn-select';
 import { brainSeparatorHealthcheck } from './healthchecks/brn-separator';
 import { brnSwitchChangedEventRename } from './healthchecks/brn-switch-changed-event-rename';
 import { brainToggleHealthcheck } from './healthchecks/brn-toggle';
@@ -60,6 +61,7 @@ export async function healthcheckGenerator(tree: Tree, options: HealthcheckGener
 		helmDialogHealthcheck,
 		helmDialogPortalHealthcheck,
 		sonnerHealthcheck,
+		brnSelectHealthcheck,
 	];
 
 	const failedReports: HealthcheckReport[] = [];

@@ -4305,10 +4305,16 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "[hlmSelect],hlm-select",
       },
       "HlmSelectContent": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "showScroll",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
         "models": [],
         "outputs": [],
-        "selector": "[hlmSelectContent],hlm-select-content",
+        "selector": "hlm-select-content",
       },
       "HlmSelectGroup": {
         "inputs": [],

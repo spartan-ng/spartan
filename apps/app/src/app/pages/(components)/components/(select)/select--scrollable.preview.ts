@@ -9,7 +9,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 			<hlm-select-trigger class="w-80">
 				<hlm-select-value placeholder="Select a time zone" />
 			</hlm-select-trigger>
-			<hlm-select-content *hlmSelectPortal class="max-h-96">
+			<hlm-select-content *hlmSelectPortal showScroll class="max-h-96">
 				@for (timezone of timezones; track $index) {
 					<hlm-select-group>
 						<hlm-select-label>{{ timezone.group }}</hlm-select-label>

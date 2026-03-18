@@ -24,7 +24,8 @@ export class BrnSelectScrollDown {
 	protected _scrollDown() {
 		const mouseLeave$ = fromEvent(this._el.nativeElement, 'mouseleave');
 
-		interval(100)
+		// 15ms is slightly faster than 60fps (16.6ms), ensuring a smooth animation loop.
+		interval(15)
 			.pipe(takeUntil(mouseLeave$), takeUntil(this._endReached), takeUntilDestroyed(this._destroyRef))
 			.subscribe(() => this._selectContent.scrollDown(() => this._endReached.next(true)));
 	}

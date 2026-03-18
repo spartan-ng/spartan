@@ -1,7 +1,9 @@
 import { afterNextRender, Directive, ElementRef, inject, signal } from '@angular/core';
 import { injectBrnSelectBase } from './brn-select.token';
 
-const SCROLLBY_PIXEL = 50;
+// We use 8px and 15ms to create a smooth scrolling effect.
+// 15ms is slightly faster than 60fps (16.6ms), ensuring a smooth animation loop.
+const SCROLLBY_PIXEL = 8;
 
 @Directive({
 	selector: '[brnSelectContent]',
@@ -47,7 +49,7 @@ export class BrnSelectContent {
 	public scrollDown(stop: () => void) {
 		this._elementRef.nativeElement.scrollBy({
 			top: SCROLLBY_PIXEL,
-			behavior: 'smooth',
+			behavior: 'auto',
 		});
 
 		const { scrollTop, scrollHeight, clientHeight } = this._elementRef.nativeElement;
@@ -61,7 +63,7 @@ export class BrnSelectContent {
 	public scrollUp(stop: () => void) {
 		this._elementRef.nativeElement.scrollBy({
 			top: -SCROLLBY_PIXEL,
-			behavior: 'smooth',
+			behavior: 'auto',
 		});
 
 		if (this._elementRef.nativeElement.scrollTop === 0) {

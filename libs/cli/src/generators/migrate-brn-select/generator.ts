@@ -61,7 +61,7 @@ function replaceSelector(tree: Tree) {
 		}
 
 		if (content.includes('<brn-select')) {
-			const placeholderMatch = content.match(/placeholder="([^"]*)"/);
+			const placeholderMatch = content.match(/<brn-select[^>]*placeholder="([^"]*)"/);
 			const placeholder = placeholderMatch?.length > 1 ? placeholderMatch[1] : null;
 
 			content = content

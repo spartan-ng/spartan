@@ -2,11 +2,8 @@ import { formatFiles, type Tree } from '@nx/devkit';
 import { visitFiles } from '../../utils/visit-files';
 import type { MigrateBrnSelectGeneratorSchema } from './schema';
 
-export async function migrateBrnSelectGenerator(
-	tree: Tree,
-	{ skipFormat, importAlias }: MigrateBrnSelectGeneratorSchema,
-) {
-	updateImports(tree, importAlias);
+export async function migrateBrnSelectGenerator(tree: Tree, { skipFormat }: MigrateBrnSelectGeneratorSchema) {
+	updateImports(tree);
 	replaceSelector(tree);
 
 	if (!skipFormat) {
@@ -17,7 +14,7 @@ export async function migrateBrnSelectGenerator(
 /**
  * Update imports
  */
-function updateImports(tree: Tree, importAlias: string) {
+function updateImports(tree: Tree) {
 	visitFiles(tree, '/', (path) => {
 		// if this is not a typescript file then skip
 		if (!path.endsWith('.ts')) {

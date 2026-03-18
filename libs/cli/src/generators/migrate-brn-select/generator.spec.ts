@@ -50,7 +50,7 @@ describe('migrate-brn-select generator', () => {
 					`,
 		);
 
-		await migrateMenuGenerator(tree, { skipFormat: true, importAlias: '@spartan-ng/helm' });
+		await migrateMenuGenerator(tree, { skipFormat: true });
 
 		const content = tree.read('app/src/app/app.module.ts', 'utf-8');
 		expect(content).not.toContain(`import { BrnSelectImports } from '@spartan-ng/brain/select';`);
@@ -86,7 +86,7 @@ describe('migrate-brn-select generator', () => {
 							`,
 		);
 
-		await migrateMenuGenerator(tree, { skipFormat: true, importAlias: '@spartan-ng/helm' });
+		await migrateMenuGenerator(tree, { skipFormat: true });
 
 		const content = tree.read('app/src/app/app.component.ts', 'utf-8');
 		expect(content).not.toContain(`import { BrnSelectImports } from '@spartan-ng/brain/select'`);
@@ -131,7 +131,7 @@ describe('migrate-brn-select generator', () => {
 							`,
 		);
 
-		await migrateMenuGenerator(tree, { skipFormat: true, importAlias: '@spartan-ng/helm' });
+		await migrateMenuGenerator(tree, { skipFormat: true });
 
 		const content = tree.read('app/src/app/app.component.ts', 'utf-8');
 		expect(content).not.toContain(`import { BrnSelectImports } from '@spartan-ng/brain/select'`);

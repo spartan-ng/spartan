@@ -31,8 +31,8 @@ export const brnSelectHealthcheck: Healthcheck = {
 			}
 		});
 	},
-	fix: async (tree, { importAlias }) => {
-		await migrateBrnSelectGenerator(tree, { skipFormat: true, importAlias });
+	fix: async (tree) => {
+		await migrateBrnSelectGenerator(tree, { skipFormat: true });
 		return true;
 	},
 	prompt:

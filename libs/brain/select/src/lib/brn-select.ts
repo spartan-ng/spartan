@@ -1,11 +1,13 @@
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import type { BooleanInput } from '@angular/cdk/coercion';
 import {
+	afterNextRender,
 	booleanAttribute,
 	computed,
 	contentChild,
 	contentChildren,
 	Directive,
+	effect,
 	ElementRef,
 	forwardRef,
 	inject,
@@ -13,6 +15,7 @@ import {
 	input,
 	linkedSignal,
 	model,
+	untracked,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
@@ -101,6 +104,31 @@ export class BrnSelect<T> implements BrnSelectBase<T>, ControlValueAccessor {
 		this._brnPopover?.closed.subscribe(() => {
 			this._onTouched?.();
 			this.keyManager.setActiveItem(-1);
+		});
+
+		afterNextRender(() => {
+			effect(
+				() => {
+					if (!this.isExpanded()) return;
+
+					const items = this.items();
+					const value = this.value();
+
+					untracked(() => {
+						const index =
+							value !== null ? items.findIndex((item) => this.isItemEqualToValue()(item.value(), value)) : -1;
+
+						if (index !== -1) {
+							this.keyManager.setActiveItem(index);
+						} else if (items.length > 0) {
+							this.keyManager.setFirstItemActive();
+						} else {
+							this.keyManager.setActiveItem(-1);
+						}
+					});
+				},
+				{ injector: this._injector },
+			);
 		});
 	}
 

@@ -52,8 +52,19 @@ export class BrnSelectTrigger {
 			this._select.selectActiveItem();
 		}
 
-		if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
-			this._select.open();
+		if (event.key === 'Tab' && this._isExpanded()) {
+			this._select.selectActiveItem();
+			return;
+		}
+
+		if (this._isExpanded()) {
+			if (event.key === 'Tab') {
+				this._select.selectActiveItem();
+			}
+		} else {
+			if (event.key === 'Enter' || event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+				this._select.open();
+			}
 		}
 
 		this._select.keyManager.onKeydown(event);

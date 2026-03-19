@@ -20,7 +20,8 @@ export class BrnSelectValue<T> {
 	public readonly hidden = computed(() => !this._select.hasValue() && !this.placeholder());
 
 	protected readonly _value = computed(() => {
-		const value = this._select.value();
-		return value ? stringifyAsLabel(value, this._select.itemToString()) : this.placeholder();
+		return this._select.hasValue()
+			? stringifyAsLabel(this._select.value(), this._select.itemToString())
+			: this.placeholder();
 	});
 }

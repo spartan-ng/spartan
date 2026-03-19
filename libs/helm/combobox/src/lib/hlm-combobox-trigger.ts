@@ -24,6 +24,7 @@ import type { ClassValue } from 'clsx';
 			brnComboboxPopoverTrigger
 			hlmBtn
 			data-slot="combobox-trigger"
+			[id]="buttonId()"
 			[class]="_computedClass()"
 			[variant]="variant()"
 		>
@@ -33,10 +34,14 @@ import type { ClassValue } from 'clsx';
 	`,
 })
 export class HlmComboboxTrigger {
+	private static _id = 0;
+
 	public readonly userClass = input<ClassValue>('', {
 		alias: 'class',
 	});
-	protected readonly _computedClass = computed(() => hlm(this.userClass()));
+	protected readonly _computedClass = computed(() => hlm('data-placeholder:text-muted-foreground', this.userClass()));
+
+	public readonly buttonId = input<string>(`hlm-combobox-trigger-${HlmComboboxTrigger._id++}`);
 
 	public readonly variant = input<ButtonVariants['variant']>('outline');
 }

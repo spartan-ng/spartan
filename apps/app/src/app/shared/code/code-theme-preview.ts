@@ -1,6 +1,4 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { provideIcons } from '@ng-icons/core';
-import { lucideInfo } from '@ng-icons/lucide';
 import { StyleService } from '@spartan-ng/app/app/shared/style.service';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
 
@@ -8,11 +6,6 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 	// eslint-disable-next-line @angular-eslint/component-selector
 	selector: 'div[spartanStyleCodePreview]',
 	imports: [HlmSelectImports],
-	providers: [
-		provideIcons({
-			lucideInfo,
-		}),
-	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div class="border-border flex flex-row items-center justify-between border-b p-4">
@@ -44,7 +37,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 export class CodeStylePreview {
 	protected readonly _styleService = inject(StyleService);
 
-	styles = [
+	public styles = [
 		{ value: 'vega', label: 'Vega' },
 		{ value: 'nova', label: 'Nova' },
 		{ value: 'maia', label: 'Maia' },
@@ -52,5 +45,5 @@ export class CodeStylePreview {
 		{ value: 'mira', label: 'Mira' },
 	];
 
-	itemToString = (value: string) => this.styles.find((style) => style.value === value)?.label ?? '';
+	public itemToString = (value: string) => this.styles.find((style) => style.value === value)?.label ?? '';
 }

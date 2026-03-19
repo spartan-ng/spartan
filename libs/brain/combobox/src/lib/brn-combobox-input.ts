@@ -80,8 +80,12 @@ export class BrnComboboxInput<T> {
 			this._combobox.selectActiveItem();
 		}
 
-		if (!this._isExpanded()) {
-			if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+		if (this._isExpanded()) {
+			if (event.key === 'Tab') {
+				this._combobox.selectActiveItem();
+			}
+		} else {
+			if (event.key === 'Enter' || event.key === 'ArrowDown' || event.key === 'ArrowUp') {
 				this._combobox.open();
 			}
 

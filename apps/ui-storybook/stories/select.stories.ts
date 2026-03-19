@@ -36,7 +36,7 @@ export const Default: Story = {
 	render: (args) => ({
 		props: { ...args },
 		template: /* HTML */ `
-			<hlm-select class="inline-block" ${argsToTemplate(args, { exclude: ['value'] })}>
+			<hlm-select ${argsToTemplate(args, { exclude: ['value', 'placeholder'] })}>
 				<hlm-select-trigger class="w-56">
 					<hlm-select-value ${argsToTemplate(args, { include: ['placeholder'] })} />
 				</hlm-select-trigger>
@@ -55,6 +55,32 @@ export const Default: Story = {
 	}),
 };
 
+export const Multiple: Story = {
+	render: (args) => ({
+		props: { ...args },
+		template: /* HTML */ `
+			<hlm-select-multiple ${argsToTemplate(args, { exclude: ['value', 'placeholder'] })}>
+				<hlm-select-trigger class="w-56">
+					<hlm-select-placeholder>Select fruits</hlm-select-placeholder>
+					<ng-template hlmSelectValues let-values>
+						<hlm-select-values-content>@for (value of values; track value) { {{ value }} }</hlm-select-values-content>
+					</ng-template>
+				</hlm-select-trigger>
+				<hlm-select-content *hlmSelectPortal>
+					<hlm-select-group>
+						<hlm-select-label>Fruits</hlm-select-label>
+						<hlm-select-item value="apple">Apple</hlm-select-item>
+						<hlm-select-item value="banana">Banana</hlm-select-item>
+						<hlm-select-item value="blueberry">Blueberry</hlm-select-item>
+						<hlm-select-item value="grapes">Grapes</hlm-select-item>
+						<hlm-select-item value="pineapple">Pineapple</hlm-select-item>
+					</hlm-select-group>
+				</hlm-select-content>
+			</hlm-select-multiple>
+		`,
+	}),
+};
+
 export const ReactiveFormControl: Story = {
 	render: (args) => ({
 		props: { ...args, fruitGroup: new FormGroup({ fruit: new FormControl(args.value) }) },
@@ -63,7 +89,7 @@ export const ReactiveFormControl: Story = {
 				<pre>Form Control Value: {{ fruitGroup.controls.fruit.value | json }}</pre>
 			</div>
 			<form [formGroup]="fruitGroup">
-				<hlm-select class="w-56" ${argsToTemplate(args, { exclude: ['value'] })} formControlName="fruit">
+				<hlm-select class="w-56" ${argsToTemplate(args, { exclude: ['value', 'placeholder'] })} formControlName="fruit">
 					<hlm-select-trigger>
 						<hlm-select-value ${argsToTemplate(args, { include: ['placeholder'] })} />
 					</hlm-select-trigger>
@@ -91,7 +117,7 @@ export const DisabledOption: Story = {
 				<pre>Form Control Value: {{ fruitGroup.controls.fruit.value | json }}</pre>
 			</div>
 			<form [formGroup]="fruitGroup">
-				<hlm-select class="w-56" ${argsToTemplate(args, { exclude: ['value'] })} formControlName="fruit">
+				<hlm-select class="w-56" ${argsToTemplate(args, { exclude: ['value', 'placeholder'] })} formControlName="fruit">
 					<hlm-select-trigger>
 						<hlm-select-value ${argsToTemplate(args, { include: ['placeholder'] })} />
 					</hlm-select-trigger>
@@ -292,7 +318,7 @@ export const ReactiveFormControlWithValidation: Story = {
 				<pre>Form Control Value: {{ fruitGroup.controls.fruit.valueChanges | async | json }}</pre>
 			</div>
 			<form [formGroup]="fruitGroup">
-				<hlm-select class="w-56" formControlName="fruit" ${argsToTemplate(args, { exclude: ['value'] })}>
+				<hlm-select class="w-56" formControlName="fruit" ${argsToTemplate(args, { exclude: ['value', 'placeholder'] })}>
 					<hlm-select-trigger>
 						<hlm-select-value ${argsToTemplate(args, { include: ['placeholder'] })} />
 					</hlm-select-trigger>
@@ -460,7 +486,7 @@ export const Scrollable: Story = {
 		props: { ...args, myform: new FormGroup({ timezone: new FormControl() }) },
 		template: /* HTML */ `
 			<form [formGroup]="myform">
-				<hlm-select formControlName="timezone" ${argsToTemplate(args, { exclude: ['value'] })}>
+				<hlm-select formControlName="timezone" ${argsToTemplate(args, { exclude: ['value', 'placeholder'] })}>
 					<hlm-select-trigger class="w-[280px]">
 						<hlm-select-value ${argsToTemplate(args, { include: ['placeholder'] })} />
 					</hlm-select-trigger>
@@ -572,7 +598,6 @@ export const WithLabelAndForm: Story = {
 				<hlm-select-content *hlmSelectPortal>
 					<hlm-select-group>
 						<hlm-select-label>Fruits</hlm-select-label>
-						<hlm-select-item [value]="undefined">No fruit</hlm-select-item>
 						<hlm-select-item value="apple">Apple</hlm-select-item>
 						<hlm-select-item value="banana">Banana</hlm-select-item>
 						<hlm-select-item value="blueberry">Blueberry</hlm-select-item>

@@ -16,7 +16,7 @@ import { injectBrnSelectBase } from './brn-select.token';
 		'[attr.data-value]': 'value()',
 		'[attr.aria-selected]': 'active()',
 		'[attr.aria-disabled]': '_disabled()',
-		'[attr.data-disabled]': '_disabled()',
+		'[attr.data-disabled]': '_disabled() ? "" : null',
 		'(click)': 'select()',
 		'(mouseenter)': 'activate()',
 	},

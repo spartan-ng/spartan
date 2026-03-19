@@ -1,10 +1,11 @@
 import { Directive } from '@angular/core';
+import { BrnSelectGroup } from '@spartan-ng/brain/select';
 import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmSelectGroup],hlm-select-group',
+	hostDirectives: [{ directive: BrnSelectGroup }],
 	host: {
-		role: 'group',
 		'data-slot': 'select-group',
 	},
 })

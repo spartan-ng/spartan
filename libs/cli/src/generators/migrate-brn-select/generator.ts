@@ -35,7 +35,7 @@ function updateImports(tree: Tree) {
 		if (content.includes('@spartan-ng/brain/select')) {
 			content = content
 				.replace(`import { BrnSelectImports } from '@spartan-ng/brain/select';`, '')
-				.replace(/BrnSelectImports,?\s?/, '');
+				.replace(/BrnSelectImports,?\s?/g, '');
 		}
 
 		tree.write(path, content);
@@ -61,22 +61,28 @@ function replaceSelector(tree: Tree) {
 		}
 
 		if (content.includes('<brn-select')) {
-			const placeholderMatch = content.match(/<brn-select[^>]*placeholder="([^"]*)"/);
-			const placeholder = placeholderMatch?.length > 1 ? placeholderMatch[1] : null;
+			content = content.replace(/<brn-select([^>]*)>(.*?)<\/brn-select>/gs, (match, attributes, innerContent) => {
+				const placeholderMatch = attributes.match(/placeholder="([^"]*)"/);
+				const placeholder = placeholderMatch?.[1];
+				const newAttributes = attributes.replace(/\s+placeholder="[^"]*"/, '');
+
+				let newInnerContent = innerContent;
+				if (placeholder) {
+					newInnerContent = newInnerContent
+						.replace(/<hlm-select-value\s*\/>/g, `<hlm-select-value placeholder="${placeholder}" />`)
+						.replace(/<hlm-select-value\s*>/g, `<hlm-select-value placeholder="${placeholder}">`);
+				}
+				return `<hlm-select${newAttributes}>${newInnerContent}</hlm-select>`;
+			});
 
 			content = content
-				.replace(/<brn-select/g, `<hlm-select`)
-				.replace(/<\/brn-select>/g, `</hlm-select>`)
-				.replace(/\s+placeholder="[^"]*"/g, '')
 				.replace(/<hlm-select-content/g, `<hlm-select-content *hlmSelectPortal`)
 				.replace(/<hlm-select-content([^>]*)>/g, `<hlm-select-content$1>\n<hlm-select-group>`)
 				.replace(/<\/hlm-select-content>/g, `</hlm-select-group>\n</hlm-select-content>`)
 				.replace(/<hlm-option/g, `<hlm-select-item`)
-				.replace(/<\/hlm-option>/g, `</hlm-select-item>`);
-
-			if (placeholder) {
-				content = content.replace(/<hlm-select-value \/>/g, `<hlm-select-value placeholder="${placeholder}" />`);
-			}
+				.replace(/<\/hlm-option>/g, `</hlm-select-item>`)
+				.replace(/<hlm-select-scroll-up \/>/g, '')
+				.replace(/<hlm-select-scroll-down \/>/g, '');
 		}
 
 		tree.write(path, content);

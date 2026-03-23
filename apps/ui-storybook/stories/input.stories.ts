@@ -100,7 +100,7 @@ export const WithHintAndError: Story = {
 		template: `
 		<form [formGroup]="form" class="space-y-3 w-full max-w-sm">
 			<div hlmField>
-				<label hlmFieldLabel for="input-hint">Email *</label>
+				<label hlmFieldLabel>Email *</label>
 				<input
 					hlmInput
 					id="input-hint"

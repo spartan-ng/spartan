@@ -15,7 +15,7 @@ import { injectBrnSelect } from './brn-select.token';
 	host: {
 		type: 'button',
 		role: 'combobox',
-		'[attr.id]': '_triggerId()',
+		'[attr.id]': 'triggerId()',
 		'[disabled]': '_disabled()',
 		'[attr.aria-expanded]': '_select.open()',
 		'[attr.aria-controls]': '_contentId()',
@@ -31,7 +31,7 @@ export class BrnSelectTrigger<T> implements AfterViewInit, OnDestroy {
 	protected readonly _select = injectBrnSelect<T>();
 
 	private readonly _platform = inject(PLATFORM_ID);
-	protected readonly _triggerId = computed(() => `${this._select.id()}--trigger`);
+	public readonly triggerId = computed(() => `${this._select.id()}--trigger`);
 	protected readonly _contentId = computed(() => `${this._select.id()}--content`);
 	protected readonly _disabled = computed(() => this._select.disabled() || this._select.formDisabled());
 	protected readonly _labelledBy = computed(() => {

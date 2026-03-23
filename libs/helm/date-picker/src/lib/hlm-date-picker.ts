@@ -15,7 +15,7 @@ import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown } from '@ng-icons/lucide';
 import type { BrnDialogState } from '@spartan-ng/brain/dialog';
-import { BrnFieldControl } from '@spartan-ng/brain/field';
+import { BrnFieldControl, provideBrnLabelable } from '@spartan-ng/brain/field';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import { HlmCalendar } from '@spartan-ng/helm/calendar';
 import { HlmFieldControlDescribedBy } from '@spartan-ng/helm/field';
@@ -36,7 +36,7 @@ let nextId = 0;
 @Component({
 	selector: 'hlm-date-picker',
 	imports: [NgIcon, HlmIcon, HlmFieldControlDescribedBy, HlmPopoverImports, HlmCalendar],
-	providers: [HLM_DATE_PICKER_VALUE_ACCESSOR, provideIcons({ lucideChevronDown })],
+	providers: [HLM_DATE_PICKER_VALUE_ACCESSOR, provideIcons({ lucideChevronDown }), provideBrnLabelable(HlmDatePicker)],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [BrnFieldControl],
 	host: {
@@ -158,6 +158,8 @@ export class HlmDatePicker<T> implements ControlValueAccessor {
 	});
 
 	public readonly dateChange = output<T>();
+
+	public readonly labelableId = this.buttonId;
 
 	protected _onChange?: ChangeFn<T>;
 	protected _onTouched?: TouchFn;

@@ -1,6 +1,7 @@
 import { BooleanInput } from '@angular/cdk/coercion';
-import { booleanAttribute, computed, contentChild, Directive, input } from '@angular/core';
+import { booleanAttribute, computed, Directive, input, signal } from '@angular/core';
 import { BrnFieldControl } from './brn-field-control';
+import { BrnLabelable } from './brn-labelable';
 
 @Directive({
 	selector: '[brnField],brn-field',
@@ -12,12 +13,13 @@ import { BrnFieldControl } from './brn-field-control';
 	},
 })
 export class BrnField {
-	private readonly _brnFieldControl = contentChild(BrnFieldControl);
-
 	public readonly dataInvalid = input<boolean, BooleanInput>(false, {
 		transform: booleanAttribute,
 		alias: 'data-invalid',
 	});
+
+	private readonly _brnFieldControl = signal<BrnFieldControl | null>(null);
+	private readonly _labelable = signal<BrnLabelable | null>(null);
 
 	protected readonly _invalid = computed(() => {
 		if (this.dataInvalid()) return true;
@@ -40,6 +42,16 @@ export class BrnField {
 		return this._brnFieldControl()?.controlState()?.touched ?? null;
 	});
 
+	public readonly labelableId = computed(() => this._brnFieldControl()?.id?.() ?? this._labelable()?.labelableId());
+
 	public readonly errors = computed(() => this._brnFieldControl()?.errors() ?? null);
 	public readonly controlState = computed(() => this._brnFieldControl()?.controlState() ?? null);
+
+	public registerFieldControl(fieldControl: BrnFieldControl) {
+		this._brnFieldControl.set(fieldControl);
+	}
+
+	public registerLabelable(labelable: BrnLabelable) {
+		this._labelable.set(labelable);
+	}
 }

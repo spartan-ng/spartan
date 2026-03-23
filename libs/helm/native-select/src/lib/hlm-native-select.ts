@@ -14,7 +14,7 @@ import {
 import { NG_VALUE_ACCESSOR, type ControlValueAccessor } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown } from '@ng-icons/lucide';
-import { BrnFieldControl } from '@spartan-ng/brain/field';
+import { BrnFieldControl, provideBrnLabelable } from '@spartan-ng/brain/field';
 import { type ChangeFn, type TouchFn } from '@spartan-ng/brain/forms';
 import { classes, hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
@@ -28,7 +28,11 @@ export const HLM_NATIVE_SELECT_VALUE_ACCESSOR = {
 @Component({
 	selector: 'hlm-native-select',
 	imports: [NgIcon],
-	providers: [HLM_NATIVE_SELECT_VALUE_ACCESSOR, provideIcons({ lucideChevronDown })],
+	providers: [
+		HLM_NATIVE_SELECT_VALUE_ACCESSOR,
+		provideIcons({ lucideChevronDown }),
+		provideBrnLabelable(HlmNativeSelect),
+	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [BrnFieldControl],
 	host: {
@@ -107,6 +111,8 @@ export class HlmNativeSelect implements ControlValueAccessor {
 
 	protected _onChange?: ChangeFn<string | null>;
 	protected _onTouched?: TouchFn;
+
+	public readonly labelableId = this.selectId;
 
 	protected readonly _invalid = this._fieldControl?.invalid;
 	protected readonly _touched = this._fieldControl?.touched;

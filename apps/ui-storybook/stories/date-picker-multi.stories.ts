@@ -57,9 +57,8 @@ export const WithHintAndError: Story = {
 		template: `
 		<form [formGroup]="form" class="space-y-3 w-full max-w-sm">
 			<div hlmField>
-				<label hlmFieldLabel for="dates-hint">Dates *</label>
+				<label hlmFieldLabel>Dates *</label>
 				<hlm-date-picker-multi
-					id="dates-hint"
 					formControlName="dates"
 					[captionLayout]="captionLayout"
 					[min]="min"

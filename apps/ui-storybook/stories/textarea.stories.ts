@@ -89,7 +89,7 @@ export const WithHintAndError: Story = {
 		template: `
 		<form [formGroup]="form" class="space-y-3 w-full max-w-sm">
 			<div hlmField>
-				<label hlmFieldLabel for="textarea-hint">Message *</label>
+				<label hlmFieldLabel>Message *</label>
 				<textarea
 					hlmTextarea
 					id="textarea-hint"

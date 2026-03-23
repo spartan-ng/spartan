@@ -10,6 +10,7 @@ import {
 	type ValueProvider,
 } from '@angular/core';
 import type { ControlState } from '@spartan-ng/brain/forms';
+import { BrnAutocompleteInput } from './brn-autocomplete-input';
 import type { BrnAutocompleteItem } from './brn-autocomplete-item';
 
 export interface BrnAutocompleteBase<T> {
@@ -31,6 +32,7 @@ export interface BrnAutocompleteBase<T> {
 	resetValue: () => void;
 	/** Select the active item with Enter key. */
 	selectActiveItem: () => void;
+	registerAutocompleteInput: (input: BrnAutocompleteInput<T>) => void;
 }
 
 export const BrnAutocompleteBaseToken = new InjectionToken<BrnAutocompleteBase<unknown>>('BrnAutocompleteBaseToken');

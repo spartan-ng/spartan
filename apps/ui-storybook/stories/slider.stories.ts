@@ -29,8 +29,8 @@ interface BrnSliderStoryArgs {
 	template: `
 		<form [formGroup]="form" class="max-w-lg space-y-3">
 			<div hlmField>
-				<label hlmFieldLabel for="temperature-slider">Temperature</label>
-				<hlm-slider id="temperature-slider" formControlName="temperature" [min]="0" [max]="100"></hlm-slider>
+				<label hlmFieldLabel>Temperature</label>
+				<hlm-slider formControlName="temperature" [min]="0" [max]="100"></hlm-slider>
 				<hlm-field-error>Set the temperature before continuing.</hlm-field-error>
 			</div>
 

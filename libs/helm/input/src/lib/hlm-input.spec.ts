@@ -137,7 +137,6 @@ describe('HlmInputDirective', () => {
 			const shouldShowError = control.invalid && (control.touched || control.dirty);
 			expect(shouldShowError).toBe(true);
 
-			directive.setError(shouldShowError ? true : 'auto');
 			r.fixture.detectChanges();
 			expect(input.classList.contains('border-destructive')).toBe(true);
 		});

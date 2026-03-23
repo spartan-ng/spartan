@@ -35,6 +35,8 @@ export class BrnAutocompleteInput<T> {
 	protected readonly _isExpanded = this._autocomplete.isExpanded;
 
 	constructor() {
+		this._autocomplete.registerAutocompleteInput(this);
+
 		effect(() => {
 			const value = this._autocomplete.value();
 			const valueLabel = stringifyAsLabel(value, this._autocomplete.itemToString());

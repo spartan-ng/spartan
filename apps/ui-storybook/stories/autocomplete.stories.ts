@@ -66,7 +66,7 @@ class AutocompleteReactiveFormStory {
 		<form [formGroup]="form" class="w-full max-w-sm">
 			<hlm-field-group>
 				<hlm-field>
-					<label hlmFieldLabel for="framework">Framework *</label>
+					<label hlmFieldLabel>Framework *</label>
 					<hlm-autocomplete formControlName="framework" [(search)]="search">
 						<hlm-autocomplete-input inputId="framework" placeholder="Search frameworks..." />
 						<hlm-autocomplete-content *hlmAutocompletePortal>
@@ -110,7 +110,7 @@ class AutocompleteHintErrorStory {
 		<form [formGroup]="form" class="w-full max-w-sm">
 			<hlm-field-group>
 				<hlm-field>
-					<label hlmFieldLabel for="framework">Framework *</label>
+					<label hlmFieldLabel>Framework *</label>
 					<hlm-autocomplete-search formControlName="framework" [(search)]="search">
 						<hlm-autocomplete-input inputId="framework" placeholder="Search frameworks..." />
 						<hlm-autocomplete-content *hlmAutocompletePortal>

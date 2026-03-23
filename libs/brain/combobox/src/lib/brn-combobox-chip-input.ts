@@ -55,6 +55,8 @@ export class BrnComboboxChipInput<T> {
 	protected readonly _isExpanded = this._combobox.isExpanded;
 
 	constructor() {
+		this._combobox.registerComboboxChipInput?.(this);
+
 		effect(() => {
 			const search = this._combobox.search();
 

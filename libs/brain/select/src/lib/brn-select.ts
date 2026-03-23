@@ -32,7 +32,7 @@ import {
 	provideExposedSideProviderExisting,
 	provideExposesStateProviderExisting,
 } from '@spartan-ng/brain/core';
-import { BrnFieldControl } from '@spartan-ng/brain/field';
+import { BrnFieldControl, provideBrnLabelable } from '@spartan-ng/brain/field';
 import { type ChangeFn, type TouchFn } from '@spartan-ng/brain/forms';
 import { BrnLabel } from '@spartan-ng/brain/label';
 import { of, Subject } from 'rxjs';
@@ -60,6 +60,7 @@ export const BRN_SELECT_VALUE_ACCESSOR = {
 		provideExposedSideProviderExisting(() => BrnSelect),
 		provideExposesStateProviderExisting(() => BrnSelect),
 		provideBrnSelect(BrnSelect),
+		provideBrnLabelable(BrnSelect),
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [BrnFieldControl],
@@ -161,6 +162,8 @@ export class BrnSelect<T = unknown> implements ControlValueAccessor, ExposesSide
 	);
 
 	public readonly labelId = computed(() => this._selectLabel()?.id ?? `${this.id()}--label`);
+
+	public readonly labelableId = computed(() => this.trigger()?.triggerId());
 
 	// eslint-disable-next-line @typescript-eslint/no-empty-function
 	private _onChange: ChangeFn<T | T[]> = () => {};

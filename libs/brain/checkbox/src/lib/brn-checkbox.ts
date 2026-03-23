@@ -26,7 +26,7 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { BrnFieldControl } from '@spartan-ng/brain/field';
+import { BrnFieldControl, provideBrnLabelable } from '@spartan-ng/brain/field';
 import { type ChangeFn, type TouchFn } from '@spartan-ng/brain/forms';
 
 export const BRN_CHECKBOX_VALUE_ACCESSOR = {
@@ -41,7 +41,7 @@ const CONTAINER_POST_FIX = '-checkbox';
 
 @Component({
 	selector: 'brn-checkbox',
-	providers: [BRN_CHECKBOX_VALUE_ACCESSOR],
+	providers: [BRN_CHECKBOX_VALUE_ACCESSOR, provideBrnLabelable(BrnCheckbox)],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [BrnFieldControl],
 	host: {
@@ -66,8 +66,8 @@ const CONTAINER_POST_FIX = '-checkbox';
 			#checkBox
 			role="checkbox"
 			type="button"
-			[id]="_getCheckboxButtonId(_state().id) ?? ''"
-			[name]="_getCheckboxButtonId(_state().name) ?? ''"
+			[attr.id]="_buttonId()"
+			[attr.name]="_buttonId()"
 			[class]="class()"
 			[attr.aria-checked]="_ariaChecked()"
 			[attr.aria-label]="ariaLabel() || null"
@@ -197,6 +197,12 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 			id: id ? id + CONTAINER_POST_FIX : null,
 		};
 	});
+
+	protected readonly _buttonId = computed(() => {
+		return this._getCheckboxButtonId(this._state().id);
+	});
+
+	public readonly labelableId = this._buttonId;
 
 	protected readonly _dirty = this._fieldControl?.dirty;
 	protected readonly _invalid = this._fieldControl?.invalid;

@@ -58,9 +58,8 @@ export const WithHintAndError: Story = {
 		<form [formGroup]="form" class="space-y-3 w-full max-w-sm">
 
 			<div hlmField>
-				<label hlmFieldLabel for="date-hint">Date *</label>
+				<label hlmFieldLabel>Date *</label>
 				<hlm-date-picker
-					id="date-hint"
 					formControlName="date"
 					[captionLayout]="captionLayout"
 					[min]="min"

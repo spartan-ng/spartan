@@ -1,5 +1,5 @@
-import { Directive, inject, input, linkedSignal } from '@angular/core';
-import { BrnFieldControl } from '@spartan-ng/brain/field';
+import { Directive, input, linkedSignal } from '@angular/core';
+import { BrnInput } from '@spartan-ng/brain/input';
 import { HlmFieldControlDescribedBy } from '@spartan-ng/helm/field';
 import { classes } from '@spartan-ng/helm/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
@@ -22,32 +22,14 @@ type InputVariants = VariantProps<typeof inputVariants>;
 
 @Directive({
 	selector: '[hlmInput]',
-	hostDirectives: [HlmFieldControlDescribedBy, BrnFieldControl],
-	host: {
-		'[attr.aria-invalid]': '_ariaInvalid?.() ? "true" : null',
-		'[attr.data-invalid]': '_ariaInvalid?.() ? "true" : null',
-		'[attr.data-touched]': '_touched?.() ? "true" : null',
-		'[attr.data-dirty]': '_dirty?.() ? "true" : null',
-		'[attr.data-matches-spartan-invalid]': '_spartanInvalid?.() ? "true" : null',
-	},
+	hostDirectives: [{ directive: BrnInput, inputs: ['id'] }, HlmFieldControlDescribedBy],
 })
 export class HlmInput {
-	private readonly _fieldControl = inject(BrnFieldControl, { optional: true });
-
 	public readonly error = input<InputVariants['error']>('auto');
 
 	protected readonly _state = linkedSignal(() => ({ error: this.error() }));
 
-	protected readonly _ariaInvalid = this._fieldControl?.invalid;
-	protected readonly _touched = this._fieldControl?.touched;
-	protected readonly _dirty = this._fieldControl?.dirty;
-	protected readonly _spartanInvalid = this._fieldControl?.spartanInvalid;
-
 	constructor() {
 		classes(() => inputVariants({ error: this._state().error }));
-	}
-
-	setError(error: InputVariants['error']) {
-		this._state.set({ error });
 	}
 }

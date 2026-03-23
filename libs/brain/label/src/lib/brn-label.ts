@@ -1,37 +1,25 @@
-import { isPlatformBrowser } from '@angular/common';
-import { Directive, ElementRef, type OnInit, PLATFORM_ID, inject, input, signal } from '@angular/core';
+import { computed, Directive, inject, input } from '@angular/core';
+import { BrnField } from '@spartan-ng/brain/field';
 
 @Directive({
 	selector: '[brnLabel]',
 	host: {
 		'[id]': 'id()',
+		'[attr.for]': '_for()',
 	},
 })
-export class BrnLabel implements OnInit {
+export class BrnLabel {
 	private static _id = 0;
 
+	private readonly _brnField = inject(BrnField, { optional: true });
+
 	public readonly id = input<string>(`brn-label-${++BrnLabel._id}`);
+	public readonly for = input<string>();
 
-	private readonly _isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
-	private readonly _element = inject(ElementRef).nativeElement;
-	private _changes?: MutationObserver;
-	private readonly _dataDisabled = signal<boolean | 'auto'>('auto');
-	public readonly dataDisabled = this._dataDisabled.asReadonly();
+	protected readonly _for = computed(() => {
+		const forValue = this.for();
+		if (forValue) return forValue;
 
-	ngOnInit(): void {
-		if (!this._isBrowser) return;
-		this._changes = new MutationObserver((mutations: MutationRecord[]) => {
-			mutations.forEach((mutation: MutationRecord) => {
-				if (mutation.attributeName !== 'data-disabled') return;
-				// eslint-disable-next-line
-				const state = (mutation.target as any).attributes.getNamedItem(mutation.attributeName)?.value === 'true';
-				this._dataDisabled.set(state ?? 'auto');
-			});
-		});
-		this._changes?.observe(this._element, {
-			attributes: true,
-			childList: true,
-			characterData: true,
-		});
-	}
+		return this._brnField?.labelableId();
+	});
 }

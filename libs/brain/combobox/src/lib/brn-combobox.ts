@@ -19,7 +19,7 @@ import {
 	untracked,
 } from '@angular/core';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { BrnFieldControl } from '@spartan-ng/brain/field';
+import { BrnFieldControl, provideBrnLabelable } from '@spartan-ng/brain/field';
 import { type ChangeFn, type TouchFn } from '@spartan-ng/brain/forms';
 import { BrnPopover } from '@spartan-ng/brain/popover';
 import { BrnComboboxContent } from './brn-combobox-content';
@@ -46,7 +46,7 @@ export const BRN_COMBOBOX_VALUE_ACCESSOR = {
 
 @Directive({
 	selector: '[brnCombobox]',
-	providers: [BRN_COMBOBOX_VALUE_ACCESSOR, provideBrnComboboxBase(BrnCombobox)],
+	providers: [BRN_COMBOBOX_VALUE_ACCESSOR, provideBrnComboboxBase(BrnCombobox), provideBrnLabelable(BrnCombobox)],
 	hostDirectives: [BrnFieldControl],
 	host: {
 		'(focusout)': '_onFocusOut($event)',
@@ -133,6 +133,8 @@ export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor 
 	private readonly _comboboxInput = signal<BrnComboboxInput<T> | undefined>(undefined);
 
 	public readonly mode = computed<ComboboxInputMode>(() => this._comboboxInput()?.mode() || 'combobox');
+
+	public readonly labelableId = computed(() => this._comboboxInput()?.id());
 
 	protected _onChange?: ChangeFn<T | null>;
 	protected _onTouched?: TouchFn;

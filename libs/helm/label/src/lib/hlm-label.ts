@@ -7,7 +7,7 @@ import { classes } from '@spartan-ng/helm/utils';
 	hostDirectives: [
 		{
 			directive: BrnLabel,
-			inputs: ['id'],
+			inputs: ['id', 'for'],
 		},
 	],
 	host: {

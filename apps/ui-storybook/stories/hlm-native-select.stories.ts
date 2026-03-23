@@ -43,7 +43,7 @@ export const WithHintAndError: Story = {
 		template: /* HTML */ `
 			<form [formGroup]="form" class="w-full max-w-sm space-y-3">
 				<div hlmField>
-					<label hlmFieldLabel for="select-fruit">Fruit *</label>
+					<label hlmFieldLabel>Fruit *</label>
 					<hlm-native-select id="select-fruit" formControlName="fruit">
 						<option hlmNativeSelectOption value="">Select a fruit</option>
 						<option hlmNativeSelectOption value="apple">Apple</option>

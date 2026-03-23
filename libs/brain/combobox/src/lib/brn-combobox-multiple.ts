@@ -19,9 +19,10 @@ import {
 	untracked,
 } from '@angular/core';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { BrnFieldControl } from '@spartan-ng/brain/field';
+import { BrnFieldControl, provideBrnLabelable } from '@spartan-ng/brain/field';
 import { type ChangeFn, type TouchFn } from '@spartan-ng/brain/forms';
 import { BrnPopover } from '@spartan-ng/brain/popover';
+import { BrnComboboxChipInput } from './brn-combobox-chip-input';
 import { BrnComboboxContent } from './brn-combobox-content';
 import { BrnComboboxInputWrapper } from './brn-combobox-input-wrapper';
 import { type BrnComboboxItem } from './brn-combobox-item';
@@ -45,7 +46,11 @@ export const BRN_COMBOBOX_MULTIPLE_VALUE_ACCESSOR = {
 
 @Directive({
 	selector: '[brnCombobox]',
-	providers: [BRN_COMBOBOX_MULTIPLE_VALUE_ACCESSOR, provideBrnComboboxBase(BrnComboboxMultiple)],
+	providers: [
+		BRN_COMBOBOX_MULTIPLE_VALUE_ACCESSOR,
+		provideBrnComboboxBase(BrnComboboxMultiple),
+		provideBrnLabelable(BrnComboboxMultiple),
+	],
 	hostDirectives: [BrnFieldControl],
 	host: {
 		'(focusout)': '_onFocusOut($event)',
@@ -129,7 +134,11 @@ export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueA
 	/** @internal Whether the autocomplete is expanded */
 	public readonly isExpanded = computed(() => this._brnPopover?.stateComputed() === 'open');
 
+	private readonly _comboboxChipInput = signal<BrnComboboxChipInput<T> | undefined>(undefined);
+
 	public readonly mode = signal<ComboboxInputMode>('combobox').asReadonly();
+
+	public readonly labelableId = computed(() => this._comboboxChipInput()?.id());
 
 	protected _onChange?: ChangeFn<T[] | null>;
 	protected _onTouched?: TouchFn;
@@ -164,6 +173,10 @@ export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueA
 				{ injector: this._injector },
 			);
 		});
+	}
+
+	public registerComboboxChipInput(input: BrnComboboxChipInput<T>): void {
+		this._comboboxChipInput.set(input);
 	}
 
 	public isSelected(itemValue: T): boolean {

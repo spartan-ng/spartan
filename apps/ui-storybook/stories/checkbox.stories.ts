@@ -48,7 +48,7 @@ class HlmCheckboxTester {
 		<form [formGroup]="form" class="space-y-3">
 			<div hlmField orientation="horizontal" class="items-start gap-2">
 				<hlm-checkbox id="field-terms" formControlName="agreement" />
-				<label hlmFieldLabel for="field-terms" class="font-normal">I agree to the terms and conditions.</label>
+				<label hlmFieldLabel class="font-normal">I agree to the terms and conditions.</label>
 				<hlm-field-error>You must accept the terms to continue.</hlm-field-error>
 			</div>
 

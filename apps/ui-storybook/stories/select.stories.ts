@@ -401,9 +401,8 @@ export const WithHintAndError: Story = {
 		template: /* HTML */ `
 			<form [formGroup]="form" class="w-full max-w-sm space-y-3">
 				<div hlmField>
-					<label hlmFieldLabel for="select-hint">Fruit *</label>
+					<label hlmFieldLabel>Fruit *</label>
 					<brn-select
-						id="select-hint"
 						class="w-56"
 						formControlName="fruit"
 						${argsToTemplate(args, { exclude: ['initialValue', 'selectValueTransformFn'] })}
@@ -747,7 +746,6 @@ export const WithLabelAndForm: Story = {
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [FormsModule, ReactiveFormsModule, BrnSelectImports, HlmSelectImports, HlmLabel, HlmButton],
-	providers: [],
 	host: {
 		class: '',
 	},

@@ -15,12 +15,14 @@ import {
 	input,
 	linkedSignal,
 	model,
+	signal,
 	untracked,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { BrnFieldControl } from '@spartan-ng/brain/field';
+import { BrnFieldControl, provideBrnLabelable } from '@spartan-ng/brain/field';
 import { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import { BrnPopover } from '@spartan-ng/brain/popover';
+import { BrnAutocompleteInput } from './brn-autocomplete-input';
 import { BrnAutocompleteInputWrapper } from './brn-autocomplete-input-wrapper';
 import { BrnAutocompleteItem } from './brn-autocomplete-item';
 import { BrnAutocompleteItemToken } from './brn-autocomplete-item.token';
@@ -40,7 +42,11 @@ export const BRN_AUTOCOMPLETE_CONTROL_VALUE_ACCESSOR = {
 
 @Directive({
 	selector: '[brnAutocomplete]',
-	providers: [BRN_AUTOCOMPLETE_CONTROL_VALUE_ACCESSOR, provideBrnAutocompleteBase(BrnAutocomplete)],
+	providers: [
+		BRN_AUTOCOMPLETE_CONTROL_VALUE_ACCESSOR,
+		provideBrnAutocompleteBase(BrnAutocomplete),
+		provideBrnLabelable(BrnAutocomplete),
+	],
 	hostDirectives: [BrnFieldControl],
 	host: {
 		'(focusout)': '_onFocusOut($event)',
@@ -104,8 +110,12 @@ export class BrnAutocomplete<T> implements BrnAutocompleteBase<T>, ControlValueA
 	/** @internal Whether the autocomplete is expanded */
 	public readonly isExpanded = computed(() => this._brnPopover?.stateComputed() === 'open');
 
+	private readonly _autocompleteInput = signal<BrnAutocompleteInput<T> | undefined>(undefined);
+
 	protected _onChange?: ChangeFn<T | null>;
 	protected _onTouched?: TouchFn;
+
+	public readonly labelableId = computed(() => this._autocompleteInput()?.id());
 
 	public readonly controlState = this._fieldControl?.controlState;
 
@@ -138,6 +148,10 @@ export class BrnAutocomplete<T> implements BrnAutocompleteBase<T>, ControlValueA
 				{ injector: this._injector },
 			);
 		});
+	}
+
+	public registerAutocompleteInput(input: BrnAutocompleteInput<T>): void {
+		return this._autocompleteInput.set(input);
 	}
 
 	updateSearch(value: string) {

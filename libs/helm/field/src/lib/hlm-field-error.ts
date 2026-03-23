@@ -1,4 +1,6 @@
+import { BooleanInput } from '@angular/cdk/coercion';
 import {
+	booleanAttribute,
 	ChangeDetectionStrategy,
 	Component,
 	computed,
@@ -41,10 +43,13 @@ export class HlmFieldError implements OnDestroy {
 	public readonly id = input<string | undefined>(undefined);
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	public readonly validator = input<string>();
+	public readonly forceShow = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
 	protected readonly _computedId = computed(() => this.id() ?? this._autoId);
 
 	protected readonly _hasError = computed(() => {
+		if (this.forceShow()) return true;
+
 		const errors = this._field?.errors() ?? {};
 		const validator = this.validator();
 		const spartanInvalid = this._field?.controlState()?.spartanInvalid;

@@ -307,7 +307,7 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 	 * @returns ID to use for inner button or null
 	 */
 	protected _getCheckboxButtonId(idPassedToContainer: string | null | undefined): string | null {
-		return idPassedToContainer ? idPassedToContainer.replace(CONTAINER_POST_FIX, '') : null;
+		return idPassedToContainer ? idPassedToContainer.replace(new RegExp(CONTAINER_POST_FIX + '$'), '') : null;
 	}
 
 	/**

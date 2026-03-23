@@ -24,9 +24,7 @@ import { HlmSwitchImports } from '@spartan-ng/helm/switch';
 								<hlm-field-description>
 									Enable multi-factor authentication to secure your account.
 								</hlm-field-description>
-								@if (form.controls.twoFactor.invalid && form.controls.twoFactor.touched) {
-									<hlm-field-error>It is highly recommended to enable two-factor authentication.</hlm-field-error>
-								}
+								<hlm-field-error>It is highly recommended to enable two-factor authentication.</hlm-field-error>
 							</hlm-field-content>
 							<hlm-switch id="two-factor" formControlName="twoFactor" />
 						</hlm-field>

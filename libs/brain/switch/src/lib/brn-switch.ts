@@ -3,6 +3,7 @@ import type { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import { isPlatformBrowser } from '@angular/common';
 import {
 	type AfterContentInit,
+	afterNextRender,
 	booleanAttribute,
 	ChangeDetectionStrategy,
 	ChangeDetectorRef,
@@ -14,6 +15,7 @@ import {
 	ElementRef,
 	forwardRef,
 	inject,
+	Injector,
 	input,
 	linkedSignal,
 	model,
@@ -27,6 +29,7 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { BrnFieldControl, provideBrnLabelable } from '@spartan-ng/brain/field';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 
 export const BRN_SWITCH_VALUE_ACCESSOR = {
@@ -41,8 +44,9 @@ let uniqueIdCounter = 0;
 
 @Component({
 	selector: 'brn-switch',
-	providers: [BRN_SWITCH_VALUE_ACCESSOR],
+	providers: [BRN_SWITCH_VALUE_ACCESSOR, provideBrnLabelable(BrnSwitch)],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	hostDirectives: [BrnFieldControl],
 	host: {
 		'[style]': '{display: "contents"}',
 		'[attr.id]': '_state().id',
@@ -50,6 +54,10 @@ let uniqueIdCounter = 0;
 		'[attr.aria-labelledby]': 'null',
 		'[attr.aria-label]': 'null',
 		'[attr.aria-describedby]': 'null',
+		'[attr.aria-invalid]': '_invalid?.() ? "true" : null',
+		'[attr.data-dirty]': '_dirty?.() ? "true": null',
+		'[attr.data-touched]': '_touched?.() ? "true" : null',
+		'[attr.data-matches-spartan-invalid]': '_spartanInvalid?.() ? "true" : null',
 		'[attr.data-state]': 'checked() ? "checked" : "unchecked"',
 		'[attr.data-focus-visible]': '_focusVisible()',
 		'[attr.data-focus]': '_focused()',
@@ -68,6 +76,10 @@ let uniqueIdCounter = 0;
 			[attr.aria-label]="ariaLabel() || null"
 			[attr.aria-labelledby]="mutableAriaLabelledby() || null"
 			[attr.aria-describedby]="ariaDescribedby() || null"
+			[attr.aria-invalid]="_invalid?.() ? 'true' : null"
+			[attr.data-dirty]="_dirty?.() ? 'true' : null"
+			[attr.data-touched]="_touched?.() ? 'true' : null"
+			[attr.data-matches-spartan-invalid]="_spartanInvalid?.() ? 'true' : null"
 			[attr.data-state]="checked() ? 'checked' : 'unchecked'"
 			[attr.data-focus-visible]="_focusVisible()"
 			[attr.data-focus]="_focused()"
@@ -88,6 +100,8 @@ export class BrnSwitch implements AfterContentInit, OnDestroy, ControlValueAcces
 	private readonly _focusMonitor = inject(FocusMonitor);
 	private readonly _cdr = inject(ChangeDetectorRef);
 	private readonly _document = inject(DOCUMENT);
+	private readonly _injector = inject(Injector);
+	private readonly _fieldControl = inject(BrnFieldControl, { optional: true });
 
 	protected readonly _focusVisible = signal(false);
 	protected readonly _focused = signal(false);
@@ -179,28 +193,42 @@ export class BrnSwitch implements AfterContentInit, OnDestroy, ControlValueAcces
 		};
 	});
 
+	public readonly controlState = this._fieldControl?.controlState;
+
+	protected readonly _invalid = this._fieldControl?.invalid;
+	protected readonly _touched = this._fieldControl?.touched;
+	protected readonly _dirty = this._fieldControl?.dirty;
+	protected readonly _spartanInvalid = this._fieldControl?.spartanInvalid;
+
+	public readonly labelableId = computed(() => this.getSwitchButtonId(this._state().id));
+
 	constructor() {
-		effect(() => {
-			const state = this._state();
-			const isDisabled = state.disabled();
+		afterNextRender(() => {
+			effect(
+				() => {
+					const state = this._state();
+					const isDisabled = state.disabled();
 
-			if (!this._elementRef.nativeElement || !this._isBrowser) return;
+					if (!this._elementRef.nativeElement || !this._isBrowser) return;
 
-			const newLabelId = state.id + '-label';
-			const switchButtonId = this.getSwitchButtonId(state.id);
-			const labelElement =
-				this._elementRef.nativeElement.closest('label') ??
-				this._document.querySelector(`label[for="${switchButtonId}"]`);
+					const newLabelId = state.id + '-label';
+					const switchButtonId = this.getSwitchButtonId(state.id);
+					const labelElement =
+						this._elementRef.nativeElement.closest('label') ??
+						this._document.querySelector(`label[for="${switchButtonId}"]`);
 
-			if (!labelElement) return;
-			const existingLabelId = labelElement.id;
+					if (!labelElement) return;
+					const existingLabelId = labelElement.id;
 
-			this._renderer.setAttribute(labelElement, 'data-disabled', isDisabled ? 'true' : 'false');
-			this.mutableAriaLabelledby.set(existingLabelId || newLabelId);
+					this._renderer.setAttribute(labelElement, 'data-disabled', isDisabled ? 'true' : 'false');
+					this.mutableAriaLabelledby.set(existingLabelId || newLabelId);
 
-			if (!existingLabelId || existingLabelId.length === 0) {
-				this._renderer.setAttribute(labelElement, 'id', newLabelId);
-			}
+					if (!existingLabelId || existingLabelId.length === 0) {
+						this._renderer.setAttribute(labelElement, 'id', newLabelId);
+					}
+				},
+				{ injector: this._injector },
+			);
 		});
 	}
 
@@ -262,7 +290,7 @@ export class BrnSwitch implements AfterContentInit, OnDestroy, ControlValueAcces
 	 * @returns ID to use for inner button or null
 	 */
 	protected getSwitchButtonId(idPassedToContainer: string | null | undefined): string | null {
-		return idPassedToContainer ? idPassedToContainer.replace(CONTAINER_POST_FIX, '') : null;
+		return idPassedToContainer ? idPassedToContainer.replace(new RegExp(CONTAINER_POST_FIX + '$'), '') : null;
 	}
 
 	/**

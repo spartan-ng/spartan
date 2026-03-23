@@ -13,7 +13,10 @@ export class BrnLabel {
 
 	private readonly _brnField = inject(BrnField, { optional: true });
 
+	/** The id of the label. */
 	public readonly id = input<string>(`brn-label-${++BrnLabel._id}`);
+
+	/** The id of the form control this label is associated with. */
 	public readonly for = input<string>();
 
 	protected readonly _for = computed(() => {

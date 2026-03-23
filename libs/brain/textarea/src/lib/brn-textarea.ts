@@ -19,6 +19,7 @@ export class BrnTextarea {
 
 	private readonly _fieldControl = inject(BrnFieldControl, { optional: true });
 
+	/** The id of the textarea. */
 	public readonly id = input<string | undefined>(`brn-textarea-${++BrnTextarea._id}`);
 
 	public readonly labelableId = this.id;

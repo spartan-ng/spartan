@@ -19,6 +19,7 @@ export class BrnInput {
 
 	private readonly _fieldControl = inject(BrnFieldControl, { optional: true });
 
+	/** The id of the input. */
 	public readonly id = input<string | undefined>(`brn-input-${++BrnInput._id}`);
 
 	public readonly labelableId = this.id;

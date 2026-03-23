@@ -64,6 +64,12 @@ export const BRN_SELECT_VALUE_ACCESSOR = {
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [BrnFieldControl],
+	host: {
+		'[attr.aria-invalid]': '_invalid() ? "true" : null',
+		'[attr.data-dirty]': '_dirty?.() ? "true": null',
+		'[attr.data-touched]': '_touched?.() ? "true" : null',
+		'[attr.data-matches-spartan-invalid]': '_spartanInvalid?.() ? "true" : null',
+	},
 	template: `
 		@if (!_selectLabel() && placeholder()) {
 			<label style="display: none;" [attr.id]="labelId()">{{ placeholder() }}</label>
@@ -204,6 +210,11 @@ export class BrnSelect<T = unknown> implements ControlValueAccessor, ExposesSide
 	];
 
 	public readonly controlState = this._fieldControl?.controlState;
+
+	protected readonly _invalid = this._fieldControl?.invalid;
+	protected readonly _touched = this._fieldControl?.touched;
+	protected readonly _dirty = this._fieldControl?.dirty;
+	protected readonly _spartanInvalid = this._fieldControl?.spartanInvalid;
 
 	public toggle(): void {
 		if (this.open()) {

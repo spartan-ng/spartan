@@ -13,7 +13,7 @@ export const selectTriggerVariants = cva(
 	{
 		variants: {
 			error: {
-				auto: '[&.ng-invalid.ng-touched]:text-destructive [&.ng-invalid.ng-touched]:border-destructive [&.ng-invalid.ng-touched]:focus-visible:ring-destructive/20 dark:[&.ng-invalid.ng-touched]:focus-visible:ring-destructive/40',
+				auto: 'data-[matches-spartan-invalid=true]:text-destructive data-[matches-spartan-invalid=true]:border-destructive data-[matches-spartan-invalid=true]:focus-visible:ring-destructive/20 dark:data-[matches-spartan-invalid=true]:focus-visible:ring-destructive/40',
 				true: 'text-destructive border-destructive focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40',
 			},
 		},

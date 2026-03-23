@@ -46,6 +46,7 @@ export const HLM_NATIVE_SELECT_VALUE_ACCESSOR = {
 			[class]="_computedSelectClass()"
 			[attr.data-size]="size()"
 			[attr.aria-invalid]="_ariaInvalid() ? 'true' : null"
+			[attr.data-invalid]="_ariaInvalid() ? 'true' : null"
 			[attr.data-dirty]="_dirty?.() ? 'true' : null"
 			[attr.data-touched]="_touched?.() ? 'true' : null"
 			[attr.data-matches-spartan-invalid]="_spartanInvalid?.() ? 'true' : null"

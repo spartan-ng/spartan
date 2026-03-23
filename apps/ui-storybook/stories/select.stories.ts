@@ -93,6 +93,7 @@ export const ReactiveFormControl: Story = {
 			</div>
 			<form [formGroup]="fruitGroup">
 				<brn-select
+					hlm
 					class="w-56"
 					${argsToTemplate(args, { exclude: ['initialValue', 'selectValueTransformFn'] })}
 					formControlName="fruit"
@@ -124,6 +125,7 @@ export const DisabledOption: Story = {
 			</div>
 			<form [formGroup]="fruitGroup">
 				<brn-select
+					hlm
 					class="w-56"
 					${argsToTemplate(args, { exclude: ['initialValue', 'selectValueTransformFn'] })}
 					formControlName="fruit"
@@ -162,6 +164,7 @@ export const SelectValueTransformFn: Story = {
 			</div>
 			<form [formGroup]="fruitGroup">
 				<brn-select
+					hlm
 					class="w-56"
 					${argsToTemplate(args, { exclude: ['initialValue', 'selectValueTransformFn'] })}
 					formControlName="fruit"
@@ -208,6 +211,7 @@ export const ReactiveFormControlWithForAndInitialValue: Story = {
 			</div>
 			<form [formGroup]="fruitGroup">
 				<brn-select
+					hlm
 					class="w-56"
 					${argsToTemplate(args, { exclude: ['initialValue', 'selectValueTransformFn'] })}
 					formControlName="fruit"
@@ -289,6 +293,7 @@ export const ReactiveFormControlWithForAndInitialValueAndMultiple: StoryObj<
 			</div>
 			<form [formGroup]="initialFormValue">
 				<brn-select
+					hlm
 					class="w-56"
 					${argsToTemplate(args, { exclude: ['initialValue', 'options'] })}
 					formControlName="fruit"
@@ -325,6 +330,7 @@ export const ReactiveFormControlWithValidation: Story = {
 			</div>
 			<form [formGroup]="fruitGroup">
 				<brn-select
+					hlm
 					class="w-56"
 					formControlName="fruit"
 					${argsToTemplate(args, { exclude: ['initialValue', 'selectValueTransformFn'] })}
@@ -403,6 +409,7 @@ export const WithHintAndError: Story = {
 				<div hlmField>
 					<label hlmFieldLabel>Fruit *</label>
 					<brn-select
+						hlm
 						class="w-56"
 						formControlName="fruit"
 						${argsToTemplate(args, { exclude: ['initialValue', 'selectValueTransformFn'] })}

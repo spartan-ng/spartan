@@ -46,11 +46,11 @@ export class BrnFieldControl implements OnInit {
 			this._errorStateTracker.setControl(this.ngControl);
 		}
 
-		const identifiable = this._injector.get(BrnLabelable, null);
-		if (identifiable) {
+		const labelable = this._injector.get(BrnLabelable, null);
+		if (labelable) {
 			this._idEffectRef = effect(
 				() => {
-					this.id.set(identifiable.labelableId());
+					this.id.set(labelable.labelableId());
 				},
 				{ injector: this._injector },
 			);

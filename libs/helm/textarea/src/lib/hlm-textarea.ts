@@ -28,7 +28,6 @@ type TextareaVariants = VariantProps<typeof textareaVariants>;
 	},
 })
 export class HlmTextarea {
-
 	/** Controls the error visual state of the textarea.
 	 * Defaults to 'auto', which infers the state from the associated form control.
 	 */

@@ -25,7 +25,6 @@ type InputVariants = VariantProps<typeof inputVariants>;
 	hostDirectives: [{ directive: BrnInput, inputs: ['id'] }, HlmFieldControlDescribedBy],
 })
 export class HlmInput {
-
 	/** Controls the error visual state of the input.
 	 * Defaults to 'auto', which infers the state from the associated form control.
 	 */

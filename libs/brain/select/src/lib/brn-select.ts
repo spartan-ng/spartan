@@ -65,7 +65,7 @@ export const BRN_SELECT_VALUE_ACCESSOR = {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [BrnFieldControl],
 	host: {
-		'[attr.aria-invalid]': '_invalid() ? "true" : null',
+		'[attr.aria-invalid]': '_invalid?.() ? "true" : null',
 		'[attr.data-dirty]': '_dirty?.() ? "true": null',
 		'[attr.data-touched]': '_touched?.() ? "true" : null',
 		'[attr.data-matches-spartan-invalid]': '_spartanInvalid?.() ? "true" : null',

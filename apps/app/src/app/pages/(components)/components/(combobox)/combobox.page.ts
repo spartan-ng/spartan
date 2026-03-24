@@ -29,6 +29,7 @@ import { ComboboxItemToStringPreview } from './combobox--item-to-string.preview'
 import { ComboboxMultipleAutoHighlightPreview } from './combobox--multiple-autohighlight.preview';
 import { ComboboxMultipleDisabledPreview } from './combobox--multiple-disabled.preview';
 import { ComboboxMultiplePreview } from './combobox--multiple.preview';
+import { ComboboxPopupCustomPreview } from './combobox--popup-custom.preview';
 import { ComboboxPopupPreview } from './combobox--popup.preview';
 import { comboboxDefaultConfig, ComboboxPreview, defaultImports, defaultSkeleton } from './combobox.preview';
 
@@ -61,6 +62,7 @@ export const routeMeta: RouteMeta = {
 		ComboboxIconAddonPreview,
 		ComboboxFormPreview,
 		ComboboxPopupPreview,
+		ComboboxPopupCustomPreview,
 		ComboboxMultiplePreview,
 		ComboboxMultipleDisabledPreview,
 		ComboboxFormMultiplePreview,
@@ -263,6 +265,14 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_popupCode()" />
 			</spartan-tabs>
 
+			<h3 id="examples__popup-custom" spartanH4>Popup Custom</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-combobox-popup-custom-preview />
+				</div>
+				<spartan-code secondTab [code]="_popupCustomCode()" />
+			</spartan-tabs>
+
 			<h3 id="examples__async" spartanH4>Async search (single)</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -323,6 +333,7 @@ export default class ComboboxPage {
 	protected readonly _groupSeparatorCode = computed(() => this._snippets()['groupSeparator']);
 	protected readonly _iconAddonCode = computed(() => this._snippets()['iconAddon']);
 	protected readonly _popupCode = computed(() => this._snippets()['popup']);
+	protected readonly _popupCustomCode = computed(() => this._snippets()['popupCustom']);
 	protected readonly _asyncCode = computed(() => this._snippets()['async']);
 	protected readonly _asyncMultipleCode = computed(() => this._snippets()['asyncMultiple']);
 	protected readonly _formCode = computed(() => this._snippets()['form']);

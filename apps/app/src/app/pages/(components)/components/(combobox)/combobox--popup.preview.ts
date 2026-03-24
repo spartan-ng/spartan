@@ -6,9 +6,9 @@ import { HlmComboboxImports } from '@spartan-ng/helm/combobox';
 	imports: [HlmComboboxImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<hlm-combobox [value]="countries[0]" autoFocus="first-tabbable">
+		<hlm-combobox autoFocus="first-tabbable">
 			<hlm-combobox-trigger class="w-64 justify-between font-normal">
-				<span hlmComboboxValue></span>
+				<hlm-combobox-value placeholder="Select a country" />
 			</hlm-combobox-trigger>
 			<hlm-combobox-content *hlmComboboxPortal>
 				<hlm-combobox-input showTrigger="false" placeholder="Search" showClear />
@@ -24,7 +24,6 @@ import { HlmComboboxImports } from '@spartan-ng/helm/combobox';
 })
 export class ComboboxPopupPreview {
 	public countries = [
-		{ code: '', value: '', continent: '', label: 'Select country' },
 		{ code: 'af', value: 'afghanistan', label: 'Afghanistan', continent: 'Asia' },
 		{ code: 'al', value: 'albania', label: 'Albania', continent: 'Europe' },
 		{ code: 'dz', value: 'algeria', label: 'Algeria', continent: 'Africa' },

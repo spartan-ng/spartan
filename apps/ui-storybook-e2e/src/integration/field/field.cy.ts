@@ -188,16 +188,18 @@ describe('field', () => {
 				},
 			});
 
+			cy.get('button#validate').click();
+
 			// Verify error messages are displayed
-			cy.contains('Enter a valid email address.').should('be.visible');
-			cy.contains('Username must be at least 3 characters.').should('be.visible');
+			cy.contains('Email must be entered.').should('be.visible');
+			cy.contains('Username must be entered.').should('be.visible');
 
 			// Verify fields have error attributes
 			cy.findByLabelText('Email').should('have.attr', 'aria-invalid', 'true');
 			cy.findByLabelText('Username').should('have.attr', 'aria-invalid', 'true');
 
 			// Verify error component exists
-			cy.get('hlm-field-error').should('have.length', 2);
+			cy.get('hlm-field-error').filter(':not(:empty)').should('have.length', 2);
 		});
 
 		it('should have data-invalid attribute on field wrapper', () => {

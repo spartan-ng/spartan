@@ -1,4 +1,4 @@
-import { ExistingProvider, inject, InjectionToken, Signal, Type } from '@angular/core';
+import { type ExistingProvider, inject, InjectionToken, type Signal, type Type } from '@angular/core';
 
 export interface BrnLabelable {
 	labelableId: Signal<string | null | undefined>;

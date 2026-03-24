@@ -10,7 +10,7 @@ import {
 	type ValueProvider,
 } from '@angular/core';
 import type { ControlState } from '@spartan-ng/brain/forms';
-import { BrnAutocompleteInput } from './brn-autocomplete-input';
+import type { BrnAutocompleteInput } from './brn-autocomplete-input';
 import type { BrnAutocompleteItem } from './brn-autocomplete-item';
 
 export interface BrnAutocompleteBase<T> {

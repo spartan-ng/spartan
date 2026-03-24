@@ -1,44 +1,55 @@
 import { Component } from '@angular/core';
-import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
 
 @Component({
 	selector: 'spartan-select-preview',
-	imports: [BrnSelectImports, HlmSelectImports],
+	imports: [HlmSelectImports],
 	template: `
-		<brn-select class="inline-block" placeholder="Select an option">
+		<hlm-select [itemToString]="itemToString">
 			<hlm-select-trigger class="w-56">
-				<hlm-select-value />
+				<hlm-select-value placeholder="Select a fruit" />
 			</hlm-select-trigger>
-			<hlm-select-content>
-				<hlm-option value="Refresh">Refresh</hlm-option>
-				<hlm-option value="Settings">Settings</hlm-option>
-				<hlm-option value="Help">Help</hlm-option>
-				<hlm-option value="Signout">Sign out</hlm-option>
+			<hlm-select-content *hlmSelectPortal>
+				<hlm-select-group>
+					<hlm-select-label>Fruits</hlm-select-label>
+					@for (item of items; track item.value) {
+						<hlm-select-item [value]="item.value">{{ item.label }}</hlm-select-item>
+					}
+				</hlm-select-group>
 			</hlm-select-content>
-		</brn-select>
+		</hlm-select>
 	`,
 })
-export class SelectPreview {}
+export class SelectPreview {
+	public readonly items = [
+		{ label: 'Apple', value: 'apple' },
+		{ label: 'Banana', value: 'banana' },
+		{ label: 'Blueberry', value: 'blueberry' },
+		{ label: 'Grapes', value: 'grapes' },
+		{ label: 'Pineapple', value: 'pineapple' },
+	];
+
+	public readonly itemToString = (value: string) => this.items.find((item) => item.value === value)?.label || '';
+}
 
 export const defaultImports = `
-import { Component } from '@angular/core';
-import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
 `;
 
 export const defaultSkeleton = `
-<brn-select class="inline-block" placeholder="Select an option">
+<hlm-select>
 	<hlm-select-trigger>
-		<hlm-select-value />
+		<hlm-select-value placeholder="Select a fruit" />
 	</hlm-select-trigger>
-	<hlm-select-content class="w-56">
-			<hlm-option value="Refresh">Refresh</hlm-option>
-			<hlm-option value="Settings">Settings</hlm-option>
-			<hlm-option value="Help">Help</hlm-option>
-			<hlm-option value="Signout">Sign out</hlm-option>
+	<hlm-select-content *hlmSelectPortal>
+		<hlm-select-group>
+			<hlm-select-label>Fruits</hlm-select-label>
+			@for (item of items; track item.value) {
+				<hlm-select-item [value]="item.value">{{ item.label }}</hlm-select-item>
+			}
+		</hlm-select-group>
 	</hlm-select-content>
-</brn-select>
+</hlm-select>
 `;
 
 export const defaultStyles = `

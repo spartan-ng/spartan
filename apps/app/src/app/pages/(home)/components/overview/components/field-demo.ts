@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { BrnSelectImports } from '@spartan-ng/brain/select';
+
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmCheckbox } from '@spartan-ng/helm/checkbox';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
@@ -9,7 +9,7 @@ import { HlmTextarea } from '@spartan-ng/helm/textarea';
 
 @Component({
 	selector: 'spartan-field-demo',
-	imports: [HlmFieldImports, BrnSelectImports, HlmSelectImports, HlmInput, HlmTextarea, HlmButton, HlmCheckbox],
+	imports: [HlmFieldImports, HlmSelectImports, HlmInput, HlmTextarea, HlmButton, HlmCheckbox],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'w-full max-w-md rounded-lg border p-6 h-full',
@@ -39,42 +39,46 @@ import { HlmTextarea } from '@spartan-ng/helm/textarea';
 						</div>
 						<div class="grid grid-cols-2 gap-4">
 							<div hlmField>
-								<label hlmFieldLabel for="field-exp-month--trigger">Month</label>
-								<brn-select id="field-exp-month" class="inline-block" placeholder="MM">
-									<hlm-select-trigger class="w-full">
-										<hlm-select-value />
+								<label hlmFieldLabel for="field-exp-month">Month</label>
+								<hlm-select class="inline-block">
+									<hlm-select-trigger class="w-full" buttonId="field-exp-month">
+										<hlm-select-value placeholder="MM" />
 									</hlm-select-trigger>
-									<hlm-select-content>
-										<hlm-option value="01">01</hlm-option>
-										<hlm-option value="02">02</hlm-option>
-										<hlm-option value="03">03</hlm-option>
-										<hlm-option value="04">04</hlm-option>
-										<hlm-option value="05">05</hlm-option>
-										<hlm-option value="06">06</hlm-option>
-										<hlm-option value="07">07</hlm-option>
-										<hlm-option value="08">08</hlm-option>
-										<hlm-option value="09">09</hlm-option>
-										<hlm-option value="10">10</hlm-option>
-										<hlm-option value="11">11</hlm-option>
-										<hlm-option value="12">12</hlm-option>
+									<hlm-select-content *hlmSelectPortal>
+										<hlm-select-group>
+											<hlm-select-item value="01">01</hlm-select-item>
+											<hlm-select-item value="02">02</hlm-select-item>
+											<hlm-select-item value="03">03</hlm-select-item>
+											<hlm-select-item value="04">04</hlm-select-item>
+											<hlm-select-item value="05">05</hlm-select-item>
+											<hlm-select-item value="06">06</hlm-select-item>
+											<hlm-select-item value="07">07</hlm-select-item>
+											<hlm-select-item value="08">08</hlm-select-item>
+											<hlm-select-item value="09">09</hlm-select-item>
+											<hlm-select-item value="10">10</hlm-select-item>
+											<hlm-select-item value="11">11</hlm-select-item>
+											<hlm-select-item value="12">12</hlm-select-item>
+										</hlm-select-group>
 									</hlm-select-content>
-								</brn-select>
+								</hlm-select>
 							</div>
 							<div hlmField>
-								<label hlmFieldLabel for="field-exp-year--trigger">Year</label>
-								<brn-select id="field-exp-year" class="inline-block" placeholder="YYYY">
-									<hlm-select-trigger class="w-full">
-										<hlm-select-value />
+								<label hlmFieldLabel for="field-exp-year">Year</label>
+								<hlm-select class="inline-block">
+									<hlm-select-trigger class="w-full" buttonId="field-exp-year">
+										<hlm-select-value placeholder="YYYY" />
 									</hlm-select-trigger>
-									<hlm-select-content>
-										<hlm-option value="2024">2024</hlm-option>
-										<hlm-option value="2025">2025</hlm-option>
-										<hlm-option value="2026">2026</hlm-option>
-										<hlm-option value="2027">2027</hlm-option>
-										<hlm-option value="2028">2028</hlm-option>
-										<hlm-option value="2029">2029</hlm-option>
+									<hlm-select-content *hlmSelectPortal>
+										<hlm-select-group>
+											<hlm-select-item value="2024">2024</hlm-select-item>
+											<hlm-select-item value="2025">2025</hlm-select-item>
+											<hlm-select-item value="2026">2026</hlm-select-item>
+											<hlm-select-item value="2027">2027</hlm-select-item>
+											<hlm-select-item value="2028">2028</hlm-select-item>
+											<hlm-select-item value="2029">2029</hlm-select-item>
+										</hlm-select-group>
 									</hlm-select-content>
-								</brn-select>
+								</hlm-select>
 							</div>
 						</div>
 					</div>

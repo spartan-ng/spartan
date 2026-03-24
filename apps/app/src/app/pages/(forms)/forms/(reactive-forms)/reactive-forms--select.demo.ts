@@ -7,7 +7,6 @@ import {
 	ValidatorFn,
 	Validators,
 } from '@angular/forms';
-import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmCardImports } from '@spartan-ng/helm/card';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
@@ -15,7 +14,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 
 @Component({
 	selector: 'spartan-reactive-form-select-demo',
-	imports: [ReactiveFormsModule, HlmCardImports, HlmFieldImports, BrnSelectImports, HlmSelectImports, HlmButtonImports],
+	imports: [ReactiveFormsModule, HlmCardImports, HlmFieldImports, HlmSelectImports, HlmButtonImports],
 	host: { class: 'w-full sm:max-w-md' },
 	template: `
 		<hlm-card>
@@ -41,18 +40,20 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 									</hlm-field-error>
 								}
 							</hlm-field-content>
-							<brn-select id="language" formControlName="language" placeholder="Select">
-								<hlm-select-trigger class="min-w-[120px]">
-									<hlm-select-value />
+							<hlm-select formControlName="language" [itemToString]="itemToString">
+								<hlm-select-trigger buttonId="language">
+									<hlm-select-value placeholder="Select" />
 								</hlm-select-trigger>
-								<hlm-select-content>
-									<hlm-option value="auto">Auto</hlm-option>
-									<div hlmSelectSeparator></div>
-									@for (language of spokenLanguages; track $index) {
-										<hlm-option [value]="language.value">{{ language.label }}</hlm-option>
-									}
+								<hlm-select-content *hlmSelectPortal>
+									<hlm-select-group>
+										<hlm-select-item value="auto">Auto</hlm-select-item>
+										<div hlmSelectSeparator></div>
+										@for (language of spokenLanguages; track $index) {
+											<hlm-select-item [value]="language.value">{{ language.label }}</hlm-select-item>
+										}
+									</hlm-select-group>
 								</hlm-select-content>
-							</brn-select>
+							</hlm-select>
 						</hlm-field>
 					</hlm-field-group>
 				</form>
@@ -78,6 +79,14 @@ export class ReactiveFormSelectDemo {
 		{ label: 'Chinese', value: 'zh' },
 		{ label: 'Japanese', value: 'ja' },
 	];
+
+	public itemToString = (value: string) => {
+		if (value === 'auto') {
+			return 'Auto';
+		}
+		const language = this.spokenLanguages.find((lang) => lang.value === value);
+		return language ? language.label : '';
+	};
 
 	public form = this._fb.group({
 		language: ['', [Validators.required, autoDetectLanguage()]],
@@ -109,7 +118,6 @@ import {
 	ValidatorFn,
 	Validators,
 } from '@angular/forms';
-import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmCardImports } from '@spartan-ng/helm/card';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
@@ -117,7 +125,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 
 @Component({
 	selector: 'spartan-reactive-form-select-demo',
-	imports: [ReactiveFormsModule, HlmCardImports, HlmFieldImports, BrnSelectImports, HlmSelectImports, HlmButtonImports],
+	imports: [ReactiveFormsModule, HlmCardImports, HlmFieldImports, HlmSelectImports, HlmButtonImports],
 	host: { class: 'w-full sm:max-w-md' },
 	template: \`
 		<hlm-card>
@@ -143,18 +151,20 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 									</hlm-field-error>
 								}
 							</hlm-field-content>
-							<brn-select id="language" formControlName="language" placeholder="Select">
-								<hlm-select-trigger class="min-w-[120px]">
-									<hlm-select-value />
+							<hlm-select formControlName="language" [itemToString]="itemToString">
+								<hlm-select-trigger buttonId="language">
+									<hlm-select-value placeholder="Select" />
 								</hlm-select-trigger>
-								<hlm-select-content>
-									<hlm-option value="auto">Auto</hlm-option>
-									<div hlmSelectSeparator></div>
-									@for (language of spokenLanguages; track $index) {
-										<hlm-option [value]="language.value">{{ language.label }}</hlm-option>
-									}
+								<hlm-select-content *hlmSelectPortal>
+									<hlm-select-group>
+										<hlm-select-item value="auto">Auto</hlm-select-item>
+										<div hlmSelectSeparator></div>
+										@for (language of spokenLanguages; track $index) {
+											<hlm-select-item [value]="language.value">{{ language.label }}</hlm-select-item>
+										}
+									</hlm-select-group>
 								</hlm-select-content>
-							</brn-select>
+							</hlm-select>
 						</hlm-field>
 					</hlm-field-group>
 				</form>
@@ -180,6 +190,14 @@ export class ReactiveFormSelectDemo {
 		{ label: 'Chinese', value: 'zh' },
 		{ label: 'Japanese', value: 'ja' },
 	];
+
+	public itemToString = (value: string) => {
+		if (value === 'auto') {
+			return 'Auto';
+		}
+		const language = this.spokenLanguages.find((lang) => lang.value === value);
+		return language ? language.label : '';
+	};
 
 	public form = this._fb.group({
 		language: ['', [Validators.required, autoDetectLanguage()]],

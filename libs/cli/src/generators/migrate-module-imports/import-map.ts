@@ -22,7 +22,7 @@ export default {
 	BrnPopoverModule: 'BrnPopoverImports',
 	BrnProgressModule: 'BrnProgressImports',
 	BrnRadioGroupModule: 'BrnRadioGroupImports',
-	BrnSelectModule: 'BrnSelectImports',
+	// BrnSelectModule: 'BrnSelectImports',
 	BrnSeparatorModule: 'BrnSeparatorImports',
 	BrnSheetModule: 'BrnSheetImports',
 	BrnSwitchModule: 'BrnSwitchImports',

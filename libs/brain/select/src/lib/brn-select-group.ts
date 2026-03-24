@@ -1,12 +1,15 @@
-import { Directive, signal } from '@angular/core';
+import { computed, contentChild, Directive } from '@angular/core';
+import { BrnSelectLabel } from './brn-select-label';
 
 @Directive({
 	selector: '[brnSelectGroup]',
 	host: {
 		role: 'group',
-		'[attr.aria-labelledby]': 'labelledBy()',
+		'[attr.aria-labelledby]': '_labelledby()',
 	},
 })
 export class BrnSelectGroup {
-	public readonly labelledBy = signal('');
+	private readonly _selectLabel = contentChild(BrnSelectLabel);
+
+	protected readonly _labelledby = computed(() => this._selectLabel()?.id() ?? null);
 }

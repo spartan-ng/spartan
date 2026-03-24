@@ -1,93 +1,72 @@
-import { isPlatformBrowser } from '@angular/common';
-import {
-	type AfterViewInit,
-	ChangeDetectorRef,
-	computed,
-	Directive,
-	ElementRef,
-	inject,
-	type OnDestroy,
-	type OnInit,
-	PLATFORM_ID,
-} from '@angular/core';
-import { NgControl } from '@angular/forms';
-import type { Subscription } from 'rxjs';
-import { injectBrnSelect } from './brn-select.token';
+import { computed, Directive, ElementRef, inject, input } from '@angular/core';
+import { BrnDialog } from '@spartan-ng/brain/dialog';
+import { injectBrnSelectBase } from './brn-select.token';
 
 @Directive({
-	selector: '[brnSelectTrigger]',
+	selector: 'button[brnSelectTrigger]',
 	host: {
-		type: 'button',
 		role: 'combobox',
-		'[attr.id]': '_triggerId()',
+		'aria-haspopup': 'listbox',
+		type: 'button',
+		'[id]': 'id()',
+		'[attr.aria-expanded]': '_isExpanded()',
+		'[attr.data-placeholder]': '_isPlaceholder() ? "" : null',
 		'[disabled]': '_disabled()',
-		'[attr.aria-expanded]': '_select.open()',
-		'[attr.aria-controls]': '_contentId()',
-		'[attr.aria-labelledBy]': '_labelledBy()',
-		'aria-autocomplete': 'none',
-		'[attr.dir]': '_select.direction()',
-		'[class.ng-invalid]': '_ngControl?.invalid || null',
-		'[class.ng-dirty]': '_ngControl?.dirty || null',
-		'[class.ng-valid]': '_ngControl?.valid || null',
-		'[class.ng-touched]': '_ngControl?.touched || null',
-		'[class.ng-untouched]': '_ngControl?.untouched || null',
-		'[class.ng-pristine]': '_ngControl?.pristine || null',
-		'(keydown.ArrowDown)': '_select.show()',
+		'(click)': 'open()',
+		'(keydown)': 'onKeyDown($event)',
 	},
 })
-export class BrnSelectTrigger<T> implements AfterViewInit, OnDestroy, OnInit {
-	private readonly _elementRef = inject(ElementRef);
-	/** Access the change detector */
-	private readonly _changeDetector = inject(ChangeDetectorRef);
-	protected readonly _select = injectBrnSelect<T>();
-	protected readonly _ngControl = inject(NgControl, { optional: true });
-	private readonly _platform = inject(PLATFORM_ID);
-	protected readonly _triggerId = computed(() => `${this._select.id()}--trigger`);
-	protected readonly _contentId = computed(() => `${this._select.id()}--content`);
-	protected readonly _disabled = computed(() => this._select.disabled() || this._select.formDisabled());
-	protected readonly _labelledBy = computed(() => {
-		const value = this._select.value();
+export class BrnSelectTrigger {
+	private static _id = 0;
 
-		if (Array.isArray(value) && value.length > 0) {
-			return `${this._select.labelId()} ${this._select.id()}--value`;
-		}
-		return this._select.labelId();
-	});
+	private readonly _host = inject(ElementRef, { host: true });
+	private readonly _brnDialog = inject(BrnDialog, { optional: true });
 
-	private _resizeObserver?: ResizeObserver;
-	private _statusChangedSubscription?: Subscription;
+	private readonly _select = injectBrnSelectBase();
+
+	public readonly id = input<string>(`brn-select-trigger-${++BrnSelectTrigger._id}`);
+
+	/** Whether the combobox panel is expanded */
+	protected readonly _isExpanded = this._select.isExpanded;
+
+	protected readonly _disabled = this._select.disabledState;
+
+	protected readonly _isPlaceholder = computed(() => !this._select.hasValue());
 
 	constructor() {
-		this._select.trigger.set(this);
+		if (!this._brnDialog) return;
+
+		this._brnDialog.mutableAttachTo.set(this._host.nativeElement);
 	}
 
-	ngOnInit() {
-		if (this._ngControl) {
-			this._statusChangedSubscription = this._ngControl.statusChanges?.subscribe(() => {
-				this._changeDetector.markForCheck();
-			});
+	protected open() {
+		this._brnDialog?.open();
+	}
+
+	/** Listen for keydown events */
+	protected onKeyDown(event: KeyboardEvent): void {
+		if (event.key === 'Enter') {
+			// prevent form submission if inside a form
+			event.preventDefault();
+
+			this._select.selectActiveItem();
 		}
-	}
 
-	ngAfterViewInit() {
-		this._select.triggerWidth.set(this._elementRef.nativeElement.offsetWidth);
-
-		// if we are on the client, listen for element resize events
-		if (isPlatformBrowser(this._platform)) {
-			this._resizeObserver = new ResizeObserver(() =>
-				this._select.triggerWidth.set(this._elementRef.nativeElement.offsetWidth),
-			);
-
-			this._resizeObserver.observe(this._elementRef.nativeElement);
+		if (event.key === 'Tab' && this._isExpanded()) {
+			this._select.selectActiveItem();
+			return;
 		}
-	}
 
-	ngOnDestroy(): void {
-		this._resizeObserver?.disconnect();
-		this._statusChangedSubscription?.unsubscribe();
-	}
+		if (this._isExpanded()) {
+			if (event.key === 'Tab') {
+				this._select.selectActiveItem();
+			}
+		} else {
+			if (event.key === 'Enter' || event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+				this._select.open();
+			}
+		}
 
-	focus(): void {
-		this._elementRef.nativeElement.focus();
+		this._select.keyManager.onKeydown(event);
 	}
 }

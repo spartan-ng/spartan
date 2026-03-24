@@ -1,13 +1,36 @@
-import { Directive, inject, TemplateRef } from '@angular/core';
+import { computed, Directive, effect, inject, TemplateRef, ViewContainerRef } from '@angular/core';
+import { injectBrnSelectBase } from './brn-select.token';
 
 @Directive({
-	selector: '[brnSelectValue], [hlmSelectValue]',
+	selector: '[brnSelectValueTemplate]',
 })
 export class BrnSelectValueTemplate<T> {
-	/** @internal */
-	public readonly templateRef = inject<TemplateRef<BrnSelectValueContext<T>>>(TemplateRef);
-}
+	private readonly _templateRef = inject(TemplateRef);
+	private readonly _viewContainerRef = inject(ViewContainerRef);
 
-export interface BrnSelectValueContext<T> {
-	$implicit: T | T[];
+	private readonly _select = injectBrnSelectBase<T>();
+
+	protected readonly _value = computed<T | null>(() => {
+		const value = this._select.value();
+
+		if (value === null) {
+			return null;
+		}
+
+		return value as T;
+	});
+
+	constructor() {
+		effect(() => {
+			const value = this._value();
+			if (value !== null) {
+				this._viewContainerRef.clear();
+				this._viewContainerRef.createEmbeddedView(this._templateRef, {
+					$implicit: value,
+				});
+			} else {
+				this._viewContainerRef.clear();
+			}
+		});
+	}
 }

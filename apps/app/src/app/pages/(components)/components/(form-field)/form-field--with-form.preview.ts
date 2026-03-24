@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { BrnSelectImports } from '@spartan-ng/brain/select';
+
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmFormFieldImports } from '@spartan-ng/helm/form-field';
 import { HlmInput } from '@spartan-ng/helm/input';
@@ -8,40 +8,27 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 
 @Component({
 	selector: 'spartan-form-field-form',
-	imports: [
-		ReactiveFormsModule,
-		HlmFormFieldImports,
-		HlmSelectImports,
-		HlmInput,
-		HlmSelectImports,
-		BrnSelectImports,
-		HlmButtonImports,
-	],
+	imports: [ReactiveFormsModule, HlmFormFieldImports, HlmSelectImports, HlmInput, HlmSelectImports, HlmButtonImports],
 	template: `
 		<form [formGroup]="form" class="space-y-6">
 			<hlm-form-field>
-				<input
-					aria-label="Your Name"
-					formControlName="name"
-					class="w-80"
-					hlmInput
-					type="text"
-					placeholder="Your Name"
-				/>
+				<input aria-label="Your Name" formControlName="name" class="w-80" hlmInput type="text" />
 				<hlm-error>Your name is required</hlm-error>
 			</hlm-form-field>
 			<hlm-form-field>
-				<brn-select class="inline-block" placeholder="Select some fruit" formControlName="fruit">
+				<!-- <hlm-select class="inline-block" formControlName="fruit">
 					<hlm-select-trigger class="w-80">
-						<hlm-select-value />
+						<hlm-select-value placeholder="Your Name" />
 					</hlm-select-trigger>
-					<hlm-select-content>
+					<hlm-select-content *hlmSelectPortal>
+<hlm-select-group>
 						<hlm-select-label>Fruits</hlm-select-label>
 						@for (option of options; track option.value) {
-							<hlm-option [value]="option.value">{{ option.label }}</hlm-option>
+							<hlm-select-item [value]="option.value">{{ option.label }}</hlm-select-item>
 						}
-					</hlm-select-content>
-				</brn-select>
+					</hlm-select-group>
+</hlm-select-content>
+				</hlm-select> -->
 				<hlm-error>The fruit is required</hlm-error>
 			</hlm-form-field>
 

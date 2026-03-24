@@ -7,7 +7,6 @@ import {
 	TableRowSelection,
 } from '@spartan-ng/app/app/pages/(components)/components/(data-table)/selection-column';
 import { TableHeadSortButton } from '@spartan-ng/app/app/pages/(components)/components/(data-table)/sort-header-button';
-import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { HlmBadge } from '@spartan-ng/helm/badge';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmIcon } from '@spartan-ng/helm/icon';
@@ -38,7 +37,7 @@ import { DASHBOARD_DATA, DashboardData } from './dashboard-data.model';
 import { DashboardTableActions } from './dashboard-table-action';
 import { HeaderCell } from './header-cell';
 import { LimitCell } from './limit-cell';
-import { ReviewerCell } from './reviewer-cell copy';
+import { ReviewerCell } from './reviewer-cell';
 import { StatusCell } from './status-cell';
 import { TargetCell } from './target-cell';
 import { TypeCell } from './type-cell';
@@ -48,7 +47,6 @@ import { TypeCell } from './type-cell';
 	imports: [
 		HlmTabsImports,
 		HlmTableImports,
-		BrnSelectImports,
 		HlmSelectImports,
 		HlmButton,
 		FormsModule,
@@ -137,23 +135,24 @@ import { TypeCell } from './type-cell';
 					<div class="mt-2 flex gap-8 sm:mt-0">
 						<div class="flex gap-2">
 							<span hlmLabel>Row per page:</span>
-							<brn-select
+							<hlm-select
 								class="inline-block"
-								placeholder="{{ _availablePageSizes[0] }}"
 								[ngModel]="table.getState().pagination.pageSize"
 								(ngModelChange)="table.setPageSize($event); table.resetPageIndex()"
 							>
 								<hlm-select-trigger size="sm" class="mr-1 inline-flex h-8 w-fit">
-									<hlm-select-value />
+									<hlm-select-value placeholder="{{ _availablePageSizes[0] }}" />
 								</hlm-select-trigger>
-								<hlm-select-content>
-									@for (size of _availablePageSizes; track size) {
-										<hlm-option [value]="size">
-											{{ size === 10000 ? 'All' : size }}
-										</hlm-option>
-									}
+								<hlm-select-content *hlmSelectPortal>
+									<hlm-select-group>
+										@for (size of _availablePageSizes; track size) {
+											<hlm-select-item [value]="size">
+												{{ size === 10000 ? 'All' : size }}
+											</hlm-select-item>
+										}
+									</hlm-select-group>
 								</hlm-select-content>
-							</brn-select>
+							</hlm-select>
 						</div>
 
 						<span hlmLabel>Page {{ table.getState().pagination.pageIndex + 1 }} of {{ table.getPageCount() }}</span>

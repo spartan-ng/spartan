@@ -1,1 +1,1 @@
-export default true;
+export * from './styles/style';

@@ -1,5 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
+import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import {
 	hlmBlockquote,
 	hlmCode,
@@ -23,7 +24,6 @@ import { PageNav } from '../../../../../shared/layout/page-nav/page-nav';
 import { SectionIntro } from '../../../../../shared/layout/section-intro';
 import { SectionSubHeading } from '../../../../../shared/layout/section-sub-heading';
 import { Tabs } from '../../../../../shared/layout/tabs';
-import { TabsCli } from '../../../../../shared/layout/tabs-cli';
 import { metaWith } from '../../../../../shared/meta/meta.util';
 import TypographyPreview, {
 	blockquoteCode,
@@ -58,9 +58,9 @@ export const routeMeta: RouteMeta = {
 		SectionSubHeading,
 		Code,
 		Tabs,
-		TabsCli,
 		TypographyPreview,
 		CodePreview,
+		InstallTabs,
 	],
 	template: `
 		<section spartanMainSection>
@@ -73,8 +73,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_themingCode" />
 			</spartan-tabs>
 
-			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
-			<spartan-cli-tabs nxCode="npx nx g @spartan-ng/cli:ui typography" ngCode="ng g @spartan-ng/cli:ui typography" />
+			<spartan-install-tabs primitive="typography" />
 
 			<spartan-section-sub-heading id="h1">h1</spartan-section-sub-heading>
 			<spartan-tabs firstTab="Preview" secondTab="Code">

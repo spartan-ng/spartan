@@ -3,6 +3,7 @@ import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { Code } from '@spartan-ng/app/app/shared/code/code';
 import { CodePreview } from '@spartan-ng/app/app/shared/code/code-preview';
+import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import { MainSection } from '@spartan-ng/app/app/shared/layout/main-section';
 import { PageBottomNav } from '@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav';
 import { PageBottomNavLink } from '@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav-link';
@@ -11,7 +12,6 @@ import { SectionIntro } from '@spartan-ng/app/app/shared/layout/section-intro';
 import { SectionSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-heading';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { Tabs } from '@spartan-ng/app/app/shared/layout/tabs';
-import { TabsCli } from '@spartan-ng/app/app/shared/layout/tabs-cli';
 import { UIApiDocs } from '@spartan-ng/app/app/shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
 import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
@@ -39,6 +39,7 @@ export const routeMeta: RouteMeta = {
 		Code,
 		CodePreview,
 		MainSection,
+		InstallTabs,
 		SectionIntro,
 		SectionSubHeading,
 		SectionSubSubHeading,
@@ -46,7 +47,7 @@ export const routeMeta: RouteMeta = {
 		PageBottomNav,
 		PageBottomNavLink,
 		Tabs,
-		TabsCli,
+
 		ToggleGroupPreview,
 		ToggleGroupOutlinePreview,
 		ToggleGroupSmallPreview,
@@ -68,11 +69,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
-			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
-			<spartan-cli-tabs
-				nxCode="npx nx g @spartan-ng/cli:ui toggle-group"
-				ngCode="ng g @spartan-ng/cli:ui toggle-group"
-			/>
+			<spartan-install-tabs primitive="toggle-group" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">

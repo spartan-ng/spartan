@@ -59,6 +59,11 @@
 			"factory": "./src/generators/update-contributors/generator",
 			"schema": "./src/generators/update-contributors/schema.json",
 			"description": "Updates the README and three-hundred.ts with all Git contributors who are not already listed"
+		},
+		"generate-hlm-component-preview": {
+			"factory": "./src/generators/generate-hlm-component-preview/generator",
+			"schema": "./src/generators/generate-hlm-component-preview/schema.json",
+			"description": "Generate the hlm component with the correct tailwind classes instead of the spartan classes"
 		}
 	}
 }

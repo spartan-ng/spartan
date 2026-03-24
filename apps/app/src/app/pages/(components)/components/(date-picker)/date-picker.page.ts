@@ -5,6 +5,7 @@ import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/prim
 import { DatePickerFormRangeExample } from '@spartan-ng/app/app/pages/(components)/components/(date-picker)/date-picker--form-range.example';
 import { DatePickerRangeExample } from '@spartan-ng/app/app/pages/(components)/components/(date-picker)/date-picker--range.example';
 import { CodePreview } from '@spartan-ng/app/app/shared/code/code-preview';
+import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import { MainSection } from '@spartan-ng/app/app/shared/layout/main-section';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { HlmButton } from '@spartan-ng/helm/button';
@@ -16,7 +17,6 @@ import { PageNav } from '../../../../shared/layout/page-nav/page-nav';
 import { SectionIntro } from '../../../../shared/layout/section-intro';
 import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading';
 import { Tabs } from '../../../../shared/layout/tabs';
-import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { link } from '../../../../shared/typography/link';
@@ -43,11 +43,12 @@ export const routeMeta: RouteMeta = {
 		Tabs,
 		Code,
 		SectionSubHeading,
-		TabsCli,
+
 		PageBottomNav,
 		PageBottomNavLink,
 		CodePreview,
 		MainSection,
+		InstallTabs,
 		PageNav,
 		DatePickerConfigExample,
 		DatePickerFormatExample,
@@ -72,17 +73,15 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
-			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
-
-			<p class="${hlmP} mb-6">
-				The Date Picker component is built with the
-				<a routerLink="/components/popover" hlmBtn variant="link" class="${link}">Popover</a>
-				and the
-				<a routerLink="/components/calendar" hlmBtn variant="link" class="${link}">Calendar</a>
-				components.
-			</p>
-
-			<spartan-cli-tabs nxCode="npx nx g @spartan-ng/cli:ui date-picker" ngCode="ng g @spartan-ng/cli:ui date-picker" />
+			<spartan-install-tabs primitive="date-picker">
+				<p class="${hlmP} mb-6">
+					The Date Picker component is built with the
+					<a routerLink="/components/popover" hlmBtn variant="link" class="${link}">Popover</a>
+					and the
+					<a routerLink="/components/calendar" hlmBtn variant="link" class="${link}">Calendar</a>
+					components.
+				</p>
+			</spartan-install-tabs>
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">

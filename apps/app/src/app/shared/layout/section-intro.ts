@@ -1,16 +1,23 @@
-import { Component, input } from '@angular/core';
+import { booleanAttribute, Component, input } from '@angular/core';
+import { StyleOptionsDropdown } from '@spartan-ng/app/app/shared/page-options-dropdown/style-options-dropdown';
 import { PageOptionsDropdown } from '../page-options-dropdown/page-options-dropdown';
 
 @Component({
 	selector: 'spartan-section-intro',
-	imports: [PageOptionsDropdown],
+	imports: [PageOptionsDropdown, StyleOptionsDropdown],
 	host: {
 		class: 'flex flex-col gap-4',
 	},
 	template: `
 		<div class="flex items-center justify-between">
 			<h1 class="scroll-m-20 text-4xl font-semibold tracking-tight sm:text-3xl xl:text-4xl">{{ name() }}</h1>
-			<spartan-page-options-dropdown class="ms-auto hidden md:block" />
+
+			<div class="flex items-center justify-between gap-2">
+				@if (showThemeToggle()) {
+					<spartan-style-options-dropdown />
+				}
+				<spartan-page-options-dropdown class="ms-auto hidden md:block" />
+			</div>
 		</div>
 		<p class="text-muted-foreground text-[1.05rem] text-balance sm:text-base">{{ lead() }}</p>
 	`,
@@ -18,4 +25,5 @@ import { PageOptionsDropdown } from '../page-options-dropdown/page-options-dropd
 export class SectionIntro {
 	public readonly name = input('');
 	public readonly lead = input('');
+	public readonly showThemeToggle = input(false, { transform: booleanAttribute });
 }

@@ -12,7 +12,7 @@ import { injectBrnSelectBase } from './brn-select.token';
 		'[attr.aria-expanded]': '_isExpanded()',
 		'[attr.data-placeholder]': '_isPlaceholder() ? "" : null',
 		'[disabled]': '_disabled()',
-		'[attr.aria-invalid]': '_invalid() ? "true" : null',
+		'[attr.aria-invalid]': '_invalid?.() ? "true" : null',
 		'[attr.data-dirty]': '_dirty?.() ? "true": null',
 		'[attr.data-touched]': '_touched?.() ? "true" : null',
 		'[attr.data-matches-spartan-invalid]': '_spartanInvalid?.() ? "true" : null',

@@ -17,7 +17,7 @@ interface SpartanComponent {
 		class: 'w-full max-w-xs',
 	},
 	template: `
-		<form [formGroup]="form" (ngSubmit)="submit()" class="space-y-8">
+		<form [formGroup]="form" (ngSubmit)="submit()">
 			<div hlmFieldGroup>
 				<div hlmField>
 					<label hlmFieldLabel for="component">Select a component</label>

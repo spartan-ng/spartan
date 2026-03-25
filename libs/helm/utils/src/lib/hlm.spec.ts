@@ -13,7 +13,7 @@ import {
 import { TestBed } from '@angular/core/testing';
 import { render } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
-import { classes } from './hlm';
+import { classes, hlm } from './hlm';
 
 describe('classes', () => {
 	it('should work when called within injection context', async () => {
@@ -486,5 +486,131 @@ describe('classes', () => {
 		expect(classNames).toContain('custom-utility');
 		expect(classNames).toContain('data-testid');
 		expect(classNames).toContain('external-added-class');
+	});
+
+	it('should move transition classes to the end', async () => {
+		await TestBed.configureTestingModule({}).compileComponents();
+
+		const element = document.createElement('div');
+		const elementRef = new ElementRef(element);
+
+		TestBed.runInInjectionContext(() => {
+			classes(() => ['transition-all', 'bg-red-500', 'p-4'], { elementRef });
+		});
+
+		await new Promise((resolve) => setTimeout(resolve, 0));
+
+		expect(element.className).toBe('bg-red-500 p-4 transition-all');
+	});
+
+	it('should move arbitrary transition classes to the end', async () => {
+		await TestBed.configureTestingModule({}).compileComponents();
+
+		const element = document.createElement('div');
+		const elementRef = new ElementRef(element);
+
+		TestBed.runInInjectionContext(() => {
+			classes(() => ['transition-[height]', 'overflow-hidden', 'duration-300'], { elementRef });
+		});
+
+		await new Promise((resolve) => setTimeout(resolve, 0));
+
+		expect(element.className).toBe('overflow-hidden duration-300 transition-[height]');
+	});
+
+	it('should group multiple transition classes at the end', async () => {
+		await TestBed.configureTestingModule({}).compileComponents();
+
+		const element = document.createElement('div');
+		const elementRef = new ElementRef(element);
+
+		TestBed.runInInjectionContext(() => {
+			classes(() => ['transition-opacity', 'bg-red-500', 'transition-all', 'p-2'], { elementRef });
+		});
+
+		await new Promise((resolve) => setTimeout(resolve, 0));
+
+		expect(element.className).toBe('bg-red-500 p-2 transition-all');
+	});
+
+	it('should keep transition classes last across multiple sources', async () => {
+		await TestBed.configureTestingModule({}).compileComponents();
+
+		const element = document.createElement('div');
+		const elementRef = new ElementRef(element);
+
+		TestBed.runInInjectionContext(() => {
+			classes(() => 'bg-red-500 p-4 transition-all', { elementRef });
+		});
+
+		await new Promise((resolve) => setTimeout(resolve, 0));
+
+		const classNames = element.className.split(' ').filter(Boolean);
+
+		// Transition classes must be last
+		expect(classNames.slice(-1)).toEqual(['transition-all']);
+
+		expect(classNames).toContain('bg-red-500');
+		expect(classNames).toContain('p-4');
+	});
+
+	it('should keep transition classes last after reactive updates', async () => {
+		@Component({
+			changeDetection: ChangeDetectionStrategy.OnPush,
+			template: `
+				<div #el></div>
+			`,
+		})
+		class TestCmp implements AfterViewInit {
+			private readonly _el = viewChild.required('el', { read: ElementRef });
+			private readonly _state = signal(false);
+
+			ngAfterViewInit() {
+				const injector = TestBed.inject(Injector);
+				runInInjectionContext(injector, () => {
+					classes(() => (this._state() ? ['bg-blue-500', 'transition-all'] : ['transition-all', 'bg-red-500']), {
+						elementRef: this._el(),
+					});
+				});
+			}
+		}
+
+		const { fixture } = await render(TestCmp);
+		const el = fixture.componentInstance['_el']().nativeElement;
+
+		await new Promise((r) => setTimeout(r, 0));
+		expect(el.className).toBe('bg-red-500 transition-all');
+
+		fixture.componentInstance['_state'].set(true);
+		fixture.detectChanges();
+		await new Promise((r) => setTimeout(r, 0));
+
+		expect(el.className).toBe('bg-blue-500 transition-all');
+	});
+
+	it('should ensure transition classes are last even with base classes', async () => {
+		await TestBed.configureTestingModule({}).compileComponents();
+
+		const element = document.createElement('div');
+		element.className = 'existing transition-opacity';
+
+		const elementRef = new ElementRef(element);
+
+		TestBed.runInInjectionContext(() => {
+			classes(() => ['bg-red-500', 'transition-all'], { elementRef });
+		});
+
+		await new Promise((resolve) => setTimeout(resolve, 0));
+
+		const classNames = element.className.split(' ').filter(Boolean);
+
+		// Last class must be transition-related
+		expect(classNames[classNames.length - 1]).toMatch(/^transition/);
+	});
+
+	it('should sort transition classes last in hlm()', () => {
+		const result = hlm('transition-all', 'bg-red-500', 'p-4');
+
+		expect(result).toBe('bg-red-500 p-4 transition-all');
 	});
 });

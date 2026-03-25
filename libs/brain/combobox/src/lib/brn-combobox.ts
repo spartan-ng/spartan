@@ -98,6 +98,8 @@ export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor 
 	/** The selected value of the combobox. */
 	public readonly value = model<T | null>(null);
 
+	public readonly hasValue = computed(() => this.value() !== null);
+
 	/** The current search query. */
 	public readonly search = model<string>('');
 

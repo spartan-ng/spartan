@@ -5,7 +5,7 @@ import { injectBrnCalendar } from './brn-calendar.token';
 import { injectBrnCalendarI18n } from './i18n/calendar-i18n';
 
 @Directive({
-	selector: 'brn-select[brnCalendarYearSelect]',
+	selector: 'brnSelect[brnCalendarYearSelect],hlm-select[brnCalendarYearSelect]',
 	host: {
 		'(valueChange)': 'yearSelected($event)',
 	},

@@ -2,6 +2,7 @@ import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { components } from '@spartan-ng/app/app/shared/components/navigation-items';
+import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import { MainSection } from '@spartan-ng/app/app/shared/layout/main-section';
 import { PageBottomNav } from '@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav';
 import { PageBottomNavLink } from '@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav-link';
@@ -23,6 +24,7 @@ export const routeMeta: RouteMeta = {
 	selector: 'spartan-components-page',
 	imports: [
 		MainSection,
+		InstallTabs,
 		SectionIntro,
 		PageBottomNav,
 		PageBottomNavLink,

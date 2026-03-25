@@ -102,6 +102,12 @@ export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueA
 	/** The selected values of the combobox. */
 	public readonly value = model<T[] | null>(null);
 
+	public readonly hasValue = computed(() => {
+		const value = this.value();
+		if (value == null) return false;
+		return value.length > 0;
+	});
+
 	/** The current search query. */
 	public readonly search = model<string>('');
 

@@ -1,6 +1,5 @@
 import { JsonPipe } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmCheckbox } from '@spartan-ng/helm/checkbox';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
@@ -23,7 +22,6 @@ const meta: Meta = {
 				HlmSwitch,
 				HlmTextarea,
 				HlmButton,
-				BrnSelectImports,
 				HlmSelectImports,
 				HlmRadioGroupImports,
 				ReactiveFormsModule,
@@ -190,18 +188,20 @@ export const WithSelect: Story = {
 					<div hlmFieldGroup>
 						<div hlmField>
 							<label hlmFieldLabel for="field-select-country">Country</label>
-							<brn-select class="inline-block" placeholder="Select a country">
-								<hlm-select-trigger class="w-full" id="field-select-country">
-									<hlm-select-value />
+							<hlm-select class="inline-block">
+								<hlm-select-trigger class="w-full" buttonId="field-select-country">
+									<hlm-select-value placeholder="Select a country" />
 								</hlm-select-trigger>
-								<hlm-select-content>
-									<hlm-option value="us">United States</hlm-option>
-									<hlm-option value="uk">United Kingdom</hlm-option>
-									<hlm-option value="ca">Canada</hlm-option>
-									<hlm-option value="au">Australia</hlm-option>
-									<hlm-option value="de">Germany</hlm-option>
+								<hlm-select-content *hlmSelectPortal>
+									<hlm-select-group>
+										<hlm-select-item value="us">United States</hlm-select-item>
+										<hlm-select-item value="uk">United Kingdom</hlm-select-item>
+										<hlm-select-item value="ca">Canada</hlm-select-item>
+										<hlm-select-item value="au">Australia</hlm-select-item>
+										<hlm-select-item value="de">Germany</hlm-select-item>
+									</hlm-select-group>
 								</hlm-select-content>
-							</brn-select>
+							</hlm-select>
 							<p hlmFieldDescription>Select your country of residence.</p>
 						</div>
 					</div>
@@ -337,41 +337,45 @@ export const ComplexForm: Story = {
 								<div class="grid grid-cols-3 gap-4">
 									<div hlmField>
 										<label hlmFieldLabel for="field-complex-expiration-month">Month</label>
-										<brn-select class="inline-block" placeholder="MM">
+										<hlm-select class="inline-block">
 											<hlm-select-trigger class="w-full" id="field-complex-expiration-month">
-												<hlm-select-value />
+												<hlm-select-value placeholder="MM" />
 											</hlm-select-trigger>
-											<hlm-select-content>
-												<hlm-option value="01">01</hlm-option>
-												<hlm-option value="02">02</hlm-option>
-												<hlm-option value="03">03</hlm-option>
-												<hlm-option value="04">04</hlm-option>
-												<hlm-option value="05">05</hlm-option>
-												<hlm-option value="06">06</hlm-option>
-												<hlm-option value="07">07</hlm-option>
-												<hlm-option value="08">08</hlm-option>
-												<hlm-option value="09">09</hlm-option>
-												<hlm-option value="10">10</hlm-option>
-												<hlm-option value="11">11</hlm-option>
-												<hlm-option value="12">12</hlm-option>
-											</hlm-select-content>
-										</brn-select>
+											<hlm-select-content *hlmSelectPortal>
+<hlm-select-group>
+												<hlm-select-item value="01">01</hlm-select-item>
+												<hlm-select-item value="02">02</hlm-select-item>
+												<hlm-select-item value="03">03</hlm-select-item>
+												<hlm-select-item value="04">04</hlm-select-item>
+												<hlm-select-item value="05">05</hlm-select-item>
+												<hlm-select-item value="06">06</hlm-select-item>
+												<hlm-select-item value="07">07</hlm-select-item>
+												<hlm-select-item value="08">08</hlm-select-item>
+												<hlm-select-item value="09">09</hlm-select-item>
+												<hlm-select-item value="10">10</hlm-select-item>
+												<hlm-select-item value="11">11</hlm-select-item>
+												<hlm-select-item value="12">12</hlm-select-item>
+											</hlm-select-group>
+</hlm-select-content>
+										</hlm-select>
 									</div>
 									<div hlmField>
 										<label hlmFieldLabel for="field-complex-expiration-year">Year</label>
-										<brn-select class="inline-block" placeholder="YYYY">
+										<hlm-select class="inline-block">
 											<hlm-select-trigger class="w-full" id="field-complex-expiration-year">
-												<hlm-select-value />
+												<hlm-select-value placeholder="YYYY" />
 											</hlm-select-trigger>
-											<hlm-select-content>
-												<hlm-option value="2024">2024</hlm-option>
-												<hlm-option value="2025">2025</hlm-option>
-												<hlm-option value="2026">2026</hlm-option>
-												<hlm-option value="2027">2027</hlm-option>
-												<hlm-option value="2028">2028</hlm-option>
-												<hlm-option value="2029">2029</hlm-option>
-											</hlm-select-content>
-										</brn-select>
+											<hlm-select-content *hlmSelectPortal>
+<hlm-select-group>
+												<hlm-select-item value="2024">2024</hlm-select-item>
+												<hlm-select-item value="2025">2025</hlm-select-item>
+												<hlm-select-item value="2026">2026</hlm-select-item>
+												<hlm-select-item value="2027">2027</hlm-select-item>
+												<hlm-select-item value="2028">2028</hlm-select-item>
+												<hlm-select-item value="2029">2029</hlm-select-item>
+											</hlm-select-group>
+</hlm-select-content>
+										</hlm-select>
 									</div>
 									<div hlmField>
 										<label hlmFieldLabel for="field-complex-cvv">CVV</label>

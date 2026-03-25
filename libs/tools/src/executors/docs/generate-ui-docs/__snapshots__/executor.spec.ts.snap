@@ -872,7 +872,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "brn-select[brnCalendarMonthSelect]",
+        "selector": "brnSelect[brnCalendarMonthSelect],hlm-select[brnCalendarMonthSelect]",
       },
       "BrnCalendarMulti": {
         "inputs": [
@@ -1000,7 +1000,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "brn-select[brnCalendarYearSelect]",
+        "selector": "brnSelect[brnCalendarYearSelect],hlm-select[brnCalendarYearSelect]",
       },
     },
     "helm": {
@@ -1716,6 +1716,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "outputs": [],
         "selector": "[brnCombobox]",
       },
+      "BrnComboboxPlaceholder": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnComboboxPlaceholder]",
+      },
       "BrnComboboxPopoverTrigger": {
         "inputs": [],
         "models": [],
@@ -1747,10 +1753,22 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "button[brnComboboxTrigger]",
       },
       "BrnComboboxValue": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "placeholder",
+            "required": false,
+            "type": "string",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "[brnComboboxValue]",
+      },
+      "BrnComboboxValueTemplate": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnComboboxValueTemplate]",
       },
       "BrnComboboxValues": {
         "inputs": [],
@@ -1870,6 +1888,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "outputs": [],
         "selector": "[hlmComboboxMultiple],hlm-combobox-multiple",
       },
+      "HlmComboboxPlaceholder": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmComboboxPlaceholder],hlm-combobox-placeholder",
+      },
       "HlmComboboxPortal": {
         "inputs": [],
         "models": [],
@@ -1901,6 +1925,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "ClassValue",
           },
           {
+            "name": "buttonId",
+            "required": false,
+            "type": "string",
+          },
+          {
             "name": "variant",
             "required": false,
             "type": "ButtonVariants['variant']",
@@ -1914,7 +1943,13 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "[hlmComboboxValue]",
+        "selector": "[hlmComboboxValue],hlm-combobox-value",
+      },
+      "HlmComboboxValueTemplate": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmComboboxValueTemplate]",
       },
       "HlmComboboxValues": {
         "inputs": [],
@@ -4185,59 +4220,35 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       "BrnSelect": {
         "inputs": [
           {
-            "name": "id",
-            "required": false,
-            "type": "string",
-          },
-          {
-            "name": "multiple",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "placeholder",
-            "required": false,
-            "type": "string",
-          },
-          {
             "name": "disabled",
             "required": false,
             "type": "boolean",
           },
           {
-            "name": "closeDelay",
+            "name": "isItemEqualToValue",
             "required": false,
-            "type": "number",
+            "type": "SelectItemEqualToValue<T>",
           },
           {
-            "name": "compareWith",
+            "name": "itemToString",
             "required": false,
-            "type": "(o1: T, o2: T) => boolean",
+            "type": "SelectItemToString<T> | undefined",
           },
         ],
         "models": [
           {
-            "name": "open",
-            "type": "boolean",
-          },
-          {
             "name": "value",
-            "type": "T | T[]",
+            "type": "T | null",
           },
         ],
-        "outputs": [
-          {
-            "name": "valueChange",
-            "type": "T | T[]",
-          },
-        ],
-        "selector": "brn-select, hlm-select",
+        "outputs": [],
+        "selector": "[brnSelect]",
       },
       "BrnSelectContent": {
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "brn-select-content, hlm-select-content:not(noHlm)",
+        "selector": "[brnSelectContent]",
       },
       "BrnSelectGroup": {
         "inputs": [],
@@ -4245,13 +4256,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "outputs": [],
         "selector": "[brnSelectGroup]",
       },
-      "BrnSelectLabel": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "[brnSelectLabel]",
-      },
-      "BrnSelectOption": {
+      "BrnSelectItem": {
         "inputs": [
           {
             "name": "id",
@@ -4260,7 +4265,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           },
           {
             "name": "value",
-            "required": false,
+            "required": true,
             "type": "T",
           },
           {
@@ -4271,49 +4276,124 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "[brnOption]",
+        "selector": "[brnSelectItem]",
+      },
+      "BrnSelectLabel": {
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnSelectLabel]",
+      },
+      "BrnSelectList": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnSelectList]",
+      },
+      "BrnSelectMultiple": {
+        "inputs": [
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "isItemEqualToValue",
+            "required": false,
+            "type": "SelectItemEqualToValue<T>",
+          },
+          {
+            "name": "itemToString",
+            "required": false,
+            "type": "SelectItemToString<T> | undefined",
+          },
+        ],
+        "models": [
+          {
+            "name": "value",
+            "type": "T[] | null",
+          },
+        ],
+        "outputs": [],
+        "selector": "[brnSelectMultiple]",
       },
       "BrnSelectPlaceholder": {
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "[brnSelectPlaceholder], [hlmSelectPlaceholder]",
+        "selector": "[brnSelectPlaceholder]",
       },
       "BrnSelectScrollDown": {
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "[brnSelectScrollDown], brn-select-scroll-down, hlm-select-scroll-down:not(noHlm)",
+        "selector": "[brnSelectScrollDown]",
       },
       "BrnSelectScrollUp": {
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "[brnSelectScrollUp], brn-select-scroll-up, hlm-select-scroll-up:not(noHlm)",
+        "selector": "[brnSelectScrollUp]",
       },
-      "BrnSelectTrigger": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "[brnSelectTrigger]",
-      },
-      "BrnSelectValue": {
+      "BrnSelectSeparator": {
         "inputs": [
           {
-            "name": "transformFn",
+            "name": "orientation",
             "required": false,
-            "type": "(values: (string | undefined)[]) => any",
+            "type": "'horizontal' | 'vertical'",
           },
         ],
         "models": [],
         "outputs": [],
-        "selector": "brn-select-value, hlm-select-value",
+        "selector": "[brnSelectSeparator]",
+      },
+      "BrnSelectTrigger": {
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[brnSelectTrigger]",
+      },
+      "BrnSelectTriggerWrapper": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnSelectTriggerWrapper]",
+      },
+      "BrnSelectValue": {
+        "inputs": [
+          {
+            "name": "placeholder",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnSelectValue]",
       },
       "BrnSelectValueTemplate": {
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "[brnSelectValue], [hlmSelectValue]",
+        "selector": "[brnSelectValueTemplate]",
+      },
+      "BrnSelectValues": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnSelectValues]",
       },
     },
     "helm": {
@@ -4321,37 +4401,55 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "hlm-select,[hlmSelect],brn-select[hlm]",
+        "selector": "[hlmSelect],hlm-select",
       },
       "HlmSelectContent": {
         "inputs": [
           {
-            "name": "stickyLabels",
+            "name": "showScroll",
             "required": false,
             "type": "boolean",
           },
         ],
         "models": [],
         "outputs": [],
-        "selector": "[hlmSelectContent], hlm-select-content",
+        "selector": "hlm-select-content",
       },
       "HlmSelectGroup": {
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "[hlmSelectGroup], hlm-select-group",
+        "selector": "[hlmSelectGroup],hlm-select-group",
+      },
+      "HlmSelectItem": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-select-item",
       },
       "HlmSelectLabel": {
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "[hlmSelectLabel], hlm-select-label",
+        "selector": "[hlmSelectLabel],hlm-select-label",
       },
-      "HlmSelectOption": {
+      "HlmSelectMultiple": {
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "hlm-option",
+        "selector": "[hlmSelectMultiple],hlm-select-multiple",
+      },
+      "HlmSelectPlaceholder": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmSelectPlaceholder],hlm-select-placeholder",
+      },
+      "HlmSelectPortal": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmSelectPortal]",
       },
       "HlmSelectScrollDown": {
         "inputs": [],
@@ -4369,7 +4467,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "[hlmSelectSeparator]",
+        "selector": "[hlmSelectSeparator],hlm-select-separator",
       },
       "HlmSelectTrigger": {
         "inputs": [
@@ -4377,6 +4475,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "name": "class",
             "required": false,
             "type": "ClassValue",
+          },
+          {
+            "name": "buttonId",
+            "required": false,
+            "type": "string",
           },
           {
             "name": "size",
@@ -4392,7 +4495,25 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "hlm-select-value,[hlmSelectValue], brn-select-value[hlm]",
+        "selector": "[hlmSelectValue],hlm-select-value",
+      },
+      "HlmSelectValueTemplate": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmSelectValueTemplate]",
+      },
+      "HlmSelectValues": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmSelectValues]",
+      },
+      "HlmSelectValuesContent": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmSelectValuesContent],hlm-select-values-content",
       },
     },
   },

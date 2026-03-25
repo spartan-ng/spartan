@@ -2,12 +2,10 @@ import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { ButtonRtlPreview } from '@spartan-ng/app/app/pages/(components)/components/(button)/button--rtl.example';
-import { ButtonStyleExample } from '@spartan-ng/app/app/pages/(components)/components/(button)/button--style.example';
 import { cursorCode } from '@spartan-ng/app/app/pages/(components)/components/(button)/button-cursor';
 import { CodeRtlPreview } from '@spartan-ng/app/app/shared/code/code-rtl-preview';
-import { CodeStylePreview } from '@spartan-ng/app/app/shared/code/code-theme-preview';
 import { RtlHeader } from '@spartan-ng/app/app/shared/code/rtl-header';
-import { StyleHeader } from '@spartan-ng/app/app/shared/code/style-header';
+import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { link } from '@spartan-ng/app/app/shared/typography/link';
 import { HlmCode, HlmP } from '@spartan-ng/helm/typography';
@@ -20,7 +18,6 @@ import { PageNav } from '../../../../shared/layout/page-nav/page-nav';
 import { SectionIntro } from '../../../../shared/layout/section-intro';
 import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading';
 import { Tabs } from '../../../../shared/layout/tabs';
-import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { ButtonAnchor } from './button--anchor.example';
@@ -37,6 +34,7 @@ import { ButtonDefault } from '@spartan-ng/app/app/pages/(components)/components
 import { ButtonIcon } from '@spartan-ng/app/app/pages/(components)/components/(button)/button--icon.example';
 import { ButtonRoundedPreview } from '@spartan-ng/app/app/pages/(components)/components/(button)/button--rounded.example';
 import { ButtonSizePreview } from '@spartan-ng/app/app/pages/(components)/components/(button)/button--size.example';
+import { injectStyle } from '@spartan-ng/app/app/shared/style.service';
 import { ButtonPreview, defaultImports, defaultSkeleton } from './button.preview';
 
 export const routeMeta: RouteMeta = {
@@ -47,15 +45,14 @@ export const routeMeta: RouteMeta = {
 
 @Component({
 	selector: 'spartan-button',
-
 	imports: [
 		UIApiDocs,
 		MainSection,
+		InstallTabs,
 		Code,
 		SectionIntro,
 		SectionSubHeading,
 		Tabs,
-		TabsCli,
 		CodePreview,
 		PageNav,
 		PageBottomNav,
@@ -76,17 +73,15 @@ export const routeMeta: RouteMeta = {
 		HlmP,
 		RtlHeader,
 		HlmCode,
-		StyleHeader,
-		CodeStylePreview,
-		ButtonStyleExample,
 		ButtonIcon,
 		ButtonSizePreview,
 		ButtonDefault,
 		ButtonRoundedPreview,
+		InstallTabs,
 	],
 	template: `
 		<section spartanMainSection>
-			<spartan-section-intro name="Button" lead="Displays a callout for user attention." />
+			<spartan-section-intro name="Button" lead="Displays a callout for user attention." showThemeToggle />
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -95,8 +90,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
-			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
-			<spartan-cli-tabs nxCode="npx nx g @spartan-ng/cli:ui button" ngCode="ng g @spartan-ng/cli:ui button" />
+			<spartan-install-tabs primitive="button" [showOnlyVega]="false" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">
@@ -254,14 +248,6 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_rtlCode()" />
 			</spartan-tabs>
 
-			<spartan-header-style />
-			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div spartanStyleCodePreview firstTab>
-					<spartan-button-style />
-				</div>
-				<spartan-code secondTab [code]="_styleCode()" />
-			</spartan-tabs>
-
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="brain" />
 
@@ -296,4 +282,8 @@ export default class ButtonPage {
 	protected readonly _defaultImports = defaultImports;
 
 	protected readonly _cursorCode = cursorCode;
+
+	constructor() {
+		injectStyle();
+	}
 }

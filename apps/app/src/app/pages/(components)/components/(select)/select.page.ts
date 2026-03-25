@@ -1,8 +1,9 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
-import { hlmP } from '@spartan-ng/helm/typography';
+import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
@@ -12,12 +13,14 @@ import { PageNav } from '../../../../shared/layout/page-nav/page-nav';
 import { SectionIntro } from '../../../../shared/layout/section-intro';
 import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading';
 import { Tabs } from '../../../../shared/layout/tabs';
-import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
+import { SelectDisabledPreview } from './select--disabled.preview';
+import { SelectGroupPreview } from './select--group.preview';
 import { SelectMultiplePreview } from './select--multiple.preview';
+import { SelectObjectPreview } from './select--object.preview';
+import { SelectPlaceholderPreview } from './select--placeholder.preview';
 import { SelectScrollablePreview } from './select--scrollable.preview';
-import { SelectValueTemplatePreview } from './select--value-template.preview';
 import { defaultImports, defaultSkeleton, defaultStyles, SelectPreview } from './select.preview';
 
 export const routeMeta: RouteMeta = {
@@ -31,19 +34,23 @@ export const routeMeta: RouteMeta = {
 	imports: [
 		UIApiDocs,
 		MainSection,
+		InstallTabs,
 		Code,
 		SectionIntro,
 		SectionSubHeading,
 		Tabs,
-		TabsCli,
+
 		CodePreview,
 		PageNav,
 		PageBottomNav,
 		PageBottomNavLink,
 		SelectPreview,
+		SelectGroupPreview,
 		SelectMultiplePreview,
 		SelectScrollablePreview,
-		SelectValueTemplatePreview,
+		SelectObjectPreview,
+		SelectDisabledPreview,
+		SelectPlaceholderPreview,
 		SectionSubSubHeading,
 	],
 	template: `
@@ -57,23 +64,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
-			<spartan-section-sub-heading id="about">About</spartan-section-sub-heading>
-			<p class="${hlmP}">
-				Select is built with the help of
-				<a href="https://material.angular.dev/cdk/a11y/overview#listkeymanager" target="_blank" rel="noreferrer">
-					ListKeyManager
-				</a>
-				and
-				<a href="https://material.angular.dev/cdk/overlay/overview" target="_blank" rel="noreferrer">Overlay</a>
-				from Material CDK .
-			</p>
-
-			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
-			<spartan-cli-tabs
-				class="mt-4"
-				nxCode="npx nx g @spartan-ng/cli:ui select"
-				ngCode="ng g @spartan-ng/cli:ui select"
-			/>
+			<spartan-install-tabs primitive="select" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">
@@ -83,6 +74,14 @@ export const routeMeta: RouteMeta = {
 			</div>
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
+			<h3 id="examples__groups" spartanH4>Groups</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-select-group-preview />
+				</div>
+				<spartan-code secondTab [code]="_groupCode()" />
+			</spartan-tabs>
+
 			<h3 id="examples__multiple" spartanH4>Multiple</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -90,7 +89,8 @@ export const routeMeta: RouteMeta = {
 				</div>
 				<spartan-code secondTab [code]="_multipleCode()" />
 			</spartan-tabs>
-			<h3 id="examples__scrollable" spartanH4>Scrollable with Groups</h3>
+
+			<h3 id="examples__scrollable" spartanH4>Scrollable</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-select-scrollable-preview />
@@ -98,12 +98,39 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_scrollableCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__value-template" spartanH4>Value Template</h3>
+			<h3 id="examples__disabled" spartanH4>Disabled</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
-					<spartan-select-value-template-preview />
+					<spartan-select-disabled-preview />
 				</div>
-				<spartan-code secondTab [code]="_valueTemplateCode()" />
+				<spartan-code secondTab [code]="_disabledCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__object-values" spartanH4>Object values</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-select-object-preview />
+				</div>
+				<spartan-code secondTab [code]="_objectCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__placeholder" spartanH4>Placeholder</h3>
+			<p class="${hlmP}">
+				Use
+				<code class="${hlmCode}">hlm-select-placeholder</code>
+				to display a custom placeholder when no value is selected. If you only display a text as placeholder, you can
+				also use the
+				<code class="${hlmCode}">placeholder</code>
+				input on
+				<code class="${hlmCode}">hlm-select-value</code>
+				.
+			</p>
+
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-select-placeholder-preview />
+				</div>
+				<spartan-code secondTab [code]="_placeholderCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
@@ -123,9 +150,12 @@ export const routeMeta: RouteMeta = {
 export default class SkeletonPage {
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('select');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
+	protected readonly _groupCode = computed(() => this._snippets()['group']);
 	protected readonly _multipleCode = computed(() => this._snippets()['multiple']);
 	protected readonly _scrollableCode = computed(() => this._snippets()['scrollable']);
-	protected readonly _valueTemplateCode = computed(() => this._snippets()['valueTemplate']);
+	protected readonly _disabledCode = computed(() => this._snippets()['disabled']);
+	protected readonly _objectCode = computed(() => this._snippets()['object']);
+	protected readonly _placeholderCode = computed(() => this._snippets()['placeholder']);
 	protected readonly _defaultStyles = defaultStyles;
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;

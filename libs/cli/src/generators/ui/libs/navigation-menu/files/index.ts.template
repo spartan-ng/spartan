@@ -1,18 +1,18 @@
-import { HlmNavigationMenu } from './hlm-navigation-menu';
-import { HlmNavigationMenuContent } from './hlm-navigation-menu-content';
-import { HlmNavigationMenuItem } from './hlm-navigation-menu-item';
-import { HlmNavigationMenuLink } from './hlm-navigation-menu-link';
-import { HlmNavigationMenuList } from './hlm-navigation-menu-list';
-import { HlmNavigationMenuPortal } from './hlm-navigation-menu-portal';
-import { HlmNavigationMenuTrigger } from './hlm-navigation-menu-trigger';
+import { HlmNavigationMenu } from './lib/hlm-navigation-menu';
+import { HlmNavigationMenuContent } from './lib/hlm-navigation-menu-content';
+import { HlmNavigationMenuItem } from './lib/hlm-navigation-menu-item';
+import { HlmNavigationMenuLink } from './lib/hlm-navigation-menu-link';
+import { HlmNavigationMenuList } from './lib/hlm-navigation-menu-list';
+import { HlmNavigationMenuPortal } from './lib/hlm-navigation-menu-portal';
+import { HlmNavigationMenuTrigger } from './lib/hlm-navigation-menu-trigger';
 
-export * from './hlm-navigation-menu';
-export * from './hlm-navigation-menu-content';
-export * from './hlm-navigation-menu-item';
-export * from './hlm-navigation-menu-link';
-export * from './hlm-navigation-menu-list';
-export * from './hlm-navigation-menu-portal';
-export * from './hlm-navigation-menu-trigger';
+export * from './lib/hlm-navigation-menu';
+export * from './lib/hlm-navigation-menu-content';
+export * from './lib/hlm-navigation-menu-item';
+export * from './lib/hlm-navigation-menu-link';
+export * from './lib/hlm-navigation-menu-list';
+export * from './lib/hlm-navigation-menu-portal';
+export * from './lib/hlm-navigation-menu-trigger';
 
 export const HlmNavigationMenuImports = [
 	HlmNavigationMenu,

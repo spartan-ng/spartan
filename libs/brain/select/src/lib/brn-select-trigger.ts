@@ -1,80 +1,72 @@
-import { isPlatformBrowser } from '@angular/common';
-import {
-	type AfterViewInit,
-	computed,
-	Directive,
-	ElementRef,
-	inject,
-	type OnDestroy,
-	PLATFORM_ID,
-} from '@angular/core';
-import { injectBrnSelect } from './brn-select.token';
+import { computed, Directive, ElementRef, inject, input } from '@angular/core';
+import { BrnDialog } from '@spartan-ng/brain/dialog';
+import { injectBrnSelectBase } from './brn-select.token';
 
 @Directive({
-	selector: '[brnSelectTrigger]',
+	selector: 'button[brnSelectTrigger]',
 	host: {
-		type: 'button',
 		role: 'combobox',
-		'[attr.id]': 'triggerId()',
+		'aria-haspopup': 'listbox',
+		type: 'button',
+		'[id]': 'id()',
+		'[attr.aria-expanded]': '_isExpanded()',
+		'[attr.data-placeholder]': '_isPlaceholder() ? "" : null',
 		'[disabled]': '_disabled()',
-		'[attr.aria-expanded]': '_select.open()',
-		'[attr.aria-controls]': '_contentId()',
-		'[attr.aria-labelledBy]': '_labelledBy()',
-		'[attr.aria-invalid]': '_invalid() ? "true" : null',
-		'[attr.data-dirty]': '_dirty?.() ? "true": null',
-		'[attr.data-touched]': '_touched?.() ? "true" : null',
-		'[attr.data-matches-spartan-invalid]': '_spartanInvalid?.() ? "true" : null',
-		'aria-autocomplete': 'none',
-		'[attr.dir]': '_select.direction()',
-		'(keydown.ArrowDown)': '_select.show()',
+		'(click)': 'open()',
+		'(keydown)': 'onKeyDown($event)',
 	},
 })
-export class BrnSelectTrigger<T> implements AfterViewInit, OnDestroy {
-	private readonly _elementRef = inject(ElementRef);
-	protected readonly _select = injectBrnSelect<T>();
-	private readonly _platform = inject(PLATFORM_ID);
+export class BrnSelectTrigger {
+	private static _id = 0;
 
-	public readonly triggerId = computed(() => `${this._select.id()}--trigger`);
-	protected readonly _contentId = computed(() => `${this._select.id()}--content`);
-	protected readonly _disabled = computed(() => this._select.disabled() || this._select.formDisabled());
-	protected readonly _labelledBy = computed(() => {
-		const value = this._select.value();
+	private readonly _host = inject(ElementRef, { host: true });
+	private readonly _brnDialog = inject(BrnDialog, { optional: true });
 
-		if (Array.isArray(value) && value.length > 0) {
-			return `${this._select.labelId()} ${this._select.id()}--value`;
-		}
-		return this._select.labelId();
-	});
+	private readonly _select = injectBrnSelectBase();
 
-	protected readonly _invalid = computed(() => this._select?.controlState?.()?.invalid);
-	protected readonly _touched = computed(() => this._select?.controlState?.()?.touched);
-	protected readonly _dirty = computed(() => this._select?.controlState?.()?.dirty);
-	protected readonly _spartanInvalid = computed(() => this._select?.controlState?.()?.spartanInvalid);
+	public readonly id = input<string>(`brn-select-trigger-${++BrnSelectTrigger._id}`);
 
-	private _resizeObserver?: ResizeObserver;
+	/** Whether the combobox panel is expanded */
+	protected readonly _isExpanded = this._select.isExpanded;
+
+	protected readonly _disabled = this._select.disabledState;
+
+	protected readonly _isPlaceholder = computed(() => !this._select.hasValue());
 
 	constructor() {
-		this._select.trigger.set(this);
+		if (!this._brnDialog) return;
+
+		this._brnDialog.mutableAttachTo.set(this._host.nativeElement);
 	}
 
-	ngAfterViewInit() {
-		this._select.triggerWidth.set(this._elementRef.nativeElement.offsetWidth);
+	protected open() {
+		this._brnDialog?.open();
+	}
 
-		// if we are on the client, listen for element resize events
-		if (isPlatformBrowser(this._platform)) {
-			this._resizeObserver = new ResizeObserver(() =>
-				this._select.triggerWidth.set(this._elementRef.nativeElement.offsetWidth),
-			);
+	/** Listen for keydown events */
+	protected onKeyDown(event: KeyboardEvent): void {
+		if (event.key === 'Enter') {
+			// prevent form submission if inside a form
+			event.preventDefault();
 
-			this._resizeObserver.observe(this._elementRef.nativeElement);
+			this._select.selectActiveItem();
 		}
-	}
 
-	ngOnDestroy(): void {
-		this._resizeObserver?.disconnect();
-	}
+		if (event.key === 'Tab' && this._isExpanded()) {
+			this._select.selectActiveItem();
+			return;
+		}
 
-	focus(): void {
-		this._elementRef.nativeElement.focus();
+		if (this._isExpanded()) {
+			if (event.key === 'Tab') {
+				this._select.selectActiveItem();
+			}
+		} else {
+			if (event.key === 'Enter' || event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+				this._select.open();
+			}
+		}
+
+		this._select.keyManager.onKeydown(event);
 	}
 }

@@ -2,6 +2,7 @@ import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import { link } from '@spartan-ng/app/app/shared/typography/link';
 import { hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
@@ -13,7 +14,6 @@ import { PageNav } from '../../../../shared/layout/page-nav/page-nav';
 import { SectionIntro } from '../../../../shared/layout/section-intro';
 import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading';
 import { Tabs } from '../../../../shared/layout/tabs';
-import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { MenubarPreview, defaultImports, defaultSkeleton } from './menubar.preview';
@@ -31,11 +31,12 @@ export const routeMeta: RouteMeta = {
 	imports: [
 		UIApiDocs,
 		MainSection,
+		InstallTabs,
 		Code,
 		SectionIntro,
 		SectionSubHeading,
 		Tabs,
-		TabsCli,
+
 		CodePreview,
 		PageNav,
 		PageBottomNav,
@@ -68,12 +69,7 @@ export const routeMeta: RouteMeta = {
 				.
 			</p>
 
-			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
-			<spartan-cli-tabs
-				class="mt-4"
-				nxCode="npx nx g @spartan-ng/cli:ui menubar"
-				ngCode="ng g @spartan-ng/cli:ui menubar"
-			/>
+			<spartan-install-tabs primitive="menubar" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">

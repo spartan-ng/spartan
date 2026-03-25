@@ -9,9 +9,9 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 	template: `
 		<hlm-field>
 			<label hlmFieldLabel for="countries">Countries</label>
-			<hlm-combobox [value]="countries[0]" autoFocus="first-tabbable">
+			<hlm-combobox autoFocus="first-tabbable">
 				<hlm-combobox-trigger buttonId="countries" class="w-64 justify-between font-normal">
-					<span hlmComboboxValue></span>
+					<hlm-combobox-value placeholder="Select a country" />
 				</hlm-combobox-trigger>
 				<hlm-combobox-content *hlmComboboxPortal>
 					<hlm-combobox-input showTrigger="false" placeholder="Search" showClear />
@@ -28,7 +28,6 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 })
 export class ComboboxPopupPreview {
 	public countries = [
-		{ code: '', value: '', continent: '', label: 'Select country' },
 		{ code: 'af', value: 'afghanistan', label: 'Afghanistan', continent: 'Asia' },
 		{ code: 'al', value: 'albania', label: 'Albania', continent: 'Europe' },
 		{ code: 'dz', value: 'algeria', label: 'Algeria', continent: 'Africa' },

@@ -1,62 +1,41 @@
-import { ChangeDetectionStrategy, Component, computed, contentChild, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown } from '@ng-icons/lucide';
-import { BrnSelect, BrnSelectTrigger } from '@spartan-ng/brain/select';
-import { HlmFieldControlDescribedBy } from '@spartan-ng/helm/field';
-import { HlmIcon } from '@spartan-ng/helm/icon';
+import { BrnSelectTrigger, BrnSelectTriggerWrapper } from '@spartan-ng/brain/select';
 import { hlm } from '@spartan-ng/helm/utils';
-import { cva } from 'class-variance-authority';
 import type { ClassValue } from 'clsx';
-
-export const selectTriggerVariants = cva(
-	`border-input [&>ng-icon:not([class*='text-'])]:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 dark:bg-input/30 dark:hover:bg-input/50 flex w-fit items-center justify-between gap-2 rounded-md border bg-transparent px-3 py-2 text-sm whitespace-nowrap shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 data-[size=default]:h-9 data-[size=sm]:h-8 [&>ng-icon]:pointer-events-none [&>ng-icon]:size-4 [&>ng-icon]:shrink-0`,
-	{
-		variants: {
-			error: {
-				auto: 'data-[matches-spartan-invalid=true]:text-destructive data-[matches-spartan-invalid=true]:border-destructive data-[matches-spartan-invalid=true]:focus-visible:ring-destructive/20 dark:data-[matches-spartan-invalid=true]:focus-visible:ring-destructive/40',
-				true: 'text-destructive border-destructive focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40',
-			},
-		},
-		defaultVariants: {
-			error: 'auto',
-		},
-	},
-);
 
 @Component({
 	selector: 'hlm-select-trigger',
-	imports: [BrnSelectTrigger, NgIcon, HlmIcon, HlmFieldControlDescribedBy],
+	imports: [NgIcon, BrnSelectTrigger],
 	providers: [provideIcons({ lucideChevronDown })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	hostDirectives: [BrnSelectTriggerWrapper],
 	template: `
 		<button
-			[class]="_computedClass()"
-			#button
-			hlmInput
 			brnSelectTrigger
-			hlmFieldControlDescribedBy
-			type="button"
+			[id]="buttonId()"
+			[class]="_computedClass()"
 			[attr.data-size]="size()"
+			data-slot="select-trigger"
 		>
 			<ng-content />
-			@if (_icon()) {
-				<ng-content select="ng-icon" />
-			} @else {
-				<ng-icon hlm size="sm" class="ml-2 flex-none" name="lucideChevronDown" />
-			}
+			<ng-icon name="lucideChevronDown" class="text-muted-foreground pointer-events-none text-base" />
 		</button>
 	`,
 })
 export class HlmSelectTrigger {
-	protected readonly _icon = contentChild(HlmIcon);
-
-	protected readonly _brnSelect = inject(BrnSelect, { optional: true });
+	private static _id = 0;
 
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
+	protected readonly _computedClass = computed(() =>
+		hlm(
+			"border-input data-placeholder:text-muted-foreground dark:bg-input/30 dark:hover:bg-input/50 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 flex w-full items-center justify-between gap-1.5 rounded-md border bg-transparent py-2 pr-2 pl-2.5 text-sm whitespace-nowrap shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-3 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:ring-3 data-[size=default]:h-9 data-[size=sm]:h-8 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-1.5 [&_ng-icon]:pointer-events-none [&_ng-icon]:shrink-0 [&_ng-icon:not([class*='text-'])]:text-base",
+			this.userClass(),
+		),
+	);
+
+	public readonly buttonId = input<string>(`hlm-select-trigger-${HlmSelectTrigger._id++}`);
 
 	public readonly size = input<'default' | 'sm'>('default');
-
-	protected readonly _computedClass = computed(() =>
-		hlm(selectTriggerVariants({ error: this._brnSelect?.controlState?.()?.spartanInvalid }), this.userClass()),
-	);
 }

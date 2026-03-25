@@ -2,12 +2,10 @@ import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown } from '@ng-icons/lucide';
-import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 import { HlmIconImports } from '@spartan-ng/helm/icon';
 import { HlmInputImports } from '@spartan-ng/helm/input';
-import { HlmSelectImports } from '@spartan-ng/helm/select';
 import { HlmTableImports } from '@spartan-ng/helm/table';
 import { hlmMuted } from '@spartan-ng/helm/typography';
 import {
@@ -45,8 +43,6 @@ export type Payment = {
 		NgIcon,
 		HlmIconImports,
 		HlmInputImports,
-		BrnSelectImports,
-		HlmSelectImports,
 		HlmTableImports,
 	],
 	providers: [provideIcons({ lucideChevronDown })],

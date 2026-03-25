@@ -2,6 +2,7 @@ import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject, signal } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import * as lucideIcons from '@ng-icons/lucide';
+import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmInput } from '@spartan-ng/helm/input';
 
@@ -20,7 +21,6 @@ import { PageNav } from '../../../../shared/layout/page-nav/page-nav';
 import { SectionIntro } from '../../../../shared/layout/section-intro';
 import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading';
 import { Tabs } from '../../../../shared/layout/tabs';
-import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { IconMultipleSetsPreview } from './icon--multiple.example';
@@ -39,11 +39,12 @@ export const routeMeta: RouteMeta = {
 	imports: [
 		UIApiDocs,
 		MainSection,
+		InstallTabs,
 		Code,
 		SectionIntro,
 		SectionSubHeading,
 		Tabs,
-		TabsCli,
+
 		CodePreview,
 		PageNav,
 		PageBottomNav,
@@ -80,8 +81,7 @@ export const routeMeta: RouteMeta = {
 				.
 			</p>
 
-			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
-			<spartan-cli-tabs class="mt-4" nxCode="npx nx g @spartan-ng/cli:ui icon" ngCode="ng g @spartan-ng/cli:ui icon" />
+			<spartan-install-tabs primitive="icon" />
 
 			<p class="${hlmP}">
 				This will also install

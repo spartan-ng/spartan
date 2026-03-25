@@ -10,6 +10,7 @@ import { ItemImagePreview } from '@spartan-ng/app/app/pages/(components)/compone
 import { ItemLinkPreview } from '@spartan-ng/app/app/pages/(components)/components/(item)/item--link.preview';
 import { ItemSizePreview } from '@spartan-ng/app/app/pages/(components)/components/(item)/item--size.preview';
 import { ItemVariantsPreview } from '@spartan-ng/app/app/pages/(components)/components/(item)/item--variants.preview';
+import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { UIApiDocs } from '@spartan-ng/app/app/shared/layout/ui-docs-section/ui-docs-section';
 import { HlmCode, HlmP } from '@spartan-ng/helm/typography';
@@ -22,7 +23,6 @@ import { PageNav } from '../../../../shared/layout/page-nav/page-nav';
 import { SectionIntro } from '../../../../shared/layout/section-intro';
 import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading';
 import { Tabs } from '../../../../shared/layout/tabs';
-import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { defaultImports, defaultSkeleton, ItemPreview } from './item.preview';
 
@@ -36,11 +36,12 @@ export const routeMeta: RouteMeta = {
 	selector: 'spartan-item',
 	imports: [
 		MainSection,
+		InstallTabs,
 		Code,
 		SectionIntro,
 		SectionSubHeading,
 		Tabs,
-		TabsCli,
+
 		ItemPreview,
 		CodePreview,
 		PageNav,
@@ -73,8 +74,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
-			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
-			<spartan-cli-tabs class="mt-4" nxCode="npx nx g @spartan-ng/cli:ui item" ngCode="ng g @spartan-ng/cli:ui item" />
+			<spartan-install-tabs primitive="item" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">

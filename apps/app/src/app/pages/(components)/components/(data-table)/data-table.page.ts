@@ -2,6 +2,7 @@ import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import { link } from '@spartan-ng/app/app/shared/typography/link';
 import { hlmCode, hlmP, hlmUl } from '@spartan-ng/helm/typography';
 import { defaultImports, defaultSkeleton } from '../(context-menu)/context-menu.preview';
@@ -14,7 +15,6 @@ import { PageNav } from '../../../../shared/layout/page-nav/page-nav';
 import { SectionIntro } from '../../../../shared/layout/section-intro';
 import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading';
 import { Tabs } from '../../../../shared/layout/tabs';
-import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { DataTablePreview } from './data-table.preview';
 
@@ -28,11 +28,12 @@ export const routeMeta: RouteMeta = {
 	selector: 'spartan-data-table',
 	imports: [
 		MainSection,
+		InstallTabs,
 		Code,
 		SectionIntro,
 		SectionSubHeading,
 		Tabs,
-		TabsCli,
+
 		CodePreview,
 		PageNav,
 		PageBottomNav,
@@ -63,19 +64,14 @@ export const routeMeta: RouteMeta = {
 				<a class="${link}" routerLink="/components/table">Table</a>
 				directives.
 			</p>
-			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
 
-			<p class="${hlmP}">
-				Add the
-				<a class="${link}" routerLink="/components/table">Table</a>
-				directives to your project.
-			</p>
-
-			<spartan-cli-tabs
-				class="mt-4"
-				nxCode="npx nx g @spartan-ng/cli:ui table"
-				ngCode="ng g @spartan-ng/cli:ui table"
-			/>
+			<spartan-install-tabs primitive="table">
+				<p class="${hlmP}">
+					Add the
+					<a class="${link}" routerLink="/components/table">Table</a>
+					directives to your project.
+				</p>
+			</spartan-install-tabs>
 
 			<p class="${hlmP} mb-6">
 				Add

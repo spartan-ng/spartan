@@ -83,7 +83,7 @@ export class ReactiveFormSelectDemo {
 	};
 
 	public form = this._fb.group({
-		language: ['', [Validators.required, autoDetectLanguage()]],
+		language: [null, [Validators.required, autoDetectLanguage()]],
 	});
 
 	submit() {

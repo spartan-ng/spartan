@@ -9,7 +9,9 @@ import {
 	type Type,
 	type ValueProvider,
 } from '@angular/core';
+import type { ControlState } from '@spartan-ng/brain/forms';
 import type { BrnSelectItem } from './brn-select-item';
+import type { BrnSelectTrigger } from './brn-select-trigger';
 
 export interface BrnSelectBase<T> {
 	disabledState: Signal<boolean>;
@@ -19,12 +21,14 @@ export interface BrnSelectBase<T> {
 	hasValue: Signal<boolean>;
 	isExpanded: Signal<boolean>;
 	triggerWidth: Signal<number | null>;
+	controlState?: Signal<ControlState | null>;
 
 	isSelected: (itemValue: T) => boolean;
 	select: (itemValue: T) => void;
 	/** Select the active item with Enter key. */
 	selectActiveItem: () => void;
 	open: () => void;
+	registerSelectTrigger: (input: BrnSelectTrigger) => void;
 }
 
 export const BrnSelectBaseToken = new InjectionToken<BrnSelectBase<unknown>>('BrnSelectBaseToken');

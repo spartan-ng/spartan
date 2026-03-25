@@ -15,13 +15,16 @@ import {
 	input,
 	linkedSignal,
 	model,
+	signal,
 	untracked,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { BrnFieldControl, provideBrnLabelable } from '@spartan-ng/brain/field';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import { BrnPopover } from '@spartan-ng/brain/popover';
 import { BrnSelectItem } from './brn-select-item';
 import { BrnSelectItemToken } from './brn-select-item.token';
+import { BrnSelectTrigger } from './brn-select-trigger';
 import { BrnSelectTriggerWrapper } from './brn-select-trigger-wrapper';
 import {
 	BrnSelectBase,
@@ -39,12 +42,20 @@ export const BRN_SELECT_MULTIPLE_VALUE_ACCESSOR = {
 
 @Directive({
 	selector: '[brnSelectMultiple]',
-	providers: [provideBrnSelectBase(BrnSelectMultiple), BRN_SELECT_MULTIPLE_VALUE_ACCESSOR],
+	providers: [
+		provideBrnSelectBase(BrnSelectMultiple),
+		BRN_SELECT_MULTIPLE_VALUE_ACCESSOR,
+		provideBrnLabelable(BrnSelectMultiple),
+	],
+	hostDirectives: [BrnFieldControl],
 })
 export class BrnSelectMultiple<T> implements BrnSelectBase<T>, ControlValueAccessor {
 	private readonly _injector = inject(Injector);
+	private readonly _fieldControl = inject(BrnFieldControl, { optional: true });
 
 	private readonly _config = injectBrnSelectConfig<T>();
+
+	public readonly controlState = this._fieldControl?.controlState;
 
 	/** Access the popover if present */
 	private readonly _brnPopover = inject(BrnPopover, { optional: true });
@@ -94,6 +105,10 @@ export class BrnSelectMultiple<T> implements BrnSelectBase<T>, ControlValueAcces
 	/** @internal Whether the select is expanded */
 	public readonly isExpanded = computed(() => this._brnPopover?.stateComputed() === 'open');
 
+	private readonly _selectTrigger = signal<BrnSelectTrigger | undefined>(undefined);
+
+	public readonly labelableId = computed(() => this._selectTrigger()?.id());
+
 	protected _onChange?: ChangeFn<T[] | null>;
 	protected _onTouched?: TouchFn;
 
@@ -135,6 +150,10 @@ export class BrnSelectMultiple<T> implements BrnSelectBase<T>, ControlValueAcces
 				{ injector: this._injector },
 			);
 		});
+	}
+
+	public registerSelectTrigger(input: BrnSelectTrigger): void {
+		return this._selectTrigger.set(input);
 	}
 
 	public isSelected(itemValue: T): boolean {

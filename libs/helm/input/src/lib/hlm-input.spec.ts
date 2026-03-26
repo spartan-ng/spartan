@@ -134,11 +134,16 @@ describe('HlmInputDirective', () => {
 			expect(input.getAttribute('data-invalid')).toBe('true');
 			expect(input.getAttribute('data-dirty')).toBe('true');
 
+			control.markAsTouched();
+			r.fixture.detectChanges();
+
+			expect(input.getAttribute('data-touched')).toBe('true');
+			expect(input.getAttribute('data-matches-spartan-invalid')).toBe('true');
+
 			const shouldShowError = control.invalid && (control.touched || control.dirty);
 			expect(shouldShowError).toBe(true);
 
-			r.fixture.detectChanges();
-			expect(input.classList.contains('border-destructive')).toBe(true);
+			expect(input.classList.contains('data-[matches-spartan-invalid=true]:border-destructive')).toBe(true);
 		});
 
 		it('should maintain error state when switching between touched and dirty states', async () => {

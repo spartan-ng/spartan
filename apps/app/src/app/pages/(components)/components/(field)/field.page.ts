@@ -17,6 +17,7 @@ import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-sec
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { FieldCheckboxPreview } from './field--checkbox.preview';
 import { FieldChoiceCardPreview } from './field--choice-card.preview';
+import { FieldDatePickerPreview } from './field--date-picker.preview';
 import { FieldGroupPreview } from './field--group.preview';
 import { FieldInputPreview } from './field--input.preview';
 import { FieldNativeSelectPreview } from './field--native-select.preview';
@@ -59,6 +60,7 @@ export const routeMeta: RouteMeta = {
 		FieldTextareaPreview,
 		FieldSelectPreview,
 		FieldNativeSelectPreview,
+		FieldDatePickerPreview,
 		FieldSliderPreview,
 		FieldSetPreview,
 		FieldCheckboxPreview,
@@ -151,6 +153,14 @@ export const routeMeta: RouteMeta = {
 					<spartan-field-native-select-preview />
 				</div>
 				<spartan-code secondTab [code]="_nativeSelectCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__date-picker" spartanH4>Date Picker</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-field-date-picker-preview />
+				</div>
+				<spartan-code secondTab [code]="_datePickerCode()" />
 			</spartan-tabs>
 
 			<h3 id="examples__slider" spartanH4>Slider</h3>
@@ -345,6 +355,7 @@ export default class FieldPage {
 	protected readonly _textareaCode = computed(() => this._snippets()['textarea']);
 	protected readonly _selectCode = computed(() => this._snippets()['select']);
 	protected readonly _nativeSelectCode = computed(() => this._snippets()['nativeSelect']);
+	protected readonly _datePickerCode = computed(() => this._snippets()['datePicker']);
 	protected readonly _sliderCode = computed(() => this._snippets()['slider']);
 	protected readonly _fieldsetCode = computed(() => this._snippets()['set']);
 	protected readonly _checkboxCode = computed(() => this._snippets()['checkbox']);

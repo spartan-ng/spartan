@@ -2,18 +2,20 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown } from '@ng-icons/lucide';
 import { BrnSelectTrigger, BrnSelectTriggerWrapper } from '@spartan-ng/brain/select';
+import { HlmFieldControlDescribedBy } from '@spartan-ng/helm/field';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-select-trigger',
-	imports: [NgIcon, BrnSelectTrigger],
+	imports: [NgIcon, BrnSelectTrigger, HlmFieldControlDescribedBy],
 	providers: [provideIcons({ lucideChevronDown })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [BrnSelectTriggerWrapper],
 	template: `
 		<button
 			brnSelectTrigger
+			hlmFieldControlDescribedBy
 			[id]="buttonId()"
 			[class]="_computedClass()"
 			[attr.data-size]="size()"

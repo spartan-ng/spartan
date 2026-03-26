@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
 import { HlmSelectImports } from '../../index';
 
@@ -17,23 +16,25 @@ global.ResizeObserver = class ResizeObserver {
 
 @Component({
 	selector: 'hlm-select-host',
-	imports: [ReactiveFormsModule, BrnSelectImports, HlmSelectImports, HlmFieldImports],
+	imports: [ReactiveFormsModule, HlmSelectImports, HlmFieldImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<form [formGroup]="form">
 			<div hlmField>
 				<!-- eslint-disable-next-line @angular-eslint/template/label-has-associated-control -->
 				<label hlmFieldLabel>Fruit *</label>
-				<brn-select formControlName="fruit" class="w-56">
+				<hlm-select formControlName="fruit" class="w-56">
 					<hlm-select-trigger>
-						<brn-select-value hlm />
+						<hlm-select-value placeholder="Select a fruit" />
 					</hlm-select-trigger>
-					<hlm-select-content>
-						<hlm-select-label>Fruits</hlm-select-label>
-						<hlm-option value="apple">Apple</hlm-option>
-						<hlm-option value="banana">Banana</hlm-option>
+					<hlm-select-content *hlmSelectPortal>
+						<hlm-select-group>
+							<hlm-select-label>Fruits</hlm-select-label>
+							<hlm-select-item value="apple">Apple</hlm-select-item>
+							<hlm-select-item value="banana">Banana</hlm-select-item>
+						</hlm-select-group>
 					</hlm-select-content>
-				</brn-select>
+				</hlm-select>
 				<p hlmFieldDescription>Choose your favorite fruit.</p>
 				<hlm-field-error>Pick a fruit to continue.</hlm-field-error>
 			</div>
@@ -65,13 +66,14 @@ describe('HlmSelect form integration', () => {
 
 		const description = fixture.nativeElement.querySelector('[data-slot="field-description"]');
 		const error = fixture.nativeElement.querySelector('[data-slot="field-error"]');
-		const triggerButton: HTMLButtonElement | null = fixture.nativeElement.querySelector('hlm-select-trigger button');
+		const triggerButton: HTMLButtonElement | null = fixture.nativeElement.querySelector('hlm-select-trigger > button');
 
 		expect(host.form.invalid).toBe(true);
 		expect(description).toBeTruthy();
 		expect(error).toBeTruthy();
 
 		const describedBy = triggerButton?.getAttribute('aria-describedby') ?? '';
+		console.log('describedBy', describedBy);
 		expect(describedBy.split(' ')).toContain(description!.id);
 		expect(describedBy.split(' ')).toContain(error!.id);
 	});

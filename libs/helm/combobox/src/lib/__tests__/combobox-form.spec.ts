@@ -89,9 +89,6 @@ describe('Combobox hint/error wiring', () => {
 
 		const input: HTMLInputElement = fixture.nativeElement.querySelector('input[type="text"]');
 
-		// TODO log input attributes
-		console.log('input attributes', Object.fromEntries(Array.from(input.attributes).map((a) => [a.name, a.value])));
-
 		expect(input.getAttribute('aria-invalid')).toBe('true');
 		expect(input.getAttribute('data-touched')).toBe('true');
 	});

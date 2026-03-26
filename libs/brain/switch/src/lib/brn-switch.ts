@@ -3,7 +3,7 @@ import type { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import { isPlatformBrowser } from '@angular/common';
 import {
 	type AfterContentInit,
-	afterNextRender,
+	afterRenderEffect,
 	booleanAttribute,
 	ChangeDetectionStrategy,
 	ChangeDetectorRef,
@@ -11,11 +11,9 @@ import {
 	computed,
 	DestroyRef,
 	DOCUMENT,
-	effect,
 	ElementRef,
 	forwardRef,
 	inject,
-	Injector,
 	input,
 	linkedSignal,
 	model,
@@ -100,7 +98,6 @@ export class BrnSwitch implements AfterContentInit, OnDestroy, ControlValueAcces
 	private readonly _focusMonitor = inject(FocusMonitor);
 	private readonly _cdr = inject(ChangeDetectorRef);
 	private readonly _document = inject(DOCUMENT);
-	private readonly _injector = inject(Injector);
 	private readonly _fieldControl = inject(BrnFieldControl, { optional: true });
 
 	protected readonly _focusVisible = signal(false);
@@ -203,32 +200,27 @@ export class BrnSwitch implements AfterContentInit, OnDestroy, ControlValueAcces
 	public readonly labelableId = computed(() => this.getSwitchButtonId(this._state().id));
 
 	constructor() {
-		afterNextRender(() => {
-			effect(
-				() => {
-					const state = this._state();
-					const isDisabled = state.disabled();
+		afterRenderEffect(() => {
+			const state = this._state();
+			const isDisabled = state.disabled();
 
-					if (!this._elementRef.nativeElement || !this._isBrowser) return;
+			if (!this._elementRef.nativeElement || !this._isBrowser) return;
 
-					const newLabelId = state.id + '-label';
-					const switchButtonId = this.getSwitchButtonId(state.id);
-					const labelElement =
-						this._elementRef.nativeElement.closest('label') ??
-						this._document.querySelector(`label[for="${switchButtonId}"]`);
+			const newLabelId = state.id + '-label';
+			const switchButtonId = this.getSwitchButtonId(state.id);
+			const labelElement =
+				this._elementRef.nativeElement.closest('label') ??
+				this._document.querySelector(`label[for="${switchButtonId}"]`);
 
-					if (!labelElement) return;
-					const existingLabelId = labelElement.id;
+			if (!labelElement) return;
+			const existingLabelId = labelElement.id;
 
-					this._renderer.setAttribute(labelElement, 'data-disabled', isDisabled ? 'true' : 'false');
-					this.mutableAriaLabelledby.set(existingLabelId || newLabelId);
+			this._renderer.setAttribute(labelElement, 'data-disabled', isDisabled ? 'true' : 'false');
+			this.mutableAriaLabelledby.set(existingLabelId || newLabelId);
 
-					if (!existingLabelId || existingLabelId.length === 0) {
-						this._renderer.setAttribute(labelElement, 'id', newLabelId);
-					}
-				},
-				{ injector: this._injector },
-			);
+			if (!existingLabelId || existingLabelId.length === 0) {
+				this._renderer.setAttribute(labelElement, 'id', newLabelId);
+			}
 		});
 	}
 

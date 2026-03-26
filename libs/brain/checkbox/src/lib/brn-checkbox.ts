@@ -3,6 +3,7 @@ import type { BooleanInput } from '@angular/cdk/coercion';
 import { isPlatformBrowser } from '@angular/common';
 import {
 	type AfterContentInit,
+	afterRenderEffect,
 	booleanAttribute,
 	ChangeDetectionStrategy,
 	ChangeDetectorRef,
@@ -10,7 +11,6 @@ import {
 	computed,
 	DestroyRef,
 	DOCUMENT,
-	effect,
 	ElementRef,
 	forwardRef,
 	inject,
@@ -226,7 +226,7 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 	public readonly touched = output<void>();
 
 	constructor() {
-		effect(() => {
+		afterRenderEffect(() => {
 			const state = this._state();
 			const isDisabled = state.disabled();
 

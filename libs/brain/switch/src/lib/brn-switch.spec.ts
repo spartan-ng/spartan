@@ -8,14 +8,16 @@ describe('BrnSwitchComponent', () => {
 	const setup = async () => {
 		const container = await render(
 			`
-     <brn-switch id='switchId' name='switchName' data-testid='brnSwitch' aria-label='switch'>
-             <brn-switch-thumb />
+			<brn-switch id='switchId' name='switchName' data-testid='brnSwitch' aria-label='switch'>
+			  <brn-switch-thumb />
       </brn-switch>
-    `,
+			`,
 			{
 				imports: [BrnSwitch, BrnSwitchThumb],
 			},
 		);
+		container.detectChanges();
+
 		return {
 			user: userEvent.setup(),
 			container,
@@ -26,17 +28,19 @@ describe('BrnSwitchComponent', () => {
 	const setupInsideLabel = async () => {
 		const container = await render(
 			`
-     <label>
-     Switch Inside Label
-     <brn-switch id='switchId' data-testid='brnSwitch' name='switchName'>
-             <brn-switch-thumb />
-      </brn-switch>
+			<label>
+			  Switch Inside Label
+			  <brn-switch id='switchId' data-testid='brnSwitch' name='switchName'>
+			    <brn-switch-thumb />
+				</brn-switch>
       </label>
     `,
 			{
 				imports: [BrnSwitch, BrnSwitchThumb],
 			},
 		);
+		container.detectChanges();
+
 		return {
 			user: userEvent.setup(),
 			container,
@@ -48,18 +52,20 @@ describe('BrnSwitchComponent', () => {
 	const setupOutsideLabelWithAriaLabelledBy = async () => {
 		const container = await render(
 			`
-     <!-- need for because arialabelledby only provides accessible name -->
-     <label id='labelId' for='switchId'>
-     Switch Outside Label with ariaLabelledBy
-     </label>
-     <brn-switch id='switchId' name='switchName' data-testid='brnSwitch' aria-labelledby='labelId'>
-             <brn-switch-thumb />
-      </brn-switch>
+			<!-- need for because arialabelledby only provides accessible name -->
+			<label id='labelId' for='switchId'>
+			  Switch Outside Label with ariaLabelledBy
+			</label>
+			<brn-switch id='switchId' name='switchName' data-testid='brnSwitch' aria-labelledby='labelId'>
+		    <brn-switch-thumb />
+			</brn-switch>
     `,
 			{
 				imports: [BrnSwitch, BrnSwitchThumb],
 			},
 		);
+		container.detectChanges();
+
 		return {
 			user: userEvent.setup(),
 			container,
@@ -71,17 +77,19 @@ describe('BrnSwitchComponent', () => {
 	const setupOutsideLabelWithForAndId = async () => {
 		const container = await render(
 			`
-     <label for='switchId'>
-     Switch Outside Label with id
-     </label>
-     <brn-switch id='switchId' name='switchName' data-testid='brnSwitch'>
-             <brn-switch-thumb />
+			<label for='switchId'>
+			  Switch Outside Label with id
+			</label>
+			<brn-switch id='switchId' name='switchName' data-testid='brnSwitch'>
+			  <brn-switch-thumb />
       </brn-switch>
     `,
 			{
 				imports: [BrnSwitch, BrnSwitchThumb],
 			},
 		);
+		container.detectChanges();
+
 		return {
 			user: userEvent.setup(),
 			container,

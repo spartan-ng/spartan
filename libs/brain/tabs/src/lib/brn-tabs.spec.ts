@@ -118,11 +118,21 @@ describe('BrnTabsDirective', () => {
 		expect(tabsAfter['tab1']).toBeUndefined();
 	});
 
-	it('should remove active tab when trigger was removed', async () => {
+	it('should preserve active tab when trigger is destroyed', async () => {
 		expect(renderResult.fixture.componentInstance.tabsDir().$activeTab()).toBe('tab1');
 		renderResult.fixture.componentRef.setInput('showTrigger', false);
 		renderResult.fixture.detectChanges();
-		expect(renderResult.fixture.componentInstance.tabsDir().$activeTab()).toBeUndefined();
+		expect(renderResult.fixture.componentInstance.tabsDir().$activeTab()).toBe('tab1');
+	});
+
+	it('should not emit brnTabsChange with undefined when trigger is destroyed', async () => {
+		const tabsDir = renderResult.fixture.componentInstance.tabsDir();
+		const emittedValues: (string | undefined)[] = [];
+		const sub = tabsDir.activeTab.subscribe((v) => emittedValues.push(v));
+		renderResult.fixture.componentRef.setInput('showTrigger', false);
+		renderResult.fixture.detectChanges();
+		expect(emittedValues).not.toContain(undefined);
+		sub.unsubscribe();
 	});
 
 	it('should have tabindex -1 when it is disabled', async () => {

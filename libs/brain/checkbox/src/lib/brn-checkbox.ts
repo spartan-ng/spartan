@@ -67,7 +67,7 @@ const CONTAINER_POST_FIX = '-checkbox';
 			role="checkbox"
 			type="button"
 			[attr.id]="_buttonId()"
-			[attr.name]="_buttonId()"
+			[attr.name]="_buttonName()"
 			[class]="class()"
 			[attr.aria-checked]="_ariaChecked()"
 			[attr.aria-label]="ariaLabel() || null"
@@ -198,9 +198,9 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 		};
 	});
 
-	protected readonly _buttonId = computed(() => {
-		return this._getCheckboxButtonId(this._state().id);
-	});
+	protected readonly _buttonId = computed(() => this._getCheckboxButtonId(this._state().id));
+
+	protected readonly _buttonName = computed(() => this._getCheckboxButtonId(this._state().name));
 
 	public readonly labelableId = this._buttonId;
 

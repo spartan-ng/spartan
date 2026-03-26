@@ -22,10 +22,10 @@ import { HlmFieldA11yService } from './hlm-field-aria.service';
 		role: 'alert',
 		'data-slot': 'field-error',
 		'[attr.id]': '_computedId()',
-		'[hidden]': '!_hasError()',
+		'[hidden]': '!_display()',
 	},
 	template: `
-		@if (_hasError()) {
+		@if (_display()) {
 			<ng-content />
 		}
 	`,
@@ -39,6 +39,8 @@ export class HlmFieldError implements OnDestroy {
 	private _registeredId?: string;
 
 	private readonly _autoId = `hlm-field-error-${++HlmFieldError._nextId}`;
+
+	protected readonly _hasField = !!this._field;
 
 	/** The unique ID for the field error. If none is supplied, it will be auto-generated. */
 	public readonly id = input<string | undefined>(undefined);
@@ -57,10 +59,12 @@ export class HlmFieldError implements OnDestroy {
 
 	protected readonly _computedId = computed(() => this.id() ?? this._autoId);
 
-	protected readonly _hasError = computed(() => {
-		if (this.forceShow()) return true;
+	protected readonly _display = computed(() => !this._hasField || this.forceShow() || this._hasError());
 
-		const errors = this._field?.errors() ?? {};
+	protected readonly _hasError = computed(() => {
+		const errors = this._field?.errors();
+		if (!errors) return false;
+
 		const validator = this.validator();
 		const spartanInvalid = this._field?.controlState()?.spartanInvalid;
 

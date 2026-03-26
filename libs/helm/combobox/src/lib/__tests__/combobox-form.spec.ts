@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
-import { HlmComboboxImports } from '@spartan-ng/helm/combobox';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
+import { HlmComboboxImports } from '../../index';
 
 type Framework = { label: string; value: string };
 

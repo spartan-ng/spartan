@@ -131,6 +131,8 @@ describe('BrnTabsDirective', () => {
 		const sub = tabsDir.activeTab.subscribe((v) => emittedValues.push(v));
 		renderResult.fixture.componentRef.setInput('showTrigger', false);
 		renderResult.fixture.detectChanges();
+		// No change event should fire at all when a trigger is destroyed
+		expect(emittedValues.length).toBe(0);
 		expect(emittedValues).not.toContain(undefined);
 		sub.unsubscribe();
 	});

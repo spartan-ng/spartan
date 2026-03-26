@@ -88,6 +88,11 @@ export class BrnInputOtp implements ControlValueAccessor {
 		transform: booleanAttribute,
 	});
 
+	/** Determine if the full otp should be masked */
+	public readonly mask = input<boolean, BooleanInput>(false, {
+		transform: booleanAttribute,
+	});
+
 	protected readonly _disabled = linkedSignal(this.disabled);
 
 	/** The number of slots. */

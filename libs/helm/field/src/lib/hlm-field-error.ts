@@ -20,7 +20,7 @@ import { ClassValue } from 'clsx';
 	host: {
 		role: 'alert',
 		'data-slot': 'field-error',
-		'[attr.id]': '_computedId()',
+		'[attr.id]': 'id()',
 		'[hidden]': '!_display()',
 	},
 	template: `
@@ -30,19 +30,17 @@ import { ClassValue } from 'clsx';
 	`,
 })
 export class HlmFieldError implements OnDestroy {
-	private static _nextId = 0;
+	private static _id = 0;
 
 	private readonly _field = inject(BrnField, { optional: true });
 	private readonly _a11y = inject(BrnFieldA11yService, { optional: true, host: true });
 
 	private _registeredId?: string;
 
-	private readonly _autoId = `hlm-field-error-${++HlmFieldError._nextId}`;
-
 	private readonly _hasParentField = !!this._field;
 
 	/** The unique ID for the field error. If none is supplied, it will be auto-generated. */
-	public readonly id = input<string | undefined>(undefined);
+	public readonly id = input<string>(`hlm-field-error-${HlmFieldError._id++}`);
 
 	/** Additional CSS classes to apply to the field error element. */
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
@@ -55,8 +53,6 @@ export class HlmFieldError implements OnDestroy {
 
 	/** Forces the error message to be visible regardless of the control's validation state. */
 	public readonly forceShow = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
-
-	protected readonly _computedId = computed(() => this.id() ?? this._autoId);
 
 	protected readonly _display = computed(() => !this._hasParentField || this.forceShow() || this._hasError());
 
@@ -72,16 +68,12 @@ export class HlmFieldError implements OnDestroy {
 		return validator ? validator in errors : Object.keys(errors).length > 0;
 	});
 
-	constructor() {
-		classes(() => ['text-destructive text-sm font-normal', this.userClass()]);
-	}
-
 	private readonly _cleanup: EffectRef | null = this._a11y
 		? effect(() => {
 				const a11y = this._a11y;
 				if (!a11y) return;
 
-				const id = this._computedId();
+				const id = this.id();
 				const hasError = this._hasError();
 
 				if (this._registeredId && (this._registeredId !== id || !hasError)) {
@@ -95,6 +87,10 @@ export class HlmFieldError implements OnDestroy {
 				}
 			})
 		: null;
+
+	constructor() {
+		classes(() => ['text-destructive text-sm font-normal', this.userClass()]);
+	}
 
 	ngOnDestroy() {
 		this._cleanup?.destroy();

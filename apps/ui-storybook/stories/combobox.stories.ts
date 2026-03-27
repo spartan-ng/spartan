@@ -47,6 +47,34 @@ class ComboboxDefaultStory {
 	public readonly frameworks = frameworks;
 }
 
+@Component({
+	selector: 'combobox-popup-story',
+	imports: [HlmComboboxImports, HlmFieldImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<hlm-field>
+			<label hlmFieldLabel for="countries">Countries</label>
+			<hlm-combobox autoFocus="first-tabbable">
+				<hlm-combobox-trigger buttonId="countries" class="w-64 justify-between font-normal">
+					<hlm-combobox-value placeholder="Select a country" />
+				</hlm-combobox-trigger>
+				<hlm-combobox-content *hlmComboboxPortal>
+					<hlm-combobox-input showTrigger="false" placeholder="Search" showClear />
+					<hlm-combobox-empty>No items found.</hlm-combobox-empty>
+					<div hlmComboboxList>
+						@for (fw of frameworks; track fw.value) {
+							<hlm-combobox-item [value]="fw">{{ fw.label }}</hlm-combobox-item>
+						}
+					</div>
+				</hlm-combobox-content>
+			</hlm-combobox>
+		</hlm-field>
+	`,
+})
+class ComboboxPopupStory {
+	public readonly frameworks = frameworks;
+}
+
 // ── With Reactive Form ───────────────────────────────────────────────────────
 
 @Component({
@@ -177,6 +205,57 @@ class ComboboxHintErrorStory {
 })
 class ComboboxMultipleHintErrorStory {
 	private readonly _fb = inject(FormBuilder);
+	public readonly form = this._fb.group({
+		framework: [
+			null as Framework[] | null,
+			[
+				Validators.required,
+				() => {
+					return { customError: true };
+				},
+			],
+		],
+	});
+	public readonly frameworks = frameworks;
+}
+
+@Component({
+	selector: 'combobox-popup-hint-error-story',
+	imports: [HlmComboboxImports, HlmFieldImports, HlmButton, ReactiveFormsModule],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<form [formGroup]="form" class="w-full max-w-sm space-y-3">
+			<div hlmField>
+				<label hlmFieldLabel for="countries">Countries</label>
+				<hlm-combobox autoFocus="first-tabbable" formControlName="framework">
+					<hlm-combobox-trigger buttonId="countries" class="w-64 justify-between font-normal">
+						<hlm-combobox-value placeholder="Select a country" />
+					</hlm-combobox-trigger>
+					<hlm-combobox-content *hlmComboboxPortal>
+						<hlm-combobox-input showTrigger="false" placeholder="Search" showClear />
+						<hlm-combobox-empty>No items found.</hlm-combobox-empty>
+						<div hlmComboboxList>
+							@for (fw of frameworks; track fw.value) {
+								<hlm-combobox-item [value]="fw">{{ fw.label }}</hlm-combobox-item>
+							}
+						</div>
+					</hlm-combobox-content>
+				</hlm-combobox>
+
+				<p hlmFieldDescription>Pick a framework to get started.</p>
+
+				<hlm-field-error>Select a framework to continue.</hlm-field-error>
+			</div>
+
+			<div class="flex flex-wrap items-center gap-2">
+				<button hlmBtn type="button" (click)="form.markAllAsTouched()">Validate</button>
+				<button hlmBtn variant="outline" type="button" (click)="form.reset()">Reset</button>
+			</div>
+		</form>
+	`,
+})
+class ComboboxPopupHintErrorStory {
+	private readonly _fb = inject(FormBuilder);
 	public readonly form = this._fb.group({ framework: [null as Framework[] | null, Validators.required] });
 	public readonly frameworks = frameworks;
 }
@@ -190,9 +269,11 @@ const meta: Meta = {
 		moduleMetadata({
 			imports: [
 				ComboboxDefaultStory,
+				ComboboxPopupStory,
 				ComboboxReactiveFormStory,
 				ComboboxHintErrorStory,
 				ComboboxMultipleHintErrorStory,
+				ComboboxPopupHintErrorStory,
 			],
 		}),
 	],
@@ -204,6 +285,12 @@ type Story = StoryObj;
 export const Default: Story = {
 	render: () => ({
 		template: '<combobox-default-story />',
+	}),
+};
+
+export const Popup: Story = {
+	render: () => ({
+		template: '<combobox-popup-story />',
 	}),
 };
 
@@ -222,5 +309,11 @@ export const WithHintAndError: Story = {
 export const MultipleWithHintAndError: Story = {
 	render: () => ({
 		template: '<combobox-multiple-hint-error-story />',
+	}),
+};
+
+export const PopupWithHintAndError: Story = {
+	render: () => ({
+		template: '<combobox-popup-hint-error-story />',
 	}),
 };

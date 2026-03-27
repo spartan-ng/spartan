@@ -1,13 +1,8 @@
 import { BooleanInput } from '@angular/cdk/coercion';
-import { booleanAttribute, ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown, lucideX } from '@ng-icons/lucide';
-import {
-	BrnComboboxImports,
-	BrnComboboxInputWrapper,
-	BrnComboboxPopoverTrigger,
-	injectBrnComboboxBase,
-} from '@spartan-ng/brain/combobox';
+import { BrnComboboxImports, BrnComboboxInputWrapper, BrnComboboxPopoverTrigger } from '@spartan-ng/brain/combobox';
 import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 
 @Component({
@@ -25,11 +20,7 @@ import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 				hlmInputGroupInput
 				[id]="inputId()"
 				[placeholder]="placeholder()"
-				[attr.aria-invalid]="_ariaInvalid() ? 'true' : null"
-				[attr.data-invalid]="_ariaInvalid() ? 'true' : null"
-				[attr.data-dirty]="_dirty() ? 'true' : null"
-				[attr.data-touched]="_touched() ? 'true' : null"
-				[attr.data-matches-spartan-invalid]="_spartanInvalid() ? 'true' : null"
+				[aria-invalid]="ariaInvalidOverride()"
 			/>
 
 			<hlm-input-group-addon align="inline-end">
@@ -67,7 +58,6 @@ import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 })
 export class HlmComboboxInput {
 	private static _id = 0;
-	private readonly _combobox = injectBrnComboboxBase();
 
 	public readonly inputId = input<string>(`hlm-combobox-input-${HlmComboboxInput._id++}`);
 	public readonly placeholder = input<string>('');
@@ -80,13 +70,4 @@ export class HlmComboboxInput {
 		transform: (v: BooleanInput) => (v === '' || v === undefined ? undefined : booleanAttribute(v)),
 		alias: 'aria-invalid',
 	});
-
-	/** Computed aria-invalid: uses manual override if provided, otherwise reads from parent error state. */
-	protected readonly _ariaInvalid = computed(
-		() => this.ariaInvalidOverride() ?? this._combobox.controlState?.()?.invalid,
-	);
-
-	protected readonly _dirty = computed(() => this._combobox.controlState?.()?.dirty);
-	protected readonly _touched = computed(() => this._combobox.controlState?.()?.touched);
-	protected readonly _spartanInvalid = computed(() => this._combobox.controlState?.()?.spartanInvalid);
 }

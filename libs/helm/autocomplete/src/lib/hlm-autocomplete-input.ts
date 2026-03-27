@@ -1,5 +1,5 @@
 import { BooleanInput } from '@angular/cdk/coercion';
-import { booleanAttribute, ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideSearch, lucideX } from '@ng-icons/lucide';
 import {
@@ -7,7 +7,6 @@ import {
 	BrnAutocompleteClear,
 	BrnAutocompleteInput,
 	BrnAutocompleteInputWrapper,
-	injectBrnAutocompleteBase,
 } from '@spartan-ng/brain/autocomplete';
 import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 
@@ -25,11 +24,7 @@ import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 				hlmInputGroupInput
 				[id]="inputId()"
 				[placeholder]="placeholder()"
-				[attr.aria-invalid]="_ariaInvalid() ? 'true' : null"
-				[attr.data-invalid]="_ariaInvalid() ? 'true' : null"
-				[attr.data-matches-spartan-invalid]="_spartanInvalid() ? 'true' : null"
-				[attr.data-touched]="_touched() ? 'true' : null"
-				[attr.data-dirty]="_dirty() ? 'true' : null"
+				[aria-invalid]="ariaInvalidOverride()"
 			/>
 
 			@if (showSearch()) {
@@ -58,7 +53,6 @@ import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 })
 export class HlmAutocompleteInput {
 	private static _id = 0;
-	private readonly _autocomplete = injectBrnAutocompleteBase();
 
 	public readonly inputId = input<string>(`hlm-autocomplete-input-${HlmAutocompleteInput._id++}`);
 
@@ -72,13 +66,4 @@ export class HlmAutocompleteInput {
 		transform: (v: BooleanInput) => (v === '' || v === undefined ? undefined : booleanAttribute(v)),
 		alias: 'aria-invalid',
 	});
-
-	/** Computed aria-invalid: uses manual override if provided, otherwise reads from parent error state. */
-	protected readonly _ariaInvalid = computed(
-		() => this.ariaInvalidOverride() ?? this._autocomplete.controlState?.()?.invalid,
-	);
-
-	protected readonly _spartanInvalid = computed(() => this._autocomplete.controlState?.()?.spartanInvalid);
-	protected readonly _touched = computed(() => this._autocomplete.controlState?.()?.touched);
-	protected readonly _dirty = computed(() => this._autocomplete.controlState?.()?.dirty);
 }

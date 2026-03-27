@@ -30,6 +30,7 @@ import type { ClassValue } from 'clsx';
 			brnComboboxTrigger
 			brnComboboxAnchor
 			brnComboboxPopoverTrigger
+			applyControlState
 			hlmBtn
 			hlmFieldControlDescribedBy
 			data-slot="combobox-trigger"

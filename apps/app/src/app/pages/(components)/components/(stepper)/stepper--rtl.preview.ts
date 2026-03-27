@@ -3,14 +3,15 @@ import { TranslateService } from '@spartan-ng/app/app/shared/translate.service';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmStepperImports } from '@spartan-ng/helm/stepper';
 
-@Component({selector: 'spartan-stepper-rtl-preview',
-imports: [HlmStepperImports, HlmButtonImports],
-changeDetection: ChangeDetectionStrategy.OnPush,
-host: {
+@Component({
+	selector: 'spartan-stepper-rtl-preview',
+	imports: [HlmStepperImports, HlmButtonImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
 		class: 'w-full',
 		'[dir]': '_dir()',
 	},
-template: `
+	template: `
 		<div class="space-y-8">
 			<section class="space-y-3">
 				<h4 class="text-foreground text-sm font-semibold">{{ _t().horizontal }}</h4>
@@ -104,7 +105,8 @@ template: `
 				</hlm-stepper>
 			</section>
 		</div>
-	`})
+	`,
+})
 export class StepperRtlPreview {
 	private readonly _language = inject(TranslateService).language;
 	private readonly _translations = {

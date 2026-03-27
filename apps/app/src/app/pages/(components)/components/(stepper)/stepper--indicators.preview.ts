@@ -4,19 +4,20 @@ import { lucideMail, lucideMapPin, lucideUser } from '@ng-icons/lucide';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmStepperImports } from '@spartan-ng/helm/stepper';
 
-@Component({selector: 'spartan-stepper-indicators-preview',
-imports: [HlmStepperImports, HlmButtonImports],
-providers: [provideIcons({ lucideUser, lucideMapPin, lucideMail })],
-changeDetection: ChangeDetectionStrategy.OnPush,
-host: {
+@Component({
+	selector: 'spartan-stepper-indicators-preview',
+	imports: [HlmStepperImports, HlmButtonImports],
+	providers: [provideIcons({ lucideUser, lucideMapPin, lucideMail })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
 		class: 'w-full',
 	},
-template: `
+	template: `
 		<div class="space-y-6">
 			<section class="flex flex-col gap-4 rounded-xl border p-5">
 				<header class="space-y-1">
 					<h3 class="font-medium">Number</h3>
-					<p class="text-sm text-muted-foreground">Always renders 1, 2, 3.</p>
+					<p class="text-muted-foreground text-sm">Always renders 1, 2, 3.</p>
 				</header>
 
 				<hlm-stepper indicatorMode="number">
@@ -63,9 +64,7 @@ template: `
 			<section class="flex flex-col gap-4 rounded-xl border p-5">
 				<header class="space-y-1">
 					<h3 class="font-medium">State</h3>
-					<p class="text-sm text-muted-foreground">
-						Default Material-like state icons for completion and errors.
-					</p>
+					<p class="text-muted-foreground text-sm">Default Material-like state icons for completion and errors.</p>
 				</header>
 
 				<hlm-stepper indicatorMode="state">
@@ -112,7 +111,7 @@ template: `
 			<section class="flex flex-col gap-4 rounded-xl border p-5">
 				<header class="space-y-1">
 					<h3 class="font-medium">Icon</h3>
-					<p class="text-sm text-muted-foreground">
+					<p class="text-muted-foreground text-sm">
 						Per-step icons only when
 						<code class="text-foreground font-mono">indicatorMode="icon"</code>
 						is enabled.
@@ -160,6 +159,6 @@ template: `
 				</hlm-stepper>
 			</section>
 		</div>
-	`})
+	`,
+})
 export class StepperStatesPreview {}
-

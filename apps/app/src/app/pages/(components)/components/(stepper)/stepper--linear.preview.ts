@@ -90,4 +90,3 @@ export class StepperLinearPreview {
 		password: ['', [Validators.required, Validators.minLength(8)]],
 	});
 }
-

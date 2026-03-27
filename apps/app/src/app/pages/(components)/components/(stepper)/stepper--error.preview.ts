@@ -6,19 +6,20 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 import { HlmInputImports } from '@spartan-ng/helm/input';
 import { HlmStepperImports } from '@spartan-ng/helm/stepper';
 
-@Component({selector: 'spartan-stepper-error-preview',
-imports: [ReactiveFormsModule, HlmStepperImports, HlmButtonImports, HlmFieldImports, HlmInputImports],
-providers: [
+@Component({
+	selector: 'spartan-stepper-error-preview',
+	imports: [ReactiveFormsModule, HlmStepperImports, HlmButtonImports, HlmFieldImports, HlmInputImports],
+	providers: [
 		{
 			provide: STEPPER_GLOBAL_OPTIONS,
 			useValue: { showError: true },
 		},
 	],
-changeDetection: ChangeDetectionStrategy.OnPush,
-host: {
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
 		class: 'w-full',
 	},
-template: `
+	template: `
 		<hlm-stepper>
 			<hlm-step
 				[stepControl]="_contactForm"
@@ -29,12 +30,7 @@ template: `
 				<form [formGroup]="_contactForm" class="flex flex-col gap-4">
 					<hlm-field>
 						<label hlmFieldLabel for="error-email">Work Email</label>
-						<input
-							hlmInput
-							id="error-email"
-							formControlName="email"
-							placeholder="Required to remove the error state"
-						/>
+						<input hlmInput id="error-email" formControlName="email" placeholder="Required to remove the error state" />
 						@if (_contactForm.controls.email.touched && _contactForm.controls.email.invalid) {
 							<hlm-field-error>
 								@if (_contactForm.controls.email.errors?.['required']) {
@@ -47,8 +43,8 @@ template: `
 					</hlm-field>
 
 					<p class="text-muted-foreground text-sm">
-						This example is intentionally non-linear. Click next without filling the field to move forward and
-						trigger the header error state.
+						This example is intentionally non-linear. Click next without filling the field to move forward and trigger
+						the header error state.
 					</p>
 
 					<div class="flex justify-end">
@@ -78,7 +74,8 @@ template: `
 				</div>
 			</hlm-step>
 		</hlm-stepper>
-	`})
+	`,
+})
 export class StepperErrorPreview {
 	private readonly _formBuilder = inject(FormBuilder);
 
@@ -86,4 +83,3 @@ export class StepperErrorPreview {
 		email: ['', [Validators.required, Validators.email]],
 	});
 }
-

@@ -20,12 +20,12 @@ import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { StepperBasicPreview } from './stepper--basic.preview';
 import { StepperErrorPreview } from './stepper--error.preview';
+import { StepperStatesPreview } from './stepper--indicators.preview';
 import { StepperLayoutPreview } from './stepper--layout.preview';
 import { StepperLazyContentPreview } from './stepper--lazy-content.preview';
 import { StepperLinearPreview } from './stepper--linear.preview';
 import { StepperResponsivePreview } from './stepper--responsive.preview';
 import { StepperRtlPreview } from './stepper--rtl.preview';
-import { StepperStatesPreview } from './stepper--indicators.preview';
 import { StepperVerticalPreview } from './stepper--vertical.preview';
 import { StepperPreview, defaultImports, defaultSkeleton } from './stepper.preview';
 
@@ -181,8 +181,8 @@ export const routeMeta: RouteMeta = {
 			<spartan-section-sub-heading id="accessibility">Accessibility</spartan-section-sub-heading>
 			<p hlmP>
 				<code>hlm-stepper</code>
-				implements stepper accessibility semantics on top of the CDK stepper foundation.
-				In horizontal mode it renders a tabbed pattern:
+				implements stepper accessibility semantics on top of the CDK stepper foundation. In horizontal mode it renders a
+				tabbed pattern:
 				<code>tablist</code>
 				,
 				<code>tab</code>
@@ -194,7 +194,7 @@ export const routeMeta: RouteMeta = {
 				<code>aria-labelledby</code>
 				attributes.
 			</p>
-		
+
 			<p hlmP>
 				In vertical mode, headers switch to
 				<code>role="button"</code>
@@ -206,8 +206,8 @@ export const routeMeta: RouteMeta = {
 				<code>region</code>
 				. For linear forms,
 				<code>HlmStepper.next()</code>
-				marks the current form as touched before blocking invalid progression, so surface validation messages in the step
-				content (for example with field errors or an aria-live region).
+				marks the current form as touched before blocking invalid progression, so surface validation messages in the
+				step content (for example with field errors or an aria-live region).
 			</p>
 
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>

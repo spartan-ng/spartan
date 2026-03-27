@@ -16,10 +16,9 @@ import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { provideIcons } from '@ng-icons/core';
 import { lucideChevronDown } from '@ng-icons/lucide';
 import type { BrnDialogState } from '@spartan-ng/brain/dialog';
-import { BrnFieldControl, provideBrnLabelable } from '@spartan-ng/brain/field';
+import { BrnFieldControl, BrnFieldControlDescribedBy, provideBrnLabelable } from '@spartan-ng/brain/field';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import { HlmCalendarMulti } from '@spartan-ng/helm/calendar';
-import { HlmFieldControlDescribedBy } from '@spartan-ng/helm/field';
 import { HlmIconImports } from '@spartan-ng/helm/icon';
 import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 import { hlm } from '@spartan-ng/helm/utils';
@@ -36,7 +35,7 @@ let nextId = 0;
 
 @Component({
 	selector: 'hlm-date-picker-multi',
-	imports: [HlmIconImports, HlmPopoverImports, HlmCalendarMulti, HlmFieldControlDescribedBy],
+	imports: [HlmIconImports, HlmPopoverImports, HlmCalendarMulti, BrnFieldControlDescribedBy],
 	providers: [
 		HLM_DATE_PICKER_MUTLI_VALUE_ACCESSOR,
 		provideIcons({ lucideChevronDown }),
@@ -65,7 +64,7 @@ let nextId = 0;
 				[attr.data-touched]="_touched?.() ? 'true' : null"
 				[attr.data-matches-spartan-invalid]="_spartanInvalid?.() ? 'true' : null"
 				hlmPopoverTrigger
-				hlmFieldControlDescribedBy
+				brnFieldControlDescribedBy
 			>
 				<span class="truncate">
 					@if (_formattedDate(); as formattedDate) {

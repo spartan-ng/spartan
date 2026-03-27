@@ -1,7 +1,7 @@
 import { computed, Injectable, signal } from '@angular/core';
 
 @Injectable()
-export class HlmFieldA11yService {
+export class BrnFieldA11yService {
 	private readonly _descriptions = signal<string[]>([]);
 	private readonly _errors = signal<string[]>([]);
 

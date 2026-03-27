@@ -10,10 +10,9 @@ import {
 	input,
 	OnDestroy,
 } from '@angular/core';
-import { BrnField } from '@spartan-ng/brain/field';
+import { BrnField, BrnFieldA11yService } from '@spartan-ng/brain/field';
 import { classes } from '@spartan-ng/helm/utils';
 import { ClassValue } from 'clsx';
-import { HlmFieldA11yService } from './hlm-field-aria.service';
 
 @Component({
 	selector: 'hlm-field-error',
@@ -34,7 +33,7 @@ export class HlmFieldError implements OnDestroy {
 	private static _nextId = 0;
 
 	private readonly _field = inject(BrnField, { optional: true });
-	private readonly _a11y = inject(HlmFieldA11yService, { optional: true, host: true });
+	private readonly _a11y = inject(BrnFieldA11yService, { optional: true, host: true });
 
 	private _registeredId?: string;
 

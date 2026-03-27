@@ -62,8 +62,7 @@ export const WithHintAndError: Story = {
 					formControlName="dates"
 					[captionLayout]="captionLayout"
 					[min]="min"
-					[max]="max"
-					hlmFieldControlDescribedBy>
+					[max]="max">
 					<span>Select dates</span>
 				</hlm-date-picker-multi>
 

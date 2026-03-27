@@ -1,6 +1,6 @@
 import { Directive, input, linkedSignal } from '@angular/core';
+import { BrnFieldControlDescribedBy } from '@spartan-ng/brain/field';
 import { BrnInput } from '@spartan-ng/brain/input';
-import { HlmFieldControlDescribedBy } from '@spartan-ng/helm/field';
 import { classes } from '@spartan-ng/helm/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 
@@ -22,7 +22,7 @@ type InputVariants = VariantProps<typeof inputVariants>;
 
 @Directive({
 	selector: '[hlmInput]',
-	hostDirectives: [{ directive: BrnInput, inputs: ['id'] }, HlmFieldControlDescribedBy],
+	hostDirectives: [{ directive: BrnInput, inputs: ['id'] }, BrnFieldControlDescribedBy],
 })
 export class HlmInput {
 	/** Controls the error visual state of the input.

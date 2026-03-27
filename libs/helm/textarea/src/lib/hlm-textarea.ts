@@ -1,6 +1,6 @@
 import { Directive, input } from '@angular/core';
+import { BrnFieldControlDescribedBy } from '@spartan-ng/brain/field';
 import { BrnTextarea } from '@spartan-ng/brain/textarea';
-import { HlmFieldControlDescribedBy } from '@spartan-ng/helm/field';
 import { classes } from '@spartan-ng/helm/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 
@@ -22,7 +22,7 @@ type TextareaVariants = VariantProps<typeof textareaVariants>;
 
 @Directive({
 	selector: '[hlmTextarea]',
-	hostDirectives: [{ directive: BrnTextarea, inputs: ['id'] }, HlmFieldControlDescribedBy],
+	hostDirectives: [{ directive: BrnTextarea, inputs: ['id'] }, BrnFieldControlDescribedBy],
 	host: {
 		'data-slot': 'textarea',
 	},

@@ -1,7 +1,7 @@
 import { computed, Directive, effect, EffectRef, inject, input, OnDestroy } from '@angular/core';
+import { BrnFieldA11yService } from '@spartan-ng/brain/field';
 import { classes } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
-import { HlmFieldA11yService } from './hlm-field-aria.service';
 
 @Directive({
 	selector: '[hlmFieldDescription],hlm-field-description',
@@ -27,7 +27,7 @@ export class HlmFieldDescription implements OnDestroy {
 	}
 
 	private _registeredId?: string;
-	private readonly _a11y = inject(HlmFieldA11yService, { optional: true, host: true });
+	private readonly _a11y = inject(BrnFieldA11yService, { optional: true, host: true });
 	private readonly _cleanup: EffectRef | null = this._a11y
 		? effect(() => {
 				const a11y = this._a11y;

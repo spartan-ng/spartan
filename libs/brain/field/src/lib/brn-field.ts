@@ -1,10 +1,12 @@
 import { BooleanInput } from '@angular/cdk/coercion';
 import { booleanAttribute, computed, Directive, input, signal } from '@angular/core';
+import { BrnFieldA11yService } from './brn-field-aria.service';
 import { BrnFieldControl } from './brn-field-control';
 import { BrnLabelable } from './brn-labelable';
 
 @Directive({
 	selector: '[brnField],brn-field',
+	providers: [BrnFieldA11yService],
 	host: {
 		'[attr.data-invalid]': '_invalid() ? "true" : null',
 		'[attr.data-matches-spartan-invalid]': '_spartanInvalid() ? "true" : null',

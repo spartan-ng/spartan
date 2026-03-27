@@ -62,6 +62,7 @@ export type Primitives =
 	| 'sonner'
 	| 'spinner'
 	| 'switch'
+	| 'stepper'
 	| 'table'
 	| 'tabs'
 	| 'toggle'

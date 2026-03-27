@@ -3,10 +3,12 @@ import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmStepperImports } from '@spartan-ng/helm/stepper';
 
 
-@Component({
-	selector: 'spartan-stepper-preview',
-	imports: [HlmStepperImports,HlmButtonImports],
-	template: `
+@Component({selector: 'spartan-stepper-preview',
+imports: [HlmStepperImports,HlmButtonImports],
+host: {
+		class: 'w-full',
+	},
+template: `
 		<hlm-stepper>
 			<hlm-step label="Step One">
 				<div class="flex flex-col gap-4">
@@ -50,11 +52,7 @@ import { HlmStepperImports } from '@spartan-ng/helm/stepper';
 				</div>
 			</hlm-step>
 		</hlm-stepper>
-	`,
-	host: {
-		class: 'w-full',
-	}
-})
+	`})
 export class StepperPreview {}
 
 export const defaultImports = `

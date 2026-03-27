@@ -9,19 +9,17 @@ import { HlmStepperImports } from '@spartan-ng/helm/stepper';
 	selector: 'spartan-stepper-linear-preview',
 	imports: [ReactiveFormsModule, HlmStepperImports, HlmButtonImports, HlmFieldImports, HlmInputImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		class: 'w-full',
+	},
 	template: `
 		<hlm-stepper [linear]="true">
-			<hlm-step [stepControl]="identityForm" label="Identity">
-				<form [formGroup]="identityForm" class="flex flex-col gap-4">
+			<hlm-step [stepControl]="_identityForm" label="Identity">
+				<form [formGroup]="_identityForm" class="flex flex-col gap-4">
 					<hlm-field>
 						<label hlmFieldLabel for="validation-name">Name</label>
-						<input
-							hlmInput
-							id="validation-name"
-							formControlName="name"
-							placeholder="Required before continuing"
-						/>
-						@if (identityForm.controls.name.touched && identityForm.controls.name.invalid) {
+						<input hlmInput id="validation-name" formControlName="name" placeholder="Required before continuing" />
+						@if (_identityForm.controls.name.touched && _identityForm.controls.name.invalid) {
 							<hlm-field-error>This field is required.</hlm-field-error>
 						}
 					</hlm-field>
@@ -32,23 +30,18 @@ import { HlmStepperImports } from '@spartan-ng/helm/stepper';
 				</form>
 			</hlm-step>
 
-			<hlm-step [stepControl]="securityForm">
+			<hlm-step [stepControl]="_securityForm">
 				<ng-template hlmStepLabel>Security</ng-template>
 
-				<form [formGroup]="securityForm" class="flex flex-col gap-4">
+				<form [formGroup]="_securityForm" class="flex flex-col gap-4">
 					<hlm-field>
 						<label hlmFieldLabel for="validation-password">Temporary Password</label>
-						<input
-							hlmInput
-							id="validation-password"
-							formControlName="password"
-							placeholder="At least 8 characters"
-						/>
-						@if (securityForm.controls.password.touched && securityForm.controls.password.invalid) {
+						<input hlmInput id="validation-password" formControlName="password" placeholder="At least 8 characters" />
+						@if (_securityForm.controls.password.touched && _securityForm.controls.password.invalid) {
 							<hlm-field-error>
-								@if (securityForm.controls.password.errors?.['required']) {
+								@if (_securityForm.controls.password.errors?.['required']) {
 									This field is required.
-								} @else if (securityForm.controls.password.errors?.['minlength']) {
+								} @else if (_securityForm.controls.password.errors?.['minlength']) {
 									Password must be at least 8 characters.
 								}
 							</hlm-field-error>
@@ -85,18 +78,15 @@ import { HlmStepperImports } from '@spartan-ng/helm/stepper';
 			</hlm-step>
 		</hlm-stepper>
 	`,
-	host: {
-		class: 'w-full',
-	},
 })
 export class StepperLinearPreview {
 	private readonly _formBuilder = inject(FormBuilder);
 
-	protected readonly identityForm = this._formBuilder.group({
+	protected readonly _identityForm = this._formBuilder.group({
 		name: ['', Validators.required],
 	});
 
-	protected readonly securityForm = this._formBuilder.group({
+	protected readonly _securityForm = this._formBuilder.group({
 		password: ['', [Validators.required, Validators.minLength(8)]],
 	});
 }

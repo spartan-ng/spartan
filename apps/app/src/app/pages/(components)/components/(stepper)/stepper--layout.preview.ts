@@ -6,28 +6,21 @@ import { HlmHeaderPosition, HlmLabelPosition, HlmStepperImports } from '@spartan
 	selector: 'spartan-stepper-layout-preview',
 	imports: [HlmStepperImports, HlmButtonImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		class: 'w-full',
+	},
 	template: `
 		<div class="mb-4 flex flex-wrap items-center gap-2">
-			<button
-				hlmBtn
-				variant="outline"
-				size="sm"
-				(click)="updateLabelPosition()"
-			>
-				Label Position: {{ labelPosition() }}
+			<button hlmBtn variant="outline" size="sm" (click)="updateLabelPosition()">
+				Label Position: {{ _labelPosition() }}
 			</button>
 
-			<button
-				hlmBtn
-				variant="outline"
-				size="sm"
-				(click)="updateHeaderPosition()"
-			>
-				Header Position: {{ headerPosition() }}
+			<button hlmBtn variant="outline" size="sm" (click)="updateHeaderPosition()">
+				Header Position: {{ _headerPosition() }}
 			</button>
 		</div>
 
-		<hlm-stepper [labelPosition]="labelPosition()" [headerPosition]="headerPosition()">
+		<hlm-stepper [labelPosition]="_labelPosition()" [headerPosition]="_headerPosition()">
 			<hlm-step label="Overview">
 				<div class="flex flex-col gap-4">
 					<div
@@ -53,8 +46,8 @@ import { HlmHeaderPosition, HlmLabelPosition, HlmStepperImports } from '@spartan
 						class="text-muted-foreground flex h-48 items-center justify-center rounded-lg border-2 border-dashed text-lg font-medium"
 					>
 						<p class="text-muted-foreground max-w-sm text-center text-sm">
-							Horizontal headers can move above or below the content panel, and labels can sit beside the
-							indicator or below it.
+							Horizontal headers can move above or below the content panel, and labels can sit beside the indicator or
+							below it.
 						</p>
 					</div>
 					<div class="flex justify-between gap-2">
@@ -82,20 +75,16 @@ import { HlmHeaderPosition, HlmLabelPosition, HlmStepperImports } from '@spartan
 			</hlm-step>
 		</hlm-stepper>
 	`,
-	host: {
-		class: 'w-full',
-	},
 })
 export class StepperLayoutPreview {
-	protected readonly labelPosition = signal<HlmLabelPosition>('end');
-	protected readonly headerPosition = signal<HlmHeaderPosition>('top');
+	protected readonly _labelPosition = signal<HlmLabelPosition>('end');
+	protected readonly _headerPosition = signal<HlmHeaderPosition>('top');
 
 	updateLabelPosition() {
-		this.labelPosition.set(this.labelPosition() === 'end' ? 'bottom' : 'end');
+		this._labelPosition.set(this._labelPosition() === 'end' ? 'bottom' : 'end');
 	}
 
 	updateHeaderPosition() {
-		this.headerPosition.set(this.headerPosition() === 'top' ? 'bottom' : 'top');
+		this._headerPosition.set(this._headerPosition() === 'top' ? 'bottom' : 'top');
 	}
 }
-

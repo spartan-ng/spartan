@@ -2,11 +2,13 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmStepperImports } from '@spartan-ng/helm/stepper';
 
-@Component({
-	selector: 'spartan-stepper-vertical-preview',
-	imports: [HlmStepperImports, HlmButtonImports],
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	template: `
+@Component({selector: 'spartan-stepper-vertical-preview',
+imports: [HlmStepperImports, HlmButtonImports],
+changeDetection: ChangeDetectionStrategy.OnPush,
+host: {
+		class: 'w-full',
+	},
+template: `
 		<hlm-stepper orientation="vertical">
 			<hlm-step label="Campaign">
 				<div class="flex flex-col gap-4">
@@ -59,9 +61,5 @@ import { HlmStepperImports } from '@spartan-ng/helm/stepper';
 				</div>
 			</hlm-step>
 		</hlm-stepper>
-	`,
-	host: {
-		class: 'w-full',
-	},
-})
+	`})
 export class StepperVerticalPreview {}

@@ -4,12 +4,14 @@ import { lucideMail, lucideMapPin, lucideUser } from '@ng-icons/lucide';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmStepperImports } from '@spartan-ng/helm/stepper';
 
-@Component({
-	selector: 'spartan-stepper-indicators-preview',
-	imports: [HlmStepperImports, HlmButtonImports],
-	providers: [provideIcons({ lucideUser, lucideMapPin, lucideMail })],
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	template: `
+@Component({selector: 'spartan-stepper-indicators-preview',
+imports: [HlmStepperImports, HlmButtonImports],
+providers: [provideIcons({ lucideUser, lucideMapPin, lucideMail })],
+changeDetection: ChangeDetectionStrategy.OnPush,
+host: {
+		class: 'w-full',
+	},
+template: `
 		<div class="space-y-6">
 			<section class="flex flex-col gap-4 rounded-xl border p-5">
 				<header class="space-y-1">
@@ -158,10 +160,6 @@ import { HlmStepperImports } from '@spartan-ng/helm/stepper';
 				</hlm-stepper>
 			</section>
 		</div>
-	`,
-	host: {
-		class: 'w-full',
-	},
-})
+	`})
 export class StepperStatesPreview {}
 

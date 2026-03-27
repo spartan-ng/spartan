@@ -6,25 +6,27 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 import { HlmInputImports } from '@spartan-ng/helm/input';
 import { HlmStepperImports } from '@spartan-ng/helm/stepper';
 
-@Component({
-	selector: 'spartan-stepper-error-preview',
-	imports: [ReactiveFormsModule, HlmStepperImports, HlmButtonImports, HlmFieldImports, HlmInputImports],
-	providers: [
+@Component({selector: 'spartan-stepper-error-preview',
+imports: [ReactiveFormsModule, HlmStepperImports, HlmButtonImports, HlmFieldImports, HlmInputImports],
+providers: [
 		{
 			provide: STEPPER_GLOBAL_OPTIONS,
 			useValue: { showError: true },
 		},
 	],
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	template: `
+changeDetection: ChangeDetectionStrategy.OnPush,
+host: {
+		class: 'w-full',
+	},
+template: `
 		<hlm-stepper>
 			<hlm-step
-				[stepControl]="contactForm"
-				[hasError]="contactForm.invalid && contactForm.touched"
+				[stepControl]="_contactForm"
+				[hasError]="_contactForm.invalid && _contactForm.touched"
 				errorMessage="Enter a valid work email before continuing."
 				label="Contact"
 			>
-				<form [formGroup]="contactForm" class="flex flex-col gap-4">
+				<form [formGroup]="_contactForm" class="flex flex-col gap-4">
 					<hlm-field>
 						<label hlmFieldLabel for="error-email">Work Email</label>
 						<input
@@ -33,11 +35,11 @@ import { HlmStepperImports } from '@spartan-ng/helm/stepper';
 							formControlName="email"
 							placeholder="Required to remove the error state"
 						/>
-						@if (contactForm.controls.email.touched && contactForm.controls.email.invalid) {
+						@if (_contactForm.controls.email.touched && _contactForm.controls.email.invalid) {
 							<hlm-field-error>
-								@if (contactForm.controls.email.errors?.['required']) {
+								@if (_contactForm.controls.email.errors?.['required']) {
 									This field is required.
-								} @else if (contactForm.controls.email.errors?.['email']) {
+								} @else if (_contactForm.controls.email.errors?.['email']) {
 									Enter a valid email address.
 								}
 							</hlm-field-error>
@@ -76,15 +78,11 @@ import { HlmStepperImports } from '@spartan-ng/helm/stepper';
 				</div>
 			</hlm-step>
 		</hlm-stepper>
-	`,
-	host: {
-		class: 'w-full',
-	},
-})
+	`})
 export class StepperErrorPreview {
 	private readonly _formBuilder = inject(FormBuilder);
 
-	protected readonly contactForm = this._formBuilder.group({
+	protected readonly _contactForm = this._formBuilder.group({
 		email: ['', [Validators.required, Validators.email]],
 	});
 }

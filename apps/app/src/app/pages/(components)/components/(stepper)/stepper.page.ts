@@ -25,7 +25,7 @@ import { StepperLazyContentPreview } from './stepper--lazy-content.preview';
 import { StepperLinearPreview } from './stepper--linear.preview';
 import { StepperResponsivePreview } from './stepper--responsive.preview';
 import { StepperRtlPreview } from './stepper--rtl.preview';
-import { StepperStatesPreview } from './stepper--states.preview';
+import { StepperStatesPreview } from './stepper--indicators.preview';
 import { StepperVerticalPreview } from './stepper--vertical.preview';
 import { StepperPreview, defaultImports, defaultSkeleton } from './stepper.preview';
 

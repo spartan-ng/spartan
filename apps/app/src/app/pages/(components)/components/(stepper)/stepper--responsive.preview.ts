@@ -1,20 +1,20 @@
-import { StepperOrientation } from '@angular/cdk/stepper';
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { StepperOrientation } from '@angular/cdk/stepper';
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { map } from 'rxjs';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmStepperImports } from '@spartan-ng/helm/stepper';
+import { map } from 'rxjs/operators';
 
 @Component({
 	selector: 'spartan-stepper-responsive-preview',
 	imports: [HlmStepperImports, HlmButtonImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		class: 'w-full',
+	},
 	template: `
-		<hlm-stepper
-			[orientation]="orientation()"
-			stepperAriaLabel="Responsive campaign setup steps"
-		>
+		<hlm-stepper [orientation]="_orientation()" stepperAriaLabel="Responsive campaign setup steps">
 			<hlm-step label="Campaign">
 				<div class="flex flex-col gap-4">
 					<div
@@ -37,7 +37,7 @@ import { HlmStepperImports } from '@spartan-ng/helm/stepper';
 					>
 						<p class="text-muted-foreground max-w-sm text-center text-sm">
 							Current orientation:
-							<code class="text-foreground font-mono">{{ orientation() }}</code>
+							<code class="text-foreground font-mono">{{ _orientation() }}</code>
 						</p>
 					</div>
 					<div class="flex justify-between gap-2">
@@ -64,9 +64,6 @@ import { HlmStepperImports } from '@spartan-ng/helm/stepper';
 			</hlm-step>
 		</hlm-stepper>
 	`,
-	host: {
-		class: 'w-full',
-	},
 })
 export class StepperResponsivePreview {
 	private readonly _breakpointObserver = inject(BreakpointObserver);
@@ -76,8 +73,7 @@ export class StepperResponsivePreview {
 		{ initialValue: false },
 	);
 
-	protected readonly orientation = computed<StepperOrientation>(() =>
+	protected readonly _orientation = computed<StepperOrientation>(() =>
 		this._isSmallScreen() ? 'vertical' : 'horizontal',
 	);
 }
-

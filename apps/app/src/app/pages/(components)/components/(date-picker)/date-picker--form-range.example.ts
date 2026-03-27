@@ -15,9 +15,9 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 		<form [formGroup]="form" (ngSubmit)="submit()">
 			<hlm-field-group>
 				<hlm-field>
-					<label hlmFieldLabel for="dateRange">Enter a date range</label>
+					<label hlmFieldLabel for="dateRangeForm">Enter a date range</label>
 					<hlm-date-range-picker
-						buttonId="dateRange"
+						buttonId="dateRangeForm"
 						[min]="minDate"
 						[max]="maxDate"
 						formControlName="range"

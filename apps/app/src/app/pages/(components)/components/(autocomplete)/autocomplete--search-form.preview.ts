@@ -18,8 +18,8 @@ interface Tag {
 	},
 	template: `
 		<form [formGroup]="form" (ngSubmit)="submit()">
-			<div hlmFieldGroup>
-				<div hlmField>
+			<hlm-field-group>
+				<hlm-field>
 					<label hlmFieldLabel for="tag">Create or select a tag</label>
 					<hlm-autocomplete-search formControlName="tag" [(search)]="search">
 						<hlm-autocomplete-input inputId="tag" placeholder="e.g. feature" />
@@ -34,12 +34,12 @@ interface Tag {
 							</div>
 						</hlm-autocomplete-content>
 					</hlm-autocomplete-search>
-					<div hlmFieldDescription>Create a new tag if it doesn't exist.</div>
-				</div>
-				<div hlmField orientation="horizontal">
+					<hlm-field-description>Create a new tag if it doesn't exist.</hlm-field-description>
+				</hlm-field>
+				<hlm-field orientation="horizontal">
 					<button type="submit" hlmBtn [disabled]="form.invalid">Submit</button>
-				</div>
-			</div>
+				</hlm-field>
+			</hlm-field-group>
 		</form>
 	`,
 })

@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
@@ -40,7 +40,7 @@ export class SelectFormPreview {
 	private readonly _formBuilder = inject(FormBuilder);
 
 	public form = this._formBuilder.group({
-		fruit: new FormControl<string | null>(null),
+		fruit: new FormControl<string | null>(null, Validators.required),
 	});
 
 	public readonly items = [

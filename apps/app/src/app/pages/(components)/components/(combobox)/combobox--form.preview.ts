@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmComboboxImports } from '@spartan-ng/helm/combobox';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
@@ -13,8 +13,8 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 	},
 	template: `
 		<form [formGroup]="form" (ngSubmit)="submit()">
-			<div hlmFieldGroup>
-				<div hlmField>
+			<hlm-field-group>
+				<hlm-field>
 					<label hlmFieldLabel for="framework">Select a framework</label>
 					<hlm-combobox formControlName="framework">
 						<hlm-combobox-input inputId="framework" placeholder="e.g. Analog" />
@@ -27,11 +27,11 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 							</div>
 						</hlm-combobox-content>
 					</hlm-combobox>
-				</div>
-				<div hlmField orientation="horizontal">
+				</hlm-field>
+				<hlm-field orientation="horizontal">
 					<button type="submit" hlmBtn [disabled]="form.invalid">Submit</button>
-				</div>
-			</div>
+				</hlm-field>
+			</hlm-field-group>
 		</form>
 	`,
 })
@@ -39,7 +39,7 @@ export class ComboboxFormPreview {
 	private readonly _formBuilder = inject(FormBuilder);
 
 	public form = this._formBuilder.group({
-		framework: new FormControl<string | null>(null),
+		framework: new FormControl<string | null>(null, Validators.required),
 	});
 
 	public frameworks = ['Analog', 'Angular', 'Next.js', 'SvelteKit', 'Nuxt.js', 'Remix', 'Astro'];

@@ -18,8 +18,8 @@ interface SpartanComponent {
 	},
 	template: `
 		<form [formGroup]="form" (ngSubmit)="submit()">
-			<div hlmFieldGroup>
-				<div hlmField>
+			<hlm-field-group>
+				<hlm-field>
 					<label hlmFieldLabel for="component">Select a component</label>
 					<hlm-autocomplete formControlName="component" [(search)]="search">
 						<hlm-autocomplete-input inputId="component" placeholder="e.g. Accordion" />
@@ -34,11 +34,11 @@ interface SpartanComponent {
 							</div>
 						</hlm-autocomplete-content>
 					</hlm-autocomplete>
-				</div>
-				<div hlmField orientation="horizontal">
+				</hlm-field>
+				<hlm-field orientation="horizontal">
 					<button type="submit" hlmBtn [disabled]="form.invalid">Submit</button>
-				</div>
-			</div>
+				</hlm-field>
+			</hlm-field-group>
 		</form>
 	`,
 })

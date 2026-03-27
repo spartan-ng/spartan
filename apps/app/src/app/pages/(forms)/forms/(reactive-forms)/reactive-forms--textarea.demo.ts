@@ -30,16 +30,9 @@ import { HlmTextareaImports } from '@spartan-ng/helm/textarea';
 							<hlm-field-description>
 								Tell us more about yourself. This will be used to help us personalize your experience.
 							</hlm-field-description>
-							@if (form.controls.about.touched && form.controls.about.invalid) {
-								<hlm-field-error>
-									@if (form.controls.about.errors?.['required'] || form.controls.about.errors?.['minlength']) {
-										Please provide at least 10 characters.
-									}
-									@if (form.controls.about.errors?.['maxlength']) {
-										Please keep it under 200 characters.
-									}
-								</hlm-field-error>
-							}
+							<hlm-field-error validator="required">This is a required field.</hlm-field-error>
+							<hlm-field-error validator="minlength">Please provide at least 10 characters.</hlm-field-error>
+							<hlm-field-error validator="maxlength">Please keep it under 200 characters.</hlm-field-error>
 						</hlm-field>
 					</hlm-field-group>
 				</form>
@@ -103,16 +96,9 @@ import { HlmTextareaImports } from '@spartan-ng/helm/textarea';
 							<hlm-field-description>
 								Tell us more about yourself. This will be used to help us personalize your experience.
 							</hlm-field-description>
-							@if (form.controls.about.touched && form.controls.about.invalid) {
-								<hlm-field-error>
-									@if (form.controls.about.errors?.['required'] || form.controls.about.errors?.['minlength']) {
-										Please provide at least 10 characters.
-									}
-									@if (form.controls.about.errors?.['maxlength']) {
-										Please keep it under 200 characters.
-									}
-								</hlm-field-error>
-							}
+							<hlm-field-error validator="required">This is a required field.</hlm-field-error>
+							<hlm-field-error validator="minlength">Please provide at least 10 characters.</hlm-field-error>
+							<hlm-field-error validator="maxlength">Please keep it under 200 characters.</hlm-field-error>
 						</hlm-field>
 					</hlm-field-group>
 				</form>

@@ -45,7 +45,6 @@ export const components: Link[] = [
 	{ label: 'Dropdown Menu', url: '/dropdown-menu' },
 	{ label: 'Empty', url: '/empty' },
 	{ label: 'Field', url: '/field' },
-	{ label: 'Form Field', url: '/form-field' },
 	{ label: 'Hover Card', url: '/hover-card' },
 	{ label: 'Icon', url: '/icon' },
 	{ label: 'Input Group', url: '/input-group' },

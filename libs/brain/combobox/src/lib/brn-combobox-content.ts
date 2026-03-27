@@ -1,4 +1,4 @@
-import { computed, Directive } from '@angular/core';
+import { computed, Directive, ElementRef, inject } from '@angular/core';
 import { injectBrnComboboxBase } from './brn-combobox.token';
 
 @Directive({
@@ -10,6 +10,7 @@ import { injectBrnComboboxBase } from './brn-combobox.token';
 })
 export class BrnComboboxContent {
 	private readonly _combobox = injectBrnComboboxBase();
+	public readonly el = inject<ElementRef<HTMLElement>>(ElementRef);
 
 	/** Determine if the combobox is empty */
 	protected readonly _empty = computed(() => !this._combobox.visibleItems() && this._combobox.search().length > 0);

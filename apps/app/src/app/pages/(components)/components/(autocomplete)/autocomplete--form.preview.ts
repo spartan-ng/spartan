@@ -17,12 +17,12 @@ interface SpartanComponent {
 		class: 'w-full max-w-xs',
 	},
 	template: `
-		<form [formGroup]="form" (ngSubmit)="submit()" class="space-y-8">
-			<div hlmFieldGroup>
-				<div hlmField>
-					<label hlmFieldLabel>Select a component</label>
+		<form [formGroup]="form" (ngSubmit)="submit()">
+			<hlm-field-group>
+				<hlm-field>
+					<label hlmFieldLabel for="component">Select a component</label>
 					<hlm-autocomplete formControlName="component" [(search)]="search">
-						<hlm-autocomplete-input placeholder="e.g. Accordion" />
+						<hlm-autocomplete-input inputId="component" placeholder="e.g. Accordion" />
 						<hlm-autocomplete-content *hlmAutocompletePortal>
 							<hlm-autocomplete-empty>No components found.</hlm-autocomplete-empty>
 							<div hlmAutocompleteList>
@@ -34,11 +34,11 @@ interface SpartanComponent {
 							</div>
 						</hlm-autocomplete-content>
 					</hlm-autocomplete>
-				</div>
-				<div hlmField orientation="horizontal">
+				</hlm-field>
+				<hlm-field orientation="horizontal">
 					<button type="submit" hlmBtn [disabled]="form.invalid">Submit</button>
-				</div>
-			</div>
+				</hlm-field>
+			</hlm-field-group>
 		</form>
 	`,
 })

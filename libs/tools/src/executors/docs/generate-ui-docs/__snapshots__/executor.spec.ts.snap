@@ -361,6 +361,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "string",
           },
+          {
+            "name": "aria-invalid",
+            "required": false,
+            "type": "boolean | undefined",
+          },
         ],
         "models": [],
         "outputs": [],
@@ -496,6 +501,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       "HlmAutocompleteInput": {
         "inputs": [
           {
+            "name": "inputId",
+            "required": false,
+            "type": "string",
+          },
+          {
             "name": "placeholder",
             "required": false,
             "type": "string",
@@ -513,7 +523,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "aria-invalid",
             "required": false,
-            "type": "boolean",
+            "type": "boolean | undefined",
           },
         ],
         "models": [],
@@ -1560,6 +1570,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "string",
           },
+          {
+            "name": "aria-invalid",
+            "required": false,
+            "type": "boolean | undefined",
+          },
         ],
         "models": [],
         "outputs": [],
@@ -1602,6 +1617,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "name": "id",
             "required": false,
             "type": "string",
+          },
+          {
+            "name": "aria-invalid",
+            "required": false,
+            "type": "boolean | undefined",
           },
         ],
         "models": [],
@@ -1825,6 +1845,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       "HlmComboboxInput": {
         "inputs": [
           {
+            "name": "inputId",
+            "required": false,
+            "type": "string",
+          },
+          {
             "name": "placeholder",
             "required": false,
             "type": "string",
@@ -1842,7 +1867,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "aria-invalid",
             "required": false,
-            "type": "boolean",
+            "type": "boolean | undefined",
           },
         ],
         "models": [],
@@ -2833,6 +2858,32 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
     },
   },
   "field": {
+    "brain": {
+      "BrnField": {
+        "inputs": [
+          {
+            "name": "data-invalid",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnField],brn-field",
+      },
+      "BrnFieldControlDescribedBy": {
+        "inputs": [
+          {
+            "name": "aria-describedby",
+            "required": false,
+            "type": "string | null",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnFieldControlDescribedBy]",
+      },
+    },
     "helm": {
       "HlmField": {
         "inputs": [
@@ -2853,12 +2904,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "[hlmFieldContent],hlm-field-content",
       },
       "HlmFieldDescription": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "[hlmFieldDescription],hlm-field-description",
-      },
-      "HlmFieldError": {
         "inputs": [
           {
             "name": "class",
@@ -2866,9 +2911,36 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "ClassValue",
           },
           {
-            "name": "error",
+            "name": "id",
             "required": false,
-            "type": "Array<{ message: string } | undefined>",
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmFieldDescription],hlm-field-description",
+      },
+      "HlmFieldError": {
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "validator",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "forceShow",
+            "required": false,
+            "type": "boolean",
           },
         ],
         "models": [],
@@ -2916,28 +2988,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [],
         "outputs": [],
         "selector": "[hlmFieldTitle],hlm-field-title",
-      },
-    },
-  },
-  "form-field": {
-    "helm": {
-      "HlmError": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "hlm-error",
-      },
-      "HlmFormField": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "hlm-form-field",
-      },
-      "HlmHint": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "hlm-hint",
       },
     },
   },
@@ -3039,6 +3089,20 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
     },
   },
   "input": {
+    "brain": {
+      "BrnInput": {
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnInput]",
+      },
+    },
     "helm": {
       "HlmInput": {
         "inputs": [
@@ -3347,6 +3411,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "string",
           },
+          {
+            "name": "for",
+            "required": false,
+            "type": "string",
+          },
         ],
         "models": [],
         "outputs": [],
@@ -3426,7 +3495,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "aria-invalid",
             "required": false,
-            "type": "boolean",
+            "type": "boolean | undefined",
           },
         ],
         "models": [
@@ -4033,7 +4102,13 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "hlm-radio",
       },
       "HlmRadioGroup": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "[hlmRadioGroup],hlm-radio-group",
@@ -5667,6 +5742,20 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
     },
   },
   "textarea": {
+    "brain": {
+      "BrnTextarea": {
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnTextarea]",
+      },
+    },
     "helm": {
       "HlmTextarea": {
         "inputs": [

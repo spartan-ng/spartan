@@ -10,13 +10,13 @@ import { HlmCheckbox } from './hlm-checkbox';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<form [formGroup]="form">
-			<label for="checkbox">
+			<label id="test-checkbox" for="checkbox">
 				Airplane mode is: {{ form.value.checkbox ? 'on' : 'off' }}
 				<hlm-checkbox
 					id="checkbox"
 					(checkedChange)="onCheckedChange($event)"
 					formControlName="checkbox"
-					aria-labelledby="testCheckbox"
+					aria-labelledby="test-checkbox"
 				></hlm-checkbox>
 			</label>
 		</form>

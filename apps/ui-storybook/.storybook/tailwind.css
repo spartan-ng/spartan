@@ -5,8 +5,10 @@
 @import 'tailwindcss/utilities.css';
 
 @import '../../../libs/brain/hlm-tailwind-preset.css';
+@import '../../../libs/registry/src/styles/style-nova.css';
 
 @custom-variant fixed (&:is(.layout-fixed *));
+@custom-variant style-nova (&:where(body *));
 
 @theme inline {
 	--breakpoint-3xl: 1600px;

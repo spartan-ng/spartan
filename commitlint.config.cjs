@@ -32,7 +32,6 @@ module.exports = {
 				'dropdown-menu',
 				'empty',
 				'field',
-				'form-field',
 				'hover-card',
 				'icon',
 				'input',

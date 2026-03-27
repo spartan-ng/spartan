@@ -1,30 +1,38 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmDatePickerImports } from '@spartan-ng/helm/date-picker';
-import { HlmLabelImports } from '@spartan-ng/helm/label';
+import { HlmFieldImports } from '@spartan-ng/helm/field';
 
 @Component({
 	selector: 'spartan-date-picker-form-multiple',
-	imports: [HlmDatePickerImports, ReactiveFormsModule, HlmButtonImports, HlmLabelImports],
+	imports: [HlmDatePickerImports, ReactiveFormsModule, HlmButtonImports, HlmFieldImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		class: 'w-full max-w-xs',
+	},
 	template: `
-		<form [formGroup]="form" (ngSubmit)="submit()" class="space-y-8">
-			<div class="flex flex-col gap-2">
-				<label for="availableDates" hlmLabel class="px-1">Available dates</label>
-				<hlm-date-picker-multi
-					buttonId="availableDates"
-					[min]="minDate"
-					[max]="maxDate"
-					formControlName="availableDates"
-					[autoCloseOnMaxSelection]="true"
-					[minSelection]="2"
-					[maxSelection]="4"
-				>
-					<span>Pick dates</span>
-				</hlm-date-picker-multi>
-			</div>
+		<form [formGroup]="form" (ngSubmit)="submit()">
+			<hlm-field-group>
+				<hlm-field>
+					<label hlmFieldLabel for="availableDates">Available dates</label>
+					<hlm-date-picker-multi
+						buttonId="availableDates"
+						[min]="minDate"
+						[max]="maxDate"
+						formControlName="availableDates"
+						[autoCloseOnMaxSelection]="true"
+						[minSelection]="2"
+						[maxSelection]="4"
+					>
+						<span>Pick dates</span>
+					</hlm-date-picker-multi>
+				</hlm-field>
 
-			<button type="submit" hlmBtn [disabled]="form.invalid">Submit</button>
+				<hlm-field orientation="horizontal">
+					<button type="submit" hlmBtn [disabled]="form.invalid">Submit</button>
+				</hlm-field>
+			</hlm-field-group>
 		</form>
 	`,
 })

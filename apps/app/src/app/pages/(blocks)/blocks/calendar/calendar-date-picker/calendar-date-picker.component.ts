@@ -1,21 +1,21 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { HlmDatePicker } from '@spartan-ng/helm/date-picker';
-import { HlmLabel } from '@spartan-ng/helm/label';
+import { HlmDatePickerImports } from '@spartan-ng/helm/date-picker';
+import { HlmFieldImports } from '@spartan-ng/helm/field';
 
 @Component({
 	selector: 'spartan-calendar-date-picker',
-	imports: [HlmDatePicker, HlmLabel],
+	imports: [HlmDatePickerImports, HlmFieldImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'flex justify-center p-3 md:p-20 w-full h-auto md:h-[600px] bg-surface rounded-lg overflow-auto',
 	},
 	template: `
-		<div class="flex flex-col gap-3">
-			<label for="datePicker" hlmLabel class="px-1">Date Picker</label>
+		<hlm-field class="max-w-xs">
+			<label hlmFieldLabel for="datePicker">Date Picker</label>
 			<hlm-date-picker buttonId="datePicker" [(date)]="selectedDates" [min]="minDate" [max]="maxDate">
 				<span>Pick dates</span>
 			</hlm-date-picker>
-		</div>
+		</hlm-field>
 	`,
 })
 export class CalendarDatePickerComponent {

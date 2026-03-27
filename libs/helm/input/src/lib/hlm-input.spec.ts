@@ -43,7 +43,7 @@ describe('HlmInputDirective', () => {
 
 	describe('Error state and styling', () => {
 		it('should have auto error classes by default', () => {
-			const hasAutoErrorClass = input.className.includes('[&.ng-invalid.ng-touched]:border-destructive');
+			const hasAutoErrorClass = input.className.includes('data-[matches-spartan-invalid=true]:border-destructive');
 			expect(hasAutoErrorClass).toBe(true);
 		});
 
@@ -54,13 +54,17 @@ describe('HlmInputDirective', () => {
 			expect(input.classList.contains('focus-visible:ring-destructive/20')).toBe(true);
 		});
 
-		it('should not show error state initially for untouched invalid field', () => {
+		it('should not show error state initially for untouched invalid field', async () => {
+			await r.fixture.whenStable();
+			r.fixture.detectChanges();
+
 			const form = r.fixture.componentInstance.form;
 			expect(form.get('testField')?.invalid).toBe(true);
 			expect(form.get('testField')?.touched).toBe(false);
-			expect(directive.errorState()).toBe(false);
 
 			expect(input.classList.contains('border-destructive')).toBe(false);
+			expect(input.getAttribute('data-invalid')).toBe('true');
+			expect(input.getAttribute('data-touched')).toBeNull();
 		});
 
 		it('should show error state when field is invalid and touched', async () => {
@@ -68,12 +72,13 @@ describe('HlmInputDirective', () => {
 			const control = form.get('testField')!;
 
 			control.markAsTouched();
-			directive.ngDoCheck();
+
 			r.fixture.detectChanges();
 
 			expect(control.invalid).toBe(true);
 			expect(control.touched).toBe(true);
-			expect(directive.errorState()).toBe(true);
+			expect(input.getAttribute('data-invalid')).toBe('true');
+			expect(input.getAttribute('data-touched')).toBe('true');
 		});
 
 		it('should show error state when field is invalid and dirty', async () => {
@@ -82,10 +87,8 @@ describe('HlmInputDirective', () => {
 
 			control.markAsDirty();
 
-			directive.ngDoCheck();
 			r.fixture.detectChanges();
 			await r.fixture.whenStable();
-			directive.ngDoCheck();
 			r.fixture.detectChanges();
 
 			expect(control.invalid).toBe(true);
@@ -93,11 +96,13 @@ describe('HlmInputDirective', () => {
 
 			const shouldShowError = control.invalid && (control.touched || control.dirty);
 			expect(shouldShowError).toBe(true);
+			expect(input.getAttribute('data-invalid')).toBe('true');
+			expect(input.getAttribute('data-dirty')).toBe('true');
 
 			input.classList.add('ng-invalid', 'ng-dirty');
 			r.fixture.detectChanges();
 
-			const hasAutoErrorClass = input.className.includes('[&.ng-invalid.ng-touched]:border-destructive');
+			const hasAutoErrorClass = input.className.includes('data-[matches-spartan-invalid=true]:border-destructive');
 			expect(hasAutoErrorClass).toBe(true);
 		});
 
@@ -106,16 +111,15 @@ describe('HlmInputDirective', () => {
 			const control = form.get('testField')!;
 
 			control.markAsTouched();
-			directive.ngDoCheck();
 			r.fixture.detectChanges();
-			expect(directive.errorState()).toBe(true);
+			expect(input.getAttribute('data-invalid')).toBe('true');
 
 			control.setValue('valid value');
-			directive.ngDoCheck();
+
 			r.fixture.detectChanges();
 
 			expect(control.valid).toBe(true);
-			expect(directive.errorState()).toBe(false);
+			expect(input.getAttribute('data-invalid')).toBeNull();
 		});
 
 		it('should show error state when field is invalid and dirty', async () => {
@@ -123,18 +127,23 @@ describe('HlmInputDirective', () => {
 			const control = form.get('testField')!;
 
 			control.markAsDirty();
-			directive.ngDoCheck();
 			r.fixture.detectChanges();
 
 			expect(control.invalid).toBe(true);
 			expect(control.dirty).toBe(true);
+			expect(input.getAttribute('data-invalid')).toBe('true');
+			expect(input.getAttribute('data-dirty')).toBe('true');
+
+			control.markAsTouched();
+			r.fixture.detectChanges();
+
+			expect(input.getAttribute('data-touched')).toBe('true');
+			expect(input.getAttribute('data-matches-spartan-invalid')).toBe('true');
 
 			const shouldShowError = control.invalid && (control.touched || control.dirty);
 			expect(shouldShowError).toBe(true);
 
-			directive.setError(shouldShowError ? true : 'auto');
-			r.fixture.detectChanges();
-			expect(input.classList.contains('border-destructive')).toBe(true);
+			expect(input.classList.contains('data-[matches-spartan-invalid=true]:border-destructive')).toBe(true);
 		});
 
 		it('should maintain error state when switching between touched and dirty states', async () => {
@@ -187,7 +196,7 @@ describe('HlmInputDirective', () => {
 			r.fixture.detectChanges();
 
 			expect(control.valid).toBe(true);
-			expect(directive.errorState()).toBe(false);
+			expect(input.getAttribute('data-invalid')).toBeNull();
 		});
 
 		it('should update error state on ngDoCheck', () => {
@@ -196,19 +205,13 @@ describe('HlmInputDirective', () => {
 
 			control.markAsTouched();
 
-			directive.ngDoCheck();
 			r.fixture.detectChanges();
 
-			expect(directive.errorState()).toBe(true);
+			expect(input.getAttribute('data-invalid')).toBe('true');
 		});
 	});
 
 	describe('Directive properties', () => {
-		it('should have correct ngControl reference', () => {
-			expect(directive.ngControl).toBeTruthy();
-			expect(directive.ngControl?.name).toBe('testField');
-		});
-
 		it('should have auto error input by default', () => {
 			expect(directive.error()).toBe('auto');
 		});

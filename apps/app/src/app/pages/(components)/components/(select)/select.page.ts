@@ -16,6 +16,7 @@ import { Tabs } from '../../../../shared/layout/tabs';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { SelectDisabledPreview } from './select--disabled.preview';
+import { SelectFormPreview } from './select--form.preview';
 import { SelectGroupPreview } from './select--group.preview';
 import { SelectMultiplePreview } from './select--multiple.preview';
 import { SelectObjectPreview } from './select--object.preview';
@@ -51,6 +52,7 @@ export const routeMeta: RouteMeta = {
 		SelectObjectPreview,
 		SelectDisabledPreview,
 		SelectPlaceholderPreview,
+		SelectFormPreview,
 		SectionSubSubHeading,
 	],
 	template: `
@@ -133,6 +135,14 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_placeholderCode()" />
 			</spartan-tabs>
 
+			<h3 id="examples__form" spartanH4>Form</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-select-form-preview />
+				</div>
+				<spartan-code secondTab [code]="_formCode()" />
+			</spartan-tabs>
+
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="brain" />
 
@@ -156,6 +166,7 @@ export default class SkeletonPage {
 	protected readonly _disabledCode = computed(() => this._snippets()['disabled']);
 	protected readonly _objectCode = computed(() => this._snippets()['object']);
 	protected readonly _placeholderCode = computed(() => this._snippets()['placeholder']);
+	protected readonly _formCode = computed(() => this._snippets()['form']);
 	protected readonly _defaultStyles = defaultStyles;
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;

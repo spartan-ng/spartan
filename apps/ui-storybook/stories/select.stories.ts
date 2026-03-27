@@ -378,6 +378,52 @@ export const ReactiveFormControlWithValidationWithLabel: Story = {
 	}),
 };
 
+export const WithHintAndError: Story = {
+	render: (args) => ({
+		props: {
+			...args,
+			form: new FormGroup({
+				fruit: new FormControl('', { validators: [Validators.required] }),
+			}),
+		},
+		template: /* HTML */ `
+			<form [formGroup]="form" class="w-full max-w-sm space-y-3">
+				<div hlmField>
+					<label hlmFieldLabel>Fruit *</label>
+					<hlm-select
+						class="w-56"
+						formControlName="fruit"
+						${argsToTemplate(args, { exclude: ['value', 'placeholder'] })}
+					>
+						<hlm-select-trigger>
+							<hlm-select-value ${argsToTemplate(args, { include: ['placeholder'] })} />
+						</hlm-select-trigger>
+						<hlm-select-content *hlmSelectPortal>
+							<hlm-select-group>
+								<hlm-select-label>Fruits</hlm-select-label>
+								<hlm-option value="apple">Apple</hlm-option>
+								<hlm-option value="banana">Banana</hlm-option>
+								<hlm-option value="blueberry">Blueberry</hlm-option>
+								<hlm-option value="grapes">Grapes</hlm-option>
+								<hlm-option value="pineapple">Pineapple</hlm-option>
+							</hlm-select-group>
+						</hlm-select-content>
+					</hlm-select>
+
+					<p hlmFieldDescription>Pick a fruit so we can tailor the recommendations.</p>
+
+					<hlm-field-error>Select your favorite fruit to continue.</hlm-field-error>
+				</div>
+
+				<div class="flex flex-wrap items-center gap-2">
+					<button hlmBtn type="button" (click)="form.markAllAsTouched()">Validate</button>
+					<button hlmBtn variant="outline" type="button" (click)="form.reset()">Reset</button>
+				</div>
+			</form>
+		`,
+	}),
+};
+
 export const NgModelFormControl: Story = {
 	render: (args) => ({
 		props: {

@@ -5,18 +5,20 @@ import {
 	Component,
 	computed,
 	forwardRef,
+	inject,
 	input,
 	linkedSignal,
 	output,
 	signal,
 } from '@angular/core';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { provideIcons } from '@ng-icons/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown } from '@ng-icons/lucide';
 import type { BrnDialogState } from '@spartan-ng/brain/dialog';
+import { BrnFieldControl, BrnFieldControlDescribedBy, provideBrnLabelable } from '@spartan-ng/brain/field';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import { HlmCalendar } from '@spartan-ng/helm/calendar';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
+import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
@@ -32,20 +34,32 @@ let nextId = 0;
 
 @Component({
 	selector: 'hlm-date-picker',
-	imports: [HlmIconImports, HlmPopoverImports, HlmCalendar],
-	providers: [HLM_DATE_PICKER_VALUE_ACCESSOR, provideIcons({ lucideChevronDown })],
+	imports: [NgIcon, HlmIcon, BrnFieldControlDescribedBy, HlmPopoverImports, HlmCalendar],
+	providers: [HLM_DATE_PICKER_VALUE_ACCESSOR, provideIcons({ lucideChevronDown }), provideBrnLabelable(HlmDatePicker)],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	hostDirectives: [BrnFieldControl],
 	host: {
 		class: 'block',
 	},
 	template: `
-		<hlm-popover sideOffset="5" [state]="_popoverState()" (stateChanged)="_popoverState.set($event)">
+		<hlm-popover
+			sideOffset="5"
+			[state]="_popoverState()"
+			(stateChanged)="_popoverState.set($event)"
+			(closed)="_onTouched?.()"
+		>
 			<button
 				[id]="buttonId()"
 				type="button"
 				[class]="_computedClass()"
 				[disabled]="_mutableDisabled()"
+				[attr.aria-invalid]="_ariaInvalid()"
+				[attr.data-invalid]="_ariaInvalid()"
+				[attr.data-touched]="_touched?.() ? 'true' : null"
+				[attr.data-dirty]="_dirty?.() ? 'true' : null"
+				[attr.data-matches-spartan-invalid]="_spartanInvalid?.() ? 'true' : null"
 				hlmPopoverTrigger
+				brnFieldControlDescribedBy
 			>
 				<span class="truncate">
 					@if (_formattedDate(); as formattedDate) {
@@ -74,14 +88,28 @@ let nextId = 0;
 })
 export class HlmDatePicker<T> implements ControlValueAccessor {
 	private readonly _config = injectHlmDatePickerConfig<T>();
+	private readonly _fieldControl = inject(BrnFieldControl, { optional: true });
+
+	private readonly _invalid = this._fieldControl?.invalid;
+	protected readonly _spartanInvalid = this._fieldControl?.spartanInvalid;
+	protected readonly _dirty = this._fieldControl?.dirty;
+	protected readonly _touched = this._fieldControl?.touched;
+
+	protected readonly _errorStateClass = computed(() =>
+		this._spartanInvalid?.()
+			? 'border-destructive focus-visible:border-destructive focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40'
+			: '',
+	);
+	protected readonly _ariaInvalid = computed(() => (this._invalid?.() ? 'true' : null));
 
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>
 		hlm(
-			'ring-offset-background border-input bg-background hover:bg-accent dark:bg-input/30 dark:hover:bg-input/50 hover:text-accent-foreground inline-flex h-9 w-[280px] cursor-default items-center justify-between gap-2 rounded-md border px-3 py-2 text-left text-sm font-normal whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50',
+			'ring-offset-background border-input bg-background hover:bg-accent dark:bg-input/30 dark:hover:bg-input/50 inline-flex h-9 w-[280px] cursor-default items-center justify-between gap-2 rounded-md border px-3 py-2 text-left text-sm font-normal whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50',
 			'focus-visible:ring-ring focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
 			'disabled:pointer-events-none disabled:opacity-50',
 			'[&_ng-icon]:pointer-events-none [&_ng-icon]:shrink-0',
+			this._errorStateClass(),
 			this.userClass(),
 		),
 	);
@@ -129,6 +157,8 @@ export class HlmDatePicker<T> implements ControlValueAccessor {
 	});
 
 	public readonly dateChange = output<T>();
+
+	public readonly labelableId = this.buttonId;
 
 	protected _onChange?: ChangeFn<T>;
 	protected _onTouched?: TouchFn;

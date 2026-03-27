@@ -16,25 +16,26 @@ import {
 	signal,
 } from '@angular/core';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl, NgModel } from '@angular/forms';
-import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
+import { BrnFieldControl } from '@spartan-ng/brain/field';
+import { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import type { BrnSliderRange } from './brn-slider-range';
 import type { BrnSliderThumb } from './brn-slider-thumb';
 import type { BrnSliderTrack } from './brn-slider-track';
 import { provideBrnSlider } from './brn-slider.token';
+
+export const BRN_SLIDER_VALUE_ACCESSOR = {
+	provide: NG_VALUE_ACCESSOR,
+	useExisting: forwardRef(() => BrnSlider),
+	multi: true,
+};
 
 let nextId = 0;
 
 @Directive({
 	selector: '[brnSlider]',
 	exportAs: 'brnSlider',
-	providers: [
-		provideBrnSlider(BrnSlider),
-		{
-			provide: NG_VALUE_ACCESSOR,
-			useExisting: forwardRef(() => BrnSlider),
-			multi: true,
-		},
-	],
+	providers: [BRN_SLIDER_VALUE_ACCESSOR, provideBrnSlider(BrnSlider)],
+	hostDirectives: [BrnFieldControl],
 	host: {
 		'[attr.id]': 'id()',
 		'[attr.dir]': '_direction()',
@@ -44,12 +45,23 @@ let nextId = 0;
 		'[attr.data-orientation]': 'orientation()',
 		'data-slot': 'slider',
 		'(focusout)': '_onFocusOut($event)',
+		'[attr.aria-invalid]': '_ariaInvalid() ? "true" : null',
+		'[attr.data-invalid]': '_ariaInvalid() ? "true" : null',
+		'[attr.data-matches-spartan-invalid]': '_ariaInvalid() ? "true" : null',
+		'[attr.data-dirty]': '_dirty() ? "true" : null',
+		'[attr.data-touched]': '_touched() ? "true" : null',
 	},
 })
 export class BrnSlider implements ControlValueAccessor, OnInit {
 	private readonly _dir = inject(Directionality);
 	private readonly _injector = inject(Injector);
-	private _ngControl: NgControl | null = null;
+	private readonly _fieldControl = inject(BrnFieldControl);
+	public ngControl: NgControl | null = null;
+
+	protected readonly _ariaInvalid = this._fieldControl.invalid;
+	protected readonly _dirty = this._fieldControl.dirty;
+	protected readonly _touched = this._fieldControl.touched;
+	protected readonly _spartanInvalid = this._fieldControl.spartanInvalid;
 
 	/** Unique identifier for the slider element. Auto-generated if not provided. */
 	public readonly id = input<string>(`brn-slider-${++nextId}`);
@@ -218,11 +230,11 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 	private _onTouched?: TouchFn;
 
 	ngOnInit(): void {
-		this._ngControl = this._injector.get(NgControl, null);
+		this.ngControl = this._injector.get(NgControl, null);
 
 		// If bound to an Angular form control, writeValue() will run after ngOnInit,
 		// so avoid initializing defaults here to prevent a transient min-value override.
-		if (!this._ngControl) {
+		if (!this.ngControl) {
 			if (!this.value().length) {
 				const defaultValue = [this.min()];
 				this.value.set(defaultValue);
@@ -253,7 +265,7 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 	writeValue(value: number[]): void {
 		if (!Array.isArray(value)) return;
 
-		if (this._ngControl instanceof NgModel && !this._onChange) {
+		if (this.ngControl instanceof NgModel && !this._onChange) {
 			// Avoid phantom call for ngModel
 			// https://github.com/angular/angular/issues/14988#issuecomment-2946355465
 			return;

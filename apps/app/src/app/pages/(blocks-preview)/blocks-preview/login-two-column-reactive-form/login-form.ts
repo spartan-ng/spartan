@@ -22,16 +22,8 @@ import { HlmInputImports } from '@spartan-ng/helm/input';
 				<hlm-field>
 					<label hlmFieldLabel for="email">Email</label>
 					<input hlmInput type="email" id="email" placeholder="m@example.com" formControlName="email" />
-					@if (form.controls.email.touched && form.controls.email.invalid) {
-						<hlm-field-error>
-							@if (form.controls.email.errors?.['required']) {
-								Email is required.
-							}
-							@if (form.controls.email.errors?.['email']) {
-								Enter a valid email address.
-							}
-						</hlm-field-error>
-					}
+					<hlm-field-error validator="required">Email is required.</hlm-field-error>
+					<hlm-field-error validator="email">Enter a valid email address.</hlm-field-error>
 				</hlm-field>
 				<hlm-field>
 					<div class="flex items-center">
@@ -41,16 +33,8 @@ import { HlmInputImports } from '@spartan-ng/helm/input';
 						</a>
 					</div>
 					<input hlmInput type="password" id="password" formControlName="password" />
-					@if (form.controls.password.touched && form.controls.password.invalid) {
-						<hlm-field-error>
-							@if (form.controls.password.errors?.['required']) {
-								Password is required.
-							}
-							@if (form.controls.password.errors?.['minlength']) {
-								Password must be at least 8 characters long.
-							}
-						</hlm-field-error>
-					}
+					<hlm-field-error validator="required">Password is required.</hlm-field-error>
+					<hlm-field-error validator="minlength">Password must be at least 8 characters long.</hlm-field-error>
 				</hlm-field>
 				<hlm-field>
 					<button hlmBtn type="submit" [disabled]="form.invalid">Login</button>

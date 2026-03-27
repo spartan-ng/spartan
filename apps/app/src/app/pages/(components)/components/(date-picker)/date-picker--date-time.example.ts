@@ -1,22 +1,26 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { HlmDatePickerImports } from '@spartan-ng/helm/date-picker';
+import { HlmFieldImports } from '@spartan-ng/helm/field';
 import { HlmInputImports } from '@spartan-ng/helm/input';
-import { HlmLabelImports } from '@spartan-ng/helm/label';
 
 @Component({
 	selector: 'spartan-date-and-time-picker',
-	imports: [HlmDatePickerImports, HlmLabelImports, HlmInputImports],
+	imports: [HlmDatePickerImports, HlmFieldImports, HlmInputImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		class: 'w-full max-w-xs',
+	},
 	template: `
-		<div class="flex gap-4">
-			<div class="flex flex-col gap-3">
-				<label for="date-picker" hlmLabel class="px-1">Date</label>
+		<hlm-field-group class="mx-auto max-w-xs flex-row">
+			<hlm-field>
+				<label hlmFieldLabel for="date-picker">Date</label>
 				<hlm-date-picker buttonId="date-picker" [min]="minDate" [max]="maxDate">
 					<span>Select date</span>
 				</hlm-date-picker>
-			</div>
+			</hlm-field>
 
-			<div class="flex flex-col gap-3">
-				<label for="time-picker" hlmLabel class="px-1">Time</label>
+			<hlm-field>
+				<label hlmFieldLabel for="time-picker">Time</label>
 				<input
 					hlmInput
 					id="time-picker"
@@ -25,8 +29,8 @@ import { HlmLabelImports } from '@spartan-ng/helm/label';
 					[defaultValue]="'10:30:00'"
 					class="bg-background appearance-none [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-calendar-picker-indicator]:appearance-none"
 				/>
-			</div>
-		</div>
+			</hlm-field>
+		</hlm-field-group>
 	`,
 })
 export class DateAndTimePickerExample {

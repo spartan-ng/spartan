@@ -209,14 +209,6 @@
 			"class-variance-authority": "^0.7.0"
 		}
 	},
-	"form-field": {
-		"name": "form-field",
-		"peerDependencies": {
-			"@angular/core": ">=20.0.0 <22.0.0",
-			"@angular/forms": ">=20.0.0 <22.0.0",
-			"@spartan-ng/brain": "0.0.1-alpha.656"
-		}
-	},
 	"hover-card": {
 		"name": "hover-card",
 		"peerDependencies": {

@@ -15,7 +15,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 @Component({
 	selector: 'spartan-reactive-form-select-demo',
 	imports: [ReactiveFormsModule, HlmCardImports, HlmFieldImports, HlmSelectImports, HlmButtonImports],
-	host: { class: 'w-full sm:max-w-md' },
+	host: { class: 'w-full sm:max-w-lg' },
 	template: `
 		<hlm-card>
 			<hlm-card-header>

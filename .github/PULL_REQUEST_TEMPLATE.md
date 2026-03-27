@@ -77,6 +77,7 @@ What kind of change does this PR introduce?
 - [ ] sonner
 - [ ] spinner
 - [ ] switch
+- [ ] stepper
 - [ ] table
 - [ ] tabs
 - [ ] textarea

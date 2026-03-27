@@ -2871,6 +2871,18 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "outputs": [],
         "selector": "[brnField],brn-field",
       },
+      "BrnFieldControlDescribedBy": {
+        "inputs": [
+          {
+            "name": "aria-describedby",
+            "required": false,
+            "type": "string | null",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnFieldControlDescribedBy]",
+      },
     },
     "helm": {
       "HlmField": {
@@ -2890,18 +2902,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [],
         "outputs": [],
         "selector": "[hlmFieldContent],hlm-field-content",
-      },
-      "HlmFieldControlDescribedBy": {
-        "inputs": [
-          {
-            "name": "aria-describedby",
-            "required": false,
-            "type": "string | null",
-          },
-        ],
-        "models": [],
-        "outputs": [],
-        "selector": "[hlmFieldControlDescribedBy]",
       },
       "HlmFieldDescription": {
         "inputs": [

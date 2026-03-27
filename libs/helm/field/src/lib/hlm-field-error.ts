@@ -40,7 +40,7 @@ export class HlmFieldError implements OnDestroy {
 
 	private readonly _autoId = `hlm-field-error-${++HlmFieldError._nextId}`;
 
-	protected readonly _hasField = !!this._field;
+	private readonly _hasParentField = !!this._field;
 
 	/** The unique ID for the field error. If none is supplied, it will be auto-generated. */
 	public readonly id = input<string | undefined>(undefined);
@@ -59,7 +59,7 @@ export class HlmFieldError implements OnDestroy {
 
 	protected readonly _computedId = computed(() => this.id() ?? this._autoId);
 
-	protected readonly _display = computed(() => !this._hasField || this.forceShow() || this._hasError());
+	protected readonly _display = computed(() => !this._hasParentField || this.forceShow() || this._hasError());
 
 	protected readonly _hasError = computed(() => {
 		const errors = this._field?.errors();

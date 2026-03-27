@@ -15,9 +15,9 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 		<fieldset hlmFieldSet>
 			<hlm-field-group>
 				<hlm-field>
-					<label hlmFieldLabel for="date-range">Enter a date range</label>
-					<hlm-date-picker buttonId="date-range">
-						<span>Enter a date range</span>
+					<label hlmFieldLabel for="date-range">Date of birth</label>
+					<hlm-date-picker buttonId="date-range" captionLayout="dropdown">
+						<span>Enter your date of birth</span>
 					</hlm-date-picker>
 				</hlm-field>
 			</hlm-field-group>

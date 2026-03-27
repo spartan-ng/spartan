@@ -188,7 +188,7 @@ export class ReactiveFormsDemo {
 
 export const demoAnatomyCode = `
 <hlm-field>
-	<label hlmFieldLabel for="title">Bug Title</label>
+	<label hlmFieldLabel>Bug Title</label>
 	<input
 		hlmInput
 		id="title"
@@ -199,6 +199,13 @@ export const demoAnatomyCode = `
 	<hlm-field-error validator="required">Title is a required field.</hlm-field-error>
 	<hlm-field-error validator="minlength">Title must be at least 5 characters.</hlm-field-error>
 	<hlm-field-error validator="maxlength">Title cannot exceed 32 characters.</hlm-field-error>
+</hlm-field>`;
+
+export const demoForceShowCode = `
+<hlm-field>
+	<label hlmFieldLabel for="title">Bug Title</label>
+	<input hlmInput id="title" formControlName="title" />
+	<hlm-field-error forceShow>This error is always visible.</hlm-field-error>
 </hlm-field>`;
 
 export const demoFormSchemaCode = `

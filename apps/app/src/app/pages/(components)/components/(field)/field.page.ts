@@ -331,6 +331,19 @@ export const routeMeta: RouteMeta = {
 					when combined.
 				</li>
 				<li class="mt-2">
+					When a control and a
+					<code class="${hlmCode} mr-0.5">HlmFieldLabel</code>
+					are placed inside the same
+					<code class="${hlmCode} mr-0.5">HlmField</code>
+					, the label's
+					<code class="${hlmCode} mr-0.5">for</code>
+					attribute is automatically set to the control's
+					<code class="${hlmCode} mr-0.5">id</code>
+					. There is no need to set
+					<code class="${hlmCode} mr-0.5">for</code>
+					manually.
+				</li>
+				<li class="mt-2">
 					Apply
 					<code class="${hlmCode} mr-0.5">HlmFieldSeparator</code>
 					sparingly to ensure screen readers encounter clear section boundaries.

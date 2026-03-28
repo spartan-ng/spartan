@@ -11,6 +11,7 @@ export * from './lib/hlm-step-header';
 export * from './lib/hlm-step-label';
 export * from './lib/hlm-stepper';
 export * from './lib/hlm-stepper-button';
+export * from './lib/stepper.token';
 
 export const HlmStepperImports = [
 	HlmStepper,

@@ -1,8 +1,18 @@
 import { CdkStep, CdkStepper, CdkStepperModule } from '@angular/cdk/stepper';
 import { NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import {
+	booleanAttribute,
+	ChangeDetectionStrategy,
+	Component,
+	input,
+	numberAttribute,
+	signal,
+} from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { HlmStep } from './hlm-step';
 import { HlmStepHeader, HlmStepperIndicatorMode } from './hlm-step-header';
+import { injectHlmStepperConfig } from './stepper.token';
+import { tap } from 'rxjs/operators';
 
 export type HlmLabelPosition = 'end' | 'bottom';
 export type HlmHeaderPosition = 'top' | 'bottom';
@@ -32,21 +42,25 @@ export type HlmHeaderPosition = 'top' | 'bottom';
 						<div class="flex flex-col gap-2">
 							<ng-container [ngTemplateOutlet]="stepHeaderTemplate" [ngTemplateOutletContext]="{ step: step }" />
 
-							<div class="min-h-0 overflow-hidden">
-								@if (selectedIndex === i) {
-									<section
-										class="ms-4 ps-6"
-										[class.border-s]="!$last"
-										role="region"
-										[id]="_getStepContentId(i)"
-										[attr.aria-labelledby]="_getStepLabelId(i)"
-									>
-										<ng-container [ngTemplateOutlet]="step.content" />
-									</section>
-								}
+							<div
+								class="grid grid-rows-[0fr]"
+								[class.grid-rows-[1fr]]="selectedIndex === i"
+								[class.transition-[grid-template-rows]]="animationsEnabled()"
+								[style.transition-duration.ms]="animationDuration()"
+							>
+								<section
+									class="ms-4 overflow-hidden ps-6"
+									[class.border-s]="!$last"
+									[class.step-enter-bottom]="animationsEnabled() && selectedIndex === i"
+									role="region"
+									[id]="_getStepContentId(i)"
+									[attr.aria-labelledby]="_getStepLabelId(i)"
+								>
+									<ng-container [ngTemplateOutlet]="step.content" />
+								</section>
 							</div>
 
-							@if (!$last && selectedIndex !== i) {
+							@if (!$last) {
 								<div class="ms-4 h-6 w-px" aria-hidden="true">
 									<span
 										class="block h-full w-px transition-colors duration-200 motion-reduce:transition-none"
@@ -122,22 +136,52 @@ export type HlmHeaderPosition = 'top' | 'bottom';
 		</ng-template>
 
 		<ng-template #horizontalPanelTemplate>
-			<section
-				role="tabpanel"
-				[id]="_getStepContentId(selectedIndex)"
-				[attr.aria-labelledby]="_getStepLabelId(selectedIndex)"
-			>
-				<ng-container [ngTemplateOutlet]="selected?.content ?? null" />
-			</section>
+			<div class="relative min-h-0 overflow-hidden">
+				@for (activeIndex of [selectedIndex]; track activeIndex) {
+					<section
+						role="tabpanel"
+						[id]="_getStepContentId(activeIndex)"
+						[attr.aria-labelledby]="_getStepLabelId(activeIndex)"
+						[style.animation-duration.ms]="animationDuration()"
+						[animate.enter]="animationsEnabled() ? _enterAnimationClass() : ''"
+						[animate.leave]="animationsEnabled() ? _leaveAnimationClass() : ''"
+					>
+						<ng-container [ngTemplateOutlet]="steps.get(activeIndex)?.content" />
+					</section>
+				}
+			</div>
 		</ng-template>
 	`,
 })
 export class HlmStepper extends CdkStepper {
+	private readonly _config = injectHlmStepperConfig();
+
 	public readonly labelPosition = input<HlmLabelPosition>('end');
 	public readonly headerPosition = input<HlmHeaderPosition>('top');
 	public readonly indicatorMode = input<HlmStepperIndicatorMode>('state');
 	public readonly stepperAriaLabel = input<string | null>('Progress');
 	public readonly stepperAriaLabelledby = input<string | null>(null);
+	public readonly animationsEnabled = input(this._config.animationEnabled, { transform: booleanAttribute });
+	public readonly animationDuration = input(this._config.animationDuration, { transform: numberAttribute });
+
+	protected readonly _animationDirection = signal<'forward' | 'backward'>('forward');
+	protected readonly _hasSelectionChanged = signal(false);
+
+	constructor() {
+		super();
+
+		this.selectionChange
+			.pipe(
+				tap((event) => {
+					if (event.previouslySelectedIndex >= 0 && event.selectedIndex !== event.previouslySelectedIndex) {
+						this._hasSelectionChanged.set(true);
+					}
+					this._animationDirection.set(event.selectedIndex < event.previouslySelectedIndex ? 'backward' : 'forward');
+				}),
+				takeUntilDestroyed(),
+			)
+			.subscribe();
+	}
 
 	override next(): void {
 		this.selected?.stepControl?.markAllAsTouched();
@@ -152,5 +196,19 @@ export class HlmStepper extends CdkStepper {
 
 	protected stepIcon(step: CdkStep): string | null {
 		return step instanceof HlmStep ? step.icon() : null;
+	}
+
+	protected _enterAnimationClass(): string {
+		if (!this._hasSelectionChanged()) {
+			return '';
+		}
+		return this._animationDirection() === 'forward' ? 'step-enter-forward' : 'step-enter-backward';
+	}
+
+	protected _leaveAnimationClass(): string {
+		if (!this._hasSelectionChanged()) {
+			return '';
+		}
+		return this._animationDirection() === 'forward' ? 'step-leave-forward' : 'step-leave-backward';
 	}
 }

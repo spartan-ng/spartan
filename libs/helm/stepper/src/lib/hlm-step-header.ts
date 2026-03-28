@@ -7,6 +7,7 @@ import { ButtonVariants, buttonVariants } from '@spartan-ng/helm/button';
 import { HlmIconImports } from '@spartan-ng/helm/icon';
 import { HlmStepLabel } from './hlm-step-label';
 import { HlmLabelPosition } from './hlm-stepper';
+import { injectHlmStepperConfig } from './stepper.token';
 
 export type HlmStepperIndicatorMode = 'number' | 'state' | 'icon';
 
@@ -39,8 +40,6 @@ export type HlmStepperIndicatorMode = 'number' | 'state' | 'icon';
 				<ng-container [ngTemplateOutlet]="templateLabel.template" />
 			} @else if (_stringLabel(); as stringLabel) {
 				{{ stringLabel }}
-			} @else {
-				Step {{ index() + 1 }}
 			}
 
 			@if (_showOptionalLabel()) {
@@ -54,6 +53,8 @@ export type HlmStepperIndicatorMode = 'number' | 'state' | 'icon';
 	`,
 })
 export class HlmStepHeader extends CdkStepHeader {
+	protected readonly _config = injectHlmStepperConfig();
+
 	public readonly state = input<StepState>('number');
 	public readonly label = input<HlmStepLabel | string | null>(null);
 	public readonly errorMessage = input('');
@@ -64,7 +65,7 @@ export class HlmStepHeader extends CdkStepHeader {
 	public readonly optional = input(false, { transform: booleanAttribute });
 	public readonly disabled = input(false, { transform: booleanAttribute });
 	public readonly icon = input<string | null>(null);
-	public readonly indicatorMode = input<HlmStepperIndicatorMode>('state');
+	public readonly indicatorMode = input<HlmStepperIndicatorMode>(this._config.defaultIndicatorMode);
 	public readonly labelPosition = input<HlmLabelPosition>('end');
 
 	protected readonly _stringLabel = computed(() => {
@@ -119,7 +120,6 @@ export class HlmStepHeader extends CdkStepHeader {
 			// TODO: to be discussed: should we follow the same ui as material stepper and show a pencil icon for edit state?
 			// if (state === 'done') return 'lucideCheck';
 			// if (state === 'edit') return 'lucidePencil';
-			return null;
 		}
 
 		return this.icon();

@@ -18,6 +18,11 @@ import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading
 import { Tabs } from '../../../../shared/layout/tabs';
 import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { metaWith } from '../../../../shared/meta/meta.util';
+import {
+	animationControlsCode,
+	StepperAnimationsPreview,
+	stepperConfigCode,
+} from './stepper--animations.preview';
 import { StepperBasicPreview } from './stepper--basic.preview';
 import { StepperErrorPreview } from './stepper--error.preview';
 import { StepperStatesPreview } from './stepper--indicators.preview';
@@ -58,6 +63,7 @@ export const routeMeta: RouteMeta = {
 		PageBottomNavLink,
 		PageBottomNavPlaceholder,
 		UIApiDocs,
+		StepperAnimationsPreview,
 		StepperBasicPreview,
 		StepperVerticalPreview,
 		StepperResponsivePreview,
@@ -154,6 +160,23 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_layoutCode()" />
 			</spartan-tabs>
 
+			<h3 id="examples__animations" spartanH4>Animations</h3>
+			<p hlmP>
+				You can disable animations and control transition duration either globally with
+				<code>provideHlmStepperConfig</code>
+				or per stepper instance with
+				<code>[animationsEnabled]</code>
+				and
+				<code>[animationDuration]</code>
+				.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-stepper-animations-preview />
+				</div>
+				<spartan-code secondTab [code]="_animationControlsCode" />
+			</spartan-tabs>
+
 			<h3 id="examples__indicators" spartanH4>Indicators</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -177,6 +200,18 @@ export const routeMeta: RouteMeta = {
 				</div>
 				<spartan-code secondTab [code]="_rtlCode()" />
 			</spartan-tabs>
+
+			<spartan-section-sub-heading id="config">Config</spartan-section-sub-heading>
+			<p hlmP>
+				To override defaults globally, provide
+				<code>provideHlmStepperConfig</code>
+				in your application config. You can still override behavior directly on a stepper instance with
+				<code>[animationsEnabled]</code>
+				and
+				<code>[animationDuration]</code>
+				inputs.
+			</p>
+			<spartan-code fileName="src/app/app.config.ts" [code]="_configCode" />
 
 			<spartan-section-sub-heading id="accessibility">Accessibility</spartan-section-sub-heading>
 			<p hlmP>
@@ -230,9 +265,11 @@ export default class StepperPage {
 	protected readonly _linearCode = computed(() => this._snippets()['linear']);
 	protected readonly _lazyContentCode = computed(() => this._snippets()['lazyContent']);
 	protected readonly _layoutCode = computed(() => this._snippets()['layout']);
+	protected readonly _animationControlsCode = animationControlsCode;
 	protected readonly _indicatorsCode = computed(() => this._snippets()['indicators']);
 	protected readonly _errorCode = computed(() => this._snippets()['error']);
 	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
+	protected readonly _configCode = stepperConfigCode;
 	protected readonly _imports = defaultImports;
 	protected readonly _codeSkeleton = defaultSkeleton;
 }

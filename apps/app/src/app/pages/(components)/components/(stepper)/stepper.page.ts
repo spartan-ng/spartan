@@ -18,11 +18,7 @@ import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading
 import { Tabs } from '../../../../shared/layout/tabs';
 import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import {
-	animationControlsCode,
-	StepperAnimationsPreview,
-	stepperConfigCode,
-} from './stepper--animations.preview';
+import { animationControlsCode, StepperAnimationsPreview, stepperConfigCode } from './stepper--animations.preview';
 import { StepperBasicPreview } from './stepper--basic.preview';
 import { StepperErrorPreview } from './stepper--error.preview';
 import { StepperStatesPreview } from './stepper--indicators.preview';
@@ -32,7 +28,7 @@ import { StepperLinearPreview } from './stepper--linear.preview';
 import { StepperResponsivePreview } from './stepper--responsive.preview';
 import { StepperRtlPreview } from './stepper--rtl.preview';
 import { StepperVerticalPreview } from './stepper--vertical.preview';
-import { StepperPreview, defaultImports, defaultSkeleton } from './stepper.preview';
+import { defaultImports, defaultSkeleton, StepperPreview } from './stepper.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'stepper', api: 'stepper' },

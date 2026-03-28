@@ -13,10 +13,7 @@ const defaultConfig: HlmStepperConfig = {
 	defaultIndicatorMode: 'state',
 };
 
-const HlmStepperConfigToken = new InjectionToken<HlmStepperConfig>(
-  'HlmStepperConfig',
-);
-
+const HlmStepperConfigToken = new InjectionToken<HlmStepperConfig>('HlmStepperConfig');
 
 function normalizeDuration(duration: number): number {
 	if (!Number.isFinite(duration)) {
@@ -26,16 +23,15 @@ function normalizeDuration(duration: number): number {
 	return Math.max(0, Math.round(duration));
 }
 
-
 export function provideHlmStepperConfig(config: Partial<HlmStepperConfig>): ValueProvider {
-  const mergedConfig = { ...defaultConfig, ...config };
-  return {
+	const mergedConfig = { ...defaultConfig, ...config };
+	return {
 		provide: HlmStepperConfigToken,
 		useValue: { ...mergedConfig, animationDuration: normalizeDuration(mergedConfig.animationDuration) },
 	};
 }
 
 export function injectHlmStepperConfig(): HlmStepperConfig {
-  const config = inject(HlmStepperConfigToken, { optional: true }) ?? defaultConfig;
-  return { ...config, animationDuration: normalizeDuration(config.animationDuration) };
+	const config = inject(HlmStepperConfigToken, { optional: true }) ?? defaultConfig;
+	return { ...config, animationDuration: normalizeDuration(config.animationDuration) };
 }

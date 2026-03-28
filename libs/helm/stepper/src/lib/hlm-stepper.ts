@@ -1,18 +1,11 @@
 import { CdkStep, CdkStepper, CdkStepperModule } from '@angular/cdk/stepper';
 import { NgTemplateOutlet } from '@angular/common';
-import {
-	booleanAttribute,
-	ChangeDetectionStrategy,
-	Component,
-	input,
-	numberAttribute,
-	signal,
-} from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, input, numberAttribute, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { tap } from 'rxjs/operators';
 import { HlmStep } from './hlm-step';
 import { HlmStepHeader, HlmStepperIndicatorMode } from './hlm-step-header';
 import { injectHlmStepperConfig } from './stepper.token';
-import { tap } from 'rxjs/operators';
 
 export type HlmLabelPosition = 'end' | 'bottom';
 export type HlmHeaderPosition = 'top' | 'bottom';

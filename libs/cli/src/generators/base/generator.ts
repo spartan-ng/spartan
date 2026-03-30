@@ -126,7 +126,8 @@ export async function hlmBaseGenerator(tree: Tree, options: HlmBaseGeneratorSche
 
 	for (const filePath of generatedFiles) {
 		const content = tree.read(filePath, 'utf-8');
-		if (filePath.includes('/button/')) {
+		const parts = filePath.split(path.sep);
+		if (parts.includes('button')) {
 			if (!content) continue;
 			const transformed = await transformStyle(content, { styleMap });
 			tree.write(filePath, transformed);

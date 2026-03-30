@@ -23,9 +23,24 @@ export class BrnCalendarPreviousButton {
 
 	/** Focus the previous month */
 	protected focusPreviousMonth(): void {
-		const targetDate = this._dateAdapter.subtract(this._calendar.focusedDate(), { months: 1 });
+		const focusedDate = this._calendar.focusedDate();
+		const date = this._dateAdapter.getDate(focusedDate);
 
-		// if the date is disabled, but there are available dates in the month, focus the last day of the month.
+		// go to start of month first, then subtract 1 month to avoid day overflow
+		let previousMonthTarget = this._dateAdapter.startOfMonth(focusedDate);
+		previousMonthTarget = this._dateAdapter.subtract(previousMonthTarget, { months: 1 });
+
+		const lastDay = this._dateAdapter.endOfMonth(previousMonthTarget);
+
+		// if we are on a date that does not exist in the previous month, clamp to the last day of the month.
+		let targetDate: typeof focusedDate;
+		if (date > this._dateAdapter.getDate(lastDay)) {
+			targetDate = lastDay;
+		} else {
+			targetDate = this._dateAdapter.set(previousMonthTarget, { day: date });
+		}
+
+		// if the date is disabled, but there are available dates in the month, focus the constrained date.
 		const possibleDate = this._calendar.constrainDate(targetDate);
 
 		if (this._dateAdapter.isSameMonth(possibleDate, targetDate)) {

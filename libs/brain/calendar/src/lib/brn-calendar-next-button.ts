@@ -8,7 +8,7 @@ import { injectBrnCalendarI18n } from './i18n/calendar-i18n';
 	host: {
 		type: 'button',
 		'[attr.aria-label]': '_i18n.config().labelNext()',
-		'(click)': 'focusPreviousMonth()',
+		'(click)': 'focusNextMonth()',
 	},
 })
 export class BrnCalendarNextButton {
@@ -21,11 +21,26 @@ export class BrnCalendarNextButton {
 	/** Access the calendar i18n */
 	protected readonly _i18n = injectBrnCalendarI18n();
 
-	/** Focus the previous month */
-	protected focusPreviousMonth(): void {
-		const targetDate = this._dateAdapter.add(this._calendar.focusedDate(), { months: 1 });
+	/** Focus the next month */
+	protected focusNextMonth(): void {
+		const focusedDate = this._calendar.focusedDate();
+		const date = this._dateAdapter.getDate(focusedDate);
 
-		// if the date is disabled, but there are available dates in the month, focus the last day of the month.
+		// go to start of month first, then add 1 month to avoid day overflow
+		let nextMonthTarget = this._dateAdapter.startOfMonth(focusedDate);
+		nextMonthTarget = this._dateAdapter.add(nextMonthTarget, { months: 1 });
+
+		const lastDay = this._dateAdapter.endOfMonth(nextMonthTarget);
+
+		// if we are on a date that does not exist in the next month, clamp to the last day of the month.
+		let targetDate: typeof focusedDate;
+		if (date > this._dateAdapter.getDate(lastDay)) {
+			targetDate = lastDay;
+		} else {
+			targetDate = this._dateAdapter.set(nextMonthTarget, { day: date });
+		}
+
+		// if the date is disabled, but there are available dates in the month, focus the constrained date.
 		const possibleDate = this._calendar.constrainDate(targetDate);
 
 		if (this._dateAdapter.isSameMonth(possibleDate, targetDate)) {

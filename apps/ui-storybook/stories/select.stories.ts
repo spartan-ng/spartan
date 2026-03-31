@@ -4,6 +4,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCitrus } from '@ng-icons/lucide';
 import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmFieldImports } from '@spartan-ng/helm/field';
 import { HlmLabel } from '@spartan-ng/helm/label';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
 import { type Meta, type StoryObj, argsToTemplate, moduleMetadata } from '@storybook/angular';
@@ -23,7 +24,16 @@ const meta: Meta<BrnSelectStoryArgs> = {
 	},
 	decorators: [
 		moduleMetadata({
-			imports: [CommonModule, FormsModule, ReactiveFormsModule, HlmSelectImports, HlmLabel, NgIcon],
+			imports: [
+				CommonModule,
+				FormsModule,
+				ReactiveFormsModule,
+				HlmSelectImports,
+				HlmFieldImports,
+				HlmButton,
+				HlmLabel,
+				NgIcon,
+			],
 			providers: [provideIcons({ lucideCitrus })],
 		}),
 	],

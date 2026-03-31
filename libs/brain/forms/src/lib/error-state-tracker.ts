@@ -2,7 +2,7 @@ import { computed } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import type { AbstractControl, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { BehaviorSubject, of } from 'rxjs';
-import { map, startWith, switchMap } from 'rxjs/operators';
+import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 import type { ControlState } from './control-state';
 import type { ErrorStateMatcher } from './error-options';
 
@@ -14,11 +14,24 @@ export class ErrorStateTracker {
 			switchMap((ngControl) => {
 				if (!ngControl) return of(null);
 
-				const control = ngControl.control as AbstractControl;
+				const control = ngControl.control as AbstractControl | null | undefined;
+				if (!control) {
+					throw new Error(
+						`ErrorStateTracker: ngControl.control is null or undefined. This usually means the form control directive (e.g. formControlName or ngModel) ` +
+							`found an NgControl in the DI tree but no ControlValueAccessor was registered to back it. ` +
+							`Ensure the host component or directive provides NG_VALUE_ACCESSOR (e.g. { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => YourComponent), multi: true }) ` +
+							`and implements the ControlValueAccessor interface.`,
+					);
+				}
+
 				return control.events.pipe(
 					startWith(() => this._getState(control)),
 					map(() => this._getState(control)),
 				);
+			}),
+			catchError((error) => {
+				console.error(error);
+				return of(null);
 			}),
 		),
 		{

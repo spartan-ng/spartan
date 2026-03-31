@@ -89,7 +89,7 @@
 
 	/* MARK: Badge */
 	.spartan-badge {
-		@apply h-5 gap-1 rounded-none border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pe-1.5 has-data-[icon=inline-start]:ps-1.5 [&>svg]:size-3!;
+		@apply h-5 gap-1 rounded-none border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pe-1.5 has-data-[icon=inline-start]:ps-1.5 [&>ng-icon]:text-[--spacing(3)];
 	}
 
 	.spartan-badge-variant-default {

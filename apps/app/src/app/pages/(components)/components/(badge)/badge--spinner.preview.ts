@@ -8,9 +8,9 @@ import { HlmSpinnerImports } from '@spartan-ng/helm/spinner';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div class="flex w-full flex-wrap justify-center gap-2">
-			<span hlmBadge variant="secondary">
+			<span hlmBadge variant="destructive">
 				<hlm-spinner class="text-xs" />
-				Verified
+				Deleting
 			</span>
 			<span hlmBadge variant="outline">
 				Bookmark

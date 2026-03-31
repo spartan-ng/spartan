@@ -1,4 +1,4 @@
-import { BooleanInput } from '@angular/cdk/coercion';
+import type { BooleanInput } from '@angular/cdk/coercion';
 import { booleanAttribute, ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { StyleOptionsDropdown } from '@spartan-ng/app/app/shared/page-options-dropdown/style-options-dropdown';
 import { PageOptionsDropdown } from '../page-options-dropdown/page-options-dropdown';
@@ -6,10 +6,10 @@ import { PageOptionsDropdown } from '../page-options-dropdown/page-options-dropd
 @Component({
 	selector: 'spartan-section-intro',
 	imports: [PageOptionsDropdown, StyleOptionsDropdown],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'flex flex-col gap-4',
 	},
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div class="flex items-center justify-between">
 			<h1 class="scroll-m-20 text-4xl font-semibold tracking-tight sm:text-3xl xl:text-4xl">{{ name() }}</h1>

@@ -54,6 +54,7 @@ export const HLM_CHECKBOX_VALUE_ACCESSOR = {
 			[aria-label]="ariaLabel()"
 			[aria-labelledby]="ariaLabelledby()"
 			[aria-describedby]="ariaDescribedby()"
+			[forceInvalid]="forceInvalid()"
 			(checkedChange)="_handleChange($event)"
 			(touched)="_onTouched?.()"
 		>
@@ -110,11 +111,14 @@ export class HlmCheckbox implements ControlValueAccessor {
 	/** Whether the checkbox is disabled. */
 	public readonly disabled = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
+	/** Whether to force the checkbox into an invalid state. */
+	public readonly forceInvalid = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
+
 	protected readonly _disabled = linkedSignal(this.disabled);
 
 	private readonly _brnCheckbox = viewChild.required(BrnCheckbox);
 
-	private readonly _spartanInvalid = computed(() => this._brnCheckbox().spartanInvalid?.());
+	private readonly _spartanInvalid = computed(() => this.forceInvalid() || this._brnCheckbox().spartanInvalid?.());
 	protected readonly _errorStateClass = computed(() =>
 		this._spartanInvalid()
 			? 'border-destructive focus-visible:border-destructive focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40'

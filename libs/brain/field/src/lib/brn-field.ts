@@ -15,16 +15,25 @@ import { BrnLabelable } from './brn-labelable';
 	},
 })
 export class BrnField {
+	private readonly _brnFieldControl = signal<BrnFieldControl | null>(null);
+	private readonly _labelable = signal<BrnLabelable | null>(null);
+
+	/** Whether the field is invalid. Overrides the `data-invalid` attribute. */
 	public readonly dataInvalid = input<boolean, BooleanInput>(false, {
 		transform: booleanAttribute,
 		alias: 'data-invalid',
 	});
 
-	private readonly _brnFieldControl = signal<BrnFieldControl | null>(null);
-	private readonly _labelable = signal<BrnLabelable | null>(null);
+	/**
+	 * Whether to force the field into an invalid state, regardless of the form control's state.
+	 * Overrides both the `data-invalid` and `data-matches-spartan-invalid` attributes.
+	 */
+	public readonly forceInvalid = input<boolean, BooleanInput>(false, {
+		transform: booleanAttribute,
+	});
 
 	protected readonly _invalid = computed(() => {
-		if (this.dataInvalid()) return true;
+		if (this.forceInvalid() || this.dataInvalid()) return true;
 
 		const control = this._brnFieldControl();
 		if (!control || !control.ngControl) return false;
@@ -33,7 +42,7 @@ export class BrnField {
 	});
 
 	protected readonly _spartanInvalid = computed(() => {
-		return this._brnFieldControl()?.controlState()?.spartanInvalid ?? null;
+		return this.forceInvalid() || (this._brnFieldControl()?.controlState()?.spartanInvalid ?? null);
 	});
 
 	protected readonly _dirty = computed(() => {

@@ -1344,6 +1344,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "boolean",
           },
+          {
+            "name": "forceInvalid",
+            "required": false,
+            "type": "boolean",
+          },
         ],
         "models": [
           {
@@ -1408,6 +1413,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           },
           {
             "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "forceInvalid",
             "required": false,
             "type": "boolean",
           },
@@ -2863,6 +2873,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "inputs": [
           {
             "name": "data-invalid",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "forceInvalid",
             "required": false,
             "type": "boolean",
           },

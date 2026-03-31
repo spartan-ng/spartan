@@ -185,6 +185,12 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 	public readonly disabled = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
 	/**
+	 * Whether to force the field into an invalid state, regardless of the form control's state.
+	 * Overrides both the `data-invalid` and `data-matches-spartan-invalid` attributes.
+	 */
+	public readonly forceInvalid = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
+
+	/**
 	 * Computed state for checkbox container and accessibility.
 	 * Manages ID, name, and disabled state.
 	 */
@@ -205,8 +211,10 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 	public readonly labelableId = this._buttonId;
 
 	protected readonly _dirty = this._fieldControl?.dirty;
-	protected readonly _invalid = this._fieldControl?.invalid;
-	public readonly spartanInvalid = this._fieldControl?.spartanInvalid;
+	protected readonly _invalid = computed(() => this.forceInvalid() || (this._fieldControl?.invalid?.() ?? null));
+	public readonly spartanInvalid = computed(
+		() => this.forceInvalid() || (this._fieldControl?.spartanInvalid?.() ?? null),
+	);
 	protected readonly _controlTouched = this._fieldControl?.touched;
 
 	// eslint-disable-next-line @typescript-eslint/no-empty-function

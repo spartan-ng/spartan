@@ -28,7 +28,7 @@ export type FieldVariants = VariantProps<typeof fieldVariants>;
 
 @Directive({
 	selector: '[hlmField],hlm-field',
-	hostDirectives: [{ directive: BrnField, inputs: ['data-invalid'] }],
+	hostDirectives: [{ directive: BrnField, inputs: ['data-invalid', 'forceInvalid'] }],
 	host: {
 		role: 'group',
 		'data-slot': 'field',

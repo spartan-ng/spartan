@@ -1,6 +1,7 @@
 import { Clipboard } from '@angular/cdk/clipboard';
+import { BooleanInput } from '@angular/cdk/coercion';
 import { TitleCasePipe } from '@angular/common';
-import { Component, computed, inject, input, signal } from '@angular/core';
+import { booleanAttribute, Component, computed, inject, input, signal } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCheck, lucideClipboard, lucideTerminal } from '@ng-icons/lucide';
 import {
@@ -180,7 +181,7 @@ const cliBtn =
 export class InstallTabs {
 	private readonly _cliService = inject(CLIModeService);
 
-	public readonly showOnlyVega = input(true);
+	public readonly showOnlyVega = input<boolean, BooleanInput>(true, { transform: booleanAttribute });
 
 	protected readonly _themes = computed(() => {
 		if (this.showOnlyVega()) {

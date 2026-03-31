@@ -9,6 +9,6 @@ import { classes } from '<%- importAlias %>/utils';
 })
 export class HlmCardDescription {
 	constructor() {
-		classes(() => 'text-muted-foreground text-sm');
+		classes(() => 'spartan-card-description');
 	}
 }

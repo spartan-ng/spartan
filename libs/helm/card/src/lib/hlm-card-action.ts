@@ -9,6 +9,6 @@ import { classes } from '@spartan-ng/helm/utils';
 })
 export class HlmCardAction {
 	constructor() {
-		classes(() => 'col-start-2 row-span-2 row-start-1 self-start justify-self-end');
+		classes(() => 'spartan-card-action col-start-2 row-span-2 row-start-1 self-start justify-self-end');
 	}
 }

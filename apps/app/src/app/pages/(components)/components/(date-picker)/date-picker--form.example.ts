@@ -2,28 +2,26 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmDatePickerImports } from '@spartan-ng/helm/date-picker';
-import { HlmLabelImports } from '@spartan-ng/helm/label';
+import { HlmFieldImports } from '@spartan-ng/helm/field';
 
 @Component({
 	selector: 'spartan-date-picker-form',
-	imports: [HlmDatePickerImports, ReactiveFormsModule, HlmButtonImports, HlmLabelImports],
+	imports: [HlmDatePickerImports, ReactiveFormsModule, HlmButtonImports, HlmFieldImports],
+	host: { class: 'w-full sm:max-w-sm' },
 	template: `
-		<form [formGroup]="form" (ngSubmit)="submit()" class="space-y-8">
-			<div class="flex flex-col gap-2">
-				<label for="birthday" hlmLabel class="px-1">Date of birth</label>
-				<hlm-date-picker
-					buttonId="birthday"
-					[min]="minDate"
-					[max]="maxDate"
-					formControlName="birthday"
-					[autoCloseOnSelect]="true"
-				>
-					<span>Pick a date</span>
-				</hlm-date-picker>
-				<div class="text-muted-foreground px-1 text-sm">Your date of birth is used to calculate your age.</div>
-			</div>
-
-			<button type="submit" hlmBtn [disabled]="form.invalid">Submit</button>
+		<form [formGroup]="form" (ngSubmit)="submit()">
+			<hlm-field-group>
+				<hlm-field>
+					<label hlmFieldLabel for="birthday">Date of birth</label>
+					<hlm-date-picker [min]="minDate" [max]="maxDate" formControlName="birthday" [autoCloseOnSelect]="true">
+						<hlm-date-picker-trigger buttonId="birthday">Pick a date</hlm-date-picker-trigger>
+					</hlm-date-picker>
+					<hlm-field-description>Your date of birth is used to calculate your age.</hlm-field-description>
+				</hlm-field>
+				<hlm-field orientation="horizontal">
+					<button type="submit" hlmBtn [disabled]="form.invalid">Submit</button>
+				</hlm-field>
+			</hlm-field-group>
 		</form>
 	`,
 })

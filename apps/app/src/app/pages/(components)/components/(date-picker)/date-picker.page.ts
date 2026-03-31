@@ -25,6 +25,7 @@ import { DateAndTimePickerExample } from './date-picker--date-time.example';
 import { DatePickerFormMultipleExample } from './date-picker--form-multi.example';
 import { DatePickerFormExample } from './date-picker--form.example';
 import { DatePickerFormatExample } from './date-picker--format.example';
+import { DatePickerInputExample } from './date-picker--input.example';
 import { DatePickerMultipleExample } from './date-picker--multi.example';
 import { DatePickerPreview, defaultImports, defaultSkeleton } from './date-picker.preview';
 
@@ -61,6 +62,7 @@ export const routeMeta: RouteMeta = {
 		DatePickerRangeExample,
 		DatePickerFormRangeExample,
 		SectionSubSubHeading,
+		DatePickerInputExample,
 	],
 	template: `
 		<section spartanMainSection>
@@ -173,6 +175,14 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_formatCode()" />
 			</spartan-tabs>
 
+			<h3 id="examples__input" spartanH4>Input</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-date-picker-input />
+				</div>
+				<spartan-code secondTab [code]="_inputCode()" />
+			</spartan-tabs>
+
 			<h3 id="examples__date_and_time_picker" spartanH4>Date and Time picker</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -247,6 +257,7 @@ export default class CardPage {
 	protected readonly _formatCode = computed(() => this._snippets()['format']);
 	protected readonly _multiCode = computed(() => this._snippets()['multi']);
 	protected readonly _rangeCode = computed(() => this._snippets()['range']);
+	protected readonly _inputCode = computed(() => this._snippets()['input']);
 	protected readonly _dateTimeCode = computed(() => this._snippets()['dateTime']);
 	protected readonly _defaultImports = defaultImports;
 	protected readonly _codeSkeleton = defaultSkeleton;

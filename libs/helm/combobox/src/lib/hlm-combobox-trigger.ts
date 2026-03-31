@@ -7,13 +7,21 @@ import {
 	BrnComboboxPopoverTrigger,
 	BrnComboboxTrigger,
 } from '@spartan-ng/brain/combobox';
+import { BrnFieldControlDescribedBy } from '@spartan-ng/brain/field';
 import { ButtonVariants, HlmButton } from '@spartan-ng/helm/button';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-combobox-trigger',
-	imports: [NgIcon, HlmButton, BrnComboboxAnchor, BrnComboboxTrigger, BrnComboboxPopoverTrigger],
+	imports: [
+		NgIcon,
+		HlmButton,
+		BrnComboboxAnchor,
+		BrnComboboxTrigger,
+		BrnComboboxPopoverTrigger,
+		BrnFieldControlDescribedBy,
+	],
 	providers: [provideIcons({ lucideChevronDown })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [BrnComboboxInputWrapper],
@@ -22,6 +30,7 @@ import type { ClassValue } from 'clsx';
 			brnComboboxTrigger
 			brnComboboxAnchor
 			brnComboboxPopoverTrigger
+			brnFieldControlDescribedBy
 			hlmBtn
 			data-slot="combobox-trigger"
 			[id]="buttonId()"

@@ -183,158 +183,169 @@ describe('select', () => {
 			cy.visit('/iframe.html?id=select--reactive-form-control-with-validation');
 
 			// initial
-			cy.get('hlm-select').should('have.class', 'ng-untouched');
-			cy.get('hlm-select').should('have.class', 'ng-pristine');
-			cy.get('hlm-select').should('have.class', 'ng-invalid');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-touched');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-dirty');
+			cy.get('[brnselecttrigger]').should('have.attr', 'aria-invalid', 'true');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-matches-spartan-invalid');
 
 			// on open
 			cy.get('[brnselecttrigger]').click();
-			cy.get('hlm-select').should('have.class', 'ng-untouched');
-			cy.get('hlm-select').should('have.class', 'ng-pristine');
-			cy.get('hlm-select').should('have.class', 'ng-invalid');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-touched');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-dirty');
+			cy.get('[brnselecttrigger]').should('have.attr', 'aria-invalid', 'true');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-matches-spartan-invalid');
 			cy.get('body').click();
 
 			// no selection
-			cy.get('hlm-select').should('have.class', 'ng-touched');
-			cy.get('hlm-select').should('have.class', 'ng-pristine');
-			cy.get('hlm-select').should('have.class', 'ng-invalid');
+			cy.get('[brnselecttrigger]').should('have.attr', 'data-touched', 'true');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-dirty');
+			cy.get('[brnselecttrigger]').should('have.attr', 'aria-invalid', 'true');
+			cy.get('[brnselecttrigger]').should('have.attr', 'data-matches-spartan-invalid', 'true');
 
-			// force error
 			cy.get('[brnselecttrigger]').click();
 			cy.get('hlm-select-item').first().click();
 			cy.get('[brnselecttrigger]').click();
 			cy.get('hlm-select-item').last().click();
-			cy.get('hlm-select').should('have.class', 'ng-touched');
-			cy.get('hlm-select').should('have.class', 'ng-dirty');
-			cy.get('hlm-select').should('have.class', 'ng-valid');
+			cy.get('[brnselecttrigger]').should('have.attr', 'data-touched', 'true');
+			cy.get('[brnselecttrigger]').should('have.attr', 'data-dirty', 'true');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'aria-invalid', 'true');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-matches-spartan-invalid', 'true');
 
 			// on real selection
 			cy.get('[brnselecttrigger]').click();
 			cy.get('hlm-select-item').eq(0).click();
-			cy.get('hlm-select').should('have.class', 'ng-touched');
-			cy.get('hlm-select').should('have.class', 'ng-dirty');
-			cy.get('hlm-select').should('have.class', 'ng-valid');
+			cy.get('[brnselecttrigger]').should('have.attr', 'data-touched', 'true');
+			cy.get('[brnselecttrigger]').should('have.attr', 'data-dirty', 'true');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'aria-invalid');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-matches-spartan-invalid');
 		});
 
 		it('should have initial value set correctly when options are provided in a for loop', () => {
 			cy.visit('/iframe.html?id=select--reactive-form-control-with-for-and-initial-value&args=initialValue:banana');
 
 			// initial
-			cy.get('hlm-select').should('have.class', 'ng-untouched');
-			cy.get('hlm-select').should('have.class', 'ng-pristine');
-			cy.get('hlm-select').should('have.class', 'ng-valid');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-touched');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-dirty');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'aria-invalid');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-matches-spartan-invalid');
 
 			// on open
 			cy.get('hlm-select').click();
-			cy.get('hlm-select').should('have.class', 'ng-untouched');
-			cy.get('hlm-select').should('have.class', 'ng-pristine');
-			cy.get('hlm-select').should('have.class', 'ng-valid');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-touched');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-dirty');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'aria-invalid');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-matches-spartan-invalid');
 			cy.get('body').click();
 
 			// no selection
-			cy.get('hlm-select').should('have.class', 'ng-touched');
-			cy.get('hlm-select').should('have.class', 'ng-pristine');
-			cy.get('hlm-select').should('have.class', 'ng-valid');
+			cy.get('[brnselecttrigger]').should('have.attr', 'data-touched', 'true');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-dirty');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'aria-invalid');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-matches-spartan-invalid');
 
 			// on real selection
 			cy.get('[brnselecttrigger]').click();
 			cy.get('hlm-select-item').eq(0).click();
-			cy.get('hlm-select').should('have.class', 'ng-touched');
-			cy.get('hlm-select').should('have.class', 'ng-dirty');
-			cy.get('hlm-select').should('have.class', 'ng-valid');
+			cy.get('[brnselecttrigger]').should('have.attr', 'data-touched', 'true');
+			cy.get('[brnselecttrigger]').should('have.attr', 'data-dirty', 'true');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'aria-invalid');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-matches-spartan-invalid');
 		});
 
 		it('should have form validation classes and reflect control status with label', () => {
 			cy.visit('/iframe.html?id=select--reactive-form-control-with-validation-with-label');
 
 			// initial
-			cy.get('hlm-select').should('have.class', 'ng-untouched');
-			cy.get('hlm-select').should('have.class', 'ng-pristine');
-			cy.get('hlm-select').should('have.class', 'ng-invalid');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-touched');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-dirty');
+			cy.get('[brnselecttrigger]').should('have.attr', 'aria-invalid', 'true');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-matches-spartan-invalid');
 
 			// on open
 			cy.get('[brnselecttrigger]').click();
-			cy.get('hlm-select').should('have.class', 'ng-untouched');
-			cy.get('hlm-select').should('have.class', 'ng-pristine');
-			cy.get('hlm-select').should('have.class', 'ng-invalid');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-touched');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-dirty');
+			cy.get('[brnselecttrigger]').should('have.attr', 'aria-invalid', 'true');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-matches-spartan-invalid');
 			cy.get('body').click();
 
 			// no selection
-			cy.get('hlm-select').should('have.class', 'ng-touched');
-			cy.get('hlm-select').should('have.class', 'ng-pristine');
-			cy.get('hlm-select').should('have.class', 'ng-invalid');
-
-			// force error
-			cy.get('[brnselecttrigger]').click();
-			cy.get('hlm-select-item').first().click();
-			cy.get('[brnselecttrigger]').click();
-			cy.get('hlm-select-item').last().click();
-			cy.get('hlm-select').should('have.class', 'ng-touched');
-			cy.get('hlm-select').should('have.class', 'ng-dirty');
-			cy.get('hlm-select').should('have.class', 'ng-valid');
+			cy.get('[brnselecttrigger]').should('have.attr', 'data-touched', 'true');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-dirty');
+			cy.get('[brnselecttrigger]').should('have.attr', 'aria-invalid', 'true');
+			cy.get('[brnselecttrigger]').should('have.attr', 'data-matches-spartan-invalid', 'true');
 
 			// on real selection
 			cy.get('[brnselecttrigger]').click();
 			cy.get('hlm-select-item').eq(0).click();
-			cy.get('hlm-select').should('have.class', 'ng-touched');
-			cy.get('hlm-select').should('have.class', 'ng-dirty');
-			cy.get('hlm-select').should('have.class', 'ng-valid');
+			cy.get('[brnselecttrigger]').should('have.attr', 'data-touched', 'true');
+			cy.get('[brnselecttrigger]').should('have.attr', 'data-dirty', 'true');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'aria-invalid');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-matches-spartan-invalid');
 		});
 
 		it('should have form validation classes and reflect control status when assigned with initial value', () => {
 			cy.visit('/iframe.html?id=select--reactive-form-control-with-validation&args=value:apple');
 
 			// initial
-			cy.get('hlm-select').should('have.class', 'ng-untouched');
-			cy.get('hlm-select').should('have.class', 'ng-pristine');
-			cy.get('hlm-select').should('have.class', 'ng-valid');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-touched');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-dirty');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'aria-invalid');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-matches-spartan-invalid');
 
 			// on open
 			cy.get('[brnselecttrigger]').click();
-			cy.get('hlm-select').should('have.class', 'ng-untouched');
-			cy.get('hlm-select').should('have.class', 'ng-pristine');
-			cy.get('hlm-select').should('have.class', 'ng-valid');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-touched');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-dirty');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'aria-invalid');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-matches-spartan-invalid');
 			cy.get('body').click();
 
 			// no selection
-			cy.get('hlm-select').should('have.class', 'ng-touched');
-			cy.get('hlm-select').should('have.class', 'ng-pristine');
-			cy.get('hlm-select').should('have.class', 'ng-valid');
+			cy.get('[brnselecttrigger]').should('have.attr', 'data-touched', 'true');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-dirty');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'aria-invalid');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-matches-spartan-invalid');
 
 			// on real selection
 			cy.get('[brnselecttrigger]').click();
 			cy.get('hlm-select-item').eq(0).click();
-			cy.get('hlm-select').should('have.class', 'ng-touched');
-			cy.get('hlm-select').should('have.class', 'ng-dirty');
-			cy.get('hlm-select').should('have.class', 'ng-valid');
+			cy.get('[brnselecttrigger]').should('have.attr', 'data-touched', 'true');
+			cy.get('[brnselecttrigger]').should('have.attr', 'data-dirty', 'true');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'aria-invalid');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-matches-spartan-invalid');
 		});
 
 		it('should have form validation classes and reflect control status', () => {
 			cy.visit('/iframe.html?id=select--reactive-form-control');
 
 			// initial
-			cy.get('hlm-select').should('have.class', 'ng-untouched');
-			cy.get('hlm-select').should('have.class', 'ng-pristine');
-			cy.get('hlm-select').should('have.class', 'ng-valid');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-touched');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-dirty');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'aria-invalid');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-matches-spartan-invalid');
 
 			// on open
 			cy.get('[brnselecttrigger]').click();
-			cy.get('hlm-select').should('have.class', 'ng-untouched');
-			cy.get('hlm-select').should('have.class', 'ng-pristine');
-			cy.get('hlm-select').should('have.class', 'ng-valid');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-touched');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-dirty');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'aria-invalid');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-matches-spartan-invalid');
 			cy.get('body').click();
 
 			// no selection
-			cy.get('hlm-select').should('have.class', 'ng-touched');
-			cy.get('hlm-select').should('have.class', 'ng-pristine');
-			cy.get('hlm-select').should('have.class', 'ng-valid');
+			cy.get('[brnselecttrigger]').should('have.attr', 'data-touched', 'true');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-dirty');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'aria-invalid');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-matches-spartan-invalid');
 
 			// on real selection
 			cy.get('[brnselecttrigger]').click();
 			cy.get('hlm-select-item').eq(0).click();
-			cy.get('hlm-select').should('have.class', 'ng-touched');
-			cy.get('hlm-select').should('have.class', 'ng-dirty');
-			cy.get('hlm-select').should('have.class', 'ng-valid');
+			cy.get('[brnselecttrigger]').should('have.attr', 'data-touched', 'true');
+			cy.get('[brnselecttrigger]').should('have.attr', 'data-dirty', 'true');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'aria-invalid');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-matches-spartan-invalid');
 		});
 	});
 

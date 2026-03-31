@@ -9,6 +9,8 @@ import {
 	type Type,
 	type ValueProvider,
 } from '@angular/core';
+import type { ControlState } from '@spartan-ng/brain/forms';
+import type { BrnComboboxChipInput } from './brn-combobox-chip-input';
 import { comboboxContainsFilter } from './brn-combobox-filter';
 import type { BrnComboboxInput } from './brn-combobox-input';
 import type { BrnComboboxItem } from './brn-combobox-item';
@@ -28,6 +30,7 @@ export interface BrnComboboxBase<T> {
 	isExpanded: Signal<boolean>;
 	searchInputWrapperWidth: Signal<number | null>;
 	mode: Signal<ComboboxInputMode>;
+	controlState?: Signal<ControlState | null>;
 	hasValue: Signal<boolean>;
 
 	isSelected: (itemValue: T) => boolean;
@@ -42,6 +45,8 @@ export interface BrnComboboxBase<T> {
 	removeValue: (value: T) => void;
 	/** Register the combobox input component for single selection mode */
 	registerComboboxInput?: (input: BrnComboboxInput<T>) => void;
+	/** Register the combobox chip input component for multi selection mode */
+	registerComboboxChipInput?: (input: BrnComboboxChipInput<T>) => void;
 }
 
 export const BrnComboboxBaseToken = new InjectionToken<BrnComboboxBase<unknown>>('BrnComboboxBaseToken');

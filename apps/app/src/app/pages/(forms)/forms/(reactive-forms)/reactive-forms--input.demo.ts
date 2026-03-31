@@ -25,17 +25,12 @@ import { HlmInputImports } from '@spartan-ng/helm/input';
 								This is your public display name. Must be between 3 and 10 characters. Must only contain letters,
 								numbers, and underscores.
 							</hlm-field-description>
-							@if (form.controls.username.touched && form.controls.username.invalid) {
-								<hlm-field-error>
-									@if (form.controls.username.errors?.['required'] || form.controls.username.errors?.['minlength']) {
-										Username must be at least 3 characters.
-									} @else if (form.controls.username.errors?.['maxlength']) {
-										Username must be at most 10 characters.
-									} @else if (form.controls.username.errors?.['pattern']) {
-										Username can only contain letters, numbers, and underscores.
-									}
-								</hlm-field-error>
-							}
+							<hlm-field-error validator="required">Username is a required field.</hlm-field-error>
+							<hlm-field-error validator="minlength">Username must be at least 3 characters.</hlm-field-error>
+							<hlm-field-error validator="maxlength">Username must be at most 10 characters.</hlm-field-error>
+							<hlm-field-error validator="pattern">
+								Username can only contain letters, numbers, and underscores.
+							</hlm-field-error>
 						</hlm-field>
 					</hlm-field-group>
 				</form>
@@ -97,17 +92,12 @@ import { HlmInputImports } from '@spartan-ng/helm/input';
 								This is your public display name. Must be between 3 and 10 characters. Must only contain letters,
 								numbers, and underscores.
 							</hlm-field-description>
-							@if (form.controls.username.touched && form.controls.username.invalid) {
-								<hlm-field-error>
-									@if (form.controls.username.errors?.['required'] || form.controls.username.errors?.['minlength']) {
-										Username must be at least 3 characters.
-									} @else if (form.controls.username.errors?.['maxlength']) {
-										Username must be at most 10 characters.
-									} @else if (form.controls.username.errors?.['pattern']) {
-										Username can only contain letters, numbers, and underscores.
-									}
-								</hlm-field-error>
-							}
+							<hlm-field-error validator="required">Username is a required field.</hlm-field-error>
+							<hlm-field-error validator="minlength">Username must be at least 3 characters.</hlm-field-error>
+							<hlm-field-error validator="maxlength">Username must be at most 10 characters.</hlm-field-error>
+							<hlm-field-error validator="pattern">
+								Username can only contain letters, numbers, and underscores.
+							</hlm-field-error>
 						</hlm-field>
 					</hlm-field-group>
 				</form>

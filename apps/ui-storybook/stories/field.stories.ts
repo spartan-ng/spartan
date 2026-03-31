@@ -1,5 +1,5 @@
 import { JsonPipe } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmCheckbox } from '@spartan-ng/helm/checkbox';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
@@ -8,7 +8,7 @@ import { HlmRadioGroupImports } from '@spartan-ng/helm/radio-group';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
 import { HlmSwitch } from '@spartan-ng/helm/switch';
 import { HlmTextarea } from '@spartan-ng/helm/textarea';
-import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
+import { type Meta, moduleMetadata, type StoryObj } from '@storybook/angular';
 
 const meta: Meta = {
 	title: 'Field',
@@ -232,26 +232,43 @@ export const WithTextarea: Story = {
 
 export const WithError: Story = {
 	name: 'With Error',
-	render: () => ({
-		template: `
+	render: () => {
+		const form = new FormGroup({
+			email: new FormControl('', { validators: [Validators.required, Validators.email] }),
+			username: new FormControl('', { validators: [Validators.required, Validators.minLength(3)] }),
+		});
+		return {
+			props: {
+				form,
+			},
+			template: `
 			<div class="w-full max-w-md">
+			<form [formGroup]="form">
 				<fieldset hlmFieldSet>
 					<div hlmFieldGroup>
-						<div hlmField data-invalid="true">
-							<label hlmFieldLabel for="field-email-error">Email</label>
-							<input hlmInput id="field-email-error" type="email" aria-invalid="true" value="invalid-email" />
-							<hlm-field-error>Enter a valid email address.</hlm-field-error>
+						<div hlmField>
+							<label hlmFieldLabel>Email</label>
+							<input hlmInput id="field-email-error" type="email" formControlName="email" />
+							<hlm-field-error validator="required">Email must be entered.</hlm-field-error>
+							<hlm-field-error validator="email">Enter a valid email address.</hlm-field-error>
 						</div>
-						<div hlmField data-invalid="true">
-							<label hlmFieldLabel for="field-username-error">Username</label>
-							<input hlmInput id="field-username-error" type="text" aria-invalid="true" value="ab" />
-							<hlm-field-error>Username must be at least 3 characters.</hlm-field-error>
+						<div hlmField>
+							<label hlmFieldLabel>Username</label>
+							<input hlmInput id="field-username-error" type="text" formControlName="username" />
+							<hlm-field-error validator="required">Username must be entered.</hlm-field-error>
+							<hlm-field-error validator="minlength">Username must be at least 3 characters.</hlm-field-error>
 						</div>
 					</div>
 				</fieldset>
+				<hlm-field orientation="horizontal" class="mt-3">
+					<button id="validate" hlmBtn type="button" (click)="form.markAllAsTouched()">Validate</button>
+					<button hlmBtn variant="outline" type="button" (click)="form.reset()">Reset</button>
+				</hlm-field>
+			</form>
 			</div>
 		`,
-	}),
+		};
+	},
 };
 
 export const FieldGroup: Story = {

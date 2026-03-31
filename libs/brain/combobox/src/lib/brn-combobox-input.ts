@@ -1,4 +1,5 @@
-import { computed, Directive, effect, ElementRef, inject, input } from '@angular/core';
+import { BooleanInput } from '@angular/cdk/coercion';
+import { booleanAttribute, computed, Directive, effect, ElementRef, inject, input } from '@angular/core';
 import { stringifyAsLabel } from '@spartan-ng/brain/core';
 import { BrnComboboxContent } from './brn-combobox-content';
 import { ComboboxInputMode, injectBrnComboboxBase } from './brn-combobox.token';
@@ -17,6 +18,11 @@ import { ComboboxInputMode, injectBrnComboboxBase } from './brn-combobox.token';
 		'aria-autocomplete': 'list',
 		'aria-haspopup': 'listbox',
 		'[attr.aria-expanded]': '_isExpanded()',
+		'[attr.aria-invalid]': '_ariaInvalid() ? "true": null',
+		'[attr.data-invalid]': '_ariaInvalid() ? "true": null',
+		'[attr.data-matches-spartan-invalid]': '_spartanInvalid() ? "true": null',
+		'[attr.data-touched]': '_touched() ? "true": null',
+		'[attr.data-dirty]': '_dirty() ? "true": null',
 		'[attr.disabled]': 'disabled() ? "" : null',
 		'(keydown)': 'onKeyDown($event)',
 		'(input)': 'onInput($event)',
@@ -34,10 +40,25 @@ export class BrnComboboxInput<T> {
 	/** The id of the combobox input */
 	public readonly id = input<string>(`brn-combobox-input-${++BrnComboboxInput._id}`);
 
+	/** Manual override for aria-invalid. When not set, auto-detects from the parent combobox error state. */
+	public readonly ariaInvalidOverride = input<boolean | undefined, BooleanInput>(undefined, {
+		transform: (v: BooleanInput) => (v === '' || v === undefined ? undefined : booleanAttribute(v)),
+		alias: 'aria-invalid',
+	});
+
 	public readonly disabled = this._combobox.disabledState;
 
 	/** Whether the combobox panel is expanded */
 	protected readonly _isExpanded = this._combobox.isExpanded;
+
+	/** Computed aria-invalid: uses manual override if provided, otherwise reads from parent error state. */
+	protected readonly _ariaInvalid = computed(
+		() => this.ariaInvalidOverride() ?? this._combobox.controlState?.()?.invalid,
+	);
+
+	protected readonly _dirty = computed(() => this._combobox.controlState?.()?.dirty);
+	protected readonly _touched = computed(() => this._combobox.controlState?.()?.touched);
+	protected readonly _spartanInvalid = computed(() => this._combobox.controlState?.()?.spartanInvalid);
 
 	constructor() {
 		this._combobox.registerComboboxInput?.(this);

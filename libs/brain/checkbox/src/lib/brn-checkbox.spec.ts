@@ -7,12 +7,14 @@ describe('BrnCheckboxComponent', () => {
 	const setup = async () => {
 		const container = await render(
 			`
-     <brn-checkbox id='checkboxId' name='checkboxName' data-testid='brnCheckBox' aria-label='checkbox'/>
-    `,
+			<brn-checkbox id='checkboxId' name='checkboxName' data-testid='brnCheckBox' aria-label='checkbox'/>
+			`,
 			{
 				imports: [BrnCheckbox],
 			},
 		);
+		container.detectChanges();
+
 		return {
 			user: userEvent.setup(),
 			container,
@@ -23,15 +25,17 @@ describe('BrnCheckboxComponent', () => {
 	const setupInsideLabel = async () => {
 		const container = await render(
 			`
-     <label data-testid='label'>
-     Checkbox Inside Label
-     <brn-checkbox id='checkboxId' data-testid='brnCheckBox' name='checkboxName'/>
+			<label data-testid='label'>
+			  Checkbox Inside Label
+				<brn-checkbox id='checkboxId' data-testid='brnCheckBox' name='checkboxName'/>
       </label>
-    `,
+			`,
 			{
 				imports: [BrnCheckbox],
 			},
 		);
+		container.detectChanges();
+
 		return {
 			user: userEvent.setup(),
 			container,
@@ -42,15 +46,17 @@ describe('BrnCheckboxComponent', () => {
 	const setupInsideLabelDisabled = async () => {
 		const container = await render(
 			`
-     <label data-testid='label'>
-     Checkbox Inside Label
-     <brn-checkbox disabled id='checkboxId' data-testid='brnCheckBox' name='checkboxName'/>
+			<label data-testid='label'>
+			  Checkbox Inside Label
+				<brn-checkbox disabled id='checkboxId' data-testid='brnCheckBox' name='checkboxName'/>
       </label>
-    `,
+			`,
 			{
 				imports: [BrnCheckbox],
 			},
 		);
+		container.detectChanges();
+
 		return {
 			user: userEvent.setup(),
 			container,
@@ -62,16 +68,18 @@ describe('BrnCheckboxComponent', () => {
 	const setupOutsideLabelWithAriaLabelledBy = async () => {
 		const container = await render(
 			`
-     <!-- need for because arialabelledby only provides accessible name -->
-     <label id='labelId' for='checkboxId' data-testid='label'>
-     Checkbox Outside Label with ariaLabelledBy
-     </label>
-     <brn-checkbox id='checkboxId' name='checkboxName' data-testid='brnCheckBox' aria-labelledby='labelId'/>
-    `,
+			<!-- need for because arialabelledby only provides accessible name -->
+      <label id='labelId' for='checkboxId' data-testid='label'>
+        Checkbox Outside Label with ariaLabelledBy
+      </label>
+      <brn-checkbox id='checkboxId' name='checkboxName' data-testid='brnCheckBox' aria-labelledby='labelId'/>
+			`,
 			{
 				imports: [BrnCheckbox],
 			},
 		);
+		container.detectChanges();
+
 		return {
 			user: userEvent.setup(),
 			container,
@@ -83,15 +91,17 @@ describe('BrnCheckboxComponent', () => {
 	const setupOutsideLabelWithForAndId = async () => {
 		const container = await render(
 			`
-     <label for='checkboxId' data-testid='label'>
-     Checkbox Outside Label with id
-     </label>
-     <brn-checkbox id='checkboxId' name='checkboxName' data-testid='brnCheckBox'/>
-    `,
+      <label for='checkboxId' data-testid='label'>
+        Checkbox Outside Label with id
+      </label>
+      <brn-checkbox id='checkboxId' name='checkboxName' data-testid='brnCheckBox'/>
+      `,
 			{
 				imports: [BrnCheckbox],
 			},
 		);
+		container.detectChanges();
+
 		return {
 			user: userEvent.setup(),
 			container,
@@ -102,15 +112,17 @@ describe('BrnCheckboxComponent', () => {
 	const setupOutsideLabelWithForAndIdDisabled = async () => {
 		const container = await render(
 			`
-     <label for='checkboxId' data-testid='label'>
-     Checkbox Outside Label with id
-     </label>
-     <brn-checkbox disabled id='checkboxId' name='checkboxName' data-testid='brnCheckBox'/>
-    `,
+      <label for='checkboxId' data-testid='label'>
+        Checkbox Outside Label with id
+      </label>
+      <brn-checkbox disabled id='checkboxId' name='checkboxName' data-testid='brnCheckBox'/>
+      `,
 			{
 				imports: [BrnCheckbox],
 			},
 		);
+		container.detectChanges();
+
 		return {
 			user: userEvent.setup(),
 			container,
@@ -127,7 +139,6 @@ describe('BrnCheckboxComponent', () => {
 		shouldBeChecked: boolean,
 		opts?: Options,
 	) => {
-		screen.debug();
 		expect(buttonElement).toBeInTheDocument();
 		expect(buttonElement).toHaveAttribute('role', 'checkbox');
 		expect(buttonElement).toHaveAttribute('id', 'checkboxId');

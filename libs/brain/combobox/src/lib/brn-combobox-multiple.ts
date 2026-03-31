@@ -18,21 +18,24 @@ import {
 	signal,
 	untracked,
 } from '@angular/core';
-import { NG_VALUE_ACCESSOR, type ControlValueAccessor } from '@angular/forms';
-import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
+import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { BrnFieldControl, provideBrnLabelable } from '@spartan-ng/brain/field';
+import { type ChangeFn, type TouchFn } from '@spartan-ng/brain/forms';
 import { BrnPopover } from '@spartan-ng/brain/popover';
+import { BrnComboboxChipInput } from './brn-combobox-chip-input';
+import { BrnComboboxContent } from './brn-combobox-content';
 import { BrnComboboxInputWrapper } from './brn-combobox-input-wrapper';
 import { type BrnComboboxItem } from './brn-combobox-item';
 import { BrnComboboxItemToken } from './brn-combobox-item.token';
 import {
-	ComboboxInputMode,
-	injectBrnComboboxConfig,
-	provideBrnComboboxBase,
 	type BrnComboboxBase,
 	type ComboboxFilter,
 	type ComboboxFilterOptions,
+	ComboboxInputMode,
 	type ComboboxItemEqualToValue,
 	type ComboboxItemToString,
+	injectBrnComboboxConfig,
+	provideBrnComboboxBase,
 } from './brn-combobox.token';
 
 export const BRN_COMBOBOX_MULTIPLE_VALUE_ACCESSOR = {
@@ -43,15 +46,26 @@ export const BRN_COMBOBOX_MULTIPLE_VALUE_ACCESSOR = {
 
 @Directive({
 	selector: '[brnCombobox]',
-	providers: [provideBrnComboboxBase(BrnComboboxMultiple), BRN_COMBOBOX_MULTIPLE_VALUE_ACCESSOR],
+	providers: [
+		BRN_COMBOBOX_MULTIPLE_VALUE_ACCESSOR,
+		provideBrnComboboxBase(BrnComboboxMultiple),
+		provideBrnLabelable(BrnComboboxMultiple),
+	],
+	hostDirectives: [BrnFieldControl],
+	host: {
+		'(focusout)': '_onFocusOut($event)',
+	},
 })
 export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueAccessor {
 	private readonly _injector = inject(Injector);
+	private readonly _fieldControl = inject(BrnFieldControl, { optional: true });
 
 	private readonly _config = injectBrnComboboxConfig<T>();
 
 	/** Access the popover if present */
 	private readonly _brnPopover = inject(BrnPopover, { optional: true });
+
+	public readonly controlState = this._fieldControl?.controlState;
 
 	/** Whether the combobox is disabled */
 	public readonly disabled = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
@@ -113,6 +127,10 @@ export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueA
 		descendants: true,
 	});
 
+	private readonly _content = contentChild<BrnComboboxContent>(BrnComboboxContent, {
+		descendants: true,
+	});
+
 	/** Determine if the combobox has any visible items */
 	public readonly visibleItems = computed(() => this.items().some((item) => item.visible()));
 
@@ -122,7 +140,11 @@ export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueA
 	/** @internal Whether the autocomplete is expanded */
 	public readonly isExpanded = computed(() => this._brnPopover?.stateComputed() === 'open');
 
+	private readonly _comboboxChipInput = signal<BrnComboboxChipInput<T> | undefined>(undefined);
+
 	public readonly mode = signal<ComboboxInputMode>('combobox').asReadonly();
+
+	public readonly labelableId = computed(() => this._comboboxChipInput()?.id());
 
 	protected _onChange?: ChangeFn<T[] | null>;
 	protected _onTouched?: TouchFn;
@@ -157,6 +179,10 @@ export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueA
 				{ injector: this._injector },
 			);
 		});
+	}
+
+	public registerComboboxChipInput(input: BrnComboboxChipInput<T>): void {
+		this._comboboxChipInput.set(input);
 	}
 
 	public isSelected(itemValue: T): boolean {
@@ -222,6 +248,19 @@ export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueA
 		if (this._disabled() || this.isExpanded()) return;
 
 		this._brnPopover?.open();
+	}
+
+	protected _onFocusOut(event: FocusEvent): void {
+		const currentTarget = event.currentTarget as HTMLElement;
+		const focusedEl = event.relatedTarget as HTMLElement | null;
+		const contentEl = this._content()?.el.nativeElement;
+
+		if (!currentTarget.contains(focusedEl) && !contentEl?.contains(focusedEl)) {
+			if (this.isExpanded()) {
+				this._brnPopover?.close();
+			}
+			this._onTouched?.();
+		}
 	}
 
 	private close(): void {

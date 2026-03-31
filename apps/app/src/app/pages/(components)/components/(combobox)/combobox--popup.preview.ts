@@ -1,25 +1,29 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { HlmComboboxImports } from '@spartan-ng/helm/combobox';
+import { HlmFieldImports } from '@spartan-ng/helm/field';
 
 @Component({
 	selector: 'spartan-combobox-popup-preview',
-	imports: [HlmComboboxImports],
+	imports: [HlmComboboxImports, HlmFieldImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<hlm-combobox autoFocus="first-tabbable">
-			<hlm-combobox-trigger class="w-64 justify-between font-normal">
-				<hlm-combobox-value placeholder="Select a country" />
-			</hlm-combobox-trigger>
-			<hlm-combobox-content *hlmComboboxPortal>
-				<hlm-combobox-input showTrigger="false" placeholder="Search" showClear />
-				<hlm-combobox-empty>No items found.</hlm-combobox-empty>
-				<div hlmComboboxList>
-					@for (country of countries; track country.code) {
-						<hlm-combobox-item [value]="country">{{ country.label }}</hlm-combobox-item>
-					}
-				</div>
-			</hlm-combobox-content>
-		</hlm-combobox>
+		<hlm-field>
+			<label hlmFieldLabel for="countries">Countries</label>
+			<hlm-combobox autoFocus="first-tabbable">
+				<hlm-combobox-trigger buttonId="countries" class="w-64 justify-between font-normal">
+					<hlm-combobox-value placeholder="Select a country" />
+				</hlm-combobox-trigger>
+				<hlm-combobox-content *hlmComboboxPortal>
+					<hlm-combobox-input showTrigger="false" placeholder="Search" showClear />
+					<hlm-combobox-empty>No items found.</hlm-combobox-empty>
+					<div hlmComboboxList>
+						@for (country of countries; track country.code) {
+							<hlm-combobox-item [value]="country">{{ country.label }}</hlm-combobox-item>
+						}
+					</div>
+				</hlm-combobox-content>
+			</hlm-combobox>
+		</hlm-field>
 	`,
 })
 export class ComboboxPopupPreview {

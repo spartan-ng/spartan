@@ -9,6 +9,8 @@ import {
 	type Type,
 	type ValueProvider,
 } from '@angular/core';
+import type { ControlState } from '@spartan-ng/brain/forms';
+import type { BrnAutocompleteInput } from './brn-autocomplete-input';
 import type { BrnAutocompleteItem } from './brn-autocomplete-item';
 
 export interface BrnAutocompleteBase<T> {
@@ -21,6 +23,7 @@ export interface BrnAutocompleteBase<T> {
 	visibleItems: Signal<boolean>;
 	isExpanded: Signal<boolean>;
 	searchInputWrapperWidth: Signal<number | null>;
+	controlState: Signal<ControlState | null> | undefined;
 
 	updateSearch: (value: string) => void;
 	isSelected: (itemValue: T) => boolean;
@@ -29,6 +32,7 @@ export interface BrnAutocompleteBase<T> {
 	resetValue: () => void;
 	/** Select the active item with Enter key. */
 	selectActiveItem: () => void;
+	registerAutocompleteInput: (input: BrnAutocompleteInput<T>) => void;
 }
 
 export const BrnAutocompleteBaseToken = new InjectionToken<BrnAutocompleteBase<unknown>>('BrnAutocompleteBaseToken');

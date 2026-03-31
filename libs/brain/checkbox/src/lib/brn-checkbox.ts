@@ -3,6 +3,7 @@ import type { BooleanInput } from '@angular/cdk/coercion';
 import { isPlatformBrowser } from '@angular/common';
 import {
 	type AfterContentInit,
+	afterRenderEffect,
 	booleanAttribute,
 	ChangeDetectionStrategy,
 	ChangeDetectorRef,
@@ -10,7 +11,6 @@ import {
 	computed,
 	DestroyRef,
 	DOCUMENT,
-	effect,
 	ElementRef,
 	forwardRef,
 	inject,
@@ -26,7 +26,8 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
+import { BrnFieldControl, provideBrnLabelable } from '@spartan-ng/brain/field';
+import { type ChangeFn, type TouchFn } from '@spartan-ng/brain/forms';
 
 export const BRN_CHECKBOX_VALUE_ACCESSOR = {
 	provide: NG_VALUE_ACCESSOR,
@@ -40,8 +41,9 @@ const CONTAINER_POST_FIX = '-checkbox';
 
 @Component({
 	selector: 'brn-checkbox',
-	providers: [BRN_CHECKBOX_VALUE_ACCESSOR],
+	providers: [BRN_CHECKBOX_VALUE_ACCESSOR, provideBrnLabelable(BrnCheckbox)],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	hostDirectives: [BrnFieldControl],
 	host: {
 		'[style]': '{display: "contents"}',
 		'[attr.id]': '_state().id',
@@ -49,6 +51,11 @@ const CONTAINER_POST_FIX = '-checkbox';
 		'[attr.aria-labelledby]': 'null',
 		'[attr.aria-label]': 'null',
 		'[attr.aria-describedby]': 'null',
+		'[attr.aria-invalid]': '_invalid?.() ? "true" : null',
+		'[attr.data-invalid]': '_invalid?.() ? "true" : null',
+		'[attr.data-matches-spartan-invalid]': 'spartanInvalid?.() ? "true" : null',
+		'[attr.data-touched]': '_controlTouched?.() ? "true" : null',
+		'[attr.data-dirty]': '_dirty?.() ? "true" : null',
 		'[attr.data-state]': '_dataState()',
 		'[attr.data-focus-visible]': '_focusVisible()',
 		'[attr.data-focus]': '_focused()',
@@ -59,8 +66,8 @@ const CONTAINER_POST_FIX = '-checkbox';
 			#checkBox
 			role="checkbox"
 			type="button"
-			[id]="_getCheckboxButtonId(_state().id) ?? ''"
-			[name]="_getCheckboxButtonId(_state().name) ?? ''"
+			[attr.id]="_buttonId()"
+			[attr.name]="_buttonName()"
 			[class]="class()"
 			[attr.aria-checked]="_ariaChecked()"
 			[attr.aria-label]="ariaLabel() || null"
@@ -84,6 +91,7 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 	private readonly _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 	private readonly _focusMonitor = inject(FocusMonitor);
 	private readonly _cdr = inject(ChangeDetectorRef);
+	private readonly _fieldControl = inject(BrnFieldControl, { optional: true });
 	private readonly _document = inject(DOCUMENT);
 	private readonly _isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
@@ -177,6 +185,12 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 	public readonly disabled = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
 	/**
+	 * Whether to force the field into an invalid state, regardless of the form control's state.
+	 * Overrides both the `data-invalid` and `data-matches-spartan-invalid` attributes.
+	 */
+	public readonly forceInvalid = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
+
+	/**
 	 * Computed state for checkbox container and accessibility.
 	 * Manages ID, name, and disabled state.
 	 */
@@ -189,6 +203,19 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 			id: id ? id + CONTAINER_POST_FIX : null,
 		};
 	});
+
+	protected readonly _buttonId = computed(() => this._getCheckboxButtonId(this._state().id));
+
+	protected readonly _buttonName = computed(() => this._getCheckboxButtonId(this._state().name));
+
+	public readonly labelableId = this._buttonId;
+
+	protected readonly _dirty = this._fieldControl?.dirty;
+	protected readonly _invalid = computed(() => this.forceInvalid() || (this._fieldControl?.invalid?.() ?? null));
+	public readonly spartanInvalid = computed(
+		() => this.forceInvalid() || (this._fieldControl?.spartanInvalid?.() ?? null),
+	);
+	protected readonly _controlTouched = this._fieldControl?.touched;
 
 	// eslint-disable-next-line @typescript-eslint/no-empty-function
 	protected _onChange: ChangeFn<boolean> = () => {};
@@ -207,7 +234,7 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 	public readonly touched = output<void>();
 
 	constructor() {
-		effect(() => {
+		afterRenderEffect(() => {
 			const state = this._state();
 			const isDisabled = state.disabled();
 
@@ -288,7 +315,7 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 	 * @returns ID to use for inner button or null
 	 */
 	protected _getCheckboxButtonId(idPassedToContainer: string | null | undefined): string | null {
-		return idPassedToContainer ? idPassedToContainer.replace(CONTAINER_POST_FIX, '') : null;
+		return idPassedToContainer ? idPassedToContainer.replace(new RegExp(CONTAINER_POST_FIX + '$'), '') : null;
 	}
 
 	/**

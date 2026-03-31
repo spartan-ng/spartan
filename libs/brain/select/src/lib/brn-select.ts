@@ -15,13 +15,16 @@ import {
 	input,
 	linkedSignal,
 	model,
+	signal,
 	untracked,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { BrnFieldControl, provideBrnLabelable } from '@spartan-ng/brain/field';
 import { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import { BrnPopover } from '@spartan-ng/brain/popover';
 import { BrnSelectItem } from './brn-select-item';
 import { BrnSelectItemToken } from './brn-select-item.token';
+import type { BrnSelectTrigger } from './brn-select-trigger';
 import { BrnSelectTriggerWrapper } from './brn-select-trigger-wrapper';
 import {
 	type BrnSelectBase,
@@ -39,12 +42,16 @@ export const BRN_SELECT_VALUE_ACCESSOR = {
 
 @Directive({
 	selector: '[brnSelect]',
-	providers: [provideBrnSelectBase(BrnSelect), BRN_SELECT_VALUE_ACCESSOR],
+	providers: [provideBrnSelectBase(BrnSelect), BRN_SELECT_VALUE_ACCESSOR, provideBrnLabelable(BrnSelect)],
+	hostDirectives: [BrnFieldControl],
 })
 export class BrnSelect<T> implements BrnSelectBase<T>, ControlValueAccessor {
 	private readonly _injector = inject(Injector);
+	private readonly _fieldControl = inject(BrnFieldControl, { optional: true });
 
 	private readonly _config = injectBrnSelectConfig<T>();
+
+	public readonly controlState = this._fieldControl?.controlState;
 
 	/** Access the popover if present */
 	private readonly _brnPopover = inject(BrnPopover, { optional: true });
@@ -90,6 +97,10 @@ export class BrnSelect<T> implements BrnSelectBase<T>, ControlValueAccessor {
 	/** @internal Whether the select is expanded */
 	public readonly isExpanded = computed(() => this._brnPopover?.stateComputed() === 'open');
 
+	private readonly _selectTrigger = signal<BrnSelectTrigger | undefined>(undefined);
+
+	public readonly labelableId = computed(() => this._selectTrigger()?.id());
+
 	protected _onChange?: ChangeFn<T | null>;
 	protected _onTouched?: TouchFn;
 
@@ -130,6 +141,10 @@ export class BrnSelect<T> implements BrnSelectBase<T>, ControlValueAccessor {
 				{ injector: this._injector },
 			);
 		});
+	}
+
+	public registerSelectTrigger(input: BrnSelectTrigger): void {
+		return this._selectTrigger.set(input);
 	}
 
 	public isSelected(itemValue: T): boolean {

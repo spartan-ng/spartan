@@ -1,12 +1,149 @@
-import { Component, computed, inject, resource, signal } from '@angular/core';
+import { JsonPipe } from '@angular/common';
+import { ChangeDetectionStrategy, Component, computed, inject, resource, signal } from '@angular/core';
 import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { provideBrnAutocompleteConfig } from '@spartan-ng/brain/autocomplete';
 import { HlmAutocomplete, HlmAutocompleteImports } from '@spartan-ng/helm/autocomplete';
-import { HlmButtonImports } from '@spartan-ng/helm/button';
-import { HlmLabelImports } from '@spartan-ng/helm/label';
+import { HlmButton, HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmFieldImports } from '@spartan-ng/helm/field';
 import { HlmSpinnerImports } from '@spartan-ng/helm/spinner';
-import type { Meta, StoryObj } from '@storybook/angular';
-import { moduleMetadata } from '@storybook/angular';
+import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
+
+@Component({
+	selector: 'autocomplete-reactive-form-story',
+
+	imports: [JsonPipe, HlmAutocompleteImports, HlmFieldImports, HlmButton, ReactiveFormsModule],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<form [formGroup]="form" class="w-full max-w-sm">
+			<hlm-field-group>
+				<hlm-field>
+					<label hlmFieldLabel for="framework">Framework *</label>
+					<hlm-autocomplete formControlName="framework" [(search)]="search">
+						<hlm-autocomplete-input inputId="framework" placeholder="Search frameworks..." />
+						<hlm-autocomplete-content *hlmAutocompletePortal>
+							<hlm-autocomplete-empty>No frameworks found.</hlm-autocomplete-empty>
+							<div hlmAutocompleteList>
+								@for (fw of filteredOptions(); track fw) {
+									<hlm-autocomplete-item [value]="fw">{{ fw }}</hlm-autocomplete-item>
+								}
+							</div>
+						</hlm-autocomplete-content>
+					</hlm-autocomplete>
+					<p hlmFieldDescription>Start typing to find a framework.</p>
+				</hlm-field>
+
+				<hlm-field orientation="horizontal">
+					<button hlmBtn type="button" (click)="form.markAllAsTouched()">Validate</button>
+					<button hlmBtn variant="outline" type="button" (click)="form.reset()">Reset</button>
+				</hlm-field>
+			</hlm-field-group>
+		</form>
+
+		<pre class="mt-4 text-xs">
+Touched: {{ form.get('framework')?.touched }}  |  Invalid: {{ form.get('framework')?.invalid }}  |  Value: {{
+				form.get('framework')?.value | json
+			}}</pre
+		>
+	`,
+})
+class AutocompleteReactiveFormStory {
+	private readonly _fb = inject(FormBuilder);
+	public readonly form = this._fb.group({ framework: ['', Validators.required] });
+	public readonly search = signal('');
+	public readonly filteredOptions = computed(() =>
+		frameworks.filter((fw) => fw.toLowerCase().includes(this.search().toLowerCase())),
+	);
+}
+
+// ── With Hint and Error ──────────────────────────────────────────────────────
+
+@Component({
+	selector: 'autocomplete-hint-error-story',
+
+	imports: [HlmAutocompleteImports, HlmFieldImports, HlmButton, ReactiveFormsModule],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<form [formGroup]="form" class="w-full max-w-sm">
+			<hlm-field-group>
+				<hlm-field>
+					<label hlmFieldLabel>Framework *</label>
+					<hlm-autocomplete formControlName="framework" [(search)]="search">
+						<hlm-autocomplete-input inputId="framework" placeholder="Search frameworks..." />
+						<hlm-autocomplete-content *hlmAutocompletePortal>
+							<hlm-autocomplete-empty>No frameworks found.</hlm-autocomplete-empty>
+							<div hlmAutocompleteList>
+								@for (fw of filteredOptions(); track fw) {
+									<hlm-autocomplete-item [value]="fw">{{ fw }}</hlm-autocomplete-item>
+								}
+							</div>
+						</hlm-autocomplete-content>
+					</hlm-autocomplete>
+
+					<p hlmFieldDescription>Pick your primary framework so we can tailor docs.</p>
+
+					<hlm-field-error>Select a framework to continue.</hlm-field-error>
+				</hlm-field>
+
+				<hlm-field orientation="horizontal">
+					<button hlmBtn type="button" (click)="form.markAllAsTouched()">Validate</button>
+					<button hlmBtn variant="outline" type="button" (click)="form.reset()">Reset</button>
+				</hlm-field>
+			</hlm-field-group>
+		</form>
+	`,
+})
+class AutocompleteHintErrorStory {
+	private readonly _fb = inject(FormBuilder);
+	public readonly form = this._fb.group({ framework: ['', Validators.required] });
+	public readonly search = signal('');
+	public readonly filteredOptions = computed(() =>
+		frameworks.filter((fw) => fw.toLowerCase().includes(this.search().toLowerCase())),
+	);
+}
+
+@Component({
+	selector: 'autocomplete-search-hint-error-story',
+
+	imports: [HlmAutocompleteImports, HlmFieldImports, HlmButton, ReactiveFormsModule],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<form [formGroup]="form" class="w-full max-w-sm">
+			<hlm-field-group>
+				<hlm-field>
+					<label hlmFieldLabel>Framework *</label>
+					<hlm-autocomplete-search formControlName="framework" [(search)]="search">
+						<hlm-autocomplete-input inputId="framework" placeholder="Search frameworks..." />
+						<hlm-autocomplete-content *hlmAutocompletePortal>
+							<hlm-autocomplete-empty>No frameworks found.</hlm-autocomplete-empty>
+							<div hlmAutocompleteList>
+								@for (fw of filteredOptions(); track fw) {
+									<hlm-autocomplete-item [value]="fw">{{ fw }}</hlm-autocomplete-item>
+								}
+							</div>
+						</hlm-autocomplete-content>
+					</hlm-autocomplete-search>
+
+					<p hlmFieldDescription>Pick your primary framework so we can tailor docs.</p>
+
+					<hlm-field-error>Select a framework to continue.</hlm-field-error>
+				</hlm-field>
+
+				<hlm-field orientation="horizontal">
+					<button hlmBtn type="button" (click)="form.markAllAsTouched()">Validate</button>
+					<button hlmBtn variant="outline" type="button" (click)="form.reset()">Reset</button>
+				</hlm-field>
+			</hlm-field-group>
+		</form>
+	`,
+})
+class AutocompleteSearchHintErrorStory {
+	private readonly _fb = inject(FormBuilder);
+	public readonly form = this._fb.group({ framework: ['', Validators.required] });
+	public readonly search = signal('');
+	public readonly filteredOptions = computed(() =>
+		frameworks.filter((fw) => fw.toLowerCase().includes(this.search().toLowerCase())),
+	);
+}
 
 @Component({
 	selector: 'spartan-autocomplete-async',
@@ -69,25 +206,28 @@ type Country = {
 
 @Component({
 	selector: 'spartan-autocomplete-form',
-	imports: [HlmAutocompleteImports, ReactiveFormsModule, HlmButtonImports, HlmLabelImports],
+	imports: [ReactiveFormsModule, HlmAutocompleteImports, HlmButtonImports, HlmFieldImports],
 	template: `
-		<form [formGroup]="form" (ngSubmit)="submit()" class="space-y-8">
-			<div class="flex flex-col gap-2">
-				<label for="autocomplete" hlmLabel class="px-1">Choose your favorite character</label>
-				<hlm-autocomplete formControlName="option" [(search)]="search">
-					<hlm-autocomplete-input placeholder="Search characters" />
-					<hlm-autocomplete-content *hlmAutocompletePortal>
-						<hlm-autocomplete-empty>No characters found.</hlm-autocomplete-empty>
-						<div hlmAutocompleteList>
-							@for (option of filteredOptions(); track $index) {
-								<hlm-autocomplete-item [value]="option">{{ option }}</hlm-autocomplete-item>
-							}
-						</div>
-					</hlm-autocomplete-content>
-				</hlm-autocomplete>
-			</div>
-
-			<button type="submit" hlmBtn>Submit</button>
+		<form [formGroup]="form" (ngSubmit)="submit()">
+			<hlm-field-group>
+				<hlm-field>
+					<label hlmFieldLabel for="character">Choose your favorite character</label>
+					<hlm-autocomplete formControlName="option" [(search)]="search">
+						<hlm-autocomplete-input inputId="character" placeholder="Search characters" />
+						<hlm-autocomplete-content *hlmAutocompletePortal>
+							<hlm-autocomplete-empty>No characters found.</hlm-autocomplete-empty>
+							<div hlmAutocompleteList>
+								@for (option of filteredOptions(); track $index) {
+									<hlm-autocomplete-item [value]="option">{{ option }}</hlm-autocomplete-item>
+								}
+							</div>
+						</hlm-autocomplete-content>
+					</hlm-autocomplete>
+				</hlm-field>
+				<hlm-field orientation="horizontal">
+					<button type="submit" hlmBtn>Submit</button>
+				</hlm-field>
+			</hlm-field-group>
 		</form>
 	`,
 })
@@ -131,25 +271,29 @@ type Item = {
 
 @Component({
 	selector: 'spartan-autocomplete-transform-option-value',
-	imports: [HlmAutocompleteImports, ReactiveFormsModule, HlmButtonImports, HlmLabelImports],
+	imports: [ReactiveFormsModule, HlmAutocompleteImports, HlmButtonImports, HlmFieldImports],
 	template: `
-		<form [formGroup]="form" (ngSubmit)="submit()" class="space-y-8">
-			<div class="flex flex-col gap-2">
-				<label for="autocomplete" hlmLabel class="px-1">Choose your favorite character</label>
-				<hlm-autocomplete formControlName="option" [(search)]="search" [itemToString]="itemToString">
-					<hlm-autocomplete-input placeholder="Search characters" showClear />
-					<hlm-autocomplete-content *hlmAutocompletePortal>
-						<hlm-autocomplete-empty>No characters found.</hlm-autocomplete-empty>
-						<div hlmAutocompleteList>
-							@for (option of filteredOptions(); track $index) {
-								<hlm-autocomplete-item [value]="option.id">{{ option.label }}</hlm-autocomplete-item>
-							}
-						</div>
-					</hlm-autocomplete-content>
-				</hlm-autocomplete>
-			</div>
+		<form [formGroup]="form" (ngSubmit)="submit()">
+			<hlm-field-group>
+				<hlm-field>
+					<label hlmFieldLabel for="character">Choose your favorite character</label>
+					<hlm-autocomplete formControlName="option" [(search)]="search" [itemToString]="itemToString">
+						<hlm-autocomplete-input inputId="character" placeholder="Search characters" showClear />
+						<hlm-autocomplete-content *hlmAutocompletePortal>
+							<hlm-autocomplete-empty>No characters found.</hlm-autocomplete-empty>
+							<div hlmAutocompleteList>
+								@for (option of filteredOptions(); track $index) {
+									<hlm-autocomplete-item [value]="option.id">{{ option.label }}</hlm-autocomplete-item>
+								}
+							</div>
+						</hlm-autocomplete-content>
+					</hlm-autocomplete>
+				</hlm-field>
 
-			<button type="submit" hlmBtn>Submit</button>
+				<hlm-field orientation="horizontal">
+					<button type="submit" hlmBtn>Submit</button>
+				</hlm-field>
+			</hlm-field-group>
 		</form>
 	`,
 })
@@ -194,7 +338,15 @@ export default {
 	tags: ['autodocs'],
 	decorators: [
 		moduleMetadata({
-			imports: [AutocompleteAsync, AutocompleteForm, AutocompleteTransformOptionValue, HlmAutocompleteImports],
+			imports: [
+				AutocompleteAsync,
+				AutocompleteForm,
+				AutocompleteTransformOptionValue,
+				HlmAutocompleteImports,
+				AutocompleteReactiveFormStory,
+				AutocompleteHintErrorStory,
+				AutocompleteSearchHintErrorStory,
+			],
 		}),
 	],
 } as Meta<HlmAutocomplete>;
@@ -382,5 +534,27 @@ export const Form: Story = {
 export const TransformOptionValue: Story = {
 	render: () => ({
 		template: '<spartan-autocomplete-transform-option-value />',
+	}),
+};
+
+const frameworks = ['Angular', 'React', 'Vue', 'Svelte', 'Solid', 'Ember', 'Next.js', 'Nuxt', 'Remix', 'Astro'];
+
+// ── With Reactive Form ───────────────────────────────────────────────────────
+
+export const WithReactiveForm: Story = {
+	render: () => ({
+		template: '<autocomplete-reactive-form-story />',
+	}),
+};
+
+export const WithHintAndError: Story = {
+	render: () => ({
+		template: '<autocomplete-hint-error-story />',
+	}),
+};
+
+export const SearchWithHintAndError: Story = {
+	render: () => ({
+		template: '<autocomplete-search-hint-error-story />',
 	}),
 };

@@ -29,13 +29,7 @@ import { HlmInputImports } from '@spartan-ng/helm/input';
 						<hlm-field>
 							<label hlmFieldLabel for="name">Full Name</label>
 							<input hlmInput type="text" id="name" placeholder="John Doe" formControlName="name" />
-							@if (form.controls.name.touched && form.controls.name.invalid) {
-								<hlm-field-error>
-									@if (form.controls.name.errors?.['required']) {
-										Name is required.
-									}
-								</hlm-field-error>
-							}
+							<hlm-field-error validator="required">Name is required.</hlm-field-error>
 						</hlm-field>
 						<hlm-field>
 							<label hlmFieldLabel for="email">Email</label>
@@ -45,16 +39,8 @@ import { HlmInputImports } from '@spartan-ng/helm/input';
 									We'll use this to contact you. We will not share your email with anyone else.
 								</hlm-field-description>
 							}
-							@if (form.controls.email.touched && form.controls.email.invalid) {
-								<hlm-field-error>
-									@if (form.controls.email.errors?.['required']) {
-										Email is required.
-									}
-									@if (form.controls.email.errors?.['email']) {
-										Enter a valid email address.
-									}
-								</hlm-field-error>
-							}
+							<hlm-field-error validator="required">Email is required.</hlm-field-error>
+							<hlm-field-error validator="email">Enter a valid email address.</hlm-field-error>
 						</hlm-field>
 						<hlm-field>
 							<label hlmFieldLabel for="password">Password</label>
@@ -62,16 +48,8 @@ import { HlmInputImports } from '@spartan-ng/helm/input';
 							@if (!(form.controls.password.touched && form.controls.password.invalid)) {
 								<hlm-field-description>Must be at least 8 characters long.</hlm-field-description>
 							}
-							@if (form.controls.password.touched && form.controls.password.invalid) {
-								<hlm-field-error>
-									@if (form.controls.password.errors?.['required']) {
-										Password is required.
-									}
-									@if (form.controls.password.errors?.['minlength']) {
-										Password must be at least 8 characters long.
-									}
-								</hlm-field-error>
-							}
+							<hlm-field-error validator="required">Password is required.</hlm-field-error>
+							<hlm-field-error validator="minlength">Password must be at least 8 characters long.</hlm-field-error>
 						</hlm-field>
 						<hlm-field>
 							<label hlmFieldLabel for="confirmPassword">Confirm Password</label>
@@ -84,18 +62,9 @@ import { HlmInputImports } from '@spartan-ng/helm/input';
 							) {
 								<hlm-field-description>Please confirm your password.</hlm-field-description>
 							}
-							@if (
-								form.controls.confirmPassword.touched &&
-								(form.controls.confirmPassword.invalid || form.errors?.['passwordMismatch'])
-							) {
-								<hlm-field-error>
-									@if (form.controls.confirmPassword.errors?.['required']) {
-										Confirming your password is required.
-									}
-									@if (form.errors?.['passwordMismatch'] && !form.controls.confirmPassword.errors?.['required']) {
-										Passwords must match.
-									}
-								</hlm-field-error>
+							<hlm-field-error validator="required">Confirming your password is required.</hlm-field-error>
+							@if (form.errors?.['passwordMismatch'] && !form.controls.confirmPassword.errors?.['required']) {
+								<hlm-field-error forceShow>Passwords must match.</hlm-field-error>
 							}
 						</hlm-field>
 						<hlm-field>

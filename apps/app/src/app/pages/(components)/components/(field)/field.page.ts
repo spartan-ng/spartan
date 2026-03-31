@@ -17,8 +17,10 @@ import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-sec
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { FieldCheckboxPreview } from './field--checkbox.preview';
 import { FieldChoiceCardPreview } from './field--choice-card.preview';
+import { FieldDatePickerPreview } from './field--date-picker.preview';
 import { FieldGroupPreview } from './field--group.preview';
 import { FieldInputPreview } from './field--input.preview';
+import { FieldNativeSelectPreview } from './field--native-select.preview';
 import { FieldRadioPreview } from './field--radio.preview';
 import { FieldResponsiveLayoutPreview } from './field--responsive-layout.preview';
 import { FieldSelectPreview } from './field--select.preview';
@@ -57,6 +59,8 @@ export const routeMeta: RouteMeta = {
 		FieldInputPreview,
 		FieldTextareaPreview,
 		FieldSelectPreview,
+		FieldNativeSelectPreview,
+		FieldDatePickerPreview,
 		FieldSliderPreview,
 		FieldSetPreview,
 		FieldCheckboxPreview,
@@ -141,6 +145,22 @@ export const routeMeta: RouteMeta = {
 					<spartan-field-select-preview />
 				</div>
 				<spartan-code secondTab [code]="_selectCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__native-select" spartanH4>Native Select</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-field-native-select-preview />
+				</div>
+				<spartan-code secondTab [code]="_nativeSelectCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__date-picker" spartanH4>Date Picker</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-field-date-picker-preview />
+				</div>
+				<spartan-code secondTab [code]="_datePickerCode()" />
 			</spartan-tabs>
 
 			<h3 id="examples__slider" spartanH4>Slider</h3>
@@ -234,7 +254,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_separatorCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__responsive-layout" spartanH4>Responsive Layout</h3>
+			<spartan-section-sub-heading id="responsive-layout">Responsive Layout</spartan-section-sub-heading>
 			<ul class="my-6 ml-6 list-disc">
 				<li class="mt-2">
 					<strong class="font-medium">Vertical fields:</strong>
@@ -268,7 +288,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_responsiveLayoutCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__validation-and-errors" spartanH4>Validation and Errors</h3>
+			<spartan-section-sub-heading id="validation-and-errors">Validation and Errors</spartan-section-sub-heading>
 			<ul class="my-6 ml-6 list-disc">
 				<li class="mt-2">
 					Add
@@ -292,7 +312,7 @@ export const routeMeta: RouteMeta = {
 			</ul>
 			<spartan-code [code]="_validationAndErrorCode" />
 
-			<h3 id="examples__accessibility" spartanH4>Accessibility</h3>
+			<spartan-section-sub-heading id="accessibility">Accessibility</spartan-section-sub-heading>
 			<ul class="my-6 ml-6 list-disc">
 				<li class="mt-2">
 					<code class="${hlmCode} mr-0.5">HlmFieldSet</code>
@@ -311,6 +331,19 @@ export const routeMeta: RouteMeta = {
 					when combined.
 				</li>
 				<li class="mt-2">
+					When a control and a
+					<code class="${hlmCode} mr-0.5">HlmFieldLabel</code>
+					are placed inside the same
+					<code class="${hlmCode} mr-0.5">HlmField</code>
+					, the label's
+					<code class="${hlmCode} mr-0.5">for</code>
+					attribute is automatically set to the control's
+					<code class="${hlmCode} mr-0.5">id</code>
+					. There is no need to set
+					<code class="${hlmCode} mr-0.5">for</code>
+					manually.
+				</li>
+				<li class="mt-2">
 					Apply
 					<code class="${hlmCode} mr-0.5">HlmFieldSeparator</code>
 					sparingly to ensure screen readers encounter clear section boundaries.
@@ -321,7 +354,7 @@ export const routeMeta: RouteMeta = {
 			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-page-bottom-nav>
-				<spartan-page-bottom-nav-link href="form-field" label="Form Field" />
+				<spartan-page-bottom-nav-link href="hover-card" label="Hover Card" />
 				<spartan-page-bottom-nav-link direction="previous" href="empty" label="Empty" />
 			</spartan-page-bottom-nav>
 		</section>
@@ -334,6 +367,8 @@ export default class FieldPage {
 	protected readonly _inputCode = computed(() => this._snippets()['input']);
 	protected readonly _textareaCode = computed(() => this._snippets()['textarea']);
 	protected readonly _selectCode = computed(() => this._snippets()['select']);
+	protected readonly _nativeSelectCode = computed(() => this._snippets()['nativeSelect']);
+	protected readonly _datePickerCode = computed(() => this._snippets()['datePicker']);
 	protected readonly _sliderCode = computed(() => this._snippets()['slider']);
 	protected readonly _fieldsetCode = computed(() => this._snippets()['set']);
 	protected readonly _checkboxCode = computed(() => this._snippets()['checkbox']);

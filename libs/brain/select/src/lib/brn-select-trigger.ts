@@ -12,6 +12,10 @@ import { injectBrnSelectBase } from './brn-select.token';
 		'[attr.aria-expanded]': '_isExpanded()',
 		'[attr.data-placeholder]': '_isPlaceholder() ? "" : null',
 		'[disabled]': '_disabled()',
+		'[attr.aria-invalid]': '_invalid?.() ? "true" : null',
+		'[attr.data-dirty]': '_dirty?.() ? "true": null',
+		'[attr.data-touched]': '_touched?.() ? "true" : null',
+		'[attr.data-matches-spartan-invalid]': '_spartanInvalid?.() ? "true" : null',
 		'(click)': 'open()',
 		'(keydown)': 'onKeyDown($event)',
 	},
@@ -33,10 +37,17 @@ export class BrnSelectTrigger {
 
 	protected readonly _isPlaceholder = computed(() => !this._select.hasValue());
 
-	constructor() {
-		if (!this._brnDialog) return;
+	protected readonly _invalid = computed(() => this._select?.controlState?.()?.invalid);
+	protected readonly _touched = computed(() => this._select?.controlState?.()?.touched);
+	protected readonly _dirty = computed(() => this._select?.controlState?.()?.dirty);
+	protected readonly _spartanInvalid = computed(() => this._select?.controlState?.()?.spartanInvalid);
 
-		this._brnDialog.mutableAttachTo.set(this._host.nativeElement);
+	constructor() {
+		this._select.registerSelectTrigger(this);
+
+		if (this._brnDialog) {
+			this._brnDialog.mutableAttachTo.set(this._host.nativeElement);
+		}
 	}
 
 	protected open() {

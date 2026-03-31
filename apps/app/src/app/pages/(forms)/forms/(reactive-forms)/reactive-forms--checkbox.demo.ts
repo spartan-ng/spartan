@@ -37,9 +37,13 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 								<hlm-field-description>Get notified when tasks you've created have updates.</hlm-field-description>
 								<hlm-field-group data-slot="checkbox-group">
 									@for (task of tasks; track task.id) {
-										<hlm-field orientation="horizontal">
+										<hlm-field
+											orientation="horizontal"
+											[forceInvalid]="form.controls.tasks.invalid && form.controls.tasks.touched"
+										>
 											<hlm-checkbox
 												[id]="'task-' + task.id"
+												[forceInvalid]="form.controls.tasks.invalid && form.controls.tasks.touched"
 												[checked]="form.controls.tasks.value.includes(task.id)"
 												(checkedChange)="handleChange($event, task.id)"
 											/>

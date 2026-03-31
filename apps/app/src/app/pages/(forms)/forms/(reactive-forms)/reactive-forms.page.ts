@@ -23,6 +23,7 @@ import {
 	BugReportForm,
 	demoAnatomyCode,
 	demoCode,
+	demoForceShowCode,
 	demoFormSchemaCode,
 	demoResetForm,
 	demoSetupForm,
@@ -105,7 +106,20 @@ export const routeMeta: RouteMeta = {
 				<code class="${hlmCode}">HlmField</code>
 				component and binding it via
 				<code class="${hlmCode}">formControlName</code>
-				to the input element. .
+				to the input element.
+			</p>
+			<p class="${hlmP}">
+				Notice that
+				<code class="${hlmCode}">HlmFieldLabel</code>
+				does not need a
+				<code class="${hlmCode}">for</code>
+				attribute. When a label and a control are placed inside the same
+				<code class="${hlmCode}">HlmField</code>
+				, the
+				<code class="${hlmCode}">for</code>
+				attribute is automatically set to the control's
+				<code class="${hlmCode}">id</code>
+				.
 			</p>
 
 			<spartan-code class="mt-6" [code]="_demoAnatomyCode" />
@@ -180,18 +194,60 @@ export const routeMeta: RouteMeta = {
 			<spartan-section-sub-heading id="displaying-errors">Displaying Errors</spartan-section-sub-heading>
 
 			<p class="${hlmP}">
-				Display errors next to the field using
 				<code class="${hlmCode}">HlmFieldError</code>
-				. Check the form control's
-				<code class="${hlmCode}">touched</code>
-				and
-				<code class="${hlmCode}">invalid</code>
-				state to conditionally show error messages. Use the form control's
-				<code class="${hlmCode}">errors</code>
-				object to access specific validation errors and display appropriate messages.
+				renders automatically when placed inside an
+				<code class="${hlmCode}">HlmField</code>
+				whose control is invalid. There is no need to wrap it in
+				<code class="${hlmCode}">&#64;if</code>
+				blocks or manually check control state — the field handles visibility for you.
+			</p>
+
+			<p class="${hlmP}">
+				Visibility is driven by the
+				<code class="${hlmCode}">data-matches-spartan-invalid</code>
+				attribute, which spartan sets on the field element. Its value reflects the return value of
+				<code class="${hlmCode}">ErrorStateMatcher.isInvalid()</code>
+				— by default
+				<code class="${hlmCode}">true</code>
+				when the control is invalid and touched. This attribute controls both error styling and the visibility of
+				<code class="${hlmCode}">HlmFieldError</code>
+				messages.
+			</p>
+
+			<p class="${hlmP}">
+				You can change when errors appear by providing a custom
+				<code class="${hlmCode}">ErrorStateMatcher</code>
+				at the component or application level. spartan ships with
+				<code class="${hlmCode}">ShowOnDirtyErrorStateMatcher</code>
+				as a ready-made alternative that shows errors as soon as the control is dirty rather than waiting for a touch
+				event.
+			</p>
+
+			<p class="${hlmP}">
+				When a
+				<code class="${hlmCode}">validator</code>
+				input is specified on
+				<code class="${hlmCode}">HlmFieldError</code>
+				, the message is only shown when the control has an error matching that validator key — letting you place
+				multiple targeted error messages inside a single
+				<code class="${hlmCode}">HlmField</code>
+				, each tied to a specific validation rule.
 			</p>
 
 			<spartan-code class="mt-6" [code]="_demoAnatomyCode" />
+
+			<p class="${hlmP}">
+				Set
+				<code class="${hlmCode}">forceShow</code>
+				on
+				<code class="${hlmCode}">HlmFieldError</code>
+				to always display the message, regardless of the control's error state or the active
+				<code class="${hlmCode}">ErrorStateMatcher</code>
+				. This is useful for cross-field validation errors that are not tied to a specific control, such as a password
+				mismatch message.
+			</p>
+
+			<spartan-code class="mt-6" [code]="_demoForceShowCode" />
 
 			<spartan-section-sub-heading id="working-with-different-field-types">
 				Working with Different Field Types
@@ -264,6 +320,7 @@ export const routeMeta: RouteMeta = {
 export default class ReactiveFormsPage {
 	protected readonly _demoCode = demoCode;
 	protected readonly _demoAnatomyCode = demoAnatomyCode;
+	protected readonly _demoForceShowCode = demoForceShowCode;
 	protected readonly _demoFormSchemaCode = demoFormSchemaCode;
 	protected readonly _demoSetupForm = demoSetupForm;
 	protected readonly _demoResetForm = demoResetForm;

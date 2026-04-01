@@ -9,9 +9,6 @@ import { classes } from '<%- importAlias %>/utils';
 })
 export class HlmCardFooter {
 	constructor() {
-		classes(
-			() =>
-				'spartan-card-footer flex items-center',
-		);
+		classes(() => 'spartan-card-footer flex items-center');
 	}
 }

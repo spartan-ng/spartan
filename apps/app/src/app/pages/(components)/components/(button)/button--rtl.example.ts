@@ -20,7 +20,7 @@ import { HlmSpinnerImports } from '@spartan-ng/helm/spinner';
 	},
 	template: `
 		<button hlmBtn variant="outline">{{ _t()['button'] }}</button>
-		<button hlmBtn variant="destructive">{{ _t()['delete''] }}</button>
+		<button hlmBtn variant="destructive">{{ _t()['delete'] }}</button>
 		<button hlmBtn variant="outline">
 			{{ _t()['submit'] }}
 			<ng-icon class="rtl:rotate-180" data-icon="inline-end" name="lucideArrowRight" />

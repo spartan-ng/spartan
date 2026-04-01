@@ -34,7 +34,6 @@ import { ButtonDefault } from '@spartan-ng/app/app/pages/(components)/components
 import { ButtonIcon } from '@spartan-ng/app/app/pages/(components)/components/(button)/button--icon.example';
 import { ButtonRoundedPreview } from '@spartan-ng/app/app/pages/(components)/components/(button)/button--rounded.example';
 import { ButtonSizePreview } from '@spartan-ng/app/app/pages/(components)/components/(button)/button--size.example';
-import { injectStyle } from '@spartan-ng/app/app/shared/style.service';
 import { ButtonPreview, defaultImports, defaultSkeleton } from './button.preview';
 
 export const routeMeta: RouteMeta = {
@@ -282,8 +281,4 @@ export default class ButtonPage {
 	protected readonly _defaultImports = defaultImports;
 
 	protected readonly _cursorCode = cursorCode;
-
-	constructor() {
-		injectStyle();
-	}
 }

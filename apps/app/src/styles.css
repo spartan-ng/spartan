@@ -5,6 +5,7 @@
 @import '../../../libs/registry/src/styles/style-lyra.css' layer(base);
 @import '../../../libs/registry/src/styles/style-maia.css' layer(base);
 @import '../../../libs/registry/src/styles/style-mira.css' layer(base);
+@import '../../../libs/registry/src/styles/style-luma.css' layer(base);
 
 @import 'tailwindcss/theme.css' layer(theme);
 @import 'tailwindcss/preflight.css' layer(base);

@@ -9,9 +9,6 @@ import { classes } from '@spartan-ng/helm/utils';
 })
 export class HlmAlertTitle {
 	constructor() {
-		classes(
-			() =>
-				'[&_a]:hover:text-foreground font-medium group-has-[>ng-icon]/alert:col-start-2 [&_a]:underline [&_a]:underline-offset-3',
-		);
+		classes(() => 'spartan-alert-title [&_a]:hover:text-foreground [&_a]:underline [&_a]:underline-offset-3');
 	}
 }

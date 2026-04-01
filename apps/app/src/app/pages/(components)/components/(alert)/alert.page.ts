@@ -6,6 +6,9 @@ import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
 
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { AlertRtlPreview } from '@spartan-ng/app/app/pages/(components)/components/(alert)/alert--rtl.example';
+import { CodeRtlPreview } from '@spartan-ng/app/app/shared/code/code-rtl-preview';
+import { RtlHeader } from '@spartan-ng/app/app/shared/code/rtl-header';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { PageBottomNav } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav';
@@ -48,10 +51,13 @@ export const routeMeta: RouteMeta = {
 		AlertAction,
 		AlertCustomColors,
 		InstallTabs,
+		RtlHeader,
+		CodeRtlPreview,
+		AlertRtlPreview,
 	],
 	template: `
 		<section spartanMainSection>
-			<spartan-section-intro name="Alert" lead="Displays a callout for user attention." />
+			<spartan-section-intro name="Alert" lead="Displays a callout for user attention." showThemeToggle />
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -60,7 +66,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
-			<spartan-install-tabs primitive="alert" />
+			<spartan-install-tabs primitive="alert" [showOnlyVega]="false" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">
@@ -111,6 +117,14 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_customColorsCode()" />
 			</spartan-tabs>
 
+			<spartan-header-rtl />
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanRtlCodePreview firstTab>
+					<spartan-alert-rtl-preview />
+				</div>
+				<spartan-code secondTab [code]="_rtlCode()" />
+			</spartan-tabs>
+
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="helm" />
 
@@ -128,6 +142,7 @@ export default class AlertPage {
 	protected readonly _destructiveCode = computed(() => this._snippets()['destructive']);
 	protected readonly _actionCode = computed(() => this._snippets()['action']);
 	protected readonly _customColorsCode = computed(() => this._snippets()['customColors']);
+	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

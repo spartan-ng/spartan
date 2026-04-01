@@ -1,7 +1,7 @@
 import { Component, computed, inject } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideArrowRight, lucidePlus } from '@ng-icons/lucide';
-import { TranslateService } from '@spartan-ng/app/app/shared/translate.service';
+import { TranslateService, Translations } from '@spartan-ng/app/app/shared/translate.service';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmSpinnerImports } from '@spartan-ng/helm/spinner';
 
@@ -19,10 +19,10 @@ import { HlmSpinnerImports } from '@spartan-ng/helm/spinner';
 		'[dir]': '_dir()',
 	},
 	template: `
-		<button hlmBtn variant="outline">{{ _t().button }}</button>
-		<button hlmBtn variant="destructive">{{ _t().delete }}</button>
+		<button hlmBtn variant="outline">{{ _t()['button'] }}</button>
+		<button hlmBtn variant="destructive">{{ _t()['delete''] }}</button>
 		<button hlmBtn variant="outline">
-			{{ _t().submit }}
+			{{ _t()['submit'] }}
 			<ng-icon class="rtl:rotate-180" data-icon="inline-end" name="lucideArrowRight" />
 		</button>
 		<button hlmBtn variant="outline" size="icon" aria-label="Add">
@@ -30,13 +30,13 @@ import { HlmSpinnerImports } from '@spartan-ng/helm/spinner';
 		</button>
 		<button hlmBtn variant="secondary" disabled>
 			<hlm-spinner data-icon="inline-start" />
-			{{ _t().loading }}
+			{{ _t()['loading'] }}
 		</button>
 	`,
 })
 export class ButtonRtlPreview {
 	private readonly _language = inject(TranslateService).language;
-	private readonly _translations = {
+	private readonly _translations: Translations = {
 		en: {
 			dir: 'ltr',
 			values: {

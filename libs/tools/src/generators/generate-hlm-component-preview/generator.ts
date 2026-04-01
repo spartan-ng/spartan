@@ -1,8 +1,8 @@
 import { formatFiles, joinPathFragments, logger, type Tree, visitNotIgnoredFiles } from '@nx/devkit';
 import { createStyleMap, transformStyle } from '@spartan-ng/cli';
 
-import type { Style } from '@spartan-ng/registry';
-import { STYLES } from '@spartan-ng/registry';
+const STYLES = ['vega', 'lyra', 'maia', 'mira', 'nova', 'luma'] as const;
+type Style = (typeof STYLES)[number];
 
 function shouldIgnoreImport(importLine: string) {
 	const match = importLine.match(/from\s+['"](.*)['"]/);

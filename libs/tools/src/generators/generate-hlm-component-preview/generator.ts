@@ -1,8 +1,8 @@
 import { formatFiles, joinPathFragments, logger, type Tree, visitNotIgnoredFiles } from '@nx/devkit';
 import { createStyleMap, transformStyle } from '@spartan-ng/cli';
 
-const THEMES = ['lyra', 'maia', 'mira', 'nova', 'vega'] as const;
-type Theme = (typeof THEMES)[number];
+import type { Style } from '@spartan-ng/registry';
+import { STYLES } from '@spartan-ng/registry';
 
 function shouldIgnoreImport(importLine: string) {
 	const match = importLine.match(/from\s+['"](.*)['"]/);
@@ -123,9 +123,9 @@ export async function generateHlmComponentManualInstallation(tree: Tree): Promis
 	const componentsDir = 'apps/app/src/app/pages/(components)/components';
 	const componentDirs = getComponentDirectories(tree, componentsDir);
 	componentDirs.push(...['utils', 'typography']);
-	const styleMaps: Record<Theme, ReturnType<typeof createStyleMap>> = {} as never;
+	const styleMaps: Record<Style, ReturnType<typeof createStyleMap>> = {} as never;
 
-	for (const theme of THEMES) {
+	for (const theme of STYLES) {
 		const css = tree.read(`libs/registry/src/styles/style-${theme}.css`, 'utf-8');
 		if (!css) {
 			logger.warn(`Missing style file for theme: ${theme}`);
@@ -134,7 +134,7 @@ export async function generateHlmComponentManualInstallation(tree: Tree): Promis
 		styleMaps[theme] = createStyleMap(css);
 	}
 
-	const result: Record<string, Record<Theme, string>> = {};
+	const result: Record<string, Record<Style, string>> = {};
 
 	for (const primitiveName of componentDirs) {
 		const name = primitiveName.replace('(', '').replace(')', '');
@@ -149,9 +149,9 @@ export async function generateHlmComponentManualInstallation(tree: Tree): Promis
 			continue;
 		}
 
-		result[name] = {} as Record<Theme, string>;
+		result[name] = {} as Record<Style, string>;
 
-		for (const theme of THEMES) {
+		for (const theme of STYLES) {
 			const styleMap = styleMaps[theme];
 			if (!styleMap) continue;
 

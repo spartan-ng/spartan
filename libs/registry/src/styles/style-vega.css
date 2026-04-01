@@ -84,7 +84,7 @@
 	}
 
 	.spartan-avatar-group-count {
-		@apply bg-muted text-muted-foreground size-8 rounded-full text-sm group-has-data-[size=lg]/avatar-group:size-10 group-has-data-[size=sm]/avatar-group:size-6 [&>svg]:size-4 group-has-data-[size=lg]/avatar-group:[&>svg]:size-5 group-has-data-[size=sm]/avatar-group:[&>svg]:size-3;
+		@apply bg-muted text-muted-foreground size-8 rounded-full text-sm group-has-data-[size=lg]/avatar-group:size-10 group-has-data-[size=sm]/avatar-group:size-6 [&>ng-icon]:text-[--spacing(4)] group-has-data-[size=lg]/avatar-group:[&>ng-icon]:text-[--spacing(5)] group-has-data-[size=sm]/avatar-group:[&>ng-icon]:text-[--spacing(3)];
 	}
 
 	/* MARK: Badge */
@@ -134,11 +134,11 @@
 	}
 
 	.spartan-breadcrumb-separator {
-		@apply [&>svg]:size-3.5;
+		@apply [&>ng-icon]:text-[--spacing(3.5)];
 	}
 
 	.spartan-breadcrumb-ellipsis {
-		@apply size-5 [&>svg]:size-4;
+		@apply size-5 [&>ng-icon]:text-[--spacing(4)];
 	}
 
 	/* MARK: Button */
@@ -281,7 +281,7 @@
 	}
 
 	.spartan-checkbox-indicator {
-		@apply [&>svg]:size-3.5;
+		@apply [&>ng-icon]:text-[--spacing(3.5)];
 	}
 
 	/* MARK: Combobox */
@@ -1096,11 +1096,11 @@
 	}
 
 	.spartan-sidebar-group-label {
-		@apply text-sidebar-foreground/70 ring-sidebar-ring h-8 rounded-md px-2 text-xs font-medium transition-[margin,opacity] duration-200 ease-linear group-data-[collapsible=icon]:-mt-8 group-data-[collapsible=icon]:opacity-0 focus-visible:ring-2 [&>svg]:size-4;
+		@apply text-sidebar-foreground/70 ring-sidebar-ring h-8 rounded-md px-2 text-xs font-medium transition-[margin,opacity] duration-200 ease-linear group-data-[collapsible=icon]:-mt-8 group-data-[collapsible=icon]:opacity-0 focus-visible:ring-2 [&>ng-icon]:text-[--spacing(4)];
 	}
 
 	.spartan-sidebar-group-action {
-		@apply text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground absolute top-3.5 right-3 w-5 rounded-md p-0 focus-visible:ring-2 [&>svg]:size-4;
+		@apply text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground absolute top-3.5 right-3 w-5 rounded-md p-0 focus-visible:ring-2 [&>ng-icon]:text-[--spacing(4)];
 	}
 
 	.spartan-sidebar-menu-button {
@@ -1128,7 +1128,7 @@
 	}
 
 	.spartan-sidebar-menu-action {
-		@apply text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground peer-hover/menu-button:text-sidebar-accent-foreground absolute top-1.5 right-1 aspect-square w-5 rounded-md p-0 peer-data-[size=default]/menu-button:top-1.5 peer-data-[size=lg]/menu-button:top-2.5 peer-data-[size=sm]/menu-button:top-1 focus-visible:ring-2 [&>svg]:size-4;
+		@apply text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground peer-hover/menu-button:text-sidebar-accent-foreground absolute top-1.5 right-1 aspect-square w-5 rounded-md p-0 peer-data-[size=default]/menu-button:top-1.5 peer-data-[size=lg]/menu-button:top-2.5 peer-data-[size=sm]/menu-button:top-1 focus-visible:ring-2 [&>ng-icon]:text-[--spacing(4)];
 	}
 
 	.spartan-sidebar-menu-badge {
@@ -1152,7 +1152,7 @@
 	}
 
 	.spartan-sidebar-menu-sub-button {
-		@apply text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground active:bg-sidebar-accent active:text-sidebar-accent-foreground [&>svg]:text-sidebar-accent-foreground data-active:bg-sidebar-accent data-active:text-sidebar-accent-foreground h-7 gap-2 rounded-md px-2 focus-visible:ring-2 data-[size=md]:text-sm data-[size=sm]:text-xs [&>svg]:size-4;
+		@apply text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground active:bg-sidebar-accent active:text-sidebar-accent-foreground [&>svg]:text-sidebar-accent-foreground data-active:bg-sidebar-accent data-active:text-sidebar-accent-foreground h-7 gap-2 rounded-md px-2 focus-visible:ring-2 data-[size=md]:text-sm data-[size=sm]:text-xs [&>ng-icon]:text-[--spacing(4)];
 	}
 
 	/* MARK: Skeleton */

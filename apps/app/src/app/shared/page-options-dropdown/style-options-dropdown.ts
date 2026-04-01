@@ -6,6 +6,7 @@ import { lucideCheck, lucideChevronDown } from '@ng-icons/lucide';
 import { StyleService } from '@spartan-ng/app/app/shared/style.service';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
+import { STYLES } from '@spartan-ng/registry';
 
 @Component({
 	selector: 'spartan-style-options-dropdown',
@@ -18,41 +19,22 @@ import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 		</button>
 		<ng-template #menu>
 			<hlm-dropdown-menu>
-				@let style = _styleService.style();
-				<button hlmDropdownMenuItem (click)="_styleService.style.set('vega')">
-					Vega
-					@if (style === 'vega') {
-						<ng-icon class="ml-auto" name="lucideCheck" />
-					}
-				</button>
-				<button hlmDropdownMenuItem (click)="_styleService.style.set('nova')">
-					Nova
-					@if (style === 'nova') {
-						<ng-icon class="ml-auto" name="lucideCheck" />
-					}
-				</button>
-				<button hlmDropdownMenuItem (click)="_styleService.style.set('maia')">
-					Maia
-					@if (style === 'maia') {
-						<ng-icon class="ml-auto" name="lucideCheck" />
-					}
-				</button>
-				<button hlmDropdownMenuItem (click)="_styleService.style.set('lyra')">
-					Lyra
-					@if (style === 'lyra') {
-						<ng-icon class="ml-auto" name="lucideCheck" />
-					}
-				</button>
-				<button hlmDropdownMenuItem (click)="_styleService.style.set('mira')">
-					Mira
-					@if (style === 'mira') {
-						<ng-icon class="ml-auto" name="lucideCheck" />
-					}
-				</button>
+				@let selectedStyle = _styleService.style();
+
+				@for (style of _styles; track style) {
+					<button hlmDropdownMenuItem (click)="_styleService.style.set(style)">
+						{{ style | titlecase }}
+						@if (selectedStyle === style) {
+							<ng-icon class="ml-auto" name="lucideCheck" />
+						}
+					</button>
+				}
 			</hlm-dropdown-menu>
 		</ng-template>
 	`,
 })
 export class StyleOptionsDropdown {
 	protected readonly _styleService = inject(StyleService);
+
+	protected readonly _styles = STYLES;
 }

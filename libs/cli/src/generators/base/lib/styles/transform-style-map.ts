@@ -11,7 +11,7 @@ import {
 import { type StyleMap } from './create-style-map';
 import type { TransformerStyle } from './transform';
 
-const ALLOWLIST = new Set(['spartan-menu-target', 'spartan-logical-sides', 'spartan-rtl-flip']);
+const ALLOWLIST = new Set(['spartan-menu-target', 'spartan-logical-sides', 'spartan-rtl-flip', 'spartan-invalid']);
 
 function isStringLiteralLike(node: Node): node is StringLiteral | NoSubstitutionTemplateLiteral {
 	return Node.isStringLiteral(node) || Node.isNoSubstitutionTemplateLiteral(node);

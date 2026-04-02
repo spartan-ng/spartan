@@ -5,7 +5,7 @@
 	}
 
 	.spartan-accordion-trigger {
-		@apply focus-visible:ring-ring/50 focus-visible:border-ring focus-visible:after:border-ring **:data-[slot=accordion-trigger-icon]:text-muted-foreground rounded-lg py-2.5 text-left text-sm font-medium hover:underline focus-visible:ring-3 **:data-[slot=accordion-trigger-icon]:ml-auto **:data-[slot=accordion-trigger-icon]:size-4;
+		@apply focus-visible:ring-ring/50 focus-visible:border-ring focus-visible:after:border-ring **:data-[slot=accordion-trigger-icon]:text-muted-foreground rounded-lg py-2.5 text-start text-sm font-medium hover:underline focus-visible:ring-3 **:data-[slot=accordion-trigger-icon]:ml-auto **:data-[slot=accordion-trigger-icon]:size-4;
 	}
 
 	.spartan-accordion-content {
@@ -18,7 +18,7 @@
 
 	/* MARK: Alert */
 	.spartan-alert {
-		@apply grid gap-0.5 rounded-lg border px-2.5 py-2 text-left text-sm has-data-[slot=alert-action]:relative has-data-[slot=alert-action]:pe-18 has-[>svg]:grid-cols-[auto_1fr] has-[>svg]:gap-x-2 *:[svg]:row-span-2 *:[svg]:translate-y-0.5 *:[svg]:text-current *:[svg:not([class*='size-'])]:size-4;
+		@apply grid gap-0.5 rounded-lg border px-2.5 py-2 text-start text-sm has-data-[slot=alert-action]:relative has-data-[slot=alert-action]:pe-18 has-[>ng-icon]:grid-cols-[auto_1fr] has-[>ng-icon]:gap-x-2 *:[ng-icon]:row-span-2 *:[ng-icon]:translate-y-0.5 *:[ng-icon]:text-current *:[ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*4)];
 	}
 
 	.spartan-alert-variant-default {
@@ -26,11 +26,11 @@
 	}
 
 	.spartan-alert-variant-destructive {
-		@apply text-destructive bg-card *:data-[slot=alert-description]:text-destructive/90 *:[svg]:text-current;
+		@apply text-destructive bg-card *:data-[slot=alert-description]:text-destructive/90 *:[ng-icon]:text-current;
 	}
 
 	.spartan-alert-title {
-		@apply font-medium group-has-[>svg]/alert:col-start-2;
+		@apply font-medium group-has-[>ng-icon]/alert:col-start-2;
 	}
 
 	.spartan-alert-description {
@@ -38,7 +38,7 @@
 	}
 
 	.spartan-alert-action {
-		@apply absolute top-2 right-2;
+		@apply absolute end-2 top-2;
 	}
 
 	/* MARK: Alert Dialog */
@@ -51,7 +51,7 @@
 	}
 
 	.spartan-alert-dialog-header {
-		@apply grid grid-rows-[auto_1fr] place-items-center gap-1.5 text-center has-data-[slot=alert-dialog-media]:grid-rows-[auto_auto_1fr] has-data-[slot=alert-dialog-media]:gap-x-4 sm:group-data-[size=default]/alert-dialog-content:place-items-start sm:group-data-[size=default]/alert-dialog-content:text-left sm:group-data-[size=default]/alert-dialog-content:has-data-[slot=alert-dialog-media]:grid-rows-[auto_1fr];
+		@apply grid grid-rows-[auto_1fr] place-items-center gap-1.5 text-center has-data-[slot=alert-dialog-media]:grid-rows-[auto_auto_1fr] has-data-[slot=alert-dialog-media]:gap-x-4 sm:group-data-[size=default]/alert-dialog-content:place-items-start sm:group-data-[size=default]/alert-dialog-content:text-start sm:group-data-[size=default]/alert-dialog-content:has-data-[slot=alert-dialog-media]:grid-rows-[auto_1fr];
 	}
 
 	.spartan-alert-dialog-media {
@@ -88,12 +88,12 @@
 	}
 
 	.spartan-avatar-group-count {
-		@apply bg-muted text-muted-foreground size-8 rounded-full text-sm group-has-data-[size=lg]/avatar-group:size-10 group-has-data-[size=sm]/avatar-group:size-6 [&>ng-icon]:text-[--spacing(4)] group-has-data-[size=lg]/avatar-group:[&>ng-icon]:text-[--spacing(5)] group-has-data-[size=sm]/avatar-group:[&>ng-icon]:text-[--spacing(3)];
+		@apply bg-muted text-muted-foreground size-8 rounded-full text-sm group-has-data-[size=lg]/avatar-group:size-10 group-has-data-[size=sm]/avatar-group:size-6 [&>ng-icon]:text-[calc(var(--spacing)*4)] group-has-data-[size=lg]/avatar-group:[&>ng-icon]:text-[calc(var(--spacing)*5)] group-has-data-[size=sm]/avatar-group:[&>ng-icon]:text-[calc(var(--spacing)*3)];
 	}
 
 	/* MARK: Badge */
 	.spartan-badge {
-		@apply h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pe-1.5 has-data-[icon=inline-start]:ps-1.5 [&>ng-icon]:text-[--spacing(3)];
+		@apply h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pe-1.5 has-data-[icon=inline-start]:ps-1.5 [&>ng-icon]:text-[calc(var(--spacing)*3)];
 	}
 
 	.spartan-badge-variant-default {
@@ -138,16 +138,16 @@
 	}
 
 	.spartan-breadcrumb-separator {
-		@apply [&>ng-icon]:text-[--spacing(3.5)];
+		@apply [&>ng-icon]:text-[calc(var(--spacing)*3.5)];
 	}
 
 	.spartan-breadcrumb-ellipsis {
-		@apply size-5 [&>ng-icon]:text-[--spacing(4)];
+		@apply size-5 [&>ng-icon]:text-[calc(var(--spacing)*4)];
 	}
 
 	/* MARK: Button */
 	.spartan-button {
-		@apply focus-visible:border-ring focus-visible:ring-ring/50 data-[matches-spartan-invalid=true]:ring-destructive/20 dark:data-[matches-spartan-invalid=true]:ring-destructive/40 data-[matches-spartan-invalid=true]:border-destructive dark:data-[matches-spartan-invalid=true]:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 data-[matches-spartan-invalid=true]:ring-3 [&_ng-icon:not([class*='text-'])]:text-[--spacing(4)];
+		@apply focus-visible:border-ring focus-visible:ring-ring/50 data-[matches-spartan-invalid=true]:ring-destructive/20 dark:data-[matches-spartan-invalid=true]:ring-destructive/40 data-[matches-spartan-invalid=true]:border-destructive dark:data-[matches-spartan-invalid=true]:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 data-[matches-spartan-invalid=true]:ring-3 [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*4)];
 	}
 
 	.spartan-button-variant-default {
@@ -285,7 +285,7 @@
 	}
 
 	.spartan-checkbox-indicator {
-		@apply [&>ng-icon]:text-[--spacing(3.5)];
+		@apply [&>ng-icon]:text-[calc(var(--spacing)*3.5)];
 	}
 
 	/* MARK: Combobox */
@@ -306,7 +306,7 @@
 	}
 
 	.spartan-combobox-item-indicator {
-		@apply pointer-events-none absolute right-2 flex size-4 items-center justify-center;
+		@apply pointer-events-none absolute end-2 flex size-4 items-center justify-center;
 	}
 
 	.spartan-combobox-empty {
@@ -387,7 +387,7 @@
 	}
 
 	.spartan-command-item {
-		@apply data-selected:bg-muted data-selected:text-foreground data-selected:*:[svg]:text-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none in-data-[slot=dialog-content]:rounded-lg! [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*4)];
+		@apply data-selected:bg-muted data-selected:text-foreground data-selected:*:[ng-icon]:text-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none in-data-[slot=dialog-content]:rounded-lg! [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*4)];
 	}
 
 	.spartan-command-shortcut {
@@ -404,7 +404,7 @@
 	}
 
 	.spartan-context-menu-item {
-		@apply focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:text-destructive focus:*:[svg]:text-accent-foreground gap-1.5 rounded-md px-1.5 py-1 text-sm data-inset:ps-7 [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*4)];
+		@apply focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[ng-icon]:text-destructive focus:*:[ng-icon]:text-accent-foreground gap-1.5 rounded-md px-1.5 py-1 text-sm data-inset:ps-7 [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*4)];
 	}
 
 	.spartan-context-menu-checkbox-item {
@@ -416,7 +416,7 @@
 	}
 
 	.spartan-context-menu-item-indicator {
-		@apply absolute right-2;
+		@apply absolute end-2;
 	}
 
 	.spartan-context-menu-label {
@@ -453,7 +453,7 @@
 	}
 
 	.spartan-dialog-close {
-		@apply absolute top-2 right-2;
+		@apply absolute end-2 top-2;
 	}
 
 	.spartan-dialog-header {
@@ -486,7 +486,7 @@
 	}
 
 	.spartan-drawer-header {
-		@apply gap-0.5 p-4 group-data-[vaul-drawer-direction=bottom]/drawer-content:text-center group-data-[vaul-drawer-direction=top]/drawer-content:text-center md:gap-0.5 md:text-left;
+		@apply gap-0.5 p-4 group-data-[vaul-drawer-direction=bottom]/drawer-content:text-center group-data-[vaul-drawer-direction=top]/drawer-content:text-center md:gap-0.5 md:text-start;
 	}
 
 	.spartan-drawer-title {
@@ -511,7 +511,7 @@
 	}
 
 	.spartan-dropdown-menu-item {
-		@apply focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:text-destructive not-data-[variant=destructive]:focus:**:text-accent-foreground gap-1.5 rounded-md px-1.5 py-1 text-sm data-inset:ps-7 [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*4)];
+		@apply focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[ng-icon]:text-destructive not-data-[variant=destructive]:focus:**:text-accent-foreground gap-1.5 rounded-md px-1.5 py-1 text-sm data-inset:ps-7 [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*4)];
 	}
 
 	.spartan-dropdown-menu-checkbox-item {
@@ -523,7 +523,7 @@
 	}
 
 	.spartan-dropdown-menu-item-indicator {
-		@apply absolute right-2 flex items-center justify-center;
+		@apply absolute end-2 flex items-center justify-center;
 	}
 
 	.spartan-dropdown-menu-label {
@@ -613,7 +613,7 @@
 	}
 
 	.spartan-field-description {
-		@apply text-muted-foreground text-left text-sm [[data-variant=legend]+&]:-mt-1.5;
+		@apply text-muted-foreground text-start text-sm [[data-variant=legend]+&]:-mt-1.5;
 	}
 
 	.spartan-field-separator {
@@ -717,7 +717,7 @@
 	}
 
 	.spartan-item-description {
-		@apply text-muted-foreground text-left text-sm leading-normal group-data-[size=xs]/item:text-xs;
+		@apply text-muted-foreground text-start text-sm leading-normal group-data-[size=xs]/item:text-xs;
 	}
 
 	.spartan-item-actions {
@@ -772,7 +772,7 @@
 	}
 
 	.spartan-menubar-item {
-		@apply focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:text-destructive! not-data-[variant=destructive]:focus:**:text-accent-foreground gap-1.5 rounded-md px-1.5 py-1 text-sm data-disabled:opacity-50 data-inset:ps-7 [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*4)];
+		@apply focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[ng-icon]:text-destructive! not-data-[variant=destructive]:focus:**:text-accent-foreground gap-1.5 rounded-md px-1.5 py-1 text-sm data-disabled:opacity-50 data-inset:ps-7 [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*4)];
 	}
 
 	.spartan-menubar-checkbox-item {
@@ -780,7 +780,7 @@
 	}
 
 	.spartan-menubar-checkbox-item-indicator {
-		@apply left-1.5 size-4 [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*4)];
+		@apply start-1.5 size-4 [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*4)];
 	}
 
 	.spartan-menubar-radio-item {
@@ -788,7 +788,7 @@
 	}
 
 	.spartan-menubar-radio-item-indicator {
-		@apply left-1.5 size-4 [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*4)];
+		@apply start-1.5 size-4 [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*4)];
 	}
 
 	.spartan-menubar-label {
@@ -862,7 +862,7 @@
 	}
 
 	.spartan-native-select-icon {
-		@apply text-muted-foreground top-1/2 right-2.5 size-4 -translate-y-1/2;
+		@apply text-muted-foreground end-2.5 top-1/2 size-4 -translate-y-1/2;
 	}
 
 	/* MARK: Pagination */
@@ -938,7 +938,7 @@
 	}
 
 	.spartan-radio-group-indicator-icon {
-		@apply bg-primary-foreground absolute top-1/2 left-1/2 size-2 -translate-x-1/2 -translate-y-1/2 rounded-full;
+		@apply bg-primary-foreground absolute start-1/2 top-1/2 size-2 -translate-x-1/2 -translate-y-1/2 rounded-full;
 	}
 
 	/* MARK: Resizable */
@@ -961,7 +961,7 @@
 	}
 
 	.spartan-select-value {
-		@apply flex flex-1 text-left;
+		@apply flex flex-1 text-start;
 	}
 
 	.spartan-select-trigger-icon {
@@ -985,7 +985,7 @@
 	}
 
 	.spartan-select-item-indicator {
-		@apply pointer-events-none absolute right-2 flex size-4 items-center justify-center;
+		@apply pointer-events-none absolute end-2 flex size-4 items-center justify-center;
 	}
 
 	.spartan-select-group {
@@ -1031,7 +1031,7 @@
 	}
 
 	.spartan-sheet-close {
-		@apply absolute top-3 right-3;
+		@apply absolute end-3 top-3;
 	}
 
 	.spartan-sheet-header {
@@ -1100,15 +1100,15 @@
 	}
 
 	.spartan-sidebar-group-label {
-		@apply text-sidebar-foreground/70 ring-sidebar-ring h-8 rounded-md px-2 text-xs font-medium transition-[margin,opacity] duration-200 ease-linear group-data-[collapsible=icon]:-mt-8 group-data-[collapsible=icon]:opacity-0 focus-visible:ring-2 [&>ng-icon]:text-[--spacing(4)];
+		@apply text-sidebar-foreground/70 ring-sidebar-ring h-8 rounded-md px-2 text-xs font-medium transition-[margin,opacity] duration-200 ease-linear group-data-[collapsible=icon]:-mt-8 group-data-[collapsible=icon]:opacity-0 focus-visible:ring-2 [&>ng-icon]:text-[calc(var(--spacing)*4)];
 	}
 
 	.spartan-sidebar-group-action {
-		@apply text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground absolute top-3.5 right-3 w-5 rounded-md p-0 focus-visible:ring-2 [&>ng-icon]:text-[--spacing(4)];
+		@apply text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground absolute end-3 top-3.5 w-5 rounded-md p-0 focus-visible:ring-2 [&>ng-icon]:text-[calc(var(--spacing)*4)];
 	}
 
 	.spartan-sidebar-menu-button {
-		@apply ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground active:bg-sidebar-accent active:text-sidebar-accent-foreground data-active:bg-sidebar-accent data-active:text-sidebar-accent-foreground data-open:hover:bg-sidebar-accent data-open:hover:text-sidebar-accent-foreground gap-2 rounded-md p-2 text-left text-sm transition-[width,height,padding] group-has-data-[sidebar=menu-action]/menu-item:pe-8 group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2! focus-visible:ring-2 data-active:font-medium;
+		@apply ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground active:bg-sidebar-accent active:text-sidebar-accent-foreground data-active:bg-sidebar-accent data-active:text-sidebar-accent-foreground data-open:hover:bg-sidebar-accent data-open:hover:text-sidebar-accent-foreground gap-2 rounded-md p-2 text-start text-sm transition-[width,height,padding] group-has-data-[sidebar=menu-action]/menu-item:pe-8 group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2! focus-visible:ring-2 data-active:font-medium;
 	}
 
 	.spartan-sidebar-menu-button-variant-default {
@@ -1132,11 +1132,11 @@
 	}
 
 	.spartan-sidebar-menu-action {
-		@apply text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground peer-hover/menu-button:text-sidebar-accent-foreground absolute top-1.5 right-1 aspect-square w-5 rounded-md p-0 peer-data-[size=default]/menu-button:top-1.5 peer-data-[size=lg]/menu-button:top-2.5 peer-data-[size=sm]/menu-button:top-1 focus-visible:ring-2 [&>ng-icon]:text-[--spacing(4)];
+		@apply text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground peer-hover/menu-button:text-sidebar-accent-foreground absolute end-1 top-1.5 aspect-square w-5 rounded-md p-0 peer-data-[size=default]/menu-button:top-1.5 peer-data-[size=lg]/menu-button:top-2.5 peer-data-[size=sm]/menu-button:top-1 focus-visible:ring-2 [&>ng-icon]:text-[calc(var(--spacing)*4)];
 	}
 
 	.spartan-sidebar-menu-badge {
-		@apply text-sidebar-foreground peer-hover/menu-button:text-sidebar-accent-foreground peer-data-active/menu-button:text-sidebar-accent-foreground pointer-events-none absolute right-1 flex h-5 min-w-5 rounded-md px-1 text-xs font-medium peer-data-[size=default]/menu-button:top-1.5 peer-data-[size=lg]/menu-button:top-2.5 peer-data-[size=sm]/menu-button:top-1;
+		@apply text-sidebar-foreground peer-hover/menu-button:text-sidebar-accent-foreground peer-data-active/menu-button:text-sidebar-accent-foreground pointer-events-none absolute end-1 flex h-5 min-w-5 rounded-md px-1 text-xs font-medium peer-data-[size=default]/menu-button:top-1.5 peer-data-[size=lg]/menu-button:top-2.5 peer-data-[size=sm]/menu-button:top-1;
 	}
 
 	.spartan-sidebar-menu-skeleton {
@@ -1156,7 +1156,7 @@
 	}
 
 	.spartan-sidebar-menu-sub-button {
-		@apply text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground active:bg-sidebar-accent active:text-sidebar-accent-foreground [&>svg]:text-sidebar-accent-foreground data-active:bg-sidebar-accent data-active:text-sidebar-accent-foreground h-7 gap-2 rounded-md px-2 focus-visible:ring-2 data-[size=md]:text-sm data-[size=sm]:text-xs [&>ng-icon]:text-[--spacing(4)];
+		@apply text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground active:bg-sidebar-accent active:text-sidebar-accent-foreground [&>svg]:text-sidebar-accent-foreground data-active:bg-sidebar-accent data-active:text-sidebar-accent-foreground h-7 gap-2 rounded-md px-2 focus-visible:ring-2 data-[size=md]:text-sm data-[size=sm]:text-xs [&>ng-icon]:text-[calc(var(--spacing)*4)];
 	}
 
 	/* MARK: Skeleton */
@@ -1221,7 +1221,7 @@
 	}
 
 	.spartan-table-head {
-		@apply text-foreground h-10 px-2 text-left align-middle font-medium whitespace-nowrap [&:has([role=checkbox])]:pe-0;
+		@apply text-foreground h-10 px-2 text-start align-middle font-medium whitespace-nowrap [&:has([role=checkbox])]:pe-0;
 	}
 
 	.spartan-table-cell {
@@ -1339,11 +1339,11 @@
 	}
 
 	.spartan-input-group-button-size-icon-xs {
-		@apply size-6 rounded-[calc(var(--radius)-3px)] p-0 has-[>svg]:p-0;
+		@apply size-6 rounded-[calc(var(--radius)-3px)] p-0 has-[>ng-icon]:p-0;
 	}
 
 	.spartan-input-group-button-size-icon-sm {
-		@apply size-8 p-0 has-[>svg]:p-0;
+		@apply size-8 p-0 has-[>ng-icon]:p-0;
 	}
 
 	.spartan-input-group-text {

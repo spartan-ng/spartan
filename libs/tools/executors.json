@@ -14,6 +14,16 @@
 			"implementation": "./src/executors/docs/generate-ui-docs/executor",
 			"schema": "./src/executors/docs/generate-ui-docs/schema.json",
 			"description": "Generates UI API Docs"
+		},
+		"generate-hlm-component-preview": {
+			"implementation": "./src/executors/docs/generate-hlm-component-preview/executor",
+			"schema": "./src/executors/docs/generate-hlm-component-preview/schema.json",
+			"description": "Generates manual install snippets for Helm components"
+		},
+		"generate-primitive-snippets": {
+			"implementation": "./src/executors/docs/generate-primitive-snippets/executor",
+			"schema": "./src/executors/docs/generate-primitive-snippets/schema.json",
+			"description": "Extracts code parts from primitive example and preview components"
 		}
 	}
 }

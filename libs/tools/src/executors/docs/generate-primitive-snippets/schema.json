@@ -1,0 +1,9 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"version": 2,
+	"title": "GeneratePrimitiveSnippets executor",
+	"description": "Extracts code parts from primitive example and preview components",
+	"type": "object",
+	"properties": {},
+	"required": []
+}

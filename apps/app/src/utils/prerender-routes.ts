@@ -2,7 +2,6 @@ import { glob } from 'tinyglobby';
 
 interface PrerenderStaticRoute {
 	route: string;
-	staticData: boolean;
 }
 type PrerenderRoute = string | PrerenderStaticRoute;
 
@@ -15,7 +14,6 @@ async function getComponentRoutes(): Promise<PrerenderRoute[]> {
 
 	const routes = componentRoutes.map((route) => ({
 		route: removePatterns(route, [PAGES_ROOT, PAGE_EXTENSION, REMOVE_PARENTHESES_PATH_PATTERN]),
-		staticData: true,
 	}));
 	return routes;
 }

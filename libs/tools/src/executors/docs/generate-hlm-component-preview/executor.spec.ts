@@ -1,15 +1,26 @@
-import type { Tree } from '@nx/devkit';
-import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
-import generateHlmComponentManualInstallation from './generator';
+import type { ExecutorContext } from '@nx/devkit';
+import fs from 'fs';
+import os from 'os';
+import path from 'path';
+import runExecutor from './executor';
 
-describe('generateHlmComponentManualInstallation (Angular)', () => {
-	let tree: Tree;
+describe('generate-hlm-component-preview executor', () => {
+	let tmpDir: string;
+
+	function writeFile(relativePath: string, content: string) {
+		const fullPath = path.join(tmpDir, relativePath);
+		fs.mkdirSync(path.dirname(fullPath), { recursive: true });
+		fs.writeFileSync(fullPath, content);
+	}
+
+	function readJson(relativePath: string) {
+		return JSON.parse(fs.readFileSync(path.join(tmpDir, relativePath), 'utf-8'));
+	}
 
 	beforeEach(() => {
-		tree = createTreeWithEmptyWorkspace();
+		tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'hlm-preview-test-'));
 
-		// Fake Angular component files
-		tree.write(
+		writeFile(
 			'libs/cli/src/generators/ui/libs/button/files/lib/button.component.ts',
 			`
 import forwardRef, { Component, ChangeDetectionStrategy } from '@angular/core';
@@ -23,7 +34,7 @@ export class ButtonComponent {}
     `,
 		);
 
-		tree.write(
+		writeFile(
 			'libs/cli/src/generators/ui/libs/button/files/lib/button-group.component.ts',
 			`
 import { Component, type Input } from '@angular/core';
@@ -35,34 +46,32 @@ export class ButtonGroupComponent {}
     `,
 		);
 
-		// Fake style file
-		tree.write('libs/registry/src/styles/style-vega.css', '/* fake css */');
+		writeFile('libs/registry/src/styles/style-vega.css', '/* fake css */');
+		writeFile('apps/app/src/app/pages/(components)/components/button/.keep', '');
+	});
 
-		// Create the components base directory (Nx Tree expects it)
-		tree.write('apps/app/src/app/pages/(components)/components/button/.keep', '');
+	afterEach(() => {
+		fs.rmSync(tmpDir, { recursive: true, force: true });
 	});
 
 	it('generates merged imports for Angular components', async () => {
-		await generateHlmComponentManualInstallation(tree);
+		const context = { root: tmpDir } as ExecutorContext;
+		const result = await runExecutor({} as Record<string, never>, context);
 
-		const outputPath = 'apps/app/src/public/data/manual-install-snippets.json';
-		expect(tree.exists(outputPath)).toBe(true);
+		expect(result.success).toBe(true);
 
-		const raw = tree.read(outputPath, 'utf-8');
-		const data = JSON.parse(raw);
+		const data = readJson('apps/app/src/public/data/manual-install-snippets.json');
 
-		// Check imports are merged correctly
 		expect(data.button['vega']).toContain(
 			"import forwardRef, { ChangeDetectionStrategy, Component, type Input } from '@angular/core'",
 		);
 
-		// Check both component classes are included
 		expect(data.button['vega']).toContain('export class ButtonComponent');
 		expect(data.button['vega']).toContain('export class ButtonGroupComponent');
 	});
 
 	it('ignores relative imports inside Angular primitives', async () => {
-		tree.write(
+		writeFile(
 			'libs/cli/src/generators/ui/libs/button/files/lib/local-util.ts',
 			`
 import { helper } from './utils';
@@ -70,17 +79,15 @@ export function localUtil() {}
     `,
 		);
 
-		await generateHlmComponentManualInstallation(tree);
+		const context = { root: tmpDir } as ExecutorContext;
+		await runExecutor({} as Record<string, never>, context);
 
-		const raw = tree.read('apps/app/src/public/data/manual-install-snippets.json', 'utf-8');
-		const data = JSON.parse(raw);
-
-		// './utils' should NOT appear in the merged imports
+		const data = readJson('apps/app/src/public/data/manual-install-snippets.json');
 		expect(JSON.stringify(data.button['vega'])).not.toContain('./utils');
 	});
 
 	it('replaces <%- importAlias %> in Angular imports', async () => {
-		tree.write(
+		writeFile(
 			'libs/cli/src/generators/ui/libs/button/files/lib/alias.ts',
 			`
 import { HlmButton } from '<%- importAlias %>/button';
@@ -88,11 +95,10 @@ export class HlmButtonComp {}
     `,
 		);
 
-		await generateHlmComponentManualInstallation(tree);
+		const context = { root: tmpDir } as ExecutorContext;
+		await runExecutor({} as Record<string, never>, context);
 
-		const raw = tree.read('apps/app/src/public/data/manual-install-snippets.json', 'utf-8');
-		const data = JSON.parse(raw);
-
+		const data = readJson('apps/app/src/public/data/manual-install-snippets.json');
 		expect(data.button['vega']).toContain('@spartan-ng/helm/button');
 	});
 });

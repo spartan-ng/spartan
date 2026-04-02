@@ -1,5 +1,7 @@
-import { formatFiles, joinPathFragments, logger, type Tree, visitNotIgnoredFiles } from '@nx/devkit';
+import type { ExecutorContext } from '@nx/devkit';
 import { createStyleMap, transformStyle } from '@spartan-ng/cli';
+import fs from 'fs';
+import path from 'path';
 
 const STYLES = ['vega', 'lyra', 'maia', 'mira', 'nova', 'luma'] as const;
 type Style = (typeof STYLES)[number];
@@ -105,32 +107,50 @@ function extractImports(code: string) {
 	return { imports, body };
 }
 
-function getComponentDirectories(tree: Tree, basePath: string): string[] {
-	if (!tree.exists(basePath)) {
-		logger.warn(`Base components directory not found: ${basePath}`);
+function getComponentDirectories(rootDir: string, basePath: string): string[] {
+	const fullPath = path.join(rootDir, basePath);
+	if (!fs.existsSync(fullPath)) {
+		console.warn(`Base components directory not found: ${basePath}`);
 		return [];
 	}
 
-	return tree.children(basePath).filter((name) => {
-		const fullPath = joinPathFragments(basePath, name);
-		return !tree.isFile(fullPath);
+	return fs.readdirSync(fullPath).filter((name) => {
+		const childPath = path.join(fullPath, name);
+		return fs.statSync(childPath).isDirectory();
 	});
 }
 
-export async function generateHlmComponentManualInstallation(tree: Tree): Promise<void> {
-	logger.info('Generating manual install snippets...');
+function walkFiles(dir: string): string[] {
+	if (!fs.existsSync(dir)) return [];
+	const results: string[] = [];
+	const entries = fs.readdirSync(dir, { withFileTypes: true });
+	for (const entry of entries) {
+		const fullPath = path.join(dir, entry.name);
+		if (entry.isDirectory()) {
+			results.push(...walkFiles(fullPath));
+		} else {
+			results.push(fullPath);
+		}
+	}
+	return results;
+}
+
+export default async function runExecutor(_options: Record<string, never>, context: ExecutorContext) {
+	console.log('[hlm-preview] Generating manual install snippets...');
 
 	const componentsDir = 'apps/app/src/app/pages/(components)/components';
-	const componentDirs = getComponentDirectories(tree, componentsDir);
+	const componentDirs = getComponentDirectories(context.root, componentsDir);
 	componentDirs.push(...['utils', 'typography']);
+
 	const styleMaps: Record<Style, ReturnType<typeof createStyleMap>> = {} as never;
 
 	for (const theme of STYLES) {
-		const css = tree.read(`libs/registry/src/styles/style-${theme}.css`, 'utf-8');
-		if (!css) {
-			logger.warn(`Missing style file for theme: ${theme}`);
+		const cssPath = path.join(context.root, `libs/registry/src/styles/style-${theme}.css`);
+		if (!fs.existsSync(cssPath)) {
+			console.warn(`Missing style file for theme: ${theme}`);
 			continue;
 		}
+		const css = fs.readFileSync(cssPath, 'utf-8');
 		styleMaps[theme] = createStyleMap(css);
 	}
 
@@ -138,14 +158,12 @@ export async function generateHlmComponentManualInstallation(tree: Tree): Promis
 
 	for (const primitiveName of componentDirs) {
 		const name = primitiveName.replace('(', '').replace(')', '');
-		const baseDir = `libs/cli/src/generators/ui/libs/${name}/files`;
+		const baseDir = path.join(context.root, `libs/cli/src/generators/ui/libs/${name}/files`);
 
-		const files: string[] = [];
-
-		visitNotIgnoredFiles(tree, baseDir, (filePath) => files.push(filePath));
+		const files = walkFiles(baseDir);
 
 		if (files.length === 0) {
-			logger.warn(`Skipping empty primitive: ${name}`);
+			console.warn(`Skipping empty primitive: ${name}`);
 			continue;
 		}
 
@@ -160,7 +178,7 @@ export async function generateHlmComponentManualInstallation(tree: Tree): Promis
 			let hlmImportBlock: string | null = null;
 
 			for (const filePath of files) {
-				const content = tree.read(filePath, 'utf-8');
+				const content = fs.readFileSync(filePath, 'utf-8');
 				if (!content?.trim()) continue;
 
 				if (filePath.endsWith('index.ts.template')) {
@@ -180,7 +198,7 @@ export async function generateHlmComponentManualInstallation(tree: Tree): Promis
 			}
 
 			if (bodies.length === 0) {
-				logger.warn(`Skipping empty primitive (${theme}): ${name}`);
+				console.warn(`Skipping empty primitive (${theme}): ${name}`);
 				continue;
 			}
 
@@ -197,11 +215,14 @@ export async function generateHlmComponentManualInstallation(tree: Tree): Promis
 		}
 	}
 
-	const outputPath = 'apps/app/src/public/data/manual-install-snippets.json';
-	tree.write(outputPath, JSON.stringify(result, null, 2));
+	const outputPath = path.join(context.root, 'apps/app/src/public/data/manual-install-snippets.json');
+	const outputDir = path.dirname(outputPath);
+	if (!fs.existsSync(outputDir)) {
+		fs.mkdirSync(outputDir, { recursive: true });
+	}
+	fs.writeFileSync(outputPath, JSON.stringify(result, null, 2));
 
-	await formatFiles(tree);
-	logger.info(`Snippets generated at ${outputPath}`);
+	console.log('[hlm-preview] Snippets generated at apps/app/src/public/data/manual-install-snippets.json');
+	console.log('[hlm-preview] Done!');
+	return { success: true };
 }
-
-export default generateHlmComponentManualInstallation;

@@ -1,8 +1,0 @@
-{
-	"$schema": "http://json-schema.org/draft-07/schema",
-	"id": "GenerateHlmComponentPreview",
-	"title": "Generate the hlm component with the correct tailwind classes instead of the spartan classes",
-	"type": "object",
-	"properties": {},
-	"required": []
-}

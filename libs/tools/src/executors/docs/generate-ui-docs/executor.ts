@@ -5,6 +5,7 @@ import { CallExpression, ObjectLiteralExpression, Project, PropertyAssignment } 
 import type { GenerateUiDocsExecutorSchema } from './schema';
 
 export default async function runExecutor(options: GenerateUiDocsExecutorSchema, context: ExecutorContext) {
+	console.log('[generate-ui-docs] Starting executor...');
 	// Convert relative paths to absolute paths using workspace root
 	const brainDir = path.join(context.root, options.brainDir);
 	const helmDir = path.join(context.root, options.helmDir);
@@ -14,7 +15,12 @@ export default async function runExecutor(options: GenerateUiDocsExecutorSchema,
 		fs.mkdirSync(outputDir, { recursive: true });
 	}
 
-	const project = new Project();
+	console.log('[generate-ui-docs] Creating ts-morph project...');
+	const project = new Project({
+		skipAddingFilesFromTsConfig: true,
+		skipFileDependencyResolution: true,
+	});
+	console.log('[generate-ui-docs] Adding source files...');
 	project.addSourceFilesAtPaths([
 		`${brainDir}/**/*.ts`,
 		`${helmDir}/**/*.ts`,
@@ -23,12 +29,16 @@ export default async function runExecutor(options: GenerateUiDocsExecutorSchema,
 		`!${brainDir}/**/*.(spec|test).ts`,
 		`!${helmDir}/**/*.(spec|test).ts`,
 	]);
+	console.log(`[generate-ui-docs] Loaded ${project.getSourceFiles().length} source files`);
 
+	console.log('[generate-ui-docs] Extracting inputs/outputs...');
 	const extractedData = extractInputsOutputs(project, context.root);
 
+	console.log('[generate-ui-docs] Writing output...');
 	const outputPath = path.join(outputDir, options.outputFile);
 	await fs.promises.writeFile(outputPath, JSON.stringify(extractedData, null, 2));
 
+	console.log('[generate-ui-docs] Done!');
 	return { success: true };
 }
 
@@ -73,7 +83,7 @@ function extractInputsOutputs(project: Project, workspaceRoot: string) {
 
 			cls.getProperties().forEach((prop) => {
 				// Prefer the type as written in the code (without import path)
-				const type = prop.getTypeNode()?.getText() || prop.getType().getText();
+				const type = prop.getTypeNode()?.getText() ?? 'unknown';
 				const decorator = prop.getDecorator((d) => d.getName() === 'Input' || d.getName() === 'Output');
 				const name = prop.getName();
 				const description = prop

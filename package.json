@@ -175,6 +175,7 @@
 		"jsonc-eslint-parser": "^2.1.0",
 		"less": "^4.2.0",
 		"ng-packagr": "20.3.2",
+		"nitropack": "^2.13.3",
 		"nx": "21.6.9",
 		"picocolors": "^1.1.1",
 		"playwright": "^1.47.2",

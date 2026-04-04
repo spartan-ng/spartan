@@ -35,6 +35,11 @@
 			"schema": "./src/generators/migrate-core/schema.json",
 			"description": "Migrate core library to brain core entrypoint"
 		},
+		"migrate-css-logical-properties": {
+			"factory": "./src/generators/migrate-css-logical-properties/generator",
+			"schema": "./src/generators/migrate-css-logical-properties/schema.json",
+			"description": "Migrate physical CSS properties to logical properties for RTL support"
+		},
 		"migrate-date-picker": {
 			"factory": "./src/generators/migrate-date-picker/generator",
 			"schema": "./src/generators/migrate-date-picker/schema.json",
@@ -146,6 +151,11 @@
 			"factory": "./src/generators/migrate-scroll-area/compat",
 			"schema": "./src/generators/migrate-core/schema.json",
 			"description": "Migrate core library to brain core entrypoint"
+		},
+		"migrate-css-logical-properties": {
+			"factory": "./src/generators/migrate-css-logical-properties/compat",
+			"schema": "./src/generators/migrate-css-logical-properties/schema.json",
+			"description": "Migrate physical CSS properties to logical properties for RTL support"
 		},
 		"migrate-date-picker": {
 			"factory": "./src/generators/migrate-date-picker/compat",

@@ -12,6 +12,6 @@ export class HlmCarouselContent {
 	private readonly _orientation = inject(HlmCarousel).orientation;
 
 	constructor() {
-		classes(() => ['flex', this._orientation() === 'horizontal' ? '-ml-4' : '-mt-4 flex-col']);
+		classes(() => ['flex', this._orientation() === 'horizontal' ? '-ms-4' : '-mt-4 flex-col']);
 	}
 }

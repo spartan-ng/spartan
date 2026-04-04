@@ -13,7 +13,7 @@ export class HlmAccordionTrigger {
 	constructor() {
 		classes(
 			() =>
-				'group focus-visible:ring-ring focus-visible:ring-offset-background flex w-full items-center justify-between py-4 text-left font-medium transition-all hover:underline focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none [&[data-state=open]>ng-icon]:rotate-180',
+				'group focus-visible:ring-ring focus-visible:ring-offset-background flex w-full items-center justify-between py-4 text-start font-medium transition-all hover:underline focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none [&[data-state=open]>ng-icon]:rotate-180',
 		);
 	}
 }

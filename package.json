@@ -5,7 +5,7 @@
 	"license": "MIT",
 	"type": "module",
 	"scripts": {
-		"build": "NODE_OPTIONS=--max-old-space-size=16000 nx run-many --target build --all --parallel",
+		"build": "NODE_OPTIONS=--max-old-space-size=6000 nx run-many --target build --all --parallel=1",
 		"build-storybook": "nx build-storybook ui-storybook",
 		"changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
 		"dev": "nx serve app",
@@ -44,7 +44,7 @@
 		"@angular/platform-browser-dynamic": "20.3.17",
 		"@angular/platform-server": "20.3.17",
 		"@angular/router": "20.3.17",
-		"@angular/ssr": "20.3.9",
+		"@angular/ssr": "20.3.17",
 		"@fontsource-variable/noto-sans-arabic": "^5.2.10",
 		"@fontsource-variable/noto-sans-hebrew": "^5.2.8",
 		"@fontsource/geist": "^5.2.5",
@@ -149,8 +149,8 @@
 		"@types/semver": "^7.5.8",
 		"@types/testing-library__jest-dom": "^5.14.9",
 		"@typescript-eslint/utils": "^8.33.1",
-		"@vitest/coverage-v8": "2.1.1",
-		"@vitest/ui": "2.1.1",
+		"@vitest/coverage-v8": "^2.1.8",
+		"@vitest/ui": "^2.1.8",
 		"angular-eslint": "20.7.0",
 		"autoprefixer": "^10.4.27",
 		"axe-core": "^4.10.0",
@@ -200,10 +200,9 @@
 		"types-tsconfig": "^2.1.1",
 		"typescript": "5.9.3",
 		"typescript-eslint": "^8.33.1",
-		"verdaccio": "6.0.5",
 		"vite": "6.2.1",
 		"vite-tsconfig-paths": "5.0.1",
-		"vitest": "2.1.1"
+		"vitest": "^2.1.8"
 	},
 	"packageManager": "pnpm@10.30.3",
 	"engines": {
@@ -213,6 +212,12 @@
 		"yarn": "please-use-pnpm"
 	},
 	"engineStrict": true,
+	"pnpm": {
+		"overrides": {
+			"form-data": ">=4.0.5",
+			"handlebars": ">=4.7.9"
+		}
+	},
 	"nx": {
 		"includedScripts": []
 	},

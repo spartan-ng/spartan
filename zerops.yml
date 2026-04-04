@@ -3,7 +3,7 @@ zerops:
     build:
       base: nodejs@22
       envVariables:
-        NODE_OPTIONS: --max-old-space-size=16000
+        NODE_OPTIONS: --max-old-space-size=6000
       buildCommands:
         # install dev dependencies & build app
         - corepack enable

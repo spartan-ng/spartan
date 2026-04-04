@@ -119,6 +119,15 @@ export default defineConfig(({ mode }) => {
 				},
 				nitro: {
 					logLevel: 4,
+					prerender: {
+						concurrency: 1,
+					},
+					serverAssets: [
+						{
+							baseName: 'data',
+							dir: './src/public/data',
+						},
+					],
 					rollupConfig: {
 						plugins: [],
 					},

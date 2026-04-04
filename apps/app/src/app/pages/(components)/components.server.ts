@@ -1,6 +1,6 @@
+import type { Style } from '@spartan-ng/registry';
 import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
-import type { Style } from '@spartan-ng/registry';
 import type { PrimitiveSnippets } from '../../core/models/primitives-snippets.model';
 import type { ComponentApiData } from '../../core/models/ui-docs.model';
 

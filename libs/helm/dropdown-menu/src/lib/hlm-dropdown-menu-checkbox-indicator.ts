@@ -16,7 +16,7 @@ export class HlmDropdownMenuCheckboxIndicator {
 	constructor() {
 		classes(
 			() =>
-				'pointer-events-none absolute left-2 flex size-3.5 items-center justify-center opacity-0 group-data-[checked]:opacity-100',
+				'pointer-events-none absolute start-2 flex size-3.5 items-center justify-center opacity-0 group-data-[checked]:opacity-100',
 		);
 	}
 }

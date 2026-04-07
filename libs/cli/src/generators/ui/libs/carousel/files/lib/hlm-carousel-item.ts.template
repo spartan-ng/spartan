@@ -14,6 +14,6 @@ export class HlmCarouselItem {
 	private readonly _orientation = inject(HlmCarousel).orientation;
 
 	constructor() {
-		classes(() => ['min-w-0 shrink-0 grow-0 basis-full', this._orientation() === 'horizontal' ? 'pl-4' : 'pt-4']);
+		classes(() => ['min-w-0 shrink-0 grow-0 basis-full', this._orientation() === 'horizontal' ? 'ps-4' : 'pt-4']);
 	}
 }

@@ -77,7 +77,7 @@ export class HlmNativeSelect implements ControlValueAccessor {
 
 	protected readonly _computedSelectClass = computed(() =>
 		hlm(
-			'border-input placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 dark:hover:bg-input/50 focus-visible:border-ring focus-visible:ring-ring/50 h-9 w-full min-w-0 appearance-none rounded-md border bg-transparent py-1 pr-8 pl-2.5 text-sm shadow-xs transition-[color,box-shadow] outline-none select-none focus-visible:ring-3 disabled:pointer-events-none disabled:cursor-not-allowed data-[size=sm]:h-8',
+			'border-input placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 dark:hover:bg-input/50 focus-visible:border-ring focus-visible:ring-ring/50 h-9 w-full min-w-0 appearance-none rounded-md border bg-transparent py-1 ps-2.5 pe-8 text-sm shadow-xs transition-[color,box-shadow] outline-none select-none focus-visible:ring-3 disabled:pointer-events-none disabled:cursor-not-allowed data-[size=sm]:h-8',
 			'data-[matches-spartan-invalid=true]:ring-destructive/20 dark:data-[matches-spartan-invalid=true]:ring-destructive/40 data-[matches-spartan-invalid=true]:border-destructive dark:data-[matches-spartan-invalid=true]:border-destructive/50 data-[matches-spartan-invalid=true]:ring-3',
 			this.selectClass(),
 		),
@@ -87,7 +87,7 @@ export class HlmNativeSelect implements ControlValueAccessor {
 
 	protected readonly _computedSelectIconClass = computed(() =>
 		hlm(
-			'text-muted-foreground pointer-events-none absolute top-1/2 right-2.5 -translate-y-1/2 text-base select-none',
+			'text-muted-foreground pointer-events-none absolute end-2.5 top-1/2 -translate-y-1/2 text-base select-none',
 			this.selectIconClass(),
 		),
 	);

@@ -47,6 +47,6 @@ export class HlmPaginationPrevious {
 	protected readonly _size = computed<ButtonVariants['size']>(() => (this.iconOnly() ? 'icon' : 'default'));
 
 	constructor() {
-		classes(() => ['gap-1 px-2.5', !this.iconOnly() ? 'sm:pl-2.5' : '']);
+		classes(() => ['gap-1 px-2.5', !this.iconOnly() ? 'sm:ps-2.5' : '']);
 	}
 }

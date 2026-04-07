@@ -29,7 +29,7 @@ import { HlmPaginationLink } from './hlm-pagination-link';
 })
 export class HlmPaginationNext {
 	constructor() {
-		classes(() => ['gap-1 px-2.5', !this.iconOnly() ? 'sm:pr-2.5' : '']);
+		classes(() => ['gap-1 px-2.5', !this.iconOnly() ? 'sm:pe-2.5' : '']);
 	}
 
 	/** The link to navigate to the next page. */

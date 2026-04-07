@@ -2,7 +2,6 @@ import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { components } from '@spartan-ng/app/app/shared/components/navigation-items';
-import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import { MainSection } from '@spartan-ng/app/app/shared/layout/main-section';
 import { PageBottomNav } from '@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav';
 import { PageBottomNavLink } from '@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav-link';
@@ -24,7 +23,6 @@ export const routeMeta: RouteMeta = {
 	selector: 'spartan-components-page',
 	imports: [
 		MainSection,
-		InstallTabs,
 		SectionIntro,
 		PageBottomNav,
 		PageBottomNavLink,
@@ -40,9 +38,7 @@ export const routeMeta: RouteMeta = {
 				lead="Here you can find all the components available in the library. We are working on adding more components."
 			/>
 
-			<div
-				class="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-x-8 lg:gap-x-16 lg:gap-y-6 xl:gap-x-20"
-			>
+			<div class="mt-12 grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-x-8 lg:gap-x-16 lg:gap-y-6 xl:gap-x-20">
 				@for (component of _components; track component.url) {
 					<a
 						class="inline-flex items-center gap-2 text-lg font-medium underline-offset-4 hover:underline md:text-base"

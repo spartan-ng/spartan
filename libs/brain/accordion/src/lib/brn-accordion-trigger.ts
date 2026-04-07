@@ -1,17 +1,23 @@
 import type { FocusableOption } from '@angular/cdk/a11y';
-import { Directive, ElementRef, inject, isDevMode } from '@angular/core';
+import { computed, Directive, ElementRef, inject, isDevMode } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { fromEvent } from 'rxjs';
 import { injectBrnAccordion, injectBrnAccordionItem } from './brn-accordion-token';
+import { provideBrnAccordionTrigger } from './brn-accordion-trigger.token';
 
 @Directive({
-	selector: '[brnAccordionTrigger]',
+	selector: 'button[brnAccordionTrigger]',
+	providers: [provideBrnAccordionTrigger(BrnAccordionTrigger)],
 	host: {
-		'[attr.data-state]': 'state()',
-		'[attr.aria-expanded]': 'state() === "open"',
-		'[attr.aria-controls]': 'ariaControls',
 		'[id]': 'id',
-		'[attr.role]': '"button"',
+		type: 'button',
+		tabindex: '0',
+		'[attr.data-orientation]': '_orientation()',
+		'[attr.data-state]': '_state()',
+		'[attr.aria-expanded]': '_isExpanded()',
+		'[attr.aria-controls]': 'ariaControls',
+		'[attr.aria-disabled]': '_disabled()',
+		'[disabled]': '_disabled()',
 		'(click)': 'toggle($event)',
 		'(keyup.space)': 'toggle($event)',
 		'(keyup.enter)': 'toggle($event)',
@@ -22,9 +28,17 @@ export class BrnAccordionTrigger implements FocusableOption {
 	private readonly _item = injectBrnAccordionItem();
 	private readonly _el = inject(ElementRef<HTMLElement>);
 
-	public readonly state = this._item.state;
+	protected readonly _orientation = this._accordion.orientation;
+	protected readonly _state = this._item.state;
+	protected readonly _isExpanded = computed(() => this._item.state() === 'open');
+	protected readonly _disabled = this._item.disabled;
 	public readonly id = `brn-accordion-trigger-${this._item.id}`;
 	public readonly ariaControls = `brn-accordion-content-${this._item.id}`;
+
+	public get disabled() {
+		return this._disabled();
+	}
+
 	constructor() {
 		if (!this._accordion) throw Error('Accordion trigger requires a parent Accordion.');
 		if (!this._item) throw Error('Accordion trigger requires a parent AccordionItem.');

@@ -18,7 +18,9 @@ import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-sec
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { AccordionBorders } from './accordion--borders.example';
 import { AccordionCard } from './accordion--card.example';
+import { AccordionDisabled } from './accordion--disabled.example';
 import { AccordionMultiple } from './accordion--multiple.example';
+import { AccordionRtl } from './accordion--rtl.example';
 import { AccordionPreview, defaultImports, defaultSkeleton } from './accordion.preview';
 
 export const routeMeta: RouteMeta = {
@@ -47,16 +49,19 @@ export const routeMeta: RouteMeta = {
 		PageBottomNavLink,
 		UIApiDocs,
 		SectionSubSubHeading,
+		InstallTabs,
 		AccordionMultiple,
 		AccordionBorders,
 		AccordionCard,
-		InstallTabs,
+		AccordionDisabled,
+		AccordionRtl,
 	],
 	template: `
 		<section spartanMainSection>
 			<spartan-section-intro
 				name="Accordion"
 				lead="A vertically stacked set of interactive headings that each reveal a section of content."
+				showThemeToggle
 			/>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
@@ -66,7 +71,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
-			<spartan-install-tabs primitive="accordion" />
+			<spartan-install-tabs primitive="accordion" [showOnlyVega]="false" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">
@@ -91,6 +96,21 @@ export const routeMeta: RouteMeta = {
 					<spartan-accordion-multiple />
 				</div>
 				<spartan-code secondTab [code]="_multipleCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__disabled" spartanH4>Disabled</h3>
+			<p class="${hlmP}">
+				Use the
+				<code class="${hlmCode}">disabled</code>
+				prop on the
+				<code class="${hlmCode}">hlm-accordion-item</code>
+				to disable an item.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-accordion-disabled />
+				</div>
+				<spartan-code secondTab [code]="_disabledCode()" />
 			</spartan-tabs>
 
 			<h3 id="examples__borders" spartanH4>Borders</h3>
@@ -127,6 +147,14 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_cardCode()" />
 			</spartan-tabs>
 
+			<spartan-header-rtl />
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanRtlCodePreview firstTab>
+					<spartan-accordion-rtl />
+				</div>
+				<spartan-code secondTab [code]="_rtlCode()" />
+			</spartan-tabs>
+
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="brain" />
 
@@ -145,8 +173,10 @@ export default class AccordionPage {
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('accordion');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _multipleCode = computed(() => this._snippets()['multiple']);
+	protected readonly _disabledCode = computed(() => this._snippets()['disabled']);
 	protected readonly _bordersCode = computed(() => this._snippets()['borders']);
 	protected readonly _cardCode = computed(() => this._snippets()['card']);
+	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 	protected readonly _imports = defaultImports;
 	protected readonly _skeleton = defaultSkeleton;
 }

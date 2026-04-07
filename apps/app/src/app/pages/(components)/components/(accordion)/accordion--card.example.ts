@@ -20,13 +20,12 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 				<hlm-accordion>
 					@for (item of items; track $index) {
 						<hlm-accordion-item>
-							<h3 class="contents">
-								<button hlmAccordionTrigger>
-									{{ item.trigger }}
-									<ng-icon name="lucideChevronDown" hlm hlmAccIcon />
-								</button>
-							</h3>
-							<hlm-accordion-content>{{ item.content }}</hlm-accordion-content>
+							<hlm-accordion-trigger>
+								{{ item.trigger }}
+							</hlm-accordion-trigger>
+							<hlm-accordion-content>
+								{{ item.content }}
+							</hlm-accordion-content>
 						</hlm-accordion-item>
 					}
 				</hlm-accordion>

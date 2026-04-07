@@ -1,4 +1,5 @@
 import { FocusKeyManager, FocusMonitor } from '@angular/cdk/a11y';
+import { Directionality } from '@angular/cdk/bidi';
 import {
 	type AfterContentInit,
 	computed,
@@ -12,6 +13,7 @@ import {
 } from '@angular/core';
 import { provideBrnAccordion } from './brn-accordion-token';
 import { BrnAccordionTrigger } from './brn-accordion-trigger';
+import { BrnAccordionTriggerToken } from './brn-accordion-trigger.token';
 
 const HORIZONTAL_KEYS_TO_PREVENT_DEFAULT = [
 	'ArrowLeft',
@@ -40,20 +42,23 @@ const VERTICAL_KEYS_TO_PREVENT_DEFAULT = [
 	exportAs: 'brnAccordion',
 	providers: [provideBrnAccordion(BrnAccordion)],
 	host: {
+		'[attr.dir]': '_direction()',
 		'[attr.data-state]': 'state()',
 		'[attr.data-orientation]': 'orientation()',
 	},
 })
 export class BrnAccordion implements AfterContentInit, OnDestroy {
 	private readonly _el = inject(ElementRef<HTMLElement>);
+	private readonly _dir = inject(Directionality);
 	private readonly _focusMonitor = inject(FocusMonitor);
 	private readonly _keyManager = computed(() =>
 		new FocusKeyManager<BrnAccordionTrigger>(this.triggers())
 			.withHomeAndEnd()
 			.withPageUpDown()
 			.withWrap()
-			.withHorizontalOrientation(this.orientation() === 'vertical' ? null : (this.dir() ?? 'ltr'))
-			.withVerticalOrientation(this.orientation() === 'vertical'),
+			.withHorizontalOrientation(this.orientation() === 'vertical' ? null : (this._direction() ?? 'ltr'))
+			.withVerticalOrientation(this.orientation() === 'vertical')
+			.skipPredicate((item) => item.disabled),
 	);
 
 	private readonly _focused = signal<boolean>(false);
@@ -61,23 +66,23 @@ export class BrnAccordion implements AfterContentInit, OnDestroy {
 	public readonly openItemIds = this._openItemIds.asReadonly();
 	public readonly state = computed(() => (this._openItemIds().length > 0 ? 'open' : 'closed'));
 
-	public readonly triggers = contentChildren(BrnAccordionTrigger, { descendants: true });
+	// TODO not found when inside HlmAccordionTrigger component, need to find a better way to query triggers
+	public readonly triggers = contentChildren(BrnAccordionTriggerToken, { descendants: true });
 
 	/**
 	 * Whether the accordion is in single or multiple mode.
 	 * @default 'single'
 	 */
 	public readonly type = input<'single' | 'multiple'>('single');
-	/**
-	 * The direction of the accordion, either 'ltr' (left-to-right) or 'rtl' (right-to-left).
-	 * @default null
-	 */
-	public readonly dir = input<'ltr' | 'rtl' | null>(null);
+
 	/**
 	 * The orientation of the accordion, either 'horizontal' or 'vertical'.
 	 * @default 'vertical'
 	 */
 	public readonly orientation = input<'horizontal' | 'vertical'>('vertical');
+
+	/** internal **/
+	protected readonly _direction = this._dir.valueSignal;
 
 	public ngAfterContentInit() {
 		this._el.nativeElement.addEventListener('keydown', (event: KeyboardEvent) => {

@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
-import { NgIcon } from '@ng-icons/core';
 import { HlmAccordionImports } from '@spartan-ng/helm/accordion';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
 
 @Component({
 	selector: 'spartan-accordion-borders',
-	imports: [HlmAccordionImports, HlmIconImports, NgIcon],
+	imports: [HlmAccordionImports],
 	host: {
 		class: 'max-w-lg h-[320px] flex flex-col justify-between',
 	},
@@ -13,12 +11,9 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 		<hlm-accordion class="rounded-lg border">
 			@for (item of items; track $index) {
 				<hlm-accordion-item class="border-b px-4 last:border-b-0">
-					<h3 class="contents">
-						<button hlmAccordionTrigger>
-							{{ item.trigger }}
-							<ng-icon name="lucideChevronDown" hlm hlmAccIcon />
-						</button>
-					</h3>
+					<hlm-accordion-trigger>
+						{{ item.trigger }}
+					</hlm-accordion-trigger>
 					<hlm-accordion-content>{{ item.content }}</hlm-accordion-content>
 				</hlm-accordion-item>
 			}

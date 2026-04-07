@@ -9,7 +9,7 @@
 	}
 
 	.spartan-accordion-trigger {
-		@apply **:data-[slot=accordion-trigger-icon]:text-muted-foreground! gap-6 p-4 text-start text-sm font-medium hover:underline **:data-[slot=accordion-trigger-icon]:ml-auto **:data-[slot=accordion-trigger-icon]:text-[calc(var(--spacing)*4)];
+		@apply **:data-[slot=accordion-trigger-icon]:text-muted-foreground! gap-6 p-4 text-start text-sm font-medium hover:underline **:data-[slot=accordion-trigger-icon]:ms-auto **:data-[slot=accordion-trigger-icon]:text-[calc(var(--spacing)*4)];
 	}
 
 	.spartan-accordion-content {

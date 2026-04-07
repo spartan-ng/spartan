@@ -3,6 +3,8 @@ import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 
 import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { CodeRtlPreview } from '@spartan-ng/app/app/shared/code/code-rtl-preview';
+import { RtlHeader } from '@spartan-ng/app/app/shared/code/rtl-header';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
@@ -50,6 +52,8 @@ export const routeMeta: RouteMeta = {
 		UIApiDocs,
 		SectionSubSubHeading,
 		InstallTabs,
+		RtlHeader,
+		CodeRtlPreview,
 		AccordionMultiple,
 		AccordionBorders,
 		AccordionCard,

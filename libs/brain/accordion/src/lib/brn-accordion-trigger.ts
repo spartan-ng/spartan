@@ -1,13 +1,11 @@
 import type { FocusableOption } from '@angular/cdk/a11y';
-import { computed, Directive, ElementRef, inject, isDevMode } from '@angular/core';
+import { computed, DestroyRef, Directive, ElementRef, inject, isDevMode } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { fromEvent } from 'rxjs';
 import { injectBrnAccordion, injectBrnAccordionItem } from './brn-accordion-token';
-import { provideBrnAccordionTrigger } from './brn-accordion-trigger.token';
 
 @Directive({
 	selector: 'button[brnAccordionTrigger]',
-	providers: [provideBrnAccordionTrigger(BrnAccordionTrigger)],
 	host: {
 		'[id]': 'id',
 		type: 'button',
@@ -24,6 +22,7 @@ import { provideBrnAccordionTrigger } from './brn-accordion-trigger.token';
 	},
 })
 export class BrnAccordionTrigger implements FocusableOption {
+	private readonly _destroyRef = inject(DestroyRef);
 	private readonly _accordion = injectBrnAccordion();
 	private readonly _item = injectBrnAccordionItem();
 	private readonly _el = inject(ElementRef<HTMLElement>);
@@ -42,6 +41,11 @@ export class BrnAccordionTrigger implements FocusableOption {
 	constructor() {
 		if (!this._accordion) throw Error('Accordion trigger requires a parent Accordion.');
 		if (!this._item) throw Error('Accordion trigger requires a parent AccordionItem.');
+
+		this._accordion.registerTrigger(this);
+
+		this._destroyRef.onDestroy(() => this._accordion.unregisterTrigger(this));
+
 		this.validateAriaStructure();
 
 		fromEvent(this._el.nativeElement, 'focus')

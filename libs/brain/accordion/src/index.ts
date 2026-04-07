@@ -10,7 +10,6 @@ export * from './lib/brn-accordion-header';
 export * from './lib/brn-accordion-item';
 export * from './lib/brn-accordion-token';
 export * from './lib/brn-accordion-trigger';
-export * from './lib/brn-accordion-trigger.token';
 
 export const BrnAccordionImports = [
 	BrnAccordion,

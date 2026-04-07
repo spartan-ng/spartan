@@ -3,7 +3,6 @@ import { Directionality } from '@angular/cdk/bidi';
 import {
 	type AfterContentInit,
 	computed,
-	contentChildren,
 	Directive,
 	ElementRef,
 	inject,
@@ -12,8 +11,7 @@ import {
 	signal,
 } from '@angular/core';
 import { provideBrnAccordion } from './brn-accordion-token';
-import { BrnAccordionTrigger } from './brn-accordion-trigger';
-import { BrnAccordionTriggerToken } from './brn-accordion-trigger.token';
+import type { BrnAccordionTrigger } from './brn-accordion-trigger';
 
 const HORIZONTAL_KEYS_TO_PREVENT_DEFAULT = [
 	'ArrowLeft',
@@ -52,7 +50,7 @@ export class BrnAccordion implements AfterContentInit, OnDestroy {
 	private readonly _dir = inject(Directionality);
 	private readonly _focusMonitor = inject(FocusMonitor);
 	private readonly _keyManager = computed(() =>
-		new FocusKeyManager<BrnAccordionTrigger>(this.triggers())
+		new FocusKeyManager<BrnAccordionTrigger>(this._triggers())
 			.withHomeAndEnd()
 			.withPageUpDown()
 			.withWrap()
@@ -66,8 +64,7 @@ export class BrnAccordion implements AfterContentInit, OnDestroy {
 	public readonly openItemIds = this._openItemIds.asReadonly();
 	public readonly state = computed(() => (this._openItemIds().length > 0 ? 'open' : 'closed'));
 
-	// TODO not found when inside HlmAccordionTrigger component, need to find a better way to query triggers
-	public readonly triggers = contentChildren(BrnAccordionTriggerToken, { descendants: true });
+	private readonly _triggers = signal<BrnAccordionTrigger[]>([]);
 
 	/**
 	 * Whether the accordion is in single or multiple mode.
@@ -95,6 +92,14 @@ export class BrnAccordion implements AfterContentInit, OnDestroy {
 
 	ngOnDestroy(): void {
 		this._focusMonitor.stopMonitoring(this._el);
+	}
+
+	public registerTrigger(trigger: BrnAccordionTrigger) {
+		this._triggers.update((triggers) => [...triggers, trigger]);
+	}
+
+	public unregisterTrigger(trigger: BrnAccordionTrigger) {
+		this._triggers.update((triggers) => triggers.filter((t) => t !== trigger));
 	}
 
 	public setActiveItem(item: BrnAccordionTrigger) {

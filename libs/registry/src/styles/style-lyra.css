@@ -5,11 +5,11 @@
 	}
 
 	.spartan-accordion-trigger {
-		@apply focus-visible:ring-ring/50 focus-visible:border-ring focus-visible:after:border-ring **:data-[slot=accordion-trigger-icon]:text-muted-foreground rounded-none py-2.5 text-start text-xs font-medium hover:underline focus-visible:ring-1 **:data-[slot=accordion-trigger-icon]:ml-auto **:data-[slot=accordion-trigger-icon]:size-4;
+		@apply focus-visible:ring-ring/50 focus-visible:border-ring focus-visible:after:border-ring **:data-[slot=accordion-trigger-icon]:text-muted-foreground! rounded-none py-2.5 text-start text-xs font-medium hover:underline focus-visible:ring-1 **:data-[slot=accordion-trigger-icon]:ms-auto **:data-[slot=accordion-trigger-icon]:text-[calc(var(--spacing)*4)];
 	}
 
 	.spartan-accordion-content {
-		@apply data-open:animate-accordion-down data-closed:animate-accordion-up text-xs;
+		@apply text-xs;
 	}
 
 	.spartan-accordion-content-inner {

@@ -1,73 +1,38 @@
 import { Component } from '@angular/core';
-import { NgIcon } from '@ng-icons/core';
 import { HlmAccordionImports } from '@spartan-ng/helm/accordion';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
 
 @Component({
 	selector: 'spartan-accordion-preview',
-	imports: [HlmAccordionImports, NgIcon, HlmIconImports],
+	imports: [HlmAccordionImports],
 	host: {
-		class: 'max-w-lg block h-[250px]',
+		class: 'max-w-sm block h-[250px]',
 	},
 	template: `
 		<hlm-accordion>
 			<hlm-accordion-item>
-				<h3 class="contents">
-					<button hlmAccordionTrigger>
-						Product Information
-						<ng-icon name="lucideChevronDown" hlm hlmAccIcon />
-					</button>
-				</h3>
+				<hlm-accordion-trigger>What are your shipping options?</hlm-accordion-trigger>
 				<hlm-accordion-content>
 					<p>
-						Our flagship product combines cutting-edge technology with sleek design. Built with premium materials, it
-						offers unparalleled performance and reliability.
-					</p>
-
-					<p>
-						Key features include advanced processing capabilities, and an intuitive user interface designed for both
-						beginners and experts.
+						We offer standard (5-7 days), express (2-3 days), and overnight shipping. Free shipping on international
+						orders.
 					</p>
 				</hlm-accordion-content>
 			</hlm-accordion-item>
 
 			<hlm-accordion-item>
-				<h3 class="contents">
-					<button hlmAccordionTrigger>
-						Shipping Details
-						<ng-icon name="lucideChevronDown" hlm hlmAccIcon />
-					</button>
-				</h3>
+				<hlm-accordion-trigger>What is your return policy?</hlm-accordion-trigger>
 				<hlm-accordion-content>
 					<p>
-						We offer worldwide shipping through trusted courier partners. Standard delivery takes 3-5 business days,
-						while express shipping ensures delivery within 1-2 business days.
-					</p>
-
-					<p>
-						All orders are carefully packaged and fully insured. Track your shipment in real-time through our dedicated
-						tracking portal.
+						Returns accepted within 30 days. Items must be unused and in original packaging. Refunds processed within
+						5-7 business days.
 					</p>
 				</hlm-accordion-content>
 			</hlm-accordion-item>
 
 			<hlm-accordion-item>
-				<h3 class="contents">
-					<button hlmAccordionTrigger>
-						Return Policy
-						<ng-icon name="lucideChevronDown" hlm hlmAccIcon />
-					</button>
-				</h3>
+				<hlm-accordion-trigger>Return Policy</hlm-accordion-trigger>
 				<hlm-accordion-content>
-					<p>
-						We stand behind our products with a comprehensive 30-day return policy. If you're not completely satisfied,
-						simply return the item in its original condition.
-					</p>
-
-					<p>
-						Our hassle-free return process includes free return shipping and full refunds processed within 48 hours of
-						receiving the returned item.
-					</p>
+					<p>Reach us via email, live chat, or phone. We respond within 24 hours during business days.</p>
 				</hlm-accordion-content>
 			</hlm-accordion-item>
 		</hlm-accordion>
@@ -76,21 +41,14 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 export class AccordionPreview {}
 
 export const defaultImports = `
-import { NgIcon } from '@ng-icons/core';
 import { HlmAccordionImports } from '@spartan-ng/helm/accordion';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
 `;
 
 export const defaultSkeleton = `
 <hlm-accordion>
-	<hlm-accordion-item>
-		<h3 class="contents">
-			<button hlmAccordionTrigger>
-				Is it accessible?
-				<ng-icon name="lucideChevronDown" hlm hlmAccIcon />
-			</button>
-		</h3>
-		<hlm-accordion-content>Yes. It adheres to the WAI-ARIA design pattern.</hlm-accordion-content>
-	</hlm-accordion-item>
+  <hlm-accordion-item>
+    <hlm-accordion-trigger>Is it accessible?</hlm-accordion-trigger>
+    <hlm-accordion-content> Yes. It adheres to the WAI-ARIA design pattern. </hlm-accordion-content>
+  </hlm-accordion-item>
 </hlm-accordion>
 `;

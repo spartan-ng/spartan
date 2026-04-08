@@ -1,4 +1,25 @@
 .style-luma {
+	/* MARK: Accordion */
+	.spartan-accordion {
+		@apply overflow-hidden rounded-2xl border;
+	}
+
+	.spartan-accordion-item {
+		@apply data-open:bg-muted/50 not-last:border-b;
+	}
+
+	.spartan-accordion-trigger {
+		@apply **:data-[slot=accordion-trigger-icon]:text-muted-foreground! gap-6 p-4 text-start text-sm font-medium hover:underline **:data-[slot=accordion-trigger-icon]:ms-auto **:data-[slot=accordion-trigger-icon]:text-[calc(var(--spacing)*4)];
+	}
+
+	.spartan-accordion-content {
+		@apply px-4 text-sm;
+	}
+
+	.spartan-accordion-content-inner {
+		@apply pt-0 pb-4;
+	}
+
 	/* MARK: Slider */
 	.spartan-slider {
 		@apply data-vertical:min-h-40;
@@ -421,27 +442,6 @@
 
 	.spartan-card-footer {
 		@apply rounded-b-4xl px-6 group-data-[size=sm]/card:px-4 [.border-t]:pt-6 group-data-[size=sm]/card:[.border-t]:pt-4;
-	}
-
-	/* MARK: Accordion */
-	.spartan-accordion {
-		@apply overflow-hidden rounded-2xl border;
-	}
-
-	.spartan-accordion-item {
-		@apply data-open:bg-muted/50 not-last:border-b;
-	}
-
-	.spartan-accordion-trigger {
-		@apply **:data-[slot=accordion-trigger-icon]:text-muted-foreground gap-6 p-4 text-start text-sm font-medium hover:underline **:data-[slot=accordion-trigger-icon]:ml-auto **:data-[slot=accordion-trigger-icon]:size-4;
-	}
-
-	.spartan-accordion-content {
-		@apply data-open:animate-accordion-down data-closed:animate-accordion-up px-4 text-sm;
-	}
-
-	.spartan-accordion-content-inner {
-		@apply pt-0 pb-4;
 	}
 
 	/* MARK: Alert Dialog */

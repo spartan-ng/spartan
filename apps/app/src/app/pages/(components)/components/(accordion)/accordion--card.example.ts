@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
-import { NgIcon } from '@ng-icons/core';
 import { HlmAccordionImports } from '@spartan-ng/helm/accordion';
 import { HlmCardImports } from '@spartan-ng/helm/card';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
 
 @Component({
 	selector: 'spartan-accordion-card',
-	imports: [HlmAccordionImports, HlmIconImports, HlmCardImports, NgIcon],
+	imports: [HlmAccordionImports, HlmCardImports],
 	host: {
 		class: 'max-w-lg h-[32rem] md:h-[28rem] flex flex-col justify-between',
 	},

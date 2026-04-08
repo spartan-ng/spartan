@@ -96,52 +96,40 @@ const cliBtn =
 
 				@if (code && utils) {
 					<div class="space-y-4">
-						<div hlmAccordion type="multiple">
-							<div hlmAccordionItem class="border-b-0">
-								<h3 class="contents">
-									<button
-										hlmAccordionTrigger
-										class="focus-visible:border-ring focus-visible:ring-ring/50 rounded-md px-0 py-0 hover:no-underline"
-									>
-										<span class="flex items-center gap-3">
-											<span
-												class="flex size-10 shrink-0 items-center justify-center rounded-full border"
-												aria-hidden="true"
-											>
-												1
-											</span>
-											<span class="text-[15px] leading-6 font-semibold">Copy utils if needed</span>
+						<hlm-accordion type="multiple">
+							<hlm-accordion-item class="border-b-0">
+								<hlm-accordion-trigger triggerClass="py-0">
+									<span class="flex items-center gap-3">
+										<span
+											class="flex size-10 shrink-0 items-center justify-center rounded-full border"
+											aria-hidden="true"
+										>
+											1
 										</span>
-										<ng-icon hlm hlmAccIcon name="lucideChevronDown" class="opacity-60" />
-									</button>
-								</h3>
+										<span class="text-[15px] leading-6 font-semibold">Copy utils if needed</span>
+									</span>
+								</hlm-accordion-trigger>
 
 								<hlm-accordion-content class="text-muted-foreground ml-5 border-l ps-8">
 									<spartan-code [code]="utils" language="ts" />
 								</hlm-accordion-content>
-							</div>
+							</hlm-accordion-item>
 							<div class="ml-5 h-4 border-l ps-8 last:hidden"></div>
 
-							<div hlmAccordionItem class="border-b-0" isOpened>
-								<h3 class="contents">
-									<button
-										hlmAccordionTrigger
-										class="focus-visible:border-ring focus-visible:ring-ring/50 rounded-md px-0 py-0 hover:no-underline"
-									>
-										<span class="flex items-center gap-3">
-											<span
-												class="flex size-10 shrink-0 items-center justify-center rounded-full border"
-												aria-hidden="true"
-											>
-												2
-											</span>
-											<span class="text-[15px] leading-6 font-semibold">
-												Copy and paste the following code into your project.
-											</span>
+							<hlm-accordion-item class="border-b-0" isOpened>
+								<hlm-accordion-trigger triggerClass="py-0">
+									<span class="flex items-center gap-3">
+										<span
+											class="flex size-10 shrink-0 items-center justify-center rounded-full border hover:no-underline"
+											aria-hidden="true"
+										>
+											2
 										</span>
-										<ng-icon hlm hlmAccIcon name="lucideChevronDown" class="opacity-60" />
-									</button>
-								</h3>
+										<span class="text-[15px] leading-6 font-semibold">
+											Copy and paste the following code into your project.
+										</span>
+									</span>
+								</hlm-accordion-trigger>
 
 								<hlm-accordion-content class="text-muted-foreground ml-5 border-l ps-8">
 									<div
@@ -170,8 +158,8 @@ const cliBtn =
 										}
 									</div>
 								</hlm-accordion-content>
-							</div>
-						</div>
+							</hlm-accordion-item>
+						</hlm-accordion>
 					</div>
 				}
 			</div>

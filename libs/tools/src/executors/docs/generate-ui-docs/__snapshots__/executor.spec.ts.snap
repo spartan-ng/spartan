@@ -3231,6 +3231,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "boolean",
           },
           {
+            "name": "mask",
+            "required": false,
+            "type": "boolean",
+          },
+          {
             "name": "maxLength",
             "required": true,
             "type": "number",
@@ -3274,12 +3279,29 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "selector": "brn-input-otp",
       },
+      "BrnInputOtpMask": {
+        "inputs": [
+          {
+            "name": "mask",
+            "required": false,
+            "type": "boolean | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnInputOtpMask]",
+      },
       "BrnInputOtpSlot": {
         "inputs": [
           {
             "name": "index",
             "required": true,
             "type": "number",
+          },
+          {
+            "name": "mask",
+            "required": false,
+            "type": "boolean | undefined",
           },
         ],
         "models": [],
@@ -3318,6 +3340,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "name": "index",
             "required": true,
             "type": "number",
+          },
+          {
+            "name": "mask",
+            "required": false,
+            "type": "boolean | undefined",
           },
         ],
         "models": [],

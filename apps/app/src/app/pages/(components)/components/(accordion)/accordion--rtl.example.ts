@@ -1,10 +1,12 @@
-import { Component, computed, inject } from '@angular/core';
+import { Directionality } from '@angular/cdk/bidi';
+import { Component, computed, effect, inject, untracked } from '@angular/core';
 import { TranslateService, Translations } from '@spartan-ng/app/app/shared/translate.service';
 import { HlmAccordionImports } from '@spartan-ng/helm/accordion';
 
 @Component({
 	selector: 'spartan-accordion-rtl',
 	imports: [HlmAccordionImports],
+	providers: [Directionality],
 	host: {
 		class: 'max-w-sm h-[250px]',
 		'[dir]': '_dir()',
@@ -23,6 +25,7 @@ import { HlmAccordionImports } from '@spartan-ng/helm/accordion';
 	`,
 })
 export class AccordionRtl {
+	private readonly _directionality = inject(Directionality);
 	private readonly _language = inject(TranslateService).language;
 	private readonly _translations: Translations = {
 		en: {
@@ -88,4 +91,11 @@ export class AccordionRtl {
 	private readonly _translation = computed(() => this._translations[this._language()]);
 	protected readonly _t = computed(() => this._translation().values);
 	protected readonly _dir = computed(() => this._translation().dir);
+
+	constructor() {
+		effect(() => {
+			const dir = this._dir();
+			untracked(() => this._directionality.valueSignal.set(dir));
+		});
+	}
 }

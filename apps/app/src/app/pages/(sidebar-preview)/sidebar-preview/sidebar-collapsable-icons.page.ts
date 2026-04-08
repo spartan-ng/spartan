@@ -42,7 +42,7 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 	styleUrl: 'sidebar-default.css',
 	template: `
 		<div hlmSidebarWrapper>
-			<hlm-sidebar collapsible="icon">
+			<hlm-sidebar collapsible="icon" side="right">
 				<div hlmSidebarHeader>
 					<ul hlmSidebarMenu>
 						<li hlmSidebarMenuItem>

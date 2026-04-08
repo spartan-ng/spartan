@@ -13,11 +13,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "'single' | 'multiple'",
           },
           {
-            "name": "dir",
-            "required": false,
-            "type": "'ltr' | 'rtl' | null",
-          },
-          {
             "name": "orientation",
             "required": false,
             "type": "'horizontal' | 'vertical'",
@@ -39,11 +34,22 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "outputs": [],
         "selector": "brn-accordion-content,[brnAccordionContent]",
       },
+      "BrnAccordionHeader": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnAccordionHeader]",
+      },
       "BrnAccordionItem": {
         "exportAs": "brnAccordionItem",
         "inputs": [
           {
             "name": "isOpened",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "disabled",
             "required": false,
             "type": "boolean",
           },
@@ -65,7 +71,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "[brnAccordionTrigger]",
+        "selector": "button[brnAccordionTrigger]",
       },
     },
     "helm": {
@@ -81,23 +87,17 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "outputs": [],
         "selector": "hlm-accordion-content",
       },
-      "HlmAccordionIcon": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "ng-icon[hlmAccordionIcon], ng-icon[hlmAccIcon]",
-      },
       "HlmAccordionItem": {
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "[hlmAccordionItem],brn-accordion-item[hlm],hlm-accordion-item",
+        "selector": "[hlmAccordionItem],hlm-accordion-item",
       },
       "HlmAccordionTrigger": {
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "[hlmAccordionTrigger]",
+        "selector": "hlm-accordion-trigger",
       },
     },
   },

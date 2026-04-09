@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
-import { HlmAspectRatio } from './helm-aspect-ratio';
+import { HlmAspectRatio } from './hlm-aspect-ratio';
 
 @Component({
 	selector: 'hlm-mock',

@@ -26,7 +26,7 @@ import { HlmSwitchImports } from '@spartan-ng/helm/switch';
 								</hlm-field-description>
 								<hlm-field-error>It is highly recommended to enable two-factor authentication.</hlm-field-error>
 							</hlm-field-content>
-							<hlm-switch id="two-factor" formControlName="twoFactor" />
+							<hlm-switch inputId="two-factor" formControlName="twoFactor" />
 						</hlm-field>
 					</hlm-field-group>
 				</form>
@@ -86,7 +86,7 @@ import { HlmSwitchImports } from '@spartan-ng/helm/switch';
 								</hlm-field-description>
 								<hlm-field-error>It is highly recommended to enable two-factor authentication.</hlm-field-error>
 							</hlm-field-content>
-							<hlm-switch id="two-factor" formControlName="twoFactor" />
+							<hlm-switch inputId="two-factor" formControlName="twoFactor" />
 						</hlm-field>
 					</hlm-field-group>
 				</form>

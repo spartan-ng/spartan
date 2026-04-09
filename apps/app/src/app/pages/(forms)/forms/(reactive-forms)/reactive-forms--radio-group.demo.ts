@@ -29,7 +29,7 @@ import { HlmRadioGroupImports } from '@spartan-ng/helm/radio-group';
 												<hlm-field-title>{{ plan.title }}</hlm-field-title>
 												<hlm-field-description>{{ plan.description }}</hlm-field-description>
 											</hlm-field-content>
-											<hlm-radio [value]="plan.id" [id]="'plan-' + plan.id">
+											<hlm-radio [value]="plan.id" [inputId]="'plan-' + plan.id">
 												<hlm-radio-indicator indicator />
 											</hlm-radio>
 										</hlm-field>
@@ -119,7 +119,7 @@ import { HlmRadioGroupImports } from '@spartan-ng/helm/radio-group';
 												<hlm-field-title>{{ plan.title }}</hlm-field-title>
 												<hlm-field-description>{{ plan.description }}</hlm-field-description>
 											</hlm-field-content>
-											<hlm-radio [value]="plan.id" [id]="'plan-' + plan.id">
+											<hlm-radio [value]="plan.id" [inputId]="'plan-' + plan.id">
 												<hlm-radio-indicator indicator />
 											</hlm-radio>
 										</hlm-field>

@@ -10,7 +10,7 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 		<fieldset hlmFieldSet>
 			<label hlmFieldLabel for="exp-checkbox">
 				<div hlmField orientation="horizontal">
-					<hlm-checkbox id="exp-checkbox" [checked]="true" />
+					<hlm-checkbox inputId="exp-checkbox" [checked]="true" />
 					<label hlmFieldLabel for="exp-checkbox">I agree to the terms and conditions</label>
 				</div>
 			</label>

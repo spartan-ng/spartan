@@ -8,7 +8,7 @@ import { HlmLabelImports } from '@spartan-ng/helm/label';
 	template: `
 		<div>
 			<div class="flex items-center gap-2">
-				<hlm-checkbox id="terms" />
+				<hlm-checkbox inputId="terms" />
 				<label hlmLabel for="terms">Accept terms and conditions</label>
 			</div>
 		</div>

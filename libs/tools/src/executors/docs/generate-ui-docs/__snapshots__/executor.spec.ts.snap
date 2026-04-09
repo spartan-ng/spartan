@@ -1388,7 +1388,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "ClassValue",
           },
           {
-            "name": "id",
+            "name": "inputId",
             "required": false,
             "type": "string | null",
           },
@@ -2161,7 +2161,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       "HlmCommandInput": {
         "inputs": [
           {
-            "name": "id",
+            "name": "inputId",
             "required": false,
             "type": "string | undefined",
           },
@@ -4078,7 +4078,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "ClassValue",
           },
           {
-            "name": "id",
+            "name": "inputId",
             "required": false,
             "type": "string | undefined",
           },
@@ -5484,7 +5484,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "boolean",
           },
           {
-            "name": "id",
+            "name": "inputId",
             "required": false,
             "type": "string | null",
           },

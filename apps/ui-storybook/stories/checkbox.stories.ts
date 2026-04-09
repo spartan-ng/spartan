@@ -19,7 +19,12 @@ import { HlmLabel } from '@spartan-ng/helm/label';
 			<div class="flex items-center gap-4">
 				<label id="checkbox-label" for="testCheckboxDis1" hlmLabel>
 					Test Disabled Checkbox with Reactive Forms
-					<hlm-checkbox class="ml-2" id="testCheckboxDis1" aria-labelledby="testCheckbox" formControlName="checkbox" />
+					<hlm-checkbox
+						class="ml-2"
+						inputId="testCheckboxDis1"
+						aria-labelledby="testCheckbox"
+						formControlName="checkbox"
+					/>
 				</label>
 
 				<button hlmBtn type="button" role="button" (click)="enableOrDisableCheckbox()">
@@ -47,7 +52,7 @@ class HlmCheckboxTester {
 	template: `
 		<form [formGroup]="form" class="space-y-3">
 			<div hlmField orientation="horizontal" class="items-start gap-2">
-				<hlm-checkbox id="field-terms" formControlName="agreement" />
+				<hlm-checkbox inputId="field-terms" formControlName="agreement" />
 				<label hlmFieldLabel class="font-normal">I agree to the terms and conditions.</label>
 				<hlm-field-error>You must accept the terms to continue.</hlm-field-error>
 			</div>
@@ -92,7 +97,7 @@ type Story = StoryObj<HlmCheckbox>;
 export const Default: Story = {
 	render: () => ({
 		template: /* HTML */ `
-			<hlm-checkbox id="testCheckbox" aria-checked="mixed" aria-label="test checkbox" />
+			<hlm-checkbox inputId="testCheckbox" aria-checked="mixed" aria-label="test checkbox" />
 		`,
 	}),
 };
@@ -102,7 +107,7 @@ export const InsideLabel: Story = {
 		template: /* HTML */ `
 			<label id="checkbox-label" class="flex items-center" hlmLabel>
 				Test Checkbox
-				<hlm-checkbox class="ml-2" id="testCheckbox" />
+				<hlm-checkbox class="ml-2" inputId="testCheckbox" />
 			</label>
 		`,
 	}),
@@ -113,7 +118,7 @@ export const LabeledWithAriaLabeledBy: Story = {
 		template: /* HTML */ `
 			<div id="checkbox-label" class="flex items-center">
 				<label id="testCheckbox" for="testCheckboxAria" hlmLabel>Test Checkbox</label>
-				<hlm-checkbox class="ml-2" id="testCheckboxAria" aria-labelledby="testCheckbox" />
+				<hlm-checkbox class="ml-2" inputId="testCheckboxAria" aria-labelledby="testCheckbox" />
 			</div>
 		`,
 	}),
@@ -124,16 +129,16 @@ export const Disabled: Story = {
 		template: /* HTML */ `
 			<div class="flex items-center">
 				<label id="checkbox-label" for="testCheckboxDis1" hlmLabel>Test Checkbox</label>
-				<hlm-checkbox disabled class="ml-2" id="testCheckboxDis1" aria-labelledby="testCheckbox" />
+				<hlm-checkbox disabled class="ml-2" inputId="testCheckboxDis1" aria-labelledby="testCheckbox" />
 			</div>
 
 			<div class="flex items-center pt-4">
-				<hlm-checkbox disabled id="testCheckboxDis2" />
+				<hlm-checkbox disabled inputId="testCheckboxDis2" />
 				<label class="ml-2" for="testCheckboxDis2" hlmLabel>Test Checkbox 2</label>
 			</div>
 
 			<div class="flex items-center pt-4">
-				<hlm-checkbox id="testCheckboxDis3" />
+				<hlm-checkbox inputId="testCheckboxDis3" />
 				<label class="ml-2" for="testCheckboxDis3" hlmLabel>Test Checkbox 3 enabled</label>
 			</div>
 		`,
@@ -153,7 +158,12 @@ export const Indeterminate: Story = {
 		template: /* HTML */ `
 			<div id="checkbox-label" class="flex items-center">
 				<label id="testCheckbox" for="testCheckboxIndeterminate" hlmLabel>Test Checkbox</label>
-				<hlm-checkbox indeterminate="true" class="ml-2" id="testCheckboxIndeterminate" aria-labelledby="testCheckbox" />
+				<hlm-checkbox
+					indeterminate="true"
+					class="ml-2"
+					inputId="testCheckboxIndeterminate"
+					aria-labelledby="testCheckbox"
+				/>
 			</div>
 		`,
 	}),

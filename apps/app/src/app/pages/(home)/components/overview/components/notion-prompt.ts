@@ -169,7 +169,12 @@ type GroupedItems = {
 								<label for="web-search" (click)="$event.stopPropagation()" class="flex flex-1 items-center">
 									<ng-icon hlm name="lucideGlobe" class="mr-2" size="sm" />
 									Web Search
-									<hlm-switch id="web-search" class="ml-auto" [checked]="true" (click)="$event.stopPropagation()" />
+									<hlm-switch
+										inputId="web-search"
+										class="ml-auto"
+										[checked]="true"
+										(click)="$event.stopPropagation()"
+									/>
 								</label>
 							</button>
 						</hlm-dropdown-menu-group>
@@ -180,7 +185,7 @@ type GroupedItems = {
 									<ng-icon hlm name="lucideBlocks" class="mr-2" size="sm" />
 									Apps and Integrations
 									<hlm-switch
-										id="app-integrations"
+										inputId="app-integrations"
 										class="ml-auto"
 										[checked]="true"
 										(click)="$event.stopPropagation()"

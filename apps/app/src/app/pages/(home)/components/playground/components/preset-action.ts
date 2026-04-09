@@ -43,7 +43,7 @@ import { HlmSwitch } from '@spartan-ng/helm/switch';
 				<div class="py-6">
 					<h4 class="text-muted-foreground text-sm">Playground Warnings</h4>
 					<div class="flex items-start justify-between gap-4 pt-3">
-						<hlm-switch name="show" id="show" [checked]="true" />
+						<hlm-switch name="show" inputId="show" [checked]="true" />
 						<label hlmLabel class="grid gap-1 font-normal" for="show">
 							<span class="font-semibold">Show a warning when content is flagged</span>
 							<span class="text-muted-foreground text-sm">

@@ -36,7 +36,7 @@ import { HlmSwitch } from '@spartan-ng/helm/switch';
 									<div hlmFieldTitle>Kubernetes</div>
 									<div hlmFieldDescription>Run GPU workloads on a K8s configured cluster.</div>
 								</div>
-								<hlm-radio value="kubernetes" id="kubernetes">
+								<hlm-radio value="kubernetes" inputId="kubernetes">
 									<hlm-radio-indicator indicator />
 								</hlm-radio>
 							</div>
@@ -47,7 +47,7 @@ import { HlmSwitch } from '@spartan-ng/helm/switch';
 									<div hlmFieldTitle>Virtual Machine</div>
 									<div hlmFieldDescription>Access a VM configured cluster to run GPU workloads.</div>
 								</div>
-								<hlm-radio value="virtual-machine" id="virtual-machine">
+								<hlm-radio value="virtual-machine" inputId="virtual-machine">
 									<hlm-radio-indicator indicator />
 								</hlm-radio>
 							</div>
@@ -77,7 +77,7 @@ import { HlmSwitch } from '@spartan-ng/helm/switch';
 					<label hlmFieldLabel for="exp-wallpaper-tinting">Wallpaper Tinting</label>
 					<p hlmFieldDescription>Allow the wallpaper to be tinted.</p>
 				</div>
-				<hlm-switch id="exp-wallpaper-tinting" />
+				<hlm-switch inputId="exp-wallpaper-tinting" />
 			</div>
 		</fieldset>
 	`,

@@ -30,7 +30,6 @@ export const HLM_SWITCH_VALUE_ACCESSOR = {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'contents',
-		'[attr.id]': 'null',
 		'[attr.aria-label]': 'null',
 		'[attr.aria-labelledby]': 'null',
 		'[attr.aria-describedby]': 'null',
@@ -42,7 +41,7 @@ export const HLM_SWITCH_VALUE_ACCESSOR = {
 			(checkedChange)="handleChange($event)"
 			(touched)="_onTouched?.()"
 			[disabled]="_disabled()"
-			[id]="id()"
+			[id]="inputId()"
 			[aria-label]="ariaLabel()"
 			[aria-labelledby]="ariaLabelledby()"
 			[aria-describedby]="ariaDescribedby()"
@@ -72,7 +71,7 @@ export class HlmSwitch implements ControlValueAccessor {
 	});
 
 	/** Used to set the id on the underlying brn element. */
-	public readonly id = input<string | null>(null);
+	public readonly inputId = input<string | null>(null);
 
 	/** Used to set the aria-label attribute on the underlying brn element. */
 	public readonly ariaLabel = input<string | null>(null, { alias: 'aria-label' });

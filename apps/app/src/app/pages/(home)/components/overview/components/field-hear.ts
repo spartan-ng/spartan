@@ -27,7 +27,7 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 										>
 											<hlm-checkbox
 												class="-ml-6 -translate-x-1 rounded-full! transition-all duration-100 ease-linear data-[state=checked]:ml-0 data-[state=checked]:translate-x-0"
-												[id]="option.value"
+												[inputId]="option.value"
 												[checked]="option.value === 'social-media'"
 											/>
 											<div hlmFieldTitle>{{ option.label }}</div>

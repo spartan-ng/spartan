@@ -3,17 +3,18 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronsUpDown } from '@ng-icons/lucide';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmCollapsibleImports } from '@spartan-ng/helm/collapsible';
+import { HlmIcon } from '@spartan-ng/helm/icon';
 
 @Component({
 	selector: 'spartan-collapsible-preview',
-	imports: [HlmCollapsibleImports, HlmButtonImports, NgIcon],
+	imports: [HlmCollapsibleImports, HlmButtonImports, NgIcon, HlmIcon],
 	providers: [provideIcons({ lucideChevronsUpDown })],
 	template: `
 		<hlm-collapsible class="flex w-[350px] flex-col gap-2">
 			<div class="flex items-center justify-between gap-4 px-4">
 				<h4 class="text-sm font-semibold">&#64;peduarte starred 3 repositories</h4>
 				<button hlmCollapsibleTrigger hlmBtn variant="ghost" size="icon" class="size-8">
-					<ng-icon name="lucideChevronsUpDown" />
+					<ng-icon hlmIcon name="lucideChevronsUpDown" />
 					<span class="sr-only">Toggle</span>
 				</button>
 			</div>
@@ -29,6 +30,7 @@ export class CollapsiblePreview {}
 
 export const defaultImports = `
 import { HlmCollapsibleImports } from '@spartan-ng/helm/collapsible';
+import { HlmIcon } from '@spartan-ng/helm/icon';
 `;
 
 export const defaultSkeleton = `

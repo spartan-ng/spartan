@@ -27,7 +27,7 @@ import { PriorityIconPipe } from '../pipes/priority-icon.pipe';
 	],
 	template: `
 		<div class="flex items-center">
-			<ng-icon hlm class="text-muted-foreground mr-2" size="sm" [name]="_element.priority | priorityIcon" />
+			<ng-icon hlmIcon class="text-muted-foreground mr-2" size="sm" [name]="_element.priority | priorityIcon" />
 			{{ _element.priority }}
 		</div>
 	`,

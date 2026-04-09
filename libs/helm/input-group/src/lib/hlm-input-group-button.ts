@@ -6,10 +6,10 @@ import { cva, type VariantProps } from 'class-variance-authority';
 const inputGroupAddonVariants = cva('flex items-center gap-2 text-sm shadow-none', {
 	variants: {
 		size: {
-			xs: "h-6 gap-1 rounded-[calc(var(--radius)-5px)] px-2 has-[>ng-icon]:px-2 [&>ng-icon:not([class*='text-'])]:text-sm",
-			sm: 'h-8 gap-1.5 rounded-md px-2.5 has-[>ng-icon]:px-2.5',
-			'icon-xs': 'size-6 rounded-[calc(var(--radius)-5px)] p-0 has-[>ng-icon]:p-0',
-			'icon-sm': 'size-8 p-0 has-[>ng-icon]:p-0',
+			xs: "h-6 gap-1 rounded-[calc(var(--radius)-5px)] px-2 has-[>[hlmIcon]]:px-2 [&>[hlmIcon]:not([class*='text-'])]:text-sm",
+			sm: 'h-8 gap-1.5 rounded-md px-2.5 has-[>[hlmIcon]]:px-2.5',
+			'icon-xs': 'size-6 rounded-[calc(var(--radius)-5px)] p-0 has-[>[hlmIcon]]:p-0',
+			'icon-sm': 'size-8 p-0 has-[>[hlmIcon]]:p-0',
 		},
 	},
 	defaultVariants: {

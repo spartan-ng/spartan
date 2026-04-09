@@ -19,11 +19,11 @@ import { HlmIcon } from '@spartan-ng/helm/icon';
 			[relativeTo]="_isAbsolute() ? undefined : _activatedRoute"
 		>
 			@if (direction() === 'previous') {
-				<ng-icon hlm size="sm" name="lucideArrowLeft" />
+				<ng-icon hlmIcon size="sm" name="lucideArrowLeft" />
 			}
 			{{ label() }}
 			@if (direction() === 'next') {
-				<ng-icon hlm size="sm" name="lucideArrowRight" />
+				<ng-icon hlmIcon size="sm" name="lucideArrowRight" />
 			}
 		</a>
 	`,

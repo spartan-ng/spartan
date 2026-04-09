@@ -15,7 +15,7 @@ import { HlmInputImports } from '@spartan-ng/helm/input';
 			<span hlmButtonGroupText>https://</span>
 			<input hlmInput placeholder="Website url" class="z-10" />
 			<button hlmBtn variant="outline" size="icon">
-				<ng-icon hlm name="lucideCopy" size="sm" />
+				<ng-icon hlmIcon name="lucideCopy" size="sm" />
 			</button>
 		</div>
 	`,

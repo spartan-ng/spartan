@@ -39,15 +39,15 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 				<hlm-command-group>
 					<hlm-command-group-label>Suggestions</hlm-command-group-label>
 					<button hlm-command-item value="Calendar">
-						<ng-icon name="lucideCalendar" />
+						<ng-icon hlmIcon name="lucideCalendar" />
 						Calendar
 					</button>
 					<button hlm-command-item value="Search Emoji">
-						<ng-icon name="lucideSmile" />
+						<ng-icon hlmIcon name="lucideSmile" />
 						Search Emoji
 					</button>
 					<button hlm-command-item value="Calculator" disabled>
-						<ng-icon name="lucideCalculator" />
+						<ng-icon hlmIcon name="lucideCalculator" />
 						Calculator
 					</button>
 				</hlm-command-group>
@@ -58,17 +58,17 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 					<hlm-command-group-label>Settings</hlm-command-group-label>
 
 					<button hlm-command-item value="Profile">
-						<ng-icon name="lucideUser" />
+						<ng-icon hlmIcon name="lucideUser" />
 						Profile
 						<hlm-command-shortcut>⌘P</hlm-command-shortcut>
 					</button>
 					<button hlm-command-item value="Billing">
-						<ng-icon name="lucideWallet" />
+						<ng-icon hlmIcon name="lucideWallet" />
 						Billing
 						<hlm-command-shortcut>⌘B</hlm-command-shortcut>
 					</button>
 					<button hlm-command-item value="Settings">
-						<ng-icon name="lucideCog" />
+						<ng-icon hlmIcon name="lucideCog" />
 						Settings
 						<hlm-command-shortcut>⌘S</hlm-command-shortcut>
 					</button>
@@ -91,7 +91,7 @@ export const defaultSkeleton = `
     <hlm-command-group>
       <hlm-command-group-label>Suggestions</hlm-command-group-label>
       <button hlm-command-item value="Calendar">
-        <ng-icon name="lucideCalendar" />
+        <ng-icon hlmIcon name="lucideCalendar" />
         Calendar
       </button>
     </hlm-command-group>
@@ -99,7 +99,7 @@ export const defaultSkeleton = `
     <hlm-command-group>
       <hlm-command-group-label>Settings</hlm-command-group-label>
       <button hlm-command-item value="Profile">
-        <ng-icon name="lucideUser" />
+        <ng-icon hlmIcon name="lucideUser" />
         Profile
         <hlm-command-shortcut>⌘P</hlm-command-shortcut>
       </button>

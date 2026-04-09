@@ -101,7 +101,7 @@ export const routeMeta: RouteMeta = {
 			<div class="mt-6 flex items-center justify-end">
 				<a routerLink="/documentation/installation" variant="secondary" size="sm" hlmBtn outline="">
 					Get started with spartan/ui
-					<ng-icon hlm name="lucideChevronRight" class="ml-2" size="sm" />
+					<ng-icon hlmIcon name="lucideChevronRight" class="ml-2" size="sm" />
 				</a>
 			</div>
 
@@ -130,7 +130,7 @@ export const routeMeta: RouteMeta = {
 			<div class="mt-6 flex items-center justify-end">
 				<a routerLink="/stack" variant="secondary" size="sm" hlmBtn outline="">
 					Explore spartan/stack
-					<ng-icon hlm name="lucideChevronRight" class="ml-2" size="sm" />
+					<ng-icon hlmIcon name="lucideChevronRight" class="ml-2" size="sm" />
 				</a>
 			</div>
 

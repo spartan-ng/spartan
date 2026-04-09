@@ -10,11 +10,12 @@ import {
 } from '@ng-icons/lucide';
 import { HlmAvatarImports } from '@spartan-ng/helm/avatar';
 import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
+import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmSidebarImports, HlmSidebarService } from '@spartan-ng/helm/sidebar';
 
 @Component({
 	selector: 'spartan-nav-user',
-	imports: [HlmSidebarImports, HlmAvatarImports, NgIcon, HlmDropdownMenuImports],
+	imports: [HlmSidebarImports, HlmAvatarImports, NgIcon, HlmIcon, HlmDropdownMenuImports],
 	providers: [
 		provideIcons({
 			lucideChevronsUpDown,
@@ -39,7 +40,7 @@ import { HlmSidebarImports, HlmSidebarService } from '@spartan-ng/helm/sidebar';
 						<span class="truncate font-medium">{{ u.name }}</span>
 						<span class="truncate text-xs">{{ u.email }}</span>
 					</div>
-					<ng-icon name="lucideChevronsUpDown" class="ml-auto text-base" />
+					<ng-icon hlmIcon name="lucideChevronsUpDown" class="ml-auto text-base" />
 				</button>
 			</li>
 		</ul>
@@ -61,28 +62,28 @@ import { HlmSidebarImports, HlmSidebarService } from '@spartan-ng/helm/sidebar';
 				<hlm-dropdown-menu-separator />
 				<hlm-dropdown-menu-group>
 					<button hlmDropdownMenuItem>
-						<ng-icon name="lucideSparkles" />
+						<ng-icon hlmIcon name="lucideSparkles" />
 						Upgrade to Pro
 					</button>
 				</hlm-dropdown-menu-group>
 				<hlm-dropdown-menu-separator />
 				<hlm-dropdown-menu-group>
 					<button hlmDropdownMenuItem>
-						<ng-icon name="lucideBadgeCheck" />
+						<ng-icon hlmIcon name="lucideBadgeCheck" />
 						Account
 					</button>
 					<button hlmDropdownMenuItem>
-						<ng-icon name="lucideCreditCard" />
+						<ng-icon hlmIcon name="lucideCreditCard" />
 						Billing
 					</button>
 					<button hlmDropdownMenuItem>
-						<ng-icon name="lucideBell" />
+						<ng-icon hlmIcon name="lucideBell" />
 						Notifications
 					</button>
 				</hlm-dropdown-menu-group>
 				<hlm-dropdown-menu-separator />
 				<button hlmDropdownMenuItem>
-					<ng-icon name="lucideLogOut" />
+					<ng-icon hlmIcon name="lucideLogOut" />
 					Log out
 				</button>
 			</hlm-dropdown-menu>

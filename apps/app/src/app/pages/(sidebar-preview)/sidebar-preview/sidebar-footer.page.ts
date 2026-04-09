@@ -25,7 +25,7 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 						<li hlmSidebarMenuItem>
 							<button hlmSidebarMenuButton [hlmDropdownMenuTrigger]="menu">
 								Select Workspace
-								<ng-icon hlm name="lucideChevronUp" class="ml-auto" />
+								<ng-icon hlmIcon name="lucideChevronUp" class="ml-auto" />
 							</button>
 							<ng-template #menu>
 								<hlm-dropdown-menu class="w-60">

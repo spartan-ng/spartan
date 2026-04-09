@@ -22,7 +22,7 @@ import { Preset } from '../data/presets';
 				class="w-[300px] flex-1 justify-between md:max-w-[200px] lg:max-w-[300px]"
 			>
 				{{ selectedPreset() ? selectedPreset()?.name : 'Load a preset...' }}
-				<ng-icon hlm name="lucideChevronsUpDown" size="sm" />
+				<ng-icon hlmIcon name="lucideChevronsUpDown" size="sm" />
 			</button>
 			<hlm-popover-content class="w-[300px] p-0" *hlmPopoverPortal="let ctx">
 				<hlm-command>

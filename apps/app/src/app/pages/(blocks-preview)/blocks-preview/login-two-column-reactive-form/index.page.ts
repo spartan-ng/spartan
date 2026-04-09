@@ -2,11 +2,12 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/
 import { RouterLink } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideGalleryVerticalEnd } from '@ng-icons/lucide';
+import { HlmIcon } from '@spartan-ng/helm/icon';
 import { LoginForm } from './login-form';
 
 @Component({
 	selector: 'spartan-login-two-column-reactive-form',
-	imports: [RouterLink, LoginForm, NgIcon],
+	imports: [RouterLink, LoginForm, NgIcon, HlmIcon],
 	providers: [provideIcons({ lucideGalleryVerticalEnd })],
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -20,7 +21,7 @@ import { LoginForm } from './login-form';
 				<div class="flex justify-center gap-2 md:justify-start">
 					<a routerLink="." class="flex items-center gap-2 font-medium">
 						<div class="bg-primary text-primary-foreground flex size-6 items-center justify-center rounded-md">
-							<ng-icon name="lucideGalleryVerticalEnd" class="text-base" />
+							<ng-icon hlmIcon name="lucideGalleryVerticalEnd" class="text-base" />
 						</div>
 						Acme Inc.
 					</a>

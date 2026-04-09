@@ -53,7 +53,7 @@ let nextId = 0;
 					}
 				</span>
 
-				<ng-icon hlm size="sm" name="lucideChevronDown" />
+				<ng-icon hlmIcon size="sm" name="lucideChevronDown" />
 			</button>
 
 			<hlm-popover-content class="w-auto p-0" *hlmPopoverPortal="let ctx">

@@ -14,7 +14,7 @@ import type { DashboardData } from './dashboard-data.model';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<button hlmBtn variant="ghost" class="h-6 w-6 p-0.5" align="end" [hlmDropdownMenuTrigger]="menu">
-			<ng-icon hlm size="sm" name="lucideEllipsis" />
+			<ng-icon hlmIcon size="sm" name="lucideEllipsis" />
 		</button>
 		<ng-template #menu>
 			<hlm-dropdown-menu>

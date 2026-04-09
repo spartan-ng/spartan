@@ -55,7 +55,7 @@ export type Payment = {
 
 			<button hlmBtn variant="outline" align="end" [hlmDropdownMenuTrigger]="menu">
 				Columns
-				<ng-icon hlm name="lucideChevronDown" class="ml-2" size="sm" />
+				<ng-icon hlmIcon name="lucideChevronDown" class="ml-2" size="sm" />
 			</button>
 			<ng-template #menu>
 				<hlm-dropdown-menu class="w-32">

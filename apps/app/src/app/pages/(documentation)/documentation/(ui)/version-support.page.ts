@@ -135,7 +135,7 @@ export const routeMeta: RouteMeta = {
 					class="${hlmCode} inline-flex items-center gap-1 underline"
 				>
 					discussion on GitHub
-					<ng-icon name="lucideExternalLink" hlm size="sm" />
+					<ng-icon name="lucideExternalLink" hlmIcon size="sm" />
 				</a>
 				or join our
 				<a
@@ -144,7 +144,7 @@ export const routeMeta: RouteMeta = {
 					class="${hlmCode} inline-flex items-center gap-1 underline"
 				>
 					Discord community
-					<ng-icon name="lucideExternalLink" hlm size="sm" />
+					<ng-icon name="lucideExternalLink" hlmIcon size="sm" />
 				</a>
 				to connect with the team and other users.
 			</p>

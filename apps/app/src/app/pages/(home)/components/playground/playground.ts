@@ -76,7 +76,7 @@ import { PRESETS_DATA } from './data/presets';
 								<button hlmBtn>Submit</button>
 								<button hlmBtn variant="secondary" size="icon">
 									<span class="sr-only">Show history</span>
-									<ng-icon hlm name="tablerRotate" />
+									<ng-icon hlmIcon name="tablerRotate" />
 								</button>
 							</div>
 						</div>
@@ -96,7 +96,7 @@ import { PRESETS_DATA } from './data/presets';
 								<button hlmBtn>Submit</button>
 								<button hlmBtn variant="secondary" size="icon">
 									<span class="sr-only">Show history</span>
-									<ng-icon hlm name="tablerRotate" />
+									<ng-icon hlmIcon name="tablerRotate" />
 								</button>
 							</div>
 						</div>
@@ -122,7 +122,7 @@ import { PRESETS_DATA } from './data/presets';
 								<button hlmBtn>Submit</button>
 								<button hlmBtn variant="secondary" size="icon">
 									<span class="sr-only">Show history</span>
-									<ng-icon hlm name="tablerRotate" />
+									<ng-icon hlmIcon name="tablerRotate" />
 								</button>
 							</div>
 						</div>
@@ -133,13 +133,13 @@ import { PRESETS_DATA } from './data/presets';
 						<span hlmLabel>Mode</span>
 						<hlm-tabs-list aria-label="tabs example" class="w-full">
 							<button hlmTabsTrigger="complete">
-								<ng-icon hlm name="tablerMessageCheck" size="sm" />
+								<ng-icon hlmIcon name="tablerMessageCheck" size="sm" />
 							</button>
 							<button hlmTabsTrigger="insert">
-								<ng-icon hlm name="tablerBrowserPlus" size="sm" />
+								<ng-icon hlmIcon name="tablerBrowserPlus" size="sm" />
 							</button>
 							<button hlmTabsTrigger="edit">
-								<ng-icon hlm name="tablerEdit" size="sm" />
+								<ng-icon hlmIcon name="tablerEdit" size="sm" />
 							</button>
 						</hlm-tabs-list>
 					</div>

@@ -58,11 +58,11 @@ import { HeaderMobileNav } from './header-mobile-nav';
 					<hlm-separator orientation="vertical" class="!h-4" />
 					<a href="https://twitter.com/goetzrobin" target="_blank" size="sm" variant="ghost" hlmBtn>
 						<span class="sr-only">Twitter</span>
-						<ng-icon hlm name="lucideTwitter" size="sm" />
+						<ng-icon hlmIcon name="lucideTwitter" size="sm" />
 					</a>
 					<hlm-separator orientation="vertical" class="!h-4" />
 					<a href="https://github.com/spartan-ng/spartan" target="_blank" size="sm" variant="ghost" hlmBtn>
-						<ng-icon hlm name="lucideGithub" size="sm" />
+						<ng-icon hlmIcon name="lucideGithub" size="sm" />
 						<span class="text-muted-foreground text-xs">{{ _stars() }}</span>
 					</a>
 					<hlm-separator orientation="vertical" class="!h-4" />

@@ -15,7 +15,7 @@ import { HlmTooltipImports } from '@spartan-ng/helm/tooltip';
 		<div hlmButtonGroup class="[--radius:9999rem]">
 			<div hlmButtonGroup>
 				<button hlmBtn variant="outline" size="icon">
-					<ng-icon hlm name="lucidePlus" size="sm" />
+					<ng-icon hlmIcon name="lucidePlus" size="sm" />
 				</button>
 			</div>
 			<div hlmButtonGroup>
@@ -35,7 +35,7 @@ import { HlmTooltipImports } from '@spartan-ng/helm/tooltip';
 							class="data-[active=true]:bg-orange-100 data-[active=true]:text-orange-700 dark:data-[active=true]:bg-orange-800 dark:data-[active=true]:text-orange-100"
 							(click)="voiceEnabled.set(!voiceEnabled())"
 						>
-							<ng-icon hlm name="lucideAudioLines" size="sm" />
+							<ng-icon hlmIcon name="lucideAudioLines" size="sm" />
 						</button>
 					</div>
 				</div>

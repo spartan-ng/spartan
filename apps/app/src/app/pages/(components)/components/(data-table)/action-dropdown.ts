@@ -14,7 +14,7 @@ import type { Payment } from './data-table.preview';
 	template: `
 		<button hlmBtn variant="ghost" class="h-8 w-8 p-0" [hlmDropdownMenuTrigger]="ActionDropDownMenu">
 			<span class="sr-only">Open menu</span>
-			<ng-icon hlm size="sm" name="lucideEllipsis" />
+			<ng-icon hlmIcon size="sm" name="lucideEllipsis" />
 		</button>
 
 		<ng-template #ActionDropDownMenu>

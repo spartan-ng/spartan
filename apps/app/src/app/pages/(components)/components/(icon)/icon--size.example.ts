@@ -9,11 +9,11 @@ import { HlmIcon } from '@spartan-ng/helm/icon';
 	providers: [provideIcons({ lucideChevronRight })],
 	template: `
 		<div class="flex items-center gap-6">
-			<ng-icon hlm size="sm" name="lucideChevronRight" />
-			<ng-icon hlm name="lucideChevronRight" />
-			<ng-icon hlm size="lg" name="lucideChevronRight" />
-			<ng-icon hlm size="xl" name="lucideChevronRight" />
-			<ng-icon hlm size="64px" name="lucideChevronRight" />
+			<ng-icon hlmIcon size="sm" name="lucideChevronRight" />
+			<ng-icon hlmIcon name="lucideChevronRight" />
+			<ng-icon hlmIcon size="lg" name="lucideChevronRight" />
+			<ng-icon hlmIcon size="xl" name="lucideChevronRight" />
+			<ng-icon hlmIcon size="64px" name="lucideChevronRight" />
 		</div>
 	`,
 })

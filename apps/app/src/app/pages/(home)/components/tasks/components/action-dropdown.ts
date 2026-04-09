@@ -13,7 +13,7 @@ import type { Task } from '../services/tasks.models';
 	providers: [provideIcons({ lucideEllipsis })],
 	template: `
 		<button hlmBtn variant="ghost" class="h-6 w-6 p-0.5" align="end" [hlmDropdownMenuTrigger]="menu">
-			<ng-icon hlm size="sm" name="lucideEllipsis" />
+			<ng-icon hlmIcon size="sm" name="lucideEllipsis" />
 		</button>
 		<ng-template #menu>
 			<hlm-dropdown-menu>
@@ -28,7 +28,7 @@ import type { Task } from '../services/tasks.models';
 				<hlm-dropdown-menu-group>
 					<button hlmDropdownMenuItem [hlmDropdownMenuTrigger]="labels" side="left" align="end">
 						Labels
-						<ng-icon hlm name="lucideChevronRight" class="ml-auto" size="sm" />
+						<ng-icon hlmIcon name="lucideChevronRight" class="ml-auto" size="sm" />
 					</button>
 				</hlm-dropdown-menu-group>
 				<hlm-dropdown-menu-separator />

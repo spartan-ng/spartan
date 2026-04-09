@@ -14,7 +14,7 @@ import { HlmInputImports } from '@spartan-ng/helm/input';
 		<div hlmButtonGroup>
 			<input hlmInput placeholder="Search..." />
 			<button hlmBtn variant="outline">
-				<ng-icon hlm name="lucideSearch" size="sm" />
+				<ng-icon hlmIcon name="lucideSearch" size="sm" />
 			</button>
 		</div>
 	`,

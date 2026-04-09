@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideEarth } from '@ng-icons/lucide';
 import { HlmComboboxImports } from '@spartan-ng/helm/combobox';
+import { HlmIcon } from '@spartan-ng/helm/icon';
 
 type Country = {
 	code: string;
@@ -13,14 +14,14 @@ type Country = {
 
 @Component({
 	selector: 'spartan-combobox-popup-custom-preview',
-	imports: [HlmComboboxImports, NgIcon],
+	imports: [HlmComboboxImports, NgIcon, HlmIcon],
 	providers: [provideIcons({ lucideEarth })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-combobox autoFocus="first-tabbable">
 			<hlm-combobox-trigger class="w-64 justify-between font-normal">
 				<hlm-combobox-placeholder>
-					<ng-icon name="lucideEarth" />
+					<ng-icon hlmIcon name="lucideEarth" />
 					Select a country
 				</hlm-combobox-placeholder>
 				<ng-template hlmComboboxValueTemplate let-value>

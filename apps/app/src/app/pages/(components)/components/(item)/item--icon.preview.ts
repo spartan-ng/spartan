@@ -19,7 +19,7 @@ import { HlmItemImports } from '@spartan-ng/helm/item';
 	template: `
 		<div hlmItem variant="outline">
 			<div hlmItemMedia variant="icon">
-				<ng-icon hlm name="lucideShieldAlert" size="sm" />
+				<ng-icon hlmIcon name="lucideShieldAlert" size="sm" />
 			</div>
 			<div hlmItemContent>
 				<div hlmItemTitle>Security Alert</div>

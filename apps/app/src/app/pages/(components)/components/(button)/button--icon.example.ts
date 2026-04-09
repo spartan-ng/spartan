@@ -10,7 +10,7 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 	providers: [provideIcons({ lucideCircleFadingArrowUp })],
 	template: `
 		<button hlmBtn size="icon" variant="outline">
-			<ng-icon name="lucideCircleFadingArrowUp" />
+			<ng-icon hlmIcon name="lucideCircleFadingArrowUp" />
 		</button>
 	`,
 })

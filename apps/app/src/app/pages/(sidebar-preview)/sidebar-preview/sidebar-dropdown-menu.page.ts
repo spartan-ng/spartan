@@ -31,11 +31,11 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 								@for (project of _projects; track project) {
 									<li hlmSidebarMenuItem>
 										<button hlmSidebarMenuButton>
-											<ng-icon hlm [name]="project.icon" />
+											<ng-icon hlmIcon [name]="project.icon" />
 											<span>{{ project.name }}</span>
 										</button>
 										<button hlmSidebarMenuAction [hlmDropdownMenuTrigger]="menu" side="right" align="start">
-											<ng-icon hlm name="lucideEllipsis" />
+											<ng-icon hlmIcon name="lucideEllipsis" />
 											<span class="sr-only">More</span>
 										</button>
 

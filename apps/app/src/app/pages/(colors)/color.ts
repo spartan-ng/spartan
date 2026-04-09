@@ -26,9 +26,9 @@ import { ColorFormat } from './format-color';
 		@let col = color();
 
 		@if (this._isCopied()) {
-			<ng-icon hlm name="lucideCheck" class="icon group-hover:opacity-100" size="sm" />
+			<ng-icon hlmIcon name="lucideCheck" class="icon group-hover:opacity-100" size="sm" />
 		} @else {
-			<ng-icon hlm name="lucideClipboard" class="icon group-hover:opacity-100" size="sm" />
+			<ng-icon hlmIcon name="lucideClipboard" class="icon group-hover:opacity-100" size="sm" />
 		}
 
 		<div

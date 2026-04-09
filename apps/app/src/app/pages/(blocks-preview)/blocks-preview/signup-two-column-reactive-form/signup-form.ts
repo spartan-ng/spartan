@@ -12,11 +12,12 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { remixGithubFill } from '@ng-icons/remixicon';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
+import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmInputImports } from '@spartan-ng/helm/input';
 
 @Component({
 	selector: 'spartan-two-column-signup-form',
-	imports: [ReactiveFormsModule, RouterLink, HlmFieldImports, HlmInputImports, HlmButtonImports, NgIcon],
+	imports: [ReactiveFormsModule, RouterLink, HlmFieldImports, HlmInputImports, HlmButtonImports, NgIcon, HlmIcon],
 	providers: [provideIcons({ remixGithubFill })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
@@ -73,7 +74,7 @@ import { HlmInputImports } from '@spartan-ng/helm/input';
 				<hlm-field-separator>Or continue with</hlm-field-separator>
 				<hlm-field>
 					<button hlmBtn variant="outline" type="button">
-						<ng-icon name="remixGithubFill" class="text-xl" />
+						<ng-icon hlmIcon name="remixGithubFill" class="text-xl" />
 						Login with GitHub
 					</button>
 					<p hlmFieldDescription class="text-center">

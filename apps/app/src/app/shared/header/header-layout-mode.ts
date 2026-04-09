@@ -11,7 +11,7 @@ import { ThemeService } from '../theme.service';
 	providers: [provideIcons({ lucideGalleryHorizontal })],
 	template: `
 		<button size="sm" variant="ghost" hlmBtn (click)="_toggleLayout()">
-			<ng-icon hlm name="lucideGalleryHorizontal" size="sm" />
+			<ng-icon hlmIcon name="lucideGalleryHorizontal" size="sm" />
 			<span class="sr-only">Set Layout</span>
 		</button>
 	`,

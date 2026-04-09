@@ -11,7 +11,7 @@ import { ThemeService } from '../theme.service';
 	providers: [provideIcons({ lucideMoon })],
 	template: `
 		<button size="sm" variant="ghost" hlmBtn (click)="toggleMode()">
-			<ng-icon hlm [svg]="_themeIcon" size="19px" />
+			<ng-icon hlmIcon [svg]="_themeIcon" size="19px" />
 			<span class="sr-only">Toggle theme</span>
 		</button>
 	`,

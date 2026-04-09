@@ -2,16 +2,17 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideGithub } from '@ng-icons/lucide';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmIcon } from '@spartan-ng/helm/icon';
 
 @Component({
 	selector: 'spartan-open-in-button',
-	imports: [HlmButtonImports, NgIcon],
+	imports: [HlmButtonImports, NgIcon, HlmIcon],
 	providers: [provideIcons({ lucideGithub })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<a hlmBtn size="sm" [href]="_url()" target="_blank">
 			Open in
-			<ng-icon name="lucideGithub" />
+			<ng-icon hlmIcon name="lucideGithub" />
 		</a>
 	`,
 })

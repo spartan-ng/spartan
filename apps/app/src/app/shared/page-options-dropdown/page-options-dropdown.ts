@@ -14,16 +14,16 @@ import { AiChatLinkDirective } from './ai-chat-link-directive';
 	template: `
 		<button hlmBtn size="sm" variant="secondary" side="bottom" align="end" [hlmDropdownMenuTrigger]="menu">
 			AI Assist
-			<ng-icon hlm name="lucideChevronDown" />
+			<ng-icon hlmIcon name="lucideChevronDown" />
 		</button>
 		<ng-template #menu>
 			<hlm-dropdown-menu>
 				<a hlmDropdownMenuItem spartanAiChatLink aiType="chatgpt">
-					<ng-icon hlm name="remixOpenaiFill" />
+					<ng-icon hlmIcon name="remixOpenaiFill" />
 					Open in ChatGPT
 				</a>
 				<a hlmDropdownMenuItem spartanAiChatLink aiType="claude">
-					<ng-icon hlm name="remixClaudeFill" />
+					<ng-icon hlmIcon name="remixClaudeFill" />
 					Open in Claude
 				</a>
 			</hlm-dropdown-menu>

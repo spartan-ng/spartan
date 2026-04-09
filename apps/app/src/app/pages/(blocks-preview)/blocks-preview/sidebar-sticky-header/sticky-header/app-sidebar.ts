@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCommand } from '@ng-icons/lucide';
+import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 import { data } from '../../shared/sidebar/data';
 import { NavMain } from '../../shared/sidebar/nav-main';
@@ -10,7 +11,7 @@ import { NavUser } from '../../shared/sidebar/nav-user';
 
 @Component({
 	selector: 'spartan-app-sidebar-sticky',
-	imports: [HlmSidebarImports, NgIcon, NavMain, NavProjects, NavUser, NavSecondary],
+	imports: [HlmSidebarImports, NgIcon, HlmIcon, NavMain, NavProjects, NavUser, NavSecondary],
 	providers: [provideIcons({ lucideCommand })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
@@ -25,7 +26,7 @@ import { NavUser } from '../../shared/sidebar/nav-user';
 									<div
 										class="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg"
 									>
-										<ng-icon name="lucideCommand" class="text-base" />
+										<ng-icon hlmIcon name="lucideCommand" class="text-base" />
 									</div>
 									<div class="grid flex-1 text-left text-sm leading-tight">
 										<span class="truncate font-medium">Acme Inc</span>

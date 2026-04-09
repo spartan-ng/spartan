@@ -165,7 +165,7 @@ import { TypeCell } from './type-cell';
 								[disabled]="!table.getCanPreviousPage()"
 								(click)="table.firstPage()"
 							>
-								<ng-icon hlm name="tablerChevronsLeft" size="sm" />
+								<ng-icon hlmIcon name="tablerChevronsLeft" size="sm" />
 							</button>
 							<button
 								size="icon-sm"
@@ -174,7 +174,7 @@ import { TypeCell } from './type-cell';
 								[disabled]="!table.getCanPreviousPage()"
 								(click)="table.previousPage()"
 							>
-								<ng-icon hlm name="tablerChevronLeft" size="sm" />
+								<ng-icon hlmIcon name="tablerChevronLeft" size="sm" />
 							</button>
 							<button
 								size="icon-sm"
@@ -183,7 +183,7 @@ import { TypeCell } from './type-cell';
 								[disabled]="!table.getCanNextPage()"
 								(click)="table.nextPage()"
 							>
-								<ng-icon hlm name="tablerChevronRight" size="sm" />
+								<ng-icon hlmIcon name="tablerChevronRight" size="sm" />
 							</button>
 							<button
 								size="icon-sm"
@@ -192,7 +192,7 @@ import { TypeCell } from './type-cell';
 								[disabled]="!table.getCanNextPage()"
 								(click)="table.lastPage()"
 							>
-								<ng-icon hlm name="tablerChevronsRight" size="sm" />
+								<ng-icon hlmIcon name="tablerChevronsRight" size="sm" />
 							</button>
 						</div>
 					</div>

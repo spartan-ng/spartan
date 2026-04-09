@@ -25,7 +25,7 @@ import { BreadcrumbSharedService } from './breadcrumb-shared.service';
 						{{ breadcrumbs[0].label }}
 					</a>
 					@for (breadcrumb of breadcrumbs.slice(1, breadcrumbs.length); track breadcrumb; let last = $last) {
-						<ng-icon hlm size="sm" name="lucideChevronRight" />
+						<ng-icon hlmIcon size="sm" name="lucideChevronRight" />
 						<a
 							class="focus-visible:ring-ring rounded focus-visible:ring-2 focus-visible:outline-none"
 							[class]="last ? 'text-foreground' : 'text-muted-foreground'"

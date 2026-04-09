@@ -27,26 +27,26 @@ import { HlmToasterImports } from '@spartan-ng/helm/sonner';
 					<div hlmSidebarGroup>
 						<div hlmSidebarGroupLabel>Projects</div>
 						<button hlmSidebarGroupAction title="Add Project" (click)="_onAddProject()">
-							<ng-icon hlm name="lucidePlus" />
+							<ng-icon hlmIcon name="lucidePlus" />
 							<span class="sr-only">Add Project</span>
 						</button>
 						<div hlmSidebarGroupContent>
 							<ul hlmSidebarMenu>
 								<li hlmSidebarMenuItem>
 									<button hlmSidebarMenuButton>
-										<ng-icon hlm name="lucideFrame" />
+										<ng-icon hlmIcon name="lucideFrame" />
 										<span>Design Engineering</span>
 									</button>
 								</li>
 								<li hlmSidebarMenuItem>
 									<button hlmSidebarMenuButton>
-										<ng-icon hlm name="lucideChartPie" />
+										<ng-icon hlmIcon name="lucideChartPie" />
 										<span>Sales & Marketing</span>
 									</button>
 								</li>
 								<li hlmSidebarMenuItem>
 									<button hlmSidebarMenuButton>
-										<ng-icon hlm name="lucideMap" />
+										<ng-icon hlmIcon name="lucideMap" />
 										<span>Travel</span>
 									</button>
 								</li>

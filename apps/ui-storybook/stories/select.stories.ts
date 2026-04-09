@@ -5,6 +5,7 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCitrus } from '@ng-icons/lucide';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
+import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmLabel } from '@spartan-ng/helm/label';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
 import { type Meta, type StoryObj, argsToTemplate, moduleMetadata } from '@storybook/angular';
@@ -33,6 +34,7 @@ const meta: Meta<BrnSelectStoryArgs> = {
 				HlmButton,
 				HlmLabel,
 				NgIcon,
+				HlmIcon,
 			],
 			providers: [provideIcons({ lucideCitrus })],
 		}),
@@ -607,7 +609,7 @@ export const CustomPlaceholder: Story = {
 			<hlm-select class="inline-block" ${argsToTemplate(args, { exclude: ['value'] })}>
 				<hlm-select-trigger class="w-56">
 					<hlm-select-placeholder>
-						<ng-icon name="lucideCitrus" />
+						<ng-icon hlmIcon name="lucideCitrus" />
 						Select a fruit
 					</hlm-select-placeholder>
 					<hlm-select-value />
@@ -630,7 +632,7 @@ export const CustomPlaceholder: Story = {
 export const WithLabelAndForm: Story = {
 	render: () => ({
 		moduleMetadata: {
-			imports: [LabelAndForm],
+			imports: [LabelAndForm, HlmIcon],
 		},
 		template: /* HTML */ '<label-and-form-component/>',
 	}),
@@ -639,7 +641,7 @@ export const WithLabelAndForm: Story = {
 	selector: 'label-and-form-component',
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [FormsModule, ReactiveFormsModule, HlmSelectImports, HlmLabel, HlmButton],
+	imports: [FormsModule, ReactiveFormsModule, HlmSelectImports, HlmLabel, HlmButton, HlmIcon],
 	providers: [],
 	host: {
 		class: '',
@@ -677,7 +679,7 @@ class LabelAndForm {
 export const DynamicOptionsMultiSelect: Story = {
 	render: () => ({
 		moduleMetadata: {
-			imports: [DynamicOptionsMultiSelectComponent],
+			imports: [DynamicOptionsMultiSelectComponent, HlmIcon],
 		},
 		template: /* HTML */ '<dynamic-options-multi-select-component/>',
 	}),
@@ -686,7 +688,7 @@ export const DynamicOptionsMultiSelect: Story = {
 	selector: 'dynamic-options-multi-select-component',
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [FormsModule, ReactiveFormsModule, HlmSelectImports, HlmLabel, HlmButton, JsonPipe],
+	imports: [FormsModule, ReactiveFormsModule, HlmSelectImports, HlmLabel, HlmButton, JsonPipe, HlmIcon],
 	providers: [],
 	host: {
 		class: '',

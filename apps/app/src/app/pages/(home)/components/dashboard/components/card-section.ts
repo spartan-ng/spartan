@@ -26,7 +26,7 @@ import { HlmIcon } from '@spartan-ng/helm/icon';
 
 					<div hlmCardAction>
 						<span hlmBadge variant="outline">
-							<ng-icon hlm name="tablerTrendingUp" size="xs" />
+							<ng-icon hlmIcon name="tablerTrendingUp" size="xs" />
 							+12.5%
 						</span>
 					</div>
@@ -34,7 +34,7 @@ import { HlmIcon } from '@spartan-ng/helm/icon';
 				<div hlmCardFooter class="flex-col items-start gap-1.5 text-sm">
 					<div class="line-clamp-1 flex gap-2 font-medium">
 						Trending up this month
-						<ng-icon hlm name="tablerTrendingUp" size="sm" />
+						<ng-icon hlmIcon name="tablerTrendingUp" size="sm" />
 					</div>
 					<div class="text-muted-foreground">Visitors for the last 6 months</div>
 				</div>
@@ -46,7 +46,7 @@ import { HlmIcon } from '@spartan-ng/helm/icon';
 
 					<div hlmCardAction>
 						<span hlmBadge variant="outline">
-							<ng-icon hlm name="tablerTrendingDown" size="xs" />
+							<ng-icon hlmIcon name="tablerTrendingDown" size="xs" />
 							-20.4%
 						</span>
 					</div>
@@ -54,7 +54,7 @@ import { HlmIcon } from '@spartan-ng/helm/icon';
 				<div hlmCardFooter class="flex-col items-start gap-1.5 text-sm">
 					<div class="line-clamp-1 flex gap-2 font-medium">
 						Down 20.4% this month
-						<ng-icon hlm name="tablerTrendingDown" size="sm" />
+						<ng-icon hlmIcon name="tablerTrendingDown" size="sm" />
 					</div>
 					<div class="text-muted-foreground">Acquisition needs attention</div>
 				</div>
@@ -66,7 +66,7 @@ import { HlmIcon } from '@spartan-ng/helm/icon';
 
 					<div hlmCardAction>
 						<span hlmBadge variant="outline">
-							<ng-icon hlm name="tablerTrendingUp" size="xs" />
+							<ng-icon hlmIcon name="tablerTrendingUp" size="xs" />
 							+12.5%
 						</span>
 					</div>
@@ -74,7 +74,7 @@ import { HlmIcon } from '@spartan-ng/helm/icon';
 				<div hlmCardFooter class="flex-col items-start gap-1.5 text-sm">
 					<div class="line-clamp-1 flex gap-2 font-medium">
 						Strong user retention
-						<ng-icon hlm name="tablerTrendingUp" size="sm" />
+						<ng-icon hlmIcon name="tablerTrendingUp" size="sm" />
 					</div>
 					<div class="text-muted-foreground">Engagement exceed targets</div>
 				</div>
@@ -86,7 +86,7 @@ import { HlmIcon } from '@spartan-ng/helm/icon';
 
 					<div hlmCardAction>
 						<span hlmBadge variant="outline">
-							<ng-icon hlm name="tablerTrendingUp" size="xs" />
+							<ng-icon hlmIcon name="tablerTrendingUp" size="xs" />
 							4.5%
 						</span>
 					</div>
@@ -95,7 +95,7 @@ import { HlmIcon } from '@spartan-ng/helm/icon';
 					<div class="line-clamp-1 flex gap-2 font-medium">
 						Steady performance increase
 
-						<ng-icon hlm name="tablerTrendingUp" size="sm" />
+						<ng-icon hlmIcon name="tablerTrendingUp" size="sm" />
 					</div>
 					<div class="text-muted-foreground">Meets growth projections</div>
 				</div>

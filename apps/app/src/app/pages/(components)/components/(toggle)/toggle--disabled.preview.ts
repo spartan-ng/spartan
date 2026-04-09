@@ -10,7 +10,7 @@ import { HlmToggleImports } from '@spartan-ng/helm/toggle';
 	providers: [provideIcons({ lucideUnderline })],
 	template: `
 		<button hlmToggle aria-label="Toggle underline" disabled>
-			<ng-icon hlm size="sm" name="lucideUnderline" />
+			<ng-icon hlmIcon size="sm" name="lucideUnderline" />
 		</button>
 	`,
 })

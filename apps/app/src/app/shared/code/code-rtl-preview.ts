@@ -4,6 +4,7 @@ import { lucideInfo } from '@ng-icons/lucide';
 import { StyleService } from '@spartan-ng/app/app/shared/style.service';
 import { TranslateService } from '@spartan-ng/app/app/shared/translate.service';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
 import { HlmSeparator } from '@spartan-ng/helm/separator';
@@ -11,7 +12,7 @@ import { HlmSeparator } from '@spartan-ng/helm/separator';
 @Component({
 	// eslint-disable-next-line @angular-eslint/component-selector
 	selector: 'div[spartanRtlCodePreview]',
-	imports: [HlmSelectImports, NgIcon, HlmPopoverImports, HlmSeparator, HlmButtonImports],
+	imports: [HlmSelectImports, NgIcon, HlmIcon, HlmPopoverImports, HlmSeparator, HlmButtonImports],
 	providers: [
 		provideIcons({
 			lucideInfo,
@@ -41,7 +42,7 @@ import { HlmSeparator } from '@spartan-ng/helm/separator';
 
 			<hlm-popover align="end">
 				<button hlmPopoverTrigger hlmBtn variant="ghost">
-					<ng-icon name="lucideInfo" />
+					<ng-icon hlmIcon name="lucideInfo" />
 				</button>
 				<hlm-popover-content *hlmPopoverPortal="let ctx" class="flex w-56 flex-col gap-2.5 text-xs">
 					<div>

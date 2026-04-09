@@ -53,13 +53,13 @@ export const Default: Story = {
 			</div>
 			<a hlmItem variant="outline" size="sm">
 				<div hlmItemMedia>
-					<ng-icon hlm name="lucideBadgeCheck" size="20px" />
+					<ng-icon hlmIcon name="lucideBadgeCheck" size="20px" />
 				</div>
 				<div hlmItemContent>
 					<div hlmItemTitle>Your profile has been verified.</div>
 				</div>
 				<div hlmItemActions>
-					<ng-icon hlm name="lucideChevronRight" size="sm" />
+					<ng-icon hlmIcon name="lucideChevronRight" size="sm" />
 				</div>
 			</a>
 		</div>
@@ -85,7 +85,7 @@ export const Avatar: Story = {
 				</div>
 				<div hlmItemActions>
 					<button hlmBtn size="icon-sm" variant="outline" class="rounded-full" aria-label="Invite">
-						<ng-icon hlm name="lucidePlus" />
+						<ng-icon hlmIcon name="lucidePlus" />
 					</button>
 				</div>
 			</div>
@@ -148,7 +148,7 @@ export const Dropdown: Story = {
 		<div class="flex min-h-64 w-full max-w-md flex-col items-center gap-6 p-4">
 			<button hlmBtn variant="outline" size="sm" [hlmDropdownMenuTrigger]="peopleTemplate" class="w-fit" align="end">
 				Select
-				<ng-icon hlm name="lucideChevronDown" />
+				<ng-icon hlmIcon name="lucideChevronDown" />
 			</button>
 
 			<ng-template #peopleTemplate>
@@ -218,7 +218,7 @@ export const Group: Story = {
 
 						<div hlmItemActions>
 							<button hlmBtn variant="ghost" size="icon" class="rounded-full" aria-label="Add person">
-								<ng-icon hlm name="lucidePlus" />
+								<ng-icon hlmIcon name="lucidePlus" />
 							</button>
 						</div>
 					</div>
@@ -286,7 +286,7 @@ export const Icon: Story = {
 		<div class="flex w-full max-w-lg flex-col gap-6 p-4">
 			<div hlmItem variant="outline">
 				<div hlmItemMedia variant="icon">
-					<ng-icon hlm name="lucideShieldAlert" size="sm" />
+					<ng-icon hlmIcon name="lucideShieldAlert" size="sm" />
 				</div>
 				<div hlmItemContent>
 					<div hlmItemTitle>Security Alert</div>
@@ -369,7 +369,7 @@ export const Link: Story = {
 					<p hlmItemDescription>Learn how to get started with our components.</p>
 				</div>
 				<div hlmItemActions>
-					<ng-icon hlm name="lucideChevronRight" size="sm" />
+					<ng-icon hlmIcon name="lucideChevronRight" size="sm" />
 				</div>
 			</a>
 			<a hlmItem variant="outline" href="#" target="_blank" rel="noopener noreferrer">
@@ -378,7 +378,7 @@ export const Link: Story = {
 					<p hlmItemDescription>Opens in a new tab with security attributes.</p>
 				</div>
 				<div hlmItemActions>
-					<ng-icon hlm name="lucideExternalLink" size="sm" />
+					<ng-icon hlmIcon name="lucideExternalLink" size="sm" />
 				</div>
 			</a>
 		</div>
@@ -401,13 +401,13 @@ export const Size: Story = {
 			</div>
 			<a hlmItem variant="outline" size="sm" href="#">
 				<div hlmItemMedia>
-					<ng-icon hlm name="lucideBadgeCheck" size="20px" />
+					<ng-icon hlmIcon name="lucideBadgeCheck" size="20px" />
 				</div>
 				<div hlmItemContent>
 					<div hlmItemTitle>Your profile has been verified.</div>
 				</div>
 				<div hlmItemActions>
-					<ng-icon hlm name="lucideChevronRight" size="sm" />
+					<ng-icon hlmIcon name="lucideChevronRight" size="sm" />
 				</div>
 			</a>
 		</div>

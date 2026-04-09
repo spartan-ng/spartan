@@ -107,7 +107,7 @@ export const routeMeta: RouteMeta = {
 			<div class="my-2 flex items-center justify-end">
 				<a routerLink="/components" variant="outline" size="sm" hlmBtn outline="">
 					Check out the Components
-					<ng-icon hlm name="lucideChevronRight" class="ml-2" size="sm" />
+					<ng-icon hlmIcon name="lucideChevronRight" class="ml-2" size="sm" />
 				</a>
 			</div>
 
@@ -164,7 +164,7 @@ export const routeMeta: RouteMeta = {
 			<div class="my-2 flex items-center justify-end">
 				<a routerLink="/documentation/cli" variant="outline" size="sm" hlmBtn outline="">
 					CLI documentation
-					<ng-icon hlm name="lucideChevronRight" class="ml-2" size="sm" />
+					<ng-icon hlmIcon name="lucideChevronRight" class="ml-2" size="sm" />
 				</a>
 			</div>
 
@@ -201,7 +201,7 @@ export const routeMeta: RouteMeta = {
 			<div class="my-2 flex items-center justify-end">
 				<a routerLink="/documentation/cli" variant="outline" size="sm" hlmBtn outline="">
 					CLI documentation
-					<ng-icon hlm name="lucideChevronRight" class="ml-2" size="sm" />
+					<ng-icon hlmIcon name="lucideChevronRight" class="ml-2" size="sm" />
 				</a>
 			</div>
 

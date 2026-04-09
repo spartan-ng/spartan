@@ -3,12 +3,13 @@ import { ChangeDetectionStrategy, Component, booleanAttribute, computed, input, 
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCircleCheck, lucideInfo, lucideLoader2, lucideOctagonX, lucideTriangleAlert } from '@ng-icons/lucide';
 import { BrnSonnerImports, type ToasterProps } from '@spartan-ng/brain/sonner';
+import { HlmIcon } from '<%- importAlias %>/icon';
 import { hlm } from '<%- importAlias %>/utils';
 import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-toaster',
-	imports: [BrnSonnerImports, NgIcon],
+	imports: [BrnSonnerImports, NgIcon, HlmIcon],
 	providers: [provideIcons({ lucideCircleCheck, lucideInfo, lucideTriangleAlert, lucideOctagonX, lucideLoader2 })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
@@ -28,19 +29,19 @@ import type { ClassValue } from 'clsx';
 			[style]="userStyle()"
 		>
 			<ng-template #loadingIcon>
-				<ng-icon name="lucideLoader2" class="overflow-visible! text-base [&>svg]:motion-safe:animate-spin" />
+				<ng-icon hlmIcon name="lucideLoader2" class="overflow-visible! text-base [&>svg]:motion-safe:animate-spin" />
 			</ng-template>
 			<ng-template #successIcon>
-				<ng-icon name="lucideCircleCheck" class="overflow-visible! text-base" />
+				<ng-icon hlmIcon name="lucideCircleCheck" class="overflow-visible! text-base" />
 			</ng-template>
 			<ng-template #errorIcon>
-				<ng-icon name="lucideOctagonX" class="overflow-visible! text-base" />
+				<ng-icon hlmIcon name="lucideOctagonX" class="overflow-visible! text-base" />
 			</ng-template>
 			<ng-template #infoIcon>
-				<ng-icon name="lucideInfo" class="overflow-visible! text-base" />
+				<ng-icon hlmIcon name="lucideInfo" class="overflow-visible! text-base" />
 			</ng-template>
 			<ng-template #warningIcon>
-				<ng-icon name="lucideTriangleAlert" class="overflow-visible! text-base" />
+				<ng-icon hlmIcon name="lucideTriangleAlert" class="overflow-visible! text-base" />
 			</ng-template>
 		</brn-sonner-toaster>
 	`,

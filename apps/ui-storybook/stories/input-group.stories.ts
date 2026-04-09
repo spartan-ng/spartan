@@ -29,7 +29,7 @@ export const Default: Story = {
 			<div hlmInputGroup>
 			<input hlmInputGroupInput placeholder="Search..." />
 			<div hlmInputGroupAddon>
-				<ng-icon hlm name="lucideSearch" />
+				<ng-icon hlmIcon name="lucideSearch" />
 			</div>
 			<div hlmInputGroupAddon align="inline-end">12 results</div>
 		</div>
@@ -45,7 +45,7 @@ export const Default: Story = {
 					size="icon-xs"
 					[hlmTooltip]="'This is content in a tooltip.'"
 				>
-					<ng-icon hlm name="lucideInfo" />
+					<ng-icon hlmIcon name="lucideInfo" />
 				</button>
 			</div>
 		</div>
@@ -53,12 +53,12 @@ export const Default: Story = {
 			<textarea hlmInputGroupTextarea placeholder="Ask, Search or Chat..."></textarea>
 			<div hlmInputGroupAddon align="block-end">
 				<button hlmInputGroupButton variant="outline" class="rounded-full" size="icon-xs">
-					<ng-icon hlm name="lucidePlus" />
+					<ng-icon hlmIcon name="lucidePlus" />
 				</button>
 				<span hlmInputGroupText class="ml-auto">52% used</span>
 				<hlm-separator orientation="vertical" class="!h-4" />
 				<button hlmInputGroupButton variant="default" class="rounded-full" size="icon-xs" disabled>
-					<ng-icon hlm name="lucideArrowUp" />
+					<ng-icon hlmIcon name="lucideArrowUp" />
 					<span class="sr-only">Send</span>
 				</button>
 			</div>
@@ -67,7 +67,7 @@ export const Default: Story = {
 			<input hlmInputGroupInput placeholder="@spartan" />
 			<div hlmInputGroupAddon align="inline-end">
 				<div class="bg-primary text-primary-foreground flex size-4 items-center justify-center rounded-full">
-					<ng-icon hlm name="lucideCheck" size="xs" />
+					<ng-icon hlmIcon name="lucideCheck" size="xs" />
 				</div>
 			</div>
 		</div>

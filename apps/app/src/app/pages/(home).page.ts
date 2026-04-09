@@ -56,7 +56,7 @@ const lead = 'text-foreground max-w-3xl text-base text-balance sm:text-lg';
 				<a target="_blank" href="https://zerops.io" hlmBadge variant="outline" class="border-none outline-none">
 					<spartan-zerops-logo class="mr-0.5 h-3 w-3 fill-red-800 text-red-700" />
 					Powered by Zerops. The dev-first cloud platform.
-					<ng-icon hlm name="lucideArrowRight" />
+					<ng-icon hlmIcon name="lucideArrowRight" />
 				</a>
 				<h1
 					class="text-primary leading-tighter max-w-4xl text-4xl font-semibold tracking-tight text-balance lg:leading-[1.1] lg:font-semibold xl:text-5xl xl:tracking-tighter"
@@ -78,7 +78,7 @@ const lead = 'text-foreground max-w-3xl text-base text-balance sm:text-lg';
 						rel="noreferrer"
 						href="https://github.com/spartan-ng/spartan"
 					>
-						<ng-icon hlm size="sm" class="mr-0.5" name="lucideStar" />
+						<ng-icon hlmIcon size="sm" class="mr-0.5" name="lucideStar" />
 						Star on GitHub
 					</a>
 				</div>

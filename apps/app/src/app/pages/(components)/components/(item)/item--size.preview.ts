@@ -29,13 +29,13 @@ import { HlmItemImports } from '@spartan-ng/helm/item';
 		</div>
 		<a hlmItem variant="outline" size="sm" href="#">
 			<div hlmItemMedia>
-				<ng-icon hlm name="lucideBadgeCheck" size="20px" />
+				<ng-icon hlmIcon name="lucideBadgeCheck" size="20px" />
 			</div>
 			<div hlmItemContent>
 				<div hlmItemTitle>Your profile has been verified.</div>
 			</div>
 			<div hlmItemActions>
-				<ng-icon hlm name="lucideChevronRight" size="sm" />
+				<ng-icon hlmIcon name="lucideChevronRight" size="sm" />
 			</div>
 		</a>
 	`,

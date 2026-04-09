@@ -8,11 +8,12 @@ import {
 	BrnAutocompleteInput,
 	BrnAutocompleteInputWrapper,
 } from '@spartan-ng/brain/autocomplete';
+import { HlmIcon } from '<%- importAlias %>/icon';
 import { HlmInputGroupImports } from '<%- importAlias %>/input-group';
 
 @Component({
 	selector: 'hlm-autocomplete-input',
-	imports: [HlmInputGroupImports, NgIcon, BrnAutocompleteAnchor, BrnAutocompleteClear, BrnAutocompleteInput],
+	imports: [HlmInputGroupImports, NgIcon, HlmIcon, BrnAutocompleteAnchor, BrnAutocompleteClear, BrnAutocompleteInput],
 	providers: [provideIcons({ lucideSearch, lucideX })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [BrnAutocompleteInputWrapper],
@@ -29,7 +30,7 @@ import { HlmInputGroupImports } from '<%- importAlias %>/input-group';
 
 			@if (showSearch()) {
 				<hlm-input-group-addon>
-					<ng-icon name="lucideSearch" [class.opacity-50]="autocompleteInput.disabled()" />
+					<ng-icon hlmIcon name="lucideSearch" [class.opacity-50]="autocompleteInput.disabled()" />
 				</hlm-input-group-addon>
 			}
 
@@ -43,7 +44,7 @@ import { HlmInputGroupImports } from '<%- importAlias %>/input-group';
 						size="icon-xs"
 						variant="ghost"
 					>
-						<ng-icon name="lucideX" />
+						<ng-icon hlmIcon name="lucideX" />
 					</button>
 				</hlm-input-group-addon>
 			}

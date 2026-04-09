@@ -6,6 +6,7 @@ export type IconSize = 'xs' | 'sm' | 'base' | 'lg' | 'xl' | 'none' | (Record<nev
 @Directive({
 	selector: 'ng-icon[hlmIcon], ng-icon[hlm]',
 	host: {
+		'hlmIcon': '',
 		'[style.--ng-icon__size]': '_computedSize()',
 	},
 })

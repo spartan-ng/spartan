@@ -39,7 +39,7 @@ import { HlmSpinnerImports } from '@spartan-ng/helm/spinner';
 			<input hlmInputGroupInput placeholder="Refreshing data..." disabled />
 
 			<div hlmInputGroupAddon>
-				<ng-icon name="lucideLoader" class="motion-safe:animate-spin" />
+				<ng-icon hlmIcon name="lucideLoader" class="motion-safe:animate-spin" />
 			</div>
 
 			<div hlmInputGroupAddon align="inline-end">

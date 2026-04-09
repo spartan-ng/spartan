@@ -16,7 +16,7 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 				<button hlmBtn variant="outline" size="sm">Button</button>
 				<button hlmBtn variant="outline" size="sm">Group</button>
 				<button hlmBtn variant="outline" size="icon-sm">
-					<ng-icon hlm name="lucidePlus" size="sm" />
+					<ng-icon hlmIcon name="lucidePlus" size="sm" />
 				</button>
 			</div>
 			<div hlmButtonGroup>
@@ -24,7 +24,7 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 				<button hlmBtn variant="outline">Button</button>
 				<button hlmBtn variant="outline">Group</button>
 				<button hlmBtn variant="outline" size="icon">
-					<ng-icon hlm name="lucidePlus" size="sm" />
+					<ng-icon hlmIcon name="lucidePlus" size="sm" />
 				</button>
 			</div>
 			<div hlmButtonGroup>
@@ -32,7 +32,7 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 				<button hlmBtn variant="outline" size="lg">Button</button>
 				<button hlmBtn variant="outline" size="lg">Group</button>
 				<button hlmBtn variant="outline" size="icon-lg">
-					<ng-icon hlm name="lucidePlus" size="sm" />
+					<ng-icon hlmIcon name="lucidePlus" size="sm" />
 				</button>
 			</div>
 		</div>

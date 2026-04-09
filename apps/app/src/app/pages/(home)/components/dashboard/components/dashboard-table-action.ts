@@ -24,12 +24,12 @@ import { DashboardTableSection } from './table-section';
 	template: `
 		<div class="wip-table-search flex flex-col justify-between gap-2 sm:flex-row">
 			<button hlmBtn variant="outline" align="end" size="sm" [hlmDropdownMenuTrigger]="columns">
-				<ng-icon hlm name="tablerColumns2" size="sm" />
+				<ng-icon hlmIcon name="tablerColumns2" size="sm" />
 				Customize Columns
-				<ng-icon hlm name="tablerChevronDown" size="sm" />
+				<ng-icon hlmIcon name="tablerChevronDown" size="sm" />
 			</button>
 			<button hlmBtn variant="outline" align="end" size="sm">
-				<ng-icon hlm name="tablerPlus" size="sm" />
+				<ng-icon hlmIcon name="tablerPlus" size="sm" />
 				Add section
 			</button>
 			<ng-template #columns>

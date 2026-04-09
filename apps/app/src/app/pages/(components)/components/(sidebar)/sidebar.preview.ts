@@ -27,7 +27,7 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 								@for (item of _items; track item.title) {
 									<li hlmSidebarMenuItem>
 										<a hlmSidebarMenuButton>
-											<ng-icon hlm [name]="item.icon" />
+											<ng-icon hlmIcon [name]="item.icon" />
 											<span>{{ item.title }}</span>
 										</a>
 									</li>
@@ -221,7 +221,7 @@ import { HlmIcon } from '@spartan-ng/helm/icon';
                 @for(item of _items; track item.title){
                 <li hlmSidebarMenuItem>
                   <a hlmSidebarMenuButton>
-                    <ng-icon hlm [name]="item.icon" />
+                    <ng-icon hlmIcon [name]="item.icon" />
                     <span>{{ item.title }}</span>
                   </a>
                 </li>
@@ -319,7 +319,7 @@ import { lucideChevronDown } from '@ng-icons/lucide';
             <li hlmSidebarMenuItem>
               <button hlmSidebarMenuButton [hlmDropdownMenuTrigger]="menu" side="right" align="start">
                 Select Workspace
-                <ng-icon hlm name="lucideChevronDown" class="ml-auto" />
+                <ng-icon hlmIcon name="lucideChevronDown" class="ml-auto" />
               </button>
               <ng-template #menu>
                 <hlm-dropdown-menu class="w-60">
@@ -365,7 +365,7 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
                         <li hlmSidebarMenuItem>
                             <button hlmSidebarMenuButton [hlmDropdownMenuTrigger]="menu">
                                 Select Workspace
-                                <ng-icon hlm name="lucideChevronUp" class="ml-auto" />
+                                <ng-icon hlmIcon name="lucideChevronUp" class="ml-auto" />
                             </button>
                             <ng-template #menu>
                                 <hlm-dropdown-menu class="w-60">
@@ -432,13 +432,13 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
                             <ul hlmSidebarMenu>
                                 <li hlmSidebarMenuItem>
                                     <a hlmSidebarMenuButton>
-                                        <ng-icon hlm name="lucideLifeBuoy" />
+                                        <ng-icon hlmIcon name="lucideLifeBuoy" />
                                         <span>Support</span>
                                     </a>
                                 </li>
                                 <li hlmSidebarMenuItem>
                                     <a hlmSidebarMenuButton>
-                                        <ng-icon hlm name="lucideSend" />
+                                        <ng-icon hlmIcon name="lucideSend" />
                                         <span>Feedback</span>
                                     </a>
                                 </li>
@@ -499,13 +499,13 @@ import { HlmCollapsibleImports } from '@spartan-ng/helm/collapsible';
                   <ul hlmSidebarMenu>
                     <li hlmSidebarMenuItem>
                       <a hlmSidebarMenuButton>
-                        <ng-icon hlm name="lucideLifeBuoy" />
+                        <ng-icon hlmIcon name="lucideLifeBuoy" />
                         <span>Support</span>
                       </a>
                     </li>
                     <li hlmSidebarMenuItem>
                       <a hlmSidebarMenuButton>
-                        <ng-icon hlm name="lucideSend" />
+                        <ng-icon hlmIcon name="lucideSend" />
                         <span>Feedback</span>
                       </a>
                     </li>
@@ -559,26 +559,26 @@ import { HlmToasterImports } from '@spartan-ng/helm/sonner';
               title="Add Project"
               (click)="_onAddProject()"
             >
-              <ng-icon hlm name="lucidePlus" />
+              <ng-icon hlmIcon name="lucidePlus" />
               <span class="sr-only">Add Project</span>
             </button>
             <div hlmSidebarGroupContent>
               <ul hlmSidebarMenu>
                 <li hlmSidebarMenuItem>
                   <a hlmSidebarMenuButton href="#">
-                    <ng-icon hlm name="lucideFrame" />
+                    <ng-icon hlmIcon name="lucideFrame" />
                     <span>Design Engineering</span>
                   </a>
                 </li>
                 <li hlmSidebarMenuItem>
                   <a hlmSidebarMenuButton href="#">
-                    <ng-icon hlm name="lucideChartPie" />
+                    <ng-icon hlmIcon name="lucideChartPie" />
                     <span>Sales & Marketing</span>
                   </a>
                 </li>
                 <li hlmSidebarMenuItem>
                   <a hlmSidebarMenuButton href="#">
-                    <ng-icon hlm name="lucideMap" />
+                    <ng-icon hlmIcon name="lucideMap" />
                     <span>Travel</span>
                   </a>
                 </li>
@@ -633,7 +633,7 @@ import {
                 @for (project of _projects; track project){
                     <li hlmSidebarMenuItem>
                       <a hlmSidebarMenuButton [href]="project.url">
-                        <ng-icon hlm [name]="project.icon" />
+                        <ng-icon hlmIcon [name]="project.icon" />
                         <span>{{ project.name }}</span>
                       </a>
                     </li>
@@ -677,7 +677,7 @@ export const link = `
 export const linkWithIcon = `
 <li hlmSidebarMenuItem>
   <a hlmSidebarMenuButton href="#">
-    <ng-icon hlm name="lucideHouse" />
+    <ng-icon hlmIcon name="lucideHouse" />
     <span>Home</span>
   </a>
 </li>
@@ -701,11 +701,11 @@ export const button = `
 export const menuAction = `
 <li hlmSidebarMenuItem>
   <a hlmSidebarMenuButton href="#">
-    <ng-icon hlm name="lucideHouse" />
+    <ng-icon hlmIcon name="lucideHouse" />
     <span>Home</span>
   </a>
   <button hlmSidebarMenuAction>
-    <ng-icon hlm name="lucidePlus" />
+    <ng-icon hlmIcon name="lucidePlus" />
     <span class="sr-only">Add Project</span>
   </button>
 </li>
@@ -741,11 +741,11 @@ import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
                 @for (project of projects; track project){
                 <li hlmSidebarMenuItem>
                   <a hlmSidebarMenuButton [href]="project.url">
-                    <ng-icon hlm [name]="project.icon" />
+                    <ng-icon hlmIcon [name]="project.icon" />
                     <span>{{ project.name }}</span>
                   </a>
                   <button hlmSidebarMenuAction [hlmDropdownMenuTrigger]="menu">
-                    <ng-icon hlm name="lucideEllipsis" />
+                    <ng-icon hlmIcon name="lucideEllipsis" />
                     <span class="sr-only">More</span>
                   </button>
 
@@ -1012,7 +1012,7 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
                                 @for (project of _projects; track project) {
                                     <li hlmSidebarMenuItem>
                                         <button hlmSidebarMenuButton>
-                                            <ng-icon hlm [name]="project.icon" />
+                                            <ng-icon hlmIcon [name]="project.icon" />
                                             <span>{{ project.name }}</span>
                                         </button>
                                         <div hlmSidebarMenuBadge>{{ project.info }}</div>

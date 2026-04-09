@@ -2,12 +2,13 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideSearch } from '@ng-icons/lucide';
 import { BrnCommandInput } from '@spartan-ng/brain/command';
+import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 import { classes } from '@spartan-ng/helm/utils';
 
 @Component({
 	selector: 'hlm-command-input',
-	imports: [HlmInputGroupImports, NgIcon, BrnCommandInput],
+	imports: [HlmInputGroupImports, NgIcon, HlmIcon, BrnCommandInput],
 	providers: [provideIcons({ lucideSearch })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
@@ -23,7 +24,7 @@ import { classes } from '@spartan-ng/helm/utils';
 			/>
 
 			<hlm-input-group-addon>
-				<ng-icon name="lucideSearch" />
+				<ng-icon hlmIcon name="lucideSearch" />
 			</hlm-input-group-addon>
 		</hlm-input-group>
 	`,

@@ -52,15 +52,15 @@ import { HlmKbdImports } from '@spartan-ng/helm/kbd';
 					<hlm-command-group>
 						<hlm-command-group-label>Suggestions</hlm-command-group-label>
 						<button hlm-command-item value="calendar" (selected)="commandSelected('calendar')">
-							<ng-icon name="lucideCalendar" />
+							<ng-icon hlmIcon name="lucideCalendar" />
 							Calendar
 						</button>
 						<button hlm-command-item value="emojy" (selected)="commandSelected('emojy')">
-							<ng-icon name="lucideSmile" />
+							<ng-icon hlmIcon name="lucideSmile" />
 							Search Emoji
 						</button>
 						<button hlm-command-item value="calculator" (selected)="commandSelected('calculator')">
-							<ng-icon name="lucidePlus" />
+							<ng-icon hlmIcon name="lucidePlus" />
 							Calculator
 						</button>
 					</hlm-command-group>
@@ -68,17 +68,17 @@ import { HlmKbdImports } from '@spartan-ng/helm/kbd';
 					<hlm-command-group>
 						<hlm-command-group-label>Settings</hlm-command-group-label>
 						<button hlm-command-item value="profile" (selected)="commandSelected('profile')">
-							<ng-icon name="lucideUser" />
+							<ng-icon hlmIcon name="lucideUser" />
 							Profile
 							<hlm-command-shortcut>⌘P</hlm-command-shortcut>
 						</button>
 						<button hlm-command-item value="billing" (selected)="commandSelected('billing')">
-							<ng-icon name="lucideLayers" />
+							<ng-icon hlmIcon name="lucideLayers" />
 							Billing
 							<hlm-command-shortcut>⌘B</hlm-command-shortcut>
 						</button>
 						<button hlm-command-item value="settings" (selected)="commandSelected('settings')">
-							<ng-icon name="lucideCog" />
+							<ng-icon hlmIcon name="lucideCog" />
 							Settings
 							<hlm-command-shortcut>⌘S</hlm-command-shortcut>
 						</button>

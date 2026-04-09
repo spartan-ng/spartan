@@ -12,10 +12,10 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 	template: `
 		<div hlmButtonGroup orientation="vertical" aria-label="Media controls" class="h-fit">
 			<button hlmBtn variant="outline" size="icon">
-				<ng-icon hlm name="lucidePlus" size="sm" />
+				<ng-icon hlmIcon name="lucidePlus" size="sm" />
 			</button>
 			<button hlmBtn variant="outline" size="icon">
-				<ng-icon hlm name="lucideMinus" size="sm" />
+				<ng-icon hlmIcon name="lucideMinus" size="sm" />
 			</button>
 		</div>
 	`,

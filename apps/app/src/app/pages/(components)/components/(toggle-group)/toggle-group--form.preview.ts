@@ -3,11 +3,12 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideBookmark, lucideHeart, lucideStar } from '@ng-icons/lucide';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmToggleGroupImports } from '@spartan-ng/helm/toggle-group';
 
 @Component({
 	selector: 'spartan-toggle-group-form',
-	imports: [HlmToggleGroupImports, HlmButtonImports, NgIcon, ReactiveFormsModule],
+	imports: [HlmToggleGroupImports, HlmButtonImports, NgIcon, HlmIcon, ReactiveFormsModule],
 	providers: [provideIcons({ lucideStar, lucideHeart, lucideBookmark })],
 	template: `
 		<form class="space-y-6" [formGroup]="form" (ngSubmit)="submit()">
@@ -18,7 +19,7 @@ import { HlmToggleGroupImports } from '@spartan-ng/helm/toggle-group';
 					aria-label="Toggle star"
 					class="data-[state=on]:bg-transparent data-[state=on]:*:[ng-icon]:*:[svg]:fill-yellow-500 data-[state=on]:*:[ng-icon]:*:[svg]:stroke-yellow-500"
 				>
-					<ng-icon name="lucideStar" />
+					<ng-icon hlmIcon name="lucideStar" />
 					Star
 				</button>
 				<button
@@ -27,7 +28,7 @@ import { HlmToggleGroupImports } from '@spartan-ng/helm/toggle-group';
 					aria-label="Toggle heart"
 					class="data-[state=on]:bg-transparent data-[state=on]:*:[ng-icon]:*:[svg]:fill-red-500 data-[state=on]:*:[ng-icon]:*:[svg]:stroke-red-500"
 				>
-					<ng-icon name="lucideHeart" />
+					<ng-icon hlmIcon name="lucideHeart" />
 					Heart
 				</button>
 				<button
@@ -36,7 +37,7 @@ import { HlmToggleGroupImports } from '@spartan-ng/helm/toggle-group';
 					aria-label="Toggle bookmark"
 					class="data-[state=on]:bg-transparent data-[state=on]:*:[ng-icon]:*:[svg]:fill-blue-500 data-[state=on]:*:[ng-icon]:*:[svg]:stroke-blue-500"
 				>
-					<ng-icon name="lucideBookmark" />
+					<ng-icon hlmIcon name="lucideBookmark" />
 					Bookmark
 				</button>
 			</hlm-toggle-group>

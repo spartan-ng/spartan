@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideArrowUp } from '@ng-icons/lucide';
+import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 import { HlmSpinnerImports } from '@spartan-ng/helm/spinner';
 
 @Component({
 	selector: 'spartan-spinner-input-group-preview',
-	imports: [HlmSpinnerImports, HlmInputGroupImports, NgIcon],
+	imports: [HlmSpinnerImports, HlmInputGroupImports, NgIcon, HlmIcon],
 	providers: [provideIcons({ lucideArrowUp })],
 	template: `
 		<div class="flex w-full max-w-md flex-col gap-4">
@@ -22,7 +23,7 @@ import { HlmSpinnerImports } from '@spartan-ng/helm/spinner';
 					<hlm-spinner />
 					Validating...
 					<button class="ml-auto" hlmInputGroupButton variant="default">
-						<ng-icon name="lucideArrowUp" />
+						<ng-icon hlmIcon name="lucideArrowUp" />
 						<span class="sr-only">Send</span>
 					</button>
 				</hlm-input-group-addon>

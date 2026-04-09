@@ -35,7 +35,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 			</div>
 			<div hlmButtonGroup>
 				<button hlmBtn variant="outline" size="icon">
-					<ng-icon hlm name="lucideArrowRight" size="sm" />
+					<ng-icon hlmIcon name="lucideArrowRight" size="sm" />
 				</button>
 			</div>
 		</div>

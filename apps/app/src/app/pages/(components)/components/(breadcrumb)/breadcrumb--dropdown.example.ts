@@ -16,12 +16,12 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 					<a hlmBreadcrumbLink link="/">Home</a>
 				</li>
 				<li hlmBreadcrumbSeparator>
-					<ng-icon hlm size="sm" name="lucideSlash" />
+					<ng-icon hlmIcon size="sm" name="lucideSlash" />
 				</li>
 				<li hlmBreadcrumbItem>
 					<button class="flex items-center gap-1" [hlmDropdownMenuTrigger]="breadcrumbDropdown">
 						Components
-						<ng-icon hlm size="sm" name="lucideChevronDown" />
+						<ng-icon hlmIcon size="sm" name="lucideChevronDown" />
 					</button>
 					<ng-template #breadcrumbDropdown>
 						<hlm-dropdown-menu>
@@ -38,7 +38,7 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 					</ng-template>
 				</li>
 				<li hlmBreadcrumbSeparator>
-					<ng-icon hlm size="sm" name="lucideSlash" />
+					<ng-icon hlmIcon size="sm" name="lucideSlash" />
 				</li>
 				<li hlmBreadcrumbItem>
 					<span hlmBreadcrumbPage>Breadcrumb</span>

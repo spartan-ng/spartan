@@ -92,7 +92,7 @@ import { DashboardTableSection } from '../../(home)/components/dashboard/compone
 				<div hlmSidebarHeader class="border-b">
 					<ul hlmSidebarMenu>
 						<a hlmSidebarMenuButton class="!p-1.5">
-							<ng-icon hlm name="tablerInnerShadowTop" class="!size-5" />
+							<ng-icon hlmIcon name="tablerInnerShadowTop" class="!size-5" />
 							<span class="text-base font-semibold">Acme Inc.</span>
 						</a>
 					</ul>
@@ -105,7 +105,7 @@ import { DashboardTableSection } from '../../(home)/components/dashboard/compone
 								@for (item of _items.navMain; track item.title) {
 									<li hlmSidebarMenuItem>
 										<a hlmSidebarMenuButton>
-											<ng-icon hlm [name]="item.icon" />
+											<ng-icon hlmIcon [name]="item.icon" />
 											<span>{{ item.title }}</span>
 										</a>
 									</li>
@@ -120,35 +120,35 @@ import { DashboardTableSection } from '../../(home)/components/dashboard/compone
 								@for (item of _items.documents; track item.name) {
 									<li hlmSidebarMenuItem>
 										<a hlmSidebarMenuButton>
-											<ng-icon hlm [name]="item.icon" />
+											<ng-icon hlmIcon [name]="item.icon" />
 											<span>{{ item.name }}</span>
 										</a>
 										<button hlmSidebarMenuAction [showOnHover]="true" [hlmDropdownMenuTrigger]="menu">
-											<ng-icon hlm name="tablerDots" />
+											<ng-icon hlmIcon name="tablerDots" />
 											<span class="sr-only">More</span>
 										</button>
 									</li>
 								}
 								<li hlmSidebarMenuItem>
 									<a hlmSidebarMenuButton class="text-sidebar-foreground/70">
-										<ng-icon hlm name="tablerDots" class="text-sidebar-foreground/70" />
+										<ng-icon hlmIcon name="tablerDots" class="text-sidebar-foreground/70" />
 										<span>More</span>
 									</a>
 								</li>
 								<ng-template #menu>
 									<hlm-dropdown-menu class="w-24 rounded-lg">
 										<button hlmDropdownMenuItem>
-											<ng-icon hlm name="tablerFolder" size="sm" />
+											<ng-icon hlmIcon name="tablerFolder" size="sm" />
 											<span>Open</span>
 										</button>
 
 										<button hlmDropdownMenuItem>
-											<ng-icon hlm name="tablerShare3" size="sm" />
+											<ng-icon hlmIcon name="tablerShare3" size="sm" />
 											<span>Share</span>
 										</button>
 										<hlm-dropdown-menu-separator />
 										<button hlmDropdownMenuItem variant="destructive">
-											<ng-icon hlm name="tablerTrash" size="sm" />
+											<ng-icon hlmIcon name="tablerTrash" size="sm" />
 											<span>Delete</span>
 										</button>
 									</hlm-dropdown-menu>
@@ -162,7 +162,7 @@ import { DashboardTableSection } from '../../(home)/components/dashboard/compone
 								@for (item of _items.navSecondary; track item.title) {
 									<li hlmSidebarMenuItem>
 										<a hlmSidebarMenuButton>
-											<ng-icon hlm [name]="item.icon" />
+											<ng-icon hlmIcon [name]="item.icon" />
 											<span>{{ item.title }}</span>
 										</a>
 									</li>
@@ -190,7 +190,7 @@ import { DashboardTableSection } from '../../(home)/components/dashboard/compone
 										{{ _items.user.email }}
 									</span>
 								</div>
-								<ng-icon hlm name="tablerDotsVertical" class="ml-auto size-4" />
+								<ng-icon hlmIcon name="tablerDotsVertical" class="ml-auto size-4" />
 							</a>
 						</li>
 					</ul>
@@ -213,21 +213,21 @@ import { DashboardTableSection } from '../../(home)/components/dashboard/compone
 							<hlm-dropdown-menu-separator />
 							<hlm-dropdown-menu-group>
 								<button hlmDropdownMenuItem>
-									<ng-icon hlm name="tablerUserCircle" size="sm" />
+									<ng-icon hlmIcon name="tablerUserCircle" size="sm" />
 									<span>Account</span>
 								</button>
 								<button hlmDropdownMenuItem>
-									<ng-icon hlm name="tablerCreditCard" size="sm" />
+									<ng-icon hlmIcon name="tablerCreditCard" size="sm" />
 									<span>Billing</span>
 								</button>
 								<button hlmDropdownMenuItem>
-									<ng-icon hlm name="tablerNotification" size="sm" />
+									<ng-icon hlmIcon name="tablerNotification" size="sm" />
 									<span>Notifications</span>
 								</button>
 							</hlm-dropdown-menu-group>
 							<hlm-dropdown-menu-separator />
 							<button hlmDropdownMenuItem>
-								<ng-icon hlm name="tablerLogout" size="sm" />
+								<ng-icon hlmIcon name="tablerLogout" size="sm" />
 								<span>Logout</span>
 							</button>
 						</hlm-dropdown-menu>
@@ -242,7 +242,7 @@ import { DashboardTableSection } from '../../(home)/components/dashboard/compone
 						<h1 class="text-base font-medium">Documents</h1>
 						<div class="ml-auto flex items-center gap-2">
 							<button hlmBtn size="sm" class="hidden h-7 sm:flex">
-								<ng-icon hlm name="tablerCirclePlus" size="sm" />
+								<ng-icon hlmIcon name="tablerCirclePlus" size="sm" />
 								<span>Quick Create</span>
 							</button>
 						</div>

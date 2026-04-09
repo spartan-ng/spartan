@@ -35,7 +35,7 @@ export const Default: Story = {
 	},
 	render: ({ ...args }) => ({
 		props: args,
-		template: `<ng-icon hlm ${argsToTemplate(args)} />`,
+		template: `<ng-icon hlmIcon ${argsToTemplate(args)} />`,
 	}),
 };
 
@@ -48,7 +48,7 @@ export const Tailwind: Story = {
 	},
 	render: ({ ...args }) => ({
 		props: args,
-		template: `<ng-icon hlm ${argsToTemplate(args)} class="text-red-600 text-5xl" />`,
+		template: `<ng-icon hlmIcon ${argsToTemplate(args)} class="text-red-600 text-5xl" />`,
 	}),
 };
 
@@ -57,7 +57,7 @@ export const Tailwind: Story = {
 	imports: [FormsModule, NgIcon, HlmIcon],
 	providers: [provideIcons({ lucideHouse })],
 	template: /* HTML */ `
-		<ng-icon hlm name="lucideHouse" [size]="size()" />
+		<ng-icon hlmIcon name="lucideHouse" [size]="size()" />
 		<div>Bound property value: {{size()}}</div>
 
 		<div class="flex flex-row gap-x-2">

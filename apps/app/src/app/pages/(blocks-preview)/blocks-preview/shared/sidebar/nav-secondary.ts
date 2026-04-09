@@ -2,11 +2,12 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideLifeBuoy, lucideSend } from '@ng-icons/lucide';
+import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 
 @Component({
 	selector: 'spartan-nav-secondary',
-	imports: [HlmSidebarImports, NgIcon, RouterLink],
+	imports: [HlmSidebarImports, NgIcon, HlmIcon, RouterLink],
 	providers: [provideIcons({ lucideLifeBuoy, lucideSend })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
@@ -16,7 +17,7 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 					@for (item of items(); track $index) {
 						<li hlmSidebarMenuItem>
 							<a hlmSidebarMenuButton size="sm" [routerLink]="item.url">
-								<ng-icon [name]="item.icon" />
+								<ng-icon hlmIcon [name]="item.icon" />
 								{{ item.title }}
 							</a>
 						</li>

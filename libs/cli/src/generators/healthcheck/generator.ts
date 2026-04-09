@@ -20,6 +20,7 @@ import { helmDialogHealthcheck } from './healthchecks/hlm-dialog';
 import { helmDialogPortalHealthcheck } from './healthchecks/hlm-dialog-portal';
 import { helmFormFieldHealthcheck } from './healthchecks/hlm-form-field';
 import { helmIconHealthcheck } from './healthchecks/hlm-icon';
+import { hlmInputIdHealthcheck } from './healthchecks/hlm-input-id';
 import { helmMenuHealthcheck } from './healthchecks/hlm-menu';
 import { progressHealthcheck } from './healthchecks/hlm-progress';
 import { scrollAreaHealthcheck } from './healthchecks/hlm-scroll-area';
@@ -48,6 +49,7 @@ export async function healthcheckGenerator(tree: Tree, options: HealthcheckGener
 		helmImportsHealthcheck,
 		namingConventionHealthcheck,
 		datePickerHealthcheck,
+		hlmInputIdHealthcheck,
 		progressHealthcheck,
 		hlmImportHealthcheck,
 		brainSeparatorHealthcheck,

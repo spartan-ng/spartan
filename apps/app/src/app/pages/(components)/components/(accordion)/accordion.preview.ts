@@ -12,27 +12,23 @@ import { HlmAccordionImports } from '@spartan-ng/helm/accordion';
 			<hlm-accordion-item>
 				<hlm-accordion-trigger>What are your shipping options?</hlm-accordion-trigger>
 				<hlm-accordion-content>
-					<p>
-						We offer standard (5-7 days), express (2-3 days), and overnight shipping. Free shipping on international
-						orders.
-					</p>
+					We offer standard (5-7 days), express (2-3 days), and overnight shipping. Free shipping on international
+					orders.
 				</hlm-accordion-content>
 			</hlm-accordion-item>
 
 			<hlm-accordion-item>
 				<hlm-accordion-trigger>What is your return policy?</hlm-accordion-trigger>
 				<hlm-accordion-content>
-					<p>
-						Returns accepted within 30 days. Items must be unused and in original packaging. Refunds processed within
-						5-7 business days.
-					</p>
+					Returns accepted within 30 days. Items must be unused and in original packaging. Refunds processed within 5-7
+					business days.
 				</hlm-accordion-content>
 			</hlm-accordion-item>
 
 			<hlm-accordion-item>
-				<hlm-accordion-trigger>Return Policy</hlm-accordion-trigger>
+				<hlm-accordion-trigger>How can I contact customer support?</hlm-accordion-trigger>
 				<hlm-accordion-content>
-					<p>Reach us via email, live chat, or phone. We respond within 24 hours during business days.</p>
+					Reach us via email, live chat, or phone. We respond within 24 hours during business days.
 				</hlm-accordion-content>
 			</hlm-accordion-item>
 		</hlm-accordion>

@@ -4,6 +4,7 @@ import { classes } from '@spartan-ng/helm/utils';
 @Directive({
 	selector: '[hlmBreadcrumbPage]',
 	host: {
+		'data-slot': 'breadcrumb-page',
 		role: 'link',
 		'aria-disabled': 'true',
 		'aria-current': 'page',
@@ -11,6 +12,6 @@ import { classes } from '@spartan-ng/helm/utils';
 })
 export class HlmBreadcrumbPage {
 	constructor() {
-		classes(() => 'text-foreground font-normal');
+		classes(() => 'spartan-breadcrumb-page');
 	}
 }

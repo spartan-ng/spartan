@@ -11,7 +11,7 @@ import type { ClassValue } from 'clsx';
 	providers: [provideIcons({ lucideEllipsis })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<span role="presentation" aria-hidden="true" [class]="_computedClass()">
+		<span data-slot="breadcrumb-ellipsis" role="presentation" aria-hidden="true" [class]="_computedClass()">
 			<ng-icon hlm size="sm" name="lucideEllipsis" />
 			<span class="sr-only">{{ srOnlyText() }}</span>
 		</span>
@@ -22,5 +22,7 @@ export class HlmBreadcrumbEllipsis {
 	/** Screen reader only text for the ellipsis */
 	public readonly srOnlyText = input<string>('More');
 
-	protected readonly _computedClass = computed(() => hlm('flex size-9 items-center justify-center', this.userClass()));
+	protected readonly _computedClass = computed(() =>
+		hlm('spartan-breadcrumb-ellipsis flex items-center justify-center', this.userClass()),
+	);
 }

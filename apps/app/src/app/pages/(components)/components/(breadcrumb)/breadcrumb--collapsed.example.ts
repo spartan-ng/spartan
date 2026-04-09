@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { HlmBreadCrumbImports } from '@spartan-ng/helm/breadcrumb';
+import { HlmBreadcrumbImports } from '@spartan-ng/helm/breadcrumb';
 
 @Component({
 	selector: 'spartan-breadcrumb-collapsed',
-	imports: [HlmBreadCrumbImports],
+	imports: [HlmBreadcrumbImports],
 	template: `
 		<nav hlmBreadcrumb>
 			<ol hlmBreadcrumbList>

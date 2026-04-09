@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown, lucideSlash } from '@ng-icons/lucide';
-import { HlmBreadCrumbImports } from '@spartan-ng/helm/breadcrumb';
+import { HlmBreadcrumbImports } from '@spartan-ng/helm/breadcrumb';
 import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 import { HlmIconImports } from '@spartan-ng/helm/icon';
 
 @Component({
 	selector: 'spartan-breadcrumb-dropdown',
-	imports: [HlmBreadCrumbImports, NgIcon, HlmIconImports, HlmDropdownMenuImports],
+	imports: [HlmBreadcrumbImports, NgIcon, HlmIconImports, HlmDropdownMenuImports],
 	providers: [provideIcons({ lucideChevronDown, lucideSlash })],
 	template: `
 		<nav hlmBreadcrumb>

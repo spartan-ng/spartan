@@ -1,7 +1,7 @@
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideSlash } from '@ng-icons/lucide';
-import { HlmBreadCrumbImports, HlmBreadcrumb } from '@spartan-ng/helm/breadcrumb';
+import { HlmBreadcrumb, HlmBreadcrumbImports } from '@spartan-ng/helm/breadcrumb';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import type { Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
@@ -12,7 +12,7 @@ const meta: Meta<HlmBreadcrumb> = {
 	tags: ['autodocs'],
 	decorators: [
 		moduleMetadata({
-			imports: [HlmBreadCrumbImports, NgIcon, HlmIcon, RouterTestingModule],
+			imports: [HlmBreadcrumbImports, NgIcon, HlmIcon, RouterTestingModule],
 			providers: [provideIcons({ lucideSlash })],
 		}),
 	],

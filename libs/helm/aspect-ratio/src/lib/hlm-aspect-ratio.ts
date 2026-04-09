@@ -12,7 +12,10 @@ const parseDividedString = (value: NumberInput): NumberInput => {
 
 @Directive({
 	selector: '[hlmAspectRatio]',
-	host: { '[style.padding-bottom.%]': '100 / ratio()' },
+	host: {
+		'data-slot': 'aspect-ratio',
+		'[style.--ratio]': 'ratio()',
+	},
 })
 export class HlmAspectRatio {
 	/**
@@ -27,9 +30,6 @@ export class HlmAspectRatio {
 	});
 
 	constructor() {
-		classes(
-			() =>
-				'relative w-full [&>*:first-child]:absolute [&>*:first-child]:h-full [&>*:first-child]:w-full [&>*:first-child]:object-cover',
-		);
+		classes(() => 'relative aspect-(--ratio)');
 	}
 }

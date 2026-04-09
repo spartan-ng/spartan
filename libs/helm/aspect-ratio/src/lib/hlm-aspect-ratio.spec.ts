@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
-import { HlmAspectRatio } from './helm-aspect-ratio';
+import { HlmAspectRatio } from './hlm-aspect-ratio';
 
 @Component({
 	selector: 'hlm-mock',
@@ -41,27 +41,27 @@ describe('HelmAspectRatioDirective', () => {
 	it('should have the correct aspect ratio', () => {
 		fixture.detectChanges();
 		const div = fixture.nativeElement.querySelector('div');
-		expect(div.style.paddingBottom).toEqual(`${100 / (component.ratio || 1)}%`);
+		expect(div.style.getPropertyValue('--ratio')).toEqual(String(component.ratio || 1));
 	});
 
 	it('should default to an aspect ratio of 1', () => {
 		component.ratio = undefined;
 		fixture.detectChanges();
 		const div = fixture.nativeElement.querySelector('div');
-		expect(div.style.paddingBottom).toEqual('100%');
+		expect(div.style.getPropertyValue('--ratio')).toEqual('1');
 	});
 
 	it('should fallback to an aspect ratio of 1 if the ratio is 0', () => {
 		component.ratio = 0;
 		fixture.detectChanges();
 		const div = fixture.nativeElement.querySelector('div');
-		expect(div.style.paddingBottom).toEqual('100%');
+		expect(div.style.getPropertyValue('--ratio')).toEqual('1');
 	});
 
 	it('should fallback to an aspect ratio of 1 if the ratio is negative', () => {
 		component.ratio = -1;
 		fixture.detectChanges();
 		const div = fixture.nativeElement.querySelector('div');
-		expect(div.style.paddingBottom).toEqual('100%');
+		expect(div.style.getPropertyValue('--ratio')).toEqual('1');
 	});
 });

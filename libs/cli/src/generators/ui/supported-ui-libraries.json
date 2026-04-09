@@ -3,9 +3,10 @@
 		"name": "accordion",
 		"peerDependencies": {
 			"@angular/core": ">=20.0.0 <22.0.0",
-			"@spartan-ng/brain": "0.0.1-alpha.665",
+			"@spartan-ng/brain": "0.0.1-alpha.666",
 			"@ng-icons/core": ">=32.0.0 <34.0.0",
-			"@ng-icons/lucide": ">=32.0.0 <34.0.0"
+			"@ng-icons/lucide": ">=32.0.0 <34.0.0",
+			"clsx": "^2.1.1"
 		}
 	},
 	"alert": {
@@ -19,7 +20,7 @@
 		"name": "alert-dialog",
 		"peerDependencies": {
 			"@angular/core": ">=20.0.0 <22.0.0",
-			"@spartan-ng/brain": "0.0.1-alpha.665",
+			"@spartan-ng/brain": "0.0.1-alpha.666",
 			"clsx": "^2.1.1"
 		}
 	},
@@ -35,7 +36,7 @@
 		"peerDependencies": {
 			"@angular/core": ">=20.0.0 <22.0.0",
 			"@angular/forms": ">=20.0.0 <22.0.0",
-			"@spartan-ng/brain": "0.0.1-alpha.665",
+			"@spartan-ng/brain": "0.0.1-alpha.666",
 			"@angular/cdk": ">=20.0.0 <22.0.0",
 			"@ng-icons/core": ">=32.0.0 <34.0.0",
 			"@ng-icons/lucide": ">=32.0.0 <34.0.0"
@@ -45,7 +46,7 @@
 		"name": "avatar",
 		"peerDependencies": {
 			"@angular/core": ">=20.0.0 <22.0.0",
-			"@spartan-ng/brain": "0.0.1-alpha.665"
+			"@spartan-ng/brain": "0.0.1-alpha.666"
 		}
 	},
 	"badge": {
@@ -69,7 +70,7 @@
 		"name": "button",
 		"peerDependencies": {
 			"@angular/core": ">=20.0.0 <22.0.0",
-			"@spartan-ng/brain": "0.0.1-alpha.665",
+			"@spartan-ng/brain": "0.0.1-alpha.666",
 			"class-variance-authority": "^0.7.0",
 			"clsx": "^2.1.1"
 		}
@@ -78,7 +79,7 @@
 		"name": "button-group",
 		"peerDependencies": {
 			"@angular/core": ">=20.0.0 <22.0.0",
-			"@spartan-ng/brain": "0.0.1-alpha.665",
+			"@spartan-ng/brain": "0.0.1-alpha.666",
 			"class-variance-authority": "^0.7.0"
 		}
 	},
@@ -90,7 +91,7 @@
 			"@angular/core": ">=20.0.0 <22.0.0",
 			"@ng-icons/core": ">=32.0.0 <34.0.0",
 			"@ng-icons/lucide": ">=32.0.0 <34.0.0",
-			"@spartan-ng/brain": "0.0.1-alpha.665",
+			"@spartan-ng/brain": "0.0.1-alpha.666",
 			"clsx": "^2.1.1"
 		}
 	},
@@ -118,7 +119,7 @@
 			"@angular/cdk": ">=20.0.0 <22.0.0",
 			"@ng-icons/core": ">=32.0.0 <34.0.0",
 			"@ng-icons/lucide": ">=32.0.0 <34.0.0",
-			"@spartan-ng/brain": "0.0.1-alpha.665",
+			"@spartan-ng/brain": "0.0.1-alpha.666",
 			"clsx": "^2.1.1"
 		}
 	},
@@ -126,7 +127,7 @@
 		"name": "collapsible",
 		"peerDependencies": {
 			"@angular/core": ">=20.0.0 <22.0.0",
-			"@spartan-ng/brain": "0.0.1-alpha.665"
+			"@spartan-ng/brain": "0.0.1-alpha.666"
 		}
 	},
 	"combobox": {
@@ -134,7 +135,7 @@
 		"peerDependencies": {
 			"@angular/core": ">=20.0.0 <22.0.0",
 			"@angular/forms": ">=20.0.0 <22.0.0",
-			"@spartan-ng/brain": "0.0.1-alpha.665",
+			"@spartan-ng/brain": "0.0.1-alpha.666",
 			"@angular/cdk": ">=20.0.0 <22.0.0",
 			"@ng-icons/core": ">=32.0.0 <34.0.0",
 			"@ng-icons/lucide": ">=32.0.0 <34.0.0",
@@ -146,7 +147,7 @@
 		"peerDependencies": {
 			"@angular/cdk": ">=20.0.0 <22.0.0",
 			"@angular/core": ">=20.0.0 <22.0.0",
-			"@spartan-ng/brain": "0.0.1-alpha.665",
+			"@spartan-ng/brain": "0.0.1-alpha.666",
 			"clsx": "^2.1.1",
 			"@ng-icons/core": ">=32.0.0 <34.0.0",
 			"@ng-icons/lucide": ">=32.0.0 <34.0.0"
@@ -156,7 +157,7 @@
 		"name": "context-menu",
 		"peerDependencies": {
 			"@angular/core": ">=20.0.0 <22.0.0",
-			"@spartan-ng/brain": "0.0.1-alpha.665",
+			"@spartan-ng/brain": "0.0.1-alpha.666",
 			"@angular/cdk": ">=20.0.0 <22.0.0",
 			"rxjs": "^7.8.0"
 		}
@@ -169,7 +170,7 @@
 			"@angular/cdk": ">=20.0.0 <22.0.0",
 			"@ng-icons/core": ">=32.0.0 <34.0.0",
 			"@ng-icons/lucide": ">=32.0.0 <34.0.0",
-			"@spartan-ng/brain": "0.0.1-alpha.665",
+			"@spartan-ng/brain": "0.0.1-alpha.666",
 			"clsx": "^2.1.1"
 		}
 	},
@@ -177,7 +178,7 @@
 		"name": "dialog",
 		"peerDependencies": {
 			"@angular/core": ">=20.0.0 <22.0.0",
-			"@spartan-ng/brain": "0.0.1-alpha.665",
+			"@spartan-ng/brain": "0.0.1-alpha.666",
 			"@angular/cdk": ">=20.0.0 <22.0.0",
 			"@angular/common": ">=20.0.0 <22.0.0",
 			"@ng-icons/core": ">=32.0.0 <34.0.0",
@@ -193,7 +194,7 @@
 			"@ng-icons/lucide": ">=32.0.0 <34.0.0",
 			"@angular/cdk": ">=20.0.0 <22.0.0",
 			"rxjs": "^7.8.0",
-			"@spartan-ng/brain": "0.0.1-alpha.665"
+			"@spartan-ng/brain": "0.0.1-alpha.666"
 		}
 	},
 	"empty": {
@@ -207,7 +208,7 @@
 		"name": "field",
 		"peerDependencies": {
 			"@angular/core": ">=20.0.0 <22.0.0",
-			"@spartan-ng/brain": "0.0.1-alpha.665",
+			"@spartan-ng/brain": "0.0.1-alpha.666",
 			"clsx": "^2.1.1",
 			"@angular/cdk": ">=20.0.0 <22.0.0",
 			"class-variance-authority": "^0.7.0"
@@ -217,7 +218,7 @@
 		"name": "hover-card",
 		"peerDependencies": {
 			"@angular/core": ">=20.0.0 <22.0.0",
-			"@spartan-ng/brain": "0.0.1-alpha.665"
+			"@spartan-ng/brain": "0.0.1-alpha.666"
 		}
 	},
 	"icon": {
@@ -233,7 +234,7 @@
 		"peerDependencies": {
 			"@angular/core": ">=20.0.0 <22.0.0",
 			"@angular/forms": ">=20.0.0 <22.0.0",
-			"@spartan-ng/brain": "0.0.1-alpha.665",
+			"@spartan-ng/brain": "0.0.1-alpha.666",
 			"class-variance-authority": "^0.7.0"
 		}
 	},
@@ -242,7 +243,7 @@
 		"peerDependencies": {
 			"@angular/core": ">=20.0.0 <22.0.0",
 			"class-variance-authority": "^0.7.0",
-			"@spartan-ng/brain": "0.0.1-alpha.665"
+			"@spartan-ng/brain": "0.0.1-alpha.666"
 		}
 	},
 	"input-otp": {
@@ -252,7 +253,7 @@
 			"@ng-icons/core": ">=32.0.0 <34.0.0",
 			"@ng-icons/lucide": ">=32.0.0 <34.0.0",
 			"@angular/cdk": ">=20.0.0 <22.0.0",
-			"@spartan-ng/brain": "0.0.1-alpha.665"
+			"@spartan-ng/brain": "0.0.1-alpha.666"
 		}
 	},
 	"item": {
@@ -260,7 +261,7 @@
 		"peerDependencies": {
 			"@angular/core": ">=20.0.0 <22.0.0",
 			"class-variance-authority": "^0.7.0",
-			"@spartan-ng/brain": "0.0.1-alpha.665"
+			"@spartan-ng/brain": "0.0.1-alpha.666"
 		}
 	},
 	"kbd": {
@@ -273,14 +274,14 @@
 		"name": "label",
 		"peerDependencies": {
 			"@angular/core": ">=20.0.0 <22.0.0",
-			"@spartan-ng/brain": "0.0.1-alpha.665"
+			"@spartan-ng/brain": "0.0.1-alpha.666"
 		}
 	},
 	"menubar": {
 		"name": "menubar",
 		"peerDependencies": {
 			"@angular/core": ">=20.0.0 <22.0.0",
-			"@spartan-ng/brain": "0.0.1-alpha.665",
+			"@spartan-ng/brain": "0.0.1-alpha.666",
 			"@angular/cdk": ">=20.0.0 <22.0.0",
 			"rxjs": "^7.8.0"
 		}
@@ -293,7 +294,7 @@
 			"@angular/forms": ">=20.0.0 <22.0.0",
 			"@ng-icons/core": ">=32.0.0 <34.0.0",
 			"@ng-icons/lucide": ">=32.0.0 <34.0.0",
-			"@spartan-ng/brain": "0.0.1-alpha.665",
+			"@spartan-ng/brain": "0.0.1-alpha.666",
 			"clsx": "^2.1.1"
 		}
 	},
@@ -301,7 +302,7 @@
 		"name": "navigation-menu",
 		"peerDependencies": {
 			"@angular/core": ">=20.0.0 <22.0.0",
-			"@spartan-ng/brain": "0.0.1-alpha.665"
+			"@spartan-ng/brain": "0.0.1-alpha.666"
 		}
 	},
 	"pagination": {
@@ -319,14 +320,14 @@
 		"name": "popover",
 		"peerDependencies": {
 			"@angular/core": ">=20.0.0 <22.0.0",
-			"@spartan-ng/brain": "0.0.1-alpha.665"
+			"@spartan-ng/brain": "0.0.1-alpha.666"
 		}
 	},
 	"progress": {
 		"name": "progress",
 		"peerDependencies": {
 			"@angular/core": ">=20.0.0 <22.0.0",
-			"@spartan-ng/brain": "0.0.1-alpha.665"
+			"@spartan-ng/brain": "0.0.1-alpha.666"
 		}
 	},
 	"radio-group": {
@@ -334,7 +335,7 @@
 		"peerDependencies": {
 			"@angular/core": ">=20.0.0 <22.0.0",
 			"@angular/forms": ">=20.0.0 <22.0.0",
-			"@spartan-ng/brain": "0.0.1-alpha.665",
+			"@spartan-ng/brain": "0.0.1-alpha.666",
 			"clsx": "^2.1.1",
 			"@angular/cdk": ">=20.0.0 <22.0.0",
 			"@angular/common": ">=20.0.0 <22.0.0"
@@ -344,7 +345,7 @@
 		"name": "resizable",
 		"peerDependencies": {
 			"@angular/core": ">=20.0.0 <22.0.0",
-			"@spartan-ng/brain": "0.0.1-alpha.665"
+			"@spartan-ng/brain": "0.0.1-alpha.666"
 		}
 	},
 	"scroll-area": {
@@ -359,7 +360,7 @@
 			"@angular/core": ">=20.0.0 <22.0.0",
 			"@angular/forms": ">=20.0.0 <22.0.0",
 			"@angular/cdk": ">=20.0.0 <22.0.0",
-			"@spartan-ng/brain": "0.0.1-alpha.665",
+			"@spartan-ng/brain": "0.0.1-alpha.666",
 			"@ng-icons/core": ">=32.0.0 <34.0.0",
 			"@ng-icons/lucide": ">=32.0.0 <34.0.0",
 			"clsx": "^2.1.1"
@@ -369,14 +370,14 @@
 		"name": "separator",
 		"peerDependencies": {
 			"@angular/core": ">=20.0.0 <22.0.0",
-			"@spartan-ng/brain": "0.0.1-alpha.665"
+			"@spartan-ng/brain": "0.0.1-alpha.666"
 		}
 	},
 	"sheet": {
 		"name": "sheet",
 		"peerDependencies": {
 			"@angular/core": ">=20.0.0 <22.0.0",
-			"@spartan-ng/brain": "0.0.1-alpha.665",
+			"@spartan-ng/brain": "0.0.1-alpha.666",
 			"@angular/cdk": ">=20.0.0 <22.0.0",
 			"@ng-icons/core": ">=32.0.0 <34.0.0",
 			"@ng-icons/lucide": ">=32.0.0 <34.0.0",
@@ -389,7 +390,7 @@
 		"peerDependencies": {
 			"@angular/core": ">=20.0.0 <22.0.0",
 			"@angular/cdk": ">=20.0.0 <22.0.0",
-			"@spartan-ng/brain": "0.0.1-alpha.665",
+			"@spartan-ng/brain": "0.0.1-alpha.666",
 			"class-variance-authority": "^0.7.0",
 			"@ng-icons/core": ">=32.0.0 <34.0.0",
 			"@ng-icons/lucide": ">=32.0.0 <34.0.0",
@@ -408,7 +409,7 @@
 		"peerDependencies": {
 			"@angular/core": ">=20.0.0 <22.0.0",
 			"@angular/forms": ">=20.0.0 <22.0.0",
-			"@spartan-ng/brain": "0.0.1-alpha.665"
+			"@spartan-ng/brain": "0.0.1-alpha.666"
 		}
 	},
 	"sonner": {
@@ -418,7 +419,7 @@
 			"@angular/core": ">=20.0.0 <22.0.0",
 			"@ng-icons/core": ">=32.0.0 <34.0.0",
 			"@ng-icons/lucide": ">=32.0.0 <34.0.0",
-			"@spartan-ng/brain": "0.0.1-alpha.665",
+			"@spartan-ng/brain": "0.0.1-alpha.666",
 			"clsx": "^2.1.1"
 		}
 	},
@@ -436,7 +437,7 @@
 			"@angular/core": ">=20.0.0 <22.0.0",
 			"@angular/cdk": ">=20.0.0 <22.0.0",
 			"@angular/forms": ">=20.0.0 <22.0.0",
-			"@spartan-ng/brain": "0.0.1-alpha.665",
+			"@spartan-ng/brain": "0.0.1-alpha.666",
 			"clsx": "^2.1.1"
 		}
 	},
@@ -450,7 +451,7 @@
 		"name": "tabs",
 		"peerDependencies": {
 			"@angular/core": ">=20.0.0 <22.0.0",
-			"@spartan-ng/brain": "0.0.1-alpha.665",
+			"@spartan-ng/brain": "0.0.1-alpha.666",
 			"class-variance-authority": "^0.7.0",
 			"@angular/cdk": ">=20.0.0 <22.0.0",
 			"@ng-icons/core": ">=32.0.0 <34.0.0",
@@ -464,7 +465,7 @@
 		"peerDependencies": {
 			"@angular/core": ">=20.0.0 <22.0.0",
 			"@angular/forms": ">=20.0.0 <22.0.0",
-			"@spartan-ng/brain": "0.0.1-alpha.665",
+			"@spartan-ng/brain": "0.0.1-alpha.666",
 			"class-variance-authority": "^0.7.0"
 		}
 	},
@@ -472,7 +473,7 @@
 		"name": "toggle",
 		"peerDependencies": {
 			"@angular/core": ">=20.0.0 <22.0.0",
-			"@spartan-ng/brain": "0.0.1-alpha.665",
+			"@spartan-ng/brain": "0.0.1-alpha.666",
 			"class-variance-authority": "^0.7.0"
 		}
 	},
@@ -480,7 +481,7 @@
 		"name": "toggle-group",
 		"peerDependencies": {
 			"@angular/core": ">=20.0.0 <22.0.0",
-			"@spartan-ng/brain": "0.0.1-alpha.665",
+			"@spartan-ng/brain": "0.0.1-alpha.666",
 			"@angular/cdk": ">=20.0.0 <22.0.0"
 		}
 	},
@@ -488,7 +489,7 @@
 		"name": "tooltip",
 		"peerDependencies": {
 			"@angular/core": ">=20.0.0 <22.0.0",
-			"@spartan-ng/brain": "0.0.1-alpha.665",
+			"@spartan-ng/brain": "0.0.1-alpha.666",
 			"class-variance-authority": "^0.7.0"
 		}
 	},

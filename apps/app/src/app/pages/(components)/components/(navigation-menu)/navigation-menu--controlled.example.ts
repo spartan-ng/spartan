@@ -15,6 +15,7 @@ import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 					<button hlmNavigationMenuTrigger>
 						Home
 						<ng-icon
+							hlmIcon
 							name="lucideChevronDown"
 							class="relative top-px ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
 						/>
@@ -67,6 +68,7 @@ import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 					<button hlmNavigationMenuTrigger>
 						Components
 						<ng-icon
+							hlmIcon
 							name="lucideChevronDown"
 							class="relative top-px ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
 						/>
@@ -95,6 +97,7 @@ import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 					<button hlmNavigationMenuTrigger>
 						List
 						<ng-icon
+							hlmIcon
 							name="lucideChevronDown"
 							class="relative top-px ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
 						/>
@@ -123,6 +126,7 @@ import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 					<button hlmNavigationMenuTrigger>
 						Simple
 						<ng-icon
+							hlmIcon
 							name="lucideChevronDown"
 							class="relative top-px ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
 						/>
@@ -142,6 +146,7 @@ import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 					<button hlmNavigationMenuTrigger>
 						With Icon
 						<ng-icon
+							hlmIcon
 							name="lucideChevronDown"
 							class="relative top-px ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
 						/>
@@ -150,15 +155,15 @@ import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 						<ul class="grid w-[200px] gap-4">
 							<li>
 								<a hlmNavigationMenuLink href="#" class="cursor-pointer flex-row items-center gap-2">
-									<ng-icon name="lucideInfo" />
+									<ng-icon hlmIcon name="lucideInfo" />
 									Backlog
 								</a>
 								<a hlmNavigationMenuLink href="#" class="cursor-pointer flex-row items-center gap-2">
-									<ng-icon name="lucideCircle" />
+									<ng-icon hlmIcon name="lucideCircle" />
 									To Do
 								</a>
 								<a hlmNavigationMenuLink href="#" class="cursor-pointer flex-row items-center gap-2">
-									<ng-icon name="lucideCheck" />
+									<ng-icon hlmIcon name="lucideCheck" />
 									Done
 								</a>
 							</li>

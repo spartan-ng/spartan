@@ -39,7 +39,7 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 			<div hlmButtonGroup>
 				<div hlmButtonGroup class="hidden sm:flex">
 					<button hlmBtn variant="outline" size="icon" aria-label="Go Back">
-						<ng-icon name="lucideArrowLeft" />
+						<ng-icon hlmIcon name="lucideArrowLeft" />
 					</button>
 				</div>
 				<div hlmButtonGroup>
@@ -49,7 +49,7 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 				<div hlmButtonGroup>
 					<button hlmBtn variant="outline">Snooze</button>
 					<button hlmBtn variant="outline" aria-label="More Options" [hlmDropdownMenuTrigger]="menu" align="end">
-						<ng-icon name="lucideEllipsis" />
+						<ng-icon hlmIcon name="lucideEllipsis" />
 					</button>
 				</div>
 			</div>
@@ -57,26 +57,26 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 				<hlm-dropdown-menu class="w-52">
 					<hlm-dropdown-menu-group>
 						<button hlmDropdownMenuItem>
-							<ng-icon hlm name="lucideMailCheck" size="sm" />
+							<ng-icon hlmIcon name="lucideMailCheck" size="sm" />
 							<span>Mark as Read</span>
 						</button>
 						<button hlmDropdownMenuItem>
-							<ng-icon hlm name="lucideArchive" size="sm" />
+							<ng-icon hlmIcon name="lucideArchive" size="sm" />
 							<span>Archive</span>
 						</button>
 					</hlm-dropdown-menu-group>
 					<hlm-dropdown-menu-separator />
 					<hlm-dropdown-menu-group>
 						<button hlmDropdownMenuItem>
-							<ng-icon hlm name="lucideClock" size="sm" />
+							<ng-icon hlmIcon name="lucideClock" size="sm" />
 							<span>Snooze</span>
 						</button>
 						<button hlmDropdownMenuItem>
-							<ng-icon hlm name="lucideCalendarPlus" size="sm" />
+							<ng-icon hlmIcon name="lucideCalendarPlus" size="sm" />
 							<span>Add to Calendar</span>
 						</button>
 						<button hlmDropdownMenuItem>
-							<ng-icon hlm name="lucideCalendarPlus" size="sm" />
+							<ng-icon hlmIcon name="lucideCalendarPlus" size="sm" />
 							<span>Add to List</span>
 						</button>
 						<button
@@ -87,10 +87,10 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 							[hlmDropdownMenuTrigger]="submenu"
 						>
 							<div class="flex items-center gap-2">
-								<ng-icon hlm name="lucideTag" size="sm" />
+								<ng-icon hlmIcon name="lucideTag" size="sm" />
 								<span>Label as...</span>
 							</div>
-							<ng-icon hlm name="lucideChevronRight" size="sm" />
+							<ng-icon hlmIcon name="lucideChevronRight" size="sm" />
 						</button>
 					</hlm-dropdown-menu-group>
 					<hlm-dropdown-menu-separator />
@@ -100,7 +100,7 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 							variant="destructive"
 							class="hover:bg-destructive/10 dark:hover:bg-destructive/40"
 						>
-							<ng-icon hlm name="lucideTrash" size="sm" />
+							<ng-icon hlmIcon name="lucideTrash" size="sm" />
 							<span>Delete</span>
 						</button>
 					</hlm-dropdown-menu-group>

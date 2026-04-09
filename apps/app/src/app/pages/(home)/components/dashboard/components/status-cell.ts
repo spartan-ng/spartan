@@ -19,9 +19,9 @@ import type { DashboardData } from './dashboard-data.model';
 			class="text-muted-foreground rounded-full px-1.5 text-xs"
 		>
 			@if (_element.status === 'Done') {
-				<ng-icon hlm name="tablerCircleCheck" class="text-green-500 dark:text-green-400" size="xs" />
+				<ng-icon hlmIcon name="tablerCircleCheck" class="text-green-500 dark:text-green-400" size="xs" />
 			} @else {
-				<ng-icon hlm name="tablerLoader" size="xs" />
+				<ng-icon hlmIcon name="tablerLoader" size="xs" />
 			}
 			{{ _element.status }}
 		</span>

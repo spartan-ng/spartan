@@ -35,7 +35,7 @@ import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 					/>
 					<button hlmBtn type="submit" size="icon" variant="ghost" class="absolute top-1 right-1 size-7">
 						<span class="sr-only">Copy</span>
-						<ng-icon hlm name="lucideCopy" class="!size-3.5" />
+						<ng-icon hlmIcon name="lucideCopy" class="!size-3.5" />
 					</button>
 				</div>
 			</hlm-popover-content>

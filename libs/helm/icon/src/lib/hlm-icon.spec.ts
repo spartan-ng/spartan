@@ -27,6 +27,10 @@ describe('HlmIconDirective', () => {
 		icon = r.container.querySelector('ng-icon')!;
 	});
 
+	it('should have the hlmIcon attribute on the host element', () => {
+		expect(icon.hasAttribute('hlmIcon')).toBe(true);
+	});
+
 	it('should add the xs size', async () => {
 		await r.rerender({ componentInputs: { size: 'xs' } });
 		r.fixture.detectChanges();

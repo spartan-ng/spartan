@@ -88,7 +88,7 @@ import { TasksExample } from '../tasks';
 					align="start"
 				>
 					<button hlmBtn hlmPopoverTrigger variant="outline" size="sm" class="border-dashed">
-						<ng-icon hlm name="lucideCirclePlus" class="mr-2" size="sm" />
+						<ng-icon hlmIcon name="lucideCirclePlus" class="mr-2" size="sm" />
 						Status
 						@if (_statusFilter().length) {
 							<div data-orientation="vertical" role="none" class="bg-border mx-2 h-4 w-[1px] shrink-0"></div>
@@ -111,7 +111,7 @@ import { TasksExample } from '../tasks';
 									<button hlm-command-item [value]="status" (selected)="statusSelected(status)">
 										<hlm-checkbox class="mr-2" [checked]="isStatusSelected(status)" />
 
-										<ng-icon hlm [name]="status | statusIcon" class="text-muted-foreground mx-2" size="sm" />
+										<ng-icon hlmIcon [name]="status | statusIcon" class="text-muted-foreground mx-2" size="sm" />
 										{{ status }}
 									</button>
 								}
@@ -129,7 +129,7 @@ import { TasksExample } from '../tasks';
 					align="start"
 				>
 					<button hlmBtn hlmPopoverTrigger variant="outline" size="sm" class="border-dashed">
-						<ng-icon hlm name="lucideCirclePlus" class="mr-2" size="sm" />
+						<ng-icon hlmIcon name="lucideCirclePlus" class="mr-2" size="sm" />
 						Priority
 						@if (_priorityFilter().length) {
 							<div data-orientation="vertical" role="none" class="bg-border mx-2 h-4 w-[1px] shrink-0"></div>
@@ -152,7 +152,7 @@ import { TasksExample } from '../tasks';
 									<button hlm-command-item [value]="priority" (selected)="prioritySelected(priority)">
 										<hlm-checkbox class="mr-2" [checked]="isPrioritySelected(priority)" />
 
-										<ng-icon hlm [name]="priority | priorityIcon" class="text-muted-foreground mx-2" size="sm" />
+										<ng-icon hlmIcon [name]="priority | priorityIcon" class="text-muted-foreground mx-2" size="sm" />
 										{{ priority }}
 									</button>
 								}
@@ -164,7 +164,7 @@ import { TasksExample } from '../tasks';
 				@if (_statusFilter().length || _priorityFilter().length) {
 					<button hlmBtn variant="ghost" size="sm" align="end" (click)="resetFilters()">
 						Reset
-						<ng-icon hlm name="lucideX" class="ml-2" size="sm" />
+						<ng-icon hlmIcon name="lucideX" class="ml-2" size="sm" />
 					</button>
 				}
 			</div>
@@ -172,7 +172,7 @@ import { TasksExample } from '../tasks';
 			<!-- Column visibility -->
 			<button hlmBtn variant="outline" align="end" [hlmDropdownMenuTrigger]="menu">
 				Columns
-				<ng-icon hlm name="lucideChevronDown" class="ml-2" size="sm" />
+				<ng-icon hlmIcon name="lucideChevronDown" class="ml-2" size="sm" />
 			</button>
 			<ng-template #menu>
 				<hlm-dropdown-menu class="w-32">

@@ -38,7 +38,7 @@ export const Default: Story = {
     <ng-template #tooltip>
 
     <span class='flex items-center'>
-      Add to library <ng-icon hlm class='ml-2' size='sm' name='lucidePlus'/>
+      Add to library <ng-icon hlmIcon class='ml-2' size='sm' name='lucidePlus'/>
      </span>
 </ng-template>
   </hlm-tooltip>
@@ -60,7 +60,7 @@ export const Default: Story = {
 				hlmBtn
 				size="icon"
 			>
-				<ng-icon hlm name="lucidePlus" size="sm" />
+				<ng-icon hlmIcon name="lucidePlus" size="sm" />
 			</button>
 		</div>
 	`,
@@ -96,7 +96,7 @@ export const Simple: Story = {
 			<ng-template #tooltip>
 				<span class="flex items-center">
 					Add to library
-					<ng-icon hlm class="ml-2" size="sm" name="lucidePlus" />
+					<ng-icon hlmIcon class="ml-2" size="sm" name="lucidePlus" />
 				</span>
 			</ng-template>
 

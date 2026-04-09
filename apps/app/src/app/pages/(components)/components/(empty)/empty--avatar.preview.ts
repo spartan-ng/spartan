@@ -25,7 +25,7 @@ import { HlmEmptyImports } from '@spartan-ng/helm/empty';
 			</div>
 			<div hlmEmptyContent>
 				<button hlmBtn size="sm">
-					<ng-icon hlm name="lucideMessageCircle" />
+					<ng-icon hlmIcon name="lucideMessageCircle" />
 					Leave message
 				</button>
 			</div>

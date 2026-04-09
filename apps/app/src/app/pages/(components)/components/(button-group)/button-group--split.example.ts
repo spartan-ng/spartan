@@ -14,7 +14,7 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 			<button hlmBtn variant="secondary">Button</button>
 			<hlm-button-group-separator />
 			<button hlmBtn variant="secondary" size="icon">
-				<ng-icon hlm name="lucidePlus" size="sm" />
+				<ng-icon hlmIcon name="lucidePlus" size="sm" />
 			</button>
 		</div>
 	`,

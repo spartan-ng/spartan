@@ -35,7 +35,7 @@ import { HlmItemImports } from '@spartan-ng/helm/item';
 
 					<div hlmItemActions>
 						<button hlmBtn variant="ghost" size="icon" class="rounded-full">
-							<ng-icon hlm name="lucidePlus" />
+							<ng-icon hlmIcon name="lucidePlus" />
 						</button>
 					</div>
 				</div>

@@ -21,7 +21,7 @@ import { HlmItemImports } from '@spartan-ng/helm/item';
 	template: `
 		<button hlmBtn variant="outline" size="sm" [hlmDropdownMenuTrigger]="people" class="w-fit" align="end">
 			Select
-			<ng-icon hlm name="lucideChevronDown" />
+			<ng-icon hlmIcon name="lucideChevronDown" />
 		</button>
 
 		<ng-template #people>

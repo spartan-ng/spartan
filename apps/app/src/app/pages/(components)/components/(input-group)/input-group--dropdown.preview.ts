@@ -30,7 +30,7 @@ import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 					[hlmDropdownMenuTrigger]="fileMenu"
 					align="end"
 				>
-					<ng-icon name="lucideEllipsis" />
+					<ng-icon hlmIcon name="lucideEllipsis" />
 				</button>
 			</div>
 		</div>
@@ -46,7 +46,7 @@ import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 					align="end"
 				>
 					Search In...
-					<ng-icon name="lucideChevronDown" />
+					<ng-icon hlmIcon name="lucideChevronDown" />
 				</button>
 			</div>
 		</div>

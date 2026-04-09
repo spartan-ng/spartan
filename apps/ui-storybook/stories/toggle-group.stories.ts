@@ -45,15 +45,15 @@ export const Default: Story = {
 		template: `
 		<div class="flex items-center justify-center p-4">
 	 <hlm-toggle-group type="single" nullable="true" ${argsToTemplate(args)}> <button aria-label="Bold Toggle" value="bold" hlmToggleGroupItem>
-	   <ng-icon hlm size="sm" name="lucideBold" ${argsToTemplate(args)} />
+	   <ng-icon hlmIcon size="sm" name="lucideBold" ${argsToTemplate(args)} />
 	 </button>
 
 	 <button aria-label="Italic Toggle" value="italic" hlmToggleGroupItem>
-	   <ng-icon hlm size="sm" name="lucideItalic" ${argsToTemplate(args)} />
+	   <ng-icon hlmIcon size="sm" name="lucideItalic" ${argsToTemplate(args)} />
 	 </button>
 
 	 <button aria-label="Underline Toggle" value="underline" hlmToggleGroupItem>
-	   <ng-icon hlm size="sm" name="lucideUnderline" ${argsToTemplate(args)} />
+	   <ng-icon hlmIcon size="sm" name="lucideUnderline" ${argsToTemplate(args)} />
 	 </button>
 			</hlm-toggle-group>
 		</div>
@@ -66,15 +66,15 @@ export const Outline: Story = {
 		template: `
 		<div class="flex items-center justify-center p-4">
 	<hlm-toggle-group size="sm" variant="outline" type="multiple" nullable="true" ${argsToTemplate(args)}> <button aria-label="Bold" value="bold" hlmToggleGroupItem>
-		 <ng-icon hlm size="sm" name="lucideBold" />
+		 <ng-icon hlmIcon size="sm" name="lucideBold" />
 	 </button>
 
 	 <button aria-label="Italic" value="italic" hlmToggleGroupItem>
-	   <ng-icon hlm size="sm" name="lucideItalic" />
+	   <ng-icon hlmIcon size="sm" name="lucideItalic" />
 	 </button>
 
 	 <button aria-label="Underline" value="underline" hlmToggleGroupItem>
-	 	 <ng-icon hlm size="sm" name="lucideUnderline" />
+	 	 <ng-icon hlmIcon size="sm" name="lucideUnderline" />
 	 </button>
 	</hlm-toggle-group>
 		</div>
@@ -87,13 +87,13 @@ export const Small: Story = {
 		template: `
 	<div class="flex items-center justify-center p-4">
 	<hlm-toggle-group size="sm" ${argsToTemplate(args)} type="single" nullable="true"> <button aria-label="Bold" value="bold" hlmToggleGroupItem>
-	 <ng-icon hlm size="sm" name="lucideBold" />
+	 <ng-icon hlmIcon size="sm" name="lucideBold" />
 	</button>
 	<button aria-label="Italic" value="italic" hlmToggleGroupItem>
-	  <ng-icon hlm size="sm" name="lucideItalic" />
+	  <ng-icon hlmIcon size="sm" name="lucideItalic" />
 	</button>
 	<button aria-label="Underline" value="underline" hlmToggleGroupItem>
-		 <ng-icon hlm size="sm" name="lucideUnderline" />
+		 <ng-icon hlmIcon size="sm" name="lucideUnderline" />
 	</button>
 	</hlm-toggle-group>
 	</div>
@@ -106,15 +106,15 @@ export const Large: Story = {
 		template: `
 		<div class="flex items-center justify-center p-4">
 <hlm-toggle-group ${argsToTemplate(args)} type="single" nullable="true" size="lg"> <button aria-label="Bold" value="bold" hlmToggleGroupItem>
-		 <ng-icon hlm size="lg" name="lucideBold" />
+		 <ng-icon hlmIcon size="lg" name="lucideBold" />
 	 </button>
 
 	 <button aria-label="Italic" value="italic" hlmToggleGroupItem>
-	   <ng-icon hlm size="lg" name="lucideItalic" />
+	   <ng-icon hlmIcon size="lg" name="lucideItalic" />
 	 </button>
 
 	 <button aria-label="Underline" value="underline" hlmToggleGroupItem>
-	 	 <ng-icon hlm size="lg" name="lucideUnderline" />
+	 	 <ng-icon hlmIcon size="lg" name="lucideUnderline" />
 	 </button>
 	</hlm-toggle-group>
 		</div>
@@ -127,13 +127,13 @@ export const Disabled: Story = {
 		template: `
 	<div class="flex items-center justify-center p-4">
   <hlm-toggle-group type="single" nullable="true" size="sm" disabled> <button aria-label="Bold" value="bold" hlmToggleGroupItem>
-		 <ng-icon hlm size="sm" name="lucideBold" />
+		 <ng-icon hlmIcon size="sm" name="lucideBold" />
 	</button>
 	<button aria-label="Italic" value="italic" hlmToggleGroupItem>
-	  <ng-icon hlm size="sm" name="lucideItalic" />
+	  <ng-icon hlmIcon size="sm" name="lucideItalic" />
 	</button>
 	<button aria-label="Underline" value="underline" hlmToggleGroupItem>
-		 <ng-icon hlm size="sm" name="lucideUnderline" />
+		 <ng-icon hlmIcon size="sm" name="lucideUnderline" />
 	</button>
 	</hlm-toggle-group>
 	</div>

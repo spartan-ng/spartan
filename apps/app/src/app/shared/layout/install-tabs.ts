@@ -66,7 +66,7 @@ const cliBtn =
 				>
 					<div class="border-border/50 flex items-center gap-2 border-b px-3 py-1">
 						<div class="flex items-center rounded-xs bg-[#5e5e5e] p-px dark:bg-[#bdbdbd]">
-							<ng-icon name="lucideTerminal" class="text-white dark:text-black" />
+							<ng-icon hlmIcon name="lucideTerminal" class="text-white dark:text-black" />
 						</div>
 
 						<div brnTabsList class="flex" aria-label="Tablist showing Angular CLI and Nx Plugin">
@@ -75,7 +75,7 @@ const cliBtn =
 						</div>
 
 						<button (click)="copyCli()" hlmBtn variant="ghost" class="ml-auto h-6 w-6">
-							<ng-icon hlm size="xs" [name]="_cliCopied ? 'lucideCheck' : 'lucideClipboard'" />
+							<ng-icon hlmIcon size="xs" [name]="_cliCopied ? 'lucideCheck' : 'lucideClipboard'" />
 						</button>
 					</div>
 
@@ -147,7 +147,7 @@ const cliBtn =
 											</div>
 
 											<button (click)="copyComponent()" hlmBtn variant="ghost" class="ml-auto h-6 w-6">
-												<ng-icon hlm size="xs" [name]="_componentCopied ? 'lucideCheck' : 'lucideClipboard'" />
+												<ng-icon hlmIcon size="xs" [name]="_componentCopied ? 'lucideCheck' : 'lucideClipboard'" />
 											</button>
 										</div>
 

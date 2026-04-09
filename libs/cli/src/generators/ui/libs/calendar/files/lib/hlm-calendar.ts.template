@@ -205,5 +205,5 @@ export class HlmCalendar<T> {
 		'dark:hover:text-accent-foreground',
 	);
 
-	protected readonly _selectClass = 'gap-0 px-1.5 py-2 [&>ng-icon]:ml-1';
+	protected readonly _selectClass = 'gap-0 px-1.5 py-2 [&>[hlmIcon]]:ml-1';
 }

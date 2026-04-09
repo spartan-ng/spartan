@@ -1,17 +1,18 @@
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCitrus } from '@ng-icons/lucide';
+import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
 
 @Component({
 	selector: 'spartan-select-placeholder-preview',
-	imports: [HlmSelectImports, NgIcon],
+	imports: [HlmSelectImports, NgIcon, HlmIcon],
 	providers: [provideIcons({ lucideCitrus })],
 	template: `
 		<hlm-select>
 			<hlm-select-trigger class="w-56">
 				<hlm-select-placeholder>
-					<ng-icon name="lucideCitrus" />
+					<ng-icon hlmIcon name="lucideCitrus" />
 					Select a fruit
 				</hlm-select-placeholder>
 				<hlm-select-value />

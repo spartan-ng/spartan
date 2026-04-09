@@ -31,19 +31,19 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 				<span hlmInputGroupText>Line 1, Column 1</span>
 				<button hlmInputGroupButton size="sm" class="ml-auto" variant="default">
 					Run
-					<ng-icon name="tablerCornerDownLeft" />
+					<ng-icon hlmIcon name="tablerCornerDownLeft" />
 				</button>
 			</div>
 			<div hlmInputGroupAddon align="block-start" class="border-b">
 				<span hlmInputGroupText class="font-mono font-medium">
-					<ng-icon name="tablerBrandJavascript" />
+					<ng-icon hlmIcon name="tablerBrandJavascript" />
 					script.js
 				</span>
 				<button hlmInputGroupButton class="ml-auto" size="icon-xs">
-					<ng-icon name="tablerRefresh" />
+					<ng-icon hlmIcon name="tablerRefresh" />
 				</button>
 				<button hlmInputGroupButton variant="ghost" size="icon-xs">
-					<ng-icon name="tablerCopy" />
+					<ng-icon hlmIcon name="tablerCopy" />
 				</button>
 			</div>
 		</div>

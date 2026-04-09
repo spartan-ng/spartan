@@ -15,7 +15,7 @@ import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 		<div hlmButtonGroup class="w-full [--radius:9999rem]">
 			<div hlmButtonGroup>
 				<button hlmBtn variant="outline" size="icon">
-					<ng-icon hlm name="lucidePlus" size="sm" />
+					<ng-icon hlmIcon name="lucidePlus" size="sm" />
 				</button>
 			</div>
 			<div hlmButtonGroup class="flex-1">
@@ -29,7 +29,7 @@ import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 							[attr.data-active]="_enableVoiceMode()"
 							(click)="_enableVoiceMode.set(!_enableVoiceMode())"
 						>
-							<ng-icon hlm name="lucideAudioLines" size="sm" />
+							<ng-icon hlmIcon name="lucideAudioLines" size="sm" />
 						</button>
 					</div>
 				</div>

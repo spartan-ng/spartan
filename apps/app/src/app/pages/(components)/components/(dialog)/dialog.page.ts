@@ -6,6 +6,7 @@ import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/prim
 import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { HlmAlertImports } from '@spartan-ng/helm/alert';
+import { HlmIcon } from '@spartan-ng/helm/icon';
 import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
@@ -52,6 +53,7 @@ export const routeMeta: RouteMeta = {
 		DialogContextMenuPreview,
 		DialogDynamicPreview,
 		NgIcon,
+		HlmIcon,
 		HlmAlertImports,
 		DialogDeclarativePreview,
 		DialogClosePreview,
@@ -111,7 +113,7 @@ export const routeMeta: RouteMeta = {
 				alternative, which takes in a reference to the hlm-dialog. That way you can avoid nesting the template.
 			</p>
 			<div hlmAlert class="mb-6" variant="destructive">
-				<ng-icon name="lucideTriangleAlert" />
+				<ng-icon hlmIcon name="lucideTriangleAlert" />
 				<p hlmAlertTitle>Note</p>
 				<div hlmAlertDescription class="leading-loose">
 					<p>
@@ -141,7 +143,7 @@ export const routeMeta: RouteMeta = {
 				function.
 			</p>
 			<div hlmAlert class="mb-6" variant="destructive">
-				<ng-icon name="lucideTriangleAlert" />
+				<ng-icon hlmIcon name="lucideTriangleAlert" />
 				<p hlmAlertTitle>Note</p>
 				<div hlmAlertDescription class="leading-loose">
 					<p>

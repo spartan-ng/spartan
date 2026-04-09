@@ -11,7 +11,7 @@ export class HlmAvatarGroupCount {
 	constructor() {
 		classes(
 			() =>
-				'bg-muted text-muted-foreground ring-background relative flex size-8 shrink-0 items-center justify-center rounded-full text-sm ring-2 group-has-data-[size=lg]/avatar-group:size-10 group-has-data-[size=sm]/avatar-group:size-6 [&>ng-icon]:text-base group-has-data-[size=lg]/avatar-group:[&>ng-icon]:text-xl group-has-data-[size=sm]/avatar-group:[&>ng-icon]:text-xs',
+				'bg-muted text-muted-foreground ring-background relative flex size-8 shrink-0 items-center justify-center rounded-full text-sm ring-2 group-has-data-[size=lg]/avatar-group:size-10 group-has-data-[size=sm]/avatar-group:size-6 [&>[hlmIcon]]:text-base group-has-data-[size=lg]/avatar-group:[&>[hlmIcon]]:text-xl group-has-data-[size=sm]/avatar-group:[&>[hlmIcon]]:text-xs',
 		);
 	}
 }

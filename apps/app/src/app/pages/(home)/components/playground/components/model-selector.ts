@@ -21,7 +21,7 @@ import { Model, ModelType } from '../data/models';
 		<hlm-popover sideOffset="5">
 			<button id="select-preset" variant="outline" hlmPopoverTrigger hlmBtn class="w-full flex-1 justify-between">
 				{{ selectedModel() ? selectedModel()?.name : 'Load a model...' }}
-				<ng-icon hlm name="lucideChevronsUpDown" size="sm" />
+				<ng-icon hlmIcon name="lucideChevronsUpDown" size="sm" />
 			</button>
 			<hlm-popover-content class="w-full p-0" *hlmPopoverPortal="let ctx">
 				<hlm-command>

@@ -3,10 +3,11 @@ import { RouterLink } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideArrowUpRight } from '@ng-icons/lucide';
 import { HlmBadgeImports } from '@spartan-ng/helm/badge';
+import { HlmIcon } from '@spartan-ng/helm/icon';
 
 @Component({
 	selector: 'spartan-badge-link',
-	imports: [HlmBadgeImports, RouterLink, NgIcon],
+	imports: [HlmBadgeImports, RouterLink, NgIcon, HlmIcon],
 	providers: [provideIcons({ lucideArrowUpRight })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
@@ -14,7 +15,7 @@ import { HlmBadgeImports } from '@spartan-ng/helm/badge';
 			<a hlmBadge routerLink=".">Angular Route</a>
 			<a hlmBadge variant="secondary" href="https://spartan.ng" target="_blank" rel="noopener noreferrer">
 				External Link
-				<ng-icon name="lucideArrowUpRight" />
+				<ng-icon hlmIcon name="lucideArrowUpRight" />
 			</a>
 		</div>
 	`,

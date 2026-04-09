@@ -11,7 +11,7 @@ import { type HeaderContext, injectFlexRenderContext } from '@tanstack/angular-t
 	template: `
 		<button hlmBtn size="sm" variant="ghost" (click)="filterClick()" [class.capitalize]="header() === ''">
 			{{ _header() }}
-			<ng-icon hlm size="sm" name="lucideArrowUpDown" />
+			<ng-icon hlmIcon size="sm" name="lucideArrowUpDown" />
 		</button>
 	`,
 })

@@ -3,6 +3,7 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideFullscreen, lucideMonitor, lucideSmartphone, lucideTablet } from '@ng-icons/lucide';
 import { ToggleValue } from '@spartan-ng/brain/toggle-group';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmResizableImports, HlmResizablePanel } from '@spartan-ng/helm/resizable';
 import { HlmSeparatorImports } from '@spartan-ng/helm/separator';
 import { HlmToggleGroupImports } from '@spartan-ng/helm/toggle-group';
@@ -21,6 +22,7 @@ import { OpenInButton } from './open-in-button';
 		BlockLink,
 		BlockPreview,
 		NgIcon,
+		HlmIcon,
 	],
 	providers: [provideIcons({ lucideMonitor, lucideTablet, lucideSmartphone, lucideFullscreen })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -40,19 +42,19 @@ import { OpenInButton } from './open-in-button';
 					class="gap-1 *:data-[slot=toggle-group-item]:size-6! *:data-[slot=toggle-group-item]:rounded-sm!"
 				>
 					<button hlmToggleGroupItem [value]="100" title="Desktop">
-						<ng-icon name="lucideMonitor" />
+						<ng-icon hlmIcon name="lucideMonitor" />
 					</button>
 					<button hlmToggleGroupItem [value]="60" title="Tablet">
-						<ng-icon name="lucideTablet" />
+						<ng-icon hlmIcon name="lucideTablet" />
 					</button>
 					<button hlmToggleGroupItem [value]="30" title="Smartphone">
-						<ng-icon name="lucideSmartphone" />
+						<ng-icon hlmIcon name="lucideSmartphone" />
 					</button>
 				</hlm-toggle-group>
 				<hlm-separator orientation="vertical" />
 				<a hlmBtn size="icon" variant="ghost" title="Open in New Tab" [href]="_previewUrl()" target="_blank">
 					<span class="sr-only">Open in New Tab</span>
-					<ng-icon name="lucideFullscreen" />
+					<ng-icon hlmIcon name="lucideFullscreen" />
 				</a>
 			</div>
 

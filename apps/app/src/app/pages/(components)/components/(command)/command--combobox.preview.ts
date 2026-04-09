@@ -24,7 +24,7 @@ type Framework = { label: string; value: string };
 				variant="outline"
 			>
 				{{ currentFramework() ? currentFramework()?.label : 'Select framework...' }}
-				<ng-icon hlm size="sm" name="lucideChevronsUpDown" class="opacity-50" />
+				<ng-icon hlmIcon size="sm" name="lucideChevronsUpDown" class="opacity-50" />
 			</button>
 			<hlm-command *hlmPopoverPortal="let ctx" hlmPopoverContent class="w-[200px] p-0">
 				<hlm-command-input placeholder="Search framework..." />

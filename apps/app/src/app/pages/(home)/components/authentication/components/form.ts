@@ -34,7 +34,7 @@ import { HlmLabel } from '@spartan-ng/helm/label';
 					/>
 					<button hlmBtn [disabled]="isLoading()" class="mt-2 w-full" type="submit">
 						@if (isLoading()) {
-							<ng-icon hlm name="lucideLoaderCircle" size="sm" class="mr-2 animate-spin" />
+							<ng-icon hlmIcon name="lucideLoaderCircle" size="sm" class="mr-2 animate-spin" />
 						}
 						Sign In with Email
 					</button>
@@ -47,9 +47,9 @@ import { HlmLabel } from '@spartan-ng/helm/label';
 				</div>
 				<button hlmBtn variant="outline" [disabled]="isLoading()">
 					@if (isLoading()) {
-						<ng-icon hlm name="lucideLoaderCircle" size="sm" class="mr-2 animate-spin" />
+						<ng-icon hlmIcon name="lucideLoaderCircle" size="sm" class="mr-2 animate-spin" />
 					} @else {
-						<ng-icon hlm class="mr-2" size="sm" name="lucideGithub" />
+						<ng-icon hlmIcon class="mr-2" size="sm" name="lucideGithub" />
 					}
 					GitHub
 				</button>

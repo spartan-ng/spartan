@@ -6,6 +6,7 @@ import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/prim
 import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { HlmAlert, HlmAlertDescription } from '@spartan-ng/helm/alert';
+import { HlmIcon } from '@spartan-ng/helm/icon';
 import { hlmCode } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
@@ -63,6 +64,7 @@ export const routeMeta: RouteMeta = {
 		HlmAlertDescription,
 		HlmAlert,
 		NgIcon,
+		HlmIcon,
 		SectionSubSubHeading,
 	],
 	providers: [provideIcons({ lucideCircleAlert })],
@@ -177,7 +179,7 @@ export const routeMeta: RouteMeta = {
 			</p>
 
 			<div hlmAlert class="my-2">
-				<ng-icon name="lucideCircleAlert" />
+				<ng-icon hlmIcon name="lucideCircleAlert" />
 				<div hlmAlertDescription>
 					<p>
 						<strong>Padding</strong>

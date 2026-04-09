@@ -32,7 +32,7 @@ import { HlmItemImports } from '@spartan-ng/helm/item';
 			</div>
 			<div hlmItemActions>
 				<button hlmBtn size="icon-sm" variant="outline" class="rounded-full" aria-label="Invite">
-					<ng-icon hlm name="lucidePlus" />
+					<ng-icon hlmIcon name="lucidePlus" />
 				</button>
 			</div>
 		</div>

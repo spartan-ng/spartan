@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucidePlus } from '@ng-icons/lucide';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmTooltipImports } from '@spartan-ng/helm/tooltip';
 
 @Component({
 	selector: 'spartan-tooltip-template',
-	imports: [HlmButtonImports, HlmTooltipImports, NgIcon],
+	imports: [HlmButtonImports, HlmTooltipImports, NgIcon, HlmIcon],
 	providers: [provideIcons({ lucidePlus })],
 	template: `
 		<button [hlmTooltip]="tooltip" hlmBtn variant="outline">Simple</button>
@@ -14,7 +15,7 @@ import { HlmTooltipImports } from '@spartan-ng/helm/tooltip';
 		<ng-template #tooltip>
 			<span class="flex items-center">
 				Add to library
-				<ng-icon class="ml-2 text-sm" name="lucidePlus" />
+				<ng-icon hlmIcon class="ml-2 text-sm" name="lucidePlus" />
 			</span>
 		</ng-template>
 	`,

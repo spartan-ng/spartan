@@ -15,19 +15,19 @@ import { hlm } from '@spartan-ng/helm/utils';
 		<hlm-radio-group class="grid grid-cols-3 gap-4" [(ngModel)]="payment">
 			<label class="flex items-center" hlmLabel [class]="cardClass">
 				<hlm-radio value="card">
-					<ng-icon hlm name="lucideCreditCard" class="mb-3" />
+					<ng-icon hlmIcon name="lucideCreditCard" class="mb-3" />
 				</hlm-radio>
 				Card
 			</label>
 			<label class="flex items-center" hlmLabel [class]="cardClass">
 				<hlm-radio value="paypal">
-					<ng-icon hlm name="remixPaypalFill" class="mb-3" />
+					<ng-icon hlmIcon name="remixPaypalFill" class="mb-3" />
 				</hlm-radio>
 				PayPal
 			</label>
 			<label class="flex items-center" hlmLabel [class]="cardClass">
 				<hlm-radio value="apple">
-					<ng-icon hlm name="remixAppleFill" class="mb-3" />
+					<ng-icon hlmIcon name="remixAppleFill" class="mb-3" />
 				</hlm-radio>
 				Apple
 			</label>

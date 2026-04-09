@@ -23,7 +23,7 @@ import { HlmItemImports } from '@spartan-ng/helm/item';
 				<p hlmItemDescription>Learn how to get started with our components.</p>
 			</div>
 			<div hlmItemActions>
-				<ng-icon hlm name="lucideChevronRight" size="sm" />
+				<ng-icon hlmIcon name="lucideChevronRight" size="sm" />
 			</div>
 		</a>
 		<a hlmItem variant="outline" href="#" target="_blank" rel="noopener noreferrer">
@@ -32,7 +32,7 @@ import { HlmItemImports } from '@spartan-ng/helm/item';
 				<p hlmItemDescription>Opens in a new tab with security attributes.</p>
 			</div>
 			<div hlmItemActions>
-				<ng-icon hlm name="lucideExternalLink" size="sm" />
+				<ng-icon hlmIcon name="lucideExternalLink" size="sm" />
 			</div>
 		</a>
 	`,

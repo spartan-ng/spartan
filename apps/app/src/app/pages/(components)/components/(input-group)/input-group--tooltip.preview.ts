@@ -27,7 +27,7 @@ import { HlmTooltipImports } from '@spartan-ng/helm/tooltip';
 					aria-label="Info"
 					size="icon-xs"
 				>
-					<ng-icon name="lucideInfo" />
+					<ng-icon hlmIcon name="lucideInfo" />
 				</button>
 			</div>
 		</div>
@@ -35,7 +35,7 @@ import { HlmTooltipImports } from '@spartan-ng/helm/tooltip';
 			<input hlmInputGroupInput placeholder="Your email address" />
 			<div hlmInputGroupAddon align="inline-end">
 				<button hlmInputGroupButton [hlmTooltip]="tooltip" variant="ghost" aria-label="Info" size="icon-xs">
-					<ng-icon name="lucideInfo" />
+					<ng-icon hlmIcon name="lucideInfo" />
 				</button>
 				<ng-template #tooltip>We'll use this to send you notifications</ng-template>
 			</div>
@@ -51,7 +51,7 @@ import { HlmTooltipImports } from '@spartan-ng/helm/tooltip';
 					aria-label="Info"
 					size="icon-xs"
 				>
-					<ng-icon name="lucideInfo" />
+					<ng-icon hlmIcon name="lucideInfo" />
 				</button>
 			</div>
 		</div>

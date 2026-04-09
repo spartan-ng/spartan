@@ -2,12 +2,13 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown, lucideChevronUp } from '@ng-icons/lucide';
 import { BrnAccordionImports } from '@spartan-ng/brain/accordion';
+import { HlmIcon } from '@spartan-ng/helm/icon';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-accordion-trigger',
-	imports: [BrnAccordionImports, NgIcon],
+	imports: [BrnAccordionImports, NgIcon, HlmIcon],
 	providers: [provideIcons({ lucideChevronDown, lucideChevronUp })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
@@ -15,11 +16,13 @@ import type { ClassValue } from 'clsx';
 			<button brnAccordionTrigger data-slot="accordion-trigger" [class]="_computedTriggerClass()">
 				<ng-content />
 				<ng-icon
+					hlmIcon
 					name="lucideChevronDown"
 					data-slot="accordion-trigger-icon"
 					class="spartan-accordion-trigger-icon pointer-events-none shrink-0 group-aria-expanded/accordion-trigger:hidden"
 				/>
 				<ng-icon
+					hlmIcon
 					name="lucideChevronUp"
 					data-slot="accordion-trigger-icon"
 					class="spartan-accordion-trigger-icon pointer-events-none shrink-0 group-aria-expanded/accordion-trigger:inline group-aria-[expanded=false]/accordion-trigger:hidden"

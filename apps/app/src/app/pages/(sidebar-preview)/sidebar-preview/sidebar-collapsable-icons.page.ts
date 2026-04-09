@@ -50,13 +50,13 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 								<div
 									class="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg"
 								>
-									<ng-icon hlm size="sm" name="lucideGalleryVerticalEnd" />
+									<ng-icon hlmIcon size="sm" name="lucideGalleryVerticalEnd" />
 								</div>
 								<div class="grid flex-1 text-left text-sm leading-tight">
 									<span class="truncate font-medium">Acme Inc</span>
 									<span class="truncate text-xs">Enterprise</span>
 								</div>
-								<ng-icon hlm name="lucideChevronsUpDown" class="ml-auto" />
+								<ng-icon hlmIcon name="lucideChevronsUpDown" class="ml-auto" />
 							</button>
 						</li>
 					</ul>
@@ -69,12 +69,12 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 								<hlm-collapsible [expanded]="item.isActive ?? false">
 									<li hlmSidebarMenuItem>
 										<a hlmSidebarMenuButton [routerLink]="item.url">
-											<ng-icon [name]="item.icon" />
+											<ng-icon hlmIcon [name]="item.icon" />
 											{{ item.title }}
 										</a>
 										@if (item.items; as subItems) {
 											<button hlmCollapsibleTrigger hlmSidebarMenuAction class="data-[state=open]:rotate-90">
-												<ng-icon name="lucideChevronRight" />
+												<ng-icon hlmIcon name="lucideChevronRight" />
 											</button>
 											<hlm-collapsible-content>
 												<ul hlmSidebarMenuSub>

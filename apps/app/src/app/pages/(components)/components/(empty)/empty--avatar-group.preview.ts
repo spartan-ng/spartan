@@ -35,7 +35,7 @@ import { HlmEmptyImports } from '@spartan-ng/helm/empty';
 			</div>
 			<div hlmEmptyContent>
 				<button hlmBtn size="sm">
-					<ng-icon hlm name="lucidePlus" />
+					<ng-icon hlmIcon name="lucidePlus" />
 					Invite Members
 				</button>
 			</div>

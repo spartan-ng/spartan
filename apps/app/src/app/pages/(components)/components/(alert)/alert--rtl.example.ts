@@ -3,10 +3,11 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCheckCircle2, lucideInfo } from '@ng-icons/lucide';
 import { TranslateService, Translations } from '@spartan-ng/app/app/shared/translate.service';
 import { HlmAlertImports } from '@spartan-ng/helm/alert';
+import { HlmIcon } from '@spartan-ng/helm/icon';
 
 @Component({
 	selector: 'spartan-alert-rtl-preview',
-	imports: [NgIcon, HlmAlertImports],
+	imports: [NgIcon, HlmIcon, HlmAlertImports],
 	providers: [
 		provideIcons({
 			lucideCheckCircle2,
@@ -20,7 +21,7 @@ import { HlmAlertImports } from '@spartan-ng/helm/alert';
 	template: `
 		@for (alert of _alerts; track alert) {
 			<hlm-alert>
-				<ng-icon [name]="alert.icon" />
+				<ng-icon hlmIcon [name]="alert.icon" />
 				<h4 hlmAlertTitle>{{ _t()[alert.titleKey] }}</h4>
 				<p hlmAlertDescription>
 					{{ _t()[alert.descriptionKey] }}

@@ -146,11 +146,24 @@ export const routeMeta: RouteMeta = {
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="icons">Lucide Icons</spartan-section-sub-heading>
-			<p class="${hlmP}">
-				Browse all available Lucide icons at
-				<a href="https://lucide.dev/icons" target="_blank" rel="noreferrer" class="${link}">lucide.dev/icons</a>
-				.
-			</p>
+			<input
+				#searchQuery
+				class="mt-4 w-full"
+				hlmInput
+				placeholder="Search icons..."
+				type="text"
+				(input)="onSearchUpdated(searchQuery.value)"
+			/>
+			<div
+				class="border-border mt-2 grid grid-cols-2 place-items-center gap-4 rounded-md border sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6"
+			>
+				@for (icon of _iconsList(); track $index) {
+					<div class="flex w-full flex-col items-center gap-2 p-4">
+						<ng-icon hlmIcon size="lg" [name]="icon" />
+						<span class="text-center text-sm break-all whitespace-normal">{{ icon }}</span>
+					</div>
+				}
+			</div>
 
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="helm" />

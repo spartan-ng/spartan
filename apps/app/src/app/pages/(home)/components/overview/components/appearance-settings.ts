@@ -64,10 +64,10 @@ import { HlmSwitch } from '@spartan-ng/helm/switch';
 				<div hlmButtonGroup>
 					<input hlmInput class="h-8 !w-14 font-mono" [value]="_gpuCount()" />
 					<button hlmBtn variant="outline" size="icon-sm" (click)="_gpuCountDecrease()">
-						<ng-icon hlm name="lucideMinus" size="sm" />
+						<ng-icon hlmIcon name="lucideMinus" size="sm" />
 					</button>
 					<button hlmBtn variant="outline" size="icon-sm" (click)="_gpuCountIncrease()">
-						<ng-icon hlm name="lucidePlus" size="sm" />
+						<ng-icon hlmIcon name="lucidePlus" size="sm" />
 					</button>
 				</div>
 			</div>

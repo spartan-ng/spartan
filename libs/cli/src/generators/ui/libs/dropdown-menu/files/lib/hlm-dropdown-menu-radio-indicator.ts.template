@@ -1,15 +1,16 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCircle } from '@ng-icons/lucide';
+import { HlmIcon } from '<%- importAlias %>/icon';
 import { classes } from '<%- importAlias %>/utils';
 
 @Component({
 	selector: 'hlm-dropdown-menu-radio-indicator',
-	imports: [NgIcon],
+	imports: [NgIcon, HlmIcon],
 	providers: [provideIcons({ lucideCircle })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<ng-icon name="lucideCircle" class="text-[0.5rem] *:[svg]:fill-current" />
+		<ng-icon hlmIcon name="lucideCircle" class="text-[0.5rem] *:[svg]:fill-current" />
 	`,
 })
 export class HlmDropdownMenuRadioIndicator {

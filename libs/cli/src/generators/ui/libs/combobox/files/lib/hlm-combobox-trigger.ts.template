@@ -9,6 +9,7 @@ import {
 } from '@spartan-ng/brain/combobox';
 import { BrnFieldControlDescribedBy } from '@spartan-ng/brain/field';
 import { ButtonVariants, HlmButton } from '<%- importAlias %>/button';
+import { HlmIcon } from '<%- importAlias %>/icon';
 import { hlm } from '<%- importAlias %>/utils';
 import type { ClassValue } from 'clsx';
 
@@ -16,6 +17,7 @@ import type { ClassValue } from 'clsx';
 	selector: 'hlm-combobox-trigger',
 	imports: [
 		NgIcon,
+		HlmIcon,
 		HlmButton,
 		BrnComboboxAnchor,
 		BrnComboboxTrigger,
@@ -38,7 +40,7 @@ import type { ClassValue } from 'clsx';
 			[variant]="variant()"
 		>
 			<ng-content />
-			<ng-icon name="lucideChevronDown" />
+			<ng-icon hlmIcon name="lucideChevronDown" />
 		</button>
 	`,
 })

@@ -15,7 +15,7 @@ import { HlmSwitch } from '@spartan-ng/helm/switch';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<button hlmBtn variant="secondary" align="end" [hlmDropdownMenuTrigger]="menu" size="icon">
-			<ng-icon hlm name="lucideEllipsis" size="sm" />
+			<ng-icon hlmIcon name="lucideEllipsis" size="sm" />
 		</button>
 		<ng-template #menu>
 			<hlm-dropdown-menu class="w-56">

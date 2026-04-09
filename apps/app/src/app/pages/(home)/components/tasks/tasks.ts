@@ -126,19 +126,19 @@ import { type Task, TASK_DATA } from './services/tasks.models';
 						<hlm-dropdown-menu-group>
 							<hlm-dropdown-menu-group>
 								<button hlmDropdownMenuItem>
-									<ng-icon hlm name="lucideUser" />
+									<ng-icon hlmIcon name="lucideUser" />
 									<span>Profile</span>
 									<hlm-dropdown-menu-shortcut>⇧⌘P</hlm-dropdown-menu-shortcut>
 								</button>
 
 								<button hlmDropdownMenuItem>
-									<ng-icon hlm name="lucideLayers" />
+									<ng-icon hlmIcon name="lucideLayers" />
 									<span>Billing</span>
 									<hlm-dropdown-menu-shortcut>⌘B</hlm-dropdown-menu-shortcut>
 								</button>
 
 								<button hlmDropdownMenuItem>
-									<ng-icon hlm name="lucideCog" />
+									<ng-icon hlmIcon name="lucideCog" />
 									<span>Settings</span>
 									<hlm-dropdown-menu-shortcut>⌘S</hlm-dropdown-menu-shortcut>
 								</button>
@@ -147,7 +147,7 @@ import { type Task, TASK_DATA } from './services/tasks.models';
 							<hlm-dropdown-menu-separator />
 
 							<button hlmDropdownMenuItem>
-								<ng-icon hlm name="lucideLogOut" />
+								<ng-icon hlmIcon name="lucideLogOut" />
 								<span>Logout</span>
 								<hlm-dropdown-menu-shortcut>⇧⌘Q</hlm-dropdown-menu-shortcut>
 							</button>
@@ -200,7 +200,7 @@ import { type Task, TASK_DATA } from './services/tasks.models';
 					</div>
 				} @placeholder {
 					<div class="flex h-96 items-center justify-center">
-						<ng-icon name="lucideLoader" class="h-4 w-4 animate-spin" />
+						<ng-icon hlmIcon name="lucideLoader" class="h-4 w-4 animate-spin" />
 					</div>
 				}
 			</div>
@@ -240,7 +240,7 @@ import { type Task, TASK_DATA } from './services/tasks.models';
 							[disabled]="!table.getCanPreviousPage()"
 							(click)="table.firstPage()"
 						>
-							<ng-icon hlm name="lucideChevronsLeft" size="sm" />
+							<ng-icon hlmIcon name="lucideChevronsLeft" size="sm" />
 						</button>
 						<button
 							size="icon-sm"
@@ -249,7 +249,7 @@ import { type Task, TASK_DATA } from './services/tasks.models';
 							[disabled]="!table.getCanPreviousPage()"
 							(click)="table.previousPage()"
 						>
-							<ng-icon hlm name="lucideChevronLeft" size="sm" />
+							<ng-icon hlmIcon name="lucideChevronLeft" size="sm" />
 						</button>
 						<button
 							size="icon-sm"
@@ -258,7 +258,7 @@ import { type Task, TASK_DATA } from './services/tasks.models';
 							[disabled]="!table.getCanNextPage()"
 							(click)="table.nextPage()"
 						>
-							<ng-icon hlm name="lucideChevronRight" size="sm" />
+							<ng-icon hlmIcon name="lucideChevronRight" size="sm" />
 						</button>
 						<button
 							size="icon-sm"
@@ -267,7 +267,7 @@ import { type Task, TASK_DATA } from './services/tasks.models';
 							[disabled]="!table.getCanNextPage()"
 							(click)="table.lastPage()"
 						>
-							<ng-icon hlm name="lucideChevronsRight" size="sm" />
+							<ng-icon hlmIcon name="lucideChevronsRight" size="sm" />
 						</button>
 					</div>
 				</div>

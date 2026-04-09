@@ -9,7 +9,7 @@ import { HlmIcon } from '@spartan-ng/helm/icon';
 	providers: [provideIcons({ lucideChevronRight })],
 	template: `
 		<div>
-			<ng-icon hlm size="xl" name="lucideChevronRight" />
+			<ng-icon hlmIcon size="xl" name="lucideChevronRight" />
 		</div>
 	`,
 })
@@ -21,5 +21,5 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 `;
 
 export const defaultSkeleton = `
-<ng-icon hlm size="sm" name="lucideChevronRight" />
+<ng-icon hlmIcon size="sm" name="lucideChevronRight" />
 `;

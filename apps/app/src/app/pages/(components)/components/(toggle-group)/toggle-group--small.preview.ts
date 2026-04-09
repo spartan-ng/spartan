@@ -11,15 +11,15 @@ import { HlmToggleGroupImports } from '@spartan-ng/helm/toggle-group';
 	template: `
 		<hlm-toggle-group type="single" size="sm">
 			<button hlmToggleGroupItem value="bold" aria-label="Toggle bold">
-				<ng-icon hlm size="sm" name="lucideBold" />
+				<ng-icon hlmIcon size="sm" name="lucideBold" />
 			</button>
 
 			<button hlmToggleGroupItem value="italic" aria-label="Toggle italic">
-				<ng-icon hlm size="sm" name="lucideItalic" />
+				<ng-icon hlmIcon size="sm" name="lucideItalic" />
 			</button>
 
 			<button hlmToggleGroupItem value="underline" aria-label="Toggle underline">
-				<ng-icon hlm size="sm" name="lucideUnderline" />
+				<ng-icon hlmIcon size="sm" name="lucideUnderline" />
 			</button>
 		</hlm-toggle-group>
 	`,

@@ -20,10 +20,10 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 			</div>
 			<div hlmButtonGroup>
 				<button hlmBtn variant="outline" size="icon-sm" aria-label="Previous">
-					<ng-icon hlm name="lucideArrowLeft" size="sm" />
+					<ng-icon hlmIcon name="lucideArrowLeft" size="sm" />
 				</button>
 				<button hlmBtn variant="outline" size="icon-sm" aria-label="Next">
-					<ng-icon hlm name="lucideArrowRight" size="sm" />
+					<ng-icon hlmIcon name="lucideArrowRight" size="sm" />
 				</button>
 			</div>
 		</div>

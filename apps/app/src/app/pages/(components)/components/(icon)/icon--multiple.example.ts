@@ -11,11 +11,11 @@ import { HlmIcon } from '@spartan-ng/helm/icon';
 	template: `
 		<div class="flex items-center gap-6">
 			<div class="flex flex-col items-center gap-1">
-				<ng-icon hlm size="xl" name="lucideCircleArrowUp" />
+				<ng-icon hlmIcon size="xl" name="lucideCircleArrowUp" />
 				<span class="text-muted-foreground text-sm">lucideCircleArrowUp</span>
 			</div>
 			<div class="flex flex-col items-center gap-1">
-				<ng-icon hlm size="xl" name="remixAngularjsLine" />
+				<ng-icon hlmIcon size="xl" name="remixAngularjsLine" />
 				<span class="text-muted-foreground text-sm">remixAngularjsLine</span>
 			</div>
 		</div>

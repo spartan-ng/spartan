@@ -2,11 +2,12 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCheck } from '@ng-icons/lucide';
 import { BrnAutocompleteItem } from '@spartan-ng/brain/autocomplete';
+import { HlmIcon } from '@spartan-ng/helm/icon';
 import { classes } from '@spartan-ng/helm/utils';
 
 @Component({
 	selector: 'hlm-autocomplete-item',
-	imports: [NgIcon],
+	imports: [NgIcon, HlmIcon],
 	providers: [provideIcons({ lucideCheck })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [{ directive: BrnAutocompleteItem, inputs: ['id', 'disabled', 'value'] }],
@@ -17,6 +18,7 @@ import { classes } from '@spartan-ng/helm/utils';
 		<ng-content />
 		@if (_active()) {
 			<ng-icon
+				hlmIcon
 				name="lucideCheck"
 				class="pointer-events-none absolute right-2 flex size-4 items-center justify-center"
 				aria-hidden="true"

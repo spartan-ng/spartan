@@ -25,13 +25,13 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 							<ul hlmSidebarMenu>
 								<li hlmSidebarMenuItem>
 									<a hlmSidebarMenuButton>
-										<ng-icon hlm name="lucideLifeBuoy" />
+										<ng-icon hlmIcon name="lucideLifeBuoy" />
 										<span>Support</span>
 									</a>
 								</li>
 								<li hlmSidebarMenuItem>
 									<a hlmSidebarMenuButton>
-										<ng-icon hlm name="lucideSend" />
+										<ng-icon hlmIcon name="lucideSend" />
 										<span>Feedback</span>
 									</a>
 								</li>

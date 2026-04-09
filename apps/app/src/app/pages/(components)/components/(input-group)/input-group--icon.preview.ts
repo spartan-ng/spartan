@@ -15,29 +15,29 @@ import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 		<div hlmInputGroup>
 			<input hlmInputGroupInput placeholder="Search..." />
 			<div hlmInputGroupAddon>
-				<ng-icon name="lucideSearch" />
+				<ng-icon hlmIcon name="lucideSearch" />
 			</div>
 		</div>
 		<div hlmInputGroup>
 			<input hlmInputGroupInput type="email" placeholder="Enter your email" />
 			<div hlmInputGroupAddon>
-				<ng-icon name="lucideMail" />
+				<ng-icon hlmIcon name="lucideMail" />
 			</div>
 		</div>
 		<div hlmInputGroup>
 			<input hlmInputGroupInput placeholder="Card number" />
 			<div hlmInputGroupAddon>
-				<ng-icon name="lucideCreditCard" />
+				<ng-icon hlmIcon name="lucideCreditCard" />
 			</div>
 			<div hlmInputGroupAddon align="inline-end">
-				<ng-icon name="lucideCheck" />
+				<ng-icon hlmIcon name="lucideCheck" />
 			</div>
 		</div>
 		<div hlmInputGroup>
 			<input hlmInputGroupInput placeholder="Card number" />
 			<div hlmInputGroupAddon align="inline-end">
-				<ng-icon name="lucideStar" />
-				<ng-icon name="lucideInfo" />
+				<ng-icon hlmIcon name="lucideStar" />
+				<ng-icon hlmIcon name="lucideInfo" />
 			</div>
 		</div>
 	`,

@@ -16,11 +16,11 @@ import { HlmTextarea } from '@spartan-ng/helm/textarea';
 		<hlm-popover sideOffset="5" align="end">
 			<div hlmButtonGroup>
 				<button hlmBtn variant="outline" size="sm">
-					<ng-icon hlm name="lucideBot" size="sm" />
+					<ng-icon hlmIcon name="lucideBot" size="sm" />
 					Copilot
 				</button>
 				<button id="edit-profile" variant="outline" hlmPopoverTrigger hlmBtn variant="outline" size="icon-sm">
-					<ng-icon hlm name="lucideChevronDown" size="sm" />
+					<ng-icon hlmIcon name="lucideChevronDown" size="sm" />
 				</button>
 				<hlm-popover-content class="rounded-xl p-0 text-sm" *hlmPopoverPortal="let ctx">
 					<div class="border-input border-b px-4 py-3">

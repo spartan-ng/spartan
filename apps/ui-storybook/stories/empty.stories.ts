@@ -46,7 +46,7 @@ export const Default: Story = {
 		template: `
       <div hlmEmpty>
         <div hlmEmptyMedia variant="icon">
-          <ng-icon name="lucideInbox"/>
+          <ng-icon hlmIcon name="lucideInbox"/>
         </div>
         <div hlmEmptyContent>
           <div hlmEmptyHeader>
@@ -66,7 +66,7 @@ export const WithAction: Story = {
 		template: `
       <div hlmEmpty>
         <div hlmEmptyMedia>
-          <ng-icon name="lucideInbox"/>
+          <ng-icon hlmIcon name="lucideInbox"/>
         </div>
         <div hlmEmptyContent>
           <div hlmEmptyHeader>
@@ -87,7 +87,7 @@ export const SearchResults: Story = {
 		template: `
       <div hlmEmpty>
         <div hlmEmptyMedia>
-          <ng-icon name="lucideSearch"/>
+          <ng-icon hlmIcon name="lucideSearch"/>
         </div>
         <div hlmEmptyContent>
           <div hlmEmptyHeader>
@@ -111,7 +111,7 @@ export const NoConnection: Story = {
 		template: `
       <div hlmEmpty>
         <div hlmEmptyMedia>
-          <ng-icon name="lucideWifi"/>
+          <ng-icon hlmIcon name="lucideWifi"/>
         </div>
         <div hlmEmptyContent>
           <div hlmEmptyHeader>
@@ -132,7 +132,7 @@ export const FileNotFound: Story = {
 		template: `
       <div hlmEmpty>
         <div hlmEmptyMedia>
-          <ng-icon name="lucideFileX"/>
+          <ng-icon hlmIcon name="lucideFileX"/>
         </div>
         <div hlmEmptyContent>
           <div hlmEmptyHeader>

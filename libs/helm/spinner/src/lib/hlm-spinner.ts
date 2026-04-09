@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideLoader2 } from '@ng-icons/lucide';
+import { HlmIcon } from '@spartan-ng/helm/icon';
 import { classes } from '@spartan-ng/helm/utils';
 
 @Component({
 	selector: 'hlm-spinner',
-	imports: [NgIcon],
+	imports: [NgIcon, HlmIcon],
 	providers: [provideIcons({ lucideLoader2 })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
@@ -13,7 +14,7 @@ import { classes } from '@spartan-ng/helm/utils';
 		'[attr.aria-label]': 'ariaLabel()',
 	},
 	template: `
-		<ng-icon [name]="icon()" />
+		<ng-icon hlmIcon [name]="icon()" />
 	`,
 })
 export class HlmSpinner {

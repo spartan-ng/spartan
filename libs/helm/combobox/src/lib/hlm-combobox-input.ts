@@ -3,11 +3,12 @@ import { booleanAttribute, ChangeDetectionStrategy, Component, input } from '@an
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown, lucideX } from '@ng-icons/lucide';
 import { BrnComboboxImports, BrnComboboxInputWrapper, BrnComboboxPopoverTrigger } from '@spartan-ng/brain/combobox';
+import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 
 @Component({
 	selector: 'hlm-combobox-input',
-	imports: [HlmInputGroupImports, NgIcon, BrnComboboxImports, BrnComboboxPopoverTrigger],
+	imports: [HlmInputGroupImports, NgIcon, HlmIcon, BrnComboboxImports, BrnComboboxPopoverTrigger],
 	providers: [provideIcons({ lucideChevronDown, lucideX })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [BrnComboboxInputWrapper],
@@ -34,7 +35,7 @@ import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 						variant="ghost"
 						class="group-has-data-[slot=combobox-clear]/input-group:hidden data-pressed:bg-transparent"
 					>
-						<ng-icon name="lucideChevronDown" />
+						<ng-icon hlmIcon name="lucideChevronDown" />
 					</button>
 				}
 
@@ -47,7 +48,7 @@ import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 						size="icon-xs"
 						variant="ghost"
 					>
-						<ng-icon name="lucideX" />
+						<ng-icon hlmIcon name="lucideX" />
 					</button>
 				}
 			</hlm-input-group-addon>

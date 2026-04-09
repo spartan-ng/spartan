@@ -13,7 +13,7 @@ import { HlmIcon } from '@spartan-ng/helm/icon';
 		<div hlmEmpty>
 			<div hlmEmptyHeader>
 				<div hlmEmptyMedia variant="icon">
-					<ng-icon name="lucideFolderCode" />
+					<ng-icon hlmIcon name="lucideFolderCode" />
 				</div>
 				<div hlmEmptyTitle>No Projects Yet</div>
 				<div hlmEmptyDescription>
@@ -28,7 +28,7 @@ import { HlmIcon } from '@spartan-ng/helm/icon';
 			</div>
 			<button hlmBtn class="text-muted-foreground" variant="link" size="sm">
 				Learn More
-				<ng-icon hlm name="lucideArrowUpRight" size="sm" />
+				<ng-icon hlmIcon name="lucideArrowUpRight" size="sm" />
 			</button>
 		</div>
 	`,
@@ -43,7 +43,7 @@ export const defaultSkeleton = `
 <div hlmEmpty>
 	<div hlmEmptyHeader>
 		<div hlmEmptyMedia variant="icon">
-			<ng-icon name="lucideFolderCode" />
+			<ng-icon hlmIcon name="lucideFolderCode" />
 		</div>
 		<div hlmEmptyTitle>No Projects Yet</div>
 		<div hlmEmptyDescription>

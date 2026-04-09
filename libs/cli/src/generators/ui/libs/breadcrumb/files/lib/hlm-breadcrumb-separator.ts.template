@@ -1,12 +1,13 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronRight } from '@ng-icons/lucide';
+import { HlmIcon } from '<%- importAlias %>/icon';
 import { classes } from '<%- importAlias %>/utils';
 
 @Component({
 	// eslint-disable-next-line @angular-eslint/component-selector
 	selector: '[hlmBreadcrumbSeparator]',
-	imports: [NgIcon],
+	imports: [NgIcon, HlmIcon],
 	providers: [provideIcons({ lucideChevronRight })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
@@ -15,12 +16,12 @@ import { classes } from '<%- importAlias %>/utils';
 	},
 	template: `
 		<ng-content>
-			<ng-icon name="lucideChevronRight" />
+			<ng-icon hlmIcon name="lucideChevronRight" />
 		</ng-content>
 	`,
 })
 export class HlmBreadcrumbSeparator {
 	constructor() {
-		classes(() => '[&_ng-icon]:block [&_ng-icon]:size-3.5');
+		classes(() => '[&_[hlmIcon]]:block [&_[hlmIcon]]:size-3.5');
 	}
 }

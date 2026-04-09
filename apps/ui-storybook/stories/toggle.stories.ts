@@ -24,11 +24,11 @@ export const Default: Story = {
 	render: () => ({
 		template: `
     <div class='space-x-3'>
-    <button aria-label='Italic Toggle' size='sm' hlmToggle><ng-icon hlm name='lucideItalic'/></button>
-    <button aria-label='Italic Toggle' hlmToggle><ng-icon hlm name='lucideItalic'/></button>
-    <button aria-label='Italic Toggle' size='lg' hlmToggle><ng-icon hlm name='lucideItalic'/></button>
-    <button aria-label='Italic Toggle' variant='outline' hlmToggle><ng-icon hlm name='lucideItalic'/></button>
-    <button aria-label='Italic Toggle' disabled hlmToggle><ng-icon hlm name='lucideItalic'/></button>
+    <button aria-label='Italic Toggle' size='sm' hlmToggle><ng-icon hlmIcon name='lucideItalic'/></button>
+    <button aria-label='Italic Toggle' hlmToggle><ng-icon hlmIcon name='lucideItalic'/></button>
+    <button aria-label='Italic Toggle' size='lg' hlmToggle><ng-icon hlmIcon name='lucideItalic'/></button>
+    <button aria-label='Italic Toggle' variant='outline' hlmToggle><ng-icon hlmIcon name='lucideItalic'/></button>
+    <button aria-label='Italic Toggle' disabled hlmToggle><ng-icon hlmIcon name='lucideItalic'/></button>
     </div>
     `,
 	}),
@@ -39,11 +39,11 @@ export const WithText: Story = {
 	render: () => ({
 		template: `
     <div class='space-x-3'>
-    <button size='sm' hlmToggle><ng-icon hlm name='lucideItalic'/> <span class='ml-2'>Italic</span></button>
-    <button hlmToggle><ng-icon hlm name='lucideItalic'/> <span class='ml-2'>Italic</span></button>
-    <button size='lg' hlmToggle><ng-icon hlm name='lucideItalic'/> <span class='ml-2'>Italic</span></button>
-    <button variant='outline' hlmToggle><ng-icon hlm name='lucideItalic'/> <span class='ml-2'>Italic</span></button>
-    <button disabled hlmToggle><ng-icon hlm name='lucideItalic'/> <span class='ml-2'>Italic</span></button>
+    <button size='sm' hlmToggle><ng-icon hlmIcon name='lucideItalic'/> <span class='ml-2'>Italic</span></button>
+    <button hlmToggle><ng-icon hlmIcon name='lucideItalic'/> <span class='ml-2'>Italic</span></button>
+    <button size='lg' hlmToggle><ng-icon hlmIcon name='lucideItalic'/> <span class='ml-2'>Italic</span></button>
+    <button variant='outline' hlmToggle><ng-icon hlmIcon name='lucideItalic'/> <span class='ml-2'>Italic</span></button>
+    <button disabled hlmToggle><ng-icon hlmIcon name='lucideItalic'/> <span class='ml-2'>Italic</span></button>
     </div>
 `,
 	}),

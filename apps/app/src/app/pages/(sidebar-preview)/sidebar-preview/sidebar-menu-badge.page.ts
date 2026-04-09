@@ -29,7 +29,7 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 								@for (project of _projects; track project) {
 									<li hlmSidebarMenuItem>
 										<button hlmSidebarMenuButton>
-											<ng-icon hlm [name]="project.icon" />
+											<ng-icon hlmIcon [name]="project.icon" />
 											<span>{{ project.name }}</span>
 										</button>
 										<div hlmSidebarMenuBadge>{{ project.info }}</div>

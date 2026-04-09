@@ -37,15 +37,15 @@ export const Default: Story = {
       <hlm-command-group-label>Suggestions</hlm-command-group-label>
 
       <button hlm-command-item value="Calendar">
-        <ng-icon name="lucideCalendar" />
+        <ng-icon hlmIcon name="lucideCalendar" />
         Calendar
       </button>
       <button disabled hlm-command-item value="Search Emoji">
-        <ng-icon name="lucideSmile" />
+        <ng-icon hlmIcon name="lucideSmile" />
         Search Emoji
       </button>
       <button hlm-command-item value="Calculator">
-        <ng-icon name="lucidePlus" />
+        <ng-icon hlmIcon name="lucidePlus" />
         Calculator
       </button>
     </hlm-command-group>
@@ -56,17 +56,17 @@ export const Default: Story = {
       <hlm-command-group-label>Settings</hlm-command-group-label>
 
       <button hlm-command-item value="Profile">
-        <ng-icon name="lucideUser" />
+        <ng-icon hlmIcon name="lucideUser" />
         Profile
         <hlm-command-shortcut>⌘P</hlm-command-shortcut>
       </button>
       <button hlm-command-item value="Billing">
-        <ng-icon name="lucideWallet" />
+        <ng-icon hlmIcon name="lucideWallet" />
         Billing
         <hlm-command-shortcut>⌘B</hlm-command-shortcut>
       </button>
       <button hlm-command-item value="Settings">
-        <ng-icon name="lucideCog" />
+        <ng-icon hlmIcon name="lucideCog" />
         Settings
         <hlm-command-shortcut>⌘S</hlm-command-shortcut>
       </button>
@@ -114,15 +114,15 @@ export const Default: Story = {
 						<hlm-command-group-label>Suggestions</hlm-command-group-label>
 
 						<button hlm-command-item value="Calendar" (selected)="commandSelected('Calendar')">
-							<ng-icon name="lucideCalendar" />
+							<ng-icon hlmIcon name="lucideCalendar" />
 							Calendar
 						</button>
 						<button hlm-command-item disabled value="Search Emoji" (selected)="commandSelected('Search Emoji')">
-							<ng-icon name="lucideSmile" />
+							<ng-icon hlmIcon name="lucideSmile" />
 							Search Emoji
 						</button>
 						<button hlm-command-item value="Calculator" (selected)="commandSelected('Calculator')">
-							<ng-icon name="lucidePlus" />
+							<ng-icon hlmIcon name="lucidePlus" />
 							Calculator
 						</button>
 					</hlm-command-group>
@@ -133,17 +133,17 @@ export const Default: Story = {
 						<hlm-command-group-label>Settings</hlm-command-group-label>
 
 						<button hlm-command-item value="Profile" (selected)="commandSelected('Profile')">
-							<ng-icon name="lucideUser" />
+							<ng-icon hlmIcon name="lucideUser" />
 							Profile
 							<hlm-command-shortcut>⌘P</hlm-command-shortcut>
 						</button>
 						<button hlm-command-item value="Billing" (selected)="commandSelected('Billing')">
-							<ng-icon name="lucideWallet" />
+							<ng-icon hlmIcon name="lucideWallet" />
 							Billing
 							<hlm-command-shortcut>⌘B</hlm-command-shortcut>
 						</button>
 						<button hlm-command-item value="Settings" (selected)="commandSelected('Settings')">
-							<ng-icon name="lucideCog" />
+							<ng-icon hlmIcon name="lucideCog" />
 							Settings
 							<hlm-command-shortcut>⌘S</hlm-command-shortcut>
 						</button>
@@ -198,7 +198,7 @@ export const Dialog: Story = {
 					<hlm-command-group-label>Suggestions</hlm-command-group-label>
 					@for (item of items(); track item.value) {
 						<button hlm-command-item [value]="item.value" data-testid="command-item">
-							<ng-icon [name]="item.icon" />
+							<ng-icon hlmIcon [name]="item.icon" />
 							{{ item.label }}
 						</button>
 					}
@@ -242,7 +242,7 @@ export const DynamicOptions: Story = {
 					<hlm-command-group-label>Suggestions</hlm-command-group-label>
 					@for (item of items(); track item.value) {
 						<button hlm-command-item [value]="item.value" data-testid="command-item">
-							<ng-icon [name]="item.icon" />
+							<ng-icon hlmIcon [name]="item.icon" />
 							{{ item.label }}
 						</button>
 					}
@@ -287,7 +287,7 @@ export const ReactiveForm: Story = {
 					<hlm-command-group-label>Suggestions</hlm-command-group-label>
 					@for (item of items(); track item.value) {
 						<button hlm-command-item [value]="item.value" data-testid="command-item">
-							<ng-icon [name]="item.icon" />
+							<ng-icon hlmIcon [name]="item.icon" />
 							{{ item.label }}
 						</button>
 					}

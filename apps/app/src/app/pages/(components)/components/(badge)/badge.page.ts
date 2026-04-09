@@ -1,6 +1,8 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { CodeRtlPreview } from '@spartan-ng/app/app/shared/code/code-rtl-preview';
+import { RtlHeader } from '@spartan-ng/app/app/shared/code/rtl-header';
 import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
@@ -18,6 +20,7 @@ import { metaWith } from '../../../../shared/meta/meta.util';
 import { BadgeColorsPreview } from './badge--colors.preview';
 import { BadgeIconsPreview } from './badge--icons.preview';
 import { BadgeLink } from './badge--link.example';
+import { BadgeRtl } from './badge--rtl.preview';
 import { BadgeSpinnerPreview } from './badge--spinner.preview';
 import { BadgeVariantsPreview } from './badge--variants.preview';
 import { BadgePreview, defaultImports, defaultSkeleton } from './badge.preview';
@@ -44,12 +47,15 @@ export const routeMeta: RouteMeta = {
 		PageBottomNav,
 		PageBottomNavLink,
 		SectionSubSubHeading,
+		RtlHeader,
+		CodeRtlPreview,
 		BadgePreview,
 		BadgeVariantsPreview,
 		BadgeIconsPreview,
 		BadgeSpinnerPreview,
 		BadgeLink,
 		BadgeColorsPreview,
+		BadgeRtl,
 	],
 	template: `
 		<section spartanMainSection>
@@ -128,6 +134,14 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_colorsCode()" />
 			</spartan-tabs>
 
+			<spartan-header-rtl />
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanRtlCodePreview firstTab>
+					<spartan-badge-rtl />
+				</div>
+				<spartan-code secondTab [code]="_rtlCode()" />
+			</spartan-tabs>
+
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="helm" />
 
@@ -147,6 +161,7 @@ export default class BadgePage {
 	protected readonly _spinnerCode = computed(() => this._snippets()['spinner']);
 	protected readonly _linkCode = computed(() => this._snippets()['link']);
 	protected readonly _colorsCode = computed(() => this._snippets()['colors']);
+	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

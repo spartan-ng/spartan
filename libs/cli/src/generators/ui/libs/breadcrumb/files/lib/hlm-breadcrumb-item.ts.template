@@ -3,9 +3,12 @@ import { classes } from '<%- importAlias %>/utils';
 
 @Directive({
 	selector: '[hlmBreadcrumbItem]',
+	host: {
+		'data-slot': 'breadcrumb-item',
+	},
 })
 export class HlmBreadcrumbItem {
 	constructor() {
-		classes(() => 'inline-flex items-center gap-1.5');
+		classes(() => 'spartan-breadcrumb-item inline-flex items-center');
 	}
 }

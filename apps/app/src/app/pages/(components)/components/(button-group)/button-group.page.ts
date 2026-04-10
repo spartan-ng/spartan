@@ -66,6 +66,7 @@ export const routeMeta: RouteMeta = {
 	template: `
 		<section spartanMainSection>
 			<spartan-section-intro
+				showThemeToggle
 				name="Button Group"
 				lead="A container that groups related buttons together with consistent styling."
 			/>
@@ -76,7 +77,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
-			<spartan-install-tabs primitive="button-group" />
+			<spartan-install-tabs primitive="button-group" [showOnlyVega]="false" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">

@@ -6,9 +6,6 @@ import { classes } from '@spartan-ng/helm/utils';
 })
 export class HlmButtonGroupText {
 	constructor() {
-		classes(
-			() =>
-				"bg-muted flex items-center gap-2 rounded-md border px-4 text-sm font-medium shadow-xs [&_ng-icon]:pointer-events-none [&_ng-icon:not([class*='text-'])]:text-base",
-		);
+		classes(() => 'spartan-button-group-text flex items-center [&_ng-icon]:pointer-events-none');
 	}
 }

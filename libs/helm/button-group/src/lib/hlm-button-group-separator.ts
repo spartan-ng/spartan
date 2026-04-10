@@ -12,9 +12,10 @@ import { classes } from '@spartan-ng/helm/utils';
 })
 export class HlmButtonGroupSeparator {
 	constructor() {
-		classes(
-			() =>
-				'spartan-button-group-separator relative self-stretch data-[orientation=horizontal]:mx-px data-[orientation=horizontal]:w-auto data-[orientation=vertical]:my-px data-[orientation=vertical]:h-auto',
-		);
+		classes(() => [
+			'spartan-button-group-separator relative self-stretch data-horizontal:mx-px data-horizontal:w-auto data-vertical:my-px data-vertical:h-auto',
+			// separator classes
+			'shrink-0 data-horizontal:h-px data-vertical:w-px data-vertical:self-stretch',
+		]);
 	}
 }

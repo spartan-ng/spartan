@@ -3,7 +3,7 @@ import { BrnSeparator } from '@spartan-ng/brain/separator';
 import { classes } from '@spartan-ng/helm/utils';
 
 export const hlmSeparatorClass =
-	'bg-border inline-flex shrink-0 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px';
+	'inline-flex shrink-0 bg-border data-horizontal:h-px data-horizontal:w-full data-vertical:w-px data-vertical:self-stretch';
 
 @Directive({
 	selector: '[hlmSeparator],hlm-separator',

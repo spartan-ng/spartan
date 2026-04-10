@@ -3,6 +3,9 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmButtonGroupText],hlm-button-group-text',
+	host: {
+		'data-slot': 'button-group-text',
+	},
 })
 export class HlmButtonGroupText {
 	constructor() {

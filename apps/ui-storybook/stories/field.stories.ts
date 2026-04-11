@@ -91,26 +91,26 @@ export const WithCheckbox: Story = {
 						<p hlmFieldDescription>Select the items you want to show on the desktop.</p>
 						<div hlmFieldGroup class="gap-3">
 							<div hlmField orientation="horizontal">
-								<hlm-checkbox id="field-hard-disks" />
+								<hlm-checkbox inputId="field-hard-disks" />
 								<label hlmFieldLabel for="field-hard-disks" class="font-normal">Hard disks</label>
 							</div>
 							<div hlmField orientation="horizontal">
-								<hlm-checkbox id="field-external-disks" />
+								<hlm-checkbox inputId="field-external-disks" />
 								<label hlmFieldLabel for="field-external-disks" class="font-normal">External disks</label>
 							</div>
 							<div hlmField orientation="horizontal">
-								<hlm-checkbox id="field-cds-dvds-ipods" />
+								<hlm-checkbox inputId="field-cds-dvds-ipods" />
 								<label hlmFieldLabel for="field-cds-dvds-ipods" class="font-normal">CDs, DVDs, and IPods</label>
 							</div>
 							<div hlmField orientation="horizontal">
-								<hlm-checkbox id="field-connected-servers" />
+								<hlm-checkbox inputId="field-connected-servers" />
 								<label hlmFieldLabel for="field-connected-servers" class="font-normal">Connected servers</label>
 							</div>
 						</div>
 					</fieldset>
 					<hlm-field-separator />
 					<div hlmField orientation="horizontal">
-						<hlm-checkbox id="field-sync-desktop-documents" [checked]="true" />
+						<hlm-checkbox inputId="field-sync-desktop-documents" [checked]="true" />
 						<div hlmFieldContent>
 							<label hlmFieldLabel for="field-sync-desktop-documents">Sync Desktop & Documents folders</label>
 							<p hlmFieldDescription>
@@ -138,7 +138,7 @@ export const WithSwitch: Story = {
 							sent to your email.
 						</p>
 					</div>
-					<hlm-switch id="field-2fa" />
+					<hlm-switch inputId="field-2fa" />
 				</div>
 			</div>
 		`,
@@ -155,19 +155,19 @@ export const WithRadio: Story = {
 					<p hlmFieldDescription>Yearly and lifetime plans offer significant savings.</p>
 					<hlm-radio-group data-slot="radio-group" value="monthly">
 						<div hlmField orientation="horizontal">
-							<hlm-radio value="monthly" id="plan-monthly">
+							<hlm-radio value="monthly" inputId="plan-monthly">
 								<hlm-radio-indicator indicator />
 							</hlm-radio>
 							<label hlmFieldLabel for="plan-monthly" class="font-normal">Monthly ($9.99/month)</label>
 						</div>
 						<div hlmField orientation="horizontal">
-							<hlm-radio value="yearly" id="plan-yearly">
+							<hlm-radio value="yearly" inputId="plan-yearly">
 								<hlm-radio-indicator indicator />
 							</hlm-radio>
 							<label hlmFieldLabel for="plan-yearly" class="font-normal">Yearly ($99.99/year)</label>
 						</div>
 						<div hlmField orientation="horizontal">
-							<hlm-radio value="lifetime" id="plan-lifetime">
+							<hlm-radio value="lifetime" inputId="plan-lifetime">
 								<hlm-radio-indicator indicator />
 							</hlm-radio>
 							<label hlmFieldLabel for="plan-lifetime" class="font-normal">Lifetime ($299.99/lifetime)</label>
@@ -284,7 +284,7 @@ export const FieldGroup: Story = {
 						</p>
 						<div hlmFieldGroup data-slot="checkbox-group">
 							<div hlmField orientation="horizontal">
-								<hlm-checkbox id="field-group-push-notifications" disabled [checked]="true" />
+								<hlm-checkbox inputId="field-group-push-notifications" disabled [checked]="true" />
 								<label hlmFieldLabel for="field-group-push-notifications" class="font-normal">Push notifications</label>
 							</div>
 						</div>
@@ -298,11 +298,11 @@ export const FieldGroup: Story = {
 						</p>
 						<div hlmFieldGroup class="gap-3" data-slot="checkbox-group">
 							<div hlmField orientation="horizontal">
-								<hlm-checkbox id="field-group-push-task" />
+								<hlm-checkbox inputId="field-group-push-task" />
 								<label hlmFieldLabel for="field-group-push-task" class="font-normal">Push notifications</label>
 							</div>
 							<div hlmField orientation="horizontal">
-								<hlm-checkbox id="field-group-email-task" />
+								<hlm-checkbox inputId="field-group-email-task" />
 								<label hlmFieldLabel for="field-group-email-task" class="font-normal">Email notifications</label>
 							</div>
 						</div>
@@ -390,7 +390,7 @@ export const ComplexForm: Story = {
 							<p hlmFieldDescription>The billing address associated with your payment method</p>
 							<div hlmFieldGroup>
 								<div hlmField orientation="horizontal">
-									<hlm-checkbox id="field-complex-billing-address" [checked]="true" />
+									<hlm-checkbox inputId="field-complex-billing-address" [checked]="true" />
 									<label hlmFieldLabel for="field-complex-billing-address">Same as shipping address.</label>
 								</div>
 							</div>
@@ -421,15 +421,15 @@ export const HorizontalOrientation: Story = {
 			<div class="w-full max-w-md">
 				<div hlmFieldGroup>
 					<div hlmField orientation="horizontal">
-						<hlm-switch id="field-horizontal-notifications" />
+						<hlm-switch inputId="field-horizontal-notifications" />
 						<label hlmFieldLabel for="field-horizontal-notifications">Enable notifications</label>
 					</div>
 					<div hlmField orientation="horizontal">
-						<hlm-checkbox id="field-horizontal-marketing" />
+						<hlm-checkbox inputId="field-horizontal-marketing" />
 						<label hlmFieldLabel for="field-horizontal-marketing" class="font-normal">Receive marketing emails</label>
 					</div>
 					<div hlmField orientation="horizontal">
-						<hlm-checkbox id="field-horizontal-updates" />
+						<hlm-checkbox inputId="field-horizontal-updates" />
 						<label hlmFieldLabel for="field-horizontal-updates" class="font-normal">Product updates</label>
 					</div>
 				</div>
@@ -445,14 +445,14 @@ export const WithFieldContent: Story = {
 			<div class="w-full max-w-md">
 				<div hlmFieldGroup class="gap-4">
 					<div hlmField orientation="horizontal">
-						<hlm-checkbox id="field-content-security-updates" [checked]="true" />
+						<hlm-checkbox inputId="field-content-security-updates" [checked]="true" />
 						<div hlmFieldContent>
 							<label hlmFieldLabel for="field-content-security-updates">Security Updates</label>
 							<p hlmFieldDescription>Receive emails about your account security and important updates.</p>
 						</div>
 					</div>
 					<div hlmField orientation="horizontal">
-						<hlm-switch id="field-content-two-factor" />
+						<hlm-switch inputId="field-content-two-factor" />
 						<div hlmFieldContent>
 							<label hlmFieldLabel for="field-content-two-factor">Two-Factor Authentication</label>
 							<p hlmFieldDescription>

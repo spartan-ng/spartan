@@ -94,7 +94,7 @@ import { HlmTextareaImports } from '@spartan-ng/helm/textarea';
 					<p hlmFieldDescription>The billing address associated with your payment method</p>
 					<div hlmFieldGroup>
 						<div hlmField orientation="horizontal">
-							<hlm-checkbox id="field-preview-billing-address" [checked]="true" />
+							<hlm-checkbox inputId="field-preview-billing-address" [checked]="true" />
 							<label hlmFieldLabel for="field-preview-billing-address">Same as shipping address.</label>
 						</div>
 					</div>
@@ -138,7 +138,7 @@ export const defaultSkeleton = `
             <hlm-field-error>Choose another username.</hlm-field-error>
         </div>
         <div hlmField orientation="horizontal">
-            <hlm-switch id="field-preview-subscribe-newsletter" />
+            <hlm-switch inputId="field-preview-subscribe-newsletter" />
             <label hlmFieldLabel for="field-preview-subscribe-newsletter">Subscribe to the newsletter</label>
         </div>
     </div>

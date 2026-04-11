@@ -17,7 +17,7 @@ import { HlmSwitchImports } from '@spartan-ng/helm/switch';
 					to your email.
 				</p>
 			</div>
-			<hlm-switch id="field-2fa" />
+			<hlm-switch inputId="field-2fa" />
 		</div>
 	`,
 })

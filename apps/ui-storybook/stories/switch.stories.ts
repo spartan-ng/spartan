@@ -16,7 +16,7 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 		<!-- eslint-disable-next-line @angular-eslint/template/label-has-associated-control -->
 		<label class="flex items-center" hlmLabel>
 			test switch
-			<hlm-switch [(ngModel)]="switchValue" id="testSwitchForm" (checkedChange)="handleChange($event)" />
+			<hlm-switch [(ngModel)]="switchValue" inputId="testSwitchForm" (checkedChange)="handleChange($event)" />
 		</label>
 
 		<p data-testid="switchValue">{{ switchValue }}</p>
@@ -45,7 +45,7 @@ export class SwitchForm {
 			<hlm-field-group>
 				<hlm-field>
 					<label id="test-switch-label" hlmFieldLabel>Test Switch</label>
-					<hlm-switch formControlName="test" class="ml-2" id="test-switch-label-with-aria" />
+					<hlm-switch formControlName="test" class="ml-2" inputId="test-switch-label-with-aria" />
 					<p hlmFieldDescription>This is a test switch.</p>
 
 					<hlm-field-error>Test switch must be enabled.</hlm-field-error>
@@ -81,7 +81,7 @@ type Story = StoryObj<BrnSwitch>;
 export const Default: Story = {
 	render: () => ({
 		template: `
-       <hlm-switch id='testSwitchDefault' aria-label='test switch' />
+       <hlm-switch inputId='testSwitchDefault' aria-label='test switch' />
     `,
 	}),
 };
@@ -90,7 +90,7 @@ export const InsideLabel: Story = {
 	render: () => ({
 		template: `
       <label class='flex items-center' hlmLabel> Test Switch
-        <hlm-switch class='ml-2' id='testSwitchInsideLabel' />
+        <hlm-switch class='ml-2' inputId='testSwitchInsideLabel' />
       </label>
     `,
 	}),
@@ -101,7 +101,7 @@ export const LabeledWithAriaLabeledBy: Story = {
 		template: `
       <div class='flex items-center'>
         <label id='testSwitchLabel' for='testSwitchLabeledWithAria' hlmLabel> Test Switch </label>
-        <hlm-switch class='ml-2' id='testSwitchLabeledWithAria' aria-labelledby='testSwitchLabel' />
+        <hlm-switch class='ml-2' inputId='testSwitchLabeledWithAria' aria-labelledby='testSwitchLabel' />
       </div>
     `,
 	}),
@@ -112,7 +112,7 @@ export const Disabled: Story = {
 		template: `
       <div class='flex items-center'>
          <label id='testSwitchLabel' for='testSwitchDisabled' hlmLabel> Disabled Switch </label>
-       <hlm-switch  disabled="true" class='ml-2' id='testSwitchDisabled' aria-labelledby='testSwitchLabel' />
+       <hlm-switch  disabled="true" class='ml-2' inputId='testSwitchDisabled' aria-labelledby='testSwitchLabel' />
       </div>
     `,
 	}),

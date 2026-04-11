@@ -13,7 +13,7 @@ import { HlmCheckbox } from './hlm-checkbox';
 			<label id="test-checkbox" for="checkbox">
 				Airplane mode is: {{ form.value.checkbox ? 'on' : 'off' }}
 				<hlm-checkbox
-					id="checkbox"
+					inputId="checkbox"
 					(checkedChange)="onCheckedChange($event)"
 					formControlName="checkbox"
 					aria-labelledby="test-checkbox"

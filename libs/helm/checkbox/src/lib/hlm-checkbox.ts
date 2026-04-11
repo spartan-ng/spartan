@@ -37,14 +37,13 @@ export const HLM_CHECKBOX_VALUE_ACCESSOR = {
 	host: {
 		class: 'contents peer',
 		'data-slot': 'checkbox',
-		'[attr.id]': 'null',
 		'[attr.aria-label]': 'null',
 		'[attr.aria-labelledby]': 'null',
 		'[attr.data-disabled]': '_disabled() ? "" : null',
 	},
 	template: `
 		<brn-checkbox
-			[id]="id()"
+			[id]="inputId()"
 			[name]="name()"
 			[class]="_computedClass()"
 			[checked]="checked()"
@@ -79,7 +78,7 @@ export class HlmCheckbox implements ControlValueAccessor {
 	);
 
 	/** Used to set the id on the underlying brn element. */
-	public readonly id = input<string | null>(null);
+	public readonly inputId = input<string | null>(null);
 
 	/** Used to set the aria-label attribute on the underlying brn element. */
 	public readonly ariaLabel = input<string | null>(null, { alias: 'aria-label' });

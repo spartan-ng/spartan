@@ -55,6 +55,11 @@
 			"schema": "./src/generators/migrate-hlm/schema.json",
 			"description": "Migrate hlm import from @spartan-ng/brain to @spartan-ng/helm/utils"
 		},
+		"migrate-input-id": {
+			"factory": "./src/generators/migrate-input-id/generator",
+			"schema": "./src/generators/migrate-input-id/schema.json",
+			"description": "Migrate renamed Helm id inputs to inputId"
+		},
 		"migrate-icon": {
 			"factory": "./src/generators/migrate-icon/generator",
 			"schema": "./src/generators/migrate-icon/schema.json",
@@ -166,6 +171,11 @@
 			"factory": "./src/generators/migrate-hlm/compat",
 			"schema": "./src/generators/migrate-hlm/schema.json",
 			"description": "Migrate hlm import from @spartan-ng/brain to @spartan-ng/helm/utils"
+		},
+		"migrate-input-id": {
+			"factory": "./src/generators/migrate-input-id/compat",
+			"schema": "./src/generators/migrate-input-id/schema.json",
+			"description": "Migrate renamed Helm id inputs to inputId"
 		},
 		"migrate-icon": {
 			"factory": "./src/generators/migrate-icon/compat",

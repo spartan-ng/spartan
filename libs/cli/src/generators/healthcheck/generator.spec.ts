@@ -250,6 +250,19 @@ export class HlmButtonModule {}
 		// add a file with legacy output conventions
 		tree.write('libs/my-lib/src/checkbox-legacy.component.ts', `<brn-checkbox (changed)="onChange($event)"/>`);
 
+		// add files with renamed helm id inputs
+		tree.write(
+			'libs/my-lib/src/input-id-legacy.component.html',
+			`
+				<hlm-checkbox id="checkbox-id" />
+				<hlm-switch [id]="switchId" />
+				<hlm-radio bind-id="radioId" value="monthly" />
+				<hlm-command-input id="command-id" />
+				<input id="native-input" />
+				<hlm-combobox-input id="combobox-id" />
+			`,
+		);
+
 		// add a html file with legacy brain accordion trigger
 		tree.write(
 			'libs/my-lib/src/brn-accordion-trigger-legacy.component.html',
@@ -385,6 +398,17 @@ export class HlmButtonModule {}
 
 		expect(contents).toContain('<brn-checkbox (checkedChange)="onChange($event)"/>');
 		expect(contents).not.toContain('<brn-checkbox (changed)="onChange($event)"/>');
+	});
+
+	it('should update renamed helm id inputs', () => {
+		const contents = tree.read('libs/my-lib/src/input-id-legacy.component.html', 'utf-8');
+
+		expect(contents).toContain('<hlm-checkbox inputId="checkbox-id" />');
+		expect(contents).toContain('<hlm-switch [inputId]="switchId" />');
+		expect(contents).toContain('<hlm-radio bind-inputId="radioId" value="monthly" />');
+		expect(contents).toContain('<hlm-command-input inputId="command-id" />');
+		expect(contents).toContain('<input id="native-input" />');
+		expect(contents).toContain('<hlm-combobox-input id="combobox-id" />');
 	});
 
 	it('should update module imports to const imports', () => {

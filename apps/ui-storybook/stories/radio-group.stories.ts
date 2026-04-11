@@ -189,7 +189,7 @@ export const LabelFor: Story = {
 		template: `
 		<hlm-radio-group class="text-sm font-medium" >
 			<div class="flex items-center gap-3">
-				<hlm-radio value="default" id="default">
+				<hlm-radio value="default" inputId="default">
 					<hlm-radio-indicator indicator />
 				</hlm-radio>
 				<label hlmLabel for="default" >
@@ -197,7 +197,7 @@ export const LabelFor: Story = {
 				</label>
 			</div>
 			<div class="flex items-center gap-3">
-				<hlm-radio value="comfortable" id="comfortable">
+				<hlm-radio value="comfortable" inputId="comfortable">
 					<hlm-radio-indicator indicator />
 				</hlm-radio>
 				<label hlmLabel for="comfortable" >
@@ -205,7 +205,7 @@ export const LabelFor: Story = {
 				</label>
 			</div>
 			<div class="flex items-center gap-3">
-				<hlm-radio value="compact" id="compact">
+				<hlm-radio value="compact" inputId="compact">
 					<hlm-radio-indicator indicator />
 				</hlm-radio>
 				<label hlmLabel for="compact" >
@@ -213,7 +213,7 @@ export const LabelFor: Story = {
 				</label>
 			</div>
 			<div class="flex items-center gap-3">
-				<hlm-radio class="peer group" disabled=true value="disabled" id="disabled">
+				<hlm-radio class="peer group" disabled=true value="disabled" inputId="disabled">
 					<hlm-radio-indicator indicator />
 				</hlm-radio>
 				<label hlmLabel for="disabled" >

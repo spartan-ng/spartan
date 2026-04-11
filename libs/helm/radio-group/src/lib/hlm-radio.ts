@@ -23,7 +23,6 @@ import type { ClassValue } from 'clsx';
 	imports: [BrnRadio],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
-		'[attr.id]': 'null',
 		'[attr.aria-label]': 'null',
 		'[attr.aria-labelledby]': 'null',
 		'[attr.aria-describedby]': 'null',
@@ -32,7 +31,7 @@ import type { ClassValue } from 'clsx';
 	},
 	template: `
 		<brn-radio
-			[id]="id()"
+			[id]="inputId()"
 			[class]="_computedClass()"
 			[value]="value()"
 			[required]="required()"
@@ -78,7 +77,7 @@ export class HlmRadio<T = unknown> {
 	);
 
 	/** Used to set the id on the underlying brn element. */
-	public readonly id = input<string | undefined>(undefined);
+	public readonly inputId = input<string | undefined>(undefined);
 
 	/** Used to set the aria-label attribute on the underlying brn element. */
 	public readonly ariaLabel = input<string | undefined>(undefined, { alias: 'aria-label' });
@@ -113,7 +112,8 @@ export class HlmRadio<T = unknown> {
 			if (!this._elementRef.nativeElement || !this._isBrowser) return;
 
 			const labelElement =
-				this._elementRef.nativeElement.closest('label') ?? this._document.querySelector(`label[for="${this.id()}"]`);
+				this._elementRef.nativeElement.closest('label') ??
+				this._document.querySelector(`label[for="${this.inputId()}"]`);
 
 			if (!labelElement) return;
 			this._renderer.setAttribute(labelElement, 'data-disabled', isDisabled ? 'true' : 'false');

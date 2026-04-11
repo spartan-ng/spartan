@@ -13,19 +13,19 @@ import { HlmRadioGroupImports } from '@spartan-ng/helm/radio-group';
 				<label hlmLabel>Subscription Plan</label>
 				<hlm-radio-group formControlName="plan">
 					<div class="flex items-center gap-3">
-						<hlm-radio value="monthly" id="monthly">
+						<hlm-radio value="monthly" inputId="monthly">
 							<hlm-radio-indicator indicator />
 						</hlm-radio>
 						<label hlmLabel for="monthly">Monthly ($9.99/month)</label>
 					</div>
 					<div class="flex items-center gap-3">
-						<hlm-radio value="yearly" id="yearly">
+						<hlm-radio value="yearly" inputId="yearly">
 							<hlm-radio-indicator indicator />
 						</hlm-radio>
 						<label hlmLabel for="yearly">Yearly ($99.99/year)</label>
 					</div>
 					<div class="flex items-center gap-3">
-						<hlm-radio value="lifetime" id="lifetime">
+						<hlm-radio value="lifetime" inputId="lifetime">
 							<hlm-radio-indicator indicator />
 						</hlm-radio>
 						<label hlmLabel for="lifetime">Lifetime ($299.99)</label>

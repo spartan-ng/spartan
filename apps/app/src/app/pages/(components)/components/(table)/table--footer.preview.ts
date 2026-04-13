@@ -1,9 +1,10 @@
+import { SlicePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { HlmTableImports } from '@spartan-ng/helm/table';
 
 @Component({
-	selector: 'spartan-table-preview',
-	imports: [HlmTableImports],
+	selector: 'spartan-table-footer',
+	imports: [HlmTableImports, SlicePipe],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'w-full',
@@ -21,7 +22,7 @@ import { HlmTableImports } from '@spartan-ng/helm/table';
 					</tr>
 				</thead>
 				<tbody hlmTableBody>
-					@for (invoice of _invoices; track invoice.invoice) {
+					@for (invoice of _invoices | slice: 0 : 3; track invoice.invoice) {
 						<tr hlmTableRow>
 							<td hlmTableCell class="font-medium">{{ invoice.invoice }}</td>
 							<td hlmTableCell>{{ invoice.paymentStatus }}</td>
@@ -40,7 +41,7 @@ import { HlmTableImports } from '@spartan-ng/helm/table';
 		</div>
 	`,
 })
-export class TablePreview {
+export class TableFooter {
 	protected _invoices = [
 		{
 			invoice: 'INV001',
@@ -86,41 +87,3 @@ export class TablePreview {
 		},
 	];
 }
-
-export const defaultImports = `
-import { HlmTableImports } from '@spartan-ng/helm/table';
-`;
-
-export const defaultSkeleton = `
-<div hlmTableContainer>
-  <table hlmTable>
-    <caption hlmTableCaption>
-      A list of your recent invoices.
-    </caption>
-    <thead hlmTableHeader>
-      <tr hlmTableRow>
-        <th hlmTableHead class="w-[100px]">Invoice</th>
-        <th hlmTableHead>Status</th>
-        <th hlmTableHead>Method</th>
-        <th hlmTableHead class="text-right">Amount</th>
-      </tr>
-    </thead>
-    <tbody hlmTableBody>
-      @for (invoice of _invoices; track invoice.invoice) {
-      <tr hlmTableRow>
-        <td hlmTableCell class="font-medium">{{ invoice.invoice }}</td>
-        <td hlmTableCell>{{ invoice.paymentStatus }}</td>
-        <td hlmTableCell>{{ invoice.paymentMethod }}</td>
-        <td hlmTableCell class="text-right">{{ invoice.totalAmount }}</td>
-      </tr>
-      }
-    </tbody>
-    <tfoot hlmTableFooter>
-      <tr hlmTableRow>
-        <td hlmTableCell [attr.colSpan]="3">Total</td>
-        <td hlmTableCell class="text-right">$2,500.00</td>
-      </tr>
-    </tfoot>
-  </table>
-</div>
-`;

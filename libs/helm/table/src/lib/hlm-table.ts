@@ -17,15 +17,15 @@ export interface HlmTableVariant {
 }
 
 export const HlmTableVariantDefault: HlmTableVariant = {
-	tableContainer: 'relative w-full overflow-x-auto',
-	table: 'w-full caption-bottom text-sm',
-	thead: '[&_tr]:border-b',
-	tbody: '[&_tr:last-child]:border-0',
-	tfoot: 'bg-muted/50 border-t font-medium [&>tr]:last:border-b-0',
-	tr: 'hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors',
-	th: 'text-foreground h-10 px-2 text-start align-middle font-medium whitespace-nowrap [&:has([role=checkbox])]:pe-0',
-	td: 'p-2 align-middle whitespace-nowrap [&:has([role=checkbox])]:pe-0',
-	caption: 'text-muted-foreground mt-4 text-sm',
+	tableContainer: 'spartan-table-container',
+	table: 'spartan-table',
+	thead: 'spartan-table-header',
+	tbody: 'spartan-table-body',
+	tfoot: 'spartan-table-footer',
+	tr: 'spartan-table-row has-aria-expanded:bg-muted/50',
+	th: 'spartan-table-head',
+	td: 'spartan-table-cell',
+	caption: 'spartan-table-caption',
 };
 
 export function provideHlmTableConfig(config: Partial<HlmTableVariant>): ValueProvider {
@@ -89,14 +89,12 @@ export class HlmTable {
 	}
 }
 
-// Computed class for the host <table> element}
-
 /**
  * Directive to apply Shadcn-like styling to a <thead> element
  * within an HlmTableDirective context.
  */
 @Directive({
-	selector: 'thead[hlmTHead]',
+	selector: 'thead[hlmTHead],thead[hlmTableHeader]',
 	host: { 'data-slot': 'table-header' },
 })
 export class HlmTHead {
@@ -112,7 +110,7 @@ export class HlmTHead {
  * within an HlmTableDirective context.
  */
 @Directive({
-	selector: 'tbody[hlmTBody]',
+	selector: 'tbody[hlmTBody],tbody[hlmTableBody]',
 	host: { 'data-slot': 'table-body' },
 })
 export class HlmTBody {
@@ -127,7 +125,7 @@ export class HlmTBody {
  * within an HlmTableDirective context.
  */
 @Directive({
-	selector: 'tfoot[hlmTFoot]',
+	selector: 'tfoot[hlmTFoot],tfoot[hlmTableFooter]',
 	host: { 'data-slot': 'table-footer' },
 })
 export class HlmTFoot {
@@ -142,7 +140,7 @@ export class HlmTFoot {
  * within an HlmTableDirective context.
  */
 @Directive({
-	selector: 'tr[hlmTr]',
+	selector: 'tr[hlmTr],tr[hlmTableRow]',
 	host: { 'data-slot': 'table-row' },
 })
 export class HlmTr {
@@ -157,7 +155,7 @@ export class HlmTr {
  * within an HlmTableDirective context.
  */
 @Directive({
-	selector: 'th[hlmTh]',
+	selector: 'th[hlmTh],th[hlmTableHead]',
 	host: { 'data-slot': 'table-head' },
 })
 export class HlmTh {
@@ -172,7 +170,7 @@ export class HlmTh {
  * within an HlmTableDirective context.
  */
 @Directive({
-	selector: 'td[hlmTd]',
+	selector: 'td[hlmTd],td[hlmTableCell]',
 	host: { 'data-slot': 'table-cell' },
 })
 export class HlmTd {
@@ -187,7 +185,7 @@ export class HlmTd {
  * within an HlmTableDirective context.
  */
 @Directive({
-	selector: 'caption[hlmCaption]',
+	selector: 'caption[hlmCaption],caption[hlmTableCaption]',
 	host: { 'data-slot': 'table-caption' },
 })
 export class HlmCaption {

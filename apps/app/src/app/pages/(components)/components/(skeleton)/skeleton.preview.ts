@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { HlmSkeletonImports } from '@spartan-ng/helm/skeleton';
 
 @Component({
 	selector: 'spartan-skeleton-preview',
 	imports: [HlmSkeletonImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<div class="flex items-center space-x-4">
+		<div class="flex items-center gap-4">
 			<hlm-skeleton class="size-12 rounded-full" />
 			<div class="space-y-2">
 				<hlm-skeleton class="h-4 w-[250px]" />

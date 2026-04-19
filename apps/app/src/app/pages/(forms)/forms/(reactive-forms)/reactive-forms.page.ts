@@ -1,5 +1,5 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
@@ -55,6 +55,7 @@ export const routeMeta: RouteMeta = {
 		ReactiveFormRadioGroupDemo,
 		ReactiveFormSwitchDemo,
 	],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<section spartanMainSection>
 			<spartan-section-intro name="Reactive Forms" lead="Build forms in Angular using Reactive Forms." />

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import {
 	AbstractControl,
 	FormBuilder,
@@ -15,6 +15,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 @Component({
 	selector: 'spartan-reactive-form-select-demo',
 	imports: [ReactiveFormsModule, HlmCardImports, HlmFieldImports, HlmSelectImports, HlmButtonImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: { class: 'w-full sm:max-w-lg' },
 	template: `
 		<hlm-card>
@@ -103,7 +104,7 @@ function autoDetectLanguage(): ValidatorFn {
 }
 
 export const reactiveFormsSelectDemoCode = `
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import {
 	AbstractControl,
 	FormBuilder,
@@ -120,6 +121,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 @Component({
 	selector: 'spartan-reactive-form-select-demo',
 	imports: [ReactiveFormsModule, HlmCardImports, HlmFieldImports, HlmSelectImports, HlmButtonImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: { class: 'w-full sm:max-w-md' },
 	template: \`
 		<hlm-card>

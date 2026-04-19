@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmCardImports } from '@spartan-ng/helm/card';
@@ -8,6 +8,7 @@ import { HlmInputImports } from '@spartan-ng/helm/input';
 @Component({
 	selector: 'spartan-reactive-form-input-demo',
 	imports: [ReactiveFormsModule, HlmCardImports, HlmFieldImports, HlmInputImports, HlmButtonImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: { class: 'w-full sm:max-w-md' },
 	template: `
 		<hlm-card>
@@ -65,7 +66,7 @@ export class ReactiveFormInputDemo {
 }
 
 export const reactiveFormsInputDemoCode = `
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmCardImports } from '@spartan-ng/helm/card';
@@ -75,6 +76,7 @@ import { HlmInputImports } from '@spartan-ng/helm/input';
 @Component({
 	selector: 'spartan-reactive-form-input-demo',
 	imports: [ReactiveFormsModule, HlmCardImports, HlmFieldImports, HlmInputImports, HlmButtonImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: { class: 'w-full sm:max-w-md' },
 	template: \`
 		<hlm-card>

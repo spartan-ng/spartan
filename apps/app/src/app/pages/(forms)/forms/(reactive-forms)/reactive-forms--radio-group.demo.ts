@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmCardImports } from '@spartan-ng/helm/card';
@@ -8,6 +8,7 @@ import { HlmRadioGroupImports } from '@spartan-ng/helm/radio-group';
 @Component({
 	selector: 'spartan-reactive-form-radio-group-demo',
 	imports: [ReactiveFormsModule, HlmCardImports, HlmFieldImports, HlmRadioGroupImports, HlmButtonImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: { class: 'w-full sm:max-w-md' },
 	template: `
 		<hlm-card>
@@ -88,7 +89,7 @@ export class ReactiveFormRadioGroupDemo {
 }
 
 export const reactiveFormsRadioGroupDemoCode = `
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmCardImports } from '@spartan-ng/helm/card';
@@ -98,6 +99,7 @@ import { HlmRadioGroupImports } from '@spartan-ng/helm/radio-group';
 @Component({
 	selector: 'spartan-reactive-form-radio-group-demo',
 	imports: [ReactiveFormsModule, HlmCardImports, HlmFieldImports, HlmRadioGroupImports, HlmButtonImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: { class: 'w-full sm:max-w-md' },
 	template: \`
 		<hlm-card>

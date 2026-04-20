@@ -1,5 +1,5 @@
 import type { RouteMeta } from '@analogjs/router';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
@@ -55,7 +55,6 @@ export const routeMeta: RouteMeta = {
 		ReactiveFormRadioGroupDemo,
 		ReactiveFormSwitchDemo,
 	],
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<section spartanMainSection>
 			<spartan-section-intro name="Reactive Forms" lead="Build forms in Angular using Reactive Forms." />
@@ -127,7 +126,7 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-section-sub-heading id="form">Form</spartan-section-sub-heading>
 
-			<h3 id="create-a-form-schema" spartanH4>Create a form schema</h3>
+			<h3 id="create-a-form-controls" spartanH4>Create form controls</h3>
 			<p class="${hlmP}">We'll start by defining the shape of our form using the form builder.</p>
 
 			<spartan-code class="mt-6" fileName="bug-report-form.ts" [code]="_demoFormSchemaCode" />
@@ -311,7 +310,7 @@ export const routeMeta: RouteMeta = {
 			<spartan-code class="mt-6" [code]="_demoResetForm" />
 
 			<spartan-page-bottom-nav>
-				<spartan-page-bottom-nav-link href="/stack/overview" label="Stack" />
+				<spartan-page-bottom-nav-link href="/forms/signal-forms" label="Signal Forms" />
 				<spartan-page-bottom-nav-link direction="previous" href="/forms" label="Forms" />
 			</spartan-page-bottom-nav>
 		</section>

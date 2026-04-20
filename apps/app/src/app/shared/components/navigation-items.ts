@@ -82,7 +82,7 @@ export const components: Link[] = [
 export const forms: Link[] = [
 	{ label: 'Forms', url: '/', new: true, exact: true },
 	{ label: 'Reactive Forms', url: '/reactive-forms', new: true },
-	{ label: 'Signal Forms', url: '/signal-forms', wip: true },
+	{ label: 'Signal Forms', url: '/signal-forms', new: true },
 ];
 
 export const sidenavItems: NavItem[] = [

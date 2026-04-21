@@ -5553,13 +5553,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "thead[hlmTHead],thead[hlmTableHeader]",
       },
       "HlmTable": {
-        "inputs": [
-          {
-            "name": "hlmTable",
-            "required": false,
-            "type": "Partial<HlmTableVariant> | string",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "table[hlmTable]",

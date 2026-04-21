@@ -24,6 +24,7 @@ export const transformStyleMap: TransformerStyle<SourceFile> = async ({ sourceFi
 	applyToHtmlInStrings(sourceFile, styleMap, matchedClasses);
 	applyToRawHtml(sourceFile, styleMap, matchedClasses);
 	applyToCvaCalls(sourceFile, styleMap, matchedClasses);
+	applyToObjectLiteralStrings(sourceFile, styleMap, matchedClasses);
 
 	return sourceFile;
 };
@@ -205,6 +206,17 @@ function removeEmptyArgumentsFromHlm(call: CallExpression) {
 
 function mergeClasses(newClasses: string, existing: string) {
 	return twMerge(newClasses, existing);
+}
+
+function applyToObjectLiteralStrings(sourceFile: SourceFile, styleMap: StyleMap, matchedClasses: Set<string>) {
+	sourceFile.forEachDescendant((node) => {
+		if (!Node.isPropertyAssignment(node)) return;
+
+		const initializer = node.getInitializer();
+		if (!initializer || !isStringLiteralLike(initializer)) return;
+
+		applyStyle(initializer, styleMap, matchedClasses);
+	});
 }
 
 function applyToCvaCalls(sourceFile: SourceFile, styleMap: StyleMap, matchedClasses: Set<string>) {

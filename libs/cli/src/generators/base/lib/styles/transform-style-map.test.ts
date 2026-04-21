@@ -468,4 +468,46 @@ export class HlmButton {
 `);
 		});
 	});
+
+	describe('object literal property values', () => {
+		it('replaces spartan classes in HlmTableVariantDefault', async () => {
+			const tableStyleMap: StyleMap = {
+				'spartan-table-container': 'w-full overflow-auto',
+				'spartan-table': 'w-full caption-bottom text-sm',
+				'spartan-table-header': '[&_tr]:border-b',
+				'spartan-table-body': '[&_tr:last-child]:border-0',
+				'spartan-table-footer': 'bg-muted/50 font-medium [&>tr]:last:border-b-0',
+				'spartan-table-row': 'border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted',
+				'spartan-table-head': 'text-muted-foreground h-10 px-2 text-left align-middle font-medium',
+				'spartan-table-cell': 'p-2 align-middle',
+				'spartan-table-caption': 'text-muted-foreground mt-4 text-sm',
+			};
+
+			const source = `
+export const HlmTableVariantDefault = {
+	tableContainer: 'spartan-table-container',
+	table: 'spartan-table',
+	thead: 'spartan-table-header',
+	tbody: 'spartan-table-body',
+	tfoot: 'spartan-table-footer',
+	tr: 'spartan-table-row has-aria-expanded:bg-muted/50',
+	th: 'spartan-table-head',
+	td: 'spartan-table-cell',
+	caption: 'spartan-table-caption',
+};
+`;
+
+			const result = await applyTransform(source, tableStyleMap);
+
+			expect(result).not.toContain('spartan-table-container');
+			expect(result).not.toContain('spartan-table-header');
+			expect(result).not.toContain('spartan-table-body');
+			expect(result).not.toContain('spartan-table-footer');
+			expect(result).not.toContain('spartan-table-row');
+			expect(result).not.toContain('spartan-table-head');
+			expect(result).not.toContain('spartan-table-cell');
+			expect(result).not.toContain('spartan-table-caption');
+			expect(result).not.toMatch(/\bspartan-table\b/);
+		});
+	});
 });

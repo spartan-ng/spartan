@@ -1,23 +1,14 @@
-import { computed, Directive, effect, input, untracked } from '@angular/core';
-import { injectCustomClassSettable } from '@spartan-ng/brain/core';
-import { hlm } from '@spartan-ng/helm/utils';
-import type { ClassValue } from 'clsx';
+import { Directive } from '@angular/core';
+import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmDrawerFooter]',
 	host: {
-		'[class]': '_computedClass()',
+		'data-slot': 'drawer-footer',
 	},
 })
 export class HlmDrawerFooter {
-	private readonly _classSettable = injectCustomClassSettable({ optional: true, host: true });
-	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected readonly _computedClass = computed(() => hlm('flex flex-col gap-2 p-4', this.userClass()));
-
 	constructor() {
-		effect(() => {
-			const classValue = this._computedClass();
-			untracked(() => this._classSettable?.setClassToCustomElement(classValue));
-		});
+		classes(() => 'flex flex-col gap-2 p-4');
 	}
 }

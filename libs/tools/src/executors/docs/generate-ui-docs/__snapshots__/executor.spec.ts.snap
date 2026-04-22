@@ -2685,9 +2685,9 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
     },
   },
   "drawer": {
-    "helm": {
-      "HlmDrawer": {
-        "exportAs": "hlmDrawer",
+    "brain": {
+      "BrnDrawer": {
+        "exportAs": "brnDrawer",
         "inputs": [
           {
             "name": "isOpen",
@@ -2777,52 +2777,67 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "void",
           },
         ],
+        "selector": "[brnDrawer],brn-drawer",
+      },
+      "BrnDrawerContent": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnDrawerContent]",
+      },
+      "BrnDrawerFooter": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnDrawerFooter]",
+      },
+      "BrnDrawerHandle": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnDrawerHandle]",
+      },
+      "BrnDrawerOverlay": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnDrawerOverlay]",
+      },
+      "BrnDrawerScroller": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnDrawerScroller]",
+      },
+    },
+    "helm": {
+      "HlmDrawer": {
+        "exportAs": "hlmDrawer",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
         "selector": "hlm-drawer",
       },
       "HlmDrawerDescription": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmDrawerDescription]",
       },
       "HlmDrawerFooter": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmDrawerFooter]",
       },
       "HlmDrawerHeader": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmDrawerHeader]",
       },
       "HlmDrawerTitle": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmDrawerTitle]",

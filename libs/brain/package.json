@@ -17,12 +17,16 @@
 		"@angular/common": ">=20.0.0 <22.0.0",
 		"@angular/core": ">=20.0.0 <22.0.0",
 		"@angular/forms": ">=20.0.0 <22.0.0",
+		"@use-gesture/vanilla": "^10.3.1",
 		"clsx": ">=2.0.0",
 		"luxon": ">=3.0.0",
 		"rxjs": ">=6.6.0",
 		"tailwindcss": ">=3.3.0"
 	},
 	"peerDependenciesMeta": {
+		"@use-gesture/vanilla": {
+			"optional": true
+		},
 		"luxon": {
 			"optional": true
 		}

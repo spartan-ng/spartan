@@ -20,6 +20,7 @@ export type PrimitiveSnippet =
 	| 'data-table'
 	| 'date-picker'
 	| 'dialog'
+	| 'drawer'
 	| 'dropdown-menu'
 	| 'empty'
 	| 'field'

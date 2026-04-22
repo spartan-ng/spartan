@@ -2684,6 +2684,151 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       },
     },
   },
+  "drawer": {
+    "helm": {
+      "HlmDrawer": {
+        "exportAs": "hlmDrawer",
+        "inputs": [
+          {
+            "name": "isOpen",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "detent",
+            "required": false,
+            "type": "BrnDrawerDetent",
+          },
+          {
+            "name": "snapPoints",
+            "required": false,
+            "type": "number[] | undefined",
+          },
+          {
+            "name": "initialSnap",
+            "required": false,
+            "type": "number | undefined",
+          },
+          {
+            "name": "disableDrag",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "disableDismiss",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "disableScrollLocking",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "avoidKeyboard",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "tweenConfig",
+            "required": false,
+            "type": "BrnDrawerTweenConfig | undefined",
+          },
+          {
+            "name": "prefersReducedMotion",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "modalEffectRootId",
+            "required": false,
+            "type": "string | undefined",
+          },
+          {
+            "name": "modalEffectThreshold",
+            "required": false,
+            "type": "number | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [
+          {
+            "name": "dismissed",
+            "type": "void",
+          },
+          {
+            "name": "snapped",
+            "type": "number",
+          },
+          {
+            "name": "openStart",
+            "type": "void",
+          },
+          {
+            "name": "openEnd",
+            "type": "void",
+          },
+          {
+            "name": "closeStart",
+            "type": "void",
+          },
+          {
+            "name": "closeEnd",
+            "type": "void",
+          },
+        ],
+        "selector": "hlm-drawer",
+      },
+      "HlmDrawerDescription": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDrawerDescription]",
+      },
+      "HlmDrawerFooter": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDrawerFooter]",
+      },
+      "HlmDrawerHeader": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDrawerHeader]",
+      },
+      "HlmDrawerTitle": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDrawerTitle]",
+      },
+    },
+  },
   "dropdown-menu": {
     "helm": {
       "HlmDropdownMenu": {

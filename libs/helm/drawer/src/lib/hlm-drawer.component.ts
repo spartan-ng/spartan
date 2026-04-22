@@ -94,6 +94,19 @@ import { BehaviorSubject, type Subscription } from 'rxjs';
 						<ng-content />
 					</div>
 				</div>
+
+				<!--
+					Fixed footer: positioned absolute, offset by the same Y amount the container
+					is translated down. This keeps the footer pinned to the bottom of the visible
+					drawer area at any snap point.
+				-->
+				<div
+					class="bg-background border-border absolute right-0 left-0 border-t"
+					#footerEl
+					[style.bottom.px]="footerBottomPx()"
+				>
+					<ng-content select="[hlmDrawerFooter]" />
+				</div>
 			</div>
 		}
 	`,
@@ -128,6 +141,7 @@ export class HlmDrawer {
 	private readonly _containerEl = viewChild<ElementRef<HTMLDivElement>>('containerEl');
 	private readonly _headerEl = viewChild<ElementRef<HTMLDivElement>>('headerEl');
 	private readonly _scrollerEl = viewChild<ElementRef<HTMLDivElement>>('scrollerEl');
+	private readonly _footerEl = viewChild<ElementRef<HTMLDivElement>>('footerEl');
 
 	// --- Injections ---
 
@@ -143,6 +157,7 @@ export class HlmDrawer {
 
 	public readonly state = signal<BrnDrawerState>('closed');
 	public readonly sheetHeight = signal(0);
+	public readonly footerHeight = signal(0);
 	private readonly _y$ = new BehaviorSubject<number>(BRN_DRAWER_OFFSCREEN_Y);
 	private readonly _y = toSignal(this._y$, { initialValue: BRN_DRAWER_OFFSCREEN_Y });
 	private readonly _currentSnap = signal<number | undefined>(undefined);
@@ -193,10 +208,19 @@ export class HlmDrawer {
 	public readonly scrollerPaddingBottom = computed(() => {
 		// The container extends below the viewport by `y` pixels at non-fully-open
 		// snap points. Add matching padding so all content is scrollable into view.
+		// Also reserve space for the fixed footer so content can scroll past it.
 		const overflowPx = Math.max(0, this._y());
+		const footerPx = this.footerHeight();
 		const keyboardPx = this.avoidKeyboard() ? 'env(keyboard-inset-height, var(--keyboard-inset-height, 0px))' : '0px';
-		return `calc(${overflowPx}px + ${keyboardPx})`;
+		return `calc(${overflowPx + footerPx}px + ${keyboardPx})`;
 	});
+
+	/**
+	 * Pixel offset from the container bottom at which the fixed footer sits.
+	 * Equals the container's current Y translation, so the footer stays pinned
+	 * to the bottom of the visible drawer area at any snap point.
+	 */
+	public readonly footerBottomPx = computed(() => Math.max(0, this._y()));
 	// Always allow browser-native touch handling on the scroller. The actual
 	// drag-vs-scroll decision is made by our touchmove handler (preventDefault
 	// for downward swipes at scroll-top) and preventScroll (blocks page scroll).
@@ -570,6 +594,22 @@ export class HlmDrawer {
 				this.sheetHeight.set(Math.round(entry.contentRect.height));
 			});
 			observer.observe(container.nativeElement);
+			onCleanup(() => observer.disconnect());
+		});
+
+		effect((onCleanup) => {
+			const footer = this._footerEl();
+			if (!footer) {
+				this.footerHeight.set(0);
+				return;
+			}
+
+			const observer = new ResizeObserver((entries) => {
+				const entry = entries[0];
+				if (!entry) return;
+				this.footerHeight.set(Math.round(entry.contentRect.height));
+			});
+			observer.observe(footer.nativeElement);
 			onCleanup(() => observer.disconnect());
 		});
 	}

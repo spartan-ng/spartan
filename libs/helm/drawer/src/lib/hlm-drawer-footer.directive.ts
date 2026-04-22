@@ -12,7 +12,7 @@ import type { ClassValue } from 'clsx';
 export class HlmDrawerFooter {
 	private readonly _classSettable = injectCustomClassSettable({ optional: true, host: true });
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected readonly _computedClass = computed(() => hlm('mt-auto flex flex-col gap-2 p-4', this.userClass()));
+	protected readonly _computedClass = computed(() => hlm('flex flex-col gap-2 p-4', this.userClass()));
 
 	constructor() {
 		effect(() => {

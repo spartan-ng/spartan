@@ -6,9 +6,9 @@ import { HlmDrawerImports } from '@spartan-ng/helm/drawer';
 	selector: 'spartan-drawer-preview',
 	imports: [HlmDrawerImports, HlmButtonImports],
 	template: `
-		<button hlmBtn variant="outline" (click)="open.set(true)">Open Drawer</button>
+		<button hlmBtn variant="outline" (click)="_open.set(true)">Open Drawer</button>
 
-		<hlm-drawer [isOpen]="open()" (dismissed)="open.set(false)">
+		<hlm-drawer [isOpen]="_open()" (dismissed)="_open.set(false)">
 			<div hlmDrawerHeader>
 				<h2 hlmDrawerTitle>Edit Profile</h2>
 				<p hlmDrawerDescription>Make changes to your profile here. Click save when you're done.</p>
@@ -19,14 +19,14 @@ import { HlmDrawerImports } from '@spartan-ng/helm/drawer';
 			</div>
 
 			<div hlmDrawerFooter>
-				<button hlmBtn (click)="open.set(false)">Save Changes</button>
-				<button hlmBtn variant="ghost" (click)="open.set(false)">Cancel</button>
+				<button hlmBtn (click)="_open.set(false)">Save Changes</button>
+				<button hlmBtn variant="ghost" (click)="_open.set(false)">Cancel</button>
 			</div>
 		</hlm-drawer>
 	`,
 })
 export class DrawerPreview {
-	protected readonly open = signal(false);
+	protected readonly _open = signal(false);
 }
 
 export const defaultImports = `

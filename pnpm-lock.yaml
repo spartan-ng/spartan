@@ -99,6 +99,9 @@ importers:
       '@trpc/server':
         specifier: 10.45.2
         version: 10.45.2
+      '@use-gesture/vanilla':
+        specifier: ^10.3.1
+        version: 10.3.1
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -149,7 +152,7 @@ importers:
         version: 18.0.0(@angular/cdk@20.2.14(@angular/common@20.3.17(@angular/core@20.3.18(@angular/compiler@20.3.17)(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2))(@angular/core@20.3.18(@angular/compiler@20.3.17)(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2))(@angular/common@20.3.17(@angular/core@20.3.18(@angular/compiler@20.3.17)(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2))(@angular/core@20.3.18(@angular/compiler@20.3.17)(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2)
       ngxtension:
         specifier: ^7.0.2
-        version: 7.0.2(@angular/common@20.3.17(@angular/core@20.3.18(@angular/compiler@20.3.17)(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2))(@angular/core@20.3.18(@angular/compiler@20.3.17)(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2)
+        version: 7.0.2(@angular/common@20.3.17(@angular/core@20.3.18(@angular/compiler@20.3.17)(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2))(@angular/core@20.3.18(@angular/compiler@20.3.17)(rxjs@7.8.2)(zone.js@0.15.0))(@use-gesture/vanilla@10.3.1)(rxjs@7.8.2)
       node-html-parser:
         specifier: ^7.0.1
         version: 7.0.1
@@ -6508,6 +6511,12 @@ packages:
     resolution: {integrity: sha512-lrW200hZdbfRtztbygyaq/6jP6AKE8qQN2KvPcJ+x7wiD038YtnYtZ82IMNJ69GJibV7bwL3y9FgK+5w/pYt6g==}
     cpu: [x64]
     os: [win32]
+
+  '@use-gesture/core@10.3.1':
+    resolution: {integrity: sha512-WcINiDt8WjqBdUXye25anHiNxPc0VOrlT8F6LLkU6cycrOGUDyY/yyFmsg3k8i5OLvv25llc0QC45GhR/C8llw==}
+
+  '@use-gesture/vanilla@10.3.1':
+    resolution: {integrity: sha512-lT4scGLu59ovA3zmtUonukAGcA0AdOOh+iwNDS05Bsu7Lq9aZToDHhI6D8Q2qvsVraovtsLLYwPrWdG/noMAKw==}
 
   '@vercel/nft@1.5.0':
     resolution: {integrity: sha512-IWTDeIoWhQ7ZtRO/JRKH+jhmeQvZYhtGPmzw/QGDY+wDCQqfm25P9yIdoAFagu4fWsK4IwZXDFIjrmp5rRm/sA==}
@@ -22295,6 +22304,12 @@ snapshots:
   '@unrs/resolver-binding-win32-x64-msvc@1.11.1':
     optional: true
 
+  '@use-gesture/core@10.3.1': {}
+
+  '@use-gesture/vanilla@10.3.1':
+    dependencies:
+      '@use-gesture/core': 10.3.1
+
   '@vercel/nft@1.5.0(encoding@0.1.13)(rollup@4.60.1)':
     dependencies:
       '@mapbox/node-pre-gyp': 2.0.0(encoding@0.1.13)
@@ -28461,12 +28476,14 @@ snapshots:
       rxjs: 7.8.2
       tslib: 2.8.1
 
-  ngxtension@7.0.2(@angular/common@20.3.17(@angular/core@20.3.18(@angular/compiler@20.3.17)(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2))(@angular/core@20.3.18(@angular/compiler@20.3.17)(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2):
+  ngxtension@7.0.2(@angular/common@20.3.17(@angular/core@20.3.18(@angular/compiler@20.3.17)(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2))(@angular/core@20.3.18(@angular/compiler@20.3.17)(rxjs@7.8.2)(zone.js@0.15.0))(@use-gesture/vanilla@10.3.1)(rxjs@7.8.2):
     dependencies:
       '@angular/common': 20.3.17(@angular/core@20.3.18(@angular/compiler@20.3.17)(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2)
       '@angular/core': 20.3.18(@angular/compiler@20.3.17)(rxjs@7.8.2)(zone.js@0.15.0)
       rxjs: 7.8.2
       tslib: 2.8.1
+    optionalDependencies:
+      '@use-gesture/vanilla': 10.3.1
 
   nitropack@2.13.3(@netlify/blobs@9.1.2)(drizzle-orm@0.33.0(@types/react@18.3.23)(postgres@3.4.7)(react@19.1.0))(encoding@0.1.13):
     dependencies:

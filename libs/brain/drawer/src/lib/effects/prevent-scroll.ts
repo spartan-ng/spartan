@@ -174,8 +174,9 @@ function preventScrollMobileSafari(doc: Document): () => void {
 	// block touch-initiated page scrolling. The only cosmetic artifact is the
 	// scrollbar remaining briefly visible when the sheet opens.
 	return chain(
+		// `onTouchStart` only records state — no preventDefault — so passive is safe and faster.
 		addEvent(doc, 'touchstart', onTouchStart, {
-			passive: false,
+			passive: true,
 			capture: true,
 		}),
 		addEvent(doc, 'touchmove', onTouchMove, {

@@ -69,7 +69,12 @@ export function applyModalEffect(options: {
 			if (startThreshold !== undefined) {
 				const startThresholdValue = sheetHeight - Math.min(Math.floor(startThreshold * sheetHeight), sheetHeight);
 
-				if (yValue <= startThresholdValue) {
+				// Guard against startThreshold === 1 (threshold at the drawer top) which
+				// collapses startThresholdValue to 0 and would otherwise divide by zero,
+				// producing NaN transforms and a stuck modal-effect state on the root.
+				if (startThresholdValue <= 0) {
+					progress = yValue <= 0 ? 1 : 0;
+				} else if (yValue <= startThresholdValue) {
 					progress = (startThresholdValue - yValue) / startThresholdValue;
 				} else {
 					progress = 0;

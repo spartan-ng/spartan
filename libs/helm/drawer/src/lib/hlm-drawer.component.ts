@@ -46,6 +46,9 @@ import { BehaviorSubject, type Subscription } from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'pointer-events-none fixed inset-0 overflow-hidden',
+		role: 'dialog',
+		'aria-modal': 'true',
+		'[attr.aria-hidden]': 'state() === "closed" ? true : null',
 		'[attr.data-state]': 'state()',
 		'[style.visibility]': 'visibility()',
 		'[style.z-index]': 'zIndex()',

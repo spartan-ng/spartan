@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideItalic } from '@ng-icons/lucide';
 import { HlmToggleImports } from '@spartan-ng/helm/toggle';
@@ -7,6 +7,7 @@ import { HlmToggleImports } from '@spartan-ng/helm/toggle';
 	selector: 'spartan-toggle-with-text',
 	imports: [HlmToggleImports, NgIcon],
 	providers: [provideIcons({ lucideItalic })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<button hlmToggle aria-label="Toggle italic">
 			<ng-icon name="lucideItalic" />

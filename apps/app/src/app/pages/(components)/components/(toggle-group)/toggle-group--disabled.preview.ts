@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideBold, lucideItalic, lucideUnderline } from '@ng-icons/lucide';
 import { HlmIconImports } from '@spartan-ng/helm/icon';
@@ -8,6 +8,7 @@ import { HlmToggleGroupImports } from '@spartan-ng/helm/toggle-group';
 	selector: 'spartan-toggle-group-disabled',
 	imports: [HlmToggleGroupImports, HlmIconImports],
 	providers: [provideIcons({ lucideBold, lucideItalic, lucideUnderline })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-toggle-group type="multiple" disabled>
 			<button hlmToggleGroupItem value="bold" aria-label="Toggle bold">

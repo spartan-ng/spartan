@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideBookmark, lucideHeart, lucideStar } from '@ng-icons/lucide';
@@ -9,6 +9,7 @@ import { HlmToggleGroupImports } from '@spartan-ng/helm/toggle-group';
 	selector: 'spartan-toggle-group-form',
 	imports: [HlmToggleGroupImports, HlmButtonImports, NgIcon, ReactiveFormsModule],
 	providers: [provideIcons({ lucideStar, lucideHeart, lucideBookmark })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<form class="space-y-6" [formGroup]="form" (ngSubmit)="submit()">
 			<hlm-toggle-group formControlName="action" type="single" variant="outline" spacing="2" size="sm">

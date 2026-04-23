@@ -1268,11 +1268,11 @@
 	}
 
 	.spartan-toggle-size-default {
-		@apply h-8 min-w-8 px-2;
+		@apply h-8 min-w-8 px-2.5;
 	}
 
 	.spartan-toggle-size-sm {
-		@apply h-7 min-w-7 rounded-[min(var(--radius-md),12px)] px-1.5 text-[0.8rem];
+		@apply h-7 min-w-7 rounded-[min(var(--radius-md),12px)] px-2.5 text-[0.8rem] [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*3.5)];
 	}
 
 	.spartan-toggle-size-lg {
@@ -1285,7 +1285,7 @@
 	}
 
 	.spartan-toggle-group-item {
-		@apply group-data-[spacing=0]/toggle-group:rounded-none group-data-[spacing=0]/toggle-group:px-2 group-data-horizontal/toggle-group:data-[spacing=0]:first:rounded-l-lg group-data-vertical/toggle-group:data-[spacing=0]:first:rounded-t-lg group-data-horizontal/toggle-group:data-[spacing=0]:last:rounded-r-lg group-data-vertical/toggle-group:data-[spacing=0]:last:rounded-b-lg;
+		@apply group-data-[spacing=0]/toggle-group:rounded-none group-data-[spacing=0]/toggle-group:px-2 group-data-horizontal/toggle-group:data-[spacing=0]:first:rounded-s-lg group-data-vertical/toggle-group:data-[spacing=0]:first:rounded-t-lg group-data-horizontal/toggle-group:data-[spacing=0]:last:rounded-e-lg group-data-vertical/toggle-group:data-[spacing=0]:last:rounded-b-lg;
 	}
 
 	/* MARK: Tooltip */

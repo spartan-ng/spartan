@@ -193,7 +193,6 @@ export default class ToggleGroupPage {
 	protected readonly _outlineCode = computed(() => this._snippets()['outline']);
 	protected readonly _sizeCode = computed(() => this._snippets()['size']);
 	protected readonly _singleCode = computed(() => this._snippets()['single']);
-	protected readonly _largeCode = computed(() => this._snippets()['large']);
 	protected readonly _verticalCode = computed(() => this._snippets()['vertical']);
 	protected readonly _disabledCode = computed(() => this._snippets()['disabled']);
 	protected readonly _spacingCode = computed(() => this._snippets()['spacing']);

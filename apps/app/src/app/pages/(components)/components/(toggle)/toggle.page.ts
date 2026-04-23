@@ -130,7 +130,6 @@ export default class TogglePage {
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('toggle');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _disabledCode = computed(() => this._snippets()['disabled']);
-	protected readonly _largeCode = computed(() => this._snippets()['large']);
 	protected readonly _outlineCode = computed(() => this._snippets()['outline']);
 	protected readonly _sizeCode = computed(() => this._snippets()['size']);
 	protected readonly _withTextCode = computed(() => this._snippets()['withText']);

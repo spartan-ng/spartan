@@ -5941,6 +5941,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "number",
           },
+          {
+            "name": "orientation",
+            "required": false,
+            "type": "'horizontal' | 'vertical'",
+          },
         ],
         "models": [],
         "outputs": [],

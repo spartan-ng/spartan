@@ -88,7 +88,7 @@ export const routeMeta: RouteMeta = {
 				</div>
 				<spartan-code secondTab [code]="_withTextCode()" />
 			</spartan-tabs>
-			<h3 id="examples__small" spartanH4>Small</h3>
+			<h3 id="examples__size" spartanH4>Size</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-toggle-size />

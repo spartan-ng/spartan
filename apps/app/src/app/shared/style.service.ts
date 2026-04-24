@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { computed, Injectable, signal } from '@angular/core';
 import { Style } from '@spartan-ng/registry';
 
 @Injectable({
@@ -6,4 +6,5 @@ import { Style } from '@spartan-ng/registry';
 })
 export class StyleService {
 	public readonly style = signal<Style>('vega');
+	public readonly isNotVega = computed(() => this.style() !== 'vega');
 }

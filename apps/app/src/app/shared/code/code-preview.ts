@@ -8,6 +8,7 @@ import { StyleService } from '@spartan-ng/app/app/shared/style.service';
 
 		'[attr.data-style]': '_styleService.style()',
 		'[class]': '"style-"+_styleService.style()',
+		'[class.not-style-vega]': '_styleService.isNotVega()',
 	},
 })
 export class CodePreview {

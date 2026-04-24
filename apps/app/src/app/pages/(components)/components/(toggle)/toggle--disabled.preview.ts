@@ -1,17 +1,15 @@
-import { Component } from '@angular/core';
-import { provideIcons } from '@ng-icons/core';
-import { lucideUnderline } from '@ng-icons/lucide';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { HlmToggleImports } from '@spartan-ng/helm/toggle';
 
 @Component({
 	selector: 'spartan-toggle-disabled',
-	imports: [HlmToggleImports, HlmIconImports],
-	providers: [provideIcons({ lucideUnderline })],
+	imports: [HlmToggleImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<button hlmToggle aria-label="Toggle underline" disabled>
-			<ng-icon hlm size="sm" name="lucideUnderline" />
-		</button>
+		<div class="flex flex-wrap items-center gap-2">
+			<button hlmToggle aria-label="Toggle disabled" disabled>Disabled</button>
+			<button hlmToggle variant="outline" aria-label="Toggle disabled outline" disabled>Disabled</button>
+		</div>
 	`,
 })
 export class ToggleDisabledPreview {}

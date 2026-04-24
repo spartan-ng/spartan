@@ -42,7 +42,7 @@ export class BrnToggleGroup<T = unknown> implements ControlValueAccessor {
 	public readonly valueChange = output<ToggleValue<T>>();
 
 	/** Whether no button toggles need to be selected. */
-	public readonly nullable = input<boolean, BooleanInput>(false, {
+	public readonly nullable = input<boolean, BooleanInput>(true, {
 		transform: booleanAttribute,
 	});
 

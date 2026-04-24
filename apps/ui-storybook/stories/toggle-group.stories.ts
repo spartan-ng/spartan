@@ -44,7 +44,7 @@ export const Default: Story = {
 	render: (args) => ({
 		template: `
 		<div class="flex items-center justify-center p-4">
-	 <hlm-toggle-group type="single" nullable="true" ${argsToTemplate(args)}> <button aria-label="Bold Toggle" value="bold" hlmToggleGroupItem>
+	 <hlm-toggle-group type="single" ${argsToTemplate(args)}> <button aria-label="Bold Toggle" value="bold" hlmToggleGroupItem>
 	   <ng-icon hlm size="sm" name="lucideBold" ${argsToTemplate(args)} />
 	 </button>
 
@@ -65,7 +65,7 @@ export const Outline: Story = {
 	render: (args) => ({
 		template: `
 		<div class="flex items-center justify-center p-4">
-	<hlm-toggle-group size="sm" variant="outline" type="multiple" nullable="true" ${argsToTemplate(args)}> <button aria-label="Bold" value="bold" hlmToggleGroupItem>
+	<hlm-toggle-group size="sm" variant="outline" type="multiple" ${argsToTemplate(args)}> <button aria-label="Bold" value="bold" hlmToggleGroupItem>
 		 <ng-icon hlm size="sm" name="lucideBold" />
 	 </button>
 
@@ -86,7 +86,7 @@ export const Small: Story = {
 	render: (args) => ({
 		template: `
 	<div class="flex items-center justify-center p-4">
-	<hlm-toggle-group size="sm" ${argsToTemplate(args)} type="single" nullable="true"> <button aria-label="Bold" value="bold" hlmToggleGroupItem>
+	<hlm-toggle-group size="sm" ${argsToTemplate(args)} type="single"> <button aria-label="Bold" value="bold" hlmToggleGroupItem>
 	 <ng-icon hlm size="sm" name="lucideBold" />
 	</button>
 	<button aria-label="Italic" value="italic" hlmToggleGroupItem>
@@ -105,7 +105,7 @@ export const Large: Story = {
 	render: (args) => ({
 		template: `
 		<div class="flex items-center justify-center p-4">
-<hlm-toggle-group ${argsToTemplate(args)} type="single" nullable="true" size="lg"> <button aria-label="Bold" value="bold" hlmToggleGroupItem>
+<hlm-toggle-group ${argsToTemplate(args)} type="single" size="lg"> <button aria-label="Bold" value="bold" hlmToggleGroupItem>
 		 <ng-icon hlm size="lg" name="lucideBold" />
 	 </button>
 
@@ -126,7 +126,7 @@ export const Disabled: Story = {
 	render: () => ({
 		template: `
 	<div class="flex items-center justify-center p-4">
-  <hlm-toggle-group type="single" nullable="true" size="sm" disabled> <button aria-label="Bold" value="bold" hlmToggleGroupItem>
+  <hlm-toggle-group type="single" size="sm" disabled> <button aria-label="Bold" value="bold" hlmToggleGroupItem>
 		 <ng-icon hlm size="sm" name="lucideBold" />
 	</button>
 	<button aria-label="Italic" value="italic" hlmToggleGroupItem>
@@ -189,7 +189,7 @@ const CITIES = [
 })
 class HlmToggleGroupStory {
 	public readonly type = input<ToggleType>('single');
-	public readonly nullable = input<BooleanInput>(false);
+	public readonly nullable = input<BooleanInput>(true);
 	public readonly disabled = input<BooleanInput>(false);
 	public readonly defaultValue = input<City | City[] | undefined>(undefined);
 	public readonly selected = signal<City | City[] | undefined>(undefined);
@@ -240,7 +240,7 @@ export const ToggleGroupSingleNullable: Story = {
 		}),
 	],
 	render: () => ({
-		template: '<hlm-toggle-group-story nullable="true"/>',
+		template: '<hlm-toggle-group-story/>',
 	}),
 };
 
@@ -252,7 +252,7 @@ export const ToggleGroupMultipleNullable: Story = {
 		}),
 	],
 	render: () => ({
-		template: '<hlm-toggle-group-story nullable="true" type="multiple"/>',
+		template: '<hlm-toggle-group-story type="multiple"/>',
 	}),
 };
 
@@ -296,7 +296,7 @@ export const ToggleGroupMultiple: StoryObj<{ defaultValue: City[] }> = {
 	},
 	render: ({ defaultValue }) => ({
 		props: { defaultValue },
-		template: '<hlm-toggle-group-story type="multiple" [defaultValue]="defaultValue"/>',
+		template: '<hlm-toggle-group-story type="multiple" nullable="false" [defaultValue]="defaultValue"/>',
 	}),
 };
 
@@ -305,7 +305,7 @@ export const ToggleGroupMultiple: StoryObj<{ defaultValue: City[] }> = {
 	imports: [HlmToggleGroupImports, FormsModule, ReactiveFormsModule],
 	template: `
 		<form class="flex space-x-4 p-4" [formGroup]="citiesForm">
-			<hlm-toggle-group formControlName="selectedCity">
+			<hlm-toggle-group formControlName="selectedCity" [nullable]="false">
 				@for (city of cities; track city.name; let last = $last) {
 					<button [value]="city" hlmToggleGroupItem>
 						{{ city.name }}

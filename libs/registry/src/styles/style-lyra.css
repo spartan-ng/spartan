@@ -1243,11 +1243,11 @@
 	}
 
 	.spartan-toggle-size-default {
-		@apply h-8 min-w-8 px-2;
+		@apply h-8 min-w-8 px-2.5;
 	}
 
 	.spartan-toggle-size-sm {
-		@apply h-7 min-w-7 rounded-none px-1.5;
+		@apply h-7 min-w-7 rounded-none px-2.5;
 	}
 
 	.spartan-toggle-size-lg {

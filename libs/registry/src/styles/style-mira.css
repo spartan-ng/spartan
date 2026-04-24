@@ -1258,7 +1258,7 @@
 
 	/* MARK: Toggle */
 	.spartan-toggle {
-		@apply hover:text-foreground aria-pressed:bg-muted focus-visible:border-ring focus-visible:ring-ring/50 data-[matches-spartan-invalid=true]:ring-destructive/20 dark:data-[matches-spartan-invalid=true]:ring-destructive/40 data-[matches-spartan-invalid=true]:border-destructive data-[state=on]:bg-muted gap-1 rounded-md text-xs font-medium transition-all [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*3.5)];
+		@apply hover:text-foreground aria-pressed:bg-muted focus-visible:border-ring focus-visible:ring-ring/50 data-[matches-spartan-invalid=true]:ring-destructive/20 dark:data-[matches-spartan-invalid=true]:ring-destructive/40 data-[matches-spartan-invalid=true]:border-destructive data-[state=on]:bg-muted gap-1 rounded-md text-xs font-medium transition-all [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*4)];
 	}
 
 	.spartan-toggle-variant-default {
@@ -1274,11 +1274,11 @@
 	}
 
 	.spartan-toggle-size-sm {
-		@apply h-6 min-w-6 rounded-[min(var(--radius-md),8px)] px-1.5 text-[0.625rem] [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*3)];
+		@apply h-6 min-w-6 rounded-[min(var(--radius-md),8px)] px-2 text-[0.625rem] [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*3)];
 	}
 
 	.spartan-toggle-size-lg {
-		@apply h-8 min-w-8 px-2;
+		@apply h-8 min-w-8 px-2.5;
 	}
 
 	/* MARK: Toggle Group */
@@ -1287,7 +1287,7 @@
 	}
 
 	.spartan-toggle-group-item {
-		@apply group-data-[spacing=0]/toggle-group:rounded-none group-data-[spacing=0]/toggle-group:px-2 group-data-horizontal/toggle-group:data-[spacing=0]:first:rounded-l-md group-data-vertical/toggle-group:data-[spacing=0]:first:rounded-t-md group-data-horizontal/toggle-group:data-[spacing=0]:last:rounded-r-md group-data-vertical/toggle-group:data-[spacing=0]:last:rounded-b-md;
+		@apply group-data-[spacing=0]/toggle-group:rounded-none group-data-[spacing=0]/toggle-group:px-2 group-data-horizontal/toggle-group:data-[spacing=0]:first:rounded-s-md group-data-vertical/toggle-group:data-[spacing=0]:first:rounded-t-md group-data-horizontal/toggle-group:data-[spacing=0]:last:rounded-e-md group-data-vertical/toggle-group:data-[spacing=0]:last:rounded-b-md;
 	}
 
 	/* MARK: Tooltip */

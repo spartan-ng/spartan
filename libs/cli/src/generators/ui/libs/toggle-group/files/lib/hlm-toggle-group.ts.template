@@ -20,6 +20,7 @@ import { provideHlmToggleGroup } from './hlm-toggle-group.token';
 		'[attr.data-variant]': 'variant()',
 		'[attr.data-size]': 'size()',
 		'[attr.data-spacing]': 'spacing()',
+		'[attr.data-orientation]': 'orientation()',
 		'[style.--gap]': 'spacing()',
 	},
 })
@@ -27,8 +28,12 @@ export class HlmToggleGroup {
 	public readonly variant = input<ToggleVariants['variant']>('default');
 	public readonly size = input<ToggleVariants['size']>('default');
 	public readonly spacing = input<number, NumberInput>(0, { transform: numberAttribute });
+	public readonly orientation = input<'horizontal' | 'vertical'>('horizontal');
 
 	constructor() {
-		classes(() => 'group/toggle-group flex w-fit items-center gap-[--spacing(var(--gap))]');
+		classes(
+			() =>
+				'spartan-toggle-group group/toggle-group flex w-fit flex-row items-center gap-[--spacing(var(--gap))] data-vertical:flex-col data-vertical:items-stretch',
+		);
 	}
 }

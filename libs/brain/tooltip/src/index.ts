@@ -3,7 +3,7 @@ import { BrnTooltipContent } from './lib/brn-tooltip-content';
 
 export * from './lib/brn-tooltip';
 export * from './lib/brn-tooltip-content';
-export { BrnTooltipPosition } from './lib/brn-tooltip-position';
+export { BRN_TOOLTIP_FALLBACK_POSITIONS, BrnTooltipPosition, resolveTooltipPosition } from './lib/brn-tooltip-position';
 export * from './lib/brn-tooltip-type';
 export * from './lib/brn-tooltip.token';
 

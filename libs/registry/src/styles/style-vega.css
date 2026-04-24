@@ -1217,11 +1217,11 @@
 	}
 
 	&.spartan-table-head {
-		@apply text-foreground h-10 px-2 text-start align-middle font-medium whitespace-nowrap [&:has([role=checkbox])]:pr-0;
+		@apply text-foreground h-10 px-2 text-start align-middle font-medium whitespace-nowrap [&:has([role=checkbox])]:pe-0;
 	}
 
 	&.spartan-table-cell {
-		@apply p-2 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0;
+		@apply p-2 align-middle whitespace-nowrap [&:has([role=checkbox])]:pe-0;
 	}
 
 	&.spartan-table-caption {
@@ -1252,7 +1252,7 @@
 
 	/* MARK: Toggle */
 	&.spartan-toggle {
-		@apply hover:text-foreground aria-pressed:bg-muted focus-visible:border-ring focus-visible:ring-ring/50 data-[matches-spartan-invalid=true]:ring-destructive/20 dark:data-[matches-spartan-invalid=true]:ring-destructive/40 data-[matches-spartan-invalid=true]:border-destructive gap-1 rounded-md text-sm font-medium transition-[color,box-shadow] [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*4)];
+		@apply hover:text-foreground aria-pressed:bg-muted focus-visible:border-ring focus-visible:ring-ring/50 data-[matches-spartan-invalid=true]:ring-destructive/20 dark:data-[matches-spartan-invalid=true]:ring-destructive/40 data-[matches-spartan-invalid=true]:border-destructive dark:data-[matches-spartan-invalid=true]:border-destructive/50 gap-1 rounded-md text-sm font-medium transition-[color,box-shadow] [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*4)];
 	}
 
 	&.spartan-toggle-variant-default {
@@ -1264,11 +1264,11 @@
 	}
 
 	&.spartan-toggle-size-default {
-		@apply h-9 min-w-9 px-2;
+		@apply h-9 min-w-9 px-2.5;
 	}
 
 	&.spartan-toggle-size-sm {
-		@apply h-8 min-w-8 px-1.5;
+		@apply h-8 min-w-8 px-2.5;
 	}
 
 	&.spartan-toggle-size-lg {
@@ -1281,7 +1281,7 @@
 	}
 
 	&.spartan-toggle-group-item {
-		@apply data-[state=on]:bg-muted group-data-[spacing=0]/toggle-group:rounded-none group-data-[spacing=0]/toggle-group:px-2 group-data-[spacing=0]/toggle-group:shadow-none group-data-horizontal/toggle-group:data-[spacing=0]:first:rounded-l-md group-data-vertical/toggle-group:data-[spacing=0]:first:rounded-t-md group-data-horizontal/toggle-group:data-[spacing=0]:last:rounded-r-md group-data-vertical/toggle-group:data-[spacing=0]:last:rounded-b-md;
+		@apply data-[state=on]:bg-muted group-data-[spacing=0]/toggle-group:rounded-none group-data-[spacing=0]/toggle-group:px-2 group-data-[spacing=0]/toggle-group:shadow-none group-data-horizontal/toggle-group:data-[spacing=0]:first:rounded-s-md group-data-vertical/toggle-group:data-[spacing=0]:first:rounded-t-md group-data-horizontal/toggle-group:data-[spacing=0]:last:rounded-e-md group-data-vertical/toggle-group:data-[spacing=0]:last:rounded-b-md;
 	}
 
 	/* MARK: Tooltip */

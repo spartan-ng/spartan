@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmCardImports } from '@spartan-ng/helm/card';
@@ -8,6 +8,7 @@ import { HlmTextareaImports } from '@spartan-ng/helm/textarea';
 @Component({
 	selector: 'spartan-reactive-form-textarea-demo',
 	imports: [ReactiveFormsModule, HlmCardImports, HlmFieldImports, HlmTextareaImports, HlmButtonImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: { class: 'w-full sm:max-w-md' },
 	template: `
 		<hlm-card>
@@ -23,7 +24,7 @@ import { HlmTextareaImports } from '@spartan-ng/helm/textarea';
 							<textarea
 								hlmTextarea
 								id="about"
-								class="min-h-[120px]"
+								class="min-h-32"
 								placeholder="I'm a software engineer..."
 								formControlName="about"
 							></textarea>
@@ -64,7 +65,7 @@ export class ReactiveFormTextareaDemo {
 }
 
 export const reactiveFormsTextareaDemoCode = `
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmCardImports } from '@spartan-ng/helm/card';
@@ -74,6 +75,7 @@ import { HlmTextareaImports } from '@spartan-ng/helm/textarea';
 @Component({
 	selector: 'spartan-reactive-form-textarea-demo',
 	imports: [ReactiveFormsModule, HlmCardImports, HlmFieldImports, HlmTextareaImports, HlmButtonImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: { class: 'w-full sm:max-w-md' },
 	template: \`
 		<hlm-card>
@@ -89,7 +91,7 @@ import { HlmTextareaImports } from '@spartan-ng/helm/textarea';
 							<textarea
 								hlmTextarea
 								id="about"
-								class="min-h-[120px]"
+								class="min-h-32"
 								placeholder="I'm a software engineer..."
 								formControlName="about"
 							></textarea>

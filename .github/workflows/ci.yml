@@ -37,7 +37,7 @@ jobs:
           # Required by wagoid/commitlint-github-action
           fetch-depth: 0
       - name: Install pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v5
       - name: Install Node
         uses: actions/setup-node@v6
         with:
@@ -58,7 +58,7 @@ jobs:
           # Required by wagoid/commitlint-github-action
           fetch-depth: 0
       - name: Install pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v5
       - name: Install Node
         uses: actions/setup-node@v6
         with:
@@ -79,7 +79,7 @@ jobs:
           # Required by wagoid/commitlint-github-action
           fetch-depth: 0
       - name: Install pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v5
       - name: Install Node
         uses: actions/setup-node@v6
         with:
@@ -100,7 +100,7 @@ jobs:
           # Required by wagoid/commitlint-github-action
           fetch-depth: 0
       - name: Install pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v5
       - name: Install Node
         uses: actions/setup-node@v6
         with:

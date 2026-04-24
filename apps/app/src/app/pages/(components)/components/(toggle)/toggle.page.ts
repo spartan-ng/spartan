@@ -6,6 +6,8 @@ import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
 
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { CodeRtlPreview } from '@spartan-ng/app/app/shared/code/code-rtl-preview';
+import { RtlHeader } from '@spartan-ng/app/app/shared/code/rtl-header';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { PageBottomNav } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav';
 import { PageBottomNavLink } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav-link';
@@ -16,9 +18,9 @@ import { Tabs } from '../../../../shared/layout/tabs';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { ToggleDisabledPreview } from './toggle--disabled.preview';
-import { ToggleLargePreview } from './toggle--large.preview';
 import { ToggleOutlinePreview } from './toggle--outline.preview';
-import { ToggleSmallPreview } from './toggle--small.preview';
+import { ToggleRtlPreview } from './toggle--rtl.preview';
+import { ToggleSizePreview } from './toggle--size.preview';
 import { ToggleWithTextPreview } from './toggle--with-text.preview';
 import { TogglePreview, defaultImports, defaultSkeleton } from './toggle.preview';
 
@@ -42,17 +44,19 @@ export const routeMeta: RouteMeta = {
 		PageNav,
 		PageBottomNav,
 		PageBottomNavLink,
+		SectionSubSubHeading,
+		RtlHeader,
+		CodeRtlPreview,
 		TogglePreview,
 		ToggleDisabledPreview,
-		ToggleLargePreview,
 		ToggleOutlinePreview,
-		ToggleSmallPreview,
+		ToggleSizePreview,
 		ToggleWithTextPreview,
-		SectionSubSubHeading,
+		ToggleRtlPreview,
 	],
 	template: `
 		<section spartanMainSection>
-			<spartan-section-intro name="Toggle" lead="A two-state button that can be either on or off." />
+			<spartan-section-intro name="Toggle" lead="A two-state button that can be either on or off." showThemeToggle />
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -61,7 +65,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
-			<spartan-install-tabs primitive="toggle" />
+			<spartan-install-tabs primitive="toggle" [showOnlyVega]="false" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">
@@ -84,26 +88,28 @@ export const routeMeta: RouteMeta = {
 				</div>
 				<spartan-code secondTab [code]="_withTextCode()" />
 			</spartan-tabs>
-			<h3 id="examples__small" spartanH4>Small</h3>
+			<h3 id="examples__size" spartanH4>Size</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
-					<spartan-toggle-small />
+					<spartan-toggle-size />
 				</div>
-				<spartan-code secondTab [code]="_smallCode()" />
+				<spartan-code secondTab [code]="_sizeCode()" />
 			</spartan-tabs>
-			<h3 id="examples__large" spartanH4>Large</h3>
-			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div spartanCodePreview firstTab>
-					<spartan-toggle-large />
-				</div>
-				<spartan-code secondTab [code]="_largeCode()" />
-			</spartan-tabs>
+
 			<h3 id="examples__disabled" spartanH4>Disabled</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-toggle-disabled />
 				</div>
 				<spartan-code secondTab [code]="_disabledCode()" />
+			</spartan-tabs>
+
+			<spartan-header-rtl />
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanRtlCodePreview firstTab>
+					<spartan-toggle-rtl />
+				</div>
+				<spartan-code secondTab [code]="_rtlCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
@@ -124,10 +130,10 @@ export default class TogglePage {
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('toggle');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _disabledCode = computed(() => this._snippets()['disabled']);
-	protected readonly _largeCode = computed(() => this._snippets()['large']);
 	protected readonly _outlineCode = computed(() => this._snippets()['outline']);
-	protected readonly _smallCode = computed(() => this._snippets()['small']);
+	protected readonly _sizeCode = computed(() => this._snippets()['size']);
 	protected readonly _withTextCode = computed(() => this._snippets()['withText']);
+	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

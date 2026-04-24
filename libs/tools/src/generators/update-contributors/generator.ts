@@ -59,6 +59,7 @@ export default async function updateContributorsGenerator(
 				.split('\n')
 				.filter(Boolean)
 				.forEach((username) => contributorsWithUsernames.add(username.trim()));
+			contributorsWithUsernames.delete('dependabot[bot]'); // ignore bot accounts
 			console.log('✓ Enhanced with GitHub API data');
 		} catch {
 			console.log('ℹ Using git history only (GitHub CLI not available - this is fine!)');

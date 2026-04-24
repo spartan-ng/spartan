@@ -1,5 +1,5 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { forms } from '@spartan-ng/app/app/shared/components/navigation-items';
 import { MainSection } from '@spartan-ng/app/app/shared/layout/main-section';
@@ -18,6 +18,7 @@ export const routeMeta: RouteMeta = {
 @Component({
 	selector: 'spartan-forms-page',
 	imports: [MainSection, SectionIntro, PageBottomNav, PageBottomNavLink, PageNav, RouterLink, SectionSubHeading],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<section spartanMainSection>
 			<spartan-section-intro name="Forms" lead="Build forms with Angular and spartan/ui." />

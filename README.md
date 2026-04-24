@@ -154,6 +154,9 @@ Our initial 300 contributors and sponsors are featured here and on the front pag
 135. [avihayAsus](https://github.com/avihayAsus)
 136. [multignite](https://github.com/multignite)
 137. [sefatanam](https://github.com/sefatanam)
+138. [LinboLen](https://github.com/LinboLen)
+139. [Oneill19](https://github.com/Oneill19)
+140. [homj](https://github.com/homj)
 
 [Become a spartan today!](https://github.com/sponsors/goetzrobin)
 

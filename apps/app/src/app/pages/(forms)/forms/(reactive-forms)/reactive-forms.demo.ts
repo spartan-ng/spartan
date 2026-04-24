@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmCardImports } from '@spartan-ng/helm/card';
@@ -16,6 +16,7 @@ import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 		HlmInputGroupImports,
 		HlmButtonImports,
 	],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: { class: 'w-full sm:max-w-md' },
 	template: `
 		<hlm-card>
@@ -58,8 +59,8 @@ import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 								Include steps to reproduce, expected behavior, and what actually happened.
 							</hlm-field-description>
 							<hlm-field-error validator="required">Description must be entered.</hlm-field-error>
-							<hlm-field-error validator="minlength">Title must be at least 20 characters.</hlm-field-error>
-							<hlm-field-error validator="maxlength">Title cannot exceed 100 characters.</hlm-field-error>
+							<hlm-field-error validator="minlength">Description must be at least 20 characters.</hlm-field-error>
+							<hlm-field-error validator="maxlength">Description cannot exceed 100 characters.</hlm-field-error>
 						</hlm-field>
 					</hlm-field-group>
 				</form>
@@ -92,7 +93,7 @@ export class BugReportForm {
 }
 
 export const demoCode = `
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmCardImports } from '@spartan-ng/helm/card';
@@ -110,6 +111,7 @@ import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 		HlmInputGroupImports,
 		HlmButtonImports,
 	],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: { class: 'w-full sm:max-w-md' },
 	template: \`
 		<hlm-card>
@@ -152,8 +154,8 @@ import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 								Include steps to reproduce, expected behavior, and what actually happened.
 							</hlm-field-description>
 							<hlm-field-error validator="required">Description must be entered.</hlm-field-error>
-							<hlm-field-error validator="minlength">Title must be at least 20 characters.</hlm-field-error>
-							<hlm-field-error validator="maxlength">Title cannot exceed 100 characters.</hlm-field-error>
+							<hlm-field-error validator="minlength">Description must be at least 20 characters.</hlm-field-error>
+							<hlm-field-error validator="maxlength">Description cannot exceed 100 characters.</hlm-field-error>
 						</hlm-field>
 					</hlm-field-group>
 				</form>

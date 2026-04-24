@@ -12,7 +12,7 @@ import { HlmInputOtpFakeCaret } from './hlm-input-otp-fake-caret';
 		'data-slot': 'input-otp-slot',
 	},
 	template: `
-		<brn-input-otp-slot [index]="index()">
+		<brn-input-otp-slot [mask]="mask()" [index]="index()">
 			<hlm-input-otp-fake-caret />
 		</brn-input-otp-slot>
 	`,
@@ -20,6 +20,9 @@ import { HlmInputOtpFakeCaret } from './hlm-input-otp-fake-caret';
 export class HlmInputOtpSlot {
 	/** The index of the slot to render the char or a fake caret */
 	public readonly index = input.required<number, NumberInput>({ transform: numberAttribute });
+
+	/* Determine if the individual slot should be masked */
+	public readonly mask = input<boolean | undefined>(undefined);
 
 	constructor() {
 		classes(() => [

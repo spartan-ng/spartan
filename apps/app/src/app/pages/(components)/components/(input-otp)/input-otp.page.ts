@@ -17,6 +17,9 @@ import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading
 import { Tabs } from '../../../../shared/layout/tabs';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { InputOtpFormExample } from './input-otp--form.example';
+import { InputOtpGroupMaskExample } from './input-otp--group-mask.example';
+import { InputOtpMaskExample } from './input-otp--mask.example';
+import { InputOtpMaskSlotExample } from './input-otp--slot-mask.example';
 import { defaultImports, defaultSkeleton, InputOtpPreview } from './input-otp.preview';
 
 export const routeMeta: RouteMeta = {
@@ -43,6 +46,9 @@ export const routeMeta: RouteMeta = {
 		InputOtpPreview,
 		InputOtpFormExample,
 		SectionSubSubHeading,
+		InputOtpMaskExample,
+		InputOtpGroupMaskExample,
+		InputOtpMaskSlotExample,
 	],
 	template: `
 		<section spartanMainSection>
@@ -135,9 +141,56 @@ export const routeMeta: RouteMeta = {
 			</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
-					<spartan-input-otp-form />
+					<spartan-input-otp-form></spartan-input-otp-form>
 				</div>
 				<spartan-code secondTab [code]="_formCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__masked" spartanH4>Masked</h3>
+			<p class="${hlmP} mb-6">
+				Mask the otp by adding
+				<code class="${hlmCode}">mask</code>
+				to
+				<code class="${hlmCode}">true</code>
+				.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-input-otp-mask></spartan-input-otp-mask>
+				</div>
+				<spartan-code secondTab [code]="_maskCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__group-mask" spartanH4>Masked group</h3>
+			<p class="${hlmP} mb-6">
+				Mask the otp group by adding
+				<code class="${hlmCode}">mask</code>
+				to
+				<code class="${hlmCode}">true</code>
+				.
+			</p>
+
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-input-otp-group-mask></spartan-input-otp-group-mask>
+				</div>
+				<spartan-code secondTab [code]="_groupMaskCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__slot-mask" spartanH4>Masked slot</h3>
+			<p class="${hlmP} mb-6">
+				Mask an individual otp slot by adding
+				<code class="${hlmCode}">mask</code>
+				to
+				<code class="${hlmCode}">true</code>
+				.
+			</p>
+
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-input-otp-slot-mask></spartan-input-otp-slot-mask>
+				</div>
+				<spartan-code secondTab [code]="_slotMaskCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
@@ -158,6 +211,9 @@ export default class InputOtpPage {
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('input-otp');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _formCode = computed(() => this._snippets()['form']);
+	protected readonly _maskCode = computed(() => this._snippets()['mask']);
+	protected readonly _groupMaskCode = computed(() => this._snippets()['group-mask']);
+	protected readonly _slotMaskCode = computed(() => this._snippets()['slot-mask']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

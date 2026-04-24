@@ -6,8 +6,14 @@ const meta: Meta<BrnInputOtp> = {
 	title: 'Input OTP',
 	component: BrnInputOtp,
 	tags: ['autodocs'],
-	args: {},
-	argTypes: {},
+	args: {
+		maxLength: 6,
+		autofocus: true,
+		mask: false,
+	},
+	argTypes: {
+		mask: { control: 'boolean' },
+	},
 	decorators: [
 		moduleMetadata({
 			imports: [BrnInputOtp, HlmInputOtp, HlmInputOtpGroup, HlmInputOtpSeparator, HlmInputOtpSlot],
@@ -16,19 +22,24 @@ const meta: Meta<BrnInputOtp> = {
 	render: ({ ...args }) => ({
 		props: args,
 		template: `
-		<brn-input-otp hlmInputOtp maxLength="6" inputClass="disabled:cursor-not-allowed" [autofocus]="true">
-			<div hlmInputOtpGroup>
-				<hlm-input-otp-slot index="0" />
-				<hlm-input-otp-slot index="1" />
-				<hlm-input-otp-slot index="2" />
-			</div>
-			<hlm-input-otp-separator />
-			<div hlmInputOtpGroup>
-				<hlm-input-otp-slot index="3" />
-				<hlm-input-otp-slot index="4" />
-				<hlm-input-otp-slot index="5" />
-			</div>
-		</brn-input-otp>
+			<brn-input-otp
+				hlmInputOtp
+				[maxLength]="maxLength"
+				inputClass="disabled:cursor-not-allowed"
+				[autofocus]="autofocus"
+			>
+				<div hlmInputOtpGroup>
+					<hlm-input-otp-slot index="0" />
+					<hlm-input-otp-slot index="1" />
+					<hlm-input-otp-slot index="2" />
+				</div>
+				<hlm-input-otp-separator />
+				<div hlmInputOtpGroup>
+					<hlm-input-otp-slot index="3" />
+					<hlm-input-otp-slot index="4" />
+					<hlm-input-otp-slot index="5" />
+				</div>
+			</brn-input-otp>
 		`,
 	}),
 };
@@ -39,4 +50,83 @@ type Story = StoryObj<BrnInputOtp>;
 
 export const Default: Story = {
 	args: {},
+};
+
+export const Mask: Story = {
+	args: {
+		mask: true,
+	},
+	render: ({ ...args }) => ({
+		props: args,
+		template: `
+			<brn-input-otp
+				hlmInputOtp
+				[maxLength]="maxLength"
+				inputClass="disabled:cursor-not-allowed"
+				[autofocus]="autofocus"
+				[mask]="mask"
+			>
+				<div hlmInputOtpGroup>
+					<hlm-input-otp-slot index="0" />
+					<hlm-input-otp-slot index="1" />
+					<hlm-input-otp-slot index="2" />
+				</div>
+				<hlm-input-otp-separator />
+				<div hlmInputOtpGroup>
+					<hlm-input-otp-slot index="3" />
+					<hlm-input-otp-slot index="4" />
+					<hlm-input-otp-slot index="5" />
+				</div>
+			</brn-input-otp>
+		`,
+	}),
+};
+
+export const GroupMask: Story = {
+	render: ({ ...args }) => ({
+		props: args,
+		template: `
+			<brn-input-otp
+				hlmInputOtp
+				[maxLength]="maxLength"
+				inputClass="disabled:cursor-not-allowed"
+				[autofocus]="autofocus"
+			>
+				<div hlmInputOtpGroup [mask]="true">
+					<hlm-input-otp-slot index="0" />
+					<hlm-input-otp-slot index="1" />
+					<hlm-input-otp-slot index="2" />
+				</div>
+				<hlm-input-otp-separator />
+				<div hlmInputOtpGroup>
+					<hlm-input-otp-slot index="3" />
+					<hlm-input-otp-slot index="4" />
+					<hlm-input-otp-slot index="5" />
+				</div>
+			</brn-input-otp>
+		`,
+	}),
+};
+
+export const SlotMask: Story = {
+	render: ({ ...args }) => ({
+		props: args,
+		template: `
+			<brn-input-otp
+				hlmInputOtp
+				[maxLength]="maxLength"
+				inputClass="disabled:cursor-not-allowed"
+				[autofocus]="autofocus"
+			>
+				<div hlmInputOtpGroup>
+					<hlm-input-otp-slot [mask]="true" index="0" />
+					<hlm-input-otp-slot [mask]="true" index="1" />
+					<hlm-input-otp-slot [mask]="true" index="2" />
+					<hlm-input-otp-slot [mask]="false" index="3" />
+					<hlm-input-otp-slot [mask]="false" index="4" />
+					<hlm-input-otp-slot [mask]="false" index="5" />
+				</div>
+			</brn-input-otp>
+		`,
+	}),
 };

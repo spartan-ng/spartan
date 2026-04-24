@@ -18,18 +18,18 @@ import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 		<ng-template #menu>
 			<hlm-dropdown-menu class="w-64">
 				<hlm-dropdown-menu-group>
-					<button inset hlmDropdownMenuItem>
+					<button inset hlmDropdownMenuTriggerFriendlyItem>
 						Save
 						<hlm-dropdown-menu-shortcut>⌘S</hlm-dropdown-menu-shortcut>
 					</button>
 
-					<button disabled inset hlmDropdownMenuItem>
+					<button disabled inset hlmDropdownMenuTriggerFriendlyItem>
 						Archive
 						<hlm-dropdown-menu-shortcut>⌘A</hlm-dropdown-menu-shortcut>
 					</button>
 
 					<hlm-dialog>
-						<button hlmDropdownMenuItem inset="true" hlmDialogTrigger>
+						<button inset hlmDropdownMenuTriggerFriendlyItem hlmDialogTrigger>
 							Print
 							<hlm-dropdown-menu-shortcut>⌘P</hlm-dropdown-menu-shortcut>
 						</button>

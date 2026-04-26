@@ -8,6 +8,9 @@ export const hlmSeparatorClass =
 @Directive({
 	selector: '[hlmSeparator],hlm-separator',
 	hostDirectives: [{ directive: BrnSeparator, inputs: ['orientation', 'decorative'] }],
+	host: {
+		'data-slot': 'separator',
+	},
 })
 export class HlmSeparator {
 	constructor() {

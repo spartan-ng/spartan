@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmItemImports } from '@spartan-ng/helm/item';
 import { HlmProgressImports } from '@spartan-ng/helm/progress';
@@ -7,6 +7,7 @@ import { HlmSpinnerImports } from '@spartan-ng/helm/spinner';
 @Component({
 	selector: 'spartan-spinner-item-preview',
 	imports: [HlmSpinnerImports, HlmItemImports, HlmButtonImports, HlmProgressImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div class="flex w-full max-w-md flex-col gap-4 [--radius:1rem]">
 			<div hlmItem variant="outline">

@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { HlmBadgeImports } from '@spartan-ng/helm/badge';
 import { HlmSpinnerImports } from '@spartan-ng/helm/spinner';
 
 @Component({
 	selector: 'spartan-spinner-badge-preview',
 	imports: [HlmSpinnerImports, HlmBadgeImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div class="flex items-center gap-4 [--radius:1.2rem]">
 			<span hlmBadge>

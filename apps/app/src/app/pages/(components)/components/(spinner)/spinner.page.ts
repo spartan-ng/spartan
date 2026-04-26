@@ -1,6 +1,8 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { CodeRtlPreview } from '@spartan-ng/app/app/shared/code/code-rtl-preview';
+import { RtlHeader } from '@spartan-ng/app/app/shared/code/rtl-header';
 import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { link } from '@spartan-ng/app/app/shared/typography/link';
@@ -23,6 +25,7 @@ import { SpartanSpinnerCustomPreview } from './spinner--custom.preview';
 import { SpartanSpinnerEmptyPreview } from './spinner--empty.preview';
 import { SpartanSpinnerInputGroupPreview } from './spinner--input-group.preview';
 import { SpartanSpinnerItemPreview } from './spinner--item.preview';
+import { SpartanSpinnerRtlPreview } from './spinner--rtl.preview';
 import { SpartanSpinnerSizePreview } from './spinner--size.preview';
 import { SpinnerPreview, defaultImports, defaultSkeleton } from './spinner.preview';
 
@@ -50,6 +53,8 @@ export const routeMeta: RouteMeta = {
 		PageNav,
 		PageBottomNav,
 		PageBottomNavLink,
+		RtlHeader,
+		CodeRtlPreview,
 		SpinnerPreview,
 		SpartanSpinnerSizePreview,
 		SpartanSpinnerColorPreview,
@@ -59,12 +64,14 @@ export const routeMeta: RouteMeta = {
 		SpartanSpinnerInputGroupPreview,
 		SpartanSpinnerEmptyPreview,
 		SpartanSpinnerItemPreview,
+		SpartanSpinnerRtlPreview,
 	],
 	template: `
 		<section spartanMainSection>
 			<spartan-section-intro
 				name="Spinner"
 				lead="Shows a Loading spinner to indicate that the app is busy or the page is still loading."
+				showThemeToggle
 			/>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
@@ -184,6 +191,14 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_itemCode()" />
 			</spartan-tabs>
 
+			<spartan-header-rtl />
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanRtlCodePreview firstTab>
+					<spartan-spinner-rtl />
+				</div>
+				<spartan-code secondTab [code]="_rtlCode()" />
+			</spartan-tabs>
+
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="helm" />
 
@@ -206,6 +221,7 @@ export default class SpinnerPage {
 	protected readonly _inputGroupCode = computed(() => this._snippets()['inputGroup']);
 	protected readonly _emptyCode = computed(() => this._snippets()['empty']);
 	protected readonly _itemCode = computed(() => this._snippets()['item']);
+	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

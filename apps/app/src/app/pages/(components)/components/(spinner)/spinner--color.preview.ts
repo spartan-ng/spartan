@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { HlmSpinnerImports } from '@spartan-ng/helm/spinner';
 
 @Component({
 	selector: 'spartan-spinner-color-preview',
 	imports: [HlmSpinnerImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div class="flex items-center gap-6">
 			<hlm-spinner class="text-2xl text-red-500" />

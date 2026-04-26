@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideLoader } from '@ng-icons/lucide';
 import { HlmSpinnerImports } from '@spartan-ng/helm/spinner';
@@ -7,6 +7,7 @@ import { HlmSpinnerImports } from '@spartan-ng/helm/spinner';
 	selector: 'spartan-spinner-custom-preview',
 	imports: [HlmSpinnerImports],
 	providers: [provideIcons({ lucideLoader })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div class="flex items-center">
 			<hlm-spinner icon="lucideLoader" />

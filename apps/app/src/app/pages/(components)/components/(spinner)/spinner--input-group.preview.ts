@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideArrowUp } from '@ng-icons/lucide';
 import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
@@ -8,6 +8,7 @@ import { HlmSpinnerImports } from '@spartan-ng/helm/spinner';
 	selector: 'spartan-spinner-input-group-preview',
 	imports: [HlmSpinnerImports, HlmInputGroupImports, NgIcon],
 	providers: [provideIcons({ lucideArrowUp })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div class="flex w-full max-w-md flex-col gap-4">
 			<hlm-input-group>

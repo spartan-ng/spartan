@@ -1,6 +1,8 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { CodeRtlPreview } from '@spartan-ng/app/app/shared/code/code-rtl-preview';
+import { RtlHeader } from '@spartan-ng/app/app/shared/code/rtl-header';
 import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { UIApiDocs } from '@spartan-ng/app/app/shared/layout/ui-docs-section/ui-docs-section';
@@ -18,6 +20,7 @@ import { metaWith } from '../../../../shared/meta/meta.util';
 import { KbdButtonPreview } from './kbd--button.preview';
 import { KbdGroupPreview } from './kbd--group.preview';
 import { KbdInputGroupPreview } from './kbd--input-group.preview';
+import { KbdRtlPreview } from './kbd--rtl.preview';
 import { defaultImports, defaultSkeleton, KbdPreview } from './kbd.preview';
 
 export const routeMeta: RouteMeta = {
@@ -43,15 +46,18 @@ export const routeMeta: RouteMeta = {
 		PageBottomNav,
 		PageBottomNavLink,
 		UIApiDocs,
+		RtlHeader,
+		CodeRtlPreview,
 		KbdGroupPreview,
 		HlmTypographyImports,
 		KbdButtonPreview,
 		SectionSubSubHeading,
 		KbdInputGroupPreview,
+		KbdRtlPreview,
 	],
 	template: `
 		<section spartanMainSection>
-			<spartan-section-intro name="Kbd" lead="Used to display textual user input from keyboard." />
+			<spartan-section-intro name="Kbd" lead="Used to display textual user input from keyboard." showThemeToggle />
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -60,7 +66,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
-			<spartan-install-tabs primitive="kbd" />
+			<spartan-install-tabs primitive="kbd" [showOnlyVega]="false" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">
@@ -119,6 +125,14 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_inputGroupCode()" />
 			</spartan-tabs>
 
+			<spartan-header-rtl />
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanRtlCodePreview firstTab>
+					<spartan-kbd-rtl-preview />
+				</div>
+				<spartan-code secondTab [code]="_rtlCode()" />
+			</spartan-tabs>
+
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="helm" />
 
@@ -136,6 +150,7 @@ export default class KbdPage {
 	protected readonly _groupCode = computed(() => this._snippets()['group']);
 	protected readonly _buttonCode = computed(() => this._snippets()['button']);
 	protected readonly _inputGroupCode = computed(() => this._snippets()['inputGroup']);
+	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 	protected readonly _imports = defaultImports;
 	protected readonly _codeSkeleton = defaultSkeleton;
 }

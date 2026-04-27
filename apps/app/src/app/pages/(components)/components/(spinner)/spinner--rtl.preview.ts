@@ -9,17 +9,17 @@ import { HlmSpinnerImports } from '@spartan-ng/helm/spinner';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div class="flex w-full max-w-xs flex-col gap-4 [--radius:1rem]">
-			<div hlmItem variant="muted" [dir]="_dir()">
+			<hlm-item variant="muted" [dir]="_dir()">
 				<hlm-item-media>
 					<hlm-spinner />
 				</hlm-item-media>
 				<hlm-item-content>
-					<div hlmItemTitle class="line-clamp-1">{{ _t()['title'] }}</div>
+					<hlm-item-title>{{ _t()['title'] }}</hlm-item-title>
 				</hlm-item-content>
 				<hlm-item-content class="flex-none justify-end">
 					<span class="text-sm tabular-nums">{{ _t()['amount'] }}</span>
 				</hlm-item-content>
-			</div>
+			</hlm-item>
 		</div>
 	`,
 })

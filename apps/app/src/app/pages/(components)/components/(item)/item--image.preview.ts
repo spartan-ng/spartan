@@ -11,7 +11,7 @@ import { HlmItemImports } from '@spartan-ng/helm/item';
 	template: `
 		<hlm-item-group>
 			@for (song of _songs; track song.title) {
-				<hlm-item variant="outline" role="listitem" href="#">
+				<a hlmItem variant="outline" role="listitem" href="#">
 					<hlm-item-media variant="image">
 						<img
 							[src]="'https://avatar.vercel.sh/' + song.title"
@@ -33,7 +33,7 @@ import { HlmItemImports } from '@spartan-ng/helm/item';
 					<hlm-item-content class="flex-none text-center">
 						<p hlmItemDescription>{{ song.duration }}</p>
 					</hlm-item-content>
-				</hlm-item>
+				</a>
 			}
 		</hlm-item-group>
 	`,

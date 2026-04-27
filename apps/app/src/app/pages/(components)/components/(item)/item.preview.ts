@@ -1,42 +1,37 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideBadgeCheck, lucideChevronRight } from '@ng-icons/lucide';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
 import { HlmItemImports } from '@spartan-ng/helm/item';
 
 @Component({
 	selector: 'spartan-item-preview',
-	imports: [HlmItemImports, HlmButtonImports, NgIcon, HlmIconImports],
-	providers: [
-		provideIcons({
-			lucideBadgeCheck,
-			lucideChevronRight,
-		}),
-	],
+	imports: [HlmItemImports, HlmButtonImports, NgIcon],
+	providers: [provideIcons({ lucideBadgeCheck, lucideChevronRight })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'flex w-full max-w-md flex-col gap-6',
 	},
 	template: `
-		<div hlmItem variant="outline">
-			<div hlmItemContent>
-				<div hlmItemTitle>Basic Item</div>
+		<hlm-item variant="outline">
+			<hlm-item-content>
+				<hlm-item-title>Basic Item</hlm-item-title>
 				<p hlmItemDescription>A simple item with title and description.</p>
-			</div>
-			<div hlmItemActions>
+			</hlm-item-content>
+			<hlm-item-actions>
 				<button hlmBtn variant="outline" size="sm">Action</button>
-			</div>
-		</div>
-		<a hlmItem variant="outline" size="sm">
-			<div hlmItemMedia>
-				<ng-icon hlm name="lucideBadgeCheck" size="20px" />
-			</div>
-			<div hlmItemContent>
-				<div hlmItemTitle>Your profile has been verified.</div>
-			</div>
-			<div hlmItemActions>
-				<ng-icon hlm name="lucideChevronRight" size="sm" />
-			</div>
+			</hlm-item-actions>
+		</hlm-item>
+		<a hlmItem href="#" variant="outline" size="sm">
+			<hlm-item-media>
+				<ng-icon name="lucideBadgeCheck" class="text-[calc(var(--spacing)*5)]" />
+			</hlm-item-media>
+			<hlm-item-content>
+				<hlm-item-title>Your profile has been verified.</hlm-item-title>
+			</hlm-item-content>
+			<hlm-item-actions>
+				<ng-icon name="lucideChevronRight" class="text-[calc(var(--spacing)*4)]" />
+			</hlm-item-actions>
 		</a>
 	`,
 })
@@ -45,14 +40,28 @@ export class ItemPreview {}
 export const defaultImports = `import { HlmItemImports } from '@spartan-ng/helm/item';`;
 
 export const defaultSkeleton = `
-<div hlmItem>
-  <div hlmItemHeader>Item Header</div>
-  <div hlmItemMedia />
-  <div hlmItemContent>
-    <div hlmItemTitle>Item</div>
-    <p hlmItemDescription>Item</div>
-  </p hlmItemContent>
-  <div hlmItemActions />
-  <div hlmItemFooter>Item Footer</div>
-</div>
+<hlm-item>
+  <hlm-item-media variant="icon">
+    <ng-icon name="lucideBadgeCheck" />
+  </hlm-item-media>
+  <hlm-item-content>
+    <hlm-item-title>Title</hlm-item-title>
+    <hlm-item-description>Description</hlm-item-description>
+  </hlm-item-content>
+  <hlm-item-actions>
+    <button hlmBtn>Action</button>
+  </hlm-item-actions>
+</hlm-item>
+`;
+
+export const itemComposition = `
+hlm-item-group
+└── hlm-item
+    ├── hlm-item-header
+    ├── hlm-item-media
+    ├── hlm-item-content
+    │   ├── hlm-item-title
+    │   └── hlm-item-description
+    ├── hlm-item-actions
+    └── hlm-item-footer
 `;

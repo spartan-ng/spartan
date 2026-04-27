@@ -1,39 +1,35 @@
-import { Component } from '@angular/core';
-import { provideIcons } from '@ng-icons/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronRight, lucideExternalLink } from '@ng-icons/lucide';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
 import { HlmItemImports } from '@spartan-ng/helm/item';
 
 @Component({
 	selector: 'spartan-item-link-preview',
-	imports: [HlmItemImports, HlmIconImports],
-	providers: [
-		provideIcons({
-			lucideChevronRight,
-			lucideExternalLink,
-		}),
-	],
+	imports: [HlmItemImports, NgIcon, RouterLink],
+	providers: [provideIcons({ lucideChevronRight, lucideExternalLink })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'flex w-full max-w-md flex-col gap-6',
 	},
 	template: `
-		<a hlmItem href="#">
-			<div hlmItemContent>
-				<div hlmItemTitle>Visit our documentation</div>
+		<a hlmItem routerLink=".">
+			<hlm-item-content>
+				<hlm-item-title>Visit our documentation</hlm-item-title>
 				<p hlmItemDescription>Learn how to get started with our components.</p>
-			</div>
-			<div hlmItemActions>
-				<ng-icon hlm name="lucideChevronRight" size="sm" />
-			</div>
+			</hlm-item-content>
+			<hlm-item-actions>
+				<ng-icon name="lucideChevronRight" class="text-[calc(var(--spacing)*4)]" />
+			</hlm-item-actions>
 		</a>
 		<a hlmItem variant="outline" href="#" target="_blank" rel="noopener noreferrer">
-			<div hlmItemContent>
-				<div hlmItemTitle>External resource</div>
+			<hlm-item-content>
+				<hlm-item-title>External resource</hlm-item-title>
 				<p hlmItemDescription>Opens in a new tab with security attributes.</p>
-			</div>
-			<div hlmItemActions>
-				<ng-icon hlm name="lucideExternalLink" size="sm" />
-			</div>
+			</hlm-item-content>
+			<hlm-item-actions>
+				<ng-icon name="lucideExternalLink" class="text-[calc(var(--spacing)*4)]" />
+			</hlm-item-actions>
 		</a>
 	`,
 })

@@ -2747,7 +2747,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "[hlmDropdownMenuItem]",
+        "selector": "[hlmDropdownMenuItem],hlm-dropdown-menu-item",
       },
       "HlmDropdownMenuItemSubIndicator": {
         "inputs": [],
@@ -3343,7 +3343,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "div[hlmItem], a[hlmItem]",
+        "selector": "[hlmItem],hlm-item",
       },
       "HlmItemActions": {
         "inputs": [],
@@ -3361,7 +3361,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "p[hlmItemDescription]",
+        "selector": "[hlmItemDescription],hlm-item-description",
       },
       "HlmItemFooter": {
         "inputs": [],
@@ -3397,7 +3397,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "div[hlmItemSeparator]",
+        "selector": "[hlmItemSeparator],hlm-item-separator",
       },
       "HlmItemTitle": {
         "inputs": [],

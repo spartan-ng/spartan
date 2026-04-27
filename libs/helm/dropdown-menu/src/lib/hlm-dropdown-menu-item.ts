@@ -4,7 +4,7 @@ import { booleanAttribute, Directive, HOST_TAG_NAME, inject, input } from '@angu
 import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
-	selector: '[hlmDropdownMenuItem]',
+	selector: '[hlmDropdownMenuItem],hlm-dropdown-menu-item',
 	hostDirectives: [
 		{
 			directive: CdkMenuItem,

@@ -10,6 +10,8 @@ import { ItemImagePreview } from '@spartan-ng/app/app/pages/(components)/compone
 import { ItemLinkPreview } from '@spartan-ng/app/app/pages/(components)/components/(item)/item--link.preview';
 import { ItemSizePreview } from '@spartan-ng/app/app/pages/(components)/components/(item)/item--size.preview';
 import { ItemVariantsPreview } from '@spartan-ng/app/app/pages/(components)/components/(item)/item--variants.preview';
+import { CodeRtlPreview } from '@spartan-ng/app/app/shared/code/code-rtl-preview';
+import { RtlHeader } from '@spartan-ng/app/app/shared/code/rtl-header';
 import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { UIApiDocs } from '@spartan-ng/app/app/shared/layout/ui-docs-section/ui-docs-section';
@@ -24,7 +26,8 @@ import { SectionIntro } from '../../../../shared/layout/section-intro';
 import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading';
 import { Tabs } from '../../../../shared/layout/tabs';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { defaultImports, defaultSkeleton, ItemPreview } from './item.preview';
+import { ItemRtlPreview } from './item--rtl.preview';
+import { defaultImports, defaultSkeleton, itemComposition, ItemPreview } from './item.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'item', api: 'item' },
@@ -49,6 +52,8 @@ export const routeMeta: RouteMeta = {
 		PageBottomNavLink,
 		UIApiDocs,
 		SectionSubSubHeading,
+		RtlHeader,
+		CodeRtlPreview,
 		ItemVariantsPreview,
 		ItemSizePreview,
 		HlmP,
@@ -62,10 +67,15 @@ export const routeMeta: RouteMeta = {
 		ItemHeaderPreview,
 		ItemLinkPreview,
 		ItemDropdownPreview,
+		ItemRtlPreview,
 	],
 	template: `
 		<section spartanMainSection>
-			<spartan-section-intro name="Item" lead="A versatile component that you can use to display any content." />
+			<spartan-section-intro
+				name="Item"
+				lead="A versatile component that you can use to display any content."
+				showThemeToggle
+			/>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -74,13 +84,19 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
-			<spartan-install-tabs primitive="item" />
+			<spartan-install-tabs primitive="item" [showOnlyVega]="false" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">
 				<spartan-code [code]="_imports" />
 				<spartan-code [code]="_codeSkeleton" />
 			</div>
+
+			<spartan-section-sub-heading id="composition">Composition</spartan-section-sub-heading>
+
+			<p hlmP>Use the following composition to build an Item:</p>
+
+			<spartan-code class="mt-6" [code]="_composition" />
 
 			<spartan-section-sub-heading id="item-vs-field">Item vs Field</spartan-section-sub-heading>
 			<p hlmP>
@@ -92,7 +108,14 @@ export const routeMeta: RouteMeta = {
 				.
 			</p>
 
+			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
+
 			<h3 id="examples_variants" spartanH4>Variants</h3>
+			<p hlmP>
+				Use the
+				<code hlmCode>variant</code>
+				prop to change the visual style of the item.
+			</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-item-variants-preview />
@@ -102,13 +125,15 @@ export const routeMeta: RouteMeta = {
 
 			<h3 id="examples_size" spartanH4>Size</h3>
 			<p hlmP>
-				The
-				<span hlmCode>hlmItem</span>
-				component has different sizes for different use cases. For example, you can use the
-				<span hlmCode>sm</span>
-				size for a compact item or the
-				<span hlmCode>default</span>
-				size for a standard item.
+				Use the
+				<code hlmCode>size</code>
+				prop to change the size of the item. Available sizes are
+				<code hlmCode>default</code>
+				,
+				<code hlmCode>sm</code>
+				, and
+				<code hlmCode>xs</code>
+				.
 			</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -118,6 +143,13 @@ export const routeMeta: RouteMeta = {
 			</spartan-tabs>
 
 			<h3 id="examples_icon" spartanH4>Icon</h3>
+			<p hlmP>
+				Use
+				<span hlmCode>hlm-item-media</span>
+				with
+				<span hlmCode>variant="icon"</span>
+				to display an icon.
+			</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-item-icon-preview />
@@ -134,6 +166,13 @@ export const routeMeta: RouteMeta = {
 			</spartan-tabs>
 
 			<h3 id="examples_image" spartanH4>Image</h3>
+			<p hlmP>
+				Use
+				<span hlmCode>hlm-item-media</span>
+				with
+				<span hlmCode>variant="image"</span>
+				to display an image.
+			</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-item-image-preview />
@@ -178,6 +217,14 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_dropdownCode()" />
 			</spartan-tabs>
 
+			<spartan-header-rtl />
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanRtlCodePreview firstTab>
+					<spartan-item-rtl-preview />
+				</div>
+				<spartan-code secondTab [code]="_rtlCode()" />
+			</spartan-tabs>
+
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="helm" />
 
@@ -201,7 +248,9 @@ export default class ItemPage {
 	protected readonly _linkCode = computed(() => this._snippets()['link']);
 	protected readonly _sizeCode = computed(() => this._snippets()['size']);
 	protected readonly _variantsCode = computed(() => this._snippets()['variants']);
+	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 
 	protected readonly _imports = defaultImports;
 	protected readonly _codeSkeleton = defaultSkeleton;
+	protected readonly _composition = itemComposition;
 }

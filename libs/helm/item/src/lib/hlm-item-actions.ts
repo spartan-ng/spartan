@@ -3,12 +3,10 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmItemActions],hlm-item-actions',
-	host: {
-		'data-slot': 'item-actions',
-	},
+	host: { 'data-slot': 'item-actions' },
 })
 export class HlmItemActions {
 	constructor() {
-		classes(() => 'flex items-center gap-2');
+		classes(() => 'spartan-item-actions flex items-center');
 	}
 }

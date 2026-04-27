@@ -1,45 +1,39 @@
-import { Component } from '@angular/core';
-import { provideIcons } from '@ng-icons/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucidePlus } from '@ng-icons/lucide';
 import { HlmAvatarImports } from '@spartan-ng/helm/avatar';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
 import { HlmItemImports } from '@spartan-ng/helm/item';
 
 @Component({
 	selector: 'spartan-item-avatar-preview',
-	imports: [HlmItemImports, HlmButtonImports, HlmAvatarImports, HlmIconImports],
-	providers: [
-		provideIcons({
-			lucidePlus,
-		}),
-	],
+	imports: [HlmItemImports, HlmButtonImports, HlmAvatarImports, NgIcon],
+	providers: [provideIcons({ lucidePlus })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'flex w-full max-w-lg flex-col gap-6',
 	},
 	template: `
-		<!-- Item 1: Evil Rabbit -->
-		<div hlmItem variant="outline">
-			<div hlmItemMedia>
+		<hlm-item variant="outline">
+			<hlm-item-media>
 				<hlm-avatar class="size-10">
 					<img hlmAvatarImage src="https://github.com/evilrabbit.png" alt="Evil Rabbit" />
 					<span hlmAvatarFallback>ER</span>
 				</hlm-avatar>
-			</div>
-			<div hlmItemContent>
-				<div hlmItemTitle>Evil Rabbit</div>
+			</hlm-item-media>
+			<hlm-item-content>
+				<hlm-item-title>Evil Rabbit</hlm-item-title>
 				<p hlmItemDescription>Last seen 5 months ago</p>
-			</div>
-			<div hlmItemActions>
+			</hlm-item-content>
+			<hlm-item-actions>
 				<button hlmBtn size="icon-sm" variant="outline" class="rounded-full" aria-label="Invite">
-					<ng-icon hlm name="lucidePlus" />
+					<ng-icon name="lucidePlus" />
 				</button>
-			</div>
-		</div>
+			</hlm-item-actions>
+		</hlm-item>
 
-		<!-- Item 2: No Team Members -->
-		<div hlmItem variant="outline">
-			<div hlmItemMedia>
+		<hlm-item variant="outline">
+			<hlm-item-media>
 				<div
 					class="*:data-[slot=avatar]:ring-background flex -space-x-2 *:data-[slot=avatar]:ring-2 *:data-[slot=avatar]:grayscale"
 				>
@@ -56,15 +50,15 @@ import { HlmItemImports } from '@spartan-ng/helm/item';
 						<span hlmAvatarFallback>ER</span>
 					</hlm-avatar>
 				</div>
-			</div>
-			<div hlmItemContent>
-				<div hlmItemTitle>No Team Members</div>
+			</hlm-item-media>
+			<hlm-item-content>
+				<hlm-item-title>No Team Members</hlm-item-title>
 				<p hlmItemDescription>Invite your team to collaborate on this project.</p>
-			</div>
-			<div hlmItemActions>
+			</hlm-item-content>
+			<hlm-item-actions>
 				<button hlmBtn size="sm" variant="outline">Invite</button>
-			</div>
-		</div>
+			</hlm-item-actions>
+		</hlm-item>
 	`,
 })
 export class ItemAvatarPreview {}

@@ -1,50 +1,42 @@
-import { Component } from '@angular/core';
-import { provideIcons } from '@ng-icons/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucidePlus } from '@ng-icons/lucide';
 import { HlmAvatarImports } from '@spartan-ng/helm/avatar';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
 import { HlmItemImports } from '@spartan-ng/helm/item';
 
 @Component({
 	selector: 'spartan-item-group-preview',
-	imports: [HlmItemImports, HlmButtonImports, HlmIconImports, HlmAvatarImports],
-	providers: [
-		provideIcons({
-			lucidePlus,
-		}),
-	],
+	imports: [HlmItemImports, HlmAvatarImports, HlmButtonImports, NgIcon],
+	providers: [provideIcons({ lucidePlus })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'flex w-full max-w-md flex-col gap-6',
 	},
 	template: `
-		<div hlmItemGroup>
+		<hlm-item-group>
 			@for (person of _people; track person.username; let last = $last) {
-				<div hlmItem>
-					<div hlmItemMedia>
+				<hlm-item variant="outline">
+					<hlm-item-media>
 						<hlm-avatar>
 							<img hlmAvatarImage [src]="person.avatar" [alt]="person.username" class="grayscale" />
 							<span hlmAvatarFallback>{{ person.username.charAt(0).toUpperCase() }}</span>
 						</hlm-avatar>
-					</div>
+					</hlm-item-media>
 
-					<div hlmItemContent class="gap-1">
-						<div hlmItemTitle>{{ person.username }}</div>
+					<hlm-item-content class="gap-1">
+						<hlm-item-title>{{ person.username }}</hlm-item-title>
 						<p hlmItemDescription>{{ person.email }}</p>
-					</div>
+					</hlm-item-content>
 
-					<div hlmItemActions>
+					<hlm-item-actions>
 						<button hlmBtn variant="ghost" size="icon" class="rounded-full">
-							<ng-icon hlm name="lucidePlus" />
+							<ng-icon name="lucidePlus" />
 						</button>
-					</div>
-				</div>
-
-				@if (!last) {
-					<div hlmItemSeparator></div>
-				}
+					</hlm-item-actions>
+				</hlm-item>
 			}
-		</div>
+		</hlm-item-group>
 	`,
 })
 export class ItemGroupPreview {

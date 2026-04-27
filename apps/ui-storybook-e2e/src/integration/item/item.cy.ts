@@ -6,21 +6,21 @@ describe('item', () => {
 		});
 
 		it('should render basic item correctly', () => {
-			cy.get('[hlmItem]').first().should('exist');
-			cy.get('[hlmItemTitle]').first().should('contain.text', 'Basic Item');
+			cy.get('hlm-item').first().should('exist');
+			cy.get('hlm-item-title').first().should('contain.text', 'Basic Item');
 			cy.get('[hlmItemDescription]').first().should('contain.text', 'A simple item with title and description');
-			cy.get('[hlmItemActions]').first().find('button').should('contain.text', 'Action');
+			cy.get('hlm-item-actions').first().find('button').should('contain.text', 'Action');
 		});
 
 		it('should render link item correctly', () => {
 			cy.get('a[hlmItem]').should('exist');
 			cy.get('a[hlmItem]').find('ng-icon[name="lucideBadgeCheck"]').should('exist');
-			cy.get('a[hlmItem]').find('[hlmItemTitle]').should('contain.text', 'Your profile has been verified');
+			cy.get('a[hlmItem]').find('hlm-item-title').should('contain.text', 'Your profile has been verified');
 		});
 
 		it('should pass accessibility checks', () => {
-			cy.get('[hlmItem]').should('exist');
-			cy.checkA11y('[hlmItem]');
+			cy.get('hlm-item').should('exist');
+			cy.checkA11y('hlm-item');
 		});
 	});
 
@@ -31,14 +31,14 @@ describe('item', () => {
 		});
 
 		it('should render items with avatars', () => {
-			cy.get('[hlmItem]').should('have.length.at.least', 2);
-			cy.get('[hlmItem]').first().find('hlm-avatar').should('exist');
-			cy.get('[hlmItem]').first().find('[hlmItemTitle]').should('contain.text', 'Evil Rabbit');
+			cy.get('hlm-item').should('have.length.at.least', 2);
+			cy.get('hlm-item').first().find('hlm-avatar').should('exist');
+			cy.get('hlm-item').first().find('hlm-item-title').should('contain.text', 'Evil Rabbit');
 		});
 
 		it('should pass accessibility checks', () => {
-			cy.get('[hlmItem]').should('exist');
-			cy.checkA11y('[hlmItem]', {
+			cy.get('hlm-item').should('exist');
+			cy.checkA11y('hlm-item', {
 				rules: {
 					'color-contrast': { enabled: false },
 				},
@@ -56,7 +56,7 @@ describe('item', () => {
 			cy.get('button[hlmBtn]').click();
 			cy.get('hlm-dropdown-menu').should('exist');
 			cy.get('[hlmDropdownMenuItem]').should('have.length', 3);
-			cy.get('[hlmDropdownMenuItem]').first().find('[hlmItem]').should('exist');
+			cy.get('[hlmDropdownMenuItem]').first().find('hlm-item').should('exist');
 		});
 
 		it('should pass accessibility checks', () => {
@@ -83,13 +83,15 @@ describe('item', () => {
 		});
 
 		it('should render item group', () => {
-			cy.get('[hlmItemGroup]').should('exist');
-			cy.get('[hlmItem]').should('have.length', 3);
+			cy.get('hlm-item-group').should('exist');
+			cy.get('hlm-item').should('have.length', 3);
 		});
 
 		it('should pass accessibility checks', () => {
-			cy.get('[hlmItemGroup]').should('exist');
-			cy.checkA11y('[hlmItemGroup]');
+			cy.get('hlm-item-group').should('exist');
+			cy.checkA11y('hlm-item-group', undefined, (violations) => {
+				cy.log(JSON.stringify(violations, null, 2));
+			});
 		});
 	});
 
@@ -100,14 +102,14 @@ describe('item', () => {
 		});
 
 		it('should render items with headers', () => {
-			cy.get('[hlmItem]').should('have.length', 3);
-			cy.get('[hlmItemHeader]').should('exist');
-			cy.get('[hlmItemHeader] img').should('exist');
+			cy.get('hlm-item').should('have.length', 3);
+			cy.get('hlm-item-header').should('exist');
+			cy.get('hlm-item-header img').should('exist');
 		});
 
 		it('should pass accessibility checks', () => {
-			cy.get('[hlmItemGroup]').should('exist');
-			cy.checkA11y('[hlmItemGroup]');
+			cy.get('hlm-item-group').should('exist');
+			cy.checkA11y('hlm-item-group');
 		});
 	});
 

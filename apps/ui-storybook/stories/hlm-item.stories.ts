@@ -10,7 +10,6 @@ import {
 import { HlmAvatarImports } from '@spartan-ng/helm/avatar';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
 import { HlmItem, HlmItemImports } from '@spartan-ng/helm/item';
 import type { Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
@@ -21,7 +20,7 @@ export default {
 	tags: ['autodocs'],
 	decorators: [
 		moduleMetadata({
-			imports: [HlmItemImports, HlmButtonImports, NgIcon, HlmIconImports, HlmAvatarImports, HlmDropdownMenuImports],
+			imports: [HlmItemImports, HlmButtonImports, NgIcon, HlmAvatarImports, HlmDropdownMenuImports],
 			providers: [
 				provideIcons({
 					lucideBadgeCheck,
@@ -42,24 +41,24 @@ export const Default: Story = {
 	render: () => ({
 		template: `
 		<div class="flex w-full max-w-md flex-col gap-6 p-4">
-			<div hlmItem variant="outline">
-				<div hlmItemContent>
-					<div hlmItemTitle>Basic Item</div>
+			<hlm-item variant="outline">
+				<hlm-item-content>
+					<hlm-item-title>Basic Item</hlm-item-title>
 					<p hlmItemDescription>A simple item with title and description.</p>
-				</div>
-				<div hlmItemActions>
+				</hlm-item-content>
+				<hlm-item-actions>
 					<button hlmBtn variant="outline" size="sm">Action</button>
-				</div>
-			</div>
+				</hlm-item-actions>
+			</hlm-item>
 			<a hlmItem variant="outline" size="sm">
-				<div hlmItemMedia>
-					<ng-icon hlm name="lucideBadgeCheck" size="20px" />
-				</div>
-				<div hlmItemContent>
-					<div hlmItemTitle>Your profile has been verified.</div>
-				</div>
+				<hlm-item-media>
+					<ng-icon name="lucideBadgeCheck" class="text-[calc(var(--spacing)*5)]" />
+				</hlm-item-media>
+				<hlm-item-content>
+					<hlm-item-title>Your profile has been verified.</hlm-item-title>
+				</hlm-item-content>
 				<div hlmItemActions>
-					<ng-icon hlm name="lucideChevronRight" size="sm" />
+					<ng-icon name="lucideChevronRight"  />
 				</div>
 			</a>
 		</div>
@@ -72,27 +71,27 @@ export const Avatar: Story = {
 		template: `
 		<div class="flex w-full max-w-lg flex-col gap-6 p-4">
 			<!-- Item 1: Evil Rabbit -->
-			<div hlmItem variant="outline">
-				<div hlmItemMedia>
+			<hlm-item variant="outline">
+				<hlm-item-media>
 					<hlm-avatar class="size-10">
 						<img hlmAvatarImage src="https://github.com/evilrabbit.png" alt="Evil Rabbit" />
 						<span hlmAvatarFallback>ER</span>
 					</hlm-avatar>
-				</div>
-				<div hlmItemContent>
-					<div hlmItemTitle>Evil Rabbit</div>
+				</hlm-item-media>
+				<hlm-item-content>
+					<hlm-item-title>Evil Rabbit</hlm-item-title>
 					<p hlmItemDescription>Last seen 5 months ago</p>
-				</div>
-				<div hlmItemActions>
-					<button hlmBtn size="icon-sm" variant="outline" class="rounded-full" aria-label="Invite">
-						<ng-icon hlm name="lucidePlus" />
+				</hlm-item-content>
+				<hlm-item-actions>
+					<button hlmBtn size="icon-sm" variant="ghost" class="rounded-full" aria-label="Invite">
+						<ng-icon name="lucidePlus" />
 					</button>
-				</div>
-			</div>
+				</hlm-item-actions>
+			</hlm-item>
 
 			<!-- Item 2: No Team Members -->
-			<div hlmItem variant="outline">
-				<div hlmItemMedia>
+			<hlm-item variant="outline">
+				<hlm-item-media>
 					<div
 						class="*:data-[slot=avatar]:ring-background flex -space-x-2 *:data-[slot=avatar]:ring-2 *:data-[slot=avatar]:grayscale"
 					>
@@ -109,15 +108,15 @@ export const Avatar: Story = {
 							<span hlmAvatarFallback>ER</span>
 						</hlm-avatar>
 					</div>
-				</div>
-				<div hlmItemContent>
-					<div hlmItemTitle>No Team Members</div>
+				</hlm-item-media>
+				<hlm-item-content>
+					<hlm-item-title>No Team Members</hlm-item-title>
 					<p hlmItemDescription>Invite your team to collaborate on this project.</p>
-				</div>
-				<div hlmItemActions>
+				</hlm-item-content>
+				<hlm-item-actions>
 					<button hlmBtn size="sm" variant="outline">Invite</button>
-				</div>
-			</div>
+				</hlm-item-actions>
+			</hlm-item>
 		</div>
 		`,
 	}),
@@ -148,27 +147,27 @@ export const Dropdown: Story = {
 		<div class="flex min-h-64 w-full max-w-md flex-col items-center gap-6 p-4">
 			<button hlmBtn variant="outline" size="sm" [hlmDropdownMenuTrigger]="peopleTemplate" class="w-fit" align="end">
 				Select
-				<ng-icon hlm name="lucideChevronDown" />
+				<ng-icon name="lucideChevronDown" />
 			</button>
 
 			<ng-template #peopleTemplate>
-				<hlm-dropdown-menu class="w-72 [--radius:0.65rem]">
+				<hlm-dropdown-menu class="w-48">
 					@for (person of people; track person.email) {
 						<button hlmDropdownMenuItem class="p-0 w-full">
-							<span hlmItem size="sm" class="w-full p-2">
-								<span hlmItemMedia>
+							<hlm-item size="xs" class="w-full p-2">
+								<hlm-item-media>
 									<hlm-avatar class="size-8">
 										<img hlmAvatarImage [src]="person.avatar" [alt]="person.username" class="grayscale" />
 										<span hlmAvatarFallback>
 											{{ person.username.charAt(0).toUpperCase() }}
 										</span>
 									</hlm-avatar>
-								</span>
-								<span hlmItemContent class="gap-0.5">
+								</hlm-item-media>
+								<hlm-item-content class="gap-0">
 									<span hlmItemTitle>{{ person.username }}</span>
 									<span hlmItemDescription>{{ person.email }}</span>
-								</span>
-							</span>
+								</hlm-item-content>
+							</hlm-item>
 						</button>
 					}
 				</hlm-dropdown-menu>
@@ -201,33 +200,29 @@ export const Group: Story = {
 		},
 		template: `
 		<div class="flex w-full max-w-md flex-col gap-6 p-4">
-			<div hlmItemGroup>
+			<hlm-item-group>
 				@for (person of people; track person.username; let last = $last) {
-					<div hlmItem>
-						<div hlmItemMedia>
+					<hlm-item variant="outline">
+						<hlm-item-media>
 							<hlm-avatar>
 								<img hlmAvatarImage [src]="person.avatar" [alt]="person.username" class="grayscale" />
 								<span hlmAvatarFallback>{{ person.username.charAt(0).toUpperCase() }}</span>
 							</hlm-avatar>
-						</div>
+						</hlm-item-media>
 
-						<div hlmItemContent class="gap-1">
-							<div hlmItemTitle>{{ person.username }}</div>
+						<hlm-item-content class="gap-1">
+							<hlm-item-title>{{ person.username }}</hlm-item-title>
 							<p hlmItemDescription>{{ person.email }}</p>
-						</div>
+						</hlm-item-content>
 
-						<div hlmItemActions>
+						<hlm-item-actions>
 							<button hlmBtn variant="ghost" size="icon" class="rounded-full" aria-label="Add person">
-								<ng-icon hlm name="lucidePlus" />
+								<ng-icon name="lucidePlus" />
 							</button>
-						</div>
-					</div>
-
-					@if (!last) {
-						<div hlmItemSeparator></div>
-					}
+						</hlm-item-actions>
+					</hlm-item>
 				}
-			</div>
+			</hlm-item-group>
 		</div>
 		`,
 	}),
@@ -256,10 +251,10 @@ export const Header: Story = {
 		},
 		template: `
 		<div class="flex w-full max-w-xl flex-col gap-6 p-4">
-			<div hlmItemGroup class="grid grid-cols-3 gap-4">
+			<hlm-item-group class="grid grid-cols-3 gap-4">
 				@for (model of models; track model.name) {
-					<div hlmItem variant="outline">
-						<div hlmItemHeader>
+					<hlm-item variant="outline">
+						<hlm-item-header>
 							<img
 								[src]="model.image"
 								[alt]="model.name"
@@ -267,14 +262,14 @@ export const Header: Story = {
 								height="128"
 								class="aspect-square w-full rounded-sm object-cover"
 							/>
-						</div>
-						<div hlmItemContent>
-							<div hlmItemTitle>{{ model.name }}</div>
+						</hlm-item-header>
+						<hlm-item-content>
+							<hlm-item-title>{{ model.name }}</hlm-item-title>
 							<p hlmItemDescription>{{ model.description }}</p>
-						</div>
-					</div>
+						</hlm-item-content>
+					</hlm-item>
 				}
-			</div>
+			</hlm-item-group>
 		</div>
 		`,
 	}),
@@ -286,7 +281,7 @@ export const Icon: Story = {
 		<div class="flex w-full max-w-lg flex-col gap-6 p-4">
 			<div hlmItem variant="outline">
 				<div hlmItemMedia variant="icon">
-					<ng-icon hlm name="lucideShieldAlert" size="sm" />
+					<ng-icon name="lucideShieldAlert" />
 				</div>
 				<div hlmItemContent>
 					<div hlmItemTitle>Security Alert</div>

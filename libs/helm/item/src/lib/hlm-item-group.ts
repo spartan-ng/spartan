@@ -3,7 +3,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmItemGroup],hlm-item-group',
-	host: { role: 'list', 'data-slot': 'item-group' },
+	host: { 'data-slot': 'item-group' },
 })
 export class HlmItemGroup {
 	constructor() {

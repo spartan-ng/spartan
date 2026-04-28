@@ -4,11 +4,9 @@ import {
 	afterNextRender,
 	booleanAttribute,
 	computed,
-	contentChild,
 	contentChildren,
 	Directive,
 	effect,
-	ElementRef,
 	forwardRef,
 	inject,
 	Injector,
@@ -25,7 +23,6 @@ import { BrnPopover } from '@spartan-ng/brain/popover';
 import { BrnSelectItem } from './brn-select-item';
 import { BrnSelectItemToken } from './brn-select-item.token';
 import { BrnSelectTrigger } from './brn-select-trigger';
-import { BrnSelectTriggerWrapper } from './brn-select-trigger-wrapper';
 import {
 	BrnSelectBase,
 	injectBrnSelectConfig,
@@ -83,16 +80,10 @@ export class BrnSelectMultiple<T> implements BrnSelectBase<T>, ControlValueAcces
 	/** A function to convert an item to a string for display. */
 	public readonly itemToString = input<SelectItemToString<T> | undefined>(this._config.itemToString);
 
-	private readonly _triggerWrapper = contentChild(BrnSelectTriggerWrapper, {
-		read: ElementRef,
-	});
+	private readonly _triggerWidth = signal<number | null>(null);
 
 	/** @internal The width of the trigger wrapper */
-	public readonly triggerWidth = computed<number | null>(() => {
-		const element = this._triggerWrapper()?.nativeElement;
-		if (!element) return null;
-		return element.getBoundingClientRect().width || element.offsetWidth;
-	});
+	public readonly triggerWidth = this._triggerWidth.asReadonly();
 
 	/** @internal Access all the items within the select */
 	public readonly items = contentChildren<BrnSelectItem<T>>(BrnSelectItemToken, {
@@ -154,6 +145,10 @@ export class BrnSelectMultiple<T> implements BrnSelectBase<T>, ControlValueAcces
 
 	public registerSelectTrigger(input: BrnSelectTrigger): void {
 		return this._selectTrigger.set(input);
+	}
+
+	public setTriggerWidth(width: number | null): void {
+		this._triggerWidth.set(width);
 	}
 
 	public isSelected(itemValue: T): boolean {

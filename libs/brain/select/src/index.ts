@@ -10,7 +10,6 @@ import { BrnSelectScrollDown } from './lib/brn-select-scroll-down';
 import { BrnSelectScrollUp } from './lib/brn-select-scroll-up';
 import { BrnSelectSeparator } from './lib/brn-select-separator';
 import { BrnSelectTrigger } from './lib/brn-select-trigger';
-import { BrnSelectTriggerWrapper } from './lib/brn-select-trigger-wrapper';
 import { BrnSelectValue } from './lib/brn-select-value';
 import { BrnSelectValueTemplate } from './lib/brn-select-value-template';
 import { BrnSelectValues } from './lib/brn-select-values';
@@ -28,7 +27,6 @@ export * from './lib/brn-select-scroll-down';
 export * from './lib/brn-select-scroll-up';
 export * from './lib/brn-select-separator';
 export * from './lib/brn-select-trigger';
-export * from './lib/brn-select-trigger-wrapper';
 export * from './lib/brn-select-value';
 export * from './lib/brn-select-value-template';
 export * from './lib/brn-select-values';
@@ -46,7 +44,6 @@ export const BrnSelectImports = [
 	BrnSelectScrollUp,
 	BrnSelectScrollDown,
 	BrnSelectSeparator,
-	BrnSelectTriggerWrapper,
 	BrnSelectTrigger,
 	BrnSelectValue,
 	BrnSelectValueTemplate,

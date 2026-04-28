@@ -29,6 +29,7 @@ export interface BrnSelectBase<T> {
 	selectActiveItem: () => void;
 	open: () => void;
 	registerSelectTrigger: (input: BrnSelectTrigger) => void;
+	setTriggerWidth: (width: number | null) => void;
 }
 
 export const BrnSelectBaseToken = new InjectionToken<BrnSelectBase<unknown>>('BrnSelectBaseToken');

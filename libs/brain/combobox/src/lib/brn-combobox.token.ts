@@ -47,6 +47,7 @@ export interface BrnComboboxBase<T> {
 	registerComboboxInput?: (input: BrnComboboxInput<T>) => void;
 	/** Register the combobox chip input component for multi selection mode */
 	registerComboboxChipInput?: (input: BrnComboboxChipInput<T>) => void;
+	updateInputWidth: (width: number | null) => void;
 }
 
 export const BrnComboboxBaseToken = new InjectionToken<BrnComboboxBase<unknown>>('BrnComboboxBaseToken');

@@ -35,7 +35,7 @@ describe('classes', () => {
 		expect(element.className).toBe('bg-red-500 text-white existing-class');
 	});
 
-	it('should handle class merging and deduplication', async () => {
+	it('should prioritize existing element classes over classes added via the utility', async () => {
 		await TestBed.configureTestingModule({}).compileComponents();
 
 		const element = document.createElement('div');
@@ -51,7 +51,7 @@ describe('classes', () => {
 		// Wait for afterRenderEffect to run
 		await new Promise((resolve) => setTimeout(resolve, 0));
 
-		// twMerge should resolve bg conflict, keeping the last one (bg-red-500)
+		// The existing class (bg-blue-500) takes precedence over the utility class (bg-red-500)
 		expect(element.className).toBe('text-white bg-blue-500 p-2');
 	});
 
@@ -323,7 +323,7 @@ describe('classes', () => {
 		expect(testElement.className).not.toContain('text-gray-600'); // First source still loses
 	});
 
-	it('should handle SSR scenario with pre-rendered classes correctly', async () => {
+	it('should handle SSR scenario by preserving pre-rendered classes', async () => {
 		await TestBed.configureTestingModule({}).compileComponents();
 
 		// Simulate SSR scenario: element already has classes from server rendering
@@ -333,7 +333,7 @@ describe('classes', () => {
 		const elementRef = new ElementRef(element);
 
 		TestBed.runInInjectionContext(() => {
-			// Component hydrates and applies classes that should replace the SSR classes
+			// Component hydrates; added classes should merge, but existing SSR classes take precedence on conflict
 			classes(() => 'm-2 bg-red-500 text-black', { elementRef });
 		});
 
@@ -341,14 +341,16 @@ describe('classes', () => {
 
 		const classNames = element.className.split(' ').filter((c) => c.length > 0);
 
-		// Should have new classes from the source, not old SSR classes
-		expect(classNames).toContain('bg-blue-500');
-		expect(classNames).toContain('text-white');
+		// Should contain the non-conflicting new class
 		expect(classNames).toContain('m-2');
 
-		// Should not have conflicting SSR classes (twMerge should handle these)
-		expect(classNames).not.toContain('bg-red-500'); // Blue takes precedence
-		expect(classNames).not.toContain('text-black'); // Replaced by text-white
+		// Should preserve the existing SSR classes
+		expect(classNames).toContain('bg-blue-500');
+		expect(classNames).toContain('text-white');
+
+		// Should not contain the conflicting hydration classes because existing classes win
+		expect(classNames).not.toContain('bg-red-500');
+		expect(classNames).not.toContain('text-black');
 
 		// Should preserve truly external classes that don't conflict
 		expect(classNames).toContain('some-external-class');

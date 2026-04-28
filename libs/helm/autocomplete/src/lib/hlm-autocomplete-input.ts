@@ -2,12 +2,7 @@ import { BooleanInput } from '@angular/cdk/coercion';
 import { booleanAttribute, ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideSearch, lucideX } from '@ng-icons/lucide';
-import {
-	BrnAutocompleteAnchor,
-	BrnAutocompleteClear,
-	BrnAutocompleteInput,
-	BrnAutocompleteInputWrapper,
-} from '@spartan-ng/brain/autocomplete';
+import { BrnAutocompleteAnchor, BrnAutocompleteClear, BrnAutocompleteInput } from '@spartan-ng/brain/autocomplete';
 import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 
 @Component({
@@ -15,7 +10,6 @@ import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 	imports: [HlmInputGroupImports, NgIcon, BrnAutocompleteAnchor, BrnAutocompleteClear, BrnAutocompleteInput],
 	providers: [provideIcons({ lucideSearch, lucideX })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	hostDirectives: [BrnAutocompleteInputWrapper],
 	template: `
 		<hlm-input-group brnAutocompleteAnchor class="w-auto">
 			<input

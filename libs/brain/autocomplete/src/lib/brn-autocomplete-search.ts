@@ -4,11 +4,9 @@ import {
 	afterNextRender,
 	booleanAttribute,
 	computed,
-	contentChild,
 	contentChildren,
 	Directive,
 	effect,
-	ElementRef,
 	forwardRef,
 	inject,
 	Injector,
@@ -24,7 +22,6 @@ import { BrnFieldControl, provideBrnLabelable } from '@spartan-ng/brain/field';
 import { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import { BrnPopover } from '@spartan-ng/brain/popover';
 import { BrnAutocompleteInput } from './brn-autocomplete-input';
-import { BrnAutocompleteInputWrapper } from './brn-autocomplete-input-wrapper';
 import { BrnAutocompleteItem } from './brn-autocomplete-item';
 import { BrnAutocompleteItemToken } from './brn-autocomplete-item.token';
 import {
@@ -85,16 +82,10 @@ export class BrnAutocompleteSearch<T> implements BrnAutocompleteBase<T>, Control
 	/** The current search query. */
 	public readonly search = model<string>('');
 
-	private readonly _searchInputWrapper = contentChild(BrnAutocompleteInputWrapper, {
-		read: ElementRef,
-	});
+	private readonly _inputWidth = signal<number | null>(null);
 
 	/** @internal The width of the search input wrapper */
-	public readonly searchInputWrapperWidth = computed<number | null>(() => {
-		const inputElement = this._searchInputWrapper()?.nativeElement;
-		if (!inputElement) return null;
-		return inputElement.getBoundingClientRect().width || inputElement.offsetWidth;
-	});
+	public readonly searchInputWrapperWidth = this._inputWidth.asReadonly();
 
 	/** @internal Access all the items within the autocomplete */
 	public readonly items = contentChildren<BrnAutocompleteItem<T>>(BrnAutocompleteItemToken, {
@@ -150,6 +141,10 @@ export class BrnAutocompleteSearch<T> implements BrnAutocompleteBase<T>, Control
 
 	public registerAutocompleteInput(input: BrnAutocompleteInput<T>): void {
 		return this._autocompleteInput.set(input);
+	}
+
+	public updateInputWidth(width: number | null): void {
+		this._inputWidth.set(width);
 	}
 
 	updateSearch(value: string) {

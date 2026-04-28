@@ -33,6 +33,7 @@ export interface BrnAutocompleteBase<T> {
 	/** Select the active item with Enter key. */
 	selectActiveItem: () => void;
 	registerAutocompleteInput: (input: BrnAutocompleteInput<T>) => void;
+	updateInputWidth: (width: number | null) => void;
 }
 
 export const BrnAutocompleteBaseToken = new InjectionToken<BrnAutocompleteBase<unknown>>('BrnAutocompleteBaseToken');

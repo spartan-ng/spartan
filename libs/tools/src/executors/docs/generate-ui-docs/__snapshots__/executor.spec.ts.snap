@@ -377,12 +377,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "outputs": [],
         "selector": "input[brnAutocompleteInput]",
       },
-      "BrnAutocompleteInputWrapper": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "[brnAutocompleteInputWrapper]",
-      },
       "BrnAutocompleteItem": {
         "inputs": [
           {
@@ -4414,12 +4408,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [],
         "outputs": [],
         "selector": "button[brnSelectTrigger]",
-      },
-      "BrnSelectTriggerWrapper": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "[brnSelectTriggerWrapper]",
       },
       "BrnSelectValue": {
         "inputs": [

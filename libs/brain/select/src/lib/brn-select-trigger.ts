@@ -1,4 +1,5 @@
-import { afterNextRender, computed, DestroyRef, Directive, ElementRef, inject, input } from '@angular/core';
+import { computed, Directive, effect, ElementRef, inject, input } from '@angular/core';
+import { injectElementSize } from '@spartan-ng/brain/core';
 import { BrnDialog } from '@spartan-ng/brain/dialog';
 import { injectBrnSelectBase } from './brn-select.token';
 
@@ -23,12 +24,12 @@ import { injectBrnSelectBase } from './brn-select.token';
 export class BrnSelectTrigger {
 	private static _id = 0;
 
-	private readonly _elementRef = inject(ElementRef<HTMLElement>);
-	private readonly _destroyRef = inject(DestroyRef);
 	private readonly _host = inject(ElementRef, { host: true });
 	private readonly _brnDialog = inject(BrnDialog, { optional: true });
 
 	private readonly _select = injectBrnSelectBase();
+
+	private readonly _elementSize = injectElementSize();
 
 	public readonly id = input<string>(`brn-select-trigger-${++BrnSelectTrigger._id}`);
 
@@ -51,20 +52,13 @@ export class BrnSelectTrigger {
 			this._brnDialog.mutableAttachTo.set(this._host.nativeElement);
 		}
 
-		afterNextRender(() => {
-			const element = this._elementRef.nativeElement;
-			this.updateTriggerWidth(element);
-
-			const observer = new ResizeObserver(() => this.updateTriggerWidth(element));
-
-			observer.observe(element);
-
-			this._destroyRef.onDestroy(() => observer.disconnect());
+		effect(() => {
+			const size = this._elementSize();
+			if (size) {
+				this._select.updateTriggerWidth(size.width);
+				this._brnDialog?.updatePosition();
+			}
 		});
-	}
-
-	private updateTriggerWidth(element: HTMLElement) {
-		this._select.setTriggerWidth(element.getBoundingClientRect().width || element.offsetWidth);
 	}
 
 	protected open() {

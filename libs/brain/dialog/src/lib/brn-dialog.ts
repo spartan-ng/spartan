@@ -229,4 +229,8 @@ export class BrnDialog<TResult = unknown, TContext extends Record<string, unknow
 	public setAriaModal(ariaModal: boolean): void {
 		this._mutableAriaModal.set(ariaModal);
 	}
+
+	public updatePosition(): void {
+		this._dialogRef()?.updatePosition();
+	}
 }

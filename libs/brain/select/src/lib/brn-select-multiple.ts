@@ -147,7 +147,7 @@ export class BrnSelectMultiple<T> implements BrnSelectBase<T>, ControlValueAcces
 		return this._selectTrigger.set(input);
 	}
 
-	public setTriggerWidth(width: number | null): void {
+	public updateTriggerWidth(width: number | null): void {
 		this._triggerWidth.set(width);
 	}
 

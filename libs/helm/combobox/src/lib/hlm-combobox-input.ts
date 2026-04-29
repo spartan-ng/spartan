@@ -2,7 +2,7 @@ import { BooleanInput } from '@angular/cdk/coercion';
 import { booleanAttribute, ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown, lucideX } from '@ng-icons/lucide';
-import { BrnComboboxImports, BrnComboboxInputWrapper, BrnComboboxPopoverTrigger } from '@spartan-ng/brain/combobox';
+import { BrnComboboxImports, BrnComboboxPopoverTrigger } from '@spartan-ng/brain/combobox';
 import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 
 @Component({
@@ -10,7 +10,6 @@ import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 	imports: [HlmInputGroupImports, NgIcon, BrnComboboxImports, BrnComboboxPopoverTrigger],
 	providers: [provideIcons({ lucideChevronDown, lucideX })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	hostDirectives: [BrnComboboxInputWrapper],
 	template: `
 		<hlm-input-group brnComboboxAnchor class="w-auto">
 			<input

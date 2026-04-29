@@ -138,8 +138,7 @@ export class BrnSelect<T> implements BrnSelectBase<T>, ControlValueAccessor {
 		return this._selectTrigger.set(input);
 	}
 
-	public setTriggerWidth(width: number | null): void {
-		console.log('Setting trigger width to', width);
+	public updateTriggerWidth(width: number | null): void {
 		this._triggerWidth.set(width);
 	}
 

@@ -1,12 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown } from '@ng-icons/lucide';
-import {
-	BrnComboboxAnchor,
-	BrnComboboxInputWrapper,
-	BrnComboboxPopoverTrigger,
-	BrnComboboxTrigger,
-} from '@spartan-ng/brain/combobox';
+import { BrnComboboxAnchor, BrnComboboxPopoverTrigger, BrnComboboxTrigger } from '@spartan-ng/brain/combobox';
 import { BrnFieldControlDescribedBy } from '@spartan-ng/brain/field';
 import { ButtonVariants, HlmButton } from '@spartan-ng/helm/button';
 import { hlm } from '@spartan-ng/helm/utils';
@@ -24,7 +19,6 @@ import type { ClassValue } from 'clsx';
 	],
 	providers: [provideIcons({ lucideChevronDown })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	hostDirectives: [BrnComboboxInputWrapper],
 	template: `
 		<button
 			brnComboboxTrigger

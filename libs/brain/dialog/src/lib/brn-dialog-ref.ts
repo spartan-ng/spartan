@@ -74,4 +74,8 @@ export class BrnDialogRef<DialogResult = any> {
 	public setAriaLabel(ariaLabel: string | null | undefined): void {
 		this._cdkDialogRef.config.ariaLabel = ariaLabel;
 	}
+
+	public updatePosition(): void {
+		this._cdkDialogRef.overlayRef?.updatePosition();
+	}
 }

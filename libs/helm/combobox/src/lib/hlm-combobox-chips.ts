@@ -1,15 +1,10 @@
 import { computed, Directive } from '@angular/core';
-import {
-	BrnComboboxAnchor,
-	BrnComboboxInputWrapper,
-	BrnComboboxPopoverTrigger,
-	injectBrnComboboxBase,
-} from '@spartan-ng/brain/combobox';
+import { BrnComboboxAnchor, BrnComboboxPopoverTrigger, injectBrnComboboxBase } from '@spartan-ng/brain/combobox';
 import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmComboboxChips],hlm-combobox-chips',
-	hostDirectives: [BrnComboboxInputWrapper, BrnComboboxAnchor, BrnComboboxPopoverTrigger],
+	hostDirectives: [BrnComboboxAnchor, BrnComboboxPopoverTrigger],
 	host: {
 		'data-slot': 'combobox-chips',
 	},

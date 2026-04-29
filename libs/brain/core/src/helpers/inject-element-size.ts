@@ -44,9 +44,10 @@ export function injectElementSize(
 		afterNextRender({
 			read: () => {
 				// Initial read
+				const rect = element.getBoundingClientRect();
 				size.set({
-					width: element.offsetWidth,
-					height: element.offsetHeight,
+					width: rect.width || element.offsetWidth,
+					height: rect.height || element.offsetHeight,
 				});
 
 				// Register element in shared observer

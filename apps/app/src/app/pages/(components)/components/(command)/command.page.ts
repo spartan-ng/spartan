@@ -5,7 +5,6 @@ import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/prim
 import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { link } from '@spartan-ng/app/app/shared/typography/link';
-import { HlmButton } from '@spartan-ng/helm/button';
 import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
@@ -44,7 +43,6 @@ export const routeMeta: RouteMeta = {
 		PageBottomNav,
 		PageBottomNavLink,
 		CommandPreview,
-		HlmButton,
 		CommandDialog,
 		RouterLink,
 		SectionSubSubHeading,

@@ -51,6 +51,6 @@ export class HlmPaginationNext {
 	protected readonly _size = computed<ButtonVariants['size']>(() => (this.iconOnly() ? 'icon' : 'default'));
 
 	protected readonly _computedClass = computed(() =>
-		hlm('gap-1 px-2.5', !this.iconOnly() ? 'pr-1.5! sm:pr-2.5' : '', this.userClass()),
+		hlm(!this.iconOnly() && 'spartan-pagination-next', this.userClass()),
 	);
 }

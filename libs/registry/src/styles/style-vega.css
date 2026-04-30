@@ -871,11 +871,11 @@
 	}
 
 	&.spartan-pagination-previous {
-		@apply pl-2!;
+		@apply ps-2!;
 	}
 
 	&.spartan-pagination-next {
-		@apply pr-2!;
+		@apply pe-2!;
 	}
 
 	/* MARK: Popover */

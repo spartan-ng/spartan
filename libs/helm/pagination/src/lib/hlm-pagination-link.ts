@@ -40,11 +40,12 @@ export class HlmPaginationLink {
 
 	constructor() {
 		classes(() => [
-			this.link() === undefined ? 'cursor-pointer' : '',
+			'spartan-pagination-link',
 			buttonVariants({
 				variant: this.isActive() ? 'outline' : 'ghost',
 				size: this.size(),
 			}),
+			this.link() === undefined && 'cursor-pointer',
 		]);
 	}
 }

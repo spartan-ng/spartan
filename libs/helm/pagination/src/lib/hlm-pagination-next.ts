@@ -4,14 +4,13 @@ import type { RouterLink } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronRight } from '@ng-icons/lucide';
 import type { ButtonVariants } from '@spartan-ng/helm/button';
-import { HlmIcon } from '@spartan-ng/helm/icon';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 import { HlmPaginationLink } from './hlm-pagination-link';
 
 @Component({
 	selector: 'hlm-pagination-next',
-	imports: [HlmPaginationLink, NgIcon, HlmIcon],
+	imports: [HlmPaginationLink, NgIcon],
 	providers: [provideIcons({ lucideChevronRight })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
@@ -25,7 +24,7 @@ import { HlmPaginationLink } from './hlm-pagination-link';
 			[attr.aria-label]="ariaLabel()"
 		>
 			<span [class]="_labelClass()">{{ text() }}</span>
-			<ng-icon hlm size="sm" name="lucideChevronRight" />
+			<ng-icon name="lucideChevronRight" class="spartan-rtl-flip" />
 		</a>
 	`,
 })

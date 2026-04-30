@@ -1,4 +1,8 @@
 .style-maia {
+	.spartan-rtl-flip {
+		@apply rtl:rotate-180;
+	}
+
 	/* MARK: Accordion */
 	.spartan-accordion {
 		@apply overflow-hidden rounded-2xl border;

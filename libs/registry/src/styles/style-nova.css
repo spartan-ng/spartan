@@ -1,4 +1,8 @@
 .style-nova {
+	.spartan-rtl-flip {
+		@apply rtl:rotate-180;
+	}
+
 	/* MARK: Accordion */
 	.spartan-accordion-item {
 		@apply not-last:border-b;

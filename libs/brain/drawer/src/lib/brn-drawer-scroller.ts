@@ -20,6 +20,7 @@ import { BrnDrawer } from './brn-drawer';
 	host: {
 		'[style.touch-action]': '_drawer.scrollerTouchAction()',
 		'[style.padding-bottom]': '_drawer.scrollerPaddingBottom()',
+		'[style.max-height]': '_drawer.scrollerMaxHeight()',
 	},
 })
 export class BrnDrawerScroller {

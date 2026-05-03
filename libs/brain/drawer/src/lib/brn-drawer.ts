@@ -167,29 +167,31 @@ export class BrnDrawer {
 	public readonly indicator2Transform = computed(() => `translateX(-2px) rotate(${-this._indicatorRotation()}deg)`);
 
 	public readonly scrollerPaddingBottom = computed(() => {
-		// Reserve space for the fixed footer + virtual keyboard so content
-		// can scroll past them. The off-screen-Y compensation that used to
-		// live here has been moved to `scrollerMaxHeight`, which clips the
-		// scroller to the visible portion of the drawer; padding here would
-		// just add empty space at the bottom of the scroll area.
-		const footerPx = this.footerHeight();
+		// Reserve space for the virtual keyboard so content can scroll past
+		// it on iOS. Footer space is no longer added here — the scroller is
+		// sized to end above the footer via `scrollerMaxHeight`, so the
+		// footer never overlays content and no padding is needed for it.
 		const keyboardPx = this.avoidKeyboard() ? 'env(keyboard-inset-height, var(--keyboard-inset-height, 0px))' : '0px';
-		return `calc(${footerPx}px + ${keyboardPx})`;
+		return keyboardPx;
 	});
 
-	// Cap the scroller height to the visible portion of the drawer at any
-	// snap state. The drawer container is always laid out at its full
-	// natural sheet height, then translated down by `_y` to reveal less
-	// than 100 % at non-fully-open snap points. Without this cap the
-	// scroller (which is `h-full` of the drawer body wrapper) extends
-	// `_y` pixels below the viewport — its native scrollbar renders along
-	// that full height, so the bottom portion of the scrollbar disappears
-	// off-screen as the user scrolls. Subtracting `_y` keeps the scroller
-	// bottom anchored at the viewport bottom and the scrollbar always in
-	// view.
+	// Cap the scroller height so its bottom edge stops above the footer
+	// and ends inside the visible portion of the drawer. The drawer
+	// container is always laid out at its full natural sheet height; at
+	// any snap < 1 it is translated down by `_y` to reveal less than
+	// 100 %. The footer is `position: absolute` and overlays the bottom
+	// of the body wrapper. Without this cap the scroller (`h-full`)
+	// would extend (a) under the footer at any snap, hiding content and
+	// letting the native scrollbar render past the footer's top edge;
+	// and (b) `_y` pixels below the viewport at non-fully-open snaps,
+	// pushing the bottom of the scrollbar off-screen. Subtracting both
+	// keeps the scroller's bottom anchored at the footer's top edge and
+	// its full height visible inside the viewport.
 	public readonly scrollerMaxHeight = computed(() => {
 		const overflowPx = Math.max(0, this._y());
-		return overflowPx === 0 ? '' : `calc(100% - ${overflowPx}px)`;
+		const footerPx = this.footerHeight();
+		const reservedPx = overflowPx + footerPx;
+		return reservedPx === 0 ? '' : `calc(100% - ${reservedPx}px)`;
 	});
 	// Always allow browser-native touch handling on the scroller. The actual
 	// drag-vs-scroll decision is made by our touchmove handler (preventDefault

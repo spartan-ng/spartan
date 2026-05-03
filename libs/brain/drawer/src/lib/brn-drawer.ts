@@ -620,15 +620,59 @@ export class BrnDrawer {
 			el.addEventListener('touchstart', onTouchStart, { passive: true });
 			el.addEventListener('touchmove', onTouchMove, { passive: false });
 
-			// Watch for async content changes (e.g. API data arriving) that alter
-			// scrollability. The browser reads touch-action at touchstart creation,
-			// so we must update the DOM value before the user's next touch.
-			const contentObserver = new MutationObserver(() => this.syncScrollerTouchAction());
-			contentObserver.observe(el, { childList: true, subtree: true });
+			// Watch for async content changes that alter scrollability so we can
+			// refresh `touch-action` before the user's next touch (the browser reads
+			// it at touchstart creation, before any JS handler runs).
+			//
+			// We need to catch any size change of the content, not just structural
+			// ones. A consumer that rebuilds its body with the same wrapper element
+			// and only updates inner text produces a `characterData` mutation, not
+			// a `childList` one — and that text change can flip the body from
+			// "fits the viewport" to "overflows it" with zero DOM-structure change.
+			// A single `MutationObserver` with `childList: true` misses this entirely
+			// and leaves `touch-action: 'none'` on the scroller, killing native scroll.
+			//
+			// `ResizeObserver` on every direct child closes the gap: it fires for
+			// any size change regardless of cause (text wrap, image load, CSS
+			// animation, etc.). The `MutationObserver` keeps that set of observed
+			// children in sync as the framework adds / removes them.
+			const sync = (): void => this.syncScrollerTouchAction();
+			const childResizeObserver = new ResizeObserver(sync);
+			const observedChildren = new WeakSet<Element>();
+			const observeChild = (child: Node): void => {
+				if (child instanceof Element && !observedChildren.has(child)) {
+					observedChildren.add(child);
+					childResizeObserver.observe(child);
+				}
+			};
+			const unobserveChild = (child: Node): void => {
+				if (child instanceof Element && observedChildren.has(child)) {
+					observedChildren.delete(child);
+					childResizeObserver.unobserve(child);
+				}
+			};
+			// Bootstrap: observe children that already exist when the scroller mounts.
+			el.childNodes.forEach(observeChild);
+			const contentObserver = new MutationObserver((records) => {
+				let touched = false;
+				for (const record of records) {
+					record.addedNodes.forEach((n) => {
+						observeChild(n);
+						touched = true;
+					});
+					record.removedNodes.forEach((n) => {
+						unobserveChild(n);
+						touched = true;
+					});
+				}
+				if (touched) sync();
+			});
+			contentObserver.observe(el, { childList: true });
 
 			onCleanup(() => {
 				gesture.destroy();
 				contentObserver.disconnect();
+				childResizeObserver.disconnect();
 				this._scrollTracker.detach();
 				el.removeEventListener('touchstart', onTouchStart);
 				el.removeEventListener('touchmove', onTouchMove);

@@ -132,19 +132,17 @@ class DrawerLongContentStory {
 				</p>
 			</div>
 
+			<!-- Many fields so the drawer body itself becomes scrollable AND
+			     the user can move focus between inputs near the bottom of the
+			     list. Each focus / blur cycle is what historically triggered
+			     Safari's keyboard-induced page scroll on iOS. -->
 			<div class="flex flex-col gap-4 p-4">
-				<div class="flex flex-col gap-2">
-					<label hlmLabel for="drawer-name">Name</label>
-					<input hlmInput id="drawer-name" placeholder="Pedro Duarte" />
-				</div>
-				<div class="flex flex-col gap-2">
-					<label hlmLabel for="drawer-email">Email</label>
-					<input hlmInput id="drawer-email" type="email" placeholder="pedro@example.com" />
-				</div>
-				<div class="flex flex-col gap-2">
-					<label hlmLabel for="drawer-message">Message</label>
-					<input hlmInput id="drawer-message" placeholder="What's on your mind?" />
-				</div>
+				@for (n of inputs; track $index) {
+					<div class="flex flex-col gap-2">
+						<label hlmLabel [for]="'drawer-field-' + n">Field {{ n }}</label>
+						<input hlmInput [id]="'drawer-field-' + n" [placeholder]="'Field ' + n + '…'" />
+					</div>
+				}
 			</div>
 
 			<div hlmDrawerFooter>
@@ -158,6 +156,7 @@ class DrawerWithInputStory {
 	protected readonly open = signal(false);
 	protected readonly lorem = LOREM;
 	protected readonly paragraphs = Array.from({ length: 30 }, (_, i) => i);
+	protected readonly inputs = Array.from({ length: 20 }, (_, i) => i + 1);
 }
 
 @Component({

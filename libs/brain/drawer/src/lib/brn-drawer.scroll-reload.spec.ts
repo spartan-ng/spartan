@@ -11,11 +11,13 @@
 // on the scroller and replace the global `ResizeObserver` mock with a
 // controllable one that fires on demand.
 
-import { Component, ElementRef, signal, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, signal, viewChild } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { BrnDrawer } from './brn-drawer';
 import { BrnDrawerContent } from './brn-drawer-content';
 import { BrnDrawerScroller } from './brn-drawer-scroller';
+
+const noop = (): void => undefined;
 
 const observerCallbacks = new Set<{ cb: ResizeObserverCallback; targets: Set<Element> }>();
 
@@ -61,10 +63,10 @@ beforeAll(() => {
 				matches: false,
 				media: query,
 				onchange: null,
-				addListener: () => {},
-				removeListener: () => {},
-				addEventListener: () => {},
-				removeEventListener: () => {},
+				addListener: noop,
+				removeListener: noop,
+				addEventListener: noop,
+				removeEventListener: noop,
 				dispatchEvent: () => false,
 			}),
 		});
@@ -72,8 +74,9 @@ beforeAll(() => {
 });
 
 @Component({
-	selector: 'test-host',
+	selector: 'brn-drawer-scroll-reload-test-host',
 	imports: [BrnDrawer, BrnDrawerContent, BrnDrawerScroller],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div
 			brnDrawer

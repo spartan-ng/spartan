@@ -116,12 +116,19 @@ function preventScrollStandard(doc: Document): () => void {
 // This function handles touch-initiated page scrolling:
 // 1. Prevent default on `touchmove` events that are not in a scrollable element.
 // 2. Prevent default on `touchmove` at scroll boundaries to stop Safari from scrolling the page.
-//
-// Keyboard-related viewport issues (input focus scrolling, keyboard resize) are handled
-// separately by `trackVirtualKeyboard()` and the consumer's keyboard-avoidance logic.
+// 3. Snap window.scrollX/Y back to the position recorded at lock time.
+//    Catches Safari's keyboard-induced page scroll: when the user focuses an
+//    input inside the drawer, Safari scrolls the underlying page to bring the
+//    input above the keyboard, then leaves the page scrolled after the
+//    keyboard is dismissed. Drawer-internal scrollers fire their own scroll
+//    events on themselves, not on `window`, so this listener doesn't disturb
+//    them — only window-level (i.e. Safari-induced) scrolls snap back.
 function preventScrollMobileSafari(doc: Document): () => void {
+	const win = doc.defaultView;
 	let scrollable: Element | undefined = undefined;
 	let lastY = 0;
+	const lockedScrollX = win?.scrollX ?? 0;
+	const lockedScrollY = win?.scrollY ?? 0;
 
 	const onTouchStart = (e: TouchEvent): void => {
 		// Use `composedPath` to support shadow DOM.
@@ -169,11 +176,20 @@ function preventScrollMobileSafari(doc: Document): () => void {
 		lastY = y;
 	};
 
+	// Snap-back for non-touch page scroll (keyboard focus, programmatic). Window
+	// is the only target whose scroll we want to pin; element scrollers (the
+	// drawer body) fire on themselves and aren't observed here.
+	const onWindowScroll = (): void => {
+		if (!win) return;
+		if (win.scrollX === lockedScrollX && win.scrollY === lockedScrollY) return;
+		win.scrollTo(lockedScrollX, lockedScrollY);
+	};
+
 	// No overflow:hidden on body — it causes incremental scroll drift on each
 	// focus/blur cycle in iOS Safari. Touch handlers alone are sufficient to
 	// block touch-initiated page scrolling. The only cosmetic artifact is the
 	// scrollbar remaining briefly visible when the sheet opens.
-	return chain(
+	const cleanups: (() => void)[] = [
 		// `onTouchStart` only records state — no preventDefault — so passive is safe and faster.
 		addEvent(doc, 'touchstart', onTouchStart, {
 			passive: true,
@@ -183,7 +199,9 @@ function preventScrollMobileSafari(doc: Document): () => void {
 			passive: false,
 			capture: true,
 		}),
-	);
+	];
+	if (win) cleanups.push(addEvent(win, 'scroll', onWindowScroll));
+	return chain(...cleanups);
 }
 
 // Sets a CSS property on an element, and returns a function to revert it to the previous value.

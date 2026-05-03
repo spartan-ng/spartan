@@ -203,10 +203,25 @@ export class BrnDrawer {
 
 	/**
 	 * Pixel offset from the container bottom at which the fixed footer sits.
-	 * Equals the container's current Y translation, so the footer stays pinned
-	 * to the bottom of the visible drawer area at any snap point.
+	 *
+	 * Counter-translates the footer against the container's current Y so it
+	 * stays pinned to the bottom of the visible drawer area at any partial
+	 * snap point. The counter-translate is capped at `sheetHeight - footerHeight`
+	 * — past that cap the footer would sit above its natural in-flow position
+	 * (i.e. detached from the drawer body), which manifests as the footer
+	 * "left behind" at the viewport bottom while the body slides off during
+	 * the close animation. With the cap, the last `footerHeight` pixels of a
+	 * close (and the first `footerHeight` of an open) ride with the drawer
+	 * body — the footer slides off / on screen alongside the rest of the
+	 * drawer instead of staying detached.
 	 */
-	public readonly footerBottomPx = computed(() => Math.max(0, this._y()));
+	public readonly footerBottomPx = computed(() => {
+		const y = Math.max(0, this._y());
+		const sh = this.sheetHeight();
+		const fh = this.footerHeight();
+		if (sh <= 0) return y;
+		return Math.min(y, Math.max(0, sh - fh));
+	});
 
 	private readonly _animConfig = computed<BrnDrawerTweenConfig>(() => {
 		const win = this._doc.defaultView;

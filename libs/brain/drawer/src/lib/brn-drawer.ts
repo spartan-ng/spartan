@@ -532,8 +532,16 @@ export class BrnDrawer {
 	}
 
 	private setupScrollLocking(): void {
+		// Apply lock only after the open animation finishes (state === 'open'),
+		// and release before the close animation starts. The iOS `position:
+		// fixed` lock removes <body> from the document flow, forcing a layout
+		// reflow of the page behind the drawer (sticky elements detach,
+		// scrollbars disappear, sub-pixel rendering shifts). Doing that in
+		// the middle of the open animation produces visible reflow artefacts
+		// on stacked content; once the drawer is at rest the backdrop is
+		// fully opaque and any reflow behind it is hidden.
 		effect(() => {
-			const shouldPrevent = !this.disableScrollLocking() && this.state() !== 'closed';
+			const shouldPrevent = !this.disableScrollLocking() && this.state() === 'open';
 			untracked(() => {
 				if (shouldPrevent && !this._preventScrollCleanup) {
 					this._preventScrollCleanup = preventScroll(this._doc);

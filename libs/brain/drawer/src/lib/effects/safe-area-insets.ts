@@ -13,9 +13,14 @@ export function getSafeAreaInsets(): {
 	bottom: number;
 } {
 	const doc = inject(DOCUMENT);
+	const win = doc.defaultView;
 	const zero = { top: 0, left: 0, right: 0, bottom: 0 };
 
-	if (!doc.body) {
+	// SSR: Angular's server `DOCUMENT` (Domino) has no `defaultView`, so the
+	// global `getComputedStyle` is undefined — and even with a polyfill the
+	// server can't resolve `env(safe-area-inset-*)` so the result would
+	// collapse to zero anyway. Skip the probe.
+	if (!doc.body || !win) {
 		return zero;
 	}
 
@@ -32,7 +37,11 @@ export function getSafeAreaInsets(): {
 	div.style.paddingBottom = 'env(safe-area-inset-bottom)';
 	doc.body.appendChild(div);
 
-	const computed = getComputedStyle(div);
+	// Use `win.getComputedStyle` rather than the global so the call resolves
+	// through the same `Window` we just guarded — keeps the dependency
+	// explicit and matches the `doc.defaultView` pattern used by the other
+	// trackers in this directory (`trackDimensions`, `trackVirtualKeyboard`).
+	const computed = win.getComputedStyle(div);
 	const result = {
 		top: parseFloat(computed.paddingTop) || 0,
 		left: parseFloat(computed.paddingLeft) || 0,

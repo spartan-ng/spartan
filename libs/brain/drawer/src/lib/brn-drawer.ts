@@ -1,4 +1,4 @@
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
 	computed,
 	DestroyRef,
@@ -8,6 +8,7 @@ import {
 	inject,
 	input,
 	output,
+	PLATFORM_ID,
 	signal,
 	type Signal,
 	untracked,
@@ -118,6 +119,14 @@ export class BrnDrawer {
 	// --- Injections ---
 
 	private readonly _doc = inject(DOCUMENT);
+	/**
+	 * Cached `isPlatformBrowser` flag — used to short-circuit the open/close
+	 * state-machine and any direct `requestAnimationFrame` call sites on the
+	 * server. Trackers and per-`viewChild` effects are already SSR-safe via
+	 * their own `doc.defaultView` / async-resolve guards, so this flag only
+	 * needs to wrap the parts that touch RAF synchronously.
+	 */
+	private readonly _isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
 	// --- Trackers (injection context) ---
 
@@ -366,6 +375,15 @@ export class BrnDrawer {
 	// --- Animation ---
 
 	private async handleOpen(): Promise<void> {
+		// SSR: skip the entire DOM-measuring + animating dance. The state
+		// machine still advances to 'open' via `transitionTo`'s wrapper, so
+		// emitted lifecycle events stay consistent — but no `viewChild` will
+		// be resolved on the server, no animation frames are available, and
+		// there's no point reading getBoundingClientRect() from a non-rendered
+		// template. The first browser-side change-detection cycle re-fires
+		// the state effect and runs this method for real.
+		if (!this._isBrowser) return;
+
 		// Wait for Angular CD to flush (@if renders, viewChild resolves)
 		await new Promise<void>((r) => requestAnimationFrame(() => r()));
 
@@ -395,6 +413,8 @@ export class BrnDrawer {
 	}
 
 	private async handleClosing(): Promise<void> {
+		// Mirror of `handleOpen` — see that method for the SSR rationale.
+		if (!this._isBrowser) return;
 		await this.animateTo(this.closedY());
 	}
 

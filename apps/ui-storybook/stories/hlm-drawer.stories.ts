@@ -181,6 +181,42 @@ class DrawerNonDismissibleStory {
 	protected readonly open = signal(false);
 }
 
+@Component({
+	selector: 'drawer-trigger-story',
+	imports: [HlmDrawerImports, HlmButtonImports],
+	template: `
+		<!--
+		  Vaul / shadcn-style trigger directive. The button references the
+		  drawer via [hlmDrawerTriggerFor]; on click it calls drawer.open()
+		  on the BrnDrawer host directive of <hlm-drawer>. The directive
+		  also wires aria-haspopup, aria-expanded, aria-controls, and a
+		  data-state attribute for screen readers and CSS theming. No
+		  (click) handler or isOpen signal needed in the host.
+		-->
+		<button hlmBtn variant="outline" hlmDrawerTrigger [hlmDrawerTriggerFor]="myDrawer.drawer">
+			Open Via Trigger
+		</button>
+
+		<hlm-drawer #myDrawer="hlmDrawer">
+			<div hlmDrawerHeader>
+				<h2 hlmDrawerTitle>Trigger demo</h2>
+				<p hlmDrawerDescription>
+					Opened by the [hlmDrawerTrigger] directive — no parent signal, no (click) handler.
+				</p>
+			</div>
+
+			<div class="p-4">
+				<p class="text-muted-foreground text-sm">
+					Inspect the trigger button: aria-haspopup="dialog", aria-expanded reflects the
+					drawer state, aria-controls points to the drawer's id, data-state mirrors the
+					state machine for CSS hooks.
+				</p>
+			</div>
+		</hlm-drawer>
+	`,
+})
+class DrawerTriggerStory {}
+
 const meta: Meta<HlmDrawer> = {
 	title: 'Drawer',
 	component: HlmDrawer,
@@ -227,5 +263,12 @@ export const WithInputAndPageScroll: Story = {
 	render: () => ({
 		moduleMetadata: { imports: [DrawerWithInputStory] },
 		template: `<drawer-with-input-story />`,
+	}),
+};
+
+export const WithTrigger: Story = {
+	render: () => ({
+		moduleMetadata: { imports: [DrawerTriggerStory] },
+		template: `<drawer-trigger-story />`,
 	}),
 };

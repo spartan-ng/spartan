@@ -97,5 +97,11 @@ import {
 	`,
 })
 export class HlmDrawer {
-	protected readonly _drawer = inject(BrnDrawer, { host: true });
+	// Public so `[hlmDrawerTriggerFor]="myDrawer.drawer"` can reach the
+	// BrnDrawer host-directive instance from a template ref. The `_drawer`
+	// alias is kept around so the template's existing `_drawer.state()` /
+	// `_drawer.indicator1Transform()` bindings continue to compile against
+	// the same field.
+	public readonly drawer = inject(BrnDrawer, { host: true });
+	protected readonly _drawer = this.drawer;
 }

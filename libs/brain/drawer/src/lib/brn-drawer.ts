@@ -43,12 +43,15 @@ import { tweenTo } from './utils/tween';
  * `brnDrawerFooter`, `brnDrawerOverlay`) register their element refs here
  * so the coordinator can attach behaviour without owning a template.
  */
+let drawerIdSequence = 0;
+
 @Directive({
 	selector: '[brnDrawer],brn-drawer',
 	exportAs: 'brnDrawer',
 	host: {
 		role: 'dialog',
 		'aria-modal': 'true',
+		'[id]': 'drawerId',
 		'[attr.aria-hidden]': 'state() === "closed" ? true : null',
 		'[attr.data-state]': 'state()',
 		'[style.visibility]': 'visibility()',
@@ -56,6 +59,14 @@ import { tweenTo } from './utils/tween';
 	},
 })
 export class BrnDrawer {
+	/**
+	 * Stable id rendered onto the drawer's host element. Used by
+	 * `[brnDrawerTrigger]` for `aria-controls`. Auto-generated unique per
+	 * instance — exposed publicly so consumers can override via DOM if they
+	 * need a deterministic id (rare).
+	 */
+	public readonly drawerId = `brn-drawer-${++drawerIdSequence}`;
+
 	// --- Inputs ---
 
 	public readonly isOpen = input(false);
@@ -288,6 +299,30 @@ export class BrnDrawer {
 			await this.animateTo(this.closedY());
 			this.dismissed.emit();
 		}
+	}
+
+	/**
+	 * Opens the drawer imperatively. Used by `[brnDrawerTrigger]` and friends.
+	 * No-op if already open / opening or transitioning between states. Does not
+	 * mutate the `isOpen` input — consumers using `[isOpen]` for one-way control
+	 * remain in charge of their own signal; the trigger is an orthogonal entry
+	 * point that drives the internal state machine directly.
+	 */
+	public open(): void {
+		if (this._transitioning) return;
+		if (this.state() !== 'closed') return;
+		this.transitionTo('opening');
+	}
+
+	/**
+	 * Closes the drawer imperatively. Mirror of {@link open}; same semantics
+	 * around `isOpen` ownership.
+	 */
+	public close(): void {
+		if (this._transitioning) return;
+		const current = this.state();
+		if (current !== 'open' && current !== 'opening') return;
+		this.transitionTo('closing');
 	}
 
 	// --- State machine ---

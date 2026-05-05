@@ -3292,7 +3292,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "[hlmInputOtpGroup]",
+        "selector": "[hlmInputOtpGroup],hlm-input-otp-group",
       },
       "HlmInputOtpSeparator": {
         "inputs": [],

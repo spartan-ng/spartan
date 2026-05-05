@@ -1,6 +1,8 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { CodeRtlPreview } from '@spartan-ng/app/app/shared/code/code-rtl-preview';
+import { RtlHeader } from '@spartan-ng/app/app/shared/code/rtl-header';
 import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
@@ -18,7 +20,9 @@ import { metaWith } from '../../../../shared/meta/meta.util';
 import { EmptyAvatarGroup } from './empty--avatar-group.preview';
 import { EmptyAvatar } from './empty--avatar.preview';
 import { EmptyBackground } from './empty--background.preview';
+import { EmptyInputGroup } from './empty--input-group.preview';
 import { EmptyOutline } from './empty--outline.preview';
+import { EmptyRtl } from './empty--rtl.preview';
 import { defaultImports, defaultSkeleton, EmptyPreview } from './empty.preview';
 
 export const routeMeta: RouteMeta = {
@@ -42,12 +46,16 @@ export const routeMeta: RouteMeta = {
 		PageNav,
 		PageBottomNav,
 		PageBottomNavLink,
+		SectionSubSubHeading,
+		RtlHeader,
+		CodeRtlPreview,
 		EmptyPreview,
 		EmptyOutline,
 		EmptyBackground,
 		EmptyAvatar,
 		EmptyAvatarGroup,
-		SectionSubSubHeading,
+		EmptyInputGroup,
+		EmptyRtl,
 	],
 	template: `
 		<section spartanMainSection>
@@ -124,6 +132,29 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_avatarGroupCode()" />
 			</spartan-tabs>
 
+			<h3 id="examples__input-group" spartanH4>Input Group</h3>
+			<p class="${hlmP} mb-2">
+				You can add an
+				<code class="${hlmCode} mr-0.5">InputGroup</code>
+				component to the
+				<code class="${hlmCode} mr-0.5">EmptyContent</code>
+				component.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-empty-input-group />
+				</div>
+				<spartan-code secondTab [code]="_inputGroupCode()" />
+			</spartan-tabs>
+
+			<spartan-header-rtl />
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanRtlCodePreview firstTab>
+					<spartan-empty-rtl />
+				</div>
+				<spartan-code secondTab [code]="_rtlCode()" />
+			</spartan-tabs>
+
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="helm" />
 
@@ -144,4 +175,6 @@ export default class EmptyPage {
 	protected readonly _backgroundCode = computed(() => this._snippets()['background']);
 	protected readonly _avatarCode = computed(() => this._snippets()['avatar']);
 	protected readonly _avatarGroupCode = computed(() => this._snippets()['avatarGroup']);
+	protected readonly _inputGroupCode = computed(() => this._snippets()['inputGroup']);
+	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 }

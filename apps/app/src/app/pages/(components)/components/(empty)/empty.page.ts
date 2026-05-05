@@ -51,7 +51,7 @@ export const routeMeta: RouteMeta = {
 	],
 	template: `
 		<section spartanMainSection>
-			<spartan-section-intro name="Empty" lead="Use the Empty component to display a empty state." />
+			<spartan-section-intro name="Empty" lead="Use the Empty component to display a empty state." showThemeToggle />
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -60,7 +60,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
-			<spartan-install-tabs primitive="empty" />
+			<spartan-install-tabs primitive="empty" [showOnlyVega]="false" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">

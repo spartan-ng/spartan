@@ -3,12 +3,10 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmEmptyContent],hlm-empty-content',
-	host: {
-		'data-slot': 'empty-content',
-	},
+	host: { 'data-slot': 'empty-content' },
 })
 export class HlmEmptyContent {
 	constructor() {
-		classes(() => 'flex w-full max-w-sm min-w-0 flex-col items-center gap-4 text-sm text-balance');
+		classes(() => 'spartan-empty-content flex w-full max-w-sm min-w-0 flex-col items-center text-balance');
 	}
 }

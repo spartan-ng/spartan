@@ -37,7 +37,9 @@ export class HlmDialogContent {
 	private readonly _dialogRef = inject(BrnDialogRef);
 	private readonly _dialogContext = injectBrnDialogContext({ optional: true });
 
-	public readonly showCloseButton = input<boolean, BooleanInput>(true, { transform: booleanAttribute });
+	public readonly showCloseButton = input<boolean, BooleanInput>(this._dialogContext?.$showCloseButton ?? true, {
+		transform: booleanAttribute,
+	});
 
 	public readonly state = computed(() => this._dialogRef?.state() ?? 'closed');
 

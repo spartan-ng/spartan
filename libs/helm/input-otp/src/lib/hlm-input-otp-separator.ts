@@ -19,6 +19,6 @@ import { classes } from '@spartan-ng/helm/utils';
 })
 export class HlmInputOtpSeparator {
 	constructor() {
-		classes(() => 'inline-flex');
+		classes(() => 'spartan-input-otp-separator flex items-center');
 	}
 }

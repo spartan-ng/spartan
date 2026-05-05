@@ -110,6 +110,7 @@ type ExampleUser = {
 	imports: [HlmButton],
 	template: `
 		<button hlmBtn (click)="openDynamicComponent()">Select User</button>
+		<button hlmBtn (click)="openDynamicComponent(false)">Select Team (Dialog without close btn)</button>
 	`,
 })
 class DialogDynamicStory {
@@ -138,12 +139,13 @@ class DialogDynamicStory {
 		},
 	];
 
-	public openDynamicComponent() {
+	public openDynamicComponent(showCloseButton = true) {
 		const dialogRef = this._hlmDialogService.open(SelectUser, {
 			context: {
 				users: this._users,
 			},
 			contentClass: 'sm:!max-w-[750px]',
+			showCloseButton,
 		});
 
 		dialogRef.closed$.subscribe((user) => {

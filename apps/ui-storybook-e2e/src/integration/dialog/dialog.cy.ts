@@ -158,6 +158,7 @@ describe('dialog--dynamic-component', () => {
 			cy.findByRole('dialog').should('have.attr', 'aria-labelledby', 'brn-dialog-title-1');
 			cy.findByRole('dialog').should('have.attr', 'aria-modal', 'true');
 			cy.findByRole('dialog').should('have.attr', 'tabindex', '-1');
+			cy.findAllByText('close').should('exist')
 			cy.get('dynamic-content');
 
 			// close on click close button
@@ -171,6 +172,12 @@ describe('dialog--dynamic-component', () => {
 			cy.get('.cdk-overlay-backdrop').click({ force: true });
 			cy.findAllByText(/select user/i).should('have.length', 1);
 			cy.findAllByText(/select user/i).should('have.focus');
+		});
+
+		it('click on teams button should open dyanmic component without close button', () => {
+			cy.findAllByText(/select team/i).click();
+			cy.findByRole('dialog');
+			cy.findAllByText('close').should('not.exist');
 		});
 	});
 

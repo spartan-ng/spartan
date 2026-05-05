@@ -1,6 +1,8 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { CodeRtlPreview } from '@spartan-ng/app/app/shared/code/code-rtl-preview';
+import { RtlHeader } from '@spartan-ng/app/app/shared/code/rtl-header';
 import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { UIApiDocs } from '@spartan-ng/app/app/shared/layout/ui-docs-section/ui-docs-section';
@@ -16,7 +18,10 @@ import { SectionIntro } from '../../../../shared/layout/section-intro';
 import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading';
 import { Tabs } from '../../../../shared/layout/tabs';
 import { metaWith } from '../../../../shared/meta/meta.util';
+import { InputOtpDisabled } from './input-otp--disabled.preview';
 import { InputOtpFormExample } from './input-otp--form.example';
+import { InputOtpRtl } from './input-otp--rtl.preview';
+import { InputOtpSeparator } from './input-otp--separator.preview';
 import { defaultImports, defaultSkeleton, InputOtpPreview } from './input-otp.preview';
 
 export const routeMeta: RouteMeta = {
@@ -40,9 +45,14 @@ export const routeMeta: RouteMeta = {
 		PageNav,
 		PageBottomNav,
 		PageBottomNavLink,
-		InputOtpPreview,
-		InputOtpFormExample,
 		SectionSubSubHeading,
+		RtlHeader,
+		CodeRtlPreview,
+		InputOtpPreview,
+		InputOtpSeparator,
+		InputOtpDisabled,
+		InputOtpFormExample,
+		InputOtpRtl,
 	],
 	template: `
 		<section spartanMainSection>
@@ -125,6 +135,32 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
 
+			<h3 id="examples__separator" spartanH4>Separator</h3>
+			<p class="${hlmP} mb-6">
+				Use the
+				<code class="${hlmCode}">hlm-input-otp-separator</code>
+				component to add a separator between input groups.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-input-otp-separator />
+				</div>
+				<spartan-code secondTab [code]="_separatorCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__disabled" spartanH4>Disabled</h3>
+			<p class="${hlmP} mb-6">
+				Use the
+				<code class="${hlmCode}">disabled</code>
+				prop to disable the input.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-input-otp-disabled />
+				</div>
+				<spartan-code secondTab [code]="_disabledCode()" />
+			</spartan-tabs>
+
 			<h3 id="examples__form" spartanH4>Form</h3>
 			<p class="${hlmP} mb-6">
 				Sync the otp to a form by adding
@@ -138,6 +174,14 @@ export const routeMeta: RouteMeta = {
 					<spartan-input-otp-form />
 				</div>
 				<spartan-code secondTab [code]="_formCode()" />
+			</spartan-tabs>
+
+			<spartan-header-rtl />
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanRtlCodePreview firstTab>
+					<spartan-input-otp-rtl />
+				</div>
+				<spartan-code secondTab [code]="_rtlCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
@@ -157,7 +201,10 @@ export const routeMeta: RouteMeta = {
 export default class InputOtpPage {
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('input-otp');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
+	protected readonly _separatorCode = computed(() => this._snippets()['separator']);
+	protected readonly _disabledCode = computed(() => this._snippets()['disabled']);
 	protected readonly _formCode = computed(() => this._snippets()['form']);
+	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

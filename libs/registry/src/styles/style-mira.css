@@ -656,7 +656,7 @@
 	}
 
 	.spartan-input-otp-slot {
-		@apply bg-input/20 dark:bg-input/30 border-input has-[brn-input-otp-slot[data-active="true"]]:border-ring has-[brn-input-otp-slot[data-active="true"]]:ring-ring/30 has-[brn-input-otp-slot[data-active="true"]]:data-[matches-spartan-invalid=true]:ring-destructive/20 dark:has-[brn-input-otp-slot[data-active="true"]]:data-[matches-spartan-invalid=true]:ring-destructive/40 data-[matches-spartan-invalid=true]:border-destructive has-[brn-input-otp-slot[data-active="true"]]:data-[matches-spartan-invalid=true]:border-destructive size-7 border-y border-r text-xs/relaxed transition-all outline-none first:rounded-l-md first:border-l last:rounded-r-md has-[brn-input-otp-slot[data-active="true"]]:ring-2;
+		@apply bg-input/20 dark:bg-input/30 border-input has-[brn-input-otp-slot[data-active="true"]]:border-ring has-[brn-input-otp-slot[data-active="true"]]:ring-ring/30 has-[brn-input-otp-slot[data-active="true"]]:data-[matches-spartan-invalid=true]:ring-destructive/20 dark:has-[brn-input-otp-slot[data-active="true"]]:data-[matches-spartan-invalid=true]:ring-destructive/40 data-[matches-spartan-invalid=true]:border-destructive has-[brn-input-otp-slot[data-active="true"]]:data-[matches-spartan-invalid=true]:border-destructive size-7 border-y border-e text-xs/relaxed transition-all outline-none first:rounded-s-md first:border-s last:rounded-e-md has-[brn-input-otp-slot[data-active="true"]]:ring-2;
 	}
 
 	.spartan-input-otp-caret-line {

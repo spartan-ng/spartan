@@ -16,6 +16,9 @@ export class BrnComboboxAnchor {
 	private readonly _elementSize = injectElementSize();
 
 	constructor() {
+		// skip if it's inside a combobox content
+		if (this._content) return;
+
 		effect(() => {
 			const size = this._elementSize();
 			if (size) {
@@ -23,9 +26,6 @@ export class BrnComboboxAnchor {
 				this._brnDialog?.updatePosition();
 			}
 		});
-
-		// skip if it's inside a combobox content
-		if (this._content) return;
 
 		if (!this._brnDialog) return;
 

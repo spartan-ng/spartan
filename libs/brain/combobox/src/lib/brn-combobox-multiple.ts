@@ -235,8 +235,7 @@ export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueA
 		const selected = this.value() ?? [];
 		if (selected.length === 0) return;
 
-		selected.pop();
-		this.value.set([...selected]);
+		this.value.set(selected.slice(0, -1));
 		this._onChange?.(this.value());
 	}
 

@@ -158,7 +158,7 @@ describe('dialog--dynamic-component', () => {
 			cy.findByRole('dialog').should('have.attr', 'aria-labelledby', 'brn-dialog-title-1');
 			cy.findByRole('dialog').should('have.attr', 'aria-modal', 'true');
 			cy.findByRole('dialog').should('have.attr', 'tabindex', '-1');
-			cy.findAllByText('close').should('exist')
+			cy.findAllByText('close').should('exist');
 			cy.get('dynamic-content');
 
 			// close on click close button

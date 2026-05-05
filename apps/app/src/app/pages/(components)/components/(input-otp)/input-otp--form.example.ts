@@ -24,7 +24,7 @@ import { HlmToasterImports } from '@spartan-ng/helm/sonner';
 	],
 	providers: [provideIcons({ lucideRefreshCw })],
 	host: {
-		class: 'preview flex min-h-[350px] w-full justify-center iitems-center max-w-lg',
+		class: 'preview flex min-h-[350px] w-full justify-center items-center max-w-lg',
 	},
 	template: `
 		<hlm-toaster />

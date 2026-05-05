@@ -1311,7 +1311,7 @@
 	}
 
 	.spartan-empty-media-icon {
-		@apply bg-muted text-foreground flex size-10 shrink-0 items-center justify-center rounded-xl [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*)];
+		@apply bg-muted text-foreground flex size-10 shrink-0 items-center justify-center rounded-xl [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*5)];
 	}
 
 	.spartan-empty-title {

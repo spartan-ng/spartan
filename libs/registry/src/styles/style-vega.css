@@ -1307,19 +1307,19 @@
 
 	/* MARK: Input Group */
 	&.spartan-input-group {
-		@apply border-input dark:bg-input/30 has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-ring/50 has-[[data-slot][data-matches-spartan-invalid=true]]:ring-destructive/20 has-[[data-slot][data-matches-spartan-invalid=true]]:border-destructive dark:has-[[data-slot][data-matches-spartan-invalid=true]]:ring-destructive/40 h-9 rounded-md border shadow-xs transition-[color,box-shadow] in-data-[slot=combobox-content]:focus-within:border-inherit in-data-[slot=combobox-content]:focus-within:ring-0 has-[[data-slot=input-group-control]:focus-visible]:ring-3 has-[[data-slot][data-matches-spartan-invalid=true]]:ring-3 has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=inline-end]]:[&>input]:pr-1.5 has-[>[data-align=inline-start]]:[&>input]:pl-1.5;
+		@apply border-input dark:bg-input/30 has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-ring/50 has-[[data-slot][data-matches-spartan-invalid=true]]:ring-destructive/20 has-[[data-slot][data-matches-spartan-invalid=true]]:border-destructive dark:has-[[data-slot][data-matches-spartan-invalid=true]]:ring-destructive/40 h-9 rounded-md border shadow-xs transition-[color,box-shadow] in-data-[slot=combobox-content]:focus-within:border-inherit in-data-[slot=combobox-content]:focus-within:ring-0 has-[[data-slot=input-group-control]:focus-visible]:ring-3 has-[[data-slot][data-matches-spartan-invalid=true]]:ring-3 has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=inline-end]]:[&>input]:pe-1.5 has-[>[data-align=inline-start]]:[&>input]:ps-1.5;
 	}
 
 	&.spartan-input-group-addon {
-		@apply text-muted-foreground h-auto gap-2 py-1.5 text-sm font-medium group-data-[disabled=true]/input-group:opacity-50 [&>kbd]:rounded-[calc(var(--radius)-5px)] [&>svg:not([class*='size-'])]:size-4;
+		@apply text-muted-foreground h-auto gap-2 py-1.5 text-sm font-medium group-data-[disabled=true]/input-group:opacity-50 [&>kbd]:rounded-[calc(var(--radius)-5px)] [&>ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*4)];
 	}
 
 	&.spartan-input-group-addon-align-inline-start {
-		@apply pl-2 has-[>button]:-ml-1 has-[>kbd]:ml-[-0.15rem];
+		@apply ps-2 has-[>button]:-ms-1 has-[>kbd]:ms-[-0.15rem];
 	}
 
 	&.spartan-input-group-addon-align-inline-end {
-		@apply pr-2 has-[>button]:-mr-1 has-[>kbd]:mr-[-0.15rem];
+		@apply pe-2 has-[>button]:-me-1 has-[>kbd]:me-[-0.15rem];
 	}
 
 	&.spartan-input-group-addon-align-block-start {
@@ -1335,7 +1335,7 @@
 	}
 
 	&.spartan-input-group-button-size-xs {
-		@apply h-6 gap-1 rounded-[calc(var(--radius)-5px)] px-1.5 [&>svg:not([class*='size-'])]:size-3.5;
+		@apply h-6 gap-1 rounded-[calc(var(--radius)-5px)] px-1.5 [&>ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*3.5)];
 	}
 
 	&.spartan-input-group-button-size-icon-xs {

@@ -1317,15 +1317,15 @@
 	}
 
 	.spartan-input-group-addon {
-		@apply text-muted-foreground **:data-[slot=kbd]:bg-muted-foreground/10 h-auto gap-1 py-2 text-xs/relaxed font-medium group-data-[disabled=true]/input-group:opacity-50 **:data-[slot=kbd]:rounded-[calc(var(--radius-sm)-2px)] **:data-[slot=kbd]:px-1 **:data-[slot=kbd]:text-[0.625rem] [&>svg:not([class*='size-'])]:size-3.5;
+		@apply text-muted-foreground **:data-[slot=kbd]:bg-muted-foreground/10 h-auto gap-1 py-2 text-xs/relaxed font-medium group-data-[disabled=true]/input-group:opacity-50 **:data-[slot=kbd]:rounded-[calc(var(--radius-sm)-2px)] **:data-[slot=kbd]:px-1 **:data-[slot=kbd]:text-[0.625rem] [&>ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*3.5)];
 	}
 
 	.spartan-input-group-addon-align-inline-start {
-		@apply ps-2 has-[>button]:ml-[-0.275rem] has-[>kbd]:ml-[-0.275rem];
+		@apply ps-2 has-[>button]:ms-[-0.275rem] has-[>kbd]:ms-[-0.275rem];
 	}
 
 	.spartan-input-group-addon-align-inline-end {
-		@apply pe-2 has-[>button]:mr-[-0.275rem] has-[>kbd]:mr-[-0.275rem];
+		@apply pe-2 has-[>button]:me-[-0.275rem] has-[>kbd]:me-[-0.275rem];
 	}
 
 	.spartan-input-group-addon-align-block-start {
@@ -1341,15 +1341,19 @@
 	}
 
 	.spartan-input-group-button-size-xs {
-		@apply h-5 gap-1 rounded-[calc(var(--radius-sm)-2px)] px-1 [&>svg:not([class*='size-'])]:size-3;
+		@apply h-5 gap-1 rounded-[calc(var(--radius-sm)-2px)] px-1 [&>ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*3)];
 	}
 
 	.spartan-input-group-button-size-icon-xs {
 		@apply size-6 p-0 has-[>ng-icon]:p-0;
 	}
 
+	.spartan-input-group-button-size-sm {
+		@apply gap-1;
+	}
+
 	.spartan-input-group-button-size-icon-sm {
-		@apply size-8 p-0 has-[>ng-icon]:p-0;
+		@apply size-7 p-0 has-[>ng-icon]:p-0;
 	}
 
 	.spartan-input-group-text {

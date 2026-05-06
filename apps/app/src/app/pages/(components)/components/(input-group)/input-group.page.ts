@@ -10,6 +10,8 @@ import { InputGroupLabelPreview } from '@spartan-ng/app/app/pages/(components)/c
 import { InputGroupSpinnerPreview } from '@spartan-ng/app/app/pages/(components)/components/(input-group)/input-group--spinner.preview';
 import { InputGroupTextareaPreview } from '@spartan-ng/app/app/pages/(components)/components/(input-group)/input-group--textarea.preview';
 import { InputGroupTooltipPreview } from '@spartan-ng/app/app/pages/(components)/components/(input-group)/input-group--tooltip.preview';
+import { CodeRtlPreview } from '@spartan-ng/app/app/shared/code/code-rtl-preview';
+import { RtlHeader } from '@spartan-ng/app/app/shared/code/rtl-header';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { UIApiDocs } from '@spartan-ng/app/app/shared/layout/ui-docs-section/ui-docs-section';
 import { HlmCode, HlmP } from '@spartan-ng/helm/typography';
@@ -26,6 +28,8 @@ import { metaWith } from '../../../../shared/meta/meta.util';
 import { InputGroupButtonPreview } from './input-group--button.preview';
 import { InputGroupFormPreview } from './input-group--form.preview';
 import { InputGroupIconPreview } from './input-group--icon.preview';
+import { InputGroupKbd } from './input-group--kbd.preview';
+import { InputGroupRtl } from './input-group--rtl.preview';
 import { InputGroupTextPreview } from './input-group--text.preview';
 import { defaultImports, defaultSkeleton, InputGroupPreview } from './input-group.preview';
 
@@ -54,15 +58,16 @@ export const routeMeta: RouteMeta = {
 		PageBottomNav,
 		PageBottomNavLink,
 		UIApiDocs,
+		SectionSubSubHeading,
+		HlmCode,
+		HlmP,
+		RtlHeader,
+		CodeRtlPreview,
 
 		InputGroupIconPreview,
+		InputGroupTextPreview,
 		InputGroupButtonPreview,
-		InputGroupIconPreview,
-		InputGroupIconPreview,
-		InputGroupIconPreview,
-		InputGroupTextPreview,
-		InputGroupTextPreview,
-		InputGroupTextPreview,
+		InputGroupKbd,
 		InputGroupTooltipPreview,
 		InputGroupTextareaPreview,
 		InputGroupLabelPreview,
@@ -70,16 +75,15 @@ export const routeMeta: RouteMeta = {
 		InputGroupButtonGroupPreview,
 		InputGroupCustomInputPreview,
 		InputGroupFormPreview,
-		HlmCode,
-		HlmP,
 		InputGroupSpinnerPreview,
-		SectionSubSubHeading,
+		InputGroupRtl,
 	],
 	template: `
 		<section spartanMainSection>
 			<spartan-section-intro
 				name="Input Group"
 				lead="A flexible input group that combines inputs with addons, prefixes, and suffixes to improve usability."
+				showThemeToggle
 			/>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
@@ -89,7 +93,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
-			<spartan-install-tabs primitive="input-group" />
+			<spartan-install-tabs primitive="input-group" [showOnlyVega]="false" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">
@@ -98,23 +102,23 @@ export const routeMeta: RouteMeta = {
 			</div>
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__icon" spartanH4>Icons</h3>
+			<h3 id="icon" spartanH4>Icon</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-input-group-icon-preview />
 				</div>
 				<spartan-code secondTab [code]="_iconCode()" />
 			</spartan-tabs>
-			<h3 id="examples__text" spartanH4>Text</h3>
-			<p hlmP>Display additional text information alongside inputs.</p>
+
+			<h3 id="text" spartanH4>Text</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-input-group-text-preview />
 				</div>
 				<spartan-code secondTab [code]="_textCode()" />
 			</spartan-tabs>
-			<h3 id="examples_button" spartanH4>Buttons</h3>
-			<p hlmP>Add buttons to perform actions within the input group.</p>
+
+			<h3 id="button" spartanH4>Button</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-input-group-button-preview />
@@ -122,16 +126,31 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_buttonCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples_tooltip" spartanH4>Tooltip</h3>
-			<p hlmP>Add tooltips to provide additional context or help.</p>
+			<h3 id="kbd" spartanH4>Kbd</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
-					<spartan-input-group-tooltip-preview />
+					<spartan-input-group-kbd />
 				</div>
-				<spartan-code secondTab [code]="_tooltipCode()" />
+				<spartan-code secondTab [code]="_kbdCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples_textarea" spartanH4>Textarea</h3>
+			<h3 id="dropdown" spartanH4>Dropdown</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-input-group-dropdown-preview />
+				</div>
+				<spartan-code secondTab [code]="_dropdownCode()" />
+			</spartan-tabs>
+
+			<h3 id="spinner" spartanH4>Spinner</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-input-group-spinner-preview />
+				</div>
+				<spartan-code secondTab [code]="_spinnerCode()" />
+			</spartan-tabs>
+
+			<h3 id="textarea" spartanH4>Textarea</h3>
 			<p hlmP>
 				Input groups also work with textarea components. Use
 				<span hlmCode>block-start</span>
@@ -146,16 +165,16 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_textareaCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples_spinner" spartanH4>Spinner</h3>
-			<p hlmP>Show loading indicators while processing input.</p>
+			<h3 id="tooltip" spartanH4>Tooltip</h3>
+			<p hlmP>Add tooltips to provide additional context or help.</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
-					<spartan-input-group-spinner-preview />
+					<spartan-input-group-tooltip-preview />
 				</div>
-				<spartan-code secondTab [code]="_spinnerCode()" />
+				<spartan-code secondTab [code]="_tooltipCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples_label" spartanH4>Label</h3>
+			<h3 id="label" spartanH4>Label</h3>
 			<p hlmP>Add labels within input groups to improve accessibility.</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -164,18 +183,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_labelCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples_dropdown" spartanH4>Dropdown</h3>
-
-			<p hlmP>Pair input groups with dropdown menus for complex interactions.</p>
-
-			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div spartanCodePreview firstTab>
-					<spartan-input-group-dropdown-preview />
-				</div>
-				<spartan-code secondTab [code]="_dropdownCode()" />
-			</spartan-tabs>
-
-			<h3 id="examples_button-group" spartanH4>Button Group</h3>
+			<h3 id="button-group" spartanH4>Button Group</h3>
 			<p hlmP>Wrap input groups with button groups to create prefixes and suffixes.</p>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
@@ -185,7 +193,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_buttonGroupCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples_custom-input" spartanH4>Custom Input</h3>
+			<h3 id="custom-input" spartanH4>Custom Input</h3>
 
 			<p hlmP>
 				Add the
@@ -206,12 +214,20 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_customInputCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples_form" spartanH4>Form</h3>
+			<h3 id="form" spartanH4>Form</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-input-group-form-preview />
 				</div>
 				<spartan-code secondTab [code]="_formCode()" />
+			</spartan-tabs>
+
+			<spartan-header-rtl />
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanRtlCodePreview firstTab>
+					<spartan-input-group-rtl />
+				</div>
+				<spartan-code secondTab [code]="_rtlCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
@@ -231,6 +247,7 @@ export default class InputGroupPage {
 	protected readonly _iconCode = computed(() => this._snippets()['icon']);
 	protected readonly _textCode = computed(() => this._snippets()['text']);
 	protected readonly _buttonCode = computed(() => this._snippets()['button']);
+	protected readonly _kbdCode = computed(() => this._snippets()['kbd']);
 	protected readonly _tooltipCode = computed(() => this._snippets()['tooltip']);
 	protected readonly _textareaCode = computed(() => this._snippets()['textarea']);
 	protected readonly _spinnerCode = computed(() => this._snippets()['spinner']);
@@ -239,6 +256,7 @@ export default class InputGroupPage {
 	protected readonly _buttonGroupCode = computed(() => this._snippets()['buttonGroup']);
 	protected readonly _customInputCode = computed(() => this._snippets()['customInput']);
 	protected readonly _formCode = computed(() => this._snippets()['form']);
+	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 	protected readonly _imports = defaultImports;
 	protected readonly _codeSkeleton = defaultSkeleton;
 }

@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { tablerCheck, tablerCopy, tablerInfoCircle, tablerStar } from '@ng-icons/tabler-icons';
 import { HlmIconImports } from '@spartan-ng/helm/icon';
@@ -9,13 +9,12 @@ import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 	selector: 'spartan-input-group-button-preview',
 	imports: [HlmInputGroupImports, HlmIconImports, HlmPopoverImports],
 	providers: [provideIcons({ tablerCheck, tablerCopy, tablerInfoCircle, tablerStar })],
-	host: {
-		class: 'grid w-full max-w-sm gap-6',
-	},
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: { class: 'grid w-full max-w-sm gap-6' },
 	template: `
-		<div hlmInputGroup>
+		<hlm-input-group>
 			<input hlmInputGroupInput placeholder="https://github.com/spartan-ng/spartan" readOnly />
-			<div hlmInputGroupAddon align="inline-end">
+			<hlm-input-group-addon align="inline-end">
 				<button
 					hlmInputGroupButton
 					aria-label="Copy"
@@ -25,10 +24,10 @@ import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 				>
 					<ng-icon [name]="_isCopied() ? 'tablerCheck' : 'tablerCopy'" />
 				</button>
-			</div>
-		</div>
-		<div hlmInputGroup class="[--radius:9999px]">
-			<div hlmInputGroupAddon>
+			</hlm-input-group-addon>
+		</hlm-input-group>
+		<hlm-input-group class="[--radius:9999px]">
+			<hlm-input-group-addon>
 				<button
 					hlmInputGroupButton
 					variant="secondary"
@@ -38,22 +37,22 @@ import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 				>
 					<ng-icon name="tablerInfoCircle" />
 				</button>
-			</div>
+			</hlm-input-group-addon>
 
-			<div hlmInputGroupAddon class="text-muted-foreground pl-1.5">https://</div>
+			<hlm-input-group-addon class="text-muted-foreground pl-1.5">https://</hlm-input-group-addon>
 			<input hlmInputGroupInput id="input-secure-19" />
-			<div hlmInputGroupAddon align="inline-end">
+			<hlm-input-group-addon align="inline-end">
 				<button hlmInputGroupButton size="icon-xs" (click)="_toggleFavorite()">
 					<ng-icon name="tablerStar" [class]="_favoriteClass()" />
 				</button>
-			</div>
-		</div>
-		<div hlmInputGroup>
+			</hlm-input-group-addon>
+		</hlm-input-group>
+		<hlm-input-group>
 			<input hlmInputGroupInput placeholder="Type to search..." />
-			<div hlmInputGroupAddon align="inline-end">
+			<hlm-input-group-addon align="inline-end">
 				<button hlmInputGroupButton variant="secondary">Search</button>
-			</div>
-		</div>
+			</hlm-input-group-addon>
+		</hlm-input-group>
 
 		<hlm-popover sideOffset="10" align="start" #brnPopover="brnPopover">
 			<hlm-popover-content class="flex flex-col gap-1 rounded-xl text-sm" *hlmPopoverPortal="let ctx">

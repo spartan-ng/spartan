@@ -1,4 +1,5 @@
-import { computed, contentChild, Directive, inject } from '@angular/core';
+import { BooleanInput } from '@angular/cdk/coercion';
+import { booleanAttribute, computed, contentChild, Directive, inject, input } from '@angular/core';
 import { BrnFieldControl } from '@spartan-ng/brain/field';
 import { classes } from '@spartan-ng/helm/utils';
 
@@ -7,31 +8,28 @@ import { classes } from '@spartan-ng/helm/utils';
 	host: {
 		'data-slot': 'input-group',
 		role: 'group',
+		'[attr.data-matches-spartan-invalid]': '_spartanInvalid() ? "true" : null',
 	},
 })
 export class HlmInputGroup {
 	private readonly _fieldControl = inject(BrnFieldControl, { optional: true });
 	private readonly _fieldControlChild = contentChild(BrnFieldControl);
 
-	private readonly _spartanInvalid = computed(() => {
+	/** Whether to force the input-group into an invalid state. */
+	public readonly forceInvalid = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
+
+	protected readonly _spartanInvalid = computed(() => {
+		if (this.forceInvalid()) return true;
+
 		if (this._fieldControl) return this._fieldControl.spartanInvalid();
 
 		return this._fieldControlChild()?.spartanInvalid();
 	});
 
 	constructor() {
-		classes(() => [
-			'group/input-group border-input dark:bg-input/30 relative flex w-full items-center rounded-md border shadow-xs transition-[color,box-shadow] outline-none',
-			'h-9 min-w-0 has-[>textarea]:h-auto',
-			// Variants based on alignment.
-			'has-[>[data-align=inline-start]]:[&>input]:ps-2',
-			'has-[>[data-align=inline-end]]:[&>input]:pe-2',
-			'has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>[data-align=block-start]]:[&>input]:pb-3',
-			'has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3',
-			'has-[[data-slot=input-group-control]:focus-visible]:ring-[3px]',
-			this._spartanInvalid?.()
-				? 'has-[>[data-matches-spartan-invalid=true]]:ring-destructive/20 has-[>[data-matches-spartan-invalid=true]]:border-destructive dark:has-[>[data-matches-spartan-invalid=true]]:ring-destructive/40'
-				: 'has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-ring/50',
-		]);
+		classes(
+			() =>
+				'group/input-group spartan-input-group relative flex w-full min-w-0 items-center outline-none has-[>textarea]:h-auto',
+		);
 	}
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideLink2 } from '@ng-icons/lucide';
 import { HlmButtonGroupImports } from '@spartan-ng/helm/button-group';
@@ -9,27 +9,22 @@ import { HlmLabelImports } from '@spartan-ng/helm/label';
 @Component({
 	selector: 'spartan-input-group-button-group-preview',
 	imports: [HlmInputGroupImports, HlmButtonGroupImports, HlmLabelImports, HlmIconImports],
-	providers: [
-		provideIcons({
-			lucideLink2,
-		}),
-	],
-	host: {
-		class: 'grid w-full max-w-sm gap-6',
-	},
+	providers: [provideIcons({ lucideLink2 })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: { class: 'grid w-full max-w-sm gap-6' },
 	template: `
-		<div hlmButtonGroup>
-			<div hlmButtonGroupText>
+		<hlm-button-group>
+			<hlm-button-group-text>
 				<label hlmLabel for="url">https://</label>
-			</div>
-			<div hlmInputGroup>
+			</hlm-button-group-text>
+			<hlm-input-group>
 				<input hlmInputGroupInput id="url" />
-				<div hlmInputGroupAddon align="inline-end">
+				<hlm-input-group-addon align="inline-end">
 					<ng-icon name="lucideLink2" />
-				</div>
-			</div>
-			<div hlmButtonGroupText>.com</div>
-		</div>
+				</hlm-input-group-addon>
+			</hlm-input-group>
+			<hlm-button-group-text>.com</hlm-button-group-text>
+		</hlm-button-group>
 	`,
 })
 export class InputGroupButtonGroupPreview {}

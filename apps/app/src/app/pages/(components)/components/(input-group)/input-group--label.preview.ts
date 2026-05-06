@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideInfo } from '@ng-icons/lucide';
 import { HlmIconImports } from '@spartan-ng/helm/icon';
@@ -9,25 +9,20 @@ import { HlmTooltipImports } from '@spartan-ng/helm/tooltip';
 @Component({
 	selector: 'spartan-input-group-label-preview',
 	imports: [HlmInputGroupImports, HlmIconImports, HlmTooltipImports, HlmLabelImports],
-	providers: [
-		provideIcons({
-			lucideInfo,
-		}),
-	],
-	host: {
-		class: 'grid w-full max-w-sm gap-6',
-	},
+	providers: [provideIcons({ lucideInfo })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: { class: 'grid w-full max-w-sm gap-6' },
 	template: `
-		<div hlmInputGroup>
+		<hlm-input-group>
 			<input hlmInputGroupInput id="email" placeholder="spartan" />
-			<div hlmInputGroupAddon>
+			<hlm-input-group-addon>
 				<label for="email" hlmLabel>&#64;</label>
-			</div>
-		</div>
+			</hlm-input-group-addon>
+		</hlm-input-group>
 
-		<div hlmInputGroup>
+		<hlm-input-group>
 			<input hlmInputGroupInput id="email-2" placeholder="spartan-ng@github.com" />
-			<div hlmInputGroupAddon align="block-start">
+			<hlm-input-group-addon align="block-start">
 				<label for="email-2" class="text-foreground" hlmLabel>Email</label>
 				<button
 					hlmInputGroupButton
@@ -40,8 +35,8 @@ import { HlmTooltipImports } from '@spartan-ng/helm/tooltip';
 					<ng-icon name="lucideInfo" />
 				</button>
 				<ng-template #tooltip>We'll use this to send you notifications</ng-template>
-			</div>
-		</div>
+			</hlm-input-group-addon>
+		</hlm-input-group>
 	`,
 })
 export class InputGroupLabelPreview {}

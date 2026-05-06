@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 
@@ -8,45 +8,37 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 @Component({
 	selector: 'spartan-input-group-textarea-preview',
 	imports: [HlmInputGroupImports, HlmIconImports],
-	providers: [
-		provideIcons({
-			tablerBrandJavascript,
-			tablerCopy,
-			tablerCornerDownLeft,
-			tablerRefresh,
-		}),
-	],
-	host: {
-		class: 'grid w-full max-w-sm gap-6',
-	},
+	providers: [provideIcons({ tablerBrandJavascript, tablerCopy, tablerCornerDownLeft, tablerRefresh })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: { class: 'grid w-full max-w-sm gap-6' },
 	template: `
-		<div hlmInputGroup>
+		<hlm-input-group>
 			<textarea
 				hlmInputGroupTextarea
 				id="textarea-code-32"
 				placeholder="console.log('Hello, world!');"
-				class="min-h-[200px]"
+				class="min-h-50"
 			></textarea>
-			<div hlmInputGroupAddon align="block-end" class="border-t">
-				<span hlmInputGroupText>Line 1, Column 1</span>
+			<hlm-input-group-addon align="block-end" class="border-t">
+				<hlm-input-group-text>Line 1, Column 1</hlm-input-group-text>
 				<button hlmInputGroupButton size="sm" class="ml-auto" variant="default">
 					Run
 					<ng-icon name="tablerCornerDownLeft" />
 				</button>
-			</div>
-			<div hlmInputGroupAddon align="block-start" class="border-b">
-				<span hlmInputGroupText class="font-mono font-medium">
+			</hlm-input-group-addon>
+			<hlm-input-group-addon align="block-start" class="border-b">
+				<hlm-input-group-text class="font-mono font-medium">
 					<ng-icon name="tablerBrandJavascript" />
 					script.js
-				</span>
+				</hlm-input-group-text>
 				<button hlmInputGroupButton class="ml-auto" size="icon-xs">
 					<ng-icon name="tablerRefresh" />
 				</button>
 				<button hlmInputGroupButton variant="ghost" size="icon-xs">
 					<ng-icon name="tablerCopy" />
 				</button>
-			</div>
-		</div>
+			</hlm-input-group-addon>
+		</hlm-input-group>
 	`,
 })
 export class InputGroupTextareaPreview {}

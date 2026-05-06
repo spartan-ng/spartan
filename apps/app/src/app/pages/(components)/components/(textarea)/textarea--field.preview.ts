@@ -3,15 +3,16 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 import { HlmTextareaImports } from '@spartan-ng/helm/textarea';
 
 @Component({
-	selector: 'spartan-textarea-disabled',
+	selector: 'spartan-textarea-field',
 	imports: [HlmTextareaImports, HlmFieldImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: { class: 'min-w-sm' },
 	template: `
-		<hlm-field data-disabled="true">
-			<label hlmFieldLabel for="textarea-disabled">Message</label>
-			<textarea hlmTextarea id="textarea-disabled" placeholder="Type your message here." disabled></textarea>
+		<hlm-field>
+			<label hlmFieldLabel for="textarea-message">Message</label>
+			<hlm-field-description>Enter your message below.</hlm-field-description>
+			<textarea hlmTextarea id="textarea-message" placeholder="Type your message here."></textarea>
 		</hlm-field>
 	`,
 })
-export class TextareaDisabledPreview {}
+export class TextareaField {}

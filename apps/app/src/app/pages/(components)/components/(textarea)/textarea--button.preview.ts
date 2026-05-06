@@ -1,14 +1,15 @@
-import { Component } from '@angular/core';
-import { HlmButton } from '@spartan-ng/helm/button';
-import { HlmLabelImports } from '@spartan-ng/helm/label';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmTextareaImports } from '@spartan-ng/helm/textarea';
 
 @Component({
 	selector: 'spartan-textarea-button',
-	imports: [HlmTextareaImports, HlmLabelImports, HlmButton],
+	imports: [HlmTextareaImports, HlmButtonImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: { class: 'min-w-sm' },
 	template: `
-		<div class="w-fill grid gap-2">
-			<textarea hlmTextarea class="w-80" placeholder="Type ypur message here."></textarea>
+		<div class="grid w-full gap-2">
+			<textarea hlmTextarea placeholder="Type your message here."></textarea>
 			<button hlmBtn>Send message</button>
 		</div>
 	`,

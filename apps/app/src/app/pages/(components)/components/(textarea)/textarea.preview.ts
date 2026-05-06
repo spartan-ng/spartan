@@ -1,11 +1,13 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { HlmTextareaImports } from '@spartan-ng/helm/textarea';
 
 @Component({
 	selector: 'spartan-textarea-preview',
 	imports: [HlmTextareaImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: { class: 'min-w-sm' },
 	template: `
-		<textarea hlmTextarea class="w-80" placeholder="Type your message here."></textarea>
+		<textarea hlmTextarea placeholder="Type your message here."></textarea>
 	`,
 })
 export class TextareaPreview {}

@@ -10,33 +10,8 @@ import {
 	lucideSearch,
 	lucideSettings,
 } from '@ng-icons/lucide';
-import { BrnSeparator } from '@spartan-ng/brain/separator';
 import { HlmIcon } from '@spartan-ng/helm/icon';
-import {
-	HlmSidebar,
-	HlmSidebarContent,
-	HlmSidebarFooter,
-	HlmSidebarGroup,
-	HlmSidebarGroupAction,
-	HlmSidebarGroupContent,
-	HlmSidebarGroupLabel,
-	HlmSidebarHeader,
-	HlmSidebarImports,
-	HlmSidebarInput,
-	HlmSidebarInset,
-	// HlmSidebarInset,
-	HlmSidebarMenu,
-	HlmSidebarMenuAction,
-	HlmSidebarMenuBadge,
-	HlmSidebarMenuButton,
-	HlmSidebarMenuItem,
-	HlmSidebarMenuSub,
-	HlmSidebarMenuSubButton,
-	HlmSidebarRail,
-	HlmSidebarSeparator,
-	HlmSidebarTrigger,
-	HlmSidebarWrapper,
-} from '@spartan-ng/helm/sidebar';
+import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 import { type Meta, moduleMetadata, type StoryObj } from '@storybook/angular';
 
 const meta: Meta<{}> = {
@@ -55,33 +30,7 @@ type Story = StoryObj<{}>;
 
 @Component({
 	selector: 'sidebar',
-	standalone: true,
-	imports: [
-		HlmSidebar,
-		HlmSidebarHeader,
-		HlmSidebarContent,
-		HlmSidebarFooter,
-		HlmSidebarMenu,
-		HlmSidebarMenuBadge,
-		HlmSidebarMenuItem,
-		HlmSidebarMenuButton,
-		HlmSidebarTrigger,
-		HlmSidebarRail,
-		HlmIcon,
-		HlmSidebarGroup,
-		HlmSidebarGroupLabel,
-		HlmSidebarGroupContent,
-		HlmSidebarSeparator,
-		BrnSeparator,
-		HlmSidebarGroupAction,
-		HlmSidebarInput,
-		HlmSidebarWrapper,
-		HlmSidebarInset,
-		HlmSidebarMenuAction,
-		HlmSidebarMenuSub,
-		HlmSidebarMenuSubButton,
-		NgIcon,
-	],
+	imports: [HlmSidebarImports, HlmIcon, NgIcon],
 	providers: [
 		provideIcons({
 			lucideHouse,
@@ -166,7 +115,7 @@ type Story = StoryObj<{}>;
 										<span>Calendar</span>
 									</button>
 								</li>
-								<brn-separator hlmSidebarSeparator />
+								<hlm-sidebar-separator />
 
 								<!-- Search -->
 								<li hlmSidebarMenuItem>
@@ -269,33 +218,7 @@ export const Default: Story = {
 
 @Component({
 	selector: 'sidebar',
-	standalone: true,
-	imports: [
-		HlmSidebar,
-		HlmSidebarHeader,
-		HlmSidebarContent,
-		HlmSidebarFooter,
-		HlmSidebarMenu,
-		HlmSidebarMenuBadge,
-		HlmSidebarMenuItem,
-		HlmSidebarMenuButton,
-		HlmSidebarTrigger,
-		HlmSidebarRail,
-		HlmIcon,
-		HlmSidebarGroup,
-		HlmSidebarGroupLabel,
-		HlmSidebarGroupContent,
-		HlmSidebarSeparator,
-		BrnSeparator,
-		HlmSidebarGroupAction,
-		HlmSidebarInput,
-		HlmSidebarWrapper,
-		HlmSidebarInset,
-		HlmSidebarMenuAction,
-		HlmSidebarMenuSub,
-		HlmSidebarMenuSubButton,
-		NgIcon,
-	],
+	imports: [HlmSidebarImports, HlmIcon, NgIcon],
 	providers: [
 		provideIcons({
 			lucideHouse,
@@ -386,7 +309,7 @@ export const Default: Story = {
 										<span>Calendar</span>
 									</button>
 								</li>
-								<brn-separator hlmSidebarSeparator />
+								<hlm-sidebar-separator />
 
 								<!-- Search -->
 								<li hlmSidebarMenuItem>

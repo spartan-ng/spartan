@@ -3,16 +3,19 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 import { HlmInputImports } from '@spartan-ng/helm/input';
 
 @Component({
-	selector: 'spartan-input-file',
+	selector: 'spartan-input-required',
 	imports: [HlmInputImports, HlmFieldImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: { class: 'min-w-sm' },
 	template: `
 		<hlm-field>
-			<label hlmFieldLabel for="picture">Picture</label>
-			<input hlmInput id="picture" type="file" />
-			<hlm-field-description>Select a picture to upload.</hlm-field-description>
+			<label hlmFieldLabel for="input-required">
+				Required Field
+				<span class="text-destructive">*</span>
+			</label>
+			<input hlmInput id="input-required" required placeholder="This field is required" />
+			<hlm-field-description>This field must be filled out.</hlm-field-description>
 		</hlm-field>
 	`,
 })
-export class InputFilePreview {}
+export class InputRequired {}

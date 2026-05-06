@@ -4,7 +4,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmSidebarSeparator],hlm-sidebar-separator',
-	hostDirectives: [{ directive: HlmSeparator }],
+	hostDirectives: [HlmSeparator],
 	host: {
 		'data-slot': 'sidebar-separator',
 		'data-sidebar': 'separator',
@@ -12,6 +12,6 @@ import { classes } from '@spartan-ng/helm/utils';
 })
 export class HlmSidebarSeparator {
 	constructor() {
-		classes(() => 'bg-sidebar-border mx-2 w-auto');
+		classes(() => 'spartan-sidebar-separator w-auto');
 	}
 }

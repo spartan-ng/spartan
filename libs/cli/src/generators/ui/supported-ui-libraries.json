@@ -234,16 +234,14 @@
 		"peerDependencies": {
 			"@angular/core": ">=20.0.0 <22.0.0",
 			"@angular/forms": ">=20.0.0 <22.0.0",
-			"@spartan-ng/brain": "0.0.1-alpha.685",
-			"class-variance-authority": "^0.7.0"
+			"@spartan-ng/brain": "0.0.1-alpha.685"
 		}
 	},
 	"input-group": {
 		"name": "input-group",
 		"peerDependencies": {
 			"@angular/core": ">=20.0.0 <22.0.0",
-			"class-variance-authority": "^0.7.0",
-			"@spartan-ng/brain": "0.0.1-alpha.685"
+			"class-variance-authority": "^0.7.0"
 		}
 	},
 	"input-otp": {
@@ -466,8 +464,7 @@
 		"peerDependencies": {
 			"@angular/core": ">=20.0.0 <22.0.0",
 			"@angular/forms": ">=20.0.0 <22.0.0",
-			"@spartan-ng/brain": "0.0.1-alpha.685",
-			"class-variance-authority": "^0.7.0"
+			"@spartan-ng/brain": "0.0.1-alpha.685"
 		}
 	},
 	"toggle": {

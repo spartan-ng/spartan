@@ -11,7 +11,7 @@ import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 	host: { class: 'max-w-sm' },
 	template: `
 		<hlm-input-group>
-			<input hlmInputGroupInput placeholder="Search..." />
+			<input hlmInputGroupInput forceInvalid placeholder="Search..." />
 			<hlm-input-group-addon>
 				<ng-icon name="lucideSearch" />
 			</hlm-input-group-addon>

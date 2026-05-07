@@ -3129,13 +3129,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
   "input-group": {
     "helm": {
       "HlmInputGroup": {
-        "inputs": [
-          {
-            "name": "forceInvalid",
-            "required": false,
-            "type": "boolean",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmInputGroup],hlm-input-group",

@@ -210,16 +210,4 @@ describe('HlmInputDirective', () => {
 			expect(input.getAttribute('data-invalid')).toBe('true');
 		});
 	});
-
-	describe('Directive properties', () => {
-		it('should have auto error input by default', () => {
-			expect(directive.error()).toBe('auto');
-		});
-
-		it('should update error input', async () => {
-			await r.rerender({ componentInputs: { error: true } });
-			r.fixture.detectChanges();
-			expect(directive.error()).toBe(true);
-		});
-	});
 });

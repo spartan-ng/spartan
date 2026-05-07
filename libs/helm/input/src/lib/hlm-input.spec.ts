@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, input, type OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { By } from '@angular/platform-browser';
 import { render, type RenderResult } from '@testing-library/angular';
 import { HlmInput } from './hlm-input';
 
@@ -10,12 +9,11 @@ import { HlmInput } from './hlm-input';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<form [formGroup]="form">
-			<input hlmInput formControlName="testField" [class]="userClass()" [error]="error()" />
+			<input hlmInput formControlName="testField" [class]="userClass()" />
 		</form>
 	`,
 })
 class HlmInputMock implements OnInit {
-	public readonly error = input<'auto' | true>('auto');
 	public readonly userClass = input('');
 	public readonly required = input(true);
 
@@ -33,25 +31,16 @@ class HlmInputMock implements OnInit {
 describe('HlmInputDirective', () => {
 	let r: RenderResult<HlmInputMock>;
 	let input: HTMLInputElement;
-	let directive: HlmInput;
 
 	beforeEach(async () => {
 		r = await render(HlmInputMock);
 		input = r.container.querySelector('input')!;
-		directive = r.fixture.debugElement.query(By.directive(HlmInput)).injector.get(HlmInput);
 	});
 
 	describe('Error state and styling', () => {
 		it('should have auto error classes by default', () => {
 			const hasAutoErrorClass = input.className.includes('data-[matches-spartan-invalid=true]:border-destructive');
 			expect(hasAutoErrorClass).toBe(true);
-		});
-
-		it('should apply manual error styling when error is true', async () => {
-			await r.rerender({ componentInputs: { error: true } });
-			r.fixture.detectChanges();
-			expect(input.classList.contains('border-destructive')).toBe(true);
-			expect(input.classList.contains('focus-visible:ring-destructive/20')).toBe(true);
 		});
 
 		it('should not show error state initially for untouched invalid field', async () => {

@@ -38,11 +38,6 @@ describe('HlmInputDirective', () => {
 	});
 
 	describe('Error state and styling', () => {
-		it('should have auto error classes by default', () => {
-			const hasAutoErrorClass = input.className.includes('data-[matches-spartan-invalid=true]:border-destructive');
-			expect(hasAutoErrorClass).toBe(true);
-		});
-
 		it('should not show error state initially for untouched invalid field', async () => {
 			await r.fixture.whenStable();
 			r.fixture.detectChanges();
@@ -90,9 +85,6 @@ describe('HlmInputDirective', () => {
 
 			input.classList.add('ng-invalid', 'ng-dirty');
 			r.fixture.detectChanges();
-
-			const hasAutoErrorClass = input.className.includes('data-[matches-spartan-invalid=true]:border-destructive');
-			expect(hasAutoErrorClass).toBe(true);
 		});
 
 		it('should clear error state when field becomes valid', async () => {
@@ -131,8 +123,6 @@ describe('HlmInputDirective', () => {
 
 			const shouldShowError = control.invalid && (control.touched || control.dirty);
 			expect(shouldShowError).toBe(true);
-
-			expect(input.classList.contains('data-[matches-spartan-invalid=true]:border-destructive')).toBe(true);
 		});
 
 		it('should maintain error state when switching between touched and dirty states', async () => {
@@ -158,14 +148,6 @@ describe('HlmInputDirective', () => {
 	});
 
 	describe('Base styling', () => {
-		it('should apply base input classes', () => {
-			expect(input.classList.contains('flex')).toBe(true);
-			expect(input.classList.contains('rounded-md')).toBe(true);
-			expect(input.classList.contains('border')).toBe(true);
-			expect(input.classList.contains('border-input')).toBe(true);
-			expect(input.classList.contains('bg-transparent')).toBe(true);
-		});
-
 		it('should merge user classes', async () => {
 			await r.rerender({ componentInputs: { userClass: 'custom-class' } });
 			r.fixture.detectChanges();

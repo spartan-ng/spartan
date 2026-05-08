@@ -107,7 +107,7 @@ export class BrnDialog<TResult = unknown, TContext extends Record<string, unknow
 
 	constructor() {
 		afterNextRender(() => {
-			effect(
+			const ref = effect(
 				() => {
 					const state = this.state();
 					if (state === 'open') {
@@ -121,6 +121,7 @@ export class BrnDialog<TResult = unknown, TContext extends Record<string, unknow
 					injector: this._injector,
 				},
 			);
+			this._dialogStateEffectRefs.push(ref);
 		});
 	}
 

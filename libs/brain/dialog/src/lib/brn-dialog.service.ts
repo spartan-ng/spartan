@@ -31,7 +31,6 @@ import type { BrnDialogOptions } from './brn-dialog-options';
 import { BrnDialogRef } from './brn-dialog-ref';
 import type { BrnDialogState } from './brn-dialog-state';
 import { injectBrnDialogDefaultOptions } from './brn-dialog-token';
-import { cssClassesToArray } from './brn-dialog-utils';
 
 let dialogSequence = 0;
 
@@ -105,8 +104,8 @@ export class BrnDialogService {
 			}),
 			data: contextOrData,
 			hasBackdrop: options?.hasBackdrop ?? this._defaultOptions.hasBackdrop,
-			panelClass: cssClassesToArray(options?.panelClass),
-			backdropClass: cssClassesToArray(options?.backdropClass),
+			panelClass: options?.panelClass,
+			backdropClass: options?.backdropClass,
 			positionStrategy,
 			scrollStrategy: options?.scrollStrategy ?? this._defaultOptions.scrollStrategy ?? this._sso?.block(),
 			restoreFocus: options?.restoreFocus ?? this._defaultOptions.restoreFocus,

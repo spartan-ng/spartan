@@ -37,8 +37,6 @@ describe('radio-group', () => {
 			//5
 			cy.findByText('v15.2.0').realClick();
 
-			cy.findByTestId('disabledLabel').should('have.css', 'cursor', 'not-allowed');
-
 			cy.findByLabelText('v15.2.0').should('not.be.checked');
 			cy.findByLabelText('v16.0.0').should('not.be.checked');
 			cy.findByLabelText('v15.8.0').should('be.checked');

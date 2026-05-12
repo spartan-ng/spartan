@@ -1,6 +1,7 @@
 import { type BooleanInput, type NumberInput } from '@angular/cdk/coercion';
 import { OverlayPositionBuilder, type ScrollStrategy, ScrollStrategyOptions } from '@angular/cdk/overlay';
 import {
+	afterNextRender,
 	booleanAttribute,
 	computed,
 	DestroyRef,
@@ -25,6 +26,7 @@ import type { BrnDialogOptions } from './brn-dialog-options';
 import type { BrnDialogRef } from './brn-dialog-ref';
 import type { BrnDialogState } from './brn-dialog-state';
 import { injectBrnDialogDefaultOptions } from './brn-dialog-token';
+import { cssClassesToArray } from './brn-dialog-utils';
 import { BrnDialogService } from './brn-dialog.service';
 
 @Directive({
@@ -94,8 +96,8 @@ export class BrnDialog<TResult = unknown, TContext extends Record<string, unknow
 			autoFocus: this.autoFocus(),
 			closeDelay: this.closeDelay(),
 			disableClose: this.disableClose(),
-			backdropClass: this._backdropClass() ?? '',
-			panelClass: this._panelClass() ?? '',
+			backdropClass: cssClassesToArray(this._backdropClass() ?? this._defaultOptions.backdropClass),
+			panelClass: cssClassesToArray(this._panelClass() ?? this._defaultOptions.panelClass),
 			ariaDescribedBy: this._mutableAriaDescribedBy(),
 			ariaLabelledBy: this._mutableAriaLabelledBy(),
 			ariaLabel: this._mutableAriaLabel(),
@@ -104,14 +106,21 @@ export class BrnDialog<TResult = unknown, TContext extends Record<string, unknow
 	});
 
 	constructor() {
-		effect(() => {
-			const state = this.state();
-			if (state === 'open') {
-				untracked(() => this.open());
-			}
-			if (state === 'closed') {
-				untracked(() => this.close());
-			}
+		afterNextRender(() => {
+			effect(
+				() => {
+					const state = this.state();
+					if (state === 'open') {
+						untracked(() => this.open());
+					}
+					if (state === 'closed') {
+						untracked(() => this.close());
+					}
+				},
+				{
+					injector: this._injector,
+				},
+			);
 		});
 	}
 

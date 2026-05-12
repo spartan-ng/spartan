@@ -57,7 +57,7 @@ export const defaultOptions: BrnDialogDefaultOptions = {
 	attachPositions: [],
 	attachTo: null,
 	autoFocus: 'first-tabbable',
-	backdropClass: 'bg-transparent',
+	backdropClass: '',
 	closeDelay: 100,
 	closeOnBackdropClick: true,
 	closeOnOutsidePointerEvents: false,

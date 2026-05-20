@@ -798,6 +798,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       "BrnCalendar": {
         "inputs": [
           {
+            "name": "highlightDays",
+            "required": false,
+            "type": "T[]",
+          },
+          {
             "name": "min",
             "required": false,
             "type": "T",
@@ -882,6 +887,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       "BrnCalendarMulti": {
         "inputs": [
           {
+            "name": "highlightDays",
+            "required": false,
+            "type": "T[]",
+          },
+          {
             "name": "min",
             "required": false,
             "type": "T",
@@ -945,6 +955,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       },
       "BrnCalendarRange": {
         "inputs": [
+          {
+            "name": "highlightDays",
+            "required": false,
+            "type": "T[]",
+          },
           {
             "name": "min",
             "required": false,
@@ -1017,6 +1032,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "ClassValue",
           },
           {
+            "name": "highlightDays",
+            "required": false,
+            "type": "T[]",
+          },
+          {
             "name": "min",
             "required": false,
             "type": "T",
@@ -1067,6 +1087,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "name": "calendarClass",
             "required": false,
             "type": "ClassValue",
+          },
+          {
+            "name": "highlightDays",
+            "required": false,
+            "type": "T[]",
           },
           {
             "name": "min",
@@ -1129,6 +1154,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "name": "calendarClass",
             "required": false,
             "type": "ClassValue",
+          },
+          {
+            "name": "highlightDays",
+            "required": false,
+            "type": "T[]",
           },
           {
             "name": "min",

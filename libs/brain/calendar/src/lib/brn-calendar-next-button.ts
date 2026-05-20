@@ -7,6 +7,7 @@ import { injectBrnCalendarI18n } from './i18n/calendar-i18n';
 	selector: '[brnCalendarNextButton]',
 	host: {
 		type: 'button',
+		'data-slot': 'calendar-next-button',
 		'[attr.aria-label]': '_i18n.config().labelNext()',
 		'(click)': 'focusNextMonth()',
 	},

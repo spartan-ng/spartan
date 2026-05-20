@@ -1,0 +1,26 @@
+{
+	"name": "ui-mcp",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "libs/ui-mcp/src",
+	"projectType": "library",
+	"tags": [],
+	"targets": {
+		"build": {
+			"executor": "@nx/js:tsc",
+			"outputs": ["{options.outputPath}"],
+			"options": {
+				"outputPath": "dist/libs/ui-mcp",
+				"main": "libs/ui-mcp/src/index.ts",
+				"tsConfig": "libs/ui-mcp/tsconfig.lib.json",
+				"assets": ["libs/ui-mcp/*.md"]
+			}
+		},
+		"test": {
+			"executor": "@nx/jest:jest",
+			"outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+			"options": {
+				"jestConfig": "libs/ui-mcp/jest.config.ts"
+			}
+		}
+	}
+}

@@ -1,0 +1,11 @@
+{
+	"name": "@spartan-ng/ui-mcp",
+	"version": "0.0.1",
+	"private": true,
+	"type": "module",
+	"main": "./src/index.js",
+	"types": "./src/index.d.ts",
+	"bin": {
+		"spartan-ui-mcp": "./src/server.js"
+	}
+}

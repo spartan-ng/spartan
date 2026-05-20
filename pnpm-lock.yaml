@@ -32153,7 +32153,7 @@ snapshots:
       colorette: 2.0.20
       compression: 1.8.0
       connect-history-api-fallback: 2.0.0
-      express: 4.21.2
+      express: 4.22.1
       graceful-fs: 4.2.11
       http-proxy-middleware: 2.0.9(@types/express@4.17.23)
       ipaddr.js: 2.2.0

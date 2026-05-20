@@ -7,6 +7,7 @@ import { injectBrnCalendarI18n } from './i18n/calendar-i18n';
 	selector: '[brnCalendarPreviousButton]',
 	host: {
 		type: 'button',
+		'data-slot': 'calendar-previous-button',
 		'[attr.aria-label]': '_i18n.config().labelPrevious()',
 		'(click)': 'focusPreviousMonth()',
 	},

@@ -48,10 +48,9 @@ export class BrnCalendarCellButton<T> {
 	public readonly start = computed(() => this._calendar.isStartOfRange(this.date()));
 	public readonly end = computed(() => this._calendar.isEndOfRange(this.date()));
 	public readonly betweenRange = computed(() => this._calendar.isBetweenRange(this.date()));
-	public readonly highlighted = computed(() => {
-		console.log(this._calendar.highlightDays());
-		return this._calendar.highlightDays().some((d) => this._dateAdapter.isSameDay(this.date(), d));
-	});
+	public readonly highlighted = computed(() =>
+		this._calendar.highlightDays().some((d) => this._dateAdapter.isSameDay(this.date(), d)),
+	);
 
 	/** Whether this date is focusable */
 	public readonly focusable = computed(() => this._dateAdapter.isSameDay(this._calendar.focusedDate(), this.date()));

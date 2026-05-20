@@ -82,7 +82,7 @@ export function registerComponentTools(server: McpServer): void {
         format: z
           .enum(["html"])
           .default("html")
-          .describe("Return format: raw HTML or plain text."),
+          .describe("Return format: raw HTML."),
         extract: z
           .enum(["code", "api"])
           .default("code")

@@ -66,6 +66,9 @@ export class BrnCalendarMulti<T> implements BrnCalendarBase<T> {
 	/** Access the injector */
 	private readonly _injector = inject(Injector);
 
+	/** The days to highlight. */
+	public readonly highlightDays = input<T[]>([]);
+
 	/** The minimum date that can be selected.*/
 	public readonly min = input<T>();
 

@@ -1,10 +1,11 @@
 import {
 	type ExistingProvider,
+	inject,
 	InjectionToken,
+	type InputSignal,
 	type Signal,
 	type Type,
 	type WritableSignal,
-	inject,
 } from '@angular/core';
 import type { BrnCalendarHeader } from './brn-calendar-header';
 
@@ -24,6 +25,7 @@ export interface BrnCalendarBase<T> {
 	focusedDate: WritableSignal<T>;
 	header: Signal<BrnCalendarHeader | undefined>;
 	days: Signal<T[]>;
+	highlightDays: InputSignal<T[]>;
 }
 
 export const BrnCalendarToken = new InjectionToken<BrnCalendarBase<unknown>>('BrnCalendarToken');

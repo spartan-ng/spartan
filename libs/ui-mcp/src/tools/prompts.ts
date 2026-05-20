@@ -71,7 +71,7 @@ ${comp.outputs.length > 0 ? `**Outputs**:\n${comp.outputs.map((output) => `- \`$
 ## Quick Start Example
 
 \`\`\`typescript
-${firstExample}
+${typeof firstExample === "string" ? firstExample : firstExample?.code ?? ""}
 \`\`\`
 
 ## Installation

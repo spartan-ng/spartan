@@ -36,6 +36,7 @@ import type { ClassValue } from 'clsx';
 			[(date)]="date"
 			[dateDisabled]="dateDisabled()"
 			[weekStartsOn]="weekStartsOn()"
+			[highlightDays]="highlightDays()"
 			[defaultFocusedDate]="defaultFocusedDate()"
 			[class]="_computedCalenderClass()"
 		>
@@ -154,6 +155,9 @@ export class HlmCalendarMulti<T> {
 	/** Access the date time adapter */
 	protected readonly _dateAdapter = injectDateAdapter<T>();
 
+	/** The days to highlight. */
+	public readonly highlightDays = input<T[]>([]);
+
 	/** The minimum date that can be selected.*/
 	public readonly min = input<T>();
 
@@ -215,6 +219,15 @@ export class HlmCalendarMulti<T> {
 		'data-[selected]:bg-primary data-[selected]:text-primary-foreground data-[selected]:hover:bg-primary data-[selected]:hover:text-primary-foreground data-[selected]:focus:bg-primary data-[selected]:focus:text-primary-foreground',
 		'data-[disabled]:text-muted-foreground data-[disabled]:opacity-50',
 		'dark:hover:text-accent-foreground',
+		"data-[highlighted]:before:content-['']",
+		'data-[highlighted]:before:absolute',
+		'data-[highlighted]:before:bottom-1',
+		'data-[highlighted]:before:left-1/2',
+		'data-[highlighted]:before:h-1',
+		'data-[highlighted]:before:w-1',
+		'data-[highlighted]:before:-translate-x-1/2',
+		'data-[highlighted]:before:rounded-full',
+		'data-[highlighted]:before:bg-destructive',
 	);
 
 	protected readonly _selectClass = 'gap-0 px-1.5 py-2 [&>ng-icon]:ml-1';

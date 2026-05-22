@@ -279,6 +279,11 @@ export class BrnCalendarRange<T> implements BrnCalendarBase<T> {
 			return false;
 		}
 
-		return this._dateAdapter.isAfter(date, start) && this._dateAdapter.isBefore(date, end);
+		return (
+			this._dateAdapter.isAfter(date, start) &&
+			this._dateAdapter.isBefore(date, end) &&
+			!this._dateAdapter.isSameDay(date, start) &&
+			!this._dateAdapter.isSameDay(date, end)
+		);
 	}
 }

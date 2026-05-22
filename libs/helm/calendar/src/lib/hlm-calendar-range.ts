@@ -128,7 +128,7 @@ import type { ClassValue } from 'clsx';
 							@for (date of week; track _dateAdapter.getTime(date)) {
 								<td
 									brnCalendarCell
-									class="data-[selected]:data-[outside]:bg-accent/50 data-[selected]:bg-accent relative h-8 w-8 p-0 text-center text-sm focus-within:relative focus-within:z-20 first:data-[selected]:rounded-l-md last:data-[selected]:rounded-r-md [&:has([aria-selected].day-range-end)]:rounded-r-md"
+									class="data-[selected]:data-[outside]:bg-accent/50 data-[selected]:bg-accent has-data-[range-start]:after:bg-muted has-data-[range-end]:after:bg-muted relative h-8 w-8 p-0 text-center text-sm focus-within:relative focus-within:z-20 has-data-[range-end]:after:absolute has-data-[range-end]:after:inset-y-0 has-data-[range-end]:after:left-0 has-data-[range-end]:after:w-4 has-data-[range-start]:after:absolute has-data-[range-start]:after:inset-y-0 has-data-[range-start]:after:right-0 has-data-[range-start]:after:w-4 [&:first-child:has([data-range-between])>button]:rounded-l-md [&:last-child:has([data-range-between])>button]:rounded-r-md"
 								>
 									<button brnCalendarCellButton [date]="date" [class]="_btnClass">
 										{{ _dateAdapter.getDate(date) }}
@@ -201,13 +201,11 @@ export class HlmCalendarRange<T> {
 
 	protected readonly _btnClass = hlm(
 		buttonVariants({ variant: 'ghost' }),
-		'size-8 p-0 font-normal aria-selected:opacity-100',
+		'relative z-10 size-8 border-0 p-0 font-normal aria-selected:opacity-100',
 		'data-[outside]:text-muted-foreground data-[outside]:aria-selected:text-muted-foreground',
 		'data-[today]:bg-accent data-[today]:text-accent-foreground',
 		'data-[selected]:bg-primary data-[selected]:text-primary-foreground data-[selected]:focus:bg-primary data-[selected]:focus:text-primary-foreground',
 		'data-[disabled]:text-muted-foreground data-[disabled]:opacity-50',
-		'data-[range-start]:rounded-l-md',
-		'data-[range-end]:rounded-r-md',
 		'data-[range-between]:bg-accent data-[range-between]:text-accent-foreground data-[range-between]:rounded-none',
 		'dark:hover:text-accent-foreground',
 	);

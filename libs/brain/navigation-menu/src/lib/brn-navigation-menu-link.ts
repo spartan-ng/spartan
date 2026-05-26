@@ -19,7 +19,7 @@ import { injectBrnNavigationMenu } from './brn-navigation-menu.token';
 		'(click)': 'onClick()',
 		'(mouseenter)': 'activate()',
 		'(focus)': 'handleFocus()',
-		'[attr.data-active]': '_isActive() ? "" : undefined',
+		'[attr.data-active]': '_isActive() ? "true" : undefined',
 		'[attr.aria-current]': '_isActive() ? "page" : undefined',
 		'data-slot': 'navigation-menu-link',
 	},

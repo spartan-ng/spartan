@@ -1571,6 +1571,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "boolean",
           },
+          {
+            "name": "closeOnSelect",
+            "required": false,
+            "type": "boolean",
+          },
         ],
         "models": [
           {
@@ -1743,6 +1748,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           },
           {
             "name": "autoHighlight",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "closeOnSelect",
             "required": false,
             "type": "boolean",
           },

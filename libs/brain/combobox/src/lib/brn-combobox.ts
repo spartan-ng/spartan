@@ -93,6 +93,11 @@ export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor 
 		transform: booleanAttribute,
 	});
 
+	/** Whether to close the popover after selecting an item. */
+	public readonly closeOnSelect = input<boolean, BooleanInput>(this._config.closeOnSelect, {
+		transform: booleanAttribute,
+	});
+
 	/** The selected value of the combobox. */
 	public readonly value = model<T | null>(null);
 
@@ -180,7 +185,9 @@ export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor 
 	public select(itemValue: T): void {
 		this.value.set(itemValue);
 		this._onChange?.(itemValue);
-		this.close();
+		if (this.closeOnSelect()) {
+			this.close();
+		}
 	}
 
 	/** Select the active item with Enter key. */

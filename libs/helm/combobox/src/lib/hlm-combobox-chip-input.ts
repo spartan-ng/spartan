@@ -6,7 +6,7 @@ import { classes } from '@spartan-ng/helm/utils';
 	selector: 'input[hlmComboboxChipInput]',
 	hostDirectives: [{ directive: BrnComboboxChipInput, inputs: ['id', 'aria-invalid'] }],
 	host: {
-		'data-slott': 'combobox-chip-input',
+		'data-slot': 'combobox-chip-input',
 	},
 })
 export class HlmComboboxChipInput {

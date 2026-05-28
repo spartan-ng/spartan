@@ -97,6 +97,11 @@ export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueA
 		transform: booleanAttribute,
 	});
 
+	/** Whether to reset the search and close the popover after selecting an item when the search is active. */
+	public readonly closeOnSelect = input<boolean, BooleanInput>(this._config.closeOnSelect, {
+		transform: booleanAttribute,
+	});
+
 	/** The selected values of the combobox. */
 	public readonly value = model<T[] | null>(null);
 
@@ -193,7 +198,7 @@ export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueA
 			this.value.set([...selected, itemValue]);
 		}
 
-		if (this.search() !== '') {
+		if (this.closeOnSelect() && this.search() !== '') {
 			// reset search after selection and close popover
 			this.search.set('');
 			this.close();

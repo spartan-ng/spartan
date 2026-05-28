@@ -387,10 +387,6 @@ export interface APIInfo {
   examples: APIExample[];
 }
 
-function escapeRegExp(value: string): string {
-  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-}
-
 function normalizeInlineWhitespace(value: string): string {
   return value.replace(/\s+/g, " ").trim();
 }

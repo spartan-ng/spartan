@@ -3,9 +3,9 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import type { APIInfo, CodeBlock } from './utils.js';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const PROJECT_ROOT = path.resolve(__dirname, '../..');
+const filename = fileURLToPath(import.meta.url);
+const dirname = path.dirname(filename);
+const PROJECT_ROOT = path.resolve(dirname, '../..');
 
 interface CacheMetadata {
 	version: string;
@@ -91,25 +91,25 @@ interface VersionInfo {
  * Stores cached data in cache/{version}/ directory structure
  */
 export class CacheManager {
-	private cacheDir: string;
-	currentVersion: string | null;
-	private cacheMetadata: CacheMetadata | null;
+	private readonly _cacheDir: string;
+	public currentVersion: string | null;
+	private _cacheMetadata: CacheMetadata | null;
 
 	constructor() {
-		this.cacheDir = path.join(PROJECT_ROOT, 'cache');
+		this._cacheDir = path.join(PROJECT_ROOT, 'cache');
 		this.currentVersion = null;
-		this.cacheMetadata = null;
+		this._cacheMetadata = null;
 	}
 
 	async initialize(spartanVersion?: string): Promise<string> {
-		this.currentVersion = spartanVersion || 'latest';
+		this.currentVersion = spartanVersion ? this.validateVersion(spartanVersion) : 'latest';
 		await this.ensureCacheDir();
 		await this.loadMetadata();
 		return this.currentVersion;
 	}
 
 	async ensureCacheDir(): Promise<void> {
-		const versionDir = path.join(this.cacheDir, this.currentVersion!);
+		const versionDir = path.join(this._cacheDir, this.currentVersion!);
 		const componentsDir = path.join(versionDir, 'components');
 		const docsDir = path.join(versionDir, 'docs');
 		const blocksDir = path.join(versionDir, 'blocks');
@@ -120,13 +120,13 @@ export class CacheManager {
 	}
 
 	async loadMetadata(): Promise<void> {
-		const metadataPath = path.join(this.cacheDir, this.currentVersion!, 'metadata.json');
+		const metadataPath = path.join(this._cacheDir, this.currentVersion!, 'metadata.json');
 
 		try {
 			const data = await fs.readFile(metadataPath, 'utf-8');
-			this.cacheMetadata = JSON.parse(data);
+			this._cacheMetadata = JSON.parse(data);
 		} catch {
-			this.cacheMetadata = {
+			this._cacheMetadata = {
 				version: this.currentVersion!,
 				createdAt: new Date().toISOString(),
 				lastUpdated: new Date().toISOString(),
@@ -139,15 +139,15 @@ export class CacheManager {
 	}
 
 	async saveMetadata(): Promise<void> {
-		const metadataPath = path.join(this.cacheDir, this.currentVersion!, 'metadata.json');
-		await fs.writeFile(metadataPath, JSON.stringify(this.cacheMetadata, null, 2), 'utf-8');
+		const metadataPath = path.join(this._cacheDir, this.currentVersion!, 'metadata.json');
+		await fs.writeFile(metadataPath, JSON.stringify(this._cacheMetadata, null, 2), 'utf-8');
 	}
 
 	async getComponent(
 		componentName: string,
 		dataType = 'full',
 	): Promise<CacheResult<ComponentCacheEntry | ComponentFullData | string | APIInfo | CodeBlock[] | string[]>> {
-		const componentFile = path.join(this.cacheDir, this.currentVersion!, 'components', `${componentName}.json`);
+		const componentFile = path.join(this._cacheDir, this.currentVersion!, 'components', `${componentName}.json`);
 
 		try {
 			const data = await fs.readFile(componentFile, 'utf-8');
@@ -193,7 +193,7 @@ export class CacheManager {
 	}
 
 	async setComponent(componentName: string, data: Partial<ComponentCacheEntry>): Promise<void> {
-		const componentFile = path.join(this.cacheDir, this.currentVersion!, 'components', `${componentName}.json`);
+		const componentFile = path.join(this._cacheDir, this.currentVersion!, 'components', `${componentName}.json`);
 
 		const cacheEntry = {
 			...data,
@@ -204,16 +204,16 @@ export class CacheManager {
 
 		await fs.writeFile(componentFile, JSON.stringify(cacheEntry, null, 2), 'utf-8');
 
-		this.cacheMetadata!.components[componentName] = {
+		this._cacheMetadata!.components[componentName] = {
 			cachedAt: cacheEntry.cachedAt,
 			size: JSON.stringify(cacheEntry).length,
 		};
-		this.cacheMetadata!.lastUpdated = new Date().toISOString();
+		this._cacheMetadata!.lastUpdated = new Date().toISOString();
 		await this.saveMetadata();
 	}
 
 	async getDocs(topic: string): Promise<CacheResult<string | null>> {
-		const docsFile = path.join(this.cacheDir, this.currentVersion!, 'docs', `${topic}.json`);
+		const docsFile = path.join(this._cacheDir, this.currentVersion!, 'docs', `${topic}.json`);
 
 		try {
 			const data = await fs.readFile(docsFile, 'utf-8');
@@ -242,7 +242,7 @@ export class CacheManager {
 	}
 
 	async setDocs(topic: string, content: string): Promise<void> {
-		const docsFile = path.join(this.cacheDir, this.currentVersion!, 'docs', `${topic}.json`);
+		const docsFile = path.join(this._cacheDir, this.currentVersion!, 'docs', `${topic}.json`);
 
 		const cacheEntry: DocsCacheEntry = {
 			topic,
@@ -253,16 +253,16 @@ export class CacheManager {
 
 		await fs.writeFile(docsFile, JSON.stringify(cacheEntry, null, 2), 'utf-8');
 
-		this.cacheMetadata!.docs[topic] = {
+		this._cacheMetadata!.docs[topic] = {
 			cachedAt: cacheEntry.cachedAt,
 			size: JSON.stringify(cacheEntry).length,
 		};
-		this.cacheMetadata!.lastUpdated = new Date().toISOString();
+		this._cacheMetadata!.lastUpdated = new Date().toISOString();
 		await this.saveMetadata();
 	}
 
 	async getBlock(blockName: string): Promise<CacheResult<unknown>> {
-		const blockFile = path.join(this.cacheDir, this.currentVersion!, 'blocks', `${blockName}.json`);
+		const blockFile = path.join(this._cacheDir, this.currentVersion!, 'blocks', `${blockName}.json`);
 
 		try {
 			const data = await fs.readFile(blockFile, 'utf-8');
@@ -291,7 +291,7 @@ export class CacheManager {
 	}
 
 	async setBlock(blockName: string, data: Partial<BlockCacheEntry>): Promise<void> {
-		const blockFile = path.join(this.cacheDir, this.currentVersion!, 'blocks', `${blockName}.json`);
+		const blockFile = path.join(this._cacheDir, this.currentVersion!, 'blocks', `${blockName}.json`);
 
 		const cacheEntry: BlockCacheEntry = {
 			...data,
@@ -302,16 +302,16 @@ export class CacheManager {
 
 		await fs.writeFile(blockFile, JSON.stringify(cacheEntry, null, 2), 'utf-8');
 
-		this.cacheMetadata!.blocks![blockName] = {
+		this._cacheMetadata!.blocks![blockName] = {
 			cachedAt: cacheEntry.cachedAt,
 			size: JSON.stringify(cacheEntry).length,
 		};
-		this.cacheMetadata!.lastUpdated = new Date().toISOString();
+		this._cacheMetadata!.lastUpdated = new Date().toISOString();
 		await this.saveMetadata();
 	}
 
 	async clearVersion(): Promise<ClearResult> {
-		const versionDir = path.join(this.cacheDir, this.currentVersion!);
+		const versionDir = path.join(this._cacheDir, this.currentVersion!);
 
 		try {
 			await fs.rm(versionDir, { recursive: true, force: true });
@@ -334,11 +334,11 @@ export class CacheManager {
 
 	async clearAll(): Promise<ClearResult> {
 		try {
-			const versions = await fs.readdir(this.cacheDir);
+			const versions = await fs.readdir(this._cacheDir);
 			const clearedVersions: string[] = [];
 
 			for (const version of versions) {
-				const versionPath = path.join(this.cacheDir, version);
+				const versionPath = path.join(this._cacheDir, version);
 				const stats = await fs.stat(versionPath);
 
 				if (stats.isDirectory()) {
@@ -366,11 +366,11 @@ export class CacheManager {
 
 	async getStats(): Promise<StatsResult> {
 		try {
-			const versions = await fs.readdir(this.cacheDir);
+			const versions = await fs.readdir(this._cacheDir);
 			const versionStats: StatsResult['versions'] = [];
 
 			for (const version of versions) {
-				const versionPath = path.join(this.cacheDir, version);
+				const versionPath = path.join(this._cacheDir, version);
 				const stats = await fs.stat(versionPath);
 
 				if (stats.isDirectory()) {
@@ -415,11 +415,11 @@ export class CacheManager {
 
 	async listVersions(): Promise<VersionInfo[]> {
 		try {
-			const versions = await fs.readdir(this.cacheDir);
+			const versions = await fs.readdir(this._cacheDir);
 			const validVersions: VersionInfo[] = [];
 
 			for (const version of versions) {
-				const versionPath = path.join(this.cacheDir, version);
+				const versionPath = path.join(this._cacheDir, version);
 				const stats = await fs.stat(versionPath);
 
 				if (stats.isDirectory()) {
@@ -438,6 +438,9 @@ export class CacheManager {
 	}
 
 	private validateVersion(version: string): string {
+		if (!version || version === '.' || version === '..') {
+			throw new Error(`Invalid version: "${version}". Version cannot be empty, '.', or '..'.`);
+		}
 		if (!/^[\w.-]+$/.test(version)) {
 			throw new Error(`Invalid version: "${version}". Only alphanumeric, dash, underscore, and dot characters are allowed.`);
 		}

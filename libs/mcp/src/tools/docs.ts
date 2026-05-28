@@ -91,7 +91,7 @@ export function registerDocsTools(server: McpServer): void {
           ],
         };
       }
-      const html = await fetchContent(url, "html", noCache);
+      const html = content;
       let extracted: unknown[];
       if (extract === "code") extracted = extractCodeBlocks(html);
       else if (extract === "headings") extracted = extractHeadings(html);

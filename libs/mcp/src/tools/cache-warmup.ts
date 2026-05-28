@@ -1,3 +1,4 @@
+import { pathToFileURL } from "url";
 import { cacheManager } from "./cache.js";
 import {
   fetchContent,
@@ -26,7 +27,7 @@ interface WarmupResult {
   duration: number;
 }
 
-async function warmComponent(componentName: string, _version: string): Promise<{ success: boolean; component: string; error?: string }> {
+async function warmComponent(componentName: string): Promise<{ success: boolean; component: string; error?: string }> {
   try {
     console.log(`  Caching ${componentName}...`);
     const url = `${SPARTAN_COMPONENTS_BASE}/${componentName}`;
@@ -48,14 +49,14 @@ async function warmComponent(componentName: string, _version: string): Promise<{
   }
 }
 
-async function warmBlock(blockName: string, _version: string): Promise<{ success: boolean; block: string; error?: string }> {
+async function warmBlock(blockName: string): Promise<{ success: boolean; block: string; error?: string }> {
   try {
     console.log(`  Caching block: ${blockName}...`);
     const url = `${SPARTAN_BLOCKS_BASE}/${blockName}`;
     const html = await fetchContent(url, "html", true);
     const code = extractCodeBlocks(html);
 
-    await cacheManager.setBlock(blockName, {
+    await cacheManager.setBlock(`${blockName}__html`, {
       html,
       code,
       full: { html, code, url },
@@ -110,7 +111,7 @@ export async function warmCache(options: WarmupOptions = {}): Promise<WarmupResu
   // Cache components
   console.log("Caching Components...");
   for (const component of components) {
-    const result = await warmComponent(component, results.version!);
+    const result = await warmComponent(component);
     if (result.success) results.components.success++;
     else {
       results.components.failed++;
@@ -124,7 +125,7 @@ export async function warmCache(options: WarmupOptions = {}): Promise<WarmupResu
   // Cache blocks
   console.log("\nCaching Blocks...");
   for (const block of blocks) {
-    const result = await warmBlock(block, results.version!);
+    const result = await warmBlock(block);
     if (result.success) results.blocks.success++;
     else {
       results.blocks.failed++;
@@ -184,6 +185,6 @@ export async function runCacheWarmup(): Promise<void> {
   }
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (import.meta.url === pathToFileURL(process.argv[1]).href) {
   runCacheWarmup();
 }

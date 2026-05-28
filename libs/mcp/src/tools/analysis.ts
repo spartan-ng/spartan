@@ -4,7 +4,6 @@ import {
   KNOWN_COMPONENTS,
   SPARTAN_COMPONENTS_BASE,
   fetchContent,
-  extractAPIInfo,
   htmlToText,
 } from "./utils.js";
 
@@ -119,7 +118,6 @@ async function analyzeComponentDependencies(componentName: string, includeTransi
     const url = `${SPARTAN_COMPONENTS_BASE}/${componentName}`;
     const html = await fetchContent(url, "html", false);
     const text = htmlToText(html);
-    const apiInfo = extractAPIInfo(html);
 
     const dependencies: Dependencies = {
       npm: [],

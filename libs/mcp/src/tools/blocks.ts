@@ -80,7 +80,8 @@ export function registerBlockTools(server: McpServer): void {
       let cacheInfo = "";
 
       if (!noCache) {
-        const cached = await cacheManager.getBlock(name);
+        const cacheKey = `${name}__${format}`;
+        const cached = await cacheManager.getBlock(cacheKey);
         if (cached.cached && !cached.stale) {
           if (format === "text") {
             content = (cached.data as { text?: string }).text || (cached.data as { html: string }).html;
@@ -91,13 +92,13 @@ export function registerBlockTools(server: McpServer): void {
         } else {
           content = await fetchContent(url, format, true);
           if (format === "text") {
-            await cacheManager.setBlock(name, { text: content });
+            await cacheManager.setBlock(cacheKey, { text: content });
           } else {
-            const code = extractCodeBlocks(content);
-            await cacheManager.setBlock(name, {
+            const extracted = extractCodeBlocks(content);
+            await cacheManager.setBlock(cacheKey, {
               html: content,
-              code,
-              full: { html: content, code, url },
+              code: extracted,
+              full: { html: content, code: extracted, url },
             });
           }
           cacheInfo = cached.cached ? `\n[CACHE REFRESHED - Version: ${cacheManager.currentVersion}]` : `\n[NEWLY CACHED - Version: ${cacheManager.currentVersion}]`;
@@ -106,8 +107,6 @@ export function registerBlockTools(server: McpServer): void {
         content = await fetchContent(url, format, true);
         cacheInfo = "\n[LIVE FETCH - Cache bypassed]";
       }
-
-      const code = format === "text" ? [] : extractCodeBlocks(content);
 
       const responseText =
         `${content}${cacheInfo}\n\nSource: ${url}\n\n` +

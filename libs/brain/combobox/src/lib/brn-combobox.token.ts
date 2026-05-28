@@ -89,6 +89,8 @@ export interface BrnComboboxConfig<T> {
 	isItemEqualToValue: ComboboxItemEqualToValue<T>;
 	itemToString?: ComboboxItemToString<T>;
 	autoHighlight: boolean;
+	/** Whether to reset the search and close the popover after selecting an item when the search is active. */
+	closeOnSelect: boolean;
 }
 
 function getDefaultConfig<T>(): BrnComboboxConfig<T> {
@@ -103,6 +105,7 @@ function getDefaultConfig<T>(): BrnComboboxConfig<T> {
 		isItemEqualToValue: (itemValue: T, selectedValue: T | null) => Object.is(itemValue, selectedValue),
 		itemToString: undefined,
 		autoHighlight: false,
+		closeOnSelect: true,
 	};
 }
 

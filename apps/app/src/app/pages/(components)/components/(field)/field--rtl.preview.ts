@@ -38,7 +38,7 @@ import { HlmTextareaImports } from '@spartan-ng/helm/textarea';
 						<div hlmField class="col-span-2">
 							<label hlmFieldLabel for="field-preview-card-number">{{ _t()['cardNumber'] }}</label>
 							<input hlmInput placeholder="1234 1234 1234 1234" id="field-preview-card-number" />
-							<p hlmFieldDescription>{{ _t()['enterYour16DigitCardNumber'] }}</p>
+							<p hlmFieldDescription>{{ _t()['cardNumberDescription'] }}</p>
 						</div>
 						<div class="grid grid-cols-3 gap-4">
 							<div hlmField>

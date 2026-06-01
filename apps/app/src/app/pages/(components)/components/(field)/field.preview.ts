@@ -43,7 +43,7 @@ import { HlmTextareaImports } from '@spartan-ng/helm/textarea';
 								<label hlmFieldLabel for="field-exp-month--trigger">Month</label>
 								<hlm-select id="field-exp-month" class="inline-block">
 									<hlm-select-trigger class="w-full">
-										<hlm-select-value placeholder="MM" />
+										<hlm-select-value />
 									</hlm-select-trigger>
 									<hlm-select-content *hlmSelectPortal>
 										<hlm-select-group>

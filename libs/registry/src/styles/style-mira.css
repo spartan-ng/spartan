@@ -601,7 +601,7 @@
 	}
 
 	.spartan-field {
-		@apply data-[invalid=true]:text-destructive gap-2;
+		@apply data-[matches-spartan-invalid=true]:text-destructive gap-2;
 	}
 
 	.spartan-field-content {
@@ -609,7 +609,7 @@
 	}
 
 	.spartan-field-label {
-		@apply has-data-checked:bg-primary/5 dark:has-data-checked:bg-primary/10 gap-2 group-data-[disabled=true]/field:opacity-50 has-[>[data-slot=field]]:rounded-md has-[>[data-slot=field]]:border *:data-[slot=field]:p-2;
+		@apply has-data-checked:bg-primary/5 dark:has-data-checked:bg-primary/10 gap-2 leading-snug group-data-[disabled=true]/field:opacity-50 has-[>[data-slot=field]]:rounded-md has-[>[data-slot=field]]:border *:data-[slot=field]:p-2;
 	}
 
 	.spartan-field-title {

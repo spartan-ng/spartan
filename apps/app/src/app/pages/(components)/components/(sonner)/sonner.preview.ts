@@ -15,7 +15,6 @@ export class SonnerPreview {
 	showToast() {
 		toast('Event has been created', {
 			description: 'Sunday, December 03, 2023 at 9:00 AM',
-			duration: 50000,
 			action: {
 				label: 'Undo',
 				onClick: () => console.log('Undo'),

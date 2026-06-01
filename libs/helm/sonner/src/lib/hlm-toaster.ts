@@ -67,7 +67,9 @@ export class HlmToaster {
 	public readonly closeButton = input<ToasterProps['closeButton'], BooleanInput>(false, {
 		transform: booleanAttribute,
 	});
-	public readonly toastOptions = input<ToasterProps['toastOptions']>({});
+	public readonly toastOptions = input<ToasterProps['toastOptions']>({
+		classes: { toast: 'spartan-toast' },
+	});
 	public readonly offset = input<ToasterProps['offset']>(null);
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	public readonly userStyle = input<Record<string, string>>(

@@ -1189,7 +1189,7 @@
 
 	/* MARK: Sonner */
 	.spartan-toast {
-		@apply rounded-md;
+		@apply rounded-md!;
 	}
 
 	/* MARK: Switch */

@@ -1183,7 +1183,7 @@
 
 	/* MARK: Sonner */
 	&.spartan-toast {
-		@apply rounded-2xl;
+		@apply rounded-2xl!;
 	}
 
 	/* MARK: Switch */

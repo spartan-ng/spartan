@@ -40,9 +40,6 @@ interface DirectoryUser {
 						}
 					</hlm-combobox-status>
 				}
-				@if (!users.isLoading()) {
-					<hlm-combobox-empty>Try a different search term.</hlm-combobox-empty>
-				}
 				<div hlmComboboxList>
 					@if (users.hasValue()) {
 						@for (user of users.value(); track user.id) {
@@ -73,13 +70,7 @@ export class ComboboxAsyncMultiplePreview {
 		},
 	});
 
-	public showStatus = computed(
-		() =>
-			this.users.error() ||
-			this.users.isLoading() ||
-			this.search().length === 0 ||
-			(this.users.hasValue() && this.users.value().length === 0),
-	);
+	public showStatus = computed(() => this.users.error() || this.users.isLoading() || this.users.value().length === 0);
 
 	async searchUsers(query: string, filter: (item: string, query: string) => boolean): Promise<DirectoryUser[]> {
 		// Simulate network delay

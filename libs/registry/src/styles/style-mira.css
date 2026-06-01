@@ -866,7 +866,7 @@
 	}
 
 	.spartan-native-select-icon {
-		@apply text-muted-foreground end-1.5 top-1/2 -translate-y-1/2 text-[calc(var(--spacing)*3.5)] group-data-[size=sm]/native-select:-translate-y-1.25 group-data-[size=sm]/native-select:text-[calc(var(--spacing)*3)];
+		@apply text-muted-foreground end-1.5 top-1/2 -translate-y-1.5 text-[calc(var(--spacing)*3.5)] group-data-[size=sm]/native-select:-translate-y-1.25 group-data-[size=sm]/native-select:text-[calc(var(--spacing)*3)];
 	}
 
 	/* MARK: Pagination */

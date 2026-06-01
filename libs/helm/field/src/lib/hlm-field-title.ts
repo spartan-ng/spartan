@@ -7,6 +7,6 @@ import { classes } from '@spartan-ng/helm/utils';
 })
 export class HlmFieldTitle {
 	constructor() {
-		classes(() => 'cn-field-title flex w-fit items-center');
+		classes(() => 'spartan-field-title flex w-fit items-center');
 	}
 }

@@ -576,7 +576,7 @@
 	}
 
 	.spartan-field {
-		@apply data-[invalid=true]:text-destructive gap-2;
+		@apply data-[matches-spartan-invalid=true]:text-destructive gap-2;
 	}
 
 	.spartan-field-content {
@@ -584,7 +584,7 @@
 	}
 
 	.spartan-field-label {
-		@apply has-data-checked:bg-primary/5 has-data-checked:border-primary/30 dark:has-data-checked:border-primary/20 dark:has-data-checked:bg-primary/10 gap-2 group-data-[disabled=true]/field:opacity-50 has-[>[data-slot=field]]:rounded-none has-[>[data-slot=field]]:border *:data-[slot=field]:p-2;
+		@apply has-data-checked:bg-primary/5 has-data-checked:border-primary/30 dark:has-data-checked:border-primary/20 dark:has-data-checked:bg-primary/10 gap-2 leading-snug group-data-[disabled=true]/field:opacity-50 has-[>[data-slot=field]]:rounded-none has-[>[data-slot=field]]:border *:data-[slot=field]:p-2;
 	}
 
 	.spartan-field-title {
@@ -841,7 +841,7 @@
 	}
 
 	.spartan-native-select-icon {
-		@apply text-muted-foreground end-2.5 top-1/2 size-4 -translate-y-1/2;
+		@apply text-muted-foreground end-2.5 top-1/2 -translate-y-1/2 text-[calc(var(--spacing)*4)];
 	}
 
 	/* MARK: Pagination */
@@ -1162,7 +1162,7 @@
 
 	/* MARK: Sonner */
 	.spartan-toast {
-		@apply rounded-none;
+		@apply rounded-none!;
 	}
 
 	/* MARK: Switch */

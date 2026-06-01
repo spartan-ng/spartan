@@ -597,7 +597,7 @@
 	}
 
 	&.spartan-field {
-		@apply data-[invalid=true]:text-destructive gap-3;
+		@apply data-[matches-spartan-invalid=true]:text-destructive gap-3;
 	}
 
 	&.spartan-field-content {
@@ -605,11 +605,11 @@
 	}
 
 	&.spartan-field-label {
-		@apply has-data-checked:bg-primary/5 has-data-checked:border-primary/30 dark:has-data-checked:border-primary/20 dark:has-data-checked:bg-primary/10 gap-2 group-data-[disabled=true]/field:opacity-50 has-[>[data-slot=field]]:rounded-md has-[>[data-slot=field]]:border *:data-[slot=field]:p-3;
+		@apply has-data-checked:bg-primary/5 has-data-checked:border-primary/30 dark:has-data-checked:border-primary/20 dark:has-data-checked:bg-primary/10 gap-2 leading-snug group-data-[disabled=true]/field:opacity-50 has-[>[data-slot=field]]:rounded-md has-[>[data-slot=field]]:border *:data-[slot=field]:p-3;
 	}
 
 	&.spartan-field-title {
-		@apply gap-2 text-sm font-medium group-data-[disabled=true]/field:opacity-50;
+		@apply gap-2 text-sm leading-snug font-medium group-data-[disabled=true]/field:opacity-50;
 	}
 
 	&.spartan-field-description {
@@ -858,11 +858,11 @@
 
 	/* MARK: Native Select */
 	&.spartan-native-select {
-		@apply border-input placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 dark:hover:bg-input/50 focus-visible:border-ring focus-visible:ring-ring/50 data-[matches-spartan-invalid=true]:ring-destructive/20 dark:data-[matches-spartan-invalid=true]:ring-destructive/40 data-[matches-spartan-invalid=true]:border-destructive dark:data-[matches-spartan-invalid=true]:border-destructive/50 h-9 w-full min-w-0 appearance-none rounded-md border bg-transparent py-1 pr-8 pl-2.5 text-sm shadow-xs transition-[color,box-shadow] select-none focus-visible:ring-3 data-[matches-spartan-invalid=true]:ring-3 data-[size=sm]:h-8;
+		@apply border-input placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 dark:hover:bg-input/50 focus-visible:border-ring focus-visible:ring-ring/50 data-[matches-spartan-invalid=true]:ring-destructive/20 dark:data-[matches-spartan-invalid=true]:ring-destructive/40 data-[matches-spartan-invalid=true]:border-destructive dark:data-[matches-spartan-invalid=true]:border-destructive/50 h-9 w-full min-w-0 appearance-none rounded-md border bg-transparent py-1 ps-2.5 pe-8 text-sm shadow-xs transition-[color,box-shadow] select-none focus-visible:ring-3 data-[matches-spartan-invalid=true]:ring-3 data-[size=sm]:h-8;
 	}
 
 	&.spartan-native-select-icon {
-		@apply text-muted-foreground end-2.5 top-1/2 size-4 -translate-y-1/2;
+		@apply text-muted-foreground end-2.5 top-1/2 -translate-y-1/2 text-[calc(var(--spacing)*4)];
 	}
 
 	/* MARK: Pagination */
@@ -1183,7 +1183,7 @@
 
 	/* MARK: Sonner */
 	&.spartan-toast {
-		@apply rounded-2xl;
+		@apply rounded-2xl!;
 	}
 
 	/* MARK: Switch */

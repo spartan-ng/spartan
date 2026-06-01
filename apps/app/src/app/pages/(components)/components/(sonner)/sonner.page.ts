@@ -50,7 +50,7 @@ export const routeMeta: RouteMeta = {
 	],
 	template: `
 		<section spartanMainSection>
-			<spartan-section-intro name="Sonner" lead="An opinionated toast component for Angular." />
+			<spartan-section-intro name="Sonner" lead="An opinionated toast component for Angular." showThemeToggle />
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -59,7 +59,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
-			<spartan-install-tabs primitive="sonner" />
+			<spartan-install-tabs primitive="sonner" [showOnlyVega]="false" />
 
 			<p class="${hlmP}">
 				Add the

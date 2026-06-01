@@ -159,7 +159,7 @@
 	}
 
 	&.spartan-button-variant-secondary {
-		@apply bg-secondary text-secondary-foreground hover:bg-secondary/80 aria-expanded:bg-secondary aria-expanded:text-secondary-foreground;
+		@apply bg-secondary text-secondary-foreground aria-expanded:bg-secondary aria-expanded:text-secondary-foreground hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)];
 	}
 
 	&.spartan-button-variant-ghost {
@@ -187,7 +187,7 @@
 	}
 
 	&.spartan-button-size-lg {
-		@apply h-10 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-3 has-data-[icon=inline-start]:pl-3;
+		@apply h-10 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2;
 	}
 
 	&.spartan-button-size-icon-xs {
@@ -1116,7 +1116,7 @@
 	}
 
 	&.spartan-sidebar-menu-button-variant-outline {
-		@apply bg-background hover:bg-sidebar-accent hover:text-sidebar-accent-foreground shadow-[0_0_0_1px_hsl(var(--sidebar-border))] hover:shadow-[0_0_0_1px_hsl(var(--sidebar-accent))];
+		@apply bg-background hover:bg-sidebar-accent hover:text-sidebar-accent-foreground shadow-[0_0_0_1px_var(--sidebar-border)] hover:shadow-[0_0_0_1px_var(--sidebar-accent)];
 	}
 
 	&.spartan-sidebar-menu-button-size-default {

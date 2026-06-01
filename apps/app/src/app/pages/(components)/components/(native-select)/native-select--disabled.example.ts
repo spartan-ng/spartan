@@ -7,7 +7,7 @@ import { HlmNativeSelectImports } from '@spartan-ng/helm/native-select';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-native-select disabled>
-			<option hlmNativeSelectOption value="">Select a fruit</option>
+			<option hlmNativeSelectOption value="">Disabled</option>
 			<option hlmNativeSelectOption value="apple">Apple</option>
 			<option hlmNativeSelectOption value="banana">Banana</option>
 			<option hlmNativeSelectOption value="blueberry">Blueberry</option>

@@ -227,7 +227,7 @@
 	}
 
 	.spartan-native-select-icon {
-		@apply text-muted-foreground end-2.5 top-1/2 size-4 -translate-y-1/2;
+		@apply text-muted-foreground end-2.5 top-1/2 -translate-y-1/2 text-[calc(var(--spacing)*4)];
 	}
 
 	/* MARK: Combobox */

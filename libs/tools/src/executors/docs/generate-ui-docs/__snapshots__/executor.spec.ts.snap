@@ -3541,6 +3541,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "boolean",
           },
           {
+            "name": "forceInvalid",
+            "required": false,
+            "type": "boolean",
+          },
+          {
             "name": "aria-invalid",
             "required": false,
             "type": "boolean | undefined",

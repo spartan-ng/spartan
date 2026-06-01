@@ -1,6 +1,8 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { CodeRtlPreview } from '@spartan-ng/app/app/shared/code/code-rtl-preview';
+import { RtlHeader } from '@spartan-ng/app/app/shared/code/rtl-header';
 import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { UIApiDocs } from '@spartan-ng/app/app/shared/layout/ui-docs-section/ui-docs-section';
@@ -19,6 +21,7 @@ import { NativeSelectDisabledExample } from './native-select--disabled.example';
 import { NativeSelectFormExample } from './native-select--form.example';
 import { NativeSelectGroupsExample } from './native-select--groups.example';
 import { NativeSelectInvalidExample } from './native-select--invalid.example';
+import { NativeSelectRtl } from './native-select--rtl.example';
 import { NativeSelectPreview, defaultImports, defaultSkeleton } from './native-select.preview';
 
 export const routeMeta: RouteMeta = {
@@ -47,16 +50,20 @@ export const routeMeta: RouteMeta = {
 		PageBottomNav,
 		PageBottomNavLink,
 		UIApiDocs,
+		RtlHeader,
+		CodeRtlPreview,
 		NativeSelectGroupsExample,
 		NativeSelectDisabledExample,
 		NativeSelectFormExample,
 		NativeSelectInvalidExample,
+		NativeSelectRtl,
 	],
 	template: `
 		<section spartanMainSection>
 			<spartan-section-intro
 				name="Native Select"
 				lead="A styled native HTML select element with consistent design system integration."
+				showThemeToggle
 			/>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
@@ -66,7 +73,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
-			<spartan-install-tabs primitive="native-select" />
+			<spartan-install-tabs primitive="native-select" [showOnlyVega]="false" />
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="space-y-4">
 				<spartan-code [code]="_imports" />
@@ -122,6 +129,14 @@ export const routeMeta: RouteMeta = {
 				</li>
 			</ul>
 
+			<spartan-header-rtl />
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanRtlCodePreview firstTab>
+					<spartan-native-select-rtl />
+				</div>
+				<spartan-code secondTab [code]="_rtlCode()" />
+			</spartan-tabs>
+
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="helm" />
 
@@ -140,6 +155,7 @@ export default class NativeSelectPage {
 	protected readonly _disabledCode = computed(() => this._snippets()['disabled']);
 	protected readonly _invalidCode = computed(() => this._snippets()['invalid']);
 	protected readonly _formCode = computed(() => this._snippets()['form']);
+	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 	protected readonly _imports = defaultImports;
 	protected readonly _codeSkeleton = defaultSkeleton;
 }

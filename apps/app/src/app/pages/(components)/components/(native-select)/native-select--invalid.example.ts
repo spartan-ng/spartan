@@ -6,8 +6,8 @@ import { HlmNativeSelectImports } from '@spartan-ng/helm/native-select';
 	imports: [HlmNativeSelectImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<hlm-native-select aria-invalid="true">
-			<option hlmNativeSelectOption value="">Select a fruit</option>
+		<hlm-native-select forceInvalid="true">
+			<option hlmNativeSelectOption value="">Error state</option>
 			<option hlmNativeSelectOption value="apple">Apple</option>
 			<option hlmNativeSelectOption value="banana">Banana</option>
 			<option hlmNativeSelectOption value="blueberry">Blueberry</option>

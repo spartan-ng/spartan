@@ -102,24 +102,34 @@ const lead = 'text-foreground max-w-3xl text-base text-balance sm:text-lg';
 					</hlm-tabs-list>
 				</div>
 				<div hlmTabsContent="examples" class="mt-0">
-					<spartan-overview-example />
+					<ng-template hlmTabsContentLazy>
+						<spartan-overview-example />
+					</ng-template>
 				</div>
 				<div hlmTabsContent="dashboard" class="mt-0">
-					<spartan-dashboard-example />
+					<ng-template hlmTabsContentLazy>
+						<spartan-dashboard-example />
+					</ng-template>
 				</div>
 				<div hlmTabsContent="tasks" class="mt-0">
-					<spartan-tasks-example />
+					<ng-template hlmTabsContentLazy>
+						<spartan-tasks-example />
+					</ng-template>
 				</div>
 				<div hlmTabsContent="playground" class="mt-0">
-					<spartan-playground-example />
+					<ng-template hlmTabsContentLazy>
+						<spartan-playground-example />
+					</ng-template>
 				</div>
 				<div hlmTabsContent="authentication" class="mt-0">
-					<spartan-authentication-example />
+					<ng-template hlmTabsContentLazy>
+						<spartan-authentication-example />
+					</ng-template>
 				</div>
 			</hlm-tabs>
 		</section>
 
-		<section id="the-300" class="space-y-6 py-8 md:py-12">
+		<section id="the-300" class="space-y-6 py-8 [contain-intrinsic-size:auto_900px] [content-visibility:auto] md:py-12">
 			<div class="${container} max-w-[58rem]">
 				<h2 class="${subHeading}">Built By The 300</h2>
 				<p class="${lead} max-w-[42rem]">

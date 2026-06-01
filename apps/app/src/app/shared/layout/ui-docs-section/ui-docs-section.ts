@@ -12,7 +12,7 @@ import { UIApiDocsTable } from '../ui-api-docs-table/ui-api-docs-table';
 	selector: 'spartan-ui-api-docs',
 	imports: [UIApiDocsTable, SectionSubSubHeading],
 	host: {
-		class: 'block ',
+		class: 'block [content-visibility:auto] [contain-intrinsic-size:auto_600px]',
 	},
 	template: `
 		@if (_componentDocs() && _componentEntries() && _componentEntries().length > 0) {

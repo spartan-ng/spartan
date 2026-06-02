@@ -1,24 +1,47 @@
-import { Component } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
+import { HlmButton } from '@spartan-ng/helm/button';
 import { ThreeHundredItem } from './th-item';
 import { ThreeHundredItemPlaceholder } from './th-item-placeholder';
 
+/** Number of contributors shown before "Show all" is clicked. Divisible by 3/5/10 so it fills clean rows at every breakpoint. */
+const COLLAPSED_COUNT = 30;
+
 @Component({
 	selector: 'spartan-three-hundred',
-	imports: [ThreeHundredItem, ThreeHundredItemPlaceholder],
+	imports: [ThreeHundredItem, ThreeHundredItemPlaceholder, HlmButton],
 	host: {
-		class: 'relative grid gap-2 grid-cols-3 sm:grid-cols-5 lg:grid-cols-10',
+		class: 'relative flex flex-col items-center gap-6',
 	},
 	template: `
-		@for (contributor of _contributors; track $index) {
-			<spartan-th-item class="mb-2" [contributor]="contributor" />
+		<div class="relative w-full">
+			<div class="grid grid-cols-3 gap-2 sm:grid-cols-5 lg:grid-cols-10">
+				@for (contributor of _visibleContributors(); track $index) {
+					<spartan-th-item class="mb-2" [contributor]="contributor" />
+				}
+				@if (_expanded()) {
+					@for (_ of _rest; track $index) {
+						<spartan-th-item-placeholder class="mb-2 hidden md:inline-flex" />
+					}
+				}
+			</div>
+			@if (!_expanded()) {
+				<div class="from-background pointer-events-none absolute right-0 bottom-0 left-0 h-24 bg-gradient-to-t"></div>
+			}
+		</div>
+		@if (_contributors.length > _collapsedCount) {
+			<button hlmBtn variant="outline" size="sm" (click)="_expanded.set(!_expanded())">
+				{{ _expanded() ? 'Show fewer' : 'Show all ' + _contributors.length + ' contributors' }}
+			</button>
 		}
-		@for (_ of _rest; track $index) {
-			<spartan-th-item-placeholder class="mb-2 hidden md:inline-flex" />
-		}
-		<div class="from-background pointer-events-none absolute right-0 bottom-0 left-0 h-3/12 bg-gradient-to-t"></div>
 	`,
 })
 export class ThreeHundred {
+	protected readonly _expanded = signal(false);
+	protected readonly _visibleContributors = computed(() =>
+		this._expanded() ? this._contributors : this._contributors.slice(0, COLLAPSED_COUNT),
+	);
+	protected readonly _collapsedCount = COLLAPSED_COUNT;
+
 	protected readonly _contributors = [
 		'goetzrobin',
 		'thatsamsonkid',
@@ -85,7 +108,6 @@ export class ThreeHundred {
 		'hirenchauhan2',
 		'Roguyt',
 		'tsironis13',
-		'0xfraso',
 		'guillermoecharri',
 		'ValentinFunk',
 		'Femi236',
@@ -97,7 +119,6 @@ export class ThreeHundred {
 		'shinkhouse',
 		'donaldxdonald',
 		'BenoitPE',
-		'miljan-code',
 		'Georg632',
 		'hillin',
 		'Besbash',
@@ -112,7 +133,6 @@ export class ThreeHundred {
 		'dlhck',
 		'tomer953',
 		'drdreo',
-		'OlegSuncrown',
 		'tlandenberger',
 		'yackinn',
 		'OmerGronich',

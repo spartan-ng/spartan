@@ -23,7 +23,7 @@ import type { ClassValue } from 'clsx';
 			[duration]="duration()"
 			[visibleToasts]="visibleToasts()"
 			[closeButton]="closeButton()"
-			[toastOptions]="toastOptions()"
+			[toastOptions]="_computedToastOptions()"
 			[offset]="offset()"
 			[style]="userStyle()"
 		>
@@ -68,6 +68,17 @@ export class HlmToaster {
 		transform: booleanAttribute,
 	});
 	public readonly toastOptions = input<ToasterProps['toastOptions']>({});
+
+	protected readonly _computedToastOptions = computed(() => {
+		const options = this.toastOptions();
+		return {
+			...options,
+			classes: {
+				...options?.classes,
+				toast: hlm('spartan-toast', options?.classes?.toast),
+			},
+		};
+	});
 	public readonly offset = input<ToasterProps['offset']>(null);
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	public readonly userStyle = input<Record<string, string>>(

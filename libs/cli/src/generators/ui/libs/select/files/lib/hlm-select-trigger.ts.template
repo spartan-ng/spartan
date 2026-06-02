@@ -21,7 +21,7 @@ import type { ClassValue } from 'clsx';
 			data-slot="select-trigger"
 		>
 			<ng-content />
-			<ng-icon name="lucideChevronDown" class="text-muted-foreground pointer-events-none text-base" />
+			<ng-icon name="lucideChevronDown" class="text-muted-foreground pointer-events-none ms-auto text-base" />
 		</button>
 	`,
 })

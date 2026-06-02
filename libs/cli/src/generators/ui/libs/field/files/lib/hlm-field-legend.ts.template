@@ -12,6 +12,6 @@ export class HlmFieldLegend {
 	public readonly variant = input<'label' | 'legend'>('legend');
 
 	constructor() {
-		classes(() => 'mb-3 font-medium data-[variant=label]:text-sm data-[variant=legend]:text-base');
+		classes(() => 'spartan-field-legend');
 	}
 }

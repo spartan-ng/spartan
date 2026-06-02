@@ -5,9 +5,7 @@ import { classes } from '@spartan-ng/helm/utils';
 @Directive({
 	selector: '[hlmComboboxChips],hlm-combobox-chips',
 	hostDirectives: [BrnComboboxAnchor, BrnComboboxPopoverTrigger],
-	host: {
-		'data-slot': 'combobox-chips',
-	},
+	host: { 'data-slot': 'combobox-chips' },
 })
 export class HlmComboboxChips {
 	private readonly _combobox = injectBrnComboboxBase();

@@ -1,6 +1,8 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { CodeRtlPreview } from '@spartan-ng/app/app/shared/code/code-rtl-preview';
+import { RtlHeader } from '@spartan-ng/app/app/shared/code/rtl-header';
 import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { UIApiDocs } from '@spartan-ng/app/app/shared/layout/ui-docs-section/ui-docs-section';
@@ -31,6 +33,7 @@ import { ComboboxMultipleDisabledPreview } from './combobox--multiple-disabled.p
 import { ComboboxMultiplePreview } from './combobox--multiple.preview';
 import { ComboboxPopupCustomPreview } from './combobox--popup-custom.preview';
 import { ComboboxPopupPreview } from './combobox--popup.preview';
+import { ComboboxRtlPreview } from './combobox--rtl.preview';
 import { comboboxDefaultConfig, ComboboxPreview, defaultImports, defaultSkeleton } from './combobox.preview';
 
 export const routeMeta: RouteMeta = {
@@ -54,6 +57,8 @@ export const routeMeta: RouteMeta = {
 		PageBottomNavLink,
 		SectionSubSubHeading,
 		ComboboxPreview,
+		RtlHeader,
+		CodeRtlPreview,
 
 		UIApiDocs,
 		ComboboxDisabledPreview,
@@ -72,10 +77,15 @@ export const routeMeta: RouteMeta = {
 		ComboboxItemToStringPreview,
 		ComboboxAutoHighlightPreview,
 		ComboboxMultipleAutoHighlightPreview,
+		ComboboxRtlPreview,
 	],
 	template: `
 		<section spartanMainSection>
-			<spartan-section-intro name="Combobox" lead="An input combined with a list of predefined items to select." />
+			<spartan-section-intro
+				name="Combobox"
+				lead="An input combined with a list of predefined items to select."
+				showThemeToggle
+			/>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -84,7 +94,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
-			<spartan-install-tabs primitive="combobox" />
+			<spartan-install-tabs primitive="combobox" [showOnlyVega]="false" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">
@@ -301,6 +311,14 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_formMultipleCode()" />
 			</spartan-tabs>
 
+			<spartan-header-rtl />
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanRtlCodePreview firstTab>
+					<spartan-combobox-rtl />
+				</div>
+				<spartan-code secondTab [code]="_rtlCode()" />
+			</spartan-tabs>
+
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="brain" />
 
@@ -334,6 +352,7 @@ export default class ComboboxPage {
 	protected readonly _asyncMultipleCode = computed(() => this._snippets()['asyncMultiple']);
 	protected readonly _formCode = computed(() => this._snippets()['form']);
 	protected readonly _formMultipleCode = computed(() => this._snippets()['formMultiple']);
+	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 	protected readonly _comboboxDefaultConfig = comboboxDefaultConfig;

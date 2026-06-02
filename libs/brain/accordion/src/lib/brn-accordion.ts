@@ -59,7 +59,9 @@ export class BrnAccordion implements AfterContentInit, OnDestroy {
 			.skipPredicate((item) => item.disabled),
 	);
 
-	private readonly _focused = signal<boolean>(false);
+	// Not a signal: FocusMonitor can fire mid-render (a disabled child blurs during change
+	// detection) and a signal write there throws NG0600. Only read imperatively in keydown. #1371
+	private _focused = false;
 	private readonly _openItemIds = signal<number[]>([]);
 	public readonly openItemIds = this._openItemIds.asReadonly();
 	public readonly state = computed(() => (this._openItemIds().length > 0 ? 'open' : 'closed'));
@@ -87,7 +89,9 @@ export class BrnAccordion implements AfterContentInit, OnDestroy {
 			this._keyManager()?.onKeydown(event);
 			this.preventDefaultEvents(event);
 		});
-		this._focusMonitor.monitor(this._el, true).subscribe((origin) => this._focused.set(origin !== null));
+		this._focusMonitor.monitor(this._el, true).subscribe((origin) => {
+			this._focused = origin !== null;
+		});
 	}
 
 	ngOnDestroy(): void {
@@ -153,7 +157,7 @@ export class BrnAccordion implements AfterContentInit, OnDestroy {
 
 	private preventDefaultEvents(event: KeyboardEvent) {
 		if (event.defaultPrevented) return;
-		if (!this._focused()) return;
+		if (!this._focused) return;
 		if (!('key' in event)) return;
 
 		const keys: readonly string[] =

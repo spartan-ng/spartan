@@ -62,4 +62,8 @@ export class BrnAccordionItem {
 			});
 		});
 	}
+
+	public open(): void {
+		this._accordion.openItem(this.id);
+	}
 }

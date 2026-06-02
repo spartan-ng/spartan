@@ -3,6 +3,7 @@ import { Directionality } from '@angular/cdk/bidi';
 import {
 	type AfterContentInit,
 	computed,
+	contentChildren,
 	Directive,
 	ElementRef,
 	inject,
@@ -10,6 +11,7 @@ import {
 	type OnDestroy,
 	signal,
 } from '@angular/core';
+import { BrnAccordionItem } from './brn-accordion-item';
 import { provideBrnAccordion } from './brn-accordion-token';
 import type { BrnAccordionTrigger } from './brn-accordion-trigger';
 
@@ -48,6 +50,7 @@ const VERTICAL_KEYS_TO_PREVENT_DEFAULT = [
 export class BrnAccordion implements AfterContentInit, OnDestroy {
 	private readonly _el = inject(ElementRef<HTMLElement>);
 	private readonly _dir = inject(Directionality);
+	private readonly _brnAccordionItems = contentChildren(BrnAccordionItem);
 	private readonly _focusMonitor = inject(FocusMonitor);
 	private readonly _keyManager = computed(() =>
 		new FocusKeyManager<BrnAccordionTrigger>(this._triggers())
@@ -166,5 +169,19 @@ export class BrnAccordion implements AfterContentInit, OnDestroy {
 		if (keys.includes(event.key) && event.code !== 'NumpadEnter') {
 			event.preventDefault();
 		}
+	}
+
+	public openAll(): void {
+		if (this.type() === 'multiple') {
+			this._brnAccordionItems().forEach((a) => this.openItem(a.id));
+		} else {
+			console.warn('[BrnAccordion]: openAll is only available in multiple mode');
+		}
+	}
+
+	public closeAll(): void {
+		this._brnAccordionItems()
+			.filter((a) => a.state() === 'open')
+			.forEach((a) => this.openItem(a.id));
 	}
 }

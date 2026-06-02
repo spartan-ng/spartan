@@ -54,12 +54,11 @@ export class BrnAccordionItem {
 		});
 		effect(() => {
 			const isOpened = this.isOpened();
-			if (untracked(this.disabled)) return;
 			untracked(() => {
 				if (isOpened) {
-					this._accordion.openItem(this.id);
+					this.open();
 				} else {
-					this._accordion.closeItem(this.id);
+					this.close();
 				}
 			});
 		});

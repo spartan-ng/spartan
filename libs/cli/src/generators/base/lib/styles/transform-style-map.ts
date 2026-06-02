@@ -11,7 +11,7 @@ import {
 import { type StyleMap } from './create-style-map';
 import type { TransformerStyle } from './transform';
 
-const ALLOWLIST = new Set(['spartan-menu-target', 'spartan-logical-sides', 'spartan-rtl-flip', 'spartan-invalid']);
+const ALLOWLIST = new Set(['spartan-menu-target', 'spartan-logical-sides', 'spartan-invalid']);
 
 function isStringLiteralLike(node: Node): node is StringLiteral | NoSubstitutionTemplateLiteral {
 	return Node.isStringLiteral(node) || Node.isNoSubstitutionTemplateLiteral(node);
@@ -265,6 +265,8 @@ function applyToCvaCalls(sourceFile: SourceFile, styleMap: StyleMap, matchedClas
 				const variantValue = variantProp.getInitializer();
 				if (variantValue && Node.isStringLiteral(variantValue)) {
 					applyStyleToCvaString(variantValue, styleMap, matchedClasses);
+				} else if (variantValue && Node.isArrayLiteralExpression(variantValue)) {
+					applyToArrayLiteral(variantValue, styleMap);
 				}
 			});
 		});

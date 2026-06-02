@@ -273,11 +273,7 @@
 
 	/* MARK: Combobox */
 	.spartan-combobox-content {
-		@apply bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 *:data-[slot=input-group]:bg-input/30 *:data-[slot=input-group]:border-input/30 max-h-72 min-w-36 overflow-hidden rounded-none shadow-md ring-1 duration-100 *:data-[slot=input-group]:m-1 *:data-[slot=input-group]:mb-0 *:data-[slot=input-group]:h-8 *:data-[slot=input-group]:shadow-none;
-	}
-
-	.spartan-combobox-content-logical {
-		@apply data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2;
+		@apply bg-popover text-popover-foreground data-open:animate-in **:has-[[data-slot=input-group-control]:focus-visible]:border-input data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 **:data-[slot=input-group]:bg-input/30 **:data-[slot=input-group]:border-input/30 max-h-72 min-w-36 overflow-hidden rounded-none shadow-md ring-1 duration-100 **:has-[[data-slot=input-group-control]:focus-visible]:ring-0 **:data-[slot=input-group]:m-1 **:data-[slot=input-group]:mb-0 **:data-[slot=input-group]:h-8 **:data-[slot=input-group]:shadow-none;
 	}
 
 	.spartan-combobox-label {
@@ -285,23 +281,19 @@
 	}
 
 	.spartan-combobox-item {
-		@apply data-highlighted:bg-accent data-highlighted:text-accent-foreground not-data-[variant=destructive]:data-highlighted:**:text-accent-foreground gap-2 rounded-none py-2 ps-2 pe-8 text-xs [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*4)];
+		@apply data-highlighted:bg-accent data-highlighted:text-accent-foreground not-data-[variant=destructive]:data-highlighted:**:text-accent-foreground gap-2 rounded-none py-2 ps-2 pe-8 text-xs;
 	}
 
 	.spartan-combobox-item-indicator {
-		@apply pointer-events-none absolute end-2 flex size-4 items-center justify-center;
+		@apply pointer-events-none absolute end-2 flex items-center justify-center text-[calc(var(--spacing)*4)];
 	}
 
 	.spartan-combobox-empty {
-		@apply text-muted-foreground hidden w-full justify-center py-2 text-center text-xs group-data-empty/combobox-content:flex;
+		@apply text-muted-foreground hidden w-full items-center justify-center py-2 text-center text-xs group-data-empty/combobox-content:flex;
 	}
 
 	.spartan-combobox-list {
 		@apply no-scrollbar max-h-[min(calc(--spacing(72)---spacing(9)),calc(var(--available-height)---spacing(9)))] scroll-py-1 overflow-y-auto data-empty:p-0;
-	}
-
-	.spartan-combobox-item-text {
-		@apply flex flex-1 gap-2;
 	}
 
 	.spartan-combobox-separator {
@@ -309,15 +301,15 @@
 	}
 
 	.spartan-combobox-trigger {
-		@apply [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*4)];
+		@apply data-placeholder:text-muted-foreground;
 	}
 
 	.spartan-combobox-trigger-icon {
-		@apply text-muted-foreground size-4;
+		@apply text-muted-foreground text-[calc(var(--spacing)*4)];
 	}
 
 	.spartan-combobox-chips {
-		@apply dark:bg-input/30 border-input focus-within:border-ring focus-within:ring-ring/50 data-[matches-spartan-invalid=true]:ring-destructive/20 dark:data-[matches-spartan-invalid=true]:ring-destructive/40 data-[matches-spartan-invalid=true]:border-destructive dark:data-[matches-spartan-invalid=true]:border-destructive/50 flex min-h-8 flex-wrap items-center gap-1 rounded-none border bg-transparent bg-clip-padding px-2.5 py-1 text-xs transition-colors focus-within:ring-1 has-data-[slot=combobox-chip]:px-1 data-[matches-spartan-invalid=true]:ring-1;
+		@apply dark:bg-input/30 border-input focus-within:border-ring focus-within:ring-ring/50 data-[matches-spartan-invalid=true]:ring-destructive/20 dark:data-[matches-spartan-invalid=true]:ring-destructive/40 data-[matches-spartan-invalid=true]:border-destructive dark:data-[matches-spartan-invalid=true]:border-destructive/50 flex min-h-8 flex-wrap items-center gap-1 rounded-none border bg-transparent bg-clip-padding px-2.5 py-1 text-xs shadow-xs transition-[color,box-shadow] focus-within:ring-1 has-data-[slot=combobox-chip]:px-1 data-[matches-spartan-invalid=true]:ring-1;
 	}
 
 	.spartan-combobox-chip {
@@ -325,7 +317,19 @@
 	}
 
 	.spartan-combobox-chip-remove {
-		@apply -ml-1 opacity-50 hover:opacity-100;
+		@apply -ms-1 opacity-50 hover:opacity-100;
+	}
+
+	.spartan-combobox-chip-input {
+		@apply placeholder:text-muted-foreground;
+	}
+
+	.spartan-combobox-placeholder {
+		@apply gap-2 [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*4)];
+	}
+
+	.spartan-combobox-status {
+		@apply text-muted-foreground gap-2 py-2 text-xs;
 	}
 
 	/* MARK: Command */

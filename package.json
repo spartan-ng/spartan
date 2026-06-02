@@ -53,6 +53,7 @@
 		"@nx/angular": "21.6.9",
 		"@nx/devkit": "21.6.9",
 		"@nx/plugin": "21.6.9",
+		"@stackblitz/sdk": "^1.11.0",
 		"@swc/helpers": "0.5.13",
 		"@tanstack/angular-table": "^8.21.3",
 		"@testing-library/cypress": "^10.0.2",

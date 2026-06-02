@@ -1,4 +1,4 @@
-import { booleanAttribute, Component, effect, inject, Input, input, ViewEncapsulation } from '@angular/core';
+import { booleanAttribute, Component, effect, inject, Input, input, signal, ViewEncapsulation } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { marked } from 'marked';
 import { gfmHeadingId } from 'marked-gfm-heading-id';
@@ -15,13 +15,15 @@ import 'prismjs/components/prism-javascript';
 import 'prismjs/components/prism-json';
 import 'prismjs/components/prism-markup';
 import 'prismjs/components/prism-typescript';
+import { OpenInStackBlitzButton } from '../stackblitz/open-in-stackblitz-button';
+import { isRunnableExample } from '../stackblitz/stackblitz-project-builder.service';
 
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 declare const Prism: typeof import('prismjs');
 
 @Component({
 	selector: 'spartan-code',
-	imports: [HlmButton, NgIcon, HlmIcon],
+	imports: [HlmButton, NgIcon, HlmIcon, OpenInStackBlitzButton],
 	providers: [provideIcons({ lucideClipboard, lucideCheck })],
 	encapsulation: ViewEncapsulation.None,
 	host: {
@@ -92,11 +94,16 @@ declare const Prism: typeof import('prismjs');
 				<span>{{ fileName() }}</span>
 			</div>
 		}
-		@if (!_disableCopy) {
-			<button (click)="copyToClipBoard()" hlmBtn variant="ghost" class="absolute top-1.5 right-4 z-10 h-6 w-6">
-				<ng-icon hlm size="xs" [name]="_copied ? 'lucideCheck' : 'lucideClipboard'" />
-			</button>
-		}
+		<div class="absolute top-1.5 right-4 z-10 flex items-center gap-0.5">
+			@if (_runnable && !_suppressStackblitz()) {
+				<spartan-stackblitz-button [code]="_code" />
+			}
+			@if (!_disableCopy) {
+				<button (click)="copyToClipBoard()" hlmBtn variant="ghost" class="h-6 w-6">
+					<ng-icon hlm size="xs" [name]="_copied ? 'lucideCheck' : 'lucideClipboard'" />
+				</button>
+			}
+		</div>
 		<div class="max-h-[650px] w-full overflow-auto p-4 whitespace-nowrap">
 			<div class="max-w-full max-w-screen" [innerHTML]="_content"></div>
 		</div>
@@ -109,6 +116,18 @@ export class Code {
 	protected _copied = false;
 
 	public readonly fileName = input('');
+
+	/** True when the current code is a runnable component example (shows the StackBlitz button). */
+	protected _runnable = false;
+
+	/** The current code, exposed so a wrapping `spartan-tabs` can offer its own StackBlitz button. */
+	public readonly codeValue = signal<string | null | undefined>(undefined);
+
+	/** Set by a wrapping `spartan-tabs` so the toolbar button is used instead of this in-code one. */
+	protected readonly _suppressStackblitz = signal(false);
+	public suppressStackblitzButton(): void {
+		this._suppressStackblitz.set(true);
+	}
 
 	protected _disableCopy = false;
 	@Input({ transform: booleanAttribute })
@@ -126,10 +145,12 @@ export class Code {
 		return this._language;
 	}
 
-	private _code: string | null | undefined;
+	protected _code: string | null | undefined;
 	@Input()
 	public set code(value: string | null | undefined) {
 		this._code = value;
+		this._runnable = isRunnableExample(value);
+		this.codeValue.set(value);
 		(this._language === 'sh'
 			? this._marked.parse(value?.trim() ?? '')
 			: // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -27,6 +27,7 @@ import { ComboboxFormPreview } from './combobox--form.preview';
 import { ComboboxGroupSeparatorPreview } from './combobox--group-separator.preview';
 import { ComboboxGroupPreview } from './combobox--group.preview';
 import { ComboboxIconAddonPreview } from './combobox--icon-addon.preview';
+import { ComboboxInvalidPreview } from './combobox--invalid.preview';
 import { ComboboxItemToStringPreview } from './combobox--item-to-string.preview';
 import { ComboboxMultipleAutoHighlightPreview } from './combobox--multiple-autohighlight.preview';
 import { ComboboxMultipleDisabledPreview } from './combobox--multiple-disabled.preview';
@@ -78,6 +79,7 @@ export const routeMeta: RouteMeta = {
 		ComboboxAutoHighlightPreview,
 		ComboboxMultipleAutoHighlightPreview,
 		ComboboxRtlPreview,
+		ComboboxInvalidPreview,
 	],
 	template: `
 		<section spartanMainSection>
@@ -263,6 +265,14 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_iconAddonCode()" />
 			</spartan-tabs>
 
+			<h3 id="examples__invalid" spartanH4>Invalid</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-combobox-invalid-preview />
+				</div>
+				<spartan-code secondTab [code]="_invalidCode()" />
+			</spartan-tabs>
+
 			<h3 id="examples__popup" spartanH4>Popup</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -347,6 +357,7 @@ export default class ComboboxPage {
 	protected readonly _groupSeparatorCode = computed(() => this._snippets()['groupSeparator']);
 	protected readonly _iconAddonCode = computed(() => this._snippets()['iconAddon']);
 	protected readonly _popupCode = computed(() => this._snippets()['popup']);
+	protected readonly _invalidCode = computed(() => this._snippets()['invalid']);
 	protected readonly _popupCustomCode = computed(() => this._snippets()['popupCustom']);
 	protected readonly _asyncCode = computed(() => this._snippets()['async']);
 	protected readonly _asyncMultipleCode = computed(() => this._snippets()['asyncMultiple']);

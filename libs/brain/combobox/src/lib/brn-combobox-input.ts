@@ -46,6 +46,9 @@ export class BrnComboboxInput<T> {
 		alias: 'aria-invalid',
 	});
 
+	/** Forces the invalid state visually, regardless of form control state. */
+	public readonly forceInvalid = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
+
 	public readonly disabled = this._combobox.disabledState;
 
 	/** Whether the combobox panel is expanded */
@@ -58,7 +61,9 @@ export class BrnComboboxInput<T> {
 
 	protected readonly _dirty = computed(() => this._combobox.controlState?.()?.dirty);
 	protected readonly _touched = computed(() => this._combobox.controlState?.()?.touched);
-	protected readonly _spartanInvalid = computed(() => this._combobox.controlState?.()?.spartanInvalid);
+	protected readonly _spartanInvalid = computed(
+		() => this.forceInvalid() || this._combobox.controlState?.()?.spartanInvalid,
+	);
 
 	constructor() {
 		this._combobox.registerComboboxInput?.(this);

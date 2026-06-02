@@ -46,6 +46,7 @@ export class BrnAccordionItem {
 		}
 		effect(() => {
 			const state = this.state();
+			if (untracked(this.disabled)) return;
 			untracked(() => {
 				this.stateChange.emit(state);
 				this.openedChange.emit(state === 'open');
@@ -53,6 +54,7 @@ export class BrnAccordionItem {
 		});
 		effect(() => {
 			const isOpened = this.isOpened();
+			if (untracked(this.disabled)) return;
 			untracked(() => {
 				if (isOpened) {
 					this._accordion.openItem(this.id);
@@ -64,6 +66,12 @@ export class BrnAccordionItem {
 	}
 
 	public open(): void {
+		if (this.disabled()) return;
 		this._accordion.openItem(this.id);
+	}
+
+	public close(): void {
+		if (this.disabled()) return;
+		this._accordion.closeItem(this.id);
 	}
 }

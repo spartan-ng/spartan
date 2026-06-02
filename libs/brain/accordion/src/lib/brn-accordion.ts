@@ -173,7 +173,9 @@ export class BrnAccordion implements AfterContentInit, OnDestroy {
 
 	public openAll(): void {
 		if (this.type() === 'multiple') {
-			this._brnAccordionItems().forEach((a) => this.openItem(a.id));
+			this._brnAccordionItems()
+				.filter((a) => !a.disabled())
+				.forEach((a) => this.openItem(a.id));
 		} else {
 			console.warn('[BrnAccordion]: openAll is only available in multiple mode');
 		}
@@ -181,7 +183,7 @@ export class BrnAccordion implements AfterContentInit, OnDestroy {
 
 	public closeAll(): void {
 		this._brnAccordionItems()
-			.filter((a) => a.state() === 'open')
-			.forEach((a) => this.openItem(a.id));
+			.filter((a) => !a.disabled())
+			.forEach((a) => this.closeItem(a.id));
 	}
 }

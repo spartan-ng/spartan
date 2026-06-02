@@ -74,6 +74,39 @@
 		@apply bg-muted/50 -mx-4 -mb-4 rounded-b-xl border-t p-4;
 	}
 
+	/* MARK: Autocomplete */
+	.spartan-autocomplete-content {
+		@apply bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 max-h-72 min-w-36 overflow-hidden rounded-lg shadow-md ring-1 duration-100;
+	}
+
+	.spartan-autocomplete-label {
+		@apply text-muted-foreground px-2 py-1.5 text-xs;
+	}
+
+	.spartan-autocomplete-item {
+		@apply data-highlighted:bg-accent data-highlighted:text-accent-foreground not-data-[variant=destructive]:data-highlighted:**:text-accent-foreground gap-2 rounded-md py-1 ps-1.5 pe-8 text-sm;
+	}
+
+	.spartan-autocomplete-item-indicator {
+		@apply absolute end-2 flex items-center justify-center text-[calc(var(--spacing)*4)];
+	}
+
+	.spartan-autocomplete-empty {
+		@apply text-muted-foreground hidden w-full items-center justify-center py-2 text-center text-sm group-data-empty/autocomplete-content:flex;
+	}
+
+	.spartan-autocomplete-list {
+		@apply no-scrollbar max-h-[calc(--spacing(72)---spacing(9))] scroll-py-1 p-1 data-empty:p-0;
+	}
+
+	.spartan-autocomplete-separator {
+		@apply bg-border -mx-1 my-1 h-px;
+	}
+
+	.spartan-autocomplete-status {
+		@apply text-muted-foreground gap-2 py-2 text-sm;
+	}
+
 	/* MARK: Avatar */
 	.spartan-avatar {
 		@apply size-8 rounded-full after:rounded-full data-[size=lg]:size-10 data-[size=sm]:size-6;
@@ -314,7 +347,7 @@
 	}
 
 	.spartan-combobox-list {
-		@apply no-scrollbar max-h-[min(calc(--spacing(72)---spacing(9)),calc(var(--available-height)---spacing(9)))] scroll-py-1 overflow-y-auto p-1 data-empty:p-0;
+		@apply no-scrollbar max-h-[calc(--spacing(72)---spacing(9))] scroll-py-1 overflow-y-auto p-1 data-empty:p-0;
 	}
 
 	.spartan-combobox-separator {

@@ -19,6 +19,7 @@ import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 				[id]="inputId()"
 				[placeholder]="placeholder()"
 				[aria-invalid]="ariaInvalidOverride()"
+				[forceInvalid]="forceInvalid()"
 			/>
 
 			@if (showSearch()) {
@@ -54,6 +55,9 @@ export class HlmAutocompleteInput {
 
 	public readonly showSearch = input<boolean, BooleanInput>(true, { transform: booleanAttribute });
 	public readonly showClear = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
+
+	/** Forces the invalid state visually, regardless of form control state. */
+	public readonly forceInvalid = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
 	/** Manual override for aria-invalid. When not set, auto-detects from the parent autocomplete error state. */
 	public readonly ariaInvalidOverride = input<boolean | undefined, BooleanInput>(undefined, {

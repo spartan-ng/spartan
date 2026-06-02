@@ -36,9 +36,7 @@ import { classes } from '@spartan-ng/helm/utils';
 			outputs: ['stateChanged', 'closed'],
 		},
 	],
-	host: {
-		'data-slot': 'autocomplete',
-	},
+	host: { 'data-slot': 'autocomplete' },
 })
 export class HlmAutocomplete {
 	constructor() {

@@ -85,9 +85,9 @@ jobs:
 
   e2e:
     runs-on: ubuntu-latest
-    # Kept after `build` so the app is built once and restored from the Nx cache here.
-    needs:
-      - build
+    # Not gated on `build`: the e2e suite runs cypress against storybook (its cypress executor's
+    # devServerTarget is ui-storybook:static-storybook), so it builds/serves storybook itself and
+    # is independent of the docs-app build. It runs in parallel with the build job.
     steps:
       - uses: actions/checkout@v6
         with:

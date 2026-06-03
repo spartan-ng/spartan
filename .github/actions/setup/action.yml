@@ -21,7 +21,7 @@ runs:
     # projects are restored as cache hits instead of being rebuilt/retested/relinted. The key is
     # per job+run so each job saves its own slice; restore-keys fall back to the most recent cache.
     - name: Restore Nx cache
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       with:
         path: .nx/cache
         key: nx-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.job }}

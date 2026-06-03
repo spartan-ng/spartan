@@ -263,8 +263,10 @@ function applyToCvaCalls(sourceFile: SourceFile, styleMap: StyleMap, matchedClas
 				}
 
 				const variantValue = variantProp.getInitializer();
-				if (variantValue && Node.isStringLiteral(variantValue)) {
-					applyStyleToCvaString(variantValue, styleMap, matchedClasses);
+				if (variantValue && isStringLiteralLike(variantValue)) {
+					// Variant branches are mutually exclusive alternatives; each must be
+					// rewritten independently, so don't share `matchedClasses` state across them.
+					applyStyle(variantValue, styleMap);
 				} else if (variantValue && Node.isArrayLiteralExpression(variantValue)) {
 					applyToArrayLiteral(variantValue, styleMap);
 				}

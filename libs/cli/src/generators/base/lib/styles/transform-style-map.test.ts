@@ -518,5 +518,34 @@ const fieldVariants = cva('', {
 "
 `);
 		});
+
+		it('rewrites each variant branch independently when they share a spartan class', async () => {
+			const source = `
+const variants = cva('', {
+	variants: {
+		orientation: {
+			vertical: 'spartan-foo',
+			horizontal: ['spartan-foo'],
+			both: 'spartan-foo',
+		},
+	},
+});
+`;
+
+			const result = await applyTransform(source, baseStyleMap);
+
+			expect(result).toMatchInlineSnapshot(`
+"const variants = cva('', {
+	variants: {
+		orientation: {
+			vertical: 'bg-background gap-4 rounded-xl',
+			horizontal: ['bg-background gap-4 rounded-xl'],
+			both: 'bg-background gap-4 rounded-xl',
+		},
+	},
+});
+"
+`);
+		});
 	});
 });

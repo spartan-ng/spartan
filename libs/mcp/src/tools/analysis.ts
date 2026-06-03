@@ -294,24 +294,28 @@ function analyzeAriaSupport(text: string): Record<string, string> {
 
 function analyzeKeyboardSupport(text: string): Record<string, string> {
 	const features: Record<string, string> = {};
+	// Match whole words so the docs nav (which lists the "tabs" component on every
+	// page) doesn't falsely flag Tab-key support for unrelated components.
 	for (const term of ['keyboard', 'focus', 'tab', 'enter', 'space', 'arrow keys']) {
-		if (text.toLowerCase().includes(term)) features[term] = `${term} navigation supported`;
+		if (new RegExp(`\\b${term}\\b`, 'i').test(text)) features[term] = `${term} navigation supported`;
 	}
 	return features;
 }
 
 function analyzeScreenReaderSupport(text: string): Record<string, string> {
 	const features: Record<string, string> = {};
-	if (text.includes('screen reader')) features.general = 'Screen reader support mentioned';
-	if (text.includes('announcements')) features.announcements = 'Screen reader announcements supported';
+	const lower = text.toLowerCase();
+	if (lower.includes('screen reader')) features.general = 'Screen reader support mentioned';
+	if (lower.includes('announcements')) features.announcements = 'Screen reader announcements supported';
 	return features;
 }
 
 function analyzeWcagCompliance(text: string): Record<string, string> {
 	const features: Record<string, string> = {};
-	if (text.includes('WCAG')) features.compliance = 'WCAG compliance mentioned';
+	const lower = text.toLowerCase();
+	if (lower.includes('wcag')) features.compliance = 'WCAG compliance mentioned';
 	for (const criteria of ['contrast', 'focus visible', 'keyboard accessible']) {
-		if (text.toLowerCase().includes(criteria)) features[criteria] = `${criteria} support detected`;
+		if (lower.includes(criteria)) features[criteria] = `${criteria} support detected`;
 	}
 	return features;
 }

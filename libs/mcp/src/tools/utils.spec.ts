@@ -14,6 +14,10 @@ describe('htmlToText', () => {
 	it('inserts line breaks for block-level closing tags', () => {
 		expect(htmlToText('<li>one</li><li>two</li>')).toBe('one\ntwo');
 	});
+
+	it('treats plain and self-closing <br>/<hr> as line breaks', () => {
+		expect(htmlToText('a<br>b<br/>c<hr>d')).toBe('a\nb\nc\nd');
+	});
 });
 
 describe('detectLanguage', () => {

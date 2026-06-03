@@ -169,9 +169,11 @@ export const routeMeta: RouteMeta = {
 			<ul class="my-4 ml-6 list-disc [&>li]:mt-2">
 				<li>
 					<code class="${hlmCode}">SPARTAN_MCP_CACHE_DIR</code>
-					- directory for the on-disk version cache. Defaults to your OS user cache directory (
+					- directory for the on-disk version cache. Defaults to
+					<code class="${hlmCode}">$XDG_CACHE_HOME/spartan-mcp</code>
+					, falling back to
 					<code class="${hlmCode}">~/.cache/spartan-mcp</code>
-					).
+					.
 				</li>
 				<li>
 					<code class="${hlmCode}">SPARTAN_CACHE_TTL_MS</code>

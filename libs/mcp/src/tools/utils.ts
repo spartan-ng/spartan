@@ -95,7 +95,7 @@ export function htmlToText(html: string): string {
 	const withoutStyles = withoutScripts.replace(/<style[\s\S]*?<\/style>/gi, '');
 	const withBreaks = withoutStyles
 		.replace(/<\/(p|div|section|article|li|h[1-6]|br|pre)>/gi, '\n')
-		.replace(/<(br|hr)\s*\/>/gi, '\n');
+		.replace(/<(br|hr)\s*\/?>/gi, '\n');
 	const stripped = withBreaks.replace(/<[^>]+>/g, '');
 	const decoded = stripped
 		.replace(/&nbsp;/g, ' ')

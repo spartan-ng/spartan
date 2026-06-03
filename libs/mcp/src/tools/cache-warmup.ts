@@ -161,25 +161,29 @@ export async function warmCache(options: WarmupOptions = {}): Promise<WarmupResu
 	return results;
 }
 
-export async function runCacheWarmup(): Promise<void> {
-	try {
-		const version = await cacheManager.initialize();
-		console.error(`Using Spartan UI version: ${version}`);
+export async function runCacheWarmup(): Promise<WarmupResult> {
+	const version = await cacheManager.initialize();
+	console.error(`Using Spartan UI version: ${version}`);
 
-		await warmCache({
-			components: KNOWN_COMPONENTS,
-			blocks: KNOWN_BLOCKS,
-			includeDocs: true,
-		});
-
-		process.exit(0);
-	} catch (error) {
-		console.error('Cache warmup failed:', (error as Error).message);
-		console.error((error as Error).stack);
-		process.exit(1);
-	}
+	return warmCache({
+		components: KNOWN_COMPONENTS,
+		blocks: KNOWN_BLOCKS,
+		includeDocs: true,
+	});
 }
 
-if (import.meta.url === pathToFileURL(process.argv[1]).href) {
-	runCacheWarmup();
+// Run as a CLI only when invoked directly. `process.argv[1]` is undefined when
+// imported, in a REPL, or under `node -e`, so guard before resolving it.
+const invokedPath = process.argv[1];
+if (invokedPath && import.meta.url === pathToFileURL(invokedPath).href) {
+	runCacheWarmup()
+		.then((results) => {
+			const failed = results.components.failed + results.blocks.failed + results.docs.failed;
+			process.exit(failed > 0 ? 1 : 0);
+		})
+		.catch((error) => {
+			console.error('Cache warmup failed:', (error as Error).message);
+			console.error((error as Error).stack);
+			process.exit(1);
+		});
 }

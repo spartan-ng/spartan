@@ -75,39 +75,35 @@ export function registerBlockTools(server: McpServer): void {
 			const format = args.format === 'text' ? 'text' : 'html';
 			const noCache = Boolean(args.noCache);
 
-			let content: string;
+			// Cache HTML as the single canonical entry; text is derived on read so the
+			// two formats can never drift for the same block/version.
+			const cacheKey = `${name}__html`;
+			let html: string;
 			let cacheInfo = '';
 
 			if (!noCache) {
-				const cacheKey = `${name}__${format}`;
 				const cached = await cacheManager.getBlock(cacheKey);
 				if (cached.cached && !cached.stale) {
-					if (format === 'text') {
-						content = (cached.data as { text?: string }).text || (cached.data as { html: string }).html;
-					} else {
-						content = (cached.data as { html: string }).html;
-					}
+					html = (cached.data as { html: string }).html;
 					cacheInfo = `\n[CACHED DATA - Version: ${cached.version}, Cached at: ${cached.cachedAt}]`;
 				} else {
-					content = await fetchContent(url, format, true);
-					if (format === 'text') {
-						await cacheManager.setBlock(cacheKey, { text: content });
-					} else {
-						const extracted = extractCodeBlocks(content);
-						await cacheManager.setBlock(cacheKey, {
-							html: content,
-							code: extracted,
-							full: { html: content, code: extracted, url },
-						});
-					}
+					html = await fetchContent(url, 'html', true);
+					const extracted = extractCodeBlocks(html);
+					await cacheManager.setBlock(cacheKey, {
+						html,
+						code: extracted,
+						full: { html, code: extracted, url },
+					});
 					cacheInfo = cached.cached
 						? `\n[CACHE REFRESHED - Version: ${cacheManager.currentVersion}]`
 						: `\n[NEWLY CACHED - Version: ${cacheManager.currentVersion}]`;
 				}
 			} else {
-				content = await fetchContent(url, format, true);
+				html = await fetchContent(url, 'html', true);
 				cacheInfo = '\n[LIVE FETCH - Cache bypassed]';
 			}
+
+			const content = format === 'text' ? htmlToText(html) : html;
 
 			const responseText =
 				`${content}${cacheInfo}\n\nSource: ${url}\n\n` +

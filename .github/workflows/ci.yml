@@ -50,7 +50,7 @@ jobs:
           fetch-depth: 0
           filter: blob:none
       - uses: ./.github/actions/setup
-      - uses: nrwl/nx-set-shas@v4
+      - uses: nrwl/nx-set-shas@v5
       - name: format
         run: pnpm nx format:check --base=$NX_BASE --head=$NX_HEAD
       - name: lint
@@ -63,7 +63,7 @@ jobs:
         with:
           fetch-depth: 0
       - uses: ./.github/actions/setup
-      - uses: nrwl/nx-set-shas@v4
+      - uses: nrwl/nx-set-shas@v5
       - name: Build
         run: pnpm nx affected -t build --parallel=1
 
@@ -79,7 +79,7 @@ jobs:
           fetch-depth: 0
           filter: blob:none
       - uses: ./.github/actions/setup
-      - uses: nrwl/nx-set-shas@v4
+      - uses: nrwl/nx-set-shas@v5
       - name: Test
         run: pnpm nx affected -t test --parallel=3
 
@@ -94,13 +94,13 @@ jobs:
           fetch-depth: 0
       # Restore the Cypress binary cache before install so a cypress postinstall is a no-op too.
       - name: Cache Cypress binary
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.cache/Cypress
           key: cypress-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
           restore-keys: cypress-${{ runner.os }}-
       - uses: ./.github/actions/setup
-      - uses: nrwl/nx-set-shas@v4
+      - uses: nrwl/nx-set-shas@v5
       - name: Install Cypress
         run: npx cypress install
       - name: End-to-end test

@@ -152,8 +152,8 @@ export class DataTablePreview {
 	protected readonly _columns: ColumnDef<Payment>[] = [
 		{
 			id: 'select',
-			header: () => flexRenderComponent(TableHeadSelection),
-			cell: () => flexRenderComponent(TableRowSelection),
+			header: () => flexRenderComponent(TableHeadSelection, { inputs: {} }),
+			cell: () => flexRenderComponent(TableRowSelection, { inputs: {} }),
 			enableSorting: false,
 			enableHiding: false,
 		},
@@ -188,7 +188,7 @@ export class DataTablePreview {
 		{
 			id: 'actions',
 			enableHiding: false,
-			cell: () => flexRenderComponent(ActionDropdown),
+			cell: () => flexRenderComponent(ActionDropdown, { inputs: {} }),
 		},
 	];
 

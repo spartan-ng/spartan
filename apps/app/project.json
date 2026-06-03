@@ -74,6 +74,7 @@
 		},
 		"generate-ui-docs": {
 			"executor": "@spartan-ng/tools:generate-ui-docs",
+			"cache": false,
 			"options": {
 				"outputDir": "apps/app/src/public/data",
 				"outputFile": "ui-api.json",
@@ -83,6 +84,7 @@
 		},
 		"generate-docs-and-snippets": {
 			"executor": "nx:run-commands",
+			"cache": false,
 			"options": {
 				"commands": ["nx run app:generate-ui-docs", "npx nx generate @spartan-ng/tools:generate-primitive-snippets"],
 				"parallel": false
@@ -90,6 +92,7 @@
 		},
 		"generate-hlm-component-preview": {
 			"executor": "nx:run-commands",
+			"cache": false,
 			"options": {
 				"commands": ["npx nx generate @spartan-ng/tools:generate-hlm-component-preview"],
 				"parallel": false

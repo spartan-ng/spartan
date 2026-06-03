@@ -4,15 +4,9 @@ import analog from '@analogjs/platform';
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 import * as path from 'node:path';
 import { visualizer } from 'rollup-plugin-visualizer';
-import { type Plugin, defineConfig } from 'vite';
+import { type Plugin, defineConfig, splitVendorChunkPlugin } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import { getPrerenderedRoutes } from './src/utils/prerender-routes';
-
-// Prerender concurrency. Default serial (1) since the page renders are memory-heavy; raise via
-// PRERENDER_CONCURRENCY when the build has enough heap headroom (see --max-old-space-size).
-const _prerenderConcurrency = Number(process.env.PRERENDER_CONCURRENCY);
-const PRERENDER_CONCURRENCY =
-	Number.isInteger(_prerenderConcurrency) && _prerenderConcurrency > 0 ? _prerenderConcurrency : 1;
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
@@ -127,7 +121,7 @@ export default defineConfig(({ mode }) => {
 				nitro: {
 					logLevel: 4,
 					prerender: {
-						concurrency: PRERENDER_CONCURRENCY,
+						concurrency: 1,
 					},
 					serverAssets: [
 						{
@@ -141,6 +135,7 @@ export default defineConfig(({ mode }) => {
 				},
 			}),
 			nxViteTsPaths(),
+			splitVendorChunkPlugin(),
 			// Bundle analysis is opt-in (ANALYZE=1) so it does not traverse the whole bundle on
 			// every production build.
 			...(process.env.ANALYZE ? [visualizer() as Plugin] : []),

@@ -9,7 +9,7 @@ import { classes } from '@spartan-ng/helm/utils';
 export class HlmComboboxContent {
 	constructor() {
 		classes(() => [
-			'spartan-combobox-content group/combobox-content relative flex w-(--brn-combobox-width) origin-(--transform-origin) flex-col p-0 data-[chips=true]:min-w-(--anchor-width)',
+			'spartan-combobox-content group/combobox-content relative flex w-(--brn-combobox-width) flex-col p-0',
 		]);
 	}
 }

@@ -92,15 +92,15 @@ jobs:
       - uses: actions/checkout@v6
         with:
           fetch-depth: 0
-      - uses: ./.github/actions/setup
-      - uses: nrwl/nx-set-shas@v4
-      # Cache the Cypress binary so it is not re-downloaded every run.
+      # Restore the Cypress binary cache before install so a cypress postinstall is a no-op too.
       - name: Cache Cypress binary
         uses: actions/cache@v4
         with:
           path: ~/.cache/Cypress
           key: cypress-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
           restore-keys: cypress-${{ runner.os }}-
+      - uses: ./.github/actions/setup
+      - uses: nrwl/nx-set-shas@v4
       - name: Install Cypress
         run: npx cypress install
       - name: End-to-end test

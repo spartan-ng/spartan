@@ -21,6 +21,9 @@ const baseStyleMap: StyleMap = {
 	'spartan-button-size-icon-sm': `size-8 rounded-[min(var(--radius-md),10px)] in-data-[slot=button-group]:rounded-md`,
 	'spartan-button-size-icon': `size-9`,
 	'spartan-button-size-icon-lg': `size-10`,
+	'spartan-rtl-flip': 'rtl:rotate-180',
+	'spartan-field-orientation-vertical': 'flex-col',
+	'spartan-field-orientation-horizontal': 'flex-row',
 };
 async function applyTransform(source: string, styleMap: StyleMap) {
 	const project = new Project({
@@ -171,6 +174,19 @@ const cls = hlm("spartan-foo", "", "extra", "");
 
 			expect(result).toMatchInlineSnapshot(`
 "<div class="bg-background gap-4 rounded-xl spartan-menu-target"></div>
+"
+`);
+		});
+
+		it('replaces spartan-rtl-flip with its tailwind equivalent', async () => {
+			const source = `
+<div class="spartan-rtl-flip"></div>
+`;
+
+			const result = await applyTransform(source, baseStyleMap);
+
+			expect(result).toMatchInlineSnapshot(`
+"<div class="rtl:rotate-180"></div>
 "
 `);
 		});
@@ -472,6 +488,62 @@ export class HlmButton {
         }
 }
 "
+"
+`);
+		});
+
+		it('replaces spartan classes in cva variants with mixed string and array values', async () => {
+			const source = `
+const fieldVariants = cva('', {
+	variants: {
+		orientation: {
+			vertical: 'spartan-field-orientation-vertical',
+			horizontal: ['spartan-field-orientation-horizontal'],
+		},
+	},
+});
+`;
+
+			const result = await applyTransform(source, baseStyleMap);
+
+			expect(result).toMatchInlineSnapshot(`
+"const fieldVariants = cva('', {
+	variants: {
+		orientation: {
+			vertical: 'flex-col',
+			horizontal: ['flex-row'],
+		},
+	},
+});
+"
+`);
+		});
+
+		it('rewrites each variant branch independently when they share a spartan class', async () => {
+			const source = `
+const variants = cva('', {
+	variants: {
+		orientation: {
+			vertical: 'spartan-foo',
+			horizontal: ['spartan-foo'],
+			both: 'spartan-foo',
+		},
+	},
+});
+`;
+
+			const result = await applyTransform(source, baseStyleMap);
+
+			expect(result).toMatchInlineSnapshot(`
+"const variants = cva('', {
+	variants: {
+		orientation: {
+			vertical: 'bg-background gap-4 rounded-xl',
+			horizontal: ['bg-background gap-4 rounded-xl'],
+			both: 'bg-background gap-4 rounded-xl',
+		},
+	},
+});
 "
 `);
 		});

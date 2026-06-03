@@ -163,7 +163,7 @@ describe('select', () => {
 	describe('disabled option', () => {
 		it('should not be able to select a disabled option', () => {
 			cy.visit('/iframe.html?id=select--disabled-option');
-			cy.get('hlm-select-trigger').click();
+			cy.get('[brnselecttrigger]').click();
 			cy.get('hlm-select-item').eq(0).should('not.have.attr', 'data-disabled');
 			cy.get('[data-testid="banana-option"]').should('have.attr', 'aria-disabled', 'true');
 			cy.get('[data-testid="banana-option"]').should('have.attr', 'data-disabled', '');
@@ -230,7 +230,7 @@ describe('select', () => {
 			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-matches-spartan-invalid');
 
 			// on open
-			cy.get('hlm-select').click();
+			cy.get('[brnselecttrigger]').click();
 			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-touched');
 			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-dirty');
 			cy.get('[brnselecttrigger]').should('not.have.attr', 'aria-invalid');

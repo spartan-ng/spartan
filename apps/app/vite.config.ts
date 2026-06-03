@@ -47,7 +47,8 @@ export default defineConfig(({ mode }) => {
 		},
 		build: {
 			outDir: '../../dist/apps/app/client',
-			reportCompressedSize: true,
+			// Skip computing gzip sizes for every chunk - it is only an informational report.
+			reportCompressedSize: false,
 			commonjsOptions: { transformMixedEsModules: true },
 			target: ['es2020'],
 		},
@@ -134,8 +135,10 @@ export default defineConfig(({ mode }) => {
 				},
 			}),
 			nxViteTsPaths(),
-			visualizer() as Plugin,
 			splitVendorChunkPlugin(),
+			// Bundle analysis is opt-in (ANALYZE=1) so it does not traverse the whole bundle on
+			// every production build.
+			...(process.env.ANALYZE ? [visualizer() as Plugin] : []),
 		],
 		test: {
 			reporters: ['default'],

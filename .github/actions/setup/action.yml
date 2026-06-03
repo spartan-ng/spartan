@@ -1,0 +1,30 @@
+name: Setup
+description: Install pnpm, Node and dependencies, and restore the Nx computation cache
+
+runs:
+  using: composite
+  steps:
+    - name: Install pnpm
+      uses: pnpm/action-setup@v5
+
+    - name: Install Node
+      uses: actions/setup-node@v6
+      with:
+        node-version-file: .node-version
+        cache: pnpm
+
+    - name: Install dependencies
+      run: pnpm install --frozen-lockfile
+      shell: bash
+
+    # Persist the Nx local computation cache across jobs and runs (no Nx Cloud). Unchanged
+    # projects are restored as cache hits instead of being rebuilt/retested/relinted. The key is
+    # per job+run so each job saves its own slice; restore-keys fall back to the most recent cache.
+    - name: Restore Nx cache
+      uses: actions/cache@v4
+      with:
+        path: .nx/cache
+        key: nx-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.job }}
+        restore-keys: |
+          nx-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-
+          nx-${{ runner.os }}-

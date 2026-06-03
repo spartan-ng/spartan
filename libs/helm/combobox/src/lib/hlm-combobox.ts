@@ -45,9 +45,7 @@ import { classes } from '@spartan-ng/helm/utils';
 			outputs: ['stateChanged', 'closed'],
 		},
 	],
-	host: {
-		'data-slot': 'combobox',
-	},
+	host: { 'data-slot': 'combobox' },
 })
 export class HlmCombobox {
 	constructor() {

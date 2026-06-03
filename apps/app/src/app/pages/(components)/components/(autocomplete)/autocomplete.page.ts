@@ -1,6 +1,8 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { CodeRtlPreview } from '@spartan-ng/app/app/shared/code/code-rtl-preview';
+import { RtlHeader } from '@spartan-ng/app/app/shared/code/rtl-header';
 import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { UIApiDocs } from '@spartan-ng/app/app/shared/layout/ui-docs-section/ui-docs-section';
@@ -24,7 +26,9 @@ import { AutocompleteDisabledPreview } from './autocomplete--disabled.preview';
 import { AutocompleteFormPreview } from './autocomplete--form.preview';
 import { AutocompleteGroupSeparatorPreview } from './autocomplete--group-separator.preview';
 import { AutocompleteGroupPreview } from './autocomplete--group.preview';
+import { AutocompleteInvalidPreview } from './autocomplete--invalid.preview';
 import { AutocompleteResolveValueIdPreview } from './autocomplete--resolve-value-id.example';
+import { AutocompleteRtlPreview } from './autocomplete--rtl.preview';
 import { AutocompleteSearchAutohighlightPreview } from './autocomplete--search-autohighlight.preview';
 import { AutocompleteSearchFormPreview } from './autocomplete--search-form.preview';
 import { AutocompleteSearchPreview } from './autocomplete--search.preview';
@@ -52,6 +56,8 @@ export const routeMeta: RouteMeta = {
 		Tabs,
 
 		CodePreview,
+		RtlHeader,
+		CodeRtlPreview,
 		PageNav,
 		PageBottomNav,
 		PageBottomNavLink,
@@ -66,6 +72,8 @@ export const routeMeta: RouteMeta = {
 		AutocompleteGroupSeparatorPreview,
 		AutocompleteClearPreview,
 		AutocompleteDisabledPreview,
+		AutocompleteRtlPreview,
+		AutocompleteInvalidPreview,
 		AutocompleteSearchPreview,
 		AutocompleteSearchFormPreview,
 		AutocompleteResolveValueIdPreview,
@@ -77,6 +85,7 @@ export const routeMeta: RouteMeta = {
 			<spartan-section-intro
 				name="Autocomplete"
 				lead="Autocomplete input and dropdown selection with filtering options."
+				showThemeToggle
 			/>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
@@ -86,7 +95,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
-			<spartan-install-tabs primitive="autocomplete" />
+			<spartan-install-tabs primitive="autocomplete" [showOnlyVega]="false" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">
@@ -140,6 +149,14 @@ export const routeMeta: RouteMeta = {
 					<spartan-autocomplete-disabled-preview />
 				</div>
 				<spartan-code secondTab [code]="_disabledCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__invalid" spartanH4>Invalid</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-autocomplete-invalid-preview />
+				</div>
+				<spartan-code secondTab [code]="_invalidCode()" />
 			</spartan-tabs>
 
 			<h3 id="examples__autohighlight" spartanH4>Auto highlight</h3>
@@ -246,6 +263,14 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_searchFormCode()" />
 			</spartan-tabs>
 
+			<spartan-header-rtl />
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanRtlCodePreview firstTab>
+					<spartan-autocomplete-rtl-preview />
+				</div>
+				<spartan-code secondTab [code]="_rtlCode()" />
+			</spartan-tabs>
+
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="brain" />
 
@@ -266,6 +291,8 @@ export default class AutocompletePage {
 	protected readonly _searchCode = computed(() => this._snippets()['search']);
 	protected readonly _clearCode = computed(() => this._snippets()['clear']);
 	protected readonly _disabledCode = computed(() => this._snippets()['disabled']);
+	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
+	protected readonly _invalidCode = computed(() => this._snippets()['invalid']);
 	protected readonly _autohighlightCode = computed(() => this._snippets()['autohighlight']);
 	protected readonly _searchAutohighlightCode = computed(() => this._snippets()['searchAutohighlight']);
 	protected readonly _groupCode = computed(() => this._snippets()['group']);

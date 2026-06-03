@@ -4,7 +4,7 @@ import { injectBrnComboboxBase } from './brn-combobox.token';
 @Directive({
 	selector: '[brnComboboxContent]',
 	host: {
-		'[attr.data-empty]': '_empty() ? "" : null',
+		'[attr.data-empty]': '_isEmpty() ? "" : null',
 		'[style.--brn-combobox-width.px]': '_comboboxWidth()',
 	},
 })
@@ -12,8 +12,8 @@ export class BrnComboboxContent {
 	private readonly _combobox = injectBrnComboboxBase();
 	public readonly el = inject<ElementRef<HTMLElement>>(ElementRef);
 
-	/** Determine if the combobox is empty */
-	protected readonly _empty = computed(() => !this._combobox.visibleItems() && this._combobox.search().length > 0);
+	/** Determine if the combobox has no visible items */
+	protected readonly _isEmpty = computed(() => !this._combobox.visibleItems());
 
 	protected readonly _comboboxWidth = this._combobox.searchInputWrapperWidth;
 }

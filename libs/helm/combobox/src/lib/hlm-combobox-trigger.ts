@@ -32,7 +32,7 @@ import type { ClassValue } from 'clsx';
 			[variant]="variant()"
 		>
 			<ng-content />
-			<ng-icon name="lucideChevronDown" />
+			<ng-icon name="lucideChevronDown" class="spartan-combobox-trigger-icon" />
 		</button>
 	`,
 })
@@ -42,7 +42,7 @@ export class HlmComboboxTrigger {
 	public readonly userClass = input<ClassValue>('', {
 		alias: 'class',
 	});
-	protected readonly _computedClass = computed(() => hlm('data-placeholder:text-muted-foreground', this.userClass()));
+	protected readonly _computedClass = computed(() => hlm('spartan-combobox-trigger', this.userClass()));
 
 	public readonly buttonId = input<string>(`hlm-combobox-trigger-${HlmComboboxTrigger._id++}`);
 

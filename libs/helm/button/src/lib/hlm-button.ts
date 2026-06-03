@@ -41,9 +41,7 @@ export type ButtonVariants = VariantProps<typeof buttonVariants>;
 	selector: 'button[hlmBtn], a[hlmBtn]',
 	exportAs: 'hlmBtn',
 	hostDirectives: [{ directive: BrnButton, inputs: ['disabled'] }],
-	host: {
-		'data-slot': 'button',
-	},
+	host: { 'data-slot': 'button' },
 })
 export class HlmButton {
 	private readonly _config = injectBrnButtonConfig();

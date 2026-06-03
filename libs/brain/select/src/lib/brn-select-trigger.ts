@@ -1,4 +1,5 @@
-import { computed, Directive, effect, ElementRef, inject, input } from '@angular/core';
+import type { BooleanInput } from '@angular/cdk/coercion';
+import { booleanAttribute, computed, Directive, effect, ElementRef, inject, input } from '@angular/core';
 import { injectElementSize } from '@spartan-ng/brain/core';
 import { BrnDialog } from '@spartan-ng/brain/dialog';
 import { injectBrnSelectBase } from './brn-select.token';
@@ -33,6 +34,9 @@ export class BrnSelectTrigger {
 
 	public readonly id = input<string>(`brn-select-trigger-${++BrnSelectTrigger._id}`);
 
+	/** Whether to force the trigger into an invalid state. */
+	public readonly forceInvalid = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
+
 	/** Whether the combobox panel is expanded */
 	protected readonly _isExpanded = this._select.isExpanded;
 
@@ -43,7 +47,9 @@ export class BrnSelectTrigger {
 	protected readonly _invalid = computed(() => this._select?.controlState?.()?.invalid);
 	protected readonly _touched = computed(() => this._select?.controlState?.()?.touched);
 	protected readonly _dirty = computed(() => this._select?.controlState?.()?.dirty);
-	protected readonly _spartanInvalid = computed(() => this._select?.controlState?.()?.spartanInvalid);
+	protected readonly _spartanInvalid = computed(
+		() => this.forceInvalid() || this._select?.controlState?.()?.spartanInvalid,
+	);
 
 	constructor() {
 		this._select.registerSelectTrigger(this);

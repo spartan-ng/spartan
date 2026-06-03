@@ -41,6 +41,9 @@ export class BrnAutocompleteInput<T> {
 		alias: 'aria-invalid',
 	});
 
+	/** Forces the invalid state visually, regardless of form control state. */
+	public readonly forceInvalid = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
+
 	public readonly disabled = this._autocomplete.disabledState;
 
 	/** Whether the autocomplete panel is expanded */
@@ -51,7 +54,9 @@ export class BrnAutocompleteInput<T> {
 		() => this.ariaInvalidOverride() ?? this._autocomplete.controlState?.()?.invalid,
 	);
 
-	protected readonly _spartanInvalid = computed(() => this._autocomplete.controlState?.()?.spartanInvalid);
+	protected readonly _spartanInvalid = computed(
+		() => this.forceInvalid() || this._autocomplete.controlState?.()?.spartanInvalid,
+	);
 	protected readonly _touched = computed(() => this._autocomplete.controlState?.()?.touched);
 	protected readonly _dirty = computed(() => this._autocomplete.controlState?.()?.dirty);
 

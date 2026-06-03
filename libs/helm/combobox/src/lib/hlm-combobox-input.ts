@@ -19,6 +19,7 @@ import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 				hlmInputGroupInput
 				[id]="inputId()"
 				[placeholder]="placeholder()"
+				[forceInvalid]="forceInvalid()"
 				[aria-invalid]="ariaInvalidOverride()"
 			/>
 
@@ -63,6 +64,7 @@ export class HlmComboboxInput {
 
 	public readonly showTrigger = input<boolean, BooleanInput>(true, { transform: booleanAttribute });
 	public readonly showClear = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
+	public readonly forceInvalid = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
 	/** Manual override for aria-invalid. When not set, auto-detects from the parent combobox error state. */
 	public readonly ariaInvalidOverride = input<boolean | undefined, BooleanInput>(undefined, {

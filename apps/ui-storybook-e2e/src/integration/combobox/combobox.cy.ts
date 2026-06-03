@@ -27,7 +27,7 @@ describe('combobox--default', () => {
 			cy.findByText('Angular').should('not.be.visible');
 		});
 
-		it('should open the framework dropdown, and a scrollbar should be shown', () => {
+		it('should open the framework dropdown, and the list should be scrollable', () => {
 			cy.findByText(/Angular/i).should('not.exist');
 			cy.get('input[placeholder="Select framework..."]').should('be.visible').realClick();
 			cy.get('[role="listbox"]').should(($el) => {

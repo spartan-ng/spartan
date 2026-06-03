@@ -3,7 +3,7 @@
 	"$schema": "../../node_modules/nx/schemas/project-schema.json",
 	"sourceRoot": "libs/mcp/src",
 	"projectType": "library",
-	"tags": [],
+	"tags": ["scope:mcp"],
 	"targets": {
 		"build": {
 			"executor": "@nx/js:tsc",
@@ -16,13 +16,21 @@
 			}
 		},
 		"lint": {
-			"executor": "@nx/eslint:lint"
+			"executor": "@nx/eslint:lint",
+			"outputs": ["{options.outputFile}"]
 		},
 		"test": {
 			"executor": "@nx/jest:jest",
 			"outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
 			"options": {
-				"jestConfig": "libs/mcp/jest.config.ts"
+				"jestConfig": "libs/mcp/jest.config.ts",
+				"tsConfig": "libs/mcp/tsconfig.spec.json"
+			}
+		},
+		"release": {
+			"executor": "@spartan-ng/tools:build-update-publish",
+			"options": {
+				"libName": "mcp"
 			}
 		}
 	}

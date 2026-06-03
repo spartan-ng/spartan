@@ -1,11 +1,24 @@
 import fs from 'fs/promises';
+import os from 'os';
 import path from 'path';
-import { fileURLToPath } from 'url';
 import type { APIInfo, CodeBlock } from './utils.js';
 
-const filename = fileURLToPath(import.meta.url);
-const dirname = path.dirname(filename);
-const PROJECT_ROOT = path.resolve(dirname, '../..');
+/**
+ * Resolve a writable base directory for the on-disk cache.
+ *
+ * Priority: explicit override -> XDG cache home -> OS user cache directory.
+ * Avoids writing inside the installed package, which is often read-only for
+ * global/npx installs.
+ */
+function resolveCacheDir(): string {
+	if (process.env.SPARTAN_MCP_CACHE_DIR) {
+		return path.resolve(process.env.SPARTAN_MCP_CACHE_DIR);
+	}
+	if (process.env.XDG_CACHE_HOME) {
+		return path.join(path.resolve(process.env.XDG_CACHE_HOME), 'spartan-mcp');
+	}
+	return path.join(os.homedir(), '.cache', 'spartan-mcp');
+}
 
 interface CacheMetadata {
 	version: string;
@@ -96,7 +109,7 @@ export class CacheManager {
 	private _cacheMetadata: CacheMetadata | null;
 
 	constructor() {
-		this._cacheDir = path.join(PROJECT_ROOT, 'cache');
+		this._cacheDir = resolveCacheDir();
 		this.currentVersion = null;
 		this._cacheMetadata = null;
 	}
@@ -147,7 +160,12 @@ export class CacheManager {
 		componentName: string,
 		dataType = 'full',
 	): Promise<CacheResult<ComponentCacheEntry | ComponentFullData | string | APIInfo | CodeBlock[] | string[]>> {
-		const componentFile = path.join(this._cacheDir, this.currentVersion!, 'components', `${componentName}.json`);
+		const componentFile = path.join(
+			this._cacheDir,
+			this.currentVersion!,
+			'components',
+			`${this.safeKey(componentName)}.json`,
+		);
 
 		try {
 			const data = await fs.readFile(componentFile, 'utf-8');
@@ -193,7 +211,12 @@ export class CacheManager {
 	}
 
 	async setComponent(componentName: string, data: Partial<ComponentCacheEntry>): Promise<void> {
-		const componentFile = path.join(this._cacheDir, this.currentVersion!, 'components', `${componentName}.json`);
+		const componentFile = path.join(
+			this._cacheDir,
+			this.currentVersion!,
+			'components',
+			`${this.safeKey(componentName)}.json`,
+		);
 
 		const cacheEntry = {
 			...data,
@@ -213,7 +236,7 @@ export class CacheManager {
 	}
 
 	async getDocs(topic: string): Promise<CacheResult<string | null>> {
-		const docsFile = path.join(this._cacheDir, this.currentVersion!, 'docs', `${topic}.json`);
+		const docsFile = path.join(this._cacheDir, this.currentVersion!, 'docs', `${this.safeKey(topic)}.json`);
 
 		try {
 			const data = await fs.readFile(docsFile, 'utf-8');
@@ -242,7 +265,7 @@ export class CacheManager {
 	}
 
 	async setDocs(topic: string, content: string): Promise<void> {
-		const docsFile = path.join(this._cacheDir, this.currentVersion!, 'docs', `${topic}.json`);
+		const docsFile = path.join(this._cacheDir, this.currentVersion!, 'docs', `${this.safeKey(topic)}.json`);
 
 		const cacheEntry: DocsCacheEntry = {
 			topic,
@@ -262,7 +285,7 @@ export class CacheManager {
 	}
 
 	async getBlock(blockName: string): Promise<CacheResult<unknown>> {
-		const blockFile = path.join(this._cacheDir, this.currentVersion!, 'blocks', `${blockName}.json`);
+		const blockFile = path.join(this._cacheDir, this.currentVersion!, 'blocks', `${this.safeKey(blockName)}.json`);
 
 		try {
 			const data = await fs.readFile(blockFile, 'utf-8');
@@ -291,7 +314,7 @@ export class CacheManager {
 	}
 
 	async setBlock(blockName: string, data: Partial<BlockCacheEntry>): Promise<void> {
-		const blockFile = path.join(this._cacheDir, this.currentVersion!, 'blocks', `${blockName}.json`);
+		const blockFile = path.join(this._cacheDir, this.currentVersion!, 'blocks', `${this.safeKey(blockName)}.json`);
 
 		const cacheEntry: BlockCacheEntry = {
 			...data,
@@ -302,7 +325,9 @@ export class CacheManager {
 
 		await fs.writeFile(blockFile, JSON.stringify(cacheEntry, null, 2), 'utf-8');
 
-		this._cacheMetadata!.blocks![blockName] = {
+		// `blocks` is optional and may be absent in metadata written by older versions.
+		this._cacheMetadata!.blocks ??= {};
+		this._cacheMetadata!.blocks[blockName] = {
 			cachedAt: cacheEntry.cachedAt,
 			size: JSON.stringify(cacheEntry).length,
 		};
@@ -442,9 +467,25 @@ export class CacheManager {
 			throw new Error(`Invalid version: "${version}". Version cannot be empty, '.', or '..'.`);
 		}
 		if (!/^[\w.-]+$/.test(version)) {
-			throw new Error(`Invalid version: "${version}". Only alphanumeric, dash, underscore, and dot characters are allowed.`);
+			throw new Error(
+				`Invalid version: "${version}". Only alphanumeric, dash, underscore, and dot characters are allowed.`,
+			);
 		}
 		return version;
+	}
+
+	/**
+	 * Guard cache keys that become filenames. Callers may pass user-supplied
+	 * names, so reject anything containing path separators or traversal segments
+	 * to keep writes/reads inside the cache directory.
+	 */
+	private safeKey(key: string): string {
+		if (!key || key === '.' || key === '..' || !/^[\w.-]+$/.test(key)) {
+			throw new Error(
+				`Invalid cache key: "${key}". Only alphanumeric, dash, underscore, and dot characters are allowed.`,
+			);
+		}
+		return key;
 	}
 
 	async switchVersion(version: string): Promise<{ success: boolean; version: string; message: string }> {

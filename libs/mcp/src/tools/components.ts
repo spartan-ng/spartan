@@ -92,6 +92,9 @@ export function registerComponentTools(server: McpServer): void {
 				.trim()
 				.toLowerCase();
 			if (!name) throw new Error('Missing component name');
+			if (!/^[a-z][a-z0-9-]*$/.test(name)) {
+				throw new Error(`Invalid component name: "${name}". Use a kebab-case name, e.g. 'accordion'.`);
+			}
 
 			await cacheManager.initialize(args.spartanVersion);
 

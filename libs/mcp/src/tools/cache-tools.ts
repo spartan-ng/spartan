@@ -96,7 +96,7 @@ export function registerCacheTools(server: McpServer): void {
 					includeDocs,
 					onProgress: (current, total) => {
 						if (current % 5 === 0) {
-							console.log(`Progress: ${current}/${total} items cached`);
+							console.error(`Progress: ${current}/${total} items cached`);
 						}
 					},
 				});

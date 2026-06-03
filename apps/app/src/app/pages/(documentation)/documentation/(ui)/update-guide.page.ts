@@ -152,7 +152,7 @@ export const routeMeta: RouteMeta = {
 			</p>
 
 			<spartan-page-bottom-nav>
-				<spartan-page-bottom-nav-link href="/components" label="Components" />
+				<spartan-page-bottom-nav-link href="mcp" label="MCP Server" />
 				<spartan-page-bottom-nav-link direction="previous" href="health-checks" label="Health Checks" />
 			</spartan-page-bottom-nav>
 		</section>

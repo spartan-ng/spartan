@@ -153,9 +153,17 @@ export function registerBlockTools(server: McpServer): void {
 				angularCdk: [],
 			};
 
-			// Find referenced Spartan components
+			// Derive referenced Spartan components from `@spartan-ng/{brain,helm}/...`
+			// import paths in the page's code examples. Matching the full page text
+			// would match the docs navigation sidebar, which lists every component.
+			const importedComponents = new Set<string>();
+			const importRegex = /@spartan-ng\/(?:brain|helm)\/([\w-]+)/g;
+			let importMatch: RegExpExecArray | null;
+			while ((importMatch = importRegex.exec(text)) !== null) {
+				importedComponents.add(importMatch[1]);
+			}
 			for (const component of KNOWN_COMPONENTS) {
-				if (text.toLowerCase().includes(component)) {
+				if (importedComponents.has(component)) {
 					dependencies.spartanComponents.push(component);
 				}
 			}

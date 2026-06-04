@@ -9,7 +9,13 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 import { getPrerenderedRoutes } from './src/utils/prerender-routes';
 
 // https://vitejs.dev/config/
-export default defineConfig(({ mode }) => {
+export default defineConfig(({ command, mode }) => {
+	// In dev the Analog Nitro server builds its public-asset manifest from `output.publicDir`
+	// (default: dist/<app>/analog/public), which `nx serve` never populates - the docs JSON is
+	// generated into src/public (Vite's publicDir) instead. Point Nitro at the same source dir so a
+	// server-side $fetch('/data/..') from our page loaders resolves without a prior production build.
+	const isServe = command === 'serve';
+
 	return {
 		root: __dirname,
 		publicDir: 'src/public',
@@ -120,6 +126,7 @@ export default defineConfig(({ mode }) => {
 				},
 				nitro: {
 					logLevel: 4,
+					...(isServe ? { output: { publicDir: path.resolve(__dirname, 'src/public') } } : {}),
 					prerender: {
 						concurrency: 1,
 					},

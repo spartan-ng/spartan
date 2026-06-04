@@ -5,6 +5,13 @@ interface UpdateContributorsSchema {
 	usernames?: string;
 }
 
+// Usernames that appear in git history but should never be added: accounts that
+// were renamed (the noreply email keeps the old name) and are already listed
+// under their current handle. Compared lowercased.
+const IGNORED_USERNAMES = new Set<string>([
+	'matznristo', // renamed to m-risto
+]);
+
 export default async function updateContributorsGenerator(
 	tree: Tree,
 	options: UpdateContributorsSchema,
@@ -129,7 +136,10 @@ export default async function updateContributorsGenerator(
 
 		// Filter out contributors who are already in the README
 		const newContributors = Array.from(contributorsWithUsernames)
-			.filter((username) => !existingContributors.has(username.toLowerCase()))
+			.filter(
+				(username) =>
+					!existingContributors.has(username.toLowerCase()) && !IGNORED_USERNAMES.has(username.toLowerCase()),
+			)
 			.sort();
 
 		if (newContributors.length === 0) {

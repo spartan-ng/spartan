@@ -21,6 +21,44 @@ import { isRunnableExample } from '../stackblitz/stackblitz-project-builder.serv
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 declare const Prism: typeof import('prismjs');
 
+// `marked` is a module-level singleton and `marked.use()` is additive: every call stacks another
+// renderer/highlight hook that runs on every subsequent parse. Registering once at module scope
+// keeps a single highlight pass per code block instead of one-per-`Code`-instance-ever-created.
+const codeRenderer = new marked.Renderer();
+codeRenderer.code = ({ text, lang }) => {
+	if (!lang) {
+		return `<pre><code>${text}</code></pre>`;
+	}
+	const langClass = `language-${lang}`;
+	return `<pre class="${langClass}"><code class="${langClass}">${text}</code></pre>`;
+};
+
+marked.use(
+	gfmHeadingId(),
+	markedHighlight({
+		highlight: (code, lang) => {
+			lang = lang || 'typescript';
+			if (!Prism.languages[lang]) {
+				console.warn(`Notice:
+    ---------------------------------------------------------------------------------------
+    The requested language '${lang}' is not available with the provided setup.
+    To enable, import your main.ts as:
+      import  'prismjs/components/prism-${lang}';
+    ---------------------------------------------------------------------------------------
+        `);
+				return code;
+			}
+			return Prism.highlight(code, Prism.languages[lang], lang);
+		},
+	}),
+	{
+		renderer: codeRenderer,
+		pedantic: false,
+		gfm: true,
+		breaks: false,
+	},
+);
+
 @Component({
 	selector: 'spartan-code',
 	imports: [HlmButton, NgIcon, HlmIcon, OpenInStackBlitzButton],
@@ -151,25 +189,11 @@ export class Code {
 		this._code = value;
 		this._runnable = isRunnableExample(value);
 		this.codeValue.set(value);
-		(this._language === 'sh'
-			? this._marked.parse(value?.trim() ?? '')
-			: // eslint-disable-next-line @typescript-eslint/no-explicit-any
-				(this._marked.parse(`\`\`\`typescript\n${value?.trim() ?? ''}\n\`\`\``) as any)
-		).then((content: string) => {
-			this._content = content;
-		});
+		const source = this._language === 'sh' ? (value?.trim() ?? '') : `\`\`\`typescript\n${value?.trim() ?? ''}\n\`\`\``;
+		this._content = this._marked.parse(source) as string;
 	}
 
 	constructor() {
-		const renderer = new marked.Renderer();
-		renderer.code = ({ text, lang }) => {
-			if (!lang) {
-				return `<pre><code>${text}</code></pre>`;
-			}
-			const langClass = `language-${lang}`;
-			return `<pre class="${langClass}"><code class="${langClass}">${text}</code></pre>`;
-		};
-
 		effect(() => {
 			const fileName = this.fileName();
 			if (fileName) {
@@ -179,33 +203,6 @@ export class Code {
 				}
 			}
 		});
-
-		marked.use(
-			gfmHeadingId(),
-			markedHighlight({
-				async: true,
-				highlight: (code, lang) => {
-					lang = lang || 'typescript';
-					if (!Prism.languages[lang]) {
-						console.warn(`Notice:
-    ---------------------------------------------------------------------------------------
-    The requested language '${lang}' is not available with the provided setup.
-    To enable, import your main.ts as:
-      import  'prismjs/components/prism-${lang}';
-    ---------------------------------------------------------------------------------------
-        `);
-						return code;
-					}
-					return Prism.highlight(code, Prism.languages[lang], lang);
-				},
-			}),
-			{
-				renderer,
-				pedantic: false,
-				gfm: true,
-				breaks: false,
-			},
-		);
 
 		this._marked = marked;
 	}

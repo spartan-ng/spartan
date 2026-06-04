@@ -72,6 +72,26 @@ export const routeMeta: RouteMeta = {
 				of the rest.
 			</p>
 
+			<spartan-section-sub-heading id="inspect-project">Inspect Your Project</spartan-section-sub-heading>
+			<p class="${hlmP}">
+				Print a read-only summary of your spartan setup - the
+				<code class="${hlmCode}">components.json</code>
+				config, package versions, detected icon library and styles file, and which components are installed versus
+				available:
+			</p>
+			<spartan-cli-tabs
+				class="mt-4"
+				nxCode="npx nx g @spartan-ng/cli:info --json"
+				ngCode="ng g @spartan-ng/cli:info --json"
+			/>
+			<p class="${hlmP}">
+				Add
+				<code class="${hlmCode}">--json</code>
+				for machine-readable output. This is what the
+				<a href="/documentation/skills" class="${hlmCode} underline">spartan agent skill</a>
+				uses to gather project context.
+			</p>
+
 			<spartan-section-sub-heading id="what-happens">What the CLI Does</spartan-section-sub-heading>
 			<p class="${hlmP}">When you add a component, the CLI automatically:</p>
 

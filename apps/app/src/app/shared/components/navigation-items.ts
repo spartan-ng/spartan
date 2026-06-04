@@ -110,6 +110,7 @@ export const sidenavItems: NavItem[] = [
 			{ label: 'Health Checks', url: '/health-checks' },
 			{ label: 'Update Guide', url: '/update-guide' },
 			{ label: 'MCP Server', url: '/mcp', new: true },
+			{ label: 'Skills', url: '/skills', new: true },
 		],
 	},
 	{

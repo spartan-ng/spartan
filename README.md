@@ -157,6 +157,11 @@ Our initial 300 contributors and sponsors are featured here and on the front pag
 138. [LinboLen](https://github.com/LinboLen)
 139. [Oneill19](https://github.com/Oneill19)
 140. [homj](https://github.com/homj)
+141. [Musta-Pollo](https://github.com/Musta-Pollo)
+142. [mitja-kurath](https://github.com/mitja-kurath)
+143. [alisterpineda](https://github.com/alisterpineda)
+144. [amitshalev2](https://github.com/amitshalev2)
+145. [SOG-web](https://github.com/SOG-web)
 
 [Become a spartan today!](https://github.com/sponsors/goetzrobin)
 

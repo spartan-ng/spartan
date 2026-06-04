@@ -74,7 +74,8 @@ function readDependencies(tree: Tree): Record<string, string> {
 		return {};
 	}
 	const packageJson = readJson(tree, 'package.json');
-	return { ...packageJson.dependencies, ...packageJson.devDependencies };
+	// `dependencies` last so a production version wins over a duplicate in `devDependencies`.
+	return { ...packageJson.devDependencies, ...packageJson.dependencies };
 }
 
 function detectIconLibrary(dependencies: Record<string, string>): string | null {
@@ -88,13 +89,15 @@ function detectStyleFile(tree: Tree): string | null {
 function detectInstalledComponents(tree: Tree, importAlias: string, availableComponents: string[]): string[] {
 	// Map a normalized entrypoint name back to its canonical component name (e.g. "alertdialog" -> "alert-dialog").
 	const byNormalized = new Map(availableComponents.map((name) => [normalize(name), name]));
-	const prefixes = ['@spartan-ng/brain/', '@spartan-ng/helm/', `${importAlias}/`];
+	// Dedupe in case importAlias is the default `@spartan-ng/helm`.
+	const prefixes = [...new Set(['@spartan-ng/brain/', '@spartan-ng/helm/', `${importAlias}/`])];
 	const found = new Set<string>();
 
 	const importRegex = /from\s*['"]([^'"]+)['"]/g;
 
+	// Only TypeScript files carry import statements; HTML templates never match this regex.
 	visitNotIgnoredFiles(tree, '.', (filePath) => {
-		if (!/\.(ts|html)$/.test(filePath)) {
+		if (!filePath.endsWith('.ts')) {
 			return;
 		}
 		const contents = tree.read(filePath, 'utf-8');

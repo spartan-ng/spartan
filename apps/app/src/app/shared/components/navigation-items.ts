@@ -109,6 +109,7 @@ export const sidenavItems: NavItem[] = [
 			{ label: 'Version Support', url: '/version-support' },
 			{ label: 'Health Checks', url: '/health-checks' },
 			{ label: 'Update Guide', url: '/update-guide' },
+			{ label: 'MCP Server', url: '/mcp', new: true },
 		],
 	},
 	{

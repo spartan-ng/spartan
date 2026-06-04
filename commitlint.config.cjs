@@ -40,6 +40,7 @@ module.exports = {
 				'item',
 				'kbd',
 				'label',
+				'mcp',
 				'menubar',
 				'native-select',
 				'navigation-menu',

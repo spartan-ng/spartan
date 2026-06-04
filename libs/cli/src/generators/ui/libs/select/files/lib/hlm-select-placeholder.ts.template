@@ -11,7 +11,7 @@ export class HlmSelectPlaceholder {
 	constructor() {
 		classes(
 			() =>
-				"flex items-center gap-2 data-hidden:hidden [&_ng-icon]:pointer-events-none [&_ng-icon]:shrink-0 [&_ng-icon:not([class*='text-'])]:text-base",
+				'spartan-select-placeholder flex items-center data-hidden:hidden [&_ng-icon]:pointer-events-none [&_ng-icon]:shrink-0',
 		);
 	}
 }

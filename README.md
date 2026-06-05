@@ -198,6 +198,8 @@ Each primitive is made up off an un-styled `brain` library, which provides all f
 
 There's also a `libs/cli` folder, which contains the Nx-plugin & Angular CLI code that allows users to add spartan/ui to their Nx or Angular workspace in a simple way.
 
+The `skills/spartan` folder contains the spartan agent skill - procedural knowledge that teaches AI coding assistants how to build spartan/ui correctly. Users install it with `npx skills add spartan-ng/spartan`. See [the Skills docs](https://www.spartan.ng/documentation/skills).
+
 ### Install Dependencies
 
 Run `pnpm install` to install the dependencies of this project.

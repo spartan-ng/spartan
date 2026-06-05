@@ -17,13 +17,12 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 				<hlm-field>
 					<label hlmFieldLabel for="dateRange">Enter a date range</label>
 					<hlm-date-range-picker
-						buttonId="dateRange"
 						[min]="minDate"
 						[max]="maxDate"
 						formControlName="range"
 						[autoCloseOnEndSelection]="true"
 					>
-						<span>Enter a date range</span>
+						<hlm-date-picker-trigger buttonId="dateRange">Enter a date range</hlm-date-picker-trigger>
 					</hlm-date-range-picker>
 				</hlm-field>
 				<hlm-field orientation="horizontal">

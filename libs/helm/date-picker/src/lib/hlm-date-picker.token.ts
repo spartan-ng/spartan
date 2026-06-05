@@ -13,6 +13,7 @@ export interface HlmDatePickerBase {
 	disabledState: Signal<boolean>;
 	formattedDate: Signal<string | undefined>;
 	hasDate: Signal<boolean>;
+	// used for ControlValueAccessor
 	touched?(): void;
 }
 

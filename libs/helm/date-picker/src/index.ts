@@ -9,6 +9,7 @@ export * from './lib/hlm-date-picker.token';
 export * from './lib/hlm-date-picker';
 export * from './lib/hlm-date-picker-multi';
 export * from './lib/hlm-date-picker-trigger';
+export * from './lib/hlm-date-picker-trigger.token';
 export * from './lib/hlm-date-range-picker';
 export * from './lib/hlm-date-range-picker.token';
 

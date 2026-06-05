@@ -14,14 +14,11 @@ import {
 	viewChild,
 } from '@angular/core';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { provideIcons } from '@ng-icons/core';
-import { lucideChevronDown } from '@ng-icons/lucide';
 import type { BrnDialogState } from '@spartan-ng/brain/dialog';
 import { BrnFieldControl, provideBrnLabelable } from '@spartan-ng/brain/field';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import { BrnPopover } from '@spartan-ng/brain/popover';
 import { HlmCalendarRange } from '@spartan-ng/helm/calendar';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
 import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 import { HlmDatePickerTriggerToken } from './hlm-date-picker-trigger.token';
 import { HlmDatePickerBase, provideHlmDatePicker } from './hlm-date-picker.token';
@@ -35,10 +32,9 @@ export const HLM_DATE_RANGE_PICKER_VALUE_ACCESSOR = {
 
 @Component({
 	selector: 'hlm-date-range-picker',
-	imports: [HlmIconImports, HlmPopoverImports, HlmCalendarRange],
+	imports: [HlmPopoverImports, HlmCalendarRange],
 	providers: [
 		HLM_DATE_RANGE_PICKER_VALUE_ACCESSOR,
-		provideIcons({ lucideChevronDown }),
 		provideHlmDatePicker(HlmDateRangePicker),
 		provideBrnLabelable(HlmDateRangePicker),
 	],

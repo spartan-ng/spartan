@@ -13,8 +13,6 @@ import {
 	viewChild,
 } from '@angular/core';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { provideIcons } from '@ng-icons/core';
-import { lucideChevronDown } from '@ng-icons/lucide';
 import type { BrnDialogState } from '@spartan-ng/brain/dialog';
 import { BrnFieldControl, provideBrnLabelable } from '@spartan-ng/brain/field';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
@@ -33,12 +31,7 @@ export const HLM_DATE_PICKER_VALUE_ACCESSOR = {
 @Component({
 	selector: 'hlm-date-picker',
 	imports: [HlmPopoverImports, HlmCalendar],
-	providers: [
-		HLM_DATE_PICKER_VALUE_ACCESSOR,
-		provideIcons({ lucideChevronDown }),
-		provideHlmDatePicker(HlmDatePicker),
-		provideBrnLabelable(HlmDatePicker),
-	],
+	providers: [HLM_DATE_PICKER_VALUE_ACCESSOR, provideHlmDatePicker(HlmDatePicker), provideBrnLabelable(HlmDatePicker)],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [BrnFieldControl],
 	host: { class: 'block' },

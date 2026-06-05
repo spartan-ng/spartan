@@ -14,14 +14,11 @@ import {
 	viewChild,
 } from '@angular/core';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { provideIcons } from '@ng-icons/core';
-import { lucideChevronDown } from '@ng-icons/lucide';
 import type { BrnDialogState } from '@spartan-ng/brain/dialog';
-import { BrnFieldControl, BrnFieldControlDescribedBy, provideBrnLabelable } from '@spartan-ng/brain/field';
+import { BrnFieldControl, provideBrnLabelable } from '@spartan-ng/brain/field';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import { BrnPopover } from '@spartan-ng/brain/popover';
 import { HlmCalendarMulti } from '@spartan-ng/helm/calendar';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
 import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 import { injectHlmDatePickerMultiConfig } from './hlm-date-picker-multi.token';
 import { HlmDatePickerTriggerToken } from './hlm-date-picker-trigger.token';
@@ -35,18 +32,15 @@ export const HLM_DATE_PICKER_MUTLI_VALUE_ACCESSOR = {
 
 @Component({
 	selector: 'hlm-date-picker-multi',
-	imports: [HlmIconImports, HlmPopoverImports, HlmCalendarMulti, BrnFieldControlDescribedBy],
+	imports: [HlmPopoverImports, HlmCalendarMulti],
 	providers: [
 		HLM_DATE_PICKER_MUTLI_VALUE_ACCESSOR,
-		provideIcons({ lucideChevronDown }),
 		provideHlmDatePicker(HlmDatePickerMulti),
 		provideBrnLabelable(HlmDatePickerMulti),
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [BrnFieldControl],
-	host: {
-		class: 'block',
-	},
+	host: { class: 'block' },
 	template: `
 		<hlm-popover
 			sideOffset="5"

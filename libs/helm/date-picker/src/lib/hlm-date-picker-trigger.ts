@@ -7,7 +7,7 @@ import { ButtonVariants, HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmPopoverTrigger } from '@spartan-ng/helm/popover';
 import { hlm } from '@spartan-ng/helm/utils';
 import { ClassValue } from 'clsx';
-import { provideHlmDatePickerTrigger } from './hlm-date-picker-trigger.token';
+import { HlmDatePickerTriggerBase, provideHlmDatePickerTrigger } from './hlm-date-picker-trigger.token';
 import { injectHlmDatePicker } from './hlm-date-picker.token';
 
 @Component({
@@ -46,7 +46,7 @@ import { injectHlmDatePicker } from './hlm-date-picker.token';
 		</button>
 	`,
 })
-export class HlmDatePickerTrigger {
+export class HlmDatePickerTrigger implements HlmDatePickerTriggerBase {
 	private static _nextId = 0;
 
 	private readonly _fieldControl = inject(BrnFieldControl, { optional: true });

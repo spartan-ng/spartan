@@ -51,6 +51,7 @@ export const HLM_DATE_RANGE_PICKER_VALUE_ACCESSOR = {
 			<ng-content />
 
 			<hlm-popover-content class="w-fit p-0" *hlmPopoverPortal="let ctx">
+				<ng-content select="[hlmDatePickerHeader]" />
 				<hlm-calendar-range
 					calendarClass="border-0 rounded-none"
 					[startDate]="_start()"
@@ -62,6 +63,7 @@ export const HLM_DATE_RANGE_PICKER_VALUE_ACCESSOR = {
 					(startDateChange)="_handleStartDayChange($event)"
 					(endDateChange)="_handleEndDateChange($event)"
 				/>
+				<ng-content select="[hlmDatePickerFooter]" />
 			</hlm-popover-content>
 		</hlm-popover>
 	`,
@@ -178,6 +180,14 @@ export class HlmDateRangePicker<T> implements HlmDatePickerBase, ControlValueAcc
 
 	public close() {
 		this._popoverState.set('closed');
+	}
+
+	public reset() {
+		this._mutableDate.set(undefined);
+		this._start.set(undefined);
+		this._end.set(undefined);
+		this._onChange?.(null);
+		this.dateChange.emit(null);
 	}
 
 	protected _onClose(): void {

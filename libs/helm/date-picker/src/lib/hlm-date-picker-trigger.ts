@@ -42,7 +42,9 @@ import { injectHlmDatePicker } from './hlm-date-picker.token';
 				}
 			</span>
 
-			<ng-icon name="lucideChevronDown" />
+			@if (showTrigger()) {
+				<ng-icon name="lucideChevronDown" />
+			}
 		</button>
 	`,
 })
@@ -76,6 +78,8 @@ export class HlmDatePickerTrigger implements HlmDatePickerTriggerBase {
 	public readonly forceInvalid = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
 	public readonly variant = input<ButtonVariants['variant']>('outline');
+
+	public readonly showTrigger = input<boolean, BooleanInput>(true, { transform: booleanAttribute });
 
 	protected readonly _popover = this._datePicker.popover;
 	protected readonly _disabled = this._datePicker.disabledState;

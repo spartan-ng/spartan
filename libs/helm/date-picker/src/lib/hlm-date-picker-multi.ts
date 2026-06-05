@@ -51,6 +51,7 @@ export const HLM_DATE_PICKER_MUTLI_VALUE_ACCESSOR = {
 			<ng-content />
 
 			<hlm-popover-content class="w-fit p-0" *hlmPopoverPortal="let ctx">
+				<ng-content select="[hlmDatePickerHeader]" />
 				<hlm-calendar-multi
 					calendarClass="border-0 rounded-none"
 					[date]="_mutableDate()"
@@ -62,6 +63,7 @@ export const HLM_DATE_PICKER_MUTLI_VALUE_ACCESSOR = {
 					[disabled]="_disabled()"
 					(dateChange)="_handleChange($event)"
 				/>
+				<ng-content select="[hlmDatePickerFooter]" />
 			</hlm-popover-content>
 		</hlm-popover>
 	`,
@@ -172,5 +174,11 @@ export class HlmDatePickerMulti<T> implements HlmDatePickerBase, ControlValueAcc
 
 	public close() {
 		this._popoverState.set('closed');
+	}
+
+	public reset() {
+		this._mutableDate.set(undefined);
+		this._onChange?.([]);
+		this.dateChange.emit([]);
 	}
 }

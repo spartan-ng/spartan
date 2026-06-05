@@ -10,19 +10,17 @@ import { HlmLabelImports } from '@spartan-ng/helm/label';
 	selector: 'spartan-card-preview',
 	imports: [HlmCardImports, HlmLabelImports, HlmInputImports, HlmButtonImports],
 	providers: [provideIcons({ lucideCheck, lucideChevronDown })],
-	host: {
-		class: 'contents',
-	},
+	host: { class: 'contents' },
 	template: `
-		<section class="w-full max-w-sm" hlmCard>
-			<div hlmCardHeader>
+		<hlm-card class="w-full max-w-sm">
+			<hlm-card-header>
 				<h3 hlmCardTitle>Login to your account</h3>
 				<p hlmCardDescription>Enter your email below to login to your account</p>
 
 				<div hlmCardAction>
 					<button hlmBtn variant="link">Sign Up</button>
 				</div>
-			</div>
+			</hlm-card-header>
 
 			<div hlmCardContent>
 				<form>
@@ -45,11 +43,11 @@ import { HlmLabelImports } from '@spartan-ng/helm/label';
 				</form>
 			</div>
 
-			<div hlmCardFooter class="flex-col gap-2">
+			<hlm-card-footer class="flex-col gap-2">
 				<button hlmBtn type="submit" class="w-full">Login</button>
 				<button hlmBtn variant="outline" class="w-full">Login with Google</button>
-			</div>
-		</section>
+			</hlm-card-footer>
+		</hlm-card>
 	`,
 })
 export class CardPreview {}
@@ -59,13 +57,13 @@ import { HlmCardImports } from '@spartan-ng/helm/card';
 `;
 
 export const defaultSkeleton = `
-<section hlmCard>
-  <div hlmCardHeader>
+<hlm-card>
+  <hlm-card-header>
     <h3 hlmCardTitle>Card Title</h3>
     <p hlmCardDescription>Card Description</p>
-		<div hlmCardAction></div>
-  </div>
-  <p hlmCardContent>Card Content</p>
-  <p hlmCardFooter>Card Footer</p>
-</section>
+	<div hlmCardAction>Card Action</div>
+  </hlm-card-header>
+  <div hlmCardContent>Card Content</div>
+  <hlm-card-footer>Card Footer</hlm-card-footer>
+</hlm-card>
 `;

@@ -1,6 +1,8 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { CodeRtlPreview } from '@spartan-ng/app/app/shared/code/code-rtl-preview';
+import { RtlHeader } from '@spartan-ng/app/app/shared/code/rtl-header';
 import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { Code } from '../../../../shared/code/code';
@@ -15,6 +17,7 @@ import { Tabs } from '../../../../shared/layout/tabs';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { CardImagePreview } from './card--image.preview';
+import { CardRtl } from './card--rtl.preview';
 import { CardSizePreview } from './card--size.preview';
 import { CardPreview, defaultImports, defaultSkeleton } from './card.preview';
 
@@ -40,9 +43,12 @@ export const routeMeta: RouteMeta = {
 		PageBottomNav,
 		PageBottomNavLink,
 		SectionSubSubHeading,
+		RtlHeader,
+		CodeRtlPreview,
 		CardPreview,
 		CardSizePreview,
 		CardImagePreview,
+		CardRtl,
 	],
 	template: `
 		<section spartanMainSection>
@@ -80,6 +86,14 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_imageCode()" />
 			</spartan-tabs>
 
+			<spartan-header-rtl />
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanRtlCodePreview firstTab>
+					<spartan-card-rtl />
+				</div>
+				<spartan-code secondTab [code]="_rtlCode()" />
+			</spartan-tabs>
+
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="helm" />
 
@@ -96,6 +110,7 @@ export default class CardPage {
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _sizeCode = computed(() => this._snippets()['size']);
 	protected readonly _imageCode = computed(() => this._snippets()['image']);
+	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

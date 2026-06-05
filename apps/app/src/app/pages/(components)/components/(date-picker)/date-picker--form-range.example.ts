@@ -15,15 +15,14 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 		<form [formGroup]="form" (ngSubmit)="submit()">
 			<hlm-field-group>
 				<hlm-field>
-					<label hlmFieldLabel for="dateRangeForm">Enter a date range</label>
+					<label hlmFieldLabel for="date-range-form">Enter a date range</label>
 					<hlm-date-range-picker
-						buttonId="dateRangeForm"
 						[min]="minDate"
 						[max]="maxDate"
 						formControlName="range"
 						[autoCloseOnEndSelection]="true"
 					>
-						<span>Enter a date range</span>
+						<hlm-date-picker-trigger buttonId="date-range-form">Pick date range</hlm-date-picker-trigger>
 					</hlm-date-range-picker>
 				</hlm-field>
 

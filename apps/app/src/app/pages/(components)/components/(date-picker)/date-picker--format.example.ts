@@ -12,9 +12,9 @@ import { DateTime } from 'luxon';
 	],
 	template: `
 		<hlm-field>
-			<label hlmFieldLabel for="datePickerFormat">Date Picker with Custom Format</label>
-			<hlm-date-picker buttonId="datePickerFormat" [min]="minDate" [max]="maxDate" [formatDate]="formatDate">
-				<span>Pick a date</span>
+			<label hlmFieldLabel for="date-format">Date Picker with Custom Format</label>
+			<hlm-date-picker [min]="minDate" [max]="maxDate" [formatDate]="formatDate">
+				<hlm-date-picker-trigger buttonId="date-format">Pick a date</hlm-date-picker-trigger>
 			</hlm-date-picker>
 		</hlm-field>
 	`,

@@ -7,16 +7,15 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 	imports: [HlmDatePickerImports, HlmFieldImports],
 	template: `
 		<hlm-field>
-			<label hlmFieldLabel for="datePickerMulti">Date Picker Multiple</label>
+			<label hlmFieldLabel for="date-multi">Date Picker Multiple</label>
 			<hlm-date-picker-multi
-				buttonId="datePickerMulti"
 				[min]="minDate"
 				[max]="maxDate"
 				[autoCloseOnMaxSelection]="true"
 				[minSelection]="2"
 				[maxSelection]="6"
 			>
-				<span>Pick dates</span>
+				<hlm-date-picker-trigger buttonId="date-multi">Pick dates</hlm-date-picker-trigger>
 			</hlm-date-picker-multi>
 		</hlm-field>
 	`,

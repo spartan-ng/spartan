@@ -64,7 +64,7 @@ export const routeMeta: RouteMeta = {
 	],
 	template: `
 		<section spartanMainSection>
-			<spartan-section-intro name="Date Picker" lead="A date picker component." />
+			<spartan-section-intro name="Date Picker" lead="A date picker component." showThemeToggle />
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -73,7 +73,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
-			<spartan-install-tabs primitive="date-picker">
+			<spartan-install-tabs primitive="date-picker" [showOnlyVega]="false">
 				<p class="${hlmP} mb-6">
 					The Date Picker component is built with the
 					<a routerLink="/components/popover" hlmBtn variant="link" class="${link}">Popover</a>

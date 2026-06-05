@@ -33,8 +33,6 @@ export const HLM_DATE_RANGE_PICKER_VALUE_ACCESSOR = {
 	multi: true,
 };
 
-let nextId = 0;
-
 @Component({
 	selector: 'hlm-date-range-picker',
 	imports: [HlmIconImports, HlmPopoverImports, HlmCalendarRange],

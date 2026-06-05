@@ -30,8 +30,6 @@ export const HLM_DATE_PICKER_VALUE_ACCESSOR = {
 	multi: true,
 };
 
-let nextId = 0;
-
 @Component({
 	selector: 'hlm-date-picker',
 	imports: [HlmPopoverImports, HlmCalendar],

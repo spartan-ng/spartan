@@ -1,4 +1,4 @@
-import { ExistingProvider, InjectionToken, Signal, Type } from '@angular/core';
+import { type ExistingProvider, InjectionToken, type Signal, type Type } from '@angular/core';
 
 export interface HlmDatePickerTrigger {
 	triggerId: Signal<string>;

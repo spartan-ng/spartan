@@ -1,5 +1,12 @@
-import { ExistingProvider, inject, InjectionToken, Signal, Type, type ValueProvider } from '@angular/core';
-import { BrnPopover } from '@spartan-ng/brain/popover';
+import {
+	type ExistingProvider,
+	inject,
+	InjectionToken,
+	type Signal,
+	type Type,
+	type ValueProvider,
+} from '@angular/core';
+import type { BrnPopover } from '@spartan-ng/brain/popover';
 
 export interface HlmDatePickerBase {
 	popover: Signal<BrnPopover>;

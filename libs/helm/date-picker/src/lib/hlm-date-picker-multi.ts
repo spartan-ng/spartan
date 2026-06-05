@@ -33,8 +33,6 @@ export const HLM_DATE_PICKER_MUTLI_VALUE_ACCESSOR = {
 	multi: true,
 };
 
-let nextId = 0;
-
 @Component({
 	selector: 'hlm-date-picker-multi',
 	imports: [HlmIconImports, HlmPopoverImports, HlmCalendarMulti, BrnFieldControlDescribedBy],

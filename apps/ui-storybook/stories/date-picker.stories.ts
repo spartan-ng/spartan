@@ -1,6 +1,6 @@
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HlmButton } from '@spartan-ng/helm/button';
-import { HlmDatePicker } from '@spartan-ng/helm/date-picker';
+import { HlmDatePicker, HlmDatePickerImports } from '@spartan-ng/helm/date-picker';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
 import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
 
@@ -23,7 +23,7 @@ const meta: Meta<HlmDatePicker<Date>> = {
 	},
 	decorators: [
 		moduleMetadata({
-			imports: [HlmDatePicker, ReactiveFormsModule, HlmFieldImports, HlmButton],
+			imports: [HlmDatePickerImports, ReactiveFormsModule, HlmFieldImports, HlmButton],
 		}),
 	],
 	render: ({ ...args }) => ({
@@ -31,7 +31,7 @@ const meta: Meta<HlmDatePicker<Date>> = {
 		template: `
 		<div class="preview flex min-h-[350px] w-full justify-center p-10 items-center">
 			<hlm-date-picker [min]="min" [max]="max" [captionLayout]="captionLayout">
-                <span>Pick a date</span>
+                <hlm-date-picker-trigger buttonId="date">Pick a date</hlm-date-picker-trigger>
             </hlm-date-picker>
 		</div>
 		`,
@@ -64,7 +64,7 @@ export const WithHintAndError: Story = {
 					[captionLayout]="captionLayout"
 					[min]="min"
 					[max]="max">
-					<span>Select a date</span>
+					<hlm-date-picker-trigger buttonId="date">Select a date</hlm-date-picker-trigger>
 				</hlm-date-picker>
 
 				<p hlmFieldDescription>Pick a date for the event so we can reserve the room.</p>

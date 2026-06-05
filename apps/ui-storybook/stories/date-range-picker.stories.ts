@@ -1,6 +1,6 @@
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HlmButton } from '@spartan-ng/helm/button';
-import { HlmDatePickerMulti, HlmDateRangePicker } from '@spartan-ng/helm/date-picker';
+import { HlmDatePickerImports, HlmDateRangePicker } from '@spartan-ng/helm/date-picker';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
 import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
 
@@ -23,7 +23,7 @@ const meta: Meta<HlmDateRangePicker<Date>> = {
 	},
 	decorators: [
 		moduleMetadata({
-			imports: [HlmDateRangePicker, HlmDatePickerMulti, ReactiveFormsModule, HlmFieldImports, HlmButton],
+			imports: [HlmDatePickerImports, ReactiveFormsModule, HlmFieldImports, HlmButton],
 		}),
 	],
 	render: ({ ...args }) => ({
@@ -31,7 +31,7 @@ const meta: Meta<HlmDateRangePicker<Date>> = {
 		template: `
 		<div class="preview flex min-h-[350px] w-full justify-center p-10 items-center">
 			<hlm-date-range-picker [min]="min" [max]="max" [captionLayout]="captionLayout">
-                <span>Pick a date</span>
+                <hlm-date-picker-trigger buttonId="date">Pick a date</hlm-date-picker-trigger>
             </hlm-date-range-picker>
 		</div>
 		`,
@@ -63,7 +63,7 @@ export const WithHintAndError: Story = {
 					[captionLayout]="captionLayout"
 					[min]="min"
 					[max]="max">
-					<span>Select a date range</span>
+					<hlm-date-picker-trigger buttonId="date">Select a date range</hlm-date-picker-trigger>
 				</hlm-date-range-picker>
 
 				<p hlmFieldDescription>Pick a start and end date for your booking.</p>

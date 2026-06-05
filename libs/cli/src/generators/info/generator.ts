@@ -2,7 +2,10 @@ import { logger, type Tree } from '@nx/devkit';
 import { collectSpartanInfo, type SpartanInfo } from './lib/collect-info';
 import type { InfoGeneratorSchema } from './schema';
 
-export async function infoGenerator(tree: Tree, options: InfoGeneratorSchema & { angularCli?: boolean }) {
+export async function infoGenerator(
+	tree: Tree,
+	options: InfoGeneratorSchema & { angularCli?: boolean },
+): Promise<void> {
 	const availablePrimitives: Record<string, unknown> = await import('../ui/supported-ui-libraries.json').then(
 		(m) => m.default,
 	);

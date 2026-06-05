@@ -83,6 +83,60 @@ import { hlm } from '@spartan-ng/helm/utils';
 const cls = hlm('rounded-md border px-3 py-2', active() && 'bg-accent', userClass());
 ```
 
+## Make your own component override-friendly
+
+When you build a component or directive in the "hlm-like" fashion, let callers pass classes that
+merge cleanly over your base styles. There are two patterns, both used across the hlm components.
+
+### Preferred: `classes()`
+
+Call `classes()` from `@spartan-ng/helm/utils` in the constructor. It applies your base classes to
+the host element and automatically merges (via `hlm()`) any `class` the consumer puts on the host,
+with the consumer's classes winning conflicts. No `class` input or binding needed, and it works
+the same on components and directives:
+
+```ts
+import { Component } from '@angular/core';
+import { classes } from '@spartan-ng/helm/utils';
+
+@Component({
+	selector: 'app-badge',
+	template: '<ng-content />',
+})
+export class AppBadge {
+	constructor() {
+		classes(() => 'inline-flex items-center rounded-md border px-2 py-0.5');
+	}
+}
+```
+
+A consumer writes `<app-badge class="bg-primary text-primary-foreground">` and it merges
+automatically. Because it manages the host `class` directly, it avoids clashing with other class
+bindings.
+
+### Explicit: a `class` input merged with `hlm()`
+
+When you need to fold the user's class into a `computed` alongside conditional classes, take a
+`class`-aliased input and bind the merged result yourself. Put the user's class last so it wins:
+
+```ts
+import { Component, computed, input } from '@angular/core';
+import { hlm } from '@spartan-ng/helm/utils';
+import type { ClassValue } from 'clsx';
+
+@Component({
+	selector: 'app-badge',
+	template: '<ng-content />',
+	host: { '[class]': '_computedClass()' },
+})
+export class AppBadge {
+	public readonly userClass = input<ClassValue>('', { alias: 'class' });
+	protected readonly _computedClass = computed(() =>
+		hlm('inline-flex items-center rounded-md border px-2 py-0.5', this.userClass()),
+	);
+}
+```
+
 ## Overlays: no manual z-index
 
 Dialog, Sheet, Popover, Tooltip, Dropdown, and other overlay components manage stacking via the

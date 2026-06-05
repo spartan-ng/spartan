@@ -1,7 +1,7 @@
 # Forms and inputs
 
-spartan/ui composes forms from the `field` component plus the relevant control. It works with both
-template-driven and reactive Angular forms.
+spartan/ui composes forms from the `field` component plus the relevant control. It works with
+template-driven forms, reactive forms, and Angular's Signal Forms.
 
 Import the pieces from `@spartan-ng/helm/field` (the `HlmFieldImports` const exports them together)
 and the control from its own entrypoint (e.g. `@spartan-ng/helm/input`).
@@ -23,6 +23,38 @@ display, and tracks validation state.
 ```
 
 `hlmField` supports `orientation="vertical | horizontal | responsive"`.
+
+## Signal Forms
+
+The same `hlmField` and controls work with Angular's Signal Forms. Build the model with
+`form()` from `@angular/forms/signals`, bind the control with `[formField]`, and wrap the `<form>`
+with `[formRoot]`. Errors come from the field's `errors()` signal rather than the control's
+`invalid`/`touched` flags:
+
+```ts
+import { form, FormField, FormRoot, minLength, required } from '@angular/forms/signals';
+
+protected readonly model = signal({ email: '' });
+readonly emailForm = form(this.model, (path) => {
+	required(path.email, { message: 'Enter your email.' });
+	minLength(path.email, 5, { message: 'That email looks too short.' });
+});
+```
+
+```html
+<form [formRoot]="emailForm">
+	<div hlmField>
+		<label hlmFieldLabel for="email">Email</label>
+		<input hlmInput id="email" [formField]="emailForm.email" />
+		@for (error of emailForm.email().errors(); track error) {
+		<hlm-field-error [validator]="error.kind">{{ error.message }}</hlm-field-error>
+		}
+	</div>
+</form>
+```
+
+Import `FormRoot` and `FormField` alongside `HlmFieldImports`. Everything below (fieldsets, control
+choice, error display) applies regardless of which forms API you use.
 
 ## Group related controls
 

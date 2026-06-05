@@ -34,7 +34,7 @@ export class HlmFieldError implements OnDestroy {
 	private readonly _field = inject(BrnField, { optional: true });
 	private readonly _a11y = inject(BrnFieldA11yService, { optional: true, host: true });
 
-	private _registeredId?: string;
+	private _registeredId?: string | undefined;
 
 	private readonly _hasParentField = !!this._field;
 

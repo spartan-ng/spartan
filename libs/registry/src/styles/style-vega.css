@@ -245,7 +245,7 @@
 	}
 
 	&.spartan-button-group-orientation-horizontal {
-		@apply [&>[data-slot]:not(:has(~[data-slot]))]:rounded-r-md!;
+		@apply [&>[data-slot]:not(:has(~[data-slot]))]:rounded-e-md!;
 	}
 
 	&.spartan-button-group-orientation-vertical {

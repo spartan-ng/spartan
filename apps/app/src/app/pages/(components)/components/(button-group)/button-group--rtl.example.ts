@@ -63,7 +63,7 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 			</div>
 		</div>
 		<ng-template #menu>
-			<hlm-dropdown-menu class="w-52">
+			<hlm-dropdown-menu class="w-52" [dir]="_dir()">
 				<hlm-dropdown-menu-group>
 					<button hlmDropdownMenuItem>
 						<ng-icon hlm name="lucideMailCheck" size="sm" />
@@ -85,14 +85,14 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 						<span>{{ _t().addToCalendar }}</span>
 					</button>
 					<button hlmDropdownMenuItem>
-						<ng-icon hlm name="lucideCalendarPlus" size="sm" />
+						<ng-icon hlm name="lucideListFilterPlus" size="sm" />
 						<span>{{ _t().addToList }}</span>
 					</button>
 					<button
 						hlmDropdownMenuItem
 						class="flex justify-between"
 						align="start"
-						side="right"
+						[side]="_dir() === 'ltr' ? 'right' : 'left'"
 						[hlmDropdownMenuTrigger]="submenu"
 					>
 						<div class="flex items-center gap-2">
@@ -116,7 +116,7 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 			</hlm-dropdown-menu>
 		</ng-template>
 		<ng-template #submenu>
-			<hlm-dropdown-menu-sub class="w-40">
+			<hlm-dropdown-menu-sub class="w-40" [dir]="_dir()">
 				<button hlmDropdownMenuRadio [checked]="label() === 'personal'" (click)="label.set('personal')">
 					<hlm-dropdown-menu-radio-indicator />
 					<span>{{ _t().personal }}</span>

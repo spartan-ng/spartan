@@ -103,7 +103,7 @@ export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueA
 	});
 
 	/** The selected values of the combobox. */
-	public readonly value = model<T[] | null>(null);
+	public readonly value = model<T[] | undefined | null>(null);
 
 	public readonly hasValue = computed(() => {
 		const value = this.value();
@@ -143,7 +143,7 @@ export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueA
 
 	public readonly labelableId = computed(() => this._comboboxChipInput()?.id());
 
-	protected _onChange?: ChangeFn<T[] | null>;
+	protected _onChange?: ChangeFn<T[] | undefined | null>;
 	protected _onTouched?: TouchFn;
 
 	constructor() {
@@ -270,11 +270,11 @@ export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueA
 	}
 
 	/** CONTROL VALUE ACCESSOR */
-	public writeValue(value: T[] | null): void {
+	public writeValue(value: T[] | undefined | null): void {
 		this.value.set(value);
 	}
 
-	public registerOnChange(fn: ChangeFn<T[] | null>): void {
+	public registerOnChange(fn: ChangeFn<T[] | undefined | null>): void {
 		this._onChange = fn;
 	}
 

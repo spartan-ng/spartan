@@ -17,7 +17,7 @@ export interface BrnSelectBase<T> {
 	disabledState: Signal<boolean>;
 	itemToString: InputSignal<SelectItemToString<T> | undefined>;
 	keyManager: ActiveDescendantKeyManager<BrnSelectItem<T>>;
-	value: ModelSignal<T | null> | ModelSignal<T[] | null>;
+	value: ModelSignal<T | undefined | null> | ModelSignal<T[] | undefined | null>;
 	hasValue: Signal<boolean>;
 	isExpanded: Signal<boolean>;
 	triggerWidth: Signal<number | null>;
@@ -45,7 +45,7 @@ export function injectBrnSelectBase<T>(): BrnSelectBase<T> {
 	return inject(BrnSelectBaseToken) as BrnSelectBase<T>;
 }
 
-export type SelectItemEqualToValue<T> = (itemValue: T, selectedValue: T | null) => boolean;
+export type SelectItemEqualToValue<T> = (itemValue: T, selectedValue: T | undefined | null) => boolean;
 export type SelectItemToString<T> = (itemValue: T) => string;
 
 export interface BrnSelectConfig<T> {
@@ -55,7 +55,7 @@ export interface BrnSelectConfig<T> {
 
 function getDefaultConfig<T>(): BrnSelectConfig<T> {
 	return {
-		isItemEqualToValue: (itemValue: T, selectedValue: T | null) => Object.is(itemValue, selectedValue),
+		isItemEqualToValue: (itemValue: T, selectedValue: T | undefined | null) => Object.is(itemValue, selectedValue),
 		itemToString: undefined,
 	};
 }

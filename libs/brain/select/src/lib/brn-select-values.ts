@@ -10,10 +10,10 @@ export class BrnSelectValues<T> {
 
 	private readonly _select = injectBrnSelectBase<T>();
 
-	protected readonly _values = computed<T[] | null>(() => {
+	protected readonly _values = computed<T[] | undefined | null>(() => {
 		const values = this._select.value();
 
-		if (values === null) {
+		if (values === null || values === undefined) {
 			return null;
 		}
 

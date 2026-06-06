@@ -118,7 +118,9 @@ export class BrnSelect<T> implements BrnSelectBase<T>, ControlValueAccessor {
 
 					untracked(() => {
 						const index =
-							value !== null ? items.findIndex((item) => this.isItemEqualToValue()(item.value(), value)) : -1;
+							value !== null && value !== undefined
+								? items.findIndex((item) => this.isItemEqualToValue()(item.value(), value))
+								: -1;
 
 						if (index !== -1) {
 							this.keyManager.setActiveItem(index);

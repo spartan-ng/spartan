@@ -127,7 +127,9 @@ export class BrnSelectMultiple<T> implements BrnSelectBase<T>, ControlValueAcces
 
 					untracked(() => {
 						const index =
-							lastValue !== null ? items.findIndex((item) => this.isItemEqualToValue()(item.value(), lastValue)) : -1;
+							lastValue !== null && lastValue !== undefined
+								? items.findIndex((item) => this.isItemEqualToValue()(item.value(), lastValue))
+								: -1;
 
 						if (index !== -1) {
 							this.keyManager.setActiveItem(index);

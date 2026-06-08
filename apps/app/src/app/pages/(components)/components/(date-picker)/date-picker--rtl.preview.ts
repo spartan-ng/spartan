@@ -1,6 +1,11 @@
 import { Component, computed, effect, inject, untracked } from '@angular/core';
 import { TranslateService, Translations } from '@spartan-ng/app/app/shared/translate.service';
-import { type BrnCalendarI18n, injectBrnCalendarI18n, type MonthLabels } from '@spartan-ng/brain/calendar';
+import {
+	type BrnCalendarI18n,
+	injectBrnCalendarI18n,
+	type MonthLabels,
+	provideBrnCalendarI18n,
+} from '@spartan-ng/brain/calendar';
 import { HlmDatePickerImports } from '@spartan-ng/helm/date-picker';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
 import { DateTime } from 'luxon';
@@ -78,6 +83,7 @@ const CALENDAR_I18N: Record<'en' | 'ar' | 'he', BrnCalendarI18n> = {
 @Component({
 	selector: 'spartan-date-picker-rtl',
 	imports: [HlmDatePickerImports, HlmFieldImports],
+	providers: [provideBrnCalendarI18n()],
 	template: `
 		<hlm-field [dir]="_dir()">
 			<hlm-date-picker [min]="minDate" [max]="maxDate" [formatDate]="_formatDate()">

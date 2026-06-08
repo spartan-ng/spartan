@@ -38,6 +38,7 @@ export const HLM_DATE_PICKER_VALUE_ACCESSOR = {
 	template: `
 		<hlm-popover
 			sideOffset="5"
+			autoFocus="first-heading"
 			[state]="_popoverState()"
 			(stateChanged)="_popoverState.set($event)"
 			(closed)="_onTouched?.()"
@@ -50,6 +51,7 @@ export const HLM_DATE_PICKER_VALUE_ACCESSOR = {
 					calendarClass="rounded-none border-0"
 					[captionLayout]="captionLayout()"
 					[date]="_mutableDate()"
+					[defaultFocusedDate]="_mutableDate() ?? defaultFocusedDate()"
 					[min]="min()"
 					[max]="max()"
 					[disabled]="_disabled()"
@@ -83,6 +85,9 @@ export class HlmDatePicker<T> implements HlmDatePickerBase, ControlValueAccessor
 
 	/** The selected value. */
 	public readonly date = input<T>();
+
+	/** The date the calendar focuses on first open when no date is selected. */
+	public readonly defaultFocusedDate = input<T>();
 
 	protected readonly _mutableDate = linkedSignal(this.date);
 
@@ -118,17 +123,28 @@ export class HlmDatePicker<T> implements HlmDatePickerBase, ControlValueAccessor
 	protected _onChange?: ChangeFn<T>;
 	protected _onTouched?: TouchFn;
 
-	protected _handleChange(value: T) {
+	protected _handleChange(value: T | undefined) {
 		if (this._disabled()) return;
-		const transformedDate = value !== undefined ? this.transformDate()(value) : value;
-
-		this._mutableDate.set(transformedDate);
-		this._onChange?.(transformedDate);
-		this.dateChange.emit(transformedDate);
+		this.updateDate(value);
 
 		if (this.autoCloseOnSelect()) {
 			this._popoverState.set('closed');
 		}
+	}
+
+	/**
+	 * Commit a date to the picker. Updates the internal model, notifies form
+	 * controls, and emits `dateChange`. Unlike `_handleChange`, this does not
+	 * close the popover - it's intended to be called from a text input that
+	 * is parsing user-entered values while typing.
+	 */
+	public updateDate(value: T | undefined) {
+		if (this._disabled()) return;
+		const transformedDate = value !== undefined ? this.transformDate()(value) : undefined;
+
+		this._mutableDate.set(transformedDate);
+		this._onChange?.(transformedDate as T);
+		this.dateChange.emit(transformedDate as T);
 	}
 
 	/** CONTROL VALUE ACCESSOR */
@@ -142,6 +158,10 @@ export class HlmDatePicker<T> implements HlmDatePickerBase, ControlValueAccessor
 
 	public registerOnTouched(fn: TouchFn): void {
 		this._onTouched = fn;
+	}
+
+	public touched(): void {
+		this._onTouched?.();
 	}
 
 	public setDisabledState(isDisabled: boolean): void {

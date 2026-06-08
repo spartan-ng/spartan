@@ -13,6 +13,8 @@ export interface HlmDatePickerBase {
 	disabledState: Signal<boolean>;
 	formattedDate: Signal<string | undefined>;
 	hasDate: Signal<boolean>;
+	/** Commit a date to the picker (e.g. from a parsed input). Pass `undefined` to clear. Optional. */
+	updateDate?(value: unknown): void;
 	// used for ControlValueAccessor
 	touched?(): void;
 }
@@ -51,12 +53,24 @@ export interface HlmDatePickerConfig<T> {
 	 * @returns transformed date
 	 */
 	transformDate: (date: T) => T;
+
+	/**
+	 * Parse a user-entered string into a date.
+	 *
+	 * @param value the raw string from the input
+	 * @returns the parsed date, or `undefined` when the value can't be parsed
+	 */
+	parseDate: (value: string) => T | undefined;
 }
 
 function getDefaultConfig<T>(): HlmDatePickerConfig<T> {
 	return {
 		formatDate: (date) => (date instanceof Date ? date.toDateString() : `${date}`),
 		transformDate: (date) => date,
+		parseDate: (value) => {
+			const date = new Date(value);
+			return isNaN(date.getTime()) ? undefined : (date as T);
+		},
 		autoCloseOnSelect: false,
 	};
 }

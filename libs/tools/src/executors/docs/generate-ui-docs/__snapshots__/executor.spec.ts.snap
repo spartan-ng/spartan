@@ -319,7 +319,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [
           {
             "name": "value",
-            "type": "T | null",
+            "type": "T | undefined | null",
           },
           {
             "name": "search",
@@ -449,7 +449,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [
           {
             "name": "value",
-            "type": "string | null",
+            "type": "string | undefined | null",
           },
           {
             "name": "search",
@@ -1590,7 +1590,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [
           {
             "name": "value",
-            "type": "T | null",
+            "type": "T | undefined | null",
           },
           {
             "name": "search",
@@ -1775,7 +1775,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [
           {
             "name": "value",
-            "type": "T[] | null",
+            "type": "T[] | undefined | null",
           },
           {
             "name": "search",
@@ -2311,6 +2311,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "T",
           },
           {
+            "name": "defaultFocusedDate",
+            "required": false,
+            "type": "T",
+          },
+          {
             "name": "autoCloseOnSelect",
             "required": false,
             "type": "boolean",
@@ -2334,6 +2339,60 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           },
         ],
         "selector": "hlm-date-picker",
+      },
+      "HlmDatePickerAnchor": {
+        "inputs": [
+          {
+            "name": "hlmDatePickerAnchorFor",
+            "required": false,
+            "type": "BrnPopover | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDatePickerAnchor]",
+      },
+      "HlmDatePickerInput": {
+        "inputs": [
+          {
+            "name": "inputId",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "placeholder",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "inputValue",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "parseDate",
+            "required": false,
+            "type": "(value: string) => unknown | undefined",
+          },
+          {
+            "name": "forceInvalid",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "showClear",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "openOnClick",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-date-picker-input",
       },
       "HlmDatePickerMulti": {
         "inputs": [
@@ -4348,7 +4407,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [
           {
             "name": "value",
-            "type": "T | null",
+            "type": "T | undefined | null",
           },
         ],
         "outputs": [],
@@ -4427,7 +4486,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [
           {
             "name": "value",
-            "type": "T[] | null",
+            "type": "T[] | undefined | null",
           },
         ],
         "outputs": [],

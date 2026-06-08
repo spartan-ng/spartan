@@ -71,6 +71,7 @@ export const routeMeta: RouteMeta = {
 			<spartan-section-intro
 				name="Tabs"
 				lead="A set of layered sections of content—known as tab panels—that are displayed one at a time."
+				showThemeToggle
 			/>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
@@ -80,7 +81,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
-			<spartan-install-tabs primitive="tabs" />
+			<spartan-install-tabs primitive="tabs" [showOnlyVega]="false" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">

@@ -99,9 +99,9 @@ export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor 
 	});
 
 	/** The selected value of the combobox. */
-	public readonly value = model<T | null>(null);
+	public readonly value = model<T | undefined | null>(null);
 
-	public readonly hasValue = computed(() => this.value() !== null);
+	public readonly hasValue = computed(() => this.value() !== null && this.value() !== undefined);
 
 	/** The current search query. */
 	public readonly search = model<string>('');
@@ -135,7 +135,7 @@ export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor 
 
 	public readonly labelableId = computed(() => this._comboboxInput()?.id());
 
-	protected _onChange?: ChangeFn<T | null>;
+	protected _onChange?: ChangeFn<T | undefined | null>;
 	protected _onTouched?: TouchFn;
 
 	constructor() {
@@ -227,11 +227,11 @@ export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor 
 	}
 
 	/** CONTROL VALUE ACCESSOR */
-	public writeValue(value: T | null): void {
+	public writeValue(value: T | undefined | null): void {
 		this.value.set(value);
 	}
 
-	public registerOnChange(fn: ChangeFn<T | null>): void {
+	public registerOnChange(fn: ChangeFn<T | undefined | null>): void {
 		this._onChange = fn;
 	}
 

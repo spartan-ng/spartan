@@ -13,7 +13,7 @@ export class BrnComboboxValues<T> {
 	protected readonly _values = computed<T[] | null>(() => {
 		const values = this._combobox.value();
 
-		if (values == null) {
+		if (values === null || values === undefined) {
 			return null;
 		}
 

@@ -25,7 +25,7 @@ export interface BrnComboboxBase<T> {
 	disabled: Signal<boolean>;
 	disabledState: Signal<boolean>;
 	keyManager: ActiveDescendantKeyManager<BrnComboboxItem<T>>;
-	value: ModelSignal<T | null> | ModelSignal<T[] | null>;
+	value: ModelSignal<T | undefined | null> | ModelSignal<T[] | undefined | null>;
 	visibleItems: Signal<boolean>;
 	isExpanded: Signal<boolean>;
 	searchInputWrapperWidth: Signal<number | null>;
@@ -79,7 +79,7 @@ export type ComboboxFilter<T> = (
 	itemToString?: ComboboxItemToString<T>,
 ) => boolean;
 
-export type ComboboxItemEqualToValue<T> = (itemValue: T, selectedValue: T | null) => boolean;
+export type ComboboxItemEqualToValue<T> = (itemValue: T, selectedValue: T | undefined | null) => boolean;
 
 export type ComboboxItemToString<T> = (itemValue: T) => string;
 
@@ -102,7 +102,7 @@ function getDefaultConfig<T>(): BrnComboboxConfig<T> {
 		},
 		filter: (itemValue: T, search: string, collator: Intl.Collator, itemToString?: ComboboxItemToString<T>) =>
 			comboboxContainsFilter(itemValue, search, collator, itemToString),
-		isItemEqualToValue: (itemValue: T, selectedValue: T | null) => Object.is(itemValue, selectedValue),
+		isItemEqualToValue: (itemValue: T, selectedValue: T | undefined | null) => Object.is(itemValue, selectedValue),
 		itemToString: undefined,
 		autoHighlight: false,
 		closeOnSelect: true,

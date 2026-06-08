@@ -66,11 +66,11 @@ export class BrnSelectMultiple<T> implements BrnSelectBase<T>, ControlValueAcces
 	public readonly disabledState = this._disabled.asReadonly();
 
 	/** The selected value of the select. */
-	public readonly value = model<T[] | null>(null);
+	public readonly value = model<T[] | undefined | null>(null);
 
 	public readonly hasValue = computed(() => {
 		const value = this.value();
-		if (value == null) return false;
+		if (value === null || value === undefined) return false;
 		return value.length > 0;
 	});
 
@@ -100,7 +100,7 @@ export class BrnSelectMultiple<T> implements BrnSelectBase<T>, ControlValueAcces
 
 	public readonly labelableId = computed(() => this._selectTrigger()?.id());
 
-	protected _onChange?: ChangeFn<T[] | null>;
+	protected _onChange?: ChangeFn<T[] | undefined | null>;
 	protected _onTouched?: TouchFn;
 
 	constructor() {
@@ -127,7 +127,9 @@ export class BrnSelectMultiple<T> implements BrnSelectBase<T>, ControlValueAcces
 
 					untracked(() => {
 						const index =
-							lastValue !== null ? items.findIndex((item) => this.isItemEqualToValue()(item.value(), lastValue)) : -1;
+							lastValue !== null && lastValue !== undefined
+								? items.findIndex((item) => this.isItemEqualToValue()(item.value(), lastValue))
+								: -1;
 
 						if (index !== -1) {
 							this.keyManager.setActiveItem(index);
@@ -193,11 +195,11 @@ export class BrnSelectMultiple<T> implements BrnSelectBase<T>, ControlValueAcces
 	}
 
 	/** CONTROL VALUE ACCESSOR */
-	public writeValue(value: T[] | null): void {
+	public writeValue(value: T[] | undefined | null): void {
 		this.value.set(value);
 	}
 
-	public registerOnChange(fn: ChangeFn<T[] | null>): void {
+	public registerOnChange(fn: ChangeFn<T[] | undefined | null>): void {
 		this._onChange = fn;
 	}
 

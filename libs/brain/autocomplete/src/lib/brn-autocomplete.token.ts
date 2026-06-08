@@ -19,7 +19,7 @@ export interface BrnAutocompleteBase<T> {
 	disabled: Signal<boolean>;
 	disabledState: Signal<boolean>;
 	keyManager: ActiveDescendantKeyManager<BrnAutocompleteItem<T>>;
-	value: ModelSignal<T | null> | ModelSignal<string | null>;
+	value: ModelSignal<T | undefined | null> | ModelSignal<string | undefined | null>;
 	visibleItems: Signal<boolean>;
 	isExpanded: Signal<boolean>;
 	searchInputWrapperWidth: Signal<number | null>;
@@ -47,7 +47,7 @@ export function injectBrnAutocompleteBase<T>(): BrnAutocompleteBase<T> {
 }
 
 // config
-export type AutocompleteItemEqualToValue<T> = (itemValue: T, selectedValue: T | null) => boolean;
+export type AutocompleteItemEqualToValue<T> = (itemValue: T, selectedValue: T | undefined | null) => boolean;
 export type AutocompleteItemToString<T> = (itemValue: T) => string;
 
 export interface BrnAutocompleteConfig<T> {
@@ -58,7 +58,7 @@ export interface BrnAutocompleteConfig<T> {
 
 function getDefaultConfig<T>(): BrnAutocompleteConfig<T> {
 	return {
-		isItemEqualToValue: (itemValue: T, selectedValue: T | null) => Object.is(itemValue, selectedValue),
+		isItemEqualToValue: (itemValue: T, selectedValue: T | undefined | null) => Object.is(itemValue, selectedValue),
 		itemToString: undefined,
 		autoHighlight: false,
 	};

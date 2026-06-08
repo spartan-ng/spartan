@@ -77,7 +77,7 @@ export class BrnAutocomplete<T> implements BrnAutocompleteBase<T>, ControlValueA
 	});
 
 	/** The selected value of the autocomplete. */
-	public readonly value = model<T | null>(null);
+	public readonly value = model<T | undefined | null>(null);
 
 	/** The current search query. */
 	public readonly search = model<string>('');
@@ -103,7 +103,7 @@ export class BrnAutocomplete<T> implements BrnAutocompleteBase<T>, ControlValueA
 
 	private readonly _autocompleteInput = signal<BrnAutocompleteInput<T> | undefined>(undefined);
 
-	protected _onChange?: ChangeFn<T | null>;
+	protected _onChange?: ChangeFn<T | undefined | null>;
 	protected _onTouched?: TouchFn;
 
 	public readonly labelableId = computed(() => this._autocompleteInput()?.id());
@@ -206,11 +206,11 @@ export class BrnAutocomplete<T> implements BrnAutocompleteBase<T>, ControlValueA
 	}
 
 	/** CONTROL VALUE ACCESSOR */
-	writeValue(value: T | null): void {
+	writeValue(value: T | undefined | null): void {
 		this.value.set(value);
 	}
 
-	registerOnChange(fn: ChangeFn<T | null>): void {
+	registerOnChange(fn: ChangeFn<T | undefined | null>): void {
 		this._onChange = fn;
 	}
 

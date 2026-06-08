@@ -81,10 +81,12 @@ jobs:
       - uses: ./.github/actions/setup
       - uses: nrwl/nx-set-shas@v5
       - name: Test
-        # parallel=2 (not 3): the docs app's vitest+Analog suite peaks at a few GB, and running it
-        # alongside two other test projects exhausted the runner's memory (the worker was OOM-killed
-        # with no error output). Two concurrent projects stays within the runner's limit.
-        run: pnpm nx affected -t test --parallel=2
+        # Run every project except the docs app in parallel.
+        run: pnpm nx affected -t test --parallel=3 --exclude=app
+      - name: Test docs app
+        # The docs app's vitest + Analog suite is run on its own: bundled into the parallel run
+        # above it failed in CI (it passes in isolation), and the interleaved output hid the cause.
+        run: pnpm nx run app:test --output-style=stream
 
   e2e:
     runs-on: ubuntu-latest

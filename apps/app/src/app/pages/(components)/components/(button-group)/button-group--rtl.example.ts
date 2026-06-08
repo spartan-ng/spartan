@@ -99,7 +99,7 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 							<ng-icon hlm name="lucideTag" size="sm" />
 							<span>{{ _t().labelAs }}</span>
 						</div>
-						<ng-icon hlm name="lucideChevronRight" size="sm" />
+						<ng-icon hlm name="lucideChevronRight" size="sm" class="rtl:rotate-180" />
 					</button>
 				</hlm-dropdown-menu-group>
 				<hlm-dropdown-menu-separator />

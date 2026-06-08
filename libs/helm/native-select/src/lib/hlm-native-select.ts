@@ -8,7 +8,6 @@ import {
 	inject,
 	input,
 	linkedSignal,
-	model,
 	output,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, type ControlValueAccessor } from '@angular/forms';
@@ -50,7 +49,7 @@ export const HLM_NATIVE_SELECT_VALUE_ACCESSOR = {
 			[attr.data-dirty]="_dirty?.() ? 'true' : null"
 			[attr.data-touched]="_touched?.() ? 'true' : null"
 			[attr.data-matches-spartan-invalid]="_spartanInvalid() ? 'true' : null"
-			[value]="value()"
+			[value]="_value()"
 			[disabled]="_disabled()"
 			(change)="_valueChanged($event)"
 			(blur)="_blur()"
@@ -105,11 +104,13 @@ export class HlmNativeSelect implements ControlValueAccessor {
 
 	protected readonly _ariaInvalid = computed(() => this.ariaInvalidOverride() ?? this._invalid?.());
 
-	public readonly value = model<string | null>('');
+	public readonly value = input<string | undefined | null>('');
 
-	public readonly valueChange = output<string | null>();
+	public readonly valueChange = output<string | undefined | null>();
 
-	protected _onChange?: ChangeFn<string | null>;
+	protected readonly _value = linkedSignal(this.value);
+
+	protected _onChange?: ChangeFn<string | undefined | null>;
 	protected _onTouched?: TouchFn;
 
 	public readonly labelableId = this.selectId;
@@ -125,7 +126,7 @@ export class HlmNativeSelect implements ControlValueAccessor {
 
 	protected _valueChanged(event: Event): void {
 		const value = (event.target as HTMLSelectElement).value;
-		this.value.set(value);
+		this._value.set(value);
 		this.valueChange.emit(value);
 		this._onChange?.(value);
 		this._onTouched?.();
@@ -136,11 +137,11 @@ export class HlmNativeSelect implements ControlValueAccessor {
 	}
 
 	/** CONTROL VALUE ACCESSOR */
-	public writeValue(value: string | null): void {
-		this.value.set(value);
+	public writeValue(value: string | undefined | null): void {
+		this._value.set(value);
 	}
 
-	public registerOnChange(fn: ChangeFn<string | null>): void {
+	public registerOnChange(fn: ChangeFn<string | undefined | null>): void {
 		this._onChange = fn;
 	}
 

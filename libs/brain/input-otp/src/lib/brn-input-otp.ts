@@ -9,13 +9,12 @@ import {
 	forwardRef,
 	input,
 	linkedSignal,
-	model,
 	numberAttribute,
 	output,
 	signal,
 	viewChild,
 } from '@angular/core';
-import { type ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import type { ClassValue } from 'clsx';
 import { provideBrnInputOtp } from './brn-input-otp.token';
@@ -30,7 +29,6 @@ export type InputMode = 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal'
 
 @Component({
 	selector: 'brn-input-otp',
-	imports: [FormsModule],
 	providers: [BRN_INPUT_OTP_VALUE_ACCESSOR, provideBrnInputOtp(BrnInputOtp)],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
@@ -42,14 +40,14 @@ export type InputMode = 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal'
 		<div [style]="containerStyles()">
 			<input
 				#otpInput
+				data-slot="input-otp"
 				[id]="inputId()"
 				[class]="inputClass()"
 				[autocomplete]="inputAutocomplete()"
-				data-slot="input-otp"
 				[style]="inputStyles()"
 				[disabled]="_disabled()"
 				[inputMode]="inputMode()"
-				[ngModel]="value()"
+				[value]="_value() ?? ''"
 				(input)="onInputChange($event)"
 				(paste)="onPaste($event)"
 				(focus)="_focused.set(true)"
@@ -111,13 +109,16 @@ export class BrnInputOtp implements ControlValueAccessor {
 	public readonly transformPaste = input<(pastedText: string, maxLength: number) => string>((text) => text);
 
 	/** The value controlling the input */
-	public readonly value = model<string | null>(null);
+	public readonly value = input<string | null>(null);
 
 	/** Emits when the value changes. */
 	public readonly valueChange = output<string>();
 
+	/** Internal writable mirror of the {@link value} input, updated via user interaction and {@link writeValue}. */
+	protected readonly _value = linkedSignal(this.value);
+
 	public readonly context = computed(() => {
-		const value = this.value() ?? '';
+		const value = this._value() ?? '';
 		const focused = this._focused();
 		const maxLength = this.maxLength();
 		const slots = Array.from({ length: this.maxLength() }).map((_, slotIndex) => {
@@ -178,7 +179,7 @@ export class BrnInputOtp implements ControlValueAccessor {
 
 	/** CONTROL VALUE ACCESSOR */
 	writeValue(value: string | null): void {
-		this.value.set(value);
+		this._value.set(value);
 		if (value?.length === this.maxLength()) {
 			this.completed.emit(value ?? '');
 		}
@@ -201,9 +202,10 @@ export class BrnInputOtp implements ControlValueAccessor {
 	}
 
 	private updateValue(newValue: string, maxLength: number) {
-		const previousValue = this.value() ?? '';
+		const previousValue = this._value() ?? '';
 
-		this.value.set(newValue);
+		this._value.set(newValue);
+		this.valueChange.emit(newValue);
 		this._onChange?.(newValue);
 
 		if (this.isCompleted(newValue, previousValue, maxLength)) {

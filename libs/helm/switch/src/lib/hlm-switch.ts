@@ -7,7 +7,6 @@ import {
 	forwardRef,
 	input,
 	linkedSignal,
-	model,
 	output,
 } from '@angular/core';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -38,7 +37,7 @@ export const HLM_SWITCH_VALUE_ACCESSOR = {
 		<brn-switch
 			[class]="_computedClass()"
 			[size]="size()"
-			[checked]="checked()"
+			[checked]="_checked()"
 			(checkedChange)="handleChange($event)"
 			(touched)="_onTouched?.()"
 			[disabled]="_disabled()"
@@ -61,10 +60,13 @@ export class HlmSwitch implements ControlValueAccessor {
 	);
 
 	/** The checked state of the switch. */
-	public readonly checked = model<boolean>(false);
+	public readonly checked = input<boolean>(false);
 
 	/** Emits when the checked state of the switch changes. */
 	public readonly checkedChange = output<boolean>();
+
+	/** Internal writable mirror of the {@link checked} input, updated via user interaction and {@link writeValue}. */
+	protected readonly _checked = linkedSignal(this.checked);
 
 	/** The disabled state of the switch. */
 	public readonly disabled = input<boolean, BooleanInput>(false, {
@@ -92,7 +94,7 @@ export class HlmSwitch implements ControlValueAccessor {
 	protected _onTouched?: TouchFn;
 
 	protected handleChange(value: boolean): void {
-		this.checked.set(value);
+		this._checked.set(value);
 		this._onChange?.(value);
 		this.checkedChange.emit(value);
 	}
@@ -100,7 +102,7 @@ export class HlmSwitch implements ControlValueAccessor {
 	/** CONROL VALUE ACCESSOR */
 
 	writeValue(value: boolean): void {
-		this.checked.set(Boolean(value));
+		this._checked.set(Boolean(value));
 	}
 
 	registerOnChange(fn: ChangeFn<boolean>): void {

@@ -16,7 +16,6 @@ import {
 	inject,
 	input,
 	linkedSignal,
-	model,
 	numberAttribute,
 	type OnDestroy,
 	output,
@@ -58,7 +57,7 @@ let uniqueIdCounter = 0;
 		'[attr.data-dirty]': '_dirty?.() ? "true": null',
 		'[attr.data-touched]': '_touched?.() ? "true" : null',
 		'[attr.data-matches-spartan-invalid]': '_spartanInvalid?.() ? "true" : null',
-		'[attr.data-state]': 'checked() ? "checked" : "unchecked"',
+		'[attr.data-state]': '_checked() ? "checked" : "unchecked"',
 		'[attr.data-focus-visible]': '_focusVisible()',
 		'[attr.data-focus]': '_focused()',
 		'[attr.data-disabled]': '_state().disabled()',
@@ -72,8 +71,8 @@ let uniqueIdCounter = 0;
 			[class]="class()"
 			[id]="getSwitchButtonId(_state().id) ?? ''"
 			[name]="getSwitchButtonId(_state().name) ?? ''"
-			[value]="checked() ? 'on' : 'off'"
-			[attr.aria-checked]="checked()"
+			[value]="_checked() ? 'on' : 'off'"
+			[attr.aria-checked]="_checked()"
 			[attr.aria-label]="ariaLabel() || null"
 			[attr.aria-labelledby]="mutableAriaLabelledby() || null"
 			[attr.aria-describedby]="ariaDescribedby() || null"
@@ -81,7 +80,7 @@ let uniqueIdCounter = 0;
 			[attr.data-dirty]="_dirty?.() ? 'true' : null"
 			[attr.data-touched]="_touched?.() ? 'true' : null"
 			[attr.data-matches-spartan-invalid]="_spartanInvalid?.() ? 'true' : null"
-			[attr.data-state]="checked() ? 'checked' : 'unchecked'"
+			[attr.data-state]="_checked() ? 'checked' : 'unchecked'"
 			[attr.data-focus-visible]="_focusVisible()"
 			[attr.data-focus]="_focused()"
 			[attr.data-disabled]="_state().disabled()"
@@ -110,10 +109,13 @@ export class BrnSwitch implements AfterContentInit, OnDestroy, ControlValueAcces
 	 * Whether switch is checked/toggled on.
 	 * Can be bound with [(checked)] for two-way binding.
 	 */
-	public readonly checked = model<boolean>(false);
+	public readonly checked = input<boolean>(false);
 
 	/** Emits when checked state changes. */
 	public readonly checkedChange = output<boolean>();
+
+	/** Internal writable mirror of the {@link checked} input, updated via {@link toggle} and {@link writeValue}. */
+	protected readonly _checked = linkedSignal(this.checked);
 
 	/**
 	 * Unique identifier for switch component.
@@ -244,9 +246,9 @@ export class BrnSwitch implements AfterContentInit, OnDestroy, ControlValueAcces
 		this._onTouched();
 		this.touched.emit();
 
-		this.checked.update((checked) => !checked);
-		this._onChange(this.checked());
-		this.checkedChange.emit(this.checked());
+		this._checked.update((checked) => !checked);
+		this._onChange(this._checked());
+		this.checkedChange.emit(this._checked());
 	}
 
 	public ngAfterContentInit(): void {
@@ -276,7 +278,7 @@ export class BrnSwitch implements AfterContentInit, OnDestroy, ControlValueAcces
 			});
 
 		if (!this.switch()) return;
-		this.switch().nativeElement.value = this.checked() ? 'on' : 'off';
+		this.switch().nativeElement.value = this._checked() ? 'on' : 'off';
 		this.switch().nativeElement.dispatchEvent(new Event('change'));
 	}
 
@@ -302,7 +304,7 @@ export class BrnSwitch implements AfterContentInit, OnDestroy, ControlValueAcces
 	 * @param value - New checked state
 	 */
 	public writeValue(value: boolean): void {
-		this.checked.set(Boolean(value));
+		this._checked.set(Boolean(value));
 	}
 
 	/**

@@ -1,5 +1,6 @@
 import '@analogjs/vite-plugin-angular/setup-vitest';
 import '@angular/compiler';
+import { NgModule, provideZoneChangeDetection } from '@angular/core';
 
 /**
  * Initialize TestBed for all tests inside of router
@@ -7,4 +8,7 @@ import '@angular/compiler';
 import { TestBed } from '@angular/core/testing';
 import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
 
-TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting());
+@NgModule({ providers: [provideZoneChangeDetection()] })
+export class ZoneChangeDetectionModule {}
+
+TestBed.initTestEnvironment([ZoneChangeDetectionModule, BrowserDynamicTestingModule], platformBrowserDynamicTesting());

@@ -92,6 +92,10 @@ describe('classes', () => {
 		const testElement = fixture.componentInstance.elementRef().nativeElement;
 		const user = userEvent.setup();
 
+		// Wait for the classes effect to flush after the initial render
+		fixture.detectChanges();
+		await new Promise((resolve) => setTimeout(resolve, 0));
+
 		// Initial state should have red classes
 		expect(testElement.className).toBe('bg-red-500 text-white static-class');
 
@@ -289,6 +293,10 @@ describe('classes', () => {
 
 		const { fixture } = await render(TestComponent);
 		const testElement = fixture.componentInstance.elementRef().nativeElement;
+
+		// Wait for the classes effect to flush after the initial render
+		fixture.detectChanges();
+		await new Promise((resolve) => setTimeout(resolve, 0));
 
 		// Initial state: first=red, second=white
 		// Expected: bg-red-500 from first, text-white from second (wins over text-gray-500), p-2 from second

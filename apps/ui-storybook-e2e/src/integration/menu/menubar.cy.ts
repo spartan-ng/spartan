@@ -1,3 +1,11 @@
+// cypress-real-events dispatches arrow keys as a CDP `rawKeyDown`, which CDK 21's menubar does not
+// fully act on (it moves focus but skips the close-current/open-next menu step). Dispatching a
+// native `keydown` reproduces real keyboard navigation reliably, so use it for arrow keys here.
+const pressArrow = (key: 'ArrowUp' | 'ArrowDown' | 'ArrowLeft' | 'ArrowRight') => {
+	const keyCode = { ArrowLeft: 37, ArrowUp: 38, ArrowRight: 39, ArrowDown: 40 }[key];
+	cy.focused().trigger('keydown', { key, code: key, keyCode, which: keyCode });
+};
+
 describe('menubar', () => {
 	describe('default', () => {
 		beforeEach(() => {
@@ -69,40 +77,40 @@ describe('menubar', () => {
 			cy.findByText('Profiles').should('have.attr', 'aria-expanded', 'false');
 
 			cy.realPress('Tab');
-			cy.realPress('ArrowDown');
+			pressArrow('ArrowDown');
 			cy.findByText('File').should('have.attr', 'aria-expanded', 'true');
 			cy.findByText('Edit').should('have.attr', 'aria-expanded', 'false');
 			cy.findByText('View').should('have.attr', 'aria-expanded', 'false');
 			cy.findByText('Profiles').should('have.attr', 'aria-expanded', 'false');
 
-			cy.realPress('ArrowRight');
+			pressArrow('ArrowRight');
 			cy.findByText('File').should('have.attr', 'aria-expanded', 'false');
 			cy.findByText('Edit').should('have.attr', 'aria-expanded', 'true');
 			cy.findByText('View').should('have.attr', 'aria-expanded', 'false');
 			cy.findByText('Profiles').should('have.attr', 'aria-expanded', 'false');
 			//
-			cy.realPress('ArrowDown');
-			cy.realPress('ArrowDown');
-			cy.realPress('ArrowDown');
-			cy.realPress('ArrowRight');
+			pressArrow('ArrowDown');
+			pressArrow('ArrowDown');
+			pressArrow('ArrowDown');
+			pressArrow('ArrowRight');
 			cy.findByText('File').should('have.attr', 'aria-expanded', 'false');
 			cy.findByText('Edit').should('have.attr', 'aria-expanded', 'true');
 			cy.findByText('View').should('have.attr', 'aria-expanded', 'false');
 			cy.findByText('Profiles').should('have.attr', 'aria-expanded', 'false');
 			cy.findByText('Share').should('have.attr', 'aria-expanded', 'true');
 
-			cy.realPress('ArrowLeft');
-			cy.realPress('ArrowUp');
-			cy.realPress('ArrowUp');
-			cy.realPress('ArrowUp');
-			cy.realPress('ArrowUp');
-			cy.realPress('ArrowRight');
+			pressArrow('ArrowLeft');
+			pressArrow('ArrowUp');
+			pressArrow('ArrowUp');
+			pressArrow('ArrowUp');
+			pressArrow('ArrowUp');
+			pressArrow('ArrowRight');
 			cy.findByText('File').should('have.attr', 'aria-expanded', 'false');
 			cy.findByText('Edit').should('have.attr', 'aria-expanded', 'false');
 			cy.findByText('View').should('have.attr', 'aria-expanded', 'true');
 			cy.findByText('Profiles').should('have.attr', 'aria-expanded', 'false');
 
-			cy.realPress('ArrowRight');
+			pressArrow('ArrowRight');
 			cy.findByText('File').should('have.attr', 'aria-expanded', 'false');
 			cy.findByText('Edit').should('have.attr', 'aria-expanded', 'false');
 			cy.findByText('View').should('have.attr', 'aria-expanded', 'false');
@@ -115,7 +123,7 @@ describe('menubar', () => {
 			cy.findByText('Profiles').should('have.attr', 'aria-expanded', 'false');
 			cy.findByText('Profiles').should('be.focused');
 
-			cy.realPress('ArrowRight');
+			pressArrow('ArrowRight');
 			cy.findByText('File').should('be.focused');
 		});
 	});

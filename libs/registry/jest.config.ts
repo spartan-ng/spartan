@@ -1,4 +1,4 @@
-export default {
+module.exports = {
 	displayName: 'registry',
 	preset: '../../jest.preset.cjs',
 	testEnvironment: 'node',

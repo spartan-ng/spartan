@@ -1,9 +1,11 @@
+import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 const config = {
 	stories: ['../**/*.@(mdx|stories.@(js|jsx|ts|tsx))'],
-	addons: ['@storybook/addon-themes'],
+	addons: [getAbsolutePath('@storybook/addon-themes')],
 
 	framework: {
-		name: '@storybook/angular',
+		name: getAbsolutePath('@storybook/angular'),
 		options: {},
 	},
 	//👈 Configures the static asset folder in Storybook
@@ -12,3 +14,7 @@ const config = {
 };
 
 export default config;
+
+function getAbsolutePath(value: string): any {
+	return dirname(fileURLToPath(import.meta.resolve(`${value}/package.json`)));
+}

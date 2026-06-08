@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`Theme generator should add the gray theme styles to the global stylesheet 1`] = `
 "@import "tailwindcss";

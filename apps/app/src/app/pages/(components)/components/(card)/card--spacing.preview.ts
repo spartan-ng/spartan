@@ -1,15 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmCardImports } from '@spartan-ng/helm/card';
 import { HlmInputImports } from '@spartan-ng/helm/input';
 import { HlmLabelImports } from '@spartan-ng/helm/label';
+import { HlmToggleGroupImports } from '@spartan-ng/helm/toggle-group';
 
 @Component({
-	selector: 'spartan-card-preview',
-	imports: [HlmCardImports, HlmLabelImports, HlmInputImports, HlmButtonImports],
-	host: { class: 'w-full max-w-md' },
+	selector: 'spartan-card-spacing',
+	imports: [HlmCardImports, HlmLabelImports, HlmInputImports, HlmButtonImports, HlmToggleGroupImports],
+	host: { class: 'w-full max-w-md grid gap-4' },
 	template: `
-		<hlm-card class="w-full max-w-sm">
+		<hlm-toggle-group type="single" size="sm" variant="outline" spacing="2" [(value)]="spacing">
+			@for (space of spacingOptions; track $index) {
+				<button hlmToggleGroupItem [value]="space.value" [aria-label]="'Toggle ' + space.label">
+					{{ space.label }}
+				</button>
+			}
+		</hlm-toggle-group>
+
+		<hlm-card class="w-full max-w-sm" [class]="spacingClass()">
 			<hlm-card-header>
 				<h3 hlmCardTitle>Login to your account</h3>
 				<p hlmCardDescription>Enter your email below to login to your account</p>
@@ -47,20 +56,32 @@ import { HlmLabelImports } from '@spartan-ng/helm/label';
 		</hlm-card>
 	`,
 })
-export class CardPreview {}
+export class CardSpacing {
+	public readonly spacing = signal('4');
+	public readonly spacingOptions = [
+		{
+			className: '[--card-spacing:--spacing(4)]',
+			label: '16px',
+			value: '4',
+		},
+		{
+			className: '[--card-spacing:--spacing(5)]',
+			label: '20px',
+			value: '5',
+		},
+		{
+			className: '[--card-spacing:--spacing(6)]',
+			label: '24px',
+			value: '6',
+		},
+		{
+			className: '[--card-spacing:--spacing(8)]',
+			label: '32px',
+			value: '8',
+		},
+	];
 
-export const defaultImports = `
-import { HlmCardImports } from '@spartan-ng/helm/card';
-`;
-
-export const defaultSkeleton = `
-<hlm-card>
-  <hlm-card-header>
-    <h3 hlmCardTitle>Card Title</h3>
-    <p hlmCardDescription>Card Description</p>
-    <div hlmCardAction>Card Action</div>
-  </hlm-card-header>
-  <div hlmCardContent>Card Content</div>
-  <hlm-card-footer>Card Footer</hlm-card-footer>
-</hlm-card>
-`;
+	public readonly spacingClass = computed(
+		() => this.spacingOptions.find((option) => option.value === this.spacing())?.className,
+	);
+}

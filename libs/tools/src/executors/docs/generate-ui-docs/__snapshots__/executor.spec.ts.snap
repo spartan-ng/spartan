@@ -2389,6 +2389,16 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "boolean",
           },
+          {
+            "name": "clearAriaLabel",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "calendarAriaLabel",
+            "required": false,
+            "type": "string",
+          },
         ],
         "models": [],
         "outputs": [],

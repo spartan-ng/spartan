@@ -5,13 +5,13 @@ import { lucideCalendar, lucideX } from '@ng-icons/lucide';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 import { HlmDatePickerAnchor } from './hlm-date-picker-anchor';
-import { HlmDatePickerTriggerBase } from './hlm-date-picker-trigger.token';
+import { HlmDatePickerTriggerBase, provideHlmDatePickerTrigger } from './hlm-date-picker-trigger.token';
 import { injectHlmDatePicker, injectHlmDatePickerConfig } from './hlm-date-picker.token';
 
 @Component({
 	selector: 'hlm-date-picker-input',
 	imports: [HlmInputGroupImports, HlmButtonImports, HlmDatePickerAnchor, NgIcon],
-	providers: [provideIcons({ lucideCalendar, lucideX })],
+	providers: [provideIcons({ lucideCalendar, lucideX }), provideHlmDatePickerTrigger(HlmDatePickerInput)],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-input-group hlmDatePickerAnchor [hlmDatePickerAnchorFor]="_popover()">
@@ -34,14 +34,20 @@ import { injectHlmDatePicker, injectHlmDatePickerConfig } from './hlm-date-picke
 						hlmInputGroupButton
 						size="icon-xs"
 						variant="ghost"
-						aria-label="Clear date"
+						[attr.aria-label]="clearAriaLabel()"
 						(click)="_clear()"
 						[disabled]="_disabled()"
 					>
 						<ng-icon name="lucideX" />
 					</button>
 				}
-				<button hlmInputGroupButton size="icon-xs" (click)="_popover().open()" [disabled]="_disabled()">
+				<button
+					hlmInputGroupButton
+					size="icon-xs"
+					[attr.aria-label]="calendarAriaLabel()"
+					(click)="_popover().open()"
+					[disabled]="_disabled()"
+				>
 					<ng-icon name="lucideCalendar" />
 				</button>
 			</hlm-input-group-addon>
@@ -79,6 +85,12 @@ export class HlmDatePickerInput implements HlmDatePickerTriggerBase {
 
 	/** Open the calendar popover when the user clicks the input. */
 	public readonly openOnClick = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
+
+	/** Accessible label for the clear button. */
+	public readonly clearAriaLabel = input<string>('Clear date');
+
+	/** Accessible label for the calendar trigger button. */
+	public readonly calendarAriaLabel = input<string>('Open calendar');
 
 	/** @internal The id of the input that focuses the input, used for labeling. */
 	public readonly triggerId = this.inputId;

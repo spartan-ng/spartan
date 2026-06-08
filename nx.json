@@ -28,7 +28,7 @@
 			"cache": true
 		},
 		"@nx/jest:jest": {
-			"inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"],
+			"inputs": ["default", "^production", "{workspaceRoot}/jest.preset.cjs"],
 			"cache": true,
 			"options": {
 				"passWithNoTests": true
@@ -62,7 +62,7 @@
 			"inputs": ["production", "^production"]
 		},
 		"@nx/vitest:test": {
-			"inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"],
+			"inputs": ["default", "^production", "{workspaceRoot}/jest.preset.cjs"],
 			"cache": true
 		}
 	},

@@ -33,19 +33,16 @@ import { classes } from '@spartan-ng/helm/utils';
 	],
 	template: `
 		<div class="relative flex w-full items-center group-data-vertical:w-auto group-data-vertical:flex-col">
-			<div
-				brnSliderTrack
-				class="bg-muted relative grow overflow-hidden rounded-full data-horizontal:h-1 data-horizontal:w-full data-vertical:h-full data-vertical:w-1"
-			>
+			<div brnSliderTrack class="spartan-slider-track relative grow overflow-hidden">
 				<div
-					class="bg-primary absolute select-none data-draggable-range:cursor-move data-horizontal:h-full data-vertical:w-full"
+					class="spartan-slider-range absolute select-none data-draggable-range:cursor-move data-horizontal:h-full data-vertical:w-full"
 					brnSliderRange
 				></div>
 			</div>
 
 			@for (i of _slider.thumbIndexes(); track i) {
 				<span
-					class="border-ring ring-ring/50 absolute block size-3 shrink-0 rounded-full border bg-white transition-[color,box-shadow] select-none after:absolute after:-inset-2 hover:ring-[3px] focus-visible:ring-[3px] focus-visible:outline-hidden active:ring-[3px]"
+					class="spartan-slider-thumb absolute block shrink-0 select-none after:absolute after:-inset-2"
 					brnSliderThumb
 				></span>
 			}

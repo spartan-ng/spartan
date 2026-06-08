@@ -54,10 +54,10 @@ import { injectHlmDatePicker, injectHlmDatePickerConfig } from './hlm-date-picke
 		</hlm-input-group>
 	`,
 })
-export class HlmDatePickerInput implements HlmDatePickerTriggerBase {
+export class HlmDatePickerInput<T> implements HlmDatePickerTriggerBase {
 	private static _nextId = 0;
-	private readonly _datePicker = injectHlmDatePicker();
-	private readonly _config = injectHlmDatePickerConfig<unknown>();
+	private readonly _datePicker = injectHlmDatePicker<T>();
+	private readonly _config = injectHlmDatePickerConfig<T>();
 
 	protected readonly _popover = this._datePicker.popover;
 	protected readonly _disabled = this._datePicker.disabledState;
@@ -76,7 +76,7 @@ export class HlmDatePickerInput implements HlmDatePickerTriggerBase {
 	 * Defaults to the `parseDate` from `HlmDatePickerConfig`. Override this
 	 * input to use a different parser for a specific instance.
 	 */
-	public readonly parseDate = input<(value: string) => unknown | undefined>(this._config.parseDate);
+	public readonly parseDate = input<(value: string) => T | undefined>(this._config.parseDate);
 
 	public readonly forceInvalid = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 

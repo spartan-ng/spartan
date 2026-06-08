@@ -116,7 +116,6 @@ function cleanupSingleLibFolder(tree: Tree, dir: string) {
 
 const defaultSchema: Partial<Schema> = {
 	skipFormat: true,
-	simpleName: true,
 	prefix: 'hlm',
 	skipModule: true,
 	skipTests: true,

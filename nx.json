@@ -28,7 +28,7 @@
 			"cache": true
 		},
 		"@nx/jest:jest": {
-			"inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"],
+			"inputs": ["default", "^production", "{workspaceRoot}/jest.preset.cjs"],
 			"cache": true,
 			"options": {
 				"passWithNoTests": true
@@ -40,16 +40,14 @@
 				}
 			}
 		},
-		"@nx/vite:test": {
-			"inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"],
-			"cache": true
-		},
 		"@nx/eslint:lint": {
 			"inputs": [
 				"default",
+				"^default",
 				"{workspaceRoot}/.eslintrc.json",
 				"{workspaceRoot}/.eslintignore",
-				"{workspaceRoot}/eslint.config.js"
+				"{workspaceRoot}/eslint.config.js",
+				"{workspaceRoot}/tools/eslint-rules/**/*"
 			],
 			"cache": true
 		},
@@ -62,6 +60,10 @@
 			"cache": true,
 			"dependsOn": ["^build"],
 			"inputs": ["production", "^production"]
+		},
+		"@nx/vitest:test": {
+			"inputs": ["default", "^production", "{workspaceRoot}/jest.preset.cjs"],
+			"cache": true
 		}
 	},
 	"namedInputs": {

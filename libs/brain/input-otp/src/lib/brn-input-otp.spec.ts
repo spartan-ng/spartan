@@ -227,6 +227,9 @@ describe('BrnInputOtp', () => {
 		it('autofocus input', async () => {
 			const { input } = await setup({ maxLength: 6, autofocus: true });
 
+			// Wait for afterNextRender to apply the autofocus
+			await new Promise((resolve) => setTimeout(resolve, 0));
+
 			expect(input).toHaveFocus();
 		});
 

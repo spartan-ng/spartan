@@ -1,4 +1,5 @@
 import { computed, Directive, effect, inject } from '@angular/core';
+import { outputToObservable, takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { injectDateAdapter } from '@spartan-ng/brain/date-time';
 import { BrnSelect } from '@spartan-ng/brain/select';
 import { injectBrnCalendar } from './brn-calendar.token';
@@ -6,9 +7,6 @@ import { injectBrnCalendarI18n } from './i18n/calendar-i18n';
 
 @Directive({
 	selector: 'brnSelect[brnCalendarMonthSelect],hlm-select[brnCalendarMonthSelect]',
-	host: {
-		'(valueChange)': 'monthSelected($event)',
-	},
 })
 export class BrnCalendarMonthSelect {
 	/** Access the select */
@@ -28,13 +26,24 @@ export class BrnCalendarMonthSelect {
 	});
 
 	constructor() {
+		// React to user selection through the injected select's typed `value` output rather than a
+		// host-listener `$event` (which Angular types as `Event`). The month select's values are the
+		// month strings, so narrow to `string` before handling.
+		outputToObservable(this._select.value)
+			.pipe(takeUntilDestroyed())
+			.subscribe((value) => {
+				if (typeof value === 'string') {
+					this.monthSelected(value);
+				}
+			});
+
 		effect(() => {
 			this._select.writeValue(this._selectedMonth());
 		});
 	}
 
 	/** Focus selected month */
-	protected monthSelected(selectedMonth: string): void {
+	private monthSelected(selectedMonth: string): void {
 		const month = this._i18n
 			.config()
 			.months()

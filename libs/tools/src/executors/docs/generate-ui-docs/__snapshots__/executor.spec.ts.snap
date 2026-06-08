@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`generate-ui-docs executor produces stable output 1`] = `
 {
@@ -319,7 +319,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [
           {
             "name": "value",
-            "type": "T | null",
+            "type": "T | undefined | null",
           },
           {
             "name": "search",
@@ -449,7 +449,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [
           {
             "name": "value",
-            "type": "string | null",
+            "type": "string | undefined | null",
           },
           {
             "name": "search",
@@ -1590,7 +1590,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [
           {
             "name": "value",
-            "type": "T | null",
+            "type": "T | undefined | null",
           },
           {
             "name": "search",
@@ -1775,7 +1775,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [
           {
             "name": "value",
-            "type": "T[] | null",
+            "type": "T[] | undefined | null",
           },
           {
             "name": "search",
@@ -4348,7 +4348,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [
           {
             "name": "value",
-            "type": "T | null",
+            "type": "T | undefined | null",
           },
         ],
         "outputs": [],
@@ -4427,7 +4427,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [
           {
             "name": "value",
-            "type": "T[] | null",
+            "type": "T[] | undefined | null",
           },
         ],
         "outputs": [],

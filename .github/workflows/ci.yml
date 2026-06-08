@@ -81,19 +81,7 @@ jobs:
       - uses: ./.github/actions/setup
       - uses: nrwl/nx-set-shas@v5
       - name: Test
-        # Run every project except the docs app in parallel.
-        run: pnpm nx affected -t test --parallel=3 --exclude=app
-      - name: Test docs app
-        # Run the docs app's vitest + Analog suite on its own. Its AppComponent smoke test boots the
-        # full app shell (Header/Footer and their deep import graph); that Analog transform
-        # intermittently crashes the vitest worker in CI (exit 1, no output, not reproducible
-        # locally). The crash is in the transform layer, before any test runs, so a vitest per-test
-        # retry cannot help - re-run the suite once instead.
-        run: |
-          pnpm nx run app:test --output-style=stream || {
-            echo "::warning::app:test crashed on first attempt (flaky Analog transform); retrying once"
-            pnpm nx run app:test --skip-nx-cache --output-style=stream
-          }
+        run: pnpm nx affected -t test --parallel=3
 
   e2e:
     runs-on: ubuntu-latest

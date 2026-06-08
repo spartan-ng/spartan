@@ -4,7 +4,7 @@ import { computed, Directive, inject, input, PLATFORM_ID } from '@angular/core';
 export type AiType = 'chatgpt' | 'claude';
 
 @Directive({
-	selector: 'a[spartanAiChatLink]',
+	selector: '[spartanAiChatLink]',
 	host: {
 		'[href]': '_computedHref()',
 		target: '_blank',

@@ -2738,6 +2738,195 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       },
     },
   },
+  "drawer": {
+    "brain": {
+      "BrnDrawer": {
+        "exportAs": "brnDrawer",
+        "inputs": [
+          {
+            "name": "isOpen",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "detent",
+            "required": false,
+            "type": "BrnDrawerDetent",
+          },
+          {
+            "name": "snapPoints",
+            "required": false,
+            "type": "number[] | undefined",
+          },
+          {
+            "name": "initialSnap",
+            "required": false,
+            "type": "number | undefined",
+          },
+          {
+            "name": "disableDrag",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "disableDismiss",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "disableScrollLocking",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "avoidKeyboard",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "tweenConfig",
+            "required": false,
+            "type": "BrnDrawerTweenConfig | undefined",
+          },
+          {
+            "name": "prefersReducedMotion",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "modalEffectRootId",
+            "required": false,
+            "type": "string | undefined",
+          },
+          {
+            "name": "modalEffectThreshold",
+            "required": false,
+            "type": "number | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [
+          {
+            "name": "dismissed",
+            "type": "void",
+          },
+          {
+            "name": "snapped",
+            "type": "number",
+          },
+          {
+            "name": "openStart",
+            "type": "void",
+          },
+          {
+            "name": "openEnd",
+            "type": "void",
+          },
+          {
+            "name": "closeStart",
+            "type": "void",
+          },
+          {
+            "name": "closeEnd",
+            "type": "void",
+          },
+        ],
+        "selector": "[brnDrawer],brn-drawer",
+      },
+      "BrnDrawerContent": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnDrawerContent]",
+      },
+      "BrnDrawerFooter": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnDrawerFooter]",
+      },
+      "BrnDrawerHandle": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnDrawerHandle]",
+      },
+      "BrnDrawerOverlay": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnDrawerOverlay]",
+      },
+      "BrnDrawerScroller": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnDrawerScroller]",
+      },
+      "BrnDrawerTrigger": {
+        "exportAs": "brnDrawerTrigger",
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "type",
+            "required": false,
+            "type": "'button' | 'submit' | 'reset'",
+          },
+          {
+            "name": "brnDrawerTriggerFor",
+            "required": false,
+            "type": "BrnDrawer | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[brnDrawerTrigger],button[brnDrawerTriggerFor]",
+      },
+    },
+    "helm": {
+      "HlmDrawer": {
+        "exportAs": "hlmDrawer",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-drawer",
+      },
+      "HlmDrawerDescription": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDrawerDescription]",
+      },
+      "HlmDrawerFooter": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDrawerFooter]",
+      },
+      "HlmDrawerHeader": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDrawerHeader]",
+      },
+      "HlmDrawerTitle": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDrawerTitle]",
+      },
+      "HlmDrawerTrigger": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "button[hlmDrawerTrigger],button[hlmDrawerTriggerFor]",
+      },
+    },
+  },
   "dropdown-menu": {
     "helm": {
       "HlmDropdownMenu": {

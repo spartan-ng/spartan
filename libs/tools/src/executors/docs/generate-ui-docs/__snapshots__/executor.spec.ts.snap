@@ -2372,7 +2372,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "parseDate",
             "required": false,
-            "type": "(value: string) => unknown | undefined",
+            "type": "(value: string) => T | undefined",
           },
           {
             "name": "forceInvalid",

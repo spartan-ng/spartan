@@ -71,6 +71,7 @@ export const routeMeta: RouteMeta = {
 		DatePickerFormMultipleExample,
 		DateAndTimePickerExample,
 		DatePickerRtl,
+		DatePickerJalali,
 	],
 	template: `
 		<section spartanMainSection>
@@ -280,6 +281,24 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_rtlCode()" />
 			</spartan-tabs>
 
+			<h3 id="examples__jalali" spartanH4>Jalali (Persian) Calendar</h3>
+
+			<p class="${hlmP} mb-6">
+				Use the
+				<code class="${hlmCode}">BrnJalaliDateAdapter</code>
+				with
+				<code class="${hlmCode}">provideDateAdapter</code>
+				to switch the date picker to the Jalali (Persian) calendar. Switch to "Persian (فارسی)" in the language selector
+				above to see the Jalali calendar with Persian month names.
+			</p>
+
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanRtlCodePreview firstTab>
+					<spartan-date-picker-jalali />
+				</div>
+				<spartan-code secondTab [code]="_jalaliCode()" />
+			</spartan-tabs>
+
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="helm" />
 
@@ -305,6 +324,7 @@ export default class CardPage {
 	protected readonly _rangeCode = computed(() => this._snippets()['range']);
 	protected readonly _dateTimeCode = computed(() => this._snippets()['dateTime']);
 	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
+	protected readonly _jalaliCode = computed(() => this._snippets()['jalali']);
 	protected readonly _defaultImports = defaultImports;
 	protected readonly _codeSkeleton = defaultSkeleton;
 }

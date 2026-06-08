@@ -56,6 +56,11 @@ import { HlmSeparator } from '@spartan-ng/helm/separator';
 					<div data-lang="he">
 						השתמשתי בבינה מלאכותית כדי לתרגם את הטקסט למטרות הדגמה. זה לא מושלם ויכול להכיל שגיאות.
 					</div>
+					<hlm-separator class="-mx-2.5 w-auto!" />
+					<div data-lang="fa">
+						من از هوش مصنوعی برای ترجمه متن برای اهداف نمایشی استفاده کرده‌ام. این ترجمه کامل نیست و ممکن است دارای خطا
+						باشد.
+					</div>
 				</hlm-popover-content>
 			</hlm-popover>
 		</div>
@@ -75,6 +80,7 @@ export class CodeRtlPreview {
 		{ value: 'en', label: 'English' },
 		{ value: 'ar', label: 'Arabic (العربية)' },
 		{ value: 'he', label: 'Hebrew (עברית)' },
+		{ value: 'fa', label: 'Persian (فارسی)' },
 	];
 
 	public itemToString = (value: string) => this.languages.find((lang) => lang.value === value)?.label ?? '';

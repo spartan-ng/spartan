@@ -42,7 +42,7 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 		<div hlmButtonGroup>
 			<div hlmButtonGroup class="hidden sm:flex">
 				<button hlmBtn variant="outline" size="icon" [attr.aria-label]="_t().goBack">
-					<ng-icon name="lucideArrowLeft" />
+					<ng-icon name="lucideArrowLeft" class="rtl:rotate-180" />
 				</button>
 			</div>
 			<div hlmButtonGroup>

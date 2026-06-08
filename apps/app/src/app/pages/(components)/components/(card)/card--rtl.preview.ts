@@ -1,6 +1,4 @@
 import { Component, computed, inject } from '@angular/core';
-import { provideIcons } from '@ng-icons/core';
-import { lucideCheck, lucideChevronDown } from '@ng-icons/lucide';
 import { TranslateService, Translations } from '@spartan-ng/app/app/shared/translate.service';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmCardImports } from '@spartan-ng/helm/card';
@@ -10,8 +8,7 @@ import { HlmLabelImports } from '@spartan-ng/helm/label';
 @Component({
 	selector: 'spartan-card-rtl',
 	imports: [HlmCardImports, HlmLabelImports, HlmInputImports, HlmButtonImports],
-	providers: [provideIcons({ lucideCheck, lucideChevronDown })],
-	host: { class: 'contents' },
+	host: { class: 'w-full max-w-md' },
 	template: `
 		<hlm-card class="w-full max-w-sm" [dir]="_dir()">
 			<hlm-card-header>
@@ -24,7 +21,7 @@ import { HlmLabelImports } from '@spartan-ng/helm/label';
 			</hlm-card-header>
 
 			<div hlmCardContent>
-				<form>
+				<form id="login-form-rtl">
 					<div class="flex flex-col gap-6">
 						<div class="grid gap-2">
 							<label hlmLabel for="email">{{ _t()['email'] }}</label>
@@ -34,7 +31,7 @@ import { HlmLabelImports } from '@spartan-ng/helm/label';
 						<div class="grid gap-2">
 							<div class="flex items-center">
 								<label hlmLabel for="password">{{ _t()['password'] }}</label>
-								<a href="#" class="ml-auto inline-block text-sm underline-offset-4 hover:underline">
+								<a href="#" class="ms-auto inline-block text-sm underline-offset-4 hover:underline">
 									{{ _t()['forgotPassword'] }}
 								</a>
 							</div>
@@ -45,7 +42,7 @@ import { HlmLabelImports } from '@spartan-ng/helm/label';
 			</div>
 
 			<hlm-card-footer class="flex-col gap-2">
-				<button hlmBtn type="submit" class="w-full">{{ _t()['login'] }}</button>
+				<button hlmBtn type="submit" class="w-full" form="login-form-rtl">{{ _t()['login'] }}</button>
 				<button hlmBtn variant="outline" class="w-full">{{ _t()['loginWithGoogle'] }}</button>
 			</hlm-card-footer>
 		</hlm-card>

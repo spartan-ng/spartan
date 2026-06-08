@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { provideIcons } from '@ng-icons/core';
-import { lucideCheck, lucideChevronDown } from '@ng-icons/lucide';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmCardImports } from '@spartan-ng/helm/card';
 import { HlmInputImports } from '@spartan-ng/helm/input';
@@ -9,8 +7,7 @@ import { HlmLabelImports } from '@spartan-ng/helm/label';
 @Component({
 	selector: 'spartan-card-preview',
 	imports: [HlmCardImports, HlmLabelImports, HlmInputImports, HlmButtonImports],
-	providers: [provideIcons({ lucideCheck, lucideChevronDown })],
-	host: { class: 'contents' },
+	host: { class: 'w-full max-w-md' },
 	template: `
 		<hlm-card class="w-full max-w-sm">
 			<hlm-card-header>
@@ -23,7 +20,7 @@ import { HlmLabelImports } from '@spartan-ng/helm/label';
 			</hlm-card-header>
 
 			<div hlmCardContent>
-				<form>
+				<form id="login-form">
 					<div class="flex flex-col gap-6">
 						<div class="grid gap-2">
 							<label hlmLabel for="email">Email</label>
@@ -44,7 +41,7 @@ import { HlmLabelImports } from '@spartan-ng/helm/label';
 			</div>
 
 			<hlm-card-footer class="flex-col gap-2">
-				<button hlmBtn type="submit" class="w-full">Login</button>
+				<button hlmBtn type="submit" class="w-full" form="login-form">Login</button>
 				<button hlmBtn variant="outline" class="w-full">Login with Google</button>
 			</hlm-card-footer>
 		</hlm-card>
@@ -61,7 +58,7 @@ export const defaultSkeleton = `
   <hlm-card-header>
     <h3 hlmCardTitle>Card Title</h3>
     <p hlmCardDescription>Card Description</p>
-	<div hlmCardAction>Card Action</div>
+    <div hlmCardAction>Card Action</div>
   </hlm-card-header>
   <div hlmCardContent>Card Content</div>
   <hlm-card-footer>Card Footer</hlm-card-footer>

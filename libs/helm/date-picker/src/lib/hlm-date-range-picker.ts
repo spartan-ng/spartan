@@ -68,7 +68,7 @@ export const HLM_DATE_RANGE_PICKER_VALUE_ACCESSOR = {
 		</hlm-popover>
 	`,
 })
-export class HlmDateRangePicker<T> implements HlmDatePickerBase, ControlValueAccessor {
+export class HlmDateRangePicker<T> implements HlmDatePickerBase<T>, ControlValueAccessor {
 	private readonly _config = injectHlmDateRangePickerConfig<T>();
 
 	public readonly popover = viewChild.required(BrnPopover);
@@ -130,11 +130,11 @@ export class HlmDateRangePicker<T> implements HlmDatePickerBase, ControlValueAcc
 	protected _onChange?: ChangeFn<[T, T] | null>;
 	protected _onTouched?: TouchFn;
 
-	protected _handleStartDayChange(value: T) {
+	protected _handleStartDayChange(value: T | undefined) {
 		this._start.set(value);
 	}
 
-	protected _handleEndDateChange(value: T): void {
+	protected _handleEndDateChange(value: T | undefined): void {
 		this._end.set(value);
 		if (this._disabled()) return;
 

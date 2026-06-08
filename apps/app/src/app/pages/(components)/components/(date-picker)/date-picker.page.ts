@@ -24,9 +24,11 @@ import { metaWith } from '../../../../shared/meta/meta.util';
 import { link } from '../../../../shared/typography/link';
 import { DatePickerConfigExample } from './date-picker--config.example';
 import { DateAndTimePickerExample } from './date-picker--date-time.example';
+import { DatePickerFormInputExample } from './date-picker--form-input.example';
 import { DatePickerFormMultipleExample } from './date-picker--form-multi.example';
 import { DatePickerFormExample } from './date-picker--form.example';
 import { DatePickerFormatExample } from './date-picker--format.example';
+import { DatePickerInputExample } from './date-picker--input.example';
 import { DatePickerMultipleExample } from './date-picker--multi.example';
 import { DatePickerRtl } from './date-picker--rtl.preview';
 import { DatePickerPreview, defaultImports, defaultSkeleton } from './date-picker.preview';
@@ -62,7 +64,9 @@ export const routeMeta: RouteMeta = {
 		DatePickerFormRangeExample,
 		DatePickerConfigExample,
 		DatePickerFormatExample,
+		DatePickerInputExample,
 		DatePickerFormExample,
+		DatePickerFormInputExample,
 		DatePickerMultipleExample,
 		DatePickerFormMultipleExample,
 		DateAndTimePickerExample,
@@ -179,6 +183,27 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_formatCode()" />
 			</spartan-tabs>
 
+			<h3 id="examples__input_picker" spartanH4>Input Picker</h3>
+			<p class="${hlmP} mb-6">
+				Use
+				<code class="${hlmCode}">hlm-date-picker-input</code>
+				instead of
+				<code class="${hlmCode}">hlm-date-picker-trigger</code>
+				to let users type a date directly. Provide a
+				<code class="${hlmCode}">parseDate</code>
+				input (or set it globally via
+				<code class="${hlmCode}">provideHlmDatePickerConfig</code>
+				) to control how typed strings are parsed into dates - typically pair it with a matching
+				<code class="${hlmCode}">formatDate</code>
+				.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-date-picker-input-example />
+				</div>
+				<spartan-code secondTab [code]="_inputCode()" />
+			</spartan-tabs>
+
 			<h3 id="examples__date_and_time_picker" spartanH4>Date and Time picker</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -200,6 +225,21 @@ export const routeMeta: RouteMeta = {
 					<spartan-date-picker-form />
 				</div>
 				<spartan-code secondTab [code]="_formCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__form_input" spartanH4>Form with Input Picker</h3>
+			<p class="${hlmP} mb-6">
+				Combine
+				<code class="${hlmCode}">formControlName</code>
+				with
+				<code class="${hlmCode}">hlm-date-picker-input</code>
+				to let users type a date or pick one from the calendar while syncing the value to a reactive form.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-date-picker-form-input />
+				</div>
+				<spartan-code secondTab [code]="_formInputCode()" />
 			</spartan-tabs>
 
 			<h3 id="examples__form_multiple_selection" spartanH4>Form Multiple Selection</h3>
@@ -256,9 +296,11 @@ export default class CardPage {
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _configCode = computed(() => this._snippets()['config']);
 	protected readonly _formCode = computed(() => this._snippets()['form']);
+	protected readonly _formInputCode = computed(() => this._snippets()['formInput']);
 	protected readonly _formMultiCode = computed(() => this._snippets()['formMulti']);
 	protected readonly _formRangeCode = computed(() => this._snippets()['formRange']);
 	protected readonly _formatCode = computed(() => this._snippets()['format']);
+	protected readonly _inputCode = computed(() => this._snippets()['input']);
 	protected readonly _multiCode = computed(() => this._snippets()['multi']);
 	protected readonly _rangeCode = computed(() => this._snippets()['range']);
 	protected readonly _dateTimeCode = computed(() => this._snippets()['dateTime']);

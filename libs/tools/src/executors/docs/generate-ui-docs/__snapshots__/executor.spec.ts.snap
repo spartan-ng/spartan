@@ -2311,6 +2311,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "T",
           },
           {
+            "name": "defaultFocusedDate",
+            "required": false,
+            "type": "T",
+          },
+          {
             "name": "autoCloseOnSelect",
             "required": false,
             "type": "boolean",
@@ -2334,6 +2339,70 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           },
         ],
         "selector": "hlm-date-picker",
+      },
+      "HlmDatePickerAnchor": {
+        "inputs": [
+          {
+            "name": "hlmDatePickerAnchorFor",
+            "required": false,
+            "type": "BrnPopover | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDatePickerAnchor]",
+      },
+      "HlmDatePickerInput": {
+        "inputs": [
+          {
+            "name": "inputId",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "placeholder",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "inputValue",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "parseDate",
+            "required": false,
+            "type": "(value: string) => T | undefined",
+          },
+          {
+            "name": "forceInvalid",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "showClear",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "openOnClick",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "clearAriaLabel",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "calendarAriaLabel",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-date-picker-input",
       },
       "HlmDatePickerMulti": {
         "inputs": [

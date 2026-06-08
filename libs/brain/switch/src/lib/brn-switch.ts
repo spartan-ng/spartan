@@ -66,6 +66,7 @@ let uniqueIdCounter = 0;
 			#switch
 			role="switch"
 			type="button"
+			data-size="default"
 			[class]="class()"
 			[id]="getSwitchButtonId(_state().id) ?? ''"
 			[name]="getSwitchButtonId(_state().name) ?? ''"

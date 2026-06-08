@@ -13,7 +13,7 @@ export class BrnSelectValueTemplate<T> {
 	protected readonly _value = computed<T | null>(() => {
 		const value = this._select.value();
 
-		if (value === null) {
+		if (value === null || value === undefined) {
 			return null;
 		}
 
@@ -23,7 +23,7 @@ export class BrnSelectValueTemplate<T> {
 	constructor() {
 		effect(() => {
 			const value = this._value();
-			if (value !== null) {
+			if (value !== null && value !== undefined) {
 				this._viewContainerRef.clear();
 				this._viewContainerRef.createEmbeddedView(this._templateRef, {
 					$implicit: value,

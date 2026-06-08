@@ -11,9 +11,10 @@ export class BrnAutocompleteClear {
 	private readonly _viewContainerRef = inject(ViewContainerRef);
 
 	/** Determine if the autocomplete has a value or search text */
-	private readonly _shouldShowClear = computed(
-		() => this._autocomplete.value() !== null || this._autocomplete.search() !== '',
-	);
+	private readonly _shouldShowClear = computed(() => {
+		const value = this._autocomplete.value();
+		return (value !== null && value !== undefined) || this._autocomplete.search() !== '';
+	});
 
 	constructor() {
 		effect(() => {

@@ -70,7 +70,7 @@ export class BrnSelectMultiple<T> implements BrnSelectBase<T>, ControlValueAcces
 
 	public readonly hasValue = computed(() => {
 		const value = this.value();
-		if (value == null) return false;
+		if (value === null || value === undefined) return false;
 		return value.length > 0;
 	});
 

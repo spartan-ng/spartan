@@ -107,7 +107,7 @@ export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueA
 
 	public readonly hasValue = computed(() => {
 		const value = this.value();
-		if (value == null) return false;
+		if (value === null || value === undefined) return false;
 		return value.length > 0;
 	});
 

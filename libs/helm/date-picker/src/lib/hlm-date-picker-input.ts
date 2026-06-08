@@ -69,21 +69,20 @@ export class HlmDatePickerInput<T> implements HlmDatePickerTriggerBase {
 	public readonly inputValue = input<string>('');
 
 	/**
-	 * Parses a string from the input into a date value. Return `undefined`
-	 * when the string cannot be parsed - in that case the date picker's
-	 * selected date is left unchanged on commit.
+	 * Parses input text into a date value. Return `undefined` for invalid
+	 * input - the picker's date is cleared while the text is preserved so
+	 * the user can fix it.
 	 *
-	 * Defaults to the `parseDate` from `HlmDatePickerConfig`. Override this
-	 * input to use a different parser for a specific instance.
+	 * Defaults to `parseDate` from `HlmDatePickerConfig`.
 	 */
 	public readonly parseDate = input<(value: string) => T | undefined>(this._config.parseDate);
 
 	public readonly forceInvalid = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
-	/** Show a clear button that resets both the input text and the picker's date. Hidden when empty. */
+	/** Show a clear button that resets the input and picker date. Hidden when empty. */
 	public readonly showClear = input<boolean, BooleanInput>(true, { transform: booleanAttribute });
 
-	/** Open the calendar popover when the user clicks the input. */
+	/** Open the popover on input click. */
 	public readonly openOnClick = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
 	/** Accessible label for the clear button. */
@@ -92,17 +91,13 @@ export class HlmDatePickerInput<T> implements HlmDatePickerTriggerBase {
 	/** Accessible label for the calendar trigger button. */
 	public readonly calendarAriaLabel = input<string>('Open calendar');
 
-	/** @internal The id of the input that focuses the input, used for labeling. */
+	/** @internal Id used by the trigger contract for labeling. */
 	public readonly triggerId = this.inputId;
 
 	/**
-	 * Holds the text shown in the input. Stays in sync with the picker's
-	 * `formattedDate` and the parent's `inputValue` reactively, and accepts
-	 * user writes via `_handleInputChange` while typing.
-	 *
-	 * No focus tracking is needed because commits to the picker only happen
-	 * on blur / Enter - so `formattedDate` doesn't change mid-keystroke and
-	 * the user's in-progress text isn't overwritten.
+	 * Text shown in the input. Mirrors the picker's `formattedDate` and the
+	 * parent's `inputValue`, and accepts user writes via `_handleInputChange`.
+	 * Commits only happen on blur / Enter, so in-progress text isn't clobbered.
 	 */
 	protected readonly _inputValue = linkedSignal<{ formatted: string | undefined; inputValue: string }, string>({
 		source: () => ({
@@ -110,23 +105,22 @@ export class HlmDatePickerInput<T> implements HlmDatePickerTriggerBase {
 			inputValue: this.inputValue(),
 		}),
 		computation: (source, previous) => {
-			// First render: prefer the picker's formatted date if available,
-			// otherwise fall back to the parent-provided inputValue.
+			// First render: prefer formatted, fall back to inputValue.
 			if (previous === undefined) {
 				return source.formatted ?? source.inputValue;
 			}
 
-			// If the picker's formatted date changed (e.g. the user picked a
-			// date from the calendar, the form value was set, or we just
-			// committed parsed input on blur/Enter) reflect it - this is what
-			// snaps the field to the canonical format after commit.
+			// Picker's formatted date changed - snap to canonical format.
 			if (source.formatted !== previous.source.formatted) {
-				return source.formatted ?? '';
+				if (source.formatted !== undefined) {
+					return source.formatted;
+				}
+				// Cleared externally vs. user has invalid text in flight: only
+				// mirror the clear when the displayed text was in sync.
+				return previous.value === previous.source.formatted ? '' : previous.value;
 			}
 
-			// If the parent changed inputValue, reflect that. Behaves as a
-			// controlled prop without overriding the picker's selection on
-			// every reactive tick.
+			// Parent updated inputValue - reflect it.
 			if (source.inputValue !== previous.source.inputValue) {
 				return source.inputValue;
 			}
@@ -163,11 +157,9 @@ export class HlmDatePickerInput<T> implements HlmDatePickerTriggerBase {
 			return;
 		}
 
+		// Invalid parse: clear the picker date, keep the text so the user can fix it.
 		const parsed = this.parseDate()(value);
-		if (parsed !== null && parsed !== undefined) {
-			this._datePicker.updateDate?.(parsed);
-		}
-
+		this._datePicker.updateDate?.(parsed ?? undefined);
 		this._datePicker.touched?.();
 	}
 

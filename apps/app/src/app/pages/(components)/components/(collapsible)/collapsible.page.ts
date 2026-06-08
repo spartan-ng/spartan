@@ -2,7 +2,7 @@ import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { CollapsibleAnimatedExample } from '@spartan-ng/app/app/pages/(components)/components/(collapsible)/collapsible--animated.example';
-import { CollapsibleAccordionAnimatedExample } from '@spartan-ng/app/app/pages/(components)/components/(collapsible)/collapsible-accordion-animation.example';
+import { CollapsibleAccordionAnimationExample } from '@spartan-ng/app/app/pages/(components)/components/(collapsible)/collapsible-accordion-animation.example';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { hlmCode } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
@@ -42,7 +42,7 @@ export const routeMeta: RouteMeta = {
 		CollapsiblePreview,
 		SectionSubSubHeading,
 		CollapsibleAnimatedExample,
-		CollapsibleAccordionAnimatedExample,
+		CollapsibleAccordionAnimationExample,
 	],
 	template: `
 		<section spartanMainSection>
@@ -69,7 +69,8 @@ export const routeMeta: RouteMeta = {
 			<p class="py-2">
 				You can use the
 				<code class="${hlmCode}">data-state</code>
-				and Tailwind classes to control the animation of the collapsible.
+				and Tailwind classes to control the animation of the collapsible. Content with a transition or animation stays
+				in the layout while closed so it can animate out; otherwise it is removed automatically.
 			</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -80,13 +81,17 @@ export const routeMeta: RouteMeta = {
 
 			<h3 id="examples__accordion-animation" spartanH4>Accordion-Like Animation</h3>
 			<p class="py-2">
-				Use the
-				<code class="${hlmCode}">data-state</code>
-				attribute with Tailwind classes to animate height and opacity for an accordion-like reveal.
+				Animate the height between
+				<code class="${hlmCode}">0</code>
+				and the measured
+				<code class="${hlmCode}">--brn-collapsible-content-height</code>
+				CSS variable for an accordion-like reveal. Keep
+				<code class="${hlmCode}">overflow-hidden</code>
+				on the content so it clips while collapsing.
 			</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
-					<spartan-collapsible-accordion-animated-example />
+					<spartan-collapsible-accordion-animation-example />
 				</div>
 				<spartan-code secondTab [code]="_accordionAnimationCode()" />
 			</spartan-tabs>

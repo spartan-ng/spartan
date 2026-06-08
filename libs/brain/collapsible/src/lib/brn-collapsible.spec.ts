@@ -6,7 +6,7 @@ import { BrnCollapsibleContent } from './brn-collapsible-content';
 import { BrnCollapsibleTrigger } from './brn-collapsible-trigger';
 
 describe('BrnCollapsibleComponent', () => {
-	const setup = async (id?: string, disabled = false, style?: string) => {
+	const setup = async (id?: string, disabled = false) => {
 		const container = await render(
 			`
      <brn-collapsible ${disabled ? 'disabled' : ''} data-testid='root'>
@@ -15,7 +15,7 @@ describe('BrnCollapsibleComponent', () => {
         <button brnCollapsibleTrigger data-testid='trigger'>Toggle</button>
       </div>
       <div>&#64;radix-ui/primitives</div>
-      <brn-collapsible-content ${id ? `id=${id}` : ''} ${style ? `style="${style}"` : ''} data-testid='content'>
+      <brn-collapsible-content ${id ? `id=${id}` : ''} data-testid='content'>
         <div>&#64;radix-ui/colors</div>
         <div>&#64;stitches/react</div>
       </brn-collapsible-content>
@@ -60,7 +60,6 @@ describe('BrnCollapsibleComponent', () => {
 		expect(trigger).toHaveAttribute('data-state', 'open');
 		expect(trigger).toHaveAttribute('aria-expanded', 'true');
 		expect(content).toHaveAttribute('data-state', 'open');
-		expect(content).not.toHaveAttribute('hidden');
 
 		await validateAttributes({ root, trigger, content, id });
 	};
@@ -73,7 +72,6 @@ describe('BrnCollapsibleComponent', () => {
 		expect(trigger).toHaveAttribute('data-state', 'closed');
 		expect(trigger).toHaveAttribute('aria-expanded', 'false');
 		expect(content).toHaveAttribute('data-state', 'closed');
-		expect(content).not.toHaveAttribute('hidden');
 
 		await validateAttributes({ root, trigger, content, id });
 	};
@@ -146,10 +144,22 @@ describe('BrnCollapsibleComponent', () => {
 		await validateClosed();
 	});
 
-	it('applies overflow hidden as the default host style', async () => {
+	it('removes non-animated content from the layout while closed', async () => {
 		await setup();
 		const content = await screen.findByTestId('content');
 
-		expect(content).toHaveAttribute('style', expect.stringContaining('overflow: hidden'));
+		expect(content).toHaveStyle({ display: 'none' });
+	});
+
+	it('keeps the content in the layout while open', async () => {
+		const { user, container, triggerElement } = await setup();
+		const content = await screen.findByTestId('content');
+
+		expect(content).toHaveStyle({ display: 'none' });
+
+		await user.click(triggerElement);
+		container.detectChanges();
+
+		expect(content).not.toHaveStyle({ display: 'none' });
 	});
 });

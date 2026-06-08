@@ -36,6 +36,8 @@ export const BRN_SWITCH_VALUE_ACCESSOR = {
 	multi: true,
 };
 
+export type BrnSwitchSize = 'default' | 'sm';
+
 const CONTAINER_POST_FIX = '-switch';
 
 let uniqueIdCounter = 0;
@@ -66,7 +68,7 @@ let uniqueIdCounter = 0;
 			#switch
 			role="switch"
 			type="button"
-			data-size="default"
+			[attr.data-size]="size()"
 			[class]="class()"
 			[id]="getSwitchButtonId(_state().id) ?? ''"
 			[name]="getSwitchButtonId(_state().name) ?? ''"
@@ -130,6 +132,13 @@ export class BrnSwitch implements AfterContentInit, OnDestroy, ControlValueAcces
 	 * CSS classes applied to inner button element.
 	 */
 	public readonly class = input<string | null>(null);
+
+	/**
+	 * Size of the switch.
+	 * Drives the size-keyed registry style rules via the `data-size` attribute.
+	 * @default 'default'
+	 */
+	public readonly size = input<BrnSwitchSize>('default');
 
 	/**
 	 * Accessibility label for screen readers.

@@ -81,7 +81,10 @@ jobs:
       - uses: ./.github/actions/setup
       - uses: nrwl/nx-set-shas@v5
       - name: Test
-        run: pnpm nx affected -t test --parallel=3
+        # parallel=2 (not 3): the docs app's vitest+Analog suite peaks at a few GB, and running it
+        # alongside two other test projects exhausted the runner's memory (the worker was OOM-killed
+        # with no error output). Two concurrent projects stays within the runner's limit.
+        run: pnpm nx affected -t test --parallel=2
 
   e2e:
     runs-on: ubuntu-latest

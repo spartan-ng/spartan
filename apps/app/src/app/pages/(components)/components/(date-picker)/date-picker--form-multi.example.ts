@@ -15,9 +15,8 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 		<form [formGroup]="form" (ngSubmit)="submit()">
 			<hlm-field-group>
 				<hlm-field>
-					<label hlmFieldLabel for="availableDates">Available dates</label>
+					<label hlmFieldLabel for="date-available-dates">Available dates</label>
 					<hlm-date-picker-multi
-						buttonId="availableDates"
 						[min]="minDate"
 						[max]="maxDate"
 						formControlName="availableDates"
@@ -25,7 +24,7 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 						[minSelection]="2"
 						[maxSelection]="4"
 					>
-						<span>Pick dates</span>
+						<hlm-date-picker-trigger buttonId="date-available-dates">Pick dates</hlm-date-picker-trigger>
 					</hlm-date-picker-multi>
 				</hlm-field>
 

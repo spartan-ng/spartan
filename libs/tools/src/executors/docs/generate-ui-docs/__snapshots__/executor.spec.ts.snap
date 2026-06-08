@@ -2286,16 +2286,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       "HlmDatePicker": {
         "inputs": [
           {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-          {
-            "name": "buttonId",
-            "required": false,
-            "type": "string",
-          },
-          {
             "name": "captionLayout",
             "required": false,
             "type": "'dropdown' | 'label' | 'dropdown-months' | 'dropdown-years'",
@@ -2347,16 +2337,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       },
       "HlmDatePickerMulti": {
         "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-          {
-            "name": "buttonId",
-            "required": false,
-            "type": "string",
-          },
           {
             "name": "captionLayout",
             "required": false,
@@ -2417,7 +2397,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "selector": "hlm-date-picker-multi",
       },
-      "HlmDateRangePicker": {
+      "HlmDatePickerTrigger": {
         "inputs": [
           {
             "name": "class",
@@ -2429,6 +2409,28 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "string",
           },
+          {
+            "name": "forceInvalid",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "variant",
+            "required": false,
+            "type": "ButtonVariants['variant']",
+          },
+          {
+            "name": "showTrigger",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-date-picker-trigger",
+      },
+      "HlmDateRangePicker": {
+        "inputs": [
           {
             "name": "captionLayout",
             "required": false,

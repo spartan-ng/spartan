@@ -5,6 +5,8 @@ import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/prim
 import { DatePickerFormRangeExample } from '@spartan-ng/app/app/pages/(components)/components/(date-picker)/date-picker--form-range.example';
 import { DatePickerRangeExample } from '@spartan-ng/app/app/pages/(components)/components/(date-picker)/date-picker--range.example';
 import { CodePreview } from '@spartan-ng/app/app/shared/code/code-preview';
+import { CodeRtlPreview } from '@spartan-ng/app/app/shared/code/code-rtl-preview';
+import { RtlHeader } from '@spartan-ng/app/app/shared/code/rtl-header';
 import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import { MainSection } from '@spartan-ng/app/app/shared/layout/main-section';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
@@ -26,6 +28,7 @@ import { DatePickerFormMultipleExample } from './date-picker--form-multi.example
 import { DatePickerFormExample } from './date-picker--form.example';
 import { DatePickerFormatExample } from './date-picker--format.example';
 import { DatePickerMultipleExample } from './date-picker--multi.example';
+import { DatePickerRtl } from './date-picker--rtl.preview';
 import { DatePickerPreview, defaultImports, defaultSkeleton } from './date-picker.preview';
 
 export const routeMeta: RouteMeta = {
@@ -50,21 +53,24 @@ export const routeMeta: RouteMeta = {
 		MainSection,
 		InstallTabs,
 		PageNav,
+		RouterLink,
+		HlmButton,
+		RtlHeader,
+		CodeRtlPreview,
+		SectionSubSubHeading,
+		DatePickerRangeExample,
+		DatePickerFormRangeExample,
 		DatePickerConfigExample,
 		DatePickerFormatExample,
 		DatePickerFormExample,
 		DatePickerMultipleExample,
 		DatePickerFormMultipleExample,
 		DateAndTimePickerExample,
-		RouterLink,
-		HlmButton,
-		DatePickerRangeExample,
-		DatePickerFormRangeExample,
-		SectionSubSubHeading,
+		DatePickerRtl,
 	],
 	template: `
 		<section spartanMainSection>
-			<spartan-section-intro name="Date Picker" lead="A date picker component." />
+			<spartan-section-intro name="Date Picker" lead="A date picker component." showThemeToggle />
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -73,7 +79,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
-			<spartan-install-tabs primitive="date-picker">
+			<spartan-install-tabs primitive="date-picker" [showOnlyVega]="false">
 				<p class="${hlmP} mb-6">
 					The Date Picker component is built with the
 					<a routerLink="/components/popover" hlmBtn variant="link" class="${link}">Popover</a>
@@ -226,6 +232,14 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_formRangeCode()" />
 			</spartan-tabs>
 
+			<spartan-header-rtl />
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanRtlCodePreview firstTab>
+					<spartan-date-picker-rtl />
+				</div>
+				<spartan-code secondTab [code]="_rtlCode()" />
+			</spartan-tabs>
+
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="helm" />
 
@@ -248,6 +262,7 @@ export default class CardPage {
 	protected readonly _multiCode = computed(() => this._snippets()['multi']);
 	protected readonly _rangeCode = computed(() => this._snippets()['range']);
 	protected readonly _dateTimeCode = computed(() => this._snippets()['dateTime']);
+	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 	protected readonly _defaultImports = defaultImports;
 	protected readonly _codeSkeleton = defaultSkeleton;
 }

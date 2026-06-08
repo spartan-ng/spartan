@@ -1,6 +1,6 @@
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HlmButton } from '@spartan-ng/helm/button';
-import { HlmDatePickerMulti } from '@spartan-ng/helm/date-picker';
+import { HlmDatePickerImports, HlmDatePickerMulti } from '@spartan-ng/helm/date-picker';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
 import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
 
@@ -23,7 +23,7 @@ const meta: Meta<HlmDatePickerMulti<Date>> = {
 	},
 	decorators: [
 		moduleMetadata({
-			imports: [HlmDatePickerMulti, ReactiveFormsModule, HlmFieldImports, HlmButton],
+			imports: [HlmDatePickerImports, ReactiveFormsModule, HlmFieldImports, HlmButton],
 		}),
 	],
 	render: ({ ...args }) => ({
@@ -31,7 +31,7 @@ const meta: Meta<HlmDatePickerMulti<Date>> = {
 		template: `
 		<div class="preview flex min-h-[350px] w-full justify-center p-10 items-center">
 			<hlm-date-picker-multi [min]="min" [max]="max" [captionLayout]="captionLayout">
-                <span>Pick a date</span>
+                <hlm-date-picker-trigger buttonId="date">Pick a date</hlm-date-picker-trigger>
             </hlm-date-picker-multi>
 		</div>
 		`,
@@ -63,7 +63,7 @@ export const WithHintAndError: Story = {
 					[captionLayout]="captionLayout"
 					[min]="min"
 					[max]="max">
-					<span>Select dates</span>
+					<hlm-date-picker-trigger buttonId="date">Select dates</hlm-date-picker-trigger>
 				</hlm-date-picker-multi>
 
 				<p hlmFieldDescription>Select multiple dates for your availability.</p>

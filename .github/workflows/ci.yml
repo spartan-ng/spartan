@@ -84,9 +84,15 @@ jobs:
         # Run every project except the docs app in parallel.
         run: pnpm nx affected -t test --parallel=3 --exclude=app
       - name: Test docs app
-        # The docs app's vitest + Analog suite is run on its own: bundled into the parallel run
-        # above it failed in CI (it passes in isolation), and the interleaved output hid the cause.
-        run: pnpm nx run app:test --output-style=stream
+        # The docs app's vitest + Analog suite is run on its own (bundling it into the parallel run
+        # hid the cause). It still intermittently crashes in CI right after loading Angular's testing
+        # modules with no error output; capture the exit code to classify the crash and retry once.
+        run: |
+          pnpm nx run app:test --output-style=stream || {
+            code=$?
+            echo "::warning::app:test failed with exit code ${code} (128+signal => native crash); retrying once"
+            pnpm nx run app:test --skip-nx-cache --output-style=stream
+          }
 
   e2e:
     runs-on: ubuntu-latest

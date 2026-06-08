@@ -120,9 +120,6 @@ export class BrnToggleGroup<T = unknown> implements ControlValueAccessor {
 		} else {
 			this.emitSelectionChange(value, source);
 		}
-
-		this._onChange(this._value());
-		this.change.emit(new BrnButtonToggleChange<T>(source, this._value()));
 	}
 
 	/**

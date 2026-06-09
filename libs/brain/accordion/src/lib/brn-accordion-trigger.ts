@@ -59,7 +59,11 @@ export class BrnAccordionTrigger implements FocusableOption {
 
 	protected toggle(event: Event): void {
 		event.preventDefault();
-		this._accordion.toggleItem(this._item.id);
+		if (this._state() === 'open') {
+			this._item.close();
+		} else {
+			this._item.open();
+		}
 	}
 
 	public focus() {

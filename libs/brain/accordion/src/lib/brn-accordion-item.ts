@@ -44,33 +44,40 @@ export class BrnAccordionItem {
 		if (!this._accordion) {
 			throw Error('Accordion item can only be used inside an Accordion. Add brnAccordion to ancestor.');
 		}
-		effect(() => {
-			const state = this.state();
-			if (untracked(this.disabled)) return;
-			untracked(() => {
-				this.stateChange.emit(state);
-				this.openedChange.emit(state === 'open');
-			});
-		});
+
 		effect(() => {
 			const isOpened = this.isOpened();
 			untracked(() => {
 				if (isOpened) {
-					this.open();
+					this._triggerOpen(false);
 				} else {
-					this.close();
+					this._triggerClose(false);
 				}
 			});
 		});
 	}
 
 	public open(): void {
-		if (this.disabled()) return;
-		this._accordion.openItem(this.id);
+		this._triggerOpen(true);
 	}
 
 	public close(): void {
+		this._triggerClose(true);
+	}
+
+	private _triggerOpen(emitEvent: boolean): void {
+		if (this.disabled()) return;
+		this._accordion.openItem(this.id);
+		if (emitEvent) {
+			this.openedChange.emit(true);
+		}
+	}
+
+	private _triggerClose(emitEvent: boolean): void {
 		if (this.disabled()) return;
 		this._accordion.closeItem(this.id);
+		if (emitEvent) {
+			this.openedChange.emit(false);
+		}
 	}
 }

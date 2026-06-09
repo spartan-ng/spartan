@@ -113,14 +113,6 @@ export class BrnAccordion implements AfterContentInit, OnDestroy {
 		this._keyManager()?.setActiveItem(item);
 	}
 
-	public toggleItem(id: number) {
-		if (this._openItemIds().includes(id)) {
-			this.closeItem(id);
-			return;
-		}
-		this.openItem(id);
-	}
-
 	public openItem(id: number) {
 		if (this.type() === 'single') {
 			this._openItemIds.set([id]);

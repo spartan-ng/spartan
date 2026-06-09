@@ -3,9 +3,7 @@ import { classes } from '<%- importAlias %>/utils';
 
 @Directive({
 	selector: '[hlmCardFooter],hlm-card-footer',
-	host: {
-		'data-slot': 'card-footer',
-	},
+	host: { 'data-slot': 'card-footer' },
 })
 export class HlmCardFooter {
 	constructor() {

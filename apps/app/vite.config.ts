@@ -157,6 +157,19 @@ export default defineConfig(({ command, mode }) => {
 			environment: 'jsdom',
 			setupFiles: ['src/test-setup.ts'],
 			include: ['**/*.spec.ts'],
+			// Run the suite in a single forked process. The AppComponent smoke test boots the full app
+			// shell, and the Analog/vite-plugin-angular transform of that deep import graph is heavy;
+			// spawning a worker per core multiplied that footprint and intermittently OOM-crashed a
+			// vitest worker in CI (exit 1, no output) when several nx projects tested in parallel. One
+			// memory-bounded fork keeps the docs app's footprint predictable. The suite is tiny, so the
+			// loss of intra-suite parallelism is negligible.
+			pool: 'forks',
+			poolOptions: {
+				forks: {
+					minForks: 1,
+					maxForks: 1,
+				},
+			},
 			cache: {
 				dir: '../../node_modules/.vitest',
 			},

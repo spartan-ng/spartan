@@ -1214,7 +1214,7 @@
 	}
 
 	.spartan-slider-track {
-		@apply bg-muted rounded-md data-horizontal:h-3 data-horizontal:w-full data-vertical:h-full data-vertical:w-3;
+		@apply bg-muted rounded-md data-horizontal:h-1 data-horizontal:w-full data-vertical:h-full data-vertical:w-1;
 	}
 
 	.spartan-slider-range {

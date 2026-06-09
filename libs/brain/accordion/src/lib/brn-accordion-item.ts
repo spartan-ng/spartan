@@ -69,6 +69,7 @@ export class BrnAccordionItem {
 		if (this.disabled()) return;
 		this._accordion.openItem(this.id);
 		if (emitEvent) {
+			this.stateChange.emit('open');
 			this.openedChange.emit(true);
 		}
 	}
@@ -77,6 +78,7 @@ export class BrnAccordionItem {
 		if (this.disabled()) return;
 		this._accordion.closeItem(this.id);
 		if (emitEvent) {
+			this.stateChange.emit('closed');
 			this.openedChange.emit(false);
 		}
 	}

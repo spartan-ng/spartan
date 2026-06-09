@@ -103,6 +103,7 @@ export class BrnDialogService {
 				$implicit: contextOrData,
 			}),
 			data: contextOrData,
+			direction: options?.direction,
 			hasBackdrop: options?.hasBackdrop ?? this._defaultOptions.hasBackdrop,
 			panelClass: options?.panelClass,
 			backdropClass: options?.backdropClass,

@@ -280,4 +280,46 @@ describe('BrnSwitchComponent', () => {
 			await validateSwitchOn(options);
 		});
 	});
+
+	describe('size', () => {
+		const renderWithSize = async (size?: string) => {
+			const view = await render(
+				`<brn-switch ${size ? `size='${size}'` : ''} aria-label='switch'><brn-switch-thumb /></brn-switch>`,
+				{ imports: [BrnSwitch, BrnSwitchThumb] },
+			);
+			view.detectChanges();
+			return view;
+		};
+
+		it('defaults data-size to "default" on the button', async () => {
+			await renderWithSize();
+			expect(screen.getByRole('switch')).toHaveAttribute('data-size', 'default');
+		});
+
+		it('reflects the size input on the button', async () => {
+			await renderWithSize('sm');
+			expect(screen.getByRole('switch')).toHaveAttribute('data-size', 'sm');
+		});
+	});
+
+	describe('thumb data-state', () => {
+		const renderThumb = async (checked: boolean) => {
+			const view = await render(
+				`<brn-switch [checked]='${checked}' aria-label='switch'><brn-switch-thumb data-testid='thumb' /></brn-switch>`,
+				{ imports: [BrnSwitch, BrnSwitchThumb] },
+			);
+			view.detectChanges();
+			return view;
+		};
+
+		it('is unchecked by default', async () => {
+			await renderThumb(false);
+			expect(screen.getByTestId('thumb')).toHaveAttribute('data-state', 'unchecked');
+		});
+
+		it('reflects the checked state', async () => {
+			await renderThumb(true);
+			expect(screen.getByTestId('thumb')).toHaveAttribute('data-state', 'checked');
+		});
+	});
 });

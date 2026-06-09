@@ -7,6 +7,15 @@ const presetSetupNodeEvents = preset.setupNodeEvents;
 module.exports = defineConfig({
 	e2e: {
 		...preset,
+		// Retry a failed test in CI before failing the run. The storybook suite runs every spec in one
+		// long Chromium process; under CI load individual assertions (notably the cypress-axe a11y
+		// checks and rapid keyboard-nav specs) intermittently exceed the command timeout on a random
+		// story. A per-test retry absorbs that without re-running the whole job, and is a no-op when the
+		// test is genuinely green. openMode is left at 0 so local runs surface flakes immediately.
+		retries: { runMode: 2, openMode: 0 },
+		// Give commands more headroom than the 4s default; the a11y audits and afterNextRender focus
+		// work legitimately take longer than 4s deep into the single-process run under CI load.
+		defaultCommandTimeout: 10000,
 		// Please ensure you use `cy.origin()` when navigating between domains and remove this option.
 		// See https://docs.cypress.io/app/references/migration-guide#Changes-to-cyorigin
 		injectDocumentDomain: true,

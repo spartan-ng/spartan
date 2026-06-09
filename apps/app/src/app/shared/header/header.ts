@@ -55,17 +55,17 @@ import { HeaderMobileNav } from './header-mobile-nav';
 
 				<div class="ml-auto flex items-center gap-2 md:flex-1 md:justify-end">
 					<spartan-docs-dialog class="hidden w-full flex-1 md:flex md:w-auto md:flex-none" />
-					<hlm-separator orientation="vertical" class="!h-4" />
+					<hlm-separator orientation="vertical" class="!h-4 !self-center" />
 					<a href="https://twitter.com/goetzrobin" target="_blank" size="sm" variant="ghost" hlmBtn>
 						<span class="sr-only">Twitter</span>
 						<ng-icon hlm name="lucideTwitter" size="sm" />
 					</a>
-					<hlm-separator orientation="vertical" class="!h-4" />
+					<hlm-separator orientation="vertical" class="!h-4 !self-center" />
 					<a href="https://github.com/spartan-ng/spartan" target="_blank" size="sm" variant="ghost" hlmBtn>
 						<ng-icon hlm name="lucideGithub" size="sm" />
 						<span class="text-muted-foreground text-xs">{{ _stars() }}</span>
 					</a>
-					<hlm-separator orientation="vertical" class="!h-4" />
+					<hlm-separator orientation="vertical" class="!h-4 !self-center" />
 					<spartan-layout-mode class="3xl:flex hidden" />
 					<spartan-dark-mode />
 				</div>

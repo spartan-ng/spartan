@@ -1,6 +1,8 @@
 import { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { CodeRtlPreview } from '@spartan-ng/app/app/shared/code/code-rtl-preview';
+import { RtlHeader } from '@spartan-ng/app/app/shared/code/rtl-header';
 import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
@@ -21,6 +23,7 @@ import { ButtonGroupInput } from './button-group--input.example';
 import { ButtonGroupNested } from './button-group--nested.example';
 import { ButtonGroupOrientation } from './button-group--orientation.example';
 import { ButtonGroupPopover } from './button-group--popover.example';
+import { ButtonGroupRtl } from './button-group--rtl.example';
 import { ButtonGroupSelect } from './button-group--select.example';
 import { ButtonGroupSeparator } from './button-group--separator.example';
 import { ButtonGroupSize } from './button-group--size.example';
@@ -62,6 +65,9 @@ export const routeMeta: RouteMeta = {
 		ButtonGroupWithText,
 		ButtonGroupInputGroup,
 		SectionSubSubHeading,
+		RtlHeader,
+		CodeRtlPreview,
+		ButtonGroupRtl,
 	],
 	template: `
 		<section spartanMainSection>
@@ -280,6 +286,14 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_popoverCode()" />
 			</spartan-tabs>
 
+			<spartan-header-rtl />
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanRtlCodePreview firstTab>
+					<spartan-button-group-rtl-preview />
+				</div>
+				<spartan-code secondTab [code]="_rtlCode()" />
+			</spartan-tabs>
+
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="helm" />
 
@@ -308,4 +322,5 @@ export default class ButtonGroupPage {
 	protected readonly _dropdownMenuCode = computed(() => this._snippets()['dropdownMenu']);
 	protected readonly _selectCode = computed(() => this._snippets()['select']);
 	protected readonly _popoverCode = computed(() => this._snippets()['popover']);
+	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 }

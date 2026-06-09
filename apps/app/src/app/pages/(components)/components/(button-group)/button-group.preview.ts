@@ -75,7 +75,7 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 						<span>Add to Calendar</span>
 					</button>
 					<button hlmDropdownMenuItem>
-						<ng-icon hlm name="lucideCalendarPlus" size="sm" />
+						<ng-icon hlm name="lucideListFilterPlus" size="sm" />
 						<span>Add to List</span>
 					</button>
 					<button

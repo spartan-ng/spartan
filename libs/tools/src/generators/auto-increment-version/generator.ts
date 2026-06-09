@@ -1,5 +1,6 @@
 import { type Tree, formatFiles, readJsonFile } from '@nx/devkit';
 import replaceCliVersionGenerator from '../replace-cli-version/generator';
+import replaceMcpVersionGenerator from '../replace-mcp-version/generator';
 import replaceUiVersionGenerator from '../replace-ui-version/generator';
 
 export default async function autoIncrementVersion(tree: Tree): Promise<void> {
@@ -16,6 +17,7 @@ export default async function autoIncrementVersion(tree: Tree): Promise<void> {
 
 	await replaceUiVersionGenerator(tree, { newVersion });
 	await replaceCliVersionGenerator(tree, { newVersion });
+	await replaceMcpVersionGenerator(tree, { newVersion });
 
 	await formatFiles(tree);
 }

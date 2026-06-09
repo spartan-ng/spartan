@@ -13,9 +13,11 @@ import { PageBottomNavLink } from '../../../../shared/layout/page-bottom-nav/pag
 import { PageNav } from '../../../../shared/layout/page-nav/page-nav';
 import { SectionIntro } from '../../../../shared/layout/section-intro';
 import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading';
+import { SectionSubSubHeading } from '../../../../shared/layout/section-sub-sub-heading';
 import { Tabs } from '../../../../shared/layout/tabs';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
+import { SwitchSizes } from './switch--sizes.example';
 import { SwitchPreview, defaultImports, defaultSkeleton } from './switch.preview';
 
 export const routeMeta: RouteMeta = {
@@ -39,6 +41,8 @@ export const routeMeta: RouteMeta = {
 		PageBottomNav,
 		PageBottomNavLink,
 		SwitchPreview,
+		SectionSubSubHeading,
+		SwitchSizes,
 		RtlHeader,
 		CodeRtlPreview,
 		SwitchRtlPreview,
@@ -66,6 +70,15 @@ export const routeMeta: RouteMeta = {
 				<spartan-code [code]="_defaultSkeleton" />
 			</div>
 
+			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
+			<h3 id="examples__sizes" spartanH4>Sizes</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-switch-sizes />
+				</div>
+				<spartan-code secondTab [code]="_sizesCode()" />
+			</spartan-tabs>
+
 			<spartan-header-rtl />
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanRtlCodePreview firstTab>
@@ -92,6 +105,7 @@ export default class SkeletonPage {
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('switch');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
+	protected readonly _sizesCode = computed(() => this._snippets()['sizes']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

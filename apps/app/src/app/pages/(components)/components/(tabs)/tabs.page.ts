@@ -3,6 +3,9 @@ import { Component, computed, inject } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCircleAlert } from '@ng-icons/lucide';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { TabsRtlPreview } from '@spartan-ng/app/app/pages/(components)/components/(tabs)/tabs--rtl.example';
+import { CodeRtlPreview } from '@spartan-ng/app/app/shared/code/code-rtl-preview';
+import { RtlHeader } from '@spartan-ng/app/app/shared/code/rtl-header';
 import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { HlmAlert, HlmAlertDescription } from '@spartan-ng/helm/alert';
@@ -64,6 +67,9 @@ export const routeMeta: RouteMeta = {
 		HlmAlert,
 		NgIcon,
 		SectionSubSubHeading,
+		RtlHeader,
+		CodeRtlPreview,
+		TabsRtlPreview,
 	],
 	providers: [provideIcons({ lucideCircleAlert })],
 	template: `
@@ -71,6 +77,7 @@ export const routeMeta: RouteMeta = {
 			<spartan-section-intro
 				name="Tabs"
 				lead="A set of layered sections of content—known as tab panels—that are displayed one at a time."
+				showThemeToggle
 			/>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
@@ -80,7 +87,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
-			<spartan-install-tabs primitive="tabs" />
+			<spartan-install-tabs primitive="tabs" [showOnlyVega]="false" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">
@@ -200,6 +207,14 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_paginatedCode()" />
 			</spartan-tabs>
 
+			<spartan-header-rtl />
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanRtlCodePreview firstTab>
+					<spartan-tabs-rtl-preview />
+				</div>
+				<spartan-code secondTab [code]="_rtlCode()" />
+			</spartan-tabs>
+
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="brain" />
 
@@ -225,6 +240,7 @@ export default class TabsPage {
 	protected readonly _inputButtonCode = computed(() => this._snippets()['inputButton']);
 	protected readonly _lazyCode = computed(() => this._snippets()['lazy']);
 	protected readonly _paginatedCode = computed(() => this._snippets()['paginated']);
+	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

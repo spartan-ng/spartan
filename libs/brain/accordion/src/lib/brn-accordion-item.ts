@@ -66,7 +66,7 @@ export class BrnAccordionItem {
 	}
 
 	private _triggerOpen(emitEvent: boolean): void {
-		if (this.disabled() || this.isOpened()) return;
+		if (this.disabled() || this.state() === 'open') return;
 		this._accordion.openItem(this.id);
 		if (emitEvent) {
 			this.stateChange.emit('open');
@@ -75,7 +75,7 @@ export class BrnAccordionItem {
 	}
 
 	private _triggerClose(emitEvent: boolean): void {
-		if (this.disabled() || !this.isOpened()) return;
+		if (this.disabled() || this.state() !== 'open') return;
 		this._accordion.closeItem(this.id);
 		if (emitEvent) {
 			this.stateChange.emit('closed');

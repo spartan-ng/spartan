@@ -77,10 +77,8 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 	 * For single-thumb sliders, this contains one value.
 	 * For range sliders, values are kept sorted in ascending order.
 	 */
-	public readonly value = input<number[]>([]);
-
-	/** Internal writable mirror of the {@link value} input, updated via user interaction and {@link writeValue}. */
-	protected readonly _value = linkedSignal(this.value);
+	public readonly valueInput = input<number[]>([], { alias: 'value' });
+	public readonly value = linkedSignal(this.valueInput);
 
 	/** Minimum allowed slider value. */
 	public readonly min = input<number, NumberInput>(0, {
@@ -148,7 +146,7 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 
 	/** @internal Normalized slider values. Values are clamped to `[min, max]` and sorted in ascending order. */
 	public readonly normalizedValue = computed(
-		() => [...this._value()].sort((a, b) => a - b).map((v) => clamp(v, [this.min(), this.max()])),
+		() => [...this.value()].sort((a, b) => a - b).map((v) => clamp(v, [this.min(), this.max()])),
 		{ equal: areArrsEqual },
 	);
 
@@ -237,17 +235,17 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 		// If bound to an Angular form control, writeValue() will run after ngOnInit,
 		// so avoid initializing defaults here to prevent a transient min-value override.
 		if (!this.ngControl) {
-			if (!this._value().length) {
+			if (!this.value().length) {
 				const defaultValue = [this.min()];
-				this._value.set(defaultValue);
+				this.value.set(defaultValue);
 			}
 
-			const normalizedValue = this._value()
+			const normalizedValue = this.value()
 				.map((v) => clamp(v, [this.min(), this.max()]))
 				.sort((a, b) => a - b);
 
-			if (!areArrsEqual(normalizedValue, this._value())) {
-				this._value.set(normalizedValue);
+			if (!areArrsEqual(normalizedValue, this.value())) {
+				this.value.set(normalizedValue);
 			}
 		}
 	}
@@ -274,7 +272,7 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 		}
 
 		const newValue = [...value].sort((a, b) => a - b).map((v) => clamp(v, [this.min(), this.max()]));
-		this._value.set(newValue);
+		this.value.set(newValue);
 	}
 
 	/** Sets a new value for the slider at the given thumb index. */
@@ -296,9 +294,9 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 		const newValIndex = newValue.findIndex((val) => val === value);
 		this.valueIndexToChange.set(newValIndex);
 
-		if (areArrsEqual(newValue, this._value())) return;
+		if (areArrsEqual(newValue, this.value())) return;
 
-		this._value.set(newValue);
+		this.value.set(newValue);
 		this._onChange?.(newValue);
 		this.valueChange.emit(newValue);
 
@@ -335,9 +333,9 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 
 		next = next.map((v) => roundValue(v, decimalCount));
 
-		if (areArrsEqual(next, this._value())) return;
+		if (areArrsEqual(next, this.value())) return;
 
-		this._value.set(next);
+		this.value.set(next);
 		this._onChange?.(next);
 		this.valueChange.emit(next);
 	}

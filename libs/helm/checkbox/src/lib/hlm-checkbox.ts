@@ -46,7 +46,7 @@ export const HLM_CHECKBOX_VALUE_ACCESSOR = {
 			[id]="inputId()"
 			[name]="name()"
 			[class]="_computedClass()"
-			[checked]="_checked()"
+			[checked]="checked()"
 			[(indeterminate)]="indeterminate"
 			[disabled]="_disabled()"
 			[required]="required()"
@@ -57,7 +57,7 @@ export const HLM_CHECKBOX_VALUE_ACCESSOR = {
 			(checkedChange)="_handleChange($event)"
 			(touched)="_onTouched?.()"
 		>
-			@if (_checked() || indeterminate()) {
+			@if (checked() || indeterminate()) {
 				<span class="flex items-center justify-center text-current transition-none">
 					<ng-icon hlm size="14px" name="lucideCheck" />
 				</span>
@@ -90,13 +90,11 @@ export class HlmCheckbox implements ControlValueAccessor {
 	public readonly ariaDescribedby = input<string | null>(null, { alias: 'aria-describedby' });
 
 	/** The checked state of the checkbox. */
-	public readonly checked = input<boolean>(false);
+	public readonly checkedInput = input<boolean, BooleanInput>(false, { alias: 'checked', transform: booleanAttribute });
+	public readonly checked = linkedSignal(this.checkedInput);
 
 	/** Emits when checked state changes. */
 	public readonly checkedChange = output<boolean>();
-
-	/** Internal writable mirror of the {@link checked} input, updated via user interaction and {@link writeValue}. */
-	protected readonly _checked = linkedSignal(this.checked);
 
 	/**
 	 * The indeterminate state of the checkbox.
@@ -132,14 +130,14 @@ export class HlmCheckbox implements ControlValueAccessor {
 
 	protected _handleChange(value: boolean): void {
 		if (this._disabled()) return;
-		this._checked.set(value);
+		this.checked.set(value);
 		this.checkedChange.emit(value);
 		this._onChange?.(value);
 	}
 
 	/** CONTROL VALUE ACCESSOR */
 	writeValue(value: boolean): void {
-		this._checked.set(value);
+		this.checked.set(value);
 	}
 
 	registerOnChange(fn: ChangeFn<boolean>): void {

@@ -102,19 +102,17 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 	 * The checked state of the checkbox.
 	 * Can be bound with [(checked)] for two-way binding.
 	 */
-	public readonly checked = input<boolean>(false);
+	public readonly checkedInput = input<boolean, BooleanInput>(false, { alias: 'checked', transform: booleanAttribute });
+	public readonly checked = linkedSignal(this.checkedInput);
 
 	/** Emits when checked state changes. */
 	public readonly checkedChange = output<boolean>();
-
-	/** Internal writable mirror of the {@link checked} input, updated via {@link toggle} and {@link writeValue}. */
-	protected readonly _checked = linkedSignal(this.checked);
 
 	/**
 	 * Read-only signal of current checkbox state.
 	 * Use this when you only need to read state without changing it.
 	 */
-	public readonly isChecked = this._checked.asReadonly();
+	public readonly isChecked = this.checked.asReadonly();
 
 	/*
 	 * The indeterminate state of the checkbox.
@@ -128,7 +126,7 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 	 */
 	protected readonly _dataState = computed(() => {
 		if (this.indeterminate()) return 'indeterminate';
-		return this._checked() ? 'checked' : 'unchecked';
+		return this.checked() ? 'checked' : 'unchecked';
 	});
 
 	/**
@@ -137,7 +135,7 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 	 */
 	protected readonly _ariaChecked = computed(() => {
 		if (this.indeterminate()) return 'mixed';
-		return this._checked() ? 'true' : 'false';
+		return this.checked() ? 'true' : 'false';
 	});
 
 	/**
@@ -272,10 +270,10 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 		this._onTouched();
 		this.touched.emit();
 
-		const newChecked = this.indeterminate() ? true : !this._checked();
+		const newChecked = this.indeterminate() ? true : !this.checked();
 		this.indeterminate.set(false);
 		this.checkedChange.emit(newChecked);
-		this._checked.set(newChecked);
+		this.checked.set(newChecked);
 		this._onChange(newChecked);
 	}
 
@@ -329,7 +327,7 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 	 * @param value - New checkbox state (true/false/'indeterminate')
 	 */
 	writeValue(value: boolean): void {
-		this._checked.set(value);
+		this.checked.set(value);
 	}
 
 	/**

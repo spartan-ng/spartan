@@ -53,16 +53,11 @@ export class BrnRadioGroup<T = unknown> implements ControlValueAccessor {
 	/**
 	 * The value of the selected radio button.
 	 */
-	public readonly value = input<T>();
+	public readonly valueInput = input<T>(undefined, { alias: 'value' });
+	public readonly value = linkedSignal(this.valueInput);
 
 	/** Emits when the value changes. */
 	public readonly valueChange = output<T>();
-
-	/** Internal writable mirror of the {@link value} input, updated via {@link writeValue} and {@link select}. */
-	protected readonly _value = linkedSignal(this.value);
-
-	/** Read-only signal of the currently selected value. */
-	public readonly selectedValue = this._value.asReadonly();
 
 	/**
 	 * Whether the radio group is disabled.
@@ -107,7 +102,7 @@ export class BrnRadioGroup<T = unknown> implements ControlValueAccessor {
 	public readonly radioButtons = contentChildren(BrnRadio, { descendants: true });
 
 	writeValue(value: T): void {
-		this._value.set(value);
+		this.value.set(value);
 	}
 
 	registerOnChange(fn: ChangeFn<T>): void {
@@ -127,11 +122,11 @@ export class BrnRadioGroup<T = unknown> implements ControlValueAccessor {
 	 * @internal
 	 */
 	select(radioButton: BrnRadio<T>, value: T): void {
-		if (this._value() === value) {
+		if (this.value() === value) {
 			return;
 		}
 
-		this._value.set(value);
+		this.value.set(value);
 		this.valueChange.emit(value);
 		this.onChange(value);
 		this.change.emit(new BrnRadioChange<T>(radioButton, value));

@@ -92,12 +92,12 @@ export class BrnRadio<T = unknown> implements OnDestroy {
 	/**
 	 * Whether the radio button is checked.
 	 */
-	protected readonly _checked = computed(() => this._radioGroup.selectedValue() === this.value());
+	protected readonly _checked = computed(() => this._radioGroup.value() === this.value());
 
 	protected readonly _tabIndex = computed(() => {
 		const disabled = this._disabledState();
 		const checked = this._checked();
-		const hasSelectedRadio = this._radioGroup.selectedValue() !== undefined;
+		const hasSelectedRadio = this._radioGroup.value() !== undefined;
 		const isFirstRadio = this._radioGroup.radioButtons()[0] === this;
 
 		if (disabled || (!checked && (hasSelectedRadio || !isFirstRadio))) {

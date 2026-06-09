@@ -47,7 +47,7 @@ export type InputMode = 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal'
 				[style]="inputStyles()"
 				[disabled]="_disabled()"
 				[inputMode]="inputMode()"
-				[value]="_value() ?? ''"
+				[value]="value() ?? ''"
 				(input)="onInputChange($event)"
 				(paste)="onPaste($event)"
 				(focus)="_focused.set(true)"
@@ -109,16 +109,14 @@ export class BrnInputOtp implements ControlValueAccessor {
 	public readonly transformPaste = input<(pastedText: string, maxLength: number) => string>((text) => text);
 
 	/** The value controlling the input */
-	public readonly value = input<string | null>(null);
+	public readonly valueInput = input<string | null>(null, { alias: 'value' });
+	public readonly value = linkedSignal(this.valueInput);
 
 	/** Emits when the value changes. */
 	public readonly valueChange = output<string>();
 
-	/** Internal writable mirror of the {@link value} input, updated via user interaction and {@link writeValue}. */
-	protected readonly _value = linkedSignal(this.value);
-
 	public readonly context = computed(() => {
-		const value = this._value() ?? '';
+		const value = this.value() ?? '';
 		const focused = this._focused();
 		const maxLength = this.maxLength();
 		const slots = Array.from({ length: this.maxLength() }).map((_, slotIndex) => {
@@ -179,7 +177,7 @@ export class BrnInputOtp implements ControlValueAccessor {
 
 	/** CONTROL VALUE ACCESSOR */
 	writeValue(value: string | null): void {
-		this._value.set(value);
+		this.value.set(value);
 		if (value?.length === this.maxLength()) {
 			this.completed.emit(value ?? '');
 		}
@@ -202,9 +200,9 @@ export class BrnInputOtp implements ControlValueAccessor {
 	}
 
 	private updateValue(newValue: string, maxLength: number) {
-		const previousValue = this._value() ?? '';
+		const previousValue = this.value() ?? '';
 
-		this._value.set(newValue);
+		this.value.set(newValue);
 		this.valueChange.emit(newValue);
 		this._onChange?.(newValue);
 

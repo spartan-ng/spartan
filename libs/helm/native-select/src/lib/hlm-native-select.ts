@@ -49,7 +49,7 @@ export const HLM_NATIVE_SELECT_VALUE_ACCESSOR = {
 			[attr.data-dirty]="_dirty?.() ? 'true' : null"
 			[attr.data-touched]="_touched?.() ? 'true' : null"
 			[attr.data-matches-spartan-invalid]="_spartanInvalid() ? 'true' : null"
-			[value]="_value()"
+			[value]="value()"
 			[disabled]="_disabled()"
 			(change)="_valueChanged($event)"
 			(blur)="_blur()"
@@ -104,11 +104,10 @@ export class HlmNativeSelect implements ControlValueAccessor {
 
 	protected readonly _ariaInvalid = computed(() => this.ariaInvalidOverride() ?? this._invalid?.());
 
-	public readonly value = input<string | undefined | null>('');
+	public readonly valueInput = input<string | undefined | null>('', { alias: 'value' });
+	public readonly value = linkedSignal(this.valueInput);
 
 	public readonly valueChange = output<string | undefined | null>();
-
-	protected readonly _value = linkedSignal(this.value);
 
 	protected _onChange?: ChangeFn<string | undefined | null>;
 	protected _onTouched?: TouchFn;
@@ -126,7 +125,7 @@ export class HlmNativeSelect implements ControlValueAccessor {
 
 	protected _valueChanged(event: Event): void {
 		const value = (event.target as HTMLSelectElement).value;
-		this._value.set(value);
+		this.value.set(value);
 		this.valueChange.emit(value);
 		this._onChange?.(value);
 		this._onTouched?.();
@@ -138,7 +137,7 @@ export class HlmNativeSelect implements ControlValueAccessor {
 
 	/** CONTROL VALUE ACCESSOR */
 	public writeValue(value: string | undefined | null): void {
-		this._value.set(value);
+		this.value.set(value);
 	}
 
 	public registerOnChange(fn: ChangeFn<string | undefined | null>): void {

@@ -36,13 +36,11 @@ export class BrnToggleGroup<T = unknown> implements ControlValueAccessor {
 	protected readonly _multiple = computed(() => this.type() === 'multiple');
 
 	/** Value of the toggle group. */
-	public readonly value = input<ToggleValue<T>>(undefined);
+	public readonly valueInput = input<ToggleValue<T>>(undefined, { alias: 'value' });
+	public readonly value = linkedSignal(this.valueInput);
 
 	/** Emits when the value changes. */
 	public readonly valueChange = output<ToggleValue<T>>();
-
-	/** Internal writable mirror of the {@link value} input, updated via {@link writeValue} and selection changes. */
-	protected readonly _value = linkedSignal(this.value);
 
 	/** Whether no button toggles need to be selected. */
 	public readonly nullable = input<boolean, BooleanInput>(true, {
@@ -71,7 +69,7 @@ export class BrnToggleGroup<T = unknown> implements ControlValueAccessor {
 	protected onTouched: () => void = () => {};
 
 	writeValue(value: ToggleValue<T>): void {
-		this._value.set(value);
+		this.value.set(value);
 	}
 
 	registerOnChange(fn: (value: ToggleValue<T>) => void) {
@@ -94,7 +92,7 @@ export class BrnToggleGroup<T = unknown> implements ControlValueAccessor {
 		// if null values are allowed, the group can always be nullable
 		if (this.nullable()) return true;
 
-		const currentValue = this._value();
+		const currentValue = this.value();
 
 		if (this._multiple() && Array.isArray(currentValue)) {
 			return !(currentValue.length === 1 && currentValue[0] === value);
@@ -112,7 +110,7 @@ export class BrnToggleGroup<T = unknown> implements ControlValueAccessor {
 			return;
 		}
 
-		const currentValue = this._value();
+		const currentValue = this.value();
 
 		// emit the valueChange event here as we should only emit based on user interaction
 		if (this._multiple()) {
@@ -131,7 +129,7 @@ export class BrnToggleGroup<T = unknown> implements ControlValueAccessor {
 			return;
 		}
 
-		const currentValue = this._value();
+		const currentValue = this.value();
 
 		if (this._multiple()) {
 			this.emitSelectionChange(
@@ -148,7 +146,7 @@ export class BrnToggleGroup<T = unknown> implements ControlValueAccessor {
 	 * Determines whether a value is selected.
 	 */
 	isSelected(value: T): boolean {
-		const currentValue = this._value();
+		const currentValue = this.value();
 
 		if (
 			currentValue == null ||
@@ -166,10 +164,10 @@ export class BrnToggleGroup<T = unknown> implements ControlValueAccessor {
 
 	/** Update the value of the group */
 	private emitSelectionChange(value: ToggleValue<T>, source: BrnToggleGroupItem<T>): void {
-		this._value.set(value);
+		this.value.set(value);
 		this.valueChange.emit(value);
 		this._onChange(value);
-		this.change.emit(new BrnButtonToggleChange<T>(source, this._value()));
+		this.change.emit(new BrnButtonToggleChange<T>(source, this.value()));
 	}
 }
 

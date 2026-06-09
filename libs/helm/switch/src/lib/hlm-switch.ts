@@ -37,7 +37,7 @@ export const HLM_SWITCH_VALUE_ACCESSOR = {
 		<brn-switch
 			[class]="_computedClass()"
 			[size]="size()"
-			[checked]="_checked()"
+			[checked]="checked()"
 			(checkedChange)="handleChange($event)"
 			(touched)="_onTouched?.()"
 			[disabled]="_disabled()"
@@ -60,13 +60,11 @@ export class HlmSwitch implements ControlValueAccessor {
 	);
 
 	/** The checked state of the switch. */
-	public readonly checked = input<boolean>(false);
+	public readonly checkedInput = input<boolean, BooleanInput>(false, { alias: 'checked', transform: booleanAttribute });
+	public readonly checked = linkedSignal(this.checkedInput);
 
 	/** Emits when the checked state of the switch changes. */
 	public readonly checkedChange = output<boolean>();
-
-	/** Internal writable mirror of the {@link checked} input, updated via user interaction and {@link writeValue}. */
-	protected readonly _checked = linkedSignal(this.checked);
 
 	/** The disabled state of the switch. */
 	public readonly disabled = input<boolean, BooleanInput>(false, {
@@ -94,15 +92,14 @@ export class HlmSwitch implements ControlValueAccessor {
 	protected _onTouched?: TouchFn;
 
 	protected handleChange(value: boolean): void {
-		this._checked.set(value);
+		this.checked.set(value);
 		this._onChange?.(value);
 		this.checkedChange.emit(value);
 	}
 
-	/** CONROL VALUE ACCESSOR */
-
+	/** CONTROL VALUE ACCESSOR */
 	writeValue(value: boolean): void {
-		this._checked.set(Boolean(value));
+		this.checked.set(Boolean(value));
 	}
 
 	registerOnChange(fn: ChangeFn<boolean>): void {

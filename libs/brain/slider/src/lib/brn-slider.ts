@@ -9,7 +9,6 @@ import {
 	Injector,
 	input,
 	linkedSignal,
-	model,
 	numberAttribute,
 	type OnInit,
 	output,
@@ -78,7 +77,8 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 	 * For single-thumb sliders, this contains one value.
 	 * For range sliders, values are kept sorted in ascending order.
 	 */
-	public readonly value = model<number[]>([]);
+	public readonly valueInput = input<number[]>([], { alias: 'value' });
+	public readonly value = linkedSignal(this.valueInput);
 
 	/** Minimum allowed slider value. */
 	public readonly min = input<number, NumberInput>(0, {

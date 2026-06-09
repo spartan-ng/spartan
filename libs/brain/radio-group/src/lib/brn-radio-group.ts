@@ -10,7 +10,6 @@ import {
 	inject,
 	input,
 	linkedSignal,
-	model,
 	output,
 } from '@angular/core';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -54,7 +53,8 @@ export class BrnRadioGroup<T = unknown> implements ControlValueAccessor {
 	/**
 	 * The value of the selected radio button.
 	 */
-	public readonly value = model<T>();
+	public readonly valueInput = input<T>(undefined, { alias: 'value' });
+	public readonly value = linkedSignal(this.valueInput);
 
 	/** Emits when the value changes. */
 	public readonly valueChange = output<T>();

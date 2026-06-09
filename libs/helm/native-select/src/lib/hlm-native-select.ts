@@ -8,7 +8,6 @@ import {
 	inject,
 	input,
 	linkedSignal,
-	model,
 	output,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, type ControlValueAccessor } from '@angular/forms';
@@ -105,11 +104,12 @@ export class HlmNativeSelect implements ControlValueAccessor {
 
 	protected readonly _ariaInvalid = computed(() => this.ariaInvalidOverride() ?? this._invalid?.());
 
-	public readonly value = model<string | null>('');
+	public readonly valueInput = input<string | undefined | null>('', { alias: 'value' });
+	public readonly value = linkedSignal(this.valueInput);
 
-	public readonly valueChange = output<string | null>();
+	public readonly valueChange = output<string | undefined | null>();
 
-	protected _onChange?: ChangeFn<string | null>;
+	protected _onChange?: ChangeFn<string | undefined | null>;
 	protected _onTouched?: TouchFn;
 
 	public readonly labelableId = this.selectId;
@@ -136,11 +136,11 @@ export class HlmNativeSelect implements ControlValueAccessor {
 	}
 
 	/** CONTROL VALUE ACCESSOR */
-	public writeValue(value: string | null): void {
+	public writeValue(value: string | undefined | null): void {
 		this.value.set(value);
 	}
 
-	public registerOnChange(fn: ChangeFn<string | null>): void {
+	public registerOnChange(fn: ChangeFn<string | undefined | null>): void {
 		this._onChange = fn;
 	}
 

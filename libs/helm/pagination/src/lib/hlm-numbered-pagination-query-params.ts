@@ -9,7 +9,6 @@ import {
 	numberAttribute,
 	untracked,
 } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
 import { createPageArray, outOfBoundCorrection } from './hlm-numbered-pagination';
 import { HlmPagination } from './hlm-pagination';
@@ -23,7 +22,6 @@ import { HlmPaginationPrevious } from './hlm-pagination-previous';
 @Component({
 	selector: 'hlm-numbered-pagination-query-params',
 	imports: [
-		FormsModule,
 		HlmPagination,
 		HlmPaginationContent,
 		HlmPaginationItem,
@@ -86,7 +84,7 @@ import { HlmPaginationPrevious } from './hlm-pagination-previous';
 			</nav>
 
 			<!-- Show Page Size selector -->
-			<hlm-select [(ngModel)]="itemsPerPage" class="ml-auto">
+			<hlm-select [(value)]="itemsPerPage" class="ml-auto">
 				<hlm-select-trigger class="w-fit">
 					<hlm-select-value />
 				</hlm-select-trigger>

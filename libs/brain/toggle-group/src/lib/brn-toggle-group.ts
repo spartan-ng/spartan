@@ -1,5 +1,5 @@
 import type { BooleanInput } from '@angular/cdk/coercion';
-import { booleanAttribute, computed, Directive, forwardRef, input, linkedSignal, model, output } from '@angular/core';
+import { booleanAttribute, computed, Directive, forwardRef, input, linkedSignal, output } from '@angular/core';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { provideBrnToggleGroup } from './brn-toggle-group.token';
 import type { BrnToggleGroupItem } from './brn-toggle-item';
@@ -36,7 +36,8 @@ export class BrnToggleGroup<T = unknown> implements ControlValueAccessor {
 	protected readonly _multiple = computed(() => this.type() === 'multiple');
 
 	/** Value of the toggle group. */
-	public readonly value = model<ToggleValue<T>>(undefined);
+	public readonly valueInput = input<ToggleValue<T>>(undefined, { alias: 'value' });
+	public readonly value = linkedSignal(this.valueInput);
 
 	/** Emits when the value changes. */
 	public readonly valueChange = output<ToggleValue<T>>();
@@ -117,9 +118,6 @@ export class BrnToggleGroup<T = unknown> implements ControlValueAccessor {
 		} else {
 			this.emitSelectionChange(value, source);
 		}
-
-		this._onChange(this.value());
-		this.change.emit(new BrnButtonToggleChange<T>(source, this.value()));
 	}
 
 	/**

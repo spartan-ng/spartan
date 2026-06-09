@@ -90,7 +90,8 @@ export class HlmCheckbox implements ControlValueAccessor {
 	public readonly ariaDescribedby = input<string | null>(null, { alias: 'aria-describedby' });
 
 	/** The checked state of the checkbox. */
-	public readonly checked = model<boolean>(false);
+	public readonly checkedInput = input<boolean, BooleanInput>(false, { alias: 'checked', transform: booleanAttribute });
+	public readonly checked = linkedSignal(this.checkedInput);
 
 	/** Emits when checked state changes. */
 	public readonly checkedChange = output<boolean>();

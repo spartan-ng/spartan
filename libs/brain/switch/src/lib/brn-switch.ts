@@ -16,7 +16,6 @@ import {
 	inject,
 	input,
 	linkedSignal,
-	model,
 	numberAttribute,
 	type OnDestroy,
 	output,
@@ -110,7 +109,8 @@ export class BrnSwitch implements AfterContentInit, OnDestroy, ControlValueAcces
 	 * Whether switch is checked/toggled on.
 	 * Can be bound with [(checked)] for two-way binding.
 	 */
-	public readonly checked = model<boolean>(false);
+	public readonly checkedInput = input<boolean, BooleanInput>(false, { alias: 'checked', transform: booleanAttribute });
+	public readonly checked = linkedSignal(this.checkedInput);
 
 	/** Emits when checked state changes. */
 	public readonly checkedChange = output<boolean>();

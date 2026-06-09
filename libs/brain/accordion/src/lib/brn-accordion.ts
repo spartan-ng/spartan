@@ -113,14 +113,6 @@ export class BrnAccordion implements AfterContentInit, OnDestroy {
 		this._keyManager()?.setActiveItem(item);
 	}
 
-	public toggleItem(id: number) {
-		if (this._openItemIds().includes(id)) {
-			this.closeItem(id);
-			return;
-		}
-		this.openItem(id);
-	}
-
 	public openItem(id: number) {
 		if (this.type() === 'single') {
 			this._openItemIds.set([id]);
@@ -173,17 +165,13 @@ export class BrnAccordion implements AfterContentInit, OnDestroy {
 
 	public openAll(): void {
 		if (this.type() === 'multiple') {
-			this._brnAccordionItems()
-				.filter((a) => !a.disabled())
-				.forEach((a) => this.openItem(a.id));
+			this._brnAccordionItems().forEach((a) => a.open());
 		} else {
 			console.warn('[BrnAccordion]: openAll is only available in multiple mode');
 		}
 	}
 
 	public closeAll(): void {
-		this._brnAccordionItems()
-			.filter((a) => !a.disabled())
-			.forEach((a) => this.closeItem(a.id));
+		this._brnAccordionItems().forEach((a) => a.close());
 	}
 }

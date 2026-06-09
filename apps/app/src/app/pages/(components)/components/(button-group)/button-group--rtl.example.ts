@@ -1,4 +1,5 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Directionality } from '@angular/cdk/bidi';
+import { Component, computed, effect, inject, signal, untracked } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import {
 	lucideArchive,
@@ -34,6 +35,7 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 			lucideTrash,
 			lucideChevronRight,
 		}),
+		Directionality,
 	],
 	host: {
 		'[dir]': '_dir()',
@@ -92,7 +94,7 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 						hlmDropdownMenuItem
 						class="flex justify-between"
 						align="start"
-						[side]="_dir() === 'ltr' ? 'right' : 'left'"
+						side="right"
 						[hlmDropdownMenuTrigger]="submenu"
 					>
 						<div class="flex items-center gap-2">
@@ -134,6 +136,7 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 	`,
 })
 export class ButtonGroupRtl {
+	private readonly _directionality = inject(Directionality);
 	private readonly _language = inject(TranslateService).language;
 	private readonly _translations: Translations<{
 		goBack: string;
@@ -211,4 +214,11 @@ export class ButtonGroupRtl {
 	private readonly _translation = computed(() => this._translations[this._language()]);
 	protected readonly _t = computed(() => this._translation().values);
 	protected readonly _dir = computed(() => this._translation().dir);
+
+	constructor() {
+		effect(() => {
+			const dir = this._dir();
+			untracked(() => this._directionality.valueSignal.set(dir));
+		});
+	}
 }

@@ -7,7 +7,7 @@ export default async function replaceCliVersionGenerator(tree: Tree, options?: {
 
 	if (!newVersion) {
 		throw new Error(
-			'replace-cli-version: no version provided. Pass --version=<version> or set the VERSION environment variable.',
+			'replace-cli-version: no version provided. Pass --newVersion=<version> (or --new-version=<version>) or set the VERSION environment variable.',
 		);
 	}
 

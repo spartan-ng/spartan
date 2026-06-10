@@ -40,7 +40,7 @@ const replaceUiVersionGenerator = async (tree: Tree, options?: { newVersion?: st
 
 	if (!newVersion) {
 		throw new Error(
-			'replace-ui-version: no version provided. Pass --version=<version> or set the VERSION environment variable.',
+			'replace-ui-version: no version provided. Pass --newVersion=<version> (or --new-version=<version>) or set the VERSION environment variable.',
 		);
 	}
 

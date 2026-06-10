@@ -7,7 +7,7 @@ export default async function replaceMcpVersionGenerator(tree: Tree, options?: {
 
 	if (!newVersion) {
 		throw new Error(
-			'replace-mcp-version: no version provided. Pass --version=<version> or set the VERSION environment variable.',
+			'replace-mcp-version: no version provided. Pass --newVersion=<version> (or --new-version=<version>) or set the VERSION environment variable.',
 		);
 	}
 

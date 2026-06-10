@@ -349,7 +349,8 @@
 	"scroll-area": {
 		"name": "scroll-area",
 		"peerDependencies": {
-			"@angular/core": ">=21.0.0 <23.0.0"
+			"@angular/core": ">=21.0.0 <23.0.0",
+			"ngx-scrollbar": ">=19.0.0 <20.0.0"
 		}
 	},
 	"select": {

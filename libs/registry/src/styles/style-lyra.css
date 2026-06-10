@@ -967,7 +967,7 @@
 
 	/* MARK: Resizable */
 	.spartan-resizable-handle-icon {
-		@apply bg-border h-6 w-1 rounded-none;
+		@apply bg-border h-6 w-1 rounded-lg;
 	}
 
 	/* MARK: Scroll Area */

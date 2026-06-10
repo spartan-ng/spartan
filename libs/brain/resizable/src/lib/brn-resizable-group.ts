@@ -1,3 +1,4 @@
+import { Directionality } from '@angular/cdk/bidi';
 import {
 	afterNextRender,
 	contentChildren,
@@ -31,6 +32,9 @@ export class BrnResizableGroup {
 
 	/** Host element reference. */
 	private readonly _el = inject(ElementRef<HTMLElement>);
+
+	/** Layout direction, used to mirror horizontal resizing under RTL. */
+	private readonly _dir = inject(Directionality);
 
 	/** Group orientation */
 	public readonly direction = input<'horizontal' | 'vertical'>('horizontal');
@@ -94,10 +98,13 @@ export class BrnResizableGroup {
 
 		const startPosition = this._getEventPosition(event);
 		const startSizes = [...sizes];
+		// Horizontal resizing is mirrored under RTL: the panel order is reversed, so the pixel
+		// delta is inverted in _handleResize to keep the handle tracking the pointer correctly.
+		const isRtl = this.direction() === 'horizontal' && this._dir.valueSignal() === 'rtl';
 
 		const handleMove = (moveEvent: MouseEvent | TouchEvent) => {
 			this._zone.runOutsideAngular(() => {
-				this._handleResize(moveEvent, handleIndex, startPosition, startSizes);
+				this._handleResize(moveEvent, handleIndex, startPosition, startSizes, isRtl);
 			});
 		};
 
@@ -124,9 +131,10 @@ export class BrnResizableGroup {
 		handleIndex: number,
 		startPosition: number,
 		startSizes: number[],
+		isRtl = false,
 	): void {
 		const currentPosition = this._getEventPosition(event);
-		const delta = currentPosition - startPosition;
+		const delta = (currentPosition - startPosition) * (isRtl ? -1 : 1);
 		const containerSize = this._getContainerSize();
 		const deltaPercentage = (delta / containerSize) * 100;
 

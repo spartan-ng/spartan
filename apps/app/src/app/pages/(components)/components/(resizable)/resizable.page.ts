@@ -15,7 +15,10 @@ import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-sec
 import { metaWith } from '../../../../shared/meta/meta.util';
 
 import { ResizableHandlePreview } from '@spartan-ng/app/app/pages/(components)/components/(resizable)/resizable--handle.preview';
+import { ResizableRtlPreview } from '@spartan-ng/app/app/pages/(components)/components/(resizable)/resizable--rtl.example';
 import { ResizableVerticalPreview } from '@spartan-ng/app/app/pages/(components)/components/(resizable)/resizable--vertical.preview';
+import { CodeRtlPreview } from '@spartan-ng/app/app/shared/code/code-rtl-preview';
+import { RtlHeader } from '@spartan-ng/app/app/shared/code/rtl-header';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { HlmCode, HlmP } from '@spartan-ng/helm/typography';
 import { defaultImports, defaultSkeleton, ResizablePreviewComponent } from './resizable.preview';
@@ -46,10 +49,17 @@ export const routeMeta: RouteMeta = {
 		ResizableHandlePreview,
 		HlmP,
 		HlmCode,
+		RtlHeader,
+		CodeRtlPreview,
+		ResizableRtlPreview,
 	],
 	template: `
 		<section spartanMainSection>
-			<spartan-section-intro name="Resizable" lead="A group of resizable horizontal and vertical panels." />
+			<spartan-section-intro
+				name="Resizable"
+				lead="A group of resizable horizontal and vertical panels."
+				showThemeToggle
+			/>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -58,7 +68,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
-			<spartan-install-tabs primitive="resizable" />
+			<spartan-install-tabs primitive="resizable" [showOnlyVega]="false" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">
@@ -96,6 +106,14 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_handleCode()" />
 			</spartan-tabs>
 
+			<spartan-header-rtl />
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanRtlCodePreview firstTab>
+					<spartan-resizable-rtl-preview />
+				</div>
+				<spartan-code secondTab [code]="_rtlCode()" />
+			</spartan-tabs>
+
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="brain" />
 
@@ -115,6 +133,7 @@ export default class ResizablePage {
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _verticalCode = computed(() => this._snippets()['vertical']);
 	protected readonly _handleCode = computed(() => this._snippets()['handle']);
+	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

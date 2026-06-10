@@ -4,7 +4,10 @@ import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/prim
 import { TooltipDisabledButtonWithTooltip } from '@spartan-ng/app/app/pages/(components)/components/(tooltip)/tooltip--disabled-button-with-tooltip.example';
 import { TooltipDisabled } from '@spartan-ng/app/app/pages/(components)/components/(tooltip)/tooltip--disabled.example';
 import { TooltipPosition } from '@spartan-ng/app/app/pages/(components)/components/(tooltip)/tooltip--position.example';
+import { TooltipRtlPreview } from '@spartan-ng/app/app/pages/(components)/components/(tooltip)/tooltip--rtl.example';
 import { TooltipTemplate } from '@spartan-ng/app/app/pages/(components)/components/(tooltip)/tooltip--template.example';
+import { CodeRtlPreview } from '@spartan-ng/app/app/shared/code/code-rtl-preview';
+import { RtlHeader } from '@spartan-ng/app/app/shared/code/rtl-header';
 import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { Code } from '../../../../shared/code/code';
@@ -53,12 +56,16 @@ export const routeMeta: RouteMeta = {
 		TooltipDisabled,
 		TooltipTemplate,
 		TooltipDisabledButtonWithTooltip,
+		RtlHeader,
+		CodeRtlPreview,
+		TooltipRtlPreview,
 	],
 	template: `
 		<section spartanMainSection>
 			<spartan-section-intro
 				name="Tooltip"
 				lead="A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it."
+				showThemeToggle
 			/>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
@@ -68,7 +75,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
-			<spartan-install-tabs primitive="tooltip" />
+			<spartan-install-tabs primitive="tooltip" [showOnlyVega]="false" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">
@@ -118,6 +125,14 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_templateCode()" />
 			</spartan-tabs>
 
+			<spartan-header-rtl />
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanRtlCodePreview firstTab>
+					<spartan-tooltip-rtl-preview />
+				</div>
+				<spartan-code secondTab [code]="_rtlCode()" />
+			</spartan-tabs>
+
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="brain" />
 
@@ -140,6 +155,7 @@ export default class TooltipPage {
 	protected readonly _templateCode = computed(() => this._snippets()['template']);
 	protected readonly _disabledCode = computed(() => this._snippets()['disabled']);
 	protected readonly _disabledBtnCode = computed(() => this._snippets()['disabledButtonWithTooltip']);
+	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

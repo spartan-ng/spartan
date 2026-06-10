@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronsUpDown } from '@ng-icons/lucide';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
@@ -8,6 +8,7 @@ import { HlmCollapsibleImports } from '@spartan-ng/helm/collapsible';
 	selector: 'spartan-collapsible-animated-example',
 	imports: [HlmCollapsibleImports, HlmButtonImports, NgIcon],
 	providers: [provideIcons({ lucideChevronsUpDown })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-collapsible class="flex w-[350px] flex-col gap-2">
 			<div class="flex items-center justify-between gap-4 px-4">

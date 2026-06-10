@@ -2,6 +2,8 @@ import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { CollapsibleAnimatedExample } from '@spartan-ng/app/app/pages/(components)/components/(collapsible)/collapsible--animated.example';
+import { CodeRtlPreview } from '@spartan-ng/app/app/shared/code/code-rtl-preview';
+import { RtlHeader } from '@spartan-ng/app/app/shared/code/rtl-header';
 import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { hlmCode } from '@spartan-ng/helm/typography';
@@ -16,6 +18,8 @@ import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading
 import { Tabs } from '../../../../shared/layout/tabs';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
+import { CollapsibleRtl } from './collapsible--rtl.preview';
+import { CollapsibleSettingsPanel } from './collapsible--settings-panel.preview';
 import { CollapsiblePreview, defaultImports, defaultSkeleton } from './collapsible.preview';
 
 export const routeMeta: RouteMeta = {
@@ -39,13 +43,21 @@ export const routeMeta: RouteMeta = {
 		PageNav,
 		PageBottomNav,
 		PageBottomNavLink,
-		CollapsiblePreview,
 		SectionSubSubHeading,
+		RtlHeader,
+		CodeRtlPreview,
+		CollapsiblePreview,
 		CollapsibleAnimatedExample,
+		CollapsibleSettingsPanel,
+		CollapsibleRtl,
 	],
 	template: `
 		<section spartanMainSection>
-			<spartan-section-intro name="Collapsible" lead="An interactive component which expands/collapses a panel." />
+			<spartan-section-intro
+				name="Collapsible"
+				lead="An interactive component which expands/collapses a panel."
+				showThemeToggle
+			/>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -54,7 +66,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
-			<spartan-install-tabs primitive="collapsible" />
+			<spartan-install-tabs primitive="collapsible" showOnlyVega="true" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">
@@ -63,7 +75,7 @@ export const routeMeta: RouteMeta = {
 			</div>
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__sizes" spartanH4>Animated</h3>
+			<h3 id="animted" spartanH4>Animated</h3>
 			<p class="py-2">
 				You can use the
 				<code class="${hlmCode}">data-state</code>
@@ -74,6 +86,23 @@ export const routeMeta: RouteMeta = {
 					<spartan-collapsible-animated-example />
 				</div>
 				<spartan-code secondTab [code]="_animatedCode()" />
+			</spartan-tabs>
+
+			<h3 id="settings-panel" spartanH4>Settings Panel</h3>
+
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-collapsible-settings-panel />
+				</div>
+				<spartan-code secondTab [code]="_settingsPanelCode()" />
+			</spartan-tabs>
+
+			<spartan-header-rtl />
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanRtlCodePreview firstTab>
+					<spartan-collapsible-rtl />
+				</div>
+				<spartan-code secondTab [code]="_rtlCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
@@ -94,6 +123,8 @@ export default class CollapsiblePage {
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('collapsible');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _animatedCode = computed(() => this._snippets()['animated']);
+	protected readonly _settingsPanelCode = computed(() => this._snippets()['settingsPanel']);
+	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

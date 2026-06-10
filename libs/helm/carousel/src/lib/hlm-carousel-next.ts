@@ -18,7 +18,7 @@ import { HlmCarousel } from './hlm-carousel';
 		'(click)': '_carousel.scrollNext()',
 	},
 	template: `
-		<ng-icon hlm size="sm" name="lucideArrowRight" />
+		<ng-icon hlm size="sm" name="lucideArrowRight" class="rtl:rotate-180" />
 		<span class="sr-only">Next slide</span>
 	`,
 })
@@ -27,9 +27,9 @@ export class HlmCarouselNext {
 	protected readonly _carousel = inject(HlmCarousel);
 	private readonly _computedClass = computed(() =>
 		hlm(
-			'absolute h-8 w-8 rounded-full',
+			'spartan-carousel-next absolute h-8 w-8',
 			this._carousel.orientation() === 'horizontal'
-				? 'top-1/2 -right-12 -translate-y-1/2'
+				? '-end-12 top-1/2 -translate-y-1/2'
 				: '-bottom-12 left-1/2 -translate-x-1/2 rotate-90',
 		),
 	);

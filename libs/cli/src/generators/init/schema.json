@@ -3,6 +3,28 @@
 	"$id": "Init",
 	"title": "Initialize Spartan in your project",
 	"type": "object",
-	"properties": {},
+	"properties": {
+		"project": {
+			"type": "string",
+			"description": "The application to add the theme to. If omitted you will be prompted to choose one."
+		},
+		"theme": {
+			"type": "string",
+			"enum": ["neutral", "stone", "zinc", "gray", "slate"],
+			"description": "The theme to apply. Passing this runs the generator non-interactively (no prompts)."
+		},
+		"stylesEntryPoint": {
+			"type": "string",
+			"description": "Path to the styles entry point relative to the workspace root. Auto-detected when omitted."
+		},
+		"prefix": {
+			"type": "string",
+			"description": "Prefix class name applied to the theme's style definitions, e.g. theme-zinc. Leave empty for a global theme."
+		},
+		"acceptTailwindV3": {
+			"type": "boolean",
+			"description": "Skip the interactive Tailwind v3 compatibility warning and proceed. Defaults to true when a theme is passed."
+		}
+	},
 	"required": []
 }

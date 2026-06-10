@@ -1,7 +1,9 @@
 import { applicationGenerator, E2eTestRunner, UnitTestRunner } from '@nx/angular/generators';
 import { readProjectConfiguration, type Tree, updateJson } from '@nx/devkit';
 import { createTreeWithEmptyWorkspace } from 'nx/src/devkit-testing-exports';
+import addThemeToApplicationGenerator from './generator';
 import { addThemeToApplicationStyles } from './libs/add-theme-to-application-styles';
+import type { ThemeName } from './libs/colors';
 
 jest.mock('enquirer');
 jest.mock('@nx/devkit', () => {
@@ -94,5 +96,60 @@ describe('Theme generator', () => {
 		);
 		const styles = tree.read('website/src/styles.css', 'utf8');
 		expect(styles).toContain('.theme-zinc');
+	});
+});
+
+describe('addThemeToApplicationGenerator (non-interactive)', () => {
+	let tree: Tree;
+
+	const addApp = (name: string) =>
+		applicationGenerator(tree, {
+			name,
+			directory: name,
+			skipFormat: true,
+			e2eTestRunner: E2eTestRunner.None,
+			unitTestRunner: UnitTestRunner.None,
+			skipPackageJson: true,
+			skipTests: true,
+		});
+
+	beforeEach(async () => {
+		jest.clearAllMocks();
+		tree = createTreeWithEmptyWorkspace();
+		await addApp('website');
+		updateJson(tree, 'package.json', (json) => {
+			json.devDependencies = { ...json.devDependencies, tailwindcss: '^4.0.0' };
+			return json;
+		});
+		tree.write('website/src/styles.css', '@import "tailwindcss";');
+	});
+
+	// Non-interactive mode must not prompt. We assert that indirectly: a stray prompt would (under the
+	// enquirer mock) resolve the theme to undefined and no theme variables would be written.
+	it('applies the theme when a theme and project are provided', async () => {
+		await addThemeToApplicationGenerator(tree, { theme: 'zinc', project: 'website' });
+		expect(tree.read('website/src/styles.css', 'utf8')).toContain('--background');
+	});
+
+	it('auto-selects the only application when no project is given', async () => {
+		await addThemeToApplicationGenerator(tree, { theme: 'zinc' });
+		expect(tree.read('website/src/styles.css', 'utf8')).toContain('--background');
+	});
+
+	it('throws on an invalid theme', async () => {
+		await expect(
+			addThemeToApplicationGenerator(tree, { theme: 'not-a-theme' as unknown as ThemeName, project: 'website' }),
+		).rejects.toThrow(/not valid/);
+	});
+
+	it('throws on an unknown project', async () => {
+		await expect(addThemeToApplicationGenerator(tree, { theme: 'zinc', project: 'ghost' })).rejects.toThrow(
+			/not an application/,
+		);
+	});
+
+	it('throws when multiple applications exist and no project is given', async () => {
+		await addApp('second');
+		await expect(addThemeToApplicationGenerator(tree, { theme: 'zinc' })).rejects.toThrow(/Could not determine/);
 	});
 });

@@ -7,7 +7,6 @@ import {
 	forwardRef,
 	input,
 	linkedSignal,
-	model,
 	output,
 } from '@angular/core';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -61,7 +60,8 @@ export class HlmSwitch implements ControlValueAccessor {
 	);
 
 	/** The checked state of the switch. */
-	public readonly checked = model<boolean>(false);
+	public readonly checkedInput = input<boolean, BooleanInput>(false, { alias: 'checked', transform: booleanAttribute });
+	public readonly checked = linkedSignal(this.checkedInput);
 
 	/** Emits when the checked state of the switch changes. */
 	public readonly checkedChange = output<boolean>();
@@ -97,8 +97,7 @@ export class HlmSwitch implements ControlValueAccessor {
 		this.checkedChange.emit(value);
 	}
 
-	/** CONROL VALUE ACCESSOR */
-
+	/** CONTROL VALUE ACCESSOR */
 	writeValue(value: boolean): void {
 		this.checked.set(Boolean(value));
 	}

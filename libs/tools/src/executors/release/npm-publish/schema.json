@@ -2,7 +2,7 @@
 	"$schema": "http://json-schema.org/draft-07/schema",
 	"version": 2,
 	"title": "NPM publish executor",
-	"description": "",
+	"description": "Publishes the target project's built package (from dist) to npm, using the TAG environment variable as the dist-tag.",
 	"type": "object",
 	"properties": {}
 }

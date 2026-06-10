@@ -2,7 +2,7 @@
 	"$schema": "http://json-schema.org/draft-07/schema",
 	"version": 2,
 	"title": "BuildUpdatePublish executor",
-	"description": "",
+	"description": "Builds the target project and publishes the resulting package from dist to npm. The dist-tag is read from the TAG environment variable.",
 	"type": "object",
 	"properties": {}
 }

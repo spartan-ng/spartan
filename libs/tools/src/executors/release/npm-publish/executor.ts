@@ -10,7 +10,9 @@ export default async function runExecutor(_options: NpmPublishExecutorSchema, co
 	const tag = process.env.TAG;
 
 	if (!tag) {
-		console.log('no process.env.TAG available. returning early');
+		console.error(
+			'npm-publish: the TAG environment variable is not set; skipping publish. Set TAG (e.g. "nightly" or "latest") to publish.',
+		);
 		return {
 			success: false,
 		};

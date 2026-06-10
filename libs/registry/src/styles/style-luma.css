@@ -1183,12 +1183,8 @@
 	}
 
 	/* MARK: Scroll Area */
-	.spartan-scroll-area-scrollbar {
-		@apply data-horizontal:h-2.5 data-horizontal:flex-col data-horizontal:border-t data-horizontal:border-t-transparent data-vertical:h-full data-vertical:w-2.5 data-vertical:border-l data-vertical:border-l-transparent;
-	}
-
-	.spartan-scroll-area-thumb {
-		@apply rounded-full;
+	.spartan-scroll-area {
+		@apply rounded-2xl [--scrollbar-thumb-shape:9999px];
 	}
 
 	/* MARK: Separator */

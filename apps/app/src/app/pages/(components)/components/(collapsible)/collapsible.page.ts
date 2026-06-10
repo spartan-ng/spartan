@@ -66,7 +66,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
-			<spartan-install-tabs primitive="collapsible" showOnlyVega="true" />
+			<spartan-install-tabs primitive="collapsible" [showOnlyVega]="true" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">
@@ -75,7 +75,7 @@ export const routeMeta: RouteMeta = {
 			</div>
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="animted" spartanH4>Animated</h3>
+			<h3 id="animated" spartanH4>Animated</h3>
 			<p class="py-2">
 				You can use the
 				<code class="${hlmCode}">data-state</code>

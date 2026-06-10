@@ -32,12 +32,12 @@ import { HlmInput } from '@spartan-ng/helm/input';
 						</hlm-field>
 						<hlm-collapsible-content class="col-span-full grid grid-cols-subgrid gap-2">
 							<hlm-field>
-								<label hlmFieldLabel for="radius-x" class="sr-only">Radius X</label>
-								<input hlmInput id="radius-x" placeholder="0" value="0" />
+								<label hlmFieldLabel for="radius-bottom-left" class="sr-only">Radius Bottom Left</label>
+								<input hlmInput id="radius-bottom-left" placeholder="0" value="0" />
 							</hlm-field>
 							<hlm-field>
-								<label hlmFieldLabel for="radius-y" class="sr-only">Radius Y</label>
-								<input hlmInput id="radius-y" placeholder="0" value="0" />
+								<label hlmFieldLabel for="radius-bottom-right" class="sr-only">Radius Bottom Right</label>
+								<input hlmInput id="radius-bottom-right" placeholder="0" value="0" />
 							</hlm-field>
 						</hlm-collapsible-content>
 					</hlm-field-group>

@@ -36,7 +36,7 @@ export const defaultSkeleton = `
   <hlm-alert-dialog-content *hlmAlertDialogPortal="let ctx">
     <hlm-alert-dialog-header>
       <h2 hlmAlertDialogTitle>Are you absolutely sure?</h2>
-      <p hlmAlertDialogDescription>This action cannot be undone. This will permanently delete your account and remove your data from our servers.</p>
+      <p hlmAlertDialogDescription>This action cannot be undone. This will permanently delete your account from our servers.</p>
     </hlm-alert-dialog-header>
     <hlm-alert-dialog-footer>
       <button hlmAlertDialogCancel>Cancel</button>

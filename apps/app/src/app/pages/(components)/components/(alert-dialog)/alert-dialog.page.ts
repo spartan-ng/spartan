@@ -101,7 +101,7 @@ export const routeMeta: RouteMeta = {
 			<p class="${hlmP}">
 				Use the
 				<code class="${hlmCode}">hlm-alert-dialog-media</code>
-				omponent to add a media element such as an icon or image to the alert dialog.
+				component to add a media element such as an icon or image to the alert dialog.
 			</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>

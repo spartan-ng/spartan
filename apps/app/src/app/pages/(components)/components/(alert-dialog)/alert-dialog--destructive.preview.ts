@@ -23,7 +23,7 @@ import { HlmButtonImports } from '@spartan-ng/helm/button';
 					<p hlmAlertDialogDescription>
 						This will permanently delete this chat conversation. View
 						<a href="#">Settings</a>
-						delete any memories saved during this chat.
+						to delete any memories saved during this chat.
 					</p>
 				</hlm-alert-dialog-header>
 				<hlm-alert-dialog-footer>

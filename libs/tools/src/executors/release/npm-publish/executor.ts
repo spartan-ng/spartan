@@ -1,5 +1,5 @@
 import type { ExecutorContext } from '@nx/devkit';
-import { execSync } from 'node:child_process';
+import { execFileSync } from 'node:child_process';
 
 import { getRoot } from '../helpers/projects.helpers';
 
@@ -10,17 +10,25 @@ export default async function runExecutor(_options: NpmPublishExecutorSchema, co
 	const tag = process.env.TAG;
 
 	if (!tag) {
-		console.log('no process.env.TAG available. returning early');
+		console.error(
+			'npm-publish: the TAG environment variable is not set; skipping publish. Set TAG (e.g. "nightly" or "latest") to publish.',
+		);
 		return {
 			success: false,
 		};
+	}
+
+	if (!/^[A-Za-z0-9._-]+$/.test(tag)) {
+		throw new Error(
+			`npm-publish: invalid TAG "${tag}". A dist-tag may only contain letters, numbers, dots, hyphens, and underscores.`,
+		);
 	}
 
 	const sourceRoot = `./dist/${getRoot(context)}`;
 
 	console.log('running npm publish at ' + sourceRoot);
 
-	execSync(`cd ${sourceRoot} && npm publish${tag ? ` --tag ${tag}` : ''}`);
+	execFileSync('npm', ['publish', '--tag', tag], { cwd: sourceRoot });
 	return {
 		success: true,
 	};

@@ -6,11 +6,11 @@ import executor from './executor';
 
 // Mock the entire child_process module
 jest.mock('node:child_process', () => ({
-	execSync: jest.fn(), // Mock execSync function
+	execFileSync: jest.fn(), // Mock execFileSync function
 }));
 
 describe('NpmPublish Executor', () => {
-	it('should execSync with a default libPath if no libPath was provided', async () => {
+	it('should publish from the project dist using the TAG as the dist-tag', async () => {
 		const mockRoot = 'libs/my-domain/foo';
 		const context = {} as unknown as ExecutorContext;
 
@@ -20,14 +20,13 @@ describe('NpmPublish Executor', () => {
 		// Set the environment variable for TAG
 		process.env.TAG = 'next';
 
-		// Expected command that should be executed
-		const expectedCommand = `cd ./dist/${mockRoot} && npm publish --tag next`;
-
 		// Call the executor
 		const output = await executor({}, context);
 
-		// Check if execSync was called with the expected command
-		expect(child_process.execSync).toHaveBeenCalledWith(expectedCommand);
+		// Check if execFileSync was called without a shell, passing the tag as an argument
+		expect(child_process.execFileSync).toHaveBeenCalledWith('npm', ['publish', '--tag', 'next'], {
+			cwd: `./dist/${mockRoot}`,
+		});
 		expect(output.success).toBe(true);
 	});
 });

@@ -27,26 +27,27 @@ const replaceUiVersionInCliVersionsFile = (tree: Tree, oldVersion: string, newVe
 	tree.write(filePath, contents);
 };
 
-const replaceUiVersionGenerator = async (tree: Tree, options?: { newVersion: string }): Promise<void> => {
+const replaceUiVersionGenerator = async (tree: Tree, options?: { newVersion?: string }): Promise<void> => {
 	const brainPackageJsonPath = 'libs/brain/package.json';
 	const oldVersion = readJsonFile(brainPackageJsonPath).version;
 	const newVersion = options?.newVersion ?? process.env.VERSION;
 
 	if (!oldVersion) {
-		console.error(
-			"Unable to find old version in our accordion's package.json, which we use as source of truth because its good enough.",
+		throw new Error(
+			`replace-ui-version: could not read the current version from ${brainPackageJsonPath}, which is the source of truth for the UI libraries.`,
 		);
-		return;
 	}
 
 	if (!newVersion) {
-		console.error('Must define a VERSION environment variable to use with this script.');
-		return;
+		throw new Error(
+			'replace-ui-version: no version provided. Pass --newVersion=<version> (or --new-version=<version>) or set the VERSION environment variable.',
+		);
 	}
 
 	if (oldVersion === newVersion) {
-		console.error('Old version cannot be the same as new version');
-		return;
+		throw new Error(
+			`replace-ui-version: the new version (${newVersion}) matches the current version; nothing to update.`,
+		);
 	}
 
 	console.log(`Updating UI libs version from ${oldVersion} to ${newVersion}`);

@@ -90,6 +90,7 @@ What kind of change does this PR introduce?
 - [ ] nx
 - [ ] repo
 - [ ] cli
+- [ ] mcp
 
 ## What is the current behavior?
 

@@ -5,6 +5,11 @@
 			"schema": "./src/generators/replace-cli-version/schema.json",
 			"description": "Updates the CLI's version"
 		},
+		"replace-mcp-version": {
+			"factory": "./src/generators/replace-mcp-version/generator",
+			"schema": "./src/generators/replace-mcp-version/schema.json",
+			"description": "Updates the MCP server's version"
+		},
 		"replace-ui-version": {
 			"factory": "./src/generators/replace-ui-version/generator",
 			"schema": "./src/generators/replace-ui-version/schema.json",

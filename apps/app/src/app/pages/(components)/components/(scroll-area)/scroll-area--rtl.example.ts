@@ -15,7 +15,7 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 	template: `
 		<div class="w-96 max-w-full space-y-3">
 			<h4 class="text-sm leading-none font-medium">{{ _t()['title'] }}</h4>
-			<ng-scrollbar hlm class="w-full rounded-md border whitespace-nowrap">
+			<ng-scrollbar hlm class="w-full border whitespace-nowrap">
 				<div class="flex w-max gap-3 p-4">
 					@for (item of _items; track item) {
 						<div class="bg-muted flex size-20 shrink-0 items-center justify-center rounded-md text-lg font-semibold">

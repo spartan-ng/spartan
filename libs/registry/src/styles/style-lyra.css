@@ -1,4 +1,7 @@
 .style-lyra {
+	/* Lyra is a sharp style: match shadcn's Lyra preset which sets --radius to 0. */
+	--radius: 0rem;
+
 	.spartan-rtl-flip {
 		@apply rtl:rotate-180;
 	}
@@ -968,12 +971,8 @@
 	}
 
 	/* MARK: Scroll Area */
-	.spartan-scroll-area-scrollbar {
-		@apply data-horizontal:h-2.5 data-horizontal:flex-col data-horizontal:border-t data-horizontal:border-t-transparent data-vertical:h-full data-vertical:w-2.5 data-vertical:border-l data-vertical:border-l-transparent;
-	}
-
-	.spartan-scroll-area-thumb {
-		@apply rounded-none;
+	.spartan-scroll-area {
+		@apply rounded-none [--scrollbar-thumb-shape:0px];
 	}
 
 	/* MARK: Select */

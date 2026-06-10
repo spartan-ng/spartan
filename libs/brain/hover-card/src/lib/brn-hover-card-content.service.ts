@@ -1,4 +1,5 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
+import { Directionality } from '@angular/cdk/bidi';
 import { NumberInput } from '@angular/cdk/coercion';
 import {
 	type ConnectedOverlayPositionChange,
@@ -173,6 +174,7 @@ export class BrnHoverCardContentService {
 	private readonly _overlay = inject(Overlay);
 	private readonly _zone = inject(NgZone);
 	private readonly _psBuilder = inject(OverlayPositionBuilder);
+	private readonly _directionality = inject(Directionality);
 
 	private readonly _content = signal<TemplatePortal<unknown> | null>(null);
 	private readonly _state = signal<'open' | 'closed'>('closed');
@@ -210,6 +212,13 @@ export class BrnHoverCardContentService {
 		{ initialValue: 'bottom' },
 	);
 
+	constructor() {
+		effect(() => {
+			const direction = this._directionality.valueSignal();
+			untracked(() => this._overlayRef?.setDirection(direction));
+		});
+	}
+
 	public setConfig(config: BrnHoverCardOptions) {
 		this._config = config;
 		if (config.attachTo) {
@@ -232,6 +241,7 @@ export class BrnHoverCardContentService {
 			};
 			this._positionChangesObservables$.next(this._positionStrategy.positionChanges);
 		}
+		this._config = { ...this._config, direction: this._directionality.valueSignal() };
 		this._overlayRef = this._overlay.create(this._config);
 	}
 

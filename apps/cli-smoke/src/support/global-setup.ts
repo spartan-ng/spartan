@@ -32,7 +32,7 @@ export default async function () {
 	try {
 		buildAndPublishPackages(registry);
 	} catch (error) {
-		stopLocalRegistry();
+		await stopLocalRegistry();
 		throw error;
 	}
 

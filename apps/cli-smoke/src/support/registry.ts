@@ -60,15 +60,21 @@ export function buildAndPublishPackages(registry: string): RegistryInfo {
 
 	for (const { dist } of PACKAGES) {
 		const pkgPath = join(workspaceRoot, dist, 'package.json');
-		const pkg = JSON.parse(readFileSync(pkgPath, 'utf-8'));
-		pkg.version = version;
-		writeFileSync(pkgPath, JSON.stringify(pkg, null, 2));
-
-		console.log(`[cli-smoke] Publishing ${pkg.name}@${version} to ${registry}...`);
-		execSync(`npm publish --registry ${registry} --userconfig ${publishNpmrc} --tag smoke`, {
-			cwd: join(workspaceRoot, dist),
-			stdio: 'inherit',
-		});
+		// Bump the version only for the publish, then restore the original file byte-for-byte so a local
+		// `pnpm smoke` leaves the build artifacts untouched (CI uses a fresh checkout, so it only matters
+		// locally - a dev inspecting dist afterwards would otherwise see the smoke version).
+		const original = readFileSync(pkgPath, 'utf-8');
+		const pkg = JSON.parse(original);
+		writeFileSync(pkgPath, JSON.stringify({ ...pkg, version }, null, 2));
+		try {
+			console.log(`[cli-smoke] Publishing ${pkg.name}@${version} to ${registry}...`);
+			execSync(`npm publish --registry ${registry} --userconfig ${publishNpmrc} --tag smoke`, {
+				cwd: join(workspaceRoot, dist),
+				stdio: 'inherit',
+			});
+		} finally {
+			writeFileSync(pkgPath, original);
+		}
 	}
 
 	const info: RegistryInfo = { registry, version };

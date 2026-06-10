@@ -11,6 +11,9 @@ export interface HlmThemeGeneratorSchema {
 	prefix?: string;
 	/** Skip the Tailwind v3 compatibility warning. Defaults to true when a theme is supplied. */
 	acceptTailwindV3?: boolean;
-	/** Whether to also wire up the Tailwind CSS imports. Defaults to true. */
+	/**
+	 * Whether to also wire up the Tailwind CSS imports. Defaults to true. Internal only: set by the `init`
+	 * generator, so it is intentionally not exposed as a flag in schema.json.
+	 */
 	setupTailwindCss?: boolean;
 }

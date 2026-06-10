@@ -1,5 +1,5 @@
 import { workspaceRoot } from '@nx/devkit';
-import { execSync } from 'node:child_process';
+import { execFileSync } from 'node:child_process';
 
 /**
  * Whether anything affecting the CLI smoke scope changed in this CI run. The `cli-smoke` project
@@ -23,7 +23,7 @@ export function isSmokeAffected(): boolean {
 	}
 
 	try {
-		const affected = showProjects(`--affected --base=${base} --head=${head}`);
+		const affected = showProjects(['--affected', `--base=${base}`, `--head=${head}`]);
 		if (affected.includes(PROJECT)) {
 			return true;
 		}
@@ -31,7 +31,7 @@ export function isSmokeAffected(): boolean {
 		// Not in the affected set. Before skipping, make sure that is because nothing relevant changed -
 		// not because the project no longer exists under this name. Otherwise a rename/typo would silently
 		// disable the smoke suite on every PR (only nightly would still run it).
-		if (!showProjects('').includes(PROJECT)) {
+		if (!showProjects([]).includes(PROJECT)) {
 			console.warn(`[cli-smoke] Project "${PROJECT}" not found in the workspace; running rather than skipping.`);
 			return true;
 		}
@@ -43,7 +43,11 @@ export function isSmokeAffected(): boolean {
 	}
 }
 
-function showProjects(flags: string): string[] {
-	const out = execSync(`npx nx show projects ${flags} --json`, { cwd: workspaceRoot, encoding: 'utf-8' });
+// Pass args as an array (execFileSync, no shell) so NX_BASE/NX_HEAD are never interpreted by a shell.
+function showProjects(args: string[]): string[] {
+	const out = execFileSync('npx', ['nx', 'show', 'projects', ...args, '--json'], {
+		cwd: workspaceRoot,
+		encoding: 'utf-8',
+	});
 	return JSON.parse(out) as string[];
 }

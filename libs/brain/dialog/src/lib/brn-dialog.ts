@@ -1,3 +1,4 @@
+import { Directionality } from '@angular/cdk/bidi';
 import { type BooleanInput, type NumberInput } from '@angular/cdk/coercion';
 import { OverlayPositionBuilder, type ScrollStrategy, ScrollStrategyOptions } from '@angular/cdk/overlay';
 import {
@@ -40,6 +41,7 @@ export class BrnDialog<TResult = unknown, TContext extends Record<string, unknow
 	public readonly positionBuilder = inject(OverlayPositionBuilder);
 	public readonly ssos = inject(ScrollStrategyOptions);
 	private readonly _injector = inject(Injector);
+	private readonly _directionality = inject(Directionality);
 
 	protected readonly _defaultOptions = injectBrnDialogDefaultOptions();
 
@@ -85,6 +87,7 @@ export class BrnDialog<TResult = unknown, TContext extends Record<string, unknow
 
 		return {
 			role: this.role(),
+			direction: this._directionality.valueSignal(),
 			hasBackdrop: this.hasBackdrop(),
 			positionStrategy: this.mutablePositionStrategy(),
 			scrollStrategy,

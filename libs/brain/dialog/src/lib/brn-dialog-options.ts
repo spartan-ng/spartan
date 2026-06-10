@@ -1,3 +1,4 @@
+import type { Direction } from '@angular/cdk/bidi';
 import type { AutoFocusTarget } from '@angular/cdk/dialog';
 import type {
 	ConnectedPosition,
@@ -17,6 +18,7 @@ export type BrnDialogOptions = {
 	autoFocus: AutoFocusTarget | (Record<never, never> & string);
 	backdropClass: string | string[];
 	closeDelay: number;
+	direction?: Direction;
 	closeOnBackdropClick: boolean;
 	closeOnOutsidePointerEvents: boolean;
 	disableClose: boolean;

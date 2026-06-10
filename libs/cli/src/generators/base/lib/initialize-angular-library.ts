@@ -12,10 +12,11 @@ function addRulesToEslintOverride(tree: Tree, libRoot: string, filePattern: stri
 
 	const eslintFullPath = path.join(process.cwd(), eslintPath);
 
-	const project = new Project({
-		tsConfigFilePath: path.join(process.cwd(), 'tsconfig.base.json'),
-		skipAddingFilesFromTsConfig: true,
-	});
+	// Don't tie ts-morph to a specific on-disk tsconfig. During generation the root tsconfig may not be
+	// on disk yet - e.g. in a standalone nx workspace where @nx/angular:library has only just created
+	// tsconfig.base.json in the virtual tree - and pointing at a missing file throws "File not found".
+	// We only manipulate the eslint config's AST, so no tsconfig project context is needed.
+	const project = new Project({ useInMemoryFileSystem: true });
 
 	const sourceFile = project.createSourceFile(eslintFullPath, tree.read(eslintPath, 'utf-8')!, { overwrite: true });
 

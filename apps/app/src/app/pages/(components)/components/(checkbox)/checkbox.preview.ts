@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { HlmCheckboxImports } from '@spartan-ng/helm/checkbox';
+import { HlmFieldImports } from '@spartan-ng/helm/field';
 import { HlmLabelImports } from '@spartan-ng/helm/label';
 
 @Component({
 	selector: 'spartan-checkbox-preview',
-	imports: [HlmLabelImports, HlmCheckboxImports],
+	imports: [HlmLabelImports, HlmCheckboxImports, HlmFieldImports],
 	template: `
 		<div class="flex flex-col gap-6">
 			<div class="flex items-center gap-3">
@@ -15,7 +16,7 @@ import { HlmLabelImports } from '@spartan-ng/helm/label';
 				<hlm-checkbox inputId="terms-2" [checked]="true" />
 				<div class="grid gap-2">
 					<label hlmLabel for="terms-2">Accept terms and conditions</label>
-					<p class="text-muted-foreground text-sm">By clicking this checkbox, you agree to the terms and conditions.</p>
+					<p hlmFieldDescription>By clicking this checkbox, you agree to the terms and conditions.</p>
 				</div>
 			</div>
 			<div class="flex items-start gap-3">
@@ -32,7 +33,7 @@ import { HlmLabelImports } from '@spartan-ng/helm/label';
 				/>
 				<div class="grid gap-1.5 font-normal">
 					<p class="text-sm leading-none font-medium">Enable notifications</p>
-					<p class="text-muted-foreground text-sm">You can enable or disable notifications at any time.</p>
+					<p hlmFieldDescription>You can enable or disable notifications at any time.</p>
 				</div>
 			</label>
 		</div>

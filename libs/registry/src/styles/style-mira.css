@@ -1093,8 +1093,6 @@
 	}
 
 	/* MARK: Sidebar */
-
-	/* MARK: Sidebar */
 	.spartan-sidebar-gap {
 		@apply transition-[width] duration-200 ease-linear;
 	}

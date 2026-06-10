@@ -70,12 +70,16 @@ export const routeMeta: RouteMeta = {
 	],
 	template: `
 		<section spartanMainSection class="space-y-4">
-			<spartan-section-intro name="Sidebar" lead="A composable, themeable and customizable sidebar component." />
+			<spartan-section-intro
+				name="Sidebar"
+				lead="A composable, themeable and customizable sidebar component."
+				showThemeToggle
+			/>
 
 			<spartan-sidebar-preview name="sidebar-collapsable-icons" caption="A sidebar that collapses to icons." />
 
 			<div>
-				<spartan-install-tabs primitive="sidebar" />
+				<spartan-install-tabs primitive="sidebar" [showOnlyVega]="false" />
 
 				<spartan-section-sub-heading id="add-colors">
 					Add the following colors to your CSS file
@@ -92,7 +96,7 @@ export const routeMeta: RouteMeta = {
 			</div>
 			<spartan-section-sub-heading id="structure">Structure</spartan-section-sub-heading>
 
-			<div class="leading-relaxed [&:not(:first-child)]:mt-2" hlmP>
+			<div class="leading-relaxed not-first:mt-2" hlmP>
 				A
 				<span hlmCode>Sidebar</span>
 				component is composed of the following parts:

@@ -75,31 +75,23 @@ Browse the [components gallery](https://www.spartan.ng/components) for live demo
 
 ## Tailwind Preset
 
-`@spartan-ng/brain` ships with the shared Tailwind preset that powers the helm styles. Most users have the [CLI](https://www.npmjs.com/package/@spartan-ng/cli) wire this up for them, but you can also do it by hand.
-
-**Tailwind v4** - add to your CSS:
+`@spartan-ng/brain` ships with the shared Tailwind preset that powers the helm styles. Most users have the [CLI](https://www.npmjs.com/package/@spartan-ng/cli) wire this up for them, but you can also do it by hand by adding the preset to your CSS:
 
 ```css
 @import '@spartan-ng/brain/hlm-tailwind-preset.css';
 ```
 
-**Tailwind v3** - extend your `tailwind.config.js`:
-
-```js
-module.exports = {
-	presets: [require('@spartan-ng/brain/hlm-tailwind-preset')],
-	// ...
-};
-```
+spartan/ui requires Tailwind CSS v4.
 
 ## Peer Dependencies
 
 `@spartan-ng/brain` works with:
 
-- Angular `>=20.0.0 <22.0.0` (core, common, forms, cdk)
+- Angular `>=21.0.0 <23.0.0` (core, common, forms, cdk)
 - `rxjs` `>=6.6.0`
 - `clsx` `>=2.0.0`
-- `tailwindcss` `>=3.3.0`
+- `tailwindcss` `>=4.0.0`
+- `tw-animate-css` `>=1.0.0` _(imported by the Tailwind preset)_
 - `luxon` `>=3.0.0` _(optional - only required for `@spartan-ng/brain/date-time-luxon`)_
 
 ## Documentation

@@ -2,7 +2,7 @@
 
 ## Setup
 
-spartan/ui requires Tailwind CSS (v4 recommended; v3 is not guaranteed). The global stylesheet needs
+spartan/ui requires Tailwind CSS v4. The global stylesheet needs
 the Tailwind layers and the spartan preset.
 
 ```css

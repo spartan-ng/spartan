@@ -2,14 +2,11 @@
 // Check out the code here: https://github.com/nrwl/nx/blob/master/packages/angular/src/generators/setup-tailwind/lib/update-application-styles.ts
 
 import { joinPathFragments, type ProjectConfiguration, stripIndents, type Tree } from '@nx/devkit';
-import { prompt } from 'enquirer';
-import { getTailwindVersion } from '../../../utils/get-tailwind-version';
-import { legacyThemes, type ThemeName, themes } from './colors';
+import { type ThemeName, themes } from './colors';
 
 export interface AddThemeToApplicationStylesOptions {
 	project: string;
 	theme: ThemeName;
-	addCdkStyles?: boolean;
 	stylesEntryPoint?: string;
 	prefix?: string;
 	setupTailwindCss?: boolean;
@@ -20,17 +17,7 @@ export async function addThemeToApplicationStyles(
 	options: AddThemeToApplicationStylesOptions,
 	project: ProjectConfiguration,
 ): Promise<void> {
-	const tailwindVersion = getTailwindVersion(tree);
-	if (tailwindVersion === 3) {
-		await prompt({
-			type: 'confirm',
-			name: 'Tailwind 3 detected',
-			initial: true,
-			message: `Please note that we cannot guarantee full compatibility of the components with Tailwind CSS version 3, and some features may not function as expected. Are you sure you want to proceed with Tailwind CSS v3?`,
-		});
-	}
-	const spartantTailwindPresetImport =
-		tailwindVersion === 4 ? '@import "@spartan-ng/brain/hlm-tailwind-preset.css";' : '';
+	const spartantTailwindPresetImport = '@import "@spartan-ng/brain/hlm-tailwind-preset.css";';
 
 	const prefix = options.prefix ? ` .${options.prefix}` : '';
 	let stylesEntryPoint = options.stylesEntryPoint;
@@ -50,10 +37,7 @@ export async function addThemeToApplicationStyles(
 		}
 	}
 
-	const stylesEntryPointContent = tree.read(stylesEntryPoint, 'utf-8');
-
-	const CDK_IMPORT = `@import "@angular/cdk/overlay-prebuilt.css";`;
-	const ckdOverlayImport = tailwindVersion === 4 ? '' : CDK_IMPORT;
+	const stylesEntryPointContent = tree.read(stylesEntryPoint, 'utf-8') ?? '';
 
 	const twSetup = options.setupTailwindCss
 		? `@layer theme, base, components, utilities;
@@ -67,14 +51,18 @@ export async function addThemeToApplicationStyles(
 		? ''
 		: `--font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";`;
 
-	const colorScheme = tailwindVersion === 4 ? themes[options.theme] : legacyThemes[options.theme];
+	const colorScheme = themes[options.theme];
+
+	// The preset is added through an `@import`, which is only valid before any non-`@import` rule.
+	// Slot it in right after the stylesheet's existing leading imports (such as the app's own
+	// `@import "tailwindcss"`) so it stays valid CSS and Tailwind is still imported first.
+	const { leadingImports, body: stylesBody } = splitLeadingImports(stylesEntryPointContent);
+	const styleHeader = [twSetup, leadingImports, spartantTailwindPresetImport, stylesBody]
+		.filter((part) => part.trim() !== '')
+		.join('\n');
 
 	let stylesCssContentWithPotentialTailwindCssImport = stripIndents`
-		${twSetup}
-    ${ckdOverlayImport}
-
-    ${stylesEntryPointContent}
-    ${spartantTailwindPresetImport}
+		${styleHeader}
 
 		:root${prefix} {
 			color-scheme: light;
@@ -111,6 +99,31 @@ export async function addThemeToApplicationStyles(
 	}
 
 	tree.write(stylesEntryPoint, stylesCssContentWithPotentialTailwindCssImport);
+}
+
+/**
+ * Split a stylesheet into its leading import block and the remaining rules. `@charset`, `@import`
+ * and `@layer ...;` statements (plus blank lines) may legally appear at the top of a stylesheet, so
+ * the spartan preset `@import` can be inserted right after them: still valid CSS (an `@import` after
+ * a normal rule is ignored) while leaving any existing `@import "tailwindcss"` first.
+ */
+function splitLeadingImports(content: string): { leadingImports: string; body: string } {
+	const lines = content.split('\n');
+	let boundary = 0;
+	for (const line of lines) {
+		const trimmed = line.trim();
+		const isLeading =
+			trimmed === '' ||
+			trimmed.startsWith('@charset') ||
+			trimmed.startsWith('@import') ||
+			/^@layer\b[^{]*;$/.test(trimmed);
+		if (!isLeading) break;
+		boundary++;
+	}
+	return {
+		leadingImports: lines.slice(0, boundary).join('\n'),
+		body: lines.slice(boundary).join('\n'),
+	};
 }
 
 function findStylesEntryPoint(tree: Tree, project: ProjectConfiguration): string | undefined {

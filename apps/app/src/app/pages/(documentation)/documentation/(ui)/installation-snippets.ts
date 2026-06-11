@@ -81,36 +81,3 @@ export const tailwindPrettierSorting = `
   "tailwindFunctions": ["hlm", "cva", "classes"]
 }
 `;
-
-export const ngTailwind3 = `
-/** @type {import('tailwindcss').Config} */
-module.exports = {
-  presets: [require('@spartan-ng/brain/hlm-tailwind-preset')],
-  content: [
-    './src/**/*.{html,ts}',
-    './REPLACE_WITH_PATH_TO_YOUR_COMPONENTS_DIRECTORY/**/*.{html,ts}',
-  ],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
-};
-`;
-export const nxTailwind3 = `
-const { createGlobPatternsForDependencies } = require('@nx/angular/tailwind');
-const { join } = require('path');
-
-/** @type {import('tailwindcss').Config} */
-module.exports = {
-  presets: [require('@spartan-ng/brain/hlm-tailwind-preset')],
-  content: [
-    join(__dirname, 'src/**/!(*.stories|*.spec).{ts,html}'),
-    ...createGlobPatternsForDependencies(__dirname),
-  ],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
-};
-`;
-export const angularCdkOverlayImport = `@import '@angular/cdk/overlay-prebuilt.css';`;

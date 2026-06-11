@@ -47,53 +47,66 @@ describe('Theme generator', () => {
 
 	it('should add the Tailwind 4 preset global stylesheet', async () => {
 		const project = readProjectConfiguration(tree, 'website');
-		await addThemeToApplicationStyles(tree, { theme: 'zinc', project: 'website', addCdkStyles: true }, project);
+		await addThemeToApplicationStyles(tree, { theme: 'zinc', project: 'website' }, project);
 		const styles = tree.read('website/src/styles.css', 'utf8');
 		expect(styles).toContain('@import "@spartan-ng/brain/hlm-tailwind-preset.css";');
 	});
 
+	it('places the preset import after existing imports but before other rules', async () => {
+		const project = readProjectConfiguration(tree, 'website');
+		tree.write('website/src/styles.css', '@import "tailwindcss";\nbody {\n  margin: 0;\n}\n');
+		await addThemeToApplicationStyles(tree, { theme: 'zinc', project: 'website' }, project);
+		const styles = tree.read('website/src/styles.css', 'utf8') ?? '';
+
+		const tailwindIdx = styles.indexOf('@import "tailwindcss"');
+		const presetIdx = styles.indexOf('@import "@spartan-ng/brain/hlm-tailwind-preset.css"');
+		const firstRuleIdx = styles.indexOf('body {');
+
+		// An `@import` after a normal rule is invalid CSS and ignored, so the preset import must come
+		// after the existing imports (Tailwind stays first) and before the first style rule.
+		expect(tailwindIdx).toBeGreaterThanOrEqual(0);
+		expect(presetIdx).toBeGreaterThan(tailwindIdx);
+		expect(firstRuleIdx).toBeGreaterThan(presetIdx);
+	});
+
 	it('should add the neutral theme styles to the global stylesheet', async () => {
 		const project = readProjectConfiguration(tree, 'website');
-		await addThemeToApplicationStyles(tree, { theme: 'neutral', project: 'website', addCdkStyles: true }, project);
+		await addThemeToApplicationStyles(tree, { theme: 'neutral', project: 'website' }, project);
 		const styles = tree.read('website/src/styles.css', 'utf8');
 		expect(styles).toMatchSnapshot();
 	});
 
 	it('should add the zinc theme styles to the global stylesheet', async () => {
 		const project = readProjectConfiguration(tree, 'website');
-		await addThemeToApplicationStyles(tree, { theme: 'zinc', project: 'website', addCdkStyles: true }, project);
+		await addThemeToApplicationStyles(tree, { theme: 'zinc', project: 'website' }, project);
 		const styles = tree.read('website/src/styles.css', 'utf8');
 		expect(styles).toMatchSnapshot();
 	});
 
 	it('should add the slate theme styles to the global stylesheet', async () => {
 		const project = readProjectConfiguration(tree, 'website');
-		await addThemeToApplicationStyles(tree, { theme: 'slate', project: 'website', addCdkStyles: true }, project);
+		await addThemeToApplicationStyles(tree, { theme: 'slate', project: 'website' }, project);
 		const styles = tree.read('website/src/styles.css', 'utf8');
 		expect(styles).toMatchSnapshot();
 	});
 
 	it('should add the stone theme styles to the global stylesheet', async () => {
 		const project = readProjectConfiguration(tree, 'website');
-		await addThemeToApplicationStyles(tree, { theme: 'stone', project: 'website', addCdkStyles: true }, project);
+		await addThemeToApplicationStyles(tree, { theme: 'stone', project: 'website' }, project);
 		const styles = tree.read('website/src/styles.css', 'utf8');
 		expect(styles).toMatchSnapshot();
 	});
 
 	it('should add the gray theme styles to the global stylesheet', async () => {
 		const project = readProjectConfiguration(tree, 'website');
-		await addThemeToApplicationStyles(tree, { theme: 'gray', project: 'website', addCdkStyles: true }, project);
+		await addThemeToApplicationStyles(tree, { theme: 'gray', project: 'website' }, project);
 		const styles = tree.read('website/src/styles.css', 'utf8');
 		expect(styles).toMatchSnapshot();
 	});
 
 	it('should add the custom prefix to the theme styles', async () => {
 		const project = readProjectConfiguration(tree, 'website');
-		await addThemeToApplicationStyles(
-			tree,
-			{ theme: 'zinc', project: 'website', addCdkStyles: true, prefix: 'theme-zinc' },
-			project,
-		);
+		await addThemeToApplicationStyles(tree, { theme: 'zinc', project: 'website', prefix: 'theme-zinc' }, project);
 		const styles = tree.read('website/src/styles.css', 'utf8');
 		expect(styles).toContain('.theme-zinc');
 	});

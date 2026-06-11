@@ -1,6 +1,6 @@
 import { Directive } from '@angular/core';
-import { provideScrollbarOptions } from 'ngx-scrollbar';
 import { classes } from '<%- importAlias %>/utils';
+import { provideScrollbarOptions } from 'ngx-scrollbar';
 
 @Directive({
 	selector: 'ng-scrollbar[hlm],ng-scrollbar[hlmScrollbar]',

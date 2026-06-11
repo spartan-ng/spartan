@@ -17,6 +17,6 @@ export class HlmAlertDialogContent {
 	public readonly size = input<'sm' | 'default'>('default');
 
 	constructor() {
-		classes(() => 'spartan-alert-dialog-content group/alert-dialog-content grid w-[calc(100vw-2rem)] outline-none');
+		classes(() => 'spartan-alert-dialog-content group/alert-dialog-content grid w-full outline-none');
 	}
 }

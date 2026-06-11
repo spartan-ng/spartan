@@ -23,7 +23,7 @@ import { HlmInputImports } from '@spartan-ng/helm/input';
 					</hlm-field>
 					<hlm-field>
 						<label hlmLabel for="username">Username</label>
-						<input hlmInput id="username" value="@peduarte" class="col-span-3" />
+						<input hlmInput id="username" value="@peduarte" />
 					</hlm-field>
 				</hlm-field-group>
 				<hlm-dialog-footer>

@@ -255,16 +255,51 @@ import { HlmCalendarImports } from '@spartan-ng/helm/calendar';
 export class SpartanProbe {}
 `;
 
-/** Write the probe component into the app source so the build compiles + consumes the generated code.
- * The nx monorepo app lives under apps/<app>; the nx standalone and angular-cli apps live at the root. */
-export function useGeneratedComponents(ws: CellWorkspace): void {
-	const monorepo = ws.cell.workspace === 'nx' && ws.cell.nxLayout !== 'standalone';
-	const appDir = monorepo ? join('apps', ws.app, 'src', 'app') : join('src', 'app');
-	writeFileSync(join(ws.dir, appDir, 'spartan-probe.ts'), PROBE_SOURCE);
+/**
+ * Convert a kebab-case primitive name (e.g. "alert-dialog") to the PascalCase used in its exports
+ * (e.g. "AlertDialog").
+ */
+function toPascalCase(name: string): string {
+	return name
+		.split('-')
+		.map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+		.join('');
 }
 
 /**
- * Build the workspace; throws (failing the test) on a non-zero exit. The probe component (written by
+ * Build a probe source that imports every generated primitive through its public alias. Used for the
+ * all-components cell to verify that ALL aliases are consumable, not just the default three. The template
+ * stays minimal; the compilation-time check is what matters (type errors in any import fail the build).
+ */
+function buildAllComponentsProbeSource(primitives: string[]): string {
+	const imports = primitives
+		.map((name) => `import { Hlm${toPascalCase(name)}Imports } from '@spartan-ng/helm/${name}';`)
+		.join('\n');
+	const spreadImports = primitives.map((name) => `...Hlm${toPascalCase(name)}Imports`).join(', ');
+	return `import { Component } from '@angular/core';
+${imports}
+
+@Component({
+	selector: 'spartan-probe',
+	imports: [${spreadImports}],
+	template: \`<span>probe</span>\`,
+})
+export class SpartanProbe {}
+`;
+}
+
+/** Write the probe component into the app source so the build compiles + consumes the generated code.
+ * The nx monorepo app lives under apps/<app>; the nx standalone and angular-cli apps live at the root.
+ * For the all-components cell, the probe imports every generated primitive to verify all aliases work. */
+export function useGeneratedComponents(ws: CellWorkspace): void {
+	const monorepo = ws.cell.workspace === 'nx' && ws.cell.nxLayout !== 'standalone';
+	const appDir = monorepo ? join('apps', ws.app, 'src', 'app') : join('src', 'app');
+	const source = ws.cell.allComponents ? buildAllComponentsProbeSource(readAllPrimitives()) : PROBE_SOURCE;
+	writeFileSync(join(ws.dir, appDir, 'spartan-probe.ts'), source);
+}
+
+/**
+
  * useGeneratedComponents) makes the app build compile the generated code through the public alias, so a
  * broken alias/export/template fails here. After the build we assert the theme styles reached the output.
  */

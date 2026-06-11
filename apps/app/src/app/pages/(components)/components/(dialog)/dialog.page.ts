@@ -63,6 +63,7 @@ export const routeMeta: RouteMeta = {
 			<spartan-section-intro
 				name="Dialog"
 				lead="A window overlaid on either the primary window or another dialog window, rendering the content underneath inert."
+				showThemeToggle
 			/>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
@@ -72,7 +73,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
-			<spartan-install-tabs primitive="dialog" />
+			<spartan-install-tabs primitive="dialog" [showOnlyVega]="false" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">

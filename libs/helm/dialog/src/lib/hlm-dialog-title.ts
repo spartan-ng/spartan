@@ -5,12 +5,10 @@ import { classes } from '@spartan-ng/helm/utils';
 @Directive({
 	selector: '[hlmDialogTitle]',
 	hostDirectives: [BrnDialogTitle],
-	host: {
-		'data-slot': 'dialog-title',
-	},
+	host: { 'data-slot': 'dialog-title' },
 })
 export class HlmDialogTitle {
 	constructor() {
-		classes(() => 'text-lg leading-none font-semibold');
+		classes(() => 'spartan-dialog-title');
 	}
 }

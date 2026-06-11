@@ -17,7 +17,7 @@ import { HlmInputImports } from '@spartan-ng/helm/input';
 					<p hlmDialogDescription>This dialog has a sticky footer that stays visible while the content scrolls.</p>
 				</hlm-dialog-header>
 				<div class="no-scrollbar -mx-4 max-h-[50vh] overflow-y-auto px-4">
-					@for (item of items; track item) {
+					@for (item of _items; track item) {
 						<p class="mb-4 leading-normal">
 							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et
 							dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
@@ -35,5 +35,5 @@ import { HlmInputImports } from '@spartan-ng/helm/input';
 	`,
 })
 export class DialogStickyFooter {
-	protected readonly items = Array.from({ length: 5 }, (_, i) => i + 1);
+	protected readonly _items = Array.from({ length: 5 }, (_, i) => i + 1);
 }

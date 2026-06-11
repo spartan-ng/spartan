@@ -91,7 +91,7 @@ function generateLibraryFiles(tree: Tree, targetLibDir: string, options: HlmBase
 function registerDependencies(tree: Tree, options: HlmBaseGeneratorSchema): GeneratorCallback {
 	const cdkVersion = getInstalledPackageVersion(tree, '@angular/cdk', FALLBACK_ANGULAR_CDK_VERSION, true);
 	const dependencies = buildDependencyArray(tree, options, cdkVersion);
-	const devDependencies = buildDevDependencyArray(tree);
+	const devDependencies = buildDevDependencyArray();
 	return addDependenciesToPackageJson(tree, dependencies, devDependencies);
 }
 

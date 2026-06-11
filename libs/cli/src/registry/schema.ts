@@ -93,16 +93,6 @@ export const registryItemFileSchema = z.discriminatedUnion('type', [
 	}),
 ]);
 
-export const registryItemTailwindSchema = z.object({
-	config: z
-		.object({
-			content: z.array(z.string()).optional(),
-			theme: z.record(z.string(), z.any()).optional(),
-			plugins: z.array(z.string()).optional(),
-		})
-		.optional(),
-});
-
 export const registryItemCssVarsSchema = z.object({
 	theme: z.record(z.string(), z.string()).optional(),
 	light: z.record(z.string(), z.string()).optional(),

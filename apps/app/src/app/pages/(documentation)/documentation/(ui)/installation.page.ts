@@ -1,6 +1,6 @@
 import { type RouteMeta } from '@analogjs/router';
-import { Component, inject } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronRight } from '@ng-icons/lucide';
 import { PackageInstallerTabs } from '@spartan-ng/app/app/shared/layout/package-installer-tabs';
@@ -19,10 +19,7 @@ import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading
 import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import {
-	angularCdkOverlayImport,
 	cssVariables,
-	ngTailwind3,
-	nxTailwind3,
 	spartanPresetImport,
 	tailwindImports,
 	tailwindIntellisense,
@@ -122,15 +119,7 @@ export const routeMeta: RouteMeta = {
 
 			<h3 spartanH4 id="configure-tailwind-css">2. Configure Tailwind CSS</h3>
 
-			<div hlmAlert variant="destructive" class="mt-6">
-				<h4 hlmAlertTitle>Use Tailwind CSS v4</h4>
-				<div hlmAlertDescription>
-					<p>We recommend Tailwind CSS v4. Some features may not work correctly with v3.</p>
-					<a [routerLink]="[]" [relativeTo]="_activatedRoute" fragment="tailwind-v3" class="${hlmCode} underline">
-						See Tailwind v3 guide
-					</a>
-				</div>
-			</div>
+			<p class="${hlmP}">spartan/ui requires Tailwind CSS v4.</p>
 
 			<h4 spartanH4 id="configure-layers">2.1 Configure CSS Layers</h4>
 			<p class="${hlmP}">
@@ -264,26 +253,6 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-code class="mt-4" [code]="_tailwindPrettierSorting" />
 
-			<spartan-section-sub-heading id="tailwind-v3" class="text-destructive">
-				Tailwind CSS v3 (Not Recommended)
-			</spartan-section-sub-heading>
-
-			<div hlmAlert variant="destructive" class="mt-4 mb-6">
-				<h4 hlmAlertTitle>Limited v3 Support</h4>
-				<div hlmAlertDescription>
-					<p>
-						Tailwind CSS v3 support is not guaranteed. Some components may not work as expected. We strongly recommend
-						upgrading to v4.
-					</p>
-				</div>
-			</div>
-
-			<p class="${hlmP}">If you must use Tailwind v3, add this to your config:</p>
-			<spartan-cli-tabs language="js" class="mt-4 mb-6" [nxCode]="_nxTailwind3" [ngCode]="_ngTailwind3" />
-
-			<p class="${hlmP}">Also make sure to import the Angular CDK overlay styles:</p>
-			<spartan-code class="mt-4 mb-6" [code]="_angularCdkOverlayImport" />
-
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="components-json" label="components.json" />
 				<spartan-page-bottom-nav-link direction="previous" href="about" label="About" />
@@ -294,14 +263,9 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class InstallationPage {
-	protected readonly _activatedRoute = inject(ActivatedRoute);
-
 	protected readonly _tailwindImports = tailwindImports;
 	protected readonly _spartanPresetImport = spartanPresetImport;
 	protected readonly _cssVariables = cssVariables;
 	protected readonly _tailwindIntellisense = tailwindIntellisense;
 	protected readonly _tailwindPrettierSorting = tailwindPrettierSorting;
-	protected readonly _nxTailwind3 = nxTailwind3;
-	protected readonly _ngTailwind3 = ngTailwind3;
-	protected readonly _angularCdkOverlayImport = angularCdkOverlayImport;
 }

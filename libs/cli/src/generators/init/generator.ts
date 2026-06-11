@@ -12,7 +12,7 @@ export async function spartanInitGenerator(tree: Tree, options: SpartanInitGener
 	const cdkVersionStr = getInstalledPackageVersion(tree, '@angular/cdk', FALLBACK_ANGULAR_CDK_VERSION, true);
 
 	const dependencies: Record<string, string> = buildDependencyArray(tree, {} as HlmBaseGeneratorSchema, cdkVersionStr);
-	const devDependencies: Record<string, string> = buildDevDependencyArray(tree);
+	const devDependencies: Record<string, string> = buildDevDependencyArray();
 
 	const tasks: GeneratorCallback[] = [];
 

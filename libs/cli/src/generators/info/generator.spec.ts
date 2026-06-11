@@ -24,7 +24,7 @@ describe('info generator', () => {
 				'@angular/core': '^20.0.0',
 				'@angular/cdk': '^20.0.0',
 				'@spartan-ng/brain': '0.0.1-alpha.704',
-				tailwindcss: '^3.4.0',
+				tailwindcss: '^4.0.0',
 				'@ng-icons/core': '^29.0.0',
 			},
 			devDependencies: {
@@ -59,7 +59,7 @@ describe('info generator', () => {
 		const info = collectSpartanInfo(tree, availableComponents);
 
 		expect(info.versions.angular).toBe('^20.0.0');
-		expect(info.versions.tailwind).toBe('^3.4.0');
+		expect(info.versions.tailwind).toBe('^4.0.0');
 		expect(info.versions.spartanBrain).toBe('0.0.1-alpha.704');
 		expect(info.versions.spartanCli).toBe('0.0.1-alpha.704');
 		expect(info.iconLibrary).toBe('@ng-icons');

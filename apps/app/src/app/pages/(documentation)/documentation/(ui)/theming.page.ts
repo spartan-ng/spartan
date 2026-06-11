@@ -563,22 +563,6 @@ export const routeMeta: RouteMeta = {
 }"
 			/>
 
-			<spartan-section-sub-heading id="tailwind-version">Tailwind CSS version</spartan-section-sub-heading>
-
-			<div hlmAlert variant="destructive" class="mt-4 mb-6">
-				<h4 hlmAlertTitle>Use Tailwind CSS v4</h4>
-				<div hlmAlertDescription>
-					<p>
-						spartan/ui is optimized for Tailwind CSS v4. Some theming features may not work correctly with v3. We
-						recommend
-						<a href="https://tailwindcss.com/docs/upgrade-guide" target="_blank" class="font-medium underline">
-							upgrading to v4
-						</a>
-						for the best experience.
-					</p>
-				</div>
-			</div>
-
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="dark-mode" label="Dark Mode" />
 				<spartan-page-bottom-nav-link direction="previous" href="components-json" label="components.json" />

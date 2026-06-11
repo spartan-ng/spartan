@@ -9,7 +9,7 @@ import { legacyThemes, type ThemeName, themes } from './colors';
 export interface AddThemeToApplicationStylesOptions {
 	project: string;
 	theme: ThemeName;
-	addCdkStyles: boolean;
+	addCdkStyles?: boolean;
 	stylesEntryPoint?: string;
 	prefix?: string;
 	setupTailwindCss?: boolean;

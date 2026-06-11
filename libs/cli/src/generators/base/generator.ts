@@ -8,7 +8,7 @@ import {
 	updateJson,
 	visitNotIgnoredFiles,
 } from '@nx/devkit';
-import { addTsConfigPath } from '@nx/js';
+import { addTsConfigPath, getRootTsConfigPathInTree } from '@nx/js';
 import * as path from 'node:path';
 
 import { readTsConfigPathsFromTree } from '../../utils/tsconfig';
@@ -63,7 +63,9 @@ async function generateEntrypointFiles(tree: Tree, alias: string, options: HlmBa
 			skipModule: true,
 		});
 	} else {
-		updateJson(tree, 'tsconfig.base.json', (json) => {
+		// Resolve the workspace's root tsconfig rather than assuming tsconfig.base.json - a standalone nx
+		// workspace registers paths in tsconfig.json (there is no base file).
+		updateJson(tree, getRootTsConfigPathInTree(tree), (json) => {
 			json.compilerOptions ||= {};
 			json.compilerOptions.paths ||= {};
 			json.compilerOptions.paths[alias] = [`./${joinPathFragments(targetLibDir, 'index.ts').replace(/\\/g, '/')}`];

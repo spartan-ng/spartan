@@ -111,6 +111,28 @@ jobs:
       - name: Build
         run: pnpm run build
 
+  cli-smoke:
+    needs: check_date
+    if: ${{ needs.check_date.outputs.should_run != 'false' }}
+
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - name: Install pnpm
+        uses: pnpm/action-setup@v5
+      - name: Install Node
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: .node-version
+          cache: 'pnpm'
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+      # Run the full CLI smoke matrix unconditionally (not just affected) every night.
+      - name: CLI smoke matrix (full)
+        run: pnpm nx run-many -t smoke --parallel=1 --outputStyle=stream
+
   release:
     needs:
       - check_date

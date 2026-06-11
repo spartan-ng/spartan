@@ -11,12 +11,8 @@ import {
 	viewChild,
 } from '@angular/core';
 import { classes } from '@spartan-ng/helm/utils';
-import {
-	EmblaCarouselDirective,
-	type EmblaEventType,
-	type EmblaOptionsType,
-	type EmblaPluginType,
-} from 'embla-carousel-angular';
+import type { EmblaEventType, EmblaOptionsType, EmblaPluginType } from 'embla-carousel';
+import { EmblaCarouselDirective } from 'embla-carousel-angular';
 
 @Component({
 	selector: 'hlm-carousel',

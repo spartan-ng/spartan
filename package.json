@@ -22,6 +22,7 @@
 		"release-cli": "nx run-many --target=release --projects=tag:scope:cli --parallel=1",
 		"release-mcp": "nx run-many --target=release --projects=tag:scope:mcp --parallel=1",
 		"release-ui": "nx run-many --target=release --projects=tag:scope:brain --parallel=1",
+		"smoke": "nx run cli-smoke:smoke",
 		"start": "nx serve app",
 		"storybook": "nx storybook ui-storybook",
 		"test": "nx run-many --target test --all",
@@ -163,6 +164,7 @@
 		"cypress-axe": "^1.5.0",
 		"cypress-real-events": "^1.13.0",
 		"drizzle-kit": "0.24.2",
+		"embla-carousel": "^8.6.0",
 		"esbuild": "^0.24.0",
 		"eslint": "^9.28.0",
 		"eslint-config-prettier": "10.1.2",
@@ -204,6 +206,7 @@
 		"types-tsconfig": "^2.1.1",
 		"typescript": "5.9.3",
 		"typescript-eslint": "^8.33.1",
+		"verdaccio": "^6.7.2",
 		"vite": "6.2.1",
 		"vite-tsconfig-paths": "5.0.1",
 		"vitest": "^2.1.8"

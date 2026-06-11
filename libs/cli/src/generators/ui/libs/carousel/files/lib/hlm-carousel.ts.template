@@ -1,9 +1,11 @@
+import { Directionality } from '@angular/cdk/bidi';
 import {
 	ChangeDetectionStrategy,
 	Component,
 	type InputSignal,
 	type Signal,
 	computed,
+	inject,
 	input,
 	signal,
 	viewChild,
@@ -42,6 +44,7 @@ import {
 })
 export class HlmCarousel {
 	protected readonly _emblaCarousel = viewChild.required(EmblaCarouselDirective);
+	private readonly _dir = inject(Directionality);
 
 	public readonly orientation = input<'horizontal' | 'vertical'>('horizontal');
 	public readonly options: InputSignal<Omit<EmblaOptionsType, 'axis'> | undefined> =
@@ -49,6 +52,9 @@ export class HlmCarousel {
 	public readonly plugins: InputSignal<EmblaPluginType[]> = input<EmblaPluginType[]>([]);
 
 	protected readonly _emblaOptions: Signal<EmblaOptionsType> = computed(() => ({
+		// Default embla's direction to the ambient layout direction so the carousel scrolls RTL
+		// automatically; an explicit `direction` in `options` still wins.
+		direction: this._dir.valueSignal(),
 		...this.options(),
 		axis: this.orientation() === 'horizontal' ? 'x' : 'y',
 	}));

@@ -4,8 +4,7 @@ import { BrnDialogOverlay } from '@spartan-ng/brain/dialog';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 
-// TODO will that be replaced by the cli?
-export const hlmDialogOverlayClass = 'spartan-dialog-overlay';
+export const hlmDialogOverlayClass = hlm('spartan-dialog-overlay');
 
 @Directive({
 	selector: '[hlmDialogOverlay],hlm-dialog-overlay',

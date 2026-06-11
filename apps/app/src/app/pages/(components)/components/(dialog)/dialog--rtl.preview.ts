@@ -23,7 +23,7 @@ import { HlmInputImports } from '@spartan-ng/helm/input';
 						<input hlmInput id="name" value="Pedro Duarte" />
 					</hlm-field>
 					<hlm-field>
-						<label hlmLabel for="username">{{ _t()['username'] }}</label>
+						<label hlmFieldLabel for="username">{{ _t()['username'] }}</label>
 						<input hlmInput id="username" value="@peduarte" />
 					</hlm-field>
 				</hlm-field-group>

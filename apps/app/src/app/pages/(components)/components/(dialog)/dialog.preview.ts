@@ -22,7 +22,7 @@ import { HlmInputImports } from '@spartan-ng/helm/input';
 						<input hlmInput id="name" value="Pedro Duarte" />
 					</hlm-field>
 					<hlm-field>
-						<label hlmLabel for="username">Username</label>
+						<label hlmFieldLabel for="username">Username</label>
 						<input hlmInput id="username" value="@peduarte" />
 					</hlm-field>
 				</hlm-field-group>

@@ -11,10 +11,8 @@ import {
 	viewChild,
 } from '@angular/core';
 import { classes } from '@spartan-ng/helm/utils';
-import { EmblaCarouselDirective } from 'embla-carousel-angular';
-// Import the option/event/plugin types from the base embla-carousel package: embla-carousel-angular v22
-// no longer re-exports them (it declares them locally), so importing them from there fails to compile.
 import type { EmblaEventType, EmblaOptionsType, EmblaPluginType } from 'embla-carousel';
+import { EmblaCarouselDirective } from 'embla-carousel-angular';
 
 @Component({
 	selector: 'hlm-carousel',

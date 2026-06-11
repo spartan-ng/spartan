@@ -3,9 +3,7 @@
  * scaffold -> generate -> build run in the smoke suite. Adding/removing a combination is a one-line
  * change here.
  *
- * Tailwind is fixed at v4 (the supported/documented setup). The v3 axis was intentionally dropped:
- * v3 is "best effort" in the CLI (it warns about it) and exercising it would make the matrix red by
- * design rather than catching regressions. Re-add a `tailwind` field here if v3 becomes supported.
+ * Tailwind is fixed at v4 (the supported/documented setup).
  */
 export type WorkspaceType = 'nx' | 'angular-cli';
 export type GenerateAs = 'library' | 'entrypoint';

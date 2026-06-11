@@ -9,8 +9,6 @@ export interface HlmThemeGeneratorSchema {
 	stylesEntryPoint?: string;
 	/** Prefix class name applied to the theme's styles, e.g. theme-zinc. Empty means a global theme. */
 	prefix?: string;
-	/** Skip the Tailwind v3 compatibility warning. Defaults to true when a theme is supplied. */
-	acceptTailwindV3?: boolean;
 	/**
 	 * Whether to also wire up the Tailwind CSS imports. Defaults to true. Internal only: set by the `init`
 	 * generator, so it is intentionally not exposed as a flag in schema.json.

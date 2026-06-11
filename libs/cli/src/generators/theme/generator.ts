@@ -91,7 +91,6 @@ export default async function addThemeToApplicationGenerator(tree: Tree, options
 			theme: theme as ThemeName,
 			stylesEntryPoint,
 			prefix,
-			acceptTailwindV3: options.acceptTailwindV3 ?? nonInteractive,
 		},
 		project,
 	);

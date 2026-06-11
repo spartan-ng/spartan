@@ -20,10 +20,6 @@
 		"prefix": {
 			"type": "string",
 			"description": "Prefix class name applied to the theme's style definitions, e.g. theme-zinc. Leave empty for a global theme."
-		},
-		"acceptTailwindV3": {
-			"type": "boolean",
-			"description": "Skip the interactive Tailwind v3 compatibility warning and proceed. Defaults to true when a theme is passed."
 		}
 	},
 	"required": []

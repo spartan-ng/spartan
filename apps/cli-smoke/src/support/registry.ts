@@ -1,5 +1,5 @@
 import { workspaceRoot } from '@nx/devkit';
-import { execSync } from 'node:child_process';
+import { execFileSync, execSync } from 'node:child_process';
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 
@@ -68,7 +68,9 @@ export function buildAndPublishPackages(registry: string): RegistryInfo {
 		writeFileSync(pkgPath, JSON.stringify({ ...pkg, version }, null, 2));
 		try {
 			console.log(`[cli-smoke] Publishing ${pkg.name}@${version} to ${registry}...`);
-			execSync(`npm publish --registry ${registry} --userconfig ${publishNpmrc} --tag smoke`, {
+			// Pass args as an array (execFileSync, no shell) so the registry/npmrc values are never
+			// interpreted by a shell.
+			execFileSync('npm', ['publish', '--registry', registry, '--userconfig', publishNpmrc, '--tag', 'smoke'], {
 				cwd: join(workspaceRoot, dist),
 				stdio: 'inherit',
 			});

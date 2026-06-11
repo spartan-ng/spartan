@@ -13,8 +13,6 @@ export interface AddThemeToApplicationStylesOptions {
 	stylesEntryPoint?: string;
 	prefix?: string;
 	setupTailwindCss?: boolean;
-	/** Skip the interactive Tailwind v3 compatibility warning and proceed. */
-	acceptTailwindV3?: boolean;
 }
 
 export async function addThemeToApplicationStyles(
@@ -23,7 +21,7 @@ export async function addThemeToApplicationStyles(
 	project: ProjectConfiguration,
 ): Promise<void> {
 	const tailwindVersion = getTailwindVersion(tree);
-	if (tailwindVersion === 3 && !options.acceptTailwindV3) {
+	if (tailwindVersion === 3) {
 		await prompt({
 			type: 'confirm',
 			name: 'Tailwind 3 detected',

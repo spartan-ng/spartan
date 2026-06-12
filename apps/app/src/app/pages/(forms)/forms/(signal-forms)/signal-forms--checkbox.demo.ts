@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
-import { disabled, form, FormField, minLength, required, submit } from '@angular/forms/signals';
+import { disabled, form, FormField, minLength, submit } from '@angular/forms/signals';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmCardImports } from '@spartan-ng/helm/card';
 import { HlmCheckboxImports } from '@spartan-ng/helm/checkbox';
@@ -85,7 +85,6 @@ export class SignalFormCheckboxDemo {
 	public readonly form = form(this._model, (schemaPath) => {
 		disabled(schemaPath.responses);
 
-		required(schemaPath.tasks, { message: 'Please select at least one notification type.' });
 		minLength(schemaPath.tasks, 1, { message: 'Please select at least one notification type.' });
 	});
 

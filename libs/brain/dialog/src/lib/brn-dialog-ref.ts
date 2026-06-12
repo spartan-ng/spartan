@@ -51,8 +51,30 @@ export class BrnDialogRef<DialogResult = any> {
 		}
 
 		this._previousTimeout = setTimeout(() => {
+			// Clear the handle once the teardown actually runs so a fired timeout is
+			// distinguishable from a pending one - this is what lets _reopen() know
+			// the overlay is gone and refuse to revive it.
+			this._previousTimeout = undefined;
 			this._cdkDialogRef.close(result);
 		}, delay);
+	}
+
+	/**
+	 * Revive a dialog whose close() was called but whose deferred CDK teardown
+	 * (the `closeDelay` window) has not run yet: cancels the pending teardown and
+	 * restores the open state, so a re-open landing inside that window re-shows
+	 * the existing overlay instead of being dropped and flickering closed.
+	 *
+	 * No-ops unless a teardown is actually pending, so it can never force an
+	 * already-closed (disposed) overlay back open.
+	 *
+	 * @internal Only `BrnDialog.open()` should call this.
+	 */
+	public _reopen(): void {
+		if (!this._previousTimeout) return;
+		clearTimeout(this._previousTimeout);
+		this._previousTimeout = undefined;
+		this._open.set(true);
 	}
 
 	public setPanelClass(paneClass: string | null | undefined): void {

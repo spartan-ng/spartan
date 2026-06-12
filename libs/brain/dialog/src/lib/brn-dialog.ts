@@ -172,7 +172,19 @@ export class BrnDialog<TResult = unknown, TContext extends Record<string, unknow
 	private readonly _mutableAriaModal = linkedSignal(() => this.ariaModal());
 
 	public open(): void {
-		if (!this._contentTemplate || this._dialogRef()) return;
+		if (!this._contentTemplate) return;
+
+		const existingRef = this._dialogRef();
+		if (existingRef) {
+			// A close() schedules the CDK teardown after `closeDelay` but keeps the
+			// ref around until it fires. Re-opening inside that window must revive
+			// the still-present overlay - otherwise the open is dropped here and the
+			// dialog finishes closing, which reads as an intermittent flicker.
+			if (!existingRef.open) {
+				existingRef._reopen();
+			}
+			return;
+		}
 
 		this._dialogStateEffectRefs.forEach((ref) => ref.destroy());
 

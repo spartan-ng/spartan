@@ -1,6 +1,4 @@
-import { Component, viewChild } from '@angular/core';
-import { provideIcons } from '@ng-icons/core';
-import { lucideCross } from '@ng-icons/lucide';
+import { ChangeDetectionStrategy, Component, viewChild } from '@angular/core';
 import { BrnSheet } from '@spartan-ng/brain/sheet';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmLabelImports } from '@spartan-ng/helm/label';
@@ -9,7 +7,7 @@ import { HlmSheetImports } from '@spartan-ng/helm/sheet';
 @Component({
 	selector: 'spartan-sheet-close-preview',
 	imports: [HlmSheetImports, HlmButtonImports, HlmLabelImports],
-	providers: [provideIcons({ lucideCross })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-sheet #sheetRef side="right">
 			<button id="edit-profile" variant="outline" hlmSheetTrigger hlmBtn>Open</button>

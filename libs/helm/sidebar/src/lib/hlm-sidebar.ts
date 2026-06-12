@@ -46,7 +46,7 @@ import { injectHlmSidebarConfig } from './hlm-sidebar.token';
 		} @else {
 			<!-- Sidebar gap on desktop -->
 			<div data-slot="sidebar-gap" [class]="_sidebarGapComputedClass()"></div>
-			<div data-slot="sidebar-container" [class]="_sidebarContainerComputedClass()">
+			<div data-slot="sidebar-container" [attr.data-side]="_dataSide()" [class]="_sidebarContainerComputedClass()">
 				<div data-sidebar="sidebar" data-slot="sidebar-inner" class="spartan-sidebar-inner flex size-full flex-col">
 					<ng-container *ngTemplateOutlet="contentContainer" />
 				</div>

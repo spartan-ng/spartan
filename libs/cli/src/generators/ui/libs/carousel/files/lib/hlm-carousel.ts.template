@@ -11,8 +11,8 @@ import {
 	viewChild,
 } from '@angular/core';
 import { classes } from '<%- importAlias %>/utils';
-import { EmblaCarouselDirective } from 'embla-carousel-angular';
 import type { EmblaEventType, EmblaOptionsType, EmblaPluginType } from 'embla-carousel';
+import { EmblaCarouselDirective } from 'embla-carousel-angular';
 
 @Component({
 	selector: 'hlm-carousel',

@@ -14,10 +14,10 @@ type NavItem = {
 export const pageNavs: Link[] = [
 	{ label: 'Home', url: '/' },
 	{ label: 'Docs', url: '/documentation' },
-	{ label: 'Stack', url: '/stack' },
 	{ label: 'Components', url: '/components' },
-	{ label: 'Blocks', url: '/blocks', new: true },
+	{ label: 'Blocks', url: '/blocks' },
 	{ label: 'Colors', url: '/colors' },
+	{ label: 'Stack', url: '/stack' },
 ];
 
 export const components: Link[] = [
@@ -36,7 +36,7 @@ export const components: Link[] = [
 	{ label: 'Carousel', url: '/carousel' },
 	{ label: 'Checkbox', url: '/checkbox' },
 	{ label: 'Collapsible', url: '/collapsible' },
-	{ label: 'Combobox', url: '/combobox', new: true },
+	{ label: 'Combobox', url: '/combobox' },
 	{ label: 'Command', url: '/command' },
 	{ label: 'Context Menu', url: '/context-menu' },
 	{ label: 'Data Table', url: '/data-table' },
@@ -54,7 +54,7 @@ export const components: Link[] = [
 	{ label: 'Kbd', url: '/kbd' },
 	{ label: 'Label', url: '/label' },
 	{ label: 'Menubar', url: '/menubar' },
-	{ label: 'Native Select', url: '/native-select', new: true },
+	{ label: 'Native Select', url: '/native-select' },
 	{ label: 'Navigation Menu', url: '/navigation-menu' },
 	{ label: 'Pagination', url: '/pagination' },
 	{ label: 'Popover', url: '/popover' },
@@ -67,7 +67,7 @@ export const components: Link[] = [
 	{ label: 'Sheet', url: '/sheet' },
 	{ label: 'Sidebar', url: '/sidebar' },
 	{ label: 'Skeleton', url: '/skeleton' },
-	{ label: 'Slider', url: '/slider', new: true },
+	{ label: 'Slider', url: '/slider' },
 	{ label: 'Sonner (Toast)', url: '/sonner' },
 	{ label: 'Spinner', url: '/spinner' },
 	{ label: 'Switch', url: '/switch' },
@@ -76,12 +76,12 @@ export const components: Link[] = [
 	{ label: 'Textarea', url: '/textarea' },
 	{ label: 'Toggle', url: '/toggle' },
 	{ label: 'Toggle Group', url: '/toggle-group' },
-	{ label: 'Tooltip', url: '/tooltip', new: true },
+	{ label: 'Tooltip', url: '/tooltip' },
 ];
 
 export const forms: Link[] = [
-	{ label: 'Forms', url: '/', new: true, exact: true },
-	{ label: 'Reactive Forms', url: '/reactive-forms', new: true },
+	{ label: 'Forms', url: '/', exact: true },
+	{ label: 'Reactive Forms', url: '/reactive-forms' },
 	{ label: 'Signal Forms', url: '/signal-forms', new: true },
 ];
 

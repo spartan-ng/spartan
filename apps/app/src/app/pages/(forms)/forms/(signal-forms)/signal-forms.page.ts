@@ -1,8 +1,9 @@
 import { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
-import { NgIcon, provideIcons } from '@ng-icons/core';
+import { provideIcons } from '@ng-icons/core';
 import { lucideGithub, lucideInfo } from '@ng-icons/lucide';
 import { Code } from '@spartan-ng/app/app/shared/code/code';
+import { CodePreview } from '@spartan-ng/app/app/shared/code/code-preview';
 import { MainSection } from '@spartan-ng/app/app/shared/layout/main-section';
 import { PageBottomNav } from '@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav';
 import { PageBottomNavLink } from '@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav-link';
@@ -10,12 +11,19 @@ import { PageNav } from '@spartan-ng/app/app/shared/layout/page-nav/page-nav';
 import { SectionIntro } from '@spartan-ng/app/app/shared/layout/section-intro';
 import { SectionSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-heading';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
+import { Tabs } from '@spartan-ng/app/app/shared/layout/tabs';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
 import { link } from '@spartan-ng/app/app/shared/typography/link';
-import { HlmAlertImports } from '@spartan-ng/helm/alert';
-import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { hlmCode, hlmP, hlmUl } from '@spartan-ng/helm/typography';
+import { SignalFormCheckboxDemo, signalFormsCheckboxDemoCode } from './signal-forms--checkbox.demo';
+import { SignalFormComplexDemo, signalFormsComplexDemoCode } from './signal-forms--complex.demo';
+import { SignalFormInputDemo, signalFormsInputDemoCode } from './signal-forms--input.demo';
+import { SignalFormRadioGroupDemo, signalFormsRadioGroupDemoCode } from './signal-forms--radio-group.demo';
+import { SignalFormSelectDemo, signalFormsSelectDemoCode } from './signal-forms--select.demo';
+import { signalFormsSwitchDemoCode, SignalFormSwitchDemo } from './signal-forms--switch.demo';
+import { signalFormsTextareaDemoCode, SignalFormTextareaDemo } from './signal-forms--textarea.demo';
 import {
+	BugFormsDemo,
 	demoAnatomyCode,
 	demoCode,
 	demoForceShowCode,
@@ -42,37 +50,41 @@ export const routeMeta: RouteMeta = {
 		PageNav,
 		PageBottomNav,
 		PageBottomNavLink,
-		HlmAlertImports,
-		HlmButtonImports,
-		NgIcon,
+		Tabs,
+		CodePreview,
+
+		BugFormsDemo,
+		SignalFormInputDemo,
+		SignalFormTextareaDemo,
+		SignalFormSelectDemo,
+		SignalFormCheckboxDemo,
+		SignalFormRadioGroupDemo,
+		SignalFormSwitchDemo,
+		SignalFormComplexDemo,
 	],
 	providers: [provideIcons({ lucideInfo, lucideGithub })],
 	template: `
 		<section spartanMainSection>
 			<spartan-section-intro name="Signal Forms" lead="Build forms in Angular using Signal Forms." />
 
-			<!-- TODO keep until project update to ng v21 and copy demos into spartan -->
-			<hlm-alert class="mt-4">
-				<ng-icon name="lucideInfo" />
-				<h4 hlmAlertTitle>Demos live outside this project</h4>
-				<p hlmAlertDescription>
-					Signal Forms demos are currently hosted in the external
-					<a [href]="spartanAgogeUrl" target="_blank" rel="noopener noreferrer">spartan-agoge</a>
-					repository and are not yet part of spartan/ui. The demo button opens the Signal Forms page directly.
-				</p>
-				<div hlmAlertAction>
-					<a hlmBtn size="xs" [href]="signalFormsDemoUrl" target="_blank" rel="noopener noreferrer">
-						<ng-icon name="lucideGithub" />
-						Open Demo
-					</a>
-				</div>
-			</hlm-alert>
-
 			<p class="${hlmP}">
 				In this guide, we will take a look at building forms with Signal Forms. We'll cover building forms with the
 				<code class="${hlmCode}">HlmField</code>
 				component, how to handle validation and how to display errors.
 			</p>
+
+			<spartan-section-sub-heading id="demo">Demo</spartan-section-sub-heading>
+			<p class="${hlmP}">
+				We are going to build the following form. It has a simple text input and a textarea. On submit, we'll validate
+				the form data and display any errors.
+			</p>
+
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-bug-report-form />
+				</div>
+				<spartan-code secondTab fileName="bug-report-form.ts" [code]="_demoCode" />
+			</spartan-tabs>
 
 			<spartan-section-sub-heading id="approach">Approach</spartan-section-sub-heading>
 			<p class="${hlmP}">
@@ -363,6 +375,66 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-code class="mt-6" [code]="_demoSubmittingState" />
 
+			<spartan-section-sub-heading id="working-with-different-field-types">
+				Working with Different Field Types
+			</spartan-section-sub-heading>
+
+			<h3 id="input" spartanH4>Input</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-signal-form-input-demo />
+				</div>
+				<spartan-code secondTab [code]="_signalFormsInputDemoCode" />
+			</spartan-tabs>
+
+			<h3 id="textarea" spartanH4>Textarea</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-signal-form-textarea-demo />
+				</div>
+				<spartan-code secondTab [code]="_signalFormsTextareaDemoCode" />
+			</spartan-tabs>
+
+			<h3 id="select" spartanH4>Select</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-signal-form-select-demo />
+				</div>
+				<spartan-code secondTab [code]="_signalFormsSelectDemoCode" />
+			</spartan-tabs>
+
+			<h3 id="checkbox" spartanH4>Checkbox</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-signal-form-checkbox-demo />
+				</div>
+				<spartan-code secondTab [code]="_signalFormsCheckboxDemoCode" />
+			</spartan-tabs>
+
+			<h3 id="radio-group" spartanH4>Radio Group</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-signal-form-radio-group-demo />
+				</div>
+				<spartan-code secondTab [code]="_signalFormsRadioGroupDemoCode" />
+			</spartan-tabs>
+
+			<h3 id="switch" spartanH4>Switch</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-signal-form-switch-demo />
+				</div>
+				<spartan-code secondTab [code]="_signalFormsSwitchDemoCode" />
+			</spartan-tabs>
+
+			<h3 id="complex-forms" spartanH4>Complex Forms</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-signal-form-complex-demo />
+				</div>
+				<spartan-code secondTab [code]="_signalFormsComplexDemoCode" />
+			</spartan-tabs>
+
 			<spartan-section-sub-heading id="resetting-the-form">Resetting the form</spartan-section-sub-heading>
 			<p class="${hlmP}">
 				Use
@@ -392,4 +464,12 @@ export default class SignalFormsPage {
 	protected readonly _demoForceShowCode = demoForceShowCode;
 	protected readonly _demoSubmittingState = demoSubmittingState;
 	protected readonly _demoResetForm = demoResetForm;
+
+	protected readonly _signalFormsInputDemoCode = signalFormsInputDemoCode;
+	protected readonly _signalFormsTextareaDemoCode = signalFormsTextareaDemoCode;
+	protected readonly _signalFormsCheckboxDemoCode = signalFormsCheckboxDemoCode;
+	protected readonly _signalFormsRadioGroupDemoCode = signalFormsRadioGroupDemoCode;
+	protected readonly _signalFormsSelectDemoCode = signalFormsSelectDemoCode;
+	protected readonly _signalFormsSwitchDemoCode = signalFormsSwitchDemoCode;
+	protected readonly _signalFormsComplexDemoCode = signalFormsComplexDemoCode;
 }

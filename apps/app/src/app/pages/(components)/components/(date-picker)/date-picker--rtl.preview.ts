@@ -10,7 +10,7 @@ import { HlmDatePickerImports } from '@spartan-ng/helm/date-picker';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
 import { DateTime } from 'luxon';
 
-const CALENDAR_I18N: Record<'en' | 'ar' | 'he' | 'fa', BrnCalendarI18n> = {
+const CALENDAR_I18N: Record<'en' | 'ar' | 'he', BrnCalendarI18n> = {
 	en: {
 		formatWeekdayName: (i) => ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'][i],
 		months: () => ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'] as MonthLabels,
@@ -78,33 +78,6 @@ const CALENDAR_I18N: Record<'en' | 'ar' | 'he' | 'fa', BrnCalendarI18n> = {
 		labelWeekday: (i) => ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת'][i],
 		firstDayOfWeek: () => 0,
 	},
-	fa: {
-		formatWeekdayName: (i) => ['ی', 'د', 'س', 'چ', 'پ', 'ج', 'ش'][i],
-		months: () =>
-			[
-				'ژانویه',
-				'فوریه',
-				'مارس',
-				'آوریل',
-				'مه',
-				'ژوئن',
-				'ژوئیه',
-				'اوت',
-				'سپتامبر',
-				'اکتبر',
-				'نوامبر',
-				'دسامبر',
-			] as MonthLabels,
-		years: (startYear = 1925, endYear = new Date().getFullYear() + 1) =>
-			Array.from({ length: endYear - startYear + 1 }, (_, i) => startYear + i),
-		formatHeader: (month, year) => new Date(year, month).toLocaleDateString('fa', { month: 'long', year: 'numeric' }),
-		formatMonth: (m) => new Date(2000, m).toLocaleDateString('fa', { month: 'short' }),
-		formatYear: (y) => `${y}`,
-		labelPrevious: () => 'ماه قبل',
-		labelNext: () => 'ماه بعد',
-		labelWeekday: (i) => ['یکشنبه', 'دوشنبه', 'سه‌شنبه', 'چهارشنبه', 'پنج‌شنبه', 'جمعه', 'شنبه'][i],
-		firstDayOfWeek: () => 6,
-	},
 } as const;
 
 @Component({
@@ -132,7 +105,7 @@ export class DatePickerRtl {
 	constructor() {
 		effect(() => {
 			const language = this._language();
-			untracked(() => this._calendarI18n.use(CALENDAR_I18N[language] ?? CALENDAR_I18N['en']));
+			untracked(() => this._calendarI18n.use(CALENDAR_I18N[language]));
 		});
 	}
 
@@ -160,15 +133,9 @@ export class DatePickerRtl {
 				placeholder: 'בחר תאריך',
 			},
 		},
-		fa: {
-			dir: 'rtl',
-			values: {
-				placeholder: 'انتخاب تاریخ',
-			},
-		},
 	};
 
 	private readonly _translation = computed(() => this._translations[this._language()]);
-	protected readonly _t = computed(() => this._translation()!.values);
-	protected readonly _dir = computed(() => this._translation()!.dir);
+	protected readonly _t = computed(() => this._translation().values);
+	protected readonly _dir = computed(() => this._translation().dir);
 }

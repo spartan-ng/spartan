@@ -42,5 +42,5 @@ export class KbdRtlPreview {
 	};
 
 	private readonly _translation = computed(() => this._translations[this._language()]);
-	protected readonly _dir = computed(() => this._translation()!.dir);
+	protected readonly _dir = computed(() => this._translation().dir);
 }

@@ -17,7 +17,6 @@ import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading
 import { Tabs } from '../../../../shared/layout/tabs';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { CalendarJalaliExample } from './calendar--jalali.preview';
 import { CalendarMultipleExample } from './calendar--multiple.example';
 import { CalendarPreview, defaultImports, defaultSkeleton, i18nProviders, i18nRuntimeChange } from './calendar.preview';
 
@@ -41,7 +40,6 @@ export const routeMeta: RouteMeta = {
 		PageBottomNav,
 		PageBottomNavLink,
 		PageNav,
-		CalendarJalaliExample,
 		CalendarMultipleExample,
 		CalendarRangeExample,
 		CalendarYearAndMonthExample,
@@ -146,23 +144,6 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_yearAndMonthCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__jalali_calendar" spartanH4>Jalali (Persian) Calendar</h3>
-
-			<p class="${hlmP} mb-6">
-				Use
-				<code class="${hlmCode}">provideDateAdapter</code>
-				with
-				<code class="${hlmCode}">BrnJalaliDateAdapter</code>
-				to switch the calendar to the Jalali (Solar Hijri) calendar system used in Iran and Afghanistan.
-			</p>
-
-			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div spartanCodePreview firstTab>
-					<spartan-calendar-jalali />
-				</div>
-				<spartan-code secondTab [code]="_jalaliCode" />
-			</spartan-tabs>
-
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="brain" />
 
@@ -183,7 +164,6 @@ export default class CardPage {
 	protected readonly _multipleCode = computed(() => this._snippets()['multiple']);
 	protected readonly _rangeCode = computed(() => this._snippets()['range']);
 	protected readonly _yearAndMonthCode = computed(() => this._snippets()['yearAndMonth']);
-	protected readonly _jalaliCode = computed(() => this._snippets()['jalali']);
 	protected readonly _defaultImports = defaultImports;
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _i18nProviders = i18nProviders;

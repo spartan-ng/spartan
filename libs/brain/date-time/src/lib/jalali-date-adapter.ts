@@ -36,7 +36,7 @@ export class BrnJalaliDateAdapter implements BrnDateAdapter<JalaliDate> {
 				month = ((month - 1) % 12) + 1;
 			} else if (month < 1) {
 				year += Math.floor((month - 1) / 12);
-				month = ((month - 1) % 12) + 12 + 1;
+				month = ((((month - 1) % 12) + 12) % 12) + 1;
 			}
 		}
 
@@ -104,19 +104,19 @@ export class BrnJalaliDateAdapter implements BrnDateAdapter<JalaliDate> {
 		return new Date(g[0], g[1] - 1, g[2]).getDay();
 	}
 
-	getHours(): number {
+	getHours(_date: JalaliDate): number {
 		return 0;
 	}
 
-	getMinutes(): number {
+	getMinutes(_date: JalaliDate): number {
 		return 0;
 	}
 
-	getSeconds(): number {
+	getSeconds(_date: JalaliDate): number {
 		return 0;
 	}
 
-	getMilliseconds(): number {
+	getMilliseconds(_date: JalaliDate): number {
 		return 0;
 	}
 

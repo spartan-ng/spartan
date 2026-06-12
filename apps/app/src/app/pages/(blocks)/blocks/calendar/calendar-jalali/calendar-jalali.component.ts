@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { provideBrnCalendarI18n, type BrnCalendarI18n, type MonthLabels } from '@spartan-ng/brain/calendar';
 import { BrnJalaliDateAdapter, provideDateAdapter } from '@spartan-ng/brain/date-time';
 import { HlmCalendar } from '@spartan-ng/helm/calendar';
@@ -37,10 +37,14 @@ const JALALI_CALENDAR_I18N: BrnCalendarI18n = {
 	selector: 'spartan-calendar-jalali',
 	imports: [HlmCalendar],
 	providers: [provideDateAdapter(BrnJalaliDateAdapter), provideBrnCalendarI18n(JALALI_CALENDAR_I18N)],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		class: 'flex justify-center items-start p-3 md:p-20 w-full h-auto md:h-[600px] bg-surface rounded-lg overflow-auto',
+	},
 	template: `
 		<div dir="rtl">
-			<hlm-calendar />
+			<hlm-calendar calendarClass="bg-background" />
 		</div>
 	`,
 })
-export class CalendarJalaliExample {}
+export class CalendarJalaliBlockComponent {}

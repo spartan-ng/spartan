@@ -232,19 +232,19 @@ describe('BrnJalaliDateAdapter', () => {
 	});
 
 	test('getHours() should return 0', () => {
-		expect(adapter.getHours()).toBe(0);
+		expect(adapter.getHours(nowruz1400)).toBe(0);
 	});
 
 	test('getMinutes() should return 0', () => {
-		expect(adapter.getMinutes()).toBe(0);
+		expect(adapter.getMinutes(nowruz1400)).toBe(0);
 	});
 
 	test('getSeconds() should return 0', () => {
-		expect(adapter.getSeconds()).toBe(0);
+		expect(adapter.getSeconds(nowruz1400)).toBe(0);
 	});
 
 	test('getMilliseconds() should return 0', () => {
-		expect(adapter.getMilliseconds()).toBe(0);
+		expect(adapter.getMilliseconds(nowruz1400)).toBe(0);
 	});
 
 	test('add() with months should wrap across year boundary', () => {
@@ -268,6 +268,28 @@ describe('BrnJalaliDateAdapter', () => {
 		const tirEnd = new JalaliDate(1400, 4, 31);
 		const result = adapter.add(tirEnd, { days: 1 });
 		expect(result.month).toBe(5);
+		expect(result.day).toBe(1);
+	});
+
+	test('subtract() with 12 months should not produce month 13', () => {
+		// Edge case: subtracting exactly 12 months from month 1
+		const result = adapter.subtract(nowruz1400, { months: 12 });
+		expect(result.year).toBe(1399);
+		expect(result.month).toBe(1);
+		expect(result.day).toBe(1);
+	});
+
+	test('subtract() with 24 months should wrap correctly', () => {
+		const result = adapter.subtract(nowruz1400, { months: 24 });
+		expect(result.year).toBe(1398);
+		expect(result.month).toBe(1);
+		expect(result.day).toBe(1);
+	});
+
+	test('add() with 12 months should not produce month 13', () => {
+		const result = adapter.add(nowruz1400, { months: 12 });
+		expect(result.year).toBe(1401);
+		expect(result.month).toBe(1);
 		expect(result.day).toBe(1);
 	});
 

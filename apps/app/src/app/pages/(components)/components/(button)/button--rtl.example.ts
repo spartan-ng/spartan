@@ -66,6 +66,6 @@ export class ButtonRtlPreview {
 		},
 	};
 	private readonly _translation = computed(() => this._translations[this._language()]);
-	protected readonly _t = computed(() => this._translation()!.values);
-	protected readonly _dir = computed(() => this._translation()!.dir);
+	protected readonly _t = computed(() => this._translation().values);
+	protected readonly _dir = computed(() => this._translation().dir);
 }

@@ -8,6 +8,10 @@ jest.mock('enquirer');
 describe('migrate-helm-libraries generator', () => {
 	let tree: Tree;
 
+	afterEach(() => {
+		jest.restoreAllMocks();
+	});
+
 	beforeEach(() => {
 		tree = createTreeWithEmptyWorkspace();
 
@@ -37,7 +41,7 @@ describe('migrate-helm-libraries generator', () => {
 				buildable: true,
 				importAlias: '@spartan-ng/helm',
 			}),
-		).resolves.not.toThrow();
+		).resolves.toBeUndefined();
 
 		expect(infoSpy).toHaveBeenCalledWith('No libraries to migrate');
 	});

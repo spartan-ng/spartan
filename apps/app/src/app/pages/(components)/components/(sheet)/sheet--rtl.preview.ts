@@ -10,8 +10,8 @@ import { HlmSheetImports } from '@spartan-ng/helm/sheet';
 	imports: [HlmSheetImports, HlmFieldImports, HlmButtonImports, HlmInputImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<hlm-sheet side="right" [dir]="_dir()">
-			<button id="edit-profile" hlmSheetTrigger hlmBtn variant="outline">{{ _t()['open'] }}</button>
+		<hlm-sheet [side]="_dir() === 'rtl' ? 'left' : 'right'" [dir]="_dir()">
+			<button hlmSheetTrigger hlmBtn variant="outline">{{ _t()['open'] }}</button>
 			<hlm-sheet-content *hlmSheetPortal="let ctx" [dir]="_dir()">
 				<hlm-sheet-header>
 					<h3 hlmSheetTitle>{{ _t()['editProfile'] }}</h3>
@@ -24,7 +24,7 @@ import { HlmSheetImports } from '@spartan-ng/helm/sheet';
 					</hlm-field>
 					<hlm-field>
 						<label hlmFieldLabel for="username-rtl">{{ _t()['username'] }}</label>
-						<input hlmInput id="username-rtl" value="@peduarte" />
+						<input hlmInput id="username-rtl" value="peduarte" />
 					</hlm-field>
 				</hlm-field-group>
 				<hlm-sheet-footer>

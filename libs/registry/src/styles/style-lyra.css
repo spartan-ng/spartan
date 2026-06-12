@@ -1080,7 +1080,7 @@
 	}
 
 	.spartan-sidebar-inset {
-		@apply bg-background md:peer-data-[variant=inset]:m-2 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-none md:peer-data-[variant=inset]:shadow-sm md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ml-2;
+		@apply bg-background md:peer-data-[variant=inset]:m-2 md:peer-data-[variant=inset]:ms-0 md:peer-data-[variant=inset]:rounded-none md:peer-data-[variant=inset]:shadow-sm md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ms-2;
 	}
 
 	.spartan-sidebar-input {
@@ -1168,7 +1168,7 @@
 	}
 
 	.spartan-sidebar-menu-sub {
-		@apply border-sidebar-border mx-3.5 translate-x-px gap-1 border-l px-2.5 py-0.5 group-data-[collapsible=icon]:hidden;
+		@apply border-sidebar-border mx-3.5 translate-x-px gap-1 border-s px-2.5 py-0.5 group-data-[collapsible=icon]:hidden rtl:-translate-x-px;
 	}
 
 	.spartan-sidebar-menu-sub-button {

@@ -1,6 +1,6 @@
 import { Component, computed, inject, ViewEncapsulation } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { provideIcons } from '@ng-icons/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
 	lucideBadgeCheck,
 	lucideBell,
@@ -24,21 +24,23 @@ import {
 	lucideSquareTerminal,
 	lucideTrash2,
 } from '@ng-icons/lucide';
+import { TranslateService, Translations, type Language } from '@spartan-ng/app/app/shared/translate.service';
 import { HlmAvatarImports } from '@spartan-ng/helm/avatar';
 import { HlmCollapsibleImports } from '@spartan-ng/helm/collapsible';
 import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
+import { HlmSelectImports } from '@spartan-ng/helm/select';
 import { HlmSidebarImports, HlmSidebarService } from '@spartan-ng/helm/sidebar';
 
 @Component({
-	selector: 'spartan-sidebar-collapsable-icons',
+	selector: 'spartan-sidebar-rtl',
 	imports: [
 		HlmSidebarImports,
-		HlmIconImports,
+		NgIcon,
 		HlmCollapsibleImports,
 		RouterLink,
 		HlmAvatarImports,
 		HlmDropdownMenuImports,
+		HlmSelectImports,
 	],
 	providers: [
 		provideIcons({
@@ -68,8 +70,8 @@ import { HlmSidebarImports, HlmSidebarService } from '@spartan-ng/helm/sidebar';
 	encapsulation: ViewEncapsulation.None,
 	styleUrl: 'sidebar-default.css',
 	template: `
-		<div hlmSidebarWrapper>
-			<hlm-sidebar collapsible="icon">
+		<div hlmSidebarWrapper [attr.dir]="_dir()">
+			<hlm-sidebar collapsible="icon" [side]="_sidebarSide()">
 				<hlm-sidebar-header>
 					<ul hlmSidebarMenu>
 						<li hlmSidebarMenuItem>
@@ -77,38 +79,36 @@ import { HlmSidebarImports, HlmSidebarService } from '@spartan-ng/helm/sidebar';
 								<div
 									class="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg"
 								>
-									<ng-icon hlm size="sm" name="lucideGalleryVerticalEnd" />
+									<ng-icon name="lucideGalleryVerticalEnd" />
 								</div>
-								<div class="grid flex-1 text-left text-sm leading-tight">
-									<span class="truncate font-medium">Acme Inc</span>
-									<span class="truncate text-xs">Enterprise</span>
+								<div class="grid flex-1 text-start text-sm leading-tight">
+									<span class="truncate font-medium">{{ _t()['teamName'] }}</span>
+									<span class="truncate text-xs">{{ _t()['teamPlan'] }}</span>
 								</div>
-								<ng-icon hlm name="lucideChevronsUpDown" class="ml-auto" />
 							</button>
 						</li>
 					</ul>
 				</hlm-sidebar-header>
 				<hlm-sidebar-content>
 					<hlm-sidebar-group>
-						<div hlmSidebarGroupLabel>Platform</div>
+						<div hlmSidebarGroupLabel>{{ _t()['platform'] }}</div>
 						<ul hlmSidebarMenu>
 							@for (item of _platforms; track $index) {
 								<hlm-collapsible [expanded]="item.isActive ?? false" class="group/collapsible">
 									<li hlmSidebarMenuItem>
 										<button hlmSidebarMenuButton hlmCollapsibleTrigger>
 											<ng-icon [name]="item.icon" />
-											{{ item.title }}
+											{{ _t()[item.titleKey] }}
 											<ng-icon
 												name="lucideChevronRight"
-												class="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90"
+												class="ms-auto transition-transform duration-200 group-data-open/collapsible:rotate-90 rtl:rotate-180 rtl:group-data-open/collapsible:rotate-90"
 											/>
 										</button>
-
 										<hlm-collapsible-content>
 											<ul hlmSidebarMenuSub>
 												@for (subItem of item.items; track $index) {
 													<li hlmSidebarMenuSubItem>
-														<a hlmSidebarMenuSubButton [routerLink]="subItem.url">{{ subItem.title }}</a>
+														<a hlmSidebarMenuSubButton [routerLink]="subItem.url">{{ _t()[subItem.titleKey] }}</a>
 													</li>
 												}
 											</ul>
@@ -119,13 +119,13 @@ import { HlmSidebarImports, HlmSidebarService } from '@spartan-ng/helm/sidebar';
 						</ul>
 					</hlm-sidebar-group>
 					<hlm-sidebar-group class="group-data-[collapsible=icon]:hidden">
-						<div hlmSidebarGroupLabel>Projects</div>
+						<div hlmSidebarGroupLabel>{{ _t()['projects'] }}</div>
 						<ul hlmSidebarMenu>
 							@for (project of _projects; track $index) {
 								<li hlmSidebarMenuItem>
 									<a hlmSidebarMenuButton [routerLink]="project.url">
 										<ng-icon [name]="project.icon" />
-										{{ project.name }}
+										{{ _t()[project.nameKey] }}
 									</a>
 									<button
 										hlmSidebarMenuAction
@@ -136,14 +136,14 @@ import { HlmSidebarImports, HlmSidebarService } from '@spartan-ng/helm/sidebar';
 										[align]="_menuAlign()"
 									>
 										<ng-icon name="lucideEllipsis" />
-										<span class="sr-only">More</span>
+										<span class="sr-only">{{ _t()['more'] }}</span>
 									</button>
 								</li>
 							}
 							<li hlmSidebarMenuItem>
 								<button hlmSidebarMenuButton>
 									<ng-icon name="lucideEllipsis" />
-									More
+									{{ _t()['more'] }}
 								</button>
 							</li>
 						</ul>
@@ -152,21 +152,21 @@ import { HlmSidebarImports, HlmSidebarService } from '@spartan-ng/helm/sidebar';
 					<ng-template #projectMenu let-ctx>
 						<hlm-dropdown-menu class="w-48">
 							<hlm-dropdown-menu-group>
-								<hlm-dropdown-menu-label>{{ ctx.project.name }}</hlm-dropdown-menu-label>
+								<hlm-dropdown-menu-label>{{ _t()[ctx.project.nameKey] }}</hlm-dropdown-menu-label>
 							</hlm-dropdown-menu-group>
 							<hlm-dropdown-menu-separator />
 							<button hlmDropdownMenuItem>
 								<ng-icon name="lucideFolder" />
-								View Project
+								{{ _t()['viewProject'] }}
 							</button>
 							<button hlmDropdownMenuItem>
 								<ng-icon name="lucideShare" />
-								Share Project
+								{{ _t()['shareProject'] }}
 							</button>
 							<hlm-dropdown-menu-separator />
 							<button hlmDropdownMenuItem>
 								<ng-icon name="lucideTrash2" />
-								Delete Project
+								{{ _t()['deleteProject'] }}
 							</button>
 						</hlm-dropdown-menu>
 					</ng-template>
@@ -185,11 +185,11 @@ import { HlmSidebarImports, HlmSidebarService } from '@spartan-ng/helm/sidebar';
 									<img src="/assets/avatar.png" alt="spartan" hlmAvatarImage />
 									<span class="rounded-lg bg-[#FD005B] text-white" hlmAvatarFallback>RG</span>
 								</hlm-avatar>
-								<div class="grid flex-1 text-left text-sm leading-tight">
+								<div class="grid flex-1 text-start text-sm leading-tight">
 									<span class="truncate font-medium">spartan</span>
 									<span class="truncate text-xs">hello@spartan.com</span>
 								</div>
-								<ng-icon name="lucideChevronsUpDown" class="ml-auto text-base" />
+								<ng-icon name="lucideChevronsUpDown" class="ms-auto text-base" />
 							</button>
 						</li>
 					</ul>
@@ -197,12 +197,12 @@ import { HlmSidebarImports, HlmSidebarService } from '@spartan-ng/helm/sidebar';
 					<ng-template #avatarMenu>
 						<hlm-dropdown-menu class="min-w-56 rounded-lg">
 							<hlm-dropdown-menu-label>
-								<div class="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
+								<div class="flex items-center gap-2 px-1 py-1.5 text-start text-sm">
 									<hlm-avatar class="rounded-lg">
 										<img src="/assets/avatar.png" alt="spartan" hlmAvatarImage />
 										<span class="rounded-lg bg-[#FD005B] text-white" hlmAvatarFallback>RG</span>
 									</hlm-avatar>
-									<div class="grid flex-1 text-left text-sm leading-tight">
+									<div class="grid flex-1 text-start text-sm leading-tight">
 										<span class="truncate font-medium">spartan</span>
 										<span class="truncate text-xs">hello@spartan.com</span>
 									</div>
@@ -212,36 +212,51 @@ import { HlmSidebarImports, HlmSidebarService } from '@spartan-ng/helm/sidebar';
 							<hlm-dropdown-menu-group>
 								<button hlmDropdownMenuItem>
 									<ng-icon name="lucideSparkles" />
-									Upgrade to Pro
+									{{ _t()['upgradeToPro'] }}
 								</button>
 							</hlm-dropdown-menu-group>
 							<hlm-dropdown-menu-separator />
 							<hlm-dropdown-menu-group>
 								<button hlmDropdownMenuItem>
 									<ng-icon name="lucideBadgeCheck" />
-									Account
+									{{ _t()['account'] }}
 								</button>
 								<button hlmDropdownMenuItem>
 									<ng-icon name="lucideCreditCard" />
-									Billing
+									{{ _t()['billing'] }}
 								</button>
 								<button hlmDropdownMenuItem>
 									<ng-icon name="lucideBell" />
-									Notifications
+									{{ _t()['notifications'] }}
 								</button>
 							</hlm-dropdown-menu-group>
 							<hlm-dropdown-menu-separator />
 							<button hlmDropdownMenuItem>
 								<ng-icon name="lucideLogOut" />
-								Log out
+								{{ _t()['logOut'] }}
 							</button>
 						</hlm-dropdown-menu>
 					</ng-template>
 				</hlm-sidebar-footer>
 			</hlm-sidebar>
 			<main hlmSidebarInset>
-				<header class="flex h-12 items-center justify-between px-4">
+				<header class="flex h-12 items-center justify-between gap-4 px-4">
 					<button hlmSidebarTrigger><span class="sr-only"></span></button>
+
+					<hlm-select class="inline-block" [(value)]="_languageService.language" [itemToString]="itemToString">
+						<hlm-select-trigger class="w-52">
+							<hlm-select-value />
+						</hlm-select-trigger>
+						<hlm-select-content *hlmSelectPortal [dir]="_dir()">
+							<hlm-select-group>
+								@for (language of languages; track language.value) {
+									<hlm-select-item [value]="language.value">
+										{{ language.label }}
+									</hlm-select-item>
+								}
+							</hlm-select-group>
+						</hlm-select-content>
+					</hlm-select>
 				</header>
 				<div class="flex flex-1 flex-col gap-4 p-4 pt-0">
 					<div class="grid auto-rows-min gap-4 md:grid-cols-3">
@@ -255,92 +270,225 @@ import { HlmSidebarImports, HlmSidebarService } from '@spartan-ng/helm/sidebar';
 		</div>
 	`,
 })
-export default class SidebarCollapsableIconsPage {
+export default class SidebarRtlPage {
 	private readonly _sidebarService = inject(HlmSidebarService);
-	protected readonly _menuSide = computed(() => (this._sidebarService.isMobile() ? 'top' : 'right'));
+	protected readonly _languageService = inject(TranslateService);
+	protected readonly _sidebarSide = computed(() => (this._dir() === 'rtl' ? 'right' : 'left'));
+	protected readonly _menuSide = computed(() => {
+		if (this._sidebarService.isMobile()) return 'top';
+		return this._dir() === 'rtl' ? 'left' : 'right';
+	});
 	protected readonly _menuAlign = computed(() => (this._sidebarService.isMobile() ? 'end' : 'start'));
+
+	public languages: { value: Language; label: string }[] = [
+		{ value: 'en', label: 'English' },
+		{ value: 'ar', label: 'Arabic (العربية)' },
+		{ value: 'he', label: 'Hebrew (עברית)' },
+	];
+
+	public itemToString = (value: Language) => this.languages.find((lang) => lang.value === value)?.label ?? '';
+
+	private readonly _language = inject(TranslateService).language;
+	private readonly _translations: Translations = {
+		en: {
+			dir: 'ltr',
+			values: {
+				teamName: 'Acme Inc',
+				teamPlan: 'Enterprise',
+				platform: 'Platform',
+				projects: 'Projects',
+				viewProject: 'View Project',
+				shareProject: 'Share Project',
+				deleteProject: 'Delete Project',
+				more: 'More',
+				upgradeToPro: 'Upgrade to Pro',
+				account: 'Account',
+				billing: 'Billing',
+				notifications: 'Notifications',
+				logOut: 'Log out',
+				playground: 'Playground',
+				history: 'History',
+				starred: 'Starred',
+				settings: 'Settings',
+				models: 'Models',
+				genesis: 'Genesis',
+				explorer: 'Explorer',
+				quantum: 'Quantum',
+				documentation: 'Documentation',
+				introduction: 'Introduction',
+				getStarted: 'Get Started',
+				tutorials: 'Tutorials',
+				changelog: 'Changelog',
+				general: 'General',
+				team: 'Team',
+				limits: 'Limits',
+				designEngineering: 'Design Engineering',
+				salesMarketing: 'Sales & Marketing',
+				travel: 'Travel',
+			},
+		},
+		ar: {
+			dir: 'rtl',
+			values: {
+				teamName: 'شركة أكمي',
+				teamPlan: 'المؤسسة',
+				platform: 'المنصة',
+				projects: 'المشاريع',
+				viewProject: 'عرض المشروع',
+				shareProject: 'مشاركة المشروع',
+				deleteProject: 'حذف المشروع',
+				more: 'المزيد',
+				upgradeToPro: 'ترقية إلى Pro',
+				account: 'الحساب',
+				billing: 'الفوترة',
+				notifications: 'الإشعارات',
+				logOut: 'تسجيل الخروج',
+				playground: 'ملعب',
+				history: 'السجل',
+				starred: 'المميز',
+				settings: 'الإعدادات',
+				models: 'النماذج',
+				genesis: 'جينيسيس',
+				explorer: 'إكسبلورر',
+				quantum: 'كوانتوم',
+				documentation: 'التوثيق',
+				introduction: 'مقدمة',
+				getStarted: 'ابدأ',
+				tutorials: 'الدروس',
+				changelog: 'سجل التغييرات',
+				general: 'عام',
+				team: 'الفريق',
+				limits: 'الحدود',
+				designEngineering: 'هندسة التصميم',
+				salesMarketing: 'المبيعات والتسويق',
+				travel: 'السفر',
+			},
+		},
+		he: {
+			dir: 'rtl',
+			values: {
+				teamName: 'אקמי בע״מ',
+				teamPlan: 'ארגוני',
+				platform: 'פלטפורמה',
+				projects: 'פרויקטים',
+				viewProject: 'הצג פרויקט',
+				shareProject: 'שתף פרויקט',
+				deleteProject: 'מחק פרויקט',
+				more: 'עוד',
+				upgradeToPro: 'שדרג ל-Pro',
+				account: 'חשבון',
+				billing: 'חיוב',
+				notifications: 'התראות',
+				logOut: 'התנתק',
+				playground: 'מגרש משחקים',
+				history: 'היסטוריה',
+				starred: 'מועדפים',
+				settings: 'הגדרות',
+				models: 'מודלים',
+				genesis: "ג'נסיס",
+				explorer: 'אקספלורר',
+				quantum: 'קוונטום',
+				documentation: 'תיעוד',
+				introduction: 'מבוא',
+				getStarted: 'התחל',
+				tutorials: 'מדריכים',
+				changelog: 'יומן שינויים',
+				general: 'כללי',
+				team: 'צוות',
+				limits: 'מגבלות',
+				designEngineering: 'הנדסת עיצוב',
+				salesMarketing: 'מכירות ושיווק',
+				travel: 'נסיעות',
+			},
+		},
+	};
+
+	private readonly _translation = computed(() => this._translations[this._language()]);
+	protected readonly _t = computed(() => this._translation().values);
+	protected readonly _dir = computed(() => this._translation().dir);
+
 	protected readonly _platforms = [
 		{
-			title: 'Playground',
+			titleKey: 'playground',
 			url: '.',
 			icon: 'lucideSquareTerminal',
 			isActive: true,
 			items: [
 				{
-					title: 'History',
+					titleKey: 'history',
 					url: '.',
 				},
 				{
-					title: 'Starred',
+					titleKey: 'starred',
 					url: '.',
 				},
 				{
-					title: 'Settings',
+					titleKey: 'settings',
 					url: '.',
 				},
 			],
 		},
 		{
-			title: 'Models',
+			titleKey: 'models',
 			url: '.',
 			icon: 'lucideBot',
 			items: [
 				{
-					title: 'Genesis',
+					titleKey: 'genesis',
 					url: '.',
 				},
 				{
-					title: 'Explorer',
+					titleKey: 'explorer',
 					url: '.',
 				},
 				{
-					title: 'Quantum',
+					titleKey: 'quantum',
 					url: '.',
 				},
 			],
 		},
 		{
-			title: 'Documentation',
+			titleKey: 'documentation',
 			url: '.',
 			icon: 'lucideBookOpen',
 			items: [
 				{
-					title: 'Introduction',
+					titleKey: 'introduction',
 					url: '.',
 				},
 				{
-					title: 'Get Started',
+					titleKey: 'getStarted',
 					url: '.',
 				},
 				{
-					title: 'Tutorials',
+					titleKey: 'tutorials',
 					url: '.',
 				},
 				{
-					title: 'Changelog',
+					titleKey: 'changelog',
 					url: '.',
 				},
 			],
 		},
 		{
-			title: 'Settings',
+			titleKey: 'settings',
 			url: '.',
 			icon: 'lucideSettings2',
 			items: [
 				{
-					title: 'General',
+					titleKey: 'general',
 					url: '.',
 				},
 				{
-					title: 'Team',
+					titleKey: 'team',
 					url: '.',
 				},
 				{
-					title: 'Billing',
+					titleKey: 'billing',
 					url: '.',
 				},
 				{
-					title: 'Limits',
+					titleKey: 'limits',
 					url: '.',
 				},
 			],
@@ -349,17 +497,17 @@ export default class SidebarCollapsableIconsPage {
 
 	protected readonly _projects = [
 		{
-			name: 'Design Engineering',
+			nameKey: 'designEngineering',
 			url: '.',
 			icon: 'lucideFrame',
 		},
 		{
-			name: 'Sales & Marketing',
+			nameKey: 'salesMarketing',
 			url: '.',
 			icon: 'lucideChartPie',
 		},
 		{
-			name: 'Travel',
+			nameKey: 'travel',
 			url: '.',
 			icon: 'lucideMap',
 		},

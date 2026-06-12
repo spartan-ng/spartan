@@ -17,6 +17,6 @@ export class HlmSidebarWrapper {
 	public readonly sidebarWidthIcon = input<string>(this._config.sidebarWidthIcon);
 
 	constructor() {
-		classes(() => 'group/sidebar-wrapper has-[[data-variant=inset]]:bg-sidebar flex min-h-svh w-full');
+		classes(() => 'group/sidebar-wrapper has-data-[variant=inset]:bg-sidebar flex min-h-svh w-full');
 	}
 }

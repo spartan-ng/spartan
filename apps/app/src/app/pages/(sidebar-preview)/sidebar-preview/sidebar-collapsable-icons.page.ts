@@ -130,7 +130,7 @@ import { HlmSidebarImports, HlmSidebarService } from '@spartan-ng/helm/sidebar';
 									<button
 										hlmSidebarMenuAction
 										showOnHover
-										[hlmDropdownMenuTrigger]="menu"
+										[hlmDropdownMenuTrigger]="projectMenu"
 										[hlmDropdownMenuTriggerData]="{ $implicit: { project } }"
 										[side]="_menuSide()"
 										[align]="_menuAlign()"
@@ -149,7 +149,7 @@ import { HlmSidebarImports, HlmSidebarService } from '@spartan-ng/helm/sidebar';
 						</ul>
 					</hlm-sidebar-group>
 
-					<ng-template #menu let-ctx>
+					<ng-template #projectMenu let-ctx>
 						<hlm-dropdown-menu class="w-48">
 							<hlm-dropdown-menu-group>
 								<hlm-dropdown-menu-label>{{ ctx.project.name }}</hlm-dropdown-menu-label>
@@ -174,7 +174,13 @@ import { HlmSidebarImports, HlmSidebarService } from '@spartan-ng/helm/sidebar';
 				<hlm-sidebar-footer>
 					<ul hlmSidebarMenu>
 						<li hlmSidebarMenuItem>
-							<button hlmSidebarMenuButton size="lg" [hlmDropdownMenuTrigger]="menu" [side]="_menuSide()" align="end">
+							<button
+								hlmSidebarMenuButton
+								size="lg"
+								[hlmDropdownMenuTrigger]="avatarMenu"
+								[side]="_menuSide()"
+								align="end"
+							>
 								<hlm-avatar class="rounded-lg">
 									<img src="/assets/avatar.png" alt="spartan" hlmAvatarImage />
 									<span class="rounded-lg bg-[#FD005B] text-white" hlmAvatarFallback>RG</span>
@@ -188,7 +194,7 @@ import { HlmSidebarImports, HlmSidebarService } from '@spartan-ng/helm/sidebar';
 						</li>
 					</ul>
 
-					<ng-template #menu>
+					<ng-template #avatarMenu>
 						<hlm-dropdown-menu class="min-w-56 rounded-lg">
 							<hlm-dropdown-menu-label>
 								<div class="flex items-center gap-2 px-1 py-1.5 text-left text-sm">

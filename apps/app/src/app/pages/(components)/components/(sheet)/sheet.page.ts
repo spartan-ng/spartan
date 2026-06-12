@@ -1,6 +1,8 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { CodeRtlPreview } from '@spartan-ng/app/app/shared/code/code-rtl-preview';
+import { RtlHeader } from '@spartan-ng/app/app/shared/code/rtl-header';
 import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
@@ -16,6 +18,8 @@ import { Tabs } from '../../../../shared/layout/tabs';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { SheetClosePreview } from './sheet--close.preview';
+import { SheetNoClose } from './sheet--no-close.preview';
+import { SheetRtl } from './sheet--rtl.preview';
 import { SheetSidePreview } from './sheet--side.preview';
 import { SheetSizePreview } from './sheet--size.preview';
 import { SheetPreview, defaultImports, defaultSkeleton } from './sheet.preview';
@@ -44,17 +48,22 @@ export const routeMeta: RouteMeta = {
 		PageNav,
 		PageBottomNav,
 		PageBottomNavLink,
+		SectionSubSubHeading,
+		RtlHeader,
+		CodeRtlPreview,
 		SheetPreview,
 		SheetSidePreview,
 		SheetSizePreview,
 		SheetClosePreview,
-		SectionSubSubHeading,
+		SheetNoClose,
+		SheetRtl,
 	],
 	template: `
 		<section spartanMainSection>
 			<spartan-section-intro
 				name="Sheet"
 				lead="Extends the Dialog component to display content that complements the main content of the screen."
+				showThemeToggle
 			/>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
@@ -64,7 +73,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
-			<spartan-install-tabs primitive="sheet" />
+			<spartan-install-tabs primitive="sheet" [showOnlyVega]="false" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">
@@ -73,12 +82,20 @@ export const routeMeta: RouteMeta = {
 			</div>
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__sides" spartanH4>Sides</h3>
+			<h3 id="side" spartanH4>Side</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-sheet-side-preview />
 				</div>
 				<spartan-code secondTab [code]="_sideCode()" />
+			</spartan-tabs>
+
+			<h3 id="no-close" spartanH4>No Close</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-sheet-no-close />
+				</div>
+				<spartan-code secondTab [code]="_noCloseCode()" />
 			</spartan-tabs>
 
 			<h3 id="examples__size_sheet" spartanH4>Size</h3>
@@ -103,6 +120,14 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_closeCode()" />
 			</spartan-tabs>
 
+			<spartan-header-rtl />
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanRtlCodePreview firstTab>
+					<spartan-sheet-rtl />
+				</div>
+				<spartan-code secondTab [code]="_rtlCode()" />
+			</spartan-tabs>
+
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="brain" />
 
@@ -121,8 +146,10 @@ export default class LabelPage {
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('sheet');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _sideCode = computed(() => this._snippets()['side']);
+	protected readonly _noCloseCode = computed(() => this._snippets()['noClose']);
 	protected readonly _closeCode = computed(() => this._snippets()['close']);
 	protected readonly _sizeCode = computed(() => this._snippets()['size']);
+	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

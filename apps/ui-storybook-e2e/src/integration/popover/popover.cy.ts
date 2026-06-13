@@ -19,7 +19,7 @@ describe('popover--default', () => {
 			cy.findAllByText(/Dimensions/).should('have.length', 1);
 			cy.findByRole('dialog');
 			cy.findByRole('dialog').should('not.have.attr', 'aria-labelledby');
-			cy.findByRole('dialog').should('have.attr', 'aria-modal', 'true');
+			cy.findByRole('dialog').should('not.have.attr', 'aria-modal');
 			cy.findByRole('dialog').should('have.attr', 'tabindex', '-1');
 
 			// click outside of dialog
@@ -28,7 +28,7 @@ describe('popover--default', () => {
 			cy.findAllByText(/open popover/i).should('have.focus');
 		});
 
-		it('tab and enter on trigger should open, enter on close should close, escape should close', () => {
+		it('tab and enter on trigger should open, escape should close', () => {
 			cy.checkA11y('#storybook-root', {
 				rules: {
 					'page-has-heading-one': { enabled: false },
@@ -43,17 +43,16 @@ describe('popover--default', () => {
 			cy.findAllByText(/Dimensions/).should('have.length', 1);
 			cy.findByRole('dialog');
 			cy.findByRole('dialog').should('not.have.attr', 'aria-labelledby');
-			cy.findByRole('dialog').should('have.attr', 'aria-modal', 'true');
+			cy.findByRole('dialog').should('not.have.attr', 'aria-modal');
 			cy.findByRole('dialog').should('have.attr', 'tabindex', '-1');
 
-			cy.realPress(['Shift', 'Tab']);
 			cy.realPress('Escape');
 			cy.findAllByText(/open popover/i).should('have.length', 1);
 			cy.findAllByText(/open popover/i).should('have.focus');
 			cy.realPress('Enter');
 		});
 
-		it('tab and space on trigger should open, tabs should wrap, space on close should close', () => {
+		it('tab and space on trigger should open, tab through content, escape should close', () => {
 			cy.checkA11y('#storybook-root', {
 				rules: {
 					'page-has-heading-one': { enabled: false },
@@ -68,7 +67,7 @@ describe('popover--default', () => {
 			cy.findAllByText(/Dimensions/).should('have.length', 1);
 			cy.findByRole('dialog');
 			cy.findByRole('dialog').should('not.have.attr', 'aria-labelledby');
-			cy.findByRole('dialog').should('have.attr', 'aria-modal', 'true');
+			cy.findByRole('dialog').should('not.have.attr', 'aria-modal');
 			cy.findByRole('dialog').should('have.attr', 'tabindex', '-1');
 
 			cy.realPress('Tab');

@@ -29,4 +29,12 @@ export class BrnPopoverTrigger extends BrnOverlayTrigger {
 		popover.setOrigin(this._host.nativeElement);
 		popover.open();
 	}
+
+	public override toggle(): void {
+		const popover = this.getOverlay();
+		if (!popover) return;
+
+		popover.setOrigin(this._host.nativeElement);
+		popover.toggle();
+	}
 }

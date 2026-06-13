@@ -188,10 +188,14 @@ export class BrnSelectMultiple<T> implements BrnSelectBase<T>, ControlValueAcces
 		this._brnPopover?.open();
 	}
 
-	private close(): void {
+	public close(): void {
 		if (this._disabled() || !this.isExpanded()) return;
 
 		this._brnPopover?.close();
+	}
+
+	public toggle(): void {
+		this.isExpanded() ? this.close() : this.open();
 	}
 
 	/** CONTROL VALUE ACCESSOR */

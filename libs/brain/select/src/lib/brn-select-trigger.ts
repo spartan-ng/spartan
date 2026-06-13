@@ -18,7 +18,7 @@ import { injectBrnSelectBase } from './brn-select.token';
 		'[attr.data-dirty]': '_dirty?.() ? "true": null',
 		'[attr.data-touched]': '_touched?.() ? "true" : null',
 		'[attr.data-matches-spartan-invalid]': '_spartanInvalid?.() ? "true" : null',
-		'(click)': 'open()',
+		'(click)': 'toggle()',
 		'(keydown)': 'onKeyDown($event)',
 	},
 })
@@ -58,11 +58,15 @@ export class BrnSelectTrigger {
 
 		effect(() => {
 			const size = this._elementSize();
-			if (size) {
-				this._select.updateTriggerWidth(size.width);
-				this._brnOverlay?.updatePosition();
-			}
+			if (!size) return;
+
+			this._select.updateTriggerWidth(size.width);
+			this._brnOverlay?.updatePosition();
 		});
+	}
+
+	protected toggle() {
+		this._select.toggle();
 	}
 
 	protected open() {

@@ -1,3 +1,4 @@
+import { DOCUMENT } from '@angular/common';
 import { Directionality } from '@angular/cdk/bidi';
 import type { BooleanInput } from '@angular/cdk/coercion';
 import { OverlayPositionBuilder, type ScrollStrategy, ScrollStrategyOptions } from '@angular/cdk/overlay';
@@ -19,6 +20,7 @@ import {
 	ViewContainerRef,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { cssClassesToArray } from '@spartan-ng/brain/core';
 import type { BrnOverlayOptions } from './brn-overlay-options';
 import type { BrnOverlayRef } from './brn-overlay-ref';
 import type { BrnOverlayState } from './brn-overlay-state';
@@ -27,11 +29,6 @@ import type { BrnOverlayDefaultOptions } from './brn-overlay-token';
 import { BrnOverlayService } from './brn-overlay.service';
 
 let overlayIdSequence = 0;
-
-function classesToArray(classes: string | string[] | null | undefined): string[] {
-	if (Array.isArray(classes)) return classes;
-	return classes?.split(' ').filter(Boolean) ?? [];
-}
 
 type OverlayContentRegistration<TContext> = {
 	template: TemplateRef<unknown>;
@@ -47,10 +44,11 @@ export class BrnOverlay<TResult = unknown, TContext extends Record<string, unkno
 	private readonly _overlayService = inject(BrnOverlayService);
 	private readonly _destroyRef = inject(DestroyRef);
 	private readonly _vcr = inject(ViewContainerRef);
-	protected readonly positionBuilder = inject(OverlayPositionBuilder);
+	protected readonly _positionBuilder = inject(OverlayPositionBuilder);
 	private readonly _scrollStrategies = inject(ScrollStrategyOptions);
 	private readonly _injector = inject(Injector);
 	private readonly _directionality = inject(Directionality);
+	private readonly _document = inject(DOCUMENT);
 	protected readonly _defaultOptions = this.getDefaultOptions();
 
 	private readonly _overlayRef = signal<BrnOverlayRef<TResult> | undefined>(undefined);
@@ -96,12 +94,12 @@ export class BrnOverlay<TResult = unknown, TContext extends Record<string, unkno
 		positionStrategy: this.getPositionStrategy(),
 		scrollStrategy: this.getScrollStrategy(),
 		closeOnOutsidePointerEvents: this.closeOnOutsidePointerEvents(),
-		closeOnBackdropClick: this.closeOnBackdropClick(),
+		closeOnBackdropClick: this.getCloseOnBackdropClick(),
 		attachTo: this.getAttachTo(),
 		attachPositions: this.getAttachPositions(),
 		disableClose: this.disableClose(),
-		backdropClass: classesToArray(this._backdropClass() ?? this._defaultOptions.backdropClass),
-		panelClass: classesToArray(this._panelClass() ?? this._content?.panelClass() ?? this._defaultOptions.panelClass),
+		backdropClass: cssClassesToArray(this._backdropClass() ?? this._defaultOptions.backdropClass),
+		panelClass: cssClassesToArray(this._panelClass() ?? this._content?.panelClass() ?? this._defaultOptions.panelClass),
 	}));
 
 	constructor() {
@@ -132,6 +130,7 @@ export class BrnOverlay<TResult = unknown, TContext extends Record<string, unkno
 			return;
 		}
 
+		const elementToRestoreFocusTo = this._document.activeElement;
 		const overlayRef = this._overlayService.open<TContext, TResult>(
 			this._content.template,
 			this._vcr,
@@ -146,12 +145,17 @@ export class BrnOverlay<TResult = unknown, TContext extends Record<string, unkno
 
 		overlayRef.closed$.pipe(takeUntilDestroyed(this._destroyRef)).subscribe((result) => {
 			if (this._overlayRef() === overlayRef) this._overlayRef.set(undefined);
+			this._restoreFocus(elementToRestoreFocusTo);
 			this.closed.emit(result as TResult);
 		});
 	}
 
 	public close(result?: TResult): void {
 		this._overlayRef()?.close(result);
+	}
+
+	public toggle(result?: TResult): void {
+		this.stateComputed() === 'open' ? this.close(result) : this.open();
 	}
 
 	public registerContent(
@@ -192,10 +196,27 @@ export class BrnOverlay<TResult = unknown, TContext extends Record<string, unkno
 		return this.positionStrategy();
 	}
 
+	protected getCloseOnBackdropClick(): boolean {
+		return this.closeOnBackdropClick();
+	}
+
 	private getScrollStrategy(): ScrollStrategy | null | undefined {
 		const strategy = this.scrollStrategy();
 		if (strategy === 'close') return this._scrollStrategies.close();
 		if (strategy === 'reposition') return this._scrollStrategies.reposition();
 		return strategy;
+	}
+
+	private _restoreFocus(element: Element | null): void {
+		const HTMLElementCtor = this._document.defaultView?.HTMLElement;
+		if (!HTMLElementCtor || !(element instanceof HTMLElementCtor) || element === this._document.body || !element.isConnected) {
+			return;
+		}
+
+		const activeElement = this._document.activeElement;
+		const shouldRestoreFocus =
+			activeElement === this._document.body || !activeElement || !activeElement.isConnected;
+
+		if (shouldRestoreFocus) element.focus({ preventScroll: true });
 	}
 }

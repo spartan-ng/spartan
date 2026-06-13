@@ -19,14 +19,14 @@ export class BrnComboboxAnchor {
 		// skip if it's inside a combobox content
 		if (this._content) return;
 
+		this._brnOverlay?.setOrigin(this._host.nativeElement);
+
 		effect(() => {
 			const size = this._elementSize();
-			if (size) {
-				this._combobox.updateInputWidth(size.width);
-					this._brnOverlay?.updatePosition();
-				}
-			});
+			if (!size) return;
 
-			this._brnOverlay?.setOrigin(this._host.nativeElement);
-		}
+			this._combobox.updateInputWidth(size.width);
+			this._brnOverlay?.updatePosition();
+		});
 	}
+}

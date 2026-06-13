@@ -10,7 +10,7 @@ let triggerIdSequence = 0;
 	exportAs: 'brnOverlayTrigger',
 	host: {
 		'[id]': 'id()',
-		'(click)': 'open()',
+		'(click)': 'toggle()',
 		'[attr.aria-expanded]': "state() === 'open' ? 'true' : 'false'",
 		'[attr.data-state]': 'state()',
 		'[attr.aria-controls]': 'overlayId()',
@@ -36,5 +36,9 @@ export class BrnOverlayTrigger {
 
 	public open(): void {
 		this.getOverlay()?.open();
+	}
+
+	public toggle(): void {
+		this.getOverlay()?.toggle();
 	}
 }

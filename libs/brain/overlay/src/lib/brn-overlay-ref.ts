@@ -1,14 +1,9 @@
 import type { OverlayRef } from '@angular/cdk/overlay';
-import { afterNextRender, computed, type Injector, type Signal, signal, type WritableSignal } from '@angular/core';
-import { getActiveElementAnimations, waitForAnimations } from '@spartan-ng/brain/core';
+import { afterNextRender, computed, type Injector, signal } from '@angular/core';
+import { cssClassesToArray, getActiveElementAnimations, waitForAnimations } from '@spartan-ng/brain/core';
 import { type Observable, ReplaySubject, Subject } from 'rxjs';
 import type { BrnOverlayOptions } from './brn-overlay-options';
 import type { BrnOverlayDismissReason, BrnOverlayPhase, BrnOverlayState } from './brn-overlay-state';
-
-function classesToArray(classes: string | string[] | null | undefined): string[] {
-	if (Array.isArray(classes)) return classes;
-	return classes?.split(' ').filter(Boolean) ?? [];
-}
 
 export class BrnOverlayRef<OverlayResult = unknown> {
 	private readonly _closing = new Subject<void>();
@@ -23,9 +18,6 @@ export class BrnOverlayRef<OverlayResult = unknown> {
 	private readonly _phase = signal<BrnOverlayPhase>('open');
 	public readonly phase = this._phase.asReadonly();
 	public readonly state = computed<BrnOverlayState>(() => (this._phase() === 'open' ? 'open' : 'closed'));
-
-	private readonly _options: WritableSignal<BrnOverlayOptions>;
-	public readonly options: Signal<BrnOverlayOptions>;
 
 	private _closeGeneration = 0;
 	private _panelClasses: string[];
@@ -46,10 +38,8 @@ export class BrnOverlayRef<OverlayResult = unknown> {
 		private readonly initialOptions: BrnOverlayOptions,
 		private readonly _onDisposed: () => void,
 	) {
-		this._options = signal(initialOptions);
-		this.options = this._options.asReadonly();
-		this._panelClasses = classesToArray(initialOptions.panelClass);
-		this._backdropClasses = classesToArray(initialOptions.backdropClass);
+		this._panelClasses = cssClassesToArray(initialOptions.panelClass);
+		this._backdropClasses = cssClassesToArray(initialOptions.backdropClass);
 		this._setDataState('open');
 		this._stateChanged.next('open');
 	}
@@ -74,7 +64,7 @@ export class BrnOverlayRef<OverlayResult = unknown> {
 	}
 
 	public dismiss(reason: BrnOverlayDismissReason): boolean {
-		const options = this._options();
+		const options = this.initialOptions;
 		if (!this.open || options.disableClose) return false;
 		if (reason === 'backdrop' && !options.closeOnBackdropClick) return false;
 		if (reason === 'outside' && !options.closeOnOutsidePointerEvents) return false;
@@ -101,7 +91,7 @@ export class BrnOverlayRef<OverlayResult = unknown> {
 
 	public setPanelClass(panelClass: string | string[] | null | undefined): void {
 		if (this._panelClasses.length) this._overlayRef.removePanelClass(this._panelClasses);
-		this._panelClasses = classesToArray(panelClass);
+		this._panelClasses = cssClassesToArray(panelClass);
 		if (this._panelClasses.length) this._overlayRef.addPanelClass(this._panelClasses);
 	}
 
@@ -110,7 +100,7 @@ export class BrnOverlayRef<OverlayResult = unknown> {
 		if (!backdrop) return;
 
 		backdrop.classList.remove(...this._backdropClasses);
-		this._backdropClasses = classesToArray(backdropClass);
+		this._backdropClasses = cssClassesToArray(backdropClass);
 		backdrop.classList.add(...this._backdropClasses);
 	}
 

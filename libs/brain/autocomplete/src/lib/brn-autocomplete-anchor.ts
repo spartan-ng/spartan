@@ -12,14 +12,14 @@ export class BrnAutocompleteAnchor {
 	private readonly _elementSize = injectElementSize();
 
 	constructor() {
+		this._brnOverlay?.setOrigin(this._host.nativeElement);
+
 		effect(() => {
 			const size = this._elementSize();
-			if (size) {
-					this._autocomplete.updateInputWidth(size.width);
-					this._brnOverlay?.updatePosition();
-				}
-			});
+			if (!size) return;
 
-			this._brnOverlay?.setOrigin(this._host.nativeElement);
-		}
+			this._autocomplete.updateInputWidth(size.width);
+			this._brnOverlay?.updatePosition();
+		});
 	}
+}

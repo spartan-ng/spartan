@@ -61,6 +61,10 @@ export class BrnPopover extends BrnOverlay {
 	protected override getPositionStrategy() {
 		const attachTo = this.getAttachTo();
 		if (!attachTo) return super.getPositionStrategy();
-		return this.positionBuilder.flexibleConnectedTo(attachTo).withPositions(this.getAttachPositions()).withPush(false);
+		return this._positionBuilder.flexibleConnectedTo(attachTo).withPositions(this.getAttachPositions()).withPush(false);
+	}
+
+	protected override getCloseOnBackdropClick(): boolean {
+		return this.closeOnOutsidePointerEvents() && this.closeOnBackdropClick();
 	}
 }

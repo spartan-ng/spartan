@@ -1,4 +1,4 @@
-import { Directive, effect, ElementRef, inject, input, untracked } from '@angular/core';
+import { Directive, effect, ElementRef, inject, input } from '@angular/core';
 import { BrnOverlay } from '@spartan-ng/brain/overlay';
 import { BrnPopover } from '@spartan-ng/brain/popover';
 
@@ -13,11 +13,7 @@ export class HlmDatePickerAnchor {
 
 	constructor() {
 		effect(() => {
-			const brnDialog = this.hlmDatePickerAnchorFor();
-			untracked(() => {
-				if (!brnDialog) return;
-				brnDialog.setOrigin(this._host.nativeElement);
-			});
+			this.hlmDatePickerAnchorFor()?.setOrigin(this._host.nativeElement);
 		});
 
 		this._brnOverlay?.setOrigin(this._host.nativeElement);

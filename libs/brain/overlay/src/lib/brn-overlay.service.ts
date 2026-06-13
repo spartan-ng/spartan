@@ -1,6 +1,6 @@
 import { Overlay, OverlayPositionBuilder, type OverlayRef, ScrollStrategyOptions } from '@angular/cdk/overlay';
 import { ComponentPortal, type ComponentType, TemplatePortal } from '@angular/cdk/portal';
-import { inject, Injectable, Injector, type StaticProvider, TemplateRef, type Type } from '@angular/core';
+import { inject, Injectable, Injector, type StaticProvider, TemplateRef } from '@angular/core';
 import type { ViewContainerRef } from '@angular/core';
 import { merge, Subject } from 'rxjs';
 import { filter, map, takeUntil } from 'rxjs/operators';
@@ -12,7 +12,6 @@ import { BRN_OVERLAY_DATA, injectBrnOverlayDefaultOptions } from './brn-overlay-
 let overlaySequence = 0;
 
 export type BrnOverlayContext<T> = T & { close: (result?: unknown) => void };
-type RegistryOverlayRef = BrnOverlayRef<unknown>;
 
 @Injectable({ providedIn: 'root' })
 export class BrnOverlayService {
@@ -22,15 +21,14 @@ export class BrnOverlayService {
 	private readonly _injector = inject(Injector);
 	private readonly _defaultOptions = injectBrnOverlayDefaultOptions();
 
-	private readonly _openOverlays = new Map<string, RegistryOverlayRef>();
-	private readonly _overlayStack: RegistryOverlayRef[] = [];
+	private readonly _openOverlayIds = new Set<string>();
+	private readonly _overlayStack: OverlayRef[] = [];
 
 	public open<OverlayContext, OverlayResult = unknown>(
 		content: ComponentType<unknown> | TemplateRef<unknown>,
 		vcr?: ViewContainerRef,
 		context?: OverlayContext,
 		options?: Partial<BrnOverlayOptions>,
-		refTokens: Type<unknown>[] = [],
 	): BrnOverlayRef<OverlayResult> {
 		const mergedOptions: BrnOverlayOptions = {
 			...this._defaultOptions,
@@ -38,7 +36,7 @@ export class BrnOverlayService {
 			id: options?.id ?? `brn-overlay-${overlaySequence + 1}`,
 		};
 
-		if (this._openOverlays.has(mergedOptions.id)) {
+		if (this._openOverlayIds.has(mergedOptions.id)) {
 			throw new Error(`Overlay with ID: ${mergedOptions.id} already exists`);
 		}
 
@@ -69,8 +67,8 @@ export class BrnOverlayService {
 			() => {
 				destroyed.next();
 				destroyed.complete();
-				this._openOverlays.delete(mergedOptions.id);
-				this._removeFromStack(brnOverlayRef as RegistryOverlayRef);
+				this._openOverlayIds.delete(mergedOptions.id);
+				this._removeFromStack(overlayRef);
 			},
 		);
 
@@ -80,12 +78,12 @@ export class BrnOverlayService {
 		};
 		const portalInjector = Injector.create({
 			parent: vcr?.injector ?? this._injector,
-			providers: this._createProviders(brnOverlayRef, contextOrData, mergedOptions, refTokens),
+			providers: this._createProviders(brnOverlayRef, contextOrData, mergedOptions),
 		});
 
 		this._configureElement(overlayRef, mergedOptions);
-		this._openOverlays.set(mergedOptions.id, brnOverlayRef as RegistryOverlayRef);
-		this._overlayStack.push(brnOverlayRef as RegistryOverlayRef);
+		this._openOverlayIds.add(mergedOptions.id);
+		this._overlayStack.push(overlayRef);
 		this._connectDismissalEvents(brnOverlayRef, overlayRef, destroyed);
 		overlayRef
 			.detachments()
@@ -107,20 +105,14 @@ export class BrnOverlayService {
 		return brnOverlayRef;
 	}
 
-	public getOverlayById(id: string): BrnOverlayRef | undefined {
-		return this._openOverlays.get(id);
-	}
-
 	private _createProviders<Result, Context>(
 		ref: BrnOverlayRef<Result>,
 		context: BrnOverlayContext<Context>,
 		options: BrnOverlayOptions,
-		refTokens: Type<unknown>[],
 	): StaticProvider[] {
 		const providers: StaticProvider[] = [
 			{ provide: BrnOverlayRef, useValue: ref },
 			{ provide: BRN_OVERLAY_DATA, useValue: context },
-			...refTokens.map((token) => ({ provide: token, useValue: ref })),
 		];
 		if (options.providers) {
 			providers.push(...(typeof options.providers === 'function' ? options.providers() : options.providers));
@@ -151,20 +143,21 @@ export class BrnOverlayService {
 			),
 		)
 			.pipe(takeUntil(destroyed))
-			.subscribe(({ event, reason }) => this._requestDismissal(ref, reason, event));
+			.subscribe(({ event, reason }) => this._requestDismissal(ref, overlayRef, reason, event));
 	}
 
 	private _requestDismissal<Result>(
 		ref: BrnOverlayRef<Result>,
+		overlayRef: OverlayRef,
 		reason: BrnOverlayDismissReason,
 		event: MouseEvent | KeyboardEvent,
 	): void {
-		if (reason !== 'backdrop' && this._overlayStack.at(-1) !== ref) return;
+		if (reason !== 'backdrop' && this._overlayStack.at(-1) !== overlayRef) return;
 		if (ref.dismiss(reason) && reason === 'escape') event.preventDefault();
 	}
 
-	private _removeFromStack(ref: RegistryOverlayRef): void {
-		const index = this._overlayStack.indexOf(ref);
+	private _removeFromStack(overlayRef: OverlayRef): void {
+		const index = this._overlayStack.indexOf(overlayRef);
 		if (index !== -1) this._overlayStack.splice(index, 1);
 	}
 }

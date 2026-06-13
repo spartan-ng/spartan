@@ -27,7 +27,9 @@ export function injectBrnPopoverConfig(): BrnPopoverConfig {
 
 export const BRN_POPOVER_OVERLAY_DEFAULT_OPTIONS: BrnOverlayDefaultOptions = {
 	...overlayDefaultOptions,
+	backdropClass: 'cdk-overlay-transparent-backdrop',
 	closeOnOutsidePointerEvents: true,
+	hasBackdrop: true,
 	role: 'dialog',
 	scrollStrategy: 'reposition',
 };

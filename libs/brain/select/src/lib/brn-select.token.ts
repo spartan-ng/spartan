@@ -28,6 +28,8 @@ export interface BrnSelectBase<T> {
 	/** Select the active item with Enter key. */
 	selectActiveItem: () => void;
 	open: () => void;
+	close: () => void;
+	toggle: () => void;
 	registerSelectTrigger: (input: BrnSelectTrigger) => void;
 	updateTriggerWidth: (width: number | null) => void;
 }

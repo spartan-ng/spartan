@@ -1,5 +1,5 @@
 import type { DialogRef } from '@angular/cdk/dialog';
-import { afterNextRender, computed, type Injector, type Signal, signal, type WritableSignal } from '@angular/core';
+import { afterNextRender, computed, type Injector, signal } from '@angular/core';
 import { getActiveElementAnimations, waitForAnimations } from '@spartan-ng/brain/core';
 import { type Observable, ReplaySubject, Subject } from 'rxjs';
 import type { BrnDialogOptions } from './brn-dialog-options';
@@ -20,9 +20,6 @@ export class BrnDialogRef<DialogResult = unknown> {
 	public readonly phase = this._phase.asReadonly();
 	public readonly state = computed<BrnDialogState>(() => (this._phase() === 'open' ? 'open' : 'closed'));
 
-	private readonly _options: WritableSignal<BrnDialogOptions>;
-	public readonly options: Signal<BrnDialogOptions>;
-
 	private _closeGeneration = 0;
 	private _panelClasses: string[];
 	private _backdropClasses: string[];
@@ -41,8 +38,6 @@ export class BrnDialogRef<DialogResult = unknown> {
 		public readonly dialogId: number,
 		private readonly initialOptions: BrnDialogOptions,
 	) {
-		this._options = signal(initialOptions);
-		this.options = this._options.asReadonly();
 		this._panelClasses = cssClassesToArray(initialOptions.panelClass);
 		this._backdropClasses = cssClassesToArray(initialOptions.backdropClass);
 		this._setDataState('open');
@@ -77,7 +72,7 @@ export class BrnDialogRef<DialogResult = unknown> {
 	}
 
 	public dismiss(reason: BrnDialogDismissReason): boolean {
-		const options = this._options();
+		const options = this.initialOptions;
 		if (!this.open || options.disableClose) return false;
 		if (reason === 'backdrop' && !options.closeOnBackdropClick) return false;
 		if (reason === 'outside' && !options.closeOnOutsidePointerEvents) return false;

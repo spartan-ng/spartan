@@ -178,7 +178,7 @@
 	}
 
 	.spartan-select-content {
-		@apply bg-popover no-scrollbar text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/5 dark:ring-foreground/10 max-h-72 min-w-36 flex-col rounded-3xl shadow-lg ring-1 duration-100;
+		@apply bg-popover no-scrollbar text-popover-foreground ring-foreground/5 dark:ring-foreground/10 max-h-72 min-w-36 flex-col rounded-3xl shadow-lg ring-1;
 	}
 
 	.spartan-select-label {
@@ -228,7 +228,7 @@
 
 	/* MARK: Combobox */
 	.spartan-combobox-content {
-		@apply bg-popover text-popover-foreground data-open:animate-in **:has-[[data-slot=input-group-control]:focus-visible]:border-input data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-end-2 data-[side=right]:slide-in-from-start-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/5 dark:ring-foreground/10 **:data-[slot=input-group]:bg-input/50 **:data-[slot=input-group]:border-input/30 max-h-72 min-w-36 overflow-hidden rounded-3xl shadow-lg ring-1 duration-100 **:has-[[data-slot=input-group-control]:focus-visible]:ring-0 **:data-[slot=input-group]:m-1.5 **:data-[slot=input-group]:mb-0 **:data-[slot=input-group]:h-8 **:data-[slot=input-group]:shadow-none;
+		@apply bg-popover text-popover-foreground **:has-[[data-slot=input-group-control]:focus-visible]:border-input ring-foreground/5 dark:ring-foreground/10 **:data-[slot=input-group]:bg-input/50 **:data-[slot=input-group]:border-input/30 max-h-72 min-w-36 overflow-hidden rounded-3xl shadow-lg ring-1 **:has-[[data-slot=input-group-control]:focus-visible]:ring-0 **:data-[slot=input-group]:m-1.5 **:data-[slot=input-group]:mb-0 **:data-[slot=input-group]:h-8 **:data-[slot=input-group]:shadow-none;
 	}
 
 	.spartan-combobox-label {
@@ -450,11 +450,11 @@
 
 	/* MARK: Alert Dialog */
 	.spartan-alert-dialog-overlay {
-		@apply data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 bg-black/30 duration-100 supports-backdrop-filter:backdrop-blur-sm;
+		@apply data-open:animate-in data-open:fade-in-0 bg-black/30 transition-opacity duration-200! data-closed:opacity-0! supports-backdrop-filter:backdrop-blur-sm;
 	}
 
 	.spartan-alert-dialog-content {
-		@apply data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 bg-popover text-popover-foreground ring-foreground/5 dark:ring-foreground/10 gap-6 rounded-4xl p-6 shadow-xl ring-1 duration-100 data-[size=default]:max-w-xs data-[size=sm]:max-w-xs data-[size=default]:sm:max-w-md;
+		@apply bg-popover text-popover-foreground ring-foreground/5 dark:ring-foreground/10 gap-6 rounded-4xl p-6 shadow-xl ring-1 data-[size=default]:max-w-xs data-[size=sm]:max-w-xs data-[size=default]:sm:max-w-md;
 	}
 
 	.spartan-alert-dialog-header {
@@ -500,7 +500,7 @@
 
 	/* MARK: Autocomplete */
 	.spartan-autocomplete-content {
-		@apply bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-end-2 data-[side=right]:slide-in-from-start-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/5 dark:ring-foreground/10 max-h-72 min-w-36 overflow-hidden rounded-3xl shadow-lg ring-1 duration-100;
+		@apply bg-popover text-popover-foreground ring-foreground/5 dark:ring-foreground/10 max-h-72 min-w-36 overflow-hidden rounded-3xl shadow-lg ring-1;
 	}
 
 	.spartan-autocomplete-label {
@@ -711,11 +711,11 @@
 
 	/* MARK: Dialog */
 	.spartan-dialog-overlay {
-		@apply data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 bg-black/30 duration-100 supports-backdrop-filter:backdrop-blur-sm;
+		@apply data-open:animate-in data-open:fade-in-0 bg-black/30 transition-opacity duration-200! data-closed:opacity-0! supports-backdrop-filter:backdrop-blur-sm;
 	}
 
 	.spartan-dialog-content {
-		@apply bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 ring-foreground/5 dark:ring-foreground/10 grid max-w-[calc(100%-2rem)] gap-6 rounded-4xl p-6 text-sm shadow-xl ring-1 duration-100 sm:max-w-md;
+		@apply bg-popover text-popover-foreground ring-foreground/5 dark:ring-foreground/10 grid max-w-[calc(100%-2rem)] gap-6 rounded-4xl p-6 text-sm shadow-xl ring-1 sm:max-w-md;
 	}
 
 	.spartan-dialog-close {
@@ -1137,7 +1137,7 @@
 
 	/* MARK: Popover */
 	.spartan-popover-content {
-		@apply bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-end-2 data-[side=right]:slide-in-from-start-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/5 dark:ring-foreground/10 flex flex-col gap-4 rounded-3xl p-4 text-sm shadow-lg ring-1 duration-100;
+		@apply bg-popover text-popover-foreground ring-foreground/5 dark:ring-foreground/10 flex flex-col gap-4 rounded-3xl p-4 text-sm shadow-lg ring-1;
 	}
 
 	.spartan-popover-content-logical {
@@ -1206,7 +1206,7 @@
 	}
 
 	.spartan-sheet-content {
-		@apply bg-popover text-popover-foreground fixed flex flex-col bg-clip-padding text-sm shadow-xl transition duration-200 ease-in-out data-[side=bottom]:inset-x-0 data-[side=bottom]:bottom-0 data-[side=bottom]:h-auto data-[side=bottom]:border-t data-[side=left]:inset-y-0 data-[side=left]:left-0 data-[side=left]:h-full data-[side=left]:w-3/4 data-[side=left]:border-r data-[side=right]:inset-y-0 data-[side=right]:right-0 data-[side=right]:h-full data-[side=right]:w-3/4 data-[side=right]:border-l data-[side=top]:inset-x-0 data-[side=top]:top-0 data-[side=top]:h-auto data-[side=top]:border-b data-[side=left]:sm:max-w-sm data-[side=right]:sm:max-w-sm;
+		@apply bg-popover text-popover-foreground fixed flex flex-col bg-clip-padding text-sm shadow-xl transition ease-in-out data-[side=bottom]:inset-x-0 data-[side=bottom]:bottom-0 data-[side=bottom]:h-auto data-[side=bottom]:border-t data-[side=left]:inset-y-0 data-[side=left]:left-0 data-[side=left]:h-full data-[side=left]:w-3/4 data-[side=left]:border-r data-[side=right]:inset-y-0 data-[side=right]:right-0 data-[side=right]:h-full data-[side=right]:w-3/4 data-[side=right]:border-l data-[side=top]:inset-x-0 data-[side=top]:top-0 data-[side=top]:h-auto data-[side=top]:border-b data-[side=left]:sm:max-w-sm data-[side=right]:sm:max-w-sm;
 	}
 
 	.spartan-sheet-close {

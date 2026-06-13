@@ -7,6 +7,10 @@ import type { BrnDialogOptions } from './brn-dialog-options';
 import type { BrnDialogState } from './brn-dialog-state';
 import { cssClassesToArray } from './brn-dialog-utils';
 
+// Absolute ceiling so a stuck/never-ending exit animation can never pin the
+// overlay open. Comfortably longer than any reasonable close animation.
+const MAX_EXIT_ANIMATION_MS = 3000;
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class BrnDialogRef<DialogResult = any> {
 	private readonly _closing$ = new Subject<void>();
@@ -48,11 +52,64 @@ export class BrnDialogRef<DialogResult = any> {
 
 		if (this._previousTimeout) {
 			clearTimeout(this._previousTimeout);
+			this._previousTimeout = undefined;
 		}
 
-		this._previousTimeout = setTimeout(() => {
-			this._cdkDialogRef.close(result);
-		}, delay);
+		const finalize = () => this._cdkDialogRef.close(result);
+
+		// The dialog content is attached as a portal *inside* the CDK dialog container.
+		// Disposing the overlay (or detaching the container portal) tears the whole
+		// container subtree out of the DOM in a single removal, so Angular never
+		// individually removes the content element and `animate.leave` on it never
+		// fires - the exit animation is skipped and the panel is yanked mid-close (the
+		// intermittent flicker). Detaching just the *content* portal removes the content
+		// element on its own, through Angular's animation-aware renderer, so
+		// `animate.leave` coordinates the exit and the element is only removed once the
+		// animation has finished. We dispose the overlay once the content has actually
+		// left the DOM, with a safety ceiling so a stuck/absent animation can never pin
+		// the overlay open. Falls back to a timed teardown where the content portal is
+		// unreachable or the DOM APIs are unavailable (SSR).
+		const container = this._cdkDialogRef.containerInstance as unknown as
+			| {
+					_portalOutlet?: { hasAttached(): boolean; detach(): void };
+					_elementRef?: { nativeElement?: HTMLElement };
+			  }
+			| null
+			| undefined;
+		const contentOutlet = container?._portalOutlet;
+		const host = container?._elementRef?.nativeElement;
+		// The content sits alongside the focus-trap anchors the container injects; the
+		// single non-anchor child is the element that carries `animate.leave`.
+		const content = host
+			? Array.from(host.children).find((el) => !el.classList.contains('cdk-focus-trap-anchor'))
+			: undefined;
+
+		if (contentOutlet?.hasAttached() && host && content && typeof MutationObserver !== 'undefined') {
+			let finalized = false;
+			const done = (): void => {
+				if (finalized) return;
+				finalized = true;
+				observer.disconnect();
+				if (this._previousTimeout) {
+					clearTimeout(this._previousTimeout);
+					this._previousTimeout = undefined;
+				}
+				finalize();
+			};
+			const observer = new MutationObserver(() => {
+				if (!host.contains(content)) done();
+			});
+			observer.observe(host, { childList: true });
+			this._previousTimeout = setTimeout(done, MAX_EXIT_ANIMATION_MS);
+			contentOutlet.detach();
+			// Content without an exit animation is already gone synchronously.
+			if (!host.contains(content)) done();
+			return;
+		}
+
+		// SSR / no DOM -> timed teardown (preserves the exit animation for content that
+		// has not adopted `animate.leave`).
+		this._previousTimeout = setTimeout(finalize, delay);
 	}
 
 	public setPanelClass(paneClass: string | null | undefined): void {

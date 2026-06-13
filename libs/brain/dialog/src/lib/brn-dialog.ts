@@ -48,6 +48,18 @@ export class BrnDialog<TResult = unknown, TContext extends Record<string, unknow
 	private _context: TContext = {} as TContext;
 	public readonly stateComputed = computed(() => this._dialogRef()?.state() ?? 'closed');
 
+	// The side of the trigger the overlay was actually placed on, for connected
+	// overlays (popover/select/combobox/autocomplete). Drives the directional enter
+	// animation. Defaults to `bottom` (the common "open below the trigger" case) and
+	// is updated by connected-overlay subclasses as the CDK position is resolved.
+	private readonly _resolvedSide = signal<'top' | 'bottom' | 'left' | 'right'>('bottom');
+	public readonly resolvedSide = this._resolvedSide.asReadonly();
+
+	/** Update the resolved side. Called by connected-overlay subclasses (e.g. BrnPopover). */
+	public setResolvedSide(side: 'top' | 'bottom' | 'left' | 'right'): void {
+		this._resolvedSide.set(side);
+	}
+
 	private _contentTemplate: TemplateRef<unknown> | undefined;
 	private readonly _dialogRef = signal<BrnDialogRef | undefined>(undefined);
 	private readonly _dialogStateEffectRefs: EffectRef[] = [];

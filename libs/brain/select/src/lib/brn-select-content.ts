@@ -1,4 +1,6 @@
-import { afterNextRender, Directive, ElementRef, inject, signal } from '@angular/core';
+import { afterNextRender, computed, Directive, ElementRef, inject, signal } from '@angular/core';
+import { provideExposedSideProviderExisting } from '@spartan-ng/brain/core';
+import { BrnDialog } from '@spartan-ng/brain/dialog';
 import { injectBrnSelectBase } from './brn-select.token';
 
 // We use 8px and 15ms to create a smooth scrolling effect.
@@ -7,6 +9,7 @@ const SCROLLBY_PIXEL = 8;
 
 @Directive({
 	selector: '[brnSelectContent]',
+	providers: [provideExposedSideProviderExisting(() => BrnSelectContent)],
 	host: {
 		'[style.--brn-select-width.px]': '_selectWidth()',
 		'(scroll)': 'handleScroll()',
@@ -14,6 +17,9 @@ const SCROLLBY_PIXEL = 8;
 })
 export class BrnSelectContent {
 	private readonly _select = injectBrnSelectBase();
+	private readonly _dialog = inject(BrnDialog, { optional: true });
+	// The side the overlay was placed on (CDK-resolved), for the directional enter animation.
+	public readonly side = computed(() => this._dialog?.resolvedSide() ?? 'bottom');
 
 	protected readonly _selectWidth = this._select.triggerWidth;
 

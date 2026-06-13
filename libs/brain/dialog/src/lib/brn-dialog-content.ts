@@ -13,6 +13,9 @@ export class BrnDialogContent<T> {
 	private readonly _template = inject(TemplateRef);
 	public readonly state = computed(() => this._brnDialog?.stateComputed() ?? this._brnDialogRef?.state() ?? 'closed');
 
+	/** The resolved side the overlay was placed on (implements ExposesSide for content). */
+	public readonly side = computed(() => this._brnDialog?.resolvedSide() ?? 'bottom');
+
 	public readonly className = input<string | null | undefined>(undefined, { alias: 'class' });
 
 	public readonly context = input<T | undefined>(undefined);

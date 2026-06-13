@@ -15,5 +15,7 @@ import { BrnSheet } from './brn-sheet';
 	],
 })
 export class BrnSheetContent<T> extends BrnDialogContent<T> implements ExposesSide {
-	public readonly side = inject(BrnSheet).sideState;
+	// The sheet's side is user-configured (not CDK-position-derived), so override the
+	// base resolved side with the sheet input.
+	public override readonly side = inject(BrnSheet).sideState;
 }

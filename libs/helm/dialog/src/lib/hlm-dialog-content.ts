@@ -17,6 +17,11 @@ import { HlmDialogClose } from './hlm-dialog-close';
 	host: {
 		'data-slot': 'dialog-content',
 		'[attr.data-state]': 'state()',
+		// Enter/exit animations coordinated natively by Angular (animate.enter on
+		// attach, animate.leave on close/detach), replacing the data-state animation
+		// utilities so close() waits for the exit animation instead of a timed teardown.
+		'animate.enter': 'animate-in fade-in-0 zoom-in-95 duration-200',
+		'animate.leave': 'animate-out fade-out-0 zoom-out-95 duration-200',
 	},
 	template: `
 		@if (component) {

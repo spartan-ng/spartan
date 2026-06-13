@@ -122,6 +122,7 @@
 			"@spartan-ng/helm/slider": ["libs/helm/slider/src/index.ts"],
 			"@spartan-ng/helm/sonner": ["libs/helm/sonner/src/index.ts"],
 			"@spartan-ng/helm/spinner": ["libs/helm/spinner/src/index.ts"],
+			"@spartan-ng/helm/stepper": ["libs/helm/stepper/src/index.ts"],
 			"@spartan-ng/helm/switch": ["libs/helm/switch/src/index.ts"],
 			"@spartan-ng/helm/table": ["libs/helm/table/src/index.ts"],
 			"@spartan-ng/helm/tabs": ["libs/helm/tabs/src/index.ts"],

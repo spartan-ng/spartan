@@ -49,6 +49,7 @@ export type PrimitiveSnippet =
 	| 'sonner'
 	| 'spinner'
 	| 'switch'
+	| 'stepper'
 	| 'table'
 	| 'tabs'
 	| 'textarea'

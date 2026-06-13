@@ -59,6 +59,7 @@ module.exports = {
 				'sonner',
 				'spinner',
 				'switch',
+				'stepper',
 				'table',
 				'tabs',
 				'textarea',

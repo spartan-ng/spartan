@@ -1,5 +1,5 @@
-import { type ConnectedPosition } from '@angular/cdk/overlay';
 import { type NumberInput } from '@angular/cdk/coercion';
+import { type ConnectedPosition } from '@angular/cdk/overlay';
 import { Directive, forwardRef, input, numberAttribute } from '@angular/core';
 import { BrnOverlay, type BrnOverlayDefaultOptions, provideBrnOverlayDefaultOptions } from '@spartan-ng/brain/overlay';
 import {

@@ -65,9 +65,7 @@ export class BrnDialog<TResult = unknown, TContext extends Record<string, unknow
 	public readonly hasBackdrop = input<boolean, BooleanInput>(this._defaultOptions.hasBackdrop, {
 		transform: booleanAttribute,
 	});
-	public readonly positionStrategy = input<BrnDialogOptions['positionStrategy']>(
-		this._defaultOptions.positionStrategy,
-	);
+	public readonly positionStrategy = input<BrnDialogOptions['positionStrategy']>(this._defaultOptions.positionStrategy);
 	public readonly scrollStrategy = input<BrnDialogOptions['scrollStrategy'] | 'close' | 'reposition' | null>(
 		this._defaultOptions.scrollStrategy,
 	);
@@ -85,14 +83,12 @@ export class BrnDialog<TResult = unknown, TContext extends Record<string, unknow
 	public readonly disableClose = input<boolean, BooleanInput>(this._defaultOptions.disableClose, {
 		transform: booleanAttribute,
 	});
-	public readonly ariaDescribedBy = input<BrnDialogOptions['ariaDescribedBy']>(
-		this._defaultOptions.ariaDescribedBy,
-		{ alias: 'aria-describedby' },
-	);
-	public readonly ariaLabelledBy = input<BrnDialogOptions['ariaLabelledBy']>(
-		this._defaultOptions.ariaLabelledBy,
-		{ alias: 'aria-labelledby' },
-	);
+	public readonly ariaDescribedBy = input<BrnDialogOptions['ariaDescribedBy']>(this._defaultOptions.ariaDescribedBy, {
+		alias: 'aria-describedby',
+	});
+	public readonly ariaLabelledBy = input<BrnDialogOptions['ariaLabelledBy']>(this._defaultOptions.ariaLabelledBy, {
+		alias: 'aria-labelledby',
+	});
 	public readonly ariaLabel = input<BrnDialogOptions['ariaLabel']>(this._defaultOptions.ariaLabel, {
 		alias: 'aria-label',
 	});
@@ -118,9 +114,7 @@ export class BrnDialog<TResult = unknown, TContext extends Record<string, unknow
 		backdropClass: cssClassesToArray(
 			this._backdropClass() ?? this._overlayClass?.() ?? this._defaultOptions.backdropClass,
 		),
-		panelClass: cssClassesToArray(
-			this._panelClass() ?? this._content?.panelClass() ?? this._defaultOptions.panelClass,
-		),
+		panelClass: cssClassesToArray(this._panelClass() ?? this._content?.panelClass() ?? this._defaultOptions.panelClass),
 		ariaDescribedBy: this.ariaDescribedBy(),
 		ariaLabelledBy: this.ariaLabelledBy(),
 		ariaLabel: this.ariaLabel(),

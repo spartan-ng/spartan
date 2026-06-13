@@ -1,7 +1,7 @@
-import { DOCUMENT } from '@angular/common';
 import { Directionality } from '@angular/cdk/bidi';
 import type { BooleanInput } from '@angular/cdk/coercion';
 import { OverlayPositionBuilder, type ScrollStrategy, ScrollStrategyOptions } from '@angular/cdk/overlay';
+import { DOCUMENT } from '@angular/common';
 import {
 	afterNextRender,
 	booleanAttribute,
@@ -24,8 +24,8 @@ import { cssClassesToArray } from '@spartan-ng/brain/core';
 import type { BrnOverlayOptions } from './brn-overlay-options';
 import type { BrnOverlayRef } from './brn-overlay-ref';
 import type { BrnOverlayState } from './brn-overlay-state';
-import { injectBrnOverlayDefaultOptions } from './brn-overlay-token';
 import type { BrnOverlayDefaultOptions } from './brn-overlay-token';
+import { injectBrnOverlayDefaultOptions } from './brn-overlay-token';
 import { BrnOverlayService } from './brn-overlay.service';
 
 let overlayIdSequence = 0;
@@ -209,13 +209,17 @@ export class BrnOverlay<TResult = unknown, TContext extends Record<string, unkno
 
 	private _restoreFocus(element: Element | null): void {
 		const HTMLElementCtor = this._document.defaultView?.HTMLElement;
-		if (!HTMLElementCtor || !(element instanceof HTMLElementCtor) || element === this._document.body || !element.isConnected) {
+		if (
+			!HTMLElementCtor ||
+			!(element instanceof HTMLElementCtor) ||
+			element === this._document.body ||
+			!element.isConnected
+		) {
 			return;
 		}
 
 		const activeElement = this._document.activeElement;
-		const shouldRestoreFocus =
-			activeElement === this._document.body || !activeElement || !activeElement.isConnected;
+		const shouldRestoreFocus = activeElement === this._document.body || !activeElement || !activeElement.isConnected;
 
 		if (shouldRestoreFocus) element.focus({ preventScroll: true });
 	}

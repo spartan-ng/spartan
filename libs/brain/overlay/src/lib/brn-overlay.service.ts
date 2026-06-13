@@ -1,7 +1,7 @@
 import { Overlay, OverlayPositionBuilder, type OverlayRef, ScrollStrategyOptions } from '@angular/cdk/overlay';
 import { ComponentPortal, type ComponentType, TemplatePortal } from '@angular/cdk/portal';
-import { inject, Injectable, Injector, type StaticProvider, TemplateRef } from '@angular/core';
 import type { ViewContainerRef } from '@angular/core';
+import { inject, Injectable, Injector, type StaticProvider, TemplateRef } from '@angular/core';
 import { merge, Subject } from 'rxjs';
 import { filter, map, takeUntil } from 'rxjs/operators';
 import type { BrnOverlayOptions } from './brn-overlay-options';
@@ -44,7 +44,9 @@ export class BrnOverlayService {
 			positionStrategy:
 				mergedOptions.positionStrategy ??
 				(mergedOptions.attachTo && mergedOptions.attachPositions.length
-					? this._positionBuilder.flexibleConnectedTo(mergedOptions.attachTo).withPositions(mergedOptions.attachPositions)
+					? this._positionBuilder
+							.flexibleConnectedTo(mergedOptions.attachTo)
+							.withPositions(mergedOptions.attachPositions)
 					: this._positionBuilder.global().centerHorizontally().centerVertically()),
 			scrollStrategy:
 				mergedOptions.scrollStrategy === 'close'

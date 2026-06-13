@@ -7,8 +7,8 @@ import {
 	type OverlayRef,
 	ScrollStrategyOptions,
 } from '@angular/cdk/overlay';
-import { ElementRef, inject, Injectable, type InjectOptions, Injector, type StaticProvider } from '@angular/core';
 import type { TemplateRef, ViewContainerRef } from '@angular/core';
+import { ElementRef, inject, Injectable, type InjectOptions, Injector, type StaticProvider } from '@angular/core';
 import { filter, takeUntil } from 'rxjs/operators';
 import type { BrnDialogOptions } from './brn-dialog-options';
 import { BrnDialogRef } from './brn-dialog-ref';
@@ -98,10 +98,7 @@ export class BrnDialogService {
 		return brnDialogRef;
 	}
 
-	private _createProviders<Result>(
-		dialogRef: BrnDialogRef<Result>,
-		options: BrnDialogOptions,
-	): StaticProvider[] {
+	private _createProviders<Result>(dialogRef: BrnDialogRef<Result>, options: BrnDialogOptions): StaticProvider[] {
 		const providers: StaticProvider[] = [{ provide: BrnDialogRef, useValue: dialogRef }];
 		if (options.providers) {
 			providers.push(...(typeof options.providers === 'function' ? options.providers() : options.providers));

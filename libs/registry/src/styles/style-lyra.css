@@ -1197,6 +1197,10 @@
 		@apply border-ring ring-ring/50 relative size-3 rounded-none border bg-white transition-[color,box-shadow] after:absolute after:-inset-2 hover:ring-1 focus-visible:ring-1 focus-visible:outline-hidden active:ring-1;
 	}
 
+	.spartan-slider-ticks {
+		@apply px-1.5 group-data-vertical:px-0 group-data-vertical:py-1.5;
+	}
+
 	/* MARK: Sonner */
 	.spartan-toast {
 		@apply rounded-none!;

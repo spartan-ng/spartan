@@ -41,6 +41,10 @@
 		@apply hover:ring-ring/30 focus-visible:ring-ring/30 h-4 w-6 rounded-full bg-white shadow-md ring-1 ring-black/10 transition-[color,box-shadow,background-color] not-dark:bg-clip-padding hover:ring-4 focus-visible:ring-4 focus-visible:outline-hidden data-vertical:h-6 data-vertical:w-4;
 	}
 
+	.spartan-slider-ticks {
+		@apply px-3 group-data-vertical:px-0 group-data-vertical:py-3;
+	}
+
 	/* MARK: Switch */
 	.spartan-switch {
 		@apply data-checked:bg-primary data-unchecked:bg-input/90 data-checked:border-primary focus-visible:border-ring focus-visible:ring-ring/30 data-[matches-spartan-invalid=true]:ring-destructive/20 dark:data-[matches-spartan-invalid=true]:ring-destructive/40 data-[matches-spartan-invalid=true]:border-destructive dark:data-[matches-spartan-invalid=true]:border-destructive/50 shrink-0 rounded-full border-2 focus-visible:ring-3 data-unchecked:border-transparent data-[matches-spartan-invalid=true]:ring-3 data-[size=default]:h-5 data-[size=default]:w-11 data-[size=sm]:h-4 data-[size=sm]:w-7;

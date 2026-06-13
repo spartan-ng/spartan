@@ -1219,6 +1219,10 @@
 		@apply border-primary ring-ring/50 size-4 rounded-4xl border bg-white shadow-sm transition-colors hover:ring-4 focus-visible:ring-4 focus-visible:outline-hidden;
 	}
 
+	.spartan-slider-ticks {
+		@apply px-2 group-data-vertical:px-0 group-data-vertical:py-2;
+	}
+
 	/* MARK: Sonner */
 	.spartan-toast {
 		@apply rounded-2xl!;

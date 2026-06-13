@@ -1,32 +1,38 @@
 import { type NumberInput } from '@angular/cdk/coercion';
 import { type FlexibleConnectedPositionStrategy } from '@angular/cdk/overlay';
 import { Directive, effect, forwardRef, input, numberAttribute, untracked } from '@angular/core';
-import { BrnDialog, type BrnDialogDefaultOptions, provideBrnDialogDefaultOptions } from '@spartan-ng/brain/dialog';
-import { BrnPopoverAlign, injectBrnPopoverConfig } from './brn-popover.token';
+import { BrnOverlay, type BrnOverlayDefaultOptions } from '@spartan-ng/brain/overlay';
+import {
+	BRN_POPOVER_OVERLAY_DEFAULT_OPTIONS,
+	BrnPopoverAlign,
+	injectBrnPopoverConfig,
+	injectBrnPopoverDefaultOptions,
+} from './brn-popover.token';
 
-export const BRN_POPOVER_DIALOG_DEFAULT_OPTIONS: Partial<BrnDialogDefaultOptions> = {
-	hasBackdrop: false,
-	scrollStrategy: 'reposition',
-};
+/** @deprecated Use `BRN_POPOVER_OVERLAY_DEFAULT_OPTIONS`. */
+export const BRN_POPOVER_DIALOG_DEFAULT_OPTIONS = BRN_POPOVER_OVERLAY_DEFAULT_OPTIONS;
 
 @Directive({
 	selector: '[brnPopover],brn-popover',
 	exportAs: 'brnPopover',
 	providers: [
 		{
-			provide: BrnDialog,
+			provide: BrnOverlay,
 			useExisting: forwardRef(() => BrnPopover),
 		},
-		provideBrnDialogDefaultOptions(BRN_POPOVER_DIALOG_DEFAULT_OPTIONS),
 	],
 })
-export class BrnPopover extends BrnDialog {
+export class BrnPopover extends BrnOverlay {
 	private readonly _config = injectBrnPopoverConfig();
 
 	public readonly align = input<BrnPopoverAlign>(this._config.align);
 	public readonly sideOffset = input<number, NumberInput>(this._config.sideOffset, { transform: numberAttribute });
 	public readonly offsetX = input<number, NumberInput>(this._config.offsetX, { transform: numberAttribute });
 	private _positionStrategy?: FlexibleConnectedPositionStrategy;
+
+	protected override getDefaultOptions(): BrnOverlayDefaultOptions {
+		return injectBrnPopoverDefaultOptions();
+	}
 
 	constructor() {
 		super();

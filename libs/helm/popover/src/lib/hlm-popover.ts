@@ -10,7 +10,6 @@ import { BrnPopover } from '@spartan-ng/brain/popover';
 				'align',
 				'autoFocus',
 				'attachTo',
-				'closeDelay',
 				'closeOnOutsidePointerEvents',
 				'offsetX',
 				'restoreFocus',

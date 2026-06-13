@@ -27,19 +27,6 @@
 			"inputs": ["default", "^production", "{projectRoot}/.storybook/**/*", "{projectRoot}/tsconfig.storybook.json"],
 			"cache": true
 		},
-		"@nx/jest:jest": {
-			"inputs": ["default", "^production", "{workspaceRoot}/jest.preset.cjs"],
-			"cache": true,
-			"options": {
-				"passWithNoTests": true
-			},
-			"configurations": {
-				"ci": {
-					"ci": true,
-					"codeCoverage": true
-				}
-			}
-		},
 		"@nx/eslint:lint": {
 			"inputs": [
 				"default",
@@ -62,7 +49,7 @@
 			"inputs": ["production", "^production"]
 		},
 		"@nx/vitest:test": {
-			"inputs": ["default", "^production", "{workspaceRoot}/jest.preset.cjs"],
+			"inputs": ["default", "^production"],
 			"cache": true
 		}
 	},
@@ -72,7 +59,6 @@
 			"default",
 			"!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
 			"!{projectRoot}/tsconfig.spec.json",
-			"!{projectRoot}/jest.config.[jt]s",
 			"!{projectRoot}/.eslintrc.json",
 			"!{projectRoot}/**/*.stories.@(js|jsx|ts|tsx|mdx)",
 			"!{projectRoot}/.storybook/**/*",
@@ -85,12 +71,12 @@
 		"@nx/angular:application": {
 			"style": "css",
 			"linter": "eslint",
-			"unitTestRunner": "jest",
+			"unitTestRunner": "vitest",
 			"e2eTestRunner": "cypress"
 		},
 		"@nx/angular:library": {
 			"linter": "eslint",
-			"unitTestRunner": "jest"
+			"unitTestRunner": "vitest"
 		},
 		"@nx/angular:component": {
 			"style": "css",

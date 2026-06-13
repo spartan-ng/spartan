@@ -5,12 +5,5 @@
 		"types": []
 	},
 	"include": ["src/**/*.ts"],
-	"exclude": [
-		"jest.config.ts",
-		"src/test-setup.ts",
-		"src/**/*.test.ts",
-		"src/**/*.spec.ts",
-		"**/*.stories.ts",
-		"**/*.stories.js"
-	]
+	"exclude": ["src/test-setup.ts", "src/**/*.test.ts", "src/**/*.spec.ts", "**/*.stories.ts", "**/*.stories.js"]
 }

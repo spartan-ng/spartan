@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input, provideZonelessChangeDetection } from '@angular/core';
-import { render } from '@testing-library/angular';
+import { render, waitFor } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import { noop } from 'rxjs';
 import { BrnSonnerToaster } from './brn-toaster';
@@ -96,10 +96,11 @@ describe('Toaster', () => {
 		expect(queryByText('Custom duration')).toBeNull();
 
 		await user.click(trigger);
-		expect(queryByText('Custom duration')).not.toBeNull();
+		await waitFor(() => expect(queryByText('Custom duration')).not.toBeNull());
 
-		await sleep(600);
-		expect(queryByText('Custom duration')).toBeNull();
+		// The 300ms custom duration must be honoured - the toast self-dismisses well within waitFor's
+		// 1s budget (a default-lifetime toast would not), so this still asserts the short duration.
+		await waitFor(() => expect(queryByText('Custom duration')).toBeNull());
 	});
 
 	it('should reset duration on a toast update', async () => {
@@ -114,9 +115,9 @@ describe('Toaster', () => {
 		});
 
 		await user.click(trigger);
-		expect(getByText('Loading')).toBeVisible();
+		await waitFor(() => expect(getByText('Loading')).toBeVisible());
 		await sleep(1500);
-		expect(queryByText('Loading')).toBeNull();
+		await waitFor(() => expect(queryByText('Loading')).toBeNull());
 		expect(getByText('Finished loading!')).toBeVisible();
 		// there would only be ~.5 seconds left on the original toast
 		// so we're going to wait .5 seconds to make sure the timer is reset
@@ -125,7 +126,7 @@ describe('Toaster', () => {
 		// finally we'll wait another 1500ms to make sure the toast closes after 2 seconds
 		// since the original toast had a duration of 2 seconds
 		await sleep(2000);
-		expect(queryByText('Finished loading!')).toBeNull();
+		await waitFor(() => expect(queryByText('Finished loading!')).toBeNull());
 	});
 
 	it('should allow duration updates on toast update', async () => {
@@ -140,9 +141,9 @@ describe('Toaster', () => {
 		});
 
 		await user.click(trigger);
-		expect(getByText('Loading')).toBeVisible();
+		await waitFor(() => expect(getByText('Loading')).toBeVisible());
 		await sleep(1200);
-		expect(queryByText('Loading')).toBeNull();
+		await waitFor(() => expect(queryByText('Loading')).toBeNull());
 		expect(getByText('Finished loading!')).toBeVisible();
 		await sleep(2200);
 		expect(getByText('Finished loading!')).toBeVisible();
@@ -167,10 +168,12 @@ describe('Toaster', () => {
 		});
 
 		await user.click(trigger);
-		expect(getByText('Loading...')).toBeVisible();
-		await sleep(2000);
-		expect(queryByText('Loading...')).toBeNull();
-		expect(getByText('Loaded')).toBeVisible();
+		await waitFor(() => expect(getByText('Loading...')).toBeVisible());
+		// The backing promise resolves at ~2000ms; poll for the swap rather than sleeping the exact
+		// same duration (which races the resolve callback). The poll window must outlast the 2s
+		// promise, so widen it past waitFor's 1s default.
+		await waitFor(() => expect(queryByText('Loading...')).toBeNull(), { timeout: 3000 });
+		await waitFor(() => expect(getByText('Loaded')).toBeVisible(), { timeout: 3000 });
 	});
 
 	it('should focus the toast when hotkey is pressed', async () => {
@@ -179,11 +182,10 @@ describe('Toaster', () => {
 		});
 
 		await user.click(trigger);
-		expect(getByText('Hello world')).toBeVisible();
+		await waitFor(() => expect(getByText('Hello world')).toBeVisible());
 
 		await user.keyboard('{Alt>}T{/Alt}');
-		await sleep(100);
-		expect(document.activeElement).toBeInstanceOf(HTMLOListElement);
+		await waitFor(() => expect(document.activeElement).toBeInstanceOf(HTMLOListElement));
 	});
 
 	it('should not immediately close the toast when reset', async () => {
@@ -198,9 +200,9 @@ describe('Toaster', () => {
 		});
 
 		await user.click(trigger);
-		expect(getByText('Loading')).toBeVisible();
+		await waitFor(() => expect(getByText('Loading')).toBeVisible());
 		await sleep(2050);
-		expect(queryByText('Loading')).toBeNull();
+		await waitFor(() => expect(queryByText('Loading')).toBeNull());
 		expect(getByText('Finished loading!')).toBeVisible();
 		await sleep(1000);
 		expect(getByText('Finished loading!')).toBeVisible();

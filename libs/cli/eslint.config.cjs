@@ -24,7 +24,16 @@ module.exports = [
 			'@nx/dependency-checks': [
 				'error',
 				{
-					ignoredDependencies: ['@nx/js', '@nx/devkit', '@nx/angular', 'enquirer', 'semver', 'tslib'],
+					ignoredDependencies: [
+						'@nx/js',
+						'@nx/devkit',
+						'@nx/angular',
+						'@nx/vite',
+						'vite',
+						'enquirer',
+						'semver',
+						'tslib',
+					],
 				},
 			],
 		},

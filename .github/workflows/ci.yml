@@ -69,17 +69,31 @@ jobs:
 
   unit:
     runs-on: ubuntu-latest
-    # No longer gated on `build`: vitest/jest run against source, so unit tests start immediately
-    # and run in parallel with the build instead of waiting ~13 min for it.
+    # No longer gated on `build`: vitest runs against source, so unit tests start immediately and
+    # run in parallel with the build instead of waiting ~13 min for it.
     steps:
       - uses: actions/checkout@v6
         with:
-          # Blobless full-history clone: nx-set-shas needs the graph; vitest/jest only read the
+          # Blobless full-history clone: nx-set-shas needs the graph; vitest only reads the
           # affected projects' files, fetched lazily.
           fetch-depth: 0
           filter: blob:none
       - uses: ./.github/actions/setup
       - uses: nrwl/nx-set-shas@v5
+      # The brain/helm suites run in a real browser via Vitest browser mode (Playwright/Chromium),
+      # so the Chromium binary must be present. Cache it across runs (keyed on the lockfile, which
+      # pins the playwright version) to avoid re-downloading ~150 MB each time.
+      - name: Cache Playwright browsers
+        id: playwright-cache
+        uses: actions/cache@v5
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: playwright-${{ runner.os }}-
+      - name: Install Playwright Chromium
+        # On a cache hit the browser is already present; still run install to pull any missing OS
+        # libraries (--with-deps), which are not part of the cached browser directory.
+        run: pnpm exec playwright install --with-deps chromium
       - name: Test
         run: pnpm nx affected -t test --parallel=3
 

@@ -7,24 +7,24 @@ import { getOrCreateConfig } from '../../utils/config';
 import { createPrimitiveLibraries } from '../ui/generator';
 
 // patch some imports to avoid running the actual code
-jest.mock('enquirer');
-jest.mock('@nx/devkit', () => {
-	const original = jest.requireActual('@nx/devkit');
+vi.mock('enquirer');
+vi.mock('@nx/devkit', async (importOriginal) => {
+	const original = await importOriginal<typeof import('@nx/devkit')>();
 	return {
 		...original,
-		ensurePackage: (pkg: string) => jest.requireActual(pkg),
-		createProjectGraphAsync: jest.fn().mockResolvedValue({
+		ensurePackage: (pkg: string) => require(pkg),
+		createProjectGraphAsync: vi.fn().mockResolvedValue({
 			nodes: {},
 			dependencies: {},
 		}),
 	};
 });
 
-jest.mock('../ui/generator', () => ({
-	createPrimitiveLibraries: jest.fn(),
+vi.mock('../ui/generator', () => ({
+	createPrimitiveLibraries: vi.fn(),
 }));
-jest.mock('../../utils/config', () => ({
-	getOrCreateConfig: jest.fn().mockResolvedValue({}),
+vi.mock('../../utils/config', () => ({
+	getOrCreateConfig: vi.fn().mockResolvedValue({}),
 }));
 
 describe('migrate-hlm', () => {
@@ -134,7 +134,7 @@ describe('migrate-hlm', () => {
 
 		beforeEach(() => {
 			tree = createTreeWithEmptyWorkspace();
-			jest.clearAllMocks();
+			vi.clearAllMocks();
 		});
 
 		it('should not generate utils if path already exists in tsconfig.base.json', async () => {

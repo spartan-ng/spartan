@@ -66,8 +66,8 @@ jobs:
       - uses: ./.github/actions/setup
         if: steps.changes.outputs.relevant == 'true'
       # Each cell builds + publishes the packages to its own local verdaccio registry (in globalSetup),
-      # so this is self-contained and not gated on any build job. jest matches the whole test name, so
-      # the trailing space anchors the pattern to this exact cell.
+      # so this is self-contained and not gated on any build job. --testNamePattern matches against the
+      # full test name, so the trailing space anchors the pattern to this exact cell.
       - name: smoke (${{ matrix.cell }})
         if: steps.changes.outputs.relevant == 'true'
         run: pnpm nx run cli-smoke:smoke --testNamePattern="${{ matrix.cell }} "

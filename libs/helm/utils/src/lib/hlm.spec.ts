@@ -413,8 +413,9 @@ describe('classes', () => {
 		await new Promise((resolve) => setTimeout(resolve, 0));
 		await new Promise((resolve) => requestAnimationFrame(resolve));
 
-		// Should restore the original transition value
-		expect(element.style.getPropertyValue('transition')).toBe('opacity 0.3s ease');
+		// Should restore the original transition value. A real browser normalizes the shorthand on
+		// assignment - the default `ease` timing function is dropped from the serialized value.
+		expect(element.style.getPropertyValue('transition')).toBe('opacity 0.3s');
 		expect(element.style.getPropertyPriority('transition')).toBe('important');
 	});
 
@@ -459,8 +460,9 @@ describe('classes', () => {
 		// Destroy before the first effect flushes
 		childInjector.destroy();
 
-		// Original transition should be restored immediately by cleanup
-		expect(element.style.getPropertyValue('transition')).toBe('opacity 0.3s ease');
+		// Original transition should be restored immediately by cleanup. A real browser normalizes the
+		// shorthand on assignment - the default `ease` timing function is dropped from the value.
+		expect(element.style.getPropertyValue('transition')).toBe('opacity 0.3s');
 		expect(element.style.getPropertyPriority('transition')).toBe('important');
 	});
 

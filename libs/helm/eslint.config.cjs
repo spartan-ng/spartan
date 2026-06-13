@@ -9,8 +9,14 @@ module.exports = [
 			'@nx/dependency-checks': [
 				'error',
 				{
-					ignoredDependencies: ['jest-preset-angular'],
-					ignoredFiles: ['{projectRoot}/eslint.config.{js,cjs,mjs}'],
+					ignoredDependencies: ['@analogjs/vite-plugin-angular', '@nx/vite', 'vite'],
+					ignoredFiles: [
+						'{projectRoot}/eslint.config.{js,cjs,mjs}',
+						'{projectRoot}/vite.config.{ts,mts}',
+						'{projectRoot}/**/test-setup.ts',
+						'{projectRoot}/**/*.spec.ts',
+						'{projectRoot}/**/*.stories.ts',
+					],
 				},
 			],
 		},

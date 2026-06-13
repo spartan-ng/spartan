@@ -33,7 +33,7 @@ describe('HlmPopover direction', () => {
 		const view = await render(PopoverDirectionHost);
 		const host = view.fixture.componentInstance;
 		const service = TestBed.inject(BrnDialogService);
-		const openSpy = jest.spyOn(service, 'open');
+		const openSpy = vi.spyOn(service, 'open');
 
 		if (dir) {
 			host.directionality.valueSignal.set(dir);

@@ -65,7 +65,9 @@ module.exports = [
 				{
 					ignoredFiles: [
 						'{projectRoot}/eslint.config.{js,cjs,mjs}',
+						'{projectRoot}/vite.config.{ts,mts}',
 						'{projectRoot}/**/test-setup.ts',
+						'{projectRoot}/src/testing/**/*.ts',
 						'{projectRoot}/**/*.spec.ts',
 						'{projectRoot}/**/*.stories.ts',
 					],

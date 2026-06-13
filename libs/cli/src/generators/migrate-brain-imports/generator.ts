@@ -1,5 +1,12 @@
-import { formatFiles, type Tree, visitNotIgnoredFiles } from '@nx/devkit';
-import { getPackageManagerCommand, logger, readJson, updateJson } from 'nx/src/devkit-exports';
+import {
+	formatFiles,
+	getPackageManagerCommand,
+	logger,
+	readJson,
+	type Tree,
+	updateJson,
+	visitNotIgnoredFiles,
+} from '@nx/devkit';
 import type { PackageJson } from 'nx/src/utils/package-json';
 import { basename } from 'path';
 import imports from './import-map';

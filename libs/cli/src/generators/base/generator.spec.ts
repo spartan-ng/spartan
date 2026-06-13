@@ -1,43 +1,43 @@
 import { applicationGenerator, E2eTestRunner, UnitTestRunner } from '@nx/angular/generators';
 import type { Schema } from '@nx/angular/src/generators/library/schema';
-import { joinPathFragments, readJson, type Tree } from '@nx/devkit';
+import { addDependenciesToPackageJson, joinPathFragments, readJson, type Tree } from '@nx/devkit';
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
 import { hlmBaseGenerator } from './generator';
 import { singleLibName } from './lib/single-lib-name';
 
 // Mock buildDependencyArray and buildDevDependencyArray
-jest.mock('./lib/build-dependency-array', () => ({
-	buildDependencyArray: jest.fn().mockReturnValue({ '@angular/core': '^17.0.0' }),
-	buildDevDependencyArray: jest.fn().mockReturnValue({ '@types/node': '^20.0.0' }),
+vi.mock('./lib/build-dependency-array', () => ({
+	buildDependencyArray: vi.fn().mockReturnValue({ '@angular/core': '^17.0.0' }),
+	buildDevDependencyArray: vi.fn().mockReturnValue({ '@types/node': '^20.0.0' }),
 }));
 
 // Mock devkit and angular/generators
-jest.mock('enquirer');
-jest.mock('@nx/devkit', () => {
-	const original = jest.requireActual('@nx/devkit');
+vi.mock('enquirer');
+vi.mock('@nx/devkit', async (importOriginal) => {
+	const original = await importOriginal<typeof import('@nx/devkit')>();
 	return {
 		...original,
-		ensurePackage: (pkg: string) => jest.requireActual(pkg),
-		createProjectGraphAsync: jest.fn().mockResolvedValue({
+		ensurePackage: (pkg: string) => require(pkg),
+		createProjectGraphAsync: vi.fn().mockResolvedValue({
 			nodes: {},
 			dependencies: {},
 		}),
-		addDependenciesToPackageJson: jest.fn(original.addDependenciesToPackageJson),
+		addDependenciesToPackageJson: vi.fn(original.addDependenciesToPackageJson),
 	};
 });
-jest.mock('@nx/angular/generators', () => {
-	const original = jest.requireActual('@nx/angular/generators');
+vi.mock('@nx/angular/generators', async (importOriginal) => {
+	const original = await importOriginal<typeof import('@nx/angular/generators')>();
 	return {
 		...original,
-		libraryGenerator: jest.fn().mockImplementation(async (tree: Tree, schema: Schema) => {
+		libraryGenerator: vi.fn().mockImplementation(async (tree: Tree, schema: Schema) => {
 			const dirToCreateAndThenDelete = joinPathFragments(schema.directory as string, 'src', 'lib', schema.name);
 			tree.write(joinPathFragments(dirToCreateAndThenDelete, `dummy.ts`), '// Dummy file created by mock');
 		}),
 	};
 });
 
-// required because @angular/core is esm and jest doesn't handle esm well
-jest.mock('@angular/core', () => ({
+// Stub @angular/core down to its VERSION so the generator's Angular-version check is deterministic.
+vi.mock('@angular/core', () => ({
 	VERSION: {
 		major: 19,
 	},
@@ -98,8 +98,10 @@ describe('hlmBaseGenerator', () => {
 	});
 
 	it('should generate files correctly for a secondary entrypoint and buildable true', async () => {
-		jest.unmock('@nx/angular/generators'); // use real generator here
-		const { libraryGenerator } = require('@nx/angular/generators');
+		// Load the real generator for just this test; the file-level vi.mock stubs libraryGenerator.
+		// vi.importActual is test-scoped, unlike vi.unmock which is hoisted to the whole file.
+		const { libraryGenerator } =
+			await vi.importActual<typeof import('@nx/angular/generators')>('@nx/angular/generators');
 
 		const options = {
 			name: 'input',
@@ -131,7 +133,6 @@ describe('hlmBaseGenerator', () => {
 	});
 
 	it('should register the correct dependencies', async () => {
-		const { addDependenciesToPackageJson } = require('@nx/devkit');
 		const options = {
 			name: 'icon',
 

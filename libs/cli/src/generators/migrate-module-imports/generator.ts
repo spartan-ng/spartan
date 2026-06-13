@@ -1,5 +1,4 @@
-import { formatFiles, type Tree, visitNotIgnoredFiles } from '@nx/devkit';
-import { logger } from 'nx/src/devkit-exports';
+import { formatFiles, logger, type Tree, visitNotIgnoredFiles } from '@nx/devkit';
 import { basename } from 'path';
 import { isBinaryPath } from '../migrate-brain-imports/utils/binary-extensions';
 import importMap from './import-map';

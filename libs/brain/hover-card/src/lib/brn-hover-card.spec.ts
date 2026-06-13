@@ -12,7 +12,7 @@ describe('BrnHoverCardContentService direction', () => {
 			directionality.valueSignal.set(dir);
 		}
 		const overlay = TestBed.inject(Overlay);
-		const createSpy = jest.spyOn(overlay, 'create');
+		const createSpy = vi.spyOn(overlay, 'create');
 		const service = TestBed.inject(BrnHoverCardContentService);
 
 		service.setConfig({ attachTo: new ElementRef(document.createElement('div')) });
@@ -40,7 +40,7 @@ describe('BrnHoverCardContentService direction', () => {
 		const createSpy = setup(null);
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const overlayRef = createSpy.mock.results.at(-1)?.value as any;
-		const setDirectionSpy = jest.spyOn(overlayRef, 'setDirection');
+		const setDirectionSpy = vi.spyOn(overlayRef, 'setDirection');
 
 		TestBed.inject(Directionality).valueSignal.set('rtl');
 		TestBed.inject(ApplicationRef).tick();

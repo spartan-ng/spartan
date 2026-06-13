@@ -1,21 +1,21 @@
 import { applicationGenerator, E2eTestRunner, UnitTestRunner } from '@nx/angular/generators';
 import { readProjectConfiguration, type Tree, updateJson } from '@nx/devkit';
-import { createTreeWithEmptyWorkspace } from 'nx/src/devkit-testing-exports';
+import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
 import addThemeToApplicationGenerator from './generator';
 import { addThemeToApplicationStyles } from './libs/add-theme-to-application-styles';
 import type { ThemeName } from './libs/colors';
 
-jest.mock('enquirer');
-jest.mock('@nx/devkit', () => {
-	const original = jest.requireActual('@nx/devkit');
+vi.mock('enquirer');
+vi.mock('@nx/devkit', async (importOriginal) => {
+	const original = await importOriginal<typeof import('@nx/devkit')>();
 	return {
 		...original,
-		ensurePackage: (pkg: string) => jest.requireActual(pkg),
-		createProjectGraphAsync: jest.fn().mockResolvedValue({
+		ensurePackage: (pkg: string) => require(pkg),
+		createProjectGraphAsync: vi.fn().mockResolvedValue({
 			nodes: {},
 			dependencies: {},
 		}),
-		addDependenciesToPackageJson: jest.fn(original.addDependenciesToPackageJson),
+		addDependenciesToPackageJson: vi.fn(original.addDependenciesToPackageJson),
 	};
 });
 
@@ -127,7 +127,7 @@ describe('addThemeToApplicationGenerator (non-interactive)', () => {
 		});
 
 	beforeEach(async () => {
-		jest.clearAllMocks();
+		vi.clearAllMocks();
 		tree = createTreeWithEmptyWorkspace();
 		await addApp('website');
 		updateJson(tree, 'package.json', (json) => {

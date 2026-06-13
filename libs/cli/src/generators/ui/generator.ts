@@ -97,7 +97,8 @@ export async function createPrimitiveLibraries(
 		primitivesToCreate.map(async (primitiveName) => {
 			const name = availablePrimitives[primitiveName].name;
 			const peerDependencies = removeHelmKeys(availablePrimitives[primitiveName].peerDependencies);
-			const { generator } = await import(`./libs/${name}/generator`);
+			// @vite-ignore - resolved at runtime by Node; Vite must not try to statically bundle this.
+			const { generator } = await import(/* @vite-ignore */ `./libs/${name}/generator`);
 
 			return generator(tree, {
 				name: '',

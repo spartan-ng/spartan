@@ -1,6 +1,6 @@
+import { axe } from '@spartan-ng/brain/testing';
 import { render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
-import { axe } from '../../../src/testing/axe';
 import { BrnCheckbox } from './brn-checkbox';
 
 describe('BrnCheckboxComponent', () => {

@@ -1,5 +1,6 @@
 import { FocusMonitor, type FocusOrigin } from '@angular/cdk/a11y';
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ApplicationRef, ChangeDetectionStrategy, Component, ErrorHandler, signal } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
 import { render, screen } from '@testing-library/angular';
 import { config, type Observable, Subject } from 'rxjs';
 import { BrnAccordion } from './brn-accordion';
@@ -93,6 +94,31 @@ class AccordionBlurDuringRenderSpec extends ProbeHost {}
 })
 class AccordionTriggerFocusDuringRenderSpec extends ProbeHost {}
 
+// brn-accordion-content measured `firstChild`, which is a Text node whenever the
+// projected content begins with a text node - the leading text below, or e.g. a
+// template compiled with `preserveWhitespaces: true` where the indentation before
+// the inner element survives as a Text node. measureDimensions then read `.style`
+// off that Text node and threw "Cannot read properties of undefined (reading
+// 'height')".
+@Component({
+	imports: [BrnAccordion, BrnAccordionItem, BrnAccordionTrigger, BrnAccordionContent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<div brnAccordion>
+			<div brnAccordionItem isOpened>
+				<h3>
+					<button brnAccordionTrigger>Item</button>
+				</h3>
+				<brn-accordion-content>
+					leading text
+					<div>Body</div>
+				</brn-accordion-content>
+			</div>
+		</div>
+	`,
+})
+class AccordionContentLeadingTextNodeSpec {}
+
 describe('BrnAccordion', () => {
 	// #1371: disabling a focused child blurs it during CD, so the FocusMonitor emits mid-render.
 	it('does not throw NG0600 when the focus monitor emits during change detection', async () => {
@@ -125,5 +151,20 @@ describe('BrnAccordion', () => {
 		});
 
 		expect(ng0600Errors(errors)).toEqual([]);
+	});
+
+	// brn-accordion-content must measure its first ELEMENT child, not its first
+	// node: a leading Text node (e.g. from preserveWhitespaces) has no `.style`, so
+	// measuring it threw "Cannot read properties of undefined (reading 'height')".
+	it('does not throw when the opened content has a leading text node', async () => {
+		const errors: unknown[] = [];
+		await render(AccordionContentLeadingTextNodeSpec, {
+			providers: [{ provide: ErrorHandler, useValue: { handleError: (error: unknown) => errors.push(error) } }],
+		});
+		// The dimension measuring runs in an afterNextRender hook that does not
+		// auto-run under jest - flush it so the regression actually exercises.
+		TestBed.inject(ApplicationRef).tick();
+
+		expect(errors).toEqual([]);
 	});
 });

@@ -61,7 +61,10 @@ export class BrnAccordionContent {
 	}
 
 	private _measureAndSetDimensions(): boolean {
-		const content = this._elementRef.nativeElement.firstChild as HTMLElement | null;
+		// Measure the first ELEMENT child, not the first node: a leading text node
+		// (e.g. projected content compiled with `preserveWhitespaces: true`) has no
+		// `.style`, so measuring it throws "Cannot read properties of undefined".
+		const content = this._elementRef.nativeElement.firstElementChild as HTMLElement | null;
 		if (!content) return false;
 
 		const { width, height } = measureDimensions(content, this._config.measurementDisplay);

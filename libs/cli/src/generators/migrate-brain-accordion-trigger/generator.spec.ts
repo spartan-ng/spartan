@@ -117,8 +117,6 @@ describe('migrate-accordion-trigger generator', () => {
 export class AppComponent {}`,
 		);
 
-		console.log('los gehts');
-
 		await migrateAccordionTriggerGenerator(tree, { skipFormat: true });
 
 		const content = tree.read('app/src/app/app.component.ts', 'utf-8');

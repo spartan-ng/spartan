@@ -36,7 +36,7 @@ vi.mock('@nx/angular/generators', async (importOriginal) => {
 	};
 });
 
-// required because @angular/core is esm and jest doesn't handle esm well
+// Stub @angular/core down to its VERSION so the generator's Angular-version check is deterministic.
 vi.mock('@angular/core', () => ({
 	VERSION: {
 		major: 19,
@@ -98,8 +98,10 @@ describe('hlmBaseGenerator', () => {
 	});
 
 	it('should generate files correctly for a secondary entrypoint and buildable true', async () => {
-		vi.unmock('@nx/angular/generators'); // use real generator here
-		const { libraryGenerator } = require('@nx/angular/generators');
+		// Load the real generator for just this test; the file-level vi.mock stubs libraryGenerator.
+		// vi.importActual is test-scoped, unlike vi.unmock which is hoisted to the whole file.
+		const { libraryGenerator } =
+			await vi.importActual<typeof import('@nx/angular/generators')>('@nx/angular/generators');
 
 		const options = {
 			name: 'input',

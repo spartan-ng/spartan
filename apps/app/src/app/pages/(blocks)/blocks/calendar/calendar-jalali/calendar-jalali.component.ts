@@ -3,29 +3,27 @@ import { provideBrnCalendarI18n, type BrnCalendarI18n, type MonthLabels } from '
 import { BrnJalaliDateAdapter, provideDateAdapter } from '@spartan-ng/brain/date-time';
 import { HlmCalendar } from '@spartan-ng/helm/calendar';
 
+const JALALI_MONTHS = [
+	'فروردین',
+	'اردیبهشت',
+	'خرداد',
+	'تیر',
+	'مرداد',
+	'شهریور',
+	'مهر',
+	'آبان',
+	'آذر',
+	'دی',
+	'بهمن',
+	'اسفند',
+] as MonthLabels;
+
 const JALALI_CALENDAR_I18N: BrnCalendarI18n = {
 	formatWeekdayName: (i) => ['ی', 'د', 'س', 'چ', 'پ', 'ج', 'ش'][i],
-	months: () =>
-		[
-			'فروردین',
-			'اردیبهشت',
-			'خرداد',
-			'تیر',
-			'مرداد',
-			'شهریور',
-			'مهر',
-			'آبان',
-			'آذر',
-			'دی',
-			'بهمن',
-			'اسفند',
-		] as MonthLabels,
+	months: () => JALALI_MONTHS,
 	years: (startYear = 1300, endYear = 1420) => Array.from({ length: endYear - startYear + 1 }, (_, i) => startYear + i),
-	formatHeader: (month, year) =>
-		['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'][month] +
-		` ${year}`,
-	formatMonth: (m) =>
-		['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'][m],
+	formatHeader: (month, year) => JALALI_MONTHS[month] + ` ${year}`,
+	formatMonth: (m) => JALALI_MONTHS[m],
 	formatYear: (y) => `${y}`,
 	labelPrevious: () => 'ماه قبل',
 	labelNext: () => 'ماه بعد',

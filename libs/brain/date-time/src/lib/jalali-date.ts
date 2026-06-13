@@ -8,8 +8,12 @@ export class JalaliDate {
 	) {}
 
 	valueOf(): number {
-		const g = PersianDate.jalaliToGregorian(this.year, this.month, this.day);
-		return new Date(g[0], g[1] - 1, g[2]).getTime();
+		const [gregorianYear, gregorianMonth, gregorianDay] = PersianDate.jalaliToGregorian(
+			this.year,
+			this.month,
+			this.day,
+		);
+		return new Date(gregorianYear, gregorianMonth - 1, gregorianDay).getTime();
 	}
 
 	toString(): string {

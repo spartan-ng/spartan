@@ -4,29 +4,27 @@ import { HlmDatePicker, HlmDatePickerImports, provideHlmDatePickerConfig } from 
 import { HlmFieldImports } from '@spartan-ng/helm/field';
 import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
 
+const JALALI_MONTHS = [
+	'فروردین',
+	'اردیبهشت',
+	'خرداد',
+	'تیر',
+	'مرداد',
+	'شهریور',
+	'مهر',
+	'آبان',
+	'آذر',
+	'دی',
+	'بهمن',
+	'اسفند',
+] as MonthLabels;
+
 const jalaliCalendarI18n: BrnCalendarI18n = {
 	formatWeekdayName: (i) => ['ی', 'د', 'س', 'چ', 'پ', 'ج', 'ش'][i],
-	months: () =>
-		[
-			'فروردین',
-			'اردیبهشت',
-			'خرداد',
-			'تیر',
-			'مرداد',
-			'شهریور',
-			'مهر',
-			'آبان',
-			'آذر',
-			'دی',
-			'بهمن',
-			'اسفند',
-		] as MonthLabels,
+	months: () => JALALI_MONTHS,
 	years: (startYear = 1300, endYear = 1420) => Array.from({ length: endYear - startYear + 1 }, (_, i) => startYear + i),
-	formatHeader: (month, year) =>
-		['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'][month] +
-		` ${year}`,
-	formatMonth: (m) =>
-		['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'][m],
+	formatHeader: (month, year) => JALALI_MONTHS[month] + ` ${year}`,
+	formatMonth: (m) => JALALI_MONTHS[m],
 	formatYear: (y) => `${y}`,
 	labelPrevious: () => 'ماه قبل',
 	labelNext: () => 'ماه بعد',

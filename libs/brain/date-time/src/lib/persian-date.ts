@@ -3,49 +3,54 @@ export const PersianDate = {
 	jalaliDaysInMonth: [31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29],
 
 	jalaliToGregorian: function (jalaliYear: number, jalaliMonth: number, jalaliDay: number): [number, number, number] {
-		const jy = jalaliYear - 979;
-		const jm = jalaliMonth - 1;
-		const jd = jalaliDay - 1;
+		jalaliYear = parseInt(jalaliYear.toString());
+		jalaliMonth = parseInt(jalaliMonth.toString());
+		jalaliDay = parseInt(jalaliDay.toString());
 
-		let jDayNo = 365 * jy + Math.floor(jy / 33) * 8 + Math.floor(((jy % 33) + 3) / 4);
-		for (let i = 0; i < jm; ++i) jDayNo += this.jalaliDaysInMonth[i];
+		const jalaliYearDelta = jalaliYear - 979;
+		const jalaliMonthIdx = jalaliMonth - 1;
+		const jalaliDayIdx = jalaliDay - 1;
 
-		jDayNo += jd;
+		let jalaliDayNo =
+			365 * jalaliYearDelta + Math.floor(jalaliYearDelta / 33) * 8 + Math.floor(((jalaliYearDelta % 33) + 3) / 4);
+		for (let i = 0; i < jalaliMonthIdx; ++i) jalaliDayNo += this.jalaliDaysInMonth[i];
 
-		let gDayNo = jDayNo + 79;
+		jalaliDayNo += jalaliDayIdx;
 
-		let gy = 1600 + 400 * Math.floor(gDayNo / 146097);
-		gDayNo = gDayNo % 146097;
+		let gregorianDayNo = jalaliDayNo + 79;
+
+		let gregorianYear = 1600 + 400 * Math.floor(gregorianDayNo / 146097);
+		gregorianDayNo = gregorianDayNo % 146097;
 
 		let leap = true;
-		if (gDayNo >= 36525) {
-			gDayNo--;
-			gy += 100 * Math.floor(gDayNo / 36524);
-			gDayNo = gDayNo % 36524;
+		if (gregorianDayNo >= 36525) {
+			gregorianDayNo--;
+			gregorianYear += 100 * Math.floor(gregorianDayNo / 36524);
+			gregorianDayNo = gregorianDayNo % 36524;
 
-			if (gDayNo >= 365) gDayNo++;
+			if (gregorianDayNo >= 365) gregorianDayNo++;
 			else leap = false;
 		}
 
-		gy += 4 * Math.floor(gDayNo / 1461);
-		gDayNo %= 1461;
+		gregorianYear += 4 * Math.floor(gregorianDayNo / 1461);
+		gregorianDayNo %= 1461;
 
-		if (gDayNo >= 366) {
+		if (gregorianDayNo >= 366) {
 			leap = false;
-			gDayNo--;
-			gy += Math.floor(gDayNo / 365);
-			gDayNo = gDayNo % 365;
+			gregorianDayNo--;
+			gregorianYear += Math.floor(gregorianDayNo / 365);
+			gregorianDayNo = gregorianDayNo % 365;
 		}
 
 		let i = 0;
-		for (; gDayNo >= this.gregorianDaysInMonth[i] + (i === 1 && leap ? 1 : 0); i++) {
-			gDayNo -= this.gregorianDaysInMonth[i] + (i === 1 && leap ? 1 : 0);
+		for (; gregorianDayNo >= this.gregorianDaysInMonth[i] + (i === 1 && leap ? 1 : 0); i++) {
+			gregorianDayNo -= this.gregorianDaysInMonth[i] + (i === 1 && leap ? 1 : 0);
 		}
 
-		const gm = i + 1;
-		const gd = gDayNo + 1;
+		const gregorianMonth = i + 1;
+		const gregorianDay = gregorianDayNo + 1;
 
-		return [gy, gm, gd];
+		return [gregorianYear, gregorianMonth, gregorianDay];
 	},
 
 	gregorianToJalali: function (
@@ -53,40 +58,52 @@ export const PersianDate = {
 		gregorianMonth: number,
 		gregorianDay: number,
 	): [number, number, number] {
-		const gy = gregorianYear - 1600;
-		const gm = gregorianMonth - 1;
-		const gd = gregorianDay - 1;
+		gregorianYear = parseInt(gregorianYear.toString());
+		gregorianMonth = parseInt(gregorianMonth.toString());
+		gregorianDay = parseInt(gregorianDay.toString());
 
-		let gDayNo = 365 * gy + Math.floor((gy + 3) / 4) - Math.floor((gy + 99) / 100) + Math.floor((gy + 399) / 400);
+		const gregorianYearDelta = gregorianYear - 1600;
+		const gregorianMonthIdx = gregorianMonth - 1;
+		const gregorianDayIdx = gregorianDay - 1;
 
-		for (let i = 0; i < gm; ++i) gDayNo += this.gregorianDaysInMonth[i];
+		let gregorianDayNo =
+			365 * gregorianYearDelta +
+			Math.floor((gregorianYearDelta + 3) / 4) -
+			Math.floor((gregorianYearDelta + 99) / 100) +
+			Math.floor((gregorianYearDelta + 399) / 400);
 
-		if (gm > 1 && ((gy % 4 === 0 && gy % 100 !== 0) || gy % 400 === 0)) gDayNo++;
+		for (let i = 0; i < gregorianMonthIdx; ++i) gregorianDayNo += this.gregorianDaysInMonth[i];
 
-		gDayNo += gd;
+		if (
+			gregorianMonthIdx > 1 &&
+			((gregorianYearDelta % 4 === 0 && gregorianYearDelta % 100 !== 0) || gregorianYearDelta % 400 === 0)
+		)
+			gregorianDayNo++;
 
-		let jDayNo = gDayNo - 79;
-		const jNp = Math.floor(jDayNo / 12053);
-		jDayNo = jDayNo % 12053;
+		gregorianDayNo += gregorianDayIdx;
 
-		let jy = 979 + 33 * jNp + 4 * Math.floor(jDayNo / 1461);
+		let jalaliDayNo = gregorianDayNo - 79;
+		const jalaliCycleCount = Math.floor(jalaliDayNo / 12053);
+		jalaliDayNo = jalaliDayNo % 12053;
 
-		jDayNo %= 1461;
+		let jalaliYear = 979 + 33 * jalaliCycleCount + 4 * Math.floor(jalaliDayNo / 1461);
 
-		if (jDayNo >= 366) {
-			jy += Math.floor((jDayNo - 1) / 365);
-			jDayNo = (jDayNo - 1) % 365;
+		jalaliDayNo %= 1461;
+
+		if (jalaliDayNo >= 366) {
+			jalaliYear += Math.floor((jalaliDayNo - 1) / 365);
+			jalaliDayNo = (jalaliDayNo - 1) % 365;
 		}
 
 		let i = 0;
-		for (; i < 11 && jDayNo >= this.jalaliDaysInMonth[i]; ++i) {
-			jDayNo -= this.jalaliDaysInMonth[i];
+		for (; i < 11 && jalaliDayNo >= this.jalaliDaysInMonth[i]; ++i) {
+			jalaliDayNo -= this.jalaliDaysInMonth[i];
 		}
 
-		const jm = i + 1;
-		const jd = jDayNo + 1;
+		const jalaliMonth = i + 1;
+		const jalaliDay = jalaliDayNo + 1;
 
-		return [jy, jm, jd];
+		return [jalaliYear, jalaliMonth, jalaliDay];
 	},
 
 	isLeapJalaliYear: function (year: number): boolean {
@@ -101,8 +118,26 @@ export const PersianDate = {
 		return this.isLeapJalaliYear(year) ? 30 : 29;
 	},
 
-	getDayOfWeek: function (jYear: number, jMonth: number, jDay: number): number {
-		const [gregorianYear, gregorianMonth, gregorianDay] = this.jalaliToGregorian(jYear, jMonth, jDay);
+	getMonthName: function (month: number): string {
+		const monthNames = [
+			'فروردین',
+			'اردیبهشت',
+			'خرداد',
+			'تیر',
+			'مرداد',
+			'شهریور',
+			'مهر',
+			'آبان',
+			'آذر',
+			'دی',
+			'بهمن',
+			'اسفند',
+		];
+		return monthNames[month - 1];
+	},
+
+	getDayOfWeek: function (jalaliYear: number, jalaliMonth: number, jalaliDay: number): number {
+		const [gregorianYear, gregorianMonth, gregorianDay] = this.jalaliToGregorian(jalaliYear, jalaliMonth, jalaliDay);
 		const date = new Date(gregorianYear, gregorianMonth - 1, gregorianDay);
 		return date.getDay();
 	},

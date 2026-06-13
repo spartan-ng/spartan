@@ -6,24 +6,24 @@ export class BrnJalaliDateAdapter implements BrnDateAdapter<JalaliDate> {
 	create({ year, month, day }: BrnDateUnits): JalaliDate {
 		const now = this.now();
 		const m = month !== undefined ? month + 1 : now.month;
-		return new JalaliDate(year ?? now.year, m, day ?? now.day);
+		return this._constrain(year ?? now.year, m, day ?? now.day);
 	}
 
 	now(): JalaliDate {
-		const d = new Date();
+		const today = new Date();
 		const [jalaliYear, jalaliMonth, jalaliDay] = PersianDate.gregorianToJalali(
-			d.getFullYear(),
-			d.getMonth() + 1,
-			d.getDate(),
+			today.getFullYear(),
+			today.getMonth() + 1,
+			today.getDate(),
 		);
-		return new JalaliDate(jalaliYear, jalaliMonth, jalaliDay);
+		return this._constrain(jalaliYear, jalaliMonth, jalaliDay);
 	}
 
 	set(date: JalaliDate, values: BrnDateUnits): JalaliDate {
-		const y = values.year ?? date.year;
-		const m = values.month !== undefined ? values.month + 1 : date.month;
-		const d = values.day ?? date.day;
-		return this._constrain(y, m, d);
+		const year = values.year ?? date.year;
+		const month = values.month !== undefined ? values.month + 1 : date.month;
+		const day = values.day ?? date.day;
+		return this._constrain(year, month, day);
 	}
 
 	add(date: JalaliDate, duration: BrnDuration): JalaliDate {

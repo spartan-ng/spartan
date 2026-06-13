@@ -15,8 +15,8 @@ describe('BrnJalaliDateAdapter', () => {
 
 	test('now() should return the current Jalali date', () => {
 		const now = adapter.now();
-		const g = new Date();
-		const expected = new Date(g.getFullYear(), g.getMonth(), g.getDate()).getTime();
+		const today = new Date();
+		const expected = new Date(today.getFullYear(), today.getMonth(), today.getDate()).getTime();
 		expect(now.valueOf()).toBeCloseTo(expected, -3);
 		expect(now.year).toBeGreaterThan(1300);
 	});

@@ -63,8 +63,4 @@ export class BrnPopover extends BrnOverlay {
 		if (!attachTo) return super.getPositionStrategy();
 		return this._positionBuilder.flexibleConnectedTo(attachTo).withPositions(this.getAttachPositions()).withPush(false);
 	}
-
-	protected override getCloseOnBackdropClick(): boolean {
-		return this.closeOnOutsidePointerEvents() && this.closeOnBackdropClick();
-	}
 }

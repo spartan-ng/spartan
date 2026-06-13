@@ -28,6 +28,16 @@ describe('popover--default', () => {
 			cy.findAllByText(/open popover/i).should('have.focus');
 		});
 
+		it('clicking an outside button should close the popover and activate the button', () => {
+			cy.findByText(/open popover/i).click();
+			cy.findByRole('dialog').should('be.visible');
+
+			cy.findByText(/outside action/i).click();
+
+			cy.get('[role="dialog"]').should('not.exist');
+			cy.findByText(/outside clicks: 1/i).should('be.visible');
+		});
+
 		it('tab and enter on trigger should open, escape should close', () => {
 			cy.checkA11y('#storybook-root', {
 				rules: {

@@ -3,13 +3,13 @@ import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
 import { migrateHelmLibrariesGenerator } from './generator';
 
 // patch some imports to avoid running the actual code
-jest.mock('enquirer');
+vi.mock('enquirer');
 
 describe('migrate-helm-libraries generator', () => {
 	let tree: Tree;
 
 	afterEach(() => {
-		jest.restoreAllMocks();
+		vi.restoreAllMocks();
 	});
 
 	beforeEach(() => {
@@ -33,7 +33,7 @@ describe('migrate-helm-libraries generator', () => {
 	// with "Cannot read properties of undefined (reading 'inverse')", so the generator threw
 	// before doing any work. Loading the generator and running it must not throw.
 	it('should run without crashing on the @nx/workspace barrel import', async () => {
-		const infoSpy = jest.spyOn(logger, 'info').mockImplementation(() => undefined);
+		const infoSpy = vi.spyOn(logger, 'info').mockImplementation(() => undefined);
 
 		await expect(
 			migrateHelmLibrariesGenerator(tree, {

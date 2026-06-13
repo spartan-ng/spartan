@@ -1,11 +1,12 @@
 import * as childProcess from 'node:child_process';
+import type { Mock } from 'vitest';
 import * as projectHelper from '../helpers/projects.helpers';
 import * as npmPublish from '../npm-publish/executor';
 import executor from './executor';
 
 // Mock the entire child_process module
-jest.mock('node:child_process', () => ({
-	execSync: jest.fn(), // Mock execSync function
+vi.mock('node:child_process', () => ({
+	execSync: vi.fn(), // Mock execSync function
 }));
 
 describe('BuildUpdatePublish Executor', () => {
@@ -15,14 +16,14 @@ describe('BuildUpdatePublish Executor', () => {
 		const mockContext = { bar: 'bar' } as any;
 
 		// Mock the project helper, npmPublish, and execSync
-		jest.spyOn(projectHelper, 'getProjectName').mockReturnValue(libName);
+		vi.spyOn(projectHelper, 'getProjectName').mockReturnValue(libName);
 
 		// Mock npmPublish to return { success: true }
-		jest.spyOn(npmPublish, 'default').mockImplementation(async () => Promise.resolve({ success: true }));
+		vi.spyOn(npmPublish, 'default').mockImplementation(async () => Promise.resolve({ success: true }));
 
-		// execSync is already mocked globally by jest.mock
+		// execSync is already mocked globally by vi.mock
 		const expectedCommand = `nx build --project ${libName}`;
-		const execSyncMock = childProcess.execSync as jest.Mock;
+		const execSyncMock = childProcess.execSync as unknown as Mock;
 
 		const output = await executor({}, mockContext);
 

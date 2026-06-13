@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
-import { axe } from 'jest-axe';
+import { axe } from '../../../src/testing/axe';
 import { BrnSwitch } from './brn-switch';
 import { BrnSwitchThumb } from './brn-switch-thumb';
 

@@ -7,11 +7,10 @@
 	"implicitDependencies": ["cli", "brain", "helm"],
 	"targets": {
 		"smoke": {
-			"executor": "@nx/jest:jest",
+			"executor": "@nx/vitest:test",
 			"outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
 			"options": {
-				"jestConfig": "apps/cli-smoke/jest.config.ts",
-				"runInBand": true
+				"configFile": "apps/cli-smoke/vite.config.mts"
 			}
 		},
 		"lint": {

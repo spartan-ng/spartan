@@ -2,6 +2,7 @@ import { Directionality } from '@angular/cdk/bidi';
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { render } from '@testing-library/angular';
+import type { MockInstance } from 'vitest';
 import { BrnResizableGroup } from './brn-resizable-group';
 import { BrnResizableHandle } from './brn-resizable-handle';
 import { BrnResizablePanel } from './brn-resizable-panel';
@@ -22,11 +23,11 @@ class ResizableHost {
 }
 
 describe('BrnResizableGroup horizontal RTL resize', () => {
-	let rafSpy: jest.SpyInstance;
+	let rafSpy: MockInstance;
 
 	beforeEach(() => {
 		// Run the RAF-scheduled layout commit synchronously so the drag result is observable.
-		rafSpy = jest.spyOn(window, 'requestAnimationFrame').mockImplementation((cb: FrameRequestCallback) => (cb(0), 0));
+		rafSpy = vi.spyOn(window, 'requestAnimationFrame').mockImplementation((cb: FrameRequestCallback) => (cb(0), 0));
 	});
 
 	afterEach(() => rafSpy.mockRestore());

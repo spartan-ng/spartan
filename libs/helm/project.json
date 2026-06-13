@@ -30,11 +30,10 @@
 			"defaultConfiguration": "production"
 		},
 		"test": {
-			"executor": "@nx/jest:jest",
+			"executor": "@nx/vitest:test",
 			"outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
 			"options": {
-				"jestConfig": "libs/helm/jest.config.ts",
-				"tsConfig": "libs/helm/tsconfig.spec.json"
+				"configFile": "libs/helm/vite.config.mts"
 			}
 		},
 		"lint": {

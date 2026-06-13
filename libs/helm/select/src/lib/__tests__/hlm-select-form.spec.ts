@@ -4,16 +4,6 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { HlmFieldImports } from '@spartan-ng/helm/field';
 import { HlmSelectImports } from '../../index';
 
-// Mock ResizeObserver for jsdom environment
-global.ResizeObserver = class ResizeObserver {
-	// eslint-disable-next-line @typescript-eslint/no-empty-function
-	observe() {}
-	// eslint-disable-next-line @typescript-eslint/no-empty-function
-	unobserve() {}
-	// eslint-disable-next-line @typescript-eslint/no-empty-function
-	disconnect() {}
-};
-
 @Component({
 	selector: 'hlm-select-host',
 	imports: [ReactiveFormsModule, HlmSelectImports, HlmFieldImports],

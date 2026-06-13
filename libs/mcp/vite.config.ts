@@ -18,9 +18,11 @@ const resolveTsFromJsSpecifier = {
 
 // https://vitejs.dev/config/
 export default defineConfig({
+	// Pin the Vite root to this project so the @nx/vitest executor (which runs from the workspace
+	// root) discovers the `src/**/*.spec.ts` files instead of resolving them against the workspace.
+	root: __dirname,
 	plugins: [resolveTsFromJsSpecifier],
 	test: {
-		passWithNoTests: true,
 		globals: true,
 		environment: 'node',
 		include: ['src/**/*.spec.ts'],

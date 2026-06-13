@@ -18,7 +18,6 @@ export default defineConfig(({ mode }) => ({
 		},
 	},
 	test: {
-		passWithNoTests: true,
 		globals: true,
 		setupFiles: ['src/test-setup.ts'],
 		include: ['**/*.spec.ts'],

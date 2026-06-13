@@ -9,7 +9,6 @@ export default defineConfig({
 	// `nxViteTsPaths` resolves the `@spartan-ng/*` workspace aliases (tsconfig.base paths) to source.
 	plugins: [nxViteTsPaths()],
 	test: {
-		passWithNoTests: true,
 		globals: true,
 		environment: 'node',
 		include: ['src/**/*.spec.ts'],

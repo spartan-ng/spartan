@@ -1,4 +1,4 @@
-import { computed, Directive, effect, inject, input, signal } from '@angular/core';
+import { computed, Directive, effect, inject, input, linkedSignal } from '@angular/core';
 import { BrnDialog } from './brn-dialog';
 import { BrnDialogRef } from './brn-dialog-ref';
 import type { BrnDialogState } from './brn-dialog-state';
@@ -14,7 +14,7 @@ let idSequence = 0;
 		'aria-haspopup': 'dialog',
 		'[attr.aria-expanded]': "state() === 'open' ? 'true': 'false'",
 		'[attr.data-state]': 'state()',
-		'[attr.aria-controls]': 'dialogId',
+		'[attr.aria-controls]': 'dialogId()',
 		'[type]': 'type()',
 	},
 })
@@ -45,13 +45,14 @@ export class BrnDialogTrigger {
 		return 'closed';
 	});
 
-	public readonly dialogId = `brn-dialog-${this._brnDialogRef?.dialogId ?? ++idSequence}`;
-
 	public readonly brnDialogTriggerFor = input<BrnDialog | undefined>(undefined, {
 		alias: 'brnDialogTriggerFor',
 	});
-	public readonly mutableBrnDialogTriggerFor = computed(() => signal(this.brnDialogTriggerFor()));
-	public readonly brnDialogTriggerForState = computed(() => this.mutableBrnDialogTriggerFor()());
+	public readonly mutableBrnDialogTriggerFor = linkedSignal(() => this.brnDialogTriggerFor());
+	public readonly brnDialogTriggerForState = computed(() => this.mutableBrnDialogTriggerFor());
+	public readonly dialogId = computed(
+		() => this.brnDialogTriggerForState()?.id() ?? this._brnDialog?.id() ?? this._brnDialogRef?.options().id ?? null,
+	);
 
 	constructor() {
 		effect(() => {

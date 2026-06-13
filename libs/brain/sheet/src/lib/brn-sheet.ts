@@ -1,5 +1,6 @@
 import { Directive, effect, forwardRef, input, linkedSignal, untracked } from '@angular/core';
 import { BrnDialog } from '@spartan-ng/brain/dialog';
+import { BrnOverlay } from '@spartan-ng/brain/overlay';
 
 @Directive({
 	selector: '[brnSheet],brn-sheet',
@@ -7,6 +8,10 @@ import { BrnDialog } from '@spartan-ng/brain/dialog';
 	providers: [
 		{
 			provide: BrnDialog,
+			useExisting: forwardRef(() => BrnSheet),
+		},
+		{
+			provide: BrnOverlay,
 			useExisting: forwardRef(() => BrnSheet),
 		},
 	],

@@ -1,7 +1,6 @@
 import { Directive } from '@angular/core';
 import { BrnComboboxMultiple } from '@spartan-ng/brain/combobox';
-import { provideBrnDialogDefaultOptions } from '@spartan-ng/brain/dialog';
-import { BrnPopover, provideBrnPopoverConfig } from '@spartan-ng/brain/popover';
+import { BrnPopover, provideBrnPopoverConfig, provideBrnPopoverDefaultOptions } from '@spartan-ng/brain/popover';
 import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
@@ -11,7 +10,7 @@ import { classes } from '@spartan-ng/helm/utils';
 			align: 'start',
 			sideOffset: 6,
 		}),
-		provideBrnDialogDefaultOptions({
+		provideBrnPopoverDefaultOptions({
 			autoFocus: 'first-heading',
 		}),
 	],
@@ -32,16 +31,7 @@ import { classes } from '@spartan-ng/helm/utils';
 		},
 		{
 			directive: BrnPopover,
-			inputs: [
-				'align',
-				'autoFocus',
-				'closeDelay',
-				'closeOnOutsidePointerEvents',
-				'sideOffset',
-				'state',
-				'offsetX',
-				'restoreFocus',
-			],
+			inputs: ['align', 'autoFocus', 'closeOnOutsidePointerEvents', 'sideOffset', 'state', 'offsetX', 'restoreFocus'],
 			outputs: ['stateChanged', 'closed'],
 		},
 	],

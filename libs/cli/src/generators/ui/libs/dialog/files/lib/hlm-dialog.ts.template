@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, forwardRef } from '@angular/core';
 import { BrnDialog, provideBrnDialogDefaultOptions } from '@spartan-ng/brain/dialog';
+import { BrnOverlay } from '@spartan-ng/brain/overlay';
 import { HlmDialogOverlay } from './hlm-dialog-overlay';
 
 @Component({
@@ -11,9 +12,11 @@ import { HlmDialogOverlay } from './hlm-dialog-overlay';
 			provide: BrnDialog,
 			useExisting: forwardRef(() => HlmDialog),
 		},
-		provideBrnDialogDefaultOptions({
-			// add custom options here
-		}),
+		{
+			provide: BrnOverlay,
+			useExisting: forwardRef(() => HlmDialog),
+		},
+		provideBrnDialogDefaultOptions({}),
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `

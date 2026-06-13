@@ -11,7 +11,11 @@ export class BrnJalaliDateAdapter implements BrnDateAdapter<JalaliDate> {
 
 	now(): JalaliDate {
 		const d = new Date();
-		const [jalaliYear, jalaliMonth, jalaliDay] = PersianDate.gregorianToJalali(d.getFullYear(), d.getMonth() + 1, d.getDate());
+		const [jalaliYear, jalaliMonth, jalaliDay] = PersianDate.gregorianToJalali(
+			d.getFullYear(),
+			d.getMonth() + 1,
+			d.getDate(),
+		);
 		return new JalaliDate(jalaliYear, jalaliMonth, jalaliDay);
 	}
 
@@ -101,7 +105,11 @@ export class BrnJalaliDateAdapter implements BrnDateAdapter<JalaliDate> {
 	}
 
 	getDay(date: JalaliDate): number {
-		const [gregorianYear, gregorianMonth, gregorianDay] = PersianDate.jalaliToGregorian(date.year, date.month, date.day);
+		const [gregorianYear, gregorianMonth, gregorianDay] = PersianDate.jalaliToGregorian(
+			date.year,
+			date.month,
+			date.day,
+		);
 		return new Date(gregorianYear, gregorianMonth - 1, gregorianDay).getDay();
 	}
 

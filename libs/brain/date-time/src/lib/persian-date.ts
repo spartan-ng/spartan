@@ -48,7 +48,11 @@ export const PersianDate = {
 		return [gy, gm, gd];
 	},
 
-	gregorianToJalali: function (gregorianYear: number, gregorianMonth: number, gregorianDay: number): [number, number, number] {
+	gregorianToJalali: function (
+		gregorianYear: number,
+		gregorianMonth: number,
+		gregorianDay: number,
+	): [number, number, number] {
 		const gy = gregorianYear - 1600;
 		const gm = gregorianMonth - 1;
 		const gd = gregorianDay - 1;

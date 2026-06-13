@@ -50,10 +50,16 @@ export class BrnDialog<TResult = unknown, TContext extends Record<string, unknow
 
 	private readonly _dialogRef = signal<BrnDialogRef<TResult> | undefined>(undefined);
 	private readonly _origin = signal<BrnDialogOptions['attachTo']>(undefined);
-	private readonly _panelClass = signal<string | null | undefined>(undefined);
-	private readonly _backdropClass = signal<string | null | undefined>(undefined);
+	private readonly _panelClass = signal<string | string[] | null | undefined>(undefined);
+	private readonly _backdropClass = signal<string | string[] | null | undefined>(undefined);
 	private _content: DialogContentRegistration<TContext> | undefined;
 	private _overlayClass: Signal<string | null | undefined> | undefined;
+	private readonly _resolvedBackdropClass = computed(
+		() => this._backdropClass() ?? this._overlayClass?.() ?? this._defaultOptions.backdropClass,
+	);
+	private readonly _resolvedPanelClass = computed(
+		() => this._panelClass() ?? this._content?.panelClass() ?? this._defaultOptions.panelClass,
+	);
 
 	public readonly closed = output<TResult>();
 	public readonly stateChanged = output<BrnDialogState>();
@@ -111,10 +117,8 @@ export class BrnDialog<TResult = unknown, TContext extends Record<string, unknow
 		attachPositions: this.attachPositions(),
 		autoFocus: this.autoFocus(),
 		disableClose: this.disableClose(),
-		backdropClass: cssClassesToArray(
-			this._backdropClass() ?? this._overlayClass?.() ?? this._defaultOptions.backdropClass,
-		),
-		panelClass: cssClassesToArray(this._panelClass() ?? this._content?.panelClass() ?? this._defaultOptions.panelClass),
+		backdropClass: cssClassesToArray(this._resolvedBackdropClass()),
+		panelClass: cssClassesToArray(this._resolvedPanelClass()),
 		ariaDescribedBy: this.ariaDescribedBy(),
 		ariaLabelledBy: this.ariaLabelledBy(),
 		ariaLabel: this.ariaLabel(),
@@ -123,6 +127,8 @@ export class BrnDialog<TResult = unknown, TContext extends Record<string, unknow
 
 	constructor() {
 		this._destroyRef.onDestroy(() => this._dialogRef()?.forceClose());
+		this._syncPanelClass();
+		this._syncOverlayClass();
 
 		afterNextRender(() => {
 			effect(
@@ -183,12 +189,12 @@ export class BrnDialog<TResult = unknown, TContext extends Record<string, unknow
 		this._origin.set(origin);
 	}
 
-	public setOverlayClass(overlayClass: string | null | undefined): void {
+	public setOverlayClass(overlayClass: string | string[] | null | undefined): void {
 		this._backdropClass.set(overlayClass);
 		this._dialogRef()?.setOverlayClass(overlayClass);
 	}
 
-	public setPanelClass(panelClass: string | null | undefined): void {
+	public setPanelClass(panelClass: string | string[] | null | undefined): void {
 		this._panelClass.set(panelClass);
 		this._dialogRef()?.setPanelClass(panelClass);
 	}
@@ -210,5 +216,31 @@ export class BrnDialog<TResult = unknown, TContext extends Record<string, unknow
 		if (strategy === 'close') return this._scrollStrategies.close();
 		if (strategy === 'reposition') return this._scrollStrategies.reposition();
 		return strategy;
+	}
+
+	private _syncPanelClass(): void {
+		effect(
+			() => {
+				const dialogRef = this._dialogRef();
+				if (!dialogRef) return;
+
+				const panelClass = this._resolvedPanelClass();
+				untracked(() => dialogRef.setPanelClass(panelClass));
+			},
+			{ injector: this._injector },
+		);
+	}
+
+	private _syncOverlayClass(): void {
+		effect(
+			() => {
+				const dialogRef = this._dialogRef();
+				if (!dialogRef) return;
+
+				const overlayClass = this._resolvedBackdropClass();
+				untracked(() => dialogRef.setOverlayClass(overlayClass));
+			},
+			{ injector: this._injector },
+		);
 	}
 }

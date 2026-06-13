@@ -53,9 +53,13 @@ export class BrnOverlay<TResult = unknown, TContext extends Record<string, unkno
 
 	private readonly _overlayRef = signal<BrnOverlayRef<TResult> | undefined>(undefined);
 	private readonly _origin = signal<BrnOverlayOptions['attachTo']>(undefined);
-	private readonly _panelClass = signal<string | null | undefined>(undefined);
-	private readonly _backdropClass = signal<string | null | undefined>(undefined);
+	private readonly _panelClass = signal<string | string[] | null | undefined>(undefined);
+	private readonly _backdropClass = signal<string | string[] | null | undefined>(undefined);
 	private _content: OverlayContentRegistration<TContext> | undefined;
+	private readonly _resolvedBackdropClass = computed(() => this._backdropClass() ?? this._defaultOptions.backdropClass);
+	private readonly _resolvedPanelClass = computed(
+		() => this._panelClass() ?? this._content?.panelClass() ?? this._defaultOptions.panelClass,
+	);
 
 	public readonly closed = output<TResult>();
 	public readonly stateChanged = output<BrnOverlayState>();
@@ -98,12 +102,14 @@ export class BrnOverlay<TResult = unknown, TContext extends Record<string, unkno
 		attachTo: this.getAttachTo(),
 		attachPositions: this.getAttachPositions(),
 		disableClose: this.disableClose(),
-		backdropClass: cssClassesToArray(this._backdropClass() ?? this._defaultOptions.backdropClass),
-		panelClass: cssClassesToArray(this._panelClass() ?? this._content?.panelClass() ?? this._defaultOptions.panelClass),
+		backdropClass: cssClassesToArray(this._resolvedBackdropClass()),
+		panelClass: cssClassesToArray(this._resolvedPanelClass()),
 	}));
 
 	constructor() {
 		this._destroyRef.onDestroy(() => this._overlayRef()?.forceClose());
+		this._syncPanelClass();
+		this._syncBackdropClass();
 
 		afterNextRender(() => {
 			effect(
@@ -170,12 +176,12 @@ export class BrnOverlay<TResult = unknown, TContext extends Record<string, unkno
 		this._origin.set(origin);
 	}
 
-	public setOverlayClass(overlayClass: string | null | undefined): void {
+	public setOverlayClass(overlayClass: string | string[] | null | undefined): void {
 		this._backdropClass.set(overlayClass);
 		this._overlayRef()?.setBackdropClass(overlayClass);
 	}
 
-	public setPanelClass(panelClass: string | null | undefined): void {
+	public setPanelClass(panelClass: string | string[] | null | undefined): void {
 		this._panelClass.set(panelClass);
 		this._overlayRef()?.setPanelClass(panelClass);
 	}
@@ -222,5 +228,31 @@ export class BrnOverlay<TResult = unknown, TContext extends Record<string, unkno
 		const shouldRestoreFocus = activeElement === this._document.body || !activeElement || !activeElement.isConnected;
 
 		if (shouldRestoreFocus) element.focus({ preventScroll: true });
+	}
+
+	private _syncPanelClass(): void {
+		effect(
+			() => {
+				const overlayRef = this._overlayRef();
+				if (!overlayRef) return;
+
+				const panelClass = this._resolvedPanelClass();
+				untracked(() => overlayRef.setPanelClass(panelClass));
+			},
+			{ injector: this._injector },
+		);
+	}
+
+	private _syncBackdropClass(): void {
+		effect(
+			() => {
+				const overlayRef = this._overlayRef();
+				if (!overlayRef) return;
+
+				const backdropClass = this._resolvedBackdropClass();
+				untracked(() => overlayRef.setBackdropClass(backdropClass));
+			},
+			{ injector: this._injector },
+		);
 	}
 }

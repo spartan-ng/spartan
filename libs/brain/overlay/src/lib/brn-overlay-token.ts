@@ -3,7 +3,7 @@ import type { BrnOverlayOptions } from './brn-overlay-options';
 
 export type BrnOverlayDefaultOptions = Omit<BrnOverlayOptions, 'direction' | 'id' | 'providers'>;
 
-export const defaultOptions: BrnOverlayDefaultOptions = {
+const createDefaultOptions = (): BrnOverlayDefaultOptions => ({
 	attachPositions: [],
 	attachTo: null,
 	backdropClass: '',
@@ -15,19 +15,29 @@ export const defaultOptions: BrnOverlayDefaultOptions = {
 	positionStrategy: null,
 	role: null,
 	scrollStrategy: null,
-};
+});
+
+const cloneDefaultOptions = (options: BrnOverlayDefaultOptions): BrnOverlayDefaultOptions => ({
+	...options,
+	attachPositions: [...options.attachPositions],
+});
+
+export const defaultOptions: BrnOverlayDefaultOptions = createDefaultOptions();
 
 export const BRN_OVERLAY_DEFAULT_OPTIONS = new InjectionToken<BrnOverlayDefaultOptions>('brn-overlay-default-options', {
 	providedIn: 'root',
-	factory: () => defaultOptions,
+	factory: createDefaultOptions,
 });
 
 export function provideBrnOverlayDefaultOptions(options: Partial<BrnOverlayDefaultOptions>): ValueProvider {
-	return { provide: BRN_OVERLAY_DEFAULT_OPTIONS, useValue: { ...defaultOptions, ...options } };
+	return {
+		provide: BRN_OVERLAY_DEFAULT_OPTIONS,
+		useValue: cloneDefaultOptions({ ...createDefaultOptions(), ...options }),
+	};
 }
 
 export function injectBrnOverlayDefaultOptions(): BrnOverlayDefaultOptions {
-	return inject(BRN_OVERLAY_DEFAULT_OPTIONS, { optional: true }) ?? defaultOptions;
+	return cloneDefaultOptions(inject(BRN_OVERLAY_DEFAULT_OPTIONS, { optional: true }) ?? defaultOptions);
 }
 
 export const BRN_OVERLAY_DATA = new InjectionToken<unknown>('brn-overlay-data');

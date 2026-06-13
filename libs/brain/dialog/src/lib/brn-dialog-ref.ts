@@ -98,13 +98,13 @@ export class BrnDialogRef<DialogResult = unknown> {
 		this._cdkDialogRef.close(result);
 	}
 
-	public setPanelClass(panelClass: string | null | undefined): void {
+	public setPanelClass(panelClass: string | string[] | null | undefined): void {
 		if (this._panelClasses.length) this._cdkDialogRef.removePanelClass(this._panelClasses);
 		this._panelClasses = cssClassesToArray(panelClass);
 		if (this._panelClasses.length) this._cdkDialogRef.addPanelClass(this._panelClasses);
 	}
 
-	public setOverlayClass(overlayClass: string | null | undefined): void {
+	public setOverlayClass(overlayClass: string | string[] | null | undefined): void {
 		const backdrop = this._cdkDialogRef.overlayRef.backdropElement;
 		if (!backdrop) return;
 

@@ -154,7 +154,7 @@ export class BrnOverlayService {
 		reason: BrnOverlayDismissReason,
 		event: MouseEvent | KeyboardEvent,
 	): void {
-		if (reason !== 'backdrop' && this._overlayStack.at(-1) !== overlayRef) return;
+		if (this._overlayStack.at(-1) !== overlayRef) return;
 		if (ref.dismiss(reason) && reason === 'escape') event.preventDefault();
 	}
 

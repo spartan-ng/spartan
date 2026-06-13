@@ -84,8 +84,12 @@ export class BrnDialogService {
 			restoreFocus: mergedOptions.restoreFocus,
 			disableClose: true,
 			autoFocus: mergedOptions.autoFocus,
-			ariaDescribedBy: mergedOptions.ariaDescribedBy ?? `brn-dialog-description-${dialogId}`,
-			ariaLabelledBy: mergedOptions.ariaLabelledBy ?? `brn-dialog-title-${dialogId}`,
+			ariaDescribedBy:
+				mergedOptions.ariaDescribedBy === undefined
+					? `brn-dialog-description-${dialogId}`
+					: mergedOptions.ariaDescribedBy,
+			ariaLabelledBy:
+				mergedOptions.ariaLabelledBy === undefined ? `brn-dialog-title-${dialogId}` : mergedOptions.ariaLabelledBy,
 			ariaLabel: mergedOptions.ariaLabel,
 			ariaModal: mergedOptions.ariaModal,
 			providers: (dialogRef) => {
@@ -143,7 +147,7 @@ export class BrnDialogService {
 		const childOrigin = (child.getConfig().positionStrategy as FlexibleConnectedPositionStrategy)._origin;
 		if (!childOrigin) return false;
 
-		if ('width' in childOrigin && 'height' in childOrigin) {
+		if ('x' in childOrigin && 'y' in childOrigin) {
 			const rect = parent.hostElement.getBoundingClientRect();
 			return (
 				childOrigin.x >= rect.left &&
@@ -153,7 +157,7 @@ export class BrnDialogService {
 			);
 		}
 
-		const element: Element = (childOrigin as ElementRef).nativeElement || childOrigin;
-		return parent.hostElement.contains(element);
+		const element = childOrigin instanceof ElementRef ? childOrigin.nativeElement : childOrigin;
+		return typeof Node !== 'undefined' && element instanceof Node ? parent.hostElement.contains(element) : false;
 	}
 }

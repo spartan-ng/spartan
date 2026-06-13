@@ -54,7 +54,7 @@ class ComboboxDefaultStory {
 	template: `
 		<hlm-field>
 			<label hlmFieldLabel for="countries">Countries</label>
-			<hlm-combobox autoFocus="first-tabbable">
+			<hlm-combobox>
 				<hlm-combobox-trigger buttonId="countries" class="w-64 justify-between font-normal">
 					<hlm-combobox-value placeholder="Select a country" />
 				</hlm-combobox-trigger>
@@ -227,7 +227,7 @@ class ComboboxMultipleHintErrorStory {
 		<form [formGroup]="form" class="w-full max-w-sm space-y-3">
 			<div hlmField>
 				<label hlmFieldLabel for="countries">Countries</label>
-				<hlm-combobox autoFocus="first-tabbable" formControlName="framework">
+				<hlm-combobox formControlName="framework">
 					<hlm-combobox-trigger buttonId="countries" class="w-64 justify-between font-normal">
 						<hlm-combobox-value placeholder="Select a country" />
 					</hlm-combobox-trigger>

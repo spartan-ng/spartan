@@ -1,7 +1,7 @@
 import type { BooleanInput } from '@angular/cdk/coercion';
 import { booleanAttribute, computed, Directive, effect, ElementRef, inject, input } from '@angular/core';
 import { injectElementSize } from '@spartan-ng/brain/core';
-import { BrnDialog } from '@spartan-ng/brain/dialog';
+import { BrnOverlay } from '@spartan-ng/brain/overlay';
 import { injectBrnSelectBase } from './brn-select.token';
 
 @Directive({
@@ -18,7 +18,7 @@ import { injectBrnSelectBase } from './brn-select.token';
 		'[attr.data-dirty]': '_dirty?.() ? "true": null',
 		'[attr.data-touched]': '_touched?.() ? "true" : null',
 		'[attr.data-matches-spartan-invalid]': '_spartanInvalid?.() ? "true" : null',
-		'(click)': 'open()',
+		'(click)': 'toggle()',
 		'(keydown)': 'onKeyDown($event)',
 	},
 })
@@ -26,7 +26,7 @@ export class BrnSelectTrigger {
 	private static _id = 0;
 
 	private readonly _host = inject(ElementRef, { host: true });
-	private readonly _brnDialog = inject(BrnDialog, { optional: true });
+	private readonly _brnOverlay = inject(BrnOverlay, { optional: true });
 
 	private readonly _select = injectBrnSelectBase();
 
@@ -54,21 +54,23 @@ export class BrnSelectTrigger {
 	constructor() {
 		this._select.registerSelectTrigger(this);
 
-		if (this._brnDialog) {
-			this._brnDialog.mutableAttachTo.set(this._host.nativeElement);
-		}
+		this._brnOverlay?.setOrigin(this._host.nativeElement);
 
 		effect(() => {
 			const size = this._elementSize();
-			if (size) {
-				this._select.updateTriggerWidth(size.width);
-				this._brnDialog?.updatePosition();
-			}
+			if (!size) return;
+
+			this._select.updateTriggerWidth(size.width);
+			this._brnOverlay?.updatePosition();
 		});
 	}
 
+	protected toggle() {
+		this._select.toggle();
+	}
+
 	protected open() {
-		this._brnDialog?.open();
+		this._brnOverlay?.open();
 	}
 
 	/** Listen for keydown events */

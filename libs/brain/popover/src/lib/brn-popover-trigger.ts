@@ -1,5 +1,5 @@
-import { Directive, effect, ElementRef, inject, input, untracked } from '@angular/core';
-import { BrnDialogTrigger } from '@spartan-ng/brain/dialog';
+import { Directive, ElementRef, inject, input } from '@angular/core';
+import { type BrnOverlay, BrnOverlayTrigger } from '@spartan-ng/brain/overlay';
 import type { BrnPopover } from './brn-popover';
 
 @Directive({
@@ -9,31 +9,32 @@ import type { BrnPopover } from './brn-popover';
 		'aria-haspopup': 'dialog',
 		'[attr.aria-expanded]': "state() === 'open' ? 'true': 'false'",
 		'[attr.data-state]': 'state()',
-		'[attr.aria-controls]': 'dialogId',
+		'[attr.aria-controls]': 'overlayId()',
 		'[type]': 'type()',
 	},
 })
-export class BrnPopoverTrigger extends BrnDialogTrigger {
+export class BrnPopoverTrigger extends BrnOverlayTrigger {
 	private readonly _host = inject(ElementRef, { host: true });
 
-	public readonly brnPopoverTriggerFor = input<BrnPopover | undefined>(undefined, {
-		alias: 'brnPopoverTriggerFor',
-	});
+	public readonly brnPopoverTriggerFor = input<BrnPopover | undefined>(undefined);
 
-	constructor() {
-		super();
-		effect(() => {
-			const brnDialog = this.brnPopoverTriggerFor();
-			untracked(() => {
-				if (!brnDialog) return;
-				brnDialog.mutableAttachTo.set(this._host.nativeElement);
-				brnDialog.mutableCloseOnOutsidePointerEvents.set(true);
-				this.mutableBrnDialogTriggerFor().set(brnDialog);
-			});
-		});
+	protected override getOverlay(): BrnOverlay | undefined {
+		return this.brnPopoverTriggerFor() ?? super.getOverlay();
+	}
 
-		if (!this._brnDialog) return;
-		this._brnDialog.mutableAttachTo.set(this._host.nativeElement);
-		this._brnDialog.mutableCloseOnOutsidePointerEvents.set(true);
+	public override open(): void {
+		const popover = this.getOverlay();
+		if (!popover) return;
+
+		popover.setOrigin(this._host.nativeElement);
+		popover.open();
+	}
+
+	public override toggle(): void {
+		const popover = this.getOverlay();
+		if (!popover) return;
+
+		popover.setOrigin(this._host.nativeElement);
+		popover.toggle();
 	}
 }

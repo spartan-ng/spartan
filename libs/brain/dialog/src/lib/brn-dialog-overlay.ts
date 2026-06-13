@@ -1,4 +1,4 @@
-import { Directive, effect, inject, input, untracked } from '@angular/core';
+import { computed, Directive, inject, input, signal } from '@angular/core';
 import { provideCustomClassSettableExisting } from '@spartan-ng/brain/core';
 import { BrnDialog } from './brn-dialog';
 
@@ -8,18 +8,16 @@ import { BrnDialog } from './brn-dialog';
 })
 export class BrnDialogOverlay {
 	private readonly _brnDialog = inject(BrnDialog);
+	private readonly _customClass = signal<string | undefined>(undefined);
 
 	public readonly className = input<string | null | undefined>(undefined, { alias: 'class' });
+	private readonly _resolvedClass = computed(() => this._customClass() ?? this.className());
 
 	constructor() {
-		effect(() => {
-			if (!this._brnDialog) return;
-			const newClass = this.className();
-			untracked(() => this._brnDialog.setOverlayClass(newClass));
-		});
+		this._brnDialog.registerOverlayClass(this._resolvedClass);
 	}
 
-	setClassToCustomElement(newClass: string) {
-		this._brnDialog.setOverlayClass(newClass);
+	public setClassToCustomElement(newClass: string): void {
+		this._customClass.set(newClass);
 	}
 }

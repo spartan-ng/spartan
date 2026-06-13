@@ -1,5 +1,5 @@
 import { Directive, inject } from '@angular/core';
-import { BrnDialog } from '@spartan-ng/brain/dialog';
+import { BrnOverlay } from '@spartan-ng/brain/overlay';
 import { injectBrnComboboxBase } from './brn-combobox.token';
 
 @Directive({
@@ -11,11 +11,11 @@ import { injectBrnComboboxBase } from './brn-combobox.token';
 export class BrnComboboxPopoverTrigger<T> {
 	private readonly _combobox = injectBrnComboboxBase<T>();
 
-	private readonly _brnDialog = inject(BrnDialog, { optional: true });
+	private readonly _brnOverlay = inject(BrnOverlay, { optional: true });
 
 	protected open() {
 		if (this._combobox.disabledState()) return;
 
-		this._brnDialog?.open();
+		this._brnOverlay?.open();
 	}
 }

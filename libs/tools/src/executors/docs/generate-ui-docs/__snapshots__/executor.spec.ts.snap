@@ -2573,6 +2573,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "exportAs": "brnDialog",
         "inputs": [
           {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+          {
             "name": "state",
             "required": false,
             "type": "BrnDialogState | null",
@@ -2628,11 +2633,6 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "BrnDialogOptions['autoFocus']",
           },
           {
-            "name": "closeDelay",
-            "required": false,
-            "type": "number",
-          },
-          {
             "name": "disableClose",
             "required": false,
             "type": "boolean",
@@ -2672,13 +2672,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnDialog],brn-dialog",
       },
       "BrnDialogClose": {
-        "inputs": [
-          {
-            "name": "delay",
-            "required": false,
-            "type": "number | undefined",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "button[brnDialogClose]",
@@ -3800,6 +3794,128 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "models": [],
         "outputs": [],
         "selector": "button[hlmNavigationMenuTrigger]",
+      },
+    },
+  },
+  "overlay": {
+    "brain": {
+      "BrnOverlay": {
+        "exportAs": "brnOverlay",
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "state",
+            "required": false,
+            "type": "BrnOverlayState | null",
+          },
+          {
+            "name": "role",
+            "required": false,
+            "type": "BrnOverlayOptions['role']",
+          },
+          {
+            "name": "hasBackdrop",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "positionStrategy",
+            "required": false,
+            "type": "BrnOverlayOptions['positionStrategy']",
+          },
+          {
+            "name": "scrollStrategy",
+            "required": false,
+            "type": "BrnOverlayOptions['scrollStrategy'] | 'close' | 'reposition' | null",
+          },
+          {
+            "name": "closeOnOutsidePointerEvents",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "closeOnBackdropClick",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "attachTo",
+            "required": false,
+            "type": "BrnOverlayOptions['attachTo']",
+          },
+          {
+            "name": "attachPositions",
+            "required": false,
+            "type": "BrnOverlayOptions['attachPositions']",
+          },
+          {
+            "name": "disableClose",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [
+          {
+            "name": "closed",
+            "type": "TResult",
+          },
+          {
+            "name": "stateChanged",
+            "type": "BrnOverlayState",
+          },
+        ],
+        "selector": "[brnOverlay],brn-overlay",
+      },
+      "BrnOverlayClose": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "button[brnOverlayClose]",
+      },
+      "BrnOverlayContent": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "string | null | undefined",
+          },
+          {
+            "name": "context",
+            "required": false,
+            "type": "T | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnOverlayContent]",
+      },
+      "BrnOverlayTrigger": {
+        "exportAs": "brnOverlayTrigger",
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "type",
+            "required": false,
+            "type": "'button' | 'submit' | 'reset'",
+          },
+          {
+            "name": "brnOverlayTriggerFor",
+            "required": false,
+            "type": "BrnOverlay | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[brnOverlayTrigger],button[brnOverlayTriggerFor]",
       },
     },
   },

@@ -2,7 +2,7 @@ import { Directionality } from '@angular/cdk/bidi';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { BrnDialogService } from '@spartan-ng/brain/dialog';
+import { BrnOverlayService } from '@spartan-ng/brain/overlay';
 import { BrnPopover } from '@spartan-ng/brain/popover';
 import { render } from '@testing-library/angular';
 import { HlmPopover } from './hlm-popover';
@@ -32,7 +32,7 @@ describe('HlmPopover direction', () => {
 	const setup = async (dir: 'ltr' | 'rtl' | null) => {
 		const view = await render(PopoverDirectionHost);
 		const host = view.fixture.componentInstance;
-		const service = TestBed.inject(BrnDialogService);
+		const service = TestBed.inject(BrnOverlayService);
 		const openSpy = vi.spyOn(service, 'open');
 
 		if (dir) {

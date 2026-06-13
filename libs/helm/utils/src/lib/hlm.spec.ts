@@ -371,26 +371,38 @@ describe('classes', () => {
 		element.className = 'bg-blue-500';
 
 		const elementRef = new ElementRef(element);
+		const rafSpy = vi.spyOn(window, 'requestAnimationFrame');
+		let restoreTransition: FrameRequestCallback | undefined;
 
-		TestBed.runInInjectionContext(() => {
-			classes(() => 'bg-red-500 text-white', { elementRef });
+		rafSpy.mockImplementation((callback: FrameRequestCallback) => {
+			restoreTransition = callback;
+			return 1;
 		});
 
-		// After registration but before effect, transition should be suppressed
-		expect(element.style.getPropertyValue('transition')).toBe('none');
-		expect(element.style.getPropertyPriority('transition')).toBe('important');
+		try {
+			TestBed.runInInjectionContext(() => {
+				classes(() => 'bg-red-500 text-white', { elementRef });
+			});
 
-		// Wait for effect to run
-		await new Promise((resolve) => setTimeout(resolve, 0));
+			// After registration but before effect, transition should be suppressed
+			expect(element.style.getPropertyValue('transition')).toBe('none');
+			expect(element.style.getPropertyPriority('transition')).toBe('important');
 
-		// After effect but before rAF, transition should still be suppressed
-		expect(element.style.getPropertyValue('transition')).toBe('none');
+			// Wait for effect to run
+			await new Promise((resolve) => setTimeout(resolve, 0));
 
-		// Wait for requestAnimationFrame to fire
-		await new Promise((resolve) => requestAnimationFrame(resolve));
+			// After effect but before rAF, transition should still be suppressed
+			expect(element.style.getPropertyValue('transition')).toBe('none');
 
-		// After rAF, transition suppression should be removed
-		expect(element.style.getPropertyValue('transition')).toBe('');
+			// Wait for requestAnimationFrame to fire
+			expect(restoreTransition).toBeDefined();
+			restoreTransition?.(performance.now());
+
+			// After rAF, transition suppression should be removed
+			expect(element.style.getPropertyValue('transition')).toBe('');
+		} finally {
+			rafSpy.mockRestore();
+		}
 	});
 
 	it('should restore pre-existing inline transition after suppression', async () => {

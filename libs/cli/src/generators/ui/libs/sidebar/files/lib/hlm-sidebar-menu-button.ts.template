@@ -12,18 +12,17 @@ import { HlmSidebarService } from './hlm-sidebar.service';
 import { injectHlmSidebarConfig } from './hlm-sidebar.token';
 
 const sidebarMenuButtonVariants = cva(
-	'peer/menu-button ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground active:bg-sidebar-accent active:text-sidebar-accent-foreground data-[active=true]:bg-sidebar-accent data-[active=true]:text-sidebar-accent-foreground data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground flex w-full items-center justify-start gap-2 overflow-hidden rounded-md p-2 text-left text-sm transition-[width,height,padding] outline-none group-has-[[data-sidebar=menu-action]]/menu-item:pr-8 group-data-[collapsible=icon]:!size-8 group-data-[collapsible=icon]:!p-2 hover:cursor-pointer focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50 disabled:hover:cursor-default aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:font-medium [&>_ng-icon]:size-4 [&>_ng-icon]:shrink-0 group-data-[collapsible=icon]:[&>span]:hidden [&>span:last-child]:truncate',
+	'spartan-sidebar-menu-button peer/menu-button group/menu-button flex w-full items-center overflow-hidden outline-hidden disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&_ng-icon]:shrink-0 [&_ng-icon]:text-[calc(var(--spacing)*4)] [&>span:last-child]:truncate',
 	{
 		variants: {
 			variant: {
-				default: 'hover:bg-sidebar-accent hover:text-sidebar-accent-foreground',
-				outline:
-					'bg-background shadow-sidebar-border hover:bg-sidebar-accent hover:text-sidebar-accent-foreground hover:shadow-sidebar-accent',
+				default: 'spartan-sidebar-menu-button-variant-default',
+				outline: 'spartan-sidebar-menu-button-variant-outline',
 			},
 			size: {
-				default: 'h-8 text-sm',
-				sm: 'h-7 text-xs',
-				lg: 'h-12 text-sm group-data-[collapsible=icon]:!p-0',
+				default: 'spartan-sidebar-menu-button-size-default',
+				sm: 'spartan-sidebar-menu-button-size-sm',
+				lg: 'spartan-sidebar-menu-button-size-lg',
 			},
 		},
 		defaultVariants: {

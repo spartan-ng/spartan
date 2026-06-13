@@ -18,6 +18,11 @@ export default defineConfig({
 		// These specs run the real nx application/library generators against an in-memory tree, which
 		// is heavy; give them headroom beyond the 5s default.
 		testTimeout: 30_000,
+		// The nx generators under test log copiously to stdout/stderr ("Couldn't find .gitignore",
+		// "NX workspace root does not exist", etc.). Across 142 specs that floods (and truncates) the
+		// CI log and buries the run summary. The specs assert on the tree and on console spies, not on
+		// this output, so drop it - failures are still reported by the test reporter.
+		onConsoleLog: () => false,
 	},
 	cacheDir: '../../node_modules/.vitest/cli',
 });

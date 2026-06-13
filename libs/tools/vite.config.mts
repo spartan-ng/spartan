@@ -10,6 +10,9 @@ export default defineConfig({
 	plugins: [nxViteTsPaths()],
 	test: {
 		globals: true,
+		// Emit the default summary so CI logs show the test counts; a terse reporter previously let
+		// a project's specs go silently undiscovered.
+		reporters: ['default'],
 		environment: 'node',
 		setupFiles: ['src/test-setup.ts'],
 		include: ['src/**/*.spec.ts'],

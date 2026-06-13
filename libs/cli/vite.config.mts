@@ -10,6 +10,9 @@ export default defineConfig({
 	plugins: [nxViteTsPaths()],
 	test: {
 		globals: true,
+		// Emit the default summary so CI logs show the test counts; a terse reporter previously let
+		// a project's specs go silently undiscovered.
+		reporters: ['default'],
 		environment: 'node',
 		include: ['src/**/*.spec.ts'],
 		// These specs run the real nx application/library generators against an in-memory tree, which

@@ -907,6 +907,11 @@
 		@apply text-muted-foreground end-2.5 top-1/2 -translate-y-1/2 text-[calc(var(--spacing)*4)];
 	}
 
+	&.spartan-native-select [data-slot='native-select-option'],
+	&.spartan-native-select [data-slot='native-select-optgroup'] {
+		@apply bg-[color:Canvas] text-[color:CanvasText];
+	}
+
 	/* MARK: Pagination */
 	&.spartan-pagination-content {
 		@apply gap-1;

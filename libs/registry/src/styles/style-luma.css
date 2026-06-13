@@ -226,6 +226,11 @@
 		@apply text-muted-foreground end-2.5 top-1/2 -translate-y-1/2 text-[calc(var(--spacing)*4)];
 	}
 
+	.spartan-native-select [data-slot='native-select-option'],
+	.spartan-native-select [data-slot='native-select-optgroup'] {
+		@apply bg-[color:Canvas] text-[color:CanvasText];
+	}
+
 	/* MARK: Combobox */
 	.spartan-combobox-content {
 		@apply bg-popover text-popover-foreground data-open:animate-in **:has-[[data-slot=input-group-control]:focus-visible]:border-input data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-end-2 data-[side=right]:slide-in-from-start-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/5 dark:ring-foreground/10 **:data-[slot=input-group]:bg-input/50 **:data-[slot=input-group]:border-input/30 max-h-72 min-w-36 overflow-hidden rounded-3xl shadow-lg ring-1 duration-100 **:has-[[data-slot=input-group-control]:focus-visible]:ring-0 **:data-[slot=input-group]:m-1.5 **:data-[slot=input-group]:mb-0 **:data-[slot=input-group]:h-8 **:data-[slot=input-group]:shadow-none;

@@ -1,14 +1,7 @@
 import type { ExecutorContext } from '@nx/devkit';
 import fs from 'fs';
 import path from 'path';
-import {
-	CallExpression,
-	type ClassDeclaration,
-	ObjectLiteralExpression,
-	Project,
-	PropertyAssignment,
-	type PropertyDeclaration,
-} from 'ts-morph';
+import { CallExpression, ObjectLiteralExpression, Project, PropertyAssignment } from 'ts-morph';
 import type { GenerateUiDocsExecutorSchema } from './schema';
 
 export default async function runExecutor(options: GenerateUiDocsExecutorSchema, context: ExecutorContext) {
@@ -21,10 +14,7 @@ export default async function runExecutor(options: GenerateUiDocsExecutorSchema,
 		fs.mkdirSync(outputDir, { recursive: true });
 	}
 
-	const project = new Project({
-		skipAddingFilesFromTsConfig: true,
-		tsConfigFilePath: path.join(context.root, 'tsconfig.base.json'),
-	});
+	const project = new Project();
 	project.addSourceFilesAtPaths([
 		`${brainDir}/**/*.ts`,
 		`${helmDir}/**/*.ts`,
@@ -81,7 +71,7 @@ function extractInputsOutputs(project: Project, workspaceRoot: string) {
 				}
 			}
 
-			getPropertiesIncludingBaseClasses(cls).forEach((prop) => {
+			cls.getProperties().forEach((prop) => {
 				// Prefer the type as written in the code (without import path)
 				const type = prop.getTypeNode()?.getText() || prop.getType().getText();
 				const decorator = prop.getDecorator((d) => d.getName() === 'Input' || d.getName() === 'Output');
@@ -172,22 +162,6 @@ function extractInputsOutputs(project: Project, workspaceRoot: string) {
 	});
 
 	return inputsOutputs;
-}
-
-function getPropertiesIncludingBaseClasses(cls: ClassDeclaration): PropertyDeclaration[] {
-	const properties = new Map<string, PropertyDeclaration>();
-
-	const collectProperties = (currentClass: ClassDeclaration) => {
-		const baseClass = currentClass.getBaseClass();
-		if (baseClass) collectProperties(baseClass);
-
-		currentClass.getProperties().forEach((property) => {
-			properties.set(property.getName(), property);
-		});
-	};
-
-	collectProperties(cls);
-	return [...properties.values()];
 }
 
 function addToNestedStructure(rootObject, relativeFilePath, className, componentInfo) {

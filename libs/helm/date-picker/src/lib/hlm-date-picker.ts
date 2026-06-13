@@ -38,7 +38,6 @@ export const HLM_DATE_PICKER_VALUE_ACCESSOR = {
 	template: `
 		<hlm-popover
 			sideOffset="5"
-			autoFocus="first-heading"
 			[state]="_popoverState()"
 			(stateChanged)="_popoverState.set($event)"
 			(closed)="_onTouched?.()"

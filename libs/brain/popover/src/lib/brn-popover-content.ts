@@ -6,4 +6,4 @@ import { BrnOverlayContent } from '@spartan-ng/brain/overlay';
 	selector: '[brnPopoverContent]',
 	providers: [provideExposesStateProviderExisting(() => BrnPopoverContent)],
 })
-export class BrnPopoverContent<T> extends BrnOverlayContent<T> {}
+export class BrnPopoverContent<T extends Record<string, unknown>> extends BrnOverlayContent<T> {}

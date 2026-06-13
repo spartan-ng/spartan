@@ -3,7 +3,7 @@ import { BrnOverlay } from './brn-overlay';
 import { BrnOverlayRef } from './brn-overlay-ref';
 import type { BrnOverlayState } from './brn-overlay-state';
 
-let idSequence = 0;
+let triggerIdSequence = 0;
 
 @Directive({
 	selector: 'button[brnOverlayTrigger],button[brnOverlayTriggerFor]',
@@ -11,31 +11,27 @@ let idSequence = 0;
 	host: {
 		'[id]': 'id()',
 		'(click)': 'open()',
-		'[attr.aria-expanded]': "state() === 'open' ? 'true': 'false'",
+		'[attr.aria-expanded]': "state() === 'open' ? 'true' : 'false'",
 		'[attr.data-state]': 'state()',
 		'[attr.aria-controls]': 'overlayId()',
 		'[type]': 'type()',
 	},
 })
 export class BrnOverlayTrigger {
-	protected readonly _brnOverlay = inject(BrnOverlay, { optional: true });
-	protected readonly _brnOverlayRef = inject(BrnOverlayRef, { optional: true });
+	private readonly _injectedOverlay = inject(BrnOverlay, { optional: true });
+	private readonly _overlayRef = inject(BrnOverlayRef, { optional: true });
 
-	public readonly id = input<string>(`brn-overlay-trigger-${++idSequence}`);
+	public readonly id = input<string>(`brn-overlay-trigger-${++triggerIdSequence}`);
 	public readonly type = input<'button' | 'submit' | 'reset'>('button');
-
-	public readonly state = computed<BrnOverlayState>(() => {
-		const overlay = this.getOverlay();
-		if (overlay) return overlay.stateComputed();
-		if (this._brnOverlayRef) return this._brnOverlayRef.state();
-		return 'closed';
-	});
-
 	public readonly brnOverlayTriggerFor = input<BrnOverlay | undefined>(undefined);
-	public readonly overlayId = computed(() => this.getOverlay()?.id() ?? this._brnOverlayRef?.options().id ?? null);
+
+	public readonly state = computed<BrnOverlayState>(
+		() => this.getOverlay()?.stateComputed() ?? this._overlayRef?.state() ?? 'closed',
+	);
+	public readonly overlayId = computed(() => this.getOverlay()?.id() ?? this._overlayRef?.id ?? null);
 
 	protected getOverlay(): BrnOverlay | undefined {
-		return this.brnOverlayTriggerFor() ?? this._brnOverlay ?? undefined;
+		return this.brnOverlayTriggerFor() ?? this._injectedOverlay ?? undefined;
 	}
 
 	public open(): void {

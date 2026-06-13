@@ -1,10 +1,10 @@
+import { type ConnectedPosition } from '@angular/cdk/overlay';
 import { type NumberInput } from '@angular/cdk/coercion';
-import { type FlexibleConnectedPositionStrategy } from '@angular/cdk/overlay';
-import { Directive, effect, forwardRef, input, numberAttribute, untracked } from '@angular/core';
-import { BrnOverlay, type BrnOverlayDefaultOptions } from '@spartan-ng/brain/overlay';
+import { Directive, forwardRef, input, numberAttribute } from '@angular/core';
+import { BrnOverlay, type BrnOverlayDefaultOptions, provideBrnOverlayDefaultOptions } from '@spartan-ng/brain/overlay';
 import {
 	BRN_POPOVER_OVERLAY_DEFAULT_OPTIONS,
-	BrnPopoverAlign,
+	type BrnPopoverAlign,
 	injectBrnPopoverConfig,
 	injectBrnPopoverDefaultOptions,
 } from './brn-popover.token';
@@ -20,6 +20,7 @@ export const BRN_POPOVER_DIALOG_DEFAULT_OPTIONS = BRN_POPOVER_OVERLAY_DEFAULT_OP
 			provide: BrnOverlay,
 			useExisting: forwardRef(() => BrnPopover),
 		},
+		provideBrnOverlayDefaultOptions(BRN_POPOVER_OVERLAY_DEFAULT_OPTIONS),
 	],
 })
 export class BrnPopover extends BrnOverlay {
@@ -28,81 +29,38 @@ export class BrnPopover extends BrnOverlay {
 	public readonly align = input<BrnPopoverAlign>(this._config.align);
 	public readonly sideOffset = input<number, NumberInput>(this._config.sideOffset, { transform: numberAttribute });
 	public readonly offsetX = input<number, NumberInput>(this._config.offsetX, { transform: numberAttribute });
-	private _positionStrategy?: FlexibleConnectedPositionStrategy;
 
 	protected override getDefaultOptions(): BrnOverlayDefaultOptions {
 		return injectBrnPopoverDefaultOptions();
 	}
 
-	constructor() {
-		super();
-		this.setAriaDescribedBy('');
-		this.setAriaLabelledBy('');
-
-		effect(() => {
-			const align = this.align();
-			untracked(() => {
-				this.mutableAttachPositions.set([
-					{
-						originX: align,
-						originY: 'bottom',
-						overlayX: align,
-						overlayY: 'top',
-					},
-					{
-						originX: align,
-						originY: 'top',
-						overlayX: align,
-						overlayY: 'bottom',
-					},
-				]);
-			});
-			untracked(() => {
-				this.applySideOffset(this.sideOffset());
-			});
-		});
-		effect(() => {
-			const sideOffset = this.sideOffset();
-			untracked(() => {
-				this.applySideOffset(sideOffset);
-			});
-		});
-		effect(() => {
-			const offsetX = this.offsetX();
-			untracked(() => {
-				this.applyOffsetX(offsetX);
-			});
-		});
-		effect(() => {
-			const attachTo = this.mutableAttachTo();
-			const positions = this.mutableAttachPositions();
-			if (!attachTo || !positions || positions.length === 0) return;
-			untracked(() => {
-				if (!this._positionStrategy) {
-					this._positionStrategy = this.positionBuilder.flexibleConnectedTo(attachTo).withPush(false);
-				} else {
-					this._positionStrategy.setOrigin(attachTo);
-				}
-				this._positionStrategy.withPositions(positions);
-				this.mutablePositionStrategy.set(this._positionStrategy);
-			});
-		});
-	}
-
-	private applySideOffset(sideOffset: number) {
-		this.mutableAttachPositions.update((positions) =>
-			positions.map((position) => ({
-				...position,
-				offsetY: position.originY === 'top' ? -sideOffset : sideOffset,
-			})),
-		);
-	}
-	private applyOffsetX(offsetX: number) {
-		this.mutableAttachPositions.update((positions) =>
-			positions.map((position) => ({
-				...position,
+	protected override getAttachPositions(): ConnectedPosition[] {
+		const align = this.align();
+		const sideOffset = this.sideOffset();
+		const offsetX = this.offsetX();
+		return [
+			{
+				originX: align,
+				originY: 'bottom',
+				overlayX: align,
+				overlayY: 'top',
 				offsetX,
-			})),
-		);
+				offsetY: sideOffset,
+			},
+			{
+				originX: align,
+				originY: 'top',
+				overlayX: align,
+				overlayY: 'bottom',
+				offsetX,
+				offsetY: -sideOffset,
+			},
+		];
+	}
+
+	protected override getPositionStrategy() {
+		const attachTo = this.getAttachTo();
+		if (!attachTo) return super.getPositionStrategy();
+		return this.positionBuilder.flexibleConnectedTo(attachTo).withPositions(this.getAttachPositions()).withPush(false);
 	}
 }

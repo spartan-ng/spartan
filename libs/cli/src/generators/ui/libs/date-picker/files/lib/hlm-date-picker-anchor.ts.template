@@ -13,14 +13,13 @@ export class HlmDatePickerAnchor {
 
 	constructor() {
 		effect(() => {
-			const brnOverlay = this.hlmDatePickerAnchorFor();
+			const brnDialog = this.hlmDatePickerAnchorFor();
 			untracked(() => {
-				if (!brnOverlay) return;
-				brnOverlay.mutableAttachTo.set(this._host.nativeElement);
+				if (!brnDialog) return;
+				brnDialog.setOrigin(this._host.nativeElement);
 			});
 		});
 
-		if (!this._brnOverlay) return;
-		this._brnOverlay.mutableAttachTo.set(this._host.nativeElement);
+		this._brnOverlay?.setOrigin(this._host.nativeElement);
 	}
 }

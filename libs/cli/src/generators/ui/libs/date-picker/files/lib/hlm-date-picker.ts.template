@@ -13,9 +13,9 @@ import {
 	viewChild,
 } from '@angular/core';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import type { BrnOverlayState } from '@spartan-ng/brain/overlay';
 import { BrnFieldControl, provideBrnLabelable } from '@spartan-ng/brain/field';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
+import type { BrnOverlayState } from '@spartan-ng/brain/overlay';
 import { BrnPopover } from '@spartan-ng/brain/popover';
 import { HlmCalendar } from '<%- importAlias %>/calendar';
 import { HlmPopoverImports } from '<%- importAlias %>/popover';
@@ -38,7 +38,6 @@ export const HLM_DATE_PICKER_VALUE_ACCESSOR = {
 	template: `
 		<hlm-popover
 			sideOffset="5"
-			autoFocus="first-heading"
 			[state]="_popoverState()"
 			(stateChanged)="_popoverState.set($event)"
 			(closed)="_onTouched?.()"

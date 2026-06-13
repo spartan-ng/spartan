@@ -1,1 +1,5 @@
-export type { BrnOverlayState as BrnDialogState } from '@spartan-ng/brain/overlay';
+export type BrnDialogState = 'closed' | 'open';
+
+export type BrnDialogPhase = 'closed' | 'closing' | 'open';
+
+export type BrnDialogDismissReason = 'backdrop' | 'escape' | 'outside';

@@ -26,7 +26,7 @@ export class BrnPopoverTrigger extends BrnOverlayTrigger {
 		const popover = this.getOverlay();
 		if (!popover) return;
 
-		popover.mutableAttachTo.set(this._host.nativeElement);
+		popover.setOrigin(this._host.nativeElement);
 		popover.open();
 	}
 }

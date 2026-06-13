@@ -1,6 +1,5 @@
-import { Directive, effect, forwardRef, input, linkedSignal, untracked } from '@angular/core';
+import { Directive, forwardRef, input, linkedSignal } from '@angular/core';
 import { BrnDialog } from '@spartan-ng/brain/dialog';
-import { BrnOverlay } from '@spartan-ng/brain/overlay';
 
 @Directive({
 	selector: '[brnSheet],brn-sheet',
@@ -10,34 +9,23 @@ import { BrnOverlay } from '@spartan-ng/brain/overlay';
 			provide: BrnDialog,
 			useExisting: forwardRef(() => BrnSheet),
 		},
-		{
-			provide: BrnOverlay,
-			useExisting: forwardRef(() => BrnSheet),
-		},
 	],
 })
 export class BrnSheet extends BrnDialog {
 	/** Specifies the side of the screen where the sheet will appear. */
 	public readonly side = input<'top' | 'bottom' | 'left' | 'right'>('top');
-	public readonly sideState = linkedSignal(() => this.side());
-	constructor() {
-		super();
-		effect(() => {
-			const side = this.sideState();
-			untracked(() => {
-				if (side === 'top') {
-					this.mutablePositionStrategy.set(this.positionBuilder.global().top());
-				}
-				if (side === 'bottom') {
-					this.mutablePositionStrategy.set(this.positionBuilder.global().bottom());
-				}
-				if (side === 'left') {
-					this.mutablePositionStrategy.set(this.positionBuilder.global().left());
-				}
-				if (side === 'right') {
-					this.mutablePositionStrategy.set(this.positionBuilder.global().right());
-				}
-			});
-		});
+	public readonly sideState = linkedSignal(this.side);
+
+	protected override getPositionStrategy() {
+		switch (this.sideState()) {
+			case 'bottom':
+				return this.positionBuilder.global().bottom();
+			case 'left':
+				return this.positionBuilder.global().left();
+			case 'right':
+				return this.positionBuilder.global().right();
+			case 'top':
+				return this.positionBuilder.global().top();
+		}
 	}
 }

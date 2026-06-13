@@ -10,9 +10,7 @@ import { classes } from '<%- importAlias %>/utils';
 			align: 'start',
 			sideOffset: 6,
 		}),
-		provideBrnPopoverDefaultOptions({
-			autoFocus: 'first-heading',
-		}),
+		provideBrnPopoverDefaultOptions({ role: null }),
 	],
 	hostDirectives: [
 		{
@@ -33,12 +31,10 @@ import { classes } from '<%- importAlias %>/utils';
 			directive: BrnPopover,
 			inputs: [
 				'align',
-				'autoFocus',
 				'closeOnOutsidePointerEvents',
 				'sideOffset',
 				'state',
 				'offsetX',
-				'restoreFocus',
 			],
 			outputs: ['stateChanged', 'closed'],
 		},

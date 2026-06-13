@@ -54,9 +54,7 @@ export class BrnSelectTrigger {
 	constructor() {
 		this._select.registerSelectTrigger(this);
 
-		if (this._brnOverlay) {
-			this._brnOverlay.mutableAttachTo.set(this._host.nativeElement);
-		}
+		this._brnOverlay?.setOrigin(this._host.nativeElement);
 
 		effect(() => {
 			const size = this._elementSize();

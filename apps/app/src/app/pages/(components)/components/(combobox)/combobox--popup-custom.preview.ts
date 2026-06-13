@@ -17,7 +17,7 @@ type Country = {
 	providers: [provideIcons({ lucideEarth })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<hlm-combobox autoFocus="first-tabbable">
+		<hlm-combobox>
 			<hlm-combobox-trigger class="w-64 justify-between font-normal">
 				<hlm-combobox-placeholder>
 					<ng-icon name="lucideEarth" />

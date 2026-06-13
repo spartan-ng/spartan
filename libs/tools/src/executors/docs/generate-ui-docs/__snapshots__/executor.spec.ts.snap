@@ -145,124 +145,13 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
     "brain": {
       "BrnAlertDialog": {
         "exportAs": "brnAlertDialog",
-        "inputs": [
-          {
-            "name": "id",
-            "required": false,
-            "type": "string",
-          },
-          {
-            "name": "state",
-            "required": false,
-            "type": "BrnOverlayState | null",
-          },
-          {
-            "name": "role",
-            "required": false,
-            "type": "BrnOverlayOptions['role']",
-          },
-          {
-            "name": "hasBackdrop",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "positionStrategy",
-            "required": false,
-            "type": "BrnOverlayOptions['positionStrategy']",
-          },
-          {
-            "name": "scrollStrategy",
-            "required": false,
-            "type": "BrnOverlayOptions['scrollStrategy'] | 'close' | 'reposition' | null",
-          },
-          {
-            "name": "restoreFocus",
-            "required": false,
-            "type": "BrnOverlayOptions['restoreFocus']",
-          },
-          {
-            "name": "closeOnOutsidePointerEvents",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "closeOnBackdropClick",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "attachTo",
-            "required": false,
-            "type": "BrnOverlayOptions['attachTo']",
-          },
-          {
-            "name": "attachPositions",
-            "required": false,
-            "type": "BrnOverlayOptions['attachPositions']",
-          },
-          {
-            "name": "autoFocus",
-            "required": false,
-            "type": "BrnOverlayOptions['autoFocus']",
-          },
-          {
-            "name": "disableClose",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "trapFocus",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "aria-describedby",
-            "required": false,
-            "type": "BrnOverlayOptions['ariaDescribedBy']",
-          },
-          {
-            "name": "aria-labelledby",
-            "required": false,
-            "type": "BrnOverlayOptions['ariaLabelledBy']",
-          },
-          {
-            "name": "aria-label",
-            "required": false,
-            "type": "BrnOverlayOptions['ariaLabel']",
-          },
-          {
-            "name": "aria-modal",
-            "required": false,
-            "type": "boolean",
-          },
-        ],
+        "inputs": [],
         "models": [],
-        "outputs": [
-          {
-            "name": "closed",
-            "type": "TResult",
-          },
-          {
-            "name": "stateChanged",
-            "type": "BrnOverlayState",
-          },
-        ],
+        "outputs": [],
         "selector": "[brnAlertDialog],brn-alert-dialog",
       },
       "BrnAlertDialogContent": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "string | null | undefined",
-          },
-          {
-            "name": "context",
-            "required": false,
-            "type": "T | undefined",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[brnAlertDialogContent]",
@@ -274,13 +163,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnAlertDialogDescription]",
       },
       "BrnAlertDialogOverlay": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "string | null | undefined",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[brnAlertDialogOverlay],brn-alert-dialog-overlay",
@@ -293,21 +176,6 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
       },
       "BrnAlertDialogTrigger": {
         "inputs": [
-          {
-            "name": "id",
-            "required": false,
-            "type": "string",
-          },
-          {
-            "name": "type",
-            "required": false,
-            "type": "'button' | 'submit' | 'reset'",
-          },
-          {
-            "name": "brnDialogTriggerFor",
-            "required": false,
-            "type": "BrnDialog | undefined",
-          },
           {
             "name": "brnAlertDialogTriggerFor",
             "required": false,
@@ -322,109 +190,9 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
     "helm": {
       "HlmAlertDialog": {
         "exportAs": "hlmAlertDialog",
-        "inputs": [
-          {
-            "name": "id",
-            "required": false,
-            "type": "string",
-          },
-          {
-            "name": "state",
-            "required": false,
-            "type": "BrnOverlayState | null",
-          },
-          {
-            "name": "role",
-            "required": false,
-            "type": "BrnOverlayOptions['role']",
-          },
-          {
-            "name": "hasBackdrop",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "positionStrategy",
-            "required": false,
-            "type": "BrnOverlayOptions['positionStrategy']",
-          },
-          {
-            "name": "scrollStrategy",
-            "required": false,
-            "type": "BrnOverlayOptions['scrollStrategy'] | 'close' | 'reposition' | null",
-          },
-          {
-            "name": "restoreFocus",
-            "required": false,
-            "type": "BrnOverlayOptions['restoreFocus']",
-          },
-          {
-            "name": "closeOnOutsidePointerEvents",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "closeOnBackdropClick",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "attachTo",
-            "required": false,
-            "type": "BrnOverlayOptions['attachTo']",
-          },
-          {
-            "name": "attachPositions",
-            "required": false,
-            "type": "BrnOverlayOptions['attachPositions']",
-          },
-          {
-            "name": "autoFocus",
-            "required": false,
-            "type": "BrnOverlayOptions['autoFocus']",
-          },
-          {
-            "name": "disableClose",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "trapFocus",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "aria-describedby",
-            "required": false,
-            "type": "BrnOverlayOptions['ariaDescribedBy']",
-          },
-          {
-            "name": "aria-labelledby",
-            "required": false,
-            "type": "BrnOverlayOptions['ariaLabelledBy']",
-          },
-          {
-            "name": "aria-label",
-            "required": false,
-            "type": "BrnOverlayOptions['ariaLabel']",
-          },
-          {
-            "name": "aria-modal",
-            "required": false,
-            "type": "boolean",
-          },
-        ],
+        "inputs": [],
         "models": [],
-        "outputs": [
-          {
-            "name": "closed",
-            "type": "TResult",
-          },
-          {
-            "name": "stateChanged",
-            "type": "BrnOverlayState",
-          },
-        ],
+        "outputs": [],
         "selector": "hlm-alert-dialog",
       },
       "HlmAlertDialogAction": {
@@ -2805,19 +2573,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "exportAs": "brnDialog",
         "inputs": [
           {
-            "name": "id",
-            "required": false,
-            "type": "string",
-          },
-          {
             "name": "state",
             "required": false,
-            "type": "BrnOverlayState | null",
+            "type": "BrnDialogState | null",
           },
           {
             "name": "role",
             "required": false,
-            "type": "BrnOverlayOptions['role']",
+            "type": "BrnDialogOptions['role']",
           },
           {
             "name": "hasBackdrop",
@@ -2827,17 +2590,17 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
           {
             "name": "positionStrategy",
             "required": false,
-            "type": "BrnOverlayOptions['positionStrategy']",
+            "type": "BrnDialogOptions['positionStrategy']",
           },
           {
             "name": "scrollStrategy",
             "required": false,
-            "type": "BrnOverlayOptions['scrollStrategy'] | 'close' | 'reposition' | null",
+            "type": "BrnDialogOptions['scrollStrategy'] | 'close' | 'reposition' | null",
           },
           {
             "name": "restoreFocus",
             "required": false,
-            "type": "BrnOverlayOptions['restoreFocus']",
+            "type": "BrnDialogOptions['restoreFocus']",
           },
           {
             "name": "closeOnOutsidePointerEvents",
@@ -2852,17 +2615,22 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
           {
             "name": "attachTo",
             "required": false,
-            "type": "BrnOverlayOptions['attachTo']",
+            "type": "BrnDialogOptions['attachTo']",
           },
           {
             "name": "attachPositions",
             "required": false,
-            "type": "BrnOverlayOptions['attachPositions']",
+            "type": "BrnDialogOptions['attachPositions']",
           },
           {
             "name": "autoFocus",
             "required": false,
-            "type": "BrnOverlayOptions['autoFocus']",
+            "type": "BrnDialogOptions['autoFocus']",
+          },
+          {
+            "name": "closeDelay",
+            "required": false,
+            "type": "number",
           },
           {
             "name": "disableClose",
@@ -2870,24 +2638,19 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "boolean",
           },
           {
-            "name": "trapFocus",
-            "required": false,
-            "type": "boolean",
-          },
-          {
             "name": "aria-describedby",
             "required": false,
-            "type": "BrnOverlayOptions['ariaDescribedBy']",
+            "type": "BrnDialogOptions['ariaDescribedBy']",
           },
           {
             "name": "aria-labelledby",
             "required": false,
-            "type": "BrnOverlayOptions['ariaLabelledBy']",
+            "type": "BrnDialogOptions['ariaLabelledBy']",
           },
           {
             "name": "aria-label",
             "required": false,
-            "type": "BrnOverlayOptions['ariaLabel']",
+            "type": "BrnDialogOptions['ariaLabel']",
           },
           {
             "name": "aria-modal",
@@ -2903,13 +2666,19 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
           },
           {
             "name": "stateChanged",
-            "type": "BrnOverlayState",
+            "type": "BrnDialogState",
           },
         ],
         "selector": "[brnDialog],brn-dialog",
       },
       "BrnDialogClose": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "delay",
+            "required": false,
+            "type": "number | undefined",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "button[brnDialogClose]",
@@ -2982,109 +2751,9 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
     "helm": {
       "HlmDialog": {
         "exportAs": "hlmDialog",
-        "inputs": [
-          {
-            "name": "id",
-            "required": false,
-            "type": "string",
-          },
-          {
-            "name": "state",
-            "required": false,
-            "type": "BrnOverlayState | null",
-          },
-          {
-            "name": "role",
-            "required": false,
-            "type": "BrnOverlayOptions['role']",
-          },
-          {
-            "name": "hasBackdrop",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "positionStrategy",
-            "required": false,
-            "type": "BrnOverlayOptions['positionStrategy']",
-          },
-          {
-            "name": "scrollStrategy",
-            "required": false,
-            "type": "BrnOverlayOptions['scrollStrategy'] | 'close' | 'reposition' | null",
-          },
-          {
-            "name": "restoreFocus",
-            "required": false,
-            "type": "BrnOverlayOptions['restoreFocus']",
-          },
-          {
-            "name": "closeOnOutsidePointerEvents",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "closeOnBackdropClick",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "attachTo",
-            "required": false,
-            "type": "BrnOverlayOptions['attachTo']",
-          },
-          {
-            "name": "attachPositions",
-            "required": false,
-            "type": "BrnOverlayOptions['attachPositions']",
-          },
-          {
-            "name": "autoFocus",
-            "required": false,
-            "type": "BrnOverlayOptions['autoFocus']",
-          },
-          {
-            "name": "disableClose",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "trapFocus",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "aria-describedby",
-            "required": false,
-            "type": "BrnOverlayOptions['ariaDescribedBy']",
-          },
-          {
-            "name": "aria-labelledby",
-            "required": false,
-            "type": "BrnOverlayOptions['ariaLabelledBy']",
-          },
-          {
-            "name": "aria-label",
-            "required": false,
-            "type": "BrnOverlayOptions['ariaLabel']",
-          },
-          {
-            "name": "aria-modal",
-            "required": false,
-            "type": "boolean",
-          },
-        ],
+        "inputs": [],
         "models": [],
-        "outputs": [
-          {
-            "name": "closed",
-            "type": "TResult",
-          },
-          {
-            "name": "stateChanged",
-            "type": "BrnOverlayState",
-          },
-        ],
+        "outputs": [],
         "selector": "hlm-dialog",
       },
       "HlmDialogClose": {
@@ -4134,163 +3803,6 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
       },
     },
   },
-  "overlay": {
-    "brain": {
-      "BrnOverlay": {
-        "exportAs": "brnOverlay",
-        "inputs": [
-          {
-            "name": "id",
-            "required": false,
-            "type": "string",
-          },
-          {
-            "name": "state",
-            "required": false,
-            "type": "BrnOverlayState | null",
-          },
-          {
-            "name": "role",
-            "required": false,
-            "type": "BrnOverlayOptions['role']",
-          },
-          {
-            "name": "hasBackdrop",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "positionStrategy",
-            "required": false,
-            "type": "BrnOverlayOptions['positionStrategy']",
-          },
-          {
-            "name": "scrollStrategy",
-            "required": false,
-            "type": "BrnOverlayOptions['scrollStrategy'] | 'close' | 'reposition' | null",
-          },
-          {
-            "name": "restoreFocus",
-            "required": false,
-            "type": "BrnOverlayOptions['restoreFocus']",
-          },
-          {
-            "name": "closeOnOutsidePointerEvents",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "closeOnBackdropClick",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "attachTo",
-            "required": false,
-            "type": "BrnOverlayOptions['attachTo']",
-          },
-          {
-            "name": "attachPositions",
-            "required": false,
-            "type": "BrnOverlayOptions['attachPositions']",
-          },
-          {
-            "name": "autoFocus",
-            "required": false,
-            "type": "BrnOverlayOptions['autoFocus']",
-          },
-          {
-            "name": "disableClose",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "trapFocus",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "aria-describedby",
-            "required": false,
-            "type": "BrnOverlayOptions['ariaDescribedBy']",
-          },
-          {
-            "name": "aria-labelledby",
-            "required": false,
-            "type": "BrnOverlayOptions['ariaLabelledBy']",
-          },
-          {
-            "name": "aria-label",
-            "required": false,
-            "type": "BrnOverlayOptions['ariaLabel']",
-          },
-          {
-            "name": "aria-modal",
-            "required": false,
-            "type": "boolean",
-          },
-        ],
-        "models": [],
-        "outputs": [
-          {
-            "name": "closed",
-            "type": "TResult",
-          },
-          {
-            "name": "stateChanged",
-            "type": "BrnOverlayState",
-          },
-        ],
-        "selector": "[brnOverlay],brn-overlay",
-      },
-      "BrnOverlayClose": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "button[brnOverlayClose]",
-      },
-      "BrnOverlayContent": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "string | null | undefined",
-          },
-          {
-            "name": "context",
-            "required": false,
-            "type": "T | undefined",
-          },
-        ],
-        "models": [],
-        "outputs": [],
-        "selector": "[brnOverlayContent]",
-      },
-      "BrnOverlayTrigger": {
-        "exportAs": "brnOverlayTrigger",
-        "inputs": [
-          {
-            "name": "id",
-            "required": false,
-            "type": "string",
-          },
-          {
-            "name": "type",
-            "required": false,
-            "type": "'button' | 'submit' | 'reset'",
-          },
-          {
-            "name": "brnOverlayTriggerFor",
-            "required": false,
-            "type": "BrnOverlay | undefined",
-          },
-        ],
-        "models": [],
-        "outputs": [],
-        "selector": "button[brnOverlayTrigger],button[brnOverlayTriggerFor]",
-      },
-    },
-  },
   "pagination": {
     "helm": {
       "HlmNumberedPagination": {
@@ -4502,96 +4014,6 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "exportAs": "brnPopover",
         "inputs": [
           {
-            "name": "id",
-            "required": false,
-            "type": "string",
-          },
-          {
-            "name": "state",
-            "required": false,
-            "type": "BrnOverlayState | null",
-          },
-          {
-            "name": "role",
-            "required": false,
-            "type": "BrnOverlayOptions['role']",
-          },
-          {
-            "name": "hasBackdrop",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "positionStrategy",
-            "required": false,
-            "type": "BrnOverlayOptions['positionStrategy']",
-          },
-          {
-            "name": "scrollStrategy",
-            "required": false,
-            "type": "BrnOverlayOptions['scrollStrategy'] | 'close' | 'reposition' | null",
-          },
-          {
-            "name": "restoreFocus",
-            "required": false,
-            "type": "BrnOverlayOptions['restoreFocus']",
-          },
-          {
-            "name": "closeOnOutsidePointerEvents",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "closeOnBackdropClick",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "attachTo",
-            "required": false,
-            "type": "BrnOverlayOptions['attachTo']",
-          },
-          {
-            "name": "attachPositions",
-            "required": false,
-            "type": "BrnOverlayOptions['attachPositions']",
-          },
-          {
-            "name": "autoFocus",
-            "required": false,
-            "type": "BrnOverlayOptions['autoFocus']",
-          },
-          {
-            "name": "disableClose",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "trapFocus",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "aria-describedby",
-            "required": false,
-            "type": "BrnOverlayOptions['ariaDescribedBy']",
-          },
-          {
-            "name": "aria-labelledby",
-            "required": false,
-            "type": "BrnOverlayOptions['ariaLabelledBy']",
-          },
-          {
-            "name": "aria-label",
-            "required": false,
-            "type": "BrnOverlayOptions['ariaLabel']",
-          },
-          {
-            "name": "aria-modal",
-            "required": false,
-            "type": "boolean",
-          },
-          {
             "name": "align",
             "required": false,
             "type": "BrnPopoverAlign",
@@ -4608,52 +4030,17 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
           },
         ],
         "models": [],
-        "outputs": [
-          {
-            "name": "closed",
-            "type": "TResult",
-          },
-          {
-            "name": "stateChanged",
-            "type": "BrnOverlayState",
-          },
-        ],
+        "outputs": [],
         "selector": "[brnPopover],brn-popover",
       },
       "BrnPopoverContent": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "string | null | undefined",
-          },
-          {
-            "name": "context",
-            "required": false,
-            "type": "T | undefined",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[brnPopoverContent]",
       },
       "BrnPopoverTrigger": {
         "inputs": [
-          {
-            "name": "id",
-            "required": false,
-            "type": "string",
-          },
-          {
-            "name": "type",
-            "required": false,
-            "type": "'button' | 'submit' | 'reset'",
-          },
-          {
-            "name": "brnOverlayTriggerFor",
-            "required": false,
-            "type": "BrnOverlay | undefined",
-          },
           {
             "name": "brnPopoverTriggerFor",
             "required": false,
@@ -5363,112 +4750,13 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "exportAs": "brnSheet",
         "inputs": [
           {
-            "name": "id",
-            "required": false,
-            "type": "string",
-          },
-          {
-            "name": "state",
-            "required": false,
-            "type": "BrnOverlayState | null",
-          },
-          {
-            "name": "role",
-            "required": false,
-            "type": "BrnOverlayOptions['role']",
-          },
-          {
-            "name": "hasBackdrop",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "positionStrategy",
-            "required": false,
-            "type": "BrnOverlayOptions['positionStrategy']",
-          },
-          {
-            "name": "scrollStrategy",
-            "required": false,
-            "type": "BrnOverlayOptions['scrollStrategy'] | 'close' | 'reposition' | null",
-          },
-          {
-            "name": "restoreFocus",
-            "required": false,
-            "type": "BrnOverlayOptions['restoreFocus']",
-          },
-          {
-            "name": "closeOnOutsidePointerEvents",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "closeOnBackdropClick",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "attachTo",
-            "required": false,
-            "type": "BrnOverlayOptions['attachTo']",
-          },
-          {
-            "name": "attachPositions",
-            "required": false,
-            "type": "BrnOverlayOptions['attachPositions']",
-          },
-          {
-            "name": "autoFocus",
-            "required": false,
-            "type": "BrnOverlayOptions['autoFocus']",
-          },
-          {
-            "name": "disableClose",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "trapFocus",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "aria-describedby",
-            "required": false,
-            "type": "BrnOverlayOptions['ariaDescribedBy']",
-          },
-          {
-            "name": "aria-labelledby",
-            "required": false,
-            "type": "BrnOverlayOptions['ariaLabelledBy']",
-          },
-          {
-            "name": "aria-label",
-            "required": false,
-            "type": "BrnOverlayOptions['ariaLabel']",
-          },
-          {
-            "name": "aria-modal",
-            "required": false,
-            "type": "boolean",
-          },
-          {
             "name": "side",
             "required": false,
             "type": "'top' | 'bottom' | 'left' | 'right'",
           },
         ],
         "models": [],
-        "outputs": [
-          {
-            "name": "closed",
-            "type": "TResult",
-          },
-          {
-            "name": "stateChanged",
-            "type": "BrnOverlayState",
-          },
-        ],
+        "outputs": [],
         "selector": "[brnSheet],brn-sheet",
       },
       "BrnSheetClose": {
@@ -5478,18 +4766,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "button[brnSheetClose]",
       },
       "BrnSheetContent": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "string | null | undefined",
-          },
-          {
-            "name": "context",
-            "required": false,
-            "type": "T | undefined",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[brnSheetContent]",
@@ -5501,13 +4778,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnSheetDescription]",
       },
       "BrnSheetOverlay": {
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "string | null | undefined",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[brnSheetOverlay],brn-sheet-overlay",
@@ -5520,21 +4791,6 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
       },
       "BrnSheetTrigger": {
         "inputs": [
-          {
-            "name": "id",
-            "required": false,
-            "type": "string",
-          },
-          {
-            "name": "type",
-            "required": false,
-            "type": "'button' | 'submit' | 'reset'",
-          },
-          {
-            "name": "brnDialogTriggerFor",
-            "required": false,
-            "type": "BrnDialog | undefined",
-          },
           {
             "name": "side",
             "required": false,
@@ -5549,114 +4805,9 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
     "helm": {
       "HlmSheet": {
         "exportAs": "hlmSheet",
-        "inputs": [
-          {
-            "name": "id",
-            "required": false,
-            "type": "string",
-          },
-          {
-            "name": "state",
-            "required": false,
-            "type": "BrnOverlayState | null",
-          },
-          {
-            "name": "role",
-            "required": false,
-            "type": "BrnOverlayOptions['role']",
-          },
-          {
-            "name": "hasBackdrop",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "positionStrategy",
-            "required": false,
-            "type": "BrnOverlayOptions['positionStrategy']",
-          },
-          {
-            "name": "scrollStrategy",
-            "required": false,
-            "type": "BrnOverlayOptions['scrollStrategy'] | 'close' | 'reposition' | null",
-          },
-          {
-            "name": "restoreFocus",
-            "required": false,
-            "type": "BrnOverlayOptions['restoreFocus']",
-          },
-          {
-            "name": "closeOnOutsidePointerEvents",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "closeOnBackdropClick",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "attachTo",
-            "required": false,
-            "type": "BrnOverlayOptions['attachTo']",
-          },
-          {
-            "name": "attachPositions",
-            "required": false,
-            "type": "BrnOverlayOptions['attachPositions']",
-          },
-          {
-            "name": "autoFocus",
-            "required": false,
-            "type": "BrnOverlayOptions['autoFocus']",
-          },
-          {
-            "name": "disableClose",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "trapFocus",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "aria-describedby",
-            "required": false,
-            "type": "BrnOverlayOptions['ariaDescribedBy']",
-          },
-          {
-            "name": "aria-labelledby",
-            "required": false,
-            "type": "BrnOverlayOptions['ariaLabelledBy']",
-          },
-          {
-            "name": "aria-label",
-            "required": false,
-            "type": "BrnOverlayOptions['ariaLabel']",
-          },
-          {
-            "name": "aria-modal",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "side",
-            "required": false,
-            "type": "'top' | 'bottom' | 'left' | 'right'",
-          },
-        ],
+        "inputs": [],
         "models": [],
-        "outputs": [
-          {
-            "name": "closed",
-            "type": "TResult",
-          },
-          {
-            "name": "stateChanged",
-            "type": "BrnOverlayState",
-          },
-        ],
+        "outputs": [],
         "selector": "hlm-sheet",
       },
       "HlmSheetClose": {
@@ -6741,11 +5892,6 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
       "HlmTabsPaginatedList": {
         "inputs": [
           {
-            "name": "disablePagination",
-            "required": false,
-            "type": "boolean",
-          },
-          {
             "name": "tabListClass",
             "required": false,
             "type": "ClassValue",
@@ -6757,16 +5903,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
           },
         ],
         "models": [],
-        "outputs": [
-          {
-            "name": "selectFocusedIndex",
-            "type": "number",
-          },
-          {
-            "name": "indexFocused",
-            "type": "number",
-          },
-        ],
+        "outputs": [],
         "selector": "hlm-paginated-tabs-list",
       },
       "HlmTabsTrigger": {

@@ -1,3 +1,3 @@
 # @spartan-ng/brain/overlay
 
-Shared portal, interaction, focus, and presence primitives for Spartan overlays.
+Floating panel primitive for non-dialog portal components.

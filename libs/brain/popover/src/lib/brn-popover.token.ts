@@ -27,14 +27,9 @@ export function injectBrnPopoverConfig(): BrnPopoverConfig {
 
 export const BRN_POPOVER_OVERLAY_DEFAULT_OPTIONS: BrnOverlayDefaultOptions = {
 	...overlayDefaultOptions,
-	ariaModal: false,
-	autoFocus: false,
-	closeOnBackdropClick: false,
 	closeOnOutsidePointerEvents: true,
-	hasBackdrop: false,
-	role: null,
+	role: 'dialog',
 	scrollStrategy: 'reposition',
-	trapFocus: false,
 };
 
 const BRN_POPOVER_DEFAULT_OPTIONS = new InjectionToken<BrnOverlayDefaultOptions>('brn-popover-default-options', {

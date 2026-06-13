@@ -10,9 +10,7 @@ import { classes } from '@spartan-ng/helm/utils';
 			align: 'start',
 			sideOffset: 6,
 		}),
-		provideBrnPopoverDefaultOptions({
-			autoFocus: 'first-heading',
-		}),
+		provideBrnPopoverDefaultOptions({ role: null }),
 	],
 	hostDirectives: [
 		{
@@ -22,7 +20,13 @@ import { classes } from '@spartan-ng/helm/utils';
 		},
 		{
 			directive: BrnPopover,
-			inputs: ['align', 'autoFocus', 'closeOnOutsidePointerEvents', 'sideOffset', 'state', 'offsetX', 'restoreFocus'],
+			inputs: [
+				'align',
+				'closeOnOutsidePointerEvents',
+				'sideOffset',
+				'state',
+				'offsetX',
+			],
 			outputs: ['stateChanged', 'closed'],
 		},
 	],

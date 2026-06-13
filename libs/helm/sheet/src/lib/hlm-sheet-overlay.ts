@@ -13,7 +13,7 @@ export class HlmSheetOverlay {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>
 		hlm(
-			'spartan-sheet-overlay data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 duration-150',
+			'spartan-sheet-overlay transition-opacity duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0',
 			this.userClass(),
 		),
 	);

@@ -8,24 +8,22 @@ import {
 	DestroyRef,
 	Directive,
 	effect,
-	type EffectRef,
 	inject,
 	Injector,
 	input,
-	linkedSignal,
 	output,
-	runInInjectionContext,
+	type Signal,
 	signal,
 	type TemplateRef,
 	untracked,
 	ViewContainerRef,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { take } from 'rxjs/operators';
 import type { BrnOverlayOptions } from './brn-overlay-options';
-import { BrnOverlayRef } from './brn-overlay-ref';
+import type { BrnOverlayRef } from './brn-overlay-ref';
 import type { BrnOverlayState } from './brn-overlay-state';
-import { type BrnOverlayDefaultOptions, injectBrnOverlayDefaultOptions } from './brn-overlay-token';
+import { injectBrnOverlayDefaultOptions } from './brn-overlay-token';
+import type { BrnOverlayDefaultOptions } from './brn-overlay-token';
 import { BrnOverlayService } from './brn-overlay.service';
 
 let overlayIdSequence = 0;
@@ -35,6 +33,12 @@ function classesToArray(classes: string | string[] | null | undefined): string[]
 	return classes?.split(' ').filter(Boolean) ?? [];
 }
 
+type OverlayContentRegistration<TContext> = {
+	template: TemplateRef<unknown>;
+	context: Signal<TContext | undefined>;
+	panelClass: Signal<string | null | undefined>;
+};
+
 @Directive({
 	selector: '[brnOverlay],brn-overlay',
 	exportAs: 'brnOverlay',
@@ -43,23 +47,22 @@ export class BrnOverlay<TResult = unknown, TContext extends Record<string, unkno
 	private readonly _overlayService = inject(BrnOverlayService);
 	private readonly _destroyRef = inject(DestroyRef);
 	private readonly _vcr = inject(ViewContainerRef);
-	public readonly positionBuilder = inject(OverlayPositionBuilder);
-	public readonly ssos = inject(ScrollStrategyOptions);
+	protected readonly positionBuilder = inject(OverlayPositionBuilder);
+	private readonly _scrollStrategies = inject(ScrollStrategyOptions);
 	private readonly _injector = inject(Injector);
 	private readonly _directionality = inject(Directionality);
-
 	protected readonly _defaultOptions = this.getDefaultOptions();
 
-	private _context: TContext = {} as TContext;
-	private _contentTemplate: TemplateRef<unknown> | undefined;
 	private readonly _overlayRef = signal<BrnOverlayRef<TResult> | undefined>(undefined);
-	private readonly _overlayStateEffectRefs: EffectRef[] = [];
-	private readonly _backdropClass = signal<string | null | undefined>(null);
-	private readonly _panelClass = signal<string | null | undefined>(null);
+	private readonly _origin = signal<BrnOverlayOptions['attachTo']>(undefined);
+	private readonly _panelClass = signal<string | null | undefined>(undefined);
+	private readonly _backdropClass = signal<string | null | undefined>(undefined);
+	private _content: OverlayContentRegistration<TContext> | undefined;
 
-	public readonly stateComputed = computed(() => this._overlayRef()?.state() ?? 'closed');
 	public readonly closed = output<TResult>();
 	public readonly stateChanged = output<BrnOverlayState>();
+	public readonly stateComputed = computed<BrnOverlayState>(() => this._overlayRef()?.state() ?? 'closed');
+
 	public readonly id = input<string>(`brn-overlay-${++overlayIdSequence}`);
 	public readonly state = input<BrnOverlayState | null>(null);
 	public readonly role = input<BrnOverlayOptions['role']>(this._defaultOptions.role);
@@ -69,11 +72,9 @@ export class BrnOverlay<TResult = unknown, TContext extends Record<string, unkno
 	public readonly positionStrategy = input<BrnOverlayOptions['positionStrategy']>(
 		this._defaultOptions.positionStrategy,
 	);
-	public readonly mutablePositionStrategy = linkedSignal(() => this.positionStrategy());
 	public readonly scrollStrategy = input<BrnOverlayOptions['scrollStrategy'] | 'close' | 'reposition' | null>(
 		this._defaultOptions.scrollStrategy,
 	);
-	public readonly restoreFocus = input<BrnOverlayOptions['restoreFocus']>(this._defaultOptions.restoreFocus);
 	public readonly closeOnOutsidePointerEvents = input<boolean, BooleanInput>(
 		this._defaultOptions.closeOnOutsidePointerEvents,
 		{ transform: booleanAttribute },
@@ -81,68 +82,31 @@ export class BrnOverlay<TResult = unknown, TContext extends Record<string, unkno
 	public readonly closeOnBackdropClick = input<boolean, BooleanInput>(this._defaultOptions.closeOnBackdropClick, {
 		transform: booleanAttribute,
 	});
-	public readonly attachTo = input<BrnOverlayOptions['attachTo']>(null);
-	public readonly mutableAttachTo = linkedSignal(() => this.attachTo());
+	public readonly attachTo = input<BrnOverlayOptions['attachTo']>(this._defaultOptions.attachTo);
 	public readonly attachPositions = input<BrnOverlayOptions['attachPositions']>(this._defaultOptions.attachPositions);
-	public readonly mutableAttachPositions = linkedSignal(() => this.attachPositions());
-	public readonly autoFocus = input<BrnOverlayOptions['autoFocus']>(this._defaultOptions.autoFocus);
 	public readonly disableClose = input<boolean, BooleanInput>(this._defaultOptions.disableClose, {
 		transform: booleanAttribute,
 	});
-	public readonly trapFocus = input<boolean, BooleanInput>(this._defaultOptions.trapFocus, {
-		transform: booleanAttribute,
-	});
-	public readonly ariaDescribedBy = input<BrnOverlayOptions['ariaDescribedBy']>(null, {
-		alias: 'aria-describedby',
-	});
-	private readonly _mutableAriaDescribedBy = linkedSignal(() => this.ariaDescribedBy());
-	public readonly ariaLabelledBy = input<BrnOverlayOptions['ariaLabelledBy']>(null, { alias: 'aria-labelledby' });
-	private readonly _mutableAriaLabelledBy = linkedSignal(() => this.ariaLabelledBy());
-	public readonly ariaLabel = input<BrnOverlayOptions['ariaLabel']>(null, { alias: 'aria-label' });
-	private readonly _mutableAriaLabel = linkedSignal(() => this.ariaLabel());
-	public readonly ariaModal = input<boolean, BooleanInput>(this._defaultOptions.ariaModal, {
-		alias: 'aria-modal',
-		transform: booleanAttribute,
-	});
-	private readonly _mutableAriaModal = linkedSignal(() => this.ariaModal());
 
-	protected readonly _options = computed<Partial<BrnOverlayOptions>>(() => {
-		const scrollStrategyInput = this.scrollStrategy();
-		let scrollStrategy: ScrollStrategy | null | undefined;
-		if (scrollStrategyInput === 'close') {
-			scrollStrategy = this.ssos.close();
-		} else if (scrollStrategyInput === 'reposition') {
-			scrollStrategy = this.ssos.reposition();
-		} else {
-			scrollStrategy = scrollStrategyInput;
-		}
-
-		return {
-			id: this.id(),
-			role: this.role(),
-			direction: this._directionality.valueSignal(),
-			hasBackdrop: this.hasBackdrop(),
-			positionStrategy: this.mutablePositionStrategy(),
-			scrollStrategy,
-			restoreFocus: this.restoreFocus(),
-			closeOnOutsidePointerEvents: this.closeOnOutsidePointerEvents(),
-			closeOnBackdropClick: this.closeOnBackdropClick(),
-			attachTo: this.mutableAttachTo(),
-			attachPositions: this.mutableAttachPositions(),
-			autoFocus: this.autoFocus(),
-			disableClose: this.disableClose(),
-			trapFocus: this.trapFocus(),
-			backdropClass: classesToArray(this._backdropClass() ?? this._defaultOptions.backdropClass),
-			panelClass: classesToArray(this._panelClass() ?? this._defaultOptions.panelClass),
-			ariaDescribedBy: this._mutableAriaDescribedBy(),
-			ariaLabelledBy: this._mutableAriaLabelledBy(),
-			ariaLabel: this._mutableAriaLabel(),
-			ariaModal: this._mutableAriaModal(),
-		};
-	});
+	protected readonly _options = computed<Partial<BrnOverlayOptions>>(() => ({
+		id: this.id(),
+		role: this.role(),
+		direction: this._directionality.valueSignal(),
+		hasBackdrop: this.hasBackdrop(),
+		positionStrategy: this.getPositionStrategy(),
+		scrollStrategy: this.getScrollStrategy(),
+		closeOnOutsidePointerEvents: this.closeOnOutsidePointerEvents(),
+		closeOnBackdropClick: this.closeOnBackdropClick(),
+		attachTo: this.getAttachTo(),
+		attachPositions: this.getAttachPositions(),
+		disableClose: this.disableClose(),
+		backdropClass: classesToArray(this._backdropClass() ?? this._defaultOptions.backdropClass),
+		panelClass: classesToArray(this._panelClass() ?? this._content?.panelClass() ?? this._defaultOptions.panelClass),
+	}));
 
 	constructor() {
 		this._destroyRef.onDestroy(() => this._overlayRef()?.forceClose());
+
 		afterNextRender(() => {
 			effect(
 				() => {
@@ -160,7 +124,7 @@ export class BrnOverlay<TResult = unknown, TContext extends Record<string, unkno
 	}
 
 	public open(): void {
-		if (!this._contentTemplate) return;
+		if (!this._content) return;
 
 		const currentRef = this._overlayRef();
 		if (currentRef) {
@@ -168,32 +132,20 @@ export class BrnOverlay<TResult = unknown, TContext extends Record<string, unkno
 			return;
 		}
 
-		this._overlayStateEffectRefs.forEach((ref) => ref.destroy());
 		const overlayRef = this._overlayService.open<TContext, TResult>(
-			this._contentTemplate,
+			this._content.template,
 			this._vcr,
-			this._context,
+			this._content.context() ?? ({} as TContext),
 			this._options(),
 		);
 		this._overlayRef.set(overlayRef);
 
-		runInInjectionContext(this._injector, () => {
-			this._overlayStateEffectRefs.push(
-				effect(() => {
-					const state = overlayRef.state();
-					untracked(() => this.stateChanged.emit(state));
-				}),
-				effect(() => {
-					const options = this._options();
-					untracked(() => overlayRef.updateOptions(options));
-				}),
-			);
-		});
+		overlayRef.stateChanged$
+			.pipe(takeUntilDestroyed(this._destroyRef))
+			.subscribe((state) => this.stateChanged.emit(state));
 
-		overlayRef.closed$.pipe(take(1), takeUntilDestroyed(this._destroyRef)).subscribe((result) => {
-			this._overlayStateEffectRefs.forEach((ref) => ref.destroy());
-			this._overlayStateEffectRefs.length = 0;
-			this._overlayRef.set(undefined);
+		overlayRef.closed$.pipe(takeUntilDestroyed(this._destroyRef)).subscribe((result) => {
+			if (this._overlayRef() === overlayRef) this._overlayRef.set(undefined);
 			this.closed.emit(result as TResult);
 		});
 	}
@@ -202,8 +154,16 @@ export class BrnOverlay<TResult = unknown, TContext extends Record<string, unkno
 		this._overlayRef()?.close(result);
 	}
 
-	public registerTemplate(template: TemplateRef<unknown>): void {
-		this._contentTemplate = template;
+	public registerContent(
+		template: TemplateRef<unknown>,
+		context: Signal<TContext | undefined>,
+		panelClass: Signal<string | null | undefined>,
+	): void {
+		this._content = { template, context, panelClass };
+	}
+
+	public setOrigin(origin: BrnOverlayOptions['attachTo']): void {
+		this._origin.set(origin);
 	}
 
 	public setOverlayClass(overlayClass: string | null | undefined): void {
@@ -212,35 +172,30 @@ export class BrnOverlay<TResult = unknown, TContext extends Record<string, unkno
 	}
 
 	public setPanelClass(panelClass: string | null | undefined): void {
-		this._panelClass.set(panelClass ?? '');
+		this._panelClass.set(panelClass);
 		this._overlayRef()?.setPanelClass(panelClass);
-	}
-
-	public setContext(context: TContext): void {
-		this._context = { ...this._context, ...context };
-	}
-
-	public setAriaDescribedBy(value: string | null | undefined): void {
-		this._mutableAriaDescribedBy.set(value);
-		this._overlayRef()?.setAriaDescribedBy(value);
-	}
-
-	public setAriaLabelledBy(value: string | null | undefined): void {
-		this._mutableAriaLabelledBy.set(value);
-		this._overlayRef()?.setAriaLabelledBy(value);
-	}
-
-	public setAriaLabel(value: string | null | undefined): void {
-		this._mutableAriaLabel.set(value);
-		this._overlayRef()?.setAriaLabel(value);
-	}
-
-	public setAriaModal(value: boolean): void {
-		this._mutableAriaModal.set(value);
-		this._overlayRef()?.setAriaModal(value);
 	}
 
 	public updatePosition(): void {
 		this._overlayRef()?.updatePosition();
+	}
+
+	protected getAttachTo(): BrnOverlayOptions['attachTo'] {
+		return this._origin() ?? this.attachTo();
+	}
+
+	protected getAttachPositions(): BrnOverlayOptions['attachPositions'] {
+		return this.attachPositions();
+	}
+
+	protected getPositionStrategy(): BrnOverlayOptions['positionStrategy'] {
+		return this.positionStrategy();
+	}
+
+	private getScrollStrategy(): ScrollStrategy | null | undefined {
+		const strategy = this.scrollStrategy();
+		if (strategy === 'close') return this._scrollStrategies.close();
+		if (strategy === 'reposition') return this._scrollStrategies.reposition();
+		return strategy;
 	}
 }

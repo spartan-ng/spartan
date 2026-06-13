@@ -23,12 +23,10 @@ export class BrnComboboxAnchor {
 			const size = this._elementSize();
 			if (size) {
 				this._combobox.updateInputWidth(size.width);
-				this._brnOverlay?.updatePosition();
-			}
-		});
+					this._brnOverlay?.updatePosition();
+				}
+			});
 
-		if (!this._brnOverlay) return;
-
-		this._brnOverlay.mutableAttachTo.set(this._host.nativeElement);
+			this._brnOverlay?.setOrigin(this._host.nativeElement);
+		}
 	}
-}

@@ -1,15 +1,26 @@
 import { inject, InjectionToken, type ValueProvider } from '@angular/core';
-import { type BrnOverlayDefaultOptions, defaultOptions as overlayDefaultOptions } from '@spartan-ng/brain/overlay';
+import type { BrnDialogOptions } from './brn-dialog-options';
 
-export type BrnDialogDefaultOptions = BrnOverlayDefaultOptions;
+export type BrnDialogDefaultOptions = Omit<BrnDialogOptions, 'direction' | 'id' | 'providers'>;
 
 export const defaultOptions: BrnDialogDefaultOptions = {
-	...overlayDefaultOptions,
+	ariaDescribedBy: undefined,
+	ariaLabel: undefined,
+	ariaLabelledBy: undefined,
 	ariaModal: true,
+	attachPositions: [],
+	attachTo: null,
 	autoFocus: 'first-tabbable',
+	backdropClass: '',
+	closeOnBackdropClick: true,
+	closeOnOutsidePointerEvents: false,
+	disableClose: false,
 	hasBackdrop: true,
+	panelClass: '',
+	positionStrategy: null,
+	restoreFocus: true,
 	role: 'dialog',
-	trapFocus: true,
+	scrollStrategy: null,
 };
 
 const BRN_DIALOG_DEFAULT_OPTIONS = new InjectionToken<BrnDialogDefaultOptions>('brn-dialog-default-options', {

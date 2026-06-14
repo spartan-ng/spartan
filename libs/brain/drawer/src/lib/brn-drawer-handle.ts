@@ -23,6 +23,7 @@ export class BrnDrawerHandle {
 	private _backdropEl: HTMLElement | null = null;
 	private _direction: 'bottom' | 'top' | 'left' | 'right' = 'bottom';
 	private _initialBackdropOpacity = 1;
+	private _scrollEl: HTMLElement | null = null;
 
 	public readonly closeThreshold = input<number>(0.3);
 
@@ -41,14 +42,18 @@ export class BrnDrawerHandle {
 		this._drawerEl = this._element.nativeElement.closest('[data-vaul-drawer-direction]');
 		if (!this._drawerEl) return;
 
+		this._scrollEl = this._findScrollableAncestor(event.target as HTMLElement);
+
+		if (!this._scrollEl) {
+			event.preventDefault();
+		}
+
 		const overlayWrapper = this._drawerEl.closest('.cdk-global-overlay-wrapper');
 		this._backdropEl = overlayWrapper?.querySelector('.cdk-overlay-backdrop') as HTMLElement | null;
 
 		if (this._backdropEl) {
 			this._initialBackdropOpacity = parseFloat(getComputedStyle(this._backdropEl).opacity) || 1;
 		}
-
-		event.preventDefault();
 
 		this._startX = event.clientX;
 		this._startY = event.clientY;
@@ -60,7 +65,6 @@ export class BrnDrawerHandle {
 
 		const onPointerMove = (e: PointerEvent) => {
 			if (!this._isDragging || !this._drawerEl) return;
-			e.preventDefault();
 
 			this._positions.push({ x: e.clientX, y: e.clientY, t: performance.now() });
 			if (this._positions.length > 5) {
@@ -70,6 +74,18 @@ export class BrnDrawerHandle {
 			const rawDelta = this._isVertical ? e.clientY - this._startY : e.clientX - this._startX;
 
 			const normalizedDelta = this._isPositive ? rawDelta : -rawDelta;
+
+			if (this._scrollEl && normalizedDelta > 0) {
+				const currentScroll = this._isVertical ? this._scrollEl.scrollTop : this._scrollEl.scrollLeft;
+				if (this._isPositive) {
+					const maxScroll = this._isVertical
+						? this._scrollEl.scrollHeight - this._scrollEl.clientHeight
+						: this._scrollEl.scrollWidth - this._scrollEl.clientWidth;
+					if (currentScroll < maxScroll) return;
+				} else if (currentScroll > 0) return;
+			}
+
+			e.preventDefault();
 
 			const dimension = this._isVertical ? this._drawerEl.offsetHeight : this._drawerEl.offsetWidth;
 
@@ -166,6 +182,22 @@ export class BrnDrawerHandle {
 			},
 			{ once: true },
 		);
+	}
+
+	private _findScrollableAncestor(element: HTMLElement | null): HTMLElement | null {
+		if (!element) return null;
+		const scrollProp = this._isVertical ? 'overflow-y' : 'overflow-x';
+		const sizeProp = this._isVertical ? 'scrollHeight' : 'scrollWidth';
+		const clientProp = this._isVertical ? 'clientHeight' : 'clientWidth';
+		let el: HTMLElement | null = element.parentElement;
+		while (el) {
+			const overflow = getComputedStyle(el)[scrollProp as any];
+			if ((overflow === 'auto' || overflow === 'scroll') && (el as any)[sizeProp] > (el as any)[clientProp]) {
+				return el;
+			}
+			el = el.parentElement;
+		}
+		return null;
 	}
 
 	private _lastPosition(): { x: number; y: number; t: number } {

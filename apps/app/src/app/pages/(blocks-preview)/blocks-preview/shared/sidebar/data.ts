@@ -4,6 +4,11 @@ export const data = {
 		email: 'hello@spartan.com',
 		avatar: '/assets/avatar.png',
 	},
+	teams: [
+		{ name: 'Acme Inc', icon: 'lucideGalleryVerticalEnd', plan: 'Enterprise' },
+		{ name: 'Acme Corp.', icon: 'lucideAudioWaveform', plan: 'Startup' },
+		{ name: 'Evil Corp.', icon: 'lucideCommand', plan: 'Free' },
+	],
 	navMain: [
 		{
 			title: 'Playground',
@@ -11,18 +16,9 @@ export const data = {
 			icon: 'lucideSquareTerminal',
 			isActive: true,
 			items: [
-				{
-					title: 'History',
-					url: '.',
-				},
-				{
-					title: 'Starred',
-					url: '.',
-				},
-				{
-					title: 'Settings',
-					url: '.',
-				},
+				{ title: 'History', url: '.' },
+				{ title: 'Starred', url: '.' },
+				{ title: 'Settings', url: '.' },
 			],
 		},
 		{
@@ -30,18 +26,9 @@ export const data = {
 			url: '.',
 			icon: 'lucideBot',
 			items: [
-				{
-					title: 'Genesis',
-					url: '.',
-				},
-				{
-					title: 'Explorer',
-					url: '.',
-				},
-				{
-					title: 'Quantum',
-					url: '.',
-				},
+				{ title: 'Genesis', url: '.' },
+				{ title: 'Explorer', url: '.' },
+				{ title: 'Quantum', url: '.' },
 			],
 		},
 		{
@@ -49,22 +36,10 @@ export const data = {
 			url: '.',
 			icon: 'lucideBookOpen',
 			items: [
-				{
-					title: 'Introduction',
-					url: '.',
-				},
-				{
-					title: 'Get Started',
-					url: '.',
-				},
-				{
-					title: 'Tutorials',
-					url: '.',
-				},
-				{
-					title: 'Changelog',
-					url: '.',
-				},
+				{ title: 'Introduction', url: '.' },
+				{ title: 'Get Started', url: '.' },
+				{ title: 'Tutorials', url: '.' },
+				{ title: 'Changelog', url: '.' },
 			],
 		},
 		{
@@ -72,52 +47,111 @@ export const data = {
 			url: '.',
 			icon: 'lucideSettings2',
 			items: [
-				{
-					title: 'General',
-					url: '.',
-				},
-				{
-					title: 'Team',
-					url: '.',
-				},
-				{
-					title: 'Billing',
-					url: '.',
-				},
-				{
-					title: 'Limits',
-					url: '.',
-				},
+				{ title: 'General', url: '.' },
+				{ title: 'Team', url: '.' },
+				{ title: 'Billing', url: '.' },
+				{ title: 'Limits', url: '.' },
 			],
 		},
 	],
 	navSecondary: [
-		{
-			title: 'Support',
-			url: '.',
-			icon: 'lucideLifeBuoy',
-		},
-		{
-			title: 'Feedback',
-			url: '.',
-			icon: 'lucideSend',
-		},
+		{ title: 'Support', url: '.', icon: 'lucideLifeBuoy' },
+		{ title: 'Feedback', url: '.', icon: 'lucideSend' },
 	],
 	projects: [
+		{ name: 'Design Engineering', url: '.', icon: 'lucideFrame' },
+		{ name: 'Sales & Marketing', url: '.', icon: 'lucideChartPie' },
+		{ name: 'Travel', url: '.', icon: 'lucideMap' },
+	],
+	favorites: [
+		{ emoji: '📋', name: 'Project Management & Task Tracking' },
+		{ emoji: '📅', name: 'Meeting Notes' },
+		{ emoji: '📖', name: 'Technical Documentation' },
+		{ emoji: '💼', name: 'Travel Plans' },
+		{ emoji: '⭐', name: 'Starred Items' },
+	],
+	workspaces: [
 		{
+			emoji: '📁',
 			name: 'Design Engineering',
-			url: '.',
-			icon: 'lucideFrame',
+			pages: ['Design System', 'Component Library', 'Brand Guidelines'],
 		},
 		{
+			emoji: '📊',
 			name: 'Sales & Marketing',
-			url: '.',
-			icon: 'lucideChartPie',
+			pages: ['Campaign Strategy', 'Lead Tracking', 'Analytics Dashboard'],
 		},
 		{
+			emoji: '✈️',
 			name: 'Travel',
-			url: '.',
-			icon: 'lucideMap',
+			pages: ['Upcoming Trips', 'Booking Confirmations', 'Travel Expenses'],
 		},
+	],
+	calendars: [
+		{ name: 'My Calendars', items: ['Personal', 'Work', 'Family'] },
+		{ name: 'Favorites', items: ['Holidays', 'Birthdays'] },
+		{ name: 'Other', items: ['Travel', 'Reminders', 'Deadlines'] },
+	],
+	versions: ['1.0.1', '1.1.0-alpha', '2.0.0-beta1'],
+	changes: [
+		{ file: 'README.md', state: 'M' },
+		{ file: 'api/hello/route.ts', state: 'U' },
+		{ file: 'app/layout.tsx', state: 'M' },
+	],
+	tree: [
+		['app', ['api', ['hello', ['route.ts']], 'page.tsx', 'layout.tsx', ['blog', ['page.tsx']]]],
+		['components', ['ui', 'button.tsx', 'card.tsx'], 'header.tsx', 'footer.tsx'],
+		['lib', ['util.ts']],
+		['public', 'favicon.ico', 'vercel.svg'],
+		'.eslintrc.json',
+		'.gitignore',
+		'next.config.js',
+		'tailwind.config.js',
+		'package.json',
+		'README.md',
+	],
+	mails: [
+		{
+			name: 'William Smith',
+			email: 'williamsmith@example.com',
+			subject: 'Meeting Tomorrow',
+			date: '09:34 AM',
+			teaser: 'Hi team, just a reminder about our meeting tomorrow at 10 AM.',
+		},
+		{
+			name: 'Alice Smith',
+			email: 'alicesmith@example.com',
+			subject: 'Re: Project Update',
+			date: 'Yesterday',
+			teaser: 'Thanks for the update. The progress looks great so far.',
+		},
+		{
+			name: 'Bob Johnson',
+			email: 'bobjohnson@example.com',
+			subject: 'Weekend Plans',
+			date: '2 days ago',
+			teaser: "Hey everyone! I'm thinking of organizing a team outing this weekend.",
+		},
+		{
+			name: 'Emily Davis',
+			email: 'emilydavis@example.com',
+			subject: 'Re: Question about Budget',
+			date: '2 days ago',
+			teaser: "I've reviewed the budget numbers you sent over.",
+		},
+		{
+			name: 'Michael Wilson',
+			email: 'michaelwilson@example.com',
+			subject: 'Important Announcement',
+			date: '1 week ago',
+			teaser: 'Please join us for an all-hands meeting this Friday at 3 PM.',
+		},
+	],
+	navMail: [
+		{ title: 'Inbox', url: '.', icon: 'lucideInbox', isActive: true },
+		{ title: 'Drafts', url: '.', icon: 'lucideFile', isActive: false },
+		{ title: 'Sent', url: '.', icon: 'lucideSend', isActive: false },
+		{ title: 'Junk', url: '.', icon: 'lucideArchiveX', isActive: false },
+		{ title: 'Trash', url: '.', icon: 'lucideTrash2', isActive: false },
 	],
 };

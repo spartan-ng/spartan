@@ -9,7 +9,6 @@ import { classes } from '@spartan-ng/helm/utils';
 			directive: BrnNavigationMenuList,
 		},
 	],
-	host: { 'data-slot': 'navigation-menu-list' },
 })
 export class HlmNavigationMenuList {
 	constructor() {

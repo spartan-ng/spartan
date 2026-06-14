@@ -5,7 +5,6 @@ import { classes } from '@spartan-ng/helm/utils';
 @Directive({
 	selector: 'li[hlmNavigationMenuItem]',
 	hostDirectives: [{ directive: BrnNavigationMenuItem, inputs: ['id'] }],
-	host: { 'data-slot': 'navigation-menu-item' },
 })
 export class HlmNavigationMenuItem {
 	constructor() {

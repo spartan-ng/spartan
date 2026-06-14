@@ -188,6 +188,14 @@
 			"clsx": "^2.1.1"
 		}
 	},
+	"drawer": {
+		"name": "drawer",
+		"peerDependencies": {
+			"@angular/core": ">=21.0.0 <23.0.0",
+			"@spartan-ng/brain": "0.0.1-alpha.713",
+			"clsx": "^2.1.1"
+		}
+	},
 	"dropdown-menu": {
 		"name": "dropdown-menu",
 		"peerDependencies": {

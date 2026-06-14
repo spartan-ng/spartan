@@ -3,6 +3,7 @@ import { BrnPopover } from '@spartan-ng/brain/popover';
 
 @Directive({
 	selector: '[hlmPopover],hlm-popover',
+	host: { 'data-slot': 'popover' },
 	hostDirectives: [
 		{
 			directive: BrnPopover,

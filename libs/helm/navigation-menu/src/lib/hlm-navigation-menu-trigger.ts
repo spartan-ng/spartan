@@ -4,6 +4,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: 'button[hlmNavigationMenuTrigger]',
+	host: { 'data-slot': 'navigation-menu-trigger' },
 	hostDirectives: [BrnNavigationMenuTrigger],
 })
 export class HlmNavigationMenuTrigger {

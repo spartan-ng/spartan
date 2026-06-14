@@ -6,6 +6,9 @@ import { classes } from '@spartan-ng/helm/utils';
 	selector: 'hlm-slider, brn-slider [hlm]',
 	imports: [BrnSliderImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		'data-slot': 'slider',
+	},
 	hostDirectives: [
 		{
 			directive: BrnSlider,
@@ -33,10 +36,11 @@ import { classes } from '@spartan-ng/helm/utils';
 	],
 	template: `
 		<div class="relative flex w-full items-center group-data-vertical:w-auto group-data-vertical:flex-col">
-			<div brnSliderTrack class="spartan-slider-track relative grow overflow-hidden">
+			<div brnSliderTrack data-slot="slider-track" class="spartan-slider-track relative grow overflow-hidden">
 				<div
 					class="spartan-slider-range absolute select-none data-draggable-range:cursor-move data-horizontal:h-full data-vertical:w-full"
 					brnSliderRange
+					data-slot="slider-range"
 				></div>
 			</div>
 
@@ -44,6 +48,7 @@ import { classes } from '@spartan-ng/helm/utils';
 				<span
 					class="spartan-slider-thumb absolute block shrink-0 select-none after:absolute after:-inset-2"
 					brnSliderThumb
+					data-slot="slider-thumb"
 				></span>
 			}
 		</div>

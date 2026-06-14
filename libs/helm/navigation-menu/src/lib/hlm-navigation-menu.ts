@@ -4,6 +4,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: 'nav[hlmNavigationMenu]',
+	host: { 'data-slot': 'navigation-menu' },
 	hostDirectives: [
 		{
 			directive: BrnNavigationMenu,

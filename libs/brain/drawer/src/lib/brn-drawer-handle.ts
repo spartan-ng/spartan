@@ -93,7 +93,7 @@ export class BrnDrawerHandle {
 		this._drawerEl.style.transition = 'none';
 
 		if (!this._findScrollableAncestor(event.target as HTMLElement)) {
-			event.preventDefault();
+			this._drawerEl.style.touchAction = 'none';
 		}
 
 		const overlayWrapper = this._drawerEl.closest('.cdk-global-overlay-wrapper');
@@ -102,11 +102,6 @@ export class BrnDrawerHandle {
 			this._initialBackdropOpacity = parseFloat(getComputedStyle(this._backdropEl).opacity) || 1;
 		}
 
-		try {
-			this._element.nativeElement.setPointerCapture(event.pointerId);
-		} catch {
-			/* empty - pointer capture not supported */
-		}
 		this._pointerId = event.pointerId;
 
 		this._document.addEventListener('pointermove', this._onPointerMove, { passive: false });
@@ -156,6 +151,11 @@ export class BrnDrawerHandle {
 			return;
 
 		this._isAllowedToDrag = true;
+		try {
+			this._element.nativeElement.setPointerCapture(e.pointerId);
+		} catch {
+			/* empty - pointer capture not supported */
+		}
 		this._drawerEl.classList.add('vaul-dragging');
 
 		const dimension = this._isVertical ? this._drawerEl.offsetHeight : this._drawerEl.offsetWidth;
@@ -322,6 +322,17 @@ export class BrnDrawerHandle {
 	private _cleanup(): void {
 		this._isDragging = false;
 		this._isAllowedToDrag = false;
+		if (this._drawerEl) {
+			this._drawerEl.style.touchAction = '';
+		}
+		if (this._pointerId !== -1) {
+			try {
+				this._element.nativeElement.releasePointerCapture(this._pointerId);
+			} catch {
+				/* empty */
+			}
+			this._pointerId = -1;
+		}
 		this._document.removeEventListener('pointermove', this._onPointerMove);
 	}
 

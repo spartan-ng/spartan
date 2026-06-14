@@ -71,4 +71,31 @@ describe('BrnResizableGroup horizontal RTL resize', () => {
 
 		expect(firstPanelSize()).toBeLessThan(50);
 	});
+
+	it('detaches document listeners and restores the cursor when destroyed mid-drag', async () => {
+		const { handle, fixture } = await setup();
+		TestBed.inject(Directionality).valueSignal.set('ltr');
+
+		const at = (clientX: number) => ({ bubbles: true, cancelable: true, clientX, clientY: 0, button: 0 });
+
+		// begin a drag but never release the pointer
+		handle.dispatchEvent(new MouseEvent('mousedown', at(100)));
+		expect(document.body.style.cursor).toBe('ew-resize');
+
+		const removeSpy = vi.spyOn(document, 'removeEventListener');
+
+		// destroy the group while the drag is still active
+		fixture.destroy();
+
+		// the four document listeners are detached and the global cursor is restored
+		expect(document.body.style.cursor).toBe('default');
+		for (const type of ['mousemove', 'touchmove', 'mouseup', 'touchend']) {
+			expect(removeSpy).toHaveBeenCalledWith(type, expect.any(Function));
+		}
+
+		// a late move must not reach a torn-down handler
+		expect(() => document.dispatchEvent(new MouseEvent('mousemove', at(180)))).not.toThrow();
+
+		removeSpy.mockRestore();
+	});
 });

@@ -3,6 +3,19 @@ import { Directive, ElementRef, inject, input } from '@angular/core';
 import { BrnDialogRef } from '@spartan-ng/brain/dialog';
 import { BrnDrawer } from './brn-drawer';
 
+const VELOCITY_THRESHOLD = 0.4;
+const DEFAULT_CLOSE_THRESHOLD = 0.25;
+const SCROLL_LOCK_TIMEOUT = 100;
+const TOUCH_SWIPE_THRESHOLD = 10;
+const MOUSE_SWIPE_THRESHOLD = 2;
+const OPEN_TIME_COOLDOWN = 500;
+const TRANSITION = 'transform 0.5s cubic-bezier(0.32, 0.72, 0, 1)';
+const OVERLAY_TRANSITION = 'opacity 0.5s cubic-bezier(0.32, 0.72, 0, 1)';
+
+function dampenValue(v: number): number {
+	return 8 * (Math.log(v + 1) - 2);
+}
+
 @Directive({
 	selector: '[brnDrawerHandle]',
 	host: {
@@ -15,17 +28,26 @@ export class BrnDrawerHandle {
 	private readonly _brnDrawer = inject(BrnDrawer, { optional: true });
 	private readonly _element: ElementRef<HTMLElement> = inject(ElementRef);
 	private readonly _document = inject(DOCUMENT);
-	private _startX = 0;
-	private _startY = 0;
-	private _isDragging = false;
-	private _positions: Array<{ x: number; y: number; t: number }> = [];
+
 	private _drawerEl: HTMLElement | null = null;
 	private _backdropEl: HTMLElement | null = null;
 	private _direction: 'bottom' | 'top' | 'left' | 'right' = 'bottom';
 	private _initialBackdropOpacity = 1;
 	private _scrollEl: HTMLElement | null = null;
 
-	public readonly closeThreshold = input<number>(0.3);
+	private _pointerStartX = 0;
+	private _pointerStartY = 0;
+	private _pointerStart = 0;
+	private _pointerType = '';
+	private _isDragging = false;
+	private _isAllowedToDrag = false;
+	private _wasBeyondThreshold = false;
+
+	private _openTime: number | null = null;
+	private _lastTimeDragPrevented: number | null = null;
+	private _dragStartTime: number | null = null;
+
+	public readonly closeThreshold = input<number>(DEFAULT_CLOSE_THRESHOLD);
 
 	private get _isVertical(): boolean {
 		return this._direction === 'bottom' || this._direction === 'top';
@@ -35,6 +57,14 @@ export class BrnDrawerHandle {
 		return this._direction === 'bottom' || this._direction === 'right';
 	}
 
+	private get _dimensionMultiplier(): number {
+		return this._isPositive ? 1 : -1;
+	}
+
+	private get _swipeThreshold(): number {
+		return this._pointerType === 'touch' ? TOUCH_SWIPE_THRESHOLD : MOUSE_SWIPE_THRESHOLD;
+	}
+
 	protected _onPointerDown(event: PointerEvent): void {
 		if (!this._brnDialogRef || !this._brnDrawer || this._isDragging) return;
 
@@ -42,146 +72,245 @@ export class BrnDrawerHandle {
 		this._drawerEl = this._element.nativeElement.closest('[data-vaul-drawer-direction]');
 		if (!this._drawerEl) return;
 
-		this._scrollEl = this._findScrollableAncestor(event.target as HTMLElement);
+		if (this._openTime === null && this._brnDialogRef.state() === 'open') {
+			this._openTime = Date.now();
+		}
 
+		this._pointerType = event.pointerType;
+		this._pointerStartX = event.pageX;
+		this._pointerStartY = event.pageY;
+		this._pointerStart = this._isVertical ? event.pageY : event.pageX;
+		this._isDragging = true;
+		this._isAllowedToDrag = false;
+		this._wasBeyondThreshold = false;
+		this._dragStartTime = Date.now();
+
+		this._drawerEl.style.transition = 'none';
+
+		this._scrollEl = this._findScrollableAncestor(event.target as HTMLElement);
 		if (!this._scrollEl) {
 			event.preventDefault();
 		}
 
 		const overlayWrapper = this._drawerEl.closest('.cdk-global-overlay-wrapper');
 		this._backdropEl = overlayWrapper?.querySelector('.cdk-overlay-backdrop') as HTMLElement | null;
-
 		if (this._backdropEl) {
 			this._initialBackdropOpacity = parseFloat(getComputedStyle(this._backdropEl).opacity) || 1;
 		}
 
-		this._startX = event.clientX;
-		this._startY = event.clientY;
-		this._isDragging = true;
-		this._positions = [{ x: event.clientX, y: event.clientY, t: performance.now() }];
+		this._document.addEventListener('pointermove', this._onPointerMove, { passive: false });
+		this._document.addEventListener('pointerup', this._onPointerUp, { once: true });
+		this._document.addEventListener('pointercancel', this._onPointerCancel, { once: true });
+	}
 
-		this._drawerEl.style.transition = 'none';
-		this._drawerEl.style.touchAction = 'none';
+	private readonly _onPointerMove = (e: PointerEvent) => {
+		if (!this._isDragging || !this._drawerEl) return;
 
-		const onPointerMove = (e: PointerEvent) => {
-			if (!this._isDragging || !this._drawerEl) return;
+		const currentX = e.pageX;
+		const currentY = e.pageY;
+		const xDelta = currentX - this._pointerStartX;
+		const yDelta = currentY - this._pointerStartY;
 
-			this._positions.push({ x: e.clientX, y: e.clientY, t: performance.now() });
-			if (this._positions.length > 5) {
-				this._positions.shift();
-			}
-
-			const rawDelta = this._isVertical ? e.clientY - this._startY : e.clientX - this._startX;
-
-			const normalizedDelta = this._isPositive ? rawDelta : -rawDelta;
-
-			if (this._scrollEl && normalizedDelta > 0) {
-				const currentScroll = this._isVertical ? this._scrollEl.scrollTop : this._scrollEl.scrollLeft;
-				if (this._isPositive) {
-					const maxScroll = this._isVertical
-						? this._scrollEl.scrollHeight - this._scrollEl.clientHeight
-						: this._scrollEl.scrollWidth - this._scrollEl.clientWidth;
-					if (currentScroll < maxScroll) return;
-				} else if (currentScroll > 0) return;
-			}
-
-			e.preventDefault();
-
-			const dimension = this._isVertical ? this._drawerEl.offsetHeight : this._drawerEl.offsetWidth;
-
-			let dragDelta: number;
-			if (normalizedDelta < 0) {
-				dragDelta = 0;
-			} else {
-				const softLimit = dimension * this.closeThreshold() * 0.5;
-				if (normalizedDelta <= softLimit) {
-					dragDelta = normalizedDelta;
-				} else {
-					const overshoot = normalizedDelta - softLimit;
-					dragDelta = softLimit + overshoot * 0.3;
+		if (!this._wasBeyondThreshold) {
+			const absX = Math.abs(xDelta);
+			const absY = Math.abs(yDelta);
+			if (this._isVertical) {
+				if (absY < this._swipeThreshold) {
+					if (absX >= this._swipeThreshold) {
+						this._pointerStartX = currentX;
+						this._pointerStartY = currentY;
+					}
+					return;
 				}
+				if (absX > absY) return;
+			} else {
+				if (absX < this._swipeThreshold) {
+					if (absY >= this._swipeThreshold) {
+						this._pointerStartX = currentX;
+						this._pointerStartY = currentY;
+					}
+					return;
+				}
+				if (absY > absX) return;
 			}
+			this._wasBeyondThreshold = true;
+		}
 
-			const signedDrag = this._isPositive ? dragDelta : -dragDelta;
+		const currentPosition = this._isVertical ? currentY : currentX;
+		const draggedDistance = (this._pointerStart - currentPosition) * this._dimensionMultiplier;
+		const isDraggingInDirection = draggedDistance > 0;
+		const absDraggedDistance = Math.abs(draggedDistance);
+
+		if (!this._isAllowedToDrag && !this._shouldDrag(e.target, isDraggingInDirection)) return;
+
+		this._isAllowedToDrag = true;
+		this._drawerEl.classList.add('vaul-dragging');
+
+		const dimension = this._isVertical ? this._drawerEl.offsetHeight : this._drawerEl.offsetWidth;
+
+		const progress = dimension > 0 ? Math.min(absDraggedDistance / dimension, 1) : 0;
+
+		if (isDraggingInDirection) {
+			const dampened = dampenValue(draggedDistance);
+			const translateValue = Math.min(dampened * -1, 0) * this._dimensionMultiplier;
 			const prop = this._isVertical ? 'translateY' : 'translateX';
-			this._drawerEl.style.transform = `${prop}(${signedDrag}px)`;
-
-			const progress = dimension > 0 ? Math.min(normalizedDelta / dimension, 1) : 0;
+			this._drawerEl.style.transform = `${prop}(${translateValue}px)`;
 			if (this._backdropEl) {
-				this._backdropEl.style.opacity = String(Math.max(this._initialBackdropOpacity - progress, 0));
+				this._backdropEl.style.opacity = String(Math.max(this._initialBackdropOpacity - progress * 0.3, 0));
 			}
-		};
+			return;
+		}
 
-		this._document.addEventListener('pointermove', onPointerMove, { passive: false });
+		e.preventDefault();
 
-		const resetDrawer = (animate = true) => {
-			if (this._drawerEl) {
-				if (animate) {
-					this._drawerEl.style.transition = 'transform 0.5s cubic-bezier(0.32, 0.72, 0, 1)';
-				} else {
-					this._drawerEl.style.transition = 'transform 0.3s cubic-bezier(0.32, 0.72, 0, 1)';
+		const translateValue = absDraggedDistance * this._dimensionMultiplier;
+		const prop = this._isVertical ? 'translateY' : 'translateX';
+		this._drawerEl.style.transform = `${prop}(${translateValue}px)`;
+
+		if (this._backdropEl) {
+			this._backdropEl.style.opacity = String(Math.max(this._initialBackdropOpacity - progress, 0));
+		}
+	};
+
+	private readonly _onPointerUp = (e: PointerEvent) => {
+		if (!this._isDragging || !this._drawerEl) {
+			this._cleanup();
+			return;
+		}
+
+		this._drawerEl.classList.remove('vaul-dragging');
+
+		const swipeAmount = this._getTranslate();
+
+		if (!this._isAllowedToDrag || swipeAmount === null || Number.isNaN(swipeAmount)) {
+			this._resetDrawer(true);
+			this._cleanup();
+			return;
+		}
+
+		const currentPosition = this._isVertical ? e.pageY : e.pageX;
+		const distMoved = this._pointerStart - currentPosition;
+		const timeTaken = Date.now() - (this._dragStartTime ?? Date.now());
+		const velocity = timeTaken > 0 ? Math.abs(distMoved) / timeTaken : 0;
+
+		if (this._isPositive ? distMoved > 0 : distMoved < 0) {
+			this._resetDrawer(true);
+			this._cleanup();
+			return;
+		}
+
+		if (velocity > VELOCITY_THRESHOLD) {
+			this._animateAndClose();
+			this._cleanup();
+			this._brnDialogRef?.close();
+			return;
+		}
+
+		const dimension = this._isVertical ? this._drawerEl.offsetHeight : this._drawerEl.offsetWidth;
+		if (Math.abs(swipeAmount) >= dimension * this.closeThreshold()) {
+			this._animateAndClose();
+			this._cleanup();
+			this._brnDialogRef?.close();
+			return;
+		}
+
+		this._resetDrawer(true);
+		this._cleanup();
+	};
+
+	private readonly _onPointerCancel = () => {
+		this._resetDrawer(true);
+		this._cleanup();
+	};
+
+	private _shouldDrag(el: EventTarget, isDraggingInDirection: boolean): boolean {
+		if (this._direction === 'left' || this._direction === 'right') return true;
+
+		const now = Date.now();
+
+		if (this._openTime !== null && now - this._openTime < OPEN_TIME_COOLDOWN) return false;
+
+		const currentTranslate = this._getTranslate();
+		if (this._isPositive ? currentTranslate > 0 : currentTranslate < 0) return true;
+
+		if (
+			this._lastTimeDragPrevented !== null &&
+			now - this._lastTimeDragPrevented < SCROLL_LOCK_TIMEOUT &&
+			currentTranslate === 0
+		) {
+			this._lastTimeDragPrevented = now;
+			return false;
+		}
+
+		if (isDraggingInDirection) {
+			this._lastTimeDragPrevented = now;
+			return false;
+		}
+
+		let element = el as HTMLElement | null;
+		while (element) {
+			if (element.scrollHeight > element.clientHeight) {
+				if (element.scrollTop !== 0) {
+					this._lastTimeDragPrevented = now;
+					return false;
 				}
-				this._drawerEl.style.transform = '';
-				this._drawerEl.style.touchAction = '';
+				if (element.getAttribute('role') === 'dialog') return true;
 			}
-			if (this._backdropEl) {
-				if (animate) {
-					this._backdropEl.style.transition = 'opacity 0.5s cubic-bezier(0.32, 0.72, 0, 1)';
-				}
-				this._backdropEl.style.opacity = String(this._initialBackdropOpacity);
-			}
-		};
+			element = element.parentElement;
+		}
 
-		const cleanup = () => {
-			this._isDragging = false;
-			this._document.removeEventListener('pointermove', onPointerMove);
-		};
+		return true;
+	}
 
-		const onPointerUp = () => {
-			if (!this._drawerEl) {
-				cleanup();
-				return;
-			}
+	private _getTranslate(): number {
+		if (!this._drawerEl) return 0;
+		const style = getComputedStyle(this._drawerEl);
+		const transform = style.transform || (style as any).webkitTransform;
+		if (!transform || transform === 'none') return 0;
+		let mat = transform.match(/^matrix3d\((.+)\)$/);
+		if (mat) {
+			return parseFloat(mat[1].split(', ')[this._isVertical ? 13 : 12]);
+		}
+		mat = transform.match(/^matrix\((.+)\)$/);
+		if (mat) {
+			return parseFloat(mat[1].split(', ')[this._isVertical ? 5 : 4]);
+		}
+		return 0;
+	}
 
-			const delta = this._isVertical ? this._lastPosition().y - this._startY : this._lastPosition().x - this._startX;
-			const normalizedDelta = this._isPositive ? delta : -delta;
+	private _resetDrawer(animate = true): void {
+		if (this._drawerEl) {
+			this._drawerEl.style.transition = animate ? TRANSITION : 'none';
+			this._drawerEl.style.transform = '';
+		}
+		if (this._backdropEl) {
+			this._backdropEl.style.transition = animate ? OVERLAY_TRANSITION : 'none';
+			this._backdropEl.style.opacity = String(this._initialBackdropOpacity);
+		}
+		setTimeout(() => {
+			if (this._drawerEl) this._drawerEl.style.transition = '';
+			if (this._backdropEl) this._backdropEl.style.transition = '';
+		}, 500);
+	}
 
-			const dimension = this._isVertical ? this._drawerEl.offsetHeight : this._drawerEl.offsetWidth;
+	private _animateAndClose(): void {
+		if (!this._drawerEl) return;
+		const dimension = this._isVertical ? this._drawerEl.offsetHeight : this._drawerEl.offsetWidth;
+		const dist = dimension + this._getTranslate();
+		const signedClose = this._isPositive ? dist : -dist;
+		const prop = this._isVertical ? 'translateY' : 'translateX';
+		this._drawerEl.style.transition = 'transform 0.3s cubic-bezier(0.32, 0.72, 0, 1)';
+		this._drawerEl.style.transform = `${prop}(${signedClose}px)`;
+		if (this._backdropEl) {
+			this._backdropEl.style.transition = 'opacity 0.3s cubic-bezier(0.32, 0.72, 0, 1)';
+			this._backdropEl.style.opacity = '0';
+		}
+	}
 
-			const velocity = this._calculateVelocity();
-
-			if ((normalizedDelta > 0 && normalizedDelta / dimension > this.closeThreshold()) || velocity > 0.5) {
-				const closingDistance = dimension + Math.abs(delta) * 0.5;
-				const signedClose = this._isPositive ? closingDistance : -closingDistance;
-				const prop = this._isVertical ? 'translateY' : 'translateX';
-				this._drawerEl.style.transition = 'transform 0.3s cubic-bezier(0.32, 0.72, 0, 1)';
-				this._drawerEl.style.transform = `${prop}(${signedClose}px)`;
-				if (this._backdropEl) {
-					this._backdropEl.style.transition = 'opacity 0.3s cubic-bezier(0.32, 0.72, 0, 1)';
-					this._backdropEl.style.opacity = '0';
-				}
-				cleanup();
-				this._brnDialogRef?.close();
-			} else {
-				resetDrawer(true);
-				cleanup();
-				setTimeout(() => {
-					if (this._drawerEl) this._drawerEl.style.transition = '';
-					if (this._backdropEl) this._backdropEl.style.transition = '';
-				}, 500);
-			}
-		};
-
-		this._document.addEventListener('pointerup', onPointerUp, { once: true });
-
-		this._document.addEventListener(
-			'pointercancel',
-			() => {
-				resetDrawer(true);
-				cleanup();
-			},
-			{ once: true },
-		);
+	private _cleanup(): void {
+		this._isDragging = false;
+		this._isAllowedToDrag = false;
+		this._document.removeEventListener('pointermove', this._onPointerMove);
 	}
 
 	private _findScrollableAncestor(element: HTMLElement | null): HTMLElement | null {
@@ -198,21 +327,5 @@ export class BrnDrawerHandle {
 			el = el.parentElement;
 		}
 		return null;
-	}
-
-	private _lastPosition(): { x: number; y: number; t: number } {
-		return this._positions[this._positions.length - 1] ?? { x: this._startX, y: this._startY, t: 0 };
-	}
-
-	private _calculateVelocity(): number {
-		if (this._positions.length < 2) return 0;
-		const first = this._positions[0];
-		const last = this._positions[this._positions.length - 1];
-		const dt = last.t - first.t;
-		if (dt <= 0) return 0;
-		const dx = last.x - first.x;
-		const dy = last.y - first.y;
-		const distance = this._isVertical ? dy : dx;
-		return Math.min((Math.abs(distance) / dt) * 10, 10);
 	}
 }

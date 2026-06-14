@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { DestroyRef, Directive, ElementRef, inject, input } from '@angular/core';
+import { DestroyRef, Directive, effect, ElementRef, inject, input, untracked } from '@angular/core';
 import { BrnDialogRef } from '@spartan-ng/brain/dialog';
 import { BrnDrawer } from './brn-drawer';
 
@@ -33,6 +33,16 @@ export class BrnDrawerHandle {
 
 	constructor() {
 		this._destroyRef.onDestroy(() => this._cleanup());
+		effect(() => {
+			const state = this._brnDialogRef?.state();
+			untracked(() => {
+				if (state === 'open') {
+					this._openTime = Date.now();
+				} else if (state === 'closed') {
+					this._openTime = null;
+				}
+			});
+		});
 	}
 
 	private _drawerEl: HTMLElement | null = null;
@@ -76,10 +86,6 @@ export class BrnDrawerHandle {
 		this._direction = this._brnDrawer.directionState();
 		this._drawerEl = this._element.nativeElement.closest('[data-vaul-drawer-direction]');
 		if (!this._drawerEl) return;
-
-		if (this._openTime === null && this._brnDialogRef.state() === 'open') {
-			this._openTime = Date.now();
-		}
 
 		this._pointerType = event.pointerType;
 		this._pointerStartX = event.pageX;

@@ -16,16 +16,16 @@ import { HlmInputImports } from '@spartan-ng/helm/input';
 					<h3 hlmDrawerTitle>Edit Profile</h3>
 					<p hlmDrawerDescription>Make changes to your profile here. Click save when you're done.</p>
 				</hlm-drawer-header>
-				<div class="px-4">
+				<hlm-field-group class="px-4">
 					<hlm-field>
 						<label hlmFieldLabel for="name">Name</label>
 						<input hlmInput id="name" value="Pedro Duarte" />
 					</hlm-field>
 					<hlm-field>
 						<label hlmFieldLabel for="username">Username</label>
-						<input hlmInput id="username" value="&#64;peduarte" />
+						<input hlmInput id="username" value="peduarte" />
 					</hlm-field>
-				</div>
+				</hlm-field-group>
 				<hlm-drawer-footer>
 					<button hlmBtn type="submit">Save Changes</button>
 					<button hlmDrawerClose hlmBtn variant="outline">Cancel</button>

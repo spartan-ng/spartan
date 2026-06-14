@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, signal } from '@angular/core';
 import { injectExposedSideProvider, injectExposesStateProvider } from '@spartan-ng/brain/core';
 import { classes } from '@spartan-ng/helm/utils';
 import { HlmDrawerHandle } from './hlm-drawer-handle';
@@ -32,5 +32,15 @@ export class HlmDrawerContent {
 			'data-[vaul-drawer-direction=left]:data-closed:slide-out-to-left data-[vaul-drawer-direction=left]:data-open:slide-in-from-left',
 			'data-[vaul-drawer-direction=right]:data-closed:slide-out-to-right data-[vaul-drawer-direction=right]:data-open:slide-in-from-right',
 		]);
+		effect(() => {
+			const currentState = this.state();
+			if (currentState === 'open') {
+				document.body.style.pointerEvents = 'none';
+			} else {
+				setTimeout(() => {
+					document.body.style.pointerEvents = '';
+				}, 300);
+			}
+		});
 	}
 }

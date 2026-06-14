@@ -49,6 +49,7 @@ export const routeMeta: RouteMeta = {
 		<section spartanMainSection>
 			<spartan-section-intro
 				name="Drawer"
+				showThemeToggle
 				lead="A dialog that slides in from the bottom of the screen. Designed after the macOS/iOS bottom sheet pattern."
 			/>
 

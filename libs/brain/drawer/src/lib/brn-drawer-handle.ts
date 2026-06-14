@@ -141,7 +141,8 @@ export class BrnDrawerHandle {
 		const isDraggingInDirection = draggedDistance > 0;
 		const absDraggedDistance = Math.abs(draggedDistance);
 
-		if (!this._isAllowedToDrag && !this._shouldDrag(e.target ?? this._element.nativeElement, isDraggingInDirection)) return;
+		if (!this._isAllowedToDrag && !this._shouldDrag(e.target ?? this._element.nativeElement, isDraggingInDirection))
+			return;
 
 		this._isAllowedToDrag = true;
 		this._drawerEl.classList.add('vaul-dragging');

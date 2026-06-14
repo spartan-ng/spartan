@@ -1,5 +1,4 @@
-import type { Tree } from '@nx/devkit';
-import { updateJson } from 'nx/src/generators/utils/json';
+import { type Tree, updateJson } from '@nx/devkit';
 
 export const addPrimitiveToSupportedUILibraries = (
 	tree: Tree,

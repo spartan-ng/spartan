@@ -1,6 +1,11 @@
 import { formatFiles, logger, readJson, type Tree, updateJson } from '@nx/devkit';
 import { getRootTsConfigPathInTree } from '@nx/js';
-import { removeGenerator } from '@nx/workspace';
+// Import `removeGenerator` from its module directly rather than the `@nx/workspace` barrel.
+// The barrel eagerly evaluates `convert-to-nx-project`, whose `output.js` crashes on nx 22
+// ("Cannot read properties of undefined (reading 'inverse')") due to a chalk/tslib interop
+// issue in nx itself. Importing the generator directly avoids loading that module.
+// See https://github.com/nrwl/nx/issues/35521 - revert to the barrel once nx ships the fix.
+import { removeGenerator } from '@nx/workspace/src/generators/remove/remove';
 import { prompt } from 'enquirer';
 import { dirname, join } from 'path';
 import { getOrCreateConfig } from '../../utils/config';

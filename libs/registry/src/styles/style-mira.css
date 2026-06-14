@@ -912,6 +912,11 @@
 		@apply text-muted-foreground end-1.5 top-1/2 -translate-y-1.5 text-[calc(var(--spacing)*3.5)] group-data-[size=sm]/native-select:-translate-y-1.25 group-data-[size=sm]/native-select:text-[calc(var(--spacing)*3)];
 	}
 
+	.spartan-native-select [data-slot='native-select-option'],
+	.spartan-native-select [data-slot='native-select-optgroup'] {
+		@apply bg-[color:Canvas] text-[color:CanvasText];
+	}
+
 	/* MARK: Pagination */
 	.spartan-pagination-content {
 		@apply gap-0.5;
@@ -1218,6 +1223,10 @@
 
 	.spartan-slider-thumb {
 		@apply border-primary ring-ring/30 size-4 rounded-md border bg-white shadow-sm transition-colors hover:ring-4 focus-visible:ring-4 focus-visible:outline-hidden;
+	}
+
+	.spartan-slider-ticks {
+		@apply px-2 group-data-vertical:px-0 group-data-vertical:py-2;
 	}
 
 	/* MARK: Sonner */

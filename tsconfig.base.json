@@ -69,6 +69,7 @@
 			"@spartan-ng/brain/sonner": ["libs/brain/sonner/src/index.ts"],
 			"@spartan-ng/brain/switch": ["libs/brain/switch/src/index.ts"],
 			"@spartan-ng/brain/tabs": ["libs/brain/tabs/src/index.ts"],
+			"@spartan-ng/brain/testing": ["libs/brain/src/testing/index.ts"],
 			"@spartan-ng/brain/textarea": ["libs/brain/textarea/src/index.ts"],
 			"@spartan-ng/brain/toggle": ["libs/brain/toggle/src/index.ts"],
 			"@spartan-ng/brain/toggle-group": ["libs/brain/toggle-group/src/index.ts"],

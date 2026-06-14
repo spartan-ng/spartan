@@ -50,7 +50,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 		@if (_slider.showTicks()) {
 			<div
-				class="text-muted-foreground mt-3 flex w-full items-start justify-between gap-1 px-1.5 text-xs font-medium group-data-horizontal:group-data-inverted:flex-row-reverse group-data-vertical:ms-3 group-data-vertical:mt-0 group-data-vertical:w-auto group-data-vertical:flex-col-reverse group-data-vertical:px-0 group-data-vertical:py-1.5 group-data-vertical:group-data-inverted:flex-col"
+				class="spartan-slider-ticks text-muted-foreground mt-3 flex w-full items-start justify-between gap-1 text-xs font-medium group-data-horizontal:group-data-inverted:flex-row-reverse group-data-vertical:ms-3 group-data-vertical:mt-0 group-data-vertical:w-auto group-data-vertical:flex-col-reverse group-data-vertical:group-data-inverted:flex-col"
 			>
 				<div
 					*brnSliderTick="let tick; let formattedTick = formattedTick"

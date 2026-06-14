@@ -5,8 +5,8 @@ import * as projectHelpers from '../helpers/projects.helpers';
 import executor from './executor';
 
 // Mock the entire child_process module
-jest.mock('node:child_process', () => ({
-	execFileSync: jest.fn(), // Mock execFileSync function
+vi.mock('node:child_process', () => ({
+	execFileSync: vi.fn(), // Mock execFileSync function
 }));
 
 describe('NpmPublish Executor', () => {
@@ -15,7 +15,7 @@ describe('NpmPublish Executor', () => {
 		const context = {} as unknown as ExecutorContext;
 
 		// Mock the getRoot helper
-		jest.spyOn(projectHelpers, 'getRoot').mockReturnValue(mockRoot);
+		vi.spyOn(projectHelpers, 'getRoot').mockReturnValue(mockRoot);
 
 		// Set the environment variable for TAG
 		process.env.TAG = 'next';

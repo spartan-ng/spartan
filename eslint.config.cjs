@@ -95,6 +95,7 @@ module.exports = [
 				{
 					ignoredFiles: [
 						'{projectRoot}/eslint.config.{js,cjs,mjs}',
+						'{projectRoot}/vite.config.{ts,mts}',
 						'{projectRoot}/**/test-setup.ts',
 						'{projectRoot}/**/*.spec.ts',
 						'{projectRoot}/**/*.stories.ts',
@@ -104,6 +105,14 @@ module.exports = [
 		},
 		languageOptions: {
 			parser: require('jsonc-eslint-parser'),
+		},
+	},
+	{
+		// Vitest's `importOriginal<typeof import('mod')>()` mock pattern relies on inline `import()`
+		// type annotations, so allow them in spec files (the rule still enforces type-only imports).
+		files: ['**/*.spec.ts'],
+		rules: {
+			'@typescript-eslint/consistent-type-imports': ['error', { disallowTypeAnnotations: false }],
 		},
 	},
 ];

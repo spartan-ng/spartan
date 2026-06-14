@@ -3,11 +3,11 @@
 	"compilerOptions": {
 		"outDir": "../../dist/out-tsc",
 		"module": "commonjs",
-		"types": ["jest", "node"],
+		"types": ["vitest/globals", "node"],
 		"resolveJsonModule": true,
 		"moduleResolution": "node",
 		"esModuleInterop": true,
 		"isolatedModules": true
 	},
-	"include": ["jest.config.ts", "src/**/*.ts"]
+	"include": ["src/**/*.ts"]
 }

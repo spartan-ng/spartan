@@ -37,11 +37,6 @@ let dialogSequence = 0;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type BrnDialogContext<T> = T & { close: (result?: any) => void };
 
-/** @deprecated `injectBrnDialogCtx` will no longer be supported once components are stable. Use `injectBrnDialogContext` instead.  */
-export const injectBrnDialogCtx = <T>(): BrnDialogContext<T> => {
-	return inject(DIALOG_DATA);
-};
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const injectBrnDialogContext = <DialogContext = any>(options: InjectOptions = {}) => {
 	return inject(DIALOG_DATA, options) as DialogContext;

@@ -28,7 +28,7 @@
 		"test": "nx run-many --target test --all",
 		"update-contributors": "nx generate @spartan-ng/tools:update-contributors",
 		"update-hlm-component-preview": "nx generate @spartan-ng/tools:generate-hlm-component-preview",
-		"update-ui-docs-snapshot": "nx run tools:generate-ui-docs && npm test -- libs/tools/src/executors/docs/generate-ui-docs/executor.spec.ts --updateSnapshot --skip-cache"
+		"update-ui-docs-snapshot": "nx run tools:generate-ui-docs && nx test tools --skip-nx-cache -- --update"
 	},
 	"dependencies": {
 		"@algolia/client-search": "^5.40.0",

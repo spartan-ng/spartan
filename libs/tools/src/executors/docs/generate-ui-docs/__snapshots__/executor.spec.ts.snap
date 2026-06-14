@@ -605,14 +605,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "brn-avatar",
       },
       "BrnAvatarFallback": {
-        "exportAs": "avatarFallback",
+        "exportAs": "brnAvatarFallback",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[brnAvatarFallback]",
       },
       "BrnAvatarImage": {
-        "exportAs": "avatarImage",
+        "exportAs": "brnAvatarImage",
         "inputs": [],
         "models": [],
         "outputs": [],
@@ -639,7 +639,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmAvatarBadge],hlm-avatar-badge",
       },
       "HlmAvatarFallback": {
-        "exportAs": "avatarFallback",
+        "exportAs": "hlmAvatarFallback",
         "inputs": [],
         "models": [],
         "outputs": [],
@@ -658,7 +658,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmAvatarGroupCount],hlm-avatar-group-count",
       },
       "HlmAvatarImage": {
-        "exportAs": "avatarImage",
+        "exportAs": "hlmAvatarImage",
         "inputs": [],
         "models": [],
         "outputs": [],

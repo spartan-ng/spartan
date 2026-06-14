@@ -1,19 +1,19 @@
-import { ChangeDetectionStrategy, Component, effect, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { injectExposedSideProvider, injectExposesStateProvider } from '@spartan-ng/brain/core';
+import { BrnDrawerHandle } from '@spartan-ng/brain/drawer';
 import { classes } from '@spartan-ng/helm/utils';
-import { HlmDrawerHandle } from './hlm-drawer-handle';
 
 @Component({
 	selector: 'hlm-drawer-content',
-	imports: [HlmDrawerHandle],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	hostDirectives: [{ directive: BrnDrawerHandle, inputs: ['closeThreshold'] }],
 	host: {
 		'data-slot': 'drawer-content',
 		'[attr.data-vaul-drawer-direction]': '_sideProvider.side()',
 		'[attr.data-state]': 'state()',
 	},
 	template: `
-		<div hlmDrawerHandle></div>
+		<div class="spartan-drawer-handle"></div>
 		<ng-content />
 	`,
 })
@@ -32,15 +32,5 @@ export class HlmDrawerContent {
 			'data-[vaul-drawer-direction=left]:data-closed:slide-out-to-left data-[vaul-drawer-direction=left]:data-open:slide-in-from-left',
 			'data-[vaul-drawer-direction=right]:data-closed:slide-out-to-right data-[vaul-drawer-direction=right]:data-open:slide-in-from-right',
 		]);
-		effect(() => {
-			const currentState = this.state();
-			if (currentState === 'open') {
-				document.body.style.pointerEvents = 'none';
-			} else {
-				setTimeout(() => {
-					document.body.style.pointerEvents = '';
-				}, 300);
-			}
-		});
 	}
 }

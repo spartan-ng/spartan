@@ -6,9 +6,6 @@ import { classes } from '@spartan-ng/helm/utils';
 	selector: 'hlm-slider, brn-slider [hlm]',
 	imports: [BrnSliderImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	host: {
-		'data-slot': 'slider',
-	},
 	hostDirectives: [
 		{
 			directive: BrnSlider,
@@ -34,6 +31,9 @@ import { classes } from '@spartan-ng/helm/utils';
 			outputs: ['valueChange'],
 		},
 	],
+	host: {
+		'data-slot': 'slider',
+	},
 	template: `
 		<div class="relative flex w-full items-center group-data-vertical:w-auto group-data-vertical:flex-col">
 			<div brnSliderTrack data-slot="slider-track" class="spartan-slider-track relative grow overflow-hidden">

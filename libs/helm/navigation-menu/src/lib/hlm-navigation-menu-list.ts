@@ -4,12 +4,12 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: 'ul[hlmNavigationMenuList]',
-	host: { 'data-slot': 'navigation-menu-list' },
 	hostDirectives: [
 		{
 			directive: BrnNavigationMenuList,
 		},
 	],
+	host: { 'data-slot': 'navigation-menu-list' },
 })
 export class HlmNavigationMenuList {
 	constructor() {

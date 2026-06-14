@@ -22,10 +22,10 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-calendar-multi',
-	host: { 'data-slot': 'calendar' },
 	imports: [BrnCalendarImports, NgIcon, HlmIcon, NgTemplateOutlet, HlmSelectImports],
 	viewProviders: [provideIcons({ lucideChevronLeft, lucideChevronRight })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: { 'data-slot': 'calendar' },
 	template: `
 		<div
 			brnCalendarMulti

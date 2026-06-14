@@ -32,7 +32,12 @@ export class BrnDrawerHandle {
 	private _pointerId = -1;
 
 	constructor() {
-		this._destroyRef.onDestroy(() => this._cleanup());
+		this._destroyRef.onDestroy(() => {
+			this._cleanup();
+			// Cancel any pending reset timeout: on destroy its target elements are gone, so the
+			// deferred style write is a stale no-op that also retains this directive for ~500ms.
+			this._clearResetTimeout();
+		});
 		effect(() => {
 			const state = this._brnDialogRef?.state();
 			untracked(() => {
@@ -61,6 +66,7 @@ export class BrnDrawerHandle {
 	private _openTime: number | null = null;
 	private _lastTimeDragPrevented: number | null = null;
 	private _dragStartTime: number | null = null;
+	private _resetTimeout: ReturnType<typeof setTimeout> | null = null;
 
 	public readonly closeThreshold = input<number>(DEFAULT_CLOSE_THRESHOLD);
 
@@ -305,10 +311,19 @@ export class BrnDrawerHandle {
 			this._backdropEl.style.transition = animate ? OVERLAY_TRANSITION : 'none';
 			this._backdropEl.style.opacity = String(this._initialBackdropOpacity);
 		}
-		setTimeout(() => {
+		this._clearResetTimeout();
+		this._resetTimeout = setTimeout(() => {
+			this._resetTimeout = null;
 			if (this._drawerEl) this._drawerEl.style.transition = '';
 			if (this._backdropEl) this._backdropEl.style.transition = '';
 		}, 500);
+	}
+
+	private _clearResetTimeout(): void {
+		if (this._resetTimeout !== null) {
+			clearTimeout(this._resetTimeout);
+			this._resetTimeout = null;
+		}
 	}
 
 	private _animateAndClose(): void {
@@ -340,6 +355,11 @@ export class BrnDrawerHandle {
 			this._pointerId = -1;
 		}
 		this._document.removeEventListener('pointermove', this._onPointerMove);
+		// pointerup/pointercancel are registered with `{ once: true }`, but a destroy-during-drag (or a
+		// normal end where pointercancel never fired) would otherwise leave them on `document`, pinning
+		// this directive until the next global pointer release auto-removes them.
+		this._document.removeEventListener('pointerup', this._onPointerUp);
+		this._document.removeEventListener('pointercancel', this._onPointerCancel);
 	}
 
 	private _findScrollableAncestor(element: HTMLElement | null): HTMLElement | null {

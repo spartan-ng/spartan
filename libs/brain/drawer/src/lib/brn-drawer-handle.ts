@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { Directive, ElementRef, inject, input } from '@angular/core';
+import { DestroyRef, Directive, ElementRef, inject, input } from '@angular/core';
 import { BrnDialogRef } from '@spartan-ng/brain/dialog';
 import { BrnDrawer } from './brn-drawer';
 
@@ -28,12 +28,17 @@ export class BrnDrawerHandle {
 	private readonly _brnDrawer = inject(BrnDrawer, { optional: true });
 	private readonly _element: ElementRef<HTMLElement> = inject(ElementRef);
 	private readonly _document = inject(DOCUMENT);
+	private readonly _destroyRef = inject(DestroyRef);
+	private _pointerId = -1;
+
+	constructor() {
+		this._destroyRef.onDestroy(() => this._cleanup());
+	}
 
 	private _drawerEl: HTMLElement | null = null;
 	private _backdropEl: HTMLElement | null = null;
 	private _direction: 'bottom' | 'top' | 'left' | 'right' = 'bottom';
 	private _initialBackdropOpacity = 1;
-	private _scrollEl: HTMLElement | null = null;
 
 	private _pointerStartX = 0;
 	private _pointerStartY = 0;
@@ -87,8 +92,7 @@ export class BrnDrawerHandle {
 
 		this._drawerEl.style.transition = 'none';
 
-		this._scrollEl = this._findScrollableAncestor(event.target as HTMLElement);
-		if (!this._scrollEl) {
+		if (!this._findScrollableAncestor(event.target as HTMLElement)) {
 			event.preventDefault();
 		}
 
@@ -97,6 +101,13 @@ export class BrnDrawerHandle {
 		if (this._backdropEl) {
 			this._initialBackdropOpacity = parseFloat(getComputedStyle(this._backdropEl).opacity) || 1;
 		}
+
+		try {
+			this._element.nativeElement.setPointerCapture(event.pointerId);
+		} catch {
+			/* empty - pointer capture not supported */
+		}
+		this._pointerId = event.pointerId;
 
 		this._document.addEventListener('pointermove', this._onPointerMove, { passive: false });
 		this._document.addEventListener('pointerup', this._onPointerUp, { once: true });
@@ -297,11 +308,11 @@ export class BrnDrawerHandle {
 	private _animateAndClose(): void {
 		if (!this._drawerEl) return;
 		const dimension = this._isVertical ? this._drawerEl.offsetHeight : this._drawerEl.offsetWidth;
-		const dist = dimension + this._getTranslate();
-		const signedClose = this._isPositive ? dist : -dist;
+		const targetClose = this._isPositive ? dimension : -dimension;
 		const prop = this._isVertical ? 'translateY' : 'translateX';
 		this._drawerEl.style.transition = 'transform 0.3s cubic-bezier(0.32, 0.72, 0, 1)';
-		this._drawerEl.style.transform = `${prop}(${signedClose}px)`;
+		this._drawerEl.style.transform = `${prop}(${targetClose}px)`;
+		this._drawerEl.style.animation = 'none';
 		if (this._backdropEl) {
 			this._backdropEl.style.transition = 'opacity 0.3s cubic-bezier(0.32, 0.72, 0, 1)';
 			this._backdropEl.style.opacity = '0';

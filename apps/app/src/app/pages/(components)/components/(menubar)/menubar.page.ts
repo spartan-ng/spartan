@@ -47,6 +47,7 @@ export const routeMeta: RouteMeta = {
 	template: `
 		<section spartanMainSection>
 			<spartan-section-intro
+				showThemeToggle
 				name="Menubar"
 				lead="A visually persistent menu common in desktop applications that provides quick access to a consistent set of commands."
 			/>
@@ -69,7 +70,16 @@ export const routeMeta: RouteMeta = {
 				.
 			</p>
 
-			<spartan-install-tabs primitive="menubar" />
+			<spartan-install-tabs primitive="menubar" [showOnlyVega]="false" />
+
+			<!--			<spartan-header-rtl />-->
+
+			<!--			<spartan-tabs firstTab="Preview" secondTab="Code">-->
+			<!--				<div spartanRtlCodePreview firstTab>-->
+			<!--					<spartan-menubar-rtl />-->
+			<!--				</div>-->
+			<!--				<spartan-code secondTab [code]="_rtlCode()" />-->
+			<!--			</spartan-tabs>-->
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">
@@ -91,6 +101,7 @@ export const routeMeta: RouteMeta = {
 export default class LabelPage {
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('menubar');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
+	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

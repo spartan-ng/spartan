@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, Component, computed, effect, inject, InjectionToken, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, InjectionToken, input, signal } from '@angular/core';
 import { HlmChartStyle } from './hlm-chart-style';
 import type { ChartConfig } from './hlm-chart.types';
 
 export interface ChartConfigRef {
-	value: ChartConfig | null;
+	readonly value: ChartConfig | null;
 }
 
 export const HLM_CHART_CONFIG = new InjectionToken<ChartConfigRef>('HLM_CHART_CONFIG');
@@ -11,7 +11,13 @@ export const HLM_CHART_CONFIG = new InjectionToken<ChartConfigRef>('HLM_CHART_CO
 @Component({
 	selector: 'hlm-chart-container, [hlmChartContainer]',
 	imports: [HlmChartStyle],
-	providers: [{ provide: HLM_CHART_CONFIG, useFactory: () => ({ value: null }) }],
+	providers: [
+		{
+			provide: HLM_CHART_CONFIG,
+			useFactory: (c: HlmChartContainer) => c._configRef(),
+			deps: [HlmChartContainer],
+		},
+	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-chart-style [id]="_chartId()" [config]="config()" />
@@ -21,15 +27,15 @@ export const HLM_CHART_CONFIG = new InjectionToken<ChartConfigRef>('HLM_CHART_CO
 	`,
 })
 export class HlmChartContainer {
-	private readonly _configRef = inject(HLM_CHART_CONFIG);
-
 	protected readonly _chartId = computed(() => `chart-${this.id() ?? Math.random().toString(36).slice(2, 9)}`);
 	public readonly id = input<string>();
 	public readonly config = input.required<ChartConfig>();
 
+	protected readonly _configRef = signal<ChartConfigRef>({ value: null });
+
 	constructor() {
 		effect(() => {
-			this._configRef.value = this.config();
+			this._configRef.set({ value: this.config() });
 		});
 	}
 }

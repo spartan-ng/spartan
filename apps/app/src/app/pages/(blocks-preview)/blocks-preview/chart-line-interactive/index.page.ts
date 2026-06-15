@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewEncapsulation, viewChild } from '@angular/core';
-import { Chart } from 'chart.js';
+import { Chart } from 'chart.js/auto';
 
 @Component({
 	selector: 'spartan-chart-line-interactive',
@@ -72,10 +72,9 @@ export default class ChartLineInteractiveComponent implements AfterViewInit, OnD
 
 	private generateDates(): string[] {
 		const dates: string[] = [];
-		const start = new Date(2024, 3, 1);
+		const start = Date.UTC(2024, 3, 1);
 		for (let i = 0; i < 90; i++) {
-			const d = new Date(start);
-			d.setDate(d.getDate() + i);
+			const d = new Date(start + i * 86400000);
 			dates.push(d.toISOString().slice(0, 10));
 		}
 		return dates;

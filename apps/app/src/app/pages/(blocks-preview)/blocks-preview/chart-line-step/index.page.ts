@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewEncapsulation, viewChild } from '@angular/core';
-import { Chart } from 'chart.js';
+import { Chart } from 'chart.js/auto';
 
 @Component({
 	selector: 'spartan-chart-line-step',

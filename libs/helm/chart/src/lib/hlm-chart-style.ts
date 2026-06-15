@@ -1,4 +1,13 @@
-import { ChangeDetectionStrategy, Component, computed, effect, ElementRef, inject, input, Renderer2 } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	computed,
+	effect,
+	ElementRef,
+	inject,
+	input,
+	Renderer2,
+} from '@angular/core';
 import type { ChartConfig } from './hlm-chart.types';
 
 const THEMES: Record<string, string> = { light: '', dark: '.dark' };
@@ -11,7 +20,7 @@ const THEMES: Record<string, string> = { light: '', dark: '.dark' };
 export class HlmChartStyle {
 	private readonly _renderer = inject(Renderer2);
 	private readonly _host = inject(ElementRef).nativeElement as HTMLElement;
-	private _styleElement: HTMLStyleElement | null = null;
+	private readonly _styleElement: HTMLStyleElement | null = null;
 
 	public readonly id = input.required<string>();
 	public readonly config = input.required<ChartConfig>();

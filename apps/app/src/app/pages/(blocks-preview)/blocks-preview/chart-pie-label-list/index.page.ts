@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewEncapsulation, viewChild } from '@angular/core';
-import { ArcElement, Chart } from 'chart.js';
+import { ArcElement, Chart } from 'chart.js/auto';
 
 const datalabelPlugin = {
 	id: 'datalabels',
@@ -8,7 +8,7 @@ const datalabelPlugin = {
 		const data = chart.data.datasets[0].data as number[];
 		const total = data.reduce((a: number, b: number) => a + b, 0);
 		(chart.getDatasetMeta(0).data as ArcElement[]).forEach((arc, i) => {
-			const pct = Math.round((data[i] / total) * 100);
+			const pct = total > 0 ? Math.round((data[i] / total) * 100) : 0;
 			ctx.save();
 			ctx.fillStyle = '#fff';
 			ctx.font = 'bold 12px sans-serif';

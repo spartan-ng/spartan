@@ -1,6 +1,3 @@
-import { Chart, registerables } from 'chart.js';
-Chart.register(...registerables);
-
 export const AREA_CHART_DATA = [
 	{ month: 'January', desktop: 186, mobile: 80, other: 45 },
 	{ month: 'February', desktop: 305, mobile: 200, other: 100 },

@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewEncapsulation, viewChild } from '@angular/core';
-import { Chart } from 'chart.js';
+import { Chart } from 'chart.js/auto';
 import { INTERACTIVE_CHART_DATA } from '../shared/chart/chart-data';
 
 @Component({
@@ -63,8 +63,8 @@ export default class ChartBarInteractiveComponent implements AfterViewInit, OnDe
 		if (!canvas) return;
 
 		const labels = INTERACTIVE_CHART_DATA.map((d) => {
-			const date = new Date(d.date);
-			return `${date.getMonth() + 1}/${date.getDate()}`;
+			const [, month, day] = d.date.split('-').map(Number);
+			return `${month}/${day}`;
 		});
 		const data = INTERACTIVE_CHART_DATA.map((d) => (this._activeTab === 'desktop' ? d.desktop : d.mobile));
 		const color = this._activeTab === 'desktop' ? 'hsl(12, 76%, 61%)' : 'hsl(173, 58%, 39%)';

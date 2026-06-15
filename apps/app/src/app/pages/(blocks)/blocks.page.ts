@@ -41,6 +41,7 @@ export const routeMeta: RouteMeta = {
 					<a hlmTabsTrigger="login" routerLink="/blocks/login">Login</a>
 					<a hlmTabsTrigger="signup" routerLink="/blocks/signup">Signup</a>
 					<a hlmTabsTrigger="calendar" routerLink="/blocks/calendar">Calendar</a>
+					<a hlmTabsTrigger="stepper" routerLink="/blocks/stepper">Stepper</a>
 				</hlm-tabs-list>
 			</hlm-tabs>
 

@@ -124,3 +124,24 @@
 		display: none;
 	}
 }
+
+@utility step-enter-forward {
+	@apply animate-in fade-in slide-in-from-right-8 fill-mode-both;
+}
+
+@utility step-enter-backward {
+	@apply animate-in fade-in slide-in-from-left-8 fill-mode-both;
+}
+
+@utility step-leave-forward {
+	@apply animate-out fade-out slide-out-to-left-8 fill-mode-both absolute top-0 right-0 left-0;
+}
+
+@utility step-leave-backward {
+	@apply animate-out fade-out slide-out-to-right-8 fill-mode-both absolute top-0 right-0 left-0;
+}
+
+@utility step-enter-bottom {
+	@apply animate-in fade-in slide-in-from-bottom-2 fill-mode-both duration-400;
+	animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+}

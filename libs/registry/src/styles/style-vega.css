@@ -1,4 +1,4 @@
-.style-vega :where(:not([class~='not-style-vega'], [class~='not-style-vega'] *)) {
+* {
 	&.spartan-rtl-flip {
 		@apply rtl:rotate-180;
 	}

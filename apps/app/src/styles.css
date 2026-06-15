@@ -116,6 +116,27 @@
 	}
 }
 
+/* Docs-app only: this app loads every theme at once with vega as the global
+   baseline (style-vega.css scopes to `*`). For the few classes vega defines but
+   lyra doesn't, vega's baseline leaks into .style-lyra islands. Neutralize that
+   in lyra's own (square) language. Kept out of style-lyra.css so the CLI does
+   not copy these patches into consumers, who only ever load a single theme. */
+.style-lyra .spartan-button-group-orientation-horizontal {
+	@apply [&>[data-slot]:not(:has(~[data-slot]))]:rounded-e-none!;
+}
+.style-lyra .spartan-button-group-orientation-vertical {
+	@apply [&>[data-slot]:not(:has(~[data-slot]))]:rounded-b-none!;
+}
+.style-lyra .spartan-carousel-previous {
+	@apply rounded-none;
+}
+.style-lyra .spartan-carousel-next {
+	@apply rounded-none;
+}
+.style-lyra .spartan-dialog-footer {
+	@apply gap-2;
+}
+
 [hidden]:where(:not([hidden='until-found'])) {
 	display: none !important;
 }

@@ -3,7 +3,9 @@ export type ChartConfig = Record<
 	{
 		label?: string;
 		icon?: string;
-	} & ({ color?: string; theme?: never } | { color?: never; theme?: Record<string, string> })
+		color?: string;
+		theme?: Record<string, string>;
+	}
 >;
 
 export type ChartTooltipIndicator = 'dot' | 'line' | 'dashed';

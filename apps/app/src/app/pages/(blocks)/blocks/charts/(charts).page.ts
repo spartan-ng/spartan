@@ -114,7 +114,7 @@ export const routeMeta: RouteMeta = {
 
 		<spartan-block-viewer block="chart-bar-mixed" title="A mixed bar chart" id="chart-bar-7">
 			<p class="text-muted-foreground max-w-3xl text-sm text-pretty">
-				A mixed chart combining bar and line representations.
+				A horizontal bar chart with individual bar colors for each browser.
 			</p>
 		</spartan-block-viewer>
 

@@ -162,6 +162,7 @@ Our initial 300 contributors and sponsors are featured here and on the front pag
 143. [amitshalev2](https://github.com/amitshalev2)
 144. [SOG-web](https://github.com/SOG-web)
 145. [Joebeurg](https://github.com/Joebeurg)
+146. [mehrabix](https://github.com/mehrabix)
 
 [Become a spartan today!](https://github.com/sponsors/goetzrobin)
 

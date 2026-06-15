@@ -3,10 +3,6 @@ export const PersianDate = {
 	jalaliDaysInMonth: [31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29],
 
 	jalaliToGregorian: function (jalaliYear: number, jalaliMonth: number, jalaliDay: number): [number, number, number] {
-		jalaliYear = parseInt(jalaliYear.toString());
-		jalaliMonth = parseInt(jalaliMonth.toString());
-		jalaliDay = parseInt(jalaliDay.toString());
-
 		const jalaliYearDelta = jalaliYear - 979;
 		const jalaliMonthIdx = jalaliMonth - 1;
 		const jalaliDayIdx = jalaliDay - 1;
@@ -58,10 +54,6 @@ export const PersianDate = {
 		gregorianMonth: number,
 		gregorianDay: number,
 	): [number, number, number] {
-		gregorianYear = parseInt(gregorianYear.toString());
-		gregorianMonth = parseInt(gregorianMonth.toString());
-		gregorianDay = parseInt(gregorianDay.toString());
-
 		const gregorianYearDelta = gregorianYear - 1600;
 		const gregorianMonthIdx = gregorianMonth - 1;
 		const gregorianDayIdx = gregorianDay - 1;
@@ -116,24 +108,6 @@ export const PersianDate = {
 		if (month <= 6) return 31;
 		if (month <= 11) return 30;
 		return this.isLeapJalaliYear(year) ? 30 : 29;
-	},
-
-	getMonthName: function (month: number): string {
-		const monthNames = [
-			'فروردین',
-			'اردیبهشت',
-			'خرداد',
-			'تیر',
-			'مرداد',
-			'شهریور',
-			'مهر',
-			'آبان',
-			'آذر',
-			'دی',
-			'بهمن',
-			'اسفند',
-		];
-		return monthNames[month - 1];
 	},
 
 	getDayOfWeek: function (jalaliYear: number, jalaliMonth: number, jalaliDay: number): number {

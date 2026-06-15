@@ -2,6 +2,9 @@ import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { MenubarRtl } from '@spartan-ng/app/app/pages/(components)/components/(menubar)/menubar--rtl.preview';
+import { CodeRtlPreview } from '@spartan-ng/app/app/shared/code/code-rtl-preview';
+import { RtlHeader } from '@spartan-ng/app/app/shared/code/rtl-header';
 import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import { link } from '@spartan-ng/app/app/shared/typography/link';
 import { hlmP } from '@spartan-ng/helm/typography';
@@ -16,7 +19,7 @@ import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading
 import { Tabs } from '../../../../shared/layout/tabs';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { MenubarPreview, defaultImports, defaultSkeleton } from './menubar.preview';
+import { defaultImports, defaultSkeleton, MenubarPreview } from './menubar.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Menubar', api: 'menubar' },
@@ -43,6 +46,9 @@ export const routeMeta: RouteMeta = {
 		PageBottomNavLink,
 		MenubarPreview,
 		RouterLink,
+		RtlHeader,
+		CodeRtlPreview,
+		MenubarRtl,
 	],
 	template: `
 		<section spartanMainSection>
@@ -72,14 +78,14 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-install-tabs primitive="menubar" [showOnlyVega]="false" />
 
-			<!--			<spartan-header-rtl />-->
+			<spartan-header-rtl />
 
-			<!--			<spartan-tabs firstTab="Preview" secondTab="Code">-->
-			<!--				<div spartanRtlCodePreview firstTab>-->
-			<!--					<spartan-menubar-rtl />-->
-			<!--				</div>-->
-			<!--				<spartan-code secondTab [code]="_rtlCode()" />-->
-			<!--			</spartan-tabs>-->
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanRtlCodePreview firstTab>
+					<spartan-menubar-rtl />
+				</div>
+				<spartan-code secondTab [code]="_rtlCode()" />
+			</spartan-tabs>
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">

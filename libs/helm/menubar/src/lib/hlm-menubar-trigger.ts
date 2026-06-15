@@ -55,7 +55,7 @@ export class HlmMenubarTrigger {
 
 		classes(
 			() =>
-				'spartan-menubar-trigger flex items-center outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+				'spartan-menubar-trigger flex items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50',
 		);
 	}
 }

@@ -1,4 +1,5 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Directionality } from '@angular/cdk/bidi';
+import { Component, computed, effect, inject, signal, untracked } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideArrowUpRight, lucideFolderCode } from '@ng-icons/lucide';
 import { TranslateService, Translations } from '@spartan-ng/app/app/shared/translate.service';
@@ -8,7 +9,7 @@ import { HlmMenubarImports } from '@spartan-ng/helm/menubar';
 @Component({
 	selector: 'spartan-menubar-rtl',
 	imports: [HlmMenubarImports, HlmDropdownMenuImports],
-	providers: [provideIcons({ lucideFolderCode, lucideArrowUpRight })],
+	providers: [provideIcons({ lucideFolderCode, lucideArrowUpRight }), Directionality],
 	host: {
 		'[dir]': '_dir()',
 	},
@@ -360,4 +361,13 @@ export class MenubarRtl {
 	protected readonly _t = computed(() => this._translation().values);
 	protected readonly _dir = computed(() => this._translation().dir);
 	protected readonly _profile = signal('');
+
+	private readonly _directionality = inject(Directionality);
+
+	constructor() {
+		effect(() => {
+			const dir = this._dir();
+			untracked(() => this._directionality.valueSignal.set(dir));
+		});
+	}
 }

@@ -3,7 +3,7 @@ import {
 	type Healthcheck,
 	type HealthcheckFailureFn,
 	type HealthcheckReport,
-	type HealthcheckSeverity,
+	HealthcheckSeverity,
 	HealthcheckStatus,
 	isHealthcheckFixable,
 } from '../healthchecks';
@@ -37,7 +37,14 @@ export async function runHealthcheck(
 		report.reason = reason;
 	};
 
-	await coercePromise(healthcheck.detect(tree, failure, skip, { importAlias }));
+	try {
+		await coercePromise(healthcheck.detect(tree, failure, skip, { importAlias }));
+	} catch (error) {
+		// A single check throwing (a parse error, a network failure, a malformed file) must not abort
+		// the remaining healthchecks - surface it as a failure and keep going.
+		const message = error instanceof Error ? error.message : String(error);
+		failure(`Healthcheck threw an unexpected error: ${message}`, HealthcheckSeverity.Error, false);
+	}
 
 	return report;
 }

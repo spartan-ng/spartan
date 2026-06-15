@@ -14,8 +14,10 @@ export function getInstalledPackageVersion(
 	}
 
 	if (!installedPackageVersion || installedPackageVersion === 'latest' || installedPackageVersion === 'next') {
-		return clean(defaultVersion) ?? coerce(defaultVersion).version;
+		return clean(defaultVersion) ?? coerce(defaultVersion)?.version ?? null;
 	}
 
-	return (raw ? installedPackageVersion : clean(installedPackageVersion)) ?? coerce(installedPackageVersion).version;
+	return (
+		(raw ? installedPackageVersion : clean(installedPackageVersion)) ?? coerce(installedPackageVersion)?.version ?? null
+	);
 }

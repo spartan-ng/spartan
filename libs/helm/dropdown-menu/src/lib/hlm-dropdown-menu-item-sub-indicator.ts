@@ -9,7 +9,7 @@ import { classes } from '@spartan-ng/helm/utils';
 	providers: [provideIcons({ lucideChevronRight })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<ng-icon name="lucideChevronRight" class="text-base" />
+		<ng-icon name="lucideChevronRight" class="text-base rtl:rotate-180" />
 	`,
 })
 export class HlmDropdownMenuItemSubIndicator {

@@ -1,7 +1,12 @@
 import { Directive } from '@angular/core';
+import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
-	selector: '[hlmNativeSelectOptGroup]',
+	selector: 'optgroup[hlmNativeSelectOptGroup]',
 	host: { 'data-slot': 'native-select-optgroup' },
 })
-export class HlmNativeSelectOptGroup {}
+export class HlmNativeSelectOptGroup {
+	constructor() {
+		classes(() => 'bg-[Canvas] text-[CanvasText]');
+	}
+}

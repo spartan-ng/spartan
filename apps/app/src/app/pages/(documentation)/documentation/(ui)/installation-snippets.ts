@@ -71,7 +71,7 @@ export const cssVariables = `
 }
 `;
 
-export const tailwindIntellisense = `
+export const tailwindAutocompletion = `
 {
   "tailwindCSS.classFunctions": ["hlm", "cva", "classes"]
 }

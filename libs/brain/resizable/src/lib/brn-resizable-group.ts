@@ -126,6 +126,7 @@ export class BrnResizableGroup {
 			this._document.removeEventListener('touchmove', handleMove);
 			this._document.removeEventListener('mouseup', handleEnd);
 			this._document.removeEventListener('touchend', handleEnd);
+			this._document.removeEventListener('touchcancel', handleEnd);
 			this._document.body.style.cursor = 'default';
 
 			if (this._resizeRaf !== null) {
@@ -149,6 +150,9 @@ export class BrnResizableGroup {
 			this._document.addEventListener('touchmove', handleMove);
 			this._document.addEventListener('mouseup', handleEnd);
 			this._document.addEventListener('touchend', handleEnd);
+			// touch drags can be interrupted by the system (touchcancel) without firing touchend;
+			// end the resize on it too so listeners + cursor are not left dangling.
+			this._document.addEventListener('touchcancel', handleEnd);
 		});
 	}
 

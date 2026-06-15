@@ -1,6 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewEncapsulation, viewChild } from '@angular/core';
-import { Chart, registerables } from 'chart.js';
-Chart.register(...registerables);
+import { Chart } from 'chart.js';
 
 @Component({
 	selector: 'spartan-chart-area-legend',
@@ -63,16 +62,7 @@ export default class ChartAreaLegendComponent implements AfterViewInit, OnDestro
 				responsive: true,
 				maintainAspectRatio: true,
 				plugins: {
-					legend: {
-						display: true,
-						position: 'bottom',
-						labels: {
-							usePointStyle: true,
-							boxHeight: 8,
-							boxWidth: 8,
-							padding: 16,
-						},
-					},
+					legend: { display: false },
 				},
 				scales: {
 					x: { grid: { display: false }, ticks: { maxRotation: 0 } },

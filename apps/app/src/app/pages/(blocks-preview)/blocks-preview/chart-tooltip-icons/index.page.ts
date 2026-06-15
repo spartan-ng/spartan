@@ -1,6 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewEncapsulation, viewChild } from '@angular/core';
-import { Chart, registerables } from 'chart.js';
-Chart.register(...registerables);
+import { Chart } from 'chart.js';
 
 @Component({
 	selector: 'spartan-chart-tooltip-icons',
@@ -106,9 +105,8 @@ export default class ChartTooltipIconsComponent implements AfterViewInit, OnDest
 								});
 								tooltipEl.innerHTML = html;
 							}
-							const position = context.chart.canvas.getBoundingClientRect();
-							tooltipEl.style.left = position.left + window.scrollX + tooltipModel.caretX + 'px';
-							tooltipEl.style.top = position.top + window.scrollY + tooltipModel.caretY - 10 + 'px';
+							tooltipEl.style.left = tooltipModel.caretX + 'px';
+							tooltipEl.style.top = tooltipModel.caretY - 10 + 'px';
 							tooltipEl.style.opacity = '1';
 						},
 					},

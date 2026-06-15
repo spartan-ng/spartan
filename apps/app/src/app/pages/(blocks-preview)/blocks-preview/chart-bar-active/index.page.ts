@@ -1,6 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewEncapsulation, viewChild } from '@angular/core';
-import { Chart, registerables } from 'chart.js';
-Chart.register(...registerables);
+import { Chart } from 'chart.js';
 
 const activeBarPlugin = {
 	id: 'activeBar',
@@ -15,11 +14,20 @@ const activeBarPlugin = {
 		ctx.lineWidth = 2;
 		ctx.setLineDash([4, 4]);
 		const { x, y, width, base } = element;
-		const barX = x - width / 2 - 4;
-		const barY = Math.min(y, base);
-		const barW = width + 8;
-		const barH = Math.abs(base - y) + 8;
-		ctx.strokeRect(barX, barY - 4, barW, barH);
+		const isHorizontal = (chart.config.options as any)?.indexAxis === 'y';
+		if (isHorizontal) {
+			const left = Math.min(base, x) - 4;
+			const top = y - width / 2 - 4;
+			const barW = Math.abs(x - base) + 8;
+			const barH = width + 8;
+			ctx.strokeRect(left, top, barW, barH);
+		} else {
+			const barX = x - width / 2 - 4;
+			const barY = Math.min(y, base);
+			const barW = width + 8;
+			const barH = Math.abs(base - y) + 8;
+			ctx.strokeRect(barX, barY - 4, barW, barH);
+		}
 		ctx.restore();
 	},
 };

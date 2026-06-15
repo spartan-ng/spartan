@@ -1,6 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewEncapsulation, viewChild } from '@angular/core';
-import { ArcElement, Chart, registerables } from 'chart.js';
-Chart.register(...registerables);
+import { ArcElement, Chart } from 'chart.js';
 
 const datalabelPlugin = {
 	id: 'datalabels',

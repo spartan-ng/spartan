@@ -1,7 +1,6 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewEncapsulation, viewChild } from '@angular/core';
-import { Chart, registerables } from 'chart.js';
+import { Chart } from 'chart.js';
 import { INTERACTIVE_CHART_DATA } from '../shared/chart/chart-data';
-Chart.register(...registerables);
 
 @Component({
 	selector: 'spartan-chart-bar-interactive',

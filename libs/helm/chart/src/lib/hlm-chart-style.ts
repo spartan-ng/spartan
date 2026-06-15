@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, ElementRef, inject, input, Renderer2 } from '@angular/core';
 import type { ChartConfig } from './hlm-chart.types';
 
 const THEMES: Record<string, string> = { light: '', dark: '.dark' };
@@ -6,11 +6,13 @@ const THEMES: Record<string, string> = { light: '', dark: '.dark' };
 @Component({
 	selector: 'hlm-chart-style',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	template: `
-		<span #span hidden></span>
-	`,
+	template: ``,
 })
 export class HlmChartStyle {
+	private readonly _renderer = inject(Renderer2);
+	private readonly _host = inject(ElementRef).nativeElement as HTMLElement;
+	private _styleElement: HTMLStyleElement | null = null;
+
 	public readonly id = input.required<string>();
 	public readonly config = input.required<ChartConfig>();
 
@@ -34,4 +36,17 @@ export class HlmChartStyle {
 			)
 			.join('\n');
 	});
+
+	constructor() {
+		const styleEl = this._renderer.createElement('style');
+		this._renderer.appendChild(this._host, styleEl);
+		this._styleElement = styleEl;
+
+		effect(() => {
+			const content = this._styleContent();
+			if (styleEl.textContent !== content) {
+				styleEl.textContent = content;
+			}
+		});
+	}
 }

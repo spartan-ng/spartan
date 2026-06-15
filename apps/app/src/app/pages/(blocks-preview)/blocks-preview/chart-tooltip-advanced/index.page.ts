@@ -1,6 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewEncapsulation, viewChild } from '@angular/core';
-import { Chart, registerables } from 'chart.js';
-Chart.register(...registerables);
+import { Chart } from 'chart.js';
 
 @Component({
 	selector: 'spartan-chart-tooltip-advanced',
@@ -10,7 +9,7 @@ Chart.register(...registerables);
 	template: `
 		<div class="flex flex-col gap-1.5">
 			<h3 class="text-lg leading-none font-semibold tracking-tight">Advanced Tooltip</h3>
-			<p class="text-muted-foreground text-sm">Tooltip with title, body, and footer callbacks</p>
+			<p class="text-muted-foreground text-sm">Tooltip with title and label callbacks</p>
 		</div>
 		<div class="mt-4">
 			<canvas #chart class="w-full"></canvas>

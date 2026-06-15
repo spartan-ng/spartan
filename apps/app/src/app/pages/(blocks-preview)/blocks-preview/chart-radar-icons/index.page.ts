@@ -1,6 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewEncapsulation, viewChild } from '@angular/core';
-import { Chart, registerables } from 'chart.js';
-Chart.register(...registerables);
+import { Chart } from 'chart.js';
 
 @Component({
 	selector: 'spartan-chart-radar-icons',
@@ -61,15 +60,13 @@ export default class ChartRadarIconsComponent implements AfterViewInit, OnDestro
 						labels: {
 							generateLabels: (chart: Chart) => {
 								const datasets = chart.data.datasets;
-								return (
-									chart.data.labels?.map((label, i) => ({
-										text: i === 0 ? '🖥 Desktop' : '📱 Mobile',
-										fillStyle: datasets[i].borderColor as string,
-										strokeStyle: datasets[i].borderColor as string,
-										lineWidth: 0,
-										index: i,
-									})) || []
-								);
+								return datasets.map((ds, i) => ({
+									text: i === 0 ? '🖥 Desktop' : '📱 Mobile',
+									fillStyle: ds.borderColor as string,
+									strokeStyle: ds.borderColor as string,
+									lineWidth: 0,
+									index: i,
+								}));
 							},
 						},
 					},

@@ -90,20 +90,38 @@ export default class ChartTooltipIconsComponent implements AfterViewInit, OnDest
 								return;
 							}
 							if (tooltipModel.body) {
+								tooltipEl.textContent = '';
 								const titleLines = tooltipModel.title || [];
 								const bodyItems = tooltipModel.body.map((b) => b.lines);
-								let html = '';
 								if (titleLines.length > 0) {
-									html += `<div style="font-weight:600;margin-bottom:4px">${titleLines[0]}</div>`;
+									const titleDiv = document.createElement('div');
+									titleDiv.style.fontWeight = '600';
+									titleDiv.style.marginBottom = '4px';
+									titleDiv.textContent = titleLines[0];
+									tooltipEl.appendChild(titleDiv);
 								}
 								bodyItems.forEach((lines) => {
 									lines.forEach((line) => {
 										const label = line.split(':')[0].trim();
 										const color = iconColors[label] || '#888';
-										html += `<div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="width:8px;height:8px;border-radius:50%;background:${color};display:inline-block"></span><span>${line}</span></div>`;
+										const rowDiv = document.createElement('div');
+										rowDiv.style.display = 'flex';
+										rowDiv.style.alignItems = 'center';
+										rowDiv.style.gap = '6px';
+										rowDiv.style.margin = '2px 0';
+										const dotSpan = document.createElement('span');
+										dotSpan.style.width = '8px';
+										dotSpan.style.height = '8px';
+										dotSpan.style.borderRadius = '50%';
+										dotSpan.style.background = color;
+										dotSpan.style.display = 'inline-block';
+										rowDiv.appendChild(dotSpan);
+										const textSpan = document.createElement('span');
+										textSpan.textContent = line;
+										rowDiv.appendChild(textSpan);
+										tooltipEl.appendChild(rowDiv);
 									});
 								});
-								tooltipEl.innerHTML = html;
 							}
 							tooltipEl.style.left = tooltipModel.caretX + 'px';
 							tooltipEl.style.top = tooltipModel.caretY - 10 + 'px';

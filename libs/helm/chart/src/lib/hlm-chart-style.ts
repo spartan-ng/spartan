@@ -20,7 +20,6 @@ const THEMES: Record<string, string> = { light: '', dark: '.dark' };
 export class HlmChartStyle {
 	private readonly _renderer = inject(Renderer2);
 	private readonly _host = inject(ElementRef).nativeElement as HTMLElement;
-	private readonly _styleElement: HTMLStyleElement | null = null;
 
 	public readonly id = input.required<string>();
 	public readonly config = input.required<ChartConfig>();
@@ -35,7 +34,7 @@ export class HlmChartStyle {
 		return Object.entries(THEMES)
 			.map(
 				([theme, prefix]) =>
-					`${prefix} [data-chart=${id}] {\n${colorConfig
+					`${prefix} [data-chart="${id}"] {\n${colorConfig
 						.map(([key, itemConfig]) => {
 							const color = itemConfig.theme?.[theme] ?? itemConfig.color;
 							return color ? `  --color-${key}: ${color};` : null;
@@ -49,7 +48,6 @@ export class HlmChartStyle {
 	constructor() {
 		const styleEl = this._renderer.createElement('style');
 		this._renderer.appendChild(this._host, styleEl);
-		this._styleElement = styleEl;
 
 		effect(() => {
 			const content = this._styleContent();

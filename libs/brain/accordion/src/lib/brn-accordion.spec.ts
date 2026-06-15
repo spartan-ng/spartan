@@ -94,12 +94,6 @@ class AccordionBlurDuringRenderSpec extends ProbeHost {}
 })
 class AccordionTriggerFocusDuringRenderSpec extends ProbeHost {}
 
-// brn-accordion-content measured `firstChild`, which is a Text node whenever the
-// projected content begins with a text node - the leading text below, or e.g. a
-// template compiled with `preserveWhitespaces: true` where the indentation before
-// the inner element survives as a Text node. measureDimensions then read `.style`
-// off that Text node and threw "Cannot read properties of undefined (reading
-// 'height')".
 @Component({
 	imports: [BrnAccordion, BrnAccordionItem, BrnAccordionTrigger, BrnAccordionContent],
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -153,16 +147,13 @@ describe('BrnAccordion', () => {
 		expect(ng0600Errors(errors)).toEqual([]);
 	});
 
-	// brn-accordion-content must measure its first ELEMENT child, not its first
-	// node: a leading Text node (e.g. from preserveWhitespaces) has no `.style`, so
-	// measuring it threw "Cannot read properties of undefined (reading 'height')".
+	// Content starting with a text node: measure the first element child, not firstChild (a Text node has no `.style`).
 	it('does not throw when the opened content has a leading text node', async () => {
 		const errors: unknown[] = [];
 		await render(AccordionContentLeadingTextNodeSpec, {
 			providers: [{ provide: ErrorHandler, useValue: { handleError: (error: unknown) => errors.push(error) } }],
 		});
-		// The dimension measuring runs in an afterNextRender hook that does not
-		// auto-run under jest - flush it so the regression actually exercises.
+		// flush the afterNextRender() that does the measuring
 		TestBed.inject(ApplicationRef).tick();
 
 		expect(errors).toEqual([]);

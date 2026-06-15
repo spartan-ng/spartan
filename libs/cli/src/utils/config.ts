@@ -62,13 +62,15 @@ const getConfig = async (tree: Tree, isAngularCli: boolean): Promise<Config> => 
 };
 
 export async function getImportAlias(tree: Tree, isAngularCli: boolean): Promise<string> {
-	try {
-		const config = await getConfig(tree, isAngularCli);
-		return config.importAlias;
-	} catch (error) {
-		// components.json does not exist or is invalid
+	// A missing config is expected for a fresh project - fall back to the default alias.
+	if (!tree.exists(configPath)) {
 		return '@spartan-ng/helm';
 	}
+
+	// A present-but-invalid config is a real error: every migration depends on this alias, so let
+	// getConfig throw (it prints the offending fields) rather than silently using the wrong one.
+	const config = await getConfig(tree, isAngularCli);
+	return config.importAlias;
 }
 
 export async function getOrCreateConfig(

@@ -29,14 +29,12 @@ export const versionHealthcheck: Healthcheck = {
 			const installedVersion = dependencies[dep];
 
 			// check if the installed version is the latest version
-			const request = await fetch(`https://registry.npmjs.org/${dep}/latest`);
+			const metadata = await fetchLatestMetadata(dep);
 
-			if (!request.ok) {
+			if (!metadata) {
 				failure(`Failed to fetch metadata for ${dep}.`, HealthcheckSeverity.Error, false);
 				continue;
 			}
-
-			const metadata = (await request.json()) as PackageJson;
 
 			if (!semver.satisfies(metadata.version, installedVersion)) {
 				failure(
@@ -58,13 +56,11 @@ export const versionHealthcheck: Healthcheck = {
 				return false;
 			}
 
-			const request = await fetch(`https://registry.npmjs.org/${dep}/latest`);
+			const metadata = await fetchLatestMetadata(dep);
 
-			if (!request.ok) {
+			if (!metadata) {
 				return false;
 			}
-
-			const metadata = (await request.json()) as PackageJson;
 
 			// update the dependency to the latest version in the respective section
 			if (packageJson.dependencies[dep]) {
@@ -80,3 +76,18 @@ export const versionHealthcheck: Healthcheck = {
 	},
 	prompt: 'Would you like to update to the latest versions of the dependencies?',
 };
+
+async function fetchLatestMetadata(dep: string): Promise<PackageJson | null> {
+	try {
+		const request = await fetch(`https://registry.npmjs.org/${dep}/latest`);
+
+		if (!request.ok) {
+			return null;
+		}
+
+		return (await request.json()) as PackageJson;
+	} catch {
+		// offline, DNS failure, timeout, malformed JSON - treat as "could not determine latest"
+		return null;
+	}
+}

@@ -28,11 +28,6 @@ export async function migrateHelmLibrariesGenerator(tree: Tree, options: Migrate
 		return;
 	}
 
-	// if we are running in Jest we can't use the enquirer prompt
-	if (process.env.JEST_WORKER_ID) {
-		return;
-	}
-
 	// allow the user to select which libraries to migrate
 	const selectedLibraries = await prompt({
 		type: 'multiselect',

@@ -15,7 +15,7 @@ const datalabelPlugin = {
 			ctx.font = 'bold 12px sans-serif';
 			ctx.textAlign = 'center';
 			ctx.textBaseline = 'middle';
-			const { x, y } = arc.tooltipPosition();
+			const { x, y } = arc.tooltipPosition(false);
 			ctx.fillText(`${pct}%`, x, y);
 			ctx.restore();
 		});
@@ -39,7 +39,7 @@ const datalabelPlugin = {
 })
 export default class ChartPieLabelListComponent implements AfterViewInit, OnDestroy {
 	protected readonly _chartRef = viewChild<ElementRef<HTMLCanvasElement>>('chart');
-	private readonly _chartInstance: Chart | null = null;
+	private _chartInstance: Chart | null = null;
 
 	ngAfterViewInit(): void {
 		const canvas = this._chartRef()?.nativeElement;

@@ -50,7 +50,7 @@ const datalabelPlugin = {
 })
 export default class ChartLineLabelComponent implements AfterViewInit, OnDestroy {
 	protected readonly _chartRef = viewChild<ElementRef<HTMLCanvasElement>>('chart');
-	private readonly _chartInstance: Chart | null = null;
+	private _chartInstance: Chart | null = null;
 
 	ngAfterViewInit(): void {
 		const canvas = this._chartRef()?.nativeElement;

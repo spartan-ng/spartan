@@ -64,7 +64,7 @@ Chart.register(...registerables);
 })
 export default class ChartLineInteractiveComponent implements AfterViewInit, OnDestroy {
 	protected readonly _chartRef = viewChild<ElementRef<HTMLCanvasElement>>('chart');
-	private readonly _chartInstance: Chart | null = null;
+	private _chartInstance: Chart | null = null;
 	protected _activeTab: 'desktop' | 'mobile' | 'all' = 'all';
 
 	private readonly _dates = this.generateDates();
@@ -99,11 +99,11 @@ export default class ChartLineInteractiveComponent implements AfterViewInit, OnD
 		this._chartInstance = new Chart(canvas, {
 			type: 'line',
 			data: {
-				labels: this.dates,
+				labels: this._dates,
 				datasets: [
 					{
 						label: 'Desktop',
-						data: this.desktopData,
+						data: this._desktopData,
 						borderColor: 'hsl(12, 76%, 61%)',
 						backgroundColor: 'hsl(12, 76%, 61%)',
 						tension: 0.4,
@@ -111,7 +111,7 @@ export default class ChartLineInteractiveComponent implements AfterViewInit, OnD
 					},
 					{
 						label: 'Mobile',
-						data: this.mobileData,
+						data: this._mobileData,
 						borderColor: 'hsl(173, 58%, 39%)',
 						backgroundColor: 'hsl(173, 58%, 39%)',
 						tension: 0.4,

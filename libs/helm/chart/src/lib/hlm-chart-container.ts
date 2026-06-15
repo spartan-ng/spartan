@@ -1,4 +1,4 @@
-import { Component, computed, inject, InjectionToken, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, InjectionToken, input } from '@angular/core';
 import { HlmChartStyle } from './hlm-chart-style';
 import type { ChartConfig } from './hlm-chart.types';
 
@@ -8,6 +8,7 @@ export const HLM_CHART_CONFIG = new InjectionToken<ChartConfig>('HLM_CHART_CONFI
 	selector: 'hlm-chart-container, [hlmChartContainer]',
 	imports: [HlmChartStyle],
 	providers: [{ provide: HLM_CHART_CONFIG, useFactory: () => inject(HLM_CHART_CONFIG, { optional: true }) }],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-chart-style [id]="_chartId()" [config]="config()" />
 		<div [attr.data-chart]="_chartId()" data-slot="chart" class="flex aspect-video justify-center text-xs">

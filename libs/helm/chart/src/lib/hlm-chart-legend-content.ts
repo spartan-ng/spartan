@@ -1,7 +1,8 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 @Component({
 	selector: 'hlm-chart-legend-content, [hlmChartLegendContent]',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div
 			class="flex items-center justify-center gap-4"

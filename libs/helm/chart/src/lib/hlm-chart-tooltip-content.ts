@@ -1,8 +1,9 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import type { ChartTooltipIndicator } from './hlm-chart.types';
 
 @Component({
 	selector: 'hlm-chart-tooltip-content, [hlmChartTooltipContent]',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		@if (active()) {
 			<div class="spartan-chart-tooltip grid min-w-[8rem] items-start gap-1.5">

@@ -7,13 +7,13 @@ const datalabelPlugin = {
 	afterDatasetsDraw(chart: Chart) {
 		const { ctx } = chart;
 		(chart.getDatasetMeta(0).data as ArcElement[]).forEach((arc, i) => {
-			const label = chart.data.labels?.[i] || '';
+			const label = (chart.data.labels?.[i] || '') as string;
 			ctx.save();
 			ctx.fillStyle = '#fff';
 			ctx.font = 'bold 12px sans-serif';
 			ctx.textAlign = 'center';
 			ctx.textBaseline = 'middle';
-			const { x, y } = arc.tooltipPosition();
+			const { x, y } = arc.tooltipPosition(false);
 			ctx.fillText(label, x, y);
 			ctx.restore();
 		});
@@ -37,7 +37,7 @@ const datalabelPlugin = {
 })
 export default class ChartPieLabelComponent implements AfterViewInit, OnDestroy {
 	protected readonly _chartRef = viewChild<ElementRef<HTMLCanvasElement>>('chart');
-	private readonly _chartInstance: Chart | null = null;
+	private _chartInstance: Chart | null = null;
 
 	ngAfterViewInit(): void {
 		const canvas = this._chartRef()?.nativeElement;

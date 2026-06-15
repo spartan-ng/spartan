@@ -44,7 +44,7 @@ Chart.register(...registerables);
 })
 export default class ChartBarInteractiveComponent implements AfterViewInit, OnDestroy {
 	protected readonly _chartRef = viewChild<ElementRef<HTMLCanvasElement>>('chart');
-	private readonly _chartInstance: Chart | null = null;
+	private _chartInstance: Chart | null = null;
 	protected _activeTab: 'desktop' | 'mobile' = 'desktop';
 
 	ngAfterViewInit(): void {

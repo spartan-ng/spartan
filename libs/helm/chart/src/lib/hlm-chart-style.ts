@@ -1,10 +1,11 @@
-import { Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import type { ChartConfig } from './hlm-chart.types';
 
 const THEMES: Record<string, string> = { light: '', dark: '.dark' };
 
 @Component({
 	selector: 'hlm-chart-style',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<span #span hidden></span>
 	`,

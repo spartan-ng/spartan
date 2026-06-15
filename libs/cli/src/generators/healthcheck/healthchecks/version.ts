@@ -63,9 +63,9 @@ export const versionHealthcheck: Healthcheck = {
 			}
 
 			// update the dependency to the latest version in the respective section
-			if (packageJson.dependencies[dep]) {
+			if (packageJson.dependencies?.[dep]) {
 				packageJson.dependencies[dep] = `^${metadata.version}`;
-			} else {
+			} else if (packageJson.devDependencies?.[dep]) {
 				packageJson.devDependencies[dep] = `^${metadata.version}`;
 			}
 		}

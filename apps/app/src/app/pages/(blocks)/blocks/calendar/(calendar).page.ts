@@ -10,6 +10,7 @@ import { CalendarDatePickerComponent } from './calendar-date-picker/calendar-dat
 import { CalendarDateAndTimePickerComponent } from './calendar-date-time-picker/calendar-date-time-picker.component';
 import { CalendarDisabledDaysComponent } from './calendar-disabled-days/calendar-disabled-days.component';
 import { CalendarDisabledWeekendsComponent } from './calendar-disabled-weekends/calendar-disabled-weekends.component';
+import { CalendarJalaliBlockComponent } from './calendar-jalali/calendar-jalali.component';
 import { CalendarLocalizedComponent } from './calendar-localized/calendar-localized.component';
 import { CalendarMonthAndYearComponent } from './calendar-month-year-dropdown/calendar-month-year-dropdown.component';
 import { CalendarMultiComponent } from './calendar-multi/calendar-multi.component';
@@ -29,6 +30,7 @@ export const routeMeta: RouteMeta = {
 		CalendarMultiComponent,
 		CalendarMonthAndYearComponent,
 		CalendarLocalizedComponent,
+		CalendarJalaliBlockComponent,
 		CalendarDisabledDaysComponent,
 		CalendarDisabledWeekendsComponent,
 		CalendarDateAndTimePickerComponent,
@@ -147,6 +149,15 @@ export const routeMeta: RouteMeta = {
 			</div>
 
 			<spartan-calendar-localized />
+		</div>
+
+		<div id="calendar-12" class="flex flex-col gap-4">
+			<div class="flex items-center justify-between px-2">
+				<spartan-block-link fragment="calendar-12">A calendar with Jalali (Persian) date system</spartan-block-link>
+				<spartan-open-in-component-button block="calendar-jalali" />
+			</div>
+
+			<spartan-calendar-jalali />
 		</div>
 	`,
 })

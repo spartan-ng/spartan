@@ -39,9 +39,6 @@ export class HlmDropdownMenuSubTrigger {
 			this._cdkTrigger.menuPosition = this._menuPosition();
 		});
 
-		classes(
-			() =>
-				'spartan-dropdown-menu-sub-trigger aria-expanded:bg-accent aria-expanded:text-accent-foreground flex cursor-default items-center outline-hidden select-none [&_svg]:pointer-events-none [&_svg]:shrink-0',
-		);
+		classes(() => 'aria-expanded:bg-accent aria-expanded:text-accent-foreground');
 	}
 }

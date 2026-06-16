@@ -48,7 +48,7 @@ export const Default: Story = {
 
         <hlm-dropdown-menu-separator />
 
-        <button hlmDropdownMenuItem [hlmDropdownMenuTrigger]='share'>
+        <button hlmDropdownMenuItem [hlmDropdownMenuSubTrigger]='share'>
           Share
           <hlm-dropdown-menu-item-sub-indicator />
         </button>
@@ -91,7 +91,7 @@ export const Default: Story = {
 
         <hlm-dropdown-menu-separator />
 
-        <button hlmDropdownMenuItem [hlmDropdownMenuTrigger]='find'>
+        <button hlmDropdownMenuItem [hlmDropdownMenuSubTrigger]='find'>
           Share
           <hlm-dropdown-menu-item-sub-indicator />
         </button>

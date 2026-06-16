@@ -49,7 +49,7 @@ import { HlmMenubarImports } from '@spartan-ng/helm/menubar';
 
 				<hlm-dropdown-menu-separator />
 
-				<button hlmDropdownMenuItem align="start" side="right" [hlmDropdownMenuTrigger]="find">
+				<button hlmDropdownMenuItem align="start" side="right" [hlmDropdownMenuSubTrigger]="find">
 					Share
 					<hlm-dropdown-menu-item-sub-indicator />
 				</button>

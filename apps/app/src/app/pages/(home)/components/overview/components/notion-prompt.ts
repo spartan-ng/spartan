@@ -140,7 +140,7 @@ type GroupedItems = {
 						<hlm-dropdown-menu-group>
 							<hlm-dropdown-menu-label class="text-muted-foreground text-xs">Select Agent Mode</hlm-dropdown-menu-label>
 							@for (model of _models; track model.name) {
-								<button hlmDropdownMenuCheckbox [checked]="isChecked(model)" (click)="selectModel(model)">
+								<button hlmDropdownMenuCheckbox [checked]="isChecked(model)" (triggered)="selectModel(model)">
 									<span>{{ model.name }}</span>
 									@if (model.badge) {
 										<span

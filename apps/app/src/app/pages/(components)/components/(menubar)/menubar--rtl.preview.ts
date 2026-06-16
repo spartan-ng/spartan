@@ -55,7 +55,7 @@ import { HlmMenubarImports } from '@spartan-ng/helm/menubar';
 				<hlm-dropdown-menu-separator />
 
 				<hlm-dropdown-menu-group>
-					<button hlmDropdownMenuItem [hlmDropdownMenuTrigger]="share" align="start" side="right">
+					<button hlmDropdownMenuItem [hlmDropdownMenuSubTrigger]="share" align="start" side="right">
 						{{ _t()['share'] }}
 						<hlm-dropdown-menu-item-sub-indicator />
 					</button>
@@ -111,7 +111,7 @@ import { HlmMenubarImports } from '@spartan-ng/helm/menubar';
 				<hlm-dropdown-menu-separator />
 
 				<hlm-dropdown-menu-group>
-					<button hlmDropdownMenuItem [hlmDropdownMenuTrigger]="find" align="start" side="right">
+					<button hlmDropdownMenuItem [hlmDropdownMenuSubTrigger]="find" align="start" side="right">
 						{{ _t()['find'] }}
 						<hlm-dropdown-menu-item-sub-indicator />
 					</button>

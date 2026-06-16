@@ -33,7 +33,7 @@ import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 						<hlm-dropdown-menu-shortcut>⌘R</hlm-dropdown-menu-shortcut>
 					</button>
 
-					<button inset hlmDropdownMenuItem [hlmDropdownMenuTrigger]="moreTools" align="start" side="right">
+					<button inset hlmDropdownMenuItem [hlmDropdownMenuSubTrigger]="moreTools" align="start" side="right">
 						More Tools
 						<hlm-dropdown-menu-item-sub-indicator />
 					</button>
